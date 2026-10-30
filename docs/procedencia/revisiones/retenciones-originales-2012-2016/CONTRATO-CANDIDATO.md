@@ -1,6 +1,6 @@
 # Contrato candidato, sin habilitación del motor
 
-Identidad de revisión: agente Codex de este hilo, checkout `t3-6e7aee17`, rol `/root` dentro del encargo de revisión. No es una persona ni una autoridad fiscal independiente. Base `5799bb03826719a4dd3500a962e2d6bb5124fdca`. Las siete identidades documentales constan en `versiones-7.json`; cada una tiene veinte decisiones en `matriz-140.json`. Todos los estados de aceptación fiscal son falsos.
+Base examinada: `5799bb03826719a4dd3500a962e2d6bb5124fdca`. Las siete identidades documentales constan en `versiones-7.json`; cada una tiene veinte decisiones en `matriz-140.json`. Todos los estados de aceptación fiscal son falsos.
 
 ## Selección y hechos
 

@@ -1,6 +1,8 @@
 # Revisión independiente de rentas generales R59 integradas en R60
 
-Base examinada: `59bb5565456caa5a44078f3b9a5ac4301934fb86`, 22.900 entradas. Trabajo personal, sin subdelegación, fixes ni operaciones VCS mutantes. Se aplica D131: una revisión de este lote; las 19 familias, composición global, admisión y apertura de puertas quedan excluidas. No se repiten dictámenes favorables de SS o retenciones: sus pruebas seleccionadas controlan regresiones del núcleo compartido.
+Alcance: versión y condiciones examinadas en este dictamen. El [informe final](../../INFORME-FINAL.md) reúne el resultado de los 65 sitios y sus límites.
+
+Base examinada: `59bb5565456caa5a44078f3b9a5ac4301934fb86`, 22.900 entradas. El alcance de D131 excluye las 19 familias, composición global, admisión y apertura de puertas. Las pruebas seleccionadas de SS y retenciones controlan regresiones del núcleo compartido; no repiten sus dictámenes favorables.
 
 ## Dictamen
 
@@ -8,7 +10,7 @@ Los diez sitios quedan corroborados técnicamente bajo las condiciones declarada
 
 ## Qué se ha contrastado
 
-Leídos BRIEF íntegro, AGENTS, contrato/coordinación, cabecera vigente de ESTADO y D131; informes completos R59 y recepción R60, decisiones y registros asociados. Examinados los scripts causal-rentas-r59, evidencia-causal-r57.ts, evidencia-ejecucion-r54.ts y flujo-rentas-r36, incluido el consumidor histórico. El conjunto de fuentes y documentos recibido se conserva sin reescritura en `originales.json`, con objetos individuales por hash. Se verificaron las 43 referencias técnicas preservadas por R60 contra ambos hashes y tamaño. El manifiesto original de 671 rutas fijado por el encargo es `6764f251caa75102c280ef49030faa3461fd9feceb180ed335f59398c2d87ff5`; no se sustituye por el manifiesto de esta revisión.
+Se examinaron los informes R59 y recepción R60, decisiones y registros asociados; scripts causal-rentas-r59, evidencia-causal-r57.ts, evidencia-ejecucion-r54.ts y flujo-rentas-r36, incluido el consumidor histórico. `originales.json` conserva el conjunto recibido mediante objetos individuales por hash. Se verificaron las 43 referencias técnicas preservadas por R60 contra ambos hashes y tamaño. El manifiesto original de 671 rutas es `6764f251caa75102c280ef49030faa3461fd9feceb180ed335f59398c2d87ff5`; no se sustituye por el manifiesto de esta revisión.
 
 La fuente financiera real conecta ocho bindings anuales. Salario suma cada céntimo convertido; modo y año eligen la función SS concreta. La propiedad salarioBrutoAnual del argumento llega desde el binding salarial original. La propiedad cotizacionTrabajador de su retorno entra en trabajo y en el previo. No se usa salario reconstruido, spy ni cuota declarada. El retorno conserva estructura empresarial; las aristas financieras del trabajador no consumen sus celdas hermanas. Guardas legítimas de selección y presencia permanecen permitidas.
 

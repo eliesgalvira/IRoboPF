@@ -1,5 +1,7 @@
 # Contrarrevisión independiente de necesidades expertas
 
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
 Fecha: 29-10-2026. Resultado: **14 accepted, 2 needs-evidence (NE-01 y NE-13), 0 rejected**. Aceptación exclusivamente de capacidad y con los límites indicados, nunca de importes fiscales. Se revisaron los 16 candidatos y filas de matriz, la cobertura, diez registros de posts, seis originales y ocho citas. Los hashes de entradas y código están en `revisiones.json`; base d4d708f6 indicada por el encargo, sin comprobar ni modificar metadatos VCS.
 
 Primero se examinaron contratos, liquidación y rutas del motor; después se contrastó la primera auditoría. Las ausencias estructurales se comprobaron siguiendo integración y consumidores, además de buscar posibles contradicciones en lib, app y components. No se ejecutó código TypeScript. La revisión estática acredita qué recibe y hace la ruta, no resultados fiscales de ejecución.

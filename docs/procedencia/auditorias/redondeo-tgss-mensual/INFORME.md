@@ -1,6 +1,8 @@
 # Investigación del contrato de redondeo mensual TGSS
 
-Base comprobada: `1da543754a4788b5fa3ae607adc1e98b08947cd9`. Trabajo personal, sin subdelegación ni operaciones VCS mutantes. Entrega candidata para una revisión NUEVA. No hay cambios de motor, registros, fixtures ni aceptación fiscal.
+Documento histórico: los resultados, referencias al motor y pendientes corresponden a la base examinada; no describen el estado vigente del proyecto.
+
+Base examinada: `1da543754a4788b5fa3ae607adc1e98b08947cd9`. Análisis candidato que requiere revisión independiente; no constituye aceptación fiscal.
 
 ## Resultado
 
@@ -37,7 +39,7 @@ No hay prueba roja normativa nueva: no se ha demostrado incumplimiento de una re
 
 ## Integridad, autenticidad y límites
 
-Los originales están en `.cache/redondeo-tgss-mensual/cas/sha256/` de este checkout, fuera de la carpeta publicable. `fuentes/documentos.json` fija URL, respuesta HTTP, hora UTC, cabeceras saneadas, SHA256/512, MIME, tamaño y ruta absoluta. `binarios.json` permite al padre copiarlos por archivo/hash sin incorporar una caché completa. No se transfieren externamente.
+Los originales están en `.cache/redondeo-tgss-mensual/cas/sha256/`, fuera de la carpeta publicable. `fuentes/documentos.json` fija URL, respuesta HTTP, hora UTC, cabeceras saneadas, SHA256/512, MIME, tamaño y ruta absoluta. `binarios.json` identifica los objetos por archivo y hash.
 
 `pdfsig` informa firma matemáticamente válida y documento completo firmado para las órdenes2025/2026. Su validación de certificado es indeterminada y aparece `NSS_Init failed`; no se acepta cadena ni confianza histórica. Los demás PDF no contienen firma según esa herramienta. CSV no comprobado. Los logs no equivalen a autenticación histórica. Los datos institucionales del sello BOE se conservan; no se agregan datos personales de particulares a metadatos publicables.
 
@@ -47,16 +49,12 @@ El endpoint exploratorio187651 devolvió documento vacío: no se concluyó ausen
 
 ## Decisiones, objeciones y costes
 
-1. Mantener la política monetaria pendiente. Objeción experta: no cerrar el contrato no satisface el objetivo final. Coste explícito: esta entrega sigue sin habilitar una nómina TGSS; inventar una instrucción sería peor evidencia y no es aceptable.
+1. Mantener la política monetaria pendiente. Objeción experta: el contrato incompleto limita la capacidad de cálculo. Coste explícito: esta entrega sigue sin habilitar una nómina TGSS; inventar una instrucción sería peor evidencia y no es aceptable.
 2. Separar comunicación, cálculo, nómina e ingreso. Objeción: un campo en céntimos no dice cuándo redondear. Coste: más reglas/estados y necesidad de evidencia del algoritmo, no solo de esquemas XML.
 3. Mantener escenarios de distribución y AT/EP alternativos. Objeción: reconstruir hechos desde un total y una captura introduciría premisas falsas. Coste: no adjudicar corrección fiscal a la anotación, aunque su aritmética se reproduzca.
 4. Conservar fuentes técnicas actuales e históricas por versión. Objeción: manual 2026 no valida 2012. Coste: no declarar cubierta la cadena 2012–24 y dejar referencias previas claramente atribuidas.
-5. No escribir una prueba roja falsa. Objeción: cambiar la expectativa de una API analítica para llamarla nómina no demuestra bug. Coste: futuro contrato mensual y prueba contra él tras revisión, sin fix en esta ronda.
+5. No escribir una prueba roja falsa. Objeción: cambiar la expectativa de una API analítica para llamarla nómina no demuestra bug. Coste: futuro contrato mensual y prueba contra él tras revisión, sin autorización de corrección fiscal.
 
 ## Validación y entrega
 
-Comandos y alcance en `pruebas/COMANDOS.md`; ejecuciones bajo lock pesado, un trabajador, Bun/Node de Nix, corpus Nix/uv fijados. Ruff y mypy comprueban scripts Python; oxlint carga las 16 reglas a error con `--disable-nested-config`; ESLint y TypeScript comprueban el arnés API. El chequeo de tipos usa copia exacta de lib dentro de `.cache` y dependencias del padre enlazadas para lectura, sin copiar fuentes ni node_modules bajo docs. La llamada numérica de API se ejecuta contra el archivo real del checkout, no esa copia.
-
-El primer pase mypy encontró dos errores de tipado del arnés, corregidos sin alterar expectativas numéricas. Se conservan logs inicial/final. No se ejecuta Next build, suite legacy ni generación masiva. No hay escritura Effect nueva. Incidencia de entorno: la primera invocación de run.sh creó automáticamente tools/procedencia/.venv antes de fijar UV_PROJECT_ENVIRONMENT; las siguientes usan exclusivamente `.cache` propia. Se informa esta escritura de infraestructura fuera del ámbito; no se borra ni se integra, y no se modificaron package/lockfiles/CI.
-
-Manifiesto por archivo con baseSha 256, tamaño y hash; parche textual de archivos nuevos y binarios referenciados por hash. Manifiesto y parche se excluyen de sí mismos para evitar ciclos. Cero borrados. La copia Crossa es v 1 histórica, misma casa/propietario, comunicada por coordinador; esta tarea no la verificó. No se tocó v 1, v 2, restauración, contexto ni Reactivity. Nada se autoacepta fiscalmente.
+Comandos y alcance en `pruebas/COMANDOS.md`; ejecuciones bajo lock pesado, un trabajador, Bun/Node de Nix, corpus Nix/uv fijados. Ruff y mypy comprueban scripts Python; oxlint carga las 16 reglas a error con `--disable-nested-config`; ESLint y TypeScript comprueban el arnés API. El chequeo de tipos usa copia exacta de lib dentro de `.cache` y dependencias del repositorio enlazadas para lectura, sin copiar fuentes ni node_modules bajo docs. La llamada numérica de API se ejecuta contra el archivo real del checkout, no esa copia.

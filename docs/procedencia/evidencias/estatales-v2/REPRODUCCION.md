@@ -10,11 +10,9 @@ flock /tmp/irobopf-validacion-pesada.lock nix shell nixpkgs#bun nixpkgs#nodejs n
 
 El lanzador `run.sh` utiliza flake.lock y uv.lock del proyecto, con Python y PyMuPDF fijados. Solo un trabajador. La receta de render es la original: PyMuPDF 1.26.7, MuPDF 1.26.12, 144 dpi, RGB, sin alpha ni anotaciones, texto con flags 0 y orden original. Los PNG nuevos se contrastan byte a byte con v1 y quedan en `cas/sha256/`, con nombre igual a SHA-256. Los originales se leen de `/home/elies/Repos/IRoboPF/.cache/procedencia/sha256/`, sin copiarlos. No hay descarga silenciosa si falta un original: la reproducción falla.
 
-El resolver recibe directorios padres explícitos que contienen `sha256`: corpus raíz y `estatales-v2/cas`. No se utilizan enlaces simbólicos para CAS ni se escriben fixtures del padre. Se puede mover la entrega solo adaptando expresamente la raíz de corpus en la receta y registrando esa adaptación; los hashes documentales exigidos permanecen iguales.
+El resolver recibe directorios padres explícitos que contienen `sha256`: corpus raíz y `estatales-v2/cas`. No se utilizan enlaces simbólicos para CAS ni se escriben fixtures del repositorio. Se puede mover la entrega solo adaptando expresamente la raíz de corpus en la receta y registrando esa adaptación; los hashes documentales exigidos permanecen iguales.
 
-La propuesta de registro está separada en `registro-propuesto-NO-APLICAR.json`. No es autorización de integración. Cada entrada carece de atestación y tiene bloqueos individuales en la matriz. No se ejecuta el coordinador mientras no se cumplan ámbito, decisión jurídica y revisión del payload; los controles de esta entrega son componentes documentales, no una reconstrucción fresca del motor.
-
-La receta vuelve a escribir exclusivamente sus propios artefactos derivados. Para repetir después del cierre, comparar los hashes de salida con el manifiesto entregado y generar un nuevo sobre de cierre si cambia algún byte. Ni manifiesto ni patch pueden incluir su propio hash; el sobre final enumera el patch y el manifiesto por separado.
+La propuesta de registro está separada en `registro-propuesto-NO-APLICAR.json`. No es autorización de integración. Cada entrada carece de atestación y tiene bloqueos individuales en la matriz. No se ejecuta el verificador mientras no se cumplan ámbito, decisión jurídica y revisión del payload; los controles de esta entrega son componentes documentales, no una reconstrucción fresca del motor.
 
 Comprobación Python adicional, con imports externos omitidos y cuerpos no anotados comprobados; no equivale a tipado estricto completo:
 
@@ -22,5 +20,3 @@ Comprobación Python adicional, con imports externos omitidos y cuerpos no anota
 flock /tmp/irobopf-validacion-pesada.lock nix shell nixpkgs#mypy -c mypy --follow-imports=skip --ignore-missing-imports --check-untyped-defs --cache-dir .cache/estatales-v2/mypy docs/procedencia/evidencias/estatales-v2/reproducir.py docs/procedencia/evidencias/estatales-v2/discriminantes.py docs/procedencia/evidencias/estatales-v2/cerrar.py
 flock /tmp/irobopf-validacion-pesada.lock nix shell nixpkgs#python3 -c python docs/procedencia/evidencias/estatales-v2/cerrar.py
 ```
-
-El cierre comprueba presencia física de todos los archivos de la base mediante lectura Git y disco; no repara índices ni interpreta borrados de un índice anómalo. Excluye cachés Python del conjunto de entrega. El manifiesto incluye el patch textual; el sobre incluye el hash del manifiesto. Ningún archivo puede contener su propio hash criptográfico.

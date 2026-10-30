@@ -1,12 +1,14 @@
 # Dictamen limitado de R64-PUSH-01 y reparación R65
 
+Alcance: versión y condiciones examinadas en este dictamen. El [informe final](../../INFORME-FINAL.md) reúne el resultado de los 65 sitios y sus límites.
+
 La reparación elimina el defecto reproducido bajo las condiciones del lote. El contraste independiente obtiene longitudes `[1,2]`, dos pasos íntegros y el retorno completo idéntico a la API financiera TS real antes del campo editorial `procedencia`. La segunda mutación depende de la primera; el retorno depende de ambas. No se reproduce un defecto nuevo que justifique otra ronda. Procede que el padre cierre el lote bajo sus condiciones y termine INFORME-FINAL.md, sin pedir otra revisión favorable.
 
-Trabajo personal como revisor gpt-6.1-sol, high, sin subdelegación. Priority es la configuración declarada del runtime, sin recibo independiente del servicio efectivo. Base `a8c7ebec1985beaf2d0f7f0125b68dec7bf4a15b`. No se modifica producto ni VCS. Solo las dos rutas autorizadas contienen escrituras nuevas.
+Base examinada: `a8c7ebec1985beaf2d0f7f0125b68dec7bf4a15b`.
 
 ## Contraste del defecto
 
-Se leyeron personalmente BRIEF íntegro, AGENTS, contrato/coordinación, estado vigente y D131–D136, INFORME y DICTAMEN10 R64, informe, cambios, validaciones, documental, receta y rojos R65. Prevalecen el encargo final y sus exclusiones sobre las órdenes históricas incompatibles. El rojo anterior conserva `[1,1]`, cero pasos y nueve salidas capturadas; la misma aserción recibida pasa tras el arreglo. No se reescribe ni se vuelve a ejecutar aquí aquel rojo: su reproducción previa por revisor y padre está preservada y no necesita una tercera ejecución.
+Se examinaron D131–D136, INFORME y DICTAMEN10 R64, y el informe, cambios, validaciones, documentación, receta y rojos R65. El rojo anterior conserva `[1,1]`, cero pasos y nueve salidas capturadas; la misma aserción recibida pasa tras el arreglo. No se reejecutó aquí aquel rojo: sus reproducciones anteriores permanecen preservadas.
 
 Lectura personal del núcleo y diff contra `nucleo-previo.ts.txt`: el alias compartido de arrays está condicionado a `causal-explicitos-r62`. `raw` se muta en su identidad y el mapa `props` se comparte. La ruta común de alias cubre local, bind, propiedad, parámetro, capture, return y function-return. Los objetos ordinarios todavía copian sus mapas de propiedades; los arrays hijos conservan la identidad compartida. El WeakMap de versiones nace dentro de cada evaluación. Solo push R62 lo rellena, por lo que las adiciones de mutationEdges no introducen aristas nuevas en los modos anteriores.
 

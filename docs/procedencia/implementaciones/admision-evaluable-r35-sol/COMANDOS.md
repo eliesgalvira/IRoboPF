@@ -1,8 +1,9 @@
 # Comandos y resultados
 
+Documento histórico del candidato de este directorio. Los resultados y estados corresponden a esa versión; no acreditan el estado actual del proyecto.
+
 Todos desde el checkout; IROBOPF_DEPENDENCIES_PACKAGE=/home/elies/Repos/IRoboPF/package.json en las llamadas Node que importan el módulo.
 
-- Recepción: flock /tmp/irobopf-recepcion-acotada.lock nix shell nixpkgs#nodejs -c node .cache/admision-evaluable-r35/fisico.mjs. Salida 0; 17.306 iguales.
 - Rojos antes de implementación: flock /tmp/irobopf-validacion-pesada.lock nix shell nixpkgs#nodejs -c node /home/elies/Repos/IRoboPF/node_modules/vitest/vitest.mjs run --config .cache/admision-evaluable-r35/vitest.mjs. Salida 1, 226 correctos y cinco rojos.
 - Propios: mismo bloqueo/runtime/vitest con --config .cache/admision-evaluable-r35/vitest-r35.mjs --reporter=default --reporter=json --outputFile=.cache/admision-evaluable-r35/pruebas.json. Resultado en pruebas-final.log y pruebas.json.
 - Tipos: flock pesado, nix shell nixpkgs#nodejs -c node /home/elies/Repos/IRoboPF/node_modules/typescript/bin/tsc --noEmit -p .cache/admision-evaluable-r35/tsconfig.json. Inicial con errores conservados; final cero.

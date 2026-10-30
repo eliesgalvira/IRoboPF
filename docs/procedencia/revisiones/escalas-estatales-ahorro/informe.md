@@ -1,8 +1,10 @@
 # Revisión independiente: escalas estatales y ahorro
 
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
 Revisión del 29 de octubre de 2026. **Requiere cambios.** Se han decidido los 42 IDs: 40 `accepted` con alcance expreso y dos `needs-evidence` (las dos tablas de 2026). Ningún ID omitido. Esto no significa 40 reglas fiscales completas certificadas. Los 28 registros de tablas de 2012–2025 aceptan su correspondencia con las publicaciones identificadas, no la liquidación que las consume ni una certificación exhaustiva de vigencia anual. Las decisiones individuales, estado candidato previo, objeciones, fuentes, localizaciones actuales y límites están en `revisiones.json`; `cobertura.json` permite comprobar la cobertura exacta.
 
-Trabajo personal, sin subdelegación ni cambios de código, VCS, ESTADO o hallazgos del autor. Se leyó el código actual después de lint. El límite Madrid2020 y el año de la explicación comunitaria ya corregidos no se denuncian nuevamente. Los hashes históricos del autor no se consideran corrupción por diferir de los actuales. Se conservan hashes actuales por localización en las decisiones.
+Se examinó el código posterior a lint. El límite Madrid 2020 y el año de la explicación comunitaria, ya corregidos, quedan fuera de los defectos señalados. Las decisiones conservan hashes por localización; una diferencia respecto de una huella histórica no acredita por sí sola corrupción.
 
 ## Cambios necesarios y reproducción
 
@@ -59,4 +61,4 @@ Comandos: `nix shell nixpkgs#bun -c bun .cache/procedencia/revision-escalas-esta
 
 Antes de usar Effect se consultaron list/show basics/testing y runSync en fuente localv4. El binario effect-solutions requirió ajustar el intérprete únicamente en una copia de scratch para NixOS. No se cambió node_modules ni se instaló globalmente. Se comprobó memoria y no se ejecutaron Next build ni suite legacy pesada. No se escribió TypeScript nuevo mantenido.
 
-La siguiente acción corresponde al orquestador: reproducir los fallos y corregir los casos aceptados en cambios pequeños coordinados, manteniendo los contratos legacy y fiscal separados. La política monetaria universal, el cierre2026, la concurrencia completa de saldos y las cuantías autonómicas suministradas siguen fuera de la aceptación.
+Corrección propuesta para esa versión: reproducir los fallos y corregir los casos aceptados en cambios pequeños coordinados, manteniendo los contratos legacy y fiscal separados. La política monetaria universal, el cierre2026, la concurrencia completa de saldos y las cuantías autonómicas suministradas siguen fuera de la aceptación.

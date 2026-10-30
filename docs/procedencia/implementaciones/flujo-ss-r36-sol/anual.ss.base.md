@@ -1,6 +1,6 @@
 # anual.ss.base
 
-Recorrido candidato en EUR anual, instancia 0, desde caso.anio/contexto.modo y caso.rendimientos.trabajo[*].importeIntegroCentimos hasta origen.decimal.
+Recorrido del candidato histórico en EUR anual, instancia 0, desde caso.anio/contexto.modo y caso.rendimientos.trabajo[*].importeIntegroCentimos hasta origen.decimal.
 
 El programa compartido está en fragmento.json.gz. Sus dos annualBindings ordenados calculan rendimientoIntegroTrabajo y cotizacionesSociales; globalBindings resuelve cada llamada, función y tabla. Los callbacks capturan el entorno de esta invocación. outputBindings selecciona exactamente esta expresión: lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:35714:35748:get. La llamada final es lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:35604:36107:call; instancia lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:35688:35689:literal. No se identifica con otra salida por igualdad de importe.
 
@@ -10,20 +10,7 @@ Objeción: el recorrido de un caso no demuestra exhaustividad. Respuesta: se inc
 
 valueClosed/selectionClosed son derivados técnicos candidatos de inspectSS; un pendiente abre ambos. La cota conservadora exige todas las obligaciones SS. Admision anual-publico-r32 externa: admissionClosed=false y siteClosed=false. No acepta norma, elegibilidad ni cuota mensual TGSS.
 
-Expresión de software recibida como referencia: if(canonico && anio=2018,(7*min(S,45014.4)+5*min(S,45644.4))/12,min(S,M[anio])). Selección: anio/modo; dos saturaciones intranuales. Las reservas históricas se conservan en R34; aquí la instancia concreta de salida tiene este origen exacto, sin buscar por cifra:
+Expresión de software recibida como referencia: if(canonico && anio=2018,(7*min(S,45014.4)+5*min(S,45644.4))/12,min(S,M[anio])). Selección: anio/modo; dos saturaciones intranuales. Las reservas históricas se conservan en R34; la instancia concreta de salida queda fijada por el ancla exacta indicada arriba.
 
-```ts
-crearLineaCalculo({
-              siteId: "anual.ss.base",
-              instancia: 0,
-              importe: cotizacionesSociales.baseOrdinaria,
-              unidad: "EUR",
-              etiqueta: "Base ordinaria de cotización",
-              formula:
-                contexto.modo === "canonico"
-                  ? "Suma de doce bases mensuales uniformes, limitadas por el tope vigente en cada mes"
-                  : "min(rendimiento íntegro del trabajo, base máxima anual legacy)",
-            })
-```
 
 En el programa, los campos del resultado canónico y legacy conservan sus productores separados. No se intercambian cocientes, sumandos ni los ceros de diferentes unidades. El recorrido completo de condiciones/celdas/callbacks está en las operaciones alcanzadas de globalBindings y en las trazas de esta salida.

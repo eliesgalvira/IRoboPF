@@ -1,8 +1,10 @@
 # Continuación técnica R30 de retenciones y Seguridad Social
 
-Candidato de implementación, pendiente de contraste del padre y de revisión independiente nueva. El encargo global sigue abierto. Este resultado **no cierra los diecisiete sitios**: conserva las obligaciones de valor, selección y admisión que todavía no demuestra. No habilita publicación, confianza ni aceptación fiscal. No se emite atestación.
+Documento histórico del candidato de este directorio. Los resultados y estados corresponden a esa versión; no acreditan el estado actual del proyecto.
 
-Autor de esta implementación: runtime T3 Code mediante Codex, gpt-6.1-sol, esfuerzo high. Prioridad solicitada por el encargo; no hay recibo independiente del nivel de servicio en esta interfaz. Trabajo personal sin subdelegación ni cambio de modelo. HEAD exigido: `376fb100512ca6a2f975c3c9500a20ee375dd431`, 16.486 entradas.
+Candidato de implementación, pendiente de contraste de integración y de revisión independiente nueva. El encargo global sigue abierto. Este resultado **no cierra los diecisiete sitios**: conserva las obligaciones de valor, selección y admisión que todavía no demuestra. No habilita publicación, confianza ni aceptación fiscal. No se emite atestación.
+
+Base del candidato documentado: `376fb100512ca6a2f975c3c9500a20ee375dd431`.
 
 ## Cambio ejecutable
 
@@ -16,11 +18,11 @@ Los otros 48 sitios conservan sus registros históricos y sus reservas. Las exte
 
 ## Contrastes discriminantes
 
-El rojo previo de transporte está conservado: una prueba falla y diecisiete pasan antes del arreglo. El primer intento falla por resolución de `vitest/config`, antes de ejecutar casos; se conserva por separado como incidencia de entorno. El contraste adicional adapta exclusivamente imports de una copia del compositor base, en scratch, y compara la llegada al servicio y a celdas anuales con el compositor actual. La adaptación queda registrada y no sobrescribe el instrumento histórico.
+El rojo previo de transporte está conservado: una prueba falla y diecisiete pasan antes del arreglo. El contraste adicional adapta exclusivamente imports de una copia del compositor base, en scratch, y compara la llegada al servicio y a celdas anuales con el compositor actual. La adaptación queda registrada y no sobrescribe el instrumento histórico.
 
-Los casos nuevos usan el motor TypeScript real, a través del cargador conservado por el padre. Comprueban salario vacío y acumulado; un mutante divide por diez en vez de cien y deja de cumplir 5,79 EUR. Comprueban ambos extremos del tope 2018 y los puntos interiores/exteriores; las expectativas independientes se calculan con aritmética numérica y tolerancia expresada, sin importar valores esperados del propio resultado. Las bandas 2025 distinguen tipos por lado y reparto legacy 5/6–1/6, y verifican los totales ordinarios más MEI más solidaridad.
+Los casos nuevos usan el motor TypeScript real, a través del cargador conservado durante la integración. Comprueban salario vacío y acumulado; un mutante divide por diez en vez de cien y deja de cumplir 5,79 EUR. Comprueban ambos extremos del tope 2018 y los puntos interiores/exteriores; las expectativas independientes se calculan con aritmética numérica y tolerancia expresada, sin importar valores esperados del propio resultado. Las bandas 2025 distinguen tipos por lado y reparto legacy 5/6–1/6, y verifican los totales ordinarios más MEI más solidaridad.
 
-Los casos del subservicio exigen un éxito de control y rechazos de convivencia cero, regularización y fecha en legacy. Las ventanas temporales contrastan 4/5 de julio de 2018 y el inicio disponible de 2026. Estos rechazos no acreditan suficiencia jurídica de las guardas ni nómina mensual TGSS. Se conservan los casos y mutantes anteriores del padre, sin cambiar sus esperados.
+Los casos del subservicio exigen un éxito de control y rechazos de convivencia cero, regularización y fecha en legacy. Las ventanas temporales contrastan 4/5 de julio de 2018 y el inicio disponible de 2026. Estos rechazos no acreditan suficiencia jurídica de las guardas ni nómina mensual TGSS. Se conservan los casos y mutantes anteriores del integrador, sin cambiar sus esperados.
 
 ## Bloqueos concretos
 
@@ -28,7 +30,7 @@ La representación actual sigue sin instanciar el servicio `dependencias.retenci
 
 La solidaridad legacy usa `Match.valueTags`, un callback con bloque y la política etiquetada del año; quedan obligaciones de instanciación/narrowing. Los selectores de arrays por lado y sus elementos necesitan transporte por índice. No se marca como completo un total porque su suma final sea conocida. Los pendientes exactos, con puerto, rango, propiedad y siguiente acción, se entregan por sitio. Son limitaciones de esta implementación de composición, no defectos fiscales demostrados ni excusas normativas.
 
-La admisión anual cruza coherencia de ejercicio, derechos familiares, conciliación de rentas y disponibilidad territorial/deducciones. Se extraen sus ramas y llamadas, pero no se demuestra todavía su composición completa hasta la entrada pública. Una entrada DECLARADA no evita ese requisito. **Esta entrega no satisface la exigencia de cierre ejecutable completo de los 17**; tampoco presenta sus omisiones internas como un bloqueo externo resuelto. El padre debe continuar la implementación o rechazar este candidato parcial antes de encargar su revisión como resultado final.
+La admisión anual cruza coherencia de ejercicio, derechos familiares, conciliación de rentas y disponibilidad territorial/deducciones. Se extraen sus ramas y llamadas, pero no se demuestra todavía su composición completa hasta la entrada pública. Una entrada DECLARADA no evita ese requisito. **Esta entrega no satisface la exigencia de cierre ejecutable completo de los 17**; tampoco presenta sus omisiones internas como un bloqueo externo resuelto. Al integrar se debe continuar la implementación o rechazar este candidato parcial antes de encargar su revisión como resultado final.
 
 ## Decisiones, objeciones, respuestas y costes
 
@@ -36,15 +38,15 @@ La admisión anual cruza coherencia de ejercicio, derechos familiares, conciliac
 2. Conservar la distinción entre valor, selección y admisión. Objeción: un rastro con importes puede parecer completo aunque el motor rechace la entrada. Respuesta: estados separados y cierre global de sitio falso mientras falta admisión. Coste: los resultados todavía no cumplen el objetivo de cierre y no deben conectarse a producto.
 3. Mantener modos SS y límites analíticos. Objeción: un anual uniforme no prueba cuotas mensuales exactas ni mínimos por grupo. Respuesta: fórmulas intranuales, bandas y lados expresos, sin redondeo TGSS inventado. Coste: elegibilidad y exactitud mensual quedan fuera de lo demostrado.
 4. No modificar motor, esperados ni confianza. Objeción: los casos propios no sustituyen revisión independiente. Respuesta: pruebas de representación separadas de pruebas numéricas, rojos originales conservados y aceptación jurídica false. Coste: revisión nueva necesaria y ausencia de aceptación propia.
-5. Validar con dependencias del padre en solo lectura desde un directorio scratch de enlaces. Objeción: una configuración local laxa podría dar un verde artificial. Respuesta: se conservan package.json, tsconfig, ESLint y las 16 reglas originales; la proyección enlaza fuentes actuales y no copia la aplicación. Coste: registrar el alcance real de los comandos y no equiparar fallos de resolución a controles correctos.
+5. Validar con dependencias compartidas en solo lectura desde un directorio scratch de enlaces. Objeción: una configuración local laxa podría dar un verde artificial. Respuesta: se conservan package.json, tsconfig, ESLint y las 16 reglas originales; la proyección enlaza fuentes actuales y no copia la aplicación. Coste: registrar el alcance real de los comandos y no equiparar fallos de resolución a controles correctos.
 
-## Incidencia del cotejo inicial
+<a id="incidencia-del-cotejo-inicial"></a>
 
-La recepción física se lanzó antes de editar, pero no se esperó a que terminara. Alcanzó a observar los primeros cambios propios en dos archivos. **No acredita una recepción inicial limpia**, aunque el HEAD y el censo sí coinciden. Se conserva ese recibo sin corregirlo retrospectivamente. El cotejo final debe comprobar secuencialmente cada blob de base mediante lstat/readlink/bytes/modo, enumerar extras, exigir cero borrados y limitar cambios a las rutas autorizadas. Este incumplimiento del orden solicitado debe tenerse en cuenta al recibir la entrega.
+## Límite de conservación inicial
+
+El recibo inicial no acredita una recepción limpia: observó ya cambios propios. Esta limitación de conservación permanece abierta en la evidencia histórica.
 
 ## Conservación y entrega
-
-No hay VCS mutante, commit, PR, servidor, preview, transferencia externa ni escritura en el padre, Crossa, V5, ESTADO, DECISIONES o confianza. Los originales jurídicos y sus CAS permanecen en sus ubicaciones; no se ha adquirido ningún original nuevo. El manifiesto incluye rutas relativas, tamaño, SHA256 y baseSha256. El parche textual gzip y los binarios por ruta/hash se ensayan en scratch sobre los blobs originales de las rutas afectadas; no se restaura una aplicación entera ni se toca el índice.
 
 Los resultados de comandos y recursos efectivos se conservan junto a este informe. Un pase técnico de estos controles no acepta fiscalidad, ni siquiera por suma de casos o coincidencia de hashes.
 
@@ -55,5 +57,3 @@ Las 24 pruebas pasan; el recibo JSON conserva cada caso. Tipos globales terminan
 Se conservan el fallo previo de tipos en las pruebas propias y su corrección, el fallo de resolución del plugin en la proyección por enlaces, el ENOBUFS de preparación y el intento que omitió `.gitignore` y analizó dependencias. Al añadir la copia exacta de `.gitignore`, el mismo comando global pasa. Ninguno de esos fallos de entorno o del instrumento se clasifica como rojo fiscal. Prettier no llegó a formatear por falta de resolución de su plugin; no es un control requerido de lint ni se anuncia correcto.
 
 Generación: 17 sitios y 193 contratos concretos de funciones, cero sitios con cierre completo declarado. El contraste base/actual reproduce el rojo de binding anterior y la llegada actual al servicio y a las celdas anuales. Todo sigue candidato; esta entrega debe recibirse como avance parcial, no como cumplimiento de D090 ni como solución final de los diecisiete sitios.
-
-Cotejo físico final: las 16.486 entradas de base se recorren de nuevo; comparación directa de bytes (`Buffer.equals`), lstat, readlink y modo ejecutable, un blob por solicitud. Solo cambian los dos archivos de base autorizados (`flujo-componer.mjs` y `flujo-procedencia.test.ts`); las otras 16.484 entradas permanecen intactas, cero borrados. Los archivos nuevos y scratch se enumeran aparte. El recibo completo es `fisico-final-bytes.json.gz`; el manifiesto y el parche fijan los cambios exactos y los hashes anteriores. La documentación y el sobre de entrega se terminan después de ese recorrido, sin nuevas ediciones de fuentes de base.

@@ -1,8 +1,10 @@
 # R45: normalización parcial; objetivo asignado NO completado
 
-Esta entrega no completa el contrato común ejecutable ni sus obligaciones para 65 sitios y 19 instancias. No debe integrarse o recibirse como solución del encargo finito. No existe una dependencia externa demostrada que explique esa falta; la admisión pendiente no la justifica. No se atribuyen cierres de valor/selección a los pases. El encargo global continúa abierto y las conclusiones requieren contraste del padre.
+Documento histórico del candidato de este directorio. Los resultados y estados corresponden a esa versión; no acreditan el estado actual del proyecto.
 
-Trabajo propio, sin subdelegación ni cambio de modelo: T3 Code, Codex, gpt-6.1-sol, high. Priority solicitada; no dispongo de comprobante independiente del tier. Base/HEAD exacto: `31a70bd671f92fdb47ca1bf0fe95613a9fa4fb59`, 21.357 entradas. No se ejecutan mutaciones VCS, commits, bookmarks, push, PR, servidor o preview. No se modifica ESTADO/DECISIONES ni ninguno de los cuatro programas históricos, sus fuentes o R43.
+Esta entrega no completa el contrato común ejecutable ni sus obligaciones para 65 sitios y 19 instancias. No debe integrarse o recibirse como solución del encargo finito. No existe una dependencia externa demostrada que explique esa falta; la admisión pendiente no la justifica. No se atribuyen cierres de valor/selección a los pases. El encargo global continúa abierto y las conclusiones requieren contraste de integración.
+
+Base del candidato documentado: `31a70bd671f92fdb47ca1bf0fe95613a9fa4fb59`.
 
 ## Cambio efectivamente implementado
 
@@ -20,15 +22,13 @@ Rojo ejecutado ANTES de crear el adaptador: un rechazo exige `payload._tag=Resul
 
 El pase terminal contiene 18 pruebas, sin sumar repeticiones: cuatro éxitos de retención (ambos modos, bruto cero/40.200 EUR); cuatro rechazos (entrada negativa y regularización en ambos modos), comparando el payload completo con `Effect.result` de la API real; ausencia; Error textual desconocido; conservación de originales/operandos de fail; dos éxitos de actividad y dos rechazos forales; señal textual falsificada; defecto real legacy de año 1900 fuera del tipo anual; consumidor verificado y puertas falsas. Las expectativas propias discriminantes de actividad son 22.000 EUR para cliente único y 22.800 EUR para gastos difíciles con ingresos 24.000 EUR y sin gastos. Son expectativas de software, no suficiencia fiscal.
 
-Se conservan dos errores del arnés, sin maquillarlos: el primer caso usaba año 1900 como si todo modo lo rechazara tipadamente; legacy produce un defecto real por tabla ausente. La prueba negativa específica conserva ese comportamiento. El rechazo tipado se ensaya con retribución negativa, guardada expresamente por la API. Otro éxito de cliente único utilizaba cero ingresos, que no cumple ingresos>0 y cliente único; se corrigió el testigo a 24.000 EUR sujetos de un solo cliente y se añadió expectativa propia del aporte. No cambió fórmula ni un esperado histórico.
+Los casos distinguen el defecto legacy por tabla ausente en año 1900 del rechazo tipado por retribución negativa. Cliente único se ensaya con 24.000 EUR sujetos de un solo cliente y una expectativa independiente del aporte; cero ingresos no satisface esa admisión.
 
 ## Calidad y límites
 
 Tipos estrictos del alcance nuevo pasan. Oxlint global pasa con un hilo, disable-nested-config y las 16 reglas anti-slop a error. ESLint global pasa con 12 avisos y cero errores. Vitest usa cargador native, cache:false, cacheDir absoluto propio y maxWorkers:1. Cada validación adquiere/libera el lock pesado; la recepción usa el lock acotado. No se ejecutan builds Next ni suites legacy masivas.
 
-La comprobación global proyectada NO pasa: el primer intento no resuelve React y numerosos exports desde el worktree sin node_modules; tras recuperar el adaptador de resolución documental de R43 quedan `@vercel/analytics/next` no resuelto y TS2345 del test histórico de fronteras, con string frente a string|null. Este es el resultado de esta configuración, no una refutación del pase global del padre. No se cambia ese test ni tipos ajenos, ni se atribuyen esos diagnósticos al código nuevo. Se conserva el fallo real y la configuración exacta. No se vuelven a ejecutar ni se arreglan los cinco diagnósticos checkJs históricos de SS; no hay MJS nuevo al que atribuir tipado completo.
-
-El primer intento de recepción con uv eligió Python genérico incompatible con NixOS y terminó 2. La repetición con Python de Nix terminó antes de editar. El primer Oxlint no pudo resolver @oxlint/plugins sin node_modules. El resolver en scratch usa únicamente los paquetes del padre en lectura; el pase posterior conserva todas las reglas. Un pase de lint detectó el tipo amplio object de un parámetro interno: se sustituyó por FailureMarker, sin desactivar la regla. Los logs conservan los intentos fallidos.
+La comprobación global de esta configuración no pasa: conserva `@vercel/analytics/next` no resuelto y TS2345 en el test histórico de fronteras, con string frente a string|null. No acredita pase global. Los cinco diagnósticos checkJs históricos de SS permanecen abiertos; el lote no añade MJS al que atribuir tipado integral.
 
 No hay contrato/schema/artefacto común completo, router por puertos normalizados, grafo transitivo resuelto ni cobertura individual de las 19 instancias. Este cambio de normalización NO satisface por sí solo el resultado exigido. No se generan tablas de cierres o fichas genéricas para aparentarlo. Tampoco se declara resuelto R40-03 para escalas ni la ruta explícita anual. Los 264 enlaces limitados, Madrid pendiente, confianza, 45 snapshots, V5 r2/R26 y Crossa v1 no se promueven ni se modifican.
 
@@ -40,6 +40,4 @@ No hay contrato/schema/artefacto común completo, router por puertos normalizado
 
 ## Conservación y transporte
 
-El cotejo inicial comprueba lstat, readlink, bytes y ejecutabilidad de las 21.357 entradas contra un blob cada vez: cero diferencias. El cotejo terminal repite todas las entradas y censa extras fuera de ámbito; sus resultados se conservan comprimidos. No se sustituye por índice ni diff vacío. Todos los archivos sustantivos añadidos tienen baseSha256 null; no hay cambios autorizados de archivos base que necesiten hash anterior distinto de null. El manifiesto enumera rutas relativas, SHA256 y tamaño; sobres y objetos duplicados quedan excluidos de la autorreferencia.
-
-El patch textual gzip y objetos binarios por ruta/hash se reconstruyen con patch en scratch nuevo propio, sin checkout ni operaciones VCS mutantes, y se cotejan bytes/hash/tamaño, incluidos textos vacíos. El script, recibo y controles permiten repetirlo. Ningún entorno, node_modules o copia de app se incluye en docs. No hay adquisiciones, citas oficiales nuevas, transferencias o escritura en X. Ninguna conclusión propia concede aceptación fiscal.
+El [manifiesto](MANIFIESTO.json) identifica el contenido y los hashes del paquete histórico. Su integridad no acredita aceptación fiscal.

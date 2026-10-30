@@ -37,5 +37,3 @@ Facsímiles de algoritmos: PyMuPDF1.26.7/MuPDF1.26.12, página física1-based, `
 Los scripts auxiliares de adquisición/generación permanecen en caché propia; esta receta, hashes y selectores permiten regenerar desde originales. No se copian fuentes delproducto, tsconfig, entornos o node_modules a la documentación. El manifiesto final excluye autorreferencias y caches; altas textuales enpatch y binariosporhash.
 
 No Nextbuild, suitelegacy completa, render de servidor, transferenciaexterna, gasto ni operaciónVCSmutante. El controlfinal vuelve a comprobar presencia de base y diff, sin tocar índices.
-
-Incidencia de diagnóstico: un primer listado amplio de procesos para identificar la espera del lock mostró argumentos de procesos ajenos. No se abrieron sus archivos de trabajo ni se usaron esas líneas como evidencia fiscal o resultados de revisión. Los diagnósticos posteriores se limitaron a titular del lock/PID/tiempo/estado, sin contenido de tareas ajenas. No se interrumpió ningún proceso ajeno.

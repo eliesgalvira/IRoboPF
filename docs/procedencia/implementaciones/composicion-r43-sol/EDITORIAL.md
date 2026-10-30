@@ -1,14 +1,14 @@
 # Salidas candidatas por sitio
 
+Condición: selección del programa finito. El programa conserva ramas y conversiones, sin rellenar líneas no alcanzadas con cero.
+
+Reserva: localizador de software, no fundamento jurídico nuevo. Hereda las reservas documentales del fragmento y sus revisiones. No habilita admisión ni aceptación fiscal.
+
 ## anual.ss.base
 
 Grupo: ss. Unidad declarada en fragmento: EUR.
 
 Contrato técnico completo: [sitios.json](sitios.json), entrada anual.ss.base. Derivación por operaciones: [artefacto.json.gz](artefacto.json.gz), fragmento ss. Fuente exacta: {"file":"lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts","start":35604,"end":36107,"sha256":"096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f","offsetEncoding":"utf16"}.
-
-Condición: selección del programa finito. El programa conserva ramas y conversiones, sin rellenar líneas no alcanzadas con cero.
-
-Reserva: localizador de software, no fundamento jurídico nuevo. Hereda las reservas documentales del fragmento y sus revisiones. No habilita admisión ni aceptación fiscal.
 
 ## anual.ss.exceso
 
@@ -16,19 +16,11 @@ Grupo: ss. Unidad declarada en fragmento: EUR.
 
 Contrato técnico completo: [sitios.json](sitios.json), entrada anual.ss.exceso. Derivación por operaciones: [artefacto.json.gz](artefacto.json.gz), fragmento ss. Fuente exacta: {"file":"lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts","start":36121,"end":36469,"sha256":"096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f","offsetEncoding":"utf16"}.
 
-Condición: selección del programa finito. El programa conserva ramas y conversiones, sin rellenar líneas no alcanzadas con cero.
-
-Reserva: localizador de software, no fundamento jurídico nuevo. Hereda las reservas documentales del fragmento y sus revisiones. No habilita admisión ni aceptación fiscal.
-
 ## anual.ss.empresarial-ordinaria
 
 Grupo: ss. Unidad declarada en fragmento: EUR.
 
 Contrato técnico completo: [sitios.json](sitios.json), entrada anual.ss.empresarial-ordinaria. Derivación por operaciones: [artefacto.json.gz](artefacto.json.gz), fragmento ss. Fuente exacta: {"file":"lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts","start":36483,"end":36868,"sha256":"096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f","offsetEncoding":"utf16"}.
-
-Condición: selección del programa finito. El programa conserva ramas y conversiones, sin rellenar líneas no alcanzadas con cero.
-
-Reserva: localizador de software, no fundamento jurídico nuevo. Hereda las reservas documentales del fragmento y sus revisiones. No habilita admisión ni aceptación fiscal.
 
 ## anual.ss.trabajador-ordinaria
 
@@ -36,19 +28,11 @@ Grupo: ss. Unidad declarada en fragmento: EUR.
 
 Contrato técnico completo: [sitios.json](sitios.json), entrada anual.ss.trabajador-ordinaria. Derivación por operaciones: [artefacto.json.gz](artefacto.json.gz), fragmento ss. Fuente exacta: {"file":"lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts","start":36882,"end":37269,"sha256":"096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f","offsetEncoding":"utf16"}.
 
-Condición: selección del programa finito. El programa conserva ramas y conversiones, sin rellenar líneas no alcanzadas con cero.
-
-Reserva: localizador de software, no fundamento jurídico nuevo. Hereda las reservas documentales del fragmento y sus revisiones. No habilita admisión ni aceptación fiscal.
-
 ## anual.ss.mei-empresarial
 
 Grupo: ss. Unidad declarada en fragmento: EUR.
 
 Contrato técnico completo: [sitios.json](sitios.json), entrada anual.ss.mei-empresarial. Derivación por operaciones: [artefacto.json.gz](artefacto.json.gz), fragmento ss. Fuente exacta: {"file":"lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts","start":37283,"end":37595,"sha256":"096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f","offsetEncoding":"utf16"}.
-
-Condición: selección del programa finito. El programa conserva ramas y conversiones, sin rellenar líneas no alcanzadas con cero.
-
-Reserva: localizador de software, no fundamento jurídico nuevo. Hereda las reservas documentales del fragmento y sus revisiones. No habilita admisión ni aceptación fiscal.
 
 ## anual.ss.mei-trabajador
 
@@ -56,19 +40,11 @@ Grupo: ss. Unidad declarada en fragmento: EUR.
 
 Contrato técnico completo: [sitios.json](sitios.json), entrada anual.ss.mei-trabajador. Derivación por operaciones: [artefacto.json.gz](artefacto.json.gz), fragmento ss. Fuente exacta: {"file":"lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts","start":37609,"end":37925,"sha256":"096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f","offsetEncoding":"utf16"}.
 
-Condición: selección del programa finito. El programa conserva ramas y conversiones, sin rellenar líneas no alcanzadas con cero.
-
-Reserva: localizador de software, no fundamento jurídico nuevo. Hereda las reservas documentales del fragmento y sus revisiones. No habilita admisión ni aceptación fiscal.
-
 ## anual.ss.solidaridad-empresarial
 
 Grupo: ss. Unidad declarada en fragmento: EUR.
 
 Contrato técnico completo: [sitios.json](sitios.json), entrada anual.ss.solidaridad-empresarial. Derivación por operaciones: [artefacto.json.gz](artefacto.json.gz), fragmento ss. Fuente exacta: {"file":"lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts","start":37939,"end":38430,"sha256":"096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f","offsetEncoding":"utf16"}.
-
-Condición: selección del programa finito. El programa conserva ramas y conversiones, sin rellenar líneas no alcanzadas con cero.
-
-Reserva: localizador de software, no fundamento jurídico nuevo. Hereda las reservas documentales del fragmento y sus revisiones. No habilita admisión ni aceptación fiscal.
 
 ## anual.ss.solidaridad-trabajador
 
@@ -76,19 +52,11 @@ Grupo: ss. Unidad declarada en fragmento: EUR.
 
 Contrato técnico completo: [sitios.json](sitios.json), entrada anual.ss.solidaridad-trabajador. Derivación por operaciones: [artefacto.json.gz](artefacto.json.gz), fragmento ss. Fuente exacta: {"file":"lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts","start":38444,"end":38937,"sha256":"096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f","offsetEncoding":"utf16"}.
 
-Condición: selección del programa finito. El programa conserva ramas y conversiones, sin rellenar líneas no alcanzadas con cero.
-
-Reserva: localizador de software, no fundamento jurídico nuevo. Hereda las reservas documentales del fragmento y sus revisiones. No habilita admisión ni aceptación fiscal.
-
 ## anual.ss.empresarial-total
 
 Grupo: ss. Unidad declarada en fragmento: EUR.
 
 Contrato técnico completo: [sitios.json](sitios.json), entrada anual.ss.empresarial-total. Derivación por operaciones: [artefacto.json.gz](artefacto.json.gz), fragmento ss. Fuente exacta: {"file":"lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts","start":38951,"end":39325,"sha256":"096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f","offsetEncoding":"utf16"}.
-
-Condición: selección del programa finito. El programa conserva ramas y conversiones, sin rellenar líneas no alcanzadas con cero.
-
-Reserva: localizador de software, no fundamento jurídico nuevo. Hereda las reservas documentales del fragmento y sus revisiones. No habilita admisión ni aceptación fiscal.
 
 ## anual.ss.trabajador-total
 
@@ -96,19 +64,11 @@ Grupo: ss. Unidad declarada en fragmento: EUR.
 
 Contrato técnico completo: [sitios.json](sitios.json), entrada anual.ss.trabajador-total. Derivación por operaciones: [artefacto.json.gz](artefacto.json.gz), fragmento ss. Fuente exacta: {"file":"lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts","start":39339,"end":39711,"sha256":"096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f","offsetEncoding":"utf16"}.
 
-Condición: selección del programa finito. El programa conserva ramas y conversiones, sin rellenar líneas no alcanzadas con cero.
-
-Reserva: localizador de software, no fundamento jurídico nuevo. Hereda las reservas documentales del fragmento y sus revisiones. No habilita admisión ni aceptación fiscal.
-
 ## anual.ss.coste-laboral
 
 Grupo: ss. Unidad declarada en fragmento: EUR.
 
 Contrato técnico completo: [sitios.json](sitios.json), entrada anual.ss.coste-laboral. Derivación por operaciones: [artefacto.json.gz](artefacto.json.gz), fragmento ss. Fuente exacta: {"file":"lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts","start":39725,"end":40135,"sha256":"096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f","offsetEncoding":"utf16"}.
-
-Condición: selección del programa finito. El programa conserva ramas y conversiones, sin rellenar líneas no alcanzadas con cero.
-
-Reserva: localizador de software, no fundamento jurídico nuevo. Hereda las reservas documentales del fragmento y sus revisiones. No habilita admisión ni aceptación fiscal.
 
 ## anual.retencion.base
 
@@ -116,19 +76,11 @@ Grupo: retenciones. Unidad declarada en fragmento: EUR.
 
 Contrato técnico completo: [sitios.json](sitios.json), entrada anual.retencion.base. Derivación por operaciones: [artefacto.json.gz](artefacto.json.gz), fragmento retenciones. Fuente exacta: "baseRetencionCentimos".
 
-Condición: selección del programa finito. El programa conserva ramas y conversiones, sin rellenar líneas no alcanzadas con cero.
-
-Reserva: localizador de software, no fundamento jurídico nuevo. Hereda las reservas documentales del fragmento y sus revisiones. No habilita admisión ni aceptación fiscal.
-
 ## anual.retencion.cuota
 
 Grupo: retenciones. Unidad declarada en fragmento: EUR.
 
 Contrato técnico completo: [sitios.json](sitios.json), entrada anual.retencion.cuota. Derivación por operaciones: [artefacto.json.gz](artefacto.json.gz), fragmento retenciones. Fuente exacta: "cuotaRetencionCentimos".
-
-Condición: selección del programa finito. El programa conserva ramas y conversiones, sin rellenar líneas no alcanzadas con cero.
-
-Reserva: localizador de software, no fundamento jurídico nuevo. Hereda las reservas documentales del fragmento y sus revisiones. No habilita admisión ni aceptación fiscal.
 
 ## anual.retencion.tipo
 
@@ -136,19 +88,11 @@ Grupo: retenciones. Unidad declarada en fragmento: percent.
 
 Contrato técnico completo: [sitios.json](sitios.json), entrada anual.retencion.tipo. Derivación por operaciones: [artefacto.json.gz](artefacto.json.gz), fragmento retenciones. Fuente exacta: "tipoRetencionPorcentaje".
 
-Condición: selección del programa finito. El programa conserva ramas y conversiones, sin rellenar líneas no alcanzadas con cero.
-
-Reserva: localizador de software, no fundamento jurídico nuevo. Hereda las reservas documentales del fragmento y sus revisiones. No habilita admisión ni aceptación fiscal.
-
 ## anual.retencion.anual
 
 Grupo: retenciones. Unidad declarada en fragmento: EUR.
 
 Contrato técnico completo: [sitios.json](sitios.json), entrada anual.retencion.anual. Derivación por operaciones: [artefacto.json.gz](artefacto.json.gz), fragmento retenciones. Fuente exacta: "importeRetencionAnualCentimos".
-
-Condición: selección del programa finito. El programa conserva ramas y conversiones, sin rellenar líneas no alcanzadas con cero.
-
-Reserva: localizador de software, no fundamento jurídico nuevo. Hereda las reservas documentales del fragmento y sus revisiones. No habilita admisión ni aceptación fiscal.
 
 ## anual.pagos.retenciones
 
@@ -156,19 +100,11 @@ Grupo: retenciones. Unidad declarada en fragmento: EUR.
 
 Contrato técnico completo: [sitios.json](sitios.json), entrada anual.pagos.retenciones. Derivación por operaciones: [artefacto.json.gz](artefacto.json.gz), fragmento retenciones. Fuente exacta: "caso.retencionesSoportadasCentimos".
 
-Condición: selección del programa finito. El programa conserva ramas y conversiones, sin rellenar líneas no alcanzadas con cero.
-
-Reserva: localizador de software, no fundamento jurídico nuevo. Hereda las reservas documentales del fragmento y sus revisiones. No habilita admisión ni aceptación fiscal.
-
 ## anual.pagos.cuenta
 
 Grupo: retenciones. Unidad declarada en fragmento: EUR.
 
 Contrato técnico completo: [sitios.json](sitios.json), entrada anual.pagos.cuenta. Derivación por operaciones: [artefacto.json.gz](artefacto.json.gz), fragmento retenciones. Fuente exacta: "caso.pagosACuentaCentimos+estimate.importeRetencionAnualCentimos??0".
-
-Condición: selección del programa finito. El programa conserva ramas y conversiones, sin rellenar líneas no alcanzadas con cero.
-
-Reserva: localizador de software, no fundamento jurídico nuevo. Hereda las reservas documentales del fragmento y sus revisiones. No habilita admisión ni aceptación fiscal.
 
 ## anual.base.general-imponible
 

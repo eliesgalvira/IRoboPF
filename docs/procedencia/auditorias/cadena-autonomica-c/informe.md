@@ -1,6 +1,8 @@
 # Cadena normativa C: Madrid, Murcia, La Rioja, Comunitat Valenciana, Ceuta y Melilla
 
-Entrega candidata al 29 de octubre de 2026. Ningún hallazgo está aceptado. No se ha modificado el motor, hecho commits, movido bookmarks, inicializado repositorios ni ejecutado builds o suites legacy. Las escrituras propias se limitan a esta carpeta y su scratch. El corpus original se adquirió mediante el helper común autorizado.
+Documento histórico: los resultados, referencias al motor y pendientes corresponden a la base examinada; no describen el estado vigente del proyecto.
+
+Análisis candidato al 29 de octubre de 2026, sin aceptación de hallazgos. El corpus original se adquirió mediante el descargador común.
 
 ## Resultado y alcance
 

@@ -1,6 +1,8 @@
 # Cadena normativa autonómica A — candidatos para contrarrevisión
 
-Ámbito: Andalucía, Aragón, Asturias, Illes Balears, Canarias y Cantabria; ejercicios 2012–2026; fecha de corte 29 de octubre de 2026. Trabajo personal, sin subdelegación ni cambios del motor, VCS, informes ajenos, ESTADO o DECISIONES. **No hay hallazgos aceptados.**
+Documento histórico: los resultados, referencias al motor y pendientes corresponden a la base examinada; no describen el estado vigente del proyecto.
+
+Ámbito: Andalucía, Aragón, Asturias, Illes Balears, Canarias y Cantabria; ejercicios 2012–2026; fecha de corte 29 de octubre de 2026. Este análisis no acepta hallazgos.
 
 La entrega reconstruye 31 grupos de vigencia de escala, con 90 enlaces anuales, y otros 90 enlaces de apoyo para mínimos. El grupo balear de 2015 contiene dos variantes temporales. No son 180 validaciones: mínimos requiere el contraste especializado, y quedan cuestiones de devengo y autenticación abiertas. `cadena-normativa.json` enlaza cada grupo con originales, hashes, artículos, tablas y citas. `historial-articulos.json` conserva las fechas reales de las versiones ofrecidas por BOE; no se pidieron fechas inventadas mediante `p=`.
 
@@ -15,7 +17,7 @@ La entrega reconstruye 31 grupos de vigencia de escala, con 90 enlaces anuales, 
 
 Las referencias BOE/BOJA completas, las fechas de publicación que constan en las fichas y las URL ELI están en `documentos.json`. Se conserva el original PDF de las normas enlazadas, no el PDF de un consolidado actual. Cuando BOE aloja una reproducción autonómica, se conserva esa procedencia. No se ha descargado sistemáticamente una segunda copia regional de cada PDF BOE: la publicación autonómica se identifica en el texto y metadatos; no se presenta esa identificación como un segundo original adquirido.
 
-## Qué aporta frente a las rondas AEAT
+## Qué aporta respecto a los manuales AEAT
 
 La tabla original asturiana de2013 publica **16.592,80** como resto desde53.407,20 hasta70.000. Eso permite resolver la transcripción ministerial anterior que mostraba36.592,80 sin atribuir el defecto al motor. Las cuotas fijas se conservan junto a los tipos: Asturias2015 publica1.875,86 desde17.707,20, mientras la integral exacta da1.875,864. La igualdad redondeada en el límite no garantiza igualdad al añadir el exceso.
 
@@ -38,7 +40,7 @@ Quedan abiertos: interpretación de fallecimientos en Asturias2025, IllesBalears
 3. Conservar cuotas y límites literales. Objeción: una fórmula ingenua sobre columnas desdeX.01 puede introducir discontinuidades artificiales. Motivo: no borrar lo que publica el legislador. Coste: los ejemplos independientes no autorizan un fix global ni una política de redondeo.
 4. Facilitar mínimos sin repetir su auditoría. Objeción: la cuota final depende de esos mínimos. Motivo: reparto exclusivo y evitar conclusiones duplicadas. Coste: esta carpeta no acredita por sí sola liquidaciones familiares completas.
 5. Hashes y HTTPS sin afirmar firma válida. Objeción: integridad no acredita autoría criptográfica. Motivo: preservar bytes originales verificables ahora. Coste: autenticación PAdES/CSV pendiente.
-6. Entregar candidatos sin tocar cálculo. Objeción: todavía no hay regresión ejecutada que falle. Motivo: el contrato exige revisión independiente antes de corregir. Coste: el orquestador debe materializar las pruebas propuestas; cero hallazgos aceptados aquí.
+6. Entregar candidatos sin tocar cálculo. Objeción: todavía no hay regresión ejecutada que falle. Motivo: el contrato exige revisión independiente antes de corregir. Coste: las pruebas propuestas deben materializarse; cero hallazgos aceptados aquí.
 
 ## Reproducción
 
@@ -59,6 +61,6 @@ Corpus: 144 adquisiciones (68 PDF originales, 68 HTML originales, ocho índices)
 
 Hallazgos:33 candidatos,31 ambiguos de alcance de cadena, un match acotado al resto asturiano2013–2014 y una ausencia de modelo territorial2026; cero aceptados. Las diez correcciones examinadas están en `correcciones-examinadas.json`: nueve no cambian las escalas investigadas en los pasajes leídos y la canaria2025 corrige la numeración del artículo de mínimos. Sus referencias se añaden a las variantes pertinentes. No se afirma que esto agote cualquier corrección no indexada.
 
-El primer intento de verificación con TextPage falló por una referencia débil a una página PyMuPDF ya liberada. El script se corrigió para retener las páginas junto a sus TextPage; no se alteraron los textos ni cajas para ocultar discrepancias. El resultado efectivo de la nueva ejecución consta en `verificacion-local.json`.
+`verificacion-local.json` registra el resultado de la reextracción de textos y cajas.
 
 Verificación local completada: **144 documentos y1.071 citas; cero diferencias de hash o reextracción literal y sin cabeceras de sesión publicadas**. No valida firmas ni interpretación fiscal. Se validó también la sintaxis de todos los JSON y la presencia de los campos obligatorios de los33 hallazgos. No se ejecutaron pruebas del motor.

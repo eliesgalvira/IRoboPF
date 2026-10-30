@@ -1,6 +1,8 @@
-# Escalas autonómicas 2012–2016: primera ronda documental
+# Escalas autonómicas 2012–2016: análisis documental
 
-Informe candidato, no aceptación. No se ha cambiado el motor ni se han ejecutado commits, inicializaciones VCS, builds o suites legacy. La revisión independiente y las pruebas que fallen antes de corregir siguen pendientes.
+Documento histórico: los resultados, referencias al motor y pendientes corresponden a la base examinada; no describen el estado vigente del proyecto.
+
+Informe candidato, sin aceptación de hallazgos. La revisión independiente y las pruebas que fallen antes de corregir son requisitos previos a cualquier cambio fiscal.
 
 ## Resultado y alcance real
 
@@ -74,7 +76,7 @@ Hacienda 2013 p12 muestra para Asturias un resto36.592,80 en la fila53.407,20 au
 
 Canarias 2012: BOE-A-2012-9282 pp96–97 fija el 22,58%; la DF9.2, p149, dispone efectos IRPF desde 1/1/2012 pese a entrada general 1/7/2012. Illes Balears: BOE-A-2016-824 DF16.1, p66, fija la entrada 31/12/2015 de los apartados1–9 de la DF2. Estas citas de vigencia se añaden al corpus. La publicación del BOE valenciano es **10/02/2015**, comprobada en el original.
 
-Entrega: **13 hallazgos candidatos**;452 citas tabulares con 1.808celdas,321 pasajes BOE y12 documentos. Las citas legales son bloques de texto exactos de las páginas seleccionadas; algunas conservan contexto contiguo. Las filas de las escalas se localizan individualmente por celda. Sigue pendiente una selección editorial más estrecha de los bloques legales y su facsímil. Ninguno de estos conteos expresa aceptación independiente.
+Resultado: **13 hallazgos candidatos**;452 citas tabulares con 1.808celdas,321 pasajes BOE y12 documentos. Las citas legales son bloques de texto exactos de las páginas seleccionadas; algunas conservan contexto contiguo. Las filas de las escalas se localizan individualmente por celda. Sigue pendiente una selección editorial más estrecha de los bloques legales y su facsímil. Ninguno de estos conteos expresa aceptación independiente.
 
 `vectores-bordes.json` añade 1.425 ejemplos independientes en 79 escalas/variantes documentadas: cero, negativos, cada frontera ±0,01 y una base alta. Compara la integral continua con cuota fija publicada más exceso; 242 ejemplos difieren al redondear ambos resultados por separado. **No son 242 errores aceptados**: incluyen diferencias de representación canaria y efectos del redondeo intermedio. No se ejecutó el motor ni una declaración completa para esos vectores. Galicia con base baja se trata en el apartado de variantes, no forzando su escala superior fuera de condición. La comparación usa las bases inferiores de la tabla, no el ancho ministerial defectuoso de Asturias ni el artefacto numérico de Murcia.
 

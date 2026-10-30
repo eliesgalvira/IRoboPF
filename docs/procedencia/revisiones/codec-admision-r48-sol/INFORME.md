@@ -1,8 +1,10 @@
 # Revisión independiente del codec v3, R47-N01 / R48
 
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
 R47-N01 queda corroborado como corregido en el candidato examinado, con alcance técnico de identidad. La compatibilidad v3 exige regenerar los recibos v2: el consumidor actual los deja pending. No se reproduce un defecto nuevo de producto en los casos acotados. Estas conclusiones nuevas requieren contraste del padre; no hay aceptación propia, atestación, promoción ni aceptación fiscal. El encargo global continúa abierto.
 
-Revisor efectivo: gpt-6.1-sol, esfuerzo high, T3 Code/Codex; priority solicitado y disponible según el entorno, sin recibo independiente del planificador. Sin subdelegación ni cambio de modelo. Base comprobada: `85705808bf692ebd54f1a1cc432ff0cc7142d834`, 21.594 entradas. La orden específica prevalece sobre el modelo, operaciones VCS, estado y limpieza del BRIEF. Se leyeron BRIEF, AGENTS, contrato, coordinación y situación actual de ESTADO/DECISIONES, R48, informe e instrumentos R47 y código/tests indicados. No se inspeccionaron entregas parciales del otro hijo.
+Base examinada: `85705808bf692ebd54f1a1cc432ff0cc7142d834`, 21.594 entradas. Se examinaron R48, el informe e instrumentos R47 y el código y pruebas indicados.
 
 ## R47-N01 — Tres colisiones anteriores y corrección limitada
 
@@ -52,7 +54,7 @@ Solo se escriben las dos rutas asignadas. El cotejo inicial completo da 21.594 c
 
 MANIFIESTO.json y cambios.diff.gz transportan el payload textual; binarios, si existen, se identifican por ruta/hash. Se ensaya aplicar el patch en scratch nuevo y comparar bytes, tamaño, hash y modo, incluido vacio.txt. Los sobres se excluyen de su propio payload para evitar autorreferencia; TRANSPORTE.json los fija y RECONSTRUCCION.json documenta el ensayo. Los logs mayores de 1 MB se comprimen. No se incluyen dependencias ni copias de la app en informes.
 
-V5 r2 continúa solo lectura en `/home/elies/Repos/IRoboPF/.cache/orquestador-preservacion/v5-r2-2b15925970d4/`, corte R26, pin `2b15925970d4819973598e1640c375ce95fc16c87e6e9981af1e86a2cb0d1c88`, sin reexportación. Crossa v1 sigue desfasado, misma casa/propietario, copia fuera de Victus y no custodia independiente. Sin VCS mutante, commits, bookmarks, PR, main, deploy, servidor, preview, LFS, gasto, transferencias, mensajes externos o limpieza. El codec sigue candidato hasta contraste del padre. El encargo global permanece abierto.
+V5 r2 continúa solo lectura en `/home/elies/Repos/IRoboPF/.cache/orquestador-preservacion/v5-r2-2b15925970d4/`, corte R26, pin `2b15925970d4819973598e1640c375ce95fc16c87e6e9981af1e86a2cb0d1c88`, sin reexportación. Crossa v1 sigue desfasado, misma casa/propietario, copia fuera de Victus y no custodia independiente. Sin VCS mutante, commits, bookmarks, PR, main, deploy, servidor, preview, LFS, gasto, transferencias, mensajes externos o limpieza. Este dictamen examina el codec candidato de esa versión. 
 
 ## Resultado final de calidad
 

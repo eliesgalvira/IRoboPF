@@ -1,10 +1,12 @@
 # Revisión de la conexión anual explícita, v1
 
-Base comprobada por `git rev-parse HEAD`: `eaed990c620b5fc4d3ff2e74dc68e0c8481c43db`. Revisión personal, sin subdelegación, cambios de producto ni operaciones VCS mutantes. Esta entrega no acepta una liquidación completa ni promueve reglas o atestaciones.
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
+Base examinada: `eaed990c620b5fc4d3ff2e74dc68e0c8481c43db`. Esta revisión no acepta una liquidación completa ni promueve reglas o atestaciones.
 
 ## Alcance y método
 
-Se leen BRIEF, AGENTS, CONTRATO-AUDITORIA, COORDINACION, ESTADO, DECISIONES, integración-ronda10 y las revisiones trabajo-anual-implementacion, contratos-v2 y actividades-implementacion. Se examinan los seis archivos de código de la entrega conexion-anual, sus informes, logs, manifiesto y parche, los adaptadores y auxiliares consumidos y el enlace del rastro. La revisión anterior de etapas no se atribuye a esta conexión nueva.
+Se examinaron integración-ronda10 y las revisiones trabajo-anual-implementacion, contratos-v2 y actividades-implementacion; seis archivos de conexión anual, informes, logs, manifiesto y parche, adaptadores y auxiliares consumidos y enlace del rastro. La revisión anterior de etapas no se atribuye a esta conexión.
 
 Los sondeos importan la API exportada de esta base, sin mocks. `preparar.py` crea expectativas con Decimal de Python a 120 cifras, fórmulas independientes y filas publicadas; no consulta resultados del motor para definir lo esperado. Solo reutiliza la estructura de hechos de un caso EDS anterior. Todos los datos son sintéticos. `casos.json` fija entradas y expectativas; `resultados.json` conserva salidas y comparaciones. Los sondeos no sustituyen una declaración de Renta WEB ni acreditan hechos aportados.
 

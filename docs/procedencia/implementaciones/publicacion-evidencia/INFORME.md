@@ -1,6 +1,8 @@
 # Publicación de evidencia por snapshot
 
-Base comprobada: eaed990c620b5fc4d3ff2e74dc68e0c8481c43db. Trabajo personal, sin subdelegación ni VCS mutante. Entrega para integración por archivos; no se actualiza el alias rastro-generado.json ni se promueven registros o atestaciones.
+Documento histórico del candidato de este directorio. Los resultados y estados corresponden a esa versión; no acreditan el estado actual del proyecto.
+
+Base del candidato documentado: `eaed990c620b5fc4d3ff2e74dc68e0c8481c43db`.
 
 ## Contrato y decisiones
 
@@ -10,32 +12,32 @@ Base comprobada: eaed990c620b5fc4d3ff2e74dc68e0c8481c43db. Trabajo personal, sin
 4. El registro se escribe al final, después del cierre físico y semántico. Objeción: publicar primero deja un snapshot visible e incompleto. Coste: objetos no registrados pueden quedar tras un fallo; no se borran y la repetición coteja los existentes. No se promete durabilidad frente a caída eléctrica, transacción multiusuario ni resistencia ABA contra un escritor hostil.
 5. Solo PDF y PNG explícitos en publicos se sirven, con hash, tamaño, firma de formato, MIME fijo, nosniff y caché inmutable. Objeción: exponer todos los auxiliares publicaría software y metadatos innecesarios. Coste: endpoint separado y rechazo 404/503; la adquisición completa queda preservada pero no se expone por HTTP.
 6. Índice de búsqueda gzip por snapshot con ID, revisión, título y dimensiones candidatas; el verificador lo coteja contra todas las entidades. Objeción: un índice coherente consigo mismo puede mentir. Coste: cotejo completo al publicar/verificar y lectura/hash de disco en cada consulta. Se conserva como máximo un índice decodificado; antes de reutilizarlo se releen y hashean los bytes de disco. No se confía en mtime. El coste es retener ese único índice en memoria; v1 mantiene su búsqueda histórica. Las medidas son descriptivas, sin umbral CI.
-7. Se excluye explícitamente lib/procedencia/rastro-generado.json de prepararEntrada. Objeción: fijar el alias que cambia al publicar crea un ciclo. Se fija el snapshot de origen exacto y v2.catalogo identifica su catálogo por hash. Se reconstruye desde los puntos de código y las revisiones del snapshot, se exige pertenencia a los auxiliares originales y se cotejan cobertura, identidades, unidades y revisiones al verificar. Coste: el padre debe seleccionar el nuevo snapshot al actualizar el alias después de integrar; no se retaguean resultados antiguos.
+7. Se excluye explícitamente lib/procedencia/rastro-generado.json de prepararEntrada. Objeción: fijar el alias que cambia al publicar crea un ciclo. Se fija el snapshot de origen exacto y v2.catalogo identifica su catálogo por hash. Se reconstruye desde los puntos de código y las revisiones del snapshot, se exige pertenencia a los auxiliares originales y se cotejan cobertura, identidades, unidades y revisiones al verificar. Coste: al integrar se debe seleccionar el nuevo snapshot al actualizar el alias después de integrar; no se retaguean resultados antiguos.
 8. Las fuentes nuevas de publicación, presentación y HTTP entran en FUENTES_EXPLICACION. Objeción: cambiar la explicación sin invalidar su versión permite verdes obsoletos. Coste: regeneración tras integración. No se promete HTML histórico idéntico entre versiones de React.
 
-## Regeneración en el padre
+<a id="regeneración-en-el-padre"></a>
+
+## Regeneración
 
 Después de reunir el motor y reconstruir inventario, payload y contenido mediante las herramientas existentes, iniciar un proceso Bun nuevo. Importar prepararEntrada de scripts/procedencia/evidencia-contenido.mjs y publicar de scripts/procedencia/contenido-publicar.mjs. Preparar la entrada para el snapshot exacto recién generado y conservar su JSON como entrada revisable. Invocar publicar(root, entrada, destino, origen); origen y destino son directorios de contenido con objetos/ y snapshots.json. El destino puede ser el mismo origen: no se sustituyen objetos históricos. No usar una entrada preparada antes de integrar los archivos definitivos.
 
-El resultado identifica el snapshot nuevo; el padre puede actualizar únicamente actual.versiones del alias de rastro con las versiones de ese snapshot, conservando bindings y catalogoSha256. Después ejecutar la puerta fresca de rastro y el verificador de contenido. La publicación no constituye autorización para ampliar registros ni migrar atestaciones.
+El resultado identifica el snapshot nuevo; el integrador puede actualizar únicamente actual.versiones del alias de rastro con las versiones de ese snapshot, conservando bindings y catalogoSha256. Después ejecutar la puerta fresca de rastro y el verificador de contenido. La publicación no constituye autorización para ampliar registros ni migrar atestaciones.
 
 Ejecutar con Bun/Node/Python de Nix, wrapper Python Nix/uv fijado y flock /tmp/irobopf-validacion-pesada.lock. Un trabajador, sin Next build. Los tests crean su propia publicación real en .cache/publicacion-evidencia-* del checkout y conservan resultado.json; esos objetos de scratch no son entrega para Git.
 
 ## Límites
 
-No hay cambio numérico ni oracle modificado. EC-01, EC-02 y EC-03 del padre se conservan. La revisión del binding actual sigue pendiente. Autenticidad procede del manifiesto y conserva fecha y límites, sin repetir pdfsig ni resolver confianza histórica. Un hash no prueba identidad del emisor ni verdad jurídica. No se prueba despliegue, custodia independiente ni restauración en otra máquina.
-
-Crossa es la copia v1 histórica comunicada por el coordinador, misma casa y propietario; no una nueva verificación propia ni custodia independiente. No se altera v1 preservado, v2 ni restauraciones; sin LFS, gasto, transferencia externa o borrado.
+No hay cambio numérico ni oracle modificado. EC-01, EC-02 y EC-03 del integrador se conservan. La revisión del binding actual sigue pendiente. Autenticidad procede del manifiesto y conserva fecha y límites, sin repetir pdfsig ni resolver confianza histórica. Un hash no prueba identidad del emisor ni verdad jurídica. No se prueba despliegue, custodia independiente ni restauración en otra máquina.
 
 ## Validación
 
-La primera comprobación de tipos señaló booleanos implícitos, una propiedad opcional y estilo de control async/logging del test. Se corrigieron sin relajar reglas. El primer ensayo de publicación detectó una edición propia concurrente de contenido-verificar.mjs y abortó: pruebas-inicial.log conserva ese resultado, no una ejecución válida de publicación. En el siguiente pase dos casos agotaron el timeout genérico de cinco segundos al recorrer el cierre completo; pruebas-tiempo.log conserva los fallos. Se usa un tiempo de prueba de 30 segundos, sin convertir tiempos de consulta en umbrales de CI.
+Las pruebas de cierre documental usan un timeout de 30 segundos. Este límite del ensayo no constituye un umbral de latencia ni una medición de producción.
 
-La publicación se ensaya dos veces desde la misma entrada y exige el mismo snapshot. Los controles incluyen sujeto/recibo ajeno, adquisición ausente, auxiliar corrupto, blob privado, PDF/PNG corrupto, rutas inexistentes, campos extra, aceptación false, búsqueda tras corrupción persistente, respuestas HTTP mediante el mismo helper de GET y renderToStaticMarkup. No hay servidor de producción ni navegador. La suite existente conserva los adversos de IDs/receta rehasheados y ámbitos incompatibles. Se ejecutan además las 24 pruebas existentes del puente Python con el wrapper fijado, incluidos cambios de ámbito con hashes rehechos. Las correcciones del padre permanecen intactas.
+La publicación se ensaya dos veces desde la misma entrada y exige el mismo snapshot. Los controles incluyen sujeto/recibo ajeno, adquisición ausente, auxiliar corrupto, blob privado, PDF/PNG corrupto, rutas inexistentes, campos extra, aceptación false, búsqueda tras corrupción persistente, respuestas HTTP mediante el mismo helper de GET y renderToStaticMarkup. No hay servidor de producción ni navegador. La suite existente conserva los adversos de IDs/receta rehasheados y ámbitos incompatibles. Se ejecutan además las 24 pruebas existentes del puente Python con el wrapper fijado, incluidos cambios de ámbito con hashes rehechos. Las correcciones previas permanecen intactas.
 
 Las cifras de suites no se suman a cobertura fiscal ni a resultados históricos de otros autores. La comparación histórica ensaya el snapshot 31be43e7… y el publicador verifica el origen actual 5da224c8…; no se atribuye un recorrido nuevo de todos los snapshots históricos.
 
-El primer ensayo de búsqueda sin caché se conserva en metricas-sin-cache.json. La medición final arranca un proceso nuevo y ejecuta dos consultas, conservando RSS y la comprobación fresca del software de explicación. No se vacía la caché de disco del sistema operativo, ni se mide carga concurrente o un despliegue Next. El índice evita descomprimir 256 paquetes por consulta; su decodificación sigue teniendo coste real.
+La medición arranca un proceso nuevo y ejecuta dos consultas con RSS y comprobación fresca del software de explicación. No vacía la caché de disco ni mide carga concurrente o despliegue Next. El índice evita descomprimir 256 paquetes por consulta, con coste propio de decodificación.
 
 
 ## Resultado final
@@ -46,8 +48,8 @@ Snapshot real de scratch: 9f7e95f09c9b8ca8303c0183cd1c5ddd4a79c06ac0a2ed25fbf94f
 
 metricas.json registra la primera consulta del proceso (458,67 ms), la siguiente (116,19 ms), RSS inicial 112.226.304 bytes y RSS final 429.506.560 bytes. Son mediciones de esta máquina, con caché del sistema operativo sin vaciar y un solo índice retenido. No son una garantía de latencia ni memoria de producción. La búsqueda todavía asigna memoria al decodificar el índice; no se oculta ese coste.
 
-Los únicos blobs públicos son el PDF de Madrid (213.826 bytes, 8a77dd28…) y el PNG (12.673 bytes, 95c51f21…), con hashes completos en metricas.json. Ya existen como fixtures de la base. No se entregan binarios nuevos ni los cientos de objetos generados: el padre los regenera tras integrar, siguiendo COMANDOS.md. El scratch queda en este checkout y no es respaldo independiente.
+Los únicos blobs públicos son el PDF de Madrid (213.826 bytes, 8a77dd28…) y el PNG (12.673 bytes, 95c51f21…), con hashes completos en metricas.json. Ya existen como fixtures de la base. No se entregan binarios nuevos ni los cientos de objetos generados: el integrador los regenera tras integrar, siguiendo COMANDOS.md. El scratch queda en este checkout y no es respaldo independiente.
 
 La ficha recorre hasta 32 nodos documentales para producir enlaces directos. Objeción: un grafo arbitrariamente amplio puede amplificar una petición; coste: un futuro sujeto con más dependencias documentales exige revisar este límite y ahora falla explícitamente, sin ocultar enlaces.
 
-El informe es una entrega de implementación, no una revisión independiente ni una aceptación fiscal. El padre debe integrar por manifiesto y base, regenerar y encargar la revisión nueva prevista.
+El informe es una entrega de implementación, no una revisión independiente ni una aceptación fiscal. Al integrar se debe integrar por manifiesto y base, regenerar y encargar la revisión nueva prevista.

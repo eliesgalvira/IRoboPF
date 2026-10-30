@@ -1,10 +1,10 @@
 # Composición de flujos R28: entrega parcial ejecutable
 
+Documento histórico del candidato de este directorio. Los resultados y estados corresponden a esa versión; no acreditan el estado actual del proyecto.
+
 **No alcanza la implementación completa solicitada.** Se entrega contrato común, adaptadores, compositor desde AST, puertas ejecutables y contenidos por los65 sitios y19 etapas. Solo el recorrido de valor de `anual.pagos.retenciones` llega a terminales. Los otros64 sitios conservan bloqueos individuales; la admisión del dominio permanece pendiente en todos. No recomiendo integrar esto como composición completa ni hacer wiring público. No se declara cerrado el encargo global.
 
-Runtime: T3 Code/Codex, gpt-6.1-sol, esfuerzo high; prioridad solicitada, sin recibo independiente del servicio efectivo. Trabajo personal, sin subdelegación, cambio de modelo, atestación ni operación VCS mutante. Base/HEAD `5e69c68077ffd18be20457160595adb3f0ff52e4`,15914 entradas. Solo adiciones en el ámbito autorizado y caché propia. El control físico inicial terminó antes de escribir código de producto; el final se entrega aparte. No se confunde diff vacío con árbol físico intacto.
-
-Se consultaron BRIEF, AGENTS, contrato, coordinación, estado/decisiones actuales, los tres informes independientes de flujo, multiplicidadR27, recepcionesR25–R28 y rectificacionesR28. Sus restricciones actuales prevalecen sobre commits, limpieza y delegaciones del BRIEF. Las revisiones y inputs conservados se leen desde este checkout; no se leen entregas parciales ni checkouts de tareas activas. Una consulta general de procesos mostró incidentalmente líneas de otros procesos; no se usaron como fuente ni se inspeccionaron sus archivos. Las herramientas proceden de Nix y node_modules del padre se lee solamente. Se consultaron effect-solutions list/basics/testing y fuente local de Effect; no se escribe Effect ni se cambia cálculo fiscal.
+Base del candidato documentado: `5e69c68077ffd18be20457160595adb3f0ff52e4`.
 
 ## Implementado
 
@@ -32,29 +32,25 @@ Las constantes false2012–2015, ocho ramas rectificadas y los rangosR28 se cons
 
 ## Casos y resultados
 
-Se reproduce primero el instrumento rojoR28, adaptando únicamente importación TypeScript y salida a scratch propio:54 comprobaciones,28 fallos conservados en rojos-recibidos.json, salida1. Los originales y sus esperados no cambian. La primera generación propia había quedado en cola y se canceló antes de ejecutarse para conservar ese orden. No se anuncia una suite histórica globalmente verde.
+Se reproduce primero el instrumento rojoR28, adaptando únicamente importación TypeScript y salida a scratch propio:54 comprobaciones,28 fallos conservados en rojos-recibidos.json, salida1. Los originales y sus esperados no cambian. No se anuncia una suite histórica globalmente verde.
 
-Pasan16 pruebas focalizadas propias: puertas y mutaciones, pertenencia de argumento, inventario de salidas/etapas sin aceptación por recuento, schema/determinismo, precisión del rastro y half-up, corte2018, modo canónico2018 frente a máximo legacy mutado, independencia del lado trabajador ante mutación empresarial, MEI por año/lado, saldo/cuota de activo, cliente único/discapacidad/rechazo, edad/exención y vitalicia2014/2015. Son ensayos de software, no16 reglas fiscales aceptadas. El loader transpila TS del checkout en memoria y resuelve dependencias externas existentes; no modifica el motor en disco ni ejecuta una copia de app del padre.
+Pasan16 pruebas focalizadas propias: puertas y mutaciones, pertenencia de argumento, inventario de salidas/etapas sin aceptación por recuento, schema/determinismo, precisión del rastro y half-up, corte2018, modo canónico2018 frente a máximo legacy mutado, independencia del lado trabajador ante mutación empresarial, MEI por año/lado, saldo/cuota de activo, cliente único/discapacidad/rechazo, edad/exención y vitalicia2014/2015. Son ensayos de software, no16 reglas fiscales aceptadas. El loader transpila TS del checkout en memoria y resuelve dependencias externas existentes; no modifica el motor en disco ni ejecuta una copia de app del integrador.
 
 Tipos checkJs/TypeScript del alcance y oxlint con16 reglas anti-slop a error, un hilo y disable-nested-config terminan con0 en el pase de pruebas. No se ejecuta Next build ni suites legacy masivas. La última validación separada, tras ampliar solo la salida legible, fija generación, reconstrucción, tipos y lint; sus códigos se conservan en calidad-final.json.
 
-Incidencias propias conservadas: tipos-inicial.log registra errores de inferencia/anotación que se corrigieron sin cambiar esperados. La generación inicial alcanzaba el límite global de18000 puertos por repetir productores; se conserva generacion-inicial.json. El cache posterior comparte únicamente contexto de entrada y llamada/propiedad, no nombres de función. Se detectó además una clasificación incorrecta del parámetro de callback e como entrada pública; se corrigió y añadió regresión. No se acepta su anterior cierre. Un editor auxiliar tuvo un TypeError por reasignar una constante; se repitió solo la edición pendiente.
-
-El primer cotejo usó Python estándar de Nix directamente en scratch, sin uv/run.sh ni las variables exigidas. Es una desviación de herramientas, no una prueba correcta de ese requisito; no creó entorno en tools. El final utiliza el instrumento Node entregado. No se oculta el fallo ni se atribuye a los originales.
+La caché comparte únicamente contexto de entrada y llamada/propiedad. Los parámetros de callbacks sin instancia acreditada no se consideran entradas públicas; esta distinción tiene una regresión propia.
 
 ## Decisiones, objeciones y coste
 
 Las cuatro decisiones de CONTRATO.md fijan objeción experta, respuesta y coste. Se añade: compartir productores por contexto de entrada y llamadas AST evita agotar el presupuesto recorriendo varias veces el mismo cálculo. Objeción: compartir por nombre uniría invocaciones distintas. Respuesta: la clave incluye archivo/rango, propiedad, contexto de llamada, unidad y rol; callbacks sin instancia permanecen bloqueados. Coste: algunos bucles requieren un contrato cuantificado adicional y no se declaran cerrados.
 
-La limitación central es de la implementación entregada, no un fallo de entorno que pueda contabilizarse como pase. El coste de conservarla candidata es terminar y contrastar los contratos pendientes antes de sustituirla por una versión completa. El padre debe contrastar todas las conclusiones nuevas.
+La limitación central es de la implementación entregada, no un fallo de entorno que pueda contabilizarse como pase. El coste de conservarla candidata es terminar y contrastar los contratos pendientes antes de sustituirla por una versión completa. Al integrar se debe contrastar todas las conclusiones nuevas.
 
 ## Conservación y transporte
 
-No se modifican motor, adaptadores activos, confianza, inventario, snapshots, informes ajenos, ESTADO ni DECISIONES. Madrid mantiene identidad real2020 y estado pendiente; no se integra Madridv2. El registro activo continúa vacío. Los228 pares del ensayoR27 no se convierten en264; el BOE de42900459 bytes y el límite genérico permanecen fuera de este alcance. V4/R21 y v5r2/R26 conservan sus pins y reservas; Crossa siguev1, misma casa/dueño, sin independencia ni transferencia.
+No se modifican motor, adaptadores activos, confianza, inventario, snapshots, informes ajenos, ESTADO ni DECISIONES. Madrid mantiene identidad real2020 y estado pendiente; no se integra Madridv2. Los228 pares del ensayoR27 no se convierten en264; el BOE de42900459 bytes y el límite genérico permanecen fuera de este alcance. V4/R21 y v5r2/R26 conservan sus pins y reservas; Crossa siguev1, misma casa/dueño, sin independencia ni transferencia.
 
-No hay adquisiciones oficiales nuevas ni originales que requieran un CAS nuevo. No hay PDF, entornos, node_modules ni copia ejecutable de la app en docs. Las evidencias AST son fragmentos técnicos comprimidos. Sin rediseño, UI, servidor, preview, publicación, LFS, gasto, transferencia externa, X, mensajes externos, commit, PR, main o deploy.
-
-El manifiesto registra rutas relativas, SHA256, tamaño, baseSha256=null para adiciones y HEAD. Patch textual gzip y binarios por ruta/hash se ensayan con GNU patch en scratch propio, cotejando cada archivo reconstruido. Los controles mayores de1MB se comprimen. El cotejo final recorre lstat/readlink/bytes/modo de las15914 entradas contra un blob cada vez, además del diff. Esa conservación física no acredita fiscalidad. El manifiesto y los materiales de transporte declaran sus exclusiones autorreferentes.
+El [manifiesto](manifiesto.json) conserva los hashes y el contenido del paquete histórico; esa integridad no acredita fiscalidad.
 
 La inferencia dimensional general también está incompleta: fuera de las conversiones monetarias explícitas, las unidades se propagan desde el consumidor. La igualdad de unidades de los puertos impide ciertos cruces, pero no demuestra por sí sola el tipo dimensional de cada multiplicando/divisor. No se presenta ese control como contrato dimensional completo. Debe resolverse junto a las firmas pendientes antes de usar el grafo para aceptar relaciones.
 

@@ -1,6 +1,8 @@
 # Revisión de evidencias autonómicas v2
 
-Revisor: Codex `/root`, checkout T3 `t3-74b09993`. Trabajo personal sobre **5799bb03826719a4dd3500a962e2d6bb5124fdca**, comprobado mediante lectura Git. No se atribuye una identidad humana ni una independencia institucional. Entrega exclusivamente en la carpeta del padre indicada; scratch en `.cache/eav2` del checkout. Sin subdelegación ni cambios VCS, motor, payloads originales, registro o atestaciones.
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
+Base examinada: **5799bb03826719a4dd3500a962e2d6bb5124fdca**, comprobada mediante lectura del árbol versionado.
 
 **Dictamen:** 186 decisiones NUEVAS `accepted`, limitadas a la identidad y cuantía de cada celda en su año, territorio y condiciones. No se acepta una escala completa ni una liquidación. Todas llevan `completeRuleAcceptance:false`. Los 186 payloads originales continúan candidatos: estas decisiones son material editorial para preparar enlaces nuevos, no permiso de promoción. `mapeo-186.json` relaciona cada ID, hash del payload, ID efectivo, fila, columna, valor, decisión y bloqueos de promoción.
 
@@ -32,4 +34,4 @@ Ruff y mypy pasan sobre los cuatro instrumentos Python entregados, con cuerpos n
 
 Se leyeron el brief, contrato, coordinación, estado, decisiones (incluidas D043–D046), informes de integración, redondeos y entrega/revisión X. CX-06-A y CX-07-B no se incorporan como expectativas de este lote. Snapshot v2 efcc7f1395591bcd21090931860b8a969468233fa5f5066847d96669c4bbc2f6 y v1 técnico 8787155f02f4d8712648028532d966ab95c13e193ea36474f2fe2545516790e3 se conservan como contexto del padre; no se atribuye aquí verificación de todas sus fichas. Crossa es v1 histórico comunicado, misma casa y dueño, sin nueva verificación propia. Paquetes, originales, contexto y Reactivity permanecen intactos.
 
-El manifiesto fija archivos, SHA-256, tamaño y baseSha256; patch solo de altas textuales. No se incluyen node_modules, fuentes del producto, tsconfig, entornos ni árboles de caché. Los PNG regenerados permanecen en scratch y se integran por sus referencias a los originales ya conservados: no hay binarios nuevos necesarios. Cero borrados solicitados. El padre debe repetir la comprobación por archivo/hash antes de integrar.
+El manifiesto fija archivos, SHA-256, tamaño y baseSha256; patch solo de altas textuales. No se incluyen node_modules, fuentes del producto, tsconfig, entornos ni árboles de caché. Los PNG regenerados permanecen en scratch y se integran por sus referencias a los originales ya conservados: no hay binarios nuevos necesarios. Cero borrados solicitados.

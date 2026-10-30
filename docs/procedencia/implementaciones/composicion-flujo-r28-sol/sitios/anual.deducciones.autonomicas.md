@@ -1,6 +1,6 @@
 # anual.deducciones.autonomicas
 
-Candidato pendiente de revisión independiente. Cierre técnico: false. Publicación y aceptación jurídica: false.
+Estado del candidato histórico: revisión independiente pendiente; cierre técnico, publicación y aceptación jurídica: false.
 
 Fórmula TS: usaEscalaAutonomicaReal
                 ? `${deduccionesAutonomicasDescripcion(caso)}; límite por cuota autonómica general más ahorro disponible ${euros(cuotaAutonomicaGeneralDespuesMinimo.plus(ahorroConMinimos.autonomico.despuesMinimo))}`
@@ -8,83 +8,28 @@ Fórmula TS: usaEscalaAutonomicaReal
 
 Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y aplicabilidad separados; ninguna aceptación jurídica.
 
-- crearImporteMonetario(3700).minus(
-          crearImporteMonetario("1.15625").mul(
-            rendimientoPrevioNeto.minus(11250)
-          )
-        ) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2868–3019
-- derechosEstatales?.contribuyente / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20458–20490
-- baseLiquidableGeneral / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:22732–22753
-- resolverParametrosComunidadAutonoma2014({
-        baseLiquidableGeneral,
-        comunidadAutonoma,
-      }) / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16894–17002
+El detalle de productores y literales, con archivo, rango y relación, se conserva en [composicion.json.gz](../composicion.json.gz). Las limitaciones no resueltas de esta ficha son:
+
 - {
     _tag: "ParametrosComunidadAutonoma",
     comunidadAutonoma,
     anio: 2021,
     minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_202 / value (EUR, value); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:11753–12195
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- crearImporteMonetario(0) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- rendimientoPrevioNeto / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1942–1963
-- caso.rendimientos / trabajo (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12218–12235
-- excesoRestante / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1239–1253
-- derechosEstatales / ascendientes (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20664–20681
-- undefined / value (EUR, value); literal; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:17896–17905
-- rendimientoPrevioNeto / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2684–2705
-- crearImporteMonetario("0.0013") / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3885–3916
-- 0 / value (EUR, value); literal; lib/dominio/dinero/importe-monetario.ts:492–493
 - Match.valueTags(discapacidad, {
     SinDiscapacidad: () => IMPORTE_CERO,
     Discapacidad33a64: ({ necesitaAyudaOMovilidadReducida }) =>
       necesitaAyudaOMov / value (selector, selection); Contrato de llamada pendiente: Match.valueTags; lib/dominio/irpf/minimos/minimo-discapacidad.ts:557–922
-- minimos / contribuyente.general (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63044–63051
-- rendimientoCapitalInmobiliario?.rendimientoNeto / value (selector, selection); productor; lib/dominio/irpf/integracion/base-imponible-general.ts:758–805
-- rendimientoPrevioNeto / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3240–3261
-- crearImporteMonetario("0.001") / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3602–3632
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
 - {
     _tag: "ParametrosComunidadAutonoma",
     comunidadAutonoma,
     anio: 2017,
     minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / value (EUR, value); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:9085–9527
-- segundoExceso.mul(tipos[1]) / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1200–1227
-- b / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:392–393
-- undefined / contribuyente (EUR, value); literal; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:19999–20008
 - EffectArray.reduce(rendimientos, crearImporte(0), (total, rendimiento) =>
     total.plus(crearImporte(rendimiento.importeIntegroCentimos))
   ) / value (selector, selection); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1585–1727
-- ["0.0015", "0.0017", "0.0019"] / 2 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:597–627
-- tipos[2] / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1258–1266
-- crearImporteMonetario(3700) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2730–2757
-- parametros / mei.trabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3611–3621
 - (total, rendimiento) =>
     total.plus(crearImporte(rendimiento.importeIntegroCentimos)) / value (selector, selection); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1635–1723
-- parametros / baseMaxima (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8046–8056
-- ({ empresa: ["0", "0", "0"], trabajador: ["0", "0", "0"] }) as const / trabajador.1 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2933–3001
-- base / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1547–1551
 - (total, tramo) => total.plus(tramo.cuota) / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1564–1605
-- deduccionesAutonomicasDeclaradas / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:24959–24991
-- tiposSolidaridad[2025] / trabajador.1 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2826–2848
-- 6 / value (EUR, value); literal; lib/dominio/laboral/cotizaciones-sociales.ts:7001–7002
-- ({
-  baseMaxima: BASE_MAXIMA_COTIZACION_LEGACY[anio],
-  tiposSeguridadSocial: TIPOS_SEGURIDAD_SOCIAL_LEGACY,
-  mei: obtenerTiposMei(anio),
-  solidaridad: obtene / baseMaxima (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5048–5238
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- calcularCotizacionesSocialesLegacy({
-      anio,
-      salarioBrutoAnual: rendimientoIntegro,
-    }).cotizacionTrabajador / value (EUR, value); productor; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:933–1054
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- crearImporteMonetario("2364.34").minus(
-          crearImporteMonetario("1.14").mul(
-            rendimientoPrevioNeto.minus("17673.52")
-          )
-        ) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:6203–6361
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- reduccionNueva / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:4912–4926
 - datos.map(([baseInferior, cuota, tipo]) => ({
     baseInferior: new Decimal(baseInferior),
     cuota: new Decimal(cuota),
@@ -96,49 +41,13 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
       ComunidadAutonomaNoSoportada: (parametrosComunidad) =>
         Effect.fail({
           _ta / minimosAutonomicos.contribuyente.general (EUR, value); Admisión Effect/servicio pendiente; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:16362–17338
-- sumarCotizacionesSociales(
-    sumarCotizacionesSociales(cotizacionesOrdinarias, cotizacionesMei),
-    cotizacionesSolidaridad
-  ) / cotizacionTrabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8737–8867
-- anio <= 2014 ? crearImporteMonetario(2652) : IMPORTE_CERO / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1304–1361
-- comunidadAutonoma === "catalunya" && anio >= 2022 && anio <= 2024 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4100–4165
 - yield* Match.valueTags(
     resultadoParametrosComunidad,
     {
       ComunidadAutonomaNoSoportada: (parametrosComunidad) =>
         Effect.fail({
           _ta / minimosAutonomicos.contribuyente.adicionalMayor65 (selector, selection); Admisión Effect/servicio pendiente; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:16362–17338
-- 0 / value (selector, selection); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- obtenerMinimoPorDiscapacidad(
-    situacionFamiliar.discapacidad,
-    minimos.discapacidad.contribuyente
-  ) / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-discapacidad.ts:1114–1222
-- {
-  2025: {
-    empresa: ["0.0077", "0.0083", "0.0098"],
-    trabajador: ["0.0015", "0.0017", "0.0019"],
-  },
-  2026: {
-    empresa: ["0.0096", "0.0104", "0.012 / 2026.trabajador.0 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:524–752
-- {
-    base,
-    tramos: [],
-    escalasPublicadas: obtenerEscalasAhorroPublicadas(anio, componente),
-  } / base (selector, selection); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1288–1392
-- a / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:292–293
-- caso.situacionFamiliar.ascendientes / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20736–20771
 - caso / situacionFamiliar.ascendientes (selector, selection); public-input; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:9398–9402
-- base / value (EUR, value); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1294–1298
-- maximo(
-          IMPORTE_CERO,
-          crearImporteMonetario(5565).minus(
-            crearImporteMonetario("1.5").mul(rendimientoPrevioNeto.minus(13115))
-   / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3424–3603
-- escalasPublicadas / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1521–1538
-- caso.rendimientos / trabajo (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12218–12235
-- a / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:360–361
-- usaEscalaAutonomicaReal / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:18490–18513
-- gananciasPatrimoniales / gananciaSujetaGeneral (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15536–15558
 - (filas) =>
         Option.match(
           EffectArray.findLast(
@@ -146,16 +55,6 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
             (fila) =>
               base.gt(0) &&
               (fila.inferi / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1954–3046
-- a / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:2717–2718
-- reduccionNueva / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:4912–4926
-- caso / anio (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15172–15176
-- base.lte(0) / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3125–3136
-- {
-    base,
-    tramos: [],
-    escalasPublicadas: obtenerEscalasAhorroPublicadas(anio, componente),
-  } / base (EUR, value); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1288–1392
-- "0.0013" / value (EUR, value); literal; lib/dominio/laboral/cotizaciones-sociales.ts:3907–3915
 - (ganancia) =>
       calcularGananciaPatrimonialPorTransmision({
         anio,
@@ -163,47 +62,13 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
         ganancia,
         convertirCentimos,
       }) / value (selector, selection); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1477–1635
-- rendimientoPrevioNeto.lte(14450) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2814–2846
-- escalasPublicadas / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1877–1894
-- anio / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1304–1308
-- cotizacionesSociales / cotizacionTrabajador (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13275–13295
-- tiposSolidaridad[2026] / trabajador.2 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2878–2900
-- reduccionRendimientosTrabajo / value (EUR, value); productor; lib/dominio/irpf/integracion/base-imponible-general.ts:709–737
-- EffectArray.reduce(
-              tramos,
-              {
-                limiteAnterior: base.mul(0),
-                tramos: EffectArray.empty<TramoCuotaGener / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3222–4450
-- 4080 / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2209–2213
-- rendimientoPrevioNeto / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:4533–4554
-- crearImporteMonetario(3700).minus(
-          crearImporteMonetario("1.15625").mul(
-            rendimientoPrevioNeto.minus(11250)
-          )
-        ) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2868–3019
-- b / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:392–393
 - obtenerEscalasAhorroPublicadas(anio, componente) / value (selector, selection); Retornos/guardas imperativas requieren contrato: obtenerEscalasAhorroPublicadas; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1339–1387
-- medirAuditoriaSync(
-    "liquidacion.minimos.estatal",
-    () =>
-      Match.value(caso.anio).pipe(
-        Match.when(2012, () => MINIMOS_ESTATALES_2012),
-     / contribuyente.general (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12292–12674
-- calcularDesgloseCuotaPorEscala({ base, tramos, escalasPublicadas }) / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1474–1541
-- obtenerMinimoDescendientes(
-    situacionFamiliar.descendientes,
-    minimos
-  ) / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63196–63276
 - yield* Match.valueTags(
     resultadoParametrosComunidad,
     {
       ComunidadAutonomaNoSoportada: (parametrosComunidad) =>
         Effect.fail({
           _ta / minimosAutonomicos.contribuyente.general (selector, selection); Admisión Effect/servicio pendiente; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:16362–17338
-- ({
-      empresarial: crearImporteMonetario("0.0058"),
-      trabajador: crearImporteMonetario("0.0012"),
-    }) / trabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3670–3782
 - {
   comunes: {
     empresarial: crearImporteMonetario("0.236"),
@@ -217,369 +82,62 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
         anio,
         edadContribuyente,
      / gananciaSujetaAhorro (selector, selection); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1426–2362
-- "0" / value (selector, selection); literal; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2975–2978
-- cotizacionesTotales / cotizacionTrabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:9068–9087
-- {
-      situacionFamiliar: caso.situacionFamiliar,
-      anio: caso.anio,
-      minimos: parametrosComunidad.minimosAutonomicos,
-    } / minimos.contribuyente.general (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21823–21957
-- ({ empresa: ["0", "0", "0"], trabajador: ["0", "0", "0"] }) / trabajador.1 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2933–2992
-- tramos / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3256–3262
-- base / value (selector, selection); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1946–1950
-- {
-    anio,
-    edad: situacionFamiliar.edad,
-    minimos,
-  } / minimos.contribuyente.adicionalMayor65 (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:62994–63056
-- Match.value(rendimientoPrevioNeto).pipe(
-    Match.when(
-      (rendimientoPrevioNeto) => rendimientoPrevioNeto.lte(11250),
-      () => crearImporteMonetario(37 / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2594–3067
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- rendimientoPrevioNeto.minus(11250) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2963–2997
-- rendimientoTrabajo.rendimientoPrevioNeto / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15267–15307
-- situacionFamiliar / descendientes (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63470–63487
-- {
-  rendimientoIntegro,
-  rendimientoNeto: rendimientoIntegro,
-} / rendimientoNeto (EUR, value); productor; lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts:1377–1441
-- ({
-  baseMaxima: BASE_MAXIMA_COTIZACION_LEGACY[anio],
-  tiposSeguridadSocial: TIPOS_SEGURIDAD_SOCIAL_LEGACY,
-  mei: obtenerTiposMei(anio),
-  solidaridad: obtene / baseMaxima (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5048–5238
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
 - {
     _tag: "ParametrosComunidadAutonoma",
     comunidadAutonoma,
     anio: 2024,
     minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_202 / value (EUR, value); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:12420–12862
-- baseCotizacion / baseOrdinaria (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8504–8518
-- reduccionNueva.minus(reduccionAnterior) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:4912–4951
-- parametros / mei.trabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8544–8554
-- ({
-      empresarial: crearImporteMonetario("0.005"),
-      trabajador: crearImporteMonetario("0.001"),
-    }) / trabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3530–3640
-- caso.situacionFamiliar / discapacidad (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21850–21872
-- componente / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:5762–5772
-- situacionFamiliar / ascendientes (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63118–63135
 - (a, b) => b.edad - a.edad / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/minimos/minimo-descendientes.ts:1066–1091
 - crearImporte(0) / value (EUR, value); Contrato de llamada pendiente: crearImporte; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1618–1633
-- {
-    cotizacionEmpresarial: baseCotizacion.baseOrdinaria.mul(
-      parametros.mei.empresarial
-    ),
-    cotizacionTrabajador: baseCotizacion.baseOrdinaria.mu / cotizacionTrabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8375–8580
-- rendimientoPrevioNeto / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:4533–4554
-- {
-  2025: {
-    empresa: ["0.0077", "0.0083", "0.0098"],
-    trabajador: ["0.0015", "0.0017", "0.0019"],
-  },
-  2026: {
-    empresa: ["0.0096", "0.0104", "0.012 / 2025.trabajador.2 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:524–743
-- baseCotizacion / baseOrdinaria (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8899–8913
-- crearImporteMonetario(0) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- crearImporteMonetario(3700) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2868–2895
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- "0.0019" / value (EUR, value); literal; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:618–626
-- ({
-  cotizacionEmpresarial: izquierda.cotizacionEmpresarial.plus(
-    derecha.cotizacionEmpresarial
-  ),
-  cotizacionTrabajador: izquierda.cotizacionTrabajador. / cotizacionTrabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7160–7366
-- reduccionTrabajo2023(rendimientoPrevioNeto) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1847–1890
-- minimoBase.plus(incrementoMayor65) / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1560–1594
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- ({
-      empresarial: crearImporteMonetario("0.0067"),
-      trabajador: crearImporteMonetario("0.0013"),
-    }) / trabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3812–3924
-- baseCotizacion.baseOrdinaria.mul(
-      sumarTipoCotizacionLegacy(parametros, "trabajador")
-    ) / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8246–8343
-- exceso.minus(baseMaxima.mul("0.5")) / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1112–1147
-- ({
-  baseMaxima: BASE_MAXIMA_COTIZACION_LEGACY[anio],
-  tiposSeguridadSocial: TIPOS_SEGURIDAD_SOCIAL_LEGACY,
-  mei: obtenerTiposMei(anio),
-  solidaridad: obtene / solidaridad (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5048–5238
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
 - a.greaterThan(b) / value (selector, selection); Contrato de llamada pendiente: a.greaterThan; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:330–346
-- dependencias.parametrosNormativos / minimosEstatales2025.contribuyente.adicionalMayor75 (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12598–12631
-- {
-        anio: caso.anio,
-        salarioBrutoAnual: rendimientoIntegroTrabajo,
-      } / salarioBrutoAnual (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12929–13017
-- caso.derechosMinimos / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:19956–19976
-- crearImporteMonetario(5565) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3286–3313
-- ({
-  baseMaxima: BASE_MAXIMA_COTIZACION_LEGACY[anio],
-  tiposSeguridadSocial: TIPOS_SEGURIDAD_SOCIAL_LEGACY,
-  mei: obtenerTiposMei(anio),
-  solidaridad: obtene / baseMaxima (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5048–5238
-- derechosEstatales?.contribuyente ??
-    obtenerMinimoContribuyente({
-      anio: caso.anio,
-      edad: caso.situacionFamiliar.edad,
-      minimos: minimosEstat / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20458–20630
-- obtenerMinimoDiscapacidadFamiliares(
-    situacionFamiliar.descendientes,
-    minimos
-  ).plus(
-    obtenerMinimoDiscapacidadAscendientes(
-      situacionFamili / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63429–63629
-- {
-    anio: caso.anio,
-    base: baseLiquidableAhorro,
-    baseGeneral: baseLiquidableGeneral,
-    minimoEstatal: minimoPersonalYFamiliar,
-    minimoAutonomico: / minimoAutonomico (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:23082–23281
 - () => [] / value (selector, selection); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13599–13607
-- sumarRendimientosCapitalInmobiliario(
-        Option.fromNullishOr(caso.rendimientos.capitalInmobiliario).pipe(
-          Option.getOrElse(() => [])
-        ),
- / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13460–13650
 - [] / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3154–3156
-- IMPORTE_CERO / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5359–5371
-- 0 / value (EUR, value); literal; lib/dominio/irpf/integracion/base-imponible-general.ts:852–853
-- 11250 / value (EUR, value); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2991–2996
-- tipos / 1 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1218–1223
-- obtenerTiposMei(anio) / trabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5164–5185
 - [AHORRO_ORDINARIO_2012_2014] / value (selector, selection); Array completo requiere contrato por elemento; lib/dominio/irpf/cuotas/escalas-publicadas.ts:5865–5893
-- Match.value(a).pipe(
-    Match.when(
-      (a) => a.greaterThan(b),
-      () => a
-    ),
-    Match.orElse(() => b)
-  ) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:280–398
-- anio / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3491–3495
 - EffectArray.reduce(
     Object.values(parametros.tiposSeguridadSocial),
     IMPORTE_CERO,
     (suma, tipos) => suma.plus(tipoCotizacionPorLado(tipos, lado))
   ) / value (EUR, value); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/laboral/cotizaciones-sociales.ts:3252–3412
-- undefined / discapacidadContribuyente (EUR, value); literal; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:19999–20008
-- sumarCotizacionesSociales(cotizacionesOrdinarias, cotizacionesMei) / cotizacionTrabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8768–8834
-- 2020 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:6024–6028
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1370–1374
-- calcularRendimientoNetoTrabajo({
-        anio: caso.anio,
-        rendimientoIntegro: rendimientoIntegroTrabajo,
-        cotizacionTrabajador: cotizacionesSocia / rendimientoPrevioNeto (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13132–13326
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- edad >= 75 / value (selector, selection); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1439–1449
-- escalasPublicadas / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1935–1952
-- undefined / value (selector, selection); literal; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:17878–17887
-- calcularGananciasPatrimonialesPorTransmision({
-        anio: caso.anio,
-        edadContribuyente: caso.situacionFamiliar.edad,
-        ganancias: Option.fromNu / gananciaSujetaGeneral (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14024–14339
-- minimos / contribuyente.general (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63044–63051
-- {
-  baseOrdinaria: minimo(bruto, parametros.baseMaxima),
-  excesoBase: maximo(IMPORTE_CERO, bruto.minus(parametros.baseMaxima)),
-} / baseOrdinaria (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5350–5480
-- tiposSolidaridad[2025] / trabajador.0 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2826–2848
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
 - [] / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1312–1314
-- parametros.tiposSeguridadSocial / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3290–3321
 - EffectArray.reduce(ascendientes, IMPORTE_CERO, (total, ascendiente) => {
     const minimoPorEdad =
       ascendiente.edad >= 65 ||
       ascendiente.discapacida / value (EUR, value); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/irpf/minimos/minimo-ascendientes.ts:512–975
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- caso.derechosMinimos === undefined
-      ? undefined
-      : yield* calcularDerechosMinimos(
-          caso.derechosMinimos,
-          parametrosComunidad.minim / total (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20196–20423
-- cuotaSolidaridad(
-    excesoBase,
-    parametros.baseMaxima,
-    solidaridad.trabajador
-  ) / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3166–3257
-- undefined / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1899–1908
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- TIPOS_SEGURIDAD_SOCIAL_LEGACY / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5126–5155
-- Match.value(anio).pipe(
-    Match.when(2025, () => tiposSolidaridad[2025]),
-    Match.when(2026, () => tiposSolidaridad[2026]),
-    Match.orElse(
-      () => ({ / trabajador.2 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2775–3011
-- baseCotizacion.baseOrdinaria / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8246–8274
-- anio / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1738–1742
 - (estado, [limite, tipo]) => {
                 const baseRestante = Decimal.max(
                   0,
                   base.minus(estado.limiteAnterior)
         / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3429–4429
-- derecha.cotizacionTrabajador / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7330–7358
-- crearImporteMonetario("0.0013") / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3885–3916
-- maximo(
-          IMPORTE_CERO,
-          crearImporteMonetario(6498).minus(
-            crearImporteMonetario("1.14").mul(
-              rendimientoPrevioNeto. / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5341–5554
-- salarioBrutoAnual / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2522–2539
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- obtenerParametrosCotizacionLegacy(anio) / solidaridad (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7943–7982
-- IMPORTE_CERO / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3050–3062
-- "0.0017" / value (selector, selection); literal; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:608–616
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- obtenerParametrosCotizacionLegacy(anio) / mei.trabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1966–2005
 - [escalaPublicadaAutonomica] / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:17914–17941
-- {
-    baseOrdinaria: baseCotizacion.baseOrdinaria,
-    excesoBase: baseCotizacion.excesoBase,
-    cotizacionEmpresarial: cotizacionesTotales.cotizacionEmpresari / cotizacionTrabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8878–9545
 - yield* Match.valueTags(
     resultadoParametrosComunidad,
     {
       ComunidadAutonomaNoSoportada: (parametrosComunidad) =>
         Effect.fail({
           _ta / escalaAutonomicaIgualEstatal (selector, selection); Admisión Effect/servicio pendiente; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:16362–17338
-- medirAuditoriaSync(
-    "liquidacion.rendimientosTrabajo.neto",
-    () =>
-      calcularRendimientoNetoTrabajo({
-        anio: caso.anio,
-        rendimientoInt / rendimientoPrevioNeto (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13052–13330
-- minimoPersonalYFamiliarAutonomico / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:23243–23276
-- undefined / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1899–1908
-- 0 / value (EUR, value); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- "0.0019" / value (selector, selection); literal; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:706–714
-- minimoContribuyente
-    .plus(minimoDescendientes)
-    .plus(minimoAscendientes) / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63640–63720
-- {
-    base,
-    tramos: [],
-    escalasPublicadas: obtenerEscalasAhorroPublicadas(anio, componente),
-  } / base (selector, selection); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1288–1392
-- {
-  baseMaxima: BASE_MAXIMA_COTIZACION_LEGACY[anio],
-  tiposSeguridadSocial: TIPOS_SEGURIDAD_SOCIAL_LEGACY,
-  mei: obtenerTiposMei(anio),
-  solidaridad: obtener / baseMaxima (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5049–5237
-- ({ empresa: ["0", "0", "0"], trabajador: ["0", "0", "0"] }) / trabajador.0 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2933–2992
-- derechosEstatales?.discapacidadFamiliares ??
-    obtenerMinimoDiscapacidadFamiliares(
-      caso.situacionFamiliar.descendientes,
-      minimosEstatales
-    ).p / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21217–21510
 - EffectArray.reduce(
     descendientes
       .filter(
         (familiar) =>
           familiar.edad < 25 || familiar.discapacidad._tag !== "SinDiscapacidad"
      / value (selector, selection); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/irpf/minimos/minimo-descendientes.ts:886–1404
-- 5565 / value (EUR, value); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3488–3492
-- tiposSolidaridad[2026] / trabajador.0 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2878–2900
-- "2364.34" / value (EUR, value); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:6225–6234
-- 0 / value (EUR, value); literal; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:2307–2308
-- {
-      empresarial: crearImporteMonetario("0.0058"),
-      trabajador: crearImporteMonetario("0.0012"),
-    } / trabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3671–3781
-- caso.rendimientos / trabajo (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12218–12235
-- IMPORTE_CERO / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-discapacidad.ts:1835–1847
-- minimoContribuyente
-    .plus(minimoDescendientes)
-    .plus(minimoAscendientes)
-    .plus(minimoDiscapacidadContribuyente)
-    .plus(minimoDiscapacidadFamiliar / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21545–21708
-- "0.001" / value (selector, selection); literal; lib/dominio/laboral/cotizaciones-sociales.ts:3624–3631
-- reduccionAnterior.plus(
-        maximo(IMPORTE_CERO, reduccionNueva.minus(reduccionAnterior)).div(2)
-      ) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:4859–4967
 - {
   _tag: "SinSolidaridad",
 } as const satisfies PoliticaSolidaridad / value (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/laboral/cotizaciones-sociales.ts:2542–2610
-- baseOrdinaria.mul(
-    sumarTipoCotizacionLegacy(parametros, "trabajador")
-  ) / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3419–3497
-- parametros.baseMaxima / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3204–3225
 - caso / comunidadAutonoma (selector, selection); public-input; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:9398–9402
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- minimos.contribuyente.general / value (selector, selection); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1130–1159
-- Decimal.max(0, minimo.minus(Decimal.max(0, baseGeneral))) / value (selector, selection); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1866–1923
-- derechosEstatales / contribuyente (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20458–20475
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- resolverParametrosComunidadAutonoma2016(comunidadAutonoma) / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17220–17278
-- Decimal.min(
-              salarioBrutoAnual,
-              crearImporteMonetario("3803.70").mul(12)
-            ).mul(5) / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2495–2616
-- { fechaFallecimiento, rendimientoPrevioNeto } / rendimientoPrevioNeto (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1652–1697
-- escalasPublicadasAutonomicas / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:22853–22881
 - ({
           _tag: "ComunidadAutonomaNoSoportada",
           comunidadAutonoma,
           anio: 2026,
           motivo:
             "IRPF 2026 solo esta modelad / value (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16051–16416
-- crearImporteMonetario(0) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- 2018 / value (selector, selection); literal; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2362–2366
-- rendimientoPrevioNeto / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3546–3567
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- 0 / value (selector, selection); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- baseCotizacion.baseOrdinaria.mul(
-      sumarTipoCotizacionLegacy(parametros, "trabajador")
-    ) / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8246–8343
-- "3751.20" / value (selector, selection); literal; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2428–2437
-- rendimientoPrevioNeto.minus(9180) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2404–2437
-- rendimientoPrevioNeto.minus(14852) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:6043–6077
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- minimoPersonalYFamiliarAutonomico / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:22687–22720
 - caso / anio (selector, selection); public-input; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:9398–9402
-- caso / situacionFamiliar.edad (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21850–21854
-- parametros.mei / trabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8544–8558
-- tipos[1] / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1218–1226
-- rendimientoPrevioNeto / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:4533–4554
-- baseCotizacionPara(salarioBrutoAnual, parametros) / baseOrdinaria (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8008–8057
-- {
-  cotizacionEmpresarial: totalSolidaridad.mul(5).div(6),
-  cotizacionTrabajador: totalSolidaridad.div(6),
-} / cotizacionTrabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:6897–7006
-- 6498 / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5405–5409
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- ({
-  cotizacionEmpresarial: izquierda.cotizacionEmpresarial.plus(
-    derecha.cotizacionEmpresarial
-  ),
-  cotizacionTrabajador: izquierda.cotizacionTrabajador. / cotizacionTrabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7160–7366
-- 0 / value (selector, selection); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- familiares / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-discapacidad.ts:1425–1435
-- Match.value(base).pipe(
-        Match.when(
-          (base) => base.lte(0),
-          () => []
-        ),
-        Match.orElse(
-          (base) =>
-            / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3061–4468
 - EffectArray.reduce(
               tramos,
               {
                 limiteAnterior: base.mul(0),
                 tramos: EffectArray.empty<TramoCuotaGener / tramos (EUR, value); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3222–4443
-- gananciasPatrimoniales.gananciaSujetaGeneral / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15536–15580
-- rendimientoPrevioNeto / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3240–3261
-- rendimientoPrevioNeto / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5775–5796
-- Decimal.max(
-    0,
-    rendimientoTrabajo.rendimientoNeto.minus(reduccionRendimientosTrabajo ?? 0)
-  ) / value (selector, selection); productor; lib/dominio/irpf/integracion/base-imponible-general.ts:644–747
-- totalSolidaridad.div(6) / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:6980–7003
-- baseLiquidableGeneral.mul(0) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:18715–18743
 - [AHORRO_2025] / value (selector, selection); Array completo requiere contrato por elemento; lib/dominio/irpf/cuotas/escalas-publicadas.ts:6157–6170
-- escalasPublicadas / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1877–1894
 - (total, familiar) =>
     total.plus(
       obtenerMinimoPorDiscapacidad(
@@ -588,12 +146,6 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
       )
     ) / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/minimos/minimo-discapacidad.ts:1451–1610
 - [AHORRO_2021_2022] / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/irpf/cuotas/escalas-publicadas.ts:6083–6101
-- calcularDesgloseCuotaPorEscala({ base, tramos, escalasPublicadas }) / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1474–1541
-- 3700 / value (EUR, value); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2890–2894
-- anio / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5229–5233
-- resolverParametrosComunidadAutonoma2018(comunidadAutonoma) / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17418–17476
-- reduccionTrabajo2019A2022(rendimientoPrevioNeto) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:4581–4629
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
 - contexto / modo (selector, selection); public-input; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:9418–9426
 - EffectArray.reduce(
     descendientes
@@ -601,157 +153,44 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
         (familiar) =>
           familiar.edad < 25 || familiar.discapacidad._tag !== "SinDiscapacidad"
      / value (EUR, value); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/irpf/minimos/minimo-descendientes.ts:886–1404
-- reduccionAnterior / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:4933–4950
-- rendimientoPrevioNeto.lte(16825) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3370–3402
-- tiposSolidaridad / 2025.trabajador.1 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2826–2842
-- ["0.0019", "0.0021", "0.0024"] / 0 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:705–735
-- tiposSolidaridad / 2026.trabajador.1 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2878–2894
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
 - {
     _tag: "ParametrosComunidadAutonoma",
     comunidadAutonoma,
     anio: 2016,
     minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / value (selector, selection); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:8418–8860
 - {
-        anio: caso.anio,
-        salarioBrutoAnual: rendimientoIntegroTrabajo,
-      } / salarioBrutoAnual (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12929–13017
-- derecha.cotizacionTrabajador / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7330–7358
-- crearImporteMonetario("1.14").mul(
-              rendimientoPrevioNeto.minus("14047.50")
-            ) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5430–5532
-- IMPORTE_CERO / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:6392–6404
-- crearImporteMonetario(0) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- {
     _tag: "ParametrosComunidadAutonoma",
     comunidadAutonoma,
     anio: 2015,
     minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / value (selector, selection); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:7716–8193
-- GASTOS_FIJOS_IRPF_LEGACY / value (selector, selection); productor; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1159–1183
-- escalasPublicadasAutonomicas / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:22853–22881
-- crearImporteMonetario("3803.70").mul(12) / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2555–2595
-- IMPORTE_CERO / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3050–3062
-- exceso / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:917–923
-- anio === 2022 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4238–4251
-- ["0.0015", "0.0017", "0.0019"] / 0 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:597–627
-- cuotaIntegraGeneralAutonomica / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:24571–24600
-- {
-        anio: caso.anio,
-        rendimientoIntegro: rendimientoIntegroTrabajo,
-        cotizacionTrabajador: cotizacionesSociales.cotizacionTrabajador,
-      / cotizacionTrabajador (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13163–13325
-- medirAuditoriaSync(
-    "liquidacion.minimos.estatal",
-    () =>
-      Match.value(caso.anio).pipe(
-        Match.when(2012, () => MINIMOS_ESTATALES_2012),
-     / contribuyente.adicionalMayor75 (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12292–12674
 - {
     _tag: "ParametrosComunidadAutonoma",
     comunidadAutonoma,
     anio: 2018,
     minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / value (EUR, value); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:9752–10194
-- resolverParametrosComunidadAutonoma2022({
-        comunidadAutonoma,
-        fechaFallecimiento,
-      }) / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17814–17919
 - {
     _tag: "ParametrosComunidadAutonoma",
     comunidadAutonoma,
     anio: 2012,
     minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / value (selector, selection); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:5523–5930
-- minimoDiscapacidadContribuyente / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21636–21667
-- MADRID_2022 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4260–4271
-- tramos / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3256–3262
-- caso / situacionFamiliar.descendientes (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21309–21313
-- { base, tramos, escalasPublicadas } / escalasPublicadas (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1505–1540
-- baseMaxima.mul("0.4") / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1046–1067
-- baseMaxima.mul("0.1") / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:925–946
-- Decimal.max(0, exceso.minus(baseMaxima.mul("0.1"))) / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:989–1040
-- TIPOS_SEGURIDAD_SOCIAL_LEGACY / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5126–5155
-- Decimal.max(0, baseGeneral) / value (EUR, value); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1894–1921
-- 0 / value (EUR, value); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- 0 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3134–3135
-- caso.anio / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15172–15181
-- bruta / value (EUR, value); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:2322–2327
-- rendimientoPrevioNeto / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:4607–4628
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- parametros / baseMaxima (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8046–8056
-- obtenerMinimoDiscapacidadFamiliares(
-      caso.situacionFamiliar.descendientes,
-      minimosEstatales
-    ) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21266–21375
-- caso.situacionFamiliar / ascendientes (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21850–21872
-- 6498 / value (EUR, value); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5405–5409
 - {
     SinDiscapacidad: () => IMPORTE_CERO,
     Discapacidad33a64: ({ necesitaAyudaOMovilidadReducida }) =>
       necesitaAyudaOMovilidadReducida
         ? minim / value (selector, selection); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/minimos/minimo-discapacidad.ts:587–921
 - [AHORRO_2016_2020] / value (selector, selection); Array completo requiere contrato por elemento; lib/dominio/irpf/cuotas/escalas-publicadas.ts:6037–6055
-- {
-        anio: caso.anio,
-        rendimientoIntegro: rendimientoIntegroTrabajo,
-        cotizacionTrabajador: cotizacionesSociales.cotizacionTrabajador,
-      / rendimientoIntegro (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13163–13325
-- {
-        empresarial: crearImporteMonetario("0.0075"),
-        trabajador: crearImporteMonetario("0.0015"),
-      } / trabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3986–4102
-- ({
-  rendimientoIntegro,
-  rendimientoNeto: rendimientoIntegro,
-}) / rendimientoNeto (selector, selection); productor; lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts:1376–1442
-- { base, tramos, escalasPublicadas } / base (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1505–1540
-- {
-      empresarial: crearImporteMonetario("0.0058"),
-      trabajador: crearImporteMonetario("0.0012"),
-    } / trabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3671–3781
-- { empresa: ["0", "0", "0"], trabajador: ["0", "0", "0"] } / trabajador.2 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2934–2991
-- parametros / baseMaxima (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5383–5393
 - EffectArray.reduce(ascendientes, IMPORTE_CERO, (total, ascendiente) =>
     total.plus(
       obtenerMinimoPorDiscapacidad(
         ascendiente.discapacidad,
     / value (EUR, value); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/irpf/minimos/minimo-discapacidad.ts:1802–2017
-- crearImporteMonetario(5565).minus(
-            crearImporteMonetario("1.5").mul(rendimientoPrevioNeto.minus(13115))
-          ) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3466–3593
-- 0 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3134–3135
-- crearImporteMonetario("3803.70") / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2555–2587
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- {
-    anio,
-    salarioBrutoAnual,
-  } / salarioBrutoAnual (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2066–2104
-- parametros.mei.trabajador / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8544–8569
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
 - EffectArray.reduce(
     EffectArray.map(ganancias, (ganancia) =>
       calcularGananciaPatrimonialPorTransmision({
         anio,
         edadContribuyente,
      / gananciaSujetaGeneral (EUR, value); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1426–2362
-- despuesMinimo / value (EUR, value); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:2564–2577
-- comunidadAutonoma === "catalunya" && anio >= 2020 && anio <= 2021 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3996–4061
-- obtenerParametrosCotizacionLegacy(anio) / mei.trabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7943–7982
-- rendimientoCapitalInmobiliario?.rendimientoNeto / value (EUR, value); productor; lib/dominio/irpf/integracion/base-imponible-general.ts:758–805
-- 2022 / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1746–1750
-- 3700 / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2890–2894
 - (suma, tipos) => suma.plus(tipoCotizacionPorLado(tipos, lado)) / value (selector, selection); Forma AST no admitida: ArrowFunction; lib/dominio/laboral/cotizaciones-sociales.ts:3346–3408
-- obtenerParametrosCotizacionLegacy(anio) / mei.trabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7943–7982
-- Match.value(edad).pipe(
-    Match.when(
-      (edad) => edad >= 75,
-      () => minimos.contribuyente.adicionalMayor75
-    ),
-    Match.orElse(() => IMPORTE_CER / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1383–1549
-- baseCotizacion.baseOrdinaria.mul(
-      parametros.mei.trabajador
-    ) / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8504–8575
-- minimos.contribuyente / adicionalMayor75 (EUR, value); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1463–1484
-- parametrosComunidad.minimosAutonomicos / contribuyente.adicionalMayor75 (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21912–21950
 - {
   contribuyente: {
     general: importe("5151"),
@@ -760,50 +199,18 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
   },
   descendientes: {
     prim / contribuyente.general (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/normativa/datos/minimos-autonomicos-2013.ts:1072–1609
-- escalaPublicadaAutonomica === undefined
-      ? undefined
-      : [escalaPublicadaAutonomica] / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:17848–17941
-- crearImporteMonetario(0) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- rendimientoPrevioNeto.minus(13115) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3546–3580
-- 0 / value (selector, selection); literal; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1631–1632
-- ({
-  baseMaxima: BASE_MAXIMA_COTIZACION_LEGACY[anio],
-  tiposSeguridadSocial: TIPOS_SEGURIDAD_SOCIAL_LEGACY,
-  mei: obtenerTiposMei(anio),
-  solidaridad: obtene / tiposSeguridadSocial (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5048–5238
-- calcularGananciasPatrimonialesPorTransmision({
-        anio: caso.anio,
-        edadContribuyente: caso.situacionFamiliar.edad,
-        ganancias: Option.fromNu / gananciaSujetaGeneral (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14024–14339
 - yield* calcularDerechosMinimos(
           caso.derechosMinimos,
           minimosEstatales
         ).pipe(Effect.mapError(errorDerechosMinimos)) / ascendientes (EUR, value); Admisión Effect/servicio pendiente; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20017–20161
 - [AHORRO_2021_2022] / value (selector, selection); Array completo requiere contrato por elemento; lib/dominio/irpf/cuotas/escalas-publicadas.ts:6083–6101
-- {
-      empresarial: IMPORTE_CERO,
-      trabajador: IMPORTE_CERO,
-    } / trabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:4135–4207
 - EffectArray.flatMap(escalasPublicadas, (filas) =>
         Option.match(
           EffectArray.findLast(
             filas,
             (fila) =>
               b / value (EUR, value); Contrato de llamada pendiente: EffectArray.flatMap; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1915–3054
-- derechosEstatales / discapacidadFamiliares (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21217–21234
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- crearImporteMonetario("1.75").mul(rendimientoPrevioNeto.minus(14852)) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:6009–6078
-- "0.0019" / value (EUR, value); literal; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:706–714
-- "0.0021" / value (EUR, value); literal; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:716–724
-- crearImporteMonetario(4080).minus(
-          crearImporteMonetario("0.35").mul(rendimientoPrevioNeto.minus(9180))
-        ) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2325–2448
-- tiposSolidaridad / 2026.trabajador.1 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2878–2894
 - caso / rendimientos.trabajo (selector, selection); public-input; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:9398–9402
-- 0 / value (EUR, value); literal; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1556–1557
-- 2022 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4145–4149
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- 2015 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:5909–5913
 - {
   2012: importe(0),
   2013: importe(0),
@@ -813,178 +220,39 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
   2017: importe(2000),
   2018: importe(2000),
   2019 / value (EUR, value); Objeto completo: se exige propiedad de salida; lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts:1636–1975
-- baseLiquidableGeneral / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:23154–23175
-- {
-    empresa: ["0.0096", "0.0104", "0.0122"],
-    trabajador: ["0.0019", "0.0021", "0.0024"],
-  } / trabajador.2 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:642–740
-- {
-  baseOrdinaria: minimo(bruto, parametros.baseMaxima),
-  excesoBase: maximo(IMPORTE_CERO, bruto.minus(parametros.baseMaxima)),
-} / baseOrdinaria (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5350–5480
-- reduccionTrabajoHasta2014(rendimientoPrevioNeto) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1428–1476
-- situacionFamiliar / edad (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63016–63033
-- ({
-      _tag: "ConSolidaridad",
-      tipoPrimerExceso: crearImporteMonetario("0.0092"),
-      tipoSegundoExceso: crearImporteMonetario("0.0100"),
-      tipoEx / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:4395–4608
-- baseCotizacionPara(salarioBrutoAnual, parametros) / baseOrdinaria (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8008–8057
-- calcularTotalSolidaridad(baseCotizacion, parametros) / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8650–8702
-- tramos / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1513–1519
-- 0 / value (EUR, value); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- rendimientoPrevioNeto / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3546–3567
-- parametrosComunidad.minimosAutonomicos / contribuyente.adicionalMayor75 (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21912–21950
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- ({
-  baseMaxima: BASE_MAXIMA_COTIZACION_LEGACY[anio],
-  tiposSeguridadSocial: TIPOS_SEGURIDAD_SOCIAL_LEGACY,
-  mei: obtenerTiposMei(anio),
-  solidaridad: obtene / mei.trabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5048–5238
-- {
-        gananciaPatrimonialGeneral:
-          gananciasPatrimoniales.gananciaSujetaGeneral,
-        reduccionRendimientosTrabajo,
-        rendimientoCapitalIn / rendimientoTrabajo.rendimientoNeto (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15488–15695
-- minimoAutonomico / value (EUR, value); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:2738–2754
 - Match.valueTags(
     resultadoParametrosComunidad,
     {
       ComunidadAutonomaNoSoportada: (parametrosComunidad) =>
         Effect.fail({
           _tag: "Res / minimosAutonomicos.contribuyente.adicionalMayor65 (EUR, value); Contrato de llamada pendiente: Match.valueTags; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:16369–17338
-- medirAuditoriaSync(
-    "liquidacion.parametrosComunidad.obtener",
-    () =>
-      obtenerParametrosComunidadAutonomaPuro({
-        anio: caso.anio,
-        bas / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15974–16270
-- solidaridad / trabajador.2 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3231–3242
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
 - EffectArray.reduce(
     Object.values(parametros.tiposSeguridadSocial),
     IMPORTE_CERO,
     (suma, tipos) => suma.plus(tipoCotizacionPorLado(tipos, lado))
   ) / value (selector, selection); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/laboral/cotizaciones-sociales.ts:3252–3412
-- ["0.0015", "0.0017", "0.0019"] / 2 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:597–627
-- ({
-        empresarial: crearImporteMonetario("0.0075"),
-        trabajador: crearImporteMonetario("0.0015"),
-      }) / trabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3985–4103
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
 - EffectArray.reduce(familiares, IMPORTE_CERO, (total, familiar) =>
     total.plus(
       obtenerMinimoPorDiscapacidad(
         familiar.discapacidad,
         min / value (selector, selection); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/irpf/minimos/minimo-discapacidad.ts:1406–1614
-- 0 / value (selector, selection); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- obtenerMinimoContribuyente({
-      anio: caso.anio,
-      edad: caso.situacionFamiliar.edad,
-      minimos: minimosEstatales,
-    }) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20498–20630
-- baseLiquidableGeneral / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:18715–18736
-- 0 / value (selector, selection); literal; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1631–1632
-- Decimal.min(
-              salarioBrutoAnual,
-              crearImporteMonetario("3803.70").mul(12)
-            ) / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2495–2609
-- MINIMOS_ESTATALES_2014 / contribuyente.adicionalMayor75 (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12535–12557
-- {
-  cotizacionEmpresarial: izquierda.cotizacionEmpresarial.plus(
-    derecha.cotizacionEmpresarial
-  ),
-  cotizacionTrabajador: izquierda.cotizacionTrabajador.p / cotizacionTrabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7161–7365
-- baseMaxima / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1125–1135
 - EffectArray.flatMap(escalasPublicadas, (filas) =>
         Option.match(
           EffectArray.findLast(
             filas,
             (fila) =>
               b / value (EUR, value); Contrato de llamada pendiente: EffectArray.flatMap; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1915–3054
-- ({
-      empresarial: crearImporteMonetario("0.005"),
-      trabajador: crearImporteMonetario("0.001"),
-    }) / trabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3530–3640
-- calcularCuotaPorEscala({
-        base: Decimal.min(
-          minimoPersonalYFamiliarAutonomico,
-          baseLiquidableGeneral
-        ),
-        tramos: para / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:22625–22891
 - () => [] / value (selector, selection); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14276–14284
-- crearImporteMonetario(0) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- crearImporteMonetario("0.0015") / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:4062–4093
-- {
-  baseMaxima: BASE_MAXIMA_COTIZACION_LEGACY[anio],
-  tiposSeguridadSocial: TIPOS_SEGURIDAD_SOCIAL_LEGACY,
-  mei: obtenerTiposMei(anio),
-  solidaridad: obtener / solidaridad (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5049–5237
-- rendimientoPrevioNeto / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1454–1475
-- 2652 / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2501–2505
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- crearImporteMonetario(7302).minus(
-          crearImporteMonetario("1.75").mul(rendimientoPrevioNeto.minus(14852))
-        ) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5964–6088
-- tiposSolidaridad / 2025.trabajador.0 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2826–2842
-- Match.value(a.lessThan(b)).pipe(
-    Match.when(true, () => a),
-    Match.orElse(() => b)
-  ) / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:2657–2750
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- {
-  baseMaxima: BASE_MAXIMA_COTIZACION_LEGACY[anio],
-  tiposSeguridadSocial: TIPOS_SEGURIDAD_SOCIAL_LEGACY,
-  mei: obtenerTiposMei(anio),
-  solidaridad: obtener / tiposSeguridadSocial (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5049–5237
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- 0 / value (EUR, value); literal; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1631–1632
-- situacionFamiliar / discapacidad (EUR, value); productor; lib/dominio/irpf/minimos/minimo-discapacidad.ts:1148–1165
-- crearImporteMonetario(0) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- ascendientes / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-ascendientes.ts:531–543
-- exceso / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:917–923
-- calcularCuotaPorEscala({
-        base: baseLiquidableGeneral,
-        tramos: parametrosComunidad.escalaAutonomica.tramos,
-        escalasPublicadas: escalasPub / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:18520–18708
-- rendimientoCapitalInmobiliario / rendimientoNeto (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15628–15658
-- rendimientoPrevioNeto / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3162–3183
-- {
-  2025: {
-    empresa: ["0.0077", "0.0083", "0.0098"],
-    trabajador: ["0.0015", "0.0017", "0.0019"],
-  },
-  2026: {
-    empresa: ["0.0096", "0.0104", "0.012 / 2025.trabajador.0 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:524–752
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:6062–6066
 - {
     _tag: "ParametrosComunidadAutonoma",
     comunidadAutonoma,
     anio: 2020,
     minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_202 / value (EUR, value); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:11086–11528
-- IMPORTE_CERO / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3328–3340
-- sumarRendimientosTrabajo(caso.rendimientos.trabajo, centimosAEuros) / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12193–12260
 - Effect.mapError(errorDerechosMinimos) / value (EUR, value); Contrato de llamada pendiente: Effect.mapError; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20385–20422
-- rendimientoPrevioNeto / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2404–2425
-- crearImporteMonetario("0.001") / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3602–3632
-- 3700 / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2752–2756
-- salarioBrutoAnual / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8027–8044
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- {
-  baseMaxima: BASE_MAXIMA_COTIZACION_LEGACY[anio],
-  tiposSeguridadSocial: TIPOS_SEGURIDAD_SOCIAL_LEGACY,
-  mei: obtenerTiposMei(anio),
-  solidaridad: obtener / tiposSeguridadSocial (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5049–5237
-- minimoDiscapacidadContribuyente / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63731–63762
 - [AHORRO_2023_2024] / value (selector, selection); Array completo requiere contrato por elemento; lib/dominio/irpf/cuotas/escalas-publicadas.ts:6129–6147
 - {
   _tag: "SinSolidaridad",
 } as const satisfies PoliticaSolidaridad / value (selector, selection); Forma AST no admitida: SatisfiesExpression; lib/dominio/laboral/cotizaciones-sociales.ts:2542–2610
-- crearImporteMonetario(7302) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5964–5991
 - ({
           _tag: "ParametrosComunidadAutonoma",
           comunidadAutonoma,
@@ -992,48 +260,12 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
           minimoAutonomicoIgualEstatal: true,
           esc / value (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:15499–15988
 - [AHORRO_2023_2024] / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/irpf/cuotas/escalas-publicadas.ts:6129–6147
-- parametros.tiposSeguridadSocial / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3290–3321
-- rendimientoPrevioNeto.minus("14047.50") / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5479–5518
-- base / value (EUR, value); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:2026–2030
-- reduccionTrabajo2015A2017(rendimientoPrevioNeto) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1542–1590
-- minimoContribuyente
-    .plus(minimoDescendientes)
-    .plus(minimoAscendientes) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21545–21625
-- {
-    anio: caso.anio,
-    base: baseLiquidableAhorro,
-    baseGeneral: baseLiquidableGeneral,
-    minimoEstatal: minimoPersonalYFamiliar,
-    minimoAutonomico: / base (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:23082–23281
-- bruto / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5376–5381
-- anio / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:4643–4647
-- "14047.50" / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5507–5517
-- (contexto.modo === "canonico"
-        ? calcularDesgloseCotizacionesPerfilUniforme
-        : calcularDesgloseCotizacionesSocialesLegacy)({
-        anio: caso.an / cotizacionTrabajador (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12792–13018
-- IMPORTE_CERO / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-ascendientes.ts:545–557
-- rendimientoPrevioNeto / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1868–1889
-- "0.1" / value (EUR, value); literal; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:940–945
-- {
-    anio,
-    edad: situacionFamiliar.edad,
-    minimos,
-  } / minimos.contribuyente.general (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:62994–63056
-- "0.0015" / value (selector, selection); literal; lib/dominio/laboral/cotizaciones-sociales.ts:4084–4092
-- crearImporteMonetario(0) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- cotizacionAplicada / value (EUR, value); productor; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1112–1130
-- b / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:344–345
-- parametros / baseMaxima (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5383–5393
-- base.mul(0) / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1547–1558
 - {
     SinSolidaridad: () => IMPORTE_CERO,
     ConSolidaridad: (politica) =>
       Match.value(baseCotizacion.excesoBase).pipe(
         Match.when(
           (ex / value (selector, selection); Objeto completo: se exige propiedad de salida; lib/dominio/laboral/cotizaciones-sociales.ts:5640–6791
-- anio / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5180–5184
-- b / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:392–393
 - calcularDerechosMinimos(
           caso.derechosMinimos,
           parametrosComunidad.minimosAutonomicos
@@ -1041,145 +273,24 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
           caso.derechosMinimos,
           parametrosComunidad.minimosAutonomicos
         ).pipe; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20264–20423
-- medirAuditoriaSync(
-    "liquidacion.reduccionRendimientosTrabajo",
-    () =>
-      calcularReduccionTrabajoConOtrasRentas({
-        anio: caso.anio,
-        fe / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15033–15351
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- minimoDiscapacidadFamiliares / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63774–63802
-- "0.1" / value (EUR, value); literal; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1032–1037
-- rendimientoPrevioNeto / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1674–1695
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- rendimientoPrevioNeto.lte("14047.50") / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5147–5184
-- 12 / value (selector, selection); literal; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2592–2594
-- 2020 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4041–4045
-- 0 / value (EUR, value); literal; lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts:549–550
-- minimoBase.plus(incrementoMayor65) / value (selector, selection); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1560–1594
 - {
       _tag: "ConSolidaridad",
       tipoPrimerExceso: crearImporteMonetario("0.0092"),
       tipoSegundoExceso: crearImporteMonetario("0.0100"),
       tipoExc / value (EUR, value); Objeto completo: se exige propiedad de salida; lib/dominio/laboral/cotizaciones-sociales.ts:4396–4607
-- crearImporteMonetario(3700) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2868–2895
-- {
-      anio: caso.anio,
-      edad: caso.situacionFamiliar.edad,
-      minimos: minimosEstatales,
-    } / minimos.contribuyente.adicionalMayor65 (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20525–20629
 - Option.fromNullishOr(caso.rendimientos.capitalInmobiliario).pipe(
           Option.getOrElse(() => [])
         ) / value (selector, selection); Contrato de llamada pendiente: Option.fromNullishOr(caso.rendimientos.capitalInmobiliario).pipe; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13506–13618
-- incrementoMayor75 / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1600–1617
-- baseLiquidableGeneral / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:23154–23175
-- izquierda / cotizacionTrabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7289–7298
-- "0.0013" / value (selector, selection); literal; lib/dominio/laboral/cotizaciones-sociales.ts:3907–3915
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- 12 / value (selector, selection); literal; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2443–2445
-- baseCotizacion / baseOrdinaria (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8504–8518
-- 2014 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:5745–5749
-- solidaridad / trabajador.2 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3231–3242
-- ["0.0015", "0.0017", "0.0019"] / 1 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:597–627
-- 2016 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3951–3955
-- resolverParametrosComunidadAutonoma2024(comunidadAutonoma) / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:18106–18164
-- "madrid" / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4305–4313
 - (total, rendimiento) =>
     total.plus(crearImporte(rendimiento.importeIntegroCentimos)) / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1635–1723
-- Decimal.max(0, salarioBrutoAnual.minus(baseOrdinaria)) / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2698–2752
-- anio / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1220–1224
-- ({
-  cotizacionEmpresarial: izquierda.cotizacionEmpresarial.plus(
-    derecha.cotizacionEmpresarial
-  ),
-  cotizacionTrabajador: izquierda.cotizacionTrabajador. / cotizacionTrabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7160–7366
-- nombre / value (selector, selection); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:2251–2257
 - caso / situacionFamiliar.discapacidad (selector, selection); public-input; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:9398–9402
-- parametros / mei.trabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8544–8554
-- IMPORTE_CERO / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1532–1544
-- dependencias / parametrosNormativos.minimosEstatales2025.contribuyente.general (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12598–12610
-- Decimal.max(
-    0,
-    rendimientoTrabajo.rendimientoNeto.minus(reduccionRendimientosTrabajo ?? 0)
-  )
-    .plus(rendimientoCapitalInmobiliario?.rendimientoNet / value (selector, selection); productor; lib/dominio/irpf/integracion/base-imponible-general.ts:644–811
-- derechosEstatales?.discapacidadContribuyente ??
-    obtenerMinimoDiscapacidadContribuyente(
-      caso.situacionFamiliar,
-      minimosEstatales
-    ) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21023–21173
-- componente === "estatal"
-      ? [AHORRO_ORDINARIO_2012_2014, AHORRO_COMPLEMENTARIO_2012_2014]
-      : [AHORRO_ORDINARIO_2012_2014] / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:5762–5893
-- parametros.solidaridad / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5616–5638
-- desglose / cotizacionTrabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7721–7729
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- fechaFallecimiento / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4342–4360
-- solidaridad.trabajador / 1 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3231–3253
-- Match.value(rendimientoPrevioNeto).pipe(
-    Match.when(
-      (rendimientoPrevioNeto) => rendimientoPrevioNeto.lte(11250),
-      () => crearImporteMonetario(37 / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2594–3067
-- comunidadAutonoma === "catalunya" / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3996–4029
-- primerExceso / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1158–1170
 - obtenerEscalasAhorroPublicadas(anio, componente) / value (selector, selection); Retornos/guardas imperativas requieren contrato: obtenerEscalasAhorroPublicadas; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1339–1387
-- {
-    empresa: ["0.0096", "0.0104", "0.0122"],
-    trabajador: ["0.0019", "0.0021", "0.0024"],
-  } / trabajador.0 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:642–740
-- anio / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16651–16655
-- gananciasPatrimoniales / gananciaSujetaAhorro (EUR, value); productor; lib/dominio/irpf/integracion/base-imponible-ahorro.ts:315–337
-- rendimientoIntegroTrabajo / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12983–13008
-- ({
-  cotizacionEmpresarial: totalSolidaridad.mul(5).div(6),
-  cotizacionTrabajador: totalSolidaridad.div(6),
-}) / cotizacionTrabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:6896–7007
 - [AHORRO_2025] / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/irpf/cuotas/escalas-publicadas.ts:6157–6170
-- "estatal" / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:5777–5786
-- discapacidad / value (selector, selection); productor; lib/dominio/irpf/minimos/minimo-discapacidad.ts:573–585
-- crearImporteMonetario("1.15625") / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2913–2945
-- base / value (selector, selection); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:2203–2207
-- derecha.cotizacionTrabajador / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7330–7358
-- obtenerParametrosCotizacionLegacy(anio) / mei.trabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1966–2005
-- 0 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3134–3135
-- baseCotizacion.baseOrdinaria / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8246–8274
-- parametros / tiposSeguridadSocial (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8312–8322
-- {
-    cotizacionEmpresarial: baseCotizacion.baseOrdinaria.mul(
-      sumarTipoCotizacionLegacy(parametros, "empresarial")
-    ),
-    cotizacionTrabajador: baseC / cotizacionTrabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8091–8348
-- baseCotizacion / baseOrdinaria (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8899–8913
-- minimoBase.plus(incrementoMayor65).plus(incrementoMayor75) / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1560–1618
-- repartirCotizacionSolidaridad(
-    calcularTotalSolidaridad(baseCotizacion, parametros)
-  ) / cotizacionTrabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8615–8706
-- {
-    salarioBrutoAnual,
-    anio,
-  } / salarioBrutoAnual (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7584–7622
-- 5 / value (EUR, value); literal; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2614–2615
 - {
       _tag: "ConSolidaridad",
       tipoPrimerExceso: crearImporteMonetario("0.0092"),
       tipoSegundoExceso: crearImporteMonetario("0.0100"),
       tipoExc / value (EUR, value); Objeto completo: se exige propiedad de salida; lib/dominio/laboral/cotizaciones-sociales.ts:4396–4607
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- {
-        gananciaPatrimonialGeneral:
-          gananciasPatrimoniales.gananciaSujetaGeneral,
-        reduccionRendimientosTrabajo,
-        rendimientoCapitalIn / reduccionRendimientosTrabajo (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15488–15695
-- cotizacionesSociales.cotizacionTrabajador / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13275–13316
-- crearImporteMonetario("3751.20").mul(12) / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2406–2446
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4238–4242
-- b / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:2744–2745
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- calcularBaseImponibleAhorro({
-        gananciasPatrimoniales,
-      }) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15860–15930
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
 - {
   contribuyente: {
     general: importe("5151"),
@@ -1188,8 +299,6 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
   },
   descendientes: {
     prim / contribuyente.adicionalMayor75 (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/normativa/datos/minimos-autonomicos-2012.ts:1072–1609
-- BASE_MAXIMA_COTIZACION_LEGACY / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5065–5094
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
 - descendientes
       .filter(
         (familiar) =>
@@ -1201,18 +310,6 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
           familiar.edad < 25 || familiar.discapacidad._tag !== "SinDiscapacidad"
       )
       .toSorted; lib/dominio/irpf/minimos/minimo-descendientes.ts:910–1092
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- minimos.contribuyente / adicionalMayor75 (EUR, value); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1463–1484
-- derecha / cotizacionTrabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7330–7337
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- rendimientoIntegroTrabajo / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12983–13008
-- {
-  rendimientoIntegro,
-  rendimientoNeto: rendimientoIntegro,
-} / rendimientoNeto (selector, selection); productor; lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts:1377–1441
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:6108–6112
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- caso / derechosMinimos (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20196–20200
 - [
   ...filas([
     ["0", "0", ".096"],
@@ -1222,62 +319,26 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
   ]),
   {
  / value (selector, selection); Array completo requiere contrato por elemento; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3107–3406
-- crearImporteMonetario(0) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
 - Match.value(anio).pipe(
     Match.withReturnType<PoliticaSolidaridad>(),
     Match.when(2025, () => ({
       _tag: "ConSolidaridad",
       tipoPrimerExceso: cre / value (selector, selection); Matcher no admitido; lib/dominio/laboral/cotizaciones-sociales.ts:4295–4943
-- Decimal.min(
-              salarioBrutoAnual,
-              crearImporteMonetario("3803.70").mul(12)
-            ).mul(5) / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2495–2616
-- bruta.minus(
-              calcularCuotaComponenteAhorro({
-                anio,
-                base: remanente,
-                componente: nombre,
-           / value (EUR, value); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:2322–2502
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
 - (total, rendimiento) =>
       total.plus(convertirCentimosAEuros(rendimiento.importeIntegroCentimos)) / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts:557–658
-- derecha / cotizacionTrabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7330–7337
-- cotizacionTrabajadorOrdinaria
-      .plus(meiTrabajador) / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:4085–4141
-- gananciasPatrimoniales / gananciaSujetaAhorro (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15898–15920
 - (total, rendimiento) =>
     total.plus(crearImporte(rendimiento.importeIntegroCentimos)) / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1635–1723
-- minimos / contribuyente.general (EUR, value); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1130–1137
-- "0.0015" / value (selector, selection); literal; lib/dominio/laboral/cotizaciones-sociales.ts:4084–4092
 - BASE_MAXIMA_COTIZACION_LEGACY[anio] / value (EUR, value); Índice dinámico/array: requiere contrato por elemento; lib/dominio/laboral/cotizaciones-sociales.ts:5065–5100
 - {
     _tag: "ParametrosComunidadAutonoma",
     comunidadAutonoma,
     anio: 2018,
     minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / value (selector, selection); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:9752–10194
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- "0.0012" / value (selector, selection); literal; lib/dominio/laboral/cotizaciones-sociales.ts:3765–3773
-- situacionFamiliar / ascendientes (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63574–63591
-- ({
-      empresarial: IMPORTE_CERO,
-      trabajador: IMPORTE_CERO,
-    }) / trabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:4134–4208
-- calcularRendimientoNetoCapitalInmobiliarioSimplificado({
-        rendimientoIntegro: rendimientoIntegroCapitalInmobiliario,
-      }) / rendimientoNeto (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13776–13908
-- crearImporteMonetario(0) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- izquierda.cotizacionTrabajador / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7289–7319
-- rendimientoTrabajo.rendimientoNeto / value (selector, selection); productor; lib/dominio/irpf/integracion/base-imponible-general.ts:668–702
-- "canonico" / value (selector, selection); literal; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12811–12821
 - {
   2012: crearImporteMonetario("39150.0"),
   2013: crearImporteMonetario("41108.4"),
   2014: crearImporteMonetario("43164.0"),
   2015: crearImporteMonetario("4 / value (selector, selection); Objeto completo: se exige propiedad de salida; lib/dominio/normativa/datos/seguridad-social-2012-2026.ts:242–875
-- crearImporteMonetario("0.35") / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2370–2399
-- caso.anio / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13179–13188
 - (total, rendimiento) =>
     total.plus(crearImporte(rendimiento.importeIntegroCentimos)) / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1635–1723
 - descendientes
@@ -1291,103 +352,12 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
           familiar.edad < 25 || familiar.discapacidad._tag !== "SinDiscapacidad"
       )
       .toSorted; lib/dominio/irpf/minimos/minimo-descendientes.ts:910–1092
-- "17673.52" / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:6328–6338
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- caso / deduccionAutonomicaAgregadaCentimos (centimos, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:65625–65629
-- dependencias / parametrosNormativos.minimosEstatales2025.contribuyente.adicionalMayor65 (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12598–12610
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- baseCotizacion.baseOrdinaria / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8246–8274
-- salarioBrutoAnual / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8027–8044
-- minimoAutonomico / value (selector, selection); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:2738–2754
-- derechosEstatales?.ascendientes / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20664–20695
-- ({
-  baseMaxima: BASE_MAXIMA_COTIZACION_LEGACY[anio],
-  tiposSeguridadSocial: TIPOS_SEGURIDAD_SOCIAL_LEGACY,
-  mei: obtenerTiposMei(anio),
-  solidaridad: obtene / solidaridad (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5048–5238
 - obtenerEscalasAhorroPublicadas(anio, componente) / value (selector, selection); Retornos/guardas imperativas requieren contrato: obtenerEscalasAhorroPublicadas; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1339–1387
-- crearImporteMonetario(2652) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1319–1346
-- 0 / value (selector, selection); literal; lib/dominio/irpf/integracion/base-imponible-general.ts:852–853
-- {
-        base: baseLiquidableGeneral,
-        tramos: parametrosComunidad.escalaAutonomica.tramos,
-        escalasPublicadas: escalasPublicadasAutonomicas,
-    / base (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:18543–18707
-- undefined / total (selector, selection); literal; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20239–20248
-- {
-        empresarial: crearImporteMonetario("0.0075"),
-        trabajador: crearImporteMonetario("0.0015"),
-      } / trabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3986–4102
-- ["0.0019", "0.0021", "0.0024"] / 2 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:705–735
-- crearImporteMonetario("0.35").mul(rendimientoPrevioNeto.minus(9180)) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2370–2438
-- maximo(IMPORTE_CERO, reduccionNueva.minus(reduccionAnterior)).div(2) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:4891–4959
-- "0.0013" / value (selector, selection); literal; lib/dominio/laboral/cotizaciones-sociales.ts:3907–3915
-- 5565 / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3488–3492
-- {
-  baseMaxima: BASE_MAXIMA_COTIZACION_LEGACY[anio],
-  tiposSeguridadSocial: TIPOS_SEGURIDAD_SOCIAL_LEGACY,
-  mei: obtenerTiposMei(anio),
-  solidaridad: obtener / mei.trabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5049–5237
-- escalasPublicadas !== undefined
-    ? EffectArray.flatMap(escalasPublicadas, (filas) =>
-        Option.match(
-          EffectArray.findLast(
-            filas, / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1877–4468
-- crearImporteMonetario("1.14").mul(
-              rendimientoPrevioNeto.minus("14047.50")
-            ) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5430–5532
-- escalasPublicadas / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1521–1538
-- 0 / value (EUR, value); literal; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1878–1879
-- familiares / value (selector, selection); productor; lib/dominio/irpf/minimos/minimo-discapacidad.ts:1425–1435
-- parametrosComunidad.escalaAutonomicaIgualEstatal / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:18057–18105
-- minimoPersonalYFamiliar.mul(0) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:22898–22928
-- 2014 / value (selector, selection); literal; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:2105–2109
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- rendimientoPrevioNeto / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1868–1889
 - EffectArray.reduce(familiares, IMPORTE_CERO, (total, familiar) =>
     total.plus(
       obtenerMinimoPorDiscapacidad(
         familiar.discapacidad,
         min / value (EUR, value); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/irpf/minimos/minimo-discapacidad.ts:1406–1614
-- reduccionTrabajo2023(rendimientoPrevioNeto) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1847–1890
-- tiposSolidaridad / 2025.trabajador.1 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2826–2842
-- BASE_MAXIMA_COTIZACION_LEGACY / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5065–5094
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- minimos.contribuyente / general (EUR, value); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1130–1151
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- {
-    base,
-    tramos: [],
-    escalasPublicadas: obtenerEscalasAhorroPublicadas(anio, componente),
-  } / escalasPublicadas (EUR, value); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1288–1392
-- 5565 / value (EUR, value); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3308–3312
-- rendimientoTrabajo / rendimientoPrevioNeto (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15267–15285
-- BASE_MAXIMA_COTIZACION_LEGACY / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5065–5094
-- minimos / contribuyente.adicionalMayor75 (selector, selection); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1463–1470
-- minimos.contribuyente / adicionalMayor65 (EUR, value); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1268–1289
-- ["0.0019", "0.0021", "0.0024"] / 0 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:705–735
-- {
-        anio: caso.anio,
-        fechaFallecimiento: caso.fechaFallecimiento,
-        rendimientoPrevioNeto: rendimientoTrabajo.rendimientoPrevioNeto,
-        / otrasRentasNoExentas (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15156–15346
-- 11250 / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2991–2996
-- parametros / tiposSeguridadSocial (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8312–8322
-- 3700 / value (EUR, value); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2890–2894
-- {
-      situacionFamiliar: caso.situacionFamiliar,
-      anio: caso.anio,
-      minimos: parametrosComunidad.minimosAutonomicos,
-    } / situacionFamiliar.ascendientes (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21823–21957
-- derecha.cotizacionTrabajador / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7330–7358
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- Match.value(anio).pipe(
-    Match.when(2025, () => tiposSolidaridad[2025]),
-    Match.when(2026, () => tiposSolidaridad[2026]),
-    Match.orElse(
-      () => ({ / trabajador.2 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2775–3011
-- "0.5" / value (EUR, value); literal; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1140–1145
-- obtenerTiposMei(anio) / trabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5164–5185
 - calcularDerechosMinimos(
           caso.derechosMinimos,
           minimosEstatales
@@ -1395,95 +365,32 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
           caso.derechosMinimos,
           minimosEstatales
         ).pipe; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20024–20161
-- parametros / solidaridad (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5616–5626
-- reduccionAnterior / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:4810–4827
-- obtenerParametrosCotizacionLegacy(anio) / solidaridad (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7943–7982
 - {
     _tag: "ParametrosComunidadAutonoma",
     comunidadAutonoma,
     anio: 2014,
     minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / value (selector, selection); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:6891–7342
-- parametros.solidaridad / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5616–5638
-- EffectArray.reduce(
-              tramos,
-              {
-                limiteAnterior: base.mul(0),
-                tramos: EffectArray.empty<TramoCuotaGener / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3222–4450
-- 0 / value (selector, selection); literal; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1943–1944
-- caso / anio (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12375–12379
-- crearImporteMonetario("0.0013") / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3885–3916
-- 0 / value (EUR, value); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- 5565 / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3308–3312
-- baseOrdinaria.mul(
-    sumarTipoCotizacionLegacy(parametros, "trabajador")
-  ) / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3419–3497
-- a / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:292–293
-- rendimientoCapitalInmobiliario?.rendimientoNeto ?? 0 / value (selector, selection); productor; lib/dominio/irpf/integracion/base-imponible-general.ts:758–810
-- repartirCotizacionSolidaridad(
-    calcularTotalSolidaridad(baseCotizacion, parametros)
-  ) / cotizacionTrabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8615–8706
 - EffectArray.reduce(rendimientos, crearImporte(0), (total, rendimiento) =>
     total.plus(crearImporte(rendimiento.importeIntegroCentimos))
   ) / value (EUR, value); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1585–1727
-- {
-  cotizacionEmpresarial: izquierda.cotizacionEmpresarial.plus(
-    derecha.cotizacionEmpresarial
-  ),
-  cotizacionTrabajador: izquierda.cotizacionTrabajador.p / cotizacionTrabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7161–7365
-- rendimientoPrevioNeto / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1942–1963
-- Decimal.min(
-    Decimal.max(0, exceso.minus(baseMaxima.mul("0.1"))),
-    baseMaxima.mul("0.4")
-  ) / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:972–1071
-- caso / situacionFamiliar.ascendientes (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21435–21439
 - {
   2012: crearImporteMonetario("39150.0"),
   2013: crearImporteMonetario("41108.4"),
   2014: crearImporteMonetario("43164.0"),
   2015: crearImporteMonetario("4 / value (EUR, value); Objeto completo: se exige propiedad de salida; lib/dominio/normativa/datos/seguridad-social-2012-2026.ts:242–875
-- calcularReduccionTrabajoConOtrasRentas({
-        anio: caso.anio,
-        fechaFallecimiento: caso.fechaFallecimiento,
-        rendimientoPrevioNeto: rendimient / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15117–15347
-- crearImporteMonetario(0) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- minimos / contribuyente.adicionalMayor65 (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63044–63051
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- base.minus(remanente) / value (selector, selection); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:2203–2224
-- crearImporteMonetario(3700) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2868–2895
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
 - [
       componente === "estatal" ? AHORRO_2016_2020 : AHORRO_AUTONOMICO_2015,
     ] / value (selector, selection); Array completo requiere contrato por elemento; lib/dominio/irpf/cuotas/escalas-publicadas.ts:5926–6009
-- SIN_SOLIDARIDAD / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:4923–4938
-- parametros.baseMaxima / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5383–5404
-- b / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:392–393
-- IMPORTE_CERO / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:4188–4200
-- ({
-  baseMaxima: BASE_MAXIMA_COTIZACION_LEGACY[anio],
-  tiposSeguridadSocial: TIPOS_SEGURIDAD_SOCIAL_LEGACY,
-  mei: obtenerTiposMei(anio),
-  solidaridad: obtene / solidaridad (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5048–5238
-- 5 / value (selector, selection); literal; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2614–2615
-- escalasPublicadas !== undefined / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1877–1908
-- cuotaAutonomicaGeneralDespuesMinimo / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:25001–25036
 - (estado, [limite, tipo]) => {
                 const baseRestante = Decimal.max(
                   0,
                   base.minus(estado.limiteAnterior)
         / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3429–4429
-- ({
-      _tag: "ConSolidaridad",
-      tipoPrimerExceso: crearImporteMonetario("0.0092"),
-      tipoSegundoExceso: crearImporteMonetario("0.0100"),
-      tipoEx / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:4395–4608
 - datos.map(([baseInferior, cuota, tipo]) => ({
     baseInferior: new Decimal(baseInferior),
     cuota: new Decimal(cuota),
     tipo: new Decimal(tipo),
   })) / value (selector, selection); Contrato de llamada pendiente: datos.map; lib/dominio/irpf/cuotas/escalas-publicadas.ts:560–716
-- "0.001" / value (EUR, value); literal; lib/dominio/laboral/cotizaciones-sociales.ts:3624–3631
-- 0 / value (selector, selection); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- anio >= 2026 / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3959–3971
 - (ganancia) =>
       calcularGananciaPatrimonialPorTransmision({
         anio,
@@ -1491,49 +398,7 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
         ganancia,
         convertirCentimos,
       }) / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1477–1635
-- calcularRendimientoNetoCapitalInmobiliarioSimplificado({
-        rendimientoIntegro: rendimientoIntegroCapitalInmobiliario,
-      }) / rendimientoNeto (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13776–13908
-- minimoContribuyente
-    .plus(minimoDescendientes)
-    .plus(minimoAscendientes)
-    .plus(minimoDiscapacidadContribuyente) / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63640–63763
-- salarioBrutoAnual / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8027–8044
-- {
-  baseMaxima: BASE_MAXIMA_COTIZACION_LEGACY[anio],
-  tiposSeguridadSocial: TIPOS_SEGURIDAD_SOCIAL_LEGACY,
-  mei: obtenerTiposMei(anio),
-  solidaridad: obtener / mei.trabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5049–5237
-- {
-  2025: {
-    empresa: ["0.0077", "0.0083", "0.0098"],
-    trabajador: ["0.0015", "0.0017", "0.0019"],
-  },
-  2026: {
-    empresa: ["0.0096", "0.0104", "0.012 / 2026.trabajador.0 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:524–743
-- { base, tramos, escalasPublicadas } / escalasPublicadas (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1505–1540
-- rendimientoPrevioNeto.lte(16825) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3370–3402
-- resolverParametrosComunidadAutonoma2019(comunidadAutonoma) / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17517–17575
-- cotizacionesSociales / cotizacionTrabajador (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13275–13295
 - Effect.mapError(errorDerechosMinimos) / value (selector, selection); Contrato de llamada pendiente: Effect.mapError; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20385–20422
-- "0.0017" / value (EUR, value); literal; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:608–616
-- 2652 / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1341–1345
-- remanente / value (selector, selection); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:2425–2434
-- legacy.baseOrdinaria / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2656–2676
-- {
-    alcance: "analitico-doce-mensualidades-uniformes",
-    redondeoTgss: "pendiente",
-    baseOrdinaria,
-    excesoBase,
-    cotizacionEmpresarialOrdinaria,
-  / cotizacionTrabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3648–4181
-- sumarCotizacionesSociales(
-    sumarCotizacionesSociales(cotizacionesOrdinarias, cotizacionesMei),
-    cotizacionesSolidaridad
-  ) / cotizacionTrabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8737–8867
-- "0.001" / value (selector, selection); literal; lib/dominio/laboral/cotizaciones-sociales.ts:3624–3631
-- rendimientoTrabajo / rendimientoNeto (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15668–15686
-- "0.0012" / value (EUR, value); literal; lib/dominio/laboral/cotizaciones-sociales.ts:3765–3773
 - yield* Match.valueTags(
     resultadoParametrosComunidad,
     {
@@ -1545,404 +410,65 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
     Match.when(2025, () => ({
       _tag: "ConSolidaridad",
       tipoPrimerExceso: cre / value (EUR, value); Matcher no admitido; lib/dominio/laboral/cotizaciones-sociales.ts:4295–4943
-- Match.value(rendimientoPrevioNeto).pipe(
-    Match.when(
-      (rendimientoPrevioNeto) => rendimientoPrevioNeto.lte(11250),
-      () => crearImporteMonetario(37 / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2594–3067
-- tiposSolidaridad[2025] / trabajador.0 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2826–2848
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- a / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:2717–2718
-- "0.0019" / value (selector, selection); literal; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:618–626
-- SIN_SOLIDARIDAD / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:4923–4938
-- escalasPublicadas !== undefined
-    ? EffectArray.flatMap(escalasPublicadas, (filas) =>
-        Option.match(
-          EffectArray.findLast(
-            filas, / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1877–4468
-- calcularMinimoPersonalYFamiliar({
-      situacionFamiliar: caso.situacionFamiliar,
-      anio: caso.anio,
-      minimos: parametrosComunidad.minimosAutonomicos, / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21791–21958
-- 0 / value (EUR, value); literal; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1556–1557
 - {
     _tag: "ParametrosComunidadAutonoma",
     comunidadAutonoma,
     anio: 2019,
     minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / value (selector, selection); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:10419–10861
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- base / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3125–3129
-- crearImporteMonetario(5565) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3466–3493
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- ["0.0015", "0.0017", "0.0019"] / 1 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:597–627
-- Decimal.min(
-      Decimal.max(0, minimo.minus(Decimal.max(0, baseGeneral))),
-      Decimal.max(0, base)
-    ) / value (selector, selection); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1847–1957
 - ([baseInferior, cuota, tipo]) => ({
     baseInferior: new Decimal(baseInferior),
     cuota: new Decimal(cuota),
     tipo: new Decimal(tipo),
   }) / value (selector, selection); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/cuotas/escalas-publicadas.ts:570–715
 - [] / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1312–1314
-- 7302 / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5986–5990
-- ({ empresa: ["0", "0", "0"], trabajador: ["0", "0", "0"] }) as const / trabajador.0 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2933–3001
-- Match.value(rendimientoPrevioNeto).pipe(
-    Match.when(
-      (rendimientoPrevioNeto) => rendimientoPrevioNeto.lte(14852),
-      () => crearImporteMonetario(73 / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5685–6409
-- "0.0015" / value (EUR, value); literal; lib/dominio/laboral/cotizaciones-sociales.ts:4084–4092
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- anio <= 2022 / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1738–1750
 - EffectArray.reduce(familiares, IMPORTE_CERO, (total, familiar) =>
     total.plus(
       obtenerMinimoPorDiscapacidad(
         familiar.discapacidad,
         min / value (EUR, value); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/irpf/minimos/minimo-discapacidad.ts:1406–1614
-- anio >= 2026 / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:4643–4655
-- tipos / 1 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1218–1223
-- {
-  2025: {
-    empresa: ["0.0077", "0.0083", "0.0098"],
-    trabajador: ["0.0015", "0.0017", "0.0019"],
-  },
-  2026: {
-    empresa: ["0.0096", "0.0104", "0.012 / 2025.trabajador.0 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:524–743
-- medirAuditoriaSync(
-    "liquidacion.gananciasPatrimoniales",
-    () =>
-      calcularGananciasPatrimonialesPorTransmision({
-        anio: caso.anio,
-        ed / gananciaSujetaAhorro (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13946–14343
-- "0" / value (EUR, value); literal; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2980–2983
-- tramos / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3256–3262
-- 0 / value (EUR, value); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- Match.value(edad).pipe(
-    Match.when(
-      (edad) => edad >= 75,
-      () => minimos.contribuyente.adicionalMayor75
-    ),
-    Match.orElse(() => IMPORTE_CER / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1383–1549
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- "0.0012" / value (selector, selection); literal; lib/dominio/laboral/cotizaciones-sociales.ts:3765–3773
-- 0 / value (selector, selection); literal; lib/dominio/dinero/importe-monetario.ts:492–493
 - [AHORRO_ORDINARIO_2012_2014] / value (selector, selection); Array completo requiere contrato por elemento; lib/dominio/irpf/cuotas/escalas-publicadas.ts:5865–5893
-- minimos / contribuyente.adicionalMayor75 (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63044–63051
-- anio / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2353–2357
-- cuotaSolidaridad(
-    excesoBase,
-    parametros.baseMaxima,
-    solidaridad.trabajador
-  ) / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3166–3257
-- tipos[0] / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1180–1188
-- {
-      empresarial: IMPORTE_CERO,
-      trabajador: IMPORTE_CERO,
-    } / trabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:4135–4207
-- primerExceso
-    .mul(tipos[0])
-    .plus(segundoExceso.mul(tipos[1])) / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1158–1228
-- rendimientoPrevioNeto / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2404–2425
 - Option.getOrElse(() => []) / value (selector, selection); Contrato de llamada pendiente: Option.getOrElse; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13582–13608
-- minimoContribuyente
-    .plus(minimoDescendientes) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21545–21595
-- caso.situacionFamiliar.ascendientes / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21435–21470
 - caso / situacionFamiliar.edad (selector, selection); public-input; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:9398–9402
-- minimoDescendientes / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63670–63689
-- ["0", "0", "0"] / 0 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2974–2989
-- ({ empresa: ["0", "0", "0"], trabajador: ["0", "0", "0"] }) / trabajador.2 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2933–2992
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- {
-      anio,
-      salarioBrutoAnual: rendimientoIntegro,
-    } / salarioBrutoAnual (EUR, value); productor; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:968–1032
-- 13260 / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2297–2302
-- { base, tramos, escalasPublicadas } / escalasPublicadas (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1505–1540
-- crearImporteMonetario(4080) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2325–2352
-- caso.situacionFamiliar / descendientes (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21850–21872
-- {
-      situacionFamiliar: caso.situacionFamiliar,
-      anio: caso.anio,
-      minimos: parametrosComunidad.minimosAutonomicos,
-    } / situacionFamiliar.edad (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21823–21957
-- 2 / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:4957–4958
-- Match.value(comunidadAutonoma).pipe(
-    Match.when(
-      "simulada-estatal",
-      () =>
-        ({
-          _tag: "ParametrosComunidadAutonoma",
-          c / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:15400–16426
-- edad / value (selector, selection); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1200–1204
 - [AHORRO_2021_2022] / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/irpf/cuotas/escalas-publicadas.ts:6083–6101
 - Match.valueTags(parametros.solidaridad, {
     SinSolidaridad: () => IMPORTE_CERO,
     ConSolidaridad: (politica) =>
       Match.value(baseCotizacion.excesoBase) / value (EUR, value); Contrato de llamada pendiente: Match.valueTags; lib/dominio/laboral/cotizaciones-sociales.ts:5600–6792
-- escalasPublicadas / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1521–1538
-- {
-        gananciasPatrimoniales,
-      } / gananciasPatrimoniales.gananciaSujetaAhorro (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15888–15929
-- {
-  2025: {
-    empresa: ["0.0077", "0.0083", "0.0098"],
-    trabajador: ["0.0015", "0.0017", "0.0019"],
-  },
-  2026: {
-    empresa: ["0.0096", "0.0104", "0.012 / 2025.trabajador.1 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:524–743
-- minimo(bruto, parametros.baseMaxima) / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5369–5405
-- baseCotizacion.baseOrdinaria / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8504–8532
-- derechosEstatales?.descendientes ??
-    obtenerMinimoDescendientes(
-      caso.situacionFamiliar.descendientes,
-      minimosEstatales
-    ) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20836–20976
-- crearImporteMonetario(0) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- medirAuditoriaSync(
-    "liquidacion.baseImponibleAhorro",
-    () =>
-      calcularBaseImponibleAhorro({
-        gananciasPatrimoniales,
-      })
-  ) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15785–15934
-- crearImporteMonetario(5565) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3466–3493
-- resolverParametrosComunidadAutonoma2019(comunidadAutonoma) / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17517–17575
-- {
-    rendimientoIntegro,
-    cotizacionTrabajador: cotizacionAplicada,
-    rendimientoPrevioNeto,
-    gastosDeducibles,
-    rendimientoNeto: Decimal.max(
-      / rendimientoNeto (selector, selection); productor; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1200–1426
-- minimoContribuyente
-    .plus(minimoDescendientes)
-    .plus(minimoAscendientes)
-    .plus(minimoDiscapacidadContribuyente) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21545–21668
 - (total, descendiente, indice) => {
       const incrementoMenorTres =
         descendiente.edad < 3
           ? minimos.descendientes.adicionalMenorTres
          / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/minimos/minimo-descendientes.ts:1116–1400
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:6108–6112
-- base / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1507–1511
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
 - (total, tramo) => total.plus(tramo.cuota) / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1564–1605
-- derecha.cotizacionTrabajador / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7330–7358
-- derecha.cotizacionTrabajador / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7330–7358
-- 0 / value (selector, selection); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- sumarRendimientosTrabajo(caso.rendimientos.trabajo, centimosAEuros) / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12193–12260
-- ["0.0019", "0.0021", "0.0024"] / 1 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:705–735
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- medirAuditoriaSync(
-    "liquidacion.capitalInmobiliario.sumar",
-    () =>
-      sumarRendimientosCapitalInmobiliario(
-        Option.fromNullishOr(caso.rendimi / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13379–13654
 - crearImporte(0) / value (selector, selection); Contrato de llamada pendiente: crearImporte; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1618–1633
-- filas([
-  ["0", "0", ".085"],
-  ["12960.45", "1101.64", ".107"],
-  ["18433.20", "1687.22", ".128"],
-  ["34360.50", "3725.91", ".174"],
-  ["55596.90", "7421.04", / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:2539–2711
-- resolverParametrosComunidadAutonoma2013(comunidadAutonoma) / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16795–16853
-- "0.0013" / value (EUR, value); literal; lib/dominio/laboral/cotizaciones-sociales.ts:3907–3915
 - obtenerEscalasAhorroPublicadas(anio, componente) / value (EUR, value); Retornos/guardas imperativas requieren contrato: obtenerEscalasAhorroPublicadas; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1339–1387
 - {
                 limiteAnterior: base.mul(0),
                 tramos: EffectArray.empty<TramoCuotaGeneralCalculado>(),
               } / value (EUR, value); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3278–3413
-- 0 / value (selector, selection); literal; lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts:549–550
-- Decimal.max(
-    0,
-    cuotaIntegraGeneralAutonomica.minus(cuotaMinimoPersonalAutonomica)
-  ) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:24547–24641
-- crearImporteMonetario(0) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- baseOrdinaria / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3593–3606
-- crearImporteMonetario(4080) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2187–2214
-- baseOrdinaria.mul(parametros.mei.trabajador) / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3593–3637
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3943–3947
-- undefined / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1899–1908
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- Match.value(rendimientoPrevioNeto).pipe(
-    Match.when(
-      (rendimientoPrevioNeto) => rendimientoPrevioNeto.lte(11250),
-      () => crearImporteMonetario(37 / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2594–3067
-- minimos.contribuyente.adicionalMayor65 / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1268–1306
-- caso / fechaFallecimiento (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:17799–17803
-- IMPORTE_CERO / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3442–3454
-- ({
-  baseMaxima: BASE_MAXIMA_COTIZACION_LEGACY[anio],
-  tiposSeguridadSocial: TIPOS_SEGURIDAD_SOCIAL_LEGACY,
-  mei: obtenerTiposMei(anio),
-  solidaridad: obtene / tiposSeguridadSocial (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5048–5238
-- anio / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3959–3963
-- parametros.mei.trabajador / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8544–8569
-- Decimal.min(salarioBrutoAnual, crearImporteMonetario("3751.20").mul(12)) / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2375–2447
-- rendimientoPrevioNeto.lte(11250) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2684–2716
-- "3803.70" / value (selector, selection); literal; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2577–2586
-- obtenerParametrosCotizacionLegacy(anio) / mei.trabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7943–7982
-- "andalucia" / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3784–3795
-- ({
-  baseMaxima: BASE_MAXIMA_COTIZACION_LEGACY[anio],
-  tiposSeguridadSocial: TIPOS_SEGURIDAD_SOCIAL_LEGACY,
-  mei: obtenerTiposMei(anio),
-  solidaridad: obtene / baseMaxima (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5048–5238
-- {
-  cotizacionEmpresarial: totalSolidaridad.mul(5).div(6),
-  cotizacionTrabajador: totalSolidaridad.div(6),
-} / cotizacionTrabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:6897–7006
-- rendimientoCapitalInmobiliario / rendimientoNeto (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14607–14637
 - EffectArray.reduce(ascendientes, IMPORTE_CERO, (total, ascendiente) =>
     total.plus(
       obtenerMinimoPorDiscapacidad(
         ascendiente.discapacidad,
     / value (EUR, value); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/irpf/minimos/minimo-discapacidad.ts:1802–2017
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- caso / deduccionAutonomicaAgregadaCentimos (centimos, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:24856–24860
-- familiares / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-discapacidad.ts:1425–1435
-- {
-  2025: {
-    empresa: ["0.0077", "0.0083", "0.0098"],
-    trabajador: ["0.0015", "0.0017", "0.0019"],
-  },
-  2026: {
-    empresa: ["0.0096", "0.0104", "0.012 / 2026.trabajador.0 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:524–752
 - [AHORRO_2025] / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/irpf/cuotas/escalas-publicadas.ts:6157–6170
-- comunidadAutonoma === "comunitat-valenciana" &&
-    anio >= 2014 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3871–3935
-- {
-  2025: {
-    empresa: ["0.0077", "0.0083", "0.0098"],
-    trabajador: ["0.0015", "0.0017", "0.0019"],
-  },
-  2026: {
-    empresa: ["0.0096", "0.0104", "0.012 / 2025.trabajador.1 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:524–752
-- obtenerMinimoContribuyente({
-    anio,
-    edad: situacionFamiliar.edad,
-    minimos,
-  }) / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:62967–63057
-- minimos.contribuyente.adicionalMayor75 / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1463–1501
-- ({
-      empresarial: crearImporteMonetario("0.005"),
-      trabajador: crearImporteMonetario("0.001"),
-    }) / trabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3530–3640
-- crearImporteMonetario("1.5") / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3513–3541
-- base.lte(0) / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3125–3136
-- gananciasPatrimoniales.gananciaSujetaAhorro / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14720–14763
-- rendimientoPrevioNeto.lte(14852) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5775–5807
-- {
-      empresarial: crearImporteMonetario("0.005"),
-      trabajador: crearImporteMonetario("0.001"),
-    } / trabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3531–3639
-- anio >= 2026 / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3959–3971
-- minimos.contribuyente.adicionalMayor75 / value (selector, selection); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1463–1501
-- minimoAscendientes / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63701–63719
-- ({
-  baseMaxima: BASE_MAXIMA_COTIZACION_LEGACY[anio],
-  tiposSeguridadSocial: TIPOS_SEGURIDAD_SOCIAL_LEGACY,
-  mei: obtenerTiposMei(anio),
-  solidaridad: obtene / mei.trabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5048–5238
-- componente / value (selector, selection); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1376–1386
-- excesoRestante.mul(tipos[2]) / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1239–1267
-- {
-      empresarial: IMPORTE_CERO,
-      trabajador: IMPORTE_CERO,
-    } / trabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:4135–4207
-- dependencias.parametrosNormativos / minimosEstatales2025.contribuyente.adicionalMayor65 (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12598–12631
-- minimos / contribuyente.adicionalMayor65 (EUR, value); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1268–1275
-- medirAuditoriaSync(
-    "liquidacion.rendimientosTrabajo.sumar",
-    () => sumarRendimientosTrabajo(caso.rendimientos.trabajo, centimosAEuros)
-  ) / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12118–12264
-- solidaridad.trabajador / 2 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3231–3253
-- parametros / tiposSeguridadSocial (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8312–8322
-- 11250 / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2710–2715
 - convertirCentimosAEuros(0) / value (EUR, value); Contrato de llamada pendiente: convertirCentimosAEuros; lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts:525–551
-- Match.value(edad).pipe(
-    Match.when(
-      (edad) => edad >= 65,
-      () => minimos.contribuyente.adicionalMayor65
-    ),
-    Match.orElse(() => IMPORTE_CER / value (selector, selection); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1188–1354
 - {
     _tag: "ParametrosComunidadAutonoma",
     comunidadAutonoma,
     anio: 2022,
     minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_202 / value (EUR, value); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:14053–14536
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- Match.value(rendimientoPrevioNeto).pipe(
-    Match.when(
-      (rendimientoPrevioNeto) => rendimientoPrevioNeto.lte(11250),
-      () => crearImporteMonetario(37 / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2594–3067
-- situacionFamiliar / discapacidad (EUR, value); productor; lib/dominio/irpf/minimos/minimo-discapacidad.ts:1148–1165
-- izquierda.cotizacionTrabajador.plus(
-    derecha.cotizacionTrabajador
-  ) / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7289–7362
-- rendimientos / value (EUR, value); productor; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1604–1616
-- baseMaxima / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:925–935
-- {
-            anio,
-            base: Decimal.max(0, base.minus(remanente)),
-            componente: nombre,
-          } / anio (selector, selection); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:2150–2270
-- anio <= 2022 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:6062–6074
-- ahorroConMinimos / autonomico.despuesMinimo (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:25053–25069
-- ({
-  baseOrdinaria: minimo(bruto, parametros.baseMaxima),
-  excesoBase: maximo(IMPORTE_CERO, bruto.minus(parametros.baseMaxima)),
-}) / baseOrdinaria (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5349–5481
-- obtenerMinimoAscendientes(
-      caso.situacionFamiliar.ascendientes,
-      minimosEstatales
-    ) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20703–20801
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- {
-      situacionFamiliar: caso.situacionFamiliar,
-      anio: caso.anio,
-      minimos: parametrosComunidad.minimosAutonomicos,
-    } / situacionFamiliar.discapacidad (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21823–21957
-- a / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:292–293
-- parametros.mei / trabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3611–3625
-- crearImporteMonetario("1.15625") / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2913–2945
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- obtenerMinimoDescendientes(
-      caso.situacionFamiliar.descendientes,
-      minimosEstatales
-    ) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20876–20976
-- baseOrdinaria / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2737–2750
 - {
                 limiteAnterior: base.mul(0),
                 tramos: EffectArray.empty<TramoCuotaGeneralCalculado>(),
               } / value (EUR, value); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3278–3413
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- crearImporteMonetario("1.14") / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:6253–6282
-- 13115 / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3574–3579
-- Match.value(rendimientoPrevioNeto).pipe(
-    Match.when(
-      (rendimientoPrevioNeto) => rendimientoPrevioNeto.lte(13115),
-      () => crearImporteMonetario(55 / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3150–3651
 - [AHORRO_2025] / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/irpf/cuotas/escalas-publicadas.ts:6157–6170
-- 0 / value (EUR, value); literal; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1631–1632
-- ({
-  baseOrdinaria: minimo(bruto, parametros.baseMaxima),
-  excesoBase: maximo(IMPORTE_CERO, bruto.minus(parametros.baseMaxima)),
-}) / baseOrdinaria (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5349–5481
-- ({
-  baseOrdinaria: minimo(bruto, parametros.baseMaxima),
-  excesoBase: maximo(IMPORTE_CERO, bruto.minus(parametros.baseMaxima)),
-}) / baseOrdinaria (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5349–5481
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- baseCotizacion / baseOrdinaria (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8504–8518
 - Match.valueTags(
     resultadoParametrosComunidad,
     {
       ComunidadAutonomaNoSoportada: (parametrosComunidad) =>
         Effect.fail({
           _tag: "Res / minimosAutonomicos.contribuyente.adicionalMayor65 (selector, selection); Contrato de llamada pendiente: Match.valueTags; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:16369–17338
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
 - yield* calcularDerechosMinimos(
           caso.derechosMinimos,
           minimosEstatales
@@ -1954,8 +480,6 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
           caso.derechosMinimos,
           minimosEstatales
         ).pipe; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20024–20161
-- rendimientoCapitalInmobiliario.rendimientoNeto
-    .plus(gananciasPatrimoniales.gananciaSujetaGeneral) / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14607–14709
 - Match.value(anio).pipe(
     Match.withReturnType<PoliticaSolidaridad>(),
     Match.when(2025, () => ({
@@ -1964,106 +488,20 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
 - {
   _tag: "SinSolidaridad",
 } as const satisfies PoliticaSolidaridad / value (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/laboral/cotizaciones-sociales.ts:2542–2610
-- salarioBrutoAnual / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8027–8044
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:18344–18361
-- MINIMOS_ESTATALES_2013 / contribuyente.adicionalMayor75 (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12479–12501
 - [
       componente === "estatal" ? AHORRO_2016_2020 : AHORRO_AUTONOMICO_2015,
     ] / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/irpf/cuotas/escalas-publicadas.ts:5926–6009
-- obtenerMinimoDiscapacidadAscendientes(
-      situacionFamiliar.ascendientes,
-      minimos
-    ) / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63529–63625
-- parametrosComunidad.escalaAutonomica.tramos / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:18598–18641
-- comunidadAutonoma === "murcia" &&
-    anio === 2022 &&
-    fechaFallecimiento === undefined / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4497–4588
-- crearImporteMonetario("0.0012") / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3743–3774
-- anio <= 2024 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:6108–6120
-- Decimal.max(
-    0,
-    rendimientoTrabajo.rendimientoNeto.minus(reduccionRendimientosTrabajo ?? 0)
-  ) / value (EUR, value); productor; lib/dominio/irpf/integracion/base-imponible-general.ts:644–747
-- 14852 / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:6071–6076
-- {
-        empresarial: crearImporteMonetario("0.0075"),
-        trabajador: crearImporteMonetario("0.0015"),
-      } / trabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3986–4102
-- { empresa: ["0", "0", "0"], trabajador: ["0", "0", "0"] } / trabajador.2 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2934–2991
-- Match.value(anio).pipe(
-    Match.when(2025, () => tiposSolidaridad[2025]),
-    Match.when(2026, () => tiposSolidaridad[2026]),
-    Match.orElse(
-      () => ({ / trabajador.1 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2775–3011
-- 0 / value (EUR, value); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- solidaridad / trabajador.0 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3231–3242
-- crearImporteMonetario(0) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- {
-      situacionFamiliar: caso.situacionFamiliar,
-      anio: caso.anio,
-      minimos: parametrosComunidad.minimosAutonomicos,
-    } / situacionFamiliar.ascendientes (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21823–21957
-- ["0", "0", "0"] / 1 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2974–2989
 - {
     _tag: "ParametrosComunidadAutonoma",
     comunidadAutonoma,
     anio: 2014,
     minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / value (EUR, value); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:6891–7342
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- 9180 / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2168–2172
-- rendimientoIntegro.minus(cotizacionAplicada) / value (EUR, value); productor; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1087–1131
-- 0 / value (selector, selection); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- caso.derechosMinimos === undefined
-      ? undefined
-      : yield* calcularDerechosMinimos(
-          caso.derechosMinimos,
-          minimosEstatales
-         / discapacidadFamiliares (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:19956–20161
-- {
-        gananciaPatrimonialGeneral:
-          gananciasPatrimoniales.gananciaSujetaGeneral,
-        reduccionRendimientosTrabajo,
-        rendimientoCapitalIn / gananciaPatrimonialGeneral (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15488–15695
-- situacionFamiliar / discapacidad (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63362–63379
-- 0 / value (selector, selection); literal; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1631–1632
 - () => [] / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13599–13607
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:2164–2168
-- solidaridad.trabajador / 2 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3231–3253
-- rendimientoPrevioNeto / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1568–1589
-- cotizacionesTotales / cotizacionTrabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:9068–9087
-- caso.deduccionAutonomicaAgregadaCentimos ?? 0 / value (centimos, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:65625–65670
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- ganancias / value (selector, selection); productor; lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1466–1475
-- parametros / solidaridad (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5616–5626
 - {
       ComunidadAutonomaNoSoportada: (parametrosComunidad) =>
         Effect.fail({
           _tag: "ResultadoNoSoportado",
           motivo: parametrosComunid / value (selector, selection); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:16424–17334
-- IMPORTE_CERO / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:4898–4910
-- minimoContribuyente / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63640–63659
-- {
-        anio: caso.anio,
-        fechaFallecimiento: caso.fechaFallecimiento,
-        rendimientoPrevioNeto: rendimientoTrabajo.rendimientoPrevioNeto,
-        / anio (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15156–15346
-- {
-  2025: {
-    empresa: ["0.0077", "0.0083", "0.0098"],
-    trabajador: ["0.0015", "0.0017", "0.0019"],
-  },
-  2026: {
-    empresa: ["0.0096", "0.0104", "0.012 / 2026.trabajador.1 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:524–743
-- minimoContribuyente / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63640–63659
-- crearImporteMonetario(7302) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5821–5848
-- {
-    cotizacionEmpresarial: baseCotizacion.baseOrdinaria.mul(
-      parametros.mei.empresarial
-    ),
-    cotizacionTrabajador: baseCotizacion.baseOrdinaria.mu / cotizacionTrabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8375–8580
 - {
   contribuyente: {
     general: importe("5151"),
@@ -2072,179 +510,23 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
   },
   descendientes: {
     prim / contribuyente.adicionalMayor65 (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/normativa/datos/minimos-autonomicos-2012.ts:1072–1609
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- "0.0012" / value (EUR, value); literal; lib/dominio/laboral/cotizaciones-sociales.ts:3765–3773
-- 0 / value (EUR, value); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- cotizacionTrabajadorOrdinaria / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:4085–4114
-- legacy / baseOrdinaria (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2656–2662
-- solidaridad / trabajador.1 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3231–3242
 - {
       _tag: "ConSolidaridad",
       tipoPrimerExceso: crearImporteMonetario("0.0092"),
       tipoSegundoExceso: crearImporteMonetario("0.0100"),
       tipoExc / value (selector, selection); Objeto completo: se exige propiedad de salida; lib/dominio/laboral/cotizaciones-sociales.ts:4396–4607
-- minimoContribuyente
-    .plus(minimoDescendientes)
-    .plus(minimoAscendientes)
-    .plus(minimoDiscapacidadContribuyente)
-    .plus(minimoDiscapacidadFamiliar / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63640–63803
-- crearImporteMonetario("3803.70") / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2555–2587
-- resolverParametrosComunidadAutonoma2023({
-        comunidadAutonoma,
-        fechaFallecimiento,
-      }) / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17960–18065
-- 7302 / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5843–5847
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- caso.derechosMinimos / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20196–20216
-- {
-      empresarial: crearImporteMonetario("0.0067"),
-      trabajador: crearImporteMonetario("0.0013"),
-    } / trabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3813–3923
-- componente === "estatal"
-      ? [AHORRO_ORDINARIO_2012_2014, AHORRO_COMPLEMENTARIO_2012_2014]
-      : [AHORRO_ORDINARIO_2012_2014] / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:5762–5893
-- 0 / value (EUR, value); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- Match.value(comunidadAutonoma).pipe(
-    Match.when(
-      "simulada-estatal",
-      () =>
-        ({
-          _tag: "ParametrosComunidadAutonoma",
-          c / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:15400–16426
-- crearImporteMonetario("0.0015") / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:4062–4093
-- crearImporteMonetario("1.75") / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:6009–6038
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- resolverParametrosComunidadAutonoma2024(comunidadAutonoma) / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:18106–18164
-- {
-        base: Decimal.min(
-          minimoPersonalYFamiliarAutonomico,
-          baseLiquidableGeneral
-        ),
-        tramos: parametrosComunidad.escalaA / escalasPublicadas (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:22648–22890
-- parametros / tiposSeguridadSocial (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3290–3300
-- {
-  cotizacionEmpresarial: totalSolidaridad.mul(5).div(6),
-  cotizacionTrabajador: totalSolidaridad.div(6),
-} / cotizacionTrabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:6897–7006
-- cotizacionesOrdinarias / cotizacionTrabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8794–8816
-- usaEscalaAutonomicaReal
-    ? calcularCuotaPorEscala({
-        base: Decimal.min(
-          minimoPersonalYFamiliarAutonomico,
-          baseLiquidableGeneral
-  / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:22595–22928
-- {
-    baseOrdinaria: baseCotizacion.baseOrdinaria,
-    excesoBase: baseCotizacion.excesoBase,
-    cotizacionEmpresarial: cotizacionesTotales.cotizacionEmpresari / cotizacionTrabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8878–9545
-- {
-    base,
-    tramos: [],
-    escalasPublicadas: obtenerEscalasAhorroPublicadas(anio, componente),
-  } / escalasPublicadas (selector, selection); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1288–1392
-- baseMaxima / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1046–1056
-- parametros.solidaridad / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5616–5638
-- "comunitat-valenciana" / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3893–3915
-- ({
-  baseMaxima: BASE_MAXIMA_COTIZACION_LEGACY[anio],
-  tiposSeguridadSocial: TIPOS_SEGURIDAD_SOCIAL_LEGACY,
-  mei: obtenerTiposMei(anio),
-  solidaridad: obtene / tiposSeguridadSocial (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5048–5238
-- {
-    anio,
-    salarioBrutoAnual,
-  } / salarioBrutoAnual (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2066–2104
-- usaEscalaAutonomicaReal / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:22595–22618
-- "0" / value (selector, selection); literal; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2980–2983
-- reduccionTrabajoDesde2024(rendimientoPrevioNeto) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1916–1964
-- reduccionTrabajo2015A2017(rendimientoPrevioNeto) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:4507–4555
-- {
-                anio,
-                base: remanente,
-                componente: nombre,
-              } / base (EUR, value); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:2379–2487
-- crearImporteMonetario(0) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:470–494
 - {
   2012: crearImporteMonetario("39150.0"),
   2013: crearImporteMonetario("41108.4"),
   2014: crearImporteMonetario("43164.0"),
   2015: crearImporteMonetario("4 / value (EUR, value); Objeto completo: se exige propiedad de salida; lib/dominio/normativa/datos/seguridad-social-2012-2026.ts:242–875
-- crearImporteMonetario("1.14") / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5430–5459
-- "0" / value (selector, selection); literal; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2985–2988
-- parametrosComunidad.escalaAutonomica / tramos (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:22781–22817
-- IMPORTE_CERO / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5585–5597
 - caso / anio (selector, selection); public-input; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:9398–9402
-- primerExceso
-    .mul(tipos[0])
-    .plus(segundoExceso.mul(tipos[1]))
-    .plus(excesoRestante.mul(tipos[2])) / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1158–1268
-- baseLiquidableGeneral / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:18559–18580
-- undefined / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1899–1908
-- baseCotizacionPara(salarioBrutoAnual, parametros) / baseOrdinaria (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8008–8057
-- caso / derechosMinimos (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:19956–19960
-- "0.0024" / value (EUR, value); literal; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:726–734
-- comunidadAutonoma === "andalucia" && anio >= 2012 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3762–3811
-- filas([
-  ["0", "0", ".119"],
-  ["17707.20", "2107.16", ".1392"],
-  ["33007.20", "4236.92", ".1845"],
-  ["53407.20", "8000.72", ".2148"],
-  ["120000.20", "22304 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:1688–1904
-- Match.value(rendimientoPrevioNeto).pipe(
-    Match.when(
-      (rendimientoPrevioNeto) => rendimientoPrevioNeto.lte(9180),
-      () => crearImporteMonetario(408 / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2052–2511
 - {
     SinSolidaridad: () => IMPORTE_CERO,
     ConSolidaridad: (politica) =>
       Match.value(baseCotizacion.excesoBase).pipe(
         Match.when(
           (ex / value (EUR, value); Objeto completo: se exige propiedad de salida; lib/dominio/laboral/cotizaciones-sociales.ts:5640–6791
-- undefined / value (selector, selection); literal; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:19981–19990
-- crearImporteMonetario(0) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- base / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1507–1511
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- contexto.modo === "canonico" / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12793–12821
-- calcularGananciasPatrimonialesPorTransmision({
-        anio: caso.anio,
-        edadContribuyente: caso.situacionFamiliar.edad,
-        ganancias: Option.fromNu / gananciaSujetaAhorro (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14024–14339
-- 0 / value (EUR, value); literal; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:18741–18742
-- 0 / value (EUR, value); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- 0 / value (selector, selection); literal; lib/dominio/irpf/integracion/base-imponible-general.ts:809–810
-- rendimientoTrabajo.rendimientoNeto.minus(reduccionRendimientosTrabajo ?? 0) / value (selector, selection); productor; lib/dominio/irpf/integracion/base-imponible-general.ts:668–743
-- "1.5" / value (EUR, value); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3535–3540
-- legacy / baseOrdinaria (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2656–2662
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- 0 / value (selector, selection); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- ({
-      empresarial: crearImporteMonetario("0.0058"),
-      trabajador: crearImporteMonetario("0.0012"),
-    }) / trabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3670–3782
-- ["0", "0", "0"] / 0 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2974–2989
-- {
-      situacionFamiliar: caso.situacionFamiliar,
-      anio: caso.anio,
-      minimos: parametrosComunidad.minimosAutonomicos,
-    } / minimos.contribuyente.adicionalMayor65 (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21823–21957
-- gananciasPatrimoniales / gananciaSujetaAhorro (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14720–14742
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- rendimientoIntegro.minus(cotizacionAplicada) / value (selector, selection); productor; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1087–1131
-- "1.15625" / value (EUR, value); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2935–2944
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- { base, tramos, escalasPublicadas } / base (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1505–1540
-- rendimientoPrevioNeto / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2814–2835
-- crearImporteMonetario("1.5").mul(rendimientoPrevioNeto.minus(13115)) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3513–3581
-- minimoDescendientes / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63670–63689
-- componente === "estatal"
-      ? [AHORRO_ORDINARIO_2012_2014, AHORRO_COMPLEMENTARIO_2012_2014]
-      : [AHORRO_ORDINARIO_2012_2014] / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:5762–5893
-- medirAuditoriaSync(
-    "liquidacion.capitalInmobiliario.neto",
-    () =>
-      calcularRendimientoNetoCapitalInmobiliarioSimplificado({
-        rendimientoInte / rendimientoNeto (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13696–13912
 - (suma, tipos) => suma.plus(tipoCotizacionPorLado(tipos, lado)) / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/laboral/cotizaciones-sociales.ts:3346–3408
 - yield* Match.valueTags(
     resultadoParametrosComunidad,
@@ -2256,10 +538,6 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
                 limiteAnterior: base.mul(0),
                 tramos: EffectArray.empty<TramoCuotaGeneralCalculado>(),
               } / value (EUR, value); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3278–3413
-- componente / value (selector, selection); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1376–1386
-- izquierda / cotizacionTrabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7289–7298
-- bruto / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5376–5381
-- parametros.tiposSeguridadSocial / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3290–3321
 - {
   contribuyente: {
     general: importe("5151"),
@@ -2268,203 +546,32 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
   },
   descendientes: {
     prim / contribuyente.adicionalMayor65 (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/normativa/datos/minimos-autonomicos-2013.ts:1072–1609
-- minimos / contribuyente.general (selector, selection); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1130–1137
-- caso.rendimientos.trabajo / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12218–12243
-- base / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1547–1551
-- resolverParametrosComunidadAutonoma2013(comunidadAutonoma) / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16795–16853
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- caso.derechosMinimos === undefined
-      ? undefined
-      : yield* calcularDerechosMinimos(
-          caso.derechosMinimos,
-          minimosEstatales
-         / ascendientes (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:19956–20161
-- componente === "estatal" / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:5762–5786
-- rendimientoPrevioNeto.lte(11250) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2684–2716
 - {
     SinSolidaridad: () => IMPORTE_CERO,
     ConSolidaridad: (politica) =>
       Match.value(baseCotizacion.excesoBase).pipe(
         Match.when(
           (ex / value (EUR, value); Objeto completo: se exige propiedad de salida; lib/dominio/laboral/cotizaciones-sociales.ts:5640–6791
-- medirAuditoriaSync(
-    "liquidacion.gananciasPatrimoniales",
-    () =>
-      calcularGananciasPatrimonialesPorTransmision({
-        anio: caso.anio,
-        ed / gananciaSujetaAhorro (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13946–14343
-- crearImporteMonetario(0) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- {
-    rendimientoIntegro,
-    cotizacionTrabajador: cotizacionAplicada,
-    rendimientoPrevioNeto,
-    gastosDeducibles,
-    rendimientoNeto: Decimal.max(
-      / rendimientoPrevioNeto (EUR, value); productor; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1200–1426
-- anio <= 2024 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:6108–6120
-- baseMaxima.mul("0.1") / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1017–1038
-- "madrid" / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4226–4234
-- MINIMOS_ESTATALES_2013 / contribuyente.adicionalMayor65 (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12479–12501
-- b / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:2744–2745
 - EffectArray.reduce(
     Object.values(parametros.tiposSeguridadSocial),
     IMPORTE_CERO,
     (suma, tipos) => suma.plus(tipoCotizacionPorLado(tipos, lado))
   ) / value (selector, selection); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/laboral/cotizaciones-sociales.ts:3252–3412
 - dependencias / parametrosNormativos.minimosEstatales2025.contribuyente.adicionalMayor65 (EUR, value); Parámetro de auxiliar/callback sin binding: dependencias; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:9404–9416
-- crearImporteMonetario(0) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- {
-      empresarial: crearImporteMonetario("0.005"),
-      trabajador: crearImporteMonetario("0.001"),
-    } / trabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3531–3639
-- Match.value(anio).pipe(
-    Match.when(2025, () => tiposSolidaridad[2025]),
-    Match.when(2026, () => tiposSolidaridad[2026]),
-    Match.orElse(
-      () => ({ / trabajador.0 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2775–3011
-- filas([
-  ["0", "0", ".105"],
-  ["12450", "1307.25", ".12"],
-  ["17707.20", "1938.11", ".14"],
-  ["21000", "2399.10", ".15"],
-  ["33007.20", "4200.18", ".188"], / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:2212–2511
-- caso / rendimientos.trabajo (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12218–12222
-- ({ empresa: ["0", "0", "0"], trabajador: ["0", "0", "0"] }) as const / trabajador.1 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2933–3001
-- rendimientoPrevioNeto / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:6145–6166
-- base.minus(remanente) / value (EUR, value); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:2203–2224
-- base / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1507–1511
-- Match.value(a.lessThan(b)).pipe(
-    Match.when(true, () => a),
-    Match.orElse(() => b)
-  ) / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:2657–2750
 - [AHORRO_2016_2020] / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/irpf/cuotas/escalas-publicadas.ts:6037–6055
-- crearImporteMonetario("1.15625").mul(
-            rendimientoPrevioNeto.minus(11250)
-          ) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2913–3009
-- caso / anio (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12945–12949
-- crearImporteMonetario(4080) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2187–2214
-- base.mul(0) / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1547–1558
-- Match.value(base).pipe(
-        Match.when(
-          (base) => base.lte(0),
-          () => []
-        ),
-        Match.orElse(
-          (base) =>
-            / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3061–4468
-- gananciasPatrimoniales.gananciaSujetaGeneral / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15536–15580
-- {
-    base,
-    tramos: [],
-    escalasPublicadas: obtenerEscalasAhorroPublicadas(anio, componente),
-  } / escalasPublicadas (EUR, value); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1288–1392
-- {
-  baseMaxima: BASE_MAXIMA_COTIZACION_LEGACY[anio],
-  tiposSeguridadSocial: TIPOS_SEGURIDAD_SOCIAL_LEGACY,
-  mei: obtenerTiposMei(anio),
-  solidaridad: obtener / solidaridad (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5049–5237
-- base / value (EUR, value); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1946–1950
-- { empresa: ["0", "0", "0"], trabajador: ["0", "0", "0"] } / trabajador.0 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2934–2991
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- rendimientoIntegro / value (EUR, value); productor; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1007–1025
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:6016–6020
-- Match.value(anio).pipe(
-    Match.when(2012, () =>
-      resolverParametrosComunidadAutonoma2012(comunidadAutonoma)
-    ),
-    Match.when(2013, () =>
-      reso / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16639–18919
-- crearImporteMonetario(0) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- rendimientoPrevioNeto.minus(gastosDeducibles) / value (selector, selection); productor; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1370–1415
-- ({
-      empresarial: crearImporteMonetario("0.0067"),
-      trabajador: crearImporteMonetario("0.0013"),
-    }) / trabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3812–3924
-- 7302 / value (EUR, value); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5843–5847
-- comunidadAutonoma === "madrid" && anio === 2022 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4204–4251
-- rendimientoPrevioNeto.minus(14852) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:6043–6077
-- crearImporteMonetario("1.5") / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3513–3541
-- rendimientoPrevioNeto.lte(13115) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3240–3272
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- rendimientoPrevioNeto.lt("19747.50") / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:6145–6181
 - Option.fromNullishOr(fechaFallecimiento).pipe(
     Option.match({
       onNone: () => false,
       onSome: (fechaFallecimiento) =>
         fechaCivilIsoUtc(fech / value (selector, selection); Contrato de llamada pendiente: Option.fromNullishOr(fechaFallecimiento).pipe; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:4085–4285
-- parametrosComunidad / minimosAutonomicos.contribuyente.general (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21912–21931
-- anio >= 2026 / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3959–3971
-- baseCotizacionPara(salarioBrutoAnual, parametros) / baseOrdinaria (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8008–8057
-- salarioBrutoAnual / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2082–2099
-- 11250 / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2991–2996
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4137–4141
-- minimo / value (EUR, value); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1881–1887
 - [AHORRO_ORDINARIO_2012_2014] / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/irpf/cuotas/escalas-publicadas.ts:5865–5893
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- Match.value(anio).pipe(
-    Match.when(2023, () => ({
-      empresarial: crearImporteMonetario("0.005"),
-      trabajador: crearImporteMonetario("0.001"),
-    } / trabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3479–4213
-- baseCotizacion.baseOrdinaria.mul(
-      parametros.mei.trabajador
-    ) / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8504–8575
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- 2022 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:6070–6074
-- anio <= 2014 / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1402–1414
-- anio <= 2020 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:6016–6028
 - crearImporte(0) / value (EUR, value); Contrato de llamada pendiente: crearImporte; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1618–1633
-- "14047.50" / value (EUR, value); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5507–5517
-- { base, tramos, escalasPublicadas } / tramos (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1505–1540
-- ({
-        empresarial: crearImporteMonetario("0.0075"),
-        trabajador: crearImporteMonetario("0.0015"),
-      }) / trabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3985–4103
-- comunidadAutonoma === "comunitat-valenciana" &&
-    anio >= 2014 &&
-    anio <= 2016 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3871–3955
-- IMPORTE_CERO / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1349–1361
-- 5565 / value (EUR, value); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3488–3492
-- sumarCotizacionesSociales(
-    sumarCotizacionesSociales(cotizacionesOrdinarias, cotizacionesMei),
-    cotizacionesSolidaridad
-  ) / cotizacionTrabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8737–8867
-- rendimientoIntegro / value (selector, selection); productor; lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts:1420–1438
-- IMPORTE_CERO / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3050–3062
-- 14852 / value (EUR, value); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:6071–6076
-- ({
-      empresarial: crearImporteMonetario("0.005"),
-      trabajador: crearImporteMonetario("0.001"),
-    }) / trabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3530–3640
-- Match.value(rendimientoPrevioNeto).pipe(
-    Match.when(
-      (rendimientoPrevioNeto) => rendimientoPrevioNeto.lte("14047.50"),
-      () => crearImporteMonetar / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5057–5602
 - EffectArray.reduce(
     rendimientos,
     convertirCentimosAEuros(0),
     (total, rendimiento) =>
       total.plus(convertirCentimosAEuros(rendimiento.importeIn / value (EUR, value); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts:483–662
-- crearImporteMonetario("0.001") / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3602–3632
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- 2014 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3931–3935
-- cotizacionesTotales.cotizacionTrabajador / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:9068–9108
-- desglose.cotizacionTrabajador / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7721–7750
-- {
-  baseMaxima: BASE_MAXIMA_COTIZACION_LEGACY[anio],
-  tiposSeguridadSocial: TIPOS_SEGURIDAD_SOCIAL_LEGACY,
-  mei: obtenerTiposMei(anio),
-  solidaridad: obtener / baseMaxima (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5049–5237
-- minimoContribuyente
-    .plus(minimoDescendientes) / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63640–63690
-- caso.situacionFamiliar.edad / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20562–20589
-- comunidadAutonoma === "madrid" / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4283–4313
-- parametros.mei.trabajador / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8544–8569
 - caso / situacionFamiliar.discapacidad (EUR, value); public-input; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:9398–9402
-- anio <= 2022 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:6062–6074
-- anio === 2015 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:5900–5913
-- rendimientoPrevioNeto / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5479–5500
-- crearImporteMonetario("0.35") / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2370–2399
 - (total, ascendiente) =>
     total.plus(
       obtenerMinimoPorDiscapacidad(
@@ -2472,7 +579,6 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
         minimos.discapacidad.ascendiente
       )
   / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/minimos/minimo-discapacidad.ts:1849–2013
-- cotizacionAplicada / value (selector, selection); productor; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1112–1130
 - (filas) =>
         Option.match(
           EffectArray.findLast(
@@ -2480,57 +586,8 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
             (fila) =>
               base.gt(0) &&
               (fila.inferi / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1954–3046
-- {
-    anio,
-    edad: situacionFamiliar.edad,
-    minimos,
-  } / edad (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:62994–63056
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- 0 / value (selector, selection); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- parametros / baseMaxima (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8046–8056
-- {
-  2025: {
-    empresa: ["0.0077", "0.0083", "0.0098"],
-    trabajador: ["0.0015", "0.0017", "0.0019"],
-  },
-  2026: {
-    empresa: ["0.0096", "0.0104", "0.012 / 2025.trabajador.2 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:524–752
-- {
-    cotizacionEmpresarial: baseCotizacion.baseOrdinaria.mul(
-      parametros.mei.empresarial
-    ),
-    cotizacionTrabajador: baseCotizacion.baseOrdinaria.mu / cotizacionTrabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8375–8580
-- 0 / value (EUR, value); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- base / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1547–1551
-- solidaridad.trabajador / 0 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3231–3253
-- crearImporteMonetario(4080).minus(
-          crearImporteMonetario("0.35").mul(rendimientoPrevioNeto.minus(9180))
-        ) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2325–2448
-- minimoPersonalYFamiliarAutonomico / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:22687–22720
-- anio === 2018
-      ? Decimal.min(salarioBrutoAnual, crearImporteMonetario("3751.20").mul(12))
-          .mul(7)
-          .plus(
-            Decimal.min(
-      / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2353–2676
-- "0.0015" / value (EUR, value); literal; lib/dominio/laboral/cotizaciones-sociales.ts:4084–4092
-- caso / situacionFamiliar.edad (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20562–20566
-- 3700 / value (EUR, value); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2752–2756
-- nombre / value (selector, selection); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:2464–2470
-- totalSolidaridad.div(6) / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:6980–7003
-- base / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1507–1511
-- crearImporteMonetario("1.5").mul(rendimientoPrevioNeto.minus(13115)) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3513–3581
-- tramos / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3256–3262
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- rendimientoPrevioNeto / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5147–5168
 - [AHORRO_2016_2020] / value (selector, selection); Array completo requiere contrato por elemento; lib/dominio/irpf/cuotas/escalas-publicadas.ts:6037–6055
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- baseLiquidableGeneral / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:18559–18580
-- b / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:2680–2681
-- crearImporteMonetario(5565) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3286–3313
 - Option.getOrElse(() => []) / value (selector, selection); Contrato de llamada pendiente: Option.getOrElse; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14259–14285
-- undefined / discapacidadFamiliares (EUR, value); literal; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:19999–20008
-- componente / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:5762–5772
 - ([baseInferior, cuota, tipo]) => ({
     baseInferior: new Decimal(baseInferior),
     cuota: new Decimal(cuota),
@@ -2541,32 +598,7 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
       tipoPrimerExceso: crearImporteMonetario("0.0092"),
       tipoSegundoExceso: crearImporteMonetario("0.0100"),
       tipoExc / value (selector, selection); Objeto completo: se exige propiedad de salida; lib/dominio/laboral/cotizaciones-sociales.ts:4396–4607
-- derechosEstatales / descendientes (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20836–20853
-- crearImporteMonetario(0) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- ["0", "0", "0"] / 2 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2974–2989
-- ["0", "0", "0"] / 1 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2974–2989
-- calcularCuotaPorEscala({
-    base,
-    tramos: [],
-    escalasPublicadas: obtenerEscalasAhorroPublicadas(anio, componente),
-  }) / value (EUR, value); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1265–1393
-- 14450 / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2840–2845
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:6108–6112
-- ({
-  cotizacionEmpresarial: totalSolidaridad.mul(5).div(6),
-  cotizacionTrabajador: totalSolidaridad.div(6),
-}) / cotizacionTrabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:6896–7007
-- 2026 / value (selector, selection); literal; lib/dominio/laboral/cotizaciones-sociales.ts:4651–4655
-- baseCotizacion / baseOrdinaria (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8246–8260
-- parametros.tiposSeguridadSocial / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3290–3321
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- crearImporteMonetario("1.75").mul(rendimientoPrevioNeto.minus(14852)) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:6009–6078
 - GASTOS_FIJOS_IRPF_LEGACY[anio] / value (selector, selection); Índice dinámico/array: requiere contrato por elemento; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1159–1189
-- Decimal.min(salarioBrutoAnual, crearImporteMonetario("3751.20").mul(12))
-          .mul(7)
-          .plus(
-            Decimal.min(
-              salarioBrutoA / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2375–2628
 - (total, ascendiente) =>
     total.plus(
       obtenerMinimoPorDiscapacidad(
@@ -2574,17 +606,11 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
         minimos.discapacidad.ascendiente
       )
   / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/minimos/minimo-discapacidad.ts:1849–2013
-- derechosAutonomicos / total (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21757–21776
 - EffectArray.reduce(
               tramos,
               {
                 limiteAnterior: base.mul(0),
                 tramos: EffectArray.empty<TramoCuotaGener / tramos (EUR, value); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3222–4443
-- baseMaxima.mul("0.1") / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1017–1038
-- anio / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5095–5099
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- bruto / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5376–5381
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
 - {
   comunes: {
     empresarial: crearImporteMonetario("0.236"),
@@ -2592,7 +618,6 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
   },
   desempleo: {
     empresarial: crearImport / value (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/laboral/cotizaciones-sociales.ts:1919–2516
-- Decimal.max(0, baseGeneral) / value (selector, selection); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1894–1921
 - [
       componente === "estatal" ? AHORRO_2016_2020 : AHORRO_AUTONOMICO_2015,
     ] / value (selector, selection); Array completo requiere contrato por elemento; lib/dominio/irpf/cuotas/escalas-publicadas.ts:5926–6009
@@ -2603,123 +628,20 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
         minimos.discapacidad.ascendiente
       )
   / value (selector, selection); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/minimos/minimo-discapacidad.ts:1849–2013
-- sumarTipoCotizacionLegacy(parametros, "trabajador") / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8286–8337
-- crearImporteMonetario(0) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- anio / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5095–5099
-- edad / value (selector, selection); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1244–1248
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
 - ([baseInferior, cuota, tipo]) => ({
     baseInferior: new Decimal(baseInferior),
     cuota: new Decimal(cuota),
     tipo: new Decimal(tipo),
   }) / value (selector, selection); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/cuotas/escalas-publicadas.ts:570–715
-- reduccionTrabajoHasta2014(rendimientoPrevioNeto) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1428–1476
-- parametrosComunidad.escalaAutonomica.tramos / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:22781–22824
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- crearImporteMonetario("1.15625") / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2913–2945
 - EffectArray.reduce(rendimientos, crearImporte(0), (total, rendimiento) =>
     total.plus(crearImporte(rendimiento.importeIntegroCentimos))
   ) / value (selector, selection); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1585–1727
-- 0 / value (EUR, value); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- rendimientoPrevioNeto / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3370–3391
-- 9180 / value (EUR, value); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2432–2436
-- 0 / value (selector, selection); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- rendimientoPrevioNeto.minus(11250) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2963–2997
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- minimosEstatales / contribuyente.adicionalMayor75 (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20606–20622
-- "1.14" / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5452–5458
-- minimosEstatales / contribuyente.general (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20606–20622
-- parametrosComunidad / minimosAutonomicos.contribuyente.adicionalMayor65 (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21912–21931
-- {
-    salarioBrutoAnual,
-    anio,
-  } / salarioBrutoAnual (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7584–7622
-- ({
-      _tag: "ConSolidaridad",
-      tipoPrimerExceso: crearImporteMonetario("0.0092"),
-      tipoSegundoExceso: crearImporteMonetario("0.0100"),
-      tipoEx / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:4395–4608
-- b / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:392–393
-- reduccionTrabajo2015A2017(rendimientoPrevioNeto) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:4507–4555
 - BASE_MAXIMA_COTIZACION_LEGACY[anio] / value (selector, selection); Índice dinámico/array: requiere contrato por elemento; lib/dominio/laboral/cotizaciones-sociales.ts:5065–5100
-- rendimientoPrevioNeto / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2684–2705
-- crearImporteMonetario(0) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- 11250 / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2710–2715
-- sumarTipoCotizacionLegacy(parametros, "trabajador") / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3442–3493
-- resolverParametrosComunidadAutonoma2026(comunidadAutonoma) / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:18304–18362
-- medirAuditoriaSync(
-    "liquidacion.cotizacionesSociales.desglosar",
-    () =>
-      (contexto.modo === "canonico"
-        ? calcularDesgloseCotizacionesPerfil / cotizacionTrabajador (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12706–13022
-- medirAuditoriaSync(
-    "liquidacion.capitalInmobiliario.sumar",
-    () =>
-      sumarRendimientosCapitalInmobiliario(
-        Option.fromNullishOr(caso.rendimi / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13379–13654
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- {
-  baseMaxima: BASE_MAXIMA_COTIZACION_LEGACY[anio],
-  tiposSeguridadSocial: TIPOS_SEGURIDAD_SOCIAL_LEGACY,
-  mei: obtenerTiposMei(anio),
-  solidaridad: obtener / tiposSeguridadSocial (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5049–5237
-- primerExceso
-    .mul(tipos[0]) / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1158–1189
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- escalaPublicadaAutonomica / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:17848–17873
-- baseGeneral / value (selector, selection); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1909–1920
 - {
     SinDiscapacidad: () => IMPORTE_CERO,
     Discapacidad33a64: ({ necesitaAyudaOMovilidadReducida }) =>
       necesitaAyudaOMovilidadReducida
         ? minim / value (EUR, value); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/minimos/minimo-discapacidad.ts:587–921
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- 14450 / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2840–2845
-- "autonomico" / value (selector, selection); literal; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:2724–2736
-- primerExceso / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1158–1170
-- rendimientoIntegroCapitalInmobiliario / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13861–13898
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- izquierda.cotizacionTrabajador.plus(
-    derecha.cotizacionTrabajador
-  ) / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7289–7362
-- IMPORTE_CERO / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-descendientes.ts:1098–1110
-- {
-    anio: caso.anio,
-    base: baseLiquidableAhorro,
-    baseGeneral: baseLiquidableGeneral,
-    minimoEstatal: minimoPersonalYFamiliar,
-    minimoAutonomico: / base (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:23082–23281
-- ascendientes / value (selector, selection); productor; lib/dominio/irpf/minimos/minimo-discapacidad.ts:1821–1833
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- 0 / value (EUR, value); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- baseCotizacion.baseOrdinaria / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8504–8532
-- b / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:392–393
-- tiposSolidaridad / 2026.trabajador.0 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2878–2894
-- reduccionRendimientosTrabajo ?? 0 / value (EUR, value); productor; lib/dominio/irpf/integracion/base-imponible-general.ts:709–742
-- derecha.cotizacionTrabajador / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7330–7358
-- Match.value(anio).pipe(
-    Match.when(2023, () => ({
-      empresarial: crearImporteMonetario("0.005"),
-      trabajador: crearImporteMonetario("0.001"),
-    } / trabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3479–4213
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- calcularCotizacionesSocialesLegacy({
-      anio,
-      salarioBrutoAnual: rendimientoIntegro,
-    }).cotizacionTrabajador / value (selector, selection); productor; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:933–1054
-- IMPORTE_CERO / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3634–3646
-- tiposSolidaridad[2026] / trabajador.1 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2878–2900
-- gananciaPatrimonialGeneral / value (EUR, value); productor; lib/dominio/irpf/integracion/base-imponible-general.ts:822–848
-- {
-    base,
-    tramos: [],
-    escalasPublicadas: obtenerEscalasAhorroPublicadas(anio, componente),
-  } / escalasPublicadas (selector, selection); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1288–1392
-- {
-      empresarial: crearImporteMonetario("0.005"),
-      trabajador: crearImporteMonetario("0.001"),
-    } / trabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3531–3639
 - {
   comunes: {
     empresarial: crearImporteMonetario("0.236"),
@@ -2727,24 +649,11 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
   },
   desempleo: {
     empresarial: crearImport / value (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/laboral/cotizaciones-sociales.ts:1919–2516
-- calcularCuotaComponenteAhorro({
-      anio,
-      base,
-      componente: nombre,
-    }) / value (EUR, value); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1976–2064
-- Match.value(rendimientoPrevioNeto).pipe(
-    Match.when(
-      (rendimientoPrevioNeto) => rendimientoPrevioNeto.lte(14852),
-      () => crearImporteMonetario(73 / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5685–6409
 - {
     _tag: "ParametrosComunidadAutonoma",
     comunidadAutonoma,
     anio: 2024,
     minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_202 / value (selector, selection); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:12420–12862
-- { base, tramos, escalasPublicadas } / escalasPublicadas (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1505–1540
-- 2024 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:6116–6120
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- edad >= 75 / value (selector, selection); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1439–1449
 - calcularDerechosMinimos(
           caso.derechosMinimos,
           minimosEstatales
@@ -2752,148 +661,35 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
           caso.derechosMinimos,
           minimosEstatales
         ).pipe; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20024–20161
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:5900–5904
-- crearImporteMonetario(5565) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3466–3493
-- caso.comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:16181–16203
-- caso.deduccionAutonomicaAgregadaCentimos / value (centimos, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:65625–65665
-- rendimientos / value (selector, selection); productor; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1604–1616
 - EffectArray.reduce(rendimientos, crearImporte(0), (total, rendimiento) =>
     total.plus(crearImporte(rendimiento.importeIntegroCentimos))
   ) / value (EUR, value); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1585–1727
-- obtenerParametrosCotizacionLegacy(anio) / baseMaxima (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7943–7982
-- 6 / value (selector, selection); literal; lib/dominio/laboral/cotizaciones-sociales.ts:7001–7002
-- minimos.contribuyente.general / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1130–1159
-- obtenerMinimoPorDiscapacidad(
-    situacionFamiliar.discapacidad,
-    minimos.discapacidad.contribuyente
-  ) / value (selector, selection); productor; lib/dominio/irpf/minimos/minimo-discapacidad.ts:1114–1222
-- cotizacionesMei / cotizacionTrabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8818–8833
-- incrementoMayor75 / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1600–1617
-- parametrosComunidad / escalaAutonomicaIgualEstatal (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:18057–18076
-- VALENCIA_2014_2016 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3971–3989
-- Decimal.min(salarioBrutoAnual, crearImporteMonetario("3751.20").mul(12))
-          .mul(7) / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2375–2465
-- tipos / 2 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1258–1263
-- totalSolidaridad / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:6980–6996
-- tiposSolidaridad / 2026.trabajador.0 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2878–2894
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- {
-                anio,
-                base: remanente,
-                componente: nombre,
-              } / anio (selector, selection); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:2379–2487
-- minimoBase / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1560–1570
-- maximo(
-          IMPORTE_CERO,
-          crearImporteMonetario(5565).minus(
-            crearImporteMonetario("1.5").mul(rendimientoPrevioNeto.minus(13115))
-   / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3424–3603
-- desglose / cotizacionTrabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7721–7729
-- salarioBrutoAnual / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7590–7607
 - ({
           _tag: "ComunidadAutonomaNoSoportada",
           comunidadAutonoma,
           anio: 2026,
           motivo:
             "IRPF 2026 solo esta modelad / value (selector, selection); Forma AST no admitida: SatisfiesExpression; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16051–16416
-- crearImporteMonetario(0) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- "0.0015" / value (EUR, value); literal; lib/dominio/laboral/cotizaciones-sociales.ts:4084–4092
-- 2026 / value (selector, selection); literal; lib/dominio/laboral/cotizaciones-sociales.ts:3967–3971
-- caso.rendimientos.trabajo / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12218–12243
-- reduccionRendimientosTrabajo / value (selector, selection); productor; lib/dominio/irpf/integracion/base-imponible-general.ts:709–737
-- cotizacionesMei / cotizacionTrabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8818–8833
-- resolverParametrosComunidadAutonoma2015({
-        baseLiquidableGeneral,
-        comunidadAutonoma,
-        fechaFallecimiento,
-      }) / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17043–17179
-- 0 / value (EUR, value); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- {
-    anio: caso.anio,
-    base: baseLiquidableAhorro,
-    baseGeneral: baseLiquidableGeneral,
-    minimoEstatal: minimoPersonalYFamiliar,
-    minimoAutonomico: / anio (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:23082–23281
-- caso.rendimientos.trabajo / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12218–12243
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- derechosAutonomicos / total (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21757–21776
-- base.mul(0) / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1547–1558
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- obtenerParametrosCotizacionLegacy(anio) / baseMaxima (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1966–2005
-- rendimientoPrevioNeto / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2606–2627
-- 2014 / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1410–1414
-- { base, tramos, escalasPublicadas } / tramos (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1505–1540
-- gananciasPatrimoniales / gananciaSujetaAhorro (selector, selection); productor; lib/dominio/irpf/integracion/base-imponible-ahorro.ts:315–337
-- Match.value(edad).pipe(
-    Match.when(
-      (edad) => edad >= 65,
-      () => minimos.contribuyente.adicionalMayor65
-    ),
-    Match.orElse(() => IMPORTE_CER / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1188–1354
 - {
       ComunidadAutonomaNoSoportada: (parametrosComunidad) =>
         Effect.fail({
           _tag: "ResultadoNoSoportado",
           motivo: parametrosComunid / value (EUR, value); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:16424–17334
-- rendimientoPrevioNeto / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:6043–6064
-- cotizacionesMei / cotizacionTrabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8818–8833
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- base / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3125–3129
-- anio / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3959–3963
-- {
-    anio: caso.anio,
-    base: baseLiquidableAhorro,
-    baseGeneral: baseLiquidableGeneral,
-    minimoEstatal: minimoPersonalYFamiliar,
-    minimoAutonomico: / baseGeneral (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:23082–23281
-- undefined / total (EUR, value); literal; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20239–20248
 - {
     _tag: "ParametrosComunidadAutonoma",
     comunidadAutonoma,
     anio: 2013,
     minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / value (EUR, value); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:6155–6562
-- anio <= 2014 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:5737–5749
-- undefined / descendientes (EUR, value); literal; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:19999–20008
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- rendimientoPrevioNeto.minus(13115) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3546–3580
 - {
   2012: crearImporteMonetario("39150.0"),
   2013: crearImporteMonetario("41108.4"),
   2014: crearImporteMonetario("43164.0"),
   2015: crearImporteMonetario("4 / value (selector, selection); Objeto completo: se exige propiedad de salida; lib/dominio/normativa/datos/seguridad-social-2012-2026.ts:242–875
-- reduccionAnterior / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:4859–4876
-- rendimientoIntegroTrabajo / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13218–13243
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- crearImporteMonetario("0.0015") / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:4062–4093
-- {
-  2025: {
-    empresa: ["0.0077", "0.0083", "0.0098"],
-    trabajador: ["0.0015", "0.0017", "0.0019"],
-  },
-  2026: {
-    empresa: ["0.0096", "0.0104", "0.012 / 2025.trabajador.1 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:524–743
 - ([baseInferior, cuota, tipo]) => ({
     baseInferior: new Decimal(baseInferior),
     cuota: new Decimal(cuota),
     tipo: new Decimal(tipo),
   }) / value (selector, selection); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/cuotas/escalas-publicadas.ts:570–715
-- cotizacionesOrdinarias / cotizacionTrabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8794–8816
-- "17673.52" / value (EUR, value); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:6328–6338
-- reduccionAnterior / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:4933–4950
-- Match.value(rendimientoPrevioNeto).pipe(
-    Match.when(
-      (rendimientoPrevioNeto) => rendimientoPrevioNeto.lte(13115),
-      () => crearImporteMonetario(55 / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3150–3651
-- 0 / value (selector, selection); literal; lib/dominio/irpf/integracion/base-imponible-general.ts:661–662
-- obtenerMinimoDiscapacidadFamiliares(
-      caso.situacionFamiliar.descendientes,
-      minimosEstatales
-    ).plus(
-      obtenerMinimoDiscapacidadAscendientes( / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21266–21510
-- escalasPublicadas / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1935–1952
 - ({
           _tag: "ComunidadAutonomaNoSoportada",
           comunidadAutonoma,
@@ -2905,154 +701,36 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
       gananciaSujetaAhorro: IMPORTE_CERO,
       gananciaSujetaGeneral: IMPORTE_CERO,
    / value (selector, selection); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1647–1810
-- rendimientoPrevioNeto / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2963–2984
 - {
   2012: crearImporteMonetario("39150.0"),
   2013: crearImporteMonetario("41108.4"),
   2014: crearImporteMonetario("43164.0"),
   2015: crearImporteMonetario("4 / value (selector, selection); Objeto completo: se exige propiedad de salida; lib/dominio/normativa/datos/seguridad-social-2012-2026.ts:242–875
-- calcularDesgloseCuotaPorEscala({ base, tramos, escalasPublicadas }) / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1474–1541
-- a / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:2717–2718
-- situacionFamiliar.ascendientes / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63118–63148
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
 - {
     _tag: "ParametrosComunidadAutonoma",
     comunidadAutonoma,
     anio: 2022,
     minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_202 / value (selector, selection); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:14053–14536
-- undefined / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4365–4374
-- parametros / solidaridad (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5616–5626
 - Match.valueTags(
     resultadoParametrosComunidad,
     {
       ComunidadAutonomaNoSoportada: (parametrosComunidad) =>
         Effect.fail({
           _tag: "Res / minimosAutonomicos.contribuyente.adicionalMayor75 (EUR, value); Contrato de llamada pendiente: Match.valueTags; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:16369–17338
-- crearImporteMonetario(6498) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5383–5410
-- 0 / value (selector, selection); literal; lib/dominio/irpf/integracion/base-imponible-ahorro.ts:312–313
-- crearImporteMonetario("1.15625").mul(
-            rendimientoPrevioNeto.minus(11250)
-          ) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2913–3009
-- "0.35" / value (EUR, value); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2392–2398
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- componente === "estatal"
-      ? [AHORRO_ORDINARIO_2012_2014, AHORRO_COMPLEMENTARIO_2012_2014]
-      : [AHORRO_ORDINARIO_2012_2014] / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:5762–5893
-- b / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:344–345
-- (contexto.modo === "canonico"
-        ? calcularDesgloseCotizacionesPerfilUniforme
-        : calcularDesgloseCotizacionesSocialesLegacy)({
-        anio: caso.an / cotizacionTrabajador (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12792–13018
-- obtenerParametrosCotizacionLegacy(anio) / tiposSeguridadSocial (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7943–7982
-- {
-  baseMaxima: BASE_MAXIMA_COTIZACION_LEGACY[anio],
-  tiposSeguridadSocial: TIPOS_SEGURIDAD_SOCIAL_LEGACY,
-  mei: obtenerTiposMei(anio),
-  solidaridad: obtener / mei.trabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5049–5237
-- "1.14" / value (EUR, value); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5452–5458
-- {
-      bruta,
-      remanente,
-      despuesMinimo,
-      minoracion: bruta.minus(despuesMinimo),
-    } / despuesMinimo (EUR, value); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:2526–2630
-- 0 / value (selector, selection); literal; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1361–1362
-- minimoContribuyente / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21545–21564
-- "murcia" / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4519–4527
-- anio / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2000–2004
-- TIPOS_SEGURIDAD_SOCIAL_LEGACY / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5126–5155
-- IMPORTE_CERO / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:4188–4200
-- 2024 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:6116–6120
-- "0.0012" / value (selector, selection); literal; lib/dominio/laboral/cotizaciones-sociales.ts:3765–3773
-- {
-    cotizacionEmpresarial: baseCotizacion.baseOrdinaria.mul(
-      sumarTipoCotizacionLegacy(parametros, "empresarial")
-    ),
-    cotizacionTrabajador: baseC / cotizacionTrabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8091–8348
-- caso / situacionFamiliar.descendientes (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21850–21854
-- salarioBrutoAnual / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7590–7607
-- crearImporteMonetario(0) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- minimoDiscapacidadFamiliares / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21679–21707
-- baseCotizacion.baseOrdinaria / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8899–8927
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- situacionFamiliar.discapacidad / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-discapacidad.ts:1148–1178
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4033–4037
-- parametros / baseMaxima (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3204–3214
-- cotizacionesOrdinarias / cotizacionTrabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8794–8816
-- solidaridadTrabajador / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:4154–4175
-- calcularTotalSolidaridad(baseCotizacion, parametros) / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8650–8702
 - (total, rendimiento) =>
     total.plus(crearImporte(rendimiento.importeIntegroCentimos)) / value (selector, selection); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1635–1723
-- 2015 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3823–3827
-- 13115 / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3266–3271
 - crearImporte(0) / value (EUR, value); Contrato de llamada pendiente: crearImporte; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1618–1633
-- {
-    anio: caso.anio,
-    base: baseLiquidableAhorro,
-    baseGeneral: baseLiquidableGeneral,
-    minimoEstatal: minimoPersonalYFamiliar,
-    minimoAutonomico: / baseGeneral (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:23082–23281
-- {
-      empresarial: crearImporteMonetario("0.0058"),
-      trabajador: crearImporteMonetario("0.0012"),
-    } / trabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3671–3781
-- baseMaxima / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1125–1135
-- minimos / contribuyente.adicionalMayor75 (EUR, value); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1463–1470
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- !parametrosComunidad.escalaAutonomicaIgualEstatal / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:18056–18105
-- minimoContribuyente
-    .plus(minimoDescendientes)
-    .plus(minimoAscendientes) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63640–63720
-- {
-    salarioBrutoAnual,
-    anio,
-  } / anio (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7584–7622
-- {
-      empresarial: crearImporteMonetario("0.0067"),
-      trabajador: crearImporteMonetario("0.0013"),
-    } / trabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3813–3923
 - (a, b) => b.edad - a.edad / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/minimos/minimo-descendientes.ts:1066–1091
-- medirAuditoriaSync(
-    "liquidacion.cotizacionesSociales.desglosar",
-    () =>
-      (contexto.modo === "canonico"
-        ? calcularDesgloseCotizacionesPerfil / cotizacionTrabajador (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12706–13022
 - ({
           _tag: "ComunidadAutonomaNoSoportada",
           comunidadAutonoma,
           anio,
           motivo: `Escalas autonomicas del anio ${anio} aun no i / value (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:18412–18909
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- ({
-      empresarial: IMPORTE_CERO,
-      trabajador: IMPORTE_CERO,
-    }) / trabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:4134–4208
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:2097–2101
-- parametros / baseMaxima (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5383–5393
-- escalaPublicadaAutonomica === undefined
-      ? undefined
-      : [escalaPublicadaAutonomica] / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:17848–17941
-- base.mul(0) / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1547–1558
-- tiposSolidaridad[2026] / trabajador.0 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2878–2900
-- {
-      empresarial: crearImporteMonetario("0.0067"),
-      trabajador: crearImporteMonetario("0.0013"),
-    } / trabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3813–3923
-- parametros.mei.trabajador / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8544–8569
-- situacionFamiliar.discapacidad / value (selector, selection); productor; lib/dominio/irpf/minimos/minimo-discapacidad.ts:1148–1178
 - EffectArray.reduce(
     calcularDesgloseCuotaPorEscala({ base, tramos, escalasPublicadas }),
     base.mul(0),
     (total, tramo) => total.plus(tramo.cuota)
   ) / value (EUR, value); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1450–1609
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3762–3779
-- 16825 / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3396–3401
-- { base, tramos, escalasPublicadas } / escalasPublicadas (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1505–1540
-- {
-  baseMaxima: BASE_MAXIMA_COTIZACION_LEGACY[anio],
-  tiposSeguridadSocial: TIPOS_SEGURIDAD_SOCIAL_LEGACY,
-  mei: obtenerTiposMei(anio),
-  solidaridad: obtener / mei.trabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5049–5237
 - {
   comunes: {
     empresarial: crearImporteMonetario("0.236"),
@@ -3060,86 +738,21 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
   },
   desempleo: {
     empresarial: crearImport / value (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/laboral/cotizaciones-sociales.ts:1919–2516
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- baseOrdinaria / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2737–2750
-- rendimientoPrevioNeto / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2963–2984
-- caso.derechosMinimos === undefined / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20196–20230
-- calcularBaseImponibleAhorro({
-        gananciasPatrimoniales,
-      }) / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15860–15930
 - (estado, [limite, tipo]) => {
                 const baseRestante = Decimal.max(
                   0,
                   base.minus(estado.limiteAnterior)
         / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3429–4429
-- "0.0015" / value (selector, selection); literal; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:598–606
-- anio <= 2021 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4049–4061
-- 0 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3134–3135
-- derecha / cotizacionTrabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7330–7337
-- 0 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3134–3135
-- ({
-        empresarial: crearImporteMonetario("0.0075"),
-        trabajador: crearImporteMonetario("0.0015"),
-      }) / trabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3985–4103
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- calcularMinimoPersonalYFamiliar({
-      situacionFamiliar: caso.situacionFamiliar,
-      anio: caso.anio,
-      minimos: parametrosComunidad.minimosAutonomicos, / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21791–21958
 - {
     SinSolidaridad: () => IMPORTE_CERO,
     ConSolidaridad: (politica) =>
       Match.value(baseCotizacion.excesoBase).pipe(
         Match.when(
           (ex / value (selector, selection); Objeto completo: se exige propiedad de salida; lib/dominio/laboral/cotizaciones-sociales.ts:5640–6791
-- {
-        gananciasPatrimoniales,
-      } / gananciasPatrimoniales.gananciaSujetaAhorro (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15888–15929
-- baseOrdinaria / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3593–3606
-- base.lte(0) / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3125–3136
-- minimo(bruto, parametros.baseMaxima) / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5369–5405
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- edad / value (selector, selection); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1200–1204
-- MINIMOS_ESTATALES_2012 / contribuyente.adicionalMayor75 (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12423–12445
-- 0 / value (EUR, value); literal; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:2200–2201
-- 0 / value (EUR, value); literal; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1361–1362
 - [
       componente === "estatal" ? AHORRO_2016_2020 : AHORRO_AUTONOMICO_2015,
     ] / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/irpf/cuotas/escalas-publicadas.ts:5926–6009
-- minimoDescendientes / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21575–21594
-- situacionFamiliar.descendientes / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63470–63501
-- base / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3073–3077
-- "1.15625" / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2935–2944
-- tiposSolidaridad[2026] / trabajador.2 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2878–2900
-- caso.situacionFamiliar / descendientes (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21850–21872
-- ({
-  baseMaxima: BASE_MAXIMA_COTIZACION_LEGACY[anio],
-  tiposSeguridadSocial: TIPOS_SEGURIDAD_SOCIAL_LEGACY,
-  mei: obtenerTiposMei(anio),
-  solidaridad: obtene / tiposSeguridadSocial (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5048–5238
-- TIPOS_SEGURIDAD_SOCIAL_LEGACY / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5126–5155
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
 - Option.getOrElse(() => []) / value (EUR, value); Contrato de llamada pendiente: Option.getOrElse; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13582–13608
-- IMPORTE_CERO / value (selector, selection); productor; lib/dominio/irpf/minimos/minimo-discapacidad.ts:1835–1847
-- crearImporteMonetario("1.15625").mul(
-            rendimientoPrevioNeto.minus(11250)
-          ) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2913–3009
-- escalasPublicadas !== undefined
-    ? EffectArray.flatMap(escalasPublicadas, (filas) =>
-        Option.match(
-          EffectArray.findLast(
-            filas, / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1877–4468
-- b / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:2680–2681
-- ({
-  baseMaxima: BASE_MAXIMA_COTIZACION_LEGACY[anio],
-  tiposSeguridadSocial: TIPOS_SEGURIDAD_SOCIAL_LEGACY,
-  mei: obtenerTiposMei(anio),
-  solidaridad: obtene / mei.trabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5048–5238
-- {
-    cotizacionEmpresarial: desglose.cotizacionEmpresarial,
-    cotizacionTrabajador: desglose.cotizacionTrabajador,
-  } / cotizacionTrabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7634–7755
 - calcularDerechosMinimos(
           caso.derechosMinimos,
           minimosEstatales
@@ -3147,106 +760,12 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
           caso.derechosMinimos,
           minimosEstatales
         ).pipe; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20024–20161
-- deduccionesAutonomicasAplicadas / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:58144–58175
-- IMPORTE_CERO / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-ascendientes.ts:545–557
-- edad / value (selector, selection); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1395–1399
-- {
-    cotizacionEmpresarial: desglose.cotizacionEmpresarial,
-    cotizacionTrabajador: desglose.cotizacionTrabajador,
-  } / cotizacionTrabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7634–7755
 - (a, b) => b.edad - a.edad / value (selector, selection); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/minimos/minimo-descendientes.ts:1066–1091
-- CATALUNYA_2022_2024 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4178–4197
-- {
-      anio: caso.anio,
-      edad: caso.situacionFamiliar.edad,
-      minimos: minimosEstatales,
-    } / minimos.contribuyente.adicionalMayor75 (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20525–20629
-- 2022 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4544–4548
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- ({ empresa: ["0", "0", "0"], trabajador: ["0", "0", "0"] }) as const / trabajador.2 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2933–3001
-- crearImporteMonetario(3700).minus(
-          crearImporteMonetario("1.15625").mul(
-            rendimientoPrevioNeto.minus(11250)
-          )
-        ) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2868–3019
-- parametros / baseMaxima (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8046–8056
-- obtenerMinimoContribuyente({
-    anio,
-    edad: situacionFamiliar.edad,
-    minimos,
-  }) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:62967–63057
-- baseGeneral / value (EUR, value); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1909–1920
-- 5565 / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3308–3312
-- tipos[1] / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1218–1226
 - Match.value(anio).pipe(
     Match.withReturnType<PoliticaSolidaridad>(),
     Match.when(2025, () => ({
       _tag: "ConSolidaridad",
       tipoPrimerExceso: cre / value (selector, selection); Matcher no admitido; lib/dominio/laboral/cotizaciones-sociales.ts:4295–4943
-- {
-  baseMaxima: BASE_MAXIMA_COTIZACION_LEGACY[anio],
-  tiposSeguridadSocial: TIPOS_SEGURIDAD_SOCIAL_LEGACY,
-  mei: obtenerTiposMei(anio),
-  solidaridad: obtener / baseMaxima (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5049–5237
-- rendimientos / value (selector, selection); productor; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1604–1616
-- anio / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1402–1406
-- anio / value (selector, selection); productor; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:976–980
-- ({
-  cotizacionEmpresarial: totalSolidaridad.mul(5).div(6),
-  cotizacionTrabajador: totalSolidaridad.div(6),
-}) / cotizacionTrabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:6896–7007
-- exceso.minus(baseMaxima.mul("0.1")) / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1004–1039
-- {
-      empresarial: IMPORTE_CERO,
-      trabajador: IMPORTE_CERO,
-    } / trabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:4135–4207
-- crearImporteMonetario(3700).minus(
-          crearImporteMonetario("1.15625").mul(
-            rendimientoPrevioNeto.minus(11250)
-          )
-        ) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2868–3019
-- 6 / value (EUR, value); literal; lib/dominio/laboral/cotizaciones-sociales.ts:7001–7002
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- anio >= 2026 / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:4643–4655
-- escalaPublicadaAutonomica === undefined / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:17848–17887
-- medirAuditoriaSync(
-    "liquidacion.baseImponibleAhorro",
-    () =>
-      calcularBaseImponibleAhorro({
-        gananciasPatrimoniales,
-      })
-  ) / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15785–15934
-- crearImporteMonetario("1.5").mul(rendimientoPrevioNeto.minus(13115)) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3513–3581
-- excesoRestante.mul(tipos[2]) / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1239–1267
-- {
-  cotizacionEmpresarial: izquierda.cotizacionEmpresarial.plus(
-    derecha.cotizacionEmpresarial
-  ),
-  cotizacionTrabajador: izquierda.cotizacionTrabajador.p / cotizacionTrabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7161–7365
-- ({
-      empresarial: crearImporteMonetario("0.0058"),
-      trabajador: crearImporteMonetario("0.0012"),
-    }) / trabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3670–3782
-- parametrosComunidad / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:22781–22800
-- resolverParametrosComunidadAutonoma2017(comunidadAutonoma) / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17319–17377
-- ({
-  cotizacionEmpresarial: izquierda.cotizacionEmpresarial.plus(
-    derecha.cotizacionEmpresarial
-  ),
-  cotizacionTrabajador: izquierda.cotizacionTrabajador. / cotizacionTrabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7160–7366
-- base.mul(0) / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1547–1558
-- salarioBrutoAnual / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2387–2404
-- 2014 / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1312–1316
-- bruto / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5376–5381
-- calcularGananciasPatrimonialesPorTransmision({
-        anio: caso.anio,
-        edadContribuyente: caso.situacionFamiliar.edad,
-        ganancias: Option.fromNu / gananciaSujetaAhorro (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14024–14339
-- Match.value(a.lessThan(b)).pipe(
-    Match.when(true, () => a),
-    Match.orElse(() => b)
-  ) / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:2657–2750
-- anio <= 2017 / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1516–1528
 - {
   contribuyente: {
     general: importe("5151"),
@@ -3255,74 +774,16 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
   },
   descendientes: {
     prim / contribuyente.adicionalMayor75 (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/normativa/datos/minimos-autonomicos-2014.ts:1072–1609
-- tiposSolidaridad / 2025.trabajador.0 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2826–2842
-- anio / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2787–2791
-- { base, tramos, escalasPublicadas } / escalasPublicadas (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1505–1540
-- crearImporteMonetario(0) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- rendimientoPrevioNeto / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3370–3391
-- cotizacionTrabajadorOrdinaria
-      .plus(meiTrabajador)
-      .plus(solidaridadTrabajador) / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:4085–4176
-- MINIMOS_ESTATALES_2014 / contribuyente.adicionalMayor65 (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12535–12557
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- 2022 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:6070–6074
-- parametros / baseMaxima (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5383–5393
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- edad / value (selector, selection); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1439–1443
-- rendimientoPrevioNeto / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5069–5090
-- {
-        base: baseLiquidableGeneral,
-        tramos: parametrosComunidad.escalaAutonomica.tramos,
-        escalasPublicadas: escalasPublicadasAutonomicas,
-    / tramos (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:18543–18707
-- cotizacionesTotales / cotizacionTrabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:9068–9087
-- cotizacionesTotales / cotizacionTrabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:9068–9087
 - EffectArray.reduce(ascendientes, IMPORTE_CERO, (total, ascendiente) => {
     const minimoPorEdad =
       ascendiente.edad >= 65 ||
       ascendiente.discapacida / value (selector, selection); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/irpf/minimos/minimo-ascendientes.ts:512–975
-- tramos / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3256–3262
-- minimos / contribuyente.adicionalMayor65 (selector, selection); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1268–1275
-- cotizacionesTotales.cotizacionTrabajador / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:9068–9108
-- {
-  2025: {
-    empresa: ["0.0077", "0.0083", "0.0098"],
-    trabajador: ["0.0015", "0.0017", "0.0019"],
-  },
-  2026: {
-    empresa: ["0.0096", "0.0104", "0.012 / 2026.trabajador.2 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:524–752
-- MINIMOS_ESTATALES_2012 / contribuyente.adicionalMayor65 (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12423–12445
 - crearImporte(0) / value (selector, selection); Contrato de llamada pendiente: crearImporte; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1618–1633
-- crearImporteMonetario(0) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- izquierda.cotizacionTrabajador / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7289–7319
-- 11250 / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2991–2996
-- IMPORTE_CERO / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-discapacidad.ts:1835–1847
 - {
     _tag: "ParametrosComunidadAutonoma",
     comunidadAutonoma,
     anio: 2016,
     minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / value (EUR, value); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:8418–8860
-- {
-    base,
-    tramos: [],
-    escalasPublicadas: obtenerEscalasAhorroPublicadas(anio, componente),
-  } / escalasPublicadas (EUR, value); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1288–1392
-- rendimientoPrevioNeto / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5282–5303
-- ({
-        empresarial: crearImporteMonetario("0.0075"),
-        trabajador: crearImporteMonetario("0.0015"),
-      }) / trabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3985–4103
-- caso.anio / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12375–12384
-- {
-      empresarial: crearImporteMonetario("0.0067"),
-      trabajador: crearImporteMonetario("0.0013"),
-    } / trabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3813–3923
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:15412–15429
-- 7302 / value (EUR, value); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5986–5990
-- caso.rendimientos.trabajo / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12218–12243
-- sumarDeduccionesAutonomicasCentimos(caso) / value (centimos, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:24820–24861
-- salarioBrutoAnual.minus(baseOrdinaria) / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2713–2751
 - calcularDerechosMinimos(
           caso.derechosMinimos,
           parametrosComunidad.minimosAutonomicos
@@ -3336,76 +797,11 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
         edadContribuyente,
         ganancia,
         co / value (EUR, value); Contrato de llamada pendiente: EffectArray.map; lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1450–1641
-- 0 / value (EUR, value); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- IMPORTE_CERO / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1337–1349
-- Match.value(anio).pipe(
-    Match.when(2025, () => tiposSolidaridad[2025]),
-    Match.when(2026, () => tiposSolidaridad[2026]),
-    Match.orElse(
-      () => ({ / trabajador.0 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2775–3011
-- crearImporteMonetario(3700).minus(
-          crearImporteMonetario("1.15625").mul(
-            rendimientoPrevioNeto.minus(11250)
-          )
-        ) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2868–3019
-- { empresa: ["0", "0", "0"], trabajador: ["0", "0", "0"] } / trabajador.1 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2934–2991
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- 5565 / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3488–3492
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- IMPORTE_CERO / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:4188–4200
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:5737–5741
-- Match.value(a).pipe(
-    Match.when(
-      (a) => a.greaterThan(b),
-      () => a
-    ),
-    Match.orElse(() => b)
-  ) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:280–398
-- {
-  baseMaxima: BASE_MAXIMA_COTIZACION_LEGACY[anio],
-  tiposSeguridadSocial: TIPOS_SEGURIDAD_SOCIAL_LEGACY,
-  mei: obtenerTiposMei(anio),
-  solidaridad: obtener / solidaridad (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5049–5237
-- cuotaAutonomicaGeneralDespuesMinimo.plus(
-          ahorroConMinimos.autonomico.despuesMinimo
-        ) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:25001–25104
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- rendimientoPrevioNeto / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2814–2835
-- rendimientoPrevioNeto.minus(13115) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3546–3580
-- derechosEstatales?.ascendientes ??
-    obtenerMinimoAscendientes(
-      caso.situacionFamiliar.ascendientes,
-      minimosEstatales
-    ) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20664–20801
-- parametros / solidaridad (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5616–5626
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- a / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:360–361
-- 2022 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4247–4251
 - Option.fromNullishOr(
           caso.rendimientos.gananciasPatrimoniales
         ).pipe(Option.getOrElse(() => [])) / value (EUR, value); Contrato de llamada pendiente: Option.fromNullishOr(
           caso.rendimientos.gananciasPatrimoniales
         ).pipe; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14171–14286
-- {
-    cotizacionEmpresarial: baseCotizacion.baseOrdinaria.mul(
-      sumarTipoCotizacionLegacy(parametros, "empresarial")
-    ),
-    cotizacionTrabajador: baseC / cotizacionTrabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8091–8348
-- calcularTotalSolidaridad(baseCotizacion, parametros) / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8650–8702
-- crearImporteMonetario("0.0015") / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:4062–4093
-- crearImporteMonetario("0.0013") / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3885–3916
-- caso.anio / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12945–12954
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- situacionFamiliar.ascendientes / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63118–63148
-- Match.value(base).pipe(
-        Match.when(
-          (base) => base.lte(0),
-          () => []
-        ),
-        Match.orElse(
-          (base) =>
-            / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3061–4468
 - {
   contribuyente: {
     general: importe("5151"),
@@ -3419,105 +815,13 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
     base.mul(0),
     (total, tramo) => total.plus(tramo.cuota)
   ) / value (EUR, value); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1450–1609
-- calcularCuotaComponenteAhorro({
-            anio,
-            base: Decimal.max(0, base.minus(remanente)),
-            componente: nombre,
-          }) / value (EUR, value); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:2120–2271
-- rendimientos / value (EUR, value); productor; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1604–1616
-- {
-    anio: caso.anio,
-    base: baseLiquidableAhorro,
-    baseGeneral: baseLiquidableGeneral,
-    minimoEstatal: minimoPersonalYFamiliar,
-    minimoAutonomico: / minimoAutonomico (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:23082–23281
-- medirAuditoriaSync(
-    "liquidacion.rendimientosTrabajo.neto",
-    () =>
-      calcularRendimientoNetoTrabajo({
-        anio: caso.anio,
-        rendimientoInt / rendimientoNeto (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13052–13330
-- obtenerMinimoDiscapacidadFamiliares(
-    situacionFamiliar.descendientes,
-    minimos
-  ) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63429–63518
-- crearImporteMonetario(0) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- Match.value(anio).pipe(
-    Match.when(
-      () => otrasRentasNoExentas.gt(6500),
-      () => (anio <= 2014 ? crearImporteMonetario(2652) : IMPORTE_CERO)
-    ) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1208–1969
-- b / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:2744–2745
-- ({
-      empresarial: crearImporteMonetario("0.0067"),
-      trabajador: crearImporteMonetario("0.0013"),
-    }) / trabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3812–3924
-- ({
-      empresarial: crearImporteMonetario("0.0067"),
-      trabajador: crearImporteMonetario("0.0013"),
-    }) / trabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3812–3924
-- caso / anio (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13179–13183
-- 0 / value (EUR, value); literal; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:22926–22927
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4497–4514
-- 0 / value (EUR, value); literal; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1631–1632
-- anio <= 2016 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3943–3955
-- caso.situacionFamiliar / edad (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20562–20584
-- 2026 / value (selector, selection); literal; lib/dominio/laboral/cotizaciones-sociales.ts:4651–4655
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:6016–6020
-- cotizacionesSolidaridad / cotizacionTrabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8840–8863
-- usaEscalaAutonomicaReal / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:24908–24931
 - {
       gananciaTotal: IMPORTE_CERO,
       gananciaExenta: IMPORTE_CERO,
       gananciaSujetaAhorro: IMPORTE_CERO,
       gananciaSujetaGeneral: IMPORTE_CERO,
    / value (EUR, value); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1647–1810
-- Decimal.min(exceso, baseMaxima.mul("0.1")) / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:905–947
-- minimoDiscapacidadFamiliares / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63774–63802
-- ({
-      empresarial: crearImporteMonetario("0.0058"),
-      trabajador: crearImporteMonetario("0.0012"),
-    }) / trabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3670–3782
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- Decimal.min(
-        deduccionesAutonomicasDeclaradas,
-        cuotaAutonomicaGeneralDespuesMinimo.plus(
-          ahorroConMinimos.autonomico.despuesMinimo
-    / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:24938–25112
-- salarioBrutoAnual / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2522–2539
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- rendimientoPrevioNeto / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1674–1695
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- undefined / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1899–1908
-- reduccionAnterior / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:4810–4827
-- caso / anio (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:16112–16116
-- derechosAutonomicos?.total / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21757–21783
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- 2015 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:5909–5913
-- ({
-        _tag: "ConSolidaridad",
-        tipoPrimerExceso: crearImporteMonetario("0.0115"),
-        tipoSegundoExceso: crearImporteMonetario("0.0125"),
-       / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:4669–4892
-- obtenerParametrosComunidadAutonomaPuro({
-        anio: caso.anio,
-        baseLiquidableGeneral,
-        comunidadAutonoma: caso.comunidadAutonoma,
-        fech / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:16057–16266
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- derechosEstatales?.discapacidadFamiliares / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21217–21258
 - Object.values(parametros.tiposSeguridadSocial) / value (selector, selection); Contrato de llamada pendiente: Object.values; lib/dominio/laboral/cotizaciones-sociales.ts:3276–3322
-- {
-  cotizacionEmpresarial: izquierda.cotizacionEmpresarial.plus(
-    derecha.cotizacionEmpresarial
-  ),
-  cotizacionTrabajador: izquierda.cotizacionTrabajador.p / cotizacionTrabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7161–7365
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- obtenerMinimoDiscapacidadAscendientes(
-        caso.situacionFamiliar.ascendientes,
-        minimosEstatales
-      ) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21388–21504
-- crearImporteMonetario(2652) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1319–1346
 - [
       componente === "estatal" ? AHORRO_2016_2020 : AHORRO_AUTONOMICO_2015,
     ] / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/irpf/cuotas/escalas-publicadas.ts:5926–6009
@@ -3525,183 +829,26 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
           caso.derechosMinimos,
           parametrosComunidad.minimosAutonomicos
         ).pipe(Effect.mapError(errorDerechosMin / total (selector, selection); Admisión Effect/servicio pendiente; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20257–20423
-- 0 / value (EUR, value); literal; lib/dominio/irpf/integracion/base-imponible-general.ts:809–810
-- {
-      empresarial: crearImporteMonetario("0.005"),
-      trabajador: crearImporteMonetario("0.001"),
-    } / trabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3531–3639
-- edad / value (selector, selection); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1244–1248
-- rendimientoIntegroTrabajo / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12983–13008
-- "1.15625" / value (EUR, value); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2935–2944
-- obtenerMinimoDiscapacidadContribuyente(situacionFamiliar, minimos) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63323–63389
-- {
-    baseOrdinaria: baseCotizacion.baseOrdinaria,
-    excesoBase: baseCotizacion.excesoBase,
-    cotizacionEmpresarial: cotizacionesTotales.cotizacionEmpresari / baseOrdinaria (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8878–9545
-- {
-  cotizacionEmpresarial: izquierda.cotizacionEmpresarial.plus(
-    derecha.cotizacionEmpresarial
-  ),
-  cotizacionTrabajador: izquierda.cotizacionTrabajador.p / cotizacionTrabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7161–7365
-- resolverParametrosComunidadAutonoma2014({
-        baseLiquidableGeneral,
-        comunidadAutonoma,
-      }) / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16894–17002
-- rendimientoPrevioNeto.lte("19747.50") / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5282–5319
-- sumarRendimientosTrabajo(caso.rendimientos.trabajo, centimosAEuros) / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12193–12260
-- minimos.contribuyente.adicionalMayor65 / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1268–1306
-- { base, tramos, escalasPublicadas } / base (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1505–1540
-- rendimientoPrevioNeto / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3546–3567
-- "3751.20" / value (EUR, value); literal; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2428–2437
 - {
                 limiteAnterior: base.mul(0),
                 tramos: EffectArray.empty<TramoCuotaGeneralCalculado>(),
               } / value (EUR, value); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3278–3413
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- ({
-  baseOrdinaria: minimo(bruto, parametros.baseMaxima),
-  excesoBase: maximo(IMPORTE_CERO, bruto.minus(parametros.baseMaxima)),
-}) / baseOrdinaria (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5349–5481
-- caso / anio (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12945–12949
-- {
-        anio: caso.anio,
-        salarioBrutoAnual: rendimientoIntegroTrabajo,
-      } / salarioBrutoAnual (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12929–13017
-- obtenerMinimoDiscapacidadContribuyente(
-      caso.situacionFamiliar,
-      minimosEstatales
-    ) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21075–21173
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- 75 / value (selector, selection); literal; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1447–1449
-- 2 / value (EUR, value); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:4957–4958
 - a.lessThan(b) / value (selector, selection); Contrato de llamada pendiente: a.lessThan; lib/dominio/laboral/cotizaciones-sociales.ts:2669–2682
-- {
-  2025: {
-    empresa: ["0.0077", "0.0083", "0.0098"],
-    trabajador: ["0.0015", "0.0017", "0.0019"],
-  },
-  2026: {
-    empresa: ["0.0096", "0.0104", "0.012 / 2025.trabajador.0 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:524–752
-- 3700 / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2752–2756
-- caso / rendimientos.trabajo (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12218–12222
-- crearImporteMonetario(0) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- 2652 / value (EUR, value); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1341–1345
-- { base, tramos, escalasPublicadas } / tramos (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1505–1540
-- 16825 / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3396–3401
-- repartirCotizacionSolidaridad(
-    calcularTotalSolidaridad(baseCotizacion, parametros)
-  ) / cotizacionTrabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8615–8706
-- GASTOS_FIJOS_IRPF_LEGACY / value (EUR, value); productor; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1159–1183
-- ({
-  cotizacionEmpresarial: totalSolidaridad.mul(5).div(6),
-  cotizacionTrabajador: totalSolidaridad.div(6),
-}) / cotizacionTrabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:6896–7007
-- obtenerMinimoAscendientes(
-    situacionFamiliar.ascendientes,
-    minimos
-  ) / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63087–63165
-- parametros / tiposSeguridadSocial (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8312–8322
-- rendimientos / value (selector, selection); productor; lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts:507–519
-- minimo(bruto, parametros.baseMaxima) / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5369–5405
-- 2020 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:6024–6028
-- b / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:2744–2745
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- 0 / value (EUR, value); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- obtenerTiposMei(anio) / trabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5164–5185
-- Decimal.min(exceso, baseMaxima.mul("0.1")) / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:905–947
-- a / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:360–361
-- rendimientoPrevioNeto.lte(13260) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2271–2303
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
 - (total, descendiente, indice) => {
       const incrementoMenorTres =
         descendiente.edad < 3
           ? minimos.descendientes.adicionalMenorTres
          / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/minimos/minimo-descendientes.ts:1116–1400
-- tipos / 0 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1180–1185
-- contexto / modo (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12793–12801
 - (total, rendimiento) =>
       total.plus(convertirCentimosAEuros(rendimiento.importeIntegroCentimos)) / value (selector, selection); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts:557–658
-- rendimientoPrevioNeto / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:6300–6321
 - [AHORRO_2021_2022] / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/irpf/cuotas/escalas-publicadas.ts:6083–6101
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- { base, tramos, escalasPublicadas } / tramos (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1505–1540
 - dependencias / parametrosNormativos.minimosEstatales2025.contribuyente.general (EUR, value); Parámetro de auxiliar/callback sin binding: dependencias; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:9404–9416
-- minimos.contribuyente / adicionalMayor75 (selector, selection); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1463–1484
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- tiposSolidaridad / 2025.trabajador.2 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2826–2842
-- {
-      anio,
-      salarioBrutoAnual: rendimientoIntegro,
-    } / salarioBrutoAnual (selector, selection); productor; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:968–1032
-- {
-  cotizacionEmpresarial: izquierda.cotizacionEmpresarial.plus(
-    derecha.cotizacionEmpresarial
-  ),
-  cotizacionTrabajador: izquierda.cotizacionTrabajador.p / cotizacionTrabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7161–7365
-- {
-    base,
-    tramos: [],
-    escalasPublicadas: obtenerEscalasAhorroPublicadas(anio, componente),
-  } / escalasPublicadas (selector, selection); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1288–1392
 - GASTOS_FIJOS_IRPF_LEGACY[anio] / value (EUR, value); Índice dinámico/array: requiere contrato por elemento; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1159–1189
-- rendimientoIntegro / value (selector, selection); productor; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1087–1105
-- escalasPublicadas / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1521–1538
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- rendimientoPrevioNeto.minus("14047.50") / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5479–5518
-- escalasPublicadasAutonomicas / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:18670–18698
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- otrasRentasNoExentas / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15317–15337
-- "0.35" / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2392–2398
-- {
-            anio,
-            base: Decimal.max(0, base.minus(remanente)),
-            componente: nombre,
-          } / componente (selector, selection); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:2150–2270
-- baseLiquidableAhorro / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:23115–23135
-- maximo(
-          IMPORTE_CERO,
-          crearImporteMonetario(6498).minus(
-            crearImporteMonetario("1.14").mul(
-              rendimientoPrevioNeto. / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5341–5554
-- rendimientoPrevioNeto.minus(13115) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3546–3580
 - caso / rendimientos.trabajo (EUR, value); public-input; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:9398–9402
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3799–3803
 - () => [] / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14276–14284
-- solidaridad.trabajador / 1 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3231–3253
-- excesoBase / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3188–3198
-- tiposSolidaridad / 2025.trabajador.2 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2826–2842
-- minimo(bruto, parametros.baseMaxima) / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5369–5405
 - a.lessThan(b) / value (selector, selection); Contrato de llamada pendiente: a.lessThan; lib/dominio/laboral/cotizaciones-sociales.ts:2669–2682
-- filas([
-  ["0", "0", ".12"],
-  ["17707.20", "2124.86", ".14"],
-  ["33007.20", "4266.86", ".185"],
-  ["53407.20", "8040.86", ".215"],
-  ["90000", "15908.31", ".2 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:1940–2176
-- base / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3073–3077
-- baseMaxima / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:925–935
-- baseOrdinaria / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3419–3432
-- otrasRentasNoExentas.gt(6500) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1260–1289
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
 - (total, rendimiento) =>
     total.plus(crearImporte(rendimiento.importeIntegroCentimos)) / value (selector, selection); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1635–1723
-- crearImporteMonetario("0.0012") / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3743–3774
-- 0 / value (EUR, value); literal; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1943–1944
-- rendimientoIntegro / value (selector, selection); productor; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1007–1025
-- escalasPublicadas / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1521–1538
-- rendimientoPrevioNeto.lte(13115) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3240–3272
-- medirAuditoriaSync(
-    "liquidacion.minimos.estatal",
-    () =>
-      Match.value(caso.anio).pipe(
-        Match.when(2012, () => MINIMOS_ESTATALES_2012),
-     / contribuyente.adicionalMayor65 (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12292–12674
-- cuotaIntegraGeneralAutonomica.minus(cuotaMinimoPersonalAutonomica) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:24571–24637
-- 0 / value (EUR, value); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- caso / comunidadAutonoma (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:16181–16185
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
 - (filas) =>
         Option.match(
           EffectArray.findLast(
@@ -3709,26 +856,6 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
             (fila) =>
               base.gt(0) &&
               (fila.inferi / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1954–3046
-- anio >= 2012 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3799–3811
-- salarioBrutoAnual / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8027–8044
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- cotizacionesTotales.cotizacionTrabajador / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:9068–9108
-- anio <= 2014 ? crearImporteMonetario(2652) : IMPORTE_CERO / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1304–1361
-- crearImporteMonetario("1.5") / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3513–3541
-- Match.value(base).pipe(
-        Match.when(
-          (base) => base.lte(0),
-          () => []
-        ),
-        Match.orElse(
-          (base) =>
-            / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3061–4468
-- izquierda.cotizacionTrabajador / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7289–7319
-- izquierda / cotizacionTrabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7289–7298
-- 6498 / value (EUR, value); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5220–5224
-- discapacidad / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-discapacidad.ts:573–585
-- { base, tramos, escalasPublicadas } / base (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1505–1540
-- 7 / value (selector, selection); literal; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2463–2464
 - (total, ascendiente) => {
     const minimoPorEdad =
       ascendiente.edad >= 65 ||
@@ -3745,28 +872,9 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
           familiar.edad < 25 || familiar.discapacidad._tag !== "SinDiscapacidad"
       )
       .toSorted; lib/dominio/irpf/minimos/minimo-descendientes.ts:910–1092
-- 2014 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:5745–5749
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
 - EffectArray.reduce(rendimientos, crearImporte(0), (total, rendimiento) =>
     total.plus(crearImporte(rendimiento.importeIntegroCentimos))
   ) / value (EUR, value); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1585–1727
-- {
-    baseOrdinaria: baseCotizacion.baseOrdinaria,
-    excesoBase: baseCotizacion.excesoBase,
-    cotizacionEmpresarial: cotizacionesTotales.cotizacionEmpresari / cotizacionTrabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8878–9545
-- caso / situacionFamiliar.descendientes (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21850–21854
-- rendimientoPrevioNeto.minus("17673.52") / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:6300–6339
-- fechaFallecimiento === undefined / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4556–4588
-- {
-        anio: caso.anio,
-        fechaFallecimiento: caso.fechaFallecimiento,
-        rendimientoPrevioNeto: rendimientoTrabajo.rendimientoPrevioNeto,
-        / rendimientoPrevioNeto (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15156–15346
-- undefined / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4579–4588
-- cotizacionesSociales.cotizacionTrabajador / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13275–13316
-- resolverParametrosComunidadAutonoma2025(comunidadAutonoma) / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:18205–18263
-- fechaFallecimiento === undefined / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4342–4374
-- tramos / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1513–1519
 - {
   2012: importe(0),
   2013: importe(0),
@@ -3776,82 +884,13 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
   2017: importe(2000),
   2018: importe(2000),
   2019 / value (selector, selection); Objeto completo: se exige propiedad de salida; lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts:1636–1975
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- anio / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3491–3495
-- tiposSolidaridad[2025] / trabajador.2 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2826–2848
-- sumarCotizacionesSociales(
-    sumarCotizacionesSociales(cotizacionesOrdinarias, cotizacionesMei),
-    cotizacionesSolidaridad
-  ) / cotizacionTrabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8737–8867
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- crearImporteMonetario(3700) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2730–2757
-- b / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:344–345
-- 0 / value (EUR, value); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- ({ empresa: ["0", "0", "0"], trabajador: ["0", "0", "0"] }) / trabajador.2 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2933–2992
-- caso.rendimientos.trabajo / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12218–12243
-- baseCotizacion.baseOrdinaria / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8246–8274
-- ({
-      empresarial: crearImporteMonetario("0.0058"),
-      trabajador: crearImporteMonetario("0.0012"),
-    }) / trabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3670–3782
-- "0" / value (EUR, value); literal; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2975–2978
-- cotizacionesSolidaridad / cotizacionTrabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8840–8863
-- {
-    base,
-    tramos: [],
-    escalasPublicadas: obtenerEscalasAhorroPublicadas(anio, componente),
-  } / tramos (EUR, value); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1288–1392
-- {
-    empresa: ["0.0096", "0.0104", "0.0122"],
-    trabajador: ["0.0019", "0.0021", "0.0024"],
-  } / trabajador.0 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:642–740
 - [AHORRO_2016_2020] / value (selector, selection); Array completo requiere contrato por elemento; lib/dominio/irpf/cuotas/escalas-publicadas.ts:6037–6055
-- obtenerParametrosComunidadAutonomaPuro({
-        anio: caso.anio,
-        baseLiquidableGeneral,
-        comunidadAutonoma: caso.comunidadAutonoma,
-        fech / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:16057–16266
-- ({
-  cotizacionEmpresarial: izquierda.cotizacionEmpresarial.plus(
-    derecha.cotizacionEmpresarial
-  ),
-  cotizacionTrabajador: izquierda.cotizacionTrabajador. / cotizacionTrabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7160–7366
-- tipos / 2 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1258–1263
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- Decimal.min(salarioBrutoAnual, crearImporteMonetario("3751.20").mul(12))
-          .mul(7) / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2375–2465
-- a / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:360–361
-- crearImporteMonetario(0) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- rendimientoPrevioNeto / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1568–1589
-- reduccionTrabajo2015A2017(rendimientoPrevioNeto) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:4507–4555
 - [] / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3154–3156
-- parametros.mei / trabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8544–8558
-- rendimientoPrevioNeto / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2963–2984
-- Match.value(a).pipe(
-    Match.when(
-      (a) => a.greaterThan(b),
-      () => a
-    ),
-    Match.orElse(() => b)
-  ) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:280–398
-- crearImporteMonetario(0) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- IMPORTE_CERO / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:4188–4200
-- solidaridadTrabajador / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:4154–4175
-- rendimientos / value (EUR, value); productor; lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts:507–519
-- rendimientoPrevioNeto / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2606–2627
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- 0 / value (selector, selection); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- medirAuditoriaSync(
-    "liquidacion.rendimientosTrabajo.sumar",
-    () => sumarRendimientosTrabajo(caso.rendimientos.trabajo, centimosAEuros)
-  ) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12118–12264
 - EffectArray.reduce(
     Object.values(parametros.tiposSeguridadSocial),
     IMPORTE_CERO,
     (suma, tipos) => suma.plus(tipoCotizacionPorLado(tipos, lado))
   ) / value (selector, selection); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/laboral/cotizaciones-sociales.ts:3252–3412
-- minimo.minus(Decimal.max(0, baseGeneral)) / value (selector, selection); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1881–1922
 - EffectArray.reduce(
     calcularDesgloseCuotaPorEscala({ base, tramos, escalasPublicadas }),
     base.mul(0),
@@ -3860,22 +899,6 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
 - (total, ganancia) => ({
       gananciaTotal: total.gananciaTotal.plus(ganancia.gananciaTotal),
       gananciaExenta: total.gananciaExenta.plus(ganancia.ganancia / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1816–2358
-- caso.situacionFamiliar / edad (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21850–21872
-- parametros / solidaridad (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8691–8701
-- situacionFamiliar.descendientes / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63470–63501
-- undefined / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4625–4634
-- {
-        rendimientoIntegro: rendimientoIntegroCapitalInmobiliario,
-      } / rendimientoIntegro (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13831–13907
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- {
-    alcance: "analitico-doce-mensualidades-uniformes",
-    redondeoTgss: "pendiente",
-    baseOrdinaria,
-    excesoBase,
-    cotizacionEmpresarialOrdinaria,
-  / cotizacionTrabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3648–4181
-- baseCotizacion.baseOrdinaria / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8504–8532
 - {
   contribuyente: {
     general: importe("5151"),
@@ -3884,124 +907,19 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
   },
   descendientes: {
     prim / contribuyente.general (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/normativa/datos/minimos-autonomicos-2012.ts:1072–1609
-- 13115 / value (EUR, value); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3574–3579
-- centimosAEuros(
-    sumarDeduccionesAutonomicasCentimos(caso)
-  ) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:24800–24865
-- escalasPublicadas !== undefined / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1877–1908
-- ({
-  baseMaxima: BASE_MAXIMA_COTIZACION_LEGACY[anio],
-  tiposSeguridadSocial: TIPOS_SEGURIDAD_SOCIAL_LEGACY,
-  mei: obtenerTiposMei(anio),
-  solidaridad: obtene / baseMaxima (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5048–5238
-- parametros.baseMaxima / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5383–5404
 - (total, descendiente, indice) => {
       const incrementoMenorTres =
         descendiente.edad < 3
           ? minimos.descendientes.adicionalMenorTres
          / value (selector, selection); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/minimos/minimo-descendientes.ts:1116–1400
-- parametros / tiposSeguridadSocial (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3290–3300
-- 14852 / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5801–5806
-- Match.value(rendimientoPrevioNeto).pipe(
-    Match.when(
-      (rendimientoPrevioNeto) => rendimientoPrevioNeto.lte(13115),
-      () => crearImporteMonetario(55 / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3150–3651
-- crearImporteMonetario(0) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- {
-                anio,
-                base: remanente,
-                componente: nombre,
-              } / base (selector, selection); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:2379–2487
-- parametros.baseMaxima / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5383–5404
-- 0 / value (selector, selection); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- crearImporteMonetario("1.15625").mul(
-            rendimientoPrevioNeto.minus(11250)
-          ) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2913–3009
-- EffectArray.reduce(
-              tramos,
-              {
-                limiteAnterior: base.mul(0),
-                tramos: EffectArray.empty<TramoCuotaGener / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3222–4450
-- Match.value(rendimientoPrevioNeto).pipe(
-    Match.when(
-      (rendimientoPrevioNeto) => rendimientoPrevioNeto.lte(11250),
-      () => crearImporteMonetario(37 / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2594–3067
-- izquierda.cotizacionTrabajador.plus(
-    derecha.cotizacionTrabajador
-  ) / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7289–7362
-- rendimientoCapitalInmobiliario / rendimientoNeto (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15628–15658
-- IMPORTE_CERO / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3634–3646
-- {
-      empresarial: IMPORTE_CERO,
-      trabajador: IMPORTE_CERO,
-    } / trabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:4135–4207
-- salarioBrutoAnual / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2713–2730
 - [AHORRO_ORDINARIO_2012_2014] / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/irpf/cuotas/escalas-publicadas.ts:5865–5893
-- caso.rendimientos / trabajo (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12218–12235
-- crearImporteMonetario("1.14") / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5430–5459
-- TIPOS_SEGURIDAD_SOCIAL_LEGACY / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5126–5155
 - EffectArray.flatMap(escalasPublicadas, (filas) =>
         Option.match(
           EffectArray.findLast(
             filas,
             (fila) =>
               b / value (EUR, value); Contrato de llamada pendiente: EffectArray.flatMap; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1915–3054
-- solidaridad.trabajador / 0 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3231–3253
 - caso / rendimientos.trabajo (EUR, value); public-input; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:9398–9402
-- 4080 / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2347–2351
-- {
-  2025: {
-    empresa: ["0.0077", "0.0083", "0.0098"],
-    trabajador: ["0.0015", "0.0017", "0.0019"],
-  },
-  2026: {
-    empresa: ["0.0096", "0.0104", "0.012 / 2026.trabajador.1 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:524–752
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- parametros.baseMaxima / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5383–5404
-- crearImporteMonetario(7302).minus(
-          crearImporteMonetario("1.75").mul(rendimientoPrevioNeto.minus(14852))
-        ) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5964–6088
-- caso.anio / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:23094–23103
-- Decimal.min(
-      Decimal.max(0, minimo.minus(Decimal.max(0, baseGeneral))),
-      Decimal.max(0, base)
-    ) / value (EUR, value); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1847–1957
-- exceso.minus(baseMaxima.mul("0.5")) / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1112–1147
-- minimoDiscapacidadContribuyente / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63731–63762
-- 6500 / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1284–1288
-- "0.0021" / value (selector, selection); literal; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:716–724
-- baseImponibleGeneral / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15733–15753
-- comunidadAutonoma === "andalucia" / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3762–3795
-- parametros / baseMaxima (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5383–5393
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- caso / anio (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:17799–17803
-- sumarTipoCotizacionLegacy(parametros, "trabajador") / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3442–3493
-- resolverParametrosComunidadAutonoma2021(comunidadAutonoma) / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17715–17773
-- {
-      situacionFamiliar: caso.situacionFamiliar,
-      anio: caso.anio,
-      minimos: parametrosComunidad.minimosAutonomicos,
-    } / minimos.contribuyente.adicionalMayor75 (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21823–21957
-- {
-        base: Decimal.min(
-          minimoPersonalYFamiliarAutonomico,
-          baseLiquidableGeneral
-        ),
-        tramos: parametrosComunidad.escalaA / tramos (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:22648–22890
-- Decimal.min(
-    Decimal.max(0, exceso.minus(baseMaxima.mul("0.1"))),
-    baseMaxima.mul("0.4")
-  ) / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:972–1071
-- parametros / tiposSeguridadSocial (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3290–3300
-- {
-  2025: {
-    empresa: ["0.0077", "0.0083", "0.0098"],
-    trabajador: ["0.0015", "0.0017", "0.0019"],
-  },
-  2026: {
-    empresa: ["0.0096", "0.0104", "0.012 / 2026.trabajador.1 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:524–743
-- 0 / value (EUR, value); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- resolverParametrosComunidadAutonoma2012(comunidadAutonoma) / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16696–16754
 - {
     _tag: "ParametrosComunidadAutonoma",
     comunidadAutonoma,
@@ -4012,139 +930,21 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
       ascendiente.edad >= 65 ||
       ascendiente.discapacidad._tag !== "SinDiscapacidad"
         ? minimos. / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/minimos/minimo-ascendientes.ts:559–974
-- minimoAscendientes / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21606–21624
-- {
-  2025: {
-    empresa: ["0.0077", "0.0083", "0.0098"],
-    trabajador: ["0.0015", "0.0017", "0.0019"],
-  },
-  2026: {
-    empresa: ["0.0096", "0.0104", "0.012 / 2026.trabajador.0 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:524–743
 - EffectArray.flatMap(escalasPublicadas, (filas) =>
         Option.match(
           EffectArray.findLast(
             filas,
             (fila) =>
               b / value (EUR, value); Contrato de llamada pendiente: EffectArray.flatMap; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1915–3054
-- cotizacionesSolidaridad / cotizacionTrabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8840–8863
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3871–3888
-- rendimientoPrevioNeto / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1790–1811
-- Decimal.max(0, exceso.minus(baseMaxima.mul("0.1"))) / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:989–1040
-- crearImporteMonetario("3803.70").mul(12) / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2555–2595
-- resolverParametrosComunidadAutonoma2020(comunidadAutonoma) / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17616–17674
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- "0.0012" / value (EUR, value); literal; lib/dominio/laboral/cotizaciones-sociales.ts:3765–3773
-- minimo(bruto, parametros.baseMaxima) / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5369–5405
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
 - {
     _tag: "ParametrosComunidadAutonoma",
     comunidadAutonoma,
     anio: 2023,
     minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_202 / value (selector, selection); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:13216–13699
-- 0 / value (EUR, value); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- reduccionRendimientosTrabajo / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15590–15618
-- Decimal.min(
-          minimoPersonalYFamiliarAutonomico,
-          baseLiquidableGeneral
-        ) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:22664–22763
-- {
-  baseMaxima: BASE_MAXIMA_COTIZACION_LEGACY[anio],
-  tiposSeguridadSocial: TIPOS_SEGURIDAD_SOCIAL_LEGACY,
-  mei: obtenerTiposMei(anio),
-  solidaridad: obtener / mei.trabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5049–5237
-- crearImporteMonetario(7302) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5964–5991
-- reduccionTrabajo2015A2017(rendimientoPrevioNeto) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:4507–4555
-- ({
-      empresarial: crearImporteMonetario("0.0058"),
-      trabajador: crearImporteMonetario("0.0012"),
-    }) / trabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3670–3782
-- "17673.52" / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5931–5941
-- 0 / value (selector, selection); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- rendimientoPrevioNeto / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2064–2085
-- Match.value(caso.anio).pipe(
-        Match.when(2012, () => MINIMOS_ESTATALES_2012),
-        Match.when(2013, () => MINIMOS_ESTATALES_2013),
-        Match.when( / contribuyente.general (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12363–12670
-- base / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3125–3129
-- anio <= 2020 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:6016–6028
-- minimoPersonalYFamiliar / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:22898–22921
-- rendimientoCapitalInmobiliario / rendimientoNeto (selector, selection); productor; lib/dominio/irpf/integracion/base-imponible-general.ts:758–788
 - [
       componente === "estatal" ? AHORRO_2016_2020 : AHORRO_AUTONOMICO_2015,
     ] / value (selector, selection); Array completo requiere contrato por elemento; lib/dominio/irpf/cuotas/escalas-publicadas.ts:5926–6009
-- baseMaxima / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1017–1027
-- {
-        empresarial: crearImporteMonetario("0.0075"),
-        trabajador: crearImporteMonetario("0.0015"),
-      } / trabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3986–4102
-- izquierda.cotizacionTrabajador / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7289–7319
-- parametros / mei.trabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8544–8554
-- escalasPublicadas / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1521–1538
-- crearImporteMonetario("0.0012") / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3743–3774
 - crearImporte(0) / value (selector, selection); Contrato de llamada pendiente: crearImporte; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1618–1633
-- rendimientoIntegroCapitalInmobiliario / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13861–13898
-- reduccionRendimientosTrabajo ?? 0 / value (selector, selection); productor; lib/dominio/irpf/integracion/base-imponible-general.ts:709–742
-- maximo(IMPORTE_CERO, reduccionNueva.minus(reduccionAnterior)) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:4891–4952
-- parametrosComunidad.minimosAutonomicos / contribuyente.general (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21912–21950
-- cotizacionTrabajador ??
-    calcularCotizacionesSocialesLegacy({
-      anio,
-      salarioBrutoAnual: rendimientoIntegro,
-    }).cotizacionTrabajador / value (EUR, value); productor; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:905–1054
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- edad / value (selector, selection); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1395–1399
-- resolverParametrosComunidadAutonoma2025(comunidadAutonoma) / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:18205–18263
-- crearImporteMonetario("3751.20").mul(12) / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2406–2446
-- {
-        anio: caso.anio,
-        edadContribuyente: caso.situacionFamiliar.edad,
-        ganancias: Option.fromNullishOr(
-          caso.rendimientos.ganancia / ganancias (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14069–14338
-- {
-        anio: caso.anio,
-        salarioBrutoAnual: rendimientoIntegroTrabajo,
-      } / anio (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12929–13017
-- {
-        base: Decimal.min(
-          minimoPersonalYFamiliarAutonomico,
-          baseLiquidableGeneral
-        ),
-        tramos: parametrosComunidad.escalaA / base (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:22648–22890
-- {
-        anio: caso.anio,
-        salarioBrutoAnual: rendimientoIntegroTrabajo,
-      } / anio (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12929–13017
-- calcularDesgloseCotizacionesSocialesLegacy({
-    anio,
-    salarioBrutoAnual,
-  }) / baseOrdinaria (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2023–2105
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- 0 / value (EUR, value); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- comunidadAutonoma === "andalucia" && anio >= 2012 && anio <= 2015 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3762–3827
-- rendimientoPrevioNeto.minus(9180) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2404–2437
-- IMPORTE_CERO / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-descendientes.ts:1098–1110
-- {
-  baseOrdinaria: minimo(bruto, parametros.baseMaxima),
-  excesoBase: maximo(IMPORTE_CERO, bruto.minus(parametros.baseMaxima)),
-} / baseOrdinaria (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5350–5480
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- calcularCotizacionesSocialesLegacy({
-      anio,
-      salarioBrutoAnual: rendimientoIntegro,
-    }) / cotizacionTrabajador (EUR, value); productor; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:933–1033
-- {
-        anio: caso.anio,
-        baseLiquidableGeneral,
-        comunidadAutonoma: caso.comunidadAutonoma,
-        fechaFallecimiento: caso.fechaFallecimiento / comunidadAutonoma (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:16096–16265
-- rendimientoPrevioNeto.minus(11250) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2963–2997
-- escalasPublicadas / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1877–1894
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- medirAuditoriaSync(
-    "liquidacion.rendimientosTrabajo.sumar",
-    () => sumarRendimientosTrabajo(caso.rendimientos.trabajo, centimosAEuros)
-  ) / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12118–12264
 - {
   2012: crearImporteMonetario("39150.0"),
   2013: crearImporteMonetario("41108.4"),
@@ -4156,52 +956,21 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
     anio: 2013,
     minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / value (selector, selection); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:6155–6562
 - obtenerEscalasAhorroPublicadas(anio, componente) / value (EUR, value); Retornos/guardas imperativas requieren contrato: obtenerEscalasAhorroPublicadas; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1339–1387
-- crearImporteMonetario("1.15625") / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2913–2945
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- {
-  2025: {
-    empresa: ["0.0077", "0.0083", "0.0098"],
-    trabajador: ["0.0015", "0.0017", "0.0019"],
-  },
-  2026: {
-    empresa: ["0.0096", "0.0104", "0.012 / 2026.trabajador.2 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:524–743
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3923–3927
-- "0.0013" / value (EUR, value); literal; lib/dominio/laboral/cotizaciones-sociales.ts:3907–3915
-- baseOrdinaria.mul(parametros.mei.trabajador) / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3593–3637
-- 0 / value (EUR, value); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- discapacidad / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-discapacidad.ts:573–585
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:6062–6066
-- medirAuditoriaSync(
-    "liquidacion.rendimientosTrabajo.neto",
-    () =>
-      calcularRendimientoNetoTrabajo({
-        anio: caso.anio,
-        rendimientoInt / rendimientoNeto (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13052–13330
 - {
     _tag: "ParametrosComunidadAutonoma",
     comunidadAutonoma,
     anio: 2017,
     minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / value (selector, selection); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:9085–9527
-- gananciasPatrimoniales.gananciaSujetaGeneral / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14664–14708
 - {
     _tag: "ParametrosComunidadAutonoma",
     comunidadAutonoma,
     anio: 2019,
     minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / value (EUR, value); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:10419–10861
-- escalasPublicadas !== undefined / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1877–1908
-- crearImporteMonetario(0) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- derechosAutonomicos?.total / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21757–21783
-- situacionFamiliar / descendientes (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63470–63487
-- comunidadAutonoma === "madrid" &&
-    anio === 2025 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4283–4334
-- "2364.34" / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:6225–6234
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
 - EffectArray.reduce(
     calcularDesgloseCuotaPorEscala({ base, tramos, escalasPublicadas }),
     base.mul(0),
     (total, tramo) => total.plus(tramo.cuota)
   ) / value (EUR, value); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1450–1609
-- minimos.contribuyente / general (selector, selection); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1130–1151
 - {
   2012: crearImporteMonetario("39150.0"),
   2013: crearImporteMonetario("41108.4"),
@@ -4211,588 +980,109 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
     SinSolidaridad: () => IMPORTE_CERO,
     ConSolidaridad: (politica) =>
       Match.value(baseCotizacion.excesoBase) / value (selector, selection); Contrato de llamada pendiente: Match.valueTags; lib/dominio/laboral/cotizaciones-sociales.ts:5600–6792
-- "0.001" / value (EUR, value); literal; lib/dominio/laboral/cotizaciones-sociales.ts:3624–3631
 - Option.match({
       onNone: () => false,
       onSome: (fechaFallecimiento) =>
         fechaCivilIsoUtc(fechaFallecimiento) < fechaCorte,
     }) / value (selector, selection); Contrato de llamada pendiente: Option.match; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:4136–4281
-- IMPORTE_CERO / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3328–3340
-- tiposSolidaridad[2025] / trabajador.2 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2826–2848
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- MINIMOS_ESTATALES_2012 / contribuyente.general (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12423–12445
-- Match.value(a.lessThan(b)).pipe(
-    Match.when(true, () => a),
-    Match.orElse(() => b)
-  ) / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:2657–2750
-- Decimal.max(
-      0,
-      rendimientoPrevioNeto.minus(gastosDeducibles)
-    ) / value (selector, selection); productor; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1342–1421
 - EffectArray.reduce(
     rendimientos,
     convertirCentimosAEuros(0),
     (total, rendimiento) =>
       total.plus(convertirCentimosAEuros(rendimiento.importeIn / value (selector, selection); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts:483–662
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4049–4053
-- minimoAscendientes / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63701–63719
-- resolverParametrosComunidadAutonoma2020(comunidadAutonoma) / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17616–17674
-- {
-      empresarial: crearImporteMonetario("0.0067"),
-      trabajador: crearImporteMonetario("0.0013"),
-    } / trabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3813–3923
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- { base, tramos, escalasPublicadas } / escalasPublicadas (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1505–1540
 - EffectArray.reduce(
     Object.values(parametros.tiposSeguridadSocial),
     IMPORTE_CERO,
     (suma, tipos) => suma.plus(tipoCotizacionPorLado(tipos, lado))
   ) / value (EUR, value); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/laboral/cotizaciones-sociales.ts:3252–3412
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- rendimientoPrevioNeto / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2814–2835
-- reduccionRendimientosTrabajo / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15590–15618
-- Decimal.min(salarioBrutoAnual, crearImporteMonetario("3751.20").mul(12))
-          .mul(7)
-          .plus(
-            Decimal.min(
-              salarioBrutoA / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2375–2647
-- rendimientoPrevioNeto / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3162–3183
-- rendimientoCapitalInmobiliario.rendimientoNeto / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14607–14653
-- baseCotizacion.baseOrdinaria / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8899–8927
-- 0 / value (selector, selection); literal; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1109–1110
-- {
-    anio,
-    edad: situacionFamiliar.edad,
-    minimos,
-  } / minimos.contribuyente.general (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:62994–63056
-- base / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3125–3129
-- solidaridad / trabajador.0 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3231–3242
 - EffectArray.reduce(
     Object.values(parametros.tiposSeguridadSocial),
     IMPORTE_CERO,
     (suma, tipos) => suma.plus(tipoCotizacionPorLado(tipos, lado))
   ) / value (EUR, value); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/laboral/cotizaciones-sociales.ts:3252–3412
-- 0 / value (EUR, value); literal; lib/dominio/irpf/integracion/base-imponible-ahorro.ts:312–313
-- calcularCotizacionesSocialesLegacy({
-      anio,
-      salarioBrutoAnual: rendimientoIntegro,
-    }) / cotizacionTrabajador (selector, selection); productor; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:933–1033
-- anio <= 2015 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3815–3827
-- anio / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2072–2076
-- base.lte(0) / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3125–3136
-- rendimientoTrabajo / rendimientoNeto (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15668–15686
-- "1.5" / value (EUR, value); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3535–3540
-- tramos / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1513–1519
-- base / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3073–3077
 - caso / anio (selector, selection); public-input; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:9398–9402
-- crearImporteMonetario("0.001") / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3602–3632
-- IMPORTE_CERO / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:6392–6404
-- {
-    base,
-    tramos: [],
-    escalasPublicadas: obtenerEscalasAhorroPublicadas(anio, componente),
-  } / base (EUR, value); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1288–1392
 - datos.map(([baseInferior, cuota, tipo]) => ({
     baseInferior: new Decimal(baseInferior),
     cuota: new Decimal(cuota),
     tipo: new Decimal(tipo),
   })) / value (selector, selection); Contrato de llamada pendiente: datos.map; lib/dominio/irpf/cuotas/escalas-publicadas.ts:560–716
-- medirAuditoriaSync(
-    "liquidacion.rendimientosTrabajo.sumar",
-    () => sumarRendimientosTrabajo(caso.rendimientos.trabajo, centimosAEuros)
-  ) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12118–12264
-- escalasPublicadas !== undefined
-    ? EffectArray.flatMap(escalasPublicadas, (filas) =>
-        Option.match(
-          EffectArray.findLast(
-            filas, / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1877–4468
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- rendimientoPrevioNeto / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2963–2984
 - (total, tramo) => total.plus(tramo.cuota) / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1564–1605
-- MINIMOS_ESTATALES_2013 / contribuyente.general (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12479–12501
-- cotizacionTrabajador / value (selector, selection); productor; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:905–925
-- crearImporteMonetario("1.15625") / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2913–2945
-- fallecidoAntesDeFechaCivil({
-      fechaCorte: FECHA_CORTE_REDUCCION_TRABAJO_2018,
-      fechaFallecimiento,
-    }) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:4657–4772
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- parametros.tiposSeguridadSocial / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3290–3321
 - {
     SinDiscapacidad: () => IMPORTE_CERO,
     Discapacidad33a64: ({ necesitaAyudaOMovilidadReducida }) =>
       necesitaAyudaOMovilidadReducida
         ? minim / value (EUR, value); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/minimos/minimo-discapacidad.ts:587–921
-- derechosAutonomicos?.total ??
-    calcularMinimoPersonalYFamiliar({
-      situacionFamiliar: caso.situacionFamiliar,
-      anio: caso.anio,
-      minimos: param / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21757–21958
-- ({ empresa: ["0", "0", "0"], trabajador: ["0", "0", "0"] }) as const / trabajador.0 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2933–3001
-- anio / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7977–7981
-- ({
-      empresarial: IMPORTE_CERO,
-      trabajador: IMPORTE_CERO,
-    }) / trabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:4134–4208
-- caso / anio (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:23094–23098
-- Decimal.max(0, gananciasPatrimoniales.gananciaSujetaAhorro) / value (selector, selection); productor; lib/dominio/irpf/integracion/base-imponible-ahorro.ts:300–359
-- rendimientoPrevioNeto / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5479–5500
-- IMPORTE_CERO / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3328–3340
-- minimos.contribuyente / general (EUR, value); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1130–1151
-- escalasPublicadas / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1935–1952
-- 0 / value (EUR, value); literal; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1109–1110
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- izquierda.cotizacionTrabajador.plus(
-    derecha.cotizacionTrabajador
-  ) / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7289–7362
-- {
-    base,
-    tramos: [],
-    escalasPublicadas: obtenerEscalasAhorroPublicadas(anio, componente),
-  } / base (selector, selection); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1288–1392
-- anio <= 2014 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:5737–5749
 - yield* Match.valueTags(
     resultadoParametrosComunidad,
     {
       ComunidadAutonomaNoSoportada: (parametrosComunidad) =>
         Effect.fail({
           _ta / escalaAutonomica.tramos (EUR, value); Admisión Effect/servicio pendiente; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:16362–17338
-- crearImporteMonetario(4080) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2325–2352
-- obtenerParametrosCotizacionLegacy(anio) / tiposSeguridadSocial (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7943–7982
-- ["0.0015", "0.0017", "0.0019"] / 0 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:597–627
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:5900–5904
-- {
-        gananciaPatrimonialGeneral:
-          gananciasPatrimoniales.gananciaSujetaGeneral,
-        reduccionRendimientosTrabajo,
-        rendimientoCapitalIn / rendimientoCapitalInmobiliario.rendimientoNeto (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15488–15695
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- resolverParametrosComunidadAutonoma2026(comunidadAutonoma) / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:18304–18362
-- base / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3073–3077
-- exceso / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1004–1010
-- {
-  baseOrdinaria: minimo(bruto, parametros.baseMaxima),
-  excesoBase: maximo(IMPORTE_CERO, bruto.minus(parametros.baseMaxima)),
-} / baseOrdinaria (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5350–5480
-- { fechaFallecimiento, rendimientoPrevioNeto } / rendimientoPrevioNeto (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1652–1697
-- 2024 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:6116–6120
-- exceso / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1112–1118
 - {
     _tag: "ParametrosComunidadAutonoma",
     comunidadAutonoma,
     anio: 2021,
     minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_202 / value (selector, selection); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:11753–12195
-- 0 / value (selector, selection); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- ({
-  rendimientoIntegro,
-  rendimientoNeto: rendimientoIntegro,
-}) / rendimientoNeto (EUR, value); productor; lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts:1376–1442
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- 11250 / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2710–2715
-- minimos / contribuyente.adicionalMayor65 (EUR, value); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1268–1275
-- comunidadAutonoma === "madrid" &&
-    anio === 2025 &&
-    fechaFallecimiento === undefined / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4283–4374
-- totalSolidaridad.div(6) / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:6980–7003
-- parametros.baseMaxima / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5383–5404
-- {
-    baseOrdinaria: baseCotizacion.baseOrdinaria,
-    excesoBase: baseCotizacion.excesoBase,
-    cotizacionEmpresarial: cotizacionesTotales.cotizacionEmpresari / baseOrdinaria (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8878–9545
-- Match.value(rendimientoPrevioNeto).pipe(
-    Match.when(
-      (rendimientoPrevioNeto) => rendimientoPrevioNeto.lte(13115),
-      () => crearImporteMonetario(55 / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3150–3651
-- {
-      empresarial: crearImporteMonetario("0.0058"),
-      trabajador: crearImporteMonetario("0.0012"),
-    } / trabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3671–3781
-- sumarRendimientosTrabajo(caso.rendimientos.trabajo, centimosAEuros) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12193–12260
-- primerExceso
-    .mul(tipos[0])
-    .plus(segundoExceso.mul(tipos[1]))
-    .plus(excesoRestante.mul(tipos[2])) / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1158–1268
-- caso.rendimientos.trabajo / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12218–12243
-- derecha / cotizacionTrabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7330–7337
-- anio === 2018
-      ? Decimal.min(salarioBrutoAnual, crearImporteMonetario("3751.20").mul(12))
-          .mul(7)
-          .plus(
-            Decimal.min(
-      / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2353–2676
-- situacionFamiliar.discapacidad / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-discapacidad.ts:1148–1178
-- Match.value(a).pipe(
-    Match.when(
-      (a) => a.greaterThan(b),
-      () => a
-    ),
-    Match.orElse(() => b)
-  ) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:280–398
-- 3700 / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2752–2756
-- anio === 2015 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:5900–5913
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- IMPORTE_CERO / value (selector, selection); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1532–1544
-- "0.0015" / value (EUR, value); literal; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:598–606
-- ({
-      empresarial: crearImporteMonetario("0.0067"),
-      trabajador: crearImporteMonetario("0.0013"),
-    }) / trabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3812–3924
-- crearImporteMonetario(2652) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2479–2506
-- caso / rendimientos.trabajo (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12218–12222
-- calcularBaseImponibleGeneral({
-        gananciaPatrimonialGeneral:
-          gananciasPatrimoniales.gananciaSujetaGeneral,
-        reduccionRendimientosTrabajo, / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15459–15696
-- tramos / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1513–1519
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
 - BASE_MAXIMA_COTIZACION_LEGACY[anio] / value (EUR, value); Índice dinámico/array: requiere contrato por elemento; lib/dominio/laboral/cotizaciones-sociales.ts:5065–5100
-- Decimal.max(0, base.minus(remanente)) / value (selector, selection); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:2188–2225
-- baseMaxima.mul("0.5") / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1125–1146
 - errorDerechosMinimos / value (EUR, value); Función sin instancia de llamada; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20401–20421
-- {
-      empresarial: crearImporteMonetario("0.005"),
-      trabajador: crearImporteMonetario("0.001"),
-    } / trabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3531–3639
-- anio <= 2014 / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1304–1316
-- "0.0015" / value (selector, selection); literal; lib/dominio/laboral/cotizaciones-sociales.ts:4084–4092
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- rendimientoPrevioNeto / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2963–2984
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- obtenerMinimoDiscapacidadAscendientes(
-      situacionFamiliar.ascendientes,
-      minimos
-    ) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63529–63625
-- parametros.baseMaxima / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3204–3225
 - caso / rendimientos.trabajo (selector, selection); public-input; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:9398–9402
-- crearImporteMonetario(6498).minus(
-            crearImporteMonetario("1.14").mul(
-              rendimientoPrevioNeto.minus("14047.50")
-            )
-           / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5383–5544
 - yield* calcularDerechosMinimos(
           caso.derechosMinimos,
           minimosEstatales
         ).pipe(Effect.mapError(errorDerechosMinimos)) / discapacidadContribuyente (EUR, value); Admisión Effect/servicio pendiente; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20017–20161
-- anio / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5095–5099
-- rendimientoPrevioNeto.lte(11250) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2684–2716
-- anio / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5095–5099
 - Effect.mapError(errorDerechosMinimos) / value (EUR, value); Contrato de llamada pendiente: Effect.mapError; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20123–20160
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- rendimientoPrevioNeto.minus("17673.52") / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:6300–6339
-- parametros / tiposSeguridadSocial (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3468–3478
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- crearImporteMonetario(0) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:470–494
 - EffectArray.reduce(
               tramos,
               {
                 limiteAnterior: base.mul(0),
                 tramos: EffectArray.empty<TramoCuotaGener / tramos (EUR, value); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3222–4443
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- rendimientoPrevioNeto / value (selector, selection); productor; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1276–1297
-- 0 / value (selector, selection); literal; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1878–1879
-- componente === "estatal" / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:5762–5786
-- { empresa: ["0", "0", "0"], trabajador: ["0", "0", "0"] } / trabajador.0 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2934–2991
-- ({
-  baseOrdinaria: minimo(bruto, parametros.baseMaxima),
-  excesoBase: maximo(IMPORTE_CERO, bruto.minus(parametros.baseMaxima)),
-}) / baseOrdinaria (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5349–5481
 - datos.map(([baseInferior, cuota, tipo]) => ({
     baseInferior: new Decimal(baseInferior),
     cuota: new Decimal(cuota),
     tipo: new Decimal(tipo),
   })) / value (selector, selection); Contrato de llamada pendiente: datos.map; lib/dominio/irpf/cuotas/escalas-publicadas.ts:560–716
-- cotizacionesMei / cotizacionTrabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8818–8833
-- 0 / value (selector, selection); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- crearImporteMonetario(3700) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2730–2757
 - {
         _tag: "ConSolidaridad",
         tipoPrimerExceso: crearImporteMonetario("0.0115"),
         tipoSegundoExceso: crearImporteMonetario("0.0125"),
         / value (selector, selection); Objeto completo: se exige propiedad de salida; lib/dominio/laboral/cotizaciones-sociales.ts:4670–4891
-- baseCotizacion / baseOrdinaria (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8504–8518
-- {
-  2025: {
-    empresa: ["0.0077", "0.0083", "0.0098"],
-    trabajador: ["0.0015", "0.0017", "0.0019"],
-  },
-  2026: {
-    empresa: ["0.0096", "0.0104", "0.012 / 2025.trabajador.2 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:524–743
-- derechosEstatales / discapacidadContribuyente (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21023–21040
-- Decimal.max(0, gananciasPatrimoniales.gananciaSujetaAhorro) / value (EUR, value); productor; lib/dominio/irpf/integracion/base-imponible-ahorro.ts:300–359
-- ["0", "0", "0"] / 2 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2974–2989
-- anio >= 2020 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4033–4045
-- "catalunya" / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4018–4029
-- base / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1547–1551
-- 13115 / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3266–3271
-- rendimientoPrevioNeto / value (EUR, value); productor; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1276–1297
-- 65 / value (selector, selection); literal; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1252–1254
-- base / value (EUR, value); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:2203–2207
-- {
-    empresa: ["0.0077", "0.0083", "0.0098"],
-    trabajador: ["0.0015", "0.0017", "0.0019"],
-  } / trabajador.0 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:534–632
-- calcularTotalSolidaridad(baseCotizacion, parametros) / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8650–8702
 - caso / deduccionAutonomicaAgregadaCentimos (centimos, value); public-input; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:9398–9402
-- escalasPublicadas / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1877–1894
 - Match.valueTags(parametros.solidaridad, {
     SinSolidaridad: () => IMPORTE_CERO,
     ConSolidaridad: (politica) =>
       Match.value(baseCotizacion.excesoBase) / value (EUR, value); Contrato de llamada pendiente: Match.valueTags; lib/dominio/laboral/cotizaciones-sociales.ts:5600–6792
-- IMPORTE_CERO / value (selector, selection); productor; lib/dominio/irpf/minimos/minimo-descendientes.ts:1098–1110
-- crearImporteMonetario(0) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:470–494
 - (total, ganancia) => ({
       gananciaTotal: total.gananciaTotal.plus(ganancia.gananciaTotal),
       gananciaExenta: total.gananciaExenta.plus(ganancia.ganancia / value (selector, selection); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1816–2358
-- Match.value(
-    fallecidoAntesDeFechaCivil({
-      fechaCorte: FECHA_CORTE_REDUCCION_TRABAJO_2018,
-      fechaFallecimiento,
-    })
-  ).pipe(
-    Match.when(tr / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:4640–4977
-- anio === 2015 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:5900–5913
-- {
-      anio,
-      base,
-      componente: nombre,
-    } / componente (selector, selection); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:2006–2063
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- ({
-        _tag: "ConSolidaridad",
-        tipoPrimerExceso: crearImporteMonetario("0.0115"),
-        tipoSegundoExceso: crearImporteMonetario("0.0125"),
-       / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:4669–4892
-- a / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:2717–2718
-- parametros / tiposSeguridadSocial (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3290–3300
-- 0 / value (EUR, value); literal; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1001–1002
-- {
-  2025: {
-    empresa: ["0.0077", "0.0083", "0.0098"],
-    trabajador: ["0.0015", "0.0017", "0.0019"],
-  },
-  2026: {
-    empresa: ["0.0096", "0.0104", "0.012 / 2025.trabajador.0 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:524–743
 - {
     _tag: "ParametrosComunidadAutonoma",
     comunidadAutonoma,
     anio: 2015,
     minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / value (EUR, value); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:7716–8193
-- minimosEstatales / contribuyente.adicionalMayor65 (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20606–20622
-- rendimientoIntegro / value (EUR, value); productor; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1087–1105
-- minimo / value (selector, selection); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1881–1887
-- crearImporteMonetario("1.15625").mul(
-            rendimientoPrevioNeto.minus(11250)
-          ) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2913–3009
-- {
-        empresarial: crearImporteMonetario("0.0075"),
-        trabajador: crearImporteMonetario("0.0015"),
-      } / trabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3986–4102
-- Match.value(edad).pipe(
-    Match.when(
-      (edad) => edad >= 65,
-      () => minimos.contribuyente.adicionalMayor65
-    ),
-    Match.orElse(() => IMPORTE_CER / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1188–1354
-- crearImporteMonetario(0) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- crearImporteMonetario(0) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- Decimal.min(
-          minimoPersonalYFamiliarAutonomico,
-          baseLiquidableGeneral
-        ) / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:22664–22763
 - Option.getOrElse(() => []) / value (EUR, value); Contrato de llamada pendiente: Option.getOrElse; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14259–14285
-- "0.5" / value (selector, selection); literal; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1140–1145
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
 - centimosAEuros = (centimos: number): ImporteMonetario =>
   crearImporteMonetario(centimos).div(100) / signature:centimosAEuros (EUR, value); primitive; lib/dominio/dinero/importe-monetario.ts:561–660
-- gastosDeducibles / value (selector, selection); productor; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1398–1414
-- rendimientoPrevioNeto.lte(14450) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2814–2846
-- parametros.mei / trabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8544–8558
-- minimos.contribuyente.adicionalMayor65 / value (selector, selection); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1268–1306
-- rendimientoPrevioNeto / value (EUR, value); productor; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1370–1391
 - BASE_MAXIMA_COTIZACION_LEGACY[anio] / value (selector, selection); Índice dinámico/array: requiere contrato por elemento; lib/dominio/laboral/cotizaciones-sociales.ts:5065–5100
-- minimoBase / value (selector, selection); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1560–1570
 - datos.map(([baseInferior, cuota, tipo]) => ({
     baseInferior: new Decimal(baseInferior),
     cuota: new Decimal(cuota),
     tipo: new Decimal(tipo),
   })) / value (selector, selection); Contrato de llamada pendiente: datos.map; lib/dominio/irpf/cuotas/escalas-publicadas.ts:560–716
-- minimos / contribuyente.adicionalMayor75 (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63044–63051
-- situacionFamiliar.edad / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63016–63038
-- obtenerMinimoDescendientes(
-    situacionFamiliar.descendientes,
-    minimos
-  ) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63196–63276
-- sumarCotizacionesSociales(cotizacionesOrdinarias, cotizacionesMei) / cotizacionTrabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8768–8834
-- reduccionTrabajo2018({ fechaFallecimiento, rendimientoPrevioNeto }) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1631–1698
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- Decimal.max(0, minimo.minus(Decimal.max(0, baseGeneral))) / value (EUR, value); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1866–1923
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:2397–2401
-- rendimientoTrabajo / rendimientoPrevioNeto (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15267–15285
 - [AHORRO_2021_2022] / value (selector, selection); Array completo requiere contrato por elemento; lib/dominio/irpf/cuotas/escalas-publicadas.ts:6083–6101
-- IMPORTE_CERO / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:4188–4200
-- crearImporteMonetario(0) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- gastosDeducibles / value (EUR, value); productor; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1398–1414
-- 0 / value (EUR, value); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- totalSolidaridad.div(6) / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:6980–7003
-- Match.value(caso.anio).pipe(
-        Match.when(2012, () => MINIMOS_ESTATALES_2012),
-        Match.when(2013, () => MINIMOS_ESTATALES_2013),
-        Match.when( / contribuyente.adicionalMayor65 (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12363–12670
-- crearImporteMonetario(0) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- {
-      situacionFamiliar: caso.situacionFamiliar,
-      anio: caso.anio,
-      minimos: parametrosComunidad.minimosAutonomicos,
-    } / situacionFamiliar.descendientes (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21823–21957
-- IMPORTE_CERO / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5359–5371
-- {
-        anio: caso.anio,
-        edadContribuyente: caso.situacionFamiliar.edad,
-        ganancias: Option.fromNullishOr(
-          caso.rendimientos.ganancia / ganancias (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14069–14338
-- 0 / value (selector, selection); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- rendimientoPrevioNeto / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2963–2984
-- obtenerMinimoDiscapacidadContribuyente(situacionFamiliar, minimos) / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63323–63389
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- "0.001" / value (EUR, value); literal; lib/dominio/laboral/cotizaciones-sociales.ts:3624–3631
-- 3700 / value (EUR, value); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2752–2756
-- medirAuditoriaSync(
-    "liquidacion.parametrosComunidad.obtener",
-    () =>
-      obtenerParametrosComunidadAutonomaPuro({
-        anio: caso.anio,
-        bas / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15974–16270
-- filas([
-  ["0", "0", ".085"],
-  ["13362.22", "1135.79", ".107"],
-  ["19004.63", "1739.53", ".128"],
-  ["35425.68", "3841.42", ".174"],
-  ["57320.40", "7651.10", / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:2890–3062
-- caso / comunidadAutonoma (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:17799–17803
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- anio / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:4307–4311
-- {
-      anio: caso.anio,
-      edad: caso.situacionFamiliar.edad,
-      minimos: minimosEstatales,
-    } / minimos.contribuyente.general (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20525–20629
-- caso.derechosMinimos === undefined / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:19956–19990
-- 0 / value (centimos, value); literal; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:65669–65670
 - yield* calcularDerechosMinimos(
           caso.derechosMinimos,
           minimosEstatales
         ).pipe(Effect.mapError(errorDerechosMinimos)) / descendientes (EUR, value); Admisión Effect/servicio pendiente; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20017–20161
-- 11250 / value (EUR, value); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2991–2996
-- segundoExceso / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1200–1213
-- derecha / cotizacionTrabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7330–7337
-- 0 / value (selector, selection); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- calcularBaseImponibleGeneral({
-        gananciaPatrimonialGeneral:
-          gananciasPatrimoniales.gananciaSujetaGeneral,
-        reduccionRendimientosTrabajo, / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15459–15696
 - {
     _tag: "ParametrosComunidadAutonoma",
     comunidadAutonoma,
     anio: 2012,
     minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / value (EUR, value); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:5523–5930
-- Match.value(anio).pipe(
-    Match.when(
-      () => otrasRentasNoExentas.gt(6500),
-      () => (anio <= 2014 ? crearImporteMonetario(2652) : IMPORTE_CERO)
-    ) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1208–1969
-- rendimientoIntegro / value (EUR, value); productor; lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts:1420–1438
-- crearImporteMonetario(5565) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3286–3313
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- componente === "estatal"
-      ? [AHORRO_ORDINARIO_2012_2014, AHORRO_COMPLEMENTARIO_2012_2014]
-      : [AHORRO_ORDINARIO_2012_2014] / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:5762–5893
-- a / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:2717–2718
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- a / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:2717–2718
-- escalasPublicadas / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1521–1538
-- crearImporteMonetario("0.0012") / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3743–3774
-- calcularCuotaPorEscala({
-    base,
-    tramos: [],
-    escalasPublicadas: obtenerEscalasAhorroPublicadas(anio, componente),
-  }) / value (EUR, value); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1265–1393
-- repartirCotizacionSolidaridad(
-    calcularTotalSolidaridad(baseCotizacion, parametros)
-  ) / cotizacionTrabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8615–8706
-- baseCotizacion.baseOrdinaria / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8504–8532
-- 2021 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4057–4061
 - a.greaterThan(b) / value (selector, selection); Contrato de llamada pendiente: a.greaterThan; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:330–346
-- comunidadAutonoma === "catalunya" / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4100–4133
 - caso / fechaFallecimiento (selector, selection); public-input; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:9398–9402
-- rendimientoPrevioNeto.minus(11250) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2963–2997
-- Decimal.max(0, base.minus(remanente)) / value (EUR, value); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:2188–2225
-- 0 / value (selector, selection); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- rendimientoPrevioNeto.minus(11250) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2963–2997
-- gananciaPatrimonialGeneral / value (selector, selection); productor; lib/dominio/irpf/integracion/base-imponible-general.ts:822–848
 - (total, tramo) => total.plus(tramo.cuota) / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1564–1605
-- ({
-      empresarial: IMPORTE_CERO,
-      trabajador: IMPORTE_CERO,
-    }) / trabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:4134–4208
-- crearImporteMonetario(0) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- componente / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:5762–5772
-- parametros / tiposSeguridadSocial (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3290–3300
-- Match.value(rendimientoPrevioNeto).pipe(
-    Match.when(
-      (rendimientoPrevioNeto) => rendimientoPrevioNeto.lte(9180),
-      () => crearImporteMonetario(408 / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2052–2511
 - Object.values(parametros.tiposSeguridadSocial) / value (selector, selection); Contrato de llamada pendiente: Object.values; lib/dominio/laboral/cotizaciones-sociales.ts:3276–3322
-- {
-    anio,
-    edad: situacionFamiliar.edad,
-    minimos,
-  } / minimos.contribuyente.adicionalMayor75 (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:62994–63056
-- tipos[0] / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1180–1188
-- Decimal.max(
-            0,
-            bruta.minus(
-              calcularCuotaComponenteAhorro({
-                anio,
-                base: remanente,
-       / value (EUR, value); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:2282–2514
-- a / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:292–293
-- 5565 / value (EUR, value); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3308–3312
-- base / value (EUR, value); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1294–1298
-- crearImporteMonetario(6498).minus(
-            crearImporteMonetario("1.14").mul(
-              rendimientoPrevioNeto.minus("14047.50")
-            )
-           / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5383–5544
-- minimoBase.plus(incrementoMayor65).plus(incrementoMayor75) / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1560–1618
-- situacionFamiliar / discapacidad (selector, selection); productor; lib/dominio/irpf/minimos/minimo-discapacidad.ts:1148–1165
-- {
-        base: Decimal.min(
-          minimoPersonalYFamiliarAutonomico,
-          baseLiquidableGeneral
-        ),
-        tramos: parametrosComunidad.escalaA / base (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:22648–22890
-- Decimal.min(salarioBrutoAnual, crearImporteMonetario("3751.20").mul(12))
-          .mul(7)
-          .plus(
-            Decimal.min(
-              salarioBrutoA / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2375–2628
-- Decimal.max(
-    0,
-    rendimientoTrabajo.rendimientoNeto.minus(reduccionRendimientosTrabajo ?? 0)
-  )
-    .plus(rendimientoCapitalInmobiliario?.rendimientoNet / value (selector, selection); productor; lib/dominio/irpf/integracion/base-imponible-general.ts:644–854
-- "1.14" / value (EUR, value); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:6275–6281
 - BASE_MAXIMA_COTIZACION_LEGACY[anio] / value (EUR, value); Índice dinámico/array: requiere contrato por elemento; lib/dominio/laboral/cotizaciones-sociales.ts:5065–5100
-- {
-        anio: caso.anio,
-        rendimientoIntegro: rendimientoIntegroTrabajo,
-        cotizacionTrabajador: cotizacionesSociales.cotizacionTrabajador,
-      / anio (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13163–13325
 - {
   contribuyente: {
     general: importe("5151"),
@@ -4801,68 +1091,12 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
   },
   descendientes: {
     prim / contribuyente.adicionalMayor65 (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/normativa/datos/minimos-autonomicos-2014.ts:1072–1609
-- Decimal.max(
-    0,
-    rendimientoTrabajo.rendimientoNeto.minus(reduccionRendimientosTrabajo ?? 0)
-  )
-    .plus(rendimientoCapitalInmobiliario?.rendimientoNet / value (EUR, value); productor; lib/dominio/irpf/integracion/base-imponible-general.ts:644–854
-- anio / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:4643–4647
-- {
-    empresa: ["0.0096", "0.0104", "0.0122"],
-    trabajador: ["0.0019", "0.0021", "0.0024"],
-  } / trabajador.1 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:642–740
-- resolverParametrosComunidadAutonoma2015({
-        baseLiquidableGeneral,
-        comunidadAutonoma,
-        fechaFallecimiento,
-      }) / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17043–17179
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3996–4013
-- IMPORTE_CERO / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:4898–4910
-- 0 / value (selector, selection); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- {
-        anio: caso.anio,
-        rendimientoIntegro: rendimientoIntegroTrabajo,
-        cotizacionTrabajador: cotizacionesSociales.cotizacionTrabajador,
-      / rendimientoIntegro (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13163–13325
-- salarioBrutoAnual / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2387–2404
-- rendimientoPrevioNeto / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:4607–4628
-- parametros / solidaridad (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8691–8701
-- Match.value(anio).pipe(
-    Match.when(2025, () => tiposSolidaridad[2025]),
-    Match.when(2026, () => tiposSolidaridad[2026]),
-    Match.orElse(
-      () => ({ / trabajador.1 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2775–3011
-- caso.situacionFamiliar / ascendientes (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20736–20758
-- componente("autonomico", minimoAutonomico) / despuesMinimo (EUR, value); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:2713–2755
-- parametros / tiposSeguridadSocial (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3468–3478
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- obtenerTiposMei(anio) / trabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5164–5185
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- IMPORTE_CERO / value (selector, selection); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1337–1349
-- crearImporteMonetario("0.0015") / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:4062–4093
-- Decimal.min(
-              salarioBrutoAnual,
-              crearImporteMonetario("3803.70").mul(12)
-            ) / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2495–2609
-- crearImporteMonetario("1.5") / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3513–3541
-- EffectArray.reduce(
-              tramos,
-              {
-                limiteAnterior: base.mul(0),
-                tramos: EffectArray.empty<TramoCuotaGener / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3222–4450
 - ([baseInferior, cuota, tipo]) => ({
     baseInferior: new Decimal(baseInferior),
     cuota: new Decimal(cuota),
     tipo: new Decimal(tipo),
   }) / value (selector, selection); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/cuotas/escalas-publicadas.ts:570–715
 - Object.values(parametros.tiposSeguridadSocial) / value (EUR, value); Contrato de llamada pendiente: Object.values; lib/dominio/laboral/cotizaciones-sociales.ts:3276–3322
-- minimoContribuyente
-    .plus(minimoDescendientes) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63640–63690
-- baseCotizacion.baseOrdinaria.mul(
-      parametros.mei.trabajador
-    ) / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8504–8575
-- ["0.0019", "0.0021", "0.0024"] / 2 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:705–735
 - {
   comunes: {
     empresarial: crearImporteMonetario("0.236"),
@@ -4873,254 +1107,28 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
 - Option.fromNullishOr(caso.rendimientos.capitalInmobiliario).pipe(
           Option.getOrElse(() => [])
         ) / value (EUR, value); Contrato de llamada pendiente: Option.fromNullishOr(caso.rendimientos.capitalInmobiliario).pipe; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13506–13618
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- base.lte(0) / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3125–3136
-- comunidadAutonoma === "catalunya" && anio >= 2022 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4100–4149
-- resolverParametrosComunidadAutonoma2012(comunidadAutonoma) / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16696–16754
-- ascendientes / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-discapacidad.ts:1821–1833
-- cotizacionTrabajadorOrdinaria
-      .plus(meiTrabajador)
-      .plus(solidaridadTrabajador) / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:4085–4176
-- minimos / contribuyente.adicionalMayor65 (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63044–63051
-- 6498 / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5220–5224
-- ({ empresa: ["0", "0", "0"], trabajador: ["0", "0", "0"] }) as const / trabajador.2 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2933–3001
-- situacionFamiliar / ascendientes (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63574–63591
-- escalasPublicadas / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1521–1538
-- escalasPublicadas !== undefined
-    ? EffectArray.flatMap(escalasPublicadas, (filas) =>
-        Option.match(
-          EffectArray.findLast(
-            filas, / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1877–4468
-- 12 / value (EUR, value); literal; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2644–2646
-- resolverParametrosComunidadAutonoma2021(comunidadAutonoma) / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17715–17773
-- Match.value(anio).pipe(
-    Match.when(2023, () => ({
-      empresarial: crearImporteMonetario("0.005"),
-      trabajador: crearImporteMonetario("0.001"),
-    } / trabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3479–4213
-- 0 / value (selector, selection); literal; lib/dominio/irpf/integracion/base-imponible-general.ts:741–742
-- obtenerParametrosCotizacionLegacy(anio) / mei.trabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7943–7982
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- Match.value(anio).pipe(
-    Match.when(2023, () => ({
-      empresarial: crearImporteMonetario("0.005"),
-      trabajador: crearImporteMonetario("0.001"),
-    } / trabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3479–4213
-- 2652 / value (EUR, value); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2501–2505
-- IMPORTE_CERO / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3442–3454
-- medirAuditoriaSync(
-    "liquidacion.capitalInmobiliario.neto",
-    () =>
-      calcularRendimientoNetoCapitalInmobiliarioSimplificado({
-        rendimientoInte / rendimientoNeto (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13696–13912
-- 13115 / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3574–3579
-- { base, tramos, escalasPublicadas } / escalasPublicadas (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1505–1540
-- anio / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7977–7981
-- resolverParametrosComunidadAutonoma2023({
-        comunidadAutonoma,
-        fechaFallecimiento,
-      }) / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17960–18065
-- sumarTipoCotizacionLegacy(parametros, "trabajador") / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8286–8337
-- izquierda.cotizacionTrabajador.plus(
-    derecha.cotizacionTrabajador
-  ) / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7289–7362
-- crearImporteMonetario(2652) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2479–2506
-- crearImporteMonetario(0) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- incrementoMayor75 / value (selector, selection); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1600–1617
-- ahorroConMinimos.autonomico / despuesMinimo (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:25053–25080
-- rendimientoPrevioNeto / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:6043–6064
-- undefined / value (selector, selection); literal; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20221–20230
-- anio <= 2014 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:5737–5749
-- 2017 / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1524–1528
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- "0" / value (EUR, value); literal; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2985–2988
-- Match.value(anio).pipe(
-    Match.when(2023, () => ({
-      empresarial: crearImporteMonetario("0.005"),
-      trabajador: crearImporteMonetario("0.001"),
-    } / trabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3479–4213
 - Match.valueTags(
     resultadoParametrosComunidad,
     {
       ComunidadAutonomaNoSoportada: (parametrosComunidad) =>
         Effect.fail({
           _tag: "Res / minimosAutonomicos.contribuyente.general (EUR, value); Contrato de llamada pendiente: Match.valueTags; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:16369–17338
-- base / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1547–1551
-- crearImporteMonetario("0.35").mul(rendimientoPrevioNeto.minus(9180)) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2370–2438
-- parametros.tiposSeguridadSocial / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3290–3321
-- caso.derechosMinimos === undefined
-      ? undefined
-      : yield* calcularDerechosMinimos(
-          caso.derechosMinimos,
-          minimosEstatales
-         / descendientes (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:19956–20161
-- ({
-  baseMaxima: BASE_MAXIMA_COTIZACION_LEGACY[anio],
-  tiposSeguridadSocial: TIPOS_SEGURIDAD_SOCIAL_LEGACY,
-  mei: obtenerTiposMei(anio),
-  solidaridad: obtene / tiposSeguridadSocial (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5048–5238
-- Match.value(anio).pipe(
-    Match.when(2023, () => ({
-      empresarial: crearImporteMonetario("0.005"),
-      trabajador: crearImporteMonetario("0.001"),
-    } / trabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3479–4213
-- rendimientoPrevioNeto / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5905–5926
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- "1.14" / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:6275–6281
-- anio / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5229–5233
-- 0 / value (EUR, value); literal; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:24564–24565
-- {
-        anio: caso.anio,
-        fechaFallecimiento: caso.fechaFallecimiento,
-        rendimientoPrevioNeto: rendimientoTrabajo.rendimientoPrevioNeto,
-        / rendimientoPrevioNeto (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15156–15346
-- 3700 / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2890–2894
-- gananciasPatrimoniales.gananciaSujetaAhorro / value (selector, selection); productor; lib/dominio/irpf/integracion/base-imponible-ahorro.ts:315–358
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- parametrosComunidad.escalaAutonomica / tramos (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:18598–18634
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- 14450 / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2840–2845
-- meiTrabajador / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:4127–4140
-- crearImporteMonetario(3700) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2868–2895
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
 - convertirCentimosAEuros(0) / value (selector, selection); Contrato de llamada pendiente: convertirCentimosAEuros; lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts:525–551
-- BASE_MAXIMA_COTIZACION_LEGACY / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5065–5094
-- {
-      empresarial: crearImporteMonetario("0.0058"),
-      trabajador: crearImporteMonetario("0.0012"),
-    } / trabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3671–3781
-- rendimientoTrabajo / rendimientoNeto (EUR, value); productor; lib/dominio/irpf/integracion/base-imponible-general.ts:668–686
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- tramos / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1513–1519
-- ascendientes / value (selector, selection); productor; lib/dominio/irpf/minimos/minimo-ascendientes.ts:531–543
 - ({
           _tag: "ParametrosComunidadAutonoma",
           comunidadAutonoma,
           anio: 2026,
           minimoAutonomicoIgualEstatal: true,
           esc / value (selector, selection); Forma AST no admitida: SatisfiesExpression; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:15499–15988
-- anio >= 2014 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3923–3935
-- a / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:360–361
-- baseMaxima.mul("0.5") / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1125–1146
-- crearImporteMonetario(6498) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5383–5410
-- baseMaxima / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1017–1027
-- cotizacionesTotales.cotizacionTrabajador / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:9068–9108
-- {
-  2025: {
-    empresa: ["0.0077", "0.0083", "0.0098"],
-    trabajador: ["0.0015", "0.0017", "0.0019"],
-  },
-  2026: {
-    empresa: ["0.0096", "0.0104", "0.012 / 2026.trabajador.2 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:524–752
-- rendimientoPrevioNeto / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:4533–4554
-- parametrosComunidad / minimosAutonomicos.contribuyente.adicionalMayor75 (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21912–21931
-- calcularDesgloseCuotaPorEscala({ base, tramos, escalasPublicadas }) / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1474–1541
-- SIN_SOLIDARIDAD / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:4923–4938
-- {
-  baseMaxima: BASE_MAXIMA_COTIZACION_LEGACY[anio],
-  tiposSeguridadSocial: TIPOS_SEGURIDAD_SOCIAL_LEGACY,
-  mei: obtenerTiposMei(anio),
-  solidaridad: obtener / baseMaxima (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5049–5237
-- ({
-  baseMaxima: BASE_MAXIMA_COTIZACION_LEGACY[anio],
-  tiposSeguridadSocial: TIPOS_SEGURIDAD_SOCIAL_LEGACY,
-  mei: obtenerTiposMei(anio),
-  solidaridad: obtene / baseMaxima (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5048–5238
 - [AHORRO_2023_2024] / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/irpf/cuotas/escalas-publicadas.ts:6129–6147
-- gananciaPatrimonialGeneral ?? 0 / value (EUR, value); productor; lib/dominio/irpf/integracion/base-imponible-general.ts:822–853
 - [AHORRO_2023_2024] / value (selector, selection); Array completo requiere contrato por elemento; lib/dominio/irpf/cuotas/escalas-publicadas.ts:6129–6147
-- resultadoParametrosComunidad / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:16390–16418
-- b / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:344–345
 - [] / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3154–3156
-- sumarRendimientosTrabajo(caso.rendimientos.trabajo, centimosAEuros) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12193–12260
-- anio / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5180–5184
-- IMPORTE_CERO / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1532–1544
-- crearImporteMonetario("0.001") / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3602–3632
-- parametrosComunidad / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:18598–18617
-- Match.value(
-    fallecidoAntesDeFechaCivil({
-      fechaCorte: FECHA_CORTE_REDUCCION_TRABAJO_2018,
-      fechaFallecimiento,
-    })
-  ).pipe(
-    Match.when(tr / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:4640–4977
-- Match.value(anio).pipe(
-    Match.when(2012, () =>
-      resolverParametrosComunidadAutonoma2012(comunidadAutonoma)
-    ),
-    Match.when(2013, () =>
-      reso / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16639–18919
 - (total, tramo) => total.plus(tramo.cuota) / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1564–1605
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:2014–2018
-- Decimal.max(
-    0,
-    rendimientoTrabajo.rendimientoNeto.minus(reduccionRendimientosTrabajo ?? 0)
-  )
-    .plus(rendimientoCapitalInmobiliario?.rendimientoNet / value (EUR, value); productor; lib/dominio/irpf/integracion/base-imponible-general.ts:644–811
-- crearImporteMonetario(3700) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2730–2757
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- calcularRendimientoNetoTrabajo({
-        anio: caso.anio,
-        rendimientoIntegro: rendimientoIntegroTrabajo,
-        cotizacionTrabajador: cotizacionesSocia / rendimientoPrevioNeto (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13132–13326
-- minimoPersonalYFamiliarAutonomico / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:23243–23276
-- reduccionTrabajo2018({ fechaFallecimiento, rendimientoPrevioNeto }) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1631–1698
-- Decimal.min(salarioBrutoAnual, crearImporteMonetario("3751.20").mul(12))
-          .mul(7)
-          .plus(
-            Decimal.min(
-              salarioBrutoA / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2375–2647
-- anio <= 2024 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:6108–6120
-- parametros.baseMaxima / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5383–5404
-- {
-  cotizacionEmpresarial: izquierda.cotizacionEmpresarial.plus(
-    derecha.cotizacionEmpresarial
-  ),
-  cotizacionTrabajador: izquierda.cotizacionTrabajador.p / cotizacionTrabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7161–7365
-- crearImporteMonetario("0.0012") / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3743–3774
 - (estado, [limite, tipo]) => {
                 const baseRestante = Decimal.max(
                   0,
                   base.minus(estado.limiteAnterior)
         / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3429–4429
-- ({
-  cotizacionEmpresarial: izquierda.cotizacionEmpresarial.plus(
-    derecha.cotizacionEmpresarial
-  ),
-  cotizacionTrabajador: izquierda.cotizacionTrabajador. / cotizacionTrabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7160–7366
-- "0.1" / value (selector, selection); literal; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1032–1037
-- minimos.contribuyente.general / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1130–1159
-- base / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1507–1511
-- {
-  baseMaxima: BASE_MAXIMA_COTIZACION_LEGACY[anio],
-  tiposSeguridadSocial: TIPOS_SEGURIDAD_SOCIAL_LEGACY,
-  mei: obtenerTiposMei(anio),
-  solidaridad: obtener / tiposSeguridadSocial (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5049–5237
-- crearImporteMonetario(6498) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5198–5225
-- situacionFamiliar / discapacidad (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63362–63379
-- "0.4" / value (selector, selection); literal; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1061–1066
-- IMPORTE_CERO / value (selector, selection); productor; lib/dominio/irpf/minimos/minimo-ascendientes.ts:545–557
-- crearImporteMonetario("1.75") / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:6009–6038
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- 0 / value (EUR, value); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- rendimientoTrabajo / rendimientoNeto (selector, selection); productor; lib/dominio/irpf/integracion/base-imponible-general.ts:668–686
-- ({
-      empresarial: IMPORTE_CERO,
-      trabajador: IMPORTE_CERO,
-    }) / trabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:4134–4208
-- {
-    rendimientoIntegro,
-    cotizacionTrabajador: cotizacionAplicada,
-    rendimientoPrevioNeto,
-    gastosDeducibles,
-    rendimientoNeto: Decimal.max(
-      / rendimientoPrevioNeto (selector, selection); productor; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1200–1426
-- BASE_MAXIMA_COTIZACION_LEGACY / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5065–5094
-- parametros / baseMaxima (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3204–3214
-- 12 / value (selector, selection); literal; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2644–2646
-- crearImporteMonetario(0) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- 0 / value (EUR, value); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- rendimientoPrevioNeto / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2271–2292
 - EffectArray.reduce(
     EffectArray.map(ganancias, (ganancia) =>
       calcularGananciaPatrimonialPorTransmision({
@@ -5128,25 +1136,11 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
         edadContribuyente,
      / gananciaSujetaAhorro (EUR, value); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1426–2362
 - {
-    base,
-    tramos: [],
-    escalasPublicadas: obtenerEscalasAhorroPublicadas(anio, componente),
-  } / tramos (EUR, value); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1288–1392
-- a / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:360–361
-- rendimientoTrabajo.rendimientoNeto.minus(reduccionRendimientosTrabajo ?? 0) / value (EUR, value); productor; lib/dominio/irpf/integracion/base-imponible-general.ts:668–743
-- derecha / cotizacionTrabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7330–7337
-- {
     _tag: "ParametrosComunidadAutonoma",
     comunidadAutonoma,
     anio: 2023,
     minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_202 / value (EUR, value); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:13216–13699
 - caso / derechosMinimos (selector, selection); public-input; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:9398–9402
-- filas([
-  ["0", "0", ".12"],
-  ["17707.20", "2124.86", ".14"],
-  ["33007.20", "4266.86", ".185"],
-  ["53407.20", "8040.86", ".215"],
-  ["60000", "9458.31", ".23 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:1452–1653
 - yield* Match.valueTags(
     resultadoParametrosComunidad,
     {
@@ -5154,75 +1148,17 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
         Effect.fail({
           _ta / minimosAutonomicos.contribuyente.adicionalMayor75 (EUR, value); Admisión Effect/servicio pendiente; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:16362–17338
 - (suma, tipos) => suma.plus(tipoCotizacionPorLado(tipos, lado)) / value (selector, selection); Forma AST no admitida: ArrowFunction; lib/dominio/laboral/cotizaciones-sociales.ts:3346–3408
-- IMPORTE_CERO / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3634–3646
-- {
-        empresarial: crearImporteMonetario("0.0075"),
-        trabajador: crearImporteMonetario("0.0015"),
-      } / trabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3986–4102
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:6016–6020
-- "0.1" / value (selector, selection); literal; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:940–945
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- 0 / value (EUR, value); literal; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1906–1907
-- 65 / value (selector, selection); literal; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1252–1254
-- {
-  cotizacionEmpresarial: izquierda.cotizacionEmpresarial.plus(
-    derecha.cotizacionEmpresarial
-  ),
-  cotizacionTrabajador: izquierda.cotizacionTrabajador.p / cotizacionTrabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7161–7365
-- baseLiquidableAhorro / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:23115–23135
-- base / value (selector, selection); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1294–1298
-- crearImporteMonetario("3751.20") / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2406–2438
-- obtenerMinimoAscendientes(
-    situacionFamiliar.ascendientes,
-    minimos
-  ) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63087–63165
 - {
         _tag: "ConSolidaridad",
         tipoPrimerExceso: crearImporteMonetario("0.0115"),
         tipoSegundoExceso: crearImporteMonetario("0.0125"),
         / value (selector, selection); Objeto completo: se exige propiedad de salida; lib/dominio/laboral/cotizaciones-sociales.ts:4670–4891
-- reduccionTrabajo2015A2017(rendimientoPrevioNeto) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1542–1590
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4535–4539
-- TIPOS_SEGURIDAD_SOCIAL_LEGACY / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5126–5155
-- IMPORTE_CERO / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1337–1349
-- Match.value(a.lessThan(b)).pipe(
-    Match.when(true, () => a),
-    Match.orElse(() => b)
-  ) / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:2657–2750
-- 2024 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4161–4165
-- {
-    rendimientoIntegro,
-    cotizacionTrabajador: cotizacionAplicada,
-    rendimientoPrevioNeto,
-    gastosDeducibles,
-    rendimientoNeto: Decimal.max(
-      / rendimientoNeto (EUR, value); productor; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1200–1426
 - (estado, [limite, tipo]) => {
                 const baseRestante = Decimal.max(
                   0,
                   base.minus(estado.limiteAnterior)
         / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3429–4429
-- rendimientoCapitalInmobiliario.rendimientoNeto
-    .plus(gananciasPatrimoniales.gananciaSujetaGeneral)
-    .plus(gananciasPatrimoniales.gananciaSujetaAhorro) / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14607–14764
-- izquierda.cotizacionTrabajador.plus(
-    derecha.cotizacionTrabajador
-  ) / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7289–7362
-- obtenerParametrosCotizacionLegacy(anio) / tiposSeguridadSocial (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1966–2005
-- {
-  baseMaxima: BASE_MAXIMA_COTIZACION_LEGACY[anio],
-  tiposSeguridadSocial: TIPOS_SEGURIDAD_SOCIAL_LEGACY,
-  mei: obtenerTiposMei(anio),
-  solidaridad: obtener / baseMaxima (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5049–5237
-- ({
-  baseMaxima: BASE_MAXIMA_COTIZACION_LEGACY[anio],
-  tiposSeguridadSocial: TIPOS_SEGURIDAD_SOCIAL_LEGACY,
-  mei: obtenerTiposMei(anio),
-  solidaridad: obtene / solidaridad (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5048–5238
 - [AHORRO_2023_2024] / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/irpf/cuotas/escalas-publicadas.ts:6129–6147
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4204–4221
-- parametrosComunidad / minimosAutonomicos.contribuyente.adicionalMayor75 (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21912–21931
-- "0.0013" / value (selector, selection); literal; lib/dominio/laboral/cotizaciones-sociales.ts:3907–3915
 - {
   comunes: {
     empresarial: crearImporteMonetario("0.236"),
@@ -5230,69 +1166,7 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
   },
   desempleo: {
     empresarial: crearImport / value (selector, selection); Forma AST no admitida: SatisfiesExpression; lib/dominio/laboral/cotizaciones-sociales.ts:1919–2516
-- escalasPublicadas / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1521–1538
-- exceso / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1004–1010
-- IMPORTE_CERO / value (selector, selection); productor; lib/dominio/irpf/minimos/minimo-discapacidad.ts:1437–1449
-- SIN_SOLIDARIDAD / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:4923–4938
-- calcularCuotaPorEscala({
-    base,
-    tramos: [],
-    escalasPublicadas: obtenerEscalasAhorroPublicadas(anio, componente),
-  }) / value (EUR, value); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1265–1393
-- crearImporteMonetario(3700).minus(
-          crearImporteMonetario("1.15625").mul(
-            rendimientoPrevioNeto.minus(11250)
-          )
-        ) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2868–3019
-- calcularRendimientoNetoTrabajo({
-        anio: caso.anio,
-        rendimientoIntegro: rendimientoIntegroTrabajo,
-        cotizacionTrabajador: cotizacionesSocia / rendimientoNeto (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13132–13326
-- ({
-  baseOrdinaria: minimo(bruto, parametros.baseMaxima),
-  excesoBase: maximo(IMPORTE_CERO, bruto.minus(parametros.baseMaxima)),
-}) / baseOrdinaria (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5349–5481
-- rendimientoCapitalInmobiliario / rendimientoNeto (EUR, value); productor; lib/dominio/irpf/integracion/base-imponible-general.ts:758–788
-- 0 / value (EUR, value); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- rendimientos / value (EUR, value); productor; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1604–1616
-- minimoContribuyente
-    .plus(minimoDescendientes)
-    .plus(minimoAscendientes)
-    .plus(minimoDiscapacidadContribuyente) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63640–63763
-- obtenerTiposMei(anio) / trabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5164–5185
-- 2025 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4330–4334
-- a / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:360–361
-- "estatal" / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:5777–5786
-- undefined / value (selector, selection); literal; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:17896–17905
-- 0 / value (EUR, value); literal; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2710–2711
 - [AHORRO_2025] / value (selector, selection); Array completo requiere contrato por elemento; lib/dominio/irpf/cuotas/escalas-publicadas.ts:6157–6170
-- Decimal.max(
-      0,
-      rendimientoPrevioNeto.minus(gastosDeducibles)
-    ) / value (EUR, value); productor; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1342–1421
-- crearImporteMonetario("3751.20") / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2406–2438
-- tipos[2] / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1258–1266
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- {
-    cotizacionEmpresarial: baseCotizacion.baseOrdinaria.mul(
-      sumarTipoCotizacionLegacy(parametros, "empresarial")
-    ),
-    cotizacionTrabajador: baseC / cotizacionTrabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8091–8348
-- crearImporteMonetario(5565).minus(
-            crearImporteMonetario("1.5").mul(rendimientoPrevioNeto.minus(13115))
-          ) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3466–3593
-- crearImporteMonetario(0) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- crearImporteMonetario(3700) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2868–2895
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- rendimientoPrevioNeto / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1790–1811
-- parametros / solidaridad (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8691–8701
-- Match.value(a).pipe(
-    Match.when(
-      (a) => a.greaterThan(b),
-      () => a
-    ),
-    Match.orElse(() => b)
-  ) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:280–398
 - (total, familiar) =>
     total.plus(
       obtenerMinimoPorDiscapacidad(
@@ -5300,144 +1174,26 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
         minimos.discapacidad.descendiente
       )
     ) / value (selector, selection); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/minimos/minimo-discapacidad.ts:1451–1610
-- obtenerParametrosCotizacionLegacy(anio) / baseMaxima (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7943–7982
-- 4080 / value (EUR, value); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2209–2213
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- {
-    empresa: ["0.0096", "0.0104", "0.0122"],
-    trabajador: ["0.0019", "0.0021", "0.0024"],
-  } / trabajador.2 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:642–740
-- dependencias.parametrosNormativos / minimosEstatales2025.contribuyente.general (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12598–12631
-- escalasPublicadas / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1935–1952
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
 - a.greaterThan(b) / value (selector, selection); Contrato de llamada pendiente: a.greaterThan; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:330–346
-- {
-        gananciaPatrimonialGeneral:
-          gananciasPatrimoniales.gananciaSujetaGeneral,
-        reduccionRendimientosTrabajo,
-        rendimientoCapitalIn / gananciaPatrimonialGeneral (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15488–15695
-- dependencias / parametrosNormativos.minimosEstatales2025.contribuyente.adicionalMayor75 (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12598–12610
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4153–4157
-- IMPORTE_CERO / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-discapacidad.ts:1437–1449
-- 9180 / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2432–2436
 - obtenerEscalasAhorroPublicadas(anio, componente) / value (EUR, value); Retornos/guardas imperativas requieren contrato: obtenerEscalasAhorroPublicadas; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1339–1387
-- {
-      situacionFamiliar: caso.situacionFamiliar,
-      anio: caso.anio,
-      minimos: parametrosComunidad.minimosAutonomicos,
-    } / situacionFamiliar.discapacidad (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21823–21957
-- situacionFamiliar.ascendientes / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63574–63604
-- rendimientoPrevioNeto / value (selector, selection); productor; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1370–1391
-- derecha / cotizacionTrabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7330–7337
-- "0.0024" / value (selector, selection); literal; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:726–734
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- escalasPublicadas / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1521–1538
-- tipos / 0 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1180–1185
-- 2026 / value (selector, selection); literal; lib/dominio/laboral/cotizaciones-sociales.ts:3967–3971
 - [] / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3154–3156
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
 - caso / situacionFamiliar.descendientes (selector, selection); public-input; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:9398–9402
-- base / value (selector, selection); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:2026–2030
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- escalasPublicadasAutonomicas / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:18670–18698
-- {
-        base: baseLiquidableGeneral,
-        tramos: parametrosComunidad.escalaAutonomica.tramos,
-        escalasPublicadas: escalasPublicadasAutonomicas,
-    / escalasPublicadas (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:18543–18707
-- calcularDesgloseCotizacionesSocialesLegacy({
-    anio,
-    salarioBrutoAnual,
-  }) / baseOrdinaria (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2023–2105
-- fechaFallecimiento / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4556–4574
 - {
                 limiteAnterior: base.mul(0),
                 tramos: EffectArray.empty<TramoCuotaGeneralCalculado>(),
               } / value (EUR, value); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3278–3413
-- "1.75" / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:6031–6037
-- ["0.0019", "0.0021", "0.0024"] / 1 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:705–735
-- IMPORTE_CERO / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5585–5597
-- caso / situacionFamiliar.ascendientes (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21850–21854
-- usaEscalaAutonomicaReal
-    ? calcularCuotaPorEscala({
-        base: baseLiquidableGeneral,
-        tramos: parametrosComunidad.escalaAutonomica.tramos,
-        / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:18490–18743
-- crearImporteMonetario(5565).minus(
-            crearImporteMonetario("1.5").mul(rendimientoPrevioNeto.minus(13115))
-          ) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3466–3593
-- anio <= 2014 / value (selector, selection); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:2097–2109
-- {
-    empresa: ["0.0077", "0.0083", "0.0098"],
-    trabajador: ["0.0015", "0.0017", "0.0019"],
-  } / trabajador.0 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:534–632
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- 13115 / value (EUR, value); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3574–3579
-- "1.5" / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3535–3540
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1370–1374
-- minimoBase.plus(incrementoMayor65).plus(incrementoMayor75) / value (selector, selection); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1560–1618
 - EffectArray.map(ganancias, (ganancia) =>
       calcularGananciaPatrimonialPorTransmision({
         anio,
         edadContribuyente,
         ganancia,
         co / value (selector, selection); Contrato de llamada pendiente: EffectArray.map; lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1450–1641
-- minimo.minus(Decimal.max(0, baseGeneral)) / value (EUR, value); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1881–1922
-- 0 / value (EUR, value); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- IMPORTE_CERO / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3634–3646
-- salarioBrutoAnual / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2082–2099
-- rendimientoPrevioNeto.lte(14450) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2814–2846
-- anio >= 2022 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4137–4149
-- CATALUNYA_2020_2021 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4074–4093
-- totalSolidaridad / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:6980–6996
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:5737–5741
-- crearImporteMonetario(0) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- reduccionAnterior.plus(
-        maximo(IMPORTE_CERO, reduccionNueva.minus(reduccionAnterior)).div(2)
-      ) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:4859–4967
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- {
-      empresarial: crearImporteMonetario("0.0058"),
-      trabajador: crearImporteMonetario("0.0012"),
-    } / trabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3671–3781
-- crearImporteMonetario("1.14") / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:6253–6282
 - a.greaterThan(b) / value (selector, selection); Contrato de llamada pendiente: a.greaterThan; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:330–346
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- IMPORTE_CERO / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3050–3062
-- minimoContribuyente
-    .plus(minimoDescendientes)
-    .plus(minimoAscendientes)
-    .plus(minimoDiscapacidadContribuyente)
-    .plus(minimoDiscapacidadFamiliar / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63640–63803
-- cuotaMinimoPersonalAutonomica / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:24607–24636
 - {
         _tag: "ConSolidaridad",
         tipoPrimerExceso: crearImporteMonetario("0.0115"),
         tipoSegundoExceso: crearImporteMonetario("0.0125"),
         / value (EUR, value); Objeto completo: se exige propiedad de salida; lib/dominio/laboral/cotizaciones-sociales.ts:4670–4891
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- deduccionesAutonomicasDeclaradas / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:25119–25151
-- obtenerParametrosCotizacionLegacy(anio) / tiposSeguridadSocial (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7943–7982
-- calcularReduccionTrabajoConOtrasRentas({
-        anio: caso.anio,
-        fechaFallecimiento: caso.fechaFallecimiento,
-        rendimientoPrevioNeto: rendimient / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15117–15347
-- baseCotizacion.baseOrdinaria.mul(
-      sumarTipoCotizacionLegacy(parametros, "trabajador")
-    ) / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8246–8343
-- caso / situacionFamiliar.discapacidad (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21121–21125
-- obtenerTiposMei(anio) / trabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5164–5185
-- maximo(IMPORTE_CERO, reduccionNueva.minus(reduccionAnterior)).div(2) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:4891–4959
-- {
-    empresa: ["0.0096", "0.0104", "0.0122"],
-    trabajador: ["0.0019", "0.0021", "0.0024"],
-  } / trabajador.1 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:642–740
-- crearImporteMonetario(0) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- crearImporteMonetario("2364.34") / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:6203–6235
-- obtenerMinimoPorDiscapacidad(
-    situacionFamiliar.discapacidad,
-    minimos.discapacidad.contribuyente
-  ) / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-discapacidad.ts:1114–1222
 - calcularDerechosMinimos(
           caso.derechosMinimos,
           minimosEstatales
@@ -5445,514 +1201,88 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
           caso.derechosMinimos,
           minimosEstatales
         ).pipe; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20024–20161
-- parametros / baseMaxima (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8046–8056
-- { base, tramos, escalasPublicadas } / tramos (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1505–1540
-- exceso.minus(baseMaxima.mul("0.1")) / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1004–1039
 - {
   2012: crearImporteMonetario("39150.0"),
   2013: crearImporteMonetario("41108.4"),
   2014: crearImporteMonetario("43164.0"),
   2015: crearImporteMonetario("4 / value (EUR, value); Objeto completo: se exige propiedad de salida; lib/dominio/normativa/datos/seguridad-social-2012-2026.ts:242–875
-- crearImporteMonetario("1.15625").mul(
-            rendimientoPrevioNeto.minus(11250)
-          ) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2913–3009
-- rendimientoPrevioNeto / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2606–2627
-- {
-      anio,
-      base,
-      componente: nombre,
-    } / anio (selector, selection); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:2006–2063
 - EffectArray.reduce(
     EffectArray.map(ganancias, (ganancia) =>
       calcularGananciaPatrimonialPorTransmision({
         anio,
         edadContribuyente,
      / gananciaSujetaGeneral (selector, selection); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1426–2362
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- {
-  cotizacionEmpresarial: totalSolidaridad.mul(5).div(6),
-  cotizacionTrabajador: totalSolidaridad.div(6),
-} / cotizacionTrabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:6897–7006
-- reduccionTrabajoDesde2024(rendimientoPrevioNeto) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1916–1964
-- tiposSolidaridad / 2026.trabajador.2 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2878–2894
-- obtenerParametrosCotizacionLegacy(anio) / baseMaxima (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7943–7982
 - EffectArray.reduce(
               tramos,
               {
                 limiteAnterior: base.mul(0),
                 tramos: EffectArray.empty<TramoCuotaGener / tramos (EUR, value); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3222–4443
-- ascendientes / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-ascendientes.ts:531–543
-- ({
-  cotizacionEmpresarial: izquierda.cotizacionEmpresarial.plus(
-    derecha.cotizacionEmpresarial
-  ),
-  cotizacionTrabajador: izquierda.cotizacionTrabajador. / cotizacionTrabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7160–7366
-- {
-  baseMaxima: BASE_MAXIMA_COTIZACION_LEGACY[anio],
-  tiposSeguridadSocial: TIPOS_SEGURIDAD_SOCIAL_LEGACY,
-  mei: obtenerTiposMei(anio),
-  solidaridad: obtener / solidaridad (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5049–5237
-- crearImporteMonetario("0.0015") / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:4062–4093
-- baseImponibleGeneral / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15733–15753
-- Decimal.max(0, exceso.minus(baseMaxima.mul("0.5"))) / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1097–1148
-- 0 / value (selector, selection); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- anio / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3959–3963
-- crearImporteMonetario("1.14").mul(
-            rendimientoPrevioNeto.minus("17673.52")
-          ) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:6253–6351
-- escalasPublicadas / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1935–1952
-- caso / situacionFamiliar.ascendientes (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21850–21854
-- {
-  2025: {
-    empresa: ["0.0077", "0.0083", "0.0098"],
-    trabajador: ["0.0015", "0.0017", "0.0019"],
-  },
-  2026: {
-    empresa: ["0.0096", "0.0104", "0.012 / 2025.trabajador.1 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:524–752
 - Object.values(parametros.tiposSeguridadSocial) / value (selector, selection); Contrato de llamada pendiente: Object.values; lib/dominio/laboral/cotizaciones-sociales.ts:3276–3322
-- rendimientoCapitalInmobiliario?.rendimientoNeto ?? 0 / value (EUR, value); productor; lib/dominio/irpf/integracion/base-imponible-general.ts:758–810
-- {
-    anio,
-    edad: situacionFamiliar.edad,
-    minimos,
-  } / minimos.contribuyente.adicionalMayor75 (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:62994–63056
-- IMPORTE_CERO / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:4188–4200
-- cotizacionTrabajador / value (EUR, value); productor; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:905–925
-- minimoBase / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1560–1570
-- gananciasPatrimoniales / gananciaSujetaGeneral (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14664–14686
-- crearImporteMonetario(5565).minus(
-            crearImporteMonetario("1.5").mul(rendimientoPrevioNeto.minus(13115))
-          ) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3466–3593
-- caso.situacionFamiliar.descendientes / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21309–21345
 - [AHORRO_ORDINARIO_2012_2014] / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/irpf/cuotas/escalas-publicadas.ts:5865–5893
-- edad >= 65 / value (selector, selection); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1244–1254
-- {
-    empresa: ["0.0077", "0.0083", "0.0098"],
-    trabajador: ["0.0015", "0.0017", "0.0019"],
-  } / trabajador.2 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:534–632
-- BASE_MAXIMA_COTIZACION_LEGACY / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5065–5094
-- {
-      anio,
-      base,
-      componente: nombre,
-    } / base (selector, selection); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:2006–2063
-- 0 / value (EUR, value); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- 0 / value (EUR, value); literal; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1556–1557
 - caso / rendimientos.trabajo (selector, selection); public-input; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:9398–9402
 - EffectArray.reduce(
               tramos,
               {
                 limiteAnterior: base.mul(0),
                 tramos: EffectArray.empty<TramoCuotaGener / tramos (EUR, value); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3222–4443
-- reduccionNueva.minus(reduccionAnterior) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:4912–4951
-- {
-      anio,
-      salarioBrutoAnual: rendimientoIntegro,
-    } / anio (selector, selection); productor; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:968–1032
-- dependencias.parametrosNormativos.minimosEstatales2025 / contribuyente.adicionalMayor75 (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12598–12652
-- Match.value(caso.anio).pipe(
-        Match.when(2012, () => MINIMOS_ESTATALES_2012),
-        Match.when(2013, () => MINIMOS_ESTATALES_2013),
-        Match.when( / contribuyente.adicionalMayor75 (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12363–12670
-- medirAuditoriaSync(
-    "liquidacion.reduccionRendimientosTrabajo",
-    () =>
-      calcularReduccionTrabajoConOtrasRentas({
-        anio: caso.anio,
-        fe / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15033–15351
-- "19747.50" / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5308–5318
-- baseOrdinaria / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3419–3432
-- caso.situacionFamiliar / discapacidad (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21850–21872
-- {
-        anio: caso.anio,
-        rendimientoIntegro: rendimientoIntegroTrabajo,
-        cotizacionTrabajador: cotizacionesSociales.cotizacionTrabajador,
-      / cotizacionTrabajador (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13163–13325
-- anio / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1516–1520
-- comunidadAutonoma === "murcia" / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4497–4527
-- gananciasPatrimoniales / gananciaSujetaGeneral (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15536–15558
-- {
-        anio: caso.anio,
-        baseLiquidableGeneral,
-        comunidadAutonoma: caso.comunidadAutonoma,
-        fechaFallecimiento: caso.fechaFallecimiento / anio (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:16096–16265
-- 11250 / value (EUR, value); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2991–2996
-- caso / situacionFamiliar.ascendientes (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20736–20740
-- { base, tramos, escalasPublicadas } / base (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1505–1540
-- ({
-      empresarial: IMPORTE_CERO,
-      trabajador: IMPORTE_CERO,
-    }) / trabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:4134–4208
-- {
-      situacionFamiliar: caso.situacionFamiliar,
-      anio: caso.anio,
-      minimos: parametrosComunidad.minimosAutonomicos,
-    } / minimos.contribuyente.general (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21823–21957
-- gananciasPatrimoniales / gananciaSujetaAhorro (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15898–15920
-- baseCotizacion / baseOrdinaria (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8246–8260
-- ahorroConMinimos.autonomico.despuesMinimo / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:25053–25094
-- {
-  baseMaxima: BASE_MAXIMA_COTIZACION_LEGACY[anio],
-  tiposSeguridadSocial: TIPOS_SEGURIDAD_SOCIAL_LEGACY,
-  mei: obtenerTiposMei(anio),
-  solidaridad: obtener / baseMaxima (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5049–5237
-- escalasPublicadas !== undefined / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1877–1908
-- crearImporteMonetario("2364.34") / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:6203–6235
 - ([baseInferior, cuota, tipo]) => ({
     baseInferior: new Decimal(baseInferior),
     cuota: new Decimal(cuota),
     tipo: new Decimal(tipo),
   }) / value (selector, selection); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/cuotas/escalas-publicadas.ts:570–715
 - {
-      empresarial: IMPORTE_CERO,
-      trabajador: IMPORTE_CERO,
-    } / trabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:4135–4207
-- Decimal.max(0, base) / value (selector, selection); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1931–1951
-- baseMaxima / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1046–1056
-- componente === "estatal" / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:5762–5786
-- {
-            anio,
-            base: Decimal.max(0, base.minus(remanente)),
-            componente: nombre,
-          } / base (EUR, value); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:2150–2270
-- caso / situacionFamiliar.discapacidad (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21850–21854
-- {
-      situacionFamiliar: caso.situacionFamiliar,
-      anio: caso.anio,
-      minimos: parametrosComunidad.minimosAutonomicos,
-    } / situacionFamiliar.descendientes (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21823–21957
-- caso.rendimientos / trabajo (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12218–12235
-- 0 / value (EUR, value); literal; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1556–1557
-- crearImporteMonetario(3700) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2730–2757
-- parametrosComunidad.minimosAutonomicos / contribuyente.adicionalMayor65 (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21912–21950
-- calcularCuotaComponenteAhorro({
-                anio,
-                base: remanente,
-                componente: nombre,
-              }) / value (EUR, value); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:2349–2488
-- Match.value(a).pipe(
-    Match.when(
-      (a) => a.greaterThan(b),
-      () => a
-    ),
-    Match.orElse(() => b)
-  ) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:280–398
-- b / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:2680–2681
-- 2012 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3807–3811
-- Decimal.max(0, exceso.minus(baseMaxima.mul("0.5"))) / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1097–1148
-- {
-      situacionFamiliar: caso.situacionFamiliar,
-      anio: caso.anio,
-      minimos: parametrosComunidad.minimosAutonomicos,
-    } / minimos.contribuyente.adicionalMayor65 (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21823–21957
-- ({
-        empresarial: crearImporteMonetario("0.0075"),
-        trabajador: crearImporteMonetario("0.0015"),
-      }) / trabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3985–4103
-- remanente / value (EUR, value); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:2425–2434
-- parametros.mei.trabajador / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3611–3636
-- comunidadAutonoma === "murcia" &&
-    anio === 2022 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4497–4548
-- sumarRendimientosCapitalInmobiliario(
-        Option.fromNullishOr(caso.rendimientos.capitalInmobiliario).pipe(
-          Option.getOrElse(() => [])
-        ),
- / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13460–13650
-- {
     _tag: "ParametrosComunidadAutonoma",
     comunidadAutonoma,
     anio: 2020,
     minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_202 / value (selector, selection); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:11086–11528
 - [] / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1312–1314
-- IMPORTE_CERO / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3328–3340
-- crearImporteMonetario(0) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- Match.value(a.lessThan(b)).pipe(
-    Match.when(true, () => a),
-    Match.orElse(() => b)
-  ) / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:2657–2750
-- parametrosComunidad / minimosAutonomicos.contribuyente.adicionalMayor65 (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21912–21931
 - (suma, tipos) => suma.plus(tipoCotizacionPorLado(tipos, lado)) / value (selector, selection); Forma AST no admitida: ArrowFunction; lib/dominio/laboral/cotizaciones-sociales.ts:3346–3408
-- crearImporteMonetario(3700) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2868–2895
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- calcularRendimientoNetoTrabajo({
-        anio: caso.anio,
-        rendimientoIntegro: rendimientoIntegroTrabajo,
-        cotizacionTrabajador: cotizacionesSocia / rendimientoNeto (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13132–13326
-- calcularDesgloseCotizacionesSocialesLegacy({
-    salarioBrutoAnual,
-    anio,
-  }) / cotizacionTrabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7541–7623
-- {
-        base: baseLiquidableGeneral,
-        tramos: parametrosComunidad.escalaAutonomica.tramos,
-        escalasPublicadas: escalasPublicadasAutonomicas,
-    / base (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:18543–18707
-- 0 / value (EUR, value); literal; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1556–1557
-- "estatal" / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:5777–5786
-- minimos / contribuyente.general (EUR, value); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1130–1137
-- caso.derechosMinimos === undefined
-      ? undefined
-      : yield* calcularDerechosMinimos(
-          caso.derechosMinimos,
-          minimosEstatales
-         / contribuyente (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:19956–20161
 - Match.valueTags(
     resultadoParametrosComunidad,
     {
       ComunidadAutonomaNoSoportada: (parametrosComunidad) =>
         Effect.fail({
           _tag: "Res / minimosAutonomicos.contribuyente.adicionalMayor75 (selector, selection); Contrato de llamada pendiente: Match.valueTags; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:16369–17338
-- {
-    anio,
-    salarioBrutoAnual,
-  } / anio (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2066–2104
-- anio <= 2020 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:6016–6028
-- edad >= 65 / value (selector, selection); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1244–1254
-- IMPORTE_CERO / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1349–1361
 - [AHORRO_2025] / value (selector, selection); Array completo requiere contrato por elemento; lib/dominio/irpf/cuotas/escalas-publicadas.ts:6157–6170
-- anio === 2025 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4321–4334
-- excesoRestante / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1239–1253
-- izquierda.cotizacionTrabajador.plus(
-    derecha.cotizacionTrabajador
-  ) / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7289–7362
-- rendimientoPrevioNeto / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2142–2163
-- caso.situacionFamiliar / ascendientes (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21435–21457
-- excesoBase / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3188–3198
-- obtenerParametrosCotizacionLegacy(anio) / tiposSeguridadSocial (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1966–2005
-- rendimientoIntegroTrabajo / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13218–13243
-- izquierda / cotizacionTrabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7289–7298
-- MURCIA_2022 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4604–4615
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- baseCotizacion / baseOrdinaria (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8246–8260
-- 75 / value (selector, selection); literal; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1447–1449
-- sumarCotizacionesSociales(cotizacionesOrdinarias, cotizacionesMei) / cotizacionTrabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8768–8834
-- remanente / value (EUR, value); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:2214–2223
-- (anio <= 2014 ? crearImporteMonetario(2652) : IMPORTE_CERO) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1303–1362
 - {
       onNone: () => false,
       onSome: (fechaFallecimiento) =>
         fechaCivilIsoUtc(fechaFallecimiento) < fechaCorte,
     } / value (selector, selection); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:4149–4280
-- ({
-  baseMaxima: BASE_MAXIMA_COTIZACION_LEGACY[anio],
-  tiposSeguridadSocial: TIPOS_SEGURIDAD_SOCIAL_LEGACY,
-  mei: obtenerTiposMei(anio),
-  solidaridad: obtene / mei.trabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5048–5238
-- obtenerPoliticaSolidaridad(anio) / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5202–5234
-- {
-        anio: caso.anio,
-        salarioBrutoAnual: rendimientoIntegroTrabajo,
-      } / salarioBrutoAnual (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12929–13017
-- tiposSolidaridad[2026] / trabajador.1 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2878–2900
-- medirAuditoriaSync(
-    "liquidacion.rendimientosTrabajo.sumar",
-    () => sumarRendimientosTrabajo(caso.rendimientos.trabajo, centimosAEuros)
-  ) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12118–12264
-- "1.5" / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3535–3540
 - caso / situacionFamiliar.descendientes (EUR, value); public-input; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:9398–9402
-- desglose.cotizacionTrabajador / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7721–7750
-- Match.value(a).pipe(
-    Match.when(
-      (a) => a.greaterThan(b),
-      () => a
-    ),
-    Match.orElse(() => b)
-  ) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:280–398
-- crearImporteMonetario("0.001") / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3602–3632
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- baseCotizacion / baseOrdinaria (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8246–8260
-- "14047.50" / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5173–5183
-- {
-  2025: {
-    empresa: ["0.0077", "0.0083", "0.0098"],
-    trabajador: ["0.0015", "0.0017", "0.0019"],
-  },
-  2026: {
-    empresa: ["0.0096", "0.0104", "0.012 / 2026.trabajador.2 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:524–743
-- {
-  baseMaxima: BASE_MAXIMA_COTIZACION_LEGACY[anio],
-  tiposSeguridadSocial: TIPOS_SEGURIDAD_SOCIAL_LEGACY,
-  mei: obtenerTiposMei(anio),
-  solidaridad: obtener / tiposSeguridadSocial (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5049–5237
-- {
-        base: baseLiquidableGeneral,
-        tramos: parametrosComunidad.escalaAutonomica.tramos,
-        escalasPublicadas: escalasPublicadasAutonomicas,
-    / escalasPublicadas (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:18543–18707
-- medirAuditoriaSync(
-    "liquidacion.gananciasPatrimoniales",
-    () =>
-      calcularGananciasPatrimonialesPorTransmision({
-        anio: caso.anio,
-        ed / gananciaSujetaGeneral (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13946–14343
-- ({
-      empresarial: crearImporteMonetario("0.0067"),
-      trabajador: crearImporteMonetario("0.0013"),
-    }) / trabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3812–3924
-- tiposSolidaridad[2025] / trabajador.1 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2826–2848
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- Match.value(base).pipe(
-        Match.when(
-          (base) => base.lte(0),
-          () => []
-        ),
-        Match.orElse(
-          (base) =>
-            / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3061–4468
-- {
-  baseMaxima: BASE_MAXIMA_COTIZACION_LEGACY[anio],
-  tiposSeguridadSocial: TIPOS_SEGURIDAD_SOCIAL_LEGACY,
-  mei: obtenerTiposMei(anio),
-  solidaridad: obtener / baseMaxima (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5049–5237
-- 2026 / value (selector, selection); literal; lib/dominio/laboral/cotizaciones-sociales.ts:3967–3971
-- cotizacionTrabajadorOrdinaria
-      .plus(meiTrabajador) / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:4085–4141
-- situacionFamiliar / ascendientes (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63118–63135
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4321–4325
 - {
   _tag: "SinSolidaridad",
 } as const satisfies PoliticaSolidaridad / value (selector, selection); Forma AST no admitida: SatisfiesExpression; lib/dominio/laboral/cotizaciones-sociales.ts:2542–2610
-- base / value (EUR, value); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1294–1298
-- caso.situacionFamiliar / descendientes (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21309–21331
-- parametros / solidaridad (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8691–8701
-- a / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:360–361
-- rendimientoPrevioNeto.lte(9180) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2142–2173
-- crearImporteMonetario("2364.34").minus(
-          crearImporteMonetario("1.14").mul(
-            rendimientoPrevioNeto.minus("17673.52")
-          )
-        ) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:6203–6361
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- situacionFamiliar.ascendientes / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63574–63604
 - Object.values(parametros.tiposSeguridadSocial) / value (EUR, value); Contrato de llamada pendiente: Object.values; lib/dominio/laboral/cotizaciones-sociales.ts:3276–3322
-- crearImporteMonetario(0) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:470–494
 - Match.valueTags(
     resultadoParametrosComunidad,
     {
       ComunidadAutonomaNoSoportada: (parametrosComunidad) =>
         Effect.fail({
           _tag: "Res / minimosAutonomicos.contribuyente.general (selector, selection); Contrato de llamada pendiente: Match.valueTags; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:16369–17338
-- derechosEstatales?.descendientes / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20836–20868
-- resolverParametrosComunidadAutonoma2016(comunidadAutonoma) / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17220–17278
-- rendimientoPrevioNeto / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3546–3567
 - EffectArray.reduce(ascendientes, IMPORTE_CERO, (total, ascendiente) =>
     total.plus(
       obtenerMinimoPorDiscapacidad(
         ascendiente.discapacidad,
     / value (selector, selection); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/irpf/minimos/minimo-discapacidad.ts:1802–2017
-- crearImporteMonetario(0) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- anio / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7613–7617
 - {
         _tag: "ConSolidaridad",
         tipoPrimerExceso: crearImporteMonetario("0.0115"),
         tipoSegundoExceso: crearImporteMonetario("0.0125"),
         / value (EUR, value); Objeto completo: se exige propiedad de salida; lib/dominio/laboral/cotizaciones-sociales.ts:4670–4891
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:6062–6066
-- 0 / value (EUR, value); literal; lib/dominio/irpf/integracion/base-imponible-general.ts:661–662
-- ({
-        empresarial: crearImporteMonetario("0.0075"),
-        trabajador: crearImporteMonetario("0.0015"),
-      }) / trabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3985–4103
-- parametros / baseMaxima (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5383–5393
-- EffectArray.reduce(
-              tramos,
-              {
-                limiteAnterior: base.mul(0),
-                tramos: EffectArray.empty<TramoCuotaGener / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3222–4450
-- anio <= 2022 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:6062–6074
-- remanente / value (selector, selection); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:2214–2223
-- obtenerPoliticaSolidaridad(anio) / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5202–5234
-- sumarTipoCotizacionLegacy(parametros, "trabajador") / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8286–8337
-- b / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:2744–2745
 - BASE_MAXIMA_COTIZACION_LEGACY[anio] / value (EUR, value); Índice dinámico/array: requiere contrato por elemento; lib/dominio/laboral/cotizaciones-sociales.ts:5065–5100
-- legacy.baseOrdinaria / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2656–2676
-- ganancias / value (EUR, value); productor; lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1466–1475
-- {
-        gananciaPatrimonialGeneral:
-          gananciasPatrimoniales.gananciaSujetaGeneral,
-        reduccionRendimientosTrabajo,
-        rendimientoCapitalIn / reduccionRendimientosTrabajo (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15488–15695
-- crearImporteMonetario(3700) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2730–2757
-- 0 / value (EUR, value); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- IMPORTE_CERO / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-discapacidad.ts:1437–1449
-- "1.15625" / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2935–2944
-- bruto / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5376–5381
-- {
-    base,
-    tramos: [],
-    escalasPublicadas: obtenerEscalasAhorroPublicadas(anio, componente),
-  } / tramos (EUR, value); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1288–1392
-- contexto.modo / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12793–12806
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3815–3819
-- otrasRentasNoExentas / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1260–1280
-- ({ empresa: ["0", "0", "0"], trabajador: ["0", "0", "0"] }) / trabajador.0 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2933–2992
-- obtenerParametrosCotizacionLegacy(anio) / baseMaxima (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7943–7982
-- incrementoMayor65 / value (selector, selection); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1576–1593
 - EffectArray.reduce(
     descendientes
       .filter(
         (familiar) =>
           familiar.edad < 25 || familiar.discapacidad._tag !== "SinDiscapacidad"
      / value (EUR, value); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/irpf/minimos/minimo-descendientes.ts:886–1404
-- caso.rendimientos / trabajo (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12218–12235
-- parametros / mei.trabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3611–3621
-- caso.anio / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12945–12954
-- caso.situacionFamiliar / discapacidad (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21121–21143
-- medirAuditoriaSync(
-    "liquidacion.rendimientosTrabajo.sumar",
-    () => sumarRendimientosTrabajo(caso.rendimientos.trabajo, centimosAEuros)
-  ) / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12118–12264
-- parametrosComunidad.minimosAutonomicos / contribuyente.adicionalMayor65 (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21912–21950
-- 6 / value (selector, selection); literal; lib/dominio/laboral/cotizaciones-sociales.ts:7001–7002
-- nombre / value (selector, selection); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:2050–2056
 - yield* calcularDerechosMinimos(
           caso.derechosMinimos,
           minimosEstatales
         ).pipe(Effect.mapError(errorDerechosMinimos)) / contribuyente (EUR, value); Admisión Effect/servicio pendiente; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20017–20161
-- usaEscalaAutonomicaReal
-    ? Decimal.min(
-        deduccionesAutonomicasDeclaradas,
-        cuotaAutonomicaGeneralDespuesMinimo.plus(
-          ahorroConMinimo / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:24908–25151
-- rendimientoTrabajo.rendimientoNeto / value (EUR, value); productor; lib/dominio/irpf/integracion/base-imponible-general.ts:668–702
-- obtenerParametrosCotizacionLegacy(anio) / solidaridad (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7943–7982
-- calcularDesgloseCuotaPorEscala({ base, tramos, escalasPublicadas }) / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1474–1541
-- totalSolidaridad / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:6980–6996
-- b / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:392–393
 - [AHORRO_2016_2020] / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/irpf/cuotas/escalas-publicadas.ts:6037–6055
-- ({
-      empresarial: crearImporteMonetario("0.005"),
-      trabajador: crearImporteMonetario("0.001"),
-    }) / trabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3530–3640
-- ({
-  baseMaxima: BASE_MAXIMA_COTIZACION_LEGACY[anio],
-  tiposSeguridadSocial: TIPOS_SEGURIDAD_SOCIAL_LEGACY,
-  mei: obtenerTiposMei(anio),
-  solidaridad: obtene / baseMaxima (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5048–5238
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- obtenerMinimoDiscapacidadFamiliares(
-    situacionFamiliar.descendientes,
-    minimos
-  ).plus(
-    obtenerMinimoDiscapacidadAscendientes(
-      situacionFamili / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63429–63629
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:5900–5904
-- izquierda.cotizacionTrabajador / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7289–7319
-- crearImporteMonetario("1.14").mul(
-            rendimientoPrevioNeto.minus("17673.52")
-          ) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:6253–6351
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- Match.value(edad).pipe(
-    Match.when(
-      (edad) => edad >= 75,
-      () => minimos.contribuyente.adicionalMayor75
-    ),
-    Match.orElse(() => IMPORTE_CER / value (selector, selection); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1383–1549
 - [AHORRO_ORDINARIO_2012_2014] / value (selector, selection); Array completo requiere contrato por elemento; lib/dominio/irpf/cuotas/escalas-publicadas.ts:5865–5893
-- primerExceso
-    .mul(tipos[0])
-    .plus(segundoExceso.mul(tipos[1])) / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1158–1228
 - (filas) =>
         Option.match(
           EffectArray.findLast(
@@ -5960,253 +1290,36 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
             (fila) =>
               base.gt(0) &&
               (fila.inferi / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1954–3046
-- minimoBase.plus(incrementoMayor65) / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1560–1594
-- crearImporteMonetario(0) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- resultadoParametrosComunidad / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:16390–16418
-- crearImporteMonetario(0) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- parametros / mei.trabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8544–8554
-- cotizacionTrabajadorOrdinaria / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:4085–4114
 - [escalaPublicadaAutonomica] / value (selector, selection); Array completo requiere contrato por elemento; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:17914–17941
-- 0 / value (selector, selection); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- caso.derechosMinimos === undefined
-      ? undefined
-      : yield* calcularDerechosMinimos(
-          caso.derechosMinimos,
-          parametrosComunidad.minim / total (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20196–20423
-- anio / value (selector, selection); productor; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1184–1188
-- medirAuditoriaSync(
-    "liquidacion.baseImponibleGeneral",
-    () =>
-      calcularBaseImponibleGeneral({
-        gananciaPatrimonialGeneral:
-          gananci / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15383–15700
-- "0.4" / value (EUR, value); literal; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1061–1066
-- bruto / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5376–5381
-- obtenerMinimoDiscapacidadFamiliares(
-    situacionFamiliar.descendientes,
-    minimos
-  ) / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63429–63518
-- tiposSolidaridad / 2026.trabajador.2 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2878–2894
-- {
-      anio,
-      base,
-      componente: nombre,
-    } / base (EUR, value); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:2006–2063
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- {
-        rendimientoIntegro: rendimientoIntegroCapitalInmobiliario,
-      } / rendimientoIntegro (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13831–13907
-- derechosEstatales?.discapacidadContribuyente / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21023–21067
-- 0 / value (selector, selection); literal; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2710–2711
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4283–4300
-- "19747.50" / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:6170–6180
-- "1.75" / value (EUR, value); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:6031–6037
-- obtenerParametrosCotizacionLegacy(anio) / tiposSeguridadSocial (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7943–7982
-- rendimientoTrabajo.rendimientoPrevioNeto / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15267–15307
-- { base, tramos, escalasPublicadas } / escalasPublicadas (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1505–1540
-- "1.15625" / value (EUR, value); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2935–2944
-- gananciasPatrimoniales.gananciaSujetaAhorro / value (EUR, value); productor; lib/dominio/irpf/integracion/base-imponible-ahorro.ts:315–358
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- {
-            anio,
-            base: Decimal.max(0, base.minus(remanente)),
-            componente: nombre,
-          } / base (selector, selection); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:2150–2270
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- minimos.contribuyente / adicionalMayor65 (EUR, value); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1268–1289
-- rendimientoPrevioNeto.minus(11250) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2963–2997
-- baseLiquidableGeneral / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:22732–22753
-- gananciaPatrimonialGeneral ?? 0 / value (selector, selection); productor; lib/dominio/irpf/integracion/base-imponible-general.ts:822–853
-- caso.anio / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:16112–16121
-- escalasPublicadas / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1877–1894
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- 2022 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:6070–6074
 - EffectArray.reduce(ascendientes, IMPORTE_CERO, (total, ascendiente) => {
     const minimoPorEdad =
       ascendiente.edad >= 65 ||
       ascendiente.discapacida / value (EUR, value); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/irpf/minimos/minimo-ascendientes.ts:512–975
-- primerExceso
-    .mul(tipos[0]) / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1158–1189
-- 0 / value (selector, selection); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- {
-      empresarial: crearImporteMonetario("0.0067"),
-      trabajador: crearImporteMonetario("0.0013"),
-    } / trabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3813–3923
-- 4080 / value (EUR, value); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2347–2351
 - caso / situacionFamiliar.ascendientes (EUR, value); public-input; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:9398–9402
-- exceso / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1112–1118
-- salarioBrutoAnual.minus(baseOrdinaria) / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2713–2751
-- {
-    anio,
-    edad: situacionFamiliar.edad,
-    minimos,
-  } / minimos.contribuyente.adicionalMayor65 (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:62994–63056
-- anio === 2018 / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2353–2366
 - errorDerechosMinimos / value (EUR, value); Función sin instancia de llamada; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20139–20159
-- {
-    empresa: ["0.0077", "0.0083", "0.0098"],
-    trabajador: ["0.0015", "0.0017", "0.0019"],
-  } / trabajador.1 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:534–632
 - datos.map(([baseInferior, cuota, tipo]) => ({
     baseInferior: new Decimal(baseInferior),
     cuota: new Decimal(cuota),
     tipo: new Decimal(tipo),
   })) / value (selector, selection); Contrato de llamada pendiente: datos.map; lib/dominio/irpf/cuotas/escalas-publicadas.ts:560–716
-- parametros.mei.trabajador / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3611–3636
-- izquierda.cotizacionTrabajador.plus(
-    derecha.cotizacionTrabajador
-  ) / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7289–7362
-- parametrosComunidad / minimosAutonomicos.contribuyente.general (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21912–21931
-- parametrosComunidad.minimosAutonomicos / contribuyente.general (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21912–21950
-- rendimientoIntegroTrabajo / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12983–13008
-- comunidadAutonoma === "madrid" / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4204–4234
-- izquierda.cotizacionTrabajador / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7289–7319
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- "0.001" / value (selector, selection); literal; lib/dominio/laboral/cotizaciones-sociales.ts:3624–3631
-- baseMaxima.mul("0.4") / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1046–1067
-- 12 / value (EUR, value); literal; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2443–2445
 - BASE_MAXIMA_COTIZACION_LEGACY[anio] / value (selector, selection); Índice dinámico/array: requiere contrato por elemento; lib/dominio/laboral/cotizaciones-sociales.ts:5065–5100
-- anio === 2022 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4535–4548
-- BASE_MAXIMA_COTIZACION_LEGACY / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5065–5094
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- ({
-  baseMaxima: BASE_MAXIMA_COTIZACION_LEGACY[anio],
-  tiposSeguridadSocial: TIPOS_SEGURIDAD_SOCIAL_LEGACY,
-  mei: obtenerTiposMei(anio),
-  solidaridad: obtene / mei.trabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5048–5238
-- crearImporteMonetario("1.5").mul(rendimientoPrevioNeto.minus(13115)) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3513–3581
-- rendimientos / value (selector, selection); productor; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1604–1616
-- anio / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3491–3495
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- BASE_MAXIMA_COTIZACION_LEGACY / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5065–5094
-- medirAuditoriaSync(
-    "liquidacion.baseImponibleGeneral",
-    () =>
-      calcularBaseImponibleGeneral({
-        gananciaPatrimonialGeneral:
-          gananci / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15383–15700
-- baseCotizacion.baseOrdinaria.mul(
-      sumarTipoCotizacionLegacy(parametros, "trabajador")
-    ) / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8246–8343
-- caso / situacionFamiliar.discapacidad (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21850–21854
-- IMPORTE_CERO / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3050–3062
-- {
-      empresarial: crearImporteMonetario("0.005"),
-      trabajador: crearImporteMonetario("0.001"),
-    } / trabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3531–3639
-- parametros.mei / trabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8544–8558
-- izquierda / cotizacionTrabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7289–7298
 - Option.fromNullishOr(
           caso.rendimientos.gananciasPatrimoniales
         ).pipe(Option.getOrElse(() => [])) / value (selector, selection); Contrato de llamada pendiente: Option.fromNullishOr(
           caso.rendimientos.gananciasPatrimoniales
         ).pipe; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14171–14286
-- 0 / value (selector, selection); literal; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:2200–2201
-- sumarTipoCotizacionLegacy(parametros, "trabajador") / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8286–8337
-- obtenerParametrosCotizacionLegacy(anio) / baseMaxima (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7943–7982
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- {
-    cotizacionEmpresarial: baseCotizacion.baseOrdinaria.mul(
-      parametros.mei.empresarial
-    ),
-    cotizacionTrabajador: baseCotizacion.baseOrdinaria.mu / cotizacionTrabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8375–8580
-- derecha / cotizacionTrabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7330–7337
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- derechosAutonomicos?.total ??
-    calcularMinimoPersonalYFamiliar({
-      situacionFamiliar: caso.situacionFamiliar,
-      anio: caso.anio,
-      minimos: param / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21757–21958
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- minimo(bruto, parametros.baseMaxima) / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5369–5405
 - dependencias / parametrosNormativos.minimosEstatales2025.contribuyente.adicionalMayor75 (EUR, value); Parámetro de auxiliar/callback sin binding: dependencias; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:9404–9416
-- IMPORTE_CERO / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3328–3340
-- Decimal.max(0, salarioBrutoAnual.minus(baseOrdinaria)) / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2698–2752
-- parametros.solidaridad / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5616–5638
 - {
     _tag: "ParametrosComunidadAutonoma",
     comunidadAutonoma,
     anio: 2025,
     minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_202 / value (selector, selection); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:14761–15262
-- minimos.contribuyente.adicionalMayor75 / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1463–1501
-- MINIMOS_ESTATALES_2014 / contribuyente.general (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12535–12557
 - [AHORRO_2016_2020] / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/irpf/cuotas/escalas-publicadas.ts:6037–6055
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- base / value (selector, selection); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1294–1298
-- crearImporteMonetario(0) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- calcularAhorroConMinimos({
-    anio: caso.anio,
-    base: baseLiquidableAhorro,
-    baseGeneral: baseLiquidableGeneral,
-    minimoEstatal: minimoPersonalYFamili / autonomico.despuesMinimo (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:23057–23282
-- calcularDesgloseCotizacionesSocialesLegacy({
-    salarioBrutoAnual,
-    anio,
-  }) / cotizacionTrabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7541–7623
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- rendimientoPrevioNeto / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:6300–6321
-- rendimientoPrevioNeto / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2684–2705
-- comunidadAutonoma === "comunitat-valenciana" / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3871–3915
-- obtenerPoliticaSolidaridad(anio) / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5202–5234
-- Decimal.min(salarioBrutoAnual, crearImporteMonetario("3751.20").mul(12)) / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2375–2447
-- anio / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5180–5184
-- maximo(
-          IMPORTE_CERO,
-          crearImporteMonetario(5565).minus(
-            crearImporteMonetario("1.5").mul(rendimientoPrevioNeto.minus(13115))
-   / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3424–3603
-- incrementoMayor65 / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1576–1593
-- edad / value (selector, selection); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1439–1443
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- medirAuditoriaSync(
-    "liquidacion.rendimientosTrabajo.neto",
-    () =>
-      calcularRendimientoNetoTrabajo({
-        anio: caso.anio,
-        rendimientoInt / rendimientoPrevioNeto (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13052–13330
-- parametros / baseMaxima (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8046–8056
-- caso / rendimientos.trabajo (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12218–12222
-- anio / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7977–7981
-- {
-        base: Decimal.min(
-          minimoPersonalYFamiliarAutonomico,
-          baseLiquidableGeneral
-        ),
-        tramos: parametrosComunidad.escalaA / escalasPublicadas (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:22648–22890
-- minimos.contribuyente / adicionalMayor65 (selector, selection); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1268–1289
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1370–1374
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- 3700 / value (EUR, value); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2890–2894
-- segundoExceso.mul(tipos[1]) / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1200–1227
-- {
-  2025: {
-    empresa: ["0.0077", "0.0083", "0.0098"],
-    trabajador: ["0.0015", "0.0017", "0.0019"],
-  },
-  2026: {
-    empresa: ["0.0096", "0.0104", "0.012 / 2026.trabajador.1 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:524–752
-- "3803.70" / value (EUR, value); literal; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2577–2586
-- 0 / value (selector, selection); literal; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1001–1002
-- reduccionAnterior / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:4859–4876
-- Match.value(rendimientoPrevioNeto).pipe(
-    Match.when(
-      (rendimientoPrevioNeto) => rendimientoPrevioNeto.lte("14047.50"),
-      () => crearImporteMonetar / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5057–5602
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- parametros.mei / trabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3611–3625
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4100–4117
-- baseCotizacion.baseOrdinaria.mul(
-      parametros.mei.trabajador
-    ) / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8504–8575
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
 - (suma, tipos) => suma.plus(tipoCotizacionPorLado(tipos, lado)) / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/laboral/cotizaciones-sociales.ts:3346–3408
 - (suma, tipos) => suma.plus(tipoCotizacionPorLado(tipos, lado)) / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/laboral/cotizaciones-sociales.ts:3346–3408
-- 7 / value (EUR, value); literal; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2463–2464
 - EffectArray.reduce(rendimientos, crearImporte(0), (total, rendimiento) =>
     total.plus(crearImporte(rendimiento.importeIntegroCentimos))
   ) / value (selector, selection); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1585–1727
-- 3700 / value (EUR, value); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2752–2756
 - {
   contribuyente: {
     general: importe("5151"),
@@ -6215,70 +1328,16 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
   },
   descendientes: {
     prim / contribuyente.adicionalMayor75 (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/normativa/datos/minimos-autonomicos-2013.ts:1072–1609
-- 2014 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:5745–5749
-- izquierda / cotizacionTrabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7289–7298
-- ascendientes / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-discapacidad.ts:1821–1833
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:5737–5741
-- Decimal.max(0, base) / value (EUR, value); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1931–1951
-- {
-      situacionFamiliar: caso.situacionFamiliar,
-      anio: caso.anio,
-      minimos: parametrosComunidad.minimosAutonomicos,
-    } / minimos.contribuyente.adicionalMayor75 (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21823–21957
-- cotizacionesOrdinarias / cotizacionTrabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8794–8816
-- caso.situacionFamiliar / ascendientes (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21850–21872
-- sumarCotizacionesSociales(cotizacionesOrdinarias, cotizacionesMei) / cotizacionTrabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8768–8834
-- ({
-        _tag: "ConSolidaridad",
-        tipoPrimerExceso: crearImporteMonetario("0.0115"),
-        tipoSegundoExceso: crearImporteMonetario("0.0125"),
-       / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:4669–4892
-- ({
-  baseMaxima: BASE_MAXIMA_COTIZACION_LEGACY[anio],
-  tiposSeguridadSocial: TIPOS_SEGURIDAD_SOCIAL_LEGACY,
-  mei: obtenerTiposMei(anio),
-  solidaridad: obtene / tiposSeguridadSocial (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5048–5238
-- medirAuditoriaSync(
-    "liquidacion.gananciasPatrimoniales",
-    () =>
-      calcularGananciasPatrimonialesPorTransmision({
-        anio: caso.anio,
-        ed / gananciaSujetaGeneral (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13946–14343
 - (total, ascendiente) => {
     const minimoPorEdad =
       ascendiente.edad >= 65 ||
       ascendiente.discapacidad._tag !== "SinDiscapacidad"
         ? minimos. / value (selector, selection); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/minimos/minimo-ascendientes.ts:559–974
-- obtenerParametrosCotizacionLegacy(anio) / solidaridad (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7943–7982
-- rendimientoPrevioNeto.lte("17673.52") / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5905–5942
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- ({
-  baseMaxima: BASE_MAXIMA_COTIZACION_LEGACY[anio],
-  tiposSeguridadSocial: TIPOS_SEGURIDAD_SOCIAL_LEGACY,
-  mei: obtenerTiposMei(anio),
-  solidaridad: obtene / mei.trabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5048–5238
 - Object.values(parametros.tiposSeguridadSocial) / value (EUR, value); Contrato de llamada pendiente: Object.values; lib/dominio/laboral/cotizaciones-sociales.ts:3276–3322
-- b / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:392–393
-- rendimientoPrevioNeto / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5697–5718
-- {
-    empresa: ["0.0077", "0.0083", "0.0098"],
-    trabajador: ["0.0015", "0.0017", "0.0019"],
-  } / trabajador.2 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:534–632
-- crearImporteMonetario(7302) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5821–5848
-- IMPORTE_CERO / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3442–3454
-- ({ empresa: ["0", "0", "0"], trabajador: ["0", "0", "0"] }) / trabajador.1 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2933–2992
 - Match.valueTags(parametros.solidaridad, {
     SinSolidaridad: () => IMPORTE_CERO,
     ConSolidaridad: (politica) =>
       Match.value(baseCotizacion.excesoBase) / value (selector, selection); Contrato de llamada pendiente: Match.valueTags; lib/dominio/laboral/cotizaciones-sociales.ts:5600–6792
-- derecha.cotizacionTrabajador / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7330–7358
-- caso.derechosMinimos === undefined
-      ? undefined
-      : yield* calcularDerechosMinimos(
-          caso.derechosMinimos,
-          minimosEstatales
-         / discapacidadContribuyente (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:19956–20161
 - (total, familiar) =>
     total.plus(
       obtenerMinimoPorDiscapacidad(
@@ -6286,112 +1345,32 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
         minimos.discapacidad.descendiente
       )
     ) / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/minimos/minimo-discapacidad.ts:1451–1610
-- izquierda / cotizacionTrabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7289–7298
-- {
-    base,
-    tramos: [],
-    escalasPublicadas: obtenerEscalasAhorroPublicadas(anio, componente),
-  } / base (EUR, value); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1288–1392
-- reduccionTrabajo2019A2022(rendimientoPrevioNeto) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:4581–4629
-- {
-    estatal: componente("estatal", minimoEstatal),
-    autonomico: componente("autonomico", minimoAutonomico),
-  } / autonomico.despuesMinimo (EUR, value); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:2644–2760
-- base / value (selector, selection); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1294–1298
-- crearImporteMonetario("1.15625") / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2913–2945
-- ({
-      empresarial: crearImporteMonetario("0.005"),
-      trabajador: crearImporteMonetario("0.001"),
-    }) / trabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3530–3640
-- {
-  2025: {
-    empresa: ["0.0077", "0.0083", "0.0098"],
-    trabajador: ["0.0015", "0.0017", "0.0019"],
-  },
-  2026: {
-    empresa: ["0.0096", "0.0104", "0.012 / 2025.trabajador.2 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:524–752
-- componente / value (selector, selection); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1376–1386
-- escalasPublicadas !== undefined / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1877–1908
 - a.lessThan(b) / value (selector, selection); Contrato de llamada pendiente: a.lessThan; lib/dominio/laboral/cotizaciones-sociales.ts:2669–2682
-- crearImporteMonetario("0.0013") / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3885–3916
-- componente === "estatal"
-      ? [AHORRO_ORDINARIO_2012_2014, AHORRO_COMPLEMENTARIO_2012_2014]
-      : [AHORRO_ORDINARIO_2012_2014] / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:5762–5893
-- obtenerPoliticaSolidaridad(anio) / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5202–5234
-- salarioBrutoAnual / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2713–2730
-- base / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3073–3077
 - errorDerechosMinimos / value (selector, selection); Función sin instancia de llamada; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20401–20421
-- Match.value(a).pipe(
-    Match.when(
-      (a) => a.greaterThan(b),
-      () => a
-    ),
-    Match.orElse(() => b)
-  ) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:280–398
-- cotizacionesSolidaridad / cotizacionTrabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8840–8863
-- (anio <= 2014 ? crearImporteMonetario(2652) : IMPORTE_CERO) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1303–1362
 - EffectArray.flatMap(escalasPublicadas, (filas) =>
         Option.match(
           EffectArray.findLast(
             filas,
             (fila) =>
               b / value (EUR, value); Contrato de llamada pendiente: EffectArray.flatMap; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1915–3054
-- base / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3125–3129
 - Match.valueTags(discapacidad, {
     SinDiscapacidad: () => IMPORTE_CERO,
     Discapacidad33a64: ({ necesitaAyudaOMovilidadReducida }) =>
       necesitaAyudaOMov / value (EUR, value); Contrato de llamada pendiente: Match.valueTags; lib/dominio/irpf/minimos/minimo-discapacidad.ts:557–922
-- {
-  baseMaxima: BASE_MAXIMA_COTIZACION_LEGACY[anio],
-  tiposSeguridadSocial: TIPOS_SEGURIDAD_SOCIAL_LEGACY,
-  mei: obtenerTiposMei(anio),
-  solidaridad: obtener / baseMaxima (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5049–5237
-- maximo(IMPORTE_CERO, reduccionNueva.minus(reduccionAnterior)) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:4891–4952
-- comunidadAutonoma === "catalunya" && anio >= 2020 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3996–4045
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- resolverParametrosComunidadAutonoma2018(comunidadAutonoma) / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17418–17476
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- ({
-  baseMaxima: BASE_MAXIMA_COTIZACION_LEGACY[anio],
-  tiposSeguridadSocial: TIPOS_SEGURIDAD_SOCIAL_LEGACY,
-  mei: obtenerTiposMei(anio),
-  solidaridad: obtene / baseMaxima (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5048–5238
-- IMPORTE_CERO / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3442–3454
-- crearImporteMonetario(5565) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3286–3313
 - EffectArray.reduce(
     calcularDesgloseCuotaPorEscala({ base, tramos, escalasPublicadas }),
     base.mul(0),
     (total, tramo) => total.plus(tramo.cuota)
   ) / value (EUR, value); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1450–1609
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- dependencias.parametrosNormativos.minimosEstatales2025 / contribuyente.general (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12598–12652
-- baseMaxima.mul("0.1") / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:925–946
 - Match.valueTags(discapacidad, {
     SinDiscapacidad: () => IMPORTE_CERO,
     Discapacidad33a64: ({ necesitaAyudaOMovilidadReducida }) =>
       necesitaAyudaOMov / value (EUR, value); Contrato de llamada pendiente: Match.valueTags; lib/dominio/irpf/minimos/minimo-discapacidad.ts:557–922
-- rendimientoPrevioNeto.minus(gastosDeducibles) / value (EUR, value); productor; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1370–1415
-- parametros / tiposSeguridadSocial (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3290–3300
-- crearImporteMonetario(6498) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:5198–5225
-- dependencias.parametrosNormativos.minimosEstatales2025 / contribuyente.adicionalMayor65 (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12598–12652
-- caso / rendimientos.trabajo (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12218–12222
-- new Decimal(valor) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- segundoExceso / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1200–1213
-- salarioBrutoAnual / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8027–8044
 - yield* calcularDerechosMinimos(
           caso.derechosMinimos,
           parametrosComunidad.minimosAutonomicos
         ).pipe(Effect.mapError(errorDerechosMin / total (EUR, value); Admisión Effect/servicio pendiente; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20257–20423
-- 0 / value (EUR, value); literal; lib/dominio/dinero/importe-monetario.ts:492–493
 - [AHORRO_2021_2022] / value (selector, selection); Array completo requiere contrato por elemento; lib/dominio/irpf/cuotas/escalas-publicadas.ts:6083–6101
-- anio / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:4307–4311
-- {
-  baseOrdinaria: minimo(bruto, parametros.baseMaxima),
-  excesoBase: maximo(IMPORTE_CERO, bruto.minus(parametros.baseMaxima)),
-} / baseOrdinaria (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5350–5480
-- reduccionTrabajo2019A2022(rendimientoPrevioNeto) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1764–1812
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
 - (filas) =>
         Option.match(
           EffectArray.findLast(
@@ -6399,56 +1378,8 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
             (fila) =>
               base.gt(0) &&
               (fila.inferi / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1954–3046
-- {
-    baseOrdinaria: baseCotizacion.baseOrdinaria,
-    excesoBase: baseCotizacion.excesoBase,
-    cotizacionEmpresarial: cotizacionesTotales.cotizacionEmpresari / cotizacionTrabajador (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8878–9545
-- 2015 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:5909–5913
-- crearImporteMonetario("0.0013") / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3885–3916
-- baseCotizacionPara(salarioBrutoAnual, parametros) / baseOrdinaria (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8008–8057
-- anio <= 2014
-        ? calcularCuotaComponenteAhorro({
-            anio,
-            base: Decimal.max(0, base.minus(remanente)),
-            componente: nombre / value (EUR, value); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:2097–2514
-- meiTrabajador / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:4127–4140
-- cotizacionTrabajador ??
-    calcularCotizacionesSocialesLegacy({
-      anio,
-      salarioBrutoAnual: rendimientoIntegro,
-    }).cotizacionTrabajador / value (selector, selection); productor; lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:905–1054
-- {
-    empresa: ["0.0077", "0.0083", "0.0098"],
-    trabajador: ["0.0015", "0.0017", "0.0019"],
-  } / trabajador.1 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:534–632
-- caso / rendimientos.trabajo (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12218–12222
-- {
-  baseOrdinaria: minimo(bruto, parametros.baseMaxima),
-  excesoBase: maximo(IMPORTE_CERO, bruto.minus(parametros.baseMaxima)),
-} / baseOrdinaria (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5350–5480
 - [] / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3154–3156
-- ({
-      _tag: "ConSolidaridad",
-      tipoPrimerExceso: crearImporteMonetario("0.0092"),
-      tipoSegundoExceso: crearImporteMonetario("0.0100"),
-      tipoEx / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:4395–4608
-- {
-        gananciaPatrimonialGeneral:
-          gananciasPatrimoniales.gananciaSujetaGeneral,
-        reduccionRendimientosTrabajo,
-        rendimientoCapitalIn / rendimientoTrabajo.rendimientoNeto (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15488–15695
-- sumarRendimientosTrabajo(caso.rendimientos.trabajo, centimosAEuros) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12193–12260
 - BASE_MAXIMA_COTIZACION_LEGACY[anio] / value (selector, selection); Índice dinámico/array: requiere contrato por elemento; lib/dominio/laboral/cotizaciones-sociales.ts:5065–5100
-- ANDALUCIA_2012_2015 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3840–3859
-- maximo(
-          IMPORTE_CERO,
-          crearImporteMonetario(5565).minus(
-            crearImporteMonetario("1.5").mul(rendimientoPrevioNeto.minus(13115))
-   / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3424–3603
-- "catalunya" / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4122–4133
-- izquierda.cotizacionTrabajador / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7289–7319
-- "1.15625" / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2935–2944
-- minimos / contribuyente.adicionalMayor75 (EUR, value); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1463–1470
 - [AHORRO_2023_2024] / value (selector, selection); Array completo requiere contrato por elemento; lib/dominio/irpf/cuotas/escalas-publicadas.ts:6129–6147
 - Match.valueTags(
     resultadoParametrosComunidad,
@@ -6456,89 +1387,14 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
       ComunidadAutonomaNoSoportada: (parametrosComunidad) =>
         Effect.fail({
           _tag: "Res / escalaAutonomicaIgualEstatal (selector, selection); Contrato de llamada pendiente: Match.valueTags; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:16369–17338
-- izquierda / cotizacionTrabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7289–7298
-- obtenerParametrosCotizacionLegacy(anio) / baseMaxima (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7943–7982
-- reduccionTrabajo2019A2022(rendimientoPrevioNeto) / value (EUR, value); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1764–1812
 - obtenerEscalaAutonomicaPublicada(caso) / value (selector, selection); Retornos/guardas imperativas requieren contrato: obtenerEscalaAutonomicaPublicada; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:17766–17804
-- baseCotizacionPara(salarioBrutoAnual, parametros) / baseOrdinaria (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:8008–8057
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- 0 / value (selector, selection); literal; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:1906–1907
-- anio <= 2024 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4153–4165
-- crearImporteMonetario(5565) / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3466–3493
-- totalSolidaridad / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:6980–6996
-- 0 / value (selector, selection); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- { base, tramos, escalasPublicadas } / escalasPublicadas (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1505–1540
-- {
-      anio: caso.anio,
-      edad: caso.situacionFamiliar.edad,
-      minimos: minimosEstatales,
-    } / edad (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20525–20629
-- 3700 / value (selector, selection); literal; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:2890–2894
 - Match.valueTags(
     resultadoParametrosComunidad,
     {
       ComunidadAutonomaNoSoportada: (parametrosComunidad) =>
         Effect.fail({
           _tag: "Res / escalaAutonomica.tramos (EUR, value); Contrato de llamada pendiente: Match.valueTags; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:16369–17338
-- IMPORTE_CERO / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3328–3340
-- rendimientoPrevioNeto / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1454–1475
-- 0 / value (EUR, value); literal; lib/dominio/irpf/integracion/base-imponible-general.ts:741–742
-- {
-                anio,
-                base: remanente,
-                componente: nombre,
-              } / componente (selector, selection); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:2379–2487
-- { empresa: ["0", "0", "0"], trabajador: ["0", "0", "0"] } / trabajador.1 (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2934–2991
-- ({
-  cotizacionEmpresarial: izquierda.cotizacionEmpresarial.plus(
-    derecha.cotizacionEmpresarial
-  ),
-  cotizacionTrabajador: izquierda.cotizacionTrabajador. / cotizacionTrabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7160–7366
-- IMPORTE_CERO / value (selector, selection); productor; lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:3050–3062
-- solidaridad / trabajador.1 (selector, selection); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3231–3242
-- {
-        gananciaPatrimonialGeneral:
-          gananciasPatrimoniales.gananciaSujetaGeneral,
-        reduccionRendimientosTrabajo,
-        rendimientoCapitalIn / rendimientoCapitalInmobiliario.rendimientoNeto (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15488–15695
-- {
-  baseMaxima: BASE_MAXIMA_COTIZACION_LEGACY[anio],
-  tiposSeguridadSocial: TIPOS_SEGURIDAD_SOCIAL_LEGACY,
-  mei: obtenerTiposMei(anio),
-  solidaridad: obtener / tiposSeguridadSocial (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5049–5237
-- resolverParametrosComunidadAutonoma2022({
-        comunidadAutonoma,
-        fechaFallecimiento,
-      }) / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17814–17919
-- valor / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- undefined / ascendientes (EUR, value); literal; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:19999–20008
-- obtenerParametrosCotizacionLegacy(anio) / baseMaxima (EUR, value); productor; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1966–2005
-- 12 / value (EUR, value); literal; lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2592–2594
-- resolverParametrosComunidadAutonoma2017(comunidadAutonoma) / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17319–17377
 - caso / rendimientos.trabajo (EUR, value); public-input; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:9398–9402
-- 2020 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:6024–6028
-- {
-  baseMaxima: BASE_MAXIMA_COTIZACION_LEGACY[anio],
-  tiposSeguridadSocial: TIPOS_SEGURIDAD_SOCIAL_LEGACY,
-  mei: obtenerTiposMei(anio),
-  solidaridad: obtener / mei.trabajador (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:5049–5237
-- izquierda.cotizacionTrabajador / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:7289–7319
-- MADRID_2025 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4390–4401
-- crearImporteMonetario(0) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- crearImporteMonetario(0) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- b / value (EUR, value); productor; lib/dominio/laboral/cotizaciones-sociales.ts:2744–2745
-- crearImporteMonetario("0.0012") / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:3743–3774
-- crearImporteMonetario(0) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- ({
-        _tag: "ConSolidaridad",
-        tipoPrimerExceso: crearImporteMonetario("0.0115"),
-        tipoSegundoExceso: crearImporteMonetario("0.0125"),
-       / value (selector, selection); productor; lib/dominio/laboral/cotizaciones-sociales.ts:4669–4892
-- incrementoMayor65 / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1576–1593
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- crearImporteMonetario(0) / value (selector, selection); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-
 ## Condiciones por relación
 
 - [value] argumento de max; e:0

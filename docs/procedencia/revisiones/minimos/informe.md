@@ -1,8 +1,10 @@
 # Contrarrevisión documental de mínimos
 
-Revisión personal del 29 de octubre de 2026 sobre checkout compartido; base comunicada d9ff49c7. **Requiere cambios.** Los 33 IDs tienen decisión:32 aceptaciones acotadas y MIN-017 pendiente de evidencia jurídica. Accepted acepta la proposición delimitada, incluidos defectos y carencias; no significa que el motor cumpla esa regla. No se certifican un ejercicio, una declaración ni las 4788 cuantías candidatas.
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
 
-Se leyeron BRIEF, AGENTS y los cuatro documentos obligatorios. Sin subdelegación, cambios de motor, inventario, hallazgos ajenos, ESTADO, DECISIONES ni operaciones VCS. Las huellas actuales están en huellas-motor.json. Se preservan resultados anteriores y no se reabre Madrid 2020 ni CG-01/02/03.
+Corte: 29 de octubre de 2026; base comunicada d9ff49c7. **Requiere cambios.** Los 33 IDs tienen decisión: 32 aceptaciones acotadas y MIN-017 pendiente de evidencia jurídica. Accepted acepta la proposición delimitada, incluidos defectos y carencias; no significa que el motor cumpla esa regla. No se certifican un ejercicio, una declaración ni las 4788 cuantías candidatas.
+
+Las huellas de la versión examinada están en `huellas-motor.json`. Se conservan los resultados anteriores y quedan fuera de esta revisión Madrid 2020 y CG-01/02/03.
 
 ## Defectos reproducidos
 

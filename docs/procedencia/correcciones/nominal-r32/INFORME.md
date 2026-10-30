@@ -1,4 +1,4 @@
-# Cierre de objetos nominales R32
+# Cierre de objetos nominales
 
 NR30-01 queda reproducido y corregido como candidato técnico. Antes del cambio, dos sobres con hashes recalculados pasan Node y fallan el schema y el coordinador. Se conservan el instrumento del revisor, su adaptación de rutas, ambos mutantes, los resultados previos y los esperados originales. No se cambia el payload legítimo ni su decisión nominal.
 
@@ -10,6 +10,6 @@ La salida legítima sigue pending, trust-indeterminate, completeRuleAcceptance=f
 
 El software nominal participa en la versión de explicación. Por ello se regenera el contenido conservando todos los snapshots anteriores; el recibo regeneracion.json fija versiones y estados. Se comprueba el activo anterior y se conserva la referencia a los 42 históricos verificados independientemente en R30. La corrección necesita contrarrevisión nueva de los bytes exactos, sin repetir una auditoría fiscal completa ni atribuir a esta revisión garantías que no ofrece.
 
-Resultado de regeneración: 44 snapshots, activo V2 `01b1978e79700018ce8f7a55cf0b98bcf2957590e159908de6ca27e87b66587a`, explicación `f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c`. El primer intento generó un V1 válido y se interrumpió al reconstruir el inventario porque Python3 no estaba en ese shell Nix. Se conserva el script/log y el estado parcial; la reanudación exige exactamente ese borrador, incorpora Python3 y completa el V2 sin borrar históricos ni cambiar registros. No se presenta ese fallo de entorno como rojo de producto.
+La regeneración conserva los snapshots históricos y las referencias nominales sin convertirlas en aceptación temporal o fiscal.
 
 Controles finales: seis mutaciones de software y quince pruebas de rastro/publicación pasan; también veinticuatro de composición, tipos y lint globales. Las dieciséis reglas anti-slop siguen a error. validacion.json fija los recibos por hash; los recuentos de suites incluyen controles solapados y no constituyen aceptación fiscal.

@@ -1,6 +1,8 @@
 # Contrarrevisión de evidencias autonómicas v1
 
-Revisión personal sobre `c61a306107f280c399eb57e57a7c45452bd68864`. Candidatos examinados en su contexto histórico `ed6a43fd750de05609abc3710dabdc2f8261020c`, snapshot `babfc930e2c4096600e68895d13bbfae23c996bacd3ba7fbd376ae32f8713c68`. No se sustituyeron por el inventario actual. Sin subdelegación, fixes, registros, atestaciones ni operaciones VCS mutantes.
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
+Base examinada: `c61a306107f280c399eb57e57a7c45452bd68864`. Los candidatos se examinaron en su contexto histórico `ed6a43fd750de05609abc3710dabdc2f8261020c`, snapshot `babfc930e2c4096600e68895d13bbfae23c996bacd3ba7fbd376ae32f8713c68`, sin sustituirlo por un inventario posterior.
 
 **Dictamen: evidencia documental reproducible y conservable como candidata; no habilitar aceptación ni integración automática de bindings.** Se reextrajeron las 94 selecciones (celda y cabecera) y las 93 citas, se regeneraron los nueve PNG y se cotejaron los 136 payloads con las ocurrencias históricas. Todas esas comparaciones resultan iguales. Las 186 celdas anuales tienen decisión individual; las 317 decisiones previas conservan estado y alcance. Hay una deficiencia de precisión en 28 localizadores sintácticos y una limitación de la receta de reproducción frente a cambios de inventario.
 
@@ -62,7 +64,7 @@ flock /tmp/irobopf-validacion-pesada.lock bash tools/procedencia/run.sh /home/el
 
 Incidencia operativa: el lanzador fijado creó automáticamente `tools/procedencia/.venv` dentro del worktree al preparar Nix/uv. No se editaron fuentes fuera de la carpeta de revisión ni lockfiles; se declara esa escritura auxiliar del entorno y no se borra para ocultarla. `rg` no estaba en PATH inicialmente; se usaron lecturas disponibles y Nix, sin instalación global. Algunas primeras lecturas agrupadas se truncaron y se repitieron por secciones; la ruta correcta del informe ronda 9 incluye `docs/procedencia/`.
 
-Preflight: los 5.281 archivos de la base de revisión están presentes, cero ausencias. El padre debe comprobar nuevamente base, hashes y ausencia de borrados al integrar. No hay patch de producto ni binarios nuevos que integrar: los PNG revisados siguen en la entrega original. `manifiesto.json` enumera los archivos de esta revisión con tamaño, SHA-256 y baseSha256; excluye su propia autorreferencia y las cachés de herramientas. Se preservan contexto, Reactivity, originales e informes ajenos.
+Preflight: los 5.281 archivos de la base de revisión están presentes, cero ausencias. No hay patch de producto ni binarios nuevos que integrar: los PNG revisados siguen en la entrega original. `manifiesto.json` enumera los archivos de esta revisión con tamaño, SHA-256 y baseSha256; excluye su propia autorreferencia y las cachés de herramientas. Se preservan contexto, Reactivity, originales e informes ajenos.
 
 Validación adicional: los 186 localizadores refinados tienen exactamente una ocurrencia sintáctica y valor coincidente con el helper histórico. Las 122 entradas de generación y los 257 archivos del manifiesto del autor coinciden por hash (y tamaño en la entrega). Ruff pasó inicialmente; mypy encontró cuatro errores de anotación del instrumento, conservados en `calidad.log`. Se añadieron tipos a los diccionarios de JSON, rutas y resumen, sin cambiar comprobaciones ni resultados; la repetición está en `calidad-final.log`. Las dependencias importadas no se vuelven a comprobar con mypy (`--follow-imports=skip`); no se atribuye cobertura de tipos del corpus a este ensayo.
 

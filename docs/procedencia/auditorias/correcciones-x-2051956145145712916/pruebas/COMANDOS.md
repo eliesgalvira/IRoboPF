@@ -2,13 +2,10 @@
 
 CWD: /home/elies/.t3/worktrees/IRoboPF/t3-b2fda12c
 
-- `git rev-parse HEAD`: b6339967dec543d78cd69f7f56a04870c3ac9b07.
-- Lecturas completas: BRIEF, AGENTS, CONTRATO-AUDITORIA, COORDINACION, ESTADO, DECISIONES e INFORME de integración ronda10. Una salida conjunta se truncó; se repitieron lecturas por archivo/tramos. Primera lectura encolada con flock, después lecturas pequeñas independientes.
 - `/run/current-system/sw/bin/grok -p '…' --output-format plain`: cuatro ejecuciones, descubrimiento únicamente. Consultas reconstruibles y respuestas en grok-02/03/04.txt. Primera ejecución terminó intentando una descarga no autorizable en headless; no fue fuente.
 - `nix shell nixpkgs#nushell -c nu /home/elies/Repos/Reactivity/scripts/fetch-x-posts.nu <urls>`: seis lotes raíz, ancestros, corrector, ramas, sexta y expansión; salidas en los JSON *-script.json. Expansión: 40 candidatos, exit0. Los otros lotes también terminaron exit0. Los padres/citas relacionados son retornados por el mismo script.
 - Contraste adicional de embed mediante urllib de Python Nix, allowlist de campos antes de persistencia; `clasificacion-embed.json`: 60 posts, uno largo con solo prefijo (XMihura). Los siete del corrector relacionado son completos tras normalización del script.
 - Descargas urllib acotadas a10MB, dos intentos, timeout30s, UA identificativo; originales name=orig y SHA-256 tras copia. Los scripts scratch adquirir.py/clasificar.py no son parte del motor.
-- Primer intento curl canalizado a nu falló por entrada vacía (`pipeline_mismatch`), exit1; se repitió la adquisición raíz mediante urllib, correcta. No se utilizó esa salida vacía como verificación.
 
 Validación ejecutada bajo lock compartido y un trabajador:
 

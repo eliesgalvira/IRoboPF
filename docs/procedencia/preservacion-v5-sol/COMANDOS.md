@@ -1,7 +1,8 @@
 # Ejecución local
 
-Directorio: `/home/elies/.t3/worktrees/IRoboPF/t3-fdfbf688`.
-Todos los comandos Python se ejecutan con:
+Reproducción histórica del corte R26 en `/home/elies/.t3/worktrees/IRoboPF/t3-fdfbf688`. La referencia definitiva de esta edición es `r2/PIN-final.json`; los comandos iniciales reconstruyen etapas anteriores y no deben ejecutarse sobre destinos existentes.
+
+Entorno y comandos iniciales:
 
 ```sh
 export PYTHONDONTWRITEBYTECODE=1
@@ -19,7 +20,7 @@ Nix proporciona intérpretes y herramientas. uv usa el lock del proyecto, entorn
 
 No usar collect de v3/v4 ni ejecutar código histórico arbitrario. Los originales se leen del paquete v4 fijado y CAS del mapa entregado, sin red. Se preservan las versiones anteriores. Para revisar solo restauración, el lector debe resolver rutas mediante las dependencias del manifiesto y disponer del entorno Nix/Python fijado: el paquete no contiene un cierre binario de Nix ni permite reinstalarlo desde cero sin almacén local.
 
-La ejecución final usa `PIN-final.json`, `manifest-final.json.gz` y caché `manifest-final.json`. La primera colección de `coleccion.log` se conserva como ensayo; `coleccion-final.log` fija la selección final. Se conservan `antes.log`, `despues.log` y `regresiones.log` sin modificar esperados.
+La etapa inicial usa `PIN-final.json`, `manifest-final.json.gz` y caché `manifest-final.json`. Su pin no designa el cierre r2; para ese cierre se usan las rutas bajo `r2/` y los comandos de corrección siguientes.
 
 Recuperación con herramientas materializadas del paquete, usando la misma caché absoluta pero sin leer CAS alternativos:
 
@@ -41,7 +42,7 @@ flock /tmp/irobopf-validacion-pesada.lock bash tools/procedencia/run.sh docs/pro
 
 Para recuperación r2 se usa el runner, `recuperar2.py` y `selector_ine.py` bajo `.cache/preservacion-v5-sol/r2/software-restaurado/`, con `--cache "$PWD/.cache/preservacion-v5-sol/r2"` y salidas a `docs/procedencia/preservacion-v5-sol/r2/`. No repetir los colectores/materializadores sobre destinos existentes; conservar cualquier parcial.
 
-Suplemento ya ejecutado bajo bloqueo pesado, con imports del consumidor restaurado y datos exclusivamente de r2:
+Comprobación suplementaria con imports del consumidor restaurado y datos exclusivamente de r2:
 
 ```sh
 flock /tmp/irobopf-validacion-pesada.lock bash tools/procedencia/run.sh docs/procedencia/preservacion-v5-sol/suplemento.py --cache "$PWD/.cache/preservacion-v5-sol/r2" --output "$PWD/docs/procedencia/preservacion-v5-sol/r2/suplemento.json"

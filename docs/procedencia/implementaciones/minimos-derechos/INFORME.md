@@ -1,6 +1,8 @@
 # Derechos atribuibles a mínimos, entrega para revisión
 
-Autor: agente de implementación de este hilo, checkout T3 `t3-5ea7ff42`, identificado en la sesión como `/root`. Trabajo personal, sin subdelegación. Base comprobada mediante lectura Git: `5799bb03826719a4dd3500a962e2d6bb5124fdca`. No se atribuye independencia al autor ni se acepta fiscalmente la implementación.
+Documento histórico del candidato de este directorio. Los resultados y estados corresponden a esa versión; no acreditan el estado actual del proyecto.
+
+Base del candidato documentado: `5799bb03826719a4dd3500a962e2d6bb5124fdca`.
 
 Se implementa una ruta optativa de mínimos por descendientes para declaración individual, régimen común, Madrid y devengo 31 de diciembre de 2025. No amplía la vigencia a 2026 ni convierte el cálculo anual existente en una declaración íntegramente automatizada. Se conservan las APIs y expectativas históricas.
 
@@ -54,7 +56,7 @@ Comandos reales, desde este checkout y con Bun/Node de Nix:
 
 El rojo histórico puede reproducirse copiando su receta a un archivo temporal de test en scratch con configuración propia. No se debe sustituir la suite actual ni incorporar su expectativa al helper parcial.
 
-Las guías Effect list, data-modeling, error-handling y testing se consultaron con el lanzador Bun indicado, además de Schema.ts v4 local. Node_modules es enlace de lectura a la raíz del padre. Scratch solo en .cache/minimos-derechos. Ningún build Next, suite legacy completa, instalación global, cambio de paquetes/CI ni wrapper Python de corpus. La extracción usa Poppler de Nix; control de entrega usa Python de Nix bajo el lock.
+Las guías Effect list, data-modeling, error-handling y testing se consultaron con el lanzador Bun indicado, además de Schema.ts v4 local. Node_modules es enlace de lectura a la raíz del integrador. Scratch solo en .cache/minimos-derechos. Ningún build Next, suite legacy completa, instalación global, cambio de paquetes/CI ni wrapper Python de corpus. La extracción usa Poppler de Nix; control de entrega usa Python de Nix bajo el lock.
 
 ## Decisiones, objeciones y coste
 
@@ -69,9 +71,9 @@ Tutela/curatela, adopción en mayoría de edad, cambios de convivencia durante e
 
 ## Integración y preservación
 
-El padre debe integrar por manifiesto, comprobar los hashes de base y regenerar inventario/rastro. No se han tocado inventario, snapshots, registro, atestaciones, ESTADO, DECISIONES ni informes ajenos. Integridad, autenticidad, interpretación, exactitud y aceptación son dimensiones distintas: hashes y tests no autentican históricamente los originales ni aceptan fiscalmente esta entrega.
+Al integrar se debe integrar por manifiesto, comprobar los hashes de base y regenerar inventario/rastro. No se han tocado inventario, snapshots, registro, atestaciones, ESTADO, DECISIONES ni informes ajenos. Integridad, autenticidad, interpretación, exactitud y aceptación son dimensiones distintas: hashes y tests no autentican históricamente los originales ni aceptan fiscalmente esta entrega.
 
-Sin operaciones VCS mutantes, PR, push, despliegue, transferencias ni borrados. v1/v2 permanecen intactos. Crossa sigue siendo la copia v1 histórica comunicada por el coordinador, misma casa y dueño; no se comprobó aquí ni se atribuye custodia independiente. La revisión nueva corresponde al padre.
+Sin operaciones VCS mutantes, PR, push, despliegue, transferencias ni borrados. v1/v2 permanecen intactos. Crossa sigue siendo la copia v1 histórica comunicada por el coordinador, misma casa y dueño; no se comprobó aquí ni se atribuye custodia independiente. La revisión nueva corresponde al integrador.
 
 Cierre de prioridad: tras el rojo propio se implementa también el paso al siguiente grado. La matriz final y los controles obligatorios constan en validacion-grado.log. La propuesta inicial de rechazo de toda excepción queda superada; el log y los informes históricos ajenos permanecen intactos.
 

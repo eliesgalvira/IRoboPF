@@ -1,8 +1,10 @@
 # Revisión independiente acotada de CL01, R30
 
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
 El caso concreto CL01 queda corregido en el código actual: `/citations/0/selectionSha256` de `editorial/flujo-rentas-r21-sol/entradas-editoriales.json` pasa de `original-oficial` a `seleccion-cita`, mientras el documento contiguo conserva su clase contextual. No recomiendo aprobar la política ampliada como clasificación semántica general: dos sondas de origen y una de conflicto documento/facsímil conservan rojos. Son conclusiones candidatas para contraste del padre, sin aceptación fiscal ni cierre global.
 
-Revisor personal en T3 Code/Codex, gpt-6.1-sol, high, checkout `t3-5a19a93f`; prioridad exigida por el encargo, sin inventar acreditación independiente del scheduler. Sin subdelegación ni atestación. HEAD `376fb100512ca6a2f975c3c9500a20ee375dd431`, 16.486 entradas. Leídos BRIEF, AGENTS, contrato, coordinación, estado y decisiones, recepción R30 y antecedentes recibidos R28/R30. La corrección urgente del usuario prevalece sobre las órdenes históricas de Astra, VCS y limpieza.
+Base examinada: `376fb100512ca6a2f975c3c9500a20ee375dd431`, 16.486 entradas. Se contrastaron la recepción R30 y los antecedentes recibidos R28/R30.
 
 ## Contraste de bytes y rojo histórico
 

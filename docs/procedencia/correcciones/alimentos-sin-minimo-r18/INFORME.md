@@ -1,6 +1,6 @@
 # Alimentos propios sin mínimo: exclusión expresa del contrato anual
 
-La revisión independiente Sol `minimos-derechos-v2-sol` confirma MDV1-01/02/03 y la separación de fechas de constitución e inicio del incremento en el alcance ensayado. Sus 86 casos propios y 72 pruebas existentes no acreditan una liquidación universal. Se conservan íntegros sus informes, fuentes y manifest; la recepción comprueba 43 archivos y las 10.583 entradas de su base, sin ausencias ni borrados.
+La revisión independiente `minimos-derechos-v2-sol` confirma MDV1-01/02/03 y la separación de fechas de constitución e inicio del incremento en el alcance ensayado. Sus 86 casos propios y 72 pruebas existentes no acreditan una liquidación universal. Sus informes, fuentes y manifiesto conservan la evidencia original.
 
 MDV2-P01 es una reserva jurídica, no un defecto numérico demostrado. El custodio que paga alimentos propios puede perder el mínimo por renta o declaración del descendiente, y el contrato anterior devolvía una liquidación sin haber cerrado el tratamiento de ese cruce. La revisión propone investigarlo o excluirlo expresamente. Se elige la exclusión acotada; no se inventa una cuota ni se afirma que corresponda aplicar la especialidad.
 
@@ -18,12 +18,10 @@ Antes del cambio se añadieron once casos a `tests/minimos-derechos-integracion.
 
 Después del cambio, `verde.log` registra 57 pruebas familiares correctas entre dos archivos. Tipos principal/vendor y lint global pasan en `tipos.log` y `lint.log`. No se modifican las dos caracterizaciones históricas Success del revisor; describen su base anterior, y no se convierten retrospectivamente en pruebas fiscales verdes de la exclusión nueva.
 
-Se consultaron las guías Effect de errores/pruebas y se conserva el rechazo tipado existente. Las comprobaciones pesadas usan `flock /tmp/irobopf-validacion-pesada.lock`, un trabajador. Reproducción del pase focalizado: `nix shell nixpkgs#bun nixpkgs#nodejs -c bunx vitest run tests/minimos-derechos-integracion.test.ts tests/minimos-derechos.test.ts --maxWorkers=1`. No se ejecuta Next build ni las suites legacy pesadas.
+Reproducción del pase focalizado: `nix shell nixpkgs#bun nixpkgs#nodejs -c bunx vitest run tests/minimos-derechos-integracion.test.ts tests/minimos-derechos.test.ts --maxWorkers=1`.
 
 La regeneración de inventario, contenido y publicación se registra en `generacion.log` y `publicacion.log`; el enlace Madrid usa otra identidad de inventario, con atestación nula. Los snapshots anteriores se preservan. `actualizar-enlace.mjs` comprueba que la identidad de fuente, tabla, valor y unidad de Madrid permanece igual antes de actualizar el manifiesto. `publicar.mjs` invoca el coordinador real; su entrada y resultado quedan fijados aquí. Ningún binding obtiene aceptación por este cambio.
 
-Queda pendiente una revisión independiente nueva de la exclusión y sus controles. El encargo general sigue abierto. Sin aceptación fiscal completa, LFS, gasto, transferencia externa, PR, despliegue ni limpieza. Crossa conserva su paquete v1 histórico desfasado; los nuevos originales deben incorporarse a una futura ampliación local.
+La exclusión conserva la reserva jurídica descrita y no acredita aceptación fiscal completa. Este informe de corrección no sustituye el contraste independiente de la exclusión y sus controles.
 
 El pase final de rastro/publicación obtiene 13 pruebas correctas, con coordinador real. V1 `522677b42b24d885d415be2cf649c4e8dc38c28611bc5e27f5e4af0686e40396` y v2 `259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608`; 52.461 ocurrencias y 715 objetos de publicación, sin aceptación fiscal. También pasan ESLint y oxlint de los dos scripts de reproducción nuevos.
-
-Corrección de metadatos local: la selección `root-file` aplicada antes al directorio de recepción no retiraba sus descendientes. Se usa `root-glob:".cache/orquestador-recepcion/**"` para quitar únicamente su seguimiento provisional; lista versionada resultante vacía y 742 archivos físicos conservados. Ninguno estaba en los commits respaldados. Los commits de entrega siguen seleccionando archivos individuales con `root-file` literal y cotejo posterior de bytes. No se borró el paquete ni se limpió ningún worktree.

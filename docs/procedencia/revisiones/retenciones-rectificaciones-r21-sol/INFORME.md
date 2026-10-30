@@ -1,14 +1,16 @@
 # Revisión de las rectificaciones R21, retenciones 2015–2016
 
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
 Dictamen: C01 queda confirmada en su alcance visual; C02 incorpora correctamente una alternativa legal independiente, pero los doce reemplazos y la adenda no deben darse por operables sin precisiones adicionales. Tres ramas pierden la guarda que impedía elevar un tipo ya inferior. La precedencia respecto de las exclusiones del PDF y la conciliación de hechos concurrentes siguen insuficientemente determinadas. No se propone fix ni habilitación de ejercicios. Estas conclusiones nuevas requieren contraste posterior.
 
-Revisión personal por gpt-6.1-sol, esfuerzo high, en T3 Code/Codex. La prioridad es la solicitada, sin afirmar que un archivo local pruebe el nivel de servicio. No se emite atestación ni se inventa identificador canónico de T3: el sufijo del checkout no es una acreditación de identidad. No hubo subdelegación, cambio de modelo, VCS mutante ni escritura fuera del checkout. Propiedad exclusiva de esta carpeta; los originales, atestaciones, ESTADO/DECISIONES y entregas ajenas permanecen intactos.
+Esta revisión no emite atestación ni modifica los registros de confianza.
 
 HEAD exigido y observado: `960773f909d4ecff290edfa3d7a7b2699a8445d3`. El control inicial comprueba 14.537 entradas contra los blobs de esa base, una a una, con lstat, readlink en enlaces y bytes; cero diferencias. El control final y los manifiestos acompañan la entrega. No se usa el índice como prueba de presencia.
 
 ## Lectura y alcance
 
-Se leyeron BRIEF, AGENTS, CONTRATO-AUDITORIA, COORDINACION, ESTADO y DECISIONES completos, y los cinco informes de correcciones indicados. Se leyeron las autorías y contraste terminados 2015–2016, contrato base, doce propuestas y adenda, sesenta celdas y cuarenta y tres ramas, incluidas objeciones y límites. `lectura-estructurada.json` conserva el contenido por sufijo y todas las diferencias entre versiones: las repeticiones se cotejaron por campos, sin asumir que julio y 2016 fueran iguales. No se repite la auditoría visual de 140 páginas ni se heredan sus conclusiones como revisión propia integral.
+Se examinaron los cinco informes de correcciones, entrega y contraste terminados de 2015–2016, contrato base, doce propuestas y adenda, sesenta celdas y cuarenta y tres ramas, con sus objeciones y límites. `lectura-estructurada.json` conserva el contenido por sufijo y las diferencias entre versiones: las repeticiones se cotejaron por campos, sin equiparar julio con 2016. No se repite la auditoría visual de 140 páginas ni se heredan sus conclusiones como revisión integral propia.
 
 La comprobación primaria nueva se concentra en los tres signos p16, las descripciones de causas y límites de regularización, y los HTML históricos RIRPF con selectores 82/84/85/86/87/88. Los textos extraídos incluyen material tachado y pérdidas de glifos; no sustituyen facsímiles ni autorizan ejecutar esas marcas. No se accedió a trabajo activo ajeno. Las lecturas del padre se limitaron a originales CAS entregados.
 

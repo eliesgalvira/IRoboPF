@@ -1,8 +1,10 @@
 # Revisión independiente de lint
 
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
 Veredicto: **aprobable para integración selectiva del contenido revisado**. No encuentro un P1/P2 demostrado en los recorridos actuales de la aplicación. Hay diferencias de comportamiento fuera de esos recorridos: se documentan abajo, no se afirma equivalencia para cualquier objeto JavaScript. Esta revisión no certifica cifras fiscales.
 
-Fecha: 29 de octubre de 2026. Base: `d4d708f68c4cfd95d462f7503014e39042963dbf`. Entrega: `/home/elies/.t3/worktrees/IRoboPF/t3-3d3cd9a7`. Leídos BRIEF y COORDINACION. Revisión sin delegación, correcciones, operaciones VCS mutantes, commits ni despliegue. El informe del autor se leyó después del parche de código y las comprobaciones principales; no se usa como prueba de equivalencia.
+Corte: 29 de octubre de 2026. Base examinada: `d4d708f68c4cfd95d462f7503014e39042963dbf`. El informe de implementación se leyó después del parche y las comprobaciones principales, sin usarlo como prueba de equivalencia.
 
 ## Integridad y bootstrap
 

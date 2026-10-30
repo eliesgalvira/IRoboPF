@@ -1,21 +1,17 @@
-# Recepción del borrador R53 y continuación ejecutable
+# Límites del grafo estático y requisitos de ejecución
 
-R53 no está completado. Se conserva un borrador de relaciones estáticas, no un grafo causal ejecutable ni un hito pendiente únicamente de revisión. El autor identifica carencias internas y no demuestra bloqueo externo. El padre no acepta cierre de valor o selección por los controles estructurales.
+El artefacto R53 representa relaciones estáticas y carece de un consumidor causal ejecutable. Sus controles estructurales no acreditan cierre de valor o selección. Las carencias son internas al artefacto; la evidencia no demuestra un bloqueo externo.
 
 ## Conservación y alcance incorporado
 
-Base del hijo: 58e2e58b137829f1b664a46d7c0054c2feb5efc2. Cotejo físico del padre, lstat/readlink/bytes/ejecutable contra cada blob: 22.072 entradas intactas y cero borrados. HEAD/diff y censo completo de extras comprobados; los 111 extras pertenecen al ámbito propio y metadatos T3. Se reconstruyen exactamente 51 rutas de payload desde patch -p0 y objetos, con vacíos, tamaños y modos. No se copia la fuente como sustituto del transporte.
-
-Se reciben 59 archivos contando sobre y recibo. Se incorporan 20 rutas, 3.900.749 bytes: tres archivos nuevos de código/schema/pruebas y documentación/transporte. Los instrumentos de scratch quedan reconstruidos en .cache/orquestador-recepcion/r54/transporte. Las 83 fuentes técnicas se cotejan contra raíz e hijo y se preservan por ambos hashes/tamaño en .cache/orquestador-preservacion/recepciones-r54/sha256. No se agrega fuente fiscal ni se modifica archivo base del producto. recepcion.json, extras-hijo.json y cas-preservado.json fijan la recepción.
-
 El módulo enlaza operandos, globals, declaraciones léxicas y propiedades de puertos; inspectOutput solo recorre relaciones estáticas y conserva ciclos/pendientes. verifyTransitiveGraph reconstruye y compara: es control de correspondencia, no acreditación independiente de suficiencia. Permanecen pendientes los marcos efectivos, propiedades seleccionadas, asignaciones/defaults, llamadas/retornos, terminales y transporte ejecutado de cada salida. La matriz 65/19 no contiene casos causales por fila. Las 19 comprobaciones de argumento cuarto son estáticas, no ejecuciones de familias. El primer intento rojo del autor falló por importación antes de su aserción; no cumple el requisito de rojo previo y no se reclasifica.
 
-## Comprobaciones y decisión del padre
+## Comprobaciones y decisión de integración
 
 Se leen el informe y código completos, manifiestos, fuentes, prueba y límites. Pasan los 26 controles recibidos, tipos principal/vendor, Oxlint global con 16 reglas a error y ESLint global (0 errores, 12 advertencias heredadas en archivos intactos). suite.json/validacion.json conservan comandos y aserciones. La recomposición del grafo y la matriz coincide exactamente en JSON con los artefactos recibidos; artefactos.json y su instrumento fijan el contraste. Los 31.737 vértices, 37.849 aristas y 10.473 pendientes reconocidos no son reglas jurídicas ni un censo exhaustivo de carencias. No se declara verde global de la auditoría ni aceptación semántica del borrador.
 
-Decisión D125: no encargar otra vez el conjunto 65/19 sin demostrar antes un consumidor causal completo. La siguiente vertical comprende las once salidas SS desde entradas en céntimos hasta origen.decimal, con contexto único entre fases, llamadas/frames, propiedades y selección ejecutadas. Se apoya en la IR SS ya contrastada, no en una presunta aceptación del borrador R53. El protocolo tendrá revisión independiente antes de extenderse a los otros grupos. El objetivo global de 65 sitios y 19 familias permanece íntegro.
+Un grafo estático no acredita un consumidor causal completo. Para las once salidas SS se exige seguimiento desde entradas en céntimos hasta origen.decimal, contexto único entre fases, llamadas/frames, propiedades y selección ejecutadas, apoyado en la IR contrastada. El borrador R53 no acredita por sí solo ese protocolo ni su extensión a otros sitios y familias.
 
 Objeción experta: dividir puede prolongar una secuencia que ya produjo entregas parciales. Respuesta: exigir un extremo ejecutable completo y reusable, con once salidas efectivas y pruebas por propiedad, evita volver a recibir solo catálogos de todos los dominios. Coste: integración por etapas y extensión posterior, sin rebajar el objetivo. La evidencia de una ejecución debe distinguirse de una prueba universal del programa; los terminales preadmitidos no validan derechos ni fiscalidad. Nuevos hallazgos o capacidades seguirán sujetos a revisión independiente.
 
-Motor, parámetros, fuentes oficiales, inventario, confianza y 45 snapshots se conservan. Las cuatro puertas públicas siguen falsas. V5 r2 mantiene corte R26; Crossa conserva v1 desfasado, local fuera de Victus y sin custodia independiente. Respaldo de código/documentación solo en procedencia-documental. Sin main, PR, deploy, LFS, gasto, transferencia ni limpieza. Encargo global abierto.
+Las cuatro puertas públicas permanecen falsas. El borrador estático no promueve confianza ni aceptación fiscal.

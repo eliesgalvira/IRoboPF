@@ -1,10 +1,10 @@
 # Preservación v5: edición candidata del corte R26
 
-Referencia vigente: **r2/PIN-final.json**, SHA256 del manifiesto JSON `2b15925970d4819973598e1640c375ce95fc16c87e6e9981af1e86a2cb0d1c88`. Los pins anteriores son ensayos conservados.
+Referencia del corte v5 R26: **r2/PIN-final.json**, SHA256 del manifiesto JSON `2b15925970d4819973598e1640c375ce95fc16c87e6e9981af1e86a2cb0d1c88`. Los pins anteriores son ensayos conservados.
 
-Implementación personal en T3 Code, checkout `t3-fdfbf688`, runtime gpt-6.1-sol con esfuerzo high. Se ha solicitado prioridad; no se inventa prueba del scheduler ni identidad canónica de un agente. Sin subdelegación, atestación, aceptación propia ni mutación VCS. El encargo global continúa. El padre debe encargar una revisión nueva del paquete exacto.
+Esta edición conserva el corte histórico R26 y requiere revisión independiente del paquete exacto. No acredita aceptación fiscal ni el estado documental de cambios posteriores.
 
-Base literal: `6ab4a98e6ce218c30a3a9f18596d0c2f030f47d9`, 15.456 entradas. No se suplanta BASE R21. La edición nueva tiene schema/formato v5, software y política fijados. `PIN-final.json` identifica el JSON descomprimido externo; el hash de `manifest-final.json.gz` es otra identidad. El pin está escrito antes de verificar/exportar y se copia fuera del paquete, sin aceptarlo por estar dentro de él.
+Base del corte: `6ab4a98e6ce218c30a3a9f18596d0c2f030f47d9`, 15.456 entradas. La edición nueva tiene schema/formato v5, software y política fijados. `PIN-final.json` identifica el JSON descomprimido externo; el hash de `manifest-final.json.gz` es otra identidad. El pin está escrito antes de verificar/exportar y se copia fuera del paquete, sin aceptarlo por estar dentro de él.
 
 ## Selección y censo
 
@@ -26,7 +26,7 @@ El consumidor se deriva de la corrección v4 R26 recibida, sin editarla. Se fija
 
 ## Pruebas y recuperación
 
-`antes.log` conserva el fallo del array tipado de documentos: cero referencias observadas frente a una esperada. Se corrigió el recorrido, sin cambiar el esperado. `regresiones.log` ejecuta cuatro controles del censo, nueve adversos v4, diez controles R26 y las cinco expectativas protectoras R24. Para estas últimas se cargan únicamente sus clases mediante AST en memoria, inyectando el consumidor y fixture v5; no se ejecutan sus inicializadores que escriben en cachés ajenas, ni se cambian métodos o aserciones. Se mantienen intactos los originales versionados y sus rojos históricos.
+Las regresiones cubren arrays tipados de documentos, cuatro controles del censo, nueve adversos v4, diez controles R26 y las cinco expectativas protectoras R24. Para estas últimas se cargan únicamente sus clases mediante AST en memoria, inyectando el consumidor y fixture v5; no se ejecutan sus inicializadores que escriben en cachés ajenas, ni se cambian métodos o aserciones. Se mantienen intactos los originales versionados y sus rojos históricos.
 
 La exportación y restauración usan directorios nuevos, escritura por bloques de 1 MiB, publicación exclusiva y fsync según el contrato reutilizado. Los recibos distinguen durabilidad confirmada y marcador visible con durabilidad indeterminada. No se simulan corte eléctrico, disco defectuoso, rollback ni escritor hostil. Se comparan físicamente ambos destinos por hashes/tamaño e inodos, sin hardlinks entre copias. La capacidad y existencia se consultan al filesystem, no al índice Git.
 
@@ -38,15 +38,7 @@ Ruff y mypy comprueban fuentes propias. Mypy usa `--check-untyped-defs --follow-
 
 Integridad, autenticidad, número, interpretación y revisión son ejes distintos. No se validan firmas PAdES/CSV ni vigencias por transportar bytes. Permanecen las ausencias no resueltas y las limitaciones de gramática anteriores; una referencia disponible como metadato no asegura que su original documental pueda restaurarse. No se descargan datos para rellenar vacíos.
 
-R25 recién terminado no está recibido en este corte: no se inspecciona ni se incluye. El corte excluye también esta entrega y lo posterior como evidencia fiscal; sus herramientas/contrato se incluyen para reproducibilidad. Composición/publicación y promociones siguen bloqueadas por los defectos de rentas, multiplicidad del registro conjunto y admisión de Madrid v2. No se reinterpretan como autorización para un arreglo propio.
-
-Se conservan inventario `30dfbc3154494ae09eee32d1bcf005b627241051bb3531af3cb38e686dff1de7`, artefacto `59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7`, sus 52.461 ocurrencias y 65 sitios, los 36 snapshots R23, V1 `a0c7d768c664677bffb583a84f3afb11deda0cf92924480e8b0afd97cde8b34f` y V2 `57377f076ca1050c368c7b57934d1f8edce13104a27258409ebf7f1a8f58d146`, cierre de 719 objetos, Madrid `e16bd15666f0f83502756ac1648259979ab07bdc5eea18abb0e7965a634a4258` pendiente y los 264 payloads sin promoción. No se modifica confianza activa, código fiscal, informes ajenos, ESTADO o DECISIONES generales.
-
-Crossa mantiene v1 `2df6c208…` desfasado, misma casa y dueño, copia local fuera de Victus sin independencia/remotidad. No se escribe allí. No hay transferencia externa del corpus, LFS, gasto autorizado, push, PR, deploy, servidor, preview, UI/rediseño, limpieza ni borrado de originales.
-
-Incidencia: una consulta general de procesos mostró incidentalmente líneas de comando de compañeros activos. No se consultaron sus archivos ni se usó esa información; no se repitió la consulta. Los logs de herramientas con ese material no se copian al paquete ni a esta entrega.
-
-El cotejo inicial físico comprueba las 15.456 entradas mediante lstat/readlink y un blob por vez. El final repite el control con protocolo cat-file batch, leyendo y comparando solo un blob en cada momento; además registra diff de base. MANIFIESTO fija rutas relativas, tamaños, SHA256 y baseSha256 nulo para archivos nuevos; excluye su propia huella por circularidad. El patch textual gzip excluye manifiesto, catálogo binario y el propio patch; binarios por ruta/hash. Los paquetes, restauración y censo grande quedan fuera de Git y deben preservarse fuera de T3 por el padre antes de cualquier limpieza.
+Crossa mantiene v1 `2df6c208…`, desfasado respecto de v5 R26, misma casa y propietario. Es una copia local fuera de Victus y no acredita custodia independiente ni respaldo remoto. La exportación y restauración v5 son ensayos locales.
 
 ## Identidad y tamaño del corte candidato
 
@@ -56,7 +48,7 @@ El censo abre 4.907 archivos JSON/JSON.gz versionados. Registra 32.465 identidad
 
 No pueden recuperarse los bytes de un original ausente de todas las fuentes expresamente entregadas, ni revertirse por hash los campos omitidos en metadatos saneados. El manifiesto registra las identidades de esos orígenes, no inventa sus bytes. Se conserva la receta mecánica y el derivado disponible; los originales oficiales incorporados permanecen intactos. Las referencias desconocidas, variantes históricas de software o controles sintéticos no resueltos deben examinarse por su contexto antes de calificarlas como pérdida de evidencia. Las formas de referencia no reconocidas limitan toda promesa de cierre.
 
-Rutas absolutas que el padre debe preservar sin borrarlas:
+Localizadores históricos del primer paquete v5 y de sus insumos:
 
 - `/home/elies/.t3/worktrees/IRoboPF/t3-fdfbf688/.cache/preservacion-v5-sol/paquete-v5`
 - `/home/elies/.t3/worktrees/IRoboPF/t3-fdfbf688/.cache/preservacion-v5-sol/restauracion-v5`
@@ -65,23 +57,21 @@ Rutas absolutas que el padre debe preservar sin borrarlas:
 - `/home/elies/.t3/worktrees/IRoboPF/t3-fdfbf688/.cache/preservacion-v5-sol/censo-preservado`
 - `/home/elies/.t3/worktrees/IRoboPF/t3-fdfbf688/.cache/preservacion-v5-sol/software-restaurado`
 
-Los ensayos `recepcion-v5`, `recepcion-v5-final`, `referencias-ensayo.jsonl.gz` y `referencias-final.jsonl.gz` también quedan conservados en caché propia; no se eliminan ni se confunden con exportaciones anteriores. El movimiento de los fragmentos propios al catálogo externo se realizó como operación acotada por fragmento, pero sin adquirir el bloqueo compartido. Se declara esta incidencia; las comprobaciones posteriores del catálogo y todos los transportes/restauraciones utilizan el bloqueo pesado.
-
 Límite adicional del recolector, que impide llamarlo exportador determinista general: el censo usa cabeceras gzip con fecha de ejecución y el cierre de herramientas enumera los JSON presentes en su carpeta, incluidos ensayos previos. El pin fija los bytes efectivos de esta ejecución, pero repetir sobre otra carpeta con resultados adicionales puede cambiar el sobre. No se acredita identidad byte a byte de una nueva colección por pasar verify/restauración. Una revisión debe exigir entrada propia explícita y gzip determinista antes de aceptar esa garantía; no se oculta como una diferencia fiscal ni se autoacepta esta limitación. La restauración del paquete exacto es una garantía distinta.
 
 ## Revisión local r2: nueva referencia de entrega
 
-**La entrega final designa exclusivamente `r2/PIN-final.json` y `r2/manifest-final.json.gz`. El primer paquete v5 y su pin `7883e53f…` quedan como ensayo conservado con cierre de software incompleto.** No se sobrescriben sus marcadores, exportación, restauración ni log rojo.
+**La entrega final designa exclusivamente `r2/PIN-final.json` y `r2/manifest-final.json.gz`. El primer paquete v5 y su pin `7883e53f…` quedan como ensayo conservado con cierre de software incompleto.** No se sobrescriben sus marcadores, exportación, restauración ni evidencias del fallo.
 
-El primer intento de materialización se detuvo antes de ejecutar las pruebas: el selector INE figuraba entre las fuentes fijadas, pero había llegado después de la enumeración de dependencias. `cierre-software-antes.log` reproduce la falta con una aserción independiente. Ningún hash del manifiesto se altera para ocultarla.
+El primer paquete no incluía los bytes del selector INE que fijaba entre sus fuentes. r2 completa ese cierre con otra identidad y conserva el paquete anterior sin modificarlo.
 
 `recolector2.py` corrige el cierre mediante una entrada anterior exacta fijada por pin y una lista explícita de cinco herramientas. Conserva objetos, censo, clasificaciones, ausencias y derivaciones anteriores sin cambios. Completa la dependencia faltante y añade el lector de recuperación revisado, materializador y control de cierre. No recensa R25 ni añade fuentes documentales. El nuevo contrato auxiliar `contrato-v5-r2.json` fija la operación, la fuente y los nombres exactos. Ordena dependencias por ruta, no enumera resultados propios y escribe gzip con mtime cero y nombre vacío: la revisión mecánica es reproducible desde ese input fijado y esas fuentes exactas. No se afirma haber vuelto determinista la primera colección completa; aquella limitación sigue siendo un hallazgo conservado.
 
 Por inspección del contrato de citas históricas, Cantabria usa `box` y CARM `bbox`. `recuperar2.py` adapta ambos nombres sin cambiar originales ni citas esperadas, y elige el pasaje más largo disponible del documento, evitando usar el primer pie `i30` como demostración sustantiva. Las tres citas/PNG y los selectores existentes INE mantienen sus esperados. El código original del primer pin permanece intacto.
 
-Las herramientas de r2 se materializan exclusivamente desde su restauración y se cotejan con todas las identidades `software` antes de ejecutarlas. Las comprobaciones usan el Python/uv/Nix fijado y leen originales únicamente de la nueva restauración. Los resultados efectivos están en `recuperacion-r2.log`, `r2/recuperacion.json` y `r2/selectores-ine.json`; si falta alguno, no debe inferirse un pase. Las conclusiones siguen siendo candidatas y necesitan revisión nueva.
+Las herramientas de r2 se materializan exclusivamente desde su restauración y se cotejan con todas las identidades `software` antes de ejecutarlas. Las comprobaciones usan el Python/uv/Nix fijado y leen originales únicamente de la nueva restauración. Los resultados están en `r2/recuperacion.json` y `r2/selectores-ine.json`; su ausencia impide inferir un pase. Las conclusiones siguen siendo candidatas y necesitan revisión nueva.
 
-Rutas definitivas r2 para preservar fuera de T3:
+Localizadores históricos del corte r2:
 
 - `/home/elies/.t3/worktrees/IRoboPF/t3-fdfbf688/.cache/preservacion-v5-sol/r2/paquete-v5`
 - `/home/elies/.t3/worktrees/IRoboPF/t3-fdfbf688/.cache/preservacion-v5-sol/r2/restauracion-v5`
@@ -101,12 +91,9 @@ PyMuPDF 1.26.7 recupera exactamente los pasajes CARM (4.939 caracteres) y Cantab
 
 Los tres textos y PNG son idénticos a sus recetas históricas: MEI2025 `1c5559d7…`, Madrid `75401a40…` y colegio `39c62e2d…`. Las huellas completas y textos están en `r2/recuperacion.json`. No hay cachefallback. El helper y runner ejecutados proceden de la raíz de software restaurada; locks y versión Python se fijan por las fuentes transportadas. El entorno ya disponible se reutiliza: no se afirma reinstalación desde una máquina vacía.
 
-`suplemento.py` es una receta adicional de comprobación entregada por fuente y fijada en MANIFIESTO, no un nuevo dato fiscal o dependencia documental externa. Importa el consumidor exclusivamente de software-restaurado y solo lee datos del paquete r2. `suplemento.log` y `r2/suplemento.json` confirman regeneración canónica byte a byte del índice grande derivado de retenciones (22.164.883 bytes; origen y transporte separados) y reproducción del HTML histórico `82a57fd7…`, selector `id="a84"`, con fuente, ambos hashes y receta histórica correctos. Se distingue normalización HTML de una cita PDF literal. No se restaura por magia el metadato bruto saneado: las omisiones de privacidad continúan declaradas.
+`suplemento.py` es una receta adicional de comprobación entregada por fuente y fijada en MANIFIESTO, no un nuevo dato fiscal o dependencia documental externa. Importa el consumidor exclusivamente de software-restaurado y solo lee datos del paquete r2. `r2/suplemento.json` confirma regeneración canónica byte a byte del índice grande derivado de retenciones (22.164.883 bytes; origen y transporte separados) y reproducción del HTML histórico `82a57fd7…`, selector `id="a84"`, con fuente, ambos hashes y receta histórica correctos. Se distingue normalización HTML de una cita PDF literal. No se restaura por magia el metadato bruto saneado: las omisiones de privacidad continúan declaradas.
 
-Las 28 regresiones pasan con esperados intactos. Los controles de cierre pasan en r2 después del rojo conservado del primer pin. Oxlint termina con código 0 y salida vacía en el humo de carga de las 16 reglas; Ruff y mypy finales se registran aparte para todas las fuentes propias, sin confundir sus alcances. La comprobación física completa posterior a r2 está en `fisico-cierre.json.gz` y `fisico-cierre.log`, con diff de base y las 15.456 entradas. No se promueve ningún estado por estos resultados.
+Las 28 regresiones y los controles de cierre pasan en r2, con esperados intactos. Ruff y mypy comprobaron las 15 fuentes propias con el alcance parcial declarado. El humo oxlint comprueba carga de plugins, sin atribuirle lint de Python. `fisico-cierre.json.gz` conserva el cotejo de las 15.456 entradas. Estos resultados son evidencia técnica de este corte, sin promoción jurídica o fiscal.
 
 Límite de reproducción de la revisión r2: para reconstruir el sobre r2 mediante su recolector hay que conservar también el manifiesto anterior exacto `7883e53f…` y su entrada fijada, ya preservados en las rutas v5 anteriores. El paquete r2 permite recuperar las muestras y metadatos descritos por sí mismo, pero no se anuncia un regenerador de toda la primera colección desde cero sin esos insumos, ni un cierre binario Nix. El corte R26, las referencias no resueltas, la selección candidata y la revisión independiente pendiente permanecen explícitos.
-
-Cierre de calidad efectivo: `calidad-ultima.log` termina con Ruff sin errores y mypy sin diagnósticos en 15 fuentes propias, con el alcance parcial ya declarado. `fisico-cierre.log` confirma 15.456 entradas y cero diferencias físicas; el diff de base permanece vacío. Git status muestra únicamente las carpetas nuevas de documentación y caché propia. La caché está sin versionar y queda expresamente fuera del manifiesto/patch de código: conservar sus datos mediante las rutas absolutas indicadas, sin integrar uv, entornos o paquetes binarios en Git.
-
-Los casos máquina están en `hallazgos.json`, cada uno con evidencia y límite. MANIFIESTO/patch se generan después de estos resultados; su alcance es exclusivamente `docs/procedencia/preservacion-v5-sol/`, incluidas sus rutas r2. No hay cierre global, aceptación jurídica/fiscal, revisión independiente favorable ni custodia remota acreditada.
+`hallazgos.json` conserva los casos y sus límites. El corte R26 no incluye las entregas posteriores; sus cantidades no describen el estado actual del repositorio. No acredita revisión independiente favorable ni custodia externa.

@@ -1,12 +1,8 @@
-# R65: corregir el retorno perdido por push
+# Corrección del retorno perdido por push
 
-Se recibe la única revisión independiente del lote explícito. Corrobora localmente los nueve valores/selecciones y demuestra el bloqueo de actividad; reproduce R64-PUSH-01. No se repiten sus conclusiones favorables. Esta ronda corrige y revisará exclusivamente ese defecto y sus regresiones pertinentes.
+La revisión independiente corrobora localmente los nueve valores y selecciones del lote explícito y demuestra el bloqueo de actividad. R64-PUSH-01 identifica un defecto distinto: el retorno pierde los pasos acumulados. La corrección descrita se limita a ese defecto y sus regresiones pertinentes.
 
-## Recepción y reproducción
-
-Base del revisor `cd41524b432c5d4c2a7f665603debef6be5abc28`. Cotejo físico completo bajo lock: 23.958 entradas intactas, cero borrados y extras dentro del ámbito. Reconstrucción exacta de 195 rutas, con bytes, modos, SHA-256/SHA-512 y un archivo vacío. Se incorporan 58 rutas, 47.999.426 bytes, y siete originales técnicos preservados. Sobre original conserva sus rutas de origen; el padre registra el traslado del transporte a `revisiones/causal-explicitos-r64-sol/transporte/` en `recepcion.json`. No se reescriben sus informes ni testigos.
-
-El padre reproduce el rojo original antes del fix: pushLengths `[1,1]`, cero pasos retornados y nueve salidas capturadas. `rojo-vitest.json` contiene el fallo de su aserción original; `push-rojo.json` conserva los datos. La copia ejecutable solo cambia imports y destino de salida. Tras el arreglo, la misma prueba pasa con `[1,2]` y ambos pasos completos, incluidos sus datos anteriores al wiring editorial. No se convierte el rojo histórico en una prueba `fails` ni se borra.
+El contraste de integración reproduce el rojo original antes del fix: pushLengths `[1,1]`, cero pasos retornados y nueve salidas capturadas. `rojo-vitest.json` contiene el fallo de su aserción original; `push-rojo.json` conserva los datos. La copia ejecutable solo cambia imports y destino de salida. Tras el arreglo, la misma prueba pasa con `[1,2]` y ambos pasos completos, incluidos sus datos anteriores al wiring editorial. No se convierte el rojo histórico en una prueba `fails` ni se borra.
 
 ## Cambio y coste
 
@@ -18,7 +14,7 @@ Tres casos nuevos —empleo laboral, estatutario y pensión— usan dos rendimie
 
 ## Calidad y correcciones del arnés
 
-La primera ejecución de tipos identifica tres diagnósticos propios del test nuevo (Struct con tag y una lista de retenciones inferida como never[]) y el import fs introducido por el padre en R64. El último pase de tipos R64 precedía ese cambio de preparación; no acreditaba esos bytes finales. Se deja esta rectificación explícita. Se usa TaggedStruct, se construye la entrada con sus retenciones sin coerciones, y la creación de carpeta se sitúa en el auxiliar que ya posee las escrituras síncronas. El test R62 vuelve a su envoltorio sin fs. No se desactiva ningún diagnóstico.
+La primera ejecución de tipos identifica tres diagnósticos propios del test nuevo (Struct con tag y una lista de retenciones inferida como never[]) y el import fs introducido en la integración en R64. El último pase de tipos R64 precedía ese cambio de preparación; no acreditaba esos bytes finales. Se deja esta rectificación explícita. Se usa TaggedStruct, se construye la entrada con sus retenciones sin coerciones, y la creación de carpeta se sitúa en el auxiliar que ya posee las escrituras síncronas. El test R62 vuelve a su envoltorio sin fs. No se desactiva ningún diagnóstico.
 
 Oxlint también rechazó la función auxiliar de prueba con unknown. Su frontera ahora decodifica Schema.Json y el recorrido recibe/devuelve ese tipo. Los rojos de tipos/lint y la primera versión del test permanecen. La comprobación de aristas usa un mapa de posiciones para evitar búsquedas cuadráticas; se ajustó durante la preparación de la primera pasada y la versión final completa se ejecuta de nuevo.
 
@@ -26,10 +22,6 @@ Pasan tipos principal/vendor, Oxlint global y ESLint global (16 avisos previos),
 
 ## Alcance pendiente
 
-Los 55 sitios anteriores mantienen su corroboración. Los nueve valores locales y el bloqueo de actividad cuentan con su única revisión favorable; queda revisar solo R64-PUSH-01 corregido y sus consecuencias. La colisión `$id` del schema de ejecución se conserva como límite de registro conjunto, sin cambiar la conclusión acotada del consumidor actual ni abrir otra ronda por ella.
-
-Tras una revisión favorable del arreglo y el contraste del padre, procede el informe final de los 65 sitios: no iniciar familias19, composición global, admisión ni cuatro puertas. Sus flags siguen falsos. Crossa conserva v1 desfasado y V5 el corte R26. Sin main, PR, despliegue, LFS, gasto, transferencia ni limpieza.
+Los nueve valores locales y el bloqueo de actividad tienen corroboración acotada. R64-PUSH-01 afecta al retorno completo y requiere comprobar sus consecuencias. La colisión `$id` del schema de ejecución conserva su límite de registro conjunto, sin cambiar la conclusión acotada del consumidor.
 
 Comprobación documental terminal: contrato y testigo actual pasan Ajv estricto; replay actual correcto. Rechazados el testigo de software anterior y la sustracción de aristas de la mutación. Se conserva testigo-actual.json.gz con ambos hashes y tamaño en documental.json. Los cuatro flags siguen false. Los originales anteriores permanecen intactos.
-
-Respaldo comprobado en origin/procedencia-documental: a8c7ebec1985beaf2d0f7f0125b68dec7bf4a15b, 103 archivos/49.450.727 bytes y cero borrados. Única revisión adicional justificada por R64-PUSH-01 lanzada con gpt-6.1-sol high priority confirmados, sobre las 24.058 entradas del commit. Registro completo en delegaciones-ronda65.json. No se lanza otra tarea ni se reabre el alcance favorable.

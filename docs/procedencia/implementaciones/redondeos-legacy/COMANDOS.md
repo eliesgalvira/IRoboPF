@@ -1,8 +1,9 @@
 # Reproducción
 
+Documento histórico del candidato de este directorio. Los resultados y estados corresponden a esa versión; no acreditan el estado actual del proyecto.
+
 Desde la raíz de este worktree. Base c61a306107f280c399eb57e57a7c45452bd68864.
 
-- Se consultaron effect-solutions list y show basics testing con el lanzador bun en Nix; se leyó makeBy de Iterable.ts de la fuente local.
 - Dependencias: enlace node_modules al repositorio principal, utilizado para lectura. Sin instalar paquetes de proyecto ni cambiar lockfiles.
 - Extracción nueva del libro:
   `nix shell nixpkgs#python3 -c flock /tmp/irobopf-validacion-pesada.lock python docs/procedencia/implementaciones/redondeos-legacy/extraer.py /home/elies/Repos/IRoboPF/Auditoria_Integral_Nominas_e_Inflacion_2012_2026.xlsx`
@@ -13,5 +14,3 @@ Desde la raíz de este worktree. Base c61a306107f280c399eb57e57a7c45452bd68864.
 - Verde y regresiones: comandos iguales con tests/dinero.test.ts y tests/progresividad-caracterizacion-legacy.test.ts. Los resultados conservan la regresión de caracterización, sin reescribir su expectativa.
 - Lint: oxlint y eslint sobre las cinco fuentes TS de la entrega, con reglas existentes.
 - Tipos: `flock /tmp/irobopf-validacion-pesada.lock node_modules/.bin/tsc --noEmit --incremental false`.
-
-Las primeras ejecuciones NumPy fallaron por colisión del nombre numpy.py y después por libz.so ausente. Se conservan los dos logs y el resultado final; no se cuentan esos intentos como evidencia numérica. El script se renombró dentro de esta entrega y se añadió zlib solo al entorno Nix. No se han ejecutado builds ni suites legacy pesadas.

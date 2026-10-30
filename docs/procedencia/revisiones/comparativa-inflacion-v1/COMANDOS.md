@@ -2,7 +2,7 @@
 
 Ejecutados desde `/home/elies/.t3/worktrees/IRoboPF/t3-6e018ac6`, base 5799bb03826719a4dd3500a962e2d6bb5124fdca. La entrega está en `/home/elies/Repos/IRoboPF/docs/procedencia/revisiones/comparativa-inflacion-v1`. `root` y `out` en los ejemplos representan esas rutas absolutas. Nix usa la revisión local documentada por implementaciones/comparativa-inflacion/nixpkgs.json; NumPy está fijado a 2.5.4. oracle.json registra versiones reales de Python/NumPy. No instalación global ni cambio de package/lockfiles.
 
-Preparación: `git rev-parse HEAD`; `mkdir -p .cache/comparativa-review`; enlace de node_modules al del padre, solo lectura. El primer ensayo copió lib actual y sustituyó progresividad-frio.ts con `git show eaed990c620b5fc4d3ff2e74dc68e0c8481c43db:lib/dominio/compatibilidad-legacy/progresividad-frio.ts`. Para eliminar la mezcla, el ensayo definitivo extrae todo lib de esa base:
+Preparación: `git rev-parse HEAD`; `mkdir -p .cache/comparativa-review`; dependencias compartidas en lectura. La reproducción histórica extrae todo lib de la base examinada para conservar juntas sus dependencias:
 
 ```bash
 git archive eaed990c620b5fc4d3ff2e74dc68e0c8481c43db lib | tar -x -C .cache/comparativa-review
@@ -17,9 +17,9 @@ export UV_PROJECT_ENVIRONMENT="$PWD/.cache/comparativa-review/venv"
 flock /tmp/irobopf-validacion-pesada.lock uv run --no-project --python "$(command -v python3)" --with numpy==2.5.4 python /home/elies/Repos/IRoboPF/docs/procedencia/revisiones/comparativa-inflacion-v1/oracle.py "$PWD" /home/elies/Repos/IRoboPF/docs/procedencia/revisiones/comparativa-inflacion-v1'
 ```
 
-Contraste: `nix shell nixpkgs#bun nixpkgs#nodejs -c flock /tmp/irobopf-validacion-pesada.lock bun "$out/contrastar.mjs" "$root" "$out"`. El primer log es contraste.log; repetición con todas las dependencias históricas en baseline-completa.log. Salida resultados.json; no expected generado desde TS. El proceso devuelve 0 si las comparaciones principales coinciden; los conteos, controles, cabeceras y factores también se inspeccionan en resultados.json.
+Contraste: `nix shell nixpkgs#bun nixpkgs#nodejs -c flock /tmp/irobopf-validacion-pesada.lock bun "$out/contrastar.mjs" "$root" "$out"`. `baseline-completa.log` registra el contraste con todas las dependencias históricas; `contraste.log` conserva el ensayo inicial híbrido y no sustituye ese resultado. Salida resultados.json; no expected generado desde TS. El proceso devuelve 0 si las comparaciones principales coinciden; los conteos, controles, cabeceras y factores también se inspeccionan en resultados.json.
 
-Coherencia: misma invocación Bun con coherencia.mjs. Código 1 deliberado por CX-07-B, salida coherencia.json. No se ejecuta como requisito general de una cuota fiscal aceptada.
+Coherencia: misma invocación Bun con coherencia.mjs. Código 1 deliberado por CX-07-B, salida coherencia.json. Ese resultado no constituye un requisito general de aceptación fiscal.
 
 Validación: `nix shell nixpkgs#bun nixpkgs#nodejs -c flock /tmp/irobopf-validacion-pesada.lock bash "$out/validar.sh"`. Script conservado con comandos exactos, rutas y logs; validacion.log registra códigos individuales. No todos los nombres solicitados a Vitest existen: el informe precisa los tres archivos ejecutados realmente.
 

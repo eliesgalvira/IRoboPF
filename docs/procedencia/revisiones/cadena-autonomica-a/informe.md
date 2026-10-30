@@ -1,12 +1,14 @@
 # Revisión independiente — cadena autonómica A
 
-Revisión personal del 29/10/2026. **No aprobar la cadena completa para modificar automáticamente parámetros.** Hay decisión individual para los 33 IDs, matriz de 31 grupos y 180 enlaces anuales. Dos aceptaciones estrechas y 31 `needs-evidence`; ninguna aceptación global de escala o liquidación. Los estados anteriores se conservan. Las diez correcciones se han leído personalmente y su alcance limitado se registra por separado.
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
+Corte documental: 29/10/2026. **No aprobar la cadena completa para modificar automáticamente parámetros.** Hay decisión individual para los 33 IDs, matriz de 31 grupos y 180 enlaces anuales. Dos aceptaciones estrechas y 31 `needs-evidence`; ninguna aceptación global de escala o liquidación. Se conservan los estados anteriores. Las diez correcciones se examinaron y su alcance limitado se registra por separado.
 
 Se han cerrado las **39 localizaciones PDF pendientes**, con texto, página física, cajas y cotejo visual de sus ocho documentos. Esto cierra la localización, no la vigencia. Se comprobaron los hashes de los 144 documentos recibidos; no se deduce autenticidad de ellos. Se descargaron además originales HTML de LGT y LIRPF y el PDF regional canario de 2018 usando el helper, lock común y ritmo de descarga.
 
 ## Hallazgos accionables
 
-**P2 — Cuotas fijas no representadas por la integración.** `lib/dominio/irpf/cuotas/escalas-gravamen.ts:48` suma áreas de tramos y no recibe cuota acumulada legal. Asturias 2015, Ley11/2014 art.39, PDF BOE-A-2015-1764 p.24: desde17.707,20 publica1.875,86 y14%. Para base17.707,21, la integración ejecutada da1.875,8654; cuota publicada más exceso da1.875,8614. La prueba propia falla: esperado1.875,86, recibido1.875,87 al redondear cada resultado a dos decimales. No es una transcripción de una ejecución ajena. No prueba que la deuda final difiera exactamente un céntimo: faltan mínimo, restantes cuotas y política final de redondeo. El orquestador debe fijar contrato de cuota acumulada y probar límites antes de corregir; no aplicar un redondeo por tramo como arreglo universal.
+**P2 — Cuotas fijas no representadas por la integración.** `lib/dominio/irpf/cuotas/escalas-gravamen.ts:48` suma áreas de tramos y no recibe cuota acumulada legal. Asturias 2015, Ley11/2014 art.39, PDF BOE-A-2015-1764 p.24: desde17.707,20 publica1.875,86 y14%. Para base17.707,21, la integración ejecutada da1.875,8654; cuota publicada más exceso da1.875,8614. La prueba propia falla: esperado1.875,86, recibido1.875,87 al redondear cada resultado a dos decimales. No es una transcripción de una ejecución ajena. No prueba que la deuda final difiera exactamente un céntimo: faltan mínimo, restantes cuotas y política final de redondeo. La corrección requiere un contrato de cuota acumulada y pruebas de límites; no aplicar un redondeo por tramo como arreglo universal.
 
 Reproducción ejecutada, un worker:
 
@@ -39,7 +41,7 @@ nix shell nixpkgs#bun -c bun test --max-concurrency 1 ./.cache/procedencia/revis
 
 La cobertura de IDs y enlaces es completa como registro de decisiones. **La investigación jurídica solicitada no queda cerrada exhaustivamente**: faltan la búsqueda completa de reformas intermedias/persistencia hasta2026, la resolución especializada de fallecimientos y el cotejo ejecutable de cada cuota y componente. No se suplió ese trabajo con un `match` numérico. La mayoría de cadenas siguen `needs-evidence` por razones individuales, no aceptadas por conteo o por extracción automática.
 
-No se validaron firmasPAdES/CSV, no se produjeron recortes facsimilares publicables de todos los originales, no se ejecutaron builds ni suites generales. Los renders de inspección quedan en scratch. La prueba de cuota es deliberadamente fallida y usa el motor actual sin modificarlo. Los casos temporales son sondeos ejecutados, no pruebas fallidas de una interpretación jurídica ya aceptada. El orquestador conserva la decisión y la edición de las correcciones.
+No se validaron firmasPAdES/CSV, no se produjeron recortes facsimilares publicables de todos los originales, no se ejecutaron builds ni suites generales. Los renders de inspección quedan en scratch. La prueba de cuota es deliberadamente fallida y usa el motor actual sin modificarlo. Los casos temporales son sondeos ejecutados, no pruebas fallidas de una interpretación jurídica ya aceptada. 
 
 ## Índice de decisiones individuales
 

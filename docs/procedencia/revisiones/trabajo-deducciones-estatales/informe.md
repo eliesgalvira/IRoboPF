@@ -1,6 +1,8 @@
 # Contrarrevisión de trabajo y deducciones estatales
 
-Revisor independiente: contrarrevision-trabajo-deducciones-estatales-2026-10-29. Base indicada por el encargo: d9ff49c7; checkout compartido, sin operaciones VCS. Los hashes de los módulos examinados están en `motor-examinado.json`. No se modifica el motor ni los informes históricos.
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
+Base declarada: d9ff49c7. `motor-examinado.json` fija los hashes de los módulos examinados.
 
 **35 decisiones individuales: 32 aceptaciones acotadas y 3 pendientes de evidencia (TDE-27, 28 y 35).** «Accepted» acepta únicamente `acceptanceScope` del registro, incluida en muchos casos la constatación de una ausencia. No certifica una regla completa, un ejercicio, el inventario ni una declaración. Los candidatos antiguos conservan su estado en la auditoría original; `previousStatus` lo registra aquí.
 

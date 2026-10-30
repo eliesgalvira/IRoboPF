@@ -22,7 +22,7 @@ Objeción: contar objetos o pruebas no evalúa autenticidad, interpretación ni 
 
 ## V4-D06 — Herramientas y memoria
 
-Objeción: paralelizar recorridos o copiar un entorno completo arriesga Victus. Respuesta: Nix/uv, entorno absoluto propio, un trabajador y bloqueo pesado; cotejo físico un blob por vez. Sin código Effect o TypeScript nuevo; mypy comprueba Python con alcance registrado. Coste: espera del bloqueo compartido y tipado parcial del parser JSON dinámico, sin garantía estática estricta de todas las estructuras. Sin instalación global, build, servidor, preview, red documental ni gasto. Crossa sigue v1 2df6c208… desfasado, misma casa/dueño, sin custodia independiente o remota; no se escribe allí.
+Objeción: paralelizar recorridos o copiar un entorno completo arriesga Victus. Respuesta: Nix/uv, entorno absoluto propio, un trabajador y bloqueo pesado; cotejo físico un blob por vez. Sin código Effect o TypeScript nuevo; mypy comprueba Python con alcance registrado. Coste: espera del bloqueo compartido y tipado parcial del parser JSON dinámico, sin garantía estática estricta de todas las estructuras. Sin instalación global, build, servidor, preview, red documental ni gasto. Crossa conserva v1 `2df6c208…`, desfasado respecto de v5 R26, misma casa y propietario, sin custodia independiente.
 
 ## V4-D07 — Localizadores entregados y URLs documentales exactas
 
@@ -30,4 +30,4 @@ Objeción: ampliar por sufijo libre la política TGSS o copiar toda la revisión
 
 ## V4-D08 — Incluir el índice grande de citas
 
-Objeción: el corte intermedio excluía citas-candidatas.json de retenciones2020–2026 por24.110.694 bytes, heredando sin justificación material la cota16MiB de v3. Respuesta: el corte final admite64MiB por archivo y conserva este metadato con saneamiento, dos identidades y comprobación de referencias tipadas. Se conservan paquete-v4/restauracion-v4 intermedios y se exportan destinos nuevos paquete-v4-final/restauracion-v4-final con otro pin. Coste: nueva colección, otros dos traslados y más disco local; no se altera la historia ni se presenta el primer pin como cierre. Un archivo mayor de64MiB exigiría tratamiento acotado adicional, pero no hay otro metadato omitido por tamaño en el corte final.
+Objeción: el corte intermedio excluía citas-candidatas.json de retenciones2020–2026 por 24.110.694 bytes, heredando sin justificación material la cota de 16 MiB de v3. Respuesta: el corte final admite 64 MiB por archivo y conserva este metadato con saneamiento, dos identidades y comprobación de referencias tipadas. Se conservan paquete-v4/restauracion-v4 intermedios y se exportan destinos nuevos paquete-v4-final/restauracion-v4-final con otro pin. Coste: nueva colección, otros dos traslados y más disco local; no se altera la historia ni se presenta el primer pin como cierre. Un archivo mayor de 64 MiB exigiría tratamiento acotado adicional, pero no hay otro metadato omitido por tamaño en el corte final.

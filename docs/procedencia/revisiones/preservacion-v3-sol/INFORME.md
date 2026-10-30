@@ -1,6 +1,8 @@
 # Revisión independiente de preservación v3
 
-Base exacta: `7668bdad60a79a8b3ad8e1e1b911f3d6c223692a`. Revisión personal Sol 6.1 High, sin subdelegación ni fixes. **V3 sirve como copia local restaurable del corte fijado; el validador de ampliaciones requiere cambios antes de considerarlo una puerta cerrada de metadatos y clasificación.** Los hallazgos nuevos son candidatos para contraste del padre. No se cierra el BRIEF.
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
+Base examinada: `7668bdad60a79a8b3ad8e1e1b911f3d6c223692a`. **V3 sirve como copia local restaurable del corte fijado; el validador de ampliaciones requiere cambios antes de considerarlo una puerta cerrada de metadatos y clasificación.** Los hallazgos nuevos son candidatos para contraste y no implican cierre global.
 
 ## Bytes y recuperación efectiva
 
@@ -61,7 +63,7 @@ Integridad local comprobada. Autenticidad histórica, confianza PAdES/CSV/sellad
 
 Crossa conserva v1 histórico desfasado, misma casa y propietario, comunicado por el coordinador y sin comprobación propia aquí. No es custodia independiente/remota. V1/v2/v3 y restauraciones del padre permanecen intactos. Sin LFS, gasto, transferencias externas, red documental, mensajes a terceros, publicaciones, despliegues, servidor, preview, motor, UI ni VCS mutante.
 
-Se leyeron íntegros BRIEF, AGENTS, CONTRATO-AUDITORIA, COORDINACION, ESTADO y DECISIONES, con prevalencia de las restricciones actuales. Lecturas puntuales iniciales sin flock; recorridos masivos, restauración, pruebas y calidad bajo el lock común, un trabajador. Python usa run.sh con UV_PROJECT_ENVIRONMENT absoluto en scratch. Node_modules es un enlace de lectura al padre; no se instala ni modifica allí. No se escribió Effect ni TypeScript.
+Los recorridos masivos, restauración, pruebas y calidad se ejecutaron bajo el bloqueo común, con un trabajador. Python usa run.sh y `UV_PROJECT_ENVIRONMENT` absoluto en scratch; node_modules se utiliza en lectura.
 
 `arbol-inicio.json.gz` y `arbol-cierre.json.gz` cotejan cada entrada física mediante lstat/readlink y bytes frente al blob del HEAD exacto; el índice no es fuente de verdad. MANIFIESTO.json excluye su propia ruta, enumera path literal, ambos hashes, tamaño y baseSha256; altas null. Patch textual gzip y binarios por hash. Scratch y la nueva restauración permanecen fuera de la entrega y no deben integrarse como corpus. No hay borrados ni cambios de archivos de base.
 

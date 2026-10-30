@@ -1,10 +1,12 @@
 # Revisión independiente SS R39
 
-El valor y la selección de los once sitios se corroboran técnicamente bajo las condiciones individuales de `dictamen.json`. No se aceptan sus cierres documentales: hay cuatro grupos de errores o carencias dimensionales reproducidos, doce aserciones rojas, aunque `validateSS` acepta el candidato y declara once cierres. No se ha demostrado defecto financiero ni fiscal del motor. Las conclusiones nuevas requieren contraste del padre.
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
 
-Revisor real: T3 Code, harness Codex, gpt-6.1-sol, esfuerzo high. Priority solicitada por el encargo; no hay recibo independiente del nivel de servicio en este runtime. Sin subdelegación, atestación ni cambios de confianza. HEAD/base: `2fab25d9d79c46dbf1a3f47c55e66a7410566758`, 20.498 entradas. Ámbito de escritura exclusivo: esta carpeta y `.cache/revision-ss-r39-sol/`.
+El valor y la selección de los once sitios se corroboran técnicamente bajo las condiciones individuales de `dictamen.json`. No se aceptan sus cierres documentales: hay cuatro grupos de errores o carencias dimensionales reproducidos, doce aserciones rojas, aunque `validateSS` acepta el candidato y declara once cierres. No se ha demostrado defecto financiero ni fiscal del motor. 
 
-Se consultan BRIEF completo, AGENTS, CONTRATO-AUDITORIA, COORDINACION y situación actual de ESTADO/DECISIONES. Prevalecen las correcciones del encargo frente a modelo, VCS, limpieza y escritura del BRIEF. Se examinan compilador, consumidor, schema completo, 37 controles R32 y pruebas R36, fuentes fijadas, candidato/hojas y revisión R34, informe y observación del padre R39. No se consultan entregas activas de admisión/escalas/rentas. Effect: list/show testing/data-modeling y fuentes locales de Array.reduce y Match.valueTags; no se escribe producto Effect.
+Base examinada: `2fab25d9d79c46dbf1a3f47c55e66a7410566758`, 20.498 entradas.
+
+Se examinaron compilador, consumidor, schema completo, 37 controles R32 y pruebas R36, fuentes fijadas, candidato y hojas, revisión R34 e informe y observación R39. Las referencias Effect corresponden a testing, data-modeling y las fuentes locales de Array.reduce y Match.valueTags.
 
 ## Qué queda demostrado
 
@@ -72,4 +74,4 @@ El cotejo inicial terminó antes de editar: 20.498 entradas físicas iguales, di
 
 Manifiesto, patch textual gzip y objetos binarios por ruta/hash reconstruyen exactamente el payload en scratch sin checkout nuevo ni operación VCS mutante. Sobres y recibos finales se enumeran aparte para evitar autorreferencia; no se atribuye el cotejo final a su propio payload previo. Los controles >1 MB van gzip. No se adquieren originales nuevos ni se duplican PDFs; no procede CAS nuevo. V5 r2 conserva R26/pin 2b15925970d4819973598e1640c375ce95fc16c87e6e9981af1e86a2cb0d1c88 en su ubicación entregada, sin modificación/reexportación; Crossa v1 sigue desfasado, local fuera de Victus, mismo dueño/casa, sin independencia. Motor, registros activos, confianza, 264 pares/102 sujetos, Madrid2020 pending, snapshot d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1 y 45 históricos permanecen intactos. Los otros 54 sitios y admisión común no se aceptan mediante esta revisión.
 
-No commit, bookmark, push, PR, main, deploy, servidor, preview, rediseño, LFS, gasto, transferencia externa ni mensajes externos. El encargo global permanece abierto. Estas conclusiones nuevas requieren contraste del padre, sin atestación ni aceptación de regla completa.
+No commit, bookmark, push, PR, main, deploy, servidor, preview, rediseño, LFS, gasto, transferencia externa ni mensajes externos.  Estas conclusiones nuevas requieren contraste del padre, sin atestación ni aceptación de regla completa.

@@ -1,10 +1,8 @@
 # Fragmento de retenciones y pagos R32
 
-Implementación candidata personal, sin subdelegación, en T3 Code mediante Codex, runtime gpt-6.1-sol, esfuerzo high. Prioridad solicitada; no se inventa un recibo independiente del proveedor. No se emite atestación. Base y HEAD exigidos: 846f25e183ba07414065d4e6bdf9e98311b98a17, 16.855 entradas.
+Documento histórico del candidato de este directorio. Los resultados y estados corresponden a esa versión; no acreditan el estado actual del proyecto.
 
-El cotejo inicial terminó antes de editar: lstat, readlink, bytes y modo ejecutable, un blob cada vez mediante cat-file --batch secuencial. Cero diferencias y cero borrados. El primer intento falló con ENOBUFS al enumerar el árbol por el límite predeterminado de stdout de Node; se amplió únicamente el buffer de la lista de rutas y se repitió correctamente. No se confundió ese intento con una recepción correcta. Los controles y el instrumento se conservan.
-
-Se leyeron BRIEF, AGENTS, contrato, coordinación y estado/decisiones, CONTINUACION y recepción R32, fix nominal R32, revisión del flujo R26, revisión de implementación de retenciones y las rectificaciones/contrastes históricos. Las restricciones actuales sustituyen las órdenes históricas de delegar, mutar VCS, escribir estado o limpiar. No se inspeccionan entregas de hijos activos.
+Base del candidato documentado: `846f25e183ba07414065d4e6bdf9e98311b98a17`.
 
 ## Los seis sitios
 
@@ -32,6 +30,6 @@ Los seis sitios declaran admissionRequirement anual-publico-r32 y siteClosed=fal
 
 No se modifica motor, inventario30dfbc3154494ae09eee32d1bcf005b627241051bb3531af3cb38e686dff1de7, snapshots, Madrid pendiente, confianza ni informes históricos. No se habilita regularización por las rectificaciones documentales de2012–2016. RRO-09, julio, doble600, elegibilidad material y autenticidad histórica conservan sus reservas. No hay originales adquiridos nuevos: los documentos recibidos permanecen por referencia en sus CAS, sin PDF en Git ni reexportación de v5 r2. Su pin2b159259… y corteR26 permanecen fijos; Crossa sigue v1 desfasado, local fuera de Victus, misma casa/dueño, sin custodia independiente. Sin VCS mutante, commit, PR, deploy, servidor, preview, gasto, LFS, transferencia o limpieza.
 
-Las decisiones con objeción, respuesta y coste están en DECISIONES.json. Este trabajo no es revisión independiente de sí mismo. Todas las conclusiones nuevas necesitan contraste del padre y revisión antes de publicación. El encargo global continúa abierto.
+Las decisiones con objeción, respuesta y coste están en DECISIONES.json. Este trabajo no es revisión independiente de sí mismo. Todas las conclusiones nuevas necesitan contraste de integración y revisión antes de publicación. El encargo global continúa abierto.
 
-Resultado de controles: siete rojos de capacidad conservados antes del arreglo; grafo y17 adversos correctos;46 pruebas de motor/entrada anual correctas, sin sumarlas al repetir el recibo máquina. Tipos, oxlint, ESLint y schema terminan0, con los límites de entorno detallados en COMANDOS.md. El cotejo final vuelve a comparar las16855 entradas y conserva cero diferencias de bytes/tipo/enlace/ejecutabilidad, cero borrados y diff vacío; todas las escrituras entregadas son altas del ámbito. La composición de admisión y la revisión independiente permanecen pendientes.
+Resultado de controles: siete rojos de capacidad previos; grafo y 17 adversos correctos; 46 pruebas de motor/entrada anual correctas. Tipos, oxlint, ESLint y schema terminan 0 con los límites de COMANDOS.md. La composición de admisión y la revisión independiente quedaban pendientes.

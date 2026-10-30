@@ -28,7 +28,7 @@ Objeción experta: mostrar un solo estado en una ficha compartida induce a gener
 
 `comprobar-publicacion.mjs` coteja todos los pares por identidad, sus proposiciones y aristas, y conserva negativos sobre omisión, duplicación, cruce y revisión. La prueba de ficha añade dos estados distintos para comprobar que uno no sustituye al otro. Son comprobaciones técnicas; los datos sintéticos de presentación no son fuentes fiscales.
 
-Todos los ensayos pesados se serializan con el lock compartido y un trabajador. Se consultaron las guías Effect de modelos y pruebas y la fuente local antes de modificar las fronteras tipadas. No cambian cálculo, inventario ni cifras. La regeneración del contenido actual, las regresiones y los resultados finales se registrarán al concluir las comprobaciones. Sin aceptación fiscal, PR, despliegue, gasto, LFS o transferencia externa. Crossa conserva v1 desfasado.
+Todos los ensayos pesados se serializan con el lock compartido y un trabajador. Se consultaron las guías Effect de modelos y pruebas y la fuente local antes de modificar las fronteras tipadas. No cambian cálculo, inventario ni cifras. Sin aceptación fiscal, PR, despliegue, gasto, LFS o transferencia externa.
 
 ## Segundo bloqueo del recorrido
 
@@ -36,21 +36,13 @@ Tras agrupar los sujetos, el recorrido alcanza la URL oficial BORM y falla en `v
 
 La corrección admite únicamente el endpoint HTTPS exacto de anuncios BORM, con año, número e id numéricos acotados y fin absoluto. No admite queries libres, credenciales, fragmentos, claves duplicadas, parámetros extra, dominios parecidos ni grafías codificadas de la clave. Objeción experta: generalizar una excepción de URL filtraría secretos futuros. Respuesta: contrato estructural mínimo del identificador público observado, con adversos explícitos, conservando el rechazo general fuera de ese endpoint. Coste: otro endpoint legítimo con query requerirá un contrato y revisión propios; no se presenta esta excepción como anonimización universal ni validación del emisor.
 
-`incidencias.json` distingue la selección inicial de Vitest sin archivos y la cancelación de una prueba focalizada aún en cola, sin atribuirles cobertura. El rojo del BORM es la ejecución real completa, anterior a su corrección. Las repeticiones usan `despues-url`, sin sobrescribir los dos recorridos fallidos.
-
 ## Tercer bloqueo: original de 42,9 MB
 
 El recorrido `despues-url` supera la colisión y la URL BORM, pero el publicador rechaza el original BOE-A-2010-19703. Su SHA-256 es `e7b629a20bde61bcb42c54b2caf3af06f2b44613fc6f89718ff5ff9763d4a4f4` y mide 42.900.459 bytes; respalda 36 payloads y doce sujetos. No se trata del recibo JSON. El fallo, la entrada fijada y los bytes originales se conservan. El lote completo **no publica todavía**.
 
-El límite de diez millones de bytes permanece en publicador y lector. Servir originales grandes exige un almacén local externo explícito, fijado por hash y con verificación física, rutas y mediciones propias. No se aumenta el límite genérico ni se incorpora ese PDF a Git. Se prepara una implementación aislada Sol y posterior revisión independiente. Esto no autoriza alojamiento, LFS ni gasto.
+El límite de diez millones de bytes permanece en publicador y lector. Servir originales grandes exige un almacén local externo explícito, fijado por hash y con verificación física, rutas y mediciones propias. No se aumenta el límite genérico ni se incorpora ese PDF a Git. Esto no autoriza alojamiento, LFS ni gasto.
 
 El ensayo adicional `despues-acotado` excluye únicamente los 36 payloads que dependen de ese original. `alcance-publicacion.json` enumera cada exclusión, hash, tamaño y motivo. Conserva los otros 228 pares, noventa sujetos, incluidos años compartidos y BORM. No se escoge un enlace por sujeto ni se llama completo a ese subconjunto. Los 264 candidatos y atestaciones siguen intactos; la proyección de confianza solo existe en scratch.
-
-La primera ejecución de `validar-final.sh` pasó tipos, lint, Ruff y mypy, y se detuvo antes de regenerar al faltar el comprobante positivo. `regeneracion.log` conserva ese fallo de la puerta; no acredita regeneración ni regresiones. La comprobación acotada permitirá regenerar únicamente el contenido activo de Madrid, que sigue pendiente. La publicación de los 264 queda bloqueada por el CAS externo y por la revisión nueva del cambio.
-
-## Ajustes de los instrumentos GET
-
-La publicación y verificación del subconjunto concluyeron antes de que el primer instrumento GET fallara por exigir la frase «no acreditadas» en la ficha de ocurrencia compartida. Ese ámbito reside en las proposiciones enlazadas; la ficha compartida contiene el aviso de que no es una regla fiscal aceptada. Se conserva `despues-acotado/recorrido.json`, su log y `recorrido-inicial.mjs`. El fallo no se atribuye al publicador.
 
 La continuación GET lee el snapshot ya publicado, sin volver a ejecutar ni simular el coordinador. Coteja cada payload y enlace Rule, las filas exactas de aceptación limitada y aceptación completa falsa, y los bytes/hash de cada respuesta PDF/PNG. Un primer contador de texto incluyó también una frase explicativa de la ficha simple: se conserva en `instrumento-get-1.log` y `comprobar-get-inicial.mjs`. La versión final cuenta etiquetas dt/dd concretas. Son rectificaciones del instrumento propio; los rojos de revisores recibidos permanecen intactos.
 

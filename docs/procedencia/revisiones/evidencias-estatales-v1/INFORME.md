@@ -1,8 +1,10 @@
 # Revisión independiente de evidencias estatales v1
 
-Decisión: conservar las 319 correspondencias como candidatos históricos comprobados numéricamente; ninguno queda autorizado para registro o aceptación fiscal por este informe. Las 26 celdas de base/cuota permanecen bloqueadas por falta de exposición efectiva. La identidad del helper canónico ausente no se sustituye por una hoja legacy. No se modificaron candidatos, motor, registros, atestaciones, originales, dependencias ni VCS.
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
 
-Base comprobada mediante `git rev-parse HEAD`: c61a306107f280c399eb57e57a7c45452bd68864. La entrega del autor corresponde a ed6a43fd750de05609abc3710dabdc2f8261020c y snapshot babfc930e2c4096600e68895d13bbfae23c996bacd3ba7fbd376ae32f8713c68. El desfase declarado NO es defecto. Se leyeron íntegros BRIEF, AGENTS, CONTRATO-AUDITORIA, COORDINACION, ESTADO, DECISIONES, el informe de coherencia-ronda9 y el informe estatal. Se procesaron íntegros cobertura, payloads y citas. Los bytes del inventario histórico se recuperaron de objetos de contenidos; las fuentes históricas, con `git show`, sin checkout ni mutaciones.
+Decisión: conservar las 319 correspondencias como candidatos históricos comprobados numéricamente; ninguno queda autorizado para registro o aceptación fiscal por este informe. Las 26 celdas de base y cuota permanecen bloqueadas por falta de exposición efectiva en la versión examinada. La identidad del helper canónico ausente no se sustituye por una hoja legacy.
+
+Base examinada: c61a306107f280c399eb57e57a7c45452bd68864. La entrega corresponde a ed6a43fd750de05609abc3710dabdc2f8261020c y snapshot babfc930e2c4096600e68895d13bbfae23c996bacd3ba7fbd376ae32f8713c68; ese desfase declarado no es un defecto. Se examinaron el informe de coherencia-ronda9 y el informe estatal, y se procesaron íntegros cobertura, payloads y citas. Los bytes del inventario histórico se recuperaron de objetos por contenido; las fuentes históricas, de los blobs versionados.
 
 ## Resultado reproducido
 
@@ -59,7 +61,7 @@ nix shell nixpkgs#python3 -c python /home/elies/Repos/IRoboPF/docs/procedencia/r
 
 Un intento inicial de importar PyMuPDF fuera del shell Nix falló por libstdc++.so.6; dentro del entorno fijado funcionó. `rg` no estaba disponible y se usaron lecturas/listados estándar. Ruff y mypy se ejecutaron sobre los instrumentos de revisión; resultados finales en validacion.log. No se escribió Effect ni código de producto; no procede lint/typecheck de aplicación. La reextracción y renders fueron secuenciales bajo flock. Una primera comprobación mypy del instrumento se lanzó sin flock por error operativo; la final se serializa. No hubo Next build, suites legacy, descargas ni gasto.
 
-Solo se escribieron archivos bajo esta carpeta absoluta de revisión. No hay patch de producto porque no se implementó ningún fix. `manifiesto.json` enumera archivos entregables, SHA-256, tamaño y baseSha256 (null para nuevos); se excluyen cachés de herramientas. El propio manifiesto no se incluye circularmente. El padre debe verificarlo contra la base antes de integrar; ninguna de estas decisiones constituye registro ni atestación.
+Solo se escribieron archivos bajo esta carpeta absoluta de revisión. No hay patch de producto porque no se implementó ningún fix. `manifiesto.json` enumera archivos entregables, SHA-256, tamaño y baseSha256 (null para nuevos); se excluyen cachés de herramientas. El propio manifiesto no se incluye circularmente. Estas decisiones no constituyen registro ni atestación.
 
 Control final de base: 5.281 archivos enumerados mediante git ls-tree, cero ausentes en el checkout. `decisiones-citas-83.json` añade la decisión editorial por cita, separada de la reextracción. No se repitió el validador JSON Schema ni se simuló una aceptación del coordinador.
 

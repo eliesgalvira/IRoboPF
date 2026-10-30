@@ -1,6 +1,8 @@
 # Flujo candidato del lote de escalas R21
 
-Base exigida y observada: `960773f909d4ecff290edfa3d7a7b2699a8445d3`. Trabajo personal de gpt-6.1-sol, esfuerzo high. La prioridad es la solicitada; este runtime no ofrece recibo independiente del service tier. No se delegó. No se emite atestación ni se aprueba código propio.
+Documento histórico: los resultados, referencias al motor y pendientes corresponden a la base examinada; no describen el estado vigente del proyecto.
+
+Base examinada: `960773f909d4ecff290edfa3d7a7b2699a8445d3`. Propuesta editorial sin atestación ni aceptación fiscal.
 
 El contrato localiza los 28 sitios y conserva individualmente las 264 celdas. **El cierre transitivo exhaustivo sigue abierto**: los campos completeness y omissions de cada sitio señalan dónde termina el análisis descompuesto. Las cadenas entregadas son candidatas para otra revisión y no autorizan wiring automático. No se equiparan estas cifras a reglas fiscales aceptadas ni a cierre del encargo largo.
 
@@ -62,17 +64,15 @@ Los28 sitios tienen entrada propia y sus cinco secciones de A conservadas. El co
 - Funciones terminales: tener cuerpo exacto es reproducibilidad, no prueba de que se hayan descompuesto todos sus símbolos. Los consumidores de las264 celdas están localizados; los caminos nuevos aún requieren contraste.
 - Norma/evidencia/bordes: mantener condiciones temporales, autenticidad e interpretación pendientes. Los ejemplos por celda no verifican la selección anual ni convierten tipo en cuota aceptada.
 
-Objeción experta: llamarlo cierre de lote sin cierre transitivo sería engañoso. Respuesta: completeness es partial-explicit-omissions en cada sitio y wiringAllowed=false. Coste: el padre recibe un contrato verificable y una lista concreta de trabajo pendiente, no una autorización para publicar. No se ha completado el cierre solicitado por sustituir sus aristas por listas de módulos.
+Objeción experta: llamarlo cierre de lote sin cierre transitivo sería engañoso. Respuesta: completeness es partial-explicit-omissions en cada sitio y wiringAllowed=false. Coste: se conserva un contrato verificable y una lista concreta de trabajo pendiente, no una autorización para publicar. No se ha completado el cierre solicitado por sustituir sus aristas por listas de módulos.
 
 ## Preservación y comprobaciones
 
 La comprobación inicial lee por separado cada blob de las14.537 entradas y contrasta lstat,readlink,bytes y tipo físico; cero diferencias. La final repite ese cotejo. Se conserva el diff contra base, incluidos archivos nuevos por manifiesto y patch textual. No hay borrados de base ni mutaciones VCS. La consulta inicial JJ informó que no hay repositorio JJ y no se inicializó ninguno.
 
-Los resultados efectivos de instrumentos están en sus logs/JSON. No se ejecutan Next build ni suites legacy. AST y pruebas usan el bloqueo pesado común; la recepción física usa el acotado, un blob cada vez. Se consultaron effect-solutions list/show basics/testing y Array.findFirst/findLast de la fuente local antes de preparar el mutante temporal del helper real. No se cambia código mantenido del motor ni expectativas históricas.
+Los resultados efectivos de instrumentos están en sus logs/JSON. No se ejecutan Next build ni suites legacy. AST y pruebas usan el bloqueo pesado común; la comprobación de archivos usa un recorrido acotado. Se consultaron effect-solutions list/show basics/testing y Array.findFirst/findLast de la fuente local antes de preparar el mutante temporal del helper real. No se cambia código mantenido del motor ni expectativas históricas.
 
-No hay originales nuevos adquiridos. Los recortes inspeccionados son los ya entregados; no se atribuye inspección personal de todos losPDF o celdas por verificar hashes. No se valida PAdES/CSV ni autenticidad histórica. Crossa siguev1 desfasado, misma casa/dueño, sin custodia independiente. Sin red, gasto, LFS, transferencia, PR, despliegue, servidor, preview o mensajes a terceros. ESTADO,DECISIONES globales y entregas ajenas permanecen intactos.
-
-El primer pase de calidad propio señaló29 diagnósticos de estilo/imports Python y tres de tipos, conservados en los logs iniciales. Se corrigen solo instrumentos propios mediante formato/imports y variables con tipos distintos. El primer anti-slop no pudo cargar @oxlint/plugins con ESM: NODE_PATH no resuelve ese import. La reproducción usa copia byte a byte de los plugins locales en scratch propio y enlace de solo lectura a node_modules del padre, con las mismas16 reglas a error. No se desactiva ningún control ni se transforma ese error de entorno en pase.
+No hay originales nuevos adquiridos. Los recortes inspeccionados son los ya entregados; no se atribuye inspección personal de todos losPDF o celdas por verificar hashes. No se valida PAdES/CSV ni autenticidad histórica. La evidencia de este análisis no acredita custodia independiente ni restauración externa.
 
 ## Resultado efectivo de esta entrega
 

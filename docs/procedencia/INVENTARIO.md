@@ -1,6 +1,6 @@
 # Inventario reproducible del código fiscal
 
-Versión 2, integrada por el orquestador el 29 de octubre de 2026. Es un inventario técnico pendiente de interpretación fiscal. No demuestra que todas las operaciones tengan evidencia ni que las deducciones estén calculadas correctamente.
+Guía del inventario técnico. Los conteos de este documento corresponden al corte de la versión 2 del 29 de octubre de 2026; el manifiesto utilizado es la autoridad para los conteos de cada versión. El inventario requiere interpretación fiscal. No demuestra que todas las operaciones tengan evidencia ni que las deducciones estén calculadas correctamente.
 
 ## Contenido y reproducción
 
@@ -52,13 +52,9 @@ Años, territorios y unidades se infieren por nombre y ruta. Esa inferencia est�
 
 ## Verificación y correcciones adversariales
 
-La revisión inicial encontró cuatro bloqueos, conservados en `revisiones/inventario/`. Antes de corregir se añadieron cuatro regresiones: las cuatro fallaron. Después pasan, junto con las pruebas anteriores adaptadas al contrato versionado.
-
 El verificador reconstruye los archivos desde las fuentes actuales en un temporal independiente y compara el conjunto exacto y todos sus bytes. Incluye valores, conteos, ubicaciones, índices, grafo, catálogo, cobertura y manifiesto. Los inputs registran hashes de fuentes, generadores, schema, package.json y bun.lock. Una alteración seguida de recalcular los hashes propios del artefacto no pasa. Una prueba completa fabrica precisamente ese artefacto: la lectura íntegra funciona y la comparación con las fuentes lo rechaza. También se comprueban archivos ausentes/sobrantes, relaciones rotas y aceptación de evidencia no autorizada.
 
 El validador Python aplica JSON Schema y exige además esa reconstrucción. No usa asserts que desaparezcan con Python optimizado. La CI ejecuta reconstrucción y pruebas con Bun 1.3.13, Python 3.13 y dependencias congeladas. No certifica portabilidad por el mero número de versión: una diferencia de extracción entre entornos debe fallar y examinarse.
-
-Validación local: 14 pruebas pasan, incluidas las mutaciones; lint sin diagnósticos y typecheck de aplicación/vendor correctos. Typecheck no es un análisis estático completo de estos scripts mjs. La reconstrucción detectó correctamente un artefacto obsoleto después de cambiar el generador. Se requiere nueva revisión independiente de la corrección técnica.
 
 ## Límites y costes
 
@@ -68,10 +64,8 @@ Los exports indirectos y funciones declaradas sin evaluación efectiva se enumer
 
 La ejecución de módulos locales confía en el checkout y sus dependencias; no es una sandbox ni admite rutas de código externo. Los sondeos no llaman al oracle generador de Excel ni a servicios remotos.
 
-El índice se reduce a ID y página. El archivo comprimido permite respaldar el inventario completo sin incorporar cientos de páginas repetidas al árbol de documentación. Coste: inspección mediante lector/descompresión, diffs binarios y crecimiento del historial al regenerar. Es una solución de esta entrega; el almacenamiento documental definitivo y los conceptos editoriales requieren el ADR y el corpus. El manifiesto sigue siendo legible y el contenido es regenerable sin contratar un servicio.
-
-La entrega inicial de 47.713 elementos y sus limitaciones se conserva en `entregas/inventario-correccion.patch.gz` y su manifiesto. No se han promovido sus IDs anteriores ni sus cifras como validación fiscal.
+El índice se reduce a ID y página. El archivo comprimido permite respaldar el inventario completo sin incorporar cientos de páginas repetidas al árbol de documentación. Coste: inspección mediante lector/descompresión, diffs binarios y crecimiento del historial al regenerar. Es una solución de almacenamiento local; el almacenamiento documental definitivo y los conceptos editoriales requieren el ADR y el corpus. El manifiesto sigue siendo legible y el contenido es regenerable sin contratar un servicio.
 
 ## Corrección posterior a la segunda contrarrevisión
 
-INV2-R01/R02/R03 motivan proceso Bun nuevo en cada llamada a generate, selección relativa a lib/procedencia y rechazo explícito de prototipos personalizados y NaN. Los objetos de otro contexto JavaScript no forman parte del contrato; fallan, no se omiten. Infinity permanece como centinela de límite abierto. Dieciséis pruebas pasan, incluida caché de imports sobre copia scratch y nombre de directorio con procedencia. El proceso nuevo evita reutilización de módulos entre generaciones; no demuestra exhaustividad semántica. La revisión original y scripts exactos, conservados como texto con hashes, están en revisiones/inventario-v2. El manifiesto actual es la autoridad para conteos después de cambios del motor.
+INV2-R01/R02/R03 motivan proceso Bun nuevo en cada llamada a generate, selección relativa a lib/procedencia y rechazo explícito de prototipos personalizados y NaN. Los objetos de otro contexto JavaScript no forman parte del contrato; fallan, no se omiten. Infinity permanece como centinela de límite abierto. Las regresiones cubren caché de imports sobre copia temporal y nombres de directorio con «procedencia». El proceso nuevo evita reutilización de módulos entre generaciones; no demuestra exhaustividad semántica. La revisión original y scripts exactos, conservados como texto con hashes, están en revisiones/inventario-v2. El manifiesto actual es la autoridad para conteos después de cambios del motor.

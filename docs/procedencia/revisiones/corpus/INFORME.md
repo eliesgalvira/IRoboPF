@@ -1,8 +1,10 @@
 # Revisión independiente de corpus
 
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
 **Veredicto: requiere cambios. No aceptar cifras fiscales ni publicar la entrega actual.** Las 14 pruebas pasan, pero se reproducen ocho hallazgos accionables en `findings.json`. El pipeline de integridad es aprovechable tras corregir los bloqueos; la conexión real al inventario sigue siendo una parte obligatoria del encargo, no una mejora opcional.
 
-Revisor independiente, 29-10-2026. Originales examinados personalmente en `/home/elies/.t3/worktrees/IRoboPF/t3-5be43c93`, solo lectura. Base comprobada con `git show/ls-tree d4d708f6`, sin confiar en índice/diff local. Sin VCS mutante, subdelegación, instalación global, cambios del motor ni reparaciones. Escrituras limitadas a revisión y scratch propios. Memoria disponible inicial 7,8 GB; un worker; sin Next build ni legacy pesado. No se ha usado el informe del autor como evidencia de corrección. CORPUS.md se leyó únicamente como contrato declarado.
+Revisión del 29-10-2026 sobre la base `d4d708f6`, comprobada mediante sus blobs y árbol. Los originales se examinaron en modo de lectura. El informe de entrega y CORPUS.md se trataron como declaraciones del contrato, sin usarlos como evidencia de corrección.
 
 ## Evidencia y reproducción
 
@@ -58,4 +60,4 @@ Separar resultados `integrity`, `inventoryBinding`, `semanticReview` e `independ
 - **CSV/WARC/RFC3161:** comparar bytes con una URL no autentica CSV ni vincula legalmente identificador, y el resultado lo limita expresamente. No hay validación CSV real. WARC ayudaría a preservar HTML y respuestas relacionadas, con saneamiento de metadatos; no demuestra por sí mismo identidad ni vigencia. RFC3161 acreditaría existencia temporal del hash con confianza en TSA, no legalidad. Diferirlos explícitamente es admisible para este pipeline, sin llamar WARC al CAS ni sello de confianza al reloj local.
 - **Fixtures:** los cinco blobs y todas las citas/manifiestos entregados pasan hashes/esquemas. Offline solo hay dos PDF íntegros; BOE-A-2025-1 tiene manifiesto/cita sin original/recorte en este subset, limitación declarada y no escondida. No se cuenta como firma comprobada independientemente aquí.
 
-Esta revisión no certifica fiscalidad, vigencias, cuantías ni fórmulas. Los cambios corresponden al orquestador; no se ha editado implementación, ESTADO, DECISIONES ni informes ajenos.
+Esta revisión no certifica fiscalidad, vigencias, cuantías ni fórmulas.

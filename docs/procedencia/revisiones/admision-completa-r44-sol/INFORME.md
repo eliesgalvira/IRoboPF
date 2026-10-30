@@ -1,10 +1,12 @@
 # Contrarrevisión sustantiva de admisión R36 recibida en R44
 
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
 No recomiendo dar por suficiente el candidato exacto para composición de admisión. La representación ejecutable mejora materialmente R35 y resuelve las antiguas ausencias de Option y selectores, pero hay defectos reproducidos de identidad de recibos, validación de fronteras y anclas. Son hallazgos técnicos candidatos para contraste del padre; no discrepancias fiscales demostradas. No se modifica producto ni se emite atestación o promoción. El encargo global sigue abierto.
 
-Base observada: `20db524962aab05e648fa96c875213c090bd9df1`, 21.243 entradas. Fragmento recibido gzip: `28785ff92cade6dd13b14711af8f2a6a1add8cdb4ada9b2733e0e683ef084ba1`. Identidad efectiva de este revisor: T3 Code, harness Codex, gpt-6.1-sol, high; priority solicitado, sin recibo independiente del planificador. No hubo subdelegación ni cambio de modelo. Ninguna operación VCS mutante; Git solo se utiliza para leer HEAD, árboles, blobs y diff. No se inicializó JJ en el worktree.
+Base examinada: `20db524962aab05e648fa96c875213c090bd9df1`, 21.243 entradas. Fragmento recibido gzip: `28785ff92cade6dd13b14711af8f2a6a1add8cdb4ada9b2733e0e683ef084ba1`.
 
-Se leyeron BRIEF íntegro, AGENTS, contrato y coordinación, situación actual de ESTADO/DECISIONES, informes R34/R35 y recepción R44, productor/compilador/runtime/derechos/verificador R36, schema y pruebas, fuentes TS anuales, adaptador, derechos/contrato y selectores. La orden concreta revoca modelo, mantenimiento de ESTADO/DECISIONES y limpieza del BRIEF. No se consultó la entrega activa R43. Una consulta general de procesos mostró incidentalmente texto de un comando de otro trabajador; no se utilizó como fuente ni se inspeccionaron sus archivos. No hubo mensajes externos, servidores, preview, red, transferencias, descargas fiscales, LFS ni gasto.
+Se examinaron los informes R34/R35 y la recepción R44, productor, compilador, runtime, derechos y verificador R36, schema y pruebas, fuentes TypeScript anuales, adaptador, contratos y selectores.
 
 ## Hallazgos nuevos y reproducción
 
@@ -71,7 +73,5 @@ El cotejo inicial completo de entradas base terminó antes de editar: lstat, rea
 CAS.json preserva fuentes técnicas por SHA256/SHA512 en scratch propio y las identifica por HEAD/ruta; el padre debe preservar esos objetos si retira este checkout. No hay nuevos originales fiscales. Manifiesto por ruta/tamaño/hash/baseSha256, patch textual gzip y binarios por ruta/hash, ensayo de transporte y controles terminales separados evitan autorreferencia. Logs grandes se comprimen. No hay PDF, node_modules, entornos o copias de app en docs. Inventario, motor, confianza, ESTADO/DECISIONES, snapshots, paquete V5 R26 y copia Crossa v1 se conservan.
 
 Decisión: entregar los defectos sin arreglarlos ni atestar suficiencia propia. Objeción experta: otra lista de pendientes no sustituye la contrarrevisión. Respuesta: se entregan reproducciones ejecutables, positivos contra APIs reales, casos y decisiones máquina, fuentes/anclas y transporte exacto; los defectos solo pueden resolverse en una implementación nueva autorizada. Coste: esta edición no debe promoverse a cierre y toda conclusión nueva requiere contraste del padre. No se cierra fiscalidad ni el encargo global.
-
-
 
 Resultados terminales de ensayos: 58 pruebas propias, 49 correctas y 9 rojas que materializan cinco hallazgos; 236/236 repetidas del autor, incluidas sus 69 regresiones adaptadas; históricos 306, 301 correctas y cinco rojas intactas. No sumar ejecuciones repetidas como cobertura independiente. Tipos final y lint del alcance terminan 0; primer tipos termina 2 por la fecha del arnés, conservado. El consumidor autónomo se repite con el instrumento recibido sin importar motor/TypeScript; es integridad operativa, no suficiencia causal.

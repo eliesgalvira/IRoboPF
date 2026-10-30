@@ -1,10 +1,12 @@
 # Revisión independiente técnica R23
 
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
 Dictamen candidato: **CR21-A y CR21-B corregidos en sus casos demostrados; normalización explícita de las dos identidades admisible como derivación auditable, sin promoción ni alta de confianza**. No he demostrado un bypass nuevo de la identidad del binding exportado. La lectura estática de datos no garantiza la ejecución de JavaScript histórico. Las conclusiones nuevas requieren contraste del padre; este informe no cierra la auditoría global ni acepta reglas fiscales completas.
 
-Revisión personal en T3 Code mediante Codex, runtime gpt-6.1-sol, esfuerzo high. Prioridad solicitada por Elies; no dispongo de una medición independiente del servicio efectivo. No atribuyo a esta sesión un taskId de otra delegación ni invento uno. No hay subdelegación, fixes, commits o mutaciones VCS. Base/HEAD exigidos: `07c07e6376a72f229be735a904ecf36517a1b571`, 14.957 entradas. Solo se entrega esta carpeta.
+Base examinada: `07c07e6376a72f229be735a904ecf36517a1b571`, 14.957 entradas.
 
-Se leyeron BRIEF y AGENTS completos, contrato, coordinación y las secciones actuales de ESTADO/DECISIONES, correcciones técnica y recepción R23, revisión contratos-r21-sol, sus casos rojos, fuentes y pruebas del ámbito y los informes de los dos revisores R19. La primera lectura buscó COORDINACION en contexto externo y recepción bajo revisiones: las rutas correctas son docs/procedencia/COORDINACION.md y correcciones/recepcion-r21-r23/INFORME.md. No se inspecciona preservación v4 ni trabajo de hijos activos. Los informes leídos están conservados en la base entregada, no se sondea ningún checkout de otro hijo.
+Se examinaron correcciones técnica y recepción R23, revisión contratos-r21-sol, sus casos rojos, fuentes y pruebas de ámbito y los informes de los dos revisores R19. La recepción conjunta está en `docs/procedencia/correcciones/recepcion-r21-r23/INFORME.md`. Los informes consultados corresponden a la base entregada.
 
 ## CR21-A y CR21-B
 

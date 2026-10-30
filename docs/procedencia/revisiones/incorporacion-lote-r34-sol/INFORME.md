@@ -1,10 +1,12 @@
 # Revisión independiente de la incorporación R34
 
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
 Dictamen candidato: la incorporación local exacta de 264 pares conserva la autoridad y los límites de las decisiones recibidas. No se ha reproducido un defecto nuevo del preparador integrado. La ausencia de atomicidad de dos archivos se reproduce y permanece como límite operativo explícito. Este dictamen requiere contraste del padre; no autoriza activar confianza, no acepta fiscalidad por hashes/recuentos/pruebas y no cierra el encargo global.
 
-Trabajo personal en T3 Code, harness Codex, runtime gpt-6.1-sol, high. Priority solicitada; no hay medición independiente del scheduler. No se inventa taskId ni se emite atestación. Sin subdelegación, fix de producto, cambio de esperado histórico, VCS mutante, servidor, preview, main, PR, deploy, transferencia externa o escritura en X. Solo checkout asignado y sus dos ámbitos scratch autorizados. No se lee trabajo de hijos activos. La inspección de procesos mostró incidentalmente argumentos de otras tareas; no se utilizan como evidencia.
+La revisión no modifica el producto, los esperados históricos ni los registros de confianza.
 
-Se leen BRIEF y AGENTS, contrato, coordinación y situación actual R34 de ESTADO/DECISIONES, recepción/postintegración/contraste y sus dos rojos por HEAD, ajuste instrumental, implementación R32, módulo y pruebas, instrumentos relevantes, derivación R23, proyección R25 y decisiones e informes R19. No se reabre NR30-01 ni se repite la revisión fiscal completa del lote. SS, admisión y continuación de retenciones quedan fuera de esta revisión.
+Se examinaron recepción, postintegración y contraste con sus dos rojos por HEAD, ajuste instrumental, implementación R32, módulo y pruebas, derivación R23, proyección R25 y decisiones e informes R19. NR30-01, SS, admisión y continuación de retenciones quedan fuera de esta revisión, que tampoco repite la revisión fiscal completa del lote.
 
 ## Autoridad y decisiones por enlace
 

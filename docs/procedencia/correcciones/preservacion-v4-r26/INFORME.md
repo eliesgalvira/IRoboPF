@@ -21,7 +21,7 @@ El saneamiento nuevo elimina valores de URL con credenciales o ciertos parámetr
 
 PV24-01 no se cierra aumentando una lista de URLs y llamando exhaustivo al resultado. El mapa `faltantes-localizados.json` coteja las dos respuestas INE, el PDF CARM y el boletín de Cantabria ya conservados fuera del paquete. Una edición posterior debe incorporar adquisiciones, originales y recetas por identidad; conservar clases y ausencias justificadas; ampliar el censo por referencias tipadas de JSON y JSON.gz. No se incluyen fixtures, documentación técnica y corpus de X como originales fiscales por coincidencia de un hash.
 
-Las copias v1–v4 y sus marcadores quedan intactos. Los hashes de la fuente del consumidor recibida originalmente siguen documentados en su manifiesto de entrega y dentro del paquete; esta corrección es otra versión en Git, no una sustitución del código conservado en el corte. Crossa permanece v1 desfasado. Sin LFS, gasto, transferencia externa del corpus, PR, despliegue ni aceptación fiscal.
+Las copias v1–v4 y sus marcadores quedan intactos. Los hashes de la fuente del consumidor recibida originalmente siguen documentados en su manifiesto de entrega y dentro del paquete; esta corrección es otra versión en Git, no una sustitución del código conservado en el corte. Crossa permanece v1 desfasado.
 
 Los resultados posteriores, comandos y versión de software se registran junto a este informe. Las correcciones nuevas requieren contrarrevisión independiente. La mera lectura correcta de un paquete no acredita vigencia, PAdES/CSV, completitud del corpus o la posibilidad de reinstalar Nix/Python sin red.
 

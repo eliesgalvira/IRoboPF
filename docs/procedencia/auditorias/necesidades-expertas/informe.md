@@ -1,6 +1,8 @@
 # Necesidades expertas: auditoría de capacidad y requisitos reproducibles
 
-Fecha: 29-10-2026. Dominio: `necesidades-expertas`. Primera ronda, con contrarrevisión incorporada al final de este informe. No se ha modificado código, hecho commits, movido bookmarks ni ejecutado builds o suites legacy. Referencia de lectura JJ: `3e5e0717150c5eaf030f6116b75f3f4182d45b96`; checkout compartido en movimiento, por lo que se adjuntan hashes de archivos examinados.
+Documento histórico: los resultados, referencias al motor y pendientes corresponden a la base examinada; no describen el estado vigente del proyecto.
+
+Fecha: 29-10-2026. Dominio: `necesidades-expertas`. Incluye contrarrevisión al final. Referencia de lectura: `3e5e0717150c5eaf030f6116b75f3f4182d45b96`; las huellas adjuntas identifican los archivos examinados.
 
 El producto tiene una base útil para explicar salarios y comparar años, pero no permite todavía reproducir todos los análisis de un experto. Las carencias principales son actividades económicas, varios pagadores con identidad y periodos, unidades familiares, series económicas versionadas y escenarios de deflactación ejecutables. La existencia de un tipo, un perfil o un enlace de fuente no acredita que el cálculo esté implementado ni que sea correcto.
 
@@ -8,7 +10,7 @@ Esta entrega contiene 16 requisitos y 16 hallazgos de capacidad. **No constituye
 
 ## Evidencia y método
 
-Se leyeron completos BRIEF, contrato, coordinación, lint, README, AGENTS, PRODUCT, ambos glosarios, ADR y alcance legacy, además de las dos notas de contexto. Se inspeccionaron diez imágenes pertinentes con `view_image`: detalle de 18.000 €, tabla de cálculo, comparativas por salario y año, cálculo inverso, coste laboral, trayectoria tras graduación y diagnóstico de pensiones. No se copian las notas, conversaciones ni imágenes a la documentación pública.
+Se inspeccionaron diez imágenes pertinentes: detalle de 18.000 €, tabla de cálculo, comparativas por salario y año, cálculo inverso, coste laboral, trayectoria tras graduación y diagnóstico de pensiones. Esas imágenes sirven de contexto de producto, sin reproducir conversaciones o notas privadas.
 
 `grok` funcionó y produjo URLs candidatas. No se considera fuente de hechos. Se comprobaron diez posts mediante el script indicado, sin modificarlo: compara texto normalizado de X embed y FxTwitter, autor y fecha. Para publicaciones largas solo acredita coincidencia del comienzo, no de todo el texto. Se recuperó además la explicación mediante API de Substack, que permite comprobar directamente su contenido completo. Los originales públicos quedan en caché; el informe publica solo paráfrasis, URLs y metadatos, no la colección de posts.
 
@@ -80,7 +82,7 @@ La comparación estadística necesita además distinguir **neto de un salario me
 
 La ausencia es estructural: `RendimientosCasoFiscal` no contiene actividades y `calcularBaseImponibleGeneral` no recibe ese resultado. La LIRPF original separa estas rentas y sus métodos. El manual AEAT 2025 recuperado distingue ingresos, gastos, retenciones y pagos fraccionados, y documenta incompatibilidades propias de estimación simplificada. No se debe resolver introduciendo facturación como salario ni usando art.20 del trabajo.
 
-**Alcance acreditable de esta ronda**: ausencia del contrato y de la integración; separación conceptual documentada; matriz de variables y pruebas. **No acreditado**: liquidación autónoma correcta en ningún año, parámetros históricos de RETA, directa normal/simplificada u objetiva, módulos, régimen de atribución, reducciones o pagos trimestrales.
+**Alcance acreditable de este análisis**: ausencia del contrato y de la integración; separación conceptual documentada; matriz de variables y pruebas. **No acreditado**: liquidación autónoma correcta en ningún año, parámetros históricos de RETA, directa normal/simplificada u objetiva, módulos, régimen de atribución, reducciones o pagos trimestrales.
 
 La primera vertical revisable propuesta es una actividad individual en estimación directa simplificada de 2025, con ingresos y gastos documentados, sin atribución de rentas, sin módulos, sin transmisión de activos y sin arrendamiento tratado como actividad. El ejemplo mixto añadiría alquiler por la rama inmobiliaria únicamente cuando esta esté validada. El usuario debe declarar si 500 € es ingreso por arrendar a otro o gasto por alquilar para la actividad: no son el mismo caso.
 
@@ -88,7 +90,7 @@ Entradas necesarias: ejercicio y régimen; actividad empresarial/profesional; in
 
 Pruebas propuestas: ingresos cero con gastos; beneficio y pérdida; tope de gasto difícil justificación a ambos lados; incompatibilidad con reducción de cliente único; amortización parcial; cambio de régimen; retención que supera cuota; pagos fraccionados sin retención; alta parcial; pluriactividad; alquiler vivienda/local; rendimientos del trabajo junto a actividad. La versión ampliada exige directa normal, objetiva, reducciones, ganancias de activos afectos y cronología completa 2012–2026.
 
-Objeción del mejor experto: una vertical 2025 deja sin cubrir muchos autónomos y toda su historia. Motivo: cada régimen necesita evidencia y contratos propios; una conversión salarial sería fiscalmente falsa. Coste aceptado: no se promete soporte general en esta ronda; se entrega un alcance verificable y pruebas previas al futuro fix.
+Objeción del mejor experto: una vertical 2025 deja sin cubrir muchos autónomos y toda su historia. Motivo: cada régimen necesita evidencia y contratos propios; una conversión salarial sería fiscalmente falsa. Coste aceptado: no se acredita soporte general; se entrega un alcance verificable y pruebas previas al futuro fix.
 
 ## Prioridad, decisiones y límites
 
@@ -118,8 +120,6 @@ grok -p 'búsqueda de URLs públicas' --output-format plain
 nix shell nixpkgs#python3 -c python .cache/procedencia/necesidades-expertas/independiente.py
 nix shell nixpkgs#python3 nixpkgs#gcc -c bash -c 'export LD_LIBRARY_PATH="$(dirname "$(g++ -print-file-name=libstdc++.so.6)")"; uv run --no-project --python "$(command -v python3)" --with pymupdf python .cache/procedencia/necesidades-expertas/extraer.py'
 ```
-
-El primer intento de `uv` falló por Python descargado no ejecutable en NixOS; se corrigió seleccionando Python Nix. El siguiente requirió `libstdc++`; se resolvió con GCC del entorno Nix. No hubo instalación global. No se escribió TypeScript ni Effect y no corresponde ejecutar anti-slop para estos documentos/JSON.
 
 Comprobación final: 11 candidatos `missing` y 5 `ambiguous`; 8 citas candidatas (7 PDF y 1 HTML). Se verificaron los hashes dobles y tamaños de los seis originales, el contrato de los 16 hallazgos y la sintaxis JSON. Las siete cajas PDF reproducen sus citas al normalizar espacios con PyMuPDF 2.0. `verificacion-local.json` registra los resultados; esta comprobación mecánica no es la revisión independiente pendiente.
 

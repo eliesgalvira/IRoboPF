@@ -1,8 +1,10 @@
 # Evidencia estatal v2 candidata
 
-Base comprobada: `eaed990c620b5fc4d3ff2e74dc68e0c8481c43db`. Trabajo personal, sin subdelegación ni operaciones VCS mutantes. Solo se propone integrar esta carpeta; cero borrados autorizados. No se ha modificado lote v1, motor, extractor, registro, decisiones jurídicas, atestaciones, originales, package/lockfiles ni CI. Los entornos y logs temporales quedan fuera de la entrega.
+Documento histórico: los resultados, referencias al motor y pendientes corresponden a la base examinada; no describen el estado vigente del proyecto.
 
-Se leyeron las instrucciones, BRIEF y los contratos de auditoría, coordinación, estado y decisiones; la integración de ronda 10, el lote estatal v1 y su revisión. `entradas-leidas.json` fija los archivos completos procesados por la receta, incluyendo todos los JSON de esos tres lotes. Las nuevas exposiciones se examinan en `escalas-publicadas.ts` y en el inventario actual fijado. No se reconstruye el inventario ni se confunde el histórico con el actual.
+Base examinada: `eaed990c620b5fc4d3ff2e74dc68e0c8481c43db`. Evidencia candidata sin aceptación fiscal.
+
+`entradas-leidas.json` fija los archivos completos procesados por la receta, incluidos los JSON de los lotes estatales y su revisión. Las nuevas exposiciones se examinan en `escalas-publicadas.ts` y en el inventario fijado; el histórico y el posterior se comparan por separado.
 
 ## Resultado documental y límites
 
@@ -30,7 +32,7 @@ Aceptación: ninguna. Propuesta de registro separada, atestaciones nulas y `comp
 
 El contrato propuesto detalla cada elección y objeción en `CONTRATO-PROPUESTO.md`. La decisión principal conserva el bloqueo territorial: un experto rechazaría asignar territorio a todo un archivo que mezcla componentes y autonomías. Coste: revisión explícita por símbolo antes de registrar.
 
-Se conservan PNG nuevos en CAS propio por hash y se reutilizan originales del corpus raíz. Un experto rechazaría un cierre que solo enumera hashes sin objetos resolubles; el cierre declara rutas y verifica su presencia. Coste: aproximadamente cuatro MB de facsímiles en esta entrega, sin duplicar el corpus de casi un GB. Ninguna copia nueva externa; Crossa sigue siendo v1 histórico comunicado por el coordinador, misma casa y propietario, sin verificación propia ni custodia independiente.
+Se conservan PNG nuevos en CAS propio por hash y se reutilizan originales del corpus raíz. Un experto rechazaría un cierre que solo enumera hashes sin objetos resolubles; el cierre declara rutas y verifica su presencia. Coste: aproximadamente cuatro MB de facsímiles en esta entrega, sin duplicar el corpus de casi un GB. Ninguna copia nueva externa; La evidencia de este análisis no acredita custodia independiente ni restauración externa.
 
 Se conserva el primer fallo de la receta al recortar una cabecera con caja ajustada a los glifos. Se usan palabras reextraídas y unión geométrica de sus cajas para la cabecera. Objeción experta: corregir el texto extraído para que coincida escondería el defecto; no se normalizan ni modifican los bytes del PDF. Coste: la comprobación de cabecera usa la capa de palabras y su geometría, además del texto de página completo. El primer lint detectó un import Python sin uso, retirado antes del cierre.
 
@@ -38,7 +40,7 @@ No hay fixes numéricos de producto ni cambios de oracle. Los rojos documentales
 
 ## Entrega e integración
 
-`REPRODUCCION.md` fija comandos, versiones, manifiestos y fuentes históricas/current explícitas. El padre debe comprobar `manifiesto.json` y el sobre `cierre.json`, copiar únicamente archivos de esta carpeta y verificar los hashes contra la base. Los PNG se integran por archivo/hash; `entrega.patch` contiene adiciones textuales. No hay modificaciones de archivos existentes ni borrados. Debe encargarse una revisión nueva del payload exacto y resolver los bloqueos antes de aplicar cualquier registro.
+`REPRODUCCION.md` fija comandos, versiones, manifiestos y fuentes históricas/current explícitas. La integración debe comprobar `manifiesto.json` y el sobre `cierre.json`, copiar únicamente archivos de esta carpeta y verificar los hashes contra la base. Los PNG se integran por archivo/hash; `entrega.patch` contiene adiciones textuales. No hay modificaciones de archivos existentes ni borrados. Debe encargarse una revisión nueva del payload exacto y resolver los bloqueos antes de aplicar cualquier registro.
 
 ## Bloqueo adicional reproducido del contrato de decisión
 
@@ -48,11 +50,9 @@ No hay fixes numéricos de producto ni cambios de oracle. Los rojos documentales
 
 La reextracción final termina con código 0: siete originales, 83 citas, 13 renders idénticos, 26 unidades corregidas, 78 payloads candidatos y 319 comparaciones históricas/current iguales por identidad. Los 28 casos documentales pasan; se comprueban por separado 78 ámbitos vacíos, 78 localizaciones incompatibles y 78 rechazos del schema de decisión. El contexto compuesto y la distinción cuota publicada/integral quedan comprobados. `documental-final.log` conserva la salida real.
 
-Lint global y typecheck principal/vendor terminaron sin diagnósticos; se conservan en el log del primer pase, donde también figura el import Python sin uso posteriormente retirado. Ruff y compilación sintáctica pasan. El primer mypy pidió anotar `patch: list[str]` en el generador del sobre: se añadió la anotación sin cambiar comportamiento. La salida final de controles Python queda en `python-cierre.log`. No se ejecutaron Next build ni suites legacy completas, y no se afirma suite global de producto verde.
+Lint y typecheck principal/vendor terminaron sin diagnósticos. Ruff y compilación sintáctica pasan; `python-cierre.log` registra los controles Python finales. Estos controles no acreditan una suite global de producto ni una validación fiscal.
 
 Las cajas geométricas de cabecera se conservan en `unidades-geometricas-26.json`; los payloads mantienen el schema vigente de cita, con offsets literales, fila y columna. El coordinador actual no consume ese archivo auxiliar como una validación semántica automática de columna. Objeción experta: pasar el schema de cita no comprueba por sí solo la asociación geométrica. Coste: el revisor debe examinar esa relación y su reproducción antes de aceptar el binding; no se amplía el schema ni el software productivo en esta entrega.
-
-El primer cierre falló al comprobar nombres de archivos de la base mediante la salida textual de `git ls-tree`. Se conserva `cierre-primer-intento.log`. La receta final usa separación NUL (`-z`) para tratar literalmente rutas con espacios y caracteres que Git puede entrecomillar. No se restaura ni borra ningún archivo para satisfacer ese control; el cierre final exige comprobar su presencia física.
 
 La comprobación NUL precisó el problema restante: dos entradas de scratch de la revisión de preservación v2 son enlaces simbólicos, no archivos regulares. `is_file()` los marcaba como ausentes. El cierre final comprueba la presencia del enlace y coteja sus bytes de destino con `git show` de la base, sin seguirlo ni repararlo. Objeción experta: seguir enlaces ajenos no comprueba preservación del enlace y podría leer otro árbol; coste: control separado de entradas simbólicas. Se conserva el rechazo intermedio en `cierre-enlaces-scratch.log`. Esto no cambia la política del CAS candidato, que sigue rechazando symlinks.
 

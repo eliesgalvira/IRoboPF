@@ -1,8 +1,6 @@
 # Paquete local ampliado v3
 
-Entrega candidata del 29 de octubre de 2026 sobre `65cff4fd8eb8c6269c2ce97b88e770aa711bff7f`. Trabajo personal, sin subdelegación ni operaciones VCS mutantes. **Exportación real y restauración vacía completas: 945 objetos, 1.068.593.978 bytes de objetos en cada copia.** Verify y confirm terminan correctamente. Nueva revisión independiente necesaria; no se emite atestación fiscal.
-
-`preflight.json` comprueba HEAD exacto, diff vacío y presencia mediante lstat de las 9.391 entradas de base, incluidos tres enlaces enumerados con readlink. Solo se añaden archivos en esta carpeta y scratch propio. La ruta abreviada del encargo `correcciones/integracion-ronda13/INFORME.md` se resolvió a `docs/procedencia/correcciones/integracion-ronda13/INFORME.md`. Se consultaron BRIEF, AGENTS, contrato, coordinación, estado, decisiones y los informes de preservación, revisión v2, integración técnica r11 y correcciones. No se inspeccionaron entregas en curso ajenas.
+Corte histórico v3 del 29 de octubre de 2026, base `65cff4fd8eb8c6269c2ce97b88e770aa711bff7f`. Exportación y restauración local: **945 objetos, 1.068.593.978 bytes de objetos por copia**, con verify y confirm correctos. El resultado es candidato y no acredita aceptación fiscal ni custodia externa.
 
 ## Contenido y cobertura
 
@@ -28,7 +26,7 @@ Pins SHA256:
 - Transporte schema 2: `b4e91adcdd69dbe62f221d97bc8910ad1243719b8bdcb63df095ce5679c8db9e`.
 - Manifiesto v2 histórico conservado: `1382c7186c84cdf7c1892b9b16a8ca7e222aeac54380d3ed41952deea47a67db`.
 
-SHA512 y tamaños completos en cierre.json. El v1 histórico `2df6c208…` permanece intacto fuera de T3; no confundir estos manifiestos de preservación con los snapshots de publicación v1/v2 fijados por el encargo.
+SHA512 y tamaños completos en cierre.json. El v1 histórico `2df6c208…` tiene identidad separada; no confundir estos manifiestos de preservación con los snapshots de publicación v1/v2 fijados por el encargo.
 
 ## Copias, durabilidad y pruebas
 
@@ -37,20 +35,12 @@ Destinos inexistentes comprobados antes de exportar:
 - `/home/elies/Repos/IRoboPF/.cache/orquestador-preservacion/paquete-v3`
 - `/home/elies/Repos/IRoboPF/.cache/orquestador-preservacion/restauracion-v3`
 
-Se midieron 392.118.075.392 bytes libres antes de copiar. Cada raíz tiene `STAGING-t3-7f0c6fb6.json`, CAS y dependencias nuevos; manifest.json se publica al final. No se sobrescriben destinos ni objetos. La restauración copia desde paquete-v3 a una raíz nueva. Confirm verifica marcadores exactos contra los externos, todos los objetos/dependencias y sincroniza archivos y directorios. No se prueba corte eléctrico ni escritor hostil.
-
 `copias.json` recalcula **independientemente de fingerprint del producto** SHA256/SHA512/tamaño de los 2.775 archivos de cada copia: **1.211.560.189 bytes por copia** antes del suplemento de entrega. Ambos listados son idénticos. `export-recibo.json`, `verify-recibo.json`, `restore-recibo.json` y `confirm-recibo.json` contienen además los recibos operativos objeto por objeto. La entrega documental y scripts se conservan después en `entrega-t3-7f0c6fb6-final/` dentro de ambas raíces, por el MANIFIESTO de entrega, sin modificar los objetos anteriores.
 
-Cinco adversos propios pasan: ida/vuelta sin hardlinks y destino exclusivo; ausencia; corrupción y recuperación en destino nuevo; fallo fsync después de publicación visible y confirm posterior; marcador sustituido y fuente enlazada. Todos operan en `.cache/preservacion-v3/adverso-*`; se conservan los residuos. Pasan las 19 pruebas existentes de preservación, sin editar sus oracles. Ruff y mypy (`--check-untyped-defs --follow-imports=skip --ignore-missing-imports`) pasan para los scripts propios; no es tipado estricto de todo el parser dinámico. Los logs distinguen pases solapados: no sumar como cobertura independiente. Un primer script exploratorio de cobertura falló al encontrar un registro sin sha256; el cotejo entregado distingue registros documentales completos, sin alterar fuentes.
-
-Pruebas, generación, recorridos masivos, tipos y copias se ejecutaron con flock común y un trabajador. Las lecturas iniciales agrupadas de Markdown no se bloquearon con flock; no se afirma serialización de esas lecturas. Sin Next build, suites legacy completas, servidor ni preview. No hay código TypeScript/Effect nuevo: no se cambian las 16 reglas anti-slop ni la configuración. Nix/uv proporciona el entorno, con UV_PROJECT_ENVIRONMENT absoluto dentro de scratch propio. Comandos en COMANDOS.md y resultados reales en logs.
+Cinco adversos propios pasan: ida/vuelta sin hardlinks y destino exclusivo; ausencia; corrupción y recuperación en destino nuevo; fallo fsync después de publicación visible y confirm posterior; marcador sustituido y fuente enlazada. Todos operan en `.cache/preservacion-v3/adverso-*`; se conservan los residuos. Pasan las 19 pruebas existentes de preservación, sin editar sus oracles. Ruff y mypy (`--check-untyped-defs --follow-imports=skip --ignore-missing-imports`) pasan para los scripts propios; no es tipado estricto de todo el parser dinámico. Los logs distinguen pases solapados: no sumar como cobertura independiente. El cotejo distingue registros documentales completos de registros sin sha256.
 
 ## Límites y entrega
 
-Integridad comprobada para las copias actuales. Autenticidad histórica no certificada; no se repiten firmas, CSV ni sellos. Interpretación jurídica sin nueva validación. Exactitud fiscal no evaluada: no se modificó ningún cálculo ni oracle. Aceptación ninguna; binding de Madrid pendiente, regla completa false. El inventario de 52.377 ocurrencias y los snapshots indicados por el coordinador no se regeneran ni retaguean.
+Integridad comprobada para las copias de este corte. Autenticidad histórica no certificada; no se repiten firmas, CSV ni sellos. Interpretación jurídica sin nueva validación. Exactitud fiscal no evaluada: no se modificó ningún cálculo ni oracle. Aceptación ninguna; binding de Madrid pendiente, regla completa false. Los conteos del inventario o de snapshots de publicación son identidades distintas de las de este paquete.
 
-Crossa conserva v1 histórico comunicado por el coordinador; misma casa y propietario, sin verificación propia en destino ni custodia independiente. Queda desfasada respecto de v2 y v3. No se toca Crossa, v1, v2 ni sus restauraciones. Sin red documental, LFS, gasto, transferencias externas, PR, deploy, limpieza ni operaciones VCS mutantes. Sigue vigente la elección de dejar preparada la transferencia.
-
-MANIFIESTO.json contiene path/SHA256/SHA512/size/baseSha256; altas con baseSha256 null y cero borrados. Se excluye a sí mismo por circularidad. entrega.patch contiene archivos textuales, excluyendo a su vez patch y MANIFIESTO; los binarios están en los CAS y se entregan por hash. `.cache/` no debe integrarse. No hay logs de más de 1 MB. Hace falta revisión independiente nueva del recolector, las exclusiones, el sobre y la restauración antes de considerar aprobable esta ampliación.
-
-La primera copia del suplemento de entrega quedó conservada en `entrega-t3-7f0c6fb6/`. Su informe decía cinco binarios públicos excluidos de X: el manifiesto enumera once (las cinco imágenes conocidas no agotan ese CAS). Se corrigió únicamente ese recuento y se publicó el suplemento final en otra carpeta `entrega-t3-7f0c6fb6-final/`, sin borrar ni sobrescribir la copia anterior. Los manifiestos del paquete, objetos, clasificación y recibos no cambiaron.
+Crossa conserva v1 histórico, misma casa y propietario, sin verificación independiente en destino. Está desfasada respecto de las ampliaciones v3, v4 y v5 del corte R26 y no acredita custodia independiente. Las copias locales de esta edición tampoco prueban preservación externa.

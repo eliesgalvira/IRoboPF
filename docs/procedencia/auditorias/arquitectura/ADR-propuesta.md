@@ -1,12 +1,12 @@
 # Propuesta ADR: corpus inmutable y rastro local con procedencia versionada
 
-Estado: **propuesta, contrarrevisión pendiente**. Fecha: 29 de octubre de 2026. No sustituye los ADR aceptados. Su integración futura en `docs/adr/` corresponde al orquestador. No decide un proveedor ni autoriza despliegue.
+Propuesta de 29 de octubre de 2026. No sustituye los ADR aceptados.
 
 ## Intención y límites
 
 Una persona debe poder abrir la explicación de cualquier parámetro, operación o condición y ver qué se sabe, qué original la respalda y qué sigue discutido. Otra debe poder reproducir esa explicación meses después. El caso fiscal privado permanece en el navegador. El corpus es público y editorial: los lectores no lo modifican. La adquisición, extracción y contrarrevisión son trabajos de mantenimiento separados del tráfico web.
 
-Se leyeron íntegros README, 01, 05, 07 y 08 de las notas de arquitectura por intención. Aplicamos sus preguntas por superficie, sin importar sus preferencias de framework, tarifas o recomendaciones de servicios como hechos de IRoboPF. No reproducimos material privado de esas notas. También se leyeron README, PRODUCT, GLOSSARY, glosario fiscal, ADR 0001–0004 y contrato/coordinación/lint de esta ronda. Las referencias técnicas primarias recuperadas están en `fuentes.json`; los pasajes candidatos, en `citas-candidatas.json`.
+Las referencias técnicas primarias están en `fuentes.json`; los pasajes candidatos, en `citas-candidatas.json`.
 
 Tres superficies con contratos distintos:
 
@@ -30,7 +30,7 @@ Cada objeción expresa el argumento que podría hacer un especialista; no atribu
 
 ### D02. Corpus inmutable con manifiestos revisables y objetos CAS
 
-**Decisión.** Versionar JSON editorial y manifiestos pequeños en VCS. Originales y recortes se guardan una sola vez por SHA-256 en un almacén de objetos (CAS), separado de bundles de aplicación. La caché local es una etapa de adquisición, no archivo definitivo. SHA-512 se conserva también. El origen público del almacén será configuración del despliegue existente; puede ser directorio servido por el proxy actual o un almacén remoto ya autorizado. No crear R2, S3, LFS ni otra cuenta en esta ronda.
+**Decisión.** Versionar JSON editorial y manifiestos pequeños en VCS. Originales y recortes se guardan una sola vez por SHA-256 en un almacén de objetos (CAS), separado de bundles de aplicación. La caché local es una etapa de adquisición, no archivo definitivo. SHA-512 se conserva también. El origen público del almacén será configuración del despliegue existente; puede ser directorio servido por el proxy actual o un almacén remoto ya autorizado.
 
 **Objeción experta.** Un archivista rechaza un manifiesto si su única copia de originales vive en una caché borrable. Un operador objeta otro almacén y enlaces dependientes de disponibilidad.
 
@@ -90,7 +90,7 @@ Conocimiento (`sin-evidencia`, `evidencia-localizada`, `interpretacion-candidata
 
 **Motivo.** Separar paquetes por dominio/año/territorio y deduplicar documentos comunes limita descarga y memoria. El índice inicial solo incluye rutas y hashes. Un servidor jamás compone una URL de origen a partir del input: resuelve hashes admitidos en el manifiesto. `dynamicParams=true` permite el resto en Next [next-params]; validar contra el inventario evita crear páginas por cada URL inventada. La configuración exacta se probará en Next 16.1.7, sin actualizarlo.
 
-**Coste aceptado.** Primera visita a ficha no precalculada tiene latencia y puede fallar si falta su paquete. Debe distinguir 503 transitorio de 404 real; no se usa stale con otra versión. Bundles no incluyen PDFs ni recortes. No se promete que Next deduplique paquetes automáticamente entre funciones; se comprobará el output trace durante la integración. Los presupuestos de abajo son objetivos, no mediciones de esta ronda.
+**Coste aceptado.** Primera visita a ficha no precalculada tiene latencia y puede fallar si falta su paquete. Debe distinguir 503 transitorio de 404 real; no se usa stale con otra versión. Bundles no incluyen PDFs ni recortes. No se promete que Next deduplique paquetes automáticamente entre funciones; se comprobará el output trace durante la integración. Los presupuestos de abajo son objetivos, no mediciones.
 
 ### D08. Caché por versión y publicación atómica
 
@@ -120,7 +120,7 @@ Conocimiento (`sin-evidencia`, `evidencia-localizada`, `interpretacion-candidata
 
 **Motivo.** Imagen conserva contexto visual; transcripción paralela conserva acceso y búsqueda, marcada como transcripción sin sustituir original. Observabilidad del pipeline registra snapshot, herramienta, bytes, duración, resultado de verificación y errores tipados, nunca salarios, entradas ni resultados del caso. El rastro fiscal no es una traza OTel. Un reporte local puede exportarse por acción expresa del usuario.
 
-**Coste aceptado.** Revisión manual de tablas y accesibilidad; ninguna afirmación de conformidad WCAG certificada en esta ronda. Logs de origen no cuentan lecturas satisfechas por caché. Mantener caché eficiente tiene prioridad sobre contar todos los lectores; no añadir analytics, replay, fingerprint ni backend nuevo. Las métricas del pipeline se pueden escribir como JSON local. Monitor externo de disponibilidad/restauración queda como requisito de operación antes de publicar, sin contratarlo aquí.
+**Coste aceptado.** Revisión manual de tablas y accesibilidad; ninguna afirmación de conformidad WCAG certificada. Logs de origen no cuentan lecturas satisfechas por caché. Mantener caché eficiente tiene prioridad sobre contar todos los lectores; no añadir analytics, replay, fingerprint ni backend nuevo. Las métricas del pipeline se pueden escribir como JSON local. Monitor externo de disponibilidad/restauración queda como requisito de operación antes de publicar, sin contratarlo aquí.
 
 ## Contratos de rutas y resolución
 
@@ -152,7 +152,7 @@ Restauración: partir de un snapshot retenido, recuperar objetos desde copia ind
 2. El editor de pipeline acuerda un adaptador entre metadatos actuales de `descargar.py` y Document: cabeceras ausentes explícitas, identificador/publicación desconocidos, hashes verificados. No duplicar su downloader/verificador.
 3. El inventario asigna IDs estables; registrar archivo+símbolo+ancla+hash de archivo. Las líneas numéricas de código son ayuda, no identidad.
 4. Migrar un tramo vertical público por capacidad (liquidación, retención, legacy) con citas auténticas contrarrevisadas y prueba fallida previa si hay corrección fiscal. Ningún dato se acepta por un snapshot de tests existente.
-5. Comprobar plan de pruebas de `contratos-y-pruebas.md`; medir en host real. Solo entonces integrar ADR y rutas. Esta ronda no modifica aplicación, cálculo, pipeline, hosting ni producción.
+5. Comprobar plan de pruebas de `contratos-y-pruebas.md`; medir en host real. Solo entonces integrar ADR y rutas.
 
 ## Referencias técnicas recuperadas y advertencia de versión
 

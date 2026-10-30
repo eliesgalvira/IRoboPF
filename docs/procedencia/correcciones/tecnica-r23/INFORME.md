@@ -1,6 +1,6 @@
-# Correcciones técnicas R23
+# Correcciones del lector de software y preservación
 
-El padre reproduce CR21-A/B y los tres hallazgos de preservación R21, conserva sus rojos y aplica correcciones acotadas. Los cambios requieren una revisión independiente nueva. No modifican cálculos ni aceptaciones fiscales.
+El contraste de integración reproduce CR21-A/B y los tres hallazgos de preservación R21, conserva sus rojos y aplica correcciones acotadas. Las pruebas de los cambios no sustituyen su contraste independiente. No modifican cálculos ni aceptaciones fiscales.
 
 El lector del helper histórico exige `const` y rechaza exportaciones conflictivas, redeclaraciones, alias y usos distintos de la lectura directa mediante `map`. Comprueba rutas por caracteres prohibidos, incluido el salto final. Los dos rojos del revisor pasan después del cambio; también pasan los nueve adversos añadidos al test del recibo. El conjunto contiene 32 pruebas correctas. Esta gramática permite leer datos históricos sin ejecutar JavaScript; no certifica el comportamiento arbitrario de un módulo ni de su callback. Una futura forma distinta de declarar la lista requiere migración explícita.
 
@@ -8,8 +8,8 @@ El schema de preservación usa fin absoluto en sus 14 patrones. El consumidor re
 
 Las exclusiones históricas se conservan como observaciones: v3 contiene 4.147, de las que 1.089 son distintas y 3.058 repetidas. No se cuentan como evidencias independientes. Rechazar esa multiplicidad invalidaría un paquete ya preservado sin mejorar sus objetos; el coste es distinguir expresamente observaciones y exclusiones únicas. No se reescribe el manifiesto `147e90bf…`. La carga actual conserva 945 objetos y 1.068.593.978 bytes; este pase no repite la restauración completa, realizada y documentada por el revisor.
 
-Se verificaron los 34 snapshots anteriores antes de regenerar. La nueva edición conserva el inventario de 52.461 ocurrencias y 65 puntos; genera V1 `a0c7d768c664677bffb583a84f3afb11deda0cf92924480e8b0afd97cde8b34f` y V2 `57377f076ca1050c368c7b57934d1f8edce13104a27258409ebf7f1a8f58d146`, con 719 objetos en su cierre. El payload de Madrid permanece `e16bd156…`, revisión del binding pendiente y aceptación fiscal completa false. El cambio de explicación produce un recibo nuevo; no migra atestaciones.
+Los 34 snapshots anteriores verifican antes de regenerar las versiones con el software corregido. Se conserva el inventario y los puntos de rastro; no se migra aceptación fiscal.
 
 Los logs conservan los errores de los instrumentos: referencia inicial a un atributo inexistente del fixture, resolución estática del módulo genérico `revisar` y anotación de una lista AST. Se corrigieron los instrumentos propios, sin alterar expectativas ni informes recibidos. El tipado final comprueba seis scripts Python; Ruff y tipos principal/vendor se registran por separado. El lint global termina sin errores y con un aviso de import no usado en la entrega editorial B congelada. No se reescribe esa entrega para ocultarlo.
 
-Reproducción: `COMANDOS.md`. `historicos.json` fija el pase previo; `verificacion-cierre.json` registra las dos versiones nuevas. Las pruebas del rastro, integridad y evidencia son regresiones técnicas, sin nóminas completas, build o suites legacy masivas. Crossa conserva v1 histórico desfasado. Sin LFS, gasto, transferencia externa, despliegue ni limpieza.
+Reproducción: `COMANDOS.md`. `historicos.json` fija el pase previo; `verificacion-cierre.json` registra las dos versiones nuevas. Las pruebas del rastro, integridad y evidencia son regresiones técnicas, sin nóminas completas, build o suites legacy masivas.

@@ -1,8 +1,6 @@
-# Clasificación de origen y documento, R31
+# Clasificación contextual de origen y documento
 
-Se recibe la revisión Sol R30 y se contrasta su conclusión con los productores y los bytes. El padre verifica físicamente las 16.486 entradas de su base: todas intactas, ningún borrado. Se incorporan 37 archivos manifestados y cinco sobres, 42 archivos y 1.883.116 bytes en total. El manifiesto original, sus tres rojos y el fallo inicial de transporte de archivos vacíos se conservan sin cambios.
-
-CL01 puntual queda corroborado: la selección real ya no se confunde con el documento contiguo. No se abre otra revisión recursiva de esa corroboración. Las dos reservas nuevas son distintas y requieren corregir el clasificador actual, sin modificar el paquete congelado.
+CL01 puntual queda corroborado: la selección real ya no se confunde con el documento contiguo. Las dos reservas nuevas son distintas y requieren corregir el clasificador actual, sin modificar el paquete congelado.
 
 RC30-01 queda confirmado. `sourceSha256` identifica una procedencia, no necesariamente código. El productor editorial `flujo-escalas-r21-sol/verificar.py` calcula la huella de `entry.source`; cuatro referencias reales apuntan a JSON editorial. El recolector calcula también esa huella antes del saneamiento de dependencias arbitrarias. Los dos casos sintéticos de origen documental o indeterminado no justifican `fuente-software`.
 
@@ -22,10 +20,8 @@ Decisión: separar campo documental y contenedor de recorte. Objeción: poner si
 
 ## Pruebas y límites
 
-Se reejecutan las 22 sondas del revisor con sus esperados intactos: antes hay tres rojos; después, ninguno. Las pruebas nuevas del padre fallan en doce de catorce casos antes del cambio; una prueba adicional de conservación de contexto falla también. Después pasan las quince, incluidas las cuatro referencias editoriales reales con su hash comprobado. Pasan además las diez regresiones R30 y las veintiocho de preservación. Los recuentos se solapan en garantías; no son reglas fiscales validadas.
+Se reejecutan las 22 sondas del revisor con sus esperados intactos: antes hay tres rojos; después, ninguno. Las pruebas nuevas de integración fallan en doce de catorce casos antes del cambio; una prueba adicional de conservación de contexto falla también. Después pasan las quince, incluidas las cuatro referencias editoriales reales con su hash comprobado. Pasan además las diez regresiones R30 y las veintiocho de preservación. Los recuentos se solapan en garantías; no son reglas fiscales validadas.
 
 Ruff pasa sobre el alcance Python; mypy comprueba cuatro fuentes con `check-untyped-defs` y `follow-imports=silent`. No se presenta como tipado estricto del corpus JSON ni como revisión independiente. No cambia código TS/Effect, cálculo fiscal, inventario, snapshots o confianza, por lo que no se repiten build, suites legacy ni regeneración de contenido.
 
-El padre vuelve a cotejar ambos hashes y tamaño del manifiesto v5 r2 y del recolector histórico conservado. Este mantiene la política `v5-r26-1`. No se reexporta ni reclasifica el corte R26, ni se repite una restauración de 2 GB. Los dos residuales de privacidad —localizador dentro de prosa y FILE://— siguen abiertos; no hay certificación de anonimización ni distribución autorizada.
-
-La corrección requiere revisión independiente nueva. Crossa conserva v1 desfasado, copia local fuera de Victus del mismo dueño y casa. No hay LFS, gasto, transferencia externa, main, PR, despliegue o limpieza. Los demás encargos Sol continúan sin consultar sus entregas parciales. La auditoría global sigue abierta.
+La verificación de integración coteja ambos hashes y tamaño del manifiesto v5 r2 y del recolector histórico conservado. Este mantiene la política `v5-r26-1`. No se reexporta ni reclasifica el corte R26, ni se repite una restauración de 2 GB. Los dos residuales de privacidad —localizador dentro de prosa y FILE://— siguen abiertos; no hay certificación de anonimización ni distribución autorizada.

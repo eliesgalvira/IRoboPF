@@ -1,16 +1,18 @@
 # Vertical de servicios profesionales EDS 2025
 
+Documento histórico del candidato de este directorio. Los resultados y estados corresponden a esa versión; no acreditan el estado actual del proyecto.
+
 Implementación aislada para revisión posterior. No es un simulador general de autónomos ni una liquidación anual. `soportado` significa que los hechos suministrados entran en el contrato técnico; la autenticidad de sus justificantes y su calificación fiscal no se certifican mediante un string ni mediante los tests. `revisionFiscal` permanece `pendiente`.
 
-## Integración por el padre
+<a id="integración-por-el-padre"></a>
+
+## Integración
 
 Entrada: `CasoActividad2025` en `lib/dominio/irpf/actividades-economicas/contrato.ts`; se exporta tanto el schema como el tipo. `calcularActividad2025` valida también en runtime, rechaza propiedades adicionales, datos incompletos y categorías ajenas, y devuelve una unión discriminada. Un rechazo no contiene un rendimiento cero utilizable.
 
 `adaptarActividadGeneral(caso)` devuelve `aporte-disponible` con `AporteActividadGeneral`, o los motivos de no soporte. Consumir `importeEurosExactos` como Decimal con signo en el saldo de rendimientos generales; conservar las pérdidas. No convertir a salario, no llamar al algoritmo de retención laboral, no reutilizar art. 20. Retenciones y pagos fraccionados son campos independientes y nunca gastos. El adaptador no suma ganancias generales, no compensa saldos, no presupone BIG=BLG y no calcula cuota diferencial.
 
-El padre deberá añadir la rama discriminada de actividad a los contratos anuales y revisar integración/compensaciones antes de conectar la salida. Los tres archivos anuales excluidos del encargo siguen intactos. El contrato de salida conserva euros decimales: su conversión a los céntimos del motor existente necesita una decisión de redondeo revisada; queda expresamente fuera de esta entrega.
-
-No hay UI, package, CI, instalación, build, regeneración del inventario ni operaciones VCS mutantes. Al integrar cambian las fuentes y queda obsoleto el inventario técnico: corresponde reconstruirlo una sola vez al padre, con su bloqueo de memoria.
+Al integrar se deberá añadir la rama discriminada de actividad a los contratos anuales y revisar integración/compensaciones antes de conectar la salida. Los tres archivos anuales excluidos del encargo siguen intactos. El contrato de salida conserva euros decimales: su conversión a los céntimos del motor existente necesita una decisión de redondeo revisada; queda expresamente fuera de esta entrega.
 
 ## Admisión y alcance
 
@@ -40,11 +42,13 @@ La fórmula investigada AE25-03/04 en las referencias describe la propuesta hist
 
 Separaciones obligatorias: los tests acreditan aritmética y defensas sobre fixtures; los hashes acreditan integridad de archivos; la interpretación jurídica depende de fuentes y hechos; la aceptación fiscal exige contrarrevisión y enlace al inventario. No se modifica la puerta cerrada `--accepted` del corpus.
 
-## Decisiones para incorporar al registro del padre
+<a id="decisiones-para-incorporar-al-registro-del-padre"></a>
+
+## Decisiones de integración
 
 1. Historia conservadora. Objeción: excluir renuncias ya revocadas y actividades cesadas sin beneficios reduce cobertura lícita. Motivo: no implementar sus transitorios por suposición. Coste: rechazo explícito y ampliación posterior; no se deniega un derecho fiscal.
 2. Decimales sin redondear, precisión local de 80 cifras, entradas de hasta 12 enteros/2 decimales y 10.000 documentos. Objeción: el consumidor anual usa céntimos y Decimal tiene precisión finita. Motivo: las sumas y multiplicaciones finitas de esta vertical caben holgadamente bajo ese límite, sin división ni truncado; no cambiar configuración Decimal global. Coste: salida distinta del contrato anual y redondeo pendiente de revisión.
 3. Solo activos completos y RETA ordinaria. Objeción: omite operaciones frecuentes. Motivo: no elevar los pendientes AE25-03/04 a reglas aceptadas. Coste: rechazos en altas intermedias, regularizaciones y devoluciones.
 4. Cliente único comprobado, TRADE excluido. Objeción: restringe el art. 32.2.1. Motivo: su acreditación tiene requisitos que un porcentaje o booleano no resuelve. Coste: cobertura parcial, con prueba separada del rechazo TRADE. Los ejemplos llamados «trade» se usan únicamente para aritmética de umbrales bajo hechos de cliente único; no prueban elegibilidad TRADE.
-5. Identidad documental conservadora y evidencia referenciada. Objeción: un ID/justificante no demuestra autenticidad ni detecta dos identidades fraudulentas del mismo cliente. Motivo: separar contrato de adquisición documental del cálculo. Coste: el padre debe normalizar identidades económicas, revisar los justificantes y agrupar pagos; no presentar soporte técnico como certificación.
+5. Identidad documental conservadora y evidencia referenciada. Objeción: un ID/justificante no demuestra autenticidad ni detecta dos identidades fraudulentas del mismo cliente. Motivo: separar contrato de adquisición documental del cálculo. Coste: al integrar se debe normalizar identidades económicas, revisar los justificantes y agrupar pagos; no presentar soporte técnico como certificación.
 6. Adaptador sin integración anual. Objeción: no ofrece deuda final. Motivo: el contrato anual y las pérdidas necesitan revisión propia, y están fuera de propiedad. Coste: integración pendiente y utilidad limitada al rendimiento trazable.

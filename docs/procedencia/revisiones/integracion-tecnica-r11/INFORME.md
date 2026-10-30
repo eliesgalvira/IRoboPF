@@ -1,6 +1,8 @@
 # Contrarrevisión técnica de ronda 11
 
-Base comprobada: `eaed990c620b5fc4d3ff2e74dc68e0c8481c43db`. Revisión personal, sin subdelegación ni operaciones VCS mutantes. Solo se escribe en esta carpeta, incluida su copia de ejecución `scratch/`. No se corrige producto, no se cambia ningún oracle y no se promueve registro ni atestación. Ningún resultado se autoacepta fiscalmente.
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
+Base examinada: `eaed990c620b5fc4d3ff2e74dc68e0c8481c43db`. Las pruebas usaron la copia de ejecución `scratch/`. Este dictamen no acepta resultados fiscales ni promueve registros o atestaciones.
 
 No he demostrado un bloqueo técnico nuevo en los cambios examinados. Las correcciones son aprobables en el alcance técnico indicado abajo; EC-02 y EC-04 conservan trabajo de integración pendiente. Esto no es aprobación fiscal ni autorización de publicación.
 
@@ -19,7 +21,7 @@ No he demostrado un bloqueo técnico nuevo en los cambios examinados. Las correc
 
 ## Evidencia y alcance
 
-Se leyeron BRIEF, AGENTS, contrato, coordinación, estado, decisiones, informes de exposición efectiva, integración ronda 10, preservación v3 y las revisiones anteriores EC-01 a EC-04 y PREV2-01/02. Se examinaron implementación, schemas, pruebas y rojos conservados. Los rojos anteriores son ejecuciones del autor/coordinador: no se presentan como rojos nuevos propios ni se reejecuta una base antigua para simularlos. No hay cambios numéricos en esta revisión.
+Se examinaron exposición efectiva, integración de ronda 10, preservación v3, revisiones EC-01 a EC-04 y PREV2-01/02, junto con implementación, schemas, pruebas y rojos conservados. Los rojos anteriores mantienen su autoría y no se presentan como ejecuciones nuevas de esta revisión.
 
 Las suites se ejecutan sobre una copia sin metadatos VCS dentro de esta entrega, con node_modules del padre enlazado para lectura. Nix proporciona Bun/Node/Python; corpus usa `bash tools/procedencia/run.sh`, uv frozen y offline. Pruebas, hashes, extracción y tipos usan `flock /tmp/irobopf-validacion-pesada.lock`, secuencialmente, un trabajador. Las lecturas iniciales de documentos no se tomaron bajo el lock; no se atribuye esa serialización a toda lectura de la sesión. No se ejecutaron Next build ni suites legacy completas.
 

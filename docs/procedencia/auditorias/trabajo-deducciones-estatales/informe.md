@@ -1,5 +1,7 @@
 # Auditoría candidata: trabajo, deducciones estatales y obligación de declarar, 2012–2026
 
+Documento histórico: los resultados, referencias al motor y pendientes corresponden a la base examinada; no describen el estado vigente del proyecto.
+
 Esta entrega no acepta ningún hallazgo. La revisión independiente debe releer los originales y comprobar los supuestos antes de convertir cualquier candidato en corrección. No se ha modificado el motor ni ejecutado una prueba de regresión contra él: se proponen las pruebas que deberán fallar antes del arreglo. Las comprobaciones numéricas ejecutadas son independientes y están identificadas como tales.
 
 Ámbito: régimen común, las quince comunidades de régimen común y Ceuta/Melilla representadas por el motor. Navarra y los tres territorios históricos vascos no están en el tipo `ComunidadAutonoma`; no se extrapolan estos resultados a normativa foral. `simulada-estatal` es un caso técnico, no un territorio legal. La referencia temporal es el 29 de octubre de 2026; no se afirma que el ejercicio 2026 esté cerrado.
@@ -105,11 +107,9 @@ Esta tabla es una propuesta de cobertura con norma e inputs explícitos. No vali
 5. **No equiparar hash y autenticidad.** Objeción experta: HTTPS y hash no validan firma del BOE ni CSV. Motivo: registrar exactamente lo comprobado. Coste: autenticación PAdES/CSV, sello temporal y eventual WARC pendientes; no se certifica autenticidad criptográfica del emisor.
 6. **Ampliaciones con inputs, no parámetros sueltos.** Objeción experta: una deducción sin calendario, elegibilidad y límite puede empeorar la exactitud. Motivo: las familias propuestas tienen requisitos distintos y algunas son reembolsables. Coste: catálogo aún no ejecutable y más diseño/pruebas antes de aumentar cobertura.
 
-## Reproducción y límites de esta ronda
+## Reproducción y límites
 
-Se ha leído el contrato completo, el brief completo, coordinación, lint, README, AGENTS, glosario, alcance legacy, ADR de separación y los módulos pertinentes. Solo se ha usado `jj log` para identificar la revisión inicial; no hay commits, init, bookmarks, PR ni cambios de producción. No se ha escrito TypeScript ni Effect, no hay instalación global, build ni suite pesada.
-
-Scripts propios en `.cache/procedencia/trabajo-deducciones-estatales/`: `adquirir.py`, `ampliar.py`, `historicas.py` llaman al descargador común con bloqueo y User-Agent del proyecto; `extraer.py` localiza páginas; `bordes.py` evalúa únicamente la función pura del Python mediante AST y lee por streaming el XML de `CONTROL_GENERAL`; `empaquetar.py` inicia el paquete; `enriquecer-fuentes.py`, `afinar-hallazgos.py` y `vincular-inventario.py` completan fuentes y vínculos; `verificar-entrega.py` comprueba la reextracción final. Los scripts de elaboración pueden regenerar borradores: para comprobar la entrega final usar los comandos de verificación del cierre, sin regenerar los borradores. Las fórmulas leídas no ejecutan pandas ni regeneran Excel. `comparacion-tablas.json` compara 75 celdas G2:G16 y J2:M16 con Python, TypeScript y la tabla nominal independiente. Todas coinciden en ese alcance; la etiqueta 2018 se decodificó como `inlineStr`, no como número. El primer intento buscó `sharedStrings.xml`, ausente en este libro; se corrigió el lector de auditoría sin tocar el original. Estas celdas conservan el control histórico; no se ha cargado el libro de 145 MiB en memoria.
+Scripts propios en `.cache/procedencia/trabajo-deducciones-estatales/`: `adquirir.py`, `ampliar.py`, `historicas.py` llaman al descargador común con bloqueo y User-Agent del proyecto; `extraer.py` localiza páginas; `bordes.py` evalúa únicamente la función pura del Python mediante AST y lee por streaming el XML de `CONTROL_GENERAL`; `empaquetar.py` inicia el paquete; `enriquecer-fuentes.py`, `afinar-hallazgos.py` y `vincular-inventario.py` completan fuentes y vínculos; `verificar-entrega.py` comprueba la reextracción final. Los scripts de elaboración pueden regenerar borradores: para comprobar la entrega final usar los comandos de verificación del cierre, sin regenerar los borradores. Las fórmulas leídas no ejecutan pandas ni regeneran Excel. `comparacion-tablas.json` compara 75 celdas G2:G16 y J2:M16 con Python, TypeScript y la tabla nominal independiente. Todas coinciden en ese alcance; la etiqueta 2018 se decodificó como `inlineStr`, no como número. Estas celdas conservan el control histórico; no se ha cargado el libro de 145 MiB en memoria.
 
 Comandos utilizados:
 
@@ -149,6 +149,6 @@ nix shell nixpkgs#python3 -c python .cache/procedencia/trabajo-deducciones-estat
 nix shell nixpkgs#python3 -c python .cache/procedencia/trabajo-deducciones-estatales/bordes-deducciones.py
 ```
 
-Para las citas, con el entorno Python/Nix descrito arriba: `uv run --python <PythonNix> --with pymupdf python .cache/procedencia/trabajo-deducciones-estatales/verificar-entrega.py`. La salida esperada es reextracción completa coincidente; no imprime cabeceras de sesión. No se han realizado commits, init ni otras operaciones VCS mutantes.
+Para las citas, con el entorno Python/Nix descrito arriba: `uv run --python <PythonNix> --with pymupdf python .cache/procedencia/trabajo-deducciones-estatales/verificar-entrega.py`. La salida esperada es reextracción completa coincidente; no imprime cabeceras de sesión. 
 
 La versión AEAT 2018 V8 tiene un defecto en la advertencia de la página 2: el mes del cierre electrónico aparece como caracteres ilegibles tanto en texto como en el render de esa página. Se conserva esa limitación; no se infiere el mes. El NIPO, el ejercicio, el nombre V8 y el hash identifican la edición utilizada. Se completaron las fechas legibles de AEAT 2017 (25/05/2018) y 2019 (05/05/2020).

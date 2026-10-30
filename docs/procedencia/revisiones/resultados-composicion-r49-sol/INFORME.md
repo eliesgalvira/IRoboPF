@@ -1,14 +1,16 @@
 # R49 — Revisión independiente acotada de resultados R45
 
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
 Dictamen técnico limitado: no se ha reproducido un defecto nuevo del módulo de resultados integrado. La adaptación de retenciones y la clasificación de actividad son coherentes con las operaciones presentes y alcanzables examinadas, bajo fragmentos originales verificados, datos ordinarios y evaluación síncrona finita. El padre puede avanzar con este componente después de contrastar esta entrega; no se solicita otra revisión recursiva idéntica de los mismos bytes.
 
 Esto no acepta fiscalidad, no concede admisión anual o pública y no cierra el encargo global. Los puertos en implementación por otro hijo no se han leído, consultado ni supuesto. Los 65 cierres y las 19 instancias son trabajos separados y no se vuelven a exigir como condición de esta revisión.
 
-Trabajo directo en T3 Code/Codex, gpt-6.1-sol, high, sin subdelegación ni cambio de modelo. Priority es la configuración solicitada por el encargo; este proceso no expone un comprobante independiente del tier. Base y HEAD: 8136b0ffa00423eaffd1668e3bc14b45dae594b6, con 21.681 entradas. Ninguna operación VCS mutante ni fixes de producto. Solo se añaden archivos en las dos rutas autorizadas.
+Base examinada: 8136b0ffa00423eaffd1668e3bc14b45dae594b6, 21.681 entradas.
 
 ## Fuentes y fronteras de confianza
 
-Leídos íntegramente BRIEF, AGENTS, CONTRATO-AUDITORIA, COORDINACION, módulo de resultados y test recibido, informe R45 y recepción R47, instrumento rojo y manifiesto. Se consultó la situación actual de ESTADO/DECISIONES sin escribirlos. La corrección del usuario prevalece sobre el modelo y las autorizaciones antiguas del BRIEF.
+Se examinaron módulo de resultados y test recibido, informe R45, recepción R47, instrumento rojo y manifiesto.
 
 El módulo revisado es scripts/procedencia/composicion-r45-resultados.ts, SHA256 e7d6fad5017db2143b1f2b5ecfb6c55d5763e4bb678961e7c95141687479b916. R43 verifica los cuatro originales mediante sus verificadores, produce nuevamente la composición desde las fuentes fijadas, compara el contrato completo y devuelve structuredClone del candidato. El adaptador de resultados se ejecuta después de ese paso, sobre una copia derivada. El programa derivado no posee el pin del programa original: la prueba exige que verifyComposition lo rechace al sustituirlo en el candidato.
 
@@ -80,7 +82,7 @@ MANIFIESTO.json enumera el payload documental relativo por SHA256/tamaño/baseSh
 
 No hay entornos, node_modules ni copias de app en docs. No se modifican confianza, inventario, motor, 45 snapshots, los 264 enlaces limitados ni Madrid pendiente. V5 r2 permanece corte R26, pin 2b15925970d4819973598e1640c375ce95fc16c87e6e9981af1e86a2cb0d1c88, en su ruta de preservación, sin lecturas de exportación ni escrituras. Crossa sigue v1 desfasado, mismo dueño/casa y sin custodia independiente. Sin adquisiciones fiscales, LFS, gasto, transferencias externas, X, main, PR, deploy, servidor, preview, limpieza, aceptación propia, atestación o promoción.
 
-Las conclusiones nuevas requieren contraste del padre. El encargo global sigue abierto.
+El encargo global sigue abierto.
 
 ## Resultado terminal de validación
 

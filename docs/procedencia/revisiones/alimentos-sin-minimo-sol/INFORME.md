@@ -1,16 +1,18 @@
 # Revisión independiente de alimentos propios sin mínimo
 
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
 **Dictamen: exclusión coherente y honesta como límite temporal del producto, en el alcance probado. No se demuestra un nuevo defecto del cambio ni una cuota fiscal correcta. La cuestión jurídica MDV2-P01 permanece abierta.** Se rechaza la liquidación anual si hay alimentos propios respecto de un hijo y el contribuyente no está entre sus titulares con derecho. Se conserva la capacidad de los elegibles y de los casos sin alimentos propios. No se decide aplicar la especialidad a custodios.
 
-Trabajo personal de gpt-6.1-sol, esfuerzo high, sin subdelegación. Base exacta y HEAD: `1196269d4e73742beeed35cc05011b70c21a0b69`. Ningún fix ni operación VCS mutante. La entrega se limita a esta carpeta absoluta en el repositorio principal; ejecución contra el checkout fijado `t3-fdd037ef`, no contra el motor cambiante del padre. No promoción, atestación, aceptación fiscal completa ni modificación de ESTADO/DECISIONES.
+Base examinada: `1196269d4e73742beeed35cc05011b70c21a0b69`, fijada en el checkout `t3-fdd037ef`. Las pruebas corresponden a esos bytes y no a una versión posterior del motor. Esta revisión no implica aceptación fiscal completa.
 
 ## Identidad, lecturas y discrepancia de referencia
 
-La referencia solicitada `a0c449575` no existe: `git diff a0c449575 HEAD -- …` devolvió 128. El padre inmediato real es `0c449575e3fcd7cfda6208042aebab7023f69d00`. Se revisó ese diff completo, conservado en cambio-revisado.diff, sin afirmar que ambas referencias sean equivalentes. Es un límite de identificación de la comparación pedida, no un defecto del motor. El padre debe confirmar la errata antes de atribuir esta revisión a otra base.
+La referencia solicitada `a0c449575` no existe: `git diff a0c449575 HEAD -- …` devolvió 128. El padre inmediato real es `0c449575e3fcd7cfda6208042aebab7023f69d00`. Se revisó ese diff completo, conservado en cambio-revisado.diff, sin afirmar que ambas referencias sean equivalentes. Es un límite de identificación de la comparación pedida, no un defecto del motor. La referencia solicitada y la base efectivamente comparada deben permanecer diferenciadas.
 
 11.181 entradas de HEAD se compararon físicamente con los blobs de Git mediante lstat, lectura de bytes y readlink para enlaces: cero diferencias, ausencias o borrados. base-entradas.json.gz conserva cada ruta, modo del árbol, tipo físico, destino si procede, hashes y resultado. No se confía en el índice. node_modules es un enlace de lectura a `/home/elies/Repos/IRoboPF/node_modules`; scratch propio `.cache/alimentos-sol`. No se modifica ninguna dependencia.
 
-Se leyeron íntegros BRIEF, AGENTS, los cuatro documentos de coordinación, el informe Sol v2, MDV2-P01, sus casos/logs y la corrección r18 con rojo/verde/publicación. lecturas.json fija rutas, tamaños y SHA256. Los originales se abrieron y verificaron aparte. Ninguna entrega activa de otros hijos se utiliza como evidencia.
+Se examinaron el informe Sol v2, MDV2-P01, sus casos y logs, y la corrección r18 con su rojo, verde y publicación. `lecturas.json` fija rutas, tamaños y SHA256. Los originales se abrieron y verificaron aparte.
 
 La historia permanece intacta: MDV1-01/02/03 fueron contrarrevisados por Sol; no se adjudica aquí esa revisión. Las dos caracterizaciones Success antiguas sobre custodio sin mínimo describen la base anterior y no prueban cuota fiscal. No se modificaron ni ejecutaron retrospectivamente como expectativas de la exclusión nueva. Los cinco rojos r18 son rojos del contrato de capacidad elegido, no una demostración de error en la cuota antigua.
 

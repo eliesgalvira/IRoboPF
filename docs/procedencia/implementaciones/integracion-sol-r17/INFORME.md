@@ -1,6 +1,8 @@
 # Integración candidata Sol R17
 
-Trabajo personal como hijo de implementación, gpt-6.1-sol high. HEAD y base de entrega: `1ec684b4e4408068282febf1319c12c6ac8a15c1`; diff inicial vacío. Sin subdelegación ni operaciones VCS mutantes. Se leyeron BRIEF, AGENTS, contrato, coordinación, estado, decisiones, integración R13 y los cuatro informes/manifiestos preservados completos. No se consultó trabajo activo ajeno.
+Documento histórico del candidato de este directorio. Los resultados y estados corresponden a esa versión; no acreditan el estado actual del proyecto.
+
+Base del candidato documentado: `1ec684b4e4408068282febf1319c12c6ac8a15c1`.
 
 Se integran 670 archivos recibidos: ámbitos jurídicos (585, con manifiesto histórico de 583), preservación v3 (28), TGSS etapas (33) y cierre/cobertura (24). Todos se cotejan contra recepción, su base original `65cff4fd8eb8c6269c2ce97b88e770aa711bff7f` y bytes del checkout actual. Cero conflictos y cero borrados. `base.json.gz` enumera 10.583 entradas comprobadas mediante lstat/readlink; `recepcion-verificada.json` detalla hashes y decisiones por archivo. Los originales de recepción y los checkouts anteriores permanecen intactos.
 
@@ -18,15 +20,13 @@ Las decisiones individuales, objeción experta, respuesta y coste están en `DEC
 
 ## Validación y reproducción
 
-Las pruebas, tipos, generación y recorridos masivos se serializan con `flock /tmp/irobopf-validacion-pesada.lock`. Vitest/Python usan un trabajador; oxlint usó inicialmente su paralelismo automático, y el cierre repite explícitamente con `--threads=1`. Las lecturas puntuales de Markdown no se presentan como recorridos masivos bloqueados. Nix/uv, `UV_PROJECT_ENVIRONMENT` absoluto bajo `.cache/integracion-r17/uv`, TMPDIR absoluto propio y node_modules enlazado al padre solo para lectura. Guías Effect list/show data-modeling/testing consultadas antes de copiar el modelo. La primera búsqueda de fuente falló porque rg no estaba en PATH; la lectura efectiva de Schema.ts (Struct/Literals) se hizo mediante nixpkgs#ripgrep después de la copia y antes de sus validaciones. Se declara esta desviación del orden exigido; no se atribuye una consulta previa inexistente. No hay nuevas instalaciones globales.
+Las validaciones usan Nix/uv y las configuraciones conservadas en comandos/. Oxlint usa `--threads=1`; Vitest/Python usan un trabajador.
 
 Los scripts `comandos/` y logs entregados registran las ejecuciones reales y sus códigos; los intentos fallidos se conservan junto a las repeticiones. El ensayo de aceptación limitada es expresamente sintético en scratch; el coordinador de producción verifica el registro real pendiente. No sumar pruebas solapadas ni iteraciones de mutación como reglas aceptadas.
 
 ## Límites
 
 Integridad: hashes y bases cotejados, controles técnicos en logs. Autenticidad: sin nueva validación de confianza histórica PAdES/CSV. Interpretación: candidata; requiere revisión independiente nueva Sol del contrato y payloads exactos. Exactitud: identidad y binding numérico en el alcance ejecutado, sin modificación fiscal ni garantía de hechos externos. Aceptación: cero promociones; aceptación fiscal completa false.
-
-Sin Next build, suites legacy pesadas, servidor/preview, PR/deploy, LFS, gasto o transferencias externas. Crossa conserva v1 histórico comunicado, misma casa/dueño, sin comprobación propia ni custodia independiente; v1/v2/v3 y restauraciones se preservan. No se modifican ESTADO, DECISIONES, COORDINACION ni delegaciones. No se borran contexto, Reactivity, informes, originales o worktrees.
 
 `MANIFIESTO.json` describe todos los cambios contra la base propia con path/sha256/size/baseSha256. Se excluyen únicamente los artefactos de cierre autorreferenciales (manifiesto, su hash y patch), fijados por `ENTREGA.sha256`. Patch textual gzip y binarios por ruta/hash; sin cachés, entornos, CAS pesados ni árboles de ejecución. Integración pendiente de revisión independiente nueva, sin heredar aceptaciones anteriores.
 

@@ -1,8 +1,8 @@
 # Reproducción y registros
 
-Checkout T3 /home/elies/.t3/worktrees/IRoboPF/t3-1b749ca4. HEAD 59bb4c8e8dc239823008c02213ea78b59b51d249. Runtime declarado por T3: gpt-6.1-sol, high; prioridad solicitada, sin medición independiente del scheduler. Trabajo personal, sin subdelegar, atestaciones ni VCS mutante.
+Base de ejecución: 59bb4c8e8dc239823008c02213ea78b59b51d249. Raíz histórica: /home/elies/.t3/worktrees/IRoboPF/t3-1b749ca4.
 
-Se leyeron BRIEF completo, AGENTS, CONTRATO-AUDITORIA, COORDINACION, secciones actuales de ESTADO/DECISIONES, informes técnicos R23 y recepción R21, autoría v4 y recepción R24. La ruta abreviada recepcion-r21-r23/INFORME.md no existe en raíz de procedencia; se leyó correcciones/recepcion-r21-r23/INFORME.md. rg no estaba en PATH; no se instaló globalmente. Git se usó solo para rev-parse, ls-tree, cat-file, status y diff de lectura. No se ejecutó collect.
+Se examinaron los informes técnicos R23, recepción R21, entrega v4 y recepción R24. La recepción conjunta está en `docs/procedencia/correcciones/recepcion-r21-r23/INFORME.md`. No se ejecutó collect.
 
 Todos los Python usan este entorno:
 

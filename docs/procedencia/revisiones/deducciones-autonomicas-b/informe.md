@@ -1,6 +1,8 @@
 # Revisión independiente de deducciones autonómicas B
 
-29 de octubre de 2026. Revisor independiente, sin subdelegación. **Requiere cambios.** Se revisan los 196 candidatos, con decisión y alcance individual en `revisiones.json`. Hay 194 aceptaciones limitadas, un rechazo y un caso que requiere evidencia. **No son 194 reglas fiscales aceptadas**: 183 aceptaciones se refieren exclusivamente a carencias de evaluación del catálogo. La revisión jurídica completa de esas 183 reglas permanece pendiente.
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
+Corte documental: 29 de octubre de 2026. **Requiere cambios.** Se revisan los 196 candidatos, con decisión y alcance individual en `revisiones.json`. Hay 194 aceptaciones limitadas, un rechazo y un caso que requiere evidencia. **No son 194 reglas fiscales aceptadas**: 183 aceptaciones se refieren exclusivamente a carencias de evaluación del catálogo. La revisión jurídica completa de esas 183 reglas permanece pendiente.
 
 Solo se han escrito esta carpeta y el scratch `.cache/procedencia/revision-deducciones-autonomicas-b/`. No se han modificado motor, tests mantenidos, informes del autor, ESTADO, DECISIONES ni metadatos VCS. No se han realizado commits, push, PR, despliegue ni inicialización JJ. Ejecución secuencial de pruebas pequeñas; adquisición serializada mediante el lock del helper, User-Agent y ritmo del proyecto. No builds ni suite legacy.
 
@@ -20,7 +22,7 @@ Las rutas observadas son 174 manuales (124 controles específicos y 50 genérico
 
 Reproducción preparada: introducir nacimiento en Madrid, cambiar a Murcia conservando el diccionario y volver a evaluar. El helper continúa produciendo 721,70 porque no conoce el territorio. No se ha realizado navegación interactiva ni se afirma una explotación de navegador observada. Tampoco debe heredarse el catálogo 2025 a 2012–2024 o 2026.
 
-Criterio para el orquestador: contrato explícito de ejercicio/territorio y estado por caso; rechazar o excluir entradas de otro ámbito antes de sumar. La ocultación visual no basta. Mantener una vía separada de importe externo, con ámbito declarado y procedencia.
+Criterio de corrección: contrato explícito de ejercicio/territorio y estado por caso; rechazar o excluir entradas de otro ámbito antes de sumar. La ocultación visual no basta. Mantener una vía separada de importe externo, con ámbito declarado y procedencia.
 
 ### P1: límite de cuota demasiado estrecho
 
@@ -92,7 +94,7 @@ Se mantienen las cinco objeciones del autor con estos ajustes: conservar importe
 
 No aceptar nuevos contratos fiscales por el número de tests que pasan. Las pruebas propias ejecutan el helper; los hechos no modelados siguen fuera de él. El caso de cuota y la conjunta entre personas distintas son propuestas no ejecutadas. No se modificaron las expectativas del autor ni se usaron sus reportes como autoridad fiscal. El Excel no se cargó y no se presenta legacy como contraprueba normativa.
 
-El orquestador puede usar `casos.json` para construir pruebas fallidas sobre su contrato definitivo. Antes de ampliar cálculo legal deberá cerrar los requisitos por ficha, identidad de beneficiarios y titulares, reglas de cuota y cadena temporal pendiente. La revisión individual de candidatos está cubierta; el cierre jurídico de las 183 deducciones no lo está.
+`casos.json` fija expectativas para pruebas sobre el contrato definitivo. Ampliar el cálculo legal requiere cerrar los requisitos por ficha, identidad de beneficiarios y titulares, reglas de cuota y cadena temporal pendiente. La revisión individual de candidatos está cubierta; el cierre jurídico de las 183 deducciones no lo está.
 
 ## Reproducción de esta revisión
 

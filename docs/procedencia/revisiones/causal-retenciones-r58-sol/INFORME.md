@@ -1,10 +1,12 @@
 # Contrarrevisión causal R58
 
-Dictamen: las seis salidas quedan corroboradas técnicamente bajo las condiciones declaradas, sin defecto nuevo confirmado. Esta revisión no acredita fiscalidad, admisión externa ni suficiencia universal. La conclusión procede de lectura de fuentes, racionales propios, API financiera real y controles relacionales; no de los recuentos del autor ni de comparar su evaluador consigo mismo. El padre debe contrastarla. No se modifican código productivo, tests recibidos, inventario, confianza, snapshots, ESTADO, DECISIONES ni informes ajenos.
+Alcance: versión y condiciones examinadas en este dictamen. El [informe final](../../INFORME-FINAL.md) reúne el resultado de los 65 sitios y sus límites.
 
-Trabajo personal de gpt-6.1-sol, esfuerzo high; prioridad solicitada, sin recibo independiente del tier servido. Sin subdelegación. Base observada y exigida: `65c9eb0e5e2e63f3db4fd06452aa93e389054746`. Antes de escribir se cotejaron físicamente las 22.458 entradas, cada una contra su blob individual: lstat, bytes/readlink y bit ejecutable; cero diferencias, cero extras de contenido. `.git` es infraestructura de T3 excluida del censo de contenido. El recibo terminal se separa del payload y del sobre. No se usa diff vacío como sustituto ni se ejecuta una mutación VCS.
+Dictamen: las seis salidas quedan corroboradas técnicamente bajo las condiciones declaradas, sin defecto nuevo confirmado. Esta revisión no acredita fiscalidad, admisión externa ni suficiencia universal. La conclusión procede de lectura de fuentes, racionales propios, API financiera real y controles relacionales; no de los recuentos del autor ni de comparar su evaluador consigo mismo. No se modifican código productivo, tests recibidos, inventario, confianza, snapshots, ESTADO, DECISIONES ni informes ajenos.
 
-Leídos BRIEF íntegro, AGENTS, contrato, coordinación, cabecera ESTADO y D125–D129; informes completos R57/COMANDOS y recepción R58; contratos, matriz, decisiones, casos, gramática y testigos. La orden actual prevalece sobre las órdenes históricas incompatibles del BRIEF. Se examinan los siete módulos solicitados, los tests nuevos y SS R56, las fuentes financieras observadas por R34, selección temporal, dinero/redondeo y transporte. Los hashes por ruta constan en fuentes.json. No se repite una auditoría del codec, puertos o fiscalidad histórica ni se extiende el dictamen a los otros 48 sitios y 19 familias.
+Base examinada: `65c9eb0e5e2e63f3db4fd06452aa93e389054746`. Se cotejaron físicamente sus 22.458 entradas contra los blobs individuales mediante lstat, bytes/readlink y bit ejecutable, sin diferencias ni extras de contenido. El recibo terminal se conserva separado del payload y del sobre.
+
+Se examinaron los informes R57/COMANDOS y recepción R58, contratos, matriz, decisiones, casos, gramática y testigos; los siete módulos, pruebas nuevas y SS R56, fuentes financieras observadas por R34, selección temporal, dinero, redondeo y transporte. `fuentes.json` fija hashes por ruta. No se repite una auditoría del codec, puertos o fiscalidad histórica ni se extiende el dictamen a los otros 48 sitios y 19 familias.
 
 ## Decisiones por salida
 

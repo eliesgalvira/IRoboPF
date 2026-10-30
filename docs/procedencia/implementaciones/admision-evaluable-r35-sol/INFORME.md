@@ -1,10 +1,10 @@
 # Admisión evaluable R35: implementación parcial candidata
 
-La entrega aporta un IR ejecutable, un consumidor, un schema cerrado y pruebas contra APIs reales. **No completa todo el encargo RA34-01/02/04.** Los diecisiete sitios conservan admissionClosed=false, siteClosed=false, wiringAllowed=false y completeRuleAcceptance=false. No hay wiring público ni aceptación propia. Requiere continuación de implementación, contraste del padre y revisión independiente nueva de los bytes exactos.
+Documento histórico del candidato de este directorio. Los resultados y estados corresponden a esa versión; no acreditan el estado actual del proyecto.
 
-Base exigida/observada: 9c3edec704ead945b17e419d2e3ef0d1e8a75a29, 17.306 entradas. Runtime real T3 Code/Codex gpt-6.1-sol, high. Prioridad solicitada, sin recibo independiente del planificador. Sin subdelegación, atestación ni operaciones VCS mutantes. jj status informó que este worktree no tiene repositorio JJ; no se inicializó. Se empleó Git únicamente en lectura para blobs/diffs/transporte textual.
+La entrega aporta un IR ejecutable, un consumidor, un schema cerrado y pruebas contra APIs reales. **No completa todo el encargo RA34-01/02/04.** Los diecisiete sitios conservan admissionClosed=false, siteClosed=false, wiringAllowed=false y completeRuleAcceptance=false. No hay wiring público ni aceptación propia. Requiere continuación de implementación, contraste de integración y revisión independiente nueva de los bytes exactos.
 
-Se leyeron BRIEF íntegro, AGENTS, CONTRATO-AUDITORIA, COORDINACION, situación actual ESTADO/DECISIONES, revisión anual R34 recibida, hallazgos/decisiones/familias, sus pruebas, candidato R32 y contraste/adenda R35. Las órdenes urgentes prevalecen sobre BRIEF. No se leyeron entregas activas de SS, lote o retenciones. Se consultaron effect-solutions list, testing/error-handling y test local de Effect antes de escribir pruebas Effect.
+Base del candidato documentado: `9c3edec704ead945b17e419d2e3ef0d1e8a75a29`.
 
 ## Resultado ejecutable
 
@@ -28,14 +28,10 @@ A32-P01/P02 siguen como conductas actuales: números negativos admitidos en la A
 
 ## Evidencia y controles
 
-El cotejo físico inicial terminó antes de editar implementación: 17.306 entradas idénticas por lstat/readlink/bytes/ejecutabilidad, un blob por invocación, diff vacío y cero borrados. Se usó recepción-acotada solo para este recorrido. Después terminaron los rojos históricos antes de escribir implementación: 231 controles, 226 correctos y cinco fallos recibidos, salida 1. Incluyen los 204 originales y 27 recibidos con esperados intactos. Los tres fallos de nombres siguen siendo propuestas de interfaz, no refutaciones universales.
-
 Los controles propios prueban schema/coherencia, conciliación y frontera, selección/divisor contra API, Option, defecto null, campos iguales de productores distintos, transportes territoriales, pendientes/cierre y mutación semántica de umbral sin pin. Las pruebas de puertos territoriales acreditan transporte, no su semántica interna. Tipos iniciales fallaron por formas JS deliberadamente ajenas al tipo; se conservan. Se separaron los ensayos JS y los seis tests TS tipados. No se atribuye typecheck a los datos JS. Lint inicial falló dos typeof y se corrigió, sin desactivar reglas. Resultados finales y comandos en los archivos anexos.
-
-Cada validación pesada se ejecutó con flock exclusivo, sin anidamiento; sin Next build ni suites masivas. Herramientas Node/Bun por Nix, dependencias del padre en lectura y cacheDir propio. Sin Python, entornos o instalación global.
 
 ## Preservación y revisión pendiente
 
 CAS propio de fuentes técnicas en scratch, SHA256/SHA512, tamaño y recuperación por base/ruta en CAS.json; preservarlo antes de retirar este checkout. No hay nuevos originales fiscales ni PDFs. V5 r2 conserva corte R26 y pin 2b15925970d4819973598e1640c375ce95fc16c87e6e9981af1e86a2cb0d1c88, sin reexportarlo. Crossa sigue v1 desfasado, copia local del mismo dueño/casa, sin independencia o custodia remota.
 
-Manifiesto por ruta/tamaño/hash/baseSha256, patch textual gzip y binarios por hash, ensayo de aplicación/cotejo local en scratch. Todas las rutas de producto son altas; ningún archivo base necesita justificar un hash anterior distinto. El cotejo final completo se entrega separado. No se alteran motor, históricos, inventario, snapshots, confianza, ESTADO/DECISIONES o compositor. El encargo global y los otros 48 sitios siguen abiertos.
+El manifiesto conserva la composición histórica del paquete. La composición de los otros 48 sitios quedaba fuera de este candidato.

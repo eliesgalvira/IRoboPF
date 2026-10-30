@@ -1,14 +1,16 @@
 # Contrarrevisión focalizada R22: techo de retenciones 2015–2016
 
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
 Dictamen candidato: R21-01 y R21-02 quedan corregidos en el alcance documental limitado de R22; R21-03 queda reproducido por bytes con la receta declarada. No identifico una entrada admitida por este subcontrato que conserve los dos órdenes contradictorios señalados en R21. Esto no resuelve la regularización completa, no habilita ejercicios y no acredita aceptación fiscal. Todas las conclusiones nuevas de esta revisión requieren contraste posterior. No hay fixes, promociones ni atestaciones.
 
-Revisión personal: gpt-6.1-sol, esfuerzo high, T3 Code mediante Codex. Prioridad solicitada, sin afirmar verificación independiente del nivel de servicio. No se subdelegó ni cambió modelo. No se usa el nombre del checkout como ID canónico de T3 ni se registra identidad de confianza. No se aprueba código propio.
+Esta revisión no registra una identidad de confianza ni acepta su propio código de control.
 
 Base exigida y observada: `e6869301240add8a0bd3c8727998c83a214abd43`, 14.596 entradas. Control inicial: diff vacío y todas las entradas físicamente iguales, lstat/readlink/bytes frente a un blob de base por vez. El control final y el paquete acompañan este informe. Ninguna operación VCS mutante. Escrituras exclusivamente en esta carpeta y entorno propio `.cache/revision-r22-*`; no se modifica ESTADO, DECISIONES ni entregas previas.
 
 ## Lectura y objeto
 
-Se leyeron BRIEF completo, AGENTS, CONTRATO-AUDITORIA, COORDINACION, ESTADO y DECISIONES, los cinco informes contextuales pedidos, contrato e informe R21, revisión recibida de rectificaciones R21, y R22: los doce reemplazos completos, CONTRATO, informe, comandos, receta de ambas citas, `precisar.py`, `contraste.py` y logs rojos/verdes. Las órdenes específicas actuales prevalecen sobre las instrucciones históricas de commit, limpieza y delegación del BRIEF.
+Se examinaron los cinco informes contextuales, contrato e informe R21, revisión recibida de rectificaciones R21, y los doce reemplazos completos R22 con su CONTRATO, informe, comandos, receta de ambas citas, `precisar.py`, `contraste.py` y logs rojos y verdes.
 
 Se compusieron las sesenta celdas y cuarenta y tres ramas con los doce reemplazos por ID, verificando los hashes de las fuentes y de las referencias a R21. `superposicion.json` conserva el antes/después completo y las matrices efectivas; `contrato-compuesto.txt` es un derivado de lectura, no una enmienda al original. Se conserva la distinción enero/julio/2016. Los tres cambios de mínimos son idénticos a R21. No hay evidencia nueva que justifique reabrir ≤64 ni repetir las 140 páginas o renders históricos.
 
@@ -69,8 +71,8 @@ Objeción del experto: esa omisión sería un defecto de un consumidor operativo
 
 Comandos y calidad en COMANDOS.md y logs. Un trabajador y flock pesado para recorridos/pruebas/tipos; Python por run.sh con UV_PROJECT_ENVIRONMENT absoluto, sin tools/procedencia/.venv. No se escribe TS ni Effect; no corresponde atribuirles tipadoPython. Se verifican las16 reglas anti-slop aerror. La falta inicial de mypy en el entorno y su diagnóstico posterior se conservan, seguidos del pase final mediante herramienta Nix. No hay build, servidor, preview, suites legacy masivas ni instalación global.
 
-No hay originales nuevos: los CAS entregados permanecen por referencia, sin PDF en Git ni copia de aplicación. No se alteran inventario, snapshots, Madrid pendiente,264 payloads ni confianza; la comprobación física conserva sus bytes. Julio, doble600, bucles familiares y autenticidad histórica siguen pendientes. Crossa sigue v1 desfasado, misma casa/dueño; sin custodia independiente o remota, ni escritura allí. Ningún gasto, LFS, transferencia externa, PR, push, deploy o limpieza. El encargo global permanece abierto.
+No hay originales nuevos: los CAS entregados permanecen por referencia, sin PDF en Git ni copia de aplicación. No se alteran inventario, snapshots, Madrid pendiente,264 payloads ni confianza; la comprobación física conserva sus bytes. Julio, doble600, bucles familiares y autenticidad histórica siguen pendientes. Crossa sigue v1 desfasado, misma casa/dueño; sin custodia independiente o remota, ni escritura allí. Ningún gasto, LFS, transferencia externa, PR, push, deploy o limpieza. 
 
-La entrega usa manifiesto relativo SHA256/tamaño/baseSha256, parche textualgzip y mapa de binarios por ruta/hash. Los archivos de empaquetado excluyen su propia autorreferencia de forma expresa. Controles físicos inicial/final comprimidos; cero borrados de base. El padre debe cotejar estos bytes antes de integrar y contraponer las conclusiones nuevas sin heredarlas como aceptación fiscal.
+La entrega usa manifiesto relativo SHA256/tamaño/baseSha256, parche textualgzip y mapa de binarios por ruta/hash. Los archivos de empaquetado excluyen su propia autorreferencia de forma expresa. Controles físicos inicial/final comprimidos; cero borrados de base. La integridad de la entrega no supone aceptación fiscal de sus conclusiones.
 
 Calidad final: Ruff sin diagnósticos y mypy sin incidencias en cuatro scripts propios. Se conserva también el diagnóstico inicial de empaquetado (lista sin anotación) en `mypy-empaquetado.log`; se corrigió solo el instrumento propio. Las extracciones de85/86/87/88 de ambos HTML son iguales en texto, comprobación adicional que no extiende esa igualdad al documento completo.

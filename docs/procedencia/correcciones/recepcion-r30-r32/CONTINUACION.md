@@ -1,8 +1,8 @@
-# Contratos de la continuación
+# Contratos finitos de valor, selección y admisión
 
-El objetivo sigue siendo explicar todos los cálculos del BRIEF. Este reparto resuelve primero los diecisiete sitios de retenciones y cotizaciones que R30 no completó. No sustituye ni elimina los 48 restantes.
+Los contratos separan valor, selección y admisión para explicar los cálculos con dependencias explícitas por propiedad.
 
-Tres implementaciones producen fragmentos separados y compatibles. Reutilizan Sources/ref y las identidades de sitio; el padre compone los resultados. Ninguna modifica cifras, aceptación jurídica ni las entregas históricas.
+SS, retenciones y admisión producen fragmentos separados y compatibles. Reutilizan Sources/ref y las identidades ya fijadas.
 
 1. **SS:** once sitios anual.ss.*, con valor y selección completos en los modos realmente ejecutables. Frontera de entrada: propiedades de caso/contexto recibidas por la entrada anual real, no un objeto de parámetros de un helper. Conserva tipos por lado, tablas por ejercicio, cambio intranual, MEI, bandas y política legacy. Cada suma, índice, callback y conversión debe resolverse o permanecer expresamente abierto.
 2. **Retenciones y pagos:** anual.retencion.base/cuota/tipo/anual y anual.pagos.retenciones/cuenta. Instancia el servicio desde su implementación real, argumentos y versiones, sin inventar aportaciones del caso anual al subcaso. Distingue ausencia, éxito y rechazo. Conserva campos y unidades antes/después de la conversión.
@@ -14,4 +14,4 @@ Los fragmentos de valor declaran `admissionRequirement: "anual-publico-r32"` por
 
 Se autorizan contratos finitos escritos explícitamente para el código presente: cardinalidad y acumulador de reduce, variantes Match, tablas por clave, filtros, divisores y orden de guardas. No se autoriza convertir funciones financieras en primitivas opacas, terminar en un parámetro auxiliar sin enlazarlo a su argumento público ni usar pruebas numéricas aisladas como demostración de todas las dependencias. Cada contrato nuevo debe tener un caso que detecte omitir o alterar su dependencia relevante.
 
-Los fragmentos normalizan los nodos y referencias; no copian el grafo completo de 11 MB en cada sitio ni embeben cuerpos repetidos. Se escribe una explicación concreta por sitio y sus límites. El padre recibirá y compondrá después, con revisión independiente nueva antes de publicar. El hecho de separar las tareas es una decisión de ejecución; no reduce el estándar de cierre pedido.
+Los fragmentos normalizan nodos y referencias, sin copiar el grafo completo de 11 MB en cada sitio ni embeber cuerpos repetidos. Cada sitio necesita una explicación concreta y sus límites; dividir la representación no reduce sus requisitos de cierre.

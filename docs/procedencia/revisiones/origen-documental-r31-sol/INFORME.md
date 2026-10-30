@@ -1,8 +1,10 @@
 # Revisión independiente de origen documental R31
 
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
 La corrección de RC30-01 y RC30-02 queda corroborada como candidata técnica en los contratos examinados. No aparecen defectos nuevos reproducidos que exijan un fix de producto en este alcance. Esto no aprueba una taxonomía general, recuperación documental, interpretación jurídica, privacidad ni publicación. Las conclusiones requieren contraste del padre.
 
-Revisión personal en T3 Code mediante Codex, runtime gpt-6.1-sol con esfuerzo high. Prioridad pedida explícitamente por Elies; no se inventa una acreditación independiente del scheduler. Sin subdelegación, cambio de modelo, atestación ni operaciones VCS mutantes. HEAD exigido y observado: d28705191c428ec226760413b152080f36226c10, 16.548 entradas. Se leen BRIEF íntegro, AGENTS del checkout, CONTRATO-AUDITORIA, COORDINACION, ESTADO/DECISIONES y antecedentes recibidos R30/R31. No existe /home/elies/irobopf-contexto/AGENTS.md; las instrucciones efectivas son las entregadas y AGENTS.md del checkout. Se respeta la corrección urgente frente al BRIEF histórico.
+Base examinada: d28705191c428ec226760413b152080f36226c10, 16.548 entradas. Se contrastaron los antecedentes recibidos R30/R31.
 
 ## Bytes, alcance y contraste histórico
 
@@ -42,4 +44,4 @@ Ruff 0.15.14 y mypy 1.20.1 finales pasan en cinco fuentes: dos instrumentos prop
 
 Los cotejos físicos inicio/final leen cada blob de HEAD individualmente y comparan lstat, readlink, bytes y ejecutabilidad. Todos los archivos de base intactos, cero borrados, además de diffs de trabajo/índice vacíos. El cotejo inicial terminó antes de las sondas. Solo se escribe en este directorio y .cache/revision-origen-r31; los ensayos de preservación/transporte quedan en scratch. MANIFIESTO y transporte documentan sobres y exclusiones autorreferentes. Los archivos nuevos tienen baseSha256 nulo, sin modificaciones previas que justificar. No se añade ningún original fiscal ni PDF: cas-propio.json conserva solo los dos recolectores de prueba exactos, ambos hashes y referencias de preservación; las demás fuentes están en Git o CAS externo recibido.
 
-Motor, inventario 30dfbc3154494ae09eee32d1bcf005b627241051bb3531af3cb38e686dff1de7, 42 snapshots, confianza activa e informes históricos permanecen intactos por el cotejo físico completo. Sin fixes de producto, main, PR, deploy, LFS, gasto, transferencia externa, escritura en X, atestaciones ni aceptación fiscal. Crossa sigue v1 desfasado, mismo dueño y casa, copia local fuera de Victus, sin custodia independiente. El encargo global permanece abierto.
+Motor, inventario 30dfbc3154494ae09eee32d1bcf005b627241051bb3531af3cb38e686dff1de7, 42 snapshots, confianza activa e informes históricos permanecen intactos por el cotejo físico completo. Sin fixes de producto, main, PR, deploy, LFS, gasto, transferencia externa, escritura en X, atestaciones ni aceptación fiscal. Crossa sigue v1 desfasado, mismo dueño y casa, copia local fuera de Victus, sin custodia independiente.

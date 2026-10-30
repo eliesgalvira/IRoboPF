@@ -37,4 +37,4 @@ Se usan solo lecturasVCS (`rev-parse`, `ls-tree`, `cat-file`, `diff`, `ls-files`
 
 La herramienta `rg` faltaba al inicio; las lecturas posteriores usaron rutas ya conocidas, sed y Python mediante Nix, sin instalar ni sustituirla por comandos prohibidos. Ninguna espera del lock constituye prueba ejecutada.
 
-Se conserva además `mypy-empaquetado.log`: faltaba la anotación de lista de líneas de patch en el script propio. Tras añadirla, mypy pasa en los cuatro scripts; Ruff también pasa. Son ajustes de los instrumentos de esta revisión, sin modificar R22 ni sus expectativas.
+`mypy-empaquetado.log` conserva el fallo de anotación del instrumento. Tras corregirlo, mypy pasa en los cuatro scripts y Ruff también. El ajuste no modifica R22 ni sus expectativas.

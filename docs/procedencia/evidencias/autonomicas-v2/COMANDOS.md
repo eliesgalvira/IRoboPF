@@ -2,9 +2,8 @@
 
 Desde `/home/elies/.t3/worktrees/IRoboPF/t3-4f88346e`.
 
-1. `git rev-parse HEAD`: eaed990c620b5fc4d3ff2e74dc68e0c8481c43db. Solo lecturas Git; los scripts usan git show con revisiones completas y git ls-tree para presencia.
 2. `UV_PROJECT_ENVIRONMENT="$PWD/docs/procedencia/evidencias/autonomicas-v2/scratch/venv" flock /tmp/irobopf-validacion-pesada.lock bash tools/procedencia/run.sh "$PWD/docs/procedencia/evidencias/autonomicas-v2/reproducir_historico.py"`: salida 0; historico.log registra 94 selecciones, 93 citas, 317 decisiones, 136 payloads y 186 celdas, sin discrepancias. Nueve PNG reproducidos.
-3. `PYTHONDONTWRITEBYTECODE=1 UV_PROJECT_ENVIRONMENT="$PWD/docs/procedencia/evidencias/autonomicas-v2/scratch/venv" flock /tmp/irobopf-validacion-pesada.lock bash tools/procedencia/run.sh "$PWD/docs/procedencia/evidencias/autonomicas-v2/preparar.py"`: primer intento salida 1, selector de propiedad murciana demasiado amplio; preparar-inicial.log. Repetición salida 0 en preparar.log, con 186 candidatos y bloqueos explícitos.
+3. `PYTHONDONTWRITEBYTECODE=1 UV_PROJECT_ENVIRONMENT="$PWD/docs/procedencia/evidencias/autonomicas-v2/scratch/venv" flock /tmp/irobopf-validacion-pesada.lock bash tools/procedencia/run.sh "$PWD/docs/procedencia/evidencias/autonomicas-v2/preparar.py"`: salida 0 en preparar.log, con 186 candidatos y bloqueos explícitos.
 4. `nix shell nixpkgs#ruff nixpkgs#mypy -c bash -c 'ruff check --no-cache docs/procedencia/evidencias/autonomicas-v2/*.py > docs/procedencia/evidencias/autonomicas-v2/ruff.log 2>&1; flock /tmp/irobopf-validacion-pesada.lock mypy --cache-dir=docs/procedencia/evidencias/autonomicas-v2/scratch/mypy --follow-imports=skip --ignore-missing-imports --check-untyped-defs docs/procedencia/evidencias/autonomicas-v2/*.py > docs/procedencia/evidencias/autonomicas-v2/mypy.log 2>&1'`: Ruff señaló una importación no utilizada; mypy correcto sobre dos instrumentos. Repetición final ampliada a tres archivos en los logs finales.
 
 Comando de calidad y repetición final:

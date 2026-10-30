@@ -25,4 +25,4 @@ No se ejecutan recolectores ni inicializadores históricos de tests: censo_recet
 
 Los casos sintéticos viven únicamente en .cache/revision-v5-r28/casos. Un esperado incumplido permanece en casos.json; su etiqueta residual-conocido no lo convierte en pase ni acredita secretos reales. No se ejecutan suites legacy ni Next build. No hay código Effect/TS nuevo. Ruff y mypy se aplican a las fuentes propias; oxlint es solo humo sobre una fuente TS intacta y carga de las 16 reglas a error, no lint de Python.
 
-Los comandos son de lectura VCS. No hay init, commit, reset, bookmark, push, PR, servidor o transferencia externa. Los scripts de restauración, controles físicos y entrega se conservan también como fuentes para que el padre contraste las conclusiones.
+Los scripts de restauración, controles físicos y entrega se conservan como fuentes para contrastar las conclusiones.

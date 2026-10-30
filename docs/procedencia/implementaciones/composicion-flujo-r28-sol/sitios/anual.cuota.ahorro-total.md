@@ -1,12 +1,13 @@
 # anual.cuota.ahorro-total
 
-Candidato pendiente de revisión independiente. Cierre técnico: false. Publicación y aceptación jurídica: false.
+Estado del candidato histórico: revisión independiente pendiente; cierre técnico, publicación y aceptación jurídica: false.
 
 Fórmula TS: "Suma de cuotas por tramo"
 
 Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y aplicabilidad separados; ninguna aceptación jurídica.
 
-- { base, tramos, escalasPublicadas } / escalasPublicadas (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1505–1540
+El detalle de productores y literales, con archivo, rango y relación, se conserva en [composicion.json.gz](../composicion.json.gz). Las limitaciones no resueltas de esta ficha son:
+
 - (ganancia) =>
       calcularGananciaPatrimonialPorTransmision({
         anio,
@@ -14,55 +15,30 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
         ganancia,
         convertirCentimos,
       }) / value (selector, selection); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1477–1635
-- undefined / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1899–1908
 - EffectArray.reduce(
     EffectArray.map(ganancias, (ganancia) =>
       calcularGananciaPatrimonialPorTransmision({
         anio,
         edadContribuyente,
      / gananciaSujetaAhorro (selector, selection); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1426–2362
-- base / value (EUR, value); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:608–612
-- TRAMOS_IRPF_AHORRO_2014 / value (EUR, value); productor; lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts:4778–4801
-- EffectArray.reduce(
-              tramos,
-              {
-                limiteAnterior: base.mul(0),
-                tramos: EffectArray.empty<TramoCuotaGener / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3222–4450
 - [
   [importe(6000), importe("0.19")],
   [importe(50000), importe("0.21")],
   [importe(200000), importe("0.23")],
   [importe(Infinity), importe("0.26")],
 ] / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts:3681–3835
-- Match.value(anio).pipe(
-    Match.when(2012, () => TRAMOS_IRPF_AHORRO_2012),
-    Match.when(2013, () => TRAMOS_IRPF_AHORRO_2013),
-    Match.when(2014, () => TRA / value (EUR, value); productor; lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts:9586–10350
 - [] / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3154–3156
-- {
-    anio: caso.anio,
-    base: baseLiquidableAhorro,
-  } / anio (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:18903–18961
-- TRAMOS_IRPF_AHORRO_2016 / value (EUR, value); productor; lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts:9849–9872
-- obtenerTramosIrpfAhorro(anio) / value (EUR, value); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:626–655
 - () => [] / value (selector, selection); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14276–14284
-- base.mul(0) / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1547–1558
-- baseLiquidableAhorro / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:18936–18956
-- gananciasPatrimoniales / gananciaSujetaAhorro (EUR, value); productor; lib/dominio/irpf/integracion/base-imponible-ahorro.ts:315–337
 - EffectArray.reduce(
     calcularDesgloseCuotaPorEscala({ base, tramos, escalasPublicadas }),
     base.mul(0),
     (total, tramo) => total.plus(tramo.cuota)
   ) / value (EUR, value); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1450–1609
-- calcularBaseImponibleAhorro({
-        gananciasPatrimoniales,
-      }) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15860–15930
 - [
   [importe(6000), importe("0.21")],
   [importe(24000), importe("0.25")],
   [importe(Infinity), importe("0.27")],
 ] / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts:4609–4725
-- gananciasPatrimoniales / gananciaSujetaAhorro (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15898–15920
 - [
   [importe(6000), importe("0.19")],
   [importe(50000), importe("0.21")],
@@ -73,7 +49,6 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
   [importe(50000), importe("0.215")],
   [importe(Infinity), importe("0.235")],
 ] / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts:4437–4556
-- caso / anio (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:18915–18919
 - (ganancia) =>
       calcularGananciaPatrimonialPorTransmision({
         anio,
@@ -81,26 +56,6 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
         ganancia,
         convertirCentimos,
       }) / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1477–1635
-- escalasPublicadas / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1521–1538
-- 0 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3134–3135
-- base / value (selector, selection); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:608–612
-- medirAuditoriaSync(
-    "liquidacion.gananciasPatrimoniales",
-    () =>
-      calcularGananciasPatrimonialesPorTransmision({
-        anio: caso.anio,
-        ed / gananciaSujetaAhorro (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13946–14343
-- TRAMOS_IRPF_AHORRO_2025 / value (EUR, value); productor; lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts:10322–10345
-- {
-        gananciasPatrimoniales,
-      } / gananciasPatrimoniales.gananciaSujetaAhorro (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15888–15929
-- medirAuditoriaSync(
-    "liquidacion.baseImponibleAhorro",
-    () =>
-      calcularBaseImponibleAhorro({
-        gananciasPatrimoniales,
-      })
-  ) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15785–15934
 - EffectArray.reduce(
               tramos,
               {
@@ -111,7 +66,6 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
   [importe(50000), importe("0.21")],
   [importe(Infinity), importe("0.23")],
 ] / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts:3964–4080
-- ganancias / value (selector, selection); productor; lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1466–1475
 - [
   [importe(6000), importe("0.21")],
   [importe(24000), importe("0.25")],
@@ -124,17 +78,6 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
   [importe(300000), importe("0.27")],
   [import / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts:3115–3307
 - caso / anio (selector, selection); public-input; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:9398–9402
-- calcularGananciasPatrimonialesPorTransmision({
-        anio: caso.anio,
-        edadContribuyente: caso.situacionFamiliar.edad,
-        ganancias: Option.fromNu / gananciaSujetaAhorro (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14024–14339
-- medirAuditoriaSync(
-    "liquidacion.gananciasPatrimoniales",
-    () =>
-      calcularGananciasPatrimonialesPorTransmision({
-        anio: caso.anio,
-        ed / gananciaSujetaAhorro (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13946–14343
-- TRAMOS_IRPF_AHORRO_2021 / value (EUR, value); productor; lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts:10114–10137
 - [
   [importe(6000), importe("0.19")],
   [importe(50000), importe("0.21")],
@@ -142,68 +85,23 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
   [importe(Infinity), importe("0.26")],
 ] / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts:3681–3835
 - Option.getOrElse(() => []) / value (selector, selection); Contrato de llamada pendiente: Option.getOrElse; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14259–14285
-- TRAMOS_IRPF_AHORRO_2020 / value (EUR, value); productor; lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts:4133–4156
-- TRAMOS_IRPF_AHORRO_2020 / value (EUR, value); productor; lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts:4285–4308
-- TRAMOS_IRPF_AHORRO_2020 / value (EUR, value); productor; lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts:4209–4232
-- Match.value(base).pipe(
-        Match.when(
-          (base) => base.lte(0),
-          () => []
-        ),
-        Match.orElse(
-          (base) =>
-            / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3061–4468
-- gananciasPatrimoniales / gananciaSujetaAhorro (selector, selection); productor; lib/dominio/irpf/integracion/base-imponible-ahorro.ts:315–337
-- escalasPublicadas !== undefined / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1877–1908
-- {
-    base,
-    tramos: obtenerTramosIrpfAhorro(anio),
-  } / base (selector, selection); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:602–660
-- 0 / value (EUR, value); literal; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1556–1557
 - {
       gananciaTotal: IMPORTE_CERO,
       gananciaExenta: IMPORTE_CERO,
       gananciaSujetaAhorro: IMPORTE_CERO,
       gananciaSujetaGeneral: IMPORTE_CERO,
    / value (selector, selection); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1647–1810
-- 0 / value (selector, selection); literal; lib/dominio/irpf/integracion/base-imponible-ahorro.ts:312–313
 - [
   [importe(6000), importe("0.19")],
   [importe(50000), importe("0.21")],
   [importe(Infinity), importe("0.23")],
 ] / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts:3964–4080
-- calcularBaseImponibleAhorro({
-        gananciasPatrimoniales,
-      }) / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15860–15930
-- {
-        gananciasPatrimoniales,
-      } / gananciasPatrimoniales.gananciaSujetaAhorro (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15888–15929
-- escalasPublicadas !== undefined
-    ? EffectArray.flatMap(escalasPublicadas, (filas) =>
-        Option.match(
-          EffectArray.findLast(
-            filas, / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1877–4468
 - [
   [importe(6000), importe("0.19")],
   [importe(50000), importe("0.21")],
   [importe(200000), importe("0.23")],
   [importe(300000), importe("0.27")],
   [import / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts:3360–3552
-- calcularCuotaPorEscalaAhorro({
-    anio: caso.anio,
-    base: baseLiquidableAhorro,
-  }) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:18874–18962
-- medirAuditoriaSync(
-    "liquidacion.baseImponibleAhorro",
-    () =>
-      calcularBaseImponibleAhorro({
-        gananciasPatrimoniales,
-      })
-  ) / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15785–15934
-- calcularGananciasPatrimonialesPorTransmision({
-        anio: caso.anio,
-        edadContribuyente: caso.situacionFamiliar.edad,
-        ganancias: Option.fromNu / gananciaSujetaAhorro (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14024–14339
 - [
   [importe(6000), importe("0.21")],
   [importe(24000), importe("0.25")],
@@ -224,68 +122,26 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
                 limiteAnterior: base.mul(0),
                 tramos: EffectArray.empty<TramoCuotaGeneralCalculado>(),
               } / value (EUR, value); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3278–3413
-- base.lte(0) / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3125–3136
 - {
       gananciaTotal: IMPORTE_CERO,
       gananciaExenta: IMPORTE_CERO,
       gananciaSujetaAhorro: IMPORTE_CERO,
       gananciaSujetaGeneral: IMPORTE_CERO,
    / value (EUR, value); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1647–1810
-- {
-    base,
-    tramos: obtenerTramosIrpfAhorro(anio),
-  } / base (EUR, value); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:602–660
-- TRAMOS_IRPF_AHORRO_2022 / value (EUR, value); productor; lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts:10167–10190
-- TRAMOS_IRPF_AHORRO_2015 / value (EUR, value); productor; lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts:9796–9819
 - () => [] / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14276–14284
-- escalasPublicadas / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1877–1894
 - (total, tramo) => total.plus(tramo.cuota) / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1564–1605
 - [
   [importe(6000), importe("0.19")],
   [importe(50000), importe("0.21")],
   [importe(Infinity), importe("0.23")],
 ] / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts:3964–4080
-- TRAMOS_IRPF_AHORRO_2014 / value (EUR, value); productor; lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts:4854–4877
-- baseLiquidableAhorro / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:18936–18956
-- TRAMOS_IRPF_AHORRO_2020 / value (EUR, value); productor; lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts:4361–4384
 - (total, ganancia) => ({
       gananciaTotal: total.gananciaTotal.plus(ganancia.gananciaTotal),
       gananciaExenta: total.gananciaExenta.plus(ganancia.ganancia / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1816–2358
-- {
-    base,
-    tramos: obtenerTramosIrpfAhorro(anio),
-  } / tramos (EUR, value); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:602–660
-- TRAMOS_IRPF_AHORRO_2023 / value (EUR, value); productor; lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts:10220–10243
-- {
-        anio: caso.anio,
-        edadContribuyente: caso.situacionFamiliar.edad,
-        ganancias: Option.fromNullishOr(
-          caso.rendimientos.ganancia / ganancias (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14069–14338
-- calcularDesgloseCuotaPorEscala({ base, tramos, escalasPublicadas }) / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1474–1541
-- TRAMOS_IRPF_AHORRO_2017 / value (EUR, value); productor; lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts:9902–9925
-- 0 / value (EUR, value); literal; lib/dominio/irpf/integracion/base-imponible-ahorro.ts:312–313
-- TRAMOS_IRPF_AHORRO_2024 / value (EUR, value); productor; lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts:10273–10296
-- Decimal.max(0, gananciasPatrimoniales.gananciaSujetaAhorro) / value (selector, selection); productor; lib/dominio/irpf/integracion/base-imponible-ahorro.ts:300–359
-- tramos / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1513–1519
-- Decimal.max(0, gananciasPatrimoniales.gananciaSujetaAhorro) / value (EUR, value); productor; lib/dominio/irpf/integracion/base-imponible-ahorro.ts:300–359
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:650–654
 - (total, ganancia) => ({
       gananciaTotal: total.gananciaTotal.plus(ganancia.gananciaTotal),
       gananciaExenta: total.gananciaExenta.plus(ganancia.ganancia / value (selector, selection); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1816–2358
 - Option.getOrElse(() => []) / value (EUR, value); Contrato de llamada pendiente: Option.getOrElse; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14259–14285
-- {
-        anio: caso.anio,
-        edadContribuyente: caso.situacionFamiliar.edad,
-        ganancias: Option.fromNullishOr(
-          caso.rendimientos.ganancia / ganancias (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14069–14338
-- {
-    anio: caso.anio,
-    base: baseLiquidableAhorro,
-  } / base (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:18903–18961
-- base / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1507–1511
-- base / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3073–3077
-- cuotaIntegraAhorro / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:55396–55414
-- gananciasPatrimoniales.gananciaSujetaAhorro / value (selector, selection); productor; lib/dominio/irpf/integracion/base-imponible-ahorro.ts:315–358
 - (estado, [limite, tipo]) => {
                 const baseRestante = Decimal.max(
                   0,
@@ -297,8 +153,6 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
         anio,
         edadContribuyente,
      / gananciaSujetaAhorro (EUR, value); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1426–2362
-- TRAMOS_IRPF_AHORRO_2014 / value (EUR, value); productor; lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts:9743–9766
-- TRAMOS_IRPF_AHORRO_2020 / value (EUR, value); productor; lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts:10061–10084
 - EffectArray.map(ganancias, (ganancia) =>
       calcularGananciaPatrimonialPorTransmision({
         anio,
@@ -311,45 +165,20 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
   [importe(Infinity), importe("0.23")],
 ] / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts:3964–4080
 - {
-    anio: caso.anio,
-    base: baseLiquidableAhorro,
-  } / base (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:18903–18961
-- calcularCuotaPorEscala({
-    base,
-    tramos: obtenerTramosIrpfAhorro(anio),
-  }) / value (EUR, value); productor; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:579–661
-- TRAMOS_IRPF_AHORRO_2019 / value (EUR, value); productor; lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts:10008–10031
-- gananciasPatrimoniales / gananciaSujetaAhorro (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15898–15920
-- {
     base,
     tramos: obtenerTramosIrpfAhorro(anio),
   } / escalasPublicadas (selector, selection); Propiedad no resuelta (spread/alias): escalasPublicadas; lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts:602–660
-- ganancias / value (EUR, value); productor; lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1466–1475
-- TRAMOS_IRPF_AHORRO_2012 / value (EUR, value); productor; lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts:9637–9660
-- gananciasPatrimoniales.gananciaSujetaAhorro / value (EUR, value); productor; lib/dominio/irpf/integracion/base-imponible-ahorro.ts:315–358
-- TRAMOS_IRPF_AHORRO_2013 / value (EUR, value); productor; lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts:9690–9713
 - Option.fromNullishOr(
           caso.rendimientos.gananciasPatrimoniales
         ).pipe(Option.getOrElse(() => [])) / value (selector, selection); Contrato de llamada pendiente: Option.fromNullishOr(
           caso.rendimientos.gananciasPatrimoniales
         ).pipe; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14171–14286
-- anio / value (selector, selection); productor; lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts:9598–9602
-- caso.anio / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:18915–18924
 - [
   [importe(6000), importe("0.19")],
   [importe(50000), importe("0.21")],
   [importe(200000), importe("0.23")],
   [importe(300000), importe("0.27")],
   [import / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts:3360–3552
-- { base, tramos, escalasPublicadas } / base (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1505–1540
-- base / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3125–3129
-- TRAMOS_IRPF_AHORRO_2018 / value (EUR, value); productor; lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts:9955–9978
-- tramos / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3256–3262
-- { base, tramos, escalasPublicadas } / tramos (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1505–1540
-- TRAMOS_IRPF_AHORRO_2022 / value (EUR, value); productor; lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts:3888–3911
-- base / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1547–1551
-- TRAMOS_IRPF_AHORRO_2024 / value (EUR, value); productor; lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts:3605–3628
-
 ## Condiciones por relación
 
 - [value] argumento de max; e:0

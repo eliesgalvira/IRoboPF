@@ -1,6 +1,8 @@
 # Revisión independiente de escalas y mínimos
 
-Base exacta de revisión: `7668bdad60a79a8b3ad8e1e1b911f3d6c223692a`. Trabajo personal de gpt-6.1-sol, esfuerzo high, sin subdelegación. La prioridad fue solicitada expresamente; este proceso no dispone de un comprobante independiente de la capa de servicio. No se modifica el motor ni la autoría, los estados, los registros, las atestaciones o las identidades históricas.
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
+Base examinada: `7668bdad60a79a8b3ad8e1e1b911f3d6c223692a`.
 
 Dictamen: contenido aprovechable como explicación candidata de operaciones implementadas, con ajustes necesarios antes de adaptarlo al publicador. No hay demostración nueva de una cuota errónea del motor en esta revisión. Hay carencias reproducibles de soporte primario enlazado y de explicación de una condición familiar. Estos hallazgos propios son **candidatos para contraste del padre**. Ninguna aceptación jurídica limitada se amplía a regla completa.
 
@@ -72,7 +74,7 @@ Objeción del mejor experto: un mapeo meramente estructural puede producir pági
 
 ## Límites y preservación
 
-Se leyeron BRIEF, AGENTS, contrato, coordinación, ESTADO y DECISIONES completos, el informe/editoriales/recibos terminados autorizados y el código pertinente. No se inspecciona la revisión activa retenciones2012–2014 ni carpetas de trabajo activo. Los informes previos sirven de índice y sus bytes permanecen intactos.
+Se examinaron el informe, las editoriales y los recibos terminados, junto con el código pertinente. Los informes previos se usaron como índice.
 
 Las fuentes primarias se registran por ruta literal, SHA256/SHA512 y tamaño en `originales-reabiertos.json`; `reextraccion-independiente.json` conserva las 244 citas, cajas, texto reextraído y las afirmaciones/celdas que las invocan. La asociación no significa que una página pruebe todas las afirmaciones de una ficha: SEM-01/02 lo refutan. `paginas-reextraidas.json` conserva el texto de las56 páginas únicas. Reabrir19 originales no equivale a leer cada página de esos19PDF enteros; la revisión se limita a sus pasajes invocados. Las compilaciones se usan para su texto reproducido, no para cerrar reformas históricas por asociación.
 

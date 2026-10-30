@@ -1,6 +1,8 @@
 # Contrarrevisión de conexión anual, v2
 
-Revisor: agente Codex de este hilo, checkout T3 `t3-c26a76c1`, rol `/root` en la sesión delegada de revisión. Trabajo personal, sin subdelegación. Base comprobada: `5799bb03826719a4dd3500a962e2d6bb5124fdca`. No se atribuye identidad ni independencia a un seudónimo. No se hicieron fixes, operaciones VCS mutantes, cambios de registros o atestaciones.
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
+Base examinada: `5799bb03826719a4dd3500a962e2d6bb5124fdca`.
 
 ## Dictamen por hallazgo
 
@@ -24,7 +26,7 @@ Las extracciones conservadas son texto de páginas, no nuevas citas con coordena
 
 ## Casos y lectura del contrato
 
-Se leyeron BRIEF, AGENTS, CONTRATO-AUDITORIA, COORDINACION, ESTADO, DECISIONES, integración-ronda11 íntegra y D043–D046, redondeos-r11, revisión conexion-anual-v1, su generador y 84 entradas/expectativas, informe de implementación, código de conexión, contratos, adaptador laboral, deducciones, escalas, enlazador y tests del padre. Se leyó la entrega de revisión de X integrada: CX-06-A requiere contrato familiar; CX-07-B no es un oracle fiscal. No se consultó el trabajo en curso del hijo familiar ni se convirtió un rojo de investigación en expectativa general.
+Se examinaron la integración de ronda 11 y D043–D046, redondeos-r11, conexion-anual-v1, su generador y las 84 entradas y expectativas, el informe de implementación, código de conexión, contratos, adaptador laboral, deducciones, escalas, enlazador y pruebas. La revisión de X integrada aporta dos reservas: CX-06-A requiere contrato familiar y CX-07-B no constituye un oracle fiscal. Un rojo de investigación no se convierte en expectativa general.
 
 Los 84 casos anteriores se regeneran en scratch con su fórmula Decimal a 120 cifras, cotejada de nuevo con los primarios y con el cálculo separado de componentes. **84/84 coinciden**, frente a 58/84 en v1. Se conserva la historia sin reescritura. Hay 31 rechazos esperados y cero Die. Se mantiene el caso EDS de 10.000 ingresos máximos, las pérdidas, RETA, art32, retenciones y modelo 130 separados, duplicados, mezclas y hechos excluidos.
 

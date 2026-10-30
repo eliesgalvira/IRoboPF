@@ -1,6 +1,8 @@
 # Revisión de la implementación de retenciones
 
-**Requiere cambios en la integración.** Base examinada: `ed6a43fd750de05609abc3710dabdc2f8261020c`. Las diez fuentes fijadas en `logs/fuentes.json` coinciden byte a byte con esa base. No se han aplicado fixes ni modificado informes ajenos, registros editoriales, package, lockfiles o CI. Revisión personal, sin subdelegación.
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
+**Requiere cambios en la integración examinada.** Base: `ed6a43fd750de05609abc3710dabdc2f8261020c`. Las diez fuentes fijadas en `logs/fuentes.json` coinciden byte a byte con esa base.
 
 ## Hallazgos reproducidos
 
@@ -26,7 +28,7 @@ Los dos rojos previos de Ceuta del padre están en `correcciones/integracion-ron
 
 ## Evidencia y cinco puertas
 
-Se leyeron íntegros BRIEF, AGENTS, CONTRATO-AUDITORIA, COORDINACION, ESTADO, DECISIONES, integración ronda 7, informe de implementación y los cuatro informes de auditoría/contrarrevisión de 2012–2019 y 2020–2026. Se reabrieron y extrajeron con Poppler los 17 originales de la implementación: `logs/originales.json` fija hash, tamaño y número de páginas. Las extracciones scratch proceden de PDF, nunca de conversiones Markdown.
+Se examinaron integración de ronda 7, informe de implementación y los cuatro informes de auditoría y contrarrevisión de 2012–2019 y 2020–2026. Se reabrieron y extrajeron con Poppler los 17 originales: `logs/originales.json` fija hash, tamaño y número de páginas. Las extracciones proceden de PDF.
 
 Lectura sustantiva focalizada: AEAT2017 pp.22 y32 físicas (RED20 y mínimos Ceuta); julio2018 pp.22,29–34 (media, tablas, límite y mínimos); AEAT2020 pp.22,28–31 (reducción, exclusión, escala y corte); portadas de las versiones 2023–2026. Las portadas distinguen expresamente los períodos del catálogo; la fecha de edición no se interpreta automáticamente como entrada en vigor. La lectura de los informes históricos no se presenta como nueva verificación de todas sus cadenas BOE ni de sus miles de citas. No hubo descargas nuevas.
 

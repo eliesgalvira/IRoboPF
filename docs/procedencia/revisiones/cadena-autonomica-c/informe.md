@@ -1,6 +1,8 @@
 # Revisión independiente de cadena autonómica C
 
-Fecha de corte: 29 de octubre de 2026. Revisión personal, sin subdelegación ni cambios VCS o de entrega. **92 decisiones individuales: 11 accepted de alcance limitado y 81 needs-evidence; ninguna escala fiscal completa certificada.** Los 90 pares y 517 referencias de fila están cubiertos. `revisiones.json` conserva estado anterior, reclassificación, alcance, originales, objeciones y casos por ID. `matriz-legal.json` separa las variantes anuales. No se modifican los candidatos del autor.
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
+Fecha de corte: 29 de octubre de 2026. **92 decisiones individuales: 11 accepted de alcance limitado y 81 needs-evidence; ninguna escala fiscal completa certificada.** Los 90 pares y 517 referencias de fila están cubiertos. `revisiones.json` conserva estado anterior, reclasificación, alcance, originales, objeciones y casos por ID. `matriz-legal.json` separa las variantes anuales.
 
 ## Resultados accionables
 
@@ -45,7 +47,7 @@ Los scripts de extracción usan `uv run --with pymupdf` o `--with beautifulsoup4
 
 La matriz contiene eslabones principales y contrapruebas de cuotas, pero **no cierra exhaustivamente todas las reformas/correcciones y publicaciones regionales de las34 variantes**. Por ello81 decisiones siguen pendientes; un índice o una suma de tramos no suple esa investigación. Las517 filas tienen reextracción de cajas vinculadas, pero muchas cajas abarcan toda la tabla: no son517 selecciones geométricas de fila/celda certificadas. No se validaron confianza de certificados, revocación, CSV ni sellos de tiempo. No se certifica mínimos familiares, prorrateos, deducciones, residencia territorial ni la liquidación neta.
 
-Las cifras que no superan estos límites permanecen candidatas. El coste de esta decisión se hace explícito: se entrega cobertura técnica completa e investigación jurídica focalizada con92 decisiones, no una certificación jurídica exhaustiva de90 escalas. El orquestador puede usar los casos discriminantes y los eslabones cerrados sin elevar a aceptadas las restantes reglas.
+Las cifras que no superan estos límites permanecen candidatas. El coste de esta decisión se hace explícito: se entrega cobertura técnica completa e investigación jurídica focalizada con92 decisiones, no una certificación jurídica exhaustiva de90 escalas. Los casos discriminantes y los eslabones cerrados no convierten en aceptadas las restantes reglas.
 
 ## Verificación final y fallos de trabajo separados
 
@@ -53,6 +55,6 @@ Se reextrajeron **2.757 citas, cero diferencias**, mediante PyMuPDF `get_textbox
 
 La geometría INE se releyó y se miró el render completo: etiqueta y valor ocupan respectivamente y545,1995–556,3686 e y546,9821–555,0258. La caja conjunta devuelve literalmente `La Rioja\n2,6`. `geometria-ine.json` conserva cajas, hash y fecha15/1/2026. Se examinó también visualmente BORM p4: la cláusula de cuota está fuera de la tabla y no presenta tachado. Hay430 citas nuevas por bloques de páginas críticas en `citas-refinadas.json`; su abundancia tampoco certifica semántica.
 
-Prueba fallida **realmente ejecutada**, Bun1.3.13, salida1: `nix shell nixpkgs#bun -c bun .cache/procedencia/revision-cadena-autonomica-c/murcia-fallo.mjs`. Aserción de cuota bruta8.716,67; resultado real8.625,84. El archivo es scratch propio y queda listo para que el orquestador traslade el caso cuando decida el contrato de corrección. No se editó motor ni tests mantenidos.
+Prueba fallida **realmente ejecutada**, Bun1.3.13, salida1: `nix shell nixpkgs#bun -c bun .cache/procedencia/revision-cadena-autonomica-c/murcia-fallo.mjs`. Aserción de cuota bruta8.716,67; resultado real8.625,84. La prueba conserva el contrato de cuota bruta que discrimina el defecto; no constituye una liquidación completa.
 
 Metadatos de las adquisiciones nuevas, intento403 y límites de búsqueda regional en `busqueda-y-adquisicion.json`. `codigo-actual.json` fija hashes actuales separados de la foto del autor. Las carpetas ajenas, ESTADO y DECISIONES permanecen sin cambios de esta revisión.

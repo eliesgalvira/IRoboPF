@@ -1,8 +1,10 @@
 # Revisión 2015–2016: entrega parcial, cierre exhaustivo no alcanzado
 
-Base y HEAD: `65cff4fd8eb8c6269c2ce97b88e770aa711bff7f`. Revisión personal del agente de `t3-0d5d5c94`, sin subdelegación. Esta entrega **no satisface la lectura jurídica y visual exhaustiva solicitada**. No habilita versiones ni acepta fiscalmente el procedimiento. Se entregan resultados útiles y límites explícitos; no se presenta una nueva revisión selectiva como cierre.
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
 
-Se comprobó presencia con lstat de las 9.391 entradas del índice, tres symlinks con readlink y destino existente, HEAD y diff contra base vacíos. Los 19 originales de la revisión anterior se comprobaron por SHA256/SHA512/tamaño en el CAS del padre. La lectura de contexto abarcó BRIEF, AGENTS, contrato, coordinación, estado, decisiones, integración ronda13 y los cuatro informes de auditoría/revisión indicados. La ruta de integración correcta lleva prefijo docs/procedencia. No se consultó trabajo activo de otros hijos. La ronda14 no cambia este ámbito fiscal.
+Base examinada: `65cff4fd8eb8c6269c2ce97b88e770aa711bff7f`. Esta revisión **no satisface la lectura jurídica y visual exhaustiva solicitada**. No habilita versiones ni acepta fiscalmente el procedimiento. Sus resultados y límites conservan alcance selectivo.
+
+Se comprobó la presencia de 9.391 entradas mediante lstat y tres symlinks mediante readlink y destino existente. Los 19 originales de la revisión anterior se cotejaron por SHA256, SHA512 y tamaño. Se examinaron integración de ronda 13 y los cuatro informes de auditoría y revisión. La ronda 14 no cambia este ámbito fiscal.
 
 ## Decisiones e información nueva
 

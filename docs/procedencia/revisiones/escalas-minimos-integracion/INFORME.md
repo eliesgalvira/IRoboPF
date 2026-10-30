@@ -1,6 +1,8 @@
 # Revisión independiente de escalas, mínimos e integración
 
-Revisor nuevo, 29/10/2026. Base examinada: `0ca324b082676e15ae443b3c83d7f81828fbc0ce`. Los doce archivos identificados en `manifiesto/codigo.json` coinciden byte a byte con esa base. Sin modificaciones de implementación, registros, oracle ni VCS. Informe del autor e INTEGRACION-R5 utilizados como índices, no como prueba.
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
+Revisión del 29/10/2026. Base examinada: `0ca324b082676e15ae443b3c83d7f81828fbc0ce`. Los doce archivos identificados en `manifiesto/codigo.json` coinciden byte a byte con esa base. El informe de implementación e INTEGRACION-R5 se usaron como índices.
 
 **Resultado: cambios aritméticos examinados aprobables dentro de su contrato parcial; integración de modos requiere corrección (EMI-01, P2).** No se certifican declaraciones completas ni se promueve ninguna regla o binding del corpus. EMI-02 advierte que la conciliación canónica no es una referencia legacy independiente.
 

@@ -1,6 +1,8 @@
 # Implementación de cuotas publicadas y ahorro por componente
 
-Base de integración: `d9ff49c7`. Entrega por archivos, sin operaciones VCS mutantes. No se han modificado ganancias, mínimos cuantitativos, deducciones catalogadas, retenciones, Seguridad Social, caso-fiscal-anual, package.json, CI ni el oracle. El inventario queda obsoleto por el cambio de fuentes y debe reconstruirlo el padre una sola vez tras integrar.
+Documento histórico del candidato de este directorio. Los resultados y estados corresponden a esa versión; no acreditan el estado actual del proyecto.
+
+Base del candidato documentado: `d9ff49c7`.
 
 ## Resultado y contrato
 
@@ -32,22 +34,20 @@ El límite general de la consignación autonómica agregada usa cuota autonómic
 1. **Mantener aritmética exacta hasta la frontera existente.** Objeción: redondear cada casilla o cada componente podría alterar céntimos. Motivo: las revisiones no aceptan una regla universal distinta. Coste: se mantienen Decimal y `eurosACentimos` al exportar importes de liquidación; sumar campos ya redondeados puede diferir de redondear la suma exacta. No se altera política monetaria general. Los discriminantes de cuotas y los totales históricos no dependen de decidir un empate de medio céntimo.
 2. **Separar cuota publicada de integración legacy.** Objeción: sustituir globalmente el integrador rompería un contrato observable. Motivo: ADR0001–0004 y legacy-scope-gap preservan el perfil salarial simulado y el oracle. Coste: dos representaciones explícitas. Las funciones legacy sin filas conservan comportamiento; la selección estatal nueva excluye `simulada-estatal`. Se ejecuta la suite salarial rápida, sin regenerar fixture ni ejecutar la suite completa pesada. No se afirma equivalencia de todo el libro a partir de estos controles.
 3. **Limitar la selección territorial.** Objeción: una tabla reextraída puede tener vigencia pendiente. Motivo: solo las proposiciones individuales suficientemente revisadas permiten corregir esta representación. Coste: territorios no seleccionados conservan integración previa, con limitación expresa en el rastro. Murcia con fallecimiento se mantiene fuera de esta selección; no se infiere retroactividad desde publicación. No se tocan los selectores condicionales de Galicia, Canarias o mínimos catalanes.
-4. **Asturias no se promociona.** La revisión A reproduce 1.875,8614 frente a 1.875,8654 a base17.707,21 en2015, pero `CAA-CAD-014` sigue `needs-evidence` y las únicas aceptaciones de esa revisión son ancho2013–2014 y ausencia2026. Objeción: implementar ese dato como aceptado contradiría la decisión individual. Motivo: respetar el cierre externo requerido. Coste: cuota asturiana pendiente; no se convierte el ejemplo accionable en aceptación fiscal. El padre puede ampliar esta selección cuando cierre esa proposición.
+4. **Asturias no se promociona.** La revisión A reproduce 1.875,8614 frente a 1.875,8654 a base17.707,21 en2015, pero `CAA-CAD-014` sigue `needs-evidence` y las únicas aceptaciones de esa revisión son ancho2013–2014 y ausencia2026. Objeción: implementar ese dato como aceptado contradiría la decisión individual. Motivo: respetar el cierre externo requerido. Coste: cuota asturiana pendiente; no se convierte el ejemplo accionable en aceptación fiscal. El integrador puede ampliar esta selección cuando cierre esa proposición.
 5. **Separar prueba, evidencia e interpretación.** Objeción: un test verde puede repetir una transcripción incorrecta. Motivo: se releyeron originales PDF locales por hash y páginas precisas, con Poppler, además de auditorías y contrarrevisiones. Coste: las nuevas filas aún requieren revisión independiente de implementación y binding al nuevo inventario. No se validaron firmas, CSV, facsímiles ni autenticidad archivística. El corpus de integridad y su puerta `--accepted` permanecen intactos.
 
 ## Evidencia y reproducción
 
-`fuentes.json` identifica los 15 originales reabiertos, SHA-256, páginas físicas 1-based, huella de la extracción y proposiciones. Los originales siguen en el CAS del padre. No se publican rutas privadas ni cabeceras. Las citas geométricas y decisiones externas siguen en `revisiones/escalas-estatales-ahorro`, `revisiones/autonomicas-2012-2016`, `revisiones/autonomicas-2017-2021`, `revisiones/autonomicas-2022-2026` y `revisiones/cadena-autonomica-{a,b,c}`. Los informes previos se conservan sin reescritura.
+`fuentes.json` identifica los 15 originales reabiertos, SHA-256, páginas físicas 1-based, huella de la extracción y proposiciones. Los originales siguen en el CAS del integrador. No se publican rutas privadas ni cabeceras. Las citas geométricas y decisiones externas siguen en `revisiones/escalas-estatales-ahorro`, `revisiones/autonomicas-2012-2016`, `revisiones/autonomicas-2017-2021`, `revisiones/autonomicas-2022-2026` y `revisiones/cadena-autonomica-{a,b,c}`. Los informes previos se conservan sin reescritura.
 
 `rojo-escalas.log`: 15 fallos ejecutados antes de añadir soporte de filas al integrador. `rojo-ahorro.log`: cinco fallos ejecutados antes de corregir la liquidación y el límite agregado. Los demás ensayos amplían controles; no se presentan retrospectivamente como pruebas rojas. `typecheck.log` conserva el primer diagnóstico de booleano opcional, corregido con comparación explícita, sin desactivar reglas.
 
-Validación final: consultar `validacion-final.log`, `oxlint-final.log` y `eslint-final.log`. Comandos con Nix, node_modules del padre solo lectura, sin instalación ni cambios globales:
+Validación final: consultar `validacion-final.log`, `oxlint-final.log` y `eslint-final.log`. Comandos con Nix, node_modules compartido solo lectura, sin instalación ni cambios globales:
 
 ```sh
 nix shell nixpkgs#bun nixpkgs#nodejs -c flock /tmp/irobopf-validacion-pesada.lock bun run typecheck
 nix shell nixpkgs#bun nixpkgs#nodejs -c flock /tmp/irobopf-validacion-pesada.lock bun run test tests/escalas-publicadas.test.ts tests/ahorro-regimen-historico.test.ts tests/comunidades-autonomas.test.ts tests/liquidacion-irpf-anual.test.ts tests/calculo-salario-legacy.test.ts --maxWorkers=1
 ```
-
-No Next build, render pesado, suite legacy completa ni reconstrucción de inventario. Se consultaron Effect Solutions list/show basics/testing y Array/Effect de fuente local v4. La ejecución lenta intermedia coincidió con presión de recursos compartidos; no se atribuye a una diferencia fiscal.
 
 El manifiesto y el diff de entrega comparan bytes contra `d9ff49c7`, incluidos archivos nuevos. La comprobación de presencia de todos los archivos del árbol base permite detectar borrados fuera del diff de rutas asignadas. No se usa el índice como prueba del contenido ni se repara.

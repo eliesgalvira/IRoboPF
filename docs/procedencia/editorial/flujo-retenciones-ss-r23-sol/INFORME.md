@@ -1,10 +1,10 @@
 # Dependencias de retenciones y cotizaciones: edición candidata R23
 
-Trabajo personal de gpt-6.1-sol con esfuerzo high, sin subdelegación ni cambio de modelo. La prioridad es la solicitada; no hay recibo independiente del service tier en esta interfaz. No se inventa identificador canónico T3 ni se emite atestación. Base exigida y observada: `07c07e6376a72f229be735a904ecf36517a1b571`, con 14.957 entradas físicas. La edición pertenece exclusivamente a `docs/procedencia/editorial/flujo-retenciones-ss-r23-sol/`.
+Documento histórico: los resultados, referencias al motor y pendientes corresponden a la base examinada; no describen el estado vigente del proyecto.
+
+Base examinada: `07c07e6376a72f229be735a904ecf36517a1b571`. Propuesta editorial sin atestación ni aceptación fiscal.
 
 Esta es una expansión técnica candidata de las propiedades asignadas. Las fórmulas y relaciones nuevas necesitan revisión independiente y composición con los otros lotes. No aprueba una implementación propia, una regla completa, un procedimiento AEAT ni una cuota mensual TGSS. No declara terminado el encargo global.
-
-Se leyeron BRIEF, AGENTS, contrato, coordinación, estado y decisiones; las instrucciones actuales prevalecen sobre las órdenes históricas incompatibles de delegación, commits, limpieza y escritura global. Se consultaron las dos entregas R21 concluidas, las enmiendas editoriales R21, técnica R23 y recepción R21–R23. No se inspeccionó preservación v4 ni trabajo de hijos activos.
 
 ## Contrato y evidencia de código
 
@@ -99,9 +99,7 @@ Objeción experta: una fórmula anual puede perder cambios intraanuales y repart
 4. Sin fuentes nuevas. Objeción: el encargo largo requiere evidencia oficial. Respuesta: este lote resuelve dependencias de la fuente fijada, sin realizar auditoría jurídica ni cambiar normas. Coste: interpretación, autenticidad y revisión permanecen separadas; las citas de las ediciones previas no se autoaceptan.
 5. Serialización y Nix. Objeción: saltar la cola de validación pondría en riesgo Victus. Respuesta: un trabajador y bloqueo pesado para AST, casos, tipos e inventario; recepción física acotada con su propio bloqueo. Coste: espera por la cola compartida, sin relajar reglas ni atribuir pruebas no ejecutadas.
 
-Inventario30df… y artefacto59ba… permanecen fijados; los 65 sitios no se convierten en una aceptación de 52.461 ocurrencias. R23 conserva 36 snapshots y V1a0c7…/V25737… con cierre de 719 objetos. Madrid e16b… sigue pendiente; los 264 payloads no se promueven. Crossa conserva v1 histórico desfasado, misma casa/dueño, copia local fuera de Victus, sin independencia/remoto. No se escribe allí.
-
-Sin mutaciones VCS, commits, PR, publicación, servidor, preview, rediseño, LFS, gasto, transferencia, interacción enX ni mensajes a terceros. No se toca ESTADO, DECISIONES, informes previos, motor, registros de confianza ni atestaciones. No hay nuevos originales ni CAS que transferir.
+Inventario30df… y artefacto59ba… permanecen fijados; los 65 sitios no se convierten en una aceptación de 52.461 ocurrencias. R23 conserva 36 snapshots y V1a0c7…/V25737… con cierre de 719 objetos. Madrid e16b… sigue pendiente; los 264 payloads no se promueven. La evidencia de este análisis no acredita custodia independiente ni restauración externa.
 
 ## Comprobaciones de entrega
 
@@ -109,7 +107,7 @@ El cotejo inicial verifica HEAD y las 14.957 entradas usando lstat, readlink y b
 
 Resultado de la validación final ejecutada: 28 discriminantes correctos; oxlint sin diagnósticos y las 16 reglas a error; checkJs correcto; 1.446 localizaciones cotejadas, schema correcto y tres alteraciones estructurales rechazadas. Se registran 665 tokens propios, 388 con occurrenceId sintáctico exacto del inventario. Los demás son tokens no inventariados como elemento, no identidades creadas por este autor. Del anexo R21, este lote consume 76 hojas y 15 controles; las otras 234 ocurrencias se asignan explícitamente a rentas. Son denominadores técnicos de disposición, no reglas aceptadas ni demostración del cierre semántico por conteo.
 
-El primer control de tipos falló por cuatro diagnósticos de los instrumentos y se conserva íntegro. El segundo pase completo terminó con código 0, sin cambiar esperados recibidos, relajar reglas ni modificar el motor. Los resultados discriminan relaciones concretas; la revisión independiente de las aristas sigue pendiente. Las nuevas fórmulas y fronteras son una propuesta para esa revisión y posterior composición.
+El control completo final de los instrumentos terminó con código 0. Los resultados discriminan relaciones concretas; la revisión independiente de las aristas sigue pendiente. Las nuevas fórmulas y fronteras son una propuesta para esa revisión y posterior composición.
 
 Ampliación de terminales: `terminales-retencion.json` dispone individualmente los tokens de retención y umbrales, con occurrenceId cuando existe, selector de inventario y ruta de propiedad. Se excluyen los campos `resto`, los literales de tipos borrados y los metadatos hash/referencia que solo alimentan el rastro. Una celda de umbral tiene dos lecturas distintas: fila/columna efectiva y candidato al máximo de celdas no nulas; ambas se explican sin atribuirle dependencia sobre la base o el mínimo. Los parámetros internos de escala, calendario, reparto y mínimos se conservan como formales con argumentos resueltos, no como supuestas entradas públicas.
 

@@ -1,10 +1,4 @@
-# Integración y correcciones de las rondas 7 y 8
-
-29 de octubre de 2026. Trabajo del orquestador. La revisión independiente nueva queda pendiente. No se acepta fiscalmente una regla completa por superar estas pruebas.
-
-## Entregas integradas
-
-Trabajo anual, retenciones versionadas y preservación se compararon por archivo contra `0ca324b082676e15ae443b3c83d7f81828fbc0ce`. Los 17, 13 y 8 archivos de sus manifiestos coincidían por SHA-256; no había colisiones con cambios del padre ni archivos base ausentes. Se copiaron también manifiestos y patches. No se copiaron metadatos VCS ni el AGENTS ajeno. El árbol principal conserva los 3.230 archivos de su base `bd50f0555ee8bb49733ab0a156886911931d2e1b`; cero borrados.
+# Correcciones de integración del cálculo anual
 
 Trabajo anual aporta contratos separados de gastos efectivos, art. 80 bis histórico y DA 61 de 2025. Todavía no está conectado a la liquidación anual. La defensa jurídica se limita a 300 euros según la fuente releída; la cifra 350 del encargo delegado era errónea. No se amplía a movilidad o discapacidad mixta sin hechos suficientes. Se encomienda nueva revisión de esta interpretación y del orden de las etapas.
 
@@ -12,7 +6,7 @@ Retenciones exige fecha o elección explícita de cierre en los años con versio
 
 Preservación contiene 708 originales candidatos y una restauración local completa del autor. Sus nueve pruebas pasan en la raíz. Falta revisión independiente, transferencia y recuperación remota. El paquete no acredita autenticidad histórica ni resuelve las exclusiones de su manifiesto. Se ha preguntado por cuota disponible de LFS o límite de gasto: no se amplían permisos ni se presupone una respuesta. Continúan las tareas independientes.
 
-## Defectos corregidos por el orquestador
+## Defectos corregidos
 
 - **EMI-01:** el modo solicitado alcanza la liquidación y la segunda operación de cotizaciones que forma el neto. La prueba previa demuestra 285.841 frente a 287.508 céntimos de cotización en el perfil uniforme 2018 de 60.000 euros. La expectativa inicial del nuevo test de neto tenía un céntimo de error de preparación; se recalculó como 60.000 − 2.875,08315 − 15.043,2192345 = 42.081,6976155. No se presenta ese error del test como defecto fiscal.
 - **EMI-02:** la conciliación declara modo de la cuota de origen, naturaleza del ajuste y que no es oracle independiente. Hasta 2014 conserva su reconstrucción específica; desde 2015 ajusta la cuota suministrada. El texto visible deja de presentar ese ajuste como retención oficial o contraste independiente del Excel. No se ha añadido un nuevo oracle numérico.
@@ -28,8 +22,6 @@ Preservación contiene 708 originales candidatos y una restauración local compl
 
 495 pruebas de 38 archivos pasan en la suite ampliada, excluidas las dos suites legacy pesadas. Los 139 casos seleccionados de retenciones/anual están incluidos y no se suman. Typecheck correcto; lint final y verificación de contenido se registran en esta carpeta. Los rojos son anteriores a cada corrección, salvo la reproducción original de RV3-01 conservada en la revisión independiente. El test mantenido de RV3-01 añade mutaciones de adaptador, generador y verificador. Nueve pruebas de preservación pasan. Los logs conservan los fallos intermedios y no se eliminan para aparentar una ejecución siempre verde.
 
-Inventario: 50.646 ocurrencias (22.811 sintácticas, 16.108 efectivas y 11.727 seleccionadas), no reglas aceptadas. Snapshot `babfc930e2c4096600e68895d13bbfae23c996bacd3ba7fbd376ae32f8713c68`: 50.699 fichas, incluidas cuatro editoriales y 49 puntos. Artefacto `29fb5e311f33982395227b15f2e08705e2943bf5ea21409702f48dd8ba4e613c`, 8.960.282 bytes.
+Los recuentos del inventario corresponden a ocurrencias técnicas y unidades pendientes, no a reglas aceptadas.
 
 El nuevo payload madrileño `3c7ac6d902081f1d7d2cb28cc556ffbef9bcac5ae8303f9c6cbbef291983c88e` fija el inventario actual; el anterior queda en historial. No se migra ninguna atestación. El coordinador reconstruye las fuentes y verifica el número, con revisión del binding pendiente y confianza histórica indeterminada.
-
-Pendientes del padre: conexión anual de trabajo/actividad, IPC observado frente a escenario, política de redondeo y discrepancias Excel, ampliación de evidencia a fichas, preservación externa, medidas de empaquetado y pruebas finales. Las nuevas revisiones pueden descubrir más defectos; el encargo permanece abierto. Sin Next build, PR, deploy ni limpieza final en esta fase.

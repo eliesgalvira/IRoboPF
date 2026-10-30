@@ -1,8 +1,8 @@
 # Revisión independiente de preservación v4 y recepción R24
 
-La restauración del corte fijado es reproducible con las herramientas actuales identificadas y los bytes del paquete. El consumidor v4 conserva divergencias de validación respecto de R23. El control de 447 referencias se reproduce, pero no acredita cierre documental del repositorio: hay referencias oficiales concretas fuera de sus prefijos que no se resuelven en este paquete. No se aprueba la implementación ni se cierra el encargo global.
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
 
-Revisión personal en el checkout T3 t3-1b749ca4, gpt-6.1-sol, high. Se solicitó prioridad; no se inventa una certificación del scheduler ni identidad canónica de agente. Sin subdelegación, fixes, atestaciones, aceptación fiscal o mutaciones VCS. Escrituras limitadas a esta carpeta y .cache/preservacion-v4-r24-sol. No se inspeccionó trabajo R23 activo ni se modificaron informes, ESTADO, DECISIONES generales, registros de confianza, paquetes históricos o fuentes originales.
+La restauración del corte fijado es reproducible con las herramientas actuales identificadas y los bytes del paquete. El consumidor v4 conserva divergencias de validación respecto de R23. El control de 447 referencias se reproduce, pero no acredita cierre documental del repositorio: hay referencias oficiales concretas fuera de sus prefijos que no se resuelven en este paquete. No se aprueba la implementación ni se cierra el encargo global.
 
 ## Ancla, corte y recepción
 

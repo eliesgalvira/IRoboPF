@@ -1,12 +1,12 @@
 # Revisión independiente de los 28 recorridos de escalas R40
 
-El valor y la selección de los 28 sitios tienen una representación ejecutable sustantiva, corroborada aquí bajo las condiciones individuales de `decisiones-28.json`. No propongo admitir todavía el contrato compuesto: hay una frontera incompleta reproducida y dos firmas declarativas de validadores incompletas. Ninguna de esas observaciones demuestra un error fiscal del motor. No se modifica producto, representación, schema, arnés recibido, esperados, confianza o informes anteriores. Las conclusiones nuevas requieren contraste del padre.
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
 
-Trabajo personal en T3 Code/Codex, runtime gpt-6.1-sol con esfuerzo high. Prioridad solicitada por el encargo, sin recibo independiente del service tier; no se emite atestación ni se inventa identidad operativa. Sin subdelegación. La corrección urgente prevalece sobre BRIEF: no Astra, operaciones VCS mutantes, limpieza, transferencias o actualización de ESTADO/DECISIONES.
+El valor y la selección de los 28 sitios tienen una representación ejecutable sustantiva, corroborada aquí bajo las condiciones individuales de `decisiones-28.json`. No propongo admitir todavía el contrato compuesto: hay una frontera incompleta reproducida y dos firmas declarativas de validadores incompletas. Ninguna de esas observaciones demuestra un error fiscal del motor. No se modifica producto, representación, schema, arnés recibido, esperados, confianza o informes anteriores. 
 
 HEAD observado `314efe543def21276acb44d0e3b0816dd5f78d58`, 20.670 entradas. Antes de escribir se terminó el cotejo de cada entrada de base por lstat, readlink, bytes y ejecutabilidad, un blob por llamada, bajo lock de recepción: ninguna diferencia ni ausencia. También se obtuvo diff/status vacío. El recibo inicial conserva el resultado de la sesión 44096; no se atribuye a él un censo inicial de todos los archivos ignorados. El cierre añade un recorrido físico completo de adiciones y la repetición de las 20.670 comparaciones. El cotejo del checkout no prueba integridad del árbol externo de dependencias.
 
-Se leyeron BRIEF, AGENTS, contrato, coordinación y la situación vigente de estado/decisiones; completos productor, consumidor y pruebas R36, schema y los informes R26, R28, R36 y recepción R40. El contraste de fuentes y su expansión está en `fuentes.json`, `fuentes-por-sitio.json.gz`, `firmas-fronteras.json` y los casos. No se leyó el trabajo parcial de admisión ni la revisión SS R39 pendiente de recepción. V5 y Crossa no se modificaron; no se adquirieron originales oficiales nuevos.
+Se examinaron el productor, consumidor y pruebas R36, schema y los informes R26, R28, R36 y recepción R40. El contraste de fuentes y su expansión está en `fuentes.json`, `fuentes-por-sitio.json.gz`, `firmas-fronteras.json` y los casos. No se adquirieron originales oficiales nuevos.
 
 ## Dictamen por sitio y fuentes ejecutables
 

@@ -1,8 +1,10 @@
 # Contrarrevisión del inventario v2
 
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
 **Conclusión: requiere cambios técnicos; no se certifica fiscalidad.** La CLI de reconstrucción supera los ataques del inventario anterior. Las identidades y la clasificación corrigen los casos originales. Quedan una aceptación incorrecta en la API con módulos previamente importados, una forma de objeto que el recorrido omite y un fallo de selección de fuentes dependiente del directorio del checkout. No se modifica la implementación.
 
-Revisión personal sobre HEAD `12976509f7b78241e0da173e19557206f5d4330e`. `git diff 4a41ce0c --` para scripts de inventario, prueba, esquema, manifiesto, gzip, package.json y CI no muestra diferencias. Leídos BRIEF, AGENTS, INVENTARIO, CONTRATO-AUDITORIA, COORDINACION, DECISIONES, informe y findings anteriores; leídos los extractores TS/Python, grafo, lector/publicador, validador, esquema, pruebas y CI. No se mutó VCS, no se creó checkout ni se instaló dependencia de proyecto. node_modules es un enlace autorizado al compartido. Las ejecuciones usan copias propias dentro del scratch autorizado; el artefacto entregado permanece intacto.
+Base examinada: `12976509f7b78241e0da173e19557206f5d4330e`. Las fuentes de inventario, prueba, esquema, manifiesto, gzip, package.json y CI coinciden con `4a41ce0c`. Se examinaron extractores TypeScript y Python, grafo, lector y publicador, validador, esquema, pruebas y CI. Las ejecuciones usaron copias de scratch; el artefacto entregado permaneció intacto.
 
 ## Los cuatro bloqueos previos
 

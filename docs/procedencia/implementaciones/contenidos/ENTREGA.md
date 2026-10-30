@@ -1,6 +1,8 @@
 # Contenido versionado: entrega técnica candidata
 
-Base de integración comunicada: `d9ff49c7`. No hay operaciones VCS mutantes, cambios al motor, al inventario, a auditorías históricas, package, CI o componentes existentes. No se ejecutaron build, navegador ni suite legacy. La integración y una contrarrevisión nueva corresponden al padre. Esta entrega no acepta fiscalidad.
+Documento histórico del candidato de este directorio. Los resultados y estados corresponden a esa versión; no acreditan el estado actual del proyecto.
+
+Base de integración comunicada: `d9ff49c7`. No hay operaciones VCS mutantes, cambios al motor, al inventario, a auditorías históricas, package, CI o componentes existentes. No se ejecutaron build, navegador ni suite legacy. La integración y una contrarrevisión nueva corresponden al integrador. Esta entrega no acepta fiscalidad.
 
 Snapshot recomendado para examinar: `31be43e7347ee116fd6349e946914602a706dbdce56b955a5aa8290fa9f7325e`. Los tres snapshots anteriores de esta misma implementación se conservan; comparten paquetes por hash y no duplican las fichas. El registro admite exclusivamente esos snapshots. No existe alias latest.
 
@@ -27,7 +29,7 @@ La ficha individual usa HTML semántico sin script, CSP y Referrer-Policy no-ref
 
 `lib/procedencia/rastro.ts` entrega contratos de versiones, siteId, instanceId, sujeto y resultados discriminados. `no-soportada` tiene motivo y no admite decimal. El adaptador antiguo solo declara pendiente; no parsea etiquetas. No se han modificado los callsites ni los dos tipos históricos para evitar conflicto con el editor del rastro.
 
-Instrumentación por el padre:
+Instrumentación durante la integración:
 
 1. Fijar snapshot, digest de algoritmo/datos y versión de explicación al comenzar el cálculo; no derivarlos de una etiqueta ni del reloj.
 2. Asignar siteId explícito por punto semántico y por línea; instanceId explícito por emisión, con identidad del tramo/operación, no una identidad conceptual basada en posición.
@@ -49,7 +51,7 @@ nix shell nixpkgs#bun nixpkgs#nodejs -c bun run lint
 nix shell nixpkgs#bun nixpkgs#nodejs -c flock /tmp/irobopf-validacion-pesada.lock bun run typecheck
 ```
 
-El generador **lee** el artefacto y no reconstruye inventario. Si el padre cambia fuentes del motor, debe regenerar inventario al integrar y después contenido. El verificador de contenido compara contra el artefacto fijado; no acredita que este siga vigente respecto al motor actual. Las versiones anteriores requieren su inventario conservado para un cotejo histórico, no el nuevo artefacto del checkout.
+El generador **lee** el artefacto y no reconstruye inventario. Si el integrador cambia fuentes del motor, debe regenerar inventario al integrar y después contenido. El verificador de contenido compara contra el artefacto fijado; no acredita que este siga vigente respecto al motor actual. Las versiones anteriores requieren su inventario conservado para un cotejo histórico, no el nuevo artefacto del checkout.
 
 ## Costes y decisiones
 
@@ -65,6 +67,6 @@ El generador **lee** el artefacto y no reconstruye inventario. Si el padre cambi
 
 256 paquetes, 10.927.910 bytes gzip totales, máximo 54.864 bytes por paquete. Generación final: RSS al terminar 1.342.984.192 bytes (no pico medido). Los paquetes son compartidos por los cuatro snapshots. Todos los archivos entregados están por debajo de 10 MB. Los PDF y originales del corpus no entran en el bundle ni se copian aquí.
 
-No se ha ejecutado build, output tracing, prueba de CDN, restauración desde copia externa, firma/CSV nueva, tráfico del navegador ni carga concurrente. El lector usa ruta relativa al cwd del servidor: el padre debe incluir `datos/` en el artefacto de despliegue y comprobar output tracing antes de publicar. Sin estos archivos falla cerrado. No se afirma soporte de output export ni preservación externa.
+No se ha ejecutado build, output tracing, prueba de CDN, restauración desde copia externa, firma/CSV nueva, tráfico del navegador ni carga concurrente. El lector usa ruta relativa al cwd del servidor: al integrar se debe incluir `datos/` en el artefacto de despliegue y comprobar output tracing antes de publicar. Sin estos archivos falla cerrado. No se afirma soporte de output export ni preservación externa.
 
 La exactitud aritmética del motor, la integridad de bytes, la interpretación legal y la aceptación fiscal siguen siendo cuatro obligaciones distintas. Esta entrega acredita controles técnicos locales y pruebas sintéticas/servidor; requiere contrarrevisión nueva antes de aceptación.

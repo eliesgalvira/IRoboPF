@@ -1,6 +1,8 @@
 # Auditoría candidata de deducciones autonómicas — lote A
 
-Fecha: 29 de octubre de 2026. Ejecución personal, sin subdelegación. Ningún hallazgo está aceptado. No se ha cambiado cálculo, interfaz, tests del repositorio, VCS ni documentos de otros auditores.
+Documento histórico: los resultados, referencias al motor y pendientes corresponden a la base examinada; no describen el estado vigente del proyecto.
+
+Fecha: 29 de octubre de 2026. Este informe no acepta hallazgos.
 
 ## Resultado y alcance real
 
@@ -74,9 +76,9 @@ El Python legacy solo representa SMI y un perfil estatalizado; no contiene estas
 - **Separar consignación y cálculo.** Objeción: una herramienta para profesionales puede recibir importes calculados fuera. Motivo: es legítimo, pero debe declararlo y conservar soporte; no demuestra automatización. Coste aceptado: reducir cobertura automática declarada y ampliar el contrato, conservando consignación explícita.
 - **No aceptar por porcentaje coincidente.** Objeción: retrasar una deducción sencilla por una condición marginal aumenta trabajo. Motivo: una prorrata o límite conjunta cambia el resultado aun con porcentaje correcto. Coste: más pruebas y evidencia por sujeto/ejercicio; ninguna aceptación provisional silenciosa.
 - **Usar el PDF actual como evidencia de la guía 2025, no de todos los años.** Objeción: no reproduce la edición usada por el autor del catálogo. Motivo: se conserva el hash exacto adquirido y se recalculan selectores; las dos versiones se distinguen. Coste: queda pendiente reconstruir cambios editoriales y conseguir la edición antigua si se quiere auditar la transcripción.
-- **No arreglar el motor en esta ronda.** Objeción: mantener diferencias conocidas expone salidas incorrectas. Motivo: el encargo exige contrarrevisión y prueba anterior al fix; tampoco se tiene exclusividad del checkout. Coste: el orquestador debe priorizar esa revisión; aquí no hay correcciones aceptadas.
+- **Revisar antes de corregir.** Objeción: mantener diferencias conocidas expone salidas incorrectas. Motivo: el encargo exige contrarrevisión y prueba anterior al fix. Coste: esa revisión es necesaria; aquí no hay correcciones aceptadas.
 - **Extracción por bloques y sin alta DPI.** Objeción: una tabla necesita celdas y un recorte verificable para cumplir el estándar final. Motivo: conservar primero original, hash, sección y cajas reproducibles facilita la contrarrevisión sin agotar RAM. Coste: las 3.566 citas son candidatas, no citas finales de tabla; faltan celdas y facsímiles.
-- **Declarar la deuda pendiente.** Objeción: el encargo pide exhaustividad, y este resultado todavía no la cumple. Motivo: no convertir extracción en validación ni una consolidación incompleta en vigencia probada. Coste: la ronda requiere continuación documental; el informe no autoriza marcar el dominio como auditado ni aceptado.
+- **Declarar la deuda pendiente.** Objeción: el encargo pide exhaustividad, y este resultado todavía no la cumple. Motivo: no convertir extracción en validación ni una consolidación incompleta en vigencia probada. Coste: se requiere completar la evidencia documental; el informe no autoriza marcar el dominio como auditado ni aceptado.
 
 ## Reproducción y archivos
 

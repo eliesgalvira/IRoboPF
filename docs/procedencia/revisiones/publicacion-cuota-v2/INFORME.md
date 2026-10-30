@@ -1,8 +1,10 @@
 # Revisión independiente de publicación y cuota comparable v2
 
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
 Dictamen: PE-01, PE-02, PE-03 y CX-07-B son aprobables en el alcance técnico de la base `6e210920a9063b7a7efd0730ae4ab1ac73a2141e`. No se ha demostrado un nuevo bloqueo de producto. El cierre físico de los dos GET se reproduce con una salvedad de entorno: fue necesario completar las trazas de dependencias de Node porque node_modules está enlazado. No se certifica la cifra exacta de bytes del padre ni un alojamiento determinado.
 
-Revisor real: Codex, agente `/root`, checkout T3 `t3-aa7336a1`, ejecución del 29-10-2026. Trabajo personal, sin subdelegar, fixes del producto ni operaciones VCS mutantes. No se inventa identidad humana ni se asume una acreditación fiscal. Lecturas Git exclusivamente. Se leyeron BRIEF, AGENTS, contrato, coordinación, estado, decisiones completas D001–D050, informe publicacion-r13 y revisiones previas de publicación/X. Estas fuentes contextualizan el trabajo; sus resultados no sustituyen los ensayos presentes.
+Revisión del 29-10-2026. Se examinaron D001–D050, el informe publicacion-r13 y las revisiones previas de publicación y X. Estos antecedentes aportan contexto, sin sustituir los ensayos de este informe.
 
 ## Base y archivos
 

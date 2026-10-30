@@ -1,8 +1,10 @@
 # Revisión independiente de Seguridad Social
 
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
 Dictamen: **requiere cambios y evidencia adicional**. Se emite decisión para los **108 IDs**, sin omisiones: **25 accepted, 83 needs-evidence, 0 rejected**. Accepted significa aceptación de la proposición expresamente delimitada en `acceptanceScope`, principalmente un defecto o una carencia; no son 25 reglas fiscales certificadas. Los 83 match candidatos no se convierten en aceptación jurídica por coincidencia numérica.
 
-Revisor independiente, 29 de octubre de 2026. Se ha trabajado personalmente sobre el checkout compartido, sin mutaciones VCS ni cambios del motor o de los hallazgos del autor. `estado-auditado.json` fija los hashes del código actual, posterior a lint. Los cambios de Madrid y del texto del ejercicio no afectan a los defectos SS descritos aquí. No se confunden hashes de la foto anterior con corrupción.
+Corte: 29 de octubre de 2026. `estado-auditado.json` fija los hashes del código examinado, posterior a lint. Los cambios de Madrid y del texto del ejercicio no afectan a los defectos SS de esa versión. Una diferencia respecto de una huella anterior no acredita por sí sola corrupción.
 
 ## Defectos que debe resolver el orquestador
 
@@ -98,6 +100,6 @@ nix shell nixpkgs#python3 -c python .cache/procedencia/revision-seguridad-social
 nix shell nixpkgs#bun -c bun .cache/procedencia/revision-seguridad-social/anual.ts
 ```
 
-Los scripts propios se mantienen exclusivamente en scratch. El orquestador tiene entradas, resultados y expectativas en JSON para convertirlos en pruebas mantenidas antes del fix. No se añadieron tests al motor, ni se ejecutó Next build o la suite legacy. Se consultaron `effect-solutions list/show basics testing` mediante su JS con Bun y la fuente local v4 para el arnés anual. El intento de lint de los dos scripts de scratch no seleccionó archivos por la exclusión `.cache`; **no se declara lint aprobado** para ellos. No se instaló nada globalmente ni se modificó node_modules del proyecto.
+Los scripts propios se mantienen exclusivamente en scratch. Los JSON conservan entradas, resultados y expectativas para regresiones previas a la corrección. No se añadieron tests al motor, ni se ejecutó Next build o la suite legacy. Se consultaron `effect-solutions list/show basics testing` mediante su JS con Bun y la fuente local v4 para el arnés anual. El intento de lint de los dos scripts de scratch no seleccionó archivos por la exclusión `.cache`; **no se declara lint aprobado** para ellos. No se instaló nada globalmente ni se modificó node_modules del proyecto.
 
 `revisiones.json` conserva decisión, estado previo, alcance, objeciones y evidencia individual; `cobertura.json` lista los 108 IDs esperados y revisados. La comprobación de hashes/celdas no es certificación fiscal. Las cadenas completas de los 83 match, convalidaciones y reformas incidentales no examinadas siguen pendientes; los índices HTML BOE se verificaron por hash y se leyeron como localizadores, no como sustitutos de disposiciones originales. Tampoco se validaron firmas PAdES ni CSV. Los originales descargados se adquirieron con `tools/procedencia/descargar.py`, UA identificable, bloqueo y ritmo, en CAS propio; los originales previos solo se leyeron y verificaron.

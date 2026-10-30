@@ -1,10 +1,10 @@
 # Once recorridos SS R36 candidatos
 
-Implementación por T3 Code, harness Codex, gpt-6.1-sol, esfuerzo high. Priority solicitada; este runtime no entrega un recibo independiente de prioridad. Sin subdelegación, cambio de modelo ni atestación. Requiere contraste del padre y revisión independiente posterior. El encargo global permanece abierto.
+Documento histórico del candidato de este directorio. Los resultados y estados corresponden a esa versión; no acreditan el estado actual del proyecto.
 
-Se implementan las once salidas desde los campos anuales hasta origen.decimal mediante un programa JSON finito y su consumidor. Se preservan R32/R34 y las tres correcciones de semilla/bandas del padre. No se modifica el motor, admisión, wiring, confianza, inventario ni informes históricos. No se acepta fiscalidad por hashes, recuentos o pruebas.
+Se implementan las once salidas desde los campos anuales hasta origen.decimal mediante un programa JSON finito y su consumidor. Se preservan R32/R34 y las tres correcciones de semilla/bandas del integrador. No se modifica el motor, admisión, wiring, confianza, inventario ni informes históricos. No se acepta fiscalidad por hashes, recuentos o pruebas.
 
-Base/HEAD exigidos: 50f9e949544e20d3e4e0bffc79b926d396267319, 20.227 entradas. Cotejo inicial completo antes de editar; lstat/readlink/bytes/ejecutabilidad, un blob cada vez, cero diferencias o borrados, diff vacío. Instrumento y recibo comprimido adjuntos. Los cambios son exclusivamente altas del ámbito, baseSha256=null. El cotejo final y ensayo de transporte se registran separadamente al terminar.
+Base del candidato documentado: `50f9e949544e20d3e4e0bffc79b926d396267319`.
 
 ## Representación y consumidor
 
@@ -16,7 +16,7 @@ Los dos bindings anuales conservan caso.anio, contexto.modo y salario íntegro. 
 
 unitContracts declara parámetros/resultado por función; fieldUnits y cells registran dimensión y fuente por propiedad/celda. get/index/property/bind/function resuelven el dueño de cada propiedad en ejecución; homónimos no crean relaciones por sí solos. calls conserva receptor, argumentos, callbacks y semilla de cada instancia. outputBindings liga la selección final por propiedad a la llamada y a origen.decimal. fragmento.json.gz contiene todo el programa compartido. Las once hojas identifican sus expresiones y fuentes finales exactas. recorridos.json.gz contiene 32 ejecuciones año/modo/caso y sus once salidas con transporte y trazas, sin servir ni publicar páginas.
 
-medirAuditoriaSync se declara frontera transparente del valor con su fuente exacta: el callback devuelve el resultado financiero sin transformación. El simulador no reproduce tiempos, mutación de contadores ni posibles excepciones de instrumentación. Esa reserva no habilita admisión. Las primitivas decimal.js y Effect requieren los paquetes entregados del padre en lectura. No es un compilador universal ni una prueba jurídica.
+medirAuditoriaSync se declara frontera transparente del valor con su fuente exacta: el callback devuelve el resultado financiero sin transformación. El simulador no reproduce tiempos, mutación de contadores ni posibles excepciones de instrumentación. Esa reserva no habilita admisión. Las primitivas decimal.js y Effect requieren los paquetes entregados compartidos en lectura. No es un compilador universal ni una prueba jurídica.
 
 ## Derivación de cierres y límites
 
@@ -26,15 +26,13 @@ valueClosed y selectionClosed son candidatos derivados. Se usa una cota conserva
 
 ## Evidencia ejecutada
 
-Antes de implementar terminaron los instrumentos adaptados a scratch: 684 casos sin discrepancias numéricas, ocho rojos semánticos y el rojo de semilla0→1 con once cierres indebidos en R32, ambos procesos exit1. Las tres fuentes corregidas por el padre se conservan; wrongSeedOrigin=false. No se ejecuta un productor con destino en un informe recibido. Se conservan adaptaciones y resultados sin cambiar expectativas históricas.
+Antes de implementar terminaron los instrumentos adaptados a scratch: 684 casos sin discrepancias numéricas, ocho rojos semánticos y el rojo de semilla0→1 con once cierres indebidos en R32, ambos procesos exit1. Las tres fuentes corregidas durante la integración se conservan; wrongSeedOrigin=false. No se ejecuta un productor con destino en un informe recibido. Se conservan adaptaciones y resultados sin cambiar expectativas históricas.
 
 El consumidor R36 reproduce los mismos 684 casos contra expectativas aritméticas recibidas y motor real, tolerancia original <1e-12 EUR. Esto acredita contraste de software, no norma ni cuotas TGSS. Se mantienen las37 pruebas originales y se añaden discriminantes de semilla, rama coherente, igual texto de otra instancia/modo, índice, unidades, callback, MEI, celda, binding anual, propiedad/instancia/transporte final, pendientes, copia privada y dominio. Los resultados definitivos están en RESULTADOS.md y logs. No se atribuye verde a un diagnóstico de entorno.
 
-Incidencias conservadas: primer arranque con declaración anual ambigua (se acotó a la inicialización mediante medirAuditoriaSync); primer Vitest con ruta de configuración duplicada; diagnósticos TS en pruebas nuevas/pending; control nuevo de celda MEI rojo por incluir referencia a la fábrica además del literal (se corrigió la selección del productor sin alterar el esperado). No son defectos fiscales. Tipos conserva strict y checkJs=false heredado: no acredita análisis estático completo de cuerpos MJS. Oxlint usa dieciséis reglas a error, un hilo y --disable-nested-config; ESLint conserva su aviso de ausencia de pages en la proyección de calidad. Sin Next build ni suites legacy masivas.
+Tipos conserva strict y checkJs=false: no acredita análisis estático completo de cuerpos MJS. Oxlint mantiene las dieciséis reglas a error.
 
-Decisiones, objeciones, respuestas y costes están en decisiones.json y las hojas. No se adquieren originales nuevos: no procede duplicar PDFs ni CAS documental. Los originales entregados, V5 r2/R26 y Crossa v1 permanecen en sus ubicaciones, con sus reservas; frontera.json conserva las referencias. No se leen entregas activas de otros hijos. Una consulta inicial para diagnosticar el bloqueo mostró comandos de otros procesos; no se abrieron sus entregas ni se usaron sus resultados. Sin VCS mutante, checkout nuevo, borrados, main, PR, deploy, servidor, preview, LFS, gasto o transferencia externa.
-
-Incidencia de aislamiento del arnés: Vite usa temporales de configuración bajo el enlace a node_modules del padre (.vite-temp; directorio observado vacío con mtime posterior a las pruebas). Es una desviación de la restricción de solo lectura, no un cambio autorizado de dependencias. No se borra ni modifica ese directorio para ocultarlo. La reproducción se corrige a --configLoader native y cacheDir propio; se conserva el pase anterior y se ejecuta de nuevo la misma batería con el arnés corregido. El cotejo físico del checkout no acredita el árbol externo node_modules.
+Decisiones, objeciones, respuestas y costes están en decisiones.json y las hojas; frontera.json conserva las referencias documentales.
 
 La ampliación final añade literalUnits: dimensión por literal/índice con fuente exacta, incluidos cero de semilla en céntimos,100 céntimos/EUR,7/5/12 meses,5/6 de reparto, años, lados y tags. Complementa los contratos de función/campo/celda; no declara un sistema universal de inferencia de tipos. El primer arranque de preparación, que abortó por ambigüedad antes de evaluar salidas, se invocó sin bloqueo; las validaciones posteriores usan los bloqueos indicados. Se conserva esa desviación del procedimiento, sin atribuirle un pase.
 

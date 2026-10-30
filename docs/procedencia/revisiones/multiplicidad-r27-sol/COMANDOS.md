@@ -1,8 +1,8 @@
 # Reproducción y controles
 
-Raíz: `/home/elies/.t3/worktrees/IRoboPF/t3-639ae305`. Runtime real: T3 Code, harness Codex, gpt-6.1-sol, high. Priority solicitada; sin medición independiente de tier. Sin subdelegación. No se ejecuta ninguna operación VCS mutante.
+Raíz de ejecución histórica: `/home/elies/.t3/worktrees/IRoboPF/t3-639ae305`.
 
-Nix proporciona herramientas. `rg` y `python3` no estaban en PATH inicialmente; se usa `nix shell nixpkgs#ripgrep nixpkgs#python3 nixpkgs#bun nixpkgs#nodejs -c ...`. La primera lectura conjunta se truncó; los informes pertinentes y las secciones actuales se reabrieron por separado. Fuentes: BRIEF, AGENTS, contrato, coordinación, situación actual de ESTADO/DECISIONES, informes R27 y RX25, fuentes históricas y fuentes actuales. No se leen entregas activas; una consulta general de procesos mostró incidentalmente argumentos ajenos, sin usarlos como evidencia ni abrir sus archivos. Las consultas posteriores se limitan a los procesos propios.
+Herramientas mediante `nix shell nixpkgs#ripgrep nixpkgs#python3 nixpkgs#bun nixpkgs#nodejs -c ...`. Las fuentes examinadas incluyen informes R27 y RX25 y las versiones históricas y posteriores del código.
 
 Se consultan `bun /home/elies/.bun/install/cache/effect-solutions@0.5.3@@@1/dist/cli.js list` y `show data-modeling testing`, y se localiza `decodeUnknownSync` en la fuente local de Schema. No se escribe Effect de producto. Los instrumentos derivados se distinguen de los casos nuevos: preparar/recorrido/comprobar-get/comprobar-publicacion/controles/arbol proceden de instrumentos recibidos, con rutas propias, base correcta y nuevos adversos de ámbito. Adversos, reconstruidos, alcances y mixto-get son controles adicionales de esta revisión.
 

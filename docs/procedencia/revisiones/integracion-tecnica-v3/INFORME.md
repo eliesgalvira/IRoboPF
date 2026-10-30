@@ -1,12 +1,14 @@
 # Contrarrevisión técnica de d9ff49c7
 
-29 de octubre de 2026. Revisión personal, sin subdelegación, modificaciones de fuentes, VCS mutante, PR ni despliegue. Base exacta `d9ff49c7fbb237437ab55e3839ab8f2cfa44e328`. Se conserva el historial de los revisores anteriores; este informe no lo sustituye.
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
+Corte: 29 de octubre de 2026. Base examinada: `d9ff49c7fbb237437ab55e3839ab8f2cfa44e328`. Se conserva el historial de revisiones; este informe no lo sustituye.
 
 **Dictamen: inventario técnicamente aprobable en el alcance declarado y CG-01/02/03 sin regresión demostrada en las pruebas ejecutadas. Corpus aprovechable como integridad con aceptación fiscal cerrada; queda una extensión reproducida de COR-04 que requiere endurecer el reconocimiento de tokens.** No se acepta el encargo documental completo ni una liquidación anual por estos resultados.
 
 ## Base, aislamiento y verificaciones
 
-Leídos íntegros BRIEF, AGENTS, CONTRATO-AUDITORIA, COORDINACION, ESTADO y DECISIONES; informes COR-01–08 e INV2-R01–03, corrección de ganancias, implementación, pruebas y contratos relacionados. La orden actual de solo revisión prevalece sobre las instrucciones históricas del BRIEF de editar, integrar o limpiar contexto.
+Se examinaron informes COR-01–08 e INV2-R01–03, corrección de ganancias, implementación, pruebas y contratos relacionados.
 
 El diff contra la base está vacío. De 841 archivos de la base, ninguno falta en disco. `base-check.json` conserva hashes de los generadores, helper, corpus, inventario y cálculo revisado. No hay borrados masivos que integrar. El único resultado escrito en el padre es esta carpeta de revisión; las pruebas corrieron en `/tmp/irobopf-review-v3/procedencia`, copia propia cuya ruta contiene deliberadamente `procedencia`. node_modules apunta al compartido y solo se lee. No se regeneró el artefacto del padre ni del worktree.
 

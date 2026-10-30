@@ -1,10 +1,10 @@
 # Revisión independiente CAS local R30
 
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
 Dictamen técnico acotado: corroborado el recorrido local completo y los controles discriminantes ensayados. No se demuestra un defecto nuevo de producto; permanecen las reservas de durabilidad, concurrencia, custodia y plataforma. Las conclusiones quedan pendientes del contraste del padre y no aceptan fiscalidad.
 
-Base exigida y conservada: `376fb100512ca6a2f975c3c9500a20ee375dd431`, 16.486 entradas. Revisor: T3 Code, harness Codex, gpt-6.1-sol, esfuerzo high. No se ha consultado ni revisado trabajo propio de implementación. Sin subdelegación, fixes, atestación, activación de confianza ni aceptación fiscal. La prioridad solicitada procede del encargo; no se inventa una medición de scheduler del runtime. Las conclusiones requieren contraste del padre.
-
-Se leen BRIEF, AGENTS, contrato de auditoría, coordinación y situación R30 de ESTADO/DECISIONES; prevalecen las correcciones urgentes del encargo. COORDINACION está en docs/procedencia, no en raíz. Las herramientas ausentes del PATH se obtienen por Nix. No se usa JJ para inicializar este worktree ni se muta VCS.
+Base examinada: `376fb100512ca6a2f975c3c9500a20ee375dd431`, 16.486 entradas. Las conclusiones son candidatas para contraste y no implican activación de confianza ni aceptación fiscal.
 
 ## Contratos y fuentes examinadas
 
@@ -33,7 +33,7 @@ Las firmas iniciales PDF/PNG solo comprueban coherencia MIME básica; no validan
 
 Los errores de preparación se conservan como incidencias de entorno/instrumentación, no como defectos fiscales: dos límites ENOBUFS de spawnSync se corrigen acotando la selección de rutas y ampliando el buffer de listado. Los esperados históricos y los rojos anteriores permanecen intactos. No se modifica producto para conseguir verde ni se acepta una hipótesis fallida como bug sin contraste.
 
-Los resultados y el dictamen final se completan con los recibos de ejecución adjuntos. El encargo global permanece abierto.
+Los resultados y el dictamen final se completan con los recibos de ejecución adjuntos. 
 
 ## Resultado y dictamen
 

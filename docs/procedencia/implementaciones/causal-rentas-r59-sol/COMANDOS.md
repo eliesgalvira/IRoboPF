@@ -1,6 +1,8 @@
 # Reproducción
 
-Trabajar desde la raíz de la base indicada. Herramientas Nix ya presentes: Node24.20.0, Bun1.3.13 y uv0.11.21. Dependencias del padre en lectura, según las rutas de los instrumentos. `PYTHONDONTWRITEBYTECODE=1` evita cachés en el entorno Python del padre.
+Documento histórico del candidato de este directorio. Los resultados y estados corresponden a esa versión; no acreditan el estado actual del proyecto.
+
+Trabajar desde la raíz de la base indicada. Herramientas Nix ya presentes: Node24.20.0, Bun1.3.13 y uv0.11.21. Dependencias compartidas en lectura, según las rutas de los instrumentos. `PYTHONDONTWRITEBYTECODE=1` evita cachés en el entorno Python del integrador.
 
 1. Configuración propia: `.cache/causal-rentas-r59-sol/preparar-lint.py`, `tsconfig.json`, `vitest.mjs`, `condiciones-vitest.mjs` y `colecciones-vitest.mjs`. Mantienen plugins/severidades reales,16 reglas a error y un trabajador; configLoader native y cache:false. El preparador regenera las copias excluidas del payload.
 2. Consultas Effect: `bun /home/elies/.bun/install/cache/effect-solutions@0.5.3@@@1/dist/cli.js list` y `show basics testing data-modeling`; fuentes locales Array.ts, Option.ts y DateTime.ts.
@@ -8,9 +10,8 @@ Trabajar desde la raíz de la base indicada. Herramientas Nix ya presentes: Node
 4. Regresiones: `flock /tmp/irobopf-validacion-pesada.lock node /home/elies/Repos/IRoboPF/node_modules/vitest/vitest.mjs run --configLoader native --config .cache/causal-rentas-r59-sol/vitest.mjs`. Los JSON/logs `vitest-final` y `rentas-terminal` fijan las invocaciones ejecutadas; no sumarlos por solapamiento.
 5. Condiciones y colecciones: los configs correspondientes ejecutan sus tests propios. `condiciones-formato` y `colecciones-cierre` contienen los pases finales. Las pruebas persistentes generan sus datos desde scripts versionados propios y fuentes históricas fijadas; no leen fixtures de scratch.
 6. `node .cache/causal-rentas-r59-sol/post.mjs` compara50 ejecuciones, genera esquemas y fuentes SHA256/SHA512. Los contratos y testigos se regeneran con software actual; los anteriores y sus objetos de software quedan separados.
-7. `.cache/causal-rentas-r59-sol/ultimos-checks.py` ejecuta cada comando con su propio flock: Draft2020-12, verdes, calibración negativa de anti-slop, tipos y lint. Se usa uv offline con UV_CACHE_DIR y UV_PROJECT_ENVIRONMENT absolutos propios. JSON Schema está disponible en el entorno del padre, solo lectura. `validar.py` y `resumir.py` conservan comandos estructurados y códigos de salida. Los fallos previos no se borran.
+7. `.cache/causal-rentas-r59-sol/ultimos-checks.py` ejecuta cada comando con su propio flock: Draft2020-12, verdes, calibración negativa de anti-slop, tipos y lint. Se usa uv offline con UV_CACHE_DIR y UV_PROJECT_ENVIRONMENT absolutos propios. JSON Schema está disponible en el entorno del integrador, solo lectura. `validar.py` y `resumir.py` conservan comandos estructurados y códigos de salida. Los fallos previos no se borran.
 8. `.cache/causal-rentas-r59-sol/transportar.py` crea manifiesto, patch gzip, objetos y reconstrucción desde preimágenes. El árbol reconstruido no contiene metadatos VCS y no es un checkout.
-9. Al terminar toda escritura: `flock /tmp/irobopf-recepcion-acotada.lock uv run --no-project --offline --python <Python Nix> .cache/causal-rentas-r59-sol/fisico.py`, con caché/env propios. Lee22524 blobs individualmente y censa archivos, enlaces y directorios extra. Excluye únicamente .git como infraestructura y sus dos salidas terminales explícitas.
 
 Los logs originales de entorno, tipos, formato, schema, rojos y verdes están en el payload. Manifiesto y sobre están fuera de su propio payload; los recibos físicos terminales se generan después de cerrar el transporte. No hay comandos VCS mutantes, descarga fiscal nueva, servidor, build Next, push, PR o promoción.
 

@@ -1,12 +1,14 @@
 # Revisión independiente de escalas R60 integrado por R62
 
+Alcance: versión y condiciones examinadas en este dictamen. El [informe final](../../INFORME-FINAL.md) reúne el resultado de los 65 sitios y sus límites.
+
 Dictamen técnico condicionado de los 28 IDs, sin fixes ni aceptación fiscal. El detalle individual está en DICTAMEN28.md y DICTAMEN28.json. Se distingue el alcance de 22 sitios generales del de seis explícitos de trabajo/pensión. Las seis variantes de actividad tienen bloqueo causal demostrado: no se han implementado las 19 familias. Una conclusión favorable dentro de estas condiciones permite cerrar esta revisión del lote; no pide otra revisión idéntica.
 
-Revisor personal gpt-6.1-sol, esfuerzo high según el entorno y encargo; prioridad solicitada por Elies, sin recibo independiente del tier. Sin subdelegación. Base examinada: `1b0676b83dd3be448484c8167ebd1e308dacae30`, 23.648 entradas. La entrega original procede de `59bb5565456caa5a44078f3b9a5ac4301934fb86`; manifiesto `7bd368af57c8bea8d243bbde30027a1e89a636cf6d2e66274505d8276bb3393e`.
+Base examinada: `1b0676b83dd3be448484c8167ebd1e308dacae30`, 23.648 entradas. La entrega original procede de `59bb5565456caa5a44078f3b9a5ac4301934fb86`; manifiesto `7bd368af57c8bea8d243bbde30027a1e89a636cf6d2e66274505d8276bb3393e`.
 
 ## Qué se examinó
 
-Lectura del BRIEF completo, AGENTS, contrato/coordinación, ESTADO vigente y D131–D133; informes completos de implementación y recepción, tabla de 28, comandos y rojos conservados. Lectura personal de los ocho scripts causal-escalas-r60, consumidor R36, cambios del núcleo R57 y protocolo R54, contratos y cuerpos reales de conexión explícita, gastos/art20/DA61, mínimos/derechos, tarifas generales/ahorro y selección normativa. Las 28 referencias fuente se cotejan por SHA256 y offsets UTF16 contra el texto del importe; cada salida propia exige el nodo del importe dentro de su slice.
+Se examinaron D131–D133, informes de implementación y recepción, tabla de 28 sitios, comandos y rojos; los ocho scripts causal-escalas-r60, consumidor R36, cambios del núcleo R57, protocolo R54, contratos y cuerpos de conexión explícita, gastos/art20/DA61, mínimos y derechos, tarifas generales y ahorro, y selección normativa. Las 28 referencias fuente se cotejan por SHA256 y offsets UTF16 contra el texto del importe; cada salida propia exige el nodo del importe dentro de su slice.
 
 La ampliación conserva la separación de invocación, programa, propiedad, rama y transporte. Los prefijos separan programas y los frames distinguen las llamadas a las mismas funciones con bases distintas. Se captura la llamada real a crearLineaCalculo: origen.decimal conserva el valor previo a presentación y resultado lleva el formato. EUR de base, EUR de cuota, ratios, céntimos y cadena decimal se distinguen en los contratos; las anotaciones internas contextuales no son un sistema dimensional universal.
 
@@ -46,7 +48,7 @@ Las desviaciones históricas se conservan: primer lock físico del autor omitido
 
 Antes de escribir se cotejaron personalmente las 23.648 entradas de HEAD con blobs individuales por lstat/readlink/bytes/ejecutable bajo el lock físico: cero diferencias y cero extras de trabajo; .git es el archivo de control T3, excluido del censo de trabajo. No había node_modules local. No se usó un diff vacío como sustituto. El cotejo terminal repite las entradas y enumera extras autorizados e infraestructura.
 
-Se cotejaron personalmente las 416 rutas del transporte original con SHA256/SHA512/tamaño/modo y sus preimágenes, más su coincidencia no-cache con la integración. Se conservaron por hash 90 originales técnicos y los 50 logs históricos, incluidos rojos/cancelaciones. No se leyó ningún hijo activo. No se tocaron motor, inventario, snapshots, ESTADO, DECISIONES ni informes ajenos; tampoco VCS, red externa, PR, despliegue, servidor, preview, LFS, gasto, transferencia o limpieza.
+Se cotejaron personalmente las 416 rutas del transporte original con SHA256/SHA512/tamaño/modo y sus preimágenes, más su coincidencia no-cache con la integración. Se conservaron por hash 90 originales técnicos y los 50 logs históricos, incluidos rojos/cancelaciones. No se tocaron motor, inventario, snapshots, ESTADO, DECISIONES ni informes ajenos; tampoco VCS, red externa, PR, despliegue, servidor, preview, LFS, gasto, transferencia o limpieza.
 
 El payload propio enumera SHA256/SHA512/tamaño/modo/baseSha256 por ruta. Todas sus rutas son nuevas y tienen preimagen inexistente en la base exacta. El patch gzip y los objetos binarios/vacíos se reconstruyen en scratch, sin checkout, y se cotejan bytes, modos y conjunto exacto. Sobre y recibo terminal son externos al payload, sin autorreferencia; reconstrucción y contenedores se excluyen expresamente. Ningún archivo alcanza 10 MiB. No hay logs de procesos activos al cerrar el manifiesto.
 

@@ -1,6 +1,8 @@
 # Contrarrevisión independiente: IPC y redondeos
 
-Corte: 29 de octubre de 2026. Revisión personal, sin subdelegación, sin cambios de motor ni operaciones VCS. Se ha leído el código actual del padre; `snapshot-codigo.json` identifica los archivos. La foto del autor no se confunde con el árbol posterior a lint. Las correcciones de Madrid y del rótulo autonómico no alteran los contraejemplos de este ámbito.
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
+Corte: 29 de octubre de 2026. `snapshot-codigo.json` identifica los archivos examinados, posteriores a lint. Las correcciones de Madrid y del rótulo autonómico no alteran los contraejemplos de este ámbito.
 
 **30/30 IDs examinados: 27 accepted con alcance limitado, 3 needs-evidence, ninguno omitted.** Accepted significa que se acepta la proposición delimitada en `acceptanceScope`, incluida la existencia de un defecto o una ambigüedad; no significa que se apruebe la regla del motor. No se certifica ninguna liquidación fiscal. `revisiones.json` conserva estado candidato, decisión nueva, objeciones, alcance y evidencias por ID. La cobertura por identificador está en `cobertura-ids.json`.
 

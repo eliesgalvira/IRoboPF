@@ -1,6 +1,8 @@
 # Escalas, mínimos y composición: edición técnica R23
 
-Trabajo personal de gpt-6.1-sol con esfuerzo high en T3 Code/Codex. La prioridad es la solicitada; no se inventa un recibo de service tier. No hubo subdelegación ni cambio de modelo. HEAD exigido y observado: `07c07e6376a72f229be735a904ecf36517a1b571`. La recepción física cotejó las14.957 entradas contra un blob cada vez mediante lstat/readlink/bytes/modo; no hubo diferencias. Los controles finales y el transporte se entregan separadamente.
+Documento histórico: los resultados, referencias al motor y pendientes corresponden a la base examinada; no describen el estado vigente del proyecto.
+
+Base examinada: `07c07e6376a72f229be735a904ecf36517a1b571`. Propuesta editorial y pruebas de alcance acotado.
 
 Esta edición resuelve relaciones técnicas del lote y conserva las identidades históricas R21. No es auditoría jurídica, aprobación propia ni cierre del encargo global. No modifica el motor, expectativas recibidas, snapshots, registros de confianza ni documentos ajenos. Las nuevas aristas necesitan revisión independiente y composición con los otros lotes. `wiringAllowed=false` continúa vigente.
 
@@ -42,15 +44,15 @@ Esta edición resuelve relaciones técnicas del lote y conserva las identidades 
 
 **D5. Probar discriminantes sobre TS real sin arreglar el motor.** Objeción: un caso aislado no demuestra todas las aristas. Respuesta: casos de corte y mutantes distinguen relaciones concretas; fuente/expresión y revisión siguen siendo necesarias. Coste: no usar las pruebas como aceptación jurídica ni modificar resultados recibidos.
 
-**D6. Serialización y transporte acotado.** Objeción: repetir recorridos y compilar simultáneamente pondría en riesgo Victus. Respuesta: recepción bajo su lock propio y un blob cada vez; AST/pruebas/calidad bajo lock pesado. Coste: espera de cola y registros comprimidos. No se inspecciona preservaciónv4 ni trabajo activo ajeno.
+**D6. Reproducción con memoria acotada.** Objeción: los recorridos masivos y compilaciones simultáneas consumen memoria. Respuesta: procesar los archivos uno a uno y serializar AST, pruebas y controles de calidad. Coste: mayor tiempo de ejecución.
 
 ## Límites y preservación
 
-No hay fuentes nuevas, adquisición, inspección facsimilar nueva, PAdES/CSV ni atestación. Integridad de bytes, autenticidad, número, interpretación y revisión siguen siendo ejes diferentes. Los originales anteriores y sus informes permanecen intactos. Crossa continúa con v1 desfasado, copia local del mismo dueño/casa, sin custodia independiente. No hubo VCS mutante, envío externo, gasto, LFS, PR, servidor, preview, UI, deploy ni publicación.
+No hay fuentes nuevas, adquisición, inspección facsimilar nueva, PAdES/CSV ni atestación. Integridad de bytes, autenticidad, número, interpretación y revisión siguen siendo ejes diferentes. Los originales anteriores y sus informes permanecen intactos. La evidencia de este análisis no acredita custodia independiente ni restauración externa.
 
 Los resultados efectivos se leen en `codigos.log` y los logs de cada fase. No declarar verde por disponer de scripts; no sustituir una ejecución fallida por tolerancias ni desactivar reglas. Los errores iniciales propios se conservan y las correcciones solo afectan instrumentos de esta carpeta. La validación final registra únicamente lo observado.
 
-**D7. Fijar las dependencias reales de las pruebas sin cambiar el proyecto.** Objeción del mejor experto: una dependencia del anfitrión puede hacer pasar operaciones compatibles y fallar después con otraAPI. Respuesta: aliases del tsconfig de scratch hacia los paquetes reales del padre, hashes conservados y `--no-install`; no se reemplaza ninguna función del motor. Coste: tres fallos previos del instrumento de resoluciónBun quedan registrados y la reproducción depende de disponer de esos paquetes exactos. No se rebajan pruebas o reglas por el fallo del entorno.
+**D7. Fijar las dependencias reales de las pruebas sin cambiar el proyecto.** Objeción del mejor experto: una dependencia del anfitrión puede hacer pasar operaciones compatibles y fallar después con otraAPI. Respuesta: aliases del tsconfig de scratch hacia los paquetes reales del repositorio, hashes conservados y `--no-install`; no se reemplaza ninguna función del motor. Coste: la reproducción depende de disponer de esos paquetes exactos.
 
 El primer discriminante temporal de mínimos comprobaba por error el mínimo propio de ambos territorios. El rojo propio mostró que IllesBalears2023 conserva5550 a ambos lados del corte: cambia segundo descendiente2970/2700 y ascendientes, no todas las propiedades del objeto. Se conserva ese rojo y se corrige únicamente la propiedad observada por el instrumento, añadiendo la invariancia del mínimo propio. No se altera ninguna expectativa recibida ni implementación. Este resultado refuerza la separación de dependencias por propiedad en vez de atribuir todo el objeto a todo consumidor.
 

@@ -1,8 +1,10 @@
 # Contratos de ámbito y publicación R19: revisión independiente
 
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
 **Dictamen: bloquear nuevas promociones a `accepted-limited` hasta contrastar y corregir CP19-02/03.** El recorrido actual pendiente de Madrid funciona; no he demostrado una aceptación real indebida ni pérdida de sus objetos. Los tres hallazgos nuevos son candidatos para contraste del padre. Se conservan sus reproducciones rojas, sin fixes de producto ni cambios en registros, atestaciones o informes ajenos.
 
-Base examinada: `7668bdad60a79a8b3ad8e1e1b911f3d6c223692a`, comparada con `82045effc7c34a93682e265d3f4dff796f314a60`. Trabajo personal de la ejecución Codex gpt-6.1-sol High; no subdelegué ni cambié modelo. La prioridad fue solicitada por el usuario; no aporto telemetría independiente del proveedor. Se leyeron BRIEF, AGENTS y los cuatro documentos de contrato/coordinación/estado/decisiones, integración R19, recibos terminados y revisiones previas de ámbito, evidencia y publicación. No se investigó semánticamente la revisión activa de retenciones 2012–2014 ni trabajo activo ajeno.
+Base examinada: `7668bdad60a79a8b3ad8e1e1b911f3d6c223692a`, comparada con `82045effc7c34a93682e265d3f4dff796f314a60`. Se contrastaron integración R19, recibos terminados y revisiones previas de ámbito, evidencia y publicación.
 
 El cotejo inicial recorre físicamente 24.605 entradas entre ambas revisiones mediante lstat/readlink, bytes y hashes frente a blobs Git: cero ausencias y cero divergencias del HEAD. Las modificaciones frente a la base antigua se distinguen de ausencias. `control-arbol.json.gz` conserva cada ruta, modo, enlace, tamaño y hashes. El cierre vuelve a comprobar las entradas del HEAD; véase `cierre.json`. No hay Jujutsu inicializado en este checkout; no se inicializó ni se realizó operación VCS mutante.
 
@@ -58,7 +60,7 @@ Inspección visual personal del PNG: última fila `53.407,20 / 7.395,81 / en ade
 
 Inventario reconstruido contra código actual; pines `30dfbc3154494ae09eee32d1bcf005b627241051bb3531af3cb38e686dff1de7` y `59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7`. Las 52.461 ocurrencias y 65 sitios no son reglas fiscales aceptadas. Madrid conserva payload `e16bd15666f0f83502756ac1648259979ab07bdc5eea18abb0e7965a634a4258`, pendiente; los 264 candidatos R19 continúan pendientes y fuera del registro real. Ninguna atestación anterior migra.
 
-Crossa sigue siendo v1 histórico desfasado, misma casa y dueño: no acredité custodia independiente o remota. No se revisaron jurídicamente las 264 celdas, ni se cerró BRIEF. No Next build, servidor, preview, suites legacy masivas, LFS, gasto, transferencia externa, PR, despliegue, interacción en X ni mensajes a terceros.
+Crossa es una copia v1 histórica desfasada del mismo dueño y domicilio; no se comprobó custodia independiente ni remota. Esta revisión no examina jurídicamente las 264 celdas.
 
 ## Validación y entrega
 

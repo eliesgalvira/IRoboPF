@@ -1,6 +1,6 @@
 # Otras rentas en la reducción del trabajo: TDE-09 y TDE-10
 
-El orquestador implementa las dos discrepancias aceptadas con alcance limitado por la contrarrevisión de trabajo. Se releen las normas originales: [Ley 39/2010, artículo 60](https://www.boe.es/eli/es/l/2010/12/22/39) y [Ley 26/2014, artículo primero.Doce](https://www.boe.es/eli/es/l/2014/11/27/26). Los originales, coordenadas y hashes constan en las citas TDE-C-ley39-2010-60-17 y TDE-C-ley26-2014-12-10 de auditoría y revisión.
+Se implementan las dos discrepancias aceptadas con alcance limitado por la contrarrevisión de trabajo. Normas contrastadas: [Ley 39/2010, artículo 60](https://www.boe.es/eli/es/l/2010/12/22/39) y [Ley 26/2014, artículo primero.Doce](https://www.boe.es/eli/es/l/2014/11/27/26). Los originales, coordenadas y hashes constan en las citas TDE-C-ley39-2010-60-17 y TDE-C-ley26-2014-12-10 de auditoría y revisión.
 
 En 2012–2014, superar 6.500 euros de otras rentas no exentas lleva la reducción ordinaria a 2.652 euros. Desde 2015 excluye esta reducción. La igualdad exacta conserva el régimen ordinario. La API canónica exige el saldo explícito; la API antigua sigue siendo un adaptador del perfil sin otras rentas, para conservar las reproducciones históricas y la conciliación legacy. No se ha modificado ningún informe o instrumento original de los revisores.
 

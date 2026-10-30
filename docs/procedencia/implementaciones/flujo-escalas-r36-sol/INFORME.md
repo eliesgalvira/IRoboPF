@@ -1,8 +1,10 @@
 # Escalas, bases y mínimos R36: implementación candidata
 
-Implementación personal en T3 Code mediante Codex, modelo runtime gpt-6.1-sol, esfuerzo high. Prioridad solicitada; no se inventa un recibo independiente del service tier. Sin subdelegación ni cambio de modelo. Base y HEAD exigidos: `50f9e949544e20d3e4e0bffc79b926d396267319`, 20.227 entradas.
+Documento histórico del candidato de este directorio. Los resultados y estados corresponden a esa versión; no acreditan el estado actual del proyecto.
 
-La entrega implementa un programa finito consumible para las 28 salidas asignadas. No es aprobación fiscal, revisión independiente, admisión del caso, wiring ni cierre del encargo global. Las conclusiones nuevas requieren contraste del padre. `valueClosed`, `selectionClosed`, `siteClosed`, `completeRuleAcceptance` y `wiringAllowed` permanecen false: las ejecuciones son condicionadas a los contratos externos y a la admisión pendiente, no una promoción automática de los booleanos R23.
+Base del candidato documentado: `50f9e949544e20d3e4e0bffc79b926d396267319`.
+
+La entrega implementa un programa finito consumible para las 28 salidas asignadas. No es aprobación fiscal, revisión independiente, admisión del caso, wiring ni cierre del encargo global. Las conclusiones nuevas requieren contraste de integración. `valueClosed`, `selectionClosed`, `siteClosed`, `completeRuleAcceptance` y `wiringAllowed` permanecen false: las ejecuciones son condicionadas a los contratos externos y a la admisión pendiente, no una promoción automática de los booleanos R23.
 
 ## Representación y consumidor
 
@@ -34,7 +36,7 @@ La deducción agregada consume `(deduccionAutonomicaAgregadaCentimos ?? 0)/100`.
 
 `fronteras.json` identifica las funciones ajenas de rentas, cotizaciones, art20, adaptadores y DA61 por archivo/símbolo, parámetros, salidas con unidad y usos. Las instancias y operandos reales siguen en el programa. Retención estimada tiene una llamada separada con entrada/contexto y salida importeRetencionAnualCentimos; no se confunde con soportadas. Los callbacks son contratos suministrados para ensayo, no revisión independiente ni certificación de hechos. La ausencia de un callback exigido falla, en vez de convertir la frontera en cero o inventar cierre.
 
-`admissionObligations` enumera los if efectivos del acceso anual, el cálculo anual, el explícito y los validadores de derechos, más la puerta de códigos. Incluye fuentes, condiciones y status pending-review. La decodificación explícita requiere un resultado de frontera. Los testigos de pruebas son sintéticos y solo permiten observar el valor condicionado. El consumidor no otorga admisión pública; componer con R35 y los contratos de los otros lotes sigue siendo requisito de revisión del padre.
+`admissionObligations` enumera los if efectivos del acceso anual, el cálculo anual, el explícito y los validadores de derechos, más la puerta de códigos. Incluye fuentes, condiciones y status pending-review. La decodificación explícita requiere un resultado de frontera. Los testigos de pruebas son sintéticos y solo permiten observar el valor condicionado. El consumidor no otorga admisión pública; componer con R35 y los contratos de los otros lotes sigue siendo requisito de revisión de integración.
 
 ## Verificación y límites
 
@@ -47,7 +49,7 @@ Los resultados finales, incluidos fallos de instrumento y entorno, constan en RE
 ## Decisiones, objeciones y costes
 
 1. Programa finito concreto, en lugar de declarar terminal el cuerpo de un helper. Objeción experta: un bajador puede reproducir una omisión propia. Respuesta: construcciones desconocidas fallan; pruebas nuevas distinguen ramas/celdas y TS aporta contraste suplementario. Coste: mantener productor y consumidor y exigir revisión nueva de su suficiencia.
-2. Fronteras por propiedad e instancia. Objeción: un callback con cifra correcta puede ocultar unidades o una llamada equivocada. Respuesta: parámetros, salidas, archivos, llamadas y unidades quedan explícitos; un callback ausente falla y el cierre permanece condicionado. Coste: composición con cada lote y examen del padre antes de publicar.
+2. Fronteras por propiedad e instancia. Objeción: un callback con cifra correcta puede ocultar unidades o una llamada equivocada. Respuesta: parámetros, salidas, archivos, llamadas y unidades quedan explícitos; un callback ausente falla y el cierre permanece condicionado. Coste: composición con cada lote y examen del integrador antes de publicar.
 3. Proyección del valor separada de admisión. Objeción: las líneas pueden producirse para hechos que el acceso público rechazaría. Respuesta: resultado marcado condicionado, obligaciones enumeradas y ningún estado de admisión/promoción aceptado. Coste: no usarlo como liquidador público ni como prueba del contrato anual completo.
 4. Conservar representaciones distintas aunque una cifra coincida. Objeción: podría parecer duplicación. Respuesta: instancia/propiedad, sumandos, remanentes y rutas por componente siguen separados. Coste: más trazas, sin deduplicación por valor.
 5. Preservar evidencias recibidas y fallos propios. Objeción: repetir productores puede sobreescribir históricos. Respuesta: copias en scratch con diff y transporte separado; no se ejecuta un productor con salida histórica. Coste: logs y artefactos adicionales comprimidos cuando exceden1MB.
@@ -55,12 +57,6 @@ Los resultados finales, incluidos fallos de instrumento y entorno, constan en RE
 
 ## Conservación
 
-El cotejo inicial terminó antes de editar: 20.227 entradas idénticas por lstat/readlink/bytes/ejecutable y un blob a la vez; sin extras ni diff. Dos esperas se cancelaron sin ejecutar el cotejo; una tentativa falló por el búfer de ls-tree, y el reintento con búfer mayor terminó correctamente. El control final vuelve a comparar todas las entradas, enumera adiciones y exige cero cambios/borrados de base y cero rutas ajenas. El manifiesto registra SHA256, tamaño y baseSha256=null para todas las adiciones. No hay archivos de base modificados.
+Las referencias documentales y sus reservas constan en el fragmento y los informes históricos; no se incorpora una nueva validación de originales.
 
-No se adquieren originales ni PDFs nuevos, por lo que no hay CAS fiscal nuevo que conservar. Se preservan todos los históricos, contexto, originales y worktrees. Motor, inventario, confianza activa, snapshots, ESTADO y DECISIONES permanecen intactos. V5 r2 conserva su corte R26 y pin entregado; Crossa sigue v1 desfasado, misma casa/dueño y sin independencia ni transferencia. Sin VCS mutante, commit, bookmark, push, PR, main, deploy, servidor, preview, rediseño, LFS, gasto, X ni mensajes externos.
-
-Resultado final de calidad: pasan17 grupos de pruebas, schema y siete mutaciones, tipos de las pruebas, checkJs del alcance y oxlint con16 reglas aerror. La corrección final de tipos solo estrecha la unión de registros del cotejador. Los logs previos se conservan. El tipado del intérprete es dinámico y no estricto; no se presenta como prueba semántica independiente. El cotejo y el ensayo de transporte se registran en sus recibos separados.
-
-Incidencia final de ámbito: el primer cotejo final confirmó las20.227 entradas base intactas y cero borrados, pero rechazó la caché de resultados que Vitest había creado bajo node_modules/.vite. La recepción inicial acreditaba que ese directorio no existía. Se preservó íntegra la caché propia, con rutas absolutas y hashes, en .cache/flujo-escalas-r36/vitest-cache-fuera-ambito. El preparador fija ahora cacheDir propio y test.cache=false. No se borra ningún original ni se oculta ese rechazo; se repiten los controles del preparador y el cotejo.
-
-Cotejo final efectivo: HEAD intacto,20.227 entradas base idénticas por lstat/readlink/bytes/modo, cero diferencias, cero borrados, diff vacío y ninguna adición ajena al ámbito. Recibo completo en fisico-final.json.gz. La caché propia desplazada se conserva en scratch. Las adiciones entregables tienen baseSha256=null; no hay cambio de archivo previo que requiera hash anterior distinto.
+Resultado final de calidad: pasan17 grupos de pruebas, schema y siete mutaciones, tipos de las pruebas, checkJs del alcance y oxlint con16 reglas aerror. El tipado del intérprete es dinámico y no estricto; no se presenta como prueba semántica independiente.

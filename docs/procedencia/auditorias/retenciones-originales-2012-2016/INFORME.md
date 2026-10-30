@@ -1,6 +1,8 @@
 # Recuperación de originales de retenciones, 2012–2016
 
-Base comprobada por `git rev-parse HEAD`: eaed990c620b5fc4d3ff2e74dc68e0c8481c43db. Investigación personal, sin subdelegación, cambios del motor, VCS mutante, PR, despliegue, gasto ni transferencia de preservación. Entrega candidata para integración por archivo y revisión independiente nueva. Ninguna aceptación fiscal.
+Documento histórico: los resultados, referencias al motor y pendientes corresponden a la base examinada; no describen el estado vigente del proyecto.
+
+Base examinada: `eaed990c620b5fc4d3ff2e74dc68e0c8481c43db`. Investigación documental candidata que requiere revisión independiente; no constituye aceptación fiscal.
 
 ## Resultado y distinciones
 
@@ -26,7 +28,7 @@ Se conserva también la nota informativa 2015 enlazada por el índice. Las consu
 
 La lectura del código de esta base corrige una premisa histórica: el motor canónico **rechaza 2012–2016**, porque su catálogo comienza en 2017. No sigue ejecutando silenciosamente para esos años el procedimiento moderno descrito en la primera auditoría. El modo compatible-legacy permanece separado. Se fijan los hashes del catálogo y del servicio en el manifiesto de fuentes de código.
 
-La referencia 2020 es una comparación documental y de código, no un oracle ejecutado en esta ronda. Su reducción selecciona 5.565/13.115/1,5 y la escala permanente alcanza 45 %. No se trasladan esos valores a los originales anteriores. La matriz mantiene veinte pasos por versión, candidatos de localización y carencias; no cuenta sus filas como reglas comprobadas. Incluso cuando una tabla coincide, el contrato de comunicación, previsión anual, elegibilidad y regularización permanece por contrastar.
+La referencia 2020 es una comparación documental y de código, no un oracle ejecutado por este análisis. Su reducción selecciona 5.565/13.115/1,5 y la escala permanente alcanza 45 %. No se trasladan esos valores a los originales anteriores. La matriz mantiene veinte pasos por versión, candidatos de localización y carencias; no cuenta sus filas como reglas comprobadas. Incluso cuando una tabla coincide, el contrato de comunicación, previsión anual, elegibilidad y regularización permanece por contrastar.
 
 No se cambia ningún cálculo ni oracle. Por ello no hay un fix numérico ni una prueba roja previa a un fix que entregar. La comparación numérica exhaustiva, las fronteras y la ejecución contra motor/Excel no se han realizado y no se anuncian verdes. Incorporar nuevos documentos al catálogo requiere otra tarea autorizada, revisión y pruebas independientes.
 
@@ -53,8 +55,6 @@ Adquisición con `bash tools/procedencia/run.sh .cache/procedencia/retenciones-o
 Extracción y verificación: `flock /tmp/irobopf-validacion-pesada.lock env UV_PROJECT_ENVIRONMENT="$PWD/.cache/procedencia/retenciones-originales-2012-2016/venv" bash tools/procedencia/run.sh docs/procedencia/auditorias/retenciones-originales-2012-2016/evidencia.py`, seguido del mismo comando con `verificar.py`. Un trabajador. Nix/uv fijados por el proyecto. No se ejecutan Next build ni suites legacy.
 
 Incidencia de ámbito: la primera invocación del lanzador creó automáticamente `tools/procedencia/.venv` (entorno ignorado) fuera de las dos carpetas asignadas. Las siguientes fijan `UV_PROJECT_ENVIRONMENT` en la caché propia. No se modificaron fuentes, package, lockfiles ni CI y no se borró ese entorno para ocultar la incidencia. No se enlazó node_modules. No hay código TypeScript ni Effect nuevo; las 16 reglas anti-slop no se modifican. Los controles pertinentes de los scripts Python y sus resultados reales figuran en los logs.
-
-La copia Crossa no se examinó ni modificó: sigue siendo v1 histórico, misma casa y propietario, comunicado por el coordinador. No se atribuye nueva verificación propia, custodia independiente ni transferencia externa. v1, v2, originales de terceros, informes ajenos y contexto se conservan.
 
 ## Bloqueos siguientes
 
@@ -86,10 +86,10 @@ La inspección visual también confirma que en julio de 2015, página física 30
 
 `validacion-ampliada.log`: 19 PDF, 191 citas y 191 facsímiles actuales cotejados por reextracción y regeneración, cero fallos. Matriz de 140 celdas, veinte pasos por cada una de siete versiones recuperadas; cero aceptaciones. Ruff y Pyright de los tres scripts mantenidos: sin errores ni advertencias. No se suma el pase previo. `pdfsig -nocert` no encuentra firmas en los siete algoritmos archivados; los resultados criptográficos de los BOE se conservan con su límite de confianza, sin verificar identidad histórica ni revocación.
 
-`manifiesto.json` enumera los archivos entregables con ruta, tamaño, SHA-256 y baseSha256 (null para altas), excluyéndose a sí mismo y al parche para evitar autorreferencia. El parche contiene las altas textuales; los PNG y originales se integran por archivo/hash, nunca aplicando texto a binarios. Se conservan facsímiles iniciales adicionales sin referencia desde las citas actuales, para cumplir cero borrados. Las rutas de entorno uv y los textos exploratorios no forman parte del paquete de integración. Los originales CAS y los índices sí deben preservarse en la raíz del padre; no depender del worktree para su custodia.
+`manifiesto.json` enumera los archivos entregables con ruta, tamaño, SHA-256 y baseSha256 (null para altas), excluyéndose a sí mismo y al parche para evitar autorreferencia. El parche contiene las altas textuales; los PNG y originales se integran por archivo/hash, nunca aplicando texto a binarios. Se conservan facsímiles iniciales adicionales sin referencia desde las citas actuales, para cumplir cero borrados. Las rutas de entorno uv y los textos exploratorios no forman parte del paquete de integración. Los originales CAS y los índices sí deben preservarse en la raíz del repositorio; no depender del worktree para su custodia.
 
 La comprobación de entrega conserva los 6.005 archivos de la base sin ausencias y confirma las 16 reglas anti-slop a error. Los dos scripts de adquisición entregados recibieron además Ruff/Pyright: se corrigieron imports y una instrucción en la misma línea, conservando el diagnóstico inicial. `validacion-integrable.log` registra el pase integrable y el diagnóstico adicional de tipos explicado al final. No se cambiaron cifras ni expectativas.
 
-Para integrar, conservar las rutas relativas del manifiesto desde la raíz del repositorio del padre. `fuentes.json.localPath` usa la caché relativa; las adquisiciones embebidas conservan la ruta histórica real del momento de captura. Los verificadores no dependen de que sobreviva la ruta absoluta de este worktree. Objeción experta: copiar originales con hashes correctos pero dejar un lector ligado a un checkout efímero no garantiza reproducibilidad. Coste: separar ruta operativa de la memoria de adquisición y repetir el cotejo final.
+La reproducción requiere conservar las rutas relativas del manifiesto desde la raíz del repositorio. `fuentes.json.localPath` usa la caché relativa; las adquisiciones embebidas conservan la ruta histórica real del momento de captura. Los verificadores no dependen de que sobreviva la ruta absoluta de este worktree. Objeción experta: copiar originales con hashes correctos pero dejar un lector ligado a un checkout efímero no garantiza reproducibilidad. Coste: separar ruta operativa de la memoria de adquisición y repetir el cotejo final.
 
 El pase integrable revalidó los 19 PDF y 191 citas/facsímiles usando rutas relativas, pero detectó dos anotaciones insuficientes en el registro heterogéneo de adquisición. Se sustituyó la inferencia de diccionario de cadenas por un `TypedDict` con campos explícitos, sin casts ni supresiones. El resultado final de tipos y lint de los cinco scripts está en `tipos-adquisicion-corregidos.log`; los diagnósticos previos permanecen visibles. La corrección solo describe la estructura JSON que ya emitía el script.

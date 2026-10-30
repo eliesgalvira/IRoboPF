@@ -1,6 +1,8 @@
 # Revisión independiente nominal Madrid 2020, R30
 
-Esta revisión examina los bytes entregados del payload R29, ámbito, decisión nueva del padre, proyección cerrada y cierre tipado; también Python nominal.py/enlaces.py, Node nominal-contrato.mjs/ambito-publicado.mjs, coordinador verificar-enlaces.mjs y contrato de software de explicación. No modifica producto, esperados históricos ni confianza. Las conclusiones nuevas requieren contraste del padre. El encargo global sigue abierto.
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
+Esta revisión examina los bytes entregados del payload R29, ámbito, decisión nueva del padre, proyección cerrada y cierre tipado; también Python nominal.py/enlaces.py, Node nominal-contrato.mjs/ambito-publicado.mjs, coordinador verificar-enlaces.mjs y contrato de software de explicación. No modifica producto, esperados históricos ni confianza. El encargo global sigue abierto.
 
 **Resultado: bloqueado para atestación por NR30-01, divergencia de cierre entre Node y el schema del payload.** El payload original exacto tiene SHA256 `ed018d24b02b10d4633c541d8dd17645fc5e27fcd5935c3d76d24f40b6f234d6`; ámbito `db28cf003f4bbf3e450650c7bc493e23eadd9b9efa4f94b8223b54db4b284a44`. La lectura nominal del original queda corroborada con sus reservas; no se acepta el conjunto de consumidores mientras exista esa discrepancia. No se emite atestación candidata.
 
@@ -24,7 +26,7 @@ La disposición de 2018 aplica los apartados IRPF a períodos finalizados durant
 
 ## Autoría y autoridad exactas
 
-La decisión se fija mediante el pin externo `49deb823a7f462bcf12817b1d59f7e83a0a7ac16d9af8e5557ee6733bc5eb6f5`. Es una proyección nominal **del padre** mcp:81fd9b2d-806e-4a35-8b7d-3f1d9d00e5db, derivada de la revisión R27. No atribuyo su redacción al revisor anterior ni me atribuyo esa autoría. Identidad real de esta revisión: identidad.json, respuesta de T3; Codex gpt-6.1-sol, high, priority, sin subdelegación ni cambio de modelo.
+La decisión se fija mediante el pin externo `49deb823a7f462bcf12817b1d59f7e83a0a7ac16d9af8e5557ee6733bc5eb6f5`. Es una proyección nominal de integración derivada de la revisión R27; su redacción no se atribuye a esa revisión original. `identidad.json` conserva el registro de esta revisión.
 
 La proyección cerrada exige identidad completa, valor serializado 53407.2, unidad, componente autonómico sobre base general, período nominal-only, condiciones y exclusiones exactas. Cambiar decimales aun equivalentes altera esa proyección exacta; no significa que 53407.20 sea matemáticamente diferente. El pin no demuestra vigencia. El cierre tipado preserva contexto R27 y del padre, cita, manifiesto saneado, anexos, facsímiles y tres originales con ambos hashes/tamaño. No es un censo exhaustivo de fundamento jurídico ni saneamiento universal de todos los informes históricos.
 
@@ -32,7 +34,7 @@ La proyección cerrada exige identidad completa, valor serializado 53407.2, unid
 
 El auxiliar Python recibe contexto y no reconstruye por sí solo el inventario. El coordinador real sí lo reconstruye desde código actual; coteja las dependencias documentales y CAS al final y repite fuentes/extractores/inventario. Node verifica el cierre suministrado por hash y relee documentos, originales y fuente; no reconstruye el AST. El publicador activo continúa sobre su snapshot registrado y Madrid v1 pendiente. La exportación de la entrada nominal en ambito-publicado no la convierte en una vía de promoción ni en publicación activa. Un sobre coherente, un auxiliar que lo admita o el lote técnico de 264 pares del autor no son aceptación jurídica.
 
-En ambos consumidores nominales la atestación debe ser null: la revisión operativa solo admite **pending**. Ninguna atestación candidata adjunta a esta entrega será registrada, insertada en el fixture ni usada para eludir ese rechazo. El padre debe decidir un contrato posterior si desea otra transición. Todo contexto civil es rechazado, también el ordinario de 2020. El contrato antiguo mantiene dos segmentos, Madrid2022, Catalunya2020–2024 y la condición estricta BLG>60000 de Murcia; esta revisión no los amplía.
+En ambos consumidores nominales la atestación debe ser null: la revisión operativa solo admite **pending**. Ninguna atestación candidata adjunta a esta entrega será registrada, insertada en el fixture ni usada para eludir ese rechazo. Una transición distinta requiere un contrato posterior. Todo contexto civil es rechazado, también el ordinario de 2020. El contrato antiguo mantiene dos segmentos, Madrid2022, Catalunya2020–2024 y la condición estricta BLG>60000 de Murcia; esta revisión no los amplía.
 
 La corrección del padre incorpora las seis dependencias nominales al array literal FUENTES_EXPLICACION. Las pruebas conservadas del padre mutan cada archivo después de preparar un snapshot válido; los seis rojos previos son evidencia histórica, no ejecuciones anteriores propias. Los primeros intentos Node/Bun sin test eran fallos de lanzador, no rojos sustantivos. La puerta de software actual compara generador y fuentes ordenadas con el snapshot; el lector histórico lee su propia lista conservada sin ejecutar código histórico. Se distinguen de la función nominal aislada, que no promete autenticar el software que la ejecuta. No se afirma cierre transitivo universal ni protección ABA frente a un escritor que restaure bytes entre observaciones.
 
@@ -46,7 +48,7 @@ La corrección del padre incorpora las seis dependencias nominales al array lite
 
 ## Entorno y entrega
 
-BRIEF íntegro, AGENTS, contrato de auditoría, COORDINACION y situación de ESTADO/DECISIONES leídos, con la corrección del usuario prevalente. Se reabren las cuatro entregas recibidas del encargo y validacion.json/regeneracion-final.json R30. No se leen archivos parciales de hijos activos. No se escribe Effect. Herramientas por Nix, Python con run.sh, PYTHONDONTWRITEBYTECODE y UV_PROJECT_ENVIRONMENT absoluto propio. Dependencias Node del padre en lectura mediante vista scratch. Un primer instrumento Node falla por ausencia de dependencias en el checkout; se conserva y se cambia su import a la copia exacta scratch, sin presentarlo como defecto de producto.
+Se examinaron las cuatro entregas recibidas y validacion.json/regeneracion-final.json R30. Las herramientas se ejecutan mediante Nix, Python con run.sh, `PYTHONDONTWRITEBYTECODE` y `UV_PROJECT_ENVIRONMENT` absoluto propio. Las dependencias Node se resuelven desde la copia scratch; el fallo inicial de resolución se conserva como incidencia instrumental.
 
 Los comandos, resultados y límites quedan en COMANDOS.md y JSON por caso; controles físicos inicial/final recorren las 16.486 entradas contra HEAD 376fb100512ca6a2f975c3c9500a20ee375dd431 con lstat, readlink, bytes y ejecutabilidad, un blob cada vez. Ninguna entrada preexistente debe cambiar: todos los archivos nuevos tienen baseSha256 null. El manifiesto y el patch gzip con binarios por ruta/hash se ensayan en scratch; los sobres se enumeran aparte para evitar circularidad. Los controles mayores de 1 MB se comprimen. Sin originales PDF, entornos, node_modules o copias de app en docs.
 

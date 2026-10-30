@@ -1,8 +1,10 @@
 # Contrarrevisión de contratos v2
 
-Revisión personal contra la base declarada `ed6a43fd750de05609abc3710dabdc2f8261020c`. Sin subdelegación, fixes ni operaciones VCS. **Las ocho reproducciones originales están corregidas dentro de su alcance; quedan dos defectos técnicos candidatos y límites históricos explícitos.** No se acepta ninguna regla fiscal ni se modifica una atestación.
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
 
-Se leyeron íntegros BRIEF, AGENTS, CONTRATO-AUDITORIA, COORDINACION, ESTADO, DECISIONES, los informes deducciones-implementacion y actividades-implementacion y correcciones/integracion-ronda7/INFORME.md. Las fuentes examinadas y sus hashes están en manifiesto.json. La base es la indicada por el padre; el padre debe cotejar estos bytes con ella. No se ha usado un índice como prueba de identidad.
+Base declarada: `ed6a43fd750de05609abc3710dabdc2f8261020c`. **Las ocho reproducciones originales están corregidas dentro de su alcance; quedan dos defectos técnicos candidatos y límites históricos explícitos.** Esta revisión no acepta ninguna regla fiscal ni modifica una atestación.
+
+Se examinaron deducciones-implementacion, actividades-implementacion y correcciones/integracion-ronda7/INFORME.md. `manifiesto.json` fija las fuentes y sus hashes. La base es declarada; esta revisión no cotejó los bytes con ella ni usó un índice como prueba de identidad.
 
 ## Resultado por hallazgo anterior
 

@@ -1,4 +1,4 @@
-# Reproducción R23
+# Reproducción de las correcciones técnicas
 
 Desde la raíz del repositorio. Un trabajador y `flock /tmp/irobopf-validacion-pesada.lock`. Bun, Node y Python mediante Nix. Python con `PYTHONDONTWRITEBYTECODE=1` y `UV_PROJECT_ENVIRONMENT=/home/elies/Repos/IRoboPF/.cache/procedencia/derechos-r15-venv`.
 

@@ -1,6 +1,8 @@
 # Revisión independiente del adaptador de evidencia
 
-Base examinada: `c61a306107f280c399eb57e57a7c45452bd68864`. Revisor nuevo, trabajo personal, sin delegación, cambios de producto, VCS mutante ni atestación. La carpeta de entrega es `docs/procedencia/revisiones/evidencia-contenido-v1/` en la raíz del padre. Las copias de ejecución fueron fixtures en scratch, sin metadatos VCS. No se tocaron originales ni informes ajenos.
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
+Base examinada: `c61a306107f280c399eb57e57a7c45452bd68864`. Las copias de ejecución fueron fixtures en scratch, separadas de los originales.
 
 ## Decisión
 
@@ -8,7 +10,7 @@ El adaptador resulta utilizable **como generador técnico de candidatos del caso
 
 Objeción experta: una cadena de hashes y un número coincidente pueden acompañar una proposición jurídica falsa. La reproducción EC-01 lo confirma. Decisión: conservar el resultado técnico limitado y exigir las puertas descritas abajo al integrar. Coste: validación adicional de ámbito, preservación de dependencias y una revisión nueva después de integrar los cambios del motor. No se migra aceptación desde este snapshot ni desde los objetos históricos del autor. Ningún resultado se autoacepta fiscalmente.
 
-Lecturas: BRIEF y AGENTS íntegros; CONTRATO-AUDITORIA, COORDINACION, ESTADO, DECISIONES y correcciones/coherencia-ronda9/INFORME; entrega evidencia-contenido, extensión, logs y manifiesto; adaptador, test actual, modelo, verificador, coordinador Node y auxiliar Python; comprobación del verificador de contenido para situar su frontera. La ruta abreviada de correcciones se resolvió bajo docs/procedencia. El primer intento de rg encontró la herramienta ausente; se usaron find y lecturas directas. No se escribió Effect.
+Se examinaron correcciones/coherencia-ronda9/INFORME, entrega evidencia-contenido, extensión, logs y manifiesto; adaptador, test, modelo, verificador, coordinador Node y auxiliar Python. La lectura del verificador de contenido sitúa la frontera del control.
 
 ## Resultado reproducido
 

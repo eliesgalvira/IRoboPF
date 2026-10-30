@@ -1,7 +1,5 @@
 # Rectificación candidata del techo de tipo y su evidencia
 
-La revisión Sol R21 se recibe íntegra: 41 archivos, 2.199.202 bytes y 14.537 entradas de base cotejadas físicamente contra `960773f909d4ecff290edfa3d7a7b2699a8445d3`. El padre comprobó HEAD, ausencia de diferencias de commits, tipos de archivo, enlaces y bytes de toda la base; después validó manifiesto, transporte y cada archivo de entrega. Cero borrados. `recepcion.json` fija los hashes. El informe, los tres renders y los rojos del revisor permanecen intactos en `revisiones/retenciones-rectificaciones-r21-sol/`.
-
 R21-01 queda corroborado como defecto del subcontrato escrito: la sustitución había perdido la guarda de subida, pero conservaba la asignación al tipo previo. Se reprodujo el rojo independiente antes de modificar el candidato: tres subcasos fallidos, código1. No se atribuye ese fallo al servicio de retenciones; el cálculo de producción no consume este documento. La nueva edición separada aplica el techo `min(candidato,anterior)` y conserva los tipos inferiores. Los tres reemplazos de mínimos y la confirmación visual de ≤64 no cambian.
 
 Objeción experta: la guarda podría estar implícita en el párrafo original. Respuesta: el reemplazo completo eliminaba precisamente esa condición y no podía depender de una memoria implícita del lector. Coste: edición y revisión nuevas; el rojo anterior no se cambia para obtener verde.
@@ -18,10 +16,8 @@ Objeción experta: reproducir bytes no acredita autenticidad ni vigencia. Respue
 
 `precisar.py` genera la superposición y sus recetas a partir de la edición anterior, sin alterar originales ni revisiones. `contraste.py` interpreta exclusivamente las dos fórmulas documentales comparadas, sin eval ni importación del motor: comprueba candidatos por debajo, en y por encima del techo, así como mínimos compatibles. Son operaciones condicionales, no nóminas fiscales reconstruidas. Se incluyen controles de alteración de documento, offsets, clasificación del fragmento, cita textual y hashes. La precedencia jurídica y las exclusiones se revisan como contrato, no mediante pruebas que exijan una frase literal.
 
-Los comandos y sus códigos quedan en COMANDOS.md y los logs. No se ejecutan build, suites masivas, regeneración de inventario ni publicación, porque no hay cambios en el motor, el publicador o sus dependencias de explicación. Ninguna prueba documental ni hash sustituye la revisión independiente nueva.
+Los comandos y sus códigos quedan en `COMANDOS.md` y los logs. Ninguna prueba documental ni hash sustituye la revisión independiente.
 
 Resultado final: los dos métodos numéricos ejecutados contra R21 producen doce subcasos fallidos, código1; los tres métodos contra R22 pasan, código0. Estos últimos cubren veintisiete subcasos de las tres fórmulas y catorce alteraciones de las dos citas, además de sus reproducciones positivas. Ruff pasa y mypy no encuentra incidencias en los dos scripts propios. Los recuentos son controles documentales, no reglas fiscales aceptadas. Se conservaron todos los logs, incluida la reproducción del rojo independiente anterior a la edición.
 
 Julio, la condición territorial, la doble600, los demás bucles familiares, la autenticidad histórica y las combinaciones excluidas mantienen sus reservas. `completeRuleAcceptance` sigue false y `enableVersions` sigue vacío. Los 264 bindings, Madrid, las identidades de revisores y los registros de confianza no cambian.
-
-No hay originales nuevos ni transferencia externa. Crossa conserva la edición v1 histórica desfasada respecto de las ampliaciones locales. No es custodia independiente ni remota. Sin LFS, gasto, PR, deploy, main o limpieza. Las otras tareas R21 continúan y el encargo permanece abierto.

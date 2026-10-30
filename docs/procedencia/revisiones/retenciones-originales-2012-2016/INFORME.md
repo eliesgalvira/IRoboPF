@@ -1,6 +1,8 @@
 # Revisión de originales de retenciones 2012–2016
 
-**Requiere revisión jurídica adicional antes de habilitar versiones.** Entrega documental del agente Codex del hilo asociado al checkout `t3-6e7aee17`, rol `/root`, sin subdelegación. Base comprobada: `5799bb03826719a4dd3500a962e2d6bb5124fdca`. No se ha implementado, promovido ni atestado ninguna regla.
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
+**Requiere revisión jurídica adicional antes de habilitar versiones.** Base examinada: `5799bb03826719a4dd3500a962e2d6bb5124fdca`. Este dictamen documental no promueve ni atesta reglas.
 
 El resultado más relevante es una contradicción concreta entre el anuncio de corrección de julio de 2015 y la rama del PDF recuperado. Además se confirma un segundo tachado de movilidad de 2016 que debe excluirse al interpretar el pseudocódigo. Los documentos recuperados permiten avanzar: ya no debe repetirse como bloqueo general que faltan los siete algoritmos.
 
@@ -50,7 +52,7 @@ No hubo nueva descarga CAS ni transferencia de originales. No se repitió valida
 
 Inventario comprobado `ff58be7c8b497d2b38ad7019afb85e2e621296108eeae85163ad2319c9c9d397`; artefacto comprobado `ae25e219e75593d7a0d408e325db872faca31261ded79a2115a563536073b3d0`. Los snapshots v2 `efcc7f…` y v1 técnico `878715…` son contexto fijado por el encargo, sin nueva verificación completa de preservación propia. Crossa sigue siendo la copia histórica v1 comunicada por el coordinador, misma casa y propietario; no custodia independiente.
 
-Se leyeron BRIEF, AGENTS, contrato, coordinación, estado, decisiones, integración de ronda11, redondeos-r11, entrega X y los informes históricos de retenciones. Sus conclusiones históricas no se trasladaron como resultados actuales. El catálogo de esta base comienza en 2017. No hay fix numérico ni rojo artificial contra 2012–2016 deliberadamente no soportado. Los límites observados de gastos, movilidad y versiones son decisiones documentales, no cambios de código.
+Se examinaron integración de ronda 11, redondeos-r11, la entrega de X y los informes históricos de retenciones. Sus conclusiones conservan su alcance histórico. El catálogo de la base examinada comienza en 2017; la falta deliberada de soporte de 2012–2016 no se presenta como un rojo numérico. Los límites observados de gastos, movilidad y versiones son decisiones documentales.
 
 Ruff pasa. Pyright encontró inicialmente un desacuerdo de stubs al iterar Document de PyMuPDF; se corrigió usando índices de páginas, conservando el diagnóstico. El pase final no tiene errores ni advertencias. No se escribió Effect ni TypeScript; no procede atribuir un typecheck global de aplicación a estos dos scripts Python. Las dieciséis reglas anti-slop se cotejaron a error, sin modificar configuración. No se ejecutaron Next build ni suites legacy.
 

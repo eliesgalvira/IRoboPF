@@ -1,6 +1,8 @@
 # Lote B: rentas, retenciones y cotizaciones
 
-Autoría personal del agente de implementación solicitado, gpt-6.1-sol, esfuerzo high. Sin subdelegación. Base exacta comprobada: `1196269d4e73742beeed35cc05011b70c21a0b69`. Esta entrega es una superposición editorial candidata: no cambia motor, generador, catálogo, contratos de ámbitos, confianza, registros ni atestaciones. No se publica ni se acepta fiscalmente.
+Documento histórico: los resultados, referencias al motor y pendientes corresponden a la base examinada; no describen el estado vigente del proyecto.
+
+Base examinada: `1196269d4e73742beeed35cc05011b70c21a0b69`. Superposición editorial candidata, sin aceptación fiscal ni publicación.
 
 ## Decisión y denominador
 
@@ -28,7 +30,7 @@ Objeción del mejor experto: contar páginas puede ocultar que un solo sitio EDS
 
 **Capital.** La entrada de ganancia está precalculada; preservar signos no valida computabilidad, valores, FIFO, recompras ni abatimiento. DA37 fecha adquisición12mayo–31dic2012 y permite venta posterior; vitalicia comienza2015 y mantiene acumulado240000. Vivienda habitual mayor65 es otra exención. Compensación, integración y arrastres no son exenciones ni quedan implementados por describir sus porcentajes. Alquiler neto sigue igual a íntegro: faltan gastos, amortización, contrato, uso, parentesco y días vacíos. El ejemplo−500 con exceso2000 es cálculo externo, no salida actual.
 
-**Retenciones.** Base, cuota, tipo truncado e importe son pasos distintos. Las cuentas sintéticas aíslan operaciones; no se atribuye un valor de cuota a una retribución sin sus hechos. Selector canónico rechaza2012–2016, regularización y2026 fuera10sept–29oct; fechas/reformas y elección de cierre son explícitas. Los algoritmos antiguos concluidos y preservados en recepción solo informan de límites; no habilitan años rechazados ni se consultan carpetas -sol activas. Los pagos efectivos se distinguen de estimación opcional: el perfil general no impide duplicar la misma retención por dos canales y requiere conciliación externa.
+**Retenciones.** Base, cuota, tipo truncado e importe son pasos distintos. Las cuentas sintéticas aíslan operaciones; no se atribuye un valor de cuota a una retribución sin sus hechos. Selector canónico rechaza2012–2016, regularización y2026 fuera10sept–29oct; fechas/reformas y elección de cierre son explícitas. Los algoritmos antiguos preservados solo informan de límites; no habilitan años rechazados. Los pagos efectivos se distinguen de estimación opcional: el perfil general no impide duplicar la misma retención por dos canales y requiere conciliación externa.
 
 **Cotización y coste.** Doce meses uniformes no acreditan bases mínimas, grupo, jornada, altas, contrato ni AT/EP elegible.2018 requiere siete/cinco meses en el perfil canónico; tipos de solidaridad por aportación no se reconstruyen5/6. El XML histórico6.87/6.88 o3.26/3.25 no establece redondeo2025 universal. La entrega concluida TGSS-etapas-operativas se utiliza como índice preservado, sin atribuirle revisión propia ni aceptación completa. Coste laboral incluye empresa, no añade otra vez obrero. El neto comparado requiere la misma cuota y modo.
 
@@ -42,13 +44,13 @@ Objeción del mejor experto: contar páginas puede ocultar que un solo sitio EDS
 
 ## Decisiones con objeción, respuesta y coste
 
-**Superposición con Schema propio.** Objeción: otra representación puede divergir de Entidad y de la publicación que integra otro hijo. Respuesta: fijar objetivo exacto y cinco secciones con estados candidatos, sin escribir en su ámbito ni coordinar mediante carpetas. Coste: el padre debe adaptar después, verificar base/hash y solicitar contrarrevisión nueva.
+**Superposición con Schema propio.** Objeción: otra representación puede divergir de Entidad y de la publicación que integra otro hijo. Respuesta: fijar objetivo exacto y cinco secciones con estados candidatos, sin escribir en su ámbito ni coordinar mediante carpetas. Coste: la integración debe adaptar después, verificar base/hash y solicitar contrarrevisión nueva.
 
 **Referencias primarias compartidas y páginas completas.** Objeción: una página completa contiene más de un precepto y el contexto no acredita por sí solo la afirmación. Respuesta: conservar texto/caja/receta y precisar artículo y condición en la ficha; no declarar binding individual cerrado. Coste: selección y revisión editorial más fina antes de publicar; los PNG solo se marcan vistos donde hubo inspección personal. El resto se distingue como reproducción técnica.
 
 **Hojas técnicas separadas de reglas.** Objeción: generar tarjetas por literal puede parecer cobertura jurídica. Respuesta: explicar papel por símbolo/ruta, conservar controles de calendario como tales y retirar la tabla no consumida; las dudas quedan pendientes. Coste: las unidades y dependencias aún no cerradas no pueden promocionarse por el recuento de hojas.
 
-**CAS raíz inmutable.** Objeción: la entrega depende de rutas de esta máquina. Respuesta: ambos hashes, tamaños, rutas y originales preservados, sin descarga duplicada ni transferencia. Coste: el padre debe mantener esos objetos antes de retirar checkouts. Crossa conserva v1 histórico desfasado, misma casa/dueño, sin custodia independiente.
+**CAS raíz inmutable.** Objeción: la entrega depende de rutas de esta máquina. Respuesta: ambos hashes, tamaños, rutas y originales preservados, sin descarga duplicada ni transferencia. Coste: la integración debe mantener esos objetos antes de retirar checkouts. La evidencia de este análisis no acredita custodia independiente ni restauración externa.
 
 ## Validación y entrega
 

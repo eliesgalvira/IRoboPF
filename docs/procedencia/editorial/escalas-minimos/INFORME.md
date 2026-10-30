@@ -1,14 +1,14 @@
 # Lote A: escalas, mínimos y consignación de deducciones
 
-Entrega editorial candidata sobre la base exacta `1196269d4e73742beeed35cc05011b70c21a0b69`. Autor: hijo nuevo de implementación, gpt-6.1-sol high, trabajo personal sin subdelegación. No es una revisión independiente ni una aceptación fiscal. Las fichas no se han publicado, integrado al generador ni promovido al registro.
+Documento histórico: los resultados, referencias al motor y pendientes corresponden a la base examinada; no describen el estado vigente del proyecto.
+
+Superposición editorial candidata sobre la base `1196269d4e73742beeed35cc05011b70c21a0b69`. No constituye revisión independiente ni aceptación fiscal. Su integración en el generador requiere adaptación y revisión.
 
 Se cubren los 28 sitios seleccionados literalmente entre los 65 bindings del rastro y las 264 propuestas por celda: 78 estatales y 186 autonómicas. Cada sitio conserva sujeto y revisión del snapshot v2 `259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608`. Las propuestas se resuelven primero por archivo, hash, símbolo y ruta de segmentos, después se cotejan valor, unidad, ejercicio y territorio. No hay bloqueos de identidad en las 264. Esto no valida la selección del supuesto real ni el payload nuevo.
 
-`control-base.json.gz` contiene las 11.181 entradas de HEAD comprobadas por `lstat`, `readlink` para enlaces y bytes de `git cat-file blob`, además de modo, tamaño y SHA-256. El diff inicial está vacío. La entrega solo añade archivos en esta carpeta; el control final vuelve a cotejar las entradas originales. Ninguna operación VCS mutante, checkout por shell, build, servidor, preview, suite legacy pesada, publicación, transferencia externa, LFS o gasto. No se modifican fuentes del motor, generador, catálogo, rastro, contratos activos, confianza, atestaciones, registros, ESTADO ni DECISIONES.
-
 ## Qué contiene cada ficha
 
-`fichas.json` es una superposición editorial con contrato propio `overlay.schema.json`. Cada entrada contiene fórmula, derivación, norma, evidencia y bordes, junto con unidad, expresión de entrada/salida, código exacto de la llamada y selector UTF-16 de la fuente fijada por hash. Sus estados solo son candidatos y pendientes de contrarrevisión. No se inventa un estado jurídico «verificado» en Entidad. El padre deberá adaptar y revisar esta superposición antes de aplicarla al modelo existente.
+`fichas.json` es una superposición editorial con contrato propio `overlay.schema.json`. Cada entrada contiene fórmula, derivación, norma, evidencia y bordes, junto con unidad, expresión de entrada/salida, código exacto de la llamada y selector UTF-16 de la fuente fijada por hash. Sus estados solo son candidatos y pendientes de contrarrevisión. No se inventa un estado jurídico «verificado» en Entidad. La integración deberá adaptar y revisar esta superposición antes de aplicarla al modelo existente.
 
 Las derivaciones comunes de `derivaciones.json` explican las operaciones compartidas sin sustituir los párrafos particulares de cada hoja. La cuota fija publicada y la integración de marginales tienen fórmulas distintas. El ahorro distingue remanente estatal y autonómico y el cambio temporal de 2015. Los mínimos distinguen nominal, cuota minoradora, orden y atribución familiar. La consignación explica el límite contra cuota autonómica general más ahorro, y por qué un catálogo de 351 deducciones no equivale a 351 evaluadores.
 
@@ -35,11 +35,11 @@ Se reutilizan las citas geométricas históricas de las celdas y se reextraen pe
 
 Los bloqueos se expresan por afirmación en cada ficha. La continuidad2015–2024 de los alias de mínimos, las variaciones autonómicas completas, el supuesto real de residencia, el derecho a DA61 y la elegibilidad de deducciones no quedan aceptados por las celdas. El contenido puede explicar la operación implementada sin resolver definitivamente esos aspectos. Los 78/186 dictámenes previos siguen limitados a las celdas y ejercicios declarados. Los payloads recibidos todavía no integrados no se leen como si fueran el estado ejecutado ni se promocionan.
 
-La integridad de bytes y reextracción no autentica al emisor: no se validaron firma PAdES, CSV, confianza histórica, revocación ni cadena completa de reformas. Madrid conserva binding pendiente, aceptación completa false y autenticidad indeterminada. Crossa conserva v1 histórico desfasado, misma vivienda y propietario; no es custodia independiente. No se ha verificado de nuevo esa copia.
+La integridad de bytes y reextracción no autentica al emisor: no se validaron firma PAdES, CSV, confianza histórica, revocación ni cadena completa de reformas. Madrid conserva binding pendiente, aceptación completa false y autenticidad indeterminada. La evidencia de este análisis no acredita custodia independiente ni restauración externa.
 
 ## Decisiones, objeción experta, respuesta y coste
 
-- **Superposición separada.** Objeción: unas fichas correctas pero incompatibles con el publicador no resuelven su integración. Respuesta: contrato propio y selectores exactos para que el padre tenga una entrega revisable sin interferir con otro hijo. Coste: adaptación posterior, nueva revisión y ausencia de publicación en esta entrega.
+- **Superposición separada.** Objeción: unas fichas correctas pero incompatibles con el publicador no resuelven su integración. Respuesta: contrato propio y selectores exactos para disponer de una propuesta revisable antes de integrar. Coste: adaptación posterior, nueva revisión y ausencia de publicación en esta entrega.
 - **Autoría por magnitud y derivación compartida.** Objeción: cambiar título/año de una plantilla dejaría derivaciones vacías. Respuesta: textos específicos para cada operación y tabla, cinco secciones y casos por fila; lo común se cita explícitamente. Coste: duplicación editorial acotada y mantenimiento de referencias.
 - **Conservar condiciones de las 264 decisiones.** Objeción: la igualdad numérica no demuestra identidad ni vigencia. Respuesta: selección estructural exacta y cotejo posterior de valor/unidad/dimensiones, sin inferir aceptación del payload. Coste: 264 registros aunque haya menos celdas físicas distintas y exigencia de revisión nueva.
 - **Separar lectura de imagen y reextracción.** Objeción: texto bien extraído puede ocultar cabeceras o columnas. Respuesta: muestra visual propia identificada y reproducción geométrica; no se atribuye inspección universal. Coste: el revisor posterior debe ampliar la inspección si quiere aceptar todos los aspectos visuales.
@@ -51,14 +51,8 @@ Los comandos, salidas y códigos están en `COMANDOS.md` y los logs propios. Pyt
 
 `verificar.py` valida Schema, conjunto exacto de sitios y revisiones, código, hash de fuente, referencias, originales por ambos hashes, reextracción, 264 identidades y ejemplos. Los casos propios no importan el motor y comprueban diferencias discriminantes, fronteras y unidades. Los negativos de Schema rechazan promoción y pérdida de derivación. No se inventan rojos fiscales: no hay cambio de cálculo en esta entrega.
 
-El primer ensamblado falló al tratar un paquete gzip como JSON sin descomprimir. El diagnóstico se conserva; se corrigió el lector de scratch, no los datos originales. El manifiesto final enumera rutas literales, SHA-256, tamaño y baseSha256 de las altas; excluye su propia autorreferencia y el patch. El patch textual comprimido y el índice de binarios por hash permiten integración selectiva. El padre debe cotejar la base y cada hash antes de aplicar. No se copia código completo de aplicación, tsconfig ni entorno a esta entrega.
-
-Incidencia de aislamiento: una consulta de procesos para diagnosticar la espera del lock mostró argumentos de otras tareas activas. No se abrieron sus carpetas ni se usó ese contenido como fuente o implementación; se abandonó ese diagnóstico. El resto de lecturas de otros lotes corresponde a material ya presente en la base fijada o a recepciones terminadas autorizadas.
-
 ## Resultado final ejecutado
 
 Validación final: salida0, 28 sitios sin pérdida, 264 celdas, 244 citas reextraídas, 18 casos propios y264 ejemplos de fila. Los schemas de fichas, celdas y concepto pasan; los dos negativos de promoción/pérdida de derivación se rechazan. Ruff y mypy de verificar.py: salida0. Configuración de las16 reglas anti-slop a error comprobada, sin TypeScript/Effect nuevo.
 
 Documentos: 19 originales por ambos hashes; 39 PNG nuevos preservados,59 facsímiles únicos cotejados por regeneración antes de añadir las páginas30/90; estas dos páginas adicionales se generaron con receta y se reextrajeron en el pase final. Cinco imágenes inspeccionadas personalmente; detalle de lo visto y del margen superior del crop deMadrid en inspeccion-visual.json. No se atribuye inspección visual al resto.
-
-Comprobadas de nuevo11.181 entradas de base, cero ausencias, cambios o borrados de originales. El scratch queda fuera del manifiesto; no se modifica VCS. Pendiente revisión independiente nueva e integración por el padre.

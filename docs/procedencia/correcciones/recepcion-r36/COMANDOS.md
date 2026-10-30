@@ -1,4 +1,4 @@
-# Comprobaciones del padre R36
+# Comprobaciones de incorporación y contratos
 
 Cwd `/home/elies/Repos/IRoboPF`. Herramientas por Nix, Python de proyecto con UV_PROJECT_ENVIRONMENT absoluto en `.cache/orquestador-recepcion/r36/venv`, PYTHONDONTWRITEBYTECODE=1 y UV_OFFLINE=1 para las verificaciones documentales. No pip, instalación global o .venv en tools. Cada validación pesada usa `flock /tmp/irobopf-validacion-pesada.lock`; el cotejo físico secuencial usa `/tmp/irobopf-recepcion-acotada.lock`.
 
@@ -7,10 +7,8 @@ Cwd `/home/elies/Repos/IRoboPF`. Herramientas por Nix, Python de proyecto con UV
 - `node autoridad.mjs`: copia adaptada del instrumento independiente, contraste individual de los 264 enlaces y sus dos identidades. `preparar()` se compara estructuralmente con plan.json recibido: exacto.
 - `node preparador-estados.mjs`: rojo al simular el par ya incorporado, antes del cambio. Después pasan cinco preestados; se conserva exactamente el plan. Pruebas originales de incorporación repetidas con registro local posterior.
 - `python3 probar-transicion.py`: fallos tras escrituras uno y dos, recuperación a before, reaplicación y repetición idempotente; rechazo de estado desconocido y symlink antes de escribir. Todos los ensayos quedan en scratch. `ruff check transicion.py` y `mypy --check-untyped-defs --cache-dir <scratch>/mypy transicion.py`: correctos. El alcance de tipos es el cuerpo Python, no un schema estático del plan JSON.
-- `python3 incorporar.py`: comprueba autoridad, plan y originales por ambos hashes/tamaño; guarda aprobación del padre y aplica en serie con diario local. Sin escrituras en V5 ni transferencias.
+- `python3 incorporar.py`: comprueba autoridad, plan y originales por ambos hashes/tamaño; guarda aprobación de integración y aplica en serie con diario local. Sin escrituras en V5 ni transferencias.
 - `bun publicar.mjs`: coordinador real, origen/snapshot fijado, cierre físico y nuevo CAS operativo. Primer intento desde v2 rechazado por colisión editorial; reintento desde v1 equivalente. No se modifica el publicador para permitir la colisión. La fase final enumera el snapshot antes de actualizar el rastro y conserva ambos extremos en plan-publicacion.json.
 - `bun verificar-publicacion.mjs`: GET importados de fichas/objetos, MIME/tamaño/SHA256, vínculos al BOE grande y verificador de snapshots. No servidor ni preview. Recibo terminal get-historicos.json; una ejecución iniciada no equivale a resultado correcto.
 - Vitest focalizado inicial: 37 SS y 69 retenciones correctos. Tipos globales iniciales: cinco diagnósticos de tres guardas implícitas; corregidas con igualdad explícita a undefined. Vitest final: 75 admisión y dos incorporación correctos. Typecheck principal/vendor y lint global finales: salida cero, sin desactivar reglas. Hay seis avisos ESLint históricos; las dieciséis reglas anti-slop permanecen a error.
-- Reconstrucción: ambos artefactos retenciones/admisión son exactamente iguales a los entregados. `schema.py` usa jsonschema del proyecto para sus dos schemas. CheckJs continúa false en los MJS; las pruebas del autor no se atribuyen al padre.
-
-No build de Next, suites legacy masivas, nuevas auditorías fiscales, uso de memoria en paralelo sin límite, limpieza ni operaciones Git mutantes. Solo el padre usa JJ para los commits seleccionados y el bookmark procedencia-documental. Los comandos fallidos y esperados anteriores se preservan; no se cambian para conseguir un pase.
+- Reconstrucción: ambos artefactos retenciones/admisión son exactamente iguales a los entregados. `schema.py` usa jsonschema del proyecto para sus dos schemas. CheckJs continúa false en los MJS; las pruebas del autor no se atribuyen a la integración.

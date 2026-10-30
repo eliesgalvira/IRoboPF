@@ -1,5 +1,7 @@
 # Contrato candidato de trabajo anual
 
+Documento histórico del candidato de este directorio. Los resultados y estados corresponden a esa versión; no acreditan el estado actual del proyecto.
+
 Base: `0ca324b08267` (resuelta a SHA completo en manifiesto). Entrega por archivos, sin VCS mutante, sin integración anual y sin aceptación fiscal. Solo se modifican las rutas asignadas; node_modules es enlace de lectura autorizado. No se reconstruyó inventario ni se ejecutó Next build.
 
 ## Alcance implementado
@@ -19,7 +21,9 @@ Movilidad ordinaria, histórica y DT6 de 2015 se distinguen y **se rechazan**. S
 
 `deduccionLegal` expresa el nominal previo al límite específico; `limiteAtribuible` muestra ese límite; `importeAplicable` es el mínimo del nominal, límite y cuota tras art80. `cuotaPosterior` es una magnitud nueva. No se renombra como cuota líquida ni se restan retenciones. Las salidas tienen aceptación pendiente. **2026 se rechaza expresamente**, incluso en 17.094 y 20.048,45: no se traslada aquí la aceptación documental de otra implementación.
 
-## Adaptación que corresponde al padre
+<a id="adaptación-que-corresponde-al-padre"></a>
+
+## Adaptación para integrar
 
 1. Sustituir la inferencia de cotización por hechos efectivos para este perfil. Mantener el perfil analítico/legacy como simulación distinta.
 2. Consumir `adaptarTrabajoAnual`: neto art19 como saldo antes de art20 y neto previo sin f como argumento de art20. No volver a restar gastos generales/cotización. El adaptador conserva clases explícitas, nunca infiere pensión desde importe.
@@ -36,7 +40,7 @@ Integridad: hashes releídos. Autenticidad: no se validan firma PAdES/CSV ni pre
 
 Objeción experta: importes externos pueden ser incoherentes o estar mal calificados aunque pasen Schema. Motivo: las bases y cuotas pertenecen a otras etapas que no se podían editar. Coste: contrato condicional y conexión pendiente; el consumidor debe conservar evidencia de esas magnitudes. Objeción: ampliar movilidad o discapacidad mixta con una cifra aislada ocultaría requisitos temporales. Motivo: no dar un resultado fiscal falso. Coste: rechazo de perfiles válidos hasta cerrar sus contratos.
 
-Dinero: entradas decimales en euros, máximo 12 enteros y 2 decimales; sin number/exponentes. Operaciones con Decimal clonado a 60 cifras; productos finitos exactos dentro de este dominio, cocientes periódicos aproximados a esa precisión. No hay redondeo fiscal final a céntimos; esa política debe resolverla el padre antes de presentar una liquidación. No se afirma exactitud racional de cocientes periódicos.
+Dinero: entradas decimales en euros, máximo 12 enteros y 2 decimales; sin number/exponentes. Operaciones con Decimal clonado a 60 cifras; productos finitos exactos dentro de este dominio, cocientes periódicos aproximados a esa precisión. No hay redondeo fiscal final a céntimos; esa política debe resolverla el integrador antes de presentar una liquidación. No se afirma exactitud racional de cocientes periódicos.
 
 ## Pruebas y comandos
 
@@ -53,5 +57,3 @@ nix shell --impure --expr 'let p = import <nixpkgs> {}; in p.python3.withPackage
 ```
 
 La cobertura es deliberadamente parcial y no se expresa como 12/14 reglas aceptadas. Las aceptaciones acotadas de la auditoría previa no aceptan este código. No están cerrados movilidad, discapacidad histórica/mixta, atribución automática de renta mixta, 2026, regímenes forales, conjunta, art18 ni obligación de declarar.
-
-Comprobación del árbol: cero archivos de base ausentes. `AGENTS.md` difiere de la base; no ha sido escrito por esta entrega y no forma parte del parche. Todos los archivos entregados son nuevos. El padre debe integrar exclusivamente las rutas del manifiesto, sin copiar el árbol completo ni metadatos VCS.

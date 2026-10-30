@@ -1,6 +1,8 @@
 # Etapas operativas TGSS: contrato candidato 2025
 
-Base y HEAD comprobados: `65cff4fd8eb8c6269c2ce97b88e770aa711bff7f`. 9.391 entradas presentes mediante lstat, incluidos tres symlinks con readlink; diff inicial vacío. Trabajo personal, sin subdelegar ni mutaciones VCS. Se entrega únicamente esta carpeta. BRIEF, AGENTS, contrato de auditoría, coordinación, estado, decisiones e integración ronda13 leídos; el último se resolvió bajo docs/procedencia/correcciones. Ronda14 no altera las reglas TGSS: su cierre técnico no se hereda.
+Documento histórico: los resultados, referencias al motor y pendientes corresponden a la base examinada; no describen el estado vigente del proyecto.
+
+Base examinada: `65cff4fd8eb8c6269c2ce97b88e770aa711bff7f`. El cierre técnico de publicación no acredita las reglas TGSS.
 
 ## Resultado y novedad
 
@@ -46,6 +48,6 @@ Decisiones individuales con objeción, respuesta y coste: hallazgos.json. EO01 r
 
 Integridad:19 originales antiguos cotejados SHA256/512/tamaño, cinco nuevos adquiridos con helper acotado y metadatos filtrados. Autenticidad: adquisición oficial HTTPS, sin validación nueva de confianza histórica PAdES/CSV. Interpretación: candidata limitada a pasajes. Exactitud: reproducciones aritméticas y recetas verificables; no garantiza hechos laborales. Aceptación: false; independencia pendiente. Ninguna de estas dimensiones sustituye a otra.
 
-No se tocó motor, registros, atestaciones, informes ajenos, package/locks/CI ni snapshots. Sin rojo contra API analítica, fix numérico, build, servidor, suites legacy, transferencia, LFS o gasto. Crossa sigue siendo v1 histórico comunicado, misma casa/dueño; no se verificó aquí. Originales nuevos permanecen en CAS propio y se entregan por hash en binarios.json; el padre debe preservarlos antes de retirar el checkout. Se conservaron v1/v2/restauración y contexto.
+Los originales nuevos están identificados por hash en `binarios.json` y requieren conservar su CAS. Este análisis no acepta fiscalmente una política de redondeo ni demuestra un fallo de la API analítica.
 
 Referencias fijadas, no regeneradas ni aceptadas: inventario `4f00b24bfa37baa3521d54af1448d99a2ef6d1eee3e08bcf8b4d16ec97af7314`, artifact `b5450d431eefa13765ec0009a6be579e15848524799f2a467a46b5746caf087f`;52.377 ocurrencias. v1 `2d4c3dcdcc45fc4811d9ac65146cf991fd077908b5467a9118795c566acb8f93`, v2 `98c315e18130d88b18a4c85aa62ec2b1dd1d18a62d9f5cf61fd57711399e7e1a`; Madrid `bd905a560b037ae7ab8ddfe6bcfb6790e3c5d85c3ddc0d1e1ec31f1e1471d7fc`, binding pendiente y regla completa false.

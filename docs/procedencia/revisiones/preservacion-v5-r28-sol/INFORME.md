@@ -1,12 +1,14 @@
 # Revisión independiente de preservación v5 r2, R28
 
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
 Se puede **conservar el paquete exacto como corte candidato R26**, con los límites descritos aquí. No se aprueba el censo como taxonomía documental definitiva: el caso nuevo **V5R28-CL01** demuestra que un hash de selección recibe la clase «original-oficial» por tener una URL oficial contigua. No se ha demostrado un defecto bloqueante de recuperación del paquete fijado. Esta conclusión nueva requiere contraste del padre; no activa confianza, publicación ni aceptación fiscal.
 
-Revisión personal en T3 Code/Codex, runtime gpt-6.1-sol, esfuerzo high, checkout `t3-ad56e1f7`. La petición exige prioridad; no fabrico una acreditación del scheduler ni aliases de identidad. Sin subdelegación, atestación, fixes de producto o mutaciones VCS. Base literal `5e69c68077ffd18be20457160595adb3f0ff52e4`, 15.914 entradas. No se confunde con la base R26 del paquete, `6ab4a98e6ce218c30a3a9f18596d0c2f030f47d9`.
+Base examinada: `5e69c68077ffd18be20457160595adb3f0ff52e4`, 15.914 entradas. La base R26 del paquete es distinta: `6ab4a98e6ce218c30a3a9f18596d0c2f030f47d9`.
 
 ## Ancla y recuperación efectiva
 
-Se usa exclusivamente la entrega recibida fuera de T3 en `/home/elies/Repos/IRoboPF/.cache/orquestador-preservacion/v5-r2-2b15925970d4/`: paquete, restauración, manifest-externo.json y manifest-entrada-r1.json. No se leen resultados de hijos activos. El JSON externo de 26.184.815 bytes coincide con SHA256 `2b15925970d4819973598e1640c375ce95fc16c87e6e9981af1e86a2cb0d1c88` y SHA512 `8a8a26877dad98ed16518907258a9a1a79eda74478f58ae21db9e053826e29858365f5fc8dc279492baf28aba771b2e18aa5ea8f2362cbd878b404fda012bf9c`. El pin anterior no designa esta revisión.
+Se usa exclusivamente la entrega recibida fuera de T3 en `/home/elies/Repos/IRoboPF/.cache/orquestador-preservacion/v5-r2-2b15925970d4/`: paquete, restauración, manifest-externo.json y manifest-entrada-r1.json. El JSON externo de 26.184.815 bytes coincide con SHA256 `2b15925970d4819973598e1640c375ce95fc16c87e6e9981af1e86a2cb0d1c88` y SHA512 `8a8a26877dad98ed16518907258a9a1a79eda74478f58ae21db9e053826e29858365f5fc8dc279492baf28aba771b2e18aa5ea8f2362cbd878b404fda012bf9c`. El pin anterior no designa esta revisión.
 
 `restauracion-recibo.json` documenta una restauración real nueva en `.cache/revision-v5-r28/restauracion-v5`, con conjunto exacto, ambos hashes y tamaño y `fsync-confirmed`. No se reutiliza la restauración del padre como destino. Se verifican también las dos copias recibidas y los inodos/nlink de los objetos entre las tres copias; no hay hardlinks entre ellas. Son copias locales en el mismo equipo, sin custodia independiente.
 

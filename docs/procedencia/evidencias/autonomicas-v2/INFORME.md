@@ -1,6 +1,8 @@
 # Evidencias autonómicas v2
 
-Trabajo personal sobre eaed990c620b5fc4d3ff2e74dc68e0c8481c43db, comprobado mediante lectura Git. Sin subdelegación, mutaciones VCS, cambios del motor, extractor, registros, fixtures compartidos ni atestaciones. Solo se entrega esta carpeta; scratch y entornos auxiliares no se integran.
+Documento histórico: los resultados, referencias al motor y pendientes corresponden a la base examinada; no describen el estado vigente del proyecto.
+
+Base examinada: `eaed990c620b5fc4d3ff2e74dc68e0c8481c43db`. Candidatos documentales sin atestación ni aceptación fiscal.
 
 ## Separación histórica y canónica
 
@@ -22,7 +24,7 @@ Se valida la proyección `legal-decision-scope` sin cambiar `status`, `decision`
 
 Se comprueban los siete originales por SHA-256, SHA-512 y tamaño. Se reextraen celdas y su propia cabecera, texto de cita, geometría y selectores. Los recortes se reproducen a 144 DPI con la receta fijada. Los spans numéricos nuevos se localizan por coordenadas de su celda, con control de unicidad y orden de palabras; nunca por primer valor igual. La unidad procede de la cabecera de esa columna. Se mantiene `Euros` con su capitalización literal, admitida por el lexer integrado. La cláusula murciana carece de cabecera tabular: se usa la unidad adyacente a cada importe en el propio párrafo.
 
-CAS de PNG separado en `cas/sha256/`; originales conservados en sus rutas de corpus, verificadas en `historico/originales.json`. No se copian originales ni se escriben fixtures root. Objeción archivística: CAS local y hash no prueban autenticidad ni preservación externa. Coste: el padre debe suministrar explícitamente raíces que contengan `sha256` y conservar los originales; la entrega no es autónoma sin ese corpus.
+CAS de PNG separado en `cas/sha256/`; originales conservados en sus rutas de corpus, verificadas en `historico/originales.json`. No se copian originales ni se escriben fixtures root. Objeción archivística: CAS local y hash no prueban autenticidad ni preservación externa. Coste: la integración debe suministrar explícitamente raíces que contengan `sha256` y conservar los originales; la entrega no es autónoma sin ese corpus.
 
 Murcia 2022 conserva la cláusula y contexto completos. El último tramo aplica estrictamente a bases superiores a 60.000; en 60.000 la cuarta fila produce 8.625,8332 antes de redondear, no 8.716,67. `historico/murcia-frontera.json` conserva 59.999,99; 60.000; 60.000,01 y 100.000, con mutante inclusivo que discrimina el borde. No se ajustan las cuotas publicadas para hacerlas integrales continuas. No se certifica el supuesto de fallecimiento. No hay fix numérico ni rojo de motor nuevo: se reproduce el contraejemplo aritmético y se conservan los oracles.
 
@@ -30,7 +32,7 @@ Murcia 2022 conserva la cláusula y contexto completos. El último tramo aplica 
 
 Integridad: hashes, reextracción y recortes comprobados. Autenticidad: no se revalidan firma histórica, revocación, CSV ni emisor. Interpretación: cadena y alcance individual pendientes de revisión; no se ha realizado búsqueda exhaustiva nueva de reformas. Exactitud: igualdad Decimal con la ocurrencia canónica fijada, sin certificar una liquidación completa. Aceptación: cero nuevas aceptaciones fiscales y cero atestaciones.
 
-No se cierran jurídicamente pendientes individuales por reutilizar una aceptación anterior. Los nuevos candidatos aportan identidad y extracción que faltaban; los bloqueos editoriales se declaran individualmente. No se descargaron documentos ni se transfirieron objetos. Crossa es la copia v1 histórica comunicada por el coordinador, misma casa y propietario; no una verificación nueva propia ni custodia independiente. v1 preservado y paquete v2 quedan intactos.
+No se cierran jurídicamente pendientes individuales por reutilizar una aceptación anterior. Los nuevos candidatos aportan identidad y extracción que faltaban; los bloqueos editoriales se declaran individualmente. No se descargaron documentos ni se transfirieron objetos. La evidencia de este análisis no acredita custodia independiente ni restauración externa.
 
 ## Reproducción
 
@@ -53,8 +55,6 @@ Incidencias del instrumento: `preparar-inicial.log` conserva el rechazo de dos n
 
 Reparto: Andalucía 48; Valencia 36; Catalunya 2020–2021 28; Catalunya 2022–2024 54; Madrid 10; Murcia 10. Todas son propuestas de cuota/base por año, no 186 reglas aceptadas. La propuesta de registro pasa su schema estructural con atestaciones null; esto no implica que pase el coordinador de aceptación. El coordinador operativo no se ejecutó con un registro ficticio.
 
-`manifiesto.json` enumera path, SHA-256, tamaño y baseSha256 null para las altas; excluye scratch, bytecode y su propia autorreferencia. `entrega.patch` contiene las altas textuales. Los nueve PNG se integran por archivo y hash en `cas/sha256`; `entrega-hashes.json` fija manifiesto y patch. `preflight.json` comprueba presencia de todos los archivos de la base y cero borrados. El padre debe repetir esa comprobación al integrar y encargar una revisión nueva del binding exacto. No se copia toda la carpeta scratch.
-
-El primer pase de tipos ampliado a tres archivos exigió anotar `patch: list[str]` en el empaquetador. Se conserva el diagnóstico en `mypy-empaquetador-inicial.log`; la anotación no cambia el contenido del patch. `ruff-final.log`, `mypy-final.log` e `historico-final.log` corresponden a la repetición final; sus resultados no se suman a los recuentos anteriores. La comprobación de tipos utiliza imports omitidos y cuerpos sin anotación comprobados, no modo estricto completo.
+`ruff-final.log`, `mypy-final.log` e `historico-final.log` corresponden a la repetición final; sus resultados no se suman a los recuentos anteriores. La comprobación de tipos utiliza imports omitidos y cuerpos sin anotación comprobados, no modo estricto completo.
 
 El primer empaquetado rechazó dos symlinks históricos sin destino (`revisiones/preservacion-v2/scratch/.cache/procedencia` y `scratch/alias`). Están incluidos como enlaces en la base; no son borrados de esta entrega. Se corrigió únicamente el control de presencia para reconocer enlaces y cotejar el texto exacto de su destino con `git show BASE:ruta`. Se conservan intactos y se enumeran en preflight.json. Objeción experta: is_file sigue el enlace y confunde ausencia del destino con desaparición del objeto versionado. Coste: distinguir ambos estados, sin atribuir restauración de corpus a un enlace roto. La repetición histórica y los tipos de los tres instrumentos ya habían pasado antes de detectar esta incidencia del empaquetado.

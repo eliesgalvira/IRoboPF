@@ -18,8 +18,6 @@ Ampliación: se ejecuta también `regularizacion-casos.py`, con el mismo wrapper
 
 El cotejo adicional de las19fuentes históricas se limita a hashes/tamaños y relaciones con la matriz140/versiones7; no constituye lectura visual2015–2016 ni aceptación heredada. control-contexto.json y control-base.json conservan los resultados. Las veinte reglas históricas repetidas por versión se leyeron agrupadas con todas sus identidades; las80decisiones propias se redactaron y contrastaron por separado.
 
-Incidencia de diagnóstico: una consulta de procesos mostró argumentos de un proceso ajeno al investigar la espera del lock; no se abrió su fuente ni se utilizó su trabajo como evidencia. Se limitó el diagnóstico posterior al propietario del lock,sin intervenir en ese proceso. No se consultó ni se esperó la entrega de otro revisor.
-
-Los logs individuales son menores1MB. Se conserva intacta la entrega previa. Sin borrados,subdelegaciones,cambiospackage/locks/CI,PR,push,deploy,LFS,gasto o transferencia de preservados. Crossa sigue siendo copia v1 histórica comunicada por coordinador,misma casa/dueño,sin comprobación propia ni custodia independiente.
+Se conserva la entrega previa. Crossa es una copia v1 histórica comunicada, del mismo dueño y domicilio; no se comprobó aquí ni acredita custodia independiente.
 
 Cierre real 2026-10-29T17:48:07.592941+00:00: casos.py=294; regularizacion-casos.py=202 aserciones registradas. Ambos comandos se ejecutaron secuencialmente con lock y UV_PROJECT_ENVIRONMENT absoluto; Ruff/Pyright también secuenciales bajo el mismo lock. Ver logs *-verificacion-final.log. No se ejecuta ningún verificador histórico que escriba en otra entrega.

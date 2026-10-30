@@ -1,8 +1,10 @@
 # Revisión independiente del inventario
 
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
 **Veredicto: requiere cambios antes de integrar como contrato de procedencia.** Hay cuatro bloqueos técnicos reproducidos. La entrega es útil como descubrimiento preliminar; no acredita un inventario semántico exhaustivo, ni una regla fiscal validada. Los detalles accionables están en `findings.json` (INV-R01 a INV-R07).
 
-Revisión personal, sin delegación, sobre `/home/elies/.t3/worktrees/IRoboPF/t3-bddec546`, base `d4d708f6`. Leídos BRIEF, CONTRATO-AUDITORIA, COORDINACION y ESTADO. Entrega tratada solo como lectura. Ninguna operación VCS mutante, reparación de metadatos, cambio de motor, instalación global, modificación de node_modules, build o suite legacy. Escrituras limitadas al informe y scratch asignados. Los informes del autor solo se consultaron para comprobar qué límites anuncian, nunca como evidencia de corrección.
+Base examinada: `d4d708f6`. Los informes de entrega se consultaron para comprobar sus límites declarados, sin usarlos como evidencia de corrección.
 
 ## Bloqueos de integración
 
@@ -11,7 +13,7 @@ Revisión personal, sin delegación, sobre `/home/elies/.t3/worktrees/IRoboPF/t3
 3. **P2 — INV-R03, modelo de valores inseguro.** `inventario.mjs:42–63` decide Decimal con `constructor.name`, susceptible de imitación, y primitivos con `Object.prototype.toString`, susceptible de `Symbol.toStringTag`. Las fixtures ocultan `amount:123`. BigInt produce cero hojas y los ciclos se cortan sin advertencia: se pierde exhaustividad silenciosamente. Usar comprobación explícita de valores admitidos, discriminante Decimal de la biblioteca y errores o lagunas con ruta para tipos/ciclos no soportados. No sustituir un modelo correcto por trucos para pasar lint. Debe preservarse la expansión de aliases compartidos por cada ruta, que sí funciona.
 4. **P2 — INV-R04, clasificación que induce consultas incompletas.** `inventario-ast.mjs:77–115` considera `Math.floor`/`Math.ceil` Formula y `surround` Rounding por coincidencia textual. `==` tampoco queda Condition. Hay usos reales de floor/ceil en `lib/auditoria-graficos.ts:16–25`, `lib/export/auditoria-excel.ts:145` y otros. Los textos existen: no es una omisión de literal, sino de clasificación. Reconocer operaciones con estructura y callee; mantener unknown/pending para lo no resuelto. Añadir cobertura de `NewExpression` y operadores/ramas fuera del subconjunto actual. No se certifica que una operación clasificada Rounding sea una política fiscal de redondeo.
 
-Estos arreglos corresponden al orquestador; no se han implementado aquí. R01 exige más que añadir asserts a los casos de esta revisión: el conjunto esperado debe derivar de las fuentes, no solo del manifiesto que se pretende comprobar.
+R01 exige más que añadir asserts a los casos de esta revisión: el conjunto esperado debe derivar de las fuentes, no solo del manifiesto que se pretende comprobar.
 
 ## Pruebas y muestra independiente
 

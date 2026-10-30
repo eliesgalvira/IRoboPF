@@ -1,14 +1,14 @@
 # Revisión independiente de preservación R23
 
-Dictamen acotado: PR21-SOL-01, PR21-SOL-02 y PR21-SOL-03 quedan corregidos en el consumidor actual para los defectos reproducidos. La política de multiplicidad de exclusiones de D070 resulta compatible con el manifiesto histórico íntegro. Las conclusiones de esta revisión son nuevas y requieren contraste posterior; no constituyen aceptación de una regla fiscal completa, promoción de candidatos ni cierre del encargo global.
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
 
-Trabajo personal en el runtime gpt-6.1-sol, esfuerzo high, en el checkout T3 `t3-d4e6e2d6`. No se subdelegó ni se emitió atestación. La prioridad se recibió como instrucción; no se inventa una comprobación independiente del planificador. No se atribuye a la clave del checkout una identidad canónica de revisor ni se muta el registro de confianza.
+Dictamen acotado: PR21-SOL-01, PR21-SOL-02 y PR21-SOL-03 quedan corregidos en el consumidor actual para los defectos reproducidos. La política de multiplicidad de exclusiones de D070 resulta compatible con el manifiesto histórico íntegro. Las conclusiones de esta revisión son nuevas y requieren contraste posterior; no constituyen aceptación de una regla fiscal completa, promoción de candidatos ni cierre del encargo global.
 
 ## Recepción y fuentes
 
 Base y HEAD exigidos: `07c07e6376a72f229be735a904ecf36517a1b571`, 14.957 entradas. El cotejo inicial compara cada blob con lstat, readlink o bytes físicos y tipo/modo ejecutable. `arbol-inicio.json.gz` contiene el detalle por ruta; `arbol-inicio.log` registra cero diferencias. No se confía en el índice. El cierre repite el recorrido completo con el mismo programa y base; sus resultados se conservan en `arbol-cierre.*` y los diffs por separado.
 
-Se leyeron íntegros BRIEF, AGENTS, CONTRATO-AUDITORIA y COORDINACION, las secciones actuales de ESTADO y DECISIONES, D070, los informes R21 Sol, técnica R23 y recepción R21–R23. Se examinaron recolector.py v3, preservacion.py, preservacion_urls.py, ambos schemas, lista TGSS, fixtures históricos y los dos instrumentos preservacion-*.py de R23. Prevalecen las restricciones actuales sobre las instrucciones históricas de delegación, VCS y limpieza. No se inspeccionó v4 ni trabajo de hijos activos. `fuentes.json` fija las entradas versionadas examinadas; el cotejo físico general preserva también todos los informes ajenos.
+Se examinaron D070, informes R21 Sol, técnica R23 y recepción R21–R23; recolector.py v3, preservacion.py, preservacion_urls.py, ambos schemas, lista TGSS, fixtures históricos y los dos instrumentos preservacion-*.py de R23. `fuentes.json` fija las entradas versionadas; el cotejo físico general incluye los informes históricos.
 
 La versión anterior utilizada es el commit `960773f909d4ecff290edfa3d7a7b2699a8445d3`, base de la revisión R21. Se recuperan solamente sus blobs de recolector y schemas en scratch propio; preservacion.py y preservacion_urls.py no tienen cambios entre ambos cortes. Cada proceso compara una pareja de código/schema coherente. La versión antigua no se ejecuta con el schema nuevo para fingir una corrección.
 

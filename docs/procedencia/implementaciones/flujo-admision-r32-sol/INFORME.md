@@ -1,14 +1,12 @@
 # Admisión pública anual R32, candidato Sol
 
-Base exigida: `846f25e183ba07414065d4e6bdf9e98311b98a17`, 16.855 entradas. Implementación por el runtime real gpt-6.1-sol, esfuerzo high, en T3 Code mediante Codex; sin subdelegación. No se emite atestación ni se verifica independientemente la autoría propia. La prioridad fue solicitada por el encargo; este proceso no dispone de un recibo independiente del planificador para certificarla.
+Documento histórico del candidato de este directorio. Los resultados y estados corresponden a esa versión; no acreditan el estado actual del proyecto.
 
-El contrato exportable es `anual-publico-r32`. Produce un fragmento separado, con diecisiete siteId, puertos y aristas de admisión. `siteClosed`, `completeRuleAcceptance` y `wiringAllowed` son false. El cierre candidato de admisión describe ejecución del software fijado; no acredita autenticidad, derecho fiscal, fórmulas de SS/retención ni composición/publicación. Las conclusiones nuevas requieren contraste del padre y revisión independiente.
+Base del candidato documentado: `846f25e183ba07414065d4e6bdf9e98311b98a17`.
+
+El contrato exportable es `anual-publico-r32`. Produce un fragmento separado, con diecisiete siteId, puertos y aristas de admisión. `siteClosed`, `completeRuleAcceptance` y `wiringAllowed` son false. El cierre candidato de admisión describe ejecución del software fijado; no acredita autenticidad, derecho fiscal, fórmulas de SS/retención ni composición/publicación. Las conclusiones nuevas requieren contraste de integración y revisión independiente.
 
 ## Recepción
-
-El cotejo inicial terminó antes de editar scripts, schema o pruebas. Instrumento en `.cache/flujo-admision-r32/cotejo.cjs`, recibo `recepcion-inicial.json`: lstat, readlink, bytes y ejecutabilidad de las 16.855 entradas, un blob por invocación; cero cambios y ausencias; diff vacío. Se adquirió exclusivamente `/tmp/irobopf-recepcion-acotada.lock`. La espera de ese bloqueo no se presentó como validación terminada.
-
-Se leyeron BRIEF, instrucciones locales, contrato de auditoría, coordinación, situación ESTADO/DECISIONES, recepción R30/R32, CONTINUACION y nominal R32. Las instrucciones urgentes revocan modelo, delegación, mutaciones VCS y limpieza del BRIEF. No se consultaron entregas activas ni se alteraron informes históricos, compositor, motor, confianza o snapshots. Para Effect se consultaron list y guías basics, services-and-layers, testing, error-handling, además del test local de Effect v4.
 
 ## APIs, resultados y sitios
 
@@ -46,17 +44,17 @@ El caso anual es interfaz TS sin decode general: no ejecuta una validación inte
 
 ## Decisiones y límites de verificación
 
-Las decisiones con objeción experta, respuesta y coste están en DECISIONES.json. La reconstrucción del contrato exige pines fijados; un candidato no puede recalcular su propio hash y autorizar otra fuente. El verificador rechaza también alteraciones del artefacto respecto de la reconstrucción. Su límite es deliberado: detecta obsolescencia por cambio de bytes, incluso semánticamente equivalente. La revisión del padre debe examinar la interpretación y las fronteras además de esos controles.
+Las decisiones con objeción experta, respuesta y coste están en DECISIONES.json. La reconstrucción del contrato exige pines fijados; un candidato no puede recalcular su propio hash y autorizar otra fuente. El verificador rechaza también alteraciones del artefacto respecto de la reconstrucción. Su límite es deliberado: detecta obsolescencia por cambio de bytes, incluso semánticamente equivalente. La revisión dal integrar se debe examinar la interpretación y las fronteras además de esos controles.
 
 Las mutaciones eliminan cada guarda referenciada o cruzan campos y verifican invalidación del contrato fijado. No se presentan como ejecución de todos los mutantes del motor ni como prueba universal de equivalencia. Los controles reales usan el motor sin mocks de módulos y distinguen éxito, rechazo y orden. No son una contrarrevisión independiente.
 
 ## Hallazgo de producto separado
 
-A32-P01: pagosACuentaCentimos y retencionesSoportadasCentimos negativos se admiten en la API anual tipada. El ensayo conserva éxito y total negativo, en vez de inventar una guarda. El contrato no declara corrección jurídica de ello. No se corrige el motor; el padre debe contrastar si requiere rechazo o un contrato explícito de ajustes negativos. A32-P02: los enums de contrato/situación laboral del subservicio solo reciben control string; el riesgo de entrada JS ajena al tipo debe revisarse sin atribuirle cobertura runtime inexistente.
+A32-P01: pagosACuentaCentimos y retencionesSoportadasCentimos negativos se admiten en la API anual tipada. El ensayo conserva éxito y total negativo, en vez de inventar una guarda. El contrato no declara corrección jurídica de ello. No se corrige el motor; al integrar se debe contrastar si requiere rechazo o un contrato explícito de ajustes negativos. A32-P02: los enums de contrato/situación laboral del subservicio solo reciben control string; el riesgo de entrada JS ajena al tipo debe revisarse sin atribuirle cobertura runtime inexistente.
 
 ## Reproducción
 
-Dependencias recibidas del padre exclusivamente en lectura. Nix proporciona Node/Bun; no se crea entorno Python, node_modules ni copia de app en docs. La variable `IROBOPF_DEPENDENCIES_PACKAGE=/home/elies/Repos/IRoboPF/package.json` configura resolución del TypeScript existente; tras integrar, se omite si las dependencias están instaladas en el checkout receptor.
+Dependencias recibidas del integrador exclusivamente en lectura. Nix proporciona Node/Bun; no se crea entorno Python, node_modules ni copia de app en docs. La variable `IROBOPF_DEPENDENCIES_PACKAGE=/home/elies/Repos/IRoboPF/package.json` configura resolución del TypeScript existente; tras integrar, se omite si las dependencias están instaladas en el checkout receptor.
 
 Generar: `node scripts/procedencia/flujo-admision-r32.mjs write`. Verificar: mismo comando sin write. Pruebas focalizadas con configuración scratch; lint/tipos y todos los recorridos pesados toman y liberan el bloqueo común por comando. No se ejecuta Next build, servidor, preview ni suites legacy masivas. Comandos y resultados efectivos se conservan en los recibos de validación; ningún comando pendiente se considera aprobado.
 
@@ -64,12 +62,10 @@ Generar: `node scripts/procedencia/flujo-admision-r32.mjs write`. Verificar: mis
 
 El rojo previo conservado ejecutó 169 pruebas: 168 correctas y una fallida por ausencia de `evaluateRetentionAdmission`. Tras incorporar el predicado, el primer y último pase completo del alcance dan 204 correctas: 61 del contrato/mutaciones y 143 de ejecución real/predicado. No se modificaron esperados históricos ni el motor. Los registros JSON conservan cada caso y su estado. Los recuentos no representan reglas fiscales aceptadas.
 
-Tipos del alcance e imports transitivos pasan con configuración scratch que resuelve Effect y tipos Node desde dependencias recibidas. El primer fallo por resolución de paquetes se conserva como `tipos-entorno-inicial.log`; no fue rojo fiscal. El segundo pase independiente de tipos también terminó con código cero. Oxlint final pasa con un hilo, disable-nested-config y las dieciséis reglas a error; ESLint final pasa sin diagnósticos. Se conservan el error propio inicial de spread condicional vacío y los avisos iniciales de variables omitidas, luego corregidos sin tocar comportamiento.
+Tipos del alcance e imports transitivos pasan con resolución explícita de Effect y Node. Oxlint mantiene las dieciséis reglas a error; ESLint termina sin diagnósticos. Estos resultados no atribuyen tipado estricto al código MJS.
 
-El schema nuevo usa draft-07, compatible con Ajv6 recibido; es un formato específico nuevo y no migra ni relaja schemas históricos. Su primer control legítimo rechazó evidencia AST por un tipo incorrecto string; el fallo y schema previo quedan conservados. Se corrige evidence a referencia AST cerrada. El pase final admite el legítimo y rechaza promoción fiscal, wiring, campo extra y sitio perdido. La reconstrucción exacta por módulo aporta el control semántico; el schema por sí solo no acredita cierre. Dos errores de sintaxis en instrumentos scratch de generación de pines/schema se corrigieron antes de utilizarlos; no son pruebas de producto ni ejecuciones correctas.
+El schema draft-07 es específico de este fragmento y compatible con Ajv6. La evidencia es una referencia AST cerrada. El control admite el candidato y rechaza promoción fiscal, wiring, campos extra y pérdida de sitios. El schema aporta estructura; el contraste con la reconstrucción añade una comprobación distinta y tampoco acredita por sí solo suficiencia.
 
-El cotejo físico final volvió a concluir correctamente: 16.855 entradas base, cero cambios y cero ausencias, diff vacío. No hay archivos base modificados a los que atribuir un hash anterior distinto; todos los payloads de esta entrega son adiciones y declaran `baseSha256:null`. Inventario, motor, confianza e históricos conservan sus bytes. Solo se añaden las rutas autorizadas; no hubo operaciones VCS mutantes.
+El [manifiesto](MANIFIESTO.json) identifica el contenido y los hashes del paquete histórico. Su integridad no acredita aceptación fiscal.
 
-El manifiesto enumera rutas relativas, SHA256, tamaño y baseSha256; el sobre separa sus propios archivos para evitar hashes autorreferentes. El patch textual gzip contiene esas adiciones contra la base, y TRANSPORTE.json registra su aplicación en scratch vacío y comparación de bytes por ruta. No hay binarios nuevos de producto: la lista binaria es vacía; el gzip del patch es un sobre de transporte. El CAS de fuentes técnicas continúa en scratch y puede recuperarse del commit base según CAS.json. Conservarlo antes de retirar este checkout; no se escribe fuera del ámbito propio ni se transfiere al exterior.
-
-La admisión técnica finita queda entregada como candidata para los diecisiete sitios. La composición con valor/selección, la revisión independiente y el contraste del padre no son autoaceptados por esta entrega. El encargo global del BRIEF permanece abierto.
+La admisión técnica finita queda entregada como candidata para los diecisiete sitios. La composición con valor/selección, la revisión independiente y el contraste de integración no son autoaceptados por esta entrega. El encargo global del BRIEF permanece abierto.

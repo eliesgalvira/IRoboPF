@@ -1,6 +1,8 @@
 # Comandos y resultados
 
-Todos los comandos se ejecutan desde este checkout. Herramientas obtenidas por Nix: Node 24.19.0 y Bun 1.3.13. No hay instalación global, pip, entorno Python, node_modules propio ni cambios de package/lockfiles. Los módulos del padre se leen desde `/home/elies/Repos/IRoboPF/node_modules`.
+Documento histórico del candidato de este directorio. Los resultados y estados corresponden a esa versión; no acreditan el estado actual del proyecto.
+
+Todos los comandos se ejecutan desde este checkout. Herramientas obtenidas por Nix: Node 24.19.0 y Bun 1.3.13. No hay instalación global, pip, entorno Python, node_modules propio ni cambios de package/lockfiles. Los módulos del integrador se leen desde `/home/elies/Repos/IRoboPF/node_modules`.
 
 Preparación de pruebas privadas reproducible:
 
@@ -38,11 +40,6 @@ Generación documental, sin evaluar TS financiero:
 flock /tmp/irobopf-validacion-pesada.lock bun .cache/puertos-composicion-r47-sol/generar.ts
 ```
 
-Cotejo físico y reconstrucción:
-
 ```sh
-flock /tmp/irobopf-recepcion-acotada.lock node .cache/puertos-composicion-r47-sol/fisico.mjs
 flock /tmp/irobopf-validacion-pesada.lock node .cache/puertos-composicion-r47-sol/empaquetar.mjs
 ```
-
-El cotejo usa lstat/readlink/bytes/ejecutabilidad de todas las entradas base, un blob cada vez, y censa extras reales. El transporte usa un scratch nuevo, prepara únicamente los preimágenes afectados desde blobs originales, aplica el patch gzip textual y objetos binarios y compara bytes/tamaño/modo de cada ruta, incluidos archivos vacíos. No usa índice, checkout, commit, reset ni limpieza. Los scripts y resultados se conservan para contrastarlos; no conceden aceptación fiscal.

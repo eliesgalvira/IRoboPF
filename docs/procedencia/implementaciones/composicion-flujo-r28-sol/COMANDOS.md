@@ -1,9 +1,10 @@
 # Reproducción acotada
 
-Todos los comandos parten de este checkout. Las dependencias del padre se leen, no se modifican. Un trabajador; ningún build ni suite legacy.
+Documento histórico del candidato de este directorio. Los resultados y estados corresponden a esa versión; no acreditan el estado actual del proyecto.
+
+Todos los comandos parten de este checkout. Las dependencias compartidas se leen, no se modifican. Un trabajador; ningún build ni suite legacy.
 
 ```sh
-flock /tmp/irobopf-recepcion-acotada.lock nix shell nixpkgs#nodejs -c node scripts/procedencia/flujo-cotejo.mjs
 flock /tmp/irobopf-validacion-pesada.lock nix shell nixpkgs#nodejs -c node .cache/composicion-flujo-r28-sol/rectificar.mjs antes
 flock /tmp/irobopf-validacion-pesada.lock nix shell nixpkgs#nodejs nixpkgs#bun -c bash .cache/composicion-flujo-r28-sol/calidad.sh
 ```
@@ -18,6 +19,6 @@ flock /tmp/irobopf-validacion-pesada.lock nix shell nixpkgs#nodejs -c node /home
 flock /tmp/irobopf-validacion-pesada.lock nix shell nixpkgs#nodejs nixpkgs#bun -c /home/elies/Repos/IRoboPF/node_modules/.bin/oxlint --threads=1 --disable-nested-config --config docs/procedencia/implementaciones/composicion-flujo-r28-sol/oxlint.json scripts/procedencia/flujo-ast.mjs scripts/procedencia/flujo-contrato.mjs scripts/procedencia/flujo-componer.mjs scripts/procedencia/flujo-adaptadores.mjs scripts/procedencia/flujo-fronteras.mjs tests/flujo-procedencia.test.ts
 ```
 
-Los comandos y códigos efectivos están en los logs. Los instrumentos de recepción y transporte propios se incluyen como archivos de texto en esta carpeta para que el padre no dependa de cachés ajenas. Ninguna ejecución modifica VCS. El ensayo de patch usa GNU patch en scratch propio.
+Los comandos y códigos efectivos están en los logs. Los instrumentos de recepción y transporte propios se incluyen como archivos de texto en esta carpeta para que el integrador no dependa de cachés ajenas. Ninguna ejecución modifica VCS. El ensayo de patch usa GNU patch en scratch propio.
 
-Para las pruebas, crear scratch propio a partir de vitest.config.txt y ejecutar con Node el vitest del padre, pasando --config a ese archivo. La receta calidad.txt conserva el comando exacto ejecutado; ultima-validacion.txt incluye además el check del artefacto. cotejo.txt conserva el primer instrumento Python y su desviación de herramientas; no se recomienda repetir esa vía.
+Para las pruebas, crear scratch propio a partir de vitest.config.txt y ejecutar con Node el vitest del integrador, pasando --config a ese archivo. La receta calidad.txt conserva el comando exacto ejecutado; ultima-validacion.txt incluye además el check del artefacto.

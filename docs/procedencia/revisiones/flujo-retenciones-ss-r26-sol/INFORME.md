@@ -1,8 +1,10 @@
 # Revisión independiente del flujo de retenciones y SS R23
 
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
 Dictamen: uso editorial limitado como explicación técnica candidata acompañada de sus contratos. No componer ni publicar automáticamente el cierre transitivo del grafo. Hay diferencias entre la explicación correcta de varias ramas y su representación por aristas, además de una conversión omitida. No se corrige el lote, el motor ni los esperados. Los resultados efectivos de los casos y del cotejo se incorporan al cierre de este informe.
 
-Trabajo personal en T3 Code, runtime gpt-6.1-sol, esfuerzo high, sin subdelegación. Prioridad solicitada; esta interfaz no proporciona un recibo independiente del service tier. No se inventa identidad T3 canónica ni se emite atestación. Base exigida y recibida: `6ab4a98e6ce218c30a3a9f18596d0c2f030f47d9`, 15.456 entradas. Propiedad exclusiva de esta carpeta y `.cache/revision-retenciones-r26/`. Se leen BRIEF, AGENTS, contrato, coordinación, situación actual, decisiones D077–D079 y recibos R26. Prevalecen las restricciones actuales sobre las instrucciones históricas incompatibles.
+Base examinada: `6ab4a98e6ce218c30a3a9f18596d0c2f030f47d9`, 15.456 entradas. Se contrastaron las decisiones D077–D079 y los recibos R26.
 
 ## Hallazgos
 

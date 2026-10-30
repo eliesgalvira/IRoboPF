@@ -1,12 +1,12 @@
 # Admisión completa R36: candidato finito evaluable
 
+Documento histórico del candidato de este directorio. Los resultados y estados corresponden a esa versión; no acreditan el estado actual del proyecto.
+
 La continuación conserva el IR útil de derechos, schema familiar y conciliación R35 y representa la admisión restante con programas de datos ejecutables. El consumidor autónomo no importa el motor, no transpila TypeScript, no ejecuta texto ni interpreta fórmulas en prosa. El artefacto es `fragmento.json.gz`; los módulos `flujo-admision-r36*.mjs` separan productor, consumidor, derechos y verificador. El schema cerrado es `schemas/procedencia/flujo/admision-r36.schema.json`.
 
-Es una implementación candidata para contraste del padre y revisión independiente nueva de estos bytes. Los diecisiete sitios mantienen admissionClosed=false y siteClosed=false; wiringAllowed y completeRuleAcceptance siguen false. No se modifica confianza ni se acepta fiscalidad por hashes, recuentos, reconstrucción o pruebas. El encargo global y la composición de los otros 48 sitios no se declaran cerrados.
+Es una implementación candidata para contraste de integración y revisión independiente nueva de estos bytes. Los diecisiete sitios mantienen admissionClosed=false y siteClosed=false; wiringAllowed y completeRuleAcceptance siguen false. No se modifica confianza ni se acepta fiscalidad por hashes, recuentos, reconstrucción o pruebas. El encargo global y la composición de los otros 48 sitios no se declaran cerrados.
 
-Base exigida y observada: `50f9e949544e20d3e4e0bffc79b926d396267319`, 20.227 entradas. Runtime real: T3 Code/Codex, gpt-6.1-sol, esfuerzo high. Priority solicitado; sin recibo independiente del planificador disponible. No se subdelegó ni se emitió atestación. Ningún commit, reset, init, bookmark, push o PR; Git se usa en lectura. No se inicializa JJ dentro del worktree T3.
-
-Se consultaron BRIEF, AGENTS, contrato de auditoría, coordinación, situación actual ESTADO/DECISIONES, recepción R36, entrega R35, revisión R34 y adenda del padre, módulos/schema/pruebas recibidos y módulo anual real. Las instrucciones urgentes prevalecen sobre el modelo y limpieza del BRIEF. No se inspeccionaron entregas ni worktrees ajenos. Antes de pruebas Effect se consultaron effect-solutions list/show testing/error-handling/services-and-layers y fuentes locales; DateTime.toDateUtc/makeUnsafe se contrastan en la fuente v4 para resolver el diagnóstico de tipos sin desactivar la regla.
+Base del candidato documentado: `50f9e949544e20d3e4e0bffc79b926d396267319`.
 
 ## Qué puede evaluar el consumidor
 
@@ -40,7 +40,7 @@ Los cuatro resultados tienen significado separado: success termina el programa d
 
 VALIDACION.json y COMANDOS.md fijan comandos, salidas y alcance. Se preservan los 204+27 históricos con cinco rojos de representación, y los 75 controles R35. Las tres aserciones antiguas de nombres no se convierten en interfaz obligatoria. Las regresiones del intérprete adaptado conservan sus esperados; la suite histórica sigue terminando en 1, no se llama verde.
 
-Los discriminantes nuevos contrastan las APIs, los dieciocho territorios/quince años, cortes de renta/fecha, Option, adapters, defaults, layers, dominios financieros, servicios sustituidos, 13/17 sitios y fallos finales. Hay mutaciones con valores iguales en transporte, instancia, unidad y proveedor; sus rojos previos quedan conservados. Ni esas mutaciones ni la reconstrucción sustituyen el contraste semántico del padre. Los fallos de desarrollo de rest/optional-chain, schema, tipos y preparación se registran como tales, sin atribuirlos a fiscalidad.
+Los discriminantes nuevos contrastan las APIs, los dieciocho territorios/quince años, cortes de renta/fecha, Option, adapters, defaults, layers, dominios financieros, servicios sustituidos, 13/17 sitios y fallos finales. Hay mutaciones con valores iguales en transporte, instancia, unidad y proveedor; sus rojos previos quedan conservados. Ni esas mutaciones ni la reconstrucción sustituyen el contraste semántico del integrador. Los fallos de desarrollo de rest/optional-chain, schema, tipos y preparación se registran como tales, sin atribuirlos a fiscalidad.
 
 TypeScript cubre el test TS y sus imports con checkJs=false, como el proyecto: no se atribuye tipado estático completo a los cuerpos MJS ni a objetos JS deliberadamente ajenos al tipo. El runtime, gramática, referencias y controles de salida aportan verificaciones distintas. Oxlint se ejecuta con un hilo, disable-nested-config y las dieciséis reglas anti-slop a error. No se ejecutan build Next ni suites legacy masivas.
 
@@ -48,8 +48,4 @@ A32-P01/P02 se conservan como conductas: pagos negativos numéricos y strings JS
 
 ## Recepción y transporte
 
-El cotejo inicial terminó antes de editar implementación: las 20.227 entradas coincidían por lstat/readlink/bytes/ejecutabilidad, un blob por llamada, sin extras físicos. El diff se confirmó vacío antes del primer archivo de producto. El cotejo final vuelve a recorrer todos los archivos físicos y compara las entradas base con un único blob solicitado/residente cada vez mediante cat-file --batch. Las altas propias se enumeran; no se usa un índice o diff vacío como sustituto de los archivos reales. No hay borrados ni cambios de base; baseSha256 es null en todas las altas.
-
-El manifiesto enumera payload por ruta relativa, tamaño, SHA256 y baseSha256. El sobre separa controles terminales para evitar autorreferencia. Se entrega patch textual gzip de altas contra base y binarios por ruta/hash, con ensayo de reconstrucción y comparación byte a byte en scratch propio. Los controles grandes se comprimen; sus originales propios permanecen en scratch. CAS.json enumera las fuentes técnicas preservadas en CAS propio, con SHA256/SHA512 y recuperación por base/ruta. No hay nuevos originales fiscales, PDFs, entornos, node_modules o copias de aplicación en docs.
-
-No se modifican motor, inventario `30dfbc3154494ae09eee32d1bcf005b627241051bb3531af3cb38e686dff1de7`, confianza activa, ESTADO/DECISIONES, informes recibidos ni los 45 snapshots. El snapshot local R36 permanece `d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1`. V5 r2 conserva corte R26 y pin `2b15925970d4819973598e1640c375ce95fc16c87e6e9981af1e86a2cb0d1c88`, sin escritura ni reexportación. Crossa sigue v1 desfasado, copia local del mismo dueño/casa, sin independencia ni custodia remota. Sin main, PR, despliegue, servidor, preview, LFS, gasto, mensajes externos, transferencias o limpieza.
+El [manifiesto](MANIFIESTO.json) identifica el contenido y los hashes del paquete histórico. Su integridad no acredita aceptación fiscal.

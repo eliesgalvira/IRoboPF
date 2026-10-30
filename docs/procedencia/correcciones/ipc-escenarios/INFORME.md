@@ -1,6 +1,6 @@
 # IPC observado y escenario de diciembre de 2026
 
-El padre implementa los puntos contrastados en auditorias/ipc-redondeos y revisiones/ipc-redondeos. Se conservan las tres pruebas previas fallidas en rojo.log: 2026 aparecía como observado; una comparación de 2025 hacia 2024 devolvía factor 1; faltaba la clasificación del escenario. No se afirma una revisión independiente nueva de esta implementación.
+Se implementan los puntos contrastados en `auditorias/ipc-redondeos` y `revisiones/ipc-redondeos`. `rojo.log` conserva tres pruebas previas fallidas: 2026 aparecía como observado; una comparación de 2025 hacia 2024 devolvía factor 1; faltaba la clasificación del escenario. Este informe no acredita una revisión independiente de la implementación.
 
 La serie observada termina en diciembre de 2025. El 3 % de 2026 se conserva como hipótesis heredada identificada, con método, horizonte y fecha de clasificación. El Python original, línea 20, contiene 0.030; no se atribuye autor ni fecha de emisión que no estén acreditados. La API general exige seleccionar el escenario cuando lo necesita; el adaptador legacy lo selecciona por su contrato. Un dato ausente no se sustituye por cero. Años inválidos se rechazan y el mismo año tiene factor uno sin consumir una observación.
 

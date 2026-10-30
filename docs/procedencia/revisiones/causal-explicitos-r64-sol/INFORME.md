@@ -1,8 +1,10 @@
 # Revisión independiente de los diez sitios explícitos R64
 
+Dictamen histórico de la versión anterior al arreglo de `push`. El [informe final](../../INFORME-FINAL.md) enlaza la corrección y su revisión; los rojos siguientes conservan su valor como evidencia del defecto original.
+
 Se reproduce un defecto funcional de propagación del rastro: **R64-PUSH-01**. No procede declarar cerrado el lote completo. Los valores y la selección local de sus nueve salidas laborales conservan corroboración condicionada; `anual.explicito.actividad.etapa` tiene bloqueo demostrado por las familias excluidas. La siguiente intervención debe limitarse al defecto reproducido, sin repetir revisiones favorables de los 55 sitios anteriores ni iniciar las 19 familias.
 
-Trabajo personal de gpt-6.1-sol, esfuerzo high. Priority solicitado explícitamente; no dispongo de recibo independiente del tier servido. Sin subdelegación, cambios de producto ni operaciones VCS mutantes. Base revisada: `cd41524b432c5d4c2a7f665603debef6be5abc28`, 23.958 entradas. El test actual incluye el mkdir incorporado por el padre; no se revisó como vigente su versión anterior.
+Base examinada: `cd41524b432c5d4c2a7f665603debef6be5abc28`, 23.958 entradas. El test incluye el mkdir incorporado en esa versión; su variante anterior queda fuera de este dictamen.
 
 ## Defecto reproducido y alcance
 
@@ -69,4 +71,4 @@ Pasan los dos ensayos recibidos (25 casos/225 salidas y bloqueo), 17 casos propi
 
 Pasan dos regresiones pertinentes del núcleo (once omitidas por filtro), el schema estricto de 25 originales con dos replays y el control esperado de colisión de registro R60/R62. Veinte anclas coinciden. Oxlint focalizado con los 16 errores activos y plugins reales termina0 tras corregir un nombre local de test; ESLint focalizado termina0 con aviso de React del host. Se conserva el rojo de lint y su preimagen, sin desactivar reglas. El fixture negativo prueba ambos plugins con exit1 esperado. No se repite tipado global ni checkJs ya documentado en recepción.
 
-El test rojo R64-PUSH-01 termina1 y queda sin arreglar, con `pushLengths:[1,1]`, cero pasos retornados y nueve salidas capturadas. RESULTADOS.json y COMANDOS.json separan éxitos, fallos y omisiones. Los fallos iniciales de arnés, resolución de dependencias y ausencia de Node, junto con los originales por hash, permanecen conservados. La primera búsqueda de paquetes por hash en CAS no encontró el sobre; se cotejaron sus archivos exactos del autor ya terminado: payload JSON descomprimido f7576fb20095c859bcbdab67a5e4e9de4b5382b004f84eb5e2dce920a07a4fba, gzip cad11136703c75f924fcc001ada5c9b3e0dbb348fcd4d4b41f8a39e9b477cc0d. PAQUETES-RECIBIDOS.json preserva ambos niveles y el patch/sobre. No se leyó trabajo parcial de otros hijos activos.
+El test rojo R64-PUSH-01 termina1 y queda sin arreglar, con `pushLengths:[1,1]`, cero pasos retornados y nueve salidas capturadas. RESULTADOS.json y COMANDOS.json separan éxitos, fallos y omisiones. Los fallos iniciales de arnés, resolución de dependencias y ausencia de Node, junto con los originales por hash, permanecen conservados. La primera búsqueda de paquetes por hash en CAS no encontró el sobre; se cotejaron sus archivos exactos del autor ya terminado: payload JSON descomprimido f7576fb20095c859bcbdab67a5e4e9de4b5382b004f84eb5e2dce920a07a4fba, gzip cad11136703c75f924fcc001ada5c9b3e0dbb348fcd4d4b41f8a39e9b477cc0d. PAQUETES-RECIBIDOS.json preserva ambos niveles y el patch/sobre.

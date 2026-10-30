@@ -1,6 +1,8 @@
 # Revisión personal Sol de retenciones 2012–2014
 
-Base esperada y HEAD comprobado: `1ec684b4e4408068282febf1319c12c6ac8a15c1`. Revisor gpt-6.1-sol high, trabajo personal sin subdelegación. Entrega exclusiva en esta carpeta absoluta del padre; no se modifican motor, versiones, informes históricos, registros ni atestaciones. No se acepta ningún ejercicio completo.
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
+Base examinada: `1ec684b4e4408068282febf1319c12c6ac8a15c1`. Este dictamen no acepta ningún ejercicio completo ni habilita versiones.
 
 Se inspeccionan personalmente las 187 páginas de los cuatro testimonios, mediante 48 láminas de hasta cuatro páginas, con lectura de las fórmulas, condiciones, tablas, notas y marcas visibles, complementada por texto extraído. Esto amplía efectivamente las doce imágenes del informe previo. `mapa-paginas.json` registra cada página y `citas-paginas.json` conserva texto literal, página física, caja completa, hash del original y facsímil individual. Las tablas finales están giradas en el original: se conserva su orientación. Portadas e índices no contienen operaciones; bibliografías solo identifican normas; la última página de enero solo contiene cabecera/número. También se inspeccionaron, sin contarlas como cálculo.
 

@@ -1,6 +1,6 @@
 # Registro dirigido, 29 de octubre de 2026
 
-Se leyeron la auditoría inicial, sus búsquedas JSON y barrido de PDF, contrato y vigencias; BUSQUEDAS, INFORME, decisiones y reproducción de la revisión redondeo-tgss-mensual-v1; CX-01/02/03 y revisión correcciones-x-v1. No se repitió la adquisición de sus 19 originales: se resolvieron en CAS del padre y comprobaron ambos hashes/tamaño. La lectura textual anterior había recorrido los PDF; la novedad aquí es explotar el anexo XML pp.56–59 de Cálculos, no atribuirle condición de documento nunca examinado.
+Se leyeron la auditoría inicial, sus búsquedas JSON y barrido de PDF, contrato y vigencias; BUSQUEDAS, INFORME, decisiones y reproducción de la revisión redondeo-tgss-mensual-v1; CX-01/02/03 y revisión correcciones-x-v1. No se repitió la adquisición de sus 19 originales: se resolvieron en CAS del repositorio y comprobaron ambos hashes/tamaño. La lectura textual anterior había recorrido los PDF; la novedad aquí es explotar el anexo XML pp.56–59 de Cálculos, no atribuirle condición de documento nunca examinado.
 
 Consultas nuevas al buscador web, filtradas por fuente primaria seg-social.es:
 

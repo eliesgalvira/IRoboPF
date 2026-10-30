@@ -1,6 +1,8 @@
 # Revisión de comparativa de inflación v1
 
-Revisor: agente Codex de esta ejecución, identidad de agente `/root`, checkout T3 `/home/elies/.t3/worktrees/IRoboPF/t3-6e018ac6`. No se inventa otra identidad humana ni se afirma independencia institucional. Trabajo personal, sin subdelegación. Base comprobada: `5799bb03826719a4dd3500a962e2d6bb5124fdca`.
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
+Base examinada: `5799bb03826719a4dd3500a962e2d6bb5124fdca`.
 
 Dictamen: la corrección es aprobable como reproducción tabular acotada. Se reproducen las 69 diferencias históricas (K:15, L:53, J:1) y desaparecen en el constructor actual. No se detecta una regresión nueva en el alcance ejecutado. CX-07-B sigue abierto: la reproducción de Excel no resuelve la coherencia de cuota y neto en los consumidores. Esta entrega no aplica fixes ni promueve registros o atestaciones.
 

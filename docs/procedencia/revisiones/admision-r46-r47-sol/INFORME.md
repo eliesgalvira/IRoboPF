@@ -1,12 +1,14 @@
 # Revisión independiente acotada R46 → R47
 
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
 **R44-A01 requiere cambios; R44-A02, A03, A04 y A05 quedan corroborados con alcance limitado.** Los nueve fallos R44 dejan de reproducirse con las adaptaciones explícitas del candidato. Hay una colisión residual nueva, R47-N01, en descriptores de `Decimal.constructor`. Es un defecto técnico de la garantía de identidad, pendiente de contraste del padre; no se demuestra reutilización con cuantías distintas mediante esa colisión ni un bypass público. No se corrige producto, no se atesta ni se promueve aceptación. El encargo global sigue abierto.
 
-Revisor efectivo: gpt-6.1-sol, high, en T3 Code/Codex. Priority solicitado; este entorno no entrega un recibo independiente del planificador. Sin subdelegación ni cambio de modelo. Base exigida y comprobada: `a6fc3e5e4ec2a7fc7e123356e641817b2f19d908`, 21.514 entradas.
+Base examinada: `a6fc3e5e4ec2a7fc7e123356e641817b2f19d908`, 21.514 entradas.
 
 ## Evidencias y método
 
-Se consultaron BRIEF íntegro, AGENTS, contrato, coordinación y situación actual de ESTADO/DECISIONES. La orden específica sustituye el modelo, las escrituras de estado, la limpieza y las operaciones VCS del BRIEF. Se examinaron R44 y la corrección R46: cambios, adaptaciones, instrumentos, registros previos/finales, artefacto, schema, productor, compilador, runtime, verificador, derechos y los pasajes TS afectados. No se examinó el trabajo parcial del hijo de composición ni se reabrió la normalización R45.
+Se examinaron R44 y la corrección R46: cambios, adaptaciones, instrumentos, registros previos y finales, artefacto, schema, productor, compilador, runtime, verificador, derechos y pasajes TypeScript afectados. La normalización R45 queda fuera de este dictamen.
 
 Se usan dependencias del padre solo en lectura y herramientas por Nix. Vitest usa configuración nativa, `cache:false`, cacheDir absoluto en scratch propio y un trabajador. Cada prueba, tipos, recorrido de fuentes y reconstrucción se ejecuta bajo su propio `flock`; no hay locks durante redacción o consultas. Effect: antes del arnés se consultaron `effect-solutions list`, `show testing error-handling` y las firmas locales `Effect.result` y `Effect.runSync`. No se transpila TS para sustituir el consumidor documental.
 

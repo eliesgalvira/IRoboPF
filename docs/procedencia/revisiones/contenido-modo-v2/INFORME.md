@@ -1,8 +1,10 @@
 # Revisión de contenido y modo v2
 
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
 Dictamen: **CI-01/02/03, RV3-01 y EMI-01 aprobables en el alcance técnico comprobado. EMI-02 corrige la falsa independencia, con un residuo documental P3, CMV2-01, en la explicación de 2012–2014.** No se acepta una regla fiscal completa ni se emite atestación de Madrid.
 
-Revisor nuevo, trabajo personal sin subdelegación. Base indicada: `ed6a43fd750de05609abc3710dabdc2f8261020c`. Leídos BRIEF, AGENTS, CONTRATO-AUDITORIA, COORDINACION, ESTADO, DECISIONES, integracion-ronda7 y los tres informes previos asignados. La entrega contiene únicamente esta carpeta; instrumentos ejecutados en scratch propio. Sin operaciones VCS, fixes, modificación de registros de confianza, oracle, paquetes, lockfiles o CI. El padre debe cotejar la base y los hashes de fuentes del manifiesto antes de integrar. No se atribuye una comprobación VCS que no se ha realizado.
+Base declarada: `ed6a43fd750de05609abc3710dabdc2f8261020c`. Se examinaron integración-ronda7 y los tres informes previos asignados. Esta revisión no comprobó la base mediante VCS: la recepción debe cotejarla con los hashes de fuentes del manifiesto.
 
 ## CMV2-01 — El panel no distingue la reconstrucción hasta 2014 (P3)
 

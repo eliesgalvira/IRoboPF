@@ -1,6 +1,8 @@
 # Reproducción acotada
 
-Usar un checkout preparado por T3 de HEAD `846f25e183ba07414065d4e6bdf9e98311b98a17` con los archivos de esta propuesta aplicados por transporte. No crear un checkout en shell. No ejecutar sobre registros activos. Los originales permanecen en v5 r2 raíz, con el pin de raiz-durable.json; no se escribe en ese paquete. La raíz node_modules del padre se usa para resolver dependencias, sin instalación.
+Documento histórico del candidato de este directorio. Los resultados y estados corresponden a esa versión; no acreditan el estado actual del proyecto.
+
+Usar un checkout preparado por T3 de HEAD `846f25e183ba07414065d4e6bdf9e98311b98a17` con los archivos de esta propuesta aplicados por transporte. No crear un checkout en shell. No ejecutar sobre registros activos. Los originales permanecen en v5 r2 raíz, con el pin de raiz-durable.json; no se escribe en ese paquete. La raíz node_modules compartido se usa para resolver dependencias, sin instalación.
 
 ## Restaurar el snapshot entregado
 
@@ -10,7 +12,7 @@ El instrumento rechaza una raíz scratch ya existente: no sobrescribe un resulta
 flock /tmp/irobopf-validacion-pesada.lock nix shell nixpkgs#bun nixpkgs#nodejs -c env NODE_PATH=/home/elies/Repos/IRoboPF/node_modules bun .cache/incorporacion-lote-r32/restaurar.mjs
 ```
 
-El instrumento comprueba siete hashes parciales, tamaño/hash del gzip recompuesto, pin externo v5 y precondición exacta de snapshots de base. Decodifica los objetos nuevos, resuelve los ya presentes por las rutas de snapshot-cierre.json.gz, y copia cada objeto a su raíz propia comprobando bytes/hash. Resuelve el grande desde v5 r2 explícito. Invoca leerSnapshot/verificarContenido reales con el CAS de la restauración. El ensayo terminado figura en restauracion-partes.log. No depende de ninguna caché de un hijo ni de rutas por descubrir.
+El instrumento comprueba siete hashes parciales, tamaño/hash del gzip recompuesto, pin externo v5 y precondición exacta de snapshots de base. Decodifica los objetos nuevos, resuelve los ya presentes por las rutas de snapshot-cierre.json.gz, y copia cada objeto a su raíz propia comprobando bytes/hash. Resuelve el grande desde v5 r2 explícito. Invoca leerSnapshot/verificarContenido reales con el CAS de la restauración. El ensayo terminado figura en restauracion-partes.log. 
 
 El cierre no es un paquete de toda la aplicación: necesita los archivos exactos de la base nombrados por sus hashes y los originales del paquete preservado. snapshot-partes.json fija el orden de concatenación; snapshot-cierre.json.gz describe cada dependencia por ruta/hash/tamaño y diferencia las externas. No basta descomprimir un archivo sin verificar sus pins.
 
@@ -22,8 +24,8 @@ Las pruebas tests/incorporacion-lote-r32.test.ts crean únicamente registros scr
 
 ## Repetir generación, si la revisión la necesita
 
-Los instrumentos ejecutados se conservan como .txt. No ejecutar sus rutas de informe directamente sobre esta carpeta recibida. Copiar a scratch y sustituir **solo** la ruta literal `docs/procedencia/implementaciones/incorporacion-lote-r32-sol` por una carpeta de resultados nueva bajo `.cache/incorporacion-lote-r32/`; conservar el diff y hashes de cada adaptación. Rechazar un árbol ensayo ya existente en lugar de vaciarlo. No reutilizar una raíz de otro hijo.
+Los instrumentos ejecutados se conservan como .txt. No ejecutar sus rutas de informe directamente sobre esta carpeta recibida. Copiar a scratch y sustituir **solo** la ruta literal `docs/procedencia/implementaciones/incorporacion-lote-r32-sol` por una carpeta de resultados nueva bajo `.cache/incorporacion-lote-r32/`; conservar el diff y hashes de cada adaptación. Rechazar un árbol ensayo ya existente en lugar de vaciarlo. 
 
 Orden: preparar-ensayo (receta R27 sin .venv y pins no software); completar-ensayo (cierre Madrid previo y fuentes actuales de explicación); preservar-versiones (copias ordinarias por hash); crear explícitamente scratch/externo; recorrido-r2 (recorrido entero con fallo de escritura controlado) o recorrido-r3 únicamente si se reanuda la entrada-r2 ya fijada; comprobar-lote; transportar-snapshot; raiz-durable; inspeccionar-bundle; partir-bundle. Cada validación adquiere y libera el lock pesado, sin anidarlo. No retenerlo mientras se adapta o redacta. Usar Nix con bun/nodejs/python3, PYTHONDONTWRITEBYTECODE=1, UV_OFFLINE=1 y UV_PROJECT_ENVIRONMENT absoluto dentro del scratch propio. run.sh sigue siendo la entrada Python de proyecto. No crear tools/procedencia/.venv.
 
-No volver a ejecutar auditorías fiscales ni cambiar esperados históricos. El ensayo de incorporación no constituye revisión independiente; el padre debe contrastar estos bytes antes de decidir cualquier acto operativo.
+No volver a ejecutar auditorías fiscales ni cambiar esperados históricos. El ensayo de incorporación no constituye revisión independiente; al integrar se debe contrastar estos bytes antes de decidir cualquier acto operativo.

@@ -22,4 +22,4 @@ Objeción: ignorar hashes no resueltos ocultaría pérdidas; preservar todo lo q
 
 ## PV3-D06 — Dimensiones y revisión
 
-Objeción: coincidir hashes puede producir una apariencia de certificación jurídica. Respuesta: integridad comprobada; autenticidad no certificada; interpretación sin revisión nueva; exactitud fiscal no evaluada; aceptación ninguna. Coste: los candidatos no habilitan reglas ni trasladan atestaciones. Crossa conserva v1 histórico comunicado por el coordinador, misma casa/dueño, sin comprobación propia aquí ni custodia independiente. Queda desfasada respecto de v2 y v3; no se modifica. Se mantiene la elección de Elies de preparar sin transferir, sin red documental, LFS ni gasto.
+Objeción: coincidir hashes puede producir una apariencia de certificación jurídica. Respuesta: integridad comprobada; autenticidad no certificada; interpretación sin revisión nueva; exactitud fiscal no evaluada; aceptación ninguna. Coste: los candidatos no habilitan reglas ni trasladan atestaciones. Crossa conserva v1 histórico, misma casa y propietario, sin comprobación independiente en destino; está desfasada respecto de v5 R26. No acredita custodia independiente.

@@ -1,10 +1,12 @@
 # Revisión estatal v2: decisiones nuevas por celda y ejercicio
 
-Revisor: Codex, agente `/root` de esta revisión, checkout T3 `t3-803d665c`. Trabajo personal, sin subdelegación. Base comprobada: `5799bb03826719a4dd3500a962e2d6bb5124fdca`. La identidad indicada es la del agente y checkout disponibles; no se inventa otra persona ni una independencia institucional.
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
+Base examinada: `5799bb03826719a4dd3500a962e2d6bb5124fdca`.
 
 Se entregan **78 decisiones nuevas `accepted` de alcance limitado**: 36 de escala ordinaria y 42 de complementaria, correspondientes a 26 celdas de base/cuota por los ejercicios 2012, 2013 y 2014. `decisiones-canonicas.json` es una lista, con ID nuevo, año, tabla, fila, columna, valor, condiciones y localizador exacto de celda (`TABLA[fila].campo`), SHA actual y `line`. Todas mantienen `completeRuleAcceptance: false`. `mapeo-78.json` relaciona cada ID de payload actual con su decisión. No se aceptan los payloads operativamente ni se escriben registros o atestaciones: el padre debe preparar los nuevos enlaces y pedir revisión exacta.
 
-Se leyeron BRIEF, AGENTS, CONTRATO-AUDITORIA, COORDINACION, ESTADO, DECISIONES —incluidas D043–D046—, integración de ronda 11, redondeos r11, entrega de X y su contrarrevisión; informes estatales v1/v2, revisión v1 y propuestas r12. Los archivos históricos permanecen intactos. Las discrepancias de contrato de X no se convierten aquí en expectativas generales ni se toca el oracle.
+Se examinaron D043–D046, integración de ronda 11, redondeos r11, la entrega de X y su contrarrevisión; informes estatales v1/v2, revisión v1 y propuestas r12. Las discrepancias de contrato de X no se convierten en expectativas generales ni alteran el oracle.
 
 ## Qué queda acreditado
 

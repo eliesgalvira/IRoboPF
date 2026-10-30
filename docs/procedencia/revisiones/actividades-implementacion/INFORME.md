@@ -1,8 +1,10 @@
 # Revisión independiente de la implementación AE25
 
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
 Requiere cambios acotados antes de aceptar el contrato completo. Se reproducen dos admisiones incoherentes (P2) y un rechazo por representación decimal (P3). Los tres son candidatos para decisión del padre; no se ha corregido código ni aceptado automáticamente ninguna regla fiscal. Base: `0ca324b082676e15ae443b3c83d7f81828fbc0ce`.
 
-Se han leído íntegramente los cuatro archivos de `lib/dominio/irpf/actividades-economicas/`, sus 56 pruebas, INTEGRACION.md, la auditoría y la revisión documental AE25, además de BRIEF, AGENTS y los cinco documentos de coordinación exigidos. Revisión personal sin subdelegación. Los hechos de los casos son sintéticos. No se ha consultado ni copiado material privado.
+Se examinaron los cuatro archivos de `lib/dominio/irpf/actividades-economicas/`, sus 56 pruebas, INTEGRACION.md, la auditoría y la revisión documental AE25. Los hechos de los casos son sintéticos.
 
 ## Hallazgos reproducidos
 
