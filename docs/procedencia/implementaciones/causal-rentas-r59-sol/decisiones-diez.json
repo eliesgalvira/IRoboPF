@@ -1,0 +1,189 @@
+[
+  {
+    "siteId": "anual.trabajo.integro",
+    "decision": "Céntimos por elemento, semilla y /100; sin fusión de repetidos",
+    "source": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts",
+    "evidenceCase": "collection-307-307",
+    "objection": "Una suma correcta podría fusionar dos entradas iguales o perder su conversión individual.",
+    "response": "Dos salarios repetidos mantienen miembros, índices y frames distintos; la semilla y cada /100 quedan enlazados.",
+    "cost": "Segunda semántica finita, reconstrucción del contrato, testigos fijados al software y revisión independiente nueva.",
+    "scope": "Solo diez salidas generales y ejecuciones declaradas; no admisión ni validez normativa.",
+    "admissionClosed": false,
+    "siteClosed": false,
+    "wiringAllowed": false,
+    "completeRuleAcceptance": false,
+    "evidenceCases": [
+      "collection-307-307",
+      "colecciones/repetidas"
+    ]
+  },
+  {
+    "siteId": "anual.trabajo.cotizacion",
+    "decision": "Modo y año seleccionan el cuerpo SS; argumento salarial es el binding original y se consume cotizacionTrabajador",
+    "source": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+    "evidenceCase": "alta-2026-compatible-legacy",
+    "objection": "Un importe SS predeclarado o un salario reconstruido esconderían la frontera financiera.",
+    "response": "El productor salarial original se pasa por argumento a la función SS elegida; el retorno trabajador enlaza con el binding laboral.",
+    "cost": "Segunda semántica finita, reconstrucción del contrato, testigos fijados al software y revisión independiente nueva.",
+    "scope": "Solo diez salidas generales y ejecuciones declaradas; no admisión ni validez normativa.",
+    "admissionClosed": false,
+    "siteClosed": false,
+    "wiringAllowed": false,
+    "completeRuleAcceptance": false,
+    "evidenceCases": [
+      "alta-2018-canonico",
+      "alta-2025-compatible-legacy",
+      "alta-2026-canonico"
+    ]
+  },
+  {
+    "siteId": "anual.trabajo.previo-neto",
+    "decision": "Íntegro menos cuota del trabajador, con identidad del retorno SS",
+    "source": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts",
+    "evidenceCase": "racional-trabajo",
+    "objection": "Sustituir previo por neto puede coincidir cuando gastos son cero.",
+    "response": "El caso2025 distingue18.704 de16.704 y conserva la misma cuota SS por productor.",
+    "cost": "Segunda semántica finita, reconstrucción del contrato, testigos fijados al software y revisión independiente nueva.",
+    "scope": "Solo diez salidas generales y ejecuciones declaradas; no admisión ni validez normativa.",
+    "admissionClosed": false,
+    "siteClosed": false,
+    "wiringAllowed": false,
+    "completeRuleAcceptance": false,
+    "evidenceCases": [
+      "racional-trabajo"
+    ]
+  },
+  {
+    "siteId": "anual.trabajo.gastos",
+    "decision": "Celda GASTOS_FIJOS_IRPF_LEGACY por año",
+    "source": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts",
+    "evidenceCase": "2012-canonico",
+    "objection": "Una constante2000 universal perdería la celda histórica y confundiría cero con ausencia.",
+    "response": "La selección por año conserva0 en2012–2014 y2000 desde2015; el índice y su celda se verifican.",
+    "cost": "Segunda semántica finita, reconstrucción del contrato, testigos fijados al software y revisión independiente nueva.",
+    "scope": "Solo diez salidas generales y ejecuciones declaradas; no admisión ni validez normativa.",
+    "admissionClosed": false,
+    "siteClosed": false,
+    "wiringAllowed": false,
+    "completeRuleAcceptance": false,
+    "evidenceCases": [
+      "2012-canonico",
+      "2015-canonico"
+    ]
+  },
+  {
+    "siteId": "anual.trabajo.neto",
+    "decision": "Máximo entre cero y previo menos gastos",
+    "source": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts",
+    "evidenceCase": "collection-20000",
+    "objection": "Un suelo aplicado antes o después podría ocultar el previo y alterar artículo20.",
+    "response": "El salario pequeño activa neto0 sin sustituir el previo; artículo20 sigue leyendo su propiedad original.",
+    "cost": "Segunda semántica finita, reconstrucción del contrato, testigos fijados al software y revisión independiente nueva.",
+    "scope": "Solo diez salidas generales y ejecuciones declaradas; no admisión ni validez normativa.",
+    "admissionClosed": false,
+    "siteClosed": false,
+    "wiringAllowed": false,
+    "completeRuleAcceptance": false,
+    "evidenceCases": [
+      "collection-20000",
+      "racional-trabajo"
+    ]
+  },
+  {
+    "siteId": "anual.trabajo.reduccion",
+    "decision": "Artículo20 recibe previo y otras rentas algebraicas, manteniendo año/fecha civil",
+    "source": "lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts",
+    "evidenceCase": "otras-650001",
+    "objection": "Usar neto, eliminar pérdidas o compensar bases antes de tiempo cambia la reducción.",
+    "response": "O conserva inmobiliario y las dos sujetas con signo; pruebas6500/6500,01 y4/5julio2018 separan selectores y operandos.",
+    "cost": "Segunda semántica finita, reconstrucción del contrato, testigos fijados al software y revisión independiente nueva.",
+    "scope": "Solo diez salidas generales y ejecuciones declaradas; no admisión ni validez normativa.",
+    "admissionClosed": false,
+    "siteClosed": false,
+    "wiringAllowed": false,
+    "completeRuleAcceptance": false,
+    "evidenceCases": [
+      "otras-650000",
+      "otras-650001",
+      "2018-07-04",
+      "2018-07-05",
+      "colecciones/mixta"
+    ]
+  },
+  {
+    "siteId": "anual.inmobiliario.integro",
+    "decision": "Suma por elemento en céntimos, conversión y ausencia a vacío",
+    "source": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts",
+    "evidenceCase": "2025-canonico",
+    "objection": "Añadir gastos o ignorar un miembro convertiría el perfil en otra fórmula.",
+    "response": "Se suman solo íntegros declarados por índice con /100;1000+500 produce1500.",
+    "cost": "Segunda semántica finita, reconstrucción del contrato, testigos fijados al software y revisión independiente nueva.",
+    "scope": "Solo diez salidas generales y ejecuciones declaradas; no admisión ni validez normativa.",
+    "admissionClosed": false,
+    "siteClosed": false,
+    "wiringAllowed": false,
+    "completeRuleAcceptance": false,
+    "evidenceCases": [
+      "colecciones/mixta",
+      "racional-trabajo"
+    ]
+  },
+  {
+    "siteId": "anual.inmobiliario.neto",
+    "decision": "Alias simplificado de íntegro, sin gastos o fiscalidad inventados",
+    "source": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts",
+    "evidenceCase": "2025-canonico",
+    "objection": "La igualdad con íntegro no acredita una liquidación completa del alquiler.",
+    "response": "Se preserva el alias simplificado de la fuente con productor/propiedad propios; no se atribuye artículo23 completo.",
+    "cost": "Segunda semántica finita, reconstrucción del contrato, testigos fijados al software y revisión independiente nueva.",
+    "scope": "Solo diez salidas generales y ejecuciones declaradas; no admisión ni validez normativa.",
+    "admissionClosed": false,
+    "siteClosed": false,
+    "wiringAllowed": false,
+    "completeRuleAcceptance": false,
+    "evidenceCases": [
+      "colecciones/mixta"
+    ]
+  },
+  {
+    "siteId": "anual.ganancias.total",
+    "decision": "Suma por transmisión con signo, sin usar exención como total",
+    "source": "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts",
+    "evidenceCase": "adversos",
+    "objection": "Total, exenta y sujeta no son intercambiables, aunque puedan coincidir.",
+    "response": "La mezcla produce total4000, exenta3000 y sujeta1000; invertir orden mantiene dinero y cambia ocurrencias verificadas.",
+    "cost": "Segunda semántica finita, reconstrucción del contrato, testigos fijados al software y revisión independiente nueva.",
+    "scope": "Solo diez salidas generales y ejecuciones declaradas; no admisión ni validez normativa.",
+    "admissionClosed": false,
+    "siteClosed": false,
+    "wiringAllowed": false,
+    "completeRuleAcceptance": false,
+    "evidenceCases": [
+      "colecciones/mixta",
+      "colecciones/inversa",
+      "colecciones/repetidas"
+    ]
+  },
+  {
+    "siteId": "anual.ganancias.exenta",
+    "decision": "Edad/clase, vitalicia desde2015, margen/proporción y DA37 inclusiva con suelo/techo",
+    "source": "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts",
+    "evidenceCase": "urbano-2012-05-12",
+    "objection": "Una descripción normativa supuesta puede reemplazar las fechas o condiciones reales.",
+    "response": "Se ejercitan el final2012-12-31 real, día posterior, edad64/65, vitalicia2014/2015, margen agotado, transmisión0 y exclusiones urbanas.",
+    "cost": "Segunda semántica finita, reconstrucción del contrato, testigos fijados al software y revisión independiente nueva.",
+    "scope": "Solo diez salidas generales y ejecuciones declaradas; no admisión ni validez normativa.",
+    "admissionClosed": false,
+    "siteClosed": false,
+    "wiringAllowed": false,
+    "completeRuleAcceptance": false,
+    "evidenceCases": [
+      "urbano-2012-12-31",
+      "urbano-2013-01-01",
+      "vitalicia-2014-65",
+      "vitalicia-2015-65",
+      "condiciones/vinculada",
+      "condiciones/margen-agotado"
+    ]
+  }
+]

@@ -41,7 +41,7 @@ export const explicit = "lib/dominio/irpf/trabajo-anual/conexion.ts"
 export const activity = "lib/dominio/irpf/actividades-economicas/calcular.ts"
 export const work = "lib/dominio/irpf/trabajo-anual/calcular.ts"
 export const line = "lib/dominio/explicacion/linea-calculo.ts"
-export const sitesR36 = [
+const declaredSitesR36 = [
   "anual.trabajo.integro",
   "anual.trabajo.cotizacion",
   "anual.trabajo.previo-neto",
@@ -63,6 +63,7 @@ export const sitesR36 = [
   "anual.ganancias.exenta",
   "anual.explicito.actividad.etapa",
 ]
+export const sitesR36 = [...declaredSitesR36]
 const externalNames = [
   "calcularDesgloseCotizacionesPerfilUniforme",
   "calcularDesgloseCotizacionesSocialesLegacy",
@@ -457,7 +458,7 @@ export function composeRentasR36(root = process.cwd()) {
       const field = (k) =>
         p.properties.find((x) => x.name?.getText() === k)?.initializer
       const id = field("siteId")?.text
-      if (!sitesR36.includes(id)) continue
+      if (!declaredSitesR36.includes(id)) continue
       const amount = field("importe")
       outputs.push({
         siteId: id,
@@ -677,7 +678,7 @@ export function composeRentasR36(root = process.cwd()) {
     literals: program
       .filter((n) => ["literal", "regex"].includes(n.op))
       .map((n) => ({ node: n.id, value: n.data, source: n.source })),
-    primitives: primitiveNames,
+    primitives: [...primitiveNames],
     publicInputs: [
       {
         entry: roots.calcularActividad2025,
