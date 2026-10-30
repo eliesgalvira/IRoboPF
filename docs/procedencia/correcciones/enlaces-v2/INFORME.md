@@ -1,6 +1,6 @@
 # Rechazo de extracción incompleta, ENV2-01
 
-El orquestador reproduce y corrige el nuevo hallazgo de la revisión enlaces-v2. El PDF sintético conservado por el revisor extrae un carácter U+FFFD entre un signo y el importe. Seleccionar únicamente los dígitos permitía enlazar +8,50 aunque la extracción no acreditaba que el número fuese positivo.
+La verificación de integración reproduce y corrige el nuevo hallazgo de la revisión enlaces-v2. El PDF sintético conservado por el revisor extrae un carácter U+FFFD entre un signo y el importe. Seleccionar únicamente los dígitos permitía enlazar +8,50 aunque la extracción no acreditaba que el número fuese positivo.
 
 Antes del cambio fallan dos pruebas con cinco comprobaciones: cuatro cadenas, incluyendo sustitución después del número y en otra línea, y una cita extraída del PDF adversarial real. El log está en `antes.log`. Después pasan las 24 pruebas de corpus. Ruff pasa. La prueba PDF comprueba también que U+FFFD sigue presente: no puede volverse verde porque una biblioteca lo haya eliminado silenciosamente.
 

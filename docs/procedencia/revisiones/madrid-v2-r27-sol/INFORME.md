@@ -1,5 +1,7 @@
 # Revisión independiente de Madrid 2020 v2, R27
 
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
 Resultado ejecutado de `revisar.py`: manifiesto recibido y cinco referencias exactas cotejados; tres originales copiados al CAS propio con ambos hashes y tamaño; nueve selecciones temporales y la tabla de binding reextraídas/renderizadas con coincidencia exacta. Helper real bloqueado por condiciones editoriales y once contextos rechazados, sin atestación. Los dos controles físicos registran 15.730 entradas, cero diferencias/borrados y diff vacío. Estos resultados son comprobaciones concretas, no aceptación fiscal por recuentos.
 
 La primera comprobación propia de tipos detectó tres anotaciones faltantes: listas `patch`, `items` y el conjunto de variantes usado con `**`. Se conservan los tres diagnósticos en `mypy-inicial.log`; se añaden las anotaciones sin cambiar el candidato, condiciones ni resultados esperados. Ruff y el primer ensayo de transporte pasaron. `mypy.log` y `calidad-codigos.log` registran la repetición final; los códigos se conservan en orden, sin ocultar el inicial 1. El transporte se vuelve a generar y ensayar para incluir la entrega final, sin borrar el scratch del primer ensayo.
@@ -12,9 +14,9 @@ Payload exacto `c8722b5f4aed938ae4ba73e60a3e69716900d46a89289299dbeea0428681fde6
 
 Lectura directa del motor: la cuarta pareja de `madrid.tramos` es `[importe(53407.2), tipo("17.9")]`. `importe` es alias de `crearImporteMonetario`, que construye `new Decimal(valor)` en `lib/dominio/dinero/importe-monetario.ts`; `escala2020` conserva los tramos mediante spread y añade la fuente. No se introduce una conversión porcentual ni de céntimos al límite por esa ruta. Esto corrobora la lectura de la celda y del inventario; no se ejecuta una liquidación ni se certifica por ello toda la dependencia de cálculo.
 
-Revisión personal sin subdelegación. `identidad.json` conserva la respuesta real de T3: Codex, gpt-6.1-sol, high, priority. No se inventa taskId ni alias. El modelo del BRIEF queda sustituido por la corrección expresa. No se emite atestación candidata: el objeto exacto no es admisible bajo el contrato operativo que lo consume.
+No se emite atestación candidata: el objeto exacto no es admisible bajo el contrato operativo que lo consume. `identidad.json` conserva el registro de la revisión.
 
-Leídos BRIEF íntegro, AGENTS, contrato de auditoría, coordinación, estado y decisiones, recepción R27 y multiplicidad R27; candidato, decisiones autonómicas históricas y revisión de cadena C. No se leen entregas activas R26/v5 ni se consulta el padre salvo fuentes ya entregadas. `rg` no estaba disponible en el entorno inicial; la búsqueda se hizo con lectura acotada y grep. No se escribe Effect, TypeScript ni código de producto.
+Se examinaron recepción R27, multiplicidad R27, candidato, decisiones autonómicas históricas y revisión de cadena C.
 
 ## Lectura sustantiva y visual
 
@@ -40,7 +42,7 @@ La decisión histórica remite a `sources.json` y `refined-citations.json` media
 
 ## Contrato mínimo propuesto al padre
 
-Propuesta editorial separada en `decisiones.json`, sin pretensión de satisfacer un schema operativo inventado. El padre debería admitir una afirmación nominal exacta con: identidad completa del archivo/símbolo/ruta/item/inventario; año documental 2020 y territorio Madrid; valor decimal 53407.20, unidad EUR de base liquidable general; significado de límite superior del cuarto tramo de la escala autonómica y localización legal quinta fila/primera columna. Debe distinguir el componente autonómico del impuesto de la base liquidable general sobre la que se aplica; no hay una segunda base autonómica independiente acreditada aquí.
+Propuesta editorial separada en `decisiones.json`, sin pretensión de satisfacer un schema operativo inventado. La propuesta de afirmación nominal requiere: identidad completa del archivo/símbolo/ruta/item/inventario; año documental 2020 y territorio Madrid; valor decimal 53407.20, unidad EUR de base liquidable general; significado de límite superior del cuarto tramo de la escala autonómica y localización legal quinta fila/primera columna. Debe distinguir el componente autonómico del impuesto de la base liquidable general sobre la que se aplica; no hay una segunda base autonómica independiente acreditada aquí.
 
 Período: `nominal-only` como clasificación documental. 2020 identifica el ejercicio descrito, no autoriza fechas civiles ni una elección aplicable al contribuyente. La traducción de fila legal a límite del motor debe quedar expresada y revisada. Condiciones y exclusiones exactas han de vivir en una decisión nueva y enlazarse desde una versión nueva de payload, con ambas identidades y su propia revisión. Debe retenerse la contradicción del manual y la falta de búsqueda temporal exhaustiva. Una eventual ampliación a períodos ordinarios o por fallecimiento requerirá evidencia y decisión distintas.
 

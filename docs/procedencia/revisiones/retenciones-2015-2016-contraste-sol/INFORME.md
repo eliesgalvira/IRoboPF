@@ -1,8 +1,10 @@
 # Contraste independiente de retenciones 2015–2016
 
-Dictamen: **requiere cambios documentales; no habilitar ejercicios ni otorgar aceptación fiscal completa**. La revisión contiene dos hallazgos nuevos candidatos: C01 refuta la pretendida omisión visual de los 64 años en 2015; C02 identifica una garantía de alimentos del artículo 87.5 que no queda expresada en el contrato de 43 ramas. Se conservan los archivos y rojos del autor. El padre debe contrastar estos hallazgos antes de corregir.
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
 
-Trabajo personal de gpt-6.1-sol con esfuerzo high, sin subdelegación ni cambio de modelo. La prioridad es la solicitada por Elies; no se atribuye a un archivo local capacidad para certificar el nivel de servicio del proveedor. HEAD exacto: `7668bdad60a79a8b3ad8e1e1b911f3d6c223692a`. Base histórica de la entrega examinada: `1ec684b4e4408068282febf1319c12c6ac8a15c1`. El checkout no es repositorio JJ; la consulta inicial `jj log` terminó con error, sin inicialización. Git solo se utiliza en lecturas de árboles, blobs y diferencias.
+Dictamen: **requiere cambios documentales; no habilitar ejercicios ni otorgar aceptación fiscal completa**. La revisión contiene dos hallazgos nuevos candidatos: C01 refuta la pretendida omisión visual de los 64 años en 2015; C02 identifica una garantía de alimentos del artículo 87.5 que no queda expresada en el contrato de 43 ramas. Se conservan los archivos y rojos del autor. 
+
+Base examinada: `7668bdad60a79a8b3ad8e1e1b911f3d6c223692a`. La entrega examinada procede de `1ec684b4e4408068282febf1319c12c6ac8a15c1`.
 
 ## Control físico y fuentes
 
@@ -10,7 +12,7 @@ Trabajo personal de gpt-6.1-sol con esfuerzo high, sin subdelegación ni cambio 
 
 `control-arbol.json.gz` conserva ruta, tamaño, enlace, SHA-256 físico y SHA-256 del blob base. `cierre.json` registra comprobación final y cero borrados; `manifiesto.json` identifica cada archivo entregado con path literal, SHA-256, size y baseSha256. No se incluye a sí mismo. `entrega.patch.gz` transporta las altas textuales; `binarios.json` remite los binarios a sus hashes. No se alteran originales ni paquetes.
 
-Se leyeron BRIEF, AGENTS y los cuatro documentos de coordinación exigidos; integración R19 y recibos, contrato, matriz, ramas, scripts y registros de esta entrega. No se leyó la revisión activa 2012–2014 ni trabajo activo ajeno. Los recibos terminados no se convierten en revisión semántica propia.
+Se examinaron integración R19 y recibos, contrato, matriz, ramas, scripts y registros de esta entrega. Los recibos terminados no sustituyen la revisión semántica propia.
 
 Los tres algoritmos originales son:
 

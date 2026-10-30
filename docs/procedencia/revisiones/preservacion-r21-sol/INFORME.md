@@ -1,10 +1,12 @@
 # Contrarrevisión del consumidor v3 corregido, R21 Sol
 
-Base y HEAD exigidos: `960773f909d4ecff290edfa3d7a7b2699a8445d3`. Trabajo personal con gpt-6.1-sol y esfuerzo high, sin subdelegación. No se emite atestación, se modifica implementación o se mutan registros de confianza. Las conclusiones nuevas son candidatas para contraste posterior. No se declara terminado el encargo ni aceptación fiscal.
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
+Base examinada: `960773f909d4ecff290edfa3d7a7b2699a8445d3`. Las conclusiones nuevas son candidatas para contraste; no implican aceptación fiscal ni cierre global.
 
 ## Alcance y evidencia fijada
 
-Se leyeron BRIEF, AGENTS, CONTRATO-AUDITORIA, COORDINACION, ESTADO y DECISIONES, además de la recepción R19, los cuatro informes de corrección R21, la revisión previa y sus recetas. Prevalece el encargo actual sobre las instrucciones históricas de VCS, delegación y limpieza. `fuentes.json` fija SHA256, SHA512 y tamaño de 23 entradas versionadas. AGENTS es un enlace: su pin de árbol son los bytes de readlink; sus instrucciones se leen desde el destino.
+Se examinaron la recepción R19, los cuatro informes de corrección R21, la revisión previa y sus recetas. `fuentes.json` fija SHA256, SHA512 y tamaño de 23 entradas versionadas. AGENTS es un enlace: su pin de árbol corresponde a los bytes de readlink y las instrucciones se leen desde el destino.
 
 La revisión conserva separados el transporte v2, el sobre edition3/formatVersion1, las adquisiciones y la fase efectiva de publicación. Se examinan recolector, preservacion.py, clasificador de URLs, ambos schemas y los 35 endpoints TGSS. Esta lista es una política cerrada de URLs examinadas, no autenticación del documento ni garantía universal de anonimato. No se consulta v4 ni se leen sus resultados.
 
@@ -46,7 +48,7 @@ Objeción del mejor experto: un nombre con salto es legal en Linux y el pin exte
 
 **PR21-SOL-02, P3 — unicidad parcial del sobre.** Se rechazan hashes de objetos repetidos y paths de dependencia duplicados. Sin embargo, load acepta duplicados exactos en acquisitions, sources, references, unresolvedReferences y exclusions. La matriz de 128 mutaciones lo demuestra y las expectativas protectoras de las tres listas del anexo dejan tres subfallos adicionales. El transporte v2 conserva sus controles de unicidad propios; no se le atribuye esta carencia del nuevo sobre. No se observa corrupción ni multiplicación de objetos CAS: el defecto es la redundancia admitida en los registros y su posible recuento como evidencia distinta.
 
-Objeción del mejor experto: las listas pueden modelar referencias repetidas y el contrato no declara uniqueItems en ellas. Respuesta: es una reserva de consistencia y endurecimiento, de menor severidad; no invalida la restauración local ni reabre los cinco fallos anteriores por asociación. El padre debe resolver explícitamente si la multiplicidad tiene semántica admitida. Coste propuesto: política expresa por lista y rechazo lineal de duplicados si se exige conjunto; no imponer uniqueItems cuadrático ni alterar conteos históricos silenciosamente.
+Objeción del mejor experto: las listas pueden modelar referencias repetidas y el contrato no declara uniqueItems en ellas. Respuesta: es una reserva de consistencia y endurecimiento, de menor severidad; no invalida la restauración local ni reabre los cinco fallos anteriores por asociación. La política debe precisar si admite semánticamente la multiplicidad. Coste propuesto: política expresa por lista y rechazo lineal de duplicados si se exige conjunto; no imponer uniqueItems cuadrático ni alterar conteos históricos silenciosamente.
 
 `mutaciones.json` contiene 128 casos: siete discrepancias de rechazo, correspondientes a los dos candidatos, y dos controles positivos de prefijo. No se suman estos subcasos con los métodos heredados como si fueran pruebas independientes de aceptación. `rojos_test.py` termina 1: tres métodos, seis fallos, cero errores; se conservan las expectativas y no se corrige implementación.
 

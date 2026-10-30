@@ -1,10 +1,12 @@
 # Revisión independiente del candidato R34, recepción R36
 
-Revisor: Codex en T3 Code, gpt-6.1-sol, esfuerzo high. Prioridad solicitada expresamente; este runtime no aporta un recibo independiente del nivel de servicio. Sin subdelegación, atestación, fix ni aceptación propia. HEAD/base exigida: 50f9e949544e20d3e4e0bffc79b926d396267319, 20.227 entradas. Las conclusiones nuevas requieren contraste del padre. No se cierra el encargo global ni se acepta fiscalidad por hashes, recuentos o pruebas.
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
+Base examinada: 50f9e949544e20d3e4e0bffc79b926d396267319, 20.227 entradas. Las conclusiones nuevas requieren contraste; este dictamen no implica cierre global ni aceptación fiscal por hashes, recuentos o pruebas.
 
 ## Objeto y criterio
 
-Se examinan scripts/procedencia/flujo-retenciones-r34.mjs, su consumidor, schema retenciones-r34, las 69 pruebas nuevas integradas por el padre y el artefacto/informe flujo-retenciones-r34-sol. Se lee la recepción R36, su operación, reconstrucción y recibos, y la revisión R33. BRIEF íntegro, AGENTS, contrato y coordinación leídos; situación actual de ESTADO/DECISIONES y sus reservas incorporadas. La orden urgente de Sol prevalece sobre Astra, commits, borrados y demás instrucciones históricas del BRIEF. No se leen entregas activas de otros hijos.
+Se examinaron scripts/procedencia/flujo-retenciones-r34.mjs, consumidor, schema retenciones-r34, 69 pruebas nuevas integradas y artefacto e informe flujo-retenciones-r34-sol; recepción R36, operación, reconstrucción, recibos y revisión R33.
 
 Una IR finita equivalente satisface el encargo si se puede seguir cada propiedad/operando, seleccionar la instancia y obtener el valor sin reinterpretar TS ni fórmulas en prosa. No se exige conservar los nombres de los rojos R33. Se conserva la corroboración de soportadas. Se leen cada cuerpo de retención, catálogo temporal, tablas, dinero, redondeo y crearLineaCalculo; también los bindings, llamada, layer concreta y seis salidas del anual. La independencia consiste en contrastar las fuentes y expectativas, no en aceptar los booleanos reconstruidos.
 

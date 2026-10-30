@@ -26,4 +26,4 @@ Repetición: `flock /tmp/irobopf-validacion-pesada.lock nix shell nixpkgs#ruff n
 
 El mapa y las matrices se serializaron con un proceso Python bajo el mismo lock; esa generación no evalúa la corrección jurídica ni cuenta como inspección. Matriz-80 conserva objeciones/proposiciones anteriores identificadas y fija todos los cierres como pendientes. No se tocó la matriz original.
 
-No se ejecutaron Next build, servidor, preview, suites legacy, Effect, cargo ni cambios VCS. Las herramientas Nix se usan temporalmente, no instalación global. El manifiesto excluye solamente su propia autorreferencia y el patch. El patch es una representación textual adicional; PNG y PDF se integran por archivo/hash. Las rutas de manifiesto son relativas a la raíz del padre y baseSha256 null significa alta respecto de la base indicada.
+El manifiesto excluye su propia autorreferencia y el patch textual. PNG y PDF se integran por archivo y hash. Las rutas son relativas a la raíz del repositorio; `baseSha256: null` identifica un alta respecto de la base indicada.

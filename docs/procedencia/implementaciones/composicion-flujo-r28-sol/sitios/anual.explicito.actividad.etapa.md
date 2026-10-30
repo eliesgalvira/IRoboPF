@@ -1,15 +1,14 @@
 # anual.explicito.actividad.etapa
 
-Candidato pendiente de revisión independiente. Cierre técnico: false. Publicación y aceptación jurídica: false.
+Estado del candidato histórico: revisión independiente pendiente; cierre técnico, publicación y aceptación jurídica: false.
 
 Fórmula TS: e.formula
 
 Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y aplicabilidad separados; ninguna aceptación jurídica.
 
-- e / importe (EUR, value); Parámetro de auxiliar/callback sin binding: e; lib/dominio/irpf/trabajo-anual/conexion.ts:7146–7147
-- e.importe / value (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7146–7155
-- new D(e.importe) / value (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7140–7156
+El detalle de productores y literales, con archivo, rango y relación, se conserva en [composicion.json.gz](../composicion.json.gz). Las limitaciones no resueltas de esta ficha son:
 
+- e / importe (EUR, value); Parámetro de auxiliar/callback sin binding: e; lib/dominio/irpf/trabajo-anual/conexion.ts:7146–7147
 ## Condiciones por relación
 
 - [value] constructor Decimal; e:8589

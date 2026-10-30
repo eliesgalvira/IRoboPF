@@ -1,6 +1,8 @@
 # Reproducción desde la raíz de este checkout
 
-No copiar ni activar el registro real. Estas recetas usan solo `.cache/nominal-r29/ensayo` como fixture. Las fuentes del motor se copian para que Bun resuelva una sola clase Decimal; node_modules del padre se enlaza solo para lectura. Nix necesita python3 en el proceso exterior además del entorno del auxiliar.
+Documento histórico del candidato de este directorio. Los resultados y estados corresponden a esa versión; no acreditan el estado actual del proyecto.
+
+No copiar ni activar el registro real. Estas recetas usan solo `.cache/nominal-r29/ensayo` como fixture. Las fuentes del motor se copian para que Bun resuelva una sola clase Decimal; node_modules compartido se enlaza solo para lectura. Nix necesita python3 en el proceso exterior además del entorno del auxiliar.
 
 ```sh
 export PYTHONDONTWRITEBYTECODE=1
@@ -20,7 +22,6 @@ El transporte usa `patch`, instalado con Nix, nunca git apply. empaquetar.py exi
 
 ```sh
 flock /tmp/irobopf-validacion-pesada.lock nix shell nixpkgs#patch -c bash tools/procedencia/run.sh "$NOMINAL_OUT/empaquetar.py"
-flock /tmp/irobopf-recepcion-acotada.lock bash tools/procedencia/run.sh "$NOMINAL_OUT/fisico.py" final-repetido
 ```
 
 fisico.py hace lecturas de blobs una por una y conserva el diff y todas las filas físicas. No usar el lock de recepción para pruebas, tipos o renders. Los controles históricos de esta entrega no deben sobrescribirse para simular un antes nuevo.

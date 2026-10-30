@@ -1,25 +1,27 @@
-# Coordinación de la primera ronda
+<a id="coordinación-de-la-primera-ronda"></a>
 
-Anti-slop está activo. Los auditores documentales leen el motor sin modificarlo; los editores de código trabajan en checkouts aislados preparados por T3. Solo el orquestador integra, mueve `procedencia-documental` y respalda en origin.
+# Coordinación de la auditoría documental
 
-## Modelo obligatorio de los subagentes (corrección urgente de Elies)
+Criterios de coordinación documental y de integración. Las asignaciones concretas y sus estados pertenecen a los registros de trabajo; este documento conserva las reglas para revisar e integrar resultados.
 
-Desde la orden del 29 de octubre, todos los hijos usan explícitamente **gpt-6.1-sol con esfuerzo high**. Astra queda reservado a la orquestación. Esta instrucción del usuario prevalece sobre cualquier configuración anterior del BRIEF o de los registros históricos. En `spawn_agent`, especificar `model: "gpt-6.1-sol"`, `reasoning_effort: "high"` y `fork_turns: "none"`. En delegaciones T3 con checkout separado o ejecución en segundo plano, especificar `target.model: "gpt-6.1-sol"` y `target.options.reasoningEffort: "high"`; no heredar el modelo. Conservar prioridad cuando esté disponible.
+<a id="modelo-obligatorio-de-los-subagentes-corrección-urgente-de-elies"></a>
 
-La regla incluye reintentos, revisiones independientes y trabajo sobre X. No lanzar un hijo Astra sin autorización previa y específica de Elies. No enviar más trabajo a los Astra anteriores: recoger los archivos, cancelar cualquier ejecución activa y continuar lo pendiente mediante un hijo Sol nuevo. Si Sol no está disponible, informar; no sustituirlo silenciosamente por Astra. Confirmar en cada entrega de coordinación el modelo efectivo de los nuevos hijos.
+## Recursos y delegación
 
-## Regla obligatoria de control de versiones (corrección de Elies)
+La selección de modelos y recursos se rige por las instrucciones vigentes del encargo. Los registros históricos de una auditoría no autorizan nuevas delegaciones ni sustituyen esas instrucciones.
 
-Ningún hijo ejecutará `jj git init` dentro de un checkout/worktree Git creado por T3. Esta regla revoca la instrucción inicial que autorizaba inicializar JJ en esos directorios y debe incluirse expresamente en **cada nueva delegación**. No mezclar escrituras de dos sistemas en un mismo checkout. Los hijos de esta ronda continúan editando y probando, pero entregan archivos al orquestador sin operaciones VCS mutantes.
+<a id="regla-obligatoria-de-control-de-versiones-corrección-de-elies"></a>
 
-No hacer `git commit` con un índice que marque borrados no solicitados. El usuario autoriza reparar el índice con `git reset` sin `--hard` si se va a usar Git, pero no es necesario para entregar archivos al orquestador. Nunca ejecutar `reset --hard`, borrar archivos o recrear `.git`/`.jj` para ocultar la anomalía. El repositorio principal sigue gestionado por Jujutsu.
+## Control de versiones e integración
 
-Antes de **cada integración**, comparar el árbol de la entrega con su base (`git diff --stat <base>..<rama>` o equivalente JJ), enumerar todos los borrados y contrastar también los archivos reales del checkout. Un índice corrupto puede fingir borrados aunque los archivos existan; una rama sin commits no acredita los cambios todavía en disco. Rechazar cualquier borrado masivo no solicitado. Registrar la base, archivos modificados y comprobación. Si se integran archivos sueltos, comprobar contenido contra la base y aceptar solo las rutas del ámbito asignado, sin copiar metadatos VCS ni cachés.
+El repositorio se gestiona con Jujutsu. No ejecutar `jj git init` dentro de un checkout/worktree Git vinculado ni mezclar escrituras de dos sistemas de control de versiones. Los colaboradores entregan los archivos de su ámbito al responsable de integración, sin operaciones VCS mutantes.
+
+Antes de integrar, comparar el árbol recibido con su base, enumerar borrados y contrastar los archivos reales del checkout. Un índice vacío puede mostrar borrados aunque los archivos existan; una rama sin commits tampoco acredita los cambios en disco. Rechazar borrados masivos no solicitados. Si se integran archivos sueltos, aceptar solo las rutas del ámbito asignado, sin copiar metadatos VCS ni cachés.
 
 ## Reparto
 
 - Inventario: extracción reproducible de parámetros, literales, pasos y derivaciones, con cobertura anual y territorial.
-- Lint: las 96 infracciones actuales, preservando comportamiento y sin rediseño.
+- Lint: diagnósticos reproducidos sobre el árbol examinado, preservando comportamiento y sin rediseño.
 - Corpus: descarga verificable, almacenamiento por hash, citas, facsímiles y verificador.
 - Arquitectura: notas por intención, ADR, contratos de contenido/rutas/rastros.
 - Necesidades expertas: análisis de material público contrastado y requisitos de reproducción.
@@ -33,7 +35,7 @@ Antes de **cada integración**, comparar el árbol de la entrega con su base (`g
 - Deducciones autonómicas: dos grupos territoriales; diferenciar catálogo y ejecución.
 - IPC y redondeos: datos oficiales, proyecciones y política de redondeo por operación.
 
-La contrarrevisión será otra delegación por cada lote, a cargo de agentes nuevos. El inventario y los informes de primera ronda no constituyen aceptación.
+La contrarrevisión debe ser independiente por lote. El inventario y los informes iniciales no constituyen aceptación.
 
 ## Descargas y archivos
 
@@ -45,4 +47,4 @@ Un original HTML puede acreditar texto legal pero no constituye un facsímil PDF
 
 ## Memoria
 
-Máximo tres tareas de código con pruebas pequeñas simultáneas. Ningún hijo ejecuta Next build ni prueba legacy exhaustiva en esta ronda. No instalar dependencias en paralelo: los checkouts pueden usar un enlace a node_modules de la raíz solo para lectura y sin cambiar lockfile. Si necesitan dependencias nuevas, declararlas en su informe para instalación por el orquestador. PDF: extraer páginas concretas, sin renderizar manuales enteros a alta resolución.
+Serializar los trabajos de mayor consumo y comprobar memoria antes de ejecutarlos. No instalar dependencias en paralelo ni modificar un lockfile compartido desde entregas aisladas. Declarar las dependencias nuevas para su integración. Para PDF, extraer páginas concretas y evitar renderizar manuales enteros a alta resolución.

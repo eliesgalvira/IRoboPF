@@ -1,6 +1,6 @@
 # anual.ss.exceso
 
-Recorrido candidato en EUR anual, instancia 0, desde caso.anio/contexto.modo y caso.rendimientos.trabajo[*].importeIntegroCentimos hasta origen.decimal.
+Recorrido del candidato histórico en EUR anual, instancia 0, desde caso.anio/contexto.modo y caso.rendimientos.trabajo[*].importeIntegroCentimos hasta origen.decimal.
 
 El programa compartido está en fragmento.json.gz. Sus dos annualBindings ordenados calculan rendimientoIntegroTrabajo y cotizacionesSociales; globalBindings resuelve cada llamada, función y tabla. Los callbacks capturan el entorno de esta invocación. outputBindings selecciona exactamente esta expresión: lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:36233:36264:get. La llamada final es lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:36121:36469:call; instancia lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:36207:36208:literal. No se identifica con otra salida por igualdad de importe.
 
@@ -10,18 +10,7 @@ Objeción: el recorrido de un caso no demuestra exhaustividad. Respuesta: se inc
 
 valueClosed/selectionClosed son derivados técnicos candidatos de inspectSS; un pendiente abre ambos. La cota conservadora exige todas las obligaciones SS. Admision anual-publico-r32 externa: admissionClosed=false y siteClosed=false. No acepta norma, elegibilidad ni cuota mensual TGSS.
 
-Expresión de software recibida como referencia: max(0,S-if(canonico,baseCanonica,M[anio])). Selección: modo; saturación inferior. Las reservas históricas se conservan en R34; aquí la instancia concreta de salida tiene este origen exacto, sin buscar por cifra:
+Expresión de software recibida como referencia: max(0,S-if(canonico,baseCanonica,M[anio])). Selección: modo; saturación inferior. Las reservas históricas se conservan en R34; la instancia concreta de salida queda fijada por el ancla exacta indicada arriba.
 
-```ts
-crearLineaCalculo({
-              siteId: "anual.ss.exceso",
-              instancia: 0,
-              importe: cotizacionesSociales.excesoBase,
-              unidad: "EUR",
-              etiqueta: "Exceso sobre base máxima",
-              formula:
-                "max(0, rendimiento íntegro del trabajo - base ordinaria aplicada)",
-            })
-```
 
 En el programa, los campos del resultado canónico y legacy conservan sus productores separados. No se intercambian cocientes, sumandos ni los ceros de diferentes unidades. El recorrido completo de condiciones/celdas/callbacks está en las operaciones alcanzadas de globalBindings y en las trazas de esta salida.

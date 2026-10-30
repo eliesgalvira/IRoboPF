@@ -1,5 +1,7 @@
 # Auditoría candidata de escalas autonómicas 2017–2021
 
+Documento histórico: los resultados, referencias al motor y pendientes corresponden a la base examinada; no describen el estado vigente del proyecto.
+
 Esta entrega cubre la lectura y el contraste fila a fila de las tablas del motor con los cinco manuales oficiales del ejercicio. **No cierra la auditoría normativa exhaustiva solicitada:** falta completar la cadena de originales y vigencias de cada territorio. Ningún hallazgo está aceptado. La reextracción mecánica de una cita no sustituye la revisión independiente.
 
 ## Resultados y alcance efectivo
@@ -55,7 +57,7 @@ La simulación ejecutada usa esa escala conjunta y asigna cero a cuota autonómi
 
 ## Reproducción y pendientes
 
-Scripts propios en `.cache/procedencia/autonomicas-2017-2021/`: `adquirir.py`, `manuales.py`, `extraer.py`, `comparar.py`, `normas.py`, `norma_extraer.py`, `excel.py`, `perfiles.py`, `entrega.py`, `verificar.py`. Los primeros intentos de PyMuPDF fallaron por el Python genérico de uv en NixOS y por nombrar un scratch `inspect.py`; se resolvieron usando Python de Nix y renombrando el scratch. No afectan a los originales ni se ocultan como verificaciones correctas.
+Scripts propios en `.cache/procedencia/autonomicas-2017-2021/`: `adquirir.py`, `manuales.py`, `extraer.py`, `comparar.py`, `normas.py`, `norma_extraer.py`, `excel.py`, `perfiles.py`, `entrega.py`, `verificar.py`.
 
 Comandos usados:
 
@@ -67,7 +69,7 @@ nix shell nixpkgs#python3 -c python .cache/procedencia/autonomicas-2017-2021/per
 nix shell nixpkgs#python3 nixpkgs#stdenv.cc.cc.lib -c bash -c 'export LD_LIBRARY_PATH="$(nix eval --raw nixpkgs#stdenv.cc.cc.lib.outPath)/lib"; uv run --python "$(command -v python3)" --with pymupdf python .cache/procedencia/autonomicas-2017-2021/verificar.py'
 ```
 
-La reextracción verificó 2.328 citas de cinco documentos: cero diferencias entre caja y texto almacenado, SHA-256 comprobados. No hubo builds, suite pesada, cambios del motor, commits, movimientos de bookmarks, PR ni instalaciones globales.
+La reextracción verificó 2.328 citas de cinco documentos: cero diferencias entre caja y texto almacenado, SHA-256 comprobados. 
 
 Pendiente concreto: originales y modificaciones de Aragón art.110-1; Asturias art.2; Balears art.1; Canarias art.18 bis y cambios 2019/2020; Cantabria art.1; Castilla-La Mancha art.13 bis; Castilla y León art.1; Cataluña Ley24/2010 y modificación2020; Extremadura textos2013/2018; Galicia art.4; Murcia art.2 y transitorias; Valenciana art.2 y modificación2021; escalas2017/2018 de Andalucía; cambios2018/2019/2020 de La Rioja; vigencias de Madrid anteriores2018 y continuidad hasta2021; artículo65 y DA32 LIRPF para Ceuta/Melilla. Hay índices BOE descargados, pero no se confunden con esa cadena completada. Falta también contrarrevisión, autenticación de firma, facsímiles recortados y pruebas fallidas del motor antes de cualquier fix.
 

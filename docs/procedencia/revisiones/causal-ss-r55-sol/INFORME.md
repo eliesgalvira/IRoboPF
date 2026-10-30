@@ -1,10 +1,12 @@
 # Revisión independiente de la vertical causal SS integrada en R55
 
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
 Dictamen: el protocolo todavía es insuficiente para declarar satisfecha la vertical completa. Se reproducen dos defectos de evidencia: aceptación directa de un programa con obligación pendiente y contaminación entre propiedades en las colecciones de tipos. No se ha identificado por ello un defecto financiero del motor original. Se conservan los dos rojos nuevos sin fixes. Las cuatro puertas siguen falsas; ni integridad, ni tipos, ni pruebas conceden aceptación fiscal.
 
-Trabajo personal en T3 Code/Codex, gpt-6.1-sol, esfuerzo high. Priority exigido por el encargo; no dispongo de un recibo independiente del tier efectivamente servido. Sin delegación ni mutación VCS. HEAD observado ac91fb9eb327aa3cc74dae64b31565c23a4e3dd1, 22.185 entradas. Antes de escribir se cotejaron todas mediante lstat/readlink/bytes/ejecutable contra blobs individuales: ninguna diferencia, único extra inicial .git. El recibo terminal repite el cotejo completo y censa extras. Solo se escribe en las dos rutas autorizadas.
+Base examinada: ac91fb9eb327aa3cc74dae64b31565c23a4e3dd1, 22.185 entradas. El cotejo mediante lstat, readlink, bytes y ejecutable contra los blobs individuales no encontró diferencias. El recibo terminal repite el cotejo y censa los extras.
 
-Leídos BRIEF completo, AGENTS, contrato, coordinación, cabecera ESTADO y D125/D126. Prevalecen las restricciones nuevas sobre delegaciones, edición, VCS y limpieza del BRIEF histórico. Leídos los cuatro módulos, schema, test completo y documentos originales y de integración. Preimágenes del padre verificadas por SHA256/SHA512 antes de utilizarlas. Fuentes técnicas registradas por ambos hashes. No se repiten fiscalidad histórica, puertos, codec ni R53 como prueba de este hito.
+Se examinaron los cuatro módulos, schema, test completo y documentos originales y de integración. Las preimágenes y fuentes técnicas se verificaron por SHA256 y SHA512 antes de utilizarlas. La fiscalidad histórica, puertos, codec y R53 quedan fuera de la prueba de este hito.
 
 ## R55-N01: el verificador directo acepta obligaciones pendientes (prioridad alta)
 

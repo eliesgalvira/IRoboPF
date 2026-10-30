@@ -1,6 +1,8 @@
 # Reproducción
 
-Base eaed990c620b5fc4d3ff2e74dc68e0c8481c43db comprobada con git rev-parse HEAD. Sin mutaciones VCS. Enlace node_modules a la raíz del padre para lectura. Ningún package o lockfile modificado.
+Documento histórico del candidato de este directorio. Los resultados y estados corresponden a esa versión; no acreditan el estado actual del proyecto.
+
+Base de los ensayos: `eaed990c620b5fc4d3ff2e74dc68e0c8481c43db`.
 
 Entorno Nix resuelto en nixpkgs.json; Python 3.13.15 y NumPy 2.5.4. El hash de Calculo_Salario_IRPF.py queda en python.json; los hashes SHA-256/512 y tamaño del libro en excel.json. La versión que creó el libro histórico no está acreditada.
 

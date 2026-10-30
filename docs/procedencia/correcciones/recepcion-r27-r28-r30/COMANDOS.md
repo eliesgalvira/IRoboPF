@@ -1,8 +1,8 @@
-# Comandos y condiciones de reproducción R30
+# Comandos y condiciones de reproducción
 
-Ejecutados desde la raíz, un trabajador bajo `/tmp/irobopf-validacion-pesada.lock`. Nix proporciona Bun, Node y Python. `PYTHONDONTWRITEBYTECODE=1`; el entorno uv está en una ruta absoluta dentro de la caché del padre. No se ejecuta build ni las suites legacy masivas.
+Ejecutados desde la raíz, un trabajador bajo `/tmp/irobopf-validacion-pesada.lock`. Nix proporciona Bun, Node y Python. `PYTHONDONTWRITEBYTECODE=1`; el entorno uv está en una ruta absoluta dentro de la caché de integración. No se ejecuta build ni las suites legacy masivas.
 
-Las recetas `validar-inicial.sh` y `validar-cierre.sh` conservan los comandos exactos y destinos utilizados. Algunas rutas de instrumentos apuntan a la caché de esta sesión; sus copias legibles están junto a este archivo y `preservacion-r30/caso-real.py`. Para repetir, adaptar **una copia** a un directorio propio y a logs nuevos. No sobrescribir los originales ni los rojos conservados.
+Las recetas `validar-inicial.sh` y `validar-cierre.sh` conservan los comandos exactos y destinos utilizados. Algunas rutas de instrumentos apuntan a la caché de ejecución; sus copias legibles están junto a este archivo y `preservacion-r30/caso-real.py`. Para repetir, adaptar **una copia** a un directorio propio y a logs nuevos. No sobrescribir los originales ni los rojos conservados.
 
 Comprobaciones focalizadas:
 

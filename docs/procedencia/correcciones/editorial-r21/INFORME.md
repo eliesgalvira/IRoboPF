@@ -1,4 +1,4 @@
-# Enmiendas editoriales candidatas R21
+# Enmiendas editoriales candidatas
 
 Se conservan intactas las dos autorías R18 y sus contrarrevisiones R19. `ediciones.json` fija sus hashes y las versiones corregidas en esta carpeta. No hay publicación ni nuevas aceptaciones fiscales.
 
@@ -8,7 +8,7 @@ ERSC-01/02/03/04: se corrigen dos referencias a DERIVACIONES.md; se une el artí
 
 La consulta de la [ficha original de Ley6/2018](https://www.boe.es/buscar/doc.php?id=BOE-A-2018-9268) sirve de índice. La evidencia es el PDF conservado: página306, disposición final cuadragésima sexta; su efecto se combina con el artículo130, no con una orden2025. No se declara cerrada la ausencia de todas las erratas por esa búsqueda.
 
-Se generan 17 citas con recortes a matriz2, reextracción y hashes, desde siete originales ya preservados. El padre abrió personalmente siete recortes: tabla/mínimo Madrid, las dos mitades del artículo10, MEI2026, tercer tramo de solidaridad2026 y entrada en vigor2018. No se atribuye inspección visual de todos los originales. El primer instrumento exigía por error una cuantía de descendientes dentro del pasaje del mínimo propio; se conserva su fallo y se limita el control a la afirmación correcta. La cita inicial del artículo10 solo incluía su título: el recorte final añade el inicio de la condición que continúa en p17.
+Se generan 17 citas con recortes a matriz2, reextracción y hashes, desde siete originales ya preservados. La inspección directa examinó siete recortes: tabla/mínimo Madrid, las dos mitades del artículo10, MEI2026, tercer tramo de solidaridad2026 y entrada en vigor2018. No se atribuye inspección visual de todos los originales. El primer instrumento exigía por error una cuantía de descendientes dentro del pasaje del mínimo propio; se conserva su fallo y se limita el control a la afirmación correcta. La cita inicial del artículo10 solo incluía su título: el recorte final añade el inicio de la condición que continúa en p17.
 
 La adquisición del apéndice95d7… se recupera del registro original de la revisión de X, con URL, fecha y ambos hashes; no se inventa a partir del nombre del archivo. `adquisicion-apendice.json` conserva solo los campos publicables.
 

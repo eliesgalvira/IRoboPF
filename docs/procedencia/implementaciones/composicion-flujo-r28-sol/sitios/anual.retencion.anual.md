@@ -1,17 +1,16 @@
 # anual.retencion.anual
 
-Candidato pendiente de revisión independiente. Cierre técnico: false. Publicación y aceptación jurídica: false.
+Estado del candidato histórico: revisión independiente pendiente; cierre técnico, publicación y aceptación jurídica: false.
 
 Fórmula TS: "Retribuciones x tipo de retención"
 
 Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y aplicabilidad separados; ninguna aceptación jurídica.
 
+El detalle de productores y literales, con archivo, rango y relación, se conserva en [composicion.json.gz](../composicion.json.gz). Las limitaciones no resueltas de esta ficha son:
+
 - retencion / importeRetencionAnualCentimos (centimos, value); Parámetro de auxiliar/callback sin binding: retencion; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:65230–65239
-- centimosAEuros(retencion.importeRetencionAnualCentimos) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:65215–65270
 - centimosAEuros = (centimos: number): ImporteMonetario =>
   crearImporteMonetario(centimos).div(100) / signature:centimosAEuros (EUR, value); primitive; lib/dominio/dinero/importe-monetario.ts:561–660
-- retencion.importeRetencionAnualCentimos / value (centimos, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:65230–65269
-
 ## Condiciones por relación
 
 - [value] conversión monetaria explícita; e:8606

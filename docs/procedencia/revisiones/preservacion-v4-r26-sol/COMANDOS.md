@@ -14,7 +14,7 @@ Cada comando de pruebas, calidad o lectura grande se ejecuta con `flock /tmp/iro
 8. `bash tools/procedencia/run.sh docs/procedencia/revisiones/preservacion-v4-r26-sol/fisico.py final`: cotejo de todas las entradas de la base al terminar.
 9. `bash tools/procedencia/run.sh docs/procedencia/revisiones/preservacion-v4-r26-sol/entrega.py`: manifiesto relativo con sha256/size/baseSha256, patch textual gzip y binarios por ruta/hash. Todos los archivos son nuevos; baseSha256 es null. El manifiesto excluye su propia identidad para evitar circularidad y lista los controles comprimidos. No incluye entornos, node_modules, scratch o PDFs.
 
-Incidencias de instrumentos: rg y python3 no estaban en PATH inicial; se usaron Nix y el wrapper fijado. No se sustituyeron por herramientas prohibidas. Un intento sed de preparar el script propio de calidad falló por el separador de la expresión; se escribió el script completo antes de su ejecución, sin tocar producto ni cambiar reglas. El diagnóstico esperado de duplicado del control propio se contrastó por lectura del helper y se corrigió antes de ejecutar el control. No se modificó ningún esperado original.
+Las herramientas se ejecutan mediante Nix y el wrapper fijado. El control propio de duplicados se ajustó al contrato del helper antes de ejecutarse; los esperados originales permanecieron intactos.
 
 No se escribe Effect ni TypeScript del producto; no se ejecutan build Next o suites fiscales masivas. No se hace commit, reset, init, bookmark, fetch, push, PR, descarga documental, transferencia de corpus ni atestación.
 

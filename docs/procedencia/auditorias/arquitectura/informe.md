@@ -1,6 +1,8 @@
-# Arquitectura de procedencia: entrega de primera ronda
+# Arquitectura de procedencia: propuesta documental
 
-29 de octubre de 2026. **Propuesta pendiente de contrarrevisión; cero hallazgos aceptados.** Ámbito ejecutado personalmente, sin subdelegar. Solo documentos/JSON en esta carpeta y scratch propio; originales adquiridos con el downloader compartido autorizado.
+Documento histórico: los resultados, referencias al motor y pendientes corresponden a la base examinada; no describen el estado vigente del proyecto.
+
+Propuesta de 29 de octubre de 2026 sobre la base `d4d708f6`, sin aceptación de hallazgos en este análisis.
 
 La propuesta conserva Next 16.1.7 y el cálculo local. Define un corpus inmutable por hashes, snapshots fijados por versión del motor, páginas españolas individuales y enlaces por cada paso y línea del rastro. Los actores quedan como posible herramienta futura de coordinación editorial, sin incorporarlos a la lectura documental ni al cálculo privado. Cada una de las diez decisiones del ADR expresa objeción experta, motivo y coste aceptado.
 
@@ -47,6 +49,4 @@ nix shell nixpkgs#python3 -c python .cache/procedencia/arquitectura/pasajes.py
 nix shell nixpkgs#uv nixpkgs#python3 -c bash -c 'uv run --python "$(command -v python3)" --with jsonschema python .cache/procedencia/arquitectura/comprobar.py'
 ```
 
-`fuentes.py` llama secuencialmente a `tools/procedencia/descargar.py` mediante su función `download`; respeta su lock global, User-Agent y pausa entre peticiones. No se lanzaron descargas paralelas. Las citas derivan del original por el algoritmo registrado, y el original conserva los hashes de adquisición. Los scripts son auxiliares privados de esta ronda en scratch, no pipeline de aplicación. No regenerar schemas con `esquemas.py`: fue un generador inicial; los JSON entregados son el contrato final revisado localmente.
-
-Para integrar: comparar los archivos nuevos de esta carpeta con la base `d4d708f6` y revisar el diff aditivo en `.cache/procedencia/arquitectura/entrega.diff`. El índice de entrega con hashes está junto al diff. La comparación con VCS y commit/push corresponden al orquestador. El único uso de JJ aquí fue `jj status` al inicio, antes del aviso de índice; no se ejecutaron init, commit, push, movimientos de bookmarks ni reparación de índices. No se borró contexto, Reactivity ni archivos ajenos.
+`fuentes.py` llama secuencialmente a `tools/procedencia/descargar.py` mediante su función `download`; respeta su lock global, User-Agent y pausa entre peticiones. No se lanzaron descargas paralelas. Las citas derivan del original por el algoritmo registrado, y el original conserva los hashes de adquisición. Los scripts son auxiliares de investigación, no pipeline de aplicación. No regenerar schemas con `esquemas.py`: fue un generador inicial; los JSON entregados son el contrato final revisado localmente.

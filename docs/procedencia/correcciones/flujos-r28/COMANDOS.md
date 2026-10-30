@@ -1,4 +1,4 @@
-# Reproducción R28
+# Reproducción de las rectificaciones de flujos
 
 Desde la raíz de IRoboPF, un trabajador y el bloqueo compartido. Los resultados históricos recibidos no se reescriben. Para una revisión, redirigir las salidas propias a su scratch y conservar el diff de esa adaptación.
 

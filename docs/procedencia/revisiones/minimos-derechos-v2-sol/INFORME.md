@@ -1,5 +1,7 @@
 # Contrarrevisión independiente de mínimos por derechos v2 — Sol
 
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
 **MDV1-01/02/03 corregidos en el alcance probado. El cierre anual conserva una reserva jurídica nueva, MDV2-P01.** No hay defecto numérico nuevo demostrado ni rojo en los 86 casos de esta revisión. No se acepta fiscalmente toda la ruta ni se certifican los hechos declarados.
 
 - **MDV1-01:** rechazo de contradicción con entrada completa, saldo neto anterior a art.20, pérdidas sin truncamiento, exenciones representadas y frontera de céntimos verificados en la API anual.
@@ -8,10 +10,9 @@
 
 **MDV2-P01 — reserva de capacidad, sin cuota inventada.** Con custodia exclusiva, alimentos judiciales true, especialidad false y el hijo con 8.000,01 de renta o declaración individual de 1.800,01, desaparece el mínimo por condiciones distintas de la custodia y la API devuelve Success. Son dos caracterizaciones verdes del comportamiento, no demostraciones de corrección fiscal. El art.64 exige falta de derecho al mínimo; el manual describe la exclusión por custodia en términos generales. Esta revisión no obtuvo una fuente primaria específica que cierre ese cruce. Antes de anunciar soporte, resolver el criterio o excluir expresamente esos casos. Objeción experta: custodia no equivale a derecho si fallan arts.58/61, pero tampoco permite inventar una especialidad cuyo importe falta. Coste: investigación jurídica adicional o un rechazo acotado, sin exigir implementar una API familiar universal. Detalle individual en MDV2-P01.json.
 
+Base examinada: 1ec684b4e4408068282febf1319c12c6ac8a15c1. Código fiscal idéntico a 7956b16ae41b30697cefc5924d562dc6707e5156 en lib y tests. La revisión anterior cancelada no aporta resultados a este dictamen.
 
-Revisor nuevo, trabajo personal con gpt-6.1-sol high, sin subdelegación ni fixes. Base y HEAD: 1ec684b4e4408068282febf1319c12c6ac8a15c1. Código fiscal idéntico a 7956b16ae41b30697cefc5924d562dc6707e5156 en lib y tests. La revisión Astra cancelada no aporta ningún resultado a este dictamen; su log no se ha modificado.
-
-Se leyeron íntegros BRIEF, AGENTS, CONTRATO-AUDITORIA, COORDINACION, ESTADO y DECISIONES —incluidas D054–D056—, corrección familiar r15 e informe v1. Se reabrieron los originales y los cuatro rojos históricos personalmente. El informe de implementación inicial contextualiza el alcance, sin heredar su aceptación.
+Se examinaron D054–D056, corrección familiar r15 e informe v1. Se reabrieron los originales y los cuatro rojos históricos. El informe de implementación inicial contextualiza el alcance, sin heredar su aceptación.
 
 ## Base, integridad y entrega
 

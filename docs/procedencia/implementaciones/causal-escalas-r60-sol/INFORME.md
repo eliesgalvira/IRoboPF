@@ -1,8 +1,10 @@
 # Evidencia causal local de escalas, bases y mínimos R60
 
-Entrega de implementación para una única revisión posterior. No es autoaceptación fiscal. gpt-6.1-sol, high; prioridad solicitada, sin recibo independiente del tier. Trabajo personal, sin subdelegación. HEAD/base `59bb5565456caa5a44078f3b9a5ac4301934fb86`, 22.900 entradas.
+Documento histórico del candidato de este directorio. Los resultados y estados corresponden a esa versión; no acreditan el estado actual del proyecto.
 
-Los 28 sitios tienen programa y transporte causal local. Los 22 generales se ejecutan con sus dependencias concretas de rentas/SS y, cuando se solicita, el estimador de retenciones. R59 conserva el estatus de candidato de esta base; el padre recibe su revisión por separado y no se ha leído trabajo activo de otro hijo. Las seis salidas explícitas se ejecutan para trabajo/pensión; su rama de actividad queda bloqueada de forma demostrada porque consume un aporte de las 19 familias excluidas. No se presenta ese contrato condicionado como cierre end-to-end de producción.
+Base del candidato documentado: `59bb5565456caa5a44078f3b9a5ac4301934fb86`.
+
+Los 28 sitios tienen programa y transporte causal local. Los 22 generales se ejecutan con sus dependencias concretas de rentas/SS y, cuando se solicita, el estimador de retenciones. R59 conserva el estatus de candidato de esta base; el integrador recibe su revisión por separado. Las seis salidas explícitas se ejecutan para trabajo/pensión; su rama de actividad queda bloqueada de forma demostrada porque consume un aporte de las 19 familias excluidas. No se presenta ese contrato condicionado como cierre end-to-end de producción.
 
 `admissionClosed`, `siteClosed`, `wiringAllowed` y `completeRuleAcceptance` permanecen false. No hay composición global de 65 sitios, implementación de familias ni admisión nueva. Los contadores son controles técnicos del lote.
 
@@ -61,7 +63,7 @@ El bloqueo de actividad se prueba con un caso admitido por la API real y con sen
 
 R40-03 permanece fuera: `mapError` conserva el operando y no modela toda transformación/canal/entorno/interrupción de Effect. Los rechazos alcanzados preservan payload etiquetado en `domainFailure`; hay pruebas de territorio/año y schema explícito. Las obligaciones editoriales recibidas siguen pendientes, sin reetiquetarlas a satisfied. Una traza no autentica el runtime ni acepta fiscalidad.
 
-Los comandos y exits están en COMANDOS.json; los logs previos se conservan. Hubo herramientas ausentes al inicio (rg/python3), fallo de dependencia `ws` al cargar la guía con Node y resolución posterior con Bun/NODE_PATH local (consulta exitosa de guías posterior al comienzo del candidato, desviación registrada), fixtures propios incompletos, gramática/defaults corregidos y una pasada invalidada por editar hashes mientras corría. Se detuvo otra pasada propia para cerrar la frontera mutable; las cancelaciones no cuentan como pases. La última validación mantiene fuentes congeladas.
+COMANDOS.json conserva los comandos y códigos de salida de las validaciones. Solo se usan como evidencia las pasadas sobre las fuentes fijadas.
 
 Tipos TS del alcance y de las dos baterías históricas se distinguen del global. CheckJs conserva 43 diagnósticos previos, sin nuevos en los archivos R60; un host de tipos con tres preimágenes por blob reproduce 43 diagnósticos en las mismas posiciones/códigos de la deuda previa. El texto de algunas uniones varía por orden de carga; la comparación textual fallida se conserva. No se declara checkJs global verde. La comprobación global conserva sus rojos de resolución/fixtures/reportes del checkout; las dos incompatibilidades nuevas del retorno histórico se corrigieron y se ensayan en el alcance. Oxlint usa plugins reales cotejados por hash y las 16 reglas a error. ESLint conserva los avisos registrados. No se ejecutaron builds ni suites legacy masivas.
 
@@ -69,14 +71,12 @@ Resultados de entrega: 41 pruebas del pase conjunto (incluidas 30 regresiones hi
 
 ## Conservación y entrega
 
-Antes de escribir se compararon las 22.900 entradas con blobs individuales mediante lstat/readlink/bytes/ejecutable; cero diferencias y único extra `.git`. Ese primer cotejo no tomó el lock físico exigido: se registra la desviación y no se presenta como cumplimiento íntegro del procedimiento. Los cotejos posteriores sí usan el lock y el recibo terminal vuelve a enumerar todas las entradas y extras. Diff no sustituye el cotejo.
+El alcance de código comprende el núcleo R57, el protocolo de ejecución R54 y el consumidor R36; no amplía el productor R36 ni el motor.
 
-Se modifican únicamente los tres archivos base autorizados: núcleo R57, protocolo de ejecución R54 y consumidor R36. El productor R36, motor, inventario, snapshots, ESTADO, DECISIONES e informes ajenos quedan intactos. Sin mutación VCS, main/PR/despliegue/servidor/preview/LFS/gasto/red externa/transferencia/limpieza. Se conservan fuentes, originales técnicos por hash, logs y paquetes. Los testigos actuales son objetos comprimidos inmutables por contenido; versiones parciales anteriores y sus fuentes disponibles se conservan por separado.
-
-El payload tiene SHA256/SHA512/tamaño/modo/baseSha256 por ruta. Las preimágenes exactas, patch gzip y objetos binarios/vacíos se reconstruyen en scratch, sin checkout, y se cotejan bytes, ambos hashes, modos y conjunto exacto. Sobre y recibo terminal están fuera del payload, sin autorreferencia. No hay archivos nuevos de 10 MiB o más. El censo terminal distingue el archivo de control `.git` de T3 y sus propios recibos.
+Los manifiestos del paquete histórico conservan sus hashes; la integridad no acredita aceptación fiscal.
 
 ## Trabajo pendiente del lote
 
-La implementación se entrega como candidata. Queda una revisión independiente nueva, estimada en 3–6 horas para núcleo, contratos y 28 decisiones; otra ronda solo si reproduce un defecto. Las seis ramas de actividad requieren el trabajo expresamente excluido y quedan documentadas como bloqueo, sin presupuestar ni iniciar las 19 familias. La deuda previa checkJs y el host global rojo permanecen visibles para la integración. Las dependencias enlazadas se evalúan; el aporte excluido se rechaza. La revisión de R59, si sigue pendiente en el padre, conserva su trámite propio. No hay cierre fiscal automático.
+La implementación se entrega como candidata. El núcleo, los contratos y las 28 decisiones requieren revisión independiente. Las seis ramas de actividad requieren el trabajo expresamente excluido y quedan documentadas como bloqueo, sin presupuestar ni iniciar las 19 familias. La deuda previa checkJs y el host global rojo permanecen visibles para la integración. Las dependencias enlazadas se evalúan; el aporte excluido se rechaza. La revisión de R59, si sigue pendiente en el integrador, conserva su trámite propio. No hay cierre fiscal automático.
 
 Resultados del índice: 50 casos, 1144 salidas emitidas, 28 clases de sitio; recuentos solapados con los ensayos, sin sumar como reglas fiscales.

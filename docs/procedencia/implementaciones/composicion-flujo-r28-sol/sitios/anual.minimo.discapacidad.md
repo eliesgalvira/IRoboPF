@@ -1,23 +1,13 @@
 # anual.minimo.discapacidad
 
-Candidato pendiente de revisión independiente. Cierre técnico: false. Publicación y aceptación jurídica: false.
+Estado del candidato histórico: revisión independiente pendiente; cierre técnico, publicación y aceptación jurídica: false.
 
 Fórmula TS: "Contribuyente, descendientes y ascendientes con discapacidad computados"
 
 Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y aplicabilidad separados; ninguna aceptación jurídica.
 
-- obtenerMinimoPorDiscapacidad(
-    situacionFamiliar.discapacidad,
-    minimos.discapacidad.contribuyente
-  ) / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-discapacidad.ts:1114–1222
-- caso.derechosMinimos / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:19956–19976
-- undefined / discapacidadContribuyente (EUR, value); literal; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:19999–20008
-- derechosEstatales?.discapacidadFamiliares ??
-    obtenerMinimoDiscapacidadFamiliares(
-      caso.situacionFamiliar.descendientes,
-      minimosEstatales
-    ).p / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21217–21510
-- familiares / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-discapacidad.ts:1425–1435
+El detalle de productores y literales, con archivo, rango y relación, se conserva en [composicion.json.gz](../composicion.json.gz). Las limitaciones no resueltas de esta ficha son:
+
 - (total, familiar) =>
     total.plus(
       obtenerMinimoPorDiscapacidad(
@@ -25,28 +15,11 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
         minimos.discapacidad.descendiente
       )
     ) / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/minimos/minimo-discapacidad.ts:1451–1610
-- caso / situacionFamiliar.descendientes (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21309–21313
-- obtenerMinimoDiscapacidadFamiliares(
-      caso.situacionFamiliar.descendientes,
-      minimosEstatales
-    ) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21266–21375
-- derechosEstatales / discapacidadFamiliares (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21217–21234
-- situacionFamiliar / discapacidad (EUR, value); productor; lib/dominio/irpf/minimos/minimo-discapacidad.ts:1148–1165
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- derechosEstatales?.discapacidadContribuyente ??
-    obtenerMinimoDiscapacidadContribuyente(
-      caso.situacionFamiliar,
-      minimosEstatales
-    ) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21023–21173
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
 - EffectArray.reduce(familiares, IMPORTE_CERO, (total, familiar) =>
     total.plus(
       obtenerMinimoPorDiscapacidad(
         familiar.discapacidad,
         min / value (EUR, value); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/irpf/minimos/minimo-discapacidad.ts:1406–1614
-- caso / situacionFamiliar.ascendientes (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21435–21439
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- caso.situacionFamiliar.ascendientes / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21435–21470
 - EffectArray.reduce(ascendientes, IMPORTE_CERO, (total, ascendiente) =>
     total.plus(
       obtenerMinimoPorDiscapacidad(
@@ -63,15 +36,6 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
           caso.derechosMinimos,
           minimosEstatales
         ).pipe; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20024–20161
-- caso.derechosMinimos === undefined
-      ? undefined
-      : yield* calcularDerechosMinimos(
-          caso.derechosMinimos,
-          minimosEstatales
-         / discapacidadFamiliares (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:19956–20161
-- caso / derechosMinimos (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:19956–19960
-- undefined / value (selector, selection); literal; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:19981–19990
-- minimoDiscapacidadFamiliares / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:45794–45822
 - caso / situacionFamiliar.discapacidad (EUR, value); public-input; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:9398–9402
 - (total, ascendiente) =>
     total.plus(
@@ -80,9 +44,6 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
         minimos.discapacidad.ascendiente
       )
   / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/minimos/minimo-discapacidad.ts:1849–2013
-- undefined / discapacidadFamiliares (EUR, value); literal; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:19999–20008
-- crearImporteMonetario(0) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
 - {
     SinDiscapacidad: () => IMPORTE_CERO,
     Discapacidad33a64: ({ necesitaAyudaOMovilidadReducida }) =>
@@ -95,55 +56,15 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
           caso.derechosMinimos,
           minimosEstatales
         ).pipe; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20024–20161
-- obtenerMinimoDiscapacidadFamiliares(
-      caso.situacionFamiliar.descendientes,
-      minimosEstatales
-    ).plus(
-      obtenerMinimoDiscapacidadAscendientes( / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21266–21510
-- crearImporteMonetario(0) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- situacionFamiliar.discapacidad / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-discapacidad.ts:1148–1178
-- IMPORTE_CERO / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-discapacidad.ts:1835–1847
-- derechosEstatales?.discapacidadFamiliares / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21217–21258
-- obtenerMinimoDiscapacidadAscendientes(
-        caso.situacionFamiliar.ascendientes,
-        minimosEstatales
-      ) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21388–21504
-- obtenerMinimoDiscapacidadContribuyente(
-      caso.situacionFamiliar,
-      minimosEstatales
-    ) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21075–21173
-- minimoDiscapacidadContribuyente / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:45740–45771
-- 0 / value (EUR, value); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- discapacidad / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-discapacidad.ts:573–585
 - yield* calcularDerechosMinimos(
           caso.derechosMinimos,
           minimosEstatales
         ).pipe(Effect.mapError(errorDerechosMinimos)) / discapacidadContribuyente (EUR, value); Admisión Effect/servicio pendiente; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20017–20161
 - Effect.mapError(errorDerechosMinimos) / value (EUR, value); Contrato de llamada pendiente: Effect.mapError; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20123–20160
-- derechosEstatales / discapacidadContribuyente (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21023–21040
-- caso.derechosMinimos === undefined / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:19956–19990
-- ascendientes / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-discapacidad.ts:1821–1833
-- 0 / value (EUR, value); literal; lib/dominio/dinero/importe-monetario.ts:492–493
 - caso / derechosMinimos (selector, selection); public-input; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:9398–9402
-- IMPORTE_CERO / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-discapacidad.ts:1437–1449
-- caso / situacionFamiliar.discapacidad (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21121–21125
-- caso.situacionFamiliar.descendientes / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21309–21345
-- minimoDiscapacidadContribuyente.plus(
-                minimoDiscapacidadFamiliares
-              ) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:45740–45838
-- caso.situacionFamiliar / ascendientes (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21435–21457
 - caso / situacionFamiliar.descendientes (EUR, value); public-input; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:9398–9402
-- caso.situacionFamiliar / descendientes (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21309–21331
-- caso.situacionFamiliar / discapacidad (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21121–21143
-- derechosEstatales?.discapacidadContribuyente / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21023–21067
 - caso / situacionFamiliar.ascendientes (EUR, value); public-input; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:9398–9402
 - errorDerechosMinimos / value (EUR, value); Función sin instancia de llamada; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20139–20159
-- caso.derechosMinimos === undefined
-      ? undefined
-      : yield* calcularDerechosMinimos(
-          caso.derechosMinimos,
-          minimosEstatales
-         / discapacidadContribuyente (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:19956–20161
 - Match.valueTags(discapacidad, {
     SinDiscapacidad: () => IMPORTE_CERO,
     Discapacidad33a64: ({ necesitaAyudaOMovilidadReducida }) =>

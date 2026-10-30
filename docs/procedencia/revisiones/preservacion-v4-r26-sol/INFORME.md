@@ -1,6 +1,8 @@
 # Contrarrevisión independiente del consumidor v4 corregido en R26
 
-Revisión personal de gpt-6.1-sol, esfuerzo high, en T3 Code/Codex, checkout `t3-ec07d28b`. La petición fija prioridad; esta revisión no inventa una atestación del scheduler ni una identidad criptográfica. No se emite atestación candidata ni se modifica confianza.
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
+Este dictamen no emite atestación candidata ni modifica confianza.
 
 Se examina exclusivamente el cambio de `edicion.py` y `schema.json` entre `6207b0bb1baafc8dfec8e4617b406a459dcd0f4d` y la base recibida `6ab4a98e6ce218c30a3a9f18596d0c2f030f47d9`. `cambio-revisado.diff` conserva ese cambio. Las fuentes anteriores se leen mediante `git show` y se guardan en scratch propio, sin checkout ni mutación VCS. El consumidor anterior conserva su schema anterior, usa las dependencias recibidas actuales y comparte los esperados originales con el actual. Esto aísla el cambio revisado; no pretende reconstruir todo el entorno histórico de R24.
 

@@ -21,4 +21,4 @@ Render adicional: PyMuPDF 1.26.7, página física 34 de `e0f7f92d96c6…`, 140 d
 
 Las consultas web incluyeron `site.agenciatributaria.es "2016" "22/12/2015" algoritmo`, `site.agenciatributaria.es "2015" "14/07/2015" algoritmo`, `"retenciones" "2016" "22/12/2015" "Especificaciones"` y `"retenciones" "14/07/2015" "corregido"`; también se abrieron fichas BOE de Ley 22/2013 y RD 633/2015. No se descargó nuevo CAS. La búsqueda no es exhaustiva ni demuestra ausencia de revisiones.
 
-La ausencia inicial de rg se resolvió con `nix shell nixpkgs#ripgrep`. No se ejecutaron comandos VCS mutantes. El control de base usa únicamente rev-parse y ls-tree y presencia de archivos; 8456 entradas presentes, cero ausencias. Scratch y logs están conservados. Ningún log de entrega supera 1 MB.
+El control de base comprueba la presencia de las 8456 entradas, sin ausencias. Este control no sustituye un cotejo de todos los bytes contra la base. Scratch y logs permanecen conservados.

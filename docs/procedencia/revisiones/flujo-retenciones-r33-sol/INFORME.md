@@ -1,6 +1,8 @@
 # Contrarrevisión independiente del fragmento R32
 
-Revisor en T3 Code mediante Codex: runtime gpt-6.1-sol, esfuerzo high. Prioridad solicitada; no hay recibo independiente de prioridad. Sin subdelegación, fixes de producto ni atestación. HEAD fa64e05ccb9b52f1fe3495ee9e24b5459c439cc2. Las conclusiones son candidatas y requieren contraste posterior del padre. No se acepta fiscalidad ni se cierra el encargo global.
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
+Base examinada: fa64e05ccb9b52f1fe3495ee9e24b5459c439cc2. Las conclusiones son candidatas para contraste posterior; no implican aceptación fiscal ni cierre global.
 
 ## Dictamen
 
@@ -19,7 +21,7 @@ No aceptar conjuntamente los doce booleanos valueClosed/selectionClosed del cand
 
 ## Evidencia leída y método
 
-Leídos íntegros BRIEF, AGENTS, CONTRATO-AUDITORIA, COORDINACION, CONTINUACION R32, informe/contraste/recepción del padre, informe/decisiones/hallazgos/comandos del autor, módulo, schema y tests. Consultada la situación actual R33/R32 de ESTADO y las decisiones vigentes, en particular D073/D085/D090/D094/D097. El BRIEF histórico queda subordinado a la corrección urgente del usuario. No se consultan checkouts ni resultados de otros hijos activos.
+Se examinaron CONTINUACION R32, informe, contraste y recepción; informe, decisiones, hallazgos y comandos de la implementación, módulo, schema y pruebas, con las reservas D073/D085/D090/D094/D097.
 
 Leídos cuerpos reales de retenciones, catálogo, tablas y política monetaria, y los recorridos anuales de capas, llamada, retorno y seis crearLineaCalculo. La unidad final viene de crearLineaCalculo: origen.decimal conserva importe.toFixed(), sin volver a multiplicar el porcentaje. Este helper no pertenece a las seis fuentes del fragmento: se comprobó en esta base, y el compositor debe conservar también esa obligación de frontera.
 

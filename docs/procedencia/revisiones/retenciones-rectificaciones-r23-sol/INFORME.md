@@ -1,12 +1,14 @@
 # Revisión nueva de rectificaciones de retenciones 2012–2014, R23
 
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
 Dictamen candidato: C01 queda corroborado en su alcance visual y C02 queda atendido como subcontrato documental condicionado. No he identificado dos resultados posibles dentro del dominio expresamente admitido por la adenda. No acepto una regla completa ni una nómina, no habilito versiones y no resuelvo RRO-09, enero residual o el algoritmo íntegro. Las conclusiones nuevas de esta revisión requieren contraste posterior.
 
-Revisión personal en T3 Code mediante Codex, runtime gpt-6.1-sol, esfuerzo high. Prioridad solicitada; no afirmo una comprobación independiente del nivel de servicio del proveedor. Sin subdelegación ni cambio de modelo. No emito atestación candidata ni real, no invento identidad canónica de T3 a partir del checkout y no altero confianza.
+Esta revisión no emite atestación candidata ni activa confianza.
 
 Base y HEAD: `07c07e6376a72f229be735a904ecf36517a1b571`. El control de recepción compara físicamente las 14.957 entradas mediante lstat, readlink para enlaces y bytes frente a un blob de base cada vez; también compara modos ejecutables y diff. Cero diferencias de base y diff vacío. Los archivos propios aparecen como altas sin commit. El control final se entrega por separado.
 
-Se han leído BRIEF íntegro, AGENTS, CONTRATO-AUDITORIA y COORDINACION, las secciones actuales disponibles de ESTADO y DECISIONES, los informes de técnica R23 y recepción R21–R23, autoría y contraste 2012–2014 y revisión R22 como antecedente metodológico. Las órdenes actuales prevalecen sobre las órdenes históricas de delegar, editar decisiones, commit, push y limpiar. No se inspecciona preservación v4 ni trabajo activo ajeno. Del padre solo se abren originales CAS ya entregados.
+Se examinaron los informes de técnica R23 y recepción R21–R23, entrega y contraste 2012–2014 y revisión R22 como antecedente metodológico. Los originales CAS consultados son los de la entrega recibida.
 
 ## Objeto compuesto y alcance de los dictámenes
 

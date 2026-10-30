@@ -1,10 +1,12 @@
 # Revisión de mínimos por derechos v1
 
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
 **Requiere cambios.** Se conservan tres defectos reproducidos sin fixes: renta propia no conciliada, edad de adopción calculada solo por años y entrada anual que permite omitir la especialidad de alimentos. El reparto básico de CX-06-A funciona en la ruta nueva, pero eso no permite aceptar toda la elegibilidad ni cerrar el contrato anual.
 
-Revisor: agente Codex de esta sesión, checkout T3 t3-cdbbbec4, revisión personal el 29-10-2026. Sin subdelegación ni operaciones VCS mutantes. HEAD y base son 65cff4fd8eb8c6269c2ce97b88e770aa711bff7f. Se comprobaron las 9.391 entradas de base mediante lstat y readlink para enlaces: cero ausentes y cero cambios de bytes frente a blobs de base. Diff versionado vacío. El detalle comprimido está en base.json.gz. node_modules es exclusivamente el enlace de lectura autorizado.
+Revisión del 29-10-2026 sobre la base 65cff4fd8eb8c6269c2ce97b88e770aa711bff7f. Se comprobaron sus 9.391 entradas mediante lstat y readlink para enlaces, sin ausencias ni cambios de bytes frente a blobs. El detalle está en `base.json.gz`.
 
-Se leyeron BRIEF, AGENTS, CONTRATO-AUDITORIA, COORDINACION, ESTADO y DECISIONES, integración-ronda13, implementación minimos-derechos, auditoría y revisión anteriores de mínimos y correcciones-x-v1. La revisión publicacion-cuota-v2 contextualiza el cierre técnico de ronda14; no se repite ni se hereda su aceptación. Se examinaron derechos-contrato.ts, derechos.ts, caso-fiscal-anual.ts, liquidar-irpf-anual.ts, las tablas utilizadas y sus pruebas. Solo se entrega esta carpeta; no se cambia código, oracle, informes ajenos, registro, confianza ni atestaciones.
+Se examinaron integración-ronda13, implementación minimos-derechos, auditoría y revisión de mínimos y correcciones-x-v1; derechos-contrato.ts, derechos.ts, caso-fiscal-anual.ts, liquidar-irpf-anual.ts, tablas y pruebas. publicacion-cuota-v2 aporta contexto sobre el cierre técnico de ronda 14; esta revisión no hereda su aceptación.
 
 ## MDV1-01 — Alta: renta propia duplicada sin conciliación
 

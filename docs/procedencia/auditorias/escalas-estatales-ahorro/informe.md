@@ -1,4 +1,6 @@
-# Escalas estatales y ahorro, 2012–2026: primera ronda documental
+# Escalas estatales y ahorro, 2012–2026: análisis documental
+
+Documento histórico: los resultados, referencias al motor y pendientes corresponden a la base examinada; no describen el estado vigente del proyecto.
 
 Todos los hallazgos son **candidatos, pendientes de contrarrevisión independiente**. No se ha cambiado cálculo, añadido pruebas al repositorio, aceptado hallazgos ni realizado operaciones VCS mutantes. La fecha de consulta es 29 de octubre de 2026; no equivale al cierre normativo del ejercicio.
 
@@ -76,17 +78,17 @@ nix shell nixpkgs#python3 -c python .cache/procedencia/escalas-estatales-ahorro/
 nix shell nixpkgs#bun -c bun .cache/procedencia/escalas-estatales-ahorro/runtime.mjs
 ```
 
-Para PyMuPDF se utilizó `nix shell nixpkgs#uv nixpkgs#python3 nixpkgs#stdenv.cc.cc.lib`, Python de Nix explícito en `uv run --python`, dependencia puntual `--with pymupdf` y `LD_LIBRARY_PATH` al lib del compilador Nix. El primer intento con Python descargado por uv falló por el cargador dinámico de NixOS; se corrigió sin instalación global. Scripts de extracción: `manuales.py`, `buscar-paginas.py`, `paginas.py`, `citas.py`, `verificar.py`. `verificacion-citas.json` registra la comprobación geométrica, no una aceptación fiscal. No se escribieron scripts TS ni código Effect, por lo que no correspondía ejecutar anti-slop para estas entregas documentales.
+Para PyMuPDF se utilizó `nix shell nixpkgs#uv nixpkgs#python3 nixpkgs#stdenv.cc.cc.lib`, Python de Nix explícito en `uv run --python`, dependencia puntual `--with pymupdf` y `LD_LIBRARY_PATH` al lib del compilador Nix. Scripts de extracción: `manuales.py`, `buscar-paginas.py`, `paginas.py`, `citas.py`, `verificar.py`. `verificacion-citas.json` registra la comprobación geométrica, no una aceptación fiscal.
 
 ## Decisiones y coste explícito
 
 - **Separar tablas, fórmulas y cobertura.** Objeción experta: un `match` podría interpretarse como validación anual. Motivo: permitir localizar la coincidencia numérica sin ocultar los fallos de integración. Coste aceptado: varios hallazgos por ejercicio y explicación expresa del alcance; todos siguen pendientes.
-- **Conservar legacy como referencia observable.** Objeción experta: copiarlo como norma duplica una simplificación. Motivo: distinguir error normativo de ruptura de contrato de compatibilidad. Coste: mantener dos referencias y pruebas distintas; no corregir Python/Excel en esta ronda.
+- **Conservar legacy como referencia observable.** Objeción experta: copiarlo como norma duplica una simplificación. Motivo: distinguir error normativo de ruptura de contrato de compatibilidad. Coste: mantener dos referencias y pruebas distintas; conservar la referencia Python/Excel.
 - **No cerrar el problema de redondeos con una regla inventada.** Objeción experta: la cuota fija publicada y el redondeo de cada componente pueden cambiar céntimos. Motivo: aportar caso que diverge y ambos originales antes de cualquier fix. Coste: dejar política definitiva pendiente del auditor de redondeos y del segundo revisor.
 - **Reutilizar caché oficial y conservar citas candidatas amplias.** Objeción experta: una caja exacta no demuestra relevancia jurídica ni firma. Motivo: evitar peticiones duplicadas y permitir relectura del original. Coste: validación de autenticidad y selección semántica todavía pendientes; ningún facsímil anunciado como ya generado.
 - **No convertir el rechazo 2026 en éxito.** Objeción experta: disponer de la escala estatal no basta para una liquidación regional. Motivo: expresar exactamente qué puede ejecutar el motor. Coste: 2026 continúa incompleto; no se heredan silenciosamente normas autonómicas 2025.
 
-La ronda encuentra problemas sustantivos y cubre todas las variantes de tablas del ámbito. No constituye una auditoría aceptada exhaustiva de todos los casos fiscales: quedan la contrarrevisión, pruebas rojas previas a corrección, saldos concurrentes/transitorios completos, especialidades no modeladas (anualidades y rentas exentas con progresividad), facsímiles y autenticación. Ninguna de estas lagunas se ha marcado como validada.
+El análisis encuentra problemas sustantivos y cubre todas las variantes de tablas del ámbito. No constituye una auditoría aceptada exhaustiva de todos los casos fiscales: quedan la contrarrevisión, pruebas rojas previas a corrección, saldos concurrentes/transitorios completos, especialidades no modeladas (anualidades y rentas exentas con progresividad), facsímiles y autenticación. Ninguna de estas lagunas se ha marcado como validada.
 
 ## Ampliación de la comprobación histórica
 
@@ -100,6 +102,6 @@ El original de Ley35/2006, PDF página27 (BOE41760), se añadió para acreditar 
 
 La comparación de las 87 filas de CONTROL_TRAMOS_IRPF contra las tablas legacy no produjo diferencias (`comparacion-excel.json`). Ocho casos técnicos adicionales, incluidos cero, negativos, Infinity y NaN, figuran en `bordes-tecnicos.json`.
 
-Metadatos publicables saneados recursivamente: se excluyen las cabeceras de sesión y autorización indicadas por el orquestador, también en fuentes embebidas. No se modificaron originales ni sus hashes.
+Metadatos publicables saneados recursivamente: se excluyen las cabeceras de sesión y autorización indicadas por la política de publicación, también en fuentes embebidas. No se modificaron originales ni sus hashes.
 
 Verificación final: **2.304 citas PDF reextraídas, cero diferencias de hash/texto**. Las cuatro citas HTML tienen selectores y normalización declarada, sin verificación PDF. Esta comprobación mecánica no sustituye la contrarrevisión jurídica.

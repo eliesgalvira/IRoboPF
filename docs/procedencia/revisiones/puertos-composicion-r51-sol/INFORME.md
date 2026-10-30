@@ -1,12 +1,14 @@
 # Dictamen independiente R51 de puertos
 
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
 El hito no es suficiente todavía como contrato completo por propiedad. Las 22 conexiones gobiernan el transporte en los recorridos probados, pero N03 identifica lecturas efectivas sin declarar en tres puertos. N01/N02 delimitan además la afirmación de datos ordinarios y observadores. Son candidatos para contraste del padre; no se han corregido fuentes ni promovido confianza. Esto no demuestra una cuota fiscal incorrecta. El grafo transitivo de 65 sitios, las 19 instancias y la admisión son pendientes distintos: no quedan resueltos ni descartados por este dictamen.
 
-Base exigida y observada debadd0495ce99cbec3de580c7786328ab064a61. Cotejo inicial: 21896 entradas, ninguna alterada, diff de cero bytes; .git es el único extra inicial y es metadato de T3. lstat, readlink, contenido y ejecutabilidad se comparan con un blob cada vez. El recibo terminal separado documenta la comprobación final. Solo se escribe en los dos ámbitos autorizados. Modelo efectivo gpt-6.1-sol/high; prioridad solicitada, sin recibo independiente de scheduling. Sin subdelegación ni VCS mutante.
+Base examinada: debadd0495ce99cbec3de580c7786328ab064a61. El cotejo inicial comprobó 21.896 entradas mediante lstat, readlink, contenido y ejecutabilidad contra sus blobs, sin diferencias. El recibo terminal separado documenta la comprobación final.
 
 ## Evidencia y método
 
-Leídos BRIEF y AGENTS íntegros, contrato de auditoría y COORDINACION; situación R51 de ESTADO y decisiones hasta D122. Las órdenes específicas de este encargo sustituyen las órdenes históricas de mutación/limpieza/delegación. Informe original completo, cambios, censo, hallazgos, obligaciones, contrato/candidato comprimidos, controles y recepción del padre contrastados. LECTURAS y FUENTES fijan entradas; las 87 entradas técnicas se cotejaron con el CAS preservado del padre y se conservaron por SHA256 y SHA512 en scratch. No se adquieren fuentes fiscales ni se usa un hash como autoridad normativa.
+Se contrastaron el informe original, cambios, censo, hallazgos, obligaciones, contrato y candidato comprimidos, controles y recepción. LECTURAS y FUENTES fijan las entradas; las 87 entradas técnicas se cotejaron con el CAS preservado y se conservaron por SHA256 y SHA512. No se adquirieron fuentes fiscales ni se atribuye autoridad normativa a un hash.
 
 DOSSIER-22-24 conserva por puerto proveedor, firma, texto de proveedor, llamada y argumentos, IR, entorno, condiciones, selectores, marcos y dimensiones. Los offsets se aplican como UTF16 y se comprueba el hash del archivo. Cada nodo se busca en el programa del consumidor y sus operandos ordenados se cotejan con el contrato. DECISIONES-POR-ASOCIACION contiene 24 registros individuales, no solo un total. La localización comparte AST en las alternativas SS, pero destino/modo y evento distinguen su ejecución; reducción y cuota tienen dos asociaciones cada una.
 

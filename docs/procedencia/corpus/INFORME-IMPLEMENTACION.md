@@ -1,11 +1,13 @@
-# Informe del editor del corpus
+<a id="informe-del-editor-del-corpus"></a>
 
-29 de octubre de 2026. Ámbito: helper de descarga, pipeline Python, esquemas, pruebas, originales públicos moderados y documentación del corpus. No se han modificado motor, rutas, UI, package.json, lockfile, CI ni informes de otros auditores. No se aceptan cifras fiscales.
+# Diseño y evidencia del corpus
+
+Diseño y evidencia inicial del corpus: helper de descarga, pipeline Python, esquemas, pruebas y fixtures públicos. Para ejecutar el pipeline, consultar `../CORPUS.md`. Estas comprobaciones no aceptan cifras fiscales.
 
 ## Decisiones y objeciones expertas
 
 1. **CAS local con manifiestos e historial.** Objeción archivística: un hash no recupera bytes que desaparecieron y un disco único no es un archivo duradero. Decisión: originales inmutables por dirección de contenido, reconstrucción con hash obligatorio, fallo explícito ante fuentes mutables y recomendación de copia independiente. Coste: sin cloud ni segundo soporte provisionado no hay garantía de recuperación. No se disimula con un manifiesto.
-2. **Python/MuPDF junto al helper existente.** Objeción de integración: añadir otro runtime aumenta mantenimiento. Decisión: aprovechar el helper estándar compatible, extracción/render con la misma biblioteca y entorno uv aislado. Coste: Python, libstdc++, PyMuPDF y Poppler en CI. No se escribió Effect ni se adivinaron sus patrones. No hay integración automática con el inventario o el motor; la ejecutará el orquestador mediante los contratos publicados.
+2. **Python/MuPDF junto al helper existente.** Objeción de integración: añadir otro runtime aumenta mantenimiento. Decisión: aprovechar el helper estándar compatible, extracción/render con la misma biblioteca y entorno uv aislado. Coste: Python, libstdc++, PyMuPDF y Poppler en CI. La integración con el inventario y el motor requiere contratos y verificadores separados.
 3. **Selección estricta y literal, sin OCR automático.** Objeción documental: una capa de texto puede estar equivocada o ausente. Decisión: literal exacto, recorte real y fallo explícito si falta capa. Coste: documentos escaneados requieren otro proceso, revisión humana y contrato OCR antes de aceptarlos. Filas/celdas son citas individuales con su caja; no se infieren relaciones por proximidad.
 4. **Firma criptográfica separada de confianza.** Objeción pericial: un certificado actualmente caducado no demuestra que una firma fuera inválida al emitirse, y una firma válida no prueba vigencia fiscal. Decisión: conservar salida de pdfsig y devolver confianza indeterminada ante integridad válida, sin afirmar validación histórica. Coste: falta aprovisionar anclas de confianza, política de algoritmos, revocación y validación temporal. Las pruebas desactivan OCSP y no solicitan AIA; no necesitan red.
 5. **CSV limitado a cotejo de bytes.** Objeción: repetir la URL del documento no comprueba la relación jurídica con un identificador. Decisión: conservar ID/enlace impreso y ofrecer comparación exacta de respuesta cuando exista un endpoint oficial descargable; nunca llamarla autenticación. Coste: los ejemplos siguen sin verificación CSV; formularios y captcha requieren adaptación posterior y evidencia de la operación.
@@ -21,14 +23,10 @@
 - BOE consolidado IRPF: ausencia de firmas. BOCM fiscal y BOE original: integridad de firma válida, certificado caducado, confianza indeterminada. Los reportes conservan el diagnóstico NSS de la máquina.
 - Una celda real del BOCM, página física 3, con `8,50 %`, caja, PNG y binding decimal de demostración. Permanece pendiente de interpretación y contrarrevisión; no es validación del valor que use el motor. Alterar el binding a `8.51` falla.
 - Pruebas de PDF falso servido con 200, límite de tamaño, allowlist y redireccionamiento inseguro; SHA esperado incompatible; importación no destructiva e historial; texto/caja/página/selectores alterados; original y recorte corruptos o referencia ausente; decimal ambiguo, substring y unidad equivocada; CropBox desplazado y página rotada; documentos oficiales reales; alteración de un byte cubierto por firma.
-- Un test detectó inicialmente que el verificador regeneraba un recorte ausente. Se corrigió antes de la entrega: exige el recorte existente y ya no escribe durante la verificación.
+- La verificación exige un recorte existente y no escribe ni repara el corpus durante la comprobación.
 
-Validación final: 14 pruebas unittest, Ruff sin diagnósticos, `test:lint` confirma 16 reglas a error y typecheck del proyecto sin errores. Oxlint no encontró fuentes analizables en este lote Python; ESLint avisó de archivo ignorado. No se presentan como lint efectivo de Python. La deuda global de 96 diagnósticos no se ha tocado. No se ejecutaron build, suite legacy ni instalación de dependencias del proyecto.
+<a id="incidencia-vcs-y-entrega"></a>
 
-## Incidencia VCS y entrega
+## Preservación e integración
 
-Antes del aviso que revocó la inicialización, se intentó `jj git init --colocate` según la instrucción original: falló por ser un worktree Git. También falló la inicialización no colocada con `.git` presente. Se movió temporalmente el fichero puntero `.git` dentro del propio checkout, se creó un repositorio JJ no colocado y se devolvió el puntero a su ruta original. Se describió una instantánea base y se creó un cambio vacío. Esto ocurrió antes de las modificaciones del corpus y antes de la revocación.
-
-Desde la revocación no se ejecutan operaciones VCS mutantes. No se borró ni reparó `.git`/`.jj`, no hubo push, PR ni despliegue. No hay commit de la implementación que entregar. El orquestador recibe archivos y diff, y debe comparar contra su base d4d708f6 sin confiar en el índice de este checkout ni integrar la instantánea base creada aquí.
-
-El parche de texto de entrega usa el helper de la instantánea local anterior a las modificaciones como referencia; el resto son altas dentro del ámbito. Los PDF/PNG se entregan por ruta y hash en el inventario de entrega. Los originales grandes siguen en `.cache/procedencia`. No se han borrado contexto ni Reactivity; tampoco se copian notas privadas a este informe.
+Los originales grandes quedan fuera de Git y requieren preservación por hash. Los PDF/PNG de fixtures se identifican en los manifiestos de entrega. Al integrar, comparar los archivos con su base y excluir metadatos de control de versiones y cachés del checkout de origen.

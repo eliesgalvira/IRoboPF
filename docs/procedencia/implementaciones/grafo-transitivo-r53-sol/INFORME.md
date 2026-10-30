@@ -1,8 +1,10 @@
 # R53: hito no completado; borrador de relaciones estáticas
 
+Documento histórico del candidato de este directorio. Los resultados y estados corresponden a esa versión; no acreditan el estado actual del proyecto.
+
 Esta entrega **no satisface el hito R53**. No hay impedimento externo demostrado. Faltan capacidades internas del consumidor y pruebas causales; no se atribuyen a admisión ni a fiscalidad pendiente. El nuevo módulo no debe recibirse como grafo transitivo ejecutable terminado. Las cuatro puertas siguen falsas y ningún sitio obtiene cierre de valor o selección. La matriz incluida es un diagnóstico estático por raíz, no la matriz causal completa solicitada.
 
-Trabajo propio, sin subdelegación. Modelo efectivo indicado por el runtime: gpt-6.1-sol/high; priority solicitada, sin comprobante independiente del planificador. HEAD exigido y observado: 58e2e58b137829f1b664a46d7c0054c2feb5efc2, 22.072 entradas. No hay commits ni operaciones VCS mutantes. Solo se añaden rutas autorizadas; no se modifican archivos base, motor, confianza, datos oficiales, inventario, snapshots, ESTADO, DECISIONES o informes recibidos. Tampoco los puertos y evaluadores existentes. No existen preimágenes modificadas de esos módulos que justificar.
+Base del candidato documentado: `58e2e58b137829f1b664a46d7c0054c2feb5efc2`.
 
 ## Implementación que existe
 
@@ -55,13 +57,11 @@ Effect-solutions list/show data-modeling/testing se consultaron mediante Bun, de
 
 Al ampliar tipos al generador de scratch aparece globalConsole; el intento fallido se conserva y se sustituye console.log por escritura documental con writeFileSync, sin desactivar el diagnóstico.
 
-Tipos usa el tsconfig real, todos sus archivos y el host de resolución documental adaptado de R52, que remapea solo node_modules y el preparador R47 al scratch propio. checkJs=false conserva el límite de comprobación de los MJS heredados. No se ha activado una proyección alternativa de tipos. Oxlint usa las 16 reglas a error y los plugins del padre en lectura; la configuración adaptada queda conservada. Los resultados terminales de calidad están en CALIDAD.json y los logs transportados.
+Tipos usa el tsconfig real, todos sus archivos y el host de resolución documental adaptado de R52, que remapea solo node_modules y el preparador R47 al scratch propio. checkJs=false conserva el límite de comprobación de los MJS heredados. No se ha activado una proyección alternativa de tipos. Oxlint usa las 16 reglas a error y los plugins compartidos en lectura; la configuración adaptada queda conservada. Los resultados terminales de calidad están en CALIDAD.json y los logs transportados.
 
-Vitest usa --configLoader native, cache:false, cacheDir absoluto propio y maxWorkers:1. Cada validación adquiere y suelta flock /tmp/irobopf-validacion-pesada.lock. No se mantiene durante escritura/lectura. No hay Next build, suites legacy masivas, servidor, preview o instalación. El preparador R47 se ejecuta únicamente en una copia adaptada bajo scratch propio; no escribe la carpeta de R47 ni node_modules/.vite-temp del padre. Las versiones usadas son Node 24.19.0, Bun 1.3.13, Python Nix 3.13.15 y TypeScript 5.9.3.
+Vitest usa --configLoader native, cache:false, cacheDir absoluto propio y maxWorkers:1. Cada validación adquiere y suelta flock /tmp/irobopf-validacion-pesada.lock. No se mantiene durante escritura/lectura. No hay Next build, suites legacy masivas, servidor, preview o instalación. El preparador R47 se ejecuta únicamente en una copia adaptada bajo scratch propio; no escribe la carpeta de R47 ni node_modules/.vite-temp del integrador. Las versiones usadas son Node 24.19.0, Bun 1.3.13, Python Nix 3.13.15 y TypeScript 5.9.3.
 
 ## Conservación y transporte
-
-El cotejo inicial recorrió las 22.072 entradas, un blob por iteración, con lstat/readlink/bytes/bit ejecutable: sin diferencias y sin extras de contenido. El metadato .git de T3 se excluye expresamente del censo de contenido. El recibo terminal repite físicamente toda la base después del empaquetado y censa extras; no sustituye ese control por diff.
 
 MANIFIESTO.json define el payload con ruta/SHA256/tamaño/modo/baseSha256:null. Incluye **payload ejecutable en .cache/grafo-transitivo-r53-sol/**, sus configuraciones, copias privadas, instrumentos y logs; hay que transportarlo también. No basta copiar docs. Los objetos vacíos o binarios viajan por hash y el texto por patch gzip, incluyendo ausencia de newline. Todos los archivos individuales son menores de 10 MiB.
 

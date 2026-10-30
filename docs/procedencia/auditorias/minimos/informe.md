@@ -1,8 +1,10 @@
 # Auditoría candidata de mínimos personales y familiares
 
-Fecha de trabajo: 29 de octubre de 2026. Dominio: `minimos`. Ningún hallazgo de este informe está aceptado. La contrarrevisión debe efectuarla un auditor nuevo sobre los originales. No se modificó el cálculo, no se ejecutaron builds ni suites legacy completas, no se hicieron commits ni operaciones VCS mutantes.
+Documento histórico: los resultados, referencias al motor y pendientes corresponden a la base examinada; no describen el estado vigente del proyecto.
 
-La ronda identifica defectos reproducibles y reúne evidencia oficial sustantiva, pero **no cierra la auditoría exhaustiva de vigencia 2012–2026**. La matriz de código es completa para las tablas existentes; la acreditación histórica, las situaciones especiales y la revisión independiente tienen los pendientes concretos indicados abajo. No se debe convertir un `match` candidato en un sello de validación del año o del territorio.
+Fecha del análisis: 29 de octubre de 2026. Dominio: `minimos`. Este informe no acepta hallazgos; cualquier aceptación requiere revisión independiente sobre los originales.
+
+El análisis identifica defectos reproducibles y reúne evidencia oficial sustantiva, pero **no cierra la auditoría exhaustiva de vigencia 2012–2026**. La matriz de código es completa para las tablas existentes; la acreditación histórica, las situaciones especiales y la revisión independiente tienen los pendientes concretos indicados abajo. No se debe convertir un `match` candidato en un sello de validación del año o del territorio.
 
 ## Entrega y alcance medido
 
@@ -14,7 +16,7 @@ La ronda identifica defectos reproducibles y reúne evidencia oficial sustantiva
 - `huellas-motor.json`: huellas de archivos leídos para detectar cambios posteriores en el checkout compartido.
 - `legacy-control.json`: comparación concreta de `CONTROL_GENERAL!H2:H16`, con hash del libro, lectura incremental y encabezado H1 verificado.
 
-Se leyeron BRIEF, CONTRATO-AUDITORIA, COORDINACION, LINT, README, AGENTS, glosarios, PRODUCT, ADR y documentación de alcance legacy. Se inspeccionaron los cuatro módulos de mínimos, las catorce tablas anuales, el selector comunitario, el tipo de caso fiscal, la liquidación y la función de escala del ahorro. El índice de fuentes del repositorio se usó para localizar originales, no como prueba.
+Se inspeccionaron los cuatro módulos de mínimos, las catorce tablas anuales, el selector comunitario, el tipo de caso fiscal, la liquidación y la función de escala del ahorro. El índice de fuentes del repositorio se usó para localizar originales, no como prueba.
 
 ## Diferencias y carencias que afectan al resultado
 
@@ -100,7 +102,7 @@ Los selectores de Valencia 2022 y Balears 2023 sí contemplan fallecimiento ante
 
 Se usa la fuente original frente a transcripciones. Objeción experta: incluso un PDF oficial puede no estar autenticado y una consolidación puede ser anacrónica. Motivo: preservar bytes y lectura exacta para una segunda revisión. Coste aceptado: firmas PAdES, CSV y sellado temporal no están validados; los hashes acreditan integridad local, no la autoría por sí solos.
 
-Se conserva la diferencia entre error y variable ausente. Objeción experta: una lista de familiares podría venir prefiltrada por el llamador. Motivo: el contrato actual no expresa ni permite todos los requisitos; llamar incorrecta a toda fórmula confundiría modelo y cálculo. Coste aceptado: algunas pruebas necesitan primero ampliar entradas o establecer rechazo explícito; no hay fix en esta ronda.
+Se conserva la diferencia entre error y variable ausente. Objeción experta: una lista de familiares podría venir prefiltrada por el llamador. Motivo: el contrato actual no expresa ni permite todos los requisitos; llamar incorrecta a toda fórmula confundiría modelo y cálculo. Coste aceptado: algunas pruebas necesitan primero ampliar entradas o establecer rechazo explícito; no se acredita un fix.
 
 Se extraen capítulos y páginas concretas sin imágenes masivas. Objeción experta: los bloques no identifican por sí solos una celda de tabla ni prueban su lectura visual. Motivo: obtener candidatos reproducibles con memoria moderada. Coste aceptado: faltan selección final, fila/celda en cuadros, recortes facsímiles y validación visual; las constataciones centrales remiten a texto normativo continuo.
 
@@ -158,5 +160,3 @@ Los 40 originales superaron la comprobación de SHA-256, SHA-512 y tamaño. La r
 `tablas-oficiales-candidatas.json` recoge 16 variantes numéricas transcritas de los pasajes normativos y sus derivaciones. La comparación de las 4.788 hojas del motor da 4.787 coincidencias numéricas y una cuantía condicional (mínimo básico Catalunya 2020), además de los cortes temporales y condiciones tratados aparte. **La transcripción no constituye aceptación**, ni esa cifra cierra la cadena de vigencia de cada territorio. La comparación se conserva para que la contrarrevisión pueda discrepar campo por campo. `sondas-calculo.json` guarda los resultados de las sondas familiares y del ahorro; `control-entrega.json` registra validación de estructura, referencias y ausencia de cabeceras sensibles.
 
 Se comprobó con `jj --ignore-working-copy file list -r d4d708f6 docs/procedencia/auditorias/minimos` que la subcarpeta no contenía archivos en esa base. El parche de entrega es un diff de archivos nuevos contra esa revisión; no se hizo snapshot, init, commit, movimiento de bookmark, push ni operación Git. Los auxiliares permanecen en scratch propio. El informe declara las limitaciones que impiden cerrar la auditoría exhaustiva y deja todos los hallazgos pendientes para el auditor independiente.
-
-Control de checkout compartido: al cerrar se detectó un cambio ajeno en `liquidar-irpf-anual.ts`. Se comparó por lectura con `d4d708f6`: únicamente sustituye el año fijo 2025 por `parametrosComunidad.anio` en el texto explicativo de la escala. Las fórmulas auditadas no cambiaron. `huellas-motor.json` conserva la huella inicial y la releída. El parche de este ámbito no incluye ese archivo del motor.

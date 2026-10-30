@@ -1,6 +1,8 @@
 # Comparativa de inflación: entrega candidata
 
-Base esperada y comprobada: eaed990c620b5fc4d3ff2e74dc68e0c8481c43db. Trabajo personal, sin subdelegación ni operaciones VCS mutantes. La integración corresponde al padre por archivo, hash y base. No se modifican originales, fixtures anteriores, detalle-tabular.ts, factor-ipc.ts, motor canónico, corpus, UI, CI, dependencias ni informes ajenos.
+Documento histórico del candidato de este directorio. Los resultados y estados corresponden a esa versión; no acreditan el estado actual del proyecto.
+
+Base del candidato documentado: `eaed990c620b5fc4d3ff2e74dc68e0c8481c43db`.
 
 ## Contrato, objeción experta y coste
 
@@ -42,7 +44,7 @@ Las fronteras distinguen −0,005 (NumPy −0, Python −0,01), mensualización 
 
 ESLint y oxlint iniciales correctos. anti-slop.log confirma las 16 reglas a error y el rechazo de la muestra inválida. El primer typecheck encontró node:fs en diferencias.ts; typecheck-inicial.log conserva el diagnóstico. Se elimina esa dependencia y el script emite JSON por stdout, sin cambiar lenguaje, extensión, reglas ni exclusiones.
 
-Ruff pasa con el ejecutable de Nix (`nix shell nixpkgs#ruff -c ruff check ...`). El primer intento con uv --with ruff==0.15.6 no pudo arrancar el binario genérico en NixOS; ruff-entorno-inicial.log conserva ese fallo de entorno, que no se cuenta como prueba. No se instaló nada globalmente ni se modificaron dependencias del proyecto.
+Ruff pasa con el ejecutable de Nix (`nix shell nixpkgs#ruff -c ruff check ...`).
 
 Regresiones seleccionadas: nueve pruebas correctas en progresividad-caracterizacion-legacy.test.ts y dinero.test.ts. Conservan sus expectativas originales y cubren el contrato de cálculo y dinero de usuario; no son las suites legacy completas. El verde de esta entrega no resuelve el hash tabular histórico ajeno.
 

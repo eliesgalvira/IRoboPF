@@ -1,10 +1,12 @@
 # Revisión independiente del contrato de trabajo anual
 
-29 de octubre de 2026. Revisor nuevo, trabajo personal sin subdelegación. Base declarada por el encargo: `ed6a43fd750de05609abc3710dabdc2f8261020c`. Se examinan los bytes de este checkout fijados en el manifiesto; corresponde al padre comprobarlos contra esa base antes de integrar. No se ejecutaron operaciones VCS ni fixes.
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
+Corte: 29 de octubre de 2026. Base declarada: `ed6a43fd750de05609abc3710dabdc2f8261020c`. El manifiesto fija los bytes examinados; esta revisión no comprobó su correspondencia con la base mediante VCS.
 
 **Dictamen: no se ha demostrado un defecto de fórmula dentro del contrato condicionado publicado. La conexión anual NO queda aprobada ni se certifica liquidación completa.** Se conservan tres observaciones de integración, con reproducciones y límites. El resultado favorable de etapa no convierte hechos declarados en hechos acreditados.
 
-Se leyeron BRIEF, AGENTS, contrato de auditoría, coordinación, estado y decisiones completos, integración-ronda7, auditoría y contrarrevisión de trabajo-deducciones-estatales y entrega trabajo-anual. Se inspeccionaron íntegros contrato.ts, calcular.ts, adaptador.ts y las 36 pruebas del autor. Los instrumentos propios son reproducciones conservadas `.mjs.txt`, no código de producto excluido artificialmente de lint.
+Se examinaron integración-ronda7, auditoría y contrarrevisión de trabajo-deducciones-estatales, entrega trabajo-anual, contrato.ts, calcular.ts, adaptador.ts y las 36 pruebas. Los instrumentos propios se conservan como `.mjs.txt`; no son código de producto.
 
 ## Contraste de fuentes primarias
 
@@ -28,7 +30,7 @@ Los gastos a–e pueden dejar neto negativo. Con bruto 1.749,99 y gastos 1.750, 
 
 Discapacidad activa: 3.500 para grado 33–64 sin ayuda/movilidad reducida; 7.750 para ese grado con ayuda/movilidad o para grado ≥65. El incremento se limita al saldo restante después del gasto general. Solo se calcula empleo único acreditado durante todo el trabajo. Se comprobaron rechazos de pensión, pluralidad/mixtos, régimen histórico y movilidad ordinaria/DT6/desconocida. El rechazo de varios empleos también excluye casos legalmente válidos: es un coste de cobertura declarado, no una regla que niegue su derecho. 2026 permanece excluido.
 
-**TAI-O1 — Identidad de gasto, condición de integración.** Dos IDs distintos con cuota sindical 600 cada uno suman 1.200 aunque representen el mismo pago. Con dos rendimientos del instrumento, devuelve gastos 3.500; si la cuota sindical es una única operación, corresponden 2.900. La API no tiene identidad de operación para distinguirlo. No es un nuevo fallo de fórmula bajo la precondición expresa del autor de importes sin duplicar. Un experto rechazaría importar certificados indiscriminadamente. El padre debe recibir operaciones disjuntas o importes anuales conciliados y conservar su procedencia. Coste: conciliación previa; no deduplicar solo por igualdad de importe, porque dos pagos iguales pueden ser legítimos.
+**TAI-O1 — Identidad de gasto, condición de integración.** Dos IDs distintos con cuota sindical 600 cada uno suman 1.200 aunque representen el mismo pago. Con dos rendimientos del instrumento, devuelve gastos 3.500; si la cuota sindical es una única operación, corresponden 2.900. La API no tiene identidad de operación para distinguirlo. No es un nuevo fallo de fórmula bajo la precondición expresa del autor de importes sin duplicar. Un experto rechazaría importar certificados indiscriminadamente. El consumidor necesita operaciones disjuntas o importes anuales conciliados y su procedencia. Coste: conciliación previa; no deduplicar solo por igualdad de importe, porque dos pagos iguales pueden ser legítimos.
 
 ## Deducciones condicionadas
 
@@ -44,7 +46,7 @@ Con neto atribuible 5.000, BLG 10.000 y cuota íntegra general 600, límite 300;
 
 ## Contrato exigido a la conexión anual
 
-El padre debe fijar contribuyente individual, régimen común, ejercicio/devengo y perfil. Gastos efectivos y rendimientos deben estar imputados al mismo ejercicio, sin duplicación, con hechos acreditados; mantener separado el perfil analítico y compatible-legacy. No presentar este módulo como evaluador de conjunta, art. 18, movilidad, historia de discapacidad o 2026.
+La integración requiere contribuyente individual, régimen común, ejercicio, devengo y perfil definidos. Gastos efectivos y rendimientos deben estar imputados al mismo ejercicio, sin duplicación, con hechos acreditados; mantener separado el perfil analítico y compatible-legacy. No presentar este módulo como evaluador de conjunta, art. 18, movilidad, historia de discapacidad o 2026.
 
 Después del adaptador, aplicar art. 20 una vez con su argumento sin f y otras rentas algebraicas fiscales antes de reducciones/compensaciones. Limitar la reducción al saldo positivo disponible, preservando el neto negativo originado por a–e cuando la reducción aplicada es cero. El cierre histórico necesita excluir o resolver también prolongación de actividad de mayores de 65 del antiguo art. 20.2.a, que este adaptador no calcula.
 

@@ -1,8 +1,10 @@
 # Revisión independiente de preservación
 
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
 29 de octubre de 2026. Base solicitada: `ed6a43fd750de05609abc3710dabdc2f8261020c`. Dictamen: **requiere cambios en cuatro puntos P2** antes de presentar el protocolo como validación de paquetes publicables y preservación durable. El paquete concreto supera la comprobación independiente de integridad y la restauración local. No hay respaldo remoto acreditado ni aceptación fiscal nueva.
 
-Trabajo personal, sin delegación, fixes, operaciones VCS, cambios de permisos de originales o escrituras remotas. Se leyeron BRIEF, AGENTS, contrato, coordinación, estado, decisiones, integración ronda 7, código, nueve pruebas y documentación de preservación. Los JSON completos se recorrieron programáticamente; sus claves duplicadas se buscaron en todo el conjunto, sin encontrarlas en los documentos entregados. Se cotejaron los hashes de los archivos de la entrega y su patch. La base es la indicada por el padre: esta revisión no sustituye su comparación del árbol base y borrados.
+Se examinaron integración de ronda 7, código, nueve pruebas y documentación de preservación. Los JSON completos se recorrieron programáticamente, sin encontrar claves duplicadas. Se cotejaron los hashes de los archivos de la entrega y su patch. La base es la declarada: esta revisión no sustituye su comparación con el árbol recibido y sus borrados.
 
 ## Comprobaciones independientes
 
@@ -58,4 +60,4 @@ La documentación oficial de [compatibilidad de JJ](https://docs.jj-vcs.dev/late
 
 La [documentación de facturación de GitHub](https://docs.github.com/en/billing/concepts/product-billing/git-lfs) distingue almacenamiento y descarga por cuenta; sus franquicias no prueban saldo disponible. El usuario ordenó dejar transferencia pendiente, sin capacidad ni gasto confirmados y sin repetir la consulta que gestiona el padre. Objeción experta: un backup que no se ha descargado desde otra custodia puede ser solo un catálogo. Motivo: preservar ahora las copias locales verificadas y separar transferencia. Coste: continúa el riesgo de pérdida común del equipo; dos carpetas locales no lo resuelven. No borrar originales ni paquetes.
 
-La revisión local está terminada con esos cuatro cambios requeridos y la limitación remota explícita. El padre decide integración y siguiente revisión; esta entrega no modifica sus registros de confianza, ESTADO o DECISIONES.
+La revisión local está terminada con esos cuatro cambios requeridos y la limitación remota explícita.

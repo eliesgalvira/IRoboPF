@@ -15,5 +15,3 @@ nix shell nixpkgs#bun nixpkgs#nodejs -c bun x oxlint adversos.mjs
 ```
 
 Los tres primeros comandos de ejecución produjeron los logs entregados mediante redirección a `../pruebas-existentes.log`, `../adversos.log` y `../original.log`. Salidas 0. Los rechazos adversariales esperados se capturan en adversos.json; consultar cada caso, no interpretar solo exit 0.
-
-Lecturas VCS: git rev-parse HEAD; git diff --name-only BASE -- adaptador test modelo verificador; git ls-tree para comprobar presencia al cerrar. Sin mutaciones VCS. No Next build ni suites legacy.

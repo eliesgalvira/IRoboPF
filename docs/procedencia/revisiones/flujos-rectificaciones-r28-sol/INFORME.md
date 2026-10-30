@@ -1,10 +1,12 @@
 # Revisión independiente de las rectificaciones de flujos R28
 
-Dictamen acotado a FA25-01/03, R26-01/02 y RSS26-02 y al localizador de A.modo. No constituye aceptación fiscal, cierre de los grafos, permiso de wiring ni cierre del encargo global. Las conclusiones nuevas requieren contraste del padre. No se modifica el motor, las representaciones históricas, sus esperados o sus rojos.
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
+Dictamen acotado a FA25-01/03, R26-01/02 y RSS26-02 y al localizador de A.modo. No constituye aceptación fiscal, cierre de los grafos, permiso de wiring ni cierre del encargo global. No se modifica el motor, las representaciones históricas, sus esperados o sus rojos.
 
 Base exigida y observada: `5e69c68077ffd18be20457160595adb3f0ff52e4`, 15.914 entradas. Recepción física de cada entrada mediante lstat, readlink, comparación de bytes y modo ejecutable contra un blob de base cada vez: cero diferencias, cero borrados y HEAD exacto. Se conserva el recibo íntegro comprimido. Los nuevos archivos pertenecen exclusivamente a esta carpeta; scratch en `.cache/flujos-review/`. Sin operaciones VCS mutantes, commits, PR, red, servidor ni lectura deliberada de entregas activas.
 
-Se han leído íntegros BRIEF, AGENTS, CONTRATO-AUDITORIA y COORDINACION del repositorio, la situación vigente de ESTADO/DECISIONES y los cuatro informes de contexto requeridos. La ruta inicial buscada de COORDINACION bajo el contexto externo no existía; se leyó el archivo correcto del repositorio. `rg` no estaba en PATH: se utilizó Nix, sin sustituirlo por una herramienta prohibida. El modelo de esta ejecución es gpt-6.1-sol, esfuerzo high, conforme al contexto runtime; no se expide atestación ni se inventa una identidad de revisor operativo.
+Se examinaron los cuatro informes de contexto requeridos y la situación documental de la versión revisada. Esta revisión no emite atestación ni acredita una identidad operativa de revisor.
 
 ## Argumentos, productores, ámbito y retorno
 

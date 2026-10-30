@@ -1,10 +1,12 @@
 # Revisión adversaria del flujo de escalas R23
 
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
 Dictamen: conservar la edición como evidencia técnica candidata; **no integrar su declaración de cierre local ni componer/publicar sus relaciones todavía**. Hay contradicciones entre descripciones del grafo y selectores reales, puertos insuficientemente precisos y una asociación por sitio que no equivale a un recorrido causal. No se propone ningún arreglo del motor ni de la entrega. Ninguna regla fiscal completa ni ninguno de los 264 enlaces se promueve.
 
-Trabajo personal en T3 Code/Codex, gpt-6.1-sol, esfuerzo high. Prioridad solicitada, sin recibo técnico independiente del service tier. No se utilizó Astra ni se subdelegó. Base exigida y observada: `6ab4a98e6ce218c30a3a9f18596d0c2f030f47d9`. El cotejo inicial comprobó las 15.456 entradas mediante lstat, readlink, bytes y modo ejecutable, contra un blob cada vez, bajo bloqueo de recepción. Diff vacío. El control final se entrega separado y debe leerse antes de recibir este lote.
+Base examinada: `6ab4a98e6ce218c30a3a9f18596d0c2f030f47d9`. Se cotejaron las 15.456 entradas mediante lstat, readlink, bytes y ejecutabilidad contra cada blob, sin diferencias. El control final se conserva separado.
 
-Se leyeron BRIEF completo, AGENTS, contrato, coordinación, secciones de estado y decisiones, recepción R26 y corrección de preservación v4, con D077–D079. La orden actual prevalece sobre autorización histórica de commits, subdelegación, limpieza y transferencias. No se inspeccionaron archivos R25 pendientes de recepción ni entregas activas de compañeros. Los avisos R25 son bloqueos comunicados, no hallazgos reproducidos aquí.
+Se examinaron la recepción R26 y la corrección de preservación v4, con D077–D079. Los avisos R25 son bloqueos comunicados; esta revisión no los reproduce.
 
 ## Hallazgos y decisiones
 

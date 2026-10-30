@@ -1,6 +1,6 @@
 # Comandos y reproducción
 
-Desde la raíz del checkout. PYTHONDONTWRITEBYTECODE=1 y UV_PROJECT_ENVIRONMENT="$PWD/.cache/revision-origen-r31/uv" en cada ejecución Python. Entorno por tools/procedencia/run.sh (Nix/uv fijados); no .venv compartido. rg no estaba instalado; se usaron find/sed para localizar y leer, sin sustituir herramientas prohibidas.
+Desde la raíz del checkout. PYTHONDONTWRITEBYTECODE=1 y UV_PROJECT_ENVIRONMENT="$PWD/.cache/revision-origen-r31/uv" en cada ejecución Python. Entorno por tools/procedencia/run.sh (Nix/uv fijados); no .venv compartido.
 
 1. git rev-parse HEAD y git ls-tree -r HEAD: d28705191c428ec226760413b152080f36226c10 y 16548. Solo lecturas VCS.
 2. flock /tmp/irobopf-recepcion-acotada.lock bash tools/procedencia/run.sh docs/procedencia/revisiones/origen-documental-r31-sol/fisico.py: inicio/final en scratch y gzip para entrega. Código 0, 16548 filas, diferencias vacías. git diff HEAD y git diff --cached HEAD: vacíos en ambos controles.

@@ -1,10 +1,12 @@
 # Revisión independiente de incorporación local R36
 
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
 Dictamen candidato sujeto al contraste del padre. Se revisa la fidelidad de la operación local a las decisiones entregadas, la corrección pequeña del preparador y los tres localizadores SS, las tres guardas de tipos y el resultado publicado. No se repite la auditoría jurídica del lote ni se acepta una regla completa. Los resultados ejecutados y su estado terminal se detallan en RESULTADOS.md y casos.json.
 
-Trabajo personal en T3 Code, harness Codex, gpt-6.1-sol con esfuerzo high. Priority solicitada, sin medición independiente del scheduler. Sin subdelegación ni atestación candidata; no se inventan identificadores de tarea. Solo se escribe en este directorio y .cache/revision-incorporacion-local-r36. No hay fix de producto, cambios de esperados, confianza, registros activos, rastro, snapshots, motor, inventario, VCS mutante, rediseño, servidor, preview, transferencia o publicación remota.
+La revisión es documental y operativa: no modifica los esperados ni activa confianza o aceptación fiscal.
 
-Se han leído íntegros BRIEF, AGENTS, contrato y coordinación, además de la situación R36 y decisiones vigentes, la revisión R34, recepción R36, aprobación, autoridad, planes, recibos, recuperación, OPERACION, preparador y transicion.py. Las instrucciones específicas actuales sustituyen el modelo, delegación, escritura de ESTADO/DECISIONES y limpieza del BRIEF. No se leen entregas de hijos activos. El padre solo se consulta como fuente de dependencias instaladas de lectura y originales ya entregados de V5; no se escribe en su CAS ni en el paquete.
+Se examinaron revisión R34, recepción R36, aprobación, autoridad, planes, recibos, recuperación, OPERACION, preparador y transicion.py. Las dependencias instaladas y originales V5 se usaron en lectura.
 
 ## Derivación y autoridad
 
@@ -48,4 +50,4 @@ El cotejo físico inicial termina antes de editar: HEAD 50f9e949544e20d3e4e0bffc
 
 Las decisiones, objeciones expertas, respuestas y costes están en decisiones.json. El manifiesto cubre archivos de contenido; patch y binarios son sobres de transporte separados para evitar autorreferencia. El ensayo reconstruye los archivos en un directorio ordinario scratch y coteja sus bytes. Los controles/logs mayores de 1 MB se comprimen. No se incluyen PDFs, entornos, node_modules o copias de aplicación en docs.
 
-Las conclusiones nuevas requieren contraste del padre. Esta revisión no cierra el encargo global, la composición de los 65 sitios, la vigencia jurídica completa, autenticidad histórica o hechos del contribuyente. No se emite aceptación fiscal por pruebas, hashes, fórmulas repetidas ni recuentos.
+Esta revisión no cierra el encargo global, la composición de los 65 sitios, la vigencia jurídica completa, autenticidad histórica o hechos del contribuyente. No se emite aceptación fiscal por pruebas, hashes, fórmulas repetidas ni recuentos.

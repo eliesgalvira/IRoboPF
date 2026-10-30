@@ -1,5 +1,7 @@
 # Contrarrevisión independiente: retenciones 2012–2019
 
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
 Fecha: 29 de octubre de 2026. **Requiere cambios. No apto para presentar el servicio actual como procedimiento histórico completo.**
 
 Se han examinado los 34 IDs y las 160 celdas paso-año del candidato. Hay 29 decisiones `accepted` limitadas a la proposición expresamente identificada y cinco `needs-evidence`; ninguna aceptación certifica un ejercicio completo. No se rechaza íntegramente ningún ID, pero se restringen varias afirmaciones y se introduce una objeción adicional al supuesto match de gastos. `revisiones.json` conserva estado candidato, decisión nueva, severidad, localización actual, evidencia, objeciones y alcance individual. `cobertura.json` conserva cada celda original y señala las limitaciones históricas. Ninguna de las 160 celdas se declara fiscalmente validada en su totalidad.
@@ -57,11 +59,11 @@ Separar cálculo inicial y regularización. Incorporar ejercicio, fecha de pago,
 
 Para familia: fecha de referencia de edad, derecho al mínimo, prorrateo, rentas/requisitos comunicados, discapacidad y condición de relación laboral especial exceptuada. Para anualidades: resolución judicial, importe y beneficiarios distintos de quienes dan mínimo. Para regularización: acumulados, valores previos, causas, fecha de eficacia y remuneración restante. Para vivienda: derecho transitorio y comunicación, no mero booleano sin precondiciones. Definir qué validaciones pertenecen al adaptador y cuáles rechaza el servicio.
 
-Estos criterios no autorizan cambios en esta revisión. El orquestador debe aislar los fixes y utilizar expectativas independientes antes de modificarlos; no sustituir retención por liquidación anual.
+Las correcciones requieren expectativas independientes y deben conservar la distinción entre retención y liquidación anual.
 
 ## Evidencia ejecutada, cobertura y límites
 
-`ejecuciones.json` registra comandos y hashes de scripts. Todo ejecutable propio está en `.cache/procedencia/revision-retenciones-2012-2019/`. El comando de aserciones termina con código1: diez casos, ocho fallos esperados y dos controles correctos. Los resultados esperados están en `casos.json`, listos para convertirlos en pruebas mantenidas por el orquestador. También se ejecutaron los helpers para las89 filas. No se ejecutó el Excel, el Python legacy, Next build ni suite pesada. Las cotizaciones cero son entradas sintéticas, no afirmaciones sobre cotizaciones legales.
+`ejecuciones.json` registra comandos y hashes de scripts. Todo ejecutable propio está en `.cache/procedencia/revision-retenciones-2012-2019/`. El comando de aserciones termina con código1: diez casos, ocho fallos esperados y dos controles correctos. Los resultados esperados están en `casos.json`. También se ejecutaron los helpers para las89 filas. No se ejecutó el Excel, el Python legacy, Next build ni suite pesada. Las cotizaciones cero son entradas sintéticas, no afirmaciones sobre cotizaciones legales.
 
 La matriz candidata tenía celdas sin vínculo a hallazgos (por ejemplo, reducciones personales, exclusión, mínimos contractuales y vivienda2012). Se conservan los vínculos originales y se añaden los de revisión pertinentes. La cobertura es examen de proposiciones y código; faltan pruebas de todas las fronteras, ramas judiciales, movilidad/discapacidad y regularización. No se ha pretendido que los diez casos cubran160 procedimientos.
 

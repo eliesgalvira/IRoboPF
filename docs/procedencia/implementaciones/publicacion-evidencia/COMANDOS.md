@@ -1,5 +1,7 @@
 # Reproducción
 
+Documento histórico del candidato de este directorio. Los resultados y estados corresponden a esa versión; no acreditan el estado actual del proyecto.
+
 Desde el checkout de la base declarada, con los archivos de esta entrega y node_modules existente de solo lectura:
 
 ```sh
@@ -8,7 +10,7 @@ nix shell nixpkgs#bun nixpkgs#nodejs nixpkgs#python3 -c flock /tmp/irobopf-valid
 
 El script ejecutado conserva formato, generación del schema, tipos principal/vendor, lint global, ensayo de las 16 reglas, 21 pruebas focalizadas y 17 de contenido histórico. Las pruebas nuevas generan dos veces desde la misma entrada mediante el coordinador real, exigen identidad del snapshot y dejan resultado.json y metricas.json en su scratch. No actualizan el alias de rastro ni el registro de snapshots del repositorio.
 
-Para publicar en la raíz integrada, después de regenerar inventario, payload registrado y snapshot técnico v1 con los procedimientos del padre:
+Para publicar en la raíz integrada, después de regenerar inventario, payload registrado y snapshot técnico v1 con los procedimientos del integrador:
 
 ```sh
 nix shell nixpkgs#bun nixpkgs#nodejs nixpkgs#python3 -c flock /tmp/irobopf-validacion-pesada.lock bun -e '
@@ -26,7 +28,7 @@ process.stdout.write(JSON.stringify(resultado)+"\n");
 '
 ```
 
-Este último comando queda preparado para el padre; no se ha ejecutado sobre la raíz compartida. PrepararEntrada es inspección de los pins existentes, no autorización editorial para añadir bindings. No descubre ni incorpora los 455 candidatos externos al registro. El alias no se cambia en este comando. Al seleccionarlo después, usar las versiones del snapshot devuelto y su catalogo exacto; conservar las referencias de resultados anteriores.
+Este último comando queda preparado para el integrador; no se ha ejecutado sobre la raíz compartida. PrepararEntrada es inspección de los pins existentes, no autorización editorial para añadir bindings. No descubre ni incorpora los 455 candidatos externos al registro. El alias no se cambia en este comando. Al seleccionarlo después, usar las versiones del snapshot devuelto y su catalogo exacto; conservar las referencias de resultados anteriores.
 
 Para producir el sobre de entrega, después de cerrar informes y logs:
 
