@@ -25,3 +25,7 @@ La nueva revisión independiente debe examinar las seis salidas individualmente,
 Las cuatro puertas permanecen falsas. Los seis sitios son candidatos; los otros 48 y las 19 familias, composición y admisión siguen pendientes. Motor fiscal, inventario, confianza y 45 snapshots no cambian. V5 r2 mantiene el corte R26; Crossa conserva v1 desfasado, copia local fuera de Victus y sin custodia independiente. Sin LFS, gasto, transferencia o limpieza. El encargo global continúa abierto.
 
 Schemas: quince testigos de retenciones, dieciocho SS y contrato válidos; el histórico conserva forma válida sin acreditar aceptación con software nuevo. El padre reproduce el rojo previo con los bytes del consumidor anterior (AssertionError por contexto causal ausente) y el verde actual con las mismas aserciones, adaptando solo rutas. Logs y fuentes conservados.
+
+## Respaldo y contrarrevisión
+
+Bloque respaldado en origin, commit `65c9eb0e5e2e63f3db4fd06452aa93e389054746`: 168 archivos, hashes cotejados y cero borrados. Lanzada una única contrarrevisión independiente de las seis salidas y del núcleo compartido sobre ese commit y sus 22.458 entradas, con gpt-6.1-sol, high y priority explícitos y confirmados. Encargo y respuesta completos en delegaciones-ronda58.json. Su finalización reactivará este hilo; no se sondea ni se lee trabajo parcial.
