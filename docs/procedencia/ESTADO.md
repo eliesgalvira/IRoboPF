@@ -2,7 +2,15 @@
 
 Inicio: 29 de octubre de 2026. Trabajo en curso; no es una certificación fiscal.
 
-## Situación más reciente, ronda 54 del 30 de octubre
+## Situación más reciente, ronda 55 del 30 de octubre
+
+Recibido el candidato causal R54 para once salidas SS: cotejo físico de 22.112 entradas del hijo, una modificación autorizada y cero borrados; transporte exacto de 105 rutas. Incorporadas 25 rutas de la entrega. El padre corrige cinco archivos para compatibilidad con tipos globales, conservando originales, hashes y diff. Detalle en correcciones/recepcion-causal-ss-r55.
+
+Pasan 86 pruebas distintas, tipos principal/vendor con diagnósticos Effect activos y lint global. Diez testigos nuevos verifican y cumplen schema; su ejecución coincide profundamente con los históricos salvo los hashes del software. CheckJs conserva once diagnósticos anteriores. Los fallos de integración e instrumentos están documentados. D126 exige una revisión independiente nueva de la suficiencia causal de cada salida, del segundo evaluador y de las correcciones exactas. Hasta entonces el hito sigue candidato; quedan los otros 54 sitios y 19 familias, composición y admisión. Las cuatro puertas públicas permanecen falsas.
+
+Motor, inventario, confianza y 45 snapshots intactos. V5 mantiene corte R26; Crossa v1 sigue desfasado. Sin main, PR, despliegue, LFS, gasto, transferencia o limpieza. El encargo global permanece abierto.
+
+## Situación anterior, ronda 54 del 30 de octubre
 
 Recibido R53 como borrador estático incompleto: no existe consumidor causal ni evidencia ejecutada individual de 65 salidas y 19 familias. No hay bloqueo externo demostrado. Cotejo físico de 22.072 entradas del hijo intactas, cero borrados; transporte exacto de 51 rutas. Incorporadas 20 rutas, con tres archivos nuevos de herramienta estática; 83 fuentes técnicas preservadas. Detalle en correcciones/recepcion-grafo-r54.
 

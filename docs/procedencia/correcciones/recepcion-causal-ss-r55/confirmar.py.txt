@@ -1,0 +1,107 @@
+import fcntl
+import hashlib
+import json
+import os
+import stat
+import subprocess
+from pathlib import Path
+
+R = Path('/home/elies/Repos/IRoboPF')
+S = R/'.cache/orquestador-recepcion/r55'
+O = R/'docs/procedencia/correcciones/recepcion-causal-ss-r55'
+BASE = '462c343c910bf17023d341c7300b50fba66e9f46'
+PREFIXES = ('docs/procedencia/implementaciones/causal-ss-r54-sol/', 'docs/procedencia/correcciones/recepcion-causal-ss-r55/')
+CHANGED = {'docs/procedencia/ESTADO.md', 'docs/procedencia/DECISIONES.md', 'scripts/procedencia/flujo-ss-r36-consumidor.mjs', 'tsconfig.json'}
+ADDED = {'scripts/procedencia/causal-ss-r54.ts', 'scripts/procedencia/evidencia-ejecucion-r54.ts', 'tests/causal-ss-r54.test.ts', 'schemas/procedencia/flujo/ejecucion-r54.schema.json'}
+
+
+def cmd(*args):
+    return subprocess.check_output(args, cwd=R)
+
+
+def sha(data):
+    return hashlib.sha256(data).hexdigest()
+
+
+assert cmd('jj', '--ignore-working-copy', 'log', '-r', '@-', '--no-graph', '-T', 'commit_id').decode().strip() == BASE
+leftovers = json.loads((R/'docs/procedencia/correcciones/recepcion-r36/postintegracion.json').read_text())['historicalLeftoversExcluded']
+excluded = {e['path'] for e in leftovers}
+for e in leftovers:
+    assert sha((R/e['path']).read_bytes()) == e['sha256']
+receipt=json.loads((O/'recepcion.json').read_text())
+overrides={e['path']:e['afterSha256'] for e in json.loads((O/'cambios-integracion.json').read_text())['files']}
+for e in receipt['files']:assert sha((R/e['path']).read_bytes())==overrides.get(e['path'],e['sha256'])
+for p,h in overrides.items():assert sha((R/p).read_bytes())==h
+assert not cmd('git', 'diff', '--name-only', '--diff-filter=D', BASE).strip()
+
+lock=open('/tmp/irobopf-recepcion-acotada.lock','a')
+fcntl.flock(lock,fcntl.LOCK_EX)
+reader = subprocess.Popen(['git', 'cat-file', '--batch'], cwd=R, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+assert reader.stdin is not None and reader.stdout is not None
+count = 0
+modified = []
+for entry in cmd('git', 'ls-tree', '-rz', BASE).split(b'\0'):
+    if not entry:
+        continue
+    meta, name_bytes = entry.split(b'\t')
+    mode, kind, oid = meta.split()
+    name = name_bytes.decode()
+    assert kind == b'blob'
+    reader.stdin.write(oid+b'\n')
+    reader.stdin.flush()
+    header = reader.stdout.readline().split()
+    expected = reader.stdout.read(int(header[2]))
+    assert reader.stdout.read(1) == b'\n'
+    path = R/name
+    st = path.lstat()
+    if mode == b'120000':
+        assert stat.S_ISLNK(st.st_mode)
+        actual = os.readlink(path).encode()
+    else:
+        assert stat.S_ISREG(st.st_mode) and bool(st.st_mode & stat.S_IXUSR) == (mode == b'100755')
+        actual = path.read_bytes()
+    if actual != expected:
+        assert name in CHANGED or name in excluded, name
+        modified.append(dict(path=name, beforeSha256=sha(expected), afterSha256=sha(actual), excluded=name in excluded))
+    count += 1
+reader.stdin.close()
+assert reader.wait() == 0 and count == 22114
+fcntl.flock(lock,fcntl.LOCK_UN)
+lock.close()
+(O/'fisico-padre.json').write_text(json.dumps(dict(base=BASE, entries=count, modified=modified, deletions=[], historicalLeftoversExcluded=leftovers), indent=2)+'\n')
+(O/'confirmar.py.txt').write_bytes(Path(__file__).read_bytes())
+
+pending = set(cmd('git', 'diff', '--name-only', '-z', BASE).decode().split('\0'))
+pending.update(cmd('git', 'ls-files', '--others', '--exclude-standard', '-z').decode().split('\0'))
+pending -= excluded | {''}
+for name in pending:
+    assert name in CHANGED or name in ADDED or name.startswith(PREFIXES), name
+selected = []
+for name in sorted(pending):
+    path = R/name
+    assert path.is_file() and not path.is_symlink()
+    data = path.read_bytes()
+    assert len(data) < 10485760
+    if name.endswith('.json'):
+        json.loads(data)
+    selected.append(dict(path=name, size=len(data), sha256=sha(data)))
+manifest_path = O/'archivos-precommit.json'
+assert not manifest_path.exists()
+manifest_path.write_text(json.dumps(dict(base=BASE, selfExcluded=str(manifest_path.relative_to(R)), files=selected), indent=2)+'\n')
+data = manifest_path.read_bytes()
+selected.append(dict(path=str(manifest_path.relative_to(R)), size=len(data), sha256=sha(data)))
+(S/'seleccion.json').write_text(json.dumps(dict(base=BASE, files=selected), indent=2)+'\n')
+print(json.dumps(dict(physicalEntries=count, selectedFiles=len(selected), selectedBytes=sum(e['size'] for e in selected), deletions=0)), flush=True)
+subprocess.run(['jj', '--config', 'snapshot.max-new-file-size=10485760', 'commit', '-m', 'feat(procedencia): integrar evidencia causal SS con tipos globales', *['root-file:'+json.dumps(e['path']) for e in selected]], cwd=R, check=True)
+commit = cmd('jj', '--ignore-working-copy', 'log', '-r', '@-', '--no-graph', '-T', 'commit_id').decode().strip()
+assert set(cmd('git', 'diff', '--name-only', '-z', BASE, commit).decode().split('\0'))-{''} == {e['path'] for e in selected}
+assert not cmd('git', 'diff', '--name-only', '--diff-filter=D', BASE, commit).strip()
+for e in selected:
+    assert sha(cmd('git', 'show', commit+':'+e['path'])) == e['sha256']
+for e in leftovers:
+    assert sha((R/e['path']).read_bytes()) == e['sha256']
+result = dict(commit=commit, parent=BASE, files=len(selected), bytes=sum(e['size'] for e in selected), deletions=0, allHashesVerified=True)
+(S/'commit.json').write_text(json.dumps(result, indent=2)+'\n')
+print(json.dumps(result), flush=True)
+subprocess.run(['jj', 'bookmark', 'set', 'procedencia-documental', '-r', commit], cwd=R, check=True)
+subprocess.run(['jj', 'git', 'push', '--remote', 'origin', '--bookmark', 'procedencia-documental'], cwd=R, check=True)

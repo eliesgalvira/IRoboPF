@@ -1,0 +1,9 @@
+import gzip,json
+from pathlib import Path
+from jsonschema import Draft202012Validator
+root=Path.cwd(); out=root/'docs/procedencia/implementaciones/causal-ss-r54-sol'
+schema=json.loads((root/'schemas/procedencia/flujo/ejecucion-r54.schema.json').read_bytes())
+Draft202012Validator.check_schema(schema); validator=Draft202012Validator(schema)
+items=json.loads(gzip.decompress((out/'testigos.json.gz').read_bytes()))
+for item in items: validator.validate(item['evidence'])
+print(json.dumps({'schema':'2020-12 válido','testigos':len(items),'validos':True}))

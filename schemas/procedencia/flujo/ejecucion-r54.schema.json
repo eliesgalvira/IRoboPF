@@ -1,0 +1,242 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "kind",
+    "execution",
+    "program",
+    "software",
+    "sources",
+    "input",
+    "context",
+    "frames",
+    "events",
+    "annualBindings",
+    "outputs",
+    "admissionClosed",
+    "siteClosed",
+    "wiringAllowed",
+    "completeRuleAcceptance"
+  ],
+  "properties": {
+    "version": {
+      "const": 1
+    },
+    "kind": {
+      "const": "causal-ss-r54"
+    },
+    "execution": {
+      "type": "string"
+    },
+    "program": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "software": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "file",
+          "sha256"
+        ],
+        "properties": {
+          "file": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "file",
+          "sha256"
+        ],
+        "properties": {
+          "file": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        }
+      }
+    },
+    "input": {},
+    "context": {},
+    "frames": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "parent",
+          "call",
+          "function"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "parent": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "call": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "function": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "frame",
+          "node",
+          "operation",
+          "property",
+          "unit",
+          "value",
+          "edges"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "frame": {
+            "type": "string"
+          },
+          "node": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "operation": {
+            "type": "string"
+          },
+          "property": {
+            "type": "string"
+          },
+          "unit": {
+            "type": "string"
+          },
+          "value": {},
+          "edges": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "role",
+                "to"
+              ],
+              "properties": {
+                "role": {
+                  "type": "string"
+                },
+                "to": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "annualBindings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "producer",
+          "frame"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "producer": {
+            "type": "string"
+          },
+          "frame": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "outputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "siteId",
+          "decimal",
+          "display",
+          "root",
+          "slice"
+        ],
+        "properties": {
+          "siteId": {
+            "type": "string"
+          },
+          "decimal": {
+            "type": "string"
+          },
+          "display": {},
+          "root": {
+            "type": "string"
+          },
+          "slice": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "admissionClosed": {
+      "const": false
+    },
+    "siteClosed": {
+      "const": false
+    },
+    "wiringAllowed": {
+      "const": false
+    },
+    "completeRuleAcceptance": {
+      "const": false
+    }
+  }
+}

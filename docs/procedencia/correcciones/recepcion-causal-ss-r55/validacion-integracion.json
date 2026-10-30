@@ -1,0 +1,33 @@
+[
+  {
+    "name": "verde-integracion",
+    "command": [
+      "node",
+      "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r55/run/verde.mjs"
+    ],
+    "exitCode": 0
+  },
+  {
+    "name": "suite-integracion",
+    "command": [
+      "node",
+      "node_modules/vitest/vitest.mjs",
+      "run",
+      "--configLoader",
+      "native",
+      "--config",
+      "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r55/vitest.mjs",
+      "--reporter=json",
+      "--outputFile=/home/elies/Repos/IRoboPF/docs/procedencia/correcciones/recepcion-causal-ss-r55/suite-integracion.json"
+    ],
+    "exitCode": 0
+  },
+  {
+    "name": "testigos-integracion",
+    "command": [
+      "node",
+      "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r55/run/testigos-integracion.mjs"
+    ],
+    "exitCode": 1
+  }
+]

@@ -1,3 +1,4 @@
+import {executeCausalSS} from './causal-ss-r54.ts'
 import {validateSS} from './flujo-ss-r36.mjs'
 import { createRequire } from "node:module"
 const require = createRequire("/home/elies/Repos/IRoboPF/package.json")
@@ -276,7 +277,8 @@ export function createSSEvaluator(candidate) {
   validateSS(candidate)
   const g=structuredClone(candidate)
   if(g.obligations.some(o=>o.status!=='satisfied'))throw Error('Obligaciones pendientes')
-  return (caso,contexto,capture=false)=>{
+  const causal=(caso,contexto)=>({...executeCausalSS(g,caso,contexto),admission:'required-anual-publico-r32',siteClosed:false,wiringAllowed:false})
+  const legacy=(caso,contexto,capture=false)=>{
     if(!Number.isInteger(caso.anio)||caso.anio<2012||caso.anio>2026||!['canonico','compatible-legacy'].includes(contexto.modo))throw Error('Fuera del dominio técnico; admisión externa requerida')
     const locals=new Map([['caso',caso],['contexto',contexto]]),trace=[]
     for(const b of g.annualBindings){const r=executeFinite(g,null,[],capture,b.node,[...locals]);locals.set(b.name,r.result);trace.push(...r.trace)}
@@ -284,4 +286,36 @@ export function createSSEvaluator(candidate) {
     const lines=g.outputBindings.map(b=>{const r=executeFinite(g,null,[],capture,b.node,[...locals]);transport.push({siteId:b.siteId,instance:b.instance,unit:b.unit,expression:b.amount,destination:b.destination,decimal:r.result.origen.decimal,trace:r.trace});trace.push(...r.trace);return r.result})
     return {lines,transport,trace,admission:'required-anual-publico-r32',siteClosed:false,wiringAllowed:false}
   }
+  /**
+   * Cada modo conserva su resultado; la captura booleana sigue ofreciendo trace.
+   * @overload
+   * @param {unknown} caso Entrada externa: el adaptador conserva la validación de cada modo.
+   * @param {unknown} contexto
+   * @param {boolean} [capture]
+   * @returns {ReturnType<typeof legacy>}
+   */
+  /**
+   * @template {import('./causal-ss-r54.ts').SSCase} TCase
+   * @overload
+   * @param {TCase} caso
+   * @param {import('./causal-ss-r54.ts').SSContext} contexto
+   * @param {'causal'} capture
+   * @returns {ReturnType<typeof causal>}
+   */
+  /**
+   * @overload
+   * @param {unknown} caso
+   * @param {unknown} contexto
+   * @param {boolean | 'causal'} capture
+   * @returns {ReturnType<typeof legacy> | ReturnType<typeof causal>}
+   */
+  /**
+   * @param {unknown} caso
+   * @param {unknown} contexto
+   * @param {boolean | 'causal'} [capture]
+   */
+  function evaluate(caso,contexto,capture=false) {
+    return capture==='causal' ? causal(caso,contexto) : legacy(caso,contexto,capture)
+  }
+  return evaluate
 }

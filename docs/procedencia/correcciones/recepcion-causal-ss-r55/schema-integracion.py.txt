@@ -1,0 +1,14 @@
+import gzip
+import json
+from pathlib import Path
+from jsonschema import Draft202012Validator
+
+root = Path('/home/elies/Repos/IRoboPF')
+out = root/'docs/procedencia/correcciones/recepcion-causal-ss-r55'
+schema = json.loads((root/'schemas/procedencia/flujo/ejecucion-r54.schema.json').read_bytes())
+Draft202012Validator.check_schema(schema)
+validator = Draft202012Validator(schema)
+items = json.loads(gzip.decompress((out/'testigos-integracion.json.gz').read_bytes()))
+for item in items:
+    validator.validate(item['evidence'])
+print(json.dumps({'schema': '2020-12', 'witnesses': len(items), 'valid': True}))

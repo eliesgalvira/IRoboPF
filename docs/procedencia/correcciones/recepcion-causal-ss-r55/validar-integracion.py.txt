@@ -1,0 +1,26 @@
+import json
+import os
+import subprocess
+from pathlib import Path
+
+r = Path('/home/elies/Repos/IRoboPF')
+c = r/'.cache/orquestador-recepcion/r55'
+o = r/'docs/procedencia/correcciones/recepcion-causal-ss-r55'
+include = ['tests/causal-ss-r54.test.ts', 'tests/flujo-ss-r36.test.ts', 'tests/puertos-composicion-r47.test.ts']
+jobs = [
+    ('verde-integracion', ['node', str(c/'run/verde.mjs')]),
+    ('suite-integracion', ['node','node_modules/vitest/vitest.mjs','run','--configLoader','native','--config',str(c/'vitest.mjs'),'--reporter=json','--outputFile='+str(o/'suite-integracion.json')]),
+    ('testigos-integracion', ['node', str(c/'run/testigos-integracion.mjs')]),
+    ('oxlint-integracion', ['node_modules/.bin/oxlint','--threads=1','--disable-nested-config']),
+    ('eslint-integracion', ['bun','run','lint:eslint']),
+]
+results = []
+env = dict(os.environ, NODE_PATH=str(r/'node_modules'), IROBOPF_DEPENDENCIES_PACKAGE=str(r/'package.json'), REVIEW_INCLUDE=json.dumps(include))
+for name, cmd in jobs:
+    with (o/(name+'.log')).open('wb') as log:
+        p = subprocess.run(['flock','/tmp/irobopf-validacion-pesada.lock',*cmd],cwd=r,env=env,stdout=log,stderr=subprocess.STDOUT)
+    results.append(dict(name=name, command=cmd, exitCode=p.returncode))
+    (o/'validacion-integracion.json').write_text(json.dumps(results,indent=2)+'\n')
+    print(json.dumps(results[-1]),flush=True)
+    if p.returncode != 0:
+        raise SystemExit(p.returncode)

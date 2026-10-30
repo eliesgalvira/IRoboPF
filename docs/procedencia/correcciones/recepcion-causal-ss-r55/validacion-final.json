@@ -1,0 +1,40 @@
+[
+  {
+    "name": "testigos-integracion-final",
+    "command": [
+      "node",
+      "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r55/run/testigos-integracion.mjs"
+    ],
+    "exitCode": 0
+  },
+  {
+    "name": "schema-integracion",
+    "command": [
+      "uv",
+      "run",
+      "--no-project",
+      "--python",
+      "/home/elies/Repos/IRoboPF/tools/procedencia/.venv/bin/python",
+      "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r55/schema-integracion.py"
+    ],
+    "exitCode": 0
+  },
+  {
+    "name": "oxlint-integracion",
+    "command": [
+      "node_modules/.bin/oxlint",
+      "--threads=1",
+      "--disable-nested-config"
+    ],
+    "exitCode": 0
+  },
+  {
+    "name": "eslint-integracion",
+    "command": [
+      "bun",
+      "run",
+      "lint:eslint"
+    ],
+    "exitCode": 0
+  }
+]

@@ -1,0 +1,27 @@
+{
+  "strictNewTypes": {
+    "config": ".cache/causal-ss-r54-sol/tsconfig.json",
+    "log": ".cache/causal-ss-r54-sol/types-terminal.log",
+    "success": true
+  },
+  "lint": {
+    "rulesAtError": 16,
+    "log": ".cache/causal-ss-r54-sol/lint-terminal.log",
+    "success": true
+  },
+  "checkJs": {
+    "success": false,
+    "sameInheritedDiagnostics": true,
+    "diagnosticsBefore": 11,
+    "diagnosticsAfter": 11,
+    "noImplicitAny": false,
+    "purpose": "sonda adicional de deuda MJS; tipos TS nuevos se comprueban aparte con strict y noImplicitAny true"
+  },
+  "tests": {
+    "files": 2,
+    "passed": 65,
+    "log": ".cache/causal-ss-r54-sol/tests-final-2.log",
+    "includesHistoricalR36": 21
+  },
+  "schema": "schema-terminal.log"
+}

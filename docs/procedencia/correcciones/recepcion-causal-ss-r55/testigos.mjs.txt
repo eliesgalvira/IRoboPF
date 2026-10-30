@@ -1,0 +1,9 @@
+import {readFileSync,writeFileSync} from 'node:fs'
+import {gunzipSync} from 'node:zlib'
+import {composeSS} from '/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-ss-r36.mjs'
+import {verifyCausalSS} from '/home/elies/Repos/IRoboPF/scripts/procedencia/causal-ss-r54.ts'
+const folder='docs/procedencia/implementaciones/causal-ss-r54-sol/'
+const witnesses=JSON.parse(gunzipSync(readFileSync(folder+'testigos.json.gz')))
+const g=composeSS(),results=[]
+for(const w of witnesses){const e=w.evidence;verifyCausalSS(g,e,e.input,e.context,e.execution);results.push({id:w.id,execution:e.execution,events:e.events.length,frames:e.frames.length,outputs:e.outputs.length,verified:true})}
+writeFileSync('docs/procedencia/correcciones/recepcion-causal-ss-r55/testigos-comprobados.json',JSON.stringify(results,null,2)+'\n')

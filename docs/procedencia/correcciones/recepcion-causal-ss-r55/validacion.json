@@ -1,0 +1,54 @@
+[
+  {
+    "name": "rojo",
+    "command": [
+      "node",
+      "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r55/run/rojo.mjs"
+    ],
+    "include": null,
+    "expectedExit": 1,
+    "exitCode": 1
+  },
+  {
+    "name": "verde",
+    "command": [
+      "node",
+      "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r55/run/verde.mjs"
+    ],
+    "include": null,
+    "expectedExit": 0,
+    "exitCode": 0
+  },
+  {
+    "name": "suite",
+    "command": [
+      "node",
+      "node_modules/vitest/vitest.mjs",
+      "run",
+      "--configLoader",
+      "native",
+      "--config",
+      "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r55/vitest.mjs",
+      "--reporter=json",
+      "--outputFile=/home/elies/Repos/IRoboPF/docs/procedencia/correcciones/recepcion-causal-ss-r55/suite.json"
+    ],
+    "include": [
+      "tests/causal-ss-r54.test.ts",
+      "tests/flujo-ss-r36.test.ts",
+      "tests/puertos-composicion-r47.test.ts"
+    ],
+    "expectedExit": 0,
+    "exitCode": 0
+  },
+  {
+    "name": "types",
+    "command": [
+      "bun",
+      "run",
+      "typecheck"
+    ],
+    "include": null,
+    "expectedExit": 0,
+    "exitCode": 2
+  }
+]

@@ -1,0 +1,12 @@
+import json,os,subprocess
+from pathlib import Path
+r=Path('/home/elies/Repos/IRoboPF');c=r/'.cache/orquestador-recepcion/r55';o=r/'docs/procedencia/correcciones/recepcion-causal-ss-r55'
+v=['node','node_modules/vitest/vitest.mjs','run','--configLoader','native','--config',str(c/'vitest.mjs'),'--reporter=json']
+jobs=[('rojo',['node',str(c/'run/rojo.mjs')],None,1),('verde',['node',str(c/'run/verde.mjs')],None,0),('suite',v+['--outputFile='+str(o/'suite.json')],['tests/causal-ss-r54.test.ts', 'tests/flujo-ss-r36.test.ts', 'tests/puertos-composicion-r47.test.ts'],0),('types',['bun','run','typecheck'],None,0),('oxlint',['node_modules/.bin/oxlint','--threads=1','--disable-nested-config'],None,0),('eslint',['bun','run','lint:eslint'],None,0)]
+results=[]
+for name,cmd,include,expected in jobs:
+ env=dict(os.environ,NODE_PATH=str(r/'node_modules'),IROBOPF_DEPENDENCIES_PACKAGE=str(r/'package.json'))
+ if include is not None:env['REVIEW_INCLUDE']=json.dumps(include)
+ with (o/(name+'.log')).open('wb') as log:p=subprocess.run(['flock','/tmp/irobopf-validacion-pesada.lock',*cmd],cwd=r,env=env,stdout=log,stderr=subprocess.STDOUT)
+ results.append(dict(name=name,command=cmd,include=include,expectedExit=expected,exitCode=p.returncode));(o/'validacion.json').write_text(json.dumps(results,indent=2)+'\n');print(json.dumps(results[-1]),flush=True)
+ if p.returncode!=expected:break

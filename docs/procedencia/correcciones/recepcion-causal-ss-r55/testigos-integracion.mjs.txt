@@ -1,0 +1,27 @@
+import assert from 'node:assert/strict'
+import { readFileSync, writeFileSync } from 'node:fs'
+import { gunzipSync, gzipSync } from 'node:zlib'
+import { createHash } from 'node:crypto'
+import { composeSS } from '/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-ss-r36.mjs'
+import { executeCausalSS, verifyCausalSS } from '/home/elies/Repos/IRoboPF/scripts/procedencia/causal-ss-r54.ts'
+const out = 'docs/procedencia/correcciones/recepcion-causal-ss-r55/'
+const original = 'docs/procedencia/implementaciones/causal-ss-r54-sol/testigos.json.gz'
+const sha = b => createHash('sha256').update(b).digest('hex')
+const before = readFileSync(original), old = JSON.parse(gunzipSync(before)), current = [], results = [], g = composeSS()
+for (const w of old) {
+  const prior = w.evidence
+  const { evidence } = executeCausalSS(g, prior.input, prior.context, prior.execution)
+  const { software: beforeSoftware, ...beforeExecution } = prior
+  const { software: afterSoftware, ...afterExecution } = evidence
+  assert.deepStrictEqual(afterExecution, beforeExecution)
+  assert.notDeepStrictEqual(afterSoftware, beforeSoftware)
+  assert.throws(() => verifyCausalSS(g, prior, prior.input, prior.context, prior.execution), /Evidencia insuficiente: operación\/propiedad\/selección\/frame no reproducido/)
+  verifyCausalSS(g, evidence, evidence.input, evidence.context, evidence.execution)
+  current.push({ ...w, evidence })
+  results.push({ id: w.id, events: evidence.events.length, frames: evidence.frames.length, outputs: evidence.outputs.length, equalExceptSoftware: true, oldRejected: true, currentVerified: true, beforeSoftware, afterSoftware })
+}
+assert.equal(sha(readFileSync(original)), sha(before))
+const bytes = gzipSync(JSON.stringify(current) + '\n')
+writeFileSync(out + 'testigos-integracion.json.gz', bytes)
+writeFileSync(out + 'testigos-integracion.json', JSON.stringify({ original, originalSha256: sha(before), currentSha256: sha(bytes), witnesses: results }, null, 2) + '\n')
+console.log(JSON.stringify({ witnesses: results.length, equalExceptSoftware: true, oldRejected: true, currentVerified: true }))

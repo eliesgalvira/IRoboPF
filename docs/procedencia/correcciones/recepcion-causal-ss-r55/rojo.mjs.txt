@@ -1,0 +1,5 @@
+import assert from 'node:assert/strict'
+import {composeSS} from '/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-ss-r36.mjs'
+import {createSSEvaluator} from '/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r55/run/anterior.mjs'
+const result=createSSEvaluator(composeSS())({anio:2025,rendimientos:{trabajo:[{importeIntegroCentimos:1000000},{importeIntegroCentimos:2000000}]}},{modo:'canonico'},true)
+assert.ok(result.evidence?.annualBindings?.every(b=>b.producer && b.frame), 'EVIDENCIA_INSUFICIENTE: faltan productores enlazados de los bindings anuales')

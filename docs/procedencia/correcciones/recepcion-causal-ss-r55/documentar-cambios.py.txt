@@ -1,0 +1,33 @@
+import difflib
+import hashlib
+import json
+import subprocess
+from pathlib import Path
+
+r = Path('/home/elies/Repos/IRoboPF')
+s = r/'.cache/orquestador-recepcion/r55'
+o = r/'docs/procedencia/correcciones/recepcion-causal-ss-r55'
+cas = r/'.cache/orquestador-preservacion/recepciones-r55/sha256'
+base = '462c343c910bf17023d341c7300b50fba66e9f46'
+files = ['scripts/procedencia/causal-ss-r54.ts', 'scripts/procedencia/evidencia-ejecucion-r54.ts', 'scripts/procedencia/flujo-ss-r36-consumidor.mjs', 'tests/causal-ss-r54.test.ts', 'tsconfig.json']
+results, diffs = [], []
+for name in files:
+    before = subprocess.check_output(['git','show',base+':'+name],cwd=r) if name == 'tsconfig.json' else (s/'transporte'/name).read_bytes()
+    after = (r/name).read_bytes()
+    h0, h1 = [hashlib.sha256(x).hexdigest() for x in [before, after]]
+    assert h0 != h1
+    for h, b in [(h0, before), (h1, after)]:
+        p = cas/h
+        if p.exists():
+            assert p.read_bytes() == b
+        else:
+            p.write_bytes(b)
+    results.append({'path':name,'beforeSha256':h0,'afterSha256':h1,'beforeSize':len(before),'afterSize':len(after),'beforeSha512':hashlib.sha512(before).hexdigest(),'afterSha512':hashlib.sha512(after).hexdigest()})
+    diffs.extend(difflib.unified_diff(before.decode().splitlines(keepends=True),after.decode().splitlines(keepends=True),fromfile='recibido/'+name,tofile='integrado/'+name))
+(o/'cambios-integracion.json').write_text(json.dumps({'base':base,'sourceCAS':str(cas),'files':results},indent=2)+'\n')
+(o/'cambios-integracion.diff').write_text(''.join(diffs))
+for name in ['validar-integracion.py','schema-integracion.py','documentar-cambios.py']:
+    (o/(name+'.txt')).write_bytes((s/name).read_bytes())
+for name in ['rojo.mjs','verde.mjs','testigos-integracion.mjs']:
+    (o/(name+'.txt')).write_bytes((s/'run'/name).read_bytes())
+print(json.dumps({'changes':len(results),'preservedBothEditions':True}))
