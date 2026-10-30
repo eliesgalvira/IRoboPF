@@ -1,0 +1,65 @@
+{
+  "base": "abefb125f655a824e201416da5ee64276c5465c6",
+  "fecha": "2026-11-01T14:38:27.884506",
+  "minutosDesdeCotejoInicial": 3.8,
+  "esfuerzoAproximadoMinutos": 12,
+  "productoModificado": false,
+  "interfazModificada": false,
+  "rojoFuncionalNuevo": null,
+  "pruebas": {
+    "nuevas": 61,
+    "recorridos": 30,
+    "controles": 31,
+    "cierre": 133,
+    "archivos": 4,
+    "worker": 1,
+    "exit": 0
+  },
+  "tipos": {
+    "alcanceExit": 0,
+    "config": {
+      "extends": "tsconfig.json",
+      "compilerOptions": {
+        "incremental": false
+      },
+      "include": [
+        "tests/anual-salarial-completo.test.ts",
+        "docs/procedencia/implementaciones/anual-salarial-completo/ejecutar.ts"
+      ]
+    },
+    "globalExit": 2,
+    "deudaPrevia": [
+      "tests/puertos-composicion-r47.test.ts:6,7 auxiliares .cache ausentes",
+      "tests/puertos-r52.test.ts:8 auxiliar .cache ausente; :99 any derivado"
+    ],
+    "rojosPropiosCorregidos": [
+      "tipos-inicial.log: tres excesos de propiedades en helper y falta de discriminación de unión",
+      "tipos-alcance.log: nodeBuiltinImport fs en ejecutor; se emite por stdout sin acceder al filesystem"
+    ]
+  },
+  "lint": {
+    "oxlintExit": 0,
+    "eslintExit": 0,
+    "antiSlopExit": 0,
+    "reglasError": 16
+  },
+  "incidencias": [
+    "jj sin repositorio: solo consulta; no inicializado",
+    "rg ausente: resuelto mediante Nix",
+    "binario effect-solutions incompatible NixOS: ejecutado dist/cli.js con Bun; list/show testing error-handling y fuente local Effect.ts leídos",
+    "ejecutor inicial con import relativo de cinco niveles: corregido a cuatro antes de producir resultados",
+    "primera selección de regresión nombró trabajo-anual-deducciones inexistente: no se contó como ejecutada; cierre usa trabajo-anual-contratos",
+    "pdftotext advierte fuentes PDF embebidas: extracción exit0; no se atribuye validación de fuentes ni firma"
+  ],
+  "pendientes": [
+    "Redondeo oficial por casilla y empate negativo: art20/base, cuotas estatal/autonómica tras mínimos, DA61 y cuota posterior",
+    "Revisión independiente nueva de esta demostración por el padre",
+    "Interfaz exclusivamente Opus, según contrato descrito en INFORME.md"
+  ],
+  "garantiasGlobalesPromovidas": false,
+  "regeneracionSoftwareProductoNecesaria": false,
+  "seguridadSocial": "cotizaciones efectivas aportadas; no liquidación TGSS",
+  "autenticacionInputs": "datos sintéticos aportados, sin autenticación personal",
+  "binarios": [],
+  "notaTiempo": "Aproximadamente 12 minutos incluyendo lectura inicial; minutosDesdeCotejoInicial mide solo desde el primer cotejo físico."
+}
