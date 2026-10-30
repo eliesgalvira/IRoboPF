@@ -1,0 +1,12 @@
+import shutil,json,os
+from pathlib import Path
+root=Path.cwd();p=root/'.cache/revision-ss-r39-sol/proyeccion';p.mkdir(exist_ok=True)
+for d in ['lib','tools/oxlint']:shutil.copytree(root/d,p/d,dirs_exist_ok=True)
+(p/'node_modules').symlink_to('/home/elies/Repos/IRoboPF/node_modules',target_is_directory=True) if not (p/'node_modules').exists() else None
+for f in ['scripts/procedencia/flujo-ss-r32.mjs','scripts/procedencia/flujo-ast.mjs','scripts/procedencia/flujo-ss-r36.mjs','scripts/procedencia/flujo-ss-r36-consumidor.mjs','tests/flujo-ss-r32.test.ts','tests/flujo-ss-r36.test.ts','.oxlintrc.json','eslint.config.mjs','package.json']:
+ t=p/f;t.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(root/f,t)
+c=json.load(open('tsconfig.json'));c['include']=['tests/flujo-ss-r32.test.ts','tests/flujo-ss-r36.test.ts'];c['compilerOptions']['incremental']=False;(p/'tsconfig.json').write_text(json.dumps(c))
+(p/'vitest.mjs').write_text("export default {cacheDir:'"+str(root/'.cache/revision-ss-r39-sol/vite')+"',test:{include:['tests/flujo-ss-r32.test.ts','tests/flujo-ss-r36.test.ts'],maxWorkers:1}}")
+s=(root/'.cache/revision-ss-r39-sol/revisar.mjs').read_text().replace('../../lib/',str(p/'lib')+'/').replace('../../scripts/',str(p/'scripts')+'/');(root/'.cache/revision-ss-r39-sol/revisar-ejecucion.mjs').write_text(s)
+import difflib
+(root/'docs/procedencia/revisiones/flujo-ss-r39-sol/adaptacion.diff').write_text(''.join(difflib.unified_diff((root/'.cache/revision-ss-r39-sol/revisar.mjs').read_text().splitlines(True),s.splitlines(True))))

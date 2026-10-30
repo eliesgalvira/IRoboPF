@@ -1,0 +1,13 @@
+--- scripts/procedencia/flujo-rentas-r36-consumidor.mjs	2026-10-30 02:13:54.424766710 +0100
++++ /home/elies/.t3/worktrees/IRoboPF/t3-b5213947/.cache/revision-rentas-r40-sol/sin-default.mjs	2026-10-30 02:17:32.338677506 +0100
+@@ -30,9 +30,7 @@
+       if (e)
+         bind(
+           e.binding,
+-          value[i] === undefined && e.default
+-            ? defaultValue(e.default)
+-            : value[i],
++          value[i],
+           env,
+           defaultValue
+         )

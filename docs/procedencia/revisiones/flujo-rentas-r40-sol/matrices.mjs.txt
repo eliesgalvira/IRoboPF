@@ -1,0 +1,53 @@
+import fs from 'node:fs'
+import {gunzipSync,gzipSync} from 'node:zlib'
+const out='docs/procedencia/revisiones/flujo-rentas-r40-sol/',scratch='.cache/revision-rentas-r40-sol/'
+const f=JSON.parse(gunzipSync(fs.readFileSync('docs/procedencia/implementaciones/flujo-rentas-r36-sol/fragmento.json.gz')))
+const reasons={
+'anual.trabajo.integro':'EffectArray.reduce sobre importeIntegroCentimos, semilla convertir(0), división100 por elemento; no SS ni exenciones. General racional.',
+'anual.trabajo.cotizacion':'modo canónico elige perfil uniforme, otro modo legacy; argumento año e íntegro EUR; retorno.cotizacionTrabajador EUR. Ausencia/error no es0.',
+'anual.trabajo.previo-neto':'Integro menos cuota recibida; anual suministra cuota y no usa fallback nullish del helper aislado.',
+'anual.trabajo.gastos':'GASTOS_FIJOS_IRPF_LEGACY[anio], celda anual; distinto de gastos efectivos explícitos.',
+'anual.trabajo.neto':'max(0,previo−gastos); no confundir suelo general con signo del art19 explícito.',
+'anual.trabajo.reduccion':'P previo sin gasto f; O alquiler neto simplificado+ganancias sujetas general+ahorro con signo, antes de compensaciones. O>6500 primero; corte2018 civil UTC; perturbación nueva solo influye desde corte.',
+'anual.explicito.trabajo.integro':'suma importes EUR de rendimientos, bucle y bruto separado; empleo laboral/estatutario o pensión homogénea. No mezclar.',
+'anual.explicito.trabajo.gastos-a-e':'suma SS efectiva/derechos/huérfanos/sindicato condicionado; límites500 colegio y300 defensa tras suma; fuente aislada validada Schema/Result.',
+'anual.explicito.trabajo.gasto-f':'min(2000,max(previo,0)) en2025; reserva discapacidad anual excluida; no resta al argumentoArt20.',
+'anual.explicito.trabajo.art19':'rendimientoAntesArt20=netoArt19, conserva signo; adaptarTrabajoAnual transporta propiedad separada de netoPrevioArt20.',
+'anual.explicito.trabajo.art20':'min(max(art19,0),reducción sobre argumentoArt20), O literal0 en este perfil, una vez; no usar art19 como argumento.',
+'anual.explicito.da61':'solo brutoServicios empleo>0; deducción después art80, bruto no pensión/EDS. DA61 literal2025; legal340−.2 exceso16576, O>6500 bloquea; cuota atribuible y base0 explícitos. art80bis aislado tiene porcentajes /100 y contrato2012–14, no llamada anual.',
+'anual.explicito.retenciones':'trabajo reduce diarios admitidos por Schema y operaciones únicas; EDS aporte.retencionesEuros; pago efectivo no estimación SS.',
+'anual.explicito.pagos':'0 en trabajo; EDS aporte.pagosFraccionadosEuros en canal distinto de renta/RETA.',
+'anual.explicito.diferencial':'posterior−retenciones−pagos; signo y decimal exacto antes de formato half-up2; requiere contratos escalas/mínimos. Ensayo racional2810.',
+'anual.inmobiliario.integro':'Option nullish→[]; suma importeIntegroCentimos/100 con semilla0.',
+'anual.inmobiliario.neto':'alias del íntegro: perfil simplificado sin art23/gastos/amortización/reducciones del inmueble.',
+'anual.ganancias.total':'map transmisiones seguido reduce de gananciaTotal; semilla cuatro Decimales0; independiente de edad/exención; conserva pérdidas.',
+'anual.ganancias.exenta':'edad>=65 por hecho declarado, vivienda o vitalicia desde2015; margen240000−previas, ratio limitado; DA37 fecha adquisición inclusiva y residuo positivo; suelo0/techo total. Clasificación2013–14 aniversario estricto alimenta O, no total/exenta.',
+'anual.explicito.actividad.etapa':'adaptador conserva etapas separado de aporte, map(e,instancia), new D(e.importe), origen.decimal. Dos activos aislados no alcanzables; rechazos no devuelven etapas. Ver instancias19.'}
+fs.writeFileSync(out+'sitios-20.json',JSON.stringify(f.outputs.map(o=>({...o,verdict:'corroboración técnica de operaciones condicionada; metadatos de colecciones requieren rectificación donde corresponda',reason:reasons[o.siteId],conditions:['artefacto y cuatro módulos exactos previamente verificados','datos dentro del contrato del llamador','primitivas y dependencias concretas; sin callbacks arbitrarios','admisión general/composición y contraste del padre pendientes'],acceptance:false})),null,2)+'\n')
+const conditions=[
+'Bucle activos antes de rechazo agregado. cuota=min(saldo,base*coef); puede observarse sin retorno. Anual excluye activos.',
+'Mismo bucle; saldo−cuota solo etapas aisladas, no suma de gastos. Anual excluye activos.',
+'Tras motivos vacíos; una por ingreso, antes de posible rechazo cliente único; EUR base sin IVA.',
+'Tras motivos vacíos; una por gasto admitido/correlacionado; base sin IVA recuperable.',
+'Tras motivos vacíos; una por cuota RETA propia ordinaria efectiva, período único.',
+'suma ingresos.map(base), reduce semilla D0; una emisión si alcanza bloque; no implica resultado público.',
+'suma gastos.map(base), semilla D0; no RETA ni activos en esta propiedad.',
+'suma reta.map(importe), semilla D0; canal de gasto, no pagos a cuenta.',
+'Acumulador mutable amortizacion parte0 y suma cuotas en bucle activos, nunca saldos; anual vacío vale0.',
+'ingresos−ordinarios−RETA−amortización, signo; se calcula antes del rechazo cliente único inválido.',
+'Tras elegibilidad aceptada; cliente único→0, otra opción min(2000,.05*max(P,0)).',
+'P−G, signo, sin restar retenciones/pagos.',
+'Solo opcion cliente-unico y elegible; RN<=14047.5→6498, después máximo0 de pendiente1.14.',
+'Solo cliente-unico; ejercicio efectivo y grado>=33→3500/7750 alternativos; anual admite grado0→0.',
+'Celda reduccion inicial0; cliente-unico min(max(RN,0),adicional+incremento+2000); si no, solo !elegible && aplicarRentasBajas. No basta optar por gastos-dificiles.',
+'aplicarInicio && inicio>=2013 && primerPositivo no null && 2025<=primerPositivo+1 && no empleador>50%; .2*min(100000,max(RN−R32,0)).',
+'RN−R32−Rinicio, signo; propiedad aporte.importeEurosExactos; no suma de etapas.',
+'suma retenciones.map(importe), semilla0; efectividad/factura/id/operación/fechas validados antes; canal aporte.retencionesEuros.',
+'suma pagosFraccionados.map(importe), semilla0; trimestre/cierre/efectividad/operación validados; aporte.pagosFraccionadosEuros.'
+]
+const stages=JSON.parse(fs.readFileSync(out+'instancias-19.json'));stages.forEach((s,i)=>{s.condition=conditions[i];s.publicCardinality='0 si no-soportado; si soportado '+s.cardinality;s.transport=i<2?'etapa push → resultado.etapas → adaptador.etapas (solo aislado)':'etapa push → resultado.etapas → adaptador.etapas → map(e,índice) → new D(e.importe) → origen.decimal';s.objection='Una observación previa no acredita retorno ni alcance anual';s.response='Distinguir guardas dominantes, bucle, llamador y resultado soportado';s.cost='Revisión por propiedad y composición pendiente'})
+fs.writeFileSync(out+'instancias-19.json',JSON.stringify(stages,null,2)+'\n')
+for(const p of ['revisar.mjs','default.mjs','fisico.mjs','matrices.mjs','vitest.config.mjs','tsconfig.json','oxlint.json'])fs.copyFileSync(scratch+p,out+p+'.txt')
+for(const p of ['ensayos.log','r25.log','default.log','vitest.log','tipos.log','lint.log','lint-final.log'])fs.copyFileSync(scratch+p,out+p)
+for(const p of ['pruebas.json','casos-runtime.json','mutaciones-validador.json'])fs.copyFileSync(scratch+'r25/'+p,out+'r25-'+p)
+fs.writeFileSync(out+'fisico-inicial.json.gz',gzipSync(fs.readFileSync(scratch+'inicial.json')))

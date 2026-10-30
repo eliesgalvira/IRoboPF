@@ -1,0 +1,51 @@
+import fs from 'node:fs'
+import assert from 'node:assert/strict'
+import {createRequire} from 'node:module'
+import {composeSS,inspectSS,validateSS} from '/home/elies/.t3/worktrees/IRoboPF/t3-efe83dcc/.cache/revision-ss-r39-sol/proyeccion/scripts/procedencia/flujo-ss-r36.mjs'
+import {createSSEvaluator,executeFinite} from '/home/elies/.t3/worktrees/IRoboPF/t3-efe83dcc/.cache/revision-ss-r39-sol/proyeccion/scripts/procedencia/flujo-ss-r36-consumidor.mjs'
+import {calcularDesgloseCotizacionesSocialesLegacy as legacy} from '/home/elies/.t3/worktrees/IRoboPF/t3-efe83dcc/.cache/revision-ss-r39-sol/proyeccion/lib/dominio/laboral/cotizaciones-sociales.ts'
+import {calcularDesgloseCotizacionesPerfilUniforme as canonico} from '/home/elies/.t3/worktrees/IRoboPF/t3-efe83dcc/.cache/revision-ss-r39-sol/proyeccion/lib/dominio/laboral/cotizaciones-perfil-uniforme.ts'
+const require=createRequire('/home/elies/Repos/IRoboPF/package.json'),Decimal=require('decimal.js')
+const dir='docs/procedencia/revisiones/flujo-ss-r39-sol/', g=composeSS(),run=createSSEvaluator(g)
+const text=r=>fs.readFileSync(r.file,'utf8').slice(r.start,r.end)
+const fields=['baseOrdinaria','excesoBase','cotizacionEmpresarialOrdinaria','cotizacionTrabajadorOrdinaria','meiEmpresarial','meiTrabajador','solidaridadEmpresarial','solidaridadTrabajador','cotizacionEmpresarial','cotizacionTrabajador']
+const rows=JSON.parse(fs.readFileSync('.cache/revision-ss-r39-sol/racionales.json')).map(c=>{
+ const caso={anio:c.year,rendimientos:{trabajo:c.amounts.map(importeIntegroCentimos=>({importeIntegroCentimos,otroCampo:999999999}))}}
+ const output=run(caso,{modo:c.mode}),s=c.amounts.reduce((a,b)=>new Decimal(a).plus(b),new Decimal(0)).div(100),real=(c.mode==='canonico'?canonico:legacy)({anio:c.year,salarioBrutoAnual:s})
+ const vals=[...fields.map(f=>real[f]),s.plus(real.cotizacionEmpresarial)]
+ const checks=c.expected.map((f,i)=>{const wanted=new Decimal(f.n).div(f.d),actual=output.lines[i].origen.decimal;return {site:g.sites[i].siteId,actual,real:vals[i].toString(),rational:f,pass:wanted.minus(actual).abs().lt('1e-12')&&wanted.minus(vals[i]).abs().lt('1e-12'),instance:output.lines[i].origen.instanceId}})
+ assert(checks.every(c=>c.pass));return {...c,checks}
+})
+fs.writeFileSync(dir+'casos.json',JSON.stringify(rows,null,2))
+const audit={fields:g.fieldUnits.map(r=>({...r,text:text(r.source)})),literals:g.literalUnits.map(r=>({...r,text:text(r.source)})),contracts:g.unitContracts,cells:g.cells.map(r=>({...r,text:text(r.source)})),calls:g.calls}
+fs.writeFileSync(dir+'unidades.json',JSON.stringify(audit,null,2))
+const params=executeFinite(g,'obtenerParametrosCotizacionLegacy',[2025],false).result
+assert.equal(params.mei.empresarial.toString(),'0.0067');assert.equal(params.mei.trabajador.toString(),'0.0013')
+const observations=[]
+function observe(name,expected,actual){observations.push({name,expected,actual,pass:JSON.stringify(expected)===JSON.stringify(actual)})}
+observe('mei es objeto, no EUR',['empresarial','trabajador'],Object.keys(params.mei))
+observe('base 10000, cuotas MEI por lado',['67','13'],run({anio:2025,rendimientos:{trabajo:[{importeIntegroCentimos:1000000}]}},{modo:'canonico'}).lines.slice(4,6).map(l=>l.origen.decimal))
+// Rojo documental conservado: una expectativa dimensional externa, sin comparar recetas.
+for(const r of g.fieldUnits.filter(r=>r.key==='mei'))observe('unidad estructural '+r.id,'{empresarial:ratio,trabajador:ratio}',r.unit)
+for(const r of g.literalUnits.filter(r=>['3751.20','3803.70'].includes(r.value)))observe('umbral anualizado por 12 '+r.id,'meses',g.literalUnits.find(x=>x.id===g.program.find(n=>n.op==='call'&&n.args.includes(r.id))?.id)?.unit??'ver unidad de literal 12')
+const mutations=[
+ ['semilla',h=>{h.program.find(n=>n.op==='literal'&&n.source.file.endsWith('rendimientos-trabajo.ts')&&n.data.value===0).data.value=1}],
+ ['MEI-lado',h=>{h.program.find(n=>n.op==='get'&&text(n.source)==='parametros.mei.empresarial').data.key='trabajador'}],
+ ['MEI-año',h=>{h.program.find(n=>n.op==='literal'&&n.data.value===2025&&n.source.file.endsWith('cotizaciones-sociales.ts')).data.value=2024}],
+ ['indice-solidaridad',h=>{h.program.find(n=>n.op==='index'&&text(n.source)==='tipos[0]').args[1]=h.program.find(n=>n.op==='literal'&&n.data.value===1&&text(n.source)==='1').id}],
+ ['transporte',h=>{h.outputBindings[0].amount=h.outputBindings[1].amount}],
+ ['captura',h=>{h.program.find(n=>n.op==='local'&&n.data.name==='lado').data.name='tipos'}],
+ ['unidad-documental',h=>{h.fieldUnits.find(n=>n.key==='mei').unit='structural'}],
+ ['literal-unidad',h=>{h.literalUnits.find(n=>n.value===100).unit='EUR'}],
+ ['callback',h=>{h.program.find(n=>n.op==='function'&&n.data.parameters.length===2).data.parameters.reverse()}],
+ ['omitir-contratos',h=>{h.unitContracts=[]}],['omitir-calls',h=>{h.calls=[]}],['omitir-binding',h=>{h.annualBindings.pop()}],['omitir-frontera',h=>{h.boundaries=[]}]
+]
+const adversos=mutations.map(([name,mutate])=>{const h=structuredClone(g);mutate(h);const d=inspectSS(h);let rejected=false;try{createSSEvaluator(h)}catch{rejected=true}assert(rejected&&d.sites.every(s=>!s.valueClosed&&!s.selectionClosed));return {name,rejected,closed:d.sites.filter(s=>s.valueClosed).length,pending:d.obligations.filter(o=>o.status==='pending').map(o=>o.id)}})
+// El acceso sin verificación prueba sensibilidad financiera, nunca se presenta como API admitida.
+for(const [name,mutate] of mutations.slice(0,4)){const h=structuredClone(g);mutate(h);const sample={anio:2025,salarioBrutoAnual:new Decimal(100000)};const before=executeFinite(g,'calcularDesgloseCotizacionesPerfilUniforme',[sample],false).result;const after=executeFinite(h,'calcularDesgloseCotizacionesPerfilUniforme',[sample],false).result;adversos.find(a=>a.name===name).rawDifferences=fields.filter(f=>!before[f].eq(after[f]));}
+for(const key of ['program','unitContracts','fieldUnits','literalUnits','cells','calls','boundaries','outputBindings','annualBindings']){const h=structuredClone(g),row=h[key][0],id=(key==='outputBindings'?'outputBindings:'+row.siteId:key==='annualBindings'?'annualBindings:'+row.name:key+':'+row.id);h.pending=[id];Object.assign(h,inspectSS(h));assert(validateSS(h));assert.throws(()=>createSSEvaluator(h));adversos.push({name:'pending-'+key,validated:true,consumerRejected:true})}
+const copy=structuredClone(g),privateRun=createSSEvaluator(copy);copy.program.length=0
+const c={anio:2018,rendimientos:{trabajo:[{importeIntegroCentimos:1234567},{importeIntegroCentimos:1234567},{importeIntegroCentimos:1}]}}
+const before=privateRun(c,{modo:'canonico'});privateRun({anio:2026,rendimientos:{trabajo:[]}},{modo:'compatible-legacy'});assert.deepEqual(privateRun(c,{modo:'canonico'}),before)
+fs.writeFileSync(dir+'adversos.json',JSON.stringify(adversos,null,2));fs.writeFileSync(dir+'observaciones.json',JSON.stringify(observations,null,2))
+console.log(JSON.stringify({cases:rows.length,financialFailures:0,mutations:adversos.length,documentaryReds:observations.filter(o=>!o.pass).length,privateCopy:true,statePerCall:true}))

@@ -1,0 +1,12 @@
+import fs from 'node:fs'
+import {spawn,execFileSync} from 'node:child_process'
+import {createHash} from 'node:crypto'
+import {gzipSync} from 'node:zlib'
+const base='314efe543def21276acb44d0e3b0816dd5f78d58',out='docs/procedencia/revisiones/flujo-rentas-r40-sol/'
+const rows=execFileSync('git',['ls-tree','-rz',base],{maxBuffer:20e6}).toString().split('\0').filter(Boolean)
+const child=spawn('git',['cat-file','--batch']),iterator=child.stdout[Symbol.asyncIterator]();let buffer=Buffer.alloc(0)
+async function need(n){while(buffer.length<n){const r=await iterator.next();if(r.done)throw Error('EOF');buffer=Buffer.concat([buffer,r.value])}}
+async function blob(oid){child.stdin.write(oid+'\n');while(buffer.indexOf(10)<0)await need(buffer.length+1);const end=buffer.indexOf(10),header=buffer.subarray(0,end).toString(),size=Number(header.split(' ')[2]);buffer=buffer.subarray(end+1);await need(size+1);const b=Buffer.from(buffer.subarray(0,size));buffer=buffer.subarray(size+1);return b}
+const entries=[],errors=[],basePaths=new Set();for(const row of rows){const [meta,p]=row.split('\t'),[mode,,oid]=meta.split(' ');basePaths.add(p);const b=await blob(oid);try{const st=fs.lstatSync(p),actual=st.isSymbolicLink()?Buffer.from(fs.readlinkSync(p)):fs.readFileSync(p),sha=createHash('sha256').update(actual).digest('hex');if(!actual.equals(b)||(mode==='120000')!==st.isSymbolicLink()||(mode!=='120000'&&Boolean(st.mode&0o111)!==(mode==='100755')))errors.push(p);entries.push({path:p,mode,sha256:sha,size:actual.length,baseSha256:createHash('sha256').update(b).digest('hex')})}catch(e){errors.push({path:p,error:String(e)})}}
+child.stdin.end();const added=[],outside=[];function scan(dir){for(const e of fs.readdirSync(dir,{withFileTypes:true})){const p=dir==='.'?e.name:dir+'/'+e.name;if(p==='.git'||p==='.cache')continue;if(e.isDirectory())scan(p);else if(!basePaths.has(p)){added.push(p);if(!p.startsWith(out))outside.push(p)}}}scan('.')
+const head=execFileSync('git',['rev-parse','HEAD']).toString().trim(),diff=execFileSync('git',['diff',base,'--no-ext-diff']).toString();const result={base,head,count:rows.length,errors,added,outside,zeroDeleted:errors.length===0,diff,entries};fs.writeFileSync(out+'fisico-final.json.gz',gzipSync(JSON.stringify(result)));fs.writeFileSync(out+'diff-base.txt',diff);console.log(JSON.stringify({base,head,count:rows.length,errors,outside,added:added.length,diffBytes:diff.length}));if(errors.length||outside.length||head!==base||rows.length!==20670)process.exitCode=1

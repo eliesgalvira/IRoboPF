@@ -2,7 +2,17 @@
 
 Inicio: 29 de octubre de 2026. Trabajo en curso; no es una certificación fiscal.
 
-## Situación más reciente, ronda 40 del 30 de octubre
+## Situación más reciente, ronda 41 del 30 de octubre
+
+Recibidas SS R39 y rentas R40: 122 archivos, 8.222.268 bytes y transporte exacto. Cotejos físicos de 20.498 y 20.670 entradas intactas, cero borrados. Informes y contraste del padre en correcciones/unidades-colecciones-r41.
+
+Reproducidos 16 rojos documentales antes del fix. Corregidos objetos/ternas de tipos, dos ceros EUR, el resultado estructural de parámetros/solidaridad y cuatro colecciones estáticas EffectArray. Programas numéricos y fuentes idénticos. Pasan 78 pruebas Vitest, 438 casos racionales SS, los 41 controles de rentas con salidas idénticas y trece mutaciones rechazadas; los recuentos solapados se explican en el informe. Artefactos corregidos nuevos conservados junto a los anteriores, sin reescribir históricos.
+
+Tipos principal/vendor, lint global, schemas y checkJs de rentas correctos. La comprobación adicional checkJs de SS mantiene cinco diagnósticos anteriores, reproducidos exactamente y documentados. Ninguna regla desactivada. Se prepara una sola revisión Sol nueva del bloque corregido; admisión y revisión de escalas continúan por separado, sin sondeos ni lectura parcial.
+
+Motor, confianza, inventario y 45 snapshots intactos. Admisión, composición, wiring y aceptación fiscal completa pendientes/falsos. V5 mantiene corte R26 y Crossa v1 desfasado. Sin LFS, gasto, transferencias, main, PR, despliegue o limpieza. El encargo global permanece abierto.
+
+## Situación anterior, ronda 40 del 30 de octubre
 
 Recibidos escalas y rentas R36: 123 archivos, 6.430.773 bytes, dos cotejos físicos de 20.227 entradas y transportes exactos; cero cambios o borrados de base. Informes y recibos del padre en correcciones/escalas-rentas-r40. Los programas candidatos representan 28 y 20 sitios, con 19 instancias de actividad, sin wiring ni aceptación de cierres.
 

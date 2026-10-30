@@ -1,0 +1,74 @@
+import fs from 'node:fs'
+import {createRequire} from 'node:module'
+import {gunzipSync,gzipSync} from 'node:zlib'
+import {createHash} from 'node:crypto'
+import assert from 'node:assert/strict'
+import {composeRentasR36,verifyRentasR36} from '../../scripts/procedencia/flujo-rentas-r36.mjs'
+import {executeRentasFinite,consumeGeneralRentas,consumeExplicitRentas} from '../../scripts/procedencia/flujo-rentas-r36-consumidor.mjs'
+import {runRentasSuite} from '../../scripts/procedencia/flujo-rentas-r36-ensayos.mjs'
+import {historicalControls} from '../../scripts/procedencia/flujo-rentas-r36-controles.mjs'
+const req=createRequire('/home/elies/Repos/IRoboPF/package.json'),ts=req('typescript'),D=req('decimal.js').Decimal
+const out='docs/procedencia/revisiones/flujo-rentas-r40-sol/'
+const write=(p,v)=>fs.writeFileSync(out+p,JSON.stringify(v,null,2)+'\n')
+const sha=b=>createHash('sha256').update(b).digest('hex')
+const f=JSON.parse(gunzipSync(fs.readFileSync('docs/procedencia/implementaciones/flujo-rentas-r36-sol/fragmento.json.gz')))
+assert.deepEqual(f,composeRentasR36());verifyRentasR36(f)
+const cases=[]
+function check(id,expected,actual,reason,kind='independiente'){cases.push({id,expected,actual,reason,kind,pass:JSON.stringify(expected)===JSON.stringify(actual)})}
+function fixture(file,name){const ast=ts.createSourceFile(file,fs.readFileSync(file,'utf8'),ts.ScriptTarget.Latest,true);let found;function walk(n){if((ts.isFunctionDeclaration(n)||ts.isVariableDeclaration(n))&&n.name?.getText()===name)found=n;ts.forEachChild(n,walk)}walk(ast);assert(found);return new Function(ts.transpileModule((ts.isVariableDeclaration(found)?'const ':'')+found.getText()+';return '+name,{compilerOptions:{target:ts.ScriptTarget.ES2022}}).outputText)()}
+const base=fixture('tests/actividades-economicas-2025.test.ts','casoBase'),income=fixture('tests/actividades-economicas-2025.test.ts','ingreso'),expense=fixture('tests/actividades-economicas-2025.test.ts','gasto'),asset=fixture('tests/actividades-economicas-2025.test.ts','activo'),work=fixture('tests/trabajo-anual-contratos.test.ts','gastos')
+const run=(name,args,fragment=f,capture=false)=>executeRentasFinite(fragment,f.roots[name]??f.globalBindings.find(b=>b.name.endsWith(':'+name)).name,args,capture)
+const amounts=r=>Object.fromEntries(r.etapas.map(e=>[e.id,e.importe]))
+const suite=runRentasSuite();fs.writeFileSync(out+'suite-recibida.json.gz',gzipSync(JSON.stringify({cases:suite.cases,executions:suite.executions})));check('suite-recibida',0,suite.failed,'Reproducción atribuida al autor; no casos independientes','recibido')
+write('historicos-rangos.json',historicalControls(f))
+// AST propio: argumento exacto, condición léxica y destino del retorno.
+const file='lib/dominio/irpf/actividades-economicas/calcular.ts',source=fs.readFileSync(file,'utf8'),ast=ts.createSourceFile(file,source,ts.ScriptTarget.Latest,true),calls=[]
+function visit(n){if(ts.isCallExpression(n)&&n.expression.getText()==='etapa')calls.push(n);ts.forEachChild(n,visit)}visit(ast)
+const stageReview=calls.map((n,i)=>{const a=n.arguments[3],s=f.stages[i],ancestors=[];for(let p=n.parent;p;p=p.parent){if(ts.isForOfStatement(p))ancestors.push(p.expression.getText());if(ts.isIfStatement(p))ancestors.push(p.expression.getText())}const exact=a.getStart()===s.argument4.start&&a.end===s.argument4.end;check('rango-actual-'+i,true,exact,'Argumento 4 de la llamada AST exacta','locativo');return{index:i,instance:n.arguments[1].getText(),rule:n.arguments[0].getText(),argument4:a.getText(),range:[a.getStart(),a.end],valueNode:s.valueNode,lexical:ancestors,returnDestination:ts.isVariableDeclaration(n.parent)?n.parent.name.getText():'descartado; registro por push',cardinality:s.cardinality,annualReachable:s.annualReachable,verdict:'concordancia técnica condicionada; emisión pública exige retorno soportado'}})
+write('instancias-19.json',stageReview)
+// Seis rojos históricos conservados, no se cambian sus esperados.
+const historical=historicalControls(f);check('seis-rojos-rango',[0,4,8,12,13,14],historical.cases.flatMap((c,i)=>c.pass?[]:[i]),'Mismos seis errores históricos; la representación nueva usa los argumentos correctos','historico')
+// Diferenciar metadatos de colección y programa ejecutado.
+const nodes=new Map(f.program.map(n=>[n.id,n]));const collections=f.collections.map(c=>{const call=nodes.get(c.id),target=nodes.get(call.args[0]),receiver=nodes.get(target.args[0]);const staticEffect=receiver?.op==='global'&&receiver.data.name==='EffectArray';return{...c,staticEffect,actualReceiver:staticEffect?call.args[1]:target.args[0],actualCallback:staticEffect?call.args[c.operation==='reduce'?3:2]:call.args[1],actualSeed:staticEffect?c.operation==='reduce'?call.args[2]:null:call.args[2]??null}})
+write('colecciones.json',collections)
+for(const c of collections.filter(c=>c.staticEffect))check('metadata-callback-'+c.id,c.actualCallback,c.callback,'EffectArray data-first no usa posiciones de método array','rojo-metadatos')
+// Nuevo caso racional: elementos distintos, céntimos y pérdidas antes de compensación.
+const general={anio:2025,rendimientos:{trabajo:[{importeIntegroCentimos:1234567},{importeIntegroCentimos:765432}],capitalInmobiliario:[{importeIntegroCentimos:650001}],gananciasPatrimoniales:[{importeGananciaCentimos:-2,tratamientoMayores65:{_tag:'SinExencionMayores65'}}]},situacionFamiliar:{edad:40}}
+const ssCalls=[];const ss={'boundary:calcularDesgloseCotizacionesPerfilUniforme':x=>{ssCalls.push([x.anio,x.salarioBrutoAnual.toFixed()]);return{cotizacionTrabajador:new D('1234.56')}}}
+let g=consumeGeneralRentas(f,general,{modo:'canonico'},ss);let lines=Object.fromEntries(g.lines.map(l=>[l.origen.siteId,l.origen.decimal]));check('general-racional',['19999.99','18765.43','16765.43','6500.01','-0.02'],[lines['anual.trabajo.integro'],lines['anual.trabajo.previo-neto'],lines['anual.trabajo.neto'],lines['anual.inmobiliario.neto'],lines['anual.ganancias.total']],'1999999/100 − 1234.56; alquiler simplificado; pérdida con signo')
+check('O-antes-compensacion','6499.99',g.bindings.find(b=>b[0]==='otrasRentasNoExentas')[1].toFixed(),'6500.01−0.02, sin compensación ni suelo')
+check('SS-argumentos',[[2025,'19999.99']],ssCalls,'Año y euros íntegros; no salario neto')
+// Condición temporal: perturbar solo el componente nuevo de 2018.
+const mutant=structuredClone(f);const literal=mutant.program.find(n=>n.op==='literal'&&n.data.value===5565);assert(literal);literal.data.value=6565
+const reduction=(death,fragment=f)=>run('calcularReduccionTrabajoConOtrasRentas',[{anio:2018,fechaFallecimiento:death,rendimientoPrevioNeto:new D(12000),otrasRentasNoExentas:new D(0)}],fragment).result.toFixed()
+check('2018-antes-no-influye',['2832.8125','2832.8125'],[reduction(new Date('2018-07-04T23:59:59Z')),reduction(new Date('2018-07-04T23:59:59Z'),mutant)],'Evaluar nueva no la hace influyente antes del corte')
+check('2018-despues-influye','4698.90625',reduction(new Date('2018-07-05T00:00:00Z'),mutant),'Aumento 1000 en nueva sube transición 500; mutante sin verificador')
+// Cardinalidades, cuota/saldo y rechazo después de observaciones.
+let c=base();c.aplicarRentasBajas=false;check('vacia-12',12,run('calcularActividad2025',[c]).result.etapas.length,'Doce agregados, no diecinueve ejecuciones obligatorias')
+c.ingresos=[income('10000',true)];c.activos=[asset()];let a=amounts(run('calcularActividad2025',[c]).result);check('cuota-saldo-P',['260','740','260','9740'],[a.pc,a['pc:saldo'],a.amortizacion,a.P],'Solo cuota260 es gasto, saldo740 es observación')
+c.activos[0].nuevo=false;let observed=run('calcularActividad2025',[c],f,true);check('rechazo-no-etapas',['no-soportado',false,true],[observed.result.estado,Object.hasOwn(observed.result,'etapas'),observed.trace.some(t=>t.operation==='call'&&t.result==='260')],'Hay cálculo de cuota previo, pero ningún array público de etapas')
+c=base();c.ingresos=[income('10000',false)];c.opcion='cliente-unico';observed=run('calcularActividad2025',[c],f,true);check('rechazo-tardio-no-aporte',['no-soportado',false,false],[observed.result.estado,Object.hasOwn(observed.result,'etapas'),Object.hasOwn(observed.result,'aporte')],'P calculado antes del rechazo por elegibilidad no es salida soportada')
+// Fronteras 30% y 70% exactas con total constante.
+for(const [cost,supported] of [['3000',true],['3000.01',false]]){c=base();c.opcion='cliente-unico';c.ingresos=[income('7000',true,'f1'),income('3000',false,'f2')];c.gastos=[expense(cost)];check('umbral30-'+cost,supported,run('calcularActividad2025',[c]).result.estado==='soportado','30% sobre gastos totales; 70% sobre bases sujetas')}
+c=base();c.opcion='cliente-unico';c.ingresos=[income('6999.99',true,'f1'),income('3000.01',false,'f2')];check('umbral70-menos', 'no-soportado',run('calcularActividad2025',[c]).result.estado,'Un céntimo cambia proporción, no importe retenido')
+// Inicio empleador exactamente mitad frente mitad+0.01; total constante.
+for(const [first,second,expected] of [['5000','5000','1900'],['5000.01','4999.99','0']]){c=base();c.aplicarRentasBajas=false;c.aplicarInicio=true;c.clientes.push({...c.clientes[0],id:'segundo'});c.clientes[0].empleadorEnAnioAnteriorAlInicio=true;c.ingresos=[income(first,false,'f1'),income(second,false,'f2','segundo')];check('inicio-'+first,expected,amounts(run('calcularActividad2025',[c]).result).reduccionInicio,'RN9500 × 1/5; exclusión estricta >50%')}
+// Público explícito: tasas racionales distintas y mínimos distintos, pagos reales.
+const common={ejercicio:2025,comunidadAutonoma:'madrid',edad:40,modalidad:'individual',residenciaTodoElAnio:true,devengo:'2025-12-31',otrasRentas:'ninguna',familiaresConDerechoMinimo:'ninguno',discapacidad:'ninguna',reduccionesBase:'ninguna',saldosAnteriores:'ninguno',deducciones:'solo-da61-si-procede',rentasExtranjeras:'ninguna',especialidades:'ninguna'}
+const portCalls=[];const ports={'boundary:obtenerParametrosComunidadAutonoma':x=>{portCalls.push(['parametros',x.anio,x.comunidadAutonoma,x.baseLiquidableGeneral.toFixed()]);return{escalaEstatalGeneral:'e',escalaAutonomica:{tramos:'a'},minimosAutonomicos:{contribuyente:{general:new D(3000)}}}},'boundary:obtenerEscalaAutonomicaPublicada':()=>['publicada'],'boundary:MINIMOS_ESTATALES_2025':{contribuyente:{general:new D(4000)}},'boundary:calcularCuotaPorEscala':x=>{portCalls.push(['cuota',x.base.toFixed(),x.tramos,x.escalasPublicadas??null]);return x.base.times(x.tramos==='e'?'.07':'.11')}}
+c=base();c.aplicarRentasBajas=false;c.ingresos=[income('20000')];const input={...common,perfil:'solo-actividad-eds',actividad:c};const r=consumeExplicitRentas(f,input,ports);check('EDS-cuota-racional',['success','19000','2810'],[r.status,r.result?.rendimientoNetoReducido,r.result?.cuotaDiferencial],'RN19000; (19000−4000)*7/100+(19000−3000)*11/100=2810')
+check('escala-puertos',['parametros',2025,'madrid','19000'],portCalls[0],'Contexto Madrid y base positiva exactos')
+write('puertos-ejecutados.json',portCalls)
+const publicLines=r.result.rastro.pasos[0].lineasCalculo;check('etapas-transporte',run('calcularActividad2025',[c]).result.etapas.map(e=>e.importe),publicLines.map(l=>l.origen.decimal),'Array etapas → e.importe → Decimal → origen.decimal')
+check('indices-map',publicLines.map((_,i)=>'anual.explicito.actividad.etapa.'+i),publicLines.map(l=>l.origen.instanceId),'Índice dinámico del array, no índice estático de llamada')
+check('defecto-frontera','defect',consumeExplicitRentas(f,input).status,'Ausencia externa no es cero ni rechazo de datos')
+c.activos=[asset()];check('activos-anual','fail',consumeExplicitRentas(f,{...input,actividad:c},ports).status,'Rechazo antes de adaptar activos')
+// Mutación causal: cambiar G afecta RN, no ingresos/P, sin invocar pin.
+c=base();c.aplicarRentasBajas=false;c.ingresos=[income('20000')];c.gastos=[expense('4000')];const mf=structuredClone(f);const ratio=mf.program.find(n=>n.op==='literal'&&n.data.value==='0.05'&&n.source.start>=f.stages[10].argument4.start&&n.source.end<=f.stages[10].argument4.end&&n.source.file===file);assert(ratio);ratio.data.value='0.06';a=amounts(run('calcularActividad2025',[c],mf).result);check('G-influencia',['20000','16000','960','15040'],[a.ingresos,a.P,a.G,a.RN],'16000*6/100=960; incidencia posterior, no anterior')
+// Clasificación del rojo histórico spread: copia de IR de un Set tratada indebidamente como elemento.
+const spreadMutant=structuredClone(f);for(const n of spreadMutant.program)if(n.op==='spread')n.op='pass'
+let spreadResult;try{const w=work();const q=consumeExplicitRentas(spreadMutant,{...common,perfil:'solo-trabajo',trabajo:w,conciliacion:{ejercicio:2025,estado:'totales-anuales-sin-duplicados',procedencia:['fuente']},retenciones:[]},ports);spreadResult=q.status}catch(e){spreadResult=String(e)}check('spread-mutante','success',spreadResult,'Rojo intencional: sin expansión Set no se conservan clases de empleo','historico-rojo-mutante')
+// Metadatos conservados del autor; comparación exacta de bytes e identidad de software.
+write('software.json',f.software.map(s=>({...s,actualSha256:sha(fs.readFileSync(s.file)),checked:s.sha256===sha(fs.readFileSync(s.file))})))
+write('casos.json',cases);write('resumen.json',{head:'314efe543def21276acb44d0e3b0816dd5f78d58',cases:cases.length,red:cases.filter(c=>!c.pass).map(c=>c.id),unexpected:cases.filter(c=>!c.pass&&!['rojo-metadatos','historico-rojo-mutante'].includes(c.kind)),fiscalAcceptance:false,wiring:false})
+console.log(JSON.stringify({cases:cases.length,red:cases.filter(c=>!c.pass).map(c=>c.id)}))

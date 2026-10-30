@@ -1,0 +1,63 @@
+[
+  {
+    "name": "tests",
+    "command": [
+      "node",
+      "node_modules/vitest/vitest.mjs",
+      "run",
+      "--configLoader",
+      "native",
+      "--config",
+      "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r41/vitest.mjs",
+      "--reporter=json",
+      "--outputFile=/home/elies/Repos/IRoboPF/docs/procedencia/correcciones/unidades-colecciones-r41/tests-final.json"
+    ],
+    "exitCode": 0
+  },
+  {
+    "name": "types",
+    "command": [
+      "bun",
+      "run",
+      "typecheck"
+    ],
+    "exitCode": 0
+  },
+  {
+    "name": "checkjs",
+    "command": [
+      "node",
+      "node_modules/typescript/bin/tsc",
+      "-p",
+      "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r41/tsconfig-js.json"
+    ],
+    "exitCode": 2
+  },
+  {
+    "name": "oxlint",
+    "command": [
+      "node_modules/.bin/oxlint",
+      "--disable-nested-config",
+      "--threads=1"
+    ],
+    "exitCode": 0
+  },
+  {
+    "name": "eslint",
+    "command": [
+      "bun",
+      "run",
+      "lint:eslint"
+    ],
+    "exitCode": 0
+  },
+  {
+    "name": "schema",
+    "command": [
+      "bash",
+      "tools/procedencia/run.sh",
+      "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r41/schema.py"
+    ],
+    "exitCode": 0
+  }
+]

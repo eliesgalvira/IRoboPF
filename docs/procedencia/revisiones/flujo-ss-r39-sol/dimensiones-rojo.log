@@ -1,0 +1,17 @@
+ 7 | for(const r of g.fieldUnits){if(r.key==='mei')add(r.id,'structural<{empresarial:ratio,trabajador:ratio}>',r.unit);if(r.key==='trabajador'&&(text(r.source).includes('[')||text(r.source)==='solidaridad.trabajador'))add(r.id,'tuple3<ratio>',r.unit)}
+ 8 | const contract=g.unitContracts.find(c=>c.id==='obtenerParametrosCotizacionLegacy');add(contract.id,'{baseMaxima:EUR,tiposSeguridadSocial:record<lado:ratio>,mei:{empresarial:ratio,trabajador:ratio},solidaridad:policy}',contract.result)
+ 9 | for(const r of g.literalUnits.filter(r=>r.value===0&&[2710,5828].includes(r.source.start)))add(r.id,'EUR',r.unit)
+10 | const c={anio:2025,rendimientos:{trabajo:[{importeIntegroCentimos:1},{importeIntegroCentimos:1},{importeIntegroCentimos:1000000}]}}
+11 | const result=createSSEvaluator(g)(c,{modo:'canonico'},true)
+12 | const reductions=result.trace.filter(t=>t.operation==='reduce-frame');assert(reductions.some(t=>t.cardinality===3&&t.seed==='0'))
+                                                                           ^
+AssertionError: false == true
+ generatedMessage: true,
+     actual: false,
+   expected: true,
+   operator: "==",
+       code: "ERR_ASSERTION"
+
+      at /home/elies/.t3/worktrees/IRoboPF/t3-efe83dcc/.cache/revision-ss-r39-sol/adicional.mjs:12:71
+
+Bun v1.3.13 (Linux x64)

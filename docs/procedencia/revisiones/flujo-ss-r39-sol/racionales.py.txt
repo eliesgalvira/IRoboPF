@@ -1,0 +1,31 @@
+from fractions import Fraction as F
+import json
+from pathlib import Path
+maxima=list(map(F,['39150','41108.4','43164','43272','43704','45014.4','45014.4','48841.2','48841.2','48841.2','49672.8','53946','56646','58914','61214.4']))
+rows=[]
+for year in range(2012,2027):
+ m=maxima[year-2012]
+ samples=[[],[1,2,3],[1234567,1234567,1],[1000000],[10000000]]
+ for b in [m,m*F(11,10),m*F(3,2)]+([F('45014.4'),F('45240'),F('45644.4')] if year==2018 else []):
+  for d in [-1,0,1]:samples.append([int(b*100)+d])
+ for mode in ['canonico','compatible-legacy']:
+  for amounts in samples:
+   s=sum(map(F,amounts),F(0))/100
+   # Integración mensual racional, saturando antes de sumar los doce meses.
+   limits=[F('3751.2')]*7+[F('3803.7')]*5 if year==2018 and mode=='canonico' else [m/12]*12
+   base=sum(min(s/12,l) for l in limits);excess=max(F(0),s-base)
+   rates=[F(314,1000),F(635,10000)]
+   mei=list(map(F,{2023:['.005','.001'],2024:['.0058','.0012'],2025:['.0067','.0013'],2026:['.0075','.0015']}.get(year,['0','0'])))
+   solid=[F(0),F(0)]
+   if year>=2025:
+    # Integramos por intervalos salariales, sin reutilizar la receta de min/max del artefacto.
+    cuts=[m,m*F(11,10),m*F(3,2),max(s,m*F(3,2))]
+    widths=[max(F(0),min(s,hi)-lo) for lo,hi in zip(cuts,cuts[1:])]
+    if mode=='canonico':rs={2025:[['.0077','.0083','.0098'],['.0015','.0017','.0019']],2026:[['.0096','.0104','.0122'],['.0019','.0021','.0024']]}[year];solid=[sum(w*F(r) for w,r in zip(widths,side)) for side in rs]
+    else:
+     r={2025:['.0092','.0100','.0117'],2026:['.0115','.0125','.0146']}[year];total=sum(w*F(t) for w,t in zip(widths,r));solid=[total*F(5,6),total/6]
+   ordinary=[base*r for r in rates];meis=[base*r for r in mei];totals=[ordinary[i]+meis[i]+solid[i] for i in range(2)]
+   wanted=[base,excess,*ordinary,*meis,*solid,*totals,s+totals[0]]
+   rows.append(dict(year=year,mode=mode,amounts=amounts,expected=[dict(n=str(v.numerator),d=str(v.denominator)) for v in wanted]))
+Path('.cache/revision-ss-r39-sol/racionales.json').write_text(json.dumps(rows))
+print(len(rows),'casos con fracciones exactas')

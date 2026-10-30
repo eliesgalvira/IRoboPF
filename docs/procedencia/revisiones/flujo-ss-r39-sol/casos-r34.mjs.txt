@@ -1,0 +1,101 @@
+import fs from 'node:fs'
+import { createRequire } from 'node:module'
+import { performance } from 'node:perf_hooks'
+import { composeSS, createSSEvaluator, traceSSClosure, validateSS } from '/home/elies/.t3/worktrees/IRoboPF/t3-efe83dcc/.cache/revision-ss-r39-sol/proyeccion/scripts/procedencia/flujo-ss-r32.mjs'
+import { calcularDesgloseCotizacionesSocialesLegacy as legacy } from '/home/elies/.t3/worktrees/IRoboPF/t3-efe83dcc/.cache/revision-ss-r39-sol/proyeccion/lib/dominio/laboral/cotizaciones-sociales.ts'
+import { calcularDesgloseCotizacionesPerfilUniforme as canonico } from '/home/elies/.t3/worktrees/IRoboPF/t3-efe83dcc/.cache/revision-ss-r39-sol/proyeccion/lib/dominio/laboral/cotizaciones-perfil-uniforme.ts'
+import { sumarRendimientosTrabajo } from '/home/elies/.t3/worktrees/IRoboPF/t3-efe83dcc/.cache/revision-ss-r39-sol/proyeccion/lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts'
+import { centimosAEuros } from '/home/elies/.t3/worktrees/IRoboPF/t3-efe83dcc/.cache/revision-ss-r39-sol/proyeccion/lib/dominio/dinero/importe-monetario.ts'
+const require = createRequire('/home/elies/Repos/IRoboPF/package.json')
+const Decimal = require('decimal.js')
+const dest = '/home/elies/.t3/worktrees/IRoboPF/t3-efe83dcc/docs/procedencia/revisiones/flujo-ss-r39-sol/historico-'
+const graph = composeSS(), evaluate = createSSEvaluator(graph)
+const maxima = ['39150','41108.4','43164','43272','43704','45014.4','45014.4','48841.2','48841.2','48841.2','49672.8','53946','56646','58914','61214.4']
+const fields = ['baseOrdinaria','excesoBase','cotizacionEmpresarialOrdinaria','cotizacionTrabajadorOrdinaria','meiEmpresarial','meiTrabajador','solidaridadEmpresarial','solidaridadTrabajador','cotizacionEmpresarial','cotizacionTrabajador']
+const rows = [], start = performance.now()
+// Expectativas aritméticas independientes: tabla transcrita del contrato de software;
+// no constituyen un oracle normativo ni expectativas de cuotas ingresables.
+function expected(year, mode, cents) {
+  const S = new Decimal(cents).div(100), M = new Decimal(maxima[year-2012])
+  const B = mode === 'canonico' && year === 2018
+    ? Decimal.min(S,'45014.4').mul(7).plus(Decimal.min(S,'45644.4').mul(5)).div(12)
+    : Decimal.min(S,M)
+  const E = Decimal.max(0,S.minus(B)), ordinary = [B.mul('.314'),B.mul('.0635')]
+  const mei = year < 2023 ? [B.mul(0),B.mul(0)] : [['.005','.001'],['.0058','.0012'],['.0067','.0013'],['.0075','.0015']][year-2023].map(r=>B.mul(r))
+  const bands = [Decimal.min(E,M.mul('.1')),Decimal.min(Decimal.max(0,E.minus(M.mul('.1'))),M.mul('.4')),Decimal.max(0,E.minus(M.mul('.5')))]
+  const weighted = rates => bands.reduce((s,b,i)=>s.plus(b.mul(rates[i])),new Decimal(0))
+  let solid = [new Decimal(0),new Decimal(0)]
+  if(year >= 2025) {
+    if(mode === 'canonico') {
+      const rates = year === 2025 ? [['.0077','.0083','.0098'],['.0015','.0017','.0019']] : [['.0096','.0104','.0122'],['.0019','.0021','.0024']]
+      solid = rates.map(weighted)
+    } else {
+      const total = weighted(year === 2025 ? ['.0092','.0100','.0117'] : ['.0115','.0125','.0146'])
+      solid = [total.mul(5).div(6),total.div(6)]
+    }
+  }
+  const totals = ordinary.map((v,i)=>v.plus(mei[i]).plus(solid[i]))
+  return [B,E,...ordinary,...mei,...solid,...totals,S.plus(totals[0])]
+}
+for(let year=2012;year<=2026;year++) for(const mode of ['canonico','compatible-legacy']) {
+  const m = new Decimal(maxima[year-2012]).mul(100)
+  const boundaries = [m,m.mul('1.1'),m.mul('1.5')]
+  if(year===2018) boundaries.push(new Decimal(4501440),new Decimal(4564440))
+  const samples = [[],[1,2,3],[101,202,303,404],[1234567,1234567,1]]
+  for(const b of boundaries) for(const d of [-1,0,1]) {
+    const c = b.plus(d).toNumber()
+    samples.push([c],[1,2,c-3])
+  }
+  for(const amounts of samples) {
+    const trabajo = amounts.map(importeIntegroCentimos=>({importeIntegroCentimos,otroCampo:999999999}))
+    const cents = amounts.reduce((a,b)=>a+b,0), wanted = expected(year,mode,cents)
+    const actual = (mode==='canonico'?canonico:legacy)({anio:year,salarioBrutoAnual:new Decimal(cents).div(100)})
+    const dag = evaluate({anio:year,rendimientos:{trabajo}},{modo:mode})
+    const ts = [...fields.map(f=>actual[f]),new Decimal(cents).div(100).plus(actual.cotizacionEmpresarial)]
+    const failures = wanted.flatMap((v,i)=>[ ['ts',ts[i]],['dag',dag[graph.sites[i].siteId]] ].filter(([,n])=>!v.minus(n).abs().lt('1e-12')).map(([target,n])=>({target,site:graph.sites[i].siteId,expected:v.toString(),actual:String(n)})))
+    const sum = sumarRendimientosTrabajo(trabajo,centimosAEuros)
+    if(!sum.eq(new Decimal(cents).div(100)))failures.push({target:'suma',expected:String(cents/100),actual:sum.toString()})
+    rows.push({year,mode,amounts,failures})
+  }
+}
+const privateGraph = composeSS(), privateRun = createSSEvaluator(privateGraph)
+const sample = {anio:2025,rendimientos:{trabajo:[{importeIntegroCentimos:10001}]}}
+const before = privateRun(sample,{modo:'canonico'})
+privateGraph.ports.length=0
+const privateCopy = JSON.stringify(before)===JSON.stringify(privateRun(sample,{modo:'canonico'}))
+const repeat = evaluate(sample,{modo:'canonico'})
+evaluate({anio:2018,rendimientos:{trabajo:[]}},{modo:'compatible-legacy'})
+const perCaseMemo = JSON.stringify(repeat)===JSON.stringify(evaluate(sample,{modo:'canonico'}))
+fs.writeFileSync(dest+'casos.json',JSON.stringify({rows,privateCopy,perCaseMemo,elapsedMs:performance.now()-start,failures:rows.filter(r=>r.failures.length).length},null,2))
+const mutations = [
+ ['fuente',g=>{g.ports.find(p=>p.op==='div').source=g.sources[0].id}],
+ ['campo',g=>{g.ports.find(p=>p.op==='element').detail.property='otroCampo'}],
+ ['unidad',g=>{g.ports.find(p=>p.op==='mul').unit='centimos'}],
+ ['celda',g=>{g.ports.find(p=>p.detail?.table==='tiposSolidaridad').detail.year=2012}],
+ ['indice',g=>{g.ports.find(p=>p.op==='element').detail.index='i+1'}],
+ ['semilla',g=>{const r=g.ports.find(p=>p.op==='reduce');g.ports.find(p=>p.id===r.args[1]).args[0]=g.ports.find(p=>p.op==='literal'&&p.detail.value==='100').id}],
+ ['condicion',g=>{g.edges.find(e=>e.condition==='predicate=true').condition='predicate=false'}],
+ ['omision-transport',g=>{g.transport=[]}],
+ ['omision-bindings',g=>{g.bindings=[]}],
+ ['omision-rama',g=>{const p=g.ports.find(p=>p.op==='if');p.args[1]=p.args[2];const e=g.edges.find(e=>e.to===p.id&&e.argument===1);e.from=p.args[1]}],
+]
+const adversos = mutations.map(([name,mutate])=>{
+  const g=structuredClone(graph);mutate(g)
+  let pinRejected=false
+  try{validateSS(g)}catch{pinRejected=true}
+  const closed=graph.sites.filter(s=>traceSSClosure(g,s.output).closed).map(s=>s.siteId)
+  return {name,pinRejected,closed,expectedClosedCount:0,semanticPass:closed.length===0}
+})
+fs.writeFileSync(dest+'adversos.json',JSON.stringify(adversos,null,2))
+const seed=graph.ports.find(p=>p.op==='reduce').args[1]
+const zero=graph.ports.find(p=>p.id===graph.ports.find(p=>p.id===seed).args[0])
+const src=graph.sources.find(s=>s.id===zero.source)
+const work=fs.readFileSync(src.file,'utf8'), reducer=work.indexOf('export const sumarRendimientosTrabajo')
+const origin={port:zero,source:src,expectedFunction:'sumarRendimientosTrabajo',insideExpectedFunction:src.start>=reducer,reducerStart:reducer}
+const callbacks=graph.bindings.filter(b=>b.callee==='EffectArray.reduce'||b.callee==='Match.valueTags'||b.callee.includes('contexto.modo'))
+const cells=graph.ports.filter(p=>p.detail?.table==='tiposSolidaridad').map(p=>({...p,evidence:graph.sources.find(s=>s.id===p.source)}))
+const outOfDomain=[2011,2027].map(anio=>{let ts;try{ts=legacy({anio,salarioBrutoAnual:new Decimal(100)}).baseOrdinaria.toString()}catch(e){ts=String(e)}return {anio,ts,dag:evaluate({anio,rendimientos:{trabajo:[{importeIntegroCentimos:10000}]}},{modo:'canonico'})}})
+fs.writeFileSync(dest+'origen.json',JSON.stringify({origin,callbacks,cells,outOfDomain},null,2))
+console.log(JSON.stringify({cases:rows.length,numericFailures:rows.filter(r=>r.failures.length).length,privateCopy,perCaseMemo,semanticReds:adversos.filter(a=>!a.semanticPass).map(a=>a.name),wrongSeedOrigin:!origin.insideExpectedFunction}))
+if(rows.some(r=>r.failures.length)||!privateCopy||!perCaseMemo)process.exitCode=2
+else if(adversos.some(a=>!a.semanticPass)||!origin.insideExpectedFunction)process.exitCode=1

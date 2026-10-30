@@ -1,0 +1,17 @@
+--- 
++++ 
+@@ -1,10 +1,10 @@
+ import fs from 'node:fs'
+ import assert from 'node:assert/strict'
+ import {createRequire} from 'node:module'
+-import {composeSS,inspectSS,validateSS} from '../../scripts/procedencia/flujo-ss-r36.mjs'
+-import {createSSEvaluator,executeFinite} from '../../scripts/procedencia/flujo-ss-r36-consumidor.mjs'
+-import {calcularDesgloseCotizacionesSocialesLegacy as legacy} from '../../lib/dominio/laboral/cotizaciones-sociales.ts'
+-import {calcularDesgloseCotizacionesPerfilUniforme as canonico} from '../../lib/dominio/laboral/cotizaciones-perfil-uniforme.ts'
++import {composeSS,inspectSS,validateSS} from '/home/elies/.t3/worktrees/IRoboPF/t3-efe83dcc/.cache/revision-ss-r39-sol/proyeccion/scripts/procedencia/flujo-ss-r36.mjs'
++import {createSSEvaluator,executeFinite} from '/home/elies/.t3/worktrees/IRoboPF/t3-efe83dcc/.cache/revision-ss-r39-sol/proyeccion/scripts/procedencia/flujo-ss-r36-consumidor.mjs'
++import {calcularDesgloseCotizacionesSocialesLegacy as legacy} from '/home/elies/.t3/worktrees/IRoboPF/t3-efe83dcc/.cache/revision-ss-r39-sol/proyeccion/lib/dominio/laboral/cotizaciones-sociales.ts'
++import {calcularDesgloseCotizacionesPerfilUniforme as canonico} from '/home/elies/.t3/worktrees/IRoboPF/t3-efe83dcc/.cache/revision-ss-r39-sol/proyeccion/lib/dominio/laboral/cotizaciones-perfil-uniforme.ts'
+ const require=createRequire('/home/elies/Repos/IRoboPF/package.json'),Decimal=require('decimal.js')
+ const dir='docs/procedencia/revisiones/flujo-ss-r39-sol/', g=composeSS(),run=createSSEvaluator(g)
+ const text=r=>fs.readFileSync(r.file,'utf8').slice(r.start,r.end)

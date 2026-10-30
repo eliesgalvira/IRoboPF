@@ -1,0 +1,372 @@
+[
+  {
+    "name": "semilla",
+    "rejected": true,
+    "closed": 0,
+    "pending": [
+      "program:lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1631:1632:literal"
+    ],
+    "rawDifferences": []
+  },
+  {
+    "name": "MEI-lado",
+    "rejected": true,
+    "closed": 0,
+    "pending": [
+      "program:lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3541:3567:get"
+    ],
+    "rawDifferences": [
+      "meiEmpresarial",
+      "cotizacionEmpresarial"
+    ]
+  },
+  {
+    "name": "MEI-año",
+    "rejected": true,
+    "closed": 0,
+    "pending": [
+      "program:lib/dominio/laboral/cotizaciones-sociales.ts:3800:3804:literal"
+    ],
+    "rawDifferences": [
+      "meiEmpresarial",
+      "meiTrabajador",
+      "cotizacionEmpresarial",
+      "cotizacionTrabajador"
+    ]
+  },
+  {
+    "name": "indice-solidaridad",
+    "rejected": true,
+    "closed": 0,
+    "pending": [
+      "program:lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1180:1188:index"
+    ],
+    "rawDifferences": [
+      "solidaridadEmpresarial",
+      "solidaridadTrabajador",
+      "cotizacionEmpresarial",
+      "cotizacionTrabajador"
+    ]
+  },
+  {
+    "name": "transporte",
+    "rejected": true,
+    "closed": 0,
+    "pending": [
+      "outputBindings:anual.ss.base"
+    ]
+  },
+  {
+    "name": "captura",
+    "rejected": true,
+    "closed": 0,
+    "pending": [
+      "program:lib/dominio/laboral/cotizaciones-sociales.ts:3402:3406:local"
+    ]
+  },
+  {
+    "name": "unidad-documental",
+    "rejected": true,
+    "closed": 0,
+    "pending": [
+      "fieldUnits:lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3541:3555:get"
+    ]
+  },
+  {
+    "name": "literal-unidad",
+    "rejected": true,
+    "closed": 0,
+    "pending": [
+      "literalUnits:lib/dominio/dinero/importe-monetario.ts:656:659:literal"
+    ]
+  },
+  {
+    "name": "callback",
+    "rejected": true,
+    "closed": 0,
+    "pending": [
+      "program:lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1635:1723:function",
+      "calls:lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1585:1727:call"
+    ]
+  },
+  {
+    "name": "omitir-contratos",
+    "rejected": true,
+    "closed": 0,
+    "pending": [
+      "unitContracts:cardinality",
+      "unitContracts:sumarRendimientosTrabajo",
+      "unitContracts:centimosAEuros",
+      "unitContracts:crearImporteMonetario",
+      "unitContracts:obtenerParametrosCotizacionLegacy",
+      "unitContracts:obtenerTiposMei",
+      "unitContracts:obtenerPoliticaSolidaridad",
+      "unitContracts:sumarTipoCotizacionLegacy",
+      "unitContracts:tipoCotizacionPorLado",
+      "unitContracts:baseCotizacionPara",
+      "unitContracts:minimo",
+      "unitContracts:maximo",
+      "unitContracts:calcularTotalSolidaridad",
+      "unitContracts:repartirCotizacionSolidaridad",
+      "unitContracts:sumarCotizacionesSociales",
+      "unitContracts:cuotaSolidaridad",
+      "unitContracts:calcularDesgloseCotizacionesSocialesLegacy",
+      "unitContracts:calcularDesgloseCotizacionesPerfilUniforme",
+      "unitContracts:crearLineaCalculo"
+    ]
+  },
+  {
+    "name": "omitir-calls",
+    "rejected": true,
+    "closed": 0,
+    "pending": [
+      "calls:cardinality",
+      "calls:lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12193:12260:call",
+      "calls:lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12118:12264:call",
+      "calls:lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12792:13018:call",
+      "calls:lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12706:13022:call",
+      "calls:lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:35604:36107:call",
+      "calls:lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:36121:36469:call",
+      "calls:lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:36483:36868:call",
+      "calls:lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:36882:37269:call",
+      "calls:lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:37283:37595:call",
+      "calls:lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:37609:37925:call",
+      "calls:lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:37939:38430:call",
+      "calls:lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:38444:38937:call",
+      "calls:lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:38951:39325:call",
+      "calls:lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:39339:39711:call",
+      "calls:lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:39844:39950:call",
+      "calls:lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:39725:40135:call",
+      "calls:lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1618:1633:call",
+      "calls:lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1674:1722:call",
+      "calls:lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1663:1723:call",
+      "calls:lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1585:1727:call",
+      "calls:lib/dominio/dinero/importe-monetario.ts:620:651:call",
+      "calls:lib/dominio/dinero/importe-monetario.ts:620:660:call",
+      "calls:lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1966:2005:call",
+      "calls:lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2023:2105:call",
+      "calls:lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2406:2438:call",
+      "calls:lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2406:2446:call",
+      "calls:lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2375:2447:call",
+      "calls:lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2375:2465:call",
+      "calls:lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2555:2587:call",
+      "calls:lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2555:2595:call",
+      "calls:lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2495:2609:call",
+      "calls:lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2495:2616:call",
+      "calls:lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2375:2628:call",
+      "calls:lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2375:2647:call",
+      "calls:lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2713:2751:call",
+      "calls:lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2698:2752:call",
+      "calls:lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2775:2792:call",
+      "calls:lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2803:2849:call",
+      "calls:lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2855:2901:call",
+      "calls:lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2907:3007:call",
+      "calls:lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2775:3011:call",
+      "calls:lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3045:3133:call",
+      "calls:lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3166:3257:call",
+      "calls:lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3322:3374:call",
+      "calls:lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3299:3378:call",
+      "calls:lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3442:3493:call",
+      "calls:lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3419:3497:call",
+      "calls:lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3523:3568:call",
+      "calls:lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3593:3637:call",
+      "calls:lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3963:4021:call",
+      "calls:lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3963:4057:call",
+      "calls:lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:4085:4141:call",
+      "calls:lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:4085:4176:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:7943:7982:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:8008:8057:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:8160:8212:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:8120:8218:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:8286:8337:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:8246:8343:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:8404:8476:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:8504:8575:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:8650:8702:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:8615:8706:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:8768:8834:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:8737:8867:call",
+      "calls:lib/dominio/explicacion/linea-calculo.ts:556:574:call",
+      "calls:lib/dominio/explicacion/linea-calculo.ts:596:614:call",
+      "calls:lib/dominio/explicacion/linea-calculo.ts:706:723:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:5164:5185:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:5202:5234:call",
+      "calls:lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:925:946:call",
+      "calls:lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:905:947:call",
+      "calls:lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1017:1038:call",
+      "calls:lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1004:1039:call",
+      "calls:lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:989:1040:call",
+      "calls:lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1046:1067:call",
+      "calls:lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:972:1071:call",
+      "calls:lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1125:1146:call",
+      "calls:lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1112:1147:call",
+      "calls:lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1097:1148:call",
+      "calls:lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1158:1189:call",
+      "calls:lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1200:1227:call",
+      "calls:lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1158:1228:call",
+      "calls:lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1239:1267:call",
+      "calls:lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1158:1268:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:3276:3322:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:3373:3407:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:3363:3408:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:3252:3412:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:5369:5405:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:5442:5476:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:5421:5477:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:6924:6947:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:6924:6954:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:6980:7003:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:5722:5760:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:5813:5830:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:5775:5870:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:5937:5970:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:6008:6041:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:6078:6166:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:6274:6324:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:6224:6338:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:6352:6395:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:6204:6407:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:6487:6538:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:6441:6550:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:6569:6630:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:6649:6699:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:6569:6700:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:6719:6766:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:6569:6767:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:5880:6778:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:5722:6786:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:5600:6792:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:7188:7263:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:7289:7362:call",
+      "calls:lib/dominio/normativa/datos/seguridad-social-2012-2026.ts:252:284:call",
+      "calls:lib/dominio/normativa/datos/seguridad-social-2012-2026.ts:294:326:call",
+      "calls:lib/dominio/normativa/datos/seguridad-social-2012-2026.ts:336:368:call",
+      "calls:lib/dominio/normativa/datos/seguridad-social-2012-2026.ts:378:410:call",
+      "calls:lib/dominio/normativa/datos/seguridad-social-2012-2026.ts:420:452:call",
+      "calls:lib/dominio/normativa/datos/seguridad-social-2012-2026.ts:462:494:call",
+      "calls:lib/dominio/normativa/datos/seguridad-social-2012-2026.ts:504:536:call",
+      "calls:lib/dominio/normativa/datos/seguridad-social-2012-2026.ts:546:578:call",
+      "calls:lib/dominio/normativa/datos/seguridad-social-2012-2026.ts:588:620:call",
+      "calls:lib/dominio/normativa/datos/seguridad-social-2012-2026.ts:630:662:call",
+      "calls:lib/dominio/normativa/datos/seguridad-social-2012-2026.ts:672:704:call",
+      "calls:lib/dominio/normativa/datos/seguridad-social-2012-2026.ts:714:746:call",
+      "calls:lib/dominio/normativa/datos/seguridad-social-2012-2026.ts:756:788:call",
+      "calls:lib/dominio/normativa/datos/seguridad-social-2012-2026.ts:798:830:call",
+      "calls:lib/dominio/normativa/datos/seguridad-social-2012-2026.ts:840:872:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:1951:1981:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:1999:2029:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:2068:2098:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:2116:2147:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:2183:2213:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:2275:2305:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:2323:2353:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:2387:2417:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:3479:3496:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:3552:3582:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:3602:3632:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:3507:3641:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:3692:3723:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:3743:3774:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:3647:3783:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:3834:3865:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:3885:3916:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:3789:3925:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:4009:4040:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:4062:4093:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:3931:4109:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:4115:4209:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:3479:4213:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:4295:4312:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:4323:4366:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:4452:4483:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:4510:4541:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:4569:4600:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:4372:4609:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:4730:4761:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:4790:4821:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:4851:4882:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:4615:4898:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:4904:4939:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:4295:4943:call",
+      "calls:lib/dominio/dinero/importe-monetario.ts:470:494:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:2977:2994:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:3005:3055:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:3061:3109:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:2977:3135:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:2669:2682:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:2657:2683:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:2694:2719:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:2725:2746:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:2657:2750:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:2809:2825:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:2797:2826:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:2837:2862:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:2868:2889:call",
+      "calls:lib/dominio/laboral/cotizaciones-sociales.ts:2797:2893:call"
+    ]
+  },
+  {
+    "name": "omitir-binding",
+    "rejected": true,
+    "closed": 0,
+    "pending": [
+      "annualBindings:cardinality",
+      "annualBindings:cotizacionesSociales"
+    ]
+  },
+  {
+    "name": "omitir-frontera",
+    "rejected": true,
+    "closed": 0,
+    "pending": [
+      "boundaries:cardinality",
+      "boundaries:medirAuditoriaSync",
+      "boundaries:admission"
+    ]
+  },
+  {
+    "name": "pending-program",
+    "validated": true,
+    "consumerRejected": true
+  },
+  {
+    "name": "pending-unitContracts",
+    "validated": true,
+    "consumerRejected": true
+  },
+  {
+    "name": "pending-fieldUnits",
+    "validated": true,
+    "consumerRejected": true
+  },
+  {
+    "name": "pending-literalUnits",
+    "validated": true,
+    "consumerRejected": true
+  },
+  {
+    "name": "pending-cells",
+    "validated": true,
+    "consumerRejected": true
+  },
+  {
+    "name": "pending-calls",
+    "validated": true,
+    "consumerRejected": true
+  },
+  {
+    "name": "pending-boundaries",
+    "validated": true,
+    "consumerRejected": true
+  },
+  {
+    "name": "pending-outputBindings",
+    "validated": true,
+    "consumerRejected": true
+  },
+  {
+    "name": "pending-annualBindings",
+    "validated": true,
+    "consumerRejected": true
+  }
+]

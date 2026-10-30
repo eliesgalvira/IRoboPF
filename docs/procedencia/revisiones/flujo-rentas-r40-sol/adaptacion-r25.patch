@@ -1,0 +1,11 @@
+--- docs/procedencia/revisiones/flujo-rentas-actividad-r25-sol/revisar.mjs	2026-10-30 02:13:53.871736499 +0100
++++ /home/elies/.t3/worktrees/IRoboPF/t3-b5213947/.cache/revision-rentas-r40-sol/r25/revisar.mjs	2026-10-30 02:17:32.338677506 +0100
+@@ -4,7 +4,7 @@
+ import cp from 'node:child_process'
+ import {createRequire} from 'node:module'
+ const require=createRequire('/home/elies/Repos/IRoboPF/package.json'),ts=require('typescript')
+-const src='docs/procedencia/editorial/flujo-rentas-actividad-r23-sol/',out='docs/procedencia/revisiones/flujo-rentas-actividad-r25-sol/',scratch='.cache/flujo-rentas-actividad-r25-sol/'
++const src='docs/procedencia/editorial/flujo-rentas-actividad-r23-sol/',out='.cache/revision-rentas-r40-sol/r25/',scratch='.cache/revision-rentas-r40-sol/r25/'
+ const read=p=>JSON.parse(fs.readFileSync(p,'utf8')),write=(p,v)=>fs.writeFileSync(out+p,JSON.stringify(v,null,2)+'\n'),sha=b=>crypto.createHash('sha256').update(b).digest('hex')
+ const g=read(src+'grafo.json'),instances=read(src+'instancias.json'),refs=[]
+ for(const name of ['grafo.json','instancias.json','ocurrencias.json','conceptos.json'])JSON.parse(fs.readFileSync(src+name,'utf8'),(k,v)=>{if(v?.file&&v.sha256&&Number.isInteger(v.start)&&Number.isInteger(v.end)){const b=fs.readFileSync(v.file),s=b.toString();refs.push({artifact:name,file:v.file,start:v.start,end:v.end,hashOk:sha(b)===v.sha256,textOk:!v.text||s.slice(v.start,v.end)===v.text,boundsOk:v.start>=0&&v.end<=s.length&&v.end>v.start})}return v})

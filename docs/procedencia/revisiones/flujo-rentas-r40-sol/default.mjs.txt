@@ -1,0 +1,6 @@
+import fs from 'node:fs'
+import {executeRentasFinite as current} from '../../scripts/procedencia/flujo-rentas-r36-consumidor.mjs'
+import {executeRentasFinite as old} from './sin-default.mjs'
+const fragment={globalBindings:[{name:'probe',node:'f'}],program:[{id:'f',op:'function',args:['read'],data:{parameters:[{binding:{elements:[{binding:{name:'x'},default:'seven'}]},rest:false,default:null}]}},{id:'seven',op:'literal',args:[],data:{value:7}},{id:'read',op:'local',args:[],data:{name:'x'}}]}
+const rows=[['mutante-sin-default',old],['recibido',current]].map(([id,run])=>{const actual=run(fragment,'probe',[[undefined]],false).result;return{id,expected:7,actual:actual===undefined?'undefined':actual,pass:actual===7}})
+fs.writeFileSync('docs/procedencia/revisiones/flujo-rentas-r40-sol/default.json',JSON.stringify(rows,null,2)+'\n');console.log(JSON.stringify(rows))

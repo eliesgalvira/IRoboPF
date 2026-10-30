@@ -1,0 +1,160 @@
+
+ RUN  v4.1.5 /home/elies/Repos/IRoboPF
+
+ ❯ tests/flujo-unidades-colecciones-r41.test.ts (19 tests | 16 failed) 16ms
+   × SS39 dimensión de lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2962:2989:property 6ms
+   × SS39 dimensión de lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3231:3253:get 1ms
+   × SS39 dimensión de lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3541:3555:get 1ms
+   × SS39 dimensión de lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3611:3625:get 0ms
+   × SS39 dimensión de lib/dominio/laboral/cotizaciones-sociales.ts:8444:8458:get 1ms
+   × SS39 dimensión de lib/dominio/laboral/cotizaciones-sociales.ts:8544:8558:get 0ms
+   × SS39 dimensión de lib/dominio/laboral/cotizaciones-sociales.ts:5159:5185:property 0ms
+   × SS39 dimensión de lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:585:627:property 0ms
+   × SS39 dimensión de lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:693:735:property 0ms
+   × SS39 dimensión de lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2710:2711:literal 0ms
+   × SS39 dimensión de lib/dominio/laboral/cotizaciones-sociales.ts:5828:5829:literal 0ms
+   × SS39 parámetros conservan categorías, lados y variantes de solidaridad 1ms
+   × RR40 colección, callback y semilla de lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1585:1727:call 1ms
+   × RR40 colección, callback y semilla de lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts:483:662:call 0ms
+   × RR40 colección, callback y semilla de lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1450:1641:call 0ms
+   × RR40 colección, callback y semilla de lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1426:2362:call 0ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 16 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/flujo-unidades-colecciones-r41.test.ts > SS39 dimensión de lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2962:2989:property
+ FAIL  tests/flujo-unidades-colecciones-r41.test.ts > SS39 dimensión de lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3231:3253:get
+ FAIL  tests/flujo-unidades-colecciones-r41.test.ts > SS39 dimensión de lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:585:627:property
+ FAIL  tests/flujo-unidades-colecciones-r41.test.ts > SS39 dimensión de lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:693:735:property
+AssertionError: expected 'ratio' to be 'tuple3<ratio>' // Object.is equality
+
+Expected: "tuple3<ratio>"
+Received: "ratio"
+
+ ❯ tests/flujo-unidades-colecciones-r41.test.ts:15:26
+     13|   test("SS39 dimensión de " + row.id, () => {
+     14|     const actual = [...ss.fieldUnits, ...ss.literalUnits].find(r => r.…
+     15|     expect(actual?.unit).toBe(row.expected)
+       |                          ^
+     16|   })
+     17| }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/16]⎯
+
+ FAIL  tests/flujo-unidades-colecciones-r41.test.ts > SS39 dimensión de lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3541:3555:get
+ FAIL  tests/flujo-unidades-colecciones-r41.test.ts > SS39 dimensión de lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3611:3625:get
+ FAIL  tests/flujo-unidades-colecciones-r41.test.ts > SS39 dimensión de lib/dominio/laboral/cotizaciones-sociales.ts:8444:8458:get
+ FAIL  tests/flujo-unidades-colecciones-r41.test.ts > SS39 dimensión de lib/dominio/laboral/cotizaciones-sociales.ts:8544:8558:get
+ FAIL  tests/flujo-unidades-colecciones-r41.test.ts > SS39 dimensión de lib/dominio/laboral/cotizaciones-sociales.ts:5159:5185:property
+AssertionError: expected 'EUR' to be 'structural<{empresarial:ratio,trabaja…' // Object.is equality
+
+Expected: "structural<{empresarial:ratio,trabajador:ratio}>"
+Received: "EUR"
+
+ ❯ tests/flujo-unidades-colecciones-r41.test.ts:15:26
+     13|   test("SS39 dimensión de " + row.id, () => {
+     14|     const actual = [...ss.fieldUnits, ...ss.literalUnits].find(r => r.…
+     15|     expect(actual?.unit).toBe(row.expected)
+       |                          ^
+     16|   })
+     17| }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/16]⎯
+
+ FAIL  tests/flujo-unidades-colecciones-r41.test.ts > SS39 dimensión de lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2710:2711:literal
+ FAIL  tests/flujo-unidades-colecciones-r41.test.ts > SS39 dimensión de lib/dominio/laboral/cotizaciones-sociales.ts:5828:5829:literal
+AssertionError: expected 'metadata' to be 'EUR' // Object.is equality
+
+Expected: "EUR"
+Received: "metadata"
+
+ ❯ tests/flujo-unidades-colecciones-r41.test.ts:15:26
+     13|   test("SS39 dimensión de " + row.id, () => {
+     14|     const actual = [...ss.fieldUnits, ...ss.literalUnits].find(r => r.…
+     15|     expect(actual?.unit).toBe(row.expected)
+       |                          ^
+     16|   })
+     17| }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/16]⎯
+
+ FAIL  tests/flujo-unidades-colecciones-r41.test.ts > SS39 parámetros conservan categorías, lados y variantes de solidaridad
+AssertionError: expected '{baseMaxima:EUR,tiposSeguridadSocial:…' to be '{baseMaxima:EUR,tiposSeguridadSocial:…' // Object.is equality
+
+Expected: "{baseMaxima:EUR,tiposSeguridadSocial:record<categoria,{empresarial:ratio,trabajador:ratio}>,mei:{empresarial:ratio,trabajador:ratio},solidaridad:{_tag:SinSolidaridad}|{_tag:ConSolidaridad,tipoPrimerExceso:ratio,tipoSegundoExceso:ratio,tipoExcesoRestante:ratio}}"
+Received: "{baseMaxima:EUR,tiposSeguridadSocial:ratio,mei:ratio,solidaridad:policy}"
+
+ ❯ tests/flujo-unidades-colecciones-r41.test.ts:21:18
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/16]⎯
+
+ FAIL  tests/flujo-unidades-colecciones-r41.test.ts > RR40 colección, callback y semilla de lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1585:1727:call
+AssertionError: expected 'lib/dominio/irpf/rendimientos/rendimi…' to be 'lib/dominio/irpf/rendimientos/rendimi…' // Object.is equality
+
+Expected: "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1604:1616:local"
+Received: "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1585:1596:global"
+
+ ❯ tests/flujo-unidades-colecciones-r41.test.ts:27:30
+     25|   test("RR40 colección, callback y semilla de " + row.id, () => {
+     26|     const actual = rentas.collections.find(r => r.id === row.id)
+     27|     expect(actual?.receiver).toBe(row.actualReceiver)
+       |                              ^
+     28|     expect(actual?.callback).toBe(row.actualCallback)
+     29|     expect(actual?.seed).toBe(row.actualSeed)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/16]⎯
+
+ FAIL  tests/flujo-unidades-colecciones-r41.test.ts > RR40 colección, callback y semilla de lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts:483:662:call
+AssertionError: expected 'lib/dominio/irpf/rendimientos/rendimi…' to be 'lib/dominio/irpf/rendimientos/rendimi…' // Object.is equality
+
+Expected: "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts:507:519:local"
+Received: "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts:483:494:global"
+
+ ❯ tests/flujo-unidades-colecciones-r41.test.ts:27:30
+     25|   test("RR40 colección, callback y semilla de " + row.id, () => {
+     26|     const actual = rentas.collections.find(r => r.id === row.id)
+     27|     expect(actual?.receiver).toBe(row.actualReceiver)
+       |                              ^
+     28|     expect(actual?.callback).toBe(row.actualCallback)
+     29|     expect(actual?.seed).toBe(row.actualSeed)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/16]⎯
+
+ FAIL  tests/flujo-unidades-colecciones-r41.test.ts > RR40 colección, callback y semilla de lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1450:1641:call
+AssertionError: expected 'lib/dominio/irpf/rendimientos/gananci…' to be 'lib/dominio/irpf/rendimientos/gananci…' // Object.is equality
+
+Expected: "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1466:1475:local"
+Received: "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1450:1461:global"
+
+ ❯ tests/flujo-unidades-colecciones-r41.test.ts:27:30
+     25|   test("RR40 colección, callback y semilla de " + row.id, () => {
+     26|     const actual = rentas.collections.find(r => r.id === row.id)
+     27|     expect(actual?.receiver).toBe(row.actualReceiver)
+       |                              ^
+     28|     expect(actual?.callback).toBe(row.actualCallback)
+     29|     expect(actual?.seed).toBe(row.actualSeed)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/16]⎯
+
+ FAIL  tests/flujo-unidades-colecciones-r41.test.ts > RR40 colección, callback y semilla de lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1426:2362:call
+AssertionError: expected 'lib/dominio/irpf/rendimientos/gananci…' to be 'lib/dominio/irpf/rendimientos/gananci…' // Object.is equality
+
+Expected: "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1450:1641:call"
+Received: "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1426:1437:global"
+
+ ❯ tests/flujo-unidades-colecciones-r41.test.ts:27:30
+     25|   test("RR40 colección, callback y semilla de " + row.id, () => {
+     26|     const actual = rentas.collections.find(r => r.id === row.id)
+     27|     expect(actual?.receiver).toBe(row.actualReceiver)
+       |                              ^
+     28|     expect(actual?.callback).toBe(row.actualCallback)
+     29|     expect(actual?.seed).toBe(row.actualSeed)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/16]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  16 failed | 3 passed (19)
+   Start at  02:25:24
+   Duration  945ms (transform 50ms, setup 0ms, import 761ms, tests 16ms, environment 0ms)
+

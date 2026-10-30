@@ -1,0 +1,10 @@
+import gzip,json
+from pathlib import Path
+from jsonschema import Draft202012Validator
+R=Path('/home/elies/Repos/IRoboPF')
+for name in ['ss','rentas']:
+ schema=json.loads((R/f'schemas/procedencia/flujo/{name}-r36.schema.json').read_text())
+ Draft202012Validator.check_schema(schema)
+ fragment=json.loads(gzip.decompress((R/f'docs/procedencia/correcciones/unidades-colecciones-r41/{name}-despues.json.gz').read_bytes()))
+ Draft202012Validator(schema).validate(fragment)
+ print(name,'schema correcto',flush=True)

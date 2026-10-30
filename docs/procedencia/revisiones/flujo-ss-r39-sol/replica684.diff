@@ -1,0 +1,28 @@
+--- 
++++ 
+@@ -1,13 +1,13 @@
+ import fs from 'node:fs'
+ import { createRequire } from 'node:module'
+ import { performance } from 'node:perf_hooks'
+-import { composeSS } from '/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-ss-r36.mjs'
+-import { createSSEvaluator as create } from '/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-ss-r36-consumidor.mjs'
++import { composeSS } from '/home/elies/.t3/worktrees/IRoboPF/t3-efe83dcc/.cache/revision-ss-r39-sol/proyeccion/scripts/procedencia/flujo-ss-r36.mjs'
++import { createSSEvaluator as create } from '/home/elies/.t3/worktrees/IRoboPF/t3-efe83dcc/.cache/revision-ss-r39-sol/proyeccion/scripts/procedencia/flujo-ss-r36-consumidor.mjs'
+ const createSSEvaluator=g=>{const run=create(g);return (c,x)=>Object.fromEntries(run(c,x).lines.map(l=>[l.origen.siteId,l.origen.decimal]))}
+-import { calcularDesgloseCotizacionesSocialesLegacy as legacy } from '/home/elies/Repos/IRoboPF/lib/dominio/laboral/cotizaciones-sociales.ts'
+-import { calcularDesgloseCotizacionesPerfilUniforme as canonico } from '/home/elies/Repos/IRoboPF/lib/dominio/laboral/cotizaciones-perfil-uniforme.ts'
+-import { sumarRendimientosTrabajo } from '/home/elies/Repos/IRoboPF/lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts'
+-import { centimosAEuros } from '/home/elies/Repos/IRoboPF/lib/dominio/dinero/importe-monetario.ts'
++import { calcularDesgloseCotizacionesSocialesLegacy as legacy } from '/home/elies/.t3/worktrees/IRoboPF/t3-efe83dcc/.cache/revision-ss-r39-sol/proyeccion/lib/dominio/laboral/cotizaciones-sociales.ts'
++import { calcularDesgloseCotizacionesPerfilUniforme as canonico } from '/home/elies/.t3/worktrees/IRoboPF/t3-efe83dcc/.cache/revision-ss-r39-sol/proyeccion/lib/dominio/laboral/cotizaciones-perfil-uniforme.ts'
++import { sumarRendimientosTrabajo } from '/home/elies/.t3/worktrees/IRoboPF/t3-efe83dcc/.cache/revision-ss-r39-sol/proyeccion/lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts'
++import { centimosAEuros } from '/home/elies/.t3/worktrees/IRoboPF/t3-efe83dcc/.cache/revision-ss-r39-sol/proyeccion/lib/dominio/dinero/importe-monetario.ts'
+ const require = createRequire('/home/elies/Repos/IRoboPF/package.json')
+ const Decimal = require('decimal.js')
+ const dest = '.cache/flujo-ss-r36/previo-'
+@@ -61,4 +61,4 @@
+   }
+ }
+ 
+-fs.writeFileSync('/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r39/casos.json',JSON.stringify({rows,failures:rows.filter(r=>r.failures.length).length},null,2));console.log(JSON.stringify({cases:rows.length,failures:rows.filter(r=>r.failures.length).length}));if(rows.some(r=>r.failures.length))process.exitCode=1
++fs.writeFileSync('/home/elies/.t3/worktrees/IRoboPF/t3-efe83dcc/docs/procedencia/revisiones/flujo-ss-r39-sol/replica684.json',JSON.stringify({rows,failures:rows.filter(r=>r.failures.length).length},null,2));console.log(JSON.stringify({cases:rows.length,failures:rows.filter(r=>r.failures.length).length}));if(rows.some(r=>r.failures.length))process.exitCode=1

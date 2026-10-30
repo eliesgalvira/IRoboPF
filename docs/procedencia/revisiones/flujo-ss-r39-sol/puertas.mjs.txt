@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict'
+import fs from 'node:fs'
+import {composeSS,validateSS,inspectSS} from './proyeccion/scripts/procedencia/flujo-ss-r36.mjs'
+import {createSSEvaluator} from './proyeccion/scripts/procedencia/flujo-ss-r36-consumidor.mjs'
+const g=composeSS(),rows=[]
+for(const key of ['admissionClosed','siteClosed']){const h=structuredClone(g);h.sites[0][key]=true;assert.throws(()=>validateSS(h));rows.push({key,rejected:true})}
+for(const key of ['completeRuleAcceptance','wiringAllowed']){const h=structuredClone(g);h[key]=true;assert.throws(()=>validateSS(h));rows.push({key,rejected:true})}
+const h=structuredClone(g);h.pending=['inventada'];Object.assign(h,inspectSS(h));assert.throws(()=>createSSEvaluator(h));rows.push({key:'pending-inventada',rejected:true})
+const run=createSSEvaluator(g),sample={anio:2025,rendimientos:{trabajo:[]}}
+for(const [year,mode] of [[2011,'canonico'],[2027,'canonico'],[2025,'CANONICO']]){assert.throws(()=>run({...sample,anio:year},{modo:mode}));rows.push({year,mode,rejected:true})}
+fs.writeFileSync('docs/procedencia/revisiones/flujo-ss-r39-sol/puertas.json',JSON.stringify(rows,null,2));console.log(rows.length,'controles de puerta correctos')
