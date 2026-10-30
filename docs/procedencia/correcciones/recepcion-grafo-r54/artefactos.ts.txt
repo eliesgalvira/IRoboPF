@@ -1,0 +1,19 @@
+// @effect-diagnostics effect/nodeBuiltinImport:off
+import { writeFileSync, readFileSync } from 'node:fs'
+// @effect-diagnostics effect/nodeBuiltinImport:off
+import { gunzipSync } from 'node:zlib'
+import { produceComposition } from '/home/elies/Repos/IRoboPF/scripts/procedencia/composicion-r43'
+import { produceTransitiveGraph, verifyTransitiveGraph, inspectOutput } from '/home/elies/Repos/IRoboPF/scripts/procedencia/grafo-transitivo-r53'
+const c=produceComposition()
+const g=produceTransitiveGraph(c)
+verifyTransitiveGraph(c,g)
+const root=process.cwd()+'/docs/procedencia/implementaciones/grafo-transitivo-r53-sol/'
+if(JSON.stringify(g)!==gunzipSync(readFileSync(root+'grafo.json.gz')).toString())throw Error('Grafo no reproducible')
+const edgeIds=new Map(g.edges.map((e,i)=>[e,i]))
+const pendingIds=new Map(g.pending.map((p,i)=>[p,i]))
+const matrix=[...g.outputs,...g.families].map(root=>{
+ const evidence=inspectOutput(g,root.value)
+ return {...root,relations:evidence.relations.map(e=>edgeIds.get(e)),cycles:evidence.cycles.map(e=>edgeIds.get(e)),pending:evidence.pending.map(p=>pendingIds.get(p)),valueClosed:false,selectionClosed:false,scope:evidence.scope}
+})
+if(JSON.stringify(matrix)!==gunzipSync(readFileSync(root+'matriz.json.gz')).toString())throw Error('Matriz no reproducible')
+writeFileSync('/home/elies/Repos/IRoboPF/docs/procedencia/correcciones/recepcion-grafo-r54/artefactos.json',JSON.stringify({reproducedExactly:true,vertices:g.vertices.length,edges:g.edges.length,outputs:g.outputs.length,families:g.families.length,pending:g.pending.length}))

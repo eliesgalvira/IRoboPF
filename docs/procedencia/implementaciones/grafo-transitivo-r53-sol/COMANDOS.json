@@ -1,0 +1,38 @@
+[
+  {
+    "command": "nix shell nixpkgs#python3 -c python3 - [script físico inicial por stdin]",
+    "result": "22072 entradas intactas; cero extras de contenido",
+    "script": "algoritmo equivalente conservado en .cache/grafo-transitivo-r53-sol/fisico.py; primera ejecución por stdin en historial de herramientas"
+  },
+  {
+    "command": "nix shell nixpkgs#bun -c flock /tmp/irobopf-validacion-pesada.lock bun .cache/grafo-transitivo-r53-sol/harness.mjs",
+    "exit": 0,
+    "log": ".cache/grafo-transitivo-r53-sol/harness.log"
+  },
+  {
+    "command": "nix shell nixpkgs#nodejs -c flock /tmp/irobopf-validacion-pesada.lock /home/elies/Repos/IRoboPF/node_modules/.bin/vitest run --config .cache/grafo-transitivo-r53-sol/vitest.mjs --configLoader native --reporter=json --outputFile=.cache/grafo-transitivo-r53-sol/tests-final.json",
+    "exit": 0,
+    "log": ".cache/grafo-transitivo-r53-sol/tests-final.log"
+  },
+  {
+    "command": "nix shell nixpkgs#bun -c flock /tmp/irobopf-validacion-pesada.lock bun .cache/grafo-transitivo-r53-sol/generar.ts",
+    "log": ".cache/grafo-transitivo-r53-sol/generar-instrumentos-final.log"
+  },
+  {
+    "command": "nix shell nixpkgs#nodejs -c flock /tmp/irobopf-validacion-pesada.lock node .cache/grafo-transitivo-r53-sol/tipos.mjs",
+    "log": ".cache/grafo-transitivo-r53-sol/tipos-instrumentos-final.log"
+  },
+  {
+    "command": "nix shell nixpkgs#nodejs -c flock /tmp/irobopf-validacion-pesada.lock /home/elies/Repos/IRoboPF/node_modules/.bin/oxlint --disable-nested-config --threads=1 --config .cache/grafo-transitivo-r53-sol/oxlint.json scripts/procedencia/grafo-transitivo-r53.ts tests/grafo-transitivo-r53.test.ts .cache/grafo-transitivo-r53-sol/generar.ts .cache/grafo-transitivo-r53-sol/tipos.mjs .cache/grafo-transitivo-r53-sol/harness.mjs",
+    "log": ".cache/grafo-transitivo-r53-sol/oxlint-terminal.log"
+  },
+  {
+    "command": "nix shell nixpkgs#python3 -c flock /tmp/irobopf-validacion-pesada.lock python3 .cache/grafo-transitivo-r53-sol/transportar.py",
+    "resultFile": "RECONSTRUCCION.json"
+  },
+  {
+    "command": "nix shell nixpkgs#python3 -c python3 .cache/grafo-transitivo-r53-sol/fisico.py",
+    "resultFile": "RECIBO-TERMINAL.json",
+    "lock": "/tmp/irobopf-recepcion-acotada.lock dentro del script"
+  }
+]
