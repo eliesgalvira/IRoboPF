@@ -1,0 +1,57 @@
+{
+  "round": 52,
+  "base": "a527dafa804b684c2f4a13d8ee178d9590b3f367",
+  "baseEntries": 21985,
+  "delegations": [
+    {
+      "request": {
+        "clientRequestId": "irobopf-r52-sol-revision-propiedades",
+        "title": "Contrarrevisión Sol de registros y propiedades de puertos R52",
+        "role": "review",
+        "mode": "async",
+        "isolation": "worktree",
+        "target": {
+          "providerInstanceId": "codex",
+          "model": "gpt-6.1-sol",
+          "options": {
+            "reasoningEffort": "high",
+            "serviceTier": "priority"
+          }
+        },
+        "task": "Encargo de Elies para IRoboPF. Eres gpt-6.1-sol, high, priority explícitos; Astra solo orquesta. Haz la revisión tú, sin subdelegar. Lee BRIEF íntegro /home/elies/irobopf-contexto/BRIEF.md, AGENTS.md, docs/procedencia/CONTRATO-AUDITORIA.md, COORDINACION.md y situación actual de ESTADO/DECISIONES. La orden urgente del usuario sustituye el modelo del BRIEF. Español claro; cada conclusión con evidencia, objeción, respuesta, coste y alcance. No declarar aceptación fiscal ni cierre global por hashes, pruebas o recuentos.\n\nT3 crea tu worktree; HEAD exigido a527dafa804b684c2f4a13d8ee178d9590b3f367, 21985 entradas. Antes de escribir y al terminar coteja TODAS las entradas base físicamente: lstat/readlink/bytes/bit ejecutable contra blobs, uno cada vez. Diff vacío no sustituye cotejo físico. Censo de extras y cero cambios/borrados de base. Ningún hijo ejecutará jj git init en un worktree Git creado por T3. Ninguna operación VCS mutante (init, reset, commit, bookmark, push, PR); no crear checkouts en shell. Nunca rm/mv relativos; solo rutas absolutas de scratch propio. No borrar informes históricos, originales, contexto, worktrees o trabajo ajeno. No main, PR, deploy, servidor, preview, LFS, gasto, transferencia externa, interacción en X o mensajes externos. Sin cambios de confianza ni ESTADO/DECISIONES.\n\nRevisión independiente nueva de las correcciones R52. Ámbito exclusivo de escritura: docs/procedencia/revisiones/puertos-r52-sol/ y .cache/puertos-r52-sol/ de TU checkout. Sin fixes. No repetir todo el trabajo favorable de R51 ni las revisiones del codec/resultados. Decide si quedan resueltos R51-N01/N02/N03 y si, tras completar las propiedades, el hito acotado de puertos queda técnicamente corroborado bajo sus condiciones. El grafo transitivo de 65 sitios/19 instancias, admisión y fiscalidad son hitos posteriores que no debes dar por cerrados.\n\nLee completos docs/procedencia/revisiones/puertos-composicion-r51-sol/INFORME.md y HALLAZGOS.json, decisiones individuales y controles relevantes. La recepción y fixes del padre están en docs/procedencia/correcciones/puertos-r52/: INFORME.md, decisiones, rojos-antes/despues, cambios.diff/json, testigos, artefactos y fuentes actuales. Original R47 y recepción R51 permanecen intactos. Los 263 archivos del payload de revisión, incluidos sus instrumentos y fuentes, pueden reconstruirse con su transporte/MANIFIESTO.json, patch -p0 y objetos; copia preservada del padre en /home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r52/transporte/.cache/puertos-composicion-r51-sol/ (solo lectura). El CAS anterior está en .cache/orquestador-preservacion/recepciones-r52/sha256 del padre y el actual en .cache/orquestador-preservacion/puertos-r52/sha256. Fija los bytes usados, no dependas de un hijo activo. No has de volver a adquirir fuentes fiscales: estas correcciones son de representación técnica, no cambian el motor.\n\nCambios: dos serializadores en scripts/procedencia/flujo-{escalas,rentas}-r36-consumidor.mjs; catálogos de salidas/variantes en flujo-escalas-r36.mjs y propiedades de parámetros en flujo-rentas-r36.mjs; tipos de campo y variantes autonómicas en puertos-composicion-r47.ts; tests/puertos-r52.test.ts. El motor lib/ permanece igual. Revisa en concreto:\n1. N01/N02: objetos ordinarios con prototipo null, anidados, arrays y Decimal auténticos se registran conservando campos, sin String(value) que produzca TypeError. Compara observado/no observado y captura/marcos, e independencia frente a mutaciones del testigo. Distingue el problema histórico de escalas de la regresión del hook de rentas y del dominio de los proveedores actuales. No inventar soporte a proxies, ciclos o subclases hostiles excluidos. Conservar el control histórico congelado: el archivo legacy del test importa serializadores anteriores, no versiones corregidas que invaliden su esperado histórico.\n2. N03: seguir código consumidor real, no solo producer.expected. Trabajo: gastosAE y generalesAplicados con EUR-string, únicamente en aporte-disponible. Actividad: etapas[].importe/reglaId/id/formula, orden e identidad por índice del callback, importes EUR-string y demás texto. Parámetros: _tag discreto y motivo texto, variante soportada con escalas/mínimo y no soportada con discriminante/motivo. Verificar output, variantes, propiedades de testigo, unidades, selección y lo que el consumidor lee. Completa tu contraste de los tres puertos afectados; evita inferir suficiencia de 22 por mera coincidencia de número.\n3. Sensibilidad/sustracción por cada familia nueva: campo o condición omitido/alterado, distinto importe/orden/etiqueta y rama de rechazo. El arnés privado puede alterar la IR para alcanzar rechazo no público (el fixture fuerza año 2030 dentro del nodo literal de parámetros); distinguirlo de una entrada anual admitida. No considerar éxito del arnés privado aceptación del constructor público. El sobre válido debe rechazar pérdida contractual y los testigos deben reflejar las propiedades correctas; la metadata por sí sola no es un proveedor financiero.\n4. Cotejar programas/operaciones y fuente fiscal intactos. Los artefactos actuales de composición/contrato son ediciones nuevas; los históricos no se reescriben. Las cuatro puertas siguen false. Examinar que N03 no se arregló solo en el router dejando el catálogo recibido contradictorio, y que N01 no se escondió rechazando datos previamente anunciados. Explicitar los límites restantes reales, sin inventar nuevos requisitos ajenos al hito.\n\nReproduce los cinco rojos contra la fuente anterior con sus aserciones originales y verde actual. Usa controles propios discriminantes, además de los seis del padre y regresiones pertinentes; no repetir suites correctas sin cambio/fallo. Entrega decisiones por N01/N02/N03, nuevos candidatos si realmente se reproducen, casos máquina, comandos/logs, fuentes por hash y costes/objeciones. No alterar expectativas históricas para contar verde. Todo hallazgo nuevo seguirá candidato hasta contraste del padre.\n\nMemoria 11 GB, sin swap. Un trabajador. flock /tmp/irobopf-validacion-pesada.lock por cada validación, adquirir/liberar por comando; no anidar ni retener durante lectura/redacción/API/espera. Cotejos físicos con /tmp/irobopf-recepcion-acotada.lock. No Next build, suites legacy pesadas ni instalación compartida. Dependencias padre solo lectura; herramientas vía Nix. Python deps con uv y entorno/caché propios absolutos, nunca crear tools/procedencia/.venv. Effect nuevo: consultar effect-solutions list/show antes y fuentes v4 locales. CLI disponible mediante bun /home/elies/.bun/install/cache/effect-solutions@0.5.3@@@1/dist/cli.js. Tipos estrictos y 16 reglas anti-slop a error, sin desactivarlas; distinguir checkJs y errores preexistentes.\n\nVitest --configLoader native, cache:false, cacheDir absoluto propio, maxWorkers:1; no node_modules/.vite-temp del padre. El preparador R47 escribe en .cache/puertos-composicion-r47-sol: adapta una copia para que escriba en TU scratch autorizado; adapta importaciones de las pruebas copiadas, conservando fuentes y diff. No ejecutes generadores que sobrescriban informes ajenos. Usa el tsconfig real como base; no proyectar tipos que fabriquen errores ausentes del padre ni ocultar los del alcance nuevo.\n\nEntrega autocontenida de informe y controles bajo tu carpeta documental. Scratch grande/fuentes por CAS; si el manifiesto los incluye, identifica explícitamente que son payload fuera de docs. Manifiesto por archivo (ruta, hash SHA256, tamaño, modo, baseHash/null), patch gzip y binarios por hash; incluir vacíos y archivos sin newline. Reconstruye en scratch independiente desde patch y objetos transportados (nunca copiar la fuente de una ruta para simular su inclusión), coteja todas las rutas/bytes/modos y ausencia de extras. Define payload/sobre/recibo terminal sin autorreferencia ni duplicados ambiguos. Cada archivo <10MiB. Conservar intentos fallidos, fuentes y logs. Cotejo físico terminal y entrega sin commits, fixes, atestaciones o cambios de confianza. La finalización reactivará al padre; no cierra el encargo global.\n"
+      },
+      "response": {
+        "taskId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r52-sol-revision-propiedades",
+        "childThreadId": "thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r52-sol-revision-propiedades",
+        "link": "<t3-thread://v2/4f105205-a3fb-47c7-a78d-1e1279710ed6/thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r52-sol-revision-propiedades>",
+        "childRunId": "run:thread:thread%3Adelegated-task%3Acommand%253Amcp%253A99a9fe10-4fb8-419d-8198-e5c0210805ae%253Adelegate-task%253Airobopf-r52-sol-revision-propiedades:ordinal:1",
+        "childNodeId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r52-sol-revision-propiedades",
+        "status": "running",
+        "workState": "working",
+        "hasPendingChildRuns": false,
+        "latestTerminalRunId": null,
+        "latestTerminalStatus": null,
+        "latestTerminalSummary": null,
+        "latestTerminalResultContextTransferId": null,
+        "providerInstanceId": "codex",
+        "model": "gpt-6.1-sol",
+        "options": [
+          {
+            "id": "reasoningEffort",
+            "value": "high"
+          },
+          {
+            "id": "serviceTier",
+            "value": "priority"
+          }
+        ],
+        "summary": null,
+        "resultContextTransferId": null,
+        "hasPendingQuestion": false,
+        "pendingApproval": null,
+        "waitTimedOut": false,
+        "next": "Completion wakes this thread, so end your turn. Do not wait on it or poll it."
+      }
+    }
+  ]
+}
