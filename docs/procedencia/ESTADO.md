@@ -8,7 +8,7 @@ Recibida la contrarrevisión R47 de admisión: 51 archivos, 3.579.965 bytes, tra
 
 Codec v3 candidato conserva presencia, orden y atributos, manteniendo equivalencia CJS/ESM solo para el valor reconocido del constructor. Recibos v2 quedan pendientes de regeneración explícita. Pasan 349 pruebas (338 recibidas, ocho nuevas y tres rojos ahora verdes, con solapamiento semántico declarado), tipos principal/vendor y lint global. Fragmento idéntico a R46, runtime fijado por separado; históricos intactos. No se demuestra una cuantía diferente por este defecto.
 
-Pendiente respaldo y revisión independiente nueva del cambio acotado. La implementación de puertos R47 continúa sin sondeos ni lectura parcial. A02–A05 no se someten a otra revisión repetida de los mismos bytes.
+Bloque respaldado en origin, commit `85705808bf692ebd54f1a1cc432ff0cc7142d834`: 81 archivos, hashes comprobados y cero borrados. Lanzada una única revisión independiente nueva del codec sobre ese commit y sus 21.594 entradas, con gpt-6.1-sol, high y priority explícitos y confirmados por el lanzador. Encargo y respuesta completos en delegaciones-ronda48.json. Su finalización reactivará el hilo. La implementación de puertos R47 continúa sin sondeos ni lectura parcial. A02–A05 no se someten a otra revisión repetida de los mismos bytes.
 
 Motor, inventario, confianza y 45 snapshots intactos. V5 mantiene corte R26 y Crossa v1 desfasado. Sin main, PR, despliegue, LFS, gasto, transferencia o limpieza. El encargo global continúa abierto.
 
