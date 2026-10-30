@@ -37,3 +37,9 @@ Incidencias del instrumento del padre: `python` y `python3` no estaban en PATH; 
 Se recibe un segundo evaluador de primitivas sobre la misma IR, no una copia de fórmulas SS. Objeción experta: puede reproducir el mismo error al generar y verificar, o atribuir dependencias espurias sin alterar el dinero. Por eso el pase de replay no basta. La revisión nueva debe comprobar cada salida con expectativas propias, referencias por propiedad y llamada, unidades, selecciones, colecciones y adversos; también debe revisar el adaptador y las correcciones exactas del padre. D126 registra el coste de mantener esa segunda semántica finita.
 
 Este informe no promueve atestaciones ni aceptación. Los otros 54 sitios y 19 familias siguen pendientes del protocolo causal y de composición. La copia v5 conserva el corte R26; Crossa conserva v1 y está desfasado. No hay main, PR, despliegue, LFS, gasto, transferencia externa ni limpieza. El encargo global sigue abierto.
+
+## Respaldo y revisión lanzada
+
+Commit `ac91fb9eb327aa3cc74dae64b31565c23a4e3dd1` en origin/procedencia-documental: 75 archivos, 6.342.709 bytes, hashes cotejados y cero borrados. El cotejo físico del padre examinó las 22.114 entradas de su base; el commit resultante contiene 22.185 entradas. Las seis diferencias históricas excluidas permanecen intactas.
+
+Lanzada una única revisión independiente nueva sobre ese commit, con gpt-6.1-sol, high y priority explícitos y confirmados por el lanzador. Encargo y respuesta íntegros en delegaciones-ronda55.json. Su finalización reactiva al padre, sin sondeos ni lecturas parciales. El resultado se contrastará antes de aceptar suficiencia o extender el protocolo.
