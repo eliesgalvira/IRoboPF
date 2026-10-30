@@ -1,0 +1,193 @@
+{
+  "createdAt": "2026-10-30T19:29:48.555630+00:00",
+  "review": "Revisión independiente única y acotada de redondeo Ley euro, CX-01/CX-03",
+  "decision": "favorable-acotada",
+  "blockingFindings": [],
+  "scope": "Solidez documental, adecuación del contrato analítico existente y conservación por ID; sin aceptación fiscal del algoritmo SLD ni auditoría del motor completo.",
+  "reviewedBytes": [
+    {
+      "file": "docs/procedencia/auditorias/redondeo-ley-euro/INFORME.md",
+      "sha256": "d4ab0ec4cad9e3c19b5517be96df385ccfeb0a86138e07bce5ab240adf0a65e1",
+      "bytes": 14865
+    },
+    {
+      "file": "docs/procedencia/auditorias/redondeo-ley-euro/verificacion-contrato.mjs",
+      "sha256": "d8416f002865f2241fc1f11e316b7e2e0e8fb8d091599bd85d46d78aff894397",
+      "bytes": 2695
+    },
+    {
+      "file": "docs/procedencia/auditorias/redondeo-ley-euro/discriminantes.py",
+      "sha256": "de9826d902f87795c186bbba12e3f7ef3aeb588f3f6218b46e5ed52606d0ff5f",
+      "bytes": 3489
+    },
+    {
+      "file": "docs/procedencia/auditorias/redondeo-ley-euro/discriminantes.json",
+      "sha256": "cbbc0990f871f760bbb3f66e47e6cc733aa9778029197f9160587f7df1bb80fb",
+      "bytes": 835
+    },
+    {
+      "file": "docs/procedencia/auditorias/redondeo-ley-euro/contrato-existente.json",
+      "sha256": "f7c00bda7de8b187600e36ca875cad9b0e20dd1216ee6d138a0197a1d7a7aa46",
+      "bytes": 651
+    },
+    {
+      "file": "docs/procedencia/revisiones/correcciones-x-v1/INFORME.md",
+      "sha256": "d2aff0e6c8c89673a348ac5027a9cc08b49b5ff855009db3353918d8abfa0acb",
+      "bytes": 15576
+    },
+    {
+      "file": "docs/procedencia/revisiones/correcciones-x-v1/revisiones.json",
+      "sha256": "fe4f0be27e80877db679c7c89befb4282d5dcf45e94f7fc34086a079d8ad0173",
+      "bytes": 64860
+    },
+    {
+      "file": "docs/procedencia/auditorias/correcciones-x-2051956145145712916/hallazgos.json",
+      "sha256": "c50bfd361eef23f018ca4ed24905325ed93cff8557bcd0eb8eb535090a892887",
+      "bytes": 28441
+    }
+  ],
+  "sourceIntegrity": {
+    "count": 10,
+    "sizeSha256Sha512": "todos coinciden",
+    "manifestSha256": "0f0d0cf59e5fea3b369605fc4266c152ec58a511d9948ed888c9199ce65ed1da"
+  },
+  "conclusions": [
+    {
+      "id": "criterio",
+      "result": "Correcto: equidistancia positiva superior en art.11.1 para conversiones; Orden23/05/2001art2 dispone céntimo próximo para importes abonados y conserva condición de conversión en su frase de empate. La conclusión no descarta la aportación de Elies ni afirma ausencia total de regla."
+    },
+    {
+      "id": "etapa",
+      "result": "Correcto: art.11.2 distingue operación intermedia por su objeto inmediato y protege el saldo final. No permite atribuir carácter final a cada producto o fracción de solidaridad sin fundamento adicional."
+    },
+    {
+      "id": "periodicidad",
+      "result": "Correcto: RD2064art16 fija liquidación ordinaria mensual con excepciones y reglas de prorrata/complementarias; art72bis vincula solidaridad al mes de devengo. Si un anual representa doce liquidaciones finales abonables, suma sus importes en céntimos; no equivale al redondeo anual del cálculo analítico."
+    },
+    {
+      "id": "partes-abiertas",
+      "result": "Correcto mantener pendientes unidad/orden de cuantización y reconciliación de aportaciones. La exigencia adicional se limita a lo no resuelto; no se exige instrucción TGSS fechada para reconocer el desempate aportado o la periodicidad ya respaldada normativamente."
+    },
+    {
+      "id": "ejemplo-historico",
+      "result": "Correcto: 125*5,50%=6,875 da6,88 al redondear directamente tanto HALF_UP como HALF_EVEN; total8,81 menos trabajador1,94 da6,87. Es discriminante histórico, compatible también con otras operaciones y posible errata; no acredita residual empresarial universal ni su vigencia para solidaridad2025."
+    },
+    {
+      "id": "imagenes-aeat",
+      "result": "Ambos originales inspeccionados visualmente. Recorte AEAT reproduce la frase REDONDEAR1 y 0,005→0,01; imagen legal reproduce art11.1 y omite11.2. ALGORITMO2017 oficial, portada25/11/2016, hojaPDF22/impresa21, confirma la frase y su aplicación aRED20. La coincidencia no identifica procedencia exacta ni ejercicio del recorte y no regula SLD."
+    },
+    {
+      "id": "pruebas",
+      "result": "Las pruebas discriminantes son alternativas aritméticas condicionales con expectedNormativoTgss:null. Las tres variantes673,44/132,84;673,44/132,72;673,42/132,74 quedan separadas y ninguna se promueve a cuota oficial."
+    },
+    {
+      "id": "fix",
+      "result": "No se acredita necesidad de fix real del helper para el alcance declarado: conserva productos analíticos, alcance analitico-doce-mensualidades-uniformes y redondeoTgss:pendiente. La ejecución independiente confirma673,42246/132,74372 y0,005→0,01. Un contrato de liquidación efectiva mensual necesita hechos y política operativa adicionales."
+    }
+  ],
+  "validation": [
+    {
+      "check": "Manifiesto de ocho entregables finales",
+      "result": "Tamaños y SHA256 coinciden tras lectura final"
+    },
+    {
+      "check": "Originales fuentes.json",
+      "result": "10 originales: tamaños, SHA256 y SHA512 coinciden"
+    },
+    {
+      "check": "Discriminantes racionales del autor",
+      "result": "Ejecutados con __file__ apuntando solo al directorio nuevo de revisión; salida idéntica byte a byte"
+    },
+    {
+      "check": "Helper real",
+      "result": "Ejecución Bun independiente en lectura con flock; assert alcance, pendiente, empate0,005 y673,42246/132,74372 correctos"
+    },
+    {
+      "check": "Dos suites existentes",
+      "result": "Fuentes de las suites y log del autor leídos:13pases; no repetidas en esta revisión"
+    },
+    {
+      "check": "BOE y AEAT online",
+      "result": "Cotejo independiente de páginas primarias vía web; RD2064consolidado actual y originalesRD708/2015/RD322/2024 corroboran artículos del snapshot2025 descargado"
+    }
+  ],
+  "jsonScope": {
+    "docs/procedencia/revisiones/correcciones-x-v1/revisiones.json": {
+      "changedIds": [
+        "CX-01",
+        "CX-03"
+      ],
+      "unchangedCount": 16,
+      "addedOrRemovedIds": [],
+      "method": "SHA256(json.dumps(row, ensure_ascii=False, sort_keys=True)) comparado con alcance-json-previo.json"
+    },
+    "docs/procedencia/auditorias/correcciones-x-2051956145145712916/hallazgos.json": {
+      "changedIds": [
+        "CX-01",
+        "CX-03"
+      ],
+      "unchangedCount": 8,
+      "addedOrRemovedIds": [],
+      "method": "SHA256(json.dumps(row, ensure_ascii=False, sort_keys=True)) comparado con alcance-json-previo.json"
+    }
+  },
+  "resolvedObservation": "La cita oficial AEAT2017 faltaba en primera lectura del informe nuevo; quedó incorporada antes de fijar los bytes finales, con hojaPDF22 e impresa21.",
+  "sources": [
+    {
+      "file": "docs/procedencia/auditorias/redondeo-ley-euro/imagen-fe-erratas-aeat.jpg",
+      "url": "https://pbs.twimg.com/media/HG03Q9Fa4AAEzau.jpg?name=orig",
+      "sha256": "1de3c44f8da4de1090588b17321890c7c0cfd52e8a2aef8a58de6c5fa61bd47e"
+    },
+    {
+      "file": "docs/procedencia/auditorias/redondeo-ley-euro/imagen-ley-euro.png",
+      "url": "https://pbs.twimg.com/media/HG07SqrbIAAD1ON.png?name=orig",
+      "sha256": "14c28bc0d2e2fbb8c521ba7290c8353cb40cb4e18d03202de7db0b0aa0d7d7c2"
+    },
+    {
+      "file": "docs/procedencia/auditorias/redondeo-ley-euro/ley46-original.html",
+      "url": "https://www.boe.es/eli/es/l/1998/12/17/46",
+      "sha256": "0c6dc8e7b5e588e8990cdbfdadd27828ee8438d1399d103a20efb11963513434"
+    },
+    {
+      "file": "docs/procedencia/auditorias/redondeo-ley-euro/ley46-consolidada.html",
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-1998-29216",
+      "sha256": "dc1e98bc01dbac33efd44d28d5d76b4520f6a830fa08570bb2756841de8a49fa"
+    },
+    {
+      "file": "docs/procedencia/auditorias/redondeo-ley-euro/rd2064-2025.html",
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-1996-1579&p=20250101&tn=1",
+      "sha256": "75aa6dffed18237ec9911e3952cde58f75aabc311465c2ef964ea9c585ab0b64"
+    },
+    {
+      "file": "docs/procedencia/auditorias/redondeo-ley-euro/euro-tgss-2001.pdf",
+      "url": "https://www.boe.es/boe/dias/2001/05/25/pdfs/A18315-18316.pdf",
+      "sha256": "91ba19154e7fda5bab17e9dac14304d0c86841bbcefb607db7aaae9d42bd550e"
+    },
+    {
+      "file": "docs/procedencia/auditorias/redondeo-ley-euro/rd708-2015-original.html",
+      "url": "https://www.boe.es/buscar/doc.php?id=BOE-A-2015-8339",
+      "sha256": "f7623777a0903c82090767cf4e86f740112489778c1c2d9627c3618b6a708f24"
+    },
+    {
+      "file": "docs/procedencia/auditorias/redondeo-ley-euro/rd322-2024-original.html",
+      "url": "https://www.boe.es/buscar/doc.php?id=BOE-A-2024-6086",
+      "sha256": "32cd73606b8ff56ac069e3ee1c79e6b77e5c39ec50b24320f8cb3ef27bf7bee6"
+    },
+    {
+      "file": "docs/procedencia/auditorias/redondeo-ley-euro/orden2001-original.html",
+      "url": "https://www.boe.es/buscar/doc.php?id=BOE-A-2001-9850",
+      "sha256": "bb9995e135c6280b906048bba95d05a2f4de74a56f688741c3aacbf32ddc71a1"
+    },
+    {
+      "file": "docs/procedencia/auditorias/redondeo-ley-euro/aeat-algoritmo2017.pdf",
+      "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2017/ALGORITMO2017.pdf",
+      "sha256": "139011217275873689465c2a4e2896104f6cf54d01106b4fad87b32d9ac0323b"
+    }
+  ],
+  "limitations": [
+    "No aceptación fiscal de ninguna varianteTGSS",
+    "No verificación independiente de los posts: verificados porElies según encargo",
+    "No validaciónPAdES/CSV ni autenticidad histórica criptográfica",
+    "No VCS mutante ni cambios a archivos del autor; solo salidasJSON nuevas de revisión"
+  ]
+}
