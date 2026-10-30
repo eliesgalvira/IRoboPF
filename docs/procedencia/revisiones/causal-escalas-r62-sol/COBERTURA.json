@@ -1,0 +1,95 @@
+{
+  "cases": 36,
+  "outputsComparedToRealAPI": 792,
+  "siteIds": [
+    "anual.base.ahorro",
+    "anual.base.general-imponible",
+    "anual.base.general-liquidable",
+    "anual.cuota.ahorro-componente-postminimo",
+    "anual.cuota.ahorro-total",
+    "anual.cuota.ahorro-tramo",
+    "anual.cuota.diferencial",
+    "anual.cuota.general-autonomica-tramo",
+    "anual.cuota.general-estatal-tramo",
+    "anual.cuota.general-total",
+    "anual.cuota.liquida",
+    "anual.cuota.minimo-ahorro-total",
+    "anual.cuota.minimo-autonomico-tramo",
+    "anual.cuota.minimo-estatal-tramo",
+    "anual.cuota.minimo-general-total",
+    "anual.deducciones.autonomicas",
+    "anual.explicito.big",
+    "anual.explicito.blg",
+    "anual.explicito.cuota.autonomica",
+    "anual.explicito.cuota.estatal",
+    "anual.explicito.cuota.liquida-legal",
+    "anual.explicito.cuota.posterior",
+    "anual.minimo.ascendientes",
+    "anual.minimo.autonomico",
+    "anual.minimo.contribuyente",
+    "anual.minimo.descendientes",
+    "anual.minimo.discapacidad",
+    "anual.minimo.estatal"
+  ],
+  "rationalComparisons": 183,
+  "rationalCases": 23,
+  "allRationalPass": true,
+  "baseAdversos": [
+    "subcaso-anio",
+    "derechos-sin-preadmision",
+    "programa",
+    "sources",
+    "metadata",
+    "obligaciones",
+    "catalogo",
+    "tags",
+    "retorno",
+    "slice",
+    "rama",
+    "transporte",
+    "frame",
+    "actividad-al-productor"
+  ],
+  "additionalAdversos": {
+    "mutants": [
+      "componente-igual",
+      "operando-cuota",
+      "fuente-evidencia",
+      "software"
+    ],
+    "catalogueRejected": true,
+    "metadataNotAliased": true,
+    "schemaSuccesses": 5,
+    "outputs": 750
+  },
+  "activitySensitivityOutputs": 6,
+  "sourceUTF16Anchors": 28,
+  "ownVitest": {
+    "files": 2,
+    "tests": 3,
+    "passed": 3
+  },
+  "receivedNotRerun": {
+    "tests": 107,
+    "strictSchemas": 50,
+    "outputs": 1144,
+    "TSmainVendor": "exit 0",
+    "Oxlint": "exit 0 / 16 rules error",
+    "ESLint": "exit 0 / 16 warnings",
+    "MJScheckJs": "not globally green; 43 and 1102 incomparable hosts"
+  },
+  "limits": [
+    "ordinary finite synchronous acyclic data",
+    "fixed software and concrete services",
+    "external admission and factual rights",
+    "activity families excluded",
+    "no universal Effect equivalence or fiscal acceptance"
+  ],
+  "ownAjv": {
+    "state": "cancelled while waiting for lock",
+    "exit": 143,
+    "nodeStarted": false,
+    "casesExecuted": 0
+  },
+  "programDigestOriginalMatchedWitnesses": 36
+}
