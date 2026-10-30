@@ -32,8 +32,8 @@ export interface Output {
   slice: string[]
 }
 export interface ExecutionEvidence {
-  version: 1 | 2 | 3
-  kind: "causal-ss-r54" | "causal-retenciones-r57" | "causal-rentas-r59"
+  version: 1 | 2 | 3 | 4
+  kind: "causal-ss-r54" | "causal-retenciones-r57" | "causal-rentas-r59" | "causal-escalas-r60"
   execution: string
   program: string
   software: { file: string; sha256: string }[]
