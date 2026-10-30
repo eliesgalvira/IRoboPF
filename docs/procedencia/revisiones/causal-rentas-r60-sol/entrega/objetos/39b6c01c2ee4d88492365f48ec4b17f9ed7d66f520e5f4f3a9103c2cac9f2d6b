@@ -1,0 +1,10 @@
+import gzip,json
+from pathlib import Path
+from jsonschema import Draft202012Validator
+r=Path('/home/elies/Repos/IRoboPF');c=r/'.cache/orquestador-recepcion/r60/transporte/.cache/causal-rentas-r59-sol';o=r/'docs/procedencia/correcciones/recepcion-causal-rentas-r60'
+schema=json.loads((r/'schemas/procedencia/flujo/ejecucion-r59.json').read_text());Draft202012Validator.check_schema(schema);v=Draft202012Validator(schema);count=0
+for folder in ['testigos-2f2111089a527bd4','condiciones','colecciones']:
+ for p in (c/folder).glob('*.json.gz'):
+  e=json.loads(gzip.decompress(p.read_bytes()))['evidence'];v.validate(e);count+=1
+assert count==63
+(o/'schema.json').write_text(json.dumps({'witnesses':count,'draft':'2020-12','valid':True})+'\n');print(count)

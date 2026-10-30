@@ -1,0 +1,11 @@
+import subprocess,json,hashlib
+from pathlib import Path
+R=Path('/home/elies/Repos/IRoboPF');C=R/'.cache/orquestador-recepcion/r61';O=R/'docs/procedencia/correcciones/causal-rentas-r61';E=C/'ejecucion';S=C/'transporte/.cache/causal-rentas-r60-sol';results=[]
+for name,command in [('racionales',['python',str(E/'casos.py')]),('propios',['node',str(E/'propios.mjs')]),('discriminantes',['node',str(E/'discriminantes.mjs')])]:
+ with (O/(name+'.log')).open('wb') as log:p=subprocess.run(['flock','/tmp/irobopf-validacion-pesada.lock',*command],cwd=R,stdout=log,stderr=subprocess.STDOUT)
+ results.append(dict(name=name,command=command,exitCode=p.returncode));(O/'validacion.json').write_text(json.dumps(results,indent=2)+'\n');print(results[-1],flush=True);assert p.returncode==0
+ if name=='racionales':assert (E/'casos.json').read_bytes()==(S/'casos.json').read_bytes()
+for n in ['casos.json','propios.json','discriminantes.json']:
+ assert (E/n).read_bytes()==(S/n).read_bytes(),n
+ (O/n).write_bytes((E/n).read_bytes())
+(O/'comparacion.json').write_text(json.dumps(dict(rationalCases=30,comparisons=300,discriminants=12,exactResults=True),indent=2)+'\n')

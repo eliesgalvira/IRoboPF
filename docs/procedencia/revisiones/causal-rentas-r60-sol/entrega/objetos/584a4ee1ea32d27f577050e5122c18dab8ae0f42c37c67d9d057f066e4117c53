@@ -1,0 +1,35 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "incremental": false,
+    "baseUrl": "../..",
+    "paths": {
+      "@/*": [
+        "./*"
+      ],
+      "*": [
+        "/home/elies/Repos/IRoboPF/node_modules/*"
+      ],
+      "effect": [
+        "/home/elies/Repos/IRoboPF/node_modules/effect/dist/index.d.ts"
+      ],
+      "vitest": [
+        "/home/elies/Repos/IRoboPF/node_modules/vitest/dist/index.d.ts"
+      ]
+    },
+    "typeRoots": [
+      "/home/elies/Repos/IRoboPF/node_modules/@types"
+    ]
+  },
+  "files": [
+    "../../scripts/procedencia/evidencia-causal-r57.ts",
+    "../../scripts/procedencia/evidencia-ejecucion-r54.ts",
+    "../../tests/causal-rentas-r59.test.ts",
+    "../../tests/causal-rentas-r59-adversos.test.ts",
+    "../../tests/causal-rentas-r59-condiciones.test.ts",
+    "../../tests/causal-rentas-r59-colecciones.test.ts",
+    "../../tests/causal-rentas-r59-publico.test.ts"
+  ],
+  "include": [],
+  "exclude": []
+}

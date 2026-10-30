@@ -1,0 +1,12 @@
+{
+  "head": "59bb5565456caa5a44078f3b9a5ac4301934fb86",
+  "entries": 22900,
+  "differences": [],
+  "extras": [
+    ".git"
+  ],
+  "method": "git ls-tree -rz HEAD; cat-file --batch por blob; lstat/readlink/bytes/ejecutable; os.walk, antes de toda escritura; salida capturada en conversación",
+  "exitCode": 0,
+  "lock": null,
+  "proceduralDeviation": "El cotejo inicial fue completo y anterior a escrituras, pero se lanzó sin flock. No se declara serializado. El terminal se ejecuta con el lock requerido."
+}

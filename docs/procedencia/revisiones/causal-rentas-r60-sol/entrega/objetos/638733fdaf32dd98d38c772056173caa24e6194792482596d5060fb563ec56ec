@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';
+import {createRequire} from 'node:module';
+import {composeRentasR36} from '../../scripts/procedencia/flujo-rentas-r36.mjs';
+import {consumeGeneralRentas} from '../../scripts/procedencia/flujo-rentas-r36-consumidor.mjs';
+const require=createRequire('/home/elies/Repos/IRoboPF/package.json');
+const D=require('decimal.js');
+const caso={anio:2025,situacionFamiliar:{edad:40},rendimientos:{trabajo:[{importeIntegroCentimos:2000000}]}};
+const r=consumeGeneralRentas(composeRentasR36(),caso,{modo:'canonico'},{'boundary:calcularDesgloseCotizacionesPerfilUniforme':()=>({cotizacionTrabajador:new D(1300)})});
+assert.equal(r.lines.length,10);
+assert.ok(r.evidence?.frames?.some(f=>f.function?.includes('cotizaciones-perfil-uniforme.ts')), 'falta contexto causal común y puente SS ejecutado');

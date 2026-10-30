@@ -1,0 +1,93 @@
+{
+  "suite": {
+    "passed": 99,
+    "failed": 0,
+    "exitCode": 0
+  },
+  "rationalCases": 30,
+  "rationalComparisons": 300,
+  "originalWitnesses": 63,
+  "originalOutputs": 630,
+  "schemaReceived": 63,
+  "extraDiscriminants": 12,
+  "checks": [
+    {
+      "name": "types-scope",
+      "command": [
+        "flock",
+        "/tmp/irobopf-validacion-pesada.lock",
+        "node",
+        "/home/elies/Repos/IRoboPF/node_modules/typescript/bin/tsc",
+        "-p",
+        "/home/elies/.t3/worktrees/IRoboPF/t3-2d3bc51f/.cache/causal-rentas-r60-sol/tsconfig.json"
+      ],
+      "exitCode": 0
+    },
+    {
+      "name": "checkJs-separate",
+      "command": [
+        "flock",
+        "/tmp/irobopf-validacion-pesada.lock",
+        "node",
+        "/home/elies/Repos/IRoboPF/node_modules/typescript/bin/tsc",
+        "-p",
+        "/home/elies/.t3/worktrees/IRoboPF/t3-2d3bc51f/.cache/causal-rentas-r60-sol/checkjs.json"
+      ],
+      "exitCode": 2
+    },
+    {
+      "name": "oxlint-scope",
+      "command": [
+        "flock",
+        "/tmp/irobopf-validacion-pesada.lock",
+        "node",
+        "/home/elies/Repos/IRoboPF/node_modules/oxlint/bin/oxlint",
+        "--threads=1",
+        "--disable-nested-config",
+        "--config",
+        "/home/elies/.t3/worktrees/IRoboPF/t3-2d3bc51f/.cache/causal-rentas-r60-sol/oxlint.json",
+        "scripts/procedencia/causal-rentas-r59-colecciones.mjs",
+        "scripts/procedencia/causal-rentas-r59-adversos.mjs",
+        "scripts/procedencia/causal-rentas-r59-condiciones.mjs",
+        "scripts/procedencia/causal-rentas-r59-ensayos.mjs",
+        "scripts/procedencia/causal-rentas-r59-contratos.mjs",
+        "scripts/procedencia/causal-rentas-r59.mjs",
+        "scripts/procedencia/causal-rentas-r59-schemas.mjs",
+        "scripts/procedencia/evidencia-causal-r57.ts",
+        "scripts/procedencia/evidencia-ejecucion-r54.ts",
+        "scripts/procedencia/flujo-rentas-r36.mjs",
+        "scripts/procedencia/flujo-rentas-r36-consumidor.mjs"
+      ],
+      "exitCode": 0
+    },
+    {
+      "name": "eslint-scope",
+      "command": [
+        "flock",
+        "/tmp/irobopf-validacion-pesada.lock",
+        "node",
+        "/home/elies/Repos/IRoboPF/node_modules/eslint/bin/eslint.js",
+        "--config",
+        "/home/elies/Repos/IRoboPF/eslint.config.mjs",
+        "scripts/procedencia/causal-rentas-r59-colecciones.mjs",
+        "scripts/procedencia/causal-rentas-r59-adversos.mjs",
+        "scripts/procedencia/causal-rentas-r59-condiciones.mjs",
+        "scripts/procedencia/causal-rentas-r59-ensayos.mjs",
+        "scripts/procedencia/causal-rentas-r59-contratos.mjs",
+        "scripts/procedencia/causal-rentas-r59.mjs",
+        "scripts/procedencia/causal-rentas-r59-schemas.mjs",
+        "scripts/procedencia/evidencia-causal-r57.ts",
+        "scripts/procedencia/evidencia-ejecucion-r54.ts",
+        "scripts/procedencia/flujo-rentas-r36.mjs",
+        "scripts/procedencia/flujo-rentas-r36-consumidor.mjs"
+      ],
+      "exitCode": 0
+    }
+  ],
+  "checkJsDiagnostics": 1102,
+  "newReproducedDefects": [],
+  "globalTypes": "verde recibido R60; no repetido globalmente en esta revisión",
+  "technicalCorroboration": "diez sitios bajo condiciones",
+  "fiscalAcceptance": false,
+  "remainingWithinBatch": "0 fixes corroborados; recepción del padre estimada 15–30 min, cero rondas nuevas salvo defecto reproducido"
+}

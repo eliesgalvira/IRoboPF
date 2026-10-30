@@ -1,0 +1,39 @@
+from fractions import Fraction as F
+from pathlib import Path
+import json
+out=Path(__file__).parent
+rows=[]
+def dec(f):
+ f=F(f); sign='-' if f<0 else ''; f=abs(f);q,r=divmod(f.numerator,f.denominator);s=sign+str(q)
+ if r:
+  s+='.'
+  while r:
+   r*=10;a,r=divmod(r,f.denominator);s+=str(a)
+ return s
+
+def add(name,amounts=[2000000],inm=[],gains=[],total=0,exenta=0,year=2025,date=None,mode='canonico'):
+ s=sum(map(F,amounts))/100;ss=s*(F(127,2000) if year==2018 else F(81,1250));p=s-ss;net=max(0,p-2000);other=sum(map(F,inm))/100+F(total)-F(exenta)
+ if other>6500:red=0
+ elif year==2018:
+  old=F(3700) if p<=11250 else max(0,F(3700)-F(37,32)*(p-11250)) if p<=14450 else 0
+  new=F(5565) if p<=13115 else max(0,F(5565)-F(3,2)*(p-13115)) if p<=16825 else 0
+  red=old if date and date<'2018-07-05T00:00:00.000Z' else old+max(0,new-old)/2
+ else:
+  red=F(7302) if p<=14852 else F(7302)-F(7,4)*(p-14852) if p<=F('17673.52') else F('2364.34')-F(57,50)*(p-F('17673.52')) if p<F('19747.5') else 0
+ c={'anio':year,'situacionFamiliar':{'edad':67},'rendimientos':{'trabajo':[{'importeIntegroCentimos':a} for a in amounts],'capitalInmobiliario':[{'importeIntegroCentimos':a} for a in inm],'gananciasPatrimoniales':gains}}
+ if date:c['fechaFallecimiento']=date
+ rows.append({'id':name,'caso':c,'contexto':{'modo':mode},'expected':list(map(dec,[s,ss,p,2000,net,red,sum(map(F,inm))/100,sum(map(F,inm))/100,total,exenta]))})
+for t in ['14852','17673.52','19747.5']:
+ cents=int(F(t)/F('0.9352')*100)
+ for offset in [-1,0,1]:add('frontera-'+t+'-'+str(offset),[cents+offset])
+for mode in ['canonico','compatible-legacy']:
+ for a in [[],[0],[1,1,1999998],[1999998,1,1],[1000000,1000000],[10000]]:add(mode+str(a),a,mode=mode)
+for inm in [[650000],[650001],[-100000,750001]]:add('otras'+str(inm),inm=inm)
+for date in [None,'2018-07-04T23:59:59.999Z','2018-07-05T00:00:00.000Z'] :add('fecha'+str(date),[1400000],year=2018,date=date)
+def gain(n,t='SinExencionMayores65',**kw):return dict(importeGananciaCentimos=n,tratamientoMayores65={'_tag':t},**kw)
+mix=[gain(-200000,'ViviendaHabitualMayores65'),gain(1000000,'ViviendaHabitualMayores65'),gain(100001)]
+for gs in [mix,list(reversed(mix))]:add('signos'+str(len(rows)),gains=gs,total=F('9000.01'),exenta=10000)
+v=gain(1000000);v['tratamientoMayores65']={'_tag':'ReinversionRentaVitaliciaMayores65','importeReinvertidoRentaVitaliciaCentimos':100000,'importeTransmisionCentimos':400000,'reinversionesPreviasRentaVitaliciaCentimos':0};v['exencionInmuebleUrbanoAdquirido2012']={'fechaAdquisicion':'2012-12-31','inmuebleUrbano':True,'tituloOneroso':True,'operacionConPersonaOEntidadVinculada':False}
+add('doble-exencion-residual',gains=[v,gain(-200000)],total=8000,exenta=6250)
+(out/'casos.json').write_text(json.dumps(rows,indent=2)+'\n')
+print(len(rows))

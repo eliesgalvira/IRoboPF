@@ -2,6 +2,14 @@
 
 Inicio: 29 de octubre de 2026. Trabajo en curso; no es una certificación fiscal.
 
+## Situación más reciente, ronda 61 del 30 de octubre
+
+Recibida la única revisión independiente del lote de diez rentas generales. El padre cotejó físicamente las 22.900 entradas del revisor: cero cambios y borrados; reconstruyó exactamente 548 rutas, integró 461 y preservó 437 referencias. El dictamen corrobora los diez sitios bajo condiciones, sin defecto funcional nuevo ni otra ronda justificada. Detalle en correcciones/causal-rentas-r61 e informe original revisiones/causal-rentas-r60-sol.
+
+La recepción reproduce los 30 casos racionales/300 comparaciones, con resultados exactos. Examina los doce discriminantes ejecutados por el revisor; cancela únicamente su repetición propia aún en cola del lock, sin iniciar el comando ni interrumpir escalas. No cuenta esa cancelación como pase. Se conservan las limitaciones de preadmisión, runtime fijo, replay compartido y tipado integral MJS no acreditado: checkJs estricto registra 1.102 diagnósticos, sin atribuirlos todos a deuda previa. Incidencia del lock inicial del revisor conservada; cotejo terminal y cotejo del padre serializados.
+
+Quedan 27 sitios corroborados técnicamente bajo condiciones (SS11, retenciones6, rentas10) y 38 pendientes: escalas28 en implementación Sol R60 y diez explícitos posteriores. No se inicia otra revisión de rentas ni ninguna tarea excluida. El encargo termina en 65 sitios o bloqueos demostrados, con INFORME-FINAL.md y respaldo; las 19 familias, composición, admisión y cuatro puertas siguen fuera. Crossa v1 sigue desfasado. Sin main, PR, despliegue, LFS, gasto, transferencia ni limpieza.
+
 ## Alcance final vigente y ronda 60 del 30 de octubre
 
 Elies fija final: terminar los 65 sitios o demostrar bloqueos. Una implementación y una revisión independiente por lote; repetir solo ante un defecto reproducido. No iniciar las 19 familias, composición, admisión ni las cuatro puertas. Al terminar: INFORME-FINAL.md en español con demostraciones condicionadas, pendientes, estimaciones honestas de rondas/horas y commits clave, respaldado solo en origin/procedencia-documental. Sin limpieza.
