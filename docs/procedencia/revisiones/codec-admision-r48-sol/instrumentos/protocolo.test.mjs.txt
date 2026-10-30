@@ -1,0 +1,16 @@
+import { expect, it } from 'vitest'
+import { encodeAdmissionValue as oldEncode } from './runtime-anterior.mjs'
+import { encodeAdmissionValue } from '../../scripts/procedencia/flujo-admision-r36-runtime.mjs'
+import { buildCompleteAdmission, evaluateCompleteAdmission } from '../../scripts/procedencia/flujo-admision-r36.mjs'
+import { base } from '../../docs/procedencia/revisiones/admision-anual-r34-sol/fixtures.mjs'
+import { synthetic } from './puertos.mjs'
+const fragment = buildCompleteAdmission()
+for (const [label, encode, outcome] of [['v2 real', oldEncode, 'pending'], ['v3', encodeAdmissionValue, 'success']]) it(`I06 protocolo ${label}`, () => {
+  let reached = 0
+  const result = evaluateCompleteAdmission(fragment, 'liquidarIrpfAnual', [base, { modo: 'canonico' }], synthetic({obtenerEscalaAutonomicaPublicada: (args, call) => {
+    reached++
+    return { outcome: 'success', value: undefined, node: call.node, arguments: encode(args) }
+  }}))
+  expect(reached).toBe(1); expect(result.outcome, result.reason).toBe(outcome)
+  if (outcome === 'pending') { expect(result.sites).toEqual([]); expect(result.reason).toContain('Recibo no ligado') }
+})

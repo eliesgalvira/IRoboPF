@@ -1,0 +1,13 @@
+import fs from 'node:fs'
+import {spawn,execFileSync} from 'node:child_process'
+import {createHash} from 'node:crypto'
+import {gzipSync} from 'node:zlib'
+const base='85705808bf692ebd54f1a1cc432ff0cc7142d834',d='docs/procedencia/revisiones/codec-admision-r48-sol',s='.cache/revision-codec-admision-r48-sol'
+const rows=execFileSync('git',['ls-tree','-rz',base],{maxBuffer:8e6}).toString().split('\0').filter(Boolean)
+const cat=spawn('git',['cat-file','--batch']);const it=cat.stdout[Symbol.asyncIterator]();let buffer=Buffer.alloc(0)
+async function fill(){const r=await it.next();if(r.done)throw Error('EOF cat-file');buffer=Buffer.concat([buffer,r.value])}
+async function blob(oid){cat.stdin.write(oid+'\n');while(!buffer.includes(10))await fill();const end=buffer.indexOf(10),n=Number(buffer.subarray(0,end).toString().split(' ')[2]);buffer=buffer.subarray(end+1);while(buffer.length<n+1)await fill();const b=Buffer.from(buffer.subarray(0,n));buffer=buffer.subarray(n+1);return b}
+const hash=b=>createHash('sha256').update(b).digest('hex'),paths=new Set(),entries=[],issues=[]
+for(const row of rows){const [meta,p]=row.split('\t'),[mode,,oid]=meta.split(' ');paths.add(p);const before=await blob(oid);try{const st=fs.lstatSync(p),bytes=st.isSymbolicLink()?Buffer.from(fs.readlinkSync(p)):fs.readFileSync(p);const ok=before.equals(bytes)&&((mode==='120000')===st.isSymbolicLink())&&(st.isSymbolicLink()||Boolean(st.mode&0o111)===(mode==='100755'));entries.push({path:p,baseSha256:hash(before),sha256:hash(bytes),size:bytes.length,mode,ok});if(!ok)issues.push(p)}catch(e){issues.push({path:p,error:e.message})}}
+cat.stdin.end();const extras=[];function walk(dir){for(const item of fs.readdirSync(dir,{withFileTypes:true})){const p=dir==='.'?item.name:dir+'/'+item.name;if(p==='.git')continue;if(item.isDirectory())walk(p);else if(!paths.has(p))extras.push(p)}}walk('.')
+const outside=extras.filter(p=>!p.startsWith(d+'/')&&!p.startsWith(s+'/'));fs.writeFileSync(s+'/fisico-final-completo.json.gz',gzipSync(JSON.stringify({base,entries,extras,issues,outside}),{level:9}));const result={base,count:rows.length,issues,deleted:issues.filter(x=>x.error?.includes('ENOENT')),extras:extras.length,outside,gitDiff:execFileSync('git',['diff','--no-ext-diff',base],{maxBuffer:8e6}).toString(),method:'git cat-file --batch: petición y lectura de un blob cada vez; lstat/readlink/bytes/modo ejecutable; censo físico sin seguir enlaces; SHA por ruta en scratch comprimido'};fs.writeFileSync(d+'/fisico-final.json',JSON.stringify(result,null,2));console.log(JSON.stringify(result));if(issues.length||outside.length)process.exitCode=1
