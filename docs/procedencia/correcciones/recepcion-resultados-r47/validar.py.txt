@@ -1,0 +1,13 @@
+import json,os,subprocess
+from pathlib import Path
+r=Path('/home/elies/Repos/IRoboPF');s=r/'.cache/orquestador-recepcion/r47';o=r/'docs/procedencia/correcciones/recepcion-resultados-r47'
+jobs=[
+ ('types',['bun','run','typecheck']),
+ ('tests',['node','node_modules/vitest/vitest.mjs','run','--configLoader','native','--config',str(s/'vitest.mts'),'--reporter=json','--outputFile='+str(o/'tests.json')]),
+ ('oxlint',['node_modules/.bin/oxlint','--disable-nested-config','--threads=1']),
+ ('eslint',['bun','run','lint:eslint'])]
+results=[]
+for name,cmd in jobs:
+ with (o/(name+'.log')).open('wb') as stream:
+  p=subprocess.run(['flock','/tmp/irobopf-validacion-pesada.lock',*cmd],cwd=r,env=dict(os.environ,PYTHONDONTWRITEBYTECODE='1',UV_PROJECT_ENVIRONMENT=str(s/'venv')),stdout=stream,stderr=subprocess.STDOUT)
+ results.append(dict(name=name,command=cmd,exitCode=p.returncode));(o/'validacion.json').write_text(json.dumps(results,indent=2)+'\n');print(json.dumps(results[-1]),flush=True)

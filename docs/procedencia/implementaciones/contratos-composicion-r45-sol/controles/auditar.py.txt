@@ -1,0 +1,35 @@
+import os,stat,subprocess,hashlib,json,gzip
+from pathlib import Path
+root=Path.cwd(); dest=root/'docs/procedencia/implementaciones/contratos-composicion-r45-sol/controles'
+head=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+assert head=='31a70bd671f92fdb47ca1bf0fe95613a9fa4fb59'
+base={}; changes=[]; deleted=[]; records=[]
+proc=subprocess.Popen(['git','cat-file','--batch'],stdin=subprocess.PIPE,stdout=subprocess.PIPE)
+for entry in subprocess.check_output(['git','ls-tree','-rz','HEAD']).split(b'\0'):
+ if not entry: continue
+ meta,raw=entry.split(b'\t',1); mode,kind,oid=meta.split(); name=os.fsdecode(raw);base[name]=mode.decode();p=root/name
+ proc.stdin.write(oid+b'\n');proc.stdin.flush();header=proc.stdout.readline().split();blob=proc.stdout.read(int(header[2]));assert proc.stdout.read(1)==b'\n'
+ old=hashlib.sha256(blob).hexdigest()
+ try:
+  st=p.lstat(); data=os.fsencode(os.readlink(p)) if stat.S_ISLNK(st.st_mode) else p.read_bytes()
+  samekind=(stat.S_ISLNK(st.st_mode) if mode==b'120000' else stat.S_ISREG(st.st_mode) and bool(st.st_mode&0o111)==(mode==b'100755'))
+  row={'path':name,'baseSha256':old,'sha256':hashlib.sha256(data).hexdigest(),'size':len(data),'mode':stat.S_IMODE(st.st_mode),'kindAndExecutableEqual':samekind}
+  records.append(row)
+  if data!=blob or not samekind: changes.append(row)
+ except FileNotFoundError: deleted.append(name)
+proc.stdin.close();proc.wait();assert len(base)==21357
+extras=[];unauthorized=[]
+for parent,dirs,files in os.walk(root,followlinks=False):
+ dirs[:]=[d for d in dirs if d not in ['.git','.jj']]
+ for name in files+[d for d in dirs if (Path(parent)/d).is_symlink()]:
+  p=Path(parent)/name;rel=p.relative_to(root).as_posix()
+  if rel in base or rel=='.git': continue
+  allowed=rel.startswith(('.cache/contratos-composicion-r45-sol/','docs/procedencia/implementaciones/contratos-composicion-r45-sol/')) or (rel.startswith(('scripts/procedencia/composicion-r45','tests/composicion-r45')) and p.suffix in ['.ts','.mjs'])
+  data=os.fsencode(os.readlink(p)) if p.is_symlink() else p.read_bytes()
+  row={'path':rel,'sha256':hashlib.sha256(data).hexdigest(),'size':len(data),'baseSha256':None}
+  extras.append(row)
+  if not allowed:unauthorized.append(row)
+report={'head':head,'entries':len(base),'changes':changes,'deleted':deleted,'unauthorizedExtras':unauthorized,'extras':extras,'base':records,'diff':subprocess.check_output(['git','diff','HEAD','--'],text=True),'exclusion':'Solo metadatos VCS; el recibo no se incluye a sí mismo.'}
+(dest/'fisico-final.json.gz').write_bytes(gzip.compress(json.dumps(report,ensure_ascii=False).encode(),mtime=0))
+print(json.dumps({'head':head,'baseEntries':len(base),'changes':len(changes),'deleted':len(deleted),'extras':len(extras),'unauthorized':len(unauthorized)}))
+assert not changes and not deleted and not unauthorized

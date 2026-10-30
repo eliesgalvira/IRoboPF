@@ -2,13 +2,23 @@
 
 Inicio: 29 de octubre de 2026. Trabajo en curso; no es una certificación fiscal.
 
-## Situación más reciente, ronda 46 del 30 de octubre
+## Situación más reciente, ronda 47 del 30 de octubre
+
+Recibida la segunda entrega parcial de composición: 46 archivos, 5.841.337 bytes y transporte exacto. Cotejo físico de las 21.357 entradas base del hijo: intactas, cero borrados. Aporta únicamente normalización de resultados de retenciones y actividad. Se conservan sus límites; no cumple el contrato común ni sus obligaciones transitivas. Detalle en correcciones/recepcion-resultados-r47.
+
+Pasan las 18 pruebas recibidas, tipos principal/vendor y lint global. No se reproduce el diagnóstico global de la configuración proyectada del hijo; se conservan sus bytes y logs. La normalización sigue candidata, sin contrarrevisión independiente ni conexión anual/pública.
+
+Se preparan dos tareas nuevas Sol: revisión independiente de las cinco correcciones de admisión R46 y ejecución del contrato de puertos entre programas. Esta implementación delimita un hito completo, anterior al grafo transitivo de los 65 sitios y a las fichas finales; no repite el encargo conjunto incompleto. Cada avance tendrá revisión antes de su uso operativo.
+
+Motor, inventario, confianza y 45 snapshots intactos. V5 mantiene corte R26 y Crossa v1 desfasado. Sin main, PR, despliegue, LFS, gasto, transferencia o limpieza. El encargo global continúa abierto.
+
+## Situación anterior, ronda 46 del 30 de octubre
 
 Recibida la contrarrevisión de admisión R44: 50 archivos, 5.894.662 bytes, transporte exacto y cotejo físico de 21.243 entradas intactas, cero borrados. Preservadas 77 fuentes técnicas por ambos hashes. El padre reproduce 49 positivos y nueve rojos que materializan cinco hallazgos; informe y decisiones en correcciones/admision-r46.
 
 Corregidos como candidatos codec de recibos, escala opcional, dominio Array, anclas de reexportaciones y selección del incremento. Se conservan originales y rojos, sin modificar fórmulas. Pasan 58 comprobaciones de revisión adaptadas y 256 de regresión (incluyen 236 anteriores y 20 nuevas); no se suman coberturas solapadas. Tipos principal/vendor, lint global, schema y verificador correctos. Logs iniciales y adaptaciones explícitas conservados; checkJs=false mantiene su límite.
 
-Artefacto nuevo `9d8f62076250c197e6fd840ac5b336306dc5cdcb3ff6a183ec8892604ac29b9a`, con 27.379 nodos y 17 sitios sin admisión cerrada. Se prepara respaldo exacto y revisión independiente Sol de estas correcciones antes de conectar admisión. La continuación de composición R45 ha llegado parcial: su recepción separada sigue pendiente, no se declara cumplido el contrato común ni sus obligaciones.
+Artefacto nuevo `9d8f62076250c197e6fd840ac5b336306dc5cdcb3ff6a183ec8892604ac29b9a`, con 27.379 nodos y 17 sitios sin admisión cerrada. Bloque respaldado en origin, commit `4741afd2d63827ad24c2f85cdad63d99f2a9303e`: 101 archivos, hashes comprobados y cero borrados. Pendiente la revisión independiente Sol antes de conectar admisión. La continuación de composición R45 llegó parcial y se recibe en R47; no se declara cumplido el contrato común ni sus obligaciones.
 
 Motor, inventario, confianza y 45 snapshots intactos. V5 mantiene corte R26 y Crossa v1 desfasado. Sin main, PR, despliegue, LFS, gasto, transferencia o limpieza. El encargo global continúa abierto.
 

@@ -1,0 +1,34 @@
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-a0fed5b8
+
+ ❯ tests/composicion-r45-resultados.test.ts (11 tests | 1 failed) 163ms
+   × conserva payload de rechazo compatible-legacy, inicial 3ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/composicion-r45-resultados.test.ts > conserva payload de rechazo compatible-legacy, inicial
+TypeError: Cannot read properties of undefined (reading 'length')
+ ❯ tablaVigenteAlCierreDelAnio lib/dominio/normativa/datos/irpf-retenciones-trabajo-2012-2026.ts:211:28
+    209|   const periodos = UMBRALES_RETENCION_NOMINA_POR_ANIO[anio]
+    210|
+    211|   return periodos[periodos.length - 1].tabla
+       |                            ^
+    212| }
+    213|
+ ❯ tablaUmbralesRetencionTrabajo lib/dominio/normativa/datos/irpf-retenciones-trabajo-2012-2026.ts:224:12
+ ❯ umbralRetencionTrabajoEuros lib/dominio/normativa/datos/irpf-retenciones-trabajo-2012-2026.ts:276:9
+ ❯ umbralRetencionTrabajoRequeridoEuros lib/dominio/normativa/datos/irpf-retenciones-trabajo-2012-2026.ts:285:18
+ ❯ calcularRetencionTrabajo lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:842:5
+ ❯ Object.<anonymous> lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:1001:12
+ ❯ next ../../../../Repos/IRoboPF/node_modules/effect/src/internal/effect.ts:1276:25
+ ❯ Object.~effect/Effect/evaluate ../../../../Repos/IRoboPF/node_modules/effect/src/internal/core.ts:531:30
+ ❯ FiberImpl.runLoop ../../../../Repos/IRoboPF/node_modules/effect/src/internal/effect.ts:633:39
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 10 passed (11)
+   Start at  03:18:02
+   Duration  1.91s (transform 130ms, setup 0ms, import 1.64s, tests 163ms, environment 0ms)
+

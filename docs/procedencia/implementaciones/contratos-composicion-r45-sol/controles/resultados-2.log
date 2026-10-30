@@ -1,0 +1,30 @@
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-a0fed5b8
+
+ ❯ tests/composicion-r45-resultados.test.ts (17 tests | 1 failed) 209ms
+   × actividad cliente-unico: conserva íntegros resultado y etapas 5ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/composicion-r45-resultados.test.ts > actividad cliente-unico: conserva íntegros resultado y etapas
+AssertionError: expected 'fail' to be 'success' // Object.is equality
+
+Expected: "success"
+Received: "fail"
+
+ ❯ tests/composicion-r45-resultados.test.ts:132:25
+    130|   const expected = calcularActividad2025(input)
+    131|   const actual = consumeActivityResult(candidate.fragments.rentas, inp…
+    132|   expect(actual.status).toBe("success")
+       |                         ^
+    133|   if (actual.status !== "success") throw Error("Actividad perdida")
+    134|   expect(actual.value).toEqual(expected)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 16 passed (17)
+   Start at  03:18:51
+   Duration  1.97s (transform 149ms, setup 0ms, import 1.64s, tests 209ms, environment 0ms)
+
