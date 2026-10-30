@@ -1,0 +1,560 @@
+[
+  {
+    "id": "alimentos-no-desdobla",
+    "input": {
+      "anio": 2020,
+      "retencionTrabajoAeat": {
+        "anio": 2020,
+        "retribucionAnualCentimos": 4732101,
+        "cotizacionesCentimos": 32101,
+        "situacionFamiliar": "situacion3",
+        "situacionLaboral": "activo",
+        "contrato": "general",
+        "descendientes": [],
+        "ascendientes": [],
+        "discapacidad": "sin-discapacidad",
+        "anualidadesAlimentosHijosCentimos": 4500000
+      },
+      "pagosACuentaCentimos": 12321,
+      "retencionesSoportadasCentimos": 12321,
+      "rendimientos": {
+        "trabajo": [
+          {
+            "importeIntegroCentimos": 99999999
+          }
+        ]
+      },
+      "familia": {
+        "edad": 99
+      },
+      "cotizacionesSocialesCentimos": 7654321
+    },
+    "context": {
+      "modo": "canonico"
+    },
+    "outputs": [
+      {
+        "siteId": "anual.retencion.base",
+        "decimal": "45000",
+        "display": "45000.00 euros"
+      },
+      {
+        "siteId": "anual.retencion.cuota",
+        "decimal": "11297",
+        "display": "11297.00 euros"
+      },
+      {
+        "siteId": "anual.retencion.tipo",
+        "decimal": "23.87",
+        "display": "23.87%"
+      },
+      {
+        "siteId": "anual.retencion.anual",
+        "decimal": "11295.53",
+        "display": "11295.53 euros"
+      },
+      {
+        "siteId": "anual.pagos.retenciones",
+        "decimal": "123.21",
+        "display": "123.21 euros"
+      },
+      {
+        "siteId": "anual.pagos.cuenta",
+        "decimal": "11418.74",
+        "display": "11418.74 euros"
+      }
+    ],
+    "witness": ".cache/causal-retenciones-r58-sol/alimentos-no-desdobla.witness.json.gz"
+  },
+  {
+    "id": "alimentos",
+    "input": {
+      "anio": 2020,
+      "retencionTrabajoAeat": {
+        "anio": 2020,
+        "retribucionAnualCentimos": 4732101,
+        "cotizacionesCentimos": 32101,
+        "situacionFamiliar": "situacion3",
+        "situacionLaboral": "activo",
+        "contrato": "general",
+        "descendientes": [],
+        "ascendientes": [],
+        "discapacidad": "sin-discapacidad",
+        "anualidadesAlimentosHijosCentimos": 765432
+      },
+      "pagosACuentaCentimos": 12321,
+      "retencionesSoportadasCentimos": 12321,
+      "rendimientos": {
+        "trabajo": [
+          {
+            "importeIntegroCentimos": 99999999
+          }
+        ]
+      },
+      "familia": {
+        "edad": 99
+      },
+      "cotizacionesSocialesCentimos": 7654321
+    },
+    "context": {
+      "modo": "canonico"
+    },
+    "outputs": [
+      {
+        "siteId": "anual.retencion.base",
+        "decimal": "45000",
+        "display": "45000.00 euros"
+      },
+      {
+        "siteId": "anual.retencion.cuota",
+        "decimal": "9543.02",
+        "display": "9543.02 euros"
+      },
+      {
+        "siteId": "anual.retencion.tipo",
+        "decimal": "20.16",
+        "display": "20.16%"
+      },
+      {
+        "siteId": "anual.retencion.anual",
+        "decimal": "9539.92",
+        "display": "9539.92 euros"
+      },
+      {
+        "siteId": "anual.pagos.retenciones",
+        "decimal": "123.21",
+        "display": "123.21 euros"
+      },
+      {
+        "siteId": "anual.pagos.cuenta",
+        "decimal": "9663.13",
+        "display": "9663.13 euros"
+      }
+    ],
+    "witness": ".cache/causal-retenciones-r58-sol/alimentos.witness.json.gz"
+  },
+  {
+    "id": "cero",
+    "input": {
+      "anio": 2020,
+      "retencionTrabajoAeat": {
+        "anio": 2020,
+        "retribucionAnualCentimos": 0,
+        "cotizacionesCentimos": 0,
+        "situacionFamiliar": "situacion3",
+        "situacionLaboral": "activo",
+        "contrato": "general",
+        "descendientes": [],
+        "ascendientes": [],
+        "discapacidad": "sin-discapacidad"
+      },
+      "pagosACuentaCentimos": 12321,
+      "retencionesSoportadasCentimos": 12321,
+      "rendimientos": {
+        "trabajo": [
+          {
+            "importeIntegroCentimos": 99999999
+          }
+        ]
+      },
+      "familia": {
+        "edad": 99
+      },
+      "cotizacionesSocialesCentimos": 7654321
+    },
+    "context": {
+      "modo": "canonico"
+    },
+    "outputs": [
+      {
+        "siteId": "anual.retencion.base",
+        "decimal": "0",
+        "display": "0.00 euros"
+      },
+      {
+        "siteId": "anual.retencion.cuota",
+        "decimal": "0",
+        "display": "0.00 euros"
+      },
+      {
+        "siteId": "anual.retencion.tipo",
+        "decimal": "0",
+        "display": "0%"
+      },
+      {
+        "siteId": "anual.retencion.anual",
+        "decimal": "0",
+        "display": "0.00 euros"
+      },
+      {
+        "siteId": "anual.pagos.retenciones",
+        "decimal": "123.21",
+        "display": "123.21 euros"
+      },
+      {
+        "siteId": "anual.pagos.cuenta",
+        "decimal": "123.21",
+        "display": "123.21 euros"
+      }
+    ],
+    "witness": ".cache/causal-retenciones-r58-sol/cero.witness.json.gz"
+  },
+  {
+    "id": "familia-flags",
+    "input": {
+      "anio": 2020,
+      "retencionTrabajoAeat": {
+        "anio": 2020,
+        "retribucionAnualCentimos": 4732101,
+        "cotizacionesCentimos": 32101,
+        "situacionFamiliar": "situacion3",
+        "situacionLaboral": "activo",
+        "contrato": "general",
+        "descendientes": [
+          {
+            "edad": 4,
+            "computoPorEntero": false,
+            "discapacidad": "sin-discapacidad",
+            "movilidadReducida": false,
+            "adopcionOAcogimientoMenosTresAnios": false
+          },
+          {
+            "edad": 4,
+            "computoPorEntero": true,
+            "discapacidad": "sin-discapacidad",
+            "movilidadReducida": false,
+            "adopcionOAcogimientoMenosTresAnios": false
+          },
+          {
+            "edad": 30,
+            "computoPorEntero": false,
+            "discapacidad": "sin-discapacidad",
+            "movilidadReducida": false,
+            "adopcionOAcogimientoMenosTresAnios": false
+          }
+        ],
+        "ascendientes": [],
+        "discapacidad": "sin-discapacidad",
+        "residenciaCeutaMelilla": true,
+        "rendimientosCeutaMelilla": true
+      },
+      "pagosACuentaCentimos": 12321,
+      "retencionesSoportadasCentimos": 12321,
+      "rendimientos": {
+        "trabajo": [
+          {
+            "importeIntegroCentimos": 99999999
+          }
+        ]
+      },
+      "familia": {
+        "edad": 99
+      },
+      "cotizacionesSocialesCentimos": 7654321
+    },
+    "context": {
+      "modo": "canonico"
+    },
+    "outputs": [
+      {
+        "siteId": "anual.retencion.base",
+        "decimal": "45000",
+        "display": "45000.00 euros"
+      },
+      {
+        "siteId": "anual.retencion.cuota",
+        "decimal": "10556",
+        "display": "10556.00 euros"
+      },
+      {
+        "siteId": "anual.retencion.tipo",
+        "decimal": "8.92",
+        "display": "8.92%"
+      },
+      {
+        "siteId": "anual.retencion.anual",
+        "decimal": "4221.03",
+        "display": "4221.03 euros"
+      },
+      {
+        "siteId": "anual.pagos.retenciones",
+        "decimal": "123.21",
+        "display": "123.21 euros"
+      },
+      {
+        "siteId": "anual.pagos.cuenta",
+        "decimal": "4344.24",
+        "display": "4344.24 euros"
+      }
+    ],
+    "witness": ".cache/causal-retenciones-r58-sol/familia-flags.witness.json.gz"
+  },
+  {
+    "id": "minimo-territorial",
+    "input": {
+      "anio": 2020,
+      "retencionTrabajoAeat": {
+        "anio": 2020,
+        "retribucionAnualCentimos": 12345,
+        "cotizacionesCentimos": 0,
+        "situacionFamiliar": "situacion3",
+        "situacionLaboral": "activo",
+        "contrato": "inferior-anio",
+        "descendientes": [],
+        "ascendientes": [],
+        "discapacidad": "sin-discapacidad",
+        "residenciaCeutaMelilla": true,
+        "rendimientosCeutaMelilla": true
+      },
+      "pagosACuentaCentimos": 12321,
+      "retencionesSoportadasCentimos": 12321,
+      "rendimientos": {
+        "trabajo": [
+          {
+            "importeIntegroCentimos": 99999999
+          }
+        ]
+      },
+      "familia": {
+        "edad": 99
+      },
+      "cotizacionesSocialesCentimos": 7654321
+    },
+    "context": {
+      "modo": "canonico"
+    },
+    "outputs": [
+      {
+        "siteId": "anual.retencion.base",
+        "decimal": "0",
+        "display": "0.00 euros"
+      },
+      {
+        "siteId": "anual.retencion.cuota",
+        "decimal": "0",
+        "display": "0.00 euros"
+      },
+      {
+        "siteId": "anual.retencion.tipo",
+        "decimal": "0.8",
+        "display": "0.8%"
+      },
+      {
+        "siteId": "anual.retencion.anual",
+        "decimal": "0.99",
+        "display": "0.99 euros"
+      },
+      {
+        "siteId": "anual.pagos.retenciones",
+        "decimal": "123.21",
+        "display": "123.21 euros"
+      },
+      {
+        "siteId": "anual.pagos.cuenta",
+        "decimal": "124.2",
+        "display": "124.20 euros"
+      }
+    ],
+    "witness": ".cache/causal-retenciones-r58-sol/minimo-territorial.witness.json.gz"
+  },
+  {
+    "id": "minimo",
+    "input": {
+      "anio": 2020,
+      "retencionTrabajoAeat": {
+        "anio": 2020,
+        "retribucionAnualCentimos": 12345,
+        "cotizacionesCentimos": 0,
+        "situacionFamiliar": "situacion3",
+        "situacionLaboral": "activo",
+        "contrato": "inferior-anio",
+        "descendientes": [],
+        "ascendientes": [],
+        "discapacidad": "sin-discapacidad"
+      },
+      "pagosACuentaCentimos": 12321,
+      "retencionesSoportadasCentimos": 12321,
+      "rendimientos": {
+        "trabajo": [
+          {
+            "importeIntegroCentimos": 99999999
+          }
+        ]
+      },
+      "familia": {
+        "edad": 99
+      },
+      "cotizacionesSocialesCentimos": 7654321
+    },
+    "context": {
+      "modo": "canonico"
+    },
+    "outputs": [
+      {
+        "siteId": "anual.retencion.base",
+        "decimal": "0",
+        "display": "0.00 euros"
+      },
+      {
+        "siteId": "anual.retencion.cuota",
+        "decimal": "0",
+        "display": "0.00 euros"
+      },
+      {
+        "siteId": "anual.retencion.tipo",
+        "decimal": "2",
+        "display": "2%"
+      },
+      {
+        "siteId": "anual.retencion.anual",
+        "decimal": "2.47",
+        "display": "2.47 euros"
+      },
+      {
+        "siteId": "anual.pagos.retenciones",
+        "decimal": "123.21",
+        "display": "123.21 euros"
+      },
+      {
+        "siteId": "anual.pagos.cuenta",
+        "decimal": "125.68",
+        "display": "125.68 euros"
+      }
+    ],
+    "witness": ".cache/causal-retenciones-r58-sol/minimo.witness.json.gz"
+  },
+  {
+    "id": "racional",
+    "input": {
+      "anio": 2020,
+      "retencionTrabajoAeat": {
+        "anio": 2020,
+        "retribucionAnualCentimos": 4732101,
+        "cotizacionesCentimos": 32101,
+        "situacionFamiliar": "situacion3",
+        "situacionLaboral": "activo",
+        "contrato": "general",
+        "descendientes": [],
+        "ascendientes": [],
+        "discapacidad": "sin-discapacidad"
+      },
+      "pagosACuentaCentimos": 12321,
+      "retencionesSoportadasCentimos": 12321,
+      "rendimientos": {
+        "trabajo": [
+          {
+            "importeIntegroCentimos": 99999999
+          }
+        ]
+      },
+      "familia": {
+        "edad": 99
+      },
+      "cotizacionesSocialesCentimos": 7654321
+    },
+    "context": {
+      "modo": "canonico"
+    },
+    "outputs": [
+      {
+        "siteId": "anual.retencion.base",
+        "decimal": "45000",
+        "display": "45000.00 euros"
+      },
+      {
+        "siteId": "anual.retencion.cuota",
+        "decimal": "11297",
+        "display": "11297.00 euros"
+      },
+      {
+        "siteId": "anual.retencion.tipo",
+        "decimal": "23.87",
+        "display": "23.87%"
+      },
+      {
+        "siteId": "anual.retencion.anual",
+        "decimal": "11295.53",
+        "display": "11295.53 euros"
+      },
+      {
+        "siteId": "anual.pagos.retenciones",
+        "decimal": "123.21",
+        "display": "123.21 euros"
+      },
+      {
+        "siteId": "anual.pagos.cuenta",
+        "decimal": "11418.74",
+        "display": "11418.74 euros"
+      }
+    ],
+    "witness": ".cache/causal-retenciones-r58-sol/racional.witness.json.gz"
+  },
+  {
+    "id": "un-flag",
+    "input": {
+      "anio": 2020,
+      "retencionTrabajoAeat": {
+        "anio": 2020,
+        "retribucionAnualCentimos": 4732101,
+        "cotizacionesCentimos": 32101,
+        "situacionFamiliar": "situacion3",
+        "situacionLaboral": "activo",
+        "contrato": "general",
+        "descendientes": [],
+        "ascendientes": [],
+        "discapacidad": "sin-discapacidad",
+        "residenciaCeutaMelilla": true,
+        "rendimientosCeutaMelilla": false
+      },
+      "pagosACuentaCentimos": 12321,
+      "retencionesSoportadasCentimos": 12321,
+      "rendimientos": {
+        "trabajo": [
+          {
+            "importeIntegroCentimos": 99999999
+          }
+        ]
+      },
+      "familia": {
+        "edad": 99
+      },
+      "cotizacionesSocialesCentimos": 7654321
+    },
+    "context": {
+      "modo": "canonico"
+    },
+    "outputs": [
+      {
+        "siteId": "anual.retencion.base",
+        "decimal": "45000",
+        "display": "45000.00 euros"
+      },
+      {
+        "siteId": "anual.retencion.cuota",
+        "decimal": "11297",
+        "display": "11297.00 euros"
+      },
+      {
+        "siteId": "anual.retencion.tipo",
+        "decimal": "23.87",
+        "display": "23.87%"
+      },
+      {
+        "siteId": "anual.retencion.anual",
+        "decimal": "11295.53",
+        "display": "11295.53 euros"
+      },
+      {
+        "siteId": "anual.pagos.retenciones",
+        "decimal": "123.21",
+        "display": "123.21 euros"
+      },
+      {
+        "siteId": "anual.pagos.cuenta",
+        "decimal": "11418.74",
+        "display": "11418.74 euros"
+      }
+    ],
+    "witness": ".cache/causal-retenciones-r58-sol/un-flag.witness.json.gz"
+  }
+]
