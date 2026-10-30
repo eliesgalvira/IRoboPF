@@ -1,0 +1,24 @@
+import fs from 'node:fs'
+import cp from 'node:child_process'
+import crypto from 'node:crypto'
+import zlib from 'node:zlib'
+import path from 'node:path'
+const dir='docs/procedencia/implementaciones/flujo-ss-r36-sol',scratch=path.resolve('.cache/flujo-ss-r36/transporte'),base='50f9e949544e20d3e4e0bffc79b926d396267319'
+const sha=b=>crypto.createHash('sha256').update(b).digest('hex')
+const envelopes=['manifiesto.json','binarios.json','entrega.patch.gz','transporte.json']
+function walk(dir){return fs.readdirSync(dir,{withFileTypes:true}).flatMap(d=>{const p=dir+'/'+d.name;return d.isDirectory()?d.name==='binarios'?[]:walk(p):envelopes.includes(d.name)?[]:[p]})}
+const files=[...walk(dir),'scripts/procedencia/flujo-ss-r36.mjs','scripts/procedencia/flujo-ss-r36-consumidor.mjs','schemas/procedencia/flujo/ss-r36.schema.json','tests/flujo-ss-r36.test.ts'].sort()
+const manifest=[],binaries=[];let patch=''
+fs.mkdirSync(scratch,{recursive:true});fs.mkdirSync(dir+'/binarios',{recursive:true})
+for(const p of files){const b=fs.readFileSync(p);manifest.push({path:p,sha256:sha(b),size:b.length,baseSha256:null,executable:false,change:'alta; no existía en base'})
+ if(b.includes(0)||p.endsWith('.gz')||!b.length){const object=dir+'/binarios/'+sha(b);fs.writeFileSync(object,b);binaries.push({path:p,sha256:sha(b),size:b.length,object})}
+ else{const d=cp.spawnSync('diff',['-u','--label','a/'+p,'--label','b/'+p,'/dev/null',p],{encoding:'utf8',maxBuffer:10e6});if(d.status!==1)throw Error('diff: '+p);patch+=d.stdout}
+}
+const gz=zlib.gzipSync(patch);fs.writeFileSync(dir+'/entrega.patch.gz',gz)
+fs.writeFileSync(dir+'/manifiesto.json',JSON.stringify({base,head:base,files:manifest,envelopes,externalObjects:binaries.map(b=>b.object)},null,2)+'\n')
+fs.writeFileSync(dir+'/binarios.json',JSON.stringify(binaries,null,2)+'\n')
+const trial=cp.spawnSync('patch',['-p1','--batch'],{cwd:scratch,input:zlib.gunzipSync(gz),maxBuffer:10e6});fs.writeFileSync(path.resolve('.cache/flujo-ss-r36/transporte-patch.log'),Buffer.concat([trial.stdout,trial.stderr]));if(trial.status!==0)throw Error('patch falló')
+for(const b of binaries){const target=scratch+'/'+b.path;fs.mkdirSync(path.dirname(target),{recursive:true});fs.copyFileSync(b.object,target)}
+for(const f of manifest){const b=fs.readFileSync(scratch+'/'+f.path);if(sha(b)!==f.sha256||b.length!==f.size||sha(fs.readFileSync(f.path))!==f.sha256||!!(fs.lstatSync(scratch+'/'+f.path).mode&0o111)!==f.executable)throw Error('transporte: '+f.path)}
+const receipt={base,files:manifest.length,patchSha256:sha(gz),binaries:binaries.length,exact:true,method:'patch textual contra base + binarios por ruta/hash; payload reconstruido con bytes/modo exactos; sin checkout ni VCS mutante',envelopeHashes:['manifiesto.json','binarios.json','entrega.patch.gz'].map(p=>({path:dir+'/'+p,sha256:sha(fs.readFileSync(dir+'/'+p))}))}
+fs.writeFileSync(dir+'/transporte.json',JSON.stringify(receipt,null,2)+'\n');console.log(JSON.stringify(receipt))

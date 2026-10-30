@@ -1,0 +1,21 @@
+--- docs/procedencia/revisiones/flujo-ss-r34-sol/semilla.mjs	2026-10-30 01:35:37.347102763 +0100
++++ .cache/flujo-ss-r36/previo-semilla.mjs	2026-10-30 01:42:13.367844420 +0100
+@@ -1,6 +1,6 @@
+ import fs from 'node:fs'
+-import { composeSS, traceSSClosure, validateSS } from '../../../../scripts/procedencia/flujo-ss-r32.mjs'
+-import { Sources, ts } from '../../../../scripts/procedencia/flujo-ast.mjs'
++import { composeSS, traceSSClosure, validateSS } from '../../scripts/procedencia/flujo-ss-r32.mjs'
++import { Sources, ts } from '../../scripts/procedencia/flujo-ast.mjs'
+ const graph=composeSS(), g=structuredClone(graph)
+ const reduce=g.ports.find(p=>p.op==='reduce'), seed=g.ports.find(p=>p.id===reduce.args[1])
+ const zero=g.ports.find(p=>p.id===seed.args[0]);zero.detail.value='1'
+@@ -14,7 +14,7 @@
+  while(current){if(ts.isVariableDeclaration(current)||ts.isFunctionDeclaration(current)||ts.isPropertyAssignment(current))ancestors.push(current.name?.getText());current=current.parent}
+  return {port:p.id,op:p.op,unit:p.unit,detail:p.detail,source:ref,ancestors}
+ })
+-fs.writeFileSync('docs/procedencia/revisiones/flujo-ss-r34-sol/auditoria-fuentes.json',JSON.stringify(audit,null,2))
+-fs.writeFileSync('docs/procedencia/revisiones/flujo-ss-r34-sol/semilla.json',JSON.stringify({change:'literal de semilla 0 a 1, conservando aristas',expectedClosed:[],closed,pinRejected:rejected},null,2))
++fs.writeFileSync('.cache/flujo-ss-r36/previo-auditoria-fuentes.json',JSON.stringify(audit,null,2))
++fs.writeFileSync('.cache/flujo-ss-r36/previo-semilla.json',JSON.stringify({change:'literal de semilla 0 a 1, conservando aristas',expectedClosed:[],closed,pinRejected:rejected},null,2))
+ console.log(JSON.stringify({pinRejected:rejected,closed:closed.length,expected:0}))
+ if(closed.length)process.exitCode=1
