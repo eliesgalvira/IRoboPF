@@ -8,6 +8,8 @@ Recibida y contrastada la revisión independiente R56: 22.251 entradas del hijo 
 
 N01/N02 y el hito SS de once salidas quedan corroborados bajo sus condiciones, sin defecto nuevo ni cambios de producto. D128 evita otra revisión favorable idéntica y avanza a las seis salidas de retenciones/pagos mediante extensión del protocolo causal, seguida de revisión independiente. Siguen pendientes los otros 54 sitios y 19 familias, composición y admisión; las cuatro puertas permanecen falsas. Motor, inventario, confianza y 45 snapshots intactos. V5 conserva corte R26; Crossa v1 sigue desfasado. Sin main, PR, despliegue, LFS, gasto, transferencia o limpieza. El encargo global continúa abierto.
 
+Bloque respaldado en origin, commit `4f4de8cac1b0bc75c0da654e4b0ec051df6c074b`: 42 archivos, hashes cotejados y cero borrados. Lanzada una única implementación de evidencia causal de las seis salidas de retenciones/pagos sobre ese commit y sus 22.293 entradas, con gpt-6.1-sol, high y priority explícitos y confirmados por el lanzador. Encargo y respuesta completos en delegaciones-ronda57.json; la finalización reactivará este hilo, sin sondeos ni lectura parcial. La implementación tendrá revisión independiente nueva.
+
 ## Situación anterior, ronda 56 del 30 de octubre
 
 Recibida la revisión R55: 22.185 entradas del hijo físicamente intactas, cero borrados; reconstrucción exacta de 64 rutas e incorporación de 15 archivos documentales y de transporte. Preservadas 93 referencias técnicas. N01 y N02 reproducidos por el padre, incluidos los dos rojos originales y siete regresiones nuevas. Detalle en correcciones/causal-ss-r56.

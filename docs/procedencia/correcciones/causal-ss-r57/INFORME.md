@@ -27,3 +27,7 @@ Precondiciones: IR derivada de fuentes fijadas, datos ordinarios densos, ejecuci
 D128 da por corroborado este hito acotado y avanza a evidencia ejecutada para las seis salidas de retenciones y pagos, con una implementación Sol nueva y posterior revisión independiente. Se reutilizará el protocolo y, cuando proceda, el evaluador finito; no se copiarán fórmulas fiscales. La extensión deberá conservar invocaciones, selección temporal, colecciones familiares, celdas de escala por instancia, variantes de resultado y transporte anual.
 
 Siguen pendientes los otros 54 sitios y las 19 familias, composición y admisión. Las cuatro puertas `admissionClosed`, `siteClosed`, `wiringAllowed` y `completeRuleAcceptance` permanecen falsas. Motor fiscal, inventario, confianza y 45 snapshots no cambian. V5 r2 mantiene corte R26; Crossa conserva v1 desfasado, copia local fuera de Victus y sin custodia independiente. Sin LFS, gasto, transferencia o limpieza. El encargo global sigue abierto.
+
+## Respaldo y delegación
+
+Bloque respaldado en origin, commit `4f4de8cac1b0bc75c0da654e4b0ec051df6c074b`: 42 archivos, hashes cotejados y cero borrados. Lanzada una única implementación de evidencia causal de las seis salidas de retenciones/pagos sobre ese commit y sus 22.293 entradas, con gpt-6.1-sol, high y priority explícitos y confirmados por el lanzador. Encargo y respuesta completos en delegaciones-ronda57.json; la finalización reactivará este hilo, sin sondeos ni lectura parcial. La implementación tendrá revisión independiente nueva.
