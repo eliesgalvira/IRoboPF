@@ -32,4 +32,4 @@ El paquete V5 conserva el corte R26; las 97 referencias técnicas de esta recepc
 
 ## Entrega y respaldo
 
-[INFORME-FINAL.md](../../INFORME-FINAL.md) es la entrega legible para Elies. El cotejo final, selección exacta de archivos, hashes del commit y verificación de origin se registran aquí al completar el respaldo. Los archivos históricos, caches excluidas y entregas ajenas se conservan. Tras ese respaldo no queda trabajo autorizado pendiente dentro del alcance final.
+[INFORME-FINAL.md](../../INFORME-FINAL.md) es la entrega legible para Elies. El cotejo físico final comprobó las 24.060 entradas de la base del padre: solo ESTADO y DECISIONES modificados, cero borrados. La selección exacta de 33 archivos/4.556.297 bytes se respaldó en `c27bc60cbbea3d7e2a6e2e38bccf08245a0cfc25`, y origin/procedencia-documental devolvió ese mismo hash. Véase [commit-comprobado.json](commit-comprobado.json). Los archivos históricos, caches excluidas y entregas ajenas se conservan. Tras ese respaldo no queda trabajo autorizado pendiente dentro del alcance final.
