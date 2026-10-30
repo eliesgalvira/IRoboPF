@@ -1,0 +1,2920 @@
+{
+  "source": "/home/elies/.t3/worktrees/IRoboPF/t3-0421e2a4",
+  "base": "4f4de8cac1b0bc75c0da654e4b0ec051df6c074b",
+  "physicalEntriesChecked": 22293,
+  "changes": [
+    "scripts/procedencia/causal-ss-r54.ts",
+    "scripts/procedencia/evidencia-ejecucion-r54.ts",
+    "scripts/procedencia/flujo-retenciones-r34-consumidor.mjs"
+  ],
+  "deletions": [],
+  "extras": [
+    ".git",
+    "tests/causal-retenciones-r57.test.ts",
+    "tests/causal-comun-r57.test.ts",
+    ".cache/causal-retenciones-r57-sol/rojo-fallback.log",
+    ".cache/causal-retenciones-r57-sol/familia-final.log",
+    ".cache/causal-retenciones-r57-sol/recepcion.json",
+    ".cache/causal-retenciones-r57-sol/artefactos.log",
+    ".cache/causal-retenciones-r57-sol/pruebas-terminales.log",
+    ".cache/causal-retenciones-r57-sol/formato-frontera-03.log",
+    ".cache/causal-retenciones-r57-sol/ss.log",
+    ".cache/causal-retenciones-r57-sol/oxlint-definitivas.log",
+    ".cache/causal-retenciones-r57-sol/schema-definitivas.log",
+    ".cache/causal-retenciones-r57-sol/unidades-verde.log",
+    ".cache/causal-retenciones-r57-sol/types-final.log",
+    ".cache/causal-retenciones-r57-sol/pruebas-03.log",
+    ".cache/causal-retenciones-r57-sol/vitest.config.mjs",
+    ".cache/causal-retenciones-r57-sol/schema-finales.log",
+    ".cache/causal-retenciones-r57-sol/formato-03.log",
+    ".cache/causal-retenciones-r57-sol/core-antes-continuacion.ts.txt",
+    ".cache/causal-retenciones-r57-sol/ret-01.log",
+    ".cache/causal-retenciones-r57-sol/rojo-orden-ir.log",
+    ".cache/causal-retenciones-r57-sol/rojo-presencia.log",
+    ".cache/causal-retenciones-r57-sol/schema.py",
+    ".cache/causal-retenciones-r57-sol/core-antes-presencia.ts.txt",
+    ".cache/causal-retenciones-r57-sol/formato-continuacion.log",
+    ".cache/causal-retenciones-r57-sol/oxlint-02.log",
+    ".cache/causal-retenciones-r57-sol/formato-02.log",
+    ".cache/causal-retenciones-r57-sol/eslint-01.log",
+    ".cache/causal-retenciones-r57-sol/types-unidades.log",
+    ".cache/causal-retenciones-r57-sol/schema-terminal.log",
+    ".cache/causal-retenciones-r57-sol/rojo-reproducido.log",
+    ".cache/causal-retenciones-r57-sol/ret-final.log",
+    ".cache/causal-retenciones-r57-sol/oxlint-terminal.log",
+    ".cache/causal-retenciones-r57-sol/formato-unidades-02.log",
+    ".cache/causal-retenciones-r57-sol/eslint-finales.log",
+    ".cache/causal-retenciones-r57-sol/types-terminal.log",
+    ".cache/causal-retenciones-r57-sol/ret-02.log",
+    ".cache/causal-retenciones-r57-sol/eslint-final.log",
+    ".cache/causal-retenciones-r57-sol/pruebas-04.log",
+    ".cache/causal-retenciones-r57-sol/test-frontera-rojo.ts.txt",
+    ".cache/causal-retenciones-r57-sol/eslint-terminal.log",
+    ".cache/causal-retenciones-r57-sol/fisico.py",
+    ".cache/causal-retenciones-r57-sol/cerrar-frontera.py",
+    ".cache/causal-retenciones-r57-sol/eslint-02.log",
+    ".cache/causal-retenciones-r57-sol/types-03.log",
+    ".cache/causal-retenciones-r57-sol/ss-anterior.ts",
+    ".cache/causal-retenciones-r57-sol/ajustar.py",
+    ".cache/causal-retenciones-r57-sol/formato-presencia.log",
+    ".cache/causal-retenciones-r57-sol/types-01.log",
+    ".cache/causal-retenciones-r57-sol/formato-frontera.log",
+    ".cache/causal-retenciones-r57-sol/rojo-anterior.mjs",
+    ".cache/causal-retenciones-r57-sol/evidencia-causal-r57-antes-frontera.txt",
+    ".cache/causal-retenciones-r57-sol/types-finales.log",
+    ".cache/causal-retenciones-r57-sol/artefactos-final.log",
+    ".cache/causal-retenciones-r57-sol/oxlint-final.log",
+    ".cache/causal-retenciones-r57-sol/schema.log",
+    ".cache/causal-retenciones-r57-sol/artefactos-finales.log",
+    ".cache/causal-retenciones-r57-sol/oxlint-finales.log",
+    ".cache/causal-retenciones-r57-sol/pruebas-cierre.log",
+    ".cache/causal-retenciones-r57-sol/documentar.py",
+    ".cache/causal-retenciones-r57-sol/pruebas-definitivas.log",
+    ".cache/causal-retenciones-r57-sol/eslint-definitivas.log",
+    ".cache/causal-retenciones-r57-sol/implementar.py",
+    ".cache/causal-retenciones-r57-sol/oxlint-01.log",
+    ".cache/causal-retenciones-r57-sol/types-frontera.log",
+    ".cache/causal-retenciones-r57-sol/test-antes-correccion-expectativa.ts.txt",
+    ".cache/causal-retenciones-r57-sol/primer-recorrido.log",
+    ".cache/causal-retenciones-r57-sol/causal-ss-r54-antes-frontera.txt",
+    ".cache/causal-retenciones-r57-sol/escalas-final.log",
+    ".cache/causal-retenciones-r57-sol/causal-retenciones-r57-antes-frontera.txt",
+    ".cache/causal-retenciones-r57-sol/verde-rojo-original.log",
+    ".cache/causal-retenciones-r57-sol/adaptador-antes-unidades.ts.txt",
+    ".cache/causal-retenciones-r57-sol/frontera-verde.log",
+    ".cache/causal-retenciones-r57-sol/rojo.mjs",
+    ".cache/causal-retenciones-r57-sol/segundo-recorrido.log",
+    ".cache/causal-retenciones-r57-sol/tsconfig.json",
+    ".cache/causal-retenciones-r57-sol/artefactos-definitivas.log",
+    ".cache/causal-retenciones-r57-sol/pruebas-continuacion.log",
+    ".cache/causal-retenciones-r57-sol/rojo-continuacion.log",
+    ".cache/causal-retenciones-r57-sol/artefactos-terminal.log",
+    ".cache/causal-retenciones-r57-sol/core-antes-unidades.ts.txt",
+    ".cache/causal-retenciones-r57-sol/artefactos.mjs",
+    ".cache/causal-retenciones-r57-sol/rojo.log",
+    ".cache/causal-retenciones-r57-sol/types-definitivas.log",
+    ".cache/causal-retenciones-r57-sol/types-02.log",
+    ".cache/causal-retenciones-r57-sol/formato-cierre.log",
+    ".cache/causal-retenciones-r57-sol/presencia-verde.log",
+    ".cache/causal-retenciones-r57-sol/formato-frontera-02.log",
+    ".cache/causal-retenciones-r57-sol/formato-unidades.log",
+    ".cache/causal-retenciones-r57-sol/test-antes-arreglo-objetivo.ts.txt",
+    ".cache/causal-retenciones-r57-sol/empaquetar.py",
+    ".cache/causal-retenciones-r57-sol/formato.log",
+    ".cache/causal-retenciones-r57-sol/rojo-nucleo-publico.log",
+    ".cache/causal-retenciones-r57-sol/core-antes-fallback.ts.txt",
+    ".cache/causal-retenciones-r57-sol/rojo-unidades.log",
+    ".cache/causal-retenciones-r57-sol/uv-cache/.gitignore",
+    ".cache/causal-retenciones-r57-sol/uv-cache/.lock",
+    ".cache/causal-retenciones-r57-sol/uv-cache/CACHEDIR.TAG",
+    ".cache/causal-retenciones-r57-sol/uv-cache/sdists-v9/.gitignore",
+    ".cache/causal-retenciones-r57-sol/uv-cache/sdists-v9/.git",
+    ".cache/causal-retenciones-r57-sol/uv-cache/interpreter-v4/ec44dc79c0c80bb1/499905336a80298a.msgpack",
+    ".cache/causal-retenciones-r57-sol/preimagenes/causal-ss-r54.ts",
+    ".cache/causal-retenciones-r57-sol/preimagenes/evidencia-ejecucion-r54.ts",
+    ".cache/causal-retenciones-r57-sol/preimagenes/flujo-retenciones-r34-consumidor.mjs",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/tests/causal-retenciones-r57.test.ts",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/tests/causal-comun-r57.test.ts",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/rojo-fallback.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/familia-final.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/recepcion.json",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/artefactos.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/pruebas-terminales.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/formato-frontera-03.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/ss.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/oxlint-definitivas.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/schema-definitivas.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/unidades-verde.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/types-final.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/pruebas-03.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/vitest.config.mjs",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/schema-finales.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/formato-03.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/core-antes-continuacion.ts.txt",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/ret-01.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/rojo-orden-ir.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/rojo-presencia.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/schema.py",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/core-antes-presencia.ts.txt",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/formato-continuacion.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/oxlint-02.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/formato-02.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/eslint-01.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/types-unidades.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/schema-terminal.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/rojo-reproducido.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/ret-final.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/oxlint-terminal.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/formato-unidades-02.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/eslint-finales.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/types-terminal.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/ret-02.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/eslint-final.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/pruebas-04.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/test-frontera-rojo.ts.txt",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/eslint-terminal.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/fisico.py",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/cerrar-frontera.py",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/eslint-02.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/types-03.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/ss-anterior.ts",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/ajustar.py",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/formato-presencia.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/types-01.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/formato-frontera.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/rojo-anterior.mjs",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/evidencia-causal-r57-antes-frontera.txt",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/types-finales.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/artefactos-final.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/oxlint-final.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/schema.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/artefactos-finales.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/oxlint-finales.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/pruebas-cierre.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/documentar.py",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/pruebas-definitivas.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/eslint-definitivas.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/implementar.py",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/oxlint-01.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/types-frontera.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/test-antes-correccion-expectativa.ts.txt",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/primer-recorrido.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/causal-ss-r54-antes-frontera.txt",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/escalas-final.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/causal-retenciones-r57-antes-frontera.txt",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/verde-rojo-original.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/adaptador-antes-unidades.ts.txt",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/frontera-verde.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/rojo.mjs",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/segundo-recorrido.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/tsconfig.json",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/artefactos-definitivas.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/pruebas-continuacion.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/rojo-continuacion.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/artefactos-terminal.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/core-antes-unidades.ts.txt",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/artefactos.mjs",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/rojo.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/types-definitivas.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/types-02.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/formato-cierre.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/presencia-verde.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/formato-frontera-02.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/formato-unidades.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/test-antes-arreglo-objetivo.ts.txt",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/empaquetar.py",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/formato.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/rojo-nucleo-publico.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/core-antes-fallback.ts.txt",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/rojo-unidades.log",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/uv-cache/.gitignore",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/uv-cache/.lock",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/uv-cache/CACHEDIR.TAG",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/uv-cache/sdists-v9/.gitignore",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/uv-cache/sdists-v9/.git",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/uv-cache/interpreter-v4/ec44dc79c0c80bb1/499905336a80298a.msgpack",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/preimagenes/causal-ss-r54.ts",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/preimagenes/evidencia-ejecucion-r54.ts",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/.cache/causal-retenciones-r57-sol/preimagenes/flujo-retenciones-r34-consumidor.mjs",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos-ss-nuevos.json.gz",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/fuentes.json",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/calidad.json",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/matriz-sitios.json",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/INFORME.md",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/COMANDOS.md",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/compatibilidad-ss.json",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/gramatica.json",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/casos.json",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/DECISIONES.json",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/contrato.json.gz",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/fila5.json.gz",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/escalas-iguales.json.gz",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/familia.json.gz",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/factor40.json.gz",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/atajo60000.json.gz",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/julio4.json.gz",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/legacy.json.gz",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/cero.json.gz",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/factor50.json.gz",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/ausencia.json.gz",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/cierre.json.gz",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/nominal.json.gz",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/fila4.json.gz",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/alimentos.json.gz",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/julio5.json.gz",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/aceptacion.json",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/testigos-ss-nuevos.json.gz",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/fila5.json.gz",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/escalas-iguales.json.gz",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/familia.json.gz",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/fuentes.json",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/factor40.json.gz",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/atajo60000.json.gz",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/julio4.json.gz",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/legacy.json.gz",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/cero.json.gz",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/factor50.json.gz",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/ausencia.json.gz",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/cierre.json.gz",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/nominal.json.gz",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/fila4.json.gz",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/alimentos.json.gz",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/julio5.json.gz",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/testigos-ss-nuevos.json.gz",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/fila5.json.gz",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/escalas-iguales.json.gz",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/familia.json.gz",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/fuentes.json",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/factor40.json.gz",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/atajo60000.json.gz",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/julio4.json.gz",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/legacy.json.gz",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/cero.json.gz",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/factor50.json.gz",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/ausencia.json.gz",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/cierre.json.gz",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/nominal.json.gz",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/fila4.json.gz",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/alimentos.json.gz",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/julio5.json.gz",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/scripts/procedencia/causal-ss-r54.ts",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/scripts/procedencia/evidencia-causal-r57-contratos.ts",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/scripts/procedencia/evidencia-ejecucion-r54.ts",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/scripts/procedencia/causal-retenciones-r57.ts",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/scripts/procedencia/flujo-retenciones-r34-consumidor.mjs",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/scripts/procedencia/evidencia-causal-r57.ts",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/schemas/procedencia/flujo/causal-retenciones-r57.schema.json",
+    ".cache/causal-retenciones-r57-sol/reconstruccion/schemas/procedencia/flujo/ejecucion-r57.schema.json",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos-ss-nuevos.json.gz",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/fuentes.json",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/calidad.json",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/matriz-sitios.json",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/INFORME.md",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/COMANDOS.md",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/compatibilidad-ss.json",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/gramatica.json",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/casos.json",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/DECISIONES.json",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/contrato.json.gz",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/transporte.log",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/manifiesto.json",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/patch.log",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/transporte.json",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/aplicar.patch",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/entrega.patch.gz",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/05d2a6cf0f9e8c50013cf1da3a49f1407abf561c2bcef8859a6b51314944f07c",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/1375e62f848eb660b4502deb6a8d70a9a3d99e51c0fec1a9b8b236a966ee2c3e",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/3b2ce7ba32bda36ccc73aa0667522538992d7187f34466eed0856ad7064d443f",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/c9c4b779d607e0ffbd8c265ebb43c4b855cbd3f53a74f3552eef64dd1fcb4a60",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/e5e505b9eeb33320b621ff26a8dea9acfa70bec218488afbb8451fee2b6f4997",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/b9f6532babc0862f19121b528ea89a0e62afde82262f006eb0285a0555e8ef87",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/37a542cda7b1ede3cc47d70956216e2a42918151c529b28569d87ea432bb1847",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/a2b9080ed0093030b4e18aac1083e6967835fcf3ded3cc3bc446a61b8f040255",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/dfa1f8566b28ef1907d310e9f712d5763471c1668ea05b96def12760b1190364",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/7266502892cb66d5412ebffb07c15eac6489ea2dcfe388fbad936a04bac47f5a",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/f552b651f7189af851d1e291bbb592a0f8d4c3ef4c8381d2bc8acdbc5d88a09a",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/fdf2c9978391b1104857d6f3d95ecd691f5ee6082b6681980f1ee887e8335e7e",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/7cb2101bb6efd78e53fdc6703c0b8ab0e8f36becd3883f49a684802f0143dbf2",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/6e2e81a14453374678120fc41f8f6fb5ae9469b59222120def693ab7757fceeb",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/0c07a12ce288e7ae241cd7c02d80bce1623856a5038b19d0f6bc0c1d5720e96b",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/591da80e1f02cff5c46c56b54dd99d7040453021451a3d80bf516a1366c0a1ff",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/f48c5e0904a4ffc6a3a277eeb3fb6329840fcc5a7eb38e8f849127e3300eca76",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/7d88a762bee13fd0986f3a4771dab61d27caac9f2c6a74150694d83ec3d63db5",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/682086ffe1d3bee29634446e911fcc6d0270d029367422324664ebcda02290a5",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/77dce3418836e292e2287204c7be963f35ea3373b7ebb3efe46aa06fe10b6de6",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/499dd9f74b4582b95aee62e26177dd9cf0170f72d25a970d30c2801f7cac8dff",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/0d5e3c26e2a13a01e42a88e350c8159e81e9f038e5969d31520ae2763627e608",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/8c787a8c1cc9fabcb890dcba16f4f84f822b878aa61c42ae527af25daf56663f",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/51321ce1b1b5dcea411844b86cf9919fe91eabd73ebd4d053c2c24701e7717f7",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/04e436039d973566447be9850c1df18a7a1e5a283698556f526931f43ede90cc",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/8772994a68ab1776cfc1bd5132ddb94a2c2b404199304824faa57adcd5f84743",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/223e8add5d92a48eb8b46a71d43ed4edb1528f6076c2dfdb4d079fdd6a53adc0",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/74e8c8f89dec65a6036e0decf372b43b811dc23c7153412cdc760c884c9fc634",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/42bff47919784d37e50e2d879e4ca67c06b995008fb059ccd7b5b50b6b54fcb2",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/61ff659ec92e94bf8b2fd9d2e3c595d7f3fbdc13d99d088a315c1312e764c532",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/e7257bf6d22884e40709c22a4fa0e9a42ff8ea5eb5b5e42229f05db603f6e33e",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/5be9e82830f6130a0c10263310f784aea2d9c3bdc2c5e0652051686f8ac5386b",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/b0df483e22264a4fbe00cdfbba334a8eb183f9a4986b49005bd41239187bdb7a",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/00464efacc8d64124eabaa788c691d96efb725189b61f6ba73a4d6a93482c9af",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/f9ff363a013d10c64fae72e3ac43acdc3df29e0b09889a016f529fdc9699973e",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/12e2fb20d45998f1fa9129573074d75fcb270a4b01705b2d1820f06cf854d75b",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/84312fb9ca67e4893eb40c64d439347b69196897823709f0929ad9559851660b",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/48724d3f1c50ea48580a50023d484fe0e7635e8a5e0bb131aa0913e6fbc94e81",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/50ab1460213bb6ea6dd7a44f854605d3753d3dfdd6747d4bc5e4b7478bcb8364",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/70be0e3b10728fa68d45d233691bb28edb28524aae683dab3dcf73c3e7b0ea2f",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/c88a2b91c18b98500ffae60bf63a84561c99441721c0e0d2496b5354d3904d75",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/62217969f0c7769717c143303f6117db09297ca2efdf98a490a22e9174a7308e",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/6d7738b5c877be30cedb1546e6ed807751c9e63845b2d1b2854f3eb48381c391",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/7786902a755de1df7db89a3668fef3c9f99d182b4f799de53b3c9b8bcf5c2708",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/fa360960afb0b5a18a2a5b1eaba27c2ea3528929aadf851a4586d5466dfff308",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/e680e2415c14add9af99ccf2346edec568f64cc4a0582d8cbf796363c92e11ff",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/161f663beca69945e482f1812610e4cbe02298ad2a4b1de95e976b43f0c8a53a",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/3d0a0abd437a60865de665e7f42479375f709a2bed64361f70e4637993b5063a",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/f55c0917b86bbe2d9a0dabbff9b12c2660f1b9cf5f28db0b792331e413ce1a7d",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/0e7d3b68a62ff00132b328042203bd7bd0657d971c236e14ad9aad504ee339b7",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/fila5.json.gz",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/escalas-iguales.json.gz",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/familia.json.gz",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/factor40.json.gz",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/atajo60000.json.gz",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/julio4.json.gz",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/legacy.json.gz",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/cero.json.gz",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/factor50.json.gz",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/ausencia.json.gz",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/cierre.json.gz",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/nominal.json.gz",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/fila4.json.gz",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/alimentos.json.gz",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/julio5.json.gz",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/aceptacion.json",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/testigos-ss-nuevos.json.gz",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/fila5.json.gz",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/escalas-iguales.json.gz",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/familia.json.gz",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/fuentes.json",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/factor40.json.gz",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/atajo60000.json.gz",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/julio4.json.gz",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/legacy.json.gz",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/cero.json.gz",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/factor50.json.gz",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/ausencia.json.gz",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/cierre.json.gz",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/nominal.json.gz",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/fila4.json.gz",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/alimentos.json.gz",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/julio5.json.gz",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/testigos-ss-nuevos.json.gz",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/fila5.json.gz",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/escalas-iguales.json.gz",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/familia.json.gz",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/fuentes.json",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/factor40.json.gz",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/atajo60000.json.gz",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/julio4.json.gz",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/legacy.json.gz",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/cero.json.gz",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/factor50.json.gz",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/ausencia.json.gz",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/cierre.json.gz",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/nominal.json.gz",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/fila4.json.gz",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/alimentos.json.gz",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/julio5.json.gz",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/terminal/fisico.json.gz",
+    "docs/procedencia/implementaciones/causal-retenciones-r57-sol/terminal/recibo.json",
+    "scripts/procedencia/evidencia-causal-r57-contratos.ts",
+    "scripts/procedencia/causal-retenciones-r57.ts",
+    "scripts/procedencia/evidencia-causal-r57.ts",
+    "schemas/procedencia/flujo/causal-retenciones-r57.schema.json",
+    "schemas/procedencia/flujo/ejecucion-r57.schema.json"
+  ],
+  "transportExact": true,
+  "payload": [
+    {
+      "path": ".cache/causal-retenciones-r57-sol/adaptador-antes-unidades.ts.txt",
+      "sha256": "d4f671f9e72265e2af432ed9acd4a74d73edd48cac6bd17d5ce8adf68bed7ac3",
+      "sha512": "d881a1636a2e6b6d39d035a8d375e0e2471a30aee0006ea7951c72d0509cffb2aceee62454df96cc3b3cd5504c11ca43f91f077c4d171774a804656eb0188bee",
+      "size": 9067,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/ajustar.py",
+      "sha256": "dbecf6b52cb11bba4e80679d272b9632f7671d257d475d34bf5418d817c77a51",
+      "sha512": "c75a00728b453befcd0d9c352e3fdd93034959f36e57961cb1c75b69a10d5b01c2fd9b05ec29f45997614658c31ec71fad8385b8e895e622847d7069b4f01dd5",
+      "size": 1049,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/artefactos-definitivas.log",
+      "sha256": "8b7a2a1fc46be7ac33d4457239a32c1ffaed68805084d17f09c71f69c4080faa",
+      "sha512": "644f4a5da29f6c1e3d6b57fd83fe0cf030177574cf52d25507d8ffc5144eba3a93dcd71d722fd73af8a27889ee3d3f1e5db08aeec28491ab4917f076ef78c790",
+      "size": 62,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/artefactos-final.log",
+      "sha256": "b92a29c0770647ed18a5a564814a01f9e452cc1901e063f552b516f2132d5266",
+      "sha512": "a8518403c8c091db6a0d724125d8494942004a54d61ab7719ae68d4fd4323869bd52de5c0e8a254acfe93718795d5d54426689f6157ed176369fbe4b3500b49a",
+      "size": 62,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/artefactos-finales.log",
+      "sha256": "8b7a2a1fc46be7ac33d4457239a32c1ffaed68805084d17f09c71f69c4080faa",
+      "sha512": "644f4a5da29f6c1e3d6b57fd83fe0cf030177574cf52d25507d8ffc5144eba3a93dcd71d722fd73af8a27889ee3d3f1e5db08aeec28491ab4917f076ef78c790",
+      "size": 62,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/artefactos-terminal.log",
+      "sha256": "8b7a2a1fc46be7ac33d4457239a32c1ffaed68805084d17f09c71f69c4080faa",
+      "sha512": "644f4a5da29f6c1e3d6b57fd83fe0cf030177574cf52d25507d8ffc5144eba3a93dcd71d722fd73af8a27889ee3d3f1e5db08aeec28491ab4917f076ef78c790",
+      "size": 62,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/artefactos.log",
+      "sha256": "b92a29c0770647ed18a5a564814a01f9e452cc1901e063f552b516f2132d5266",
+      "sha512": "a8518403c8c091db6a0d724125d8494942004a54d61ab7719ae68d4fd4323869bd52de5c0e8a254acfe93718795d5d54426689f6157ed176369fbe4b3500b49a",
+      "size": 62,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/artefactos.mjs",
+      "sha256": "a6e0930cabf9bb79a04d65985e27a9b197a1560c6dcc2e518ee3b4a380963811",
+      "sha512": "db26c137cc183337ed91e56c63697c7a6fd02a7f0f3b614d624e2be3a88ada8a2676c3fdc219f4e12f2b997fe9525f5724f8aa9cf8a1eeb5dc1870ed2939f6b2",
+      "size": 6426,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/causal-retenciones-r57-antes-frontera.txt",
+      "sha256": "7f50bc5eacc9f6b8d2ae2a495590706e1e0214f2af010e014a067b0038824a4c",
+      "sha512": "3b6f0195eb314b8535c07cf75eda4375c840926a2dd5281205085bcdfe74e4f1e65c9abcf63c760b824205c905d5a464fe47e1db89534743d0317bddf474a3d2",
+      "size": 11315,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/causal-ss-r54-antes-frontera.txt",
+      "sha256": "c97ff0efbf9437e7a7a2cb61af02e415f0cc13f119616695b47840092bbf8386",
+      "sha512": "127c0f65bdaec7a9d8f8b77dc1a876ba4f3b7f12e5a4e1247f9985044e8979fcbca776b169fcec63ddd65042139fe6d32054ab001f32d3bc2df6c33430a14d18",
+      "size": 12774,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/cerrar-frontera.py",
+      "sha256": "4dcea35f784501a67a872fd85f80fd848384488725d0c4b18f6a2aae863105bd",
+      "sha512": "de540bffa3aaa587f6cd490341e84f4838c8cc84f13701d01d6a9fa08a2473d60c24d1814c918dfca80c0559eb4f5a8625353b4b6d47ebb25ce622f699d73bf3",
+      "size": 6298,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/core-antes-continuacion.ts.txt",
+      "sha256": "6b820ce71cb5238fb585886fa836c1a8bae43ae3d33ea706d2c94e56b8dd80c6",
+      "sha512": "a5fe80836e5e24ccc04829b93f5fd00401af48b11386860cb039ce17ec67320f85b7bc4e227cf9668aff5b4bdaac7f218d2b557258b755d882f162acd0d3b09e",
+      "size": 37248,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/core-antes-fallback.ts.txt",
+      "sha256": "e552ae5b4ae9262de833f2c04d2ef68d538f30d1bca0796146cae2691c54fc23",
+      "sha512": "91a35b9d4a114c3a406df4d3fc4ddac6963431121bcffeeb86e8ff51316ff2fcf22d2bfcb6761b71f49f8c25eaf3fa13f86533b2fe9947b6f266bafbea83d879",
+      "size": 39934,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/core-antes-presencia.ts.txt",
+      "sha256": "feb6a27dd1cf7803d52ac7d4a3a14e5aaa685700ae8d9f68de4af524a7298c5f",
+      "sha512": "8a6dd8bcbe92d403ae524798adcebcc1d6efa4d875bfb8d75612b315cd0131cb2412cb36066163fd49e8a4ae537fd8347316113a96c857151e3a41bf2cc1706d",
+      "size": 37827,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/core-antes-unidades.ts.txt",
+      "sha256": "30c34d9c8407b0bfcf4440abd17b4e72fef9f20e57da4f51582336598cf25e43",
+      "sha512": "4d026aa73f293a1f81b0497d55435873564e86ca1caac34eb42b5b96148f780d2617e6ab969ec2b1321b61ff7db647fec7b30e62fc1e3111012858651ed0d506",
+      "size": 38689,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/documentar.py",
+      "sha256": "94cd04b6877d317cdc57078ba91c0f197ceb4e92ac8ebf820f81d284f3338f11",
+      "sha512": "ba047de155efdcd69212355dbeaf0c4804206e4094a228b6d7e18b56611e0949de5465f2c8af99679097a27236c288640e2c2d2f0764010e6b843b5e3f239430",
+      "size": 8295,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/empaquetar.py",
+      "sha256": "05eda21c44a45385937ca24f8246ee67a6733e7ad5a3d08753d83faa2007c093",
+      "sha512": "cc88199ec5921dc12868a11415d0182bd1bba39813dd5e53aa14611526e946140689b7754a5735ca28c2b9b344886be194e20fd5ff07b44693e0ab1ee663e6c9",
+      "size": 4577,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/escalas-final.log",
+      "sha256": "79e3c888f85765bc7b2673e583c30b0e1fc5a4c45dd0977902908a5372456bcd",
+      "sha512": "df12d83f273bb75fa3be001ca1533d944d74d5f4027fbe70009ee58bb3bf4a592b9f9c3fd591e7397205b7680c86811a4603d037ab0c1b1680e8f98b312b6bd0",
+      "size": 243,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/eslint-01.log",
+      "sha256": "8b28234d723e9f45dfb5a9240e0cc4aa677165f39861230089ffc3b717324f79",
+      "sha512": "12b4e247ef1984379d319e3cd6f53d32c477de65bf80305a824c5554a8af5606c2e3bb34c9af0fb8e655925a822870f6566d00a71833619a4bfb1c50ee89becd",
+      "size": 905,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/eslint-02.log",
+      "sha256": "e70a6c0997a10b4edb86f0abfcadd8c2fbb951512d082b8bb402ab425d6b74d0",
+      "sha512": "2bd835296dfa154716089a4a561005f5f7ae558cd253c37c87f94942db046292f144a2052ac6cd5e0a8473c7321766ea9624c5cc68eb871d231b7e217c491694",
+      "size": 760,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/eslint-definitivas.log",
+      "sha256": "272e4c2b0e16e307699713ad6b529510bfa6a765ef48eba689f6f501a403e27f",
+      "sha512": "1becf529aed4b7e5884fe231e8ee6e6f31e439233e4f3cccd5eb3505935ba687948051952596886025be0d3fc6a0763ef3e51aec4dd224169fd06e7f9c656377",
+      "size": 161,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/eslint-final.log",
+      "sha256": "272e4c2b0e16e307699713ad6b529510bfa6a765ef48eba689f6f501a403e27f",
+      "sha512": "1becf529aed4b7e5884fe231e8ee6e6f31e439233e4f3cccd5eb3505935ba687948051952596886025be0d3fc6a0763ef3e51aec4dd224169fd06e7f9c656377",
+      "size": 161,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/eslint-finales.log",
+      "sha256": "272e4c2b0e16e307699713ad6b529510bfa6a765ef48eba689f6f501a403e27f",
+      "sha512": "1becf529aed4b7e5884fe231e8ee6e6f31e439233e4f3cccd5eb3505935ba687948051952596886025be0d3fc6a0763ef3e51aec4dd224169fd06e7f9c656377",
+      "size": 161,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/eslint-terminal.log",
+      "sha256": "272e4c2b0e16e307699713ad6b529510bfa6a765ef48eba689f6f501a403e27f",
+      "sha512": "1becf529aed4b7e5884fe231e8ee6e6f31e439233e4f3cccd5eb3505935ba687948051952596886025be0d3fc6a0763ef3e51aec4dd224169fd06e7f9c656377",
+      "size": 161,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/evidencia-causal-r57-antes-frontera.txt",
+      "sha256": "016818acb3e9467aa89383ddd55da96d55014754829d1fe3aa0d7808f0ae010d",
+      "sha512": "45a15756caca0ce7da3ee7dcf19404986ea325af0410963dbb1ae255993d4f3ee232634fab02bcd0925f150afbcd7fc1b2b1bee3f8410ea0d70500763c957437",
+      "size": 40167,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/familia-final.log",
+      "sha256": "fd47867b24f58013c226020813d2521e4ea4a54bf03663f22d386c963eb18a4c",
+      "sha512": "bc97cdfbcf756b344d2f91e861ce3b061f8432f226f30b2f11a768fec163e574f7bee0bd1c16160c5b0a94bf47067a9e2b9ff1899fe97d57c5d5190e500f8e90",
+      "size": 243,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/fisico.py",
+      "sha256": "f285f9fcc73de019171d7ed508234a13397ba8125c27a2209194e2d84dbd20cd",
+      "sha512": "b66e7936af1a9112f55a8ee3491cbb582e8aed7fa8c8cb369e13241cf0beecf89d21507b1cda5add8a4dba1a085d5508d4f5c9fa7d6af4986f6dff5416791c1f",
+      "size": 5008,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/formato-02.log",
+      "sha256": "f0e8c41c1db17877b824b694b30dfae2a5bb680137be3c82e468227c5df76316",
+      "sha512": "5e94f0958b3ad2cee153e3992d513c6b65ccac657c49509479ed785a59a1ac978e5e4d68b29e1dce67ad5be9367b0c9e8b47a8d4f3e2d6f6ec18f0d4802ca3ba",
+      "size": 104,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/formato-03.log",
+      "sha256": "88906c67abebd478bd17444df3c0da9e8dc3141253791fbbac2776b4f70eb29d",
+      "sha512": "3704fc9203c3d33e0075293b22c9aa31aa0517ed5d434ae769b76c2d7f9ae63b9d408bbe773461e1fd3848b725887084900f86566a3270743c7871c61a180401",
+      "size": 93,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/formato-cierre.log",
+      "sha256": "a1fa73ac1e97468b177595071cb1739822162e9b1d3268d6c07a5e186c802d22",
+      "sha512": "885968cc28701a3d1c573a726b816844462cb63b2c7a72dd3eddf9d13f2b32ee5c0acf648cd27765b494af0be9f2daaef5d9371258532c3449dbe02eb7554616",
+      "size": 155,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/formato-continuacion.log",
+      "sha256": "622ff25eca70dcf765d0207bd10da128ebc362e0dc844c5edc14b2bd70154747",
+      "sha512": "432931d21bc175d5acc0a81258881a2a8fe573fb5ff4d316e83f87f6981bf6740a10bdb56711224d3633a6fd44bbc89905859118132b9707e53e5aba23003878",
+      "size": 92,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/formato-frontera-02.log",
+      "sha256": "3ce69eda984f8435e8c91318f0a24c8f0ac2e3826f60a11b16f5b77d33cafaf6",
+      "sha512": "c54755895f2b337aa6f6e6625818d5a279f461a458f9c28bf8346e3384a8e29fd4547d2baa4e95c6632a7dca3cd846b1ba43c16f8fc7f6127b913b94f61e283d",
+      "size": 36,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/formato-frontera-03.log",
+      "sha256": "3e4bfb248c323ab4b1b0b8d80000e7d9dcfa0b978756fd06d0fe69f00b8ec65c",
+      "sha512": "85682c067c04470b63a627a1b9aa5e53139b5dcba508cf1d714f267a0a33ca0ee857cc16dfb073b1fe364543d0413caa5f06c1b588ab073927dc2b25ba95e5f5",
+      "size": 95,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/formato-frontera.log",
+      "sha256": "ae21260df517f11f727d10068dbebf339d3e98e5d02dfdac33fd95aebac224f5",
+      "sha512": "3251faab19ff942e99fcadf166a47164397ce558e0c9f2c5412e5426ef4d46c0d662ae27d8dbb85fefe678191e9a0171f3a871c5df5cb044d5d039449328905f",
+      "size": 195,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/formato-presencia.log",
+      "sha256": "6ea4f3614711715add50b3149cd1e00d0470a88dcfc7278ce585ff2b501ce136",
+      "sha512": "63d19e870246c5c22900bba8d8a59c63afb586a22a4a83df9bda21e4ecf7c92bf66ae1234ab8ec635b955f34e59573dab8415fd7c8d9187a4d565d66340ee7a0",
+      "size": 92,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/formato-unidades-02.log",
+      "sha256": "7672fbbba07fb96c1b106a63fe66fd1ab6ae113efa6a055adf27e56475147e74",
+      "sha512": "8a36462cd1f28ac9671afd410419df7c4871dc143b7e0c19f0dcd2aa28398e31e2df47f4c1a4a0188d2b15e7cdf95cba342cf9f1331216fb585b11f55ac9f46f",
+      "size": 51,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/formato-unidades.log",
+      "sha256": "855ee1ce2bb50a32cb28be8983fc5e4634df7679618047b0c56856a4542c4c38",
+      "sha512": "65193a466824525e3f0037b1a598138ce2a40a3acbb1fccc1613dea2b15903e2befb629ab9c6a1db38a9e6a9d9e69e42fc491141a783662369d0c422747ea9f7",
+      "size": 143,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/formato.log",
+      "sha256": "0549d30e104f200cc655027af272959396e1f50e4ba80b23ecb11ccc9277074a",
+      "sha512": "390274030147f84d55782dd9de358ce952dab403754352eae0c820db3aaaac17606a614e3abab4e57fdae529a9d7a7084d14383e42b00455763e76e410966731",
+      "size": 178,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/frontera-verde.log",
+      "sha256": "447435ae264d36d21583584a4d7417628860515539c18034d0d5978393cf1b10",
+      "sha512": "446ecc1424beaad4f5548713a27933aa2c3657213e0e4099fcb2b82481a99cdc56366435cbd2a625614a64706883e58c99984656e52c026cd5c73f8b153a4f09",
+      "size": 243,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/implementar.py",
+      "sha256": "1b4c1b98239253e21e6940d0b20579b2a12f8655a76073ec426b71a7757a228b",
+      "sha512": "d9c4d3433e3f24e570e898156e4f25acf2d772559e551abdf846d21b5fa023f74f106a910b47206f79108c6f2fefee8969acbb9571ac600117432b5144d9f697",
+      "size": 11505,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/oxlint-01.log",
+      "sha256": "0f59eaef757f41ec4c1b4c94b836c33c921b061d473a90f18a8570bcd827cbda",
+      "sha512": "87be844441b9c053ab0221e30b2c548603c2393e6afbfd9a2ecf4c2fc3abd94146c5b5fbdaf0debca09e12e21f7f475e346e4beead38f2d66d52cc097bed2073",
+      "size": 2863,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/oxlint-02.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sha512": "cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e",
+      "size": 0,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/oxlint-definitivas.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sha512": "cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e",
+      "size": 0,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/oxlint-final.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sha512": "cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e",
+      "size": 0,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/oxlint-finales.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sha512": "cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e",
+      "size": 0,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/oxlint-terminal.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sha512": "cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e",
+      "size": 0,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/preimagenes/causal-ss-r54.ts",
+      "sha256": "e0312a81a483951cb86e195b2194664275f68a54daa6c7a9061b59c640afaa25",
+      "sha512": "6729ba28ad28e73f9ac31db26c6b2e78a5e155b0fde3e3669e33f6e603e130ecdca0fd5b2cfcf4b70838b2b9ccd56720dfea7bcecd5a2901e241b18195c7f728",
+      "size": 34029,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/preimagenes/evidencia-ejecucion-r54.ts",
+      "sha256": "f9636160956a0d3d6865cc4c224821de0f14b8888b3c97bb0da744793ca8a9eb",
+      "sha512": "88a6d28c1dfcfe7d79f45eb2c89192ab423b041ea616897efd5bac68da369ddf1a89abda81bbde899c89551847430a2610846acae7ef454cb141e91ca1379097",
+      "size": 1744,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/preimagenes/flujo-retenciones-r34-consumidor.mjs",
+      "sha256": "a44f7a3eb4a7d5565c4c2d5439165c2b204ac4d30b17bd270c2730ce9c42a6c0",
+      "sha512": "17060b05a74b356a0f5af30c8e594e927f4436ec909fda21322c4a8761fc06718bd764da1715fe23cf3d304d6cb97e7fcb4a89446184c1b6318d8dd1400811a5",
+      "size": 9573,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/presencia-verde.log",
+      "sha256": "714d00351a50e855705398799809c4f751b058bb9867656b40d13eef9dc68f71",
+      "sha512": "fee5bff7f4d0e3ecd0cb4a7f7cfd66f503d548933f7036856444297b001d03435a28430e36b9a3f65ff9b0f6739c38911e0e1ee611b5a33e646996b268df6529",
+      "size": 243,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/primer-recorrido.log",
+      "sha256": "0223bb97fb75f5573d99d32387b723e65562f9d087042df30c91ed1c99a9a238",
+      "sha512": "811efde0889cf4e162ca567c9725c33ed9122584267c688243bcfbb536d2043a3bc460fdf0bd3d2ebe4415d1eebe091910efcc384597df9a09bd23c12aebf979",
+      "size": 1251,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/pruebas-03.log",
+      "sha256": "d99b146105a119ef9e1cf1c49be52ee8c8b7564ef50fa19af0427dbe9fc76dcf",
+      "sha512": "d2b97e49f208c1c3fc0397698ca4b68210ee7af5ca36ec7a037a40ffc95793998412988d05903f246327cb7d0de04cfeacbb24e493639eda42183429b9cedf51",
+      "size": 1284,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/pruebas-04.log",
+      "sha256": "27f4a317998a26777072afeebb3d902938f50864742ebf3e5c4dd7d9f557a7a0",
+      "sha512": "4cd13ddc01bf779d6a364721c353f98e40f7fe70c4c1f2d1b9d5f3e049399d8e83664cffd4710b4f8ea2bbfb7eb6f94f0fcc8dada954e9870a01519c9708b081",
+      "size": 1103,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/pruebas-cierre.log",
+      "sha256": "cdfb351b17ad4d16fec9905f8775c03b7cce6714e4def3b5482f9c35552a95dd",
+      "sha512": "41604d8ef5b523388a0d509598a17e021e89b59eced14b6aeed0776f120db083c65d4e5efc4f8ca79e7c397408cd5bb3aac2cd3b849050e964f56c531fbea355",
+      "size": 234,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/pruebas-continuacion.log",
+      "sha256": "a19582170586cc5d1c9d6468ee8b8a6ac564b9e5a5f7bfea06fc20a76007c3b1",
+      "sha512": "73ac4729a892852840f22d47666e5d3fb9ef0ec70b4a2128e61b19e33691ca51b3cf6fdfbb9d02722664ade7df5063f730407e10814aacd7abefc502eb4b50f8",
+      "size": 234,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/pruebas-definitivas.log",
+      "sha256": "232492ceca7994a7a51d6e49a82b4ccb40089ca72299ed05b0e4e52bd3ea802a",
+      "sha512": "e1b2d7895b25872b6783aaafb09964fafc8de6b84a9091899d6133afbaa8a76d613d6b380844f3ebb9694fce8bda0b0cdc9e3875ef6f539904b982dcde2241d4",
+      "size": 234,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/pruebas-terminales.log",
+      "sha256": "9964bec1a09ab840836f77d79832ff3a93faa9003215860d79b3abf27c4c54a5",
+      "sha512": "d983c8f759dbc953d60e5c572df4b23e88e61c5245e965d41454d5583068b95574d89e7acbac1995a628fa8eda7ee087961d10b0cb26abf84581348d499fd4b8",
+      "size": 235,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/recepcion.json",
+      "sha256": "776d377c0074b5cfb2b4b292bc903b4d1a1435f63b0b513c0347fe787dbfdfa4",
+      "sha512": "69dc1022e57678277889d486ee14d77b8ffaee19f3d41f686706cf758e4450af04225cbc56d8f30a0517aa703ccd8567f7cdb7c8ea33460a65c52a017636d9ef",
+      "size": 220,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/ret-01.log",
+      "sha256": "3ef3e189800208888f36f4d5edfc94a1a8ae34f7da04a581422eb27730081c63",
+      "sha512": "953cb91b31e0d38e07a34e9b9a8c2171ae5180f187135dc7b1db2223fce3b7f9df021406b438ee7f3dcf6f38be44587dc6356fec1ff576ab45c74f6f8dfe3b84",
+      "size": 942,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/ret-02.log",
+      "sha256": "29908f714158cefcdeb3626392d58b4a04e85bf9f17be99cb5732e5c2c08abfd",
+      "sha512": "ff89a04173f414d25ca32fcaa3b72117feba6977d1aadbadae465449240e64bc7a34aae482b630d28d215f8635672978024331d476c544da4eedcd94373107fc",
+      "size": 233,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/ret-final.log",
+      "sha256": "c745aa000f68557ad6591293f949fe6158c51d506fd521b3c0f453b2dea02ef5",
+      "sha512": "22718e25426fd9486ec8226d5d9fbcccb43326d24d941bef317244fe7acb9020227f7e282ba09a98ea2bedf09561051cc7e697b8a2b16382198d4462d78908dd",
+      "size": 233,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/rojo-anterior.mjs",
+      "sha256": "5215f234336404d6c410797256473c6d89483bb665cca7618340f664bfa5b969",
+      "sha512": "aa635ac07b37a51b1d065eb6981084517c4eb8ae713f6a9fdaa6fd4baa58d2810fc2fdb8149d2f4c167bc823b660661f2cab23f8556afc07e40d57a12b743cfa",
+      "size": 834,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/rojo-continuacion.log",
+      "sha256": "d21b8690d8552d0dc407da4dfe17f472650fde9c9dabccfc19805e5ccfce2a76",
+      "sha512": "76b88cbf9288dbb3886303419fd101b3103912bf8b209f80e84edaa2c6befd27d5ee71bd31e0d4604c42bd7cd91b493f509c16b5bdc01de13f84b85ec9c31e64",
+      "size": 1187,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/rojo-fallback.log",
+      "sha256": "4ba296bc20b53a8b2753134e33f68cc516724c4eea815e9fd4d68f6d7c7c4516",
+      "sha512": "c12b7406b6f581ff529f4dde1807897bd7e096cc5697a48ffd686986a5e664e92d1fa14da387df5f0569f377b362c725ae6e20244d1c9b2ac3b46c33b457c4bc",
+      "size": 1133,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/rojo-nucleo-publico.log",
+      "sha256": "01789a0b47d357d5669646e719d1b684ea96fd08c89cd04d2aa773ff4ab66e6b",
+      "sha512": "f335b28bd4b31f8142f9d09181babf26b84e764c7c33b90569c49e4b0e3312e7ec9b39f6db87b587d598a5d537ad89157f03f86e44c35e814574232c37014ccd",
+      "size": 1136,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/rojo-orden-ir.log",
+      "sha256": "ab2c183430468be1179126ada489002ec58a286cfe97402e00fbef2ab048dc15",
+      "sha512": "3375e4a9238e229e9549c2058d1dc17fb4ba5f8f93f8fd34f4cbd85aae3eff9fec5e94082e2da88de0d772024d9e8ef619fc1e364986b0a1292eadc6ff4b29f8",
+      "size": 1117,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/rojo-presencia.log",
+      "sha256": "596ec881534dfaf60bfeda0f78eb43d1684fd82cb310e5b0228050c24c7379ce",
+      "sha512": "c1a63d7ca6aac840148f545518b30fca403ce13b3584d3a5401a6a5e647c683b77c54f3c121f31a1e9043e8fa9dcb8e5bb7a4b621530933e5f9e58f26cbf5101",
+      "size": 1138,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/rojo-reproducido.log",
+      "sha256": "74031a85dc8bf64ae17150381eedec26814ae34d79fdd152dcef1c08d0acffea",
+      "sha512": "16617342c3ba1045494fe0a732a83ddb9f0c903030562050b4e9a25dbc4f0e0d16e1cf706211f855928abc31456da7234ba9cf98e2d31e40aec4dda91ee59952",
+      "size": 650,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/rojo-unidades.log",
+      "sha256": "d2be7b545ede3bd1c213a7e3169778d580faf7f8f811589ce506a2bcdc862014",
+      "sha512": "74c2c9b56d0edea23d37de8ee12830aa3c1c16a560cdd843edda4032fb50ba6c6d98de9657e12e0e456699b4d7bb639b376e307219db72987648fa8b665858c9",
+      "size": 858,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/rojo.log",
+      "sha256": "6fda457fd381f41d7cc357d9ca455955b3e1171b8d1f1556be0ad7b5d81e4ee0",
+      "sha512": "fa87199505a2bf142dbf7910ab5eb39e4603ba51d6bc649962b914cc1a57cd45b52db80b29b4722e450403bc85f2f3cb5449a8391d02bd4e93022cd1dc05d848",
+      "size": 641,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/rojo.mjs",
+      "sha256": "69e728612b51161ec4b31e8fea47e57ca5d7730b3101a44efa8fbd898ffa7d27",
+      "sha512": "7fe885878b9d52503ffe0c25961ea6e3b7579f3d67aa59a0816bf694019762dd21a5e98a43a189737510cdafdcb1ae9880789da5e2274667834dd4e633296e23",
+      "size": 846,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/schema-definitivas.log",
+      "sha256": "1c379f036b1506cbdd6ba6c25d1b004e2b59dc2f25f9f228b33e84b5b4b6c1e1",
+      "sha512": "84a24b3c6bf942b9e0b74d0da99a2fc83f29b100cc0a02e089cc46133642d025c613e97988930914a416307a3662ff975ee2d118ee1e13239e975fddf263e17b",
+      "size": 218,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/schema-finales.log",
+      "sha256": "1c379f036b1506cbdd6ba6c25d1b004e2b59dc2f25f9f228b33e84b5b4b6c1e1",
+      "sha512": "84a24b3c6bf942b9e0b74d0da99a2fc83f29b100cc0a02e089cc46133642d025c613e97988930914a416307a3662ff975ee2d118ee1e13239e975fddf263e17b",
+      "size": 218,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/schema-terminal.log",
+      "sha256": "8b0247035cf04c34435bb830789ec9be169975bf63248156f56db85a216195bc",
+      "sha512": "98280cd1b882dcc845a75c9379a3951530beb179ee1a5b8e50ae14f875b2a93ab10a3126283c807f177bb9f0de8113bad907ac21ca8a6b5da9743eed70bf878d",
+      "size": 149,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/schema.log",
+      "sha256": "a9dcce7420e46b32596d1c8f324addd29ad4cff789ec64f7d2063f320e4cb768",
+      "sha512": "b1a7581297703c144f1340f0b3812c958f8e7cb74b52d4282dba846400842e16d3c2282658ee6b9f7a6e244eda5bf27736888c25b29d11e9211ea60de269d832",
+      "size": 149,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/schema.py",
+      "sha256": "d6c07a191ca6dbd5967f04a32160c448f53279d1027e56c90b2720b2c79f544b",
+      "sha512": "acf35be4c0a22c655723a714a72fd83006b24a9717038f60a747886e89eb4bb07cef664168626c8bfa0459563a12a2eab2a41528af0ff9830358e7dc2cae493e",
+      "size": 1162,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/segundo-recorrido.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sha512": "cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e",
+      "size": 0,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/ss-anterior.ts",
+      "sha256": "6bcb6a4cf9c725293beec14353a9e8cc76b21c0dd4b495d604e76b8e7a49c17b",
+      "sha512": "ecf202a4bd64106e43c43668198c0fbd5f71149de8d5452a470f0b1daa6c63cc85465ec8b6f638fe117df1128e2f9f5834932029e12d0d40081c1127810e051c",
+      "size": 34221,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/ss.log",
+      "sha256": "c610787757f3fd22e3e7753bc84f0debfd30048448b9710a93664fe246c59272",
+      "sha512": "cbdf612f906db4c8ea86c692106703533dc3fabe51602ee2fa0c736997d762eabc16033c5f32cf02405717ec0c1cce3b1d2cfbe7e12d79de587d54700c530d58",
+      "size": 230,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/test-antes-arreglo-objetivo.ts.txt",
+      "sha256": "f16f01015d1d9be77ec5e95f0e0cdd6a44260de384419f648ebb35a661c99624",
+      "sha512": "47d82db3f04da3231c3fd62fa975aeed1705c5389ff0d8fbdd88e8fad3dd77e92955f21d36740fcc13b05f43470a5035600048b341c22ebb810c20ba808c920f",
+      "size": 19001,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/test-antes-correccion-expectativa.ts.txt",
+      "sha256": "3ff8b608ed257074740049afbac6f857ecf6e1ca9b6f71b556e9a123c41006d4",
+      "sha512": "916c8145d9828f3220ec21df7d2cd5a599c55651661abdea901b3458f5da08b64467873ae7ea32c4e35e7193e9b398203c00d310d12cf839bb89ab8a03766768",
+      "size": 11090,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/test-frontera-rojo.ts.txt",
+      "sha256": "69a3c8986134d4f0bbcad934c919d2ef6887cb0caaf0353fc34760e071333b4b",
+      "sha512": "ea4d83793c0916cc84803bcd434c8329492f7704c5940352953cf5d5ca7f859d9638225307207afe7fbf1d29b1e317c666eeebd496dbe35a488e55716b67de0b",
+      "size": 1864,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/tsconfig.json",
+      "sha256": "9cd23a4a83add6f2e145b94e5a8534d18487ac5be8d233c764ef57aa4b960501",
+      "sha512": "62b5fca2d9fd4ecd045dd122e3a443a2f87468d5a07547bf0a4480dc0f8429aba118595c124341e655c2e9fdf2dca1848ea68ae6ddb282bc156bfc25d6dc669c",
+      "size": 569,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/types-01.log",
+      "sha256": "312ee36c0df54eb28df192e72d2f2f606484b0c0392dbb9349134ac55561874c",
+      "sha512": "c1dedf64f8830df5d703478403f4cf46d3ab6609a2662a0c55cbb39329506812f356260cf8f03078b7ef9c2302c4c2262a979bd90dd7cb77b21daabea3dbe5dc",
+      "size": 12295,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/types-02.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sha512": "cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e",
+      "size": 0,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/types-03.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sha512": "cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e",
+      "size": 0,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/types-definitivas.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sha512": "cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e",
+      "size": 0,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/types-final.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sha512": "cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e",
+      "size": 0,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/types-finales.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sha512": "cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e",
+      "size": 0,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/types-frontera.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sha512": "cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e",
+      "size": 0,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/types-terminal.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sha512": "cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e",
+      "size": 0,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/types-unidades.log",
+      "sha256": "c8ffd6c3d99c09d601ab6048db20b1d32c8a86e560e22564c208c423140843ff",
+      "sha512": "0e6f8af1b7a0dd36d35020c234775172b996a3a25b3139d77357704c1098e342bfa37522beb19e28a88d9ce2781865ac11eae8b20aec661dc1a8409c37d32179",
+      "size": 361,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/unidades-verde.log",
+      "sha256": "fdc17eaf8f84a14aefaaf299e705af9cf78a1d8ea2e38831534f9334028e1612",
+      "sha512": "080edcdceb19dfd90c8dd497f87c165e2ed32bf367effbd08ab9bbd7cfa0d331c82c583a3b5a49e686a48af5551586350fab6419bba906c63e3da6c4af6556c6",
+      "size": 243,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/uv-cache/.gitignore",
+      "sha256": "684888c0ebb17f374298b65ee2807526c066094c701bcc7ebbe1c1095f494fc1",
+      "sha512": "7846cdd4c2b9052768b8901640122e5282e0b833a6a58312a7763472d448ee23781c7f08d90793fdfe71ffe74238cf6e4aa778cc9bb8cec03ea7268d4893a502",
+      "size": 1,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/uv-cache/.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sha512": "cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e",
+      "size": 0,
+      "mode": "0o666",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/uv-cache/CACHEDIR.TAG",
+      "sha256": "5953156d7e0c564a427251316eaf26f8870e6483ae2197f916b630e4f93e31ae",
+      "sha512": "0c67aebfbc4a4f4aba26c342460e35a0328b903a73ea8175f1500d70c227d6ecf8d25e37df1e452e170a5620f56ed10862b095a7d74408fbc3b7cdf3466b2fba",
+      "size": 43,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/uv-cache/interpreter-v4/ec44dc79c0c80bb1/499905336a80298a.msgpack",
+      "sha256": "0c07a12ce288e7ae241cd7c02d80bce1623856a5038b19d0f6bc0c1d5720e96b",
+      "sha512": "ba1ea3d2189139928a2bf7033312ae1aa90961527f24203ef465d6e61febb12a5cc96cb7d758d8574dd082ee9e2a97c94d18661c91b0c0a48efee944097f9f68",
+      "size": 1640,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:0c07a12ce288e7ae241cd7c02d80bce1623856a5038b19d0f6bc0c1d5720e96b"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/uv-cache/sdists-v9/.git",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sha512": "cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e",
+      "size": 0,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/uv-cache/sdists-v9/.gitignore",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sha512": "cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e",
+      "size": 0,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/verde-rojo-original.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sha512": "cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e",
+      "size": 0,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".cache/causal-retenciones-r57-sol/vitest.config.mjs",
+      "sha256": "5b25c4a5f1525ea3babb790775c43b190b3b35922d8e0ba87832ff8ae169dbc8",
+      "sha512": "6e4e7fd8fdca82e59229a1845a5f18af1702b794402e420a4caf6064bd97387284f4e61a57e698c4f1fbd5567caca3faefe6c9ef2c73c062fe245230650bc648",
+      "size": 361,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/COMANDOS.md",
+      "sha256": "227cbb515aabdbeb3575974d3a1cbbb23bae3fc810769f6920c98d10d0feca35",
+      "sha512": "21ebe0add14bf9029d5b496c105e643bf082e3ea2213645f54a982e1e89cdad8b5ad343b2a91e6bdc21f6c7e99dcd2a6c5b9e7e6edfff8aefea5f07b4f63b246",
+      "size": 4545,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/DECISIONES.json",
+      "sha256": "be77826dc5f00424792f6580eab8ed3d4b5e5b32a8bb51681e38f8e7192e88a7",
+      "sha512": "8b0c2538fb5a2ac91961f1af916897b4a755b294e66c93385e204e60fc1aff55060cb5a8f2999c51a1d6e92818bfb6c919634c756e2ea267ee72a45b0eea7f49",
+      "size": 2135,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/INFORME.md",
+      "sha256": "5cd2b694c61cb59875d4fef9fc72158819eb3763f0dc95c95346664605210132",
+      "sha512": "e49dcd35a3a944239b4945a21f047b973b9f56c59fd0779c10a1233fa0e1e3c43c13721334a9e27b5017081b0845e3dd41904d58c5962657340be6346d4678d3",
+      "size": 16375,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/calidad.json",
+      "sha256": "f308195c1e6bcbe732d47f0d5be207ff8b05637d079c7f8f37ddf2791e78d32d",
+      "sha512": "3acf5325b41b17c80b6055dc839490788f737f091228e181e8aa4c052bedf9a2f067aa2e4399ff4158a2ccfe47d787fc6c35d78e2fec52ea5553e0218076cb38",
+      "size": 1695,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/casos.json",
+      "sha256": "52119816ca756ac49454946c386bc2abc3f2282d19e7e6108da7bc9df48f410b",
+      "sha512": "dc88b0efe885b5888ef2451ada1983234c92ed584b6ffb2d7d79823ff0880d87670bd438c63cd28ff464ee462b04ad3622c3e7a27ad194225595d533b900b6fd",
+      "size": 211727,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/compatibilidad-ss.json",
+      "sha256": "908d7315f0bb25d6ac8d6e2d56673c5edb26ccac2af585b43b30551fe0a85656",
+      "sha512": "8724632b4018076862214fadf9fa42e66eb28010e4c4b3f48ba0a8208adc39a7b44fdb793681b8766ffa72d4144d9cb2b59a76f2af22afb7ed329bff192a5645",
+      "size": 1894,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/contrato.json.gz",
+      "sha256": "50ab1460213bb6ea6dd7a44f854605d3753d3dfdd6747d4bc5e4b7478bcb8364",
+      "sha512": "f00de0dc958a41af99e3910d8a631481e3d386b69a3e0efe1ba590169dfad5fcd751fece3a0ca8419cc38189f90dd28ff83de96c34e54ffce15e5099f1af5992",
+      "size": 104199,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:50ab1460213bb6ea6dd7a44f854605d3753d3dfdd6747d4bc5e4b7478bcb8364"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/fuentes.json",
+      "sha256": "9e64f5517213806498b206002113368c2a9e961d05e5b5630ea356d8cff6d849",
+      "sha512": "c281092d127a0af7b62b22681ce6a59b46e80b7a1cb2a3adb21652e187a04a848034ccb60512041a2d4b4a30ce14c2633ff5a09837895e903a2607af9a6657ad",
+      "size": 7302,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/gramatica.json",
+      "sha256": "cd4e95fe894e1c31a1ffc993f813c81e7c616e7fd988ccd6fae8bcc505fe8f0f",
+      "sha512": "a0ef3c4841f9c3f21df56850c41f34b1ec5203c88dbdc1353577282a296c6339e073b05ef42528c94cd0b4fc5e0ed63d6679a85a7c37f26d17a9632f18a2cd2a",
+      "size": 10970,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/aceptacion.json",
+      "sha256": "a4785897c04df1e5fe45f58a0d80ce465a978cc5ff92f839ac41d7adf818b16e",
+      "sha512": "2e9c33622e50b3a625b7e00430be3b0e6c8c0193763c00a0270db7c9a110b0340f7c65909fc546aa0560a6378bf36014da0dd0ce101c93010bd6961d2bb65980",
+      "size": 185,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/alimentos.json.gz",
+      "sha256": "e680e2415c14add9af99ccf2346edec568f64cc4a0582d8cbf796363c92e11ff",
+      "sha512": "327fcb97d4f3ada98476a96ee6f310d47850d9ad481c4fc07db5180419e027e3530fc2436060d473a6d71e8c977f1b4d328b5c91f5fd4a968834411ef71eb9fa",
+      "size": 292146,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:e680e2415c14add9af99ccf2346edec568f64cc4a0582d8cbf796363c92e11ff"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/atajo60000.json.gz",
+      "sha256": "0e7d3b68a62ff00132b328042203bd7bd0657d971c236e14ad9aad504ee339b7",
+      "sha512": "da5ec732901613d05fd3cc3cb6cf0c5a4b06271c626e09c94aabbb670ef40b546b4746a0397bf8b0f91c16ce914e0f127c849b6cbee1b40ff054d05d7a23f650",
+      "size": 259710,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:0e7d3b68a62ff00132b328042203bd7bd0657d971c236e14ad9aad504ee339b7"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/ausencia.json.gz",
+      "sha256": "a2b9080ed0093030b4e18aac1083e6967835fcf3ded3cc3bc446a61b8f040255",
+      "sha512": "f38f6f193ab13d88046f72d98fd27c20e8535c41411dedb08b585cd7884bfbd717ac685c147f7a4bdac04c2009332554560bb0a5c993c37eb74913e8689cee27",
+      "size": 6666,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:a2b9080ed0093030b4e18aac1083e6967835fcf3ded3cc3bc446a61b8f040255"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/cero.json.gz",
+      "sha256": "b9f6532babc0862f19121b528ea89a0e62afde82262f006eb0285a0555e8ef87",
+      "sha512": "f70697594fa89c3939e60dc35850a74dc35f16c0d3866348421e55442a6a3935aae925741720a994212a64b65d858e875caf97ddc52268f96a725a0c3f885bff",
+      "size": 207604,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:b9f6532babc0862f19121b528ea89a0e62afde82262f006eb0285a0555e8ef87"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/cierre.json.gz",
+      "sha256": "05d2a6cf0f9e8c50013cf1da3a49f1407abf561c2bcef8859a6b51314944f07c",
+      "sha512": "cc426876939e44ed7d5812998d79f087b0e7270cdddfa43fb3c0e04bbe710fde7cbc297a48b22a79acee2756d63a7247a002162e240e6a3e6683d9936432bad0",
+      "size": 269370,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:05d2a6cf0f9e8c50013cf1da3a49f1407abf561c2bcef8859a6b51314944f07c"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/escalas-iguales.json.gz",
+      "sha256": "74e8c8f89dec65a6036e0decf372b43b811dc23c7153412cdc760c884c9fc634",
+      "sha512": "cebdc8c1658e51dc5b2f133148c1a8620e3176e99b0b72fbb0df8d4c2c059d57ce87e15acd5570aa0308f2da8cde60ab42f979362543a3c1897655af5e996936",
+      "size": 299551,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:74e8c8f89dec65a6036e0decf372b43b811dc23c7153412cdc760c884c9fc634"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/factor40.json.gz",
+      "sha256": "00464efacc8d64124eabaa788c691d96efb725189b61f6ba73a4d6a93482c9af",
+      "sha512": "1e663af19bc5882c63d2436b872256ed12c20d793111ea3975e3d5414fdfe6706dd8c772d621dbf00f6ab844fb0da7a18058bd68c2b0b29da4d7ae2d9cbde8c7",
+      "size": 273767,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:00464efacc8d64124eabaa788c691d96efb725189b61f6ba73a4d6a93482c9af"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/factor50.json.gz",
+      "sha256": "6e2e81a14453374678120fc41f8f6fb5ae9469b59222120def693ab7757fceeb",
+      "sha512": "9f5cc8eaa760ff5ce333e345ce0c2d38bff02d9519f1e1e6b3f1fb1e548122631b5fa16385aa8d299faa0b3f9733d17dc47278a0ca824428147641b5381ea9bb",
+      "size": 272697,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:6e2e81a14453374678120fc41f8f6fb5ae9469b59222120def693ab7757fceeb"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/familia.json.gz",
+      "sha256": "6d7738b5c877be30cedb1546e6ed807751c9e63845b2d1b2854f3eb48381c391",
+      "sha512": "90134285acd59b996ef40a08a84a250859613397a8f0bfa4e5024c1d73a005c299bf6abf0de89b70239289c452ef026ba91eb4bd6d7fdd8ad04343cf136ddb31",
+      "size": 389428,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:6d7738b5c877be30cedb1546e6ed807751c9e63845b2d1b2854f3eb48381c391"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/fila4.json.gz",
+      "sha256": "e5e505b9eeb33320b621ff26a8dea9acfa70bec218488afbb8451fee2b6f4997",
+      "sha512": "290ddf4a51b1fc108c7795e6856203fba976f1a207c6032ba3eaa1134b21d1b94dc99de159bc41551bb3e70d16257a5a38e057232a200869e9495506bb5012de",
+      "size": 266677,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:e5e505b9eeb33320b621ff26a8dea9acfa70bec218488afbb8451fee2b6f4997"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/fila5.json.gz",
+      "sha256": "161f663beca69945e482f1812610e4cbe02298ad2a4b1de95e976b43f0c8a53a",
+      "sha512": "b1491c1807ccec7ce0d32e0c063d878b89dc62e3104d77b6dc5b42aa1b23bf1ed81a46954f808faf48f19aaa87f12e24ebcb07803541e72c164eae40db78e3d9",
+      "size": 265091,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:161f663beca69945e482f1812610e4cbe02298ad2a4b1de95e976b43f0c8a53a"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/fuentes.json",
+      "sha256": "ba8be42c615514f51d34a1b2bdb3074c5d8048b27e54a58d969827692863d241",
+      "sha512": "cbb151833a1e73c6866bb09e9ff3e3dca1ca6e1ef8140f29afd000d1cf86642bd27e76143ad0e5332cd505fd9c777c903d29b01e24b75c83615195a4925c8afa",
+      "size": 6979,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/julio4.json.gz",
+      "sha256": "3b2ce7ba32bda36ccc73aa0667522538992d7187f34466eed0856ad7064d443f",
+      "sha512": "ebb477d99bfe26f4d99c498d83f3d3e2b73ece2d9cd2c1fdf14f795da32c1570a8b7ed1fd5e0cd391661274b671fa0853a7aea6ac165bccba0d11231b71e63a0",
+      "size": 274809,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:3b2ce7ba32bda36ccc73aa0667522538992d7187f34466eed0856ad7064d443f"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/julio5.json.gz",
+      "sha256": "42bff47919784d37e50e2d879e4ca67c06b995008fb059ccd7b5b50b6b54fcb2",
+      "sha512": "07203a193ac630871d92bbe914e317a9cd5a5d4c0627129df45117702faae1407821946216916b0280bf28d34ea4e76dee2e0652425412c76165194ad3b2d1a0",
+      "size": 280515,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:42bff47919784d37e50e2d879e4ca67c06b995008fb059ccd7b5b50b6b54fcb2"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/legacy.json.gz",
+      "sha256": "682086ffe1d3bee29634446e911fcc6d0270d029367422324664ebcda02290a5",
+      "sha512": "0d555d1b797e8b4222fb2bf7cdfa7bdcca880613b451bf6779d0b0e743552b4c84d0d60b79acafef100f6ecaa4c9522a6ce539bef192a11e5b809afc5a6cf0ee",
+      "size": 217444,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:682086ffe1d3bee29634446e911fcc6d0270d029367422324664ebcda02290a5"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/nominal.json.gz",
+      "sha256": "7d88a762bee13fd0986f3a4771dab61d27caac9f2c6a74150694d83ec3d63db5",
+      "sha512": "aebacbe844d879d2165f90b413c088b8c8831e7c3097b09645e8c6c358dbd25a7cb11064de8c61a0b2e84660117d4ed7929c35aac5698879e23d0cb8d98e36fd",
+      "size": 265821,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:7d88a762bee13fd0986f3a4771dab61d27caac9f2c6a74150694d83ec3d63db5"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/testigos-ss-nuevos.json.gz",
+      "sha256": "3d0a0abd437a60865de665e7f42479375f709a2bed64361f70e4637993b5063a",
+      "sha512": "e48837dc036b18ea647215b8c74af4f184f4422e6d32914901ef1fe7573af4c2c893d57e368dddd2a2a3ee1ac97c2e0488d82f7d788eb118d062abf1a8f8f413",
+      "size": 2110657,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:3d0a0abd437a60865de665e7f42479375f709a2bed64361f70e4637993b5063a"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/alimentos.json.gz",
+      "sha256": "48724d3f1c50ea48580a50023d484fe0e7635e8a5e0bb131aa0913e6fbc94e81",
+      "sha512": "eab6c2a1427e8e4bade42be7ce7cc55e791732617151c537b10071eafa0df38c930dd29f252fbe2f1ed24bab0d30aca4a663d792c9d3856b048558f237efe579",
+      "size": 337464,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:48724d3f1c50ea48580a50023d484fe0e7635e8a5e0bb131aa0913e6fbc94e81"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/atajo60000.json.gz",
+      "sha256": "62217969f0c7769717c143303f6117db09297ca2efdf98a490a22e9174a7308e",
+      "sha512": "9f601a4ca1b90360ff2119b649f56bfd2a76b7d41d82a1c1f16edebe03ea26c1d1f452e9a73c5fd3ee2a1ea86b9b11a0eb85ffedebe8b6c29d61b6ac28054ad2",
+      "size": 301913,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:62217969f0c7769717c143303f6117db09297ca2efdf98a490a22e9174a7308e"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/ausencia.json.gz",
+      "sha256": "61ff659ec92e94bf8b2fd9d2e3c595d7f3fbdc13d99d088a315c1312e764c532",
+      "sha512": "4a70c4b5d704bf2cfd9d87d59edbcd8b3e8d31eb8aff5108b87e3e502443580c4266b8d2c7ab5a01427df6efb14c75585026fa3a383e85592caaa5358db10e2c",
+      "size": 6676,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:61ff659ec92e94bf8b2fd9d2e3c595d7f3fbdc13d99d088a315c1312e764c532"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/cero.json.gz",
+      "sha256": "f9ff363a013d10c64fae72e3ac43acdc3df29e0b09889a016f529fdc9699973e",
+      "sha512": "57e0f4f3d4f14cb49bd88373e6c5a72ec1edbaab68d6e927cb6470855706b0af74911ea318ab55fe0e448ce5312862f903f1249a7924315f8c014ab3e8fba02b",
+      "size": 238047,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:f9ff363a013d10c64fae72e3ac43acdc3df29e0b09889a016f529fdc9699973e"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/cierre.json.gz",
+      "sha256": "b0df483e22264a4fbe00cdfbba334a8eb183f9a4986b49005bd41239187bdb7a",
+      "sha512": "91efe1a6bffb0f9c8d9f87aeef62074aae2de60773ee855e2eb1aff9fae8087ebf499799cc1cbe9094a14d100a1a1df7ba6aea417fa6e4331a328d90212f1d4c",
+      "size": 309141,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:b0df483e22264a4fbe00cdfbba334a8eb183f9a4986b49005bd41239187bdb7a"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/escalas-iguales.json.gz",
+      "sha256": "fdf2c9978391b1104857d6f3d95ecd691f5ee6082b6681980f1ee887e8335e7e",
+      "sha512": "2f0e89e8ecff3f5a260ae47215405ed9b02b0aab81ea26948ad2b63fb9accb46fde4ffd2d63eb78659bf407031456e66ce1bc8999b6ec42585937b7280f19258",
+      "size": 352090,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:fdf2c9978391b1104857d6f3d95ecd691f5ee6082b6681980f1ee887e8335e7e"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/factor40.json.gz",
+      "sha256": "f552b651f7189af851d1e291bbb592a0f8d4c3ef4c8381d2bc8acdbc5d88a09a",
+      "sha512": "2c1e99bf234ad7aa54a00f737dc029fb396cf1f236f5b048940a022e1316bbc352748d9b7182b9b2df303d6084cebcc1b1da63fc7a82d3092f309d52a0544256",
+      "size": 317120,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:f552b651f7189af851d1e291bbb592a0f8d4c3ef4c8381d2bc8acdbc5d88a09a"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/factor50.json.gz",
+      "sha256": "7cb2101bb6efd78e53fdc6703c0b8ab0e8f36becd3883f49a684802f0143dbf2",
+      "sha512": "c8e203f3206a03d9a04239bcc59e474a5fe22108fd6d2597eb9492b7b9814f41c499ce9d42c41ccf7bd1013f7cb0e72d60820c26ddebe4ee42ba9a19360eba73",
+      "size": 315386,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:7cb2101bb6efd78e53fdc6703c0b8ab0e8f36becd3883f49a684802f0143dbf2"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/familia.json.gz",
+      "sha256": "591da80e1f02cff5c46c56b54dd99d7040453021451a3d80bf516a1366c0a1ff",
+      "sha512": "ae20aded21db1b7ea6a18510b9fff7864597f42904bd1be3a57515b4d5b475089d542e0d22ae9df3c8fe0eb26ff23641342adae9e8b0ce13b2d2bcc8f57382aa",
+      "size": 452739,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:591da80e1f02cff5c46c56b54dd99d7040453021451a3d80bf516a1366c0a1ff"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/fila4.json.gz",
+      "sha256": "dfa1f8566b28ef1907d310e9f712d5763471c1668ea05b96def12760b1190364",
+      "sha512": "035659d5519b369e078984fbe97f6a15fb2686a4cf41ff3aed308d07a295da78e236e4f8b7459c039105863f65494c39ae9656df9dc5c2aafede6d01e4d685ed",
+      "size": 305066,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:dfa1f8566b28ef1907d310e9f712d5763471c1668ea05b96def12760b1190364"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/fila5.json.gz",
+      "sha256": "8c787a8c1cc9fabcb890dcba16f4f84f822b878aa61c42ae527af25daf56663f",
+      "sha512": "578db7fc69bc687c09bced3792753d5e136211b37b63dd559bb0303661a3c887bd3a59a31463abcdbb2a6422fd4a6fb455b9d8e4bda354dcbe6a959d92ab36a9",
+      "size": 303574,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:8c787a8c1cc9fabcb890dcba16f4f84f822b878aa61c42ae527af25daf56663f"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/fuentes.json",
+      "sha256": "73dcc01e85c05513b4a6ddae8baddcf56e460c7406c30e3e6dd6265ee8d05fbe",
+      "sha512": "6b662ba4ad2a4e78276d368973c8a66e17d62998591a925c674eca5cb360a052c8506bc46af951bb013345d62e958ea3b4f2c94c4e59722d326cc01f9f17bb16",
+      "size": 6980,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/julio4.json.gz",
+      "sha256": "f48c5e0904a4ffc6a3a277eeb3fb6329840fcc5a7eb38e8f849127e3300eca76",
+      "sha512": "38856a73a1a2836a1e3c3e90c09370f9862e9e4ca79b534e4938f059bf1b9013e1df53b599405f37549d8099746f0f7c93d5ada272b81dabec5dfd6d4215c26c",
+      "size": 316588,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:f48c5e0904a4ffc6a3a277eeb3fb6329840fcc5a7eb38e8f849127e3300eca76"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/julio5.json.gz",
+      "sha256": "51321ce1b1b5dcea411844b86cf9919fe91eabd73ebd4d053c2c24701e7717f7",
+      "sha512": "08ed51d75233d1b21648647fda47599ab0abe5817020d63385784d18829249dd7620b1e51b258af86246f5e76fe0378e59d21ebbbe445b51ec78ac79fd6e619b",
+      "size": 324923,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:51321ce1b1b5dcea411844b86cf9919fe91eabd73ebd4d053c2c24701e7717f7"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/legacy.json.gz",
+      "sha256": "8772994a68ab1776cfc1bd5132ddb94a2c2b404199304824faa57adcd5f84743",
+      "sha512": "c25d11b75ed84dc17ebe5b1966afb6c212d6897be442cf7dd73090cb593a0f974f746aa65a256b1a495032c2e35dd9cf7a2e7e86cad97ba272f685cf5bd96fcd",
+      "size": 231565,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:8772994a68ab1776cfc1bd5132ddb94a2c2b404199304824faa57adcd5f84743"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/nominal.json.gz",
+      "sha256": "c88a2b91c18b98500ffae60bf63a84561c99441721c0e0d2496b5354d3904d75",
+      "sha512": "3f96156c844e03b37fbb66f3c89aee83dd820cdb930dd0d1727e4d6d23f5a5c0ae3b26c11b83371ccc2f316889345c7f9fac8c1ed400f76766cc80f6f60c38f4",
+      "size": 307528,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:c88a2b91c18b98500ffae60bf63a84561c99441721c0e0d2496b5354d3904d75"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/testigos-ss-nuevos.json.gz",
+      "sha256": "499dd9f74b4582b95aee62e26177dd9cf0170f72d25a970d30c2801f7cac8dff",
+      "sha512": "2a4e287a2522799ac586e8d6cd204abf78f019bf5f69cfd05231ec88df7d2fb62598fc27c125aeedce36e8fd0c9de4f89613df449ffff18632426dff047ed786",
+      "size": 2110678,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:499dd9f74b4582b95aee62e26177dd9cf0170f72d25a970d30c2801f7cac8dff"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/matriz-sitios.json",
+      "sha256": "a0e01f4051407b1b7ae26a51f9658c220aecaf7bf55cfa490336042348f25990",
+      "sha512": "f3ce021a724fb42e49458ad3ec8e01e59d625ab0af4f13b643fe243f6da5885713bbd3031fac86d090ad65969db0bff41b3fa00144e3bb595d94bc3e7aa78738",
+      "size": 213949,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos-ss-nuevos.json.gz",
+      "sha256": "c9c4b779d607e0ffbd8c265ebb43c4b855cbd3f53a74f3552eef64dd1fcb4a60",
+      "sha512": "908287c792945e6f5bd0a12804151ee98b5b16154c1caa290f90fe968d96d5884f9dc9e04cf7a8993811f3f83f1a8179f8a87bf16e8b3395c3b0becb42b7ef60",
+      "size": 2111259,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:c9c4b779d607e0ffbd8c265ebb43c4b855cbd3f53a74f3552eef64dd1fcb4a60"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/alimentos.json.gz",
+      "sha256": "f55c0917b86bbe2d9a0dabbff9b12c2660f1b9cf5f28db0b792331e413ce1a7d",
+      "sha512": "22c6a781dc31619812029dd1d9c58eecd61a7d2a06de2b37c675ad0eb60e88daa72afd9f1e3a7e53cde505d21a6ab4d29fd16b8f2cbe27af46cea3999e5f9330",
+      "size": 337491,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:f55c0917b86bbe2d9a0dabbff9b12c2660f1b9cf5f28db0b792331e413ce1a7d"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/atajo60000.json.gz",
+      "sha256": "5be9e82830f6130a0c10263310f784aea2d9c3bdc2c5e0652051686f8ac5386b",
+      "sha512": "1a0cfd1ddc67261f9674c55831bf82a1ffcd4cdecb66a6b0707c5265308c4d6cea51eafb67fc2c79ec91a7af98cca76b0416a723556cffa5a6fec7123644757c",
+      "size": 301950,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:5be9e82830f6130a0c10263310f784aea2d9c3bdc2c5e0652051686f8ac5386b"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/ausencia.json.gz",
+      "sha256": "1375e62f848eb660b4502deb6a8d70a9a3d99e51c0fec1a9b8b236a966ee2c3e",
+      "sha512": "47ad93ca83fd12ce8ee6ee7e6157d4563ec349368c47dff2b5db225cf91dff8757d28b9b265103b48e94f1ae02710d19b39e98f82025dea29a22ab38fca485fe",
+      "size": 6731,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:1375e62f848eb660b4502deb6a8d70a9a3d99e51c0fec1a9b8b236a966ee2c3e"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/cero.json.gz",
+      "sha256": "7266502892cb66d5412ebffb07c15eac6489ea2dcfe388fbad936a04bac47f5a",
+      "sha512": "a859cd9d59212f4a24734847e41742bbc252c31a148d8b0bf76ce243918d53a3088299b59e69457fc966f83cc7480bd570dca52ca02639b4bd36d598f77bc8f1",
+      "size": 238118,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:7266502892cb66d5412ebffb07c15eac6489ea2dcfe388fbad936a04bac47f5a"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/cierre.json.gz",
+      "sha256": "7786902a755de1df7db89a3668fef3c9f99d182b4f799de53b3c9b8bcf5c2708",
+      "sha512": "ce83c8fee4d2021e68c7a2ed8fc4c8cfa85cb15c37a5132932914b39aa7c1fc86fb7305be10b260d6769588af407286fc6a4288049b409be2ed8886bbf4416a9",
+      "size": 309189,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:7786902a755de1df7db89a3668fef3c9f99d182b4f799de53b3c9b8bcf5c2708"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/escalas-iguales.json.gz",
+      "sha256": "0d5e3c26e2a13a01e42a88e350c8159e81e9f038e5969d31520ae2763627e608",
+      "sha512": "54d4c462d2504f1ebbbdcabcfb0b3d879d6e84507d1c419bad8d73f69c845efc94ac596f4d8fa90e5007dab98565497cb20f019f2e7ac874a203a467a8d5c680",
+      "size": 352150,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:0d5e3c26e2a13a01e42a88e350c8159e81e9f038e5969d31520ae2763627e608"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/factor40.json.gz",
+      "sha256": "fa360960afb0b5a18a2a5b1eaba27c2ea3528929aadf851a4586d5466dfff308",
+      "sha512": "4466c30f6520d95c6108aa05cf3ac22616025d12aaba83d5f296c029f362d5436612d28df5fbbfa9087689040c2a97a5a0f95e1a23bcb8636f836f684e7b24ae",
+      "size": 317182,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:fa360960afb0b5a18a2a5b1eaba27c2ea3528929aadf851a4586d5466dfff308"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/factor50.json.gz",
+      "sha256": "37a542cda7b1ede3cc47d70956216e2a42918151c529b28569d87ea432bb1847",
+      "sha512": "9d04ac6e57f103b4be42be696fcdcc91a8ad2b3b8b4beccbee52ca719fcc52b6223b401869c6a892a4d41d8a3a25259145fe6e8afcd3fe61da6c50e9ea50fe41",
+      "size": 315428,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:37a542cda7b1ede3cc47d70956216e2a42918151c529b28569d87ea432bb1847"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/familia.json.gz",
+      "sha256": "12e2fb20d45998f1fa9129573074d75fcb270a4b01705b2d1820f06cf854d75b",
+      "sha512": "440336a8027f96a32f6e92c9e59fa59106a56abbe365040dc47bba46db2be037f8a22ecfc6414f988f326c04424bba5c44e74eb2353aa83ab19c3d40641aee8f",
+      "size": 452781,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:12e2fb20d45998f1fa9129573074d75fcb270a4b01705b2d1820f06cf854d75b"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/fila4.json.gz",
+      "sha256": "e7257bf6d22884e40709c22a4fa0e9a42ff8ea5eb5b5e42229f05db603f6e33e",
+      "sha512": "ff283300ec48b6feb2c2249b7e53068e647c0ad78754f3a125df04b4966a1849f430c37c4d4e8118b3f494a9d026986e4a5cb0816aa081774db8d1f7de56d320",
+      "size": 305101,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:e7257bf6d22884e40709c22a4fa0e9a42ff8ea5eb5b5e42229f05db603f6e33e"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/fila5.json.gz",
+      "sha256": "77dce3418836e292e2287204c7be963f35ea3373b7ebb3efe46aa06fe10b6de6",
+      "sha512": "5fc55ba6bd4620995bef0b21ca9905cf6c8fac5e15f615d137f2ca90b47fdbaca838e5e799c5eda92cfd7eaaea8e60edb318dd7e58c2207640e16b9caaf0f775",
+      "size": 303607,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:77dce3418836e292e2287204c7be963f35ea3373b7ebb3efe46aa06fe10b6de6"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/julio4.json.gz",
+      "sha256": "84312fb9ca67e4893eb40c64d439347b69196897823709f0929ad9559851660b",
+      "sha512": "97c01225e625402d8cdb44edb87299068be7c2a786e50cdd7e158ee4647abd7996a3750a13a46b1907b25309f0c87e88551d2d81ef341a2c4aad7a4c53c59067",
+      "size": 316671,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:84312fb9ca67e4893eb40c64d439347b69196897823709f0929ad9559851660b"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/julio5.json.gz",
+      "sha256": "223e8add5d92a48eb8b46a71d43ed4edb1528f6076c2dfdb4d079fdd6a53adc0",
+      "sha512": "c5c971159e0632d4826a2c11468dcb3d09c6f6f327592edf3f20b6ec39a72dc27de4fbd0752d4055b6fed71faa4e462516f3930c550b327f0b853a78d125fef7",
+      "size": 324952,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:223e8add5d92a48eb8b46a71d43ed4edb1528f6076c2dfdb4d079fdd6a53adc0"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/legacy.json.gz",
+      "sha256": "04e436039d973566447be9850c1df18a7a1e5a283698556f526931f43ede90cc",
+      "sha512": "cdb0dc80fed44cf555b8a84f08362463d1a5eb9ea3379d22352cb3bd3388fbd355976d63869148c8698e9df9a970b0aedc179988ca2de55f6cf5c9d9e38cfe82",
+      "size": 231633,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:04e436039d973566447be9850c1df18a7a1e5a283698556f526931f43ede90cc"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/nominal.json.gz",
+      "sha256": "70be0e3b10728fa68d45d233691bb28edb28524aae683dab3dcf73c3e7b0ea2f",
+      "sha512": "a1d4a010de63ca7bf426450673ea2b8e0b207b0aa4c1e55863b71bcf37b993f8e83b12c290a15f15a70237358f7e7a0b9a15e838bc3bc3ad585c97171113af72",
+      "size": 307584,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "object:70be0e3b10728fa68d45d233691bb28edb28524aae683dab3dcf73c3e7b0ea2f"
+    },
+    {
+      "path": "schemas/procedencia/flujo/causal-retenciones-r57.schema.json",
+      "sha256": "37e25b99016d5f1aea248cc1f9943549eab9f0519ab2ed2ec194e4da53c04475",
+      "sha512": "a47c85d1401ac7513a90c64db21856b5874df53a2bbd074b7999cfeeb2b4ba60a809b32642eb0bc0557fc5d78912e622080b9e4298a96626d9df44008adf282c",
+      "size": 86255,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": "schemas/procedencia/flujo/ejecucion-r57.schema.json",
+      "sha256": "bf35eaca2b4725415c48c7f7c35f26687aa64f124ee0f3b64c0345038a33a87e",
+      "sha512": "6802a8284d67f811863550ef267372aed34eae02eed8fdf6838ef54c1171d965a6f2e641b6dcff2c57652249b835d5e8f04c404124967337ddcf58af080949d3",
+      "size": 4814,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": "scripts/procedencia/causal-retenciones-r57.ts",
+      "sha256": "5b889390d0f621371391b07f71c7bb36799191693e9d28c211bfdab671f13e36",
+      "sha512": "46d9852f9213a2e81b5e7cf8d35d7a84383453098d579333c4de9af90091ded9299e583899d24b6b0a40f92332a3882247a4f222d4e627e3674feabb84725d37",
+      "size": 6657,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": "scripts/procedencia/causal-ss-r54.ts",
+      "sha256": "3bf6340f57f8f02d049ccbba51502abdbdbaf3f5ce028545b68a1a1307fe640e",
+      "sha512": "eca107d2d75e60c6db078357b677bb039e973ba6018d8e70cae671cc13453ae98e3c770af72530bab9fd7aaa53e227269255e296b6c66444ba3926b5a328cdf4",
+      "size": 10637,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": "e0312a81a483951cb86e195b2194664275f68a54daa6c7a9061b59c640afaa25",
+      "payload": "patch"
+    },
+    {
+      "path": "scripts/procedencia/evidencia-causal-r57-contratos.ts",
+      "sha256": "3ea5436de3859c79415e99475a1596c1767586d63b48685e0ba6e83c9495e071",
+      "sha512": "6a64600d3965b32e38c095053d3440e2423978b2cd9a96642552095efc740d83493cfa0318f29ac7ef4fd965c59bccf3f68e4c1f061f178d6d66512f4acce574",
+      "size": 6532,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": "scripts/procedencia/evidencia-causal-r57.ts",
+      "sha256": "74f1b0a1ec6476637e17d11d1d8399a065e60c18fdee47eb32b2ca3b2803e4d5",
+      "sha512": "49b501aafd87acaa54a2b9015aaeac4293c2f3f7fbcb0a83c82a014cf034f372644d1179101605eec16dd0f5eb22548ef62950bfb9fbc1a236e100e7fbd14aea",
+      "size": 41539,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": "scripts/procedencia/evidencia-ejecucion-r54.ts",
+      "sha256": "5907aa1f1822aedb3df8e4e4ddcc37f10974960ae261d7b2d5a96119de3d6821",
+      "sha512": "78ca926f763846c5ee666e01194eda6cf400d282a94cfacf907082360abecfaff2060e1c1711e8a48491cd6f1d21643f415cffeac55ab310e6c8e37c1732297a",
+      "size": 1775,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": "f9636160956a0d3d6865cc4c224821de0f14b8888b3c97bb0da744793ca8a9eb",
+      "payload": "patch"
+    },
+    {
+      "path": "scripts/procedencia/flujo-retenciones-r34-consumidor.mjs",
+      "sha256": "70966b7d96f8f2865a8285b9be940ce6551e9842d4c6b698a14795531484d51f",
+      "sha512": "f373d5c6482f0d38f3c5f1cfceb4fb44d66afcd7c58f6959ffb6a506e9bcc492badfb9863629bbe8d0cb257f8f0c7c83404e83688f8f90874022622d8428fd7b",
+      "size": 9730,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": "a44f7a3eb4a7d5565c4c2d5439165c2b204ac4d30b17bd270c2730ce9c42a6c0",
+      "payload": "patch"
+    },
+    {
+      "path": "tests/causal-comun-r57.test.ts",
+      "sha256": "dc8005c71016924ec92561f35354a42e1401e2d93a8e1993b154c33faf9a8546",
+      "sha512": "e7d5f18849864c84fdeed85e87f6ca0470a5daa5acf93991bf9de66ef94b6db12cab36539349b768cebcec0da935b3a4cd680316783d3baefa842063f9f14443",
+      "size": 3905,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    },
+    {
+      "path": "tests/causal-retenciones-r57.test.ts",
+      "sha256": "98898774697d03a4031baa5bfc2e63fb8af7b7d75b298fe9ea2a9e991fe18e88",
+      "sha512": "475f4342a0bfd2b8645492bd69f398e104b70b30720471d2f44544e884babf99416970a6c8c822a8aa6a1d5b21c15c019412538c37cb226674c3139ddad1bfe0",
+      "size": 23356,
+      "mode": "0o644",
+      "type": "file",
+      "baseSha256": null,
+      "payload": "patch"
+    }
+  ],
+  "files": [
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/COMANDOS.md",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/COMANDOS.md",
+      "sha256": "227cbb515aabdbeb3575974d3a1cbbb23bae3fc810769f6920c98d10d0feca35",
+      "size": 4545
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/DECISIONES.json",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/DECISIONES.json",
+      "sha256": "be77826dc5f00424792f6580eab8ed3d4b5e5b32a8bb51681e38f8e7192e88a7",
+      "size": 2135
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/INFORME.md",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/INFORME.md",
+      "sha256": "5cd2b694c61cb59875d4fef9fc72158819eb3763f0dc95c95346664605210132",
+      "size": 16375
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/calidad.json",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/calidad.json",
+      "sha256": "f308195c1e6bcbe732d47f0d5be207ff8b05637d079c7f8f37ddf2791e78d32d",
+      "size": 1695
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/casos.json",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/casos.json",
+      "sha256": "52119816ca756ac49454946c386bc2abc3f2282d19e7e6108da7bc9df48f410b",
+      "size": 211727
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/compatibilidad-ss.json",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/compatibilidad-ss.json",
+      "sha256": "908d7315f0bb25d6ac8d6e2d56673c5edb26ccac2af585b43b30551fe0a85656",
+      "size": 1894
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/contrato.json.gz",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/contrato.json.gz",
+      "sha256": "50ab1460213bb6ea6dd7a44f854605d3753d3dfdd6747d4bc5e4b7478bcb8364",
+      "size": 104199
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/fuentes.json",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/fuentes.json",
+      "sha256": "9e64f5517213806498b206002113368c2a9e961d05e5b5630ea356d8cff6d849",
+      "size": 7302
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/gramatica.json",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/gramatica.json",
+      "sha256": "cd4e95fe894e1c31a1ffc993f813c81e7c616e7fd988ccd6fae8bcc505fe8f0f",
+      "size": 10970
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/aceptacion.json",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/aceptacion.json",
+      "sha256": "a4785897c04df1e5fe45f58a0d80ce465a978cc5ff92f839ac41d7adf818b16e",
+      "size": 185
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/alimentos.json.gz",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/alimentos.json.gz",
+      "sha256": "e680e2415c14add9af99ccf2346edec568f64cc4a0582d8cbf796363c92e11ff",
+      "size": 292146
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/atajo60000.json.gz",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/atajo60000.json.gz",
+      "sha256": "0e7d3b68a62ff00132b328042203bd7bd0657d971c236e14ad9aad504ee339b7",
+      "size": 259710
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/ausencia.json.gz",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/ausencia.json.gz",
+      "sha256": "a2b9080ed0093030b4e18aac1083e6967835fcf3ded3cc3bc446a61b8f040255",
+      "size": 6666
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/cero.json.gz",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/cero.json.gz",
+      "sha256": "b9f6532babc0862f19121b528ea89a0e62afde82262f006eb0285a0555e8ef87",
+      "size": 207604
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/cierre.json.gz",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/cierre.json.gz",
+      "sha256": "05d2a6cf0f9e8c50013cf1da3a49f1407abf561c2bcef8859a6b51314944f07c",
+      "size": 269370
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/escalas-iguales.json.gz",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/escalas-iguales.json.gz",
+      "sha256": "74e8c8f89dec65a6036e0decf372b43b811dc23c7153412cdc760c884c9fc634",
+      "size": 299551
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/factor40.json.gz",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/factor40.json.gz",
+      "sha256": "00464efacc8d64124eabaa788c691d96efb725189b61f6ba73a4d6a93482c9af",
+      "size": 273767
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/factor50.json.gz",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/factor50.json.gz",
+      "sha256": "6e2e81a14453374678120fc41f8f6fb5ae9469b59222120def693ab7757fceeb",
+      "size": 272697
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/familia.json.gz",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/familia.json.gz",
+      "sha256": "6d7738b5c877be30cedb1546e6ed807751c9e63845b2d1b2854f3eb48381c391",
+      "size": 389428
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/fila4.json.gz",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/fila4.json.gz",
+      "sha256": "e5e505b9eeb33320b621ff26a8dea9acfa70bec218488afbb8451fee2b6f4997",
+      "size": 266677
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/fila5.json.gz",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/fila5.json.gz",
+      "sha256": "161f663beca69945e482f1812610e4cbe02298ad2a4b1de95e976b43f0c8a53a",
+      "size": 265091
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/fuentes.json",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/fuentes.json",
+      "sha256": "ba8be42c615514f51d34a1b2bdb3074c5d8048b27e54a58d969827692863d241",
+      "size": 6979
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/julio4.json.gz",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/julio4.json.gz",
+      "sha256": "3b2ce7ba32bda36ccc73aa0667522538992d7187f34466eed0856ad7064d443f",
+      "size": 274809
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/julio5.json.gz",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/julio5.json.gz",
+      "sha256": "42bff47919784d37e50e2d879e4ca67c06b995008fb059ccd7b5b50b6b54fcb2",
+      "size": 280515
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/legacy.json.gz",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/legacy.json.gz",
+      "sha256": "682086ffe1d3bee29634446e911fcc6d0270d029367422324664ebcda02290a5",
+      "size": 217444
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/nominal.json.gz",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/nominal.json.gz",
+      "sha256": "7d88a762bee13fd0986f3a4771dab61d27caac9f2c6a74150694d83ec3d63db5",
+      "size": 265821
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/testigos-ss-nuevos.json.gz",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-continuacion/testigos-ss-nuevos.json.gz",
+      "sha256": "3d0a0abd437a60865de665e7f42479375f709a2bed64361f70e4637993b5063a",
+      "size": 2110657
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/alimentos.json.gz",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/alimentos.json.gz",
+      "sha256": "48724d3f1c50ea48580a50023d484fe0e7635e8a5e0bb131aa0913e6fbc94e81",
+      "size": 337464
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/atajo60000.json.gz",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/atajo60000.json.gz",
+      "sha256": "62217969f0c7769717c143303f6117db09297ca2efdf98a490a22e9174a7308e",
+      "size": 301913
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/ausencia.json.gz",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/ausencia.json.gz",
+      "sha256": "61ff659ec92e94bf8b2fd9d2e3c595d7f3fbdc13d99d088a315c1312e764c532",
+      "size": 6676
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/cero.json.gz",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/cero.json.gz",
+      "sha256": "f9ff363a013d10c64fae72e3ac43acdc3df29e0b09889a016f529fdc9699973e",
+      "size": 238047
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/cierre.json.gz",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/cierre.json.gz",
+      "sha256": "b0df483e22264a4fbe00cdfbba334a8eb183f9a4986b49005bd41239187bdb7a",
+      "size": 309141
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/escalas-iguales.json.gz",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/escalas-iguales.json.gz",
+      "sha256": "fdf2c9978391b1104857d6f3d95ecd691f5ee6082b6681980f1ee887e8335e7e",
+      "size": 352090
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/factor40.json.gz",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/factor40.json.gz",
+      "sha256": "f552b651f7189af851d1e291bbb592a0f8d4c3ef4c8381d2bc8acdbc5d88a09a",
+      "size": 317120
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/factor50.json.gz",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/factor50.json.gz",
+      "sha256": "7cb2101bb6efd78e53fdc6703c0b8ab0e8f36becd3883f49a684802f0143dbf2",
+      "size": 315386
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/familia.json.gz",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/familia.json.gz",
+      "sha256": "591da80e1f02cff5c46c56b54dd99d7040453021451a3d80bf516a1366c0a1ff",
+      "size": 452739
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/fila4.json.gz",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/fila4.json.gz",
+      "sha256": "dfa1f8566b28ef1907d310e9f712d5763471c1668ea05b96def12760b1190364",
+      "size": 305066
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/fila5.json.gz",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/fila5.json.gz",
+      "sha256": "8c787a8c1cc9fabcb890dcba16f4f84f822b878aa61c42ae527af25daf56663f",
+      "size": 303574
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/fuentes.json",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/fuentes.json",
+      "sha256": "73dcc01e85c05513b4a6ddae8baddcf56e460c7406c30e3e6dd6265ee8d05fbe",
+      "size": 6980
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/julio4.json.gz",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/julio4.json.gz",
+      "sha256": "f48c5e0904a4ffc6a3a277eeb3fb6329840fcc5a7eb38e8f849127e3300eca76",
+      "size": 316588
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/julio5.json.gz",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/julio5.json.gz",
+      "sha256": "51321ce1b1b5dcea411844b86cf9919fe91eabd73ebd4d053c2c24701e7717f7",
+      "size": 324923
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/legacy.json.gz",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/legacy.json.gz",
+      "sha256": "8772994a68ab1776cfc1bd5132ddb94a2c2b404199304824faa57adcd5f84743",
+      "size": 231565
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/nominal.json.gz",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/nominal.json.gz",
+      "sha256": "c88a2b91c18b98500ffae60bf63a84561c99441721c0e0d2496b5354d3904d75",
+      "size": 307528
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/testigos-ss-nuevos.json.gz",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/historicos/pre-frontera/testigos-ss-nuevos.json.gz",
+      "sha256": "499dd9f74b4582b95aee62e26177dd9cf0170f72d25a970d30c2801f7cac8dff",
+      "size": 2110678
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/matriz-sitios.json",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/matriz-sitios.json",
+      "sha256": "a0e01f4051407b1b7ae26a51f9658c220aecaf7bf55cfa490336042348f25990",
+      "size": 213949
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos-ss-nuevos.json.gz",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos-ss-nuevos.json.gz",
+      "sha256": "c9c4b779d607e0ffbd8c265ebb43c4b855cbd3f53a74f3552eef64dd1fcb4a60",
+      "size": 2111259
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/alimentos.json.gz",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/alimentos.json.gz",
+      "sha256": "f55c0917b86bbe2d9a0dabbff9b12c2660f1b9cf5f28db0b792331e413ce1a7d",
+      "size": 337491
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/atajo60000.json.gz",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/atajo60000.json.gz",
+      "sha256": "5be9e82830f6130a0c10263310f784aea2d9c3bdc2c5e0652051686f8ac5386b",
+      "size": 301950
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/ausencia.json.gz",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/ausencia.json.gz",
+      "sha256": "1375e62f848eb660b4502deb6a8d70a9a3d99e51c0fec1a9b8b236a966ee2c3e",
+      "size": 6731
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/cero.json.gz",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/cero.json.gz",
+      "sha256": "7266502892cb66d5412ebffb07c15eac6489ea2dcfe388fbad936a04bac47f5a",
+      "size": 238118
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/cierre.json.gz",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/cierre.json.gz",
+      "sha256": "7786902a755de1df7db89a3668fef3c9f99d182b4f799de53b3c9b8bcf5c2708",
+      "size": 309189
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/escalas-iguales.json.gz",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/escalas-iguales.json.gz",
+      "sha256": "0d5e3c26e2a13a01e42a88e350c8159e81e9f038e5969d31520ae2763627e608",
+      "size": 352150
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/factor40.json.gz",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/factor40.json.gz",
+      "sha256": "fa360960afb0b5a18a2a5b1eaba27c2ea3528929aadf851a4586d5466dfff308",
+      "size": 317182
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/factor50.json.gz",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/factor50.json.gz",
+      "sha256": "37a542cda7b1ede3cc47d70956216e2a42918151c529b28569d87ea432bb1847",
+      "size": 315428
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/familia.json.gz",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/familia.json.gz",
+      "sha256": "12e2fb20d45998f1fa9129573074d75fcb270a4b01705b2d1820f06cf854d75b",
+      "size": 452781
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/fila4.json.gz",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/fila4.json.gz",
+      "sha256": "e7257bf6d22884e40709c22a4fa0e9a42ff8ea5eb5b5e42229f05db603f6e33e",
+      "size": 305101
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/fila5.json.gz",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/fila5.json.gz",
+      "sha256": "77dce3418836e292e2287204c7be963f35ea3373b7ebb3efe46aa06fe10b6de6",
+      "size": 303607
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/julio4.json.gz",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/julio4.json.gz",
+      "sha256": "84312fb9ca67e4893eb40c64d439347b69196897823709f0929ad9559851660b",
+      "size": 316671
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/julio5.json.gz",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/julio5.json.gz",
+      "sha256": "223e8add5d92a48eb8b46a71d43ed4edb1528f6076c2dfdb4d079fdd6a53adc0",
+      "size": 324952
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/legacy.json.gz",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/legacy.json.gz",
+      "sha256": "04e436039d973566447be9850c1df18a7a1e5a283698556f526931f43ede90cc",
+      "size": 231633
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/nominal.json.gz",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/testigos/nominal.json.gz",
+      "sha256": "70be0e3b10728fa68d45d233691bb28edb28524aae683dab3dcf73c3e7b0ea2f",
+      "size": 307584
+    },
+    {
+      "source": "schemas/procedencia/flujo/causal-retenciones-r57.schema.json",
+      "path": "schemas/procedencia/flujo/causal-retenciones-r57.schema.json",
+      "sha256": "37e25b99016d5f1aea248cc1f9943549eab9f0519ab2ed2ec194e4da53c04475",
+      "size": 86255
+    },
+    {
+      "source": "schemas/procedencia/flujo/ejecucion-r57.schema.json",
+      "path": "schemas/procedencia/flujo/ejecucion-r57.schema.json",
+      "sha256": "bf35eaca2b4725415c48c7f7c35f26687aa64f124ee0f3b64c0345038a33a87e",
+      "size": 4814
+    },
+    {
+      "source": "scripts/procedencia/causal-retenciones-r57.ts",
+      "path": "scripts/procedencia/causal-retenciones-r57.ts",
+      "sha256": "5b889390d0f621371391b07f71c7bb36799191693e9d28c211bfdab671f13e36",
+      "size": 6657
+    },
+    {
+      "source": "scripts/procedencia/causal-ss-r54.ts",
+      "path": "scripts/procedencia/causal-ss-r54.ts",
+      "sha256": "3bf6340f57f8f02d049ccbba51502abdbdbaf3f5ce028545b68a1a1307fe640e",
+      "size": 10637
+    },
+    {
+      "source": "scripts/procedencia/evidencia-causal-r57-contratos.ts",
+      "path": "scripts/procedencia/evidencia-causal-r57-contratos.ts",
+      "sha256": "3ea5436de3859c79415e99475a1596c1767586d63b48685e0ba6e83c9495e071",
+      "size": 6532
+    },
+    {
+      "source": "scripts/procedencia/evidencia-causal-r57.ts",
+      "path": "scripts/procedencia/evidencia-causal-r57.ts",
+      "sha256": "74f1b0a1ec6476637e17d11d1d8399a065e60c18fdee47eb32b2ca3b2803e4d5",
+      "size": 41539
+    },
+    {
+      "source": "scripts/procedencia/evidencia-ejecucion-r54.ts",
+      "path": "scripts/procedencia/evidencia-ejecucion-r54.ts",
+      "sha256": "5907aa1f1822aedb3df8e4e4ddcc37f10974960ae261d7b2d5a96119de3d6821",
+      "size": 1775
+    },
+    {
+      "source": "scripts/procedencia/flujo-retenciones-r34-consumidor.mjs",
+      "path": "scripts/procedencia/flujo-retenciones-r34-consumidor.mjs",
+      "sha256": "70966b7d96f8f2865a8285b9be940ce6551e9842d4c6b698a14795531484d51f",
+      "size": 9730
+    },
+    {
+      "source": "tests/causal-comun-r57.test.ts",
+      "path": "tests/causal-comun-r57.test.ts",
+      "sha256": "dc8005c71016924ec92561f35354a42e1401e2d93a8e1993b154c33faf9a8546",
+      "size": 3905
+    },
+    {
+      "source": "tests/causal-retenciones-r57.test.ts",
+      "path": "tests/causal-retenciones-r57.test.ts",
+      "sha256": "98898774697d03a4031baa5bfc2e63fb8af7b7d75b298fe9ea2a9e991fe18e88",
+      "size": 23356
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/transporte.log",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/transporte.log",
+      "sha256": "9dfc3cdccba758274bc3a4375d75c740729873962f6939e64c7b7e93049edffb",
+      "size": 848
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/manifiesto.json",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/manifiesto.json",
+      "sha256": "1bd965a7ce8b430ab6de301159669a227571437a22cf0d25aceb9be6aef3171f",
+      "size": 77946
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/patch.log",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/patch.log",
+      "sha256": "030d8d981949b1e5fa8d63ba0845d763f2d99d03a243fbeb01e856ad66162151",
+      "size": 7432
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/transporte.json",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/transporte.json",
+      "sha256": "6ab2c50957eed0784e1de7fd01b8ac0a0ac34dba38643980067160f1240cc5cc",
+      "size": 896
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/aplicar.patch",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/aplicar.patch",
+      "sha256": "be0571f7725c408537ab24c2a638c57feb8ab5e95b6abd48eb7bf7ade8de18c9",
+      "size": 1145135
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/entrega.patch.gz",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/entrega.patch.gz",
+      "sha256": "af0af928adf307a1b8ab5057546901ce5810e3aa9c1c6cbaff4d9ad0267eb3aa",
+      "size": 163205
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/05d2a6cf0f9e8c50013cf1da3a49f1407abf561c2bcef8859a6b51314944f07c",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/05d2a6cf0f9e8c50013cf1da3a49f1407abf561c2bcef8859a6b51314944f07c",
+      "sha256": "05d2a6cf0f9e8c50013cf1da3a49f1407abf561c2bcef8859a6b51314944f07c",
+      "size": 269370
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/1375e62f848eb660b4502deb6a8d70a9a3d99e51c0fec1a9b8b236a966ee2c3e",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/1375e62f848eb660b4502deb6a8d70a9a3d99e51c0fec1a9b8b236a966ee2c3e",
+      "sha256": "1375e62f848eb660b4502deb6a8d70a9a3d99e51c0fec1a9b8b236a966ee2c3e",
+      "size": 6731
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/3b2ce7ba32bda36ccc73aa0667522538992d7187f34466eed0856ad7064d443f",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/3b2ce7ba32bda36ccc73aa0667522538992d7187f34466eed0856ad7064d443f",
+      "sha256": "3b2ce7ba32bda36ccc73aa0667522538992d7187f34466eed0856ad7064d443f",
+      "size": 274809
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/c9c4b779d607e0ffbd8c265ebb43c4b855cbd3f53a74f3552eef64dd1fcb4a60",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/c9c4b779d607e0ffbd8c265ebb43c4b855cbd3f53a74f3552eef64dd1fcb4a60",
+      "sha256": "c9c4b779d607e0ffbd8c265ebb43c4b855cbd3f53a74f3552eef64dd1fcb4a60",
+      "size": 2111259
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/e5e505b9eeb33320b621ff26a8dea9acfa70bec218488afbb8451fee2b6f4997",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/e5e505b9eeb33320b621ff26a8dea9acfa70bec218488afbb8451fee2b6f4997",
+      "sha256": "e5e505b9eeb33320b621ff26a8dea9acfa70bec218488afbb8451fee2b6f4997",
+      "size": 266677
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/b9f6532babc0862f19121b528ea89a0e62afde82262f006eb0285a0555e8ef87",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/b9f6532babc0862f19121b528ea89a0e62afde82262f006eb0285a0555e8ef87",
+      "sha256": "b9f6532babc0862f19121b528ea89a0e62afde82262f006eb0285a0555e8ef87",
+      "size": 207604
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/37a542cda7b1ede3cc47d70956216e2a42918151c529b28569d87ea432bb1847",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/37a542cda7b1ede3cc47d70956216e2a42918151c529b28569d87ea432bb1847",
+      "sha256": "37a542cda7b1ede3cc47d70956216e2a42918151c529b28569d87ea432bb1847",
+      "size": 315428
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/a2b9080ed0093030b4e18aac1083e6967835fcf3ded3cc3bc446a61b8f040255",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/a2b9080ed0093030b4e18aac1083e6967835fcf3ded3cc3bc446a61b8f040255",
+      "sha256": "a2b9080ed0093030b4e18aac1083e6967835fcf3ded3cc3bc446a61b8f040255",
+      "size": 6666
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/dfa1f8566b28ef1907d310e9f712d5763471c1668ea05b96def12760b1190364",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/dfa1f8566b28ef1907d310e9f712d5763471c1668ea05b96def12760b1190364",
+      "sha256": "dfa1f8566b28ef1907d310e9f712d5763471c1668ea05b96def12760b1190364",
+      "size": 305066
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/7266502892cb66d5412ebffb07c15eac6489ea2dcfe388fbad936a04bac47f5a",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/7266502892cb66d5412ebffb07c15eac6489ea2dcfe388fbad936a04bac47f5a",
+      "sha256": "7266502892cb66d5412ebffb07c15eac6489ea2dcfe388fbad936a04bac47f5a",
+      "size": 238118
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/f552b651f7189af851d1e291bbb592a0f8d4c3ef4c8381d2bc8acdbc5d88a09a",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/f552b651f7189af851d1e291bbb592a0f8d4c3ef4c8381d2bc8acdbc5d88a09a",
+      "sha256": "f552b651f7189af851d1e291bbb592a0f8d4c3ef4c8381d2bc8acdbc5d88a09a",
+      "size": 317120
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/fdf2c9978391b1104857d6f3d95ecd691f5ee6082b6681980f1ee887e8335e7e",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/fdf2c9978391b1104857d6f3d95ecd691f5ee6082b6681980f1ee887e8335e7e",
+      "sha256": "fdf2c9978391b1104857d6f3d95ecd691f5ee6082b6681980f1ee887e8335e7e",
+      "size": 352090
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/7cb2101bb6efd78e53fdc6703c0b8ab0e8f36becd3883f49a684802f0143dbf2",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/7cb2101bb6efd78e53fdc6703c0b8ab0e8f36becd3883f49a684802f0143dbf2",
+      "sha256": "7cb2101bb6efd78e53fdc6703c0b8ab0e8f36becd3883f49a684802f0143dbf2",
+      "size": 315386
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/6e2e81a14453374678120fc41f8f6fb5ae9469b59222120def693ab7757fceeb",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/6e2e81a14453374678120fc41f8f6fb5ae9469b59222120def693ab7757fceeb",
+      "sha256": "6e2e81a14453374678120fc41f8f6fb5ae9469b59222120def693ab7757fceeb",
+      "size": 272697
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/0c07a12ce288e7ae241cd7c02d80bce1623856a5038b19d0f6bc0c1d5720e96b",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/0c07a12ce288e7ae241cd7c02d80bce1623856a5038b19d0f6bc0c1d5720e96b",
+      "sha256": "0c07a12ce288e7ae241cd7c02d80bce1623856a5038b19d0f6bc0c1d5720e96b",
+      "size": 1640
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/591da80e1f02cff5c46c56b54dd99d7040453021451a3d80bf516a1366c0a1ff",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/591da80e1f02cff5c46c56b54dd99d7040453021451a3d80bf516a1366c0a1ff",
+      "sha256": "591da80e1f02cff5c46c56b54dd99d7040453021451a3d80bf516a1366c0a1ff",
+      "size": 452739
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/f48c5e0904a4ffc6a3a277eeb3fb6329840fcc5a7eb38e8f849127e3300eca76",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/f48c5e0904a4ffc6a3a277eeb3fb6329840fcc5a7eb38e8f849127e3300eca76",
+      "sha256": "f48c5e0904a4ffc6a3a277eeb3fb6329840fcc5a7eb38e8f849127e3300eca76",
+      "size": 316588
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/7d88a762bee13fd0986f3a4771dab61d27caac9f2c6a74150694d83ec3d63db5",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/7d88a762bee13fd0986f3a4771dab61d27caac9f2c6a74150694d83ec3d63db5",
+      "sha256": "7d88a762bee13fd0986f3a4771dab61d27caac9f2c6a74150694d83ec3d63db5",
+      "size": 265821
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/682086ffe1d3bee29634446e911fcc6d0270d029367422324664ebcda02290a5",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/682086ffe1d3bee29634446e911fcc6d0270d029367422324664ebcda02290a5",
+      "sha256": "682086ffe1d3bee29634446e911fcc6d0270d029367422324664ebcda02290a5",
+      "size": 217444
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/77dce3418836e292e2287204c7be963f35ea3373b7ebb3efe46aa06fe10b6de6",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/77dce3418836e292e2287204c7be963f35ea3373b7ebb3efe46aa06fe10b6de6",
+      "sha256": "77dce3418836e292e2287204c7be963f35ea3373b7ebb3efe46aa06fe10b6de6",
+      "size": 303607
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/499dd9f74b4582b95aee62e26177dd9cf0170f72d25a970d30c2801f7cac8dff",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/499dd9f74b4582b95aee62e26177dd9cf0170f72d25a970d30c2801f7cac8dff",
+      "sha256": "499dd9f74b4582b95aee62e26177dd9cf0170f72d25a970d30c2801f7cac8dff",
+      "size": 2110678
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/0d5e3c26e2a13a01e42a88e350c8159e81e9f038e5969d31520ae2763627e608",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/0d5e3c26e2a13a01e42a88e350c8159e81e9f038e5969d31520ae2763627e608",
+      "sha256": "0d5e3c26e2a13a01e42a88e350c8159e81e9f038e5969d31520ae2763627e608",
+      "size": 352150
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/8c787a8c1cc9fabcb890dcba16f4f84f822b878aa61c42ae527af25daf56663f",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/8c787a8c1cc9fabcb890dcba16f4f84f822b878aa61c42ae527af25daf56663f",
+      "sha256": "8c787a8c1cc9fabcb890dcba16f4f84f822b878aa61c42ae527af25daf56663f",
+      "size": 303574
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/51321ce1b1b5dcea411844b86cf9919fe91eabd73ebd4d053c2c24701e7717f7",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/51321ce1b1b5dcea411844b86cf9919fe91eabd73ebd4d053c2c24701e7717f7",
+      "sha256": "51321ce1b1b5dcea411844b86cf9919fe91eabd73ebd4d053c2c24701e7717f7",
+      "size": 324923
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/04e436039d973566447be9850c1df18a7a1e5a283698556f526931f43ede90cc",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/04e436039d973566447be9850c1df18a7a1e5a283698556f526931f43ede90cc",
+      "sha256": "04e436039d973566447be9850c1df18a7a1e5a283698556f526931f43ede90cc",
+      "size": 231633
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/8772994a68ab1776cfc1bd5132ddb94a2c2b404199304824faa57adcd5f84743",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/8772994a68ab1776cfc1bd5132ddb94a2c2b404199304824faa57adcd5f84743",
+      "sha256": "8772994a68ab1776cfc1bd5132ddb94a2c2b404199304824faa57adcd5f84743",
+      "size": 231565
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/223e8add5d92a48eb8b46a71d43ed4edb1528f6076c2dfdb4d079fdd6a53adc0",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/223e8add5d92a48eb8b46a71d43ed4edb1528f6076c2dfdb4d079fdd6a53adc0",
+      "sha256": "223e8add5d92a48eb8b46a71d43ed4edb1528f6076c2dfdb4d079fdd6a53adc0",
+      "size": 324952
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/74e8c8f89dec65a6036e0decf372b43b811dc23c7153412cdc760c884c9fc634",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/74e8c8f89dec65a6036e0decf372b43b811dc23c7153412cdc760c884c9fc634",
+      "sha256": "74e8c8f89dec65a6036e0decf372b43b811dc23c7153412cdc760c884c9fc634",
+      "size": 299551
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/42bff47919784d37e50e2d879e4ca67c06b995008fb059ccd7b5b50b6b54fcb2",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/42bff47919784d37e50e2d879e4ca67c06b995008fb059ccd7b5b50b6b54fcb2",
+      "sha256": "42bff47919784d37e50e2d879e4ca67c06b995008fb059ccd7b5b50b6b54fcb2",
+      "size": 280515
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/61ff659ec92e94bf8b2fd9d2e3c595d7f3fbdc13d99d088a315c1312e764c532",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/61ff659ec92e94bf8b2fd9d2e3c595d7f3fbdc13d99d088a315c1312e764c532",
+      "sha256": "61ff659ec92e94bf8b2fd9d2e3c595d7f3fbdc13d99d088a315c1312e764c532",
+      "size": 6676
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/e7257bf6d22884e40709c22a4fa0e9a42ff8ea5eb5b5e42229f05db603f6e33e",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/e7257bf6d22884e40709c22a4fa0e9a42ff8ea5eb5b5e42229f05db603f6e33e",
+      "sha256": "e7257bf6d22884e40709c22a4fa0e9a42ff8ea5eb5b5e42229f05db603f6e33e",
+      "size": 305101
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/5be9e82830f6130a0c10263310f784aea2d9c3bdc2c5e0652051686f8ac5386b",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/5be9e82830f6130a0c10263310f784aea2d9c3bdc2c5e0652051686f8ac5386b",
+      "sha256": "5be9e82830f6130a0c10263310f784aea2d9c3bdc2c5e0652051686f8ac5386b",
+      "size": 301950
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/b0df483e22264a4fbe00cdfbba334a8eb183f9a4986b49005bd41239187bdb7a",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/b0df483e22264a4fbe00cdfbba334a8eb183f9a4986b49005bd41239187bdb7a",
+      "sha256": "b0df483e22264a4fbe00cdfbba334a8eb183f9a4986b49005bd41239187bdb7a",
+      "size": 309141
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/00464efacc8d64124eabaa788c691d96efb725189b61f6ba73a4d6a93482c9af",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/00464efacc8d64124eabaa788c691d96efb725189b61f6ba73a4d6a93482c9af",
+      "sha256": "00464efacc8d64124eabaa788c691d96efb725189b61f6ba73a4d6a93482c9af",
+      "size": 273767
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/f9ff363a013d10c64fae72e3ac43acdc3df29e0b09889a016f529fdc9699973e",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/f9ff363a013d10c64fae72e3ac43acdc3df29e0b09889a016f529fdc9699973e",
+      "sha256": "f9ff363a013d10c64fae72e3ac43acdc3df29e0b09889a016f529fdc9699973e",
+      "size": 238047
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/12e2fb20d45998f1fa9129573074d75fcb270a4b01705b2d1820f06cf854d75b",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/12e2fb20d45998f1fa9129573074d75fcb270a4b01705b2d1820f06cf854d75b",
+      "sha256": "12e2fb20d45998f1fa9129573074d75fcb270a4b01705b2d1820f06cf854d75b",
+      "size": 452781
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/84312fb9ca67e4893eb40c64d439347b69196897823709f0929ad9559851660b",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/84312fb9ca67e4893eb40c64d439347b69196897823709f0929ad9559851660b",
+      "sha256": "84312fb9ca67e4893eb40c64d439347b69196897823709f0929ad9559851660b",
+      "size": 316671
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/48724d3f1c50ea48580a50023d484fe0e7635e8a5e0bb131aa0913e6fbc94e81",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/48724d3f1c50ea48580a50023d484fe0e7635e8a5e0bb131aa0913e6fbc94e81",
+      "sha256": "48724d3f1c50ea48580a50023d484fe0e7635e8a5e0bb131aa0913e6fbc94e81",
+      "size": 337464
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/50ab1460213bb6ea6dd7a44f854605d3753d3dfdd6747d4bc5e4b7478bcb8364",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/50ab1460213bb6ea6dd7a44f854605d3753d3dfdd6747d4bc5e4b7478bcb8364",
+      "sha256": "50ab1460213bb6ea6dd7a44f854605d3753d3dfdd6747d4bc5e4b7478bcb8364",
+      "size": 104199
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/70be0e3b10728fa68d45d233691bb28edb28524aae683dab3dcf73c3e7b0ea2f",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/70be0e3b10728fa68d45d233691bb28edb28524aae683dab3dcf73c3e7b0ea2f",
+      "sha256": "70be0e3b10728fa68d45d233691bb28edb28524aae683dab3dcf73c3e7b0ea2f",
+      "size": 307584
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/c88a2b91c18b98500ffae60bf63a84561c99441721c0e0d2496b5354d3904d75",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/c88a2b91c18b98500ffae60bf63a84561c99441721c0e0d2496b5354d3904d75",
+      "sha256": "c88a2b91c18b98500ffae60bf63a84561c99441721c0e0d2496b5354d3904d75",
+      "size": 307528
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/62217969f0c7769717c143303f6117db09297ca2efdf98a490a22e9174a7308e",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/62217969f0c7769717c143303f6117db09297ca2efdf98a490a22e9174a7308e",
+      "sha256": "62217969f0c7769717c143303f6117db09297ca2efdf98a490a22e9174a7308e",
+      "size": 301913
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/6d7738b5c877be30cedb1546e6ed807751c9e63845b2d1b2854f3eb48381c391",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/6d7738b5c877be30cedb1546e6ed807751c9e63845b2d1b2854f3eb48381c391",
+      "sha256": "6d7738b5c877be30cedb1546e6ed807751c9e63845b2d1b2854f3eb48381c391",
+      "size": 389428
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/7786902a755de1df7db89a3668fef3c9f99d182b4f799de53b3c9b8bcf5c2708",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/7786902a755de1df7db89a3668fef3c9f99d182b4f799de53b3c9b8bcf5c2708",
+      "sha256": "7786902a755de1df7db89a3668fef3c9f99d182b4f799de53b3c9b8bcf5c2708",
+      "size": 309189
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/fa360960afb0b5a18a2a5b1eaba27c2ea3528929aadf851a4586d5466dfff308",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/fa360960afb0b5a18a2a5b1eaba27c2ea3528929aadf851a4586d5466dfff308",
+      "sha256": "fa360960afb0b5a18a2a5b1eaba27c2ea3528929aadf851a4586d5466dfff308",
+      "size": 317182
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/e680e2415c14add9af99ccf2346edec568f64cc4a0582d8cbf796363c92e11ff",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/e680e2415c14add9af99ccf2346edec568f64cc4a0582d8cbf796363c92e11ff",
+      "sha256": "e680e2415c14add9af99ccf2346edec568f64cc4a0582d8cbf796363c92e11ff",
+      "size": 292146
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/161f663beca69945e482f1812610e4cbe02298ad2a4b1de95e976b43f0c8a53a",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/161f663beca69945e482f1812610e4cbe02298ad2a4b1de95e976b43f0c8a53a",
+      "sha256": "161f663beca69945e482f1812610e4cbe02298ad2a4b1de95e976b43f0c8a53a",
+      "size": 265091
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/3d0a0abd437a60865de665e7f42479375f709a2bed64361f70e4637993b5063a",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/3d0a0abd437a60865de665e7f42479375f709a2bed64361f70e4637993b5063a",
+      "sha256": "3d0a0abd437a60865de665e7f42479375f709a2bed64361f70e4637993b5063a",
+      "size": 2110657
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/f55c0917b86bbe2d9a0dabbff9b12c2660f1b9cf5f28db0b792331e413ce1a7d",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/f55c0917b86bbe2d9a0dabbff9b12c2660f1b9cf5f28db0b792331e413ce1a7d",
+      "sha256": "f55c0917b86bbe2d9a0dabbff9b12c2660f1b9cf5f28db0b792331e413ce1a7d",
+      "size": 337491
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/0e7d3b68a62ff00132b328042203bd7bd0657d971c236e14ad9aad504ee339b7",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/sobre/objetos/0e7d3b68a62ff00132b328042203bd7bd0657d971c236e14ad9aad504ee339b7",
+      "sha256": "0e7d3b68a62ff00132b328042203bd7bd0657d971c236e14ad9aad504ee339b7",
+      "size": 259710
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/terminal/fisico.json.gz",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/terminal/fisico.json.gz",
+      "sha256": "24bdaf354116ac943978a364b16d6e2a494a21002a9af68e7da221184fcd2020",
+      "size": 1192903
+    },
+    {
+      "source": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/terminal/recibo.json",
+      "path": "docs/procedencia/implementaciones/causal-retenciones-r57-sol/terminal/recibo.json",
+      "sha256": "d5ef99aa8bbea85a8de6fb09ecab05167f5cc7004dcad1a4d14185380c21ee10",
+      "size": 12517
+    }
+  ],
+  "restoredAt": "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r58/transporte"
+}

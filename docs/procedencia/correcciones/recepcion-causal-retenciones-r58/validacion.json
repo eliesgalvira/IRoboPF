@@ -1,0 +1,64 @@
+[
+  {
+    "name": "suite",
+    "command": [
+      "node",
+      "node_modules/vitest/vitest.mjs",
+      "run",
+      "--configLoader",
+      "native",
+      "--config",
+      "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r58/vitest.mjs",
+      "--reporter=json",
+      "--outputFile=/home/elies/Repos/IRoboPF/docs/procedencia/correcciones/recepcion-causal-retenciones-r58/suite.json"
+    ],
+    "exitCode": 0
+  },
+  {
+    "name": "oxlint",
+    "command": [
+      "node_modules/.bin/oxlint",
+      "--threads=1",
+      "--disable-nested-config"
+    ],
+    "exitCode": 0
+  },
+  {
+    "name": "eslint",
+    "command": [
+      "bun",
+      "run",
+      "lint:eslint"
+    ],
+    "exitCode": 0
+  },
+  {
+    "name": "types-final",
+    "command": [
+      "bun",
+      "run",
+      "typecheck"
+    ],
+    "exitCode": 0
+  },
+  {
+    "name": "testigos",
+    "command": [
+      "node",
+      "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r58/testigos.mjs"
+    ],
+    "exitCode": 0
+  },
+  {
+    "name": "schema",
+    "command": [
+      "uv",
+      "run",
+      "--no-project",
+      "--python",
+      "/home/elies/Repos/IRoboPF/tools/procedencia/.venv/bin/python",
+      "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r58/transporte/.cache/causal-retenciones-r57-sol/schema.py"
+    ],
+    "exitCode": 0
+  }
+]

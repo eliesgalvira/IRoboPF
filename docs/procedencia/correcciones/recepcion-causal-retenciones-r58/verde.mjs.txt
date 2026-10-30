@@ -1,0 +1,8 @@
+import assert from 'node:assert/strict'
+import {composeRetencionesR34} from '/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-retenciones-r34.mjs'
+import {consumeAnnual} from '/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-retenciones-r34-consumidor.mjs'
+const subcaso={anio:2020,retribucionAnualCentimos:4020000,cotizacionesCentimos:20000,situacionFamiliar:'situacion3',situacionLaboral:'activo',contrato:'general',descendientes:[],ascendientes:[],discapacidad:'sin-discapacidad'}
+const caso={anio:2020,retencionTrabajoAeat:subcaso,retencionesSoportadasCentimos:123,pagosACuentaCentimos:123}
+const result=consumeAnnual(composeRetencionesR34(),caso,{modo:'canonico'},'causal')
+assert.equal(result.lines.length,6)
+assert.ok(result.evidence?.annualBindings.some(b=>b.name==='retencionTrabajoAeat'), 'Evidencia insuficiente: invocación/propiedad/fase anual sin productor común')

@@ -1,0 +1,36 @@
+--- original/tests/causal-comun-r57.test.ts
++++ integrado/tests/causal-comun-r57.test.ts
+@@ -4,7 +4,7 @@
+   executeCausalSS,
+   verifyCausalSS,
+ } from "../scripts/procedencia/causal-ss-r54.ts";
+-import { executeCausalSS as previous } from "../.cache/causal-retenciones-r57-sol/ss-anterior.ts";
++import { executeCausalSS as previous } from "./fixtures/procedencia/ss-pre-r57.ts";
+ const g = composeSS();
+ for (const anio of [2018, 2022, 2023, 2025, 2026])
+   for (const modo of ["canonico", "compatible-legacy"])
+
+--- scratch/ss-anterior.ts
++++ tests/fixtures/procedencia/ss-pre-r57.ts
+@@ -1,10 +1,10 @@
+-import { validateSS } from "/home/elies/.t3/worktrees/IRoboPF/t3-0421e2a4/scripts/procedencia/flujo-ss-r36.mjs"
++import { validateSS } from "../../../scripts/procedencia/flujo-ss-r36.mjs"
+ import { createRequire } from "node:module"
+ import { createHash, randomUUID } from "node:crypto"
+ // Herramienta documental síncrona fuera de un programa Effect: lee los bytes fijados para verificar su identidad.
+ // @effect-diagnostics effect/nodeBuiltinImport:off
+ import { readFileSync } from "node:fs"
+-import { causalSlice } from "/home/elies/.t3/worktrees/IRoboPF/t3-0421e2a4/scripts/procedencia/evidencia-ejecucion-r54.ts"
++import { causalSlice } from "../../../scripts/procedencia/evidencia-ejecucion-r54.ts"
+ import type {
+   Edge,
+   Event,
+@@ -12,7 +12,7 @@
+   ExecutionEvidence,
+   AnnualBinding,
+   Output,
+-} from "/home/elies/.t3/worktrees/IRoboPF/t3-0421e2a4/scripts/procedencia/evidencia-ejecucion-r54.ts"
++} from "../../../scripts/procedencia/evidencia-ejecucion-r54.ts"
+ export interface SSCase {
+   anio: number
+   rendimientos: { trabajo: readonly { importeIntegroCentimos: number }[] }

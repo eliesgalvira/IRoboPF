@@ -2,7 +2,13 @@
 
 Inicio: 29 de octubre de 2026. Trabajo en curso; no es una certificación fiscal.
 
-## Situación más reciente, ronda 57 del 30 de octubre
+## Situación más reciente, ronda 58 del 30 de octubre
+
+Integrado como candidato R57 de las seis salidas causales de retenciones/pagos y núcleo compartido con SS. Cotejo físico de 22.293 entradas del hijo: tres modificaciones autorizadas y cero borrados; transporte exacto de 172 rutas. Incorporadas 130 rutas y preservadas 23 referencias técnicas. El padre versiona el fixture de la prueba nueva, conservando original y diff; las incidencias propias de modo de lock y preimagen compilable quedan documentadas. Detalle en correcciones/recepcion-causal-retenciones-r58.
+
+Validación del padre: 135 pruebas correctas, tipos globales principal/vendor y lint correctos (doce avisos ESLint registrados); verifican 33 testigos actuales/284 salidas. D129 exige revisión independiente de la nueva gramática, de cada salida y de la compatibilidad SS. Las seis salidas siguen candidatas; quedan además otros 48 sitios y 19 familias, composición y admisión. Las cuatro puertas permanecen falsas. Motor fiscal, inventario, confianza y 45 snapshots intactos. V5 mantiene corte R26; Crossa v1 sigue desfasado. Sin main, PR, despliegue, LFS, gasto, transferencia o limpieza. El encargo global sigue abierto.
+
+## Situación anterior, ronda 57 del 30 de octubre
 
 Recibida y contrastada la revisión independiente R56: 22.251 entradas del hijo físicamente intactas, cero borrados; transporte exacto de 59 rutas e incorporación de 15 archivos documentales y de transporte. Preservadas 87 referencias técnicas. El padre reproduce 42 entradas/462 comparaciones, 29 adversos heredados/adaptados, 18 relacionales adicionales y tres ejecuciones de estructura; comprueba 18 testigos/198 salidas. Recuentos solapados, no sumados. Tipos globales principal/vendor correctos; TS2345 del host del hijo no reproducido en la raíz. Deuda checkJs conservada. Detalle en correcciones/causal-ss-r57.
 

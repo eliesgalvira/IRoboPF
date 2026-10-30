@@ -1,0 +1,1070 @@
+import { validateSS } from "../../../scripts/procedencia/flujo-ss-r36.mjs"
+import { createRequire } from "node:module"
+import { createHash, randomUUID } from "node:crypto"
+// Herramienta documental síncrona fuera de un programa Effect: lee los bytes fijados para verificar su identidad.
+// @effect-diagnostics effect/nodeBuiltinImport:off
+import { readFileSync } from "node:fs"
+import { causalSlice } from "../../../scripts/procedencia/evidencia-ejecucion-r54.ts"
+import type {
+  Edge,
+  Event,
+  Frame,
+  ExecutionEvidence,
+  AnnualBinding,
+  Output,
+} from "../../../scripts/procedencia/evidencia-ejecucion-r54.ts"
+export interface SSCase {
+  anio: number
+  rendimientos: { trabajo: readonly { importeIntegroCentimos: number }[] }
+}
+export interface SSContext {
+  modo: string
+}
+interface CausalResult {
+  lines: Value["raw"][]
+  evidence: ExecutionEvidence
+}
+type JSONValue =
+  | null
+  | boolean
+  | number
+  | string
+  | JSONValue[]
+  | { [key: string]: JSONValue }
+const require = createRequire("/home/elies/Repos/IRoboPF/package.json")
+interface DecimalValue {
+  toFixed(n?: number): string
+}
+interface DecimalAPI {
+  new (v: Value["raw"]): DecimalValue
+  isDecimal(v: unknown): v is DecimalValue
+}
+const Decimal: DecimalAPI = require("decimal.js")
+const { Schema }: typeof import("effect") = require("effect")
+const record = Schema.is(Schema.Record(Schema.String, Schema.Unknown))
+const text = Schema.is(Schema.String),
+  number = Schema.is(Schema.Number),
+  boolean = Schema.is(Schema.Boolean)
+const caseSchema = Schema.Struct({
+  anio: Schema.Number,
+  rendimientos: Schema.Struct({
+    trabajo: Schema.Array(
+      Schema.Struct({ importeIntegroCentimos: Schema.Number }),
+    ),
+  }),
+})
+const contextSchema = Schema.Struct({ modo: Schema.String })
+interface Pattern {
+  name?: string
+  fields?: { key: string; binding: Pattern }[]
+}
+interface Node {
+  id: string
+  op: string
+  args: string[]
+  data: {
+    name?: string
+    value?: unknown
+    key?: string
+    optional?: boolean
+    operator?: string
+    fallback?: boolean
+    parameters?: { binding: Pattern; rest: boolean; default: string | null }[]
+    binding?: Pattern
+    strings?: string[]
+    pattern?: string
+    flags?: string
+  }
+  source: { file: string; start: number; end: number; sha256: string }
+}
+export interface SSFragment {
+  pending: readonly string[]
+  obligations: readonly { status: string }[]
+  program: Node[]
+  globalBindings: { name: string; node: string }[]
+  annualBindings: { name: string; node: string }[]
+  outputBindings: { siteId: string; node: string }[]
+  sources: { file: string; sha256: string }[]
+  fieldUnits: { id: string; unit: string }[]
+  literalUnits: { id: string; unit: string }[]
+}
+interface Closure {
+  body: string
+  parameters: NonNullable<Node["data"]["parameters"]>
+  env: Map<string, Value>
+  node: string
+}
+interface Value {
+  unit: string
+  raw: unknown
+  ref: string
+  props: Map<string, Value>
+  closure?: Closure | undefined
+  native?: string | undefined
+  state?: { input: Value; result?: Value; selections: Value[] } | undefined
+}
+class ReturnValue {
+  readonly value: Value
+  constructor(value: Value) {
+    this.value = value
+  }
+}
+const digest = (
+  v: SSFragment | ExecutionEvidence | SSCase | SSContext | string[],
+) => createHash("sha256").update(JSON.stringify(v)).digest("hex")
+const absent = { absent: true }
+function requireExecutableSS(g: SSFragment): void {
+  validateSS(g)
+  if (g.pending.length > 0 || g.obligations.some(o => o.status !== "satisfied"))
+    throw Error("Evidencia insuficiente: obligaciones pendientes")
+}
+function shown(v: Value["raw"]): JSONValue {
+  if (Decimal.isDecimal(v)) return { decimal: v.toFixed() }
+  if (v === undefined) return absent
+  if (v === null || text(v) || boolean(v)) return v
+  if (number(v)) {
+    if (!Number.isFinite(v)) throw Error("Número no finito")
+    return v
+  }
+  if (Array.isArray(v)) return v.map(shown)
+  if (record(v)) {
+    if (
+      Object.getPrototypeOf(v) !== Object.prototype &&
+      Object.getPrototypeOf(v) !== null
+    )
+      throw Error("Objeto externo no admitido")
+    return Object.fromEntries(Object.entries(v).map(([k, x]) => [k, shown(x)]))
+  }
+  throw Error("Valor externo no admitido")
+}
+function must<T>(v: T | undefined, message = "Operando ausente"): T {
+  if (v === undefined) throw Error(message)
+  return v
+}
+const binary = (op: string, a: Value["raw"], b: Value["raw"]): JSONValue => {
+  switch (op) {
+    case "===":
+      return a === b
+    case "!==":
+      return a !== b
+    case "+":
+      if (text(a) || text(b)) return String(a) + String(b)
+      return Number(a) + Number(b)
+    case "-":
+      return Number(a) - Number(b)
+    case "*":
+      return Number(a) * Number(b)
+    case "/":
+      return Number(a) / Number(b)
+    case "%":
+      return Number(a) % Number(b)
+    case ">=":
+      return Number(a) >= Number(b)
+    case "<=":
+      return Number(a) <= Number(b)
+    case ">":
+      return Number(a) > Number(b)
+    case "<":
+      return Number(a) < Number(b)
+    default:
+      throw Error("Operador no admitido: " + op)
+  }
+}
+/** Única evaluación anual: mismo entorno entre fases y salidas. No ejecuta TS del motor. */
+export function executeCausalSS(
+  g: SSFragment,
+  caso: SSCase,
+  contexto: SSContext,
+  execution: string = randomUUID(),
+): CausalResult {
+  requireExecutableSS(g)
+  g = structuredClone(g)
+  shown(caso)
+  shown(contexto)
+  const input = Schema.decodeUnknownSync(caseSchema)(caso)
+  const context = Schema.decodeUnknownSync(contextSchema)(contexto)
+  if (
+    !Number.isInteger(input.anio) ||
+    input.anio < 2012 ||
+    input.anio > 2026 ||
+    !["canonico", "compatible-legacy"].includes(context.modo)
+  )
+    throw Error("Fuera del dominio técnico")
+  if (
+    !Array.isArray(input.rendimientos.trabajo) ||
+    input.rendimientos.trabajo.some(
+      (x) => !Number.isSafeInteger(x.importeIntegroCentimos),
+    )
+  )
+    throw Error("Trabajo ordinario en céntimos requerido")
+  const nodes = new Map(g.program.map((n) => [n.id, n])),
+    globals = new Map(g.globalBindings.map((b) => [b.name, b.node])),
+    values = new Map<string, Value>()
+  const events: Event[] = [],
+    frames: Frame[] = [
+      { id: execution + ":f0", parent: null, call: null, function: null },
+    ]
+  let frame = frames[0].id,
+    current: string | null = null,
+    controls: Value[] = []
+  const units = new Map(
+    [...g.fieldUnits, ...g.literalUnits].map((x) => [x.id, x.unit]),
+  )
+  function emit(
+    operation: string,
+    raw: Value["raw"],
+    edges: Edge[] = [],
+    property = "",
+    unit = units.get(current ?? "") ?? "structural",
+  ): Value {
+    const id = execution + ":" + events.length
+    events.push({
+      id,
+      frame,
+      node: current,
+      operation,
+      property,
+      unit,
+      value: shown(raw),
+      edges: [
+        ...edges,
+        ...controls.map((x) => ({ role: "selection", to: x.ref })),
+      ],
+    })
+    return { unit, raw, ref: id, props: new Map() }
+  }
+  function alias(
+    v: Value,
+    operation: string,
+    extras: Edge[] = [],
+    property = "",
+  ): Value {
+    const out = emit(
+      operation,
+      v.raw,
+      [{ role: "value", to: v.ref }, ...extras],
+      property,
+      v.unit,
+    )
+    out.closure = v.closure
+    out.native = v.native
+    out.state = v.state
+    for (const [key, child] of v.props)
+      out.props.set(
+        key,
+        alias(
+          child,
+          operation,
+          [...extras, { role: "identity:owner", to: out.ref }],
+          property + "/" + key,
+        ),
+      )
+    return out
+  }
+  function external(raw: Value["raw"], path: string): Value {
+    const v = emit(
+      "input",
+      raw,
+      [],
+      path,
+      path.endsWith("importeIntegroCentimos")
+        ? "centimos"
+        : path.endsWith("anio")
+          ? "ejercicio"
+          : path.endsWith("modo")
+            ? "modo"
+            : "structural",
+    )
+    if (Array.isArray(raw) || record(raw))
+      for (const [key, x] of Object.entries(raw))
+        v.props.set(key, external(x, path + "/" + key))
+    return v
+  }
+  function native(name: string): Value {
+    const v = emit("primitive", name)
+    v.native = name
+    return v
+  }
+  function prop(v: Value, key: string, selector?: Value): Value {
+    const selected = v.props.get(key)
+    if (selected !== undefined)
+      return alias(
+        { ...selected, unit: units.get(current ?? "") ?? selected.unit },
+        "property",
+        [
+          { role: "identity:receiver", to: v.ref },
+          ...(selector !== undefined ? [{ role: "selector", to: selector.ref }] : []),
+        ],
+        key,
+      )
+    if (v.native !== undefined && v.native !== "") return native(v.native + "." + key)
+    if (Decimal.isDecimal(v.raw)) {
+      const out = native("decimal." + key)
+      out.props.set("receiver", v)
+      return out
+    }
+    if (v.state !== undefined && key === "pipe") {
+      const out = native("match.pipe")
+      out.state = v.state
+      return out
+    }
+    if (Array.isArray(v.raw) && key === "length")
+      return emit("length", v.raw.length, [{ role: "receiver", to: v.ref }])
+    if (v.raw === undefined || v.raw === null)
+      throw Error("Propiedad de ausente: " + key)
+    return emit(
+      "missing-property",
+      undefined,
+      [{ role: "receiver", to: v.ref }],
+      key,
+    )
+  }
+  function bind(
+    p: Pattern,
+    v: Value,
+    env: Map<string, Value>,
+    role: string,
+  ): void {
+    if (p.name !== undefined && p.name !== "") env.set(p.name, alias(v, role, [], p.name))
+    else
+      for (const f of p.fields ?? []) bind(f.binding, prop(v, f.key), env, role)
+  }
+  function global(name: string): Value {
+    if (!values.has(name)) {
+      const id = globals.get(name)
+      if (id !== undefined && id !== "") values.set(name, evaluate(id, new Map()))
+      else if (
+        [
+          "Decimal",
+          "Match",
+          "EffectArray",
+          "Object",
+          "medirAuditoriaSync",
+        ].includes(name)
+      )
+        values.set(name, native(name))
+      else if (name === "undefined")
+        values.set(name, emit("literal", undefined))
+      else throw Error("Global sin terminal: " + name)
+    }
+    return must(values.get(name))
+  }
+  function invoke(fn: Value, xs: Value[], call: string | null): Value {
+    const previousFrame = frame,
+      previousNode = current,
+      previousControls = controls
+    frame = execution + ":f" + frames.length
+    frames.push({
+      id: frame,
+      parent: previousFrame,
+      call,
+      function: fn.closure?.node ?? fn.native ?? null,
+    })
+    try {
+      if (fn.closure !== undefined) {
+        controls = [...controls, fn]
+        const f = fn.closure,
+          env = new Map(
+            [...f.env].map(([name, v]) => [
+              name,
+              alias(v, "capture", [], name),
+            ]),
+          )
+        current = f.node
+        emit("invoke", null, [
+          { role: "callee", to: fn.ref },
+          ...xs.map((x, i) => ({ role: "argument:" + i, to: x.ref })),
+        ])
+        f.parameters.forEach((p, i) => {
+          let v = xs[i]
+          if (p.rest) v = collection(xs.slice(i), "rest")
+          else if ((v === undefined || v.raw === undefined) && p.default !== null && p.default !== "")
+            v = alias(evaluate(p.default, f.env), "default")
+          bind(
+            p.binding,
+            v ?? emit("omitted-argument", undefined),
+            env,
+            "parameter:" + i,
+          )
+        })
+        let result: Value
+        try {
+          result = evaluate(f.body, env)
+        } catch (e) {
+          if (e instanceof ReturnValue) result = e.value
+          else throw e
+        }
+        return alias(result, "function-return", [
+          { role: "identity:callee", to: fn.ref },
+        ])
+      }
+      return invokeNative(must(fn.native, "Callback opaco"), fn, xs)
+    } finally {
+      frame = previousFrame
+      current = previousNode
+      controls = previousControls
+    }
+  }
+  function collection(xs: Value[], operation: string): Value {
+    const v = emit(
+      operation,
+      xs.map((x) => x.raw),
+      xs.map((x, i) => ({ role: "element:" + i, to: x.ref })),
+    )
+    xs.forEach((x, i) => v.props.set(String(i), x))
+    return v
+  }
+  function invokeNative(name: string, fn: Value, xs: Value[]): Value {
+    const x = (i: number) => must(xs[i]),
+      raw = xs.map((v) => v.raw),
+      edges = xs.map((v, i) => ({ role: "argument:" + i, to: v.ref }))
+    if (name === "medirAuditoriaSync")
+      return alias(invoke(x(1), [], current), "instrumentation-return")
+    if (name === "Decimal")
+      return emit("Decimal", new Decimal(raw[0]), edges, "", x(0).unit)
+    if (
+      name.startsWith("decimal.") ||
+      ["Decimal.min", "Decimal.max"].includes(name)
+    ) {
+      const key = name.split(".")[1],
+        receiver = fn.props.get("receiver")
+      const allowed = [
+        "min",
+        "max",
+        "plus",
+        "minus",
+        "mul",
+        "div",
+        "lessThan",
+        "greaterThan",
+        "lte",
+        "gte",
+        "toFixed",
+        "toString",
+        "isNegative",
+        "abs",
+        "toDecimalPlaces",
+        "isFinite",
+        "isInteger",
+        "toNumber",
+      ]
+      if (!allowed.includes(key))
+        throw Error("Primitiva Decimal ausente: " + key)
+      const owner = receiver?.raw ?? Decimal
+      // SAFETY: owner es Decimal concreto; key pertenece a la lista cerrada anterior. No se admite inyección.
+      const method = (
+        owner as Record<string, (...args: Value["raw"][]) => Value["raw"]>
+      )[key]
+      const result = must(method).apply(owner, raw)
+      const unit = boolean(result)
+        ? "boolean"
+        : key === "toFixed" || key === "toString"
+          ? (receiver?.unit ?? "contextual") + "-decimal-string"
+          : key === "div" && x(0).unit === "centimos/EUR"
+            ? "EUR"
+            : (receiver?.unit ??
+              xs.find((x) => x.unit === "EUR")?.unit ??
+              x(0).unit)
+      return emit(
+        name,
+        result,
+        [
+          ...(receiver !== undefined ? [{ role: "receiver", to: receiver.ref }] : []),
+          ...edges,
+        ],
+        "",
+        unit,
+      )
+    }
+    if (name === "Object.values")
+      return collection([...x(0).props.values()], "Object.values")
+    if (name === "EffectArray.reduce") {
+      const receiver = x(0),
+        seed = x(1),
+        callback = x(2)
+      const selection = emit("collection-selection", receiver.props.size, [
+        // La estructura selecciona las iteraciones; los valores financieros
+        // proceden de las propiedades que consume cada callback, no de sus hermanas.
+        { role: "identity:receiver", to: receiver.ref },
+        ...[...receiver.props].map(([key, element]) => ({
+          role: "identity:element:" + key,
+          to: element.ref,
+        })),
+        { role: "seed", to: seed.ref },
+        { role: "callback", to: callback.ref },
+      ])
+      let acc = seed
+      for (const [key, element] of receiver.props) {
+        const index = emit(
+          "index",
+          Number(key),
+          [{ role: "collection", to: selection.ref }],
+          "index",
+          "index",
+        )
+        acc = alias(
+          invoke(callback, [acc, element, index], current),
+          "reduce-step",
+          [{ role: "index", to: index.ref }],
+        )
+      }
+      return alias(acc, "reduce-return", [
+        { role: "collection-selection", to: selection.ref },
+      ])
+    }
+    if (name === "Match.value") {
+      const v = emit(name, null, edges)
+      v.state = { input: x(0), selections: [] }
+      return v
+    }
+    if (
+      name === "Match.when" ||
+      name === "Match.orElse" ||
+      name === "Match.withReturnType"
+    ) {
+      const v = emit(name, null, edges)
+      v.native = name + ":apply"
+      xs.forEach((x, i) => v.props.set(String(i), x))
+      return v
+    }
+    if (name === "match.pipe") {
+      let state = must(fn.state)
+      for (const op of xs) {
+        if (op.native === "Match.withReturnType:apply") continue
+        if (op.native === "Match.exhaustive") {
+          if (state.result === undefined) throw Error("Match no exhaustivo")
+          return alias(
+            state.result,
+            "match-return",
+            state.selections.map((x) => ({ role: "selector", to: x.ref })),
+          )
+        }
+        if (op.native === "Match.when:apply") {
+          if (state.result !== undefined) continue
+          const pattern = must(op.props.get("0")),
+            callback = must(op.props.get("1"))
+          const predicate = pattern.closure !== undefined
+            ? invoke(pattern, [state.input], current)
+            : emit("match-equals", pattern.raw === state.input.raw, [
+                { role: "input", to: state.input.ref },
+                { role: "pattern", to: pattern.ref },
+              ])
+          state = { ...state, selections: [...state.selections, predicate] }
+          if (Boolean(predicate.raw)) {
+            const prev = controls
+            controls = [...controls, ...state.selections]
+            const result = invoke(callback, [state.input], current)
+            controls = prev
+            state = { ...state, result }
+          }
+        } else if (op.native === "Match.orElse:apply") {
+          if (state.result === undefined) {
+            const prev = controls
+            controls = [...controls, ...state.selections]
+            state = {
+              ...state,
+              result: invoke(must(op.props.get("0")), [state.input], current),
+            }
+            controls = prev
+          }
+          return alias(
+            must(state.result),
+            "match-return",
+            state.selections.map((x) => ({ role: "selector", to: x.ref })),
+          )
+        } else throw Error("Opérateur Match absent: " + op.native)
+      }
+      throw Error("Match sans terminal")
+    }
+    if (name === "Match.valueTags") {
+      const tag = prop(x(0), "_tag"),
+        callback = prop(x(1), String(tag.raw))
+      const prev = controls
+      controls = [...controls, tag]
+      const result = invoke(callback, [x(0)], current)
+      controls = prev
+      return alias(result, "tag-return", [{ role: "selector", to: tag.ref }])
+    }
+    throw Error("Primitiva sin contrato: " + name)
+  }
+  function evaluate(id: string, env: Map<string, Value>): Value {
+    const n = must(nodes.get(id)),
+      previousNode = current
+    current = id
+    const ev = (i: number) => evaluate(must(n.args[i]), env)
+    const many = (ids: string[]) =>
+      ids.flatMap((id) => {
+        const n = must(nodes.get(id))
+        return n.op === "spread"
+          ? [...evaluate(must(n.args[0]), env).props.values()]
+          : [evaluate(id, env)]
+      })
+    try {
+      switch (n.op) {
+        case "literal":
+          return emit("literal", n.data.value)
+        case "local":
+          return alias(
+            must(env.get(must(n.data.name)), "Local sin binding"),
+            "local",
+            [],
+            must(n.data.name),
+          )
+        case "global":
+          return alias(global(must(n.data.name)), "global")
+        case "function": {
+          const v = emit("function", null)
+          v.closure = {
+            body: must(n.args[0]),
+            parameters: must(n.data.parameters),
+            env: new Map(env),
+            node: id,
+          }
+          return v
+        }
+        case "block": {
+          const local = new Map(env)
+          for (const id of n.args) evaluate(id, local)
+          return emit("block", undefined)
+        }
+        case "declarations":
+          for (const id of n.args) evaluate(id, env)
+          return emit("declarations", undefined)
+        case "bind": {
+          const v = ev(0)
+          bind(must(n.data.binding), v, env, "binding")
+          return alias(v, "bind")
+        }
+        case "return":
+          throw new ReturnValue(
+            alias(
+              n.args.length > 0 ? ev(0) : emit("undefined", undefined),
+              "return",
+            ),
+          )
+        case "pass":
+          return alias(ev(0), "pass")
+        case "throw":
+          throw Error("Excepción IR no resuelta")
+        case "if":
+        case "conditional": {
+          const predicate = ev(0),
+            branch = Boolean(predicate.raw) ? 1 : 2,
+            prev = controls
+          const selection = emit(
+            "branch",
+            branch,
+            [{ role: "predicate", to: predicate.ref }],
+            String(branch),
+          )
+          controls = [...controls, selection]
+          try {
+            return Boolean(n.args[branch])
+              ? alias(ev(branch), "branch-return")
+              : emit("branch-empty", undefined)
+          } finally {
+            controls = prev
+          }
+        }
+        case "switch": {
+          const selected = ev(0),
+            tests: Value[] = []
+          let choice: Node | undefined
+          for (const id of n.args.slice(1)) {
+            const c = must(nodes.get(id))
+            if (c.data.fallback === true) {
+              if (choice === undefined) choice = c
+              continue
+            }
+            const v = evaluate(must(c.args[0]), env)
+            const test = emit("switch-equals", selected.raw === v.raw, [
+              { role: "selector", to: selected.ref },
+              { role: "case", to: v.ref },
+            ])
+            tests.push(test)
+            if (Boolean(test.raw)) {
+              choice = c
+              break
+            }
+          }
+          const prev = controls
+          controls = [...controls, ...tests]
+          try {
+            if (choice !== undefined)
+              for (const id of choice.args.slice(choice.data.fallback === true ? 0 : 1))
+                evaluate(id, env)
+            return emit("switch-empty", undefined)
+          } finally {
+            controls = prev
+          }
+        }
+        case "binary": {
+          const a = ev(0),
+            op = must(n.data.operator)
+          if (["&&", "||", "??"].includes(op)) {
+            const take =
+              op === "&&"
+                ? Boolean(a.raw)
+                : op === "||"
+                  ? !Boolean(a.raw)
+                  : a.raw === null || a.raw === undefined
+            const selection = emit("short-circuit", take, [
+              { role: "predicate", to: a.ref },
+            ])
+            const prev = controls
+            controls = [...controls, selection]
+            try {
+              return alias(take ? ev(1) : a, "short-return")
+            } finally {
+              controls = prev
+            }
+          }
+          const b = ev(1)
+          return emit("binary", binary(op, a.raw, b.raw), [
+            { role: "left", to: a.ref },
+            { role: "right", to: b.ref },
+          ])
+        }
+        case "unary": {
+          const a = ev(0)
+          return emit(
+            "unary",
+            n.data.operator === "!"
+              ? !Boolean(a.raw)
+              : n.data.operator === "-"
+                ? -Number(a.raw)
+                : Number(a.raw),
+            [{ role: "argument", to: a.ref }],
+          )
+        }
+        case "get":
+        case "index": {
+          const receiver = ev(0)
+          if (
+            n.data.optional === true &&
+            (receiver.raw === null || receiver.raw === undefined)
+          )
+            return emit("optional-absent", undefined, [
+              { role: "selector", to: receiver.ref },
+            ])
+          const key = n.op === "index" ? ev(1) : undefined
+          return prop(
+            receiver,
+            n.op === "get" ? must(n.data.key) : String(must(key).raw),
+            key,
+          )
+        }
+        case "call":
+        case "new": {
+          const fn = ev(0),
+            args = many(n.args.slice(1))
+          return alias(invoke(fn, args, id), "call-return", [
+            { role: "identity:call-target", to: fn.ref },
+          ])
+        }
+        case "array":
+          return collection(many(n.args), "array")
+        case "object": {
+          const fields = new Map<string, Value>()
+          for (const id of n.args) {
+            const p = must(nodes.get(id))
+            if (p.op === "spread")
+              for (const [k, v] of evaluate(must(p.args[0]), env).props)
+                fields.set(k, v)
+            else {
+              const prev: string | null = current
+              current = id
+              const v = alias(
+                evaluate(must(p.args[0]), env),
+                "property-definition",
+                [],
+                must(p.data.key),
+              )
+              current = prev
+              fields.set(must(p.data.key), v)
+            }
+          }
+          const v = emit(
+            "object",
+            Object.fromEntries([...fields].map(([k, v]) => [k, v.raw])),
+            [...fields].map(([k, v]) => ({ role: "property:" + k, to: v.ref })),
+          )
+          v.props = fields
+          return v
+        }
+        case "template": {
+          const xs = n.args.map((id) => evaluate(id, env))
+          return emit(
+            "template",
+            xs.reduce(
+              (s, x, i) => s + String(x.raw) + must(n.data.strings?.[i + 1]),
+              must(n.data.strings?.[0]),
+            ),
+            xs.map((x, i) => ({ role: "argument:" + i, to: x.ref })),
+          )
+        }
+        default:
+          throw Error("Gramática sin contrato: " + n.op)
+      }
+    } finally {
+      current = previousNode
+    }
+  }
+  const env = new Map([
+    ["caso", external(caso, "caso")],
+    ["contexto", external(contexto, "contexto")],
+  ])
+  const annualBindings: AnnualBinding[] = []
+  for (const b of g.annualBindings) {
+    const v = alias(evaluate(b.node, env), "annual-binding", [], b.name)
+    env.set(b.name, v)
+    annualBindings.push({ name: b.name, producer: v.ref, frame })
+  }
+  const lines: unknown[] = [],
+    outputs: Output[] = []
+  for (const b of g.outputBindings) {
+    const v = evaluate(b.node, env)
+    lines.push(v.raw)
+    const decimal = prop(prop(v, "origen"), "decimal"),
+      display = prop(v, "resultado")
+    const transported = alias(decimal, "transport", [], b.siteId)
+    outputs.push({
+      siteId: b.siteId,
+      decimal: String(decimal.raw),
+      display: display.raw,
+      root: transported.ref,
+      slice: causalSlice(events, transported.ref),
+    })
+  }
+  return {
+    lines,
+    evidence: {
+      version: 1,
+      kind: "causal-ss-r54",
+      execution,
+      program: digest(g),
+      sources: structuredClone(g.sources),
+      software: [
+        "scripts/procedencia/causal-ss-r54.ts",
+        "scripts/procedencia/evidencia-ejecucion-r54.ts",
+        "scripts/procedencia/flujo-ss-r36.mjs",
+        "scripts/procedencia/flujo-ss-r36-consumidor.mjs",
+        require.resolve("decimal.js"),
+        require.resolve("effect"),
+      ].map((file) => ({
+        file,
+        sha256: createHash("sha256").update(readFileSync(file)).digest("hex"),
+      })),
+      input: structuredClone(caso),
+      context: structuredClone(contexto),
+      frames,
+      events,
+      annualBindings,
+      outputs,
+      admissionClosed: false,
+      siteClosed: false,
+      wiringAllowed: false,
+      completeRuleAcceptance: false,
+    },
+  }
+}
+
+/** Consumo condicionado: referencias utilizadas, obligaciones por propiedad y replay de IR fijada.
+ * La igualdad con el replay es integridad operacional; las obligaciones y pruebas externas
+ * son las que delimitan suficiencia. No es una prueba universal ni autenticación. */
+export function verifyCausalSS(
+  g: SSFragment,
+  evidence: ExecutionEvidence,
+  caso: SSCase,
+  contexto: SSContext,
+  execution: string,
+): true {
+  requireExecutableSS(g)
+  const reject: (message: string) => never = (message) => {
+    throw Error("Evidencia insuficiente: " + message)
+  }
+  if (
+    evidence.version !== 1 ||
+    evidence.kind !== "causal-ss-r54" ||
+    evidence.execution !== execution ||
+    evidence.program !== digest(g)
+  )
+    reject("protocolo/programa/ejecución")
+  if (
+    JSON.stringify(evidence.input) !== JSON.stringify(caso) ||
+    JSON.stringify(evidence.context) !== JSON.stringify(contexto)
+  )
+    reject("entrada/contexto")
+  if (
+    evidence.admissionClosed !== false ||
+    evidence.siteClosed !== false ||
+    evidence.wiringAllowed !== false ||
+    evidence.completeRuleAcceptance !== false
+  )
+    reject("promoción")
+  for (const source of g.sources)
+    if (
+      createHash("sha256").update(readFileSync(source.file)).digest("hex") !==
+      source.sha256
+    )
+      reject("fuente")
+  const nodes = new Map(g.program.map((n) => [n.id, n])),
+    ids = new Map<string, Event>(),
+    frames = new Map(evidence.frames.map((f) => [f.id, f]))
+  if (frames.size !== evidence.frames.length) reject("frames duplicados")
+  for (const [i, e] of evidence.events.entries()) {
+    if (
+      e.id !== execution + ":" + i ||
+      ids.has(e.id) ||
+      !frames.has(e.frame) ||
+      (e.node !== null && !nodes.has(e.node))
+    )
+      reject("identidad/frame/nodo")
+    for (const edge of e.edges)
+      if (!ids.has(edge.to)) reject("referencia hacia futuro o ausente")
+    if (e.operation === "collection-selection") {
+      const receivers = e.edges.filter(x => x.role === "identity:receiver")
+      const receiver = ids.get(receivers[0]?.to ?? "")
+      if (receivers.length !== 1 || receiver === undefined || !Array.isArray(receiver.value))
+        reject("receptor estructural de colección")
+      const elements = e.edges.filter(x => x.role.startsWith("identity:element:"))
+      const values = must(receiver).value
+      if (!Array.isArray(values)) reject("colección no ordinaria")
+      if (e.value !== values.length || elements.length !== values.length ||
+          e.edges.filter(x => x.role === "seed").length !== 1 ||
+          e.edges.filter(x => x.role === "callback").length !== 1)
+        reject("cardinalidad/semilla/callback de colección")
+      for (const [i, element] of elements.entries())
+        if (element.role !== "identity:element:" + i ||
+            JSON.stringify(ids.get(element.to)?.value) !== JSON.stringify(values[i]))
+          reject("orden/elemento de colección")
+    }
+    const valueEdge = e.edges.find((x) => x.role === "value")
+    const aliasOperations = [
+      "property",
+      "local",
+      "global",
+      "binding",
+      "capture",
+      "default",
+      "return",
+      "function-return",
+      "call-return",
+      "annual-binding",
+      "transport",
+      "branch-return",
+      "short-return",
+      "match-return",
+      "tag-return",
+      "instrumentation-return",
+      "reduce-step",
+      "reduce-return",
+      "property-definition",
+      "parameter:0",
+      "parameter:1",
+      "parameter:2",
+    ]
+    if (aliasOperations.includes(e.operation)) {
+      if (
+        valueEdge === undefined ||
+        JSON.stringify(ids.get(valueEdge.to)?.value) !== JSON.stringify(e.value)
+      )
+        reject("valor sin productor por propiedad")
+    }
+    if (e.operation === "binary") {
+      const left = e.edges.find((x) => x.role === "left"),
+        right = e.edges.find((x) => x.role === "right")
+      if (left === undefined || right === undefined) reject("argumento binario ausente")
+      const op = nodes.get(e.node ?? "")?.data.operator
+      if (
+        op === undefined || op === "" ||
+        JSON.stringify(
+          binary(
+            op,
+            ids.get(must(left).to)?.value,
+            ids.get(must(right).to)?.value,
+          ),
+        ) !== JSON.stringify(e.value)
+      )
+        reject("semántica binaria")
+    }
+    if (e.operation === "branch") {
+      const p = e.edges.find((x) => x.role === "predicate")
+      if (p === undefined || e.value !== (Boolean(ids.get(p.to)?.value) ? 1 : 2))
+        reject("predicado de rama")
+    }
+    ids.set(e.id, e)
+  }
+  for (const frame of frames.values())
+    if (
+      (frame.parent !== null && !frames.has(frame.parent)) ||
+      (frame.call !== null && !nodes.has(frame.call))
+    )
+      reject("frame/llamada")
+  if (
+    evidence.annualBindings.length !== 2 ||
+    evidence.outputs.length !== g.outputBindings.length
+  )
+    reject("fases/salidas")
+  for (const b of g.annualBindings)
+    if (
+      !evidence.annualBindings.some(
+        (x) =>
+          x.name === b.name &&
+          ids.get(x.producer)?.operation === "annual-binding",
+      )
+    )
+      reject("productor anual")
+  for (const binding of g.outputBindings) {
+    const output = evidence.outputs.find((x) => x.siteId === binding.siteId)
+    if (output === undefined) reject("sitio ausente")
+    const o = must(output),
+      root = ids.get(o.root)
+    if (
+      root?.operation !== "transport" ||
+      root.property !== binding.siteId ||
+      root.value !== o.decimal
+    )
+      reject("transporte decimal")
+    const slice = causalSlice(evidence.events, o.root)
+    if (digest(slice) !== digest(o.slice)) reject("slice no derivado")
+    const events = slice.map((id) => must(ids.get(id)))
+    if (
+      !events.some(
+        (e) =>
+          e.operation === "annual-binding" &&
+          e.property.startsWith("cotizacionesSociales/"),
+      )
+    )
+      reject("binding cotizaciones por propiedad")
+    if (
+      !events.some(
+        (e) => e.operation === "input" && e.property === "contexto/modo",
+      )
+    )
+      reject("selector modo")
+    if (
+      !events.some((e) => e.operation === "input" && e.property === "caso/anio")
+    )
+      reject("selector año")
+    if (
+      !(
+        binding.siteId.includes("solidaridad-") &&
+        contexto.modo === "compatible-legacy"
+      ) &&
+      !events.some((e) => e.operation === "reduce-return")
+    )
+      reject("selección/semilla trabajo")
+    for (const event of events)
+      if (
+        event.operation === "binary" &&
+        (!event.edges.some((x) => x.role === "left") ||
+          !event.edges.some((x) => x.role === "right"))
+      )
+        reject("operandos binarios")
+  }
+  const replay = executeCausalSS(g, caso, contexto, execution).evidence
+  if (digest(evidence) !== digest(replay))
+    reject("operación/propiedad/selección/frame no reproducido")
+  return true
+}

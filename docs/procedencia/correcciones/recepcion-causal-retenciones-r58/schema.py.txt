@@ -1,0 +1,17 @@
+import json,gzip
+from pathlib import Path
+from jsonschema import Draft202012Validator
+root=Path.cwd(); out=root/'docs/procedencia/implementaciones/causal-retenciones-r57-sol'
+ret=Draft202012Validator(json.loads((root/'schemas/procedencia/flujo/ejecucion-r57.schema.json').read_text()))
+ss=Draft202012Validator(json.loads((root/'schemas/procedencia/flujo/ejecucion-r54.schema.json').read_text()))
+contract=Draft202012Validator(json.loads((root/'schemas/procedencia/flujo/causal-retenciones-r57.schema.json').read_text()))
+contract.validate(json.loads(gzip.decompress((out/'contrato.json.gz').read_bytes())))
+count=0
+for p in (out/'testigos').glob('*.gz'):
+ ret.validate(json.loads(gzip.decompress(p.read_bytes()))['evidence']);count+=1
+old=json.loads(gzip.decompress((out/'testigos-ss-nuevos.json.gz').read_bytes()))
+for x in old:ss.validate(x['evidence'])
+print(json.dumps({'retenciones':count,'SS':len(old),'contrato':1,'schemaOnlyNotSufficiency':True}))
+
+ret.validate(json.loads(gzip.decompress((out/'historicos/pre-continuacion/nominal.json.gz').read_bytes()))['evidence'])
+print(json.dumps({'historicalShapeValid':True,'softwareAcceptanceNotImplied':True}))

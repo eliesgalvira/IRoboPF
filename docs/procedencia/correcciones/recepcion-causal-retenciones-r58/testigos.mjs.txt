@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict'
+import {readFileSync, readdirSync, writeFileSync} from 'node:fs'
+import {gunzipSync} from 'node:zlib'
+import {composeRetencionesR34} from '/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-retenciones-r34.mjs'
+import {verifyCausalRetenciones} from '/home/elies/Repos/IRoboPF/scripts/procedencia/causal-retenciones-r57.ts'
+import {composeSS} from '/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-ss-r36.mjs'
+import {verifyCausalSS} from '/home/elies/Repos/IRoboPF/scripts/procedencia/causal-ss-r54.ts'
+const dir='/home/elies/Repos/IRoboPF/docs/procedencia/implementaciones/causal-retenciones-r57-sol';const ret=composeRetencionesR34(),ss=composeSS(),rows=[]
+for(const name of readdirSync(dir+'/testigos').filter(x=>x.endsWith('.gz'))){const x=JSON.parse(gunzipSync(readFileSync(dir+'/testigos/'+name))),e=x.evidence;assert.equal(verifyCausalRetenciones(ret,e,e.input,e.context,e.execution),true);rows.push({name,domain:'retenciones',outputs:e.outputs.length,verified:true})}
+for(const x of JSON.parse(gunzipSync(readFileSync(dir+'/testigos-ss-nuevos.json.gz')))){const e=x.evidence;assert.equal(verifyCausalSS(ss,e,e.input,e.context,e.execution),true);rows.push({name:e.execution,domain:'ss',outputs:e.outputs.length,verified:true})}
+assert.equal(rows.length,33)
+writeFileSync('/home/elies/Repos/IRoboPF/docs/procedencia/correcciones/recepcion-causal-retenciones-r58/testigos-verificados.json',JSON.stringify(rows,null,2)+'\n')
+console.log(JSON.stringify({witnesses:rows.length,outputs:rows.reduce((a,x)=>a+x.outputs,0)}))

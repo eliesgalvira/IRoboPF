@@ -1,3 +1,4 @@
+import { executeCausalRetenciones } from "./causal-retenciones-r57.ts"
 import { createRequire } from "node:module"
 const require = createRequire("/home/elies/Repos/IRoboPF/package.json")
 const Decimal = require("decimal.js")
@@ -262,6 +263,7 @@ export function executeFinite(
 
 /** Puertos de composición, deliberadamente sin wiring ni admisión anual implícita. */
 export function consumeAnnual(fragment, caso, contexto, capture = true) {
+  if (capture === "causal") return executeCausalRetenciones(fragment, caso, contexto)
   if (fragment.obligations.some((o) => o.status !== "satisfied"))
     throw Error("Obligaciones pendientes; composición no disponible")
   let estimate
