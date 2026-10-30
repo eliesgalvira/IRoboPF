@@ -1,0 +1,25 @@
+import assert from 'node:assert/strict'
+import fs from 'node:fs'
+import { syncBuiltinESMExports } from 'node:module'
+import { resolve } from 'node:path'
+import { preparar } from '/home/elies/Repos/IRoboPF/scripts/procedencia/incorporacion-lote-r32.mjs'
+const root=process.cwd(), plan=preparar(root), original=fs.readFileSync
+function simulate(states) {
+  fs.readFileSync=(p,...args)=>{
+    const index=plan.files.findIndex(f=>resolve(root,f.path)===String(p))
+    if(index<0)return original(p,...args)
+    const state=states[index]
+    const bytes=state==='unknown'?Buffer.from('estado desconocido'):Buffer.from(plan.files[index][state],'base64')
+    return args[0]==='utf8'?bytes.toString('utf8'):bytes
+  }
+  syncBuiltinESMExports()
+  try{return preparar(root)}finally{fs.readFileSync=original;syncBuiltinESMExports()}
+}
+assert.deepEqual(simulate(['before','before']),plan)
+assert.deepEqual(simulate(['after','after']),plan)
+assert.throws(()=>simulate(['before','after']))
+assert.throws(()=>simulate(['after','before']))
+assert.throws(()=>simulate(['unknown','before']))
+console.log('Cinco preestados: previo y posterior exactos; mixtos y desconocido rechazados; plan idéntico')
+for(const states of [['before','unknown'],['after','unknown'],['unknown','after'],['unknown','unknown']])assert.throws(()=>simulate(states));
+console.log('Cuatro adversos adicionales: desconocido en segundo extremo, con posterior y en ambos rechazados');

@@ -1,0 +1,45 @@
+{
+  "commands": [
+    {
+      "source": "recuperacion.py.txt",
+      "command": [
+        "python3",
+        "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r37/recuperacion.py"
+      ],
+      "exitCode": 0,
+      "log": "docs/procedencia/correcciones/incorporacion-r37/recuperacion.py.log"
+    },
+    {
+      "source": "estados.mjs.txt",
+      "command": [
+        "node",
+        "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r37/estados.mjs"
+      ],
+      "exitCode": 0,
+      "log": "docs/procedencia/correcciones/incorporacion-r37/estados.mjs.log"
+    },
+    {
+      "source": "contraste.mjs.txt",
+      "command": [
+        "node",
+        "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r37/contraste.mjs"
+      ],
+      "exitCode": 0,
+      "log": "docs/procedencia/correcciones/incorporacion-r37/contraste.mjs.log"
+    },
+    {
+      "source": "origen-ss.mjs.txt",
+      "command": [
+        "node",
+        "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r37/origen-ss.mjs"
+      ],
+      "exitCode": 0,
+      "log": "docs/procedencia/correcciones/incorporacion-r37/origen-ss.mjs.log"
+    }
+  ],
+  "recoveryCases": 26,
+  "recoveryExact": true,
+  "operationalContrastExact": true,
+  "fullGetRepeated": false,
+  "completeRuleAcceptance": false
+}

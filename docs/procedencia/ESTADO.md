@@ -2,7 +2,17 @@
 
 Inicio: 29 de octubre de 2026. Trabajo en curso; no es una certificación fiscal.
 
-## Situación más reciente, ronda 36 del 30 de octubre
+## Situación más reciente, ronda 37 del 30 de octubre
+
+Recibida y corroborada por el padre la revisión Sol de incorporación local R36: 49 archivos y 2.789.130 bytes; las 20.227 entradas físicas del hijo coinciden con la base, sin borrados ni cambios. Patch y binarios reconstruidos exactamente. Informe y recibos en correcciones/incorporacion-r37; informe independiente en revisiones/incorporacion-local-r36-sol.
+
+El padre reproduce 26 casos de recuperación con resultado idéntico, nueve combinaciones del preparador, contraste de autoridad/estados/publicación y tres localizadores SS. Todos pasan. La revisión independiente confirma GET, 45 snapshots y adversos; no se repiten aquí ni se atribuyen esas ejecuciones nuevas al padre. Ningún defecto nuevo de producto reproducido, fix, regeneración o cambio de confianza en esta recepción.
+
+Los 264 enlaces siguen limitados por celda/año y Madrid 2020 permanece pendiente; aceptación fiscal completa false. Se mantienen los límites de operación serial, estados intermedios, ausencia de ensayo de apagón y cierres causales abiertos. Continúan los otros cinco encargos R36, todos gpt-6.1-sol, high y priority según el registro; no se lanzan hijos nuevos, sondean tareas ni leen entregas parciales. Sus finalizaciones reactivarán el hilo.
+
+V5 conserva corte R26 y Crossa v1 desfasado, copia local fuera de Victus del mismo dueño/casa. Sin main, PR, despliegue, LFS, gasto, transferencia externa o limpieza. El encargo global permanece abierto.
+
+## Situación anterior, ronda 36 del 30 de octubre
 
 Recibidas cuatro entregas Sol: revisión SS R34, revisión de incorporación R34, retenciones por propiedad R34 y admisión parcial R35. Son 232 archivos y 17.879.699 bytes; tres cotejos de 17.248 entradas y uno de 17.306, todos físicamente intactos y sin borrados. Recibos, decisiones y pruebas del padre en correcciones/recepcion-r36.
 

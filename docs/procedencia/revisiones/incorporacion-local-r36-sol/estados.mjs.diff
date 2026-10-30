@@ -1,0 +1,17 @@
+--- docs/procedencia/correcciones/recepcion-r36/preparador-estados.mjs	2026-10-30 01:35:34.279934368 +0100
++++ /home/elies/.t3/worktrees/IRoboPF/t3-483629b2/.cache/revision-incorporacion-local-r36/estados.mjs	2026-10-30 01:42:10.750700742 +0100
+@@ -2,7 +2,7 @@
+ import fs from 'node:fs'
+ import { syncBuiltinESMExports } from 'node:module'
+ import { resolve } from 'node:path'
+-import { preparar } from '../../../../scripts/procedencia/incorporacion-lote-r32.mjs'
++import { preparar } from '/home/elies/.t3/worktrees/IRoboPF/t3-483629b2/scripts/procedencia/incorporacion-lote-r32.mjs'
+ const root=process.cwd(), plan=preparar(root), original=fs.readFileSync
+ function simulate(states) {
+   fs.readFileSync=(p,...args)=>{
+@@ -21,3 +21,5 @@
+ assert.throws(()=>simulate(['after','before']))
+ assert.throws(()=>simulate(['unknown','before']))
+ console.log('Cinco preestados: previo y posterior exactos; mixtos y desconocido rechazados; plan idéntico')
++for(const states of [['before','unknown'],['after','unknown'],['unknown','after'],['unknown','unknown']])assert.throws(()=>simulate(states));
++console.log('Cuatro adversos adicionales: desconocido en segundo extremo, con posterior y en ambos rechazados');

@@ -1,0 +1,142 @@
+import base64
+import importlib.util
+import json
+import os
+from pathlib import Path
+
+ROOT = Path.cwd()
+OUT = ROOT / '.cache/revision-incorporacion-local-r36'
+RECEIVED = ROOT / 'docs/procedencia/correcciones/recepcion-r36'
+spec = importlib.util.spec_from_file_location('transicion', RECEIVED / 'transicion.py')
+m = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(m)
+plan = json.loads((RECEIVED / 'plan.json').read_text())
+rows = []
+
+
+def setup(name, p, state='before'):
+    root = OUT / 'inyecciones' / name
+    assert not root.exists()
+    for f in p['files']:
+        dest = root / f['path']
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        dest.write_bytes(base64.b64decode(f[state]))
+    return root
+
+
+def hashes(root, p):
+    return [m.digest((root / f['path']).read_bytes()) for f in p['files']]
+
+
+def expected(p, target):
+    return [f['baseSha256' if target == 'before' else 'sha256'] for f in p['files']]
+
+
+# Inyectar después del fsync real: distingue visibilidad de éxito reportado.
+for target in ('before', 'after'):
+    for point in range(1, 9):
+        root = setup(f'{target}-fsync-{point}', plan, 'after' if target == 'before' else 'before')
+        real = os.fsync
+        calls = [0]
+
+        def fail(fd):
+            real(fd)
+            calls[0] += 1
+            if calls[0] == point:
+                raise OSError(f'EIO inyectado tras fsync {point}')
+
+        os.fsync = fail
+        try:
+            m.transition(root, plan, target, root / 'journal')
+        except OSError as error:
+            assert 'EIO inyectado' in str(error)
+        else:
+            raise AssertionError('Fallo no alcanzado')
+        finally:
+            os.fsync = real
+        observed = hashes(root, plan)
+        for index, h in enumerate(observed):
+            assert h in (plan['files'][index]['baseSha256'], plan['files'][index]['sha256'])
+        for recover in ('before', 'after', 'after'):
+            result = m.transition(root, plan, recover, root / 'journal')
+            assert result['complete'] and hashes(root, plan) == expected(plan, recover)
+        rows.append({'target': target, 'faultAfterFsync': point, 'observed': observed, 'bothRecoveries': True})
+
+for point in (1, 2):
+    root = setup(f'write-{point}', plan)
+    try:
+        m.transition(root, plan, 'after', root / 'journal', fail_after=point)
+    except OSError:
+        pass
+    else:
+        raise AssertionError('Fallo no alcanzado')
+    observed = hashes(root, plan)
+    m.transition(root, plan, 'before', root / 'journal')
+    assert hashes(root, plan) == expected(plan, 'before')
+    rows.append({'faultAfterWrite': point, 'observed': observed, 'recoveredBefore': True})
+
+for kind in ('unknown', 'symlink', 'hardlink', 'bad-plan'):
+    p = json.loads(json.dumps(plan))
+    root = setup(kind, p)
+    last = root / p['files'][1]['path']
+    if kind in ('symlink', 'hardlink'):
+        saved = last.with_suffix('.conservado')
+        # Scratch propio; conservar el original de ensayo antes de sustituirlo.
+        last.rename(saved)
+        if kind == 'symlink':
+            last.symlink_to(saved)
+        else:
+            os.link(saved, last)
+    elif kind == 'unknown':
+        last.write_bytes(b'estado desconocido')
+    else:
+        p['files'][1]['sha256'] = '0' * 64
+    observed = hashes(root, p)
+    try:
+        m.transition(root, p, 'after', root / 'journal')
+    except ValueError:
+        pass
+    else:
+        raise AssertionError('Estado admitido indebidamente')
+    assert hashes(root, p) == observed and not (root / 'journal').exists()
+    rows.append({'preflight': kind, 'rejectedBeforeJournalAndWrites': True})
+
+pub = json.loads((RECEIVED / 'plan-publicacion.json').read_text())
+# Receta publicada: completar índice antes del rastro; rollback en orden inverso.
+def publication_recover(root, target):
+    for f in pub['files']:
+        assert m.digest((root / f['path']).read_bytes()) in (f['baseSha256'], f['sha256'])
+    files = pub['files'] if target == 'after' else list(reversed(pub['files']))
+    for f in files:
+        m.durable_replace(root / f['path'], base64.b64decode(f[target]))
+
+
+for point in range(1, 5):
+    root = setup(f'publicacion-fsync-{point}', pub)
+    real = os.fsync
+    calls = [0]
+
+    def fail_publication(fd):
+        real(fd)
+        calls[0] += 1
+        if calls[0] == point:
+            raise OSError('EIO publicación')
+
+    os.fsync = fail_publication
+    try:
+        publication_recover(root, 'after')
+    except OSError:
+        pass
+    else:
+        raise AssertionError('Fallo no alcanzado')
+    finally:
+        os.fsync = real
+    observed = hashes(root, pub)
+    publication_recover(root, 'before')
+    assert hashes(root, pub) == expected(pub, 'before')
+    publication_recover(root, 'after')
+    assert hashes(root, pub) == expected(pub, 'after')
+    rows.append({'publicationFaultAfterFsync': point, 'observed': observed, 'bothRecoveries': True})
+
+(OUT / 'recuperacion.json').write_text(json.dumps({'cases': rows, 'serialOnly': True, 'actualPowerLossTested': False}, indent=2) + '\n')
+print(json.dumps({'cases': len(rows), 'success': True, 'actualPowerLossTested': False}))

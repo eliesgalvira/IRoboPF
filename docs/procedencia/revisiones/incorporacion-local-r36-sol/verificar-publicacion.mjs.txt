@@ -1,0 +1,22 @@
+import fs from 'node:fs'
+import assert from 'node:assert/strict'
+import {resolve} from 'node:path'
+import {createHash} from 'node:crypto'
+import {leerSnapshot} from '/home/elies/.t3/worktrees/IRoboPF/t3-483629b2/.cache/revision-incorporacion-local-r36/proyeccion/lib/procedencia/almacen.ts'
+import {verificarContenido} from '/home/elies/.t3/worktrees/IRoboPF/t3-483629b2/.cache/revision-incorporacion-local-r36/proyeccion/scripts/procedencia/contenido-verificar.mjs'
+import {GET as ficha} from '/home/elies/.t3/worktrees/IRoboPF/t3-483629b2/.cache/revision-incorporacion-local-r36/proyeccion/app/procedencia/[snapshot]/[id]/[revision]/route.ts'
+import {GET as objeto} from '/home/elies/.t3/worktrees/IRoboPF/t3-483629b2/.cache/revision-incorporacion-local-r36/proyeccion/app/procedencia/[snapshot]/objetos/[hash]/route.ts'
+const out='/home/elies/.t3/worktrees/IRoboPF/t3-483629b2/.cache/revision-incorporacion-local-r36',store='/home/elies/.t3/worktrees/IRoboPF/t3-483629b2/.cache/revision-incorporacion-local-r36/proyeccion/docs/procedencia/implementaciones/contenidos/datos'
+process.env.IROBOPF_CAS_LOCAL='/home/elies/.t3/worktrees/IRoboPF/t3-483629b2/.cache/revision-incorporacion-local-r36/cas/sha256'
+const result=JSON.parse(fs.readFileSync(out+'/publicacion.json')),s=leerSnapshot(result.snapshot),subjects=[...new Map(s.evidencias.map(e=>[e.sujeto.id,e.sujeto])).values()]
+assert.equal(subjects.length,103)
+for(const subject of subjects){const r=await ficha(new Request('http://localhost/'),{params:Promise.resolve({snapshot:result.snapshot,...subject})});assert.equal(r.status,200);const html=await r.text(),expected=s.evidencias.filter(e=>e.sujeto.id===subject.id);for(const e of expected)assert.ok(html.includes(e.payload));assert.equal((html.match(/<dd>false<\/dd>/g)??[]).length,expected.length)}
+for(const p of s.publicos){const r=await objeto(new Request('http://localhost/'),{params:Promise.resolve({snapshot:result.snapshot,hash:p.hash})});assert.equal(r.status,200);assert.equal(r.headers.get('content-type'),p.mime);const b=Buffer.from(await r.arrayBuffer());assert.equal(b.length,p.bytes);assert.equal(createHash('sha256').update(b).digest('hex'),p.hash)}
+let largeLinks=0
+for(const e of s.evidencias){const p=JSON.parse(fs.readFileSync(store+'/objetos/'+e.payload)),d=JSON.parse(fs.readFileSync(store+'/objetos/'+p.document.sha256));if(d.sha256===s.externos[0].hash)largeLinks++}
+assert.equal(largeLinks,36)
+const ids=JSON.parse(fs.readFileSync(store+'/snapshots.json'));assert.equal(ids.length,45)
+for(const id of ids)verificarContenido(leerSnapshot(id),store)
+const rastro=JSON.parse(fs.readFileSync('lib/procedencia/rastro-generado.json'));assert.equal(rastro.actual.versiones.snapshot,result.snapshot);assert.equal(rastro.bindings.length,65)
+const receipt={snapshot:result.snapshot,fichas:subjects.length,objetos:s.publicos.length,enlacesOriginalGrande:largeLinks,snapshotsVerified:ids.length,traceSites:65,completeRuleAcceptance:false,maxRss:process.resourceUsage().maxRSS}
+fs.writeFileSync(out+'/get-historicos.json',JSON.stringify(receipt,null,2)+'\n');console.log(JSON.stringify(receipt))

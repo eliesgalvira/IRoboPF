@@ -1,0 +1,19 @@
+import fs from 'node:fs';import {resolve} from 'node:path';import {createHash} from 'node:crypto';import assert from 'node:assert/strict';
+const root=process.cwd(),out=resolve('.cache/revision-incorporacion-local-r36'),p=out+'/proyeccion',r='docs/procedencia/correcciones/recepcion-r36',sha=b=>createHash('sha256').update(b).digest('hex');
+assert.equal(fs.existsSync(p),false);fs.mkdirSync(p,{recursive:true});
+for(const d of ['app','lib','scripts','tools/oxlint','docs/procedencia/implementaciones/contenidos/datos'])fs.cpSync(d,p+'/'+d,{recursive:true});
+for(const f of ['package.json','tsconfig.json','.oxlintrc.json','eslint.config.mjs'])fs.copyFileSync(f,p+'/'+f);
+fs.symlinkSync('/home/elies/Repos/IRoboPF/node_modules',p+'/node_modules');
+const originals=JSON.parse(fs.readFileSync(r+'/originales-locales.json')),excluded=JSON.parse(fs.readFileSync(r+'/objetos-publicos-excluidos.json')),receipts=[];
+const v='/home/elies/Repos/IRoboPF/.cache/orquestador-preservacion/v5-r2-2b15925970d4';assert.equal(sha(fs.readFileSync(v+'/manifest-externo.json')),'2b15925970d4819973598e1640c375ce95fc16c87e6e9981af1e86a2cb0d1c88');
+for(const e of originals){const b=fs.readFileSync(e.preservedSource);assert.equal(sha(b),e.sha256);assert.equal(createHash('sha512').update(b).digest('hex'),e.sha512);assert.equal(b.length,e.size);const cas=out+'/cas/sha256/'+e.sha256;fs.mkdirSync(out+'/cas/sha256',{recursive:true});fs.writeFileSync(cas,b,{flag:'wx'});for(const f of [e,...excluded.filter(x=>x.sha256===e.sha256)]){const dest=p+'/'+f.path;fs.mkdirSync(resolve(dest,'..'),{recursive:true});if(fs.existsSync(dest))assert.deepEqual(fs.readFileSync(dest),b);else fs.writeFileSync(dest,b,{flag:'wx'});}receipts.push({...e,localPath:cas,baseSha256:null});}
+fs.writeFileSync(out+'/originales.json',JSON.stringify(receipts,null,2));
+// Instrumento recibido: cambiar solo imports, raíz CAS y destinos de recibos.
+let s=fs.readFileSync(r+'/instrumentos/verificar-publicacion.mjs.txt','utf8');s=s.replaceAll("'../../../",JSON.stringify(p+'/').slice(0,-1));
+// Sustitución explícita de imports con comillas consistentes.
+s=fs.readFileSync(r+'/instrumentos/verificar-publicacion.mjs.txt','utf8').replace(/from '\.\.\/\.\.\/\.\.\/([^']+)'/g,(_,x)=>`from '${p}/${x}'`);
+s=s.replace("const out=resolve('docs/procedencia/correcciones/recepcion-r36'),store=resolve('docs/procedencia/implementaciones/contenidos/datos')",`const out='${out}',store='${p}/docs/procedencia/implementaciones/contenidos/datos'`);
+s=s.replace("resolve('.cache/procedencia/publicacion-cas/sha256')",`'${out}/cas/sha256'`);
+fs.writeFileSync(out+'/verificar-publicacion.mjs',s);fs.copyFileSync(r+'/publicacion.json',out+'/publicacion.json');
+for(const [src,name] of [[r+'/instrumentos/autoridad.mjs.txt','autoridad.mjs'],[r+'/preparador-estados.mjs','estados.mjs'],[r+'/origen-ss.mjs','origen-ss.mjs']]){let a=fs.readFileSync(src,'utf8');if(name==='autoridad.mjs')a=a.replace("const out='docs/procedencia/correcciones/recepcion-r36'",`const out='${out}'`);else a=a.replaceAll("'../../../../scripts/",`'${root}/scripts/`);fs.writeFileSync(out+'/'+name,a);}
+console.log(JSON.stringify({projection:p,originals:receipts.length,excluded:excluded.length,copyOrdinary:true}));

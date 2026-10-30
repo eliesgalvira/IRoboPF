@@ -1,0 +1,41 @@
+import difflib
+import json
+import os
+import subprocess
+from pathlib import Path
+
+R = Path('/home/elies/Repos/IRoboPF')
+S = R / '.cache/orquestador-recepcion/r37'
+F = R / 'docs/procedencia/revisiones/incorporacion-local-r36-sol'
+O = R / 'docs/procedencia/correcciones/incorporacion-r37'
+old_root = '/home/elies/.t3/worktrees/IRoboPF/t3-483629b2'
+original_out = '.cache/revision-incorporacion-local-r36'
+own_out = '.cache/orquestador-recepcion/r37'
+jobs = [('recuperacion.py.txt', 'python3'), ('estados.mjs.txt', 'node'), ('contraste.mjs.txt', 'node'), ('origen-ss.mjs.txt', 'node')]
+results = []
+for source, runtime in jobs:
+    before = (F/source).read_text()
+    after = before.replace(original_out, own_out).replace(old_root, str(R))
+    after = after.replace("from '../../scripts/", "from '"+str(R)+"/scripts/")
+    target = S/source.removesuffix('.txt')
+    assert not target.exists()
+    target.write_text(after)
+    (O/(source+'.diff')).write_text(''.join(difflib.unified_diff(before.splitlines(True), after.splitlines(True), fromfile=source, tofile=target.name)))
+    (O/source).write_text(after)
+    log = O/(target.name+'.log')
+    env = dict(os.environ, PYTHONDONTWRITEBYTECODE='1')
+    with log.open('wb') as stream:
+        result = subprocess.run([runtime, str(target)], cwd=R, env=env, stdout=stream, stderr=subprocess.STDOUT)
+    results.append(dict(source=source, command=[runtime, str(target)], exitCode=result.returncode, log=str(log.relative_to(R))))
+    print(json.dumps(results[-1]), flush=True)
+    assert result.returncode == 0
+
+recovery = json.loads((S/'recuperacion.json').read_text())
+assert recovery == json.loads((F/'recuperacion.json').read_text())
+assert len(recovery['cases']) == 26 and not recovery['actualPowerLossTested']
+contrast = json.loads((S/'contraste.json').read_text())
+assert contrast == json.loads((F/'contraste.json').read_text())
+for name in ['recuperacion.json', 'contraste.json']:
+    (O/name).write_bytes((S/name).read_bytes())
+(O/'validacion.json').write_text(json.dumps(dict(commands=results, recoveryCases=26, recoveryExact=True, operationalContrastExact=True, fullGetRepeated=False, completeRuleAcceptance=False), indent=2)+'\n')
+print('26 recuperaciones y contraste operativo coinciden exactamente con la revisión; estados y orígenes correctos.', flush=True)

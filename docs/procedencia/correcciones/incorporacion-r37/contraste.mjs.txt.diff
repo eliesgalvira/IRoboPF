@@ -1,0 +1,10 @@
+--- contraste.mjs.txt
++++ contraste.mjs
+@@ -1,5 +1,5 @@
+-import fs from 'node:fs';import assert from 'node:assert/strict';import {createHash} from 'node:crypto';import {preparar} from '../../scripts/procedencia/incorporacion-lote-r32.mjs';
+-const out='.cache/revision-incorporacion-local-r36',r='docs/procedencia/correcciones/recepcion-r36',read=p=>JSON.parse(fs.readFileSync(p)),sha=b=>createHash('sha256').update(b).digest('hex'),p=preparar(),a=read(r+'/aprobacion-local.json'),plan=read(r+'/plan.json');
++import fs from 'node:fs';import assert from 'node:assert/strict';import {createHash} from 'node:crypto';import {preparar} from '/home/elies/Repos/IRoboPF/scripts/procedencia/incorporacion-lote-r32.mjs';
++const out='.cache/orquestador-recepcion/r37',r='docs/procedencia/correcciones/recepcion-r36',read=p=>JSON.parse(fs.readFileSync(p)),sha=b=>createHash('sha256').update(b).digest('hex'),p=preparar(),a=read(r+'/aprobacion-local.json'),plan=read(r+'/plan.json');
+ assert.deepEqual(p,plan);assert.equal(a.planSha256,sha(fs.readFileSync(r+'/plan.json')));assert.equal(a.authoritySha256,sha(fs.readFileSync(r+'/autoridad.json')));assert.deepEqual(a.reviewerIdentities,p.identities);assert.equal(a.completeRuleAcceptance,false);assert.equal(p.completeRuleAcceptance,false);
+ for(const f of plan.files){assert.equal(sha(fs.readFileSync(f.path)),f.sha256);assert.equal(sha(Buffer.from(f.before,'base64')),f.baseSha256);assert.equal(sha(Buffer.from(f.after,'base64')),f.sha256)}
+ const old=JSON.parse(Buffer.from(p.files[0].before,'base64')),now=read(p.files[0].path);assert.deepEqual(now.entries[0],old.entries[0]);assert.equal(now.entries[0].attestation,null);assert.equal(now.entries[0].payload.sha256,'e16bd15666f0f83502756ac1648259979ab07bdc5eea18abb0e7965a634a4258');assert.equal(now.entries.length,265);

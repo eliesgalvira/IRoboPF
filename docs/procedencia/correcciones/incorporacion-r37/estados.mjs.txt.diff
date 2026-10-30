@@ -1,0 +1,11 @@
+--- estados.mjs.txt
++++ estados.mjs
+@@ -2,7 +2,7 @@
+ import fs from 'node:fs'
+ import { syncBuiltinESMExports } from 'node:module'
+ import { resolve } from 'node:path'
+-import { preparar } from '/home/elies/.t3/worktrees/IRoboPF/t3-483629b2/scripts/procedencia/incorporacion-lote-r32.mjs'
++import { preparar } from '/home/elies/Repos/IRoboPF/scripts/procedencia/incorporacion-lote-r32.mjs'
+ const root=process.cwd(), plan=preparar(root), original=fs.readFileSync
+ function simulate(states) {
+   fs.readFileSync=(p,...args)=>{

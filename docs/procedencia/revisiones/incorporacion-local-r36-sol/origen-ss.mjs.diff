@@ -1,0 +1,11 @@
+--- docs/procedencia/correcciones/recepcion-r36/origen-ss.mjs	2026-10-30 01:35:34.277934258 +0100
++++ /home/elies/.t3/worktrees/IRoboPF/t3-483629b2/.cache/revision-incorporacion-local-r36/origen-ss.mjs	2026-10-30 01:37:47.652256721 +0100
+@@ -1,6 +1,6 @@
+ import assert from 'node:assert/strict'
+-import { composeSS } from '../../../../scripts/procedencia/flujo-ss-r32.mjs'
+-import { Sources, ts } from '../../../../scripts/procedencia/flujo-ast.mjs'
++import { composeSS } from '/home/elies/.t3/worktrees/IRoboPF/t3-483629b2/scripts/procedencia/flujo-ss-r32.mjs'
++import { Sources, ts } from '/home/elies/.t3/worktrees/IRoboPF/t3-483629b2/scripts/procedencia/flujo-ast.mjs'
+ const g = composeSS(), sources = new Sources(), rows = []
+ const byId = new Map(g.ports.map(p => [p.id, p]))
+ function check(port, owner, literal) {

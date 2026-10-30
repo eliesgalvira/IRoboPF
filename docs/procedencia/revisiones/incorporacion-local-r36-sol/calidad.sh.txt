@@ -1,0 +1,10 @@
+set -uo pipefail
+cd /home/elies/.t3/worktrees/IRoboPF/t3-483629b2/.cache/revision-incorporacion-local-r36/proyeccion
+node_modules/.bin/oxlint --threads=1 --disable-nested-config scripts/procedencia/incorporacion-lote-r32.mjs scripts/procedencia/flujo-ss-r32.mjs tests/flujo-retenciones-r34.test.ts tests/incorporacion-lote-r32.test.ts
+l=$?
+node_modules/.bin/eslint scripts/procedencia/incorporacion-lote-r32.mjs scripts/procedencia/flujo-ss-r32.mjs tests/flujo-retenciones-r34.test.ts tests/incorporacion-lote-r32.test.ts
+e=$?
+node_modules/.bin/tsc --noEmit -p tsconfig.revision.json
+t=$?
+printf 'oxlint=%s eslint=%s tsc=%s\n' "$l" "$e" "$t"
+exit $((l+e+t))

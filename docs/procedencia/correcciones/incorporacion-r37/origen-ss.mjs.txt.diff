@@ -1,0 +1,11 @@
+--- origen-ss.mjs.txt
++++ origen-ss.mjs
+@@ -1,6 +1,6 @@
+ import assert from 'node:assert/strict'
+-import { composeSS } from '/home/elies/.t3/worktrees/IRoboPF/t3-483629b2/scripts/procedencia/flujo-ss-r32.mjs'
+-import { Sources, ts } from '/home/elies/.t3/worktrees/IRoboPF/t3-483629b2/scripts/procedencia/flujo-ast.mjs'
++import { composeSS } from '/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-ss-r32.mjs'
++import { Sources, ts } from '/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-ast.mjs'
+ const g = composeSS(), sources = new Sources(), rows = []
+ const byId = new Map(g.ports.map(p => [p.id, p]))
+ function check(port, owner, literal) {
