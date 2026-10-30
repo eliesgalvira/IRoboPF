@@ -1,0 +1,416 @@
+{
+  "retenciones": {
+    "exact": true,
+    "operations": 3469,
+    "fields": 34,
+    "cells": 18,
+    "instances": 5,
+    "sites": [
+      {
+        "siteId": "anual.retencion.base",
+        "unit": "EUR",
+        "valueClosed": true,
+        "selectionClosed": true,
+        "siteClosed": false
+      },
+      {
+        "siteId": "anual.retencion.cuota",
+        "unit": "EUR",
+        "valueClosed": true,
+        "selectionClosed": true,
+        "siteClosed": false
+      },
+      {
+        "siteId": "anual.retencion.tipo",
+        "unit": "percent",
+        "valueClosed": true,
+        "selectionClosed": true,
+        "siteClosed": false
+      },
+      {
+        "siteId": "anual.retencion.anual",
+        "unit": "EUR",
+        "valueClosed": true,
+        "selectionClosed": true,
+        "siteClosed": false
+      },
+      {
+        "siteId": "anual.pagos.retenciones",
+        "unit": "EUR",
+        "valueClosed": true,
+        "selectionClosed": true,
+        "siteClosed": false
+      },
+      {
+        "siteId": "anual.pagos.cuenta",
+        "unit": "EUR",
+        "valueClosed": true,
+        "selectionClosed": true,
+        "siteClosed": false
+      }
+    ]
+  },
+  "admision": {
+    "exact": true,
+    "programs": 16,
+    "sites": [
+      {
+        "siteId": "anual.ss.base",
+        "obligations": [
+          "fechaValida",
+          "cumpleRentas",
+          "tieneRelacion",
+          "titularesConDerecho",
+          "hayAlimentosPropiosSinMinimo",
+          "validarDerechosMinimos",
+          "validarRentasAnualesDerechos",
+          "calcularDerechosMinimos",
+          "schema-familiar",
+          "deducciones",
+          "wrapper-adaptador",
+          "puertos-renta",
+          "selector-territorial",
+          "subservicio-final"
+        ],
+        "admissionClosed": false,
+        "siteClosed": false
+      },
+      {
+        "siteId": "anual.ss.exceso",
+        "obligations": [
+          "fechaValida",
+          "cumpleRentas",
+          "tieneRelacion",
+          "titularesConDerecho",
+          "hayAlimentosPropiosSinMinimo",
+          "validarDerechosMinimos",
+          "validarRentasAnualesDerechos",
+          "calcularDerechosMinimos",
+          "schema-familiar",
+          "deducciones",
+          "wrapper-adaptador",
+          "puertos-renta",
+          "selector-territorial",
+          "subservicio-final"
+        ],
+        "admissionClosed": false,
+        "siteClosed": false
+      },
+      {
+        "siteId": "anual.ss.empresarial-ordinaria",
+        "obligations": [
+          "fechaValida",
+          "cumpleRentas",
+          "tieneRelacion",
+          "titularesConDerecho",
+          "hayAlimentosPropiosSinMinimo",
+          "validarDerechosMinimos",
+          "validarRentasAnualesDerechos",
+          "calcularDerechosMinimos",
+          "schema-familiar",
+          "deducciones",
+          "wrapper-adaptador",
+          "puertos-renta",
+          "selector-territorial",
+          "subservicio-final"
+        ],
+        "admissionClosed": false,
+        "siteClosed": false
+      },
+      {
+        "siteId": "anual.ss.trabajador-ordinaria",
+        "obligations": [
+          "fechaValida",
+          "cumpleRentas",
+          "tieneRelacion",
+          "titularesConDerecho",
+          "hayAlimentosPropiosSinMinimo",
+          "validarDerechosMinimos",
+          "validarRentasAnualesDerechos",
+          "calcularDerechosMinimos",
+          "schema-familiar",
+          "deducciones",
+          "wrapper-adaptador",
+          "puertos-renta",
+          "selector-territorial",
+          "subservicio-final"
+        ],
+        "admissionClosed": false,
+        "siteClosed": false
+      },
+      {
+        "siteId": "anual.ss.mei-empresarial",
+        "obligations": [
+          "fechaValida",
+          "cumpleRentas",
+          "tieneRelacion",
+          "titularesConDerecho",
+          "hayAlimentosPropiosSinMinimo",
+          "validarDerechosMinimos",
+          "validarRentasAnualesDerechos",
+          "calcularDerechosMinimos",
+          "schema-familiar",
+          "deducciones",
+          "wrapper-adaptador",
+          "puertos-renta",
+          "selector-territorial",
+          "subservicio-final"
+        ],
+        "admissionClosed": false,
+        "siteClosed": false
+      },
+      {
+        "siteId": "anual.ss.mei-trabajador",
+        "obligations": [
+          "fechaValida",
+          "cumpleRentas",
+          "tieneRelacion",
+          "titularesConDerecho",
+          "hayAlimentosPropiosSinMinimo",
+          "validarDerechosMinimos",
+          "validarRentasAnualesDerechos",
+          "calcularDerechosMinimos",
+          "schema-familiar",
+          "deducciones",
+          "wrapper-adaptador",
+          "puertos-renta",
+          "selector-territorial",
+          "subservicio-final"
+        ],
+        "admissionClosed": false,
+        "siteClosed": false
+      },
+      {
+        "siteId": "anual.ss.solidaridad-empresarial",
+        "obligations": [
+          "fechaValida",
+          "cumpleRentas",
+          "tieneRelacion",
+          "titularesConDerecho",
+          "hayAlimentosPropiosSinMinimo",
+          "validarDerechosMinimos",
+          "validarRentasAnualesDerechos",
+          "calcularDerechosMinimos",
+          "schema-familiar",
+          "deducciones",
+          "wrapper-adaptador",
+          "puertos-renta",
+          "selector-territorial",
+          "subservicio-final"
+        ],
+        "admissionClosed": false,
+        "siteClosed": false
+      },
+      {
+        "siteId": "anual.ss.solidaridad-trabajador",
+        "obligations": [
+          "fechaValida",
+          "cumpleRentas",
+          "tieneRelacion",
+          "titularesConDerecho",
+          "hayAlimentosPropiosSinMinimo",
+          "validarDerechosMinimos",
+          "validarRentasAnualesDerechos",
+          "calcularDerechosMinimos",
+          "schema-familiar",
+          "deducciones",
+          "wrapper-adaptador",
+          "puertos-renta",
+          "selector-territorial",
+          "subservicio-final"
+        ],
+        "admissionClosed": false,
+        "siteClosed": false
+      },
+      {
+        "siteId": "anual.ss.empresarial-total",
+        "obligations": [
+          "fechaValida",
+          "cumpleRentas",
+          "tieneRelacion",
+          "titularesConDerecho",
+          "hayAlimentosPropiosSinMinimo",
+          "validarDerechosMinimos",
+          "validarRentasAnualesDerechos",
+          "calcularDerechosMinimos",
+          "schema-familiar",
+          "deducciones",
+          "wrapper-adaptador",
+          "puertos-renta",
+          "selector-territorial",
+          "subservicio-final"
+        ],
+        "admissionClosed": false,
+        "siteClosed": false
+      },
+      {
+        "siteId": "anual.ss.trabajador-total",
+        "obligations": [
+          "fechaValida",
+          "cumpleRentas",
+          "tieneRelacion",
+          "titularesConDerecho",
+          "hayAlimentosPropiosSinMinimo",
+          "validarDerechosMinimos",
+          "validarRentasAnualesDerechos",
+          "calcularDerechosMinimos",
+          "schema-familiar",
+          "deducciones",
+          "wrapper-adaptador",
+          "puertos-renta",
+          "selector-territorial",
+          "subservicio-final"
+        ],
+        "admissionClosed": false,
+        "siteClosed": false
+      },
+      {
+        "siteId": "anual.ss.coste-laboral",
+        "obligations": [
+          "fechaValida",
+          "cumpleRentas",
+          "tieneRelacion",
+          "titularesConDerecho",
+          "hayAlimentosPropiosSinMinimo",
+          "validarDerechosMinimos",
+          "validarRentasAnualesDerechos",
+          "calcularDerechosMinimos",
+          "schema-familiar",
+          "deducciones",
+          "wrapper-adaptador",
+          "puertos-renta",
+          "selector-territorial",
+          "subservicio-final"
+        ],
+        "admissionClosed": false,
+        "siteClosed": false
+      },
+      {
+        "siteId": "anual.retencion.base",
+        "obligations": [
+          "fechaValida",
+          "cumpleRentas",
+          "tieneRelacion",
+          "titularesConDerecho",
+          "hayAlimentosPropiosSinMinimo",
+          "validarDerechosMinimos",
+          "validarRentasAnualesDerechos",
+          "calcularDerechosMinimos",
+          "schema-familiar",
+          "deducciones",
+          "wrapper-adaptador",
+          "puertos-renta",
+          "selector-territorial",
+          "subservicio-final"
+        ],
+        "admissionClosed": false,
+        "siteClosed": false
+      },
+      {
+        "siteId": "anual.retencion.cuota",
+        "obligations": [
+          "fechaValida",
+          "cumpleRentas",
+          "tieneRelacion",
+          "titularesConDerecho",
+          "hayAlimentosPropiosSinMinimo",
+          "validarDerechosMinimos",
+          "validarRentasAnualesDerechos",
+          "calcularDerechosMinimos",
+          "schema-familiar",
+          "deducciones",
+          "wrapper-adaptador",
+          "puertos-renta",
+          "selector-territorial",
+          "subservicio-final"
+        ],
+        "admissionClosed": false,
+        "siteClosed": false
+      },
+      {
+        "siteId": "anual.retencion.tipo",
+        "obligations": [
+          "fechaValida",
+          "cumpleRentas",
+          "tieneRelacion",
+          "titularesConDerecho",
+          "hayAlimentosPropiosSinMinimo",
+          "validarDerechosMinimos",
+          "validarRentasAnualesDerechos",
+          "calcularDerechosMinimos",
+          "schema-familiar",
+          "deducciones",
+          "wrapper-adaptador",
+          "puertos-renta",
+          "selector-territorial",
+          "subservicio-final"
+        ],
+        "admissionClosed": false,
+        "siteClosed": false
+      },
+      {
+        "siteId": "anual.retencion.anual",
+        "obligations": [
+          "fechaValida",
+          "cumpleRentas",
+          "tieneRelacion",
+          "titularesConDerecho",
+          "hayAlimentosPropiosSinMinimo",
+          "validarDerechosMinimos",
+          "validarRentasAnualesDerechos",
+          "calcularDerechosMinimos",
+          "schema-familiar",
+          "deducciones",
+          "wrapper-adaptador",
+          "puertos-renta",
+          "selector-territorial",
+          "subservicio-final"
+        ],
+        "admissionClosed": false,
+        "siteClosed": false
+      },
+      {
+        "siteId": "anual.pagos.retenciones",
+        "obligations": [
+          "fechaValida",
+          "cumpleRentas",
+          "tieneRelacion",
+          "titularesConDerecho",
+          "hayAlimentosPropiosSinMinimo",
+          "validarDerechosMinimos",
+          "validarRentasAnualesDerechos",
+          "calcularDerechosMinimos",
+          "schema-familiar",
+          "deducciones",
+          "wrapper-adaptador",
+          "puertos-renta",
+          "selector-territorial",
+          "subservicio-final"
+        ],
+        "admissionClosed": false,
+        "siteClosed": false
+      },
+      {
+        "siteId": "anual.pagos.cuenta",
+        "obligations": [
+          "fechaValida",
+          "cumpleRentas",
+          "tieneRelacion",
+          "titularesConDerecho",
+          "hayAlimentosPropiosSinMinimo",
+          "validarDerechosMinimos",
+          "validarRentasAnualesDerechos",
+          "calcularDerechosMinimos",
+          "schema-familiar",
+          "deducciones",
+          "wrapper-adaptador",
+          "puertos-renta",
+          "selector-territorial",
+          "subservicio-final"
+        ],
+        "admissionClosed": false,
+        "siteClosed": false
+      }
+    ]
+  }
+}

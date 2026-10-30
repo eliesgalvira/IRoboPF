@@ -1,0 +1,22 @@
+import fs from 'node:fs';import path from 'node:path';import{createHash}from'node:crypto';import{gzipSync,gunzipSync}from'node:zlib';import{spawnSync,execFileSync}from'node:child_process';
+const dir='docs/procedencia/implementaciones/flujo-retenciones-r34-sol',cache='.cache/flujo-retenciones-r34',base='d70af62d19291c83d0deb281c09df106ee4a3575',sha=b=>createHash('sha256').update(b).digest('hex');
+for(const n of ['alcance.mjs','paquete.mjs'])fs.copyFileSync(cache+'/'+n,dir+'/instrumentos/'+n+'.txt');
+fs.copyFileSync(cache+'/alcance.json.gz',dir+'/controles/alcance.json.gz');
+fs.copyFileSync(cache+'/alcance.log',dir+'/controles/alcance.log');
+const excluded=new Set(['MANIFIESTO.json','patch.diff.gz','binarios.json','transporte.json','ENTREGA.json']);
+const walk=d=>fs.readdirSync(d,{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(d+'/'+e.name):[d+'/'+e.name]);
+const selected=['scripts/procedencia/flujo-retenciones-r34.mjs','scripts/procedencia/flujo-retenciones-r34-consumidor.mjs','tests/flujo-retenciones-r34.test.ts','schemas/procedencia/flujo/retenciones-r34.schema.json',...walk(dir).filter(p=>!excluded.has(path.relative(dir,p)))].sort();
+const tracked=new Set(execFileSync('git',['ls-tree','-rz','--name-only',base],{maxBuffer:20e6}).toString().split('\0').filter(Boolean));
+const files=selected.map(p=>{if(tracked.has(p))throw Error('Cambio de base no autorizado '+p);const b=fs.readFileSync(p);return{path:p,sha256:sha(b),size:b.length,baseSha256:null}});
+const binaries=files.filter(f=>f.path.endsWith('.gz')||f.size===0);let patch='';
+for(const f of files.filter(f=>!binaries.includes(f))){const r=spawnSync('diff',['-u','--label','/dev/null','/dev/null','--label','b/'+f.path,f.path],{maxBuffer:16e6});if(r.status!==1&&r.status!==0)throw Error('diff');patch+=r.stdout.toString()}
+fs.writeFileSync(dir+'/MANIFIESTO.json',JSON.stringify({head:base,baseEntries:17248,files,baseChanges:[],deletions:[]},null,2)+'\n');
+fs.writeFileSync(dir+'/patch.diff.gz',gzipSync(patch,{level:9}));fs.writeFileSync(dir+'/binarios.json',JSON.stringify(binaries,null,2)+'\n');
+const scratch=fs.mkdtempSync(path.resolve(cache,'transporte-'));const applied=spawnSync('patch',['-p1','--batch'],{cwd:scratch,input:gunzipSync(fs.readFileSync(dir+'/patch.diff.gz')),maxBuffer:16e6});if(applied.status!==0)throw Error(applied.stderr.toString()+applied.stdout.toString());
+for(const f of binaries){fs.mkdirSync(path.dirname(scratch+'/'+f.path),{recursive:true});fs.copyFileSync(f.path,scratch+'/'+f.path)}
+for(const f of files){const b=fs.readFileSync(scratch+'/'+f.path);if(b.length!==f.size||sha(b)!==f.sha256)throw Error(f.path)}
+fs.writeFileSync(dir+'/transporte.json',JSON.stringify({result:'exact',head:base,files:files.length,bytes:files.reduce((n,f)=>n+f.size,0),patchApplied:true,binaries:binaries.length,sha256AndSizeVerified:true,scratch,checkoutCreated:false,baseChanges:[],deletions:[]},null,2)+'\n');
+const envelopes=['MANIFIESTO.json','patch.diff.gz','binarios.json','transporte.json'].map(n=>{const b=fs.readFileSync(dir+'/'+n);return{path:dir+'/'+n,sha256:sha(b),size:b.length}});
+const b=Buffer.from(JSON.stringify({head:base,envelopes,scope:['scripts/procedencia/flujo-retenciones-r34*.mjs','schemas/procedencia/flujo/retenciones-r34*.schema.json','tests/flujo-retenciones-r34*.test.ts',dir],parentContrastRequired:true,independentReviewRequired:true,completeRuleAcceptance:false},null,2)+'\n')
+// No autorreferencia: ENTREGA se identifica en la respuesta externa.
+fs.writeFileSync(dir+'/ENTREGA.json',b);console.log(JSON.stringify({deliverySha256:sha(b),files:files.length,bytes:files.reduce((n,f)=>n+f.size,0),envelopes}));

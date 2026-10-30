@@ -1,0 +1,29 @@
+import fs from 'node:fs';import{gunzipSync}from'node:zlib';
+const g=JSON.parse(gunzipSync(fs.readFileSync('.cache/flujo-retenciones-r34/fragmento.json.gz')));
+// Forma cerrada derivada de esta edición; status y cierres son tipos, no const true.
+function shape(value,key='') {
+ if(['valueClosed','selectionClosed'].includes(key))return {type:'boolean'};
+ if(key==='status' && ['satisfied','pending'].includes(value))return {enum:['satisfied','pending']};
+ if(value===null)return {};
+ if(Array.isArray(value)){const choices=[...new Map(value.map(v=>{const s=shape(v);return[JSON.stringify(s),s]})).values()];return{type:'array',items:choices.length===1?choices[0]:choices.length?{anyOf:choices}:{}}}
+ if(Object.getPrototypeOf(value)===Object.prototype)return{type:'object',additionalProperties:false,required:Object.keys(value),properties:Object.fromEntries(Object.entries(value).map(([k,v])=>[k,shape(v,k)]))};
+ return {type:Number.isInteger(value)?'integer':typeof value};
+}
+const schema=shape(g);schema.$schema='https://json-schema.org/draft/2020-12/schema';schema.$id='urn:irobopf:flujo-retenciones-r34';
+schema.properties.kind={const:g.kind};schema.properties.base={const:g.base};for(const k of ['completeRuleAcceptance','wiringAllowed'])schema.properties[k]={const:false};
+const nodeVariants=new Map();for(const n of g.program)if(!nodeVariants.has(n.op)){const s=shape(n);s.properties.op={const:n.op};nodeVariants.set(n.op,s)}schema.properties.program.items={oneOf:[...nodeVariants.values()]};
+const out='schemas/procedencia/flujo/retenciones-r34.schema.json';fs.writeFileSync(out,JSON.stringify(schema,null,2)+'\n');console.log(out);
+const str={type:'string'},bool={type:'boolean'},obj=properties=>({type:'object',additionalProperties:false,required:Object.keys(properties),properties});
+const pattern={oneOf:[obj({name:str}),obj({fields:{type:'array',items:obj({key:str,binding:{$ref:'#/$defs/pattern'}})}})]};
+schema.$defs={pattern};
+for(const s of schema.properties.program.items.oneOf){const op=s.properties.op.const;const data={
+ local:obj({name:str}),global:obj({name:str}),literal:obj({value:{type:['string','number','boolean','null']}}),regex:obj({pattern:str,flags:str}),
+ function:obj({parameters:{type:'array',items:obj({binding:{$ref:'#/$defs/pattern'},rest:bool,default:{type:['string','null']}})}}),
+ bind:obj({binding:{$ref:'#/$defs/pattern'}}),binary:obj({operator:{enum:['+','-','*','/','%','===','!==','<','>','<=','>=','&&','||','??']}}),unary:obj({operator:{enum:['!','-','+']}}),
+ get:obj({key:str,optional:bool}),index:obj({optional:bool}),property:obj({key:str}),template:obj({strings:{type:'array',items:str}}),case:obj({fallback:bool})
+};s.properties.data=data[op]??obj({});}
+fs.writeFileSync(out,JSON.stringify(schema,null,2)+'\n');
+schema.properties.sites.items.properties.siteClosed={const:false};
+schema.properties.admissionInterface.properties.status={const:'pending-review'};
+schema.properties.admissionInterface.properties.injectedService={const:'open'};
+fs.writeFileSync(out,JSON.stringify(schema,null,2)+'\n');

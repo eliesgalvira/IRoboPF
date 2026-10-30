@@ -1,0 +1,30 @@
+[
+  {
+    "id": "R35-D01",
+    "decision": "IR finito ejecutable para familia, separado de TS y de fórmulas monetarias.",
+    "objection": "Traducir el mismo código puede repetir sus errores y no prueba exhaustividad.",
+    "response": "Paridad contra APIs y mutación semántica de umbral; revisión independiente nueva pendiente.",
+    "cost": "Traductor limitado y mantenimiento por versión."
+  },
+  {
+    "id": "R35-D02",
+    "decision": "Mantener admissionClosed false en los 17 sitios.",
+    "objection": "La implementación no completa todavía RA34-01/02/04 en todo el alcance solicitado.",
+    "response": "Entregar avance ejecutable concreto sin presentar puertos incompletos como cierre; pendientes enumerados.",
+    "cost": "Esta entrega es parcial y requiere continuación, contraste del padre y revisión independiente."
+  },
+  {
+    "id": "R35-D03",
+    "decision": "Pruebas JS de formas ajenas al tipo separadas del test TS tipado.",
+    "objection": "Moverlas a JS no corrige su falta de tipado.",
+    "response": "No se afirma tal garantía; conserva controles ejecutables runtime y errores iniciales de tipos.",
+    "cost": "Dos instrumentos; typecheck solo del alcance TS y sus imports."
+  },
+  {
+    "id": "R35-D04",
+    "decision": "No mutar motor, R32, históricos ni confianza.",
+    "objection": "Una cifra admitida podría parecer jurídicamente autorizada.",
+    "response": "A32-P01/P02 siguen como conductas; no se decide fiscalidad de ajustes ni se inventa HTTP.",
+    "cost": "Política de entrada y fiscalidad pendientes."
+  }
+]

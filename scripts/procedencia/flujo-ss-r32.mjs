@@ -47,6 +47,16 @@ export function composeSS() {
     if(!found)throw Error('Declaración ausente: '+name)
     return ref(file,found.getText())
   }
+  // Estos literales se atribuyen a su declaración concreta, no al primer
+  // número igual del archivo ni a la fórmula equivalente de otro modo.
+  function literalIn(file, owner, text) {
+    const scope=sources.exact(evidence.find(e=>e.id===declaration(file,owner)))
+    const matches=[]
+    function visit(n) {if((ts.isNumericLiteral(n)||ts.isStringLiteral(n))&&n.getText()===text)matches.push(n);ts.forEachChild(n,visit)}
+    visit(scope)
+    if(matches.length!==1)throw Error('Literal ausente o ambiguo: '+owner+':'+text)
+    return register(matches[0])
+  }
   const L=declaration(legacy,'calcularDesgloseCotizacionesSocialesLegacy')
   const U=declaration(uniform,'calcularDesgloseCotizacionesPerfilUniforme')
   const A=declaration(annual,'liquidarTrabajoIndividualSimple')
@@ -73,7 +83,7 @@ export function composeSS() {
   const salaryArray=input('caso.rendimientos.trabajo','array')
   const element=node('element',[],'centimos',W,{array:salaryArray,index:'i',property:'importeIntegroCentimos',binding:'rendimientos[i].importeIntegroCentimos'})
   const converted=op('div',[element,lit(100,'centimos/EUR',ref(money,'100'))],'EUR',C)
-  const seed=op('div',[lit(0,'centimos',ref(work,'0')),lit(100,'centimos/EUR',ref(money,'100'))],'EUR',C)
+  const seed=op('div',[lit(0,'centimos',literalIn(work,'sumarRendimientosTrabajo','0')),lit(100,'centimos/EUR',ref(money,'100'))],'EUR',C)
   const acc=node('accumulator',[],'EUR',W,{binding:'total[i]',seed})
   const body=op('plus',[acc,converted],'EUR',W)
   const gross=node('reduce',[salaryArray,seed,body],'EUR',W,{element,accumulator:acc,order:'i=0..length-1',empty:'seed',cardinality:'una contribución por índice'})
@@ -129,8 +139,8 @@ export function composeSS() {
     return op('mul',[base,v])
   })
   function bands(ex,src) {
-    const first=op('mul',[max,lit('0.1','proporcion',ref(uniform,'"0.1"'))],'EUR',src)
-    const last=op('mul',[max,lit('0.5','proporcion',ref(uniform,'"0.5"'))],'EUR',src)
+    const first=op('mul',[max,lit('0.1','proporcion',src===S?literalIn(legacy,'calcularTotalSolidaridad','"0.10"'):ref(uniform,'"0.1"'))],'EUR',src)
+    const last=op('mul',[max,lit('0.5','proporcion',src===S?literalIn(legacy,'calcularTotalSolidaridad','"0.50"'):ref(uniform,'"0.5"'))],'EUR',src)
     // Legacy resta los dos límites; uniforme multiplica directamente por 0.4.
     const width=src===S?op('minus',[last,first],'EUR',S):op('mul',[max,lit('0.4','proporcion',ref(uniform,'"0.4"'))],'EUR',Q)
     return [op('min',[ex,first],'EUR',src),op('min',[op('max',[zero,op('minus',[ex,first],'EUR',src)],'EUR',src),width],'EUR',src),op('max',[zero,op('minus',[ex,last],'EUR',src)],'EUR',src)]

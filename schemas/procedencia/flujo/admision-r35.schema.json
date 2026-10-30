@@ -1,0 +1,890 @@
+{
+  "type": "object",
+  "properties": {
+    "version": {
+      "const": 1
+    },
+    "contractId": {
+      "const": "anual-publico-r32"
+    },
+    "edition": {
+      "const": "admision-r35"
+    },
+    "domain": {
+      "type": "string"
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        },
+        "required": [
+          "path",
+          "sha256"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "anchors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "start": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "end": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "sha256": {
+            "type": "string"
+          },
+          "coordinate": {
+            "const": "UTF-16 half-open"
+          }
+        },
+        "required": [
+          "id",
+          "path",
+          "start",
+          "end",
+          "sha256",
+          "coordinate"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "programs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "params": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "body": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/statement"
+            }
+          },
+          "scope": {
+            "enum": [
+              "complete-body",
+              "selection-before-money"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "params",
+          "body",
+          "scope"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "boundaries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "inputs": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "property": {
+                  "type": "string"
+                },
+                "unit": {
+                  "type": "string"
+                },
+                "domain": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "property",
+                "unit",
+                "domain"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "output": {
+            "type": "object",
+            "properties": {
+              "property": {
+                "type": "string"
+              },
+              "unit": {
+                "type": "string"
+              },
+              "domain": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "property",
+              "unit",
+              "domain"
+            ],
+            "additionalProperties": false
+          },
+          "source": {
+            "type": "string"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "status": {
+            "const": "pending-independent-parity"
+          }
+        },
+        "required": [
+          "id",
+          "inputs",
+          "output",
+          "source",
+          "errors",
+          "status"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "schemas": {
+      "type": "object",
+      "properties": {
+        "DerechosMinimos2025": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "DerechosMinimos2025"
+      ],
+      "additionalProperties": false
+    },
+    "obligations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "resolved",
+              "pending"
+            ]
+          },
+          "program": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "status",
+          "program"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "sites": {
+      "type": "array",
+      "minItems": 17,
+      "maxItems": 17,
+      "items": {
+        "type": "object",
+        "properties": {
+          "siteId": {
+            "type": "string"
+          },
+          "obligations": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "admissionClosed": {
+            "type": "boolean"
+          },
+          "siteClosed": {
+            "const": false
+          }
+        },
+        "required": [
+          "siteId",
+          "obligations",
+          "admissionClosed",
+          "siteClosed"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "wiringAllowed": {
+      "const": false
+    },
+    "completeRuleAcceptance": {
+      "const": false
+    }
+  },
+  "required": [
+    "version",
+    "contractId",
+    "edition",
+    "domain",
+    "sources",
+    "anchors",
+    "programs",
+    "boundaries",
+    "schemas",
+    "obligations",
+    "sites",
+    "wiringAllowed",
+    "completeRuleAcceptance"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "expression": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "op": {
+              "const": "literal"
+            },
+            "value": {
+              "type": [
+                "string",
+                "number",
+                "boolean"
+              ]
+            },
+            "unit": {
+              "enum": [
+                "scalar",
+                "structural",
+                "boolean"
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "value",
+            "unit"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "op": {
+              "const": "undefined"
+            }
+          },
+          "required": [
+            "id",
+            "op"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "op": {
+              "const": "local"
+            },
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "name"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "op": {
+              "const": "property"
+            },
+            "target": {
+              "$ref": "#/$defs/expression"
+            },
+            "key": {
+              "type": "string"
+            },
+            "unit": {
+              "enum": [
+                "structural",
+                "count",
+                "centimos",
+                "civil-date"
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "target",
+            "key",
+            "unit"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "op": {
+              "const": "array"
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/expression"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "items"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "op": {
+              "const": "spread"
+            },
+            "value": {
+              "$ref": "#/$defs/expression"
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "op": {
+              "const": "object"
+            },
+            "fields": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "key": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "$ref": "#/$defs/expression"
+                  }
+                },
+                "required": [
+                  "key",
+                  "value"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "fields"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "op": {
+              "const": "binary"
+            },
+            "operator": {
+              "enum": [
+                "===",
+                "!==",
+                "<",
+                "<=",
+                ">",
+                ">=",
+                "+",
+                "-",
+                "*",
+                "/",
+                "%",
+                "&&",
+                "||",
+                "??",
+                "in"
+              ]
+            },
+            "left": {
+              "$ref": "#/$defs/expression"
+            },
+            "right": {
+              "$ref": "#/$defs/expression"
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "operator",
+            "left",
+            "right"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "op": {
+              "const": "not"
+            },
+            "value": {
+              "$ref": "#/$defs/expression"
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "op": {
+              "const": "negative"
+            },
+            "value": {
+              "$ref": "#/$defs/expression"
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "op": {
+              "const": "choose"
+            },
+            "condition": {
+              "$ref": "#/$defs/expression"
+            },
+            "yes": {
+              "$ref": "#/$defs/expression"
+            },
+            "no": {
+              "$ref": "#/$defs/expression"
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "condition",
+            "yes",
+            "no"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "op": {
+              "const": "lambda"
+            },
+            "params": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "body": {
+              "$ref": "#/$defs/expression"
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "params",
+            "body"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "op": {
+              "const": "invoke"
+            },
+            "name": {
+              "type": "string"
+            },
+            "args": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/expression"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "name",
+            "args"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "op": {
+              "const": "method"
+            },
+            "target": {
+              "$ref": "#/$defs/expression"
+            },
+            "method": {
+              "enum": [
+                "slice",
+                "includes",
+                "filter",
+                "map",
+                "every",
+                "some",
+                "find",
+                "toSorted",
+                "localeCompare",
+                "get",
+                "set",
+                "has",
+                "times",
+                "toDecimalPlaces",
+                "eq",
+                "lte",
+                "isFinite",
+                "plus",
+                "reduce"
+              ]
+            },
+            "args": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/expression"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "target",
+            "method",
+            "args"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "op": {
+              "const": "construct"
+            },
+            "name": {
+              "enum": [
+                "Map",
+                "Set"
+              ]
+            },
+            "args": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/expression"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "name",
+            "args"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "statement": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "op": {
+              "const": "bind"
+            },
+            "name": {
+              "type": "string"
+            },
+            "value": {
+              "$ref": "#/$defs/expression"
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "name",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "op": {
+              "const": "if"
+            },
+            "condition": {
+              "$ref": "#/$defs/expression"
+            },
+            "yes": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/statement"
+              }
+            },
+            "no": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/statement"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "condition",
+            "yes",
+            "no"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "op": {
+              "const": "for"
+            },
+            "name": {
+              "type": "string"
+            },
+            "collection": {
+              "$ref": "#/$defs/expression"
+            },
+            "body": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/statement"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "name",
+            "collection",
+            "body"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "op": {
+              "const": "return"
+            },
+            "value": {
+              "$ref": "#/$defs/expression"
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "op": {
+              "const": "evaluate"
+            },
+            "value": {
+              "$ref": "#/$defs/expression"
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "op": {
+              "const": "continue"
+            }
+          },
+          "required": [
+            "id",
+            "op"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "op": {
+              "const": "decode"
+            },
+            "name": {
+              "type": "string"
+            },
+            "input": {
+              "type": "string"
+            },
+            "schema": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "name",
+            "input",
+            "schema"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    }
+  }
+}

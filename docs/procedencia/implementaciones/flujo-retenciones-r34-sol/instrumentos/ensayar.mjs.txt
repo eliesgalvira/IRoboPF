@@ -1,0 +1,7 @@
+import fs from 'node:fs';import path from 'node:path';import{gzipSync}from'node:zlib';
+import{composeRetencionesR34,verifyRetencionesR34}from'../../scripts/procedencia/flujo-retenciones-r34.mjs';
+const root=process.cwd(),cache=root+'/.cache/flujo-retenciones-r34';
+const g=composeRetencionesR34();verifyRetencionesR34(g);
+fs.writeFileSync(cache+'/fragmento.json.gz',gzipSync(JSON.stringify(g,null,2)+'\n',{level:9}));
+fs.writeFileSync(cache+'/nuevo.test.ts',fs.readFileSync(root+'/tests/flujo-retenciones-r34.test.ts','utf8').replaceAll('"../scripts/','"'+root+'/scripts/').replaceAll('"../lib/','"'+root+'/lib/'));
+console.log(JSON.stringify({operations:g.program.length,fields:g.fieldBindings.length,cells:g.scaleCells.length,instances:g.scaleInstances.length,pending:g.obligations.filter(o=>o.status==='pending'),sites:g.sites}));

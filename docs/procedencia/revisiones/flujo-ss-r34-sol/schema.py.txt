@@ -1,0 +1,23 @@
+import copy
+import json
+from pathlib import Path
+from jsonschema import Draft202012Validator
+base = Path('docs/procedencia/revisiones/flujo-ss-r34-sol')
+graph = json.loads(Path('docs/procedencia/implementaciones/flujo-ss-r32-sol/fragmento.json').read_text())
+schema = json.loads(Path('schemas/procedencia/flujo/ss-r32.schema.json').read_text())
+validator = Draft202012Validator(schema)
+cases = {'intacto': graph}
+for field in ['unit', 'source']:
+    g = copy.deepcopy(graph)
+    g['ports'][0][field] = 'inexistente'
+    cases[field] = g
+g = copy.deepcopy(graph)
+g['transport'] = []
+g['bindings'] = []
+cases['sin-transportes-ni-bindings'] = g
+g = copy.deepcopy(graph)
+g['sites'][0]['valueClosed'] = False
+cases['pendiente'] = g
+results = {name: [e.message for e in validator.iter_errors(g)] for name, g in cases.items()}
+(base/'schema.json').write_text(json.dumps(results, ensure_ascii=False, indent=2)+'\n')
+print(json.dumps({k: len(v) for k, v in results.items()}))
