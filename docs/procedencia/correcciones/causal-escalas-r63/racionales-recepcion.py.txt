@@ -1,0 +1,37 @@
+from fractions import Fraction as F
+from pathlib import Path
+import json
+P=Path('/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r63/racionales'); rows=json.loads((P/'resultados.json').read_text());results=[]
+def fee(B,table):
+ if B<=0:return F(0)
+ l,q,t=next(row for row in reversed(table) if B>=F(row[0]));return F(q)+(B-F(l))*F(t)
+md=[('0','0','.085'),('13362.22','1135.79','.107'),('19004.63','1739.53','.128'),('35425.68','3841.42','.174'),('57320.40','7651.10','.205')]
+st=[('0','0','.095'),('12450','1182.75','.12'),('20200','2112.75','.15'),('35200','4362.75','.185'),('60000','8950.75','.225'),('300000','62950.75','.245')]
+old=[('0','0','.095'),('6000','570','.105')];extra=[('0','0','.02'),('6000','120','.04'),('24000','840','.06')]
+modern=[('0','0','.095'),('6000','570','.105'),('50000','5190','.115')];au15=[('0','0','.1'),('6000','600','.11'),('50000','5440','.12')]
+for r in rows:
+ spec=r.get('rational')
+ if not spec:continue
+ y=spec['year'];G,A=F(spec['G']),F(spec['A']);M=F(5151 if y<=2014 else 5550);Ma=F('5956.65') if y==2025 else M
+ E=([old,extra] if y<=2014 else [modern]);U=[old] if y<=2014 else [au15 if y==2015 else modern]
+ comp=lambda B,ts:sum((fee(B,t) for t in ts),F(0))
+ re=min(max(M-max(G,0),0),A);ra=min(max(Ma-max(G,0),0),A)
+ post=lambda ts,rem:comp(max(0,A-rem),ts) if y<=2014 else max(0,comp(A,ts)-comp(rem,ts))
+ pe,pa=post(E,re),post(U,ra)
+ expected={'anual.base.general-imponible':[G],'anual.base.general-liquidable':[G],'anual.base.ahorro':[A],'anual.cuota.ahorro-componente-postminimo':[pe,pa],'anual.cuota.minimo-ahorro-total':[comp(A,E)+comp(A,U)-pe-pa]}
+ if y==2025:
+  q=fee(G,st)+fee(G,md);m=fee(min(G,M),st)+fee(min(G,Ma),md)
+  expected.update({'anual.cuota.general-total':[q],'anual.cuota.minimo-general-total':[m],'anual.cuota.general-autonomica-tramo':([fee(G,md)] if G>0 else []),'anual.minimo.contribuyente':[M],'anual.minimo.autonomico':[Ma],'anual.minimo.estatal':[M],'anual.cuota.liquida':[max(0,q-m)+pe+pa]})
+ for site,values in expected.items():
+  got=[F(o['decimal']) for o in r['outputs'] if o['siteId']==site]
+  results.append({'case':r['id'],'siteId':site,'expected':[str(v) for v in values],'actual':[str(v) for v in got],'pass':got==values})
+(P/'racionales.json').write_text(json.dumps(results,indent=2)+'\n')
+bad=[r for r in results if not r['pass']];print(json.dumps({'comparisons':len(results),'cases':sum(bool(r.get('rational')) for r in rows),'failures':bad},indent=2));assert not bad
+extra_rows=json.loads((P/'extra-resultados.json').read_text());extra=[]
+for r in rows+extra_rows:
+ if not r['contexto'].get('route')=='explicit':continue
+ c=r['caso'];rs=c['trabajo']['rendimientos'];bruto=sum((F(x['integro']) for x in rs),F(0));ordinary=sum((F(x['cotizaciones']['seguridadSocial'])+F(x['cotizaciones']['derechosPasivos'])+F(x['cotizaciones']['colegiosHuerfanos']) for x in rs),F(0));union=sum((F(x['sindicato']['importe']) for x in rs if x['sindicato']['satisfecho']=='si'),F(0));colegio=min(F(500),sum((F(x['colegio']['importe']) for x in rs if x['colegio']['satisfecho']==x['colegio']['obligatorio']==x['colegio']['finesEsenciales']=='si'),F(0)));defensa=min(F(300),sum((F(x['defensa']['importe']) for x in rs if x['defensa']['satisfecho']==x['defensa']['litigioDirectoPagador']=='si'),F(0)));prev=bruto-ordinary-union-colegio-defensa;net=prev-min(F(2000),max(0,prev));reduction=F(7302) if prev<=14852 else (F(7302)-F('1.75')*(prev-14852) if prev<=F('17673.52') else (F('2364.34')-F('1.14')*(prev-F('17673.52')) if prev<F('19747.50') else F(0)));net-=min(max(net,0),reduction);base=max(net,0);qe=max(0,fee(base,st)-fee(min(base,F(5550)),st));qa=max(0,fee(base,md)-fee(min(base,F('5956.65')),md));legal=qe+qa;deduction=min(max(0,F(340)-max(0,bruto-16576)/5),legal) if rs[0]['clase']!='pension' and bruto>0 else F(0)
+ expected={'anual.explicito.big':net,'anual.explicito.blg':net,'anual.explicito.cuota.estatal':qe,'anual.explicito.cuota.autonomica':qa,'anual.explicito.cuota.liquida-legal':legal,'anual.explicito.cuota.posterior':legal-deduction}
+ for site,value in expected.items():
+  got=next(F(o['decimal']) for o in r['outputs'] if o['siteId']==site);extra.append({'case':r['id'],'siteId':site,'expected':str(value),'actual':str(got),'pass':value==got})
+(P/'racionales-explicitos.json').write_text(json.dumps(extra,indent=2)+'\n');assert all(x['pass'] for x in extra);print({'explicitComparisons':len(extra),'explicitCases':len(extra)//6})

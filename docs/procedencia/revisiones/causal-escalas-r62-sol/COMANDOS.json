@@ -1,0 +1,184 @@
+[
+  {
+    "id": "fisico-inicial",
+    "argv": [
+      "flock",
+      "/tmp/irobopf-recepcion-acotada.lock",
+      "/home/elies/Repos/IRoboPF/tools/procedencia/.venv/bin/python",
+      "-B",
+      "-"
+    ],
+    "exit": 0,
+    "evidence": "tool output / fisico-inicial.json"
+  },
+  {
+    "id": "effect-guides-list",
+    "argv": [
+      "/nix/store/g7skjk9lrdnshaxd7px62bchq6yg0bbh-bun-1.3.13/bin/bun",
+      "/home/elies/.bun/install/cache/effect-solutions@0.5.3@@@1/dist/cli.js",
+      "list"
+    ],
+    "exit": 0
+  },
+  {
+    "id": "effect-guides-show",
+    "argv": [
+      "/nix/store/g7skjk9lrdnshaxd7px62bchq6yg0bbh-bun-1.3.13/bin/bun",
+      "/home/elies/.bun/install/cache/effect-solutions@0.5.3@@@1/dist/cli.js",
+      "show",
+      "basics",
+      "testing",
+      "error-handling"
+    ],
+    "exit": 0
+  },
+  {
+    "id": "bun-intento1",
+    "argv": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "/nix/store/g7skjk9lrdnshaxd7px62bchq6yg0bbh-bun-1.3.13/bin/bun",
+      ".cache/causal-escalas-r62-sol/contraste.mjs"
+    ],
+    "env": {
+      "NODE_PATH": "/home/elies/Repos/IRoboPF/node_modules"
+    },
+    "exit": 1,
+    "log": ".cache/causal-escalas-r62-sol/contraste.log",
+    "scope": "import failed; no cases"
+  },
+  {
+    "id": "contraste",
+    "argv": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "/nix/store/viadyk3hg56ib6vky4cm3sb2y3n305aw-nodejs-24.19.0/bin/node",
+      "/home/elies/Repos/IRoboPF/node_modules/vitest/vitest.mjs",
+      "run",
+      "--configLoader",
+      "native",
+      "--maxWorkers",
+      "1",
+      "--config",
+      ".cache/causal-escalas-r62-sol/vitest.mjs"
+    ],
+    "env": {
+      "NODE_PATH": "/home/elies/Repos/IRoboPF/node_modules"
+    },
+    "exit": 0,
+    "log": ".cache/causal-escalas-r62-sol/vitest.log"
+  },
+  {
+    "id": "relaciones",
+    "argv": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "/nix/store/viadyk3hg56ib6vky4cm3sb2y3n305aw-nodejs-24.19.0/bin/node",
+      "/home/elies/Repos/IRoboPF/node_modules/vitest/vitest.mjs",
+      "run",
+      "--configLoader",
+      "native",
+      "--maxWorkers",
+      "1",
+      "--config",
+      ".cache/causal-escalas-r62-sol/vitest-relaciones.mjs"
+    ],
+    "env": {
+      "NODE_PATH": "/home/elies/Repos/IRoboPF/node_modules"
+    },
+    "exit": 0,
+    "log": ".cache/causal-escalas-r62-sol/relaciones.log"
+  },
+  {
+    "id": "racionales-intento1",
+    "argv": [
+      "/home/elies/Repos/IRoboPF/tools/procedencia/.venv/bin/python",
+      "-B",
+      ".cache/causal-escalas-r62-sol/racionales-intento1.py.txt"
+    ],
+    "exit": 1,
+    "log": ".cache/causal-escalas-r62-sol/racionales-parcial.log",
+    "scope": "incorrect own zero-row expectation"
+  },
+  {
+    "id": "racionales-ampliado-prematuro",
+    "argv": [
+      "/home/elies/Repos/IRoboPF/tools/procedencia/.venv/bin/python",
+      "-B",
+      ".cache/causal-escalas-r62-sol/racionales.py"
+    ],
+    "exit": 1,
+    "log": ".cache/causal-escalas-r62-sol/racionales.log",
+    "scope": "153 annual comparisons passed; extra file not yet produced"
+  },
+  {
+    "id": "racionales-terminal",
+    "argv": [
+      "/home/elies/Repos/IRoboPF/tools/procedencia/.venv/bin/python",
+      "-B",
+      ".cache/causal-escalas-r62-sol/racionales.py"
+    ],
+    "exit": 0,
+    "log": ".cache/causal-escalas-r62-sol/racionales-terminal.log"
+  },
+  {
+    "id": "integridad-original",
+    "argv": [
+      "/home/elies/Repos/IRoboPF/tools/procedencia/.venv/bin/python",
+      "-B",
+      ".cache/causal-escalas-r62-sol/integridad.py"
+    ],
+    "exit": 0,
+    "result": ".cache/causal-escalas-r62-sol/integridad-original.json"
+  },
+  {
+    "id": "dictamen",
+    "argv": [
+      "/home/elies/Repos/IRoboPF/tools/procedencia/.venv/bin/python",
+      "-B",
+      ".cache/causal-escalas-r62-sol/dictaminar.py"
+    ],
+    "exit": 0,
+    "result": "docs/procedencia/revisiones/causal-escalas-r62-sol/DICTAMEN28.json"
+  },
+  {
+    "id": "ajv-propio-en-cola",
+    "argv": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "/nix/store/viadyk3hg56ib6vky4cm3sb2y3n305aw-nodejs-24.19.0/bin/node",
+      ".cache/causal-escalas-r62-sol/schema.mjs"
+    ],
+    "env": {
+      "NODE_PATH": "/home/elies/Repos/IRoboPF/node_modules"
+    },
+    "exit": 143,
+    "log": ".cache/causal-escalas-r62-sol/schema.log",
+    "scope": "cancelled while waiting; cmdline and absence of child checked; Node never started"
+  },
+  {
+    "id": "hash-contrato",
+    "argv": [
+      "/home/elies/Repos/IRoboPF/tools/procedencia/.venv/bin/python",
+      "-B",
+      ".cache/causal-escalas-r62-sol/hash-contrato.py"
+    ],
+    "invocation": "inline version preserved in the named file",
+    "exit": 0,
+    "result": ".cache/causal-escalas-r62-sol/contrato-original.json",
+    "deviation": "no heavy lock; single worker; documented"
+  },
+  {
+    "id": "fisico-preentrega",
+    "argv": [
+      "flock",
+      "/tmp/irobopf-recepcion-acotada.lock",
+      "/home/elies/Repos/IRoboPF/tools/procedencia/.venv/bin/python",
+      "-B",
+      ".cache/causal-escalas-r62-sol/fisico.py",
+      ".cache/causal-escalas-r62-sol/fisico-preentrega.json"
+    ],
+    "exit": 0,
+    "result": ".cache/causal-escalas-r62-sol/fisico-preentrega.json"
+  }
+]

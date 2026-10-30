@@ -2,7 +2,17 @@
 
 Inicio: 29 de octubre de 2026. Trabajo en curso; no es una certificación fiscal.
 
-## Situación más reciente, ronda 62 del 30 de octubre
+## Situación más reciente, ronda 63 del 30 de octubre
+
+Recibida la única revisión independiente de escalas: sin defecto funcional nuevo. El padre cotejó físicamente 23.648 entradas intactas, reconstruyó exactamente 211 rutas, integró 139 y preservó 90 referencias técnicas. Reproduce 183 comparaciones racionales, con resultados idénticos a los recibidos, y coteja las 28 anclas del importe por hash/UTF16. Detalle en correcciones/causal-escalas-r63 y revisiones/causal-escalas-r62-sol.
+
+Quedan 55/65 sitios corroborados técnicamente bajo condiciones: SS11, retenciones6, rentas generales10 y escalas28. Los seis explícitos de este último lote cubren trabajo/pensión; sus variantes de actividad mantienen bloqueo demostrado por las familias excluidas. No hay aceptación fiscal ni apertura de puertas. Se conservan las condiciones de preadmisión, runtime fijo, servicio concreto, decoder estructural y límites de Effect/checkJs.
+
+La revisión ejecutó 36 casos/792 salidas y 20 adversos; son pruebas del revisor, no una segunda ejecución del padre. Su Ajv quedó cancelado antes de Node y no acredita schema de esos 36 testigos nuevos. Los 50 anteriores sí conservan su pase estricto. No se repite la batería verde de 107 pruebas sin cambios de producto ni otra revisión favorable. La propia cola del racional se canceló sin hijos y el cálculo ligero se ejecutó con resultado correcto; todo queda registrado.
+
+D134 cierra el lote. Sigue pendiente la implementación ya activa de las diez salidas explícitas y después su única revisión. No se lanza un subagente nuevo. El final conserva el alcance fijado por Elies: 65 sitios o bloqueos demostrados, INFORME-FINAL.md y respaldo; familias19, composición global, admisión y cuatro puertas fuera. Crossa v1 sigue desfasado. Sin main, PR, despliegue, LFS, gasto, transferencia ni limpieza.
+
+## Situación anterior, ronda 62 del 30 de octubre
 
 Recibido el candidato de los 28 sitios de escalas. Cotejo físico de las 22.900 entradas del autor: tres modificaciones autorizadas y cero borrados; reconstrucción exacta de 416 rutas. Incorporadas 229 rutas y preservadas 90 referencias técnicas. Los 22 sitios generales y seis explícitos de trabajo/pensión están implementados como candidatos; las variantes de actividad conservan bloqueo por las familias excluidas. Detalle en correcciones/recepcion-causal-escalas-r62 e implementaciones/causal-escalas-r60-sol.
 
