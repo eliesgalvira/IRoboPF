@@ -33,3 +33,7 @@ No hay cambios de código, cálculos, inventario, confianza ni snapshots. Sin ma
 ## Decisión sobre comprobaciones redundantes
 
 El padre reprodujo la generación Fraction y los 30 casos/300 comparaciones, incluyendo en cada caso identidad de la invocación SS, cinco celdas trabajador, retorno y rechazo de adulteración. Los JSON de expectativas y resultados coinciden byte a byte con los del revisor. La repetición adicional de los doce discriminantes quedó en cola del lock durante varios minutos. Se canceló únicamente ese flock propio (PID 3916755), comprobando que no había iniciado ningún proceso hijo; no se interrumpió al delegado de escalas. Su salida -15 y el assert del arnés quedan conservados: no son fallo de producto ni pase. Se inspeccionaron las aserciones y resultados del revisor, sin declarar una nueva ejecución. Esta reducción evita una comprobación redundante sobre bytes sin cambios, no sustituye una prueba fallida. Los 99 pases y 63 testigos de R60 ya estaban corroborados, y no hay defecto nuevo que justifique otra ronda.
+
+## Respaldo
+
+Commit `adcaaa4bd93f90b0a3dc3f589cf8a5070a0f3652` respaldado en origin/procedencia-documental: 491 archivos, 61.122.931 bytes y cero borrados; rutas y hashes de cada blob comprobados. No se inicia ninguna tarea nueva. La implementación de escalas Sol R60 permanece en curso y su entrega reactivará el hilo; no se sondea ni se leen archivos parciales.
