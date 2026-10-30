@@ -1,0 +1,14 @@
+import {composeSS, inspectSS, validateSS} from '/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-ss-r36.mjs'
+import {executeCausalSS,verifyCausalSS} from '/home/elies/Repos/IRoboPF/scripts/procedencia/causal-ss-r54.ts'
+import {createSSEvaluator} from '/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-ss-r36-consumidor.mjs'
+import {writeFileSync} from 'node:fs'
+const g=composeSS(), c={anio:2025,rendimientos:{trabajo:[{importeIntegroCentimos:1000000},{importeIntegroCentimos:2000000}]}}, ctx={modo:'canonico'}
+const e=executeCausalSS(g,c,ctx,'probe').evidence
+const report={verified:verifyCausalSS(g,e,c,ctx,e.execution), contamination:[]}
+for(const o of e.outputs){const ids=new Set(o.slice); const cells=g.cells.filter(x=>e.events.some(v=>ids.has(v.id)&&v.node===x.id));report.contamination.push({site:o.siteId,cells:cells.filter(x=>x.path.includes('TIPOS_SEGURIDAD_SOCIAL_LEGACY')).map(x=>({value:x.value,path:x.path,node:x.id}))})}
+const bad=structuredClone(g), n=bad.program.find(x=>x.op==='literal'&&x.data.value==='0.236'); n.data.value='0.999'; bad.pending=['program:'+n.id];Object.assign(bad,inspectSS(bad,g));
+report.pending={validated:validateSS(bad),pending:bad.pending};
+try{createSSEvaluator(bad);report.pending.wrapperAccepted=true}catch(err){report.pending.wrapperError=err.message}
+const b=executeCausalSS(bad,c,ctx,'tampered').evidence
+report.pending.directVerified=verifyCausalSS(bad,b,c,ctx,b.execution); report.pending.original=e.outputs[2].decimal; report.pending.altered=b.outputs[2].decimal;
+writeFileSync('/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r56/run/probe.json',JSON.stringify(report,null,2));writeFileSync('/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r56/run/tampered.json',JSON.stringify({fragment:bad,evidence:b}));console.log(JSON.stringify(report.pending));console.log(report.contamination.map(x=>[x.site,x.cells.length]))

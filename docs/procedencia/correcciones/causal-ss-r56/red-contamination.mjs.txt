@@ -1,0 +1,5 @@
+import assert from 'node:assert/strict'
+import {readFileSync} from 'node:fs'
+const report=JSON.parse(readFileSync('/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r56/run/probe.json','utf8'))
+const result=report.contamination.find(x=>x.site==='anual.ss.empresarial-ordinaria')
+assert.equal(result.cells.filter(x=>x.path.includes('trabajador')).length,0,'R55-N02: los valores trabajador no son operandos de la cuota ordinaria empresarial')

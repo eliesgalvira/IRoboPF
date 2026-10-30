@@ -1,0 +1,5 @@
+import assert from 'node:assert/strict'
+import {readFileSync} from 'node:fs'
+import {verifyCausalSS} from '/home/elies/Repos/IRoboPF/scripts/procedencia/causal-ss-r54.ts'
+const {fragment,evidence}=JSON.parse(readFileSync('/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r56/run/tampered.json','utf8'))
+assert.throws(()=>verifyCausalSS(fragment,evidence,evidence.input,evidence.context,evidence.execution),/Evidencia insuficiente/,'R55-N01: un fragmento pendiente no puede acreditar fidelidad a la fuente')

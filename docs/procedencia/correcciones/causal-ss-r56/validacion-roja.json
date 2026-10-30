@@ -1,0 +1,45 @@
+[
+  {
+    "name": "probe-antes",
+    "command": [
+      "node",
+      "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r56/run/probe.mjs"
+    ],
+    "exitCode": 0,
+    "expected": 0
+  },
+  {
+    "name": "rojo-N01",
+    "command": [
+      "node",
+      "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r56/run/red-pending.mjs"
+    ],
+    "exitCode": 1,
+    "expected": 1
+  },
+  {
+    "name": "rojo-N02",
+    "command": [
+      "node",
+      "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r56/run/red-contamination.mjs"
+    ],
+    "exitCode": 1,
+    "expected": 1
+  },
+  {
+    "name": "rojos-r56",
+    "command": [
+      "node",
+      "node_modules/vitest/vitest.mjs",
+      "run",
+      "--configLoader",
+      "native",
+      "--config",
+      "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r56/vitest.mjs",
+      "--reporter=json",
+      "--outputFile=/home/elies/Repos/IRoboPF/docs/procedencia/correcciones/causal-ss-r56/rojos-r56.json"
+    ],
+    "exitCode": 1,
+    "expected": 1
+  }
+]

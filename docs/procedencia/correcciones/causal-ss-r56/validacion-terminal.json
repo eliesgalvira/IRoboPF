@@ -1,0 +1,64 @@
+[
+  {
+    "name": "types-terminal",
+    "command": [
+      "bun",
+      "run",
+      "typecheck"
+    ],
+    "exitCode": 0
+  },
+  {
+    "name": "suite-terminal",
+    "command": [
+      "node",
+      "node_modules/vitest/vitest.mjs",
+      "run",
+      "--configLoader",
+      "native",
+      "--config",
+      "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r56/vitest.mjs",
+      "--reporter=json",
+      "--outputFile=/home/elies/Repos/IRoboPF/docs/procedencia/correcciones/causal-ss-r56/suite-terminal.json"
+    ],
+    "exitCode": 0
+  },
+  {
+    "name": "testigos-terminal",
+    "command": [
+      "node",
+      "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r56/run/testigos-r56.mjs"
+    ],
+    "exitCode": 0
+  },
+  {
+    "name": "schema-terminal",
+    "command": [
+      "uv",
+      "run",
+      "--no-project",
+      "--python",
+      "/home/elies/Repos/IRoboPF/tools/procedencia/.venv/bin/python",
+      "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r56/schema.py"
+    ],
+    "exitCode": 0
+  },
+  {
+    "name": "oxlint-terminal",
+    "command": [
+      "node_modules/.bin/oxlint",
+      "--threads=1",
+      "--disable-nested-config"
+    ],
+    "exitCode": 0
+  },
+  {
+    "name": "eslint-terminal",
+    "command": [
+      "bun",
+      "run",
+      "lint:eslint"
+    ],
+    "exitCode": 0
+  }
+]

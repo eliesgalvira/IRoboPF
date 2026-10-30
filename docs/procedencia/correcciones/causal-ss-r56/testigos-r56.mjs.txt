@@ -1,0 +1,46 @@
+import assert from 'node:assert/strict'
+import { readFileSync, writeFileSync } from 'node:fs'
+import { gzipSync, gunzipSync } from 'node:zlib'
+import { createHash } from 'node:crypto'
+import { composeSS } from '/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-ss-r36.mjs'
+import { executeCausalSS, verifyCausalSS } from '/home/elies/Repos/IRoboPF/scripts/procedencia/causal-ss-r54.ts'
+
+const r='/home/elies/Repos/IRoboPF/',out=r+'docs/procedencia/correcciones/causal-ss-r56/'
+const files=[r+'docs/procedencia/correcciones/recepcion-causal-ss-r55/testigos-integracion.json.gz',r+'.cache/orquestador-recepcion/r56/transporte/.cache/causal-ss-r55-sol/own-witnesses.json.gz']
+const sha=b=>createHash('sha256').update(b).digest('hex'), g=composeSS(),current=[],results=[],originals=[]
+for(const file of files){
+  const bytes=readFileSync(file), old=JSON.parse(gunzipSync(bytes))
+  originals.push({file,sha256:sha(bytes)})
+  for(const w of old){
+    const prior=w.evidence,{evidence}=executeCausalSS(g,prior.input,prior.context,prior.execution)
+    assert.equal(evidence.program,prior.program)
+    assert.deepStrictEqual(evidence.sources,prior.sources)
+    assert.deepStrictEqual(evidence.input,prior.input)
+    assert.deepStrictEqual(evidence.context,prior.context)
+    assert.deepStrictEqual(evidence.frames,prior.frames)
+    assert.deepStrictEqual(evidence.annualBindings,prior.annualBindings)
+    assert.deepStrictEqual(evidence.events.map(({edges,...event})=>event),prior.events.map(({edges,...event})=>event))
+    for(let i=0;i<evidence.events.length;i++)if(evidence.events[i].operation!=='collection-selection')assert.deepStrictEqual(evidence.events[i],prior.events[i])
+    const amounts=outputs=>outputs.map(({slice,...output})=>output)
+    assert.deepStrictEqual(amounts(evidence.outputs),amounts(prior.outputs))
+    assert.throws(()=>verifyCausalSS(g,prior,prior.input,prior.context,prior.execution),/Evidencia insuficiente/)
+    verifyCausalSS(g,evidence,evidence.input,evidence.context,evidence.execution)
+    const sides={'empresarial-ordinaria':'empresarial','trabajador-ordinaria':'trabajador','empresarial-total':'empresarial','trabajador-total':'trabajador','coste-laboral':'empresarial'}
+    const counts=[]
+    for(const output of evidence.outputs){
+      const side=sides[output.siteId.replace('anual.ss.','')]
+      if(!side)continue
+      const ids=new Set(output.slice),nodes=new Set(evidence.events.filter(e=>ids.has(e.id)).map(e=>e.node))
+      const cells=g.cells.filter(c=>c.path.includes('TIPOS_SEGURIDAD_SOCIAL_LEGACY')&&nodes.has(c.id))
+      assert.equal(cells.length,5)
+      assert.ok(cells.every(c=>c.path.at(-1)===side))
+      counts.push({siteId:output.siteId,side,ownCells:cells.length,oppositeCells:0})
+    }
+    current.push({id:w.id,source:file,evidence})
+    results.push({id:w.id,source:file,frames:evidence.frames.length,events:evidence.events.length,outputs:evidence.outputs.length,unchangedFinancialValues:true,unchangedFrames:true,onlySelectionEdgesChanged:true,originalRejected:true,currentVerified:true,counts})
+  }
+  assert.equal(sha(readFileSync(file)),sha(bytes))
+}
+writeFileSync(out+'testigos-r56.json.gz',gzipSync(JSON.stringify(current)+'\n'))
+writeFileSync(out+'comparacion-testigos.json',JSON.stringify({originals,results},null,2)+'\n')
+console.log(JSON.stringify({witnesses:results.length,outputs:results.reduce((n,x)=>n+x.outputs,0),equalFinancialValues:true,onlySelectionEdgesChanged:true,verified:true}))

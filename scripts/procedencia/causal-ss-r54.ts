@@ -78,6 +78,8 @@ interface Node {
   source: { file: string; start: number; end: number; sha256: string }
 }
 export interface SSFragment {
+  pending: readonly string[]
+  obligations: readonly { status: string }[]
   program: Node[]
   globalBindings: { name: string; node: string }[]
   annualBindings: { name: string; node: string }[]
@@ -111,6 +113,11 @@ const digest = (
   v: SSFragment | ExecutionEvidence | SSCase | SSContext | string[],
 ) => createHash("sha256").update(JSON.stringify(v)).digest("hex")
 const absent = { absent: true }
+function requireExecutableSS(g: SSFragment): void {
+  validateSS(g)
+  if (g.pending.length > 0 || g.obligations.some(o => o.status !== "satisfied"))
+    throw Error("Evidencia insuficiente: obligaciones pendientes")
+}
 function shown(v: Value["raw"]): JSONValue {
   if (Decimal.isDecimal(v)) return { decimal: v.toFixed() }
   if (v === undefined) return absent
@@ -170,7 +177,7 @@ export function executeCausalSS(
   contexto: SSContext,
   execution: string = randomUUID(),
 ): CausalResult {
-  validateSS(g)
+  requireExecutableSS(g)
   g = structuredClone(g)
   shown(caso)
   shown(contexto)
@@ -476,7 +483,13 @@ export function executeCausalSS(
         seed = x(1),
         callback = x(2)
       const selection = emit("collection-selection", receiver.props.size, [
-        { role: "receiver", to: receiver.ref },
+        // La estructura selecciona las iteraciones; los valores financieros
+        // proceden de las propiedades que consume cada callback, no de sus hermanas.
+        { role: "identity:receiver", to: receiver.ref },
+        ...[...receiver.props].map(([key, element]) => ({
+          role: "identity:element:" + key,
+          to: element.ref,
+        })),
         { role: "seed", to: seed.ref },
         { role: "callback", to: callback.ref },
       ])
@@ -866,8 +879,8 @@ export function verifyCausalSS(
   contexto: SSContext,
   execution: string,
 ): true {
-  validateSS(g)
-  const reject = (message: string): never => {
+  requireExecutableSS(g)
+  const reject: (message: string) => never = (message) => {
     throw Error("Evidencia insuficiente: " + message)
   }
   if (
@@ -909,6 +922,23 @@ export function verifyCausalSS(
       reject("identidad/frame/nodo")
     for (const edge of e.edges)
       if (!ids.has(edge.to)) reject("referencia hacia futuro o ausente")
+    if (e.operation === "collection-selection") {
+      const receivers = e.edges.filter(x => x.role === "identity:receiver")
+      const receiver = ids.get(receivers[0]?.to ?? "")
+      if (receivers.length !== 1 || receiver === undefined || !Array.isArray(receiver.value))
+        reject("receptor estructural de colección")
+      const elements = e.edges.filter(x => x.role.startsWith("identity:element:"))
+      const values = must(receiver).value
+      if (!Array.isArray(values)) reject("colección no ordinaria")
+      if (e.value !== values.length || elements.length !== values.length ||
+          e.edges.filter(x => x.role === "seed").length !== 1 ||
+          e.edges.filter(x => x.role === "callback").length !== 1)
+        reject("cardinalidad/semilla/callback de colección")
+      for (const [i, element] of elements.entries())
+        if (element.role !== "identity:element:" + i ||
+            JSON.stringify(ids.get(element.to)?.value) !== JSON.stringify(values[i]))
+          reject("orden/elemento de colección")
+    }
     const valueEdge = e.edges.find((x) => x.role === "value")
     const aliasOperations = [
       "property",

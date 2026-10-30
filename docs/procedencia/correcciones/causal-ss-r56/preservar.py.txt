@@ -1,0 +1,27 @@
+import difflib, gzip, hashlib, json, subprocess
+from pathlib import Path
+r=Path('/home/elies/Repos/IRoboPF');c=r/'.cache/orquestador-recepcion/r56';o=r/'docs/procedencia/correcciones/causal-ss-r56';cas=r/'.cache/orquestador-preservacion/recepciones-r56/sha256'
+base='280d4f2c4a19e701d5691398e3876e8e815aa858'
+def sha(b):return hashlib.sha256(b).hexdigest()
+def keep(b):
+    h=sha(b);p=cas/h
+    if p.exists():assert p.read_bytes()==b
+    else:p.write_bytes(b)
+    return h
+changes=[];diff=[]
+for name in ['scripts/procedencia/causal-ss-r54.ts','tests/causal-ss-r56.test.ts']:
+    before=b'' if name.startswith('tests/') else subprocess.check_output(['git','show',base+':'+name],cwd=r)
+    after=(r/name).read_bytes();keep(before);keep(after)
+    changes.append({'path':name,'baseSha256':None if not before else sha(before),'sha256':sha(after),'sha512':hashlib.sha512(after).hexdigest(),'size':len(after)})
+    diff.extend(difflib.unified_diff(before.decode().splitlines(keepends=True),after.decode().splitlines(keepends=True),fromfile='base/'+name if before else '/dev/null',tofile='actual/'+name))
+(o/'cambios.json').write_text(json.dumps({'base':base,'files':changes,'sourceCAS':str(cas)},indent=2)+'\n')
+(o/'cambios.diff').write_text(''.join(diff))
+for name in ['probe.mjs','red-pending.mjs','red-contamination.mjs','testigos-r56.mjs']:
+    (o/(name+'.txt')).write_bytes((c/'run'/name).read_bytes())
+for name in ['schema.py','preservar.py','vitest.mjs']:
+    (o/(name+'.txt')).write_bytes((c/name).read_bytes())
+(o/'probe-antes.json').write_bytes((c/'run/probe.json').read_bytes())
+b=(c/'run/tampered.json').read_bytes();prior=(c/'transporte/.cache/causal-ss-r55-sol/tampered.json').read_bytes()
+(o/'testigo-rojo-preservado.json').write_text(json.dumps({'parentSha256':keep(b),'reviewSha256':keep(prior),'byteEqual':b==prior,'sourceCAS':str(cas)},indent=2)+'\n')
+(o/'entorno-validacion.json').write_text(json.dumps({'nix':['bun','nodejs','python3','uv'],'REVIEW_INCLUDE':['tests/causal-ss-r56.test.ts','tests/causal-ss-r54.test.ts','tests/flujo-ss-r36.test.ts','tests/puertos-composicion-r47.test.ts'],'UV_CACHE_DIR':str(c/'uv-cache'),'UV_PROJECT_ENVIRONMENT':str(c/'uv-env'),'PYTHONDONTWRITEBYTECODE':'1','validationLock':'/tmp/irobopf-validacion-pesada.lock','sourceRuntime':'Node24, dependencias padre en lectura'},indent=2)+'\n')
+print(json.dumps({'changedFiles':len(changes),'counterexampleByteEqual':b==prior}))

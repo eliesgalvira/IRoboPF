@@ -2,7 +2,15 @@
 
 Inicio: 29 de octubre de 2026. Trabajo en curso; no es una certificación fiscal.
 
-## Situación más reciente, ronda 55 del 30 de octubre
+## Situación más reciente, ronda 56 del 30 de octubre
+
+Recibida la revisión R55: 22.185 entradas del hijo físicamente intactas, cero borrados; reconstrucción exacta de 64 rutas e incorporación de 15 archivos documentales y de transporte. Preservadas 93 referencias técnicas. N01 y N02 reproducidos por el padre, incluidos los dos rojos originales y siete regresiones nuevas. Detalle en correcciones/causal-ss-r56.
+
+Corregidos el rechazo de obligaciones pendientes en ambas API directas y la contaminación por propiedades hermanas de las colecciones. Se conservan receptor, identidad y orden de miembros con comprobaciones estructurales; los operandos financieros siguen sus propiedades propias. Batería de 101 pruebas y 18 testigos comparativos, sin cambios de importes en 198 salidas. La anotación adicional de tipos emite el mismo JavaScript. D127 delimita el cambio y exige revisión independiente nueva antes de corroborar la vertical. La deuda checkJs y los límites de entorno del revisor siguen documentados. Validación terminal: 101 pruebas, tipos globales principal/vendor, lint y 18 testigos/schema correctos.
+
+Motor, inventario, confianza y 45 snapshots intactos. Siguen pendientes los otros 54 sitios y 19 familias, composición y admisión; las cuatro puertas públicas permanecen falsas. V5 mantiene corte R26; Crossa v1 sigue desfasado. Sin main, PR, despliegue, LFS, gasto, transferencia o limpieza. El encargo global permanece abierto.
+
+## Situación anterior, ronda 55 del 30 de octubre
 
 Recibido el candidato causal R54 para once salidas SS: cotejo físico de 22.112 entradas del hijo, una modificación autorizada y cero borrados; transporte exacto de 105 rutas. Incorporadas 25 rutas de la entrega. El padre corrige cinco archivos para compatibilidad con tipos globales, conservando originales, hashes y diff. Detalle en correcciones/recepcion-causal-ss-r55.
 
