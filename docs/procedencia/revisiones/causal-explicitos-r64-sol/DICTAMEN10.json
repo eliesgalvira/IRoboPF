@@ -1,0 +1,172 @@
+[
+  {
+    "id": "anual.explicito.trabajo.integro",
+    "dictamen": "valor y selección local corroborados; cierre de propagación suspendido por R64-PUSH-01",
+    "evidencia": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 4157,
+      "end": 4441,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "objecionExperta": "Sumar importes iguales sin identidad perdería rendimientos, orden o clase.",
+    "respuesta": "Contraste API real y racionales propios; las llamadas capturan origen y valor, pero el retorno pierde los pasos por copia en alias/local/push",
+    "coste": "Corrección focalizada de identidad mutable y regresión del retorno: 2–6 h implementación y 1–3 h contraste del defecto, estimación orientativa",
+    "alcance": "Madrid2025 trabajo/pensión; sin variante de actividad",
+    "defecto": "R64-PUSH-01",
+    "noRepetirRevisionFavorable": true
+  },
+  {
+    "id": "anual.explicito.trabajo.gastos-a-e",
+    "dictamen": "valor y selección local corroborados; cierre de propagación suspendido por R64-PUSH-01",
+    "evidencia": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 4451,
+      "end": 4794,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "objecionExperta": "Aplicar límites por rendimiento o simular SS omitiría cotizaciones efectivas y límites anuales.",
+    "respuesta": "Contraste API real y racionales propios; las llamadas capturan origen y valor, pero el retorno pierde los pasos por copia en alias/local/push",
+    "coste": "Corrección focalizada de identidad mutable y regresión del retorno: 2–6 h implementación y 1–3 h contraste del defecto, estimación orientativa",
+    "alcance": "Madrid2025 trabajo/pensión; sin variante de actividad",
+    "defecto": "R64-PUSH-01",
+    "noRepetirRevisionFavorable": true
+  },
+  {
+    "id": "anual.explicito.trabajo.gasto-f",
+    "dictamen": "valor y selección local corroborados; cierre de propagación suspendido por R64-PUSH-01",
+    "evidencia": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 4804,
+      "end": 5106,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "objecionExperta": "Aplicar siempre2000 haría negativo el saldo pequeño y confundiría gasto teórico con aplicado.",
+    "respuesta": "Contraste API real y racionales propios; las llamadas capturan origen y valor, pero el retorno pierde los pasos por copia en alias/local/push",
+    "coste": "Corrección focalizada de identidad mutable y regresión del retorno: 2–6 h implementación y 1–3 h contraste del defecto, estimación orientativa",
+    "alcance": "Madrid2025 trabajo/pensión; sin variante de actividad",
+    "defecto": "R64-PUSH-01",
+    "noRepetirRevisionFavorable": true
+  },
+  {
+    "id": "anual.explicito.trabajo.art19",
+    "dictamen": "valor y selección local corroborados; cierre de propagación suspendido por R64-PUSH-01",
+    "evidencia": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 5116,
+      "end": 5419,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "objecionExperta": "Usar previo como neto final o gastar dos veces f alteraría la base.",
+    "respuesta": "Contraste API real y racionales propios; las llamadas capturan origen y valor, pero el retorno pierde los pasos por copia en alias/local/push",
+    "coste": "Corrección focalizada de identidad mutable y regresión del retorno: 2–6 h implementación y 1–3 h contraste del defecto, estimación orientativa",
+    "alcance": "Madrid2025 trabajo/pensión; sin variante de actividad",
+    "defecto": "R64-PUSH-01",
+    "noRepetirRevisionFavorable": true
+  },
+  {
+    "id": "anual.explicito.trabajo.art20",
+    "dictamen": "valor y selección local corroborados; cierre de propagación suspendido por R64-PUSH-01",
+    "evidencia": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 5429,
+      "end": 5745,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "objecionExperta": "Calcular reducción sobre art19 en vez del previo sin f seleccionaría otra rama.",
+    "respuesta": "Contraste API real y racionales propios; las llamadas capturan origen y valor, pero el retorno pierde los pasos por copia en alias/local/push",
+    "coste": "Corrección focalizada de identidad mutable y regresión del retorno: 2–6 h implementación y 1–3 h contraste del defecto, estimación orientativa",
+    "alcance": "Madrid2025 trabajo/pensión; sin variante de actividad",
+    "defecto": "R64-PUSH-01",
+    "noRepetirRevisionFavorable": true
+  },
+  {
+    "id": "anual.explicito.da61",
+    "dictamen": "valor y selección local corroborados; cierre de propagación suspendido por R64-PUSH-01",
+    "evidencia": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 11317,
+      "end": 11565,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "objecionExperta": "Aplicar DA61 a pensión o duplicarla dentro de líquida legal alteraría la etapa y la clase.",
+    "respuesta": "Contraste API real y racionales propios; las llamadas capturan origen y valor, pero el retorno pierde los pasos por copia en alias/local/push",
+    "coste": "Corrección focalizada de identidad mutable y regresión del retorno: 2–6 h implementación y 1–3 h contraste del defecto, estimación orientativa",
+    "alcance": "Empleo DA61; pensión0 y actividad0 por selección en fuente; ejecución causal actividad bloqueada antes.",
+    "defecto": "R64-PUSH-01",
+    "noRepetirRevisionFavorable": true
+  },
+  {
+    "id": "anual.explicito.retenciones",
+    "dictamen": "valor y selección local corroborados; cierre de propagación suspendido por R64-PUSH-01",
+    "evidencia": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 11817,
+      "end": 12055,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "objecionExperta": "Sumar certificados duplicados o confundirlos con pagos ocultaría identidad y fronteras.",
+    "respuesta": "Contraste API real y racionales propios; las llamadas capturan origen y valor, pero el retorno pierde los pasos por copia en alias/local/push",
+    "coste": "Corrección focalizada de identidad mutable y regresión del retorno: 2–6 h implementación y 1–3 h contraste del defecto, estimación orientativa",
+    "alcance": "Trabajo/pensión condicionado; actividad requiere productor excluido",
+    "defecto": "R64-PUSH-01",
+    "noRepetirRevisionFavorable": true
+  },
+  {
+    "id": "anual.explicito.pagos",
+    "dictamen": "valor y selección local corroborados; cierre de propagación suspendido por R64-PUSH-01",
+    "evidencia": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 12063,
+      "end": 12296,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "objecionExperta": "Un cero laboral no demuestra pagos de actividad; igualar ambas propiedades ocultaría dependencia.",
+    "respuesta": "Contraste API real y racionales propios; las llamadas capturan origen y valor, pero el retorno pierde los pasos por copia en alias/local/push",
+    "coste": "Corrección focalizada de identidad mutable y regresión del retorno: 2–6 h implementación y 1–3 h contraste del defecto, estimación orientativa",
+    "alcance": "Trabajo/pensión condicionado; actividad requiere productor excluido",
+    "defecto": "R64-PUSH-01",
+    "noRepetirRevisionFavorable": true
+  },
+  {
+    "id": "anual.explicito.diferencial",
+    "dictamen": "valor y selección local corroborados; cierre de propagación suspendido por R64-PUSH-01",
+    "evidencia": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 12304,
+      "end": 12564,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "objecionExperta": "Una resta con signo incorrecto o cuotas anteriores a DA61 puede parecer correcta con importes cero.",
+    "respuesta": "Contraste API real y racionales propios; las llamadas capturan origen y valor, pero el retorno pierde los pasos por copia en alias/local/push",
+    "coste": "Corrección focalizada de identidad mutable y regresión del retorno: 2–6 h implementación y 1–3 h contraste del defecto, estimación orientativa",
+    "alcance": "Trabajo/pensión condicionado; actividad requiere productor excluido",
+    "defecto": "R64-PUSH-01",
+    "noRepetirRevisionFavorable": true
+  },
+  {
+    "id": "anual.explicito.actividad.etapa",
+    "dictamen": "bloqueo demostrado por alcance excluido",
+    "evidencia": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 7016,
+      "end": 7268,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "objecionExperta": "Emitir etapas por nombres o importes declarados evitaría indebidamente las19 familias excluidas.",
+    "respuesta": "API real admitida y sensibilidad separada; productor calcularActividad2025 ausente del cierre causal por exclusión expresa",
+    "coste": "19 familias excluidas: estimación del autor 20–40 h implementación y 12–24 h revisión, incertidumbre alta; no iniciado",
+    "alcance": "Trabajo/pensión condicionado; actividad requiere productor excluido",
+    "defecto": null,
+    "noRepetirRevisionFavorable": true
+  }
+]

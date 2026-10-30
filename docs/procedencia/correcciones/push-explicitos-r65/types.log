@@ -1,0 +1,5 @@
+$ tsc --noEmit && tsc --noEmit -p tools/oxlint/tsconfig.json
+tests/causal-explicitos-push-r65.test.ts(13,28): error TS34: This `Schema.Struct` includes a `_tag` field. `Schema.TaggedStruct` is the tagged-struct form for this pattern and makes the tag optional in the constructor.    effect(schemaStructWithTag)
+tests/causal-explicitos-push-r65.test.ts(36,7): error TS2322: Type '{ operacionId: string; procedencia: string; ejercicio: number; importe: string; efectiva: true; }' is not assignable to type 'never'.
+tests/causal-explicitos-push-r65.test.ts(37,7): error TS2322: Type '{ operacionId: string; procedencia: string; ejercicio: number; importe: string; efectiva: true; }' is not assignable to type 'never'.
+tests/causal-explicitos-r62.test.ts(2,27): error TS52: This module reference uses the `fs` module, the corresponding Effect API is `FileSystem` from `effect`.    effect(nodeBuiltinImport)

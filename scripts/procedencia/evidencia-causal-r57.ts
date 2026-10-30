@@ -287,6 +287,13 @@ function evaluateVerifiedFinite(
   if (!record(normalizedInput)) throw Error("Entrada anual no ordinaria");
   const parents = new WeakMap<Map<string, Value>, Map<string, Value>>();
   const locals = new WeakMap<Map<string, Value>, Set<string>>();
+  // Solo R62 admite push. La identidad del array sobrevive a sus aliases;
+  // los eventos conservan instantáneas y enlazan la última mutación.
+  const arrayVersions = new WeakMap<unknown[], string>();
+  function mutationEdges(v: Value): Edge[] {
+    const ref = Array.isArray(v.raw) ? arrayVersions.get(v.raw) : undefined;
+    return ref === undefined ? [] : [{ role: "mutation-state", to: ref }];
+  }
   const nodes = new Map(g.program.map((n) => [n.id, n])),
     globals = new Map(g.globalBindings.map((b) => [b.name, b.node])),
     values = new Map<string, Value>();
@@ -348,7 +355,7 @@ function evaluateVerifiedFinite(
     const out = emit(
       operation,
       v.raw,
-      [{ role: "value", to: v.ref }, ...extras],
+      [{ role: "value", to: v.ref }, ...mutationEdges(v), ...extras],
       property,
       v.unit,
     );
@@ -357,6 +364,10 @@ function evaluateVerifiedFinite(
     out.native = v.native;
     out.decimalClass = v.decimalClass;
     out.state = v.state;
+    if (options.kind === "causal-explicitos-r62" && Array.isArray(v.raw)) {
+      out.props = v.props;
+      return out;
+    }
     for (const [key, child] of v.props)
       out.props.set(
         key,
@@ -402,6 +413,7 @@ function evaluateVerifiedFinite(
         "property",
         [
           { role: "identity:receiver", to: v.ref },
+          ...mutationEdges(v),
           ...(selector !== undefined
             ? [{ role: "selector", to: selector.ref }]
             : []),
@@ -512,6 +524,7 @@ function evaluateVerifiedFinite(
         options.kind !== "causal-ss-r54"
           ? [
               { role: "identity:receiver", to: v.ref },
+              ...mutationEdges(v),
               ...(v.structure ?? []).map((x) => ({
                 role: "structure",
                 to: x.ref,
@@ -530,6 +543,7 @@ function evaluateVerifiedFinite(
             options.kind !== "causal-ss-r54" ? "identity:receiver" : "receiver",
           to: v.ref,
         },
+        ...mutationEdges(v),
       ],
       key,
     );
@@ -905,6 +919,7 @@ function evaluateVerifiedFinite(
           members.length,
           [
             { role: "identity:receiver", to: receiver.ref },
+            ...mutationEdges(receiver),
             ...members.map((v, i) => ({
               role: "identity:element:" + i,
               to: v.ref,
@@ -922,9 +937,18 @@ function evaluateVerifiedFinite(
             "index",
           );
         if (key === "push" && options.kind === "causal-explicitos-r62") {
+          if (!Array.isArray(receiver.raw)) throw Error("push requiere un array");
           for (const v of xs) receiver.props.set(String(receiver.props.size), v);
-          receiver.raw = [...receiver.props.values()].map((v) => v.raw);
-          return emit("push-length", receiver.props.size, [{role:"receiver",to:receiver.ref}, ...edges]);
+          receiver.raw.push(...xs.map((v) => v.raw));
+          const mutation = emit("array-push", receiver.raw, [
+            { role: "receiver", to: receiver.ref },
+            { role: "previous-state", to: selection.ref },
+            ...edges,
+          ]);
+          arrayVersions.set(receiver.raw, mutation.ref);
+          return emit("push-length", receiver.raw.length, [
+            { role: "mutation-state", to: mutation.ref },
+          ]);
         }
         if (key === "includes")
           return emit(
