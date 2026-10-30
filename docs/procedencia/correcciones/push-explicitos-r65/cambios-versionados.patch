@@ -1,0 +1,127 @@
+diff --git a/scripts/procedencia/causal-explicitos-r62-ensayos.mjs b/scripts/procedencia/causal-explicitos-r62-ensayos.mjs
+index 354046f..f3ce0f5 100644
+--- a/scripts/procedencia/causal-explicitos-r62-ensayos.mjs
++++ b/scripts/procedencia/causal-explicitos-r62-ensayos.mjs
+@@ -22,6 +22,7 @@ function save(id,c,out){
+  return {id,file:folder+'/testigos/'+hash+'.json.gz',outputs:out.evidence.outputs.map(o=>({siteId:o.siteId,decimal:o.decimal}))};
+ }
+ export function runExplicitos(){
++ fs.mkdirSync(folder,{recursive:true});
+  const g=composeCausalExplicitos(),records=[];
+  fs.writeFileSync(folder+'/contrato.json.gz',gzipSync(JSON.stringify(g)));
+  const originals=[];
+@@ -92,6 +93,7 @@ export function runExplicitos(){
+  return {cases:records.length,sites:9,blocked:1};
+ }
+ export function runBloqueo(){
++ fs.mkdirSync(folder,{recursive:true});
+  const c=actividad();c.actividad.aplicarRentasBajas=false;
+  c.actividad.ingresos=[{id:'factura',justificante:'f',fecha:'2025-06-01',base:'30000',iva:'0',ivaRecuperable:'0',afectacionExclusiva:true,registrado:true,categoria:'servicio',clienteId:'cliente',sujetoRetencion:true,rectificativa:false}];
+  // La API real valida el fixture: no se fabrica retorno del adaptador.
+diff --git a/scripts/procedencia/evidencia-causal-r57.ts b/scripts/procedencia/evidencia-causal-r57.ts
+index 291d552..0086a16 100644
+--- a/scripts/procedencia/evidencia-causal-r57.ts
++++ b/scripts/procedencia/evidencia-causal-r57.ts
+@@ -287,6 +287,13 @@ function evaluateVerifiedFinite(
+   if (!record(normalizedInput)) throw Error("Entrada anual no ordinaria");
+   const parents = new WeakMap<Map<string, Value>, Map<string, Value>>();
+   const locals = new WeakMap<Map<string, Value>, Set<string>>();
++  // Solo R62 admite push. La identidad del array sobrevive a sus aliases;
++  // los eventos conservan instantáneas y enlazan la última mutación.
++  const arrayVersions = new WeakMap<unknown[], string>();
++  function mutationEdges(v: Value): Edge[] {
++    const ref = Array.isArray(v.raw) ? arrayVersions.get(v.raw) : undefined;
++    return ref === undefined ? [] : [{ role: "mutation-state", to: ref }];
++  }
+   const nodes = new Map(g.program.map((n) => [n.id, n])),
+     globals = new Map(g.globalBindings.map((b) => [b.name, b.node])),
+     values = new Map<string, Value>();
+@@ -348,7 +355,7 @@ function evaluateVerifiedFinite(
+     const out = emit(
+       operation,
+       v.raw,
+-      [{ role: "value", to: v.ref }, ...extras],
++      [{ role: "value", to: v.ref }, ...mutationEdges(v), ...extras],
+       property,
+       v.unit,
+     );
+@@ -357,6 +364,10 @@ function evaluateVerifiedFinite(
+     out.native = v.native;
+     out.decimalClass = v.decimalClass;
+     out.state = v.state;
++    if (options.kind === "causal-explicitos-r62" && Array.isArray(v.raw)) {
++      out.props = v.props;
++      return out;
++    }
+     for (const [key, child] of v.props)
+       out.props.set(
+         key,
+@@ -402,6 +413,7 @@ function evaluateVerifiedFinite(
+         "property",
+         [
+           { role: "identity:receiver", to: v.ref },
++          ...mutationEdges(v),
+           ...(selector !== undefined
+             ? [{ role: "selector", to: selector.ref }]
+             : []),
+@@ -512,6 +524,7 @@ function evaluateVerifiedFinite(
+         options.kind !== "causal-ss-r54"
+           ? [
+               { role: "identity:receiver", to: v.ref },
++              ...mutationEdges(v),
+               ...(v.structure ?? []).map((x) => ({
+                 role: "structure",
+                 to: x.ref,
+@@ -530,6 +543,7 @@ function evaluateVerifiedFinite(
+             options.kind !== "causal-ss-r54" ? "identity:receiver" : "receiver",
+           to: v.ref,
+         },
++        ...mutationEdges(v),
+       ],
+       key,
+     );
+@@ -905,6 +919,7 @@ function evaluateVerifiedFinite(
+           members.length,
+           [
+             { role: "identity:receiver", to: receiver.ref },
++            ...mutationEdges(receiver),
+             ...members.map((v, i) => ({
+               role: "identity:element:" + i,
+               to: v.ref,
+@@ -922,9 +937,18 @@ function evaluateVerifiedFinite(
+             "index",
+           );
+         if (key === "push" && options.kind === "causal-explicitos-r62") {
++          if (!Array.isArray(receiver.raw)) throw Error("push requiere un array");
+           for (const v of xs) receiver.props.set(String(receiver.props.size), v);
+-          receiver.raw = [...receiver.props.values()].map((v) => v.raw);
+-          return emit("push-length", receiver.props.size, [{role:"receiver",to:receiver.ref}, ...edges]);
++          receiver.raw.push(...xs.map((v) => v.raw));
++          const mutation = emit("array-push", receiver.raw, [
++            { role: "receiver", to: receiver.ref },
++            { role: "previous-state", to: selection.ref },
++            ...edges,
++          ]);
++          arrayVersions.set(receiver.raw, mutation.ref);
++          return emit("push-length", receiver.raw.length, [
++            { role: "mutation-state", to: mutation.ref },
++          ]);
+         }
+         if (key === "includes")
+           return emit(
+diff --git a/tests/causal-explicitos-r62.test.ts b/tests/causal-explicitos-r62.test.ts
+index 8c5d3c2..8214418 100644
+--- a/tests/causal-explicitos-r62.test.ts
++++ b/tests/causal-explicitos-r62.test.ts
+@@ -1,11 +1,8 @@
+ import { expect, test } from "vitest";
+-import { mkdirSync } from "node:fs";
+ import { runExplicitos, runBloqueo } from "../scripts/procedencia/causal-explicitos-r62-ensayos.mjs";
+ test("nueve sitios explícitos: API real, racionales, relaciones y fronteras", () => {
+-  mkdirSync(".cache/causal-explicitos-r62-sol", { recursive: true });
+   expect(runExplicitos()).toMatchObject({ sites: 9, blocked: 1 });
+ }, 1800000);
+ test("actividad admitida requiere las familias excluidas y se rechaza causalmente", () => {
+-  mkdirSync(".cache/causal-explicitos-r62-sol", { recursive: true });
+   expect(runBloqueo()).toBe(true);
+ }, 600000);

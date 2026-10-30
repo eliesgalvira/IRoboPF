@@ -1,0 +1,419 @@
+{
+  "caso": {
+    "ejercicio": 2025,
+    "comunidadAutonoma": "madrid",
+    "edad": 40,
+    "modalidad": "individual",
+    "residenciaTodoElAnio": true,
+    "devengo": "2025-12-31",
+    "otrasRentas": "ninguna",
+    "familiaresConDerechoMinimo": "ninguno",
+    "discapacidad": "ninguna",
+    "reduccionesBase": "ninguna",
+    "saldosAnteriores": "ninguno",
+    "deducciones": "solo-da61-si-procede",
+    "rentasExtranjeras": "ninguna",
+    "especialidades": "ninguna",
+    "perfil": "solo-trabajo",
+    "conciliacion": {
+      "ejercicio": 2025,
+      "estado": "totales-anuales-sin-duplicados",
+      "procedencia": [
+        "certificado-anual#2025"
+      ]
+    },
+    "trabajo": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "reduccionesArt18": "ninguna",
+      "movilidad": "ninguna",
+      "discapacidadActiva": "ninguna",
+      "rendimientos": [
+        {
+          "id": "anual",
+          "clase": "empleo-laboral",
+          "integro": "16576",
+          "cotizaciones": {
+            "clase": "efectivas",
+            "seguridadSocial": "0",
+            "derechosPasivos": "0",
+            "colegiosHuerfanos": "0"
+          },
+          "sindicato": {
+            "importe": "0",
+            "satisfecho": "no"
+          },
+          "colegio": {
+            "importe": "0",
+            "satisfecho": "no",
+            "obligatorio": "no",
+            "finesEsenciales": "no"
+          },
+          "defensa": {
+            "importe": "0",
+            "satisfecho": "no",
+            "litigioDirectoPagador": "no"
+          }
+        }
+      ]
+    },
+    "retenciones": []
+  },
+  "contexto": {
+    "route": "explicit",
+    "modo": "canonico"
+  },
+  "esperado": {
+    "pushLengths": [
+      1,
+      2
+    ],
+    "pasos": 2,
+    "lineas": [
+      5,
+      10
+    ]
+  },
+  "actual": {
+    "pushLengths": [
+      1,
+      2
+    ],
+    "pasos": 2,
+    "salidasCapturadas": 9
+  },
+  "eventosPush": [
+    {
+      "id": "push-rojo:3449",
+      "frame": "push-rojo:f117",
+      "node": "escalas:lib/dominio/irpf/trabajo-anual/conexion.ts:3692:5762:call",
+      "operation": "push-length",
+      "property": "",
+      "unit": "structural",
+      "value": 1,
+      "edges": [
+        {
+          "role": "mutation-state",
+          "to": "push-rojo:3448"
+        },
+        {
+          "role": "selection",
+          "to": "push-rojo:54"
+        },
+        {
+          "role": "selection",
+          "to": "push-rojo:55"
+        },
+        {
+          "role": "selection",
+          "to": "push-rojo:236"
+        },
+        {
+          "role": "selection",
+          "to": "push-rojo:428"
+        },
+        {
+          "role": "selection",
+          "to": "push-rojo:507"
+        },
+        {
+          "role": "selection",
+          "to": "push-rojo:869"
+        },
+        {
+          "role": "selection",
+          "to": "push-rojo:2245"
+        },
+        {
+          "role": "selection",
+          "to": "push-rojo:2674"
+        }
+      ]
+    },
+    {
+      "id": "push-rojo:24588",
+      "frame": "push-rojo:f1496",
+      "node": "escalas:lib/dominio/irpf/trabajo-anual/conexion.ts:9377:12577:call",
+      "operation": "push-length",
+      "property": "",
+      "unit": "structural",
+      "value": 2,
+      "edges": [
+        {
+          "role": "mutation-state",
+          "to": "push-rojo:24587"
+        },
+        {
+          "role": "selection",
+          "to": "push-rojo:54"
+        },
+        {
+          "role": "selection",
+          "to": "push-rojo:55"
+        },
+        {
+          "role": "selection",
+          "to": "push-rojo:236"
+        },
+        {
+          "role": "selection",
+          "to": "push-rojo:18343"
+        }
+      ]
+    }
+  ],
+  "retorno": {
+    "id": "push-rojo:24766",
+    "frame": "push-rojo:f1",
+    "node": "escalas:lib/dominio/irpf/trabajo-anual/conexion.ts:1526:13571:function",
+    "operation": "function-return",
+    "property": "",
+    "unit": "structural",
+    "value": {
+      "_tag": "LiquidacionIrpfAnualExplicitaCalculada",
+      "perfil": "solo-trabajo",
+      "ejercicio": 2025,
+      "alcance": "individual-madrid-18-a-64-sin-familiares-ni-discapacidad",
+      "rendimientoNetoReducido": "10291",
+      "baseImponibleGeneral": "10291",
+      "baseLiquidableGeneral": "10291",
+      "baseLiquidableAhorro": "0",
+      "reduccionArt20": "4285",
+      "cuotaLiquidaLegal": "818.81475",
+      "deduccionTrabajo": "340",
+      "cuotaPosterior": "478.81475",
+      "retenciones": "0",
+      "pagosFraccionados": "0",
+      "cuotaDiferencial": "478.81475",
+      "cuotaDiferencialPresentada": "478.81",
+      "aceptacionFiscal": "pendiente",
+      "rastro": {
+        "titulo": "Liquidación anual explícita 2025",
+        "contexto": {
+          "anio": 2025,
+          "territorio": "madrid",
+          "perfilCalculo": "solo-trabajo"
+        },
+        "pasos": [
+          {
+            "_tag": "PasoExplicacion",
+            "titulo": "Trabajo conciliado y reducción única",
+            "descripcion": "Totales anuales disjuntos aportados: certificado-anual#2025. Pensión excluida de DA61.",
+            "fuentes": [
+              {
+                "titulo": "Alcance y evidencia de la conexión anual",
+                "referencia": "docs/procedencia/implementaciones/conexion-anual/INFORME.md"
+              }
+            ],
+            "lineasCalculo": [
+              {
+                "etiqueta": "Trabajo íntegro",
+                "formula": "suma de rendimientos anuales conciliados",
+                "resultado": "16576.00 euros",
+                "origen": {
+                  "siteId": "anual.explicito.trabajo.integro",
+                  "instanceId": "anual.explicito.trabajo.integro.0",
+                  "decimal": "16576",
+                  "unidad": "EUR"
+                }
+              },
+              {
+                "etiqueta": "Gastos a–e",
+                "formula": "cotizaciones efectivas + sindicato + colegio limitado + defensa limitada, una vez al año",
+                "resultado": "0.00 euros",
+                "origen": {
+                  "siteId": "anual.explicito.trabajo.gastos-a-e",
+                  "instanceId": "anual.explicito.trabajo.gastos-a-e.0",
+                  "decimal": "0",
+                  "unidad": "EUR"
+                }
+              },
+              {
+                "etiqueta": "Gasto general aplicado",
+                "formula": "min(2000, saldo positivo después de a–e)",
+                "resultado": "2000.00 euros",
+                "origen": {
+                  "siteId": "anual.explicito.trabajo.gasto-f",
+                  "instanceId": "anual.explicito.trabajo.gasto-f.0",
+                  "decimal": "2000",
+                  "unidad": "EUR"
+                }
+              },
+              {
+                "etiqueta": "Neto artículo 19",
+                "formula": "íntegro menos gastos efectivos a–e y gasto f limitado",
+                "resultado": "14576.00 euros",
+                "origen": {
+                  "siteId": "anual.explicito.trabajo.art19",
+                  "instanceId": "anual.explicito.trabajo.art19.0",
+                  "decimal": "14576",
+                  "unidad": "EUR"
+                }
+              },
+              {
+                "etiqueta": "Reducción artículo 20",
+                "formula": "min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0)",
+                "resultado": "4285.00 euros",
+                "origen": {
+                  "siteId": "anual.explicito.trabajo.art20",
+                  "instanceId": "anual.explicito.trabajo.art20.0",
+                  "decimal": "4285",
+                  "unidad": "EUR"
+                }
+              }
+            ]
+          },
+          {
+            "_tag": "PasoExplicacion",
+            "titulo": "Bases, cuotas y pagos anuales",
+            "descripcion": "Sin ahorro, reducciones de base ni otras deducciones. Artículo 80 sin importe al excluir rentas extranjeras. Cuota líquida legal conservada antes de DA61. Precisión decimal hasta salida; presentación final half-up a céntimos, pendiente de aceptación fiscal.",
+            "fuentes": [
+              {
+                "titulo": "Alcance y evidencia de la conexión anual",
+                "referencia": "docs/procedencia/implementaciones/conexion-anual/INFORME.md"
+              }
+            ],
+            "lineasCalculo": [
+              {
+                "etiqueta": "Base imponible general",
+                "formula": "rendimiento neto reducido con signo",
+                "resultado": "10291.00 euros",
+                "origen": {
+                  "siteId": "anual.explicito.big",
+                  "instanceId": "anual.explicito.big.0",
+                  "decimal": "10291",
+                  "unidad": "EUR"
+                }
+              },
+              {
+                "etiqueta": "Base liquidable general",
+                "formula": "BIG sin reducciones de base ni compensaciones anteriores",
+                "resultado": "10291.00 euros",
+                "origen": {
+                  "siteId": "anual.explicito.blg",
+                  "instanceId": "anual.explicito.blg.0",
+                  "decimal": "10291",
+                  "unidad": "EUR"
+                }
+              },
+              {
+                "etiqueta": "Cuota estatal",
+                "formula": "escala(base positiva) − escala(mínimo limitado a base)",
+                "resultado": "450.40 euros",
+                "origen": {
+                  "siteId": "anual.explicito.cuota.estatal",
+                  "instanceId": "anual.explicito.cuota.estatal.0",
+                  "decimal": "450.395",
+                  "unidad": "EUR"
+                }
+              },
+              {
+                "etiqueta": "Cuota autonómica",
+                "formula": "escala publicada Madrid(base) − escala(mínimo limitado a base)",
+                "resultado": "368.42 euros",
+                "origen": {
+                  "siteId": "anual.explicito.cuota.autonomica",
+                  "instanceId": "anual.explicito.cuota.autonomica.0",
+                  "decimal": "368.41975",
+                  "unidad": "EUR"
+                }
+              },
+              {
+                "etiqueta": "Cuota líquida legal",
+                "formula": "cuota estatal + autonómica; sin otras deducciones",
+                "resultado": "818.81 euros",
+                "origen": {
+                  "siteId": "anual.explicito.cuota.liquida-legal",
+                  "instanceId": "anual.explicito.cuota.liquida-legal.0",
+                  "decimal": "818.81475",
+                  "unidad": "EUR"
+                }
+              },
+              {
+                "etiqueta": "DA61",
+                "formula": "deducción de servicios después del artículo 80, una sola vez",
+                "resultado": "340.00 euros",
+                "origen": {
+                  "siteId": "anual.explicito.da61",
+                  "instanceId": "anual.explicito.da61.0",
+                  "decimal": "340",
+                  "unidad": "EUR"
+                }
+              },
+              {
+                "etiqueta": "Cuota posterior",
+                "formula": "cuota líquida legal − DA61",
+                "resultado": "478.81 euros",
+                "origen": {
+                  "siteId": "anual.explicito.cuota.posterior",
+                  "instanceId": "anual.explicito.cuota.posterior.0",
+                  "decimal": "478.81475",
+                  "unidad": "EUR"
+                }
+              },
+              {
+                "etiqueta": "Retenciones efectivas",
+                "formula": "suma por operación única",
+                "resultado": "0.00 euros",
+                "origen": {
+                  "siteId": "anual.explicito.retenciones",
+                  "instanceId": "anual.explicito.retenciones.0",
+                  "decimal": "0",
+                  "unidad": "EUR"
+                }
+              },
+              {
+                "etiqueta": "Pagos fraccionados efectivos",
+                "formula": "suma por operación única",
+                "resultado": "0.00 euros",
+                "origen": {
+                  "siteId": "anual.explicito.pagos",
+                  "instanceId": "anual.explicito.pagos.0",
+                  "decimal": "0",
+                  "unidad": "EUR"
+                }
+              },
+              {
+                "etiqueta": "Cuota diferencial",
+                "formula": "cuota posterior − retenciones − pagos fraccionados",
+                "resultado": "478.81 euros",
+                "origen": {
+                  "siteId": "anual.explicito.diferencial",
+                  "instanceId": "anual.explicito.diferencial.0",
+                  "decimal": "478.81475",
+                  "unidad": "EUR"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "edges": [
+      {
+        "role": "value",
+        "to": "push-rojo:24741"
+      },
+      {
+        "role": "identity:callee",
+        "to": "push-rojo:55"
+      },
+      {
+        "role": "selection",
+        "to": "push-rojo:54"
+      },
+      {
+        "role": "selection",
+        "to": "push-rojo:55"
+      },
+      {
+        "role": "selection",
+        "to": "push-rojo:236"
+      },
+      {
+        "role": "selection",
+        "to": "push-rojo:18343"
+      }
+    ]
+  }
+}

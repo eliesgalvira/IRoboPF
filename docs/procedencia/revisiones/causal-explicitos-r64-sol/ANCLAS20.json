@@ -1,0 +1,242 @@
+[
+  {
+    "id": "anual.explicito.trabajo.integro",
+    "kind": "anclaFuente",
+    "anchor": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 4157,
+      "end": 4441,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "text": "crearLineaCalculo({\n          siteId: \"anual.explicito.trabajo.integro\",\n          instancia: 0,\n          importe: new D(trabajo.gastos.integro),\n          unidad: \"EUR\",\n          etiqueta: \"Trabajo íntegro\",\n          formula: \"suma de rendimientos anuales conciliados\",\n        })"
+  },
+  {
+    "id": "anual.explicito.trabajo.integro",
+    "kind": "anclaImporte",
+    "anchor": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 4273,
+      "end": 4302,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "text": "new D(trabajo.gastos.integro)"
+  },
+  {
+    "id": "anual.explicito.trabajo.gastos-a-e",
+    "kind": "anclaFuente",
+    "anchor": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 4451,
+      "end": 4794,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "text": "crearLineaCalculo({\n          siteId: \"anual.explicito.trabajo.gastos-a-e\",\n          instancia: 0,\n          importe: new D(trabajo.gastos.gastosAE),\n          unidad: \"EUR\",\n          etiqueta: \"Gastos a–e\",\n          formula:\n            \"cotizaciones efectivas + sindicato + colegio limitado + defensa limitada, una vez al año\",\n        })"
+  },
+  {
+    "id": "anual.explicito.trabajo.gastos-a-e",
+    "kind": "anclaImporte",
+    "anchor": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 4570,
+      "end": 4600,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "text": "new D(trabajo.gastos.gastosAE)"
+  },
+  {
+    "id": "anual.explicito.trabajo.gasto-f",
+    "kind": "anclaFuente",
+    "anchor": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 4804,
+      "end": 5106,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "text": "crearLineaCalculo({\n          siteId: \"anual.explicito.trabajo.gasto-f\",\n          instancia: 0,\n          importe: new D(trabajo.gastos.generalesAplicados),\n          unidad: \"EUR\",\n          etiqueta: \"Gasto general aplicado\",\n          formula: \"min(2000, saldo positivo después de a–e)\",\n        })"
+  },
+  {
+    "id": "anual.explicito.trabajo.gasto-f",
+    "kind": "anclaImporte",
+    "anchor": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 4920,
+      "end": 4960,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "text": "new D(trabajo.gastos.generalesAplicados)"
+  },
+  {
+    "id": "anual.explicito.trabajo.art19",
+    "kind": "anclaFuente",
+    "anchor": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 5116,
+      "end": 5419,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "text": "crearLineaCalculo({\n          siteId: \"anual.explicito.trabajo.art19\",\n          instancia: 0,\n          importe: new D(trabajo.rendimientoAntesArt20),\n          unidad: \"EUR\",\n          etiqueta: \"Neto artículo 19\",\n          formula: \"íntegro menos gastos efectivos a–e y gasto f limitado\",\n        })"
+  },
+  {
+    "id": "anual.explicito.trabajo.art19",
+    "kind": "anclaImporte",
+    "anchor": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 5230,
+      "end": 5266,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "text": "new D(trabajo.rendimientoAntesArt20)"
+  },
+  {
+    "id": "anual.explicito.trabajo.art20",
+    "kind": "anclaFuente",
+    "anchor": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 5429,
+      "end": 5745,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "text": "crearLineaCalculo({\n          siteId: \"anual.explicito.trabajo.art20\",\n          instancia: 0,\n          importe: reduccionArt20,\n          unidad: \"EUR\",\n          etiqueta: \"Reducción artículo 20\",\n          formula:\n            \"min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0)\",\n        })"
+  },
+  {
+    "id": "anual.explicito.trabajo.art20",
+    "kind": "anclaImporte",
+    "anchor": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 5543,
+      "end": 5557,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "text": "reduccionArt20"
+  },
+  {
+    "id": "anual.explicito.da61",
+    "kind": "anclaFuente",
+    "anchor": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 11317,
+      "end": 11565,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "text": "crearLineaCalculo({\n        siteId: \"anual.explicito.da61\",\n        instancia: 0,\n        importe: deduccion,\n        unidad: \"EUR\",\n        etiqueta: \"DA61\",\n        formula: \"deducción de servicios después del artículo 80, una sola vez\",\n      })"
+  },
+  {
+    "id": "anual.explicito.da61",
+    "kind": "anclaImporte",
+    "anchor": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 11416,
+      "end": 11425,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "text": "deduccion"
+  },
+  {
+    "id": "anual.explicito.retenciones",
+    "kind": "anclaFuente",
+    "anchor": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 11817,
+      "end": 12055,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "text": "crearLineaCalculo({\n        siteId: \"anual.explicito.retenciones\",\n        instancia: 0,\n        importe: retenciones,\n        unidad: \"EUR\",\n        etiqueta: \"Retenciones efectivas\",\n        formula: \"suma por operación única\",\n      })"
+  },
+  {
+    "id": "anual.explicito.retenciones",
+    "kind": "anclaImporte",
+    "anchor": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 11923,
+      "end": 11934,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "text": "retenciones"
+  },
+  {
+    "id": "anual.explicito.pagos",
+    "kind": "anclaFuente",
+    "anchor": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 12063,
+      "end": 12296,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "text": "crearLineaCalculo({\n        siteId: \"anual.explicito.pagos\",\n        instancia: 0,\n        importe: pagos,\n        unidad: \"EUR\",\n        etiqueta: \"Pagos fraccionados efectivos\",\n        formula: \"suma por operación única\",\n      })"
+  },
+  {
+    "id": "anual.explicito.pagos",
+    "kind": "anclaImporte",
+    "anchor": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 12163,
+      "end": 12168,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "text": "pagos"
+  },
+  {
+    "id": "anual.explicito.diferencial",
+    "kind": "anclaFuente",
+    "anchor": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 12304,
+      "end": 12564,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "text": "crearLineaCalculo({\n        siteId: \"anual.explicito.diferencial\",\n        instancia: 0,\n        importe: diferencial,\n        unidad: \"EUR\",\n        etiqueta: \"Cuota diferencial\",\n        formula: \"cuota posterior − retenciones − pagos fraccionados\",\n      })"
+  },
+  {
+    "id": "anual.explicito.diferencial",
+    "kind": "anclaImporte",
+    "anchor": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 12410,
+      "end": 12421,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "text": "diferencial"
+  },
+  {
+    "id": "anual.explicito.actividad.etapa",
+    "kind": "anclaFuente",
+    "anchor": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 7016,
+      "end": 7268,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "text": "crearLineaCalculo({\n          siteId: \"anual.explicito.actividad.etapa\",\n          instancia: instancia,\n          importe: new D(e.importe),\n          unidad: \"EUR\",\n          etiqueta: `${e.reglaId}: ${e.id}`,\n          formula: e.formula,\n        })"
+  },
+  {
+    "id": "anual.explicito.actividad.etapa",
+    "kind": "anclaImporte",
+    "anchor": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 7140,
+      "end": 7156,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "text": "new D(e.importe)"
+  }
+]

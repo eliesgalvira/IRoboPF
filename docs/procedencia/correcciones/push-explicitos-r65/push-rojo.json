@@ -1,0 +1,235 @@
+{
+  "caso": {
+    "ejercicio": 2025,
+    "comunidadAutonoma": "madrid",
+    "edad": 40,
+    "modalidad": "individual",
+    "residenciaTodoElAnio": true,
+    "devengo": "2025-12-31",
+    "otrasRentas": "ninguna",
+    "familiaresConDerechoMinimo": "ninguno",
+    "discapacidad": "ninguna",
+    "reduccionesBase": "ninguna",
+    "saldosAnteriores": "ninguno",
+    "deducciones": "solo-da61-si-procede",
+    "rentasExtranjeras": "ninguna",
+    "especialidades": "ninguna",
+    "perfil": "solo-trabajo",
+    "conciliacion": {
+      "ejercicio": 2025,
+      "estado": "totales-anuales-sin-duplicados",
+      "procedencia": [
+        "certificado-anual#2025"
+      ]
+    },
+    "trabajo": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "reduccionesArt18": "ninguna",
+      "movilidad": "ninguna",
+      "discapacidadActiva": "ninguna",
+      "rendimientos": [
+        {
+          "id": "anual",
+          "clase": "empleo-laboral",
+          "integro": "16576",
+          "cotizaciones": {
+            "clase": "efectivas",
+            "seguridadSocial": "0",
+            "derechosPasivos": "0",
+            "colegiosHuerfanos": "0"
+          },
+          "sindicato": {
+            "importe": "0",
+            "satisfecho": "no"
+          },
+          "colegio": {
+            "importe": "0",
+            "satisfecho": "no",
+            "obligatorio": "no",
+            "finesEsenciales": "no"
+          },
+          "defensa": {
+            "importe": "0",
+            "satisfecho": "no",
+            "litigioDirectoPagador": "no"
+          }
+        }
+      ]
+    },
+    "retenciones": []
+  },
+  "contexto": {
+    "route": "explicit",
+    "modo": "canonico"
+  },
+  "esperado": {
+    "pushLengths": [
+      1,
+      2
+    ],
+    "pasos": 2,
+    "lineas": [
+      5,
+      10
+    ]
+  },
+  "actual": {
+    "pushLengths": [
+      1,
+      1
+    ],
+    "pasos": 0,
+    "salidasCapturadas": 9
+  },
+  "eventosPush": [
+    {
+      "id": "push-rojo:5064",
+      "frame": "push-rojo:f117",
+      "node": "escalas:lib/dominio/irpf/trabajo-anual/conexion.ts:3692:5762:call",
+      "operation": "push-length",
+      "property": "",
+      "unit": "structural",
+      "value": 1,
+      "edges": [
+        {
+          "role": "receiver",
+          "to": "push-rojo:4220"
+        },
+        {
+          "role": "argument:0",
+          "to": "push-rojo:5062"
+        },
+        {
+          "role": "selection",
+          "to": "push-rojo:54"
+        },
+        {
+          "role": "selection",
+          "to": "push-rojo:55"
+        },
+        {
+          "role": "selection",
+          "to": "push-rojo:368"
+        },
+        {
+          "role": "selection",
+          "to": "push-rojo:670"
+        },
+        {
+          "role": "selection",
+          "to": "push-rojo:835"
+        },
+        {
+          "role": "selection",
+          "to": "push-rojo:1465"
+        },
+        {
+          "role": "selection",
+          "to": "push-rojo:3653"
+        },
+        {
+          "role": "selection",
+          "to": "push-rojo:4156"
+        }
+      ]
+    },
+    {
+      "id": "push-rojo:35623",
+      "frame": "push-rojo:f1496",
+      "node": "escalas:lib/dominio/irpf/trabajo-anual/conexion.ts:9377:12577:call",
+      "operation": "push-length",
+      "property": "",
+      "unit": "structural",
+      "value": 1,
+      "edges": [
+        {
+          "role": "receiver",
+          "to": "push-rojo:34438"
+        },
+        {
+          "role": "argument:0",
+          "to": "push-rojo:35621"
+        },
+        {
+          "role": "selection",
+          "to": "push-rojo:54"
+        },
+        {
+          "role": "selection",
+          "to": "push-rojo:55"
+        },
+        {
+          "role": "selection",
+          "to": "push-rojo:368"
+        },
+        {
+          "role": "selection",
+          "to": "push-rojo:23944"
+        }
+      ]
+    }
+  ],
+  "retorno": {
+    "id": "push-rojo:35845",
+    "frame": "push-rojo:f1",
+    "node": "escalas:lib/dominio/irpf/trabajo-anual/conexion.ts:1526:13571:function",
+    "operation": "function-return",
+    "property": "",
+    "unit": "structural",
+    "value": {
+      "_tag": "LiquidacionIrpfAnualExplicitaCalculada",
+      "perfil": "solo-trabajo",
+      "ejercicio": 2025,
+      "alcance": "individual-madrid-18-a-64-sin-familiares-ni-discapacidad",
+      "rendimientoNetoReducido": "10291",
+      "baseImponibleGeneral": "10291",
+      "baseLiquidableGeneral": "10291",
+      "baseLiquidableAhorro": "0",
+      "reduccionArt20": "4285",
+      "cuotaLiquidaLegal": "818.81475",
+      "deduccionTrabajo": "340",
+      "cuotaPosterior": "478.81475",
+      "retenciones": "0",
+      "pagosFraccionados": "0",
+      "cuotaDiferencial": "478.81475",
+      "cuotaDiferencialPresentada": "478.81",
+      "aceptacionFiscal": "pendiente",
+      "rastro": {
+        "titulo": "Liquidación anual explícita 2025",
+        "contexto": {
+          "anio": 2025,
+          "territorio": "madrid",
+          "perfilCalculo": "solo-trabajo"
+        },
+        "pasos": []
+      }
+    },
+    "edges": [
+      {
+        "role": "value",
+        "to": "push-rojo:35820"
+      },
+      {
+        "role": "identity:callee",
+        "to": "push-rojo:55"
+      },
+      {
+        "role": "selection",
+        "to": "push-rojo:54"
+      },
+      {
+        "role": "selection",
+        "to": "push-rojo:55"
+      },
+      {
+        "role": "selection",
+        "to": "push-rojo:368"
+      },
+      {
+        "role": "selection",
+        "to": "push-rojo:23944"
+      }
+    ]
+  }
+}
