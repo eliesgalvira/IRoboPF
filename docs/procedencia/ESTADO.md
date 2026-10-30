@@ -10,6 +10,8 @@ R59 entregada e integrada como candidata: diez salidas generales de rentas con l
 
 Crossa conserva v1 desfasado y V5 el corte R26. Sin main, PR, despliegue, LFS, gasto, transferencia ni limpieza. El alcance final sigue abierto hasta el informe y respaldo.
 
+Bloque respaldado en origin: `59bb5565456caa5a44078f3b9a5ac4301934fb86`, 380 archivos y cero borrados. Pasan lint global (doce avisos ESLint históricos, cero errores), tipos, 99 pruebas y 63 testigos recibidos/630 salidas. Lanzadas dos tareas separadas sobre sus 22.900 entradas, ambas gpt-6.1-sol high priority confirmados: única revisión independiente de rentas10 e implementación de escalas28. Encargos/respuestas en delegaciones-ronda60.json. No se sondea ni se lee trabajo parcial; la finalización reactivará el hilo.
+
 ## Situación anterior, ronda 59 del 30 de octubre
 
 Recibida y contrastada la revisión R58: 22.458 entradas del hijo físicamente intactas, cero borrados; reconstrucción exacta de 88 rutas e incorporación de 33 archivos. Preservadas 188 referencias técnicas. El padre reproduce las trece pruebas propias, cinco controles estructurales y compatibilidad SS con distinción de testigos históricos; tipos globales y lint correctos. Detalle en correcciones/causal-retenciones-r59.
