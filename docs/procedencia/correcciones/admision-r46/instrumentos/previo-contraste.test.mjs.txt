@@ -1,0 +1,97 @@
+import {expect,it} from 'vitest'
+import {readFileSync} from 'node:fs'
+import {gunzipSync} from 'node:zlib'
+import Decimal from 'decimal.js'
+import {Effect,Result} from 'effect'
+import {evaluateCompleteAdmission,verifyCompleteAdmission} from '../../../scripts/procedencia/flujo-admision-r36.mjs'
+import {encodeAdmissionValue,checkRuntimeDomain} from '../../../scripts/procedencia/flujo-admision-r36-runtime.mjs'
+import {evaluateRightsProgram} from '../../../scripts/procedencia/flujo-admision-r36-derechos.mjs'
+import {liquidarIrpfAnual} from '../../../lib/dominio/irpf/liquidacion/liquidar-irpf-anual'
+import {calcularDerechosMinimos,validarDerechosMinimos} from '../../../lib/dominio/irpf/minimos/derechos'
+import {MINIMOS_ESTATALES_2025} from '../../../lib/dominio/normativa/datos/minimos-autonomicos-2025'
+import {base,ret,derechos} from '../../../docs/procedencia/revisiones/admision-anual-r34-sol/fixtures.mjs'
+import {synthetic} from './puertos.mjs'
+const f=JSON.parse(gunzipSync(readFileSync('docs/procedencia/implementaciones/admision-completa-r36-sol/fragmento.json.gz')))
+const run=(caso=base,ports=synthetic(),entry='liquidarIrpfAnual')=>evaluateCompleteAdmission(f,entry,[caso,{modo:'canonico'}],ports)
+const actual=caso=>Effect.runSync(Effect.result(liquidarIrpfAnual(caso,{modo:'canonico'})))
+for(const first of [null,undefined])it(`independiente Option primera ${first}`,()=>{
+ const caso={...base,deducciones:[first,{codigo:'no-se-debe-leer'}]};const r=run(caso);expect(r.outcome,r.reason).toBe('success');expect(Result.isSuccess(actual(caso))).toBe(true)
+ expect(r.trace.filter(t=>t.op==='get'&&t.key===1)).toEqual([])
+})
+for(const amount of [-1,0,1])it(`agregado independiente del catálogo ${amount}`,()=>{
+ const r=run({...base,deduccionAutonomicaAgregadaCentimos:amount});expect(r.outcome,r.reason).toBe('success');expect(r.trace.some(t=>t.op==='get'&&t.key==='deduccionAutonomicaAgregadaCentimos'&&t.value===amount)).toBe(true)
+})
+for(const amount of [799999,800000,800001])it(`derechos renta seleccionada ${amount}`,()=>{
+ const input=structuredClone(derechos);input.descendientes[0].rentasNoExentasCentimos=amount
+ const oracle=Effect.runSync(Effect.result(calcularDerechosMinimos(input,MINIMOS_ESTATALES_2025)))
+ expect(Result.isSuccess(oracle)).toBe(true)
+ const r=evaluateRightsProgram(f.rights,'calcularDerechosMinimos',[input]);expect(r.outcome,r.reason).toBe('success');expect(r.value).toHaveLength(amount<=800000?1:0)
+ if(Result.isSuccess(oracle))expect(oracle.success.atribuciones).toHaveLength(r.value.length)
+})
+for(const date of ['2017-02-29','2016-02-29','2017-12-31'])it(`fecha y edad propia ${date}`,()=>{
+ const input=structuredClone(derechos);input.descendientes[0].fechaNacimiento=date;input.descendientes[0].edadDevengo=2025-Number(date.slice(0,4))
+ const native=Effect.runSync(Effect.result(validarDerechosMinimos(input)));const r=evaluateRightsProgram(f.rights,'validarDerechosMinimos',[input]);expect(r.outcome,r.reason).toBe(Result.isSuccess(native)?'success':'reject');if(Result.isFailure(native))expect(r.reason).toBe(native.failure.motivo)
+})
+it('cero anual, ausencia de retención y fallo tardío son tres caminos',()=>{
+ const zero=run({...base,rendimientos:{trabajo:[]}});expect(zero.outcome,zero.reason).toBe('success');expect(zero.sites).toHaveLength(13)
+ const retained=run({...base,retencionTrabajoAeat:ret});expect(retained.outcome,retained.reason).toBe('success');expect(retained.sites).toHaveLength(17)
+ const failed=run({...base,retencionTrabajoAeat:{...ret,procedimiento:'regularizacion'}});expect(failed.outcome).toBe('reject');expect(failed.sites).toEqual([])
+})
+it('recibo real fijado antes de ejecutar y adversos de año/modo/orden',()=>{
+ const native=actual(base);expect(Result.isSuccess(native)).toBe(true);if(Result.isFailure(native))throw Error('No se obtuvo recibo real')
+ const option=native.success.conciliacionSimuladorLegacy
+ const value={...native.success,conciliacionSimuladorLegacy:option._tag==='Some'?{_tag:'Some',value:option.value}:{_tag:'None'}}
+ const node=f.boundaries.find(b=>b.name==='LiquidacionIrpfAnual.liquidar').instances[0].node
+ const evidence={'LiquidacionIrpfAnual.liquidar':{outcome:'success',node,arguments:encodeAdmissionValue([base,{modo:'canonico'}]),value}}
+ expect(run(base,evidence,'liquidarIrpfAnualDesdeServicio').outcome).toBe('success')
+ for(const args of [[{...base,anio:2024},{modo:'canonico'}],[base,{modo:'compatible-legacy'}],[{...base,retencionesSoportadasCentimos:base.pagosACuentaCentimos,pagosACuentaCentimos:base.retencionesSoportadasCentimos},{modo:'canonico'}],[{modo:'canonico'},base]])expect(evaluateCompleteAdmission(f,'liquidarIrpfAnualDesdeServicio',args,evidence).outcome).toBe('pending')
+})
+for(const [left,right] of [[undefined,{kind:'undefined'}],[new Decimal(7),{kind:'Decimal',value:'7'}],[new Date(0),{kind:'Date',value:0}],[NaN,{kind:'number',value:'NaN'}]])it(`ROJO codec sin colisiones ${String(left)}`,()=>{
+ checkRuntimeDomain(left);checkRuntimeDomain(right);expect(encodeAdmissionValue(left)).not.toEqual(encodeAdmissionValue(right))
+})
+it('ROJO subclase de array fuera del dominio anunciado',()=>{
+ class Derived extends Array {}
+ expect(()=>checkRuntimeDomain(new Derived(1,2))).toThrow('Subclase')
+})
+for(const [name,value] of [['obtenerEscalaAutonomicaPublicada',17],['calcularDesgloseCuotaPorEscala',[{}]],['calcularDesgloseCuotaPorEscalaGeneral',[{}]],['calcularDesgloseCuotaPorEscalaAhorro',[{}]]])it(`ROJO salida estructural insuficiente ${name}`,()=>{
+ let reached=false;const ports=synthetic({[name]:(args,call)=>{reached=true;return {outcome:'success',value,node:call.node,arguments:encodeAdmissionValue(args)}}})
+ const r=run(name==='calcularDesgloseCuotaPorEscalaGeneral'?{...base,comunidadAutonoma:'simulada-estatal'}:base,ports);expect(reached).toBe(true);expect(r.outcome,r.reason).toBe('defect')
+})
+it('tres correcciones unidades/proveedor resisten sin pin',()=>{
+ for(const mutate of [g=>{g.conversions[0].input.unit='EUR'},g=>{const b=g.boundaries[0];b.outputs[0].unit='centimos';for(const i of b.instances)i.outputs[0].unit='centimos'},g=>{g.services[0].arguments[0].fields.find(p=>p.name==='parametrosNormativos').value.fields.find(p=>p.name==='minimosEstatales2025').value.key='lib/dominio/normativa/datos/minimos-autonomicos-2024.ts#MINIMOS_ESTATALES_2024'}]){const g=structuredClone(f);mutate(g);expect(()=>verifyCompleteAdmission(g)).toThrow()}
+})
+it('no promover cierre wiring o aceptación',()=>{
+ for(const key of ['wiringAllowed','completeRuleAcceptance']){const g=structuredClone(f);g[key]=true;expect(()=>verifyCompleteAdmission(g)).toThrow()}
+ const g=structuredClone(f);g.sites[0].admissionClosed=true;expect(()=>verifyCompleteAdmission(g)).toThrow()
+})
+it('ROJO recibo anual de otra llamada tipada con campo no enumerable distinto',()=>{
+ const first={...base},second={...base}
+ Object.defineProperty(first,'retencionesSoportadasCentimos',{value:1,enumerable:false})
+ Object.defineProperty(second,'retencionesSoportadasCentimos',{value:2,enumerable:false})
+ checkRuntimeDomain(first);checkRuntimeDomain(second)
+ const a=actual(first),b=actual(second);expect(Result.isSuccess(a)&&Result.isSuccess(b)).toBe(true)
+ if(Result.isFailure(a)||Result.isFailure(b))throw Error('No se obtuvo DTO real')
+ expect(a.success.retencionesYPagosACuentaCentimos).not.toBe(b.success.retencionesYPagosACuentaCentimos)
+ const option=a.success.conciliacionSimuladorLegacy
+ const value={...a.success,conciliacionSimuladorLegacy:option._tag==='Some'?{_tag:'Some',value:option.value}:{_tag:'None'}}
+ const evidence={'LiquidacionIrpfAnual.liquidar':{outcome:'success',node:f.boundaries.find(b=>b.name==='LiquidacionIrpfAnual.liquidar').instances[0].node,arguments:encodeAdmissionValue([first,{modo:'canonico'}]),value}}
+ expect(run(first,evidence,'liquidarIrpfAnualDesdeServicio').outcome).toBe('success')
+ expect(run(second,evidence,'liquidarIrpfAnualDesdeServicio').outcome).toBe('pending')
+})
+it('capas: ancla desplazada pasa coherencia, no acredita correspondencia exacta',()=>{
+ const altered=structuredClone(f);altered.graph.anchors[0].start+=1
+ expect(verifyCompleteAdmission(altered)).toBe(true)
+})
+it('ROJO todas las anclas UTF-16 caben en su archivo real',()=>{
+ const invalid=f.graph.anchors.filter(a=>a.end>readFileSync(a.path,'utf8').length)
+ expect(invalid).toEqual([])
+})
+it('ROJO mínimos conserva incremento de selección además de sujeto/divisor',()=>{
+ const input=structuredClone(derechos);const child=input.descendientes[0];child.fechaNacimiento='2023-12-31';child.edadDevengo=2;child.titulares[0].rentasNoExentasCentimos=0
+ const oracle=Effect.runSync(Effect.result(calcularDerechosMinimos(input,MINIMOS_ESTATALES_2025)));expect(Result.isSuccess(oracle)).toBe(true);if(Result.isFailure(oracle))throw Error(oracle.failure.motivo)
+ expect(oracle.success.atribuciones[0].incremento).toBe(true)
+ const value={...oracle.success,atribuciones:oracle.success.atribuciones.map(a=>({...a,incremento:false}))}
+ let reached=0
+ const ports=synthetic({calcularDerechosMinimos:(args,call)=>{reached++;return {outcome:'success',value,node:call.node,arguments:encodeAdmissionValue(args)}}})
+ const r=run({...base,derechosMinimos:input},ports);expect(reached).toBe(2);expect(r.outcome,r.reason).toBe('defect')
+})

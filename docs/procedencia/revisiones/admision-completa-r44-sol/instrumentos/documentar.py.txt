@@ -1,0 +1,27 @@
+from pathlib import Path
+import json,hashlib,gzip,shutil
+r=Path.cwd();s=r/'.cache/revision-admision-completa-r44-sol';d=r/'docs/procedencia/revisiones/admision-completa-r44-sol'
+findings=[('R44-A01','blocking','Identidad de recibos: colisiones y omisión de propiedades no enumerables','success','pending',['R36-01','R36-04','R36-05','R36-06'],'El dominio podría limitarse a datos JSON enumerables.','Ese límite no está comprobado y Decimal/Date requieren codificación propia.','Versionar codec/recibos y revisar transporte.'),('R44-A02','blocking','optional-object permite número 17 como escala publicada','success','defect',['R36-05','R36-06'],'La composición futura puede entregar una escala auténtica.','No es garantía de esta frontera; el recibo actual es suficiente para success.','Contrato por variante y propiedades sin resolver aquí cuotas.'),('R44-A03','medium','Array subclass pasa dominio que anuncia excluir subclases','accepted-domain','pending',['R36-01','R36-05'],'El array derivado puede ser benigno.','La garantía es exclusión ejecutable del dominio, no benignidad de este ejemplo.','Restringir o revisar y documentar métodos heredados.'),('R44-A04','high','Dos anclas globales exceden longitud de su fuente','empty-source','exact-source-span',['R36-01','R36-02'],'El pin fija esas referencias.','Fija también su origen equivocado; no recupera el texto.','Nueva edición con origen correcto y revisión.'),('R44-A05','high','incremento de mínimos falso contradice menor de tres años','success','defect',['R36-01','R36-05','R36-06'],'El booleano podría dejarse al puerto monetario.','No se conserva entonces toda selección sin evidencia adicional.','Contrato finito edad/fecha o pending, sin validar cantidades.')]
+(d/'HALLAZGOS.json').write_text(json.dumps([dict(id=i,severity=sev,summary=t,observed=o,expected=e,families=f,status='reproducido-candidato-requiere-contraste-del-padre',fiscalDefect=False,objection=ob,response=re,cost=co,productFixed=False,completeRuleAcceptance=False) for i,sev,t,o,e,f,ob,re,co in findings],indent=2,ensure_ascii=False))
+fams=[('R36-01','parcial-insuficiente',['R44-A01','R44-A03','R44-A04','R44-A05']),('R36-02','corroboracion-tecnica-condicionada',['R44-A04']),('R36-03','corroboracion-seleccion-software-condicionada',[]),('R36-04','parcial-condicionada-recibos',['R44-A01']),('R36-05','no-suficiente',['R44-A01','R44-A02','R44-A03','R44-A05']),('R36-06','orden-parcial-corroborado-sin-cierre-conjunto',['R44-A01','R44-A02','R44-A05']),('RA34-01','parcialmente-resuelta-con-reservas-r44',['R44-A01','R44-A04','R44-A05']),('RA34-02','sustitucion-r36-corroborada-en-conducta',[]),('RA34-04','pendientes-y-false-corroborados-sin-equiparar-capas',[])]
+(d/'DECISIONES.json').write_text(json.dumps([dict(id=i,verdict=v,findings=f,review='requiere-contraste-del-padre',objection='Una representación ejecutable y sus pases pueden conservar dependencias insuficientes.',response='Separar selección/orden corroborados de identidad, contratos y aceptación; reproducir contra TS real.',cost='Nueva implementación de defectos y composición revisada antes de promover.',fiscalAcceptance=False,wiringAllowed=False)for i,v,f in fams],indent=2,ensure_ascii=False))
+summary={};cases=[]
+for name,code,kind in [('propios-final',1,'independiente'),('autor',0,'repeticion-autor-incluye-regresion'),('historicos',1,'historico-no-modificado')]:
+ report=json.loads((s/(name+'.json')).read_text());summary[name]={'exit':code,'total':report['numTotalTests'],'passed':report['numPassedTests'],'failed':report['numFailedTests'],'coverage':kind}
+ for suite in report['testResults']:
+  for case in suite['assertionResults']:cases.append(dict(group=name,name=case['fullName'],status=case['status'],failures=case['failureMessages'],oracle='TS real o contraprueba de contrato; sintéticos declarados' if name=='propios-final' else 'esperados recibidos sin modificar'))
+for name in ['tipos-final','lint','autonomo','anclas']:summary[name]={'exit':0,'log':name+'.log'}
+summary['tipos-inicial']={'exit':2,'reason':'effect/globalDate en instrumento propio; corregido DateTime sin cambiar esperados'}
+(d/'VALIDACION.json').write_text(json.dumps(summary,indent=2,ensure_ascii=False));(d/'CASOS.json').write_text(json.dumps(cases,indent=2,ensure_ascii=False))
+for name in ['autor','historicos','propios-final']:
+ shutil.copyfile(s/(name+'.json'),d/(name+'.json'))
+for name in ['propios-terminal','autor','historicos','tipos-final','lint','autonomo','anclas']:shutil.copyfile(s/(name+'.log'),d/(name+'.log'))
+(d/'instrumentos').mkdir(exist_ok=True)
+for p in s.iterdir():
+ if p.is_file() and p.suffix in ['.py','.mjs'] or p.name in ['tsconfig.json','oxlint.json']:
+  shutil.copyfile(p,d/'instrumentos'/(p.name+'.txt'))
+for p in list(d.rglob('*')):
+ if p.is_file() and p.stat().st_size>1000000:
+  # No eliminar original: conservar bytes en scratch y dejar referencia comprimida.
+  if p.suffix!='.gz':
+   (s/(p.name+'.original')).write_bytes(p.read_bytes());(p.parent/(p.name+'.gz')).write_bytes(gzip.compress(p.read_bytes(),mtime=0))

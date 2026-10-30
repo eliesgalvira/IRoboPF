@@ -1,0 +1,38 @@
+--- reproduccion-con-artefacto-historico
++++ candidato-actual-y-rechazo-temprano
+@@ -1,9 +1,8 @@
+ import {expect,it} from 'vitest'
+ import {readFileSync} from 'node:fs'
+-import {gunzipSync} from 'node:zlib'
+ import Decimal from 'decimal.js'
+ import {Effect,Result} from 'effect'
+-import {evaluateCompleteAdmission,verifyCompleteAdmission} from '../../../scripts/procedencia/flujo-admision-r36.mjs'
++import {buildCompleteAdmission,evaluateCompleteAdmission,verifyCompleteAdmission} from '../../../scripts/procedencia/flujo-admision-r36.mjs'
+ import {encodeAdmissionValue,checkRuntimeDomain} from '../../../scripts/procedencia/flujo-admision-r36-runtime.mjs'
+ import {evaluateRightsProgram} from '../../../scripts/procedencia/flujo-admision-r36-derechos.mjs'
+ import {liquidarIrpfAnual} from '../../../lib/dominio/irpf/liquidacion/liquidar-irpf-anual'
+@@ -11,7 +10,7 @@
+ import {MINIMOS_ESTATALES_2025} from '../../../lib/dominio/normativa/datos/minimos-autonomicos-2025'
+ import {base,ret,derechos} from '../../../docs/procedencia/revisiones/admision-anual-r34-sol/fixtures.mjs'
+ import {synthetic} from './puertos.mjs'
+-const f=JSON.parse(gunzipSync(readFileSync('docs/procedencia/implementaciones/admision-completa-r36-sol/fragmento.json.gz')))
++const f=buildCompleteAdmission()
+ const run=(caso=base,ports=synthetic(),entry='liquidarIrpfAnual')=>evaluateCompleteAdmission(f,entry,[caso,{modo:'canonico'}],ports)
+ const actual=caso=>Effect.runSync(Effect.result(liquidarIrpfAnual(caso,{modo:'canonico'})))
+ for(const first of [null,undefined])it(`independiente Option primera ${first}`,()=>{
+@@ -80,7 +79,7 @@
+ })
+ it('capas: ancla desplazada pasa coherencia, no acredita correspondencia exacta',()=>{
+  const altered=structuredClone(f);altered.graph.anchors[0].start+=1
+- expect(verifyCompleteAdmission(altered)).toBe(true)
++ expect(()=>verifyCompleteAdmission(altered)).toThrow('Ancla')
+ })
+ it('ROJO todas las anclas UTF-16 caben en su archivo real',()=>{
+  const invalid=f.graph.anchors.filter(a=>a.end>readFileSync(a.path,'utf8').length)
+@@ -93,5 +92,5 @@
+  const value={...oracle.success,atribuciones:oracle.success.atribuciones.map(a=>({...a,incremento:false}))}
+  let reached=0
+  const ports=synthetic({calcularDerechosMinimos:(args,call)=>{reached++;return {outcome:'success',value,node:call.node,arguments:encodeAdmissionValue(args)}}})
+- const r=run({...base,derechosMinimos:input},ports);expect(reached).toBe(2);expect(r.outcome,r.reason).toBe('defect')
++ const r=run({...base,derechosMinimos:input},ports);expect(reached).toBe(1);expect(r.outcome,r.reason).toBe('defect')
+ })

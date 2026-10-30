@@ -1,0 +1,383 @@
+{
+  "artifactSha256": "9d8f62076250c197e6fd840ac5b336306dc5cdcb3ff6a183ec8892604ac29b9a",
+  "dependencies": [
+    {
+      "path": "scripts/procedencia/flujo-admision-r36.mjs",
+      "size": 10273,
+      "sha256": "0a40bc38bdbed33bf2098def86bbddb2c689c11d6065eb489f34c8206996d257",
+      "sha512": "131e1c4fed932c9dc55e17af0b87941f20aee9a8c745d1e74452b5fed252ca52090193852058dea0cf15d1123701bb6c391f4f5d456ef247b11423c39a630ba7"
+    },
+    {
+      "path": "scripts/procedencia/flujo-admision-r36-runtime.mjs",
+      "size": 22631,
+      "sha256": "2ed6fffae1c812265f3947c0b6942597ba410c51aa3151796ecc8116f90becb9",
+      "sha512": "7f6c54cb04fad9dc05279b547b9a246ffff59f226d52c108155e6d709b2605002da5aa882e3e13f520e9074955cbe59063457d3b12fd423bc8e719828d274ebb"
+    },
+    {
+      "path": "scripts/procedencia/flujo-admision-r36-compilador.mjs",
+      "size": 22647,
+      "sha256": "305f9499cbdf21ba9ae8bbac2ba5062070093cee7fd4bb11f324a20bdfdcf07b",
+      "sha512": "20f2831143ea29af40364457b812a5168b81e0f2d7a31df16ae5fc43ecf1868c9f45dd6740a518dcc754ef9b881cd05ef72c023a8a3be4cd5f07098567d9a83e"
+    },
+    {
+      "path": "scripts/procedencia/flujo-admision-r36-verificador.mjs",
+      "size": 12138,
+      "sha256": "ce30fa8b5ab9ef72f0c234098676626cd6deb0b39ea260c258a11bec2dba5cdc",
+      "sha512": "84d88f33c258114860c9bc11da194a784ff28708ac2344b7f5677d9c84ad20a7eedff5ebe5518f80f39110764d67719ecc70f27c1fc1b101c4142b657fcbf881"
+    },
+    {
+      "path": "scripts/procedencia/flujo-admision-r36-derechos.mjs",
+      "size": 5809,
+      "sha256": "d600c0f161eff06c92aaf7a6e463f2ec7b20999ceee98b911fac69972418f68c",
+      "sha512": "faef61f08a4428ad6fe557d01a02dadccfd22777e640a6a2c3bce393ea9cd321df3097c72ed5528bdfb7130c9ddbb67aa93d6a895fc195a8fd775f3a0715deae"
+    },
+    {
+      "path": "schemas/procedencia/flujo/admision-r36.schema.json",
+      "size": 68168,
+      "sha256": "db8b8f89f8320ff6d4e1e676a885f1902f600b22ec6381cbbd0d50de27dbd142",
+      "sha512": "79b84048f4b80571bb46fae01ba3725659dde545e8ac48a5b63d60dc104ca62ccc5cc715fe834a32c638e879a4d8a310a7a0d3bf34e04e8c8fc7f0a110f13044"
+    },
+    {
+      "path": "tests/admision-r46.test.ts",
+      "size": 5014,
+      "sha256": "f4f1dc14466d42e4f4090aee6c3951259bae5f4baef554d1dadca6c01a6a3875",
+      "sha512": "3f139ebae5b0b1d9e9245d6979700436b1b1285ac3bef596733516bdbe294c051d133a62571acec8e1730a19ac6769fb2f201c00758afa28cd3b39f9676298f6"
+    }
+  ],
+  "graphNodes": 27379,
+  "rightsNodes": 716,
+  "sites": 17,
+  "selectionRoot": {
+    "path": "lib/dominio/irpf/minimos/derechos.ts",
+    "name": "seleccionarIncrementoDerechos",
+    "value": {
+      "id": "r36-27378",
+      "op": "lambda",
+      "params": [
+        {
+          "binding": {
+            "fields": [
+              {
+                "key": "descendiente",
+                "binding": {
+                  "name": "d"
+                },
+                "rest": false,
+                "fallback": null
+              },
+              {
+                "key": "titulares",
+                "binding": {
+                  "name": "titulares"
+                },
+                "rest": false,
+                "fallback": null
+              }
+            ]
+          },
+          "fallback": null,
+          "rest": false
+        },
+        {
+          "binding": {
+            "name": "caso"
+          },
+          "fallback": null,
+          "rest": false
+        }
+      ],
+      "body": [
+        {
+          "id": "r36-27337",
+          "op": "bind",
+          "binding": {
+            "name": "titular"
+          },
+          "value": {
+            "id": "r36-27336",
+            "op": "call",
+            "callee": {
+              "id": "r36-27326",
+              "op": "get",
+              "target": {
+                "id": "r36-27324",
+                "op": "local",
+                "name": "titulares"
+              },
+              "key": {
+                "id": "r36-27325",
+                "op": "literal",
+                "value": "find"
+              },
+              "optional": false
+            },
+            "args": [
+              {
+                "id": "r36-27335",
+                "op": "lambda",
+                "params": [
+                  {
+                    "binding": {
+                      "name": "t"
+                    },
+                    "fallback": null,
+                    "rest": false
+                  }
+                ],
+                "body": [
+                  {
+                    "id": "r36-27334",
+                    "op": "return",
+                    "value": {
+                      "id": "r36-27333",
+                      "op": "binary",
+                      "operator": "===",
+                      "left": {
+                        "id": "r36-27329",
+                        "op": "get",
+                        "target": {
+                          "id": "r36-27327",
+                          "op": "local",
+                          "name": "t"
+                        },
+                        "key": {
+                          "id": "r36-27328",
+                          "op": "literal",
+                          "value": "titularId"
+                        },
+                        "optional": false
+                      },
+                      "right": {
+                        "id": "r36-27332",
+                        "op": "get",
+                        "target": {
+                          "id": "r36-27330",
+                          "op": "local",
+                          "name": "caso"
+                        },
+                        "key": {
+                          "id": "r36-27331",
+                          "op": "literal",
+                          "value": "contribuyenteId"
+                        },
+                        "optional": false
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "r36-27361",
+          "op": "bind",
+          "binding": {
+            "name": "inicio"
+          },
+          "value": {
+            "id": "r36-27360",
+            "op": "choose",
+            "condition": {
+              "id": "r36-27346",
+              "op": "binary",
+              "operator": "&&",
+              "left": {
+                "id": "r36-27340",
+                "op": "binary",
+                "operator": "!==",
+                "left": {
+                  "id": "r36-27338",
+                  "op": "local",
+                  "name": "titular"
+                },
+                "right": {
+                  "id": "r36-27339",
+                  "op": "builtin",
+                  "name": "undefined"
+                }
+              },
+              "right": {
+                "id": "r36-27345",
+                "op": "binary",
+                "operator": "in",
+                "left": {
+                  "id": "r36-27341",
+                  "op": "literal",
+                  "value": "fechaInicioIncremento"
+                },
+                "right": {
+                  "id": "r36-27344",
+                  "op": "get",
+                  "target": {
+                    "id": "r36-27342",
+                    "op": "local",
+                    "name": "titular"
+                  },
+                  "key": {
+                    "id": "r36-27343",
+                    "op": "literal",
+                    "value": "vinculo"
+                  },
+                  "optional": false
+                }
+              }
+            },
+            "yes": {
+              "id": "r36-27358",
+              "op": "call",
+              "callee": {
+                "id": "r36-27347",
+                "op": "builtin",
+                "name": "Number"
+              },
+              "args": [
+                {
+                  "id": "r36-27357",
+                  "op": "call",
+                  "callee": {
+                    "id": "r36-27354",
+                    "op": "get",
+                    "target": {
+                      "id": "r36-27352",
+                      "op": "get",
+                      "target": {
+                        "id": "r36-27350",
+                        "op": "get",
+                        "target": {
+                          "id": "r36-27348",
+                          "op": "local",
+                          "name": "titular"
+                        },
+                        "key": {
+                          "id": "r36-27349",
+                          "op": "literal",
+                          "value": "vinculo"
+                        },
+                        "optional": false
+                      },
+                      "key": {
+                        "id": "r36-27351",
+                        "op": "literal",
+                        "value": "fechaInicioIncremento"
+                      },
+                      "optional": false
+                    },
+                    "key": {
+                      "id": "r36-27353",
+                      "op": "literal",
+                      "value": "slice"
+                    },
+                    "optional": false
+                  },
+                  "args": [
+                    {
+                      "id": "r36-27355",
+                      "op": "literal",
+                      "value": 0
+                    },
+                    {
+                      "id": "r36-27356",
+                      "op": "literal",
+                      "value": 4
+                    }
+                  ]
+                }
+              ]
+            },
+            "no": {
+              "id": "r36-27359",
+              "op": "literal",
+              "value": 0
+            }
+          }
+        },
+        {
+          "id": "r36-27375",
+          "op": "bind",
+          "binding": {
+            "name": "incremento"
+          },
+          "value": {
+            "id": "r36-27374",
+            "op": "binary",
+            "operator": "||",
+            "left": {
+              "id": "r36-27366",
+              "op": "binary",
+              "operator": "<",
+              "left": {
+                "id": "r36-27364",
+                "op": "get",
+                "target": {
+                  "id": "r36-27362",
+                  "op": "local",
+                  "name": "d"
+                },
+                "key": {
+                  "id": "r36-27363",
+                  "op": "literal",
+                  "value": "edadDevengo"
+                },
+                "optional": false
+              },
+              "right": {
+                "id": "r36-27365",
+                "op": "literal",
+                "value": 3
+              }
+            },
+            "right": {
+              "id": "r36-27373",
+              "op": "binary",
+              "operator": "&&",
+              "left": {
+                "id": "r36-27369",
+                "op": "binary",
+                "operator": ">=",
+                "left": {
+                  "id": "r36-27367",
+                  "op": "local",
+                  "name": "inicio"
+                },
+                "right": {
+                  "id": "r36-27368",
+                  "op": "literal",
+                  "value": 2023
+                }
+              },
+              "right": {
+                "id": "r36-27372",
+                "op": "binary",
+                "operator": "<=",
+                "left": {
+                  "id": "r36-27370",
+                  "op": "local",
+                  "name": "inicio"
+                },
+                "right": {
+                  "id": "r36-27371",
+                  "op": "literal",
+                  "value": 2025
+                }
+              }
+            }
+          }
+        },
+        {
+          "id": "r36-27377",
+          "op": "return",
+          "value": {
+            "id": "r36-27376",
+            "op": "local",
+            "name": "incremento"
+          }
+        }
+      ]
+    }
+  },
+  "codec": "admission-value-v2",
+  "verified": true,
+  "completeRuleAcceptance": false,
+  "wiringAllowed": false
+}
