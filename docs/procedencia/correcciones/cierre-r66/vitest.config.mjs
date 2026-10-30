@@ -1,0 +1,1 @@
+export default {root: '/home/local/Repos/IRoboPF',cacheDir:'/home/local/Repos/IRoboPF/.cache/orquestador-recepcion/r66/vite',test:{include:['.cache/orquestador-recepcion/r66/independiente.test.mjs'],cache:false,maxWorkers:1,testTimeout:600000}};
