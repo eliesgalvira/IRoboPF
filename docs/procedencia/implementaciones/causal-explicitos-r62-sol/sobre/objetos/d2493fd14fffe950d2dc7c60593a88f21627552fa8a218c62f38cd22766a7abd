@@ -1,0 +1,33 @@
+{
+  "extends": "/home/local/.ws/worktrees/IRoboPF/t3-175d5d6e/tsconfig.json",
+  "compilerOptions": {
+    "incremental": false,
+    "baseUrl": "/home/local/.ws/worktrees/IRoboPF/t3-175d5d6e",
+    "paths": {
+      "@/*": [
+        "/home/local/.ws/worktrees/IRoboPF/t3-175d5d6e/*"
+      ],
+      "*": [
+        "/home/local/Repos/IRoboPF/node_modules/*"
+      ],
+      "effect": [
+        "/home/local/Repos/IRoboPF/node_modules/effect/dist/index.d.ts"
+      ],
+      "effect/*": [
+        "/home/local/Repos/IRoboPF/node_modules/effect/dist/*.d.ts"
+      ]
+    },
+    "typeRoots": [
+      "/home/local/Repos/IRoboPF/node_modules/@types"
+    ],
+    "checkJs": true
+  },
+  "include": [
+    "/home/local/.ws/worktrees/IRoboPF/t3-175d5d6e/scripts/procedencia/causal-explicitos-r62*.mjs",
+    "/home/local/.ws/worktrees/IRoboPF/t3-175d5d6e/scripts/procedencia/flujo-rentas-r36-consumidor.mjs"
+  ],
+  "exclude": [
+    "/home/local/.ws/worktrees/IRoboPF/t3-175d5d6e/.cache",
+    "/home/local/.ws/worktrees/IRoboPF/t3-175d5d6e/tools/oxlint/anti-slop"
+  ]
+}

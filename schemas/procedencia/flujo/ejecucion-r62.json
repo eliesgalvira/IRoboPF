@@ -1,0 +1,314 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "kind",
+    "execution",
+    "program",
+    "sources",
+    "software",
+    "input",
+    "context",
+    "frames",
+    "events",
+    "annualBindings",
+    "outputs",
+    "admissionClosed",
+    "siteClosed",
+    "wiringAllowed",
+    "completeRuleAcceptance"
+  ],
+  "properties": {
+    "version": {
+      "const": 5
+    },
+    "kind": {
+      "const": "causal-explicitos-r62"
+    },
+    "execution": {
+      "type": "string"
+    },
+    "program": {
+      "type": "string"
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "file",
+          "sha256"
+        ],
+        "properties": {
+          "file": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "software": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "file",
+          "sha256"
+        ],
+        "properties": {
+          "file": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "input": {
+      "type": "object"
+    },
+    "context": {
+      "type": "object"
+    },
+    "frames": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "parent",
+          "call",
+          "function"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "call": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "function": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "frame",
+          "node",
+          "operation",
+          "property",
+          "unit",
+          "value",
+          "edges"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "frame": {
+            "type": "string"
+          },
+          "node": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "operation": {
+            "type": "string"
+          },
+          "property": {
+            "type": "string"
+          },
+          "unit": {
+            "type": "string"
+          },
+          "value": {
+            "$ref": "#/$defs/value"
+          },
+          "edges": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "role",
+                "to"
+              ],
+              "properties": {
+                "role": {
+                  "type": "string"
+                },
+                "to": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "annualBindings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "producer",
+          "frame"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "producer": {
+            "type": "string"
+          },
+          "frame": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "outputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "siteId",
+          "decimal",
+          "display",
+          "root",
+          "slice",
+          "instanceId",
+          "unit"
+        ],
+        "properties": {
+          "siteId": {
+            "enum": [
+              "anual.explicito.trabajo.integro",
+              "anual.explicito.trabajo.gastos-a-e",
+              "anual.explicito.trabajo.gasto-f",
+              "anual.explicito.trabajo.art19",
+              "anual.explicito.trabajo.art20",
+              "anual.explicito.da61",
+              "anual.explicito.retenciones",
+              "anual.explicito.pagos",
+              "anual.explicito.diferencial",
+              "anual.explicito.actividad.etapa"
+            ]
+          },
+          "decimal": {
+            "type": "string"
+          },
+          "display": {
+            "type": "string"
+          },
+          "root": {
+            "type": "string"
+          },
+          "slice": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "instanceId": {
+            "type": "string"
+          },
+          "unit": {
+            "const": "EUR"
+          }
+        }
+      }
+    },
+    "admissionClosed": {
+      "const": false
+    },
+    "siteClosed": {
+      "const": false
+    },
+    "wiringAllowed": {
+      "const": false
+    },
+    "completeRuleAcceptance": {
+      "const": false
+    }
+  },
+  "$defs": {
+    "value": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/value"
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/value"
+          }
+        }
+      ]
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:irobopf:ejecucion-r60"
+}

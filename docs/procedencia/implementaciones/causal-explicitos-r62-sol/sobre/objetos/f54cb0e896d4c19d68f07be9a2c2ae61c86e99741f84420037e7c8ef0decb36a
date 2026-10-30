@@ -1,0 +1,2465 @@
+{
+  "caso": {
+    "ejercicio": 2025,
+    "comunidadAutonoma": "madrid",
+    "edad": 40,
+    "modalidad": "individual",
+    "residenciaTodoElAnio": true,
+    "devengo": "2025-12-31",
+    "otrasRentas": "ninguna",
+    "familiaresConDerechoMinimo": "ninguno",
+    "discapacidad": "ninguna",
+    "reduccionesBase": "ninguna",
+    "saldosAnteriores": "ninguno",
+    "deducciones": "solo-da61-si-procede",
+    "rentasExtranjeras": "ninguna",
+    "especialidades": "ninguna",
+    "perfil": "solo-actividad-eds",
+    "actividad": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "individual": true,
+      "actividadId": "profesion",
+      "iae": "servicios",
+      "fechaInicio": "2025-01-01",
+      "fechaFin": "2025-12-31",
+      "serviciosOrdinarios": true,
+      "hechos": {
+        "otrasActividades": false,
+        "otrasRentas": false,
+        "existencias": false,
+        "empleados": false,
+        "artistica": false,
+        "irregular": false,
+        "subvenciones": false,
+        "transmisiones": false,
+        "extranjero": false,
+        "mutualidad": false,
+        "especialidadesTerritoriales": false,
+        "saldosPendientes": false,
+        "serviciosGratuitos": false,
+        "autoconsumo": false,
+        "noFacturados": false,
+        "subvalorados": false,
+        "trade": false,
+        "hechosDesconocidos": false
+      },
+      "historial": [],
+      "actividadPreviaAlInicio": "ausente",
+      "regimen2025": "eds",
+      "criterio2025": "devengo",
+      "documentoCriterio2025": "alta",
+      "renuncia2025": false,
+      "exclusion2025": false,
+      "volumen2024": "0",
+      "diasActividad2024": 0,
+      "documentoVolumen2024": "sin-actividad",
+      "clientes": [
+        {
+          "id": "cliente",
+          "vinculado": false,
+          "empleadorEnAnioAnteriorAlInicio": false,
+          "documento": "contrato"
+        }
+      ],
+      "ingresos": [
+        {
+          "id": "factura",
+          "justificante": "f",
+          "fecha": "2025-06-01",
+          "base": "31000",
+          "iva": "0",
+          "ivaRecuperable": "0",
+          "afectacionExclusiva": true,
+          "registrado": true,
+          "categoria": "servicio",
+          "clienteId": "cliente",
+          "sujetoRetencion": true,
+          "rectificativa": false
+        }
+      ],
+      "gastos": [],
+      "reta": [],
+      "activos": [],
+      "obligacionesFormales": true,
+      "documentoObligaciones": "libros",
+      "discapacidad": {
+        "grado": 0,
+        "ayudaOMovilidad": false,
+        "ejercicioEfectivo": true,
+        "documento": "sin-discapacidad"
+      },
+      "opcion": "gastos-dificiles",
+      "aplicarRentasBajas": false,
+      "aplicarInicio": false,
+      "retenciones": [
+        {
+          "id": "r",
+          "justificante": "cert",
+          "fecha": "2025-06-01",
+          "operacionId": "or",
+          "ingresoId": "factura",
+          "importe": "111.11",
+          "efectiva": true
+        }
+      ],
+      "pagosFraccionados": [
+        {
+          "id": "p",
+          "justificante": "pago",
+          "fecha": "2025-07-20",
+          "operacionId": "op",
+          "periodo": "2025-2T",
+          "modelo": "130",
+          "importe": "222.22",
+          "efectivo": true
+        }
+      ]
+    }
+  },
+  "before": {
+    "_tag": "LiquidacionIrpfAnualExplicitaCalculada",
+    "perfil": "solo-actividad-eds",
+    "ejercicio": 2025,
+    "alcance": "individual-madrid-18-a-64-sin-familiares-ni-discapacidad",
+    "rendimientoNetoReducido": "28500",
+    "baseImponibleGeneral": "28500",
+    "baseLiquidableGeneral": "28500",
+    "baseLiquidableAhorro": "0",
+    "reduccionArt20": "0",
+    "cuotaLiquidaLegal": "5279.12211",
+    "deduccionTrabajo": "0",
+    "cuotaPosterior": "5279.12211",
+    "retenciones": "111.11",
+    "pagosFraccionados": "222.22",
+    "cuotaDiferencial": "4945.79211",
+    "cuotaDiferencialPresentada": "4945.79",
+    "aceptacionFiscal": "pendiente",
+    "rastro": {
+      "titulo": "Liquidación anual explícita 2025",
+      "contexto": {
+        "anio": 2025,
+        "territorio": "madrid",
+        "perfilCalculo": "solo-actividad-eds"
+      },
+      "pasos": [
+        {
+          "_tag": "PasoExplicacion",
+          "titulo": "Actividad EDS 2025",
+          "descripcion": "RETA y artículo 32 ya incluidos en el aporte; no se aplican cotizaciones salariales ni artículo 20.",
+          "fuentes": [
+            {
+              "titulo": "Alcance y evidencia de la conexión anual",
+              "referencia": "docs/procedencia/implementaciones/conexion-anual/INFORME.md"
+            }
+          ],
+          "lineasCalculo": [
+            {
+              "etiqueta": "AE25-02: ingreso:factura",
+              "formula": "base devengada, antes de retención y sin IVA recuperable",
+              "resultado": "30000.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.actividad.etapa",
+                "instanceId": "anual.explicito.actividad.etapa.0",
+                "decimal": "30000",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.actividad.etapa",
+                  "revision": "ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.actividad.etapa/ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+              }
+            },
+            {
+              "etiqueta": "AE25-02: ingresos",
+              "formula": "sum(base antes de retención; IVA recuperable excluido)",
+              "resultado": "30000.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.actividad.etapa",
+                "instanceId": "anual.explicito.actividad.etapa.1",
+                "decimal": "30000",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.actividad.etapa",
+                  "revision": "ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.actividad.etapa/ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+              }
+            },
+            {
+              "etiqueta": "AE25-02: gastos",
+              "formula": "sum(base gastos admitidos)",
+              "resultado": "0.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.actividad.etapa",
+                "instanceId": "anual.explicito.actividad.etapa.2",
+                "decimal": "0",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.actividad.etapa",
+                  "revision": "ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.actividad.etapa/ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+              }
+            },
+            {
+              "etiqueta": "AE25-03: reta",
+              "formula": "sum(cuotas ordinarias efectivas)",
+              "resultado": "0.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.actividad.etapa",
+                "instanceId": "anual.explicito.actividad.etapa.3",
+                "decimal": "0",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.actividad.etapa",
+                  "revision": "ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.actividad.etapa/ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+              }
+            },
+            {
+              "etiqueta": "AE25-04: amortizacion",
+              "formula": "sum(cuotas activos)",
+              "resultado": "0.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.actividad.etapa",
+                "instanceId": "anual.explicito.actividad.etapa.4",
+                "decimal": "0",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.actividad.etapa",
+                  "revision": "ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.actividad.etapa/ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+              }
+            },
+            {
+              "etiqueta": "AE25-02: P",
+              "formula": "ingresos-gastos-RETA-amortizacion",
+              "resultado": "30000.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.actividad.etapa",
+                "instanceId": "anual.explicito.actividad.etapa.5",
+                "decimal": "30000",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.actividad.etapa",
+                  "revision": "ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.actividad.etapa/ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+              }
+            },
+            {
+              "etiqueta": "AE25-05: G",
+              "formula": "opcion cliente único ? 0 : min(2000, 0.05*max(P,0))",
+              "resultado": "1500.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.actividad.etapa",
+                "instanceId": "anual.explicito.actividad.etapa.6",
+                "decimal": "1500",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.actividad.etapa",
+                  "revision": "ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.actividad.etapa/ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+              }
+            },
+            {
+              "etiqueta": "AE25-06: RN",
+              "formula": "P-G (con signo)",
+              "resultado": "28500.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.actividad.etapa",
+                "instanceId": "anual.explicito.actividad.etapa.7",
+                "decimal": "28500",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.actividad.etapa",
+                  "revision": "ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.actividad.etapa/ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+              }
+            },
+            {
+              "etiqueta": "AE25-11: reduccion32_2",
+              "formula": "reducción limitada a RN positivo; 32.2.3 solo si NO elegible 32.2.2",
+              "resultado": "0.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.actividad.etapa",
+                "instanceId": "anual.explicito.actividad.etapa.8",
+                "decimal": "0",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.actividad.etapa",
+                  "revision": "ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.actividad.etapa/ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+              }
+            },
+            {
+              "etiqueta": "AE25-12: reduccionInicio",
+              "formula": "si elegible y opción: 0.20*min(100000,max(RN-R32_2,0))",
+              "resultado": "0.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.actividad.etapa",
+                "instanceId": "anual.explicito.actividad.etapa.9",
+                "decimal": "0",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.actividad.etapa",
+                  "revision": "ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.actividad.etapa/ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+              }
+            },
+            {
+              "etiqueta": "AE25-14: aporteBIG",
+              "formula": "RN-R32_2-Rinicio (con signo; no liquidación anual)",
+              "resultado": "28500.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.actividad.etapa",
+                "instanceId": "anual.explicito.actividad.etapa.10",
+                "decimal": "28500",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.actividad.etapa",
+                  "revision": "ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.actividad.etapa/ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+              }
+            },
+            {
+              "etiqueta": "AE25-15: retenciones",
+              "formula": "sum(retenciones efectivas únicas); separado del rendimiento",
+              "resultado": "111.11 euros",
+              "origen": {
+                "siteId": "anual.explicito.actividad.etapa",
+                "instanceId": "anual.explicito.actividad.etapa.11",
+                "decimal": "111.11",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.actividad.etapa",
+                  "revision": "ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.actividad.etapa/ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+              }
+            },
+            {
+              "etiqueta": "AE25-15: pagos",
+              "formula": "sum(pagos efectivos únicos); separado del rendimiento",
+              "resultado": "222.22 euros",
+              "origen": {
+                "siteId": "anual.explicito.actividad.etapa",
+                "instanceId": "anual.explicito.actividad.etapa.12",
+                "decimal": "222.22",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.actividad.etapa",
+                  "revision": "ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.actividad.etapa/ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+              }
+            }
+          ]
+        },
+        {
+          "_tag": "PasoExplicacion",
+          "titulo": "Bases, cuotas y pagos anuales",
+          "descripcion": "Sin ahorro, reducciones de base ni otras deducciones. Artículo 80 sin importe al excluir rentas extranjeras. Cuota líquida legal conservada antes de DA61. Precisión decimal hasta salida; presentación final half-up a céntimos, pendiente de aceptación fiscal.",
+          "fuentes": [
+            {
+              "titulo": "Alcance y evidencia de la conexión anual",
+              "referencia": "docs/procedencia/implementaciones/conexion-anual/INFORME.md"
+            }
+          ],
+          "lineasCalculo": [
+            {
+              "etiqueta": "Base imponible general",
+              "formula": "rendimiento neto reducido con signo",
+              "resultado": "28500.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.big",
+                "instanceId": "anual.explicito.big.0",
+                "decimal": "28500",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.big",
+                  "revision": "dd599a2d6ccec1b0a27cf5a25a83183be2127bf03caf968fe1783fa0cd02898e"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.big/dd599a2d6ccec1b0a27cf5a25a83183be2127bf03caf968fe1783fa0cd02898e"
+              }
+            },
+            {
+              "etiqueta": "Base liquidable general",
+              "formula": "BIG sin reducciones de base ni compensaciones anteriores",
+              "resultado": "28500.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.blg",
+                "instanceId": "anual.explicito.blg.0",
+                "decimal": "28500",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.blg",
+                  "revision": "ac01e9efd5473a14a221e0d7f5ca8e117944b5abaaec2e5f27eacee64157c1d8"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.blg/ac01e9efd5473a14a221e0d7f5ca8e117944b5abaaec2e5f27eacee64157c1d8"
+              }
+            },
+            {
+              "etiqueta": "Cuota estatal",
+              "formula": "escala(base positiva) − escala(mínimo limitado a base)",
+              "resultado": "2830.50 euros",
+              "origen": {
+                "siteId": "anual.explicito.cuota.estatal",
+                "instanceId": "anual.explicito.cuota.estatal.0",
+                "decimal": "2830.5",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.cuota.estatal",
+                  "revision": "03c3b9b5dad368aee48c587c490bd1111a5ffe2315727d199b080804a70eefb8"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.cuota.estatal/03c3b9b5dad368aee48c587c490bd1111a5ffe2315727d199b080804a70eefb8"
+              }
+            },
+            {
+              "etiqueta": "Cuota autonómica",
+              "formula": "escala publicada Madrid(base) − escala(mínimo limitado a base)",
+              "resultado": "2448.62 euros",
+              "origen": {
+                "siteId": "anual.explicito.cuota.autonomica",
+                "instanceId": "anual.explicito.cuota.autonomica.0",
+                "decimal": "2448.62211",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.cuota.autonomica",
+                  "revision": "a18e8339ff956d24a6dc49164fccf94c6cee9413eeda6476fcb04e34d03ec617"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.cuota.autonomica/a18e8339ff956d24a6dc49164fccf94c6cee9413eeda6476fcb04e34d03ec617"
+              }
+            },
+            {
+              "etiqueta": "Cuota líquida legal",
+              "formula": "cuota estatal + autonómica; sin otras deducciones",
+              "resultado": "5279.12 euros",
+              "origen": {
+                "siteId": "anual.explicito.cuota.liquida-legal",
+                "instanceId": "anual.explicito.cuota.liquida-legal.0",
+                "decimal": "5279.12211",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.cuota.liquida-legal",
+                  "revision": "1c0e4d57efc5be4f6345272aa827a57463e3880874bc303e807c779e6000dfd7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.cuota.liquida-legal/1c0e4d57efc5be4f6345272aa827a57463e3880874bc303e807c779e6000dfd7"
+              }
+            },
+            {
+              "etiqueta": "DA61",
+              "formula": "deducción de servicios después del artículo 80, una sola vez",
+              "resultado": "0.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.da61",
+                "instanceId": "anual.explicito.da61.0",
+                "decimal": "0",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.da61",
+                  "revision": "2147bf1fc10355a8e0551b89c95808f34656c8bb9751005dc29eb4e369f046f2"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.da61/2147bf1fc10355a8e0551b89c95808f34656c8bb9751005dc29eb4e369f046f2"
+              }
+            },
+            {
+              "etiqueta": "Cuota posterior",
+              "formula": "cuota líquida legal − DA61",
+              "resultado": "5279.12 euros",
+              "origen": {
+                "siteId": "anual.explicito.cuota.posterior",
+                "instanceId": "anual.explicito.cuota.posterior.0",
+                "decimal": "5279.12211",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.cuota.posterior",
+                  "revision": "7588afc23d5c691602427e0af987fe2609b3e144c3877bc96a704b79a49168ba"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.cuota.posterior/7588afc23d5c691602427e0af987fe2609b3e144c3877bc96a704b79a49168ba"
+              }
+            },
+            {
+              "etiqueta": "Retenciones efectivas",
+              "formula": "suma por operación única",
+              "resultado": "111.11 euros",
+              "origen": {
+                "siteId": "anual.explicito.retenciones",
+                "instanceId": "anual.explicito.retenciones.0",
+                "decimal": "111.11",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.retenciones",
+                  "revision": "05cb61039e6099fcf243708e975f998fd5d2de15ecd2e650c06a30b772a8286d"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.retenciones/05cb61039e6099fcf243708e975f998fd5d2de15ecd2e650c06a30b772a8286d"
+              }
+            },
+            {
+              "etiqueta": "Pagos fraccionados efectivos",
+              "formula": "suma por operación única",
+              "resultado": "222.22 euros",
+              "origen": {
+                "siteId": "anual.explicito.pagos",
+                "instanceId": "anual.explicito.pagos.0",
+                "decimal": "222.22",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.pagos",
+                  "revision": "9532deadecc43d407973b611a1ce03f3e91b8f076391be5cf6fa4441d1535d6a"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.pagos/9532deadecc43d407973b611a1ce03f3e91b8f076391be5cf6fa4441d1535d6a"
+              }
+            },
+            {
+              "etiqueta": "Cuota diferencial",
+              "formula": "cuota posterior − retenciones − pagos fraccionados",
+              "resultado": "4945.79 euros",
+              "origen": {
+                "siteId": "anual.explicito.diferencial",
+                "instanceId": "anual.explicito.diferencial.0",
+                "decimal": "4945.79211",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.diferencial",
+                  "revision": "7f6418bb61c20cf0456e035d341783d755a1372225006117f5830cde5b31e631"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.diferencial/7f6418bb61c20cf0456e035d341783d755a1372225006117f5830cde5b31e631"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "after": {
+    "_tag": "LiquidacionIrpfAnualExplicitaCalculada",
+    "perfil": "solo-actividad-eds",
+    "ejercicio": 2025,
+    "alcance": "individual-madrid-18-a-64-sin-familiares-ni-discapacidad",
+    "rendimientoNetoReducido": "29450",
+    "baseImponibleGeneral": "29450",
+    "baseLiquidableGeneral": "29450",
+    "baseLiquidableAhorro": "0",
+    "reduccionArt20": "0",
+    "cuotaLiquidaLegal": "5543.22211",
+    "deduccionTrabajo": "0",
+    "cuotaPosterior": "5543.22211",
+    "retenciones": "111.11",
+    "pagosFraccionados": "222.22",
+    "cuotaDiferencial": "5209.89211",
+    "cuotaDiferencialPresentada": "5209.89",
+    "aceptacionFiscal": "pendiente",
+    "rastro": {
+      "titulo": "Liquidación anual explícita 2025",
+      "contexto": {
+        "anio": 2025,
+        "territorio": "madrid",
+        "perfilCalculo": "solo-actividad-eds"
+      },
+      "pasos": [
+        {
+          "_tag": "PasoExplicacion",
+          "titulo": "Actividad EDS 2025",
+          "descripcion": "RETA y artículo 32 ya incluidos en el aporte; no se aplican cotizaciones salariales ni artículo 20.",
+          "fuentes": [
+            {
+              "titulo": "Alcance y evidencia de la conexión anual",
+              "referencia": "docs/procedencia/implementaciones/conexion-anual/INFORME.md"
+            }
+          ],
+          "lineasCalculo": [
+            {
+              "etiqueta": "AE25-02: ingreso:factura",
+              "formula": "base devengada, antes de retención y sin IVA recuperable",
+              "resultado": "31000.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.actividad.etapa",
+                "instanceId": "anual.explicito.actividad.etapa.0",
+                "decimal": "31000",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.actividad.etapa",
+                  "revision": "ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.actividad.etapa/ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+              }
+            },
+            {
+              "etiqueta": "AE25-02: ingresos",
+              "formula": "sum(base antes de retención; IVA recuperable excluido)",
+              "resultado": "31000.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.actividad.etapa",
+                "instanceId": "anual.explicito.actividad.etapa.1",
+                "decimal": "31000",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.actividad.etapa",
+                  "revision": "ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.actividad.etapa/ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+              }
+            },
+            {
+              "etiqueta": "AE25-02: gastos",
+              "formula": "sum(base gastos admitidos)",
+              "resultado": "0.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.actividad.etapa",
+                "instanceId": "anual.explicito.actividad.etapa.2",
+                "decimal": "0",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.actividad.etapa",
+                  "revision": "ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.actividad.etapa/ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+              }
+            },
+            {
+              "etiqueta": "AE25-03: reta",
+              "formula": "sum(cuotas ordinarias efectivas)",
+              "resultado": "0.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.actividad.etapa",
+                "instanceId": "anual.explicito.actividad.etapa.3",
+                "decimal": "0",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.actividad.etapa",
+                  "revision": "ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.actividad.etapa/ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+              }
+            },
+            {
+              "etiqueta": "AE25-04: amortizacion",
+              "formula": "sum(cuotas activos)",
+              "resultado": "0.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.actividad.etapa",
+                "instanceId": "anual.explicito.actividad.etapa.4",
+                "decimal": "0",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.actividad.etapa",
+                  "revision": "ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.actividad.etapa/ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+              }
+            },
+            {
+              "etiqueta": "AE25-02: P",
+              "formula": "ingresos-gastos-RETA-amortizacion",
+              "resultado": "31000.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.actividad.etapa",
+                "instanceId": "anual.explicito.actividad.etapa.5",
+                "decimal": "31000",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.actividad.etapa",
+                  "revision": "ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.actividad.etapa/ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+              }
+            },
+            {
+              "etiqueta": "AE25-05: G",
+              "formula": "opcion cliente único ? 0 : min(2000, 0.05*max(P,0))",
+              "resultado": "1550.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.actividad.etapa",
+                "instanceId": "anual.explicito.actividad.etapa.6",
+                "decimal": "1550",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.actividad.etapa",
+                  "revision": "ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.actividad.etapa/ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+              }
+            },
+            {
+              "etiqueta": "AE25-06: RN",
+              "formula": "P-G (con signo)",
+              "resultado": "29450.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.actividad.etapa",
+                "instanceId": "anual.explicito.actividad.etapa.7",
+                "decimal": "29450",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.actividad.etapa",
+                  "revision": "ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.actividad.etapa/ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+              }
+            },
+            {
+              "etiqueta": "AE25-11: reduccion32_2",
+              "formula": "reducción limitada a RN positivo; 32.2.3 solo si NO elegible 32.2.2",
+              "resultado": "0.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.actividad.etapa",
+                "instanceId": "anual.explicito.actividad.etapa.8",
+                "decimal": "0",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.actividad.etapa",
+                  "revision": "ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.actividad.etapa/ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+              }
+            },
+            {
+              "etiqueta": "AE25-12: reduccionInicio",
+              "formula": "si elegible y opción: 0.20*min(100000,max(RN-R32_2,0))",
+              "resultado": "0.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.actividad.etapa",
+                "instanceId": "anual.explicito.actividad.etapa.9",
+                "decimal": "0",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.actividad.etapa",
+                  "revision": "ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.actividad.etapa/ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+              }
+            },
+            {
+              "etiqueta": "AE25-14: aporteBIG",
+              "formula": "RN-R32_2-Rinicio (con signo; no liquidación anual)",
+              "resultado": "29450.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.actividad.etapa",
+                "instanceId": "anual.explicito.actividad.etapa.10",
+                "decimal": "29450",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.actividad.etapa",
+                  "revision": "ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.actividad.etapa/ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+              }
+            },
+            {
+              "etiqueta": "AE25-15: retenciones",
+              "formula": "sum(retenciones efectivas únicas); separado del rendimiento",
+              "resultado": "111.11 euros",
+              "origen": {
+                "siteId": "anual.explicito.actividad.etapa",
+                "instanceId": "anual.explicito.actividad.etapa.11",
+                "decimal": "111.11",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.actividad.etapa",
+                  "revision": "ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.actividad.etapa/ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+              }
+            },
+            {
+              "etiqueta": "AE25-15: pagos",
+              "formula": "sum(pagos efectivos únicos); separado del rendimiento",
+              "resultado": "222.22 euros",
+              "origen": {
+                "siteId": "anual.explicito.actividad.etapa",
+                "instanceId": "anual.explicito.actividad.etapa.12",
+                "decimal": "222.22",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.actividad.etapa",
+                  "revision": "ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.actividad.etapa/ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+              }
+            }
+          ]
+        },
+        {
+          "_tag": "PasoExplicacion",
+          "titulo": "Bases, cuotas y pagos anuales",
+          "descripcion": "Sin ahorro, reducciones de base ni otras deducciones. Artículo 80 sin importe al excluir rentas extranjeras. Cuota líquida legal conservada antes de DA61. Precisión decimal hasta salida; presentación final half-up a céntimos, pendiente de aceptación fiscal.",
+          "fuentes": [
+            {
+              "titulo": "Alcance y evidencia de la conexión anual",
+              "referencia": "docs/procedencia/implementaciones/conexion-anual/INFORME.md"
+            }
+          ],
+          "lineasCalculo": [
+            {
+              "etiqueta": "Base imponible general",
+              "formula": "rendimiento neto reducido con signo",
+              "resultado": "29450.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.big",
+                "instanceId": "anual.explicito.big.0",
+                "decimal": "29450",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.big",
+                  "revision": "dd599a2d6ccec1b0a27cf5a25a83183be2127bf03caf968fe1783fa0cd02898e"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.big/dd599a2d6ccec1b0a27cf5a25a83183be2127bf03caf968fe1783fa0cd02898e"
+              }
+            },
+            {
+              "etiqueta": "Base liquidable general",
+              "formula": "BIG sin reducciones de base ni compensaciones anteriores",
+              "resultado": "29450.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.blg",
+                "instanceId": "anual.explicito.blg.0",
+                "decimal": "29450",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.blg",
+                  "revision": "ac01e9efd5473a14a221e0d7f5ca8e117944b5abaaec2e5f27eacee64157c1d8"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.blg/ac01e9efd5473a14a221e0d7f5ca8e117944b5abaaec2e5f27eacee64157c1d8"
+              }
+            },
+            {
+              "etiqueta": "Cuota estatal",
+              "formula": "escala(base positiva) − escala(mínimo limitado a base)",
+              "resultado": "2973.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.cuota.estatal",
+                "instanceId": "anual.explicito.cuota.estatal.0",
+                "decimal": "2973",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.cuota.estatal",
+                  "revision": "03c3b9b5dad368aee48c587c490bd1111a5ffe2315727d199b080804a70eefb8"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.cuota.estatal/03c3b9b5dad368aee48c587c490bd1111a5ffe2315727d199b080804a70eefb8"
+              }
+            },
+            {
+              "etiqueta": "Cuota autonómica",
+              "formula": "escala publicada Madrid(base) − escala(mínimo limitado a base)",
+              "resultado": "2570.22 euros",
+              "origen": {
+                "siteId": "anual.explicito.cuota.autonomica",
+                "instanceId": "anual.explicito.cuota.autonomica.0",
+                "decimal": "2570.22211",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.cuota.autonomica",
+                  "revision": "a18e8339ff956d24a6dc49164fccf94c6cee9413eeda6476fcb04e34d03ec617"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.cuota.autonomica/a18e8339ff956d24a6dc49164fccf94c6cee9413eeda6476fcb04e34d03ec617"
+              }
+            },
+            {
+              "etiqueta": "Cuota líquida legal",
+              "formula": "cuota estatal + autonómica; sin otras deducciones",
+              "resultado": "5543.22 euros",
+              "origen": {
+                "siteId": "anual.explicito.cuota.liquida-legal",
+                "instanceId": "anual.explicito.cuota.liquida-legal.0",
+                "decimal": "5543.22211",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.cuota.liquida-legal",
+                  "revision": "1c0e4d57efc5be4f6345272aa827a57463e3880874bc303e807c779e6000dfd7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.cuota.liquida-legal/1c0e4d57efc5be4f6345272aa827a57463e3880874bc303e807c779e6000dfd7"
+              }
+            },
+            {
+              "etiqueta": "DA61",
+              "formula": "deducción de servicios después del artículo 80, una sola vez",
+              "resultado": "0.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.da61",
+                "instanceId": "anual.explicito.da61.0",
+                "decimal": "0",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.da61",
+                  "revision": "2147bf1fc10355a8e0551b89c95808f34656c8bb9751005dc29eb4e369f046f2"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.da61/2147bf1fc10355a8e0551b89c95808f34656c8bb9751005dc29eb4e369f046f2"
+              }
+            },
+            {
+              "etiqueta": "Cuota posterior",
+              "formula": "cuota líquida legal − DA61",
+              "resultado": "5543.22 euros",
+              "origen": {
+                "siteId": "anual.explicito.cuota.posterior",
+                "instanceId": "anual.explicito.cuota.posterior.0",
+                "decimal": "5543.22211",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.cuota.posterior",
+                  "revision": "7588afc23d5c691602427e0af987fe2609b3e144c3877bc96a704b79a49168ba"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.cuota.posterior/7588afc23d5c691602427e0af987fe2609b3e144c3877bc96a704b79a49168ba"
+              }
+            },
+            {
+              "etiqueta": "Retenciones efectivas",
+              "formula": "suma por operación única",
+              "resultado": "111.11 euros",
+              "origen": {
+                "siteId": "anual.explicito.retenciones",
+                "instanceId": "anual.explicito.retenciones.0",
+                "decimal": "111.11",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.retenciones",
+                  "revision": "05cb61039e6099fcf243708e975f998fd5d2de15ecd2e650c06a30b772a8286d"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.retenciones/05cb61039e6099fcf243708e975f998fd5d2de15ecd2e650c06a30b772a8286d"
+              }
+            },
+            {
+              "etiqueta": "Pagos fraccionados efectivos",
+              "formula": "suma por operación única",
+              "resultado": "222.22 euros",
+              "origen": {
+                "siteId": "anual.explicito.pagos",
+                "instanceId": "anual.explicito.pagos.0",
+                "decimal": "222.22",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.pagos",
+                  "revision": "9532deadecc43d407973b611a1ce03f3e91b8f076391be5cf6fa4441d1535d6a"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.pagos/9532deadecc43d407973b611a1ce03f3e91b8f076391be5cf6fa4441d1535d6a"
+              }
+            },
+            {
+              "etiqueta": "Cuota diferencial",
+              "formula": "cuota posterior − retenciones − pagos fraccionados",
+              "resultado": "5209.89 euros",
+              "origen": {
+                "siteId": "anual.explicito.diferencial",
+                "instanceId": "anual.explicito.diferencial.0",
+                "decimal": "5209.89211",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.diferencial",
+                  "revision": "7f6418bb61c20cf0456e035d341783d755a1372225006117f5830cde5b31e631"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.diferencial/7f6418bb61c20cf0456e035d341783d755a1372225006117f5830cde5b31e631"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "retChanged": {
+    "_tag": "LiquidacionIrpfAnualExplicitaCalculada",
+    "perfil": "solo-actividad-eds",
+    "ejercicio": 2025,
+    "alcance": "individual-madrid-18-a-64-sin-familiares-ni-discapacidad",
+    "rendimientoNetoReducido": "28500",
+    "baseImponibleGeneral": "28500",
+    "baseLiquidableGeneral": "28500",
+    "baseLiquidableAhorro": "0",
+    "reduccionArt20": "0",
+    "cuotaLiquidaLegal": "5279.12211",
+    "deduccionTrabajo": "0",
+    "cuotaPosterior": "5279.12211",
+    "retenciones": "112.11",
+    "pagosFraccionados": "222.22",
+    "cuotaDiferencial": "4944.79211",
+    "cuotaDiferencialPresentada": "4944.79",
+    "aceptacionFiscal": "pendiente",
+    "rastro": {
+      "titulo": "Liquidación anual explícita 2025",
+      "contexto": {
+        "anio": 2025,
+        "territorio": "madrid",
+        "perfilCalculo": "solo-actividad-eds"
+      },
+      "pasos": [
+        {
+          "_tag": "PasoExplicacion",
+          "titulo": "Actividad EDS 2025",
+          "descripcion": "RETA y artículo 32 ya incluidos en el aporte; no se aplican cotizaciones salariales ni artículo 20.",
+          "fuentes": [
+            {
+              "titulo": "Alcance y evidencia de la conexión anual",
+              "referencia": "docs/procedencia/implementaciones/conexion-anual/INFORME.md"
+            }
+          ],
+          "lineasCalculo": [
+            {
+              "etiqueta": "AE25-02: ingreso:factura",
+              "formula": "base devengada, antes de retención y sin IVA recuperable",
+              "resultado": "30000.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.actividad.etapa",
+                "instanceId": "anual.explicito.actividad.etapa.0",
+                "decimal": "30000",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.actividad.etapa",
+                  "revision": "ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.actividad.etapa/ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+              }
+            },
+            {
+              "etiqueta": "AE25-02: ingresos",
+              "formula": "sum(base antes de retención; IVA recuperable excluido)",
+              "resultado": "30000.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.actividad.etapa",
+                "instanceId": "anual.explicito.actividad.etapa.1",
+                "decimal": "30000",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.actividad.etapa",
+                  "revision": "ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.actividad.etapa/ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+              }
+            },
+            {
+              "etiqueta": "AE25-02: gastos",
+              "formula": "sum(base gastos admitidos)",
+              "resultado": "0.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.actividad.etapa",
+                "instanceId": "anual.explicito.actividad.etapa.2",
+                "decimal": "0",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.actividad.etapa",
+                  "revision": "ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.actividad.etapa/ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+              }
+            },
+            {
+              "etiqueta": "AE25-03: reta",
+              "formula": "sum(cuotas ordinarias efectivas)",
+              "resultado": "0.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.actividad.etapa",
+                "instanceId": "anual.explicito.actividad.etapa.3",
+                "decimal": "0",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.actividad.etapa",
+                  "revision": "ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.actividad.etapa/ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+              }
+            },
+            {
+              "etiqueta": "AE25-04: amortizacion",
+              "formula": "sum(cuotas activos)",
+              "resultado": "0.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.actividad.etapa",
+                "instanceId": "anual.explicito.actividad.etapa.4",
+                "decimal": "0",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.actividad.etapa",
+                  "revision": "ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.actividad.etapa/ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+              }
+            },
+            {
+              "etiqueta": "AE25-02: P",
+              "formula": "ingresos-gastos-RETA-amortizacion",
+              "resultado": "30000.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.actividad.etapa",
+                "instanceId": "anual.explicito.actividad.etapa.5",
+                "decimal": "30000",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.actividad.etapa",
+                  "revision": "ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.actividad.etapa/ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+              }
+            },
+            {
+              "etiqueta": "AE25-05: G",
+              "formula": "opcion cliente único ? 0 : min(2000, 0.05*max(P,0))",
+              "resultado": "1500.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.actividad.etapa",
+                "instanceId": "anual.explicito.actividad.etapa.6",
+                "decimal": "1500",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.actividad.etapa",
+                  "revision": "ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.actividad.etapa/ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+              }
+            },
+            {
+              "etiqueta": "AE25-06: RN",
+              "formula": "P-G (con signo)",
+              "resultado": "28500.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.actividad.etapa",
+                "instanceId": "anual.explicito.actividad.etapa.7",
+                "decimal": "28500",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.actividad.etapa",
+                  "revision": "ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.actividad.etapa/ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+              }
+            },
+            {
+              "etiqueta": "AE25-11: reduccion32_2",
+              "formula": "reducción limitada a RN positivo; 32.2.3 solo si NO elegible 32.2.2",
+              "resultado": "0.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.actividad.etapa",
+                "instanceId": "anual.explicito.actividad.etapa.8",
+                "decimal": "0",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.actividad.etapa",
+                  "revision": "ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.actividad.etapa/ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+              }
+            },
+            {
+              "etiqueta": "AE25-12: reduccionInicio",
+              "formula": "si elegible y opción: 0.20*min(100000,max(RN-R32_2,0))",
+              "resultado": "0.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.actividad.etapa",
+                "instanceId": "anual.explicito.actividad.etapa.9",
+                "decimal": "0",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.actividad.etapa",
+                  "revision": "ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.actividad.etapa/ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+              }
+            },
+            {
+              "etiqueta": "AE25-14: aporteBIG",
+              "formula": "RN-R32_2-Rinicio (con signo; no liquidación anual)",
+              "resultado": "28500.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.actividad.etapa",
+                "instanceId": "anual.explicito.actividad.etapa.10",
+                "decimal": "28500",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.actividad.etapa",
+                  "revision": "ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.actividad.etapa/ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+              }
+            },
+            {
+              "etiqueta": "AE25-15: retenciones",
+              "formula": "sum(retenciones efectivas únicas); separado del rendimiento",
+              "resultado": "112.11 euros",
+              "origen": {
+                "siteId": "anual.explicito.actividad.etapa",
+                "instanceId": "anual.explicito.actividad.etapa.11",
+                "decimal": "112.11",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.actividad.etapa",
+                  "revision": "ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.actividad.etapa/ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+              }
+            },
+            {
+              "etiqueta": "AE25-15: pagos",
+              "formula": "sum(pagos efectivos únicos); separado del rendimiento",
+              "resultado": "222.22 euros",
+              "origen": {
+                "siteId": "anual.explicito.actividad.etapa",
+                "instanceId": "anual.explicito.actividad.etapa.12",
+                "decimal": "222.22",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.actividad.etapa",
+                  "revision": "ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.actividad.etapa/ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+              }
+            }
+          ]
+        },
+        {
+          "_tag": "PasoExplicacion",
+          "titulo": "Bases, cuotas y pagos anuales",
+          "descripcion": "Sin ahorro, reducciones de base ni otras deducciones. Artículo 80 sin importe al excluir rentas extranjeras. Cuota líquida legal conservada antes de DA61. Precisión decimal hasta salida; presentación final half-up a céntimos, pendiente de aceptación fiscal.",
+          "fuentes": [
+            {
+              "titulo": "Alcance y evidencia de la conexión anual",
+              "referencia": "docs/procedencia/implementaciones/conexion-anual/INFORME.md"
+            }
+          ],
+          "lineasCalculo": [
+            {
+              "etiqueta": "Base imponible general",
+              "formula": "rendimiento neto reducido con signo",
+              "resultado": "28500.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.big",
+                "instanceId": "anual.explicito.big.0",
+                "decimal": "28500",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.big",
+                  "revision": "dd599a2d6ccec1b0a27cf5a25a83183be2127bf03caf968fe1783fa0cd02898e"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.big/dd599a2d6ccec1b0a27cf5a25a83183be2127bf03caf968fe1783fa0cd02898e"
+              }
+            },
+            {
+              "etiqueta": "Base liquidable general",
+              "formula": "BIG sin reducciones de base ni compensaciones anteriores",
+              "resultado": "28500.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.blg",
+                "instanceId": "anual.explicito.blg.0",
+                "decimal": "28500",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.blg",
+                  "revision": "ac01e9efd5473a14a221e0d7f5ca8e117944b5abaaec2e5f27eacee64157c1d8"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.blg/ac01e9efd5473a14a221e0d7f5ca8e117944b5abaaec2e5f27eacee64157c1d8"
+              }
+            },
+            {
+              "etiqueta": "Cuota estatal",
+              "formula": "escala(base positiva) − escala(mínimo limitado a base)",
+              "resultado": "2830.50 euros",
+              "origen": {
+                "siteId": "anual.explicito.cuota.estatal",
+                "instanceId": "anual.explicito.cuota.estatal.0",
+                "decimal": "2830.5",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.cuota.estatal",
+                  "revision": "03c3b9b5dad368aee48c587c490bd1111a5ffe2315727d199b080804a70eefb8"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.cuota.estatal/03c3b9b5dad368aee48c587c490bd1111a5ffe2315727d199b080804a70eefb8"
+              }
+            },
+            {
+              "etiqueta": "Cuota autonómica",
+              "formula": "escala publicada Madrid(base) − escala(mínimo limitado a base)",
+              "resultado": "2448.62 euros",
+              "origen": {
+                "siteId": "anual.explicito.cuota.autonomica",
+                "instanceId": "anual.explicito.cuota.autonomica.0",
+                "decimal": "2448.62211",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.cuota.autonomica",
+                  "revision": "a18e8339ff956d24a6dc49164fccf94c6cee9413eeda6476fcb04e34d03ec617"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.cuota.autonomica/a18e8339ff956d24a6dc49164fccf94c6cee9413eeda6476fcb04e34d03ec617"
+              }
+            },
+            {
+              "etiqueta": "Cuota líquida legal",
+              "formula": "cuota estatal + autonómica; sin otras deducciones",
+              "resultado": "5279.12 euros",
+              "origen": {
+                "siteId": "anual.explicito.cuota.liquida-legal",
+                "instanceId": "anual.explicito.cuota.liquida-legal.0",
+                "decimal": "5279.12211",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.cuota.liquida-legal",
+                  "revision": "1c0e4d57efc5be4f6345272aa827a57463e3880874bc303e807c779e6000dfd7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.cuota.liquida-legal/1c0e4d57efc5be4f6345272aa827a57463e3880874bc303e807c779e6000dfd7"
+              }
+            },
+            {
+              "etiqueta": "DA61",
+              "formula": "deducción de servicios después del artículo 80, una sola vez",
+              "resultado": "0.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.da61",
+                "instanceId": "anual.explicito.da61.0",
+                "decimal": "0",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.da61",
+                  "revision": "2147bf1fc10355a8e0551b89c95808f34656c8bb9751005dc29eb4e369f046f2"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.da61/2147bf1fc10355a8e0551b89c95808f34656c8bb9751005dc29eb4e369f046f2"
+              }
+            },
+            {
+              "etiqueta": "Cuota posterior",
+              "formula": "cuota líquida legal − DA61",
+              "resultado": "5279.12 euros",
+              "origen": {
+                "siteId": "anual.explicito.cuota.posterior",
+                "instanceId": "anual.explicito.cuota.posterior.0",
+                "decimal": "5279.12211",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.cuota.posterior",
+                  "revision": "7588afc23d5c691602427e0af987fe2609b3e144c3877bc96a704b79a49168ba"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.cuota.posterior/7588afc23d5c691602427e0af987fe2609b3e144c3877bc96a704b79a49168ba"
+              }
+            },
+            {
+              "etiqueta": "Retenciones efectivas",
+              "formula": "suma por operación única",
+              "resultado": "112.11 euros",
+              "origen": {
+                "siteId": "anual.explicito.retenciones",
+                "instanceId": "anual.explicito.retenciones.0",
+                "decimal": "112.11",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.retenciones",
+                  "revision": "05cb61039e6099fcf243708e975f998fd5d2de15ecd2e650c06a30b772a8286d"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.retenciones/05cb61039e6099fcf243708e975f998fd5d2de15ecd2e650c06a30b772a8286d"
+              }
+            },
+            {
+              "etiqueta": "Pagos fraccionados efectivos",
+              "formula": "suma por operación única",
+              "resultado": "222.22 euros",
+              "origen": {
+                "siteId": "anual.explicito.pagos",
+                "instanceId": "anual.explicito.pagos.0",
+                "decimal": "222.22",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.pagos",
+                  "revision": "9532deadecc43d407973b611a1ce03f3e91b8f076391be5cf6fa4441d1535d6a"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.pagos/9532deadecc43d407973b611a1ce03f3e91b8f076391be5cf6fa4441d1535d6a"
+              }
+            },
+            {
+              "etiqueta": "Cuota diferencial",
+              "formula": "cuota posterior − retenciones − pagos fraccionados",
+              "resultado": "4944.79 euros",
+              "origen": {
+                "siteId": "anual.explicito.diferencial",
+                "instanceId": "anual.explicito.diferencial.0",
+                "decimal": "4944.79211",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.diferencial",
+                  "revision": "7f6418bb61c20cf0456e035d341783d755a1372225006117f5830cde5b31e631"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.diferencial/7f6418bb61c20cf0456e035d341783d755a1372225006117f5830cde5b31e631"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "payChanged": {
+    "_tag": "LiquidacionIrpfAnualExplicitaCalculada",
+    "perfil": "solo-actividad-eds",
+    "ejercicio": 2025,
+    "alcance": "individual-madrid-18-a-64-sin-familiares-ni-discapacidad",
+    "rendimientoNetoReducido": "28500",
+    "baseImponibleGeneral": "28500",
+    "baseLiquidableGeneral": "28500",
+    "baseLiquidableAhorro": "0",
+    "reduccionArt20": "0",
+    "cuotaLiquidaLegal": "5279.12211",
+    "deduccionTrabajo": "0",
+    "cuotaPosterior": "5279.12211",
+    "retenciones": "111.11",
+    "pagosFraccionados": "224.22",
+    "cuotaDiferencial": "4943.79211",
+    "cuotaDiferencialPresentada": "4943.79",
+    "aceptacionFiscal": "pendiente",
+    "rastro": {
+      "titulo": "Liquidación anual explícita 2025",
+      "contexto": {
+        "anio": 2025,
+        "territorio": "madrid",
+        "perfilCalculo": "solo-actividad-eds"
+      },
+      "pasos": [
+        {
+          "_tag": "PasoExplicacion",
+          "titulo": "Actividad EDS 2025",
+          "descripcion": "RETA y artículo 32 ya incluidos en el aporte; no se aplican cotizaciones salariales ni artículo 20.",
+          "fuentes": [
+            {
+              "titulo": "Alcance y evidencia de la conexión anual",
+              "referencia": "docs/procedencia/implementaciones/conexion-anual/INFORME.md"
+            }
+          ],
+          "lineasCalculo": [
+            {
+              "etiqueta": "AE25-02: ingreso:factura",
+              "formula": "base devengada, antes de retención y sin IVA recuperable",
+              "resultado": "30000.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.actividad.etapa",
+                "instanceId": "anual.explicito.actividad.etapa.0",
+                "decimal": "30000",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.actividad.etapa",
+                  "revision": "ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.actividad.etapa/ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+              }
+            },
+            {
+              "etiqueta": "AE25-02: ingresos",
+              "formula": "sum(base antes de retención; IVA recuperable excluido)",
+              "resultado": "30000.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.actividad.etapa",
+                "instanceId": "anual.explicito.actividad.etapa.1",
+                "decimal": "30000",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.actividad.etapa",
+                  "revision": "ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.actividad.etapa/ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+              }
+            },
+            {
+              "etiqueta": "AE25-02: gastos",
+              "formula": "sum(base gastos admitidos)",
+              "resultado": "0.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.actividad.etapa",
+                "instanceId": "anual.explicito.actividad.etapa.2",
+                "decimal": "0",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.actividad.etapa",
+                  "revision": "ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.actividad.etapa/ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+              }
+            },
+            {
+              "etiqueta": "AE25-03: reta",
+              "formula": "sum(cuotas ordinarias efectivas)",
+              "resultado": "0.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.actividad.etapa",
+                "instanceId": "anual.explicito.actividad.etapa.3",
+                "decimal": "0",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.actividad.etapa",
+                  "revision": "ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.actividad.etapa/ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+              }
+            },
+            {
+              "etiqueta": "AE25-04: amortizacion",
+              "formula": "sum(cuotas activos)",
+              "resultado": "0.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.actividad.etapa",
+                "instanceId": "anual.explicito.actividad.etapa.4",
+                "decimal": "0",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.actividad.etapa",
+                  "revision": "ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.actividad.etapa/ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+              }
+            },
+            {
+              "etiqueta": "AE25-02: P",
+              "formula": "ingresos-gastos-RETA-amortizacion",
+              "resultado": "30000.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.actividad.etapa",
+                "instanceId": "anual.explicito.actividad.etapa.5",
+                "decimal": "30000",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.actividad.etapa",
+                  "revision": "ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.actividad.etapa/ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+              }
+            },
+            {
+              "etiqueta": "AE25-05: G",
+              "formula": "opcion cliente único ? 0 : min(2000, 0.05*max(P,0))",
+              "resultado": "1500.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.actividad.etapa",
+                "instanceId": "anual.explicito.actividad.etapa.6",
+                "decimal": "1500",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.actividad.etapa",
+                  "revision": "ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.actividad.etapa/ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+              }
+            },
+            {
+              "etiqueta": "AE25-06: RN",
+              "formula": "P-G (con signo)",
+              "resultado": "28500.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.actividad.etapa",
+                "instanceId": "anual.explicito.actividad.etapa.7",
+                "decimal": "28500",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.actividad.etapa",
+                  "revision": "ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.actividad.etapa/ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+              }
+            },
+            {
+              "etiqueta": "AE25-11: reduccion32_2",
+              "formula": "reducción limitada a RN positivo; 32.2.3 solo si NO elegible 32.2.2",
+              "resultado": "0.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.actividad.etapa",
+                "instanceId": "anual.explicito.actividad.etapa.8",
+                "decimal": "0",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.actividad.etapa",
+                  "revision": "ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.actividad.etapa/ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+              }
+            },
+            {
+              "etiqueta": "AE25-12: reduccionInicio",
+              "formula": "si elegible y opción: 0.20*min(100000,max(RN-R32_2,0))",
+              "resultado": "0.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.actividad.etapa",
+                "instanceId": "anual.explicito.actividad.etapa.9",
+                "decimal": "0",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.actividad.etapa",
+                  "revision": "ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.actividad.etapa/ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+              }
+            },
+            {
+              "etiqueta": "AE25-14: aporteBIG",
+              "formula": "RN-R32_2-Rinicio (con signo; no liquidación anual)",
+              "resultado": "28500.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.actividad.etapa",
+                "instanceId": "anual.explicito.actividad.etapa.10",
+                "decimal": "28500",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.actividad.etapa",
+                  "revision": "ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.actividad.etapa/ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+              }
+            },
+            {
+              "etiqueta": "AE25-15: retenciones",
+              "formula": "sum(retenciones efectivas únicas); separado del rendimiento",
+              "resultado": "111.11 euros",
+              "origen": {
+                "siteId": "anual.explicito.actividad.etapa",
+                "instanceId": "anual.explicito.actividad.etapa.11",
+                "decimal": "111.11",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.actividad.etapa",
+                  "revision": "ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.actividad.etapa/ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+              }
+            },
+            {
+              "etiqueta": "AE25-15: pagos",
+              "formula": "sum(pagos efectivos únicos); separado del rendimiento",
+              "resultado": "224.22 euros",
+              "origen": {
+                "siteId": "anual.explicito.actividad.etapa",
+                "instanceId": "anual.explicito.actividad.etapa.12",
+                "decimal": "224.22",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.actividad.etapa",
+                  "revision": "ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.actividad.etapa/ec28fd37a8a37829e262e37c90b538f2362ff77958e0547644c852d24e108de7"
+              }
+            }
+          ]
+        },
+        {
+          "_tag": "PasoExplicacion",
+          "titulo": "Bases, cuotas y pagos anuales",
+          "descripcion": "Sin ahorro, reducciones de base ni otras deducciones. Artículo 80 sin importe al excluir rentas extranjeras. Cuota líquida legal conservada antes de DA61. Precisión decimal hasta salida; presentación final half-up a céntimos, pendiente de aceptación fiscal.",
+          "fuentes": [
+            {
+              "titulo": "Alcance y evidencia de la conexión anual",
+              "referencia": "docs/procedencia/implementaciones/conexion-anual/INFORME.md"
+            }
+          ],
+          "lineasCalculo": [
+            {
+              "etiqueta": "Base imponible general",
+              "formula": "rendimiento neto reducido con signo",
+              "resultado": "28500.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.big",
+                "instanceId": "anual.explicito.big.0",
+                "decimal": "28500",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.big",
+                  "revision": "dd599a2d6ccec1b0a27cf5a25a83183be2127bf03caf968fe1783fa0cd02898e"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.big/dd599a2d6ccec1b0a27cf5a25a83183be2127bf03caf968fe1783fa0cd02898e"
+              }
+            },
+            {
+              "etiqueta": "Base liquidable general",
+              "formula": "BIG sin reducciones de base ni compensaciones anteriores",
+              "resultado": "28500.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.blg",
+                "instanceId": "anual.explicito.blg.0",
+                "decimal": "28500",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.blg",
+                  "revision": "ac01e9efd5473a14a221e0d7f5ca8e117944b5abaaec2e5f27eacee64157c1d8"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.blg/ac01e9efd5473a14a221e0d7f5ca8e117944b5abaaec2e5f27eacee64157c1d8"
+              }
+            },
+            {
+              "etiqueta": "Cuota estatal",
+              "formula": "escala(base positiva) − escala(mínimo limitado a base)",
+              "resultado": "2830.50 euros",
+              "origen": {
+                "siteId": "anual.explicito.cuota.estatal",
+                "instanceId": "anual.explicito.cuota.estatal.0",
+                "decimal": "2830.5",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.cuota.estatal",
+                  "revision": "03c3b9b5dad368aee48c587c490bd1111a5ffe2315727d199b080804a70eefb8"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.cuota.estatal/03c3b9b5dad368aee48c587c490bd1111a5ffe2315727d199b080804a70eefb8"
+              }
+            },
+            {
+              "etiqueta": "Cuota autonómica",
+              "formula": "escala publicada Madrid(base) − escala(mínimo limitado a base)",
+              "resultado": "2448.62 euros",
+              "origen": {
+                "siteId": "anual.explicito.cuota.autonomica",
+                "instanceId": "anual.explicito.cuota.autonomica.0",
+                "decimal": "2448.62211",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.cuota.autonomica",
+                  "revision": "a18e8339ff956d24a6dc49164fccf94c6cee9413eeda6476fcb04e34d03ec617"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.cuota.autonomica/a18e8339ff956d24a6dc49164fccf94c6cee9413eeda6476fcb04e34d03ec617"
+              }
+            },
+            {
+              "etiqueta": "Cuota líquida legal",
+              "formula": "cuota estatal + autonómica; sin otras deducciones",
+              "resultado": "5279.12 euros",
+              "origen": {
+                "siteId": "anual.explicito.cuota.liquida-legal",
+                "instanceId": "anual.explicito.cuota.liquida-legal.0",
+                "decimal": "5279.12211",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.cuota.liquida-legal",
+                  "revision": "1c0e4d57efc5be4f6345272aa827a57463e3880874bc303e807c779e6000dfd7"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.cuota.liquida-legal/1c0e4d57efc5be4f6345272aa827a57463e3880874bc303e807c779e6000dfd7"
+              }
+            },
+            {
+              "etiqueta": "DA61",
+              "formula": "deducción de servicios después del artículo 80, una sola vez",
+              "resultado": "0.00 euros",
+              "origen": {
+                "siteId": "anual.explicito.da61",
+                "instanceId": "anual.explicito.da61.0",
+                "decimal": "0",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.da61",
+                  "revision": "2147bf1fc10355a8e0551b89c95808f34656c8bb9751005dc29eb4e369f046f2"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.da61/2147bf1fc10355a8e0551b89c95808f34656c8bb9751005dc29eb4e369f046f2"
+              }
+            },
+            {
+              "etiqueta": "Cuota posterior",
+              "formula": "cuota líquida legal − DA61",
+              "resultado": "5279.12 euros",
+              "origen": {
+                "siteId": "anual.explicito.cuota.posterior",
+                "instanceId": "anual.explicito.cuota.posterior.0",
+                "decimal": "5279.12211",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.cuota.posterior",
+                  "revision": "7588afc23d5c691602427e0af987fe2609b3e144c3877bc96a704b79a49168ba"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.cuota.posterior/7588afc23d5c691602427e0af987fe2609b3e144c3877bc96a704b79a49168ba"
+              }
+            },
+            {
+              "etiqueta": "Retenciones efectivas",
+              "formula": "suma por operación única",
+              "resultado": "111.11 euros",
+              "origen": {
+                "siteId": "anual.explicito.retenciones",
+                "instanceId": "anual.explicito.retenciones.0",
+                "decimal": "111.11",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.retenciones",
+                  "revision": "05cb61039e6099fcf243708e975f998fd5d2de15ecd2e650c06a30b772a8286d"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.retenciones/05cb61039e6099fcf243708e975f998fd5d2de15ecd2e650c06a30b772a8286d"
+              }
+            },
+            {
+              "etiqueta": "Pagos fraccionados efectivos",
+              "formula": "suma por operación única",
+              "resultado": "224.22 euros",
+              "origen": {
+                "siteId": "anual.explicito.pagos",
+                "instanceId": "anual.explicito.pagos.0",
+                "decimal": "224.22",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.pagos",
+                  "revision": "9532deadecc43d407973b611a1ce03f3e91b8f076391be5cf6fa4441d1535d6a"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.pagos/9532deadecc43d407973b611a1ce03f3e91b8f076391be5cf6fa4441d1535d6a"
+              }
+            },
+            {
+              "etiqueta": "Cuota diferencial",
+              "formula": "cuota posterior − retenciones − pagos fraccionados",
+              "resultado": "4943.79 euros",
+              "origen": {
+                "siteId": "anual.explicito.diferencial",
+                "instanceId": "anual.explicito.diferencial.0",
+                "decimal": "4943.79211",
+                "unidad": "EUR"
+              },
+              "procedencia": {
+                "estado": "enlazada",
+                "snapshot": "d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1",
+                "algoritmo": "697c2ca2ee221867fdf1c32e3fb0dcc2ffdeba6ed9580eb571cb6d6caccda55a",
+                "datos": "59bae155b45e791b1e1ec4f0003c4a3fa443c3d29bf91bb02ad931bfd797a2f7",
+                "explicacion": "f6e582b86c4a45010168a8b205b48895c901af135d98954df6aaa5b9fab5773c",
+                "sujeto": {
+                  "id": "paso.anual.explicito.diferencial",
+                  "revision": "7f6418bb61c20cf0456e035d341783d755a1372225006117f5830cde5b31e631"
+                },
+                "href": "/procedencia/d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1/paso.anual.explicito.diferencial/7f6418bb61c20cf0456e035d341783d755a1372225006117f5830cde5b31e631"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "propiedades": [
+    "etapas[].importe",
+    "etapas[].reglaId",
+    "etapas[].id",
+    "etapas[].formula",
+    "aporte.importeEurosExactos",
+    "aporte.retencionesEuros",
+    "aporte.pagosFraccionadosEuros"
+  ]
+}

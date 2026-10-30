@@ -1,0 +1,14 @@
+{
+  "command": [
+    "flock",
+    "/tmp/irobopf-validacion-pesada.lock",
+    "nix",
+    "shell",
+    "nixpkgs#nodejs",
+    "-c",
+    "bash",
+    ".cache/causal-explicitos-r62-sol/lint-run.sh"
+  ],
+  "exit": 0,
+  "seconds": 303.3651306629181
+}
