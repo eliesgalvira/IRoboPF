@@ -8,7 +8,7 @@ Recibida la revisión del codec R48: 62 archivos, 333.402 bytes, transporte exac
 
 R47-N01 y el protocolo v3 quedan corroborados con alcance técnico limitado, sin nuevo defecto reproducido. Software e IR fijados por separado; recibos v2 requieren regeneración. No se repite otra revisión favorable de los mismos bytes. Detalle en correcciones/recepcion-codec-r49.
 
-Pendiente respaldo y lanzamiento de la revisión independiente del módulo de resultados R45, aún no contrastado por otro agente. La implementación de puertos R47 sigue aparte; no se sondea ni se lee trabajo parcial.
+Bloque respaldado en origin, commit `8136b0ffa00423eaffd1668e3bc14b45dae594b6`: 87 archivos, hashes comprobados y cero borrados. Lanzada una única revisión independiente nueva del módulo de resultados R45 sobre ese commit y sus 21.681 entradas, con gpt-6.1-sol, high y priority explícitos y confirmados por el lanzador. Encargo y respuesta completos en delegaciones-ronda49.json. Su finalización reactivará el hilo. La implementación de puertos R47 sigue aparte; no se sondea ni se lee trabajo parcial.
 
 Motor, inventario, confianza y 45 snapshots intactos. V5 mantiene corte R26 y Crossa v1 desfasado. Sin main, PR, despliegue, LFS, gasto, transferencia o limpieza. El encargo global continúa abierto.
 
