@@ -45,3 +45,7 @@ nix shell nixpkgs#python3 nixpkgs#nodejs -c flock /tmp/irobopf-validacion-pesada
 ```
 
 Los scripts rechazan destinos de ensayo ya existentes. Para una repetición nueva hay que adaptar su scratch a otro directorio absoluto propio, conservando el diff y sin sobrescribir esta evidencia. `validacion.json` identifica los cuatro comandos ejecutados y sus logs.
+
+## Incidencia de empaquetado del padre
+
+El primer commit local incluyó 71 de los 73 archivos seleccionados. Jujutsu omitió `fisico-final.json.gz` (1.481.403 bytes) y `fisico-inicial.json.gz` (1.081.770 bytes) por su límite predeterminado de 1 MiB; la comprobación exacta del conjunto falló antes de mover el bookmark o hacer push. Los dos archivos seguían intactos en disco. Se conserva ese commit y se completa la entrega mediante otro commit con límite explícito de 10 MiB para esa invocación, ya usado en las recepciones anteriores. No se cambia la configuración persistente ni se excluyen esos controles. La comprobación final compara todos los archivos recibidos y los blobs de ambos commits antes del respaldo.
