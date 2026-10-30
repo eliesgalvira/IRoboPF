@@ -1,0 +1,23 @@
+import fs from 'node:fs'
+import crypto from 'node:crypto'
+import {buildEvaluableAdmission,verifyEvaluableAdmission} from '../../scripts/procedencia/flujo-admision-r35.mjs'
+const out='docs/procedencia/implementaciones/admision-evaluable-r35-sol/'
+const cache='.cache/admision-evaluable-r35/'
+const f=buildEvaluableAdmission();verifyEvaluableAdmission(f)
+fs.writeFileSync(out+'fragmento.json',JSON.stringify(f,null,2)+'\n')
+for(const name of ['rojos-recibidos.log','rojos-recibidos.exit','pruebas-final.log','pruebas.json','tipos.log','tipos-final.log','lint.log','lint-final.log','recepcion-inicial.json']) if(fs.existsSync(cache+name))fs.copyFileSync(cache+name,out+name)
+fs.copyFileSync(cache+'fisico-final.json.gz',out+'recepcion-inicial.json.gz')
+const decisions=[
+ {id:'R35-D01',decision:'IR finito ejecutable para familia, separado de TS y de fórmulas monetarias.',objection:'Traducir el mismo código puede repetir sus errores y no prueba exhaustividad.',response:'Paridad contra APIs y mutación semántica de umbral; revisión independiente nueva pendiente.',cost:'Traductor limitado y mantenimiento por versión.'},
+ {id:'R35-D02',decision:'Mantener admissionClosed false en los 17 sitios.',objection:'La implementación no completa todavía RA34-01/02/04 en todo el alcance solicitado.',response:'Entregar avance ejecutable concreto sin presentar puertos incompletos como cierre; pendientes enumerados.',cost:'Esta entrega es parcial y requiere continuación, contraste del padre y revisión independiente.'},
+ {id:'R35-D03',decision:'Pruebas JS de formas ajenas al tipo separadas del test TS tipado.',objection:'Moverlas a JS no corrige su falta de tipado.',response:'No se afirma tal garantía; conserva controles ejecutables runtime y errores iniciales de tipos.',cost:'Dos instrumentos; typecheck solo del alcance TS y sus imports.'},
+ {id:'R35-D04',decision:'No mutar motor, R32, históricos ni confianza.',objection:'Una cifra admitida podría parecer jurídicamente autorizada.',response:'A32-P01/P02 siguen como conductas; no se decide fiscalidad de ajustes ni se inventa HTTP.',cost:'Política de entrada y fiscalidad pendientes.'},
+]
+fs.writeFileSync(out+'decisiones.json',JSON.stringify(decisions,null,2)+'\n')
+fs.writeFileSync(out+'hallazgos.json',JSON.stringify({status:'partial-implementation-not-accepted',completeRuleAcceptance:false,wiringAllowed:false,resolvedCandidate:f.obligations.filter(o=>o.status==='resolved'),pending:f.obligations.filter(o=>o.status==='pending'),limits:['No programa anual completo ni creación final de 13/17 sitios','Selectores territoriales por año conservan puertos fallibles aún sin expansión de callbacks/imports/condiciones internas','Adaptador solo defaults/presencia: falta spread/proyecciones familiares/SS','Faltan propagación anual completa, revalidación monetaria y retención/contexto por identidad','Puertos financieros describen propiedades/unidades pero sus dominios de entrada/salida/error aún no están tipados ejecutablemente','Option deducciones evalúa ramas, motivos abreviados: falta paridad exacta de mensajes/catálogo real','Dominio plain data declarado pero aún no comprobado ejecutablemente contra getters/proxies; no extrapolar JS','Anclas manuales usan rango de archivo completo, no rango mínimo de cada lectura','Verificador de IR requiere endurecer IDs de sentencias, instancias/cobertura y tipos de operandos antes de cierre'],fiscalDefect:false,review:'pending-parent-and-new-independent-review'},null,2)+'\n')
+const hash=(b,algorithm)=>crypto.createHash(algorithm).update(b).digest('hex')
+const pins=JSON.parse(fs.readFileSync('docs/procedencia/implementaciones/flujo-admision-r32-sol/pines.json'))
+fs.mkdirSync(cache+'cas',{recursive:true})
+const cas=pins.map(p=>{const b=fs.readFileSync(p.path),sha256=hash(b,'sha256');fs.writeFileSync(cache+'cas/'+sha256,b);return {path:p.path,base:'9c3edec704ead945b17e419d2e3ef0d1e8a75a29',sha256,sha512:hash(b,'sha512'),size:b.length,localPath:cache+'cas/'+sha256,mime:'text/plain',recovery:'git cat-file blob BASE:path; preservar CAS antes de retirar checkout'}})
+fs.writeFileSync(out+'CAS.json',JSON.stringify(cas,null,2)+'\n')
+for(const name of ['schema.mjs','documentar.mjs','vitest.mjs','vitest-r35.mjs','tsconfig.json','oxlint.json','fisico.mjs'])fs.copyFileSync(cache+name,out+name+'.txt')

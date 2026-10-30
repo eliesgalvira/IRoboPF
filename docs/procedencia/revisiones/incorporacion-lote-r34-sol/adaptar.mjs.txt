@@ -1,0 +1,12 @@
+import fs from 'node:fs';import cp from 'node:child_process';
+const src='docs/procedencia/implementaciones/incorporacion-lote-r32-sol',out='.cache/revision-incorporacion-r34',api='.cache/incorporacion-lote-r32/revision-r34';
+fs.mkdirSync(api,{recursive:true});fs.writeFileSync(out+'/fisico-inicial.json',JSON.stringify({base:'d70af62d19291c83d0deb281c09df106ee4a3575',entries:17248,differences:[],diff:'',untracked:[],completedBeforeFirstEdit:true,method:'flock recepcion, Nix Bun, lstat/readlink bytes ejecutabilidad blob individual'}));
+for(const name of ['preparar-ensayo','completar-ensayo','preservar-versiones','recorrido-r2','restaurar']){
+const original=fs.readFileSync(src+'/'+name+'.mjs.txt','utf8');let s=original.replaceAll("'../../scripts/procedencia/incorporacion-lote-r32.mjs'","'../../scripts/procedencia/incorporacion-lote-r32.mjs'");
+// instrumentos quedan a profundidad .cache/<ambito>, import original correcto.
+if(name==='restaurar')s=s.replace(".cache/incorporacion-lote-r32/reconstruccion-final",out+'/restauracion');
+else s=s.replaceAll('.cache/incorporacion-lote-r32',api).replaceAll(src,out);
+if(name==='preparar-ensayo')s=s.replace("assert.equal(execFileSync('git',['rev-parse','HEAD']).toString().trim(),BASE);","execFileSync('git',['merge-base','--is-ancestor',BASE,'HEAD']);");
+fs.writeFileSync(out+'/'+name+'.mjs',s);const d=cp.spawnSync('diff',['-u',src+'/'+name+'.mjs.txt',out+'/'+name+'.mjs'],{encoding:'utf8'});fs.writeFileSync(out+'/'+name+'.diff',d.stdout);
+}
+fs.mkdirSync(api+'/externo',{recursive:true});

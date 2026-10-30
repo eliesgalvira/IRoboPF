@@ -1,0 +1,29 @@
+--- test recibido
++++ test integrado
+@@ -84,7 +84,7 @@
+   const m = structuredClone(g)
+   const b = m.collectionBindings.find((x) => x.operation === "reduce")
+   expect(b).toBeDefined()
+-  if (!b) throw Error("reduce ausente")
++  if (b === undefined) throw Error("reduce ausente")
+   b.seed = null
+   expect(() => verifyRetencionesR34(m)).toThrow(/Correspondencia/)
+ })
+@@ -404,7 +404,7 @@
+ it("pendiente de soportadas impide anunciar su cierre", () => {
+   const m = structuredClone(g)
+   const obligation = m.obligations.find(o => o.id === "field:CasoFiscalAnual.retencionesSoportadasCentimos")
+-  if (!obligation) throw Error("obligación ausente")
++  if (obligation === undefined) throw Error("obligación ausente")
+   obligation.status = "pending"
+   obligation.reason = "contraste pendiente"
+   expect(() => verifyRetencionesR34(m)).toThrow()
+@@ -415,7 +415,7 @@
+ it("campo cruzado en la operación se rechaza sin cambiar ningún hash", () => {
+   const m = structuredClone(g)
+   const read = m.program.find(n => n.op === "get" && n.data.key === "retencionesSoportadasCentimos")
+-  if (!read) throw Error("lectura ausente")
++  if (read === undefined) throw Error("lectura ausente")
+   read.data.key = "pagosACuentaCentimos"
+   expect(() => verifyRetencionesR34(m)).toThrow(/Correspondencia/)
+ })

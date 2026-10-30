@@ -1,0 +1,6 @@
+$ tsc --noEmit && tsc --noEmit -p tools/oxlint/tsconfig.json
+tests/flujo-retenciones-r34.test.ts(87,8): error TS17: Unexpected `undefined` type in condition, expected strictly a boolean instead.    effect(strictBooleanExpressions)
+tests/flujo-retenciones-r34.test.ts(87,8): error TS17: Unexpected `{ id: any; operation: any; receiver: any; callback: any; parameters: any; seed: any; cardinality: string; source: any; }` type in condition, expected strictly a boolean instead.    effect(strictBooleanExpressions)
+tests/flujo-retenciones-r34.test.ts(407,8): error TS17: Unexpected `undefined` type in condition, expected strictly a boolean instead.    effect(strictBooleanExpressions)
+tests/flujo-retenciones-r34.test.ts(407,8): error TS17: Unexpected `{ id: string; status: string; reason: string; }` type in condition, expected strictly a boolean instead.    effect(strictBooleanExpressions)
+tests/flujo-retenciones-r34.test.ts(418,8): error TS17: Unexpected `any` type in condition, expected strictly a boolean instead.    effect(strictBooleanExpressions)

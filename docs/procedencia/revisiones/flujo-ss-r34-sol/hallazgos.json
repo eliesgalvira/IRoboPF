@@ -1,0 +1,33 @@
+{
+  "status": "candidato-contraste-padre",
+  "fiscalFindings": [],
+  "findings": [
+    {
+      "id": "SS34-01",
+      "kind": "origen-inexacto",
+      "files": [
+        "scripts/procedencia/flujo-ss-r32.mjs"
+      ],
+      "evidence": "origen.json",
+      "scope": "semilla salarial; fuentes legacy y selectores descritos en informe",
+      "productFix": false
+    },
+    {
+      "id": "SS34-02",
+      "kind": "suficiencia-cierre-no-acreditada",
+      "files": [
+        "scripts/procedencia/flujo-ss-r32.mjs",
+        "schemas/procedencia/flujo/ss-r32.schema.json",
+        "tests/flujo-ss-r32.test.ts"
+      ],
+      "evidence": [
+        "adversos.json",
+        "schema.json",
+        "semilla.json",
+        "auditoria-fuentes.json"
+      ],
+      "productFix": false
+    }
+  ],
+  "chronology": "rojo SS32 correcto posterior a escritura; no rojo previo válido"
+}

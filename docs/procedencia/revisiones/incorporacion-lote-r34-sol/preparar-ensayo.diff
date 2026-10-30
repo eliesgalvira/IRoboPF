@@ -1,0 +1,11 @@
+--- docs/procedencia/implementaciones/incorporacion-lote-r32-sol/preparar-ensayo.mjs.txt	2026-10-30 00:56:49.663622134 +0100
++++ .cache/revision-incorporacion-r34/preparar-ensayo.mjs	2026-10-30 00:57:45.457866484 +0100
+@@ -1,6 +1,6 @@
+ import fs from 'node:fs';import {resolve,dirname} from 'node:path';import assert from 'node:assert/strict';import {execFileSync} from 'node:child_process';import {preparar,aplicar,revertir,sha,BASE} from '../../scripts/procedencia/incorporacion-lote-r32.mjs';
+-const root=process.cwd(),out=resolve('.cache/incorporacion-lote-r32'),tree=out+'/ensayo',docs=resolve('docs/procedencia/implementaciones/incorporacion-lote-r32-sol');
+-assert.equal(execFileSync('git',['rev-parse','HEAD']).toString().trim(),BASE);
++const root=process.cwd(),out=resolve('.cache/incorporacion-lote-r32/revision-r34'),tree=out+'/ensayo',docs=resolve('.cache/revision-incorporacion-r34');
++execFileSync('git',['merge-base','--is-ancestor',BASE,'HEAD']);
+ const write=(p,b)=>{fs.mkdirSync(dirname(p),{recursive:true});fs.writeFileSync(p,b)};
+ const plan=preparar(root);write(docs+'/plan.json',JSON.stringify(plan,null,2)+'\n');
+ for(const f of plan.files){write(docs+'/candidatos/'+f.path.split('/').at(-1),Buffer.from(f.after,'base64'));write(docs+'/previos/'+f.path.split('/').at(-1),Buffer.from(f.before,'base64'))}

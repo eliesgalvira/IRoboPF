@@ -82,7 +82,10 @@ export function preparar(root = source) {
   const expected = load("docs/procedencia/correcciones/integracion-r19/candidatos/correspondencias.json").rows
   assert.deepEqual(entries.map((e) => e.payload.sha256).sort(), expected.map((e) => e.candidate.sha256).sort())
   const registryPath = "docs/procedencia/enlaces/registro.json", reviewersPath = "docs/procedencia/enlaces/revisores.json"
-  const previous = readFileSync(resolve(root, registryPath)), previousReviewers = readFileSync(resolve(root, reviewersPath))
+  // El plan permanece reproducible después de incorporarlo. Sus bytes previos
+  // están preservados; el estado operativo se coteja abajo con ambos extremos.
+  const previous = readFileSync(resolve(root, "docs/procedencia/implementaciones/incorporacion-lote-r32-sol/previos/registro.json"))
+  const previousReviewers = readFileSync(resolve(root, "docs/procedencia/implementaciones/incorporacion-lote-r32-sol/previos/revisores.json"))
   assert.equal(sha(previous), "1d52209d31204c67a8c4c13934b58fd46621be59e10cdb695d5785958c0bac4d")
   assert.equal(sha(previousReviewers), "3015971a9083a4be10471597c79d7cf1f382a0255bccba7d6be679185930dbd2")
   const registry = JSON.parse(previous.toString("utf8"))
@@ -90,6 +93,8 @@ export function preparar(root = source) {
   assert.equal(registry.entries[0].payload.sha256, "e16bd15666f0f83502756ac1648259979ab07bdc5eea18abb0e7965a634a4258")
   assert.equal(registry.entries[0].attestation, null)
   const files = [{path:registryPath, before:previous, after:serialize({...registry, entries:[...registry.entries,...entries]})}, {path:reviewersPath, before:previousReviewers, after:readFileSync(resolve(root, reviewerPath))}].map(f => ({path:f.path,baseSha256:sha(f.before),sha256:sha(f.after),before:f.before.toString("base64"),after:f.after.toString("base64")}))
+  const actual = files.map(f=>sha(readFileSync(resolve(root,f.path))))
+  assert.ok(files.every((f,i)=>actual[i]===f.baseSha256)||files.every((f,i)=>actual[i]===f.sha256), "Estado mixto o desconocido; recuperar antes de preparar")
   return {base:BASE, kind:"propuesta-incorporacion-r32", trustMutation:false, completeRuleAcceptance:false, files, identities, cases}
 }
 function transition(tree, plan, backwards) {

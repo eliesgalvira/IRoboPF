@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": [
+      "esnext",
+      "dom"
+    ],
+    "module": "preserve",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "allowJs": true,
+    "checkJs": false,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "verbatimModuleSyntax": true,
+    "exactOptionalPropertyTypes": true,
+    "baseUrl": "/home/local/.ws/worktrees/IRoboPF/t3-a125ce4b",
+    "paths": {
+      "@/*": [
+        "./*"
+      ],
+      "*": [
+        "/home/local/Repos/IRoboPF/node_modules/*"
+      ],
+      "effect": [
+        "/home/local/Repos/IRoboPF/node_modules/effect/dist/index.d.ts"
+      ],
+      "effect/*": [
+        "/home/local/Repos/IRoboPF/node_modules/effect/dist/*.d.ts"
+      ]
+    },
+    "typeRoots": [
+      "/home/local/Repos/IRoboPF/node_modules/@types"
+    ]
+  },
+  "include": [
+    "*.ts"
+  ]
+}

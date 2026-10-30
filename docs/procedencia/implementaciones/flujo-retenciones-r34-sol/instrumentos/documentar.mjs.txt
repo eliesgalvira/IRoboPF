@@ -1,0 +1,35 @@
+import fs from 'node:fs';import path from 'node:path';import{gzipSync,gunzipSync}from'node:zlib';import{spawnSync}from'node:child_process';
+const cache='.cache/flujo-retenciones-r34',out='docs/procedencia/implementaciones/flujo-retenciones-r34-sol';
+const write=(name,v)=>fs.writeFileSync(out+'/'+name,JSON.stringify(v,null,2)+'\n');
+const decision=(id,decision,objecionExperta,respuesta,coste)=>({id,decision,objecionExperta,respuesta,coste});
+write('DECISIONES.json',[
+ decision('R34-D1','Operaciones JSON por propiedad, sin terminal TS/prosa','Otro inventario de cuerpos puede ocultar omisiones','Bindings, operandos, literales, callbacks, celdas y resultados ejecutables en consumidor separado','DSL finita mantenida y revisión nueva; no compilador universal'),
+ decision('R34-D2','Mantener corrobación condicionada de soportadas','Una dependencia indirecta del estimador contaminaría cifras iguales','Campo y salida propios; mutaciones de un único productor y frontera específica de pendientes','Cota conservadora adicional de operaciones anuales/monetarias'),
+ decision('R34-D3','Representar pendientes y derivar cierres','Un true redactado de antemano no prueba cobertura','Obligaciones completas y verificador por correspondencia; pendientes impiden el cierre dependiente','La receta puede compartir omisiones del autor; contraste independiente obligatorio'),
+ decision('R34-D4','Simulador síncrono de valor/selección, sin API Effect ni wiring','La ejecución podría atribuir garantías de fibras/errores no modeladas','Primitivas explícitas, throws de simulación y admisión/inyección abiertas','No reutilizable como motor ni consumidor de paquetes hostiles sin verificación'),
+ decision('R34-D5','Preservar todos los fallos y corregir orden de evaluación','Orden distinto puede quedar invisible cuando la suma es conmutativa','Rojo antes del fix y argumentos por instancia; receptor se evalúa primero','Más trazas, revisión del intérprete y control propio del esperado alfabético'),
+ decision('R34-D6','Reutilizar 46 y31 esperados intactos y repetir31 en IR','Contrastar solo contra motor perpetúa sus errores','Casos racionales/fronteras independientes y contraste suplementario etiquetado','177 pruebas incluyen duplicación deliberada de31; no177 reglas fiscales'),
+ decision('R34-D7','JS sin checkJs y formato core en este entorno','Tipos verdes podrían sugerir cobertura JS completa','Declarar límite, interpretar solo ops finitas, lint y pruebas runtime; conservar fallos plugin','No análisis estático completo de MJS; sin formato Tailwind, ajeno a estos archivos'),
+ decision('R34-D8','Sin adquisiciones, confianza, restauración masiva o VCS mutante','Hashes y transporte no acreditan suficiencia fiscal ni custodia','Solo candidato revisable, cotejos físicos y transporte exacto','Preservación histórica y revisión jurídica continúan fuera de esta entrega')]);
+write('HALLAZGOS.json',[
+ {id:'R34-H1',kind:'candidate-interpreter-order-defect',fiscalDefect:false,red:'controles/casos-intento1.json',fix:'receiver-before-arguments',independentAcceptance:false},
+ {id:'R34-H2',kind:'own-expectation-refuted',fiscalDefect:false,issue:'Orden alfabético esperado CIEN/CERO incorrecto, corregido CERO/CIEN',sourceBefore:'instrumentos/nuevo-antes-conjunto.ts.txt',independentAcceptance:false},
+ {id:'R34-H3',kind:'scratch-effect-adapter-defect',fiscalDefect:false,issue:'Effect.try requiere options.try/options.catch en versión local',historicalExpectationsChanged:false},
+ {id:'RF33-01',kind:'candidate-implementation',issue:'Campos/defaults, literales y callbacks en IR',independentAcceptance:false},
+ {id:'RF33-02',kind:'candidate-implementation',issue:'Celdas/argumentos/selección/resultados por instancia en IR',independentAcceptance:false},
+ {id:'RF33-03',kind:'retained-scope-limit',issue:'Schema y consumidor separados, sin bypass demostrado'},
+ {id:'RF33-04',kind:'retained-editorial-preexisting',productFix:false}]);
+const result=JSON.parse(fs.readFileSync(cache+'/casos-definitivo.json'));
+if(result.numFailedTests!==0||result.numPassedTests!==177)throw Error('tests');
+const graph=JSON.parse(gunzipSync(fs.readFileSync(cache+'/fragmento.json.gz')));
+write('VALIDACION.json',{head:graph.base,tests:{passed:result.numPassedTests,failed:result.numFailedTests,composition:['46-originales','31-revisor-motor','31-revisor-IR','69-nuevas'],historicalExpectedUnchanged:true},operations:graph.program.length,fields:graph.fieldBindings.length,cells:graph.scaleCells.length,scaleInstances:graph.scaleInstances.length,obligations:graph.obligations.length,types:{exit:0,checkJs:false},oxlint:{exit:0,threads:1,rulesAtError:16,disableNestedConfig:true},eslint:{exit:0,reactDetectionEnvironmentWarning:true},schema:{exit:0,pendingRepresentable:true},siteClosed:false,wiringAllowed:false,completeRuleAcceptance:false,parentContrastRequired:true});
+write('CASOS.json',{report:'controles/casos-definitivo.json',instances:'controles/casos-correspondencias.json.gz',independentArithmetic:['rational-widths-rates','alimentos-strict-branches','43-limits','vivienda-truncation','contract-minima','table-null-columns','payment-producers','origen.decimal'],supplementaryEngineContrast:true,fiscalOracle:false});
+write('sitios.json',{sites:graph.sites,mapping:graph.outputBindings,previousArtifact:graph.previousArtifact,admission:graph.admissionInterface,parentContrastRequired:true});
+const instruments=['cotejo.mjs','rojo.mjs','preparar.mjs','ensayar.mjs','schema.mjs','schema.py','casos.mjs','modelo.ts','revisor.test.ts','revisor-ir.test.ts','autor.test.ts','vitest.config.mjs','tsconfig.json','oxlint.json','prettier-core.json','nuevo-antes-conjunto.ts.txt','nuevo-antes-tipos.ts.txt','validar.sh','validar2.sh','validar-final.sh','calidad.sh','calidad-definitiva.sh','documentar.mjs'];
+for(const n of instruments)if(fs.existsSync(cache+'/'+n))fs.copyFileSync(cache+'/'+n,out+'/instrumentos/'+n+(n.endsWith('.txt')?'':'.txt'));
+for(const n of fs.readdirSync(cache))if(n.endsWith('.log')||n.startsWith('casos-')&&n.endsWith('.json')||n==='rojo.json'||n==='adaptacion.diff'||n==='fragmento.json.gz'||n==='casos-correspondencias.json.gz'){
+ const b=fs.readFileSync(cache+'/'+n);if(b.length>1e6)fs.writeFileSync(out+'/controles/'+n+'.gz',gzipSync(b,{level:9}));else fs.writeFileSync(out+'/controles/'+n,b);
+}
+for(const n of ['fisico-inicial.json','fisico-final.json']){const g=JSON.parse(fs.readFileSync(cache+'/'+n));if(g.entries!==17248||g.changes.length||g.deletions.length||g.diff)throw Error(n);fs.writeFileSync(out+'/controles/'+n+'.gz',gzipSync(fs.readFileSync(cache+'/'+n),{level:9}));}
+for(const [original,adapted,label]of [['tests/flujo-retenciones-r32.test.ts',cache+'/autor.test.ts','autor'],['docs/procedencia/revisiones/flujo-retenciones-r33-sol/instrumentos/propios.test.ts.txt',cache+'/revisor.test.ts','revisor'],[cache+'/revisor.test.ts',cache+'/revisor-ir.test.ts','revisor-ir']])fs.writeFileSync(out+'/controles/adaptacion-'+label+'.diff',spawnSync('diff',['-u',original,adapted]).stdout);
+console.log(JSON.stringify({passed:result.numPassedTests,failed:result.numFailedTests,delivered:out}));
