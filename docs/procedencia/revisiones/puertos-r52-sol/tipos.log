@@ -1,0 +1,21 @@
+[96m.cache/puertos-r52-sol/independiente.test.ts[0m:[93m24[0m:[93m4[0m - [91merror[0m[90m TS18049: [0m'event.result' is possibly 'null' or 'undefined'.
+
+[7m24[0m    event.result.contribuyente.general.decimal="999"
+[7m  [0m [91m   ~~~~~~~~~~~~[0m
+[96m.cache/puertos-r52-sol/independiente.test.ts[0m:[93m24[0m:[93m17[0m - [91merror[0m[90m TS2339: [0mProperty 'contribuyente' does not exist on type 'string | number | boolean | Snapshot[] | SnapshotFields'.
+  Property 'contribuyente' does not exist on type 'string'.
+
+[7m24[0m    event.result.contribuyente.general.decimal="999"
+[7m  [0m [91m                ~~~~~~~~~~~~~[0m
+[96m.cache/puertos-r52-sol/independiente.test.ts[0m:[93m40[0m:[93m37[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ ejercicio: number; territorio: string; reduccionesArt18: string; movilidad: string; discapacidadActiva: string; rendimientos: { id: string; clase: string; integro: string; cotizaciones: { clase: string; seguridadSocial: string; derechosPasivos: string; colegiosHuerfanos: string; }; sindicato: { ...; }; colegio: { ...' is not assignable to parameter of type '{ readonly territorio: "comun" | "foral"; readonly ejercicio: number; readonly movilidad: "ninguna" | "ordinaria" | "dt6-2015" | "desconocida"; readonly reduccionesArt18: "pendiente" | "ninguna"; readonly discapacidadActiva: "pendiente" | ... 1 more ... | { ...; }; readonly rendimientos: readonly { ...; }[]; }'.
+  Types of property 'territorio' are incompatible.
+    Type 'string' is not assignable to type '"comun" | "foral"'.
+
+[7m40[0m  const expected=adaptarTrabajoAnual(input.trabajo)
+[7m  [0m [91m                                    ~~~~~~~~~~~~~[0m
+[96m.cache/puertos-r52-sol/independiente.test.ts[0m:[93m80[0m:[93m164[0m - [91merror[0m[90m TS7053: [0mElement implicitly has an 'any' type because expression of type 'string' can't be used to index type 'EtapaActividad'.
+  No index signature with a parameter of type 'string' was found on type 'EtapaActividad'.
+
+[7m80[0m   expect(property.value).toEqual(field==="orden"?expected.etapas.map(e=>e.id).reverse():[field==="importe"?"71.29":"SOL-CAMBIO",...expected.etapas.slice(1).map(e=>e[selected])])
+[7m  [0m [91m                                                                                                                                                                   ~~~~~~~~~~~[0m
+

@@ -1,0 +1,11 @@
+[96m.cache/puertos-r52-sol/independiente.test.ts[0m:[93m70[0m:[93m35[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ gastos: any; estado: "no-soportado"; motivo: string; } | { gastos: any; estado: "aporte-disponible"; ejercicio: number; rendimientoAntesArt20: string; argumentoArt20: string; clases: { id: string; clase: "desconocido" | ... 3 more ... | "otro-trabajo"; integro: string; }[]; pendientes: string[]; aceptacionFiscal: ...' is not assignable to parameter of type 'NoSoportado | { estado: "aporte-disponible"; ejercicio: number; rendimientoAntesArt20: string; argumentoArt20: string; gastos: { readonly estado: "calculado"; readonly integro: string; ... 7 more ...; readonly aceptacionFiscal: "pendiente"; }; clases: { ...; }[]; pendientes: string[]; aceptacionFiscal: "pendiente"; }'.
+  Object literal may only specify known properties, and 'gastos' does not exist in type 'NoSoportado'.
+
+[7m70[0m   const lines=render({...expected,gastos:{...expected.gastos,[field]:"321.09"}})
+[7m  [0m [91m                                  ~~~~~~[0m
+[96m.cache/puertos-r52-sol/independiente.test.ts[0m:[93m70[0m:[93m55[0m - [91merror[0m[90m TS2339: [0mProperty 'gastos' does not exist on type 'NoSoportado | { estado: "aporte-disponible"; ejercicio: number; rendimientoAntesArt20: string; argumentoArt20: string; gastos: { readonly estado: "calculado"; readonly integro: string; ... 7 more ...; readonly aceptacionFiscal: "pendiente"; }; clases: { ...; }[]; pendientes: string[]; aceptacionFiscal: "pendiente"; }'.
+  Property 'gastos' does not exist on type 'NoSoportado'.
+
+[7m70[0m   const lines=render({...expected,gastos:{...expected.gastos,[field]:"321.09"}})
+[7m  [0m [91m                                                      ~~~~~~[0m
+
