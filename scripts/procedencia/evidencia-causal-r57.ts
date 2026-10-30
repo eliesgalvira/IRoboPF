@@ -1,3 +1,4 @@
+import { prepareExplicitos } from "./causal-explicitos-r62-contratos.mjs";
 import { decodeEscalasSchema } from "./causal-escalas-r60-schema.mjs";
 import { prepareEscalas } from "./causal-escalas-r60-contratos.mjs";
 import { prepareRentas } from "./causal-rentas-r59-contratos.mjs";
@@ -10,6 +11,7 @@ import type {
   ContextInput,
   RetFragment,
 } from "./causal-retenciones-r57.ts";
+import { isDeepStrictEqual } from "node:util";
 import { createRequire } from "node:module";
 import { createHash } from "node:crypto";
 // Herramienta documental síncrona fuera de un programa Effect: lee los bytes fijados para verificar su identidad.
@@ -193,7 +195,8 @@ export interface FiniteOptions {
     | "causal-ss-r54"
     | "causal-retenciones-r57"
     | "causal-rentas-r59"
-    | "causal-escalas-r60";
+    | "causal-escalas-r60"
+    | "causal-explicitos-r62";
 }
 interface VerifiedOptions extends FiniteOptions {
   software: string[];
@@ -206,15 +209,17 @@ export function executeFiniteCausal(
   execution: string,
   options: FiniteOptions,
 ): CausalResult {
-  if (options.kind === "causal-escalas-r60") {
+  const extendedGrammar = options.kind === "causal-escalas-r60" || options.kind === "causal-explicitos-r62";
+  if (extendedGrammar) {
     const route = "route" in contexto ? contexto.route : "annual";
     contexto = Object.assign({}, contexto, { route: route ?? "annual" });
   }
   let prepared: SSFragment;
   let software: string[];
-  if (options.kind === "causal-escalas-r60") {
-    prepared = prepareEscalas(g, caso, contexto);
+  if (extendedGrammar) {
+    prepared = options.kind === "causal-explicitos-r62" ? prepareExplicitos(g, caso, contexto) : prepareEscalas(g, caso, contexto);
     software = [
+      ...(options.kind === "causal-explicitos-r62" ? ["scripts/procedencia/causal-explicitos-r62.mjs", "scripts/procedencia/causal-explicitos-r62-contratos.mjs", "scripts/procedencia/causal-explicitos-r62-ir.mjs"] : []),
       "scripts/procedencia/causal-escalas-r60.mjs",
       "scripts/procedencia/causal-escalas-r60-contratos.mjs",
       "scripts/procedencia/causal-escalas-r60-schema.mjs",
@@ -267,15 +272,16 @@ function evaluateVerifiedFinite(
   execution: string,
   options: VerifiedOptions,
 ): CausalResult {
+  const extendedGrammar = options.kind === "causal-escalas-r60" || options.kind === "causal-explicitos-r62";
   shown(
     caso,
     options.kind === "causal-rentas-r59" ||
-      options.kind === "causal-escalas-r60",
+      extendedGrammar,
   );
   shown(contexto);
   const normalizedInput =
     options.kind === "causal-rentas-r59" ||
-    options.kind === "causal-escalas-r60"
+    extendedGrammar
       ? shown(caso, true)
       : caso;
   if (!record(normalizedInput)) throw Error("Entrada anual no ordinaria");
@@ -303,7 +309,7 @@ function evaluateVerifiedFinite(
   ): Value {
     const id = execution + ":" + events.length;
     if (
-      options.kind === "causal-escalas-r60" &&
+      extendedGrammar &&
       number(raw) &&
       Number.isNaN(raw)
     )
@@ -429,6 +435,7 @@ function evaluateVerifiedFinite(
             "sort",
             "reverse",
             "slice",
+            ...(options.kind === "causal-explicitos-r62" ? ["push"] : []),
           ].includes(key)) ||
         (text(v.raw) &&
           [
@@ -447,13 +454,13 @@ function evaluateVerifiedFinite(
     }
     if (
       (options.kind === "causal-rentas-r59" ||
-        options.kind === "causal-escalas-r60") &&
+        extendedGrammar) &&
       v.raw instanceof Date &&
       [
         "getUTCFullYear",
         "getUTCMonth",
         "getUTCDate",
-        ...(options.kind === "causal-escalas-r60" ? ["getTime"] : []),
+        ...(extendedGrammar ? ["getTime"] : []),
       ].includes(key)
     ) {
       const out = native("date." + key);
@@ -461,7 +468,7 @@ function evaluateVerifiedFinite(
       return out;
     }
     if (
-      options.kind === "causal-escalas-r60" &&
+      extendedGrammar &&
       DateTime.isDateTime(v.raw) &&
       key === "epochMilliseconds"
     )
@@ -535,7 +542,7 @@ function evaluateVerifiedFinite(
   ): void {
     if (p.name !== undefined && p.name !== "") {
       env.set(p.name, alias(v, role, [], p.name));
-      if (options.kind === "causal-escalas-r60") {
+      if (extendedGrammar) {
         const names = locals.get(env) ?? new Set<string>();
         names.add(p.name);
         locals.set(env, names);
@@ -551,7 +558,7 @@ function evaluateVerifiedFinite(
     } else
       for (const f of p.fields ?? []) {
         let child: Value;
-        if (options.kind === "causal-escalas-r60" && f.rest === true) {
+        if (extendedGrammar && f.rest === true) {
           const fields = [...v.props].filter(
             ([key]) =>
               p.fields?.some((x) => x.rest !== true && x.key === key) !== true,
@@ -591,7 +598,7 @@ function evaluateVerifiedFinite(
                 "Option",
                 "String",
                 "DateTime",
-                ...(options.kind === "causal-escalas-r60"
+                ...(extendedGrammar
                   ? ["clock", "Set", "Map", "Date", "Result"]
                   : []),
               ]
@@ -632,7 +639,7 @@ function evaluateVerifiedFinite(
               alias(v, "capture", [], name),
             ]),
           );
-        if (options.kind === "causal-escalas-r60") parents.set(env, f.env);
+        if (extendedGrammar) parents.set(env, f.env);
         current = f.node;
         emit("invoke", null, [
           { role: "callee", to: fn.ref },
@@ -661,7 +668,7 @@ function evaluateVerifiedFinite(
           if (e instanceof ReturnValue) result = e.value;
           else throw e;
         }
-        if (options.kind === "causal-escalas-r60" && f.node === g.lineNode)
+        if (extendedGrammar && f.node === g.lineNode)
           captureLine(result);
         return alias(
           options.kind !== "causal-ss-r54" &&
@@ -733,7 +740,7 @@ function evaluateVerifiedFinite(
     const x = (i: number) => must(xs[i]),
       raw = xs.map((v) => v.raw),
       edges = xs.map((v, i) => ({ role: "argument:" + i, to: v.ref }));
-    if (options.kind === "causal-escalas-r60") {
+    if (extendedGrammar) {
       if (name === "Decimal.clone") {
         if (!record(raw[0]) || !number(raw[0].precision))
           throw Error("Precision Decimal requise");
@@ -778,7 +785,7 @@ function evaluateVerifiedFinite(
         return invoke(global("calcularRetencionTrabajoAeatImpl"), xs, current);
       if (name === "Effect.annotateCurrentSpan")
         return emit("annotation", undefined, edges);
-      if (name === "Effect.fail" && options.kind === "causal-escalas-r60")
+      if (name === "Effect.fail" && extendedGrammar)
         throw Object.assign(
           Error("ResultadoNoSoportado: " + String(prop(x(0), "motivo").raw)),
           { domainFailure: x(0).raw },
@@ -790,7 +797,7 @@ function evaluateVerifiedFinite(
       if (name === "String") return emit(name, String(raw[0]), edges);
       if (
         name === "DateTime.makeUnsafe" &&
-        options.kind === "causal-escalas-r60" &&
+        extendedGrammar &&
         text(raw[0])
       )
         return emit(name, DateTime.makeUnsafe(raw[0]), edges);
@@ -841,7 +848,7 @@ function evaluateVerifiedFinite(
         return emit(name, raw[0] === undefined, edges);
       if (name === "Match.number") return emit(name, number(raw[0]), edges);
       if (name === "Match.string") return emit(name, text(raw[0]), edges);
-      if (name === "Math.min" && options.kind === "causal-escalas-r60")
+      if (name === "Math.min" && extendedGrammar)
         return emit(name, Math.min(...raw.map(Number)), edges);
       if (name === "Math.max")
         return emit(name, Math.max(...raw.map(Number)), edges);
@@ -914,6 +921,11 @@ function evaluateVerifiedFinite(
             "index",
             "index",
           );
+        if (key === "push" && options.kind === "causal-explicitos-r62") {
+          for (const v of xs) receiver.props.set(String(receiver.props.size), v);
+          receiver.raw = [...receiver.props.values()].map((v) => v.raw);
+          return emit("push-length", receiver.props.size, [{role:"receiver",to:receiver.ref}, ...edges]);
+        }
         if (key === "includes")
           return emit(
             "includes",
@@ -936,7 +948,7 @@ function evaluateVerifiedFinite(
               ...edges,
             ],
           );
-        if (key === "map" && options.kind === "causal-escalas-r60") {
+        if (key === "map" && extendedGrammar) {
           const prev = controls;
           controls = [...prev, selection];
           try {
@@ -1132,10 +1144,10 @@ function evaluateVerifiedFinite(
     }
     if (name === "Object.values")
       return collection([...x(0).props.values()], "Object.values");
-    if (options.kind === "causal-escalas-r60" && name === "EffectArray.empty")
+    if (extendedGrammar && name === "EffectArray.empty")
       return collection([], "array-empty");
     if (
-      options.kind === "causal-escalas-r60" &&
+      extendedGrammar &&
       [
         "EffectArray.flatMap",
         "EffectArray.findFirst",
@@ -1251,7 +1263,7 @@ function evaluateVerifiedFinite(
           role: "identity:element:" + key,
           to: element.ref,
         })),
-        ...(options.kind === "causal-escalas-r60"
+        ...(extendedGrammar
           ? (receiver.structure ?? []).map((v) => ({
               role: "structure",
               to: v.ref,
@@ -1291,7 +1303,7 @@ function evaluateVerifiedFinite(
     if (
       name === "Option.match" &&
       xs.length === 2 &&
-      options.kind === "causal-escalas-r60"
+      extendedGrammar
     ) {
       const state = must(x(0).state),
         present = state.input.raw !== undefined && state.input.raw !== null;
@@ -1459,7 +1471,7 @@ function evaluateVerifiedFinite(
     try {
       switch (n.op) {
         case "assign": {
-          if (options.kind !== "causal-escalas-r60")
+          if (!extendedGrammar)
             throw Error("assign fuera de dominio");
           const v = ev(0),
             name = must(n.data.name);
@@ -1527,9 +1539,18 @@ function evaluateVerifiedFinite(
             );
             return failed;
           }
+          function reconstruct(raw: Value["raw"], encoded: Value, property = ""): Value {
+            if (isDeepStrictEqual(raw, encoded.raw)) return alias(encoded, "decoded-input", [], property);
+            const v = emit("schema-transformation", raw, [{role:"encoded-input",to:encoded.ref}], property);
+            if (Array.isArray(raw) || record(raw))
+              for (const [key, value] of Object.entries(raw))
+                v.props.set(key, reconstruct(value, prop(encoded, key), key));
+            return v;
+          }
+          const success = options.kind === "causal-explicitos-r62" ? reconstruct(decoded.success, input) : alias(input, "decoded-input");
           const out = emit(
             "schema-success",
-            { _tag: "Success", success: input.raw },
+            { _tag: "Success", success: success.raw },
             [{ role: "identity:input", to: input.ref }],
           );
           out.props.set(
@@ -1538,7 +1559,7 @@ function evaluateVerifiedFinite(
               { role: "identity:input", to: input.ref },
             ]),
           );
-          out.props.set("success", alias(input, "decoded-input"));
+          out.props.set("success", success);
           return out;
         }
         case "failurePayload": {
@@ -1572,7 +1593,7 @@ function evaluateVerifiedFinite(
           return emit("regex", new RegExp(must(n.data.pattern), n.data.flags));
         case "local": {
           let owner = env;
-          if (options.kind === "causal-escalas-r60")
+          if (extendedGrammar)
             while (
               parents.has(owner) &&
               locals.get(owner)?.has(must(n.data.name)) !== true
@@ -1595,14 +1616,14 @@ function evaluateVerifiedFinite(
           v.closure = {
             body: must(n.args[0]),
             parameters: must(n.data.parameters),
-            env: options.kind === "causal-escalas-r60" ? env : new Map(env),
+            env: extendedGrammar ? env : new Map(env),
             node: id,
           };
           return v;
         }
         case "block": {
           const local = new Map(env);
-          if (options.kind === "causal-escalas-r60") parents.set(local, env);
+          if (extendedGrammar) parents.set(local, env);
           for (const id of n.args) evaluate(id, local);
           return emit("block", undefined);
         }
@@ -1624,7 +1645,7 @@ function evaluateVerifiedFinite(
         case "pass":
           return alias(ev(0), "pass");
         case "throw":
-          if (options.kind === "causal-escalas-r60")
+          if (extendedGrammar)
             throw Object.assign(Error("Rechazo IR R60"), {
               domainFailure: ev(0).raw,
             });
@@ -1717,7 +1738,7 @@ function evaluateVerifiedFinite(
             }
           }
           const b = ev(1);
-          if (op === "in" && options.kind === "causal-escalas-r60") {
+          if (op === "in" && extendedGrammar) {
             if (!record(b.raw) && !Array.isArray(b.raw))
               throw Error("Presencia en no objeto");
             return emit("property-presence", String(a.raw) in b.raw, [
@@ -1902,15 +1923,17 @@ function evaluateVerifiedFinite(
       String(site.raw),
     );
     lines.push(v.raw);
-    outputs.push({
+    const output: Output = {
       siteId: String(site.raw),
       decimal: String(decimal.raw),
       display: display.raw,
       root: transported.ref,
       slice: causalSlice(events, transported.ref),
-    });
+    };
+    if (options.kind === "causal-explicitos-r62") Object.assign(output, {instanceId: String(prop(origin, "instanceId").raw), unit: String(prop(origin, "unidad").raw)});
+    outputs.push(output);
   }
-  if (options.kind === "causal-escalas-r60") {
+  if (extendedGrammar) {
     const entry = must(g.entryPoints);
     const routeValue = prop(must(env.get("contexto")), "route");
     const entrySelection = emit("entry-selection", routeValue.raw, [
@@ -1930,7 +1953,7 @@ function evaluateVerifiedFinite(
       null,
     );
   }
-  for (const b of options.kind === "causal-escalas-r60"
+  for (const b of extendedGrammar
     ? []
     : g.outputBindings) {
     if (
@@ -1967,9 +1990,9 @@ function evaluateVerifiedFinite(
     lines,
     evidence: {
       version:
-        options.kind === "causal-ss-r54"
+        options.kind === "causal-explicitos-r62" ? 5 : options.kind === "causal-ss-r54"
           ? 1
-          : options.kind === "causal-escalas-r60"
+          : extendedGrammar
             ? 4
             : options.kind === "causal-rentas-r59"
               ? 3

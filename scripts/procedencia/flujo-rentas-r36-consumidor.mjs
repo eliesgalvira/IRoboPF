@@ -1,3 +1,5 @@
+import { executeCausalExplicitos } from "./causal-explicitos-r62.mjs";
+import { composeCausalExplicitos } from "./causal-explicitos-r62-contratos.mjs";
 import {isDeepStrictEqual} from "node:util"
 import {executeCausalRentas} from "./causal-rentas-r59.mjs"
 import {composeCausalRentas} from "./causal-rentas-r59-contratos.mjs"
@@ -414,9 +416,36 @@ export function consumeGeneralRentas(
     wiringAllowed: false,
   }
 }
-/** Distingue rechazo contractual de defecto; nunca transforma ninguno en importe cero. */
-/** @param {((event: import("./puertos-composicion-r47").Observation) => void)|null} observe */
-export function consumeExplicitRentas(fragment, entrada, boundaries = {}, observe = null) {
+/**
+ * @overload
+ * @param {Parameters<typeof consumeExplicitRentasLegacy>[0]} fragment
+ * @param {Parameters<typeof consumeExplicitRentasLegacy>[1]} entrada
+ * @param {Parameters<typeof consumeExplicitRentasLegacy>[2]} [boundaries]
+ * @param {Parameters<typeof consumeExplicitRentasLegacy>[3]} [observe]
+ * @param {null} [causalOptions]
+ * @returns {ReturnType<typeof consumeExplicitRentasLegacy>}
+ */
+/**
+ * @overload
+ * @param {Parameters<typeof consumeExplicitRentasLegacy>[0]} fragment
+ * @param {Parameters<typeof consumeExplicitRentasLegacy>[1]} entrada
+ * @param {Parameters<typeof consumeExplicitRentasLegacy>[2]} boundaries
+ * @param {Parameters<typeof consumeExplicitRentasLegacy>[3]} observe
+ * @param {{causal: true, execution?: string}} causalOptions
+ * @returns {import("./evidencia-causal-r57.ts").CausalResult}
+ */
+export function consumeExplicitRentas(fragment, entrada, boundaries = {}, observe = null, causalOptions = null) {
+  if (causalOptions?.causal === true) {
+    verifyRentasR36(fragment)
+    if (!isDeepStrictEqual(fragment, composeRentasR36())) throw Error("Descriptor de rentas no derivado")
+    if (Object.keys(boundaries).length || observe !== null) throw Error("Callbacks externos fuera del contrato causal")
+    return executeCausalExplicitos(composeCausalExplicitos(), entrada, {route:"explicit", modo:"canonico"}, causalOptions.execution)
+  }
+  return consumeExplicitRentasLegacy(fragment, entrada, boundaries, observe)
+}
+/** Distingue rechazo contractual de defecto; nunca transforma ninguno en importe cero.
+ * @param {((event: import("./puertos-composicion-r47").Observation) => void)|null} observe */
+function consumeExplicitRentasLegacy(fragment, entrada, boundaries = {}, observe = null) {
   try {
     const result = executeRentasFinite(
       fragment,

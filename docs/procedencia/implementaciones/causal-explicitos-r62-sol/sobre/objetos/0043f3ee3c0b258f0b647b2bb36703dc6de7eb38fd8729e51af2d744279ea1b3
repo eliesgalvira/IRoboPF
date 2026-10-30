@@ -1,0 +1,15 @@
+{
+  "command": [
+    "flock",
+    "/tmp/irobopf-validacion-pesada.lock",
+    "nix",
+    "shell",
+    "nixpkgs#nodejs",
+    "-c",
+    "node",
+    "--input-type=module",
+    "-"
+  ],
+  "exit": 1,
+  "seconds": 6.9875335693359375
+}
