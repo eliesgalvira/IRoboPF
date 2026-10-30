@@ -1,0 +1,4112 @@
+{
+  "runtimeSources": [
+    {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86"
+    },
+    {
+      "file": "lib/dominio/irpf/actividades-economicas/fuentes.ts",
+      "sha256": "5e16062ad74e1207a6babca731891aef8c4d527a02b27f37b556ff7d90137ab3"
+    },
+    {
+      "file": "lib/dominio/irpf/actividades-economicas/contrato.ts",
+      "sha256": "4fe8b43dae6f1607c6102cb858044982ebb637dfae18b80604468b69463a11a2"
+    },
+    {
+      "file": "tests/actividades-economicas-2025.test.ts",
+      "sha256": "d6ac60df77be43e5849b64dc4de4776ee76439d0e693f124f533b7c0189440ba",
+      "fragment": "casoBase",
+      "fragmentSha256": "2ff036e7c1dafddf1321320eba164688d0d5c827e9befccb2f6b6a9d81e81bea"
+    },
+    {
+      "file": "tests/actividades-economicas-2025.test.ts",
+      "sha256": "d6ac60df77be43e5849b64dc4de4776ee76439d0e693f124f533b7c0189440ba",
+      "fragment": "ingreso",
+      "fragmentSha256": "a1044e256065e7ecba70b0c1b1c81a94591d1fa47f1c641480dbea86ea4dca39"
+    },
+    {
+      "file": "tests/actividades-economicas-2025.test.ts",
+      "sha256": "d6ac60df77be43e5849b64dc4de4776ee76439d0e693f124f533b7c0189440ba",
+      "fragment": "activo",
+      "fragmentSha256": "6a68fcda4ca81892fea73c447a4ee5a6538ee504fce1cfcf380dc3111af4a874"
+    },
+    {
+      "file": "lib/dominio/irpf/trabajo-anual/calcular.ts",
+      "sha256": "b8681bb3355ceba11762a47ecdb020c63d76e8363be24b1d9914f9f8103824d9"
+    },
+    {
+      "file": "lib/dominio/irpf/trabajo-anual/contrato.ts",
+      "sha256": "d16aa5cb704c3649ac5f7ee4dd7a60637dbece1e42abe333bc6d67707a88a005"
+    },
+    {
+      "file": "tests/trabajo-anual-contratos.test.ts",
+      "sha256": "365251818aece3da29f31a9ff4df7cab8a68d49e10415c6690544e59b2d8e3ad",
+      "fragment": "gastos",
+      "fragmentSha256": "6ffae8c2e55d9863d0579497c8ba19c3003f10d2631317b8ea53b2816e3b70f9"
+    },
+    {
+      "file": "tests/trabajo-anual-contratos.test.ts",
+      "sha256": "365251818aece3da29f31a9ff4df7cab8a68d49e10415c6690544e59b2d8e3ad",
+      "fragment": "gastos",
+      "fragmentSha256": "6ffae8c2e55d9863d0579497c8ba19c3003f10d2631317b8ea53b2816e3b70f9"
+    },
+    {
+      "file": "tests/trabajo-anual-contratos.test.ts",
+      "sha256": "365251818aece3da29f31a9ff4df7cab8a68d49e10415c6690544e59b2d8e3ad",
+      "fragment": "da61",
+      "fragmentSha256": "3fd63908af7d5ed9b4f88a9f7265d583eafee135fd96b923fd07b288c1b61b2d"
+    },
+    {
+      "file": "lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts",
+      "sha256": "71165de6c9520090e3f15a50e28b809f32e0a4ed99cb2c3866e01103efb0e696"
+    },
+    {
+      "file": "lib/dominio/dinero/importe-monetario.ts",
+      "sha256": "c34f0bfb31dbef47799eb25743810e8e482703d2a2f445763f4f62747949bea5"
+    },
+    {
+      "file": "lib/dominio/dinero/redondeo.ts",
+      "sha256": "c2505129198148232fc880f8070ae7131d695218c3ce40ba4b984366af51e05e"
+    },
+    {
+      "file": "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts",
+      "sha256": "4bf3fae25e9a40fb0099141fb63afb774f6d4f2d3c4eb025a3445992fa8defb4"
+    },
+    {
+      "file": "lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts",
+      "sha256": "9087fd03dd973a32e904dd9842ded3d3b33a5e239c7d34c6f062487a698b2479"
+    },
+    {
+      "file": "lib/dominio/explicacion/linea-calculo.ts",
+      "sha256": "e555a831ed72ad17a3841e05cb6fabec6c916f14c2119e953bf2161410650058"
+    },
+    {
+      "file": "tests/actividades-economicas-2025.test.ts",
+      "sha256": "d6ac60df77be43e5849b64dc4de4776ee76439d0e693f124f533b7c0189440ba",
+      "fragment": "gasto",
+      "fragmentSha256": "f918102edaa3f66d2ae657ecc14d10957deeb91f65ba77b37306c5eb63fcb1bd"
+    }
+  ],
+  "cases": [
+    {
+      "id": "BASE",
+      "input": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "individual": true,
+        "actividadId": "profesion",
+        "iae": "servicios",
+        "fechaInicio": "2025-01-01",
+        "fechaFin": "2025-12-31",
+        "serviciosOrdinarios": true,
+        "hechos": {
+          "otrasActividades": false,
+          "otrasRentas": false,
+          "existencias": false,
+          "empleados": false,
+          "artistica": false,
+          "irregular": false,
+          "subvenciones": false,
+          "transmisiones": false,
+          "extranjero": false,
+          "mutualidad": false,
+          "especialidadesTerritoriales": false,
+          "saldosPendientes": false,
+          "serviciosGratuitos": false,
+          "autoconsumo": false,
+          "noFacturados": false,
+          "subvalorados": false,
+          "trade": false,
+          "hechosDesconocidos": false
+        },
+        "historial": [],
+        "actividadPreviaAlInicio": "ausente",
+        "regimen2025": "eds",
+        "criterio2025": "devengo",
+        "documentoCriterio2025": "alta",
+        "renuncia2025": false,
+        "exclusion2025": false,
+        "volumen2024": "0",
+        "diasActividad2024": 0,
+        "documentoVolumen2024": "sin-actividad",
+        "clientes": [
+          {
+            "id": "cliente",
+            "vinculado": false,
+            "empleadorEnAnioAnteriorAlInicio": false,
+            "documento": "contrato"
+          }
+        ],
+        "ingresos": [
+          {
+            "id": "factura",
+            "justificante": "factura",
+            "fecha": "2025-06-01",
+            "base": "10000",
+            "iva": "0",
+            "ivaRecuperable": "0",
+            "afectacionExclusiva": true,
+            "registrado": true,
+            "categoria": "servicio",
+            "clienteId": "cliente",
+            "sujetoRetencion": false,
+            "rectificativa": false
+          }
+        ],
+        "gastos": [],
+        "reta": [],
+        "activos": [],
+        "obligacionesFormales": true,
+        "documentoObligaciones": "libros",
+        "discapacidad": {
+          "grado": 0,
+          "ayudaOMovilidad": false,
+          "ejercicioEfectivo": true,
+          "documento": "sin-discapacidad"
+        },
+        "opcion": "gastos-dificiles",
+        "aplicarRentasBajas": false,
+        "aplicarInicio": false,
+        "retenciones": [],
+        "pagosFraccionados": []
+      },
+      "result": {
+        "estado": "soportado",
+        "revisionFiscal": "pendiente",
+        "etapas": [
+          {
+            "reglaId": "AE25-02",
+            "id": "ingreso:factura",
+            "formula": "base devengada, antes de retención y sin IVA recuperable",
+            "importe": "10000",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": [
+              "factura"
+            ]
+          },
+          {
+            "reglaId": "AE25-02",
+            "id": "ingresos",
+            "formula": "sum(base antes de retención; IVA recuperable excluido)",
+            "importe": "10000",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": [
+              "factura"
+            ]
+          },
+          {
+            "reglaId": "AE25-02",
+            "id": "gastos",
+            "formula": "sum(base gastos admitidos)",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-03",
+            "id": "reta",
+            "formula": "sum(cuotas ordinarias efectivas)",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-04",
+            "id": "amortizacion",
+            "formula": "sum(cuotas activos)",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "orden1998",
+              "rd634-2015",
+              "rd633-2015"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-02",
+            "id": "P",
+            "formula": "ingresos-gastos-RETA-amortizacion",
+            "importe": "10000",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-05",
+            "id": "G",
+            "formula": "opcion cliente único ? 0 : min(2000, 0.05*max(P,0))",
+            "importe": "500",
+            "fuentes": [
+              "manual",
+              "rd633-2015",
+              "ley31-2022"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-06",
+            "id": "RN",
+            "formula": "P-G (con signo)",
+            "importe": "9500",
+            "fuentes": [
+              "manual",
+              "lirpf-original",
+              "ley26-2014"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-11",
+            "id": "reduccion32_2",
+            "formula": "reducción limitada a RN positivo; 32.2.3 solo si NO elegible 32.2.2",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "ley26-2014"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-12",
+            "id": "reduccionInicio",
+            "formula": "si elegible y opción: 0.20*min(100000,max(RN-R32_2,0))",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "ley11-2013"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-14",
+            "id": "aporteBIG",
+            "formula": "RN-R32_2-Rinicio (con signo; no liquidación anual)",
+            "importe": "9500",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-15",
+            "id": "retenciones",
+            "formula": "sum(retenciones efectivas únicas); separado del rendimiento",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "lirpf-original",
+              "rirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-15",
+            "id": "pagos",
+            "formula": "sum(pagos efectivos únicos); separado del rendimiento",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "lirpf-original",
+              "rirpf-original"
+            ],
+            "documentos": []
+          }
+        ],
+        "elegibleClienteUnico": false,
+        "primerPositivo": 2025,
+        "aporte": {
+          "clase": "rendimiento-actividad-2025",
+          "importeEurosExactos": "9500",
+          "retencionesEuros": "0",
+          "pagosFraccionadosEuros": "0",
+          "liquidacionAnual": "no-calculada"
+        }
+      }
+    },
+    {
+      "id": "IVA",
+      "input": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "individual": true,
+        "actividadId": "profesion",
+        "iae": "servicios",
+        "fechaInicio": "2025-01-01",
+        "fechaFin": "2025-12-31",
+        "serviciosOrdinarios": true,
+        "hechos": {
+          "otrasActividades": false,
+          "otrasRentas": false,
+          "existencias": false,
+          "empleados": false,
+          "artistica": false,
+          "irregular": false,
+          "subvenciones": false,
+          "transmisiones": false,
+          "extranjero": false,
+          "mutualidad": false,
+          "especialidadesTerritoriales": false,
+          "saldosPendientes": false,
+          "serviciosGratuitos": false,
+          "autoconsumo": false,
+          "noFacturados": false,
+          "subvalorados": false,
+          "trade": false,
+          "hechosDesconocidos": false
+        },
+        "historial": [],
+        "actividadPreviaAlInicio": "ausente",
+        "regimen2025": "eds",
+        "criterio2025": "devengo",
+        "documentoCriterio2025": "alta",
+        "renuncia2025": false,
+        "exclusion2025": false,
+        "volumen2024": "0",
+        "diasActividad2024": 0,
+        "documentoVolumen2024": "sin-actividad",
+        "clientes": [
+          {
+            "id": "cliente",
+            "vinculado": true,
+            "empleadorEnAnioAnteriorAlInicio": false,
+            "documento": "contrato"
+          }
+        ],
+        "ingresos": [
+          {
+            "id": "factura",
+            "justificante": "factura",
+            "fecha": "2025-06-01",
+            "base": "10000",
+            "iva": "2100",
+            "ivaRecuperable": "2100",
+            "afectacionExclusiva": true,
+            "registrado": true,
+            "categoria": "servicio",
+            "clienteId": "cliente",
+            "sujetoRetencion": false,
+            "rectificativa": false
+          }
+        ],
+        "gastos": [],
+        "reta": [],
+        "activos": [],
+        "obligacionesFormales": true,
+        "documentoObligaciones": "libros",
+        "discapacidad": {
+          "grado": 0,
+          "ayudaOMovilidad": false,
+          "ejercicioEfectivo": true,
+          "documento": "sin-discapacidad"
+        },
+        "opcion": "gastos-dificiles",
+        "aplicarRentasBajas": false,
+        "aplicarInicio": false,
+        "retenciones": [],
+        "pagosFraccionados": []
+      },
+      "result": {
+        "estado": "soportado",
+        "revisionFiscal": "pendiente",
+        "etapas": [
+          {
+            "reglaId": "AE25-02",
+            "id": "ingreso:factura",
+            "formula": "base devengada, antes de retención y sin IVA recuperable",
+            "importe": "10000",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": [
+              "factura"
+            ]
+          },
+          {
+            "reglaId": "AE25-02",
+            "id": "ingresos",
+            "formula": "sum(base antes de retención; IVA recuperable excluido)",
+            "importe": "10000",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": [
+              "factura"
+            ]
+          },
+          {
+            "reglaId": "AE25-02",
+            "id": "gastos",
+            "formula": "sum(base gastos admitidos)",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-03",
+            "id": "reta",
+            "formula": "sum(cuotas ordinarias efectivas)",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-04",
+            "id": "amortizacion",
+            "formula": "sum(cuotas activos)",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "orden1998",
+              "rd634-2015",
+              "rd633-2015"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-02",
+            "id": "P",
+            "formula": "ingresos-gastos-RETA-amortizacion",
+            "importe": "10000",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-05",
+            "id": "G",
+            "formula": "opcion cliente único ? 0 : min(2000, 0.05*max(P,0))",
+            "importe": "500",
+            "fuentes": [
+              "manual",
+              "rd633-2015",
+              "ley31-2022"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-06",
+            "id": "RN",
+            "formula": "P-G (con signo)",
+            "importe": "9500",
+            "fuentes": [
+              "manual",
+              "lirpf-original",
+              "ley26-2014"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-11",
+            "id": "reduccion32_2",
+            "formula": "reducción limitada a RN positivo; 32.2.3 solo si NO elegible 32.2.2",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "ley26-2014"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-12",
+            "id": "reduccionInicio",
+            "formula": "si elegible y opción: 0.20*min(100000,max(RN-R32_2,0))",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "ley11-2013"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-14",
+            "id": "aporteBIG",
+            "formula": "RN-R32_2-Rinicio (con signo; no liquidación anual)",
+            "importe": "9500",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-15",
+            "id": "retenciones",
+            "formula": "sum(retenciones efectivas únicas); separado del rendimiento",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "lirpf-original",
+              "rirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-15",
+            "id": "pagos",
+            "formula": "sum(pagos efectivos únicos); separado del rendimiento",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "lirpf-original",
+              "rirpf-original"
+            ],
+            "documentos": []
+          }
+        ],
+        "elegibleClienteUnico": false,
+        "primerPositivo": 2025,
+        "aporte": {
+          "clase": "rendimiento-actividad-2025",
+          "importeEurosExactos": "9500",
+          "retencionesEuros": "0",
+          "pagosFraccionadosEuros": "0",
+          "liquidacionAnual": "no-calculada"
+        }
+      }
+    },
+    {
+      "id": "DOMINIO",
+      "input": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "individual": true,
+        "actividadId": "profesion",
+        "iae": "servicios",
+        "fechaInicio": "2025-01-01",
+        "fechaFin": "2025-12-31",
+        "serviciosOrdinarios": true,
+        "hechos": {
+          "otrasActividades": false,
+          "otrasRentas": false,
+          "existencias": false,
+          "empleados": false,
+          "artistica": false,
+          "irregular": false,
+          "subvenciones": false,
+          "transmisiones": false,
+          "extranjero": false,
+          "mutualidad": false,
+          "especialidadesTerritoriales": false,
+          "saldosPendientes": false,
+          "serviciosGratuitos": false,
+          "autoconsumo": false,
+          "noFacturados": false,
+          "subvalorados": false,
+          "trade": false,
+          "hechosDesconocidos": false
+        },
+        "historial": [],
+        "actividadPreviaAlInicio": "ausente",
+        "regimen2025": "eds",
+        "criterio2025": "devengo",
+        "documentoCriterio2025": "alta",
+        "renuncia2025": false,
+        "exclusion2025": false,
+        "volumen2024": "0",
+        "diasActividad2024": 0,
+        "documentoVolumen2024": "sin-actividad",
+        "clientes": [
+          {
+            "id": "cliente",
+            "vinculado": true,
+            "empleadorEnAnioAnteriorAlInicio": false,
+            "documento": "contrato"
+          }
+        ],
+        "ingresos": [
+          {
+            "id": "factura",
+            "justificante": "factura",
+            "fecha": "2025-06-01",
+            "base": "10000",
+            "iva": "2100",
+            "ivaRecuperable": "2100",
+            "afectacionExclusiva": true,
+            "registrado": true,
+            "categoria": "servicio",
+            "clienteId": "cliente",
+            "sujetoRetencion": false,
+            "rectificativa": false
+          }
+        ],
+        "gastos": [],
+        "reta": [],
+        "activos": [],
+        "obligacionesFormales": true,
+        "documentoObligaciones": "libros",
+        "discapacidad": {
+          "grado": 0,
+          "ayudaOMovilidad": false,
+          "ejercicioEfectivo": true,
+          "documento": "sin-discapacidad"
+        },
+        "opcion": "gastos-dificiles",
+        "aplicarRentasBajas": false,
+        "aplicarInicio": false,
+        "retenciones": [],
+        "pagosFraccionados": []
+      },
+      "result": {
+        "estado": "no-soportado",
+        "motivos": [
+          {
+            "reglaId": "AE25-02",
+            "id": "cliente",
+            "motivo": "Cliente vinculado fuera del ámbito"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ACTIVO",
+      "input": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "individual": true,
+        "actividadId": "profesion",
+        "iae": "servicios",
+        "fechaInicio": "2025-01-01",
+        "fechaFin": "2025-12-31",
+        "serviciosOrdinarios": true,
+        "hechos": {
+          "otrasActividades": false,
+          "otrasRentas": false,
+          "existencias": false,
+          "empleados": false,
+          "artistica": false,
+          "irregular": false,
+          "subvenciones": false,
+          "transmisiones": false,
+          "extranjero": false,
+          "mutualidad": false,
+          "especialidadesTerritoriales": false,
+          "saldosPendientes": false,
+          "serviciosGratuitos": false,
+          "autoconsumo": false,
+          "noFacturados": false,
+          "subvalorados": false,
+          "trade": false,
+          "hechosDesconocidos": false
+        },
+        "historial": [],
+        "actividadPreviaAlInicio": "ausente",
+        "regimen2025": "eds",
+        "criterio2025": "devengo",
+        "documentoCriterio2025": "alta",
+        "renuncia2025": false,
+        "exclusion2025": false,
+        "volumen2024": "0",
+        "diasActividad2024": 0,
+        "documentoVolumen2024": "sin-actividad",
+        "clientes": [
+          {
+            "id": "cliente",
+            "vinculado": false,
+            "empleadorEnAnioAnteriorAlInicio": false,
+            "documento": "contrato"
+          }
+        ],
+        "ingresos": [
+          {
+            "id": "factura",
+            "justificante": "factura",
+            "fecha": "2025-06-01",
+            "base": "10000",
+            "iva": "0",
+            "ivaRecuperable": "0",
+            "afectacionExclusiva": true,
+            "registrado": true,
+            "categoria": "servicio",
+            "clienteId": "cliente",
+            "sujetoRetencion": false,
+            "rectificativa": false
+          }
+        ],
+        "gastos": [],
+        "reta": [],
+        "activos": [
+          {
+            "id": "pc",
+            "justificante": "compra",
+            "fecha": "2025-01-01",
+            "grupo": "hardware",
+            "coste": "1000",
+            "puestaMarcha": "0",
+            "residual": "0",
+            "acumulada": "0",
+            "iva": "210",
+            "ivaRecuperable": "210",
+            "coeficiente": "0.20",
+            "fechaUso": "2025-01-01",
+            "fechaAdquisicion": "2025-01-01",
+            "usoHasta": "2025-12-31",
+            "nuevo": true,
+            "exclusivo": true,
+            "oneroso": true,
+            "mejoras": false,
+            "deterioros": false,
+            "subvencionado": false,
+            "leasing": false,
+            "incentivo": false,
+            "metodoHistorico": "lineal",
+            "coeficienteHistorico": "0.20",
+            "saldoDocumentado": "registro-activo"
+          }
+        ],
+        "obligacionesFormales": true,
+        "documentoObligaciones": "libros",
+        "discapacidad": {
+          "grado": 0,
+          "ayudaOMovilidad": false,
+          "ejercicioEfectivo": true,
+          "documento": "sin-discapacidad"
+        },
+        "opcion": "gastos-dificiles",
+        "aplicarRentasBajas": false,
+        "aplicarInicio": false,
+        "retenciones": [],
+        "pagosFraccionados": []
+      },
+      "result": {
+        "estado": "soportado",
+        "revisionFiscal": "pendiente",
+        "etapas": [
+          {
+            "reglaId": "AE25-04",
+            "id": "pc",
+            "formula": "min(coste+puestaMarcha-residual-acumulada, (coste+puestaMarcha-residual)*coeficiente)",
+            "importe": "260",
+            "fuentes": [
+              "manual",
+              "orden1998",
+              "rd634-2015",
+              "rd633-2015"
+            ],
+            "documentos": [
+              "compra",
+              "registro-activo"
+            ]
+          },
+          {
+            "reglaId": "AE25-04",
+            "id": "pc:saldo",
+            "formula": "saldoAnterior-cuota",
+            "importe": "740",
+            "fuentes": [
+              "manual",
+              "orden1998",
+              "rd634-2015",
+              "rd633-2015"
+            ],
+            "documentos": [
+              "registro-activo"
+            ]
+          },
+          {
+            "reglaId": "AE25-02",
+            "id": "ingreso:factura",
+            "formula": "base devengada, antes de retención y sin IVA recuperable",
+            "importe": "10000",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": [
+              "factura"
+            ]
+          },
+          {
+            "reglaId": "AE25-02",
+            "id": "ingresos",
+            "formula": "sum(base antes de retención; IVA recuperable excluido)",
+            "importe": "10000",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": [
+              "factura"
+            ]
+          },
+          {
+            "reglaId": "AE25-02",
+            "id": "gastos",
+            "formula": "sum(base gastos admitidos)",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-03",
+            "id": "reta",
+            "formula": "sum(cuotas ordinarias efectivas)",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-04",
+            "id": "amortizacion",
+            "formula": "sum(cuotas activos)",
+            "importe": "260",
+            "fuentes": [
+              "manual",
+              "orden1998",
+              "rd634-2015",
+              "rd633-2015"
+            ],
+            "documentos": [
+              "pc"
+            ]
+          },
+          {
+            "reglaId": "AE25-02",
+            "id": "P",
+            "formula": "ingresos-gastos-RETA-amortizacion",
+            "importe": "9740",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-05",
+            "id": "G",
+            "formula": "opcion cliente único ? 0 : min(2000, 0.05*max(P,0))",
+            "importe": "487",
+            "fuentes": [
+              "manual",
+              "rd633-2015",
+              "ley31-2022"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-06",
+            "id": "RN",
+            "formula": "P-G (con signo)",
+            "importe": "9253",
+            "fuentes": [
+              "manual",
+              "lirpf-original",
+              "ley26-2014"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-11",
+            "id": "reduccion32_2",
+            "formula": "reducción limitada a RN positivo; 32.2.3 solo si NO elegible 32.2.2",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "ley26-2014"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-12",
+            "id": "reduccionInicio",
+            "formula": "si elegible y opción: 0.20*min(100000,max(RN-R32_2,0))",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "ley11-2013"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-14",
+            "id": "aporteBIG",
+            "formula": "RN-R32_2-Rinicio (con signo; no liquidación anual)",
+            "importe": "9253",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-15",
+            "id": "retenciones",
+            "formula": "sum(retenciones efectivas únicas); separado del rendimiento",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "lirpf-original",
+              "rirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-15",
+            "id": "pagos",
+            "formula": "sum(pagos efectivos únicos); separado del rendimiento",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "lirpf-original",
+              "rirpf-original"
+            ],
+            "documentos": []
+          }
+        ],
+        "elegibleClienteUnico": false,
+        "primerPositivo": 2025,
+        "aporte": {
+          "clase": "rendimiento-actividad-2025",
+          "importeEurosExactos": "9253",
+          "retencionesEuros": "0",
+          "pagosFraccionadosEuros": "0",
+          "liquidacionAnual": "no-calculada"
+        }
+      }
+    },
+    {
+      "id": "ACTIVO-COEF",
+      "input": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "individual": true,
+        "actividadId": "profesion",
+        "iae": "servicios",
+        "fechaInicio": "2025-01-01",
+        "fechaFin": "2025-12-31",
+        "serviciosOrdinarios": true,
+        "hechos": {
+          "otrasActividades": false,
+          "otrasRentas": false,
+          "existencias": false,
+          "empleados": false,
+          "artistica": false,
+          "irregular": false,
+          "subvenciones": false,
+          "transmisiones": false,
+          "extranjero": false,
+          "mutualidad": false,
+          "especialidadesTerritoriales": false,
+          "saldosPendientes": false,
+          "serviciosGratuitos": false,
+          "autoconsumo": false,
+          "noFacturados": false,
+          "subvalorados": false,
+          "trade": false,
+          "hechosDesconocidos": false
+        },
+        "historial": [],
+        "actividadPreviaAlInicio": "ausente",
+        "regimen2025": "eds",
+        "criterio2025": "devengo",
+        "documentoCriterio2025": "alta",
+        "renuncia2025": false,
+        "exclusion2025": false,
+        "volumen2024": "0",
+        "diasActividad2024": 0,
+        "documentoVolumen2024": "sin-actividad",
+        "clientes": [
+          {
+            "id": "cliente",
+            "vinculado": false,
+            "empleadorEnAnioAnteriorAlInicio": false,
+            "documento": "contrato"
+          }
+        ],
+        "ingresos": [
+          {
+            "id": "factura",
+            "justificante": "factura",
+            "fecha": "2025-06-01",
+            "base": "10000",
+            "iva": "0",
+            "ivaRecuperable": "0",
+            "afectacionExclusiva": true,
+            "registrado": true,
+            "categoria": "servicio",
+            "clienteId": "cliente",
+            "sujetoRetencion": false,
+            "rectificativa": false
+          }
+        ],
+        "gastos": [],
+        "reta": [],
+        "activos": [
+          {
+            "id": "pc",
+            "justificante": "compra",
+            "fecha": "2025-01-01",
+            "grupo": "hardware",
+            "coste": "1000",
+            "puestaMarcha": "0",
+            "residual": "0",
+            "acumulada": "0",
+            "iva": "210",
+            "ivaRecuperable": "210",
+            "coeficiente": "0.20",
+            "fechaUso": "2025-01-01",
+            "fechaAdquisicion": "2025-01-01",
+            "usoHasta": "2025-12-31",
+            "nuevo": true,
+            "exclusivo": true,
+            "oneroso": true,
+            "mejoras": false,
+            "deterioros": false,
+            "subvencionado": false,
+            "leasing": false,
+            "incentivo": false,
+            "metodoHistorico": "lineal",
+            "coeficienteHistorico": "0.20",
+            "saldoDocumentado": "registro-activo"
+          }
+        ],
+        "obligacionesFormales": true,
+        "documentoObligaciones": "libros",
+        "discapacidad": {
+          "grado": 0,
+          "ayudaOMovilidad": false,
+          "ejercicioEfectivo": true,
+          "documento": "sin-discapacidad"
+        },
+        "opcion": "gastos-dificiles",
+        "aplicarRentasBajas": false,
+        "aplicarInicio": false,
+        "retenciones": [],
+        "pagosFraccionados": []
+      },
+      "result": {
+        "estado": "soportado",
+        "revisionFiscal": "pendiente",
+        "etapas": [
+          {
+            "reglaId": "AE25-04",
+            "id": "pc",
+            "formula": "min(coste+puestaMarcha-residual-acumulada, (coste+puestaMarcha-residual)*coeficiente)",
+            "importe": "200",
+            "fuentes": [
+              "manual",
+              "orden1998",
+              "rd634-2015",
+              "rd633-2015"
+            ],
+            "documentos": [
+              "compra",
+              "registro-activo"
+            ]
+          },
+          {
+            "reglaId": "AE25-04",
+            "id": "pc:saldo",
+            "formula": "saldoAnterior-cuota",
+            "importe": "800",
+            "fuentes": [
+              "manual",
+              "orden1998",
+              "rd634-2015",
+              "rd633-2015"
+            ],
+            "documentos": [
+              "registro-activo"
+            ]
+          },
+          {
+            "reglaId": "AE25-02",
+            "id": "ingreso:factura",
+            "formula": "base devengada, antes de retención y sin IVA recuperable",
+            "importe": "10000",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": [
+              "factura"
+            ]
+          },
+          {
+            "reglaId": "AE25-02",
+            "id": "ingresos",
+            "formula": "sum(base antes de retención; IVA recuperable excluido)",
+            "importe": "10000",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": [
+              "factura"
+            ]
+          },
+          {
+            "reglaId": "AE25-02",
+            "id": "gastos",
+            "formula": "sum(base gastos admitidos)",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-03",
+            "id": "reta",
+            "formula": "sum(cuotas ordinarias efectivas)",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-04",
+            "id": "amortizacion",
+            "formula": "sum(cuotas activos)",
+            "importe": "200",
+            "fuentes": [
+              "manual",
+              "orden1998",
+              "rd634-2015",
+              "rd633-2015"
+            ],
+            "documentos": [
+              "pc"
+            ]
+          },
+          {
+            "reglaId": "AE25-02",
+            "id": "P",
+            "formula": "ingresos-gastos-RETA-amortizacion",
+            "importe": "9800",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-05",
+            "id": "G",
+            "formula": "opcion cliente único ? 0 : min(2000, 0.05*max(P,0))",
+            "importe": "490",
+            "fuentes": [
+              "manual",
+              "rd633-2015",
+              "ley31-2022"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-06",
+            "id": "RN",
+            "formula": "P-G (con signo)",
+            "importe": "9310",
+            "fuentes": [
+              "manual",
+              "lirpf-original",
+              "ley26-2014"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-11",
+            "id": "reduccion32_2",
+            "formula": "reducción limitada a RN positivo; 32.2.3 solo si NO elegible 32.2.2",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "ley26-2014"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-12",
+            "id": "reduccionInicio",
+            "formula": "si elegible y opción: 0.20*min(100000,max(RN-R32_2,0))",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "ley11-2013"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-14",
+            "id": "aporteBIG",
+            "formula": "RN-R32_2-Rinicio (con signo; no liquidación anual)",
+            "importe": "9310",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-15",
+            "id": "retenciones",
+            "formula": "sum(retenciones efectivas únicas); separado del rendimiento",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "lirpf-original",
+              "rirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-15",
+            "id": "pagos",
+            "formula": "sum(pagos efectivos únicos); separado del rendimiento",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "lirpf-original",
+              "rirpf-original"
+            ],
+            "documentos": []
+          }
+        ],
+        "elegibleClienteUnico": false,
+        "primerPositivo": 2025,
+        "aporte": {
+          "clase": "rendimiento-actividad-2025",
+          "importeEurosExactos": "9310",
+          "retencionesEuros": "0",
+          "pagosFraccionadosEuros": "0",
+          "liquidacionAnual": "no-calculada"
+        }
+      }
+    },
+    {
+      "id": "UNICO",
+      "input": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "individual": true,
+        "actividadId": "profesion",
+        "iae": "servicios",
+        "fechaInicio": "2025-01-01",
+        "fechaFin": "2025-12-31",
+        "serviciosOrdinarios": true,
+        "hechos": {
+          "otrasActividades": false,
+          "otrasRentas": false,
+          "existencias": false,
+          "empleados": false,
+          "artistica": false,
+          "irregular": false,
+          "subvenciones": false,
+          "transmisiones": false,
+          "extranjero": false,
+          "mutualidad": false,
+          "especialidadesTerritoriales": false,
+          "saldosPendientes": false,
+          "serviciosGratuitos": false,
+          "autoconsumo": false,
+          "noFacturados": false,
+          "subvalorados": false,
+          "trade": false,
+          "hechosDesconocidos": false
+        },
+        "historial": [],
+        "actividadPreviaAlInicio": "ausente",
+        "regimen2025": "eds",
+        "criterio2025": "devengo",
+        "documentoCriterio2025": "alta",
+        "renuncia2025": false,
+        "exclusion2025": false,
+        "volumen2024": "0",
+        "diasActividad2024": 0,
+        "documentoVolumen2024": "sin-actividad",
+        "clientes": [
+          {
+            "id": "cliente",
+            "vinculado": false,
+            "empleadorEnAnioAnteriorAlInicio": false,
+            "documento": "contrato"
+          }
+        ],
+        "ingresos": [
+          {
+            "id": "factura",
+            "justificante": "factura",
+            "fecha": "2025-06-01",
+            "base": "10000",
+            "iva": "0",
+            "ivaRecuperable": "0",
+            "afectacionExclusiva": true,
+            "registrado": true,
+            "categoria": "servicio",
+            "clienteId": "cliente",
+            "sujetoRetencion": true,
+            "rectificativa": false
+          }
+        ],
+        "gastos": [],
+        "reta": [],
+        "activos": [],
+        "obligacionesFormales": true,
+        "documentoObligaciones": "libros",
+        "discapacidad": {
+          "grado": 33,
+          "ayudaOMovilidad": false,
+          "ejercicioEfectivo": true,
+          "documento": "sin-discapacidad"
+        },
+        "opcion": "cliente-unico",
+        "aplicarRentasBajas": true,
+        "aplicarInicio": false,
+        "retenciones": [],
+        "pagosFraccionados": []
+      },
+      "result": {
+        "estado": "soportado",
+        "revisionFiscal": "pendiente",
+        "etapas": [
+          {
+            "reglaId": "AE25-02",
+            "id": "ingreso:factura",
+            "formula": "base devengada, antes de retención y sin IVA recuperable",
+            "importe": "10000",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": [
+              "factura"
+            ]
+          },
+          {
+            "reglaId": "AE25-02",
+            "id": "ingresos",
+            "formula": "sum(base antes de retención; IVA recuperable excluido)",
+            "importe": "10000",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": [
+              "factura"
+            ]
+          },
+          {
+            "reglaId": "AE25-02",
+            "id": "gastos",
+            "formula": "sum(base gastos admitidos)",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-03",
+            "id": "reta",
+            "formula": "sum(cuotas ordinarias efectivas)",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-04",
+            "id": "amortizacion",
+            "formula": "sum(cuotas activos)",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "orden1998",
+              "rd634-2015",
+              "rd633-2015"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-02",
+            "id": "P",
+            "formula": "ingresos-gastos-RETA-amortizacion",
+            "importe": "10000",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-05",
+            "id": "G",
+            "formula": "opcion cliente único ? 0 : min(2000, 0.05*max(P,0))",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "rd633-2015",
+              "ley31-2022"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-06",
+            "id": "RN",
+            "formula": "P-G (con signo)",
+            "importe": "10000",
+            "fuentes": [
+              "manual",
+              "lirpf-original",
+              "ley26-2014"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-09",
+            "id": "adicional",
+            "formula": "RN<=14047.5 ? 6498 : max(0,6498-1.14*(RN-14047.5))",
+            "importe": "6498",
+            "fuentes": [
+              "manual",
+              "ley31-2022"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-10",
+            "id": "discapacidad",
+            "formula": "3500 o 7750 alternativos, con ejercicio efectivo y acreditación",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "ley26-2014"
+            ],
+            "documentos": [
+              "sin-discapacidad"
+            ]
+          },
+          {
+            "reglaId": "AE25-08",
+            "id": "reduccion32_2",
+            "formula": "reducción limitada a RN positivo; 32.2.3 solo si NO elegible 32.2.2",
+            "importe": "8498",
+            "fuentes": [
+              "manual",
+              "ley26-2014",
+              "rd633-2015",
+              "ley31-2022"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-12",
+            "id": "reduccionInicio",
+            "formula": "si elegible y opción: 0.20*min(100000,max(RN-R32_2,0))",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "ley11-2013"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-14",
+            "id": "aporteBIG",
+            "formula": "RN-R32_2-Rinicio (con signo; no liquidación anual)",
+            "importe": "1502",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-15",
+            "id": "retenciones",
+            "formula": "sum(retenciones efectivas únicas); separado del rendimiento",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "lirpf-original",
+              "rirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-15",
+            "id": "pagos",
+            "formula": "sum(pagos efectivos únicos); separado del rendimiento",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "lirpf-original",
+              "rirpf-original"
+            ],
+            "documentos": []
+          }
+        ],
+        "elegibleClienteUnico": true,
+        "primerPositivo": 2025,
+        "aporte": {
+          "clase": "rendimiento-actividad-2025",
+          "importeEurosExactos": "1502",
+          "retencionesEuros": "0",
+          "pagosFraccionadosEuros": "0",
+          "liquidacionAnual": "no-calculada"
+        }
+      }
+    },
+    {
+      "id": "DISCAPACIDAD",
+      "input": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "individual": true,
+        "actividadId": "profesion",
+        "iae": "servicios",
+        "fechaInicio": "2025-01-01",
+        "fechaFin": "2025-12-31",
+        "serviciosOrdinarios": true,
+        "hechos": {
+          "otrasActividades": false,
+          "otrasRentas": false,
+          "existencias": false,
+          "empleados": false,
+          "artistica": false,
+          "irregular": false,
+          "subvenciones": false,
+          "transmisiones": false,
+          "extranjero": false,
+          "mutualidad": false,
+          "especialidadesTerritoriales": false,
+          "saldosPendientes": false,
+          "serviciosGratuitos": false,
+          "autoconsumo": false,
+          "noFacturados": false,
+          "subvalorados": false,
+          "trade": false,
+          "hechosDesconocidos": false
+        },
+        "historial": [],
+        "actividadPreviaAlInicio": "ausente",
+        "regimen2025": "eds",
+        "criterio2025": "devengo",
+        "documentoCriterio2025": "alta",
+        "renuncia2025": false,
+        "exclusion2025": false,
+        "volumen2024": "0",
+        "diasActividad2024": 0,
+        "documentoVolumen2024": "sin-actividad",
+        "clientes": [
+          {
+            "id": "cliente",
+            "vinculado": false,
+            "empleadorEnAnioAnteriorAlInicio": false,
+            "documento": "contrato"
+          }
+        ],
+        "ingresos": [
+          {
+            "id": "factura",
+            "justificante": "factura",
+            "fecha": "2025-06-01",
+            "base": "10000",
+            "iva": "0",
+            "ivaRecuperable": "0",
+            "afectacionExclusiva": true,
+            "registrado": true,
+            "categoria": "servicio",
+            "clienteId": "cliente",
+            "sujetoRetencion": true,
+            "rectificativa": false
+          }
+        ],
+        "gastos": [],
+        "reta": [],
+        "activos": [],
+        "obligacionesFormales": true,
+        "documentoObligaciones": "libros",
+        "discapacidad": {
+          "grado": 33,
+          "ayudaOMovilidad": false,
+          "ejercicioEfectivo": true,
+          "documento": "sin-discapacidad"
+        },
+        "opcion": "cliente-unico",
+        "aplicarRentasBajas": true,
+        "aplicarInicio": false,
+        "retenciones": [],
+        "pagosFraccionados": []
+      },
+      "result": {
+        "estado": "soportado",
+        "revisionFiscal": "pendiente",
+        "etapas": [
+          {
+            "reglaId": "AE25-02",
+            "id": "ingreso:factura",
+            "formula": "base devengada, antes de retención y sin IVA recuperable",
+            "importe": "10000",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": [
+              "factura"
+            ]
+          },
+          {
+            "reglaId": "AE25-02",
+            "id": "ingresos",
+            "formula": "sum(base antes de retención; IVA recuperable excluido)",
+            "importe": "10000",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": [
+              "factura"
+            ]
+          },
+          {
+            "reglaId": "AE25-02",
+            "id": "gastos",
+            "formula": "sum(base gastos admitidos)",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-03",
+            "id": "reta",
+            "formula": "sum(cuotas ordinarias efectivas)",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-04",
+            "id": "amortizacion",
+            "formula": "sum(cuotas activos)",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "orden1998",
+              "rd634-2015",
+              "rd633-2015"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-02",
+            "id": "P",
+            "formula": "ingresos-gastos-RETA-amortizacion",
+            "importe": "10000",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-05",
+            "id": "G",
+            "formula": "opcion cliente único ? 0 : min(2000, 0.05*max(P,0))",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "rd633-2015",
+              "ley31-2022"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-06",
+            "id": "RN",
+            "formula": "P-G (con signo)",
+            "importe": "10000",
+            "fuentes": [
+              "manual",
+              "lirpf-original",
+              "ley26-2014"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-09",
+            "id": "adicional",
+            "formula": "RN<=14047.5 ? 6498 : max(0,6498-1.14*(RN-14047.5))",
+            "importe": "6498",
+            "fuentes": [
+              "manual",
+              "ley31-2022"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-10",
+            "id": "discapacidad",
+            "formula": "3500 o 7750 alternativos, con ejercicio efectivo y acreditación",
+            "importe": "3500",
+            "fuentes": [
+              "manual",
+              "ley26-2014"
+            ],
+            "documentos": [
+              "sin-discapacidad"
+            ]
+          },
+          {
+            "reglaId": "AE25-08",
+            "id": "reduccion32_2",
+            "formula": "reducción limitada a RN positivo; 32.2.3 solo si NO elegible 32.2.2",
+            "importe": "10000",
+            "fuentes": [
+              "manual",
+              "ley26-2014",
+              "rd633-2015",
+              "ley31-2022"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-12",
+            "id": "reduccionInicio",
+            "formula": "si elegible y opción: 0.20*min(100000,max(RN-R32_2,0))",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "ley11-2013"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-14",
+            "id": "aporteBIG",
+            "formula": "RN-R32_2-Rinicio (con signo; no liquidación anual)",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-15",
+            "id": "retenciones",
+            "formula": "sum(retenciones efectivas únicas); separado del rendimiento",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "lirpf-original",
+              "rirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-15",
+            "id": "pagos",
+            "formula": "sum(pagos efectivos únicos); separado del rendimiento",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "lirpf-original",
+              "rirpf-original"
+            ],
+            "documentos": []
+          }
+        ],
+        "elegibleClienteUnico": true,
+        "primerPositivo": 2025,
+        "aporte": {
+          "clase": "rendimiento-actividad-2025",
+          "importeEurosExactos": "0",
+          "retencionesEuros": "0",
+          "pagosFraccionadosEuros": "0",
+          "liquidacionAnual": "no-calculada"
+        }
+      }
+    },
+    {
+      "id": "LIMITES-AGREGADOS",
+      "input": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna",
+        "rendimientos": [
+          {
+            "id": "empleo",
+            "clase": "empleo-laboral",
+            "integro": "16500",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1200",
+              "derechosPasivos": "0",
+              "colegiosHuerfanos": "0"
+            },
+            "sindicato": {
+              "importe": "0",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "400",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "200",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          },
+          {
+            "id": "otro",
+            "clase": "empleo-laboral",
+            "integro": "16500",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1200",
+              "derechosPasivos": "0",
+              "colegiosHuerfanos": "0"
+            },
+            "sindicato": {
+              "importe": "0",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "400",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "200",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ]
+      },
+      "result": {
+        "estado": "calculado",
+        "discapacidadAplicada": "0",
+        "integro": "33000",
+        "gastosAE": "3200",
+        "generalesTeoricos": "2000",
+        "generalesAplicados": "2000",
+        "netoPrevioArt20": "29800",
+        "netoArt19": "27800",
+        "fuente": "LIRPF art19; Ley26/2014 pp11–12; RIRPF art10",
+        "aceptacionFiscal": "pendiente"
+      }
+    },
+    {
+      "id": "PERDIDA-TRABAJO",
+      "input": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna",
+        "rendimientos": [
+          {
+            "id": "empleo",
+            "clase": "empleo-laboral",
+            "integro": "100",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "150",
+              "derechosPasivos": "0",
+              "colegiosHuerfanos": "0"
+            },
+            "sindicato": {
+              "importe": "0",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ]
+      },
+      "result": {
+        "estado": "calculado",
+        "discapacidadAplicada": "0",
+        "integro": "100",
+        "gastosAE": "150",
+        "generalesTeoricos": "2000",
+        "generalesAplicados": "0",
+        "netoPrevioArt20": "-50",
+        "netoArt19": "-50",
+        "fuente": "LIRPF art19; Ley26/2014 pp11–12; RIRPF art10",
+        "aceptacionFiscal": "pendiente"
+      }
+    },
+    {
+      "id": "DA61-BASE0",
+      "input": {
+        "regla": "da61",
+        "ambito": "comun-individual",
+        "ejercicio": 2025,
+        "brutoServicios": "16500",
+        "otrasRentasNoExentas": "0",
+        "netoReducidoServicios": "0",
+        "baseLiquidableGeneral": "0",
+        "cuotaIntegraGeneral": "0",
+        "cuotaLiquidaTotal": "0",
+        "cuotaTrasArt80": "0",
+        "etapa": "despues-art80-sin-deduccion-trabajo",
+        "calificacion": "laboral-estatutaria-acreditada"
+      },
+      "result": {
+        "estado": "calculado",
+        "deduccionLegal": "340",
+        "limiteAtribuible": "0",
+        "importeAplicable": "0",
+        "cuotaPosterior": "0",
+        "fuente": "Ley5/2025 DF3 pp46–47; AEAT2025 pp1372–1375",
+        "aceptacionFiscal": "pendiente"
+      }
+    },
+    {
+      "id": "GANANCIAS-EDAD",
+      "before": {
+        "gananciaTotal": "1000",
+        "gananciaExenta": "0",
+        "gananciaSujetaAhorro": "1000",
+        "gananciaSujetaGeneral": "0"
+      },
+      "after": {
+        "gananciaTotal": "1000",
+        "gananciaExenta": "1000",
+        "gananciaSujetaAhorro": "0",
+        "gananciaSujetaGeneral": "0"
+      }
+    },
+    {
+      "id": "DIARIOS",
+      "input": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "individual": true,
+        "actividadId": "profesion",
+        "iae": "servicios",
+        "fechaInicio": "2025-01-01",
+        "fechaFin": "2025-12-31",
+        "serviciosOrdinarios": true,
+        "hechos": {
+          "otrasActividades": false,
+          "otrasRentas": false,
+          "existencias": false,
+          "empleados": false,
+          "artistica": false,
+          "irregular": false,
+          "subvenciones": false,
+          "transmisiones": false,
+          "extranjero": false,
+          "mutualidad": false,
+          "especialidadesTerritoriales": false,
+          "saldosPendientes": false,
+          "serviciosGratuitos": false,
+          "autoconsumo": false,
+          "noFacturados": false,
+          "subvalorados": false,
+          "trade": false,
+          "hechosDesconocidos": false
+        },
+        "historial": [],
+        "actividadPreviaAlInicio": "ausente",
+        "regimen2025": "eds",
+        "criterio2025": "devengo",
+        "documentoCriterio2025": "alta",
+        "renuncia2025": false,
+        "exclusion2025": false,
+        "volumen2024": "0",
+        "diasActividad2024": 0,
+        "documentoVolumen2024": "sin-actividad",
+        "clientes": [
+          {
+            "id": "cliente",
+            "vinculado": false,
+            "empleadorEnAnioAnteriorAlInicio": false,
+            "documento": "contrato"
+          }
+        ],
+        "ingresos": [
+          {
+            "id": "factura",
+            "justificante": "factura",
+            "fecha": "2025-06-01",
+            "base": "10000",
+            "iva": "0",
+            "ivaRecuperable": "0",
+            "afectacionExclusiva": true,
+            "registrado": true,
+            "categoria": "servicio",
+            "clienteId": "cliente",
+            "sujetoRetencion": true,
+            "rectificativa": false
+          }
+        ],
+        "gastos": [],
+        "reta": [
+          {
+            "id": "reta1",
+            "justificante": "jreta",
+            "fecha": "2025-06-01",
+            "importe": "300",
+            "tipo": "ordinaria",
+            "propia": true,
+            "efectiva": true,
+            "periodo": "2025-06"
+          }
+        ],
+        "activos": [],
+        "obligacionesFormales": true,
+        "documentoObligaciones": "libros",
+        "discapacidad": {
+          "grado": 0,
+          "ayudaOMovilidad": false,
+          "ejercicioEfectivo": true,
+          "documento": "sin-discapacidad"
+        },
+        "opcion": "gastos-dificiles",
+        "aplicarRentasBajas": false,
+        "aplicarInicio": false,
+        "retenciones": [
+          {
+            "id": "ret1",
+            "justificante": "cert",
+            "fecha": "2025-06-01",
+            "operacionId": "oper-ret",
+            "ingresoId": "factura",
+            "importe": "1500",
+            "efectiva": false
+          }
+        ],
+        "pagosFraccionados": [
+          {
+            "id": "pago1",
+            "justificante": "modelo130",
+            "fecha": "2025-07-20",
+            "operacionId": "oper-pago",
+            "periodo": "2025-2T",
+            "modelo": "130",
+            "importe": "700",
+            "efectivo": true
+          }
+        ]
+      },
+      "result": {
+        "estado": "soportado",
+        "revisionFiscal": "pendiente",
+        "etapas": [
+          {
+            "reglaId": "AE25-02",
+            "id": "ingreso:factura",
+            "formula": "base devengada, antes de retención y sin IVA recuperable",
+            "importe": "10000",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": [
+              "factura"
+            ]
+          },
+          {
+            "reglaId": "AE25-03",
+            "id": "reta:reta1",
+            "formula": "cuota propia ordinaria efectivamente satisfecha",
+            "importe": "300",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": [
+              "reta1"
+            ]
+          },
+          {
+            "reglaId": "AE25-02",
+            "id": "ingresos",
+            "formula": "sum(base antes de retención; IVA recuperable excluido)",
+            "importe": "10000",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": [
+              "factura"
+            ]
+          },
+          {
+            "reglaId": "AE25-02",
+            "id": "gastos",
+            "formula": "sum(base gastos admitidos)",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-03",
+            "id": "reta",
+            "formula": "sum(cuotas ordinarias efectivas)",
+            "importe": "300",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": [
+              "reta1"
+            ]
+          },
+          {
+            "reglaId": "AE25-04",
+            "id": "amortizacion",
+            "formula": "sum(cuotas activos)",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "orden1998",
+              "rd634-2015",
+              "rd633-2015"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-02",
+            "id": "P",
+            "formula": "ingresos-gastos-RETA-amortizacion",
+            "importe": "9700",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-05",
+            "id": "G",
+            "formula": "opcion cliente único ? 0 : min(2000, 0.05*max(P,0))",
+            "importe": "485",
+            "fuentes": [
+              "manual",
+              "rd633-2015",
+              "ley31-2022"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-06",
+            "id": "RN",
+            "formula": "P-G (con signo)",
+            "importe": "9215",
+            "fuentes": [
+              "manual",
+              "lirpf-original",
+              "ley26-2014"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-11",
+            "id": "reduccion32_2",
+            "formula": "reducción limitada a RN positivo; 32.2.3 solo si NO elegible 32.2.2",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "ley26-2014"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-12",
+            "id": "reduccionInicio",
+            "formula": "si elegible y opción: 0.20*min(100000,max(RN-R32_2,0))",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "ley11-2013"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-14",
+            "id": "aporteBIG",
+            "formula": "RN-R32_2-Rinicio (con signo; no liquidación anual)",
+            "importe": "9215",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-15",
+            "id": "retenciones",
+            "formula": "sum(retenciones efectivas únicas); separado del rendimiento",
+            "importe": "1500",
+            "fuentes": [
+              "manual",
+              "lirpf-original",
+              "rirpf-original"
+            ],
+            "documentos": [
+              "ret1"
+            ]
+          },
+          {
+            "reglaId": "AE25-15",
+            "id": "pagos",
+            "formula": "sum(pagos efectivos únicos); separado del rendimiento",
+            "importe": "500",
+            "fuentes": [
+              "manual",
+              "lirpf-original",
+              "rirpf-original"
+            ],
+            "documentos": [
+              "pago1"
+            ]
+          }
+        ],
+        "elegibleClienteUnico": true,
+        "primerPositivo": 2025,
+        "aporte": {
+          "clase": "rendimiento-actividad-2025",
+          "importeEurosExactos": "9215",
+          "retencionesEuros": "1500",
+          "pagosFraccionadosEuros": "500",
+          "liquidacionAnual": "no-calculada"
+        }
+      }
+    },
+    {
+      "id": "VARIAR-PAGO",
+      "input": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "individual": true,
+        "actividadId": "profesion",
+        "iae": "servicios",
+        "fechaInicio": "2025-01-01",
+        "fechaFin": "2025-12-31",
+        "serviciosOrdinarios": true,
+        "hechos": {
+          "otrasActividades": false,
+          "otrasRentas": false,
+          "existencias": false,
+          "empleados": false,
+          "artistica": false,
+          "irregular": false,
+          "subvenciones": false,
+          "transmisiones": false,
+          "extranjero": false,
+          "mutualidad": false,
+          "especialidadesTerritoriales": false,
+          "saldosPendientes": false,
+          "serviciosGratuitos": false,
+          "autoconsumo": false,
+          "noFacturados": false,
+          "subvalorados": false,
+          "trade": false,
+          "hechosDesconocidos": false
+        },
+        "historial": [],
+        "actividadPreviaAlInicio": "ausente",
+        "regimen2025": "eds",
+        "criterio2025": "devengo",
+        "documentoCriterio2025": "alta",
+        "renuncia2025": false,
+        "exclusion2025": false,
+        "volumen2024": "0",
+        "diasActividad2024": 0,
+        "documentoVolumen2024": "sin-actividad",
+        "clientes": [
+          {
+            "id": "cliente",
+            "vinculado": false,
+            "empleadorEnAnioAnteriorAlInicio": false,
+            "documento": "contrato"
+          }
+        ],
+        "ingresos": [
+          {
+            "id": "factura",
+            "justificante": "factura",
+            "fecha": "2025-06-01",
+            "base": "10000",
+            "iva": "0",
+            "ivaRecuperable": "0",
+            "afectacionExclusiva": true,
+            "registrado": true,
+            "categoria": "servicio",
+            "clienteId": "cliente",
+            "sujetoRetencion": true,
+            "rectificativa": false
+          }
+        ],
+        "gastos": [],
+        "reta": [
+          {
+            "id": "reta1",
+            "justificante": "jreta",
+            "fecha": "2025-06-01",
+            "importe": "300",
+            "tipo": "ordinaria",
+            "propia": true,
+            "efectiva": true,
+            "periodo": "2025-06"
+          }
+        ],
+        "activos": [],
+        "obligacionesFormales": true,
+        "documentoObligaciones": "libros",
+        "discapacidad": {
+          "grado": 0,
+          "ayudaOMovilidad": false,
+          "ejercicioEfectivo": true,
+          "documento": "sin-discapacidad"
+        },
+        "opcion": "gastos-dificiles",
+        "aplicarRentasBajas": false,
+        "aplicarInicio": false,
+        "retenciones": [
+          {
+            "id": "ret1",
+            "justificante": "cert",
+            "fecha": "2025-06-01",
+            "operacionId": "oper-ret",
+            "ingresoId": "factura",
+            "importe": "1500",
+            "efectiva": false
+          }
+        ],
+        "pagosFraccionados": [
+          {
+            "id": "pago1",
+            "justificante": "modelo130",
+            "fecha": "2025-07-20",
+            "operacionId": "oper-pago",
+            "periodo": "2025-2T",
+            "modelo": "130",
+            "importe": "700",
+            "efectivo": true
+          }
+        ]
+      },
+      "result": {
+        "estado": "soportado",
+        "revisionFiscal": "pendiente",
+        "etapas": [
+          {
+            "reglaId": "AE25-02",
+            "id": "ingreso:factura",
+            "formula": "base devengada, antes de retención y sin IVA recuperable",
+            "importe": "10000",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": [
+              "factura"
+            ]
+          },
+          {
+            "reglaId": "AE25-03",
+            "id": "reta:reta1",
+            "formula": "cuota propia ordinaria efectivamente satisfecha",
+            "importe": "300",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": [
+              "reta1"
+            ]
+          },
+          {
+            "reglaId": "AE25-02",
+            "id": "ingresos",
+            "formula": "sum(base antes de retención; IVA recuperable excluido)",
+            "importe": "10000",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": [
+              "factura"
+            ]
+          },
+          {
+            "reglaId": "AE25-02",
+            "id": "gastos",
+            "formula": "sum(base gastos admitidos)",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-03",
+            "id": "reta",
+            "formula": "sum(cuotas ordinarias efectivas)",
+            "importe": "300",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": [
+              "reta1"
+            ]
+          },
+          {
+            "reglaId": "AE25-04",
+            "id": "amortizacion",
+            "formula": "sum(cuotas activos)",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "orden1998",
+              "rd634-2015",
+              "rd633-2015"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-02",
+            "id": "P",
+            "formula": "ingresos-gastos-RETA-amortizacion",
+            "importe": "9700",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-05",
+            "id": "G",
+            "formula": "opcion cliente único ? 0 : min(2000, 0.05*max(P,0))",
+            "importe": "485",
+            "fuentes": [
+              "manual",
+              "rd633-2015",
+              "ley31-2022"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-06",
+            "id": "RN",
+            "formula": "P-G (con signo)",
+            "importe": "9215",
+            "fuentes": [
+              "manual",
+              "lirpf-original",
+              "ley26-2014"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-11",
+            "id": "reduccion32_2",
+            "formula": "reducción limitada a RN positivo; 32.2.3 solo si NO elegible 32.2.2",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "ley26-2014"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-12",
+            "id": "reduccionInicio",
+            "formula": "si elegible y opción: 0.20*min(100000,max(RN-R32_2,0))",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "ley11-2013"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-14",
+            "id": "aporteBIG",
+            "formula": "RN-R32_2-Rinicio (con signo; no liquidación anual)",
+            "importe": "9215",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-15",
+            "id": "retenciones",
+            "formula": "sum(retenciones efectivas únicas); separado del rendimiento",
+            "importe": "1500",
+            "fuentes": [
+              "manual",
+              "lirpf-original",
+              "rirpf-original"
+            ],
+            "documentos": [
+              "ret1"
+            ]
+          },
+          {
+            "reglaId": "AE25-15",
+            "id": "pagos",
+            "formula": "sum(pagos efectivos únicos); separado del rendimiento",
+            "importe": "700",
+            "fuentes": [
+              "manual",
+              "lirpf-original",
+              "rirpf-original"
+            ],
+            "documentos": [
+              "pago1"
+            ]
+          }
+        ],
+        "elegibleClienteUnico": true,
+        "primerPositivo": 2025,
+        "aporte": {
+          "clase": "rendimiento-actividad-2025",
+          "importeEurosExactos": "9215",
+          "retencionesEuros": "1500",
+          "pagosFraccionadosEuros": "700",
+          "liquidacionAnual": "no-calculada"
+        }
+      }
+    },
+    {
+      "id": "RETENCION-NO-EFECTIVA",
+      "input": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "individual": true,
+        "actividadId": "profesion",
+        "iae": "servicios",
+        "fechaInicio": "2025-01-01",
+        "fechaFin": "2025-12-31",
+        "serviciosOrdinarios": true,
+        "hechos": {
+          "otrasActividades": false,
+          "otrasRentas": false,
+          "existencias": false,
+          "empleados": false,
+          "artistica": false,
+          "irregular": false,
+          "subvenciones": false,
+          "transmisiones": false,
+          "extranjero": false,
+          "mutualidad": false,
+          "especialidadesTerritoriales": false,
+          "saldosPendientes": false,
+          "serviciosGratuitos": false,
+          "autoconsumo": false,
+          "noFacturados": false,
+          "subvalorados": false,
+          "trade": false,
+          "hechosDesconocidos": false
+        },
+        "historial": [],
+        "actividadPreviaAlInicio": "ausente",
+        "regimen2025": "eds",
+        "criterio2025": "devengo",
+        "documentoCriterio2025": "alta",
+        "renuncia2025": false,
+        "exclusion2025": false,
+        "volumen2024": "0",
+        "diasActividad2024": 0,
+        "documentoVolumen2024": "sin-actividad",
+        "clientes": [
+          {
+            "id": "cliente",
+            "vinculado": false,
+            "empleadorEnAnioAnteriorAlInicio": false,
+            "documento": "contrato"
+          }
+        ],
+        "ingresos": [
+          {
+            "id": "factura",
+            "justificante": "factura",
+            "fecha": "2025-06-01",
+            "base": "10000",
+            "iva": "0",
+            "ivaRecuperable": "0",
+            "afectacionExclusiva": true,
+            "registrado": true,
+            "categoria": "servicio",
+            "clienteId": "cliente",
+            "sujetoRetencion": true,
+            "rectificativa": false
+          }
+        ],
+        "gastos": [],
+        "reta": [
+          {
+            "id": "reta1",
+            "justificante": "jreta",
+            "fecha": "2025-06-01",
+            "importe": "300",
+            "tipo": "ordinaria",
+            "propia": true,
+            "efectiva": true,
+            "periodo": "2025-06"
+          }
+        ],
+        "activos": [],
+        "obligacionesFormales": true,
+        "documentoObligaciones": "libros",
+        "discapacidad": {
+          "grado": 0,
+          "ayudaOMovilidad": false,
+          "ejercicioEfectivo": true,
+          "documento": "sin-discapacidad"
+        },
+        "opcion": "gastos-dificiles",
+        "aplicarRentasBajas": false,
+        "aplicarInicio": false,
+        "retenciones": [
+          {
+            "id": "ret1",
+            "justificante": "cert",
+            "fecha": "2025-06-01",
+            "operacionId": "oper-ret",
+            "ingresoId": "factura",
+            "importe": "1500",
+            "efectiva": false
+          }
+        ],
+        "pagosFraccionados": [
+          {
+            "id": "pago1",
+            "justificante": "modelo130",
+            "fecha": "2025-07-20",
+            "operacionId": "oper-pago",
+            "periodo": "2025-2T",
+            "modelo": "130",
+            "importe": "700",
+            "efectivo": true
+          }
+        ]
+      },
+      "result": {
+        "estado": "no-soportado",
+        "motivos": [
+          {
+            "reglaId": "AE25-15",
+            "id": "ret1",
+            "motivo": "Retención no soportada o factura ya cubierta por otro certificado"
+          }
+        ]
+      }
+    },
+    {
+      "id": "BAJAS-NO-ELEGIBLE",
+      "input": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "individual": true,
+        "actividadId": "profesion",
+        "iae": "servicios",
+        "fechaInicio": "2025-01-01",
+        "fechaFin": "2025-12-31",
+        "serviciosOrdinarios": true,
+        "hechos": {
+          "otrasActividades": false,
+          "otrasRentas": false,
+          "existencias": false,
+          "empleados": false,
+          "artistica": false,
+          "irregular": false,
+          "subvenciones": false,
+          "transmisiones": false,
+          "extranjero": false,
+          "mutualidad": false,
+          "especialidadesTerritoriales": false,
+          "saldosPendientes": false,
+          "serviciosGratuitos": false,
+          "autoconsumo": false,
+          "noFacturados": false,
+          "subvalorados": false,
+          "trade": false,
+          "hechosDesconocidos": false
+        },
+        "historial": [],
+        "actividadPreviaAlInicio": "ausente",
+        "regimen2025": "eds",
+        "criterio2025": "devengo",
+        "documentoCriterio2025": "alta",
+        "renuncia2025": false,
+        "exclusion2025": false,
+        "volumen2024": "0",
+        "diasActividad2024": 0,
+        "documentoVolumen2024": "sin-actividad",
+        "clientes": [
+          {
+            "id": "cliente",
+            "vinculado": false,
+            "empleadorEnAnioAnteriorAlInicio": false,
+            "documento": "contrato"
+          }
+        ],
+        "ingresos": [
+          {
+            "id": "factura",
+            "justificante": "factura",
+            "fecha": "2025-06-01",
+            "base": "10000",
+            "iva": "0",
+            "ivaRecuperable": "0",
+            "afectacionExclusiva": true,
+            "registrado": true,
+            "categoria": "servicio",
+            "clienteId": "cliente",
+            "sujetoRetencion": true,
+            "rectificativa": false
+          }
+        ],
+        "gastos": [],
+        "reta": [],
+        "activos": [],
+        "obligacionesFormales": true,
+        "documentoObligaciones": "libros",
+        "discapacidad": {
+          "grado": 0,
+          "ayudaOMovilidad": false,
+          "ejercicioEfectivo": true,
+          "documento": "sin-discapacidad"
+        },
+        "opcion": "gastos-dificiles",
+        "aplicarRentasBajas": true,
+        "aplicarInicio": false,
+        "retenciones": [],
+        "pagosFraccionados": []
+      },
+      "result": {
+        "estado": "soportado",
+        "revisionFiscal": "pendiente",
+        "etapas": [
+          {
+            "reglaId": "AE25-02",
+            "id": "ingreso:factura",
+            "formula": "base devengada, antes de retención y sin IVA recuperable",
+            "importe": "10000",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": [
+              "factura"
+            ]
+          },
+          {
+            "reglaId": "AE25-02",
+            "id": "ingresos",
+            "formula": "sum(base antes de retención; IVA recuperable excluido)",
+            "importe": "10000",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": [
+              "factura"
+            ]
+          },
+          {
+            "reglaId": "AE25-02",
+            "id": "gastos",
+            "formula": "sum(base gastos admitidos)",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-03",
+            "id": "reta",
+            "formula": "sum(cuotas ordinarias efectivas)",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-04",
+            "id": "amortizacion",
+            "formula": "sum(cuotas activos)",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "orden1998",
+              "rd634-2015",
+              "rd633-2015"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-02",
+            "id": "P",
+            "formula": "ingresos-gastos-RETA-amortizacion",
+            "importe": "10000",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-05",
+            "id": "G",
+            "formula": "opcion cliente único ? 0 : min(2000, 0.05*max(P,0))",
+            "importe": "500",
+            "fuentes": [
+              "manual",
+              "rd633-2015",
+              "ley31-2022"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-06",
+            "id": "RN",
+            "formula": "P-G (con signo)",
+            "importe": "9500",
+            "fuentes": [
+              "manual",
+              "lirpf-original",
+              "ley26-2014"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-11",
+            "id": "reduccion32_2",
+            "formula": "reducción limitada a RN positivo; 32.2.3 solo si NO elegible 32.2.2",
+            "importe": "1012.5",
+            "fuentes": [
+              "manual",
+              "ley26-2014"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-12",
+            "id": "reduccionInicio",
+            "formula": "si elegible y opción: 0.20*min(100000,max(RN-R32_2,0))",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "ley11-2013"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-14",
+            "id": "aporteBIG",
+            "formula": "RN-R32_2-Rinicio (con signo; no liquidación anual)",
+            "importe": "8487.5",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-15",
+            "id": "retenciones",
+            "formula": "sum(retenciones efectivas únicas); separado del rendimiento",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "lirpf-original",
+              "rirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-15",
+            "id": "pagos",
+            "formula": "sum(pagos efectivos únicos); separado del rendimiento",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "lirpf-original",
+              "rirpf-original"
+            ],
+            "documentos": []
+          }
+        ],
+        "elegibleClienteUnico": false,
+        "primerPositivo": 2025,
+        "aporte": {
+          "clase": "rendimiento-actividad-2025",
+          "importeEurosExactos": "8487.5",
+          "retencionesEuros": "0",
+          "pagosFraccionadosEuros": "0",
+          "liquidacionAnual": "no-calculada"
+        }
+      }
+    },
+    {
+      "id": "BAJAS-ELEGIBLE",
+      "input": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "individual": true,
+        "actividadId": "profesion",
+        "iae": "servicios",
+        "fechaInicio": "2025-01-01",
+        "fechaFin": "2025-12-31",
+        "serviciosOrdinarios": true,
+        "hechos": {
+          "otrasActividades": false,
+          "otrasRentas": false,
+          "existencias": false,
+          "empleados": false,
+          "artistica": false,
+          "irregular": false,
+          "subvenciones": false,
+          "transmisiones": false,
+          "extranjero": false,
+          "mutualidad": false,
+          "especialidadesTerritoriales": false,
+          "saldosPendientes": false,
+          "serviciosGratuitos": false,
+          "autoconsumo": false,
+          "noFacturados": false,
+          "subvalorados": false,
+          "trade": false,
+          "hechosDesconocidos": false
+        },
+        "historial": [],
+        "actividadPreviaAlInicio": "ausente",
+        "regimen2025": "eds",
+        "criterio2025": "devengo",
+        "documentoCriterio2025": "alta",
+        "renuncia2025": false,
+        "exclusion2025": false,
+        "volumen2024": "0",
+        "diasActividad2024": 0,
+        "documentoVolumen2024": "sin-actividad",
+        "clientes": [
+          {
+            "id": "cliente",
+            "vinculado": false,
+            "empleadorEnAnioAnteriorAlInicio": false,
+            "documento": "contrato"
+          }
+        ],
+        "ingresos": [
+          {
+            "id": "factura",
+            "justificante": "factura",
+            "fecha": "2025-06-01",
+            "base": "10000",
+            "iva": "0",
+            "ivaRecuperable": "0",
+            "afectacionExclusiva": true,
+            "registrado": true,
+            "categoria": "servicio",
+            "clienteId": "cliente",
+            "sujetoRetencion": true,
+            "rectificativa": false
+          }
+        ],
+        "gastos": [],
+        "reta": [],
+        "activos": [],
+        "obligacionesFormales": true,
+        "documentoObligaciones": "libros",
+        "discapacidad": {
+          "grado": 0,
+          "ayudaOMovilidad": false,
+          "ejercicioEfectivo": true,
+          "documento": "sin-discapacidad"
+        },
+        "opcion": "gastos-dificiles",
+        "aplicarRentasBajas": true,
+        "aplicarInicio": false,
+        "retenciones": [],
+        "pagosFraccionados": []
+      },
+      "result": {
+        "estado": "soportado",
+        "revisionFiscal": "pendiente",
+        "etapas": [
+          {
+            "reglaId": "AE25-02",
+            "id": "ingreso:factura",
+            "formula": "base devengada, antes de retención y sin IVA recuperable",
+            "importe": "10000",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": [
+              "factura"
+            ]
+          },
+          {
+            "reglaId": "AE25-02",
+            "id": "ingresos",
+            "formula": "sum(base antes de retención; IVA recuperable excluido)",
+            "importe": "10000",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": [
+              "factura"
+            ]
+          },
+          {
+            "reglaId": "AE25-02",
+            "id": "gastos",
+            "formula": "sum(base gastos admitidos)",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-03",
+            "id": "reta",
+            "formula": "sum(cuotas ordinarias efectivas)",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-04",
+            "id": "amortizacion",
+            "formula": "sum(cuotas activos)",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "orden1998",
+              "rd634-2015",
+              "rd633-2015"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-02",
+            "id": "P",
+            "formula": "ingresos-gastos-RETA-amortizacion",
+            "importe": "10000",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-05",
+            "id": "G",
+            "formula": "opcion cliente único ? 0 : min(2000, 0.05*max(P,0))",
+            "importe": "500",
+            "fuentes": [
+              "manual",
+              "rd633-2015",
+              "ley31-2022"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-06",
+            "id": "RN",
+            "formula": "P-G (con signo)",
+            "importe": "9500",
+            "fuentes": [
+              "manual",
+              "lirpf-original",
+              "ley26-2014"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-11",
+            "id": "reduccion32_2",
+            "formula": "reducción limitada a RN positivo; 32.2.3 solo si NO elegible 32.2.2",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "ley26-2014"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-12",
+            "id": "reduccionInicio",
+            "formula": "si elegible y opción: 0.20*min(100000,max(RN-R32_2,0))",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "ley11-2013"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-14",
+            "id": "aporteBIG",
+            "formula": "RN-R32_2-Rinicio (con signo; no liquidación anual)",
+            "importe": "9500",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-15",
+            "id": "retenciones",
+            "formula": "sum(retenciones efectivas únicas); separado del rendimiento",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "lirpf-original",
+              "rirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-15",
+            "id": "pagos",
+            "formula": "sum(pagos efectivos únicos); separado del rendimiento",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "lirpf-original",
+              "rirpf-original"
+            ],
+            "documentos": []
+          }
+        ],
+        "elegibleClienteUnico": true,
+        "primerPositivo": 2025,
+        "aporte": {
+          "clase": "rendimiento-actividad-2025",
+          "importeEurosExactos": "9500",
+          "retencionesEuros": "0",
+          "pagosFraccionadosEuros": "0",
+          "liquidacionAnual": "no-calculada"
+        }
+      }
+    },
+    {
+      "id": "EMPLEADOR-50",
+      "input": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "individual": true,
+        "actividadId": "profesion",
+        "iae": "servicios",
+        "fechaInicio": "2025-01-01",
+        "fechaFin": "2025-12-31",
+        "serviciosOrdinarios": true,
+        "hechos": {
+          "otrasActividades": false,
+          "otrasRentas": false,
+          "existencias": false,
+          "empleados": false,
+          "artistica": false,
+          "irregular": false,
+          "subvenciones": false,
+          "transmisiones": false,
+          "extranjero": false,
+          "mutualidad": false,
+          "especialidadesTerritoriales": false,
+          "saldosPendientes": false,
+          "serviciosGratuitos": false,
+          "autoconsumo": false,
+          "noFacturados": false,
+          "subvalorados": false,
+          "trade": false,
+          "hechosDesconocidos": false
+        },
+        "historial": [],
+        "actividadPreviaAlInicio": "ausente",
+        "regimen2025": "eds",
+        "criterio2025": "devengo",
+        "documentoCriterio2025": "alta",
+        "renuncia2025": false,
+        "exclusion2025": false,
+        "volumen2024": "0",
+        "diasActividad2024": 0,
+        "documentoVolumen2024": "sin-actividad",
+        "clientes": [
+          {
+            "id": "cliente",
+            "vinculado": false,
+            "empleadorEnAnioAnteriorAlInicio": true,
+            "documento": "contrato"
+          },
+          {
+            "id": "cliente2",
+            "vinculado": false,
+            "empleadorEnAnioAnteriorAlInicio": false,
+            "documento": "contrato"
+          }
+        ],
+        "ingresos": [
+          {
+            "id": "f1",
+            "justificante": "f1",
+            "fecha": "2025-06-01",
+            "base": "5001",
+            "iva": "0",
+            "ivaRecuperable": "0",
+            "afectacionExclusiva": true,
+            "registrado": true,
+            "categoria": "servicio",
+            "clienteId": "cliente",
+            "sujetoRetencion": false,
+            "rectificativa": false
+          },
+          {
+            "id": "f2",
+            "justificante": "f2",
+            "fecha": "2025-06-01",
+            "base": "4999",
+            "iva": "0",
+            "ivaRecuperable": "0",
+            "afectacionExclusiva": true,
+            "registrado": true,
+            "categoria": "servicio",
+            "clienteId": "cliente2",
+            "sujetoRetencion": false,
+            "rectificativa": false
+          }
+        ],
+        "gastos": [],
+        "reta": [],
+        "activos": [],
+        "obligacionesFormales": true,
+        "documentoObligaciones": "libros",
+        "discapacidad": {
+          "grado": 0,
+          "ayudaOMovilidad": false,
+          "ejercicioEfectivo": true,
+          "documento": "sin-discapacidad"
+        },
+        "opcion": "gastos-dificiles",
+        "aplicarRentasBajas": false,
+        "aplicarInicio": true,
+        "retenciones": [],
+        "pagosFraccionados": []
+      },
+      "result": {
+        "estado": "soportado",
+        "revisionFiscal": "pendiente",
+        "etapas": [
+          {
+            "reglaId": "AE25-02",
+            "id": "ingreso:f1",
+            "formula": "base devengada, antes de retención y sin IVA recuperable",
+            "importe": "5000",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": [
+              "f1"
+            ]
+          },
+          {
+            "reglaId": "AE25-02",
+            "id": "ingreso:f2",
+            "formula": "base devengada, antes de retención y sin IVA recuperable",
+            "importe": "5000",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": [
+              "f2"
+            ]
+          },
+          {
+            "reglaId": "AE25-02",
+            "id": "ingresos",
+            "formula": "sum(base antes de retención; IVA recuperable excluido)",
+            "importe": "10000",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": [
+              "f1",
+              "f2"
+            ]
+          },
+          {
+            "reglaId": "AE25-02",
+            "id": "gastos",
+            "formula": "sum(base gastos admitidos)",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-03",
+            "id": "reta",
+            "formula": "sum(cuotas ordinarias efectivas)",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-04",
+            "id": "amortizacion",
+            "formula": "sum(cuotas activos)",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "orden1998",
+              "rd634-2015",
+              "rd633-2015"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-02",
+            "id": "P",
+            "formula": "ingresos-gastos-RETA-amortizacion",
+            "importe": "10000",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-05",
+            "id": "G",
+            "formula": "opcion cliente único ? 0 : min(2000, 0.05*max(P,0))",
+            "importe": "500",
+            "fuentes": [
+              "manual",
+              "rd633-2015",
+              "ley31-2022"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-06",
+            "id": "RN",
+            "formula": "P-G (con signo)",
+            "importe": "9500",
+            "fuentes": [
+              "manual",
+              "lirpf-original",
+              "ley26-2014"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-11",
+            "id": "reduccion32_2",
+            "formula": "reducción limitada a RN positivo; 32.2.3 solo si NO elegible 32.2.2",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "ley26-2014"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-12",
+            "id": "reduccionInicio",
+            "formula": "si elegible y opción: 0.20*min(100000,max(RN-R32_2,0))",
+            "importe": "1900",
+            "fuentes": [
+              "manual",
+              "ley11-2013"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-14",
+            "id": "aporteBIG",
+            "formula": "RN-R32_2-Rinicio (con signo; no liquidación anual)",
+            "importe": "7600",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-15",
+            "id": "retenciones",
+            "formula": "sum(retenciones efectivas únicas); separado del rendimiento",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "lirpf-original",
+              "rirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-15",
+            "id": "pagos",
+            "formula": "sum(pagos efectivos únicos); separado del rendimiento",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "lirpf-original",
+              "rirpf-original"
+            ],
+            "documentos": []
+          }
+        ],
+        "elegibleClienteUnico": false,
+        "primerPositivo": 2025,
+        "aporte": {
+          "clase": "rendimiento-actividad-2025",
+          "importeEurosExactos": "7600",
+          "retencionesEuros": "0",
+          "pagosFraccionadosEuros": "0",
+          "liquidacionAnual": "no-calculada"
+        }
+      }
+    },
+    {
+      "id": "EMPLEADOR-MAS50",
+      "input": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "individual": true,
+        "actividadId": "profesion",
+        "iae": "servicios",
+        "fechaInicio": "2025-01-01",
+        "fechaFin": "2025-12-31",
+        "serviciosOrdinarios": true,
+        "hechos": {
+          "otrasActividades": false,
+          "otrasRentas": false,
+          "existencias": false,
+          "empleados": false,
+          "artistica": false,
+          "irregular": false,
+          "subvenciones": false,
+          "transmisiones": false,
+          "extranjero": false,
+          "mutualidad": false,
+          "especialidadesTerritoriales": false,
+          "saldosPendientes": false,
+          "serviciosGratuitos": false,
+          "autoconsumo": false,
+          "noFacturados": false,
+          "subvalorados": false,
+          "trade": false,
+          "hechosDesconocidos": false
+        },
+        "historial": [],
+        "actividadPreviaAlInicio": "ausente",
+        "regimen2025": "eds",
+        "criterio2025": "devengo",
+        "documentoCriterio2025": "alta",
+        "renuncia2025": false,
+        "exclusion2025": false,
+        "volumen2024": "0",
+        "diasActividad2024": 0,
+        "documentoVolumen2024": "sin-actividad",
+        "clientes": [
+          {
+            "id": "cliente",
+            "vinculado": false,
+            "empleadorEnAnioAnteriorAlInicio": true,
+            "documento": "contrato"
+          },
+          {
+            "id": "cliente2",
+            "vinculado": false,
+            "empleadorEnAnioAnteriorAlInicio": false,
+            "documento": "contrato"
+          }
+        ],
+        "ingresos": [
+          {
+            "id": "f1",
+            "justificante": "f1",
+            "fecha": "2025-06-01",
+            "base": "5001",
+            "iva": "0",
+            "ivaRecuperable": "0",
+            "afectacionExclusiva": true,
+            "registrado": true,
+            "categoria": "servicio",
+            "clienteId": "cliente",
+            "sujetoRetencion": false,
+            "rectificativa": false
+          },
+          {
+            "id": "f2",
+            "justificante": "f2",
+            "fecha": "2025-06-01",
+            "base": "4999",
+            "iva": "0",
+            "ivaRecuperable": "0",
+            "afectacionExclusiva": true,
+            "registrado": true,
+            "categoria": "servicio",
+            "clienteId": "cliente2",
+            "sujetoRetencion": false,
+            "rectificativa": false
+          }
+        ],
+        "gastos": [],
+        "reta": [],
+        "activos": [],
+        "obligacionesFormales": true,
+        "documentoObligaciones": "libros",
+        "discapacidad": {
+          "grado": 0,
+          "ayudaOMovilidad": false,
+          "ejercicioEfectivo": true,
+          "documento": "sin-discapacidad"
+        },
+        "opcion": "gastos-dificiles",
+        "aplicarRentasBajas": false,
+        "aplicarInicio": true,
+        "retenciones": [],
+        "pagosFraccionados": []
+      },
+      "result": {
+        "estado": "soportado",
+        "revisionFiscal": "pendiente",
+        "etapas": [
+          {
+            "reglaId": "AE25-02",
+            "id": "ingreso:f1",
+            "formula": "base devengada, antes de retención y sin IVA recuperable",
+            "importe": "5001",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": [
+              "f1"
+            ]
+          },
+          {
+            "reglaId": "AE25-02",
+            "id": "ingreso:f2",
+            "formula": "base devengada, antes de retención y sin IVA recuperable",
+            "importe": "4999",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": [
+              "f2"
+            ]
+          },
+          {
+            "reglaId": "AE25-02",
+            "id": "ingresos",
+            "formula": "sum(base antes de retención; IVA recuperable excluido)",
+            "importe": "10000",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": [
+              "f1",
+              "f2"
+            ]
+          },
+          {
+            "reglaId": "AE25-02",
+            "id": "gastos",
+            "formula": "sum(base gastos admitidos)",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-03",
+            "id": "reta",
+            "formula": "sum(cuotas ordinarias efectivas)",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-04",
+            "id": "amortizacion",
+            "formula": "sum(cuotas activos)",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "orden1998",
+              "rd634-2015",
+              "rd633-2015"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-02",
+            "id": "P",
+            "formula": "ingresos-gastos-RETA-amortizacion",
+            "importe": "10000",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-05",
+            "id": "G",
+            "formula": "opcion cliente único ? 0 : min(2000, 0.05*max(P,0))",
+            "importe": "500",
+            "fuentes": [
+              "manual",
+              "rd633-2015",
+              "ley31-2022"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-06",
+            "id": "RN",
+            "formula": "P-G (con signo)",
+            "importe": "9500",
+            "fuentes": [
+              "manual",
+              "lirpf-original",
+              "ley26-2014"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-11",
+            "id": "reduccion32_2",
+            "formula": "reducción limitada a RN positivo; 32.2.3 solo si NO elegible 32.2.2",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "ley26-2014"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-12",
+            "id": "reduccionInicio",
+            "formula": "si elegible y opción: 0.20*min(100000,max(RN-R32_2,0))",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "ley11-2013"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-14",
+            "id": "aporteBIG",
+            "formula": "RN-R32_2-Rinicio (con signo; no liquidación anual)",
+            "importe": "9500",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-15",
+            "id": "retenciones",
+            "formula": "sum(retenciones efectivas únicas); separado del rendimiento",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "lirpf-original",
+              "rirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-15",
+            "id": "pagos",
+            "formula": "sum(pagos efectivos únicos); separado del rendimiento",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "lirpf-original",
+              "rirpf-original"
+            ],
+            "documentos": []
+          }
+        ],
+        "elegibleClienteUnico": false,
+        "primerPositivo": 2025,
+        "aporte": {
+          "clase": "rendimiento-actividad-2025",
+          "importeEurosExactos": "9500",
+          "retencionesEuros": "0",
+          "pagosFraccionadosEuros": "0",
+          "liquidacionAnual": "no-calculada"
+        }
+      }
+    },
+    {
+      "id": "EDS-PERDIDA",
+      "input": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "individual": true,
+        "actividadId": "profesion",
+        "iae": "servicios",
+        "fechaInicio": "2025-01-01",
+        "fechaFin": "2025-12-31",
+        "serviciosOrdinarios": true,
+        "hechos": {
+          "otrasActividades": false,
+          "otrasRentas": false,
+          "existencias": false,
+          "empleados": false,
+          "artistica": false,
+          "irregular": false,
+          "subvenciones": false,
+          "transmisiones": false,
+          "extranjero": false,
+          "mutualidad": false,
+          "especialidadesTerritoriales": false,
+          "saldosPendientes": false,
+          "serviciosGratuitos": false,
+          "autoconsumo": false,
+          "noFacturados": false,
+          "subvalorados": false,
+          "trade": false,
+          "hechosDesconocidos": false
+        },
+        "historial": [],
+        "actividadPreviaAlInicio": "ausente",
+        "regimen2025": "eds",
+        "criterio2025": "devengo",
+        "documentoCriterio2025": "alta",
+        "renuncia2025": false,
+        "exclusion2025": false,
+        "volumen2024": "0",
+        "diasActividad2024": 0,
+        "documentoVolumen2024": "sin-actividad",
+        "clientes": [
+          {
+            "id": "cliente",
+            "vinculado": false,
+            "empleadorEnAnioAnteriorAlInicio": false,
+            "documento": "contrato"
+          }
+        ],
+        "ingresos": [
+          {
+            "id": "factura",
+            "justificante": "factura",
+            "fecha": "2025-06-01",
+            "base": "1000",
+            "iva": "0",
+            "ivaRecuperable": "0",
+            "afectacionExclusiva": true,
+            "registrado": true,
+            "categoria": "servicio",
+            "clienteId": "cliente",
+            "sujetoRetencion": false,
+            "rectificativa": false
+          }
+        ],
+        "gastos": [
+          {
+            "id": "gasto",
+            "justificante": "gasto",
+            "fecha": "2025-06-01",
+            "base": "2000",
+            "iva": "0",
+            "ivaRecuperable": "0",
+            "afectacionExclusiva": true,
+            "registrado": true,
+            "categoria": "alquiler-local",
+            "correlacion": true,
+            "rectificativa": false
+          }
+        ],
+        "reta": [],
+        "activos": [],
+        "obligacionesFormales": true,
+        "documentoObligaciones": "libros",
+        "discapacidad": {
+          "grado": 0,
+          "ayudaOMovilidad": false,
+          "ejercicioEfectivo": true,
+          "documento": "sin-discapacidad"
+        },
+        "opcion": "gastos-dificiles",
+        "aplicarRentasBajas": true,
+        "aplicarInicio": false,
+        "retenciones": [],
+        "pagosFraccionados": []
+      },
+      "result": {
+        "estado": "soportado",
+        "revisionFiscal": "pendiente",
+        "etapas": [
+          {
+            "reglaId": "AE25-02",
+            "id": "ingreso:factura",
+            "formula": "base devengada, antes de retención y sin IVA recuperable",
+            "importe": "1000",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": [
+              "factura"
+            ]
+          },
+          {
+            "reglaId": "AE25-16",
+            "id": "gasto:gasto",
+            "formula": "base de categoría admitida correlacionada, sin IVA recuperable",
+            "importe": "2000",
+            "fuentes": [
+              "manual"
+            ],
+            "documentos": [
+              "gasto"
+            ]
+          },
+          {
+            "reglaId": "AE25-02",
+            "id": "ingresos",
+            "formula": "sum(base antes de retención; IVA recuperable excluido)",
+            "importe": "1000",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": [
+              "factura"
+            ]
+          },
+          {
+            "reglaId": "AE25-02",
+            "id": "gastos",
+            "formula": "sum(base gastos admitidos)",
+            "importe": "2000",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": [
+              "gasto"
+            ]
+          },
+          {
+            "reglaId": "AE25-03",
+            "id": "reta",
+            "formula": "sum(cuotas ordinarias efectivas)",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-04",
+            "id": "amortizacion",
+            "formula": "sum(cuotas activos)",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "orden1998",
+              "rd634-2015",
+              "rd633-2015"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-02",
+            "id": "P",
+            "formula": "ingresos-gastos-RETA-amortizacion",
+            "importe": "-1000",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-05",
+            "id": "G",
+            "formula": "opcion cliente único ? 0 : min(2000, 0.05*max(P,0))",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "rd633-2015",
+              "ley31-2022"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-06",
+            "id": "RN",
+            "formula": "P-G (con signo)",
+            "importe": "-1000",
+            "fuentes": [
+              "manual",
+              "lirpf-original",
+              "ley26-2014"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-11",
+            "id": "reduccion32_2",
+            "formula": "reducción limitada a RN positivo; 32.2.3 solo si NO elegible 32.2.2",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "ley26-2014"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-12",
+            "id": "reduccionInicio",
+            "formula": "si elegible y opción: 0.20*min(100000,max(RN-R32_2,0))",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "ley11-2013"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-14",
+            "id": "aporteBIG",
+            "formula": "RN-R32_2-Rinicio (con signo; no liquidación anual)",
+            "importe": "-1000",
+            "fuentes": [
+              "manual",
+              "lirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-15",
+            "id": "retenciones",
+            "formula": "sum(retenciones efectivas únicas); separado del rendimiento",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "lirpf-original",
+              "rirpf-original"
+            ],
+            "documentos": []
+          },
+          {
+            "reglaId": "AE25-15",
+            "id": "pagos",
+            "formula": "sum(pagos efectivos únicos); separado del rendimiento",
+            "importe": "0",
+            "fuentes": [
+              "manual",
+              "lirpf-original",
+              "rirpf-original"
+            ],
+            "documentos": []
+          }
+        ],
+        "elegibleClienteUnico": false,
+        "primerPositivo": null,
+        "aporte": {
+          "clase": "rendimiento-actividad-2025",
+          "importeEurosExactos": "-1000",
+          "retencionesEuros": "0",
+          "pagosFraccionadosEuros": "0",
+          "liquidacionAnual": "no-calculada"
+        }
+      }
+    }
+  ]
+}

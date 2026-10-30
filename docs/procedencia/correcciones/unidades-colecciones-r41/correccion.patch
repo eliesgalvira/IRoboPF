@@ -1,0 +1,121 @@
+diff --git a/scripts/procedencia/flujo-rentas-r36.mjs b/scripts/procedencia/flujo-rentas-r36.mjs
+index 29bb022..b131f4c 100644
+--- a/scripts/procedencia/flujo-rentas-r36.mjs
++++ b/scripts/procedencia/flujo-rentas-r36.mjs
+@@ -554,16 +554,26 @@ export function composeRentasR36(root = process.cwd()) {
+           compiled.get(n.args[0])?.data.key
+         )
+     )
+-    .map((n) => ({
+-      id: n.id,
+-      operation: compiled.get(n.args[0]).data.key,
+-      receiver: compiled.get(n.args[0]).args[0],
+-      callback: n.args[1] ?? null,
+-      seed: n.args[2] ?? null,
+-      unit: "element-dependent",
+-      index: "callback argument 1 for map/filter; argument 2 for reduce",
+-      cardinality: "native-array-order-short-circuit",
+-    }))
++    .map((n) => {
++      const target = compiled.get(n.args[0])
++      const owner = compiled.get(target.args[0])
++      const operation = target.data.key
++      const effectArray = owner?.op === "global" && owner.data.name === "EffectArray"
++      // Las fuentes fijadas usan EffectArray con datos primero. La colección
++      // es un argumento, mientras que en Array nativo es el receptor del método.
++      if (effectArray && n.args.length !== (operation === "reduce" ? 4 : 3))
++        throw Error("Colección EffectArray fuera del contrato: " + n.id)
++      return {
++        id: n.id,
++        operation,
++        receiver: effectArray ? n.args[1] : target.args[0],
++        callback: n.args[effectArray ? (operation === "reduce" ? 3 : 2) : 1] ?? null,
++        seed: operation === "reduce" ? n.args[2] ?? null : null,
++        unit: "element-dependent",
++        index: "callback argument 1 for map/filter; argument 2 for reduce",
++        cardinality: "native-array-order-short-circuit",
++      }
++    })
+   const monetaryFields = new Set([
+     "base",
+     "integro",
+diff --git a/scripts/procedencia/flujo-ss-r36.mjs b/scripts/procedencia/flujo-ss-r36.mjs
+index 9497f01..2e292ad 100644
+--- a/scripts/procedencia/flujo-ss-r36.mjs
++++ b/scripts/procedencia/flujo-ss-r36.mjs
+@@ -278,7 +278,7 @@ function build() {
+   }
+   const byId=new Map(program.map(n=>[n.id,n]))
+   // Contexto AST: declaración, propiedad, celda y rama runtime concretas.
+-  const contexts=new Map()
++  const contexts=new Map(),astNodes=new Map()
+   for(const [file,ast] of asts)for(const n of walk(ast)) {
+     const ancestors=[]
+     for(let child=n,a=n.parent;a;child=a,a=a.parent){
+@@ -286,7 +286,9 @@ function build() {
+       if(ts.isArrayLiteralExpression(a))ancestors.unshift('index:'+a.elements.indexOf(child))
+       if(ts.isCallExpression(a)&&a.expression.getText()==='Match.when')ancestors.push('when:'+a.arguments[0].getText())
+     }
+-    contexts.set(file+':'+n.getStart()+':'+n.end,ancestors)
++    const key=file+':'+n.getStart()+':'+n.end
++    contexts.set(key,ancestors)
++    astNodes.set(key,n)
+   }
+   const cells=program.filter(n=>(n.op==='literal'||n.op==='global'&&n.data.name==='IMPORTE_CERO')&&['BASE_MAXIMA_COTIZACION_LEGACY','TIPOS_SEGURIDAD_SOCIAL_LEGACY','obtenerTiposMei','obtenerPoliticaSolidaridad','tiposSolidaridad','SIN_SOLIDARIDAD'].some(name=>contexts.get(n.source.file+':'+n.source.start+':'+n.source.end)?.includes(name))).map(n=>({id:n.id,value:n.data.value??n.data.name,path:contexts.get(n.source.file+':'+n.source.start+':'+n.source.end),unit:contexts.get(n.source.file+':'+n.source.start+':'+n.source.end).includes('BASE_MAXIMA_COTIZACION_LEGACY')?'EUR':Number.isInteger(n.data.value)&&n.data.value>=2012&&n.data.value<=2026?'ejercicio':String(n.data.value).includes('Solidaridad')?'tag':'ratio',source:n.source}))
+   const calls=program.filter(n=>n.op==='call').map(n=>{
+@@ -295,12 +297,15 @@ function build() {
+     const isReduce=key==='reduce'
+     return {id:n.id,target:n.args[0],arguments:n.args.slice(1),callbacks:callbackIds.map(id=>({node:id,parameters:byId.get(id).data.parameters,captures:'lexical-environment-per-invocation'})),receiver:target.op==='get'?target.args[0]:null,operation:key??'selected-function',seed:isReduce?n.args[2]:null,indices:isReduce?'0..length-1':key==='values'?'own-enumerable-insertion-order':null,cardinality:isReduce?'one-callback-per-index;empty=seed':null,source:n.source}
+   })
++  const sideRatios='{empresarial:ratio,trabajador:ratio}'
++  const solidarityPolicy='{_tag:SinSolidaridad}|{_tag:ConSolidaridad,tipoPrimerExceso:ratio,tipoSegundoExceso:ratio,tipoExcesoRestante:ratio}'
++  const parameterUnits='{baseMaxima:EUR,tiposSeguridadSocial:record<categoria,'+sideRatios+'>,mei:'+sideRatios+',solidaridad:'+solidarityPolicy+'}'
+   const unitContracts=[
+     ['sumarRendimientosTrabajo',['array<importeIntegroCentimos:centimos>','centimos->EUR'],'EUR'],
+     ['centimosAEuros',['centimos'],'EUR'],['crearImporteMonetario',['decimal-value'],'contextual'],
+-    ['obtenerParametrosCotizacionLegacy',['ejercicio'],'{baseMaxima:EUR,tiposSeguridadSocial:ratio,mei:ratio,solidaridad:policy}'],
+-    ['obtenerTiposMei',['ejercicio'],'{empresarial:ratio,trabajador:ratio}'],
+-    ['obtenerPoliticaSolidaridad',['ejercicio'],'tag+three-ratios'],
++    ['obtenerParametrosCotizacionLegacy',['ejercicio'],parameterUnits],
++    ['obtenerTiposMei',['ejercicio'],sideRatios],
++    ['obtenerPoliticaSolidaridad',['ejercicio'],solidarityPolicy],
+     ['sumarTipoCotizacionLegacy',['parameters','lado'],'ratio'],
+     ['tipoCotizacionPorLado',['{empresarial:ratio,trabajador:ratio}','lado'],'ratio'],
+     ['baseCotizacionPara',['EUR','parameters'],'{baseOrdinaria:EUR,excesoBase:EUR}'],
+@@ -313,12 +318,33 @@ function build() {
+     ['calcularDesgloseCotizacionesPerfilUniforme',['{anio:ejercicio,salarioBrutoAnual:EUR}'],'breakdown:EUR'],
+     ['crearLineaCalculo',['{importe:EUR,unidad:EUR,instancia:index}'],'origen.decimal:EUR-string']
+   ].map(([name,parameters,result])=>({id:name,parameters,result,frequency:'anual',binding:globalBindings.find(b=>b.name===name)}))
+-  const fieldUnits=program.filter(n=>['get','property','index'].includes(n.op)).map(n=>({id:n.id,key:n.data.key??null,owner:n.args[0]??null,unit:n.data.key==='importeIntegroCentimos'?'centimos':n.data.key==='anio'?'ejercicio':n.data.key==='modo'?'modo':['empresarial','trabajador','tipoPrimerExceso','tipoSegundoExceso','tipoExcesoRestante'].includes(n.data.key)?'ratio':['baseMaxima','baseOrdinaria','excesoBase','salarioBrutoAnual'].includes(n.data.key)||String(n.data.key).startsWith('cotizacion')||String(n.data.key).startsWith('mei')||String(n.data.key).startsWith('solidaridadE')||String(n.data.key).startsWith('solidaridadT')?'EUR':'structural',source:n.source}))
++  function fieldUnit(n) {
++    const key=n.data.key,sourceKey=n.source.file+':'+n.source.start+':'+n.source.end
++    const node=astNodes.get(sourceKey),path=contexts.get(sourceKey)
++    if(key==='mei'&&(
++      ts.isPropertyAccessExpression(node)&&node.expression.getText()==='parametros'&&
++        (path.includes('calcularDesgloseCotizacionesPerfilUniforme')||path.includes('calcularDesgloseCotizacionesSocialesLegacy'))||
++      ts.isPropertyAssignment(node)&&path.includes('obtenerParametrosCotizacionLegacy')&&
++        ts.isCallExpression(node.initializer)&&node.initializer.expression.getText()==='obtenerTiposMei'
++    ))return 'structural<'+sideRatios+'>'
++    if(key==='trabajador'&&n.source.file==='lib/dominio/laboral/cotizaciones-perfil-uniforme.ts'&&(
++      ts.isPropertyAssignment(node)&&ts.isArrayLiteralExpression(node.initializer)&&node.initializer.elements.length===3&&
++        (path.includes('tiposSolidaridad')||path.includes('solidaridad'))||
++      ts.isPropertyAccessExpression(node)&&node.expression.getText()==='solidaridad'&&path.includes('calcularDesgloseCotizacionesPerfilUniforme')
++    ))return 'tuple3<ratio>'
++    return key==='importeIntegroCentimos'?'centimos':key==='anio'?'ejercicio':key==='modo'?'modo':['empresarial','trabajador','tipoPrimerExceso','tipoSegundoExceso','tipoExcesoRestante'].includes(key)?'ratio':['baseMaxima','baseOrdinaria','excesoBase','salarioBrutoAnual'].includes(key)||String(key).startsWith('cotizacion')||String(key).startsWith('mei')||String(key).startsWith('solidaridadE')||String(key).startsWith('solidaridadT')?'EUR':'structural'
++  }
++  const fieldUnits=program.filter(n=>['get','property','index'].includes(n.op)).map(n=>({id:n.id,key:n.data.key??null,owner:n.args[0]??null,unit:fieldUnit(n),source:n.source}))
+   const literalUnits=program.filter(n=>n.op==='literal').map(n=>{
+     const path=contexts.get(n.source.file+':'+n.source.start+':'+n.source.end),v=n.data.value,cell=cells.find(c=>c.id===n.id)
+-    const astNode=walk(asts.get(n.source.file)).find(a=>a.getStart()===n.source.start&&a.end===n.source.end)
++    const astNode=astNodes.get(n.source.file+':'+n.source.start+':'+n.source.end)
+     const index=ts.isElementAccessExpression(astNode.parent)&&astNode.parent.argumentExpression===astNode
+-    const unit=index?'index':cell?cell.unit:Number.isInteger(v)&&v>=2012&&v<=2026?'ejercicio':path.includes('sumarRendimientosTrabajo')&&v===0?'centimos':path.includes('centimosAEuros')&&v===100?'centimos/EUR':path.includes('IMPORTE_CERO')?'contextual-zero':path.includes('calcularDesgloseCotizacionesPerfilUniforme')&&[12,7,5].includes(v)?'meses':['3751.20','3803.70'].includes(v)?'EUR/mes':path.includes('repartirCotizacionSolidaridad')?'reparto':path.includes('cuotaSolidaridad')&&v===0?'EUR':['0.10','0.50','0.1','0.4','0.5','0'].includes(v)?'ratio':['empresarial','trabajador'].includes(v)?'lado':v==='canonico'?'modo':path.includes('instancia')?'index':'metadata'
++    const call=astNode.parent
++    const excessZero=v===0&&ts.isCallExpression(call)&&call.arguments[0]===astNode&&(
++      path.includes('calcularDesgloseCotizacionesPerfilUniforme')&&path.includes('excesoBase')&&call.expression.getText()==='Decimal.max'||
++      path.includes('calcularTotalSolidaridad')&&call.expression.getText()==='excesoBase.lte'
++    )
++    const unit=index?'index':cell?cell.unit:excessZero?'EUR':Number.isInteger(v)&&v>=2012&&v<=2026?'ejercicio':path.includes('sumarRendimientosTrabajo')&&v===0?'centimos':path.includes('centimosAEuros')&&v===100?'centimos/EUR':path.includes('IMPORTE_CERO')?'contextual-zero':path.includes('calcularDesgloseCotizacionesPerfilUniforme')&&[12,7,5].includes(v)?'meses':['3751.20','3803.70'].includes(v)?'EUR/mes':path.includes('repartirCotizacionSolidaridad')?'reparto':path.includes('cuotaSolidaridad')&&v===0?'EUR':['0.10','0.50','0.1','0.4','0.5','0'].includes(v)?'ratio':['empresarial','trabajador'].includes(v)?'lado':v==='canonico'?'modo':path.includes('instancia')?'index':'metadata'
+     return {id:n.id,value:v,unit,source:n.source}
+   })
+   const boundaries=[{id:'medirAuditoriaSync',source:ref(declarations.get('medirAuditoriaSync').node),behavior:'calcular() exactly once; return unchanged; instrumentation outside financial value; instrumentation exceptions not simulated'},{id:'admission',contractId:'anual-publico-r32',status:'pending-external',years:[2012,2026],modes:['canonico','compatible-legacy'],siteClosed:false}]

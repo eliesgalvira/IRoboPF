@@ -1,0 +1,22 @@
+import fs from 'node:fs'
+import assert from 'node:assert/strict'
+import {composeSS,validateSS} from './proyeccion/scripts/procedencia/flujo-ss-r36.mjs'
+import {createSSEvaluator,executeFinite} from './proyeccion/scripts/procedencia/flujo-ss-r36-consumidor.mjs'
+const g=composeSS(),dest='docs/procedencia/revisiones/flujo-ss-r39-sol/',text=r=>fs.readFileSync(r.file,'utf8').slice(r.start,r.end),rows=[]
+const add=(id,expected,actual)=>rows.push({id,expected,actual,pass:expected===actual})
+for(const r of g.fieldUnits){if(r.key==='mei')add(r.id,'structural<{empresarial:ratio,trabajador:ratio}>',r.unit);if(r.key==='trabajador'&&(text(r.source).includes('[')||text(r.source)==='solidaridad.trabajador'))add(r.id,'tuple3<ratio>',r.unit)}
+const contract=g.unitContracts.find(c=>c.id==='obtenerParametrosCotizacionLegacy');add(contract.id,'{baseMaxima:EUR,tiposSeguridadSocial:record<lado:ratio>,mei:{empresarial:ratio,trabajador:ratio},solidaridad:policy}',contract.result)
+for(const r of g.literalUnits.filter(r=>r.value===0&&[2710,5828].includes(r.source.start)))add(r.id,'EUR',r.unit)
+const c={anio:2025,rendimientos:{trabajo:[{importeIntegroCentimos:1},{importeIntegroCentimos:1},{importeIntegroCentimos:1000000}]}}
+const result=createSSEvaluator(g)(c,{modo:'canonico'},true)
+const reductions=result.trace.filter(t=>t.operation==='reduce-frame');assert(reductions.some(t=>t.cardinality===3&&t.seed.decimal==='0'))
+const h=structuredClone(g);h.program.find(n=>n.op==='literal'&&n.source.file.endsWith('rendimientos-trabajo.ts')&&n.data.value===0).data.value=1
+function rawAnnual(k){const env=new Map([['caso',c],['contexto',{modo:'canonico'}]]);for(const b of k.annualBindings)env.set(b.name,executeFinite(k,null,[],false,b.node,[...env]).result);return k.outputBindings.map(b=>executeFinite(k,null,[],false,b.node,[...env]).result.origen.decimal)}
+const rawBefore=rawAnnual(g),rawAfter=rawAnnual(h);assert.notDeepEqual(rawBefore,rawAfter);assert.throws(()=>createSSEvaluator(h))
+const tagResult=executeFinite(g,'obtenerPoliticaSolidaridad',[2024],false).result;assert.equal(tagResult._tag,'SinSolidaridad')
+const fallback=executeFinite(g,'obtenerParametrosCotizacionLegacy',[2022],false).result;assert.equal(fallback.mei.empresarial.toString(),'0')
+const pending=g.sites.map(s=>({site:s.siteId,declaresClosed:s.valueClosed&&s.selectionClosed}));assert(validateSS(g))
+fs.writeFileSync(dest+'dimensiones-rojo.json',JSON.stringify({rows,allCandidateClosed:pending,validatorAccepts:true,classification:'contrato documental; no discrepancia financiera demostrada'},null,2))
+fs.writeFileSync(dest+'trazas.json',JSON.stringify({reductions,seedAnnual:{before:rawBefore,after:rawAfter},tags:tagResult},null,2))
+console.log(JSON.stringify({externalDimensionalFailures:rows.filter(r=>!r.pass).length,validatorAccepts:true,rawAnnualSeedChanged:true}))
+if(rows.some(r=>!r.pass))process.exitCode=1

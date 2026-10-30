@@ -1,0 +1,16 @@
+import fs from 'node:fs'
+import path from 'node:path'
+import {createHash} from 'node:crypto'
+import {gzipSync} from 'node:zlib'
+import {spawnSync,execFileSync} from 'node:child_process'
+const root=process.cwd(),dir='docs/procedencia/revisiones/flujo-rentas-r40-sol/',scratch=path.resolve('.cache/revision-rentas-r40-sol'),head=execFileSync('git',['rev-parse','HEAD']).toString().trim()
+const excluded=['manifiesto.json','binarios.json','patch.diff.gz','transporte.json','ENTREGA.json']
+fs.copyFileSync(scratch+'/entregar.mjs',dir+'entregar.mjs.txt')
+const sha=b=>createHash('sha256').update(b).digest('hex')
+const paths=fs.readdirSync(dir).filter(p=>!excluded.includes(p)).sort().map(p=>dir+p)
+let patch='';const binaries=[],entries=[]
+for(const p of paths){const b=fs.readFileSync(p);let previous=null;try{previous=execFileSync('git',['cat-file','blob',head+':'+p],{stdio:['ignore','pipe','ignore']})}catch{}if(previous)throw Error('No se esperaban cambios de base: '+p);entries.push({path:p,sha256:sha(b),size:b.length,baseSha256:null,change:'alta',executable:false});if(b.includes(0)||b.length===0){binaries.push({path:p,sha256:sha(b),sha512:createHash('sha512').update(b).digest('hex'),size:b.length,source:p});continue}const d=spawnSync('diff',['-u','--label','/dev/null','--label','b/'+p,'/dev/null',p],{encoding:'utf8',maxBuffer:20e6});if(d.status!==1)throw Error('diff '+p+': '+d.status);patch+=d.stdout}
+fs.writeFileSync(dir+'manifiesto.json',JSON.stringify({head,base:head,entries,exclusions:excluded,zeroBaseChanges:true,zeroDeleted:true},null,2)+'\n')
+fs.writeFileSync(dir+'patch.diff.gz',gzipSync(patch));fs.writeFileSync(dir+'binarios.json',JSON.stringify(binaries,null,2)+'\n')
+const target=fs.mkdtempSync(scratch+'/transporte-');const applied=spawnSync('patch',['-p1','--batch','-d',target],{input:patch,encoding:'utf8',maxBuffer:10e6});if(applied.status!==0)throw Error(applied.stdout+applied.stderr);for(const b of binaries){const p=path.join(target,b.path);fs.mkdirSync(path.dirname(p),{recursive:true});fs.copyFileSync(path.join(root,b.source),p)}const failures=entries.filter(e=>{const b=fs.readFileSync(path.join(target,e.path));return b.length!==e.size||sha(b)!==e.sha256});fs.writeFileSync(dir+'transporte.json',JSON.stringify({head,entries:entries.length,failures,destination:target,patchStatus:applied.status,mode:'directorio scratch ordinario; sin checkout',scope:'igualdad de bytes; sin aceptación fiscal'},null,2)+'\n');if(failures.length)throw Error('Transporte')
+const envelope=['manifiesto.json','patch.diff.gz','binarios.json','transporte.json'].map(p=>{const b=fs.readFileSync(dir+p);return{path:dir+p,sha256:sha(b),size:b.length}});fs.writeFileSync(dir+'ENTREGA.json',JSON.stringify({head,baseEntries:20670,review:'candidata requiere contraste del padre',envelope,selfExcluded:'ENTREGA.json',acceptance:false,attestation:null,files:entries.length,baseChanges:[],deletions:[]},null,2)+'\n');console.log(JSON.stringify({files:entries.length,failures:failures.length,patchBytes:Buffer.byteLength(patch),binaries:binaries.length}))

@@ -1,0 +1,434 @@
+[
+  {
+    "index": 0,
+    "instance": "a.id",
+    "rule": "\"AE25-04\"",
+    "argument4": "cuota",
+    "range": [
+      10064,
+      10069
+    ],
+    "valueNode": "lib/dominio/irpf/actividades-economicas/calcular.ts:10064:10069:local",
+    "lexical": [
+      "caso.activos"
+    ],
+    "returnDestination": "descartado; registro por push",
+    "cardinality": "activos.length",
+    "annualReachable": false,
+    "verdict": "concordancia técnica condicionada; emisión pública exige retorno soportado",
+    "condition": "Bucle activos antes de rechazo agregado. cuota=min(saldo,base*coef); puede observarse sin retorno. Anual excluye activos.",
+    "publicCardinality": "0 si no-soportado; si soportado activos.length",
+    "transport": "etapa push → resultado.etapas → adaptador.etapas (solo aislado)",
+    "objection": "Una observación previa no acredita retorno ni alcance anual",
+    "response": "Distinguir guardas dominantes, bucle, llamador y resultado soportado",
+    "cost": "Revisión por propiedad y composición pendiente"
+  },
+  {
+    "index": 1,
+    "instance": "`${a.id}:saldo`",
+    "rule": "\"AE25-04\"",
+    "argument4": "saldo.minus(cuota)",
+    "range": [
+      10206,
+      10224
+    ],
+    "valueNode": "lib/dominio/irpf/actividades-economicas/calcular.ts:10206:10224:call",
+    "lexical": [
+      "caso.activos"
+    ],
+    "returnDestination": "descartado; registro por push",
+    "cardinality": "activos.length",
+    "annualReachable": false,
+    "verdict": "concordancia técnica condicionada; emisión pública exige retorno soportado",
+    "condition": "Mismo bucle; saldo−cuota solo etapas aisladas, no suma de gastos. Anual excluye activos.",
+    "publicCardinality": "0 si no-soportado; si soportado activos.length",
+    "transport": "etapa push → resultado.etapas → adaptador.etapas (solo aislado)",
+    "objection": "Una observación previa no acredita retorno ni alcance anual",
+    "response": "Distinguir guardas dominantes, bucle, llamador y resultado soportado",
+    "cost": "Revisión por propiedad y composición pendiente"
+  },
+  {
+    "index": 2,
+    "instance": "`ingreso:${i.id}`",
+    "rule": "\"AE25-02\"",
+    "argument4": "new D(i.base)",
+    "range": [
+      12267,
+      12280
+    ],
+    "valueNode": "lib/dominio/irpf/actividades-economicas/calcular.ts:12267:12280:new",
+    "lexical": [
+      "caso.ingresos"
+    ],
+    "returnDestination": "descartado; registro por push",
+    "cardinality": "ingresos.length",
+    "annualReachable": true,
+    "verdict": "concordancia técnica condicionada; emisión pública exige retorno soportado",
+    "condition": "Tras motivos vacíos; una por ingreso, antes de posible rechazo cliente único; EUR base sin IVA.",
+    "publicCardinality": "0 si no-soportado; si soportado ingresos.length",
+    "transport": "etapa push → resultado.etapas → adaptador.etapas → map(e,índice) → new D(e.importe) → origen.decimal",
+    "objection": "Una observación previa no acredita retorno ni alcance anual",
+    "response": "Distinguir guardas dominantes, bucle, llamador y resultado soportado",
+    "cost": "Revisión por propiedad y composición pendiente"
+  },
+  {
+    "index": 3,
+    "instance": "`gasto:${g.id}`",
+    "rule": "\"AE25-16\"",
+    "argument4": "new D(g.base)",
+    "range": [
+      12461,
+      12474
+    ],
+    "valueNode": "lib/dominio/irpf/actividades-economicas/calcular.ts:12461:12474:new",
+    "lexical": [
+      "caso.gastos"
+    ],
+    "returnDestination": "descartado; registro por push",
+    "cardinality": "gastos.length",
+    "annualReachable": true,
+    "verdict": "concordancia técnica condicionada; emisión pública exige retorno soportado",
+    "condition": "Tras motivos vacíos; una por gasto admitido/correlacionado; base sin IVA recuperable.",
+    "publicCardinality": "0 si no-soportado; si soportado gastos.length",
+    "transport": "etapa push → resultado.etapas → adaptador.etapas → map(e,índice) → new D(e.importe) → origen.decimal",
+    "objection": "Una observación previa no acredita retorno ni alcance anual",
+    "response": "Distinguir guardas dominantes, bucle, llamador y resultado soportado",
+    "cost": "Revisión por propiedad y composición pendiente"
+  },
+  {
+    "index": 4,
+    "instance": "`reta:${r.id}`",
+    "rule": "\"AE25-03\"",
+    "argument4": "new D(r.importe)",
+    "range": [
+      12637,
+      12653
+    ],
+    "valueNode": "lib/dominio/irpf/actividades-economicas/calcular.ts:12637:12653:new",
+    "lexical": [
+      "caso.reta"
+    ],
+    "returnDestination": "descartado; registro por push",
+    "cardinality": "reta.length",
+    "annualReachable": true,
+    "verdict": "concordancia técnica condicionada; emisión pública exige retorno soportado",
+    "condition": "Tras motivos vacíos; una por cuota RETA propia ordinaria efectiva, período único.",
+    "publicCardinality": "0 si no-soportado; si soportado reta.length",
+    "transport": "etapa push → resultado.etapas → adaptador.etapas → map(e,índice) → new D(e.importe) → origen.decimal",
+    "objection": "Una observación previa no acredita retorno ni alcance anual",
+    "response": "Distinguir guardas dominantes, bucle, llamador y resultado soportado",
+    "cost": "Revisión por propiedad y composición pendiente"
+  },
+  {
+    "index": 5,
+    "instance": "\"ingresos\"",
+    "rule": "\"AE25-02\"",
+    "argument4": "suma(caso.ingresos.map((i) => i.base))",
+    "range": [
+      12797,
+      12835
+    ],
+    "valueNode": "lib/dominio/irpf/actividades-economicas/calcular.ts:12797:12835:call",
+    "lexical": [],
+    "returnDestination": "ingresos",
+    "cardinality": "1",
+    "annualReachable": true,
+    "verdict": "concordancia técnica condicionada; emisión pública exige retorno soportado",
+    "condition": "suma ingresos.map(base), reduce semilla D0; una emisión si alcanza bloque; no implica resultado público.",
+    "publicCardinality": "0 si no-soportado; si soportado 1",
+    "transport": "etapa push → resultado.etapas → adaptador.etapas → map(e,índice) → new D(e.importe) → origen.decimal",
+    "objection": "Una observación previa no acredita retorno ni alcance anual",
+    "response": "Distinguir guardas dominantes, bucle, llamador y resultado soportado",
+    "cost": "Revisión por propiedad y composición pendiente"
+  },
+  {
+    "index": 6,
+    "instance": "\"gastos\"",
+    "rule": "\"AE25-02\"",
+    "argument4": "suma(caso.gastos.map((g) => g.base))",
+    "range": [
+      12971,
+      13007
+    ],
+    "valueNode": "lib/dominio/irpf/actividades-economicas/calcular.ts:12971:13007:call",
+    "lexical": [],
+    "returnDestination": "ordinarios",
+    "cardinality": "1",
+    "annualReachable": true,
+    "verdict": "concordancia técnica condicionada; emisión pública exige retorno soportado",
+    "condition": "suma gastos.map(base), semilla D0; no RETA ni activos en esta propiedad.",
+    "publicCardinality": "0 si no-soportado; si soportado 1",
+    "transport": "etapa push → resultado.etapas → adaptador.etapas → map(e,índice) → new D(e.importe) → origen.decimal",
+    "objection": "Una observación previa no acredita retorno ni alcance anual",
+    "response": "Distinguir guardas dominantes, bucle, llamador y resultado soportado",
+    "cost": "Revisión por propiedad y composición pendiente"
+  },
+  {
+    "index": 7,
+    "instance": "\"reta\"",
+    "rule": "\"AE25-03\"",
+    "argument4": "suma(caso.reta.map((r) => r.importe))",
+    "range": [
+      13139,
+      13176
+    ],
+    "valueNode": "lib/dominio/irpf/actividades-economicas/calcular.ts:13139:13176:call",
+    "lexical": [],
+    "returnDestination": "reta",
+    "cardinality": "1",
+    "annualReachable": true,
+    "verdict": "concordancia técnica condicionada; emisión pública exige retorno soportado",
+    "condition": "suma reta.map(importe), semilla D0; canal de gasto, no pagos a cuenta.",
+    "publicCardinality": "0 si no-soportado; si soportado 1",
+    "transport": "etapa push → resultado.etapas → adaptador.etapas → map(e,índice) → new D(e.importe) → origen.decimal",
+    "objection": "Una observación previa no acredita retorno ni alcance anual",
+    "response": "Distinguir guardas dominantes, bucle, llamador y resultado soportado",
+    "cost": "Revisión por propiedad y composición pendiente"
+  },
+  {
+    "index": 8,
+    "instance": "\"amortizacion\"",
+    "rule": "\"AE25-04\"",
+    "argument4": "amortizacion",
+    "range": [
+      13288,
+      13300
+    ],
+    "valueNode": "lib/dominio/irpf/actividades-economicas/calcular.ts:13288:13300:local",
+    "lexical": [],
+    "returnDestination": "descartado; registro por push",
+    "cardinality": "1",
+    "annualReachable": true,
+    "verdict": "concordancia técnica condicionada; emisión pública exige retorno soportado",
+    "condition": "Acumulador mutable amortizacion parte0 y suma cuotas en bucle activos, nunca saldos; anual vacío vale0.",
+    "publicCardinality": "0 si no-soportado; si soportado 1",
+    "transport": "etapa push → resultado.etapas → adaptador.etapas → map(e,índice) → new D(e.importe) → origen.decimal",
+    "objection": "Una observación previa no acredita retorno ni alcance anual",
+    "response": "Distinguir guardas dominantes, bucle, llamador y resultado soportado",
+    "cost": "Revisión por propiedad y composición pendiente"
+  },
+  {
+    "index": 9,
+    "instance": "\"P\"",
+    "rule": "\"AE25-02\"",
+    "argument4": "ingresos.minus(gastos)",
+    "range": [
+      13486,
+      13508
+    ],
+    "valueNode": "lib/dominio/irpf/actividades-economicas/calcular.ts:13486:13508:call",
+    "lexical": [],
+    "returnDestination": "P",
+    "cardinality": "1",
+    "annualReachable": true,
+    "verdict": "concordancia técnica condicionada; emisión pública exige retorno soportado",
+    "condition": "ingresos−ordinarios−RETA−amortización, signo; se calcula antes del rechazo cliente único inválido.",
+    "publicCardinality": "0 si no-soportado; si soportado 1",
+    "transport": "etapa push → resultado.etapas → adaptador.etapas → map(e,índice) → new D(e.importe) → origen.decimal",
+    "objection": "Una observación previa no acredita retorno ni alcance anual",
+    "response": "Distinguir guardas dominantes, bucle, llamador y resultado soportado",
+    "cost": "Revisión por propiedad y composición pendiente"
+  },
+  {
+    "index": 10,
+    "instance": "\"G\"",
+    "rule": "\"AE25-05\"",
+    "argument4": "caso.opcion === \"cliente-unico\"\n      ? new D(0)\n      : D.min(2000, D.max(P, 0).times(\"0.05\"))",
+    "range": [
+      14306,
+      14401
+    ],
+    "valueNode": "lib/dominio/irpf/actividades-economicas/calcular.ts:14306:14401:conditional",
+    "lexical": [],
+    "returnDestination": "G",
+    "cardinality": "1",
+    "annualReachable": true,
+    "verdict": "concordancia técnica condicionada; emisión pública exige retorno soportado",
+    "condition": "Tras elegibilidad aceptada; cliente único→0, otra opción min(2000,.05*max(P,0)).",
+    "publicCardinality": "0 si no-soportado; si soportado 1",
+    "transport": "etapa push → resultado.etapas → adaptador.etapas → map(e,índice) → new D(e.importe) → origen.decimal",
+    "objection": "Una observación previa no acredita retorno ni alcance anual",
+    "response": "Distinguir guardas dominantes, bucle, llamador y resultado soportado",
+    "cost": "Revisión por propiedad y composición pendiente"
+  },
+  {
+    "index": 11,
+    "instance": "\"RN\"",
+    "rule": "\"AE25-06\"",
+    "argument4": "P.minus(G)",
+    "range": [
+      14461,
+      14471
+    ],
+    "valueNode": "lib/dominio/irpf/actividades-economicas/calcular.ts:14461:14471:call",
+    "lexical": [],
+    "returnDestination": "RN",
+    "cardinality": "1",
+    "annualReachable": true,
+    "verdict": "concordancia técnica condicionada; emisión pública exige retorno soportado",
+    "condition": "P−G, signo, sin restar retenciones/pagos.",
+    "publicCardinality": "0 si no-soportado; si soportado 1",
+    "transport": "etapa push → resultado.etapas → adaptador.etapas → map(e,índice) → new D(e.importe) → origen.decimal",
+    "objection": "Una observación previa no acredita retorno ni alcance anual",
+    "response": "Distinguir guardas dominantes, bucle, llamador y resultado soportado",
+    "cost": "Revisión por propiedad y composición pendiente"
+  },
+  {
+    "index": 12,
+    "instance": "\"adicional\"",
+    "rule": "\"AE25-09\"",
+    "argument4": "adicional",
+    "range": [
+      15032,
+      15041
+    ],
+    "valueNode": "lib/dominio/irpf/actividades-economicas/calcular.ts:15032:15041:local",
+    "lexical": [
+      "caso.opcion === \"cliente-unico\""
+    ],
+    "returnDestination": "descartado; registro por push",
+    "cardinality": "opcion=cliente-unico?1:0",
+    "annualReachable": true,
+    "verdict": "concordancia técnica condicionada; emisión pública exige retorno soportado",
+    "condition": "Solo opcion cliente-unico y elegible; RN<=14047.5→6498, después máximo0 de pendiente1.14.",
+    "publicCardinality": "0 si no-soportado; si soportado opcion=cliente-unico?1:0",
+    "transport": "etapa push → resultado.etapas → adaptador.etapas → map(e,índice) → new D(e.importe) → origen.decimal",
+    "objection": "Una observación previa no acredita retorno ni alcance anual",
+    "response": "Distinguir guardas dominantes, bucle, llamador y resultado soportado",
+    "cost": "Revisión por propiedad y composición pendiente"
+  },
+  {
+    "index": 13,
+    "instance": "\"discapacidad\"",
+    "rule": "\"AE25-10\"",
+    "argument4": "incremento",
+    "range": [
+      15177,
+      15187
+    ],
+    "valueNode": "lib/dominio/irpf/actividades-economicas/calcular.ts:15177:15187:local",
+    "lexical": [
+      "caso.opcion === \"cliente-unico\""
+    ],
+    "returnDestination": "descartado; registro por push",
+    "cardinality": "opcion=cliente-unico?1:0",
+    "annualReachable": true,
+    "verdict": "concordancia técnica condicionada; emisión pública exige retorno soportado",
+    "condition": "Solo cliente-unico; ejercicio efectivo y grado>=33→3500/7750 alternativos; anual admite grado0→0.",
+    "publicCardinality": "0 si no-soportado; si soportado opcion=cliente-unico?1:0",
+    "transport": "etapa push → resultado.etapas → adaptador.etapas → map(e,índice) → new D(e.importe) → origen.decimal",
+    "objection": "Una observación previa no acredita retorno ni alcance anual",
+    "response": "Distinguir guardas dominantes, bucle, llamador y resultado soportado",
+    "cost": "Revisión por propiedad y composición pendiente"
+  },
+  {
+    "index": 14,
+    "instance": "\"reduccion32_2\"",
+    "rule": "caso.opcion === \"cliente-unico\" ? \"AE25-08\" : \"AE25-11\"",
+    "argument4": "reduccion",
+    "range": [
+      15573,
+      15582
+    ],
+    "valueNode": "lib/dominio/irpf/actividades-economicas/calcular.ts:15573:15582:local",
+    "lexical": [],
+    "returnDestination": "descartado; registro por push",
+    "cardinality": "1",
+    "annualReachable": true,
+    "verdict": "concordancia técnica condicionada; emisión pública exige retorno soportado",
+    "condition": "Celda reduccion inicial0; cliente-unico min(max(RN,0),adicional+incremento+2000); si no, solo !elegible && aplicarRentasBajas. No basta optar por gastos-dificiles.",
+    "publicCardinality": "0 si no-soportado; si soportado 1",
+    "transport": "etapa push → resultado.etapas → adaptador.etapas → map(e,índice) → new D(e.importe) → origen.decimal",
+    "objection": "Una observación previa no acredita retorno ni alcance anual",
+    "response": "Distinguir guardas dominantes, bucle, llamador y resultado soportado",
+    "cost": "Revisión por propiedad y composición pendiente"
+  },
+  {
+    "index": 15,
+    "instance": "\"reduccionInicio\"",
+    "rule": "\"AE25-12\"",
+    "argument4": "caso.aplicarInicio && inicioElegible\n      ? D.min(100000, D.max(0, RN.minus(reduccion))).times(\"0.2\")\n      : new D(0)",
+    "range": [
+      16311,
+      16430
+    ],
+    "valueNode": "lib/dominio/irpf/actividades-economicas/calcular.ts:16311:16430:conditional",
+    "lexical": [],
+    "returnDestination": "reduccionInicio",
+    "cardinality": "1",
+    "annualReachable": true,
+    "verdict": "concordancia técnica condicionada; emisión pública exige retorno soportado",
+    "condition": "aplicarInicio && inicio>=2013 && primerPositivo no null && 2025<=primerPositivo+1 && no empleador>50%; .2*min(100000,max(RN−R32,0)).",
+    "publicCardinality": "0 si no-soportado; si soportado 1",
+    "transport": "etapa push → resultado.etapas → adaptador.etapas → map(e,índice) → new D(e.importe) → origen.decimal",
+    "objection": "Una observación previa no acredita retorno ni alcance anual",
+    "response": "Distinguir guardas dominantes, bucle, llamador y resultado soportado",
+    "cost": "Revisión por propiedad y composición pendiente"
+  },
+  {
+    "index": 16,
+    "instance": "\"aporteBIG\"",
+    "rule": "\"AE25-14\"",
+    "argument4": "RN.minus(reduccion).minus(reduccionInicio)",
+    "range": [
+      16553,
+      16595
+    ],
+    "valueNode": "lib/dominio/irpf/actividades-economicas/calcular.ts:16553:16595:call",
+    "lexical": [],
+    "returnDestination": "aporte",
+    "cardinality": "1",
+    "annualReachable": true,
+    "verdict": "concordancia técnica condicionada; emisión pública exige retorno soportado",
+    "condition": "RN−R32−Rinicio, signo; propiedad aporte.importeEurosExactos; no suma de etapas.",
+    "publicCardinality": "0 si no-soportado; si soportado 1",
+    "transport": "etapa push → resultado.etapas → adaptador.etapas → map(e,índice) → new D(e.importe) → origen.decimal",
+    "objection": "Una observación previa no acredita retorno ni alcance anual",
+    "response": "Distinguir guardas dominantes, bucle, llamador y resultado soportado",
+    "cost": "Revisión por propiedad y composición pendiente"
+  },
+  {
+    "index": 17,
+    "instance": "\"retenciones\"",
+    "rule": "\"AE25-15\"",
+    "argument4": "suma(caso.retenciones.map((r) => r.importe))",
+    "range": [
+      16734,
+      16778
+    ],
+    "valueNode": "lib/dominio/irpf/actividades-economicas/calcular.ts:16734:16778:call",
+    "lexical": [],
+    "returnDestination": "retenciones",
+    "cardinality": "1",
+    "annualReachable": true,
+    "verdict": "concordancia técnica condicionada; emisión pública exige retorno soportado",
+    "condition": "suma retenciones.map(importe), semilla0; efectividad/factura/id/operación/fechas validados antes; canal aporte.retencionesEuros.",
+    "publicCardinality": "0 si no-soportado; si soportado 1",
+    "transport": "etapa push → resultado.etapas → adaptador.etapas → map(e,índice) → new D(e.importe) → origen.decimal",
+    "objection": "Una observación previa no acredita retorno ni alcance anual",
+    "response": "Distinguir guardas dominantes, bucle, llamador y resultado soportado",
+    "cost": "Revisión por propiedad y composición pendiente"
+  },
+  {
+    "index": 18,
+    "instance": "\"pagos\"",
+    "rule": "\"AE25-15\"",
+    "argument4": "suma(caso.pagosFraccionados.map((p) => p.importe))",
+    "range": [
+      16938,
+      16988
+    ],
+    "valueNode": "lib/dominio/irpf/actividades-economicas/calcular.ts:16938:16988:call",
+    "lexical": [],
+    "returnDestination": "pagos",
+    "cardinality": "1",
+    "annualReachable": true,
+    "verdict": "concordancia técnica condicionada; emisión pública exige retorno soportado",
+    "condition": "suma pagosFraccionados.map(importe), semilla0; trimestre/cierre/efectividad/operación validados; aporte.pagosFraccionadosEuros.",
+    "publicCardinality": "0 si no-soportado; si soportado 1",
+    "transport": "etapa push → resultado.etapas → adaptador.etapas → map(e,índice) → new D(e.importe) → origen.decimal",
+    "objection": "Una observación previa no acredita retorno ni alcance anual",
+    "response": "Distinguir guardas dominantes, bucle, llamador y resultado soportado",
+    "cost": "Revisión por propiedad y composición pendiente"
+  }
+]
