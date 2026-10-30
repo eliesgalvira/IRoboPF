@@ -1,0 +1,23 @@
+defect Callee no invocable r36-25399 {"id":"r36-25389","op":"get","target":{"id":"r36-25387","op":"get","target":{"id":"r36-25385","op":"local","name":"p"},"key":{"id":"r36-25386","op":"literal","value":"lineasCalculo"},"optional":false},"key":{"id":"r36-25388","op":"literal","value":"some"},"optional":true}
+r36-25391 literal procedencia l.procedencia
+r36-25392 get { kind: 'undefined' } l.procedencia
+r36-25394 get { kind: 'undefined' } l.procedencia?.estado
+r36-25395 literal enlazada "enlazada"
+r36-25396 binary false l.procedencia?.estado === "enlazada"
+r36-25397 return { kind: 'undefined' } l.procedencia?.estado === "enlazada"
+r36-25390 local { kind: 'reference', instance: 30724 } l
+r36-25391 literal procedencia l.procedencia
+r36-25392 get { kind: 'undefined' } l.procedencia
+r36-25394 get { kind: 'undefined' } l.procedencia?.estado
+r36-25395 literal enlazada "enlazada"
+r36-25396 binary false l.procedencia?.estado === "enlazada"
+r36-25399 call false p.lineasCalculo?.some((l) => l.procedencia?.estado === "enlazada")
+r36-25400 literal true true
+r36-25401 binary false p.lineasCalculo?.some((l) => l.procedencia?.estado === "enlazada") ===
+        true
+r36-25402 return { kind: 'undefined' } p.lineasCalculo?.some((l) => l.procedencia?.estado === "enlazada") ===
+        true
+r36-25385 local { kind: 'reference', instance: 30737 } p
+r36-25386 literal lineasCalculo p.lineasCalculo
+r36-25387 get { kind: 'undefined' } p.lineasCalculo
+r36-25389 get { kind: 'undefined' } p.lineasCalculo?.some

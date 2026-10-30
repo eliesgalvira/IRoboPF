@@ -1,0 +1,2870 @@
+{
+  "type": "object",
+  "properties": {
+    "edition": {
+      "const": "admision-r36"
+    },
+    "graph": {
+      "type": "object",
+      "properties": {
+        "roots": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "value": {
+                "$ref": "#/$defs/node"
+              }
+            },
+            "required": [
+              "path",
+              "name",
+              "value"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "definitions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "key": {
+                "type": "string"
+              },
+              "value": {
+                "$ref": "#/$defs/node"
+              }
+            },
+            "required": [
+              "key",
+              "value"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "anchors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              },
+              "start": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "end": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "coordinate": {
+                "const": "UTF-16 half-open"
+              }
+            },
+            "required": [
+              "id",
+              "path",
+              "start",
+              "end",
+              "sha256",
+              "coordinate"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string"
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              }
+            },
+            "required": [
+              "path",
+              "sha256"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "roots",
+        "definitions",
+        "anchors",
+        "sources"
+      ],
+      "additionalProperties": false
+    },
+    "rights": {
+      "type": "object",
+      "properties": {
+        "programs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "params": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "body": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/rights-statement"
+                }
+              },
+              "scope": {
+                "enum": [
+                  "complete-body",
+                  "selection-before-money"
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "params",
+              "body",
+              "scope"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "anchors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              },
+              "start": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "end": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "sha256": {
+                "type": "string"
+              },
+              "coordinate": {
+                "const": "UTF-16 half-open"
+              }
+            },
+            "required": [
+              "id",
+              "path",
+              "start",
+              "end",
+              "sha256",
+              "coordinate"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "schemas": {
+          "type": "object",
+          "properties": {
+            "DerechosMinimos2025": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "DerechosMinimos2025"
+          ],
+          "additionalProperties": false
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string"
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              }
+            },
+            "required": [
+              "path",
+              "sha256"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "boundaries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "inputs": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "property": {
+                      "type": "string"
+                    },
+                    "unit": {
+                      "type": "string"
+                    },
+                    "domain": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "property",
+                    "unit",
+                    "domain"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "output": {
+                "type": "object",
+                "properties": {
+                  "property": {
+                    "type": "string"
+                  },
+                  "unit": {
+                    "type": "string"
+                  },
+                  "domain": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "property",
+                  "unit",
+                  "domain"
+                ],
+                "additionalProperties": false
+              },
+              "source": {
+                "type": "string"
+              },
+              "errors": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "status": {
+                "const": "pending-independent-parity"
+              }
+            },
+            "required": [
+              "id",
+              "inputs",
+              "output",
+              "source",
+              "errors",
+              "status"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "programs",
+        "anchors",
+        "schemas",
+        "sources",
+        "boundaries"
+      ],
+      "additionalProperties": false
+    },
+    "boundaries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "outputs": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "path": {
+                  "type": "array",
+                  "items": {
+                    "type": [
+                      "string",
+                      "integer"
+                    ]
+                  }
+                },
+                "kind": {
+                  "enum": [
+                    "Decimal",
+                    "number",
+                    "array",
+                    "decimal-string",
+                    "retention-tag",
+                    "annual-tag",
+                    "schema"
+                  ]
+                },
+                "unit": {
+                  "enum": [
+                    "EUR",
+                    "centimos",
+                    "structural",
+                    "percent"
+                  ]
+                },
+                "schema": {
+                  "type": "object"
+                }
+              },
+              "required": [
+                "path",
+                "kind",
+                "unit"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "resultKind": {
+            "enum": [
+              "array",
+              "option",
+              "optional-object",
+              "object",
+              "Decimal"
+            ]
+          },
+          "reject": {
+            "type": "boolean"
+          },
+          "status": {
+            "const": "requires-instance-evidence"
+          },
+          "inputs": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "path": {
+                  "type": "array",
+                  "items": {
+                    "type": [
+                      "string",
+                      "integer"
+                    ]
+                  }
+                },
+                "kind": {
+                  "enum": [
+                    "year",
+                    "Decimal",
+                    "number",
+                    "array",
+                    "converter",
+                    "gains"
+                  ]
+                },
+                "unit": {
+                  "enum": [
+                    "EUR",
+                    "year",
+                    "years",
+                    "structural",
+                    "EUR/centimos"
+                  ]
+                },
+                "schema": {
+                  "type": [
+                    "object",
+                    "null"
+                  ]
+                }
+              },
+              "required": [
+                "path",
+                "kind",
+                "unit",
+                "schema"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "instances": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "node": {
+                  "type": "string"
+                },
+                "call": {
+                  "type": "string"
+                },
+                "operands": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "outputs": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "path": {
+                        "type": "array",
+                        "items": {
+                          "type": [
+                            "string",
+                            "integer"
+                          ]
+                        }
+                      },
+                      "kind": {
+                        "enum": [
+                          "Decimal",
+                          "number",
+                          "array",
+                          "decimal-string",
+                          "retention-tag",
+                          "annual-tag",
+                          "schema"
+                        ]
+                      },
+                      "unit": {
+                        "enum": [
+                          "EUR",
+                          "centimos",
+                          "structural",
+                          "percent"
+                        ]
+                      },
+                      "schema": {
+                        "type": "object"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "path",
+                      "kind",
+                      "unit"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "transport": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/node"
+                  }
+                }
+              },
+              "required": [
+                "node",
+                "call",
+                "operands",
+                "outputs",
+                "transport"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "defect": {
+            "const": true
+          },
+          "failureSchema": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "outputs",
+          "resultKind",
+          "reject",
+          "status",
+          "inputs",
+          "instances",
+          "defect"
+        ],
+        "additionalProperties": false,
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "reject": {
+                  "const": true
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "failureSchema"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "sites": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "siteId": {
+            "type": "string"
+          },
+          "admissionClosed": {
+            "const": false
+          },
+          "siteClosed": {
+            "const": false
+          }
+        },
+        "required": [
+          "siteId",
+          "admissionClosed",
+          "siteClosed"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "wiringAllowed": {
+      "const": false
+    },
+    "completeRuleAcceptance": {
+      "const": false
+    },
+    "conversions": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "type": "object",
+        "properties": {
+          "program": {
+            "type": "string"
+          },
+          "input": {
+            "type": "object",
+            "properties": {
+              "index": {
+                "const": 0
+              },
+              "kind": {
+                "enum": [
+                  "finite-number",
+                  "Decimal"
+                ]
+              },
+              "unit": {
+                "enum": [
+                  "centimos",
+                  "EUR"
+                ]
+              }
+            },
+            "required": [
+              "index",
+              "kind",
+              "unit"
+            ],
+            "additionalProperties": false
+          },
+          "output": {
+            "type": "object",
+            "properties": {
+              "kind": {
+                "enum": [
+                  "Decimal",
+                  "number"
+                ]
+              },
+              "unit": {
+                "enum": [
+                  "centimos",
+                  "EUR"
+                ]
+              }
+            },
+            "required": [
+              "kind",
+              "unit"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "program",
+          "input",
+          "output"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "services": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "enum": [
+              "LiquidacionIrpfAnual",
+              "CompatibilidadSalarioLegacy"
+            ]
+          },
+          "method": {
+            "enum": [
+              "liquidar",
+              "calcular"
+            ]
+          },
+          "factory": {
+            "type": "string"
+          },
+          "anchor": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              },
+              "start": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "end": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "coordinate": {
+                "const": "UTF-16 half-open"
+              }
+            },
+            "required": [
+              "id",
+              "path",
+              "start",
+              "end",
+              "sha256",
+              "coordinate"
+            ],
+            "additionalProperties": false
+          },
+          "arguments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/service-value"
+            }
+          },
+          "providers": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "provider": {
+                  "type": "string"
+                },
+                "anchor": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "path": {
+                      "type": "string"
+                    },
+                    "start": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "end": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "sha256": {
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{64}$"
+                    },
+                    "coordinate": {
+                      "const": "UTF-16 half-open"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "path",
+                    "start",
+                    "end",
+                    "sha256",
+                    "coordinate"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "provider",
+                "anchor"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "internalWrappers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "directEntry": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "injectedResult": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "method",
+          "factory",
+          "anchor",
+          "arguments",
+          "providers",
+          "internalWrappers",
+          "directEntry",
+          "injectedResult"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "edition",
+    "graph",
+    "rights",
+    "boundaries",
+    "sites",
+    "wiringAllowed",
+    "completeRuleAcceptance",
+    "conversions",
+    "services"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "rights-expression": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "op": {
+              "const": "literal"
+            },
+            "value": {
+              "type": [
+                "string",
+                "number",
+                "boolean"
+              ]
+            },
+            "unit": {
+              "enum": [
+                "scalar",
+                "structural",
+                "boolean"
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "value",
+            "unit"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "op": {
+              "const": "undefined"
+            }
+          },
+          "required": [
+            "id",
+            "op"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "op": {
+              "const": "local"
+            },
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "name"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "op": {
+              "const": "property"
+            },
+            "target": {
+              "$ref": "#/$defs/rights-expression"
+            },
+            "key": {
+              "type": "string"
+            },
+            "unit": {
+              "enum": [
+                "structural",
+                "count",
+                "centimos",
+                "civil-date"
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "target",
+            "key",
+            "unit"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "op": {
+              "const": "array"
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/rights-expression"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "items"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "op": {
+              "const": "spread"
+            },
+            "value": {
+              "$ref": "#/$defs/rights-expression"
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "op": {
+              "const": "object"
+            },
+            "fields": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "key": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "$ref": "#/$defs/rights-expression"
+                  }
+                },
+                "required": [
+                  "key",
+                  "value"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "fields"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "op": {
+              "const": "binary"
+            },
+            "operator": {
+              "enum": [
+                "===",
+                "!==",
+                "<",
+                "<=",
+                ">",
+                ">=",
+                "+",
+                "-",
+                "*",
+                "/",
+                "%",
+                "&&",
+                "||",
+                "??",
+                "in"
+              ]
+            },
+            "left": {
+              "$ref": "#/$defs/rights-expression"
+            },
+            "right": {
+              "$ref": "#/$defs/rights-expression"
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "operator",
+            "left",
+            "right"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "op": {
+              "const": "not"
+            },
+            "value": {
+              "$ref": "#/$defs/rights-expression"
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "op": {
+              "const": "negative"
+            },
+            "value": {
+              "$ref": "#/$defs/rights-expression"
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "op": {
+              "const": "choose"
+            },
+            "condition": {
+              "$ref": "#/$defs/rights-expression"
+            },
+            "yes": {
+              "$ref": "#/$defs/rights-expression"
+            },
+            "no": {
+              "$ref": "#/$defs/rights-expression"
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "condition",
+            "yes",
+            "no"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "op": {
+              "const": "lambda"
+            },
+            "params": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "body": {
+              "$ref": "#/$defs/rights-expression"
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "params",
+            "body"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "op": {
+              "const": "invoke"
+            },
+            "name": {
+              "type": "string"
+            },
+            "args": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/rights-expression"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "name",
+            "args"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "op": {
+              "const": "method"
+            },
+            "target": {
+              "$ref": "#/$defs/rights-expression"
+            },
+            "method": {
+              "enum": [
+                "slice",
+                "includes",
+                "filter",
+                "map",
+                "every",
+                "some",
+                "find",
+                "toSorted",
+                "localeCompare",
+                "get",
+                "set",
+                "has",
+                "times",
+                "toDecimalPlaces",
+                "eq",
+                "lte",
+                "isFinite",
+                "plus",
+                "reduce"
+              ]
+            },
+            "args": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/rights-expression"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "target",
+            "method",
+            "args"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "op": {
+              "const": "construct"
+            },
+            "name": {
+              "enum": [
+                "Map",
+                "Set"
+              ]
+            },
+            "args": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/rights-expression"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "name",
+            "args"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "rights-statement": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "op": {
+              "const": "bind"
+            },
+            "name": {
+              "type": "string"
+            },
+            "value": {
+              "$ref": "#/$defs/rights-expression"
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "name",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "op": {
+              "const": "if"
+            },
+            "condition": {
+              "$ref": "#/$defs/rights-expression"
+            },
+            "yes": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/rights-statement"
+              }
+            },
+            "no": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/rights-statement"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "condition",
+            "yes",
+            "no"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "op": {
+              "const": "for"
+            },
+            "name": {
+              "type": "string"
+            },
+            "collection": {
+              "$ref": "#/$defs/rights-expression"
+            },
+            "body": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/rights-statement"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "name",
+            "collection",
+            "body"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "op": {
+              "const": "return"
+            },
+            "value": {
+              "$ref": "#/$defs/rights-expression"
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "op": {
+              "const": "evaluate"
+            },
+            "value": {
+              "$ref": "#/$defs/rights-expression"
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "op": {
+              "const": "continue"
+            }
+          },
+          "required": [
+            "id",
+            "op"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "op": {
+              "const": "decode"
+            },
+            "name": {
+              "type": "string"
+            },
+            "input": {
+              "type": "string"
+            },
+            "schema": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "name",
+            "input",
+            "schema"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "node": {
+      "type": "object",
+      "required": [
+        "op"
+      ],
+      "properties": {
+        "op": {
+          "enum": [
+            "literal",
+            "json",
+            "builtin",
+            "local",
+            "global",
+            "boundary",
+            "regex",
+            "get",
+            "array",
+            "object",
+            "spread",
+            "binary",
+            "unary",
+            "choose",
+            "template",
+            "lambda",
+            "yield",
+            "call",
+            "new",
+            "run",
+            "pipe",
+            "bind",
+            "return",
+            "evaluate",
+            "if",
+            "for",
+            "continue",
+            "throw"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "literal"
+              }
+            }
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "op": {
+                "const": "literal"
+              },
+              "value": {
+                "type": [
+                  "string",
+                  "number",
+                  "boolean",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "op",
+              "value"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "json"
+              }
+            }
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "op": {
+                "const": "json"
+              },
+              "value": {
+                "type": [
+                  "object",
+                  "array",
+                  "string",
+                  "number",
+                  "boolean",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "op",
+              "value"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "builtin"
+              }
+            }
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "op": {
+                "const": "builtin"
+              },
+              "name": {
+                "enum": [
+                  "undefined",
+                  "Infinity",
+                  "NaN",
+                  "Number",
+                  "String",
+                  "Object",
+                  "Array",
+                  "Math",
+                  "Map",
+                  "Set",
+                  "Date",
+                  "Decimal",
+                  "Match",
+                  "Option",
+                  "Effect",
+                  "DateTime",
+                  "Error",
+                  "LiquidacionIrpfAnual",
+                  "CompatibilidadSalarioLegacy",
+                  "Schema",
+                  "EffectArray",
+                  "medirAuditoriaSync",
+                  "registrarTiempoAgregadoAuditoria",
+                  "tiempoAuditoriaMs",
+                  "validarDerechosMinimos",
+                  "validarRentasAnualesDerechos",
+                  "hayAlimentosPropiosSinMinimo"
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "op",
+              "name"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "local"
+              }
+            }
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "op": {
+                "const": "local"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "op",
+              "name"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "global"
+              }
+            }
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "op": {
+                "const": "global"
+              },
+              "key": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "op",
+              "key"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "boundary"
+              }
+            }
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "op": {
+                "const": "boundary"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "op",
+              "name"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "regex"
+              }
+            }
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "op": {
+                "const": "regex"
+              },
+              "pattern": {
+                "type": "string"
+              },
+              "flags": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "op",
+              "pattern",
+              "flags"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "get"
+              }
+            }
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "op": {
+                "const": "get"
+              },
+              "target": {
+                "$ref": "#/$defs/node"
+              },
+              "key": {
+                "$ref": "#/$defs/node"
+              },
+              "optional": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id",
+              "op",
+              "target",
+              "key",
+              "optional"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "array"
+              }
+            }
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "op": {
+                "const": "array"
+              },
+              "items": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/node"
+                }
+              }
+            },
+            "required": [
+              "id",
+              "op",
+              "items"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "object"
+              }
+            }
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "op": {
+                "const": "object"
+              },
+              "fields": {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "spread": {
+                          "$ref": "#/$defs/node"
+                        }
+                      },
+                      "required": [
+                        "spread"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "key": {
+                          "type": "string"
+                        },
+                        "value": {
+                          "$ref": "#/$defs/node"
+                        }
+                      },
+                      "required": [
+                        "key",
+                        "value"
+                      ],
+                      "additionalProperties": false
+                    }
+                  ]
+                }
+              }
+            },
+            "required": [
+              "id",
+              "op",
+              "fields"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "spread"
+              }
+            }
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "op": {
+                "const": "spread"
+              },
+              "value": {
+                "$ref": "#/$defs/node"
+              }
+            },
+            "required": [
+              "id",
+              "op",
+              "value"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "binary"
+              }
+            }
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "op": {
+                "const": "binary"
+              },
+              "operator": {
+                "enum": [
+                  "===",
+                  "!==",
+                  "<",
+                  "<=",
+                  ">",
+                  ">=",
+                  "+",
+                  "-",
+                  "*",
+                  "/",
+                  "%",
+                  "&&",
+                  "||",
+                  "??",
+                  "in",
+                  "="
+                ]
+              },
+              "left": {
+                "$ref": "#/$defs/node"
+              },
+              "right": {
+                "$ref": "#/$defs/node"
+              }
+            },
+            "required": [
+              "id",
+              "op",
+              "operator",
+              "left",
+              "right"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "unary"
+              }
+            }
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "op": {
+                "const": "unary"
+              },
+              "operator": {
+                "enum": [
+                  "!",
+                  "-"
+                ]
+              },
+              "value": {
+                "$ref": "#/$defs/node"
+              }
+            },
+            "required": [
+              "id",
+              "op",
+              "operator",
+              "value"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "choose"
+              }
+            }
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "op": {
+                "const": "choose"
+              },
+              "condition": {
+                "$ref": "#/$defs/node"
+              },
+              "yes": {
+                "$ref": "#/$defs/node"
+              },
+              "no": {
+                "$ref": "#/$defs/node"
+              }
+            },
+            "required": [
+              "id",
+              "op",
+              "condition",
+              "yes",
+              "no"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "template"
+              }
+            }
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "op": {
+                "const": "template"
+              },
+              "head": {
+                "type": "string"
+              },
+              "parts": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "$ref": "#/$defs/node"
+                    },
+                    "tail": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "tail"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "id",
+              "op",
+              "head",
+              "parts"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "lambda"
+              }
+            }
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "op": {
+                "const": "lambda"
+              },
+              "params": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "binding": {
+                      "$ref": "#/$defs/pattern"
+                    },
+                    "fallback": {
+                      "anyOf": [
+                        {
+                          "$ref": "#/$defs/node"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "rest": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "binding",
+                    "fallback",
+                    "rest"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "body": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/node"
+                }
+              }
+            },
+            "required": [
+              "id",
+              "op",
+              "params",
+              "body"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "yield"
+              }
+            }
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "op": {
+                "const": "yield"
+              },
+              "value": {
+                "$ref": "#/$defs/node"
+              }
+            },
+            "required": [
+              "id",
+              "op",
+              "value"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "call"
+              }
+            }
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "op": {
+                "const": "call"
+              },
+              "callee": {
+                "$ref": "#/$defs/node"
+              },
+              "args": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/node"
+                }
+              }
+            },
+            "required": [
+              "id",
+              "op",
+              "callee",
+              "args"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "new"
+              }
+            }
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "op": {
+                "const": "new"
+              },
+              "callee": {
+                "$ref": "#/$defs/node"
+              },
+              "args": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/node"
+                }
+              }
+            },
+            "required": [
+              "id",
+              "op",
+              "callee",
+              "args"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "run"
+              }
+            }
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "op": {
+                "const": "run"
+              },
+              "value": {
+                "$ref": "#/$defs/node"
+              }
+            },
+            "required": [
+              "id",
+              "op",
+              "value"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "pipe"
+              }
+            }
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "op": {
+                "const": "pipe"
+              },
+              "value": {
+                "$ref": "#/$defs/node"
+              },
+              "steps": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/node"
+                }
+              }
+            },
+            "required": [
+              "id",
+              "op",
+              "value",
+              "steps"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "bind"
+              }
+            }
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "op": {
+                "const": "bind"
+              },
+              "binding": {
+                "$ref": "#/$defs/pattern"
+              },
+              "value": {
+                "$ref": "#/$defs/node"
+              }
+            },
+            "required": [
+              "id",
+              "op",
+              "binding",
+              "value"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "return"
+              }
+            }
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "op": {
+                "const": "return"
+              },
+              "value": {
+                "$ref": "#/$defs/node"
+              }
+            },
+            "required": [
+              "id",
+              "op",
+              "value"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "evaluate"
+              }
+            }
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "op": {
+                "const": "evaluate"
+              },
+              "value": {
+                "$ref": "#/$defs/node"
+              }
+            },
+            "required": [
+              "id",
+              "op",
+              "value"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "if"
+              }
+            }
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "op": {
+                "const": "if"
+              },
+              "condition": {
+                "$ref": "#/$defs/node"
+              },
+              "yes": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/node"
+                }
+              },
+              "no": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/node"
+                }
+              }
+            },
+            "required": [
+              "id",
+              "op",
+              "condition",
+              "yes",
+              "no"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "for"
+              }
+            }
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "op": {
+                "const": "for"
+              },
+              "binding": {
+                "$ref": "#/$defs/pattern"
+              },
+              "collection": {
+                "$ref": "#/$defs/node"
+              },
+              "body": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/node"
+                }
+              }
+            },
+            "required": [
+              "id",
+              "op",
+              "binding",
+              "collection",
+              "body"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "continue"
+              }
+            }
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "op": {
+                "const": "continue"
+              }
+            },
+            "required": [
+              "id",
+              "op"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "throw"
+              }
+            }
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "op": {
+                "const": "throw"
+              },
+              "value": {
+                "$ref": "#/$defs/node"
+              }
+            },
+            "required": [
+              "id",
+              "op",
+              "value"
+            ],
+            "additionalProperties": false
+          }
+        }
+      ]
+    },
+    "pattern": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "fields": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "key": {
+                    "type": "string"
+                  },
+                  "binding": {
+                    "$ref": "#/$defs/pattern"
+                  },
+                  "rest": {
+                    "type": "boolean"
+                  },
+                  "fallback": {
+                    "anyOf": [
+                      {
+                        "$ref": "#/$defs/node"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "key",
+                  "binding",
+                  "rest",
+                  "fallback"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "fields"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/pattern"
+              }
+            }
+          },
+          "required": [
+            "items"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "service-value": {
+      "type": "object",
+      "required": [
+        "kind"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "program",
+            "captured",
+            "service",
+            "object"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "program"
+              }
+            }
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "kind": {
+                "const": "program"
+              },
+              "anchor": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "path": {
+                    "type": "string"
+                  },
+                  "start": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "end": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "sha256": {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}$"
+                  },
+                  "coordinate": {
+                    "const": "UTF-16 half-open"
+                  }
+                },
+                "required": [
+                  "id",
+                  "path",
+                  "start",
+                  "end",
+                  "sha256",
+                  "coordinate"
+                ],
+                "additionalProperties": false
+              },
+              "key": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "kind",
+              "anchor",
+              "key"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "captured"
+              }
+            }
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "kind": {
+                "const": "captured"
+              },
+              "anchor": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "path": {
+                    "type": "string"
+                  },
+                  "start": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "end": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "sha256": {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}$"
+                  },
+                  "coordinate": {
+                    "const": "UTF-16 half-open"
+                  }
+                },
+                "required": [
+                  "id",
+                  "path",
+                  "start",
+                  "end",
+                  "sha256",
+                  "coordinate"
+                ],
+                "additionalProperties": false
+              },
+              "provider": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "kind",
+              "anchor",
+              "provider"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "service"
+              }
+            }
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "kind": {
+                "const": "service"
+              },
+              "anchor": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "path": {
+                    "type": "string"
+                  },
+                  "start": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "end": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "sha256": {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}$"
+                  },
+                  "coordinate": {
+                    "const": "UTF-16 half-open"
+                  }
+                },
+                "required": [
+                  "id",
+                  "path",
+                  "start",
+                  "end",
+                  "sha256",
+                  "coordinate"
+                ],
+                "additionalProperties": false
+              },
+              "serviceId": {
+                "enum": [
+                  "LiquidacionIrpfAnual",
+                  "CompatibilidadSalarioLegacy"
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "kind",
+              "anchor",
+              "serviceId"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "object"
+              }
+            }
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "kind": {
+                "const": "object"
+              },
+              "anchor": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "path": {
+                    "type": "string"
+                  },
+                  "start": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "end": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "sha256": {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}$"
+                  },
+                  "coordinate": {
+                    "const": "UTF-16 half-open"
+                  }
+                },
+                "required": [
+                  "id",
+                  "path",
+                  "start",
+                  "end",
+                  "sha256",
+                  "coordinate"
+                ],
+                "additionalProperties": false
+              },
+              "fields": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "$ref": "#/$defs/service-value"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "value"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "id",
+              "kind",
+              "anchor",
+              "fields"
+            ],
+            "additionalProperties": false
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,7 @@
+tests/flujo-admision-r36.test.ts(25,50): error TS2345: Argument of type '{ comunidadAutonoma: "galicia"; anio: number; baseLiquidableGeneral: Decimal; }' is not assignable to parameter of type 'EntradaParametrosComunidadAutonoma'.
+  Types of property 'anio' are incompatible.
+    Type 'number' is not assignable to type 'AnioFiscal'.
+tests/flujo-admision-r36.test.ts(31,104): error TS59: This code constructs `new Date()`, date values are represented through `DateTime` from Effect.    effect(globalDate)
+tests/flujo-admision-r36.test.ts(31,307): error TS2345: Argument of type '{ anio: number; comunidadAutonoma: "simulada-estatal" | "madrid" | "andalucia" | "aragon" | "asturias" | "illes-balears" | "canarias" | "cantabria" | "castilla-la-mancha" | "castilla-y-leon" | ... 7 more ... | "melilla"; fechaFallecimiento: Date; }' is not assignable to parameter of type 'EntradaParametrosComunidadAutonoma'.
+  Types of property 'anio' are incompatible.
+    Type 'number' is not assignable to type 'AnioFiscal'.
