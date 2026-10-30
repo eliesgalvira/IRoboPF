@@ -1,0 +1,25 @@
+import os,stat,subprocess,hashlib,json,gzip
+from pathlib import Path
+r=Path.cwd();d=r/'docs/procedencia/revisiones/puertos-r52-sol';s=r/'.cache/puertos-r52-sol';head=subprocess.check_output(['git','rev-parse','HEAD']).decode().strip();assert head=='a527dafa804b684c2f4a13d8ee178d9590b3f367'
+reader=subprocess.Popen(['git','cat-file','--batch'],stdin=subprocess.PIPE,stdout=subprocess.PIPE);records=[];paths=set();bad=[]
+for ent in subprocess.check_output(['git','ls-tree','-rz',head]).split(b'\0'):
+ if not ent:continue
+ meta,raw=ent.split(b'\t');mode,kind,oid=meta.split();p=os.fsdecode(raw);paths.add(p)
+ reader.stdin.write(oid+b'\n');reader.stdin.flush();header=reader.stdout.readline().split();blob=reader.stdout.read(int(header[2]));assert reader.stdout.read(1)==b'\n'
+ try:
+  st=(r/p).lstat();b=os.fsencode(os.readlink(r/p)) if stat.S_ISLNK(st.st_mode) else (r/p).read_bytes()
+  ok=b==blob and (stat.S_ISLNK(st.st_mode) if mode==b'120000' else stat.S_ISREG(st.st_mode) and bool(st.st_mode&0o111)==(mode==b'100755'))
+ except Exception as e:ok=False
+ if not ok:bad.append(p)
+ records.append(dict(path=p,blob=oid.decode(),mode=mode.decode(),sha256=hashlib.sha256(blob).hexdigest(),ok=ok))
+reader.stdin.close();reader.wait();assert len(paths)==21985
+extras=[]
+for root,dirs,files in os.walk(r):
+ for name in files:
+  path=Path(root)/name;p=str(path.relative_to(r))
+  if p not in paths:extras.append(dict(path=p,sha256=hashlib.sha256(path.read_bytes()).hexdigest(),size=path.stat().st_size))
+assert not bad,bad
+assert all(x['path']=='.git' or x['path'].startswith(('.cache/puertos-r52-sol/','docs/procedencia/revisiones/puertos-r52-sol/')) for x in extras)
+# Recibo terminal separado: no se incluye a sí mismo en extras ni se autentica a sí mismo.
+receipt=dict(head=head,entries=len(paths),changed=bad,deleted=[],records=records,extras=extras,envelopeSha256=hashlib.sha256((d/'SOBRE.json').read_bytes()).hexdigest(),note='Recibo terminal fuera de payload y sobre; este archivo aún no existía durante el censo. Integridad técnica, sin aceptación fiscal.')
+(d/'RECIBO-TERMINAL.json.gz').write_bytes(gzip.compress(json.dumps(receipt,ensure_ascii=False).encode(),mtime=0));print(json.dumps(dict(entries=len(paths),changed=bad,extras=len(extras))))
