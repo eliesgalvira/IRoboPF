@@ -1,0 +1,80 @@
+{
+  "head": "50f9e949544e20d3e4e0bffc79b926d396267319",
+  "base": "50f9e949544e20d3e4e0bffc79b926d396267319",
+  "payload": {
+    "files": 40,
+    "size": 2376342,
+    "manifest": "docs/procedencia/implementaciones/flujo-rentas-r36-sol/manifiesto.json"
+  },
+  "metadata": [
+    {
+      "path": "docs/procedencia/implementaciones/flujo-rentas-r36-sol/manifiesto.json",
+      "sha256": "cfebfa129d4b349d8aa5a43c4dc32ccbed5b0d2c4d1d56bf37783c7ac1e65b5f",
+      "size": 10454,
+      "baseSha256": null
+    },
+    {
+      "path": "docs/procedencia/implementaciones/flujo-rentas-r36-sol/patch.diff.gz",
+      "sha256": "f7510b31c082897044a7133ce23688636eb34d536359526473a5ebb497e4983d",
+      "size": 78281,
+      "baseSha256": null
+    },
+    {
+      "path": "docs/procedencia/implementaciones/flujo-rentas-r36-sol/binarios.json",
+      "sha256": "bc324d6d704626fd26e4472b966f3f4587ebd1bc2b1a278713163c21d8f219bb",
+      "size": 513,
+      "baseSha256": null
+    },
+    {
+      "path": "docs/procedencia/implementaciones/flujo-rentas-r36-sol/transporte.json",
+      "sha256": "260998362399bd7ab3e8f2d5a69525dcdad3a6b089dec4776a17ecbde5dea49e",
+      "size": 433,
+      "baseSha256": null
+    },
+    {
+      "path": "docs/procedencia/implementaciones/flujo-rentas-r36-sol/fisico-final.json.gz",
+      "sha256": "ac7833dab1b00701bf87860bcc0fca063ed27fddcb2413310317cba18566035d",
+      "size": 1003310,
+      "baseSha256": null
+    },
+    {
+      "path": "docs/procedencia/implementaciones/flujo-rentas-r36-sol/fisico-final.log",
+      "sha256": "d6b14548c7a99a0336fb149bad7dff32cb89c78f0395835a9f15e83bf02977ae",
+      "size": 180,
+      "baseSha256": null
+    }
+  ],
+  "selfExcluded": "docs/procedencia/implementaciones/flujo-rentas-r36-sol/ENTREGA.json",
+  "physical": {
+    "entries": 20227,
+    "changes": [],
+    "deleted": [],
+    "foreign": [],
+    "diff": ""
+  },
+  "controls": {
+    "cases": 41,
+    "failures": 0,
+    "vitest": 0,
+    "typescript": 0,
+    "checkJs": 0,
+    "oxlint": 0,
+    "eslint": 0,
+    "schema": 0,
+    "transport": "all-equal"
+  },
+  "identity": {
+    "runtime": "T3 Code/Codex gpt-6.1-sol",
+    "reasoningEffort": "high",
+    "serviceTier": "priority solicitada; sin recibo independiente"
+  },
+  "deviations": [
+    "Python inicial por Nix directamente sin uv/run.sh",
+    "Primera comprobación de ejecutabilidad incorrecta para symlinks; repetición completa antes de editar",
+    "Caché propia Vitest fuera del ámbito detectada, preservada y trasladada con rutas absolutas; cotejo final limpio"
+  ],
+  "review": "contraste del padre y revisión independiente obligatorios",
+  "completeRuleAcceptance": false,
+  "wiringAllowed": false,
+  "globalTaskClosed": false
+}

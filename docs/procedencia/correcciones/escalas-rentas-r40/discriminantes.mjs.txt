@@ -1,0 +1,35 @@
+import fs from 'node:fs'
+import assert from 'node:assert/strict'
+import {gunzipSync} from 'node:zlib'
+import Decimal from 'decimal.js'
+import {executeEscalasR36} from '../../../scripts/procedencia/flujo-escalas-r36-consumidor.mjs'
+import {consumeGeneralRentas} from '../../../scripts/procedencia/flujo-rentas-r36-consumidor.mjs'
+const load=name=>JSON.parse(gunzipSync(fs.readFileSync(`docs/procedencia/implementaciones/flujo-${name}-r36-sol/fragmento.json.gz`)))
+const e=load('escalas'),r=load('rentas'),D=x=>new Decimal(x),rows=[]
+const quota=e.globalBindings.find(b=>b.name.endsWith('#calcularCuotaPorEscala')).name
+const table=[{baseInferior:D(0),cuota:D(0),tipo:D('.05')},{baseInferior:D(100),cuota:D('7.125'),tipo:D('.137')}]
+const calculate=()=>executeEscalasR36(e,quota,[{base:D('123.456789'),tramos:[],escalasPublicadas:[table]}],false).result.toFixed()
+const q=calculate();assert.equal(q,'10.338580093')
+rows.push({id:'cuota-sintetica-racional',expected:'10.338580093',actual:q,derivation:'7125000000/1e9 + 23456789*137/1e9; EUR sintéticos'})
+table[1].cuota=D('7.126');assert.equal(calculate(),'10.339580093')
+rows.push({id:'cuota-fija-perturbada',expected:'10.339580093',actual:calculate()})
+const caso={anio:2025,rendimientos:{trabajo:[{importeIntegroCentimos:1200123}],capitalInmobiliario:[{importeIntegroCentimos:654321}],gananciasPatrimoniales:[{importeGananciaCentimos:-32109,tratamientoMayores65:{_tag:'SinExencionMayores65'}}]},situacionFamiliar:{edad:40}}
+const calls=[]
+const boundaries={
+ 'boundary:calcularDesgloseCotizacionesPerfilUniforme':x=>{calls.push({mode:'canonico',year:x.anio,gross:x.salarioBrutoAnual.toFixed()});return {cotizacionTrabajador:D('234.56')}},
+ 'boundary:calcularDesgloseCotizacionesSocialesLegacy':x=>{calls.push({mode:'compatible-legacy',year:x.anio,gross:x.salarioBrutoAnual.toFixed()});return {cotizacionTrabajador:D('345.67')}}
+}
+for(const [mode,expected] of [['canonico','11766.67'],['compatible-legacy','11655.56'],['canonico','11766.67']]){
+ const output=consumeGeneralRentas(r,caso,{modo:mode},boundaries)
+ const lines=Object.fromEntries(output.lines.map(l=>[l.origen.siteId,l.origen.decimal]))
+ assert.equal(lines['anual.trabajo.integro'],'12001.23');assert.equal(lines['anual.trabajo.previo-neto'],expected)
+ assert.equal(output.bindings.find(b=>b[0]==='otrasRentasNoExentas')[1].toFixed(),'6222.12')
+ assert.equal(lines['anual.ganancias.total'],'-321.09');assert.equal(lines['anual.ganancias.exenta'],'0')
+ assert.equal(output.wiringAllowed,false);assert.equal(output.admission,'pending-common-contract')
+ rows.push({id:'puerto-SS-'+rows.length,mode,expected,actual:lines['anual.trabajo.previo-neto'],otherIncome:'6222.12',conditional:true})
+}
+assert.deepEqual(calls,[{mode:'canonico',year:2025,gross:'12001.23'},{mode:'compatible-legacy',year:2025,gross:'12001.23'},{mode:'canonico',year:2025,gross:'12001.23'}])
+assert.throws(()=>consumeGeneralRentas(r,caso,{modo:'canonico'},{}),/Frontera sin contrato/)
+rows.push({id:'puerto-ausente',expected:'rechazo técnico, no cero',actual:'rechazo técnico'})
+fs.writeFileSync('docs/procedencia/correcciones/escalas-rentas-r40/discriminantes.json',JSON.stringify({rows,passed:rows.length,scope:'Contrastes sintéticos del transporte, selección y aritmética; no evidencia fiscal ni admisión anual'},null,2)+'\n')
+console.log(JSON.stringify({passed:rows.length,calls}))

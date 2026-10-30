@@ -1,0 +1,1025 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "kind",
+    "base",
+    "dimensionContracts",
+    "dataRoutes",
+    "sources",
+    "program",
+    "globalBindings",
+    "propertyBindings",
+    "callBindings",
+    "boundaryContracts",
+    "outputBindings",
+    "sites",
+    "admissionObligations",
+    "admissionInterface",
+    "completeRuleAcceptance",
+    "wiringAllowed",
+    "review"
+  ],
+  "properties": {
+    "version": {
+      "const": 1
+    },
+    "kind": {
+      "const": "escalas-r36"
+    },
+    "base": {
+      "const": "50f9e949544e20d3e4e0bffc79b926d396267319"
+    },
+    "dimensionContracts": {
+      "const": {
+        "escala": {
+          "input": {
+            "base": "EUR-base",
+            "tramos": "array<[EUR-base,ratio]>",
+            "escalasPublicadas": "absent | array<array<{baseInferior:EUR-base,cuota:EUR-tax,tipo:ratio,inferiorExclusivo?:boolean}>>"
+          },
+          "output": {
+            "limiteInferior": "EUR-base",
+            "limiteSuperior": "EUR-base | Infinity",
+            "baseAplicada": "EUR-base",
+            "tipo": "ratio",
+            "cuotaFija": "optional EUR-tax",
+            "cuota": "EUR-tax"
+          },
+          "operations": [
+            "published:Q+(B-L)*t",
+            "integrated:min(max(B-previous,0),upper-previous)*t",
+            "reduce:sum(cuota),seed=base*0"
+          ]
+        },
+        "ahorro": {
+          "input": {
+            "anio": "year",
+            "base": "EUR-base",
+            "baseGeneral": "EUR-base",
+            "minimoEstatal": "EUR-base",
+            "minimoAutonomico": "EUR-base"
+          },
+          "output": {
+            "remanente": "EUR-base",
+            "bruta": "EUR-tax",
+            "despuesMinimo": "EUR-tax",
+            "minoracion": "EUR-tax"
+          },
+          "instances": [
+            "estatal:minimoEstatal",
+            "autonomico:minimoAutonomico"
+          ],
+          "operations": [
+            "r=min(max(M-max(BG,0),0),max(BA,0))",
+            "year<=2014:F(max(BA-r,0));else:max(bruta-F(r),0)",
+            "minoracion=bruta-despuesMinimo"
+          ]
+        },
+        "minimos": {
+          "input": {
+            "edad": "years",
+            "divisor": "count",
+            "rentasNoExentasCentimos": "centimos-income",
+            "fechaNacimiento": "civil-date-string",
+            "fechaConstitucionVinculo": "civil-date-string",
+            "fechaInicioIncremento": "civil-date-string"
+          },
+          "output": "EUR-base",
+          "operations": [
+            "component sum",
+            "eligible order by birth then subjectId",
+            "each subject amount / its selected-holder count",
+            "ordinary family helper has separate eligibility and ordering"
+          ]
+        },
+        "dinero": {
+          "centimosAEuros": {
+            "input": "centimos",
+            "output": "EUR",
+            "operation": "Decimal(input)/100"
+          },
+          "eurosACentimos": {
+            "input": "EUR",
+            "output": "centimos",
+            "operation": "half-up(input,2)*100 then toNumber"
+          },
+          "redondearHalfUp": {
+            "input": [
+              "Decimal",
+              "decimal-place-count"
+            ],
+            "output": "Decimal",
+            "operation": "toDecimalPlaces(count,ROUND_HALF_UP)"
+          },
+          "calcularCuotaDiferencialCentimos": {
+            "input": [
+              "centimos-tax",
+              "centimos-withholding",
+              "centimos-payment"
+            ],
+            "output": "centimos-tax",
+            "operation": "liquid-withholding-payment; signed"
+          }
+        },
+        "explicito": {
+          "input": {
+            "rendimientoAntesArt20": "EUR-string",
+            "argumentoArt20": "EUR-string",
+            "aporteImporteEurosExactos": "EUR-string",
+            "cuotaPosterior": "EUR-string"
+          },
+          "output": "EUR",
+          "operations": [
+            "BIG=BLG=neto signed",
+            "base=max(neto,0) only for scales",
+            "work:neto=beforeArt20-min(max(beforeArt20,0),art20(argumentoArt20))",
+            "EDS:neto=aporte already reduced",
+            "legal=state+regional",
+            "posterior=legal unless brutoServicios>0 then external DA61.cuotaPosterior"
+          ]
+        },
+        "final": {
+          "input": "Decimal EUR",
+          "output": "string EUR",
+          "operation": "crearLineaCalculo.origen.decimal=importe.toFixed(); presentation toFixed(2) does not replace it"
+        }
+      }
+    },
+    "dataRoutes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256",
+        "records",
+        "authority"
+      ],
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "sha256": {
+          "type": "string"
+        },
+        "records": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "authority": {
+          "type": "string"
+        }
+      }
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "file",
+          "sha256"
+        ],
+        "properties": {
+          "file": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "program": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "op",
+          "args",
+          "data",
+          "source"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "op": {
+            "enum": [
+              "array",
+              "assign",
+              "binary",
+              "bind",
+              "block",
+              "boundary",
+              "boundaryCall",
+              "call",
+              "conditional",
+              "declarations",
+              "failurePayload",
+              "forOf",
+              "function",
+              "get",
+              "global",
+              "if",
+              "index",
+              "invoke",
+              "isFailure",
+              "literal",
+              "local",
+              "mapError",
+              "new",
+              "noop",
+              "object",
+              "pass",
+              "property",
+              "return",
+              "spread",
+              "template",
+              "unary"
+            ]
+          },
+          "args": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "data": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "key": {
+                "type": "string"
+              },
+              "optional": {
+                "type": "boolean"
+              },
+              "operator": {
+                "type": "string"
+              },
+              "value": {
+                "type": [
+                  "string",
+                  "number",
+                  "boolean",
+                  "null"
+                ]
+              },
+              "parameters": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "binding",
+                    "rest",
+                    "default"
+                  ],
+                  "properties": {
+                    "binding": {
+                      "$ref": "#/$defs/pattern"
+                    },
+                    "rest": {
+                      "type": "boolean"
+                    },
+                    "default": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    }
+                  }
+                }
+              },
+              "binding": {
+                "$ref": "#/$defs/pattern"
+              },
+              "pattern": {
+                "type": "string"
+              },
+              "flags": {
+                "type": "string"
+              },
+              "fallback": {
+                "type": "boolean"
+              },
+              "strings": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "output": {
+                "type": "boolean"
+              },
+              "target": {
+                "type": "string"
+              },
+              "outputs": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "review": {
+                "const": "pending-independent"
+              },
+              "unit": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "tag": {
+                "type": "string"
+              }
+            }
+          },
+          "source": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "file",
+              "start",
+              "end",
+              "sha256",
+              "offsetEncoding"
+            ],
+            "properties": {
+              "file": {
+                "type": "string"
+              },
+              "start": {
+                "type": "integer"
+              },
+              "end": {
+                "type": "integer"
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "offsetEncoding": {
+                "const": "utf16"
+              }
+            }
+          }
+        }
+      }
+    },
+    "globalBindings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "node",
+          "source"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "node": {
+            "type": "string"
+          },
+          "source": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "file",
+              "start",
+              "end",
+              "sha256",
+              "offsetEncoding"
+            ],
+            "properties": {
+              "file": {
+                "type": "string"
+              },
+              "start": {
+                "type": "integer"
+              },
+              "end": {
+                "type": "integer"
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "offsetEncoding": {
+                "const": "utf16"
+              }
+            }
+          }
+        }
+      }
+    },
+    "propertyBindings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "receiver",
+          "property",
+          "index",
+          "optional",
+          "unit",
+          "source"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "receiver": {
+            "type": "string"
+          },
+          "property": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "index": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "optional": {
+            "type": "boolean"
+          },
+          "unit": {
+            "type": "string"
+          },
+          "source": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "file",
+              "start",
+              "end",
+              "sha256",
+              "offsetEncoding"
+            ],
+            "properties": {
+              "file": {
+                "type": "string"
+              },
+              "start": {
+                "type": "integer"
+              },
+              "end": {
+                "type": "integer"
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "offsetEncoding": {
+                "const": "utf16"
+              }
+            }
+          }
+        }
+      }
+    },
+    "callBindings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "target",
+          "arguments",
+          "instance",
+          "condition",
+          "source"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "target": {
+            "type": "string"
+          },
+          "arguments": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "index",
+                "operand"
+              ],
+              "properties": {
+                "index": {
+                  "type": "integer"
+                },
+                "operand": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "instance": {
+            "type": "string"
+          },
+          "condition": {
+            "type": "string"
+          },
+          "source": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "file",
+              "start",
+              "end",
+              "sha256",
+              "offsetEncoding"
+            ],
+            "properties": {
+              "file": {
+                "type": "string"
+              },
+              "start": {
+                "type": "integer"
+              },
+              "end": {
+                "type": "integer"
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "offsetEncoding": {
+                "const": "utf16"
+              }
+            }
+          }
+        }
+      }
+    },
+    "boundaryContracts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "outputs",
+          "parameters",
+          "calls",
+          "review",
+          "closure"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "outputs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "parameters": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "index",
+                "binding",
+                "type",
+                "source"
+              ],
+              "properties": {
+                "index": {
+                  "type": "integer"
+                },
+                "binding": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "source": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "file",
+                    "start",
+                    "end",
+                    "sha256",
+                    "offsetEncoding"
+                  ],
+                  "properties": {
+                    "file": {
+                      "type": "string"
+                    },
+                    "start": {
+                      "type": "integer"
+                    },
+                    "end": {
+                      "type": "integer"
+                    },
+                    "sha256": {
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{64}$"
+                    },
+                    "offsetEncoding": {
+                      "const": "utf16"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "calls": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "review": {
+            "const": "pending-independent"
+          },
+          "closure": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "outputBindings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "siteId",
+          "valueNode",
+          "lineNode",
+          "source",
+          "amount",
+          "unit",
+          "instance",
+          "condition",
+          "finalProperty"
+        ],
+        "properties": {
+          "siteId": {
+            "enum": [
+              "anual.base.ahorro",
+              "anual.base.general-imponible",
+              "anual.base.general-liquidable",
+              "anual.cuota.ahorro-componente-postminimo",
+              "anual.cuota.ahorro-total",
+              "anual.cuota.ahorro-tramo",
+              "anual.cuota.diferencial",
+              "anual.cuota.general-autonomica-tramo",
+              "anual.cuota.general-estatal-tramo",
+              "anual.cuota.general-total",
+              "anual.cuota.liquida",
+              "anual.cuota.minimo-ahorro-total",
+              "anual.cuota.minimo-autonomico-tramo",
+              "anual.cuota.minimo-estatal-tramo",
+              "anual.cuota.minimo-general-total",
+              "anual.deducciones.autonomicas",
+              "anual.explicito.big",
+              "anual.explicito.blg",
+              "anual.explicito.cuota.autonomica",
+              "anual.explicito.cuota.estatal",
+              "anual.explicito.cuota.liquida-legal",
+              "anual.explicito.cuota.posterior",
+              "anual.minimo.ascendientes",
+              "anual.minimo.autonomico",
+              "anual.minimo.contribuyente",
+              "anual.minimo.descendientes",
+              "anual.minimo.discapacidad",
+              "anual.minimo.estatal"
+            ]
+          },
+          "valueNode": {
+            "type": "string"
+          },
+          "lineNode": {
+            "type": "string"
+          },
+          "source": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "file",
+              "start",
+              "end",
+              "sha256",
+              "offsetEncoding"
+            ],
+            "properties": {
+              "file": {
+                "type": "string"
+              },
+              "start": {
+                "type": "integer"
+              },
+              "end": {
+                "type": "integer"
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "offsetEncoding": {
+                "const": "utf16"
+              }
+            }
+          },
+          "amount": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "file",
+              "start",
+              "end",
+              "sha256",
+              "offsetEncoding"
+            ],
+            "properties": {
+              "file": {
+                "type": "string"
+              },
+              "start": {
+                "type": "integer"
+              },
+              "end": {
+                "type": "integer"
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "offsetEncoding": {
+                "const": "utf16"
+              }
+            }
+          },
+          "unit": {
+            "const": "EUR"
+          },
+          "instance": {
+            "enum": [
+              "singleton-0",
+              "callback-index"
+            ]
+          },
+          "condition": {
+            "enum": [
+              "annual-admission-required",
+              "explicit-admission-required"
+            ]
+          },
+          "finalProperty": {
+            "const": "origen.decimal"
+          }
+        }
+      }
+    },
+    "sites": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "siteId",
+          "unit",
+          "valueClosed",
+          "selectionClosed",
+          "siteClosed",
+          "closure"
+        ],
+        "properties": {
+          "siteId": {
+            "enum": [
+              "anual.base.ahorro",
+              "anual.base.general-imponible",
+              "anual.base.general-liquidable",
+              "anual.cuota.ahorro-componente-postminimo",
+              "anual.cuota.ahorro-total",
+              "anual.cuota.ahorro-tramo",
+              "anual.cuota.diferencial",
+              "anual.cuota.general-autonomica-tramo",
+              "anual.cuota.general-estatal-tramo",
+              "anual.cuota.general-total",
+              "anual.cuota.liquida",
+              "anual.cuota.minimo-ahorro-total",
+              "anual.cuota.minimo-autonomico-tramo",
+              "anual.cuota.minimo-estatal-tramo",
+              "anual.cuota.minimo-general-total",
+              "anual.deducciones.autonomicas",
+              "anual.explicito.big",
+              "anual.explicito.blg",
+              "anual.explicito.cuota.autonomica",
+              "anual.explicito.cuota.estatal",
+              "anual.explicito.cuota.liquida-legal",
+              "anual.explicito.cuota.posterior",
+              "anual.minimo.ascendientes",
+              "anual.minimo.autonomico",
+              "anual.minimo.contribuyente",
+              "anual.minimo.descendientes",
+              "anual.minimo.discapacidad",
+              "anual.minimo.estatal"
+            ]
+          },
+          "unit": {
+            "const": "EUR"
+          },
+          "valueClosed": {
+            "const": false
+          },
+          "selectionClosed": {
+            "const": false
+          },
+          "siteClosed": {
+            "const": false
+          },
+          "closure": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "admissionObligations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "route",
+          "source",
+          "expression",
+          "status",
+          "contractRequired"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "route": {
+            "enum": [
+              "annual",
+              "explicit",
+              "rights"
+            ]
+          },
+          "source": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "file",
+              "start",
+              "end",
+              "sha256",
+              "offsetEncoding"
+            ],
+            "properties": {
+              "file": {
+                "type": "string"
+              },
+              "start": {
+                "type": "integer"
+              },
+              "end": {
+                "type": "integer"
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "offsetEncoding": {
+                "const": "utf16"
+              }
+            }
+          },
+          "expression": {
+            "type": "string"
+          },
+          "status": {
+            "const": "pending-review"
+          },
+          "contractRequired": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "admissionInterface": {
+      "const": {
+        "annual": "anual-publico-r32 / R35 pending-review",
+        "explicit": "CasoFiscalAnualExplicito + profile guards pending-review",
+        "rights": "DerechosMinimos2025 + coherence + annual-income-reconciliation pending-review"
+      }
+    },
+    "completeRuleAcceptance": {
+      "const": false
+    },
+    "wiringAllowed": {
+      "const": false
+    },
+    "review": {
+      "const": "pending-independent"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:irobopf:flujo-escalas-r36",
+  "$defs": {
+    "pattern": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "name"
+          ],
+          "properties": {
+            "name": {
+              "type": "string"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "elements"
+          ],
+          "properties": {
+            "elements": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/pattern"
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "fields"
+          ],
+          "properties": {
+            "fields": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "key",
+                  "binding",
+                  "rest",
+                  "default"
+                ],
+                "properties": {
+                  "key": {
+                    "type": "string"
+                  },
+                  "binding": {
+                    "$ref": "#/$defs/pattern"
+                  },
+                  "rest": {
+                    "type": "boolean"
+                  },
+                  "default": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

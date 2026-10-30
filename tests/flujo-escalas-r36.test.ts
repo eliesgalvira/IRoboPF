@@ -1,0 +1,649 @@
+import {
+  describe,
+  it,
+  expect
+} from "vitest"
+import Decimal from "decimal.js"
+import { DateTime } from "effect"
+import cells from "../docs/procedencia/correcciones/editorial-r21/escalas-celdas.json"
+import {
+  composeEscalasR36,
+  siteIds
+} from "../scripts/procedencia/flujo-escalas-r36.mjs"
+import { executeEscalasR36 } from "../scripts/procedencia/flujo-escalas-r36-consumidor.mjs"
+const fragment = composeEscalasR36()
+const d = (n: string | number) => new Decimal(n)
+function run(name: string, args: object[]) {
+  const binding = fragment.globalBindings.find((b) =>
+    b.name.endsWith("#" + name)
+  )
+  if (binding === undefined) throw Error(name)
+  return executeEscalasR36(fragment, binding.name, args).result
+}
+const row = (l: number, q: number, t: string) => ({
+  baseInferior: d(l),
+  cuota: d(q),
+  tipo: d(t)
+})
+describe("R36 operadores y selecciones por propiedad", () => {
+  it("Q publicada, metadato superior, orden de array y vacío", () => {
+    const table = [row(0, 0, ".1"), row(100, 7, ".2"), row(200, 99, ".8")]
+    const f = (t: object[]) =>
+      run("calcularCuotaPorEscala", [
+        { base: d(150), tramos: [], escalasPublicadas: [t] }
+      ]).toFixed()
+    expect(f(table)).toBe("17")
+    table[2]!.baseInferior = d(300)
+    expect(f(table)).toBe("17")
+    table[1]!.cuota = d(8)
+    expect(f(table)).toBe("18")
+    expect(f([row(0, 0, ".1"), row(100, 7, ".2"), row(50, 9, ".3")])).toBe("39")
+    const a = { base: d(100), tramos: [[d(Infinity), d(".1")]] }
+    expect(run("calcularCuotaPorEscala", [a]).toFixed()).toBe("10")
+    expect(
+      run("calcularCuotaPorEscala", [{ ...a, escalasPublicadas: [] }]).toFixed()
+    ).toBe("0")
+  })
+  it("flags constantes, Galicia por base y límite territorial 2026", () => {
+    const select = (anio: number, comunidadAutonoma: string, base = "0") =>
+      run("obtenerParametrosComunidadAutonoma", [
+        { anio, comunidadAutonoma, baseLiquidableGeneral: d(base) }
+      ])
+    for (const year of [2012, 2013, 2014, 2015])
+      for (const territory of ["madrid", "simulada-estatal"])
+        expect(select(year, territory).escalaAutonomicaIgualEstatal).toBe(false)
+    expect(select(2016, "simulada-estatal").escalaAutonomicaIgualEstatal).toBe(
+      true
+    )
+    expect(select(2026, "madrid")._tag).toBe("ComunidadAutonomaNoSoportada")
+    expect(select(2026, "simulada-estatal")._tag).toBe(
+      "ParametrosComunidadAutonoma"
+    )
+    for (const year of [2014, 2015])
+      expect(
+        select(
+          year,
+          "galicia",
+          "17707.20"
+        ).escalaAutonomica.tramos[0][1].toFixed()
+      ).not.toBe(
+        select(
+          year,
+          "galicia",
+          "17707.21"
+        ).escalaAutonomica.tramos[0][1].toFixed()
+      )
+  })
+  it("ahorro: orden anterior a 2015, asimetría y remanentes propios", () => {
+    const before = run("calcularAhorroConMinimos", [
+      {
+        anio: 2014,
+        base: d(9000),
+        baseGeneral: d(0),
+        minimoEstatal: d(1000),
+        minimoAutonomico: d(1000)
+      }
+    ])
+    expect(before.estatal.despuesMinimo.toFixed()).toBe("980")
+    const after = run("calcularAhorroConMinimos", [
+      {
+        anio: 2015,
+        base: d(6000),
+        baseGeneral: d(0),
+        minimoEstatal: d(2500),
+        minimoAutonomico: d(1000)
+      }
+    ])
+    expect(after.estatal.despuesMinimo.toFixed()).toBe("332.5")
+    expect(after.autonomico.despuesMinimo.toFixed()).toBe("500")
+    expect(after.estatal.remanente.toFixed()).toBe("2500")
+    expect(after.autonomico.remanente.toFixed()).toBe("1000")
+  })
+  it("bases conservan signos por sumando; céntimos half-up", () => {
+    expect(
+      run("calcularBaseImponibleGeneral", [
+        {
+          rendimientoTrabajo: { rendimientoNeto: d(-10) },
+          rendimientoCapitalInmobiliario: { rendimientoNeto: d(-3) },
+          gananciaPatrimonialGeneral: d(-2)
+        }
+      ]).toFixed()
+    ).toBe("-5")
+    expect(run("eurosACentimos", [d("1.005")]).toString()).toBe("101")
+    expect(run("eurosACentimos", [d("-1.005")]).toString()).toBe("-101")
+  })
+  it("28 salidas sin promoción de admisión ni fiscalidad", () => {
+    expect(new Set(fragment.outputBindings.map((b) => b.siteId))).toEqual(
+      new Set(siteIds)
+    )
+    expect(fragment.sites.every((s) => !s.siteClosed)).toBe(true)
+    expect(fragment.wiringAllowed).toBe(false)
+  })
+})
+
+import { consumeEscalasR36 as consumeEscalasR36Raw } from "../scripts/procedencia/flujo-escalas-r36-consumidor.mjs"
+import { calcularCuotaPorEscala as actualQuota } from "../lib/dominio/irpf/cuotas/escalas-gravamen"
+import { obtenerParametrosComunidadAutonoma as actualSelect } from "../lib/dominio/irpf/comunidades/comunidad-autonoma"
+import { calcularAhorroConMinimos as actualSavings } from "../lib/dominio/irpf/cuotas/cuota-integra-ahorro"
+type SourceLine = {
+  origen: { siteId: string; instanceId: string; decimal: string; unidad: "EUR" | "percent" }
+}
+type Projection = { lines: SourceLine[]; admission: { annual: string }; siteClosed: boolean }
+type DeductionWitnessInput = { cuotaTrasArt80: string }
+type BoundaryWitness =
+  | (() => object)
+  | (<T>(input: T) => object)
+  | ((input: DeductionWitnessInput) => object)
+// Tipos del protocolo observado por estos ensayos; no validación del intérprete MJS.
+function consumeEscalasR36(...args: Parameters<typeof consumeEscalasR36Raw>): Projection {
+  return consumeEscalasR36Raw(...args)
+}
+// Testigos dinámicos del protocolo externo; no acreditan admisión ni hechos.
+function witnesses(
+  values: Map<string, object>
+): Map<string, BoundaryWitness> {
+  return new Map(
+    fragment.globalBindings
+      .filter((b) => values.has(b.name.split("#")[1]!))
+      .map((b) => [b.name, () => values.get(b.name.split("#")[1]!)!])
+  )
+}
+const caso = {
+  anio: 2025,
+  comunidadAutonoma: "madrid",
+  situacionFamiliar: {
+    tipo: "individual",
+    edad: 40,
+    descendientes: [],
+    ascendientes: [],
+    discapacidad: { _tag: "SinDiscapacidad" }
+  },
+  rendimientos: { trabajo: [{ importeIntegroCentimos: 3000000 }] },
+  reducciones: [],
+  deducciones: [],
+  retencionesSoportadasCentimos: 123,
+  pagosACuentaCentimos: 321
+}
+function annualValues() {
+  return new Map<string, object>([
+    ["sumarRendimientosTrabajo", d(30000)],
+    [
+      "calcularRendimientoNetoTrabajo",
+      {
+        rendimientoIntegro: d(30000),
+        rendimientoNeto: d(26000),
+        rendimientoPrevioNeto: d(28000),
+        gastosDeducibles: d(2000),
+        cotizacionTrabajador: d(2000)
+      }
+    ],
+    ["sumarRendimientosCapitalInmobiliario", d(0)],
+    [
+      "calcularRendimientoNetoCapitalInmobiliarioSimplificado",
+      { rendimientoNeto: d(0) }
+    ],
+    [
+      "calcularGananciasPatrimonialesPorTransmision",
+      {
+        gananciaSujetaGeneral: d(0),
+        gananciaSujetaAhorro: d(1000),
+        gananciaTotal: d(1000),
+        gananciaExenta: d(0)
+      }
+    ],
+    ["calcularReduccionTrabajoConOtrasRentas", d(0)],
+    [
+      "calcularDesgloseCotizacionesPerfilUniforme",
+      Object.fromEntries(
+        [
+          "cotizacionTrabajador",
+          "cotizacionEmpresarial",
+          "meiEmpresarial",
+          "meiTrabajador",
+          "solidaridadEmpresarial",
+          "solidaridadTrabajador"
+        ].map((k) => [k, d(2000)])
+      )
+    ]
+  ])
+}
+describe("R36 recorridos, celdas e instancias", () => {
+  it("anual emite cada sitio propio y conserva dos instancias iguales de ahorro", () => {
+    const result = consumeEscalasR36(
+      fragment,
+      "annual",
+      caso,
+      { modo: "canonico" },
+      witnesses(annualValues())
+    )
+    const lines = result.lines.map((l) => l.origen)
+    expect(new Set(lines.map((l) => l.siteId))).toEqual(
+      new Set(siteIds.filter((s) => !s.startsWith("anual.explicito.")))
+    )
+    const components = lines.filter(
+      (l) => l.siteId === "anual.cuota.ahorro-componente-postminimo"
+    )
+    expect(components.map((l) => l.decimal)).toEqual(["95", "95"])
+    expect(components[0]!.instanceId).not.toBe(components[1]!.instanceId)
+    const liquid = lines.find((l) => l.siteId === "anual.cuota.liquida")!
+    const diff = lines.find((l) => l.siteId === "anual.cuota.diferencial")!
+    expect(diff.decimal).toBe(
+      d(liquid.decimal)
+        .toDecimalPlaces(2, Decimal.ROUND_HALF_UP)
+        .minus("4.44")
+        .toFixed()
+    )
+    expect(result.siteClosed).toBe(false)
+    expect(() =>
+      consumeEscalasR36(
+        fragment,
+        "annual",
+        caso,
+        { modo: "canonico" },
+        new Map()
+      )
+    ).toThrow(/Frontera/)
+  })
+  it("explícito: signo EDS, pensión sin DA61 y empleo con puerto DA61 distinto", () => {
+    for (const perfil of ["solo-actividad-eds", "solo-trabajo"]) {
+      const values = new Map<string, object>([
+        [
+          "adaptarActividadGeneral",
+          {
+            estado: "calculado",
+            aporte: {
+              importeEurosExactos: "-100",
+              retencionesEuros: "0",
+              pagosFraccionadosEuros: "0"
+            }
+          }
+        ],
+        [
+          "adaptarTrabajoAnual",
+          {
+            estado: "calculado",
+            rendimientoAntesArt20: "10000",
+            argumentoArt20: "10000",
+            gastos: { integro: "16576" }
+          }
+        ],
+        ["calcularReduccionTrabajoConOtrasRentas", d(0)]
+      ])
+      const b = witnesses(values)
+      b.set("explicit.decode", <T>(x: T) => ({ _tag: "Success", success: x }))
+      const entrada = {
+        perfil,
+        actividad: { activos: [], discapacidad: { grado: 0 } },
+        trabajo: {
+          ejercicio: 2025,
+          discapacidadActiva: "ninguna",
+          rendimientos: [{ clase: "pension" }]
+        },
+        retenciones: [],
+        conciliacion: { procedencia: [] }
+      }
+      const out = consumeEscalasR36(
+        fragment,
+        "explicit",
+        entrada,
+        {},
+        b
+      ).lines.map((l) => l.origen)
+      expect(new Set(out.map((l) => l.siteId))).toEqual(
+        new Set(siteIds.filter((s) => s.startsWith("anual.explicito.")))
+      )
+      expect(out.find((l) => l.siteId === "anual.explicito.big")!.decimal).toBe(
+        perfil === "solo-trabajo" ? "10000" : "-100"
+      )
+      expect(
+        out.find((l) => l.siteId === "anual.explicito.cuota.posterior")!.decimal
+      ).toBe(
+        out.find((l) => l.siteId === "anual.explicito.cuota.liquida-legal")!
+          .decimal
+      )
+      if (perfil === "solo-trabajo") {
+        entrada.trabajo.rendimientos = [{ clase: "empleo-laboral" }]
+        expect(() =>
+          consumeEscalasR36(fragment, "explicit", entrada, {}, b)
+        ).toThrow(/calcularDeduccionTrabajo/)
+        for (const g of fragment.globalBindings.filter((g) =>
+          g.name.endsWith("#calcularDeduccionTrabajo")
+        ))
+          b.set(g.name, (input: DeductionWitnessInput) => ({
+            estado: "calculado",
+            importeAplicable: "10",
+            cuotaPosterior: d(input.cuotaTrasArt80).minus(10).toFixed()
+          }))
+        const employed = consumeEscalasR36(
+          fragment,
+          "explicit",
+          entrada,
+          {},
+          b
+        ).lines.map((l) => l.origen)
+        expect(
+          d(
+            employed.find(
+              (l) => l.siteId === "anual.explicito.cuota.liquida-legal"
+            )!.decimal
+          )
+            .minus(
+              employed.find(
+                (l) => l.siteId === "anual.explicito.cuota.posterior"
+              )!.decimal
+            )
+            .toFixed()
+        ).toBe("10")
+      }
+    }
+  })
+  it("deducción agregada es valor; códigos son obligación de admisión separada", () => {
+    const b = witnesses(annualValues())
+    const initial = consumeEscalasR36(
+      fragment,
+      "annual",
+      caso,
+      { modo: "canonico" },
+      b
+    )
+    const changed = consumeEscalasR36(
+      fragment,
+      "annual",
+      { ...caso, deduccionAutonomicaAgregadaCentimos: 10000 },
+      { modo: "canonico" },
+      b
+    )
+    const amount = (r: Projection) => {
+      const line = r.lines.find((l) => l.origen.siteId === "anual.cuota.liquida")
+      if (line === undefined) throw Error("Cuota líquida ausente")
+      return line.origen.decimal
+    }
+    expect(d(amount(initial)).minus(amount(changed)).toFixed()).toBe("100")
+    expect(changed.admission.annual).toContain("pending-review")
+  })
+  it("fechas y bases: contraste suplementario TS por propiedad afectada", () => {
+    for (const [anio, territory, cut, property] of [
+      [2015, "illes-balears", "2015-12-31", "escala"],
+      [2022, "comunitat-valenciana", "2022-10-28", "escala"],
+      [2023, "extremadura", "2023-09-15", "escala"],
+      [2023, "illes-balears", "2023-11-26", "segundo"]
+    ] as const) {
+      const vals: string[] = []
+      for (const offset of [-1, 0, 1]) {
+        const args = {
+          anio,
+          comunidadAutonoma: territory,
+          fechaFallecimiento: DateTime.toDateUtc(DateTime.makeUnsafe(Date.parse(cut + "T00:00:00Z") + offset))
+        }
+        const a = run("obtenerParametrosComunidadAutonoma", [args]),
+          b = actualSelect(args)
+        const pick = (x: { minimosAutonomicos: { descendientes: { segundo: Decimal } }; escalaAutonomica: { tramos: ReadonlyArray<readonly [Decimal, Decimal]> } }) =>
+          property === "segundo"
+            ? x.minimosAutonomicos.descendientes.segundo.toFixed()
+            : x.escalaAutonomica.tramos.map((t) => t.map((v) => v.toFixed()))
+        if (b._tag !== "ParametrosComunidadAutonoma") throw Error("Territorio fuera del caso")
+        expect(pick(a)).toEqual(pick(b))
+        vals.push(JSON.stringify(pick(a)))
+      }
+      expect(vals[0]).not.toEqual(vals[1])
+      expect(vals[1]).toEqual(vals[2])
+    }
+  })
+  it("264 celdas nominales: identidad de fila, Q/L distintos y selección exacta", () => {
+    for (const c of cells) {
+      const symbol = fragment.globalBindings.find((b) =>
+        b.name.endsWith("#" + c.selector.simbolo)
+      )!
+      const table: Array<{ baseInferior: Decimal; cuota: Decimal; tipo: Decimal }> = executeEscalasR36(
+        fragment,
+        null,
+        [],
+        false,
+        symbol.node
+      ).result
+      const i = c.filaCodigo0Based,
+        r = table[i],
+        field = c.columna
+      if (field !== "cuota" && field !== "baseInferior") throw Error("Columna fuera del caso")
+      expect(r[field].toFixed()).toBe(d(c.valor).toFixed())
+      const base = r.baseInferior.plus(1),
+        input = { base, tramos: [], escalasPublicadas: [table] }
+      const before = run("calcularCuotaPorEscala", [input])
+      expect(before.toFixed()).toBe(r.cuota.plus(r.tipo).toFixed())
+      const altered = table.map((x, j) =>
+        j === i ? { ...x, [field]: x[field].plus(".01") } : x
+      )
+      expect(
+        run("calcularCuotaPorEscala", [
+          { ...input, escalasPublicadas: [altered] }
+        ])
+          .minus(before)
+          .toFixed()
+      ).toBe(field === "cuota" ? "0.01" : r.tipo.mul("-.01").toFixed())
+      expect(actualQuota(input).toFixed()).toBe(before.toFixed())
+    }
+  })
+  it("ahorro integrado no recibe publicadas; comparación de componentes con TS", () => {
+    for (const year of [2012, 2014, 2015, 2025, 2026] as const) {
+      const args = {
+        anio: year,
+        base: d(9000),
+        baseGeneral: d(100),
+        minimoEstatal: d(1000),
+        minimoAutonomico: d(2000)
+      }
+      const a = run("calcularAhorroConMinimos", [args]),
+        b = actualSavings(args)
+      for (const component of ["estatal", "autonomico"] as const)
+        for (const p of ["remanente", "bruta", "minoracion", "despuesMinimo"] as const)
+          expect(a[component][p].toFixed()).toBe(b[component][p].toFixed())
+      const binding = fragment.globalBindings.find((b) =>
+        b.name.endsWith("#calcularDesgloseCuotaPorEscalaAhorro")
+      )!
+      const evaluated = executeEscalasR36(fragment, binding.name, [args])
+      expect(evaluated.result.every((r: { cuotaFija?: Decimal }) => r.cuotaFija === undefined)).toBe(
+        true
+      )
+    }
+  })
+})
+
+import { verifyEscalasR36 } from "../scripts/procedencia/flujo-escalas-r36.mjs"
+it("puerta de receta rechaza omisiones; no prueba suficiencia causal", () => {
+  expect(verifyEscalasR36(fragment)).toBe(true)
+  const candidate = structuredClone(fragment)
+  candidate.program.pop()
+  expect(() => verifyEscalasR36(candidate)).toThrow(/Receta/)
+})
+it("derechos: titular próximo 800000/800001, instancia estatal/autonómica y orden", () => {
+  const titular = (
+    titularId: string,
+    grado: number,
+    rentasNoExentasCentimos: number
+  ) => ({
+    titularId,
+    grado,
+    rentasNoExentasCentimos,
+    residenteIrpf: true,
+    relacion: "convivencia",
+    custodia: "no-procede",
+    alimentosJudiciales: false,
+    vinculo: { clase: "consanguinidad" }
+  })
+  const table = fragment.globalBindings.find((b) =>
+    b.name.endsWith("#MINIMOS_ESTATALES_2025")
+  )!
+  const minimos = executeEscalasR36(
+    fragment,
+    null,
+    [],
+    false,
+    table.node
+  ).result
+  for (const [renta, expected] of [
+    [800000, "0"],
+    [800001, "2400"]
+  ]) {
+    const family = {
+      contribuyenteId: "s-1",
+      edadContribuyenteDevengo: 40,
+      discapacidadContribuyente: { _tag: "SinDiscapacidad" },
+      descendientes: [
+        {
+          sujetoId: "s-3",
+          edadDevengo: 8,
+          fechaNacimiento: "2017-01-01",
+          rentasNoExentasCentimos: 0,
+          declaracion: { modalidad: "no-presenta" },
+          discapacidad: { _tag: "SinDiscapacidad" },
+          titulares: [
+            titular("s-1", 1, Number(renta)),
+            titular("s-2", 2, 2000000)
+          ]
+        }
+      ]
+    }
+    const b = new Map(
+      fragment.globalBindings
+        .filter((x) => x.name.endsWith("#validarDerechosMinimos"))
+        .map((x) => [x.name, (input: typeof family) => input])
+    )
+    const g = fragment.globalBindings.find((x) =>
+      x.name.endsWith("#calcularDerechosMinimos")
+    )!
+    const r = executeEscalasR36(
+      fragment,
+      g.name,
+      [family, minimos],
+      false,
+      null,
+      [],
+      b
+    ).result
+    expect(r.descendientes.toFixed()).toBe(expected)
+    expect(r.contribuyente.toFixed()).toBe("5550")
+  }
+})
+
+it("Murcia excluye exactamente 60000 y conserva fila previa", () => {
+  const b = fragment.globalBindings.find((x) =>
+    x.name.endsWith("#MURCIA_2022")
+  )!
+  const table = executeEscalasR36(fragment, null, [], false, b.node).result
+  const quota = (base: string) =>
+    run("calcularCuotaPorEscala", [
+      { base: d(base), tramos: [], escalasPublicadas: [table] }
+    ]).toFixed()
+  expect(quota("60000")).toBe("8625.8332")
+  expect(quota("60000.01")).toBe("8716.67227")
+})
+it("los mínimos ordinarios separan edad, orden elegible y rol de discapacidad", () => {
+  for (const [edad, amount] of [
+    [64, "5550"],
+    [65, "6700"],
+    [74, "6700"],
+    [75, "8100"]
+  ])
+    expect(
+      run("obtenerMinimoContribuyente", [{ anio: 2025, edad }]).toFixed()
+    ).toBe(amount)
+  const table = fragment.globalBindings.find((b) =>
+    b.name.endsWith("#MINIMOS_ESTATALES_2025")
+  )!
+  const minimos = executeEscalasR36(
+    fragment,
+    null,
+    [],
+    false,
+    table.node
+  ).result
+  const no = { _tag: "SinDiscapacidad" }
+  expect(
+    run("obtenerMinimoDescendientes", [
+      [
+        { edad: 25, discapacidad: no },
+        { edad: 2, discapacidad: no },
+        { edad: 20, discapacidad: no }
+      ],
+      minimos
+    ]).toFixed()
+  ).toBe("7900")
+  const custom = {
+    ...minimos,
+    discapacidad: {
+      ...minimos.discapacidad,
+      contribuyente: {
+        grado33Hasta65: d(11),
+        grado65OMas: d(12),
+        gastosAsistencia: d(13)
+      },
+      descendiente: {
+        grado33Hasta65: d(21),
+        grado65OMas: d(22),
+        gastosAsistencia: d(23)
+      },
+      ascendiente: {
+        grado33Hasta65: d(31),
+        grado65OMas: d(32),
+        gastosAsistencia: d(33)
+      }
+    }
+  }
+  const family = { edad: 40, discapacidad: { _tag: "Discapacidad65OMas" } }
+  expect(
+    run("obtenerMinimoDiscapacidadContribuyente", [family, custom]).toFixed()
+  ).toBe("25")
+  expect(
+    run("obtenerMinimoDiscapacidadFamiliares", [[family], custom]).toFixed()
+  ).toBe("45")
+  expect(
+    run("obtenerMinimoDiscapacidadAscendientes", [[family], custom]).toFixed()
+  ).toBe("65")
+})
+it("deducción agregada queda limitada por capacidad del componente autonómico", () => {
+  const result = consumeEscalasR36(
+    fragment,
+    "annual",
+    { ...caso, deduccionAutonomicaAgregadaCentimos: 1e9 },
+    { modo: "canonico" },
+    witnesses(annualValues())
+  )
+  const sum = (id: string) =>
+    result.lines
+      .filter((l) => l.origen.siteId === id)
+      .reduce((a, l) => a.plus(l.origen.decimal), d(0))
+  const savings = result.lines.find(
+    (l) => l.origen.instanceId === "anual.cuota.ahorro-componente-postminimo.1"
+  )!.origen.decimal
+  expect(sum("anual.deducciones.autonomicas").toFixed()).toBe(
+    Decimal.max(
+      0,
+      sum("anual.cuota.general-autonomica-tramo").minus(
+        sum("anual.cuota.minimo-autonomico-tramo")
+      )
+    )
+      .plus(savings)
+      .toFixed()
+  )
+})
+it("simulada 2012–15 emite ambos componentes; 2016 suprime autonómicos", () => {
+  for (const year of [2012, 2013, 2014, 2015, 2016]) {
+    const result = consumeEscalasR36(
+      fragment,
+      "annual",
+      { ...caso, anio: year, comunidadAutonoma: "simulada-estatal" },
+      { modo: "canonico" },
+      witnesses(annualValues())
+    )
+    expect(
+      result.lines.some(
+        (l) => l.origen.siteId === "anual.cuota.general-autonomica-tramo"
+      )
+    ).toBe(year < 2016)
+    expect(
+      result.lines.some(
+        (l) => l.origen.siteId === "anual.cuota.minimo-autonomico-tramo"
+      )
+    ).toBe(year < 2016)
+  }
+})

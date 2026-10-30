@@ -1,0 +1,11 @@
+import gzip
+import json
+import sys
+from jsonschema import Draft202012Validator
+with open(sys.argv[1], encoding='utf8') as f:
+    schema = json.load(f)
+Draft202012Validator.check_schema(schema)
+with gzip.open(sys.argv[2], 'rt') as f:
+    fragment = json.load(f)
+Draft202012Validator(schema).validate(fragment)
+print('Schema draft2020-12 y fragmento correctos; no aceptación fiscal')

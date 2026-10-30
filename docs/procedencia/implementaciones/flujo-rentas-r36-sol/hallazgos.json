@@ -1,0 +1,40 @@
+{
+  "review": "pending-independent",
+  "fiscalDefectsAccepted": [],
+  "findings": [
+    {
+      "id": "R36-I1",
+      "kind": "instrument-defect",
+      "state": "corrected-with-prior-red",
+      "description": "Expansión de Set como un elemento: el ensayo positivo anual de empleo queda rechazado; se corrige Array.from del iterable",
+      "evidence": "rojos-spread-mutante.json"
+    },
+    {
+      "id": "R36-I2",
+      "kind": "test-instrument-defect",
+      "state": "corrected-with-prior-red",
+      "description": "Mutante0.05 elegía amortización; se fija dentro del argumento4 de G, sin cambiar esperados",
+      "evidence": "rojos-spread-mutante.json"
+    },
+    {
+      "id": "FA25-01",
+      "kind": "historical",
+      "state": "six-reds-preserved; corrected-ranges-represented",
+      "evidence": "historicos-rojos.json"
+    },
+    {
+      "id": "FA25-02/04/05/06",
+      "kind": "historical-contract-limit",
+      "state": "new-evaluable-representation-pending-independent-review",
+      "evidence": "fragmento.json.gz"
+    },
+    {
+      "id": "R36-I3",
+      "kind": "consumer-defect",
+      "state": "prior-red-preserved;candidate-fix",
+      "description": "Default de destructuración representado pero no evaluado: undefined frente7; evaluación perezosa en entorno léxico",
+      "evidence": "rojo-default.json"
+    }
+  ],
+  "acceptance": false
+}

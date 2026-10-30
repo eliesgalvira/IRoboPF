@@ -1,0 +1,2 @@
+import fs from 'node:fs';import zlib from 'node:zlib';import {runRentasSuite} from '../../scripts/procedencia/flujo-rentas-r36-ensayos.mjs';
+try{const r=runRentasSuite();fs.writeFileSync('docs/procedencia/implementaciones/flujo-rentas-r36-sol/fragmento.json.gz',zlib.gzipSync(JSON.stringify(r.fragment)));delete r.fragment;fs.writeFileSync('docs/procedencia/implementaciones/flujo-rentas-r36-sol/casos.json',JSON.stringify(r,null,2));console.log(JSON.stringify(r));process.exitCode=r.failed?1:0}catch(e){console.error(e);process.exitCode=1}

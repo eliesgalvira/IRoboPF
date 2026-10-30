@@ -1,0 +1,67 @@
+import gzip
+import hashlib
+import json
+import os
+import stat
+import subprocess
+from pathlib import Path
+base = '50f9e949544e20d3e4e0bffc79b926d396267319'
+root = Path.cwd()
+entries = subprocess.check_output(['git', 'ls-tree', '-rz', base]).split(b'\0')
+batch = subprocess.Popen(['git', 'cat-file', '--batch'], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+assert batch.stdin is not None and batch.stdout is not None
+rows = []
+known = set()
+changes = []
+for entry in entries:
+    if not entry:
+        continue
+    meta, raw_path = entry.split(b'\t')
+    mode, kind, oid = meta.split()
+    path = os.fsdecode(raw_path)
+    known.add(path)
+    batch.stdin.write(oid + b'\n')
+    batch.stdin.flush()
+    size = int(batch.stdout.readline().split()[2])
+    expected = batch.stdout.read(size)
+    assert batch.stdout.read(1) == b'\n'
+    old_hash = hashlib.sha256(expected).hexdigest()
+    try:
+        info = os.lstat(path)
+        link = stat.S_ISLNK(info.st_mode)
+        data = os.fsencode(os.readlink(path)) if link else Path(path).read_bytes()
+        matches = data == expected and ((mode == b'120000') == link) and (link or ((mode == b'100755') == bool(info.st_mode & 0o111)))
+        current_hash = hashlib.sha256(data).hexdigest()
+    except FileNotFoundError:
+        matches = False
+        current_hash = None
+    if not matches:
+        changes.append(path)
+    rows.append({'path': path, 'baseSha256': old_hash, 'sha256': current_hash, 'mode': mode.decode(), 'identical': matches})
+batch.stdin.close()
+batch.wait()
+new = []
+foreign = []
+for folder, dirs, files in os.walk(root, followlinks=False):
+    if Path(folder) == root:
+        dirs[:] = [d for d in dirs if d != '.git']
+    for name in list(dirs):
+        if (Path(folder) / name).is_symlink():
+            files.append(name)
+            dirs.remove(name)
+    for name in files:
+        path = str((Path(folder) / name).relative_to(root))
+        if path == '.git':
+            continue
+        if path in known:
+            continue
+        new.append(path)
+        allowed = path.startswith(('docs/procedencia/implementaciones/flujo-rentas-r36-sol/', '.cache/flujo-rentas-r36/')) or (path.startswith('scripts/procedencia/flujo-rentas-r36') and path.endswith('.mjs')) or (path.startswith('tests/flujo-rentas-r36') and path.endswith('.test.ts')) or (path.startswith('schemas/procedencia/flujo/rentas-r36') and path.endswith('.schema.json'))
+        if not allowed:
+            foreign.append(path)
+head = subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip()
+result = {'base': base, 'head': head, 'entries': len(rows), 'rows': rows, 'changes': changes, 'deleted': [r['path'] for r in rows if r['sha256'] is None], 'new': new, 'foreign': foreign, 'diff': subprocess.check_output(['git', 'diff', base, '--raw'], text=True)}
+with gzip.open('docs/procedencia/implementaciones/flujo-rentas-r36-sol/fisico-final.json.gz', 'wt') as f:
+    json.dump(result, f)
+print(json.dumps({k: result[k] for k in ['base', 'head', 'entries', 'changes', 'deleted', 'foreign', 'diff']}))
+assert head == base and len(rows) == 20227 and not changes and not foreign
