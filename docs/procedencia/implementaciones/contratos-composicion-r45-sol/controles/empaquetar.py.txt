@@ -1,0 +1,23 @@
+from pathlib import Path
+import difflib,gzip,json,hashlib,subprocess,tempfile
+root=Path.cwd();doc=root/'docs/procedencia/implementaciones/contratos-composicion-r45-sol'
+excluded={'MANIFIESTO.json','BINARIOS.json','entrega.patch.gz','transporte.json'}
+files=[root/'scripts/procedencia/composicion-r45-resultados.ts',root/'tests/composicion-r45-resultados.test.ts']+[p for p in doc.rglob('*') if p.is_file() and p.relative_to(doc).parts[0]!='binarios' and p.name not in excluded]
+manifest=[];binary=[];patch=[]
+for p in sorted(files):
+ data=p.read_bytes();rel=p.relative_to(root).as_posix();h=hashlib.sha256(data).hexdigest()
+ manifest.append({'path':rel,'sha256':h,'size':len(data),'baseSha256':None})
+ try:
+  text=data.decode('utf-8');assert text and '\0' not in text and text.endswith('\n')
+  patch.extend(difflib.unified_diff([],text.splitlines(keepends=True),fromfile='/dev/null',tofile='b/'+rel))
+ except (UnicodeDecodeError,AssertionError):
+  target=doc/'binarios'/h;target.parent.mkdir(exist_ok=True);target.write_bytes(data);binary.append({'path':rel,'sha256':h,'object':'binarios/'+h})
+(doc/'MANIFIESTO.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n');(doc/'BINARIOS.json').write_text(json.dumps(binary,indent=2)+'\n');(doc/'entrega.patch.gz').write_bytes(gzip.compress(''.join(patch).encode(),mtime=0))
+scratch=Path(tempfile.mkdtemp(prefix='reconstruccion-',dir=root/'.cache/contratos-composicion-r45-sol'))
+run=subprocess.run(['patch','--batch','-p1','-d',str(scratch)],input=''.join(patch).encode(),capture_output=True);assert run.returncode==0,run.stdout+run.stderr
+for b in binary:
+ p=scratch/b['path'];p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes((doc/b['object']).read_bytes())
+for row in manifest:
+ data=(scratch/row['path']).read_bytes();assert len(data)==row['size'] and hashlib.sha256(data).hexdigest()==row['sha256']
+result={'base':'31a70bd671f92fdb47ca1bf0fe95613a9fa4fb59','files':len(manifest),'bytes':sum(r['size'] for r in manifest),'exactReconstruction':True,'scratch':str(scratch),'patchSha256':hashlib.sha256((doc/'entrega.patch.gz').read_bytes()).hexdigest(),'manifestSha256':hashlib.sha256((doc/'MANIFIESTO.json').read_bytes()).hexdigest(),'exclusions':'Sobres y objetos duplicados; los logs vacíos se transportan como objetos vacíos.'}
+(doc/'transporte.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n');print(json.dumps(result))
