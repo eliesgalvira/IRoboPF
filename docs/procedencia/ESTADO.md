@@ -12,9 +12,11 @@ Publicado localmente el snapshot d758a1f8ac67587d2eae689da158ac8baa28b03df16c462
 
 Corregidos tres localizadores SS con rojo previo; 684 casos numéricos coinciden y ocho rojos semánticos permanecen. No se aceptan los once cierres causales. Retenciones R34 se conserva candidato para revisión nueva. Admisión R35 mantiene sus diecisiete cierres false y necesita completar selectores, adaptador, fronteras y propagación final. Pasan 106 pruebas focalizadas y 77 adicionales; tipos/lint globales pasan tras tres guardas explícitas en el test recibido. Ruff/mypy del procedimiento de recuperación correctos. No se atribuye tipado completo al MJS.
 
-Se prepara una tanda Sol de dos revisiones y cuatro implementaciones, con ámbitos separados, para continuar también los otros 48 sitios: 28 de escalas y 20 de rentas. No se reduce el alcance del encargo ni se aceptan parciales por recuento. Modelo de cada encargo nuevo: gpt-6.1-sol, high, priority explícitos; la salida real del lanzador se registrará al enviarlos.
+Lanzada una tanda Sol de dos revisiones y cuatro implementaciones, con ámbitos separados, para continuar también los otros 48 sitios: 28 de escalas y 20 de rentas. No se reduce el alcance del encargo ni se aceptan parciales por recuento. Modelo de cada uno de los seis encargos: gpt-6.1-sol, high y priority explícitos, confirmados por el lanzador. Encargos y respuestas íntegros en delegaciones-ronda36.json. Sus finalizaciones reactivarán al padre; no se sondean.
 
 V5 mantiene corte R26; Crossa sigue v1 desfasado, copia local fuera de Victus del mismo dueño/casa, sin custodia independiente o remota. El nuevo CAS y los objetos públicos locales requieren restauración/configuración explícita al clonar. Sin LFS, gasto, transferencia externa, main, PR, despliegue ni limpieza. El encargo global permanece abierto.
+
+Bloque R36 respaldado en origin: `50f9e949544e20d3e4e0bffc79b926d396267319`, 2.928 archivos y 62.448.038 bytes cotejados contra el commit, cero borrados; base de 20.227 entradas para los seis encargos nuevos. Las seis sobras históricas permanecen excluidas e intactas.
 
 ## Situación anterior, ronda 35 del 30 de octubre
 
