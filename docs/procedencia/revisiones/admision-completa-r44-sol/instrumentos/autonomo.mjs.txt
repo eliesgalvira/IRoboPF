@@ -1,0 +1,12 @@
+import {registerHooks} from 'node:module'
+import fs from 'node:fs'
+import {gunzipSync} from 'node:zlib'
+const root=process.cwd()+'/'
+registerHooks({resolve(specifier,context,next){const resolved=next(specifier,context);if(resolved.url.startsWith('file://'+root+'lib/')||resolved.url.includes('/typescript/')||/flujo-admision-r3[25]\.mjs/.test(resolved.url)||resolved.url.includes('r36-compilador'))throw Error('Dependencia prohibida en consumidor: '+resolved.url);return resolved}})
+const{executeAdmissionGraph}=await import('../../scripts/procedencia/flujo-admision-r36-runtime.mjs')
+const{verifyCompleteAdmission}=await import('../../scripts/procedencia/flujo-admision-r36-verificador.mjs')
+const f=JSON.parse(gunzipSync(fs.readFileSync('docs/procedencia/implementaciones/admision-completa-r36-sol/fragmento.json.gz')));verifyCompleteAdmission(f)
+const a=executeAdmissionGraph(f,'obtenerParametrosComunidadAutonoma',[{anio:2014,comunidadAutonoma:'galicia'}])
+const b=executeAdmissionGraph(f,'liquidarIrpfAnual',[{anio:2025,comunidadAutonoma:'madrid',derechosMinimos:undefined,deducciones:[{codigo:'INEXISTENTE-R36'}]},{modo:'canonico'}])
+if(a.outcome!=='success'||b.outcome!=='reject'||b.reason!=='Deducción autonómica no catalogada: INEXISTENTE-R36')throw Error('Contraste autónomo fallido')
+console.log(JSON.stringify({withoutEngineImport:true,withoutTypeScript:true,outcomes:[a.outcome,b.outcome],accepted:false}))

@@ -1,0 +1,33 @@
+import {expect,it} from 'vitest'
+import Decimal from 'decimal.js'
+import {DateTime,Effect,Result} from 'effect'
+import {obtenerParametrosComunidadAutonoma} from '../../../../lib/dominio/irpf/comunidades/comunidad-autonoma'
+import type {EntradaParametrosComunidadAutonoma} from '../../../../lib/dominio/irpf/comunidades/comunidad-autonoma'
+import {liquidarIrpfAnual} from '../../../../lib/dominio/irpf/liquidacion/liquidar-irpf-anual'
+import type {CasoFiscalAnual} from '../../../../lib/dominio/irpf/liquidacion/liquidar-irpf-anual'
+import {centimosAEuros,eurosACentimos} from '../../../../lib/dominio/dinero/importe-monetario'
+import {buildCompleteAdmission,evaluateCompleteAdmission} from '../../../../scripts/procedencia/flujo-admision-r36.mjs'
+const f=buildCompleteAdmission()
+const caso:CasoFiscalAnual={anio:2026,comunidadAutonoma:'madrid',situacionFamiliar:{tipo:'individual',edad:40,discapacidad:{_tag:'SinDiscapacidad'},descendientes:[],ascendientes:[]},rendimientos:{trabajo:[]},reducciones:[],deducciones:[],retencionesSoportadasCentimos:0,pagosACuentaCentimos:0}
+it('2026 selector es éxito de evaluación de ausencia y anual es rechazo',()=>{
+ const params=obtenerParametrosComunidadAutonoma({anio:2026,comunidadAutonoma:'madrid'})
+ const model=evaluateCompleteAdmission(f,'obtenerParametrosComunidadAutonoma',[{anio:2026,comunidadAutonoma:'madrid'}])
+ expect(model.outcome).toBe('success');expect(model.value).toEqual(params);expect(params._tag).toBe('ComunidadAutonomaNoSoportada')
+ const actual=Effect.runSync(Effect.result(liquidarIrpfAnual(caso,{modo:'canonico'})));expect(Result.isFailure(actual)).toBe(true)
+})
+// SAFETY: ejercicios literales pertenecen a AnioFiscal.
+for(const anio of [2014,2015] as const)for(const amount of ['17707.199','17707.2','17707.201'])it(`Galicia discriminante propio ${anio}/${amount}`,()=>{
+ const input:EntradaParametrosComunidadAutonoma={anio,comunidadAutonoma:'galicia',baseLiquidableGeneral:new Decimal(amount)}
+ expect(evaluateCompleteAdmission(f,'obtenerParametrosComunidadAutonoma',[input]).value).toEqual(obtenerParametrosComunidadAutonoma(input))
+})
+// SAFETY: ejercicios con cortes conocidos y territorios del tipo real.
+for(const anio of [2015,2022,2023] as const)for(const iso of ['2015-12-30T23:59:59.999Z','2015-12-31T00:00:00.001Z','2022-10-27T23:59:59.999Z','2022-10-28T00:00:00.001Z','2023-09-14T23:59:59.999Z','2023-09-15T00:00:00.001Z'])it(`UTC propio ${anio}/${iso}`,()=>{
+ for(const comunidadAutonoma of ['andalucia','galicia','comunitat-valenciana','madrid'] as const){
+  const input:EntradaParametrosComunidadAutonoma={anio,comunidadAutonoma,fechaFallecimiento:DateTime.toDateUtc(DateTime.makeUnsafe(iso))}
+  const result=evaluateCompleteAdmission(f,'obtenerParametrosComunidadAutonoma',[input]);expect(result.outcome,result.reason).toBe('success');expect(result.value).toEqual(obtenerParametrosComunidadAutonoma(input))
+ }
+})
+for(const value of ['-0.005','0','0.004999','0.005','8000.005'])it(`conversión real ${value}`,()=>{
+ const amount=new Decimal(value);expect(evaluateCompleteAdmission(f,'eurosACentimos',[amount]).value).toBe(eurosACentimos(amount))
+ const cents=eurosACentimos(amount);expect(evaluateCompleteAdmission(f,'centimosAEuros',[cents]).value.toString()).toBe(centimosAEuros(cents).toString())
+})

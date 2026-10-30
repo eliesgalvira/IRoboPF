@@ -1,0 +1,47 @@
+{
+  "propios-final": {
+    "exit": 1,
+    "total": 58,
+    "passed": 49,
+    "failed": 9,
+    "coverage": "independiente"
+  },
+  "autor": {
+    "exit": 0,
+    "total": 236,
+    "passed": 236,
+    "failed": 0,
+    "coverage": "repeticion-autor-incluye-regresion"
+  },
+  "historicos": {
+    "exit": 1,
+    "total": 306,
+    "passed": 301,
+    "failed": 5,
+    "coverage": "historico-no-modificado"
+  },
+  "tipos-final": {
+    "exit": 0,
+    "log": "tipos-final.log"
+  },
+  "lint": {
+    "exit": 0,
+    "log": "lint.log"
+  },
+  "autonomo": {
+    "exit": 0,
+    "log": "autonomo.log"
+  },
+  "anclas": {
+    "exit": 0,
+    "log": "anclas.log"
+  },
+  "tipos-inicial": {
+    "exit": 2,
+    "reason": "effect/globalDate en instrumento propio; corregido DateTime sin cambiar esperados"
+  },
+  "lint-instrumentos": {
+    "exit": 0,
+    "scope": "tests y todos los MJS scratch, 16 reglas error, sin ignorePatterns"
+  }
+}

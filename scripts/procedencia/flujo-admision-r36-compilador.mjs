@@ -42,27 +42,27 @@ export function compileAdmissionGraph(entries, boundaries = []) {
     return { id, op, ...fields }
   }
   const builtins = new Set(['undefined','Infinity','NaN','Number','String','Object','Array','Math','Map','Set','Date','Decimal','Match','Option','Effect','DateTime','Error','LiquidacionIrpfAnual','CompatibilidadSalarioLegacy'])
-  function reference(m, name, n) {
-    if (builtins.has(name)) return node(m,n,'builtin',{name})
+  function reference(m, name, n, origin=m) {
+    if (builtins.has(name)) return node(origin,n,'builtin',{name})
     const imp = m.imports.get(name)
     const path = imp?.path ?? m.path, original = imp?.name ?? name
-    if (path === 'effect' || path === 'decimal.js') return node(m,n,'builtin',{name:original === 'default' ? 'Decimal' : original === 'Array' ? 'EffectArray' : original})
-    if(path.endsWith('.json.ts')) {const jsonPath=path.slice(0,-3),bytes=readFileSync(root+jsonPath);if(!sources.some(s=>s.path===jsonPath))sources.push({path:jsonPath,sha256:hash(bytes)});return node(m,n,'json',{value:JSON.parse(bytes)})}
+    if (path === 'effect' || path === 'decimal.js') return node(origin,n,'builtin',{name:original === 'default' ? 'Decimal' : original === 'Array' ? 'EffectArray' : original})
+    if(path.endsWith('.json.ts')) {const jsonPath=path.slice(0,-3),bytes=readFileSync(root+jsonPath);if(!sources.some(s=>s.path===jsonPath))sources.push({path:jsonPath,sha256:hash(bytes)});return node(origin,n,'json',{value:JSON.parse(bytes)})}
     const key = path + '#' + original
-    if (['medirAuditoriaSync','registrarTiempoAgregadoAuditoria','tiempoAuditoriaMs','validarDerechosMinimos','validarRentasAnualesDerechos','hayAlimentosPropiosSinMinimo'].includes(original)) return node(m,n,'builtin',{name:original})
-    if (external.has(original)) return node(m,n,'boundary',{name:original})
+    if (['medirAuditoriaSync','registrarTiempoAgregadoAuditoria','tiempoAuditoriaMs','validarDerechosMinimos','validarRentasAnualesDerechos','hayAlimentosPropiosSinMinimo'].includes(original)) return node(origin,n,'builtin',{name:original})
+    if (external.has(original)) return node(origin,n,'boundary',{name:original})
     if (!known.has(key)) {
       known.add(key)
       const target = module(path), d = target.declarations.get(original)
       if (!d) {
-        for(const exported of target.exports) {const next=module(exported);if(next.declarations.has(original)||next.exports.length){const entry={key,value:reference(next,original,n)};definitions.push(entry);return node(m,n,'global',{key})}}
+        for(const exported of target.exports) {const next=module(exported);if(next.declarations.has(original)||next.exports.length){const entry={key,value:reference(next,original,n,origin)};definitions.push(entry);return node(origin,n,'global',{key})}}
         throw Error('Declaración no resuelta: ' + key)
       }
       const entry = { key, value: null }
       definitions.push(entry)
       entry.value = ts.isFunctionDeclaration(d) ? expression(target,d,new Set()) : expression(target,d.initializer,new Set())
     }
-    return node(m,n,'global',{key})
+    return node(origin,n,'global',{key})
   }
   function pattern(m,n) {
     if (ts.isIdentifier(n)) return { name:n.text }
@@ -124,8 +124,36 @@ export function compileAdmissionGraph(entries, boundaries = []) {
     }
     return result
   }
-  const roots=entries.map(({path,name})=>({path,name,value:reference(module(path),name,module(path).declarations.get(name))}))
+  function incrementProjection(m) {
+    const fn=m.declarations.get('calcularDerechosMinimos').initializer.arguments[0]
+    const declarations=fn.body.statements.filter(ts.isVariableStatement).flatMap(s=>Array.from(s.declarationList.declarations))
+    const callback=declarations.find(d=>d.name.getText(m.sf)==='atribuciones').initializer.arguments[0]
+    const prefix=Array.from(callback.body.statements).slice(0,3)
+    if(prefix.some((s,i)=>!ts.isVariableStatement(s)||s.declarationList.declarations[0].name.getText(m.sf)!==['titular','inicio','incremento'][i]))throw Error('Proyección de incremento fuera del contrato')
+    const item=pattern(m,callback.parameters[0].name),caso=declarations.find(d=>d.name.getText(m.sf)==='caso').name
+    const body=block(m,prefix,new Set([...names(item),'caso']))
+    const selected=prefix[2].declarationList.declarations[0].name
+    body.push(node(m,selected,'return',{value:node(m,selected,'local',{name:'incremento'})}))
+    return node(m,callback,'lambda',{params:[{binding:item,fallback:null,rest:false},{binding:pattern(m,caso),fallback:null,rest:false}],body})
+  }
+  const roots=entries.map(({path,name})=>({path,name,value:name==='seleccionarIncrementoDerechos'?incrementProjection(module(path)):reference(module(path),name,module(path).declarations.get(name))}))
   return {roots,definitions,anchors,sources}
+}
+
+/** Forma de la escala opcional, derivada de su interfaz; no verifica cuantías. */
+export function compilePublishedScaleSchema() {
+ const path='lib/dominio/irpf/cuotas/escalas-publicadas.ts',text=readFileSync(root+path,'utf8'),sf=ts.createSourceFile(path,text,ts.ScriptTarget.Latest,true)
+ const rowInterface=sf.statements.find(n=>ts.isInterfaceDeclaration(n)&&n.name.text==='FilaEscalaPublicada')
+ if(!rowInterface)throw Error('Interfaz de fila publicada ausente')
+ const properties={},required=[]
+ for(const field of rowInterface.members){
+  if(!ts.isPropertySignature(field))throw Error('Miembro de escala fuera del contrato')
+  const name=field.name.getText(sf),type=field.type.getText(sf)
+  if(!['Decimal','boolean'].includes(type))throw Error('Tipo de escala fuera del contrato')
+  properties[name]=type==='Decimal'?{r36Decimal:true}:{type:'boolean'}
+  if(!field.questionToken)required.push(name)
+ }
+ return {schema:{type:'array',items:{type:'object',properties,required,additionalProperties:true}},source:{path,sha256:hash(text)}}
 }
 
 /** R35 se conserva; solo se precisan las anclas sintéticas en el nuevo artefacto. */

@@ -1,0 +1,146 @@
+import { expect, it } from 'vitest'
+import { Effect, Result } from 'effect'
+import Decimal from 'decimal.js'
+import { buildEvaluableAdmission, verifyEvaluableAdmission } from '../../scripts/procedencia/flujo-admision-r35.mjs'
+import {evaluateRightsProgram as evaluateProgram} from '../../scripts/procedencia/flujo-admision-r36-derechos.mjs'
+import { validarDerechosMinimos, validarRentasAnualesDerechos, calcularDerechosMinimos } from '../../lib/dominio/irpf/minimos/derechos'
+import { MINIMOS_ESTATALES_2025 } from '../../lib/dominio/normativa/datos/minimos-autonomicos-2025'
+import { liquidarIrpfAnual } from '../../lib/dominio/irpf/liquidacion/liquidar-irpf-anual'
+import { base, derechos, hijo } from '../../docs/procedencia/revisiones/admision-anual-r34-sol/fixtures.mjs'
+const f = buildEvaluableAdmission()
+const run = (effect) => Effect.runSync(Effect.result(effect))
+const native = (value) => {
+  try {
+    const r = run(validarDerechosMinimos(value))
+    return Result.isSuccess(r) ? { outcome: 'success' } : { outcome: 'reject', reason: r.failure.motivo }
+  } catch { return { outcome: 'defect' } }
+}
+const own = value => evaluateProgram(f, 'validarDerechosMinimos', [value])
+const t = hijo.titulares[0]
+const d = (change) => ({ ...derechos, descendientes: [{ ...hijo, ...change }] })
+const cases = [
+  derechos,
+  null,
+  { ...derechos, extra: true },
+  { ...derechos, edadContribuyenteDevengo: 17 },
+  { ...derechos, edadContribuyenteDevengo: 151 },
+  { ...derechos, contribuyenteId: 's-1234567' },
+  { ...derechos, conciliacionRentasContribuyente: null },
+  d({ fechaNacimiento: '2015-02-29' }),
+  d({ fechaNacimiento: '2024-02-29', edadDevengo: 1 }),
+  d({ edadDevengo: 0.5 }),
+  d({ sujetoId: derechos.contribuyenteId }),
+  { ...derechos, descendientes: [hijo, hijo] },
+  d({ titulares: [] }),
+  d({ titulares: [t, t] }),
+  d({ titulares: [{ ...t, titularId: 's-9' }] }),
+  d({ titulares: [{ ...t, residenteIrpf: false }] }),
+  d({ titulares: [{ ...t, custodia: 'exclusiva', relacion: 'ninguna' }] }),
+  d({ titulares: [{ ...t, aplicaEspecialidadAlimentos: true }] }),
+  d({ titulares: [{ ...t, grado: 2, vinculo: { clase: 'guarda-judicial' } }] }),
+  d({ titulares: [{ ...t, vinculo: { clase: 'adopcion', fechaInicioIncremento: '2025-01-01', fundamento: 'inscripcion-registro-civil', historialCompleto: true } }] }),
+  d({ discapacidad: { _tag: 'Discapacidad33a64' } }),
+  d({ declaracion: { modalidad: 'individual', rentasCentimos: -1e12 - 1 } }),
+]
+for (const [index, value] of cases.entries()) it(`paridad schema/coherencia ${index}`, () => {
+  const a = own(value), b = native(value)
+  expect(a.outcome).toBe(b.outcome)
+  if (b.outcome === 'reject') expect(a.reason).toBe(b.reason)
+})
+for (const renta of ['8000', '8000.004', '8000.005', '8000.006', '-0.005', 'Infinity', 'NaN']) it(`conciliación HALF_UP ${renta}`, () => {
+  const amount = new Decimal(renta)
+  const value = d({ titulares: [{ ...t, rentasNoExentasCentimos: amount.isFinite() ? amount.times(100).toDecimalPlaces(0, Decimal.ROUND_HALF_UP).toNumber() : 0 }] })
+  const a = evaluateProgram(f, 'validarRentasAnualesDerechos', [value, amount])
+  const b = run(validarRentasAnualesDerechos(value, amount))
+  expect(a.outcome).toBe(Result.isSuccess(b) ? 'success' : 'reject')
+  if (Result.isFailure(b)) expect(a.reason).toBe(b.failure.motivo)
+})
+it('sin descendientes exige presencia y finitud', () => {
+  expect(evaluateProgram(f, 'validarRentasAnualesDerechos', [{ ...derechos, descendientes: [], conciliacionRentasContribuyente: undefined }, new Decimal(0)]).outcome).toBe('reject')
+  expect(evaluateProgram(f, 'validarRentasAnualesDerechos', [{ ...derechos, descendientes: [] }, new Decimal(Infinity)]).outcome).toBe('reject')
+})
+for (const value of [hijo, { ...hijo, rentasNoExentasCentimos: 800001 }, { ...hijo, edadDevengo: 25 }, { ...hijo, titulares: [{ ...t, grado: 1, rentasNoExentasCentimos: 0 }, { ...t, titularId: 's-9', grado: 2 }] }]) it('selección por instancia y divisor contra API real', () => {
+  const input = { ...derechos, descendientes: [value] }
+  const a = evaluateProgram(f, 'calcularDerechosMinimos', [input])
+  const b = run(calcularDerechosMinimos(input, MINIMOS_ESTATALES_2025))
+  expect(a.outcome).toBe(Result.isSuccess(b) ? 'success' : 'reject')
+  if (Result.isSuccess(b)) expect(a.value.map(x => ({ sujetoId: x.descendiente.sujetoId, titulares: x.titulares.map(t => t.titularId), divisor: x.titulares.length }))).toEqual(b.success.atribuciones.map(x => ({ sujetoId: x.sujetoId, titulares: x.titulares, divisor: x.divisor })))
+})
+it('deducción exterior none continúa y no llama catálogo', () => {
+  let calls = 0
+  for (const deducciones of [[], [null, { codigo: 'x' }], [undefined, { codigo: 'x' }]]) {
+    expect(evaluateProgram(f, 'deducciones', [{ deducciones }], { catalogo: () => { calls++; return { _tag: 'None' } } }).outcome).toBe('success')
+    expect(Result.isSuccess(run(liquidarIrpfAnual({ ...base, deducciones }, { modo: 'canonico' })))).toBe(true)
+  }
+  expect(calls).toBe(0)
+})
+for (const tag of ['None', 'Some']) it(`Option catálogo ${tag} rechaza`, () => {
+  const r = evaluateProgram(f, 'deducciones', [{ deducciones: [{ codigo: 'x' }, null] }], { catalogo: () => ({ _tag: tag }) })
+  expect(r.outcome).toBe('reject'); expect(r.reason).toContain(tag === 'None' ? 'no catalogada' : 'sin implementación')
+})
+it('ejercicio y null son resultados distintos; cortocircuito por ausencia', () => {
+  expect(evaluateProgram(f, 'ejercicio', [base]).outcome).toBe('success')
+  expect(evaluateProgram(f, 'ejercicio', [{ ...base, retencionTrabajoAeat: null }]).outcome).toBe('defect')
+  expect(evaluateProgram(f, 'ejercicio', [{ ...base, retencionTrabajoAeat: { anio: 2024 } }]).outcome).toBe('reject')
+})
+it('transporte de cifras iguales conserva campos distintos', () => {
+  const input = { trabajo: { rendimientoNeto: new Decimal(777) }, alquiler: { rendimientoNeto: new Decimal(777) }, ganancias: { gananciaSujetaGeneral: new Decimal(777), gananciaSujetaAhorro: new Decimal(777) } }
+  const r = evaluateProgram(f, 'renta-antes-reducciones', Object.values(input))
+  expect(r.value.eq(3108)).toBe(true)
+  expect(r.trace.filter(x => x.op === 'property').map(x => x.property)).toEqual(['rendimientoNeto','gananciaSujetaGeneral','gananciaSujetaAhorro','rendimientoNeto'])
+})
+for (let year = 2012; year <= 2026; year++) it(`selector ${year} transporta propiedades`, () => {
+  const input = { anio: year, comunidadAutonoma: 'madrid', baseLiquidableGeneral: new Decimal(777), fechaFallecimiento: new Date('2015-01-01') }
+  let args
+  const result = evaluateProgram(f, 'territorio', [input], { ['selector-' + year]: (...a) => { args = a; return { _tag: 'ParametrosComunidadAutonoma' } } })
+  expect(result.outcome).toBe('success')
+  expect(args[0]).toBe('madrid')
+  expect(args.length).toBe(1 + ([2014,2015].includes(year) ? 1 : 0) + ([2015,2022,2023].includes(year) ? 1 : 0))
+  if ([2014,2015].includes(year)) expect(args[1]).toBe(input.baseLiquidableGeneral)
+  if ([2015,2022,2023].includes(year)) expect(args.at(-1)).toBe(input.fechaFallecimiento)
+})
+it('schema permite pendientes y cierre derivado en los 17 sitios', () => {
+  expect(verifyEvaluableAdmission(f)).toBe(true)
+  expect(f.sites).toHaveLength(17)
+  expect(f.sites.every(s => !s.admissionClosed && !s.siteClosed)).toBe(true)
+  const bad = structuredClone(f); bad.sites[0].admissionClosed = true
+  expect(() => verifyEvaluableAdmission(bad)).toThrow('Cierre no derivado')
+})
+for (const mutation of [
+  x => { x.programs[0].body[0].value.op = 'inventado' },
+  x => { x.programs[0].body[0].value.name = 'ajeno' },
+  x => { x.sites[0].obligations.pop() },
+  x => { x.sites[0].siteId = 'ajeno' },
+  x => { x.obligations.push(x.obligations[0]) },
+  x => { x.programs.find(p => p.id === 'agregado-manual').body[0].value.left.unit = 'EUR' },
+]) it('adverso estructural/referencial antes de pins', () => {
+  const bad = structuredClone(f); mutation(bad)
+  expect(() => verifyEvaluableAdmission(bad)).toThrow()
+})
+it('adverso semántico sin usar pin: cambiar umbral cambia selección', () => {
+  const bad = structuredClone(f)
+  const program = bad.programs.find(p => p.id === 'cumpleRentas')
+  program.body[0].value.left.right.value = 0
+  expect(evaluateProgram(f, 'cumpleRentas', [{ ...hijo, rentasNoExentasCentimos: 1 }]).value).toBe(true)
+  expect(evaluateProgram(bad, 'cumpleRentas', [{ ...hijo, rentasNoExentasCentimos: 1 }]).value).toBe(false)
+})
+import { centimosAEuros } from '../../lib/dominio/dinero/importe-monetario.ts'
+import { calcularRendimientoNetoTrabajo } from '../../lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts'
+import { calcularRendimientoNetoCapitalInmobiliarioSimplificado } from '../../lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts'
+import { calcularGananciasPatrimonialesPorTransmision } from '../../lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts'
+import { calcularDesgloseCotizacionesPerfilUniforme } from '../../lib/dominio/laboral/cotizaciones-perfil-uniforme.ts'
+import { calcularDesgloseCotizacionesSocialesLegacy } from '../../lib/dominio/laboral/cotizaciones-sociales.ts'
+for (const modo of ['canonico','compatible-legacy']) it(`puertos reales, reduce y semillas ${modo}`,()=>{
+ const ports={centimosAEuros,'ss-uniforme':(anio,salarioBrutoAnual)=>calcularDesgloseCotizacionesPerfilUniforme({anio,salarioBrutoAnual}),'ss-legacy':(anio,salarioBrutoAnual)=>calcularDesgloseCotizacionesSocialesLegacy({anio,salarioBrutoAnual}),'neto-trabajo':(anio,rendimientoIntegro,cotizacionTrabajador)=>calcularRendimientoNetoTrabajo({anio,rendimientoIntegro,cotizacionTrabajador}),'neto-alquiler':rendimientoIntegro=>calcularRendimientoNetoCapitalInmobiliarioSimplificado({rendimientoIntegro}),ganancias:(anio,edadContribuyente,ganancias)=>calcularGananciasPatrimonialesPorTransmision({anio,edadContribuyente,ganancias,convertirCentimos:centimosAEuros})}
+ const r=evaluateProgram(f,'puertos-netos',[{...base,rendimientos:{trabajo:[{importeIntegroCentimos:1000000},{importeIntegroCentimos:2000000}],capitalInmobiliario:null,gananciasPatrimoniales:undefined}},{modo}],ports)
+ expect(r.outcome).toBe('success'); expect(r.value.alquiler.rendimientoNeto.eq(0)).toBe(true);expect(r.value.ganancias.gananciaSujetaGeneral.eq(0)).toBe(true)
+ expect(r.value.trabajo.rendimientoIntegro.eq(30000)).toBe(true)
+ expect(JSON.parse(JSON.stringify(r.trace)).length).toBe(r.trace.length)
+})
+for(const modo of [null,undefined,'canonico','compatible-legacy']) it(`defaults adaptador ${modo}`,()=>{
+ const r=evaluateProgram(f,'adaptador-defaults',[{modo,perfilAuditoria:null,seleccionRetencion:undefined}])
+ expect(r.value.modo).toBe(modo??'compatible-legacy');expect(r.value.perfil).toBe('soltero_sin_hijos');expect(r.value.crearSubcaso).toBe(true);expect(r.value.edad).toBe(40)
+})
+it('frontera no suministrada es pendiente, no defecto del motor',()=>{
+ expect(evaluateProgram(f,'territorio',[{anio:2014,comunidadAutonoma:'galicia'}]).outcome).toBe('pending')
+})

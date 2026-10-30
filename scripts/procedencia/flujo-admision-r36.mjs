@@ -1,4 +1,4 @@
-import { compileAdmissionGraph, narrowRightsAnchors, buildServiceBindings, compileAnnualResultSchema } from './flujo-admision-r36-compilador.mjs'
+import { compileAdmissionGraph, narrowRightsAnchors, buildServiceBindings, compileAnnualResultSchema, compilePublishedScaleSchema } from './flujo-admision-r36-compilador.mjs'
 import { executeAdmissionGraph } from './flujo-admision-r36-runtime.mjs'
 import { buildEvaluableAdmission } from './flujo-admision-r35.mjs'
 import { siteIds } from './flujo-admision-r32.mjs'
@@ -47,9 +47,13 @@ export function buildCompleteAdmission() {
  {path:'lib/dominio/normativa/datos/minimos-autonomicos-2025.ts',name:'MINIMOS_ESTATALES_2025'},
  {path:'lib/dominio/normativa/datos/deducciones-autonomicas-2025/index.ts',name:'obtenerDeduccionAutonomicaCatalogada'},
  {path:adapter,name:'casoFiscalLegacy'}
+ ,{path:'lib/dominio/irpf/minimos/derechos.ts',name:'seleccionarIncrementoDerechos'}
  ]
  for(const b of boundaries)if(b.name==='calcularDerechosMinimos')b.outputs.push({path:['atribuciones'],kind:'array',unit:'structural'})
  const graph=compileAdmissionGraph(entries,boundaries.map(b=>b.name))
+ const scaleContract=compilePublishedScaleSchema()
+ boundaries.find(b=>b.name==='obtenerEscalaAutonomicaPublicada').resultSchema=scaleContract.schema
+ if(!graph.sources.some(s=>s.path===scaleContract.source.path))graph.sources.push(scaleContract.source)
  function findBoundaries(node){if(!node||Object(node)!==node)return [];if(node.op==='boundary')return [node];return Object.values(node).flatMap(x=>Array.isArray(x)?x.flatMap(findBoundaries):findBoundaries(x))}
  function instances(node){if(!node||Object(node)!==node)return;if(node.op==='call')for(const ref of findBoundaries(node.callee)){const b=boundaries.find(b=>b.name===ref.name);b.instances.push({node:ref.id,call:node.id,operands:node.args.map(a=>a.id),transport:structuredClone(node.args),outputs:b.outputs.map(o=>({id:ref.id+'/'+o.path.join('.'),...o}))})}for(const x of Object.values(node))if(Array.isArray(x))x.forEach(instances);else if(Object(x)===x&&x!==null)instances(x)}
  graph.definitions.forEach(d=>instances(d.value))

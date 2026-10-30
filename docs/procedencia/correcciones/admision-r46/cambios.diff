@@ -1,0 +1,258 @@
+diff --git a/schemas/procedencia/flujo/admision-r36.schema.json b/schemas/procedencia/flujo/admision-r36.schema.json
+index 00dfef8..b879628 100644
+--- a/schemas/procedencia/flujo/admision-r36.schema.json
++++ b/schemas/procedencia/flujo/admision-r36.schema.json
+@@ -517,6 +517,9 @@
+           },
+           "failureSchema": {
+             "type": "object"
++          },
++          "resultSchema": {
++            "type": "object"
+           }
+         },
+         "required": [
+diff --git a/scripts/procedencia/flujo-admision-r36-compilador.mjs b/scripts/procedencia/flujo-admision-r36-compilador.mjs
+index 722238b..9f9d9df 100644
+--- a/scripts/procedencia/flujo-admision-r36-compilador.mjs
++++ b/scripts/procedencia/flujo-admision-r36-compilador.mjs
+@@ -42,27 +42,27 @@ export function compileAdmissionGraph(entries, boundaries = []) {
+     return { id, op, ...fields }
+   }
+   const builtins = new Set(['undefined','Infinity','NaN','Number','String','Object','Array','Math','Map','Set','Date','Decimal','Match','Option','Effect','DateTime','Error','LiquidacionIrpfAnual','CompatibilidadSalarioLegacy'])
+-  function reference(m, name, n) {
+-    if (builtins.has(name)) return node(m,n,'builtin',{name})
++  function reference(m, name, n, origin=m) {
++    if (builtins.has(name)) return node(origin,n,'builtin',{name})
+     const imp = m.imports.get(name)
+     const path = imp?.path ?? m.path, original = imp?.name ?? name
+-    if (path === 'effect' || path === 'decimal.js') return node(m,n,'builtin',{name:original === 'default' ? 'Decimal' : original === 'Array' ? 'EffectArray' : original})
+-    if(path.endsWith('.json.ts')) {const jsonPath=path.slice(0,-3),bytes=readFileSync(root+jsonPath);if(!sources.some(s=>s.path===jsonPath))sources.push({path:jsonPath,sha256:hash(bytes)});return node(m,n,'json',{value:JSON.parse(bytes)})}
++    if (path === 'effect' || path === 'decimal.js') return node(origin,n,'builtin',{name:original === 'default' ? 'Decimal' : original === 'Array' ? 'EffectArray' : original})
++    if(path.endsWith('.json.ts')) {const jsonPath=path.slice(0,-3),bytes=readFileSync(root+jsonPath);if(!sources.some(s=>s.path===jsonPath))sources.push({path:jsonPath,sha256:hash(bytes)});return node(origin,n,'json',{value:JSON.parse(bytes)})}
+     const key = path + '#' + original
+-    if (['medirAuditoriaSync','registrarTiempoAgregadoAuditoria','tiempoAuditoriaMs','validarDerechosMinimos','validarRentasAnualesDerechos','hayAlimentosPropiosSinMinimo'].includes(original)) return node(m,n,'builtin',{name:original})
+-    if (external.has(original)) return node(m,n,'boundary',{name:original})
++    if (['medirAuditoriaSync','registrarTiempoAgregadoAuditoria','tiempoAuditoriaMs','validarDerechosMinimos','validarRentasAnualesDerechos','hayAlimentosPropiosSinMinimo'].includes(original)) return node(origin,n,'builtin',{name:original})
++    if (external.has(original)) return node(origin,n,'boundary',{name:original})
+     if (!known.has(key)) {
+       known.add(key)
+       const target = module(path), d = target.declarations.get(original)
+       if (!d) {
+-        for(const exported of target.exports) {const next=module(exported);if(next.declarations.has(original)||next.exports.length){const entry={key,value:reference(next,original,n)};definitions.push(entry);return node(m,n,'global',{key})}}
++        for(const exported of target.exports) {const next=module(exported);if(next.declarations.has(original)||next.exports.length){const entry={key,value:reference(next,original,n,origin)};definitions.push(entry);return node(origin,n,'global',{key})}}
+         throw Error('Declaración no resuelta: ' + key)
+       }
+       const entry = { key, value: null }
+       definitions.push(entry)
+       entry.value = ts.isFunctionDeclaration(d) ? expression(target,d,new Set()) : expression(target,d.initializer,new Set())
+     }
+-    return node(m,n,'global',{key})
++    return node(origin,n,'global',{key})
+   }
+   function pattern(m,n) {
+     if (ts.isIdentifier(n)) return { name:n.text }
+@@ -124,10 +124,38 @@ export function compileAdmissionGraph(entries, boundaries = []) {
+     }
+     return result
+   }
+-  const roots=entries.map(({path,name})=>({path,name,value:reference(module(path),name,module(path).declarations.get(name))}))
++  function incrementProjection(m) {
++    const fn=m.declarations.get('calcularDerechosMinimos').initializer.arguments[0]
++    const declarations=fn.body.statements.filter(ts.isVariableStatement).flatMap(s=>Array.from(s.declarationList.declarations))
++    const callback=declarations.find(d=>d.name.getText(m.sf)==='atribuciones').initializer.arguments[0]
++    const prefix=Array.from(callback.body.statements).slice(0,3)
++    if(prefix.some((s,i)=>!ts.isVariableStatement(s)||s.declarationList.declarations[0].name.getText(m.sf)!==['titular','inicio','incremento'][i]))throw Error('Proyección de incremento fuera del contrato')
++    const item=pattern(m,callback.parameters[0].name),caso=declarations.find(d=>d.name.getText(m.sf)==='caso').name
++    const body=block(m,prefix,new Set([...names(item),'caso']))
++    const selected=prefix[2].declarationList.declarations[0].name
++    body.push(node(m,selected,'return',{value:node(m,selected,'local',{name:'incremento'})}))
++    return node(m,callback,'lambda',{params:[{binding:item,fallback:null,rest:false},{binding:pattern(m,caso),fallback:null,rest:false}],body})
++  }
++  const roots=entries.map(({path,name})=>({path,name,value:name==='seleccionarIncrementoDerechos'?incrementProjection(module(path)):reference(module(path),name,module(path).declarations.get(name))}))
+   return {roots,definitions,anchors,sources}
+ }
+ 
++/** Forma de la escala opcional, derivada de su interfaz; no verifica cuantías. */
++export function compilePublishedScaleSchema() {
++ const path='lib/dominio/irpf/cuotas/escalas-publicadas.ts',text=readFileSync(root+path,'utf8'),sf=ts.createSourceFile(path,text,ts.ScriptTarget.Latest,true)
++ const rowInterface=sf.statements.find(n=>ts.isInterfaceDeclaration(n)&&n.name.text==='FilaEscalaPublicada')
++ if(!rowInterface)throw Error('Interfaz de fila publicada ausente')
++ const properties={},required=[]
++ for(const field of rowInterface.members){
++  if(!ts.isPropertySignature(field))throw Error('Miembro de escala fuera del contrato')
++  const name=field.name.getText(sf),type=field.type.getText(sf)
++  if(!['Decimal','boolean'].includes(type))throw Error('Tipo de escala fuera del contrato')
++  properties[name]=type==='Decimal'?{r36Decimal:true}:{type:'boolean'}
++  if(!field.questionToken)required.push(name)
++ }
++ return {schema:{type:'array',items:{type:'object',properties,required,additionalProperties:true}},source:{path,sha256:hash(text)}}
++}
++
+ /** R35 se conserva; solo se precisan las anclas sintéticas en el nuevo artefacto. */
+ export function narrowRightsAnchors(rights) {
+  const path='lib/dominio/irpf/minimos/derechos.ts',text=readFileSync(root+path,'utf8'),sf=ts.createSourceFile(path,text,ts.ScriptTarget.Latest,true),functions=new Map()
+diff --git a/scripts/procedencia/flujo-admision-r36-runtime.mjs b/scripts/procedencia/flujo-admision-r36-runtime.mjs
+index 2728dad..bd21e24 100644
+--- a/scripts/procedencia/flujo-admision-r36-runtime.mjs
++++ b/scripts/procedencia/flujo-admision-r36-runtime.mjs
+@@ -10,15 +10,32 @@ const DecimalEsm=(await import(pathToFileURL(require.resolve('decimal.js').repla
+ const isDecimal=value=>value instanceof Decimal||value instanceof DecimalEsm
+ export class AdmissionPending extends Error {}
+ export class AdmissionReject extends Error { constructor(value) { super(value?.motivo ?? String(value)); this.value=value } }
+-/** Representación de valores de un recibo: conserva ausencia y tipos monetarios. */
++/** Codec v2: etiquetas fuera del espacio de objetos, propiedades propias y alias. */
+ export function encodeAdmissionValue(value) {
+-  if(value===undefined)return {kind:'undefined'}
+-  if(isDecimal(value))return {kind:'Decimal',value:value.toString()}
+-  if(value instanceof Date)return {kind:'Date',value:Number.isNaN(value.getTime())?'NaN':value.getTime()}
+-  if(value instanceof Function)return {kind:'function',origin:value.r36Origin??null}
+-  if(Array.isArray(value))return value.map(encodeAdmissionValue)
+-  if(value!==null&&Object(value)===value)return Object.fromEntries(Object.entries(value).map(([k,v])=>[k,encodeAdmissionValue(v)]))
+-  return Number.isNaN(value)||value===Infinity||value===-Infinity?{kind:'number',value:String(value)}:value
++  const references=new Map()
++  function encode(input) {
++    if(input===undefined)return ['undefined']
++    if(input===null)return ['null']
++    if(Object(input)!==input) {
++      if(['[object Symbol]','[object BigInt]'].includes(Object.prototype.toString.call(input)))throw new AdmissionPending('Primitiva sin codec')
++      return [Object.prototype.toString.call(input),Object.is(input,-0)?'-0':String(input)]
++    }
++    if(types.isProxy(input))throw new AdmissionPending('Proxy sin codec')
++    if(references.has(input))return ['reference',references.get(input)]
++    const id=references.size;references.set(input,id)
++    const descriptors=Object.getOwnPropertyDescriptors(input)
++    if(Object.getOwnPropertySymbols(input).length||Object.values(descriptors).some(d=>d.get||d.set))throw new AdmissionPending('Propiedad sin codec de datos')
++    const properties=(excluded=[])=>Object.entries(descriptors).filter(([key])=>!excluded.includes(key)).map(([key,d])=>[key,d.enumerable,d.configurable,d.writable,encode(d.value)])
++    if(isDecimal(input))return ['Decimal',id,input.toString(),input.isNegative(),properties([Decimal,DecimalEsm].includes(descriptors.constructor?.value)?['constructor']:[])]
++    if(input instanceof Date)return ['Date',id,String(input.getTime()),properties()]
++    if(input instanceof Function) {
++      if(!input.r36Origin)throw new AdmissionPending('Función sin origen de programa')
++      return ['function',id,input.r36Origin]
++    }
++    if(Array.isArray(input))return ['array',id,properties()]
++    return ['object',id,Object.getPrototypeOf(input)===null?'null':'Object',properties()]
++  }
++  return {codec:'admission-value-v2',value:encode(value)}
+ }
+ class Returned {constructor(value){this.value=value}}
+ class Continued {}
+@@ -34,6 +51,7 @@ export function checkRuntimeDomain(value, stack = new Set()) {
+   for(const key of [...Object.keys(descriptors),...Object.getOwnPropertySymbols(descriptors)])if(descriptors[key].get||descriptors[key].set)throw new AdmissionPending('Accessor fuera del dominio')
+   const native=isDecimal(value) ? (value instanceof Decimal?Decimal.prototype:DecimalEsm.prototype) : value instanceof Date ? Date.prototype : null
+   if(native&&Object.getPrototypeOf(value)!==native)throw new AdmissionPending('Subclase fuera del dominio')
++  if(Array.isArray(value)&&Object.getPrototypeOf(value)!==Array.prototype)throw new AdmissionPending('Subclase Array fuera del dominio')
+   if(!native&&!Array.isArray(value)&&![Object.prototype,null].includes(Object.getPrototypeOf(value))) throw new AdmissionPending('Prototipo fuera del dominio')
+   stack.add(value)
+   for(const [key,d] of Object.entries(Object.getOwnPropertyDescriptors(value))) {
+@@ -144,6 +162,11 @@ export function executeAdmissionGraph(fragment, entry, args, evidence = {}) {
+     if(result.outcome==='defect') throw Error(result.reason??name)
+     checkRuntimeDomain(result.value)
+     if(contract.resultKind==='array'&&!Array.isArray(result.value))throw Error('Salida array ausente '+name)
++    if(contract.resultKind==='optional-object'&&result.value!==undefined) {
++      if(!contract.resultSchema)throw new AdmissionPending('Variante opcional sin contrato de propiedades '+name)
++      if(!outputValidators.has(contract)){const ajv=new Ajv({allErrors:true});ajv.addKeyword('r36Decimal',{validate:(_schema,value)=>isDecimal(value),errors:false});outputValidators.set(contract,ajv.compile(contract.resultSchema))}
++      if(!outputValidators.get(contract)(result.value))throw Error('Salida opcional no satisface sus propiedades '+name)
++    }
+     if(contract.resultKind==='object'&&(result.value===null||Object(result.value)!==result.value))throw Error('Salida object ausente '+name)
+     if(contract.resultKind==='Decimal'&&!isDecimal(result.value))throw Error('Salida Decimal ausente '+name)
+     if(contract.resultKind==='option'&&!['None','Some'].includes(result.value?._tag))throw Error('Salida Option ausente '+name)
+@@ -158,7 +181,13 @@ export function executeAdmissionGraph(fragment, entry, args, evidence = {}) {
+       if(field.kind==='retention-tag'&&value!=='RetencionTrabajoCalculada')throw Error('Tag inválido '+name)
+       if(field.kind==='number'&&!Number.isFinite(value))throw Error('Salida numérica inválida '+name+'.'+field.path.join('.'))
+     }
+-    if(selection){const attrs=result.value.atribuciones;if(attrs.length!==selection.length||attrs.some((a,i)=>a.sujetoId!==selection[i].descendiente.sujetoId||a.orden!==i+1||a.divisor!==selection[i].titulares.length||JSON.stringify(a.titulares)!==JSON.stringify(selection[i].titulares.map(t=>t.titularId))||![true,false].includes(a.incremento)||!isDecimal(a.minimo)||!isDecimal(a.discapacidad)))throw Error('Resultado monetario no conserva selección por instancia')}
++    if(selection){
++      const selector=graph.roots.find(r=>r.name==='seleccionarIncrementoDerechos')
++      if(!selector)throw new AdmissionPending('Selección de incremento no representada')
++      const increment=ev(selector.value,{id:++serial,locals:new Map()})
++      const attrs=result.value.atribuciones
++      if(attrs.length!==selection.length||attrs.some((a,i)=>a.sujetoId!==selection[i].descendiente.sujetoId||a.orden!==i+1||a.divisor!==selection[i].titulares.length||JSON.stringify(a.titulares)!==JSON.stringify(selection[i].titulares.map(t=>t.titularId))||a.incremento!==increment(selection[i],values[0])||!isDecimal(a.minimo)||!isDecimal(a.discapacidad)))throw Error('Resultado monetario no conserva selección por instancia')
++    }
+     record({...n,op:'boundary-result'},frame,result.value,{name,key,arguments:values.map(snap),contract:contract.id})
+     return result.value
+   }
+diff --git a/scripts/procedencia/flujo-admision-r36-verificador.mjs b/scripts/procedencia/flujo-admision-r36-verificador.mjs
+index a0cfe6e..8339195 100644
+--- a/scripts/procedencia/flujo-admision-r36-verificador.mjs
++++ b/scripts/procedencia/flujo-admision-r36-verificador.mjs
+@@ -1,7 +1,9 @@
+ import { readFileSync } from 'node:fs'
+ import { createRequire } from 'node:module'
++import { createHash } from 'node:crypto'
+ const require=createRequire(process.env.IROBOPF_DEPENDENCIES_PACKAGE??new URL('../../package.json',import.meta.url))
+ const Ajv=require('ajv')
++const ts=require('typescript')
+ const siteIds=[...['base','exceso','empresarial-ordinaria','trabajador-ordinaria','mei-empresarial','mei-trabajador','solidaridad-empresarial','solidaridad-trabajador','empresarial-total','trabajador-total','coste-laboral'].map(s=>'anual.ss.'+s),...['base','cuota','tipo','anual'].map(s=>'anual.retencion.'+s),'anual.pagos.retenciones','anual.pagos.cuenta']
+ const builtins=new Set(["undefined","Infinity","NaN","Number","String","Object","Array","Math","Map","Set","Date","Decimal","Match","Option","Effect","DateTime","Error","LiquidacionIrpfAnual","CompatibilidadSalarioLegacy","Schema","EffectArray","medirAuditoriaSync","registrarTiempoAgregadoAuditoria","tiempoAuditoriaMs","validarDerechosMinimos","validarRentasAnualesDerechos","hayAlimentosPropiosSinMinimo"])
+ let schemaValidator
+@@ -10,6 +12,19 @@ const allowedOps=new Set(['literal','json','builtin','local','global','boundary'
+ export function verifyCompleteAdmission(fragment, validateSchema) {
+  if(!validateSchema){schemaValidator??=new Ajv({allErrors:true,strict:false}).compile(JSON.parse(readFileSync(new URL('../../schemas/procedencia/flujo/admision-r36.schema.json',import.meta.url))));validateSchema=schemaValidator}
+  if(!validateSchema(fragment))throw Error('Schema R36 inválido')
++ const documents=new Map()
++ function exactAnchor(a,sources) {
++  if(!sources.some(s=>s.path===a.path&&s.sha256===a.sha256)||a.path.startsWith('/')||a.path.split('/').includes('..'))throw Error('Ancla no vinculada a fuente')
++  if(!documents.has(a.path)) {
++   const text=readFileSync(new URL('../../'+a.path,import.meta.url),'utf8')
++   const sha256=createHash('sha256').update(text).digest('hex'),spans=new Set()
++   const sf=ts.createSourceFile(a.path,text,ts.ScriptTarget.Latest,true)
++   function visit(n){spans.add(n.getStart(sf)+':'+n.end);ts.forEachChild(n,visit)}visit(sf)
++   documents.set(a.path,{text,sha256,spans})
++  }
++  const doc=documents.get(a.path)
++  if(doc.sha256!==a.sha256||a.start<0||a.end<=a.start||a.end>doc.text.length||!doc.spans.has(a.start+':'+a.end))throw Error('Ancla sin nodo exacto en fuente fijada')
++ }
+  const graph=fragment.graph,ids=new Map(),anchors=new Map(graph.anchors.map(a=>[a.id,a])),definitions=new Set(graph.definitions.map(d=>d.key)),contracts=new Map(fragment.boundaries.map(b=>[b.name,b]))
+  if(anchors.size!==graph.anchors.length||definitions.size!==graph.definitions.length||contracts.size!==fragment.boundaries.length)throw Error('Identidad repetida')
+  function walk(value){
+@@ -21,6 +36,7 @@ export function verifyCompleteAdmission(fragment, validateSchema) {
+    if(ids.has(value.id)||!anchors.has(value.id))throw Error('ID duplicado o sin ancla: '+value.id)
+    ids.set(value.id,value)
+    const a=anchors.get(value.id)
++   exactAnchor(a,graph.sources)
+    if(a.start<0||a.end<=a.start||!graph.sources.some(s=>s.path===a.path&&s.sha256===a.sha256))throw Error('Ancla no vinculada')
+    if(value.op==='global'&&!definitions.has(value.key))throw Error('Referencia global sin definición')
+    if(value.op==='boundary'&&!contracts.has(value.name))throw Error('Frontera sin contrato')
+@@ -62,7 +78,7 @@ export function verifyCompleteAdmission(fragment, validateSchema) {
+  }
+  for(const n of ids.values())if(n.op==='boundary'&&!contracts.get(n.name).instances.some(i=>i.node===n.id))throw Error('Uso de frontera sin instancia')
+  const rightsIds=new Set(),rightsAnchors=new Map(fragment.rights.anchors.map(a=>[a.id,a])),rightsPrograms=new Set(fragment.rights.programs.map(p=>p.id))
+- function checkRights(value){if(!value||Object(value)!==value)return;if(value.op){if(rightsIds.has(value.id)||!rightsAnchors.has(value.id))throw Error('ID de derechos repetido o sin ancla');rightsIds.add(value.id);const a=rightsAnchors.get(value.id);if(a.start<=0||a.end<=a.start)throw Error('Ancla de derechos no concreta');if(value.op==='invoke'&&!rightsPrograms.has(value.name)&&!['Number','String','Math.min','rechazar'].includes(value.name))throw Error('Invocación de derechos sin contrato')}
++ function checkRights(value){if(!value||Object(value)!==value)return;if(value.op){if(rightsIds.has(value.id)||!rightsAnchors.has(value.id))throw Error('ID de derechos repetido o sin ancla');rightsIds.add(value.id);const a=rightsAnchors.get(value.id);exactAnchor(a,fragment.rights.sources);if(value.op==='invoke'&&!rightsPrograms.has(value.name)&&!['Number','String','Math.min','rechazar'].includes(value.name))throw Error('Invocación de derechos sin contrato')}
+   for(const x of Object.values(value))if(Array.isArray(x))x.forEach(checkRights);else if(x&&Object(x)===x)checkRights(x)}
+  fragment.rights.programs.forEach(p=>p.body.forEach(checkRights))
+  function rightsExpression(n,scope){if(n.op==='local'&&!scope.has(n.name)&&!rightsPrograms.has(n.name)&&n.name!=='Decimal')throw Error('Local sin binding en derechos');if(n.op==='lambda'){rightsExpression(n.body,new Set([...scope,...n.params]));return}for(const key of ['target','left','right','condition','value'])if(n[key]?.op)rightsExpression(n[key],scope);if(n.op==='choose'){rightsExpression(n.yes,scope);rightsExpression(n.no,scope)}for(const key of ['args','items'])if(n[key])n[key].forEach(x=>rightsExpression(x,scope));if(n.fields)n.fields.forEach(f=>rightsExpression(f.value,scope))}
+@@ -71,7 +87,7 @@ export function verifyCompleteAdmission(fragment, validateSchema) {
+  if(rightsIds.size!==rightsAnchors.size)throw Error('Ancla de derechos sobrante')
+  for(const c of fragment.conversions){if(!definitions.has(c.program))throw Error('Conversión sin programa');const expected=c.program.endsWith('#centimosAEuros')?{input:{index:0,kind:'finite-number',unit:'centimos'},output:{kind:'Decimal',unit:'EUR'}}:{input:{index:0,kind:'Decimal',unit:'EUR'},output:{kind:'number',unit:'centimos'}};if(JSON.stringify(c.input)!==JSON.stringify(expected.input)||JSON.stringify(c.output)!==JSON.stringify(expected.output))throw Error('Unidad de conversión incompatible')}
+  const serviceIds=new Set(fragment.services.map(s=>s.id)),bindingIds=new Set()
+- const checkAnchor=a=>{if(a.start<=0||a.end<=a.start||!graph.sources.some(s=>s.path===a.path&&s.sha256===a.sha256))throw Error('Ancla de servicio inválida')}
++ const checkAnchor=a=>exactAnchor(a,graph.sources)
+  const expectedPrograms={
+   'svc-tramos':'lib/dominio/normativa/datos/irpf-autonomico-2025.ts#TRAMOS_IRPF_ESTATAL_GENERAL_2025',
+   'svc-parametros-puros':'lib/dominio/irpf/comunidades/comunidad-autonoma.ts#obtenerParametrosComunidadAutonoma',
+diff --git a/scripts/procedencia/flujo-admision-r36.mjs b/scripts/procedencia/flujo-admision-r36.mjs
+index 21b76f0..5460f82 100644
+--- a/scripts/procedencia/flujo-admision-r36.mjs
++++ b/scripts/procedencia/flujo-admision-r36.mjs
+@@ -1,4 +1,4 @@
+-import { compileAdmissionGraph, narrowRightsAnchors, buildServiceBindings, compileAnnualResultSchema } from './flujo-admision-r36-compilador.mjs'
++import { compileAdmissionGraph, narrowRightsAnchors, buildServiceBindings, compileAnnualResultSchema, compilePublishedScaleSchema } from './flujo-admision-r36-compilador.mjs'
+ import { executeAdmissionGraph } from './flujo-admision-r36-runtime.mjs'
+ import { buildEvaluableAdmission } from './flujo-admision-r35.mjs'
+ import { siteIds } from './flujo-admision-r32.mjs'
+@@ -47,9 +47,13 @@ export function buildCompleteAdmission() {
+  {path:'lib/dominio/normativa/datos/minimos-autonomicos-2025.ts',name:'MINIMOS_ESTATALES_2025'},
+  {path:'lib/dominio/normativa/datos/deducciones-autonomicas-2025/index.ts',name:'obtenerDeduccionAutonomicaCatalogada'},
+  {path:adapter,name:'casoFiscalLegacy'}
++ ,{path:'lib/dominio/irpf/minimos/derechos.ts',name:'seleccionarIncrementoDerechos'}
+  ]
+  for(const b of boundaries)if(b.name==='calcularDerechosMinimos')b.outputs.push({path:['atribuciones'],kind:'array',unit:'structural'})
+  const graph=compileAdmissionGraph(entries,boundaries.map(b=>b.name))
++ const scaleContract=compilePublishedScaleSchema()
++ boundaries.find(b=>b.name==='obtenerEscalaAutonomicaPublicada').resultSchema=scaleContract.schema
++ if(!graph.sources.some(s=>s.path===scaleContract.source.path))graph.sources.push(scaleContract.source)
+  function findBoundaries(node){if(!node||Object(node)!==node)return [];if(node.op==='boundary')return [node];return Object.values(node).flatMap(x=>Array.isArray(x)?x.flatMap(findBoundaries):findBoundaries(x))}
+  function instances(node){if(!node||Object(node)!==node)return;if(node.op==='call')for(const ref of findBoundaries(node.callee)){const b=boundaries.find(b=>b.name===ref.name);b.instances.push({node:ref.id,call:node.id,operands:node.args.map(a=>a.id),transport:structuredClone(node.args),outputs:b.outputs.map(o=>({id:ref.id+'/'+o.path.join('.'),...o}))})}for(const x of Object.values(node))if(Array.isArray(x))x.forEach(instances);else if(Object(x)===x&&x!==null)instances(x)}
+  graph.definitions.forEach(d=>instances(d.value))

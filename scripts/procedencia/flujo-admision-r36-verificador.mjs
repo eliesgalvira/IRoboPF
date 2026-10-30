@@ -1,7 +1,9 @@
 import { readFileSync } from 'node:fs'
 import { createRequire } from 'node:module'
+import { createHash } from 'node:crypto'
 const require=createRequire(process.env.IROBOPF_DEPENDENCIES_PACKAGE??new URL('../../package.json',import.meta.url))
 const Ajv=require('ajv')
+const ts=require('typescript')
 const siteIds=[...['base','exceso','empresarial-ordinaria','trabajador-ordinaria','mei-empresarial','mei-trabajador','solidaridad-empresarial','solidaridad-trabajador','empresarial-total','trabajador-total','coste-laboral'].map(s=>'anual.ss.'+s),...['base','cuota','tipo','anual'].map(s=>'anual.retencion.'+s),'anual.pagos.retenciones','anual.pagos.cuenta']
 const builtins=new Set(["undefined","Infinity","NaN","Number","String","Object","Array","Math","Map","Set","Date","Decimal","Match","Option","Effect","DateTime","Error","LiquidacionIrpfAnual","CompatibilidadSalarioLegacy","Schema","EffectArray","medirAuditoriaSync","registrarTiempoAgregadoAuditoria","tiempoAuditoriaMs","validarDerechosMinimos","validarRentasAnualesDerechos","hayAlimentosPropiosSinMinimo"])
 let schemaValidator
@@ -10,6 +12,19 @@ const allowedOps=new Set(['literal','json','builtin','local','global','boundary'
 export function verifyCompleteAdmission(fragment, validateSchema) {
  if(!validateSchema){schemaValidator??=new Ajv({allErrors:true,strict:false}).compile(JSON.parse(readFileSync(new URL('../../schemas/procedencia/flujo/admision-r36.schema.json',import.meta.url))));validateSchema=schemaValidator}
  if(!validateSchema(fragment))throw Error('Schema R36 inválido')
+ const documents=new Map()
+ function exactAnchor(a,sources) {
+  if(!sources.some(s=>s.path===a.path&&s.sha256===a.sha256)||a.path.startsWith('/')||a.path.split('/').includes('..'))throw Error('Ancla no vinculada a fuente')
+  if(!documents.has(a.path)) {
+   const text=readFileSync(new URL('../../'+a.path,import.meta.url),'utf8')
+   const sha256=createHash('sha256').update(text).digest('hex'),spans=new Set()
+   const sf=ts.createSourceFile(a.path,text,ts.ScriptTarget.Latest,true)
+   function visit(n){spans.add(n.getStart(sf)+':'+n.end);ts.forEachChild(n,visit)}visit(sf)
+   documents.set(a.path,{text,sha256,spans})
+  }
+  const doc=documents.get(a.path)
+  if(doc.sha256!==a.sha256||a.start<0||a.end<=a.start||a.end>doc.text.length||!doc.spans.has(a.start+':'+a.end))throw Error('Ancla sin nodo exacto en fuente fijada')
+ }
  const graph=fragment.graph,ids=new Map(),anchors=new Map(graph.anchors.map(a=>[a.id,a])),definitions=new Set(graph.definitions.map(d=>d.key)),contracts=new Map(fragment.boundaries.map(b=>[b.name,b]))
  if(anchors.size!==graph.anchors.length||definitions.size!==graph.definitions.length||contracts.size!==fragment.boundaries.length)throw Error('Identidad repetida')
  function walk(value){
@@ -21,6 +36,7 @@ export function verifyCompleteAdmission(fragment, validateSchema) {
    if(ids.has(value.id)||!anchors.has(value.id))throw Error('ID duplicado o sin ancla: '+value.id)
    ids.set(value.id,value)
    const a=anchors.get(value.id)
+   exactAnchor(a,graph.sources)
    if(a.start<0||a.end<=a.start||!graph.sources.some(s=>s.path===a.path&&s.sha256===a.sha256))throw Error('Ancla no vinculada')
    if(value.op==='global'&&!definitions.has(value.key))throw Error('Referencia global sin definición')
    if(value.op==='boundary'&&!contracts.has(value.name))throw Error('Frontera sin contrato')
@@ -62,7 +78,7 @@ export function verifyCompleteAdmission(fragment, validateSchema) {
  }
  for(const n of ids.values())if(n.op==='boundary'&&!contracts.get(n.name).instances.some(i=>i.node===n.id))throw Error('Uso de frontera sin instancia')
  const rightsIds=new Set(),rightsAnchors=new Map(fragment.rights.anchors.map(a=>[a.id,a])),rightsPrograms=new Set(fragment.rights.programs.map(p=>p.id))
- function checkRights(value){if(!value||Object(value)!==value)return;if(value.op){if(rightsIds.has(value.id)||!rightsAnchors.has(value.id))throw Error('ID de derechos repetido o sin ancla');rightsIds.add(value.id);const a=rightsAnchors.get(value.id);if(a.start<=0||a.end<=a.start)throw Error('Ancla de derechos no concreta');if(value.op==='invoke'&&!rightsPrograms.has(value.name)&&!['Number','String','Math.min','rechazar'].includes(value.name))throw Error('Invocación de derechos sin contrato')}
+ function checkRights(value){if(!value||Object(value)!==value)return;if(value.op){if(rightsIds.has(value.id)||!rightsAnchors.has(value.id))throw Error('ID de derechos repetido o sin ancla');rightsIds.add(value.id);const a=rightsAnchors.get(value.id);exactAnchor(a,fragment.rights.sources);if(value.op==='invoke'&&!rightsPrograms.has(value.name)&&!['Number','String','Math.min','rechazar'].includes(value.name))throw Error('Invocación de derechos sin contrato')}
   for(const x of Object.values(value))if(Array.isArray(x))x.forEach(checkRights);else if(x&&Object(x)===x)checkRights(x)}
  fragment.rights.programs.forEach(p=>p.body.forEach(checkRights))
  function rightsExpression(n,scope){if(n.op==='local'&&!scope.has(n.name)&&!rightsPrograms.has(n.name)&&n.name!=='Decimal')throw Error('Local sin binding en derechos');if(n.op==='lambda'){rightsExpression(n.body,new Set([...scope,...n.params]));return}for(const key of ['target','left','right','condition','value'])if(n[key]?.op)rightsExpression(n[key],scope);if(n.op==='choose'){rightsExpression(n.yes,scope);rightsExpression(n.no,scope)}for(const key of ['args','items'])if(n[key])n[key].forEach(x=>rightsExpression(x,scope));if(n.fields)n.fields.forEach(f=>rightsExpression(f.value,scope))}
@@ -71,7 +87,7 @@ export function verifyCompleteAdmission(fragment, validateSchema) {
  if(rightsIds.size!==rightsAnchors.size)throw Error('Ancla de derechos sobrante')
  for(const c of fragment.conversions){if(!definitions.has(c.program))throw Error('Conversión sin programa');const expected=c.program.endsWith('#centimosAEuros')?{input:{index:0,kind:'finite-number',unit:'centimos'},output:{kind:'Decimal',unit:'EUR'}}:{input:{index:0,kind:'Decimal',unit:'EUR'},output:{kind:'number',unit:'centimos'}};if(JSON.stringify(c.input)!==JSON.stringify(expected.input)||JSON.stringify(c.output)!==JSON.stringify(expected.output))throw Error('Unidad de conversión incompatible')}
  const serviceIds=new Set(fragment.services.map(s=>s.id)),bindingIds=new Set()
- const checkAnchor=a=>{if(a.start<=0||a.end<=a.start||!graph.sources.some(s=>s.path===a.path&&s.sha256===a.sha256))throw Error('Ancla de servicio inválida')}
+ const checkAnchor=a=>exactAnchor(a,graph.sources)
  const expectedPrograms={
   'svc-tramos':'lib/dominio/normativa/datos/irpf-autonomico-2025.ts#TRAMOS_IRPF_ESTATAL_GENERAL_2025',
   'svc-parametros-puros':'lib/dominio/irpf/comunidades/comunidad-autonoma.ts#obtenerParametrosComunidadAutonoma',

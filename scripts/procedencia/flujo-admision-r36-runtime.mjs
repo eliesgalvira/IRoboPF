@@ -10,15 +10,32 @@ const DecimalEsm=(await import(pathToFileURL(require.resolve('decimal.js').repla
 const isDecimal=value=>value instanceof Decimal||value instanceof DecimalEsm
 export class AdmissionPending extends Error {}
 export class AdmissionReject extends Error { constructor(value) { super(value?.motivo ?? String(value)); this.value=value } }
-/** Representación de valores de un recibo: conserva ausencia y tipos monetarios. */
+/** Codec v2: etiquetas fuera del espacio de objetos, propiedades propias y alias. */
 export function encodeAdmissionValue(value) {
-  if(value===undefined)return {kind:'undefined'}
-  if(isDecimal(value))return {kind:'Decimal',value:value.toString()}
-  if(value instanceof Date)return {kind:'Date',value:Number.isNaN(value.getTime())?'NaN':value.getTime()}
-  if(value instanceof Function)return {kind:'function',origin:value.r36Origin??null}
-  if(Array.isArray(value))return value.map(encodeAdmissionValue)
-  if(value!==null&&Object(value)===value)return Object.fromEntries(Object.entries(value).map(([k,v])=>[k,encodeAdmissionValue(v)]))
-  return Number.isNaN(value)||value===Infinity||value===-Infinity?{kind:'number',value:String(value)}:value
+  const references=new Map()
+  function encode(input) {
+    if(input===undefined)return ['undefined']
+    if(input===null)return ['null']
+    if(Object(input)!==input) {
+      if(['[object Symbol]','[object BigInt]'].includes(Object.prototype.toString.call(input)))throw new AdmissionPending('Primitiva sin codec')
+      return [Object.prototype.toString.call(input),Object.is(input,-0)?'-0':String(input)]
+    }
+    if(types.isProxy(input))throw new AdmissionPending('Proxy sin codec')
+    if(references.has(input))return ['reference',references.get(input)]
+    const id=references.size;references.set(input,id)
+    const descriptors=Object.getOwnPropertyDescriptors(input)
+    if(Object.getOwnPropertySymbols(input).length||Object.values(descriptors).some(d=>d.get||d.set))throw new AdmissionPending('Propiedad sin codec de datos')
+    const properties=(excluded=[])=>Object.entries(descriptors).filter(([key])=>!excluded.includes(key)).map(([key,d])=>[key,d.enumerable,d.configurable,d.writable,encode(d.value)])
+    if(isDecimal(input))return ['Decimal',id,input.toString(),input.isNegative(),properties([Decimal,DecimalEsm].includes(descriptors.constructor?.value)?['constructor']:[])]
+    if(input instanceof Date)return ['Date',id,String(input.getTime()),properties()]
+    if(input instanceof Function) {
+      if(!input.r36Origin)throw new AdmissionPending('Función sin origen de programa')
+      return ['function',id,input.r36Origin]
+    }
+    if(Array.isArray(input))return ['array',id,properties()]
+    return ['object',id,Object.getPrototypeOf(input)===null?'null':'Object',properties()]
+  }
+  return {codec:'admission-value-v2',value:encode(value)}
 }
 class Returned {constructor(value){this.value=value}}
 class Continued {}
@@ -34,6 +51,7 @@ export function checkRuntimeDomain(value, stack = new Set()) {
   for(const key of [...Object.keys(descriptors),...Object.getOwnPropertySymbols(descriptors)])if(descriptors[key].get||descriptors[key].set)throw new AdmissionPending('Accessor fuera del dominio')
   const native=isDecimal(value) ? (value instanceof Decimal?Decimal.prototype:DecimalEsm.prototype) : value instanceof Date ? Date.prototype : null
   if(native&&Object.getPrototypeOf(value)!==native)throw new AdmissionPending('Subclase fuera del dominio')
+  if(Array.isArray(value)&&Object.getPrototypeOf(value)!==Array.prototype)throw new AdmissionPending('Subclase Array fuera del dominio')
   if(!native&&!Array.isArray(value)&&![Object.prototype,null].includes(Object.getPrototypeOf(value))) throw new AdmissionPending('Prototipo fuera del dominio')
   stack.add(value)
   for(const [key,d] of Object.entries(Object.getOwnPropertyDescriptors(value))) {
@@ -144,6 +162,11 @@ export function executeAdmissionGraph(fragment, entry, args, evidence = {}) {
     if(result.outcome==='defect') throw Error(result.reason??name)
     checkRuntimeDomain(result.value)
     if(contract.resultKind==='array'&&!Array.isArray(result.value))throw Error('Salida array ausente '+name)
+    if(contract.resultKind==='optional-object'&&result.value!==undefined) {
+      if(!contract.resultSchema)throw new AdmissionPending('Variante opcional sin contrato de propiedades '+name)
+      if(!outputValidators.has(contract)){const ajv=new Ajv({allErrors:true});ajv.addKeyword('r36Decimal',{validate:(_schema,value)=>isDecimal(value),errors:false});outputValidators.set(contract,ajv.compile(contract.resultSchema))}
+      if(!outputValidators.get(contract)(result.value))throw Error('Salida opcional no satisface sus propiedades '+name)
+    }
     if(contract.resultKind==='object'&&(result.value===null||Object(result.value)!==result.value))throw Error('Salida object ausente '+name)
     if(contract.resultKind==='Decimal'&&!isDecimal(result.value))throw Error('Salida Decimal ausente '+name)
     if(contract.resultKind==='option'&&!['None','Some'].includes(result.value?._tag))throw Error('Salida Option ausente '+name)
@@ -158,7 +181,13 @@ export function executeAdmissionGraph(fragment, entry, args, evidence = {}) {
       if(field.kind==='retention-tag'&&value!=='RetencionTrabajoCalculada')throw Error('Tag inválido '+name)
       if(field.kind==='number'&&!Number.isFinite(value))throw Error('Salida numérica inválida '+name+'.'+field.path.join('.'))
     }
-    if(selection){const attrs=result.value.atribuciones;if(attrs.length!==selection.length||attrs.some((a,i)=>a.sujetoId!==selection[i].descendiente.sujetoId||a.orden!==i+1||a.divisor!==selection[i].titulares.length||JSON.stringify(a.titulares)!==JSON.stringify(selection[i].titulares.map(t=>t.titularId))||![true,false].includes(a.incremento)||!isDecimal(a.minimo)||!isDecimal(a.discapacidad)))throw Error('Resultado monetario no conserva selección por instancia')}
+    if(selection){
+      const selector=graph.roots.find(r=>r.name==='seleccionarIncrementoDerechos')
+      if(!selector)throw new AdmissionPending('Selección de incremento no representada')
+      const increment=ev(selector.value,{id:++serial,locals:new Map()})
+      const attrs=result.value.atribuciones
+      if(attrs.length!==selection.length||attrs.some((a,i)=>a.sujetoId!==selection[i].descendiente.sujetoId||a.orden!==i+1||a.divisor!==selection[i].titulares.length||JSON.stringify(a.titulares)!==JSON.stringify(selection[i].titulares.map(t=>t.titularId))||a.incremento!==increment(selection[i],values[0])||!isDecimal(a.minimo)||!isDecimal(a.discapacidad)))throw Error('Resultado monetario no conserva selección por instancia')
+    }
     record({...n,op:'boundary-result'},frame,result.value,{name,key,arguments:values.map(snap),contract:contract.id})
     return result.value
   }
