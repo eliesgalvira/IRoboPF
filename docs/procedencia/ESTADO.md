@@ -8,7 +8,7 @@ Recibida la contrarrevisión de fronteras R42: 83 archivos, 3.942.193 bytes, tra
 
 El padre corrobora R40-01 y R40-02 con condiciones explícitas y conserva R40-03/admisión abiertos. Repite 41 pruebas correctas; el revisor entrega 58 distintas, sin sumar coberturas solapadas. Tipos estrictos globales detectan una anotación ausente en su arnés: adaptación mínima documentada por original/diff/hashes, AST JavaScript idéntico y 41 pruebas finales correctas. Pasan tipos principal/vendor y lint global. No cambia código de cálculo.
 
-Se prepara una única implementación nueva de composición por propiedad de los 65 sitios y 19 instancias, con Sol 6.1 high priority explícito. La admisión continúa aparte; publicación, confianza y aceptación fiscal no se habilitan por componer valor/selección. No se repite otra revisión favorable de los mismos bytes.
+Bloque respaldado en origin, commit `05cf0e159cc0a0eb3b87d554447a2d14939115c2`: 113 archivos, hashes comprobados y cero borrados. Lanzada una única implementación nueva de composición por propiedad de los 65 sitios y 19 instancias, sobre ese commit y sus 21.126 entradas, con gpt-6.1-sol, high y priority explícitos y confirmados por el lanzador. Encargo y respuesta completos en delegaciones-ronda43.json. Su finalización reactivará el hilo; no se sondea su ejecución. La admisión continúa aparte; publicación, confianza y aceptación fiscal no se habilitan por componer valor/selección. No se repite otra revisión favorable de los mismos bytes.
 
 Motor, inventario, confianza y 45 snapshots intactos. V5 mantiene corte R26; Crossa v1 desfasado. Sin main, PR, despliegue, LFS, gasto, transferencias o limpieza. El encargo global continúa abierto.
 
