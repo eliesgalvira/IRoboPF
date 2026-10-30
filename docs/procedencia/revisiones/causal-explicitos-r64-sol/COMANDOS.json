@@ -1,0 +1,332 @@
+[
+  {
+    "command": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "nix",
+      "shell",
+      "nixpkgs#nodejs",
+      "-c",
+      "node",
+      "/home/elies/Repos/IRoboPF/node_modules/vitest/vitest.mjs",
+      "run",
+      "--configLoader",
+      "native",
+      "--config",
+      ".cache/causal-explicitos-r64-sol/vitest.mjs",
+      "--reporter=json",
+      "--outputFile=.cache/causal-explicitos-r64-sol/recibidos-suite.json"
+    ],
+    "artifact": ".cache/causal-explicitos-r64-sol/recibidos-suite.json",
+    "exit": 0,
+    "passed": 2,
+    "failed": 0,
+    "omitted": 0
+  },
+  {
+    "command": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "nix",
+      "shell",
+      "nixpkgs#nodejs",
+      "-c",
+      "node",
+      "/home/elies/Repos/IRoboPF/node_modules/vitest/vitest.mjs",
+      "run",
+      ".cache/causal-explicitos-r64-sol/propios.test.ts",
+      "--configLoader",
+      "native",
+      "--config",
+      ".cache/causal-explicitos-r64-sol/vitest.mjs",
+      "--reporter=json",
+      "--outputFile=.cache/causal-explicitos-r64-sol/propios-suite.json"
+    ],
+    "artifact": ".cache/causal-explicitos-r64-sol/propios-suite.json",
+    "exit": 1,
+    "passed": 0,
+    "failed": 1,
+    "omitted": 0
+  },
+  {
+    "command": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "nix",
+      "shell",
+      "nixpkgs#nodejs",
+      "-c",
+      "node",
+      "/home/elies/Repos/IRoboPF/node_modules/vitest/vitest.mjs",
+      "run",
+      ".cache/causal-explicitos-r64-sol/propios.test.ts",
+      "--configLoader",
+      "native",
+      "--config",
+      ".cache/causal-explicitos-r64-sol/vitest.mjs",
+      "--reporter=json",
+      "--outputFile=.cache/causal-explicitos-r64-sol/propios-final-suite.json"
+    ],
+    "artifact": ".cache/causal-explicitos-r64-sol/propios-final-suite.json",
+    "exit": 1,
+    "passed": 0,
+    "failed": 1,
+    "omitted": 0
+  },
+  {
+    "command": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "nix",
+      "shell",
+      "nixpkgs#nodejs",
+      "-c",
+      "node",
+      "/home/elies/Repos/IRoboPF/node_modules/vitest/vitest.mjs",
+      "run",
+      ".cache/causal-explicitos-r64-sol/propios.test.ts",
+      "--configLoader",
+      "native",
+      "--config",
+      ".cache/causal-explicitos-r64-sol/vitest.mjs",
+      "--reporter=json",
+      "--outputFile=.cache/causal-explicitos-r64-sol/propios-terminal-suite.json"
+    ],
+    "artifact": ".cache/causal-explicitos-r64-sol/propios-terminal-suite.json",
+    "exit": 0,
+    "passed": 1,
+    "failed": 0,
+    "omitted": 0
+  },
+  {
+    "command": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "nix",
+      "shell",
+      "nixpkgs#nodejs",
+      "-c",
+      "node",
+      "/home/elies/Repos/IRoboPF/node_modules/vitest/vitest.mjs",
+      "run",
+      ".cache/causal-explicitos-r64-sol/push-rojo.test.ts",
+      "--configLoader",
+      "native",
+      "--config",
+      ".cache/causal-explicitos-r64-sol/vitest.mjs",
+      "--reporter=json",
+      "--outputFile=.cache/causal-explicitos-r64-sol/push-rojo-suite.json"
+    ],
+    "artifact": ".cache/causal-explicitos-r64-sol/push-rojo-suite.json",
+    "exit": 1,
+    "passed": 0,
+    "failed": 1,
+    "omitted": 0
+  },
+  {
+    "command": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "nix",
+      "shell",
+      "nixpkgs#nodejs",
+      "-c",
+      "node",
+      "/home/elies/Repos/IRoboPF/node_modules/vitest/vitest.mjs",
+      "run",
+      ".cache/causal-explicitos-r64-sol/push-rojo.test.ts",
+      "--configLoader",
+      "native",
+      "--config",
+      ".cache/causal-explicitos-r64-sol/vitest.mjs",
+      "--reporter=json",
+      "--outputFile=.cache/causal-explicitos-r64-sol/push-rojo-final-suite.json"
+    ],
+    "artifact": ".cache/causal-explicitos-r64-sol/push-rojo-final-suite.json",
+    "exit": 1,
+    "passed": 0,
+    "failed": 1,
+    "omitted": 0
+  },
+  {
+    "command": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "nix",
+      "shell",
+      "nixpkgs#nodejs",
+      "-c",
+      "node",
+      "/home/elies/Repos/IRoboPF/node_modules/vitest/vitest.mjs",
+      "run",
+      ".cache/causal-explicitos-r64-sol/push-rojo.test.ts",
+      "--configLoader",
+      "native",
+      "--config",
+      ".cache/causal-explicitos-r64-sol/vitest.mjs",
+      "--reporter=json",
+      "--outputFile=.cache/causal-explicitos-r64-sol/push-rojo-terminal-suite.json"
+    ],
+    "artifact": ".cache/causal-explicitos-r64-sol/push-rojo-terminal-suite.json",
+    "exit": 1,
+    "passed": 0,
+    "failed": 1,
+    "omitted": 0
+  },
+  {
+    "command": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "nix",
+      "shell",
+      "nixpkgs#nodejs",
+      "-c",
+      "env",
+      "NODE_PATH=/home/elies/Repos/IRoboPF/node_modules",
+      "node",
+      "/home/elies/Repos/IRoboPF/node_modules/vitest/vitest.mjs",
+      "run",
+      ".cache/causal-explicitos-r64-sol/schemas.test.ts",
+      "--configLoader",
+      "native",
+      "--config",
+      ".cache/causal-explicitos-r64-sol/vitest.mjs",
+      "--reporter=json",
+      "--outputFile=.cache/causal-explicitos-r64-sol/schemas-suite.json"
+    ],
+    "artifact": ".cache/causal-explicitos-r64-sol/schemas-suite.json",
+    "exit": 0,
+    "passed": 1,
+    "failed": 0,
+    "omitted": 0
+  },
+  {
+    "command": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "nix",
+      "shell",
+      "nixpkgs#nodejs",
+      "-c",
+      "node",
+      "/home/elies/Repos/IRoboPF/node_modules/vitest/vitest.mjs",
+      "run",
+      "tests/causal-comun-r57.test.ts",
+      "-t",
+      "núcleo compartido.*2025/canonico|núcleo directo de retenciones",
+      "--configLoader",
+      "native",
+      "--config",
+      ".cache/causal-explicitos-r64-sol/vitest.mjs",
+      "--reporter=json",
+      "--outputFile=.cache/causal-explicitos-r64-sol/regresiones-suite.json"
+    ],
+    "artifact": ".cache/causal-explicitos-r64-sol/regresiones-suite.json",
+    "exit": 0,
+    "passed": 2,
+    "failed": 0,
+    "omitted": 11
+  },
+  {
+    "command": [
+      "/home/elies/Repos/IRoboPF/node_modules/.bin/oxlint",
+      "--threads=1",
+      "--disable-nested-config",
+      "--no-ignore",
+      ".cache/causal-explicitos-r64-sol/schemas.test.ts",
+      ".cache/causal-explicitos-r64-sol/recibidos.test.ts",
+      ".cache/causal-explicitos-r64-sol/push-rojo.test.ts",
+      ".cache/causal-explicitos-r64-sol/propios.test.ts"
+    ],
+    "exit": 1
+  },
+  {
+    "command": [
+      "/home/elies/Repos/IRoboPF/node_modules/.bin/eslint",
+      "--no-ignore",
+      ".cache/causal-explicitos-r64-sol/schemas.test.ts",
+      ".cache/causal-explicitos-r64-sol/recibidos.test.ts",
+      ".cache/causal-explicitos-r64-sol/push-rojo.test.ts",
+      ".cache/causal-explicitos-r64-sol/propios.test.ts"
+    ],
+    "exit": 2
+  },
+  {
+    "command": [
+      "/home/elies/Repos/IRoboPF/node_modules/.bin/oxlint",
+      "--config",
+      ".cache/causal-explicitos-r64-sol/oxlint.json",
+      "--threads=1",
+      "--disable-nested-config",
+      "--no-ignore",
+      ".cache/causal-explicitos-r64-sol/schemas.test.ts",
+      ".cache/causal-explicitos-r64-sol/recibidos.test.ts",
+      ".cache/causal-explicitos-r64-sol/push-rojo.test.ts",
+      ".cache/causal-explicitos-r64-sol/propios.test.ts"
+    ],
+    "exit": 127
+  },
+  {
+    "command": [
+      "/home/elies/Repos/IRoboPF/node_modules/.bin/eslint",
+      "--config",
+      ".cache/causal-explicitos-r64-sol/eslint.mjs",
+      "--no-ignore",
+      ".cache/causal-explicitos-r64-sol/schemas.test.ts",
+      ".cache/causal-explicitos-r64-sol/recibidos.test.ts",
+      ".cache/causal-explicitos-r64-sol/push-rojo.test.ts",
+      ".cache/causal-explicitos-r64-sol/propios.test.ts"
+    ],
+    "exit": 127
+  },
+  {
+    "command": [
+      "/home/elies/Repos/IRoboPF/node_modules/.bin/oxlint",
+      "--config",
+      ".cache/causal-explicitos-r64-sol/oxlint.json",
+      "--threads=1",
+      "--disable-nested-config",
+      "--no-ignore",
+      ".cache/causal-explicitos-r64-sol/schemas.test.ts",
+      ".cache/causal-explicitos-r64-sol/recibidos.test.ts",
+      ".cache/causal-explicitos-r64-sol/push-rojo.test.ts",
+      ".cache/causal-explicitos-r64-sol/propios.test.ts"
+    ],
+    "exit": 1
+  },
+  {
+    "command": [
+      "/home/elies/Repos/IRoboPF/node_modules/.bin/eslint",
+      "--config",
+      ".cache/causal-explicitos-r64-sol/eslint.mjs",
+      "--no-ignore",
+      ".cache/causal-explicitos-r64-sol/schemas.test.ts",
+      ".cache/causal-explicitos-r64-sol/recibidos.test.ts",
+      ".cache/causal-explicitos-r64-sol/push-rojo.test.ts",
+      ".cache/causal-explicitos-r64-sol/propios.test.ts"
+    ],
+    "exit": 0
+  },
+  {
+    "command": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "nix",
+      "shell",
+      "nixpkgs#nodejs",
+      "-c",
+      "/home/elies/Repos/IRoboPF/node_modules/.bin/oxlint",
+      "--config",
+      ".cache/causal-explicitos-r64-sol/oxlint.json",
+      "--threads=1",
+      "--disable-nested-config",
+      "--no-ignore",
+      ".cache/causal-explicitos-r64-sol/schemas.test.ts",
+      ".cache/causal-explicitos-r64-sol/recibidos.test.ts",
+      ".cache/causal-explicitos-r64-sol/push-rojo.test.ts",
+      ".cache/causal-explicitos-r64-sol/propios.test.ts"
+    ],
+    "exit": 0,
+    "scope": "terminal tras renombrar variable local anti-slop"
+  }
+]

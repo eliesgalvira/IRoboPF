@@ -1,0 +1,49 @@
+[
+  {
+    "name": "types",
+    "command": [
+      "bun",
+      "run",
+      "typecheck"
+    ],
+    "exitCode": 2
+  },
+  {
+    "name": "push-regresiones",
+    "command": [
+      "node",
+      "node_modules/vitest/vitest.mjs",
+      "run",
+      "tests/causal-explicitos-push-r65.test.ts",
+      "tests/causal-comun-r57.test.ts",
+      "tests/causal-escalas-r60.test.ts",
+      "--configLoader",
+      "native",
+      "--config",
+      "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r65/vitest.mjs",
+      "-t",
+      "R64-PUSH-01|n\u00facleo compartido.*2025/canonico|n\u00facleo directo de retenciones|racional de base",
+      "--reporter=json",
+      "--outputFile=/home/elies/Repos/IRoboPF/docs/procedencia/correcciones/push-explicitos-r65/push-regresiones.json"
+    ],
+    "exitCode": 0
+  },
+  {
+    "name": "oxlint",
+    "command": [
+      "node_modules/.bin/oxlint",
+      "--threads=1",
+      "--disable-nested-config"
+    ],
+    "exitCode": 1
+  },
+  {
+    "name": "eslint",
+    "command": [
+      "bun",
+      "run",
+      "lint:eslint"
+    ],
+    "exitCode": 0
+  }
+]

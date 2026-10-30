@@ -1,0 +1,8 @@
+import json,subprocess
+from pathlib import Path
+R=Path('/home/elies/Repos/IRoboPF');C=R/'.cache/orquestador-recepcion/r65';O=R/'docs/procedencia/correcciones/push-explicitos-r65'
+commands=[('types-final',['bun','run','typecheck']),('push-final',['node','node_modules/vitest/vitest.mjs','run','tests/causal-explicitos-push-r65.test.ts','--configLoader','native','--config',str(C/'vitest.mjs'),'-t','R64-PUSH-01','--reporter=json','--outputFile='+str(O/'push-final.json')]),('oxlint-final',['node_modules/.bin/oxlint','--threads=1','--disable-nested-config']),('eslint-final',['bun','run','lint:eslint'])]
+results=[]
+for name,cmd in commands:
+ with (O/(name+'.log')).open('wb') as log:p=subprocess.run(['flock','/tmp/irobopf-validacion-pesada.lock',*cmd],cwd=R,stdout=log,stderr=subprocess.STDOUT)
+ results.append(dict(name=name,command=cmd,exitCode=p.returncode));(O/'validacion-final.json').write_text(json.dumps(results,indent=2)+'\n');print(json.dumps(results[-1]),flush=True)

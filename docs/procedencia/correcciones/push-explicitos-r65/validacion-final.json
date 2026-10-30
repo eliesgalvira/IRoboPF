@@ -1,0 +1,47 @@
+[
+  {
+    "name": "types-final",
+    "command": [
+      "bun",
+      "run",
+      "typecheck"
+    ],
+    "exitCode": 0
+  },
+  {
+    "name": "push-final",
+    "command": [
+      "node",
+      "node_modules/vitest/vitest.mjs",
+      "run",
+      "tests/causal-explicitos-push-r65.test.ts",
+      "--configLoader",
+      "native",
+      "--config",
+      "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r65/vitest.mjs",
+      "-t",
+      "R64-PUSH-01",
+      "--reporter=json",
+      "--outputFile=/home/elies/Repos/IRoboPF/docs/procedencia/correcciones/push-explicitos-r65/push-final.json"
+    ],
+    "exitCode": 0
+  },
+  {
+    "name": "oxlint-final",
+    "command": [
+      "node_modules/.bin/oxlint",
+      "--threads=1",
+      "--disable-nested-config"
+    ],
+    "exitCode": 0
+  },
+  {
+    "name": "eslint-final",
+    "command": [
+      "bun",
+      "run",
+      "lint:eslint"
+    ],
+    "exitCode": 0
+  }
+]

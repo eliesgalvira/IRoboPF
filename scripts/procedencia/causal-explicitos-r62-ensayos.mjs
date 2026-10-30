@@ -22,6 +22,7 @@ function save(id,c,out){
  return {id,file:folder+'/testigos/'+hash+'.json.gz',outputs:out.evidence.outputs.map(o=>({siteId:o.siteId,decimal:o.decimal}))};
 }
 export function runExplicitos(){
+ fs.mkdirSync(folder,{recursive:true});
  const g=composeCausalExplicitos(),records=[];
  fs.writeFileSync(folder+'/contrato.json.gz',gzipSync(JSON.stringify(g)));
  const originals=[];
@@ -92,6 +93,7 @@ export function runExplicitos(){
  return {cases:records.length,sites:9,blocked:1};
 }
 export function runBloqueo(){
+ fs.mkdirSync(folder,{recursive:true});
  const c=actividad();c.actividad.aplicarRentasBajas=false;
  c.actividad.ingresos=[{id:'factura',justificante:'f',fecha:'2025-06-01',base:'30000',iva:'0',ivaRecuperable:'0',afectacionExclusiva:true,registrado:true,categoria:'servicio',clienteId:'cliente',sujetoRetencion:true,rectificativa:false}];
  // La API real valida el fixture: no se fabrica retorno del adaptador.

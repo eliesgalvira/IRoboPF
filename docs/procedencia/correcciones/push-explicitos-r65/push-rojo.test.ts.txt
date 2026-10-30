@@ -1,0 +1,20 @@
+import {test} from 'vitest';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {executeCausalExplicitos} from '/home/elies/Repos/IRoboPF/scripts/procedencia/causal-explicitos-r62.mjs';
+import {composeCausalExplicitos} from '/home/elies/Repos/IRoboPF/scripts/procedencia/causal-explicitos-r62-contratos.mjs';
+import {explicit} from '/home/elies/Repos/IRoboPF/scripts/procedencia/causal-escalas-r60-casos.mjs';
+import {real,Effect} from '/home/elies/Repos/IRoboPF/scripts/procedencia/causal-explicitos-r62-oracle.mjs';
+test('R64 defecto: push debe conservar ambos pasos en el retorno completo',()=>{
+ const caso=explicit('16576'),ctx={route:'explicit',modo:'canonico'};
+ const oracle=Effect.runSync(real(caso));
+ const out=executeCausalExplicitos(composeCausalExplicitos(),caso,ctx,'push-rojo');
+ const pushes=out.evidence.events.filter(e=>e.operation==='push-length');
+ const returned=out.evidence.events.find(e=>e.operation==='function-return'&&e.value?._tag==='LiquidacionIrpfAnualExplicitaCalculada');
+ const evidence={caso,contexto:ctx,esperado:{pushLengths:[1,2],pasos:oracle.rastro.pasos.length,lineas:oracle.rastro.pasos.map(p=>p.lineasCalculo.length)},actual:{pushLengths:pushes.map(e=>e.value),pasos:returned.value.rastro.pasos.length,salidasCapturadas:out.evidence.outputs.length},eventosPush:pushes,retorno:returned};
+ fs.writeFileSync('/home/elies/Repos/IRoboPF/docs/procedencia/correcciones/push-explicitos-r65/push-'+(process.env.R65_PHASE??'rojo')+'.json',JSON.stringify(evidence,null,2));
+ assert.deepEqual(evidence.actual.pushLengths,evidence.esperado.pushLengths,'dos push sobre la misma colección');
+ assert.equal(returned.value.rastro.pasos.length,oracle.rastro.pasos.length,'retorno completo conserva pasos');
+ const lineasDelRastro=ps=>ps.map(p=>p.lineasCalculo.map(({etiqueta,formula,resultado,origen})=>({etiqueta,formula,resultado,origen})));
+ assert.deepEqual(lineasDelRastro(returned.value.rastro.pasos),lineasDelRastro(oracle.rastro.pasos),'datos previos al wiring editorial');
+});

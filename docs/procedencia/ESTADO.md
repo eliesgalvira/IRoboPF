@@ -2,7 +2,15 @@
 
 Inicio: 29 de octubre de 2026. Trabajo en curso; no es una certificación fiscal.
 
-## Situación más reciente, ronda 64 del 30 de octubre
+## Situación más reciente, ronda 65 del 30 de octubre
+
+Recibida la única revisión de los diez explícitos: nueve valores/selecciones locales corroborados y bloqueo de actividad demostrado; R64-PUSH-01 impide cerrar la propagación completa. El padre reproduce [1,1]/cero pasos, corrige identidad de arrays e historia causal y obtiene [1,2]/dos pasos. Cotejo físico de 23.958 entradas intactas, transporte exacto de 195 rutas, 58 integradas y siete originales técnicos preservados. Informe: correcciones/push-explicitos-r65.
+
+Pasan tres pruebas finales de retorno completo y tres regresiones compartidas, además del rojo original tras el fix; recuentos solapados separados en logs. Tipos principal/vendor y lint global correctos. Se conservan fallos propios de arnés/tipos/lint y se rectifica el pase de R64 anterior al mkdir del test. CheckJs no está cerrado. D136 limita la siguiente revisión independiente al defecto reproducido, sin repetir resultados favorables.
+
+55 sitios anteriores mantienen su cierre condicionado; nueve explícitos requieren solo corroborar la reparación de propagación. El bloqueo de actividad se conserva. Después: INFORME-FINAL.md y parada, sin familias19, composición, admisión ni puertas. Crossa v1 desfasado; V5 corte R26. Sin main, PR, despliegue, LFS, gasto, transferencia ni limpieza.
+
+## Situación anterior, ronda 64 del 30 de octubre
 
 Recibido el último candidato: nueve sitios explícitos de trabajo/pensión y actividad.etapa bloqueada por las familias excluidas. Cotejo físico de 23.648 entradas, tres cambios autorizados y cero borrados; transporte exacto de 258 rutas, 120 integradas y 88 referencias técnicas preservadas. Detalle en correcciones/recepcion-causal-explicitos-r64.
 

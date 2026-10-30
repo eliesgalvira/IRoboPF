@@ -1,0 +1,42 @@
+{
+  "base": "cd41524b432c5d4c2a7f665603debef6be5abc28",
+  "manifest": ".cache/causal-explicitos-r64-sol/entrega/MANIFIESTO.json",
+  "manifestSha256": "2d264ba3e2a089ee42bcc8b7237ca82bb91b514d616e17ba786ae384c56a8532",
+  "manifestSha512": "d1995598c17e62f590b46d84dfd4e4daac7950b03e20123cba7633d7fe6a0c6b2c3fec30d30bf597891846d5aee4ecce754d3c767344c2f8dc735db2a17abcb9",
+  "patch": ".cache/causal-explicitos-r64-sol/entrega/cambios.patch.gz",
+  "patchSha256": "fd0bc3b1804eefcd90da0c60d790fe8b915a74b83dfc9042eb76cafd444e381c",
+  "patchSha512": "29e98b82d5f25c01e440df2b2a674de3a4afad75aa82f34fb269c29aa08a2a837dd728dfcd446b7b6b99f7635bd581aee1005bd00bcf2e1edcc5631a7aeb87b3",
+  "patchSize": 374852,
+  "routes": 195,
+  "bytes": 49424041,
+  "empty": 1,
+  "reconstructed": true,
+  "exactSet": true,
+  "bytesAndModes": true,
+  "metadataOutsidePayload": true,
+  "commands": [
+    {
+      "command": [
+        "nix",
+        "shell",
+        "nixpkgs#python3",
+        "-c",
+        "python3",
+        ".cache/causal-explicitos-r64-sol/entregar.py",
+        "package"
+      ],
+      "exit": 0
+    },
+    {
+      "command": [
+        "patch",
+        "--binary",
+        "-p1"
+      ],
+      "cwd": ".cache/causal-explicitos-r64-sol/entrega/reconstruccion",
+      "exit": 0
+    }
+  ],
+  "noCheckoutCreated": true,
+  "noFilesAtLeast10MiB": true
+}

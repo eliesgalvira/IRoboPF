@@ -1,0 +1,8 @@
+import json,subprocess
+from pathlib import Path
+R=Path('/home/elies/Repos/IRoboPF');C=R/'.cache/orquestador-recepcion/r65';O=R/'docs/procedencia/correcciones/push-explicitos-r65'
+commands=[('types',['bun','run','typecheck']),('push-regresiones',['node','node_modules/vitest/vitest.mjs','run','tests/causal-explicitos-push-r65.test.ts','tests/causal-comun-r57.test.ts','tests/causal-escalas-r60.test.ts','--configLoader','native','--config',str(C/'vitest.mjs'),'-t','R64-PUSH-01|núcleo compartido.*2025/canonico|núcleo directo de retenciones|racional de base','--reporter=json','--outputFile='+str(O/'push-regresiones.json')]),('oxlint',['node_modules/.bin/oxlint','--threads=1','--disable-nested-config']),('eslint',['bun','run','lint:eslint'])]
+results=[]
+for name,cmd in commands:
+ with (O/(name+'.log')).open('wb') as log:p=subprocess.run(['flock','/tmp/irobopf-validacion-pesada.lock',*cmd],cwd=R,stdout=log,stderr=subprocess.STDOUT)
+ results.append(dict(name=name,command=cmd,exitCode=p.returncode));(O/'validacion.json').write_text(json.dumps(results,indent=2)+'\n');print(json.dumps(results[-1]),flush=True)
