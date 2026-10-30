@@ -12,6 +12,9 @@ La revisión ejecutó 36 casos/792 salidas y 20 adversos; son pruebas del reviso
 
 D134 cierra el lote. Sigue pendiente la implementación ya activa de las diez salidas explícitas y después su única revisión. No se lanza un subagente nuevo. El final conserva el alcance fijado por Elies: 65 sitios o bloqueos demostrados, INFORME-FINAL.md y respaldo; familias19, composición global, admisión y cuatro puertas fuera. Crossa v1 sigue desfasado. Sin main, PR, despliegue, LFS, gasto, transferencia ni limpieza.
 
+
+Cierre respaldado y comprobado en origin/procedencia-documental, commit `581a7a340894a0587cb3086aff26cfccc1777fef`: 159 archivos, 79.645.442 bytes, hashes exactos y cero borrados. Sin cambios de producto ni nuevos subagentes. Se espera la entrega de la implementación Sol de diez explícitos ya activa; no se sondea ni se lee trabajo parcial.
+
 ## Situación anterior, ronda 62 del 30 de octubre
 
 Recibido el candidato de los 28 sitios de escalas. Cotejo físico de las 22.900 entradas del autor: tres modificaciones autorizadas y cero borrados; reconstrucción exacta de 416 rutas. Incorporadas 229 rutas y preservadas 90 referencias técnicas. Los 22 sitios generales y seis explícitos de trabajo/pensión están implementados como candidatos; las variantes de actividad conservan bloqueo por las familias excluidas. Detalle en correcciones/recepcion-causal-escalas-r62 e implementaciones/causal-escalas-r60-sol.
