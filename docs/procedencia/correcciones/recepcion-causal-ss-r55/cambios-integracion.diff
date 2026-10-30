@@ -1,0 +1,366 @@
+--- recibido/scripts/procedencia/causal-ss-r54.ts
++++ integrado/scripts/procedencia/causal-ss-r54.ts
+@@ -1,6 +1,8 @@
+ import { validateSS } from "./flujo-ss-r36.mjs"
+ import { createRequire } from "node:module"
+ import { createHash, randomUUID } from "node:crypto"
++// Herramienta documental síncrona fuera de un programa Effect: lee los bytes fijados para verificar su identidad.
++// @effect-diagnostics effect/nodeBuiltinImport:off
+ import { readFileSync } from "node:fs"
+ import { causalSlice } from "./evidencia-ejecucion-r54.ts"
+ import type {
+@@ -13,7 +15,7 @@
+ } from "./evidencia-ejecucion-r54.ts"
+ export interface SSCase {
+   anio: number
+-  rendimientos: { trabajo: { importeIntegroCentimos: number }[] }
++  rendimientos: { trabajo: readonly { importeIntegroCentimos: number }[] }
+ }
+ export interface SSContext {
+   modo: string
+@@ -278,23 +280,23 @@
+   }
+   function prop(v: Value, key: string, selector?: Value): Value {
+     const selected = v.props.get(key)
+-    if (selected)
++    if (selected !== undefined)
+       return alias(
+         { ...selected, unit: units.get(current ?? "") ?? selected.unit },
+         "property",
+         [
+           { role: "identity:receiver", to: v.ref },
+-          ...(selector ? [{ role: "selector", to: selector.ref }] : []),
++          ...(selector !== undefined ? [{ role: "selector", to: selector.ref }] : []),
+         ],
+         key,
+       )
+-    if (v.native) return native(v.native + "." + key)
++    if (v.native !== undefined && v.native !== "") return native(v.native + "." + key)
+     if (Decimal.isDecimal(v.raw)) {
+       const out = native("decimal." + key)
+       out.props.set("receiver", v)
+       return out
+     }
+-    if (v.state && key === "pipe") {
++    if (v.state !== undefined && key === "pipe") {
+       const out = native("match.pipe")
+       out.state = v.state
+       return out
+@@ -316,14 +318,14 @@
+     env: Map<string, Value>,
+     role: string,
+   ): void {
+-    if (p.name) env.set(p.name, alias(v, role, [], p.name))
++    if (p.name !== undefined && p.name !== "") env.set(p.name, alias(v, role, [], p.name))
+     else
+       for (const f of p.fields ?? []) bind(f.binding, prop(v, f.key), env, role)
+   }
+   function global(name: string): Value {
+     if (!values.has(name)) {
+       const id = globals.get(name)
+-      if (id) values.set(name, evaluate(id, new Map()))
++      if (id !== undefined && id !== "") values.set(name, evaluate(id, new Map()))
+       else if (
+         [
+           "Decimal",
+@@ -352,7 +354,7 @@
+       function: fn.closure?.node ?? fn.native ?? null,
+     })
+     try {
+-      if (fn.closure) {
++      if (fn.closure !== undefined) {
+         controls = [...controls, fn]
+         const f = fn.closure,
+           env = new Map(
+@@ -369,7 +371,7 @@
+         f.parameters.forEach((p, i) => {
+           let v = xs[i]
+           if (p.rest) v = collection(xs.slice(i), "rest")
+-          else if ((!v || v.raw === undefined) && p.default)
++          else if ((v === undefined || v.raw === undefined) && p.default !== null && p.default !== "")
+             v = alias(evaluate(p.default, f.env), "default")
+           bind(
+             p.binding,
+@@ -460,7 +462,7 @@
+         name,
+         result,
+         [
+-          ...(receiver ? [{ role: "receiver", to: receiver.ref }] : []),
++          ...(receiver !== undefined ? [{ role: "receiver", to: receiver.ref }] : []),
+           ...edges,
+         ],
+         "",
+@@ -517,7 +519,7 @@
+       for (const op of xs) {
+         if (op.native === "Match.withReturnType:apply") continue
+         if (op.native === "Match.exhaustive") {
+-          if (!state.result) throw Error("Match no exhaustivo")
++          if (state.result === undefined) throw Error("Match no exhaustivo")
+           return alias(
+             state.result,
+             "match-return",
+@@ -525,17 +527,17 @@
+           )
+         }
+         if (op.native === "Match.when:apply") {
+-          if (state.result) continue
++          if (state.result !== undefined) continue
+           const pattern = must(op.props.get("0")),
+             callback = must(op.props.get("1"))
+-          const predicate = pattern.closure
++          const predicate = pattern.closure !== undefined
+             ? invoke(pattern, [state.input], current)
+             : emit("match-equals", pattern.raw === state.input.raw, [
+                 { role: "input", to: state.input.ref },
+                 { role: "pattern", to: pattern.ref },
+               ])
+           state = { ...state, selections: [...state.selections, predicate] }
+-          if (predicate.raw) {
++          if (Boolean(predicate.raw)) {
+             const prev = controls
+             controls = [...controls, ...state.selections]
+             const result = invoke(callback, [state.input], current)
+@@ -543,7 +545,7 @@
+             state = { ...state, result }
+           }
+         } else if (op.native === "Match.orElse:apply") {
+-          if (!state.result) {
++          if (state.result === undefined) {
+             const prev = controls
+             controls = [...controls, ...state.selections]
+             state = {
+@@ -623,7 +625,7 @@
+         case "return":
+           throw new ReturnValue(
+             alias(
+-              n.args.length ? ev(0) : emit("undefined", undefined),
++              n.args.length > 0 ? ev(0) : emit("undefined", undefined),
+               "return",
+             ),
+           )
+@@ -634,7 +636,7 @@
+         case "if":
+         case "conditional": {
+           const predicate = ev(0),
+-            branch = predicate.raw ? 1 : 2,
++            branch = Boolean(predicate.raw) ? 1 : 2,
+             prev = controls
+           const selection = emit(
+             "branch",
+@@ -644,7 +646,7 @@
+           )
+           controls = [...controls, selection]
+           try {
+-            return n.args[branch]
++            return Boolean(n.args[branch])
+               ? alias(ev(branch), "branch-return")
+               : emit("branch-empty", undefined)
+           } finally {
+@@ -657,8 +659,8 @@
+           let choice: Node | undefined
+           for (const id of n.args.slice(1)) {
+             const c = must(nodes.get(id))
+-            if (c.data.fallback) {
+-              if (!choice) choice = c
++            if (c.data.fallback === true) {
++              if (choice === undefined) choice = c
+               continue
+             }
+             const v = evaluate(must(c.args[0]), env)
+@@ -667,7 +669,7 @@
+               { role: "case", to: v.ref },
+             ])
+             tests.push(test)
+-            if (test.raw) {
++            if (Boolean(test.raw)) {
+               choice = c
+               break
+             }
+@@ -675,8 +677,8 @@
+           const prev = controls
+           controls = [...controls, ...tests]
+           try {
+-            if (choice)
+-              for (const id of choice.args.slice(choice.data.fallback ? 0 : 1))
++            if (choice !== undefined)
++              for (const id of choice.args.slice(choice.data.fallback === true ? 0 : 1))
+                 evaluate(id, env)
+             return emit("switch-empty", undefined)
+           } finally {
+@@ -689,9 +691,9 @@
+           if (["&&", "||", "??"].includes(op)) {
+             const take =
+               op === "&&"
+-                ? !!a.raw
++                ? Boolean(a.raw)
+                 : op === "||"
+-                  ? !a.raw
++                  ? !Boolean(a.raw)
+                   : a.raw === null || a.raw === undefined
+             const selection = emit("short-circuit", take, [
+               { role: "predicate", to: a.ref },
+@@ -715,7 +717,7 @@
+           return emit(
+             "unary",
+             n.data.operator === "!"
+-              ? !a.raw
++              ? !Boolean(a.raw)
+               : n.data.operator === "-"
+                 ? -Number(a.raw)
+                 : Number(a.raw),
+@@ -726,7 +728,7 @@
+         case "index": {
+           const receiver = ev(0)
+           if (
+-            n.data.optional &&
++            n.data.optional === true &&
+             (receiver.raw === null || receiver.raw === undefined)
+           )
+             return emit("optional-absent", undefined, [
+@@ -934,7 +936,7 @@
+     ]
+     if (aliasOperations.includes(e.operation)) {
+       if (
+-        !valueEdge ||
++        valueEdge === undefined ||
+         JSON.stringify(ids.get(valueEdge.to)?.value) !== JSON.stringify(e.value)
+       )
+         reject("valor sin productor por propiedad")
+@@ -942,10 +944,10 @@
+     if (e.operation === "binary") {
+       const left = e.edges.find((x) => x.role === "left"),
+         right = e.edges.find((x) => x.role === "right")
+-      if (!left || !right) reject("argumento binario ausente")
++      if (left === undefined || right === undefined) reject("argumento binario ausente")
+       const op = nodes.get(e.node ?? "")?.data.operator
+       if (
+-        !op ||
++        op === undefined || op === "" ||
+         JSON.stringify(
+           binary(
+             op,
+@@ -958,7 +960,7 @@
+     }
+     if (e.operation === "branch") {
+       const p = e.edges.find((x) => x.role === "predicate")
+-      if (!p || e.value !== (ids.get(p.to)?.value ? 1 : 2))
++      if (p === undefined || e.value !== (Boolean(ids.get(p.to)?.value) ? 1 : 2))
+         reject("predicado de rama")
+     }
+     ids.set(e.id, e)
+@@ -985,7 +987,7 @@
+       reject("productor anual")
+   for (const binding of g.outputBindings) {
+     const output = evidence.outputs.find((x) => x.siteId === binding.siteId)
+-    if (!output) reject("sitio ausente")
++    if (output === undefined) reject("sitio ausente")
+     const o = must(output),
+       root = ids.get(o.root)
+     if (
+--- recibido/scripts/procedencia/evidencia-ejecucion-r54.ts
++++ integrado/scripts/procedencia/evidencia-ejecucion-r54.ts
+@@ -57,7 +57,7 @@
+     if (active.has(id)) throw Error("Ciclo ejecutado")
+     if (done.has(id)) return
+     const e = byId.get(id)
+-    if (!e) throw Error("Referencia ausente: " + id)
++    if (e === undefined) throw Error("Referencia ausente: " + id)
+     active.add(id)
+     for (const edge of e.edges)
+       if (!edge.role.startsWith("identity:")) visit(edge.to)
+--- recibido/scripts/procedencia/flujo-ss-r36-consumidor.mjs
++++ integrado/scripts/procedencia/flujo-ss-r36-consumidor.mjs
+@@ -277,8 +277,8 @@
+   validateSS(candidate)
+   const g=structuredClone(candidate)
+   if(g.obligations.some(o=>o.status!=='satisfied'))throw Error('Obligaciones pendientes')
+-  return (caso,contexto,capture=/** @type {boolean | 'causal'} */ (false))=>{
+-    if(capture==='causal') return {...executeCausalSS(g,caso,contexto),admission:'required-anual-publico-r32',siteClosed:false,wiringAllowed:false}
++  const causal=(caso,contexto)=>({...executeCausalSS(g,caso,contexto),admission:'required-anual-publico-r32',siteClosed:false,wiringAllowed:false})
++  const legacy=(caso,contexto,capture=false)=>{
+     if(!Number.isInteger(caso.anio)||caso.anio<2012||caso.anio>2026||!['canonico','compatible-legacy'].includes(contexto.modo))throw Error('Fuera del dominio técnico; admisión externa requerida')
+     const locals=new Map([['caso',caso],['contexto',contexto]]),trace=[]
+     for(const b of g.annualBindings){const r=executeFinite(g,null,[],capture,b.node,[...locals]);locals.set(b.name,r.result);trace.push(...r.trace)}
+@@ -286,4 +286,36 @@
+     const lines=g.outputBindings.map(b=>{const r=executeFinite(g,null,[],capture,b.node,[...locals]);transport.push({siteId:b.siteId,instance:b.instance,unit:b.unit,expression:b.amount,destination:b.destination,decimal:r.result.origen.decimal,trace:r.trace});trace.push(...r.trace);return r.result})
+     return {lines,transport,trace,admission:'required-anual-publico-r32',siteClosed:false,wiringAllowed:false}
+   }
+-}
++  /**
++   * Cada modo conserva su resultado; la captura booleana sigue ofreciendo trace.
++   * @overload
++   * @param {unknown} caso Entrada externa: el adaptador conserva la validación de cada modo.
++   * @param {unknown} contexto
++   * @param {boolean} [capture]
++   * @returns {ReturnType<typeof legacy>}
++   */
++  /**
++   * @template {import('./causal-ss-r54.ts').SSCase} TCase
++   * @overload
++   * @param {TCase} caso
++   * @param {import('./causal-ss-r54.ts').SSContext} contexto
++   * @param {'causal'} capture
++   * @returns {ReturnType<typeof causal>}
++   */
++  /**
++   * @overload
++   * @param {unknown} caso
++   * @param {unknown} contexto
++   * @param {boolean | 'causal'} capture
++   * @returns {ReturnType<typeof legacy> | ReturnType<typeof causal>}
++   */
++  /**
++   * @param {unknown} caso
++   * @param {unknown} contexto
++   * @param {boolean | 'causal'} [capture]
++   */
++  function evaluate(caso,contexto,capture=false) {
++    return capture==='causal' ? causal(caso,contexto) : legacy(caso,contexto,capture)
++  }
++  return evaluate
++}
+--- recibido/tests/causal-ss-r54.test.ts
++++ integrado/tests/causal-ss-r54.test.ts
+@@ -48,12 +48,12 @@
+   context = { modo: "canonico" }
+ const evidence = () => {
+   const e = run(sample, context, "causal").evidence
+-  if (!e) throw Error("Sin evidencia")
++  if (e === undefined) throw Error("Sin evidencia")
+   return e
+ }
+ const event = (e: ExecutionEvidence, p: (e: Event) => boolean) => {
+   const v = e.events.find(p)
+-  if (!v) throw Error("Mutación sin objetivo")
++  if (v === undefined) throw Error("Mutación sin objetivo")
+   return v
+ }
+ const check = (e: ExecutionEvidence) =>
+@@ -358,7 +358,7 @@
+     () => {
+       const e = evidence(),
+         output = e.outputs.find((x) => x.siteId === binding.siteId)
+-      if (!output) throw Error("Sin salida")
++      if (output === undefined) throw Error("Sin salida")
+       const root = event(e, (x) => x.id === output.root)
+       root.edges = []
+       expect(() => check(e)).toThrow()
+@@ -385,7 +385,7 @@
+       const callback = selection.edges.find((x) => x.role === "callback")
+       const seed = selection.edges.find((x) => x.role === "seed")
+       expect(seed).toBeDefined()
+-      if (!callback) throw Error("Sin callback")
++      if (callback === undefined) throw Error("Sin callback")
+       const callbackNode = events.get(callback.to)?.node
+       const calls = e.frames.filter(
+         (f) =>
+--- recibido/tsconfig.json
++++ integrado/tsconfig.json
+@@ -7,6 +7,7 @@
+     "skipLibCheck": true,
+     "strict": true,
+     "noEmit": true,
++    "allowImportingTsExtensions": true,
+     "esModuleInterop": true,
+     "module": "preserve",
+     "moduleResolution": "bundler",
