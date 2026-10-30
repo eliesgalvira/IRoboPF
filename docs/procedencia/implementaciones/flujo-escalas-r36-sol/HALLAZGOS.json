@@ -1,0 +1,38 @@
+[
+  {
+    "id": "R36-I01",
+    "status": "instrument-defect-fixed",
+    "finding": "El patrón de objeto perdía el resto de escala2014; Galicia quedaba sin tramos",
+    "red": "pruebas-inicial.log",
+    "response": "Binding explícito de resto y default; fuente y esperados intactos",
+    "cost": "Regresión y contrarrevisión nueva",
+    "fiscalDefect": false
+  },
+  {
+    "id": "R36-I02",
+    "status": "instrument-defect-fixed",
+    "finding": "Spread de Set se trataba como un solo elemento al evaluar clases de empleo",
+    "red": "pruebas-ampliadas.log",
+    "response": "Expandir iterable con Array.from; esperados intactos",
+    "cost": "Regresión empleo frente a pensión y EDS",
+    "fiscalDefect": false
+  },
+  {
+    "id": "R36-E01",
+    "status": "environment-resolved",
+    "finding": "Prettier no resolvía prettier-plugin-tailwindcss desde el worktree",
+    "response": "Configuración propia de formato para JS/TS sin plugin visual; no cambiar producto",
+    "cost": "Configuración scratch explícita",
+    "fiscalDefect": false
+  },
+  {
+    "id": "R36-I03",
+    "status": "own-out-of-scope-write-preserved-and-corrected",
+    "finding": "Vitest escribió caché propia bajo node_modules/.vite",
+    "evidence": "fisico-final-intento1.json",
+    "response": "Se preservaron bytes en scratch mediante rutas absolutas; cacheDir propio y cache false; reensayo17grupos correcto y cotejo físico posterior sin inesperados",
+    "expertObjection": "Un diff vacío no detecta archivos ignorados creados por las herramientas",
+    "cost": "Conservar incidente y caché y repetir controles; ninguna alteración de base",
+    "fiscalDefect": false
+  }
+]

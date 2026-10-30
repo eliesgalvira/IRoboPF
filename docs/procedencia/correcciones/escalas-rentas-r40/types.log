@@ -1,0 +1,37 @@
+$ tsc --noEmit && tsc --noEmit -p tools/oxlint/tsconfig.json
+tests/flujo-escalas-r36.test.ts(6,21): error TS7016: Could not find a declaration file for module '/home/elies/Repos/IRoboPF/node_modules/decimal.js/decimal.mjs'. '/home/elies/Repos/IRoboPF/node_modules/decimal.js/decimal.mjs' implicitly has an 'any' type.
+tests/flujo-escalas-r36.test.ts(18,8): error TS17: Unexpected `undefined` type in condition, expected strictly a boolean instead.    effect(strictBooleanExpressions)
+tests/flujo-escalas-r36.test.ts(18,8): error TS17: Unexpected `{ name: any; node: any; source: { file: any; start: any; end: any; sha256: any; offsetEncoding: string; }; }` type in condition, expected strictly a boolean instead.    effect(strictBooleanExpressions)
+tests/flujo-escalas-r36.test.ts(122,16): error TS52: This module reference uses the `fs` module, the corresponding Effect API is `FileSystem` from `effect`.    effect(nodeBuiltinImport)
+tests/flujo-escalas-r36.test.ts(205,37): error TS7006: Parameter 'l' implicitly has an 'any' type.
+tests/flujo-escalas-r36.test.ts(206,31): error TS7006: Parameter 'l' implicitly has an 'any' type.
+tests/flujo-escalas-r36.test.ts(210,8): error TS7006: Parameter 'l' implicitly has an 'any' type.
+tests/flujo-escalas-r36.test.ts(212,28): error TS7006: Parameter 'l' implicitly has an 'any' type.
+tests/flujo-escalas-r36.test.ts(214,32): error TS7006: Parameter 'l' implicitly has an 'any' type.
+tests/flujo-escalas-r36.test.ts(215,30): error TS7006: Parameter 'l' implicitly has an 'any' type.
+tests/flujo-escalas-r36.test.ts(277,20): error TS7006: Parameter 'l' implicitly has an 'any' type.
+tests/flujo-escalas-r36.test.ts(278,31): error TS7006: Parameter 'l' implicitly has an 'any' type.
+tests/flujo-escalas-r36.test.ts(281,24): error TS7006: Parameter 'l' implicitly has an 'any' type.
+tests/flujo-escalas-r36.test.ts(285,19): error TS7006: Parameter 'l' implicitly has an 'any' type.
+tests/flujo-escalas-r36.test.ts(287,19): error TS7006: Parameter 'l' implicitly has an 'any' type.
+tests/flujo-escalas-r36.test.ts(309,22): error TS7006: Parameter 'l' implicitly has an 'any' type.
+tests/flujo-escalas-r36.test.ts(313,16): error TS7006: Parameter 'l' implicitly has an 'any' type.
+tests/flujo-escalas-r36.test.ts(318,18): error TS7006: Parameter 'l' implicitly has an 'any' type.
+tests/flujo-escalas-r36.test.ts(342,21): error TS7006: Parameter 'r' implicitly has an 'any' type.
+tests/flujo-escalas-r36.test.ts(343,21): error TS7006: Parameter 'l' implicitly has an 'any' type.
+tests/flujo-escalas-r36.test.ts(360,31): error TS59: This code constructs `new Date()`, date values are represented through `DateTime` from Effect.    effect(globalDate)
+tests/flujo-escalas-r36.test.ts(364,23): error TS7006: Parameter 'x' implicitly has an 'any' type.
+tests/flujo-escalas-r36.test.ts(367,46): error TS7006: Parameter 't' implicitly has an 'any' type.
+tests/flujo-escalas-r36.test.ts(367,59): error TS7006: Parameter 'v' implicitly has an 'any' type.
+tests/flujo-escalas-r36.test.ts(401,34): error TS7006: Parameter 'x' implicitly has an 'any' type.
+tests/flujo-escalas-r36.test.ts(401,37): error TS7006: Parameter 'j' implicitly has an 'any' type.
+tests/flujo-escalas-r36.test.ts(427,50): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{ estatal: { bruta: Decimal; remanente: Decimal; despuesMinimo: Decimal; minoracion: Decimal; }; autonomico: { bruta: Decimal; remanente: Decimal; despuesMinimo: Decimal; minoracion: Decimal; }; }'.
+  No index signature with a parameter of type 'string' was found on type '{ estatal: { bruta: Decimal; remanente: Decimal; despuesMinimo: Decimal; minoracion: Decimal; }; autonomico: { bruta: Decimal; remanente: Decimal; despuesMinimo: Decimal; minoracion: Decimal; }; }'.
+tests/flujo-escalas-r36.test.ts(432,38): error TS7006: Parameter 'r' implicitly has an 'any' type.
+tests/flujo-escalas-r36.test.ts(497,31): error TS7006: Parameter 'input' implicitly has an 'any' type.
+tests/flujo-escalas-r36.test.ts(601,16): error TS7006: Parameter 'l' implicitly has an 'any' type.
+tests/flujo-escalas-r36.test.ts(602,16): error TS7006: Parameter 'a' implicitly has an 'any' type.
+tests/flujo-escalas-r36.test.ts(602,19): error TS7006: Parameter 'l' implicitly has an 'any' type.
+tests/flujo-escalas-r36.test.ts(604,6): error TS7006: Parameter 'l' implicitly has an 'any' type.
+tests/flujo-escalas-r36.test.ts(628,10): error TS7006: Parameter 'l' implicitly has an 'any' type.
+tests/flujo-escalas-r36.test.ts(633,10): error TS7006: Parameter 'l' implicitly has an 'any' type.

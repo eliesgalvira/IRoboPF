@@ -1,0 +1,9 @@
+set -eu
+node /home/elies/Repos/IRoboPF/node_modules/prettier/bin/prettier.cjs --config .cache/flujo-rentas-r36/prettier.json --write scripts/procedencia/flujo-rentas-r36*.mjs tests/flujo-rentas-r36*.test.ts
+node .cache/flujo-rentas-r36/run.mjs > docs/procedencia/implementaciones/flujo-rentas-r36-sol/ensayos.log
+node .cache/flujo-rentas-r36/controles.mjs
+node /home/elies/Repos/IRoboPF/node_modules/vitest/vitest.mjs run --config .cache/flujo-rentas-r36/vitest.config.mjs --maxWorkers=1
+node /home/elies/Repos/IRoboPF/node_modules/typescript/bin/tsc -p docs/procedencia/implementaciones/flujo-rentas-r36-sol/tsconfig.json
+node /home/elies/Repos/IRoboPF/node_modules/typescript/bin/tsc -p docs/procedencia/implementaciones/flujo-rentas-r36-sol/tsconfig-js.json
+node /home/elies/Repos/IRoboPF/node_modules/oxlint/bin/oxlint --threads 1 --disable-nested-config -c docs/procedencia/implementaciones/flujo-rentas-r36-sol/oxlint.json scripts/procedencia/flujo-rentas-r36*.mjs tests/flujo-rentas-r36*.test.ts
+node /home/elies/Repos/IRoboPF/node_modules/eslint/bin/eslint.js --config /home/elies/Repos/IRoboPF/eslint.config.mjs scripts/procedencia/flujo-rentas-r36*.mjs tests/flujo-rentas-r36*.test.ts

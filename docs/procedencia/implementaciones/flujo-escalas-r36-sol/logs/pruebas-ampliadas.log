@@ -1,0 +1,28 @@
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-bcc14648
+
+ ❯ tests/flujo-escalas-r36.test.ts (11 tests | 1 failed) 2642ms
+     × explícito: signo EDS, pensión sin DA61 y empleo con puerto DA61 distinto 25ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/flujo-escalas-r36.test.ts > R36 recorridos, celdas e instancias > explícito: signo EDS, pensión sin DA61 y empleo con puerto DA61 distinto
+AssertionError: expected [Function] to throw error matching /calcularDeduccionTrabajo/ but got 'ResultadoNoSoportado: Atribución de g…'
+
+- Expected:
+/calcularDeduccionTrabajo/
+
++ Received:
+"ResultadoNoSoportado: Atribución de gastos y reducciones entre pensión, empleo u otras rentas no soportada"
+
+ ❯ tests/flujo-escalas-r36.test.ts:99:73
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 10 passed (11)
+   Start at  01:48:23
+   Duration  3.92s (transform 259ms, setup 0ms, import 1.16s, tests 2.64s, environment 0ms)
+

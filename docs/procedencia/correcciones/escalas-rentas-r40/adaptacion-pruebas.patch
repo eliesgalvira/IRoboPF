@@ -1,0 +1,160 @@
+--- recibido/tests/flujo-escalas-r36.test.ts
++++ integrado/tests/flujo-escalas-r36.test.ts
+@@ -2,8 +2,10 @@
+   describe,
+   it,
+   expect
+-} from "/home/elies/Repos/IRoboPF/node_modules/vitest/dist/index.js"
+-import Decimal from "/home/elies/Repos/IRoboPF/node_modules/decimal.js/decimal.mjs"
++} from "vitest"
++import Decimal from "decimal.js"
++import { DateTime } from "effect"
++import cells from "../docs/procedencia/correcciones/editorial-r21/escalas-celdas.json"
+ import {
+   composeEscalasR36,
+   siteIds
+@@ -15,7 +17,7 @@
+   const binding = fragment.globalBindings.find((b) =>
+     b.name.endsWith("#" + name)
+   )
+-  if (!binding) throw Error(name)
++  if (binding === undefined) throw Error(name)
+   return executeEscalasR36(fragment, binding.name, args).result
+ }
+ const row = (l: number, q: number, t: string) => ({
+@@ -119,15 +121,27 @@
+   })
+ })
+ 
+-import fs from "node:fs"
+-import { consumeEscalasR36 } from "../scripts/procedencia/flujo-escalas-r36-consumidor.mjs"
++import { consumeEscalasR36 as consumeEscalasR36Raw } from "../scripts/procedencia/flujo-escalas-r36-consumidor.mjs"
+ import { calcularCuotaPorEscala as actualQuota } from "../lib/dominio/irpf/cuotas/escalas-gravamen"
+ import { obtenerParametrosComunidadAutonoma as actualSelect } from "../lib/dominio/irpf/comunidades/comunidad-autonoma"
+ import { calcularAhorroConMinimos as actualSavings } from "../lib/dominio/irpf/cuotas/cuota-integra-ahorro"
++type SourceLine = {
++  origen: { siteId: string; instanceId: string; decimal: string; unidad: "EUR" | "percent" }
++}
++type Projection = { lines: SourceLine[]; admission: { annual: string }; siteClosed: boolean }
++type DeductionWitnessInput = { cuotaTrasArt80: string }
++type BoundaryWitness =
++  | (() => object)
++  | (<T>(input: T) => object)
++  | ((input: DeductionWitnessInput) => object)
++// Tipos del protocolo observado por estos ensayos; no validación del intérprete MJS.
++function consumeEscalasR36(...args: Parameters<typeof consumeEscalasR36Raw>): Projection {
++  return consumeEscalasR36Raw(...args)
++}
+ // Testigos dinámicos del protocolo externo; no acreditan admisión ni hechos.
+ function witnesses(
+   values: Map<string, object>
+-): Map<string, (...args: any[]) => any> {
++): Map<string, BoundaryWitness> {
+   return new Map(
+     fragment.globalBindings
+       .filter((b) => values.has(b.name.split("#")[1]!))
+@@ -256,7 +270,7 @@
+         ["calcularReduccionTrabajoConOtrasRentas", d(0)]
+       ])
+       const b = witnesses(values)
+-      b.set("explicit.decode", (x) => ({ _tag: "Success", success: x }))
++      b.set("explicit.decode", <T>(x: T) => ({ _tag: "Success", success: x }))
+       const entrada = {
+         perfil,
+         actividad: { activos: [], discapacidad: { grado: 0 } },
+@@ -295,7 +309,7 @@
+         for (const g of fragment.globalBindings.filter((g) =>
+           g.name.endsWith("#calcularDeduccionTrabajo")
+         ))
+-          b.set(g.name, (input) => ({
++          b.set(g.name, (input: DeductionWitnessInput) => ({
+             estado: "calculado",
+             importeAplicable: "10",
+             cuotaPosterior: d(input.cuotaTrasArt80).minus(10).toFixed()
+@@ -339,9 +353,11 @@
+       { modo: "canonico" },
+       b
+     )
+-    const amount = (r) =>
+-      r.lines.find((l) => l.origen.siteId === "anual.cuota.liquida").origen
+-        .decimal
++    const amount = (r: Projection) => {
++      const line = r.lines.find((l) => l.origen.siteId === "anual.cuota.liquida")
++      if (line === undefined) throw Error("Cuota líquida ausente")
++      return line.origen.decimal
++    }
+     expect(d(amount(initial)).minus(amount(changed)).toFixed()).toBe("100")
+     expect(changed.admission.annual).toContain("pending-review")
+   })
+@@ -357,14 +373,15 @@
+         const args = {
+           anio,
+           comunidadAutonoma: territory,
+-          fechaFallecimiento: new Date(Date.parse(cut + "T00:00:00Z") + offset)
++          fechaFallecimiento: DateTime.toDateUtc(DateTime.makeUnsafe(Date.parse(cut + "T00:00:00Z") + offset))
+         }
+         const a = run("obtenerParametrosComunidadAutonoma", [args]),
+           b = actualSelect(args)
+-        const pick = (x) =>
++        const pick = (x: { minimosAutonomicos: { descendientes: { segundo: Decimal } }; escalaAutonomica: { tramos: ReadonlyArray<readonly [Decimal, Decimal]> } }) =>
+           property === "segundo"
+             ? x.minimosAutonomicos.descendientes.segundo.toFixed()
+             : x.escalaAutonomica.tramos.map((t) => t.map((v) => v.toFixed()))
++        if (b._tag !== "ParametrosComunidadAutonoma") throw Error("Territorio fuera del caso")
+         expect(pick(a)).toEqual(pick(b))
+         vals.push(JSON.stringify(pick(a)))
+       }
+@@ -373,17 +390,11 @@
+     }
+   })
+   it("264 celdas nominales: identidad de fila, Q/L distintos y selección exacta", () => {
+-    const cells = JSON.parse(
+-      fs.readFileSync(
+-        "docs/procedencia/correcciones/editorial-r21/escalas-celdas.json",
+-        "utf8"
+-      )
+-    )
+     for (const c of cells) {
+       const symbol = fragment.globalBindings.find((b) =>
+         b.name.endsWith("#" + c.selector.simbolo)
+       )!
+-      const table = executeEscalasR36(
++      const table: Array<{ baseInferior: Decimal; cuota: Decimal; tipo: Decimal }> = executeEscalasR36(
+         fragment,
+         null,
+         [],
+@@ -393,6 +404,7 @@
+       const i = c.filaCodigo0Based,
+         r = table[i],
+         field = c.columna
++      if (field !== "cuota" && field !== "baseInferior") throw Error("Columna fuera del caso")
+       expect(r[field].toFixed()).toBe(d(c.valor).toFixed())
+       const base = r.baseInferior.plus(1),
+         input = { base, tramos: [], escalasPublicadas: [table] }
+@@ -422,14 +434,14 @@
+       }
+       const a = run("calcularAhorroConMinimos", [args]),
+         b = actualSavings(args)
+-      for (const component of ["estatal", "autonomico"])
+-        for (const p of ["remanente", "bruta", "minoracion", "despuesMinimo"])
++      for (const component of ["estatal", "autonomico"] as const)
++        for (const p of ["remanente", "bruta", "minoracion", "despuesMinimo"] as const)
+           expect(a[component][p].toFixed()).toBe(b[component][p].toFixed())
+       const binding = fragment.globalBindings.find((b) =>
+         b.name.endsWith("#calcularDesgloseCuotaPorEscalaAhorro")
+       )!
+       const evaluated = executeEscalasR36(fragment, binding.name, [args])
+-      expect(evaluated.result.every((r) => r.cuotaFija === undefined)).toBe(
++      expect(evaluated.result.every((r: { cuotaFija?: Decimal }) => r.cuotaFija === undefined)).toBe(
+         true
+       )
+     }
+@@ -494,7 +506,7 @@
+     const b = new Map(
+       fragment.globalBindings
+         .filter((x) => x.name.endsWith("#validarDerechosMinimos"))
+-        .map((x) => [x.name, (input) => input])
++        .map((x) => [x.name, (input: typeof family) => input])
+     )
+     const g = fragment.globalBindings.find((x) =>
+       x.name.endsWith("#calcularDerechosMinimos")

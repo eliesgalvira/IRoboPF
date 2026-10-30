@@ -2,7 +2,17 @@
 
 Inicio: 29 de octubre de 2026. Trabajo en curso; no es una certificación fiscal.
 
-## Situación más reciente, ronda 39 del 30 de octubre
+## Situación más reciente, ronda 40 del 30 de octubre
+
+Recibidos escalas y rentas R36: 123 archivos, 6.430.773 bytes, dos cotejos físicos de 20.227 entradas y transportes exactos; cero cambios o borrados de base. Informes y recibos del padre en correcciones/escalas-rentas-r40. Los programas candidatos representan 28 y 20 sitios, con 19 instancias de actividad, sin wiring ni aceptación de cierres.
+
+Pasan 18 pruebas Vitest: 17 grupos de escalas y una suite con 41 controles internos de rentas. Se repiten directamente los 41 con JSON idéntico al recibido, sin sumar recuentos solapados. Seis discriminantes propios correctos. Artefactos reconstruidos exactamente; tipos principal/vendor, checkJs del alcance, lint global y schemas correctos. Se preservan los fallos iniciales del arnés de escalas y el diff que adapta tipos/imports a las reglas globales; no se relaja ninguna regla ni se cambia el motor.
+
+Se preparan dos revisiones nuevas de los candidatos exactos con Sol 6.1 High y prioridad. La revisión SS R39 acaba de llegar y queda pendiente de recepción/contraste del padre, registrada en correcciones/escalas-rentas-r40/pendiente-ss.json; sus cuatro grupos documentales todavía no se aceptan. El encargo de admisión R36 continúa sin sondeos ni lectura parcial.
+
+Motor, confianza, inventario y 45 snapshots intactos. Admisión, composición, wiring y aceptación fiscal completa pendientes/falsos. V5 mantiene corte R26 y Crossa v1 desfasado. Sin LFS, gasto, transferencias, main, PR, despliegue o limpieza. El encargo global permanece abierto.
+
+## Situación anterior, ronda 39 del 30 de octubre
 
 Recibido el candidato Sol SS R36: 75 archivos y 6.234.744 bytes con sobres/objetos de transporte. Las 20.227 entradas base del hijo coinciden físicamente, sin borrados ni cambios. Patch y binarios reconstruidos exactamente. Recibos y contraste en correcciones/ss-r39; entrega original en implementaciones/flujo-ss-r36-sol.
 

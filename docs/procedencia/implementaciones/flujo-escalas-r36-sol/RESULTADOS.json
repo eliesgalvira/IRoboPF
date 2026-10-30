@@ -1,0 +1,73 @@
+{
+  "head": "50f9e949544e20d3e4e0bffc79b926d396267319",
+  "priorHistoricalRed": {
+    "r28": {
+      "exit": 1,
+      "checks": 54,
+      "failures": 28
+    },
+    "r26": {
+      "exit": 0,
+      "protectiveReds": 5
+    },
+    "beforeImplementation": true
+  },
+  "candidate": {
+    "tests": {
+      "exit": 0,
+      "groups": 17,
+      "evidence": "logs/pruebas-cache-final.log"
+    },
+    "schema": {
+      "exit": 0,
+      "mutationsRejected": 7,
+      "evidence": "logs/schema-final.log"
+    },
+    "checkJs": {
+      "exit": 0,
+      "scope": "owned MJS; dynamic values, noImplicitAny false",
+      "evidence": "logs/tipos-cache-final.log"
+    },
+    "typescriptTests": {
+      "exit": 0,
+      "evidence": "logs/tipos-tests-final.log"
+    },
+    "oxlint": {
+      "exit": 0,
+      "threads": 1,
+      "nestedConfig": false,
+      "antiSlopErrors": 16,
+      "evidence": "logs/lint-entrega.log"
+    },
+    "recipe": {
+      "exit": 0,
+      "evidence": "logs/generacion-final.log"
+    }
+  },
+  "observedArtifact": {
+    "operations": 20900,
+    "sources": 57,
+    "sites": 28
+  },
+  "meaning": "Software candidate; counts, integrity and tests do not establish causal sufficiency or tax acceptance",
+  "independentReview": "required",
+  "parentContrast": "required",
+  "completeRuleAcceptance": false,
+  "wiringAllowed": false,
+  "physicalFirstFinalAttempt": {
+    "baseIntact": 20227,
+    "changes": 0,
+    "deleted": 0,
+    "unexpectedOwnVitestCache": 1,
+    "resolution": "preserved-in-own-scratch; cacheDir fixed and cache disabled"
+  },
+  "physicalFinal": {
+    "head": "50f9e949544e20d3e4e0bffc79b926d396267319",
+    "baseEntries": 20227,
+    "changes": 0,
+    "deleted": 0,
+    "unexpected": 0,
+    "diff": "",
+    "receipt": "fisico-final.json.gz"
+  }
+}

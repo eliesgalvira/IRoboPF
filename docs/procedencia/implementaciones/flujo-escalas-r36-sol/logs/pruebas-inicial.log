@@ -1,0 +1,26 @@
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-bcc14648
+
+ ❯ tests/flujo-escalas-r36.test.ts (5 tests | 1 failed) 130ms
+     × flags constantes, Galicia por base y límite territorial 2026 77ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/flujo-escalas-r36.test.ts > R36 operadores y selecciones por propiedad > flags constantes, Galicia por base y límite territorial 2026
+TypeError: Cannot read properties of undefined (reading '0')
+ ❯ tests/flujo-escalas-r36.test.ts:31:93
+     29|     expect(select(2026,"madrid")._tag).toBe("ComunidadAutonomaNoSoport…
+     30|     expect(select(2026,"simulada-estatal")._tag).toBe("ParametrosComun…
+     31|     for(const year of [2014,2015])expect(select(year,"galicia","17707.…
+       |                                                                                             ^
+     32|   })
+     33|   it("ahorro: orden anterior a 2015, asimetría y remanentes propios", …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 4 passed (5)
+   Start at  01:47:00
+   Duration  1.19s (transform 41ms, setup 0ms, import 939ms, tests 130ms, environment 0ms)
+

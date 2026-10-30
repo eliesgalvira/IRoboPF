@@ -1,0 +1,20 @@
+import fs from 'node:fs'
+import assert from 'node:assert/strict'
+import {gunzipSync} from 'node:zlib'
+import {createHash} from 'node:crypto'
+import {composeEscalasR36,verifyEscalasR36} from '../../../scripts/procedencia/flujo-escalas-r36.mjs'
+import {runRentasSuite} from '../../../scripts/procedencia/flujo-rentas-r36-ensayos.mjs'
+import {verifyRentasR36} from '../../../scripts/procedencia/flujo-rentas-r36.mjs'
+const out='/home/elies/Repos/IRoboPF/docs/procedencia/correcciones/escalas-rentas-r40'
+const e=composeEscalasR36(); verifyEscalasR36(e)
+const r=runRentasSuite(); verifyRentasR36(r.fragment)
+assert.equal(r.failed,0);assert.equal(r.passed,41)
+const rows=[]
+for(const [name,fragment] of [['escalas',e],['rentas',r.fragment]]){
+ const bytes=fs.readFileSync(`docs/procedencia/implementaciones/flujo-${name}-r36-sol/fragmento.json.gz`)
+ assert.deepEqual(fragment,JSON.parse(gunzipSync(bytes)))
+ rows.push({name,artifactSha256:createHash('sha256').update(bytes).digest('hex'),sources:fragment.sources.length,operations:fragment.program.length,sites:(fragment.sites??fragment.outputs).length,exact:true})
+}
+fs.writeFileSync(out+'/reconstruccion.json',JSON.stringify(rows,null,2)+'\n')
+fs.writeFileSync(out+'/casos-rentas.json',JSON.stringify({cases:r.cases,executions:r.executions,passed:r.passed,failed:r.failed,scope:r.scope},null,2)+'\n')
+console.log(JSON.stringify({rows,cases:r.cases.length,passed:r.passed,failed:r.failed}))

@@ -1,0 +1,16 @@
+import json,os,subprocess
+from pathlib import Path
+R=Path('/home/elies/Repos/IRoboPF');S=R/'.cache/orquestador-recepcion/r40';O=R/'docs/procedencia/correcciones/escalas-rentas-r40'
+jobs=[
+ ('types',['bun','run','typecheck']),
+
+ ('oxlint',['node_modules/.bin/oxlint','--disable-nested-config','--threads=1']),
+ ('eslint',['bun','run','lint:eslint']),
+ ('schema',['bash','tools/procedencia/run.sh',str(S/'schema.py')])]
+results=[]
+env=dict(os.environ,PYTHONDONTWRITEBYTECODE='1',UV_PROJECT_ENVIRONMENT=str(S/'venv'))
+for name,cmd in jobs:
+ with (O/(name+'-terminal.log')).open('wb') as stream:
+  p=subprocess.run(['flock','/tmp/irobopf-validacion-pesada.lock',*cmd],cwd=R,env=env,stdout=stream,stderr=subprocess.STDOUT)
+ results.append(dict(name=name,command=cmd,exitCode=p.returncode));(O/'validacion-terminal.json').write_text(json.dumps(results,indent=2)+'\n');print(json.dumps(results[-1]),flush=True)
+ if p.returncode:break

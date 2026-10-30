@@ -1,0 +1,38 @@
+[
+  {
+    "name": "types",
+    "command": [
+      "bun",
+      "run",
+      "typecheck"
+    ],
+    "exitCode": 0
+  },
+  {
+    "name": "oxlint",
+    "command": [
+      "node_modules/.bin/oxlint",
+      "--disable-nested-config",
+      "--threads=1"
+    ],
+    "exitCode": 0
+  },
+  {
+    "name": "eslint",
+    "command": [
+      "bun",
+      "run",
+      "lint:eslint"
+    ],
+    "exitCode": 0
+  },
+  {
+    "name": "schema",
+    "command": [
+      "bash",
+      "tools/procedencia/run.sh",
+      "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r40/schema.py"
+    ],
+    "exitCode": 0
+  }
+]

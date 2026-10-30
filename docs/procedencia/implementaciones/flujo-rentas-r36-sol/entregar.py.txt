@@ -1,0 +1,44 @@
+import difflib
+import gzip
+import hashlib
+import json
+import shutil
+import subprocess
+import uuid
+from pathlib import Path
+root = Path.cwd()
+out = root / 'docs/procedencia/implementaciones/flujo-rentas-r36-sol'
+exclude = {'manifiesto.json', 'patch.diff.gz', 'binarios.json', 'transporte.json', 'ENTREGA.json', 'fisico-final.json.gz', 'fisico-final.log'}
+paths = sorted([p for p in out.iterdir() if p.is_file() and p.name not in exclude] + list((root/'scripts/procedencia').glob('flujo-rentas-r36*.mjs')) + list((root/'schemas/procedencia/flujo').glob('rentas-r36*.schema.json')) + list((root/'tests').glob('flujo-rentas-r36*.test.ts')))
+manifest = []
+binaries = []
+patch = []
+for path in paths:
+    rel = str(path.relative_to(root))
+    data = path.read_bytes()
+    entry = {'path': rel, 'sha256': hashlib.sha256(data).hexdigest(), 'size': len(data), 'baseSha256': None, 'executable': bool(path.stat().st_mode & 0o111)}
+    manifest.append(entry)
+    try:
+        text = data.decode('utf8')
+        assert '\x00' not in text and text
+        patch.extend(difflib.unified_diff([], text.splitlines(keepends=True), fromfile='/dev/null', tofile='b/'+rel))
+        if not text.endswith('\n'):
+            patch.append('\n\\ No newline at end of file\n')
+    except (UnicodeDecodeError, AssertionError):
+        binaries.append(entry)
+(out/'manifiesto.json').write_text(json.dumps({'base': '50f9e949544e20d3e4e0bffc79b926d396267319', 'files': manifest, 'selfReferenceExclusions': sorted(exclude)}, indent=2)+'\n')
+(out/'patch.diff.gz').write_bytes(gzip.compress(''.join(patch).encode(), mtime=0))
+(out/'binarios.json').write_text(json.dumps(binaries, indent=2)+'\n')
+scratch = root/'.cache/flujo-rentas-r36'/('transporte-'+uuid.uuid4().hex)
+scratch.mkdir()
+result = subprocess.run(['patch', '-p1', '--batch', '--directory', str(scratch)], input=gzip.decompress((out/'patch.diff.gz').read_bytes()), capture_output=True)
+assert result.returncode == 0, result.stdout.decode()+result.stderr.decode()
+for entry in binaries:
+    target = scratch/entry['path']
+    target.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(root/entry['path'], target)
+for entry in manifest:
+    target = scratch/entry['path']
+    assert target.read_bytes() == (root/entry['path']).read_bytes(), entry['path']
+(out/'transporte.json').write_text(json.dumps({'scratch': str(scratch.relative_to(root)), 'files': len(manifest), 'patchExit': result.returncode, 'byteComparison': 'all-equal', 'binaryRoutes': [b['path'] for b in binaries], 'scope': 'adiciones propias; sin checkout VCS, originales ni aplicación'}, indent=2)+'\n')
+print(json.dumps({'files': len(manifest), 'bytes': sum(r['size'] for r in manifest), 'transport': 'all-equal'}))
