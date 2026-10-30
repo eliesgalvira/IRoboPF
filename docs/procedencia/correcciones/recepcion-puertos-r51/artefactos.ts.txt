@@ -1,0 +1,16 @@
+import {readFileSync,writeFileSync} from 'node:fs'
+import {gunzipSync} from 'node:zlib'
+import {createHash} from 'node:crypto'
+import {produceComposition,verifyComposition} from '../../../scripts/procedencia/composicion-r43'
+import {producePortContract,verifyPortContract,inspectPortContract} from '../../../scripts/procedencia/puertos-composicion-r47'
+const folder='docs/procedencia/implementaciones/puertos-composicion-r47-sol/'
+const composition=produceComposition();verifyComposition(composition)
+const contract=producePortContract(composition);verifyPortContract(contract,composition)
+const expectedComposition=JSON.parse(gunzipSync(readFileSync(folder+'candidato-composicion.json.gz')).toString())
+const expectedContract=JSON.parse(gunzipSync(readFileSync(folder+'contrato.json.gz')).toString())
+if(JSON.stringify(composition)!==JSON.stringify(expectedComposition))throw Error('Composición distinta')
+if(JSON.stringify(contract)!==JSON.stringify(expectedContract))throw Error('Contrato distinto')
+const report=inspectPortContract(contract,composition)
+const output={compositionExact:true,contractExact:true,compositionSha256:createHash('sha256').update(JSON.stringify(composition)).digest('hex'),contractSha256:createHash('sha256').update(JSON.stringify(contract)).digest('hex'),ports:contract.ports.length,calls:contract.ports.reduce((n,p)=>n+p.calls.length,0),obligations:report.obligations.length,status:report.status,pending:report.pending,admission:composition.admission}
+writeFileSync('docs/procedencia/correcciones/recepcion-puertos-r51/artefactos.json',JSON.stringify(output,null,2)+'\n')
+console.log(JSON.stringify(output))

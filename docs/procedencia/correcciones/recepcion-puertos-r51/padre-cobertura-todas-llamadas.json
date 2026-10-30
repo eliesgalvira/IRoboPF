@@ -1,0 +1,208 @@
+[
+  {
+    "port": "escalas::lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts#sumarRendimientosTrabajo",
+    "calls": [
+      {
+        "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12193:12260:call",
+        "reached": true
+      }
+    ]
+  },
+  {
+    "port": "escalas::lib/dominio/laboral/cotizaciones-perfil-uniforme.ts#calcularDesgloseCotizacionesPerfilUniforme",
+    "calls": [
+      {
+        "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12792:13018:call",
+        "reached": true
+      }
+    ]
+  },
+  {
+    "port": "escalas::lib/dominio/laboral/cotizaciones-sociales.ts#calcularDesgloseCotizacionesSocialesLegacy",
+    "calls": [
+      {
+        "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12792:13018:call",
+        "reached": true
+      }
+    ]
+  },
+  {
+    "port": "escalas::lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts#calcularRendimientoNetoTrabajo",
+    "calls": [
+      {
+        "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13132:13326:call",
+        "reached": true
+      }
+    ]
+  },
+  {
+    "port": "escalas::lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts#sumarRendimientosCapitalInmobiliario",
+    "calls": [
+      {
+        "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13460:13650:call",
+        "reached": true
+      }
+    ]
+  },
+  {
+    "port": "escalas::lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts#calcularRendimientoNetoCapitalInmobiliarioSimplificado",
+    "calls": [
+      {
+        "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13776:13908:call",
+        "reached": true
+      }
+    ]
+  },
+  {
+    "port": "escalas::lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts#calcularGananciasPatrimonialesPorTransmision",
+    "calls": [
+      {
+        "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14024:14339:call",
+        "reached": true
+      }
+    ]
+  },
+  {
+    "port": "escalas::lib/dominio/irpf/minimos/derechos.ts#validarRentasAnualesDerechos",
+    "calls": [
+      {
+        "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14818:14949:call",
+        "reached": true
+      }
+    ]
+  },
+  {
+    "port": "escalas::lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts#calcularReduccionTrabajoConOtrasRentas",
+    "calls": [
+      {
+        "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15117:15347:call",
+        "reached": true
+      },
+      {
+        "node": "lib/dominio/irpf/trabajo-anual/conexion.ts:3138:3309:call",
+        "reached": true
+      }
+    ]
+  },
+  {
+    "port": "escalas::lib/dominio/irpf/trabajo-anual/adaptador.ts#adaptarTrabajoAnual",
+    "calls": [
+      {
+        "node": "lib/dominio/irpf/trabajo-anual/conexion.ts:2899:2932:call",
+        "reached": true
+      }
+    ]
+  },
+  {
+    "port": "escalas::lib/dominio/irpf/actividades-economicas/adaptador.ts#adaptarActividadGeneral",
+    "calls": [
+      {
+        "node": "lib/dominio/irpf/trabajo-anual/conexion.ts:6161:6200:call",
+        "reached": true
+      }
+    ]
+  },
+  {
+    "port": "escalas::lib/dominio/irpf/trabajo-anual/calcular.ts#calcularDeduccionTrabajo",
+    "calls": [
+      {
+        "node": "lib/dominio/irpf/trabajo-anual/conexion.ts:8584:9103:call",
+        "reached": true
+      }
+    ]
+  },
+  {
+    "port": "escalas::lib/dominio/irpf/minimos/derechos.ts#validarDerechosMinimos",
+    "calls": [
+      {
+        "node": "lib/dominio/irpf/minimos/derechos.ts:9198:9229:call",
+        "reached": true
+      }
+    ]
+  },
+  {
+    "port": "rentas::boundary:calcularDesgloseCotizacionesPerfilUniforme",
+    "calls": [
+      {
+        "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12792:13018:call",
+        "reached": true
+      }
+    ]
+  },
+  {
+    "port": "rentas::boundary:calcularDesgloseCotizacionesSocialesLegacy",
+    "calls": [
+      {
+        "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12792:13018:call",
+        "reached": true
+      }
+    ]
+  },
+  {
+    "port": "rentas::boundary:obtenerParametrosComunidadAutonoma",
+    "calls": [
+      {
+        "node": "lib/dominio/irpf/trabajo-anual/conexion.ts:7426:7549:call",
+        "reached": true
+      }
+    ]
+  },
+  {
+    "port": "rentas::boundary:obtenerEscalaAutonomicaPublicada",
+    "calls": [
+      {
+        "node": "lib/dominio/irpf/trabajo-anual/conexion.ts:7687:7775:call",
+        "reached": true
+      }
+    ]
+  },
+  {
+    "port": "rentas::boundary:calcularCuotaPorEscala",
+    "calls": [
+      {
+        "node": "lib/dominio/irpf/trabajo-anual/conexion.ts:7814:7890:call",
+        "reached": true
+      },
+      {
+        "node": "lib/dominio/irpf/trabajo-anual/conexion.ts:7932:8104:call",
+        "reached": true
+      }
+    ]
+  },
+  {
+    "port": "rentas::boundary:MINIMOS_ESTATALES_2025",
+    "calls": [
+      {
+        "node": "lib/dominio/irpf/trabajo-anual/conexion.ts:8193:8215:global",
+        "reached": true
+      }
+    ]
+  },
+  {
+    "port": "rentas::boundary:calcularCotizacionesSocialesLegacy",
+    "calls": [
+      {
+        "node": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:933:1033:call",
+        "reached": true
+      }
+    ]
+  },
+  {
+    "port": "escalas::retencion.calcular",
+    "calls": [
+      {
+        "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:28270:28379:boundaryCall",
+        "reached": true
+      }
+    ]
+  },
+  {
+    "port": "escalas::explicit.decode",
+    "calls": [
+      {
+        "node": "lib/dominio/irpf/trabajo-anual/conexion.ts:1592:1696:boundaryCall",
+        "reached": true
+      }
+    ]
+  }
+]

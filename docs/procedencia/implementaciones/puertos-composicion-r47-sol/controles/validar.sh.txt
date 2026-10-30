@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -u
+root_dir=/home/elies/.t3/worktrees/IRoboPF/t3-afcf78b1
+scratch_dir="$root_dir/.cache/puertos-composicion-r47-sol"
+node_bin=/nix/store/viadyk3hg56ib6vky4cm3sb2y3n305aw-nodejs-24.19.0/bin/node
+run_check() {
+ local check_id="$1"
+ shift
+ flock /tmp/irobopf-validacion-pesada.lock "$@" > "$scratch_dir/$check_id.log" 2>&1
+ local check_code=$?
+ printf '%s\t%s\n' "$check_id" "$check_code" >> "$scratch_dir/codigos.tsv"
+}
+run_check tipos-alcance "$node_bin" /home/elies/Repos/IRoboPF/node_modules/typescript/bin/tsc -p "$scratch_dir/tsconfig.json"
+run_check tipos-principal "$node_bin" /home/elies/Repos/IRoboPF/node_modules/typescript/bin/tsc -p "$scratch_dir/tsconfig-global.json"
+run_check tipos-vendor "$node_bin" /home/elies/Repos/IRoboPF/node_modules/typescript/bin/tsc -p "$scratch_dir/tsconfig-vendor.json"
+NODE_OPTIONS="--import=$scratch_dir/resolver.mjs" run_check lint-alcance "$node_bin" /home/elies/Repos/IRoboPF/node_modules/oxlint/bin/oxlint --threads=1 --disable-nested-config scripts/procedencia/puertos-composicion-r47*.ts scripts/procedencia/composicion-r43.ts scripts/procedencia/flujo-rentas-r36-consumidor.mjs scripts/procedencia/flujo-escalas-r36-consumidor.mjs tests/puertos-composicion-r47.test.ts
+run_check pruebas-final "$node_bin" /home/elies/Repos/IRoboPF/node_modules/vitest/vitest.mjs run --configLoader native --config "$scratch_dir/vitest.config.mjs" --reporter=verbose

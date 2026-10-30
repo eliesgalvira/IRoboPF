@@ -1,0 +1,50 @@
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-afcf78b1
+
+ ❯ tests/composicion-r43.test.ts (21 tests | 2 failed) 7674ms
+   × compone las fronteras financieras sin callbacks del llamante 5924ms
+   × rechaza paquete alterado y mantiene cerrada la puerta pública 1212ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/composicion-r43.test.ts > compone las fronteras financieras sin callbacks del llamante
+Error: Correspondencia finita alterada
+ ❯ verifyRentasR36 scripts/procedencia/flujo-rentas-r36.mjs:785:11
+    783|   const wanted = composeRentasR36(root)
+    784|   if (JSON.stringify(candidate) !== JSON.stringify(wanted))
+    785|     throw Error("Correspondencia finita alterada")
+       |           ^
+    786|   return true
+    787| }
+ ❯ verifyComposition scripts/procedencia/composicion-r43.ts:66:3
+ ❯ createPortComposition scripts/procedencia/puertos-composicion-r47.ts:137:16
+ ❯ createComposition scripts/procedencia/composicion-r43.ts:83:10
+ ❯ tests/composicion-r43.test.ts:11:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/composicion-r43.test.ts > rechaza paquete alterado y mantiene cerrada la puerta pública
+AssertionError: expected [Function] to throw error matching /Admisión/ but got 'Correspondencia finita alterada'
+
+- Expected:
+/Admisión/
+
++ Received:
+"Correspondencia finita alterada"
+
+ ❯ tests/composicion-r43.test.ts:39:69
+     37|   m.links[0]!.producer = m.links[1]!.producer
+     38|   expect(() => verifyComposition(m)).toThrow()
+     39|   expect(() => consumePublic(candidate, "annual-public-admission")).to…
+       |                                                                     ^
+     40| })
+     41|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  2 failed | 37 passed (39)
+   Start at  03:36:09
+   Duration  30.63s (transform 453ms, setup 0ms, import 15.79s, tests 14.60s, environment 0ms)
+

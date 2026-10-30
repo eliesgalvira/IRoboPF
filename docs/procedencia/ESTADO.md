@@ -2,7 +2,17 @@
 
 Inicio: 29 de octubre de 2026. Trabajo en curso; no es una certificación fiscal.
 
-## Situación más reciente, ronda 50 del 30 de octubre
+## Situación más reciente, ronda 51 del 30 de octubre
+
+Integrado por archivos el candidato de puertos R47: 120 archivos recibidos, 8.674.610 bytes; transporte exacto de 109 rutas, incluidos 17 vacíos. Cotejo físico de 21.514 entradas del hijo, tres modificaciones declaradas y cero borrados. Preimágenes de la raíz coincidentes, 87 fuentes técnicas preservadas por ambos hashes. Detalle en correcciones/recepcion-puertos-r51.
+
+El router ejerce 21 conexiones originales y un puente no financiero de schema: 22 puertos y 24 asociaciones puerto-llamada. El padre reproduce 118 pruebas correctas, el rojo histórico por su aserción original y los artefactos exactos. Tipos principal/vendor y lint global pasan; no se reproduce el TS2345 de la configuración proyectada del hijo. Los 393 controles estructurales no equivalen a suficiencia semántica ni aceptación fiscal.
+
+Pendiente contrarrevisión independiente nueva de los puertos con Sol 6.1 High y prioridad. Después: obligaciones transitivas de 65 sitios y 19 instancias y conexión con admisión. Las cuatro puertas siguen falsas. No se repiten revisiones favorables del codec o resultados ajenos a este cambio.
+
+Motor, inventario, confianza y 45 snapshots intactos. V5 conserva corte R26; Crossa v1 sigue desfasado. Sin main, PR, despliegue, LFS, gasto, transferencia o limpieza. El encargo global permanece abierto.
+
+## Situación anterior, ronda 50 del 30 de octubre
 
 Recibida la contrarrevisión de resultados R49: 46 archivos, 2.625.998 bytes, transporte exacto de 36 archivos de payload y cotejo físico de 21.681 entradas intactas, cero borrados. Preservadas 132 entradas técnicas por ambos hashes. El padre reproduce 40 pruebas independientes correctas y el rojo histórico por su aserción original; tipos principal/vendor y lint global pasan.
 

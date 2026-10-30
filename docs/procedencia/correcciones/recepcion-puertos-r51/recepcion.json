@@ -1,0 +1,996 @@
+{
+  "source": "/home/elies/.t3/worktrees/IRoboPF/t3-afcf78b1",
+  "base": "a6fc3e5e4ec2a7fc7e123356e641817b2f19d908",
+  "manifestSha256": "9aa3f7a74d87a4edaec24d7290b8f7ed56e9d6aa38c52dc27590fd55d3a6bce9",
+  "physicalEntriesChecked": 21514,
+  "changes": [
+    {
+      "path": "scripts/procedencia/composicion-r43.ts",
+      "beforeSha256": "dd33b585fe284324f79076ba3fd93e6a2b55daaf5b34b0c19c4b9e3bcd712a8b",
+      "afterSha256": "4dd6d6f4f1a4f9f092bda9a542426e942b7f3a9a9c4e99d3f9ac996376f5ea60"
+    },
+    {
+      "path": "scripts/procedencia/flujo-escalas-r36-consumidor.mjs",
+      "beforeSha256": "2101da0b5d9aa6f75c15a2566da604919d0c1fe1f65c2e5152a7dd8d5b98c1a4",
+      "afterSha256": "57d4585474337f165c5e24d807d312867d5f5edaea81d2cb1d1dde1056d1453c"
+    },
+    {
+      "path": "scripts/procedencia/flujo-rentas-r36-consumidor.mjs",
+      "beforeSha256": "a746c268c44be8ec12a9f9932e5b25543ec4308b1a18f45938e6d7000238f36d",
+      "afterSha256": "83860ab707863bce259c11e626b1d40d2e534b9d4ce01f3be4ae837f41ddf09e"
+    }
+  ],
+  "deletions": [],
+  "transportExact": true,
+  "patchSha256": "d9e0c50f0e73048097f5bfaa950fee0d2d7b3ab94dbd9c6ced9697f3c204f152",
+  "emptyFiles": [
+    "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/cierre-lint.log",
+    "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/cierre-tipos-alcance.log",
+    "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/definitivo-lint.log",
+    "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/definitivo-tipos.log",
+    "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/entrega-lint.log",
+    "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/entrega-tipos.log",
+    "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/lint-alcance.log",
+    "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/lint-cuarto.log",
+    "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/lint-terminal.log",
+    "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/postdominio-lint.log",
+    "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/referencias-lint.log",
+    "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/referencias-tipos.log",
+    "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/tipos-alcance-terminal.log",
+    "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/tipos-alcance.log",
+    "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/tipos-vendor.log",
+    "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/todos-lint-final.log",
+    "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/todos-tipos-final.log"
+  ],
+  "files": [
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/BINARIOS-ETAPA-ANTERIOR.json",
+      "sha256": "082bf1f227fc877b69df86c5ad7ee37798052a95db7083d11a256c9efc7ecaa7",
+      "size": 6701,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/CAMBIOS.diff",
+      "sha256": "8db3143d633d12e6175264c56114bc373940db219b170ffe64b6bfb429381bd3",
+      "size": 12419,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/CAMBIOS.json",
+      "sha256": "5e42615d0ef44d873124c5b39ebae68a1601d54c9b575ec31f7c46fb6685855e",
+      "size": 1240,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/CENSO.json",
+      "sha256": "9743a7e967bfd47a56b74efbb2d434282ee2493896f7683e65b29e9a836c4a0f",
+      "size": 84206,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/COMANDOS.md",
+      "sha256": "81fbe1ed79234dcf9849231ce9014ca36dd2e1326214fcca60d86601598569d6",
+      "size": 4678,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/FUENTES.json",
+      "sha256": "d24c6287ee9fcf71c18889909cd5aa573906a4d06a979dd223456bcd86d4705f",
+      "size": 66976,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/HALLAZGOS.json",
+      "sha256": "b46f314fb356bef99ee0988b791ae5f97c558b4f82a69e938d78ebaf66816358",
+      "size": 3006,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/HERRAMIENTAS.json",
+      "sha256": "2b9941cd7fd09b76b04afbcc1d64265d30bf61c3168cdf6b9529be553fbf2842",
+      "size": 257,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/INFORME.md",
+      "sha256": "4c4a96de3d24bc415d18666579a3a32bbd2d4a40962351e043a88ecd3140520d",
+      "size": 22253,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/OBLIGACIONES.json",
+      "sha256": "2ed874d232dcdecf1654a91c113777b8e793486b37be60f434b86b0581b593ca",
+      "size": 61225,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/RECEPCION.json",
+      "sha256": "268cc9a9b44b3c7302cbb0c6bb91f36a09a4041407475eb1ca0286bba2dfb680",
+      "size": 339,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/RESULTADOS.json",
+      "sha256": "ed109e19812887c327b52ceb8b7450fdc04ed4d670dda67d4e42c351dbfaff7f",
+      "size": 1309,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/base-composicion-recibida.json.gz",
+      "sha256": "2cc592443a13291be23e60d42de5c7059baedede2b1bc7c9291698c6bfafcbb4",
+      "size": 2237420,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "binary"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/candidato-composicion.json.gz",
+      "sha256": "6a1ca826903b54523415c44b008b20fe4d7af1876ad8d548d94f647b98d983b2",
+      "size": 1447165,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "binary"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/contrato.json.gz",
+      "sha256": "239e395df67612cbe68e165015a08ca436d1d86860d9463ee33aa6f5b7542c08",
+      "size": 28781,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "binary"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles-diff.txt",
+      "sha256": "4430f6b31e8a95daf9e8ca06b7d5a623b128ed0f8ea1bb3827624384d0de88c5",
+      "size": 150,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/artefacto-entrega.log",
+      "sha256": "fa29a9dba5c4d658647208cdf7a0e886b7e5a65a6ee125ed9fe8735bb9a896dd",
+      "size": 73,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/cierre-integridad.log",
+      "sha256": "449ebba49520704011f8c2d843b3b5a1c9248f6276efe90e1fcce212d2dde4bb",
+      "size": 2646,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/cierre-lint.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "binary"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/cierre-tipos-alcance.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "binary"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/cierre-tipos-principal.log",
+      "sha256": "c5dc8019682bc4a54269426444710bea01c75be2a6405148e9c1c537e448836f",
+      "size": 924,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/cobertura-todas-llamadas.json",
+      "sha256": "e5d1752e1eaaa9c6e20b3065be761cd45fc11e0a0b55f61fcf5f6d1c1d18a092",
+      "size": 5601,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/codigos.tsv",
+      "sha256": "5143c85ce9d6cf0acc3a523d35b0864559c07257e613cb98ea9ffde3f6e89d1c",
+      "size": 812,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/conservacion-terminal.log",
+      "sha256": "299c989ead2f9240f35207b0677860beacc66d696e95f85bf00c30ee588fc1f1",
+      "size": 189,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/copiar-controles.mjs.txt",
+      "sha256": "ce38fb5d772fa75c8a160a594ac8d997bc45d2eb7620559de24a8498363e0d26",
+      "size": 1142,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/definitivo-generacion.log",
+      "sha256": "73da24b1aa104159a0d593601915c816e8f613fdb257f3c6d7f9a4890acb9e68",
+      "size": 73,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/definitivo-lint.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "binary"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/definitivo-principal.log",
+      "sha256": "c5dc8019682bc4a54269426444710bea01c75be2a6405148e9c1c537e448836f",
+      "size": 924,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/definitivo-suite.log",
+      "sha256": "c438cc8df3ea33656fdbd847f17e353a856a4d22a7ae2778370e3d61e7cfe802",
+      "size": 7327,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/definitivo-tipos.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "binary"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/empaquetar.mjs.txt",
+      "sha256": "deb63776f09332e8604b5343b1097f5e7382819b652c9c066a7015f722573614",
+      "size": 4107,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/entrega-lint.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "binary"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/entrega-pruebas.log",
+      "sha256": "bd0450870eea414e401e12c1bee0dc09f05b62c3c9a9a91b55142d37304b1807",
+      "size": 2655,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/entrega-tipos.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "binary"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/fisico.mjs.txt",
+      "sha256": "d3f387c4b8172547ec042815b91bb88fe4c5031307d422011dfbf725ffeca647",
+      "size": 1576,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/generacion-final.log",
+      "sha256": "e7cd17b7ca6c91af2eb3640d0dfd8845df89fa1c57a56b158b31ebb9ebe592d4",
+      "size": 73,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/generacion-terminal.log",
+      "sha256": "fa29a9dba5c4d658647208cdf7a0e886b7e5a65a6ee125ed9fe8735bb9a896dd",
+      "size": 73,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/generacion.log",
+      "sha256": "98329bca61b10d93a929f7b1d5721571ad9d080425a473f7c46ed225ab89e5d0",
+      "size": 2018,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/generar.ts.txt",
+      "sha256": "cf248e634b873f40d222d351434dac7d3b9b9da0481240fd66f663c1c0afbdee",
+      "size": 2768,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/harness.mjs.txt",
+      "sha256": "d4a2664e16d02f896d8c653bf5981b97905c62a5669516ff391adaf60638c68e",
+      "size": 1386,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/lint-alcance.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "binary"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/lint-cuarto.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "binary"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/lint-inicial.log",
+      "sha256": "d7043b32a0dc2d50b2430560d08f6cb8147a5b2606cc1ea5f10c7df3bb68603f",
+      "size": 1048,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/lint-segundo.log",
+      "sha256": "b12dfb2539ed6f6cdff21741814bdce77e84dc47ac46826addc89a9d39bcd88a",
+      "size": 918,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/lint-tercero.log",
+      "sha256": "9da20279ce494ae03408b959f2ab22fda4bf07563a7ca94d838b4d52efd8cea2",
+      "size": 769,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/lint-terminal.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "binary"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/mutaciones-llamadas.json",
+      "sha256": "edefe5587d7914eb68db010ba951abfecfd8170d129bce24ab94bb5d39e6123b",
+      "size": 69060,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/mutaciones.json",
+      "sha256": "4a1dc57da001fa5cc9c147e4efbb65ae67f68538391147c5aedbb151610dc8d5",
+      "size": 39989,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/postdominio-lint.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "binary"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/postdominio-pruebas.log",
+      "sha256": "f4e0ed1e4bdfb05b92190addec7f12dbef30b68f53c7e972ec5ef11439ea89cd",
+      "size": 7047,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/postdominio-tipos.log",
+      "sha256": "76c0de64d2d22ac9b7d73ee2af792f0e5325784c551530e5e5d415968e01fffb",
+      "size": 338,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/principal-entrega.log",
+      "sha256": "c5dc8019682bc4a54269426444710bea01c75be2a6405148e9c1c537e448836f",
+      "size": 924,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/pruebas-adicionales.log",
+      "sha256": "3cd5542f208679f757356eb17b999d9e5fc22664309e19e324e1d805517cac15",
+      "size": 2398,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/pruebas-cuarto.log",
+      "sha256": "76829548c04067a297f22ed9dc8d61851f0cf4b6cdee196425cce0b8a6fe73b0",
+      "size": 6346,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/pruebas-final.log",
+      "sha256": "15d4abfa6ecc0e9f2c10a2b8f5e9843f25ef7c548bc873391ed5a4e0c057571a",
+      "size": 6920,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/pruebas-inicial.log",
+      "sha256": "b9a06ec34a37e73a4d64214d52a1202c80c8d6d8784e6d81993a9e234f2901df",
+      "size": 2019,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/pruebas-segundo.log",
+      "sha256": "30440b13deadf0b000b76565f7cc95650ace9365fab7d1e84c5937a0a51750dc",
+      "size": 61,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/pruebas-tercero.log",
+      "sha256": "e2df7c00d85f25c150e790517707a96a1faa62ace9295bd40e187453dc5f19e9",
+      "size": 1286,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/referencias-lint.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "binary"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/referencias-pruebas.log",
+      "sha256": "74983bbfec011716a4ffdfbf7ae11177391bd915319178bc85f7c72b1026868b",
+      "size": 2773,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/referencias-tipos.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "binary"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/resolver.mjs.txt",
+      "sha256": "f56f0849bec62f64ec19da045513fcec40470bbd18d72523f6f2d79aff633e58",
+      "size": 358,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/rojo-base.log",
+      "sha256": "115f77bb2a24e10048e7d6dd02d87699c68517b80c7707d01e3fef2ff17facd4",
+      "size": 973,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/rojo-previo.test.ts.txt",
+      "sha256": "2b3a2aed62565b0cc1a7e1a02be447e444c6a3af3880dae5beb21c4f89af2e44",
+      "size": 837,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/rojo.config.mjs.txt",
+      "sha256": "eb42364a48803a61f3ff6cc4cac38db557497b80a253436a2d04b4eb03b10ca8",
+      "size": 157,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/suite-entrega.log",
+      "sha256": "225b6972af624cfdf87abff99c5532ea8b604e57e297d6087c519d0b74ca47df",
+      "size": 7184,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/terminal.mjs.txt",
+      "sha256": "c90644f8645ed7e7b0c98dacaa8e6af6ed7cef802f2ed5427b6ede99e77daa4a",
+      "size": 2737,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/testigos-comunes-final.json",
+      "sha256": "e07832aac6e52a06a0dc2bfb05f986d9d283f0141ec9911fc0b27792e700cae6",
+      "size": 48521,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/testigos-derechos.json",
+      "sha256": "9513a789692ff6d245841de824cfe1fa72d18dd07938c85f5155628cd4c9284a",
+      "size": 34317,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/testigos-retencion.json",
+      "sha256": "2521bf011f413583de8d087553cfae931397a10f3dd468f3613d92161f9325fe",
+      "size": 17224,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/testigos-todas-llamadas.json",
+      "sha256": "51c0d280adfbfea4161a247913953f716a31e4a9c3b3e07a37e053aeddf98bad",
+      "size": 122982,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/testigos.json",
+      "sha256": "20ba2d6b0a9c60d9cae580e9a13287239ab020f481c8df0f98e9c4585cf9b4c5",
+      "size": 13759,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/tipos-alcance-terminal.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "binary"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/tipos-alcance.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "binary"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/tipos-base.log",
+      "sha256": "33f1c638d51d2692cb279cf893646ef17ae7c10738900ba4868c5d9fc8a93000",
+      "size": 2663,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/tipos-base.mjs.txt",
+      "sha256": "aa5d09cdb8107eb534a5222300e0592fd201ac2c6e4f4729dc046dd4ebd224a1",
+      "size": 1543,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/tipos-global-inicial.log",
+      "sha256": "2b93ad1101ba6315745bea5a2584991a63745ca28bd3b25f1136c9910b8c7820",
+      "size": 197226,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/tipos-global-segundo.log",
+      "sha256": "1e47729a0afed99ccc1d888969e4f04682ad79b6e6d97e56f445433a89080db4",
+      "size": 3028,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/tipos-global-tercero.log",
+      "sha256": "b75ab9aee8dddf5e42a50ddcb27af31b0478a53d3362f9e0dfe84f06aac04b17",
+      "size": 4359,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/tipos-inicial.log",
+      "sha256": "92eaf7421971b936413460653a3219b0128e839c7e68b44a1cd8c1d360da296c",
+      "size": 7363,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/tipos-principal.log",
+      "sha256": "c5dc8019682bc4a54269426444710bea01c75be2a6405148e9c1c537e448836f",
+      "size": 924,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/tipos-segundo.log",
+      "sha256": "eeb2e6ebc0c4dc2bfb3697cd18ae0b608dcf6a705da455dfd05819bbb44388ce",
+      "size": 194,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/tipos-tercero.log",
+      "sha256": "a747ec01a249c91d7c822e955ad980b846871b5d0f4e8f20df3186de0575db21",
+      "size": 351,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/tipos-vendor.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "binary"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/todos-generacion-final.log",
+      "sha256": "73da24b1aa104159a0d593601915c816e8f613fdb257f3c6d7f9a4890acb9e68",
+      "size": 73,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/todos-lint-final.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "binary"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/todos-puertos-inicial.log",
+      "sha256": "d81e2571a3491cb7c4fe0155e8c7577e44c89e989b05b61c698c25314457dfa6",
+      "size": 2893,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/todos-suite-final.log",
+      "sha256": "3670986294338e002fcba04c5fb87d76b801465a0d520c847fa0e848f18afb22",
+      "size": 8374,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/todos-tipos-final.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "binary"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/todos-tipos-inicial.log",
+      "sha256": "284a29c133b6c09dabf81985ddd3b65f1fd360e0ae2d604340a26f69b8312177",
+      "size": 273,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/transporte.log",
+      "sha256": "79694bc625a786f5329b671c948c3315d427550823551db9d36d0d52b1849d63",
+      "size": 172,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/tsconfig-global.json.txt",
+      "sha256": "46907daff3b5ecd9cb687a5156d9a2dddc43635398880dcf9e8b10a759a90fca",
+      "size": 2354,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/tsconfig-vendor.json.txt",
+      "sha256": "d781d4edb17f44bf73459d41fa288da5d2944ee7591b0f2d574191f169eebab1",
+      "size": 1206,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/tsconfig.json.txt",
+      "sha256": "15159249dfc22d076364390dbe2003636d758039da3ee5ef8e356f58e0c564f3",
+      "size": 1506,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/type-only-equivalence.json",
+      "sha256": "906ee224eb05859ed01359c89ab255d60ab096364b1de76a91d88dd23f917cfe",
+      "size": 445,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/ultima-generacion.log",
+      "sha256": "fa29a9dba5c4d658647208cdf7a0e886b7e5a65a6ee125ed9fe8735bb9a896dd",
+      "size": 73,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/ultima-suite.log",
+      "sha256": "316dd7da9e6c7e0afa942a31d32a4496a35d406c390ca5243a4d201795aa2dd7",
+      "size": 7045,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/validar.sh.txt",
+      "sha256": "992b32119f3c4d45fabf447ab9ce18c788d1f6351058dfeda4488498f4ca64b6",
+      "size": 1423,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/controles/vitest.config.mjs.txt",
+      "sha256": "c1802e7ec954d539a3d518dc93e05a6fc2c874910bea79a83807cbfdc72553f7",
+      "size": 500,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/fisico-inicial.json.gz",
+      "sha256": "ae164c8c8f819bf8f68019896f0668ab3b464cf55ae3243eb7b5d6cc202ea0f4",
+      "size": 531,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "binary"
+    },
+    {
+      "path": "schemas/procedencia/flujo/puertos-composicion-r47.schema.json",
+      "sha256": "611c4ac1676dcd23cfec0aec2acc60e9122b514792a016e1cad1cdf47aecc965",
+      "size": 18516,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "scripts/procedencia/composicion-r43.ts",
+      "sha256": "4dd6d6f4f1a4f9f092bda9a542426e942b7f3a9a9c4e99d3f9ac996376f5ea60",
+      "size": 5923,
+      "baseSha256": "dd33b585fe284324f79076ba3fd93e6a2b55daaf5b34b0c19c4b9e3bcd712a8b",
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "scripts/procedencia/flujo-escalas-r36-consumidor.mjs",
+      "sha256": "57d4585474337f165c5e24d807d312867d5f5edaea81d2cb1d1dde1056d1453c",
+      "size": 12990,
+      "baseSha256": "2101da0b5d9aa6f75c15a2566da604919d0c1fe1f65c2e5152a7dd8d5b98c1a4",
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "scripts/procedencia/flujo-rentas-r36-consumidor.mjs",
+      "sha256": "83860ab707863bce259c11e626b1d40d2e534b9d4ce01f3be4ae837f41ddf09e",
+      "size": 12588,
+      "baseSha256": "a746c268c44be8ec12a9f9932e5b25543ec4308b1a18f45938e6d7000238f36d",
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "scripts/procedencia/puertos-composicion-r47-fuentes.ts",
+      "sha256": "84933b788347f9804630224c0a3a4177af6f6b6aab4647630ca118058c9e6eb0",
+      "size": 2777,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "scripts/procedencia/puertos-composicion-r47-harness.mjs",
+      "sha256": "d4a2664e16d02f896d8c653bf5981b97905c62a5669516ff391adaf60638c68e",
+      "size": 1386,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "scripts/procedencia/puertos-composicion-r47-schema.ts",
+      "sha256": "f202a24beb6a3c033112acfd75b436b22a3cc5791627fad764e10ef20b8982f2",
+      "size": 641,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "scripts/procedencia/puertos-composicion-r47.ts",
+      "sha256": "a566a503f416f855b8476db02223367c8971b23d057ce80faec6109edfbc7384",
+      "size": 21351,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "tests/puertos-composicion-r47.test.ts",
+      "sha256": "eda1e3e8f80897c05754cfca34ac7c034a7bb75affccc9b54c3391144b65251d",
+      "size": 23744,
+      "baseSha256": null,
+      "mode": 420,
+      "transport": "patch"
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/MANIFIESTO.json",
+      "size": 32185,
+      "sha256": "9aa3f7a74d87a4edaec24d7290b8f7ed56e9d6aa38c52dc27590fd55d3a6bce9",
+      "baseSha256": null,
+      "mode": 420
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/TRANSPORTE.json",
+      "size": 2354,
+      "sha256": "4ff7041eb0356c46a241a2c7957a8b1963327590db3166b577e5844726c3c445",
+      "baseSha256": null,
+      "mode": 420
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/BINARIOS.json",
+      "size": 7667,
+      "sha256": "1a1b0d5bb3e63322d9fdd8b00f9ad5a7f3b365844ca811b04a606034e5712222",
+      "baseSha256": null,
+      "mode": 420
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/entrega.patch.gz",
+      "size": 113750,
+      "sha256": "d9e0c50f0e73048097f5bfaa950fee0d2d7b3ab94dbd9c6ced9697f3c204f152",
+      "baseSha256": null,
+      "mode": 420
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/CONSERVACION-TERMINAL.json.gz",
+      "size": 29078,
+      "sha256": "8d72333c7d0ed1f0e52c8d8ff3354f7a2383a1cb8bd5b67817cfdae00b4b5307",
+      "baseSha256": null,
+      "mode": 420
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/binarios/239e395df67612cbe68e165015a08ca436d1d86860d9463ee33aa6f5b7542c08",
+      "size": 28781,
+      "sha256": "239e395df67612cbe68e165015a08ca436d1d86860d9463ee33aa6f5b7542c08",
+      "baseSha256": null,
+      "mode": 420
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/binarios/2cc592443a13291be23e60d42de5c7059baedede2b1bc7c9291698c6bfafcbb4",
+      "size": 2237420,
+      "sha256": "2cc592443a13291be23e60d42de5c7059baedede2b1bc7c9291698c6bfafcbb4",
+      "baseSha256": null,
+      "mode": 420
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/binarios/6a1ca826903b54523415c44b008b20fe4d7af1876ad8d548d94f647b98d983b2",
+      "size": 1447165,
+      "sha256": "6a1ca826903b54523415c44b008b20fe4d7af1876ad8d548d94f647b98d983b2",
+      "baseSha256": null,
+      "mode": 420
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/binarios/ae164c8c8f819bf8f68019896f0668ab3b464cf55ae3243eb7b5d6cc202ea0f4",
+      "size": 531,
+      "sha256": "ae164c8c8f819bf8f68019896f0668ab3b464cf55ae3243eb7b5d6cc202ea0f4",
+      "baseSha256": null,
+      "mode": 420
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/binarios/d148d75e940ec3a9561912e2e8f67404a4f56e5bae7fb2c42c366cf61432162d",
+      "size": 27807,
+      "sha256": "d148d75e940ec3a9561912e2e8f67404a4f56e5bae7fb2c42c366cf61432162d",
+      "baseSha256": null,
+      "mode": 420
+    },
+    {
+      "path": "docs/procedencia/implementaciones/puertos-composicion-r47-sol/binarios/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "baseSha256": null,
+      "mode": 420
+    }
+  ]
+}

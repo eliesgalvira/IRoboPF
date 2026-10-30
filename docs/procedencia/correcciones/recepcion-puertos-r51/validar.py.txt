@@ -1,0 +1,15 @@
+import json,os,subprocess
+from pathlib import Path
+r=Path('/home/elies/Repos/IRoboPF');c=r/'.cache/orquestador-recepcion/r51';o=r/'docs/procedencia/correcciones/recepcion-puertos-r51'
+v=['node','node_modules/vitest/vitest.mjs','run','--configLoader','native','--config',str(c/'vitest.mjs'),'--reporter=json']
+jobs=[('suite',v+['--outputFile='+str(o/'suite.json')],['tests/puertos-composicion-r47.test.ts','tests/composicion-r43.test.ts','tests/composicion-r45-resultados.test.ts','docs/procedencia/revisiones/resultados-composicion-r49-sol/revision.test.ts','tests/flujo-escalas-r36.test.ts','tests/flujo-rentas-r36.test.ts'],0),('rojo-historico',v+['--outputFile='+str(o/'rojo-historico.json')],['.cache/puertos-composicion-r47-sol/rojo.test.ts'],1),('types',['bun','run','typecheck'],None,0),('oxlint',['node_modules/.bin/oxlint','--threads=1','--disable-nested-config'],None,0),('eslint',['bun','run','lint:eslint'],None,0)]
+results=[]
+for name,cmd,include,expected in jobs:
+ env=dict(os.environ,NODE_PATH=str(r/'node_modules'),IROBOPF_DEPENDENCIES_PACKAGE=str(r/'package.json'))
+ if include is not None:env['REVIEW_INCLUDE']=json.dumps(include)
+ with (o/(name+'.log')).open('wb') as log:p=subprocess.run(['flock','/tmp/irobopf-validacion-pesada.lock',*cmd],cwd=r,env=env,stdout=log,stderr=subprocess.STDOUT)
+ results.append(dict(name=name,command=cmd,include=include,expectedExit=expected,exitCode=p.returncode));(o/'validacion.json').write_text(json.dumps(results,indent=2)+'\n');print(json.dumps(results[-1]),flush=True)
+ if p.returncode!=expected:break
+ if name=='rojo-historico':
+  detail=json.loads((o/'rojo-historico.json').read_text());assert detail['numTotalTests']==1 and detail['numFailedTests']==1
+  assert 'omitir contratos' in json.dumps(detail['testResults']) and 'AssertionError' in json.dumps(detail['testResults'])

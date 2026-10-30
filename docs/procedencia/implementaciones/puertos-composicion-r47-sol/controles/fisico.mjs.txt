@@ -1,0 +1,9 @@
+import fs from 'node:fs';import cp from 'node:child_process';import crypto from 'node:crypto';
+const base='a6fc3e5e4ec2a7fc7e123356e641817b2f19d908';
+const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
+const entries=cp.execFileSync('git',['ls-tree','-rz','--full-tree',base],{maxBuffer:20e6}).toString().split('\0').filter(Boolean);
+if(entries.length!==21514)throw Error('censo '+entries.length);
+const changed=[];let missing=0;const names=new Set();
+for(const entry of entries){const [meta,path]=entry.split('\t');const [mode,,oid]=meta.split(' ');names.add(path);const original=cp.execFileSync('git',['cat-file','blob',oid],{maxBuffer:100e6});let s;try{s=fs.lstatSync(path)}catch{missing++;changed.push({path,missing:true});continue}const link=s.isSymbolicLink();const bytes=link?Buffer.from(fs.readlinkSync(path)):fs.readFileSync(path);if(!bytes.equals(original)||link!==(mode==='120000')||(!link&&Boolean(s.mode&0o111)!==(mode==='100755')))changed.push({path,baseSha256:sha(original),sha256:sha(bytes),mode:s.mode,baseMode:mode});}
+const extras=[];function walk(dir){for(const e of fs.readdirSync(dir,{withFileTypes:true})){const p=dir==='.'?e.name:dir+'/'+e.name;if(['.git','.jj','node_modules'].includes(p))continue;if(e.isDirectory())walk(p);else if(!names.has(p)){const s=fs.lstatSync(p);const b=s.isSymbolicLink()?Buffer.from(fs.readlinkSync(p)):fs.readFileSync(p);extras.push({path:p,sha256:sha(b),size:b.length,mode:s.mode,link:s.isSymbolicLink()});}}}walk('.');
+console.log(JSON.stringify({base,count:entries.length,missing,changed,extras},null,2));

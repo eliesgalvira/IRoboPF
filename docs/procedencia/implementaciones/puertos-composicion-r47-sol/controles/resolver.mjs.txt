@@ -1,0 +1,3 @@
+import {registerHooks,createRequire} from 'node:module';import {pathToFileURL} from 'node:url';
+const parent=createRequire('/home/elies/Repos/IRoboPF/package.json');const pluginURL=pathToFileURL(parent.resolve('@oxlint/plugins')).href;
+registerHooks({resolve(specifier,context,next){return next(specifier==='@oxlint/plugins'?pluginURL:specifier,context)}});

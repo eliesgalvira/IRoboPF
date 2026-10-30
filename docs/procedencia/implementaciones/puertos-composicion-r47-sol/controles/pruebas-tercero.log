@@ -1,0 +1,33 @@
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-afcf78b1
+
+ ❯ tests/puertos-composicion-r47.test.ts (9 tests | 1 failed) 19551ms
+   × R47-CENSO: cada asignación R43 tiene contrato y llamadas concretas 5ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/puertos-composicion-r47.test.ts > R47-CENSO: cada asignación R43 tiene contrato y llamadas concretas
+AssertionError: expected [ { …(11) }, { …(11) }, …(6) ] to have a length of 9 but got 8
+
+- Expected
++ Received
+
+- 9
++ 8
+
+ ❯ tests/puertos-composicion-r47.test.ts:22:90
+     20| })
+     21| it("R47-CENSO: cada asignación R43 tiene contrato y llamadas concretas…
+     22|  expect(contract.ports.filter(p=>p.consumer==="escalas" && p.provider.…
+       |                                                                                          ^
+     23|  expect(contract.ports.filter(p=>p.provider.group==="ss" && p.kind==="…
+     24|  expect(contract.ports.filter(p=>p.consumer==="rentas" && p.provider.g…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 2 passed (3)
+      Tests  1 failed | 47 passed (48)
+   Start at  03:39:04
+   Duration  50.01s (transform 466ms, setup 0ms, import 11.64s, tests 38.05s, environment 0ms)
+

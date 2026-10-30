@@ -1,0 +1,251 @@
+diff --git a/scripts/procedencia/composicion-r43.ts b/scripts/procedencia/composicion-r43.ts
+index 1e311eb..959149c 100644
+--- a/scripts/procedencia/composicion-r43.ts
++++ b/scripts/procedencia/composicion-r43.ts
+@@ -1,13 +1,9 @@
+-import type { CasoActividad2025 } from "../../lib/dominio/irpf/actividades-economicas/contrato"
++import { createPortComposition } from "./puertos-composicion-r47"
+ import { hashFile } from "./composicion-r43-archivos.mjs"
+ import { composeSS, validateSS } from "./flujo-ss-r36.mjs"
+ import { composeRetencionesR34, verifyRetencionesR34 } from "./flujo-retenciones-r34.mjs"
+ import { composeRentasR36, verifyRentasR36 } from "./flujo-rentas-r36.mjs"
+ import { composeEscalasR36, verifyEscalasR36 } from "./flujo-escalas-r36.mjs"
+-import { executeFinite as ssRun, createSSEvaluator } from "./flujo-ss-r36-consumidor.mjs"
+-import { executeFinite as retentionRun, consumeAnnual } from "./flujo-retenciones-r34-consumidor.mjs"
+-import { executeRentasFinite, consumeGeneralRentas, consumeExplicitRentas } from "./flujo-rentas-r36-consumidor.mjs"
+-import { executeEscalasR36, consumeEscalasR36 } from "./flujo-escalas-r36-consumidor.mjs"
+ 
+ export const base = "05cf0e159cc0a0eb3b87d554447a2d14939115c2"
+ const money = "lib/dominio/dinero/importe-monetario.ts"
+@@ -84,45 +80,5 @@ export function consumePublic(candidate: Composition, route: string) {
+ 
+ /** Laboratorio de valor; las entradas conservan su contrato público, pero este método no concede admisión. */
+ export function createComposition(candidate: Composition) {
+-  const g = verifyComposition(candidate).fragments
+-  const ss = createSSEvaluator(g.ss)
+-  const rentBoundaries = new Map<string, (...args: never[]) => object>()
+-  const scaleBoundaries = new Map<string, (...args: never[]) => object>()
+-  // Los argumentos se transportan sin proyección. Los intérpretes revisados mantienen su dominio dinámico.
+-  const rent = (root: string, args: object[]) => executeRentasFinite(g.rentas, root, args, false, null, [], Object.fromEntries(rentBoundaries)).result
+-  const scales = (root: string, args: object[]) => executeEscalasR36(g.escalas, root, args, false, null, [], scaleBoundaries).result
+-  for (const [file, symbol] of scaleTargets) scaleBoundaries.set(file + "#" + symbol, (...args) => rent(file + ":" + symbol, args))
+-  for (const [file, symbol] of ssTargets) {
+-    const fn = (...args: object[]) => ssRun(g.ss, symbol, args, false).result
+-    scaleBoundaries.set(file + "#" + symbol, fn)
+-    rentBoundaries.set("boundary:" + symbol, fn)
+-  }
+-  // El consumidor solo lee las dos propiedades de totales que ya devuelve el desglose.
+-  rentBoundaries.set("boundary:calcularCotizacionesSocialesLegacy", (...args) => {
+-    const result = ssRun(g.ss, "calcularDesgloseCotizacionesSocialesLegacy", args, false).result
+-    return { cotizacionEmpresarial: result.cotizacionEmpresarial, cotizacionTrabajador: result.cotizacionTrabajador }
+-  })
+-  for (const [file, symbol] of rentTargets) rentBoundaries.set("boundary:" + symbol, (...args) => scales(file + "#" + symbol, args))
+-  scaleBoundaries.set("retencion.calcular", (...args) => retentionRun(g.retenciones, "calcularRetencionTrabajoAeatImpl", args, false).result)
+-  // Precondición del laboratorio: derechos ya admitidos. No se ejecuta ni se suplanta la admisión pública.
+-  scaleBoundaries.set(income + "minimos/derechos.ts#validarDerechosMinimos", (derechos) => derechos)
+-  scaleBoundaries.set(income + "minimos/derechos.ts#validarRentasAnualesDerechos", (derechos) => derechos)
+-  const minimum = g.escalas.globalBindings.find((b: { name: string }) => b.name === "lib/dominio/normativa/datos/minimos-autonomicos-2025.ts#MINIMOS_ESTATALES_2025")
+-  if (minimum === undefined) throw Error("Raíz de mínimos ausente")
+-  const constants = executeEscalasR36(g.escalas, null, [], false, minimum.node).result
+-  const boundaries = () => ({ ...Object.fromEntries(rentBoundaries), "boundary:MINIMOS_ESTATALES_2025": constants })
+-  return {
+-    annual(caso: Parameters<typeof ss>[0], contexto: Parameters<typeof ss>[1]) {
+-      const ssResult = ss(caso, contexto)
+-      const rents = consumeGeneralRentas(g.rentas, caso, contexto, boundaries())
+-      const retention = consumeAnnual(g.retenciones, caso, contexto, false)
+-      const quotas = consumeEscalasR36(g.escalas, "annual", caso, contexto, scaleBoundaries)
+-      return { lines: [...ssResult.lines, ...rents.lines, ...retention.lines, ...quotas.lines], admissionClosed: false, wiringAllowed: false }
+-    },
+-    explicit(entrada: Parameters<typeof consumeExplicitRentas>[1]) {
+-      return consumeExplicitRentas(g.rentas, entrada, boundaries())
+-    },
+-    activity(entrada: CasoActividad2025) { return rent("lib/dominio/irpf/actividades-economicas/calcular.ts:calcularActividad2025", [entrada]) },
+-    roots: { rent, scales },
+-  }
++  return createPortComposition(candidate)
+ }
+diff --git a/scripts/procedencia/flujo-escalas-r36-consumidor.mjs b/scripts/procedencia/flujo-escalas-r36-consumidor.mjs
+index 9ad6af2..a3c8ede 100644
+--- a/scripts/procedencia/flujo-escalas-r36-consumidor.mjs
++++ b/scripts/procedencia/flujo-escalas-r36-consumidor.mjs
+@@ -64,6 +64,8 @@ const printable = (v) => {
+ }
+ /** Solo consume operaciones JSON. No importa motor, compilador TS ni ejecuta texto.
+  * El llamante debe validar primero el fragmento; executeFinite no concede confianza. */
++/** @param {string|null} expression
++ * @param {((event: import("./puertos-composicion-r47").Observation) => void)|null} observe */
+ export function executeEscalasR36(
+   fragment,
+   functionName,
+@@ -71,7 +73,8 @@ export function executeEscalasR36(
+   capture = true,
+   expression = null,
+   bindings = [],
+-  boundaries = new Map()
++  boundaries = new Map(),
++  observe = null
+ ) {
+   const nodes = new Map(fragment.program.map((n) => [n.id, n]))
+   const globals = new Map(fragment.globalBindings.map((b) => [b.name, b.node]))
+@@ -105,6 +108,7 @@ export function executeEscalasR36(
+   )
+   const trace = []
+   const stack = []
++  const calls = []
+   let invocation = 0,
+     event = 0
+   const record = (entry) =>
+@@ -150,6 +154,7 @@ export function executeEscalasR36(
+           if (!fn)
+             throw Error("Frontera sin contrato suministrado " + n.data.target)
+           const result = fn(...xs)
++          if (observe) observe({ node: calls.at(-1), target: n.data.target, frames: [...stack], arguments: xs.map(printable), result: printable(result) })
+           record({
+             node: id,
+             operation: "external-boundary",
+@@ -167,6 +172,7 @@ export function executeEscalasR36(
+           throw Error("Frontera sin contrato suministrado " + n.data.target)
+         const xs = n.args.map((i) => evaluate(i, env))
+         value = fn(...xs)
++        if (observe) observe({ node: id, target: n.data.target, frames: [...stack], arguments: xs.map(printable), result: printable(value) })
+         record({
+           node: id,
+           operation: "external-boundary",
+@@ -332,7 +338,8 @@ export function executeEscalasR36(
+         } else {
+           const fn = ev(0)
+           xs = many(n.args.slice(1))
+-          value = fn(...xs)
++          calls.push(id)
++          try { value = fn(...xs) } finally { calls.pop() }
+         }
+         if (capture)
+           record({
+@@ -383,7 +390,8 @@ export function executeEscalasR36(
+ 
+ /** Ensayo condicionado. Los callbacks son contratos ajenos suministrados por el
+  * llamante; nunca se convierten en admisión ni en revisión independiente. */
+-export function consumeEscalasR36(fragment, route, caso, contexto, boundaries) {
++/** @param {((event: import("./puertos-composicion-r47").Observation) => void)|null} observe */
++export function consumeEscalasR36(fragment, route, caso, contexto, boundaries, observe = null) {
+   if (!["annual", "explicit"].includes(route)) throw Error("Ruta no admitida")
+   const entry =
+     route === "annual"
+@@ -396,7 +404,8 @@ export function consumeEscalasR36(fragment, route, caso, contexto, boundaries) {
+     true,
+     null,
+     [],
+-    boundaries
++    boundaries,
++    observe
+   )
+   const lines = result.result.flat()
+   if (
+diff --git a/scripts/procedencia/flujo-rentas-r36-consumidor.mjs b/scripts/procedencia/flujo-rentas-r36-consumidor.mjs
+index 69ef5eb..b385519 100644
+--- a/scripts/procedencia/flujo-rentas-r36-consumidor.mjs
++++ b/scripts/procedencia/flujo-rentas-r36-consumidor.mjs
+@@ -56,6 +56,8 @@ const printable = (v) => {
+ }
+ /** Solo consume operaciones JSON. No importa motor, compilador TS ni ejecuta texto.
+  * El llamante debe validar primero el fragmento; executeFinite no concede confianza. */
++/** @param {string|null} expression
++ * @param {((event: import("./puertos-composicion-r47").Observation) => void)|null} observe */
+ export function executeRentasFinite(
+   fragment,
+   functionName,
+@@ -63,7 +65,8 @@ export function executeRentasFinite(
+   capture = true,
+   expression = null,
+   bindings = [],
+-  boundaries = {}
++  boundaries = {},
++  observe = null
+ ) {
+   const nodes = new Map(fragment.program.map((n) => [n.id, n]))
+   const globals = new Map(fragment.globalBindings.map((b) => [b.name, b.node]))
+@@ -98,6 +101,9 @@ export function executeRentasFinite(
+       },
+     })
+   )
++  const frames = []
++  let invocation = 0
++  const boundaryNames = new Map(Object.entries(boundaries).map(([name, value]) => [value, name]))
+   const trace = []
+   const bindValue = (pattern, value, env) =>
+     bind(pattern, value, env, (id) => evaluate(id, env))
+@@ -129,6 +135,7 @@ export function executeRentasFinite(
+         break
+       case "global":
+         value = global(n.data.name)
++        if (observe && n.data.name.startsWith("boundary:") && Object.entries(boundaries).some(([name, v]) => name === n.data.name && v === value) && !Object.entries(boundaries).some(([name, v]) => name === n.data.name && v instanceof Function)) observe({ node: id, target: n.data.name, frames: [...frames], arguments: [], result: printable(value) })
+         break
+       case "local":
+         if (!env.has(n.data.name))
+@@ -150,10 +157,13 @@ export function executeRentasFinite(
+             )
+           )
+           try {
++            frames.push({ node: n.id, invocation: ++invocation })
+             return evaluate(n.args[0], local)
+           } catch (e) {
+             if (e?.[returned]) return e.value
+             throw e
++          } finally {
++            frames.pop()
+           }
+         }
+         break
+@@ -272,6 +282,7 @@ export function executeRentasFinite(
+           const fn = ev(0)
+           xs = many(n.args.slice(1))
+           value = fn(...xs)
++          if (observe && boundaryNames.has(fn)) observe({ node: id, target: boundaryNames.get(fn), frames: [...frames], arguments: xs.map(printable), result: printable(value) })
+         }
+         if (capture)
+           trace.push({
+@@ -322,11 +333,13 @@ export function executeRentasFinite(
+ 
+ /** Entradas generales previamente admitidas. SS se aporta solo mediante contratos ajenos.
+  * La admisión común sigue pendiente: este resultado no habilita wiring. */
++/** @param {((event: import("./puertos-composicion-r47").Observation) => void)|null} observe */
+ export function consumeGeneralRentas(
+   fragment,
+   caso,
+   contexto,
+-  boundaries = {}
++  boundaries = {},
++  observe = null
+ ) {
+   const bindings = [
+     ["caso", caso],
+@@ -344,7 +357,8 @@ export function consumeGeneralRentas(
+       false,
+       binding.node,
+       bindings,
+-      terminals
++      terminals,
++      observe
+     ).result
+     bindings.push([binding.name, value])
+   }
+@@ -387,7 +401,8 @@ export function consumeGeneralRentas(
+   }
+ }
+ /** Distingue rechazo contractual de defecto; nunca transforma ninguno en importe cero. */
+-export function consumeExplicitRentas(fragment, entrada, boundaries = {}) {
++/** @param {((event: import("./puertos-composicion-r47").Observation) => void)|null} observe */
++export function consumeExplicitRentas(fragment, entrada, boundaries = {}, observe = null) {
+   try {
+     const result = executeRentasFinite(
+       fragment,
+@@ -396,7 +411,8 @@ export function consumeExplicitRentas(fragment, entrada, boundaries = {}) {
+       false,
+       null,
+       [],
+-      { ...boundaries, "boundary:enlazarRastroAnualActual": (r) => r }
++      { ...boundaries, "boundary:enlazarRastroAnualActual": (r) => r },
++      observe
+     ).result
+     return {
+       status: "success",

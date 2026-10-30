@@ -1,0 +1,60 @@
+{
+  "extends": "/home/elies/.t3/worktrees/IRoboPF/t3-afcf78b1/tsconfig.json",
+  "compilerOptions": {
+    "incremental": false,
+    "baseUrl": "/home/elies/Repos/IRoboPF",
+    "paths": {
+      "@/*": [
+        "/home/elies/.t3/worktrees/IRoboPF/t3-afcf78b1/*"
+      ],
+      "*": [
+        "node_modules/*"
+      ],
+      "effect": [
+        "node_modules/effect/dist/index.d.ts"
+      ],
+      "effect/*": [
+        "node_modules/effect/dist/*.d.ts"
+      ],
+      "react": [
+        "/home/elies/Repos/IRoboPF/node_modules/@types/react/index.d.ts"
+      ],
+      "react/*": [
+        "/home/elies/Repos/IRoboPF/node_modules/@types/react/*"
+      ],
+      "@effect/vitest": [
+        "/home/elies/Repos/IRoboPF/node_modules/@effect/vitest/dist/index.d.ts"
+      ],
+      "@vercel/analytics/next": [
+        "/home/elies/Repos/IRoboPF/node_modules/@vercel/analytics/dist/next/index.d.ts"
+      ],
+      "react-dom": [
+        "/home/elies/Repos/IRoboPF/node_modules/@types/react-dom/index.d.ts"
+      ],
+      "react-dom/*": [
+        "/home/elies/Repos/IRoboPF/node_modules/@types/react-dom/*"
+      ]
+    },
+    "typeRoots": [
+      "/home/elies/Repos/IRoboPF/node_modules/@types"
+    ]
+  },
+  "include": [
+    "/home/elies/.t3/worktrees/IRoboPF/t3-afcf78b1/next-env.d.ts",
+    "/home/elies/.t3/worktrees/IRoboPF/t3-afcf78b1/**/*.ts",
+    "/home/elies/.t3/worktrees/IRoboPF/t3-afcf78b1/**/*.tsx",
+    "/home/elies/.t3/worktrees/IRoboPF/t3-afcf78b1/.next/types/**/*.ts",
+    "/home/elies/.t3/worktrees/IRoboPF/t3-afcf78b1/.next/dev/types/**/*.ts"
+  ],
+  "exclude": [
+    "/home/elies/.t3/worktrees/IRoboPF/t3-afcf78b1/node_modules",
+    "/home/elies/.t3/worktrees/IRoboPF/t3-afcf78b1/.cache",
+    "/home/elies/.t3/worktrees/IRoboPF/t3-afcf78b1/tools/oxlint/anti-slop",
+    "/home/elies/.t3/worktrees/IRoboPF/t3-afcf78b1/docs/procedencia/revisiones/*/scratch/**",
+    "/home/elies/.t3/worktrees/IRoboPF/t3-afcf78b1/docs/procedencia/revisiones/*/tmp/**",
+    "/home/elies/.t3/worktrees/IRoboPF/t3-afcf78b1/docs/procedencia/revisiones/*/validacion/**",
+    "/home/elies/.t3/worktrees/IRoboPF/t3-afcf78b1/docs/procedencia/revisiones/*/checkout-validacion/**",
+    "/home/elies/.t3/worktrees/IRoboPF/t3-afcf78b1/docs/procedencia/revisiones/*/lint-input/**",
+    "/home/elies/.t3/worktrees/IRoboPF/t3-afcf78b1/docs/procedencia/revisiones/*/mypy-cache/**"
+  ]
+}

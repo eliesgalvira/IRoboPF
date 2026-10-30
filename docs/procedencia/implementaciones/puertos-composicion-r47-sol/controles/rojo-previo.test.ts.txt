@@ -1,0 +1,9 @@
+import {expect,it} from 'vitest'
+import {readFileSync} from 'node:fs'
+import {createComposition} from './legacy'
+const original=JSON.parse(readFileSync('.cache/puertos-composicion-r47-sol/base.json','utf8'))
+const altered=structuredClone(original);altered.links=[]
+const caso={anio:2025,comunidadAutonoma:'madrid',situacionFamiliar:{tipo:'individual',edad:40,descendientes:[],ascendientes:[],discapacidad:{_tag:'SinDiscapacidad'}},rendimientos:{trabajo:[{importeIntegroCentimos:3000000}]},reducciones:[],deducciones:[],retencionesSoportadasCentimos:123,pagosACuentaCentimos:321}
+it('ROJO R43: omitir contratos debe modificar alcance o rechazar; los mapas antiguos los ignoran',()=>{
+ expect(createComposition(altered).annual(caso,{modo:'canonico'}).lines).not.toEqual(createComposition(original).annual(caso,{modo:'canonico'}).lines)
+})
