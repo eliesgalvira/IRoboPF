@@ -8,7 +8,9 @@ Recibido el candidato Sol SS R36: 75 archivos y 6.234.744 bytes con sobres/objet
 
 El padre ejecuta 58 pruebas y 684 casos, reconstruye exactamente el artefacto y comprueba tipos principal/vendor, lint global y schema: correctos. Vitest usa cargador nativo y caché propia. Se preservan los rojos previos y la incidencia declarada de temporales Vite externos del primer arnés del hijo.
 
-Los once cierres siguen candidatos. El padre documenta cinco anotaciones de `mei` como EUR que requieren contraste dimensional independiente; no se cambian cifras ni se acepta el hallazgo por esta lectura. Admisión, wiring, cierre de sitio y aceptación fiscal permanecen pendientes/falsos. Se prepara una revisión nueva sobre el commit exacto, con Sol 6.1 High y prioridad explícitas.
+Los once cierres siguen candidatos. El padre documenta cinco anotaciones de `mei` como EUR que requieren contraste dimensional independiente; no se cambian cifras ni se acepta el hallazgo por esta lectura. Admisión, wiring, cierre de sitio y aceptación fiscal permanecen pendientes/falsos. Integración respaldada en origin, commit `2fab25d9d79c46dbf1a3f47c55e66a7410566758`: 101 archivos, todos sus hashes comprobados, cero borrados.
+
+Lanzada una revisión independiente nueva sobre ese commit y sus 20.498 entradas, con gpt-6.1-sol, high y priority explícitos y confirmados por el lanzador. El encargo cubre los once recorridos y la observación dimensional; solicitud y resultado completos en delegaciones-ronda39.json. La finalización reactivará el hilo; no se espera ni se sondea al hijo.
 
 Continúan los tres encargos R36 de admisión, escalas y rentas, sin sondeos ni lectura de entregas parciales. Motor, confianza activa, inventario y 45 snapshots intactos. V5 mantiene corte R26; Crossa sigue v1 desfasado, copia local fuera de Victus del mismo dueño/casa. Sin main, PR, despliegue, LFS, gasto, transferencia externa ni limpieza. El encargo global permanece abierto.
 
