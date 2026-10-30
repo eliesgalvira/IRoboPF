@@ -1,0 +1,46 @@
+[
+  {
+    "name": "suite-final",
+    "command": [
+      "node",
+      "node_modules/vitest/vitest.mjs",
+      "run",
+      "tests/causal-explicitos-r62.test.ts",
+      "--configLoader",
+      "native",
+      "--config",
+      "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r64/vitest.mjs",
+      "--reporter=json",
+      "--outputFile=/home/elies/Repos/IRoboPF/docs/procedencia/correcciones/recepcion-causal-explicitos-r64/suite-final.json"
+    ],
+    "exitCode": 0
+  },
+  {
+    "name": "schemas",
+    "command": [
+      "env",
+      "NODE_PATH=/home/elies/Repos/IRoboPF/node_modules",
+      "node",
+      "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r64/validar-originales.mjs"
+    ],
+    "exitCode": 0
+  },
+  {
+    "name": "lint-test",
+    "command": [
+      "node_modules/.bin/oxlint",
+      "--threads=1",
+      "--disable-nested-config",
+      "tests/causal-explicitos-r62.test.ts"
+    ],
+    "exitCode": 0
+  },
+  {
+    "name": "eslint-test",
+    "command": [
+      "node_modules/.bin/eslint",
+      "tests/causal-explicitos-r62.test.ts"
+    ],
+    "exitCode": 0
+  }
+]

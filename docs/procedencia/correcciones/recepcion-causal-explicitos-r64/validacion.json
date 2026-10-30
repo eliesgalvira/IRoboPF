@@ -1,0 +1,46 @@
+[
+  {
+    "name": "types",
+    "command": [
+      "bun",
+      "run",
+      "typecheck"
+    ],
+    "exitCode": 0
+  },
+  {
+    "name": "suite",
+    "command": [
+      "node",
+      "node_modules/vitest/vitest.mjs",
+      "run",
+      "--configLoader",
+      "native",
+      "--config",
+      "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r64/vitest.mjs",
+      "-t",
+      "nueve sitios expl\u00edcitos|actividad admitida requiere|racional de base|API real expl\u00edcita independiente|n\u00facleo compartido.*2025/canonico|n\u00facleo directo de retenciones",
+      "--reporter=json",
+      "--outputFile=/home/elies/Repos/IRoboPF/docs/procedencia/correcciones/recepcion-causal-explicitos-r64/suite.json"
+    ],
+    "exitCode": 1
+  },
+  {
+    "name": "oxlint",
+    "command": [
+      "node_modules/.bin/oxlint",
+      "--threads=1",
+      "--disable-nested-config"
+    ],
+    "exitCode": 0
+  },
+  {
+    "name": "eslint",
+    "command": [
+      "bun",
+      "run",
+      "lint:eslint"
+    ],
+    "exitCode": 0
+  }
+]

@@ -1,0 +1,16 @@
+{
+  "command": [
+    "flock",
+    "/tmp/irobopf-validacion-pesada.lock",
+    "nix",
+    "shell",
+    "nixpkgs#nodejs",
+    "-c",
+    "node",
+    "/home/elies/Repos/IRoboPF/node_modules/typescript/bin/tsc",
+    "-p",
+    ".cache/causal-explicitos-r62-sol/checkjs.json"
+  ],
+  "exit": 2,
+  "seconds": 320.5812656879425
+}

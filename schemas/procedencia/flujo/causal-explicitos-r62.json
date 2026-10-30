@@ -1,0 +1,4325 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "kind",
+    "pending",
+    "obligations",
+    "program",
+    "globalBindings",
+    "annualBindings",
+    "outputBindings",
+    "sources",
+    "fieldUnits",
+    "literalUnits",
+    "functionUnits",
+    "entryPoints",
+    "lineNode",
+    "schemaProgram",
+    "participants",
+    "admissionClosed",
+    "siteClosed",
+    "wiringAllowed",
+    "completeRuleAcceptance"
+  ],
+  "properties": {
+    "version": {
+      "const": 5
+    },
+    "kind": {
+      "const": "causal-explicitos-r62"
+    },
+    "pending": {
+      "type": "array",
+      "maxItems": 0
+    },
+    "obligations": {
+      "type": "array",
+      "maxItems": 0
+    },
+    "program": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "op",
+          "args",
+          "data",
+          "source"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "op": {
+            "enum": [
+              "literal",
+              "regex",
+              "local",
+              "global",
+              "function",
+              "block",
+              "declarations",
+              "bind",
+              "return",
+              "pass",
+              "throw",
+              "if",
+              "conditional",
+              "switch",
+              "case",
+              "binary",
+              "unary",
+              "get",
+              "index",
+              "call",
+              "new",
+              "array",
+              "object",
+              "property",
+              "template",
+              "spread",
+              "assign",
+              "forOf",
+              "forof",
+              "mapError",
+              "invoke",
+              "noop",
+              "failurePayload",
+              "isFailure",
+              "schemaDecode",
+              "preadmitted",
+              "blockedFamily"
+            ]
+          },
+          "args": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "data": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "schema": {
+                "type": "string"
+              },
+              "tag": {
+                "type": "string"
+              },
+              "value": {
+                "type": [
+                  "string",
+                  "number",
+                  "null",
+                  "boolean"
+                ]
+              },
+              "key": {
+                "type": "string"
+              },
+              "optional": {
+                "type": "boolean"
+              },
+              "operator": {
+                "type": "string"
+              },
+              "fallback": {
+                "type": "boolean"
+              },
+              "parameters": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "binding",
+                    "rest",
+                    "default"
+                  ],
+                  "properties": {
+                    "binding": {
+                      "$ref": "#/$defs/pattern"
+                    },
+                    "rest": {
+                      "type": "boolean"
+                    },
+                    "default": {
+                      "anyOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              "binding": {
+                "$ref": "#/$defs/pattern"
+              },
+              "strings": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "pattern": {
+                "type": "string"
+              },
+              "flags": {
+                "type": "string"
+              },
+              "target": {
+                "type": "string"
+              },
+              "outputs": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "review": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "unit": {
+                "type": "string"
+              },
+              "output": {
+                "type": "boolean"
+              }
+            }
+          },
+          "source": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "file",
+              "start",
+              "end",
+              "sha256",
+              "offsetEncoding"
+            ],
+            "properties": {
+              "file": {
+                "type": "string"
+              },
+              "start": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "end": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "offsetEncoding": {
+                "const": "utf16"
+              }
+            }
+          }
+        }
+      }
+    },
+    "globalBindings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "node"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "node": {
+            "type": "string"
+          },
+          "source": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "file",
+              "start",
+              "end",
+              "sha256",
+              "offsetEncoding"
+            ],
+            "properties": {
+              "file": {
+                "type": "string"
+              },
+              "start": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "end": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "offsetEncoding": {
+                "const": "utf16"
+              }
+            }
+          },
+          "external": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "annualBindings": {
+      "type": "array",
+      "maxItems": 0
+    },
+    "outputBindings": {
+      "type": "array",
+      "minItems": 10,
+      "maxItems": 10,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "siteId",
+          "node",
+          "unit"
+        ],
+        "properties": {
+          "siteId": {
+            "enum": [
+              "anual.explicito.trabajo.integro",
+              "anual.explicito.trabajo.gastos-a-e",
+              "anual.explicito.trabajo.gasto-f",
+              "anual.explicito.trabajo.art19",
+              "anual.explicito.trabajo.art20",
+              "anual.explicito.da61",
+              "anual.explicito.retenciones",
+              "anual.explicito.pagos",
+              "anual.explicito.diferencial",
+              "anual.explicito.actividad.etapa"
+            ]
+          },
+          "node": {
+            "type": "string"
+          },
+          "unit": {
+            "const": "EUR"
+          }
+        }
+      }
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "file",
+          "sha256"
+        ],
+        "properties": {
+          "file": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        }
+      }
+    },
+    "fieldUnits": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "unit"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "unit": {
+            "type": "string"
+          },
+          "key": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "owner": {
+            "type": "string"
+          },
+          "source": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "file",
+              "start",
+              "end",
+              "sha256",
+              "offsetEncoding"
+            ],
+            "properties": {
+              "file": {
+                "type": "string"
+              },
+              "start": {
+                "type": "number"
+              },
+              "end": {
+                "type": "number"
+              },
+              "sha256": {
+                "type": "string"
+              },
+              "offsetEncoding": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "literalUnits": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "unit"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "unit": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "value",
+              "unit",
+              "source"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "value": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "boolean"
+                  }
+                ]
+              },
+              "unit": {
+                "type": "string"
+              },
+              "source": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "file",
+                  "start",
+                  "end",
+                  "sha256",
+                  "offsetEncoding"
+                ],
+                "properties": {
+                  "file": {
+                    "type": "string"
+                  },
+                  "start": {
+                    "type": "number"
+                  },
+                  "end": {
+                    "type": "number"
+                  },
+                  "sha256": {
+                    "type": "string"
+                  },
+                  "offsetEncoding": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "functionUnits": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "unit"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "unit": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "entryPoints": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "annual",
+        "explicit"
+      ],
+      "properties": {
+        "annual": {
+          "type": "string"
+        },
+        "explicit": {
+          "type": "string"
+        }
+      }
+    },
+    "lineNode": {
+      "type": "string"
+    },
+    "schemaProgram": {
+      "$ref": "#/$defs/rentas"
+    },
+    "participants": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "escalas"
+      ],
+      "properties": {
+        "escalas": {
+          "$ref": "#/$defs/escalas"
+        }
+      }
+    },
+    "admissionClosed": {
+      "const": false
+    },
+    "siteClosed": {
+      "const": false
+    },
+    "wiringAllowed": {
+      "const": false
+    },
+    "completeRuleAcceptance": {
+      "const": false
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:irobopf:causal-explicitos-r62",
+  "$defs": {
+    "pattern": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "elements": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "binding",
+                  "default"
+                ],
+                "properties": {
+                  "binding": {
+                    "$ref": "#/$defs/pattern"
+                  },
+                  "default": {
+                    "anyOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "key",
+              "binding"
+            ],
+            "properties": {
+              "key": {
+                "type": "string"
+              },
+              "binding": {
+                "$ref": "#/$defs/pattern"
+              },
+              "rest": {
+                "type": "boolean"
+              },
+              "default": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "rentas": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "kind",
+        "pending",
+        "obligations",
+        "program",
+        "globalBindings",
+        "annualBindings",
+        "outputBindings",
+        "sources",
+        "fieldUnits",
+        "literalUnits",
+        "functionUnits",
+        "lineFunction",
+        "participants",
+        "admissionClosed",
+        "siteClosed",
+        "wiringAllowed",
+        "completeRuleAcceptance"
+      ],
+      "properties": {
+        "version": {
+          "const": 3
+        },
+        "kind": {
+          "const": "causal-rentas-r59"
+        },
+        "pending": {
+          "type": "array",
+          "items": {}
+        },
+        "obligations": {
+          "type": "array",
+          "items": {}
+        },
+        "program": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "op",
+              "args",
+              "data",
+              "source"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "op": {
+                "type": "string"
+              },
+              "args": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "data": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [],
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "boolean"
+                      }
+                    ]
+                  },
+                  "key": {
+                    "type": "string"
+                  },
+                  "optional": {
+                    "type": "boolean"
+                  },
+                  "parameters": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "binding",
+                        "rest",
+                        "default"
+                      ],
+                      "properties": {
+                        "binding": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "required": [],
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            },
+                            "fields": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "required": [
+                                  "key",
+                                  "binding"
+                                ],
+                                "properties": {
+                                  "key": {
+                                    "type": "string"
+                                  },
+                                  "binding": {
+                                    "type": "object",
+                                    "additionalProperties": false,
+                                    "required": [
+                                      "name"
+                                    ],
+                                    "properties": {
+                                      "name": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "rest": {
+                          "type": "boolean"
+                        },
+                        "default": {
+                          "anyOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "string"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "operator": {
+                    "type": "string"
+                  },
+                  "binding": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [],
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "elements": {
+                        "type": "array",
+                        "items": {
+                          "anyOf": [
+                            {
+                              "type": "object",
+                              "additionalProperties": false,
+                              "required": [
+                                "binding",
+                                "default"
+                              ],
+                              "properties": {
+                                "binding": {
+                                  "type": "object",
+                                  "additionalProperties": false,
+                                  "required": [
+                                    "name"
+                                  ],
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    }
+                                  }
+                                },
+                                "default": {
+                                  "anyOf": [
+                                    {
+                                      "type": "null"
+                                    },
+                                    {
+                                      "type": "string"
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "pattern": {
+                    "type": "string"
+                  },
+                  "flags": {
+                    "type": "string"
+                  },
+                  "strings": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "source": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "file",
+                  "start",
+                  "end",
+                  "sha256",
+                  "offsetEncoding"
+                ],
+                "properties": {
+                  "file": {
+                    "type": "string"
+                  },
+                  "start": {
+                    "type": "number"
+                  },
+                  "end": {
+                    "type": "number"
+                  },
+                  "sha256": {
+                    "type": "string"
+                  },
+                  "offsetEncoding": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "globalBindings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "name",
+              "node",
+              "source"
+            ],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "node": {
+                "type": "string"
+              },
+              "source": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "file",
+                  "start",
+                  "end",
+                  "sha256",
+                  "offsetEncoding"
+                ],
+                "properties": {
+                  "file": {
+                    "type": "string"
+                  },
+                  "start": {
+                    "type": "number"
+                  },
+                  "end": {
+                    "type": "number"
+                  },
+                  "sha256": {
+                    "type": "string"
+                  },
+                  "offsetEncoding": {
+                    "type": "string"
+                  }
+                }
+              },
+              "external": {
+                "type": "boolean"
+              }
+            }
+          }
+        },
+        "annualBindings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "name",
+              "node",
+              "source"
+            ],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "node": {
+                "type": "string"
+              },
+              "source": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "file",
+                  "start",
+                  "end",
+                  "sha256",
+                  "offsetEncoding"
+                ],
+                "properties": {
+                  "file": {
+                    "type": "string"
+                  },
+                  "start": {
+                    "type": "number"
+                  },
+                  "end": {
+                    "type": "number"
+                  },
+                  "sha256": {
+                    "type": "string"
+                  },
+                  "offsetEncoding": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "outputBindings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "siteId",
+              "node",
+              "unit"
+            ],
+            "properties": {
+              "siteId": {
+                "type": "string"
+              },
+              "node": {
+                "type": "string"
+              },
+              "unit": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "file",
+              "sha256"
+            ],
+            "properties": {
+              "file": {
+                "type": "string"
+              },
+              "sha256": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "fieldUnits": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "unit"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "unit": {
+                "type": "string"
+              },
+              "key": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "owner": {
+                "type": "string"
+              },
+              "source": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "file",
+                  "start",
+                  "end",
+                  "sha256",
+                  "offsetEncoding"
+                ],
+                "properties": {
+                  "file": {
+                    "type": "string"
+                  },
+                  "start": {
+                    "type": "number"
+                  },
+                  "end": {
+                    "type": "number"
+                  },
+                  "sha256": {
+                    "type": "string"
+                  },
+                  "offsetEncoding": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "literalUnits": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "value",
+              "unit",
+              "source"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "value": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "boolean"
+                  }
+                ]
+              },
+              "unit": {
+                "type": "string"
+              },
+              "source": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "file",
+                  "start",
+                  "end",
+                  "sha256",
+                  "offsetEncoding"
+                ],
+                "properties": {
+                  "file": {
+                    "type": "string"
+                  },
+                  "start": {
+                    "type": "number"
+                  },
+                  "end": {
+                    "type": "number"
+                  },
+                  "sha256": {
+                    "type": "string"
+                  },
+                  "offsetEncoding": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "functionUnits": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "unit"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "unit": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "lineFunction": {
+          "type": "string"
+        },
+        "participants": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "rentas",
+            "ss"
+          ],
+          "properties": {
+            "rentas": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "version",
+                "kind",
+                "base",
+                "sources",
+                "software",
+                "roots",
+                "program",
+                "globalBindings",
+                "annualBindings",
+                "outputs",
+                "stages",
+                "collections",
+                "fields",
+                "selectors",
+                "terminals",
+                "boundaries",
+                "obligations",
+                "completeRuleAcceptance",
+                "wiringAllowed"
+              ],
+              "properties": {
+                "version": {
+                  "type": "number"
+                },
+                "kind": {
+                  "type": "string"
+                },
+                "base": {
+                  "type": "string"
+                },
+                "sources": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "file",
+                      "sha256"
+                    ],
+                    "properties": {
+                      "file": {
+                        "type": "string"
+                      },
+                      "sha256": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "software": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "file",
+                      "sha256"
+                    ],
+                    "properties": {
+                      "file": {
+                        "type": "string"
+                      },
+                      "sha256": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "roots": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "calcularActividad2025",
+                    "calcularGastosTrabajo",
+                    "calcularDeduccionTrabajo",
+                    "liquidarIrpfAnualExplicito",
+                    "crearLineaCalculo"
+                  ],
+                  "properties": {
+                    "calcularActividad2025": {
+                      "type": "string"
+                    },
+                    "calcularGastosTrabajo": {
+                      "type": "string"
+                    },
+                    "calcularDeduccionTrabajo": {
+                      "type": "string"
+                    },
+                    "liquidarIrpfAnualExplicito": {
+                      "type": "string"
+                    },
+                    "crearLineaCalculo": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "program": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "id",
+                      "op",
+                      "args",
+                      "data",
+                      "source"
+                    ],
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "op": {
+                        "type": "string"
+                      },
+                      "args": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "data": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [],
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "value": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "null"
+                              },
+                              {
+                                "type": "boolean"
+                              }
+                            ]
+                          },
+                          "key": {
+                            "type": "string"
+                          },
+                          "optional": {
+                            "type": "boolean"
+                          },
+                          "parameters": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "additionalProperties": false,
+                              "required": [
+                                "binding",
+                                "rest",
+                                "default"
+                              ],
+                              "properties": {
+                                "binding": {
+                                  "type": "object",
+                                  "additionalProperties": false,
+                                  "required": [],
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "fields": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "object",
+                                        "additionalProperties": false,
+                                        "required": [
+                                          "key",
+                                          "binding"
+                                        ],
+                                        "properties": {
+                                          "key": {
+                                            "type": "string"
+                                          },
+                                          "binding": {
+                                            "type": "object",
+                                            "additionalProperties": false,
+                                            "required": [
+                                              "name"
+                                            ],
+                                            "properties": {
+                                              "name": {
+                                                "type": "string"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                "rest": {
+                                  "type": "boolean"
+                                },
+                                "default": {
+                                  "anyOf": [
+                                    {
+                                      "type": "null"
+                                    },
+                                    {
+                                      "type": "string"
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "operator": {
+                            "type": "string"
+                          },
+                          "binding": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "required": [],
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "elements": {
+                                "type": "array",
+                                "items": {
+                                  "anyOf": [
+                                    {
+                                      "type": "object",
+                                      "additionalProperties": false,
+                                      "required": [
+                                        "binding",
+                                        "default"
+                                      ],
+                                      "properties": {
+                                        "binding": {
+                                          "type": "object",
+                                          "additionalProperties": false,
+                                          "required": [
+                                            "name"
+                                          ],
+                                          "properties": {
+                                            "name": {
+                                              "type": "string"
+                                            }
+                                          }
+                                        },
+                                        "default": {
+                                          "anyOf": [
+                                            {
+                                              "type": "null"
+                                            },
+                                            {
+                                              "type": "string"
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "type": "null"
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "pattern": {
+                            "type": "string"
+                          },
+                          "flags": {
+                            "type": "string"
+                          },
+                          "strings": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      },
+                      "source": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "file",
+                          "start",
+                          "end",
+                          "sha256",
+                          "offsetEncoding"
+                        ],
+                        "properties": {
+                          "file": {
+                            "type": "string"
+                          },
+                          "start": {
+                            "type": "number"
+                          },
+                          "end": {
+                            "type": "number"
+                          },
+                          "sha256": {
+                            "type": "string"
+                          },
+                          "offsetEncoding": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "globalBindings": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "name",
+                      "node",
+                      "external"
+                    ],
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "node": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "source": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "file",
+                          "start",
+                          "end",
+                          "sha256",
+                          "offsetEncoding"
+                        ],
+                        "properties": {
+                          "file": {
+                            "type": "string"
+                          },
+                          "start": {
+                            "type": "number"
+                          },
+                          "end": {
+                            "type": "number"
+                          },
+                          "sha256": {
+                            "type": "string"
+                          },
+                          "offsetEncoding": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "external": {
+                        "type": "boolean"
+                      }
+                    }
+                  }
+                },
+                "annualBindings": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "name",
+                      "node",
+                      "source"
+                    ],
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "node": {
+                        "type": "string"
+                      },
+                      "source": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "file",
+                          "start",
+                          "end",
+                          "sha256",
+                          "offsetEncoding"
+                        ],
+                        "properties": {
+                          "file": {
+                            "type": "string"
+                          },
+                          "start": {
+                            "type": "number"
+                          },
+                          "end": {
+                            "type": "number"
+                          },
+                          "sha256": {
+                            "type": "string"
+                          },
+                          "offsetEncoding": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "outputs": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "siteId",
+                      "producer",
+                      "expression",
+                      "instance",
+                      "unit",
+                      "transport",
+                      "scope",
+                      "valueClosed",
+                      "selectionClosed",
+                      "siteClosed",
+                      "valueNode",
+                      "entryPoint"
+                    ],
+                    "properties": {
+                      "siteId": {
+                        "type": "string"
+                      },
+                      "producer": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "file",
+                          "start",
+                          "end",
+                          "sha256",
+                          "offsetEncoding"
+                        ],
+                        "properties": {
+                          "file": {
+                            "type": "string"
+                          },
+                          "start": {
+                            "type": "number"
+                          },
+                          "end": {
+                            "type": "number"
+                          },
+                          "sha256": {
+                            "type": "string"
+                          },
+                          "offsetEncoding": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "expression": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "instance": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "file",
+                          "start",
+                          "end",
+                          "sha256",
+                          "offsetEncoding"
+                        ],
+                        "properties": {
+                          "file": {
+                            "type": "string"
+                          },
+                          "start": {
+                            "type": "number"
+                          },
+                          "end": {
+                            "type": "number"
+                          },
+                          "sha256": {
+                            "type": "string"
+                          },
+                          "offsetEncoding": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "unit": {
+                        "type": "string"
+                      },
+                      "transport": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "function",
+                          "property",
+                          "operation"
+                        ],
+                        "properties": {
+                          "function": {
+                            "type": "string"
+                          },
+                          "property": {
+                            "type": "string"
+                          },
+                          "operation": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "scope": {
+                        "type": "string"
+                      },
+                      "valueClosed": {
+                        "type": "boolean"
+                      },
+                      "selectionClosed": {
+                        "type": "boolean"
+                      },
+                      "siteClosed": {
+                        "type": "boolean"
+                      },
+                      "valueNode": {
+                        "type": "string"
+                      },
+                      "entryPoint": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "stages": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "id",
+                      "producer",
+                      "property",
+                      "call",
+                      "argument4",
+                      "rule",
+                      "instance",
+                      "valueNode",
+                      "unit",
+                      "cardinality",
+                      "annualReachable",
+                      "outputSite",
+                      "transport"
+                    ],
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "producer": {
+                        "type": "string"
+                      },
+                      "property": {
+                        "type": "string"
+                      },
+                      "call": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "file",
+                          "start",
+                          "end",
+                          "sha256",
+                          "offsetEncoding"
+                        ],
+                        "properties": {
+                          "file": {
+                            "type": "string"
+                          },
+                          "start": {
+                            "type": "number"
+                          },
+                          "end": {
+                            "type": "number"
+                          },
+                          "sha256": {
+                            "type": "string"
+                          },
+                          "offsetEncoding": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "argument4": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "file",
+                          "start",
+                          "end",
+                          "sha256",
+                          "offsetEncoding"
+                        ],
+                        "properties": {
+                          "file": {
+                            "type": "string"
+                          },
+                          "start": {
+                            "type": "number"
+                          },
+                          "end": {
+                            "type": "number"
+                          },
+                          "sha256": {
+                            "type": "string"
+                          },
+                          "offsetEncoding": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "rule": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "file",
+                          "start",
+                          "end",
+                          "sha256",
+                          "offsetEncoding"
+                        ],
+                        "properties": {
+                          "file": {
+                            "type": "string"
+                          },
+                          "start": {
+                            "type": "number"
+                          },
+                          "end": {
+                            "type": "number"
+                          },
+                          "sha256": {
+                            "type": "string"
+                          },
+                          "offsetEncoding": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "instance": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "file",
+                          "start",
+                          "end",
+                          "sha256",
+                          "offsetEncoding"
+                        ],
+                        "properties": {
+                          "file": {
+                            "type": "string"
+                          },
+                          "start": {
+                            "type": "number"
+                          },
+                          "end": {
+                            "type": "number"
+                          },
+                          "sha256": {
+                            "type": "string"
+                          },
+                          "offsetEncoding": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "valueNode": {
+                        "type": "string"
+                      },
+                      "unit": {
+                        "type": "string"
+                      },
+                      "cardinality": {
+                        "type": "string"
+                      },
+                      "annualReachable": {
+                        "type": "boolean"
+                      },
+                      "outputSite": {
+                        "type": "string"
+                      },
+                      "transport": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "collections": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "id",
+                      "operation",
+                      "receiver",
+                      "callback",
+                      "seed",
+                      "unit",
+                      "index",
+                      "cardinality"
+                    ],
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "operation": {
+                        "type": "string"
+                      },
+                      "receiver": {
+                        "type": "string"
+                      },
+                      "callback": {
+                        "type": "string"
+                      },
+                      "seed": {
+                        "anyOf": [
+                          {
+                            "type": "null"
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ]
+                      },
+                      "unit": {
+                        "type": "string"
+                      },
+                      "index": {
+                        "type": "string"
+                      },
+                      "cardinality": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "fields": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "id",
+                      "property",
+                      "owner",
+                      "source",
+                      "unit"
+                    ],
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "property": {
+                        "type": "string"
+                      },
+                      "owner": {
+                        "type": "string"
+                      },
+                      "source": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "file",
+                          "start",
+                          "end",
+                          "sha256",
+                          "offsetEncoding"
+                        ],
+                        "properties": {
+                          "file": {
+                            "type": "string"
+                          },
+                          "start": {
+                            "type": "number"
+                          },
+                          "end": {
+                            "type": "number"
+                          },
+                          "sha256": {
+                            "type": "string"
+                          },
+                          "offsetEncoding": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "unit": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "selectors": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "id",
+                      "operator",
+                      "operands",
+                      "producer",
+                      "role",
+                      "shortCircuit"
+                    ],
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "operator": {
+                        "type": "string"
+                      },
+                      "operands": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "producer": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "file",
+                          "start",
+                          "end",
+                          "sha256",
+                          "offsetEncoding"
+                        ],
+                        "properties": {
+                          "file": {
+                            "type": "string"
+                          },
+                          "start": {
+                            "type": "number"
+                          },
+                          "end": {
+                            "type": "number"
+                          },
+                          "sha256": {
+                            "type": "string"
+                          },
+                          "offsetEncoding": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "role": {
+                        "type": "string"
+                      },
+                      "shortCircuit": {
+                        "type": "boolean"
+                      }
+                    }
+                  }
+                },
+                "terminals": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "literals",
+                    "primitives",
+                    "publicInputs"
+                  ],
+                  "properties": {
+                    "literals": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "node",
+                          "value",
+                          "source"
+                        ],
+                        "properties": {
+                          "node": {
+                            "type": "string"
+                          },
+                          "value": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "required": [],
+                            "properties": {
+                              "value": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "number"
+                                  },
+                                  {
+                                    "type": "null"
+                                  },
+                                  {
+                                    "type": "boolean"
+                                  }
+                                ]
+                              },
+                              "pattern": {
+                                "type": "string"
+                              },
+                              "flags": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          "source": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "required": [
+                              "file",
+                              "start",
+                              "end",
+                              "sha256",
+                              "offsetEncoding"
+                            ],
+                            "properties": {
+                              "file": {
+                                "type": "string"
+                              },
+                              "start": {
+                                "type": "number"
+                              },
+                              "end": {
+                                "type": "number"
+                              },
+                              "sha256": {
+                                "type": "string"
+                              },
+                              "offsetEncoding": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "primitives": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "publicInputs": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "entry",
+                          "scope"
+                        ],
+                        "properties": {
+                          "entry": {
+                            "type": "string"
+                          },
+                          "argument": {
+                            "type": "number"
+                          },
+                          "scope": {
+                            "type": "string"
+                          },
+                          "arguments": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "boundaries": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "name",
+                      "owner",
+                      "status",
+                      "admissionAvailable",
+                      "properties",
+                      "calls"
+                    ],
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "owner": {
+                        "type": "string"
+                      },
+                      "status": {
+                        "type": "string"
+                      },
+                      "admissionAvailable": {
+                        "type": "boolean"
+                      },
+                      "properties": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "calls": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "obligations": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "id",
+                      "value",
+                      "selection",
+                      "admission",
+                      "review"
+                    ],
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      },
+                      "selection": {
+                        "type": "string"
+                      },
+                      "admission": {
+                        "type": "string"
+                      },
+                      "review": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "completeRuleAcceptance": {
+                  "type": "boolean"
+                },
+                "wiringAllowed": {
+                  "type": "boolean"
+                }
+              }
+            },
+            "ss": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "version",
+                "kind",
+                "base",
+                "sources",
+                "program",
+                "globalBindings",
+                "annualBindings",
+                "outputBindings",
+                "cells",
+                "calls",
+                "unitContracts",
+                "fieldUnits",
+                "literalUnits",
+                "boundaries",
+                "completeRuleAcceptance",
+                "wiringAllowed",
+                "pending",
+                "obligations",
+                "sites"
+              ],
+              "properties": {
+                "version": {
+                  "type": "number"
+                },
+                "kind": {
+                  "type": "string"
+                },
+                "base": {
+                  "type": "string"
+                },
+                "sources": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "file",
+                      "sha256"
+                    ],
+                    "properties": {
+                      "file": {
+                        "type": "string"
+                      },
+                      "sha256": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "program": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "id",
+                      "op",
+                      "args",
+                      "data",
+                      "source"
+                    ],
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "op": {
+                        "type": "string"
+                      },
+                      "args": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "data": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [],
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "value": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "boolean"
+                              }
+                            ]
+                          },
+                          "key": {
+                            "type": "string"
+                          },
+                          "optional": {
+                            "type": "boolean"
+                          },
+                          "parameters": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "additionalProperties": false,
+                              "required": [
+                                "binding",
+                                "rest",
+                                "default"
+                              ],
+                              "properties": {
+                                "binding": {
+                                  "type": "object",
+                                  "additionalProperties": false,
+                                  "required": [],
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "fields": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "object",
+                                        "additionalProperties": false,
+                                        "required": [
+                                          "key",
+                                          "binding"
+                                        ],
+                                        "properties": {
+                                          "key": {
+                                            "type": "string"
+                                          },
+                                          "binding": {
+                                            "type": "object",
+                                            "additionalProperties": false,
+                                            "required": [
+                                              "name"
+                                            ],
+                                            "properties": {
+                                              "name": {
+                                                "type": "string"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                "rest": {
+                                  "type": "boolean"
+                                },
+                                "default": {
+                                  "type": "null"
+                                }
+                              }
+                            }
+                          },
+                          "operator": {
+                            "type": "string"
+                          },
+                          "binding": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "required": [
+                              "name"
+                            ],
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          "strings": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      },
+                      "source": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "file",
+                          "start",
+                          "end",
+                          "sha256",
+                          "offsetEncoding"
+                        ],
+                        "properties": {
+                          "file": {
+                            "type": "string"
+                          },
+                          "start": {
+                            "type": "number"
+                          },
+                          "end": {
+                            "type": "number"
+                          },
+                          "sha256": {
+                            "type": "string"
+                          },
+                          "offsetEncoding": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "globalBindings": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "name",
+                      "node",
+                      "source"
+                    ],
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "node": {
+                        "type": "string"
+                      },
+                      "source": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "file",
+                          "start",
+                          "end",
+                          "sha256",
+                          "offsetEncoding"
+                        ],
+                        "properties": {
+                          "file": {
+                            "type": "string"
+                          },
+                          "start": {
+                            "type": "number"
+                          },
+                          "end": {
+                            "type": "number"
+                          },
+                          "sha256": {
+                            "type": "string"
+                          },
+                          "offsetEncoding": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "annualBindings": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "name",
+                      "node",
+                      "source"
+                    ],
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "node": {
+                        "type": "string"
+                      },
+                      "source": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "file",
+                          "start",
+                          "end",
+                          "sha256",
+                          "offsetEncoding"
+                        ],
+                        "properties": {
+                          "file": {
+                            "type": "string"
+                          },
+                          "start": {
+                            "type": "number"
+                          },
+                          "end": {
+                            "type": "number"
+                          },
+                          "sha256": {
+                            "type": "string"
+                          },
+                          "offsetEncoding": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "outputBindings": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "siteId",
+                      "node",
+                      "amount",
+                      "instance",
+                      "unit",
+                      "frequency",
+                      "destination",
+                      "source"
+                    ],
+                    "properties": {
+                      "siteId": {
+                        "type": "string"
+                      },
+                      "node": {
+                        "type": "string"
+                      },
+                      "amount": {
+                        "type": "string"
+                      },
+                      "instance": {
+                        "type": "string"
+                      },
+                      "unit": {
+                        "type": "string"
+                      },
+                      "frequency": {
+                        "type": "string"
+                      },
+                      "destination": {
+                        "type": "string"
+                      },
+                      "source": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "file",
+                          "start",
+                          "end",
+                          "sha256",
+                          "offsetEncoding"
+                        ],
+                        "properties": {
+                          "file": {
+                            "type": "string"
+                          },
+                          "start": {
+                            "type": "number"
+                          },
+                          "end": {
+                            "type": "number"
+                          },
+                          "sha256": {
+                            "type": "string"
+                          },
+                          "offsetEncoding": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "cells": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "id",
+                      "value",
+                      "path",
+                      "unit",
+                      "source"
+                    ],
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "value": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ]
+                      },
+                      "path": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "unit": {
+                        "type": "string"
+                      },
+                      "source": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "file",
+                          "start",
+                          "end",
+                          "sha256",
+                          "offsetEncoding"
+                        ],
+                        "properties": {
+                          "file": {
+                            "type": "string"
+                          },
+                          "start": {
+                            "type": "number"
+                          },
+                          "end": {
+                            "type": "number"
+                          },
+                          "sha256": {
+                            "type": "string"
+                          },
+                          "offsetEncoding": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "calls": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "id",
+                      "target",
+                      "arguments",
+                      "callbacks",
+                      "receiver",
+                      "operation",
+                      "seed",
+                      "indices",
+                      "cardinality",
+                      "source"
+                    ],
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "target": {
+                        "type": "string"
+                      },
+                      "arguments": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "callbacks": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "required": [
+                            "node",
+                            "parameters",
+                            "captures"
+                          ],
+                          "properties": {
+                            "node": {
+                              "type": "string"
+                            },
+                            "parameters": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "required": [
+                                  "binding",
+                                  "rest",
+                                  "default"
+                                ],
+                                "properties": {
+                                  "binding": {
+                                    "type": "object",
+                                    "additionalProperties": false,
+                                    "required": [
+                                      "name"
+                                    ],
+                                    "properties": {
+                                      "name": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  },
+                                  "rest": {
+                                    "type": "boolean"
+                                  },
+                                  "default": {
+                                    "type": "null"
+                                  }
+                                }
+                              }
+                            },
+                            "captures": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      },
+                      "receiver": {
+                        "anyOf": [
+                          {
+                            "type": "null"
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ]
+                      },
+                      "operation": {
+                        "type": "string"
+                      },
+                      "seed": {
+                        "anyOf": [
+                          {
+                            "type": "null"
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ]
+                      },
+                      "indices": {
+                        "anyOf": [
+                          {
+                            "type": "null"
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ]
+                      },
+                      "cardinality": {
+                        "anyOf": [
+                          {
+                            "type": "null"
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ]
+                      },
+                      "source": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "file",
+                          "start",
+                          "end",
+                          "sha256",
+                          "offsetEncoding"
+                        ],
+                        "properties": {
+                          "file": {
+                            "type": "string"
+                          },
+                          "start": {
+                            "type": "number"
+                          },
+                          "end": {
+                            "type": "number"
+                          },
+                          "sha256": {
+                            "type": "string"
+                          },
+                          "offsetEncoding": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "unitContracts": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "id",
+                      "parameters",
+                      "result",
+                      "frequency",
+                      "binding"
+                    ],
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "parameters": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "result": {
+                        "type": "string"
+                      },
+                      "frequency": {
+                        "type": "string"
+                      },
+                      "binding": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "name",
+                          "node",
+                          "source"
+                        ],
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "node": {
+                            "type": "string"
+                          },
+                          "source": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "required": [
+                              "file",
+                              "start",
+                              "end",
+                              "sha256",
+                              "offsetEncoding"
+                            ],
+                            "properties": {
+                              "file": {
+                                "type": "string"
+                              },
+                              "start": {
+                                "type": "number"
+                              },
+                              "end": {
+                                "type": "number"
+                              },
+                              "sha256": {
+                                "type": "string"
+                              },
+                              "offsetEncoding": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "fieldUnits": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "id",
+                      "key",
+                      "owner",
+                      "unit",
+                      "source"
+                    ],
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "key": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "owner": {
+                        "type": "string"
+                      },
+                      "unit": {
+                        "type": "string"
+                      },
+                      "source": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "file",
+                          "start",
+                          "end",
+                          "sha256",
+                          "offsetEncoding"
+                        ],
+                        "properties": {
+                          "file": {
+                            "type": "string"
+                          },
+                          "start": {
+                            "type": "number"
+                          },
+                          "end": {
+                            "type": "number"
+                          },
+                          "sha256": {
+                            "type": "string"
+                          },
+                          "offsetEncoding": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "literalUnits": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "id",
+                      "value",
+                      "unit",
+                      "source"
+                    ],
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "value": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "boolean"
+                          }
+                        ]
+                      },
+                      "unit": {
+                        "type": "string"
+                      },
+                      "source": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "file",
+                          "start",
+                          "end",
+                          "sha256",
+                          "offsetEncoding"
+                        ],
+                        "properties": {
+                          "file": {
+                            "type": "string"
+                          },
+                          "start": {
+                            "type": "number"
+                          },
+                          "end": {
+                            "type": "number"
+                          },
+                          "sha256": {
+                            "type": "string"
+                          },
+                          "offsetEncoding": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "boundaries": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "id"
+                    ],
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "source": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "file",
+                          "start",
+                          "end",
+                          "sha256",
+                          "offsetEncoding"
+                        ],
+                        "properties": {
+                          "file": {
+                            "type": "string"
+                          },
+                          "start": {
+                            "type": "number"
+                          },
+                          "end": {
+                            "type": "number"
+                          },
+                          "sha256": {
+                            "type": "string"
+                          },
+                          "offsetEncoding": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "behavior": {
+                        "type": "string"
+                      },
+                      "contractId": {
+                        "type": "string"
+                      },
+                      "status": {
+                        "type": "string"
+                      },
+                      "years": {
+                        "type": "array",
+                        "items": {
+                          "type": "number"
+                        }
+                      },
+                      "modes": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "siteClosed": {
+                        "type": "boolean"
+                      }
+                    }
+                  }
+                },
+                "completeRuleAcceptance": {
+                  "type": "boolean"
+                },
+                "wiringAllowed": {
+                  "type": "boolean"
+                },
+                "pending": {
+                  "type": "array",
+                  "items": {}
+                },
+                "obligations": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "id",
+                      "status",
+                      "reason"
+                    ],
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "status": {
+                        "type": "string"
+                      },
+                      "reason": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "sites": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "siteId",
+                      "unit",
+                      "frequency",
+                      "valueClosed",
+                      "selectionClosed",
+                      "admissionClosed",
+                      "siteClosed",
+                      "admissionRequirement"
+                    ],
+                    "properties": {
+                      "siteId": {
+                        "type": "string"
+                      },
+                      "unit": {
+                        "type": "string"
+                      },
+                      "frequency": {
+                        "type": "string"
+                      },
+                      "valueClosed": {
+                        "type": "boolean"
+                      },
+                      "selectionClosed": {
+                        "type": "boolean"
+                      },
+                      "admissionClosed": {
+                        "type": "boolean"
+                      },
+                      "siteClosed": {
+                        "type": "boolean"
+                      },
+                      "admissionRequirement": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "admissionClosed": {
+          "const": false
+        },
+        "siteClosed": {
+          "const": false
+        },
+        "wiringAllowed": {
+          "const": false
+        },
+        "completeRuleAcceptance": {
+          "const": false
+        }
+      }
+    },
+    "escalas": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "kind",
+        "base",
+        "dimensionContracts",
+        "dataRoutes",
+        "sources",
+        "program",
+        "globalBindings",
+        "propertyBindings",
+        "callBindings",
+        "boundaryContracts",
+        "outputBindings",
+        "sites",
+        "admissionObligations",
+        "admissionInterface",
+        "completeRuleAcceptance",
+        "wiringAllowed",
+        "review"
+      ],
+      "properties": {
+        "version": {
+          "const": 1
+        },
+        "kind": {
+          "const": "escalas-r36"
+        },
+        "base": {
+          "const": "50f9e949544e20d3e4e0bffc79b926d396267319"
+        },
+        "dimensionContracts": {
+          "const": {
+            "escala": {
+              "input": {
+                "base": "EUR-base",
+                "tramos": "array<[EUR-base,ratio]>",
+                "escalasPublicadas": "absent | array<array<{baseInferior:EUR-base,cuota:EUR-tax,tipo:ratio,inferiorExclusivo?:boolean}>>"
+              },
+              "output": {
+                "limiteInferior": "EUR-base",
+                "limiteSuperior": "EUR-base | Infinity",
+                "baseAplicada": "EUR-base",
+                "tipo": "ratio",
+                "cuotaFija": "optional EUR-tax",
+                "cuota": "EUR-tax"
+              },
+              "operations": [
+                "published:Q+(B-L)*t",
+                "integrated:min(max(B-previous,0),upper-previous)*t",
+                "reduce:sum(cuota),seed=base*0"
+              ]
+            },
+            "ahorro": {
+              "input": {
+                "anio": "year",
+                "base": "EUR-base",
+                "baseGeneral": "EUR-base",
+                "minimoEstatal": "EUR-base",
+                "minimoAutonomico": "EUR-base"
+              },
+              "output": {
+                "remanente": "EUR-base",
+                "bruta": "EUR-tax",
+                "despuesMinimo": "EUR-tax",
+                "minoracion": "EUR-tax"
+              },
+              "instances": [
+                "estatal:minimoEstatal",
+                "autonomico:minimoAutonomico"
+              ],
+              "operations": [
+                "r=min(max(M-max(BG,0),0),max(BA,0))",
+                "year<=2014:F(max(BA-r,0));else:max(bruta-F(r),0)",
+                "minoracion=bruta-despuesMinimo"
+              ]
+            },
+            "minimos": {
+              "input": {
+                "edad": "years",
+                "divisor": "count",
+                "rentasNoExentasCentimos": "centimos-income",
+                "fechaNacimiento": "civil-date-string",
+                "fechaConstitucionVinculo": "civil-date-string",
+                "fechaInicioIncremento": "civil-date-string"
+              },
+              "output": "EUR-base",
+              "operations": [
+                "component sum",
+                "eligible order by birth then subjectId",
+                "each subject amount / its selected-holder count",
+                "ordinary family helper has separate eligibility and ordering"
+              ]
+            },
+            "dinero": {
+              "centimosAEuros": {
+                "input": "centimos",
+                "output": "EUR",
+                "operation": "Decimal(input)/100"
+              },
+              "eurosACentimos": {
+                "input": "EUR",
+                "output": "centimos",
+                "operation": "half-up(input,2)*100 then toNumber"
+              },
+              "redondearHalfUp": {
+                "input": [
+                  "Decimal",
+                  "decimal-place-count"
+                ],
+                "output": "Decimal",
+                "operation": "toDecimalPlaces(count,ROUND_HALF_UP)"
+              },
+              "calcularCuotaDiferencialCentimos": {
+                "input": [
+                  "centimos-tax",
+                  "centimos-withholding",
+                  "centimos-payment"
+                ],
+                "output": "centimos-tax",
+                "operation": "liquid-withholding-payment; signed"
+              }
+            },
+            "explicito": {
+              "input": {
+                "rendimientoAntesArt20": "EUR-string",
+                "argumentoArt20": "EUR-string",
+                "aporteImporteEurosExactos": "EUR-string",
+                "cuotaPosterior": "EUR-string"
+              },
+              "output": "EUR",
+              "operations": [
+                "BIG=BLG=neto signed",
+                "base=max(neto,0) only for scales",
+                "work:neto=beforeArt20-min(max(beforeArt20,0),art20(argumentoArt20))",
+                "EDS:neto=aporte already reduced",
+                "legal=state+regional",
+                "posterior=legal unless brutoServicios>0 then external DA61.cuotaPosterior"
+              ]
+            },
+            "final": {
+              "input": "Decimal EUR",
+              "output": "string EUR",
+              "operation": "crearLineaCalculo.origen.decimal=importe.toFixed(); presentation toFixed(2) does not replace it"
+            }
+          }
+        },
+        "dataRoutes": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "path",
+            "sha256",
+            "records",
+            "authority"
+          ],
+          "properties": {
+            "path": {
+              "type": "string"
+            },
+            "sha256": {
+              "type": "string"
+            },
+            "records": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
+            },
+            "authority": {
+              "type": "string"
+            }
+          }
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "file",
+              "sha256"
+            ],
+            "properties": {
+              "file": {
+                "type": "string"
+              },
+              "sha256": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "program": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "op",
+              "args",
+              "data",
+              "source"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "op": {
+                "enum": [
+                  "array",
+                  "assign",
+                  "binary",
+                  "bind",
+                  "block",
+                  "boundary",
+                  "boundaryCall",
+                  "call",
+                  "conditional",
+                  "declarations",
+                  "failurePayload",
+                  "forOf",
+                  "function",
+                  "get",
+                  "global",
+                  "if",
+                  "index",
+                  "invoke",
+                  "isFailure",
+                  "literal",
+                  "local",
+                  "mapError",
+                  "new",
+                  "noop",
+                  "object",
+                  "pass",
+                  "property",
+                  "return",
+                  "spread",
+                  "template",
+                  "unary"
+                ]
+              },
+              "args": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "data": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [],
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "key": {
+                    "type": "string"
+                  },
+                  "optional": {
+                    "type": "boolean"
+                  },
+                  "operator": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": [
+                      "string",
+                      "number",
+                      "boolean",
+                      "null"
+                    ]
+                  },
+                  "parameters": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "binding",
+                        "rest",
+                        "default"
+                      ],
+                      "properties": {
+                        "binding": {
+                          "$ref": "#/$defs/legacyPattern"
+                        },
+                        "rest": {
+                          "type": "boolean"
+                        },
+                        "default": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "binding": {
+                    "$ref": "#/$defs/legacyPattern"
+                  },
+                  "pattern": {
+                    "type": "string"
+                  },
+                  "flags": {
+                    "type": "string"
+                  },
+                  "fallback": {
+                    "type": "boolean"
+                  },
+                  "strings": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "output": {
+                    "type": "boolean"
+                  },
+                  "target": {
+                    "type": "string"
+                  },
+                  "outputs": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "review": {
+                    "const": "pending-independent"
+                  },
+                  "unit": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "string"
+                  },
+                  "tag": {
+                    "type": "string"
+                  }
+                }
+              },
+              "source": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "file",
+                  "start",
+                  "end",
+                  "sha256",
+                  "offsetEncoding"
+                ],
+                "properties": {
+                  "file": {
+                    "type": "string"
+                  },
+                  "start": {
+                    "type": "integer"
+                  },
+                  "end": {
+                    "type": "integer"
+                  },
+                  "sha256": {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}$"
+                  },
+                  "offsetEncoding": {
+                    "const": "utf16"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "globalBindings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "name",
+              "node",
+              "source"
+            ],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "node": {
+                "type": "string"
+              },
+              "source": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "file",
+                  "start",
+                  "end",
+                  "sha256",
+                  "offsetEncoding"
+                ],
+                "properties": {
+                  "file": {
+                    "type": "string"
+                  },
+                  "start": {
+                    "type": "integer"
+                  },
+                  "end": {
+                    "type": "integer"
+                  },
+                  "sha256": {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}$"
+                  },
+                  "offsetEncoding": {
+                    "const": "utf16"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "propertyBindings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "receiver",
+              "property",
+              "index",
+              "optional",
+              "unit",
+              "source"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "receiver": {
+                "type": "string"
+              },
+              "property": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "index": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "optional": {
+                "type": "boolean"
+              },
+              "unit": {
+                "type": "string"
+              },
+              "source": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "file",
+                  "start",
+                  "end",
+                  "sha256",
+                  "offsetEncoding"
+                ],
+                "properties": {
+                  "file": {
+                    "type": "string"
+                  },
+                  "start": {
+                    "type": "integer"
+                  },
+                  "end": {
+                    "type": "integer"
+                  },
+                  "sha256": {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}$"
+                  },
+                  "offsetEncoding": {
+                    "const": "utf16"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "callBindings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "target",
+              "arguments",
+              "instance",
+              "condition",
+              "source"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "target": {
+                "type": "string"
+              },
+              "arguments": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "index",
+                    "operand"
+                  ],
+                  "properties": {
+                    "index": {
+                      "type": "integer"
+                    },
+                    "operand": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "instance": {
+                "type": "string"
+              },
+              "condition": {
+                "type": "string"
+              },
+              "source": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "file",
+                  "start",
+                  "end",
+                  "sha256",
+                  "offsetEncoding"
+                ],
+                "properties": {
+                  "file": {
+                    "type": "string"
+                  },
+                  "start": {
+                    "type": "integer"
+                  },
+                  "end": {
+                    "type": "integer"
+                  },
+                  "sha256": {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}$"
+                  },
+                  "offsetEncoding": {
+                    "const": "utf16"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "boundaryContracts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "outputs",
+              "parameters",
+              "calls",
+              "review",
+              "closure"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "outputs": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "parameters": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "index",
+                    "binding",
+                    "type",
+                    "source"
+                  ],
+                  "properties": {
+                    "index": {
+                      "type": "integer"
+                    },
+                    "binding": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "source": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "file",
+                        "start",
+                        "end",
+                        "sha256",
+                        "offsetEncoding"
+                      ],
+                      "properties": {
+                        "file": {
+                          "type": "string"
+                        },
+                        "start": {
+                          "type": "integer"
+                        },
+                        "end": {
+                          "type": "integer"
+                        },
+                        "sha256": {
+                          "type": "string",
+                          "pattern": "^[a-f0-9]{64}$"
+                        },
+                        "offsetEncoding": {
+                          "const": "utf16"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "calls": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "review": {
+                "const": "pending-independent"
+              },
+              "closure": {
+                "type": "string"
+              },
+              "resultVariants": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "when",
+                    "outputs"
+                  ],
+                  "properties": {
+                    "when": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "property",
+                        "equals"
+                      ],
+                      "properties": {
+                        "property": {
+                          "const": "estado"
+                        },
+                        "equals": {
+                          "enum": [
+                            "aporte-disponible",
+                            "calculado",
+                            "no-soportado"
+                          ]
+                        }
+                      }
+                    },
+                    "outputs": {
+                      "type": "array",
+                      "minItems": 1,
+                      "uniqueItems": true,
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "outputBindings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "siteId",
+              "valueNode",
+              "lineNode",
+              "source",
+              "amount",
+              "unit",
+              "instance",
+              "condition",
+              "finalProperty"
+            ],
+            "properties": {
+              "siteId": {
+                "enum": [
+                  "anual.explicito.trabajo.integro",
+                  "anual.explicito.trabajo.gastos-a-e",
+                  "anual.explicito.trabajo.gasto-f",
+                  "anual.explicito.trabajo.art19",
+                  "anual.explicito.trabajo.art20",
+                  "anual.explicito.da61",
+                  "anual.explicito.retenciones",
+                  "anual.explicito.pagos",
+                  "anual.explicito.diferencial",
+                  "anual.explicito.actividad.etapa"
+                ]
+              },
+              "valueNode": {
+                "type": "string"
+              },
+              "lineNode": {
+                "type": "string"
+              },
+              "source": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "file",
+                  "start",
+                  "end",
+                  "sha256",
+                  "offsetEncoding"
+                ],
+                "properties": {
+                  "file": {
+                    "type": "string"
+                  },
+                  "start": {
+                    "type": "integer"
+                  },
+                  "end": {
+                    "type": "integer"
+                  },
+                  "sha256": {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}$"
+                  },
+                  "offsetEncoding": {
+                    "const": "utf16"
+                  }
+                }
+              },
+              "amount": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "file",
+                  "start",
+                  "end",
+                  "sha256",
+                  "offsetEncoding"
+                ],
+                "properties": {
+                  "file": {
+                    "type": "string"
+                  },
+                  "start": {
+                    "type": "integer"
+                  },
+                  "end": {
+                    "type": "integer"
+                  },
+                  "sha256": {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}$"
+                  },
+                  "offsetEncoding": {
+                    "const": "utf16"
+                  }
+                }
+              },
+              "unit": {
+                "const": "EUR"
+              },
+              "instance": {
+                "enum": [
+                  "singleton-0",
+                  "callback-index"
+                ]
+              },
+              "condition": {
+                "enum": [
+                  "annual-admission-required",
+                  "explicit-admission-required"
+                ]
+              },
+              "finalProperty": {
+                "const": "origen.decimal"
+              }
+            }
+          }
+        },
+        "sites": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "siteId",
+              "unit",
+              "valueClosed",
+              "selectionClosed",
+              "siteClosed",
+              "closure"
+            ],
+            "properties": {
+              "siteId": {
+                "enum": [
+                  "anual.explicito.trabajo.integro",
+                  "anual.explicito.trabajo.gastos-a-e",
+                  "anual.explicito.trabajo.gasto-f",
+                  "anual.explicito.trabajo.art19",
+                  "anual.explicito.trabajo.art20",
+                  "anual.explicito.da61",
+                  "anual.explicito.retenciones",
+                  "anual.explicito.pagos",
+                  "anual.explicito.diferencial",
+                  "anual.explicito.actividad.etapa"
+                ]
+              },
+              "unit": {
+                "const": "EUR"
+              },
+              "valueClosed": {
+                "const": false
+              },
+              "selectionClosed": {
+                "const": false
+              },
+              "siteClosed": {
+                "const": false
+              },
+              "closure": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "admissionObligations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "route",
+              "source",
+              "expression",
+              "status",
+              "contractRequired"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "route": {
+                "enum": [
+                  "annual",
+                  "explicit",
+                  "rights"
+                ]
+              },
+              "source": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "file",
+                  "start",
+                  "end",
+                  "sha256",
+                  "offsetEncoding"
+                ],
+                "properties": {
+                  "file": {
+                    "type": "string"
+                  },
+                  "start": {
+                    "type": "integer"
+                  },
+                  "end": {
+                    "type": "integer"
+                  },
+                  "sha256": {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}$"
+                  },
+                  "offsetEncoding": {
+                    "const": "utf16"
+                  }
+                }
+              },
+              "expression": {
+                "type": "string"
+              },
+              "status": {
+                "const": "pending-review"
+              },
+              "contractRequired": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "admissionInterface": {
+          "const": {
+            "annual": "anual-publico-r32 / R35 pending-review",
+            "explicit": "CasoFiscalAnualExplicito + profile guards pending-review",
+            "rights": "DerechosMinimos2025 + coherence + annual-income-reconciliation pending-review"
+          }
+        },
+        "completeRuleAcceptance": {
+          "const": false
+        },
+        "wiringAllowed": {
+          "const": false
+        },
+        "review": {
+          "const": "pending-independent"
+        }
+      },
+      "$defs": {
+        "pattern": {
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "name"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "elements"
+              ],
+              "properties": {
+                "elements": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/pattern"
+                  }
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "fields"
+              ],
+              "properties": {
+                "fields": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "key",
+                      "binding",
+                      "rest",
+                      "default"
+                    ],
+                    "properties": {
+                      "key": {
+                        "type": "string"
+                      },
+                      "binding": {
+                        "$ref": "#/$defs/pattern"
+                      },
+                      "rest": {
+                        "type": "boolean"
+                      },
+                      "default": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "legacyPattern": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "elements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/legacyPattern"
+          }
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "key",
+              "binding"
+            ],
+            "properties": {
+              "key": {
+                "type": "string"
+              },
+              "binding": {
+                "$ref": "#/$defs/legacyPattern"
+              },
+              "rest": {
+                "type": "boolean"
+              },
+              "default": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

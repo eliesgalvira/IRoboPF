@@ -1,0 +1,312 @@
+[
+  {
+    "id": "anual.explicito.trabajo.integro",
+    "clasificacion": "completo condicionado",
+    "propiedades": "gastos.integro",
+    "evidencia": [
+      "conexion.ts: llamada original crearLineaCalculo",
+      "casos.json: API TS real y expectativas racionales",
+      "source programa: no emitido para actividad"
+    ],
+    "objecionExperta": "Sumar importes iguales sin identidad perdería rendimientos, orden o clase.",
+    "respuesta": "Cada importe deriva del array real; casos de dos rendimientos y clases empleo laboral/estatutario/pensión.",
+    "coste": "Mantener evidencia de propiedades/selección y casos adversos; una revisión independiente pendiente.",
+    "alcance": "Madrid2025 trabajo/pensión; sin variante de actividad",
+    "pendienteInterno": false,
+    "anclaFuente": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 4157,
+      "end": 4441,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "anclaImporte": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 4273,
+      "end": 4302,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "nodoImporte": "lib/dominio/irpf/trabajo-anual/conexion.ts:4273:4302:new",
+    "propiedadFinal": "origen.decimal"
+  },
+  {
+    "id": "anual.explicito.trabajo.gastos-a-e",
+    "clasificacion": "completo condicionado",
+    "propiedades": "gastos.gastosAE",
+    "evidencia": [
+      "conexion.ts: llamada original crearLineaCalculo",
+      "casos.json: API TS real y expectativas racionales",
+      "source programa: no emitido para actividad"
+    ],
+    "objecionExperta": "Aplicar límites por rendimiento o simular SS omitiría cotizaciones efectivas y límites anuales.",
+    "respuesta": "Caso con SS1000.01, pasivos100.02, huérfanos10.03, sindicato99.04, colegio600.05 y defensa400.06: gastos2009.1.",
+    "coste": "Mantener evidencia de propiedades/selección y casos adversos; una revisión independiente pendiente.",
+    "alcance": "Madrid2025 trabajo/pensión; sin variante de actividad",
+    "pendienteInterno": false,
+    "anclaFuente": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 4451,
+      "end": 4794,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "anclaImporte": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 4570,
+      "end": 4600,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "nodoImporte": "lib/dominio/irpf/trabajo-anual/conexion.ts:4570:4600:new",
+    "propiedadFinal": "origen.decimal"
+  },
+  {
+    "id": "anual.explicito.trabajo.gasto-f",
+    "clasificacion": "completo condicionado",
+    "propiedades": "gastos.generalesAplicados",
+    "evidencia": [
+      "conexion.ts: llamada original crearLineaCalculo",
+      "casos.json: API TS real y expectativas racionales",
+      "source programa: no emitido para actividad"
+    ],
+    "objecionExperta": "Aplicar siempre2000 haría negativo el saldo pequeño y confundiría gasto teórico con aplicado.",
+    "respuesta": "Caso íntegro100 aplica100; con saldo suficiente aplica2000. Se conserva la llamada original.",
+    "coste": "Mantener evidencia de propiedades/selección y casos adversos; una revisión independiente pendiente.",
+    "alcance": "Madrid2025 trabajo/pensión; sin variante de actividad",
+    "pendienteInterno": false,
+    "anclaFuente": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 4804,
+      "end": 5106,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "anclaImporte": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 4920,
+      "end": 4960,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "nodoImporte": "lib/dominio/irpf/trabajo-anual/conexion.ts:4920:4960:new",
+    "propiedadFinal": "origen.decimal"
+  },
+  {
+    "id": "anual.explicito.trabajo.art19",
+    "clasificacion": "completo condicionado",
+    "propiedades": "rendimientoAntesArt20",
+    "evidencia": [
+      "conexion.ts: llamada original crearLineaCalculo",
+      "casos.json: API TS real y expectativas racionales",
+      "source programa: no emitido para actividad"
+    ],
+    "objecionExperta": "Usar previo como neto final o gastar dos veces f alteraría la base.",
+    "respuesta": "Caso gastos efectivos: previo17990.9 y art19 15990.9; ambos campos y usos están separados.",
+    "coste": "Mantener evidencia de propiedades/selección y casos adversos; una revisión independiente pendiente.",
+    "alcance": "Madrid2025 trabajo/pensión; sin variante de actividad",
+    "pendienteInterno": false,
+    "anclaFuente": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 5116,
+      "end": 5419,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "anclaImporte": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 5230,
+      "end": 5266,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "nodoImporte": "lib/dominio/irpf/trabajo-anual/conexion.ts:5230:5266:new",
+    "propiedadFinal": "origen.decimal"
+  },
+  {
+    "id": "anual.explicito.trabajo.art20",
+    "clasificacion": "completo condicionado",
+    "propiedades": "argumentoArt20 + rendimientoAntesArt20",
+    "evidencia": [
+      "conexion.ts: llamada original crearLineaCalculo",
+      "casos.json: API TS real y expectativas racionales",
+      "source programa: no emitido para actividad"
+    ],
+    "objecionExperta": "Calcular reducción sobre art19 en vez del previo sin f seleccionaría otra rama.",
+    "respuesta": "2364.34−1.14×(17990.90−17673.52)=2002.5268; casos de frontera16576 y16576.01 independientes.",
+    "coste": "Mantener evidencia de propiedades/selección y casos adversos; una revisión independiente pendiente.",
+    "alcance": "Madrid2025 trabajo/pensión; sin variante de actividad",
+    "pendienteInterno": false,
+    "anclaFuente": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 5429,
+      "end": 5745,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "anclaImporte": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 5543,
+      "end": 5557,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "nodoImporte": "lib/dominio/irpf/trabajo-anual/conexion.ts:5543:5557:local",
+    "propiedadFinal": "origen.decimal"
+  },
+  {
+    "id": "anual.explicito.da61",
+    "clasificacion": "completo condicionado",
+    "propiedades": "importeAplicable + cuotaPosterior / selector empleo",
+    "evidencia": [
+      "conexion.ts: llamada original crearLineaCalculo",
+      "casos.json: API TS real y expectativas racionales",
+      "bloqueo.json: API real de actividad y sensibilidad"
+    ],
+    "objecionExperta": "Aplicar DA61 a pensión o duplicarla dentro de líquida legal alteraría la etapa y la clase.",
+    "respuesta": "En empleo16576.01 legal/aplicable339.998 bajo el techo del caso; pensión0 por selector, no por ausencia de cálculo.",
+    "coste": "Mantener evidencia de propiedades/selección y casos adversos; una revisión independiente pendiente.",
+    "alcance": "Empleo DA61; pensión0 y actividad0 por selección en fuente; ejecución causal actividad bloqueada antes.",
+    "pendienteInterno": false,
+    "anclaFuente": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 11317,
+      "end": 11565,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "anclaImporte": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 11416,
+      "end": 11425,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "nodoImporte": "lib/dominio/irpf/trabajo-anual/conexion.ts:11416:11425:local",
+    "propiedadFinal": "origen.decimal"
+  },
+  {
+    "id": "anual.explicito.retenciones",
+    "clasificacion": "completo condicionado",
+    "propiedades": "retenciones[].importe / aporte.retencionesEuros",
+    "evidencia": [
+      "conexion.ts: llamada original crearLineaCalculo",
+      "casos.json: API TS real y expectativas racionales",
+      "bloqueo.json: API real de actividad y sensibilidad"
+    ],
+    "objecionExperta": "Sumar certificados duplicados o confundirlos con pagos ocultaría identidad y fronteras.",
+    "respuesta": "123.45+67.89=191.34; operación duplicada rechazada. Actividad real111.11 varía independientemente de pagos.",
+    "coste": "Mantener evidencia de propiedades/selección y casos adversos; una revisión independiente pendiente.",
+    "alcance": "Trabajo/pensión condicionado; actividad requiere productor excluido",
+    "pendienteInterno": false,
+    "anclaFuente": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 11817,
+      "end": 12055,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "anclaImporte": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 11923,
+      "end": 11934,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "nodoImporte": "lib/dominio/irpf/trabajo-anual/conexion.ts:11923:11934:local",
+    "propiedadFinal": "origen.decimal"
+  },
+  {
+    "id": "anual.explicito.pagos",
+    "clasificacion": "completo condicionado",
+    "propiedades": "literal0 / aporte.pagosFraccionadosEuros",
+    "evidencia": [
+      "conexion.ts: llamada original crearLineaCalculo",
+      "casos.json: API TS real y expectativas racionales",
+      "bloqueo.json: API real de actividad y sensibilidad"
+    ],
+    "objecionExperta": "Un cero laboral no demuestra pagos de actividad; igualar ambas propiedades ocultaría dependencia.",
+    "respuesta": "El programa laboral no consume pagos de entrada y conserva literal0. Actividad222.22 y sensibilidad independiente; causal rechaza productor excluido.",
+    "coste": "Mantener evidencia de propiedades/selección y casos adversos; una revisión independiente pendiente.",
+    "alcance": "Trabajo/pensión condicionado; actividad requiere productor excluido",
+    "pendienteInterno": false,
+    "anclaFuente": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 12063,
+      "end": 12296,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "anclaImporte": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 12163,
+      "end": 12168,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "nodoImporte": "lib/dominio/irpf/trabajo-anual/conexion.ts:12163:12168:local",
+    "propiedadFinal": "origen.decimal"
+  },
+  {
+    "id": "anual.explicito.diferencial",
+    "clasificacion": "completo condicionado",
+    "propiedades": "posterior - retenciones - pagos / aporte.importeEurosExactos",
+    "evidencia": [
+      "conexion.ts: llamada original crearLineaCalculo",
+      "casos.json: API TS real y expectativas racionales",
+      "bloqueo.json: API real de actividad y sensibilidad"
+    ],
+    "objecionExperta": "Una resta con signo incorrecto o cuotas anteriores a DA61 puede parecer correcta con importes cero.",
+    "respuesta": "Caso posterior0 menos retención19.87 conserva−19.87. API real contrasta además cuotas no nulas y el rojo previo478.8217.",
+    "coste": "Mantener evidencia de propiedades/selección y casos adversos; una revisión independiente pendiente.",
+    "alcance": "Trabajo/pensión condicionado; actividad requiere productor excluido",
+    "pendienteInterno": false,
+    "anclaFuente": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 12304,
+      "end": 12564,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "anclaImporte": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 12410,
+      "end": 12421,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "nodoImporte": "lib/dominio/irpf/trabajo-anual/conexion.ts:12410:12421:local",
+    "propiedadFinal": "origen.decimal"
+  },
+  {
+    "id": "anual.explicito.actividad.etapa",
+    "clasificacion": "bloqueo demostrado",
+    "propiedades": "etapas[].importe/reglaId/id/formula",
+    "evidencia": [
+      "conexion.ts: llamada original crearLineaCalculo",
+      "casos.json: API TS real y expectativas racionales",
+      "bloqueo.json: API real de actividad y sensibilidad"
+    ],
+    "objecionExperta": "Emitir etapas por nombres o importes declarados evitaría indebidamente las19 familias excluidas.",
+    "respuesta": "API real admitida, etapas dinámicas con instanceId únicos, sensibilidad de ingreso y bloqueo causal en adaptarActividadGeneral; sin implementar familias.",
+    "coste": "No hay cierre causal de actividad sin un lote futuro de19 familias; estimación20–40h de implementación y12–24h de revisión, no iniciado.",
+    "alcance": "Trabajo/pensión condicionado; actividad requiere productor excluido",
+    "pendienteInterno": false,
+    "anclaFuente": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 7016,
+      "end": 7268,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "anclaImporte": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 7140,
+      "end": 7156,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "nodoImporte": "lib/dominio/irpf/trabajo-anual/conexion.ts:7140:7156:new",
+    "propiedadFinal": "origen.decimal"
+  }
+]

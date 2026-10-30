@@ -1,0 +1,21 @@
+{
+  "command": [
+    "flock",
+    "/tmp/irobopf-validacion-pesada.lock",
+    "nix",
+    "shell",
+    "nixpkgs#nodejs",
+    "-c",
+    "node",
+    "/home/elies/Repos/IRoboPF/node_modules/vitest/vitest.mjs",
+    "run",
+    "--config",
+    ".cache/causal-explicitos-r62-sol/vitest.mjs",
+    "--configLoader",
+    "native",
+    "--maxWorkers",
+    "1"
+  ],
+  "exit": 1,
+  "seconds": 149.56937432289124
+}

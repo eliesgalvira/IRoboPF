@@ -1,0 +1,27 @@
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+import {gunzipSync} from 'node:zlib';
+import {createRequire} from 'node:module';
+import {composeCausalExplicitos} from './causal-explicitos-r62-contratos.mjs';
+import {verifyCausalExplicitos} from './causal-explicitos-r62.mjs';
+const folder='.cache/causal-explicitos-r62-sol';
+const read=p=>JSON.parse(fs.readFileSync(p,'utf8'));
+const library='/home/elies/.bun/install/cache/ajv@8.20.0@@@1/dist/2020.js';
+const Ajv=createRequire(library)(library).default;
+const ajv=new Ajv({strict:true,allowUnionTypes:true,inlineRefs:false,coerceTypes:false,removeAdditional:false,useDefaults:false});
+const vc=ajv.compile(read('schemas/procedencia/flujo/causal-explicitos-r62.json'));
+const ve=ajv.compile(read('schemas/procedencia/flujo/ejecucion-r62.json'));
+const g=composeCausalExplicitos();
+assert.deepEqual(g,JSON.parse(gunzipSync(fs.readFileSync(folder+'/contrato.json.gz'))));
+assert(vc(g),JSON.stringify(vc.errors));
+const cases=read(folder+'/casos.json');let outputs=0,replayed=0;
+for(const row of cases){
+ const data=JSON.parse(gunzipSync(fs.readFileSync(row.file)));
+ assert(ve(data.evidence),JSON.stringify(ve.errors));outputs+=data.evidence.outputs.length;
+ if(['gastos-efectivos','diferencial-negativo'].includes(row.id)){
+  assert(verifyCausalExplicitos(g,data.evidence,data.caso,data.contexto,row.id));replayed++;
+ }
+}
+assert.equal(replayed,2);
+const result={cases:cases.length,outputs,replayed,contract:true,schemas:true};
+fs.writeFileSync(folder+'/schemas.json',JSON.stringify(result,null,2));console.log(result);

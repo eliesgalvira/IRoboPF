@@ -1,0 +1,8 @@
+import json,subprocess,os
+from pathlib import Path
+R=Path('/home/elies/Repos/IRoboPF');C=R/'.cache/orquestador-recepcion/r64';O=R/'docs/procedencia/correcciones/recepcion-causal-explicitos-r64'
+commands=[('suite-final',['node','node_modules/vitest/vitest.mjs','run','tests/causal-explicitos-r62.test.ts','--configLoader','native','--config',str(C/'vitest.mjs'),'--reporter=json','--outputFile='+str(O/'suite-final.json')]),('schemas',['env','NODE_PATH=/home/elies/Repos/IRoboPF/node_modules','node',str(C/'validar-originales.mjs')]),('lint-test',['node_modules/.bin/oxlint','--threads=1','--disable-nested-config','tests/causal-explicitos-r62.test.ts']),('eslint-test',['node_modules/.bin/eslint','tests/causal-explicitos-r62.test.ts'])]
+results=[]
+for name,cmd in commands:
+ with (O/(name+'.log')).open('wb') as log:p=subprocess.run(['flock','/tmp/irobopf-validacion-pesada.lock',*cmd],cwd=R,stdout=log,stderr=subprocess.STDOUT)
+ results.append(dict(name=name,command=cmd,exitCode=p.returncode));(O/'validacion-final.json').write_text(json.dumps(results,indent=2)+'\n');print(json.dumps(results[-1]),flush=True)

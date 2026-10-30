@@ -1,0 +1,16 @@
+{
+  "command": [
+    "flock",
+    "/tmp/irobopf-validacion-pesada.lock",
+    "nix",
+    "shell",
+    "nixpkgs#nodejs",
+    "-c",
+    "env",
+    "NODE_PATH=/home/elies/Repos/IRoboPF/node_modules",
+    "node",
+    "scripts/procedencia/causal-explicitos-r62-validar.mjs"
+  ],
+  "exit": 0,
+  "seconds": 39.115036725997925
+}

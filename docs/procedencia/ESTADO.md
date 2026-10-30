@@ -2,7 +2,17 @@
 
 Inicio: 29 de octubre de 2026. Trabajo en curso; no es una certificación fiscal.
 
-## Situación más reciente, ronda 63 del 30 de octubre
+## Situación más reciente, ronda 64 del 30 de octubre
+
+Recibido el último candidato: nueve sitios explícitos de trabajo/pensión y actividad.etapa bloqueada por las familias excluidas. Cotejo físico de 23.648 entradas, tres cambios autorizados y cero borrados; transporte exacto de 258 rutas, 120 integradas y 88 referencias técnicas preservadas. Detalle en correcciones/recepcion-causal-explicitos-r64.
+
+El contador corroborado permanece en 55/65 hasta la única revisión de estos diez. Tipos principal/vendor y lint global correctos; cuatro regresiones pasan. Dos ENOENT del arnés nuevo conservados y preparación de carpeta corregida, con repetición focalizada. CheckJs estricto del autor conserva 1.302 diagnósticos, incluidos 232 nuevos; no hay aprobación integral de tipos MJS.
+
+Resultado terminal: pasan las dos pruebas repetidas con 25 casos/225 salidas y el bloqueo. Los testigos originales validan por schema estricto y dos se reproducen exactamente. Se cotejan veinte anclas de diez IDs. Lint focalizado del arreglo correcto. Los cuatro controles compartidos del primer pase se conservan y no se repiten. Se prepara una única revisión independiente sobre el commit integrado, con Sol 6.1 High y priority explícitos.
+
+D135 mantiene el final de Elies: después de esa revisión, correcciones solo si reproduce defectos; al cerrar los 65 sitios o demostrar bloqueos, INFORME-FINAL.md, respaldo y parada. Familias, composición global, admisión y cuatro puertas fuera. Crossa v1 desfasado, V5 corte R26. Sin main, PR, despliegue, LFS, gasto, transferencia ni limpieza.
+
+## Situación anterior, ronda 63 del 30 de octubre
 
 Recibida la única revisión independiente de escalas: sin defecto funcional nuevo. El padre cotejó físicamente 23.648 entradas intactas, reconstruyó exactamente 211 rutas, integró 139 y preservó 90 referencias técnicas. Reproduce 183 comparaciones racionales, con resultados idénticos a los recibidos, y coteja las 28 anclas del importe por hash/UTF16. Detalle en correcciones/causal-escalas-r63 y revisiones/causal-escalas-r62-sol.
 

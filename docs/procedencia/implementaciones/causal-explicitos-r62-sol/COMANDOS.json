@@ -1,0 +1,391 @@
+[
+  {
+    "stage": "checkjs-correcto",
+    "command": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "nix",
+      "shell",
+      "nixpkgs#nodejs",
+      "-c",
+      "node",
+      "/home/elies/Repos/IRoboPF/node_modules/typescript/bin/tsc",
+      "-p",
+      ".cache/causal-explicitos-r62-sol/checkjs-config.json"
+    ],
+    "exit": 2,
+    "seconds": 5.675508737564087
+  },
+  {
+    "stage": "humo2",
+    "command": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "nix",
+      "shell",
+      "nixpkgs#nodejs",
+      "-c",
+      "node",
+      "--input-type=module",
+      "-"
+    ],
+    "exit": 0,
+    "seconds": 285.5619945526123
+  },
+  {
+    "stage": "tipos-alcance-final",
+    "command": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "nix",
+      "shell",
+      "nixpkgs#nodejs",
+      "-c",
+      "node",
+      "/home/elies/Repos/IRoboPF/node_modules/typescript/bin/tsc",
+      "-p",
+      ".cache/causal-explicitos-r62-sol/types-alcance.json"
+    ],
+    "exit": 0,
+    "seconds": 302.3416156768799
+  },
+  {
+    "stage": "tipos-global",
+    "command": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "nix",
+      "shell",
+      "nixpkgs#nodejs",
+      "-c",
+      "node",
+      "/home/elies/Repos/IRoboPF/node_modules/typescript/bin/tsc",
+      "-p",
+      ".cache/causal-explicitos-r62-sol/types-global.json"
+    ],
+    "exit": 2,
+    "seconds": 358.21434259414673
+  },
+  {
+    "stage": "regresiones",
+    "command": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "nix",
+      "shell",
+      "nixpkgs#nodejs",
+      "-c",
+      "node",
+      "/home/elies/Repos/IRoboPF/node_modules/vitest/vitest.mjs",
+      "run",
+      "--config",
+      ".cache/causal-explicitos-r62-sol/regresiones.mjs",
+      "--configLoader",
+      "native",
+      "--maxWorkers",
+      "1",
+      "-t",
+      "racional de base|API real explícita independiente|núcleo compartido.*2025/canonico|núcleo directo de retenciones"
+    ],
+    "exit": 0,
+    "seconds": 353.65232706069946
+  },
+  {
+    "stage": "vitest",
+    "command": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "nix",
+      "shell",
+      "nixpkgs#nodejs",
+      "-c",
+      "node",
+      "/home/elies/Repos/IRoboPF/node_modules/vitest/vitest.mjs",
+      "run",
+      "--config",
+      ".cache/causal-explicitos-r62-sol/vitest.mjs",
+      "--configLoader",
+      "native",
+      "--maxWorkers",
+      "1"
+    ],
+    "exit": 1,
+    "seconds": 209.8571593761444
+  },
+  {
+    "stage": "humo",
+    "command": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "nix",
+      "shell",
+      "nixpkgs#nodejs",
+      "-c",
+      "node",
+      "--input-type=module",
+      "-"
+    ],
+    "exit": 1,
+    "seconds": 6.9875335693359375
+  },
+  {
+    "stage": "lint-final",
+    "command": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "nix",
+      "shell",
+      "nixpkgs#nodejs",
+      "-c",
+      "bash",
+      ".cache/causal-explicitos-r62-sol/lint-run.sh"
+    ],
+    "exit": 0,
+    "seconds": 303.3651306629181
+  },
+  {
+    "stage": "vitest3",
+    "command": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "nix",
+      "shell",
+      "nixpkgs#nodejs",
+      "-c",
+      "node",
+      "/home/elies/Repos/IRoboPF/node_modules/vitest/vitest.mjs",
+      "run",
+      "--config",
+      ".cache/causal-explicitos-r62-sol/vitest.mjs",
+      "--configLoader",
+      "native",
+      "--maxWorkers",
+      "1"
+    ],
+    "exit": 1,
+    "seconds": 149.56937432289124
+  },
+  {
+    "stage": "vitest4",
+    "command": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "nix",
+      "shell",
+      "nixpkgs#nodejs",
+      "-c",
+      "node",
+      "/home/elies/Repos/IRoboPF/node_modules/vitest/vitest.mjs",
+      "run",
+      "--config",
+      ".cache/causal-explicitos-r62-sol/vitest.mjs",
+      "--configLoader",
+      "native",
+      "--maxWorkers",
+      "1"
+    ],
+    "exit": 0,
+    "seconds": 344.7340099811554
+  },
+  {
+    "stage": "checkjs",
+    "command": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "nix",
+      "shell",
+      "nixpkgs#nodejs",
+      "-c",
+      "node",
+      "/home/elies/Repos/IRoboPF/node_modules/typescript/bin/tsc",
+      "-p",
+      ".cache/causal-explicitos-r62-sol/checkjs.json"
+    ],
+    "exit": 2,
+    "seconds": 320.5812656879425
+  },
+  {
+    "stage": "tipos-global2",
+    "command": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "nix",
+      "shell",
+      "nixpkgs#nodejs",
+      "-c",
+      "node",
+      "/home/elies/Repos/IRoboPF/node_modules/typescript/bin/tsc",
+      "-p",
+      ".cache/causal-explicitos-r62-sol/types-global.json"
+    ],
+    "exit": 2,
+    "seconds": 47.736828088760376
+  },
+  {
+    "stage": "tipos-alcance",
+    "command": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "nix",
+      "shell",
+      "nixpkgs#nodejs",
+      "-c",
+      "node",
+      "/home/elies/Repos/IRoboPF/node_modules/typescript/bin/tsc",
+      "-p",
+      ".cache/causal-explicitos-r62-sol/types-alcance.json"
+    ],
+    "exit": 2,
+    "seconds": 198.51924300193787
+  },
+  {
+    "stage": "tipos-vendor",
+    "command": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "nix",
+      "shell",
+      "nixpkgs#nodejs",
+      "-c",
+      "node",
+      "/home/elies/Repos/IRoboPF/node_modules/typescript/bin/tsc",
+      "-p",
+      ".cache/causal-explicitos-r62-sol/lint/vendor.json"
+    ],
+    "exit": 0,
+    "seconds": 302.560964345932
+  },
+  {
+    "stage": "rojo",
+    "command": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "nix",
+      "shell",
+      "nixpkgs#nodejs",
+      "-c",
+      "node",
+      "scripts/procedencia/causal-explicitos-r62-rojo.mjs"
+    ],
+    "exit": 1,
+    "seconds": 1.4183270931243896
+  },
+  {
+    "stage": "tipos-alcance2",
+    "command": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "nix",
+      "shell",
+      "nixpkgs#nodejs",
+      "-c",
+      "node",
+      "/home/elies/Repos/IRoboPF/node_modules/typescript/bin/tsc",
+      "-p",
+      ".cache/causal-explicitos-r62-sol/types-alcance.json"
+    ],
+    "exit": 0,
+    "seconds": 305.82077169418335
+  },
+  {
+    "stage": "vitest2",
+    "command": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "nix",
+      "shell",
+      "nixpkgs#nodejs",
+      "-c",
+      "node",
+      "/home/elies/Repos/IRoboPF/node_modules/vitest/vitest.mjs",
+      "run",
+      "--config",
+      ".cache/causal-explicitos-r62-sol/vitest.mjs",
+      "--configLoader",
+      "native",
+      "--maxWorkers",
+      "1"
+    ],
+    "exit": 1,
+    "seconds": 323.7609839439392
+  },
+  {
+    "stage": "schemas-final",
+    "command": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "nix",
+      "shell",
+      "nixpkgs#nodejs",
+      "-c",
+      "env",
+      "NODE_PATH=/home/elies/Repos/IRoboPF/node_modules",
+      "node",
+      "scripts/procedencia/causal-explicitos-r62-validar.mjs"
+    ],
+    "exit": 0,
+    "seconds": 39.115036725997925
+  },
+  {
+    "stage": "lint",
+    "command": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "nix",
+      "shell",
+      "nixpkgs#nodejs",
+      "-c",
+      "bash",
+      ".cache/causal-explicitos-r62-sol/lint-run.sh"
+    ],
+    "exit": 0,
+    "seconds": 63.39152145385742
+  },
+  {
+    "stage": "tipos-base",
+    "command": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "nix",
+      "shell",
+      "nixpkgs#nodejs",
+      "-c",
+      "node",
+      ".cache/causal-explicitos-r62-sol/tipos-base.mjs"
+    ],
+    "exit": 2,
+    "seconds": 337.3931312561035
+  },
+  {
+    "stage": "checkjs-final",
+    "command": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "nix",
+      "shell",
+      "nixpkgs#nodejs",
+      "-c",
+      "node",
+      "/home/elies/Repos/IRoboPF/node_modules/typescript/bin/tsc",
+      "-p",
+      ".cache/causal-explicitos-r62-sol/checkjs.json"
+    ],
+    "exit": 2,
+    "seconds": 276.812153339386
+  },
+  {
+    "stage": "plugins",
+    "command": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "nix",
+      "shell",
+      "nixpkgs#nodejs",
+      "-c",
+      "node",
+      ".cache/causal-explicitos-r62-sol/lint-prueba.mjs"
+    ],
+    "exit": 0,
+    "seconds": 72.49399042129517
+  }
+]

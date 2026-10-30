@@ -1,0 +1,14 @@
+{
+  "command": [
+    "flock",
+    "/tmp/irobopf-validacion-pesada.lock",
+    "nix",
+    "shell",
+    "nixpkgs#nodejs",
+    "-c",
+    "node",
+    "scripts/procedencia/causal-explicitos-r62-rojo.mjs"
+  ],
+  "exit": 1,
+  "seconds": 1.4183270931243896
+}

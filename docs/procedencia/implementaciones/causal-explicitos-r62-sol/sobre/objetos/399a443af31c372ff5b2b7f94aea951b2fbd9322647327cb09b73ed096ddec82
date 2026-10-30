@@ -1,0 +1,14 @@
+{
+  "command": [
+    "flock",
+    "/tmp/irobopf-validacion-pesada.lock",
+    "nix",
+    "shell",
+    "nixpkgs#nodejs",
+    "-c",
+    "node",
+    ".cache/causal-explicitos-r62-sol/tipos-base.mjs"
+  ],
+  "exit": 2,
+  "seconds": 337.3931312561035
+}

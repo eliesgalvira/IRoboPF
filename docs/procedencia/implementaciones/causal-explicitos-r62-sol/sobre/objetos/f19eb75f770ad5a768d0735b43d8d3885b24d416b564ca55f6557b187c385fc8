@@ -1,0 +1,23 @@
+{
+  "command": [
+    "flock",
+    "/tmp/irobopf-validacion-pesada.lock",
+    "nix",
+    "shell",
+    "nixpkgs#nodejs",
+    "-c",
+    "node",
+    "/home/elies/Repos/IRoboPF/node_modules/vitest/vitest.mjs",
+    "run",
+    "--config",
+    ".cache/causal-explicitos-r62-sol/regresiones.mjs",
+    "--configLoader",
+    "native",
+    "--maxWorkers",
+    "1",
+    "-t",
+    "racional de base|API real expl\u00edcita independiente|n\u00facleo compartido.*2025/canonico|n\u00facleo directo de retenciones"
+  ],
+  "exit": 0,
+  "seconds": 353.65232706069946
+}

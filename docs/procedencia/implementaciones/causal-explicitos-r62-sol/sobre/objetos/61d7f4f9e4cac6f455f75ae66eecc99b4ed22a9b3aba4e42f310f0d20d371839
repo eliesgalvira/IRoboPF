@@ -1,0 +1,5 @@
+{
+  "exit": 1,
+  "stdout": "{ \"diagnostics\": [{\"message\": \"Do not import Effect service constructor \\\"makeExample\\\" into runtime code. Import the owning Layer, yield the contextual service, and allow its requirements to propagate to the composition root.\",\"code\": \"anti-slop-effect(no-service-constructor-imports)\",\"severity\": \"error\",\"filename\": \".cache/causal-explicitos-r62-sol/lint-smoke.ts\",\"labels\": [{\"span\": {\"offset\": 9,\"length\": 11,\"line\": 1,\"column\": 10}}]},\n{\"message\": \"Parameter `value` leaves input unparsed. Accept a named domain type; run the expected schema or parser at the I/O boundary before calling this function.\",\"code\": \"anti-slop(no-unknown-parameters)\",\"severity\": \"error\",\"filename\": \".cache/causal-explicitos-r62-sol/lint-smoke.ts\",\"labels\": [{\"span\": {\"offset\": 74,\"length\": 7,\"line\": 2,\"column\": 31}}]}],\n              \"number_of_files\": 1,\n              \"number_of_rules\": 16,\n              \"threads_count\": 12,\n              \"start_time\": 0.129070488\n            }\n            ",
+  "stderr": ""
+}
