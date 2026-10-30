@@ -1,0 +1,1 @@
+Primer cotejo Node: exit=1, spawnSync git ENOBUFS al enumerar ls-tree; corregido maxBuffer=256MiB. Segundo cotejo: exit=0, 21514 bytes/targets iguales, tres falsos positivos de modo al comparar symlinks 120000 con permisos ejecutables; se excluye esa comparación solo para symlinks en fisico.py. El primer fallo no se cuenta como pase.

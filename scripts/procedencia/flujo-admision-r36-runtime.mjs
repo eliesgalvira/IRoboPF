@@ -10,7 +10,7 @@ const DecimalEsm=(await import(pathToFileURL(require.resolve('decimal.js').repla
 const isDecimal=value=>value instanceof Decimal||value instanceof DecimalEsm
 export class AdmissionPending extends Error {}
 export class AdmissionReject extends Error { constructor(value) { super(value?.motivo ?? String(value)); this.value=value } }
-/** Codec v2: etiquetas fuera del espacio de objetos, propiedades propias y alias. */
+/** Codec v3: conserva descriptores del constructor; CJS/ESM Decimal son equivalentes. */
 export function encodeAdmissionValue(value) {
   const references=new Map()
   function encode(input) {
@@ -25,8 +25,8 @@ export function encodeAdmissionValue(value) {
     const id=references.size;references.set(input,id)
     const descriptors=Object.getOwnPropertyDescriptors(input)
     if(Object.getOwnPropertySymbols(input).length||Object.values(descriptors).some(d=>d.get||d.set))throw new AdmissionPending('Propiedad sin codec de datos')
-    const properties=(excluded=[])=>Object.entries(descriptors).filter(([key])=>!excluded.includes(key)).map(([key,d])=>[key,d.enumerable,d.configurable,d.writable,encode(d.value)])
-    if(isDecimal(input))return ['Decimal',id,input.toString(),input.isNegative(),properties([Decimal,DecimalEsm].includes(descriptors.constructor?.value)?['constructor']:[])]
+    const properties=()=>Object.entries(descriptors).map(([key,d])=>[key,d.enumerable,d.configurable,d.writable,isDecimal(input)&&key==='constructor'&&[Decimal,DecimalEsm].includes(d.value)?['native-constructor','Decimal']:encode(d.value)])
+    if(isDecimal(input))return ['Decimal',id,input.toString(),input.isNegative(),properties()]
     if(input instanceof Date)return ['Date',id,String(input.getTime()),properties()]
     if(input instanceof Function) {
       if(!input.r36Origin)throw new AdmissionPending('Función sin origen de programa')
@@ -35,7 +35,7 @@ export function encodeAdmissionValue(value) {
     if(Array.isArray(input))return ['array',id,properties()]
     return ['object',id,Object.getPrototypeOf(input)===null?'null':'Object',properties()]
   }
-  return {codec:'admission-value-v2',value:encode(value)}
+  return {codec:'admission-value-v3',value:encode(value)}
 }
 class Returned {constructor(value){this.value=value}}
 class Continued {}

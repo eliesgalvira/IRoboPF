@@ -1,0 +1,52 @@
+[
+  {
+    "id": "R44-A01",
+    "verdict": "requiere-cambios",
+    "scope": "Corrige nueve reproducciones previas; R47-N01 conserva colisiones de descriptores propios de constructor Decimal.",
+    "objection": "La equivalencia CJS/ESM es necesaria.",
+    "response": "Puede conservar el constructor canónico y distinguir sus flags; el padre debe contrastarlo.",
+    "cost": "Cambio y contraste adicionales de identidad, sin atribuir diferencias monetarias.",
+    "requiresParentContrast": true,
+    "fiscalAcceptance": false
+  },
+  {
+    "id": "R44-A02",
+    "verdict": "corroborado-limitado",
+    "scope": "Interfaz real deriva filas Decimal y opcional booleano; runtime valida forma.",
+    "objection": "La forma no demuestra escala fiscal correcta.",
+    "response": "Condicionar contenido y origen a proveedor/composición.",
+    "cost": "Obligación de contenido y vigencia separada.",
+    "requiresParentContrast": true,
+    "fiscalAcceptance": false
+  },
+  {
+    "id": "R44-A03",
+    "verdict": "corroborado-limitado",
+    "scope": "Array.prototype ejecuta frontera anunciada; subclase pending.",
+    "objection": "Subclase benigna puede dar el mismo resultado.",
+    "response": "Dominio técnico explícito, sin rechazo fiscal.",
+    "cost": "Otro contrato si se amplía el dominio.",
+    "requiresParentContrast": true,
+    "fiscalAcceptance": false
+  },
+  {
+    "id": "R44-A04",
+    "verdict": "corroborado-limitado",
+    "scope": "Origen del llamador, nodos UTF-16 y destinos concretos contrastados.",
+    "objection": "Un nodo real no acredita toda operación.",
+    "response": "Separar existencia, token, resolución y precondición de pin revisado.",
+    "cost": "No extender dictamen a traducción universal.",
+    "requiresParentContrast": true,
+    "fiscalAcceptance": false
+  },
+  {
+    "id": "R44-A05",
+    "verdict": "corroborado-limitado",
+    "scope": "Bindings/captura/precedencia derivados del callback; booleano invertido corta primera llamada.",
+    "objection": "Proyección aislada puede usar datos no admitidos.",
+    "response": "Separar cinco casos API real admitidos de proyecciones aisladas.",
+    "cost": "Cuantías y composición siguen pendientes.",
+    "requiresParentContrast": true,
+    "fiscalAcceptance": false
+  }
+]

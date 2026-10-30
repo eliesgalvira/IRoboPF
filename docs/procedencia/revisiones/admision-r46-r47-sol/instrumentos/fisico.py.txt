@@ -1,0 +1,23 @@
+import os,stat,subprocess,json,hashlib,sys,gzip
+from pathlib import Path
+root=Path.cwd();base='a6fc3e5e4ec2a7fc7e123356e641817b2f19d908'
+entries=subprocess.check_output(['git','ls-tree','-rz',base]).split(b'\0');batch=subprocess.Popen(['git','cat-file','--batch'],stdin=subprocess.PIPE,stdout=subprocess.PIPE)
+records=[];paths=set()
+for entry in filter(None,entries):
+ meta,raw=entry.split(b'\t');mode,kind,oid=meta.split();p=os.fsdecode(raw);paths.add(p)
+ batch.stdin.write(oid+b'\n');batch.stdin.flush();header=batch.stdout.readline().split();size=int(header[2]);blob=batch.stdout.read(size);assert batch.stdout.read(1)==b'\n'
+ record=dict(path=p,baseSha256=hashlib.sha256(blob).hexdigest(),size=size,mode=mode.decode())
+ try:
+  s=os.lstat(p);actual=os.fsencode(os.readlink(p)) if stat.S_ISLNK(s.st_mode) else Path(p).read_bytes();record.update(sha256=hashlib.sha256(actual).hexdigest(),equal=actual==blob and (stat.S_ISLNK(s.st_mode)==(mode==b'120000')) and (mode==b'120000' or bool(s.st_mode&0o111)==(mode==b'100755')))
+ except FileNotFoundError: record.update(equal=False,missing=True)
+ records.append(record)
+batch.stdin.close();batch.wait();extras=[]
+for d,dirs,files in os.walk(root,followlinks=False):
+ if d==str(root):dirs[:]=[x for x in dirs if x!='.git']
+ for name in files+[x for x in dirs if (Path(d)/x).is_symlink()]:
+  f=Path(d)/name;p=str(f.relative_to(root))
+  if p in paths or p=='.git':continue
+  s=f.lstat();extras.append(dict(path=p,size=s.st_size,symlink=f.is_symlink(),target=os.readlink(f) if f.is_symlink() else None))
+out=dict(base=base,entries=len(records),changes=[r for r in records if not r['equal']],deleted=[r['path'] for r in records if r.get('missing')],extras=extras,diff=subprocess.check_output(['git','diff','--no-ext-diff',base]).decode())
+Path(sys.argv[1]+'.entradas.json.gz').write_bytes(gzip.compress(json.dumps(records).encode(),mtime=0))
+Path(sys.argv[1]).write_text(json.dumps(out,indent=2)+'\n');print(json.dumps(dict(entries=out['entries'],changes=out['changes'],deleted=out['deleted'],extras=len(extras))))

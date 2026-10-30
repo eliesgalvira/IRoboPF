@@ -1,0 +1,183 @@
+{
+  "artifactSha256": "9d8f62076250c197e6fd840ac5b336306dc5cdcb3ff6a183ec8892604ac29b9a",
+  "jsonEqual": true,
+  "gzipEqual": true,
+  "verified": true,
+  "anchorsChecked": 28113,
+  "mismatches": [],
+  "semanticOperators": 283,
+  "mutations": [
+    {
+      "group": "graph",
+      "rejected": true,
+      "reason": "Ancla sin nodo exacto en fuente fijada"
+    },
+    {
+      "group": "rights",
+      "rejected": true,
+      "reason": "Ancla sin nodo exacto en fuente fijada"
+    },
+    {
+      "group": "service",
+      "rejected": true,
+      "reason": "Ancla sin nodo exacto en fuente fijada"
+    }
+  ],
+  "reexports": [
+    {
+      "id": "r36-22735",
+      "before": {
+        "id": "r36-22735",
+        "path": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/index.ts",
+        "start": 19196,
+        "end": 19242,
+        "sha256": "7f9192a87929e704806a361d3f36c0dad86018e085c3632a119318ce597790b9",
+        "coordinate": "UTF-16 half-open"
+      },
+      "after": {
+        "id": "r36-22735",
+        "path": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+        "start": 19205,
+        "end": 19242,
+        "sha256": "39c8b3e4910c605ac01465faa8aec56657c259b48613f7f83975697a81d8f745",
+        "coordinate": "UTF-16 half-open"
+      },
+      "text": "CATALOGO_DEDUCCIONES_AUTONOMICAS_2025",
+      "oldFileLength": 8178
+    },
+    {
+      "id": "r36-22799",
+      "before": {
+        "id": "r36-22799",
+        "path": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/index.ts",
+        "start": 19565,
+        "end": 19608,
+        "sha256": "7f9192a87929e704806a361d3f36c0dad86018e085c3632a119318ce597790b9",
+        "coordinate": "UTF-16 half-open"
+      },
+      "after": {
+        "id": "r36-22799",
+        "path": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+        "start": 19566,
+        "end": 19608,
+        "sha256": "39c8b3e4910c605ac01465faa8aec56657c259b48613f7f83975697a81d8f745",
+        "coordinate": "UTF-16 half-open"
+      },
+      "text": "DEDUCCIONES_AUTONOMICAS_2025_IMPLEMENTADAS",
+      "oldFileLength": 8178
+    }
+  ],
+  "chains": [
+    {
+      "node": {
+        "id": "r36-22735",
+        "op": "global",
+        "key": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/index.ts#CATALOGO_DEDUCCIONES_AUTONOMICAS_2025"
+      },
+      "chain": [
+        "lib/dominio/normativa/datos/deducciones-autonomicas-2025/index.ts#CATALOGO_DEDUCCIONES_AUTONOMICAS_2025"
+      ],
+      "resolved": "call"
+    },
+    {
+      "node": {
+        "id": "r36-22799",
+        "op": "global",
+        "key": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/index.ts#DEDUCCIONES_AUTONOMICAS_2025_IMPLEMENTADAS"
+      },
+      "chain": [
+        "lib/dominio/normativa/datos/deducciones-autonomicas-2025/index.ts#DEDUCCIONES_AUTONOMICAS_2025_IMPLEMENTADAS"
+      ],
+      "resolved": "call"
+    }
+  ],
+  "sites": [
+    {
+      "siteId": "anual.ss.base",
+      "admissionClosed": false,
+      "siteClosed": false
+    },
+    {
+      "siteId": "anual.ss.exceso",
+      "admissionClosed": false,
+      "siteClosed": false
+    },
+    {
+      "siteId": "anual.ss.empresarial-ordinaria",
+      "admissionClosed": false,
+      "siteClosed": false
+    },
+    {
+      "siteId": "anual.ss.trabajador-ordinaria",
+      "admissionClosed": false,
+      "siteClosed": false
+    },
+    {
+      "siteId": "anual.ss.mei-empresarial",
+      "admissionClosed": false,
+      "siteClosed": false
+    },
+    {
+      "siteId": "anual.ss.mei-trabajador",
+      "admissionClosed": false,
+      "siteClosed": false
+    },
+    {
+      "siteId": "anual.ss.solidaridad-empresarial",
+      "admissionClosed": false,
+      "siteClosed": false
+    },
+    {
+      "siteId": "anual.ss.solidaridad-trabajador",
+      "admissionClosed": false,
+      "siteClosed": false
+    },
+    {
+      "siteId": "anual.ss.empresarial-total",
+      "admissionClosed": false,
+      "siteClosed": false
+    },
+    {
+      "siteId": "anual.ss.trabajador-total",
+      "admissionClosed": false,
+      "siteClosed": false
+    },
+    {
+      "siteId": "anual.ss.coste-laboral",
+      "admissionClosed": false,
+      "siteClosed": false
+    },
+    {
+      "siteId": "anual.retencion.base",
+      "admissionClosed": false,
+      "siteClosed": false
+    },
+    {
+      "siteId": "anual.retencion.cuota",
+      "admissionClosed": false,
+      "siteClosed": false
+    },
+    {
+      "siteId": "anual.retencion.tipo",
+      "admissionClosed": false,
+      "siteClosed": false
+    },
+    {
+      "siteId": "anual.retencion.anual",
+      "admissionClosed": false,
+      "siteClosed": false
+    },
+    {
+      "siteId": "anual.pagos.retenciones",
+      "admissionClosed": false,
+      "siteClosed": false
+    },
+    {
+      "siteId": "anual.pagos.cuenta",
+      "admissionClosed": false,
+      "siteClosed": false
+    }
+  ],
+  "completeRuleAcceptance": false,
+  "wiringAllowed": false
+}
