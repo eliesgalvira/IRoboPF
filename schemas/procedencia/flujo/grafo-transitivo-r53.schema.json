@@ -1,0 +1,284 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "domain",
+    "vertices",
+    "edges",
+    "outputs",
+    "families",
+    "pending",
+    "dependencies",
+    "gates"
+  ],
+  "properties": {
+    "version": {
+      "const": "grafo-transitivo-r53.1"
+    },
+    "domain": {
+      "const": "static-relations-candidate"
+    },
+    "vertices": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "group",
+          "node",
+          "op",
+          "source"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "group": {
+            "enum": [
+              "ss",
+              "retenciones",
+              "rentas",
+              "escalas"
+            ]
+          },
+          "node": {
+            "type": "string"
+          },
+          "op": {
+            "type": "string"
+          },
+          "source": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "file",
+              "start",
+              "end",
+              "sha256",
+              "offsetEncoding"
+            ],
+            "properties": {
+              "file": {
+                "type": "string"
+              },
+              "start": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "end": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "offsetEncoding": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "from",
+          "to",
+          "kind",
+          "slot",
+          "property",
+          "context"
+        ],
+        "properties": {
+          "to": {
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "operand",
+              "declaration",
+              "global",
+              "port",
+              "selection"
+            ]
+          },
+          "slot": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "property": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "context": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "from": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "outputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "group",
+          "value",
+          "unit",
+          "frequency",
+          "destination"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "group": {
+            "enum": [
+              "ss",
+              "retenciones",
+              "rentas",
+              "escalas"
+            ]
+          },
+          "value": {
+            "type": "string"
+          },
+          "unit": {
+            "type": "string"
+          },
+          "frequency": {
+            "type": "string"
+          },
+          "destination": {
+            "const": "origen.decimal"
+          }
+        }
+      }
+    },
+    "families": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "value",
+          "call",
+          "cardinality",
+          "annualReachable",
+          "destination"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          },
+          "call": {
+            "type": "string"
+          },
+          "cardinality": {
+            "type": "string"
+          },
+          "annualReachable": {
+            "type": "boolean"
+          },
+          "destination": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "pending": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "node",
+          "kind",
+          "detail"
+        ],
+        "properties": {
+          "node": {
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "parameter",
+              "missing-declaration",
+              "invocation",
+              "effective-property",
+              "selection-execution",
+              "collection-instance"
+            ]
+          },
+          "detail": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "sha256"
+        ],
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "gates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "admissionClosed",
+        "siteClosed",
+        "wiringAllowed",
+        "completeRuleAcceptance"
+      ],
+      "properties": {
+        "admissionClosed": {
+          "const": false
+        },
+        "siteClosed": {
+          "const": false
+        },
+        "wiringAllowed": {
+          "const": false
+        },
+        "completeRuleAcceptance": {
+          "const": false
+        }
+      }
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}
