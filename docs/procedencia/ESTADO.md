@@ -8,7 +8,7 @@ Integrado por archivos el candidato de puertos R47: 120 archivos recibidos, 8.67
 
 El router ejerce 21 conexiones originales y un puente no financiero de schema: 22 puertos y 24 asociaciones puerto-llamada. El padre reproduce 118 pruebas correctas, el rojo histórico por su aserción original y los artefactos exactos. Tipos principal/vendor y lint global pasan; no se reproduce el TS2345 de la configuración proyectada del hijo. Los 393 controles estructurales no equivalen a suficiencia semántica ni aceptación fiscal.
 
-Pendiente contrarrevisión independiente nueva de los puertos con Sol 6.1 High y prioridad. Después: obligaciones transitivas de 65 sitios y 19 instancias y conexión con admisión. Las cuatro puertas siguen falsas. No se repiten revisiones favorables del codec o resultados ajenos a este cambio.
+Bloque respaldado en origin, commit `debadd0495ce99cbec3de580c7786328ab064a61`: 151 archivos, hashes comprobados y cero borrados. Lanzada una única contrarrevisión independiente nueva de los puertos sobre ese commit y sus 21.896 entradas, con gpt-6.1-sol, high y priority explícitos y confirmados por el lanzador. Encargo y respuesta completos en delegaciones-ronda51.json. Su finalización reactivará el hilo, sin sondeos ni lecturas parciales. Después: obligaciones transitivas de 65 sitios y 19 instancias y conexión con admisión. Las cuatro puertas siguen falsas. No se repiten revisiones favorables del codec o resultados ajenos a este cambio.
 
 Motor, inventario, confianza y 45 snapshots intactos. V5 conserva corte R26; Crossa v1 sigue desfasado. Sin main, PR, despliegue, LFS, gasto, transferencia o limpieza. El encargo global permanece abierto.
 
