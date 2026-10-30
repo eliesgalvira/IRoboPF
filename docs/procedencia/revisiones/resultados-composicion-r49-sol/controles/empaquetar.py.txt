@@ -1,0 +1,30 @@
+import pathlib,hashlib,json,gzip,difflib,subprocess
+root=pathlib.Path.cwd();docs=root/"docs/procedencia/revisiones/resultados-composicion-r49-sol";scratch=root/".cache/revision-resultados-composicion-r49-sol/reconstruccion-exacta"
+assert not scratch.exists()
+scratch.mkdir()
+excluded={"MANIFIESTO.json","BINARIOS.json","entrega.patch.gz","transporte.json"}
+rows=[];bins=[];patch=[]
+for p in sorted(docs.rglob("*")):
+ if not p.is_file() or p.name in excluded or "binarios" in p.parts:continue
+ b=p.read_bytes();rel=str(p.relative_to(root));h=hashlib.sha256(b).hexdigest()
+ rows.append({"path":rel,"sha256":h,"size":len(b),"baseSha256":None})
+ try:
+  text=b.decode("utf8")
+  if not text or not text.endswith("\n") or "\0" in text:raise ValueError()
+  patch.extend(difflib.unified_diff([],text.splitlines(keepends=True),fromfile="/dev/null",tofile="b/"+rel))
+ except (UnicodeDecodeError,ValueError):
+  obj=docs/"binarios"/h;obj.parent.mkdir(exist_ok=True);obj.write_bytes(b)
+  bins.append({"path":rel,"sha256":h,"size":len(b),"object":str(obj.relative_to(root))})
+payload="".join(patch).encode()
+with gzip.GzipFile(filename=str(docs/"entrega.patch.gz"),mode="wb",mtime=0) as f:f.write(payload)
+(docs/"MANIFIESTO.json").write_text(json.dumps(rows,indent=2)+"\n")
+(docs/"BINARIOS.json").write_text(json.dumps(bins,indent=2)+"\n")
+proc=subprocess.run(["patch","-p1","--batch"],input=payload,cwd=scratch,capture_output=True)
+assert proc.returncode==0,proc.stderr
+for row in bins:
+ dest=scratch/row["path"];dest.parent.mkdir(parents=True,exist_ok=True);dest.write_bytes((root/row["object"]).read_bytes())
+for row in rows:
+ b=(scratch/row["path"]).read_bytes()
+ assert len(b)==row["size"] and hashlib.sha256(b).hexdigest()==row["sha256"],row
+(docs/"transporte.json").write_text(json.dumps({"files":len(rows),"bytes":sum(r["size"] for r in rows),"empty":sum(r["size"]==0 for r in rows),"binaryOrExactObjects":len(bins),"patchExit":proc.returncode,"exact":True,"scratch":str(scratch),"exclusions":sorted(excluded),"patchSha256":hashlib.sha256((docs/"entrega.patch.gz").read_bytes()).hexdigest(),"manifestSha256":hashlib.sha256((docs/"MANIFIESTO.json").read_bytes()).hexdigest()},indent=2)+"\n")
+print("Reconstrucción exacta",len(rows))
