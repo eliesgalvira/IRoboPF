@@ -1,0 +1,874 @@
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-35fcd187
+
+ ❯ tests/flujo-admision-r36.test.ts (36 tests | 31 failed) 2160ms
+   × quince resolvers y callbacks 2012 17ms
+   × quince resolvers y callbacks 2013 5ms
+   × quince resolvers y callbacks 2014 5ms
+   × quince resolvers y callbacks 2015 7ms
+   × quince resolvers y callbacks 2016 7ms
+   × quince resolvers y callbacks 2017 7ms
+   × quince resolvers y callbacks 2018 18ms
+   × quince resolvers y callbacks 2019 5ms
+   × quince resolvers y callbacks 2020 5ms
+   × quince resolvers y callbacks 2021 5ms
+   × quince resolvers y callbacks 2022 6ms
+   × quince resolvers y callbacks 2023 4ms
+   × quince resolvers y callbacks 2024 4ms
+   × Galicia 2014/17707.19 2ms
+   × Galicia 2014/17707.20 0ms
+   × Galicia 2014/17707.21 0ms
+   × Galicia 2014/NaN 1ms
+   × Galicia 2015/17707.19 0ms
+   × Galicia 2015/17707.20 0ms
+   × Galicia 2015/17707.21 0ms
+   × Galicia 2015/NaN 0ms
+   × cortes civiles y milisegundos 2015-12-30T23:59:59Z 6ms
+   × cortes civiles y milisegundos 2015-12-31T00:00:00Z 5ms
+   × cortes civiles y milisegundos 2022-10-27T23:59:59Z 4ms
+   × cortes civiles y milisegundos 2022-10-28T00:00:00Z 4ms
+   × cortes civiles y milisegundos 2023-09-14T23:59:59Z 3ms
+   × cortes civiles y milisegundos 2023-09-15T00:00:00Z 3ms
+   × cortes civiles y milisegundos 2023-11-25T23:59:59Z 3ms
+   × cortes civiles y milisegundos 2023-11-26T00:00:00Z 16ms
+   × dinero conserva céntimos/EUR y HALF_UP sin puerto opaco 1ms
+   × adaptador completo sin selección y dos proyecciones familiares 1ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 31 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/flujo-admision-r36.test.ts > quince resolvers y callbacks 2012
+AssertionError: expected { …(9) } to deeply equal { …(9) }
+
+- Expected
++ Received
+
+@@ -2,34 +2,14 @@
+    "_tag": "ParametrosComunidadAutonoma",
+    "anio": 2012,
+    "comunidadAutonoma": "simulada-estatal",
+    "deduccionesAutonomicasSoportadas": [],
+    "escalaAutonomica": {
+-     "comunidadAutonoma": "simulada-estatal",
+      "fuente": {
+        "referencia": "http://www.agenciatributaria.es/static_files/AEAT/DIT/Contenidos_Publicos/CAT/AYUWEB/Biblioteca_Virtual/Manuales_practicos/Renta/Manual_renta_patrimonio_2012_es_es.pdf",
+        "titulo": "AEAT Manual práctico Renta 2012. Gravamen autonómico de la base liquidable general",
+      },
+-     "nombre": "Simulada estatal / art. 65 LIRPF 2012",
+-     "tramos": [
+-       [
+-         "17707.2",
+-         "0.12",
+-       ],
+-       [
+-         "33007.2",
+-         "0.14",
+-       ],
+-       [
+-         "53407.2",
+-         "0.185",
+-       ],
+-       [
+-         "Infinity",
+-         "0.215",
+-       ],
+-     ],
+    },
+    "escalaAutonomicaIgualEstatal": false,
+    "escalaEstatalGeneral": [
+      [
+        "17707.2",
+
+ ❯ tests/flujo-admision-r36.test.ts:18:19
+     16|   const r=evaluateCompleteAdmission(f,'obtenerParametrosComunidadAuton…
+     17|   expect(r.outcome,r.reason).toBe('success')
+     18|   expect(r.value).toEqual(obtenerParametrosComunidadAutonoma(entrada))
+       |                   ^
+     19|  }
+     20| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/31]⎯
+
+ FAIL  tests/flujo-admision-r36.test.ts > quince resolvers y callbacks 2013
+AssertionError: expected { …(9) } to deeply equal { …(9) }
+
+- Expected
++ Received
+
+@@ -2,34 +2,14 @@
+    "_tag": "ParametrosComunidadAutonoma",
+    "anio": 2013,
+    "comunidadAutonoma": "simulada-estatal",
+    "deduccionesAutonomicasSoportadas": [],
+    "escalaAutonomica": {
+-     "comunidadAutonoma": "simulada-estatal",
+      "fuente": {
+        "referencia": "http://www.agenciatributaria.es/static_files/AEAT/DIT/Contenidos_Publicos/CAT/AYUWEB/Biblioteca_Virtual/Manuales_practicos/Renta/Manual_renta_patrimonio_2013_es_es.pdf",
+        "titulo": "AEAT Manual práctico Renta 2013. Gravamen autonómico de la base liquidable general",
+      },
+-     "nombre": "Simulada estatal / art. 65 LIRPF 2013",
+-     "tramos": [
+-       [
+-         "17707.2",
+-         "0.12",
+-       ],
+-       [
+-         "33007.2",
+-         "0.14",
+-       ],
+-       [
+-         "53407.2",
+-         "0.185",
+-       ],
+-       [
+-         "Infinity",
+-         "0.215",
+-       ],
+-     ],
+    },
+    "escalaAutonomicaIgualEstatal": false,
+    "escalaEstatalGeneral": [
+      [
+        "17707.2",
+
+ ❯ tests/flujo-admision-r36.test.ts:18:19
+     16|   const r=evaluateCompleteAdmission(f,'obtenerParametrosComunidadAuton…
+     17|   expect(r.outcome,r.reason).toBe('success')
+     18|   expect(r.value).toEqual(obtenerParametrosComunidadAutonoma(entrada))
+       |                   ^
+     19|  }
+     20| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/31]⎯
+
+ FAIL  tests/flujo-admision-r36.test.ts > quince resolvers y callbacks 2014
+AssertionError: expected { …(9) } to deeply equal { …(9) }
+
+- Expected
++ Received
+
+@@ -2,34 +2,14 @@
+    "_tag": "ParametrosComunidadAutonoma",
+    "anio": 2014,
+    "comunidadAutonoma": "simulada-estatal",
+    "deduccionesAutonomicasSoportadas": [],
+    "escalaAutonomica": {
+-     "comunidadAutonoma": "simulada-estatal",
+      "fuente": {
+        "referencia": "https://sede.agenciatributaria.gob.es/static_files/Sede/Biblioteca/Manual/Practicos/IRPF/2014/Manual_Renta_2014_es_es.pdf",
+        "titulo": "AEAT Manual práctico Renta 2014. Gravamen autonómico de la base liquidable general",
+      },
+-     "nombre": "Simulada estatal / art. 65 LIRPF 2014",
+-     "tramos": [
+-       [
+-         "17707.2",
+-         "0.12",
+-       ],
+-       [
+-         "33007.2",
+-         "0.14",
+-       ],
+-       [
+-         "53407.2",
+-         "0.185",
+-       ],
+-       [
+-         "Infinity",
+-         "0.215",
+-       ],
+-     ],
+    },
+    "escalaAutonomicaIgualEstatal": false,
+    "escalaEstatalGeneral": [
+      [
+        "17707.2",
+
+ ❯ tests/flujo-admision-r36.test.ts:18:19
+     16|   const r=evaluateCompleteAdmission(f,'obtenerParametrosComunidadAuton…
+     17|   expect(r.outcome,r.reason).toBe('success')
+     18|   expect(r.value).toEqual(obtenerParametrosComunidadAutonoma(entrada))
+       |                   ^
+     19|  }
+     20| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/31]⎯
+
+ FAIL  tests/flujo-admision-r36.test.ts > quince resolvers y callbacks 2015
+AssertionError: expected { …(9) } to deeply equal { …(9) }
+
+- Expected
++ Received
+
+@@ -2,38 +2,14 @@
+    "_tag": "ParametrosComunidadAutonoma",
+    "anio": 2015,
+    "comunidadAutonoma": "simulada-estatal",
+    "deduccionesAutonomicasSoportadas": [],
+    "escalaAutonomica": {
+-     "comunidadAutonoma": "simulada-estatal",
+      "fuente": {
+        "referencia": "https://sede.agenciatributaria.gob.es/static_files/Sede/Biblioteca/Manual/Practicos/IRPF/IRPF-2015/Manual_Renta_2015_es_es.pdf",
+        "titulo": "AEAT Manual práctico Renta 2015. Gravamen autonómico de la base liquidable general",
+      },
+-     "nombre": "Simulada estatal / art. 65 LIRPF 2015",
+-     "tramos": [
+-       [
+-         "12450",
+-         "0.1",
+-       ],
+-       [
+-         "20200",
+-         "0.125",
+-       ],
+-       [
+-         "34000",
+-         "0.155",
+-       ],
+-       [
+-         "60000",
+-         "0.195",
+-       ],
+-       [
+-         "Infinity",
+-         "0.235",
+-       ],
+-     ],
+    },
+    "escalaAutonomicaIgualEstatal": false,
+    "escalaEstatalGeneral": [
+      [
+        "12450",
+
+ ❯ tests/flujo-admision-r36.test.ts:18:19
+     16|   const r=evaluateCompleteAdmission(f,'obtenerParametrosComunidadAuton…
+     17|   expect(r.outcome,r.reason).toBe('success')
+     18|   expect(r.value).toEqual(obtenerParametrosComunidadAutonoma(entrada))
+       |                   ^
+     19|  }
+     20| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/31]⎯
+
+ FAIL  tests/flujo-admision-r36.test.ts > quince resolvers y callbacks 2016
+AssertionError: expected { …(9) } to deeply equal { …(9) }
+
+- Expected
++ Received
+
+@@ -2,38 +2,14 @@
+    "_tag": "ParametrosComunidadAutonoma",
+    "anio": 2016,
+    "comunidadAutonoma": "simulada-estatal",
+    "deduccionesAutonomicasSoportadas": [],
+    "escalaAutonomica": {
+-     "comunidadAutonoma": "simulada-estatal",
+      "fuente": {
+        "referencia": "https://sede.agenciatributaria.gob.es/static_files/Sede/Biblioteca/Manual/Practicos/IRPF/IRPF-2016/ManualRentaPatrimonio2016_es_es.pdf",
+        "titulo": "AEAT Manual práctico Renta 2016. Gravamen estatal de la base liquidable general",
+      },
+-     "nombre": "Simulada estatal",
+-     "tramos": [
+-       [
+-         "12450",
+-         "0.095",
+-       ],
+-       [
+-         "20200",
+-         "0.12",
+-       ],
+-       [
+-         "35200",
+-         "0.15",
+-       ],
+-       [
+-         "60000",
+-         "0.185",
+-       ],
+-       [
+-         "Infinity",
+-         "0.225",
+-       ],
+-     ],
+    },
+    "escalaAutonomicaIgualEstatal": true,
+    "escalaEstatalGeneral": [
+      [
+        "12450",
+
+ ❯ tests/flujo-admision-r36.test.ts:18:19
+     16|   const r=evaluateCompleteAdmission(f,'obtenerParametrosComunidadAuton…
+     17|   expect(r.outcome,r.reason).toBe('success')
+     18|   expect(r.value).toEqual(obtenerParametrosComunidadAutonoma(entrada))
+       |                   ^
+     19|  }
+     20| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/31]⎯
+
+ FAIL  tests/flujo-admision-r36.test.ts > quince resolvers y callbacks 2017
+AssertionError: expected { …(9) } to deeply equal { …(9) }
+
+- Expected
++ Received
+
+@@ -2,38 +2,14 @@
+    "_tag": "ParametrosComunidadAutonoma",
+    "anio": 2017,
+    "comunidadAutonoma": "simulada-estatal",
+    "deduccionesAutonomicasSoportadas": [],
+    "escalaAutonomica": {
+-     "comunidadAutonoma": "simulada-estatal",
+      "fuente": {
+        "referencia": "https://sede.agenciatributaria.gob.es/static_files/Sede/Biblioteca/Manual/Practicos/IRPF/IRPF-2017/ManualRentaPatrimonio2017_es_es.pdf",
+        "titulo": "AEAT Manual práctico Renta 2017. Gravamen estatal de la base liquidable general",
+      },
+-     "nombre": "Simulada estatal",
+-     "tramos": [
+-       [
+-         "12450",
+-         "0.095",
+-       ],
+-       [
+-         "20200",
+-         "0.12",
+-       ],
+-       [
+-         "35200",
+-         "0.15",
+-       ],
+-       [
+-         "60000",
+-         "0.185",
+-       ],
+-       [
+-         "Infinity",
+-         "0.225",
+-       ],
+-     ],
+    },
+    "escalaAutonomicaIgualEstatal": true,
+    "escalaEstatalGeneral": [
+      [
+        "12450",
+
+ ❯ tests/flujo-admision-r36.test.ts:18:19
+     16|   const r=evaluateCompleteAdmission(f,'obtenerParametrosComunidadAuton…
+     17|   expect(r.outcome,r.reason).toBe('success')
+     18|   expect(r.value).toEqual(obtenerParametrosComunidadAutonoma(entrada))
+       |                   ^
+     19|  }
+     20| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/31]⎯
+
+ FAIL  tests/flujo-admision-r36.test.ts > quince resolvers y callbacks 2018
+AssertionError: expected { …(9) } to deeply equal { …(9) }
+
+- Expected
++ Received
+
+@@ -2,38 +2,14 @@
+    "_tag": "ParametrosComunidadAutonoma",
+    "anio": 2018,
+    "comunidadAutonoma": "simulada-estatal",
+    "deduccionesAutonomicasSoportadas": [],
+    "escalaAutonomica": {
+-     "comunidadAutonoma": "simulada-estatal",
+      "fuente": {
+        "referencia": "https://sede.agenciatributaria.gob.es/static_files/Sede/Biblioteca/Manual/Practicos/IRPF/IRPF-2018/ManualRentaPatrimonio2018_V8_es_es.pdf",
+        "titulo": "AEAT Manual práctico Renta 2018. Gravamen estatal de la base liquidable general",
+      },
+-     "nombre": "Simulada estatal",
+-     "tramos": [
+-       [
+-         "12450",
+-         "0.095",
+-       ],
+-       [
+-         "20200",
+-         "0.12",
+-       ],
+-       [
+-         "35200",
+-         "0.15",
+-       ],
+-       [
+-         "60000",
+-         "0.185",
+-       ],
+-       [
+-         "Infinity",
+-         "0.225",
+-       ],
+-     ],
+    },
+    "escalaAutonomicaIgualEstatal": true,
+    "escalaEstatalGeneral": [
+      [
+        "12450",
+
+ ❯ tests/flujo-admision-r36.test.ts:18:19
+     16|   const r=evaluateCompleteAdmission(f,'obtenerParametrosComunidadAuton…
+     17|   expect(r.outcome,r.reason).toBe('success')
+     18|   expect(r.value).toEqual(obtenerParametrosComunidadAutonoma(entrada))
+       |                   ^
+     19|  }
+     20| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/31]⎯
+
+ FAIL  tests/flujo-admision-r36.test.ts > quince resolvers y callbacks 2019
+AssertionError: expected { …(9) } to deeply equal { …(9) }
+
+- Expected
++ Received
+
+@@ -2,38 +2,14 @@
+    "_tag": "ParametrosComunidadAutonoma",
+    "anio": 2019,
+    "comunidadAutonoma": "simulada-estatal",
+    "deduccionesAutonomicasSoportadas": [],
+    "escalaAutonomica": {
+-     "comunidadAutonoma": "simulada-estatal",
+      "fuente": {
+        "referencia": "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2019/capitulo-15-calculo-impuesto-determinacion-integras/gravamen-base-liquidable-general/gravamen-estatal.html",
+        "titulo": "AEAT Manual práctico de Renta 2019. Gravamen estatal de la base liquidable general",
+      },
+-     "nombre": "Simulada estatal",
+-     "tramos": [
+-       [
+-         "12450",
+-         "0.095",
+-       ],
+-       [
+-         "20200",
+-         "0.12",
+-       ],
+-       [
+-         "35200",
+-         "0.15",
+-       ],
+-       [
+-         "60000",
+-         "0.185",
+-       ],
+-       [
+-         "Infinity",
+-         "0.225",
+-       ],
+-     ],
+    },
+    "escalaAutonomicaIgualEstatal": true,
+    "escalaEstatalGeneral": [
+      [
+        "12450",
+
+ ❯ tests/flujo-admision-r36.test.ts:18:19
+     16|   const r=evaluateCompleteAdmission(f,'obtenerParametrosComunidadAuton…
+     17|   expect(r.outcome,r.reason).toBe('success')
+     18|   expect(r.value).toEqual(obtenerParametrosComunidadAutonoma(entrada))
+       |                   ^
+     19|  }
+     20| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/31]⎯
+
+ FAIL  tests/flujo-admision-r36.test.ts > quince resolvers y callbacks 2020
+AssertionError: expected { …(9) } to deeply equal { …(9) }
+
+- Expected
++ Received
+
+@@ -2,38 +2,14 @@
+    "_tag": "ParametrosComunidadAutonoma",
+    "anio": 2020,
+    "comunidadAutonoma": "simulada-estatal",
+    "deduccionesAutonomicasSoportadas": [],
+    "escalaAutonomica": {
+-     "comunidadAutonoma": "simulada-estatal",
+      "fuente": {
+        "referencia": "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2020/capitulo-15-calculo-impuesto-determinacion-integras/gravamen-base-liquidable-general/gravamen-estatal.html",
+        "titulo": "AEAT Manual práctico de Renta 2020. Gravamen estatal de la base liquidable general",
+      },
+-     "nombre": "Simulada estatal",
+-     "tramos": [
+-       [
+-         "12450",
+-         "0.095",
+-       ],
+-       [
+-         "20200",
+-         "0.12",
+-       ],
+-       [
+-         "35200",
+-         "0.15",
+-       ],
+-       [
+-         "60000",
+-         "0.185",
+-       ],
+-       [
+-         "Infinity",
+-         "0.225",
+-       ],
+-     ],
+    },
+    "escalaAutonomicaIgualEstatal": true,
+    "escalaEstatalGeneral": [
+      [
+        "12450",
+
+ ❯ tests/flujo-admision-r36.test.ts:18:19
+     16|   const r=evaluateCompleteAdmission(f,'obtenerParametrosComunidadAuton…
+     17|   expect(r.outcome,r.reason).toBe('success')
+     18|   expect(r.value).toEqual(obtenerParametrosComunidadAutonoma(entrada))
+       |                   ^
+     19|  }
+     20| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/31]⎯
+
+ FAIL  tests/flujo-admision-r36.test.ts > quince resolvers y callbacks 2021
+AssertionError: expected { …(9) } to deeply equal { …(9) }
+
+- Expected
++ Received
+
+@@ -2,42 +2,14 @@
+    "_tag": "ParametrosComunidadAutonoma",
+    "anio": 2021,
+    "comunidadAutonoma": "simulada-estatal",
+    "deduccionesAutonomicasSoportadas": [],
+    "escalaAutonomica": {
+-     "comunidadAutonoma": "simulada-estatal",
+      "fuente": {
+        "referencia": "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2021/capitulo-15-calculo-impuesto-determinacion-integras/gravamen-base-liquidable-general/gravamen-autonomico.html",
+        "titulo": "AEAT Manual práctico de Renta 2021. Gravamen autonómico de la base liquidable general",
+      },
+-     "nombre": "Simulada estatal",
+-     "tramos": [
+-       [
+-         "12450",
+-         "0.095",
+-       ],
+-       [
+-         "20200",
+-         "0.12",
+-       ],
+-       [
+-         "35200",
+-         "0.15",
+-       ],
+-       [
+-         "60000",
+-         "0.185",
+-       ],
+-       [
+-         "300000",
+-         "0.225",
+-       ],
+-       [
+-         "Infinity",
+-         "0.245",
+-       ],
+-     ],
+    },
+    "escalaAutonomicaIgualEstatal": true,
+    "escalaEstatalGeneral": [
+      [
+        "12450",
+
+ ❯ tests/flujo-admision-r36.test.ts:18:19
+     16|   const r=evaluateCompleteAdmission(f,'obtenerParametrosComunidadAuton…
+     17|   expect(r.outcome,r.reason).toBe('success')
+     18|   expect(r.value).toEqual(obtenerParametrosComunidadAutonoma(entrada))
+       |                   ^
+     19|  }
+     20| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/31]⎯
+
+ FAIL  tests/flujo-admision-r36.test.ts > quince resolvers y callbacks 2022
+AssertionError: expected { …(9) } to deeply equal { …(9) }
+
+- Expected
++ Received
+
+@@ -2,42 +2,14 @@
+    "_tag": "ParametrosComunidadAutonoma",
+    "anio": 2022,
+    "comunidadAutonoma": "simulada-estatal",
+    "deduccionesAutonomicasSoportadas": [],
+    "escalaAutonomica": {
+-     "comunidadAutonoma": "simulada-estatal",
+      "fuente": {
+        "referencia": "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2022/c15-calculo-impuesto-determinacion-cuotas-integras/gravamen-base-liquidable-general/gravamen-autonomico.html",
+        "titulo": "AEAT Manual práctico de Renta 2022. Gravamen autonómico de la base liquidable general",
+      },
+-     "nombre": "Simulada estatal",
+-     "tramos": [
+-       [
+-         "12450",
+-         "0.095",
+-       ],
+-       [
+-         "20200",
+-         "0.12",
+-       ],
+-       [
+-         "35200",
+-         "0.15",
+-       ],
+-       [
+-         "60000",
+-         "0.185",
+-       ],
+-       [
+-         "300000",
+-         "0.225",
+-       ],
+-       [
+-         "Infinity",
+-         "0.245",
+-       ],
+-     ],
+    },
+    "escalaAutonomicaIgualEstatal": true,
+    "escalaEstatalGeneral": [
+      [
+        "12450",
+
+ ❯ tests/flujo-admision-r36.test.ts:18:19
+     16|   const r=evaluateCompleteAdmission(f,'obtenerParametrosComunidadAuton…
+     17|   expect(r.outcome,r.reason).toBe('success')
+     18|   expect(r.value).toEqual(obtenerParametrosComunidadAutonoma(entrada))
+       |                   ^
+     19|  }
+     20| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/31]⎯
+
+ FAIL  tests/flujo-admision-r36.test.ts > quince resolvers y callbacks 2023
+AssertionError: expected { …(9) } to deeply equal { …(9) }
+
+- Expected
++ Received
+
+@@ -2,42 +2,14 @@
+    "_tag": "ParametrosComunidadAutonoma",
+    "anio": 2023,
+    "comunidadAutonoma": "simulada-estatal",
+    "deduccionesAutonomicasSoportadas": [],
+    "escalaAutonomica": {
+-     "comunidadAutonoma": "simulada-estatal",
+      "fuente": {
+        "referencia": "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2023/c15-calculo-impuesto-determinacion-cuotas-integras/gravamen-base-liquidable-general/gravamen-autonomico.html",
+        "titulo": "AEAT Manual práctico de Renta 2023. Gravamen autonómico de la base liquidable general",
+      },
+-     "nombre": "Simulada estatal",
+-     "tramos": [
+-       [
+-         "12450",
+-         "0.095",
+-       ],
+-       [
+-         "20200",
+-         "0.12",
+-       ],
+-       [
+-         "35200",
+-         "0.15",
+-       ],
+-       [
+-         "60000",
+-         "0.185",
+-       ],
+-       [
+-         "300000",
+-         "0.225",
+-       ],
+-       [
+-         "Infinity",
+-         "0.245",
+-       ],
+-     ],
+    },
+    "escalaAutonomicaIgualEstatal": true,
+    "escalaEstatalGeneral": [
+      [
+        "12450",
+
+ ❯ tests/flujo-admision-r36.test.ts:18:19
+     16|   const r=evaluateCompleteAdmission(f,'obtenerParametrosComunidadAuton…
+     17|   expect(r.outcome,r.reason).toBe('success')
+     18|   expect(r.value).toEqual(obtenerParametrosComunidadAutonoma(entrada))
+       |                   ^
+     19|  }
+     20| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/31]⎯
+
+ FAIL  tests/flujo-admision-r36.test.ts > quince resolvers y callbacks 2024
+AssertionError: expected { …(9) } to deeply equal { …(9) }
+
+- Expected
++ Received
+
+@@ -2,42 +2,14 @@
+    "_tag": "ParametrosComunidadAutonoma",
+    "anio": 2024,
+    "comunidadAutonoma": "simulada-estatal",
+    "deduccionesAutonomicasSoportadas": [],
+    "escalaAutonomica": {
+-     "comunidadAutonoma": "simulada-estatal",
+      "fuente": {
+        "referencia": "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2024/c15-calculo-impuesto-determinacion-cuotas-integras/gravamen-base-liquidable-general/gravamen-autonomico.html",
+        "titulo": "AEAT Manual práctico de Renta 2024. Gravamen autonómico de la base liquidable general",
+      },
+-     "nombre": "Simulada estatal",
+-     "tramos": [
+-       [
+-         "12450",
+-         "0.095",
+-       ],
+-       [
+-         "20200",
+-         "0.12",
+-       ],
+-       [
+-         "35200",
+-         "0.15",
+-       ],
+-       [
+-         "60000",
+-         "0.185",
+-       ],
+-       [
+-         "300000",
+-         "0.225",
+-       ],
+-       [
+-         "Infinity",
+-         "0.245",
+-       ],
+-     ],
+    },
+    "escalaAutonomicaIgualEstatal": true,
+    "escalaEstatalGeneral": [
+      [
+        "12450",
+
+ ❯ tests/flujo-admision-r36.test.ts:18:19
+     16|   const r=evaluateCompleteAdmission(f,'obtenerParametrosComunidadAuton…
+     17|   expect(r.outcome,r.reason).toBe('success')
+     18|   expect(r.value).toEqual(obtenerParametrosComunidadAutonoma(entrada))
+       |                   ^
+     19|  }
+     20| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/31]⎯
+
+ FAIL  tests/flujo-admision-r36.test.ts > Galicia 2014/17707.19
+ FAIL  tests/flujo-admision-r36.test.ts > Galicia 2014/17707.20
+ FAIL  tests/flujo-admision-r36.test.ts > Galicia 2014/17707.21
+ FAIL  tests/flujo-admision-r36.test.ts > Galicia 2014/NaN
+ FAIL  tests/flujo-admision-r36.test.ts > Galicia 2015/17707.19
+ FAIL  tests/flujo-admision-r36.test.ts > Galicia 2015/17707.20
+ FAIL  tests/flujo-admision-r36.test.ts > Galicia 2015/17707.21
+ FAIL  tests/flujo-admision-r36.test.ts > Galicia 2015/NaN
+AssertionError: Prototipo fuera del dominio: expected 'pending' to be 'success' // Object.is equality
+
+Expected: "success"
+Received: "pending"
+
+ ❯ tests/flujo-admision-r36.test.ts:26:113
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/31]⎯
+
+ FAIL  tests/flujo-admision-r36.test.ts > cortes civiles y milisegundos 2015-12-30T23:59:59Z
+ FAIL  tests/flujo-admision-r36.test.ts > cortes civiles y milisegundos 2015-12-31T00:00:00Z
+ FAIL  tests/flujo-admision-r36.test.ts > cortes civiles y milisegundos 2022-10-27T23:59:59Z
+ FAIL  tests/flujo-admision-r36.test.ts > cortes civiles y milisegundos 2022-10-28T00:00:00Z
+ FAIL  tests/flujo-admision-r36.test.ts > cortes civiles y milisegundos 2023-09-14T23:59:59Z
+ FAIL  tests/flujo-admision-r36.test.ts > cortes civiles y milisegundos 2023-09-15T00:00:00Z
+ FAIL  tests/flujo-admision-r36.test.ts > cortes civiles y milisegundos 2023-11-25T23:59:59Z
+ FAIL  tests/flujo-admision-r36.test.ts > cortes civiles y milisegundos 2023-11-26T00:00:00Z
+AssertionError: expected { …(9) } to deeply equal { …(9) }
+
+- Expected
++ Received
+
+@@ -2,38 +2,14 @@
+    "_tag": "ParametrosComunidadAutonoma",
+    "anio": 2015,
+    "comunidadAutonoma": "simulada-estatal",
+    "deduccionesAutonomicasSoportadas": [],
+    "escalaAutonomica": {
+-     "comunidadAutonoma": "simulada-estatal",
+      "fuente": {
+        "referencia": "https://sede.agenciatributaria.gob.es/static_files/Sede/Biblioteca/Manual/Practicos/IRPF/IRPF-2015/Manual_Renta_2015_es_es.pdf",
+        "titulo": "AEAT Manual práctico Renta 2015. Gravamen autonómico de la base liquidable general",
+      },
+-     "nombre": "Simulada estatal / art. 65 LIRPF 2015",
+-     "tramos": [
+-       [
+-         "12450",
+-         "0.1",
+-       ],
+-       [
+-         "20200",
+-         "0.125",
+-       ],
+-       [
+-         "34000",
+-         "0.155",
+-       ],
+-       [
+-         "60000",
+-         "0.195",
+-       ],
+-       [
+-         "Infinity",
+-         "0.235",
+-       ],
+-     ],
+    },
+    "escalaAutonomicaIgualEstatal": false,
+    "escalaEstatalGeneral": [
+      [
+        "12450",
+
+ ❯ tests/flujo-admision-r36.test.ts:31:264
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/31]⎯
+
+ FAIL  tests/flujo-admision-r36.test.ts > dinero conserva céntimos/EUR y HALF_UP sin puerto opaco
+AssertionError: Prototipo fuera del dominio: expected 'pending' to be 'success' // Object.is equality
+
+Expected: "success"
+Received: "pending"
+
+ ❯ tests/flujo-admision-r36.test.ts:43:156
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/31]⎯
+
+ FAIL  tests/flujo-admision-r36.test.ts > adaptador completo sin selección y dos proyecciones familiares
+AssertionError: expected 'Evidencia ausente: umbralRetencionTra…' to contain 'calcularCotizacionesSocialesLegacy'
+
+Expected: "calcularCotizacionesSocialesLegacy"
+Received: "Evidencia ausente: umbralRetencionTrabajoRequeridoEuros r36-25414:0"
+
+ ❯ tests/flujo-admision-r36.test.ts:58:183
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/31]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  31 failed | 5 passed (36)
+   Start at  01:45:50
+   Duration  3.82s (transform 400ms, setup 0ms, import 1.53s, tests 2.16s, environment 0ms)
+

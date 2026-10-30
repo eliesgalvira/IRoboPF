@@ -1,0 +1,25 @@
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-35fcd187
+
+ ❯ docs/procedencia/implementaciones/admision-completa-r36-sol/flujo.test.mjs (129 tests | 1 failed | 128 skipped) 9ms
+   × rechazo inyectado conserva contrato completo y no solo booleano/motivo 7ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  docs/procedencia/implementaciones/admision-completa-r36-sol/flujo.test.mjs > rechazo inyectado conserva contrato completo y no solo booleano/motivo
+AssertionError: expected 'reject' to be 'defect' // Object.is equality
+
+Expected: "defect"
+Received: "reject"
+
+ ❯ docs/procedencia/implementaciones/admision-completa-r36-sol/flujo.test.mjs:164:25
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 2 skipped (3)
+      Tests  1 failed | 233 skipped (234)
+   Start at  02:24:03
+   Duration  3.71s (transform 493ms, setup 0ms, import 3.38s, tests 9ms, environment 0ms)
+

@@ -1,0 +1,4 @@
+process.env.IROBOPF_DEPENDENCIES_PACKAGE="/home/elies/Repos/IRoboPF/package.json";
+import { createRequire } from 'node:module';
+const require = createRequire('/home/elies/Repos/IRoboPF/package.json');
+export default {cacheDir:process.cwd()+'/.cache/admision-completa-r36/vite',resolve:{alias:{'@':process.cwd()},plugins:[]},plugins:[{name:'dependencias-recibidas',enforce:'pre',resolveId(id){if(!id.startsWith('.')&&!id.startsWith('/')&&!id.startsWith('node:')&&!id.startsWith('@/')){try{return id==='vitest'?'/home/elies/Repos/IRoboPF/node_modules/vitest/dist/index.js':require.resolve(id)}catch{return null}}}}],test:{include:['tests/flujo-admision-r32*.test.ts','tests/flujo-admision-r35*.test.ts','docs/procedencia/revisiones/admision-anual-r34-sol/*.test.mjs','docs/procedencia/implementaciones/admision-evaluable-r35-sol/*.test.mjs','tests/flujo-admision-r36*.test.ts','.cache/admision-completa-r36/rojos.test.mjs'],maxWorkers:1,testTimeout:60000}};

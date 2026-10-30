@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set +e
+node /home/elies/Repos/IRoboPF/node_modules/typescript/bin/tsc --noEmit -p .cache/admision-completa-r36/tsconfig.json > .cache/admision-completa-r36/tipos-final.log 2>&1
+printf '%s\n' "$?" > .cache/admision-completa-r36/tipos-final.exit
+node /home/elies/Repos/IRoboPF/node_modules/oxlint/bin/oxlint --threads=1 --disable-nested-config -c .cache/admision-completa-r36/oxlint.json scripts/procedencia/flujo-admision-r36*.mjs tests/flujo-admision-r36*.test.ts docs/procedencia/implementaciones/admision-completa-r36-sol/*.mjs > .cache/admision-completa-r36/lint-final.log 2>&1
+printf '%s\n' "$?" > .cache/admision-completa-r36/lint-final.exit

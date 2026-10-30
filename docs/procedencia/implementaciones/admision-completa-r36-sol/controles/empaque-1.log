@@ -1,0 +1,11 @@
+file:///home/elies/.t3/worktrees/IRoboPF/t3-35fcd187/.cache/admision-completa-r36/empaquetar.mjs:18
+const target=scratch+'transporte/';fs.mkdirSync(target,{recursive:true});for(const item of manifest){const bytes=restored.get(item.path);if(!bytes||bytes.length!==item.size||sha(bytes)!==item.sha256)throw Error('Transporte distinto: '+item.path);const dest=target+item.path;fs.mkdirSync(path.dirname(dest),{recursive:true});fs.writeFileSync(dest,bytes);fs.chmodSync(dest,item.mode==='100755'?0o755:0o644);if(!fs.readFileSync(dest).equals(fs.readFileSync(item.path)))throw Error('Disco transportado distinto')}
+                                                                                                                                                                                                             ^
+
+Error: Transporte distinto: docs/procedencia/implementaciones/admision-completa-r36-sol/instrumentos/adaptacion-regresion.diff
+    at file:///home/elies/.t3/worktrees/IRoboPF/t3-35fcd187/.cache/admision-completa-r36/empaquetar.mjs:18:206
+    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+    at async node:internal/modules/esm/loader:643:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.19.0

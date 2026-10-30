@@ -2,7 +2,17 @@
 
 Inicio: 29 de octubre de 2026. Trabajo en curso; no es una certificación fiscal.
 
-## Situación más reciente, ronda 43 del 30 de octubre
+## Situación más reciente, ronda 44 del 30 de octubre
+
+Recibida e integrada como candidata la admisión completa R36: 92 archivos, 2.744.212 bytes, transporte exacto y cotejo físico de 20.227 entradas intactas; cero borrados. Preservados 87 objetos CAS técnicos fuera del worktree, coincidentes con las fuentes actuales. Detalle en correcciones/recepcion-admision-r44.
+
+El padre reproduce 236 pruebas correctas, reconstrucción idéntica y consumidor autónomo sin motor/TypeScript. Pasan tipos principal/vendor y lint global. Se conservan los cinco rojos históricos; checkJs=false mantiene su límite sobre MJS. Seis familias, 27 fronteras y 48 instancias quedan como candidatas, sin aceptación por recuentos. Los diecisiete cierres, wiring y aceptación fiscal permanecen false.
+
+Se prepara una revisión independiente nueva Sol 6.1 high priority de la admisión. La composición R43 sigue activa sobre su base exacta, sin incorporar todavía esta entrega ni leer su trabajo parcial. Su conexión posterior deberá contrastarse expresamente.
+
+Motor, inventario, confianza y 45 snapshots intactos. V5 mantiene corte R26 y Crossa v1 desfasado. Sin main, PR, despliegue, LFS, gasto, transferencias o limpieza. El encargo global continúa abierto.
+
+## Situación anterior, ronda 43 del 30 de octubre
 
 Recibida la contrarrevisión de fronteras R42: 83 archivos, 3.942.193 bytes, transporte exacto y cotejo físico de 21.013 entradas intactas; cero borrados. Nueve objetos de software preservados fuera del worktree con ambos hashes. Detalle en correcciones/recepcion-fronteras-r43.
 

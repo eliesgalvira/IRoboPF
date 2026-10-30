@@ -1,0 +1,9 @@
+import {it,expect} from 'vitest'
+import {buildEvaluableAdmission,evaluateProgram} from '../../scripts/procedencia/flujo-admision-r35.mjs'
+const f=buildEvaluableAdmission()
+it('R36-previo: motivo exterior/interior exacto',()=>expect(evaluateProgram(f,'deducciones',[{deducciones:[{codigo:'x'}]}],{catalogo:()=>({_tag:'None'})}).reason).toBe('Deducción autonómica no catalogada: x'))
+it('R36-previo: selector interno Galicia evaluable',()=>expect(evaluateProgram(f,'territorio',[{anio:2014,comunidadAutonoma:'galicia'}]).outcome).toBe('success'))
+it('R36-previo: resultado inyectado sin evidencia no es éxito',()=>expect(evaluateProgram(f,'deducciones',[{deducciones:[{codigo:'x'}]}],{catalogo:()=>({_tag:'None'})}).outcome).toBe('pending'))
+it('R36-previo: dominio rechaza accessor sin ejecutarlo',()=>{let called=false;const input={get deducciones(){called=true;return []}};expect(evaluateProgram(f,'deducciones',[input]).outcome).toBe('pending');expect(called).toBe(false)})
+it('R36-previo: adaptador produce caso completo',()=>expect(evaluateProgram(f,'adaptador-defaults',[{anio:2025,salarioBrutoAnualCentimos:0}]).value.rendimientos).toEqual({trabajo:[{importeIntegroCentimos:0}]}))
+it('R36-previo: sentencias tienen ancla mínima',()=>expect(f.anchors.filter(a=>a.id.startsWith('f')).every(a=>a.start>0)).toBe(true))

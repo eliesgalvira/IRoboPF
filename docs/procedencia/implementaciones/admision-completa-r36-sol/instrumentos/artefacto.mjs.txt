@@ -1,0 +1,14 @@
+import fs from'node:fs'
+import{createHash}from'node:crypto'
+import{gzipSync}from'node:zlib'
+import{buildCompleteAdmission,verifyCompleteAdmission}from'../../scripts/procedencia/flujo-admision-r36.mjs'
+const f=buildCompleteAdmission();verifyCompleteAdmission(f)
+const report='docs/procedencia/implementaciones/admision-completa-r36-sol/',scratch='.cache/admision-completa-r36/',hash=(bytes,algorithm)=>createHash(algorithm).update(bytes).digest('hex')
+fs.writeFileSync(report+'fragmento.json.gz',gzipSync(Buffer.from(JSON.stringify(f)),{level:9}))
+const extra=['scripts/procedencia/flujo-admision-r35.mjs','scripts/procedencia/flujo-admision-r35-fronteras.mjs','scripts/procedencia/flujo-admision-r32.mjs','schemas/procedencia/flujo/admision-r35.schema.json','docs/procedencia/implementaciones/flujo-admision-r32-sol/pines.json','package.json','bun.lock']
+const pins=JSON.parse(fs.readFileSync(extra[4]));const paths=[...new Set([...f.graph.sources.map(s=>s.path),...f.rights.sources.map(s=>s.path),...extra,...pins.map(p=>p.path)])].sort()
+fs.mkdirSync(scratch+'cas/sha256',{recursive:true})
+const entries=[];for(const path of paths){const bytes=fs.readFileSync(path),sha256=hash(bytes,'sha256'),sha512=hash(bytes,'sha512');const localPath=scratch+'cas/sha256/'+sha256;if(!fs.existsSync(localPath))fs.writeFileSync(localPath,bytes);entries.push({path,sha256,sha512,size:bytes.length,localPath,base:'50f9e949544e20d3e4e0bffc79b926d396267319',recovery:'blob de la base por path; cotejar ambos hashes antes de restaurar; preservar CAS antes de retirar checkout'})}
+fs.writeFileSync(report+'CAS.json',JSON.stringify({kind:'technical-sources-only',newFiscalOriginals:0,entries},null,2)+'\n')
+const summary={definitions:f.graph.definitions.length,executableNodes:f.graph.anchors.length,rightsNodes:f.rights.anchors.length,sourceFiles:f.graph.sources.length,financialAndServiceContracts:f.boundaries.length,instances:f.boundaries.reduce((n,b)=>n+b.instances.length,0),siteCount:f.sites.length,allClosuresFalse:f.sites.every(s=>!s.admissionClosed&&!s.siteClosed),wiringAllowed:false,completeRuleAcceptance:false,review:'pending-parent-and-new-independent-review',note:'Los tamaños/recuentos describen representación; no acreditan suficiencia causal ni fiscalidad.'}
+fs.writeFileSync(report+'REPRESENTACION.json',JSON.stringify(summary,null,2)+'\n');console.log(JSON.stringify(summary))

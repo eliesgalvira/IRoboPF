@@ -1,0 +1,127 @@
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-35fcd187
+
+ ❯ docs/procedencia/revisiones/admision-anual-r34-sol/contraste.test.mjs (23 tests | 3 failed) 323ms
+   ✓ R34-01 dos fallos: ejercicio precede schema; ConDerechos invierte 6ms
+   ✓ R34-02 null subcaso es defecto, undefined crea 13 11ms
+   ✓ R34-03 primera deduccion nullish omite lista posterior; objeto rechaza 5ms
+   ✓ R34-04 deduccion agregada no valida catalogo 4ms
+   ✓ R34-05 orden conciliacion antes de territorio/subservicio 3ms
+   ✓ R34-06 empate sucede despues de renta 9ms
+   ✓ R34-07 A32-P01 entrada numerica tipable negativa alcanza total 3ms
+   ✓ R34-08 A32-P02 contrato string externo alcanza anual 6ms
+   ✓ R34-08 A32-P02 situacionLaboral string externo alcanza anual 4ms
+   ✓ R34-09 igualdad de cifras no identifica transportes 7ms
+   ✓ R34-10 contexto heredado; wrapper suministra servicio propio 5ms
+   ✓ R34-11 subservicio falla sin rastro parcial SS 1ms
+   ✓ R34-12 adaptador no hereda cierre temporal implicito 3ms
+   ✓ R34-13 irregular opcional 1230000 15ms
+   ✓ R34-13 irregular opcional 1230001 4ms
+   ✓ R34-13 irregular opcional 0 3ms
+   ✓ R34-13 irregular opcional undefined 3ms
+   ✓ R34-13 irregular opcional null 1ms
+   ✓ R34-14 calendario JS null: fuente rechaza; duplicado lanza 6ms
+   ✓ R34-15 control integridad y estados sin bypass 134ms
+   × RA34-01 contrato ofrece programa anual evaluable por propiedad 28ms
+   × RA34-02 selector territorial ofrece condiciones finitas resueltas 32ms
+   × RA34-03 schema y callbacks familiares enlazados con operandos de instancia 31ms
+ ❯ docs/procedencia/revisiones/admision-anual-r34-sol/cobertura.test.mjs (4 tests | 2 failed) 90ms
+   × RA34-S01 llamada territorial 2014 resuelta en cuerpos o contrato especifico 6ms
+   × RA34-S02 agregado manual tiene puerto o binding por propiedad 1ms
+   ✓ RA34-S03 cuerpos reales y retencion ejecutable no son inventados 1ms
+   ✓ RA34-S04 schema permisivo interno no evita reconstruccion estricta 82ms
+ ✓ docs/procedencia/implementaciones/admision-evaluable-r35-sol/casos.test.mjs (69 tests) 641ms
+ ✓ tests/flujo-admision-r35.test.ts (6 tests) 199ms
+ ✓ tests/flujo-admision-r32-runtime.test.ts (143 tests) 185ms
+ ✓ tests/flujo-admision-r32.test.ts (61 tests) 151ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  docs/procedencia/revisiones/admision-anual-r34-sol/cobertura.test.mjs > RA34-S01 llamada territorial 2014 resuelta en cuerpos o contrato especifico
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ docs/procedencia/revisiones/admision-anual-r34-sol/cobertura.test.mjs:8:101
+      6| it('RA34-S01 llamada territorial 2014 resuelta en cuerpos o contrato e…
+      7|  const callee='resolverParametrosComunidadAutonoma2014'
+      8|  expect(f.bodies.some(b=>b.id.endsWith('#'+callee))||f.admissionProgra…
+       |                                                                                                     ^
+      9| })
+     10| it('RA34-S02 agregado manual tiene puerto o binding por propiedad',()=…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/5]⎯
+
+ FAIL  docs/procedencia/revisiones/admision-anual-r34-sol/cobertura.test.mjs > RA34-S02 agregado manual tiene puerto o binding por propiedad
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ docs/procedencia/revisiones/admision-anual-r34-sol/cobertura.test.mjs:12:121
+     10| it('RA34-S02 agregado manual tiene puerto o binding por propiedad',()=…
+     11|  const property='deduccionAutonomicaAgregadaCentimos'
+     12|  expect(f.ports.some(p=>p.property.includes(property))||f.parameterBin…
+       |                                                                                                                         ^
+     13| })
+     14| it('RA34-S03 cuerpos reales y retencion ejecutable no son inventados',…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/5]⎯
+
+ FAIL  docs/procedencia/revisiones/admision-anual-r34-sol/contraste.test.mjs > RA34-01 contrato ofrece programa anual evaluable por propiedad
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ docs/procedencia/revisiones/admision-anual-r34-sol/contraste.test.mjs:73:138
+     71| // Obligaciones de representación: rojos deliberados, sin cambiar el c…
+     72| it('RA34-01 contrato ofrece programa anual evaluable por propiedad',()…
+     73|  const f=buildAdmissionFragment();expect(f.admissionProgram.every(s=>s…
+       |                                                                                                                                          ^
+     74| })
+     75| it('RA34-02 selector territorial ofrece condiciones finitas resueltas'…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/5]⎯
+
+ FAIL  docs/procedencia/revisiones/admision-anual-r34-sol/contraste.test.mjs > RA34-02 selector territorial ofrece condiciones finitas resueltas
+AssertionError: expected { Object (id, when, ...) } to have property "branches"
+ ❯ docs/procedencia/revisiones/admision-anual-r34-sol/contraste.test.mjs:76:91
+     74| })
+     75| it('RA34-02 selector territorial ofrece condiciones finitas resueltas'…
+     76|  const f=buildAdmissionFragment();expect(f.admissionProgram.find(s=>s.…
+       |                                                                                           ^
+     77| })
+     78| it('RA34-03 schema y callbacks familiares enlazados con operandos de i…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/5]⎯
+
+ FAIL  docs/procedencia/revisiones/admision-anual-r34-sol/contraste.test.mjs > RA34-03 schema y callbacks familiares enlazados con operandos de instancia
+AssertionError: expected { id: 'derechos', …(8) } to have property "propertyContracts"
+ ❯ docs/procedencia/revisiones/admision-anual-r34-sol/contraste.test.mjs:79:89
+     77| })
+     78| it('RA34-03 schema y callbacks familiares enlazados con operandos de i…
+     79|  const f=buildAdmissionFragment();expect(f.admissionProgram.find(s=>s.…
+       |                                                                                         ^
+     80| })
+     81|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/5]⎯
+
+
+ Test Files  2 failed | 4 passed (6)
+      Tests  5 failed | 301 passed (306)
+   Start at  02:04:49
+   Duration  5.21s (transform 523ms, setup 0ms, import 2.97s, tests 1.59s, environment 1ms)
+
+JSON report written to /home/elies/.t3/worktrees/IRoboPF/t3-35fcd187/.cache/admision-completa-r36/pruebas-historicas.json

@@ -1,0 +1,40 @@
+--- recibido/regresion-derechos.test.mjs
++++ scratch/regresion-derechos.test.mjs
+@@ -1,12 +1,12 @@
+ import { expect, it } from 'vitest'
+ import { Effect, Result } from 'effect'
+ import Decimal from 'decimal.js'
+-import { buildEvaluableAdmission, verifyEvaluableAdmission } from '../../scripts/procedencia/flujo-admision-r35.mjs'
+-import {evaluateRightsProgram as evaluateProgram} from '../../scripts/procedencia/flujo-admision-r36-derechos.mjs'
+-import { validarDerechosMinimos, validarRentasAnualesDerechos, calcularDerechosMinimos } from '../../lib/dominio/irpf/minimos/derechos'
+-import { MINIMOS_ESTATALES_2025 } from '../../lib/dominio/normativa/datos/minimos-autonomicos-2025'
+-import { liquidarIrpfAnual } from '../../lib/dominio/irpf/liquidacion/liquidar-irpf-anual'
+-import { base, derechos, hijo } from '../../docs/procedencia/revisiones/admision-anual-r34-sol/fixtures.mjs'
++import { buildEvaluableAdmission, verifyEvaluableAdmission } from '/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-admision-r35.mjs'
++import {evaluateRightsProgram as evaluateProgram} from '/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-admision-r36-derechos.mjs'
++import { validarDerechosMinimos, validarRentasAnualesDerechos, calcularDerechosMinimos } from '/home/elies/Repos/IRoboPF/lib/dominio/irpf/minimos/derechos'
++import { MINIMOS_ESTATALES_2025 } from '/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/minimos-autonomicos-2025'
++import { liquidarIrpfAnual } from '/home/elies/Repos/IRoboPF/lib/dominio/irpf/liquidacion/liquidar-irpf-anual'
++import { base, derechos, hijo } from '/home/elies/Repos/IRoboPF/docs/procedencia/revisiones/admision-anual-r34-sol/fixtures.mjs'
+ const f = buildEvaluableAdmission()
+ const run = (effect) => Effect.runSync(Effect.result(effect))
+ const native = (value) => {
+@@ -124,12 +124,12 @@
+   expect(evaluateProgram(f, 'cumpleRentas', [{ ...hijo, rentasNoExentasCentimos: 1 }]).value).toBe(true)
+   expect(evaluateProgram(bad, 'cumpleRentas', [{ ...hijo, rentasNoExentasCentimos: 1 }]).value).toBe(false)
+ })
+-import { centimosAEuros } from '../../lib/dominio/dinero/importe-monetario.ts'
+-import { calcularRendimientoNetoTrabajo } from '../../lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts'
+-import { calcularRendimientoNetoCapitalInmobiliarioSimplificado } from '../../lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts'
+-import { calcularGananciasPatrimonialesPorTransmision } from '../../lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts'
+-import { calcularDesgloseCotizacionesPerfilUniforme } from '../../lib/dominio/laboral/cotizaciones-perfil-uniforme.ts'
+-import { calcularDesgloseCotizacionesSocialesLegacy } from '../../lib/dominio/laboral/cotizaciones-sociales.ts'
++import { centimosAEuros } from '/home/elies/Repos/IRoboPF/lib/dominio/dinero/importe-monetario.ts'
++import { calcularRendimientoNetoTrabajo } from '/home/elies/Repos/IRoboPF/lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts'
++import { calcularRendimientoNetoCapitalInmobiliarioSimplificado } from '/home/elies/Repos/IRoboPF/lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts'
++import { calcularGananciasPatrimonialesPorTransmision } from '/home/elies/Repos/IRoboPF/lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts'
++import { calcularDesgloseCotizacionesPerfilUniforme } from '/home/elies/Repos/IRoboPF/lib/dominio/laboral/cotizaciones-perfil-uniforme.ts'
++import { calcularDesgloseCotizacionesSocialesLegacy } from '/home/elies/Repos/IRoboPF/lib/dominio/laboral/cotizaciones-sociales.ts'
+ for (const modo of ['canonico','compatible-legacy']) it(`puertos reales, reduce y semillas ${modo}`,()=>{
+  const ports={centimosAEuros,'ss-uniforme':(anio,salarioBrutoAnual)=>calcularDesgloseCotizacionesPerfilUniforme({anio,salarioBrutoAnual}),'ss-legacy':(anio,salarioBrutoAnual)=>calcularDesgloseCotizacionesSocialesLegacy({anio,salarioBrutoAnual}),'neto-trabajo':(anio,rendimientoIntegro,cotizacionTrabajador)=>calcularRendimientoNetoTrabajo({anio,rendimientoIntegro,cotizacionTrabajador}),'neto-alquiler':rendimientoIntegro=>calcularRendimientoNetoCapitalInmobiliarioSimplificado({rendimientoIntegro}),ganancias:(anio,edadContribuyente,ganancias)=>calcularGananciasPatrimonialesPorTransmision({anio,edadContribuyente,ganancias,convertirCentimos:centimosAEuros})}
+  const r=evaluateProgram(f,'puertos-netos',[{...base,rendimientos:{trabajo:[{importeIntegroCentimos:1000000},{importeIntegroCentimos:2000000}],capitalInmobiliario:null,gananciasPatrimoniales:undefined}},{modo}],ports)

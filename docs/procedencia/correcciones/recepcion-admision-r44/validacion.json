@@ -1,0 +1,60 @@
+[
+  {
+    "name": "tests",
+    "command": [
+      "node",
+      "node_modules/vitest/vitest.mjs",
+      "run",
+      "--configLoader",
+      "native",
+      "--config",
+      "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r44/vitest.mjs",
+      "--reporter=json",
+      "--outputFile=/home/elies/Repos/IRoboPF/docs/procedencia/correcciones/recepcion-admision-r44/tests.json"
+    ],
+    "exitCode": 0
+  },
+  {
+    "name": "reconstruccion",
+    "command": [
+      "node",
+      "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r44/reconstruir.mjs"
+    ],
+    "exitCode": 0
+  },
+  {
+    "name": "autonomo",
+    "command": [
+      "node",
+      "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r44/consumidor-sin-motor.mjs"
+    ],
+    "exitCode": 0
+  },
+  {
+    "name": "types",
+    "command": [
+      "bun",
+      "run",
+      "typecheck"
+    ],
+    "exitCode": 0
+  },
+  {
+    "name": "oxlint",
+    "command": [
+      "node_modules/.bin/oxlint",
+      "--disable-nested-config",
+      "--threads=1"
+    ],
+    "exitCode": 0
+  },
+  {
+    "name": "eslint",
+    "command": [
+      "bun",
+      "run",
+      "lint:eslint"
+    ],
+    "exitCode": 0
+  }
+]

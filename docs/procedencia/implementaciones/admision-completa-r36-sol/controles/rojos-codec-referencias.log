@@ -1,0 +1,48 @@
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-35fcd187
+
+ ❯ docs/procedencia/implementaciones/admision-completa-r36-sol/flujo.test.mjs (131 tests | 2 failed | 129 skipped) 355ms
+   × codec y referencias: Infinity interno no se serializa como ausencia 36ms
+   × codec y referencias: local de otra instancia/scope se rechaza antes del pin 317ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  docs/procedencia/implementaciones/admision-completa-r36-sol/flujo.test.mjs > codec y referencias: Infinity interno no se serializa como ausencia
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ docs/procedencia/implementaciones/admision-completa-r36-sol/flujo.test.mjs:173:141
+    171|  const input={...derechos,descendientes:derechos.descendientes.map(d=>…
+    172|  const result=evaluateRightsProgram(f.rights,'calcularDerechosMinimos'…
+    173|  const serialized=JSON.parse(JSON.stringify(result.trace));expect(seri…
+       |                                                                                                                                             ^
+    174| })
+    175| it('codec y referencias: local de otra instancia/scope se rechaza ante…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  docs/procedencia/implementaciones/admision-completa-r36-sol/flujo.test.mjs > codec y referencias: local de otra instancia/scope se rechaza antes del pin
+AssertionError: expected [Function] to throw an error
+
+- Expected:
+null
+
++ Received:
+undefined
+
+ ❯ docs/procedencia/implementaciones/admision-completa-r36-sol/flujo.test.mjs:178:70
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed | 2 skipped (3)
+      Tests  2 failed | 234 skipped (236)
+   Start at  02:37:08
+   Duration  4.08s (transform 489ms, setup 0ms, import 3.40s, tests 355ms, environment 0ms)
+

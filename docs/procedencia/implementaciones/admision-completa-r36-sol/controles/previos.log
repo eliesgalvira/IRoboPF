@@ -1,0 +1,185 @@
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-35fcd187
+
+ ❯ docs/procedencia/revisiones/admision-anual-r34-sol/contraste.test.mjs (23 tests | 3 failed) 319ms
+   × RA34-01 contrato ofrece programa anual evaluable por propiedad 27ms
+   × RA34-02 selector territorial ofrece condiciones finitas resueltas 29ms
+   × RA34-03 schema y callbacks familiares enlazados con operandos de instancia 32ms
+ ❯ docs/procedencia/revisiones/admision-anual-r34-sol/cobertura.test.mjs (4 tests | 2 failed) 93ms
+   × RA34-S01 llamada territorial 2014 resuelta en cuerpos o contrato especifico 6ms
+   × RA34-S02 agregado manual tiene puerto o binding por propiedad 1ms
+ ❯ .cache/admision-completa-r36/rojos.test.mjs (6 tests | 6 failed) 13ms
+   × R36-previo: motivo exterior/interior exacto 7ms
+   × R36-previo: selector interno Galicia evaluable 1ms
+   × R36-previo: resultado inyectado sin evidencia no es éxito 1ms
+   × R36-previo: dominio rechaza accessor sin ejecutarlo 1ms
+   × R36-previo: adaptador produce caso completo 2ms
+   × R36-previo: sentencias tienen ancla mínima 1ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 11 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  .cache/admision-completa-r36/rojos.test.mjs > R36-previo: motivo exterior/interior exacto
+AssertionError: expected 'Deducción no catalogada' to be 'Deducción autonómica no catalogada: x' // Object.is equality
+
+Expected: "Deducción autonómica no catalogada: x"
+Received: "Deducción no catalogada"
+
+ ❯ .cache/admision-completa-r36/rojos.test.mjs:4:164
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/11]⎯
+
+ FAIL  .cache/admision-completa-r36/rojos.test.mjs > R36-previo: selector interno Galicia evaluable
+AssertionError: expected 'pending' to be 'success' // Object.is equality
+
+Expected: "success"
+Received: "pending"
+
+ ❯ .cache/admision-completa-r36/rojos.test.mjs:5:147
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/11]⎯
+
+ FAIL  .cache/admision-completa-r36/rojos.test.mjs > R36-previo: resultado inyectado sin evidencia no es éxito
+AssertionError: expected 'reject' to be 'pending' // Object.is equality
+
+Expected: "pending"
+Received: "reject"
+
+ ❯ .cache/admision-completa-r36/rojos.test.mjs:6:179
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/11]⎯
+
+ FAIL  .cache/admision-completa-r36/rojos.test.mjs > R36-previo: dominio rechaza accessor sin ejecutarlo
+AssertionError: expected 'success' to be 'pending' // Object.is equality
+
+Expected: "pending"
+Received: "success"
+
+ ❯ .cache/admision-completa-r36/rojos.test.mjs:7:192
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/11]⎯
+
+ FAIL  .cache/admision-completa-r36/rojos.test.mjs > R36-previo: adaptador produce caso completo
+AssertionError: expected undefined to deeply equal { trabajo: [ { …(1) } ] }
+
+- Expected:
+{
+  "trabajo": [
+    {
+      "importeIntegroCentimos": 0,
+    },
+  ],
+}
+
++ Received:
+undefined
+
+ ❯ .cache/admision-completa-r36/rojos.test.mjs:8:163
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/11]⎯
+
+ FAIL  .cache/admision-completa-r36/rojos.test.mjs > R36-previo: sentencias tienen ancla mínima
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ .cache/admision-completa-r36/rojos.test.mjs:9:123
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/11]⎯
+
+ FAIL  docs/procedencia/revisiones/admision-anual-r34-sol/cobertura.test.mjs > RA34-S01 llamada territorial 2014 resuelta en cuerpos o contrato especifico
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ docs/procedencia/revisiones/admision-anual-r34-sol/cobertura.test.mjs:8:101
+      6| it('RA34-S01 llamada territorial 2014 resuelta en cuerpos o contrato e…
+      7|  const callee='resolverParametrosComunidadAutonoma2014'
+      8|  expect(f.bodies.some(b=>b.id.endsWith('#'+callee))||f.admissionProgra…
+       |                                                                                                     ^
+      9| })
+     10| it('RA34-S02 agregado manual tiene puerto o binding por propiedad',()=…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/11]⎯
+
+ FAIL  docs/procedencia/revisiones/admision-anual-r34-sol/cobertura.test.mjs > RA34-S02 agregado manual tiene puerto o binding por propiedad
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ docs/procedencia/revisiones/admision-anual-r34-sol/cobertura.test.mjs:12:121
+     10| it('RA34-S02 agregado manual tiene puerto o binding por propiedad',()=…
+     11|  const property='deduccionAutonomicaAgregadaCentimos'
+     12|  expect(f.ports.some(p=>p.property.includes(property))||f.parameterBin…
+       |                                                                                                                         ^
+     13| })
+     14| it('RA34-S03 cuerpos reales y retencion ejecutable no son inventados',…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/11]⎯
+
+ FAIL  docs/procedencia/revisiones/admision-anual-r34-sol/contraste.test.mjs > RA34-01 contrato ofrece programa anual evaluable por propiedad
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ docs/procedencia/revisiones/admision-anual-r34-sol/contraste.test.mjs:73:138
+     71| // Obligaciones de representación: rojos deliberados, sin cambiar el c…
+     72| it('RA34-01 contrato ofrece programa anual evaluable por propiedad',()…
+     73|  const f=buildAdmissionFragment();expect(f.admissionProgram.every(s=>s…
+       |                                                                                                                                          ^
+     74| })
+     75| it('RA34-02 selector territorial ofrece condiciones finitas resueltas'…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/11]⎯
+
+ FAIL  docs/procedencia/revisiones/admision-anual-r34-sol/contraste.test.mjs > RA34-02 selector territorial ofrece condiciones finitas resueltas
+AssertionError: expected { Object (id, when, ...) } to have property "branches"
+ ❯ docs/procedencia/revisiones/admision-anual-r34-sol/contraste.test.mjs:76:91
+     74| })
+     75| it('RA34-02 selector territorial ofrece condiciones finitas resueltas'…
+     76|  const f=buildAdmissionFragment();expect(f.admissionProgram.find(s=>s.…
+       |                                                                                           ^
+     77| })
+     78| it('RA34-03 schema y callbacks familiares enlazados con operandos de i…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/11]⎯
+
+ FAIL  docs/procedencia/revisiones/admision-anual-r34-sol/contraste.test.mjs > RA34-03 schema y callbacks familiares enlazados con operandos de instancia
+AssertionError: expected { id: 'derechos', …(8) } to have property "propertyContracts"
+ ❯ docs/procedencia/revisiones/admision-anual-r34-sol/contraste.test.mjs:79:89
+     77| })
+     78| it('RA34-03 schema y callbacks familiares enlazados con operandos de i…
+     79|  const f=buildAdmissionFragment();expect(f.admissionProgram.find(s=>s.…
+       |                                                                                         ^
+     80| })
+     81|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/11]⎯
+
+
+ Test Files  3 failed | 4 passed (7)
+      Tests  11 failed | 301 passed (312)
+   Start at  01:44:26
+   Duration  5.43s (transform 505ms, setup 0ms, import 3.15s, tests 1.54s, environment 1ms)
+

@@ -1,0 +1,68 @@
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-35fcd187
+
+ ❯ docs/procedencia/implementaciones/admision-completa-r36-sol/flujo.test.mjs (125 tests | 3 failed | 122 skipped) 687ms
+   × unidades y bindings: conversión monetaria cruzada con valor igual no se admite 344ms
+   × unidades y bindings: mínimo anual de otro programa con valores iguales no sustituye al proveedor 167ms
+   × unidades y bindings: mismo número en céntimos no sustituye una salida EUR 174ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  docs/procedencia/implementaciones/admision-completa-r36-sol/flujo.test.mjs > unidades y bindings: conversión monetaria cruzada con valor igual no se admite
+AssertionError: expected [Function] to throw an error
+
+- Expected:
+null
+
++ Received:
+undefined
+
+ ❯ docs/procedencia/implementaciones/admision-completa-r36-sol/flujo.test.mjs:138:108
+    136| })
+    137| it('unidades y bindings: conversión monetaria cruzada con valor igual …
+    138|  const bad=structuredClone(f);bad.conversions[0].input.unit='EUR';expe…
+       |                                                                                                            ^
+    139| })
+    140| it('unidades y bindings: mínimo anual de otro programa con valores igu…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  docs/procedencia/implementaciones/admision-completa-r36-sol/flujo.test.mjs > unidades y bindings: mínimo anual de otro programa con valores iguales no sustituye al proveedor
+AssertionError: expected [Function] to throw an error
+
+- Expected:
+null
+
++ Received:
+undefined
+
+ ❯ docs/procedencia/implementaciones/admision-completa-r36-sol/flujo.test.mjs:143:43
+    141|  const bad=structuredClone(f),key='lib/dominio/normativa/datos/minimos…
+    142|  bad.services[0].arguments[0].fields.find(p=>p.name==='parametrosNorma…
+    143|  expect(()=>verifyCompleteAdmission(bad)).toThrow('Binding de servicio…
+       |                                           ^
+    144| })
+    145| it('unidades y bindings: mismo número en céntimos no sustituye una sal…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  docs/procedencia/implementaciones/admision-completa-r36-sol/flujo.test.mjs > unidades y bindings: mismo número en céntimos no sustituye una salida EUR
+AssertionError: expected [Function] to throw an error
+
+- Expected:
+null
+
++ Received:
+undefined
+
+ ❯ docs/procedencia/implementaciones/admision-completa-r36-sol/flujo.test.mjs:146:234
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  1 failed | 2 skipped (3)
+      Tests  3 failed | 227 skipped (230)
+   Start at  02:11:53
+   Duration  4.38s (transform 503ms, setup 0ms, import 3.37s, tests 687ms, environment 0ms)
+

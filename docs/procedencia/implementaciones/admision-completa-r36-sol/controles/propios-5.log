@@ -1,0 +1,25 @@
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-35fcd187
+
+ ❯ docs/procedencia/implementaciones/admision-completa-r36-sol/flujo.test.mjs (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  docs/procedencia/implementaciones/admision-completa-r36-sol/flujo.test.mjs [ docs/procedencia/implementaciones/admision-completa-r36-sol/flujo.test.mjs ]
+Error: Cannot find module '../../../revisiones/admision-anual-r34-sol/fixtures.mjs' imported from /home/elies/.t3/worktrees/IRoboPF/t3-35fcd187/docs/procedencia/implementaciones/admision-completa-r36-sol/flujo.test.mjs
+ ❯ docs/procedencia/implementaciones/admision-completa-r36-sol/flujo.test.mjs:7:1
+      5| import {encodeAdmissionValue} from '../../../../scripts/procedencia/fl…
+      6| import {liquidarIrpfAnual} from '../../../../lib/dominio/irpf/liquidac…
+      7| import {base,ret,derechos} from '../../../revisiones/admision-anual-r3…
+       | ^
+      8| const f=buildCompleteAdmission()
+      9| // Valores sintéticos para admisión y propagación. No son un oráculo d…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  36 passed (36)
+   Start at  01:54:50
+   Duration  6.72s (transform 437ms, setup 0ms, import 1.16s, tests 4.46s, environment 0ms)
+

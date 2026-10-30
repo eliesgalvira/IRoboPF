@@ -1,0 +1,27 @@
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-35fcd187
+
+ ❯ docs/procedencia/implementaciones/admision-completa-r36-sol/flujo.test.mjs (78 tests | 2 failed) 2476ms
+   × adaptador spread/perfiles/defaults/servicio/API soltero_sin_hijos/canonico 10ms
+   × adaptador spread/perfiles/defaults/servicio/API pareja_con_hijos/canonico 9ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  docs/procedencia/implementaciones/admision-completa-r36-sol/flujo.test.mjs > adaptador spread/perfiles/defaults/servicio/API soltero_sin_hijos/canonico
+ FAIL  docs/procedencia/implementaciones/admision-completa-r36-sol/flujo.test.mjs > adaptador spread/perfiles/defaults/servicio/API pareja_con_hijos/canonico
+AssertionError: Sin versión acreditada para la fecha/año; en años con reformas indique fechaPago o perfilTemporal cierre: expected 'reject' to be 'success' // Object.is equality
+
+Expected: "success"
+Received: "reject"
+
+ ❯ docs/procedencia/implementaciones/admision-completa-r36-sol/flujo.test.mjs:49:173
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  2 failed | 112 passed (114)
+   Start at  01:57:34
+   Duration  11.37s (transform 446ms, setup 0ms, import 2.81s, tests 8.35s, environment 0ms)
+

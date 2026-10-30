@@ -1,0 +1,45 @@
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-35fcd187
+
+ ❯ docs/procedencia/implementaciones/admision-completa-r36-sol/flujo.test.mjs (127 tests | 2 failed | 125 skipped) 16ms
+   × dominio y resultado: no ejecutar coerciones en símbolos propios 11ms
+   × dominio y resultado: el servicio inyectado requiere DTO anual completo 3ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  docs/procedencia/implementaciones/admision-completa-r36-sol/flujo.test.mjs > dominio y resultado: no ejecutar coerciones en símbolos propios
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ docs/procedencia/implementaciones/admision-completa-r36-sol/flujo.test.mjs:150:171
+    148| it('dominio y resultado: no ejecutar coerciones en símbolos propios',(…
+    149|  let called=false;const anio={[Symbol.toPrimitive](){called=true;retur…
+    150|  const result=evaluateCompleteAdmission(f,'calcularSalarioLegacy',[{an…
+       |                                                                                                                                                                           ^
+    151| })
+    152| it('dominio y resultado: el servicio inyectado requiere DTO anual comp…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  docs/procedencia/implementaciones/admision-completa-r36-sol/flujo.test.mjs > dominio y resultado: el servicio inyectado requiere DTO anual completo
+AssertionError: expected 'success' to be 'defect' // Object.is equality
+
+Expected: "defect"
+Received: "success"
+
+ ❯ docs/procedencia/implementaciones/admision-completa-r36-sol/flujo.test.mjs:154:25
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed | 2 skipped (3)
+      Tests  2 failed | 230 skipped (232)
+   Start at  02:20:20
+   Duration  4.19s (transform 619ms, setup 0ms, import 3.80s, tests 16ms, environment 0ms)
+
