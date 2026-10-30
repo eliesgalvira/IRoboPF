@@ -8,7 +8,7 @@ Recibida la composición parcial R43: 94 archivos, 7.982.400 bytes y transporte 
 
 El padre reproduce 21 pruebas correctas y reconstrucción idéntica. Pasan tipos principal/vendor, lint global y schema; no se reproduce el diagnóstico de tipos declarado por el hijo ni se cambia su código para ocultarlo. Los 65 IDs y 41 puertos no acreditan por sí solos suficiencia causal. Faltan contratos completos por propiedad e instancia, derivación transitiva, normalización común de resultados y cobertura individual de las 19 instancias.
 
-Se prepara el respaldo exacto y una continuación Sol de esos contratos ejecutables. La revisión independiente de admisión R44 sigue activa; no se sondea ni se lee su trabajo parcial. La composición completa tendrá después su revisión nueva. El avance de un candidato no habilita admisión pública, wiring ni aceptación fiscal.
+Bloque respaldado en origin, commit `31a70bd671f92fdb47ca1bf0fe95613a9fa4fb59`: 114 archivos, hashes comprobados y cero borrados. Lanzada una única continuación de implementación del contrato común ejecutable sobre ese commit y sus 21.357 entradas, con gpt-6.1-sol, high y priority explícitos y confirmados por el lanzador. Encargo y respuesta completos en delegaciones-ronda45.json. Su finalización reactivará el hilo; no se sondea. La revisión independiente de admisión R44 sigue activa y no se lee su trabajo parcial. La composición completa tendrá después una revisión nueva. El avance de un candidato no habilita admisión pública, wiring ni aceptación fiscal.
 
 Motor, inventario, confianza y 45 snapshots intactos. V5 mantiene corte R26 y Crossa v1 desfasado. Sin main, PR, despliegue, LFS, gasto, transferencias o limpieza. El encargo global continúa abierto.
 
