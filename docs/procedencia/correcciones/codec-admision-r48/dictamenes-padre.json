@@ -1,0 +1,77 @@
+[
+  {
+    "id": "R44-A01",
+    "verdict": "correccion-residual-candidata",
+    "scope": "Correcciones originales corroboradas; R47-N01 reproducido antes y corregido después, pendiente de revisión independiente del codec v3.",
+    "objection": "La equivalencia CJS/ESM es necesaria.",
+    "response": "Puede conservar el constructor canónico y distinguir sus flags; el padre debe contrastarlo.",
+    "cost": "Cambio y contraste adicionales de identidad, sin atribuir diferencias monetarias.",
+    "requiresParentContrast": false,
+    "fiscalAcceptance": false,
+    "independentReview": "docs/procedencia/revisiones/admision-r46-r47-sol/INFORME.md",
+    "parentEvidence": "docs/procedencia/correcciones/codec-admision-r48/INFORME.md",
+    "requiresIndependentReview": true
+  },
+  {
+    "id": "R44-A02",
+    "verdict": "corroborado-limitado",
+    "scope": "Interfaz real deriva filas Decimal y opcional booleano; runtime valida forma.",
+    "objection": "La forma no demuestra escala fiscal correcta.",
+    "response": "Condicionar contenido y origen a proveedor/composición.",
+    "cost": "Obligación de contenido y vigencia separada.",
+    "requiresParentContrast": false,
+    "fiscalAcceptance": false,
+    "independentReview": "docs/procedencia/revisiones/admision-r46-r47-sol/INFORME.md",
+    "parentEvidence": "docs/procedencia/correcciones/codec-admision-r48/INFORME.md",
+    "requiresIndependentReview": false
+  },
+  {
+    "id": "R44-A03",
+    "verdict": "corroborado-limitado",
+    "scope": "Array.prototype ejecuta frontera anunciada; subclase pending.",
+    "objection": "Subclase benigna puede dar el mismo resultado.",
+    "response": "Dominio técnico explícito, sin rechazo fiscal.",
+    "cost": "Otro contrato si se amplía el dominio.",
+    "requiresParentContrast": false,
+    "fiscalAcceptance": false,
+    "independentReview": "docs/procedencia/revisiones/admision-r46-r47-sol/INFORME.md",
+    "parentEvidence": "docs/procedencia/correcciones/codec-admision-r48/INFORME.md",
+    "requiresIndependentReview": false
+  },
+  {
+    "id": "R44-A04",
+    "verdict": "corroborado-limitado",
+    "scope": "Origen del llamador, nodos UTF-16 y destinos concretos contrastados.",
+    "objection": "Un nodo real no acredita toda operación.",
+    "response": "Separar existencia, token, resolución y precondición de pin revisado.",
+    "cost": "No extender dictamen a traducción universal.",
+    "requiresParentContrast": false,
+    "fiscalAcceptance": false,
+    "independentReview": "docs/procedencia/revisiones/admision-r46-r47-sol/INFORME.md",
+    "parentEvidence": "docs/procedencia/correcciones/codec-admision-r48/INFORME.md",
+    "requiresIndependentReview": false
+  },
+  {
+    "id": "R44-A05",
+    "verdict": "corroborado-limitado",
+    "scope": "Bindings/captura/precedencia derivados del callback; booleano invertido corta primera llamada.",
+    "objection": "Proyección aislada puede usar datos no admitidos.",
+    "response": "Separar cinco casos API real admitidos de proyecciones aisladas.",
+    "cost": "Cuantías y composición siguen pendientes.",
+    "requiresParentContrast": false,
+    "fiscalAcceptance": false,
+    "independentReview": "docs/procedencia/revisiones/admision-r46-r47-sol/INFORME.md",
+    "parentEvidence": "docs/procedencia/correcciones/codec-admision-r48/INFORME.md",
+    "requiresIndependentReview": false
+  },
+  {
+    "id": "R47-N01",
+    "verdict": "reproducido-y-corregido-candidato",
+    "priorFailures": 3,
+    "finalReceivedPasses": 3,
+    "newTests": 8,
+    "scope": "Identidad de atributos del constructor Decimal; no demuestra importe distinto ni bypass público.",
+    "requiresIndependentReview": true,
+    "fiscalAcceptance": false
+  }
+]

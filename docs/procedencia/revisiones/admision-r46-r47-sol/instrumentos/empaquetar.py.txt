@@ -1,0 +1,30 @@
+import json,hashlib,gzip,difflib,subprocess,shutil,os
+from pathlib import Path
+root=Path.cwd();out=root/'docs/procedencia/revisiones/admision-r46-r47-sol';s=root/'.cache/revision-admision-r46-r47-sol'
+excluded={'MANIFIESTO.json','patch.diff.gz','binarios.json','TRANSPORTE.json'}
+files=sorted(p for p in out.rglob('*') if p.is_file() and p.name not in excluded and 'binarios' not in p.relative_to(out).parts)
+manifest=[];chunks=[];binary=[]
+for p in files:
+ rel=str(p.relative_to(root));b=p.read_bytes();h=hashlib.sha256(b).hexdigest();manifest.append(dict(path=rel,sha256=h,size=len(b),baseSha256=None,executable=bool(p.stat().st_mode&0o111)))
+ try:text=b.decode('utf8')
+ except UnicodeDecodeError:
+  dest=out/'binarios'/h;dest.parent.mkdir(exist_ok=True);dest.write_bytes(b);binary.append(dict(path=rel,sha256=h,size=len(b),payload=str(dest.relative_to(root))));continue
+ if b:
+  lines=list(difflib.unified_diff([],text.splitlines(keepends=True),fromfile='/dev/null',tofile='b/'+rel))
+  for line in lines:
+   if not line.endswith('\n'):line+='\n\\ No newline at end of file\n'
+   chunks.append(line)
+(out/'MANIFIESTO.json').write_text(json.dumps(manifest,indent=2)+'\n');(out/'binarios.json').write_text(json.dumps(binary,indent=2)+'\n');patch=''.join(chunks).encode();(out/'patch.diff.gz').write_bytes(gzip.compress(patch,mtime=0))
+recon=s/'reconstruccion-exacta';recon.mkdir(exist_ok=False);patch_path=s/'aplicar.diff';patch_path.write_bytes(patch)
+r=subprocess.run(['nix','shell','nixpkgs#patch','--command','patch','--batch','-p1','-d',str(recon),'-i',str(patch_path)],capture_output=True);(s/'reconstruccion.log').write_bytes(r.stdout+r.stderr)
+assert r.returncode==0,r.stderr.decode()
+for entry in binary:
+ target=recon/entry['path'];target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes((root/entry['payload']).read_bytes())
+for entry in manifest:
+ target=recon/entry['path']
+ if entry['size']==0:target.parent.mkdir(parents=True,exist_ok=True);target.touch()
+ os.chmod(target,0o755 if entry['executable'] else 0o644)
+ b=target.read_bytes();assert len(b)==entry['size'] and hashlib.sha256(b).hexdigest()==entry['sha256'],entry
+actual={str(p.relative_to(recon)) for p in recon.rglob('*') if p.is_file()};assert actual=={e['path'] for e in manifest}
+(out/'TRANSPORTE.json').write_text(json.dumps(dict(files=len(manifest),bytes=sum(e['size'] for e in manifest),emptyFiles=[e['path'] for e in manifest if e['size']==0],reconstruction=str(recon),exact=True,patchExitCode=r.returncode,manifestSha256=hashlib.sha256((out/'MANIFIESTO.json').read_bytes()).hexdigest(),exclusions=sorted(excluded),note='Metadatos de transporte fuera del payload para evitar autorreferencia; cotejo final externo en scratch.'),indent=2)+'\n')
+print((out/'TRANSPORTE.json').read_text())
