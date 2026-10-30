@@ -1,0 +1,36 @@
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-c432bd2e
+
+ ❯ docs/procedencia/revisiones/resultados-composicion-r49-sol/revision.test.ts (0 test)
+ ❯ tests/composicion-r45-resultados.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/composicion-r45-resultados.test.ts [ tests/composicion-r45-resultados.test.ts ]
+Error: Cannot find package 'effect' imported from /home/elies/.t3/worktrees/IRoboPF/t3-c432bd2e/tests/composicion-r45-resultados.test.ts
+ ❯ tests/composicion-r45-resultados.test.ts:2:1
+      1| import { expect, it } from "vitest"
+      2| import { Effect } from "effect"
+       | ^
+      3| import { produceComposition } from "../scripts/procedencia/composicion…
+      4| import { captureFinite, createResultConsumer, consumeRetentionResult, …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  docs/procedencia/revisiones/resultados-composicion-r49-sol/revision.test.ts [ docs/procedencia/revisiones/resultados-composicion-r49-sol/revision.test.ts ]
+Error: Cannot find package 'effect' imported from /home/elies/.t3/worktrees/IRoboPF/t3-c432bd2e/docs/procedencia/revisiones/resultados-composicion-r49-sol/revision.test.ts
+ ❯ docs/procedencia/revisiones/resultados-composicion-r49-sol/revision.test.ts:2:1
+      1| import { expect, it } from "vitest"
+      2| import { Effect } from "effect"
+       | ^
+      3| import { readFileSync } from "node:fs"
+      4| import { produceComposition, verifyComposition } from "../../../../scr…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  2 failed (2)
+      Tests  no tests
+   Start at  04:07:41
+   Duration  278ms (transform 39ms, setup 0ms, import 0ms, tests 0ms, environment 0ms)
+

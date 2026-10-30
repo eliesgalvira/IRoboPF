@@ -1,0 +1,21 @@
+import pathlib,re,hashlib,json,os
+root=pathlib.Path.cwd(); cache=root/".cache/revision-resultados-composicion-r49-sol"; docs=root/"docs/procedencia/revisiones/resultados-composicion-r49-sol"
+queue=[root/p for p in ["scripts/procedencia/composicion-r45-resultados.ts","tests/composicion-r45-resultados.test.ts","schemas/procedencia/flujo/composicion-r43.schema.json","lib/dominio/irpf/trabajo-anual/conexion.ts","package.json","bun.lock","tsconfig.json",".oxlintrc.json"] if (root/p).exists()]
+queue += [pathlib.Path("/home/elies/.local/share/effect-solutions/effect/packages/effect")/p for p in ["src/Effect.ts","src/internal/effect.ts","test/Result.test.ts"]]
+seen=set(); result=[]
+while queue:
+ p=queue.pop().resolve()
+ if p in seen:continue
+ seen.add(p); b=p.read_bytes(); h=hashlib.sha256(b).hexdigest(); h512=hashlib.sha512(b).hexdigest()
+ a=cache/"fuentes/sha256"/h; c=cache/"fuentes/sha512"/h512
+ a.parent.mkdir(parents=True,exist_ok=True);c.parent.mkdir(parents=True,exist_ok=True)
+ if not a.exists():a.write_bytes(b)
+ if not c.exists():os.link(a,c)
+ result.append({"source":str(p.relative_to(root)) if p.is_relative_to(root) else str(p),"sha256":h,"sha512":h512,"size":len(b),"sha256Path":str(a.relative_to(root)),"sha512Path":str(c.relative_to(root))})
+ if p.is_relative_to(root) and p.suffix in [".ts",".mjs"]:
+  for s in re.findall(r'(?:from\s+|import\s*)["\'](\.[^"\']+)["\']',b.decode()):
+   q=p.parent/s
+   found=next((v for v in [q,pathlib.Path(str(q)+".ts"),pathlib.Path(str(q)+".mjs"),q/"index.ts"] if v.is_file()),None)
+   if found:queue.append(found)
+(docs/"FUENTES.json").write_text(json.dumps(sorted(result,key=lambda r:r["source"]),ensure_ascii=False,indent=2)+"\n")
+print("Fuentes preservadas:",len(result))

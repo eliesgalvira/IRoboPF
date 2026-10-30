@@ -1,0 +1,33 @@
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-c432bd2e
+
+ ❯ docs/procedencia/revisiones/resultados-composicion-r49-sol/rojo.test.ts (1 test | 1 failed) 1097ms
+   × conserva el payload tipado de un rechazo de retención 1096ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  docs/procedencia/revisiones/resultados-composicion-r49-sol/rojo.test.ts > conserva el payload tipado de un rechazo de retención
+AssertionError: expected Error: ResultadoNoSoportado: Entradas no … to have property "payload._tag" with value 'ResultadoNoSoportado'
+
+- Expected:
+"ResultadoNoSoportado"
+
++ Received:
+undefined
+
+ ❯ docs/procedencia/revisiones/resultados-composicion-r49-sol/rojo.test.ts:14:18
+     12|   failure = error instanceof Error ? error : { payload: error }
+     13|  }
+     14|  expect(failure).toHaveProperty("payload._tag", "ResultadoNoSoportado")
+       |                  ^
+     15| })
+     16|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed (1)
+   Start at  04:09:18
+   Duration  1.67s (transform 104ms, setup 0ms, import 452ms, tests 1.10s, environment 0ms)
+

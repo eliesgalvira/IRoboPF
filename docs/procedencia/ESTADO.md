@@ -2,7 +2,17 @@
 
 Inicio: 29 de octubre de 2026. Trabajo en curso; no es una certificación fiscal.
 
-## Situación más reciente, ronda 49 del 30 de octubre
+## Situación más reciente, ronda 50 del 30 de octubre
+
+Recibida la contrarrevisión de resultados R49: 46 archivos, 2.625.998 bytes, transporte exacto de 36 archivos de payload y cotejo físico de 21.681 entradas intactas, cero borrados. Preservadas 132 entradas técnicas por ambos hashes. El padre reproduce 40 pruebas independientes correctas y el rojo histórico por su aserción original; tipos principal/vendor y lint global pasan.
+
+Los seis bloques del módulo de resultados R45 quedan corroborados técnicamente con sus condiciones: fragmentos originales verificados, datos ordinarios y evaluación síncrona finita. Sin defecto nuevo reproducido ni cambios de producto. No se confunden rechazo, defecto, ausencia y éxito cero; el marcador interno no autentica la ejecución. Detalle y decisiones en correcciones/recepcion-resultados-r50.
+
+Pendiente respaldo de esta recepción. No se lanza otra revisión idéntica. La implementación de puertos R47 continúa; su entrega reactivará el hilo, sin sondeos ni lectura parcial. Composición transitiva, 65 sitios, 19 instancias y conexión con admisión conservan sus obligaciones pendientes.
+
+Motor, inventario, confianza y 45 snapshots intactos. V5 mantiene corte R26 y Crossa v1 desfasado. Sin main, PR, despliegue, LFS, gasto, transferencia o limpieza. El encargo global continúa abierto.
+
+## Situación anterior, ronda 49 del 30 de octubre
 
 Recibida la revisión del codec R48: 62 archivos, 333.402 bytes, transporte exacto de 58 archivos de payload y cotejo físico de 21.594 entradas intactas, cero borrados. Preservadas 102 fuentes técnicas por ambos hashes. El padre reproduce 19 pruebas de identidad/protocolo y dos de recibos reales; tipos principal/vendor y lint global pasan. Incidencia propia del primer patch -p1 corregida a -p0 y conservada, sin modificar la entrega.
 

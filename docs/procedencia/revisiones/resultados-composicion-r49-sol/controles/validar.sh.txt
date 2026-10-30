@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -u
+repo_dir="$PWD"
+task_cache="$repo_dir/.cache/revision-resultados-composicion-r49-sol"
+task_docs="$repo_dir/docs/procedencia/revisiones/resultados-composicion-r49-sol"
+for phase in tipos lint; do
+ if [ "$phase" = tipos ]; then
+  flock /tmp/irobopf-validacion-pesada.lock node /home/elies/Repos/IRoboPF/node_modules/typescript/bin/tsc -p "$task_cache/tsconfig.json" > "$task_docs/controles/tipos-terminal.log" 2>&1
+ else
+  flock /tmp/irobopf-validacion-pesada.lock node --import "$task_cache/resolver.mjs" /home/elies/Repos/IRoboPF/node_modules/oxlint/bin/oxlint --threads 1 --disable-nested-config --config "$task_cache/oxlint.json" "$task_docs/revision.test.ts" "$task_docs/rojo.test.ts" > "$task_docs/controles/lint-terminal.log" 2>&1
+ fi
+ code=$?
+ echo "$phase=$code"
+ cat "$task_docs/controles/$phase-terminal.log"
+ if [ "$code" -ne 0 ]; then exit "$code"; fi
+done

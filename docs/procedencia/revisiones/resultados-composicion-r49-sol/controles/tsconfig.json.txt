@@ -1,0 +1,136 @@
+{
+  "$schema": "./node_modules/@effect/language-service/schema.json",
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "preserve",
+    "moduleResolution": "bundler",
+    "moduleDetection": "force",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitOverride": true,
+    "jsx": "react-jsx",
+    "incremental": false,
+    "plugins": [
+      {
+        "name": "next"
+      },
+      {
+        "name": "@effect/language-service",
+        "diagnosticSeverity": {
+          "anyUnknownInErrorContext": "error",
+          "asyncFunction": "error",
+          "catchAllToMapError": "error",
+          "catchUnfailableEffect": "error",
+          "classSelfMismatch": "error",
+          "cryptoRandomUUID": "error",
+          "cryptoRandomUUIDInEffect": "error",
+          "deterministicKeys": "error",
+          "duplicatePackage": "error",
+          "effectDoNotation": "error",
+          "effectFnIife": "error",
+          "effectFnImplicitAny": "error",
+          "effectFnOpportunity": "error",
+          "effectGenUsesAdapter": "error",
+          "effectInFailure": "error",
+          "effectInVoidSuccess": "error",
+          "effectMapFlatten": "error",
+          "effectMapVoid": "error",
+          "effectSucceedWithVoid": "error",
+          "extendsNativeError": "error",
+          "floatingEffect": "error",
+          "genericEffectServices": "error",
+          "globalConsole": "error",
+          "globalConsoleInEffect": "error",
+          "globalDate": "error",
+          "globalDateInEffect": "error",
+          "globalErrorInEffectCatch": "error",
+          "globalErrorInEffectFailure": "error",
+          "globalFetch": "error",
+          "globalFetchInEffect": "error",
+          "globalRandom": "error",
+          "globalRandomInEffect": "error",
+          "globalTimers": "error",
+          "globalTimersInEffect": "error",
+          "importFromBarrel": "error",
+          "instanceOfSchema": "error",
+          "layerMergeAllWithDependencies": "error",
+          "lazyPromiseInEffectSync": "error",
+          "leakingRequirements": "error",
+          "missedPipeableOpportunity": "error",
+          "missingEffectContext": "error",
+          "missingEffectError": "error",
+          "missingEffectServiceDependency": "error",
+          "missingLayerContext": "error",
+          "missingReturnYieldStar": "error",
+          "missingStarInYieldEffectGen": "error",
+          "multipleEffectProvide": "error",
+          "nestedEffectGenYield": "error",
+          "newPromise": "error",
+          "nodeBuiltinImport": "error",
+          "nonObjectEffectServiceType": "error",
+          "outdatedApi": "error",
+          "outdatedEffectCodegen": "error",
+          "overriddenSchemaConstructor": "error",
+          "preferSchemaOverJson": "error",
+          "processEnv": "error",
+          "processEnvInEffect": "error",
+          "redundantSchemaTagIdentifier": "error",
+          "returnEffectInGen": "error",
+          "runEffectInsideEffect": "error",
+          "schemaStructWithTag": "error",
+          "schemaSyncInEffect": "error",
+          "schemaUnionOfLiterals": "error",
+          "scopeInLayerEffect": "error",
+          "serviceNotAsClass": "error",
+          "strictBooleanExpressions": "error",
+          "strictEffectProvide": "error",
+          "tryCatchInEffectGen": "error",
+          "unknownInEffectCatch": "error",
+          "unnecessaryArrowBlock": "error",
+          "unnecessaryEffectGen": "error",
+          "unnecessaryFailYieldableError": "error",
+          "unnecessaryPipe": "error",
+          "unnecessaryPipeChain": "error",
+          "unsupportedServiceAccessors": "error"
+        },
+        "missingDiagnosticNextLine": "error"
+      }
+    ],
+    "baseUrl": "/home/elies/.t3/worktrees/IRoboPF/t3-c432bd2e",
+    "paths": {
+      "*": [
+        "/home/elies/Repos/IRoboPF/node_modules/*"
+      ],
+      "effect": [
+        "/home/elies/Repos/IRoboPF/node_modules/effect/dist/index.d.ts"
+      ],
+      "effect/*": [
+        "/home/elies/Repos/IRoboPF/node_modules/effect/dist/*.d.ts"
+      ],
+      "@/*": [
+        "/home/elies/.t3/worktrees/IRoboPF/t3-c432bd2e/*"
+      ]
+    },
+    "typeRoots": [
+      "/home/elies/Repos/IRoboPF/node_modules/@types"
+    ]
+  },
+  "include": [
+    "/home/elies/.t3/worktrees/IRoboPF/t3-c432bd2e/docs/procedencia/revisiones/resultados-composicion-r49-sol/*.test.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

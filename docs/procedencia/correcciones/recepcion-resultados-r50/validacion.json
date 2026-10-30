@@ -1,0 +1,73 @@
+[
+  {
+    "name": "independientes",
+    "command": [
+      "node",
+      "node_modules/vitest/vitest.mjs",
+      "run",
+      "--configLoader",
+      "native",
+      "--config",
+      "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r50/vitest.mjs",
+      "--reporter=json",
+      "--outputFile=/home/elies/Repos/IRoboPF/docs/procedencia/correcciones/recepcion-resultados-r50/independientes.json"
+    ],
+    "include": [
+      "docs/procedencia/revisiones/resultados-composicion-r49-sol/revision.test.ts"
+    ],
+    "expectedExit": 0,
+    "exitCode": 0
+  },
+  {
+    "name": "rojo-historico",
+    "command": [
+      "node",
+      "node_modules/vitest/vitest.mjs",
+      "run",
+      "--configLoader",
+      "native",
+      "--config",
+      "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r50/vitest.mjs",
+      "--reporter=json",
+      "--outputFile=/home/elies/Repos/IRoboPF/docs/procedencia/correcciones/recepcion-resultados-r50/rojo-historico.json"
+    ],
+    "include": [
+      "docs/procedencia/revisiones/resultados-composicion-r49-sol/rojo.test.ts"
+    ],
+    "expectedExit": 1,
+    "exitCode": 1
+  },
+  {
+    "name": "types",
+    "command": [
+      "bun",
+      "run",
+      "typecheck"
+    ],
+    "include": null,
+    "expectedExit": 0,
+    "exitCode": 0
+  },
+  {
+    "name": "oxlint",
+    "command": [
+      "node_modules/.bin/oxlint",
+      "--threads=1",
+      "--disable-nested-config"
+    ],
+    "include": null,
+    "expectedExit": 0,
+    "exitCode": 0
+  },
+  {
+    "name": "eslint",
+    "command": [
+      "bun",
+      "run",
+      "lint:eslint"
+    ],
+    "include": null,
+    "expectedExit": 0,
+    "exitCode": 0
+  }
+]

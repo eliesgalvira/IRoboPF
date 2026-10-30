@@ -1,0 +1,14 @@
+const fs=require('node:fs'),path=require('node:path')
+const root=process.cwd(), cache=root+'/.cache/revision-resultados-composicion-r49-sol', docs=root+'/docs/procedencia/revisiones/resultados-composicion-r49-sol'
+fs.writeFileSync(docs+'/controles/recepcion-inicial.json',JSON.stringify({head:'8136b0ffa00423eaffd1668e3bc14b45dae594b6',entries:21681,differences:[],extras:['.git'],diff:'',method:'lstat/readlink/bytes/executable; git cat-file blob one at a time; completed before first write'},null,2))
+const old=root+'/docs/procedencia/implementaciones/contratos-composicion-r45-sol/controles/'
+fs.copyFileSync(old+'resolver.mjs.txt',cache+'/resolver.mjs')
+fs.writeFileSync(cache+'/vitest.config.mts',`export default { cacheDir: ${JSON.stringify(cache+'/vite')}, test: { include: ['docs/procedencia/revisiones/resultados-composicion-r49-sol/*.test.ts','tests/composicion-r45-resultados.test.ts'], cache: false, maxWorkers: 1, testTimeout: 60000, hookTimeout:60000 } }`)
+let cfg=JSON.parse(fs.readFileSync(root+'/tsconfig.json'))
+cfg.compilerOptions={...cfg.compilerOptions,incremental:false,baseUrl:root,paths:{'*':['/home/elies/Repos/IRoboPF/node_modules/*'],'effect':['/home/elies/Repos/IRoboPF/node_modules/effect/dist/index.d.ts'],'effect/*':['/home/elies/Repos/IRoboPF/node_modules/effect/dist/*.d.ts'],'@/*':[root+'/*']},typeRoots:['/home/elies/Repos/IRoboPF/node_modules/@types']}
+cfg.include=[docs+'/*.test.ts'];cfg.exclude=['node_modules']
+fs.writeFileSync(cache+'/tsconfig.json',JSON.stringify(cfg,null,2))
+let lint=JSON.parse(fs.readFileSync(root+'/.oxlintrc.json'));lint.jsPlugins=lint.jsPlugins.map(p=>root+'/'+p);lint.ignorePatterns=[]
+fs.writeFileSync(cache+'/oxlint.json',JSON.stringify(lint,null,2))
+let red=fs.readFileSync(old+'rojo-previo.test.ts.txt','utf8').replaceAll('"../scripts/','"../../../../scripts/')
+fs.writeFileSync(docs+'/rojo.test.ts',red)

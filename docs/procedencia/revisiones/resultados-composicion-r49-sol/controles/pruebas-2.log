@@ -1,0 +1,33 @@
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-c432bd2e
+
+ ❯ docs/procedencia/revisiones/resultados-composicion-r49-sol/revision.test.ts (40 tests | 1 failed) 20318ms
+   × B1 transformación exacta, fuente y siete nodos auxiliares por llamada 146ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  docs/procedencia/revisiones/resultados-composicion-r49-sol/revision.test.ts > B1 transformación exacta, fuente y siete nodos auxiliares por llamada
+AssertionError: expected 42 to be 49 // Object.is equality
+
+- Expected
++ Received
+
+- 49
++ 42
+
+ ❯ docs/procedencia/revisiones/resultados-composicion-r49-sol/revision.test.ts:40:57
+     38|   } else expect(after).toEqual(before)
+     39|  }
+     40|  expect(adapted.program.length-original.program.length).toBe(fails.len…
+       |                                                         ^
+     41|  expect(original).toEqual(candidate.fragments.retenciones)
+     42|  expect(() => verifyComposition({ ...candidate, fragments: { ...candid…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  1 failed | 57 passed (58)
+   Start at  04:07:53
+   Duration  30.09s (transform 156ms, setup 0ms, import 3.17s, tests 26.70s, environment 0ms)
+

@@ -1,0 +1,152 @@
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-c432bd2e
+
+ ❯ docs/procedencia/revisiones/resultados-composicion-r49-sol/revision.test.ts (40 tests | 12 failed) 21254ms
+   × B3 canonico sin fecha 17ms
+   × B3 canonico fecha inválida 14ms
+   × B3 canonico fecha y cierre 13ms
+   × B3 canonico irregular 13ms
+   × B3 canonico manuales 13ms
+   × B3 canonico regularizacion 13ms
+   × B3 compatible-legacy antes reforma 13ms
+   × B3 compatible-legacy después reforma 12ms
+   × B3 compatible-legacy cierre 14ms
+   × B3 compatible-legacy fecha inválida 14ms
+   × B3 compatible-legacy fecha y cierre 16ms
+   × B3 compatible-legacy regularizacion 13ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 12 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  docs/procedencia/revisiones/resultados-composicion-r49-sol/revision.test.ts > B3 canonico sin fecha
+ FAIL  docs/procedencia/revisiones/resultados-composicion-r49-sol/revision.test.ts > B3 canonico fecha inválida
+ FAIL  docs/procedencia/revisiones/resultados-composicion-r49-sol/revision.test.ts > B3 canonico fecha y cierre
+AssertionError: expected 'Effect.fail(\n      resultadoNoSoport…' to contain 'resultadoNoSoportadoRetencion(caso'
+
+- Expected
++ Received
+
+- resultadoNoSoportadoRetencion(caso
++ Effect.fail(
++       resultadoNoSoportadoRetencion(
++         caso,
++         "Sin versión acreditada para la fecha/año; en años con reformas indique fechaPago o perfilTemporal cierre"
++       )
++     )
+
+ ❯ docs/procedencia/revisiones/resultados-composicion-r49-sol/revision.test.ts:112:16
+    110|   if(!node) throw Error("Nodo causante ausente")
+    111|   const text=readFileSync(node.source.file,"utf8").slice(node.source.s…
+    112|   expect(text).toMatch(/resultadoNoSoportadoRetencion\(\s*caso/)
+       |                ^
+    113|   if(name==="regularizacion") expect(text).toContain("Regularización n…
+    114|   if(name==="negativa") expect(text).toBe("Effect.fail(resultadoNoSopo…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/12]⎯
+
+ FAIL  docs/procedencia/revisiones/resultados-composicion-r49-sol/revision.test.ts > B3 canonico irregular
+AssertionError: expected 'Effect.fail(\n      resultadoNoSoport…' to contain 'resultadoNoSoportadoRetencion(caso'
+
+- Expected
++ Received
+
+- resultadoNoSoportadoRetencion(caso
++ Effect.fail(
++       resultadoNoSoportadoRetencion(
++         caso,
++         "IRREGULAR1 supera 90.000 euros o el 30% de la retribución"
++       )
++     )
+
+ ❯ docs/procedencia/revisiones/resultados-composicion-r49-sol/revision.test.ts:112:16
+    110|   if(!node) throw Error("Nodo causante ausente")
+    111|   const text=readFileSync(node.source.file,"utf8").slice(node.source.s…
+    112|   expect(text).toMatch(/resultadoNoSoportadoRetencion\(\s*caso/)
+       |                ^
+    113|   if(name==="regularizacion") expect(text).toContain("Regularización n…
+    114|   if(name==="negativa") expect(text).toBe("Effect.fail(resultadoNoSopo…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/12]⎯
+
+ FAIL  docs/procedencia/revisiones/resultados-composicion-r49-sol/revision.test.ts > B3 canonico manuales
+AssertionError: expected 'Effect.fail(\n      resultadoNoSoport…' to contain 'resultadoNoSoportadoRetencion(caso'
+
+- Expected
++ Received
+
+- resultadoNoSoportadoRetencion(caso
++ Effect.fail(
++       resultadoNoSoportadoRetencion(
++         caso,
++         "Jornales requieren contrato específico; no se inventa anualización"
++       )
++     )
+
+ ❯ docs/procedencia/revisiones/resultados-composicion-r49-sol/revision.test.ts:112:16
+    110|   if(!node) throw Error("Nodo causante ausente")
+    111|   const text=readFileSync(node.source.file,"utf8").slice(node.source.s…
+    112|   expect(text).toMatch(/resultadoNoSoportadoRetencion\(\s*caso/)
+       |                ^
+    113|   if(name==="regularizacion") expect(text).toContain("Regularización n…
+    114|   if(name==="negativa") expect(text).toBe("Effect.fail(resultadoNoSopo…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/12]⎯
+
+ FAIL  docs/procedencia/revisiones/resultados-composicion-r49-sol/revision.test.ts > B3 canonico regularizacion
+ FAIL  docs/procedencia/revisiones/resultados-composicion-r49-sol/revision.test.ts > B3 compatible-legacy regularizacion
+AssertionError: expected 'Effect.fail(\n      resultadoNoSoport…' to contain 'resultadoNoSoportadoRetencion(caso'
+
+- Expected
++ Received
+
+- resultadoNoSoportadoRetencion(caso
++ Effect.fail(
++       resultadoNoSoportadoRetencion(
++         caso,
++         "Regularización no implementada: no se sustituye por cálculo inicial"
++       )
++     )
+
+ ❯ docs/procedencia/revisiones/resultados-composicion-r49-sol/revision.test.ts:112:16
+    110|   if(!node) throw Error("Nodo causante ausente")
+    111|   const text=readFileSync(node.source.file,"utf8").slice(node.source.s…
+    112|   expect(text).toMatch(/resultadoNoSoportadoRetencion\(\s*caso/)
+       |                ^
+    113|   if(name==="regularizacion") expect(text).toContain("Regularización n…
+    114|   if(name==="negativa") expect(text).toBe("Effect.fail(resultadoNoSopo…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/12]⎯
+
+ FAIL  docs/procedencia/revisiones/resultados-composicion-r49-sol/revision.test.ts > B3 compatible-legacy antes reforma
+ FAIL  docs/procedencia/revisiones/resultados-composicion-r49-sol/revision.test.ts > B3 compatible-legacy después reforma
+ FAIL  docs/procedencia/revisiones/resultados-composicion-r49-sol/revision.test.ts > B3 compatible-legacy cierre
+ FAIL  docs/procedencia/revisiones/resultados-composicion-r49-sol/revision.test.ts > B3 compatible-legacy fecha inválida
+ FAIL  docs/procedencia/revisiones/resultados-composicion-r49-sol/revision.test.ts > B3 compatible-legacy fecha y cierre
+AssertionError: expected 'Effect.fail(\n        resultadoNoSopo…' to contain 'resultadoNoSoportadoRetencion(caso'
+
+- Expected
++ Received
+
+- resultadoNoSoportadoRetencion(caso
++ Effect.fail(
++         resultadoNoSoportadoRetencion(
++           caso,
++           "Compatible-legacy no aplica selección temporal; use modo canónico"
++         )
++       )
+
+ ❯ docs/procedencia/revisiones/resultados-composicion-r49-sol/revision.test.ts:112:16
+    110|   if(!node) throw Error("Nodo causante ausente")
+    111|   const text=readFileSync(node.source.file,"utf8").slice(node.source.s…
+    112|   expect(text).toMatch(/resultadoNoSoportadoRetencion\(\s*caso/)
+       |                ^
+    113|   if(name==="regularizacion") expect(text).toContain("Regularización n…
+    114|   if(name==="negativa") expect(text).toBe("Effect.fail(resultadoNoSopo…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/12]⎯
+
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  12 failed | 46 passed (58)
+   Start at  04:10:40
+   Duration  31.15s (transform 174ms, setup 0ms, import 3.15s, tests 27.78s, environment 0ms)
+
