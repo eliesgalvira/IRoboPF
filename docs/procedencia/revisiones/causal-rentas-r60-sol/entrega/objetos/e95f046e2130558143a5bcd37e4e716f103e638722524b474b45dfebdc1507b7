@@ -1,0 +1,5 @@
+import assert from 'node:assert/strict'
+import {composeCausalRentas} from '../../scripts/procedencia/causal-rentas-r59-contratos.mjs'
+import {executeCausalRentas} from '../../scripts/procedencia/causal-rentas-r59.mjs'
+const g=composeCausalRentas();g.extra=undefined
+assert.throws(()=>executeCausalRentas(g,{anio:2025,situacionFamiliar:{edad:40},rendimientos:{trabajo:[]}},{modo:'canonico'}),/Contrato técnico/,'la API rechaza claves no derivadas aunque JSON las omita')

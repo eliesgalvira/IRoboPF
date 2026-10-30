@@ -1,0 +1,8 @@
+import assert from 'node:assert/strict'
+import fs from 'node:fs'
+import {composeRentasR36,sitesR36} from '../../scripts/procedencia/flujo-rentas-r36.mjs'
+const original=composeRentasR36();assert.equal(original.outputs.length,20)
+const preimage=new URL('r36-pre-catalogo.mjs.txt',import.meta.url)
+if(!fs.existsSync(preimage))fs.writeFileSync(preimage,fs.readFileSync('scripts/procedencia/flujo-rentas-r36.mjs'))
+sitesR36.pop();
+assert.equal(composeRentasR36().outputs.length,20,'mutar el catálogo público no reconfigura el compositor')
