@@ -1,0 +1,14 @@
+import gzip,json,pathlib,jsonschema
+from referencing import Registry,Resource
+from referencing.jsonschema import DRAFT202012
+p=pathlib.Path('schemas/procedencia/flujo/composicion-r43.schema.json').resolve()
+s=json.loads(p.read_text());s['$id']=p.as_uri()
+registry=Registry()
+for f in p.parent.glob('*.schema.json'):
+ contents=json.loads(f.read_text())
+ registry=registry.with_resource(f.resolve().as_uri(),Resource.from_contents(contents,default_specification=DRAFT202012))
+with gzip.open('docs/procedencia/implementaciones/composicion-r43-sol/artefacto.json.gz','rt') as f: candidate=json.load(f)
+errors=list(jsonschema.Draft202012Validator(s,registry=registry).iter_errors(candidate))
+print(json.dumps([{'path':list(e.absolute_path),'message':e.message[:300]} for e in errors[:20]],ensure_ascii=False))
+assert not errors
+print('schema: correcto; no acredita correspondencia semántica')

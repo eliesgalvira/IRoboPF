@@ -1,0 +1,857 @@
+[
+  {
+    "id": "etapa.0",
+    "producer": "calcularActividad2025",
+    "property": "etapas[*].importe",
+    "call": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 9927,
+      "end": 10119,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "argument4": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 10064,
+      "end": 10069,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "rule": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 9940,
+      "end": 9949,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "instance": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 9957,
+      "end": 9961,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "valueNode": "lib/dominio/irpf/actividades-economicas/calcular.ts:10064:10069:local",
+    "unit": "EUR",
+    "cardinality": "activos.length",
+    "annualReachable": false,
+    "outputSite": "anual.explicito.actividad.etapa",
+    "transport": [
+      "etapa.valor.toFixed",
+      "adaptarActividadGeneral.etapas",
+      "map(e,instancia)",
+      "new D(e.importe)",
+      "crearLineaCalculo.origen.decimal"
+    ]
+  },
+  {
+    "id": "etapa.1",
+    "producer": "calcularActividad2025",
+    "property": "etapas[*].importe",
+    "call": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 10124,
+      "end": 10258,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "argument4": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 10206,
+      "end": 10224,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "rule": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 10137,
+      "end": 10146,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "instance": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 10154,
+      "end": 10169,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "valueNode": "lib/dominio/irpf/actividades-economicas/calcular.ts:10206:10224:call",
+    "unit": "EUR",
+    "cardinality": "activos.length",
+    "annualReachable": false,
+    "outputSite": "anual.explicito.actividad.etapa",
+    "transport": [
+      "etapa.valor.toFixed",
+      "adaptarActividadGeneral.etapas",
+      "map(e,instancia)",
+      "new D(e.importe)",
+      "crearLineaCalculo.origen.decimal"
+    ]
+  },
+  {
+    "id": "etapa.2",
+    "producer": "calcularActividad2025",
+    "property": "etapas[*].importe",
+    "call": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 12146,
+      "end": 12300,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "argument4": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 12267,
+      "end": 12280,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "rule": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 12159,
+      "end": 12168,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "instance": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 12176,
+      "end": 12193,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "valueNode": "lib/dominio/irpf/actividades-economicas/calcular.ts:12267:12280:new",
+    "unit": "EUR",
+    "cardinality": "ingresos.length",
+    "annualReachable": true,
+    "outputSite": "anual.explicito.actividad.etapa",
+    "transport": [
+      "etapa.valor.toFixed",
+      "adaptarActividadGeneral.etapas",
+      "map(e,instancia)",
+      "new D(e.importe)",
+      "crearLineaCalculo.origen.decimal"
+    ]
+  },
+  {
+    "id": "etapa.3",
+    "producer": "calcularActividad2025",
+    "property": "etapas[*].importe",
+    "call": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 12336,
+      "end": 12494,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "argument4": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 12461,
+      "end": 12474,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "rule": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 12349,
+      "end": 12358,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "instance": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 12366,
+      "end": 12381,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "valueNode": "lib/dominio/irpf/actividades-economicas/calcular.ts:12461:12474:new",
+    "unit": "EUR",
+    "cardinality": "gastos.length",
+    "annualReachable": true,
+    "outputSite": "anual.explicito.actividad.etapa",
+    "transport": [
+      "etapa.valor.toFixed",
+      "adaptarActividadGeneral.etapas",
+      "map(e,instancia)",
+      "new D(e.importe)",
+      "crearLineaCalculo.origen.decimal"
+    ]
+  },
+  {
+    "id": "etapa.4",
+    "producer": "calcularActividad2025",
+    "property": "etapas[*].importe",
+    "call": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 12528,
+      "end": 12673,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "argument4": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 12637,
+      "end": 12653,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "rule": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 12541,
+      "end": 12550,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "instance": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 12558,
+      "end": 12572,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "valueNode": "lib/dominio/irpf/actividades-economicas/calcular.ts:12637:12653:new",
+    "unit": "EUR",
+    "cardinality": "reta.length",
+    "annualReachable": true,
+    "outputSite": "anual.explicito.actividad.etapa",
+    "transport": [
+      "etapa.valor.toFixed",
+      "adaptarActividadGeneral.etapas",
+      "map(e,instancia)",
+      "new D(e.importe)",
+      "crearLineaCalculo.origen.decimal"
+    ]
+  },
+  {
+    "id": "etapa.5",
+    "producer": "calcularActividad2025",
+    "property": "etapas[*].importe",
+    "call": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 12693,
+      "end": 12875,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "argument4": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 12797,
+      "end": 12835,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "rule": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 12704,
+      "end": 12713,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "instance": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 12719,
+      "end": 12729,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "valueNode": "lib/dominio/irpf/actividades-economicas/calcular.ts:12797:12835:call",
+    "unit": "EUR",
+    "cardinality": "1",
+    "annualReachable": true,
+    "outputSite": "anual.explicito.actividad.etapa",
+    "transport": [
+      "etapa.valor.toFixed",
+      "adaptarActividadGeneral.etapas",
+      "map(e,instancia)",
+      "new D(e.importe)",
+      "crearLineaCalculo.origen.decimal"
+    ]
+  },
+  {
+    "id": "etapa.6",
+    "producer": "calcularActividad2025",
+    "property": "etapas[*].importe",
+    "call": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 12897,
+      "end": 13045,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "argument4": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 12971,
+      "end": 13007,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "rule": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 12908,
+      "end": 12917,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "instance": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 12923,
+      "end": 12931,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "valueNode": "lib/dominio/irpf/actividades-economicas/calcular.ts:12971:13007:call",
+    "unit": "EUR",
+    "cardinality": "1",
+    "annualReachable": true,
+    "outputSite": "anual.explicito.actividad.etapa",
+    "transport": [
+      "etapa.valor.toFixed",
+      "adaptarActividadGeneral.etapas",
+      "map(e,instancia)",
+      "new D(e.importe)",
+      "crearLineaCalculo.origen.decimal"
+    ]
+  },
+  {
+    "id": "etapa.7",
+    "producer": "calcularActividad2025",
+    "property": "etapas[*].importe",
+    "call": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 13061,
+      "end": 13212,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "argument4": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 13139,
+      "end": 13176,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "rule": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 13072,
+      "end": 13081,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "instance": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 13087,
+      "end": 13093,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "valueNode": "lib/dominio/irpf/actividades-economicas/calcular.ts:13139:13176:call",
+    "unit": "EUR",
+    "cardinality": "1",
+    "annualReachable": true,
+    "outputSite": "anual.explicito.actividad.etapa",
+    "transport": [
+      "etapa.valor.toFixed",
+      "adaptarActividadGeneral.etapas",
+      "map(e,instancia)",
+      "new D(e.importe)",
+      "crearLineaCalculo.origen.decimal"
+    ]
+  },
+  {
+    "id": "etapa.8",
+    "producer": "calcularActividad2025",
+    "property": "etapas[*].importe",
+    "call": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 13215,
+      "end": 13339,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "argument4": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 13288,
+      "end": 13300,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "rule": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 13226,
+      "end": 13235,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "instance": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 13241,
+      "end": 13255,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "valueNode": "lib/dominio/irpf/actividades-economicas/calcular.ts:13288:13300:local",
+    "unit": "EUR",
+    "cardinality": "1",
+    "annualReachable": true,
+    "outputSite": "anual.explicito.actividad.etapa",
+    "transport": [
+      "etapa.valor.toFixed",
+      "adaptarActividadGeneral.etapas",
+      "map(e,instancia)",
+      "new D(e.importe)",
+      "crearLineaCalculo.origen.decimal"
+    ]
+  },
+  {
+    "id": "etapa.9",
+    "producer": "calcularActividad2025",
+    "property": "etapas[*].importe",
+    "call": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 13410,
+      "end": 13512,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "argument4": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 13486,
+      "end": 13508,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "rule": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 13421,
+      "end": 13430,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "instance": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 13436,
+      "end": 13439,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "valueNode": "lib/dominio/irpf/actividades-economicas/calcular.ts:13486:13508:call",
+    "unit": "EUR",
+    "cardinality": "1",
+    "annualReachable": true,
+    "outputSite": "anual.explicito.actividad.etapa",
+    "transport": [
+      "etapa.valor.toFixed",
+      "adaptarActividadGeneral.etapas",
+      "map(e,instancia)",
+      "new D(e.importe)",
+      "crearLineaCalculo.origen.decimal"
+    ]
+  },
+  {
+    "id": "etapa.10",
+    "producer": "calcularActividad2025",
+    "property": "etapas[*].importe",
+    "call": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 14212,
+      "end": 14405,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "argument4": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 14306,
+      "end": 14401,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "rule": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 14223,
+      "end": 14232,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "instance": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 14238,
+      "end": 14241,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "valueNode": "lib/dominio/irpf/actividades-economicas/calcular.ts:14306:14401:conditional",
+    "unit": "EUR",
+    "cardinality": "1",
+    "annualReachable": true,
+    "outputSite": "anual.explicito.actividad.etapa",
+    "transport": [
+      "etapa.valor.toFixed",
+      "adaptarActividadGeneral.etapas",
+      "map(e,instancia)",
+      "new D(e.importe)",
+      "crearLineaCalculo.origen.decimal"
+    ]
+  },
+  {
+    "id": "etapa.11",
+    "producer": "calcularActividad2025",
+    "property": "etapas[*].importe",
+    "call": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 14419,
+      "end": 14472,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "argument4": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 14461,
+      "end": 14471,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "rule": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 14425,
+      "end": 14434,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "instance": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 14436,
+      "end": 14440,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "valueNode": "lib/dominio/irpf/actividades-economicas/calcular.ts:14461:14471:call",
+    "unit": "EUR",
+    "cardinality": "1",
+    "annualReachable": true,
+    "outputSite": "anual.explicito.actividad.etapa",
+    "transport": [
+      "etapa.valor.toFixed",
+      "adaptarActividadGeneral.etapas",
+      "map(e,instancia)",
+      "new D(e.importe)",
+      "crearLineaCalculo.origen.decimal"
+    ]
+  },
+  {
+    "id": "etapa.12",
+    "producer": "calcularActividad2025",
+    "property": "etapas[*].importe",
+    "call": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 14923,
+      "end": 15047,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "argument4": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 15032,
+      "end": 15041,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "rule": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 14936,
+      "end": 14945,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "instance": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 14953,
+      "end": 14964,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "valueNode": "lib/dominio/irpf/actividades-economicas/calcular.ts:15032:15041:local",
+    "unit": "EUR",
+    "cardinality": "opcion=cliente-unico?1:0",
+    "annualReachable": true,
+    "outputSite": "anual.explicito.actividad.etapa",
+    "transport": [
+      "etapa.valor.toFixed",
+      "adaptarActividadGeneral.etapas",
+      "map(e,instancia)",
+      "new D(e.importe)",
+      "crearLineaCalculo.origen.decimal"
+    ]
+  },
+  {
+    "id": "etapa.13",
+    "producer": "calcularActividad2025",
+    "property": "etapas[*].importe",
+    "call": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 15052,
+      "end": 15225,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "argument4": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 15177,
+      "end": 15187,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "rule": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 15065,
+      "end": 15074,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "instance": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 15082,
+      "end": 15096,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "valueNode": "lib/dominio/irpf/actividades-economicas/calcular.ts:15177:15187:local",
+    "unit": "EUR",
+    "cardinality": "opcion=cliente-unico?1:0",
+    "annualReachable": true,
+    "outputSite": "anual.explicito.actividad.etapa",
+    "transport": [
+      "etapa.valor.toFixed",
+      "adaptarActividadGeneral.etapas",
+      "map(e,instancia)",
+      "new D(e.importe)",
+      "crearLineaCalculo.origen.decimal"
+    ]
+  },
+  {
+    "id": "etapa.14",
+    "producer": "calcularActividad2025",
+    "property": "etapas[*].importe",
+    "call": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 15405,
+      "end": 15586,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "argument4": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 15573,
+      "end": 15582,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "rule": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 15416,
+      "end": 15471,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "instance": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 15477,
+      "end": 15492,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "valueNode": "lib/dominio/irpf/actividades-economicas/calcular.ts:15573:15582:local",
+    "unit": "EUR",
+    "cardinality": "1",
+    "annualReachable": true,
+    "outputSite": "anual.explicito.actividad.etapa",
+    "transport": [
+      "etapa.valor.toFixed",
+      "adaptarActividadGeneral.etapas",
+      "map(e,instancia)",
+      "new D(e.importe)",
+      "crearLineaCalculo.origen.decimal"
+    ]
+  },
+  {
+    "id": "etapa.15",
+    "producer": "calcularActividad2025",
+    "property": "etapas[*].importe",
+    "call": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 16200,
+      "end": 16434,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "argument4": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 16311,
+      "end": 16430,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "rule": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 16211,
+      "end": 16220,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "instance": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 16226,
+      "end": 16243,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "valueNode": "lib/dominio/irpf/actividades-economicas/calcular.ts:16311:16430:conditional",
+    "unit": "EUR",
+    "cardinality": "1",
+    "annualReachable": true,
+    "outputSite": "anual.explicito.actividad.etapa",
+    "transport": [
+      "etapa.valor.toFixed",
+      "adaptarActividadGeneral.etapas",
+      "map(e,instancia)",
+      "new D(e.importe)",
+      "crearLineaCalculo.origen.decimal"
+    ]
+  },
+  {
+    "id": "etapa.16",
+    "producer": "calcularActividad2025",
+    "property": "etapas[*].importe",
+    "call": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 16452,
+      "end": 16599,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "argument4": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 16553,
+      "end": 16595,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "rule": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 16463,
+      "end": 16472,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "instance": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 16478,
+      "end": 16489,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "valueNode": "lib/dominio/irpf/actividades-economicas/calcular.ts:16553:16595:call",
+    "unit": "EUR",
+    "cardinality": "1",
+    "annualReachable": true,
+    "outputSite": "anual.explicito.actividad.etapa",
+    "transport": [
+      "etapa.valor.toFixed",
+      "adaptarActividadGeneral.etapas",
+      "map(e,instancia)",
+      "new D(e.importe)",
+      "crearLineaCalculo.origen.decimal"
+    ]
+  },
+  {
+    "id": "etapa.17",
+    "producer": "calcularActividad2025",
+    "property": "etapas[*].importe",
+    "call": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 16622,
+      "end": 16821,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "argument4": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 16734,
+      "end": 16778,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "rule": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 16633,
+      "end": 16642,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "instance": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 16648,
+      "end": 16661,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "valueNode": "lib/dominio/irpf/actividades-economicas/calcular.ts:16734:16778:call",
+    "unit": "EUR",
+    "cardinality": "1",
+    "annualReachable": true,
+    "outputSite": "anual.explicito.actividad.etapa",
+    "transport": [
+      "etapa.valor.toFixed",
+      "adaptarActividadGeneral.etapas",
+      "map(e,instancia)",
+      "new D(e.importe)",
+      "crearLineaCalculo.origen.decimal"
+    ]
+  },
+  {
+    "id": "etapa.18",
+    "producer": "calcularActividad2025",
+    "property": "etapas[*].importe",
+    "call": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 16838,
+      "end": 17037,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "argument4": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 16938,
+      "end": 16988,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "rule": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 16849,
+      "end": 16858,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "instance": {
+      "file": "lib/dominio/irpf/actividades-economicas/calcular.ts",
+      "start": 16864,
+      "end": 16871,
+      "sha256": "21574125359ea4d98846bb10dc7b669447d316728795c0ddc88b4f924b444d86",
+      "offsetEncoding": "utf16"
+    },
+    "valueNode": "lib/dominio/irpf/actividades-economicas/calcular.ts:16938:16988:call",
+    "unit": "EUR",
+    "cardinality": "1",
+    "annualReachable": true,
+    "outputSite": "anual.explicito.actividad.etapa",
+    "transport": [
+      "etapa.valor.toFixed",
+      "adaptarActividadGeneral.etapas",
+      "map(e,instancia)",
+      "new D(e.importe)",
+      "crearLineaCalculo.origen.decimal"
+    ]
+  }
+]

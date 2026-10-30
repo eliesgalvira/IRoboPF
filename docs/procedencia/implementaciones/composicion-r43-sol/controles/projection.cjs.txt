@@ -1,0 +1,4 @@
+const fs=require('node:fs'),p='scripts/procedencia/composicion-r43.ts';let s=fs.readFileSync(p,'utf8');s=s.replace('rentBoundaries.set("boundary:calcularCotizacionesSocialesLegacy", (...args) => ssRun(g.ss, "calcularDesgloseCotizacionesSocialesLegacy", args, false).result)',`rentBoundaries.set("boundary:calcularCotizacionesSocialesLegacy", (...args) => {
+    const result = ssRun(g.ss, "calcularDesgloseCotizacionesSocialesLegacy", args, false).result
+    return { cotizacionEmpresarial: result.cotizacionEmpresarial, cotizacionTrabajador: result.cotizacionTrabajador }
+  })`);fs.writeFileSync(p,s)
