@@ -1,0 +1,64 @@
+[
+  {
+    "id": "R36-RF33-01",
+    "status": "corroborado_en_candidato",
+    "kind": "technical",
+    "fiscalDefect": false,
+    "scope": "Campos, defaults, constantes y callbacks mediante IR equivalente; no se exigen nombres históricos",
+    "evidence": [
+      "controles/tests3.json",
+      "controles/casos.json"
+    ]
+  },
+  {
+    "id": "R36-RF33-02",
+    "status": "corroborado_en_candidato",
+    "kind": "technical",
+    "fiscalDefect": false,
+    "scope": "18 celdas x5 instancias, argumentos y resultados propios, receptores antes de argumentos",
+    "evidence": [
+      "controles/tests3.json",
+      "controles/casos.json"
+    ]
+  },
+  {
+    "id": "R36-RF33-03",
+    "status": "limite_preservado_sin_bypass",
+    "kind": "validation-boundary",
+    "fiscalDefect": false,
+    "scope": "Schema permite programa vacío; verificador exacto lo rechaza; consumidor exige verificación previa"
+  },
+  {
+    "id": "R36-RF33-04",
+    "status": "editorial_preexistente_sin_fix",
+    "kind": "editorial",
+    "fiscalDefect": false,
+    "scope": "Título 2026 también en paso anual2020"
+  },
+  {
+    "id": "R36-P01",
+    "status": "hipotesis_de_sonda_refutada",
+    "kind": "own-instrument",
+    "fiscalDefect": false,
+    "scope": "Cinco fallos iniciales: copia superficial de datos comparte tabla; mutación contractual no discriminante; Match no exige get homónimo",
+    "evidence": [
+      "controles/tests1.json",
+      "instrumentos/propios-intento1.mjs.txt",
+      "controles/casos-intento1.json"
+    ],
+    "resolution": "Solo instrumento propio corregido; expectativas históricas intactas"
+  },
+  {
+    "id": "R36-P02",
+    "status": "desviacion_propia_documentada",
+    "kind": "scope",
+    "fiscalDefect": false,
+    "issue": "Ruff creó tres archivos de caché fuera del scratch, detectados por el control de altas",
+    "response": "Bytes preservados y reubicados al scratch propio; control de altas repetido; no se modifican originales",
+    "evidence": [
+      "controles/alcance-intento1.json",
+      "controles/incidencia-ruff.json",
+      "controles/alcance-final.log"
+    ]
+  }
+]
