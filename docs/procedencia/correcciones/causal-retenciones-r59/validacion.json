@@ -1,0 +1,60 @@
+[
+  {
+    "name": "suite",
+    "command": [
+      "node",
+      "node_modules/vitest/vitest.mjs",
+      "run",
+      "--configLoader",
+      "native",
+      "--config",
+      "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r59/vitest.mjs",
+      "--reporter=json",
+      "--outputFile=/home/elies/Repos/IRoboPF/docs/procedencia/correcciones/causal-retenciones-r59/suite.json"
+    ],
+    "exitCode": 0
+  },
+  {
+    "name": "estructura",
+    "command": [
+      "node",
+      "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r59/run/estructura.mjs"
+    ],
+    "exitCode": 0
+  },
+  {
+    "name": "ss-pin",
+    "command": [
+      "node",
+      "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r59/run/ss-pin.mjs"
+    ],
+    "exitCode": 0
+  },
+  {
+    "name": "types",
+    "command": [
+      "bun",
+      "run",
+      "typecheck"
+    ],
+    "exitCode": 0
+  },
+  {
+    "name": "oxlint",
+    "command": [
+      "node_modules/.bin/oxlint",
+      "--threads=1",
+      "--disable-nested-config"
+    ],
+    "exitCode": 0
+  },
+  {
+    "name": "eslint",
+    "command": [
+      "bun",
+      "run",
+      "lint:eslint"
+    ],
+    "exitCode": 0
+  }
+]

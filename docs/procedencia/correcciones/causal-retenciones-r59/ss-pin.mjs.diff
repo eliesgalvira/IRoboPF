@@ -1,0 +1,12 @@
+--- revisor/ss-pin.mjs
++++ padre/ss-pin.mjs
+@@ -1,6 +1,6 @@
+-import {composeSS} from '../../scripts/procedencia/flujo-ss-r36.mjs';
+-import {executeCausalSS as old} from '../../tests/fixtures/procedencia/ss-pre-r57.ts';
+-import {executeCausalSS,verifyCausalSS} from '../../scripts/procedencia/causal-ss-r54.ts';
++import {composeSS} from '/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-ss-r36.mjs';
++import {executeCausalSS as old} from '/home/elies/Repos/IRoboPF/tests/fixtures/procedencia/ss-pre-r57.ts';
++import {executeCausalSS,verifyCausalSS} from '/home/elies/Repos/IRoboPF/scripts/procedencia/causal-ss-r54.ts';
+ import assert from 'node:assert/strict';
+ import fs from 'node:fs';
+ import {gzipSync} from 'node:zlib';

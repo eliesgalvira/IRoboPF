@@ -1,0 +1,8 @@
+import json,subprocess,os
+from pathlib import Path
+R=Path('/home/elies/Repos/IRoboPF');C=R/'.cache/orquestador-recepcion/r59';O=R/'docs/procedencia/correcciones/causal-retenciones-r59'
+commands=[('suite',['node','node_modules/vitest/vitest.mjs','run','--configLoader','native','--config',str(C/'vitest.mjs'),'--reporter=json','--outputFile='+str(O/'suite.json')]),('estructura',['node',str(C/'run/estructura.mjs')]),('ss-pin',['node',str(C/'run/ss-pin.mjs')]),('types',['bun','run','typecheck']),('oxlint',['node_modules/.bin/oxlint','--threads=1','--disable-nested-config']),('eslint',['bun','run','lint:eslint'])]
+results=[]
+for name,cmd in commands:
+ with (O/(name+'.log')).open('wb') as log:p=subprocess.run(['flock','/tmp/irobopf-validacion-pesada.lock',*cmd],cwd=R,stdout=log,stderr=subprocess.STDOUT)
+ results.append(dict(name=name,command=cmd,exitCode=p.returncode));(O/'validacion.json').write_text(json.dumps(results,indent=2)+'\n');print(json.dumps(results[-1]),flush=True)

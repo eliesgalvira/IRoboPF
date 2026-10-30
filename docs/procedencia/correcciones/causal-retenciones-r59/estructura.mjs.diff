@@ -1,0 +1,13 @@
+--- revisor/estructura.mjs
++++ padre/estructura.mjs
+@@ -1,8 +1,8 @@
+ import assert from 'node:assert/strict';
+ import fs from 'node:fs';
+ import {gzipSync} from 'node:zlib';
+-import {composeRetencionesR34} from '../../scripts/procedencia/flujo-retenciones-r34.mjs';
+-import {executeCausalRetenciones,verifyCausalRetenciones} from '../../scripts/procedencia/causal-retenciones-r57.ts';
++import {composeRetencionesR34} from '/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-retenciones-r34.mjs';
++import {executeCausalRetenciones,verifyCausalRetenciones} from '/home/elies/Repos/IRoboPF/scripts/procedencia/causal-retenciones-r57.ts';
+ const g=composeRetencionesR34(),ctx={modo:'canonico'};
+ const base={anio:2020,retribucionAnualCentimos:4732101,cotizacionesCentimos:32101,situacionFamiliar:'situacion3',situacionLaboral:'activo',contrato:'general',descendientes:[],ascendientes:[],discapacidad:'sin-discapacidad'};
+ const child={edad:4,computoPorEntero:false,discapacidad:'sin-discapacidad',movilidadReducida:false,adopcionOAcogimientoMenosTresAnios:false};

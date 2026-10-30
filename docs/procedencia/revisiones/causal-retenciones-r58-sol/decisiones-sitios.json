@@ -1,0 +1,80 @@
+[
+  {
+    "site": "anual.retencion.base",
+    "decision": "corroborada bajo condiciones",
+    "evidencia": "R−S−2000=45000 EUR; subcaso separado del anual",
+    "objecionExperta": "Las guardas de éxito no sustituyen la fórmula ni el campo retornado",
+    "respuesta": "Parámetros, retorno baseRetencionCentimos, conversión y transporte separados",
+    "coste": "Traza completa, contratos manuales por identidad y replay finito; mantenimiento/pins nuevos",
+    "limites": "Datos ordinarios, fuentes verificadas y runtime fijo. Muestras no universales; sin admisión/fiscalidad; contraste del padre pendiente",
+    "admissionClosed": false,
+    "siteClosed": false,
+    "wiringAllowed": false,
+    "completeRuleAcceptance": false
+  },
+  {
+    "site": "anual.retencion.cuota",
+    "decision": "corroborada bajo condiciones",
+    "evidencia": "11297 EUR nominal;9543.02 alimentos;10556 familia",
+    "objecionExperta": "Llamadas o importes iguales podrían ocultar escala/minimum distintos",
+    "respuesta": "Marcos propios, dos/tres llamadas, índices/celdas y racionales",
+    "coste": "Traza completa, contratos manuales por identidad y replay finito; mantenimiento/pins nuevos",
+    "limites": "Datos ordinarios, fuentes verificadas y runtime fijo. Muestras no universales; sin admisión/fiscalidad; contraste del padre pendiente",
+    "admissionClosed": false,
+    "siteClosed": false,
+    "wiringAllowed": false,
+    "completeRuleAcceptance": false
+  },
+  {
+    "site": "anual.retencion.tipo",
+    "decision": "corroborada bajo condiciones",
+    "evidencia": "23.87%; mínimos2/.8 y flags combinados",
+    "objecionExperta": "Una etiqueta percent repetida no prueba dimensionalidad",
+    "respuesta": "Truncado racional y API real; string sin factor100",
+    "coste": "Traza completa, contratos manuales por identidad y replay finito; mantenimiento/pins nuevos",
+    "limites": "Datos ordinarios, fuentes verificadas y runtime fijo. Muestras no universales; sin admisión/fiscalidad; contraste del padre pendiente",
+    "admissionClosed": false,
+    "siteClosed": false,
+    "wiringAllowed": false,
+    "completeRuleAcceptance": false
+  },
+  {
+    "site": "anual.retencion.anual",
+    "decision": "corroborada bajo condiciones",
+    "evidencia": "11295.53 EUR;2.47/.99 en mínimos",
+    "objecionExperta": "Cuota no es importe retenido",
+    "respuesta": "R×tipo/100 con HALF_UP2, propiedad anual y céntimos propios",
+    "coste": "Traza completa, contratos manuales por identidad y replay finito; mantenimiento/pins nuevos",
+    "limites": "Datos ordinarios, fuentes verificadas y runtime fijo. Muestras no universales; sin admisión/fiscalidad; contraste del padre pendiente",
+    "admissionClosed": false,
+    "siteClosed": false,
+    "wiringAllowed": false,
+    "completeRuleAcceptance": false
+  },
+  {
+    "site": "anual.pagos.retenciones",
+    "decision": "corroborada bajo condiciones",
+    "evidencia": "12321 centimos→123.21 EUR",
+    "objecionExperta": "La igualdad con cuenta en cero puede confundir origen",
+    "respuesta": "Intercambio de transportes de igual valor rechazado; operandos financieros propios",
+    "coste": "Traza completa, contratos manuales por identidad y replay finito; mantenimiento/pins nuevos",
+    "limites": "Datos ordinarios, fuentes verificadas y runtime fijo. Muestras no universales; sin admisión/fiscalidad; contraste del padre pendiente",
+    "admissionClosed": false,
+    "siteClosed": false,
+    "wiringAllowed": false,
+    "completeRuleAcceptance": false
+  },
+  {
+    "site": "anual.pagos.cuenta",
+    "decision": "corroborada bajo condiciones",
+    "evidencia": "12321+1129553 centimos→11418.74 EUR",
+    "objecionExperta": "Ausencia y éxito cero coinciden numéricamente",
+    "respuesta": "Dos vs seis líneas, binding de suma y productor estimado distintos",
+    "coste": "Traza completa, contratos manuales por identidad y replay finito; mantenimiento/pins nuevos",
+    "limites": "Datos ordinarios, fuentes verificadas y runtime fijo. Muestras no universales; sin admisión/fiscalidad; contraste del padre pendiente",
+    "admissionClosed": false,
+    "siteClosed": false,
+    "wiringAllowed": false,
+    "completeRuleAcceptance": false
+  }
+]

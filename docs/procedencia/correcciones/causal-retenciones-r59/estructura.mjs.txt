@@ -1,0 +1,24 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {gzipSync} from 'node:zlib';
+import {composeRetencionesR34} from '/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-retenciones-r34.mjs';
+import {executeCausalRetenciones,verifyCausalRetenciones} from '/home/elies/Repos/IRoboPF/scripts/procedencia/causal-retenciones-r57.ts';
+const g=composeRetencionesR34(),ctx={modo:'canonico'};
+const base={anio:2020,retribucionAnualCentimos:4732101,cotizacionesCentimos:32101,situacionFamiliar:'situacion3',situacionLaboral:'activo',contrato:'general',descendientes:[],ascendientes:[],discapacidad:'sin-discapacidad'};
+const child={edad:4,computoPorEntero:false,discapacidad:'sin-discapacidad',movilidadReducida:false,adopcionOAcogimientoMenosTresAnios:false};
+const reports=[];
+for(const [name,patch,count] of [['dos',{},2],['tres-iguales',{anualidadesAlimentosHijosCentimos:2250000},3],['repetidos',{descendientes:[child,{...child,computoPorEntero:true},{...child,edad:30}]},2],['moderna',{anio:2025,perfilTemporal:'cierre',retribucionAnualCentimos:5032101},2],['alta',{anio:2025,perfilTemporal:'cierre',retribucionAnualCentimos:50321001},2]]) {
+ const sub={...base,...patch},caso={anio:sub.anio,retencionTrabajoAeat:sub,pagosACuentaCentimos:333,retencionesSoportadasCentimos:333};const e=executeCausalRetenciones(g,caso,ctx,name).evidence, byId=new Map(e.events.map(v=>[v.id,v]));
+ assert.equal(verifyCausalRetenciones(g,e,caso,ctx,name),true);
+ const calls=e.frames.filter(f=>g.scaleInstances.some(i=>i.node===f.call)&&g.globalBindings.some(b=>b.name==='calcularCuotaEscala'&&b.node===f.function));assert.equal(calls.length,count);assert.equal(new Set(calls.map(f=>f.id)).size,count);
+ for(const s of e.events.filter(v=>v.operation==='array-selection'&&v.property==='reduce')){const cb=s.edges.find(x=>x.role==='argument:0');const frames=e.frames.filter(f=>f.parent===s.frame&&f.function===byId.get(cb.to).node);const members=s.edges.filter(x=>x.role.startsWith('identity:element:'));assert.equal(frames.length,members.length);for(const [i,f]of frames.entries()){const invocation=e.events.find(v=>v.frame===f.id&&v.operation==='invoke');assert.equal(invocation.edges.find(x=>x.role==='argument:1').to,members[i].to);}}
+ for(const out of e.outputs)assert.equal(byId.get(out.root).unit,out.siteId.endsWith('.tipo')?'percent-decimal-string':'EUR-decimal-string');
+ const out=e.outputs[1];const reached=new Set(e.events.filter(v=>out.slice.includes(v.id)).map(v=>v.node));const cells=g.scaleCells.filter(c=>reached.has(c.id));
+ assert.equal(g.program.filter(n=>n.op==='property'&&n.data.key==='resto'&&(reached.has(n.id)||reached.has(n.args[0]))).length,0);
+ if(name==='moderna')assert.deepEqual([...new Set(cells.filter(c=>c.column==='cuota'||c.column==='tipo').map(c=>c.row))].sort(),[0,3]);
+ if(name==='alta')assert.deepEqual([...new Set(cells.filter(c=>c.column==='cuota'||c.column==='tipo').map(c=>c.row))].sort(),[0,5]);
+ // Celda/argumento iguales: integridad exige identidad además de valor.
+ const mutations=[];for(const op of ['property','invoke','index','array-selection','seed','cell-node']){const m=structuredClone(e);const v=m.events.find(v=>op==='seed'?v.operation==='array-selection'&&v.property==='reduce':op==='cell-node'?v.operation==='property-definition'&&g.scaleCells.some(c=>c.id===v.node):v.operation===op&&(op!=='property'||v.property==='tipo'));assert.ok(v);if(op==='seed')v.edges=v.edges.filter(x=>x.role!=='argument:1');else if(op==='cell-node')v.node=g.scaleCells.find(c=>c.id!==v.node).id;else if(op==='property')v.unit='percent';else if(op==='index')v.value=Number(v.value)+1;else if(op==='invoke')v.edges=v.edges.filter(x=>x.role!=='argument:0');else v.edges.reverse();assert.throws(()=>verifyCausalRetenciones(g,m,caso,ctx,name));mutations.push(op);}
+ reports.push({name,caso,values:e.outputs.map(o=>({site:o.siteId,decimal:o.decimal,display:o.display})),scaleFrames:calls,cells,mutations});fs.writeFileSync(new URL(name+'.structure.json.gz',import.meta.url),gzipSync(JSON.stringify(e)));
+}
+fs.writeFileSync(new URL('estructura.json',import.meta.url),JSON.stringify(reports,null,2));console.log('Estructura: cinco entradas, selección/miembro/argumento, escala por llamada, unidades de transporte y adversos comprobados');

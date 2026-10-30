@@ -1,0 +1,15 @@
+import {composeSS} from '/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-ss-r36.mjs';
+import {executeCausalSS as old} from '/home/elies/Repos/IRoboPF/tests/fixtures/procedencia/ss-pre-r57.ts';
+import {executeCausalSS,verifyCausalSS} from '/home/elies/Repos/IRoboPF/scripts/procedencia/causal-ss-r54.ts';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {gzipSync} from 'node:zlib';
+const g=composeSS(),caso={anio:2025,rendimientos:{trabajo:[{importeIntegroCentimos:1234567},{importeIntegroCentimos:1234567}]}},ctx={modo:'canonico'};
+const a=old(g,caso,ctx,'ss-pin'),b=executeCausalSS(g,caso,ctx,'ss-pin');assert.equal(a.lines.length,11);assert.deepEqual({...a.evidence,software:[]},{...b.evidence,software:[]});assert.throws(()=>verifyCausalSS(g,a.evidence,caso,ctx,'ss-pin'),/no reproducido/);assert.equal(verifyCausalSS(g,b.evidence,caso,ctx,'ss-pin'),true);
+fs.writeFileSync(new URL('ss-viejo.json.gz',import.meta.url),gzipSync(JSON.stringify(a.evidence)));fs.writeFileSync(new URL('ss-actual.json.gz',import.meta.url),gzipSync(JSON.stringify(b.evidence)));console.log('Once salidas idénticas; relaciones/frames idénticos salvo software. Viejo rechazado por nuevo; actual aceptado.');
+const {gunzipSync}=await import('node:zlib');
+const historical=JSON.parse(gunzipSync(fs.readFileSync('docs/procedencia/correcciones/causal-ss-r56/testigos-r56.json.gz')))[0].evidence;
+assert.throws(()=>verifyCausalSS(g,historical,historical.input,historical.context,historical.execution),/no reproducido/);
+const regenerated=executeCausalSS(g,historical.input,historical.context,historical.execution).evidence;
+assert.deepEqual({...historical,software:[]},{...regenerated,software:[]});
+console.log('Además: histórico recibido R56 real rechazado por software actual; regenerado conserva todos los eventos/frames/bindings/salidas salvo software. El fixture ejecutado hoy no autentica pins históricos.');

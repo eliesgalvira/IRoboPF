@@ -2,7 +2,13 @@
 
 Inicio: 29 de octubre de 2026. Trabajo en curso; no es una certificación fiscal.
 
-## Situación más reciente, ronda 58 del 30 de octubre
+## Situación más reciente, ronda 59 del 30 de octubre
+
+Recibida y contrastada la revisión R58: 22.458 entradas del hijo físicamente intactas, cero borrados; reconstrucción exacta de 88 rutas e incorporación de 33 archivos. Preservadas 188 referencias técnicas. El padre reproduce las trece pruebas propias, cinco controles estructurales y compatibilidad SS con distinción de testigos históricos; tipos globales y lint correctos. Detalle en correcciones/causal-retenciones-r59.
+
+Las seis salidas de retenciones/pagos quedan corroboradas bajo sus condiciones; SS conserva su alcance. Sin defecto nuevo ni cambios de producto. D130 avanza a las diez salidas generales de rentas y su frontera SS concreta, seguida de revisión independiente. Actualmente quedan 48 sitios y 19 familias, composición y admisión; las cuatro puertas permanecen falsas. Motor, inventario, confianza y 45 snapshots intactos. V5 conserva corte R26; Crossa v1 sigue desfasado. Sin main, PR, despliegue, LFS, gasto, transferencia o limpieza. El encargo global permanece abierto.
+
+## Situación anterior, ronda 58 del 30 de octubre
 
 Integrado como candidato R57 de las seis salidas causales de retenciones/pagos y núcleo compartido con SS. Cotejo físico de 22.293 entradas del hijo: tres modificaciones autorizadas y cero borrados; transporte exacto de 172 rutas. Incorporadas 130 rutas y preservadas 23 referencias técnicas. El padre versiona el fixture de la prueba nueva, conservando original y diff; las incidencias propias de modo de lock y preimagen compilable quedan documentadas. Detalle en correcciones/recepcion-causal-retenciones-r58.
 
