@@ -1,0 +1,60 @@
+--- .cache/flujo-ss-r36/previo.mjs	2026-10-30 01:42:13.365844310 +0100
++++ .cache/flujo-ss-r36/casos.mjs	2026-10-30 01:46:01.128348036 +0100
+@@ -1,7 +1,9 @@
+ import fs from 'node:fs'
+ import { createRequire } from 'node:module'
+ import { performance } from 'node:perf_hooks'
+-import { composeSS, createSSEvaluator, traceSSClosure, validateSS } from '../../scripts/procedencia/flujo-ss-r32.mjs'
++import { composeSS } from '../../scripts/procedencia/flujo-ss-r36.mjs'
++import { createSSEvaluator as create } from '../../scripts/procedencia/flujo-ss-r36-consumidor.mjs'
++const createSSEvaluator=g=>{const run=create(g);return (c,x)=>Object.fromEntries(run(c,x).lines.map(l=>[l.origen.siteId,l.origen.decimal]))}
+ import { calcularDesgloseCotizacionesSocialesLegacy as legacy } from '../../lib/dominio/laboral/cotizaciones-sociales.ts'
+ import { calcularDesgloseCotizacionesPerfilUniforme as canonico } from '../../lib/dominio/laboral/cotizaciones-perfil-uniforme.ts'
+ import { sumarRendimientosTrabajo } from '../../lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts'
+@@ -58,44 +60,5 @@
+     rows.push({year,mode,amounts,failures})
+   }
+ }
+-const privateGraph = composeSS(), privateRun = createSSEvaluator(privateGraph)
+-const sample = {anio:2025,rendimientos:{trabajo:[{importeIntegroCentimos:10001}]}}
+-const before = privateRun(sample,{modo:'canonico'})
+-privateGraph.ports.length=0
+-const privateCopy = JSON.stringify(before)===JSON.stringify(privateRun(sample,{modo:'canonico'}))
+-const repeat = evaluate(sample,{modo:'canonico'})
+-evaluate({anio:2018,rendimientos:{trabajo:[]}},{modo:'compatible-legacy'})
+-const perCaseMemo = JSON.stringify(repeat)===JSON.stringify(evaluate(sample,{modo:'canonico'}))
+-fs.writeFileSync(dest+'casos.json',JSON.stringify({rows,privateCopy,perCaseMemo,elapsedMs:performance.now()-start,failures:rows.filter(r=>r.failures.length).length},null,2))
+-const mutations = [
+- ['fuente',g=>{g.ports.find(p=>p.op==='div').source=g.sources[0].id}],
+- ['campo',g=>{g.ports.find(p=>p.op==='element').detail.property='otroCampo'}],
+- ['unidad',g=>{g.ports.find(p=>p.op==='mul').unit='centimos'}],
+- ['celda',g=>{g.ports.find(p=>p.detail?.table==='tiposSolidaridad').detail.year=2012}],
+- ['indice',g=>{g.ports.find(p=>p.op==='element').detail.index='i+1'}],
+- ['semilla',g=>{const r=g.ports.find(p=>p.op==='reduce');g.ports.find(p=>p.id===r.args[1]).args[0]=g.ports.find(p=>p.op==='literal'&&p.detail.value==='100').id}],
+- ['condicion',g=>{g.edges.find(e=>e.condition==='predicate=true').condition='predicate=false'}],
+- ['omision-transport',g=>{g.transport=[]}],
+- ['omision-bindings',g=>{g.bindings=[]}],
+- ['omision-rama',g=>{const p=g.ports.find(p=>p.op==='if');p.args[1]=p.args[2];const e=g.edges.find(e=>e.to===p.id&&e.argument===1);e.from=p.args[1]}],
+-]
+-const adversos = mutations.map(([name,mutate])=>{
+-  const g=structuredClone(graph);mutate(g)
+-  let pinRejected=false
+-  try{validateSS(g)}catch{pinRejected=true}
+-  const closed=graph.sites.filter(s=>traceSSClosure(g,s.output).closed).map(s=>s.siteId)
+-  return {name,pinRejected,closed,expectedClosedCount:0,semanticPass:closed.length===0}
+-})
+-fs.writeFileSync(dest+'adversos.json',JSON.stringify(adversos,null,2))
+-const seed=graph.ports.find(p=>p.op==='reduce').args[1]
+-const zero=graph.ports.find(p=>p.id===graph.ports.find(p=>p.id===seed).args[0])
+-const src=graph.sources.find(s=>s.id===zero.source)
+-const work=fs.readFileSync(src.file,'utf8'), reducer=work.indexOf('export const sumarRendimientosTrabajo')
+-const origin={port:zero,source:src,expectedFunction:'sumarRendimientosTrabajo',insideExpectedFunction:src.start>=reducer,reducerStart:reducer}
+-const callbacks=graph.bindings.filter(b=>b.callee==='EffectArray.reduce'||b.callee==='Match.valueTags'||b.callee.includes('contexto.modo'))
+-const cells=graph.ports.filter(p=>p.detail?.table==='tiposSolidaridad').map(p=>({...p,evidence:graph.sources.find(s=>s.id===p.source)}))
+-const outOfDomain=[2011,2027].map(anio=>{let ts;try{ts=legacy({anio,salarioBrutoAnual:new Decimal(100)}).baseOrdinaria.toString()}catch(e){ts=String(e)}return {anio,ts,dag:evaluate({anio,rendimientos:{trabajo:[{importeIntegroCentimos:10000}]}},{modo:'canonico'})}})
+-fs.writeFileSync(dest+'origen.json',JSON.stringify({origin,callbacks,cells,outOfDomain},null,2))
+-console.log(JSON.stringify({cases:rows.length,numericFailures:rows.filter(r=>r.failures.length).length,privateCopy,perCaseMemo,semanticReds:adversos.filter(a=>!a.semanticPass).map(a=>a.name),wrongSeedOrigin:!origin.insideExpectedFunction}))
+-if(rows.some(r=>r.failures.length)||!privateCopy||!perCaseMemo)process.exitCode=2
+-else if(adversos.some(a=>!a.semanticPass)||!origin.insideExpectedFunction)process.exitCode=1
++
++fs.writeFileSync('docs/procedencia/implementaciones/flujo-ss-r36-sol/casos.json',JSON.stringify({rows,failures:rows.filter(r=>r.failures.length).length},null,2));console.log(JSON.stringify({cases:rows.length,failures:rows.filter(r=>r.failures.length).length}));if(rows.some(r=>r.failures.length))process.exitCode=1
