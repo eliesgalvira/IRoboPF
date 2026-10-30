@@ -1,0 +1,70 @@
+[
+  {
+    "id": "R55-N01",
+    "prioridad": "alta",
+    "status": "mismatch",
+    "domain": "evidencia-causal",
+    "itemIds": [
+      "anual.ss.base",
+      "anual.ss.exceso",
+      "anual.ss.empresarial-ordinaria",
+      "anual.ss.trabajador-ordinaria",
+      "anual.ss.mei-empresarial",
+      "anual.ss.mei-trabajador",
+      "anual.ss.solidaridad-empresarial",
+      "anual.ss.solidaridad-trabajador",
+      "anual.ss.empresarial-total",
+      "anual.ss.trabajador-total",
+      "anual.ss.coste-laboral"
+    ],
+    "engineLocations": [
+      "scripts/procedencia/causal-ss-r54.ts:executeCausalSS",
+      "scripts/procedencia/causal-ss-r54.ts:verifyCausalSS"
+    ],
+    "engineValue": "true con obligación pendiente",
+    "officialValue": null,
+    "units": "no aplica; defecto de evidencia",
+    "reason": "El replay acepta una IR adulterada con pendiente declarada",
+    "sources": [
+      ".cache/causal-ss-r55-sol/probe.json",
+      ".cache/causal-ss-r55-sol/tampered.json"
+    ],
+    "proposedTest": "red-pending.mjs",
+    "objecion": "Wrapper rechaza pendientes",
+    "respuesta": "API directa exportada no lo exige; limitar alcance al wrapper contiene bypass",
+    "coste": "Cerrar frontera y regenerar testigos bajo software nuevo",
+    "limite": "No demuestra defecto del motor ni bypass con fragmento intacto",
+    "review": "Candidato independiente para contraste del padre"
+  },
+  {
+    "id": "R55-N02",
+    "prioridad": "media",
+    "status": "mismatch",
+    "domain": "evidencia-causal",
+    "itemIds": [
+      "anual.ss.empresarial-ordinaria",
+      "anual.ss.trabajador-ordinaria",
+      "anual.ss.empresarial-total",
+      "anual.ss.trabajador-total",
+      "anual.ss.coste-laboral"
+    ],
+    "engineLocations": [
+      "scripts/procedencia/causal-ss-r54.ts:invokeNative/EffectArray.reduce",
+      "scripts/procedencia/evidencia-ejecucion-r54.ts:causalSlice"
+    ],
+    "engineValue": "slice ordinario con diez celdas de ambos lados",
+    "officialValue": null,
+    "units": "dependencia por propiedad",
+    "reason": "collection-selection.receiver recorre todos los valores",
+    "sources": [
+      ".cache/causal-ss-r55-sol/probe.json",
+      ".cache/causal-ss-r55-sol/path.json"
+    ],
+    "proposedTest": "red-contamination.mjs",
+    "objecion": "Receptor necesario para cardinalidad/orden",
+    "respuesta": "Conservar estructura no exige valores hermanos como operandos financieros",
+    "coste": "Separar aristas estructurales y financieras",
+    "limite": "Sin diferencia financiera del programa auténtico",
+    "review": "Candidato independiente para contraste del padre"
+  }
+]

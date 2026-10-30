@@ -1,0 +1,188 @@
+--- base/scripts/procedencia/causal-ss-r54.ts
++++ actual/scripts/procedencia/causal-ss-r54.ts
+@@ -78,6 +78,8 @@
+   source: { file: string; start: number; end: number; sha256: string }
+ }
+ export interface SSFragment {
++  pending: readonly string[]
++  obligations: readonly { status: string }[]
+   program: Node[]
+   globalBindings: { name: string; node: string }[]
+   annualBindings: { name: string; node: string }[]
+@@ -111,6 +113,11 @@
+   v: SSFragment | ExecutionEvidence | SSCase | SSContext | string[],
+ ) => createHash("sha256").update(JSON.stringify(v)).digest("hex")
+ const absent = { absent: true }
++function requireExecutableSS(g: SSFragment): void {
++  validateSS(g)
++  if (g.pending.length > 0 || g.obligations.some(o => o.status !== "satisfied"))
++    throw Error("Evidencia insuficiente: obligaciones pendientes")
++}
+ function shown(v: Value["raw"]): JSONValue {
+   if (Decimal.isDecimal(v)) return { decimal: v.toFixed() }
+   if (v === undefined) return absent
+@@ -170,7 +177,7 @@
+   contexto: SSContext,
+   execution: string = randomUUID(),
+ ): CausalResult {
+-  validateSS(g)
++  requireExecutableSS(g)
+   g = structuredClone(g)
+   shown(caso)
+   shown(contexto)
+@@ -476,7 +483,13 @@
+         seed = x(1),
+         callback = x(2)
+       const selection = emit("collection-selection", receiver.props.size, [
+-        { role: "receiver", to: receiver.ref },
++        // La estructura selecciona las iteraciones; los valores financieros
++        // proceden de las propiedades que consume cada callback, no de sus hermanas.
++        { role: "identity:receiver", to: receiver.ref },
++        ...[...receiver.props].map(([key, element]) => ({
++          role: "identity:element:" + key,
++          to: element.ref,
++        })),
+         { role: "seed", to: seed.ref },
+         { role: "callback", to: callback.ref },
+       ])
+@@ -866,8 +879,8 @@
+   contexto: SSContext,
+   execution: string,
+ ): true {
+-  validateSS(g)
+-  const reject = (message: string): never => {
++  requireExecutableSS(g)
++  const reject: (message: string) => never = (message) => {
+     throw Error("Evidencia insuficiente: " + message)
+   }
+   if (
+@@ -909,6 +922,23 @@
+       reject("identidad/frame/nodo")
+     for (const edge of e.edges)
+       if (!ids.has(edge.to)) reject("referencia hacia futuro o ausente")
++    if (e.operation === "collection-selection") {
++      const receivers = e.edges.filter(x => x.role === "identity:receiver")
++      const receiver = ids.get(receivers[0]?.to ?? "")
++      if (receivers.length !== 1 || receiver === undefined || !Array.isArray(receiver.value))
++        reject("receptor estructural de colección")
++      const elements = e.edges.filter(x => x.role.startsWith("identity:element:"))
++      const values = must(receiver).value
++      if (!Array.isArray(values)) reject("colección no ordinaria")
++      if (e.value !== values.length || elements.length !== values.length ||
++          e.edges.filter(x => x.role === "seed").length !== 1 ||
++          e.edges.filter(x => x.role === "callback").length !== 1)
++        reject("cardinalidad/semilla/callback de colección")
++      for (const [i, element] of elements.entries())
++        if (element.role !== "identity:element:" + i ||
++            JSON.stringify(ids.get(element.to)?.value) !== JSON.stringify(values[i]))
++          reject("orden/elemento de colección")
++    }
+     const valueEdge = e.edges.find((x) => x.role === "value")
+     const aliasOperations = [
+       "property",
+--- /dev/null
++++ actual/tests/causal-ss-r56.test.ts
+@@ -0,0 +1,103 @@
++import { createHash } from "node:crypto"
++import { expect, test } from "vitest"
++import { composeSS, inspectSS, validateSS } from "../scripts/procedencia/flujo-ss-r36.mjs"
++import { createSSEvaluator } from "../scripts/procedencia/flujo-ss-r36-consumidor.mjs"
++import { executeCausalSS, verifyCausalSS } from "../scripts/procedencia/causal-ss-r54.ts"
++import type { Event } from "../scripts/procedencia/evidencia-ejecucion-r54.ts"
++
++const g = composeSS()
++const caso = { anio: 2025, rendimientos: { trabajo: [
++  { importeIntegroCentimos: 1000000 }, { importeIntegroCentimos: 2000000 },
++] } }
++const contexto = { modo: "canonico" }
++const authentic = () => executeCausalSS(g, caso, contexto, "r56-control").evidence
++
++test("R55-N01: la API productora exige obligaciones satisfechas, igual que el adaptador", () => {
++  const changed = structuredClone(g)
++  const n = changed.program.find(n => n.op === "literal" && n.data.value === "0.236")
++  if (n === undefined) throw Error("Literal nominal ausente")
++  n.data.value = "0.999"
++  changed.pending = ["program:" + n.id]
++  Object.assign(changed, inspectSS(changed, g))
++  expect(validateSS(changed)).toBe(true)
++  expect(() => createSSEvaluator(changed)).toThrow(/Obligaciones pendientes/)
++  expect(() => executeCausalSS(changed, caso, contexto)).toThrow(/obligaciones pendientes/)
++})
++
++test("R55-N01: el consumidor rechaza un pendiente explícito aunque las operaciones sean auténticas", () => {
++  const pending = structuredClone(g)
++  pending.pending = [g.obligations[0].id]
++  Object.assign(pending, inspectSS(pending, g))
++  expect(validateSS(pending)).toBe(true)
++  const evidence = authentic()
++  // Solo el sobre del programa cambia: su IR y las operaciones del testigo siguen intactas.
++  evidence.program = createHash("sha256").update(JSON.stringify(pending)).digest("hex")
++  expect(() => verifyCausalSS(pending, evidence, caso, contexto, evidence.execution))
++    .toThrow(/obligaciones pendientes/)
++})
++
++for (const [site, side] of [
++  ["empresarial-ordinaria", "empresarial"],
++  ["trabajador-ordinaria", "trabajador"],
++  ["empresarial-total", "empresarial"],
++  ["trabajador-total", "trabajador"],
++  ["coste-laboral", "empresarial"],
++] as const) {
++  test(`R55-N02: ${site} conserva cinco celdas propias y ninguna del lado contrario`, () => {
++    const evidence = authentic()
++    const output = evidence.outputs.find(o => o.siteId === "anual.ss." + site)
++    if (output === undefined) throw Error("Salida ausente")
++    const ids = new Set(output.slice)
++    const nodes = new Set(evidence.events.filter(e => ids.has(e.id)).map(e => e.node))
++    const reached = g.cells.filter(c => c.path.includes("TIPOS_SEGURIDAD_SOCIAL_LEGACY") && nodes.has(c.id))
++    expect(reached.filter(c => c.path.at(-1) !== side)).toEqual([])
++    expect(reached.filter(c => c.path.at(-1) === side)).toHaveLength(5)
++    expect(verifyCausalSS(g, evidence, caso, contexto, evidence.execution)).toBe(true)
++  })
++}
++
++for (const salaries of [[], [100, 100], [100, 200]]) {
++  test(`R56: estructura de colección para ${JSON.stringify(salaries)}`, () => {
++    const input = { anio: 2025, rendimientos: { trabajo: salaries.map(importeIntegroCentimos => ({ importeIntegroCentimos })) } }
++    const evidence = executeCausalSS(g, input, contexto).evidence
++    for (const selection of evidence.events.filter(e => e.operation === "collection-selection")) {
++      const elements = selection.edges.filter(e => e.role.startsWith("identity:element:"))
++      expect(elements).toHaveLength(Number(selection.value))
++      expect(selection.edges.filter(e => e.role === "identity:receiver")).toHaveLength(1)
++      expect(selection.edges.filter(e => e.role === "seed")).toHaveLength(1)
++      expect(selection.edges.filter(e => e.role === "callback")).toHaveLength(1)
++    }
++    expect(verifyCausalSS(g, evidence, input, contexto, evidence.execution)).toBe(true)
++  })
++}
++
++const structureMutations: [string, (selection: Event) => void][] = [
++  ["receptor ausente", e => { e.edges = e.edges.filter(x => x.role !== "identity:receiver") }],
++  ["miembro ausente", e => { e.edges = e.edges.filter(x => x.role !== "identity:element:0") }],
++  ["cardinalidad falsa", e => { e.value = 3 }],
++  ["orden falseado", e => {
++    const member = e.edges.find(x => x.role === "identity:element:0")
++    if (member === undefined) throw Error("Miembro ausente")
++    member.role = "identity:element:1"
++  }],
++  ["misma cuantía con otro productor", e => {
++    const first = e.edges.find(x => x.role === "identity:element:0")
++    const second = e.edges.find(x => x.role === "identity:element:1")
++    if (first === undefined || second === undefined) throw Error("Miembros ausentes")
++    first.to = second.to
++  }],
++]
++for (const [label, mutate] of structureMutations) {
++  test(`R56: ${label} se rechaza aunque conserve todos los importes`, () => {
++    const input = { anio: 2025, rendimientos: { trabajo: [
++      { importeIntegroCentimos: 100 }, { importeIntegroCentimos: 100 },
++    ] } }
++    const evidence = executeCausalSS(g, input, contexto).evidence
++    const selection = evidence.events.find(e => e.operation === "collection-selection" && e.value === 2)
++    if (selection === undefined) throw Error("Colección salarial ausente")
++    const financialOutputs = structuredClone(evidence.outputs)
++    mutate(selection)
++    expect(evidence.outputs).toEqual(financialOutputs)
++    expect(() => verifyCausalSS(g, evidence, input, contexto, evidence.execution)).toThrow(/Evidencia insuficiente/)
++  })
++}

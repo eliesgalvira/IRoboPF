@@ -1,0 +1,25 @@
+{
+  "review": "revisiones/causal-ss-r55-sol",
+  "decisions": [
+    {
+      "id": "R55-N01",
+      "parentVerdict": "confirmed-limited",
+      "reason": "Las API directas generan y verifican el fragmento pendiente adulterado; el adaptador ya lo rechaza.",
+      "redEvidence": ["rojo-N01.log", "rojos-r56.json", "testigo-rojo-preservado.json"],
+      "correction": "Validación de fuente y obligación satisfecha en productor y verificador directos.",
+      "correctionIndependentReview": "pending",
+      "financialEngineDefectDemonstrated": false,
+      "completeRuleAcceptance": false
+    },
+    {
+      "id": "R55-N02",
+      "parentVerdict": "confirmed-limited",
+      "reason": "Cinco salidas incluyen cinco celdas del lado contrario por el receptor íntegro del reduce.",
+      "redEvidence": ["rojo-N02.log", "rojos-r56.json", "probe-antes.json"],
+      "correction": "Identidad estructural ordenada del receptor y sus miembros, con comprobaciones explícitas; operandos financieros por propiedad consumida.",
+      "correctionIndependentReview": "pending",
+      "financialEngineDefectDemonstrated": false,
+      "completeRuleAcceptance": false
+    }
+  ]
+}
