@@ -1,0 +1,4 @@
+$ tsc --noEmit && tsc --noEmit -p tools/oxlint/tsconfig.json
+tests/flujo-escalas-r36.test.ts(352,7): error TS2532: Object is possibly 'undefined'.
+tests/flujo-escalas-r36.test.ts(377,38): error TS2345: Argument of type 'ResultadoParametrosComunidadAutonoma' is not assignable to parameter of type '{ minimosAutonomicos: { descendientes: { segundo: Decimal; }; }; escalaAutonomica: { tramos: readonly (readonly [Decimal, Decimal])[]; }; }'.
+  Type 'ComunidadAutonomaNoSoportada' is missing the following properties from type '{ minimosAutonomicos: { descendientes: { segundo: Decimal; }; }; escalaAutonomica: { tramos: readonly (readonly [Decimal, Decimal])[]; }; }': minimosAutonomicos, escalaAutonomica

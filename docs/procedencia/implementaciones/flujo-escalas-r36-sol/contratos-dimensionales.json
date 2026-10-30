@@ -1,0 +1,114 @@
+{
+  "escala": {
+    "input": {
+      "base": "EUR-base",
+      "tramos": "array<[EUR-base,ratio]>",
+      "escalasPublicadas": "absent | array<array<{baseInferior:EUR-base,cuota:EUR-tax,tipo:ratio,inferiorExclusivo?:boolean}>>"
+    },
+    "output": {
+      "limiteInferior": "EUR-base",
+      "limiteSuperior": "EUR-base | Infinity",
+      "baseAplicada": "EUR-base",
+      "tipo": "ratio",
+      "cuotaFija": "optional EUR-tax",
+      "cuota": "EUR-tax"
+    },
+    "operations": [
+      "published:Q+(B-L)*t",
+      "integrated:min(max(B-previous,0),upper-previous)*t",
+      "reduce:sum(cuota),seed=base*0"
+    ]
+  },
+  "ahorro": {
+    "input": {
+      "anio": "year",
+      "base": "EUR-base",
+      "baseGeneral": "EUR-base",
+      "minimoEstatal": "EUR-base",
+      "minimoAutonomico": "EUR-base"
+    },
+    "output": {
+      "remanente": "EUR-base",
+      "bruta": "EUR-tax",
+      "despuesMinimo": "EUR-tax",
+      "minoracion": "EUR-tax"
+    },
+    "instances": [
+      "estatal:minimoEstatal",
+      "autonomico:minimoAutonomico"
+    ],
+    "operations": [
+      "r=min(max(M-max(BG,0),0),max(BA,0))",
+      "year<=2014:F(max(BA-r,0));else:max(bruta-F(r),0)",
+      "minoracion=bruta-despuesMinimo"
+    ]
+  },
+  "minimos": {
+    "input": {
+      "edad": "years",
+      "divisor": "count",
+      "rentasNoExentasCentimos": "centimos-income",
+      "fechaNacimiento": "civil-date-string",
+      "fechaConstitucionVinculo": "civil-date-string",
+      "fechaInicioIncremento": "civil-date-string"
+    },
+    "output": "EUR-base",
+    "operations": [
+      "component sum",
+      "eligible order by birth then subjectId",
+      "each subject amount / its selected-holder count",
+      "ordinary family helper has separate eligibility and ordering"
+    ]
+  },
+  "dinero": {
+    "centimosAEuros": {
+      "input": "centimos",
+      "output": "EUR",
+      "operation": "Decimal(input)/100"
+    },
+    "eurosACentimos": {
+      "input": "EUR",
+      "output": "centimos",
+      "operation": "half-up(input,2)*100 then toNumber"
+    },
+    "redondearHalfUp": {
+      "input": [
+        "Decimal",
+        "decimal-place-count"
+      ],
+      "output": "Decimal",
+      "operation": "toDecimalPlaces(count,ROUND_HALF_UP)"
+    },
+    "calcularCuotaDiferencialCentimos": {
+      "input": [
+        "centimos-tax",
+        "centimos-withholding",
+        "centimos-payment"
+      ],
+      "output": "centimos-tax",
+      "operation": "liquid-withholding-payment; signed"
+    }
+  },
+  "explicito": {
+    "input": {
+      "rendimientoAntesArt20": "EUR-string",
+      "argumentoArt20": "EUR-string",
+      "aporteImporteEurosExactos": "EUR-string",
+      "cuotaPosterior": "EUR-string"
+    },
+    "output": "EUR",
+    "operations": [
+      "BIG=BLG=neto signed",
+      "base=max(neto,0) only for scales",
+      "work:neto=beforeArt20-min(max(beforeArt20,0),art20(argumentoArt20))",
+      "EDS:neto=aporte already reduced",
+      "legal=state+regional",
+      "posterior=legal unless brutoServicios>0 then external DA61.cuotaPosterior"
+    ]
+  },
+  "final": {
+    "input": "Decimal EUR",
+    "output": "string EUR",
+    "operation": "crearLineaCalculo.origen.decimal=importe.toFixed(); presentation toFixed(2) does not replace it"
+  }
+}

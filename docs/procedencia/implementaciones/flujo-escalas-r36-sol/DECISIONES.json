@@ -1,0 +1,56 @@
+[
+  {
+    "id": "R36-D1",
+    "decision": "Representar operadores finitos y rechazar gramática desconocida",
+    "objecionExperta": "Un extractor puede conservar un error causal del autor",
+    "respuesta": "Pruebas por ramas/celdas/instancias y contraste TS separado; revisión posterior obligatoria",
+    "coste": "Mantener productor y consumidor y contrastar su suficiencia",
+    "status": "candidate-pending-parent-contrast",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "R36-D2",
+    "decision": "Conservar fronteras por función/archivo/argumento/propiedad/instancia/unidad",
+    "objecionExperta": "Un callback puede entregar una cifra correcta de otra llamada",
+    "respuesta": "Contrato explícito, traza de llamada y fallo si falta; ningún cierre heredado",
+    "coste": "Composición y revisión del padre",
+    "status": "candidate-pending-parent-contrast",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "R36-D3",
+    "decision": "Separar valor condicionado de admisión pendiente",
+    "objecionExperta": "El acceso público puede rechazar el hecho ensayado",
+    "respuesta": "Obligaciones nominales y guardas exactas; no usar el consumidor como liquidación pública",
+    "coste": "Wiring y aceptación siguen bloqueados",
+    "status": "candidate-pending-parent-contrast",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "R36-D4",
+    "decision": "Preservar Q/L/t, componentes, remanentes y signos distintos",
+    "objecionExperta": "La coincidencia numérica podría justificar deduplicar",
+    "respuesta": "Identidad por fuente y llamada; instancias distintas incluso con igual cifra",
+    "coste": "Más datos y trazas",
+    "status": "candidate-pending-parent-contrast",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "R36-D5",
+    "decision": "Conservar históricos y todos los fallos propios",
+    "objecionExperta": "Un reintento puede sobreescribir evidencias",
+    "respuesta": "Adaptaciones en scratch con diff, logs separados y originales físicamente cotejados",
+    "coste": "Almacenamiento adicional comprimido",
+    "status": "candidate-pending-parent-contrast",
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "R36-D6",
+    "decision": "Ensayar patch y binarios contra ausencia de base",
+    "objecionExperta": "Un manifiesto propio no demuestra reconstrucción",
+    "respuesta": "Aplicar patch en scratch nuevo y cotejar cada ruta y byte",
+    "coste": "Ensayo adicional sin aceptar fiscalidad",
+    "status": "candidate-pending-parent-contrast",
+    "completeRuleAcceptance": false
+  }
+]

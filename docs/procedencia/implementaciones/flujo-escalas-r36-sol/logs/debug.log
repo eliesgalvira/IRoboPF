@@ -1,0 +1,187 @@
+{
+  _tag: 'ParametrosComunidadAutonoma',
+  comunidadAutonoma: 'galicia',
+  anio: 2014,
+  minimoAutonomicoIgualEstatal: true,
+  escalaAutonomicaIgualEstatal: false,
+  escalaEstatalGeneral: [
+    [ 17707.2, 0.1275 ],
+    [ 33007.2, 0.16 ],
+    [ 53407.2, 0.215 ],
+    [ 120000.2, 0.255 ],
+    [ 175000.2, 0.275 ],
+    [ 300000.2, 0.295 ],
+    [ Infinity, 0.305 ]
+  ],
+  escalaAutonomica: {
+    fuente: {
+      titulo: 'AEAT Manual práctico Renta 2014. Gravamen autonómico de la base liquidable general',
+      referencia: 'https://sede.agenciatributaria.gob.es/static_files/Sede/Biblioteca/Manual/Practicos/IRPF/2014/Manual_Renta_2014_es_es.pdf'
+    }
+  },
+  minimosAutonomicos: {
+    contribuyente: { general: 5151, adicionalMayor65: 918, adicionalMayor75: 1122 },
+    descendientes: {
+      primero: 1836,
+      segundo: 2040,
+      tercero: 3672,
+      cuartoYSiguientes: 4182,
+      adicionalMenorTres: 2244
+    },
+    ascendientes: { mayor65OConDiscapacidad: 918, adicionalMayor75: 1122 },
+    discapacidad: {
+      contribuyente: [Object],
+      descendiente: [Object],
+      ascendiente: [Object]
+    }
+  }
+}
+[
+  {
+    node: 'lib/dominio/normativa/datos/irpf-autonomico-2014.ts:9367:9397:call',
+    operation: 'call',
+    arguments: [ 'galicia' ],
+    result: { opaquePrimitive: true }
+  },
+  {
+    node: 'lib/dominio/normativa/datos/irpf-autonomico-2014.ts:9408:10002:call',
+    operation: 'call',
+    arguments: [ 'galicia', [Object] ],
+    result: { opaquePrimitive: true }
+  },
+  {
+    node: 'lib/dominio/normativa/datos/irpf-autonomico-2014.ts:10008:10105:call',
+    operation: 'call',
+    arguments: [ [Object] ],
+    result: { opaquePrimitive: true }
+  },
+  {
+    node: 'lib/dominio/normativa/datos/irpf-autonomico-2014.ts:9442:9485:call',
+    operation: 'call',
+    arguments: [ [Object] ],
+    result: { opaquePrimitive: true }
+  },
+  {
+    node: 'lib/dominio/normativa/datos/irpf-autonomico-2014.ts:9500:9988:call',
+    operation: 'call',
+    arguments: [ [Object] ],
+    result: { opaquePrimitive: true }
+  },
+  {
+    node: 'lib/dominio/normativa/datos/irpf-autonomico-2014.ts:9640:9674:call',
+    operation: 'call',
+    arguments: [ [Object] ],
+    result: { opaquePrimitive: true }
+  },
+  {
+    node: 'lib/dominio/normativa/datos/irpf-autonomico-2014.ts:9695:9884:call',
+    operation: 'call',
+    arguments: [ [Object], [Object] ],
+    result: { opaquePrimitive: true }
+  },
+  {
+    node: 'lib/dominio/normativa/datos/irpf-autonomico-2014.ts:9900:9962:call',
+    operation: 'call',
+    arguments: [ [Object] ],
+    result: { opaquePrimitive: true }
+  },
+  {
+    node: 'lib/dominio/normativa/datos/irpf-autonomico-2014.ts:9768:9805:call',
+    operation: 'call',
+    arguments: [ '17707.20' ],
+    result: true
+  },
+  {
+    node: 'lib/dominio/normativa/datos/irpf-autonomico-2014.ts:3592:3609:call',
+    operation: 'call',
+    arguments: [ [Object] ],
+    result: { decimal: 'Infinity' }
+  },
+  {
+    node: 'lib/dominio/normativa/datos/irpf-autonomico-2014.ts:429:448:call',
+    operation: 'call',
+    arguments: [ '11.5' ],
+    result: { decimal: '11.5' }
+  },
+  {
+    node: 'lib/dominio/normativa/datos/irpf-autonomico-2014.ts:429:457:call',
+    operation: 'call',
+    arguments: [ 100 ],
+    result: { decimal: '0.115' }
+  },
+  {
+    node: 'lib/dominio/normativa/datos/irpf-autonomico-2014.ts:3611:3623:call',
+    operation: 'call',
+    arguments: [ '11.5' ],
+    result: { decimal: '0.115' }
+  },
+  {
+    node: 'lib/dominio/normativa/datos/irpf-autonomico-2014.ts:3366:3629:call',
+    operation: 'call',
+    arguments: [ [Object] ],
+    result: { fuente: [Object] }
+  },
+  {
+    node: 'lib/dominio/normativa/datos/irpf-autonomico-2014.ts:9640:9976:call',
+    operation: 'call',
+    arguments: [ [Object], [Object] ],
+    result: { fuente: [Object] }
+  },
+  {
+    node: 'lib/dominio/normativa/datos/irpf-autonomico-2014.ts:9442:9996:call',
+    operation: 'call',
+    arguments: [ [Object] ],
+    result: { fuente: [Object] }
+  },
+  {
+    node: 'lib/dominio/normativa/datos/irpf-autonomico-2014.ts:9367:10109:call',
+    operation: 'call',
+    arguments: [ [Object], [Object] ],
+    result: { fuente: [Object] }
+  },
+  {
+    node: 'lib/dominio/irpf/comunidades/comunidad-autonoma.ts:7177:7271:call',
+    operation: 'call',
+    arguments: [ [Object] ],
+    result: { fuente: [Object] }
+  },
+  {
+    node: 'lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16894:17002:call',
+    operation: 'call',
+    arguments: [ [Object] ],
+    result: {
+      _tag: 'ParametrosComunidadAutonoma',
+      comunidadAutonoma: 'galicia',
+      anio: 2014,
+      minimoAutonomicoIgualEstatal: true,
+      escalaAutonomicaIgualEstatal: false,
+      escalaEstatalGeneral: [Array],
+      escalaAutonomica: [Object],
+      minimosAutonomicos: [Object]
+    }
+  },
+  {
+    node: 'lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16639:18919:call',
+    operation: 'call',
+    arguments: [
+      [Object], [Object],
+      [Object], [Object],
+      [Object], [Object],
+      [Object], [Object],
+      [Object], [Object],
+      [Object], [Object],
+      [Object], [Object],
+      [Object], [Object]
+    ],
+    result: {
+      _tag: 'ParametrosComunidadAutonoma',
+      comunidadAutonoma: 'galicia',
+      anio: 2014,
+      minimoAutonomicoIgualEstatal: true,
+      escalaAutonomicaIgualEstatal: false,
+      escalaEstatalGeneral: [Array],
+      escalaAutonomica: [Object],
+      minimosAutonomicos: [Object]
+    }
+  }
+]

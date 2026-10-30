@@ -1,0 +1,46 @@
+{
+  "rows": [
+    {
+      "id": "cuota-sintetica-racional",
+      "expected": "10.338580093",
+      "actual": "10.338580093",
+      "derivation": "7125000000/1e9 + 23456789*137/1e9; EUR sintéticos"
+    },
+    {
+      "id": "cuota-fija-perturbada",
+      "expected": "10.339580093",
+      "actual": "10.339580093"
+    },
+    {
+      "id": "puerto-SS-2",
+      "mode": "canonico",
+      "expected": "11766.67",
+      "actual": "11766.67",
+      "otherIncome": "6222.12",
+      "conditional": true
+    },
+    {
+      "id": "puerto-SS-3",
+      "mode": "compatible-legacy",
+      "expected": "11655.56",
+      "actual": "11655.56",
+      "otherIncome": "6222.12",
+      "conditional": true
+    },
+    {
+      "id": "puerto-SS-4",
+      "mode": "canonico",
+      "expected": "11766.67",
+      "actual": "11766.67",
+      "otherIncome": "6222.12",
+      "conditional": true
+    },
+    {
+      "id": "puerto-ausente",
+      "expected": "rechazo técnico, no cero",
+      "actual": "rechazo técnico"
+    }
+  ],
+  "passed": 6,
+  "scope": "Contrastes sintéticos del transporte, selección y aritmética; no evidencia fiscal ni admisión anual"
+}
