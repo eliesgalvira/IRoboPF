@@ -1,0 +1,59 @@
+import gzip
+import hashlib
+import json
+import os
+import stat
+import subprocess
+from pathlib import Path
+
+root = Path.cwd()
+base = '50f9e949544e20d3e4e0bffc79b926d396267319'
+out = root / 'docs/procedencia/revisiones/incorporacion-local-r36-sol'
+assert subprocess.check_output(['git', 'rev-parse', 'HEAD']).decode().strip() == base
+entries = subprocess.check_output(['git', 'ls-tree', '-rz', base]).split(b'\0')
+cat = subprocess.Popen(['git', 'cat-file', '--batch'], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+rows = []
+bad = []
+for entry in filter(None, entries):
+    meta, rawpath = entry.split(b'\t', 1)
+    mode, _, oid = meta.split()
+    path = os.fsdecode(rawpath)
+    cat.stdin.write(oid + b'\n')
+    cat.stdin.flush()
+    header = cat.stdout.readline().split()
+    expected = cat.stdout.read(int(header[2]))
+    assert cat.stdout.read(1) == b'\n'
+    try:
+        info = (root / path).lstat()
+        actual = os.fsencode(os.readlink(root / path)) if stat.S_ISLNK(info.st_mode) else (root / path).read_bytes()
+        same = actual == expected and (stat.S_ISLNK(info.st_mode) if mode == b'120000' else stat.S_ISREG(info.st_mode) and bool(info.st_mode & 0o111) == (mode == b'100755'))
+        row = {'path': path, 'mode': mode.decode(), 'size': len(actual), 'sha256': hashlib.sha256(actual).hexdigest(), 'baseSha256': hashlib.sha256(expected).hexdigest(), 'match': same}
+        rows.append(row)
+        if not same:
+            bad.append(row)
+    except OSError as error:
+        bad.append({'path': path, 'error': str(error)})
+cat.stdin.close()
+assert cat.wait() == 0
+tracked = {r['path'] for r in rows}
+extras = []
+for directory, dirs, files in os.walk(root, followlinks=False):
+    if directory == str(root):
+        dirs[:] = [d for d in dirs if d != '.git']
+    for name in list(dirs):
+        if (Path(directory) / name).is_symlink():
+            files.append(name)
+            dirs.remove(name)
+    for name in files:
+        p = (Path(directory) / name).relative_to(root).as_posix()
+        if p != '.git' and p not in tracked:
+            extras.append(p)
+allowed = ('docs/procedencia/revisiones/incorporacion-local-r36-sol/', '.cache/revision-incorporacion-local-r36/')
+outside = [p for p in extras if not p.startswith(allowed)]
+diff = subprocess.check_output(['git', 'diff', base, '--']).decode()
+result = {'base': base, 'head': base, 'entries': len(rows), 'rows': rows, 'differences': bad, 'extras': extras, 'outside': outside, 'diff': diff, 'deletions': [r for r in bad if 'error' in r]}
+(out / 'fisico-final.json.gz').write_bytes(gzip.compress(json.dumps(result).encode(), mtime=0))
+summary = {k: result[k] for k in ('base', 'head', 'entries', 'differences', 'outside', 'diff', 'deletions')}
+(out / 'fisico-final-resumen.json').write_text(json.dumps(summary, indent=2) + '\n')
+print(json.dumps(summary))
+assert len(rows) == 20227 and not bad and not outside and not diff

@@ -1,0 +1,11 @@
+import fs from 'node:fs';import assert from 'node:assert/strict';import {resolve} from 'node:path';
+const out=resolve('..'),root=process.cwd(),sId='d758a1f8ac67587d2eae689da158ac8baa28b03df16c462069f4014d4af588a1',s=JSON.parse(fs.readFileSync('docs/procedencia/implementaciones/contenidos/datos/objetos/'+sId));
+const {GET}=await import('./proyeccion/app/procedencia/[snapshot]/objetos/[hash]/route.ts');
+const get=async(snapshot,hash)=>(await GET(new Request('http://localhost/'),{params:Promise.resolve({snapshot,hash})})).status;
+const cas=out+'/cas/sha256',hash=s.externos[0].hash,rows=[];process.env.IROBOPF_CAS_LOCAL=cas;assert.equal(await get(sId,hash),200);
+process.env.IROBOPF_CAS_LOCAL=out+'/cas-inexistente';assert.equal(await get(sId,hash),503);rows.push({case:'CAS explícito ausente',status:503});
+delete process.env.IROBOPF_CAS_LOCAL;assert.equal(await get(sId,hash),503);rows.push({case:'Sin configuración CAS',status:503});process.env.IROBOPF_CAS_LOCAL=cas;
+assert.equal(await get('0'.repeat(64),hash),404);rows.push({case:'Snapshot desconocido',status:404});
+const f=root+'/docs/procedencia/implementaciones/contenidos/datos/objetos/'+s.publicos.find(p=>p.hash!==hash).hash,original=fs.readFileSync(f);fs.writeFileSync(out+'/publico-antes-mutacion',original,{flag:'wx'});
+try{const b=Buffer.from(original);b[b.length-1]^=1;fs.writeFileSync(f,b);assert.equal(await get(sId,f.split('/').at(-1)),503);rows.push({case:'Objeto público corrupto',status:503})}finally{fs.writeFileSync(f,original)}
+assert.equal(await get(sId,f.split('/').at(-1)),200);fs.writeFileSync(out+'/adversos-publicos.json',JSON.stringify(rows,null,2));console.log(JSON.stringify(rows));
