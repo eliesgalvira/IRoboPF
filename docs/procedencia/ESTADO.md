@@ -6,9 +6,11 @@ Inicio: 29 de octubre de 2026. Trabajo en curso; no es una certificación fiscal
 
 Recibida la contrarrevisión Sol de admisión anual R34: 45 archivos, 3.086.194 bytes, 17.248 entradas físicas intactas y cero borrados. El padre reproduce 27 casos: 22 correctos y cinco rojos contractuales conservados. Lint global correcto. Informe, decisiones y precisión de los dos niveles de Option en correcciones/admision-r35.
 
-No se acepta admissionClosed=true: faltan contratos evaluables por propiedad. Sí se conservan rutas, orden principal y predicado de retención condicionado. La divergencia JS de fecha null queda delimitada al dominio ajeno al tipo; A32-P01/P02 son conductas reproducidas sin conclusión fiscal. Se prepara nueva implementación finita de la admisión, con dominio, errores/defectos, instancias, schemas y transportes explícitos. Las otras tres tareas R34 siguen en curso, sin sondeos ni lectura parcial.
+No se acepta admissionClosed=true: faltan contratos evaluables por propiedad. Sí se conservan rutas, orden principal y predicado de retención condicionado. La divergencia JS de fecha null queda delimitada al dominio ajeno al tipo; A32-P01/P02 son conductas reproducidas sin conclusión fiscal. Lanzada una implementación nueva finita de la admisión, con dominio, errores/defectos, instancias, schemas y transportes explícitos: gpt-6.1-sol, high y priority, expresos y confirmados por el lanzador. Encargo y resultado íntegros en delegaciones-ronda35.json. Su finalización reactivará al padre; no se sondea. Las otras tres tareas R34 siguen en curso, sin lectura parcial ni trabajo adicional.
 
 Motor, inventario, 44 snapshots y confianza activa intactos. V5 conserva corte R26; Crossa sigue v1 desfasado, copia local fuera de Victus del mismo dueño/casa. Sin main, PR, despliegue, LFS, gasto, transferencia externa ni limpieza. El encargo global permanece abierto.
+
+Bloque R35 respaldado en origin: `9c3edec704ead945b17e419d2e3ef0d1e8a75a29`, 58 archivos y 3.318.367 bytes cotejados contra el commit, cero borrados; base de 17.306 entradas para la continuación. Las seis sobras históricas siguen excluidas e intactas.
 
 ## Situación anterior, ronda 34 del 30 de octubre
 
