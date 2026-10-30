@@ -10,6 +10,9 @@ Pasan 107 pruebas, tipos principal/vendor y lint sin errores (16 avisos ESLint, 
 
 Crossa v1 sigue desfasado y V5 conserva el corte R26. Sin main, PR, despliegue, LFS, gasto, transferencia ni limpieza. El final será INFORME-FINAL.md respaldado solo en origin/procedencia-documental, cuando los 65 sitios estén corroborados bajo condiciones o tengan bloqueo demostrado.
 
+
+Respaldo comprobado en origin/procedencia-documental: `1b0676b83dd3be448484c8167ebd1e308dacae30`, 261 archivos y cero borrados. Lanzadas la única revisión de escalas28 y la implementación de los diez explícitos restantes sobre sus 23.648 entradas. Ambos recibos confirman gpt-6.1-sol, high, priority. Encargos y respuestas en delegaciones-ronda62.json. No se sondea ni se lee trabajo parcial; la entrega reactivará al padre.
+
 ## Situación anterior, ronda 61 del 30 de octubre
 
 Recibida la única revisión independiente del lote de diez rentas generales. El padre cotejó físicamente las 22.900 entradas del revisor: cero cambios y borrados; reconstruyó exactamente 548 rutas, integró 461 y preservó 437 referencias. El dictamen corrobora los diez sitios bajo condiciones, sin defecto funcional nuevo ni otra ronda justificada. Detalle en correcciones/causal-rentas-r61 e informe original revisiones/causal-rentas-r60-sol.

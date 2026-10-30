@@ -41,3 +41,5 @@ D133 exige una revisión independiente de los 28 sitios y permite preparar en pa
 Se conservan las desviaciones declaradas por el autor: primer cotejo sin lock, rojo tras introducir el kind inicial y consulta exitosa tardía de las guías. Los cotejos terminales y del padre sí están serializados. No se reescribe la cronología para aparentar cumplimiento.
 
 No se inician familias, composición global, admisión ni puertas. El informe final se escribirá cuando los 65 sitios queden corroborados bajo condiciones o con bloqueo demostrado. Crossa sigue en v1 desfasado y el paquete V5 conserva el corte R26; esta recepción no actualiza esas copias ni acredita custodia independiente. Sin main, PR, despliegue, LFS, gasto, transferencia o limpieza.
+
+Respaldo comprobado en origin/procedencia-documental: `1b0676b83dd3be448484c8167ebd1e308dacae30`, 261 archivos y cero borrados. Lanzadas la única revisión de escalas28 y la implementación de los diez explícitos restantes sobre sus 23.648 entradas. Ambos recibos confirman gpt-6.1-sol, high, priority. Encargos y respuestas en delegaciones-ronda62.json. No se sondea ni se lee trabajo parcial; la entrega reactivará al padre.
