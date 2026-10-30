@@ -8,7 +8,7 @@ Recibida la segunda entrega parcial de composición: 46 archivos, 5.841.337 byte
 
 Pasan las 18 pruebas recibidas, tipos principal/vendor y lint global. No se reproduce el diagnóstico global de la configuración proyectada del hijo; se conservan sus bytes y logs. La normalización sigue candidata, sin contrarrevisión independiente ni conexión anual/pública.
 
-Se preparan dos tareas nuevas Sol: revisión independiente de las cinco correcciones de admisión R46 y ejecución del contrato de puertos entre programas. Esta implementación delimita un hito completo, anterior al grafo transitivo de los 65 sitios y a las fichas finales; no repite el encargo conjunto incompleto. Cada avance tendrá revisión antes de su uso operativo.
+Bloque respaldado en origin, commit `a6fc3e5e4ec2a7fc7e123356e641817b2f19d908`: 63 archivos, hashes comprobados y cero borrados. Lanzadas dos tareas nuevas sobre ese commit y sus 21.514 entradas: revisión independiente de los cinco fixes de admisión R46 y contrato/router de puertos entre programas. Ambas con gpt-6.1-sol, high y priority explícitos y confirmados por el lanzador. Encargos y respuestas completos en delegaciones-ronda47.json. Sus finalizaciones reactivarán el hilo, sin sondeos ni lectura parcial. La implementación delimita un hito completo anterior al grafo transitivo de los 65 sitios y las fichas finales; no repite el encargo conjunto incompleto. Cada avance tendrá revisión antes de su uso operativo.
 
 Motor, inventario, confianza y 45 snapshots intactos. V5 mantiene corte R26 y Crossa v1 desfasado. Sin main, PR, despliegue, LFS, gasto, transferencia o limpieza. El encargo global continúa abierto.
 
