@@ -1,0 +1,17 @@
+import fs from 'node:fs'
+import cp from 'node:child_process'
+import {createHash} from 'node:crypto'
+import {gzipSync} from 'node:zlib'
+const base='50f9e949544e20d3e4e0bffc79b926d396267319',sha=b=>createHash('sha256').update(b).digest('hex')
+const rows=cp.execFileSync('git',['ls-tree','-rz',base],{maxBuffer:20e6}).toString().split('\0').filter(Boolean)
+if(cp.execFileSync('git',['rev-parse','HEAD']).toString().trim()!==base||rows.length!==20227)throw Error('Base inesperada')
+const cat=cp.spawn('git',['cat-file','--batch'],{stdio:['pipe','pipe','inherit']}),iterator=cat.stdout[Symbol.asyncIterator]();let buffer=Buffer.alloc(0)
+async function fill(){const n=await iterator.next();if(n.done)throw Error('Fin de blobs prematuro');buffer=Buffer.concat([buffer,n.value])}
+async function blob(oid){cat.stdin.write(oid+'\n');while(!buffer.includes(10))await fill();const end=buffer.indexOf(10),header=buffer.subarray(0,end).toString().split(' '),size=Number(header[2]);if(header[0]!==oid||header[1]!=='blob'||!Number.isSafeInteger(size))throw Error('Cabecera inválida');buffer=buffer.subarray(end+1);while(buffer.length<size+1)await fill();const bytes=Buffer.from(buffer.subarray(0,size));if(buffer[size]!==10)throw Error('Separador inválido');buffer=buffer.subarray(size+1);return bytes}
+const results=[],bad=[],tracked=new Set()
+for(const row of rows){const [meta,path]=row.split('\t'),[mode,,oid]=meta.split(' ');tracked.add(path);const expected=await blob(oid);try{const st=fs.lstatSync(path),actual=st.isSymbolicLink()?Buffer.from(fs.readlinkSync(path)):fs.readFileSync(path);const match=actual.equals(expected)&&(mode==='120000'?st.isSymbolicLink():st.isFile()&&Boolean(st.mode&0o111)===(mode==='100755'));const item={path,mode,size:actual.length,sha256:sha(actual),baseSha256:sha(expected),match};results.push(item);if(!match)bad.push(item)}catch(error){bad.push({path,error:error.message})}}
+cat.stdin.end()
+const extra=[];function walk(d=''){for(const item of fs.readdirSync(d||'.')){const path=d?d+'/'+item:item;if(path==='.git')continue;const st=fs.lstatSync(path);if(st.isDirectory())walk(path);else if(!tracked.has(path))extra.push(path)}}walk()
+const allowed=p=>p.startsWith('.cache/admision-completa-r36/')||p.startsWith('docs/procedencia/implementaciones/admision-completa-r36-sol/')||/^scripts\/procedencia\/flujo-admision-r36[^/]*\.mjs$/.test(p)||/^tests\/flujo-admision-r36[^/]*\.test\.ts$/.test(p)||/^schemas\/procedencia\/flujo\/admision-r36[^/]*\.schema\.json$/.test(p)
+const outside=extra.filter(p=>!allowed(p)),diff=cp.execFileSync('git',['diff',base,'--']).toString(),summary={base,entries:results.length,changedBase:bad,deletions:bad.filter(x=>x.error),outside,extraCount:extra.length,trackedDiff:diff,method:'lstat/readlink/bytes/executable; sequential cat-file --batch: one requested blob, one resident comparison; complete physical walk'}
+fs.writeFileSync('.cache/admision-completa-r36/fisico-final.json.gz',gzipSync(Buffer.from(JSON.stringify({summary,rows:results,extra})),{level:9}));fs.writeFileSync('.cache/admision-completa-r36/COTEJO-FINAL.json',JSON.stringify(summary,null,2)+'\n');console.log(JSON.stringify(summary));if(bad.length||outside.length||diff!=='')process.exitCode=1

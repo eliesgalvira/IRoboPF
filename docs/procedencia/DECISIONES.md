@@ -501,3 +501,7 @@ La revisión independiente y el contraste del padre acreditan propiedades consum
 ## D114 — Componer contratos revisados sin anticipar la admisión
 
 Los cuatro grupos tienen recorridos finitos revisados, pero sus fronteras aún deben conectarse por propiedad, instancia, unidad y condición. Objeción: concatenar 65 fichas o usar callbacks financieros arbitrarios mantendría la dependencia sin resolver. Respuesta: compositor ejecutable con enlaces concretos a programas y primitivas verificadas, errores/admisión como contratos explícitos y puerta pública cerrada mientras falte su revisión. Coste: implementación y contrarrevisión comunes, conservando las 19 instancias y dominios anual/aislado separados, sin modificar fórmulas fiscales ni inventar un compilador universal.
+
+## D115 — Recibir admisión ejecutable sin convertir recibos financieros en aceptación
+
+La continuación R36 representa selectores, adaptador, servicios y propagación final con fronteras financieras por instancia. Objeción: un recibo autodeclarado o sintético puede ocultar dependencia circular y una reconstrucción exacta repetir errores del traductor. Respuesta: integrar como candidato, comprobar software y contratos, mantener cierres falsos y encargar revisión semántica independiente antes de conectar la composición R43. Coste: dos interfaces que deberán conciliarse explícitamente y un consumidor finito adicional; los valores de ensayo, hashes y recuentos no autentican fórmulas ni aceptan fiscalidad. No se altera la base del hijo activo para introducir una entrega aún no revisada.

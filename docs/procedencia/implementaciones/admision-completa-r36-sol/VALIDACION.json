@@ -1,0 +1,59 @@
+{
+  "base": "50f9e949544e20d3e4e0bffc79b926d396267319",
+  "own": {
+    "tests": 236,
+    "passed": 236,
+    "failed": 0,
+    "exitCode": 0
+  },
+  "historical": {
+    "tests": 306,
+    "passed": 301,
+    "failed": 5,
+    "exitCode": 1,
+    "expectedUnchanged": true,
+    "composition": "204+27, cinco rojos; 75 R35"
+  },
+  "initialRed": {
+    "tests": 312,
+    "passed": 301,
+    "failed": 11,
+    "exitCode": 1,
+    "meaning": "cinco históricos más seis discriminantes R36"
+  },
+  "domainAndDtoRed": {
+    "failed": 3,
+    "exitCode": 1,
+    "meaning": "dos de dominio/DTO y uno de error completo; no defectos fiscales"
+  },
+  "codecAndReferencesRed": {
+    "failed": 2,
+    "exitCode": 1,
+    "meaning": "codec no finito y local sin productor; no defectos fiscales"
+  },
+  "unitAndBindingRed": {
+    "failed": 3,
+    "exitCode": 1,
+    "meaning": "mutaciones sin reconstrucción ni pin; no son defectos fiscales"
+  },
+  "typescript": {
+    "initialExitCode": 2,
+    "finalExitCode": 0,
+    "scope": "test TS R36 e imports; checkJs=false, sin garantía estática completa de cuerpos MJS"
+  },
+  "oxlint": {
+    "finalExitCode": 0,
+    "threads": 1,
+    "disableNestedConfig": true,
+    "antiSlopRulesAtError": 16
+  },
+  "consumer": {
+    "withoutEngineImport": true,
+    "withoutTypeScript": true,
+    "exitCode": 0
+  },
+  "allSiteClosuresFalse": true,
+  "wiringAllowed": false,
+  "completeRuleAcceptance": false,
+  "independentReview": false
+}

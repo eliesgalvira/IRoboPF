@@ -1,0 +1,13 @@
+import fs from 'node:fs'
+import assert from 'node:assert/strict'
+import {gunzipSync} from 'node:zlib'
+import {buildCompleteAdmission,verifyCompleteAdmission} from '../../../scripts/procedencia/flujo-admision-r36.mjs'
+const current=buildCompleteAdmission()
+const received=JSON.parse(gunzipSync(fs.readFileSync('docs/procedencia/implementaciones/admision-completa-r36-sol/fragmento.json.gz')))
+assert.deepEqual(current,received)
+assert.equal(verifyCompleteAdmission(current),true)
+assert.equal(current.sites.length,17)
+assert.equal(current.sites.every(s=>!s.siteClosed&&!s.admissionClosed),true)
+assert.equal(current.wiringAllowed,false)
+assert.equal(current.completeRuleAcceptance,false)
+console.log(JSON.stringify({reconstructionIdentical:true,verification:true,sites:17,closuresFalse:true,financialBoundaries:current.boundaries.length,instances:current.boundaries.reduce((n,b)=>n+b.instances.length,0),definitions:current.graph.definitions.length,sourceFiles:current.graph.sources.length}))
