@@ -664,6 +664,47 @@
           },
           "closure": {
             "type": "string"
+          },
+          "resultVariants": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "when",
+                "outputs"
+              ],
+              "properties": {
+                "when": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "property",
+                    "equals"
+                  ],
+                  "properties": {
+                    "property": {
+                      "const": "estado"
+                    },
+                    "equals": {
+                      "enum": [
+                        "aporte-disponible",
+                        "calculado",
+                        "no-soportado"
+                      ]
+                    }
+                  }
+                },
+                "outputs": {
+                  "type": "array",
+                  "minItems": 1,
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
           }
         }
       }

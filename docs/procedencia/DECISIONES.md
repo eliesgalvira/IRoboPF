@@ -485,3 +485,11 @@ Escalas y rentas aportan operadores ejecutables y fronteras explícitas, manteni
 ## D110 — Corregir dimensiones y argumentos con expectativas externas
 
 Las revisiones SS R39 y rentas R40 detectan estructuras mal rotuladas y cuatro colecciones con receptor/callback equivocados. Objeción: el programa numérico pasa aunque su documentación no represente las dependencias correctamente. Respuesta: reproducir 16 rojos externos, clasificar unidades por propietario y llamada, distinguir EffectArray estático de Array nativo y exigir programa numérico idéntico tras el cambio. Coste: contratos finitos y regresiones adicionales, más revisión independiente de estos bytes; no aceptar fiscalidad ni wiring por 438 casos racionales o 41 controles coincidentes. Se preservan cinco diagnósticos checkJs de SS reproducidos también en la versión anterior; tipos principal/vendor y lint permanecen correctos.
+
+## D111 — Declarar las lecturas necesarias antes de componer escalas
+
+El objeto anual intermedio consume más propiedades que las fronteras documentales publicadas. Objeción: los productores reales ya entregan esos campos y una proyección menor podría evitarlos. Respuesta: conservar el recorrido real y ampliar los contratos por propiedad/estado, tras diez rojos; no eliminar lecturas ni modificar el cálculo para simplificar su descripción. Las firmas Effect.fn se obtienen del cuerpo concreto, no de la fábrica. Coste: contratos finitos adicionales y revisión nueva; admisión y semántica completa de errores R40-03 siguen pendientes. La adaptación de una variable del instrumento recibido mantiene el original y sus hashes; no se desactiva el lint global.
+
+## D112 — Corroborar R41 sin encadenar revisiones favorables de los mismos bytes
+
+La revisión independiente corrobora los cinco arreglos documentales SS/rentas y reproduce los rojos anteriores. Objeción: aceptar ese dictamen podría extenderse indebidamente al cierre fiscal o a toda la causalidad. Respuesta: cotejar transporte, productores y conclusiones con las reproducciones propias R41, aceptar solo esas correcciones y mantener condiciones de verificación/admisión, dominio ordinario y checkJs SS incompleto. Coste: futuras composiciones necesitan su propia evidencia; no se repite una revisión favorable sin un cambio o problema nuevo.

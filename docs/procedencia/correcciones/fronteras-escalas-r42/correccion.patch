@@ -1,0 +1,151 @@
+diff --git a/schemas/procedencia/flujo/escalas-r36.schema.json b/schemas/procedencia/flujo/escalas-r36.schema.json
+index 536c96d..7a90e5f 100644
+--- a/schemas/procedencia/flujo/escalas-r36.schema.json
++++ b/schemas/procedencia/flujo/escalas-r36.schema.json
+@@ -664,6 +664,47 @@
+           },
+           "closure": {
+             "type": "string"
++          },
++          "resultVariants": {
++            "type": "array",
++            "items": {
++              "type": "object",
++              "additionalProperties": false,
++              "required": [
++                "when",
++                "outputs"
++              ],
++              "properties": {
++                "when": {
++                  "type": "object",
++                  "additionalProperties": false,
++                  "required": [
++                    "property",
++                    "equals"
++                  ],
++                  "properties": {
++                    "property": {
++                      "const": "estado"
++                    },
++                    "equals": {
++                      "enum": [
++                        "aporte-disponible",
++                        "calculado",
++                        "no-soportado"
++                      ]
++                    }
++                  }
++                },
++                "outputs": {
++                  "type": "array",
++                  "minItems": 1,
++                  "uniqueItems": true,
++                  "items": {
++                    "type": "string"
++                  }
++                }
++              }
++            }
+           }
+         }
+       }
+diff --git a/scripts/procedencia/flujo-escalas-r36.mjs b/scripts/procedencia/flujo-escalas-r36.mjs
+index 0044478..7da850c 100644
+--- a/scripts/procedencia/flujo-escalas-r36.mjs
++++ b/scripts/procedencia/flujo-escalas-r36.mjs
+@@ -33,7 +33,7 @@ const external = new Map([
+   ["sumarRendimientosTrabajo", ["return:EUR"]],
+   [
+     "calcularRendimientoNetoTrabajo",
+-    ["rendimientoNeto:EUR", "rendimientoPrevioNeto:EUR"]
++    ["rendimientoIntegro:EUR", "rendimientoNeto:EUR", "rendimientoPrevioNeto:EUR", "gastosDeducibles:EUR", "cotizacionTrabajador:EUR"]
+   ],
+   ["sumarRendimientosCapitalInmobiliario", ["return:EUR"]],
+   [
+@@ -42,35 +42,64 @@ const external = new Map([
+   ],
+   [
+     "calcularGananciasPatrimonialesPorTransmision",
+-    ["gananciaSujetaGeneral:EUR", "gananciaSujetaAhorro:EUR"]
++    ["gananciaSujetaGeneral:EUR", "gananciaSujetaAhorro:EUR", "gananciaTotal:EUR", "gananciaExenta:EUR"]
+   ],
+   ["calcularReduccionTrabajoConOtrasRentas", ["return:EUR"]],
+-  ["calcularDesgloseCotizacionesPerfilUniforme", ["cotizacionTrabajador:EUR"]],
+-  ["calcularDesgloseCotizacionesSocialesLegacy", ["cotizacionTrabajador:EUR"]],
++  ["calcularDesgloseCotizacionesPerfilUniforme", ["cotizacionTrabajador:EUR", "cotizacionEmpresarial:EUR", "meiEmpresarial:EUR", "meiTrabajador:EUR", "solidaridadEmpresarial:EUR", "solidaridadTrabajador:EUR"]],
++  ["calcularDesgloseCotizacionesSocialesLegacy", ["cotizacionTrabajador:EUR", "cotizacionEmpresarial:EUR", "meiEmpresarial:EUR", "meiTrabajador:EUR", "solidaridadEmpresarial:EUR", "solidaridadTrabajador:EUR"]],
+   [
+     "adaptarTrabajoAnual",
+     [
+       "estado:discrete",
+       "rendimientoAntesArt20:EUR-string",
+       "argumentoArt20:EUR-string",
+-      "gastos.integro:EUR-string"
++      "gastos.integro:EUR-string",
++      "motivo:string"
+     ]
+   ],
+   [
+     "adaptarActividadGeneral",
+-    ["estado:discrete", "aporte.importeEurosExactos:EUR-string"]
++    ["estado:discrete", "aporte.importeEurosExactos:EUR-string", "aporte.retencionesEuros:EUR-string", "aporte.pagosFraccionadosEuros:EUR-string", "motivos[].motivo:string"]
+   ],
+   [
+     "calcularDeduccionTrabajo",
+     [
+       "estado:discrete",
+       "importeAplicable:EUR-string",
+-      "cuotaPosterior:EUR-string"
++      "cuotaPosterior:EUR-string",
++      "motivo:string"
+     ]
+   ],
+   ["validarDerechosMinimos", ["return:validated-rights-pending-review"]],
+   ["validarRentasAnualesDerechos", ["return:admission-pending-review"]]
+ ])
++// Unión de propiedades consumidas: outputs no exige que ambas variantes
++// coexistan. Las condiciones fijan el contrato por estado del productor real.
++const resultVariants = new Map([
++  ["adaptarTrabajoAnual", [
++    { when: { property: "estado", equals: "aporte-disponible" }, outputs: ["estado:discrete", "rendimientoAntesArt20:EUR-string", "argumentoArt20:EUR-string", "gastos.integro:EUR-string"] },
++    { when: { property: "estado", equals: "no-soportado" }, outputs: ["estado:discrete", "motivo:string"] }
++  ]],
++  ["adaptarActividadGeneral", [
++    { when: { property: "estado", equals: "aporte-disponible" }, outputs: ["estado:discrete", "aporte.importeEurosExactos:EUR-string", "aporte.retencionesEuros:EUR-string", "aporte.pagosFraccionadosEuros:EUR-string"] },
++    { when: { property: "estado", equals: "no-soportado" }, outputs: ["estado:discrete", "motivos[].motivo:string"] }
++  ]],
++  ["calcularDeduccionTrabajo", [
++    { when: { property: "estado", equals: "calculado" }, outputs: ["estado:discrete", "importeAplicable:EUR-string", "cuotaPosterior:EUR-string"] },
++    { when: { property: "estado", equals: "no-soportado" }, outputs: ["estado:discrete", "motivo:string"] }
++  ]]
++])
++
++function boundaryFunction(declaration) {
++  const fn = declaration.initializer ?? declaration
++  if (ts.isFunctionDeclaration(fn) || ts.isFunctionExpression(fn) || ts.isArrowFunction(fn)) return fn
++  // Effect.fn("nombre")(function* (...)): no confundir la fábrica o una
++  // función anidada del cuerpo con la firma de la frontera.
++  if (ts.isCallExpression(fn) && ts.isCallExpression(fn.expression) &&
++      fn.expression.expression.getText() === "Effect.fn" && fn.arguments.length === 1 &&
++      ts.isFunctionExpression(fn.arguments[0])) return fn.arguments[0]
++  throw Error("Firma de frontera no soportada: " + declaration.name.getText())
++}
+ function children(n) {
+   const result = []
+   ts.forEachChild(n, (c) => {
+@@ -648,11 +677,12 @@ export function composeEscalasR36(root = process.cwd()) {
+     .map((b) => {
+       const node = compiled.get(b.node)
+       const declaration = declarations.get(b.name)
+-      const fn = declaration.initializer ?? declaration
++      const fn = boundaryFunction(declaration)
+       return {
+         id: b.name,
+         outputs: node.data.outputs,
+-        parameters: (fn.parameters ?? []).map((p, index) => ({
++        resultVariants: resultVariants.get(b.name.split("#")[1]) ?? [],
++        parameters: fn.parameters.map((p, index) => ({
+           index,
+           binding: p.name.getText(),
+           type: p.type?.getText() ?? null,

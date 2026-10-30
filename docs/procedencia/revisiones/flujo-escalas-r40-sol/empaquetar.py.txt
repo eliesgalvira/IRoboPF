@@ -1,0 +1,31 @@
+from pathlib import Path
+import gzip,json,hashlib,difflib,subprocess,shutil
+root=Path.cwd();folder=Path('docs/procedencia/revisiones/flujo-escalas-r40-sol');out=root/folder;scratch=root/'.cache/revision-escalas-r40-sol'
+def sha(b):return hashlib.sha256(b).hexdigest()
+def write(p,x):p.write_text(json.dumps(x,ensure_ascii=False,indent=2)+'\n')
+excluded={'MANIFIESTO.json','BINARIOS.json','entrega.patch.gz','transporte.json','SOBRE.json','fisico-final.json.gz'}
+files=sorted(p for p in out.rglob('*') if p.is_file() and p.name not in excluded and 'binarios' not in p.relative_to(out).parts)
+manifest=[];bins=[];diff=[]
+for p in files:
+ b=p.read_bytes();rel=str(p.relative_to(root));assert not subprocess.run(['git','cat-file','-e','HEAD:'+rel],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL).returncode==0
+ manifest.append({'path':rel,'sha256':sha(b),'size':len(b),'baseSha256':None,'executable':bool(p.stat().st_mode&0o111)})
+ try:
+  text=b.decode('utf8');assert b'\0' not in b and b and text.endswith('\n')
+  diff.extend(difflib.unified_diff([],text.splitlines(True),fromfile='/dev/null',tofile='b/'+rel))
+ except (UnicodeDecodeError,AssertionError):
+  dst=out/'binarios/sha256'/sha(b);dst.parent.mkdir(parents=True,exist_ok=True);dst.write_bytes(b);bins.append({'path':rel,'sha256':sha(b),'size':len(b),'object':str(dst.relative_to(root))})
+write(out/'MANIFIESTO.json',{'head':'314efe543def21276acb44d0e3b0816dd5f78d58','payload':manifest,'selfReference':'Payload excluye manifiesto, transporte, objetos, sobre y recibo físico final; SOBRE fija el transporte.'})
+write(out/'BINARIOS.json',bins)
+patch=''.join(diff).encode();(out/'entrega.patch.gz').write_bytes(gzip.compress(patch,mtime=0))
+trial=scratch/'transporte-exacto';trial.mkdir()
+r=subprocess.run(['patch','-p1','--batch'],cwd=trial,input=patch,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
+(scratch/'transporte-patch.log').write_bytes(r.stdout);assert r.returncode==0,r.stdout
+for b in bins:
+ dst=trial/b['path'];dst.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(root/b['object'],dst)
+for m in manifest:
+ p=trial/m['path'];assert p.read_bytes()==(root/m['path']).read_bytes();assert sha(p.read_bytes())==m['sha256'];p.chmod(0o755 if m['executable'] else 0o644)
+physical=sorted(str(p.relative_to(trial)) for p in trial.rglob('*') if p.is_file());assert physical==sorted(m['path'] for m in manifest)
+write(out/'transporte.json',{'exact':True,'files':len(manifest),'patchExit':r.returncode,'pathsAndBytesEqual':True,'deletions':0,'scratch':str(trial),'baseChanges':[]})
+transport=[out/'MANIFIESTO.json',out/'BINARIOS.json',out/'entrega.patch.gz',out/'transporte.json']+sorted((out/'binarios').rglob('*'))
+write(out/'SOBRE.json',{'head':'314efe543def21276acb44d0e3b0816dd5f78d58','transport':[{'path':str(p.relative_to(root)),'sha256':sha(p.read_bytes()),'size':p.stat().st_size} for p in transport if p.is_file()],'laterReceipt':'fisico-final.json.gz; posterior al cierre del sobre y fuera del payload por autorreferencia','completeRuleAcceptance':False})
+print(json.dumps({'files':len(manifest),'transportExact':True,'baseChanged':0}))

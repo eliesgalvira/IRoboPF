@@ -1,0 +1,121 @@
+import Decimal from "decimal.js"
+import { expect, test } from "vitest"
+import signatures from "../docs/procedencia/revisiones/flujo-escalas-r40-sol/rojos-firmas.json"
+import allSignatures from "../docs/procedencia/revisiones/flujo-escalas-r40-sol/firmas-fronteras.json"
+import { composeEscalasR36, verifyEscalasR36 } from "../scripts/procedencia/flujo-escalas-r36.mjs"
+import { consumeEscalasR36 } from "../scripts/procedencia/flujo-escalas-r36-consumidor.mjs"
+
+const graph = composeEscalasR36()
+const d = (n: string | number) => new Decimal(n)
+const contract = (name: string) => {
+  const found = graph.boundaryContracts.find(b => b.id.endsWith("#" + name))
+  if (found === undefined) throw Error("Frontera ausente: " + name)
+  return found
+}
+const caso = {
+  anio: 2025, comunidadAutonoma: "madrid",
+  situacionFamiliar: { tipo: "individual", edad: 40, descendientes: [], ascendientes: [], discapacidad: { _tag: "SinDiscapacidad" } },
+  rendimientos: { trabajo: [] }, reducciones: [], deducciones: [],
+  retencionesSoportadasCentimos: 100, pagosACuentaCentimos: 100,
+}
+type LineWitness = { origen: { siteId: string; decimal: string } }
+function annualValues() {
+  const ss = Object.fromEntries(["cotizacionTrabajador", "cotizacionEmpresarial", "meiEmpresarial", "meiTrabajador", "solidaridadEmpresarial", "solidaridadTrabajador"].map(k => [k, d(2000)]))
+  return new Map<string, object>([
+    ["sumarRendimientosTrabajo", d(30000)],
+    ["calcularRendimientoNetoTrabajo", { rendimientoIntegro: d(30000), rendimientoNeto: d(26000), rendimientoPrevioNeto: d(28000), gastosDeducibles: d(2000), cotizacionTrabajador: d(2000) }],
+    ["sumarRendimientosCapitalInmobiliario", d(0)],
+    ["calcularRendimientoNetoCapitalInmobiliarioSimplificado", { rendimientoNeto: d(0) }],
+    ["calcularGananciasPatrimonialesPorTransmision", { gananciaSujetaGeneral: d(0), gananciaSujetaAhorro: d(1000), gananciaTotal: d(1000), gananciaExenta: d(0) }],
+    ["calcularReduccionTrabajoConOtrasRentas", d(0)],
+    ["calcularDesgloseCotizacionesPerfilUniforme", ss],
+    ["calcularDesgloseCotizacionesSocialesLegacy", ss],
+  ])
+}
+for (const limited of ["calcularRendimientoNetoTrabajo", "calcularGananciasPatrimonialesPorTransmision", "calcularDesgloseCotizacionesPerfilUniforme", "calcularDesgloseCotizacionesSocialesLegacy"]) {
+  test("la frontera declarada permite alcanzar la cuota: " + limited, () => {
+    const values = annualValues()
+    const complete = values.get(limited)
+    if (complete === undefined) throw Error("Testigo ausente")
+    const outputs: readonly string[] = contract(limited).outputs
+    values.set(limited, Object.fromEntries(Object.entries(complete).filter(([key]) => outputs.includes(key + ":EUR"))))
+    const boundaries = new Map([...values].map(([name, value]) => [contract(name).id, () => value]))
+    const result = consumeEscalasR36(graph, "annual", caso, { modo: limited.endsWith("Legacy") ? "compatible-legacy" : "canonico" }, boundaries)
+    expect(result.lines.find((l: LineWitness) => l.origen.siteId === "anual.cuota.liquida")?.origen.decimal).toBe("4774.12211")
+    expect(result.siteClosed).toBe(false)
+  })
+}
+
+for (const signature of signatures) {
+  test("firma real de " + signature.id, () => {
+    const parameters = contract(signature.id.split("#")[1]!).parameters
+    expect(parameters.map(p => ({ file: p.source.file, start: p.source.start, end: p.source.end, text: p.binding + ": " + p.type }))).toEqual(signature.expected)
+  })
+}
+
+type ExplicitWitnessInput = ReturnType<typeof explicitCase>
+type DecoderResult = { _tag: "Success"; success: ExplicitWitnessInput }
+type Witness = (() => object) | ((input: ExplicitWitnessInput) => DecoderResult)
+type RejectionWitness = { estado: "no-soportado"; motivo?: string; motivos?: { motivo: string }[] }
+const explicitCase = (profile: string) => ({
+  perfil: profile,
+  actividad: { activos: [], discapacidad: { grado: 0 } },
+  trabajo: { ejercicio: 2025, discapacidadActiva: "ninguna", rendimientos: [{ clase: "empleo-laboral" }] },
+  retenciones: [], conciliacion: { procedencia: [] },
+})
+function explicitBoundaries() {
+  return new Map<string, Witness>([
+    ["explicit.decode", input => ({ _tag: "Success", success: input })],
+    [contract("adaptarTrabajoAnual").id, () => ({ estado: "aporte-disponible", rendimientoAntesArt20: "10000", argumentoArt20: "10000", gastos: { integro: "10000" } })],
+    [contract("calcularReduccionTrabajoConOtrasRentas").id, () => d(0)],
+    [contract("calcularDeduccionTrabajo").id, () => ({ estado: "calculado", importeAplicable: "10", cuotaPosterior: "756.43475" })],
+  ])
+}
+test("EDS declara los pagos leídos antes de las seis salidas", () => {
+  const outputs: readonly string[] = contract("adaptarActividadGeneral").outputs
+  const values = { importeEurosExactos: "-100", retencionesEuros: "12.34", pagosFraccionadosEuros: "56.78" }
+  const aporte = Object.fromEntries(Object.entries(values).filter(([key]) => outputs.includes("aporte." + key + ":EUR-string")))
+  const b = explicitBoundaries()
+  b.set(contract("adaptarActividadGeneral").id, () => ({ estado: "aporte-disponible", aporte }))
+  const result = consumeEscalasR36(graph, "explicit", explicitCase("solo-actividad-eds"), {}, b)
+  expect(result.lines.map((l: LineWitness) => l.origen.decimal)).toEqual(["-100", "-100", "0", "0", "0", "0"])
+})
+for (const name of ["adaptarTrabajoAnual", "adaptarActividadGeneral", "calcularDeduccionTrabajo"]) {
+  test("motivo de rechazo conservado en " + name, () => {
+    const outputs: readonly string[] = contract(name).outputs
+    const payload: RejectionWitness = { estado: "no-soportado" }
+    if (name === "adaptarActividadGeneral") {
+      if (outputs.includes("motivos[].motivo:string")) payload.motivos = [{ motivo: "rechazo externo discriminante" }]
+    } else if (outputs.includes("motivo:string")) payload.motivo = "rechazo externo discriminante"
+    const b = explicitBoundaries()
+    b.set(contract(name).id, () => payload)
+    expect(() => consumeEscalasR36(graph, "explicit", explicitCase(name === "adaptarActividadGeneral" ? "solo-actividad-eds" : "solo-trabajo"), {}, b)).toThrow("rechazo externo discriminante")
+  })
+}
+test("no promueve admisión ni wiring por completar las firmas", () => {
+  expect(verifyEscalasR36(graph)).toBe(true)
+  expect(graph.sites.every(s => !s.siteClosed)).toBe(true)
+  expect(graph.completeRuleAcceptance).toBe(false)
+  expect(graph.wiringAllowed).toBe(false)
+})
+
+test("las firmas directas conservan los parámetros y localizadores revisados", () => {
+  for (const signature of allSignatures.filter(s => !signatures.some(r => r.id === s.id))) {
+    expect(contract(signature.id.split("#")[1]!).parameters).toEqual(signature.declared)
+  }
+})
+
+test("el rechazo no exige los campos monetarios de la variante disponible", () => {
+  for (const name of ["adaptarTrabajoAnual", "adaptarActividadGeneral", "calcularDeduccionTrabajo"]) {
+    const c = contract(name)
+    expect(c.resultVariants).toHaveLength(2)
+    const rejected = c.resultVariants.find(v => v.when.equals === "no-soportado")
+    expect(rejected?.outputs).toEqual(name === "adaptarActividadGeneral" ? ["estado:discrete", "motivos[].motivo:string"] : ["estado:discrete", "motivo:string"])
+    expect(new Set(c.resultVariants.flatMap(v => v.outputs))).toEqual(new Set(c.outputs))
+    const mutated = structuredClone(graph)
+    const boundary = mutated.boundaryContracts.find(b => b.id === c.id)
+    if (boundary === undefined) throw Error("Frontera ausente")
+    boundary.resultVariants = []
+    expect(() => verifyEscalasR36(mutated)).toThrow("Receta")
+  }
+})

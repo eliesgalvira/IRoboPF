@@ -1,0 +1,1228 @@
+[
+  {
+    "siteId": "anual.base.general-imponible",
+    "importe": "max(0, trabajo.rendimientoNeto-reduccionTrabajo)+inmobiliario.rendimientoNeto+gananciaSujetaGeneral",
+    "seleccionYCondiciones": "No saturar la suma completa; art20 recibe rendimientoPrevioNeto y otras rentas algebraicas.",
+    "binding": {
+      "siteId": "anual.base.general-imponible",
+      "source": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "start": 42190,
+        "end": 42666,
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "offsetEncoding": "utf16"
+      },
+      "amount": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "start": 42315,
+        "end": 42335,
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "offsetEncoding": "utf16"
+      },
+      "unit": "EUR",
+      "instance": "singleton-0",
+      "condition": "annual-admission-required",
+      "finalProperty": "origen.decimal",
+      "valueNode": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:42315:42335:local",
+      "lineNode": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:42190:42666:call"
+    },
+    "decision": "corroboración técnica condicionada del valor y selección; no admisión ni cierre compuesto",
+    "condicionesComunes": [
+      "Receta exacta verificada antes del intérprete y productor/consumidor exactos del manifiesto",
+      "Fronteras completas por propiedad/instancia, EUR frente a céntimos, servicio normativo estándar y errores contractuales",
+      "Admisión anual/explicit/derechos pendiente del lote común; no se ha leído su trabajo parcial",
+      "Dominio ordinario del software fijado; no inferir hechos jurídicos ni validez normativa"
+    ],
+    "hallazgos": [
+      "R40-01",
+      "R40-02",
+      "R40-03"
+    ],
+    "objecionExperta": "Una ejecución con cifras correctas puede ocultar una propiedad, instancia, error o selección exterior omitidos.",
+    "respuesta": "Se aportan importe, fuente, variables por símbolo, llamadas y discriminantes separados; la corroboración está condicionada a las fronteras completas, sin promover los booleanos.",
+    "coste": "Composición y contraste del padre; no autoaceptación fiscal, wiring o cambios de motor.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "siteId": "anual.base.general-liquidable",
+    "importe": "Alias exacto de baseImponibleGeneral",
+    "seleccionYCondiciones": "Admisión sin reducciones de base ni arrastres; no generalizar a compensación completa.",
+    "binding": {
+      "siteId": "anual.base.general-liquidable",
+      "source": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "start": 42680,
+        "end": 43022,
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "offsetEncoding": "utf16"
+      },
+      "amount": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "start": 42806,
+        "end": 42827,
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "offsetEncoding": "utf16"
+      },
+      "unit": "EUR",
+      "instance": "singleton-0",
+      "condition": "annual-admission-required",
+      "finalProperty": "origen.decimal",
+      "valueNode": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:42806:42827:local",
+      "lineNode": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:42680:43022:call"
+    },
+    "decision": "corroboración técnica condicionada del valor y selección; no admisión ni cierre compuesto",
+    "condicionesComunes": [
+      "Receta exacta verificada antes del intérprete y productor/consumidor exactos del manifiesto",
+      "Fronteras completas por propiedad/instancia, EUR frente a céntimos, servicio normativo estándar y errores contractuales",
+      "Admisión anual/explicit/derechos pendiente del lote común; no se ha leído su trabajo parcial",
+      "Dominio ordinario del software fijado; no inferir hechos jurídicos ni validez normativa"
+    ],
+    "hallazgos": [
+      "R40-01",
+      "R40-02",
+      "R40-03"
+    ],
+    "objecionExperta": "Una ejecución con cifras correctas puede ocultar una propiedad, instancia, error o selección exterior omitidos.",
+    "respuesta": "Se aportan importe, fuente, variables por símbolo, llamadas y discriminantes separados; la corroboración está condicionada a las fronteras completas, sin promover los booleanos.",
+    "coste": "Composición y contraste del padre; no autoaceptación fiscal, wiring o cambios de motor.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "siteId": "anual.minimo.contribuyente",
+    "importe": "Derechos.contribuyente o helper con tabla estatal por año y edad",
+    "seleccionYCondiciones": "65/75; 2012–14 tabla propia y resto servicio normativo concreto sustituido por constante.",
+    "binding": {
+      "siteId": "anual.minimo.contribuyente",
+      "source": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "start": 43036,
+        "end": 43356,
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "offsetEncoding": "utf16"
+      },
+      "amount": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "start": 43159,
+        "end": 43178,
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "offsetEncoding": "utf16"
+      },
+      "unit": "EUR",
+      "instance": "singleton-0",
+      "condition": "annual-admission-required",
+      "finalProperty": "origen.decimal",
+      "valueNode": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:43159:43178:local",
+      "lineNode": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:43036:43356:call"
+    },
+    "decision": "corroboración técnica condicionada del valor y selección; no admisión ni cierre compuesto",
+    "condicionesComunes": [
+      "Receta exacta verificada antes del intérprete y productor/consumidor exactos del manifiesto",
+      "Fronteras completas por propiedad/instancia, EUR frente a céntimos, servicio normativo estándar y errores contractuales",
+      "Admisión anual/explicit/derechos pendiente del lote común; no se ha leído su trabajo parcial",
+      "Dominio ordinario del software fijado; no inferir hechos jurídicos ni validez normativa"
+    ],
+    "hallazgos": [
+      "R40-01",
+      "R40-02",
+      "R40-03"
+    ],
+    "objecionExperta": "Una ejecución con cifras correctas puede ocultar una propiedad, instancia, error o selección exterior omitidos.",
+    "respuesta": "Se aportan importe, fuente, variables por símbolo, llamadas y discriminantes separados; la corroboración está condicionada a las fronteras completas, sin promover los booleanos.",
+    "coste": "Composición y contraste del padre; no autoaceptación fiscal, wiring o cambios de motor.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "siteId": "anual.minimo.ascendientes",
+    "importe": "Derechos estatales.ascendientes o helper familiar por edad/discapacidad",
+    "seleccionYCondiciones": "En derechos de alcance actual cero; helper ordinario no acredita residencia/convivencia/renta.",
+    "binding": {
+      "siteId": "anual.minimo.ascendientes",
+      "source": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "start": 43370,
+        "end": 43765,
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "offsetEncoding": "utf16"
+      },
+      "amount": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "start": 43492,
+        "end": 43510,
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "offsetEncoding": "utf16"
+      },
+      "unit": "EUR",
+      "instance": "singleton-0",
+      "condition": "annual-admission-required",
+      "finalProperty": "origen.decimal",
+      "valueNode": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:43492:43510:local",
+      "lineNode": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:43370:43765:call"
+    },
+    "decision": "corroboración técnica condicionada del valor y selección; no admisión ni cierre compuesto",
+    "condicionesComunes": [
+      "Receta exacta verificada antes del intérprete y productor/consumidor exactos del manifiesto",
+      "Fronteras completas por propiedad/instancia, EUR frente a céntimos, servicio normativo estándar y errores contractuales",
+      "Admisión anual/explicit/derechos pendiente del lote común; no se ha leído su trabajo parcial",
+      "Dominio ordinario del software fijado; no inferir hechos jurídicos ni validez normativa"
+    ],
+    "hallazgos": [
+      "R40-01",
+      "R40-02",
+      "R40-03"
+    ],
+    "objecionExperta": "Una ejecución con cifras correctas puede ocultar una propiedad, instancia, error o selección exterior omitidos.",
+    "respuesta": "Se aportan importe, fuente, variables por símbolo, llamadas y discriminantes separados; la corroboración está condicionada a las fronteras completas, sin promover los booleanos.",
+    "coste": "Composición y contraste del padre; no autoaceptación fiscal, wiring o cambios de motor.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "siteId": "anual.minimo.descendientes",
+    "importe": "Derechos por orden nacimiento/sujeto y divisor por sujeto, o helper ordinario por edad elegible",
+    "seleccionYCondiciones": "Filtros rentas 800000/180000, cercanía de titulares, vínculo/incremento; validadores externos obligatorios.",
+    "binding": {
+      "siteId": "anual.minimo.descendientes",
+      "source": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "start": 43779,
+        "end": 44638,
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "offsetEncoding": "utf16"
+      },
+      "amount": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "start": 43902,
+        "end": 43921,
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "offsetEncoding": "utf16"
+      },
+      "unit": "EUR",
+      "instance": "singleton-0",
+      "condition": "annual-admission-required",
+      "finalProperty": "origen.decimal",
+      "valueNode": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:43902:43921:local",
+      "lineNode": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:43779:44638:call"
+    },
+    "decision": "corroboración técnica condicionada del valor y selección; no admisión ni cierre compuesto",
+    "condicionesComunes": [
+      "Receta exacta verificada antes del intérprete y productor/consumidor exactos del manifiesto",
+      "Fronteras completas por propiedad/instancia, EUR frente a céntimos, servicio normativo estándar y errores contractuales",
+      "Admisión anual/explicit/derechos pendiente del lote común; no se ha leído su trabajo parcial",
+      "Dominio ordinario del software fijado; no inferir hechos jurídicos ni validez normativa"
+    ],
+    "hallazgos": [
+      "R40-01",
+      "R40-02",
+      "R40-03"
+    ],
+    "objecionExperta": "Una ejecución con cifras correctas puede ocultar una propiedad, instancia, error o selección exterior omitidos.",
+    "respuesta": "Se aportan importe, fuente, variables por símbolo, llamadas y discriminantes separados; la corroboración está condicionada a las fronteras completas, sin promover los booleanos.",
+    "coste": "Composición y contraste del padre; no autoaceptación fiscal, wiring o cambios de motor.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "siteId": "anual.minimo.estatal",
+    "importe": "Suma contribuyente+descendientes+ascendientes+discapacidad contribuyente+familiares",
+    "seleccionYCondiciones": "No sumar estatal y autonómico; dos juegos de mínimos y mismas instancias de derechos separadas.",
+    "binding": {
+      "siteId": "anual.minimo.estatal",
+      "source": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "start": 44652,
+        "end": 45095,
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "offsetEncoding": "utf16"
+      },
+      "amount": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "start": 44769,
+        "end": 44792,
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "offsetEncoding": "utf16"
+      },
+      "unit": "EUR",
+      "instance": "singleton-0",
+      "condition": "annual-admission-required",
+      "finalProperty": "origen.decimal",
+      "valueNode": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:44769:44792:local",
+      "lineNode": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:44652:45095:call"
+    },
+    "decision": "corroboración técnica condicionada del valor y selección; no admisión ni cierre compuesto",
+    "condicionesComunes": [
+      "Receta exacta verificada antes del intérprete y productor/consumidor exactos del manifiesto",
+      "Fronteras completas por propiedad/instancia, EUR frente a céntimos, servicio normativo estándar y errores contractuales",
+      "Admisión anual/explicit/derechos pendiente del lote común; no se ha leído su trabajo parcial",
+      "Dominio ordinario del software fijado; no inferir hechos jurídicos ni validez normativa"
+    ],
+    "hallazgos": [
+      "R40-01",
+      "R40-02",
+      "R40-03"
+    ],
+    "objecionExperta": "Una ejecución con cifras correctas puede ocultar una propiedad, instancia, error o selección exterior omitidos.",
+    "respuesta": "Se aportan importe, fuente, variables por símbolo, llamadas y discriminantes separados; la corroboración está condicionada a las fronteras completas, sin promover los booleanos.",
+    "coste": "Composición y contraste del padre; no autoaceptación fiscal, wiring o cambios de motor.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "siteId": "anual.minimo.autonomico",
+    "importe": "Derechos con tabla autonómica.total o calcularMinimoPersonalYFamiliar con tabla autonómica",
+    "seleccionYCondiciones": "No alias por igualdad numérica; mínimos catalanes según selector real, no suposición jurídica.",
+    "binding": {
+      "siteId": "anual.minimo.autonomico",
+      "source": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "start": 45109,
+        "end": 45604,
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "offsetEncoding": "utf16"
+      },
+      "amount": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "start": 45229,
+        "end": 45262,
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "offsetEncoding": "utf16"
+      },
+      "unit": "EUR",
+      "instance": "singleton-0",
+      "condition": "annual-admission-required",
+      "finalProperty": "origen.decimal",
+      "valueNode": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:45229:45262:local",
+      "lineNode": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:45109:45604:call"
+    },
+    "decision": "corroboración técnica condicionada del valor y selección; no admisión ni cierre compuesto",
+    "condicionesComunes": [
+      "Receta exacta verificada antes del intérprete y productor/consumidor exactos del manifiesto",
+      "Fronteras completas por propiedad/instancia, EUR frente a céntimos, servicio normativo estándar y errores contractuales",
+      "Admisión anual/explicit/derechos pendiente del lote común; no se ha leído su trabajo parcial",
+      "Dominio ordinario del software fijado; no inferir hechos jurídicos ni validez normativa"
+    ],
+    "hallazgos": [
+      "R40-01",
+      "R40-02",
+      "R40-03"
+    ],
+    "objecionExperta": "Una ejecución con cifras correctas puede ocultar una propiedad, instancia, error o selección exterior omitidos.",
+    "respuesta": "Se aportan importe, fuente, variables por símbolo, llamadas y discriminantes separados; la corroboración está condicionada a las fronteras completas, sin promover los booleanos.",
+    "coste": "Composición y contraste del padre; no autoaceptación fiscal, wiring o cambios de motor.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "siteId": "anual.minimo.discapacidad",
+    "importe": "Suma contribuyente y familiares, separando descendiente/ascendiente por rol",
+    "seleccionYCondiciones": "No heredar automáticamente filtros del mínimo familiar ordinario; reparto de discapacidad en derechos por sujeto.",
+    "binding": {
+      "siteId": "anual.minimo.discapacidad",
+      "source": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "start": 45618,
+        "end": 46048,
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "offsetEncoding": "utf16"
+      },
+      "amount": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "start": 45740,
+        "end": 45838,
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "offsetEncoding": "utf16"
+      },
+      "unit": "EUR",
+      "instance": "singleton-0",
+      "condition": "annual-admission-required",
+      "finalProperty": "origen.decimal",
+      "valueNode": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:45740:45838:call",
+      "lineNode": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:45618:46048:call"
+    },
+    "decision": "corroboración técnica condicionada del valor y selección; no admisión ni cierre compuesto",
+    "condicionesComunes": [
+      "Receta exacta verificada antes del intérprete y productor/consumidor exactos del manifiesto",
+      "Fronteras completas por propiedad/instancia, EUR frente a céntimos, servicio normativo estándar y errores contractuales",
+      "Admisión anual/explicit/derechos pendiente del lote común; no se ha leído su trabajo parcial",
+      "Dominio ordinario del software fijado; no inferir hechos jurídicos ni validez normativa"
+    ],
+    "hallazgos": [
+      "R40-01",
+      "R40-02",
+      "R40-03"
+    ],
+    "objecionExperta": "Una ejecución con cifras correctas puede ocultar una propiedad, instancia, error o selección exterior omitidos.",
+    "respuesta": "Se aportan importe, fuente, variables por símbolo, llamadas y discriminantes separados; la corroboración está condicionada a las fronteras completas, sin promover los booleanos.",
+    "coste": "Composición y contraste del padre; no autoaceptación fiscal, wiring o cambios de motor.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "siteId": "anual.base.ahorro",
+    "importe": "max(0, ganancias.gananciaSujetaAhorro)",
+    "seleccionYCondiciones": "Rentas: clasificación temporal y exenciones ya realizadas; EUR con signo antes del suelo.",
+    "binding": {
+      "siteId": "anual.base.ahorro",
+      "source": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "start": 47479,
+        "end": 47844,
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "offsetEncoding": "utf16"
+      },
+      "amount": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "start": 47593,
+        "end": 47613,
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "offsetEncoding": "utf16"
+      },
+      "unit": "EUR",
+      "instance": "singleton-0",
+      "condition": "annual-admission-required",
+      "finalProperty": "origen.decimal",
+      "valueNode": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:47593:47613:local",
+      "lineNode": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:47479:47844:call"
+    },
+    "decision": "corroboración técnica condicionada del valor y selección; no admisión ni cierre compuesto",
+    "condicionesComunes": [
+      "Receta exacta verificada antes del intérprete y productor/consumidor exactos del manifiesto",
+      "Fronteras completas por propiedad/instancia, EUR frente a céntimos, servicio normativo estándar y errores contractuales",
+      "Admisión anual/explicit/derechos pendiente del lote común; no se ha leído su trabajo parcial",
+      "Dominio ordinario del software fijado; no inferir hechos jurídicos ni validez normativa"
+    ],
+    "hallazgos": [
+      "R40-01",
+      "R40-02",
+      "R40-03"
+    ],
+    "objecionExperta": "Una ejecución con cifras correctas puede ocultar una propiedad, instancia, error o selección exterior omitidos.",
+    "respuesta": "Se aportan importe, fuente, variables por símbolo, llamadas y discriminantes separados; la corroboración está condicionada a las fronteras completas, sin promover los booleanos.",
+    "coste": "Composición y contraste del padre; no autoaceptación fiscal, wiring o cambios de motor.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "siteId": "anual.cuota.general-estatal-tramo",
+    "importe": "Map de desglose estatal; dos publicadas 2012–2014 reales o integrada por componente",
+    "seleccionYCondiciones": "Con flag true usa conjunta legacy; no decidir por nombre de territorio.",
+    "binding": {
+      "siteId": "anual.cuota.general-estatal-tramo",
+      "source": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "start": 50052,
+        "end": 50651,
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "offsetEncoding": "utf16"
+      },
+      "amount": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "start": 50193,
+        "end": 50204,
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "offsetEncoding": "utf16"
+      },
+      "unit": "EUR",
+      "instance": "callback-index",
+      "condition": "annual-admission-required",
+      "finalProperty": "origen.decimal",
+      "valueNode": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:50193:50204:get",
+      "lineNode": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:50052:50651:call"
+    },
+    "decision": "corroboración técnica condicionada del valor y selección; no admisión ni cierre compuesto",
+    "condicionesComunes": [
+      "Receta exacta verificada antes del intérprete y productor/consumidor exactos del manifiesto",
+      "Fronteras completas por propiedad/instancia, EUR frente a céntimos, servicio normativo estándar y errores contractuales",
+      "Admisión anual/explicit/derechos pendiente del lote común; no se ha leído su trabajo parcial",
+      "Dominio ordinario del software fijado; no inferir hechos jurídicos ni validez normativa"
+    ],
+    "hallazgos": [
+      "R40-01",
+      "R40-02",
+      "R40-03"
+    ],
+    "objecionExperta": "Una ejecución con cifras correctas puede ocultar una propiedad, instancia, error o selección exterior omitidos.",
+    "respuesta": "Se aportan importe, fuente, variables por símbolo, llamadas y discriminantes separados; la corroboración está condicionada a las fronteras completas, sin promover los booleanos.",
+    "coste": "Composición y contraste del padre; no autoaceptación fiscal, wiring o cambios de motor.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "siteId": "anual.cuota.general-autonomica-tramo",
+    "importe": "Map de desglose autonómico: cuota Q+(B-L)t si publicada, anchos si ausencia",
+    "seleccionYCondiciones": "Flag false hasta 2015 incluso simulada; desde 2016 simulada devuelve [].",
+    "binding": {
+      "siteId": "anual.cuota.general-autonomica-tramo",
+      "source": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "start": 50757,
+        "end": 51273,
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "offsetEncoding": "utf16"
+      },
+      "amount": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "start": 50901,
+        "end": 50912,
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "offsetEncoding": "utf16"
+      },
+      "unit": "EUR",
+      "instance": "callback-index",
+      "condition": "annual-admission-required",
+      "finalProperty": "origen.decimal",
+      "valueNode": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:50901:50912:get",
+      "lineNode": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:50757:51273:call"
+    },
+    "decision": "corroboración técnica condicionada del valor y selección; no admisión ni cierre compuesto",
+    "condicionesComunes": [
+      "Receta exacta verificada antes del intérprete y productor/consumidor exactos del manifiesto",
+      "Fronteras completas por propiedad/instancia, EUR frente a céntimos, servicio normativo estándar y errores contractuales",
+      "Admisión anual/explicit/derechos pendiente del lote común; no se ha leído su trabajo parcial",
+      "Dominio ordinario del software fijado; no inferir hechos jurídicos ni validez normativa"
+    ],
+    "hallazgos": [
+      "R40-01",
+      "R40-02",
+      "R40-03"
+    ],
+    "objecionExperta": "Una ejecución con cifras correctas puede ocultar una propiedad, instancia, error o selección exterior omitidos.",
+    "respuesta": "Se aportan importe, fuente, variables por símbolo, llamadas y discriminantes separados; la corroboración está condicionada a las fronteras completas, sin promover los booleanos.",
+    "coste": "Composición y contraste del padre; no autoaceptación fiscal, wiring o cambios de motor.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "siteId": "anual.cuota.general-total",
+    "importe": "Suma estatal y autonómica antes de mínimos",
+    "seleccionYCondiciones": "Tarifas distintas por propiedad; ausencia no equivale a publicada vacía.",
+    "binding": {
+      "siteId": "anual.cuota.general-total",
+      "source": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "start": 51301,
+        "end": 51706,
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "offsetEncoding": "utf16"
+      },
+      "amount": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "start": 51423,
+        "end": 51442,
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "offsetEncoding": "utf16"
+      },
+      "unit": "EUR",
+      "instance": "singleton-0",
+      "condition": "annual-admission-required",
+      "finalProperty": "origen.decimal",
+      "valueNode": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:51423:51442:local",
+      "lineNode": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:51301:51706:call"
+    },
+    "decision": "corroboración técnica condicionada del valor y selección; no admisión ni cierre compuesto",
+    "condicionesComunes": [
+      "Receta exacta verificada antes del intérprete y productor/consumidor exactos del manifiesto",
+      "Fronteras completas por propiedad/instancia, EUR frente a céntimos, servicio normativo estándar y errores contractuales",
+      "Admisión anual/explicit/derechos pendiente del lote común; no se ha leído su trabajo parcial",
+      "Dominio ordinario del software fijado; no inferir hechos jurídicos ni validez normativa"
+    ],
+    "hallazgos": [
+      "R40-01",
+      "R40-02",
+      "R40-03"
+    ],
+    "objecionExperta": "Una ejecución con cifras correctas puede ocultar una propiedad, instancia, error o selección exterior omitidos.",
+    "respuesta": "Se aportan importe, fuente, variables por símbolo, llamadas y discriminantes separados; la corroboración está condicionada a las fronteras completas, sin promover los booleanos.",
+    "coste": "Composición y contraste del padre; no autoaceptación fiscal, wiring o cambios de motor.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "siteId": "anual.cuota.minimo-estatal-tramo",
+    "importe": "Desglose tarifa estatal sobre min(minimoEstatal,BG)",
+    "seleccionYCondiciones": "Mismo flag de componentes; con false de uso real toma conjunta legacy, no autonómica.",
+    "binding": {
+      "siteId": "anual.cuota.minimo-estatal-tramo",
+      "source": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "start": 52437,
+        "end": 53049,
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "offsetEncoding": "utf16"
+      },
+      "amount": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "start": 52577,
+        "end": 52588,
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "offsetEncoding": "utf16"
+      },
+      "unit": "EUR",
+      "instance": "callback-index",
+      "condition": "annual-admission-required",
+      "finalProperty": "origen.decimal",
+      "valueNode": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:52577:52588:get",
+      "lineNode": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:52437:53049:call"
+    },
+    "decision": "corroboración técnica condicionada del valor y selección; no admisión ni cierre compuesto",
+    "condicionesComunes": [
+      "Receta exacta verificada antes del intérprete y productor/consumidor exactos del manifiesto",
+      "Fronteras completas por propiedad/instancia, EUR frente a céntimos, servicio normativo estándar y errores contractuales",
+      "Admisión anual/explicit/derechos pendiente del lote común; no se ha leído su trabajo parcial",
+      "Dominio ordinario del software fijado; no inferir hechos jurídicos ni validez normativa"
+    ],
+    "hallazgos": [
+      "R40-01",
+      "R40-02",
+      "R40-03"
+    ],
+    "objecionExperta": "Una ejecución con cifras correctas puede ocultar una propiedad, instancia, error o selección exterior omitidos.",
+    "respuesta": "Se aportan importe, fuente, variables por símbolo, llamadas y discriminantes separados; la corroboración está condicionada a las fronteras completas, sin promover los booleanos.",
+    "coste": "Composición y contraste del padre; no autoaceptación fiscal, wiring o cambios de motor.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "siteId": "anual.cuota.minimo-autonomico-tramo",
+    "importe": "Desglose tarifa autonómica sobre min(minimoAutonomico,BG)",
+    "seleccionYCondiciones": "Mismo selector que cuota general autonómica; map índice independiente del estatal.",
+    "binding": {
+      "siteId": "anual.cuota.minimo-autonomico-tramo",
+      "source": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "start": 53155,
+        "end": 53677,
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "offsetEncoding": "utf16"
+      },
+      "amount": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "start": 53298,
+        "end": 53309,
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "offsetEncoding": "utf16"
+      },
+      "unit": "EUR",
+      "instance": "callback-index",
+      "condition": "annual-admission-required",
+      "finalProperty": "origen.decimal",
+      "valueNode": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:53298:53309:get",
+      "lineNode": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:53155:53677:call"
+    },
+    "decision": "corroboración técnica condicionada del valor y selección; no admisión ni cierre compuesto",
+    "condicionesComunes": [
+      "Receta exacta verificada antes del intérprete y productor/consumidor exactos del manifiesto",
+      "Fronteras completas por propiedad/instancia, EUR frente a céntimos, servicio normativo estándar y errores contractuales",
+      "Admisión anual/explicit/derechos pendiente del lote común; no se ha leído su trabajo parcial",
+      "Dominio ordinario del software fijado; no inferir hechos jurídicos ni validez normativa"
+    ],
+    "hallazgos": [
+      "R40-01",
+      "R40-02",
+      "R40-03"
+    ],
+    "objecionExperta": "Una ejecución con cifras correctas puede ocultar una propiedad, instancia, error o selección exterior omitidos.",
+    "respuesta": "Se aportan importe, fuente, variables por símbolo, llamadas y discriminantes separados; la corroboración está condicionada a las fronteras completas, sin promover los booleanos.",
+    "coste": "Composición y contraste del padre; no autoaceptación fiscal, wiring o cambios de motor.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "siteId": "anual.cuota.minimo-general-total",
+    "importe": "Suma de cuotas estatal y autonómica del mínimo limitado a BG",
+    "seleccionYCondiciones": "Separar EUR-base y EUR-impuesto; no mostrar mínimo como cuota.",
+    "binding": {
+      "siteId": "anual.cuota.minimo-general-total",
+      "source": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "start": 53705,
+        "end": 54024,
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "offsetEncoding": "utf16"
+      },
+      "amount": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "start": 53834,
+        "end": 53853,
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "offsetEncoding": "utf16"
+      },
+      "unit": "EUR",
+      "instance": "singleton-0",
+      "condition": "annual-admission-required",
+      "finalProperty": "origen.decimal",
+      "valueNode": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:53834:53853:local",
+      "lineNode": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:53705:54024:call"
+    },
+    "decision": "corroboración técnica condicionada del valor y selección; no admisión ni cierre compuesto",
+    "condicionesComunes": [
+      "Receta exacta verificada antes del intérprete y productor/consumidor exactos del manifiesto",
+      "Fronteras completas por propiedad/instancia, EUR frente a céntimos, servicio normativo estándar y errores contractuales",
+      "Admisión anual/explicit/derechos pendiente del lote común; no se ha leído su trabajo parcial",
+      "Dominio ordinario del software fijado; no inferir hechos jurídicos ni validez normativa"
+    ],
+    "hallazgos": [
+      "R40-01",
+      "R40-02",
+      "R40-03"
+    ],
+    "objecionExperta": "Una ejecución con cifras correctas puede ocultar una propiedad, instancia, error o selección exterior omitidos.",
+    "respuesta": "Se aportan importe, fuente, variables por símbolo, llamadas y discriminantes separados; la corroboración está condicionada a las fronteras completas, sin promover los booleanos.",
+    "coste": "Composición y contraste del padre; no autoaceptación fiscal, wiring o cambios de motor.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "siteId": "anual.cuota.ahorro-tramo",
+    "importe": "Desglose integrado conjunto por anchos, map(tramo, instancia).cuota",
+    "seleccionYCondiciones": "No alcanza rama publicada; semilla base*0 y spread de tramos acumulados.",
+    "binding": {
+      "siteId": "anual.cuota.ahorro-tramo",
+      "source": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "start": 54794,
+        "end": 55247,
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "offsetEncoding": "utf16"
+      },
+      "amount": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "start": 54926,
+        "end": 54937,
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "offsetEncoding": "utf16"
+      },
+      "unit": "EUR",
+      "instance": "callback-index",
+      "condition": "annual-admission-required",
+      "finalProperty": "origen.decimal",
+      "valueNode": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:54926:54937:get",
+      "lineNode": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:54794:55247:call"
+    },
+    "decision": "corroboración técnica condicionada del valor y selección; no admisión ni cierre compuesto",
+    "condicionesComunes": [
+      "Receta exacta verificada antes del intérprete y productor/consumidor exactos del manifiesto",
+      "Fronteras completas por propiedad/instancia, EUR frente a céntimos, servicio normativo estándar y errores contractuales",
+      "Admisión anual/explicit/derechos pendiente del lote común; no se ha leído su trabajo parcial",
+      "Dominio ordinario del software fijado; no inferir hechos jurídicos ni validez normativa"
+    ],
+    "hallazgos": [
+      "R40-01",
+      "R40-02",
+      "R40-03"
+    ],
+    "objecionExperta": "Una ejecución con cifras correctas puede ocultar una propiedad, instancia, error o selección exterior omitidos.",
+    "respuesta": "Se aportan importe, fuente, variables por símbolo, llamadas y discriminantes separados; la corroboración está condicionada a las fronteras completas, sin promover los booleanos.",
+    "coste": "Composición y contraste del padre; no autoaceptación fiscal, wiring o cambios de motor.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "siteId": "anual.cuota.ahorro-total",
+    "importe": "Cuota bruta conjunta integrada antes de mínimo; cuotaIntegraAhorro",
+    "seleccionYCondiciones": "No confundir esta línea bruta con cuotaAhorroDespuesMinimo usada en líquida; tampoco sustituir por suma de publicadas.",
+    "binding": {
+      "siteId": "anual.cuota.ahorro-total",
+      "source": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "start": 55275,
+        "end": 55562,
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "offsetEncoding": "utf16"
+      },
+      "amount": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "start": 55396,
+        "end": 55414,
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "offsetEncoding": "utf16"
+      },
+      "unit": "EUR",
+      "instance": "singleton-0",
+      "condition": "annual-admission-required",
+      "finalProperty": "origen.decimal",
+      "valueNode": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:55396:55414:local",
+      "lineNode": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:55275:55562:call"
+    },
+    "decision": "corroboración técnica condicionada del valor y selección; no admisión ni cierre compuesto",
+    "condicionesComunes": [
+      "Receta exacta verificada antes del intérprete y productor/consumidor exactos del manifiesto",
+      "Fronteras completas por propiedad/instancia, EUR frente a céntimos, servicio normativo estándar y errores contractuales",
+      "Admisión anual/explicit/derechos pendiente del lote común; no se ha leído su trabajo parcial",
+      "Dominio ordinario del software fijado; no inferir hechos jurídicos ni validez normativa"
+    ],
+    "hallazgos": [
+      "R40-01",
+      "R40-02",
+      "R40-03"
+    ],
+    "objecionExperta": "Una ejecución con cifras correctas puede ocultar una propiedad, instancia, error o selección exterior omitidos.",
+    "respuesta": "Se aportan importe, fuente, variables por símbolo, llamadas y discriminantes separados; la corroboración está condicionada a las fronteras completas, sin promover los booleanos.",
+    "coste": "Composición y contraste del padre; no autoaceptación fiscal, wiring o cambios de motor.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "siteId": "anual.cuota.ahorro-componente-postminimo",
+    "importe": "Map estatal/autonomico: ahorroConMinimos[componente].despuesMinimo",
+    "seleccionYCondiciones": "Dos instancias aunque cifras iguales; remanentes separados; 2015 asimétrico.",
+    "binding": {
+      "siteId": "anual.cuota.ahorro-componente-postminimo",
+      "source": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "start": 55804,
+        "end": 56367,
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "offsetEncoding": "utf16"
+      },
+      "amount": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "start": 55952,
+        "end": 55976,
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "offsetEncoding": "utf16"
+      },
+      "unit": "EUR",
+      "instance": "callback-index",
+      "condition": "annual-admission-required",
+      "finalProperty": "origen.decimal",
+      "valueNode": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:55952:55976:get",
+      "lineNode": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:55804:56367:call"
+    },
+    "decision": "corroboración técnica condicionada del valor y selección; no admisión ni cierre compuesto",
+    "condicionesComunes": [
+      "Receta exacta verificada antes del intérprete y productor/consumidor exactos del manifiesto",
+      "Fronteras completas por propiedad/instancia, EUR frente a céntimos, servicio normativo estándar y errores contractuales",
+      "Admisión anual/explicit/derechos pendiente del lote común; no se ha leído su trabajo parcial",
+      "Dominio ordinario del software fijado; no inferir hechos jurídicos ni validez normativa"
+    ],
+    "hallazgos": [
+      "R40-01",
+      "R40-02",
+      "R40-03"
+    ],
+    "objecionExperta": "Una ejecución con cifras correctas puede ocultar una propiedad, instancia, error o selección exterior omitidos.",
+    "respuesta": "Se aportan importe, fuente, variables por símbolo, llamadas y discriminantes separados; la corroboración está condicionada a las fronteras completas, sin promover los booleanos.",
+    "coste": "Composición y contraste del padre; no autoaceptación fiscal, wiring o cambios de motor.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "siteId": "anual.cuota.minimo-ahorro-total",
+    "importe": "Suma de minoracion estatal y autonómica",
+    "seleccionYCondiciones": "Hasta 2014 reducir BA antes de tarifa, después restar tarifa(remanente); no mitad conjunta.",
+    "binding": {
+      "siteId": "anual.cuota.minimo-ahorro-total",
+      "source": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "start": 56395,
+        "end": 56883,
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "offsetEncoding": "utf16"
+      },
+      "amount": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "start": 56523,
+        "end": 56548,
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "offsetEncoding": "utf16"
+      },
+      "unit": "EUR",
+      "instance": "singleton-0",
+      "condition": "annual-admission-required",
+      "finalProperty": "origen.decimal",
+      "valueNode": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:56523:56548:local",
+      "lineNode": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:56395:56883:call"
+    },
+    "decision": "corroboración técnica condicionada del valor y selección; no admisión ni cierre compuesto",
+    "condicionesComunes": [
+      "Receta exacta verificada antes del intérprete y productor/consumidor exactos del manifiesto",
+      "Fronteras completas por propiedad/instancia, EUR frente a céntimos, servicio normativo estándar y errores contractuales",
+      "Admisión anual/explicit/derechos pendiente del lote común; no se ha leído su trabajo parcial",
+      "Dominio ordinario del software fijado; no inferir hechos jurídicos ni validez normativa"
+    ],
+    "hallazgos": [
+      "R40-01",
+      "R40-02",
+      "R40-03"
+    ],
+    "objecionExperta": "Una ejecución con cifras correctas puede ocultar una propiedad, instancia, error o selección exterior omitidos.",
+    "respuesta": "Se aportan importe, fuente, variables por símbolo, llamadas y discriminantes separados; la corroboración está condicionada a las fronteras completas, sin promover los booleanos.",
+    "coste": "Composición y contraste del padre; no autoaceptación fiscal, wiring o cambios de motor.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "siteId": "anual.cuota.liquida",
+    "importe": "max(0,max(0,general-minimoGeneral)+max(0,ahorro-minimoAhorro)-deduccionAplicada)",
+    "seleccionYCondiciones": "Deducción agregada con techo autonómico; sin aceptación por lista de códigos.",
+    "binding": {
+      "siteId": "anual.cuota.liquida",
+      "source": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "start": 57639,
+        "end": 58004,
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "offsetEncoding": "utf16"
+      },
+      "amount": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "start": 57755,
+        "end": 57767,
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "offsetEncoding": "utf16"
+      },
+      "unit": "EUR",
+      "instance": "singleton-0",
+      "condition": "annual-admission-required",
+      "finalProperty": "origen.decimal",
+      "valueNode": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:57755:57767:local",
+      "lineNode": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:57639:58004:call"
+    },
+    "decision": "corroboración técnica condicionada del valor y selección; no admisión ni cierre compuesto",
+    "condicionesComunes": [
+      "Receta exacta verificada antes del intérprete y productor/consumidor exactos del manifiesto",
+      "Fronteras completas por propiedad/instancia, EUR frente a céntimos, servicio normativo estándar y errores contractuales",
+      "Admisión anual/explicit/derechos pendiente del lote común; no se ha leído su trabajo parcial",
+      "Dominio ordinario del software fijado; no inferir hechos jurídicos ni validez normativa"
+    ],
+    "hallazgos": [
+      "R40-01",
+      "R40-02",
+      "R40-03"
+    ],
+    "objecionExperta": "Una ejecución con cifras correctas puede ocultar una propiedad, instancia, error o selección exterior omitidos.",
+    "respuesta": "Se aportan importe, fuente, variables por símbolo, llamadas y discriminantes separados; la corroboración está condicionada a las fronteras completas, sin promover los booleanos.",
+    "coste": "Composición y contraste del padre; no autoaceptación fiscal, wiring o cambios de motor.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "siteId": "anual.deducciones.autonomicas",
+    "importe": "AgregadoCentimos??0 convertido a EUR; min(declarado,capacidadAutonomica) si componente real",
+    "seleccionYCondiciones": "Capacidad general neta más ahorro autonómico postmínimo; simulada desde 2016 no aplica ese techo.",
+    "binding": {
+      "siteId": "anual.deducciones.autonomicas",
+      "source": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "start": 58018,
+        "end": 58603,
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "offsetEncoding": "utf16"
+      },
+      "amount": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "start": 58144,
+        "end": 58175,
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "offsetEncoding": "utf16"
+      },
+      "unit": "EUR",
+      "instance": "singleton-0",
+      "condition": "annual-admission-required",
+      "finalProperty": "origen.decimal",
+      "valueNode": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:58144:58175:local",
+      "lineNode": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:58018:58603:call"
+    },
+    "decision": "corroboración técnica condicionada del valor y selección; no admisión ni cierre compuesto",
+    "condicionesComunes": [
+      "Receta exacta verificada antes del intérprete y productor/consumidor exactos del manifiesto",
+      "Fronteras completas por propiedad/instancia, EUR frente a céntimos, servicio normativo estándar y errores contractuales",
+      "Admisión anual/explicit/derechos pendiente del lote común; no se ha leído su trabajo parcial",
+      "Dominio ordinario del software fijado; no inferir hechos jurídicos ni validez normativa"
+    ],
+    "hallazgos": [
+      "R40-01",
+      "R40-02",
+      "R40-03"
+    ],
+    "objecionExperta": "Una ejecución con cifras correctas puede ocultar una propiedad, instancia, error o selección exterior omitidos.",
+    "respuesta": "Se aportan importe, fuente, variables por símbolo, llamadas y discriminantes separados; la corroboración está condicionada a las fronteras completas, sin promover los booleanos.",
+    "coste": "Composición y contraste del padre; no autoaceptación fiscal, wiring o cambios de motor.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "siteId": "anual.cuota.diferencial",
+    "importe": "centimosAEuros(roundHalfUp(liquida*100)-soportadas-pagos-estimada)",
+    "seleccionYCondiciones": "Estimación AEAT opcional en céntimos; caso y contexto concretos; errores no son cero.",
+    "binding": {
+      "siteId": "anual.cuota.diferencial",
+      "source": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "start": 59426,
+        "end": 60185,
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "offsetEncoding": "utf16"
+      },
+      "amount": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "start": 59546,
+        "end": 59925,
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "offsetEncoding": "utf16"
+      },
+      "unit": "EUR",
+      "instance": "singleton-0",
+      "condition": "annual-admission-required",
+      "finalProperty": "origen.decimal",
+      "valueNode": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:59546:59925:call",
+      "lineNode": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:59426:60185:call"
+    },
+    "decision": "corroboración técnica condicionada del valor y selección; no admisión ni cierre compuesto",
+    "condicionesComunes": [
+      "Receta exacta verificada antes del intérprete y productor/consumidor exactos del manifiesto",
+      "Fronteras completas por propiedad/instancia, EUR frente a céntimos, servicio normativo estándar y errores contractuales",
+      "Admisión anual/explicit/derechos pendiente del lote común; no se ha leído su trabajo parcial",
+      "Dominio ordinario del software fijado; no inferir hechos jurídicos ni validez normativa"
+    ],
+    "hallazgos": [
+      "R40-01",
+      "R40-02",
+      "R40-03"
+    ],
+    "objecionExperta": "Una ejecución con cifras correctas puede ocultar una propiedad, instancia, error o selección exterior omitidos.",
+    "respuesta": "Se aportan importe, fuente, variables por símbolo, llamadas y discriminantes separados; la corroboración está condicionada a las fronteras completas, sin promover los booleanos.",
+    "coste": "Composición y contraste del padre; no autoaceptación fiscal, wiring o cambios de motor.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "siteId": "anual.explicito.big",
+    "importe": "Neto de adaptarTrabajoAnual menos art20 limitado, o aporte EDS ya reducido; con signo",
+    "seleccionYCondiciones": "Madrid2025 18–64, no confundir argumentoArt20 con rendimientoAntesArt20.",
+    "binding": {
+      "siteId": "anual.explicito.big",
+      "source": {
+        "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+        "start": 9967,
+        "end": 10202,
+        "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+        "offsetEncoding": "utf16"
+      },
+      "amount": {
+        "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+        "start": 10065,
+        "end": 10069,
+        "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+        "offsetEncoding": "utf16"
+      },
+      "unit": "EUR",
+      "instance": "singleton-0",
+      "condition": "explicit-admission-required",
+      "finalProperty": "origen.decimal",
+      "valueNode": "lib/dominio/irpf/trabajo-anual/conexion.ts:10065:10069:local",
+      "lineNode": "lib/dominio/irpf/trabajo-anual/conexion.ts:9967:10202:call"
+    },
+    "decision": "corroboración técnica condicionada del valor y selección; no admisión ni cierre compuesto",
+    "condicionesComunes": [
+      "Receta exacta verificada antes del intérprete y productor/consumidor exactos del manifiesto",
+      "Fronteras completas por propiedad/instancia, EUR frente a céntimos, servicio normativo estándar y errores contractuales",
+      "Admisión anual/explicit/derechos pendiente del lote común; no se ha leído su trabajo parcial",
+      "Dominio ordinario del software fijado; no inferir hechos jurídicos ni validez normativa"
+    ],
+    "hallazgos": [
+      "R40-02",
+      "R40-03"
+    ],
+    "objecionExperta": "Una ejecución con cifras correctas puede ocultar una propiedad, instancia, error o selección exterior omitidos.",
+    "respuesta": "Se aportan importe, fuente, variables por símbolo, llamadas y discriminantes separados; la corroboración está condicionada a las fronteras completas, sin promover los booleanos.",
+    "coste": "Composición y contraste del padre; no autoaceptación fiscal, wiring o cambios de motor.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "siteId": "anual.explicito.blg",
+    "importe": "Mismo neto con signo, sin reducciones de base",
+    "seleccionYCondiciones": "max(neto,0) solo a tarifas; EDS no recibe art20 ni SS salarial.",
+    "binding": {
+      "siteId": "anual.explicito.blg",
+      "source": {
+        "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+        "start": 10210,
+        "end": 10467,
+        "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+        "offsetEncoding": "utf16"
+      },
+      "amount": {
+        "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+        "start": 10308,
+        "end": 10312,
+        "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+        "offsetEncoding": "utf16"
+      },
+      "unit": "EUR",
+      "instance": "singleton-0",
+      "condition": "explicit-admission-required",
+      "finalProperty": "origen.decimal",
+      "valueNode": "lib/dominio/irpf/trabajo-anual/conexion.ts:10308:10312:local",
+      "lineNode": "lib/dominio/irpf/trabajo-anual/conexion.ts:10210:10467:call"
+    },
+    "decision": "corroboración técnica condicionada del valor y selección; no admisión ni cierre compuesto",
+    "condicionesComunes": [
+      "Receta exacta verificada antes del intérprete y productor/consumidor exactos del manifiesto",
+      "Fronteras completas por propiedad/instancia, EUR frente a céntimos, servicio normativo estándar y errores contractuales",
+      "Admisión anual/explicit/derechos pendiente del lote común; no se ha leído su trabajo parcial",
+      "Dominio ordinario del software fijado; no inferir hechos jurídicos ni validez normativa"
+    ],
+    "hallazgos": [
+      "R40-02",
+      "R40-03"
+    ],
+    "objecionExperta": "Una ejecución con cifras correctas puede ocultar una propiedad, instancia, error o selección exterior omitidos.",
+    "respuesta": "Se aportan importe, fuente, variables por símbolo, llamadas y discriminantes separados; la corroboración está condicionada a las fronteras completas, sin promover los booleanos.",
+    "coste": "Composición y contraste del padre; no autoaceptación fiscal, wiring o cambios de motor.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "siteId": "anual.explicito.cuota.estatal",
+    "importe": "max(0,F_estatal_integrada(base)-F_estatal_integrada(min(base,5550)))",
+    "seleccionYCondiciones": "Dos invocaciones de la misma captura estatal con distintas bases; no enlazar por cifra.",
+    "binding": {
+      "siteId": "anual.explicito.cuota.estatal",
+      "source": {
+        "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+        "start": 10475,
+        "end": 10738,
+        "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+        "offsetEncoding": "utf16"
+      },
+      "amount": {
+        "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+        "start": 10583,
+        "end": 10595,
+        "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+        "offsetEncoding": "utf16"
+      },
+      "unit": "EUR",
+      "instance": "singleton-0",
+      "condition": "explicit-admission-required",
+      "finalProperty": "origen.decimal",
+      "valueNode": "lib/dominio/irpf/trabajo-anual/conexion.ts:10583:10595:local",
+      "lineNode": "lib/dominio/irpf/trabajo-anual/conexion.ts:10475:10738:call"
+    },
+    "decision": "corroboración técnica condicionada del valor y selección; no admisión ni cierre compuesto",
+    "condicionesComunes": [
+      "Receta exacta verificada antes del intérprete y productor/consumidor exactos del manifiesto",
+      "Fronteras completas por propiedad/instancia, EUR frente a céntimos, servicio normativo estándar y errores contractuales",
+      "Admisión anual/explicit/derechos pendiente del lote común; no se ha leído su trabajo parcial",
+      "Dominio ordinario del software fijado; no inferir hechos jurídicos ni validez normativa"
+    ],
+    "hallazgos": [
+      "R40-02",
+      "R40-03"
+    ],
+    "objecionExperta": "Una ejecución con cifras correctas puede ocultar una propiedad, instancia, error o selección exterior omitidos.",
+    "respuesta": "Se aportan importe, fuente, variables por símbolo, llamadas y discriminantes separados; la corroboración está condicionada a las fronteras completas, sin promover los booleanos.",
+    "coste": "Composición y contraste del padre; no autoaceptación fiscal, wiring o cambios de motor.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "siteId": "anual.explicito.cuota.autonomica",
+    "importe": "max(0,F_MadridPublicada(max(neto,0))-F_MadridPublicada(min(base,minimoAutonomico)))",
+    "seleccionYCondiciones": "Madrid2025 sin fecha de fallecimiento; mínimo autonómico distinto del estatal.",
+    "binding": {
+      "siteId": "anual.explicito.cuota.autonomica",
+      "source": {
+        "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+        "start": 10746,
+        "end": 11036,
+        "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+        "offsetEncoding": "utf16"
+      },
+      "amount": {
+        "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+        "start": 10857,
+        "end": 10872,
+        "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+        "offsetEncoding": "utf16"
+      },
+      "unit": "EUR",
+      "instance": "singleton-0",
+      "condition": "explicit-admission-required",
+      "finalProperty": "origen.decimal",
+      "valueNode": "lib/dominio/irpf/trabajo-anual/conexion.ts:10857:10872:local",
+      "lineNode": "lib/dominio/irpf/trabajo-anual/conexion.ts:10746:11036:call"
+    },
+    "decision": "corroboración técnica condicionada del valor y selección; no admisión ni cierre compuesto",
+    "condicionesComunes": [
+      "Receta exacta verificada antes del intérprete y productor/consumidor exactos del manifiesto",
+      "Fronteras completas por propiedad/instancia, EUR frente a céntimos, servicio normativo estándar y errores contractuales",
+      "Admisión anual/explicit/derechos pendiente del lote común; no se ha leído su trabajo parcial",
+      "Dominio ordinario del software fijado; no inferir hechos jurídicos ni validez normativa"
+    ],
+    "hallazgos": [
+      "R40-02",
+      "R40-03"
+    ],
+    "objecionExperta": "Una ejecución con cifras correctas puede ocultar una propiedad, instancia, error o selección exterior omitidos.",
+    "respuesta": "Se aportan importe, fuente, variables por símbolo, llamadas y discriminantes separados; la corroboración está condicionada a las fronteras completas, sin promover los booleanos.",
+    "coste": "Composición y contraste del padre; no autoaceptación fiscal, wiring o cambios de motor.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "siteId": "anual.explicito.cuota.liquida-legal",
+    "importe": "Suma estatal y autonómica antes de DA61",
+    "seleccionYCondiciones": "La legal no se reemplaza por cuotaPosterior aunque otras propiedades de DA61 coincidan.",
+    "binding": {
+      "siteId": "anual.explicito.cuota.liquida-legal",
+      "source": {
+        "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+        "start": 11044,
+        "end": 11309,
+        "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+        "offsetEncoding": "utf16"
+      },
+      "amount": {
+        "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+        "start": 11158,
+        "end": 11165,
+        "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+        "offsetEncoding": "utf16"
+      },
+      "unit": "EUR",
+      "instance": "singleton-0",
+      "condition": "explicit-admission-required",
+      "finalProperty": "origen.decimal",
+      "valueNode": "lib/dominio/irpf/trabajo-anual/conexion.ts:11158:11165:local",
+      "lineNode": "lib/dominio/irpf/trabajo-anual/conexion.ts:11044:11309:call"
+    },
+    "decision": "corroboración técnica condicionada del valor y selección; no admisión ni cierre compuesto",
+    "condicionesComunes": [
+      "Receta exacta verificada antes del intérprete y productor/consumidor exactos del manifiesto",
+      "Fronteras completas por propiedad/instancia, EUR frente a céntimos, servicio normativo estándar y errores contractuales",
+      "Admisión anual/explicit/derechos pendiente del lote común; no se ha leído su trabajo parcial",
+      "Dominio ordinario del software fijado; no inferir hechos jurídicos ni validez normativa"
+    ],
+    "hallazgos": [
+      "R40-02",
+      "R40-03"
+    ],
+    "objecionExperta": "Una ejecución con cifras correctas puede ocultar una propiedad, instancia, error o selección exterior omitidos.",
+    "respuesta": "Se aportan importe, fuente, variables por símbolo, llamadas y discriminantes separados; la corroboración está condicionada a las fronteras completas, sin promover los booleanos.",
+    "coste": "Composición y contraste del padre; no autoaceptación fiscal, wiring o cambios de motor.",
+    "completeRuleAcceptance": false
+  },
+  {
+    "siteId": "anual.explicito.cuota.posterior",
+    "importe": "Si brutoServicios>0: Decimal(resultadoDA61.cuotaPosterior), si no legal",
+    "seleccionYCondiciones": "Contrato DA61 con 12 propiedades y unidades EUR-string; estado no-soportado rechaza; pensión/EDS no lo llaman.",
+    "binding": {
+      "siteId": "anual.explicito.cuota.posterior",
+      "source": {
+        "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+        "start": 11573,
+        "end": 11809,
+        "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+        "offsetEncoding": "utf16"
+      },
+      "amount": {
+        "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+        "start": 11683,
+        "end": 11692,
+        "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+        "offsetEncoding": "utf16"
+      },
+      "unit": "EUR",
+      "instance": "singleton-0",
+      "condition": "explicit-admission-required",
+      "finalProperty": "origen.decimal",
+      "valueNode": "lib/dominio/irpf/trabajo-anual/conexion.ts:11683:11692:local",
+      "lineNode": "lib/dominio/irpf/trabajo-anual/conexion.ts:11573:11809:call"
+    },
+    "decision": "corroboración técnica condicionada del valor y selección; no admisión ni cierre compuesto",
+    "condicionesComunes": [
+      "Receta exacta verificada antes del intérprete y productor/consumidor exactos del manifiesto",
+      "Fronteras completas por propiedad/instancia, EUR frente a céntimos, servicio normativo estándar y errores contractuales",
+      "Admisión anual/explicit/derechos pendiente del lote común; no se ha leído su trabajo parcial",
+      "Dominio ordinario del software fijado; no inferir hechos jurídicos ni validez normativa"
+    ],
+    "hallazgos": [
+      "R40-02",
+      "R40-03"
+    ],
+    "objecionExperta": "Una ejecución con cifras correctas puede ocultar una propiedad, instancia, error o selección exterior omitidos.",
+    "respuesta": "Se aportan importe, fuente, variables por símbolo, llamadas y discriminantes separados; la corroboración está condicionada a las fronteras completas, sin promover los booleanos.",
+    "coste": "Composición y contraste del padre; no autoaceptación fiscal, wiring o cambios de motor.",
+    "completeRuleAcceptance": false
+  }
+]

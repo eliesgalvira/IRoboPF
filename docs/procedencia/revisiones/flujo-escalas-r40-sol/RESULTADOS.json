@@ -1,0 +1,32 @@
+{
+  "head": "314efe543def21276acb44d0e3b0816dd5f78d58",
+  "baseEntries": 20670,
+  "cases": "resumen.json; 302 registros, uno rojo contractual; no sumar con sondas264",
+  "vitest": {
+    "exit": 0,
+    "tests": 17,
+    "log": "logs/vitest.log"
+  },
+  "r26": {
+    "exit": 0,
+    "protectiveReds": 5
+  },
+  "r28Before": {
+    "exit": 1,
+    "checks": 54,
+    "failures": 28
+  },
+  "r28After": {
+    "exit": 0,
+    "checks": 54,
+    "failures": 0
+  },
+  "schema": {
+    "exit": 0
+  },
+  "checkJs": "logs/checkjs-definitivo.log; noImplicitAny:false; no fiscal static typing",
+  "lint": "logs/oxlint-definitivo.log; 16 reglas error, un hilo",
+  "completeRuleAcceptance": false,
+  "wiringAllowed": false,
+  "conclusionsRequireParentContrast": true
+}

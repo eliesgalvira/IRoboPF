@@ -1,0 +1,49 @@
+{
+  "cases": 302,
+  "failed": [],
+  "reds": [
+    {
+      "id": "R40-01-contrato-rentas-incompleto",
+      "expected": "proyección con contrato por outputs declarado",
+      "observed": "TypeError: Cannot read properties of undefined (reading 'toDecimalPlaces')",
+      "status": "red",
+      "classification": "insuficiencia de contrato de frontera; no defecto fiscal"
+    }
+  ],
+  "operations": [
+    "global",
+    "call",
+    "bind",
+    "declarations",
+    "local",
+    "get",
+    "function",
+    "invoke",
+    "literal",
+    "binary",
+    "conditional",
+    "property",
+    "object",
+    "array",
+    "mapError",
+    "pass",
+    "if",
+    "noop",
+    "unary",
+    "boundaryCall",
+    "template",
+    "return",
+    "block",
+    "isFailure",
+    "new",
+    "spread",
+    "assign",
+    "boundary",
+    "forOf",
+    "failurePayload",
+    "index"
+  ],
+  "sources": 57,
+  "admission": "pendiente composición con contrato ajeno; callbacks no son validadores",
+  "completeRuleAcceptance": false
+}
