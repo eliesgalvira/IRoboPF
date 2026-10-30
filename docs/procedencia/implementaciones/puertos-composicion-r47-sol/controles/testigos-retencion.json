@@ -1,0 +1,662 @@
+[
+  {
+    "port": "rentas::boundary:calcularDesgloseCotizacionesPerfilUniforme",
+    "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12792:13018:call",
+    "frames": [
+      {
+        "transport": 1
+      },
+      {
+        "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12780:13018:function",
+        "invocation": 1
+      }
+    ],
+    "arguments": [
+      {
+        "anio": 2020,
+        "salarioBrutoAnual": {
+          "decimal": "30000"
+        }
+      }
+    ],
+    "result": {
+      "alcance": "analitico-doce-mensualidades-uniformes",
+      "redondeoTgss": "pendiente",
+      "baseOrdinaria": {
+        "decimal": "30000"
+      },
+      "excesoBase": {
+        "decimal": "0"
+      },
+      "cotizacionEmpresarialOrdinaria": {
+        "decimal": "9420"
+      },
+      "cotizacionTrabajadorOrdinaria": {
+        "decimal": "1905"
+      },
+      "meiEmpresarial": {
+        "decimal": "0"
+      },
+      "meiTrabajador": {
+        "decimal": "0"
+      },
+      "solidaridadEmpresarial": {
+        "decimal": "0"
+      },
+      "solidaridadTrabajador": {
+        "decimal": "0"
+      },
+      "cotizacionEmpresarial": {
+        "decimal": "9420"
+      },
+      "cotizacionTrabajador": {
+        "decimal": "1905"
+      }
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12929:13017:object"
+      }
+    ],
+    "variant": null,
+    "properties": [
+      {
+        "path": "cotizacionEmpresarial",
+        "representation": "EUR",
+        "value": {
+          "decimal": "9420"
+        }
+      },
+      {
+        "path": "cotizacionTrabajador",
+        "representation": "EUR",
+        "value": {
+          "decimal": "1905"
+        }
+      },
+      {
+        "path": "meiEmpresarial",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      },
+      {
+        "path": "meiTrabajador",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      },
+      {
+        "path": "solidaridadEmpresarial",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      },
+      {
+        "path": "solidaridadTrabajador",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      }
+    ]
+  },
+  {
+    "port": "escalas::lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts#sumarRendimientosTrabajo",
+    "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12193:12260:call",
+    "frames": [
+      {
+        "transport": 2
+      },
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:11858:60626:function@1",
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12187:12260:function@2"
+    ],
+    "arguments": [
+      [
+        {
+          "importeIntegroCentimos": 3000000
+        }
+      ],
+      {
+        "opaquePrimitive": true
+      }
+    ],
+    "result": {
+      "decimal": "30000"
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12218:12243:get"
+      },
+      {
+        "index": 1,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12245:12259:global"
+      }
+    ],
+    "variant": null,
+    "properties": [
+      {
+        "path": "return",
+        "representation": "EUR",
+        "value": {
+          "decimal": "30000"
+        }
+      }
+    ]
+  },
+  {
+    "port": "escalas::lib/dominio/laboral/cotizaciones-perfil-uniforme.ts#calcularDesgloseCotizacionesPerfilUniforme",
+    "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12792:13018:call",
+    "frames": [
+      {
+        "transport": 3
+      },
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:11858:60626:function@1",
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12780:13018:function@25"
+    ],
+    "arguments": [
+      {
+        "anio": 2020,
+        "salarioBrutoAnual": {
+          "decimal": "30000"
+        }
+      }
+    ],
+    "result": {
+      "alcance": "analitico-doce-mensualidades-uniformes",
+      "redondeoTgss": "pendiente",
+      "baseOrdinaria": {
+        "decimal": "30000"
+      },
+      "excesoBase": {
+        "decimal": "0"
+      },
+      "cotizacionEmpresarialOrdinaria": {
+        "decimal": "9420"
+      },
+      "cotizacionTrabajadorOrdinaria": {
+        "decimal": "1905"
+      },
+      "meiEmpresarial": {
+        "decimal": "0"
+      },
+      "meiTrabajador": {
+        "decimal": "0"
+      },
+      "solidaridadEmpresarial": {
+        "decimal": "0"
+      },
+      "solidaridadTrabajador": {
+        "decimal": "0"
+      },
+      "cotizacionEmpresarial": {
+        "decimal": "9420"
+      },
+      "cotizacionTrabajador": {
+        "decimal": "1905"
+      }
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12929:13017:object"
+      }
+    ],
+    "variant": null,
+    "properties": [
+      {
+        "path": "cotizacionTrabajador",
+        "representation": "EUR",
+        "value": {
+          "decimal": "1905"
+        }
+      },
+      {
+        "path": "cotizacionEmpresarial",
+        "representation": "EUR",
+        "value": {
+          "decimal": "9420"
+        }
+      },
+      {
+        "path": "meiEmpresarial",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      },
+      {
+        "path": "meiTrabajador",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      },
+      {
+        "path": "solidaridadEmpresarial",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      },
+      {
+        "path": "solidaridadTrabajador",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      }
+    ]
+  },
+  {
+    "port": "escalas::lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts#calcularRendimientoNetoTrabajo",
+    "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13132:13326:call",
+    "frames": [
+      {
+        "transport": 4
+      },
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:11858:60626:function@1",
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13120:13326:function@26"
+    ],
+    "arguments": [
+      {
+        "anio": 2020,
+        "rendimientoIntegro": {
+          "decimal": "30000"
+        },
+        "cotizacionTrabajador": {
+          "decimal": "1905"
+        }
+      }
+    ],
+    "result": {
+      "rendimientoIntegro": {
+        "decimal": "30000"
+      },
+      "cotizacionTrabajador": {
+        "decimal": "1905"
+      },
+      "rendimientoPrevioNeto": {
+        "decimal": "28095"
+      },
+      "gastosDeducibles": {
+        "decimal": "2000"
+      },
+      "rendimientoNeto": {
+        "decimal": "26095"
+      }
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13163:13325:object"
+      }
+    ],
+    "variant": null,
+    "properties": [
+      {
+        "path": "rendimientoIntegro",
+        "representation": "EUR",
+        "value": {
+          "decimal": "30000"
+        }
+      },
+      {
+        "path": "rendimientoNeto",
+        "representation": "EUR",
+        "value": {
+          "decimal": "26095"
+        }
+      },
+      {
+        "path": "rendimientoPrevioNeto",
+        "representation": "EUR",
+        "value": {
+          "decimal": "28095"
+        }
+      },
+      {
+        "path": "gastosDeducibles",
+        "representation": "EUR",
+        "value": {
+          "decimal": "2000"
+        }
+      },
+      {
+        "path": "cotizacionTrabajador",
+        "representation": "EUR",
+        "value": {
+          "decimal": "1905"
+        }
+      }
+    ]
+  },
+  {
+    "port": "escalas::lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts#sumarRendimientosCapitalInmobiliario",
+    "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13460:13650:call",
+    "frames": [
+      {
+        "transport": 5
+      },
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:11858:60626:function@1",
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13448:13650:function@27"
+    ],
+    "arguments": [
+      [],
+      {
+        "opaquePrimitive": true
+      }
+    ],
+    "result": {
+      "decimal": "0"
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13506:13618:call"
+      },
+      {
+        "index": 1,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13628:13642:global"
+      }
+    ],
+    "variant": null,
+    "properties": [
+      {
+        "path": "return",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      }
+    ]
+  },
+  {
+    "port": "escalas::lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts#calcularRendimientoNetoCapitalInmobiliarioSimplificado",
+    "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13776:13908:call",
+    "frames": [
+      {
+        "transport": 6
+      },
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:11858:60626:function@1",
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13764:13908:function@31"
+    ],
+    "arguments": [
+      {
+        "rendimientoIntegro": {
+          "decimal": "0"
+        }
+      }
+    ],
+    "result": {
+      "rendimientoIntegro": {
+        "decimal": "0"
+      },
+      "rendimientoNeto": {
+        "decimal": "0"
+      }
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13831:13907:object"
+      }
+    ],
+    "variant": null,
+    "properties": [
+      {
+        "path": "rendimientoNeto",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      }
+    ]
+  },
+  {
+    "port": "escalas::lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts#calcularGananciasPatrimonialesPorTransmision",
+    "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14024:14339:call",
+    "frames": [
+      {
+        "transport": 7
+      },
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:11858:60626:function@1",
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14012:14339:function@32"
+    ],
+    "arguments": [
+      {
+        "anio": 2020,
+        "edadContribuyente": 40,
+        "ganancias": [],
+        "convertirCentimos": {
+          "opaquePrimitive": true
+        }
+      }
+    ],
+    "result": {
+      "gananciaTotal": {
+        "decimal": "0"
+      },
+      "gananciaExenta": {
+        "decimal": "0"
+      },
+      "gananciaSujetaAhorro": {
+        "decimal": "0"
+      },
+      "gananciaSujetaGeneral": {
+        "decimal": "0"
+      }
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14069:14338:object"
+      }
+    ],
+    "variant": null,
+    "properties": [
+      {
+        "path": "gananciaSujetaGeneral",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      },
+      {
+        "path": "gananciaSujetaAhorro",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      },
+      {
+        "path": "gananciaTotal",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      },
+      {
+        "path": "gananciaExenta",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      }
+    ]
+  },
+  {
+    "port": "escalas::lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts#calcularReduccionTrabajoConOtrasRentas",
+    "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15117:15347:call",
+    "frames": [
+      {
+        "transport": 8
+      },
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:11858:60626:function@1",
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15105:15347:function@34"
+    ],
+    "arguments": [
+      {
+        "anio": 2020,
+        "fechaFallecimiento": {
+          "absent": true
+        },
+        "rendimientoPrevioNeto": {
+          "decimal": "28095"
+        },
+        "otrasRentasNoExentas": {
+          "decimal": "0"
+        }
+      }
+    ],
+    "result": {
+      "decimal": "0"
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15156:15346:object"
+      }
+    ],
+    "variant": null,
+    "properties": [
+      {
+        "path": "return",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      }
+    ]
+  },
+  {
+    "port": "escalas::retencion.calcular",
+    "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:28270:28379:boundaryCall",
+    "frames": [
+      {
+        "transport": 9
+      },
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:11858:60626:function@1"
+    ],
+    "arguments": [
+      {
+        "anio": 2020,
+        "edad": 40,
+        "retribucionAnualCentimos": 4020000,
+        "cotizacionesCentimos": 20000,
+        "situacionFamiliar": "situacion3",
+        "situacionLaboral": "activo",
+        "contrato": "general",
+        "descendientes": [],
+        "ascendientes": [],
+        "discapacidad": "sin-discapacidad"
+      },
+      {
+        "modo": "canonico"
+      }
+    ],
+    "result": {
+      "_tag": "RetencionTrabajoCalculada",
+      "anio": 2020,
+      "version": "aeat-2020-01-01",
+      "rendimientoNetoTrabajoCentimos": 4000000,
+      "reduccionRendimientosTrabajoCentimos": 0,
+      "rendimientoNetoReducidoCentimos": 3800000,
+      "minimoPersonalFamiliarCentimos": 555000,
+      "baseRetencionCentimos": 3800000,
+      "cuotaRetencionCentimos": 870700,
+      "limite43Centimos": 870700,
+      "tipoRetencionPorcentaje": "21.65",
+      "importeRetencionAnualCentimos": 870330,
+      "rastro": {
+        "titulo": "Procedimiento de retención de trabajo 2020",
+        "pasos": [
+          {
+            "_tag": "PasoExplicacion",
+            "titulo": "Base de retención",
+            "descripcion": "Cálculo inicial parcial con remuneración anual y cotizaciones suministradas; familia elegible comunicada, edades al 31 de diciembre. No es nómina completa ni aceptación fiscal.",
+            "lineasCalculo": [
+              {
+                "etiqueta": "Rendimiento neto del trabajo",
+                "formula": "40200.00 euros - 0.00 euros - 0.00 euros - 200.00 euros",
+                "resultado": "40000.00 euros"
+              },
+              {
+                "etiqueta": "Reducción por rendimientos del trabajo",
+                "formula": "Art. 20 LIRPF segun tramos del procedimiento",
+                "resultado": "0.00 euros"
+              },
+              {
+                "etiqueta": "Base para calcular el tipo",
+                "formula": "38000.00 euros - 0.00 euros",
+                "resultado": "38000.00 euros"
+              }
+            ],
+            "fuentes": [
+              {
+                "titulo": "aeat-2020-01-01; SHA-256 645d06d2dc5a9301358b78a9bcf8981b86c1114bd7af47cd66d8128a1d6f5e25",
+                "referencia": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2020/ALGORITMO_RETENCIONES_2020.pdf"
+              }
+            ]
+          },
+          {
+            "_tag": "PasoExplicacion",
+            "titulo": "Cuota y tipo de retención",
+            "descripcion": "La cuota se obtiene aplicando la escala de retención a la base y al mínimo personal y familiar; el tipo se trunca a dos decimales.",
+            "lineasCalculo": [
+              {
+                "etiqueta": "Mínimo personal y familiar",
+                "formula": "Contribuyente, descendientes, ascendientes y discapacidad",
+                "resultado": "5550.00 euros"
+              },
+              {
+                "etiqueta": "Cuota de retención",
+                "formula": "min(cuota escala, limite 43% 8707.00 euros)",
+                "resultado": "8707.00 euros"
+              },
+              {
+                "etiqueta": "Tipo de retención",
+                "formula": "8707.00 euros / 40200.00 euros x 100",
+                "resultado": "21.65%"
+              },
+              {
+                "etiqueta": "Importe anual",
+                "formula": "40200.00 euros x 21.65%",
+                "resultado": "8703.30 euros"
+              }
+            ],
+            "fuentes": [
+              {
+                "titulo": "aeat-2020-01-01; SHA-256 645d06d2dc5a9301358b78a9bcf8981b86c1114bd7af47cd66d8128a1d6f5e25",
+                "referencia": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2020/ALGORITMO_RETENCIONES_2020.pdf"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:28324:28349:get"
+      },
+      {
+        "index": 1,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:28361:28369:local"
+      }
+    ],
+    "variant": null,
+    "properties": [
+      {
+        "path": "importeRetencionAnualCentimos",
+        "representation": "centimos",
+        "value": 870330
+      }
+    ]
+  }
+]

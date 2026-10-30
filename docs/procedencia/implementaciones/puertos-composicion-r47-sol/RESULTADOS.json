@@ -1,0 +1,52 @@
+{
+  "scope": "ports-only; candidate for parent contrast",
+  "connections": 22,
+  "portCallAssociations": 24,
+  "distinctConsumerCallNodes": 22,
+  "tests": {
+    "files": 3,
+    "passed": 60,
+    "newMilestone": 21,
+    "r43": 21,
+    "r45": 18,
+    "code": 0,
+    "log": "controles/definitivo-suite.log"
+  },
+  "types": {
+    "scope": 0,
+    "vendor": 0,
+    "principal": 2,
+    "principalBaselineReproduction": 1,
+    "baselineDiagnostic": "TS2345 docs/procedencia/revisiones/fronteras-escalas-r42-sol/propios.test.ts:53"
+  },
+  "lint": {
+    "rules": 16,
+    "scope": 0,
+    "threads": 1,
+    "nestedConfig": false
+  },
+  "generation": {
+    "code": 0,
+    "portsStatus": "ports-satisfied"
+  },
+  "review": "pending-independent-parent-contrast",
+  "globalAcceptance": false,
+  "globalTask": "open",
+  "pending": [
+    "transitive graph 65 sites",
+    "19 complete instances",
+    "complete admission",
+    "annual result normalization",
+    "final individual explanations"
+  ],
+  "originalR43Connections": 21,
+  "nonFinancialWrapperConnections": 1,
+  "originalR43PortCallAssociations": 23,
+  "runtimeCoverage": {
+    "connections": 22,
+    "associations": 24,
+    "allReached": true,
+    "evidence": "controles/cobertura-todas-llamadas.json",
+    "witnesses": "controles/testigos-todas-llamadas.json"
+  }
+}

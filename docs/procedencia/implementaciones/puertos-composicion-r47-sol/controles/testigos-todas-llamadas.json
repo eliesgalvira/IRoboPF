@@ -1,0 +1,4872 @@
+[
+  {
+    "port": "rentas::boundary:calcularDesgloseCotizacionesPerfilUniforme",
+    "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12792:13018:call",
+    "frames": [
+      {
+        "transport": 1
+      },
+      {
+        "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12780:13018:function",
+        "invocation": 1
+      }
+    ],
+    "arguments": [
+      {
+        "anio": 2025,
+        "salarioBrutoAnual": {
+          "decimal": "30000"
+        }
+      }
+    ],
+    "result": {
+      "alcance": "analitico-doce-mensualidades-uniformes",
+      "redondeoTgss": "pendiente",
+      "baseOrdinaria": {
+        "decimal": "30000"
+      },
+      "excesoBase": {
+        "decimal": "0"
+      },
+      "cotizacionEmpresarialOrdinaria": {
+        "decimal": "9420"
+      },
+      "cotizacionTrabajadorOrdinaria": {
+        "decimal": "1905"
+      },
+      "meiEmpresarial": {
+        "decimal": "201"
+      },
+      "meiTrabajador": {
+        "decimal": "39"
+      },
+      "solidaridadEmpresarial": {
+        "decimal": "0"
+      },
+      "solidaridadTrabajador": {
+        "decimal": "0"
+      },
+      "cotizacionEmpresarial": {
+        "decimal": "9621"
+      },
+      "cotizacionTrabajador": {
+        "decimal": "1944"
+      }
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12929:13017:object"
+      }
+    ],
+    "variant": null,
+    "properties": [
+      {
+        "path": "cotizacionEmpresarial",
+        "representation": "EUR",
+        "value": {
+          "decimal": "9621"
+        }
+      },
+      {
+        "path": "cotizacionTrabajador",
+        "representation": "EUR",
+        "value": {
+          "decimal": "1944"
+        }
+      },
+      {
+        "path": "meiEmpresarial",
+        "representation": "EUR",
+        "value": {
+          "decimal": "201"
+        }
+      },
+      {
+        "path": "meiTrabajador",
+        "representation": "EUR",
+        "value": {
+          "decimal": "39"
+        }
+      },
+      {
+        "path": "solidaridadEmpresarial",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      },
+      {
+        "path": "solidaridadTrabajador",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      }
+    ]
+  },
+  {
+    "port": "escalas::lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts#sumarRendimientosTrabajo",
+    "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12193:12260:call",
+    "frames": [
+      {
+        "transport": 2
+      },
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:11858:60626:function@1",
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12187:12260:function@2"
+    ],
+    "arguments": [
+      [
+        {
+          "importeIntegroCentimos": 3000000
+        }
+      ],
+      {
+        "opaquePrimitive": true
+      }
+    ],
+    "result": {
+      "decimal": "30000"
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12218:12243:get"
+      },
+      {
+        "index": 1,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12245:12259:global"
+      }
+    ],
+    "variant": null,
+    "properties": [
+      {
+        "path": "return",
+        "representation": "EUR",
+        "value": {
+          "decimal": "30000"
+        }
+      }
+    ]
+  },
+  {
+    "port": "escalas::lib/dominio/laboral/cotizaciones-perfil-uniforme.ts#calcularDesgloseCotizacionesPerfilUniforme",
+    "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12792:13018:call",
+    "frames": [
+      {
+        "transport": 3
+      },
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:11858:60626:function@1",
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12780:13018:function@25"
+    ],
+    "arguments": [
+      {
+        "anio": 2025,
+        "salarioBrutoAnual": {
+          "decimal": "30000"
+        }
+      }
+    ],
+    "result": {
+      "alcance": "analitico-doce-mensualidades-uniformes",
+      "redondeoTgss": "pendiente",
+      "baseOrdinaria": {
+        "decimal": "30000"
+      },
+      "excesoBase": {
+        "decimal": "0"
+      },
+      "cotizacionEmpresarialOrdinaria": {
+        "decimal": "9420"
+      },
+      "cotizacionTrabajadorOrdinaria": {
+        "decimal": "1905"
+      },
+      "meiEmpresarial": {
+        "decimal": "201"
+      },
+      "meiTrabajador": {
+        "decimal": "39"
+      },
+      "solidaridadEmpresarial": {
+        "decimal": "0"
+      },
+      "solidaridadTrabajador": {
+        "decimal": "0"
+      },
+      "cotizacionEmpresarial": {
+        "decimal": "9621"
+      },
+      "cotizacionTrabajador": {
+        "decimal": "1944"
+      }
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12929:13017:object"
+      }
+    ],
+    "variant": null,
+    "properties": [
+      {
+        "path": "cotizacionTrabajador",
+        "representation": "EUR",
+        "value": {
+          "decimal": "1944"
+        }
+      },
+      {
+        "path": "cotizacionEmpresarial",
+        "representation": "EUR",
+        "value": {
+          "decimal": "9621"
+        }
+      },
+      {
+        "path": "meiEmpresarial",
+        "representation": "EUR",
+        "value": {
+          "decimal": "201"
+        }
+      },
+      {
+        "path": "meiTrabajador",
+        "representation": "EUR",
+        "value": {
+          "decimal": "39"
+        }
+      },
+      {
+        "path": "solidaridadEmpresarial",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      },
+      {
+        "path": "solidaridadTrabajador",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      }
+    ]
+  },
+  {
+    "port": "escalas::lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts#calcularRendimientoNetoTrabajo",
+    "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13132:13326:call",
+    "frames": [
+      {
+        "transport": 4
+      },
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:11858:60626:function@1",
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13120:13326:function@26"
+    ],
+    "arguments": [
+      {
+        "anio": 2025,
+        "rendimientoIntegro": {
+          "decimal": "30000"
+        },
+        "cotizacionTrabajador": {
+          "decimal": "1944"
+        }
+      }
+    ],
+    "result": {
+      "rendimientoIntegro": {
+        "decimal": "30000"
+      },
+      "cotizacionTrabajador": {
+        "decimal": "1944"
+      },
+      "rendimientoPrevioNeto": {
+        "decimal": "28056"
+      },
+      "gastosDeducibles": {
+        "decimal": "2000"
+      },
+      "rendimientoNeto": {
+        "decimal": "26056"
+      }
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13163:13325:object"
+      }
+    ],
+    "variant": null,
+    "properties": [
+      {
+        "path": "rendimientoIntegro",
+        "representation": "EUR",
+        "value": {
+          "decimal": "30000"
+        }
+      },
+      {
+        "path": "rendimientoNeto",
+        "representation": "EUR",
+        "value": {
+          "decimal": "26056"
+        }
+      },
+      {
+        "path": "rendimientoPrevioNeto",
+        "representation": "EUR",
+        "value": {
+          "decimal": "28056"
+        }
+      },
+      {
+        "path": "gastosDeducibles",
+        "representation": "EUR",
+        "value": {
+          "decimal": "2000"
+        }
+      },
+      {
+        "path": "cotizacionTrabajador",
+        "representation": "EUR",
+        "value": {
+          "decimal": "1944"
+        }
+      }
+    ]
+  },
+  {
+    "port": "escalas::lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts#sumarRendimientosCapitalInmobiliario",
+    "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13460:13650:call",
+    "frames": [
+      {
+        "transport": 5
+      },
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:11858:60626:function@1",
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13448:13650:function@27"
+    ],
+    "arguments": [
+      [],
+      {
+        "opaquePrimitive": true
+      }
+    ],
+    "result": {
+      "decimal": "0"
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13506:13618:call"
+      },
+      {
+        "index": 1,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13628:13642:global"
+      }
+    ],
+    "variant": null,
+    "properties": [
+      {
+        "path": "return",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      }
+    ]
+  },
+  {
+    "port": "escalas::lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts#calcularRendimientoNetoCapitalInmobiliarioSimplificado",
+    "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13776:13908:call",
+    "frames": [
+      {
+        "transport": 6
+      },
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:11858:60626:function@1",
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13764:13908:function@31"
+    ],
+    "arguments": [
+      {
+        "rendimientoIntegro": {
+          "decimal": "0"
+        }
+      }
+    ],
+    "result": {
+      "rendimientoIntegro": {
+        "decimal": "0"
+      },
+      "rendimientoNeto": {
+        "decimal": "0"
+      }
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13831:13907:object"
+      }
+    ],
+    "variant": null,
+    "properties": [
+      {
+        "path": "rendimientoNeto",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      }
+    ]
+  },
+  {
+    "port": "escalas::lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts#calcularGananciasPatrimonialesPorTransmision",
+    "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14024:14339:call",
+    "frames": [
+      {
+        "transport": 7
+      },
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:11858:60626:function@1",
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14012:14339:function@32"
+    ],
+    "arguments": [
+      {
+        "anio": 2025,
+        "edadContribuyente": 40,
+        "ganancias": [],
+        "convertirCentimos": {
+          "opaquePrimitive": true
+        }
+      }
+    ],
+    "result": {
+      "gananciaTotal": {
+        "decimal": "0"
+      },
+      "gananciaExenta": {
+        "decimal": "0"
+      },
+      "gananciaSujetaAhorro": {
+        "decimal": "0"
+      },
+      "gananciaSujetaGeneral": {
+        "decimal": "0"
+      }
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14069:14338:object"
+      }
+    ],
+    "variant": null,
+    "properties": [
+      {
+        "path": "gananciaSujetaGeneral",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      },
+      {
+        "path": "gananciaSujetaAhorro",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      },
+      {
+        "path": "gananciaTotal",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      },
+      {
+        "path": "gananciaExenta",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      }
+    ]
+  },
+  {
+    "port": "escalas::lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts#calcularReduccionTrabajoConOtrasRentas",
+    "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15117:15347:call",
+    "frames": [
+      {
+        "transport": 8
+      },
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:11858:60626:function@1",
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15105:15347:function@34"
+    ],
+    "arguments": [
+      {
+        "anio": 2025,
+        "fechaFallecimiento": {
+          "absent": true
+        },
+        "rendimientoPrevioNeto": {
+          "decimal": "28056"
+        },
+        "otrasRentasNoExentas": {
+          "decimal": "0"
+        }
+      }
+    ],
+    "result": {
+      "decimal": "0"
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15156:15346:object"
+      }
+    ],
+    "variant": null,
+    "properties": [
+      {
+        "path": "return",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      }
+    ]
+  },
+  {
+    "port": "rentas::boundary:calcularDesgloseCotizacionesSocialesLegacy",
+    "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12792:13018:call",
+    "frames": [
+      {
+        "transport": 9
+      },
+      {
+        "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12780:13018:function",
+        "invocation": 1
+      }
+    ],
+    "arguments": [
+      {
+        "anio": 2025,
+        "salarioBrutoAnual": {
+          "decimal": "30000"
+        }
+      }
+    ],
+    "result": {
+      "baseOrdinaria": {
+        "decimal": "30000"
+      },
+      "excesoBase": {
+        "decimal": "0"
+      },
+      "cotizacionEmpresarial": {
+        "decimal": "9621"
+      },
+      "cotizacionTrabajador": {
+        "decimal": "1944"
+      },
+      "cotizacionEmpresarialOrdinaria": {
+        "decimal": "9420"
+      },
+      "cotizacionTrabajadorOrdinaria": {
+        "decimal": "1905"
+      },
+      "meiEmpresarial": {
+        "decimal": "201"
+      },
+      "meiTrabajador": {
+        "decimal": "39"
+      },
+      "solidaridadEmpresarial": {
+        "decimal": "0"
+      },
+      "solidaridadTrabajador": {
+        "decimal": "0"
+      }
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12929:13017:object"
+      }
+    ],
+    "variant": null,
+    "properties": [
+      {
+        "path": "cotizacionEmpresarial",
+        "representation": "EUR",
+        "value": {
+          "decimal": "9621"
+        }
+      },
+      {
+        "path": "cotizacionTrabajador",
+        "representation": "EUR",
+        "value": {
+          "decimal": "1944"
+        }
+      },
+      {
+        "path": "meiEmpresarial",
+        "representation": "EUR",
+        "value": {
+          "decimal": "201"
+        }
+      },
+      {
+        "path": "meiTrabajador",
+        "representation": "EUR",
+        "value": {
+          "decimal": "39"
+        }
+      },
+      {
+        "path": "solidaridadEmpresarial",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      },
+      {
+        "path": "solidaridadTrabajador",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      }
+    ]
+  },
+  {
+    "port": "escalas::lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts#sumarRendimientosTrabajo",
+    "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12193:12260:call",
+    "frames": [
+      {
+        "transport": 10
+      },
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:11858:60626:function@1",
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12187:12260:function@2"
+    ],
+    "arguments": [
+      [
+        {
+          "importeIntegroCentimos": 3000000
+        }
+      ],
+      {
+        "opaquePrimitive": true
+      }
+    ],
+    "result": {
+      "decimal": "30000"
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12218:12243:get"
+      },
+      {
+        "index": 1,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12245:12259:global"
+      }
+    ],
+    "variant": null,
+    "properties": [
+      {
+        "path": "return",
+        "representation": "EUR",
+        "value": {
+          "decimal": "30000"
+        }
+      }
+    ]
+  },
+  {
+    "port": "escalas::lib/dominio/laboral/cotizaciones-sociales.ts#calcularDesgloseCotizacionesSocialesLegacy",
+    "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12792:13018:call",
+    "frames": [
+      {
+        "transport": 11
+      },
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:11858:60626:function@1",
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12780:13018:function@25"
+    ],
+    "arguments": [
+      {
+        "anio": 2025,
+        "salarioBrutoAnual": {
+          "decimal": "30000"
+        }
+      }
+    ],
+    "result": {
+      "baseOrdinaria": {
+        "decimal": "30000"
+      },
+      "excesoBase": {
+        "decimal": "0"
+      },
+      "cotizacionEmpresarial": {
+        "decimal": "9621"
+      },
+      "cotizacionTrabajador": {
+        "decimal": "1944"
+      },
+      "cotizacionEmpresarialOrdinaria": {
+        "decimal": "9420"
+      },
+      "cotizacionTrabajadorOrdinaria": {
+        "decimal": "1905"
+      },
+      "meiEmpresarial": {
+        "decimal": "201"
+      },
+      "meiTrabajador": {
+        "decimal": "39"
+      },
+      "solidaridadEmpresarial": {
+        "decimal": "0"
+      },
+      "solidaridadTrabajador": {
+        "decimal": "0"
+      }
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12929:13017:object"
+      }
+    ],
+    "variant": null,
+    "properties": [
+      {
+        "path": "cotizacionTrabajador",
+        "representation": "EUR",
+        "value": {
+          "decimal": "1944"
+        }
+      },
+      {
+        "path": "cotizacionEmpresarial",
+        "representation": "EUR",
+        "value": {
+          "decimal": "9621"
+        }
+      },
+      {
+        "path": "meiEmpresarial",
+        "representation": "EUR",
+        "value": {
+          "decimal": "201"
+        }
+      },
+      {
+        "path": "meiTrabajador",
+        "representation": "EUR",
+        "value": {
+          "decimal": "39"
+        }
+      },
+      {
+        "path": "solidaridadEmpresarial",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      },
+      {
+        "path": "solidaridadTrabajador",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      }
+    ]
+  },
+  {
+    "port": "escalas::lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts#calcularRendimientoNetoTrabajo",
+    "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13132:13326:call",
+    "frames": [
+      {
+        "transport": 12
+      },
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:11858:60626:function@1",
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13120:13326:function@26"
+    ],
+    "arguments": [
+      {
+        "anio": 2025,
+        "rendimientoIntegro": {
+          "decimal": "30000"
+        },
+        "cotizacionTrabajador": {
+          "decimal": "1944"
+        }
+      }
+    ],
+    "result": {
+      "rendimientoIntegro": {
+        "decimal": "30000"
+      },
+      "cotizacionTrabajador": {
+        "decimal": "1944"
+      },
+      "rendimientoPrevioNeto": {
+        "decimal": "28056"
+      },
+      "gastosDeducibles": {
+        "decimal": "2000"
+      },
+      "rendimientoNeto": {
+        "decimal": "26056"
+      }
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13163:13325:object"
+      }
+    ],
+    "variant": null,
+    "properties": [
+      {
+        "path": "rendimientoIntegro",
+        "representation": "EUR",
+        "value": {
+          "decimal": "30000"
+        }
+      },
+      {
+        "path": "rendimientoNeto",
+        "representation": "EUR",
+        "value": {
+          "decimal": "26056"
+        }
+      },
+      {
+        "path": "rendimientoPrevioNeto",
+        "representation": "EUR",
+        "value": {
+          "decimal": "28056"
+        }
+      },
+      {
+        "path": "gastosDeducibles",
+        "representation": "EUR",
+        "value": {
+          "decimal": "2000"
+        }
+      },
+      {
+        "path": "cotizacionTrabajador",
+        "representation": "EUR",
+        "value": {
+          "decimal": "1944"
+        }
+      }
+    ]
+  },
+  {
+    "port": "escalas::lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts#sumarRendimientosCapitalInmobiliario",
+    "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13460:13650:call",
+    "frames": [
+      {
+        "transport": 13
+      },
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:11858:60626:function@1",
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13448:13650:function@27"
+    ],
+    "arguments": [
+      [],
+      {
+        "opaquePrimitive": true
+      }
+    ],
+    "result": {
+      "decimal": "0"
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13506:13618:call"
+      },
+      {
+        "index": 1,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13628:13642:global"
+      }
+    ],
+    "variant": null,
+    "properties": [
+      {
+        "path": "return",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      }
+    ]
+  },
+  {
+    "port": "escalas::lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts#calcularRendimientoNetoCapitalInmobiliarioSimplificado",
+    "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13776:13908:call",
+    "frames": [
+      {
+        "transport": 14
+      },
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:11858:60626:function@1",
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13764:13908:function@31"
+    ],
+    "arguments": [
+      {
+        "rendimientoIntegro": {
+          "decimal": "0"
+        }
+      }
+    ],
+    "result": {
+      "rendimientoIntegro": {
+        "decimal": "0"
+      },
+      "rendimientoNeto": {
+        "decimal": "0"
+      }
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13831:13907:object"
+      }
+    ],
+    "variant": null,
+    "properties": [
+      {
+        "path": "rendimientoNeto",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      }
+    ]
+  },
+  {
+    "port": "escalas::lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts#calcularGananciasPatrimonialesPorTransmision",
+    "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14024:14339:call",
+    "frames": [
+      {
+        "transport": 15
+      },
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:11858:60626:function@1",
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14012:14339:function@32"
+    ],
+    "arguments": [
+      {
+        "anio": 2025,
+        "edadContribuyente": 40,
+        "ganancias": [],
+        "convertirCentimos": {
+          "opaquePrimitive": true
+        }
+      }
+    ],
+    "result": {
+      "gananciaTotal": {
+        "decimal": "0"
+      },
+      "gananciaExenta": {
+        "decimal": "0"
+      },
+      "gananciaSujetaAhorro": {
+        "decimal": "0"
+      },
+      "gananciaSujetaGeneral": {
+        "decimal": "0"
+      }
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14069:14338:object"
+      }
+    ],
+    "variant": null,
+    "properties": [
+      {
+        "path": "gananciaSujetaGeneral",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      },
+      {
+        "path": "gananciaSujetaAhorro",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      },
+      {
+        "path": "gananciaTotal",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      },
+      {
+        "path": "gananciaExenta",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      }
+    ]
+  },
+  {
+    "port": "escalas::lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts#calcularReduccionTrabajoConOtrasRentas",
+    "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15117:15347:call",
+    "frames": [
+      {
+        "transport": 16
+      },
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:11858:60626:function@1",
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15105:15347:function@34"
+    ],
+    "arguments": [
+      {
+        "anio": 2025,
+        "fechaFallecimiento": {
+          "absent": true
+        },
+        "rendimientoPrevioNeto": {
+          "decimal": "28056"
+        },
+        "otrasRentasNoExentas": {
+          "decimal": "0"
+        }
+      }
+    ],
+    "result": {
+      "decimal": "0"
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15156:15346:object"
+      }
+    ],
+    "variant": null,
+    "properties": [
+      {
+        "path": "return",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      }
+    ]
+  },
+  {
+    "port": "rentas::boundary:obtenerParametrosComunidadAutonoma",
+    "node": "lib/dominio/irpf/trabajo-anual/conexion.ts:7426:7549:call",
+    "frames": [
+      {
+        "transport": 17
+      },
+      {
+        "node": "lib/dominio/irpf/trabajo-anual/conexion.ts:1526:13571:function",
+        "invocation": 1
+      }
+    ],
+    "arguments": [
+      {
+        "anio": 2025,
+        "comunidadAutonoma": "madrid",
+        "baseLiquidableGeneral": {
+          "decimal": "28000"
+        }
+      }
+    ],
+    "result": {
+      "_tag": "ParametrosComunidadAutonoma",
+      "comunidadAutonoma": "madrid",
+      "anio": 2025,
+      "minimoAutonomicoIgualEstatal": false,
+      "escalaAutonomicaIgualEstatal": false,
+      "escalaEstatalGeneral": [
+        [
+          {
+            "decimal": "12450"
+          },
+          {
+            "decimal": "0.095"
+          }
+        ],
+        [
+          {
+            "decimal": "20200"
+          },
+          {
+            "decimal": "0.12"
+          }
+        ],
+        [
+          {
+            "decimal": "35200"
+          },
+          {
+            "decimal": "0.15"
+          }
+        ],
+        [
+          {
+            "decimal": "60000"
+          },
+          {
+            "decimal": "0.185"
+          }
+        ],
+        [
+          {
+            "decimal": "300000"
+          },
+          {
+            "decimal": "0.225"
+          }
+        ],
+        [
+          {
+            "decimal": "Infinity"
+          },
+          {
+            "decimal": "0.245"
+          }
+        ]
+      ],
+      "escalaAutonomica": {
+        "comunidadAutonoma": "madrid",
+        "nombre": "Comunidad de Madrid",
+        "tramos": [
+          [
+            {
+              "decimal": "13362.22"
+            },
+            {
+              "decimal": "0.085"
+            }
+          ],
+          [
+            {
+              "decimal": "19004.63"
+            },
+            {
+              "decimal": "0.107"
+            }
+          ],
+          [
+            {
+              "decimal": "35425.68"
+            },
+            {
+              "decimal": "0.128"
+            }
+          ],
+          [
+            {
+              "decimal": "57320.4"
+            },
+            {
+              "decimal": "0.174"
+            }
+          ],
+          [
+            {
+              "decimal": "Infinity"
+            },
+            {
+              "decimal": "0.205"
+            }
+          ]
+        ],
+        "fuente": {
+          "titulo": "AEAT Modelo 100 IRPF 2025: cuota íntegra autonómica",
+          "referencia": "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-ayuda-presentacion/irpf-2025/8-cumplimentacion-irpf/8_4-cuota-integra/8_4_3-gravamen-base-liquidable-general/8_4_3_2-cuota-integra-autonomica.html"
+        }
+      },
+      "minimosAutonomicos": {
+        "contribuyente": {
+          "general": {
+            "decimal": "5956.65"
+          },
+          "adicionalMayor65": {
+            "decimal": "1234.26"
+          },
+          "adicionalMayor75": {
+            "decimal": "1502.58"
+          }
+        },
+        "descendientes": {
+          "primero": {
+            "decimal": "2575.85"
+          },
+          "segundo": {
+            "decimal": "2897.83"
+          },
+          "tercero": {
+            "decimal": "4400"
+          },
+          "cuartoYSiguientes": {
+            "decimal": "4950"
+          },
+          "adicionalMenorTres": {
+            "decimal": "3005.16"
+          }
+        },
+        "ascendientes": {
+          "mayor65OConDiscapacidad": {
+            "decimal": "1234.26"
+          },
+          "adicionalMayor75": {
+            "decimal": "1502.58"
+          }
+        },
+        "discapacidad": {
+          "contribuyente": {
+            "grado33Hasta65": {
+              "decimal": "3219.81"
+            },
+            "grado65OMas": {
+              "decimal": "9659.44"
+            },
+            "gastosAsistencia": {
+              "decimal": "3219.81"
+            }
+          },
+          "descendiente": {
+            "grado33Hasta65": {
+              "decimal": "3219.81"
+            },
+            "grado65OMas": {
+              "decimal": "9659.44"
+            },
+            "gastosAsistencia": {
+              "decimal": "3219.81"
+            }
+          },
+          "ascendiente": {
+            "grado33Hasta65": {
+              "decimal": "3219.81"
+            },
+            "grado65OMas": {
+              "decimal": "9659.44"
+            },
+            "gastosAsistencia": {
+              "decimal": "3219.81"
+            }
+          }
+        }
+      }
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/trabajo-anual/conexion.ts:7461:7548:object"
+      }
+    ],
+    "variant": null,
+    "properties": [
+      {
+        "path": "escalaEstatalGeneral",
+        "representation": "array<[EUR-base-Decimal,ratio-Decimal]>",
+        "value": [
+          [
+            {
+              "decimal": "12450"
+            },
+            {
+              "decimal": "0.095"
+            }
+          ],
+          [
+            {
+              "decimal": "20200"
+            },
+            {
+              "decimal": "0.12"
+            }
+          ],
+          [
+            {
+              "decimal": "35200"
+            },
+            {
+              "decimal": "0.15"
+            }
+          ],
+          [
+            {
+              "decimal": "60000"
+            },
+            {
+              "decimal": "0.185"
+            }
+          ],
+          [
+            {
+              "decimal": "300000"
+            },
+            {
+              "decimal": "0.225"
+            }
+          ],
+          [
+            {
+              "decimal": "Infinity"
+            },
+            {
+              "decimal": "0.245"
+            }
+          ]
+        ]
+      },
+      {
+        "path": "escalaAutonomica.tramos",
+        "representation": "array<[EUR-base-Decimal,ratio-Decimal]>",
+        "value": [
+          [
+            {
+              "decimal": "13362.22"
+            },
+            {
+              "decimal": "0.085"
+            }
+          ],
+          [
+            {
+              "decimal": "19004.63"
+            },
+            {
+              "decimal": "0.107"
+            }
+          ],
+          [
+            {
+              "decimal": "35425.68"
+            },
+            {
+              "decimal": "0.128"
+            }
+          ],
+          [
+            {
+              "decimal": "57320.4"
+            },
+            {
+              "decimal": "0.174"
+            }
+          ],
+          [
+            {
+              "decimal": "Infinity"
+            },
+            {
+              "decimal": "0.205"
+            }
+          ]
+        ]
+      },
+      {
+        "path": "minimosAutonomicos.contribuyente.general",
+        "representation": "EUR-base-Decimal",
+        "value": {
+          "decimal": "5956.65"
+        }
+      }
+    ]
+  },
+  {
+    "port": "rentas::boundary:obtenerEscalaAutonomicaPublicada",
+    "node": "lib/dominio/irpf/trabajo-anual/conexion.ts:7687:7775:call",
+    "frames": [
+      {
+        "transport": 18
+      },
+      {
+        "node": "lib/dominio/irpf/trabajo-anual/conexion.ts:1526:13571:function",
+        "invocation": 1
+      }
+    ],
+    "arguments": [
+      {
+        "anio": 2025,
+        "comunidadAutonoma": "madrid"
+      }
+    ],
+    "result": [
+      {
+        "baseInferior": {
+          "decimal": "0"
+        },
+        "cuota": {
+          "decimal": "0"
+        },
+        "tipo": {
+          "decimal": "0.085"
+        }
+      },
+      {
+        "baseInferior": {
+          "decimal": "13362.22"
+        },
+        "cuota": {
+          "decimal": "1135.79"
+        },
+        "tipo": {
+          "decimal": "0.107"
+        }
+      },
+      {
+        "baseInferior": {
+          "decimal": "19004.63"
+        },
+        "cuota": {
+          "decimal": "1739.53"
+        },
+        "tipo": {
+          "decimal": "0.128"
+        }
+      },
+      {
+        "baseInferior": {
+          "decimal": "35425.68"
+        },
+        "cuota": {
+          "decimal": "3841.42"
+        },
+        "tipo": {
+          "decimal": "0.174"
+        }
+      },
+      {
+        "baseInferior": {
+          "decimal": "57320.4"
+        },
+        "cuota": {
+          "decimal": "7651.1"
+        },
+        "tipo": {
+          "decimal": "0.205"
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/trabajo-anual/conexion.ts:7720:7774:object"
+      }
+    ],
+    "variant": null,
+    "properties": [
+      {
+        "path": "return",
+        "representation": "absent|array<{baseInferior:EUR-base-Decimal,cuota:EUR-tax-Decimal,tipo:ratio-Decimal,inferiorExclusivo?:boolean}>",
+        "value": [
+          {
+            "baseInferior": {
+              "decimal": "0"
+            },
+            "cuota": {
+              "decimal": "0"
+            },
+            "tipo": {
+              "decimal": "0.085"
+            }
+          },
+          {
+            "baseInferior": {
+              "decimal": "13362.22"
+            },
+            "cuota": {
+              "decimal": "1135.79"
+            },
+            "tipo": {
+              "decimal": "0.107"
+            }
+          },
+          {
+            "baseInferior": {
+              "decimal": "19004.63"
+            },
+            "cuota": {
+              "decimal": "1739.53"
+            },
+            "tipo": {
+              "decimal": "0.128"
+            }
+          },
+          {
+            "baseInferior": {
+              "decimal": "35425.68"
+            },
+            "cuota": {
+              "decimal": "3841.42"
+            },
+            "tipo": {
+              "decimal": "0.174"
+            }
+          },
+          {
+            "baseInferior": {
+              "decimal": "57320.4"
+            },
+            "cuota": {
+              "decimal": "7651.1"
+            },
+            "tipo": {
+              "decimal": "0.205"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "port": "rentas::boundary:calcularCuotaPorEscala",
+    "node": "lib/dominio/irpf/trabajo-anual/conexion.ts:7814:7890:call",
+    "frames": [
+      {
+        "transport": 19
+      },
+      {
+        "node": "lib/dominio/irpf/trabajo-anual/conexion.ts:1526:13571:function",
+        "invocation": 1
+      },
+      {
+        "node": "lib/dominio/irpf/trabajo-anual/conexion.ts:7794:7890:function",
+        "invocation": 25
+      }
+    ],
+    "arguments": [
+      {
+        "base": {
+          "decimal": "28000"
+        },
+        "tramos": [
+          [
+            {
+              "decimal": "12450"
+            },
+            {
+              "decimal": "0.095"
+            }
+          ],
+          [
+            {
+              "decimal": "20200"
+            },
+            {
+              "decimal": "0.12"
+            }
+          ],
+          [
+            {
+              "decimal": "35200"
+            },
+            {
+              "decimal": "0.15"
+            }
+          ],
+          [
+            {
+              "decimal": "60000"
+            },
+            {
+              "decimal": "0.185"
+            }
+          ],
+          [
+            {
+              "decimal": "300000"
+            },
+            {
+              "decimal": "0.225"
+            }
+          ],
+          [
+            {
+              "decimal": "Infinity"
+            },
+            {
+              "decimal": "0.245"
+            }
+          ]
+        ]
+      }
+    ],
+    "result": {
+      "decimal": "3282.75"
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/trabajo-anual/conexion.ts:7837:7889:object"
+      }
+    ],
+    "variant": null,
+    "properties": [
+      {
+        "path": "return",
+        "representation": "EUR-tax-Decimal",
+        "value": {
+          "decimal": "3282.75"
+        }
+      }
+    ]
+  },
+  {
+    "port": "rentas::boundary:MINIMOS_ESTATALES_2025",
+    "node": "lib/dominio/irpf/trabajo-anual/conexion.ts:8193:8215:global",
+    "frames": [
+      {
+        "transport": 20
+      },
+      {
+        "node": "lib/dominio/irpf/trabajo-anual/conexion.ts:1526:13571:function",
+        "invocation": 1
+      }
+    ],
+    "arguments": [],
+    "result": {
+      "contribuyente": {
+        "general": {
+          "decimal": "5550"
+        },
+        "adicionalMayor65": {
+          "decimal": "1150"
+        },
+        "adicionalMayor75": {
+          "decimal": "1400"
+        }
+      },
+      "descendientes": {
+        "primero": {
+          "decimal": "2400"
+        },
+        "segundo": {
+          "decimal": "2700"
+        },
+        "tercero": {
+          "decimal": "4000"
+        },
+        "cuartoYSiguientes": {
+          "decimal": "4500"
+        },
+        "adicionalMenorTres": {
+          "decimal": "2800"
+        }
+      },
+      "ascendientes": {
+        "mayor65OConDiscapacidad": {
+          "decimal": "1150"
+        },
+        "adicionalMayor75": {
+          "decimal": "1400"
+        }
+      },
+      "discapacidad": {
+        "contribuyente": {
+          "grado33Hasta65": {
+            "decimal": "3000"
+          },
+          "grado65OMas": {
+            "decimal": "9000"
+          },
+          "gastosAsistencia": {
+            "decimal": "3000"
+          }
+        },
+        "descendiente": {
+          "grado33Hasta65": {
+            "decimal": "3000"
+          },
+          "grado65OMas": {
+            "decimal": "9000"
+          },
+          "gastosAsistencia": {
+            "decimal": "3000"
+          }
+        },
+        "ascendiente": {
+          "grado33Hasta65": {
+            "decimal": "3000"
+          },
+          "grado65OMas": {
+            "decimal": "9000"
+          },
+          "gastosAsistencia": {
+            "decimal": "3000"
+          }
+        }
+      }
+    },
+    "bindings": [],
+    "variant": null,
+    "properties": [
+      {
+        "path": "contribuyente.general",
+        "representation": "EUR-base-Decimal",
+        "value": {
+          "decimal": "5550"
+        }
+      }
+    ]
+  },
+  {
+    "port": "rentas::boundary:calcularCuotaPorEscala",
+    "node": "lib/dominio/irpf/trabajo-anual/conexion.ts:7814:7890:call",
+    "frames": [
+      {
+        "transport": 21
+      },
+      {
+        "node": "lib/dominio/irpf/trabajo-anual/conexion.ts:1526:13571:function",
+        "invocation": 1
+      },
+      {
+        "node": "lib/dominio/irpf/trabajo-anual/conexion.ts:7794:7890:function",
+        "invocation": 26
+      }
+    ],
+    "arguments": [
+      {
+        "base": {
+          "decimal": "5550"
+        },
+        "tramos": [
+          [
+            {
+              "decimal": "12450"
+            },
+            {
+              "decimal": "0.095"
+            }
+          ],
+          [
+            {
+              "decimal": "20200"
+            },
+            {
+              "decimal": "0.12"
+            }
+          ],
+          [
+            {
+              "decimal": "35200"
+            },
+            {
+              "decimal": "0.15"
+            }
+          ],
+          [
+            {
+              "decimal": "60000"
+            },
+            {
+              "decimal": "0.185"
+            }
+          ],
+          [
+            {
+              "decimal": "300000"
+            },
+            {
+              "decimal": "0.225"
+            }
+          ],
+          [
+            {
+              "decimal": "Infinity"
+            },
+            {
+              "decimal": "0.245"
+            }
+          ]
+        ]
+      }
+    ],
+    "result": {
+      "decimal": "527.25"
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/trabajo-anual/conexion.ts:7837:7889:object"
+      }
+    ],
+    "variant": null,
+    "properties": [
+      {
+        "path": "return",
+        "representation": "EUR-tax-Decimal",
+        "value": {
+          "decimal": "527.25"
+        }
+      }
+    ]
+  },
+  {
+    "port": "rentas::boundary:calcularCuotaPorEscala",
+    "node": "lib/dominio/irpf/trabajo-anual/conexion.ts:7932:8104:call",
+    "frames": [
+      {
+        "transport": 22
+      },
+      {
+        "node": "lib/dominio/irpf/trabajo-anual/conexion.ts:1526:13571:function",
+        "invocation": 1
+      },
+      {
+        "node": "lib/dominio/irpf/trabajo-anual/conexion.ts:7912:8104:function",
+        "invocation": 27
+      }
+    ],
+    "arguments": [
+      {
+        "base": {
+          "decimal": "28000"
+        },
+        "tramos": [
+          [
+            {
+              "decimal": "13362.22"
+            },
+            {
+              "decimal": "0.085"
+            }
+          ],
+          [
+            {
+              "decimal": "19004.63"
+            },
+            {
+              "decimal": "0.107"
+            }
+          ],
+          [
+            {
+              "decimal": "35425.68"
+            },
+            {
+              "decimal": "0.128"
+            }
+          ],
+          [
+            {
+              "decimal": "57320.4"
+            },
+            {
+              "decimal": "0.174"
+            }
+          ],
+          [
+            {
+              "decimal": "Infinity"
+            },
+            {
+              "decimal": "0.205"
+            }
+          ]
+        ],
+        "escalasPublicadas": [
+          [
+            {
+              "baseInferior": {
+                "decimal": "0"
+              },
+              "cuota": {
+                "decimal": "0"
+              },
+              "tipo": {
+                "decimal": "0.085"
+              }
+            },
+            {
+              "baseInferior": {
+                "decimal": "13362.22"
+              },
+              "cuota": {
+                "decimal": "1135.79"
+              },
+              "tipo": {
+                "decimal": "0.107"
+              }
+            },
+            {
+              "baseInferior": {
+                "decimal": "19004.63"
+              },
+              "cuota": {
+                "decimal": "1739.53"
+              },
+              "tipo": {
+                "decimal": "0.128"
+              }
+            },
+            {
+              "baseInferior": {
+                "decimal": "35425.68"
+              },
+              "cuota": {
+                "decimal": "3841.42"
+              },
+              "tipo": {
+                "decimal": "0.174"
+              }
+            },
+            {
+              "baseInferior": {
+                "decimal": "57320.4"
+              },
+              "cuota": {
+                "decimal": "7651.1"
+              },
+              "tipo": {
+                "decimal": "0.205"
+              }
+            }
+          ]
+        ]
+      }
+    ],
+    "result": {
+      "decimal": "2890.93736"
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/trabajo-anual/conexion.ts:7955:8103:object"
+      }
+    ],
+    "variant": null,
+    "properties": [
+      {
+        "path": "return",
+        "representation": "EUR-tax-Decimal",
+        "value": {
+          "decimal": "2890.93736"
+        }
+      }
+    ]
+  },
+  {
+    "port": "rentas::boundary:calcularCuotaPorEscala",
+    "node": "lib/dominio/irpf/trabajo-anual/conexion.ts:7932:8104:call",
+    "frames": [
+      {
+        "transport": 23
+      },
+      {
+        "node": "lib/dominio/irpf/trabajo-anual/conexion.ts:1526:13571:function",
+        "invocation": 1
+      },
+      {
+        "node": "lib/dominio/irpf/trabajo-anual/conexion.ts:7912:8104:function",
+        "invocation": 28
+      }
+    ],
+    "arguments": [
+      {
+        "base": {
+          "decimal": "5956.65"
+        },
+        "tramos": [
+          [
+            {
+              "decimal": "13362.22"
+            },
+            {
+              "decimal": "0.085"
+            }
+          ],
+          [
+            {
+              "decimal": "19004.63"
+            },
+            {
+              "decimal": "0.107"
+            }
+          ],
+          [
+            {
+              "decimal": "35425.68"
+            },
+            {
+              "decimal": "0.128"
+            }
+          ],
+          [
+            {
+              "decimal": "57320.4"
+            },
+            {
+              "decimal": "0.174"
+            }
+          ],
+          [
+            {
+              "decimal": "Infinity"
+            },
+            {
+              "decimal": "0.205"
+            }
+          ]
+        ],
+        "escalasPublicadas": [
+          [
+            {
+              "baseInferior": {
+                "decimal": "0"
+              },
+              "cuota": {
+                "decimal": "0"
+              },
+              "tipo": {
+                "decimal": "0.085"
+              }
+            },
+            {
+              "baseInferior": {
+                "decimal": "13362.22"
+              },
+              "cuota": {
+                "decimal": "1135.79"
+              },
+              "tipo": {
+                "decimal": "0.107"
+              }
+            },
+            {
+              "baseInferior": {
+                "decimal": "19004.63"
+              },
+              "cuota": {
+                "decimal": "1739.53"
+              },
+              "tipo": {
+                "decimal": "0.128"
+              }
+            },
+            {
+              "baseInferior": {
+                "decimal": "35425.68"
+              },
+              "cuota": {
+                "decimal": "3841.42"
+              },
+              "tipo": {
+                "decimal": "0.174"
+              }
+            },
+            {
+              "baseInferior": {
+                "decimal": "57320.4"
+              },
+              "cuota": {
+                "decimal": "7651.1"
+              },
+              "tipo": {
+                "decimal": "0.205"
+              }
+            }
+          ]
+        ]
+      }
+    ],
+    "result": {
+      "decimal": "506.31525"
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/trabajo-anual/conexion.ts:7955:8103:object"
+      }
+    ],
+    "variant": null,
+    "properties": [
+      {
+        "path": "return",
+        "representation": "EUR-tax-Decimal",
+        "value": {
+          "decimal": "506.31525"
+        }
+      }
+    ]
+  },
+  {
+    "port": "rentas::boundary:calcularCotizacionesSocialesLegacy",
+    "node": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:933:1033:call",
+    "frames": [
+      {
+        "transport": 24
+      },
+      {
+        "node": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:669:1428:function",
+        "invocation": 1
+      }
+    ],
+    "arguments": [
+      {
+        "anio": 2025,
+        "salarioBrutoAnual": {
+          "decimal": "10000"
+        }
+      }
+    ],
+    "result": {
+      "cotizacionEmpresarial": {
+        "decimal": "3207"
+      },
+      "cotizacionTrabajador": {
+        "decimal": "648"
+      }
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:968:1032:object"
+      }
+    ],
+    "variant": null,
+    "properties": [
+      {
+        "path": "cotizacionEmpresarial",
+        "representation": "EUR",
+        "value": {
+          "decimal": "3207"
+        }
+      },
+      {
+        "path": "cotizacionTrabajador",
+        "representation": "EUR",
+        "value": {
+          "decimal": "648"
+        }
+      }
+    ]
+  },
+  {
+    "port": "escalas::explicit.decode",
+    "node": "lib/dominio/irpf/trabajo-anual/conexion.ts:1592:1696:boundaryCall",
+    "frames": [
+      {
+        "transport": 25
+      },
+      "lib/dominio/irpf/trabajo-anual/conexion.ts:1526:13571:function@1"
+    ],
+    "arguments": [
+      {
+        "ejercicio": 2025,
+        "comunidadAutonoma": "madrid",
+        "edad": 40,
+        "modalidad": "individual",
+        "residenciaTodoElAnio": true,
+        "devengo": "2025-12-31",
+        "otrasRentas": "ninguna",
+        "familiaresConDerechoMinimo": "ninguno",
+        "discapacidad": "ninguna",
+        "reduccionesBase": "ninguna",
+        "saldosAnteriores": "ninguno",
+        "deducciones": "solo-da61-si-procede",
+        "rentasExtranjeras": "ninguna",
+        "especialidades": "ninguna",
+        "perfil": "solo-trabajo",
+        "conciliacion": {
+          "ejercicio": 2025,
+          "estado": "totales-anuales-sin-duplicados",
+          "procedencia": [
+            "certificado-anual#2025"
+          ]
+        },
+        "trabajo": {
+          "ejercicio": 2025,
+          "territorio": "comun",
+          "reduccionesArt18": "ninguna",
+          "movilidad": "ninguna",
+          "discapacidadActiva": "ninguna",
+          "rendimientos": [
+            {
+              "id": "anual",
+              "clase": "empleo-laboral",
+              "integro": "30000",
+              "cotizaciones": {
+                "clase": "efectivas",
+                "seguridadSocial": "0",
+                "derechosPasivos": "0",
+                "colegiosHuerfanos": "0"
+              },
+              "sindicato": {
+                "importe": "0",
+                "satisfecho": "no"
+              },
+              "colegio": {
+                "importe": "0",
+                "satisfecho": "no",
+                "obligatorio": "no",
+                "finesEsenciales": "no"
+              },
+              "defensa": {
+                "importe": "0",
+                "satisfecho": "no",
+                "litigioDirectoPagador": "no"
+              }
+            }
+          ]
+        },
+        "retenciones": []
+      },
+      {
+        "onExcessProperty": "error"
+      }
+    ],
+    "result": {
+      "_tag": "Success",
+      "success": {
+        "ejercicio": 2025,
+        "comunidadAutonoma": "madrid",
+        "edad": 40,
+        "modalidad": "individual",
+        "residenciaTodoElAnio": true,
+        "devengo": "2025-12-31",
+        "otrasRentas": "ninguna",
+        "familiaresConDerechoMinimo": "ninguno",
+        "discapacidad": "ninguna",
+        "reduccionesBase": "ninguna",
+        "saldosAnteriores": "ninguno",
+        "deducciones": "solo-da61-si-procede",
+        "rentasExtranjeras": "ninguna",
+        "especialidades": "ninguna",
+        "perfil": "solo-trabajo",
+        "trabajo": {
+          "ejercicio": 2025,
+          "territorio": "comun",
+          "rendimientos": [
+            {
+              "id": "anual",
+              "clase": "empleo-laboral",
+              "integro": "30000",
+              "cotizaciones": {
+                "clase": "efectivas",
+                "seguridadSocial": "0",
+                "derechosPasivos": "0",
+                "colegiosHuerfanos": "0"
+              },
+              "sindicato": {
+                "importe": "0",
+                "satisfecho": "no"
+              },
+              "colegio": {
+                "importe": "0",
+                "satisfecho": "no",
+                "obligatorio": "no",
+                "finesEsenciales": "no"
+              },
+              "defensa": {
+                "importe": "0",
+                "satisfecho": "no",
+                "litigioDirectoPagador": "no"
+              }
+            }
+          ],
+          "reduccionesArt18": "ninguna",
+          "movilidad": "ninguna",
+          "discapacidadActiva": "ninguna"
+        },
+        "conciliacion": {
+          "ejercicio": 2025,
+          "estado": "totales-anuales-sin-duplicados",
+          "procedencia": [
+            "certificado-anual#2025"
+          ]
+        },
+        "retenciones": []
+      }
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/trabajo-anual/conexion.ts:1650:1657:local"
+      },
+      {
+        "index": 1,
+        "operand": "lib/dominio/irpf/trabajo-anual/conexion.ts:1663:1692:object"
+      }
+    ],
+    "variant": {
+      "property": "_tag",
+      "equals": "Success"
+    },
+    "properties": [
+      {
+        "path": "_tag",
+        "representation": "discrete",
+        "value": "Success"
+      },
+      {
+        "path": "success",
+        "representation": "decoded-explicit-structure",
+        "value": {
+          "ejercicio": 2025,
+          "comunidadAutonoma": "madrid",
+          "edad": 40,
+          "modalidad": "individual",
+          "residenciaTodoElAnio": true,
+          "devengo": "2025-12-31",
+          "otrasRentas": "ninguna",
+          "familiaresConDerechoMinimo": "ninguno",
+          "discapacidad": "ninguna",
+          "reduccionesBase": "ninguna",
+          "saldosAnteriores": "ninguno",
+          "deducciones": "solo-da61-si-procede",
+          "rentasExtranjeras": "ninguna",
+          "especialidades": "ninguna",
+          "perfil": "solo-trabajo",
+          "trabajo": {
+            "ejercicio": 2025,
+            "territorio": "comun",
+            "rendimientos": [
+              {
+                "id": "anual",
+                "clase": "empleo-laboral",
+                "integro": "30000",
+                "cotizaciones": {
+                  "clase": "efectivas",
+                  "seguridadSocial": "0",
+                  "derechosPasivos": "0",
+                  "colegiosHuerfanos": "0"
+                },
+                "sindicato": {
+                  "importe": "0",
+                  "satisfecho": "no"
+                },
+                "colegio": {
+                  "importe": "0",
+                  "satisfecho": "no",
+                  "obligatorio": "no",
+                  "finesEsenciales": "no"
+                },
+                "defensa": {
+                  "importe": "0",
+                  "satisfecho": "no",
+                  "litigioDirectoPagador": "no"
+                }
+              }
+            ],
+            "reduccionesArt18": "ninguna",
+            "movilidad": "ninguna",
+            "discapacidadActiva": "ninguna"
+          },
+          "conciliacion": {
+            "ejercicio": 2025,
+            "estado": "totales-anuales-sin-duplicados",
+            "procedencia": [
+              "certificado-anual#2025"
+            ]
+          },
+          "retenciones": []
+        }
+      }
+    ]
+  },
+  {
+    "port": "escalas::lib/dominio/irpf/trabajo-anual/adaptador.ts#adaptarTrabajoAnual",
+    "node": "lib/dominio/irpf/trabajo-anual/conexion.ts:2899:2932:call",
+    "frames": [
+      {
+        "transport": 26
+      },
+      "lib/dominio/irpf/trabajo-anual/conexion.ts:1526:13571:function@1"
+    ],
+    "arguments": [
+      {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "rendimientos": [
+          {
+            "id": "anual",
+            "clase": "empleo-laboral",
+            "integro": "30000",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "0",
+              "derechosPasivos": "0",
+              "colegiosHuerfanos": "0"
+            },
+            "sindicato": {
+              "importe": "0",
+              "satisfecho": "no"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "no",
+              "obligatorio": "no",
+              "finesEsenciales": "no"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "no",
+              "litigioDirectoPagador": "no"
+            }
+          }
+        ],
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna"
+      }
+    ],
+    "result": {
+      "estado": "aporte-disponible",
+      "ejercicio": 2025,
+      "rendimientoAntesArt20": "28000",
+      "argumentoArt20": "30000",
+      "gastos": {
+        "estado": "calculado",
+        "discapacidadAplicada": "0",
+        "integro": "30000",
+        "gastosAE": "0",
+        "generalesTeoricos": "2000",
+        "generalesAplicados": "2000",
+        "netoPrevioArt20": "30000",
+        "netoArt19": "28000",
+        "fuente": "LIRPF art19; Ley26/2014 pp11–12; RIRPF art10",
+        "aceptacionFiscal": "pendiente"
+      },
+      "clases": [
+        {
+          "id": "anual",
+          "clase": "empleo-laboral",
+          "integro": "30000"
+        }
+      ],
+      "pendientes": [
+        "otras rentas fiscales art20",
+        "reducción art20",
+        "integración de bases",
+        "cuotas y art80",
+        "deducción anual",
+        "pagos a cuenta"
+      ],
+      "aceptacionFiscal": "pendiente"
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/trabajo-anual/conexion.ts:2919:2931:get"
+      }
+    ],
+    "variant": {
+      "property": "estado",
+      "equals": "aporte-disponible"
+    },
+    "properties": [
+      {
+        "path": "estado",
+        "representation": "discrete",
+        "value": "aporte-disponible"
+      },
+      {
+        "path": "rendimientoAntesArt20",
+        "representation": "EUR-string",
+        "value": "28000"
+      },
+      {
+        "path": "argumentoArt20",
+        "representation": "EUR-string",
+        "value": "30000"
+      },
+      {
+        "path": "gastos.integro",
+        "representation": "EUR-string",
+        "value": "30000"
+      }
+    ]
+  },
+  {
+    "port": "escalas::lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts#calcularReduccionTrabajoConOtrasRentas",
+    "node": "lib/dominio/irpf/trabajo-anual/conexion.ts:3138:3309:call",
+    "frames": [
+      {
+        "transport": 27
+      },
+      "lib/dominio/irpf/trabajo-anual/conexion.ts:1526:13571:function@1"
+    ],
+    "arguments": [
+      {
+        "anio": 2025,
+        "rendimientoPrevioNeto": {
+          "decimal": "30000"
+        },
+        "otrasRentasNoExentas": {
+          "decimal": "0"
+        }
+      }
+    ],
+    "result": {
+      "decimal": "0"
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/trabajo-anual/conexion.ts:3177:3308:object"
+      }
+    ],
+    "variant": null,
+    "properties": [
+      {
+        "path": "return",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      }
+    ]
+  },
+  {
+    "port": "escalas::lib/dominio/irpf/trabajo-anual/calcular.ts#calcularDeduccionTrabajo",
+    "node": "lib/dominio/irpf/trabajo-anual/conexion.ts:8584:9103:call",
+    "frames": [
+      {
+        "transport": 28
+      },
+      "lib/dominio/irpf/trabajo-anual/conexion.ts:1526:13571:function@1"
+    ],
+    "arguments": [
+      {
+        "regla": "da61",
+        "ambito": "comun-individual",
+        "ejercicio": 2025,
+        "brutoServicios": "30000",
+        "otrasRentasNoExentas": "0",
+        "netoReducidoServicios": "28000",
+        "baseLiquidableGeneral": "28000",
+        "cuotaIntegraGeneral": "5140.12211",
+        "cuotaLiquidaTotal": "5140.12211",
+        "cuotaTrasArt80": "5140.12211",
+        "etapa": "despues-art80-sin-deduccion-trabajo",
+        "calificacion": "laboral-estatutaria-acreditada"
+      }
+    ],
+    "result": {
+      "estado": "calculado",
+      "deduccionLegal": "0",
+      "limiteAtribuible": "5140.12211",
+      "importeAplicable": "0",
+      "cuotaPosterior": "5140.12211",
+      "fuente": "Ley5/2025 DF3 pp46–47; AEAT2025 pp1372–1375",
+      "aceptacionFiscal": "pendiente"
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/trabajo-anual/conexion.ts:8609:9102:object"
+      }
+    ],
+    "variant": {
+      "property": "estado",
+      "equals": "calculado"
+    },
+    "properties": [
+      {
+        "path": "estado",
+        "representation": "discrete",
+        "value": "calculado"
+      },
+      {
+        "path": "importeAplicable",
+        "representation": "EUR-string",
+        "value": "0"
+      },
+      {
+        "path": "cuotaPosterior",
+        "representation": "EUR-string",
+        "value": "5140.12211"
+      }
+    ]
+  },
+  {
+    "port": "escalas::explicit.decode",
+    "node": "lib/dominio/irpf/trabajo-anual/conexion.ts:1592:1696:boundaryCall",
+    "frames": [
+      {
+        "transport": 29
+      },
+      "lib/dominio/irpf/trabajo-anual/conexion.ts:1526:13571:function@1"
+    ],
+    "arguments": [
+      {
+        "ejercicio": 2025,
+        "comunidadAutonoma": "madrid",
+        "edad": 40,
+        "modalidad": "individual",
+        "residenciaTodoElAnio": true,
+        "devengo": "2025-12-31",
+        "otrasRentas": "ninguna",
+        "familiaresConDerechoMinimo": "ninguno",
+        "discapacidad": "ninguna",
+        "reduccionesBase": "ninguna",
+        "saldosAnteriores": "ninguno",
+        "deducciones": "solo-da61-si-procede",
+        "rentasExtranjeras": "ninguna",
+        "especialidades": "ninguna",
+        "perfil": "solo-actividad-eds",
+        "actividad": {
+          "ejercicio": 2025,
+          "territorio": "comun",
+          "individual": true,
+          "actividadId": "profesion",
+          "iae": "servicios",
+          "fechaInicio": "2025-01-01",
+          "fechaFin": "2025-12-31",
+          "serviciosOrdinarios": true,
+          "hechos": {
+            "otrasActividades": false,
+            "otrasRentas": false,
+            "existencias": false,
+            "empleados": false,
+            "artistica": false,
+            "irregular": false,
+            "subvenciones": false,
+            "transmisiones": false,
+            "extranjero": false,
+            "mutualidad": false,
+            "especialidadesTerritoriales": false,
+            "saldosPendientes": false,
+            "serviciosGratuitos": false,
+            "autoconsumo": false,
+            "noFacturados": false,
+            "subvalorados": false,
+            "trade": false,
+            "hechosDesconocidos": false
+          },
+          "historial": [],
+          "actividadPreviaAlInicio": "ausente",
+          "regimen2025": "eds",
+          "criterio2025": "devengo",
+          "documentoCriterio2025": "alta",
+          "renuncia2025": false,
+          "exclusion2025": false,
+          "volumen2024": "0",
+          "diasActividad2024": 0,
+          "documentoVolumen2024": "sin-actividad",
+          "clientes": [
+            {
+              "id": "cliente",
+              "vinculado": false,
+              "empleadorEnAnioAnteriorAlInicio": false,
+              "documento": "contrato"
+            }
+          ],
+          "ingresos": [],
+          "gastos": [],
+          "reta": [],
+          "activos": [],
+          "obligacionesFormales": true,
+          "documentoObligaciones": "libros",
+          "discapacidad": {
+            "grado": 0,
+            "ayudaOMovilidad": false,
+            "ejercicioEfectivo": true,
+            "documento": "sin-discapacidad"
+          },
+          "opcion": "gastos-dificiles",
+          "aplicarRentasBajas": true,
+          "aplicarInicio": false,
+          "retenciones": [],
+          "pagosFraccionados": []
+        }
+      },
+      {
+        "onExcessProperty": "error"
+      }
+    ],
+    "result": {
+      "_tag": "Success",
+      "success": {
+        "ejercicio": 2025,
+        "comunidadAutonoma": "madrid",
+        "edad": 40,
+        "modalidad": "individual",
+        "residenciaTodoElAnio": true,
+        "devengo": "2025-12-31",
+        "otrasRentas": "ninguna",
+        "familiaresConDerechoMinimo": "ninguno",
+        "discapacidad": "ninguna",
+        "reduccionesBase": "ninguna",
+        "saldosAnteriores": "ninguno",
+        "deducciones": "solo-da61-si-procede",
+        "rentasExtranjeras": "ninguna",
+        "especialidades": "ninguna",
+        "perfil": "solo-actividad-eds",
+        "actividad": {
+          "ejercicio": 2025,
+          "territorio": "comun",
+          "individual": true,
+          "actividadId": "profesion",
+          "iae": "servicios",
+          "fechaInicio": "2025-01-01",
+          "fechaFin": "2025-12-31",
+          "serviciosOrdinarios": true,
+          "hechos": {
+            "otrasActividades": false,
+            "otrasRentas": false,
+            "existencias": false,
+            "empleados": false,
+            "artistica": false,
+            "irregular": false,
+            "subvenciones": false,
+            "transmisiones": false,
+            "extranjero": false,
+            "mutualidad": false,
+            "especialidadesTerritoriales": false,
+            "saldosPendientes": false,
+            "serviciosGratuitos": false,
+            "autoconsumo": false,
+            "noFacturados": false,
+            "subvalorados": false,
+            "trade": false,
+            "hechosDesconocidos": false
+          },
+          "historial": [],
+          "actividadPreviaAlInicio": "ausente",
+          "regimen2025": "eds",
+          "criterio2025": "devengo",
+          "documentoCriterio2025": "alta",
+          "renuncia2025": false,
+          "exclusion2025": false,
+          "volumen2024": "0",
+          "diasActividad2024": 0,
+          "documentoVolumen2024": "sin-actividad",
+          "clientes": [
+            {
+              "id": "cliente",
+              "vinculado": false,
+              "empleadorEnAnioAnteriorAlInicio": false,
+              "documento": "contrato"
+            }
+          ],
+          "ingresos": [],
+          "gastos": [],
+          "reta": [],
+          "activos": [],
+          "obligacionesFormales": true,
+          "documentoObligaciones": "libros",
+          "discapacidad": {
+            "grado": 0,
+            "ayudaOMovilidad": false,
+            "ejercicioEfectivo": true,
+            "documento": "sin-discapacidad"
+          },
+          "opcion": "gastos-dificiles",
+          "aplicarRentasBajas": true,
+          "aplicarInicio": false,
+          "retenciones": [],
+          "pagosFraccionados": []
+        }
+      }
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/trabajo-anual/conexion.ts:1650:1657:local"
+      },
+      {
+        "index": 1,
+        "operand": "lib/dominio/irpf/trabajo-anual/conexion.ts:1663:1692:object"
+      }
+    ],
+    "variant": {
+      "property": "_tag",
+      "equals": "Success"
+    },
+    "properties": [
+      {
+        "path": "_tag",
+        "representation": "discrete",
+        "value": "Success"
+      },
+      {
+        "path": "success",
+        "representation": "decoded-explicit-structure",
+        "value": {
+          "ejercicio": 2025,
+          "comunidadAutonoma": "madrid",
+          "edad": 40,
+          "modalidad": "individual",
+          "residenciaTodoElAnio": true,
+          "devengo": "2025-12-31",
+          "otrasRentas": "ninguna",
+          "familiaresConDerechoMinimo": "ninguno",
+          "discapacidad": "ninguna",
+          "reduccionesBase": "ninguna",
+          "saldosAnteriores": "ninguno",
+          "deducciones": "solo-da61-si-procede",
+          "rentasExtranjeras": "ninguna",
+          "especialidades": "ninguna",
+          "perfil": "solo-actividad-eds",
+          "actividad": {
+            "ejercicio": 2025,
+            "territorio": "comun",
+            "individual": true,
+            "actividadId": "profesion",
+            "iae": "servicios",
+            "fechaInicio": "2025-01-01",
+            "fechaFin": "2025-12-31",
+            "serviciosOrdinarios": true,
+            "hechos": {
+              "otrasActividades": false,
+              "otrasRentas": false,
+              "existencias": false,
+              "empleados": false,
+              "artistica": false,
+              "irregular": false,
+              "subvenciones": false,
+              "transmisiones": false,
+              "extranjero": false,
+              "mutualidad": false,
+              "especialidadesTerritoriales": false,
+              "saldosPendientes": false,
+              "serviciosGratuitos": false,
+              "autoconsumo": false,
+              "noFacturados": false,
+              "subvalorados": false,
+              "trade": false,
+              "hechosDesconocidos": false
+            },
+            "historial": [],
+            "actividadPreviaAlInicio": "ausente",
+            "regimen2025": "eds",
+            "criterio2025": "devengo",
+            "documentoCriterio2025": "alta",
+            "renuncia2025": false,
+            "exclusion2025": false,
+            "volumen2024": "0",
+            "diasActividad2024": 0,
+            "documentoVolumen2024": "sin-actividad",
+            "clientes": [
+              {
+                "id": "cliente",
+                "vinculado": false,
+                "empleadorEnAnioAnteriorAlInicio": false,
+                "documento": "contrato"
+              }
+            ],
+            "ingresos": [],
+            "gastos": [],
+            "reta": [],
+            "activos": [],
+            "obligacionesFormales": true,
+            "documentoObligaciones": "libros",
+            "discapacidad": {
+              "grado": 0,
+              "ayudaOMovilidad": false,
+              "ejercicioEfectivo": true,
+              "documento": "sin-discapacidad"
+            },
+            "opcion": "gastos-dificiles",
+            "aplicarRentasBajas": true,
+            "aplicarInicio": false,
+            "retenciones": [],
+            "pagosFraccionados": []
+          }
+        }
+      }
+    ]
+  },
+  {
+    "port": "escalas::lib/dominio/irpf/actividades-economicas/adaptador.ts#adaptarActividadGeneral",
+    "node": "lib/dominio/irpf/trabajo-anual/conexion.ts:6161:6200:call",
+    "frames": [
+      {
+        "transport": 30
+      },
+      "lib/dominio/irpf/trabajo-anual/conexion.ts:1526:13571:function@1"
+    ],
+    "arguments": [
+      {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "individual": true,
+        "actividadId": "profesion",
+        "iae": "servicios",
+        "fechaInicio": "2025-01-01",
+        "fechaFin": "2025-12-31",
+        "serviciosOrdinarios": true,
+        "hechos": {
+          "otrasActividades": false,
+          "otrasRentas": false,
+          "existencias": false,
+          "empleados": false,
+          "artistica": false,
+          "irregular": false,
+          "subvenciones": false,
+          "transmisiones": false,
+          "extranjero": false,
+          "mutualidad": false,
+          "especialidadesTerritoriales": false,
+          "saldosPendientes": false,
+          "serviciosGratuitos": false,
+          "autoconsumo": false,
+          "noFacturados": false,
+          "subvalorados": false,
+          "trade": false,
+          "hechosDesconocidos": false
+        },
+        "historial": [],
+        "actividadPreviaAlInicio": "ausente",
+        "regimen2025": "eds",
+        "criterio2025": "devengo",
+        "documentoCriterio2025": "alta",
+        "renuncia2025": false,
+        "exclusion2025": false,
+        "volumen2024": "0",
+        "diasActividad2024": 0,
+        "documentoVolumen2024": "sin-actividad",
+        "clientes": [
+          {
+            "id": "cliente",
+            "vinculado": false,
+            "empleadorEnAnioAnteriorAlInicio": false,
+            "documento": "contrato"
+          }
+        ],
+        "ingresos": [],
+        "gastos": [],
+        "reta": [],
+        "activos": [],
+        "obligacionesFormales": true,
+        "documentoObligaciones": "libros",
+        "discapacidad": {
+          "grado": 0,
+          "ayudaOMovilidad": false,
+          "ejercicioEfectivo": true,
+          "documento": "sin-discapacidad"
+        },
+        "opcion": "gastos-dificiles",
+        "aplicarRentasBajas": true,
+        "aplicarInicio": false,
+        "retenciones": [],
+        "pagosFraccionados": []
+      }
+    ],
+    "result": {
+      "estado": "aporte-disponible",
+      "aporte": {
+        "clase": "rendimiento-actividad-2025",
+        "importeEurosExactos": "0",
+        "retencionesEuros": "0",
+        "pagosFraccionadosEuros": "0",
+        "liquidacionAnual": "no-calculada"
+      },
+      "etapas": [
+        {
+          "reglaId": "AE25-02",
+          "id": "ingresos",
+          "formula": "sum(base antes de retención; IVA recuperable excluido)",
+          "importe": "0",
+          "fuentes": [
+            "manual",
+            "lirpf-original"
+          ],
+          "documentos": []
+        },
+        {
+          "reglaId": "AE25-02",
+          "id": "gastos",
+          "formula": "sum(base gastos admitidos)",
+          "importe": "0",
+          "fuentes": [
+            "manual",
+            "lirpf-original"
+          ],
+          "documentos": []
+        },
+        {
+          "reglaId": "AE25-03",
+          "id": "reta",
+          "formula": "sum(cuotas ordinarias efectivas)",
+          "importe": "0",
+          "fuentes": [
+            "manual",
+            "lirpf-original"
+          ],
+          "documentos": []
+        },
+        {
+          "reglaId": "AE25-04",
+          "id": "amortizacion",
+          "formula": "sum(cuotas activos)",
+          "importe": "0",
+          "fuentes": [
+            "manual",
+            "orden1998",
+            "rd634-2015",
+            "rd633-2015"
+          ],
+          "documentos": []
+        },
+        {
+          "reglaId": "AE25-02",
+          "id": "P",
+          "formula": "ingresos-gastos-RETA-amortizacion",
+          "importe": "0",
+          "fuentes": [
+            "manual",
+            "lirpf-original"
+          ],
+          "documentos": []
+        },
+        {
+          "reglaId": "AE25-05",
+          "id": "G",
+          "formula": "opcion cliente único ? 0 : min(2000, 0.05*max(P,0))",
+          "importe": "0",
+          "fuentes": [
+            "manual",
+            "rd633-2015",
+            "ley31-2022"
+          ],
+          "documentos": []
+        },
+        {
+          "reglaId": "AE25-06",
+          "id": "RN",
+          "formula": "P-G (con signo)",
+          "importe": "0",
+          "fuentes": [
+            "manual",
+            "lirpf-original",
+            "ley26-2014"
+          ],
+          "documentos": []
+        },
+        {
+          "reglaId": "AE25-11",
+          "id": "reduccion32_2",
+          "formula": "reducción limitada a RN positivo; 32.2.3 solo si NO elegible 32.2.2",
+          "importe": "0",
+          "fuentes": [
+            "manual",
+            "ley26-2014"
+          ],
+          "documentos": []
+        },
+        {
+          "reglaId": "AE25-12",
+          "id": "reduccionInicio",
+          "formula": "si elegible y opción: 0.20*min(100000,max(RN-R32_2,0))",
+          "importe": "0",
+          "fuentes": [
+            "manual",
+            "ley11-2013"
+          ],
+          "documentos": []
+        },
+        {
+          "reglaId": "AE25-14",
+          "id": "aporteBIG",
+          "formula": "RN-R32_2-Rinicio (con signo; no liquidación anual)",
+          "importe": "0",
+          "fuentes": [
+            "manual",
+            "lirpf-original"
+          ],
+          "documentos": []
+        },
+        {
+          "reglaId": "AE25-15",
+          "id": "retenciones",
+          "formula": "sum(retenciones efectivas únicas); separado del rendimiento",
+          "importe": "0",
+          "fuentes": [
+            "manual",
+            "lirpf-original",
+            "rirpf-original"
+          ],
+          "documentos": []
+        },
+        {
+          "reglaId": "AE25-15",
+          "id": "pagos",
+          "formula": "sum(pagos efectivos únicos); separado del rendimiento",
+          "importe": "0",
+          "fuentes": [
+            "manual",
+            "lirpf-original",
+            "rirpf-original"
+          ],
+          "documentos": []
+        }
+      ],
+      "aceptacionFiscal": "pendiente"
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/trabajo-anual/conexion.ts:6185:6199:get"
+      }
+    ],
+    "variant": {
+      "property": "estado",
+      "equals": "aporte-disponible"
+    },
+    "properties": [
+      {
+        "path": "estado",
+        "representation": "discrete",
+        "value": "aporte-disponible"
+      },
+      {
+        "path": "aporte.importeEurosExactos",
+        "representation": "EUR-string",
+        "value": "0"
+      },
+      {
+        "path": "aporte.retencionesEuros",
+        "representation": "EUR-string",
+        "value": "0"
+      },
+      {
+        "path": "aporte.pagosFraccionadosEuros",
+        "representation": "EUR-string",
+        "value": "0"
+      }
+    ]
+  },
+  {
+    "port": "rentas::boundary:calcularDesgloseCotizacionesPerfilUniforme",
+    "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12792:13018:call",
+    "frames": [
+      {
+        "transport": 31
+      },
+      {
+        "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12780:13018:function",
+        "invocation": 1
+      }
+    ],
+    "arguments": [
+      {
+        "anio": 2025,
+        "salarioBrutoAnual": {
+          "decimal": "30000"
+        }
+      }
+    ],
+    "result": {
+      "alcance": "analitico-doce-mensualidades-uniformes",
+      "redondeoTgss": "pendiente",
+      "baseOrdinaria": {
+        "decimal": "30000"
+      },
+      "excesoBase": {
+        "decimal": "0"
+      },
+      "cotizacionEmpresarialOrdinaria": {
+        "decimal": "9420"
+      },
+      "cotizacionTrabajadorOrdinaria": {
+        "decimal": "1905"
+      },
+      "meiEmpresarial": {
+        "decimal": "201"
+      },
+      "meiTrabajador": {
+        "decimal": "39"
+      },
+      "solidaridadEmpresarial": {
+        "decimal": "0"
+      },
+      "solidaridadTrabajador": {
+        "decimal": "0"
+      },
+      "cotizacionEmpresarial": {
+        "decimal": "9621"
+      },
+      "cotizacionTrabajador": {
+        "decimal": "1944"
+      }
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12929:13017:object"
+      }
+    ],
+    "variant": null,
+    "properties": [
+      {
+        "path": "cotizacionEmpresarial",
+        "representation": "EUR",
+        "value": {
+          "decimal": "9621"
+        }
+      },
+      {
+        "path": "cotizacionTrabajador",
+        "representation": "EUR",
+        "value": {
+          "decimal": "1944"
+        }
+      },
+      {
+        "path": "meiEmpresarial",
+        "representation": "EUR",
+        "value": {
+          "decimal": "201"
+        }
+      },
+      {
+        "path": "meiTrabajador",
+        "representation": "EUR",
+        "value": {
+          "decimal": "39"
+        }
+      },
+      {
+        "path": "solidaridadEmpresarial",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      },
+      {
+        "path": "solidaridadTrabajador",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      }
+    ]
+  },
+  {
+    "port": "escalas::lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts#sumarRendimientosTrabajo",
+    "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12193:12260:call",
+    "frames": [
+      {
+        "transport": 32
+      },
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:11858:60626:function@1",
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12187:12260:function@2"
+    ],
+    "arguments": [
+      [
+        {
+          "importeIntegroCentimos": 3000000
+        }
+      ],
+      {
+        "opaquePrimitive": true
+      }
+    ],
+    "result": {
+      "decimal": "30000"
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12218:12243:get"
+      },
+      {
+        "index": 1,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12245:12259:global"
+      }
+    ],
+    "variant": null,
+    "properties": [
+      {
+        "path": "return",
+        "representation": "EUR",
+        "value": {
+          "decimal": "30000"
+        }
+      }
+    ]
+  },
+  {
+    "port": "escalas::lib/dominio/laboral/cotizaciones-perfil-uniforme.ts#calcularDesgloseCotizacionesPerfilUniforme",
+    "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12792:13018:call",
+    "frames": [
+      {
+        "transport": 33
+      },
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:11858:60626:function@1",
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12780:13018:function@25"
+    ],
+    "arguments": [
+      {
+        "anio": 2025,
+        "salarioBrutoAnual": {
+          "decimal": "30000"
+        }
+      }
+    ],
+    "result": {
+      "alcance": "analitico-doce-mensualidades-uniformes",
+      "redondeoTgss": "pendiente",
+      "baseOrdinaria": {
+        "decimal": "30000"
+      },
+      "excesoBase": {
+        "decimal": "0"
+      },
+      "cotizacionEmpresarialOrdinaria": {
+        "decimal": "9420"
+      },
+      "cotizacionTrabajadorOrdinaria": {
+        "decimal": "1905"
+      },
+      "meiEmpresarial": {
+        "decimal": "201"
+      },
+      "meiTrabajador": {
+        "decimal": "39"
+      },
+      "solidaridadEmpresarial": {
+        "decimal": "0"
+      },
+      "solidaridadTrabajador": {
+        "decimal": "0"
+      },
+      "cotizacionEmpresarial": {
+        "decimal": "9621"
+      },
+      "cotizacionTrabajador": {
+        "decimal": "1944"
+      }
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12929:13017:object"
+      }
+    ],
+    "variant": null,
+    "properties": [
+      {
+        "path": "cotizacionTrabajador",
+        "representation": "EUR",
+        "value": {
+          "decimal": "1944"
+        }
+      },
+      {
+        "path": "cotizacionEmpresarial",
+        "representation": "EUR",
+        "value": {
+          "decimal": "9621"
+        }
+      },
+      {
+        "path": "meiEmpresarial",
+        "representation": "EUR",
+        "value": {
+          "decimal": "201"
+        }
+      },
+      {
+        "path": "meiTrabajador",
+        "representation": "EUR",
+        "value": {
+          "decimal": "39"
+        }
+      },
+      {
+        "path": "solidaridadEmpresarial",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      },
+      {
+        "path": "solidaridadTrabajador",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      }
+    ]
+  },
+  {
+    "port": "escalas::lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts#calcularRendimientoNetoTrabajo",
+    "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13132:13326:call",
+    "frames": [
+      {
+        "transport": 34
+      },
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:11858:60626:function@1",
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13120:13326:function@26"
+    ],
+    "arguments": [
+      {
+        "anio": 2025,
+        "rendimientoIntegro": {
+          "decimal": "30000"
+        },
+        "cotizacionTrabajador": {
+          "decimal": "1944"
+        }
+      }
+    ],
+    "result": {
+      "rendimientoIntegro": {
+        "decimal": "30000"
+      },
+      "cotizacionTrabajador": {
+        "decimal": "1944"
+      },
+      "rendimientoPrevioNeto": {
+        "decimal": "28056"
+      },
+      "gastosDeducibles": {
+        "decimal": "2000"
+      },
+      "rendimientoNeto": {
+        "decimal": "26056"
+      }
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13163:13325:object"
+      }
+    ],
+    "variant": null,
+    "properties": [
+      {
+        "path": "rendimientoIntegro",
+        "representation": "EUR",
+        "value": {
+          "decimal": "30000"
+        }
+      },
+      {
+        "path": "rendimientoNeto",
+        "representation": "EUR",
+        "value": {
+          "decimal": "26056"
+        }
+      },
+      {
+        "path": "rendimientoPrevioNeto",
+        "representation": "EUR",
+        "value": {
+          "decimal": "28056"
+        }
+      },
+      {
+        "path": "gastosDeducibles",
+        "representation": "EUR",
+        "value": {
+          "decimal": "2000"
+        }
+      },
+      {
+        "path": "cotizacionTrabajador",
+        "representation": "EUR",
+        "value": {
+          "decimal": "1944"
+        }
+      }
+    ]
+  },
+  {
+    "port": "escalas::lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts#sumarRendimientosCapitalInmobiliario",
+    "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13460:13650:call",
+    "frames": [
+      {
+        "transport": 35
+      },
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:11858:60626:function@1",
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13448:13650:function@27"
+    ],
+    "arguments": [
+      [],
+      {
+        "opaquePrimitive": true
+      }
+    ],
+    "result": {
+      "decimal": "0"
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13506:13618:call"
+      },
+      {
+        "index": 1,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13628:13642:global"
+      }
+    ],
+    "variant": null,
+    "properties": [
+      {
+        "path": "return",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      }
+    ]
+  },
+  {
+    "port": "escalas::lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts#calcularRendimientoNetoCapitalInmobiliarioSimplificado",
+    "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13776:13908:call",
+    "frames": [
+      {
+        "transport": 36
+      },
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:11858:60626:function@1",
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13764:13908:function@31"
+    ],
+    "arguments": [
+      {
+        "rendimientoIntegro": {
+          "decimal": "0"
+        }
+      }
+    ],
+    "result": {
+      "rendimientoIntegro": {
+        "decimal": "0"
+      },
+      "rendimientoNeto": {
+        "decimal": "0"
+      }
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13831:13907:object"
+      }
+    ],
+    "variant": null,
+    "properties": [
+      {
+        "path": "rendimientoNeto",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      }
+    ]
+  },
+  {
+    "port": "escalas::lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts#calcularGananciasPatrimonialesPorTransmision",
+    "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14024:14339:call",
+    "frames": [
+      {
+        "transport": 37
+      },
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:11858:60626:function@1",
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14012:14339:function@32"
+    ],
+    "arguments": [
+      {
+        "anio": 2025,
+        "edadContribuyente": 40,
+        "ganancias": [],
+        "convertirCentimos": {
+          "opaquePrimitive": true
+        }
+      }
+    ],
+    "result": {
+      "gananciaTotal": {
+        "decimal": "0"
+      },
+      "gananciaExenta": {
+        "decimal": "0"
+      },
+      "gananciaSujetaAhorro": {
+        "decimal": "0"
+      },
+      "gananciaSujetaGeneral": {
+        "decimal": "0"
+      }
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14069:14338:object"
+      }
+    ],
+    "variant": null,
+    "properties": [
+      {
+        "path": "gananciaSujetaGeneral",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      },
+      {
+        "path": "gananciaSujetaAhorro",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      },
+      {
+        "path": "gananciaTotal",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      },
+      {
+        "path": "gananciaExenta",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      }
+    ]
+  },
+  {
+    "port": "escalas::lib/dominio/irpf/minimos/derechos.ts#validarRentasAnualesDerechos",
+    "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14818:14949:call",
+    "frames": [
+      {
+        "transport": 38
+      },
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:11858:60626:function@1"
+    ],
+    "arguments": [
+      {
+        "ejercicio": 2025,
+        "territorio": "madrid",
+        "regimen": "comun",
+        "modalidad": "individual",
+        "devengo": "2025-12-31",
+        "contribuyenteId": "s-1",
+        "edadContribuyenteDevengo": 40,
+        "discapacidadContribuyente": {
+          "_tag": "SinDiscapacidad"
+        },
+        "ascendientes": "ninguno",
+        "fallecimientosEnElEjercicio": "ninguno",
+        "descendientesCompletos": true,
+        "conciliacionRentasContribuyente": {
+          "perfil": "caso-anual-parcial",
+          "otrasRentasOGastosNoRepresentados": "ninguno"
+        },
+        "descendientes": [
+          {
+            "sujetoId": "s-2",
+            "fechaNacimiento": "2017-12-31",
+            "edadDevengo": 8,
+            "vivoAlDevengo": true,
+            "rentasNoExentasCentimos": 0,
+            "declaracion": {
+              "modalidad": "no-presenta"
+            },
+            "discapacidad": {
+              "_tag": "SinDiscapacidad"
+            },
+            "titulares": [
+              {
+                "titularId": "s-1",
+                "grado": 1,
+                "vinculo": {
+                  "clase": "consanguinidad"
+                },
+                "relacion": "convivencia",
+                "custodia": "exclusiva",
+                "alimentosJudiciales": false,
+                "aplicaEspecialidadAlimentos": false,
+                "residenteIrpf": true,
+                "rentasNoExentasCentimos": 2605600
+              }
+            ],
+            "titularesCompletos": true
+          }
+        ]
+      },
+      {
+        "decimal": "26056"
+      }
+    ],
+    "result": {
+      "ejercicio": 2025,
+      "territorio": "madrid",
+      "regimen": "comun",
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyenteId": "s-1",
+      "edadContribuyenteDevengo": 40,
+      "discapacidadContribuyente": {
+        "_tag": "SinDiscapacidad"
+      },
+      "ascendientes": "ninguno",
+      "fallecimientosEnElEjercicio": "ninguno",
+      "descendientesCompletos": true,
+      "conciliacionRentasContribuyente": {
+        "perfil": "caso-anual-parcial",
+        "otrasRentasOGastosNoRepresentados": "ninguno"
+      },
+      "descendientes": [
+        {
+          "sujetoId": "s-2",
+          "fechaNacimiento": "2017-12-31",
+          "edadDevengo": 8,
+          "vivoAlDevengo": true,
+          "rentasNoExentasCentimos": 0,
+          "declaracion": {
+            "modalidad": "no-presenta"
+          },
+          "discapacidad": {
+            "_tag": "SinDiscapacidad"
+          },
+          "titulares": [
+            {
+              "titularId": "s-1",
+              "grado": 1,
+              "vinculo": {
+                "clase": "consanguinidad"
+              },
+              "relacion": "convivencia",
+              "custodia": "exclusiva",
+              "alimentosJudiciales": false,
+              "aplicaEspecialidadAlimentos": false,
+              "residenteIrpf": true,
+              "rentasNoExentasCentimos": 2605600
+            }
+          ],
+          "titularesCompletos": true
+        }
+      ]
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14854:14874:get"
+      },
+      {
+        "index": 1,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14882:14943:call"
+      }
+    ],
+    "variant": null,
+    "properties": [
+      {
+        "path": "return",
+        "representation": "admission-pending-review",
+        "value": {
+          "ejercicio": 2025,
+          "territorio": "madrid",
+          "regimen": "comun",
+          "modalidad": "individual",
+          "devengo": "2025-12-31",
+          "contribuyenteId": "s-1",
+          "edadContribuyenteDevengo": 40,
+          "discapacidadContribuyente": {
+            "_tag": "SinDiscapacidad"
+          },
+          "ascendientes": "ninguno",
+          "fallecimientosEnElEjercicio": "ninguno",
+          "descendientesCompletos": true,
+          "conciliacionRentasContribuyente": {
+            "perfil": "caso-anual-parcial",
+            "otrasRentasOGastosNoRepresentados": "ninguno"
+          },
+          "descendientes": [
+            {
+              "sujetoId": "s-2",
+              "fechaNacimiento": "2017-12-31",
+              "edadDevengo": 8,
+              "vivoAlDevengo": true,
+              "rentasNoExentasCentimos": 0,
+              "declaracion": {
+                "modalidad": "no-presenta"
+              },
+              "discapacidad": {
+                "_tag": "SinDiscapacidad"
+              },
+              "titulares": [
+                {
+                  "titularId": "s-1",
+                  "grado": 1,
+                  "vinculo": {
+                    "clase": "consanguinidad"
+                  },
+                  "relacion": "convivencia",
+                  "custodia": "exclusiva",
+                  "alimentosJudiciales": false,
+                  "aplicaEspecialidadAlimentos": false,
+                  "residenteIrpf": true,
+                  "rentasNoExentasCentimos": 2605600
+                }
+              ],
+              "titularesCompletos": true
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "port": "escalas::lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts#calcularReduccionTrabajoConOtrasRentas",
+    "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15117:15347:call",
+    "frames": [
+      {
+        "transport": 39
+      },
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:11858:60626:function@1",
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15105:15347:function@34"
+    ],
+    "arguments": [
+      {
+        "anio": 2025,
+        "fechaFallecimiento": {
+          "absent": true
+        },
+        "rendimientoPrevioNeto": {
+          "decimal": "28056"
+        },
+        "otrasRentasNoExentas": {
+          "decimal": "0"
+        }
+      }
+    ],
+    "result": {
+      "decimal": "0"
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15156:15346:object"
+      }
+    ],
+    "variant": null,
+    "properties": [
+      {
+        "path": "return",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      }
+    ]
+  },
+  {
+    "port": "escalas::lib/dominio/irpf/minimos/derechos.ts#validarDerechosMinimos",
+    "node": "lib/dominio/irpf/minimos/derechos.ts:9198:9229:call",
+    "frames": [
+      {
+        "transport": 40
+      },
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:11858:60626:function@1",
+      "lib/dominio/irpf/minimos/derechos.ts:9077:12502:function@645"
+    ],
+    "arguments": [
+      {
+        "ejercicio": 2025,
+        "territorio": "madrid",
+        "regimen": "comun",
+        "modalidad": "individual",
+        "devengo": "2025-12-31",
+        "contribuyenteId": "s-1",
+        "edadContribuyenteDevengo": 40,
+        "discapacidadContribuyente": {
+          "_tag": "SinDiscapacidad"
+        },
+        "ascendientes": "ninguno",
+        "fallecimientosEnElEjercicio": "ninguno",
+        "descendientesCompletos": true,
+        "conciliacionRentasContribuyente": {
+          "perfil": "caso-anual-parcial",
+          "otrasRentasOGastosNoRepresentados": "ninguno"
+        },
+        "descendientes": [
+          {
+            "sujetoId": "s-2",
+            "fechaNacimiento": "2017-12-31",
+            "edadDevengo": 8,
+            "vivoAlDevengo": true,
+            "rentasNoExentasCentimos": 0,
+            "declaracion": {
+              "modalidad": "no-presenta"
+            },
+            "discapacidad": {
+              "_tag": "SinDiscapacidad"
+            },
+            "titulares": [
+              {
+                "titularId": "s-1",
+                "grado": 1,
+                "vinculo": {
+                  "clase": "consanguinidad"
+                },
+                "relacion": "convivencia",
+                "custodia": "exclusiva",
+                "alimentosJudiciales": false,
+                "aplicaEspecialidadAlimentos": false,
+                "residenteIrpf": true,
+                "rentasNoExentasCentimos": 2605600
+              }
+            ],
+            "titularesCompletos": true
+          }
+        ]
+      }
+    ],
+    "result": {
+      "ejercicio": 2025,
+      "territorio": "madrid",
+      "regimen": "comun",
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyenteId": "s-1",
+      "edadContribuyenteDevengo": 40,
+      "discapacidadContribuyente": {
+        "_tag": "SinDiscapacidad"
+      },
+      "ascendientes": "ninguno",
+      "fallecimientosEnElEjercicio": "ninguno",
+      "descendientesCompletos": true,
+      "conciliacionRentasContribuyente": {
+        "perfil": "caso-anual-parcial",
+        "otrasRentasOGastosNoRepresentados": "ninguno"
+      },
+      "descendientes": [
+        {
+          "sujetoId": "s-2",
+          "fechaNacimiento": "2017-12-31",
+          "edadDevengo": 8,
+          "vivoAlDevengo": true,
+          "rentasNoExentasCentimos": 0,
+          "declaracion": {
+            "modalidad": "no-presenta"
+          },
+          "discapacidad": {
+            "_tag": "SinDiscapacidad"
+          },
+          "titulares": [
+            {
+              "titularId": "s-1",
+              "grado": 1,
+              "vinculo": {
+                "clase": "consanguinidad"
+              },
+              "relacion": "convivencia",
+              "custodia": "exclusiva",
+              "alimentosJudiciales": false,
+              "aplicaEspecialidadAlimentos": false,
+              "residenteIrpf": true,
+              "rentasNoExentasCentimos": 2605600
+            }
+          ],
+          "titularesCompletos": true
+        }
+      ]
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/minimos/derechos.ts:9221:9228:local"
+      }
+    ],
+    "variant": null,
+    "properties": [
+      {
+        "path": "return",
+        "representation": "validated-rights-pending-review",
+        "value": {
+          "ejercicio": 2025,
+          "territorio": "madrid",
+          "regimen": "comun",
+          "modalidad": "individual",
+          "devengo": "2025-12-31",
+          "contribuyenteId": "s-1",
+          "edadContribuyenteDevengo": 40,
+          "discapacidadContribuyente": {
+            "_tag": "SinDiscapacidad"
+          },
+          "ascendientes": "ninguno",
+          "fallecimientosEnElEjercicio": "ninguno",
+          "descendientesCompletos": true,
+          "conciliacionRentasContribuyente": {
+            "perfil": "caso-anual-parcial",
+            "otrasRentasOGastosNoRepresentados": "ninguno"
+          },
+          "descendientes": [
+            {
+              "sujetoId": "s-2",
+              "fechaNacimiento": "2017-12-31",
+              "edadDevengo": 8,
+              "vivoAlDevengo": true,
+              "rentasNoExentasCentimos": 0,
+              "declaracion": {
+                "modalidad": "no-presenta"
+              },
+              "discapacidad": {
+                "_tag": "SinDiscapacidad"
+              },
+              "titulares": [
+                {
+                  "titularId": "s-1",
+                  "grado": 1,
+                  "vinculo": {
+                    "clase": "consanguinidad"
+                  },
+                  "relacion": "convivencia",
+                  "custodia": "exclusiva",
+                  "alimentosJudiciales": false,
+                  "aplicaEspecialidadAlimentos": false,
+                  "residenteIrpf": true,
+                  "rentasNoExentasCentimos": 2605600
+                }
+              ],
+              "titularesCompletos": true
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "port": "escalas::lib/dominio/irpf/minimos/derechos.ts#validarDerechosMinimos",
+    "node": "lib/dominio/irpf/minimos/derechos.ts:9198:9229:call",
+    "frames": [
+      {
+        "transport": 41
+      },
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:11858:60626:function@1",
+      "lib/dominio/irpf/minimos/derechos.ts:9077:12502:function@671"
+    ],
+    "arguments": [
+      {
+        "ejercicio": 2025,
+        "territorio": "madrid",
+        "regimen": "comun",
+        "modalidad": "individual",
+        "devengo": "2025-12-31",
+        "contribuyenteId": "s-1",
+        "edadContribuyenteDevengo": 40,
+        "discapacidadContribuyente": {
+          "_tag": "SinDiscapacidad"
+        },
+        "ascendientes": "ninguno",
+        "fallecimientosEnElEjercicio": "ninguno",
+        "descendientesCompletos": true,
+        "conciliacionRentasContribuyente": {
+          "perfil": "caso-anual-parcial",
+          "otrasRentasOGastosNoRepresentados": "ninguno"
+        },
+        "descendientes": [
+          {
+            "sujetoId": "s-2",
+            "fechaNacimiento": "2017-12-31",
+            "edadDevengo": 8,
+            "vivoAlDevengo": true,
+            "rentasNoExentasCentimos": 0,
+            "declaracion": {
+              "modalidad": "no-presenta"
+            },
+            "discapacidad": {
+              "_tag": "SinDiscapacidad"
+            },
+            "titulares": [
+              {
+                "titularId": "s-1",
+                "grado": 1,
+                "vinculo": {
+                  "clase": "consanguinidad"
+                },
+                "relacion": "convivencia",
+                "custodia": "exclusiva",
+                "alimentosJudiciales": false,
+                "aplicaEspecialidadAlimentos": false,
+                "residenteIrpf": true,
+                "rentasNoExentasCentimos": 2605600
+              }
+            ],
+            "titularesCompletos": true
+          }
+        ]
+      }
+    ],
+    "result": {
+      "ejercicio": 2025,
+      "territorio": "madrid",
+      "regimen": "comun",
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyenteId": "s-1",
+      "edadContribuyenteDevengo": 40,
+      "discapacidadContribuyente": {
+        "_tag": "SinDiscapacidad"
+      },
+      "ascendientes": "ninguno",
+      "fallecimientosEnElEjercicio": "ninguno",
+      "descendientesCompletos": true,
+      "conciliacionRentasContribuyente": {
+        "perfil": "caso-anual-parcial",
+        "otrasRentasOGastosNoRepresentados": "ninguno"
+      },
+      "descendientes": [
+        {
+          "sujetoId": "s-2",
+          "fechaNacimiento": "2017-12-31",
+          "edadDevengo": 8,
+          "vivoAlDevengo": true,
+          "rentasNoExentasCentimos": 0,
+          "declaracion": {
+            "modalidad": "no-presenta"
+          },
+          "discapacidad": {
+            "_tag": "SinDiscapacidad"
+          },
+          "titulares": [
+            {
+              "titularId": "s-1",
+              "grado": 1,
+              "vinculo": {
+                "clase": "consanguinidad"
+              },
+              "relacion": "convivencia",
+              "custodia": "exclusiva",
+              "alimentosJudiciales": false,
+              "aplicaEspecialidadAlimentos": false,
+              "residenteIrpf": true,
+              "rentasNoExentasCentimos": 2605600
+            }
+          ],
+          "titularesCompletos": true
+        }
+      ]
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/minimos/derechos.ts:9221:9228:local"
+      }
+    ],
+    "variant": null,
+    "properties": [
+      {
+        "path": "return",
+        "representation": "validated-rights-pending-review",
+        "value": {
+          "ejercicio": 2025,
+          "territorio": "madrid",
+          "regimen": "comun",
+          "modalidad": "individual",
+          "devengo": "2025-12-31",
+          "contribuyenteId": "s-1",
+          "edadContribuyenteDevengo": 40,
+          "discapacidadContribuyente": {
+            "_tag": "SinDiscapacidad"
+          },
+          "ascendientes": "ninguno",
+          "fallecimientosEnElEjercicio": "ninguno",
+          "descendientesCompletos": true,
+          "conciliacionRentasContribuyente": {
+            "perfil": "caso-anual-parcial",
+            "otrasRentasOGastosNoRepresentados": "ninguno"
+          },
+          "descendientes": [
+            {
+              "sujetoId": "s-2",
+              "fechaNacimiento": "2017-12-31",
+              "edadDevengo": 8,
+              "vivoAlDevengo": true,
+              "rentasNoExentasCentimos": 0,
+              "declaracion": {
+                "modalidad": "no-presenta"
+              },
+              "discapacidad": {
+                "_tag": "SinDiscapacidad"
+              },
+              "titulares": [
+                {
+                  "titularId": "s-1",
+                  "grado": 1,
+                  "vinculo": {
+                    "clase": "consanguinidad"
+                  },
+                  "relacion": "convivencia",
+                  "custodia": "exclusiva",
+                  "alimentosJudiciales": false,
+                  "aplicaEspecialidadAlimentos": false,
+                  "residenteIrpf": true,
+                  "rentasNoExentasCentimos": 2605600
+                }
+              ],
+              "titularesCompletos": true
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "port": "rentas::boundary:calcularDesgloseCotizacionesPerfilUniforme",
+    "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12792:13018:call",
+    "frames": [
+      {
+        "transport": 42
+      },
+      {
+        "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12780:13018:function",
+        "invocation": 1
+      }
+    ],
+    "arguments": [
+      {
+        "anio": 2020,
+        "salarioBrutoAnual": {
+          "decimal": "30000"
+        }
+      }
+    ],
+    "result": {
+      "alcance": "analitico-doce-mensualidades-uniformes",
+      "redondeoTgss": "pendiente",
+      "baseOrdinaria": {
+        "decimal": "30000"
+      },
+      "excesoBase": {
+        "decimal": "0"
+      },
+      "cotizacionEmpresarialOrdinaria": {
+        "decimal": "9420"
+      },
+      "cotizacionTrabajadorOrdinaria": {
+        "decimal": "1905"
+      },
+      "meiEmpresarial": {
+        "decimal": "0"
+      },
+      "meiTrabajador": {
+        "decimal": "0"
+      },
+      "solidaridadEmpresarial": {
+        "decimal": "0"
+      },
+      "solidaridadTrabajador": {
+        "decimal": "0"
+      },
+      "cotizacionEmpresarial": {
+        "decimal": "9420"
+      },
+      "cotizacionTrabajador": {
+        "decimal": "1905"
+      }
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12929:13017:object"
+      }
+    ],
+    "variant": null,
+    "properties": [
+      {
+        "path": "cotizacionEmpresarial",
+        "representation": "EUR",
+        "value": {
+          "decimal": "9420"
+        }
+      },
+      {
+        "path": "cotizacionTrabajador",
+        "representation": "EUR",
+        "value": {
+          "decimal": "1905"
+        }
+      },
+      {
+        "path": "meiEmpresarial",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      },
+      {
+        "path": "meiTrabajador",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      },
+      {
+        "path": "solidaridadEmpresarial",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      },
+      {
+        "path": "solidaridadTrabajador",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      }
+    ]
+  },
+  {
+    "port": "escalas::lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts#sumarRendimientosTrabajo",
+    "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12193:12260:call",
+    "frames": [
+      {
+        "transport": 43
+      },
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:11858:60626:function@1",
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12187:12260:function@2"
+    ],
+    "arguments": [
+      [
+        {
+          "importeIntegroCentimos": 3000000
+        }
+      ],
+      {
+        "opaquePrimitive": true
+      }
+    ],
+    "result": {
+      "decimal": "30000"
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12218:12243:get"
+      },
+      {
+        "index": 1,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12245:12259:global"
+      }
+    ],
+    "variant": null,
+    "properties": [
+      {
+        "path": "return",
+        "representation": "EUR",
+        "value": {
+          "decimal": "30000"
+        }
+      }
+    ]
+  },
+  {
+    "port": "escalas::lib/dominio/laboral/cotizaciones-perfil-uniforme.ts#calcularDesgloseCotizacionesPerfilUniforme",
+    "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12792:13018:call",
+    "frames": [
+      {
+        "transport": 44
+      },
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:11858:60626:function@1",
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12780:13018:function@25"
+    ],
+    "arguments": [
+      {
+        "anio": 2020,
+        "salarioBrutoAnual": {
+          "decimal": "30000"
+        }
+      }
+    ],
+    "result": {
+      "alcance": "analitico-doce-mensualidades-uniformes",
+      "redondeoTgss": "pendiente",
+      "baseOrdinaria": {
+        "decimal": "30000"
+      },
+      "excesoBase": {
+        "decimal": "0"
+      },
+      "cotizacionEmpresarialOrdinaria": {
+        "decimal": "9420"
+      },
+      "cotizacionTrabajadorOrdinaria": {
+        "decimal": "1905"
+      },
+      "meiEmpresarial": {
+        "decimal": "0"
+      },
+      "meiTrabajador": {
+        "decimal": "0"
+      },
+      "solidaridadEmpresarial": {
+        "decimal": "0"
+      },
+      "solidaridadTrabajador": {
+        "decimal": "0"
+      },
+      "cotizacionEmpresarial": {
+        "decimal": "9420"
+      },
+      "cotizacionTrabajador": {
+        "decimal": "1905"
+      }
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12929:13017:object"
+      }
+    ],
+    "variant": null,
+    "properties": [
+      {
+        "path": "cotizacionTrabajador",
+        "representation": "EUR",
+        "value": {
+          "decimal": "1905"
+        }
+      },
+      {
+        "path": "cotizacionEmpresarial",
+        "representation": "EUR",
+        "value": {
+          "decimal": "9420"
+        }
+      },
+      {
+        "path": "meiEmpresarial",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      },
+      {
+        "path": "meiTrabajador",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      },
+      {
+        "path": "solidaridadEmpresarial",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      },
+      {
+        "path": "solidaridadTrabajador",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      }
+    ]
+  },
+  {
+    "port": "escalas::lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts#calcularRendimientoNetoTrabajo",
+    "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13132:13326:call",
+    "frames": [
+      {
+        "transport": 45
+      },
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:11858:60626:function@1",
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13120:13326:function@26"
+    ],
+    "arguments": [
+      {
+        "anio": 2020,
+        "rendimientoIntegro": {
+          "decimal": "30000"
+        },
+        "cotizacionTrabajador": {
+          "decimal": "1905"
+        }
+      }
+    ],
+    "result": {
+      "rendimientoIntegro": {
+        "decimal": "30000"
+      },
+      "cotizacionTrabajador": {
+        "decimal": "1905"
+      },
+      "rendimientoPrevioNeto": {
+        "decimal": "28095"
+      },
+      "gastosDeducibles": {
+        "decimal": "2000"
+      },
+      "rendimientoNeto": {
+        "decimal": "26095"
+      }
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13163:13325:object"
+      }
+    ],
+    "variant": null,
+    "properties": [
+      {
+        "path": "rendimientoIntegro",
+        "representation": "EUR",
+        "value": {
+          "decimal": "30000"
+        }
+      },
+      {
+        "path": "rendimientoNeto",
+        "representation": "EUR",
+        "value": {
+          "decimal": "26095"
+        }
+      },
+      {
+        "path": "rendimientoPrevioNeto",
+        "representation": "EUR",
+        "value": {
+          "decimal": "28095"
+        }
+      },
+      {
+        "path": "gastosDeducibles",
+        "representation": "EUR",
+        "value": {
+          "decimal": "2000"
+        }
+      },
+      {
+        "path": "cotizacionTrabajador",
+        "representation": "EUR",
+        "value": {
+          "decimal": "1905"
+        }
+      }
+    ]
+  },
+  {
+    "port": "escalas::lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts#sumarRendimientosCapitalInmobiliario",
+    "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13460:13650:call",
+    "frames": [
+      {
+        "transport": 46
+      },
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:11858:60626:function@1",
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13448:13650:function@27"
+    ],
+    "arguments": [
+      [],
+      {
+        "opaquePrimitive": true
+      }
+    ],
+    "result": {
+      "decimal": "0"
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13506:13618:call"
+      },
+      {
+        "index": 1,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13628:13642:global"
+      }
+    ],
+    "variant": null,
+    "properties": [
+      {
+        "path": "return",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      }
+    ]
+  },
+  {
+    "port": "escalas::lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts#calcularRendimientoNetoCapitalInmobiliarioSimplificado",
+    "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13776:13908:call",
+    "frames": [
+      {
+        "transport": 47
+      },
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:11858:60626:function@1",
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13764:13908:function@31"
+    ],
+    "arguments": [
+      {
+        "rendimientoIntegro": {
+          "decimal": "0"
+        }
+      }
+    ],
+    "result": {
+      "rendimientoIntegro": {
+        "decimal": "0"
+      },
+      "rendimientoNeto": {
+        "decimal": "0"
+      }
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13831:13907:object"
+      }
+    ],
+    "variant": null,
+    "properties": [
+      {
+        "path": "rendimientoNeto",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      }
+    ]
+  },
+  {
+    "port": "escalas::lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts#calcularGananciasPatrimonialesPorTransmision",
+    "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14024:14339:call",
+    "frames": [
+      {
+        "transport": 48
+      },
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:11858:60626:function@1",
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14012:14339:function@32"
+    ],
+    "arguments": [
+      {
+        "anio": 2020,
+        "edadContribuyente": 40,
+        "ganancias": [],
+        "convertirCentimos": {
+          "opaquePrimitive": true
+        }
+      }
+    ],
+    "result": {
+      "gananciaTotal": {
+        "decimal": "0"
+      },
+      "gananciaExenta": {
+        "decimal": "0"
+      },
+      "gananciaSujetaAhorro": {
+        "decimal": "0"
+      },
+      "gananciaSujetaGeneral": {
+        "decimal": "0"
+      }
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14069:14338:object"
+      }
+    ],
+    "variant": null,
+    "properties": [
+      {
+        "path": "gananciaSujetaGeneral",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      },
+      {
+        "path": "gananciaSujetaAhorro",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      },
+      {
+        "path": "gananciaTotal",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      },
+      {
+        "path": "gananciaExenta",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      }
+    ]
+  },
+  {
+    "port": "escalas::lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts#calcularReduccionTrabajoConOtrasRentas",
+    "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15117:15347:call",
+    "frames": [
+      {
+        "transport": 49
+      },
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:11858:60626:function@1",
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15105:15347:function@34"
+    ],
+    "arguments": [
+      {
+        "anio": 2020,
+        "fechaFallecimiento": {
+          "absent": true
+        },
+        "rendimientoPrevioNeto": {
+          "decimal": "28095"
+        },
+        "otrasRentasNoExentas": {
+          "decimal": "0"
+        }
+      }
+    ],
+    "result": {
+      "decimal": "0"
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15156:15346:object"
+      }
+    ],
+    "variant": null,
+    "properties": [
+      {
+        "path": "return",
+        "representation": "EUR",
+        "value": {
+          "decimal": "0"
+        }
+      }
+    ]
+  },
+  {
+    "port": "escalas::retencion.calcular",
+    "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:28270:28379:boundaryCall",
+    "frames": [
+      {
+        "transport": 50
+      },
+      "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:11858:60626:function@1"
+    ],
+    "arguments": [
+      {
+        "anio": 2020,
+        "edad": 40,
+        "retribucionAnualCentimos": 4020000,
+        "cotizacionesCentimos": 20000,
+        "situacionFamiliar": "situacion3",
+        "situacionLaboral": "activo",
+        "contrato": "general",
+        "descendientes": [],
+        "ascendientes": [],
+        "discapacidad": "sin-discapacidad"
+      },
+      {
+        "modo": "canonico"
+      }
+    ],
+    "result": {
+      "_tag": "RetencionTrabajoCalculada",
+      "anio": 2020,
+      "version": "aeat-2020-01-01",
+      "rendimientoNetoTrabajoCentimos": 4000000,
+      "reduccionRendimientosTrabajoCentimos": 0,
+      "rendimientoNetoReducidoCentimos": 3800000,
+      "minimoPersonalFamiliarCentimos": 555000,
+      "baseRetencionCentimos": 3800000,
+      "cuotaRetencionCentimos": 870700,
+      "limite43Centimos": 870700,
+      "tipoRetencionPorcentaje": "21.65",
+      "importeRetencionAnualCentimos": 870330,
+      "rastro": {
+        "titulo": "Procedimiento de retención de trabajo 2020",
+        "pasos": [
+          {
+            "_tag": "PasoExplicacion",
+            "titulo": "Base de retención",
+            "descripcion": "Cálculo inicial parcial con remuneración anual y cotizaciones suministradas; familia elegible comunicada, edades al 31 de diciembre. No es nómina completa ni aceptación fiscal.",
+            "lineasCalculo": [
+              {
+                "etiqueta": "Rendimiento neto del trabajo",
+                "formula": "40200.00 euros - 0.00 euros - 0.00 euros - 200.00 euros",
+                "resultado": "40000.00 euros"
+              },
+              {
+                "etiqueta": "Reducción por rendimientos del trabajo",
+                "formula": "Art. 20 LIRPF segun tramos del procedimiento",
+                "resultado": "0.00 euros"
+              },
+              {
+                "etiqueta": "Base para calcular el tipo",
+                "formula": "38000.00 euros - 0.00 euros",
+                "resultado": "38000.00 euros"
+              }
+            ],
+            "fuentes": [
+              {
+                "titulo": "aeat-2020-01-01; SHA-256 645d06d2dc5a9301358b78a9bcf8981b86c1114bd7af47cd66d8128a1d6f5e25",
+                "referencia": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2020/ALGORITMO_RETENCIONES_2020.pdf"
+              }
+            ]
+          },
+          {
+            "_tag": "PasoExplicacion",
+            "titulo": "Cuota y tipo de retención",
+            "descripcion": "La cuota se obtiene aplicando la escala de retención a la base y al mínimo personal y familiar; el tipo se trunca a dos decimales.",
+            "lineasCalculo": [
+              {
+                "etiqueta": "Mínimo personal y familiar",
+                "formula": "Contribuyente, descendientes, ascendientes y discapacidad",
+                "resultado": "5550.00 euros"
+              },
+              {
+                "etiqueta": "Cuota de retención",
+                "formula": "min(cuota escala, limite 43% 8707.00 euros)",
+                "resultado": "8707.00 euros"
+              },
+              {
+                "etiqueta": "Tipo de retención",
+                "formula": "8707.00 euros / 40200.00 euros x 100",
+                "resultado": "21.65%"
+              },
+              {
+                "etiqueta": "Importe anual",
+                "formula": "40200.00 euros x 21.65%",
+                "resultado": "8703.30 euros"
+              }
+            ],
+            "fuentes": [
+              {
+                "titulo": "aeat-2020-01-01; SHA-256 645d06d2dc5a9301358b78a9bcf8981b86c1114bd7af47cd66d8128a1d6f5e25",
+                "referencia": "https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2020/ALGORITMO_RETENCIONES_2020.pdf"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "bindings": [
+      {
+        "index": 0,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:28324:28349:get"
+      },
+      {
+        "index": 1,
+        "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:28361:28369:local"
+      }
+    ],
+    "variant": null,
+    "properties": [
+      {
+        "path": "importeRetencionAnualCentimos",
+        "representation": "centimos",
+        "value": 870330
+      }
+    ]
+  }
+]

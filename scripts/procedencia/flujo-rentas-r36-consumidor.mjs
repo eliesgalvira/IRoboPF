@@ -56,6 +56,8 @@ const printable = (v) => {
 }
 /** Solo consume operaciones JSON. No importa motor, compilador TS ni ejecuta texto.
  * El llamante debe validar primero el fragmento; executeFinite no concede confianza. */
+/** @param {string|null} expression
+ * @param {((event: import("./puertos-composicion-r47").Observation) => void)|null} observe */
 export function executeRentasFinite(
   fragment,
   functionName,
@@ -63,7 +65,8 @@ export function executeRentasFinite(
   capture = true,
   expression = null,
   bindings = [],
-  boundaries = {}
+  boundaries = {},
+  observe = null
 ) {
   const nodes = new Map(fragment.program.map((n) => [n.id, n]))
   const globals = new Map(fragment.globalBindings.map((b) => [b.name, b.node]))
@@ -98,6 +101,9 @@ export function executeRentasFinite(
       },
     })
   )
+  const frames = []
+  let invocation = 0
+  const boundaryNames = new Map(Object.entries(boundaries).map(([name, value]) => [value, name]))
   const trace = []
   const bindValue = (pattern, value, env) =>
     bind(pattern, value, env, (id) => evaluate(id, env))
@@ -129,6 +135,7 @@ export function executeRentasFinite(
         break
       case "global":
         value = global(n.data.name)
+        if (observe && n.data.name.startsWith("boundary:") && Object.entries(boundaries).some(([name, v]) => name === n.data.name && v === value) && !Object.entries(boundaries).some(([name, v]) => name === n.data.name && v instanceof Function)) observe({ node: id, target: n.data.name, frames: [...frames], arguments: [], result: printable(value) })
         break
       case "local":
         if (!env.has(n.data.name))
@@ -150,10 +157,13 @@ export function executeRentasFinite(
             )
           )
           try {
+            frames.push({ node: n.id, invocation: ++invocation })
             return evaluate(n.args[0], local)
           } catch (e) {
             if (e?.[returned]) return e.value
             throw e
+          } finally {
+            frames.pop()
           }
         }
         break
@@ -272,6 +282,7 @@ export function executeRentasFinite(
           const fn = ev(0)
           xs = many(n.args.slice(1))
           value = fn(...xs)
+          if (observe && boundaryNames.has(fn)) observe({ node: id, target: boundaryNames.get(fn), frames: [...frames], arguments: xs.map(printable), result: printable(value) })
         }
         if (capture)
           trace.push({
@@ -322,11 +333,13 @@ export function executeRentasFinite(
 
 /** Entradas generales previamente admitidas. SS se aporta solo mediante contratos ajenos.
  * La admisión común sigue pendiente: este resultado no habilita wiring. */
+/** @param {((event: import("./puertos-composicion-r47").Observation) => void)|null} observe */
 export function consumeGeneralRentas(
   fragment,
   caso,
   contexto,
-  boundaries = {}
+  boundaries = {},
+  observe = null
 ) {
   const bindings = [
     ["caso", caso],
@@ -344,7 +357,8 @@ export function consumeGeneralRentas(
       false,
       binding.node,
       bindings,
-      terminals
+      terminals,
+      observe
     ).result
     bindings.push([binding.name, value])
   }
@@ -387,7 +401,8 @@ export function consumeGeneralRentas(
   }
 }
 /** Distingue rechazo contractual de defecto; nunca transforma ninguno en importe cero. */
-export function consumeExplicitRentas(fragment, entrada, boundaries = {}) {
+/** @param {((event: import("./puertos-composicion-r47").Observation) => void)|null} observe */
+export function consumeExplicitRentas(fragment, entrada, boundaries = {}, observe = null) {
   try {
     const result = executeRentasFinite(
       fragment,
@@ -396,7 +411,8 @@ export function consumeExplicitRentas(fragment, entrada, boundaries = {}) {
       false,
       null,
       [],
-      { ...boundaries, "boundary:enlazarRastroAnualActual": (r) => r }
+      { ...boundaries, "boundary:enlazarRastroAnualActual": (r) => r },
+      observe
     ).result
     return {
       status: "success",

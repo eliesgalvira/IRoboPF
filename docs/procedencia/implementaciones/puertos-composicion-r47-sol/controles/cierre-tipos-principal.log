@@ -1,0 +1,6 @@
+docs/procedencia/revisiones/fronteras-escalas-r42-sol/propios.test.ts(53,27): error TS2345: Argument of type '(p: ParameterWitness) => { file: string; start: number; end: number; text: string; }' is not assignable to parameter of type '(value: { index: number; binding: string; type: string | null; source: { file: any; start: any; end: any; sha256: any; offsetEncoding: string; }; }, index: number, array: { index: number; binding: string; type: string | null; source: { ...; }; }[]) => { ...; }'.
+  Types of parameters 'p' and 'value' are incompatible.
+    Type '{ index: number; binding: string; type: string | null; source: { file: any; start: any; end: any; sha256: any; offsetEncoding: string; }; }' is not assignable to type 'ParameterWitness'.
+      Types of property 'type' are incompatible.
+        Type 'string | null' is not assignable to type 'string'.
+          Type 'null' is not assignable to type 'string'.

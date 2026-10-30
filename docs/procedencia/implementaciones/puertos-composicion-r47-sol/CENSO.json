@@ -1,0 +1,2553 @@
+[
+  {
+    "id": "escalas::lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts#sumarRendimientosTrabajo",
+    "kind": "financial",
+    "consumer": "escalas",
+    "target": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts#sumarRendimientosTrabajo",
+    "provider": {
+      "group": "rentas",
+      "root": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:sumarRendimientosTrabajo",
+      "node": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1470:1727:function",
+      "source": {
+        "file": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts",
+        "start": 1443,
+        "end": 1727,
+        "sha256": "fd9f91710a717ffa2d115ca42f0a5c4e3baf383f563820df509432d8acf57e54",
+        "offsetEncoding": "utf16"
+      },
+      "signature": {
+        "parameters": [
+          {
+            "index": 0,
+            "binding": "rendimientos",
+            "type": "ReadonlyArray<RendimientoTrabajo>",
+            "source": {
+              "file": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts",
+              "start": 1474,
+              "end": 1521,
+              "sha256": "fd9f91710a717ffa2d115ca42f0a5c4e3baf383f563820df509432d8acf57e54",
+              "offsetEncoding": "utf16"
+            }
+          },
+          {
+            "index": 1,
+            "binding": "crearImporte",
+            "type": "(centimos: number) => Decimal",
+            "source": {
+              "file": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts",
+              "start": 1525,
+              "end": 1568,
+              "sha256": "fd9f91710a717ffa2d115ca42f0a5c4e3baf383f563820df509432d8acf57e54",
+              "offsetEncoding": "utf16"
+            }
+          }
+        ],
+        "returns": "Decimal"
+      },
+      "parameters": [
+        {
+          "binding": {
+            "name": "rendimientos"
+          },
+          "rest": false,
+          "default": null
+        },
+        {
+          "binding": {
+            "name": "crearImporte"
+          },
+          "rest": false,
+          "default": null
+        }
+      ],
+      "dimensionReference": {
+        "registry": "rentas.fields",
+        "ids": [
+          "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1585:1603:get",
+          "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1663:1673:get",
+          "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1687:1721:get"
+        ]
+      }
+    },
+    "operator": "invoke-root",
+    "projection": [],
+    "calls": [
+      {
+        "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12193:12260:call",
+        "source": {
+          "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+          "start": 12193,
+          "end": 12260,
+          "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+          "offsetEncoding": "utf16"
+        },
+        "arguments": [
+          {
+            "index": 0,
+            "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12218:12243:get"
+          },
+          {
+            "index": 1,
+            "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12245:12259:global"
+          }
+        ],
+        "frames": [
+          "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12187:12260:function",
+          "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:11858:60626:function"
+        ]
+      }
+    ],
+    "output": [
+      {
+        "path": "return",
+        "representation": "EUR"
+      }
+    ],
+    "variants": []
+  },
+  {
+    "id": "escalas::lib/dominio/laboral/cotizaciones-perfil-uniforme.ts#calcularDesgloseCotizacionesPerfilUniforme",
+    "kind": "financial",
+    "consumer": "escalas",
+    "target": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts#calcularDesgloseCotizacionesPerfilUniforme",
+    "provider": {
+      "group": "ss",
+      "root": "calcularDesgloseCotizacionesPerfilUniforme",
+      "node": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1842:4183:function",
+      "source": {
+        "file": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
+        "start": 1797,
+        "end": 4183,
+        "sha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18",
+        "offsetEncoding": "utf16"
+      },
+      "signature": {
+        "parameters": [
+          {
+            "index": 0,
+            "binding": "{\n  anio,\n  salarioBrutoAnual,\n}",
+            "type": "EntradaCotizacionesSocialesLegacy",
+            "source": {
+              "file": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
+              "start": 1843,
+              "end": 1910,
+              "sha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18",
+              "offsetEncoding": "utf16"
+            }
+          }
+        ],
+        "returns": "CotizacionesPerfilUniforme"
+      },
+      "parameters": [
+        {
+          "binding": {
+            "fields": [
+              {
+                "key": "anio",
+                "binding": {
+                  "name": "anio"
+                }
+              },
+              {
+                "key": "salarioBrutoAnual",
+                "binding": {
+                  "name": "salarioBrutoAnual"
+                }
+              }
+            ]
+          },
+          "rest": false,
+          "default": null
+        }
+      ],
+      "dimensionReference": {
+        "registry": "ss.unitContracts",
+        "ids": [
+          "calcularDesgloseCotizacionesPerfilUniforme"
+        ]
+      }
+    },
+    "operator": "invoke-root",
+    "projection": [],
+    "calls": [
+      {
+        "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12792:13018:call",
+        "source": {
+          "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+          "start": 12792,
+          "end": 13018,
+          "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+          "offsetEncoding": "utf16"
+        },
+        "arguments": [
+          {
+            "index": 0,
+            "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12929:13017:object"
+          }
+        ],
+        "frames": [
+          "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12780:13018:function",
+          "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:11858:60626:function"
+        ]
+      }
+    ],
+    "output": [
+      {
+        "path": "cotizacionTrabajador",
+        "representation": "EUR"
+      },
+      {
+        "path": "cotizacionEmpresarial",
+        "representation": "EUR"
+      },
+      {
+        "path": "meiEmpresarial",
+        "representation": "EUR"
+      },
+      {
+        "path": "meiTrabajador",
+        "representation": "EUR"
+      },
+      {
+        "path": "solidaridadEmpresarial",
+        "representation": "EUR"
+      },
+      {
+        "path": "solidaridadTrabajador",
+        "representation": "EUR"
+      }
+    ],
+    "variants": []
+  },
+  {
+    "id": "escalas::lib/dominio/laboral/cotizaciones-sociales.ts#calcularDesgloseCotizacionesSocialesLegacy",
+    "kind": "financial",
+    "consumer": "escalas",
+    "target": "lib/dominio/laboral/cotizaciones-sociales.ts#calcularDesgloseCotizacionesSocialesLegacy",
+    "provider": {
+      "group": "ss",
+      "root": "calcularDesgloseCotizacionesSocialesLegacy",
+      "node": "lib/dominio/laboral/cotizaciones-sociales.ts:7817:9547:function",
+      "source": {
+        "file": "lib/dominio/laboral/cotizaciones-sociales.ts",
+        "start": 7772,
+        "end": 9547,
+        "sha256": "7c5b5567d5d4222286e9f167e85954ceebf044fe8fcc826666daa7ad4f0323f1",
+        "offsetEncoding": "utf16"
+      },
+      "signature": {
+        "parameters": [
+          {
+            "index": 0,
+            "binding": "{\n  salarioBrutoAnual,\n  anio,\n}",
+            "type": "EntradaCotizacionesSocialesLegacy",
+            "source": {
+              "file": "lib/dominio/laboral/cotizaciones-sociales.ts",
+              "start": 7818,
+              "end": 7885,
+              "sha256": "7c5b5567d5d4222286e9f167e85954ceebf044fe8fcc826666daa7ad4f0323f1",
+              "offsetEncoding": "utf16"
+            }
+          }
+        ],
+        "returns": "DesgloseCotizacionesSociales"
+      },
+      "parameters": [
+        {
+          "binding": {
+            "fields": [
+              {
+                "key": "salarioBrutoAnual",
+                "binding": {
+                  "name": "salarioBrutoAnual"
+                }
+              },
+              {
+                "key": "anio",
+                "binding": {
+                  "name": "anio"
+                }
+              }
+            ]
+          },
+          "rest": false,
+          "default": null
+        }
+      ],
+      "dimensionReference": {
+        "registry": "ss.unitContracts",
+        "ids": [
+          "calcularDesgloseCotizacionesSocialesLegacy"
+        ]
+      }
+    },
+    "operator": "invoke-root",
+    "projection": [],
+    "calls": [
+      {
+        "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12792:13018:call",
+        "source": {
+          "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+          "start": 12792,
+          "end": 13018,
+          "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+          "offsetEncoding": "utf16"
+        },
+        "arguments": [
+          {
+            "index": 0,
+            "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12929:13017:object"
+          }
+        ],
+        "frames": [
+          "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12780:13018:function",
+          "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:11858:60626:function"
+        ]
+      }
+    ],
+    "output": [
+      {
+        "path": "cotizacionTrabajador",
+        "representation": "EUR"
+      },
+      {
+        "path": "cotizacionEmpresarial",
+        "representation": "EUR"
+      },
+      {
+        "path": "meiEmpresarial",
+        "representation": "EUR"
+      },
+      {
+        "path": "meiTrabajador",
+        "representation": "EUR"
+      },
+      {
+        "path": "solidaridadEmpresarial",
+        "representation": "EUR"
+      },
+      {
+        "path": "solidaridadTrabajador",
+        "representation": "EUR"
+      }
+    ],
+    "variants": []
+  },
+  {
+    "id": "escalas::lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts#calcularRendimientoNetoTrabajo",
+    "kind": "financial",
+    "consumer": "escalas",
+    "target": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts#calcularRendimientoNetoTrabajo",
+    "provider": {
+      "group": "rentas",
+      "root": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:calcularRendimientoNetoTrabajo",
+      "node": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:669:1428:function",
+      "source": {
+        "file": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts",
+        "start": 636,
+        "end": 1428,
+        "sha256": "fd9f91710a717ffa2d115ca42f0a5c4e3baf383f563820df509432d8acf57e54",
+        "offsetEncoding": "utf16"
+      },
+      "signature": {
+        "parameters": [
+          {
+            "index": 0,
+            "binding": "{\n  anio,\n  rendimientoIntegro,\n  cotizacionTrabajador,\n}",
+            "type": "{\n  readonly anio: AnioFiscal\n  readonly rendimientoIntegro: Decimal\n  readonly cotizacionTrabajador?: Decimal\n}",
+            "source": {
+              "file": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts",
+              "start": 670,
+              "end": 841,
+              "sha256": "fd9f91710a717ffa2d115ca42f0a5c4e3baf383f563820df509432d8acf57e54",
+              "offsetEncoding": "utf16"
+            }
+          }
+        ],
+        "returns": "RendimientoNetoTrabajo"
+      },
+      "parameters": [
+        {
+          "binding": {
+            "fields": [
+              {
+                "key": "anio",
+                "binding": {
+                  "name": "anio"
+                }
+              },
+              {
+                "key": "rendimientoIntegro",
+                "binding": {
+                  "name": "rendimientoIntegro"
+                }
+              },
+              {
+                "key": "cotizacionTrabajador",
+                "binding": {
+                  "name": "cotizacionTrabajador"
+                }
+              }
+            ]
+          },
+          "rest": false,
+          "default": null
+        }
+      ],
+      "dimensionReference": {
+        "registry": "rentas.fields",
+        "ids": [
+          "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:976:980:property",
+          "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:988:1025:property",
+          "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:933:1054:get",
+          "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1087:1111:get",
+          "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1159:1189:index",
+          "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1206:1224:property",
+          "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1230:1270:property",
+          "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1276:1297:property",
+          "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1303:1319:property",
+          "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1342:1353:get",
+          "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1370:1397:get",
+          "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:1325:1421:property"
+        ]
+      }
+    },
+    "operator": "invoke-root",
+    "projection": [],
+    "calls": [
+      {
+        "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13132:13326:call",
+        "source": {
+          "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+          "start": 13132,
+          "end": 13326,
+          "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+          "offsetEncoding": "utf16"
+        },
+        "arguments": [
+          {
+            "index": 0,
+            "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13163:13325:object"
+          }
+        ],
+        "frames": [
+          "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13120:13326:function",
+          "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:11858:60626:function"
+        ]
+      }
+    ],
+    "output": [
+      {
+        "path": "rendimientoIntegro",
+        "representation": "EUR"
+      },
+      {
+        "path": "rendimientoNeto",
+        "representation": "EUR"
+      },
+      {
+        "path": "rendimientoPrevioNeto",
+        "representation": "EUR"
+      },
+      {
+        "path": "gastosDeducibles",
+        "representation": "EUR"
+      },
+      {
+        "path": "cotizacionTrabajador",
+        "representation": "EUR"
+      }
+    ],
+    "variants": []
+  },
+  {
+    "id": "escalas::lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts#sumarRendimientosCapitalInmobiliario",
+    "kind": "financial",
+    "consumer": "escalas",
+    "target": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts#sumarRendimientosCapitalInmobiliario",
+    "provider": {
+      "group": "rentas",
+      "root": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts:sumarRendimientosCapitalInmobiliario",
+      "node": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts:345:662:function",
+      "source": {
+        "file": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts",
+        "start": 306,
+        "end": 662,
+        "sha256": "0c81577c19cbf3b39620b19a8073a00861a694093e1af9927e314f02db2adbd8",
+        "offsetEncoding": "utf16"
+      },
+      "signature": {
+        "parameters": [
+          {
+            "index": 0,
+            "binding": "rendimientos",
+            "type": "ReadonlyArray<RendimientoCapitalInmobiliario>",
+            "source": {
+              "file": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts",
+              "start": 349,
+              "end": 408,
+              "sha256": "0c81577c19cbf3b39620b19a8073a00861a694093e1af9927e314f02db2adbd8",
+              "offsetEncoding": "utf16"
+            }
+          },
+          {
+            "index": 1,
+            "binding": "convertirCentimosAEuros",
+            "type": "(centimos: number) => Decimal",
+            "source": {
+              "file": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts",
+              "start": 412,
+              "end": 466,
+              "sha256": "0c81577c19cbf3b39620b19a8073a00861a694093e1af9927e314f02db2adbd8",
+              "offsetEncoding": "utf16"
+            }
+          }
+        ],
+        "returns": "Decimal"
+      },
+      "parameters": [
+        {
+          "binding": {
+            "name": "rendimientos"
+          },
+          "rest": false,
+          "default": null
+        },
+        {
+          "binding": {
+            "name": "convertirCentimosAEuros"
+          },
+          "rest": false,
+          "default": null
+        }
+      ],
+      "dimensionReference": {
+        "registry": "rentas.fields",
+        "ids": [
+          "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts:483:501:get",
+          "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts:587:597:get",
+          "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts:622:656:get"
+        ]
+      }
+    },
+    "operator": "invoke-root",
+    "projection": [],
+    "calls": [
+      {
+        "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13460:13650:call",
+        "source": {
+          "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+          "start": 13460,
+          "end": 13650,
+          "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+          "offsetEncoding": "utf16"
+        },
+        "arguments": [
+          {
+            "index": 0,
+            "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13506:13618:call"
+          },
+          {
+            "index": 1,
+            "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13628:13642:global"
+          }
+        ],
+        "frames": [
+          "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13448:13650:function",
+          "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:11858:60626:function"
+        ]
+      }
+    ],
+    "output": [
+      {
+        "path": "return",
+        "representation": "EUR"
+      }
+    ],
+    "variants": []
+  },
+  {
+    "id": "escalas::lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts#calcularRendimientoNetoCapitalInmobiliarioSimplificado",
+    "kind": "financial",
+    "consumer": "escalas",
+    "target": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts#calcularRendimientoNetoCapitalInmobiliarioSimplificado",
+    "provider": {
+      "group": "rentas",
+      "root": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts:calcularRendimientoNetoCapitalInmobiliarioSimplificado",
+      "node": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts:1265:1442:function",
+      "source": {
+        "file": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts",
+        "start": 1208,
+        "end": 1442,
+        "sha256": "0c81577c19cbf3b39620b19a8073a00861a694093e1af9927e314f02db2adbd8",
+        "offsetEncoding": "utf16"
+      },
+      "signature": {
+        "parameters": [
+          {
+            "index": 0,
+            "binding": "{\n  rendimientoIntegro,\n}",
+            "type": "{\n  readonly rendimientoIntegro: Decimal\n}",
+            "source": {
+              "file": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts",
+              "start": 1266,
+              "end": 1335,
+              "sha256": "0c81577c19cbf3b39620b19a8073a00861a694093e1af9927e314f02db2adbd8",
+              "offsetEncoding": "utf16"
+            }
+          }
+        ],
+        "returns": "RendimientoNetoCapitalInmobiliario"
+      },
+      "parameters": [
+        {
+          "binding": {
+            "fields": [
+              {
+                "key": "rendimientoIntegro",
+                "binding": {
+                  "name": "rendimientoIntegro"
+                }
+              }
+            ]
+          },
+          "rest": false,
+          "default": null
+        }
+      ],
+      "dimensionReference": {
+        "registry": "rentas.fields",
+        "ids": [
+          "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts:1381:1399:property",
+          "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts:1403:1438:property"
+        ]
+      }
+    },
+    "operator": "invoke-root",
+    "projection": [],
+    "calls": [
+      {
+        "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13776:13908:call",
+        "source": {
+          "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+          "start": 13776,
+          "end": 13908,
+          "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+          "offsetEncoding": "utf16"
+        },
+        "arguments": [
+          {
+            "index": 0,
+            "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13831:13907:object"
+          }
+        ],
+        "frames": [
+          "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13764:13908:function",
+          "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:11858:60626:function"
+        ]
+      }
+    ],
+    "output": [
+      {
+        "path": "rendimientoNeto",
+        "representation": "EUR"
+      }
+    ],
+    "variants": []
+  },
+  {
+    "id": "escalas::lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts#calcularGananciasPatrimonialesPorTransmision",
+    "kind": "financial",
+    "consumer": "escalas",
+    "target": "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts#calcularGananciasPatrimonialesPorTransmision",
+    "provider": {
+      "group": "rentas",
+      "root": "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:calcularGananciasPatrimonialesPorTransmision",
+      "node": "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1128:2362:function",
+      "source": {
+        "file": "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts",
+        "start": 1081,
+        "end": 2362,
+        "sha256": "4bf3fae25e9a40fb0099141fb63afb774f6d4f2d3c4eb025a3445992fa8defb4",
+        "offsetEncoding": "utf16"
+      },
+      "signature": {
+        "parameters": [
+          {
+            "index": 0,
+            "binding": "{\n  anio,\n  edadContribuyente,\n  ganancias,\n  convertirCentimos,\n}",
+            "type": "{\n  readonly anio: AnioFiscal\n  readonly edadContribuyente: number\n  readonly ganancias: ReadonlyArray<GananciaPatrimonialTransmision>\n  readonly convertirCentimos: typeof centimosAEuros\n}",
+            "source": {
+              "file": "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts",
+              "start": 1129,
+              "end": 1385,
+              "sha256": "4bf3fae25e9a40fb0099141fb63afb774f6d4f2d3c4eb025a3445992fa8defb4",
+              "offsetEncoding": "utf16"
+            }
+          }
+        ],
+        "returns": "GananciasPatrimonialesCalculadas"
+      },
+      "parameters": [
+        {
+          "binding": {
+            "fields": [
+              {
+                "key": "anio",
+                "binding": {
+                  "name": "anio"
+                }
+              },
+              {
+                "key": "edadContribuyente",
+                "binding": {
+                  "name": "edadContribuyente"
+                }
+              },
+              {
+                "key": "ganancias",
+                "binding": {
+                  "name": "ganancias"
+                }
+              },
+              {
+                "key": "convertirCentimos",
+                "binding": {
+                  "name": "convertirCentimos"
+                }
+              }
+            ]
+          },
+          "rest": false,
+          "default": null
+        }
+      ],
+      "dimensionReference": {
+        "registry": "rentas.fields",
+        "ids": [
+          "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1426:1444:get",
+          "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1450:1465:get",
+          "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1549:1553:property",
+          "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1563:1580:property",
+          "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1590:1598:property",
+          "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1608:1625:property",
+          "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1655:1682:property",
+          "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1690:1718:property",
+          "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1726:1760:property",
+          "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1768:1803:property",
+          "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1861:1880:get",
+          "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1861:1885:get",
+          "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1886:1908:get",
+          "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1846:1909:property",
+          "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1933:1953:get",
+          "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1933:1958:get",
+          "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1959:1982:get",
+          "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1917:1983:property",
+          "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:2013:2039:get",
+          "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:2013:2044:get",
+          "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:2054:2078:get",
+          "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:2109:2132:get",
+          "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1991:2165:property",
+          "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:2196:2223:get",
+          "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:2196:2228:get",
+          "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:2238:2262:get",
+          "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:2294:2317:get",
+          "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:2173:2350:property"
+        ]
+      }
+    },
+    "operator": "invoke-root",
+    "projection": [],
+    "calls": [
+      {
+        "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14024:14339:call",
+        "source": {
+          "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+          "start": 14024,
+          "end": 14339,
+          "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+          "offsetEncoding": "utf16"
+        },
+        "arguments": [
+          {
+            "index": 0,
+            "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14069:14338:object"
+          }
+        ],
+        "frames": [
+          "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14012:14339:function",
+          "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:11858:60626:function"
+        ]
+      }
+    ],
+    "output": [
+      {
+        "path": "gananciaSujetaGeneral",
+        "representation": "EUR"
+      },
+      {
+        "path": "gananciaSujetaAhorro",
+        "representation": "EUR"
+      },
+      {
+        "path": "gananciaTotal",
+        "representation": "EUR"
+      },
+      {
+        "path": "gananciaExenta",
+        "representation": "EUR"
+      }
+    ],
+    "variants": []
+  },
+  {
+    "id": "escalas::lib/dominio/irpf/minimos/derechos.ts#validarRentasAnualesDerechos",
+    "kind": "admission-precondition",
+    "consumer": "escalas",
+    "target": "lib/dominio/irpf/minimos/derechos.ts#validarRentasAnualesDerechos",
+    "provider": {
+      "group": "escalas",
+      "root": "lib/dominio/irpf/minimos/derechos.ts#validarRentasAnualesDerechos",
+      "node": "lib/dominio/irpf/minimos/derechos.ts:8010:8995:boundary",
+      "source": {
+        "file": "lib/dominio/irpf/minimos/derechos.ts",
+        "start": 8010,
+        "end": 8995,
+        "sha256": "c484d8615fd0181302874fa6f652c88f187a8703ff4a80359d73e9ae4c0d8185",
+        "offsetEncoding": "utf16"
+      },
+      "parameters": [
+        {
+          "binding": {
+            "name": "caso"
+          },
+          "rest": false,
+          "default": null
+        },
+        {
+          "binding": {
+            "name": "rentaNoExenta"
+          },
+          "rest": false,
+          "default": null
+        }
+      ],
+      "dimensionReference": {
+        "registry": "escalas.dimensionContracts",
+        "ids": [
+          "minimos"
+        ]
+      },
+      "signature": {
+        "parameters": [
+          {
+            "index": 0,
+            "binding": "caso",
+            "type": "DerechosMinimos2025",
+            "source": {
+              "file": "lib/dominio/irpf/minimos/derechos.ts",
+              "start": 8098,
+              "end": 8123,
+              "sha256": "c484d8615fd0181302874fa6f652c88f187a8703ff4a80359d73e9ae4c0d8185",
+              "offsetEncoding": "utf16"
+            }
+          },
+          {
+            "index": 1,
+            "binding": "rentaNoExenta",
+            "type": "Decimal",
+            "source": {
+              "file": "lib/dominio/irpf/minimos/derechos.ts",
+              "start": 8125,
+              "end": 8147,
+              "sha256": "c484d8615fd0181302874fa6f652c88f187a8703ff4a80359d73e9ae4c0d8185",
+              "offsetEncoding": "utf16"
+            }
+          }
+        ],
+        "returns": null
+      }
+    },
+    "operator": "preadmitted-identity",
+    "projection": [],
+    "calls": [
+      {
+        "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14818:14949:call",
+        "source": {
+          "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+          "start": 14818,
+          "end": 14949,
+          "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+          "offsetEncoding": "utf16"
+        },
+        "arguments": [
+          {
+            "index": 0,
+            "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14854:14874:get"
+          },
+          {
+            "index": 1,
+            "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14882:14943:call"
+          }
+        ],
+        "frames": [
+          "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:11858:60626:function"
+        ]
+      }
+    ],
+    "output": [
+      {
+        "path": "return",
+        "representation": "admission-pending-review"
+      }
+    ],
+    "variants": []
+  },
+  {
+    "id": "escalas::lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts#calcularReduccionTrabajoConOtrasRentas",
+    "kind": "financial",
+    "consumer": "escalas",
+    "target": "lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts#calcularReduccionTrabajoConOtrasRentas",
+    "provider": {
+      "group": "rentas",
+      "root": "lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:calcularReduccionTrabajoConOtrasRentas",
+      "node": "lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:847:1969:function",
+      "source": {
+        "file": "lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts",
+        "start": 806,
+        "end": 1969,
+        "sha256": "71165de6c9520090e3f15a50e28b809f32e0a4ed99cb2c3866e01103efb0e696",
+        "offsetEncoding": "utf16"
+      },
+      "signature": {
+        "parameters": [
+          {
+            "index": 0,
+            "binding": "{\n  anio,\n  fechaFallecimiento,\n  rendimientoPrevioNeto,\n  otrasRentasNoExentas,\n}",
+            "type": "{\n  readonly anio: AnioFiscal\n  readonly fechaFallecimiento?: Date | undefined\n  readonly rendimientoPrevioNeto: Decimal\n  /** Suma algebraica de rentas distintas del trabajo, antes de reducciones y compensaciones. */\n  readonly otrasRentasNoExentas: Decimal\n}",
+            "source": {
+              "file": "lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts",
+              "start": 848,
+              "end": 1192,
+              "sha256": "71165de6c9520090e3f15a50e28b809f32e0a4ed99cb2c3866e01103efb0e696",
+              "offsetEncoding": "utf16"
+            }
+          }
+        ],
+        "returns": "Decimal"
+      },
+      "parameters": [
+        {
+          "binding": {
+            "fields": [
+              {
+                "key": "anio",
+                "binding": {
+                  "name": "anio"
+                }
+              },
+              {
+                "key": "fechaFallecimiento",
+                "binding": {
+                  "name": "fechaFallecimiento"
+                }
+              },
+              {
+                "key": "rendimientoPrevioNeto",
+                "binding": {
+                  "name": "rendimientoPrevioNeto"
+                }
+              },
+              {
+                "key": "otrasRentasNoExentas",
+                "binding": {
+                  "name": "otrasRentasNoExentas"
+                }
+              }
+            ]
+          },
+          "rest": false,
+          "default": null
+        }
+      ],
+      "dimensionReference": {
+        "registry": "rentas.fields",
+        "ids": [
+          "lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1208:1219:get",
+          "lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1208:1230:get",
+          "lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1236:1246:get",
+          "lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1260:1283:get",
+          "lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1374:1384:get",
+          "lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1488:1498:get",
+          "lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1602:1612:get",
+          "lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1654:1672:property",
+          "lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1674:1695:property",
+          "lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1710:1720:get",
+          "lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1824:1834:get",
+          "lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:1897:1909:get"
+        ]
+      }
+    },
+    "operator": "invoke-root",
+    "projection": [],
+    "calls": [
+      {
+        "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15117:15347:call",
+        "source": {
+          "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+          "start": 15117,
+          "end": 15347,
+          "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+          "offsetEncoding": "utf16"
+        },
+        "arguments": [
+          {
+            "index": 0,
+            "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15156:15346:object"
+          }
+        ],
+        "frames": [
+          "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15105:15347:function",
+          "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:11858:60626:function"
+        ]
+      },
+      {
+        "node": "lib/dominio/irpf/trabajo-anual/conexion.ts:3138:3309:call",
+        "source": {
+          "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+          "start": 3138,
+          "end": 3309,
+          "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+          "offsetEncoding": "utf16"
+        },
+        "arguments": [
+          {
+            "index": 0,
+            "operand": "lib/dominio/irpf/trabajo-anual/conexion.ts:3177:3308:object"
+          }
+        ],
+        "frames": [
+          "lib/dominio/irpf/trabajo-anual/conexion.ts:1526:13571:function"
+        ]
+      }
+    ],
+    "output": [
+      {
+        "path": "return",
+        "representation": "EUR"
+      }
+    ],
+    "variants": []
+  },
+  {
+    "id": "escalas::lib/dominio/irpf/trabajo-anual/adaptador.ts#adaptarTrabajoAnual",
+    "kind": "financial",
+    "consumer": "escalas",
+    "target": "lib/dominio/irpf/trabajo-anual/adaptador.ts#adaptarTrabajoAnual",
+    "provider": {
+      "group": "rentas",
+      "root": "lib/dominio/irpf/trabajo-anual/adaptador.ts:adaptarTrabajoAnual",
+      "node": "lib/dominio/irpf/trabajo-anual/adaptador.ts:192:891:function",
+      "source": {
+        "file": "lib/dominio/irpf/trabajo-anual/adaptador.ts",
+        "start": 192,
+        "end": 891,
+        "sha256": "8d5b5b250044ec80386ac7bae17413e0c783cbd387f7b172043537af21688b94",
+        "offsetEncoding": "utf16"
+      },
+      "signature": {
+        "parameters": [
+          {
+            "index": 0,
+            "binding": "caso",
+            "type": "GastosTrabajo",
+            "source": {
+              "file": "lib/dominio/irpf/trabajo-anual/adaptador.ts",
+              "start": 228,
+              "end": 247,
+              "sha256": "8d5b5b250044ec80386ac7bae17413e0c783cbd387f7b172043537af21688b94",
+              "offsetEncoding": "utf16"
+            }
+          }
+        ],
+        "returns": null
+      },
+      "parameters": [
+        {
+          "binding": {
+            "name": "caso"
+          },
+          "rest": false,
+          "default": null
+        }
+      ],
+      "dimensionReference": {
+        "registry": "rentas.fields",
+        "ids": [
+          "lib/dominio/irpf/trabajo-anual/adaptador.ts:302:315:get",
+          "lib/dominio/irpf/trabajo-anual/adaptador.ts:365:401:property",
+          "lib/dominio/irpf/trabajo-anual/adaptador.ts:418:432:get",
+          "lib/dominio/irpf/trabajo-anual/adaptador.ts:407:432:property",
+          "lib/dominio/irpf/trabajo-anual/adaptador.ts:461:477:get",
+          "lib/dominio/irpf/trabajo-anual/adaptador.ts:438:477:property",
+          "lib/dominio/irpf/trabajo-anual/adaptador.ts:499:521:get",
+          "lib/dominio/irpf/trabajo-anual/adaptador.ts:483:521:property",
+          "lib/dominio/irpf/trabajo-anual/adaptador.ts:527:533:property",
+          "lib/dominio/irpf/trabajo-anual/adaptador.ts:547:564:get",
+          "lib/dominio/irpf/trabajo-anual/adaptador.ts:547:568:get",
+          "lib/dominio/irpf/trabajo-anual/adaptador.ts:589:593:get",
+          "lib/dominio/irpf/trabajo-anual/adaptador.ts:585:593:property",
+          "lib/dominio/irpf/trabajo-anual/adaptador.ts:608:615:get",
+          "lib/dominio/irpf/trabajo-anual/adaptador.ts:601:615:property",
+          "lib/dominio/irpf/trabajo-anual/adaptador.ts:632:641:get",
+          "lib/dominio/irpf/trabajo-anual/adaptador.ts:623:641:property",
+          "lib/dominio/irpf/trabajo-anual/adaptador.ts:539:650:property",
+          "lib/dominio/irpf/trabajo-anual/adaptador.ts:656:840:property",
+          "lib/dominio/irpf/trabajo-anual/adaptador.ts:846:884:property"
+        ]
+      }
+    },
+    "operator": "invoke-root",
+    "projection": [],
+    "calls": [
+      {
+        "node": "lib/dominio/irpf/trabajo-anual/conexion.ts:2899:2932:call",
+        "source": {
+          "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+          "start": 2899,
+          "end": 2932,
+          "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+          "offsetEncoding": "utf16"
+        },
+        "arguments": [
+          {
+            "index": 0,
+            "operand": "lib/dominio/irpf/trabajo-anual/conexion.ts:2919:2931:get"
+          }
+        ],
+        "frames": [
+          "lib/dominio/irpf/trabajo-anual/conexion.ts:1526:13571:function"
+        ]
+      }
+    ],
+    "output": [
+      {
+        "path": "estado",
+        "representation": "discrete"
+      },
+      {
+        "path": "rendimientoAntesArt20",
+        "representation": "EUR-string"
+      },
+      {
+        "path": "argumentoArt20",
+        "representation": "EUR-string"
+      },
+      {
+        "path": "gastos.integro",
+        "representation": "EUR-string"
+      },
+      {
+        "path": "motivo",
+        "representation": "string"
+      }
+    ],
+    "variants": [
+      {
+        "when": {
+          "property": "estado",
+          "equals": "aporte-disponible"
+        },
+        "outputs": [
+          "estado:discrete",
+          "rendimientoAntesArt20:EUR-string",
+          "argumentoArt20:EUR-string",
+          "gastos.integro:EUR-string"
+        ]
+      },
+      {
+        "when": {
+          "property": "estado",
+          "equals": "no-soportado"
+        },
+        "outputs": [
+          "estado:discrete",
+          "motivo:string"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "escalas::lib/dominio/irpf/actividades-economicas/adaptador.ts#adaptarActividadGeneral",
+    "kind": "financial",
+    "consumer": "escalas",
+    "target": "lib/dominio/irpf/actividades-economicas/adaptador.ts#adaptarActividadGeneral",
+    "provider": {
+      "group": "rentas",
+      "root": "lib/dominio/irpf/actividades-economicas/adaptador.ts:adaptarActividadGeneral",
+      "node": "lib/dominio/irpf/actividades-economicas/adaptador.ts:591:942:function",
+      "source": {
+        "file": "lib/dominio/irpf/actividades-economicas/adaptador.ts",
+        "start": 591,
+        "end": 942,
+        "sha256": "a31693ab167c3931fa4230c964a6a00d232693b892942243c0ced3ca8ce4f7c5",
+        "offsetEncoding": "utf16"
+      },
+      "signature": {
+        "parameters": [
+          {
+            "index": 0,
+            "binding": "caso",
+            "type": "CasoActividad2025",
+            "source": {
+              "file": "lib/dominio/irpf/actividades-economicas/adaptador.ts",
+              "start": 634,
+              "end": 657,
+              "sha256": "a31693ab167c3931fa4230c964a6a00d232693b892942243c0ced3ca8ce4f7c5",
+              "offsetEncoding": "utf16"
+            }
+          }
+        ],
+        "returns": "AdaptacionActividadGeneral"
+      },
+      "parameters": [
+        {
+          "binding": {
+            "name": "caso"
+          },
+          "rest": false,
+          "default": null
+        }
+      ],
+      "dimensionReference": {
+        "registry": "rentas.fields",
+        "ids": [
+          "lib/dominio/irpf/actividades-economicas/adaptador.ts:744:760:get",
+          "lib/dominio/irpf/actividades-economicas/adaptador.ts:813:840:property",
+          "lib/dominio/irpf/actividades-economicas/adaptador.ts:854:870:get",
+          "lib/dominio/irpf/actividades-economicas/adaptador.ts:846:870:property",
+          "lib/dominio/irpf/actividades-economicas/adaptador.ts:884:900:get",
+          "lib/dominio/irpf/actividades-economicas/adaptador.ts:876:900:property",
+          "lib/dominio/irpf/actividades-economicas/adaptador.ts:906:935:property"
+        ]
+      }
+    },
+    "operator": "invoke-root",
+    "projection": [],
+    "calls": [
+      {
+        "node": "lib/dominio/irpf/trabajo-anual/conexion.ts:6161:6200:call",
+        "source": {
+          "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+          "start": 6161,
+          "end": 6200,
+          "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+          "offsetEncoding": "utf16"
+        },
+        "arguments": [
+          {
+            "index": 0,
+            "operand": "lib/dominio/irpf/trabajo-anual/conexion.ts:6185:6199:get"
+          }
+        ],
+        "frames": [
+          "lib/dominio/irpf/trabajo-anual/conexion.ts:1526:13571:function"
+        ]
+      }
+    ],
+    "output": [
+      {
+        "path": "estado",
+        "representation": "discrete"
+      },
+      {
+        "path": "aporte.importeEurosExactos",
+        "representation": "EUR-string"
+      },
+      {
+        "path": "aporte.retencionesEuros",
+        "representation": "EUR-string"
+      },
+      {
+        "path": "aporte.pagosFraccionadosEuros",
+        "representation": "EUR-string"
+      },
+      {
+        "path": "motivos[].motivo",
+        "representation": "string"
+      }
+    ],
+    "variants": [
+      {
+        "when": {
+          "property": "estado",
+          "equals": "aporte-disponible"
+        },
+        "outputs": [
+          "estado:discrete",
+          "aporte.importeEurosExactos:EUR-string",
+          "aporte.retencionesEuros:EUR-string",
+          "aporte.pagosFraccionadosEuros:EUR-string"
+        ]
+      },
+      {
+        "when": {
+          "property": "estado",
+          "equals": "no-soportado"
+        },
+        "outputs": [
+          "estado:discrete",
+          "motivos[].motivo:string"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "escalas::lib/dominio/irpf/trabajo-anual/calcular.ts#calcularDeduccionTrabajo",
+    "kind": "financial",
+    "consumer": "escalas",
+    "target": "lib/dominio/irpf/trabajo-anual/calcular.ts#calcularDeduccionTrabajo",
+    "provider": {
+      "group": "rentas",
+      "root": "lib/dominio/irpf/trabajo-anual/calcular.ts:calcularDeduccionTrabajo",
+      "node": "lib/dominio/irpf/trabajo-anual/calcular.ts:4528:7082:function",
+      "source": {
+        "file": "lib/dominio/irpf/trabajo-anual/calcular.ts",
+        "start": 4528,
+        "end": 7082,
+        "sha256": "b8681bb3355ceba11762a47ecdb020c63d76e8363be24b1d9914f9f8103824d9",
+        "offsetEncoding": "utf16"
+      },
+      "signature": {
+        "parameters": [
+          {
+            "index": 0,
+            "binding": "caso",
+            "type": "DeduccionTrabajo",
+            "source": {
+              "file": "lib/dominio/irpf/trabajo-anual/calcular.ts",
+              "start": 4572,
+              "end": 4594,
+              "sha256": "b8681bb3355ceba11762a47ecdb020c63d76e8363be24b1d9914f9f8103824d9",
+              "offsetEncoding": "utf16"
+            }
+          }
+        ],
+        "returns": "ResultadoDeduccion"
+      },
+      "parameters": [
+        {
+          "binding": {
+            "name": "caso"
+          },
+          "rest": false,
+          "default": null
+        }
+      ],
+      "dimensionReference": {
+        "registry": "rentas.fields",
+        "ids": [
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:4637:4663:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:4694:4719:property",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:4732:4748:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:4842:4857:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:4918:4925:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:4965:4993:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:4959:4997:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:5018:5049:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:5012:5053:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:5129:5134:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:5151:5167:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:5177:5182:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:5192:5207:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:5186:5214:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:5177:5227:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:5268:5307:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:5262:5321:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:5337:5365:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:5331:5371:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:5383:5414:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:5262:5443:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:5542:5553:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:5686:5700:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:5825:5841:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:5819:5845:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:5846:5865:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:5956:5979:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:5950:5983:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:5984:6000:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:6091:6114:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:6085:6118:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:6119:6142:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:6243:6265:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:6237:6269:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:6285:6301:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:6279:6305:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:6338:6343:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:6372:6388:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:6404:6409:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:6419:6435:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:6413:6442:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:6404:6456:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:6509:6532:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:6503:6536:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:6571:6592:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:6565:6610:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:6611:6634:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:6565:6650:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:6651:6674:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:6759:6764:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:6780:6796:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:6813:6832:property",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:6854:6868:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:6838:6870:property",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:6894:6909:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:6876:6911:property",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:6935:6953:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:6917:6955:property",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:6983:6999:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:6977:7006:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:6977:7026:get",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:6961:7028:property",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:7034:7040:property",
+          "lib/dominio/irpf/trabajo-anual/calcular.ts:7046:7075:property"
+        ]
+      }
+    },
+    "operator": "invoke-root",
+    "projection": [],
+    "calls": [
+      {
+        "node": "lib/dominio/irpf/trabajo-anual/conexion.ts:8584:9103:call",
+        "source": {
+          "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+          "start": 8584,
+          "end": 9103,
+          "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+          "offsetEncoding": "utf16"
+        },
+        "arguments": [
+          {
+            "index": 0,
+            "operand": "lib/dominio/irpf/trabajo-anual/conexion.ts:8609:9102:object"
+          }
+        ],
+        "frames": [
+          "lib/dominio/irpf/trabajo-anual/conexion.ts:1526:13571:function"
+        ]
+      }
+    ],
+    "output": [
+      {
+        "path": "estado",
+        "representation": "discrete"
+      },
+      {
+        "path": "importeAplicable",
+        "representation": "EUR-string"
+      },
+      {
+        "path": "cuotaPosterior",
+        "representation": "EUR-string"
+      },
+      {
+        "path": "motivo",
+        "representation": "string"
+      }
+    ],
+    "variants": [
+      {
+        "when": {
+          "property": "estado",
+          "equals": "calculado"
+        },
+        "outputs": [
+          "estado:discrete",
+          "importeAplicable:EUR-string",
+          "cuotaPosterior:EUR-string"
+        ]
+      },
+      {
+        "when": {
+          "property": "estado",
+          "equals": "no-soportado"
+        },
+        "outputs": [
+          "estado:discrete",
+          "motivo:string"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "escalas::lib/dominio/irpf/minimos/derechos.ts#validarDerechosMinimos",
+    "kind": "admission-precondition",
+    "consumer": "escalas",
+    "target": "lib/dominio/irpf/minimos/derechos.ts#validarDerechosMinimos",
+    "provider": {
+      "group": "escalas",
+      "root": "lib/dominio/irpf/minimos/derechos.ts#validarDerechosMinimos",
+      "node": "lib/dominio/irpf/minimos/derechos.ts:2423:7911:boundary",
+      "source": {
+        "file": "lib/dominio/irpf/minimos/derechos.ts",
+        "start": 2423,
+        "end": 7911,
+        "sha256": "c484d8615fd0181302874fa6f652c88f187a8703ff4a80359d73e9ae4c0d8185",
+        "offsetEncoding": "utf16"
+      },
+      "parameters": [
+        {
+          "binding": {
+            "name": "entrada"
+          },
+          "rest": false,
+          "default": null
+        }
+      ],
+      "dimensionReference": {
+        "registry": "escalas.dimensionContracts",
+        "ids": [
+          "minimos"
+        ]
+      },
+      "signature": {
+        "parameters": [
+          {
+            "index": 0,
+            "binding": "entrada",
+            "type": "DerechosMinimos2025",
+            "source": {
+              "file": "lib/dominio/irpf/minimos/derechos.ts",
+              "start": 2499,
+              "end": 2527,
+              "sha256": "c484d8615fd0181302874fa6f652c88f187a8703ff4a80359d73e9ae4c0d8185",
+              "offsetEncoding": "utf16"
+            }
+          }
+        ],
+        "returns": null
+      }
+    },
+    "operator": "preadmitted-identity",
+    "projection": [],
+    "calls": [
+      {
+        "node": "lib/dominio/irpf/minimos/derechos.ts:9198:9229:call",
+        "source": {
+          "file": "lib/dominio/irpf/minimos/derechos.ts",
+          "start": 9198,
+          "end": 9229,
+          "sha256": "c484d8615fd0181302874fa6f652c88f187a8703ff4a80359d73e9ae4c0d8185",
+          "offsetEncoding": "utf16"
+        },
+        "arguments": [
+          {
+            "index": 0,
+            "operand": "lib/dominio/irpf/minimos/derechos.ts:9221:9228:local"
+          }
+        ],
+        "frames": [
+          "lib/dominio/irpf/minimos/derechos.ts:9077:12502:function"
+        ]
+      }
+    ],
+    "output": [
+      {
+        "path": "return",
+        "representation": "validated-rights-pending-review"
+      }
+    ],
+    "variants": []
+  },
+  {
+    "id": "rentas::boundary:calcularDesgloseCotizacionesPerfilUniforme",
+    "kind": "financial",
+    "consumer": "rentas",
+    "target": "boundary:calcularDesgloseCotizacionesPerfilUniforme",
+    "provider": {
+      "group": "ss",
+      "root": "calcularDesgloseCotizacionesPerfilUniforme",
+      "node": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1842:4183:function",
+      "source": {
+        "file": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
+        "start": 1797,
+        "end": 4183,
+        "sha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18",
+        "offsetEncoding": "utf16"
+      },
+      "signature": {
+        "parameters": [
+          {
+            "index": 0,
+            "binding": "{\n  anio,\n  salarioBrutoAnual,\n}",
+            "type": "EntradaCotizacionesSocialesLegacy",
+            "source": {
+              "file": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
+              "start": 1843,
+              "end": 1910,
+              "sha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18",
+              "offsetEncoding": "utf16"
+            }
+          }
+        ],
+        "returns": "CotizacionesPerfilUniforme"
+      },
+      "parameters": [
+        {
+          "binding": {
+            "fields": [
+              {
+                "key": "anio",
+                "binding": {
+                  "name": "anio"
+                }
+              },
+              {
+                "key": "salarioBrutoAnual",
+                "binding": {
+                  "name": "salarioBrutoAnual"
+                }
+              }
+            ]
+          },
+          "rest": false,
+          "default": null
+        }
+      ],
+      "dimensionReference": {
+        "registry": "ss.unitContracts",
+        "ids": [
+          "calcularDesgloseCotizacionesPerfilUniforme"
+        ]
+      }
+    },
+    "operator": "invoke-root",
+    "projection": [],
+    "calls": [
+      {
+        "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12792:13018:call",
+        "source": {
+          "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+          "start": 12792,
+          "end": 13018,
+          "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+          "offsetEncoding": "utf16"
+        },
+        "arguments": [
+          {
+            "index": 0,
+            "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12929:13017:object"
+          }
+        ],
+        "frames": [
+          "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12780:13018:function"
+        ]
+      }
+    ],
+    "output": [
+      {
+        "path": "cotizacionEmpresarial",
+        "representation": "EUR"
+      },
+      {
+        "path": "cotizacionTrabajador",
+        "representation": "EUR"
+      },
+      {
+        "path": "meiEmpresarial",
+        "representation": "EUR"
+      },
+      {
+        "path": "meiTrabajador",
+        "representation": "EUR"
+      },
+      {
+        "path": "solidaridadEmpresarial",
+        "representation": "EUR"
+      },
+      {
+        "path": "solidaridadTrabajador",
+        "representation": "EUR"
+      }
+    ],
+    "variants": []
+  },
+  {
+    "id": "rentas::boundary:calcularDesgloseCotizacionesSocialesLegacy",
+    "kind": "financial",
+    "consumer": "rentas",
+    "target": "boundary:calcularDesgloseCotizacionesSocialesLegacy",
+    "provider": {
+      "group": "ss",
+      "root": "calcularDesgloseCotizacionesSocialesLegacy",
+      "node": "lib/dominio/laboral/cotizaciones-sociales.ts:7817:9547:function",
+      "source": {
+        "file": "lib/dominio/laboral/cotizaciones-sociales.ts",
+        "start": 7772,
+        "end": 9547,
+        "sha256": "7c5b5567d5d4222286e9f167e85954ceebf044fe8fcc826666daa7ad4f0323f1",
+        "offsetEncoding": "utf16"
+      },
+      "signature": {
+        "parameters": [
+          {
+            "index": 0,
+            "binding": "{\n  salarioBrutoAnual,\n  anio,\n}",
+            "type": "EntradaCotizacionesSocialesLegacy",
+            "source": {
+              "file": "lib/dominio/laboral/cotizaciones-sociales.ts",
+              "start": 7818,
+              "end": 7885,
+              "sha256": "7c5b5567d5d4222286e9f167e85954ceebf044fe8fcc826666daa7ad4f0323f1",
+              "offsetEncoding": "utf16"
+            }
+          }
+        ],
+        "returns": "DesgloseCotizacionesSociales"
+      },
+      "parameters": [
+        {
+          "binding": {
+            "fields": [
+              {
+                "key": "salarioBrutoAnual",
+                "binding": {
+                  "name": "salarioBrutoAnual"
+                }
+              },
+              {
+                "key": "anio",
+                "binding": {
+                  "name": "anio"
+                }
+              }
+            ]
+          },
+          "rest": false,
+          "default": null
+        }
+      ],
+      "dimensionReference": {
+        "registry": "ss.unitContracts",
+        "ids": [
+          "calcularDesgloseCotizacionesSocialesLegacy"
+        ]
+      }
+    },
+    "operator": "invoke-root",
+    "projection": [],
+    "calls": [
+      {
+        "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12792:13018:call",
+        "source": {
+          "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+          "start": 12792,
+          "end": 13018,
+          "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+          "offsetEncoding": "utf16"
+        },
+        "arguments": [
+          {
+            "index": 0,
+            "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12929:13017:object"
+          }
+        ],
+        "frames": [
+          "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12780:13018:function"
+        ]
+      }
+    ],
+    "output": [
+      {
+        "path": "cotizacionEmpresarial",
+        "representation": "EUR"
+      },
+      {
+        "path": "cotizacionTrabajador",
+        "representation": "EUR"
+      },
+      {
+        "path": "meiEmpresarial",
+        "representation": "EUR"
+      },
+      {
+        "path": "meiTrabajador",
+        "representation": "EUR"
+      },
+      {
+        "path": "solidaridadEmpresarial",
+        "representation": "EUR"
+      },
+      {
+        "path": "solidaridadTrabajador",
+        "representation": "EUR"
+      }
+    ],
+    "variants": []
+  },
+  {
+    "id": "rentas::boundary:obtenerParametrosComunidadAutonoma",
+    "kind": "financial",
+    "consumer": "rentas",
+    "target": "boundary:obtenerParametrosComunidadAutonoma",
+    "provider": {
+      "group": "escalas",
+      "root": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts#obtenerParametrosComunidadAutonoma",
+      "node": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16478:18919:function",
+      "source": {
+        "file": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+        "start": 16441,
+        "end": 18919,
+        "sha256": "39c8b3e4910c605ac01465faa8aec56657c259b48613f7f83975697a81d8f745",
+        "offsetEncoding": "utf16"
+      },
+      "signature": {
+        "parameters": [
+          {
+            "index": 0,
+            "binding": "{\n  anio,\n  baseLiquidableGeneral,\n  comunidadAutonoma,\n  fechaFallecimiento,\n}",
+            "type": "EntradaParametrosComunidadAutonoma",
+            "source": {
+              "file": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts",
+              "start": 16479,
+              "end": 16594,
+              "sha256": "39c8b3e4910c605ac01465faa8aec56657c259b48613f7f83975697a81d8f745",
+              "offsetEncoding": "utf16"
+            }
+          }
+        ],
+        "returns": "ResultadoParametrosComunidadAutonoma"
+      },
+      "parameters": [
+        {
+          "binding": {
+            "fields": [
+              {
+                "key": "anio",
+                "rest": false,
+                "binding": {
+                  "name": "anio"
+                },
+                "default": null
+              },
+              {
+                "key": "baseLiquidableGeneral",
+                "rest": false,
+                "binding": {
+                  "name": "baseLiquidableGeneral"
+                },
+                "default": null
+              },
+              {
+                "key": "comunidadAutonoma",
+                "rest": false,
+                "binding": {
+                  "name": "comunidadAutonoma"
+                },
+                "default": null
+              },
+              {
+                "key": "fechaFallecimiento",
+                "rest": false,
+                "binding": {
+                  "name": "fechaFallecimiento"
+                },
+                "default": null
+              }
+            ]
+          },
+          "rest": false,
+          "default": null
+        }
+      ],
+      "dimensionReference": {
+        "registry": "escalas.dimensionContracts",
+        "ids": [
+          "escala",
+          "minimos"
+        ]
+      }
+    },
+    "operator": "invoke-root",
+    "projection": [],
+    "calls": [
+      {
+        "node": "lib/dominio/irpf/trabajo-anual/conexion.ts:7426:7549:call",
+        "source": {
+          "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+          "start": 7426,
+          "end": 7549,
+          "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+          "offsetEncoding": "utf16"
+        },
+        "arguments": [
+          {
+            "index": 0,
+            "operand": "lib/dominio/irpf/trabajo-anual/conexion.ts:7461:7548:object"
+          }
+        ],
+        "frames": [
+          "lib/dominio/irpf/trabajo-anual/conexion.ts:1526:13571:function"
+        ]
+      }
+    ],
+    "output": [
+      {
+        "path": "escalaEstatalGeneral",
+        "representation": "array<[EUR-base-Decimal,ratio-Decimal]>"
+      },
+      {
+        "path": "escalaAutonomica.tramos",
+        "representation": "array<[EUR-base-Decimal,ratio-Decimal]>"
+      },
+      {
+        "path": "minimosAutonomicos.contribuyente.general",
+        "representation": "EUR-base-Decimal"
+      }
+    ],
+    "variants": []
+  },
+  {
+    "id": "rentas::boundary:obtenerEscalaAutonomicaPublicada",
+    "kind": "financial",
+    "consumer": "rentas",
+    "target": "boundary:obtenerEscalaAutonomicaPublicada",
+    "provider": {
+      "group": "escalas",
+      "root": "lib/dominio/irpf/cuotas/escalas-publicadas.ts#obtenerEscalaAutonomicaPublicada",
+      "node": "lib/dominio/irpf/cuotas/escalas-publicadas.ts:3535:4636:function",
+      "source": {
+        "file": "lib/dominio/irpf/cuotas/escalas-publicadas.ts",
+        "start": 3500,
+        "end": 4636,
+        "sha256": "3569183487ad0750527f9bdf2feeacfabdd61c4bba1df907c01b199aca5082af",
+        "offsetEncoding": "utf16"
+      },
+      "signature": {
+        "parameters": [
+          {
+            "index": 0,
+            "binding": "{\n  anio,\n  comunidadAutonoma,\n  fechaFallecimiento,\n}",
+            "type": "{\n  readonly anio: AnioFiscal\n  readonly comunidadAutonoma: ComunidadAutonoma\n  readonly fechaFallecimiento?: Date | undefined\n}",
+            "source": {
+              "file": "lib/dominio/irpf/cuotas/escalas-publicadas.ts",
+              "start": 3536,
+              "end": 3720,
+              "sha256": "3569183487ad0750527f9bdf2feeacfabdd61c4bba1df907c01b199aca5082af",
+              "offsetEncoding": "utf16"
+            }
+          }
+        ],
+        "returns": "EscalaPublicada | undefined"
+      },
+      "parameters": [
+        {
+          "binding": {
+            "fields": [
+              {
+                "key": "anio",
+                "rest": false,
+                "binding": {
+                  "name": "anio"
+                },
+                "default": null
+              },
+              {
+                "key": "comunidadAutonoma",
+                "rest": false,
+                "binding": {
+                  "name": "comunidadAutonoma"
+                },
+                "default": null
+              },
+              {
+                "key": "fechaFallecimiento",
+                "rest": false,
+                "binding": {
+                  "name": "fechaFallecimiento"
+                },
+                "default": null
+              }
+            ]
+          },
+          "rest": false,
+          "default": null
+        }
+      ],
+      "dimensionReference": {
+        "registry": "escalas.dimensionContracts",
+        "ids": [
+          "escala"
+        ]
+      }
+    },
+    "operator": "invoke-root",
+    "projection": [],
+    "calls": [
+      {
+        "node": "lib/dominio/irpf/trabajo-anual/conexion.ts:7687:7775:call",
+        "source": {
+          "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+          "start": 7687,
+          "end": 7775,
+          "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+          "offsetEncoding": "utf16"
+        },
+        "arguments": [
+          {
+            "index": 0,
+            "operand": "lib/dominio/irpf/trabajo-anual/conexion.ts:7720:7774:object"
+          }
+        ],
+        "frames": [
+          "lib/dominio/irpf/trabajo-anual/conexion.ts:1526:13571:function"
+        ]
+      }
+    ],
+    "output": [
+      {
+        "path": "return",
+        "representation": "absent|array<{baseInferior:EUR-base-Decimal,cuota:EUR-tax-Decimal,tipo:ratio-Decimal,inferiorExclusivo?:boolean}>"
+      }
+    ],
+    "variants": []
+  },
+  {
+    "id": "rentas::boundary:calcularCuotaPorEscala",
+    "kind": "financial",
+    "consumer": "rentas",
+    "target": "boundary:calcularCuotaPorEscala",
+    "provider": {
+      "group": "escalas",
+      "root": "lib/dominio/irpf/cuotas/escalas-gravamen.ts#calcularCuotaPorEscala",
+      "node": "lib/dominio/irpf/cuotas/escalas-gravamen.ts:1257:1609:function",
+      "source": {
+        "file": "lib/dominio/irpf/cuotas/escalas-gravamen.ts",
+        "start": 1232,
+        "end": 1609,
+        "sha256": "e199aa7dab1a4e4e4dcf5dd99ef0c4ea81daa69e0c11261b47b0568d5afadb19",
+        "offsetEncoding": "utf16"
+      },
+      "signature": {
+        "parameters": [
+          {
+            "index": 0,
+            "binding": "{\n  base,\n  tramos,\n  escalasPublicadas,\n}",
+            "type": "{\n  readonly base: Decimal\n  readonly tramos: TramosIrpf\n  readonly escalasPublicadas?: ReadonlyArray<EscalaPublicada> | undefined\n}",
+            "source": {
+              "file": "lib/dominio/irpf/cuotas/escalas-gravamen.ts",
+              "start": 1258,
+              "end": 1434,
+              "sha256": "e199aa7dab1a4e4e4dcf5dd99ef0c4ea81daa69e0c11261b47b0568d5afadb19",
+              "offsetEncoding": "utf16"
+            }
+          }
+        ],
+        "returns": "Decimal"
+      },
+      "parameters": [
+        {
+          "binding": {
+            "fields": [
+              {
+                "key": "base",
+                "rest": false,
+                "binding": {
+                  "name": "base"
+                },
+                "default": null
+              },
+              {
+                "key": "tramos",
+                "rest": false,
+                "binding": {
+                  "name": "tramos"
+                },
+                "default": null
+              },
+              {
+                "key": "escalasPublicadas",
+                "rest": false,
+                "binding": {
+                  "name": "escalasPublicadas"
+                },
+                "default": null
+              }
+            ]
+          },
+          "rest": false,
+          "default": null
+        }
+      ],
+      "dimensionReference": {
+        "registry": "escalas.dimensionContracts",
+        "ids": [
+          "escala"
+        ]
+      }
+    },
+    "operator": "invoke-root",
+    "projection": [],
+    "calls": [
+      {
+        "node": "lib/dominio/irpf/trabajo-anual/conexion.ts:7814:7890:call",
+        "source": {
+          "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+          "start": 7814,
+          "end": 7890,
+          "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+          "offsetEncoding": "utf16"
+        },
+        "arguments": [
+          {
+            "index": 0,
+            "operand": "lib/dominio/irpf/trabajo-anual/conexion.ts:7837:7889:object"
+          }
+        ],
+        "frames": [
+          "lib/dominio/irpf/trabajo-anual/conexion.ts:7794:7890:function",
+          "lib/dominio/irpf/trabajo-anual/conexion.ts:1526:13571:function"
+        ]
+      },
+      {
+        "node": "lib/dominio/irpf/trabajo-anual/conexion.ts:7932:8104:call",
+        "source": {
+          "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+          "start": 7932,
+          "end": 8104,
+          "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+          "offsetEncoding": "utf16"
+        },
+        "arguments": [
+          {
+            "index": 0,
+            "operand": "lib/dominio/irpf/trabajo-anual/conexion.ts:7955:8103:object"
+          }
+        ],
+        "frames": [
+          "lib/dominio/irpf/trabajo-anual/conexion.ts:7912:8104:function",
+          "lib/dominio/irpf/trabajo-anual/conexion.ts:1526:13571:function"
+        ]
+      }
+    ],
+    "output": [
+      {
+        "path": "return",
+        "representation": "EUR-tax-Decimal"
+      }
+    ],
+    "variants": []
+  },
+  {
+    "id": "rentas::boundary:MINIMOS_ESTATALES_2025",
+    "kind": "constant",
+    "consumer": "rentas",
+    "target": "boundary:MINIMOS_ESTATALES_2025",
+    "provider": {
+      "group": "escalas",
+      "root": "lib/dominio/normativa/datos/minimos-autonomicos-2025.ts#MINIMOS_ESTATALES_2025",
+      "node": "lib/dominio/normativa/datos/minimos-autonomicos-2025.ts:2303:2818:call",
+      "source": {
+        "file": "lib/dominio/normativa/datos/minimos-autonomicos-2025.ts",
+        "start": 2278,
+        "end": 2818,
+        "sha256": "076a58f62806baa1fe9c62174c1eb1c54c474c9022db02a06063555a07b82023",
+        "offsetEncoding": "utf16"
+      },
+      "signature": {
+        "parameters": [],
+        "returns": null
+      },
+      "parameters": [],
+      "dimensionReference": {
+        "registry": "escalas.dimensionContracts",
+        "ids": [
+          "minimos"
+        ]
+      }
+    },
+    "operator": "global",
+    "projection": [],
+    "calls": [
+      {
+        "node": "lib/dominio/irpf/trabajo-anual/conexion.ts:8193:8215:global",
+        "source": {
+          "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+          "start": 8193,
+          "end": 8215,
+          "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+          "offsetEncoding": "utf16"
+        },
+        "arguments": [],
+        "frames": [
+          "lib/dominio/irpf/trabajo-anual/conexion.ts:1526:13571:function"
+        ]
+      }
+    ],
+    "output": [
+      {
+        "path": "contribuyente.general",
+        "representation": "EUR-base-Decimal"
+      }
+    ],
+    "variants": []
+  },
+  {
+    "id": "rentas::boundary:calcularCotizacionesSocialesLegacy",
+    "kind": "projection",
+    "consumer": "rentas",
+    "target": "boundary:calcularCotizacionesSocialesLegacy",
+    "provider": {
+      "group": "ss",
+      "root": "calcularDesgloseCotizacionesSocialesLegacy",
+      "node": "lib/dominio/laboral/cotizaciones-sociales.ts:7817:9547:function",
+      "source": {
+        "file": "lib/dominio/laboral/cotizaciones-sociales.ts",
+        "start": 7772,
+        "end": 9547,
+        "sha256": "7c5b5567d5d4222286e9f167e85954ceebf044fe8fcc826666daa7ad4f0323f1",
+        "offsetEncoding": "utf16"
+      },
+      "signature": {
+        "parameters": [
+          {
+            "index": 0,
+            "binding": "{\n  salarioBrutoAnual,\n  anio,\n}",
+            "type": "EntradaCotizacionesSocialesLegacy",
+            "source": {
+              "file": "lib/dominio/laboral/cotizaciones-sociales.ts",
+              "start": 7818,
+              "end": 7885,
+              "sha256": "7c5b5567d5d4222286e9f167e85954ceebf044fe8fcc826666daa7ad4f0323f1",
+              "offsetEncoding": "utf16"
+            }
+          }
+        ],
+        "returns": "DesgloseCotizacionesSociales"
+      },
+      "parameters": [
+        {
+          "binding": {
+            "fields": [
+              {
+                "key": "salarioBrutoAnual",
+                "binding": {
+                  "name": "salarioBrutoAnual"
+                }
+              },
+              {
+                "key": "anio",
+                "binding": {
+                  "name": "anio"
+                }
+              }
+            ]
+          },
+          "rest": false,
+          "default": null
+        }
+      ],
+      "dimensionReference": {
+        "registry": "ss.unitContracts",
+        "ids": [
+          "calcularDesgloseCotizacionesSocialesLegacy"
+        ]
+      }
+    },
+    "operator": "project",
+    "projection": [
+      {
+        "from": "cotizacionEmpresarial",
+        "to": "cotizacionEmpresarial"
+      },
+      {
+        "from": "cotizacionTrabajador",
+        "to": "cotizacionTrabajador"
+      }
+    ],
+    "calls": [
+      {
+        "node": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:933:1033:call",
+        "source": {
+          "file": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts",
+          "start": 933,
+          "end": 1033,
+          "sha256": "fd9f91710a717ffa2d115ca42f0a5c4e3baf383f563820df509432d8acf57e54",
+          "offsetEncoding": "utf16"
+        },
+        "arguments": [
+          {
+            "index": 0,
+            "operand": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:968:1032:object"
+          }
+        ],
+        "frames": [
+          "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:669:1428:function"
+        ]
+      }
+    ],
+    "output": [
+      {
+        "path": "cotizacionEmpresarial",
+        "representation": "EUR"
+      },
+      {
+        "path": "cotizacionTrabajador",
+        "representation": "EUR"
+      }
+    ],
+    "variants": []
+  },
+  {
+    "id": "escalas::retencion.calcular",
+    "kind": "financial",
+    "consumer": "escalas",
+    "target": "retencion.calcular",
+    "provider": {
+      "group": "retenciones",
+      "root": "calcularRetencionTrabajoAeatImpl",
+      "node": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts:29989:32073:function",
+      "source": {
+        "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+        "start": 29907,
+        "end": 32074,
+        "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+        "offsetEncoding": "utf16"
+      },
+      "signature": {
+        "parameters": [
+          {
+            "index": 0,
+            "binding": "caso",
+            "type": "CasoRetencionTrabajo",
+            "source": {
+              "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+              "start": 30000,
+              "end": 30026,
+              "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+              "offsetEncoding": "utf16"
+            }
+          },
+          {
+            "index": 1,
+            "binding": "contexto",
+            "type": "ContextoRetencionTrabajo",
+            "source": {
+              "file": "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",
+              "start": 30028,
+              "end": 30062,
+              "sha256": "11e7f1ad8a43ad95f24739656734f92a09c0747cc12de2d8248ef1ab368cfadf",
+              "offsetEncoding": "utf16"
+            }
+          }
+        ],
+        "returns": null
+      },
+      "parameters": [
+        {
+          "binding": {
+            "name": "caso"
+          },
+          "rest": false,
+          "default": null
+        },
+        {
+          "binding": {
+            "name": "contexto"
+          },
+          "rest": false,
+          "default": null
+        }
+      ],
+      "dimensionReference": {
+        "registry": "retenciones.fieldBindings",
+        "ids": [
+          "CasoRetencionTrabajo.fechaPago",
+          "CasoRetencionTrabajo.perfilTemporal",
+          "CasoRetencionTrabajo.procedimiento",
+          "CasoRetencionTrabajo.anio",
+          "CasoRetencionTrabajo.edad",
+          "CasoRetencionTrabajo.retribucionAnualCentimos",
+          "CasoRetencionTrabajo.cotizacionesCentimos",
+          "CasoRetencionTrabajo.situacionFamiliar",
+          "CasoRetencionTrabajo.situacionLaboral",
+          "CasoRetencionTrabajo.contrato",
+          "CasoRetencionTrabajo.descendientes",
+          "CasoRetencionTrabajo.ascendientes",
+          "CasoRetencionTrabajo.discapacidad",
+          "CasoRetencionTrabajo.movilidadGeografica",
+          "CasoRetencionTrabajo.movilidadReducidaPerceptor",
+          "CasoRetencionTrabajo.irregular1Centimos",
+          "CasoRetencionTrabajo.irregular2Centimos",
+          "CasoRetencionTrabajo.pensionCompensatoriaConyugeCentimos",
+          "CasoRetencionTrabajo.anualidadesAlimentosHijosCentimos",
+          "CasoRetencionTrabajo.residenciaCeutaMelilla",
+          "CasoRetencionTrabajo.rendimientosCeutaMelilla",
+          "CasoRetencionTrabajo.pagosViviendaHabitual",
+          "ContextoRetencionTrabajo.modo"
+        ]
+      }
+    },
+    "operator": "invoke-root",
+    "projection": [],
+    "calls": [
+      {
+        "node": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:28270:28379:boundaryCall",
+        "source": {
+          "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+          "start": 28270,
+          "end": 28379,
+          "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+          "offsetEncoding": "utf16"
+        },
+        "arguments": [
+          {
+            "index": 0,
+            "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:28324:28349:get"
+          },
+          {
+            "index": 1,
+            "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:28361:28369:local"
+          }
+        ],
+        "frames": [
+          "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:11858:60626:function"
+        ]
+      }
+    ],
+    "output": [
+      {
+        "path": "importeRetencionAnualCentimos",
+        "representation": "centimos"
+      }
+    ],
+    "variants": []
+  },
+  {
+    "id": "escalas::explicit.decode",
+    "kind": "admission-precondition",
+    "consumer": "escalas",
+    "target": "explicit.decode",
+    "provider": {
+      "group": "rentas",
+      "root": "expression:lib/dominio/irpf/trabajo-anual/conexion.ts:1592:1696:call",
+      "node": "lib/dominio/irpf/trabajo-anual/conexion.ts:1592:1696:call",
+      "source": {
+        "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+        "start": 1592,
+        "end": 1696,
+        "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+        "offsetEncoding": "utf16"
+      },
+      "signature": {
+        "parameters": [
+          {
+            "index": 0,
+            "binding": "entrada",
+            "type": "CasoFiscalAnualExplicito",
+            "source": {
+              "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+              "start": 1537,
+              "end": 1570,
+              "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+              "offsetEncoding": "utf16"
+            }
+          }
+        ],
+        "returns": null
+      },
+      "parameters": [
+        {
+          "binding": {
+            "name": "entrada"
+          },
+          "rest": false,
+          "default": null
+        }
+      ],
+      "dimensionReference": {
+        "registry": "rentas.fields",
+        "ids": [
+          "lib/dominio/irpf/trabajo-anual/conexion.ts:1592:1618:get",
+          "lib/dominio/irpf/trabajo-anual/conexion.ts:1665:1690:property"
+        ]
+      }
+    },
+    "operator": "evaluate-node",
+    "projection": [
+      {
+        "from": "_tag",
+        "to": "_tag"
+      },
+      {
+        "from": "success",
+        "to": "success"
+      },
+      {
+        "from": "failure",
+        "to": "failure"
+      }
+    ],
+    "calls": [
+      {
+        "node": "lib/dominio/irpf/trabajo-anual/conexion.ts:1592:1696:boundaryCall",
+        "source": {
+          "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+          "start": 1592,
+          "end": 1696,
+          "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+          "offsetEncoding": "utf16"
+        },
+        "arguments": [
+          {
+            "index": 0,
+            "operand": "lib/dominio/irpf/trabajo-anual/conexion.ts:1650:1657:local"
+          },
+          {
+            "index": 1,
+            "operand": "lib/dominio/irpf/trabajo-anual/conexion.ts:1663:1692:object"
+          }
+        ],
+        "frames": [
+          "lib/dominio/irpf/trabajo-anual/conexion.ts:1526:13571:function"
+        ]
+      }
+    ],
+    "output": [
+      {
+        "path": "_tag",
+        "representation": "discrete"
+      },
+      {
+        "path": "success",
+        "representation": "decoded-explicit-structure"
+      },
+      {
+        "path": "failure",
+        "representation": "schema-error"
+      }
+    ],
+    "variants": [
+      {
+        "when": {
+          "property": "_tag",
+          "equals": "Success"
+        },
+        "outputs": [
+          "_tag:discrete",
+          "success:decoded-explicit-structure"
+        ]
+      },
+      {
+        "when": {
+          "property": "_tag",
+          "equals": "Failure"
+        },
+        "outputs": [
+          "_tag:discrete",
+          "failure:schema-error"
+        ]
+      }
+    ]
+  }
+]
