@@ -1,0 +1,48 @@
+import json,gzip,shutil,hashlib
+from pathlib import Path
+p=Path('docs/procedencia/revisiones/flujo-ss-r39-sol');s=Path('.cache/revision-ss-r39-sol')
+def save(n,x):(p/n).write_text(json.dumps(x,ensure_ascii=False,indent=2)+'\n')
+common=['Fuentes/paquetes fijados, Decimal sin reconfiguración y objetos ordinarios síncronos; no proxies/getters ni inyección arbitraria.','Contrato técnico: años 2012–2026, dos modos exactos; perfil analítico uniforme, sin cuotas TGSS ingresables.','Salario: céntimos de cada elemento, callback centimosAEuros, semilla convertir(0), orden y cardinalidad de reduce.','Subsanar contrato dimensional documental según hallazgos antes de aceptar cierre documental; nueva revisión/contraste del padre.','Admisión anual externa, admissionClosed/siteClosed/wiring/completeRuleAcceptance false.']
+sites=[
+('base','baseOrdinaria','Racional mensual 2018; dos topes separados; 438 casos por salida','Conservar selector anual y fuente de cada tope; 7 meses/5 meses; no aplicar media de máximos antes de saturar.',[]),
+('exceso','excesoBase','Integración racional y vecindades de topes','max(0,S−base) canónico; legacy S−máxima; cero EUR no metadata.',['SS39-04']),
+('empresarial-ordinaria','cotizacionEmpresarialOrdinaria','Base ×314/1000; cinco categorías propias','Object.values mantiene orden de inserción; seed ratio cero, lado empresarial capturado; no sumar trabajador.',[]),
+('trabajador-ordinaria','cotizacionTrabajadorOrdinaria','Base ×635/10000; dos categorías cero','Mismas cinco instancias, lado trabajador y ceros FOGASA/AT-EP efectivos.',[]),
+('mei-empresarial','meiEmpresarial','Base 10000 en 2025 →67; años 2022/23/24/25/26','MEI por ejercicio y propiedad empresarial escalar; contenedor estructural.',['SS39-01','SS39-03']),
+('mei-trabajador','meiTrabajador','Base 10000 en 2025 →13; lado cambiado altera resultado','MEI por ejercicio y propiedad trabajador escalar; no inferir lado de posición.',['SS39-01','SS39-03']),
+('solidaridad-empresarial','solidaridadEmpresarial','Integración racional por intervalos en 2025 y 2026','Canónico usa tuple empresa con 3 celdas; legacy total ×5/6, agrupación mul(5).div(6); tag Sin/Con real.',['SS39-04']),
+('solidaridad-trabajador','solidaridadTrabajador','Integración racional por intervalos; índice mutado cambia ambos lados','Canónico tuple trabajador, tres índices, año/celda propia; legacy total/6.',['SS39-02','SS39-04']),
+('empresarial-total','cotizacionEmpresarial','Ordinaria + MEI + solidaridad por lado, orden conservado','Componer exactamente los tres sumandos empresariales y sus condiciones.',['SS39-01','SS39-03','SS39-04']),
+('trabajador-total','cotizacionTrabajador','Suma racional y comparación TS real','Componer los tres sumandos del trabajador y sus condiciones.',['SS39-01','SS39-02','SS39-03','SS39-04']),
+('coste-laboral','rendimientoIntegroTrabajo.plus(cotizacionesSociales.cotizacionEmpresarial)','S + total empresa; once origen.decimal por caso','Hereda salario y total empresarial, no trabajador; importe.toFixed() sin formato previo.',['SS39-01','SS39-03','SS39-04'])]
+rows=[]
+for name,prop,proof,cond,findings in sites:
+ rows.append(dict(siteId='anual.ss.'+name,property=prop,technicalValue='corroborado-condicionado',technicalSelection='corroborada-condicionada',evidence=proof,conditions=common+[cond],documentaryFindings=findings,documentaryClosureAccepted=False,admissionClosed=False,siteClosed=False,wiring=False,completeRuleAcceptance=False,objecion='La igualdad de cifras puede ocultar una selección o una unidad equivocada.',respuesta='Contraste de fuente por instancia, expectativas racionales y mutaciones; separar valor de documentación y admisión.',coste='Contrato finito adicional, corrección documental posterior por autor y contraste del padre; menor disponibilidad con cota compartida.'))
+save('dictamen.json',rows)
+findings=[]
+for ident,title,scope,proof in [
+ ('SS39-01','MEI objeto etiquetado EUR','Cinco fieldUnits key mei','dimensiones-rojo.json; params.mei tiene dos Decimals ratio; base 10000 produce 67/13 EUR.'),
+ ('SS39-02','Tupla trabajador etiquetada ratio escalar','Tres propiedades de arrays y acceso solidaridad.trabajador','dimensiones-rojo.json; tabla 2025/2026/fallback y cuotaSolidaridad recibe tipos[0..2].'),
+ ('SS39-03','Contrato de parámetros aplana colecciones de ratios','unitContracts.obtenerParametrosCotizacionLegacy','Contrato declara mei:ratio y tiposSeguridadSocial:ratio frente a TiposCotizacion y Record<string,TiposCotizacion> TS.'),
+ ('SS39-04','Ceros monetarios clasificados metadata','literalUnits: uniforme 2710, legacy 5828','Decimal.max(0,salario−base) y excesoBase.lte(0), ambos con operando EUR; no es texto editorial.')]:
+ findings.append(dict(id=ident,status='confirmado-tecnico-requiere-contraste-padre',title=title,scope=scope,reproduction=proof,classification='contrato-documental',financialDefectDemonstrated=False,gate='validateSS acepta el original y declara once cierres pese al rojo dimensional; corregir copia abre pendientes, no bypass operativo',objecion='Los números son correctos y las anotaciones no intervienen en el cálculo.',respuesta='Se corrobora valor técnico, pero el cierre promete correspondencia de unidades; la receta no puede validar la suficiencia de su propia clasificación.',coste='Corregir extractor y representación por propiedad con rojo previo, sin alterar motor ni históricos.'))
+findings.extend([
+ dict(id='SS39-R1',status='refutado-en-alcance',hypothesis='medirAuditoriaSync transforma la cantidad financiera',evidence='temporizacion.json: identidad de retorno y callback una vez; finally puede lanzar, límite excluido explícitamente.'),
+ dict(id='SS39-R2',status='refutado-en-alcance',hypothesis='Copia del llamador o llamada anterior altera el siguiente caso ordinario',evidence='casos-segundo.log; copia privada y estado por llamada; no garantía para getters/inyección.'),
+ dict(id='SS39-R3',status='prueba-propia-no-valida',hypothesis='Dos observaciones de umbrales anualizados demuestran unidad 12 errónea',evidence='observaciones.json conserva 2 rojos de una búsqueda call errónea; literal 12 sí tiene meses. No defecto; no cambiar esperado histórico.'),
+ dict(id='SS39-C1',status='reserva-editorial',hypothesis='unitContracts son contratos completos de estructuras',evidence='tag+three-ratios no expresa unión Sin/Con; breakdown:EUR no enumera metadatos; programa sí incluye campos, no demostrar omisión financiera.'),
+])
+save('hallazgos.json',findings)
+save('decisiones.json',[dict(id='SS39-D1',decision='Corroborar valor/selección bajo condiciones por sitio y retener aceptación documental',objecion='Una cota compartida bloquea sitios sin MEI.',respuesta='Distinguir dependencia real de la política global; once dictámenes conservan lo útil sin promover cierres inexactos.',coste='Corrección documental y contraste del padre; disponibilidad menor.'),dict(id='SS39-D2',decision='Fracciones exactas y mensualidad explícita como contraste independiente de software',objecion='Las constantes transcritas no son oracle jurídico.',respuesta='Se prueba composición aritmética y selección; no se autentican normas ni cuotas TGSS.',coste='438 casos propios y tolerancia heredada <1e-12 EUR al comparar Decimal.'),dict(id='SS39-D3',decision='Conservar rojos R34 y ejecutar copias adaptadas',objecion='El pin rechazando cambios puede fingir suficiencia.',respuesta='Repetir rojo de semilla y ocho semánticos; demostrar sensibilidad por ejecución interna y distinguir API verificada.',coste='Logs/diffs propios, sin modificar originales ni cronología.'),dict(id='SS39-D4',decision='Instrumentación transparente solo en retorno financiero',objecion='finally puede sustituir retorno/excepción.',respuesta='Caso real de reloj falla y se conserva; el contrato excluye ese efecto expresamente.',coste='No promete equivalencia operacional total.'),dict(id='SS39-D5',decision='Proyección de fuentes y dependencias del padre en lectura en caché propia',objecion='No es un entorno portátil ni prueba integridad de node_modules externo.',respuesta='Cargador nativo/cache propia; conservar errores previos, fuentes por bytes, paquetes como prerrequisito.',coste='Copia técnica temporal y reserva de entorno.')])
+save('fisico-inicial-terminal.json',dict(base='2fab25d9d79c46dbf1a3f47c55e66a7410566758',entries=20498,mismatches=[],diff='',extra=[],method='Cotejo terminal inicial antes de mkdir/editar: lstat/readlink/bytes/ejecutable, git cat-file blob secuencial; proceso 19465 terminó 0. Recibo detallado posterior marca .git como extra por error instrumental; no divergencia base.'))
+for n in ['tests-proyeccion.log','tipos.log','oxlint.log','oxlint-propio.log','eslint.log']:
+ if (s/n).exists():shutil.copyfile(s/n,p/n)
+for f in s.iterdir():
+ if f.is_file() and f.suffix in ['.mjs','.py'] and f.name not in ['documentar.py']:
+  shutil.copyfile(f,p/(f.name+'.txt'))
+# No originales nuevos: referencias/errores recibidos preservados en base. Sin CAS nuevo.
+refs=['docs/procedencia/revisiones/flujo-ss-r34-sol/INFORME.md','docs/procedencia/revisiones/flujo-ss-r34-sol/adversos.json','docs/procedencia/revisiones/flujo-ss-r34-sol/semilla.json','docs/procedencia/implementaciones/flujo-ss-r36-sol/INFORME.md','docs/procedencia/correcciones/ss-r39/INFORME.md','docs/procedencia/correcciones/ss-r39/observacion-unidades.json']
+save('recibidos.json',[dict(path=f,size=Path(f).stat().st_size,sha256=hashlib.sha256(Path(f).read_bytes()).hexdigest(),mtimeNs=Path(f).stat().st_mtime_ns) for f in refs])
+for f in p.iterdir():
+ if f.is_file() and f.stat().st_size>1000000 and f.suffix not in ['.gz']:
+  (p/(f.name+'.gz')).write_bytes(gzip.compress(f.read_bytes(),mtime=0));f.unlink()

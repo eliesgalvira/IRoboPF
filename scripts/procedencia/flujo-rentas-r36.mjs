@@ -554,16 +554,26 @@ export function composeRentasR36(root = process.cwd()) {
           compiled.get(n.args[0])?.data.key
         )
     )
-    .map((n) => ({
-      id: n.id,
-      operation: compiled.get(n.args[0]).data.key,
-      receiver: compiled.get(n.args[0]).args[0],
-      callback: n.args[1] ?? null,
-      seed: n.args[2] ?? null,
-      unit: "element-dependent",
-      index: "callback argument 1 for map/filter; argument 2 for reduce",
-      cardinality: "native-array-order-short-circuit",
-    }))
+    .map((n) => {
+      const target = compiled.get(n.args[0])
+      const owner = compiled.get(target.args[0])
+      const operation = target.data.key
+      const effectArray = owner?.op === "global" && owner.data.name === "EffectArray"
+      // Las fuentes fijadas usan EffectArray con datos primero. La colección
+      // es un argumento, mientras que en Array nativo es el receptor del método.
+      if (effectArray && n.args.length !== (operation === "reduce" ? 4 : 3))
+        throw Error("Colección EffectArray fuera del contrato: " + n.id)
+      return {
+        id: n.id,
+        operation,
+        receiver: effectArray ? n.args[1] : target.args[0],
+        callback: n.args[effectArray ? (operation === "reduce" ? 3 : 2) : 1] ?? null,
+        seed: operation === "reduce" ? n.args[2] ?? null : null,
+        unit: "element-dependent",
+        index: "callback argument 1 for map/filter; argument 2 for reduce",
+        cardinality: "native-array-order-short-circuit",
+      }
+    })
   const monetaryFields = new Set([
     "base",
     "integro",

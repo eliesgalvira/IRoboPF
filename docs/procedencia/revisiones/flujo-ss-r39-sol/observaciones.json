@@ -1,0 +1,68 @@
+[
+  {
+    "name": "mei es objeto, no EUR",
+    "expected": [
+      "empresarial",
+      "trabajador"
+    ],
+    "actual": [
+      "empresarial",
+      "trabajador"
+    ],
+    "pass": true
+  },
+  {
+    "name": "base 10000, cuotas MEI por lado",
+    "expected": [
+      "67",
+      "13"
+    ],
+    "actual": [
+      "67",
+      "13"
+    ],
+    "pass": true
+  },
+  {
+    "name": "unidad estructural lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3541:3555:get",
+    "expected": "{empresarial:ratio,trabajador:ratio}",
+    "actual": "EUR",
+    "pass": false
+  },
+  {
+    "name": "unidad estructural lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3611:3625:get",
+    "expected": "{empresarial:ratio,trabajador:ratio}",
+    "actual": "EUR",
+    "pass": false
+  },
+  {
+    "name": "unidad estructural lib/dominio/laboral/cotizaciones-sociales.ts:8444:8458:get",
+    "expected": "{empresarial:ratio,trabajador:ratio}",
+    "actual": "EUR",
+    "pass": false
+  },
+  {
+    "name": "unidad estructural lib/dominio/laboral/cotizaciones-sociales.ts:8544:8558:get",
+    "expected": "{empresarial:ratio,trabajador:ratio}",
+    "actual": "EUR",
+    "pass": false
+  },
+  {
+    "name": "unidad estructural lib/dominio/laboral/cotizaciones-sociales.ts:5159:5185:property",
+    "expected": "{empresarial:ratio,trabajador:ratio}",
+    "actual": "EUR",
+    "pass": false
+  },
+  {
+    "name": "umbral anualizado por 12 lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2428:2437:literal",
+    "expected": "meses",
+    "actual": "ver unidad de literal 12",
+    "pass": false
+  },
+  {
+    "name": "umbral anualizado por 12 lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2577:2586:literal",
+    "expected": "meses",
+    "actual": "ver unidad de literal 12",
+    "pass": false
+  }
+]

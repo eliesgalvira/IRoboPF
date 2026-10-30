@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict'
+import fs from 'node:fs'
+import {medirAuditoriaSync,diagnosticoRendimientoAuditoriaActivo} from './proyeccion/lib/observabilidad/auditoria-rendimiento.ts'
+assert(diagnosticoRendimientoAuditoriaActivo)
+const saved=Object.getOwnPropertyDescriptor(globalThis,'performance');let ticks=0,calls=0
+const value={sentinel:1},failure=Error('callback'),timingFailure=Error('reloj')
+try {
+ Object.defineProperty(globalThis,'performance',{configurable:true,value:{now:()=>++ticks}})
+ assert.equal(medirAuditoriaSync('valor',()=>{calls++;return value}),value);assert.equal(calls,1);assert.equal(ticks,2)
+ assert.throws(()=>medirAuditoriaSync('callback',()=>{calls++;throw failure}),e=>e===failure)
+ Object.defineProperty(globalThis,'performance',{configurable:true,value:{now:()=>{if(++ticks%2===0)throw timingFailure;return ticks}}})
+ assert.throws(()=>medirAuditoriaSync('finally',()=>{calls++;return value}),e=>e===timingFailure)
+ fs.writeFileSync('docs/procedencia/revisiones/flujo-ss-r39-sol/temporizacion.json',JSON.stringify({enabled:true,calls,returnIdentity:true,callbackExceptionPreserved:true,finallyCanReplaceReturn:true,classification:'límite expresamente excluido; no defecto financiero'},null,2))
+ console.log('retorno sin transformación, callback una vez, finally puede sustituir retorno por excepción de reloj')
+} finally {Object.defineProperty(globalThis,'performance',saved)}

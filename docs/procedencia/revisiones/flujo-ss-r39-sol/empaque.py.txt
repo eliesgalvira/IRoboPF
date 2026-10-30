@@ -1,0 +1,20 @@
+import subprocess,hashlib,json,gzip,shutil,os
+from pathlib import Path
+root=Path.cwd();dest=root/'docs/procedencia/revisiones/flujo-ss-r39-sol';trial=root/'.cache/revision-ss-r39-sol/transporte';trial.mkdir(parents=True,exist_ok=True)
+envelopes=['manifiesto.json','binarios.json','entrega.patch.gz','transporte.json','fisico-final.json.gz','fisico-final.log','empaque.log']
+files=sorted(f for f in dest.rglob('*') if f.is_file() and 'binarios' not in f.relative_to(dest).parts and f.name not in envelopes)
+hash=lambda b:hashlib.sha256(b).hexdigest();rows=[];binary=[];patch=b''
+for f in files:
+ b=f.read_bytes();path=f.relative_to(root).as_posix();mode=bool(f.stat().st_mode&0o111);rows.append(dict(path=path,sha256=hash(b),size=len(b),baseSha256=None,executable=mode,change='alta'))
+ if b'\0' in b or f.suffix=='.gz' or not b:
+  obj=dest/'binarios'/hash(b);obj.parent.mkdir(exist_ok=True);obj.write_bytes(b);binary.append(dict(path=path,sha256=hash(b),size=len(b),object=obj.relative_to(root).as_posix()))
+ else:
+  d=subprocess.run(['diff','-u','--label','a/'+path,'--label','b/'+path,'/dev/null',str(f)],capture_output=True);assert d.returncode==1;patch+=d.stdout
+(dest/'entrega.patch.gz').write_bytes(gzip.compress(patch,mtime=0));(dest/'binarios.json').write_text(json.dumps(binary,indent=2)+'\n');(dest/'manifiesto.json').write_text(json.dumps(dict(base='2fab25d9d79c46dbf1a3f47c55e66a7410566758',head='2fab25d9d79c46dbf1a3f47c55e66a7410566758',files=rows,envelopes=envelopes,scratchExcluded='.cache/revision-ss-r39-sol/',originalBaseModified=[],deletions=[]),indent=2)+'\n')
+p=subprocess.run(['patch','-p1','--batch'],input=patch,cwd=trial,capture_output=True);(root/'.cache/revision-ss-r39-sol/transporte-patch.log').write_bytes(p.stdout+p.stderr);assert p.returncode==0
+for b in binary:
+ t=trial/b['path'];t.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(root/b['object'],t)
+for r in rows:
+ t=trial/r['path'];assert t.read_bytes()==(root/r['path']).read_bytes();assert hash(t.read_bytes())==r['sha256'] and t.stat().st_size==r['size'];assert bool(t.stat().st_mode&0o111)==r['executable']
+receipt=dict(base='2fab25d9d79c46dbf1a3f47c55e66a7410566758',files=len(rows),binaries=len(binary),exact=True,envelopes=[dict(path=(dest/n).relative_to(root).as_posix(),sha256=hash((dest/n).read_bytes()),size=(dest/n).stat().st_size) for n in ['manifiesto.json','binarios.json','entrega.patch.gz']],method='patch -p1 y objetos por ruta/hash; comparación de bytes/tamaño/ejecutabilidad; sin VCS mutante')
+(dest/'transporte.json').write_text(json.dumps(receipt,indent=2)+'\n');print(json.dumps(receipt))

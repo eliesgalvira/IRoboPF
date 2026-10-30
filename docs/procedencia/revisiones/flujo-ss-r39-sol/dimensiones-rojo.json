@@ -1,0 +1,124 @@
+{
+  "rows": [
+    {
+      "id": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2962:2989:property",
+      "expected": "tuple3<ratio>",
+      "actual": "ratio",
+      "pass": false
+    },
+    {
+      "id": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3231:3253:get",
+      "expected": "tuple3<ratio>",
+      "actual": "ratio",
+      "pass": false
+    },
+    {
+      "id": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3541:3555:get",
+      "expected": "structural<{empresarial:ratio,trabajador:ratio}>",
+      "actual": "EUR",
+      "pass": false
+    },
+    {
+      "id": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:3611:3625:get",
+      "expected": "structural<{empresarial:ratio,trabajador:ratio}>",
+      "actual": "EUR",
+      "pass": false
+    },
+    {
+      "id": "lib/dominio/laboral/cotizaciones-sociales.ts:8444:8458:get",
+      "expected": "structural<{empresarial:ratio,trabajador:ratio}>",
+      "actual": "EUR",
+      "pass": false
+    },
+    {
+      "id": "lib/dominio/laboral/cotizaciones-sociales.ts:8544:8558:get",
+      "expected": "structural<{empresarial:ratio,trabajador:ratio}>",
+      "actual": "EUR",
+      "pass": false
+    },
+    {
+      "id": "lib/dominio/laboral/cotizaciones-sociales.ts:5159:5185:property",
+      "expected": "structural<{empresarial:ratio,trabajador:ratio}>",
+      "actual": "EUR",
+      "pass": false
+    },
+    {
+      "id": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:585:627:property",
+      "expected": "tuple3<ratio>",
+      "actual": "ratio",
+      "pass": false
+    },
+    {
+      "id": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:693:735:property",
+      "expected": "tuple3<ratio>",
+      "actual": "ratio",
+      "pass": false
+    },
+    {
+      "id": "obtenerParametrosCotizacionLegacy",
+      "expected": "{baseMaxima:EUR,tiposSeguridadSocial:record<lado:ratio>,mei:{empresarial:ratio,trabajador:ratio},solidaridad:policy}",
+      "actual": "{baseMaxima:EUR,tiposSeguridadSocial:ratio,mei:ratio,solidaridad:policy}",
+      "pass": false
+    },
+    {
+      "id": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:2710:2711:literal",
+      "expected": "EUR",
+      "actual": "metadata",
+      "pass": false
+    },
+    {
+      "id": "lib/dominio/laboral/cotizaciones-sociales.ts:5828:5829:literal",
+      "expected": "EUR",
+      "actual": "metadata",
+      "pass": false
+    }
+  ],
+  "allCandidateClosed": [
+    {
+      "site": "anual.ss.base",
+      "declaresClosed": true
+    },
+    {
+      "site": "anual.ss.exceso",
+      "declaresClosed": true
+    },
+    {
+      "site": "anual.ss.empresarial-ordinaria",
+      "declaresClosed": true
+    },
+    {
+      "site": "anual.ss.trabajador-ordinaria",
+      "declaresClosed": true
+    },
+    {
+      "site": "anual.ss.mei-empresarial",
+      "declaresClosed": true
+    },
+    {
+      "site": "anual.ss.mei-trabajador",
+      "declaresClosed": true
+    },
+    {
+      "site": "anual.ss.solidaridad-empresarial",
+      "declaresClosed": true
+    },
+    {
+      "site": "anual.ss.solidaridad-trabajador",
+      "declaresClosed": true
+    },
+    {
+      "site": "anual.ss.empresarial-total",
+      "declaresClosed": true
+    },
+    {
+      "site": "anual.ss.trabajador-total",
+      "declaresClosed": true
+    },
+    {
+      "site": "anual.ss.coste-laboral",
+      "declaresClosed": true
+    }
+  ],
+  "validatorAccepts": true,
+  "classification": "contrato documental; no discrepancia financiera demostrada"
+}

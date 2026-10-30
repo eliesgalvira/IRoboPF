@@ -1,0 +1,31 @@
+import subprocess,os,stat,hashlib,json,gzip,sys
+from pathlib import Path
+base='2fab25d9d79c46dbf1a3f47c55e66a7410566758'; dest=Path('docs/procedencia/revisiones/flujo-ss-r39-sol'); records=[]
+p=subprocess.Popen(['git','cat-file','--batch'],stdin=subprocess.PIPE,stdout=subprocess.PIPE)
+for row in subprocess.check_output(['git','ls-tree','-rz',base]).split(b'\0'):
+ if not row:continue
+ meta,path=row.split(b'\t',1);mode,typ,oid=meta.split();path=os.fsdecode(path)
+ p.stdin.write(oid+b'\n');p.stdin.flush();header=p.stdout.readline();size=int(header.split()[2]);blob=p.stdout.read(size);assert p.stdout.read(1)==b'\n'
+ try:
+  s=os.lstat(path);actual=os.fsencode(os.readlink(path)) if stat.S_ISLNK(s.st_mode) else Path(path).read_bytes()
+  good=actual==blob and ((mode==b'120000' and stat.S_ISLNK(s.st_mode)) or (mode!=b'120000' and stat.S_ISREG(s.st_mode) and bool(s.st_mode&0o111)==(mode==b'100755')))
+  records.append(dict(path=path,mode=mode.decode(),size=len(actual),sha256=hashlib.sha256(actual).hexdigest(),baseSha256=hashlib.sha256(blob).hexdigest(),equal=good,mtimeNs=s.st_mtime_ns))
+ except Exception as e:records.append(dict(path=path,equal=False,error=str(e)))
+p.stdin.close();p.wait();tracked={r['path'] for r in records};extra=[]
+for root,dirs,files in os.walk('.',followlinks=False):
+ dirs[:]=[d for d in dirs if d not in ['.git']]
+ for d in dirs[:]:
+  q=Path(root)/d
+  if q.is_symlink():files.append(d);dirs.remove(d)
+ for f in files:
+  q=(Path(root)/f).as_posix()
+  if q != '.git' and q not in tracked:extra.append(q)
+bad=[q for q in extra if not q.startswith(('.cache/revision-ss-r39-sol/','docs/procedencia/revisiones/flujo-ss-r39-sol/'))]
+diff=subprocess.check_output(['git','diff','--no-ext-diff',base]).decode();head=subprocess.check_output(['git','rev-parse','HEAD']).decode().strip()
+result=dict(base=base,head=head,entries=len(records),mismatches=[r for r in records if not r['equal']],badExtra=bad,extra=extra,records=records,diff=diff,initialBeforeEditingTerminal={'entries':20498,'mismatches':[],'diff':'','extra':[]})
+(dest/(sys.argv[1]+'.json.gz')).write_bytes(gzip.compress(json.dumps(result).encode(),mtime=0))
+print(json.dumps({k:v for k,v in result.items() if k not in ['records','extra']}));assert len(records)==20498 and head==base and not result['mismatches'] and not bad and not diff
+initial=json.loads(gzip.decompress((dest/'fisico-inicial.json.gz').read_bytes()))
+old={r['path']:r for r in initial['records']}
+changed=[r['path'] for r in records if r.get('mtimeNs')!=old[r['path']].get('mtimeNs')]
+print(json.dumps(dict(baseMtimeChanges=changed)));assert not changed

@@ -1,0 +1,782 @@
+[
+  {
+    "siteId": "anual.trabajo.integro",
+    "producer": {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "start": 32753,
+      "end": 32790,
+      "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+      "offsetEncoding": "utf16"
+    },
+    "expression": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:32753:32790:get",
+    "instance": {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "start": 32727,
+      "end": 32728,
+      "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+      "offsetEncoding": "utf16"
+    },
+    "unit": "EUR",
+    "transport": {
+      "function": "lib/dominio/explicacion/linea-calculo.ts:crearLineaCalculo",
+      "property": "origen.decimal",
+      "operation": "toFixed"
+    },
+    "scope": "general-admission-required",
+    "valueClosed": false,
+    "selectionClosed": false,
+    "siteClosed": false,
+    "valueNode": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:32753:32790:get",
+    "entryPoint": "annualBindings",
+    "verdict": "corroboración técnica de operaciones condicionada; metadatos de colecciones requieren rectificación donde corresponda",
+    "reason": "EffectArray.reduce sobre importeIntegroCentimos, semilla convertir(0), división100 por elemento; no SS ni exenciones. General racional.",
+    "conditions": [
+      "artefacto y cuatro módulos exactos previamente verificados",
+      "datos dentro del contrato del llamador",
+      "primitivas y dependencias concretas; sin callbacks arbitrarios",
+      "admisión general/composición y contraste del padre pendientes"
+    ],
+    "acceptance": false
+  },
+  {
+    "siteId": "anual.trabajo.cotizacion",
+    "producer": {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "start": 33096,
+      "end": 33135,
+      "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+      "offsetEncoding": "utf16"
+    },
+    "expression": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:33096:33135:get",
+    "instance": {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "start": 33070,
+      "end": 33071,
+      "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+      "offsetEncoding": "utf16"
+    },
+    "unit": "EUR",
+    "transport": {
+      "function": "lib/dominio/explicacion/linea-calculo.ts:crearLineaCalculo",
+      "property": "origen.decimal",
+      "operation": "toFixed"
+    },
+    "scope": "general-admission-required",
+    "valueClosed": false,
+    "selectionClosed": false,
+    "siteClosed": false,
+    "valueNode": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:33096:33135:get",
+    "entryPoint": "annualBindings",
+    "verdict": "corroboración técnica de operaciones condicionada; metadatos de colecciones requieren rectificación donde corresponda",
+    "reason": "modo canónico elige perfil uniforme, otro modo legacy; argumento año e íntegro EUR; retorno.cotizacionTrabajador EUR. Ausencia/error no es0.",
+    "conditions": [
+      "artefacto y cuatro módulos exactos previamente verificados",
+      "datos dentro del contrato del llamador",
+      "primitivas y dependencias concretas; sin callbacks arbitrarios",
+      "admisión general/composición y contraste del padre pendientes"
+    ],
+    "acceptance": false
+  },
+  {
+    "siteId": "anual.trabajo.previo-neto",
+    "producer": {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "start": 33460,
+      "end": 33500,
+      "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+      "offsetEncoding": "utf16"
+    },
+    "expression": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:33460:33500:get",
+    "instance": {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "start": 33434,
+      "end": 33435,
+      "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+      "offsetEncoding": "utf16"
+    },
+    "unit": "EUR",
+    "transport": {
+      "function": "lib/dominio/explicacion/linea-calculo.ts:crearLineaCalculo",
+      "property": "origen.decimal",
+      "operation": "toFixed"
+    },
+    "scope": "general-admission-required",
+    "valueClosed": false,
+    "selectionClosed": false,
+    "siteClosed": false,
+    "valueNode": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:33460:33500:get",
+    "entryPoint": "annualBindings",
+    "verdict": "corroboración técnica de operaciones condicionada; metadatos de colecciones requieren rectificación donde corresponda",
+    "reason": "Integro menos cuota recibida; anual suministra cuota y no usa fallback nullish del helper aislado.",
+    "conditions": [
+      "artefacto y cuatro módulos exactos previamente verificados",
+      "datos dentro del contrato del llamador",
+      "primitivas y dependencias concretas; sin callbacks arbitrarios",
+      "admisión general/composición y contraste del padre pendientes"
+    ],
+    "acceptance": false
+  },
+  {
+    "siteId": "anual.trabajo.gastos",
+    "producer": {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "start": 33853,
+      "end": 33888,
+      "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+      "offsetEncoding": "utf16"
+    },
+    "expression": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:33853:33888:get",
+    "instance": {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "start": 33827,
+      "end": 33828,
+      "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+      "offsetEncoding": "utf16"
+    },
+    "unit": "EUR",
+    "transport": {
+      "function": "lib/dominio/explicacion/linea-calculo.ts:crearLineaCalculo",
+      "property": "origen.decimal",
+      "operation": "toFixed"
+    },
+    "scope": "general-admission-required",
+    "valueClosed": false,
+    "selectionClosed": false,
+    "siteClosed": false,
+    "valueNode": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:33853:33888:get",
+    "entryPoint": "annualBindings",
+    "verdict": "corroboración técnica de operaciones condicionada; metadatos de colecciones requieren rectificación donde corresponda",
+    "reason": "GASTOS_FIJOS_IRPF_LEGACY[anio], celda anual; distinto de gastos efectivos explícitos.",
+    "conditions": [
+      "artefacto y cuatro módulos exactos previamente verificados",
+      "datos dentro del contrato del llamador",
+      "primitivas y dependencias concretas; sin callbacks arbitrarios",
+      "admisión general/composición y contraste del padre pendientes"
+    ],
+    "acceptance": false
+  },
+  {
+    "siteId": "anual.trabajo.neto",
+    "producer": {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "start": 34182,
+      "end": 34216,
+      "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+      "offsetEncoding": "utf16"
+    },
+    "expression": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:34182:34216:get",
+    "instance": {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "start": 34156,
+      "end": 34157,
+      "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+      "offsetEncoding": "utf16"
+    },
+    "unit": "EUR",
+    "transport": {
+      "function": "lib/dominio/explicacion/linea-calculo.ts:crearLineaCalculo",
+      "property": "origen.decimal",
+      "operation": "toFixed"
+    },
+    "scope": "general-admission-required",
+    "valueClosed": false,
+    "selectionClosed": false,
+    "siteClosed": false,
+    "valueNode": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:34182:34216:get",
+    "entryPoint": "annualBindings",
+    "verdict": "corroboración técnica de operaciones condicionada; metadatos de colecciones requieren rectificación donde corresponda",
+    "reason": "max(0,previo−gastos); no confundir suelo general con signo del art19 explícito.",
+    "conditions": [
+      "artefacto y cuatro módulos exactos previamente verificados",
+      "datos dentro del contrato del llamador",
+      "primitivas y dependencias concretas; sin callbacks arbitrarios",
+      "admisión general/composición y contraste del padre pendientes"
+    ],
+    "acceptance": false
+  },
+  {
+    "siteId": "anual.trabajo.reduccion",
+    "producer": {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "start": 34584,
+      "end": 34612,
+      "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+      "offsetEncoding": "utf16"
+    },
+    "expression": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:34584:34612:local",
+    "instance": {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "start": 34558,
+      "end": 34559,
+      "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+      "offsetEncoding": "utf16"
+    },
+    "unit": "EUR",
+    "transport": {
+      "function": "lib/dominio/explicacion/linea-calculo.ts:crearLineaCalculo",
+      "property": "origen.decimal",
+      "operation": "toFixed"
+    },
+    "scope": "general-admission-required",
+    "valueClosed": false,
+    "selectionClosed": false,
+    "siteClosed": false,
+    "valueNode": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:34584:34612:local",
+    "entryPoint": "annualBindings",
+    "verdict": "corroboración técnica de operaciones condicionada; metadatos de colecciones requieren rectificación donde corresponda",
+    "reason": "P previo sin gasto f; O alquiler neto simplificado+ganancias sujetas general+ahorro con signo, antes de compensaciones. O>6500 primero; corte2018 civil UTC; perturbación nueva solo influye desde corte.",
+    "conditions": [
+      "artefacto y cuatro módulos exactos previamente verificados",
+      "datos dentro del contrato del llamador",
+      "primitivas y dependencias concretas; sin callbacks arbitrarios",
+      "admisión general/composición y contraste del padre pendientes"
+    ],
+    "acceptance": false
+  },
+  {
+    "siteId": "anual.inmobiliario.integro",
+    "producer": {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "start": 40975,
+      "end": 41024,
+      "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+      "offsetEncoding": "utf16"
+    },
+    "expression": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:40975:41024:get",
+    "instance": {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "start": 40949,
+      "end": 40950,
+      "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+      "offsetEncoding": "utf16"
+    },
+    "unit": "EUR",
+    "transport": {
+      "function": "lib/dominio/explicacion/linea-calculo.ts:crearLineaCalculo",
+      "property": "origen.decimal",
+      "operation": "toFixed"
+    },
+    "scope": "general-admission-required",
+    "valueClosed": false,
+    "selectionClosed": false,
+    "siteClosed": false,
+    "valueNode": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:40975:41024:get",
+    "entryPoint": "annualBindings",
+    "verdict": "corroboración técnica de operaciones condicionada; metadatos de colecciones requieren rectificación donde corresponda",
+    "reason": "Option nullish→[]; suma importeIntegroCentimos/100 con semilla0.",
+    "conditions": [
+      "artefacto y cuatro módulos exactos previamente verificados",
+      "datos dentro del contrato del llamador",
+      "primitivas y dependencias concretas; sin callbacks arbitrarios",
+      "admisión general/composición y contraste del padre pendientes"
+    ],
+    "acceptance": false
+  },
+  {
+    "siteId": "anual.inmobiliario.neto",
+    "producer": {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "start": 41345,
+      "end": 41391,
+      "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+      "offsetEncoding": "utf16"
+    },
+    "expression": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:41345:41391:get",
+    "instance": {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "start": 41319,
+      "end": 41320,
+      "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+      "offsetEncoding": "utf16"
+    },
+    "unit": "EUR",
+    "transport": {
+      "function": "lib/dominio/explicacion/linea-calculo.ts:crearLineaCalculo",
+      "property": "origen.decimal",
+      "operation": "toFixed"
+    },
+    "scope": "general-admission-required",
+    "valueClosed": false,
+    "selectionClosed": false,
+    "siteClosed": false,
+    "valueNode": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:41345:41391:get",
+    "entryPoint": "annualBindings",
+    "verdict": "corroboración técnica de operaciones condicionada; metadatos de colecciones requieren rectificación donde corresponda",
+    "reason": "alias del íntegro: perfil simplificado sin art23/gastos/amortización/reducciones del inmueble.",
+    "conditions": [
+      "artefacto y cuatro módulos exactos previamente verificados",
+      "datos dentro del contrato del llamador",
+      "primitivas y dependencias concretas; sin callbacks arbitrarios",
+      "admisión general/composición y contraste del padre pendientes"
+    ],
+    "acceptance": false
+  },
+  {
+    "siteId": "anual.ganancias.total",
+    "producer": {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "start": 46820,
+      "end": 46856,
+      "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+      "offsetEncoding": "utf16"
+    },
+    "expression": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:46820:46856:get",
+    "instance": {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "start": 46794,
+      "end": 46795,
+      "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+      "offsetEncoding": "utf16"
+    },
+    "unit": "EUR",
+    "transport": {
+      "function": "lib/dominio/explicacion/linea-calculo.ts:crearLineaCalculo",
+      "property": "origen.decimal",
+      "operation": "toFixed"
+    },
+    "scope": "general-admission-required",
+    "valueClosed": false,
+    "selectionClosed": false,
+    "siteClosed": false,
+    "valueNode": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:46820:46856:get",
+    "entryPoint": "annualBindings",
+    "verdict": "corroboración técnica de operaciones condicionada; metadatos de colecciones requieren rectificación donde corresponda",
+    "reason": "map transmisiones seguido reduce de gananciaTotal; semilla cuatro Decimales0; independiente de edad/exención; conserva pérdidas.",
+    "conditions": [
+      "artefacto y cuatro módulos exactos previamente verificados",
+      "datos dentro del contrato del llamador",
+      "primitivas y dependencias concretas; sin callbacks arbitrarios",
+      "admisión general/composición y contraste del padre pendientes"
+    ],
+    "acceptance": false
+  },
+  {
+    "siteId": "anual.ganancias.exenta",
+    "producer": {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "start": 47156,
+      "end": 47193,
+      "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+      "offsetEncoding": "utf16"
+    },
+    "expression": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:47156:47193:get",
+    "instance": {
+      "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+      "start": 47130,
+      "end": 47131,
+      "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+      "offsetEncoding": "utf16"
+    },
+    "unit": "EUR",
+    "transport": {
+      "function": "lib/dominio/explicacion/linea-calculo.ts:crearLineaCalculo",
+      "property": "origen.decimal",
+      "operation": "toFixed"
+    },
+    "scope": "general-admission-required",
+    "valueClosed": false,
+    "selectionClosed": false,
+    "siteClosed": false,
+    "valueNode": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:47156:47193:get",
+    "entryPoint": "annualBindings",
+    "verdict": "corroboración técnica de operaciones condicionada; metadatos de colecciones requieren rectificación donde corresponda",
+    "reason": "edad>=65 por hecho declarado, vivienda o vitalicia desde2015; margen240000−previas, ratio limitado; DA37 fecha adquisición inclusiva y residuo positivo; suelo0/techo total. Clasificación2013–14 aniversario estricto alimenta O, no total/exenta.",
+    "conditions": [
+      "artefacto y cuatro módulos exactos previamente verificados",
+      "datos dentro del contrato del llamador",
+      "primitivas y dependencias concretas; sin callbacks arbitrarios",
+      "admisión general/composición y contraste del padre pendientes"
+    ],
+    "acceptance": false
+  },
+  {
+    "siteId": "anual.explicito.trabajo.integro",
+    "producer": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 4273,
+      "end": 4302,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "expression": null,
+    "instance": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 4251,
+      "end": 4252,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "unit": "EUR",
+    "transport": {
+      "function": "lib/dominio/explicacion/linea-calculo.ts:crearLineaCalculo",
+      "property": "origen.decimal",
+      "operation": "toFixed"
+    },
+    "scope": "explicit-2025-admission-required",
+    "valueClosed": false,
+    "selectionClosed": false,
+    "siteClosed": false,
+    "valueNode": "lib/dominio/irpf/trabajo-anual/conexion.ts:4273:4302:new",
+    "entryPoint": "lib/dominio/irpf/trabajo-anual/conexion.ts:liquidarIrpfAnualExplicito",
+    "verdict": "corroboración técnica de operaciones condicionada; metadatos de colecciones requieren rectificación donde corresponda",
+    "reason": "suma importes EUR de rendimientos, bucle y bruto separado; empleo laboral/estatutario o pensión homogénea. No mezclar.",
+    "conditions": [
+      "artefacto y cuatro módulos exactos previamente verificados",
+      "datos dentro del contrato del llamador",
+      "primitivas y dependencias concretas; sin callbacks arbitrarios",
+      "admisión general/composición y contraste del padre pendientes"
+    ],
+    "acceptance": false
+  },
+  {
+    "siteId": "anual.explicito.trabajo.gastos-a-e",
+    "producer": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 4570,
+      "end": 4600,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "expression": null,
+    "instance": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 4548,
+      "end": 4549,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "unit": "EUR",
+    "transport": {
+      "function": "lib/dominio/explicacion/linea-calculo.ts:crearLineaCalculo",
+      "property": "origen.decimal",
+      "operation": "toFixed"
+    },
+    "scope": "explicit-2025-admission-required",
+    "valueClosed": false,
+    "selectionClosed": false,
+    "siteClosed": false,
+    "valueNode": "lib/dominio/irpf/trabajo-anual/conexion.ts:4570:4600:new",
+    "entryPoint": "lib/dominio/irpf/trabajo-anual/conexion.ts:liquidarIrpfAnualExplicito",
+    "verdict": "corroboración técnica de operaciones condicionada; metadatos de colecciones requieren rectificación donde corresponda",
+    "reason": "suma SS efectiva/derechos/huérfanos/sindicato condicionado; límites500 colegio y300 defensa tras suma; fuente aislada validada Schema/Result.",
+    "conditions": [
+      "artefacto y cuatro módulos exactos previamente verificados",
+      "datos dentro del contrato del llamador",
+      "primitivas y dependencias concretas; sin callbacks arbitrarios",
+      "admisión general/composición y contraste del padre pendientes"
+    ],
+    "acceptance": false
+  },
+  {
+    "siteId": "anual.explicito.trabajo.gasto-f",
+    "producer": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 4920,
+      "end": 4960,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "expression": null,
+    "instance": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 4898,
+      "end": 4899,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "unit": "EUR",
+    "transport": {
+      "function": "lib/dominio/explicacion/linea-calculo.ts:crearLineaCalculo",
+      "property": "origen.decimal",
+      "operation": "toFixed"
+    },
+    "scope": "explicit-2025-admission-required",
+    "valueClosed": false,
+    "selectionClosed": false,
+    "siteClosed": false,
+    "valueNode": "lib/dominio/irpf/trabajo-anual/conexion.ts:4920:4960:new",
+    "entryPoint": "lib/dominio/irpf/trabajo-anual/conexion.ts:liquidarIrpfAnualExplicito",
+    "verdict": "corroboración técnica de operaciones condicionada; metadatos de colecciones requieren rectificación donde corresponda",
+    "reason": "min(2000,max(previo,0)) en2025; reserva discapacidad anual excluida; no resta al argumentoArt20.",
+    "conditions": [
+      "artefacto y cuatro módulos exactos previamente verificados",
+      "datos dentro del contrato del llamador",
+      "primitivas y dependencias concretas; sin callbacks arbitrarios",
+      "admisión general/composición y contraste del padre pendientes"
+    ],
+    "acceptance": false
+  },
+  {
+    "siteId": "anual.explicito.trabajo.art19",
+    "producer": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 5230,
+      "end": 5266,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "expression": null,
+    "instance": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 5208,
+      "end": 5209,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "unit": "EUR",
+    "transport": {
+      "function": "lib/dominio/explicacion/linea-calculo.ts:crearLineaCalculo",
+      "property": "origen.decimal",
+      "operation": "toFixed"
+    },
+    "scope": "explicit-2025-admission-required",
+    "valueClosed": false,
+    "selectionClosed": false,
+    "siteClosed": false,
+    "valueNode": "lib/dominio/irpf/trabajo-anual/conexion.ts:5230:5266:new",
+    "entryPoint": "lib/dominio/irpf/trabajo-anual/conexion.ts:liquidarIrpfAnualExplicito",
+    "verdict": "corroboración técnica de operaciones condicionada; metadatos de colecciones requieren rectificación donde corresponda",
+    "reason": "rendimientoAntesArt20=netoArt19, conserva signo; adaptarTrabajoAnual transporta propiedad separada de netoPrevioArt20.",
+    "conditions": [
+      "artefacto y cuatro módulos exactos previamente verificados",
+      "datos dentro del contrato del llamador",
+      "primitivas y dependencias concretas; sin callbacks arbitrarios",
+      "admisión general/composición y contraste del padre pendientes"
+    ],
+    "acceptance": false
+  },
+  {
+    "siteId": "anual.explicito.trabajo.art20",
+    "producer": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 5543,
+      "end": 5557,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "expression": null,
+    "instance": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 5521,
+      "end": 5522,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "unit": "EUR",
+    "transport": {
+      "function": "lib/dominio/explicacion/linea-calculo.ts:crearLineaCalculo",
+      "property": "origen.decimal",
+      "operation": "toFixed"
+    },
+    "scope": "explicit-2025-admission-required",
+    "valueClosed": false,
+    "selectionClosed": false,
+    "siteClosed": false,
+    "valueNode": "lib/dominio/irpf/trabajo-anual/conexion.ts:5543:5557:local",
+    "entryPoint": "lib/dominio/irpf/trabajo-anual/conexion.ts:liquidarIrpfAnualExplicito",
+    "verdict": "corroboración técnica de operaciones condicionada; metadatos de colecciones requieren rectificación donde corresponda",
+    "reason": "min(max(art19,0),reducción sobre argumentoArt20), O literal0 en este perfil, una vez; no usar art19 como argumento.",
+    "conditions": [
+      "artefacto y cuatro módulos exactos previamente verificados",
+      "datos dentro del contrato del llamador",
+      "primitivas y dependencias concretas; sin callbacks arbitrarios",
+      "admisión general/composición y contraste del padre pendientes"
+    ],
+    "acceptance": false
+  },
+  {
+    "siteId": "anual.explicito.actividad.etapa",
+    "producer": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 7140,
+      "end": 7156,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "expression": null,
+    "instance": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 7110,
+      "end": 7119,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "unit": "EUR",
+    "transport": {
+      "function": "lib/dominio/explicacion/linea-calculo.ts:crearLineaCalculo",
+      "property": "origen.decimal",
+      "operation": "toFixed"
+    },
+    "scope": "explicit-2025-admission-required",
+    "valueClosed": false,
+    "selectionClosed": false,
+    "siteClosed": false,
+    "valueNode": "lib/dominio/irpf/trabajo-anual/conexion.ts:7140:7156:new",
+    "entryPoint": "lib/dominio/irpf/trabajo-anual/conexion.ts:liquidarIrpfAnualExplicito",
+    "verdict": "corroboración técnica de operaciones condicionada; metadatos de colecciones requieren rectificación donde corresponda",
+    "reason": "adaptador conserva etapas separado de aporte, map(e,instancia), new D(e.importe), origen.decimal. Dos activos aislados no alcanzables; rechazos no devuelven etapas. Ver instancias19.",
+    "conditions": [
+      "artefacto y cuatro módulos exactos previamente verificados",
+      "datos dentro del contrato del llamador",
+      "primitivas y dependencias concretas; sin callbacks arbitrarios",
+      "admisión general/composición y contraste del padre pendientes"
+    ],
+    "acceptance": false
+  },
+  {
+    "siteId": "anual.explicito.da61",
+    "producer": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 11416,
+      "end": 11425,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "expression": null,
+    "instance": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 11396,
+      "end": 11397,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "unit": "EUR",
+    "transport": {
+      "function": "lib/dominio/explicacion/linea-calculo.ts:crearLineaCalculo",
+      "property": "origen.decimal",
+      "operation": "toFixed"
+    },
+    "scope": "explicit-2025-admission-required",
+    "valueClosed": false,
+    "selectionClosed": false,
+    "siteClosed": false,
+    "valueNode": "lib/dominio/irpf/trabajo-anual/conexion.ts:11416:11425:local",
+    "entryPoint": "lib/dominio/irpf/trabajo-anual/conexion.ts:liquidarIrpfAnualExplicito",
+    "verdict": "corroboración técnica de operaciones condicionada; metadatos de colecciones requieren rectificación donde corresponda",
+    "reason": "solo brutoServicios empleo>0; deducción después art80, bruto no pensión/EDS. DA61 literal2025; legal340−.2 exceso16576, O>6500 bloquea; cuota atribuible y base0 explícitos. art80bis aislado tiene porcentajes /100 y contrato2012–14, no llamada anual.",
+    "conditions": [
+      "artefacto y cuatro módulos exactos previamente verificados",
+      "datos dentro del contrato del llamador",
+      "primitivas y dependencias concretas; sin callbacks arbitrarios",
+      "admisión general/composición y contraste del padre pendientes"
+    ],
+    "acceptance": false
+  },
+  {
+    "siteId": "anual.explicito.retenciones",
+    "producer": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 11923,
+      "end": 11934,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "expression": null,
+    "instance": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 11903,
+      "end": 11904,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "unit": "EUR",
+    "transport": {
+      "function": "lib/dominio/explicacion/linea-calculo.ts:crearLineaCalculo",
+      "property": "origen.decimal",
+      "operation": "toFixed"
+    },
+    "scope": "explicit-2025-admission-required",
+    "valueClosed": false,
+    "selectionClosed": false,
+    "siteClosed": false,
+    "valueNode": "lib/dominio/irpf/trabajo-anual/conexion.ts:11923:11934:local",
+    "entryPoint": "lib/dominio/irpf/trabajo-anual/conexion.ts:liquidarIrpfAnualExplicito",
+    "verdict": "corroboración técnica de operaciones condicionada; metadatos de colecciones requieren rectificación donde corresponda",
+    "reason": "trabajo reduce diarios admitidos por Schema y operaciones únicas; EDS aporte.retencionesEuros; pago efectivo no estimación SS.",
+    "conditions": [
+      "artefacto y cuatro módulos exactos previamente verificados",
+      "datos dentro del contrato del llamador",
+      "primitivas y dependencias concretas; sin callbacks arbitrarios",
+      "admisión general/composición y contraste del padre pendientes"
+    ],
+    "acceptance": false
+  },
+  {
+    "siteId": "anual.explicito.pagos",
+    "producer": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 12163,
+      "end": 12168,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "expression": null,
+    "instance": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 12143,
+      "end": 12144,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "unit": "EUR",
+    "transport": {
+      "function": "lib/dominio/explicacion/linea-calculo.ts:crearLineaCalculo",
+      "property": "origen.decimal",
+      "operation": "toFixed"
+    },
+    "scope": "explicit-2025-admission-required",
+    "valueClosed": false,
+    "selectionClosed": false,
+    "siteClosed": false,
+    "valueNode": "lib/dominio/irpf/trabajo-anual/conexion.ts:12163:12168:local",
+    "entryPoint": "lib/dominio/irpf/trabajo-anual/conexion.ts:liquidarIrpfAnualExplicito",
+    "verdict": "corroboración técnica de operaciones condicionada; metadatos de colecciones requieren rectificación donde corresponda",
+    "reason": "0 en trabajo; EDS aporte.pagosFraccionadosEuros en canal distinto de renta/RETA.",
+    "conditions": [
+      "artefacto y cuatro módulos exactos previamente verificados",
+      "datos dentro del contrato del llamador",
+      "primitivas y dependencias concretas; sin callbacks arbitrarios",
+      "admisión general/composición y contraste del padre pendientes"
+    ],
+    "acceptance": false
+  },
+  {
+    "siteId": "anual.explicito.diferencial",
+    "producer": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 12410,
+      "end": 12421,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "expression": null,
+    "instance": {
+      "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "start": 12390,
+      "end": 12391,
+      "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+      "offsetEncoding": "utf16"
+    },
+    "unit": "EUR",
+    "transport": {
+      "function": "lib/dominio/explicacion/linea-calculo.ts:crearLineaCalculo",
+      "property": "origen.decimal",
+      "operation": "toFixed"
+    },
+    "scope": "explicit-2025-admission-required",
+    "valueClosed": false,
+    "selectionClosed": false,
+    "siteClosed": false,
+    "valueNode": "lib/dominio/irpf/trabajo-anual/conexion.ts:12410:12421:local",
+    "entryPoint": "lib/dominio/irpf/trabajo-anual/conexion.ts:liquidarIrpfAnualExplicito",
+    "verdict": "corroboración técnica de operaciones condicionada; metadatos de colecciones requieren rectificación donde corresponda",
+    "reason": "posterior−retenciones−pagos; signo y decimal exacto antes de formato half-up2; requiere contratos escalas/mínimos. Ensayo racional2810.",
+    "conditions": [
+      "artefacto y cuatro módulos exactos previamente verificados",
+      "datos dentro del contrato del llamador",
+      "primitivas y dependencias concretas; sin callbacks arbitrarios",
+      "admisión general/composición y contraste del padre pendientes"
+    ],
+    "acceptance": false
+  }
+]

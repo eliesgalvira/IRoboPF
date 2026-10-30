@@ -1,0 +1,52 @@
+import fs from 'node:fs'
+import assert from 'node:assert/strict'
+import {gzipSync,gunzipSync} from 'node:zlib'
+import {createHash} from 'node:crypto'
+import Decimal from 'decimal.js'
+import {composeSS,validateSS} from '../../../scripts/procedencia/flujo-ss-r36.mjs'
+import {createSSEvaluator} from '../../../scripts/procedencia/flujo-ss-r36-consumidor.mjs'
+import {composeRentasR36,verifyRentasR36} from '../../../scripts/procedencia/flujo-rentas-r36.mjs'
+import {runRentasSuite} from '../../../scripts/procedencia/flujo-rentas-r36-ensayos.mjs'
+import {calcularDesgloseCotizacionesSocialesLegacy as legacy} from '../../../lib/dominio/laboral/cotizaciones-sociales.ts'
+import {calcularDesgloseCotizacionesPerfilUniforme as canonico} from '../../../lib/dominio/laboral/cotizaciones-perfil-uniforme.ts'
+const out='docs/procedencia/correcciones/unidades-colecciones-r41/'
+const sha=b=>createHash('sha256').update(b).digest('hex')
+const ss=composeSS(),rentas=composeRentasR36(),run=createSSEvaluator(ss)
+const comparison=[]
+for(const [name,g,allowed] of [['ss',ss,['unitContracts','fieldUnits','literalUnits']],['rentas',rentas,['collections','software']]]){
+ const before=JSON.parse(gunzipSync(fs.readFileSync(out+name+'-antes.json.gz')))
+ const changed=Object.keys(g).filter(k=>JSON.stringify(g[k])!==JSON.stringify(before[k]))
+ assert.deepEqual(changed,[...allowed].sort((a,b)=>Object.keys(g).indexOf(a)-Object.keys(g).indexOf(b)))
+ assert.deepEqual(g.program,before.program)
+ assert.deepEqual(g.sources,before.sources)
+ if(name==='ss')validateSS(g);else verifyRentasR36(g)
+ const bytes=gzipSync(JSON.stringify(g));fs.writeFileSync(out+name+'-despues.json.gz',bytes)
+ comparison.push({name,changed,programUnchanged:true,sourcesUnchanged:true,operations:g.program.length,sha256:sha(bytes),bytes:bytes.length})
+}
+const fields=['baseOrdinaria','excesoBase','cotizacionEmpresarialOrdinaria','cotizacionTrabajadorOrdinaria','meiEmpresarial','meiTrabajador','solidaridadEmpresarial','solidaridadTrabajador','cotizacionEmpresarial','cotizacionTrabajador']
+const cases=JSON.parse(fs.readFileSync('.cache/orquestador-recepcion/r41/racionales.json')).map(c=>{
+ const bruto=c.amounts.reduce((a,b)=>a.plus(b),new Decimal(0)).div(100)
+ const real=(c.mode==='canonico'?canonico:legacy)({anio:c.year,salarioBrutoAnual:bruto})
+ const result=run({anio:c.year,rendimientos:{trabajo:c.amounts.map(importeIntegroCentimos=>({importeIntegroCentimos}))}},{modo:c.mode})
+ const expectedReal=[...fields.map(f=>real[f]),bruto.plus(real.cotizacionEmpresarial)]
+ const checks=c.expected.map((e,i)=>{
+  const rational=new Decimal(e.n).div(e.d),value=result.lines[i].origen.decimal
+  assert(rational.minus(value).abs().lt('1e-12'));assert(rational.minus(expectedReal[i]).abs().lt('1e-12'))
+  return {value,real:expectedReal[i].toString(),rational:e}
+ });return {...c,checks}
+})
+fs.writeFileSync(out+'ss-438-casos.json.gz',gzipSync(JSON.stringify(cases)))
+const suite=runRentasSuite();assert.equal(suite.failed,0);assert.equal(suite.passed,41)
+const oldSuite=JSON.parse(fs.readFileSync('docs/procedencia/correcciones/escalas-rentas-r40/casos-rentas.json'))
+assert.deepEqual(suite.cases,oldSuite.cases);assert.deepEqual(suite.executions,oldSuite.executions)
+const adversos=[]
+for(const row of ss.fieldUnits.filter(r=>r.key==='mei'||r.unit==='tuple3<ratio>')){
+ const bad=structuredClone(ss);bad.fieldUnits.find(r=>r.id===row.id).unit='EUR'
+ assert.throws(()=>validateSS(bad));adversos.push({id:row.id,rejected:true})
+}
+for(const row of JSON.parse(fs.readFileSync('docs/procedencia/revisiones/flujo-rentas-r40-sol/colecciones.json')).filter(r=>r.staticEffect)){
+ const bad=structuredClone(rentas);bad.collections.find(r=>r.id===row.id).receiver=row.receiver
+ assert.throws(()=>verifyRentasR36(bad));adversos.push({id:row.id,rejected:true})
+}
+fs.writeFileSync(out+'contraste.json',JSON.stringify({comparison,ssCases:cases.length,rentasCases:suite.passed,rentasExecutionsIdentical:true,adversos,acceptance:false,wiring:false},null,2)+'\n')
+console.log(JSON.stringify({comparison,ssCases:cases.length,rentasCases:suite.passed,adversos:adversos.length}))

@@ -1,0 +1,64 @@
+{
+  "head": "314efe543def21276acb44d0e3b0816dd5f78d58",
+  "review": "candidata; requiere contraste del padre",
+  "findings": [
+    {
+      "id": "RR40-01",
+      "status": "confirmado-tecnico",
+      "priority": "P2-documental",
+      "locations": [
+        "scripts/procedencia/flujo-rentas-r36.mjs:collections"
+      ],
+      "actual": "Cuatro EffectArray data-first descritos como métodos array; receptor/callback incorrectos y map con semilla espuria",
+      "expected": "Colección efectiva, callback y semilla por firma concreta",
+      "evidence": [
+        "colecciones.json",
+        "casos.json"
+      ],
+      "numericDefectDemonstrated": false,
+      "requiresProductFix": false,
+      "requiresRepresentationCorrection": true,
+      "objection": "El programa ejecuta argumentos correctos",
+      "response": "Separa metadatos de ejecución; no atribuye cuota errónea",
+      "cost": "Rectificación posterior y contraste del padre"
+    },
+    {
+      "id": "RR40-H02",
+      "status": "refutado",
+      "hypothesis": "calcularCotizacionesSocialesLegacy retorna Decimal en vez de objeto",
+      "actual": "Retorna TotalesCotizacionesSociales con cotizacionTrabajador; puerto correcto",
+      "source": "lib/dominio/laboral/cotizaciones-sociales.ts:245",
+      "objection": "Un nombre legacy no demuestra tipo",
+      "response": "Lectura del retorno real; sospecha retirada explícitamente",
+      "cost": "Ninguna corrección SS motivada por esta hipótesis"
+    },
+    {
+      "id": "RR40-L03",
+      "status": "limite-confirmado-no-bypass",
+      "hypothesis": "Ejecutar wrappers equivale a verificar software/admisión",
+      "actual": "Wrappers no invocan verificador; contrato exige verificación previa; no hay wiring público",
+      "evidence": [
+        "software.json",
+        "INFORME.md"
+      ],
+      "objection": "Una API técnica accesible no demuestra servicio público",
+      "response": "Riesgo previo a wiring; no bypass operativo",
+      "cost": "Mantener precondición y resolverla al componer"
+    },
+    {
+      "id": "RR40-H04",
+      "status": "rojo-historico-preservado",
+      "actual": "R25 reproduce seis rangos, saldo y dos mutantes de validador; copia sin default reproduce undefined frente7; mutante sin spreads rechaza empleo",
+      "evidence": [
+        "r25-pruebas.json",
+        "default.json",
+        "casos.json"
+      ],
+      "objection": "Un mutante deliberado no es defecto actual",
+      "response": "Se etiqueta y separa del candidato recibido; no se cambian esperados",
+      "cost": "Conservar negativos e instrumentos adicionales"
+    }
+  ],
+  "acceptance": false,
+  "attestation": null
+}

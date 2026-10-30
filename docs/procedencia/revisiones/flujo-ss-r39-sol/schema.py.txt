@@ -1,0 +1,10 @@
+import json,gzip
+from pathlib import Path
+from jsonschema import Draft202012Validator
+s=json.loads(Path('schemas/procedencia/flujo/ss-r36.schema.json').read_text());v=Draft202012Validator(s);g=json.loads(gzip.decompress(Path('docs/procedencia/implementaciones/flujo-ss-r36-sol/fragmento.json.gz').read_bytes()));v.validate(g)
+g['pending']=[g['obligations'][0]['id']];g['obligations'][0]['status']='pending'
+for x in g['sites']:x['valueClosed']=False;x['selectionClosed']=False
+v.validate(g)
+g['sites'][0]['admissionClosed']=True;g['sites'][0]['siteClosed']=True
+v.validate(g)
+print('Schema: candidato y pending válidos; permite booleanos de admisión true en forma, sin autorización semántica; API verificada los compara y rechaza.')

@@ -1,0 +1,78 @@
+[
+  {
+    "id": "SS39-01",
+    "status": "confirmado-tecnico-requiere-contraste-padre",
+    "title": "MEI objeto etiquetado EUR",
+    "scope": "Cinco fieldUnits key mei",
+    "reproduction": "dimensiones-rojo.json; params.mei tiene dos Decimals ratio; base 10000 produce 67/13 EUR.",
+    "classification": "contrato-documental",
+    "financialDefectDemonstrated": false,
+    "gate": "validateSS acepta el original y declara once cierres pese al rojo dimensional; corregir copia abre pendientes, no bypass operativo",
+    "objecion": "Los números son correctos y las anotaciones no intervienen en el cálculo.",
+    "respuesta": "Se corrobora valor técnico, pero el cierre promete correspondencia de unidades; la receta no puede validar la suficiencia de su propia clasificación.",
+    "coste": "Corregir extractor y representación por propiedad con rojo previo, sin alterar motor ni históricos."
+  },
+  {
+    "id": "SS39-02",
+    "status": "confirmado-tecnico-requiere-contraste-padre",
+    "title": "Tupla trabajador etiquetada ratio escalar",
+    "scope": "Tres propiedades de arrays y acceso solidaridad.trabajador",
+    "reproduction": "dimensiones-rojo.json; tabla 2025/2026/fallback y cuotaSolidaridad recibe tipos[0..2].",
+    "classification": "contrato-documental",
+    "financialDefectDemonstrated": false,
+    "gate": "validateSS acepta el original y declara once cierres pese al rojo dimensional; corregir copia abre pendientes, no bypass operativo",
+    "objecion": "Los números son correctos y las anotaciones no intervienen en el cálculo.",
+    "respuesta": "Se corrobora valor técnico, pero el cierre promete correspondencia de unidades; la receta no puede validar la suficiencia de su propia clasificación.",
+    "coste": "Corregir extractor y representación por propiedad con rojo previo, sin alterar motor ni históricos."
+  },
+  {
+    "id": "SS39-03",
+    "status": "confirmado-tecnico-requiere-contraste-padre",
+    "title": "Contrato de parámetros aplana colecciones de ratios",
+    "scope": "unitContracts.obtenerParametrosCotizacionLegacy",
+    "reproduction": "Contrato declara mei:ratio y tiposSeguridadSocial:ratio frente a TiposCotizacion y Record<string,TiposCotizacion> TS.",
+    "classification": "contrato-documental",
+    "financialDefectDemonstrated": false,
+    "gate": "validateSS acepta el original y declara once cierres pese al rojo dimensional; corregir copia abre pendientes, no bypass operativo",
+    "objecion": "Los números son correctos y las anotaciones no intervienen en el cálculo.",
+    "respuesta": "Se corrobora valor técnico, pero el cierre promete correspondencia de unidades; la receta no puede validar la suficiencia de su propia clasificación.",
+    "coste": "Corregir extractor y representación por propiedad con rojo previo, sin alterar motor ni históricos."
+  },
+  {
+    "id": "SS39-04",
+    "status": "confirmado-tecnico-requiere-contraste-padre",
+    "title": "Ceros monetarios clasificados metadata",
+    "scope": "literalUnits: uniforme 2710, legacy 5828",
+    "reproduction": "Decimal.max(0,salario−base) y excesoBase.lte(0), ambos con operando EUR; no es texto editorial.",
+    "classification": "contrato-documental",
+    "financialDefectDemonstrated": false,
+    "gate": "validateSS acepta el original y declara once cierres pese al rojo dimensional; corregir copia abre pendientes, no bypass operativo",
+    "objecion": "Los números son correctos y las anotaciones no intervienen en el cálculo.",
+    "respuesta": "Se corrobora valor técnico, pero el cierre promete correspondencia de unidades; la receta no puede validar la suficiencia de su propia clasificación.",
+    "coste": "Corregir extractor y representación por propiedad con rojo previo, sin alterar motor ni históricos."
+  },
+  {
+    "id": "SS39-R1",
+    "status": "refutado-en-alcance",
+    "hypothesis": "medirAuditoriaSync transforma la cantidad financiera",
+    "evidence": "temporizacion.json: identidad de retorno y callback una vez; finally puede lanzar, límite excluido explícitamente."
+  },
+  {
+    "id": "SS39-R2",
+    "status": "refutado-en-alcance",
+    "hypothesis": "Copia del llamador o llamada anterior altera el siguiente caso ordinario",
+    "evidence": "casos-segundo.log; copia privada y estado por llamada; no garantía para getters/inyección."
+  },
+  {
+    "id": "SS39-R3",
+    "status": "prueba-propia-no-valida",
+    "hypothesis": "Dos observaciones de umbrales anualizados demuestran unidad 12 errónea",
+    "evidence": "observaciones.json conserva 2 rojos de una búsqueda call errónea; literal 12 sí tiene meses. No defecto; no cambiar esperado histórico."
+  },
+  {
+    "id": "SS39-C1",
+    "status": "reserva-editorial",
+    "hypothesis": "unitContracts son contratos completos de estructuras",
+    "evidence": "tag+three-ratios no expresa unión Sin/Con; breakdown:EUR no enumera metadatos; programa sí incluye campos, no demostrar omisión financiera."
+  }
+]
