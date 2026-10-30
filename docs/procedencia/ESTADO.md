@@ -8,6 +8,8 @@ Recibida y contrastada la revisión R58: 22.458 entradas del hijo físicamente i
 
 Las seis salidas de retenciones/pagos quedan corroboradas bajo sus condiciones; SS conserva su alcance. Sin defecto nuevo ni cambios de producto. D130 avanza a las diez salidas generales de rentas y su frontera SS concreta, seguida de revisión independiente. Actualmente quedan 48 sitios y 19 familias, composición y admisión; las cuatro puertas permanecen falsas. Motor, inventario, confianza y 45 snapshots intactos. V5 conserva corte R26; Crossa v1 sigue desfasado. Sin main, PR, despliegue, LFS, gasto, transferencia o limpieza. El encargo global permanece abierto.
 
+Bloque respaldado en origin, commit `e8eff9ec7cea9e016d291f312f1e6ec2d414a03a`: 66 archivos, hashes cotejados y cero borrados. Lanzada una única implementación de las diez salidas generales de rentas y su enlace causal concreto con SS, sobre ese commit y sus 22.524 entradas, con gpt-6.1-sol, high y priority explícitos y confirmados. Encargo y respuesta completos en delegaciones-ronda59.json. Su finalización reactivará este hilo, sin sondeos ni lectura parcial. La implementación tendrá revisión independiente nueva.
+
 ## Situación anterior, ronda 58 del 30 de octubre
 
 Integrado como candidato R57 de las seis salidas causales de retenciones/pagos y núcleo compartido con SS. Cotejo físico de 22.293 entradas del hijo: tres modificaciones autorizadas y cero borrados; transporte exacto de 172 rutas. Incorporadas 130 rutas y preservadas 23 referencias técnicas. El padre versiona el fixture de la prueba nueva, conservando original y diff; las incidencias propias de modo de lock y preimagen compilable quedan documentadas. Detalle en correcciones/recepcion-causal-retenciones-r58.
