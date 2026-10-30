@@ -1,0 +1,95 @@
+[
+  {
+    "id": "R44-A01",
+    "severity": "blocking",
+    "summary": "Identidad de recibos: colisiones y omisión de propiedades no enumerables",
+    "observed": "success",
+    "expected": "pending",
+    "families": [
+      "R36-01",
+      "R36-04",
+      "R36-05",
+      "R36-06"
+    ],
+    "status": "reproducido-candidato-requiere-contraste-del-padre",
+    "fiscalDefect": false,
+    "objection": "El dominio podría limitarse a datos JSON enumerables.",
+    "response": "Ese límite no está comprobado y Decimal/Date requieren codificación propia.",
+    "cost": "Versionar codec/recibos y revisar transporte.",
+    "productFixed": false,
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "R44-A02",
+    "severity": "blocking",
+    "summary": "optional-object permite número 17 como escala publicada",
+    "observed": "success",
+    "expected": "defect",
+    "families": [
+      "R36-05",
+      "R36-06"
+    ],
+    "status": "reproducido-candidato-requiere-contraste-del-padre",
+    "fiscalDefect": false,
+    "objection": "La composición futura puede entregar una escala auténtica.",
+    "response": "No es garantía de esta frontera; el recibo actual es suficiente para success.",
+    "cost": "Contrato por variante y propiedades sin resolver aquí cuotas.",
+    "productFixed": false,
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "R44-A03",
+    "severity": "medium",
+    "summary": "Array subclass pasa dominio que anuncia excluir subclases",
+    "observed": "accepted-domain",
+    "expected": "pending",
+    "families": [
+      "R36-01",
+      "R36-05"
+    ],
+    "status": "reproducido-candidato-requiere-contraste-del-padre",
+    "fiscalDefect": false,
+    "objection": "El array derivado puede ser benigno.",
+    "response": "La garantía es exclusión ejecutable del dominio, no benignidad de este ejemplo.",
+    "cost": "Restringir o revisar y documentar métodos heredados.",
+    "productFixed": false,
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "R44-A04",
+    "severity": "high",
+    "summary": "Dos anclas globales exceden longitud de su fuente",
+    "observed": "empty-source",
+    "expected": "exact-source-span",
+    "families": [
+      "R36-01",
+      "R36-02"
+    ],
+    "status": "reproducido-candidato-requiere-contraste-del-padre",
+    "fiscalDefect": false,
+    "objection": "El pin fija esas referencias.",
+    "response": "Fija también su origen equivocado; no recupera el texto.",
+    "cost": "Nueva edición con origen correcto y revisión.",
+    "productFixed": false,
+    "completeRuleAcceptance": false
+  },
+  {
+    "id": "R44-A05",
+    "severity": "high",
+    "summary": "incremento de mínimos falso contradice menor de tres años",
+    "observed": "success",
+    "expected": "defect",
+    "families": [
+      "R36-01",
+      "R36-05",
+      "R36-06"
+    ],
+    "status": "reproducido-candidato-requiere-contraste-del-padre",
+    "fiscalDefect": false,
+    "objection": "El booleano podría dejarse al puerto monetario.",
+    "response": "No se conserva entonces toda selección sin evidencia adicional.",
+    "cost": "Contrato finito edad/fecha o pending, sin validar cantidades.",
+    "productFixed": false,
+    "completeRuleAcceptance": false
+  }
+]

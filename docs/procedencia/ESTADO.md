@@ -2,7 +2,17 @@
 
 Inicio: 29 de octubre de 2026. Trabajo en curso; no es una certificación fiscal.
 
-## Situación más reciente, ronda 45 del 30 de octubre
+## Situación más reciente, ronda 46 del 30 de octubre
+
+Recibida la contrarrevisión de admisión R44: 50 archivos, 5.894.662 bytes, transporte exacto y cotejo físico de 21.243 entradas intactas, cero borrados. Preservadas 77 fuentes técnicas por ambos hashes. El padre reproduce 49 positivos y nueve rojos que materializan cinco hallazgos; informe y decisiones en correcciones/admision-r46.
+
+Corregidos como candidatos codec de recibos, escala opcional, dominio Array, anclas de reexportaciones y selección del incremento. Se conservan originales y rojos, sin modificar fórmulas. Pasan 58 comprobaciones de revisión adaptadas y 256 de regresión (incluyen 236 anteriores y 20 nuevas); no se suman coberturas solapadas. Tipos principal/vendor, lint global, schema y verificador correctos. Logs iniciales y adaptaciones explícitas conservados; checkJs=false mantiene su límite.
+
+Artefacto nuevo `9d8f62076250c197e6fd840ac5b336306dc5cdcb3ff6a183ec8892604ac29b9a`, con 27.379 nodos y 17 sitios sin admisión cerrada. Se prepara respaldo exacto y revisión independiente Sol de estas correcciones antes de conectar admisión. La continuación de composición R45 ha llegado parcial: su recepción separada sigue pendiente, no se declara cumplido el contrato común ni sus obligaciones.
+
+Motor, inventario, confianza y 45 snapshots intactos. V5 mantiene corte R26 y Crossa v1 desfasado. Sin main, PR, despliegue, LFS, gasto, transferencia o limpieza. El encargo global continúa abierto.
+
+## Situación anterior, ronda 45 del 30 de octubre
 
 Recibida la composición parcial R43: 94 archivos, 7.982.400 bytes y transporte exacto. Cotejo físico de las 21.126 entradas de base del hijo: intactas, cero borrados. Se incorporan los puentes financieros como candidato parcial, sin declarar completos los contratos comunes ni los cierres. Detalle en correcciones/recepcion-composicion-r45.
 

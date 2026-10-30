@@ -1,0 +1,99 @@
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-d5a4bfa0
+
+ ❯ docs/procedencia/revisiones/admision-completa-r44-sol/contraste.test.mjs (24 tests | 7 failed) 4048ms
+   × ROJO codec sin colisiones undefined 3ms
+   × ROJO codec sin colisiones 7 1ms
+   × ROJO codec sin colisiones Thu Jan 01 1970 01:00:00 GMT+0100 (Central European Standard Time) 1ms
+   × ROJO codec sin colisiones NaN 0ms
+   × ROJO subclase de array fuera del dominio anunciado 1ms
+   × ROJO salida estructural insuficiente obtenerEscalaAutonomicaPublicada 221ms
+   × ROJO salida estructural insuficiente calcularDesgloseCuotaPorEscalaGeneral 220ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 7 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  docs/procedencia/revisiones/admision-completa-r44-sol/contraste.test.mjs > ROJO codec sin colisiones undefined
+AssertionError: expected { kind: 'undefined' } to not deeply equal { kind: 'undefined' }
+
+Compared values have no visual difference.
+
+ ❯ docs/procedencia/revisiones/admision-completa-r44-sol/contraste.test.mjs:50:92
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/7]⎯
+
+ FAIL  docs/procedencia/revisiones/admision-completa-r44-sol/contraste.test.mjs > ROJO codec sin colisiones 7
+AssertionError: expected { kind: 'Decimal', value: '7' } to not deeply equal { kind: 'Decimal', value: '7' }
+
+Compared values have no visual difference.
+
+ ❯ docs/procedencia/revisiones/admision-completa-r44-sol/contraste.test.mjs:50:92
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/7]⎯
+
+ FAIL  docs/procedencia/revisiones/admision-completa-r44-sol/contraste.test.mjs > ROJO codec sin colisiones Thu Jan 01 1970 01:00:00 GMT+0100 (Central European Standard Time)
+AssertionError: expected { kind: 'Date', value: +0 } to not deeply equal { kind: 'Date', value: +0 }
+
+Compared values have no visual difference.
+
+ ❯ docs/procedencia/revisiones/admision-completa-r44-sol/contraste.test.mjs:50:92
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/7]⎯
+
+ FAIL  docs/procedencia/revisiones/admision-completa-r44-sol/contraste.test.mjs > ROJO codec sin colisiones NaN
+AssertionError: expected { kind: 'number', value: 'NaN' } to not deeply equal { kind: 'number', value: 'NaN' }
+
+Compared values have no visual difference.
+
+ ❯ docs/procedencia/revisiones/admision-completa-r44-sol/contraste.test.mjs:50:92
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/7]⎯
+
+ FAIL  docs/procedencia/revisiones/admision-completa-r44-sol/contraste.test.mjs > ROJO subclase de array fuera del dominio anunciado
+AssertionError: expected [Function] to throw an error
+
+- Expected:
+null
+
++ Received:
+undefined
+
+ ❯ docs/procedencia/revisiones/admision-completa-r44-sol/contraste.test.mjs:54:51
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/7]⎯
+
+ FAIL  docs/procedencia/revisiones/admision-completa-r44-sol/contraste.test.mjs > ROJO salida estructural insuficiente obtenerEscalaAutonomicaPublicada
+AssertionError: expected 'success' to be 'defect' // Object.is equality
+
+Expected: "defect"
+Received: "success"
+
+ ❯ docs/procedencia/revisiones/admision-completa-r44-sol/contraste.test.mjs:58:80
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/7]⎯
+
+ FAIL  docs/procedencia/revisiones/admision-completa-r44-sol/contraste.test.mjs > ROJO salida estructural insuficiente calcularDesgloseCuotaPorEscalaGeneral
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ docs/procedencia/revisiones/admision-completa-r44-sol/contraste.test.mjs:58:42
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/7]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  7 failed | 17 passed (24)
+   Start at  03:01:31
+   Duration  5.85s (transform 425ms, setup 0ms, import 1.70s, tests 4.05s, environment 0ms)
+

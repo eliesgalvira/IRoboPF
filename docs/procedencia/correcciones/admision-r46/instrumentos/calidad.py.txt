@@ -1,0 +1,8 @@
+import json,subprocess
+from pathlib import Path
+r=Path('/home/elies/Repos/IRoboPF');o=r/'docs/procedencia/correcciones/admision-r46'
+jobs=[('types',['bun','run','typecheck']),('oxlint',['node_modules/.bin/oxlint','--threads=1','--disable-nested-config']),('eslint',['bun','run','lint:eslint'])]
+results=[]
+for name,cmd in jobs:
+ with (o/(name+'-inicial.log')).open('wb') as log:p=subprocess.run(['flock','/tmp/irobopf-validacion-pesada.lock',*cmd],cwd=r,stdout=log,stderr=subprocess.STDOUT)
+ results.append(dict(name=name,command=cmd,exitCode=p.returncode));(o/'calidad-inicial.json').write_text(json.dumps(results,indent=2)+'\n');print(json.dumps(results[-1]),flush=True)

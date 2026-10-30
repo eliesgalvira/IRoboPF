@@ -1,0 +1,4 @@
+process.env.IROBOPF_DEPENDENCIES_PACKAGE="/home/elies/Repos/IRoboPF/package.json";
+import { createRequire } from 'node:module';
+const require = createRequire('/home/elies/Repos/IRoboPF/package.json');
+export default {cacheDir:"/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r46/vite-regresiones",resolve:{alias:{'@':process.cwd()},plugins:[]},plugins:[{name:'dependencias-recibidas',enforce:'pre',resolveId(id){if(!id.startsWith('.')&&!id.startsWith('/')&&!id.startsWith('node:')&&!id.startsWith('@/')){try{return id==='vitest'?'/home/elies/Repos/IRoboPF/node_modules/vitest/dist/index.js':require.resolve(id)}catch{return null}}}}],test:{include:['tests/admision-r46.test.ts','tests/flujo-admision-r36*.test.ts','docs/procedencia/implementaciones/admision-completa-r36-sol/*.test.mjs',"/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r46/regresion-derechos.test.mjs"],cache:false,maxWorkers:1,testTimeout:60000}};

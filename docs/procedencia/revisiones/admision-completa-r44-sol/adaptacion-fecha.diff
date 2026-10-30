@@ -1,0 +1,19 @@
+--- 
++++ 
+@@ -1,6 +1,6 @@
+ import {expect,it} from 'vitest'
+ import Decimal from 'decimal.js'
+-import {Effect,Result} from 'effect'
++import {DateTime,Effect,Result} from 'effect'
+ import {obtenerParametrosComunidadAutonoma} from '../../../../lib/dominio/irpf/comunidades/comunidad-autonoma'
+ import type {EntradaParametrosComunidadAutonoma} from '../../../../lib/dominio/irpf/comunidades/comunidad-autonoma'
+ import {liquidarIrpfAnual} from '../../../../lib/dominio/irpf/liquidacion/liquidar-irpf-anual'
+@@ -23,7 +23,7 @@
+ // SAFETY: ejercicios con cortes conocidos y territorios del tipo real.
+ for(const anio of [2015,2022,2023] as const)for(const iso of ['2015-12-30T23:59:59.999Z','2015-12-31T00:00:00.001Z','2022-10-27T23:59:59.999Z','2022-10-28T00:00:00.001Z','2023-09-14T23:59:59.999Z','2023-09-15T00:00:00.001Z'])it(`UTC propio ${anio}/${iso}`,()=>{
+  for(const comunidadAutonoma of ['andalucia','galicia','comunitat-valenciana','madrid'] as const){
+-  const input:EntradaParametrosComunidadAutonoma={anio,comunidadAutonoma,fechaFallecimiento:new Date(iso)}
++  const input:EntradaParametrosComunidadAutonoma={anio,comunidadAutonoma,fechaFallecimiento:DateTime.toDateUtc(DateTime.makeUnsafe(iso))}
+   const result=evaluateCompleteAdmission(f,'obtenerParametrosComunidadAutonoma',[input]);expect(result.outcome,result.reason).toBe('success');expect(result.value).toEqual(obtenerParametrosComunidadAutonoma(input))
+  }
+ })

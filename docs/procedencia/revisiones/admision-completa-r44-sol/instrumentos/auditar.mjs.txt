@@ -1,0 +1,32 @@
+import {readFileSync,writeFileSync,mkdirSync} from 'node:fs'
+import {createHash} from 'node:crypto'
+import {gunzipSync,gzipSync} from 'node:zlib'
+import {createRequire} from 'node:module'
+const require=createRequire('/home/elies/Repos/IRoboPF/package.json'),ts=require('typescript')
+const d='docs/procedencia/revisiones/admision-completa-r44-sol/'
+const f=JSON.parse(gunzipSync(readFileSync('docs/procedencia/implementaciones/admision-completa-r36-sol/fragmento.json.gz')))
+const hash=b=>createHash('sha256').update(b).digest('hex'),sha512=b=>createHash('sha512').update(b).digest('hex')
+const asts=new Map(),sources=[]
+for(const src of [...f.graph.sources,...f.rights.sources]){
+ if(asts.has(src.path))continue
+ const bytes=readFileSync(src.path),text=bytes.toString(),sf=ts.createSourceFile(src.path,text,ts.ScriptTarget.Latest,true),nodes=new Map()
+ function visit(n){const key=n.getStart(sf)+':'+n.end;if(!nodes.has(key))nodes.set(key,[]);nodes.get(key).push(n);ts.forEachChild(n,visit)}visit(sf)
+ asts.set(src.path,{text,sf,nodes})
+ const sha=hash(bytes);if(sha!==src.sha256)throw Error('Fuente diferente '+src.path)
+ mkdirSync('.cache/revision-admision-completa-r44-sol/cas/sha256',{recursive:true});writeFileSync('.cache/revision-admision-completa-r44-sol/cas/sha256/'+sha,bytes)
+ sources.push({path:src.path,size:bytes.length,sha256:sha,sha512:sha512(bytes),origin:{head:'20db524962aab05e648fa96c875213c090bd9df1',path:src.path},cas:'.cache/revision-admision-completa-r44-sol/cas/sha256/'+sha})
+}
+const anchors=new Map(f.graph.anchors.map(a=>[a.id,a])),rows=[]
+function walk(n){if(!n||Object(n)!==n)return;if(n.op){const a=anchors.get(n.id);if(!a)throw Error('Sin ancla');const {text,sf,nodes}=asts.get(a.path);const candidates=nodes.get(a.start+':'+a.end)??[];let correct=null
+ if(n.op==='binary')correct=candidates.some(c=>ts.isBinaryExpression(c)&&c.operatorToken.getText(sf)===n.operator)
+ if(n.op==='unary')correct=candidates.some(c=>ts.isPrefixUnaryExpression(c)&&ts.tokenToString(c.operator)===n.operator)
+ if(n.op==='get')correct=candidates.some(c=>(ts.isPropertyAccessExpression(c)||ts.isElementAccessExpression(c))&&Boolean(c.questionDotToken)===n.optional)
+ rows.push({id:n.id,op:n.op,path:a.path,start:a.start,end:a.end,source:text.slice(a.start,a.end),astKinds:candidates.map(c=>ts.SyntaxKind[c.kind]),operatorOrOptionalMatch:correct})
+ if(['literal','json'].includes(n.op))return
+ }for(const v of Object.values(n))if(Array.isArray(v))v.forEach(walk);else if(v&&Object(v)===v)walk(v)}
+f.graph.definitions.forEach(d=>walk(d.value));f.graph.roots.forEach(r=>walk(r.value))
+const rights=f.rights.anchors.map(a=>({...a,text:asts.get(a.path).text.slice(a.start,a.end),exactAst:asts.get(a.path).nodes.has(a.start+':'+a.end)}))
+writeFileSync(d+'anclas.json.gz',gzipSync(JSON.stringify({graph:rows,rights})))
+writeFileSync(d+'CAS.json',JSON.stringify(sources,null,2))
+writeFileSync(d+'contraste-anclas.json',JSON.stringify({nodes:rows.length,operatorsChecked:rows.filter(r=>r.operatorOrOptionalMatch!==null).length,mismatches:rows.filter(r=>r.operatorOrOptionalMatch===false),withoutAst:rows.filter(r=>!r.astKinds.length).map(r=>r.id),rightsAnchors:rights.length,rightsWithoutAst:rights.filter(r=>!r.exactAst).map(r=>r.id),limitation:'Correspondencia sintáctica independiente, no demuestra suficiencia de primitivas ni contratos externos.'},null,2))
+writeFileSync(d+'fronteras.json',JSON.stringify(f.boundaries,null,2))

@@ -1,0 +1,37 @@
+import subprocess,os,stat,hashlib,json,gzip,sys
+from pathlib import Path
+root=Path.cwd(); base='20db524962aab05e648fa96c875213c090bd9df1'; doc='docs/procedencia/revisiones/admision-completa-r44-sol/'; scratch='.cache/revision-admision-completa-r44-sol/'
+sha=lambda b:hashlib.sha256(b).hexdigest()
+entries={}
+for x in subprocess.check_output(['git','ls-tree','-rz',base]).split(b'\0'):
+ if x:
+  meta,path=x.split(b'\t',1);mode,kind,oid=meta.split();entries[os.fsdecode(path)]=(mode,oid)
+proc=subprocess.Popen(['git','cat-file','--batch'],stdin=subprocess.PIPE,stdout=subprocess.PIPE)
+rows=[];differences=[]
+for path,(mode,oid) in entries.items():
+ try:
+  info=os.lstat(path);raw=os.fsencode(os.readlink(path)) if stat.S_ISLNK(info.st_mode) else Path(path).read_bytes()
+  proc.stdin.write(oid+b'\n');proc.stdin.flush();header=proc.stdout.readline().split();expected=proc.stdout.read(int(header[2]));assert proc.stdout.read(1)==b'\n'
+  old=sha(expected);new=sha(raw);same=raw==expected and (mode==b'120000')==stat.S_ISLNK(info.st_mode) and (mode==b'120000' or bool(info.st_mode&0o111)==(mode==b'100755'))
+  rows.append(dict(path=path,baseSha256=old,sha256=new,size=len(raw),mode=oct(info.st_mode),link=os.readlink(path) if stat.S_ISLNK(info.st_mode) else None,same=same))
+  if not same:differences.append(path)
+  del expected,raw
+ except Exception as e:differences.append([path,str(e)])
+proc.stdin.close();proc.wait()
+physical=[];extras=[];outside=[]
+for current,dirs,files in os.walk(root,followlinks=False):
+ for name in dirs+files:
+  path=Path(current)/name;rel=path.relative_to(root).as_posix();info=os.lstat(path)
+  row=dict(path=rel,mode=oct(info.st_mode),kind='link' if stat.S_ISLNK(info.st_mode) else 'directory' if stat.S_ISDIR(info.st_mode) else 'file')
+  if stat.S_ISLNK(info.st_mode):row.update(link=os.readlink(path),sha256=sha(os.fsencode(os.readlink(path))))
+  elif stat.S_ISREG(info.st_mode):row.update(size=info.st_size,sha256=sha(path.read_bytes()))
+  physical.append(row)
+  if row['kind']=='directory' or rel in entries or rel=='.git':continue
+  extras.append(row)
+  if not (rel.startswith(doc) or rel.startswith(scratch)):outside.append(rel)
+diff=subprocess.check_output(['git','diff','--stat',base]).decode()
+label=sys.argv[1]
+result=dict(head=subprocess.check_output(['git','rev-parse','HEAD']).decode().strip(),base=base,entries=len(entries),equal=len(entries)-len(differences),differences=differences,deleted=[p for p in entries if not os.path.lexists(p)],physicalEntries=len(physical),extras=extras,outside=outside,diff=diff,method='lstat/readlink/bytes/ejecutabilidad; cat-file --batch solicitud individual, un blob residente; enumeración os.walk sin seguir enlaces',selfExclusion='La escritura de este recibo/snapshot ocurre tras la enumeración; controles terminales separados del payload.')
+(root/doc/(label+'-entradas.json.gz')).write_bytes(gzip.compress(json.dumps(dict(base=rows,physical=physical)).encode(),mtime=0));(root/doc/(label+'.json')).write_text(json.dumps(result,indent=2))
+print(json.dumps({k:result[k]for k in ['head','entries','equal','differences','deleted','physicalEntries','outside','diff']}))
+if differences or outside or result['deleted'] or result['head']!=base:sys.exit(1)

@@ -1,0 +1,12 @@
+from pathlib import Path
+import json
+r=Path.cwd(); s=r/'.cache/revision-admision-completa-r44-sol'; d=r/'docs/procedencia/revisiones/admision-completa-r44-sol'
+(d/'RECEPCION-INICIAL.json').write_text(json.dumps({'head':'20db524962aab05e648fa96c875213c090bd9df1','entries':21243,'differences':[],'diff':'','extras':[],'method':'lstat/readlink/bytes/ejecutabilidad, cat-file blob por entrada; terminó antes de mkdir/escritura','failedAttempt':'flock python3: executable ausente, 69; repetido por nix shell nixpkgs#python3'},indent=2))
+a=(r/'docs/procedencia/implementaciones/admision-completa-r36-sol/flujo.test.mjs').read_text(); helper=a[a.index('function synthetic'):a.index("for(const modo")]
+helper=helper.replace('function synthetic','export function synthetic')
+(s/'puertos.mjs').write_text("import Decimal from '/home/elies/Repos/IRoboPF/node_modules/decimal.js/decimal.mjs';\nimport {buildCompleteAdmission} from '../../scripts/procedencia/flujo-admision-r36.mjs';\nimport {encodeAdmissionValue} from '../../scripts/procedencia/flujo-admision-r36-runtime.mjs';\nconst f=buildCompleteAdmission();\n"+helper)
+import difflib
+(d/'adaptacion-puertos.diff').write_text(''.join(difflib.unified_diff(a.splitlines(True),(s/'puertos.mjs').read_text().splitlines(True),fromfile='flujo.test.mjs',tofile='scratch/puertos.mjs')))
+c=(r/'docs/procedencia/correcciones/recepcion-admision-r44/vitest.mjs.txt').read_text(); c=c.replace('/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r44/vite',str(s/'vite'))
+start=c.index('include:');end=c.index(',cache:false',start); c=c[:start]+"include:['docs/procedencia/revisiones/admision-completa-r44-sol/*.test.*']"+c[end:]; (s/'vitest.mjs').write_text(c)
+config=json.loads((r/'docs/procedencia/implementaciones/admision-completa-r36-sol/instrumentos/oxlint.json.txt').read_text());(s/'oxlint.json').write_text(json.dumps(config))
