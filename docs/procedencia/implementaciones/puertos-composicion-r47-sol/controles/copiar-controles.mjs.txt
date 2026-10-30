@@ -1,0 +1,8 @@
+import fs from 'node:fs';import {gzipSync} from 'node:zlib';
+const scratch='.cache/puertos-composicion-r47-sol/',doc='docs/procedencia/implementaciones/puertos-composicion-r47-sol/';fs.mkdirSync(doc+'controles',{recursive:true});
+for(const name of fs.readdirSync(scratch)){
+ const take=name.endsWith('.log')||name==='codigos.tsv'||name.startsWith('mutaciones')&&name.endsWith('.json')||name.startsWith('testigos')&&name.endsWith('.json')||name==='type-only-equivalence.json'||name==='cobertura-todas-llamadas.json';
+ if(take){const b=fs.readFileSync(scratch+name);fs.writeFileSync(doc+'controles/'+name+(b.length>1_000_000?'.gz':''),b.length>1_000_000?gzipSync(b):b)}
+}
+for(const name of ['tsconfig.json','tsconfig-global.json','tsconfig-vendor.json','vitest.config.mjs','resolver.mjs','tipos-base.mjs','validar.sh','generar.ts','empaquetar.mjs','fisico.mjs','rojo.config.mjs','rojo-previo.test.ts','terminal.mjs','copiar-controles.mjs'])fs.writeFileSync(doc+'controles/'+name+'.txt',fs.readFileSync(scratch+name));
+fs.writeFileSync(doc+'controles/harness.mjs.txt',fs.readFileSync('scripts/procedencia/puertos-composicion-r47-harness.mjs'));

@@ -64,6 +64,8 @@ const printable = (v) => {
 }
 /** Solo consume operaciones JSON. No importa motor, compilador TS ni ejecuta texto.
  * El llamante debe validar primero el fragmento; executeFinite no concede confianza. */
+/** @param {string|null} expression
+ * @param {((event: import("./puertos-composicion-r47").Observation) => void)|null} observe */
 export function executeEscalasR36(
   fragment,
   functionName,
@@ -71,7 +73,8 @@ export function executeEscalasR36(
   capture = true,
   expression = null,
   bindings = [],
-  boundaries = new Map()
+  boundaries = new Map(),
+  observe = null
 ) {
   const nodes = new Map(fragment.program.map((n) => [n.id, n]))
   const globals = new Map(fragment.globalBindings.map((b) => [b.name, b.node]))
@@ -105,6 +108,7 @@ export function executeEscalasR36(
   )
   const trace = []
   const stack = []
+  const calls = []
   let invocation = 0,
     event = 0
   const record = (entry) =>
@@ -150,6 +154,7 @@ export function executeEscalasR36(
           if (!fn)
             throw Error("Frontera sin contrato suministrado " + n.data.target)
           const result = fn(...xs)
+          if (observe) observe({ node: calls.at(-1), target: n.data.target, frames: [...stack], arguments: xs.map(printable), result: printable(result) })
           record({
             node: id,
             operation: "external-boundary",
@@ -167,6 +172,7 @@ export function executeEscalasR36(
           throw Error("Frontera sin contrato suministrado " + n.data.target)
         const xs = n.args.map((i) => evaluate(i, env))
         value = fn(...xs)
+        if (observe) observe({ node: id, target: n.data.target, frames: [...stack], arguments: xs.map(printable), result: printable(value) })
         record({
           node: id,
           operation: "external-boundary",
@@ -332,7 +338,8 @@ export function executeEscalasR36(
         } else {
           const fn = ev(0)
           xs = many(n.args.slice(1))
-          value = fn(...xs)
+          calls.push(id)
+          try { value = fn(...xs) } finally { calls.pop() }
         }
         if (capture)
           record({
@@ -383,7 +390,8 @@ export function executeEscalasR36(
 
 /** Ensayo condicionado. Los callbacks son contratos ajenos suministrados por el
  * llamante; nunca se convierten en admisión ni en revisión independiente. */
-export function consumeEscalasR36(fragment, route, caso, contexto, boundaries) {
+/** @param {((event: import("./puertos-composicion-r47").Observation) => void)|null} observe */
+export function consumeEscalasR36(fragment, route, caso, contexto, boundaries, observe = null) {
   if (!["annual", "explicit"].includes(route)) throw Error("Ruta no admitida")
   const entry =
     route === "annual"
@@ -396,7 +404,8 @@ export function consumeEscalasR36(fragment, route, caso, contexto, boundaries) {
     true,
     null,
     [],
-    boundaries
+    boundaries,
+    observe
   )
   const lines = result.result.flat()
   if (

@@ -1,13 +1,9 @@
-import type { CasoActividad2025 } from "../../lib/dominio/irpf/actividades-economicas/contrato"
+import { createPortComposition } from "./puertos-composicion-r47"
 import { hashFile } from "./composicion-r43-archivos.mjs"
 import { composeSS, validateSS } from "./flujo-ss-r36.mjs"
 import { composeRetencionesR34, verifyRetencionesR34 } from "./flujo-retenciones-r34.mjs"
 import { composeRentasR36, verifyRentasR36 } from "./flujo-rentas-r36.mjs"
 import { composeEscalasR36, verifyEscalasR36 } from "./flujo-escalas-r36.mjs"
-import { executeFinite as ssRun, createSSEvaluator } from "./flujo-ss-r36-consumidor.mjs"
-import { executeFinite as retentionRun, consumeAnnual } from "./flujo-retenciones-r34-consumidor.mjs"
-import { executeRentasFinite, consumeGeneralRentas, consumeExplicitRentas } from "./flujo-rentas-r36-consumidor.mjs"
-import { executeEscalasR36, consumeEscalasR36 } from "./flujo-escalas-r36-consumidor.mjs"
 
 export const base = "05cf0e159cc0a0eb3b87d554447a2d14939115c2"
 const money = "lib/dominio/dinero/importe-monetario.ts"
@@ -84,45 +80,5 @@ export function consumePublic(candidate: Composition, route: string) {
 
 /** Laboratorio de valor; las entradas conservan su contrato público, pero este método no concede admisión. */
 export function createComposition(candidate: Composition) {
-  const g = verifyComposition(candidate).fragments
-  const ss = createSSEvaluator(g.ss)
-  const rentBoundaries = new Map<string, (...args: never[]) => object>()
-  const scaleBoundaries = new Map<string, (...args: never[]) => object>()
-  // Los argumentos se transportan sin proyección. Los intérpretes revisados mantienen su dominio dinámico.
-  const rent = (root: string, args: object[]) => executeRentasFinite(g.rentas, root, args, false, null, [], Object.fromEntries(rentBoundaries)).result
-  const scales = (root: string, args: object[]) => executeEscalasR36(g.escalas, root, args, false, null, [], scaleBoundaries).result
-  for (const [file, symbol] of scaleTargets) scaleBoundaries.set(file + "#" + symbol, (...args) => rent(file + ":" + symbol, args))
-  for (const [file, symbol] of ssTargets) {
-    const fn = (...args: object[]) => ssRun(g.ss, symbol, args, false).result
-    scaleBoundaries.set(file + "#" + symbol, fn)
-    rentBoundaries.set("boundary:" + symbol, fn)
-  }
-  // El consumidor solo lee las dos propiedades de totales que ya devuelve el desglose.
-  rentBoundaries.set("boundary:calcularCotizacionesSocialesLegacy", (...args) => {
-    const result = ssRun(g.ss, "calcularDesgloseCotizacionesSocialesLegacy", args, false).result
-    return { cotizacionEmpresarial: result.cotizacionEmpresarial, cotizacionTrabajador: result.cotizacionTrabajador }
-  })
-  for (const [file, symbol] of rentTargets) rentBoundaries.set("boundary:" + symbol, (...args) => scales(file + "#" + symbol, args))
-  scaleBoundaries.set("retencion.calcular", (...args) => retentionRun(g.retenciones, "calcularRetencionTrabajoAeatImpl", args, false).result)
-  // Precondición del laboratorio: derechos ya admitidos. No se ejecuta ni se suplanta la admisión pública.
-  scaleBoundaries.set(income + "minimos/derechos.ts#validarDerechosMinimos", (derechos) => derechos)
-  scaleBoundaries.set(income + "minimos/derechos.ts#validarRentasAnualesDerechos", (derechos) => derechos)
-  const minimum = g.escalas.globalBindings.find((b: { name: string }) => b.name === "lib/dominio/normativa/datos/minimos-autonomicos-2025.ts#MINIMOS_ESTATALES_2025")
-  if (minimum === undefined) throw Error("Raíz de mínimos ausente")
-  const constants = executeEscalasR36(g.escalas, null, [], false, minimum.node).result
-  const boundaries = () => ({ ...Object.fromEntries(rentBoundaries), "boundary:MINIMOS_ESTATALES_2025": constants })
-  return {
-    annual(caso: Parameters<typeof ss>[0], contexto: Parameters<typeof ss>[1]) {
-      const ssResult = ss(caso, contexto)
-      const rents = consumeGeneralRentas(g.rentas, caso, contexto, boundaries())
-      const retention = consumeAnnual(g.retenciones, caso, contexto, false)
-      const quotas = consumeEscalasR36(g.escalas, "annual", caso, contexto, scaleBoundaries)
-      return { lines: [...ssResult.lines, ...rents.lines, ...retention.lines, ...quotas.lines], admissionClosed: false, wiringAllowed: false }
-    },
-    explicit(entrada: Parameters<typeof consumeExplicitRentas>[1]) {
-      return consumeExplicitRentas(g.rentas, entrada, boundaries())
-    },
-    activity(entrada: CasoActividad2025) { return rent("lib/dominio/irpf/actividades-economicas/calcular.ts:calcularActividad2025", [entrada]) },
-    roots: { rent, scales },
-  }
+  return createPortComposition(candidate)
 }

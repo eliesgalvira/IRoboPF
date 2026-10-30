@@ -1,0 +1,18 @@
+// @ts-check
+// Preparador exclusivo de pruebas: no lo importa el router ni se exporta el constructor privado.
+// @effect-diagnostics effect/nodeBuiltinImport:off
+import { readFileSync, writeFileSync, mkdirSync } from "node:fs"
+// @effect-diagnostics effect/nodeBuiltinImport:off
+import { execFileSync } from "node:child_process"
+const root = process.cwd()
+const scratch = root + "/.cache/puertos-composicion-r47-sol/"
+mkdirSync(scratch, { recursive: true })
+const imports = (/** @type {string} */ text) => text
+  .replaceAll('"./', '"' + root + '/scripts/procedencia/')
+  .replaceAll('"../../lib/', '"' + root + '/lib/')
+const current = readFileSync(root + "/scripts/procedencia/puertos-composicion-r47.ts", "utf8")
+if (!current.includes("function routeContract(")) throw Error("Constructor privado no localizado")
+writeFileSync(scratch + "privado.ts", imports(current.replace("function routeContract(", "export function routeContract(")))
+const previous = execFileSync("git", ["cat-file", "blob", "a6fc3e5e4ec2a7fc7e123356e641817b2f19d908:scripts/procedencia/composicion-r43.ts"], { maxBuffer: 1_000_000 }).toString()
+if (!previous.includes("const g = verifyComposition(candidate).fragments")) throw Error("Rojo previo no localizado")
+writeFileSync(scratch + "legacy.ts", imports(previous.replace("const g = verifyComposition(candidate).fragments", "const g = candidate.fragments")))

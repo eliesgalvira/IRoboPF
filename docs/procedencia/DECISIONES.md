@@ -529,3 +529,7 @@ La revisión independiente y el contraste del padre corroboran R47-N01 y compati
 ## D121 — Corroborar resultados finitos con su precondición de composición
 
 La revisión independiente y el contraste del padre corroboran los seis bloques de resultados R45 sin nuevo defecto. Objeción: conservar payload y variantes podría aparentar autenticación o cierre del contrato global. Respuesta: mantener originales verificados, datos ordinarios y evaluación síncrona como condiciones, distinguir señal interna de autenticación y avanzar a puertos/obligaciones sin otra revisión favorable idéntica. Coste: verificación de cuatro programas al crear consumidor y discriminación explícita antes de usar valores; las APIs de laboratorio no conceden admisión ni aceptación fiscal.
+
+## D122 — Hacer ejecutables los puertos y revisar su suficiencia antes de componer cierres
+
+El candidato sustituye mapas manuales por un contrato y router de 22 puertos con 24 asociaciones a llamadas. Objeción: reconstruir el mismo esperado y obtener testigos puede repetir defectos del productor o aparentar validación de derechos. Respuesta: conservar correspondencia técnica y precondiciones, contrastar la ejecución con regresiones y encargar una revisión independiente de todas las conexiones, argumentos, selección y variantes. Coste: observadores opcionales en dos intérpretes y dependencias de laboratorio explícitas; el grafo transitivo, la admisión y la aceptación fiscal no se deducen de este hito. Los históricos y el rojo retrospectivo mantienen su identidad y alcance.

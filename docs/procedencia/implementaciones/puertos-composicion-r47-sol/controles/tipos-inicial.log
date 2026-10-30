@@ -1,0 +1,41 @@
+scripts/procedencia/puertos-composicion-r47.ts(41,7): error TS17: Unexpected `Node` type in condition, expected strictly a boolean instead.    effect(strictBooleanExpressions)
+scripts/procedencia/puertos-composicion-r47.ts(41,7): error TS17: Unexpected `undefined` type in condition, expected strictly a boolean instead.    effect(strictBooleanExpressions)
+scripts/procedencia/puertos-composicion-r47.ts(46,7): error TS17: Unexpected `Global` type in condition, expected strictly a boolean instead.    effect(strictBooleanExpressions)
+scripts/procedencia/puertos-composicion-r47.ts(46,7): error TS17: Unexpected `undefined` type in condition, expected strictly a boolean instead.    effect(strictBooleanExpressions)
+scripts/procedencia/puertos-composicion-r47.ts(82,209): error TS2345: Argument of type '{ obligations: { id: string; status: string; reason: string; }[]; sites: { siteId: string; unit: string; frequency: string; valueClosed: boolean; selectionClosed: boolean; admissionClosed: boolean; siteClosed: boolean; admissionRequirement: string; }[]; ... 16 more ...; wiringAllowed: boolean; } | { ...; } | { ...; }' is not assignable to parameter of type 'Fragment'.
+  Type '{ version: number; kind: string; base: string; sources: any[]; software: { file: string; sha256: string; }[]; roots: {}; program: any[]; globalBindings: ({ name: any; node: null; external: boolean; source?: never; } | { ...; })[]; ... 10 more ...; wiringAllowed: boolean; }' is not assignable to type 'Fragment'.
+    Types of property 'globalBindings' are incompatible.
+      Type '({ name: any; node: null; external: boolean; source?: never; } | { name: any; node: any; source: { file: any; start: any; end: any; sha256: any; offsetEncoding: string; }; external: boolean; })[]' is not assignable to type 'Global[]'.
+        Type '{ name: any; node: null; external: boolean; source?: never; } | { name: any; node: any; source: { file: any; start: any; end: any; sha256: any; offsetEncoding: string; }; external: boolean; }' is not assignable to type 'Global'.
+          Type '{ name: any; node: null; external: boolean; source?: never; }' is not assignable to type 'Global'.
+            Types of property 'node' are incompatible.
+              Type 'null' is not assignable to type 'string'.
+scripts/procedencia/puertos-composicion-r47.ts(93,7): error TS17: Unexpected `any` type in condition, expected strictly a boolean instead.    effect(strictBooleanExpressions)
+scripts/procedencia/puertos-composicion-r47.ts(96,326): error TS18048: 'reviewed' is possibly 'undefined'.
+scripts/procedencia/puertos-composicion-r47.ts(97,317): error TS2345: Argument of type '{ version: number; kind: string; base: string; sources: any[]; software: { file: string; sha256: string; }[]; roots: {}; program: any[]; globalBindings: ({ name: any; node: null; external: boolean; source?: never; } | { ...; })[]; ... 10 more ...; wiringAllowed: boolean; }' is not assignable to parameter of type 'Fragment'.
+  Types of property 'globalBindings' are incompatible.
+    Type '({ name: any; node: null; external: boolean; source?: never; } | { name: any; node: any; source: { file: any; start: any; end: any; sha256: any; offsetEncoding: string; }; external: boolean; })[]' is not assignable to type 'Global[]'.
+      Type '{ name: any; node: null; external: boolean; source?: never; } | { name: any; node: any; source: { file: any; start: any; end: any; sha256: any; offsetEncoding: string; }; external: boolean; }' is not assignable to type 'Global'.
+        Type '{ name: any; node: null; external: boolean; source?: never; }' is not assignable to type 'Global'.
+          Types of property 'node' are incompatible.
+            Type 'null' is not assignable to type 'string'.
+scripts/procedencia/puertos-composicion-r47.ts(100,6): error TS17: Unexpected `Node` type in condition, expected strictly a boolean instead.    effect(strictBooleanExpressions)
+scripts/procedencia/puertos-composicion-r47.ts(100,6): error TS17: Unexpected `undefined` type in condition, expected strictly a boolean instead.    effect(strictBooleanExpressions)
+scripts/procedencia/puertos-composicion-r47.ts(124,5): error TS17: Unexpected `number` type in condition, expected strictly a boolean instead.    effect(strictBooleanExpressions)
+scripts/procedencia/puertos-composicion-r47.ts(149,7): error TS17: Unexpected `Port` type in condition, expected strictly a boolean instead.    effect(strictBooleanExpressions)
+scripts/procedencia/puertos-composicion-r47.ts(149,7): error TS17: Unexpected `undefined` type in condition, expected strictly a boolean instead.    effect(strictBooleanExpressions)
+scripts/procedencia/puertos-composicion-r47.ts(152,17): error TS17: Unexpected `Variant` type in condition, expected strictly a boolean instead.    effect(strictBooleanExpressions)
+scripts/procedencia/puertos-composicion-r47.ts(152,17): error TS17: Unexpected `undefined` type in condition, expected strictly a boolean instead.    effect(strictBooleanExpressions)
+scripts/procedencia/puertos-composicion-r47.ts(155,109): error TS2345: Argument of type '(event: Observation) => void' is not assignable to parameter of type 'null | undefined'.
+scripts/procedencia/puertos-composicion-r47.ts(156,111): error TS2345: Argument of type '(event: Observation) => void' is not assignable to parameter of type 'null | undefined'.
+scripts/procedencia/puertos-composicion-r47.ts(159,36): error TS2345: Argument of type '(b: Global) => boolean' is not assignable to parameter of type '((value: { name: any; node: any; source: { file: any; start: any; end: any; sha256: any; offsetEncoding: string; }; }, index: number, array: { name: any; node: any; source: { file: any; start: any; end: any; sha256: any; offsetEncoding: string; }; }[]) => unknown) & ((value: { ...; }, index: number, array: { ...; }[...'.
+  Type '(b: Global) => boolean' is not assignable to type '(value: { name: any; node: null; external: boolean; source?: never; } | { name: any; node: any; source: { file: any; start: any; end: any; sha256: any; offsetEncoding: string; }; external: boolean; }, index: number, array: ({ ...; } | { ...; })[]) => unknown'.
+    Types of parameters 'b' and 'value' are incompatible.
+      Type '{ name: any; node: null; external: boolean; source?: never; } | { name: any; node: any; source: { file: any; start: any; end: any; sha256: any; offsetEncoding: string; }; external: boolean; }' is not assignable to type 'Global'.
+        Type '{ name: any; node: null; external: boolean; source?: never; }' is not assignable to type 'Global'.
+          Types of property 'node' are incompatible.
+            Type 'null' is not assignable to type 'string'.
+scripts/procedencia/puertos-composicion-r47.ts(166,81): error TS2345: Argument of type 'string' is not assignable to parameter of type 'null | undefined'.
+scripts/procedencia/puertos-composicion-r47.ts(175,75): error TS2345: Argument of type '(event: Observation) => void' is not assignable to parameter of type 'null | undefined'.
+scripts/procedencia/puertos-composicion-r47.ts(178,179): error TS2345: Argument of type '(event: Observation) => void' is not assignable to parameter of type 'null | undefined'.
+scripts/procedencia/puertos-composicion-r47.ts(181,126): error TS2345: Argument of type '(event: Observation) => void' is not assignable to parameter of type 'null | undefined'.
