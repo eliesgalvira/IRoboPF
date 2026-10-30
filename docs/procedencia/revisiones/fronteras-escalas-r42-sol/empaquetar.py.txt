@@ -1,0 +1,44 @@
+from pathlib import Path
+import hashlib,json,gzip,difflib,subprocess,shutil,os
+r=Path.cwd();o=r/'docs/procedencia/revisiones/fronteras-escalas-r42-sol';s=r/'.cache/revision-fronteras-escalas-r42-sol'
+def sha(b):return hashlib.sha256(b).hexdigest()
+def write(p,x):p.write_text(json.dumps(x,ensure_ascii=False,indent=2)+'\n')
+# Solo recepción terminada; jamás iniciar transporte antes del recibo.
+f=json.loads(gzip.decompress((o/'fisico-final.json.gz').read_bytes()));assert f['entries']==21013 and not f['differences'] and not f['deleted']
+for name in ['preparar.py','fisico.py','empaquetar.py']:(o/(name+'.txt')).write_bytes((s/name).read_bytes())
+(o/'fisico-final.log').write_bytes((s/'fisico-final.log').read_bytes())
+write(o/'RESULTADOS.json',dict(head=f['head'],baselineEntries=21013,physicalInitial='identico',physicalFinal='identico',previousProducer=dict(failed=10,passed=1,skippedPosterior=2),currentTests=30,newDiscriminants=28,finalUnion=json.loads((s/'casos-final.json').read_text())['numPassedTests'],replica=dict(records=302,passed=301,protectiveHistoricalRed=1,cells=264,arraysIdentical=True),validation=json.loads((s/'validacion.json').read_text()),newProductDefects=[],parentContrast='pendiente',fiscalAcceptance=False))
+assert json.loads((s/'casos-final.json').read_text())['numFailedTests']==0
+# Metadatos por frontera desde el candidato recibido: son declaraciones contrastadas, no validación inferida.
+g=json.loads(gzip.decompress((r/'docs/procedencia/correcciones/fronteras-escalas-r42/fragmento-despues.json.gz').read_bytes()))
+write(o/'fronteras-firmas.json',dict(boundaries=g['boundaryContracts'],meaning='Unión descriptiva de propiedades consumidas por corte; firmas y localizadores contrastados con fuente.'))
+# Seleccionar una vez payload; no sobrescribir sobres en reintentos.
+exclude={'MANIFIESTO.json','BINARIOS.json','entrega.patch.gz','transporte.json','SOBRE.json'}
+payload=[p for p in sorted(o.iterdir()) if p.is_file() and p.name not in exclude]
+manifest=[];patch=[];binary=[];objects=o/'binarios';objects.mkdir(exist_ok=True)
+for p in payload:
+ data=p.read_bytes();rel=str(p.relative_to(r));ex=bool(p.stat().st_mode&0o111)
+ item=dict(path=rel,sha256=sha(data),size=len(data),baseSha256=None,executable=ex,change='alta; ausente en base')
+ manifest.append(item)
+ try:
+  text=data.decode('utf8')
+  if not text or '\0' in text or (text and not text.endswith('\n')):raise ValueError('objeto exacto')
+  patch.extend(difflib.unified_diff([],text.splitlines(True),fromfile='/dev/null',tofile='b/'+rel))
+ except (UnicodeDecodeError,ValueError):
+  obj=objects/item['sha256'];obj.write_bytes(data);binary.append(dict(path=rel,sha256=item['sha256'],size=len(data),object=str(obj.relative_to(r))))
+write(o/'MANIFIESTO.json',dict(base=f['head'],scope='docs/procedencia/revisiones/fronteras-escalas-r42-sol/',files=manifest,baseChanges=[],deleted=[]))
+write(o/'BINARIOS.json',binary);(o/'entrega.patch.gz').write_bytes(gzip.compress(''.join(patch).encode(),mtime=0))
+restore=s/'ensayo-transporte-2';restore.mkdir(exist_ok=False)
+result=subprocess.run(['patch','--batch','-p1','-d',str(restore)],input=gzip.decompress((o/'entrega.patch.gz').read_bytes()),stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
+(s/'transporte-patch.log').write_bytes(result.stdout);assert result.returncode==0,result.stdout
+for item in binary:
+ p=restore/item['path'];p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes((r/item['object']).read_bytes())
+for item in manifest:
+ p=restore/item['path'];data=p.read_bytes();assert sha(data)==item['sha256'] and len(data)==item['size'];assert bool(p.stat().st_mode&0o111)==item['executable']
+write(o/'transporte.json',dict(base=f['head'],files=len(manifest),bytes=sum(x['size'] for x in manifest),textPatch='entrega.patch.gz',binaryObjects=len(binary),restoration=str(restore.relative_to(r)),patchExitCode=result.returncode,exactBytes=True,exactMode=True,deleted=[],warning='Ensayo solo en scratch. No aplicar sobre informes originales recibidos.'))
+files=[]
+for p in sorted(o.rglob('*')):
+ if p.is_file() and p.name!='SOBRE.json':
+  data=p.read_bytes();files.append(dict(path=str(p.relative_to(r)),sha256=sha(data),size=len(data),baseSha256=None))
+write(o/'SOBRE.json',dict(base=f['head'],files=files,selfExcluded=True,scopeOnly=True,baseChanges=[],deleted=[],parentContrast='pendiente'))
+print(json.dumps(dict(payloadFiles=len(manifest),binaryObjects=len(binary),transport='exacto',envelopeFiles=len(files),baseEntries=21013,baseChanges=0,deleted=0)))

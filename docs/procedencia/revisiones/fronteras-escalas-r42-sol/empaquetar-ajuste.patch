@@ -1,0 +1,18 @@
+--- 
++++ 
+@@ -22,13 +22,13 @@
+  manifest.append(item)
+  try:
+   text=data.decode('utf8')
+-  if '\0' in text or (text and not text.endswith('\n')):raise ValueError('objeto exacto')
++  if not text or '\0' in text or (text and not text.endswith('\n')):raise ValueError('objeto exacto')
+   patch.extend(difflib.unified_diff([],text.splitlines(True),fromfile='/dev/null',tofile='b/'+rel))
+  except (UnicodeDecodeError,ValueError):
+   obj=objects/item['sha256'];obj.write_bytes(data);binary.append(dict(path=rel,sha256=item['sha256'],size=len(data),object=str(obj.relative_to(r))))
+ write(o/'MANIFIESTO.json',dict(base=f['head'],scope='docs/procedencia/revisiones/fronteras-escalas-r42-sol/',files=manifest,baseChanges=[],deleted=[]))
+ write(o/'BINARIOS.json',binary);(o/'entrega.patch.gz').write_bytes(gzip.compress(''.join(patch).encode(),mtime=0))
+-restore=s/'ensayo-transporte';restore.mkdir(exist_ok=False)
++restore=s/'ensayo-transporte-2';restore.mkdir(exist_ok=False)
+ result=subprocess.run(['patch','--batch','-p1','-d',str(restore)],input=gzip.decompress((o/'entrega.patch.gz').read_bytes()),stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
+ (s/'transporte-patch.log').write_bytes(result.stdout);assert result.returncode==0,result.stdout
+ for item in binary:

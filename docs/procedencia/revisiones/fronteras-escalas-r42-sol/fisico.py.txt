@@ -1,0 +1,29 @@
+import os,stat,subprocess,hashlib,json,gzip
+from pathlib import Path
+r=Path.cwd();o=r/'docs/procedencia/revisiones/fronteras-escalas-r42-sol';s=r/'.cache/revision-fronteras-escalas-r42-sol';base='4bc6fe74d9c3b3df0584457767227a64bb5294b9'
+head=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip();assert head==base
+records=[];known=set();bad=[]
+for raw in subprocess.check_output(['git','ls-tree','-rz',base]).split(b'\0'):
+ if not raw:continue
+ meta,p=raw.split(b'\t');mode,typ,oid=meta.split();p=os.fsdecode(p);known.add(p)
+ try:
+  st=os.lstat(r/p);symlink=stat.S_ISLNK(st.st_mode)
+  actual=os.fsencode(os.readlink(r/p)) if symlink else (r/p).read_bytes()
+  expected=subprocess.check_output(['git','cat-file','blob',oid.decode()]);sha=hashlib.sha256(actual).hexdigest()
+  same=actual==expected and (mode==b'120000')==symlink and (symlink or bool(st.st_mode&0o111)==(mode==b'100755'))
+  records.append(dict(path=p,baseSha256=hashlib.sha256(expected).hexdigest(),sha256=sha,size=len(actual),gitMode=mode.decode(),physicalMode=oct(stat.S_IMODE(st.st_mode)),identical=same))
+  if not same:bad.append(p)
+ except Exception as e:bad.append([p,str(e)])
+assert len(known)==21013 and not bad,bad
+extra=[]
+for root,dirs,files in os.walk(r,followlinks=False):
+ if Path(root)==r:dirs[:]=[x for x in dirs if x not in ['.git','.jj']]
+ for name in files+[x for x in dirs if (Path(root)/x).is_symlink()]:
+  p=Path(root)/name;rel=str(p.relative_to(r))
+  if rel in known or rel in ['.git','.jj']:continue
+  assert rel.startswith(('docs/procedencia/revisiones/fronteras-escalas-r42-sol/','.cache/revision-fronteras-escalas-r42-sol/')),rel
+  st=p.lstat();extra.append(dict(path=rel,size=st.st_size,symlink=stat.S_ISLNK(st.st_mode),mode=oct(stat.S_IMODE(st.st_mode))))
+status=subprocess.check_output(['git','status','--porcelain'],text=True);diff=subprocess.check_output(['git','diff','HEAD','--'],text=True);assert not diff
+result=dict(head=head,entries=len(known),differences=bad,deleted=[],records=records,additionsObserved=extra,diff=diff,status=status,method='lstat/readlink/bytes/execute, un blob por llamada; censo físico sin seguir directorios enlazados; metadatos .git/.jj excluidos')
+(o/'fisico-final.json.gz').write_bytes(gzip.compress((json.dumps(result,ensure_ascii=False)+'\n').encode(),mtime=0))
+print(json.dumps(dict(head=head,entries=len(known),differences=bad,deleted=[],additions=len(extra))))
