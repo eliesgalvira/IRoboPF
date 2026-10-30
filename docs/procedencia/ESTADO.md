@@ -8,7 +8,7 @@ Recibida la contrarrevisión de resultados R49: 46 archivos, 2.625.998 bytes, tr
 
 Los seis bloques del módulo de resultados R45 quedan corroborados técnicamente con sus condiciones: fragmentos originales verificados, datos ordinarios y evaluación síncrona finita. Sin defecto nuevo reproducido ni cambios de producto. No se confunden rechazo, defecto, ausencia y éxito cero; el marcador interno no autentica la ejecución. Detalle y decisiones en correcciones/recepcion-resultados-r50.
 
-Pendiente respaldo de esta recepción. No se lanza otra revisión idéntica. La implementación de puertos R47 continúa; su entrega reactivará el hilo, sin sondeos ni lectura parcial. Composición transitiva, 65 sitios, 19 instancias y conexión con admisión conservan sus obligaciones pendientes.
+Bloque respaldado en origin, commit `f72058bf9a4d8e014e1dbc43f613a73eb96f9a43`: 69 archivos, hashes comprobados y cero borrados. No se lanza otra revisión idéntica ni ningún agente nuevo en esta recepción. La implementación de puertos R47 continúa; su entrega reactivará el hilo, sin sondeos ni lectura parcial. Composición transitiva, 65 sitios, 19 instancias y conexión con admisión conservan sus obligaciones pendientes.
 
 Motor, inventario, confianza y 45 snapshots intactos. V5 mantiene corte R26 y Crossa v1 desfasado. Sin main, PR, despliegue, LFS, gasto, transferencia o limpieza. El encargo global continúa abierto.
 
