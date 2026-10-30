@@ -1,0 +1,10 @@
+--- .cache/revision-incorporacion-local-r36/recuperacion-antes.py.txt	2026-10-30 01:44:22.251293720 +0100
++++ .cache/revision-incorporacion-local-r36/recuperacion.py	2026-10-30 01:44:22.251293720 +0100
+@@ -8,6 +8,7 @@
+ OUT = ROOT / '.cache/revision-incorporacion-local-r36'
+ RECEIVED = ROOT / 'docs/procedencia/correcciones/recepcion-r36'
+ spec = importlib.util.spec_from_file_location('transicion', RECEIVED / 'transicion.py')
++assert spec is not None and spec.loader is not None
+ m = importlib.util.module_from_spec(spec)
+ spec.loader.exec_module(m)
+ plan = json.loads((RECEIVED / 'plan.json').read_text())

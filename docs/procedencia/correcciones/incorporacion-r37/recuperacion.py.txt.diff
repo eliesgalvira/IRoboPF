@@ -1,0 +1,11 @@
+--- recuperacion.py.txt
++++ recuperacion.py
+@@ -5,7 +5,7 @@
+ from pathlib import Path
+ 
+ ROOT = Path.cwd()
+-OUT = ROOT / '.cache/revision-incorporacion-local-r36'
++OUT = ROOT / '.cache/orquestador-recepcion/r37'
+ RECEIVED = ROOT / 'docs/procedencia/correcciones/recepcion-r36'
+ spec = importlib.util.spec_from_file_location('transicion', RECEIVED / 'transicion.py')
+ assert spec is not None and spec.loader is not None
