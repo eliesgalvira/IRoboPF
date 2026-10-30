@@ -1,0 +1,29 @@
+import subprocess,pathlib,os,stat,hashlib,json,gzip
+R=pathlib.Path.cwd();O=R/'docs/procedencia/revisiones/unidades-colecciones-r41-sol';sha=lambda b:hashlib.sha256(b).hexdigest();head=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip();assert head=='28123c1ed0b6d00a29ecdd005e9331eb6a471b63'
+p=subprocess.Popen(['git','cat-file','--batch'],stdin=subprocess.PIPE,stdout=subprocess.PIPE);rows=[];bad=[]
+for entry in subprocess.check_output(['git','ls-tree','-rz','HEAD']).split(b'\0'):
+ if not entry:continue
+ meta,name=entry.split(b'\t');mode,typ,oid=meta.split();name=os.fsdecode(name);p.stdin.write(oid+b'\n');p.stdin.flush();size=int(p.stdout.readline().split()[-1]);blob=p.stdout.read(size);assert p.stdout.read(1)==b'\n'
+ try:
+  st=(R/name).lstat();actual=os.fsencode(os.readlink(R/name)) if stat.S_ISLNK(st.st_mode) else (R/name).read_bytes();ok=blob==actual and ((mode==b'120000' and stat.S_ISLNK(st.st_mode)) or (mode!=b'120000' and stat.S_ISREG(st.st_mode) and bool(st.st_mode&0o111)==(mode==b'100755')))
+ except FileNotFoundError:actual=b'';ok=False
+ row={'path':name,'baseSha256':sha(blob),'sha256':sha(actual),'size':len(actual),'baseMode':mode.decode(),'ok':ok};rows.append(row)
+ if not ok:bad.append(row)
+p.stdin.close();p.wait();assert len(rows)==20836;assert not bad,bad
+known={r['path'] for r in rows};extras=[]
+for directory,dirs,files in os.walk(R,followlinks=False):
+ dirs[:]=[d for d in dirs if d not in ['.git','.jj']]
+ for name in files+[d for d in dirs if (pathlib.Path(directory)/d).is_symlink()]:
+  pth=pathlib.Path(directory)/name;rel=pth.relative_to(R).as_posix()
+  if rel=='.git' or rel in known:continue
+  assert rel.startswith(('docs/procedencia/revisiones/unidades-colecciones-r41-sol/','.cache/revision-unidades-colecciones-r41-sol/')),rel
+  st=pth.lstat();extras.append({'path':rel,'kind':'symlink' if stat.S_ISLNK(st.st_mode) else 'file','size':st.st_size,'executable':bool(st.st_mode&0o111)})
+diff=subprocess.check_output(['git','diff','HEAD','--binary']);assert not diff;(O/'diff-base.txt').write_bytes(diff)
+(O/'fisico-final.json.gz').write_bytes(gzip.compress(json.dumps({'head':head,'count':len(rows),'mismatches':bad,'deleted':[],'entries':rows,'extrasAtScan':extras,'scopeOnly':True},ensure_ascii=False).encode(),mtime=0))
+(O/'fisico-final-resumen.json').write_text(json.dumps({'head':head,'baseEntries':len(rows),'mismatches':0,'deleted':0,'scopeOnly':True,'diffBytes':len(diff),'physicalComparison':'lstat/readlink/bytes/executable; one blob at a time','timing':'después de validar transporte; controles terminales externos al payload'},indent=2));print('Cotejo final',len(rows),'intactas; cero borrados; altas propias',len(extras))
+# Sobre exterior: todas las rutas entregables salvo el propio sobre; incluye transporte y controles terminales.
+envelope=[]
+for pth in sorted(O.rglob('*')):
+ if pth.is_file() and pth.name!='ENTREGA.json':
+  b=pth.read_bytes();envelope.append({'path':pth.relative_to(R).as_posix(),'sha256':sha(b),'size':len(b),'baseSha256':None})
+(O/'ENTREGA.json').write_text(json.dumps({'head':head,'entries':envelope,'selfExcluded':'ENTREGA.json','fiscalAcceptance':False,'requiresParentContrast':True},indent=2))

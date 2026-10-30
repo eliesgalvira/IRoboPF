@@ -1,0 +1,11 @@
+--- ensayo-inicial
++++ ensayo-corregido
+@@ -85,7 +85,7 @@
+  const a={anio:year,base:d(9000),baseGeneral:d(100),minimoEstatal:d(1000),minimoAutonomico:d(2000)}
+  check('ahorro-TS-'+year,norm(savings.calcularAhorroConMinimos(a)),()=>norm(run('calcularAhorroConMinimos',[a]).result))
+ }
+-for(const [year,expected] of [[2014,['994.5','745.5']],[2015,['879.5','740']]]){
++for(const [year,expected] of [[2014,['994.5','685.5']],[2015,['799.5','740']]]){
+  const a={anio:year,base:d(9000),baseGeneral:d(100),minimoEstatal:d(1000),minimoAutonomico:d(2000)}
+  check('ahorro-racional-'+year,expected,()=>{const r=run('calcularAhorroConMinimos',[a]).result;return [r.estatal.despuesMinimo.toFixed(),r.autonomico.despuesMinimo.toFixed()]})
+ }

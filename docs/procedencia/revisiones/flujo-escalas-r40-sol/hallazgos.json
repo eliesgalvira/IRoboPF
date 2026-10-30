@@ -1,0 +1,46 @@
+[
+  {
+    "id": "R40-01",
+    "clase": "contrato-incompleto-reproducido",
+    "status": "rojo sin fix",
+    "observado": "Contrato calcularRendimientoNetoTrabajo declara rendimientoNeto/PrevioNeto; suministrarlos exactamente causa TypeError en toDecimalPlaces del redondeo de rendimientoIntegro. La proyección mantiene importesLiquidacion completo.",
+    "otrosUsos": "SS exige cotizacionEmpresarial/mei/solidaridad; ganancias exige total/exenta. EDS lee retenciones/pagos. Salidas motivos/estado requeridas también en rechazo.",
+    "impacto": "Un contrato mínimo tal como está publicado no basta para evaluar el programa. No demuestra cifra fiscal incorrecta; los testigos recibidos suministran campos extra.",
+    "evidencia": [
+      "casos.json",
+      "fronteras-observadas.json",
+      "logs/casos-terminal.log"
+    ],
+    "objecion": "Es razonable que el objeto completo del productor contenga esos campos.",
+    "respuesta": "Sí, la API real los devuelve; la suficiencia del contrato finito debe expresar esa precondición o proyectar sin esas lecturas. La revisión no arregla ni exige compilador universal.",
+    "coste": "Precisar o acotar fronteras antes de composición; revisión independiente del cambio."
+  },
+  {
+    "id": "R40-02",
+    "clase": "firma-declarativa-omitida",
+    "status": "omisión corroborada por AST, sin defecto fiscal",
+    "observado": "boundaryContracts.parameters es [] en validarDerechosMinimos y validarRentasAnualesDerechos porque sus inicializadores son llamadas Effect.fn. El primer FunctionExpression sí tiene entrada; el segundo caso/rentaNoExenta.",
+    "evidencia": [
+      "firmas-fronteras.json"
+    ],
+    "impacto": "CallBindings sí conserva operandos. No faltan del programa; la firma editorial no permite componer automáticamente un contrato por parámetro.",
+    "objecion": "Los argumentos ejecutables bastan para un intérprete.",
+    "respuesta": "Correcto para ejecución condicionada; no se presenta la firma vacía como contrato suficiente de admisión.",
+    "coste": "Vincular parámetro/propiedad con el contrato del lote de admisión."
+  },
+  {
+    "id": "R40-03",
+    "clase": "limite-de-contrato-no-bypass",
+    "status": "condición necesaria para corroboración",
+    "observado": "mapError evalúa solo el efecto fuente y no transforma fallos; Effect.fail produce Error genérico y motivo, no el canal/payload completo. sources fija 57 fuentes TS, no incluye el propio productor/consumidor ni primitivas npm. verify reconstruye receta, no verifica esas dependencias de ejecución.",
+    "evidencia": [
+      "scripts/procedencia/flujo-escalas-r36-consumidor.mjs",
+      "fuentes.json",
+      "dependencias.json"
+    ],
+    "impacto": "No equiparar a semántica completa Effect. El manifiesto de entrega y HEAD conservan software concreto; debe preservarse también en composición. No se demuestra bypass público modificando un programa fuera de contrato.",
+    "objecion": "Un intérprete de valores no tiene que implementar todo Effect ni autenticarse a sí mismo.",
+    "respuesta": "De acuerdo. Se admite el contrato finito con fallos normalizados y primitivas fijadas, conservando pendientes errores/admisión y la identidad exterior.",
+    "coste": "Contrato explícito success/fail/defect y preservación conjunta; sin compilador universal."
+  }
+]

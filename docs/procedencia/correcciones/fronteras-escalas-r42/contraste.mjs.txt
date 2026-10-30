@@ -1,0 +1,30 @@
+import fs from 'node:fs'
+import assert from 'node:assert/strict'
+import {gunzipSync,gzipSync} from 'node:zlib'
+import {createHash} from 'node:crypto'
+import {composeEscalasR36,verifyEscalasR36} from '../../../scripts/procedencia/flujo-escalas-r36.mjs'
+const out='docs/procedencia/correcciones/fronteras-escalas-r42/'
+const old=JSON.parse(gunzipSync(fs.readFileSync(out+'fragmento-antes.json.gz'))),g=composeEscalasR36()
+verifyEscalasR36(g)
+assert.deepEqual(Object.keys(g).filter(k=>JSON.stringify(g[k])!==JSON.stringify(old[k])),['boundaryContracts','program'])
+const changes=[]
+for(let i=0;i<g.program.length;i++){
+ const a=old.program[i],b=g.program[i]
+ if(JSON.stringify(a)===JSON.stringify(b))continue
+ assert.equal(a.op,'boundary');assert.equal(b.op,'boundary')
+ assert.deepEqual({...a,data:{...a.data,outputs:[]}},{...b,data:{...b.data,outputs:[]}})
+ changes.push({id:a.id,oldOutputs:a.data.outputs,newOutputs:b.data.outputs})
+}
+assert.equal(changes.length,7)
+for(const c of g.boundaryContracts){
+ const before=old.boundaryContracts.find(b=>b.id===c.id)
+ if(!c.id.endsWith('#validarDerechosMinimos')&&!c.id.endsWith('#validarRentasAnualesDerechos'))assert.deepEqual(c.parameters,before.parameters)
+ const variants=c.resultVariants
+ if(variants.length)assert.deepEqual([...new Set(variants.flatMap(v=>v.outputs))].sort(),[...c.outputs].sort())
+}
+assert.equal(g.program.length,old.program.length)
+assert.deepEqual(g.sources,old.sources)
+const bytes=gzipSync(JSON.stringify(g));fs.writeFileSync(out+'fragmento-despues.json.gz',bytes)
+const result={changes,programOperations:g.program.length,numericProgramUnchanged:true,sources:g.sources.length,sites:g.sites.length,bytes:bytes.length,sha256:createHash('sha256').update(bytes).digest('hex'),admission:false,wiring:false,acceptance:false}
+fs.writeFileSync(out+'contraste.json',JSON.stringify(result,null,2)+'\n')
+console.log(JSON.stringify(result))

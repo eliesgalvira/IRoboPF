@@ -1,0 +1,390 @@
+[
+  {
+    "id": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts#sumarRendimientosTrabajo",
+    "declared": [
+      {
+        "index": 0,
+        "binding": "rendimientos",
+        "type": "ReadonlyArray<RendimientoTrabajo>",
+        "source": {
+          "file": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts",
+          "start": 1474,
+          "end": 1521,
+          "sha256": "fd9f91710a717ffa2d115ca42f0a5c4e3baf383f563820df509432d8acf57e54",
+          "offsetEncoding": "utf16"
+        }
+      },
+      {
+        "index": 1,
+        "binding": "crearImporte",
+        "type": "(centimos: number) => Decimal",
+        "source": {
+          "file": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts",
+          "start": 1525,
+          "end": 1568,
+          "sha256": "fd9f91710a717ffa2d115ca42f0a5c4e3baf383f563820df509432d8acf57e54",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "actualParameters": [
+      {
+        "file": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts",
+        "start": 1474,
+        "end": 1521,
+        "text": "rendimientos: ReadonlyArray<RendimientoTrabajo>"
+      },
+      {
+        "file": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts",
+        "start": 1525,
+        "end": 1568,
+        "text": "crearImporte: (centimos: number) => Decimal"
+      }
+    ],
+    "outputs": [
+      "return:EUR"
+    ]
+  },
+  {
+    "id": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts#calcularDesgloseCotizacionesPerfilUniforme",
+    "declared": [
+      {
+        "index": 0,
+        "binding": "{\n  anio,\n  salarioBrutoAnual,\n}",
+        "type": "EntradaCotizacionesSocialesLegacy",
+        "source": {
+          "file": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
+          "start": 1843,
+          "end": 1910,
+          "sha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "actualParameters": [
+      {
+        "file": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
+        "start": 1843,
+        "end": 1910,
+        "text": "{\n  anio,\n  salarioBrutoAnual,\n}: EntradaCotizacionesSocialesLegacy"
+      }
+    ],
+    "outputs": [
+      "cotizacionTrabajador:EUR"
+    ]
+  },
+  {
+    "id": "lib/dominio/laboral/cotizaciones-sociales.ts#calcularDesgloseCotizacionesSocialesLegacy",
+    "declared": [
+      {
+        "index": 0,
+        "binding": "{\n  salarioBrutoAnual,\n  anio,\n}",
+        "type": "EntradaCotizacionesSocialesLegacy",
+        "source": {
+          "file": "lib/dominio/laboral/cotizaciones-sociales.ts",
+          "start": 7818,
+          "end": 7885,
+          "sha256": "7c5b5567d5d4222286e9f167e85954ceebf044fe8fcc826666daa7ad4f0323f1",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "actualParameters": [
+      {
+        "file": "lib/dominio/laboral/cotizaciones-sociales.ts",
+        "start": 7818,
+        "end": 7885,
+        "text": "{\n  salarioBrutoAnual,\n  anio,\n}: EntradaCotizacionesSocialesLegacy"
+      }
+    ],
+    "outputs": [
+      "cotizacionTrabajador:EUR"
+    ]
+  },
+  {
+    "id": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts#calcularRendimientoNetoTrabajo",
+    "declared": [
+      {
+        "index": 0,
+        "binding": "{\n  anio,\n  rendimientoIntegro,\n  cotizacionTrabajador,\n}",
+        "type": "{\n  readonly anio: AnioFiscal\n  readonly rendimientoIntegro: Decimal\n  readonly cotizacionTrabajador?: Decimal\n}",
+        "source": {
+          "file": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts",
+          "start": 670,
+          "end": 841,
+          "sha256": "fd9f91710a717ffa2d115ca42f0a5c4e3baf383f563820df509432d8acf57e54",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "actualParameters": [
+      {
+        "file": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts",
+        "start": 670,
+        "end": 841,
+        "text": "{\n  anio,\n  rendimientoIntegro,\n  cotizacionTrabajador,\n}: {\n  readonly anio: AnioFiscal\n  readonly rendimientoIntegro: Decimal\n  readonly cotizacionTrabajador?: Decimal\n}"
+      }
+    ],
+    "outputs": [
+      "rendimientoNeto:EUR",
+      "rendimientoPrevioNeto:EUR"
+    ]
+  },
+  {
+    "id": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts#sumarRendimientosCapitalInmobiliario",
+    "declared": [
+      {
+        "index": 0,
+        "binding": "rendimientos",
+        "type": "ReadonlyArray<RendimientoCapitalInmobiliario>",
+        "source": {
+          "file": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts",
+          "start": 349,
+          "end": 408,
+          "sha256": "0c81577c19cbf3b39620b19a8073a00861a694093e1af9927e314f02db2adbd8",
+          "offsetEncoding": "utf16"
+        }
+      },
+      {
+        "index": 1,
+        "binding": "convertirCentimosAEuros",
+        "type": "(centimos: number) => Decimal",
+        "source": {
+          "file": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts",
+          "start": 412,
+          "end": 466,
+          "sha256": "0c81577c19cbf3b39620b19a8073a00861a694093e1af9927e314f02db2adbd8",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "actualParameters": [
+      {
+        "file": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts",
+        "start": 349,
+        "end": 408,
+        "text": "rendimientos: ReadonlyArray<RendimientoCapitalInmobiliario>"
+      },
+      {
+        "file": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts",
+        "start": 412,
+        "end": 466,
+        "text": "convertirCentimosAEuros: (centimos: number) => Decimal"
+      }
+    ],
+    "outputs": [
+      "return:EUR"
+    ]
+  },
+  {
+    "id": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts#calcularRendimientoNetoCapitalInmobiliarioSimplificado",
+    "declared": [
+      {
+        "index": 0,
+        "binding": "{\n  rendimientoIntegro,\n}",
+        "type": "{\n  readonly rendimientoIntegro: Decimal\n}",
+        "source": {
+          "file": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts",
+          "start": 1266,
+          "end": 1335,
+          "sha256": "0c81577c19cbf3b39620b19a8073a00861a694093e1af9927e314f02db2adbd8",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "actualParameters": [
+      {
+        "file": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts",
+        "start": 1266,
+        "end": 1335,
+        "text": "{\n  rendimientoIntegro,\n}: {\n  readonly rendimientoIntegro: Decimal\n}"
+      }
+    ],
+    "outputs": [
+      "rendimientoNeto:EUR"
+    ]
+  },
+  {
+    "id": "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts#calcularGananciasPatrimonialesPorTransmision",
+    "declared": [
+      {
+        "index": 0,
+        "binding": "{\n  anio,\n  edadContribuyente,\n  ganancias,\n  convertirCentimos,\n}",
+        "type": "{\n  readonly anio: AnioFiscal\n  readonly edadContribuyente: number\n  readonly ganancias: ReadonlyArray<GananciaPatrimonialTransmision>\n  readonly convertirCentimos: typeof centimosAEuros\n}",
+        "source": {
+          "file": "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts",
+          "start": 1129,
+          "end": 1385,
+          "sha256": "4bf3fae25e9a40fb0099141fb63afb774f6d4f2d3c4eb025a3445992fa8defb4",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "actualParameters": [
+      {
+        "file": "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts",
+        "start": 1129,
+        "end": 1385,
+        "text": "{\n  anio,\n  edadContribuyente,\n  ganancias,\n  convertirCentimos,\n}: {\n  readonly anio: AnioFiscal\n  readonly edadContribuyente: number\n  readonly ganancias: ReadonlyArray<GananciaPatrimonialTransmision>\n  readonly convertirCentimos: typeof centimosAEuros\n}"
+      }
+    ],
+    "outputs": [
+      "gananciaSujetaGeneral:EUR",
+      "gananciaSujetaAhorro:EUR"
+    ]
+  },
+  {
+    "id": "lib/dominio/irpf/minimos/derechos.ts#validarRentasAnualesDerechos",
+    "declared": [],
+    "actualParameters": [
+      {
+        "file": "lib/dominio/irpf/minimos/derechos.ts",
+        "start": 8098,
+        "end": 8123,
+        "text": "caso: DerechosMinimos2025"
+      },
+      {
+        "file": "lib/dominio/irpf/minimos/derechos.ts",
+        "start": 8125,
+        "end": 8147,
+        "text": "rentaNoExenta: Decimal"
+      }
+    ],
+    "outputs": [
+      "return:admission-pending-review"
+    ]
+  },
+  {
+    "id": "lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts#calcularReduccionTrabajoConOtrasRentas",
+    "declared": [
+      {
+        "index": 0,
+        "binding": "{\n  anio,\n  fechaFallecimiento,\n  rendimientoPrevioNeto,\n  otrasRentasNoExentas,\n}",
+        "type": "{\n  readonly anio: AnioFiscal\n  readonly fechaFallecimiento?: Date | undefined\n  readonly rendimientoPrevioNeto: Decimal\n  /** Suma algebraica de rentas distintas del trabajo, antes de reducciones y compensaciones. */\n  readonly otrasRentasNoExentas: Decimal\n}",
+        "source": {
+          "file": "lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts",
+          "start": 848,
+          "end": 1192,
+          "sha256": "71165de6c9520090e3f15a50e28b809f32e0a4ed99cb2c3866e01103efb0e696",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "actualParameters": [
+      {
+        "file": "lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts",
+        "start": 848,
+        "end": 1192,
+        "text": "{\n  anio,\n  fechaFallecimiento,\n  rendimientoPrevioNeto,\n  otrasRentasNoExentas,\n}: {\n  readonly anio: AnioFiscal\n  readonly fechaFallecimiento?: Date | undefined\n  readonly rendimientoPrevioNeto: Decimal\n  /** Suma algebraica de rentas distintas del trabajo, antes de reducciones y compensaciones. */\n  readonly otrasRentasNoExentas: Decimal\n}"
+      }
+    ],
+    "outputs": [
+      "return:EUR"
+    ]
+  },
+  {
+    "id": "lib/dominio/irpf/trabajo-anual/adaptador.ts#adaptarTrabajoAnual",
+    "declared": [
+      {
+        "index": 0,
+        "binding": "caso",
+        "type": "GastosTrabajo",
+        "source": {
+          "file": "lib/dominio/irpf/trabajo-anual/adaptador.ts",
+          "start": 228,
+          "end": 247,
+          "sha256": "8d5b5b250044ec80386ac7bae17413e0c783cbd387f7b172043537af21688b94",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "actualParameters": [
+      {
+        "file": "lib/dominio/irpf/trabajo-anual/adaptador.ts",
+        "start": 228,
+        "end": 247,
+        "text": "caso: GastosTrabajo"
+      }
+    ],
+    "outputs": [
+      "estado:discrete",
+      "rendimientoAntesArt20:EUR-string",
+      "argumentoArt20:EUR-string",
+      "gastos.integro:EUR-string"
+    ]
+  },
+  {
+    "id": "lib/dominio/irpf/actividades-economicas/adaptador.ts#adaptarActividadGeneral",
+    "declared": [
+      {
+        "index": 0,
+        "binding": "caso",
+        "type": "CasoActividad2025",
+        "source": {
+          "file": "lib/dominio/irpf/actividades-economicas/adaptador.ts",
+          "start": 634,
+          "end": 657,
+          "sha256": "a31693ab167c3931fa4230c964a6a00d232693b892942243c0ced3ca8ce4f7c5",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "actualParameters": [
+      {
+        "file": "lib/dominio/irpf/actividades-economicas/adaptador.ts",
+        "start": 634,
+        "end": 657,
+        "text": "caso: CasoActividad2025"
+      }
+    ],
+    "outputs": [
+      "estado:discrete",
+      "aporte.importeEurosExactos:EUR-string"
+    ]
+  },
+  {
+    "id": "lib/dominio/irpf/trabajo-anual/calcular.ts#calcularDeduccionTrabajo",
+    "declared": [
+      {
+        "index": 0,
+        "binding": "caso",
+        "type": "DeduccionTrabajo",
+        "source": {
+          "file": "lib/dominio/irpf/trabajo-anual/calcular.ts",
+          "start": 4572,
+          "end": 4594,
+          "sha256": "b8681bb3355ceba11762a47ecdb020c63d76e8363be24b1d9914f9f8103824d9",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "actualParameters": [
+      {
+        "file": "lib/dominio/irpf/trabajo-anual/calcular.ts",
+        "start": 4572,
+        "end": 4594,
+        "text": "caso: DeduccionTrabajo"
+      }
+    ],
+    "outputs": [
+      "estado:discrete",
+      "importeAplicable:EUR-string",
+      "cuotaPosterior:EUR-string"
+    ]
+  },
+  {
+    "id": "lib/dominio/irpf/minimos/derechos.ts#validarDerechosMinimos",
+    "declared": [],
+    "actualParameters": [
+      {
+        "file": "lib/dominio/irpf/minimos/derechos.ts",
+        "start": 2499,
+        "end": 2527,
+        "text": "entrada: DerechosMinimos2025"
+      }
+    ],
+    "outputs": [
+      "return:validated-rights-pending-review"
+    ]
+  }
+]
