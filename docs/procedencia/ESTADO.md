@@ -2,7 +2,15 @@
 
 Inicio: 29 de octubre de 2026. Trabajo en curso; no es una certificación fiscal.
 
-## Situación más reciente, ronda 61 del 30 de octubre
+## Situación más reciente, ronda 62 del 30 de octubre
+
+Recibido el candidato de los 28 sitios de escalas. Cotejo físico de las 22.900 entradas del autor: tres modificaciones autorizadas y cero borrados; reconstrucción exacta de 416 rutas. Incorporadas 229 rutas y preservadas 90 referencias técnicas. Los 22 sitios generales y seis explícitos de trabajo/pensión están implementados como candidatos; las variantes de actividad conservan bloqueo por las familias excluidas. Detalle en correcciones/recepcion-causal-escalas-r62 e implementaciones/causal-escalas-r60-sol.
+
+Pasan 107 pruebas, tipos principal/vendor y lint sin errores (16 avisos ESLint, cuatro nuevos del auxiliar de ensayo). El contrato y 50 testigos/1.144 salidas pasan schema estricto; ocho originales seleccionados se reproducen exactamente. CheckJs queda expresamente separado, con configuraciones distintas entre rondas. El contador corroborado sigue en 27/65: la revisión independiente de escalas y las diez salidas explícitas restantes están pendientes. D133 dispone una revisión de escalas y la última implementación en paralelo tras cerrar esta recepción, ambas Sol 6.1 high priority, sin iniciar ninguna tarea excluida.
+
+Crossa v1 sigue desfasado y V5 conserva el corte R26. Sin main, PR, despliegue, LFS, gasto, transferencia ni limpieza. El final será INFORME-FINAL.md respaldado solo en origin/procedencia-documental, cuando los 65 sitios estén corroborados bajo condiciones o tengan bloqueo demostrado.
+
+## Situación anterior, ronda 61 del 30 de octubre
 
 Recibida la única revisión independiente del lote de diez rentas generales. El padre cotejó físicamente las 22.900 entradas del revisor: cero cambios y borrados; reconstruyó exactamente 548 rutas, integró 461 y preservó 437 referencias. El dictamen corrobora los diez sitios bajo condiciones, sin defecto funcional nuevo ni otra ronda justificada. Detalle en correcciones/causal-rentas-r61 e informe original revisiones/causal-rentas-r60-sol.
 

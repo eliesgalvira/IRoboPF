@@ -1,3 +1,5 @@
+import { decodeEscalasSchema } from "./causal-escalas-r60-schema.mjs";
+import { prepareEscalas } from "./causal-escalas-r60-contratos.mjs";
 import { prepareRentas } from "./causal-rentas-r59-contratos.mjs";
 import {
   prepareRetenciones,
@@ -46,6 +48,7 @@ interface DecimalValue {
 }
 interface DecimalAPI {
   new (v: Value["raw"]): DecimalValue;
+  clone(options: { precision: number }): DecimalAPI;
   isDecimal(v: unknown): v is DecimalValue;
 }
 const Decimal: DecimalAPI = require("decimal.js");
@@ -56,7 +59,12 @@ const text = Schema.is(Schema.String),
   boolean = Schema.is(Schema.Boolean);
 interface Pattern {
   name?: string;
-  fields?: { key: string; binding: Pattern }[];
+  fields?: {
+    key: string;
+    binding: Pattern;
+    rest?: boolean;
+    default?: string | null;
+  }[];
   elements?: ({ binding: Pattern; default: string | null } | null)[];
 }
 interface Node {
@@ -64,6 +72,8 @@ interface Node {
   op: string;
   args: string[];
   data: {
+    tag?: string;
+    schema?: string;
     name?: string;
     value?: unknown;
     key?: string;
@@ -79,6 +89,9 @@ interface Node {
   source: { file: string; start: number; end: number; sha256: string };
 }
 export interface SSFragment {
+  schemaProgram?: SSFragment;
+  entryPoints?: { annual: string; explicit: string };
+  lineNode?: string;
   functionUnits?: { id: string; unit: string }[];
   pending: readonly string[];
   obligations: readonly { status: string }[];
@@ -104,6 +117,7 @@ interface Value {
   structure?: Value[] | undefined;
   closure?: Closure | undefined;
   native?: string | undefined;
+  decimalClass?: DecimalAPI | undefined;
   state?: { input: Value; result?: Value; selections: Value[] } | undefined;
 }
 class ReturnValue {
@@ -175,7 +189,11 @@ const binary = (op: string, a: Value["raw"], b: Value["raw"]): JSONValue => {
   }
 };
 export interface FiniteOptions {
-  kind: "causal-ss-r54" | "causal-retenciones-r57" | "causal-rentas-r59";
+  kind:
+    | "causal-ss-r54"
+    | "causal-retenciones-r57"
+    | "causal-rentas-r59"
+    | "causal-escalas-r60";
 }
 interface VerifiedOptions extends FiniteOptions {
   software: string[];
@@ -188,9 +206,27 @@ export function executeFiniteCausal(
   execution: string,
   options: FiniteOptions,
 ): CausalResult {
+  if (options.kind === "causal-escalas-r60") {
+    const route = "route" in contexto ? contexto.route : "annual";
+    contexto = Object.assign({}, contexto, { route: route ?? "annual" });
+  }
   let prepared: SSFragment;
   let software: string[];
-  if (options.kind === "causal-rentas-r59") {
+  if (options.kind === "causal-escalas-r60") {
+    prepared = prepareEscalas(g, caso, contexto);
+    software = [
+      "scripts/procedencia/causal-escalas-r60.mjs",
+      "scripts/procedencia/causal-escalas-r60-contratos.mjs",
+      "scripts/procedencia/causal-escalas-r60-schema.mjs",
+      "scripts/procedencia/causal-rentas-r59-contratos.mjs",
+      "scripts/procedencia/flujo-rentas-r36.mjs",
+      "scripts/procedencia/flujo-rentas-r36-consumidor.mjs",
+      "scripts/procedencia/flujo-retenciones-r34.mjs",
+      "scripts/procedencia/flujo-retenciones-r32.mjs",
+      "scripts/procedencia/flujo-escalas-r36.mjs",
+      "scripts/procedencia/flujo-escalas-r36-consumidor.mjs",
+    ];
+  } else if (options.kind === "causal-rentas-r59") {
     prepared = prepareRentas(g, caso, contexto);
     software = [
       "scripts/procedencia/causal-rentas-r59-contratos.mjs",
@@ -231,11 +267,20 @@ function evaluateVerifiedFinite(
   execution: string,
   options: VerifiedOptions,
 ): CausalResult {
-  shown(caso, options.kind === "causal-rentas-r59");
+  shown(
+    caso,
+    options.kind === "causal-rentas-r59" ||
+      options.kind === "causal-escalas-r60",
+  );
   shown(contexto);
   const normalizedInput =
-    options.kind === "causal-rentas-r59" ? shown(caso, true) : caso;
+    options.kind === "causal-rentas-r59" ||
+    options.kind === "causal-escalas-r60"
+      ? shown(caso, true)
+      : caso;
   if (!record(normalizedInput)) throw Error("Entrada anual no ordinaria");
+  const parents = new WeakMap<Map<string, Value>, Map<string, Value>>();
+  const locals = new WeakMap<Map<string, Value>, Set<string>>();
   const nodes = new Map(g.program.map((n) => [n.id, n])),
     globals = new Map(g.globalBindings.map((b) => [b.name, b.node])),
     values = new Map<string, Value>();
@@ -257,6 +302,17 @@ function evaluateVerifiedFinite(
     unit = units.get(current ?? "") ?? "structural",
   ): Value {
     const id = execution + ":" + events.length;
+    if (
+      options.kind === "causal-escalas-r60" &&
+      number(raw) &&
+      Number.isNaN(raw)
+    )
+      throw Error(
+        "NaN IR: " +
+          current +
+          " " +
+          JSON.stringify(edges.map((e) => events.find((v) => v.id === e.to))),
+      );
     events.push({
       id,
       frame,
@@ -293,6 +349,7 @@ function evaluateVerifiedFinite(
     out.structure = v.structure;
     out.closure = v.closure;
     out.native = v.native;
+    out.decimalClass = v.decimalClass;
     out.state = v.state;
     for (const [key, child] of v.props)
       out.props.set(
@@ -360,6 +417,9 @@ function evaluateVerifiedFinite(
       if (
         (Array.isArray(v.raw) &&
           [
+            "some",
+            "toSorted",
+            "includes",
             "filter",
             "map",
             "join",
@@ -371,7 +431,13 @@ function evaluateVerifiedFinite(
             "slice",
           ].includes(key)) ||
         (text(v.raw) &&
-          ["startsWith", "slice", "split", "padStart"].includes(key)) ||
+          [
+            "startsWith",
+            "slice",
+            "split",
+            "padStart",
+            "localeCompare",
+          ].includes(key)) ||
         (v.raw instanceof RegExp && key === "test")
       ) {
         const out = native("receiver." + key);
@@ -380,16 +446,48 @@ function evaluateVerifiedFinite(
       }
     }
     if (
-      options.kind === "causal-rentas-r59" &&
+      (options.kind === "causal-rentas-r59" ||
+        options.kind === "causal-escalas-r60") &&
       v.raw instanceof Date &&
-      ["getUTCFullYear", "getUTCMonth", "getUTCDate"].includes(key)
+      [
+        "getUTCFullYear",
+        "getUTCMonth",
+        "getUTCDate",
+        ...(options.kind === "causal-escalas-r60" ? ["getTime"] : []),
+      ].includes(key)
     ) {
       const out = native("date." + key);
       out.props.set("receiver", v);
       return out;
     }
-    if (v.native !== undefined && v.native !== "")
-      return native(v.native + "." + key);
+    if (
+      options.kind === "causal-escalas-r60" &&
+      DateTime.isDateTime(v.raw) &&
+      key === "epochMilliseconds"
+    )
+      return emit(
+        "dateTime-epoch",
+        DateTime.toEpochMillis(v.raw),
+        [{ role: "receiver", to: v.ref }],
+        key,
+        "epoch-ms",
+      );
+    if (v.native === "finite-set") {
+      if (key === "size")
+        return emit("set-size", v.props.size, [
+          { role: "structure", to: v.ref },
+        ]);
+      if (key === "has") {
+        const out = native("set.has");
+        out.props.set("receiver", v);
+        return out;
+      }
+    }
+    if (v.native !== undefined && v.native !== "") {
+      const out = native(v.native + "." + key);
+      out.decimalClass = v.decimalClass;
+      return out;
+    }
     if (Decimal.isDecimal(v.raw)) {
       const out = native("decimal." + key);
       out.props.set("receiver", v);
@@ -435,9 +533,14 @@ function evaluateVerifiedFinite(
     env: Map<string, Value>,
     role: string,
   ): void {
-    if (p.name !== undefined && p.name !== "")
+    if (p.name !== undefined && p.name !== "") {
       env.set(p.name, alias(v, role, [], p.name));
-    else if ("elements" in p && Array.isArray(p.elements)) {
+      if (options.kind === "causal-escalas-r60") {
+        const names = locals.get(env) ?? new Set<string>();
+        names.add(p.name);
+        locals.set(env, names);
+      }
+    } else if ("elements" in p && Array.isArray(p.elements)) {
       for (const [i, e] of p.elements.entries())
         if (e !== null) {
           let child = prop(v, String(i));
@@ -446,8 +549,29 @@ function evaluateVerifiedFinite(
           bind(e.binding, child, env, role);
         }
     } else
-      for (const f of p.fields ?? [])
-        bind(f.binding, prop(v, f.key), env, role);
+      for (const f of p.fields ?? []) {
+        let child: Value;
+        if (options.kind === "causal-escalas-r60" && f.rest === true) {
+          const fields = [...v.props].filter(
+            ([key]) =>
+              p.fields?.some((x) => x.rest !== true && x.key === key) !== true,
+          );
+          child = emit(
+            "object-rest",
+            Object.fromEntries(fields.map(([k, v]) => [k, v.raw])),
+            [{ role: "identity:receiver", to: v.ref }],
+          );
+          child.props = new Map(fields);
+        } else child = prop(v, f.key);
+        if (
+          child.raw === undefined &&
+          f.default !== undefined &&
+          f.default !== null &&
+          f.default !== ""
+        )
+          child = alias(evaluate(f.default, env), "default");
+        bind(f.binding, child, env, role);
+      }
   }
   function global(name: string): Value {
     if (!values.has(name)) {
@@ -467,6 +591,9 @@ function evaluateVerifiedFinite(
                 "Option",
                 "String",
                 "DateTime",
+                ...(options.kind === "causal-escalas-r60"
+                  ? ["clock", "Set", "Map", "Date", "Result"]
+                  : []),
               ]
             : []),
           "Match",
@@ -505,6 +632,7 @@ function evaluateVerifiedFinite(
               alias(v, "capture", [], name),
             ]),
           );
+        if (options.kind === "causal-escalas-r60") parents.set(env, f.env);
         current = f.node;
         emit("invoke", null, [
           { role: "callee", to: fn.ref },
@@ -533,6 +661,8 @@ function evaluateVerifiedFinite(
           if (e instanceof ReturnValue) result = e.value;
           else throw e;
         }
+        if (options.kind === "causal-escalas-r60" && f.node === g.lineNode)
+          captureLine(result);
         return alias(
           options.kind !== "causal-ss-r54" &&
             g.functionUnits?.some((u) => u.id === f.node) === true
@@ -603,16 +733,67 @@ function evaluateVerifiedFinite(
     const x = (i: number) => must(xs[i]),
       raw = xs.map((v) => v.raw),
       edges = xs.map((v, i) => ({ role: "argument:" + i, to: v.ref }));
+    if (options.kind === "causal-escalas-r60") {
+      if (name === "Decimal.clone") {
+        if (!record(raw[0]) || !number(raw[0].precision))
+          throw Error("Precision Decimal requise");
+        const out = native("Decimal");
+        out.decimalClass = (fn.decimalClass ?? Decimal).clone({
+          precision: raw[0].precision,
+        });
+        return out;
+      }
+      if (name === "Set") {
+        const members = [...x(0).props.values()].filter(
+          (v, i, a) => a.findIndex((w) => w.raw === v.raw) === i,
+        );
+        const out = collection(members, "set-members");
+        out.native = "finite-set";
+        return out;
+      }
+      if (name === "set.has") {
+        const receiver = must(fn.props.get("receiver"));
+        return emit(
+          "set.has",
+          [...receiver.props.values()].some((v) => v.raw === raw[0]),
+          [{ role: "receiver", to: receiver.ref }, ...edges],
+        );
+      }
+      if (name === "blocked-family")
+        throw Error(
+          "BloqueoFamilia: adaptarActividadGeneral.aporte.importeEurosExactos exige calcularActividad2025; 19 familias excluidas",
+        );
+      if (name === "preadmitted") return alias(x(0), "admission-precondition");
+      if (name === "clock") return emit("clock-excluded", 0);
+      if (name === "Effect.succeed") return alias(x(0), "success");
+      if (name === "Result.isFailure") {
+        const tag = prop(x(0), "_tag");
+        return emit("isFailure", tag.raw === "Failure", [
+          { role: "predicate", to: tag.ref },
+        ]);
+      }
+    }
     if (options.kind !== "causal-ss-r54") {
       if (name === "retencion-concrete")
         return invoke(global("calcularRetencionTrabajoAeatImpl"), xs, current);
       if (name === "Effect.annotateCurrentSpan")
         return emit("annotation", undefined, edges);
+      if (name === "Effect.fail" && options.kind === "causal-escalas-r60")
+        throw Object.assign(
+          Error("ResultadoNoSoportado: " + String(prop(x(0), "motivo").raw)),
+          { domainFailure: x(0).raw },
+        );
       if (name === "Effect.fail")
         throw Error(
           "ResultadoNoSoportado: " + String(prop(x(0), "motivo").raw),
         );
       if (name === "String") return emit(name, String(raw[0]), edges);
+      if (
+        name === "DateTime.makeUnsafe" &&
+        options.kind === "causal-escalas-r60" &&
+        text(raw[0])
+      )
+        return emit(name, DateTime.makeUnsafe(raw[0]), edges);
       if (name === "DateTime.makeUnsafe") {
         const input = Schema.decodeUnknownSync(
           Schema.Struct({
@@ -637,11 +818,13 @@ function evaluateVerifiedFinite(
         const d = receiver.raw;
         return emit(
           name,
-          name === "date.getUTCFullYear"
-            ? d.getUTCFullYear()
-            : name === "date.getUTCMonth"
-              ? d.getUTCMonth()
-              : d.getUTCDate(),
+          name === "date.getTime"
+            ? d.getTime()
+            : name === "date.getUTCFullYear"
+              ? d.getUTCFullYear()
+              : name === "date.getUTCMonth"
+                ? d.getUTCMonth()
+                : d.getUTCDate(),
           [{ role: "receiver", to: receiver.ref }],
         );
       }
@@ -658,6 +841,8 @@ function evaluateVerifiedFinite(
         return emit(name, raw[0] === undefined, edges);
       if (name === "Match.number") return emit(name, number(raw[0]), edges);
       if (name === "Match.string") return emit(name, text(raw[0]), edges);
+      if (name === "Math.min" && options.kind === "causal-escalas-r60")
+        return emit(name, Math.min(...raw.map(Number)), edges);
       if (name === "Math.max")
         return emit(name, Math.max(...raw.map(Number)), edges);
       if (name === "Error") throw Error("Excepción IR: " + String(raw[0]));
@@ -665,6 +850,12 @@ function evaluateVerifiedFinite(
         const receiver = must(fn.props.get("receiver")),
           key = name.slice(9);
         if (text(receiver.raw)) {
+          if (key === "localeCompare")
+            return emit(
+              "localeCompare",
+              receiver.raw.localeCompare(String(raw[0])),
+              [{ role: "receiver", to: receiver.ref }, ...edges],
+            );
           if (key === "split")
             return collection(
               receiver.raw
@@ -723,6 +914,16 @@ function evaluateVerifiedFinite(
             "index",
             "index",
           );
+        if (key === "includes")
+          return emit(
+            "includes",
+            members.some((v) => v.raw === raw[0]),
+            [
+              { role: "collection", to: selection.ref },
+              ...members.map((v) => ({ role: "member", to: v.ref })),
+              ...edges,
+            ],
+          );
         if (key === "join")
           return emit(
             "join",
@@ -735,6 +936,20 @@ function evaluateVerifiedFinite(
               ...edges,
             ],
           );
+        if (key === "map" && options.kind === "causal-escalas-r60") {
+          const prev = controls;
+          controls = [...prev, selection];
+          try {
+            return collection(
+              members.map((v, i) =>
+                invoke(x(0), [v, index(i), receiver], current),
+              ),
+              "map-return",
+            );
+          } finally {
+            controls = prev;
+          }
+        }
         if (key === "map")
           return collection(
             members.map((v, i) =>
@@ -755,19 +970,30 @@ function evaluateVerifiedFinite(
         }
         const selections: Value[] = [];
         let output: Value[] = [];
-        if (key === "filter" || key === "find" || key === "every") {
+        if (
+          key === "filter" ||
+          key === "find" ||
+          key === "every" ||
+          key === "some"
+        ) {
           for (const [i, v] of members.entries()) {
             const predicate = invoke(x(0), [v, index(i), receiver], current);
             selections.push(predicate);
             if (Boolean(predicate.raw)) {
               output.push(v);
-              if (key === "find") break;
+              if (key === "find" || key === "some") break;
             } else if (key === "every") break;
           }
           const links = [
             { role: "structure", to: selection.ref },
             ...selections.map((p) => ({ role: "predicate", to: p.ref })),
           ];
+          if (key === "some")
+            return emit(
+              "some-return",
+              selections.some((p) => Boolean(p.raw)),
+              links,
+            );
           if (key === "every")
             return emit(
               "every-return",
@@ -788,7 +1014,7 @@ function evaluateVerifiedFinite(
             controls = prev;
           }
         }
-        if (key === "sort") {
+        if (key === "sort" || key === "toSorted") {
           output = [...members].sort((a, b) => {
             const cmp = invoke(x(0), [a, b], current);
             selections.push(cmp);
@@ -815,7 +1041,7 @@ function evaluateVerifiedFinite(
     if (name === "Decimal")
       return emit(
         "Decimal",
-        new Decimal(raw[0]),
+        new (fn.decimalClass ?? Decimal)(raw[0]),
         edges,
         "",
         options.kind !== "causal-ss-r54"
@@ -829,6 +1055,8 @@ function evaluateVerifiedFinite(
       const key = name.split(".")[1],
         receiver = fn.props.get("receiver");
       const allowed = [
+        "eq",
+        "times",
         "min",
         "max",
         "plus",
@@ -852,7 +1080,7 @@ function evaluateVerifiedFinite(
       ];
       if (!allowed.includes(key))
         throw Error("Primitiva Decimal ausente: " + key);
-      const owner = receiver?.raw ?? Decimal;
+      const owner = receiver?.raw ?? fn.decimalClass ?? Decimal;
       // SAFETY: owner es Decimal concreto; key pertenece a la lista cerrada anterior. No se admite inyección.
       const method = (
         owner as Record<string, (...args: Value["raw"][]) => Value["raw"]>
@@ -904,6 +1132,76 @@ function evaluateVerifiedFinite(
     }
     if (name === "Object.values")
       return collection([...x(0).props.values()], "Object.values");
+    if (options.kind === "causal-escalas-r60" && name === "EffectArray.empty")
+      return collection([], "array-empty");
+    if (
+      options.kind === "causal-escalas-r60" &&
+      [
+        "EffectArray.flatMap",
+        "EffectArray.findFirst",
+        "EffectArray.findLast",
+      ].includes(name)
+    ) {
+      const receiver = x(0),
+        members = [...receiver.props.values()];
+      const selection = emit("array-selection", members.length, [
+        { role: "identity:receiver", to: receiver.ref },
+        ...members.map((v, i) => ({
+          role: "identity:element:" + i,
+          to: v.ref,
+        })),
+        ...(receiver.structure ?? []).map((v) => ({
+          role: "structure",
+          to: v.ref,
+        })),
+        { role: "callback", to: x(1).ref },
+      ]);
+      const prev = controls;
+      controls = [...prev, selection];
+      try {
+        if (name === "EffectArray.flatMap")
+          return collection(
+            members.flatMap((v, i) => [
+              ...invoke(
+                x(1),
+                [
+                  v,
+                  emit("index", i, [{ role: "collection", to: selection.ref }]),
+                ],
+                current,
+              ).props.values(),
+            ]),
+            "flatMap-return",
+          );
+        let chosen: Value | undefined;
+        const predicates: Value[] = [];
+        for (const [i, v] of name === "EffectArray.findLast"
+          ? [...members.entries()].reverse()
+          : [...members.entries()]) {
+          const test = invoke(
+            x(1),
+            [v, emit("index", i, [{ role: "collection", to: selection.ref }])],
+            current,
+          );
+          predicates.push(test);
+          if (Boolean(test.raw)) {
+            chosen = v;
+            break;
+          }
+        }
+        const out = emit(name, null, [
+          { role: "collection", to: selection.ref },
+          ...predicates.map((v) => ({ role: "predicate", to: v.ref })),
+        ]);
+        out.state = {
+          input: chosen ?? emit("not-found", undefined),
+          selections: [selection, ...predicates],
+        };
+        return out;
+      } finally {
+        controls = prev;
+      }
+    }
     if (name === "EffectArray.map") {
       const receiver = x(0),
         callback = x(1);
@@ -953,6 +1251,12 @@ function evaluateVerifiedFinite(
           role: "identity:element:" + key,
           to: element.ref,
         })),
+        ...(options.kind === "causal-escalas-r60"
+          ? (receiver.structure ?? []).map((v) => ({
+              role: "structure",
+              to: v.ref,
+            }))
+          : []),
         { role: "seed", to: seed.ref },
         { role: "callback", to: callback.ref },
       ]);
@@ -983,6 +1287,32 @@ function evaluateVerifiedFinite(
       );
       v.state = { input: x(0), selections: [] };
       return v;
+    }
+    if (
+      name === "Option.match" &&
+      xs.length === 2 &&
+      options.kind === "causal-escalas-r60"
+    ) {
+      const state = must(x(0).state),
+        present = state.input.raw !== undefined && state.input.raw !== null;
+      const selection = emit("option-presence", present, [
+        { role: "identity:input", to: state.input.ref },
+        ...state.selections.map((v) => ({ role: "selector", to: v.ref })),
+      ]);
+      const prev = controls;
+      controls = [...prev, selection];
+      try {
+        return alias(
+          invoke(
+            prop(x(1), present ? "onSome" : "onNone"),
+            present ? [state.input] : [],
+            current,
+          ),
+          "option-return",
+        );
+      } finally {
+        controls = prev;
+      }
     }
     if (name === "Option.getOrElse" || name === "Option.match") {
       const v = native(name + ":apply");
@@ -1128,17 +1458,136 @@ function evaluateVerifiedFinite(
       });
     try {
       switch (n.op) {
+        case "assign": {
+          if (options.kind !== "causal-escalas-r60")
+            throw Error("assign fuera de dominio");
+          const v = ev(0),
+            name = must(n.data.name);
+          let owner = env;
+          while (parents.has(owner) && locals.get(owner)?.has(name) !== true)
+            owner = must(parents.get(owner));
+          if (!owner.has(name)) throw Error("Asignación sin declaración");
+          const out = alias(v, "assignment", [], name);
+          owner.set(name, out);
+          return out;
+        }
+        case "forof":
+        case "forOf": {
+          const receiver = ev(0);
+          let result = emit("loop-empty", undefined);
+          const selection = emit("loop-selection", receiver.props.size, [
+            { role: "identity:receiver", to: receiver.ref },
+            ...[...receiver.props.values()].map((v, i) => ({
+              role: "identity:element:" + i,
+              to: v.ref,
+            })),
+          ]);
+          for (const [key, v] of receiver.props) {
+            const local = new Map(env);
+            parents.set(local, env);
+            const prev = controls;
+            controls = [
+              ...prev,
+              selection,
+              emit("loop-index", key, [
+                { role: "collection", to: selection.ref },
+              ]),
+            ];
+            try {
+              bind(must(n.data.binding), v, local, "iteration");
+              result = evaluate(must(n.args[1]), local);
+            } finally {
+              controls = prev;
+            }
+          }
+          return result;
+        }
+        case "preadmitted": {
+          const out = native("preadmitted");
+          return out;
+        }
+        case "blockedFamily":
+          return native("blocked-family");
+        case "schemaDecode": {
+          const input = ev(0);
+          const decoded = decodeEscalasSchema(
+            must(g.schemaProgram),
+            must(n.data.schema),
+            input.raw,
+          );
+          if (decoded._tag === "Failure") {
+            const failed = emit("schema-failure", { _tag: "Failure" }, [
+              { role: "validation", to: input.ref },
+            ]);
+            failed.props.set(
+              "_tag",
+              emit("schema-tag", "Failure", [
+                { role: "validation", to: input.ref },
+              ]),
+            );
+            return failed;
+          }
+          const out = emit(
+            "schema-success",
+            { _tag: "Success", success: input.raw },
+            [{ role: "identity:input", to: input.ref }],
+          );
+          out.props.set(
+            "_tag",
+            emit("schema-tag", "Success", [
+              { role: "identity:input", to: input.ref },
+            ]),
+          );
+          out.props.set("success", alias(input, "decoded-input"));
+          return out;
+        }
+        case "failurePayload": {
+          const input = ev(0);
+          if (!record(input.raw))
+            throw Error("Payload de rechazo no ordinario");
+          const out = emit(
+            "failure-payload",
+            { _tag: n.data.tag, ...input.raw },
+            [{ role: "payload", to: input.ref }],
+          );
+          out.props = new Map(input.props);
+          out.props.set("_tag", emit("failure-tag", n.data.tag));
+          return out;
+        }
+        case "isFailure": {
+          const tag = prop(ev(0), "_tag");
+          return emit("isFailure", tag.raw === "Failure", [
+            { role: "predicate", to: tag.ref },
+          ]);
+        }
+        case "noop":
+          return emit("noop", undefined);
+        case "invoke":
+          return invoke(ev(0), [], id);
+        case "mapError":
+          return ev(0);
         case "literal":
           return emit("literal", n.data.value);
         case "regex":
           return emit("regex", new RegExp(must(n.data.pattern), n.data.flags));
-        case "local":
+        case "local": {
+          let owner = env;
+          if (options.kind === "causal-escalas-r60")
+            while (
+              parents.has(owner) &&
+              locals.get(owner)?.has(must(n.data.name)) !== true
+            )
+              owner = must(parents.get(owner));
           return alias(
-            must(env.get(must(n.data.name)), "Local sin binding"),
+            must(
+              owner.get(must(n.data.name)),
+              "Local sin binding: " + n.data.name,
+            ),
             "local",
             [],
             must(n.data.name),
           );
+        }
         case "global":
           return alias(global(must(n.data.name)), "global");
         case "function": {
@@ -1146,13 +1595,14 @@ function evaluateVerifiedFinite(
           v.closure = {
             body: must(n.args[0]),
             parameters: must(n.data.parameters),
-            env: new Map(env),
+            env: options.kind === "causal-escalas-r60" ? env : new Map(env),
             node: id,
           };
           return v;
         }
         case "block": {
           const local = new Map(env);
+          if (options.kind === "causal-escalas-r60") parents.set(local, env);
           for (const id of n.args) evaluate(id, local);
           return emit("block", undefined);
         }
@@ -1174,6 +1624,10 @@ function evaluateVerifiedFinite(
         case "pass":
           return alias(ev(0), "pass");
         case "throw":
+          if (options.kind === "causal-escalas-r60")
+            throw Object.assign(Error("Rechazo IR R60"), {
+              domainFailure: ev(0).raw,
+            });
           throw Error("Excepción IR no resuelta");
         case "if":
         case "conditional": {
@@ -1263,6 +1717,14 @@ function evaluateVerifiedFinite(
             }
           }
           const b = ev(1);
+          if (op === "in" && options.kind === "causal-escalas-r60") {
+            if (!record(b.raw) && !Array.isArray(b.raw))
+              throw Error("Presencia en no objeto");
+            return emit("property-presence", String(a.raw) in b.raw, [
+              { role: "key", to: a.ref },
+              { role: "identity:receiver", to: b.ref },
+            ]);
+          }
           const presence =
             options.kind !== "causal-ss-r54" &&
             ["===", "!=="].includes(op) &&
@@ -1427,7 +1889,50 @@ function evaluateVerifiedFinite(
   if (options.kind === "causal-retenciones-r57") {
     env.set("retencion", must(env.get("retencionTrabajoAeat")));
   }
-  for (const b of g.outputBindings) {
+  function captureLine(v: Value): void {
+    const origin = prop(v, "origen"),
+      site = prop(origin, "siteId");
+    if (!g.outputBindings.some((b) => b.siteId === site.raw)) return;
+    const decimal = prop(origin, "decimal"),
+      display = prop(v, "resultado");
+    const transported = alias(
+      { ...decimal, unit: "EUR-decimal-string" },
+      "transport",
+      [],
+      String(site.raw),
+    );
+    lines.push(v.raw);
+    outputs.push({
+      siteId: String(site.raw),
+      decimal: String(decimal.raw),
+      display: display.raw,
+      root: transported.ref,
+      slice: causalSlice(events, transported.ref),
+    });
+  }
+  if (options.kind === "causal-escalas-r60") {
+    const entry = must(g.entryPoints);
+    const routeValue = prop(must(env.get("contexto")), "route");
+    const entrySelection = emit("entry-selection", routeValue.raw, [
+      { role: "selector", to: routeValue.ref },
+    ]);
+    controls = [...controls, entrySelection];
+    const explicit = routeValue.raw === "explicit";
+    invoke(
+      global(explicit ? entry.explicit : entry.annual),
+      explicit
+        ? [must(env.get("caso"))]
+        : [
+            must(env.get("caso")),
+            external({}, "dependencias"),
+            must(env.get("contexto")),
+          ],
+      null,
+    );
+  }
+  for (const b of options.kind === "causal-escalas-r60"
+    ? []
+    : g.outputBindings) {
     if (
       options.kind === "causal-retenciones-r57" &&
       b.siteId.startsWith("anual.retencion.") &&
@@ -1464,9 +1969,11 @@ function evaluateVerifiedFinite(
       version:
         options.kind === "causal-ss-r54"
           ? 1
-          : options.kind === "causal-rentas-r59"
-            ? 3
-            : 2,
+          : options.kind === "causal-escalas-r60"
+            ? 4
+            : options.kind === "causal-rentas-r59"
+              ? 3
+              : 2,
       kind: options.kind,
       execution,
       program: digest(g),

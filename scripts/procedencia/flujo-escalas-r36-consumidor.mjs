@@ -1,3 +1,6 @@
+import { verifyEscalasR36 } from "./flujo-escalas-r36.mjs"
+import { composeCausalEscalas } from "./causal-escalas-r60-contratos.mjs"
+import { executeCausalEscalas } from "./causal-escalas-r60.mjs"
 import { createRequire } from "node:module"
 const require = createRequire("/home/elies/Repos/IRoboPF/package.json")
 const { Decimal } = require("decimal.js")
@@ -389,10 +392,9 @@ export function executeEscalasR36(
   return { result, trace }
 }
 
-/** Ensayo condicionado. Los callbacks son contratos ajenos suministrados por el
- * llamante; nunca se convierten en admisión ni en revisión independiente. */
-/** @param {((event: import("./puertos-composicion-r47").Observation) => void)|null} observe */
-export function consumeEscalasR36(fragment, route, caso, contexto, boundaries, observe = null) {
+/** Ensayo condicionado: conserva íntegro el cuerpo histórico.
+ * @param {((event: import("./puertos-composicion-r47").Observation) => void)|null} observe */
+function consumeLegacyEscalasR36(fragment, route, caso, contexto, boundaries, observe = null) {
   if (!["annual", "explicit"].includes(route)) throw Error("Ruta no admitida")
   const entry =
     route === "annual"
@@ -426,4 +428,37 @@ export function consumeEscalasR36(fragment, route, caso, contexto, boundaries, o
     wiringAllowed: false,
     review: "pending-independent"
   }
+}
+
+/**
+ * @overload
+ * @param {Parameters<typeof consumeLegacyEscalasR36>[0]} fragment
+ * @param {Parameters<typeof consumeLegacyEscalasR36>[1]} route
+ * @param {Parameters<typeof consumeLegacyEscalasR36>[2]} caso
+ * @param {Parameters<typeof consumeLegacyEscalasR36>[3]} contexto
+ * @param {Parameters<typeof consumeLegacyEscalasR36>[4]} boundaries
+ * @param {null} observe
+ * @param {{causal:true,execution?:string}} options
+ * @returns {ReturnType<typeof executeCausalEscalas>}
+ */
+/**
+ * @overload
+ * @param {Parameters<typeof consumeLegacyEscalasR36>[0]} fragment
+ * @param {Parameters<typeof consumeLegacyEscalasR36>[1]} route
+ * @param {Parameters<typeof consumeLegacyEscalasR36>[2]} caso
+ * @param {Parameters<typeof consumeLegacyEscalasR36>[3]} contexto
+ * @param {Parameters<typeof consumeLegacyEscalasR36>[4]} boundaries
+ * @param {Parameters<typeof consumeLegacyEscalasR36>[5]} [observe]
+ * @param {{causal?:false,execution?:string}|null} [options]
+ * @returns {ReturnType<typeof consumeLegacyEscalasR36>}
+ */
+/** @param {((event: import("./puertos-composicion-r47").Observation) => void)|null} observe
+ * @param {{causal?:boolean,execution?:string}|null} options */
+export function consumeEscalasR36(fragment, route, caso, contexto, boundaries, observe = null, options = null) {
+  if (options?.causal === true) {
+    verifyEscalasR36(fragment)
+    if ((boundaries !== undefined && (!(boundaries instanceof Map) || boundaries.size !== 0)) || observe !== null) throw Error("Callbacks externos incompatibles con evidencia R60")
+    return executeCausalEscalas(composeCausalEscalas(),caso,{...contexto,route},options.execution)
+  }
+  return consumeLegacyEscalasR36(fragment,route,caso,contexto,boundaries,observe)
 }

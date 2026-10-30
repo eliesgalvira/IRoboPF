@@ -1,0 +1,18 @@
+{
+  "command": [
+    "nix",
+    "shell",
+    "nixpkgs#nodejs",
+    "-c",
+    "flock",
+    "/tmp/irobopf-validacion-pesada.lock",
+    "node",
+    "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r62/testigos.mjs"
+  ],
+  "environment": {
+    "NODE_PATH": "/home/elies/Repos/IRoboPF/node_modules"
+  },
+  "exitCode": 0,
+  "result": "testigos.json",
+  "log": "testigos-reintento.log"
+}
