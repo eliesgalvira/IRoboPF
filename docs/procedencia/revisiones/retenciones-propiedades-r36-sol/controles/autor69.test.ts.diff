@@ -1,0 +1,21 @@
+--- tests/flujo-retenciones-r34.test.ts	2026-10-30 01:35:34.202930140 +0100
++++ /home/elies/.t3/worktrees/IRoboPF/t3-3a2923a1/.cache/revision-retenciones-r36/autor69.test.ts	2026-10-30 01:39:39.955422198 +0100
+@@ -4,15 +4,15 @@
+ import {
+   composeRetencionesR34,
+   verifyRetencionesR34,
+-} from "../scripts/procedencia/flujo-retenciones-r34.mjs"
++} from "/home/elies/.t3/worktrees/IRoboPF/t3-3a2923a1/scripts/procedencia/flujo-retenciones-r34.mjs"
+ import {
+   executeFinite,
+   consumeAnnual,
+-} from "../scripts/procedencia/flujo-retenciones-r34-consumidor.mjs"
++} from "/home/elies/.t3/worktrees/IRoboPF/t3-3a2923a1/scripts/procedencia/flujo-retenciones-r34-consumidor.mjs"
+ import {
+   calcularRetencionTrabajoAeat,
+   type CasoRetencionTrabajo,
+-} from "../lib/dominio/irpf/retenciones/retencion-trabajo-aeat"
++} from "/home/elies/.t3/worktrees/IRoboPF/t3-3a2923a1/lib/dominio/irpf/retenciones/retencion-trabajo-aeat"
+ const g = composeRetencionesR34()
+ const D = (n: Decimal.Value) => new Decimal(n)
+ const base: CasoRetencionTrabajo = {

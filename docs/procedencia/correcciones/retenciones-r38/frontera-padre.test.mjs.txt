@@ -1,0 +1,46 @@
+import fs from 'node:fs'
+import { afterAll, expect, it } from 'vitest'
+import { Effect } from 'effect'
+import { composeRetencionesR34, verifyRetencionesR34 } from '/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-retenciones-r34.mjs'
+import { consumeAnnual } from '/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-retenciones-r34-consumidor.mjs'
+import { liquidarIrpfAnual } from '/home/elies/Repos/IRoboPF/lib/dominio/irpf/liquidacion/liquidar-irpf-anual'
+
+const fragment = composeRetencionesR34()
+const context = { modo: 'canonico' }
+const records = []
+const retencion = {
+  anio: 2020, edad: 40, retribucionAnualCentimos: 4020000, cotizacionesCentimos: 20000,
+  situacionFamiliar: 'situacion3', situacionLaboral: 'activo', contrato: 'general',
+  descendientes: [], ascendientes: [], discapacidad: 'sin-discapacidad',
+}
+const caso = {
+  anio: 2020, comunidadAutonoma: 'simulada-estatal',
+  situacionFamiliar: { tipo: 'individual', edad: 40, descendientes: [], ascendientes: [], discapacidad: { _tag: 'SinDiscapacidad' } },
+  rendimientos: { trabajo: [{ importeIntegroCentimos: 3000000 }] }, reducciones: [], deducciones: [],
+  retencionesSoportadasCentimos: 101, pagosACuentaCentimos: 303, retencionTrabajoAeat: retencion,
+}
+
+it('control admitido: seis orígenes iguales con servicio concreto', () => {
+  expect(verifyRetencionesR34(fragment)).toBe(true)
+  const ir = consumeAnnual(fragment, caso, context, false)
+  const actual = Effect.runSync(liquidarIrpfAnual(caso, context))
+  const lines = actual.rastro.pasos.flatMap(p => p.lineasCalculo ?? []).filter(l => fragment.sites.some(s => s.siteId === l.origen?.siteId))
+  expect(ir.lines.map(l => l.origen)).toEqual(lines.map(l => l.origen))
+  expect(lines).toHaveLength(6)
+  records.push({ id: 'control-mismo-ejercicio', origins: ir.lines.map(l => l.origen) })
+})
+
+for (const anio of [2021, 2025]) it(`admisión exterior requerida: anual ${anio}, retención 2020`, () => {
+  const input = { ...caso, anio }
+  const ir = consumeAnnual(fragment, input, context, false)
+  const actual = Effect.runSyncExit(liquidarIrpfAnual(input, context))
+  expect(ir.lines).toHaveLength(6)
+  expect(ir.admission).toBe('required-anual-publico-r32')
+  expect(ir.siteClosed).toBe(false)
+  expect(ir.wiringAllowed).toBe(false)
+  expect(actual._tag).toBe('Failure')
+  expect(JSON.stringify(actual)).toContain('mismo ejercicio')
+  records.push({ id: `frontera-ejercicio-${anio}`, api: actual._tag, irLines: ir.lines.length, admission: ir.admission, siteClosed: ir.siteClosed, wiringAllowed: ir.wiringAllowed })
+})
+
+afterAll(() => fs.writeFileSync('/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r38/frontera-padre.json', JSON.stringify(records, null, 2)+'\n'))

@@ -1,0 +1,103 @@
+import gzip
+import hashlib
+import json
+import os
+import shutil
+import stat
+import subprocess
+from pathlib import Path
+
+R = Path('/home/elies/Repos/IRoboPF')
+S = Path('/home/elies/.t3/worktrees/IRoboPF/t3-3a2923a1')
+F = 'docs/procedencia/revisiones/retenciones-propiedades-r36-sol'
+BASE = '50f9e949544e20d3e4e0bffc79b926d396267319'
+CACHE = R / '.cache/orquestador-recepcion/r38'
+OUT = R / 'docs/procedencia/correcciones/retenciones-r38'
+
+
+def sha(data):
+    return hashlib.sha256(data).hexdigest()
+
+
+def git(root, *args):
+    return subprocess.check_output(['git', *args], cwd=root)
+
+
+raw = (S / F / 'MANIFIESTO.json').read_bytes()
+assert sha(raw) == '95e54e23954da78ca3416ef83cdd02ced3977d540e13a40ffa4ad28a962b1bf1'
+m = json.loads(raw)
+assert m['head'] == BASE and not m['baseChanges'] and not m['deletions']
+envelope = (S/F/'ENTREGA.json').read_bytes()
+assert sha(envelope) == '0b5c4709c01ea7d355e06e4a3b57b36a4b7de398b76a6e332413543b50b8fb41'
+d = json.loads(envelope)
+assert d['head'] == BASE and d['scope'] == F
+for e in d['envelope']:
+    assert sha((S/e['path']).read_bytes()) == e['sha256'] and (S/e['path']).stat().st_size == e['size']
+patch = (S / F / 'patch.diff.gz').read_bytes()
+assert sha(patch) == '464318cca054b4b8f7fb2f5e980009f1689812cee84bb9e59acc557184c8276f'
+assert git(S, 'rev-parse', 'HEAD').decode().strip() == BASE
+assert not git(S, 'diff', '--name-status', BASE + '..HEAD').strip()
+rows = m['files'] + [dict(e, baseSha256=None, envelope=True) for e in d['envelope']] + [dict(path=F+'/ENTREGA.json', sha256=sha(envelope), size=len(envelope), baseSha256=None, envelope=True)]
+assert len(rows) == 64 and len({e['path'] for e in rows}) == 64
+assert {str(p.relative_to(S)) for p in (S/F).rglob('*') if p.is_file()} == {e['path'] for e in rows}
+for e in rows:
+    name = e['path']
+    assert name.startswith(F+'/') and '..' not in Path(name).parts
+    src = S/name
+    st = src.lstat()
+    data = src.read_bytes()
+    assert stat.S_ISREG(st.st_mode) and not (st.st_mode & stat.S_IXUSR)
+    assert sha(data) == e['sha256'] and len(data) == e['size'] and len(data) < 10485760
+    assert e['baseSha256'] is None and not (R/name).exists()
+
+reader = subprocess.Popen(['git', 'cat-file', '--batch'], cwd=R, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+assert reader.stdin is not None and reader.stdout is not None
+count = 0
+for entry in git(R, 'ls-tree', '-rz', BASE).split(b'\0'):
+    if not entry:
+        continue
+    meta, name = entry.split(b'\t')
+    mode, kind, oid = meta.split()
+    assert kind == b'blob'
+    reader.stdin.write(oid+b'\n')
+    reader.stdin.flush()
+    header = reader.stdout.readline().split()
+    expected = reader.stdout.read(int(header[2]))
+    assert reader.stdout.read(1) == b'\n'
+    path = S/name.decode()
+    st = path.lstat()
+    if mode == b'120000':
+        assert stat.S_ISLNK(st.st_mode)
+        actual = os.readlink(path).encode()
+    else:
+        assert stat.S_ISREG(st.st_mode) and bool(st.st_mode & stat.S_IXUSR) == (mode == b'100755')
+        actual = path.read_bytes()
+    assert actual == expected, name
+    count += 1
+reader.stdin.close()
+assert reader.wait() == 0 and count == 20227
+
+# Transporte en directorio ordinario propio; no checkout ni escritura VCS.
+trial = CACHE/'transporte'
+trial.mkdir()
+subprocess.run(['patch', '--batch', '-p1', '-d', str(trial)], input=gzip.decompress(patch), check=True, stdout=(CACHE/'transporte.log').open('wb'))
+for e in json.loads((S/F/'binarios.json').read_text()):
+    assert any(x['path'] == e['path'] and x['sha256'] == e['sha256'] and x['size'] == e['size'] for x in m['files'])
+    dst = trial/e['path']
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(S/e['path'], dst)
+for e in m['files']:
+    assert sha((trial/e['path']).read_bytes()) == e['sha256'], e['path']
+assert {str(p.relative_to(trial)) for p in trial.rglob('*') if p.is_file()} == {e['path'] for e in m['files']}
+
+for e in rows:
+    src, dst = S/e['path'], R/e['path']
+    assert sha(src.read_bytes()) == e['sha256']
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(src, dst)
+    os.chmod(dst, 0o644)
+    assert sha(dst.read_bytes()) == e['sha256']
+OUT.mkdir(parents=True, exist_ok=True)
+receipt = dict(source=str(S), base=BASE, manifestSha256=sha(raw), physicalEntriesChecked=count, changes=[], deletions=[], transportExact=True, files=rows)
+(OUT/'recepcion.json').write_text(json.dumps(receipt, indent=2)+'\n')
+print(json.dumps(dict(physicalEntries=count, files=len(rows), bytes=sum(e['size'] for e in rows), deletions=0, transportExact=True)), flush=True)

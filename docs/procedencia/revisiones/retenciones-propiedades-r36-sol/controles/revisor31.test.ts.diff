@@ -1,0 +1,15 @@
+--- docs/procedencia/implementaciones/flujo-retenciones-r34-sol/instrumentos/revisor.test.ts.txt	2026-10-30 01:35:33.858911252 +0100
++++ /home/elies/.t3/worktrees/IRoboPF/t3-3a2923a1/.cache/revision-retenciones-r36/revisor31.test.ts	2026-10-30 01:39:39.957422308 +0100
+@@ -2,9 +2,9 @@
+ import Decimal from 'decimal.js'
+ import { Effect } from 'effect'
+ import { calcularCuotaEscala, calcularCuotaRetencion, calcularMinimoDescendientes, calcularMinimoAscendientes, calcularMinimoPersonalFamiliar, calcularLimite43, calcularReduccionActual, calcularMinoracionVivienda, calcularTipoInicial, calcularRetencionTrabajoAeat, type CasoRetencionTrabajo } from './retencion'
+-import { seleccionarVersionRetencion } from '/home/elies/.t3/worktrees/IRoboPF/t3-a125ce4b/lib/dominio/irpf/retenciones/versiones/catalogo'
+-import { tablaUmbralesRetencionTrabajo, umbralRetencionTrabajoRequeridoEuros } from '/home/elies/.t3/worktrees/IRoboPF/t3-a125ce4b/lib/dominio/normativa/datos/irpf-retenciones-trabajo-2012-2026'
+-import { liquidarIrpfAnual, type CasoFiscalAnual } from '/home/elies/.t3/worktrees/IRoboPF/t3-a125ce4b/lib/dominio/irpf/liquidacion/liquidar-irpf-anual'
++import { seleccionarVersionRetencion } from '/home/elies/.t3/worktrees/IRoboPF/t3-3a2923a1/lib/dominio/irpf/retenciones/versiones/catalogo'
++import { tablaUmbralesRetencionTrabajo, umbralRetencionTrabajoRequeridoEuros } from '/home/elies/.t3/worktrees/IRoboPF/t3-3a2923a1/lib/dominio/normativa/datos/irpf-retenciones-trabajo-2012-2026'
++import { liquidarIrpfAnual, type CasoFiscalAnual } from '/home/elies/.t3/worktrees/IRoboPF/t3-3a2923a1/lib/dominio/irpf/liquidacion/liquidar-irpf-anual'
+ const D=(x: Decimal.Value)=>new Decimal(x)
+ const version=seleccionarVersionRetencion({anio:2020})
+ const child=(edad:number,computoPorEntero=true)=>({edad,computoPorEntero,discapacidad:'sin-discapacidad' as const,movilidadReducida:false,adopcionOAcogimientoMenosTresAnios:false})

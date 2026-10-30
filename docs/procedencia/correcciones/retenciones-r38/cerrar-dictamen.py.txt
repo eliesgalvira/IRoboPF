@@ -1,0 +1,57 @@
+import gzip
+import hashlib
+import json
+from pathlib import Path
+
+R = Path('/home/elies/Repos/IRoboPF')
+S = R/'.cache/orquestador-recepcion/r38'
+O = R/'docs/procedencia/correcciones/retenciones-r38'
+F = R/'docs/procedencia/revisiones/retenciones-propiedades-r36-sol'
+
+
+def sha(data):
+    return hashlib.sha256(data).hexdigest()
+
+
+tests = json.loads((S/'tests.json').read_text())
+assert tests['success'] and tests['numTotalTests'] == tests['numPassedTests'] == 162 and tests['numFailedTests'] == 0
+quality = json.loads((O/'calidad.json').read_text())
+assert {e['name'] for e in quality} == {'tipos', 'oxlint', 'eslint'} and all(e['exitCode'] == 0 for e in quality)
+reviewed = json.loads((F/'REVISADO.json').read_text())
+for e in reviewed['files']:
+    assert sha((R/e['path']).read_bytes()) == e['sha256']
+fragment_path = R/'docs/procedencia/implementaciones/flujo-retenciones-r34-sol/controles/fragmento.json.gz'
+fragment = json.loads(gzip.decompress(fragment_path.read_bytes()))
+assert json.loads((S/'fragmento.json').read_text()) == fragment
+assert len(fragment['scaleCells']) == 18 and len(fragment['scaleInstances']) == 5
+assert fragment['completeRuleAcceptance'] is False and fragment['wiringAllowed'] is False
+decisions = json.loads((F/'decisiones-sitios.json').read_text())
+assert {e['siteId'] for e in decisions} == {e['siteId'] for e in fragment['sites']} and len(decisions) == 6
+for e in decisions:
+    assert not e['siteClosed'] and not e['wiringAllowed'] and not e['completeRuleAcceptance']
+    e['parentContrastRequired'] = False
+    e['parentDecision'] = 'corroborado-tecnico-condicionado'
+    e['conditions'] = [
+        'Fuentes, programa y consumidor fijados en fuentes-contrastadas.json',
+        'Paquete validado con verifyRetencionesR34 antes de consumirlo',
+        'Entradas de datos ordinarias del contrato, sin getters o tipos JS arbitrarios',
+        'Servicio concreto de retenciones, no una implementación inyectada arbitraria',
+        'Primitivas Decimal y Match y operaciones síncronas del consumidor revisado',
+        'Admisión anual exterior, incluida coherencia de ejercicio, todavía pendiente de composición',
+    ]
+result = dict(
+    review=str((F/'MANIFIESTO.json').relative_to(R)),
+    reviewSha256=sha((F/'MANIFIESTO.json').read_bytes()),
+    fragment=str(fragment_path.relative_to(R)), fragmentSha256=sha(fragment_path.read_bytes()),
+    sourcesReviewed=reviewed['files'], decisions=decisions,
+    preservedOpen=['admisión anual', 'inyección arbitraria', 'semántica completa Cause/Exit y fibras', 'RF33-04 editorial', 'aceptación jurídica y hechos del contribuyente'],
+    completeRuleAcceptance=False, wiringAllowed=False,
+)
+(O/'dictamen-padre.json').write_text(json.dumps(result, ensure_ascii=False, indent=2)+'\n')
+for name in ['tests.json', 'tests.log', 'casos.json', 'frontera-padre.json']:
+    (O/name).write_bytes((S/name).read_bytes())
+for name in ['calidad.py', 'cerrar-dictamen.py']:
+    (O/(name+'.txt')).write_bytes((S/name).read_bytes())
+summary = dict(tests=162, reviewerCasesRepeated=159, newParentCases=3, failures=0, sixSitesConditionallyCorroborated=True, admissionPending=True, productChanges=False, quality=quality)
+(O/'validacion.json').write_text(json.dumps(summary, ensure_ascii=False, indent=2)+'\n')
+print(json.dumps({k:v for k,v in summary.items() if k != 'quality'}), flush=True)

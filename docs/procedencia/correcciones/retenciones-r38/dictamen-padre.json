@@ -1,0 +1,199 @@
+{
+  "review": "docs/procedencia/revisiones/retenciones-propiedades-r36-sol/MANIFIESTO.json",
+  "reviewSha256": "95e54e23954da78ca3416ef83cdd02ced3977d540e13a40ffa4ad28a962b1bf1",
+  "fragment": "docs/procedencia/implementaciones/flujo-retenciones-r34-sol/controles/fragmento.json.gz",
+  "fragmentSha256": "f8ce4d8cd32044da48c983f4e18710bb0572f5055a8b49aafbb2038494d5e20a",
+  "sourcesReviewed": [
+    {
+      "path": "scripts/procedencia/flujo-retenciones-r34.mjs",
+      "sha256": "9077b402b510b61a11fc70fbf5f832bb91a134a07fe64bdf7b9756d1c070f53c",
+      "size": 23210
+    },
+    {
+      "path": "scripts/procedencia/flujo-retenciones-r34-consumidor.mjs",
+      "sha256": "a44f7a3eb4a7d5565c4c2d5439165c2b204ac4d30b17bd270c2730ce9c42a6c0",
+      "size": 9573
+    },
+    {
+      "path": "schemas/procedencia/flujo/retenciones-r34.schema.json",
+      "sha256": "b1180098f95ee2f51efb9f08a505e73b959f06b9e563332656f896115261e5ce",
+      "size": 74601
+    },
+    {
+      "path": "tests/flujo-retenciones-r34.test.ts",
+      "sha256": "a9d79bf5129a38bf88c52e2afc624f9137783b6bacf798542258a60de8ed6824",
+      "size": 13780
+    },
+    {
+      "path": "docs/procedencia/implementaciones/flujo-retenciones-r34-sol/controles/fragmento.json.gz",
+      "sha256": "f8ce4d8cd32044da48c983f4e18710bb0572f5055a8b49aafbb2038494d5e20a",
+      "size": 109174
+    },
+    {
+      "path": "docs/procedencia/implementaciones/flujo-retenciones-r34-sol/INFORME.md",
+      "sha256": "bd8a6d2a3eea68c01f510f4839c65d76a5ec8498da45157c0d84cd4d9f417ec1",
+      "size": 12878
+    }
+  ],
+  "decisions": [
+    {
+      "siteId": "anual.retencion.base",
+      "value": "corroborado-tecnico_condicionado",
+      "selection": "corroborado_tecnico_condicionado",
+      "reason": "Campos, defaults, constantes, reducción y transporte monetario explícitos",
+      "limit": "Depende de admisión anual y servicio concreto; no cubre elegibilidad fiscal",
+      "admission": "pending",
+      "injection": "open",
+      "siteClosed": false,
+      "wiringAllowed": false,
+      "completeRuleAcceptance": false,
+      "parentContrastRequired": false,
+      "objecionExperta": "Una IR que reproduce el resultado puede omitir una dependencia o selección",
+      "respuesta": "Lectura de cuerpos y bindings, expectativas racionales y mutaciones independientes, manteniendo las condiciones exteriores",
+      "coste": "Mantener versión finita y composición posterior; sin certificación fiscal",
+      "parentDecision": "corroborado-tecnico-condicionado",
+      "conditions": [
+        "Fuentes, programa y consumidor fijados en fuentes-contrastadas.json",
+        "Paquete validado con verifyRetencionesR34 antes de consumirlo",
+        "Entradas de datos ordinarias del contrato, sin getters o tipos JS arbitrarios",
+        "Servicio concreto de retenciones, no una implementación inyectada arbitraria",
+        "Primitivas Decimal y Match y operaciones síncronas del consumidor revisado",
+        "Admisión anual exterior, incluida coherencia de ejercicio, todavía pendiente de composición"
+      ]
+    },
+    {
+      "siteId": "anual.retencion.cuota",
+      "value": "corroborado-tecnico_condicionado",
+      "selection": "corroborado_tecnico_condicionado",
+      "reason": "Familia, colecciones, celdas e instancias y tablas/43 explícitos",
+      "limit": "Hereda base; versión definida y legacy conservan semánticas distintas",
+      "admission": "pending",
+      "injection": "open",
+      "siteClosed": false,
+      "wiringAllowed": false,
+      "completeRuleAcceptance": false,
+      "parentContrastRequired": false,
+      "objecionExperta": "Una IR que reproduce el resultado puede omitir una dependencia o selección",
+      "respuesta": "Lectura de cuerpos y bindings, expectativas racionales y mutaciones independientes, manteniendo las condiciones exteriores",
+      "coste": "Mantener versión finita y composición posterior; sin certificación fiscal",
+      "parentDecision": "corroborado-tecnico-condicionado",
+      "conditions": [
+        "Fuentes, programa y consumidor fijados en fuentes-contrastadas.json",
+        "Paquete validado con verifyRetencionesR34 antes de consumirlo",
+        "Entradas de datos ordinarias del contrato, sin getters o tipos JS arbitrarios",
+        "Servicio concreto de retenciones, no una implementación inyectada arbitraria",
+        "Primitivas Decimal y Match y operaciones síncronas del consumidor revisado",
+        "Admisión anual exterior, incluida coherencia de ejercicio, todavía pendiente de composición"
+      ]
+    },
+    {
+      "siteId": "anual.retencion.tipo",
+      "value": "corroborado-tecnico_condicionado",
+      "selection": "corroborado_tecnico_condicionado",
+      "reason": "Territorio, vivienda, truncado y mínimos contractuales explícitos",
+      "limit": "La cuota retornada no tiene la minoración territorial del tipo",
+      "admission": "pending",
+      "injection": "open",
+      "siteClosed": false,
+      "wiringAllowed": false,
+      "completeRuleAcceptance": false,
+      "parentContrastRequired": false,
+      "objecionExperta": "Una IR que reproduce el resultado puede omitir una dependencia o selección",
+      "respuesta": "Lectura de cuerpos y bindings, expectativas racionales y mutaciones independientes, manteniendo las condiciones exteriores",
+      "coste": "Mantener versión finita y composición posterior; sin certificación fiscal",
+      "parentDecision": "corroborado-tecnico-condicionado",
+      "conditions": [
+        "Fuentes, programa y consumidor fijados en fuentes-contrastadas.json",
+        "Paquete validado con verifyRetencionesR34 antes de consumirlo",
+        "Entradas de datos ordinarias del contrato, sin getters o tipos JS arbitrarios",
+        "Servicio concreto de retenciones, no una implementación inyectada arbitraria",
+        "Primitivas Decimal y Match y operaciones síncronas del consumidor revisado",
+        "Admisión anual exterior, incluida coherencia de ejercicio, todavía pendiente de composición"
+      ]
+    },
+    {
+      "siteId": "anual.retencion.anual",
+      "value": "corroborado-tecnico_condicionado",
+      "selection": "corroborado_tecnico_condicionado",
+      "reason": "R*tipo/100 y HALF_UP2, céntimos y origen.decimal explícitos",
+      "limit": "No igualar importe y cuota; hereda las condiciones de sus productores",
+      "admission": "pending",
+      "injection": "open",
+      "siteClosed": false,
+      "wiringAllowed": false,
+      "completeRuleAcceptance": false,
+      "parentContrastRequired": false,
+      "objecionExperta": "Una IR que reproduce el resultado puede omitir una dependencia o selección",
+      "respuesta": "Lectura de cuerpos y bindings, expectativas racionales y mutaciones independientes, manteniendo las condiciones exteriores",
+      "coste": "Mantener versión finita y composición posterior; sin certificación fiscal",
+      "parentDecision": "corroborado-tecnico-condicionado",
+      "conditions": [
+        "Fuentes, programa y consumidor fijados en fuentes-contrastadas.json",
+        "Paquete validado con verifyRetencionesR34 antes de consumirlo",
+        "Entradas de datos ordinarias del contrato, sin getters o tipos JS arbitrarios",
+        "Servicio concreto de retenciones, no una implementación inyectada arbitraria",
+        "Primitivas Decimal y Match y operaciones síncronas del consumidor revisado",
+        "Admisión anual exterior, incluida coherencia de ejercicio, todavía pendiente de composición"
+      ]
+    },
+    {
+      "siteId": "anual.pagos.retenciones",
+      "value": "corroborado-tecnico_condicionado",
+      "selection": "corroborado_tecnico_condicionado",
+      "reason": "Se conserva corroboración previa del campo anual directo /100",
+      "limit": "Entradas anuales admitidas; no depende del estimador aunque coincidan cifras",
+      "admission": "pending",
+      "injection": "open",
+      "siteClosed": false,
+      "wiringAllowed": false,
+      "completeRuleAcceptance": false,
+      "parentContrastRequired": false,
+      "objecionExperta": "Una IR que reproduce el resultado puede omitir una dependencia o selección",
+      "respuesta": "Lectura de cuerpos y bindings, expectativas racionales y mutaciones independientes, manteniendo las condiciones exteriores",
+      "coste": "Mantener versión finita y composición posterior; sin certificación fiscal",
+      "parentDecision": "corroborado-tecnico-condicionado",
+      "conditions": [
+        "Fuentes, programa y consumidor fijados en fuentes-contrastadas.json",
+        "Paquete validado con verifyRetencionesR34 antes de consumirlo",
+        "Entradas de datos ordinarias del contrato, sin getters o tipos JS arbitrarios",
+        "Servicio concreto de retenciones, no una implementación inyectada arbitraria",
+        "Primitivas Decimal y Match y operaciones síncronas del consumidor revisado",
+        "Admisión anual exterior, incluida coherencia de ejercicio, todavía pendiente de composición"
+      ]
+    },
+    {
+      "siteId": "anual.pagos.cuenta",
+      "value": "corroborado-tecnico_condicionado",
+      "selection": "corroborado_tecnico_condicionado",
+      "reason": "Declarado más estimado en céntimos antes de /100; ausencia/error separados",
+      "limit": "Hereda servicio concreto; la admisión anual no se valida en este fragmento",
+      "admission": "pending",
+      "injection": "open",
+      "siteClosed": false,
+      "wiringAllowed": false,
+      "completeRuleAcceptance": false,
+      "parentContrastRequired": false,
+      "objecionExperta": "Una IR que reproduce el resultado puede omitir una dependencia o selección",
+      "respuesta": "Lectura de cuerpos y bindings, expectativas racionales y mutaciones independientes, manteniendo las condiciones exteriores",
+      "coste": "Mantener versión finita y composición posterior; sin certificación fiscal",
+      "parentDecision": "corroborado-tecnico-condicionado",
+      "conditions": [
+        "Fuentes, programa y consumidor fijados en fuentes-contrastadas.json",
+        "Paquete validado con verifyRetencionesR34 antes de consumirlo",
+        "Entradas de datos ordinarias del contrato, sin getters o tipos JS arbitrarios",
+        "Servicio concreto de retenciones, no una implementación inyectada arbitraria",
+        "Primitivas Decimal y Match y operaciones síncronas del consumidor revisado",
+        "Admisión anual exterior, incluida coherencia de ejercicio, todavía pendiente de composición"
+      ]
+    }
+  ],
+  "preservedOpen": [
+    "admisión anual",
+    "inyección arbitraria",
+    "semántica completa Cause/Exit y fibras",
+    "RF33-04 editorial",
+    "aceptación jurídica y hechos del contribuyente"
+  ],
+  "completeRuleAcceptance": false,
+  "wiringAllowed": false
+}

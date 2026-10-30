@@ -1,0 +1,16 @@
+--- propios.test.mjs.recibido
++++ propios.test.mjs.padre
+@@ -1,9 +1,9 @@
+ import {it,expect,afterAll}from'vitest';import fs from'node:fs';import zlib from'node:zlib';import Decimal from'decimal.js';import{Effect}from'effect';
+ import * as real from'./retencion';
+-import{composeRetencionesR34,verifyRetencionesR34}from'../../scripts/procedencia/flujo-retenciones-r34.mjs';
+-import{executeFinite,consumeAnnual}from'../../scripts/procedencia/flujo-retenciones-r34-consumidor.mjs';
+-import{liquidarIrpfAnual}from'../../lib/dominio/irpf/liquidacion/liquidar-irpf-anual';
+-const g=composeRetencionesR34(), D=x=>new Decimal(x),cache=process.cwd()+'/.cache/revision-retenciones-r36';
++import{composeRetencionesR34,verifyRetencionesR34}from'/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-retenciones-r34.mjs';
++import{executeFinite,consumeAnnual}from'/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-retenciones-r34-consumidor.mjs';
++import{liquidarIrpfAnual}from'/home/elies/Repos/IRoboPF/lib/dominio/irpf/liquidacion/liquidar-irpf-anual';
++const g=composeRetencionesR34(), D=x=>new Decimal(x),cache="/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r38";
+ const results=[];afterAll(()=>fs.writeFileSync(cache+'/casos.json',JSON.stringify(results,null,2)));
+ const run=(name,args,fragment=g,capture=false)=>executeFinite(fragment,name,args,capture);
+ const cuts=[0,12450,20200,35200,60000,300000],rates=[19,24,30,37,45,47];

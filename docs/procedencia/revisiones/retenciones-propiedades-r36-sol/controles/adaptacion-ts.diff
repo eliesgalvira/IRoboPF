@@ -1,0 +1,39 @@
+--- lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts	2026-10-30 01:35:34.189929426 +0100
++++ /home/elies/.t3/worktrees/IRoboPF/t3-3a2923a1/.cache/revision-retenciones-r36/retencion.ts	2026-10-30 01:39:39.947421759 +0100
+@@ -1,24 +1,24 @@
+ import Decimal from "decimal.js"
+ import { Context, Effect, Layer, Match } from "effect"
+ 
+-import type { ModoCalculo } from "../perfil-calculo"
+-import type { RastroCalculo } from "../../explicacion/rastro-calculo"
+-import type { AnioFiscal } from "../../normativa/anio-fiscal"
++import type { ModoCalculo } from "/home/elies/.t3/worktrees/IRoboPF/t3-3a2923a1/lib/dominio/irpf/perfil-calculo"
++import type { RastroCalculo } from "/home/elies/.t3/worktrees/IRoboPF/t3-3a2923a1/lib/dominio/explicacion/rastro-calculo"
++import type { AnioFiscal } from "/home/elies/.t3/worktrees/IRoboPF/t3-3a2923a1/lib/dominio/normativa/anio-fiscal"
+ import {
+   centimosAEuros,
+   eurosACentimos,
+   redondearImporteLiquidado,
+   truncarImporteMonetario,
+-} from "../../dinero/importe-monetario"
++} from "/home/elies/.t3/worktrees/IRoboPF/t3-3a2923a1/lib/dominio/dinero/importe-monetario"
+ import {
+   maximoUmbralRetencionTrabajoEuros,
+   umbralRetencionTrabajoRequeridoEuros,
+-} from "../../normativa/datos/irpf-retenciones-trabajo-2012-2026"
++} from "/home/elies/.t3/worktrees/IRoboPF/t3-3a2923a1/lib/dominio/normativa/datos/irpf-retenciones-trabajo-2012-2026"
+ 
+ import {
+   seleccionarVersionRetencion,
+   type VersionRetencion,
+-} from "./versiones/catalogo"
++} from "/home/elies/.t3/worktrees/IRoboPF/t3-3a2923a1/lib/dominio/irpf/retenciones/versiones/catalogo"
+ 
+ export interface CasoRetencionTrabajo {
+   /** Fecha civil del pago; no devengo ni publicación. */
+@@ -1063,3 +1063,5 @@
+   calcularRetencionTrabajoAeatDesdeServicio(caso, contexto).pipe(
+     Effect.provide(RetencionTrabajoAeat.layer)
+   )
++
++export { calcularCuotaEscala, calcularCuotaRetencion, calcularMinimoDescendientes, calcularMinimoAscendientes, calcularMinimoPersonalFamiliar, calcularLimite43, calcularReduccionActual, calcularMinoracionVivienda, calcularTipoInicial, calcularMinimoDiscapacidad, aplicarMinimoContrato };

@@ -1,0 +1,9 @@
+--- preparar.mjs.recibido
++++ preparar.mjs.padre
+@@ -1,5 +1,5 @@
+ import fs from 'node:fs';import path from 'node:path';import {spawnSync}from'node:child_process';
+-const root=process.cwd(),out=root+'/.cache/revision-retenciones-r36',old='/home/elies/.t3/worktrees/IRoboPF/t3-a125ce4b';
++const root=process.cwd(),out=root+'/.cache/orquestador-recepcion/r38',old='/home/elies/.t3/worktrees/IRoboPF/t3-a125ce4b';
+ if(!fs.existsSync(out+'/node_modules'))fs.symlinkSync('/home/elies/Repos/IRoboPF/node_modules',out+'/node_modules');
+ const src='lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts';
+ const before=fs.readFileSync(src,'utf8');const after=before.replace(/from "(\.[^"]+)"/g,(_,p)=>'from '+JSON.stringify(path.resolve(path.dirname(src),p)))+'\nexport { calcularCuotaEscala, calcularCuotaRetencion, calcularMinimoDescendientes, calcularMinimoAscendientes, calcularMinimoPersonalFamiliar, calcularLimite43, calcularReduccionActual, calcularMinoracionVivienda, calcularTipoInicial, calcularMinimoDiscapacidad, aplicarMinimoContrato };\n';

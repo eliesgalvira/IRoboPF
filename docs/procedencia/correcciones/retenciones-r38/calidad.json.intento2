@@ -1,0 +1,28 @@
+[
+  {
+    "name": "tipos",
+    "exitCode": 0,
+    "command": [
+      "/home/elies/Repos/IRoboPF/node_modules/.bin/tsc",
+      "-p",
+      "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r38/tsconfig.json",
+      "--incremental",
+      "false"
+    ]
+  },
+  {
+    "name": "oxlint",
+    "exitCode": 1,
+    "command": [
+      "/home/elies/Repos/IRoboPF/node_modules/.bin/oxlint",
+      "--config",
+      "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r38/oxlint.json",
+      "--threads=1",
+      "--disable-nested-config",
+      "--no-ignore",
+      "propios.test.mjs",
+      "frontera-padre.test.mjs",
+      "preparar.mjs"
+    ]
+  }
+]

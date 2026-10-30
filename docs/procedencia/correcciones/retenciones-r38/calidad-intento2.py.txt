@@ -1,0 +1,20 @@
+import json
+import subprocess
+from pathlib import Path
+
+R = Path('/home/elies/Repos/IRoboPF')
+S = R/'.cache/orquestador-recepcion/r38'
+O = R/'docs/procedencia/correcciones/retenciones-r38'
+files = [n for n in ['propios.test.mjs', 'frontera-padre.test.mjs', 'preparar.mjs']]
+jobs = [
+        ('oxlint', [str(R/'node_modules/.bin/oxlint'), '--config', str(S/'oxlint.json'), '--threads=1', '--disable-nested-config', '--no-ignore', *files]),
+    ('eslint', [str(R/'node_modules/.bin/eslint'), '--config', str(R/'eslint.config.mjs'), '--no-ignore', *files]),
+]
+results = [e for e in json.loads((O/'calidad.json.intento1').read_text()) if e['name'] == 'tipos']
+for name, args in jobs:
+    with (O/(name+'.log')).open('wb') as stream:
+        p = subprocess.run(['flock', '/tmp/irobopf-validacion-pesada.lock', *args], cwd=S, stdout=stream, stderr=subprocess.STDOUT)
+    results.append(dict(name=name, exitCode=p.returncode, command=args))
+    (O/'calidad.json').write_text(json.dumps(results, indent=2)+'\n')
+    print(json.dumps(results[-1]), flush=True)
+    assert p.returncode == 0

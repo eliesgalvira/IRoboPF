@@ -1,0 +1,50 @@
+{
+  "tests": 162,
+  "reviewerCasesRepeated": 159,
+  "newParentCases": 3,
+  "failures": 0,
+  "sixSitesConditionallyCorroborated": true,
+  "admissionPending": true,
+  "productChanges": false,
+  "quality": [
+    {
+      "name": "tipos",
+      "exitCode": 0,
+      "command": [
+        "/home/elies/Repos/IRoboPF/node_modules/.bin/tsc",
+        "-p",
+        "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r38/tsconfig.json",
+        "--incremental",
+        "false"
+      ]
+    },
+    {
+      "name": "oxlint",
+      "exitCode": 0,
+      "command": [
+        "/home/elies/Repos/IRoboPF/node_modules/.bin/oxlint",
+        "--config",
+        "/tmp/irobopf-orquestador-r38-lint/oxlint.json",
+        "--threads=1",
+        "--disable-nested-config",
+        "--no-ignore",
+        "propios.test.mjs",
+        "frontera-padre.test.mjs",
+        "preparar.mjs"
+      ]
+    },
+    {
+      "name": "eslint",
+      "exitCode": 0,
+      "command": [
+        "/home/elies/Repos/IRoboPF/node_modules/.bin/eslint",
+        "--config",
+        "/home/elies/Repos/IRoboPF/eslint.config.mjs",
+        "--no-ignore",
+        "propios.test.mjs",
+        "frontera-padre.test.mjs",
+        "preparar.mjs"
+      ]
+    }
+  ]
+}

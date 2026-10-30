@@ -1,0 +1,8 @@
+set -u
+ROOT=/home/elies/.t3/worktrees/IRoboPF/t3-3a2923a1
+OUT="$ROOT/.cache/revision-retenciones-r36"
+cd "$ROOT"
+/home/elies/Repos/IRoboPF/node_modules/.bin/tsc -p "$OUT/tsconfig.json" --incremental false > "$OUT/tipos.log" 2>&1
+printf 'tsc:%s\n' "$?"
+/home/elies/Repos/IRoboPF/node_modules/.bin/oxlint --config "$OUT/oxlint.json" --threads=1 --disable-nested-config --no-ignore "$OUT/propios.test.mjs" "$OUT/preparar.mjs" "$OUT/paquete.mjs" "$OUT/fisico.mjs" > "$OUT/lint.log" 2>&1
+printf 'oxlint:%s\n' "$?"

@@ -2,7 +2,17 @@
 
 Inicio: 29 de octubre de 2026. Trabajo en curso; no es una certificación fiscal.
 
-## Situación más reciente, ronda 37 del 30 de octubre
+## Situación más reciente, ronda 38 del 30 de octubre
+
+Recibida la contrarrevisión Sol de retenciones por propiedad R36: 64 archivos y 3.450.287 bytes, incluidos sobres; 20.227 entradas originales físicamente idénticas, cero borrados. Los 59 archivos de contenido se reconstruyen exactamente mediante patch y binarios. Informe y recibos del padre en correcciones/retenciones-r38; revisión en revisiones/retenciones-propiedades-r36-sol.
+
+El padre reproduce 159 pruebas del revisor y añade tres discriminantes: 162/162 correctas. Se corroboran técnicamente valor y selección de los seis sitios del candidato exacto, con condiciones por sitio. Las dos discrepancias de ejercicio se rechazan en la API anual aunque el fragmento pueda producir líneas: la admisión exterior sigue siendo obligatoria. Tipos del alcance y lint correctos. Se conservan dos intentos sin archivos seleccionados; la proyección ordinaria de los mismos bytes pasa y su listado confirma tres MJS, sin relajar las 16 reglas. Las 305 pruebas recibidas no se atribuyen íntegramente al padre.
+
+RF33-01/02 quedan corroborados técnicamente mediante la representación equivalente; RF33-03 conserva la separación schema/verificador/ejecutor y RF33-04 continúa editorialmente abierto. No hay fixes de producto, regeneración ni cambio de confianza. Admisión, inyección arbitraria, cierre de sitio, wiring y aceptación fiscal completa permanecen pendientes/falsos.
+
+Continúan cuatro encargos R36 de admisión, SS, escalas y rentas, todos gpt-6.1-sol, high y priority según el registro. No se lanzan hijos nuevos ni se sondean tareas o leen entregas parciales. V5 mantiene corte R26; Crossa sigue v1 desfasado, copia local fuera de Victus del mismo dueño/casa. Sin main, PR, despliegue, LFS, gasto, transferencia externa o limpieza. El encargo global permanece abierto.
+
+## Situación anterior, ronda 37 del 30 de octubre
 
 Recibida y corroborada por el padre la revisión Sol de incorporación local R36: 49 archivos y 2.789.130 bytes; las 20.227 entradas físicas del hijo coinciden con la base, sin borrados ni cambios. Patch y binarios reconstruidos exactamente. Informe y recibos en correcciones/incorporacion-r37; informe independiente en revisiones/incorporacion-local-r36-sol.
 
