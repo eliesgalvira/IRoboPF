@@ -1,8 +1,10 @@
 # Contrarrevisión de preservación v2
 
-Base examinada: `c61a306107f280c399eb57e57a7c45452bd68864`. Trabajo personal del 29 de octubre de 2026, sin subdelegación, fixes, red, gasto, LFS ni operaciones VCS mutantes. **Requiere cambios acotados en dos puntos residuales. El paquete concreto y la restauración existente superan la comprobación independiente de integridad.** Ningún resultado se autoacepta fiscalmente.
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
 
-Se leyeron BRIEF y AGENTS, contrato, coordinación, estado, decisiones, informe de coherencia ronda 9, revisión anterior completa (31 archivos leídos, JSON recorridos), implementación, schema, clasificador de URLs, 16 pruebas y manifiestos. El informe de coherencia está realmente en `docs/procedencia/correcciones/coherencia-ronda9/INFORME.md`, no en la ruta abreviada del encargo. Los seis archivos centrales examinados coinciden por hash con la base y con el padre; constan en `evidencia-fuentes.json`. No se escribió fuera de esta carpeta de revisión, salvo los locks y estado operativo de herramientas; se deshabilitaron bytecodes.
+Base examinada: `c61a306107f280c399eb57e57a7c45452bd68864`; corte del 29 de octubre de 2026. **Requiere cambios acotados en dos puntos residuales. El paquete concreto y la restauración existente superan la comprobación independiente de integridad.** Ese resultado no implica aceptación fiscal.
+
+Se examinaron el informe de coherencia de ronda 9, revisión anterior completa (31 archivos y sus JSON), implementación, schema, clasificador de URLs, 16 pruebas y manifiestos. El informe de coherencia está en `docs/procedencia/correcciones/coherencia-ronda9/INFORME.md`. Los seis archivos centrales examinados coinciden por hash con la base; constan en `evidencia-fuentes.json`.
 
 ## Paquete y comparación con v1
 

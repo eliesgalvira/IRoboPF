@@ -1,6 +1,8 @@
 # Retenciones iniciales versionadas: entrega para contrarrevisión
 
-Base de comparación: `0ca324b08267`. Sin commits, índices reparados, bookmarks, push, PR, despliegue, instalaciones ni regeneración de inventario. No se modifican annual, caso-fiscal, UI, package, CI ni oracle. RET20-008 conserva su guard de céntimos enteros seguros y divisores enteros positivos.
+Documento histórico del candidato de este directorio. Los resultados y estados corresponden a esa versión; no acreditan el estado actual del proyecto.
+
+Base del candidato documentado: `0ca324b08267`.
 
 ## Comportamiento y contrato
 
@@ -38,9 +40,11 @@ Entorno Nix bun/nodejs, un worker y `flock /tmp/irobopf-validacion-pesada.lock` 
 3. `bun run lint` y `bun run typecheck`: logs adjuntos. Tipos aplicación y vendor;16 reglas anti-slop sin desactivar.
 4. Suites existentes `retencion-trabajo-aeat.test.ts` y `irpf-retenciones-trabajo-datos.test.ts`:5 pasan y7 fallan por falta de selección temporal en consumidores antiguos (`consumidores.log`). No se oculta ese cambio de contrato ni se reescriben expectativas ajenas para lograr verde.
 
-## Adaptación que corresponde al padre
+<a id="adaptación-que-corresponde-al-padre"></a>
 
-`lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts` consume `caso.retencionTrabajoAeat` y fuerza modo canónico. El padre debe transmitir una fecha de pago acreditada o un cierre expresamente elegido por el consumidor; no rellenar silenciosamente31diciembre. El tipo `CasoRetencionTrabajo` incorpora los campos opcionales para mantener compilación de consumidores, pero la selección se exige en ejecución donde corresponde. Ante falta de fecha se debe conservar ResultadoNoSoportado, no convertirlo en cero.
+## Adaptación para integrar
+
+`lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts` consume `caso.retencionTrabajoAeat` y fuerza modo canónico. Al integrar se debe transmitir una fecha de pago acreditada o un cierre expresamente elegido por el consumidor; no rellenar silenciosamente31diciembre. El tipo `CasoRetencionTrabajo` incorpora los campos opcionales para mantener compilación de consumidores, pero la selección se exige en ejecución donde corresponde. Ante falta de fecha se debe conservar ResultadoNoSoportado, no convertirlo en cero.
 
 `tests/retencion-trabajo-aeat.test.ts` necesita fecha/cierre en sus casos2025/2026; para2026 usar fecha en el período recuperado, no cierre. Los tests de liquidación que introduzcan ese subcaso necesitan igual adaptación. No se han editado por estar fuera de `tests/retenciones*.test.ts`. El control numérico de entradas de nuestra carpeta sí recibe fecha2026 explícita, para que no pase por un rechazo temporal anterior al guard.
 

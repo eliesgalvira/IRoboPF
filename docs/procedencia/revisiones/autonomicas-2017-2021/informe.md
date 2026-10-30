@@ -1,5 +1,7 @@
 # Contrarrevisión independiente: autonómicas 2017–2021
 
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
 29 de octubre de 2026. Los 95 IDs tienen entrada individual en revisiones.json. Cinco hallazgos aceptados con alcance limitado; las 90 escalas año-territorio permanecen **needs-evidence como reglas completas**. No se acepta por muestreo ni por autoridad del autor. Se separa coincidencia numérica de validez jurídica.
 
 ## Hallazgos accionables
@@ -10,7 +12,7 @@ Cadena examinada: Ley 6/2018 y disposición final (PDF p12); historial del artí
 
 El manual PDF AEAT 2020 dice realmente 53.407,29 en la última fila y 20.400,00 como ancho anterior. La contradicción es del documento, no del extractor. Las ediciones 2018, 2019 y 2021 dicen ,20. Se considera errata material frente a la ley; no se encontró ni se afirma una declaración formal de errata de AEAT.
 
-**Prueba real fallida:** base 53407.29, calcularCuotaPorEscala devuelve 7395.82251; redondearImporteLiquidado devuelve **7395.82**. Fórmula independiente publicada: 7395.81 + (53407.29 − 53407.20) × 0.21 = 7395.8289, redondeada **7395.83**. Cambiar solo el límite en una copia en memoria da 7395.8253, también **7395.83**. Así se discrimina el límite con la política Half Up actual sin exigir cambiar otra regla. Los 0.09 son diferencia de límite, no de cuota. El ensayo termina con error explícito esperado. Reproducir desde raíz con `nix shell nixpkgs#bun -c bun .cache/procedencia/revision-autonomicas-2017-2021/repro.ts`. El orquestador debe trasladar el caso antes del arreglo. No se cambió el motor. Alcance: cuota íntegra autonómica antes de mínimos/deducciones, no declaración completa.
+**Prueba real fallida:** base 53407.29, calcularCuotaPorEscala devuelve 7395.82251; redondearImporteLiquidado devuelve **7395.82**. Fórmula independiente publicada: 7395.81 + (53407.29 − 53407.20) × 0.21 = 7395.8289, redondeada **7395.83**. Cambiar solo el límite en una copia en memoria da 7395.8253, también **7395.83**. Así se discrimina el límite con la política Half Up actual sin exigir cambiar otra regla. Los 0.09 son diferencia de límite, no de cuota. El ensayo termina con error explícito esperado. Reproducir desde raíz con `nix shell nixpkgs#bun -c bun .cache/procedencia/revision-autonomicas-2017-2021/repro.ts`. Alcance: cuota íntegra autonómica antes de mínimos/deducciones, no declaración completa.
 
 **AUT1721-MADRID-2018-VIGENCIA aceptado, alcance limitado.** La disposición final abarca todos los períodos terminados durante 2018. Se descarta excluir fallecidos antes de 31/12 por la fecha de entrada en vigor. El resolutor 2018 (comunidad-autonoma.ts:280) no introduce esa excepción. No extrapolar a otros territorios.
 

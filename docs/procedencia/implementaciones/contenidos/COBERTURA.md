@@ -1,5 +1,7 @@
 # Requisitos arquitectónicos: alcance realmente comprobado
 
+Documento histórico del candidato de este directorio. Los resultados y estados corresponden a esa versión; no acreditan el estado actual del proyecto.
+
 Se leyeron ADR 0005, propuesta, catorce schemas y matriz C01–C36, además de ARQ-R01–05. No se consideran contratos preexistentes implementados. Esta matriz evita presentar la suite de contenido como ejecución de las 36 pruebas propuestas.
 
 | Requisito | Evidencia o puerta abierta |
@@ -16,7 +18,7 @@ Se leyeron ADR 0005, propuesta, catorce schemas y matriz C01–C36, además de A
 | C13 | Selector PDF y geometría comprobados. Reextracción de quote delegada al corpus existente, no ejecutada aquí. |
 | C14–C18 | Contratos de selectores/recetas y blobs cerrados. Rotación, tabla multipágina, OCR y render reproducible son pruebas del corpus; no se repiten ni se cuentan aquí. |
 | C19 | Modelo Derivation y aristas tipadas; no se evalúa texto como fórmula. Cotejo dimensional mensual/anual pendiente del puente fiscal. |
-| C20–C21 | Contratos siteId/instanceId, versiones y binding explícito; repetición rechazada. Cobertura de ramas del motor pendiente de instrumentación del padre. |
+| C20–C21 | Contratos siteId/instanceId, versiones y binding explícito; repetición rechazada. Cobertura de ramas del motor pendiente de instrumentación del integrador. |
 | C22 | El adaptador solo genera enlaces; no altera cálculo ni incorpora fetch. No se ha vuelto a ejecutar el motor entero sin red. |
 | C23 | Enlace solo con IDs/versiones. Payload cerrado y rechazo de rutas privadas. No se acredita tráfico/referrer/logs globales del layout existente. |
 | C24–C25 | Adaptador antiguo pendiente y rechazo de versiones distintas probados. |

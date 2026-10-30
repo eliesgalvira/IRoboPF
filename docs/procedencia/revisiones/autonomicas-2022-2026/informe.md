@@ -1,8 +1,10 @@
 # Contrarrevisión independiente: autonómicas 2022–2026
 
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
 Revisión de 29/10/2026, sobre el código actual del checkout compartido. **75/75 IDs y 481/481 filas revisados; cinco decisiones `accepted` de alcance delimitado y 70 `needs-evidence`. Ninguna escala completa queda certificada.** No hay candidatos rechazados íntegramente; sí se descartan extensiones injustificadas de sus conclusiones. `revisiones.json` conserva estado anterior, decisión, razón, alcance, evidencias, objeciones y siguiente acción por ID. `cobertura.json` enumera los 75 y los índices de las 481 filas, sin omisiones.
 
-No se ha cambiado código de entrega, informes del autor, ESTADO, DECISIONES ni VCS. No se han inicializado repositorios, subdelegado, hecho builds o ejecutado la suite legacy. Solo se escribieron esta carpeta y el scratch asignado. Las modificaciones previas de Madrid **2020** y de la etiqueta del ejercicio no corrigen Madrid **2022** ni las cuotas fijas aquí examinadas. Los hashes actuales están en `integridad.json`; un hash histórico distinto por lint no se interpreta como corrupción.
+Las modificaciones previas de Madrid **2020** y de la etiqueta del ejercicio no corrigen Madrid **2022** ni las cuotas fijas examinadas en esta versión. Los hashes están en `integridad.json`; una diferencia histórica por lint no se interpreta por sí sola como corrupción.
 
 ## P1: Murcia 2022, aceptado para el supuesto ordinario y la función de cuota
 
@@ -28,7 +30,7 @@ Los cuatro casos se ejecutaron contra la función real. Expectativa independient
 
 **90,83 euros es la diferencia liquidada motor/fórmula por encima del umbral**, no la magnitud exacta del salto de la propia fórmula tabulada. En el punto exacto sigue el cuarto tramo: 4.142,62 + (60.000 − 35.394) × 18,22 %. No sustituirlo por 8.716,67 ni usar la integral previa como cuota fija normativa.
 
-Acción del orquestador: convertir estos casos en prueba fallida del contrato elegido, preservar la condición estricta y representar la cuota fija. No ajustar un tipo marginal para compensar ni imponer continuidad por intuición. La aceptación no comprende fallecidos anteriores a la entrada en vigor, mínimos, deducciones, redondeo de todas las casillas ni declaración completa. El flujo actual resta mínimos y redondea después (`liquidar-irpf-anual.ts:516` y `:544`); un contraejemplo de cuota pura no fija por sí solo cualquier resultado final.
+Corrección propuesta para esa versión: convertir estos casos en prueba fallida del contrato elegido, preservar la condición estricta y representar la cuota fija. No ajustar un tipo marginal para compensar ni imponer continuidad por intuición. La aceptación no comprende fallecidos anteriores a la entrada en vigor, mínimos, deducciones, redondeo de todas las casillas ni declaración completa. El flujo actual resta mínimos y redondea después (`liquidar-irpf-anual.ts:516` y `:544`); un contraejemplo de cuota pura no fija por sí solo cualquier resultado final.
 
 ## P2: Cataluña 2022–2024, Canarias 2022–2023 y Madrid 2022
 
@@ -40,7 +42,7 @@ Canarias: DL1/2023, art. primero.Tres, pp. 5–6, fija expresamente 2022 y 2023;
 
 Madrid: Ley8/2022, original BOE-A-2023-7340 p. 3, cuota 7.421,04 en 55.596,90; motor 7.421,0505. DF p. 5: efectos para períodos iniciados desde 01/01/2022, con publicación BOCM 21/11/2022. No confundir con la corrección de Madrid 2020 ya integrada. Falta completar revisión de correcciones/reformas del texto modificado antes de aceptar la escala completa.
 
-Acción común: los casos y las 28 filas discrepantes están listos para pruebas acotadas del orquestador. Definir cuota fija más exceso y política de redondeo, comprobar su interacción con mínimos y desglose, y cerrar vigencia. Que una integral sea aritméticamente correcta no la hace equivalente a una tabla con cuotas fijas.
+Acción común: los casos y las 28 filas discrepantes están listos para pruebas acotadas. Definir cuota fija más exceso y política de redondeo, comprobar su interacción con mínimos y desglose, y cerrar vigencia. Que una integral sea aritméticamente correcta no la hace equivalente a una tabla con cuotas fijas.
 
 ## Fechas civiles y Asturias
 

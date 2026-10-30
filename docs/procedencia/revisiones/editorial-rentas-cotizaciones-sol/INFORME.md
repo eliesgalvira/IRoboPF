@@ -1,8 +1,10 @@
 # Revisión independiente del lote de rentas, retenciones y cotizaciones
 
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
 Dictamen candidato: **requiere cambios antes de adaptar o publicar**. La conservación técnica es reproducible; las referencias por afirmación y el cierre transitivo jurídico siguen abiertos. No se propone cambiar el motor ni promover confianza o aceptación. Cero reglas completas aceptadas. Esta revisión no cierra el BRIEF.
 
-Trabajo personal, sin subdelegación, en gpt-6.1-sol con esfuerzo high según el runtime y el encargo. No se atribuye una comprobación del service tier que el runtime local no expone. HEAD exigido y observado: `7668bdad60a79a8b3ad8e1e1b911f3d6c223692a`. La base histórica del autor sigue siendo `1196269d4e73742beeed35cc05011b70c21a0b69`, snapshot `259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608`.
+Base examinada: `7668bdad60a79a8b3ad8e1e1b911f3d6c223692a`. La entrega editorial procede de `1196269d4e73742beeed35cc05011b70c21a0b69`, snapshot `259584e4c4defcebb069df72a9da5e522c4a13fca51417eb349efaaa1902c608`.
 
 ## Alcance y denominadores
 

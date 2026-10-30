@@ -11,4 +11,4 @@ Herramientas por `nix shell nixpkgs#bun nixpkgs#nodejs nixpkgs#ripgrep`; Python 
 - Transporte: entregar.py, bajo flock pesado, crea patch textual gzip/objetos por hash y los aplica a directorio ordinario; compara cada byte del payload.
 - Cotejo final: terminal.py bajo `flock /tmp/irobopf-recepcion-acotada.lock`, compara lstat/readlink/bytes/ejecutabilidad de 20.836 entradas, un blob cada vez, enumera altas y diff. No se apoya en el índice.
 
-Incidencias conservadas: python3 ausente fuera de Nix; primer comando cat buscó COORDINACION en raíz; sonda AST propia inválida registrada antes de corregirla. No son pruebas aprobadas ni defectos fiscales. El primer lint se amplía con --no-ignore y lista explícita para acreditar selección; no se desactivan reglas. Ningún productor histórico se ejecuta como CLI de escritura.
+Para acreditar la selección de archivos, el lint usa `--no-ignore` y lista explícita, sin desactivar reglas. La sonda AST inicial inválida queda conservada como fallo instrumental; no acredita una prueba de producto. Los productores históricos se leen o importan sin ejecutar su modo de escritura.

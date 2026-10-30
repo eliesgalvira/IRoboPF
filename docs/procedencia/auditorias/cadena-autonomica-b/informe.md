@@ -1,5 +1,7 @@
 # Cadena autonómica B: originales, reformas y vigencias 2012–2026
 
+Documento histórico: los resultados, referencias al motor y pendientes corresponden a la base examinada; no describen el estado vigente del proyecto.
+
 Entrega candidata al 29 de octubre de 2026. Ningún hallazgo está aceptado. El ámbito comprende exclusivamente Castilla-La Mancha, Castilla y León, Catalunya, Extremadura y Galicia. No se han modificado motor, informes ajenos, ESTADO ni DECISIONES; tampoco se han ejecutado operaciones VCS mutantes, builds o suite legacy. Los scripts y documentos de trabajo están en `.cache/procedencia/cadena-autonomica-b/`.
 
 La investigación añade las disposiciones originales a los contrastes AEAT de los tres lotes anteriores. No repite esos contrastes ni convierte sus transcripciones en evidencia. Se conservan originales BOE, versiones históricas exactas e índices del artículo, además de originales regionales recuperados. `cadena-normativa.json` relaciona 75 combinaciones año-territorio con 25 variantes o etapas de refundición. Las etapas que repiten una tabla están explícitas: no representan necesariamente 25 escalas numéricas distintas. Galicia 2014–2015 contiene además una selección por base baja; Galicia 2022 conserva la norma inicial, sustituida retroactivamente, para explicar por qué no es la tabla final del ejercicio.
@@ -59,7 +61,7 @@ Los metadatos filtran Cookie, Set-Cookie, Authorization y Proxy-Authorization. S
 
 ## Reproducción y límites pendientes
 
-Descargas serializadas por el helper común `tools/procedencia/descargar.py`, User-AgentIRoboPF y lock/pausa compartidos. Scripts estándar: `research.py`, `originals.py`, `more.py`, `regional.py`, `tablas.py`, `original_tables.py`, `borders.py`, `assemble.py`. El HTML del DOE2026 se recibió en Latin1; un primer intentoUTF8 falló, se corrigió la lectura local sin alterar bytes. Se excluyó del manifiesto de evidencia el aviso legal enlazado por la página.
+Descargas serializadas por el helper común `tools/procedencia/descargar.py`, User-AgentIRoboPF y lock/pausa compartidos. Scripts estándar: `research.py`, `originals.py`, `more.py`, `regional.py`, `tablas.py`, `original_tables.py`, `borders.py`, `assemble.py`. El HTML del DOE2026 está codificado en Latin1. Se excluyó del manifiesto de evidencia el aviso legal enlazado por la página.
 
 ```sh
 nix shell nixpkgs#python3 -c python .cache/procedencia/cadena-autonomica-b/more.py

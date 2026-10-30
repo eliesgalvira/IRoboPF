@@ -1,10 +1,12 @@
 # Actividades económicas 2025: propuesta documental de primera vertical
 
-Estado: **candidatos pendientes de contrarrevisión independiente; ninguna aceptación ni autorización de implementación**. Se entrega investigación adicional de NE-05, no cobertura general de autónomos 2012–2026. No se ha modificado el motor, contrato vigente, VCS ni documentación de otros dominios.
+Documento histórico: los resultados, referencias al motor y pendientes corresponden a la base examinada; no describen el estado vigente del proyecto.
+
+Alcance documental de NE-05: primera vertical propuesta para actividades económicas de 2025, sin cobertura general de autónomos 2012–2026. Los candidatos de este análisis requieren contrarrevisión independiente y no constituyen aceptación fiscal.
 
 ## Resultado y diferencia respecto a NE-05
 
-La carencia existe: `RendimientosCasoFiscal`, en `lib/dominio/irpf/caso-fiscal-anual.ts`, solo contiene trabajo, inmobiliario y ganancias. `calcularBaseImponibleGeneral`, en `lib/dominio/irpf/integracion/base-imponible-general.ts`, tampoco recibe actividades. La liquidación en `lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts` sigue esas entradas. Son ausencias de funcionalidad, no discrepancias numéricas de una actividad ya implementada. El Python legacy contiene parámetros y cálculos salariales; no permite validar una actividad por equivalencia. No se cargó el Excel de 150 MB ni se ejecutaron suites.
+La carencia existe: `RendimientosCasoFiscal`, en `lib/dominio/irpf/caso-fiscal-anual.ts`, solo contiene trabajo, inmobiliario y ganancias. `calcularBaseImponibleGeneral`, en `lib/dominio/irpf/integracion/base-imponible-general.ts`, tampoco recibe actividades. La liquidación en `lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts` sigue esas entradas. Son ausencias de funcionalidad, no discrepancias numéricas de una actividad ya implementada. El Python legacy contiene parámetros y cálculos salariales; no permite validar una actividad por equivalencia.
 
 NE-05 es razonable como dirección, pero «contabilidad validada» o «RETA deducible» no bastan como contrato calculable. La propuesta adjunta exige asientos y activos; calcula las sumas y operaciones. No admite un rendimiento neto precalculado presentado como cálculo completo. Retenciones profesionales y pagos fraccionados son registros separados del rendimiento.
 
@@ -73,10 +75,6 @@ nix shell nixpkgs#python3 -c python .cache/procedencia/actividades-economicas-20
 nix shell nixpkgs#python3 -c python .cache/procedencia/actividades-economicas-2025/sanitizar.py
 ```
 
-El primer intento `uv run --with pymupdf` usó un intérprete descargado incompatible con NixOS; se corrigió seleccionando Python de Nix y libstdc++. No se ejecutó código TypeScript/Effect ni pruebas/build del proyecto. Los scripts scratch no son parte del motor.
-
 Pendiente: contrarrevisión nueva, cadena histórica completa de vigencia2025, autenticación, facsímiles, comprobación con Renta WEB del prorrateo/redondeo y pruebas que fallen antes del fix. `cobertura.json` separa esas lagunas y el mapa futuro de directa normal, objetiva, atribución y RETA2012–2026. No se acepta un hallazgo por parecido con tests ni por una transcripción.
 
-Recuento final de entrega: 16 hallazgos candidatos (`missing`, funcionalidad ausente), 16 reglas, 18 ejemplos calculados con Decimal y 16 condiciones frontera adicionales; 15 documentos y 1721 citas de bloques/filas repartidas en77páginas PDF distintas, incluidas12filas detectadas de tabla (cabecera/notas incluidas). No son1721reglas fiscales ni1721hallazgos. Cero aceptaciones. Verificación final reproducible en `verificar.py`: integridadSHA256/SHA512 de originales y reextracción exacta de cada caja; esa comprobación no valida interpretación ni vigencia.
-
-Archivos propios para integrar: `informe.md`, `fuentes.json`, `hallazgos.json`, `citas-candidatas.json`, `cobertura.json` y `especificacion-implementacion.json`, todos bajo este dominio. Cambios: documentación nueva únicamente; sin borrados, código o movimientos VCS. No se entrega un diff de rama porque se trabaja en checkout compartido sin mutaciones; el orquestador puede comparar estos seis archivos contra su base.
+Resultado documental: 16 hallazgos candidatos (`missing`, funcionalidad ausente), 16 reglas, 18 ejemplos calculados con Decimal y 16 condiciones frontera adicionales; 15 documentos y 1721 citas de bloques/filas repartidas en77páginas PDF distintas, incluidas12filas detectadas de tabla (cabecera/notas incluidas). No son1721reglas fiscales ni1721hallazgos. Cero aceptaciones. Verificación final reproducible en `verificar.py`: integridadSHA256/SHA512 de originales y reextracción exacta de cada caja; esa comprobación no valida interpretación ni vigencia.

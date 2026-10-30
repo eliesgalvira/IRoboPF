@@ -1,8 +1,10 @@
 # Composición R43: implementación candidata no completa
 
+Documento histórico del candidato de este directorio. Los resultados y estados corresponden a esa versión; no acreditan el estado actual del proyecto.
+
 Se incorpora un consumidor financiero nuevo que conecta SS, retenciones/pagos, rentas y escalas mediante sus programas finitos actuales. No ejecuta ni transpila el motor TS como evaluador de producción y no recibe callbacks financieros del usuario. La API TS real aparece únicamente en las pruebas. Esta entrega no satisface todavía todas las obligaciones del encargo concreto; no debe recibirse como composición terminada ni como un bloqueo externo. No se declaran valueClosed ni selectionClosed. No se cierra el encargo global.
 
-Identidad: T3 Code, harness Codex, gpt-6.1-sol con esfuerzo high, sin subdelegación. Priority solicitada; no se dispone de recibo independiente del nivel de servicio. Base exigida y observada: 05cf0e159cc0a0eb3b87d554447a2d14939115c2, 21.126 entradas. No hay commits ni mutaciones VCS. Las conclusiones nuevas requieren contraste del padre.
+Base del candidato documentado: `05cf0e159cc0a0eb3b87d554447a2d14939115c2`.
 
 ## Implementación efectiva
 
@@ -31,10 +33,6 @@ La salida editorial por sitio enlaza objetos y fuentes, pero su texto genérico 
 
 ## Conservación
 
-Cotejo inicial terminado antes de editar código: lstat/readlink/bytes/modo ejecutable de 21.126 entradas contra un blob cada vez, todas iguales. Los controles finales y el manifiesto registran el extremo de entrega. Las altas tienen baseSha256 null; ningún archivo base está autorizado para cambiar. Los artefactos históricos, motor, inventario, snapshots, confianza, ESTADO y DECISIONES no se modifican.
-
-No se ejecutan servidores, previews, builds Next ni suites legacy masivas. Sin rediseño, main, PR, publicación, LFS, gasto o transferencia externa. Node_modules del padre se lee; el entorno Python se aloja exclusivamente en scratch propio. Los dos primeros intentos de auditoría no completaron el cotejo (Python genérico NixOS y límite de buffer Node); el intento mediante Python Nix/uv sí termina antes de editar. Una edición auxiliar usó Python Nix directo en lugar de uv: desviación de procedimiento conservada, sin escritura de entornos compartidos. Las primeras consultas a productores no tomaron el lock pesado; las validaciones posteriores sí lo toman por operación. No se ocultan esas desviaciones.
-
 ## Resultado de calidad de entrega
 
 El pase definitivo del alcance termina con generación 0, 21 pruebas correctas, tipos estrictos 0, Oxlint 0 y schema 0. El último ajuste posterior solo introduce una excepción documental del diagnóstico de importación fs y regenera hashes; no modifica operaciones financieras. Oxlint global pasa sobre 468 archivos antes de añadir el auxiliar de hashes (este queda comprobado por los controles de alcance); ESLint global pasa incluyendo el auxiliar, con advertencia de detección React. Tipos vendor pasa.
@@ -42,5 +40,3 @@ El pase definitivo del alcance termina con generación 0, 21 pruebas correctas, 
 El principal no queda verde: reproduce TS2345 en `docs/procedencia/revisiones/fronteras-escalas-r42-sol/propios.test.ts:53:27`, por `ParameterWitness.type` string frente a string|null. Un pase que excluye todos los archivos nuevos produce el mismo diagnóstico, byte por byte en el log. Ningún diagnóstico restante corresponde al código nuevo. No se modifica ese test ajeno ni se maquilla el resultado como tipo principal correcto. Se preservan la configuración de resolución de dependencias y ambos logs.
 
 Los resultados son comprobaciones propias, no contrarrevisión independiente. La ficha editorial sigue siendo preliminar y los cierres causales no se elevan por el número de casos. Ninguno de estos resultados acepta fiscalidad.
-
-El cotejo terminal vuelve a comprobar las 21.126 entradas originales: cero diferencias y borrados. El transporte reconstruye exactamente cada ruta/hash/tamaño enumerados. Su primer intento omitía archivos de texto vacíos porque no generan hunks; se corrige transportándolos como objetos binarios vacíos por SHA256, sin cambiar su contenido. Se conserva el fallo y se usa un scratch nuevo para cada ensayo. Los sobres excluyen sus propias autorreferencias y los objetos de transporte duplicados; el contenido sustantivo queda enumerado en MANIFIESTO.json.

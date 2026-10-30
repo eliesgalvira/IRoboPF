@@ -7,14 +7,13 @@ Implementación: `tools/procedencia/descargar.py` y `corpus.py`. Contratos ejecu
 Desde la raíz del repositorio, con Nix y uv disponibles:
 
 ```sh
-free -m
 tools/procedencia/run.sh tests/procedencia-corpus_test.py -v
 nix shell nixpkgs#ruff -c ruff check tools/procedencia tests/procedencia-corpus_test.py
 nix shell nixpkgs#bun nixpkgs#nodejs -c bun run test:lint
 nix shell nixpkgs#bun nixpkgs#nodejs -c bun run typecheck
 ```
 
-Un proceso, sin Next build ni suite legacy. El wrapper limita la memoria virtual a 1,5 GiB por proceso (también para pdfsig); una fuente que exceda el presupuesto falla en vez de consumir toda la máquina. `run.sh` usa PyMuPDF 1.26.7 y jsonschema 4.25.1 en el proyecto Python de tools/procedencia, con uv.lock. flake.lock fija nixpkgs 4c7870105e7f1fdf9c48688c8d7efc21abf0688a, Python 3.13.15, Poppler 26.06.0 y plataforma Linux x86_64. uv recibe el intérprete Nix explícito y tiene prohibidas las descargas de Python. En NixOS necesita libstdc++ para el wheel PyMuPDF; el wrapper configura esa ruta. Ruff también se obtiene de Nix, pues el ejecutable genérico de PyPI no arranca directamente en NixOS.
+Ejecutar los trabajos de mayor consumo de uno en uno. El wrapper limita la memoria virtual a 1,5 GiB por proceso (también para pdfsig); una fuente que exceda el presupuesto falla en vez de consumir toda la máquina. `run.sh` usa PyMuPDF 1.26.7 y jsonschema 4.25.1 en el proyecto Python de tools/procedencia, con uv.lock. flake.lock fija nixpkgs 4c7870105e7f1fdf9c48688c8d7efc21abf0688a, Python 3.13.15, Poppler 26.06.0 y plataforma Linux x86_64. uv recibe el intérprete Nix explícito y tiene prohibidas las descargas de Python. En NixOS necesita libstdc++ para el wheel PyMuPDF; el wrapper configura esa ruta. Ruff también se obtiene de Nix, pues el ejecutable genérico de PyPI no arranca directamente en NixOS.
 
 La descarga conserva la interfaz `download(url, root)` y `descargar.py URL --root DIRECTORIO` del helper anterior; no necesita PyMuPDF. La nueva CLI añade:
 
@@ -36,7 +35,7 @@ tools/procedencia/run.sh tools/procedencia/corpus.py rebuild \
   docs/procedencia/corpus/boe-firmado.manifest.json
 ```
 
-Para crear una cita: `corpus.py cite MANIFEST --page 1 --bbox X0 Y0 X1 Y1 --output CITA.json`. `--binding BINDING.json` comprueba el valor al crearla. `corpus.py verify MANIFEST CITA` comprueba evidencia, sin afirmar aceptación fiscal. `--accepted` falla siempre. La aceptación se ha deshabilitado tras COR-01: un valor escrito en la cita y dos nombres no acreditan vínculo al inventario ni revisión. La salida distingue integridad verificada, vínculo al inventario no verificado y revisión pendiente. Será necesario un registro externo referido a los bytes exactos de inventario, cita y decisión; esta función no certifica fiscalidad.
+Para crear una cita: `corpus.py cite MANIFEST --page 1 --bbox X0 Y0 X1 Y1 --output CITA.json`. `--binding BINDING.json` comprueba el valor al crearla. `corpus.py verify MANIFEST CITA` comprueba evidencia, sin afirmar aceptación fiscal. `--accepted` falla siempre. La aceptación está deshabilitada: un valor escrito en la cita y dos nombres no acreditan vínculo al inventario ni revisión. La salida distingue integridad verificada, vínculo al inventario no verificado y revisión pendiente. La aceptación requiere un registro externo referido a los bytes exactos de inventario, cita y decisión; esta función no certifica fiscalidad.
 
 ## Adquisición y almacenamiento
 
@@ -56,7 +55,7 @@ Las escrituras de JSON usan reemplazo atómico. El historial conserva también �
 
 `ingest` lee índices por URL y originales por hash; verifica SHA-256, SHA-512 y tamaño antes de copiar, y vuelve a verificar durante la copia. Nunca modifica el origen. Rechaza origen y destino idénticos. Conserva fechas HTTP del helper antiguo y marca redirecciones desconocidas como `null`. Una cadena legacy desconocida o un origen no incluido en la allowlist queda `sourcePolicy.status=pending`; preservar bytes no lo convierte en evidencia oficial aceptable. Una importación puede ver solo un subconjunto de índices si los auditores añaden otros simultáneamente; se repite para incorporar los siguientes. Un índice escrito parcialmente por el helper antiguo provoca fallo explícito: repetir después de que termine su escritura.
 
-Una caché corrupta provoca error, nunca descarga silenciosa para ocultarlo. `--refresh` es explícito y conserva historial. `rebuild` exige el hash del manifiesto, reutiliza el original si ya existe o descarga y exige que coincida. Una URL mutable que ya no devuelve esos bytes hace fallar la reconstrucción. **Un manifiesto no recupera por sí solo una versión desaparecida.** Respaldar todo `sha256/` en almacenamiento local independiente; sin ese respaldo ni archivo externo no hay garantía de recuperación. No se han configurado R2, LFS ni credenciales cloud.
+Una caché corrupta provoca error, nunca descarga silenciosa para ocultarlo. `--refresh` es explícito y conserva historial. `rebuild` exige el hash del manifiesto, reutiliza el original si ya existe o descarga y exige que coincida. Una URL mutable que ya no devuelve esos bytes hace fallar la reconstrucción. **Un manifiesto no recupera por sí solo una versión desaparecida.** Respaldar todo `sha256/` en almacenamiento local independiente; sin ese respaldo ni archivo externo no hay garantía de recuperación. La existencia de una caché local no acredita un respaldo externo.
 
 ## Citas, recortes y números
 
@@ -82,7 +81,7 @@ Un binding señala posiciones `start/end` (índices Python Unicode), literal num
 
 No busca el primer número que coincida: verifica el span exacto y sus límites de token. `1.234,56` y `1234,56` representan el mismo Decimal bajo es-ES, pero sus literales no son intercambiables: cambiar la cita sin cambiar el original falla. Se rechazan separadores mal agrupados, substrings numéricos, NaN, cambios de valor o unidad y valores binarios float. Unidades iniciales soportadas: euros/€, %, años. Otras requieren ampliar el contrato y pruebas, no inferir una conversión. El cotejo de unidad no demuestra que una cabecera o nota se aplique a esa celda: revisión semántica separada obligatoria.
 
-Fórmulas, condiciones, redondeo, vigencia y territorio no se deducen de encontrar números. `semanticValidation` e `independentReview` empiezan pendientes. No hay correcciones al motor ni datos fiscales aceptados en esta entrega.
+Fórmulas, condiciones, redondeo, vigencia y territorio no se deducen de encontrar números. `semanticValidation` e `independentReview` empiezan pendientes. La verificación del corpus no acepta datos fiscales ni modifica el motor.
 
 ## Autenticidad y archivo
 
@@ -90,7 +89,7 @@ Fórmulas, condiciones, redondeo, vigencia y territorio no se deducen de encontr
 
 Resultados reales conservados:
 
-- BOE-A-2025-1, original: firma criptográfica válida; certificado caducado en la comprobación; confianza indeterminada. Fuente elegida para probar autenticidad, no para acreditar IRPF. Descarga nueva ejecutada en esta ronda.
+- BOE-A-2025-1, original: firma criptográfica válida; certificado caducado en la comprobación; confianza indeterminada. Fuente elegida para probar autenticidad, no para acreditar IRPF.
 - BOCM-20221121-1, original fiscal de Madrid: firma criptográfica válida; certificado caducado; confianza indeterminada. Importado desde caché de auditor.
 - BOE-A-2006-20764 consolidado: sin firmas. Importado desde caché de auditor. No se presume firma por el dominio BOE.
 
@@ -106,6 +105,8 @@ WARC sería útil para preservar las respuestas HTTP y enlaces de HTML. Se difie
 
 CI integrada en un job separado de 15 minutos con el mismo flake y uv.lock: ejecutar `run.sh tests/procedencia-corpus_test.py -v` y Ruff con un worker; comprobar manifiestos y citas de todo el corpus promovido con `verify`; la aceptación fiscal permanece deshabilitada. `test:lint` verifica las 16 reglas anti-slop a error. Oxlint/ESLint no analizan Python: el intento focalizado de oxlint informa «No files found» y ESLint ignora el archivo; no se cuentan como validación de estas fuentes. Ruff y pruebas verifican Python. El typecheck existente del proyecto también pasó. El integrador debe mantener anti-slop sobre cualquier adaptador TypeScript que añada.
 
-## Integración del orquestador
+<a id="integración-del-orquestador"></a>
 
-Se verificaron los hashes de los 21 archivos entregados y la ausencia de borrados. COR-01–08 motivan la puerta cerrada de aceptación, filtro de cabeceras en todos los retornos/historial, comprobación de identidad URL y cadena, signos Unicode, schemas cerrados, PNG atómico, entorno fijado y hosts explícitos. Las nuevas regresiones reproducen antes del arreglo aceptación inventada, omisión de signo y documento abierto. Las 20 pruebas actuales pasan. La correspondencia con valores actuales del motor y la revisión fiscal externa siguen pendientes; no se anuncian como resueltas por estas pruebas.
+## Controles de integración
+
+Las correcciones COR-01–08 incorporan puerta cerrada de aceptación, filtro de cabeceras en retornos e historial, comprobación de identidad URL y cadena, signos Unicode, schemas cerrados, PNG atómico, entorno fijado y hosts explícitos. Las regresiones reproducen aceptación inventada, omisión de signo y documento abierto. La correspondencia con el motor y la revisión fiscal requieren comprobaciones externas a este pipeline.

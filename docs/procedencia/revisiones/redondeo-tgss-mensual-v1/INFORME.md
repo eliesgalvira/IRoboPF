@@ -1,6 +1,8 @@
 # Contrarrevisión del redondeo mensual TGSS
 
-Revisor: agente Codex de este hilo, rol recibido «review sub-agent», checkout T3 `t3-2333efc2`; no se inventa una identidad humana ni una custodia independiente. Revisión personal, sin subdelegación. Base comprobada `5799bb03826719a4dd3500a962e2d6bb5124fdca`. Entrega exclusivamente en esta carpeta del padre; scratch en `.cache/revision-tgss` del checkout. Ningún cambio al motor, oracle, registro, atestación ni VCS.
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
+Base examinada: `5799bb03826719a4dd3500a962e2d6bb5124fdca`. La revisión conserva el motor, los originales y los esperados.
 
 ## Dictamen
 

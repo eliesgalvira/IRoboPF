@@ -35,5 +35,3 @@ flock /tmp/irobopf-validacion-pesada.lock bash tools/procedencia/run.sh docs/pro
 ```
 
 `cierre.log` conserva salida y código del comando real; `informe-congelado.json` fija hash del informe, atestaciones y rechazos de la puerta real. Este log abierto se excluye expresamente del manifiesto. El cierre relee los archivos físicos y verifica todos los hashes del manifiesto ya generado. Repetirlo solo con los originales y el registro real preservados; no adaptar un taskId inventado si falta el registro. Los PNG nuevos están por hash en la entrega. Los demás se regeneran con `primarios.py`, sin necesidad de servidor o preview.
-
-Consultas VCS realizadas, solo lectura: `jj log` (rechazo: no hay repositorio JJ en este worktree), `git rev-parse HEAD`, `git status --short`, `git log -4 --oneline`, `git ls-tree -rz <base>` y `git diff --stat <base>`. No se ejecutó init, commit, reset, bookmark, push, PR o checkout.

@@ -1,5 +1,7 @@
 # Revisión independiente NR30-01, ronda 32
 
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
 **Dictamen: NR30-01 corroborado como corregido en el alcance estructural revisado, pendiente de contraste del padre.** No aparece un defecto nuevo reproducido. Pasan 39 casos nuevos Node y 39 del coordinador, ocho rechazos civiles, 61 casos R30, 20 regresiones Node, siete Python, seis pruebas de software y 28 mutaciones de su lista; los grupos se solapan. Los 44 históricos verifican con sus fuentes conservadas. Oxlint, ESLint y checkJs del consumidor terminan con salida cero; las 16 reglas siguen a error.
 
 Esta revisión se limita al fix del padre del consumidor nominal. No aplica fixes, modifica esperados históricos, emite atestación ni escribe registros. Sus conclusiones nuevas requieren contraste del padre. El encargo global y la aceptación fiscal completa permanecen abiertos.
@@ -48,7 +50,7 @@ Los 44 snapshots se verifican con el recorrido histórico del proyecto sobre sus
 
 ## Entorno, entrega y límites
 
-Ejecución mediante Codex en T3 Code, runtime gpt-6.1-sol con esfuerzo high según el entorno de esta sesión; priority es la configuración solicitada, sin una comprobación adicional del planificador en esta revisión. No se inventa identidad T3 ni se emite atestación. Sin subdelegación ni cambio de modelo. Leídos BRIEF, AGENTS, contrato, coordinación, situación de ESTADO/DECISIONES y entregas recibidas relevantes; prevalecen las restricciones y la corrección urgente del usuario.
+Se examinaron las entregas recibidas relevantes. Esta revisión no emite atestación ni acredita una identidad operativa nueva.
 
 Herramientas por Nix. Python gestionado con run.sh, PYTHONDONTWRITEBYTECODE=1 y entorno absoluto propio; no se crea tools/procedencia/.venv. Dependencias del padre solo lectura. Bloqueo pesado exclusivo para validaciones; recepción física acotada bajo su bloqueo propio. No se escribe Effect. Oxlint usa un hilo, --disable-nested-config y las 16 reglas a error. Las copias de app/dependencias y los PDF permanecen en scratch/CAS, fuera de docs.
 

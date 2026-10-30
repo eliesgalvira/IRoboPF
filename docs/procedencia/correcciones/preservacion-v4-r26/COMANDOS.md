@@ -1,4 +1,4 @@
-# Comandos R26
+# Comprobaciones del consumidor de preservación v4
 
 Desde `/home/local/Repos/IRoboPF`. Todas las pruebas, calidad y lecturas integrales de paquetes se serializan con `flock /tmp/irobopf-validacion-pesada.lock`. Se usan `PYTHONDONTWRITEBYTECODE=1` y `UV_PROJECT_ENVIRONMENT=/home/local/Repos/IRoboPF/.cache/procedencia/derechos-r15-venv`.
 

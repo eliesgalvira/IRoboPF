@@ -1,8 +1,10 @@
 # Contraste personal de la entrega 2012–2014
 
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
 Dictamen: requiere rectificación documental, sin fixes en esta revisión. SOL-03 contiene dos afirmaciones visuales refutadas y el contrato de regularización omite una alternativa legal expresa. SOL-01 y SOL-02 se sostienen en el alcance delimitado. SOL-04 conserva una concurrencia sin solución fiscal única. SOL-05 se sostiene con selección temporal y hechos externos expresamente limitados. Todas las conclusiones nuevas de este contraste requieren revisión posterior; `completeRuleAcceptance=false`.
 
-Trabajo personal en T3 Code, runtime gpt-6.1-sol, esfuerzo high; sin subdelegación ni cambio de modelo. La prioridad solicitada no se convierte en una certificación local del servicio del proveedor. No emito atestación ni invento un ID canónico T3 a partir del nombre del checkout. No apruebo mi código de control ni modifico registros de confianza.
+Esta revisión contrasta la evidencia recibida sin emitir atestación ni modificar registros de confianza.
 
 Base y HEAD exigidos: `960773f909d4ecff290edfa3d7a7b2699a8445d3`. Entrega examinada: `retenciones-2012-2014-sol`, manifiesto `5e36d291f23dca8e73c2b23cd59123d84374ee672049b2f18a9b934efa9735ff`. Propiedad y escrituras limitadas a esta carpeta; no se modifica el autor, motor, ESTADO, DECISIONES, fuentes, atestaciones ni otras revisiones. No hay operación VCS mutante, PR, deploy, servidor, preview, interfaz, LFS ni transferencia de corpus. Los originales nuevos del autor se resuelven por el mapa R20, no buscando otra versión equivalente.
 

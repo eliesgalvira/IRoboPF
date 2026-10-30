@@ -1,10 +1,12 @@
 # Contrarrevisión de los bytes documentales R41
 
-Dictamen candidato: corroboradas las cinco correcciones documentales en las fuentes fijadas y en los candidatos `correcciones/unidades-colecciones-r41/{ss,rentas}-despues.json.gz`. No se reproduce un defecto nuevo del producto. La corroboración es técnica y limitada; no acepta fiscalidad, admisión, composición, wiring ni una regla completa. Las conclusiones nuevas requieren contraste del padre. El encargo global permanece abierto.
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
 
-Trabajo personal en T3 Code mediante harness Codex, runtime gpt-6.1-sol, esfuerzo high. Priority fue solicitada; no dispongo de un recibo independiente del tier servido. Sin subdelegación, atestación ni fixes. Base/HEAD: `28123c1ed0b6d00a29ecdd005e9331eb6a471b63`, 20.836 entradas. El cotejo inicial terminó antes de cualquier escritura del encargo. Las únicas altas están en esta carpeta y `.cache/revision-unidades-colecciones-r41-sol/`. No se modifican entradas base.
+Dictamen candidato: corroboradas las cinco correcciones documentales en las fuentes fijadas y en los candidatos `correcciones/unidades-colecciones-r41/{ss,rentas}-despues.json.gz`. No se reproduce un defecto nuevo del producto. La corroboración es técnica y limitada; no acepta fiscalidad, admisión, composición, wiring ni una regla completa. 
 
-Leídos BRIEF, AGENTS, contrato, coordinación y situación vigente de ESTADO/DECISIONES; prevalecen las correcciones expresas del encargo sobre modelo, VCS, limpieza y escritura del BRIEF. COORDINACION está en docs/procedencia, no en la raíz. Se examinan las dos revisiones ya recibidas R39/R40, corrección R41, AST de fuentes TS fijadas, consumidores, verificadores, schemas y pruebas relacionadas. No se leen entregas parciales de admisión/escalas. Effect: CLI list/show basics/testing y fuente local Array.ts; map usa dual(2) y callback(elemento,índice), reduce dual(3) y callback(acumulador,elemento,índice).
+Base examinada: `28123c1ed0b6d00a29ecdd005e9331eb6a471b63`, 20.836 entradas. El cotejo inicial comprobó las entradas antes de añadir los instrumentos de revisión.
+
+Se examinaron revisiones R39/R40, corrección R41, AST de fuentes TypeScript fijadas, consumidores, verificadores, schemas y pruebas. La referencia local Effect Array.ts distingue map dual(2), con callback(elemento,índice), y reduce dual(3), con callback(acumulador,elemento,índice).
 
 ## Hallazgos por dominio
 

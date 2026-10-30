@@ -1,6 +1,8 @@
 # Auditoría candidata: deducciones autonómicas, grupo B
 
-Fecha: 29-10-2026. Revisión independiente: **pendiente**. No se acepta ningún hallazgo en este informe. No se ha modificado código, creado commits ni movido bookmarks. Consulta JJ de solo lectura: `02181b2e66b0c202553431d99486c3742f92cfea`; el checkout compartido puede cambiar durante la auditoría.
+Documento histórico: los resultados, referencias al motor y pendientes corresponden a la base examinada; no describen el estado vigente del proyecto.
+
+Fecha: 29-10-2026. Este informe no acepta hallazgos. Base examinada: `02181b2e66b0c202553431d99486c3742f92cfea`.
 
 ## Resultado y alcance real
 
@@ -54,7 +56,7 @@ Se leyó `Calculo_Salario_IRPF.py`: `obtener_parametros`, `deduccion_smi`, la cu
 
 ## Ampliaciones prioritarias y decisiones
 
-1. **Separar importe declarado de regla calculada.** Objeción experta: un profesional puede necesitar introducir una deducción ya calculada. Motivo: conservar esa capacidad con procedencia y estado explícitos, sin presentarla como evaluación de la norma. Coste aceptado: disminuir la cobertura anunciada mientras se construyen reglas reales; sin cambio de código en esta ronda.
+1. **Separar importe declarado de regla calculada.** Objeción experta: un profesional puede necesitar introducir una deducción ya calculada. Motivo: conservar esa capacidad con procedencia y estado explícitos, sin presentarla como evaluación de la norma. Coste aceptado: disminuir la cobertura anunciada mientras se construyen reglas reales; sin acreditar automatización adicional.
 2. **Representar beneficiarios y titulares individualmente.** Para Murcia: hijos/descendientes con derecho al mínimo, centro autorizado, etapa, gastos por concepto, ayudas, pagador, régimen matrimonial, convivencia/custodia, devengo/fallecimiento, declarantes con derecho y bases. Aplicar 20% de gasto admisible por hijo y límite individual/prorrateado antes de sumar. Para Baleares: identidad de beneficiario, edad/discapacidad, relación, derecho a mínimo, servicio, gasto, medio de pago, alta SS del cuidador, bases y deducción de conciliación incompatible. Aplicar 40% y 660 por persona, con la regla específica de reparto según ascendiente/descendiente. Objeción: un array genérico no captura todas las prorratas; motivo: contratos específicos por deducción. Coste: más entradas y reglas, no un booleano universal.
 3. **Madrid nacimiento.** Entradas: fecha y tipo de nacimiento/adopción, pluralidad del evento, identificación y convivencia de progenitores, declaración individual/conjunta, BI general y ahorro del contribuyente y de todos los integrantes de la unidad, ejercicios previos y cumplimiento de límites en nacimiento y años siguientes. Regla: periodo del evento y dos siguientes, cuantía e incremento por evento múltiple, reparto entre padres convivientes en individual y límites personales/familiares. Objeción: un contador no acredita continuidad anual; motivo: historial por evento. Coste: guardar hechos fiscales de varios ejercicios.
 4. **Valenciana ascendientes.** Entradas: BL general/ahorro, modalidad, edad y discapacidad acreditada incluyendo tipo/permanencia y fecha de devengo, parentesco, días de convivencia/internamiento, rentas exentas/no exentas, declaración y renta declarada, otros declarantes y grado de parentesco. Calcular 197 por elegible; aplicar reducción 27.000–30.000 individual / 44.000–47.000 conjunta y reparto. Objeción: trasladar automáticamente la misma reducción al deporte sería incorrecto: allí se reduce el límite de 150 en 54.000–60.000 / 72.000–78.000. Motivo: fórmulas separadas. Coste: no reutilizar un helper fiscal sin parametrizar su objeto (importe o límite).
@@ -68,7 +70,6 @@ Las decisiones se registran aquí porque el auditor no está autorizado a escrib
 - Descarga: `nix shell nixpkgs#python3 -c python tools/procedencia/descargar.py URL`. Las peticiones propias son secuenciales y comparten lock de máquina.
 - PDF: scripts `extraer.py` y `verificar.py` en `.cache/procedencia/deducciones-autonomicas-b/`, ejecutados con `uv run --python python3 --no-python-downloads --with pymupdf`. Nix aporta Python y `stdenv.cc.cc.lib`; se configura `LD_LIBRARY_PATH` para la rueda PyMuPDF.
 - Fallos resueltos: `rg` fuera del shell no estaba disponible; Python descargado por uv no ejecutaba en NixOS; la rueda PyMuPDF necesitó libstdc++. `nixpkgs#jj` es otro programa: se utilizó `nixpkgs#jujutsu` para la consulta de solo lectura.
-- No builds, suite legacy, instalaciones globales, subdelegaciones ni operaciones VCS mutantes.
 
 ## Contraste legal adicional
 

@@ -1,6 +1,8 @@
 # Conexión anual explícita de 2025
 
-Entrega personal contra `c61a306107f280c399eb57e57a7c45452bd68864`. Sin subdelegación ni operaciones VCS mutantes. El padre integra por archivos, hashes y presencia de la base. Ninguna salida se autoacepta fiscalmente.
+Documento histórico del candidato de este directorio. Los resultados y estados corresponden a esa versión; no acreditan el estado actual del proyecto.
+
+Base del candidato documentado: `c61a306107f280c399eb57e57a7c45452bd68864`.
 
 ## Decisión, objeción experta y coste
 
@@ -36,9 +38,7 @@ Objeción: una política final de presentación no demuestra la política de red
 
 ## Evidencia y los cinco planos
 
-Se leyeron BRIEF, AGENTS, CONTRATO-AUDITORIA, COORDINACION, ESTADO, DECISIONES, coherencia-ronda9 y contratos/revisiones de trabajo-anual-implementacion, actividades-implementacion y contratos-v2; adaptadores y auditorías primarias de trabajo/actividad. Se consultó effect-solutions list, show data-modeling/error-handling/testing y Schema.ts local de Effect v4. La ruta breve `correcciones/coherencia-ronda9` no existe en raíz: se leyó su ubicación real bajo docs/procedencia.
-
-- Integridad: manifiesto de archivos con SHA256, tamaño y baseSha256, parche textual y originales locales cotejados. No se cambia inventario ni se reconstruye contenido; corresponde al padre tras integrar.
+- Integridad: manifiesto de archivos con SHA256, tamaño y baseSha256, parche textual y originales locales cotejados. No se cambia inventario ni se reconstruye contenido; corresponde al integrador tras integrar.
 - Autenticidad: sin nuevas comprobaciones PAdES, CSV o cadena histórica. Se reutiliza el corpus autorizado, no se descarga ni modifica un original.
 - Interpretación: contratos de etapas previamente revisados, exclusiones nuevas explícitas y orden descrito arriba. Fuentes: LIRPF arts19,20,32,48,50,63,74,79,80 y DA61; Ley5/2025 DF3 pp46–47; manual AEAT 2025 y las auditorías enlazadas. La conexión y su alcance requieren revisión independiente nueva.
 - Exactitud: pruebas con expectativas independientes en tests/conexion-anual.test.ts; logs reales adjuntos. No equivalencia con Excel/Python ni prueba de declaración enviada a AEAT. Casos sintéticos ejercitan contratos reales y cálculo de cuotas, no una simulación con cuota suministrada.
@@ -59,9 +59,9 @@ bun run typecheck
 bun run lint
 ```
 
-Los nombres de suites realmente encontradas y resultados finales constan en los logs finales. Memoria observada: 6.713 MiB disponibles; sin swap. No Next build ni suites legacy pesadas. node_modules es enlace autorizado usado solo para lectura. No cambios package/lockfiles/CI. Incidencias: rg y Python ausentes fuera de Nix; ejecutados después en Nix. Un intento de inserción de líneas de rastro falló por aserción de texto, sin escribir, y se rehízo con el fragmento correcto. Lint rechazó el parámetro `unknown`; la API ahora recibe el tipo nominal y conserva schema runtime. Los tests simulan consumidores JavaScript con un @ts-expect-error localizado para comprobar rechazos, sin desactivar reglas lint.
+La API recibe el tipo nominal y conserva el schema runtime. Los tests simulan consumidores JavaScript con un `@ts-expect-error` localizado para comprobar los rechazos.
 
-Los IDs de rastro se crean mediante crearLineaCalculo con decimal, unidad EUR e instancia. El padre debe reconstruir fichas/inventario y revisar sus enlaces; no se enlaza este rastro nuevo a un snapshot obsoleto. Persisten los límites de autenticidad, conciliación externa de trabajo, amortización, familias/rentas mezcladas, redondeo oficial y aceptación independiente.
+Los IDs de rastro se crean mediante crearLineaCalculo con decimal, unidad EUR e instancia. Al integrar se debe reconstruir fichas/inventario y revisar sus enlaces; no se enlaza este rastro nuevo a un snapshot obsoleto. Persisten los límites de autenticidad, conciliación externa de trabajo, amortización, familias/rentas mezcladas, redondeo oficial y aceptación independiente.
 
 ## Cierre comprobado
 
@@ -69,4 +69,4 @@ Los IDs de rastro se crean mediante crearLineaCalculo con decimal, unidad EUR e 
 
 La lectura directa final de los dos originales cotejados queda en ley5-2025-p46-47.txt y aeat-da61.txt (extracciones, no facsímiles). Confirma el orden tras art80 y la distinción de pensión/servicios en DA61. No acredita autenticidad ni reemplaza la revisión jurídica nueva.
 
-Dificultad concreta adicional: los auxiliares compartidos de escalas usan Decimal con precisión propia (20 cifras en su configuración ordinaria), mientras la conexión/DA61 usan 80/60. No se modifica su política fuera de la propiedad asignada ni se afirma precisión arbitraria para acumulaciones extremas. Antes de ampliar el alcance monetario práctico o declarar equivalencia casilla a casilla con Renta WEB, el padre debe revisar conjuntamente precisión de cuotas y redondeo. Las expectativas de integración entregadas conservan todas sus fracciones y pasan sin redondeo intermedio.
+Dificultad concreta adicional: los auxiliares compartidos de escalas usan Decimal con precisión propia (20 cifras en su configuración ordinaria), mientras la conexión/DA61 usan 80/60. No se modifica su política fuera de la propiedad asignada ni se afirma precisión arbitraria para acumulaciones extremas. Antes de ampliar el alcance monetario práctico o declarar equivalencia casilla a casilla con Renta WEB, al integrar se debe revisar conjuntamente precisión de cuotas y redondeo. Las expectativas de integración entregadas conservan todas sus fracciones y pasan sin redondeo intermedio.

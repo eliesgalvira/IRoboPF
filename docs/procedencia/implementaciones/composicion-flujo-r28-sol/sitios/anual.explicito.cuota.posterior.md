@@ -1,30 +1,14 @@
 # anual.explicito.cuota.posterior
 
-Candidato pendiente de revisión independiente. Cierre técnico: false. Publicación y aceptación jurídica: false.
+Estado del candidato histórico: revisión independiente pendiente; cierre técnico, publicación y aceptación jurídica: false.
 
 Fórmula TS: "cuota líquida legal − DA61"
 
 Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y aplicabilidad separados; ninguna aceptación jurídica.
 
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2013,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:6155–6562
+El detalle de productores y literales, con archivo, rango y relación, se conserva en [composicion.json.gz](../composicion.json.gz). Las limitaciones no resueltas de esta ficha son:
+
 - MINIMOS_AUTONOMICOS_IRPF_2020.valor[comunidadAutonoma] / contribuyente.general (selector, selection); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/minimos-autonomicos-2020.ts:3706–3760
-- base.mul(0) / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1547–1558
-- {
-    anio: 2025,
-    comunidadAutonoma: "madrid",
-    baseLiquidableGeneral: base,
-  } / comunidadAutonoma (selector, selection); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7461–7548
-- {
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-} / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/repositorio-parametros.ts:495–567
-- MINIMOS_AUTONOMICOS_IRPF_2019.valor / contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2019.ts:3587–3622
 - [
   [importe(12450), tipo("9.5")],
   [importe(20200), tipo("12")],
@@ -43,62 +27,23 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
               {
                 limiteAnterior: base.mul(0),
                 tramos: EffectArray.empty<TramoCuotaGener / tramos (EUR, value); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3222–4443
-- TRAMOS_IRPF_ESTATAL_GENERAL_2025 / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:13481–13513
-- minimosIrpf / contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2025.ts:2252–2263
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:15412–15429
-- resolverParametrosComunidadAutonoma2015({
-        baseLiquidableGeneral,
-        comunidadAutonoma,
-        fechaFallecimiento,
-      }) / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17043–17179
-- resolverParametrosComunidadAutonoma2014({
-        baseLiquidableGeneral,
-        comunidadAutonoma,
-      }) / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16894–17002
-- escalasPublicadas !== undefined / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1877–1908
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2018.ts:3623–3640
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:18010–18027
-- ESCALAS_AUTONOMICAS_IRPF_2016 / tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2016.ts:9182–9211
-- TRAMOS_IRPF_ESTATAL_GENERAL_2013 / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:6385–6417
 - {
   "simulada-estatal": escala2013({
     comunidadAutonoma: "simulada-estatal",
     nombre: "Simulada estatal / art. 65 LIRPF 2013",
     tramos: TRAMOS_IRPF_AUT / tramos (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/normativa/datos/irpf-autonomico-2013.ts:3160–8206
-- comunidadAutonoma === "catalunya" && anio >= 2022 && anio <= 2024 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4100–4165
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3943–3947
 - {
     ...MINIMOS_AUTONOMICOS_IRPF_2025.valor,
     andalucia: MINIMOS_ESTATALES_2021,
     asturias: MINIMOS_ESTATALES_2021,
     "illes-balears": MINIMOS_ILLES_BA / contribuyente.general (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/normativa/datos/minimos-autonomicos-2021.ts:1687–2109
-- parametros.escalaAutonomica / tramos (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7986–8013
 - (total, tramo) => total.plus(tramo.cuota) / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1564–1605
-- {
-  nombre: "Mínimos autonómicos IRPF 2020",
-  valor: {
-    ...MINIMOS_ESTATALES_POR_COMUNIDAD_2020,
-    "illes-balears": MINIMOS_ILLES_BALEARS_2020,
-    catalu / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2020.ts:3167–3573
-- ESCALAS_AUTONOMICAS_IRPF_2015 / tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2015.ts:12154–12183
 - {
     ...MINIMOS_ESTATALES_POR_COMUNIDAD_2016,
     "illes-balears": MINIMOS_ILLES_BALEARS_2016,
     madrid: MINIMOS_MADRID_2016,
   } satisfies Readonly<
     Rec / contribuyente.general (selector, selection); Forma AST no admitida: SatisfiesExpression; lib/dominio/normativa/datos/minimos-autonomicos-2016.ts:2822–3041
-- minimosAutonomicos / contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:13634–13652
-- {
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-} / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/repositorio-parametros.ts:495–567
-- resolverParametrosComunidadAutonoma2025(comunidadAutonoma) / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:18205–18263
-- 0 / value (EUR, value); literal; lib/dominio/irpf/trabajo-anual/conexion.ts:1976–1977
-- comunidadAutonoma === "madrid" / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4204–4234
-- obtenerMinimosAutonomicosIrpf2012(comunidadAutonoma) / contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:5460–5512
-- MINIMOS_AUTONOMICOS_IRPF_2022 / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2022.ts:3785–3814
 - {
     comunidadAutonoma,
     fallecidoAntesComunitatValenciana: fallecidoAntesDeFechaCivil({
@@ -106,42 +51,11 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
       fechaCorte: "2022-10-28",
     }),
   / value (selector, selection); Objeto completo: se exige propiedad de salida; lib/dominio/normativa/datos/minimos-autonomicos-2022.ts:3417–3579
-- resolverParametrosComunidadAutonoma2026(comunidadAutonoma) / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:18304–18362
-- base / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3125–3129
-- cuotaEstatal.plus(cuotaAutonomica) / value (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:8445–8479
-- estatal(base) / value (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:8146–8159
-- parametroNormativo({
-  nombre: "Mínimos autonómicos IRPF 2015",
-  valor: {
-    ...MINIMOS_ESTATALES_POR_COMUNIDAD_2015,
-    "illes-balears": MINIMOS_ILLES_BALEA / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2015.ts:2749–3088
-- minimosAutonomicos / contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:14471–14489
 - MINIMOS_AUTONOMICOS_IRPF_2025.valor[comunidadAutonoma] / contribuyente.general (selector, selection); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/minimos-autonomicos-2025.ts:8743–8797
 - {
                 limiteAnterior: base.mul(0),
                 tramos: EffectArray.empty<TramoCuotaGeneralCalculado>(),
               } / value (EUR, value); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3278–3413
-- valor / contribuyente.general (selector, selection); productor; lib/dominio/normativa/repositorio-parametros.ts:549–554
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2018,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:9752–10194
-- Match.value({
-    comunidadAutonoma,
-    fallecidoAntesIllesBalears: fallecidoAntesDe({
-      fechaFallecimiento,
-      fechaLimiteMs: fechaLimiteIllesBalearsMs / contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2023.ts:2105–2539
-- MINIMOS_AUTONOMICOS_IRPF_2019 / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2019.ts:3587–3616
-- escalasPublicadas / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1877–1894
-- 2021 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4057–4061
-- parametroNormativo({
-  nombre: "Mínimos autonómicos IRPF 2016",
-  valor: {
-    ...MINIMOS_ESTATALES_POR_COMUNIDAD_2016,
-    "illes-balears": MINIMOS_ILLES_BALEA / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2016.ts:2749–3088
-- MINIMOS_AUTONOMICOS_IRPF_2020 / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2020.ts:3706–3735
-- base / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3125–3129
 - {
   "simulada-estatal": reutilizarEscala2025ConFuente2024(
     ESCALAS_AUTONOMICAS_IRPF_2025["simulada-estatal"]
@@ -152,8 +66,6 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
     asturias: MINIMOS_ESTATALES_2024,
   } satisfies Readonly<
     Record<ComunidadAutonoma, MinimosPersonalesFamil / contribuyente.general (selector, selection); Forma AST no admitida: SatisfiesExpression; lib/dominio/normativa/datos/minimos-autonomicos-2024.ts:528–702
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:5841–5858
-- "5550" / value (EUR, value); literal; lib/dominio/normativa/datos/minimos-autonomicos-2025.ts:2353–2359
 - ([baseInferior, cuota, tipo]) => ({
     baseInferior: new Decimal(baseInferior),
     cuota: new Decimal(cuota),
@@ -165,55 +77,14 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
     primero: importe("2400"),
     segundo: importe("2700"),
     tercero: importe / contribuyente.general (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/normativa/datos/minimos-autonomicos-2023.ts:641–1048
-- base / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1507–1511
-- MINIMOS_AUTONOMICOS_IRPF_2012 / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2012.ts:3363–3392
-- Match.value(
-        fallecidoAntesDeFechaCivil({
-          fechaCorte: "2015-12-31",
-          fechaFallecimiento,
-        })
-      ).pipe(
-        Match.when( / tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2015.ts:11158–11499
 - datos.map(([baseInferior, cuota, tipo]) => ({
     baseInferior: new Decimal(baseInferior),
     cuota: new Decimal(cuota),
     tipo: new Decimal(tipo),
   })) / value (selector, selection); Contrato de llamada pendiente: datos.map; lib/dominio/irpf/cuotas/escalas-publicadas.ts:560–716
-- {
-  nombre: "Mínimos autonómicos IRPF 2016",
-  valor: {
-    ...MINIMOS_ESTATALES_POR_COMUNIDAD_2016,
-    "illes-balears": MINIMOS_ILLES_BALEARS_2016,
-    madrid / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2016.ts:2768–3087
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/normativa/datos/irpf-autonomico-2016.ts:9212–9229
-- base / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1547–1551
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:5841–5858
 - MINIMOS_AUTONOMICOS_IRPF_2022.valor[comunidadAutonoma] / contribuyente.general (selector, selection); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/minimos-autonomicos-2022.ts:3785–3839
 - MINIMOS_AUTONOMICOS_IRPF_2022.valor[comunidadAutonoma] / contribuyente.general (EUR, value); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/minimos-autonomicos-2022.ts:3785–3839
-- resolverParametrosComunidadAutonoma2022({
-        comunidadAutonoma,
-        fechaFallecimiento,
-      }) / minimosAutonomicos.contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17814–17919
-- {
-      base: b,
-      tramos: parametros.escalaAutonomica.tramos,
-      escalasPublicadas: publicada === undefined ? undefined : [publicada],
-    } / escalasPublicadas (selector, selection); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7955–8103
-- ESCALA_COMUNITAT_VALENCIANA_2022_FALLECIDO_ANTES_28_OCTUBRE / tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2022.ts:14436–14495
-- ESCALAS_AUTONOMICAS_IRPF_2015["illes-balears"] / tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2015.ts:11444–11490
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2017.ts:3256–3273
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:13577–13594
-- resolverParametrosComunidadAutonoma2013(comunidadAutonoma) / minimosAutonomicos.contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16795–16853
 - MINIMOS_AUTONOMICOS_IRPF_2018.valor[comunidadAutonoma] / contribuyente.general (selector, selection); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/minimos-autonomicos-2018.ts:3587–3641
-- filas([
-  ["0", "0", ".119"],
-  ["17707.20", "2107.16", ".1392"],
-  ["33007.20", "4236.92", ".1845"],
-  ["53407.20", "8000.72", ".2148"],
-  ["120000.20", "22304 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:1688–1904
-- MINIMOS_AUTONOMICOS_IRPF_2023 / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2023.ts:2480–2509
-- valor / contribuyente.general (EUR, value); productor; lib/dominio/normativa/repositorio-parametros.ts:549–554
-- "madrid" / value (selector, selection); literal; lib/dominio/irpf/trabajo-anual/conexion.ts:7502–7510
 - ESCALAS_AUTONOMICAS_IRPF_2015[comunidadAutonoma] / tramos (EUR, value); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/irpf-autonomico-2015.ts:12154–12202
 - ({
           _tag: "ComunidadAutonomaNoSoportada",
@@ -225,184 +96,48 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
   "simulada-estatal":
     ESCALAS_AUTONOMICAS_IRPF_2017_DISTINTAS_DE_2025["simulada-estatal"],
   andalucia: ESCALAS_AUTONOMICAS_IRPF_2017_DISTINTAS_DE_2025.an / tramos (EUR, value); Propiedad no resuelta (spread/alias): tramos; lib/dominio/normativa/datos/irpf-autonomico-2017.ts:7662–9112
-- 2014 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3931–3935
-- MINIMOS_AUTONOMICOS_IRPF_2022.valor / contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2022.ts:3785–3820
-- calcularDesgloseCuotaPorEscala({ base, tramos, escalasPublicadas }) / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1474–1541
-- resolverParametrosComunidadAutonoma2021(comunidadAutonoma) / minimosAutonomicos.contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17715–17773
 - importe("5550") / value (selector, selection); Contrato de llamada pendiente: importe; lib/dominio/normativa/datos/minimos-autonomicos-2025.ts:2345–2360
-- {
-    anio: 2025,
-    comunidadAutonoma: "madrid",
-    baseLiquidableGeneral: base,
-  } / comunidadAutonoma (selector, selection); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7461–7548
-- { base, tramos, escalasPublicadas } / escalasPublicadas (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1505–1540
-- resolverParametrosComunidadAutonoma2020(comunidadAutonoma) / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17616–17674
 - MINIMOS_AUTONOMICOS_IRPF_2019.valor[comunidadAutonoma] / contribuyente.general (EUR, value); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/minimos-autonomicos-2019.ts:3587–3641
-- resolverParametrosComunidadAutonoma2013(comunidadAutonoma) / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16795–16853
 - {
   "simulada-estatal":
     ESCALAS_AUTONOMICAS_IRPF_2017_DISTINTAS_DE_2025["simulada-estatal"],
   andalucia: ESCALAS_AUTONOMICAS_IRPF_2017_DISTINTAS_DE_2025.an / tramos (EUR, value); Propiedad no resuelta (spread/alias): tramos; lib/dominio/normativa/datos/irpf-autonomico-2017.ts:7662–9112
-- "madrid" / value (selector, selection); literal; lib/dominio/irpf/trabajo-anual/conexion.ts:7502–7510
-- parametroNormativo({
-  nombre: "Mínimos autonómicos IRPF 2014 pre-reforma 2015",
-  valor: {
-    ...MINIMOS_ESTATALES_POR_COMUNIDAD_2014,
-    cantabria: MINIMOS_ / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2014.ts:3883–4288
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:9056–9073
 - ESCALAS_AUTONOMICAS_IRPF_2018[comunidadAutonoma] / tramos (EUR, value); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/irpf-autonomico-2018.ts:9239–9287
-- minimosAutonomicos / contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:13634–13652
-- ESCALAS_AUTONOMICAS_IRPF_2020 / tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2020.ts:14743–14772
 - ([baseInferior, cuota, tipo]) => ({
     baseInferior: new Decimal(baseInferior),
     cuota: new Decimal(cuota),
     tipo: new Decimal(tipo),
   }) / value (selector, selection); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/cuotas/escalas-publicadas.ts:570–715
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2015,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:7716–8193
-- base.mul(0) / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1547–1558
-- base / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3125–3129
-- parametros.escalaAutonomica.tramos / value (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7986–8020
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3943–3947
-- Match.value(base).pipe(
-        Match.when(
-          (base) => base.lte(0),
-          () => []
-        ),
-        Match.orElse(
-          (base) =>
-            / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3061–4468
-- tramos / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1513–1519
-- {
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-} / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/repositorio-parametros.ts:495–567
-- estatal(base).minus(
-      estatal(D.min(base, MINIMOS_ESTATALES_2025.contribuyente.general))
-    ) / value (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:8146–8245
-- escalasPublicadas !== undefined / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1877–1908
-- D.max(
-    0,
-    estatal(base).minus(
-      estatal(D.min(base, MINIMOS_ESTATALES_2025.contribuyente.general))
-    )
-  ) / value (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:8128–8249
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2019,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:10419–10861
-- resolverParametrosComunidadAutonoma2016(comunidadAutonoma) / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17220–17278
-- comunidadAutonoma === "catalunya" && anio >= 2020 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3996–4045
-- resolverParametrosComunidadAutonoma2012(comunidadAutonoma) / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16696–16754
-- {
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-} / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/repositorio-parametros.ts:495–567
 - MINIMOS_AUTONOMICOS_IRPF_2019.valor[comunidadAutonoma] / contribuyente.general (selector, selection); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/minimos-autonomicos-2019.ts:3587–3641
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3996–4013
-- "catalunya" / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4018–4029
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:18344–18361
-- {
-      baseLiquidableGeneral,
-      comunidadAutonoma,
-    } / comunidadAutonoma (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:7209–7270
 - {
     ...MINIMOS_ESTATALES_POR_COMUNIDAD_2020,
     "illes-balears": MINIMOS_ILLES_BALEARS_2020,
     catalunya: MINIMOS_CATALUNYA_2020_CANONICO,
     madrid: MINI / contribuyente.general (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/normativa/datos/minimos-autonomicos-2020.ts:3221–3527
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17656–17673
-- base / value (selector, selection); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:8305–8309
 - {
     ...MINIMOS_ESTATALES_POR_COMUNIDAD_2015,
     "illes-balears": MINIMOS_ILLES_BALEARS_2015,
     madrid: MINIMOS_MADRID_2015,
   } satisfies Readonly<
     Rec / contribuyente.general (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/normativa/datos/minimos-autonomicos-2015.ts:2822–3041
-- valor / contribuyente.general (selector, selection); productor; lib/dominio/normativa/repositorio-parametros.ts:549–554
-- filas([
-  ["0", "0", ".119"],
-  ["17707.20", "2107.16", ".1392"],
-  ["33007.20", "4236.92", ".1845"],
-  ["53407.20", "8000.72", ".2148"],
-  ["120000.20", "22304 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:1688–1904
-- { base: b, tramos: parametros.escalaEstatalGeneral } / tramos (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7837–7889
-- resolverParametrosComunidadAutonoma2016(comunidadAutonoma) / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17220–17278
-- TRAMOS_IRPF_ESTATAL_GENERAL_2017 / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:9350–9382
-- MINIMOS_ESTATALES_2025 / contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2022.ts:536–558
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2025,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_202 / minimosAutonomicos.contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:14761–15262
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2015.ts:3256–3273
-- 0 / value (EUR, value); literal; lib/dominio/irpf/trabajo-anual/conexion.ts:7402–7403
-- TRAMOS_IRPF_ESTATAL_GENERAL_2025 / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:15026–15058
-- resolverParametrosComunidadAutonoma2023({
-        comunidadAutonoma,
-        fechaFallecimiento,
-      }) / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17960–18065
-- liquida / value (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:8524–8531
-- valor / contribuyente.general (selector, selection); productor; lib/dominio/normativa/repositorio-parametros.ts:549–554
-- obtenerMinimosAutonomicosIrpf2016(comunidadAutonoma) / contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:8355–8407
-- comunidadAutonoma === "madrid" / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4204–4234
 - ESCALAS_AUTONOMICAS_IRPF_2015[comunidadAutonoma] / tramos (EUR, value); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/irpf-autonomico-2015.ts:12154–12202
-- filas([
-  ["0", "0", ".105"],
-  ["12450", "1307.25", ".12"],
-  ["17707.20", "1938.11", ".14"],
-  ["21000", "2399.10", ".15"],
-  ["33007.20", "4200.18", ".188"], / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:2212–2511
-- minimosAutonomicos / contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:10129–10147
 - ({
           _tag: "ParametrosComunidadAutonoma",
           comunidadAutonoma,
           anio: 2026,
           minimoAutonomicoIgualEstatal: true,
           esc / escalaAutonomica.tramos (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:15499–15988
-- anio <= 2021 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4049–4061
-- MINIMOS_AUTONOMICOS_IRPF_2013 / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2013.ts:3363–3392
-- {
-    comunidadAutonoma,
-    fechaFallecimiento,
-  } / comunidadAutonoma (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:13989–14041
-- parametroNormativo({
-  nombre: "Mínimos autonómicos IRPF 2019",
-  valor: {
-    ...MINIMOS_ESTATALES_POR_COMUNIDAD_2019,
-    "illes-balears": MINIMOS_ILLES_BALEA / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2019.ts:3077–3455
-- { base, tramos, escalasPublicadas } / base (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1505–1540
-- base / value (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:8154–8158
-- obtenerEscalaAutonomicaIrpf2012(comunidadAutonoma) / tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:5809–5859
-- ESCALAS_AUTONOMICAS_IRPF_2022 / tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2022.ts:14526–14555
-- 2022 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4544–4548
 - EffectArray.reduce(
     calcularDesgloseCuotaPorEscala({ base, tramos, escalasPublicadas }),
     base.mul(0),
     (total, tramo) => total.plus(tramo.cuota)
   ) / value (EUR, value); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1450–1609
-- resolverParametrosComunidadAutonoma2026(comunidadAutonoma) / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:18304–18362
 - [
   [importe(12450), tipo("9.5")],
   [importe(20200), tipo("12")],
   [importe(35200), tipo("15")],
   [importe(60000), tipo("18.5")],
   [importe(Infinity), tipo( / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/normativa/datos/irpf-autonomico-2020.ts:581–752
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:6126–6143
-- parametroNormativo({
-  nombre: "Mínimos autonómicos IRPF 2023",
-  valor: {
-    ...MINIMOS_AUTONOMICOS_IRPF_2025.valor,
-    asturias: MINIMOS_ESTATALES_2023,
-    / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2023.ts:1095–1427
 - {
       onNone: () => false,
       onSome: (fechaFallecimiento) =>
@@ -414,59 +149,10 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
   [importe(35200), tipo("15")],
   [importe(60000), tipo("18.5")],
   [importe(300000), tipo("2 / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/normativa/datos/irpf-autonomico-2025.ts:645–851
-- anio >= 2022 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4137–4149
-- {
-  nombre: "Mínimos autonómicos IRPF 2017",
-  valor: {
-    ...MINIMOS_ESTATALES_POR_COMUNIDAD_2017,
-    "illes-balears": MINIMOS_ILLES_BALEARS_2017,
-    madrid / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2017.ts:2768–3087
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/normativa/datos/irpf-autonomico-2025.ts:8183–8200
-- ESCALAS_AUTONOMICAS_IRPF_2025 / tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2025.ts:8153–8182
 - MINIMOS_AUTONOMICOS_IRPF_2014.valor[comunidadAutonoma] / contribuyente.general (EUR, value); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/minimos-autonomicos-2014.ts:4420–4474
-- calcularDesgloseCuotaPorEscala({ base, tramos, escalasPublicadas }) / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1474–1541
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2019,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / minimosAutonomicos.contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:10419–10861
-- 0 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3134–3135
 - ESCALAS_AUTONOMICAS_IRPF_2013[comunidadAutonoma] / tramos (EUR, value); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/irpf-autonomico-2013.ts:8327–8375
-- "madrid" / value (selector, selection); literal; lib/dominio/irpf/trabajo-anual/conexion.ts:7761–7769
 - MINIMOS_AUTONOMICOS_IRPF_2017.valor[comunidadAutonoma] / contribuyente.general (EUR, value); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/minimos-autonomicos-2017.ts:3220–3274
-- Match.value(comunidadAutonoma).pipe(
-    Match.when("galicia", () =>
-      Option.fromNullishOr(baseLiquidableGeneral).pipe(
-        Option.match({
-          on / tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2014.ts:9367–10109
-- ESCALAS_AUTONOMICAS_IRPF_2015_DISTINTAS_DE_2025["illes-balears"] / tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2015.ts:9810–9874
-- {
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-} / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/repositorio-parametros.ts:495–567
-- MINIMOS_AUTONOMICOS_IRPF_2015.valor / contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2015.ts:3220–3255
-- 2025 / value (selector, selection); literal; lib/dominio/irpf/trabajo-anual/conexion.ts:7473–7477
-- resolverParametrosComunidadAutonoma2023({
-        comunidadAutonoma,
-        fechaFallecimiento,
-      }) / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17960–18065
-- escalasPublicadas !== undefined / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1877–1908
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2013,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:6155–6562
-- base / value (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:8305–8309
 - MINIMOS_AUTONOMICOS_IRPF_2024.valor[comunidadAutonoma] / contribuyente.general (selector, selection); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/minimos-autonomicos-2024.ts:881–935
-- 0 / value (EUR, value); literal; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1556–1557
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/normativa/datos/irpf-autonomico-2022.ts:14556–14573
-- escalasPublicadas !== undefined
-    ? EffectArray.flatMap(escalasPublicadas, (filas) =>
-        Option.match(
-          EffectArray.findLast(
-            filas, / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1877–4468
 - [
   [importe("17707.2"), tipo("12.75")],
   [importe("33007.2"), tipo("16")],
@@ -477,14 +163,6 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
   "simulada-estatal":
     ESCALAS_AUTONOMICAS_IRPF_2019_DISTINTAS_DE_2025["simulada-estatal"],
   andalucia: ESCALAS_AUTONOMICAS_IRPF_2019_DISTINTAS_DE_2025.an / tramos (EUR, value); Propiedad no resuelta (spread/alias): tramos; lib/dominio/normativa/datos/irpf-autonomico-2019.ts:13270–14720
-- resolverParametrosComunidadAutonoma2021(comunidadAutonoma) / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17715–17773
-- resolverParametrosComunidadAutonoma2023({
-        comunidadAutonoma,
-        fechaFallecimiento,
-      }) / minimosAutonomicos.contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17960–18065
-- anio / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16651–16655
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2016.ts:3256–3273
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/normativa/datos/irpf-autonomico-2023.ts:10454–10471
 - [
   ...filas([
     ["0", "0", ".096"],
@@ -494,48 +172,6 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
   ]),
   {
  / value (selector, selection); Array completo requiere contrato por elemento; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3107–3406
-- comunidadAutonoma === "catalunya" && anio >= 2022 && anio <= 2024 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4100–4165
-- resolverParametrosComunidadAutonoma2021(comunidadAutonoma) / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17715–17773
-- ({
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-}) / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/repositorio-parametros.ts:494–568
-- "madrid" / value (selector, selection); literal; lib/dominio/irpf/trabajo-anual/conexion.ts:7761–7769
-- MINIMOS_AUTONOMICOS_IRPF_2015.valor / contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2015.ts:3220–3255
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17458–17475
-- ESCALAS_AUTONOMICAS_IRPF_2016 / tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2016.ts:9182–9211
-- undefined / value (EUR, value); literal; lib/dominio/irpf/trabajo-anual/conexion.ts:8073–8082
-- base / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1547–1551
-- parametros.escalaAutonomica.tramos / value (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7986–8020
-- {
-  nombre: "Mínimos autonómicos IRPF 2018",
-  valor: {
-    ...MINIMOS_ESTATALES_POR_COMUNIDAD_2018,
-    "illes-balears": MINIMOS_ILLES_BALEARS_2018,
-    madrid / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2018.ts:3096–3454
-- ESCALAS_AUTONOMICAS_IRPF_2019 / tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2019.ts:14841–14870
-- parametroNormativo({
-  nombre: "Mínimos autonómicos IRPF 2023",
-  valor: {
-    ...MINIMOS_AUTONOMICOS_IRPF_2025.valor,
-    asturias: MINIMOS_ESTATALES_2023,
-    / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2023.ts:1095–1427
-- 2022 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4544–4548
-- minimosAutonomicos / contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:12797–12815
-- resolverParametrosComunidadAutonoma2024(comunidadAutonoma) / minimosAutonomicos.contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:18106–18164
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2025,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_202 / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:14761–15262
-- filas([
-  ["0", "0", ".085"],
-  ["13362.22", "1135.79", ".107"],
-  ["19004.63", "1739.53", ".128"],
-  ["35425.68", "3841.42", ".174"],
-  ["57320.40", "7651.10", / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:2890–3062
 - ({
           _tag: "ParametrosComunidadAutonoma",
           comunidadAutonoma,
@@ -543,288 +179,61 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
           minimoAutonomicoIgualEstatal: true,
           esc / minimosAutonomicos.contribuyente.general (selector, selection); Forma AST no admitida: SatisfiesExpression; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:15499–15988
 - ESCALAS_AUTONOMICAS_IRPF_2021[comunidadAutonoma] / tramos (EUR, value); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/irpf-autonomico-2021.ts:14302–14350
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2016,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:8418–8860
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2021,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_202 / minimosAutonomicos.contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:11753–12195
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3996–4013
 - Option.fromNullishOr(baseLiquidableGeneral).pipe(
         Option.match({
           onNone: () => ESCALA_GALICIA_2015_BASE_SUPERIOR_17707_20,
           onSome: ( / tramos (EUR, value); Contrato de llamada pendiente: Option.fromNullishOr(baseLiquidableGeneral).pipe; lib/dominio/normativa/datos/irpf-autonomico-2015.ts:11545–12099
-- filas([
-  ["0", "0", ".12"],
-  ["17707.20", "2124.86", ".14"],
-  ["33007.20", "4266.86", ".185"],
-  ["53407.20", "8040.86", ".215"],
-  ["60000", "9458.31", ".23 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:1452–1653
-- undefined / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4625–4634
 - (estado, [limite, tipo]) => {
                 const baseRestante = Decimal.max(
                   0,
                   base.minus(estado.limiteAnterior)
         / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3429–4429
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:18344–18361
-- Match.value({
-    comunidadAutonoma,
-    fallecidoAntesExtremadura: fallecidoAntesDe({
-      fechaFallecimiento,
-      fechaLimiteMs: fechaLimiteExtremaduraMs,
- / tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2023.ts:10056–10477
-- MINIMOS_AUTONOMICOS_IRPF_2017.valor / contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2017.ts:3220–3255
-- 2022 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4247–4251
-- valor / contribuyente.general (EUR, value); productor; lib/dominio/normativa/repositorio-parametros.ts:549–554
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2015,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / minimosAutonomicos.contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:7716–8193
-- {
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-} / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/repositorio-parametros.ts:495–567
-- base / value (selector, selection); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:8154–8158
-- valor / contribuyente.general (EUR, value); productor; lib/dominio/normativa/repositorio-parametros.ts:549–554
-- 0 / value (EUR, value); literal; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1556–1557
-- valor / contribuyente.general (EUR, value); productor; lib/dominio/normativa/repositorio-parametros.ts:549–554
-- 2021 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4057–4061
-- obtenerParametrosComunidadAutonoma({
-    anio: 2025,
-    comunidadAutonoma: "madrid",
-    baseLiquidableGeneral: base,
-  }) / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7426–7549
 - Option.match({
       onNone: () => false,
       onSome: (fechaFallecimiento) =>
         fechaCivilIsoUtc(fechaFallecimiento) < fechaCorte,
     }) / value (selector, selection); Contrato de llamada pendiente: Option.match; lib/dominio/normativa/datos/irpf-autonomico-2015.ts:2558–2703
-- base / value (selector, selection); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:8187–8191
-- minimosIrpf / contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2025.ts:2252–2263
-- minimosAutonomicos / contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:8128–8146
-- escalasPublicadas / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1877–1894
-- tramos / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3256–3262
-- undefined / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1899–1908
-- resolverParametrosComunidadAutonoma2017(comunidadAutonoma) / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17319–17377
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:15412–15429
-- anio >= 2012 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3799–3811
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2013,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:6155–6562
 - {
     ...MINIMOS_ESTATALES_POR_COMUNIDAD_2017,
     "illes-balears": MINIMOS_ILLES_BALEARS_2017,
     madrid: MINIMOS_MADRID_2017,
   } satisfies Readonly<
     Rec / contribuyente.general (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/normativa/datos/minimos-autonomicos-2017.ts:2822–3041
-- MINIMOS_AUTONOMICOS_IRPF_2021.valor / contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2021.ts:2288–2323
-- valor / contribuyente.general (selector, selection); productor; lib/dominio/normativa/repositorio-parametros.ts:549–554
-- minimosIrpf / contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2025.ts:2252–2263
-- {
-        baseLiquidableGeneral,
-        comunidadAutonoma,
-      } / comunidadAutonoma (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16934–17001
-- resolverParametrosComunidadAutonoma2025(comunidadAutonoma) / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:18205–18263
-- comunidadAutonoma === "madrid" &&
-    anio === 2025 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4283–4334
 - {
   "simulada-estatal": reutilizarEscala2025ConFuente2022(
     ESCALAS_AUTONOMICAS_IRPF_2025["simulada-estatal"]
   ),
   andalucia: reutilizarEscala2025ConFuente / tramos (EUR, value); Propiedad no resuelta (spread/alias): tramos; lib/dominio/normativa/datos/irpf-autonomico-2022.ts:11794–13336
 - {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2012,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / minimosAutonomicos.contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:5523–5930
-- {
-  nombre: "Mínimos autonómicos IRPF 2018",
-  valor: {
-    ...MINIMOS_ESTATALES_POR_COMUNIDAD_2018,
-    "illes-balears": MINIMOS_ILLES_BALEARS_2018,
-    madrid / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2018.ts:3096–3454
-- ({
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-}) / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/repositorio-parametros.ts:494–568
-- {
-  nombre: "Mínimos autonómicos IRPF 2021",
-  valor: {
-    ...MINIMOS_AUTONOMICOS_IRPF_2025.valor,
-    andalucia: MINIMOS_ESTATALES_2021,
-    asturias: MINIMOS / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2021.ts:1633–2155
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2016,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:8418–8860
-- 2015 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3823–3827
-- resolverParametrosComunidadAutonoma2014({
-        baseLiquidableGeneral,
-        comunidadAutonoma,
-      }) / minimosAutonomicos.contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16894–17002
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:14414–14431
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2024,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_202 / minimosAutonomicos.contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:12420–12862
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17260–17277
-- "comunitat-valenciana" / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3893–3915
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:9723–9740
-- {
       onNone: () => false,
       onSome: (fechaFallecimiento) =>
         fechaCivilIsoUtc(fechaFallecimiento) < fechaCorte,
     } / value (selector, selection); Objeto completo: se exige propiedad de salida; lib/dominio/normativa/datos/irpf-autonomico-2015.ts:2571–2702
-- MURCIA_2022 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4604–4615
 - [] / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3154–3156
-- filas([
-  ["0", "0", ".085"],
-  ["12960.45", "1101.64", ".107"],
-  ["18433.20", "1687.22", ".128"],
-  ["34360.50", "3725.91", ".174"],
-  ["55596.90", "7421.04", / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:2539–2711
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2021.ts:2324–2341
-- MINIMOS_AUTONOMICOS_IRPF_2016.valor / contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2016.ts:3220–3255
-- ({
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-}) / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/repositorio-parametros.ts:494–568
 - Option.match({
           onNone: () => ESCALA_GALICIA_2015_BASE_SUPERIOR_17707_20,
           onSome: (baseLiquidableGeneral) =>
             Match.value(baseLiqu / value (EUR, value); Contrato de llamada pendiente: Option.match; lib/dominio/normativa/datos/irpf-autonomico-2015.ts:11603–12091
-- resolverParametrosComunidadAutonoma2012(comunidadAutonoma) / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16696–16754
-- {
-  nombre: "Mínimos autonómicos IRPF 2013 pre-reforma 2015",
-  valor: {
-    ...MINIMOS_ESTATALES_POR_COMUNIDAD_2013,
-    madrid: MINIMOS_MADRID_2013,
-  } satis / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2013.ts:2943–3230
-- publicada / value (selector, selection); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:8047–8056
-- anio <= 2015 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3815–3827
-- 2025 / value (selector, selection); literal; lib/dominio/irpf/trabajo-anual/conexion.ts:7473–7477
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/normativa/datos/irpf-autonomico-2024.ts:6018–6035
-- resolverParametrosComunidadAutonoma2025(comunidadAutonoma) / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:18205–18263
-- escalasPublicadas / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1877–1894
-- TRAMOS_IRPF_ESTATAL_GENERAL_2017 / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:9350–9382
-- parametros / minimosAutonomicos.contribuyente.general (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:8356–8366
-- TRAMOS_IRPF_ESTATAL_GENERAL_2015 / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:7946–7978
-- {
-        comunidadAutonoma,
-        fechaFallecimiento,
-      } / comunidadAutonoma (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17854–17918
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/normativa/datos/irpf-autonomico-2023.ts:10454–10471
-- MINIMOS_AUTONOMICOS_IRPF_2014.valor / contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2014.ts:4420–4455
-- {
-        comunidadAutonoma,
-        fechaFallecimiento,
-      } / comunidadAutonoma (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:18000–18064
-- 2012 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3807–3811
-- obtenerMinimosAutonomicosIrpf2023({
-    comunidadAutonoma,
-    fechaFallecimiento,
-  }) / contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:13118–13205
-- {
-        comunidadAutonoma,
-        fechaFallecimiento,
-      } / comunidadAutonoma (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17854–17918
 - datos.map(([baseInferior, cuota, tipo]) => ({
     baseInferior: new Decimal(baseInferior),
     cuota: new Decimal(cuota),
     tipo: new Decimal(tipo),
   })) / value (selector, selection); Contrato de llamada pendiente: datos.map; lib/dominio/irpf/cuotas/escalas-publicadas.ts:560–716
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17557–17574
-- "madrid" / value (selector, selection); literal; lib/dominio/irpf/trabajo-anual/conexion.ts:7502–7510
-- {
-        baseLiquidableGeneral,
-        comunidadAutonoma,
-        fechaFallecimiento,
-      } / comunidadAutonoma (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17083–17178
-- ESCALAS_AUTONOMICAS_IRPF_2015_DISTINTAS_DE_2025 / illes-balears.tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2015.ts:9810–9857
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/normativa/datos/irpf-autonomico-2018.ts:9269–9286
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:18245–18262
-- resolverParametrosComunidadAutonoma2022({
-        comunidadAutonoma,
-        fechaFallecimiento,
-      }) / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17814–17919
-- 2025 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4330–4334
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:18344–18361
 - {
   "simulada-estatal": reutilizarEscala2025ConFuente2024(
     ESCALAS_AUTONOMICAS_IRPF_2025["simulada-estatal"]
   ),
   andalucia: reutilizarEscala2025ConFuente / tramos (EUR, value); Propiedad no resuelta (spread/alias): tramos; lib/dominio/normativa/datos/irpf-autonomico-2024.ts:4133–5867
-- obtenerParametrosComunidadAutonoma({
-    anio: 2025,
-    comunidadAutonoma: "madrid",
-    baseLiquidableGeneral: base,
-  }) / minimosAutonomicos.contribuyente.general (selector, selection); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7426–7549
-- 2016 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3951–3955
-- calcularCuotaPorEscala({ base: b, tramos: parametros.escalaEstatalGeneral }) / value (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7814–7890
 - {
     ...MINIMOS_ESTATALES_POR_COMUNIDAD_2018,
     "illes-balears": MINIMOS_ILLES_BALEARS_2018,
     madrid: MINIMOS_MADRID_2018,
     "la-rioja": MINIMOS_LA_RIOJ / contribuyente.general (selector, selection); Forma AST no admitida: SatisfiesExpression; lib/dominio/normativa/datos/minimos-autonomicos-2018.ts:3150–3408
-- ESCALAS_AUTONOMICAS_IRPF_2021 / tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2021.ts:14302–14331
-- {
-    anio: 2025,
-    comunidadAutonoma: "madrid",
-  } / comunidadAutonoma (selector, selection); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7720–7774
-- obtenerMinimosAutonomicosIrpf2014(comunidadAutonoma) / contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:6828–6880
-- parametroNormativo({
-  nombre: "Mínimos autonómicos IRPF 2016",
-  valor: {
-    ...MINIMOS_ESTATALES_POR_COMUNIDAD_2016,
-    "illes-balears": MINIMOS_ILLES_BALEA / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2016.ts:2749–3088
-- 2020 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4041–4045
 - datos.map(([baseInferior, cuota, tipo]) => ({
     baseInferior: new Decimal(baseInferior),
     cuota: new Decimal(cuota),
     tipo: new Decimal(tipo),
   })) / value (selector, selection); Contrato de llamada pendiente: datos.map; lib/dominio/irpf/cuotas/escalas-publicadas.ts:560–716
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3762–3779
-- MINIMOS_AUTONOMICOS_IRPF_2014 / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2014.ts:4420–4449
-- Match.value(comunidadAutonoma).pipe(
-    Match.when("illes-balears", () =>
-      Match.value(
-        fallecidoAntesDeFechaCivil({
-          fechaCorte: "2015-1 / tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2015.ts:11077–12212
-- obtenerMinimosAutonomicosIrpf2022({
-    comunidadAutonoma,
-    fechaFallecimiento,
-  }) / contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:13955–14042
-- obtenerEscalaAutonomicaIrpf2018(comunidadAutonoma) / tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:10073–10123
-- obtenerEscalaAutonomicaIrpf2013(comunidadAutonoma) / tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:6441–6491
-- MADRID_2022 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4260–4271
-- undefined / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1899–1908
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/normativa/datos/irpf-autonomico-2013.ts:8357–8374
-- minimosAutonomicos / contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:15138–15156
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2024,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_202 / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:12420–12862
-- ({
-  ...escala,
-  fuente,
-}) / tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2015.ts:1868–1896
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/normativa/datos/irpf-autonomico-2020.ts:14773–14790
 - {
     comunidadAutonoma,
     fallecidoAntesComunitatValenciana: fallecidoAntesDeFechaCivil({
@@ -832,279 +241,52 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
       fechaCorte: "2022-10-28",
     }),
   / value (selector, selection); Objeto completo: se exige propiedad de salida; lib/dominio/normativa/datos/irpf-autonomico-2022.ts:14121–14283
-- {
-  contribuyente: {
-    general: importe("5550"),
-    adicionalMayor65: importe("1150"),
-    adicionalMayor75: importe("1400"),
-  },
-  descendientes: {
-    pri / contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2025.ts:2311–2817
 - ESCALAS_AUTONOMICAS_IRPF_2012[comunidadAutonoma] / tramos (EUR, value); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/irpf-autonomico-2012.ts:8211–8259
-- {
-    anio: 2025,
-    comunidadAutonoma: "madrid",
-    baseLiquidableGeneral: base,
-  } / anio (selector, selection); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7461–7548
-- TRAMOS_IRPF_ESTATAL_GENERAL_2025 / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:12018–12050
-- MINIMOS_AUTONOMICOS_IRPF_2019.valor / contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2019.ts:3587–3622
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2012,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:5523–5930
 - ([baseInferior, cuota, tipo]) => ({
     baseInferior: new Decimal(baseInferior),
     cuota: new Decimal(cuota),
     tipo: new Decimal(tipo),
   }) / value (selector, selection); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/cuotas/escalas-publicadas.ts:570–715
-- resolverParametrosComunidadAutonoma2018(comunidadAutonoma) / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17418–17476
 - ({
           _tag: "ParametrosComunidadAutonoma",
           comunidadAutonoma,
           anio: 2026,
           minimoAutonomicoIgualEstatal: true,
           esc / escalaEstatalGeneral (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:15499–15988
-- tramos / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3256–3262
-- ({
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-}) / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/repositorio-parametros.ts:494–568
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:8771–8788
-- obtenerEscalaAutonomicaIrpf2017(comunidadAutonoma) / tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:9406–9456
-- {
-  "simulada-estatal":
-    ESCALAS_AUTONOMICAS_IRPF_2015_DISTINTAS_DE_2025["simulada-estatal"],
-  andalucia: ESCALAS_AUTONOMICAS_IRPF_2015_DISTINTAS_DE_2025.an / illes-balears.tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2015.ts:9482–10890
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2025,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_202 / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:14761–15262
-- {
-  nombre: "Mínimos autonómicos IRPF 2021",
-  valor: {
-    ...MINIMOS_AUTONOMICOS_IRPF_2025.valor,
-    andalucia: MINIMOS_ESTATALES_2021,
-    asturias: MINIMOS / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2021.ts:1633–2155
-- minimosAutonomicos / contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:10796–10814
-- b / value (selector, selection); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7969–7970
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4153–4157
-- TRAMOS_IRPF_ESTATAL_GENERAL_2025 / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:12685–12717
-- escalasPublicadas / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1877–1894
-- { base, tramos, escalasPublicadas } / base (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1505–1540
 - Option.fromNullishOr(baseLiquidableGeneral).pipe(
         Option.match({
           onNone: () => ESCALA_GALICIA_2014_BASE_SUPERIOR_17707_20,
           onSome: ( / tramos (EUR, value); Contrato de llamada pendiente: Option.fromNullishOr(baseLiquidableGeneral).pipe; lib/dominio/normativa/datos/irpf-autonomico-2014.ts:9442–9996
-- TRAMOS_IRPF_ESTATAL_GENERAL_2018 / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:10017–10049
-- {
-  nombre: "Mínimos autonómicos IRPF 2012 pre-reforma 2015",
-  valor: {
-    ...MINIMOS_ESTATALES_POR_COMUNIDAD_2012,
-    madrid: MINIMOS_MADRID_2012,
-  } satis / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2012.ts:2943–3230
 - [
   [importe(12450), tipo("9.5")],
   [importe(20200), tipo("12")],
   [importe(35200), tipo("15")],
   [importe(60000), tipo("18.5")],
   [importe(Infinity), tipo( / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/normativa/datos/irpf-autonomico-2017.ts:581–752
-- fechaFallecimiento === undefined / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4342–4374
-- {
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-} / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/repositorio-parametros.ts:495–567
-- Match.value(base).pipe(
-        Match.when(
-          (base) => base.lte(0),
-          () => []
-        ),
-        Match.orElse(
-          (base) =>
-            / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3061–4468
-- ({
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-}) / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/repositorio-parametros.ts:494–568
-- minimosAutonomicos / contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:9462–9480
-- comunidadAutonoma === "catalunya" / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4100–4133
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:15114–15131
-- { base: b, tramos: parametros.escalaEstatalGeneral } / base (selector, selection); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7837–7889
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17359–17376
-- obtenerEscalaAutonomicaIrpf2023({
-      comunidadAutonoma,
-      fechaFallecimiento,
-    }) / tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:13537–13628
-- ESCALAS_AUTONOMICAS_IRPF_2015 / illes-balears.tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2015.ts:11444–11473
-- resolverParametrosComunidadAutonoma2022({
-        comunidadAutonoma,
-        fechaFallecimiento,
-      }) / minimosAutonomicos.contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17814–17919
-- parametros.escalaEstatalGeneral / value (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7856–7887
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2025,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_202 / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:14761–15262
-- {
-  nombre: "Mínimos autonómicos IRPF 2019",
-  valor: {
-    ...MINIMOS_ESTATALES_POR_COMUNIDAD_2019,
-    "illes-balears": MINIMOS_ILLES_BALEARS_2019,
-    madrid / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2019.ts:3096–3454
-- resolverParametrosComunidadAutonoma2024(comunidadAutonoma) / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:18106–18164
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2014,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / minimosAutonomicos.contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:6891–7342
-- {
-  nombre: "Mínimos autonómicos IRPF 2013 pre-reforma 2015",
-  valor: {
-    ...MINIMOS_ESTATALES_POR_COMUNIDAD_2013,
-    madrid: MINIMOS_MADRID_2013,
-  } satis / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2013.ts:2943–3230
-- { base: b, tramos: parametros.escalaEstatalGeneral } / base (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7837–7889
-- resolverParametrosComunidadAutonoma2020(comunidadAutonoma) / minimosAutonomicos.contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17616–17674
-- new D(0) / value (selector, selection); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:1970–1978
 - ESCALAS_AUTONOMICAS_IRPF_2022[comunidadAutonoma] / tramos (EUR, value); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/irpf-autonomico-2022.ts:14526–14574
 - ESCALAS_AUTONOMICAS_IRPF_2016[comunidadAutonoma] / tramos (EUR, value); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/irpf-autonomico-2016.ts:9182–9230
-- minimos({
-  contribuyente: {
-    general: importe("5550"),
-    adicionalMayor65: importe("1150"),
-    adicionalMayor75: importe("1400"),
-  },
-  descendientes: { / contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2025.ts:2303–2818
-- resolverParametrosComunidadAutonoma2020(comunidadAutonoma) / minimosAutonomicos.contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17616–17674
-- ESCALAS_AUTONOMICAS_IRPF_2015_DISTINTAS_DE_2025["illes-balears"] / tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2015.ts:9810–9874
-- ANDALUCIA_2012_2015 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3840–3859
-- {
-    anio: 2025,
-    comunidadAutonoma: "madrid",
-    baseLiquidableGeneral: base,
-  } / anio (selector, selection); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7461–7548
-- comunidadAutonoma === "andalucia" && anio >= 2012 && anio <= 2015 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3762–3827
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/normativa/datos/irpf-autonomico-2024.ts:6018–6035
-- {
-  nombre: "Mínimos autonómicos IRPF 2014 pre-reforma 2015",
-  valor: {
-    ...MINIMOS_ESTATALES_POR_COMUNIDAD_2014,
-    cantabria: MINIMOS_CANTABRIA_2014,
-    / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2014.ts:3902–4287
-- anio >= 2020 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4033–4045
-- comunidadAutonoma === "madrid" / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4283–4313
-- parametros.minimosAutonomicos.contribuyente / general (selector, selection); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:8356–8399
-- parametroNormativo({
-  nombre: "Mínimos autonómicos IRPF 2012 pre-reforma 2015",
-  valor: {
-    ...MINIMOS_ESTATALES_POR_COMUNIDAD_2012,
-    madrid: MINIMOS_MAD / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2012.ts:2924–3231
 - {
     ...MINIMOS_ESTATALES_POR_COMUNIDAD_2013,
     madrid: MINIMOS_MADRID_2013,
   } satisfies Readonly<
     Record<ComunidadAutonoma, MinimosPersonalesFamiliare / contribuyente.general (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/normativa/datos/minimos-autonomicos-2013.ts:3014–3184
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/normativa/datos/irpf-autonomico-2017.ts:9263–9280
-- { base, tramos, escalasPublicadas } / base (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1505–1540
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2019,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:10419–10861
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/normativa/datos/irpf-autonomico-2021.ts:14332–14349
 - ([baseInferior, cuota, tipo]) => ({
     baseInferior: new Decimal(baseInferior),
     cuota: new Decimal(cuota),
     tipo: new Decimal(tipo),
   }) / value (selector, selection); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/cuotas/escalas-publicadas.ts:570–715
-- undefined / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4365–4374
 - ESCALAS_AUTONOMICAS_IRPF_2014[comunidadAutonoma] / tramos (EUR, value); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/irpf-autonomico-2014.ts:10051–10099
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4137–4141
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4033–4037
-- {
-    general: importe("5550"),
-    adicionalMayor65: importe("1150"),
-    adicionalMayor75: importe("1400"),
-  } / general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2025.ts:2330–2443
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2016,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / minimosAutonomicos.contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:8418–8860
-- MURCIA_2022 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4604–4615
-- MINIMOS_AUTONOMICOS_IRPF_2018 / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2018.ts:3587–3616
-- TRAMOS_IRPF_ESTATAL_GENERAL_2012 / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:5753–5785
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17864–17881
-- {
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-} / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/repositorio-parametros.ts:495–567
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2020,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_202 / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:11086–11528
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:9438–9455
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17656–17673
-- ESCALAS_AUTONOMICAS_IRPF_2025 / tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2025.ts:8153–8182
-- minimosAutonomicos / contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:5865–5883
 - MINIMOS_AUTONOMICOS_IRPF_2025.valor[comunidadAutonoma] / contribuyente.general (EUR, value); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/minimos-autonomicos-2025.ts:8743–8797
-- obtenerEscalaAutonomicaIrpf2019(comunidadAutonoma) / tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:10740–10790
-- 2022 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4145–4149
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2012,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:5523–5930
-- calcularDesgloseCuotaPorEscala({ base, tramos, escalasPublicadas }) / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1474–1541
 - EffectArray.reduce(
               tramos,
               {
                 limiteAnterior: base.mul(0),
                 tramos: EffectArray.empty<TramoCuotaGener / tramos (EUR, value); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3222–4443
 - {
-  nombre: "Mínimos autonómicos IRPF 2017",
-  valor: {
-    ...MINIMOS_ESTATALES_POR_COMUNIDAD_2017,
-    "illes-balears": MINIMOS_ILLES_BALEARS_2017,
-    madrid / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2017.ts:2768–3087
-- MINIMOS_AUTONOMICOS_IRPF_2013.valor / contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2013.ts:3363–3398
-- {
-      base: b,
-      tramos: parametros.escalaAutonomica.tramos,
-      escalasPublicadas: publicada === undefined ? undefined : [publicada],
-    } / escalasPublicadas (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7955–8103
-- MINIMOS_AUTONOMICOS_IRPF_2019 / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2019.ts:3587–3616
-- b / value (selector, selection); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7969–7970
-- resolverParametrosComunidadAutonoma2025(comunidadAutonoma) / minimosAutonomicos.contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:18205–18263
-- {
     anio: 2025,
     comunidadAutonoma: "madrid",
   } / fechaFallecimiento (selector, selection); Propiedad no resuelta (spread/alias): fechaFallecimiento; lib/dominio/irpf/trabajo-anual/conexion.ts:7720–7774
-- 2025 / value (selector, selection); literal; lib/dominio/irpf/trabajo-anual/conexion.ts:7732–7736
-- obtenerEscalaAutonomicaIrpf2019(comunidadAutonoma) / tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:10740–10790
-- resolverParametrosComunidadAutonoma2019(comunidadAutonoma) / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17517–17575
-- Match.value(comunidadAutonoma).pipe(
-    Match.when(
-      "simulada-estatal",
-      () =>
-        ({
-          _tag: "ParametrosComunidadAutonoma",
-          c / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:15400–16426
-- fechaFallecimiento === undefined / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4556–4588
 - ESCALAS_AUTONOMICAS_IRPF_2022[comunidadAutonoma] / tramos (EUR, value); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/irpf-autonomico-2022.ts:14526–14574
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3799–3803
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/normativa/datos/irpf-autonomico-2018.ts:9269–9286
 - {
     ...MINIMOS_ESTATALES_POR_COMUNIDAD_2019,
     "illes-balears": MINIMOS_ILLES_BALEARS_2019,
@@ -1116,69 +298,16 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
   [importe(35200), tipo("15")],
   [importe(60000), tipo("18.5")],
   [importe(300000), tipo("2 / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/normativa/datos/irpf-autonomico-2025.ts:645–851
-- valor / contribuyente.general (EUR, value); productor; lib/dominio/normativa/repositorio-parametros.ts:549–554
-- publicada === undefined ? undefined : [publicada] / value (selector, selection); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:8047–8096
-- comunidadAutonoma === "andalucia" && anio >= 2012 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3762–3811
-- comunidadAutonoma === "catalunya" && anio >= 2020 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3996–4045
-- Match.value({
-    comunidadAutonoma,
-    fallecidoAntesComunitatValenciana: fallecidoAntesDeFechaCivil({
-      fechaFallecimiento,
-      fechaCorte: "2022-10-28 / contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2022.ts:3405–3844
-- fallecidoAntesDeFechaCivil({
-          fechaCorte: "2015-12-31",
-          fechaFallecimiento,
-        }) / value (selector, selection); productor; lib/dominio/normativa/datos/irpf-autonomico-2015.ts:11179–11284
-- Match.value({
-    comunidadAutonoma,
-    fallecidoAntesComunitatValenciana: fallecidoAntesDeFechaCivil({
-      fechaFallecimiento,
-      fechaCorte: "2022-10-28 / tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2022.ts:14109–14579
-- {
-        comunidadAutonoma,
-        fechaFallecimiento,
-      } / comunidadAutonoma (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:18000–18064
-- {
-      base: b,
-      tramos: parametros.escalaAutonomica.tramos,
-      escalasPublicadas: publicada === undefined ? undefined : [publicada],
-    } / base (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7955–8103
-- MINIMOS_AUTONOMICOS_IRPF_2016 / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2016.ts:3220–3249
-- valor / contribuyente.general (selector, selection); productor; lib/dominio/normativa/repositorio-parametros.ts:549–554
-- {
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-} / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/repositorio-parametros.ts:495–567
 - {
   "simulada-estatal": escala2012({
     comunidadAutonoma: "simulada-estatal",
     nombre: "Simulada estatal / art. 65 LIRPF 2012",
     tramos: TRAMOS_IRPF_AUT / tramos (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/normativa/datos/irpf-autonomico-2012.ts:3175–8090
 - {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2019,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:10419–10861
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:8389–8406
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2014,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:6891–7342
-- {
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-} / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/repositorio-parametros.ts:495–567
-- {
   "simulada-estatal":
     ESCALAS_AUTONOMICAS_IRPF_2015_DISTINTAS_DE_2025["simulada-estatal"],
   andalucia: ESCALAS_AUTONOMICAS_IRPF_2015_DISTINTAS_DE_2025.an / tramos (EUR, value); Propiedad no resuelta (spread/alias): tramos; lib/dominio/normativa/datos/irpf-autonomico-2015.ts:9482–10890
 - MINIMOS_AUTONOMICOS_IRPF_2021.valor[comunidadAutonoma] / contribuyente.general (EUR, value); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/minimos-autonomicos-2021.ts:2288–2342
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3871–3888
 - datos.map(([baseInferior, cuota, tipo]) => ({
     baseInferior: new Decimal(baseInferior),
     cuota: new Decimal(cuota),
@@ -1189,15 +318,6 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
     comunidadAutonoma: "simulada-estatal",
     nombre: "Simulada estatal / art. 65 LIRPF 2014",
     tramos: TRAMOS_IRPF_AUT / tramos (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/normativa/datos/irpf-autonomico-2014.ts:4121–9202
-- ESCALAS_AUTONOMICAS_IRPF_2014 / tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2014.ts:10051–10080
-- tramos / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3256–3262
-- resolverParametrosComunidadAutonoma2017(comunidadAutonoma) / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17319–17377
-- {
-    anio: 2025,
-    comunidadAutonoma: "madrid",
-    baseLiquidableGeneral: base,
-  } / anio (selector, selection); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7461–7548
-- parametros.minimosAutonomicos / contribuyente.general (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:8356–8385
 - {
   "simulada-estatal": escala2015({
     comunidadAutonoma: "simulada-estatal",
@@ -1208,46 +328,6 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
     cuota: new Decimal(cuota),
     tipo: new Decimal(tipo),
   })) / value (selector, selection); Contrato de llamada pendiente: datos.map; lib/dominio/irpf/cuotas/escalas-publicadas.ts:560–716
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:8071–8088
-- tramos / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1513–1519
-- 2022 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4145–4149
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4497–4514
-- base.mul(0) / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1547–1558
-- MINIMOS_AUTONOMICOS_IRPF_2023.valor / contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2023.ts:2480–2515
-- obtenerMinimosAutonomicosIrpf2018(comunidadAutonoma) / contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:9689–9741
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3815–3819
-- parametros / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7856–7866
-- {
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-} / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/repositorio-parametros.ts:495–567
-- resolverParametrosComunidadAutonoma2012(comunidadAutonoma) / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16696–16754
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/normativa/datos/irpf-autonomico-2015.ts:11089–11106
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3923–3927
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17557–17574
-- {
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-} / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/repositorio-parametros.ts:495–567
-- MINIMOS_AUTONOMICOS_IRPF_2023 / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2023.ts:2480–2509
-- comunidadAutonoma === "comunitat-valenciana" &&
-    anio >= 2014 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3871–3935
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2013,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:6155–6562
-- {
-  nombre: "Mínimos autonómicos IRPF 2022",
-  valor: {
-    ...MINIMOS_AUTONOMICOS_IRPF_2025.valor,
-    asturias: MINIMOS_ESTATALES_2022,
-    canarias: MINIMOS_ / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2022.ts:2228–2622
-- "andalucia" / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3784–3795
 - { base: b, tramos: parametros.escalaEstatalGeneral } / escalasPublicadas (selector, selection); Propiedad no resuelta (spread/alias): escalasPublicadas; lib/dominio/irpf/trabajo-anual/conexion.ts:7837–7889
 - ({
           _tag: "ComunidadAutonomaNoSoportada",
@@ -1255,94 +335,11 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
           anio: 2026,
           motivo:
             "IRPF 2026 solo esta modelad / escalaAutonomica.tramos (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16051–16416
-- filas([
-  ["0", "0", ".085"],
-  ["12960.45", "1101.64", ".107"],
-  ["18433.20", "1687.22", ".128"],
-  ["34360.50", "3725.91", ".174"],
-  ["55596.90", "7421.04", / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:2539–2711
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2012,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:5523–5930
-- "madrid" / value (selector, selection); literal; lib/dominio/irpf/trabajo-anual/conexion.ts:7502–7510
-- comunidadAutonoma === "catalunya" && anio >= 2022 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4100–4149
-- obtenerMinimosAutonomicosIrpf2023({
-    comunidadAutonoma,
-    fechaFallecimiento,
-  }) / contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:13118–13205
-- resolverParametrosComunidadAutonoma2026(comunidadAutonoma) / minimosAutonomicos.contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:18304–18362
 - ({
           _tag: "ComunidadAutonomaNoSoportada",
           comunidadAutonoma,
           anio,
           motivo: `Escalas autonomicas del anio ${anio} aun no i / escalaEstatalGeneral (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:18412–18909
-- EffectArray.reduce(
-              tramos,
-              {
-                limiteAnterior: base.mul(0),
-                tramos: EffectArray.empty<TramoCuotaGener / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3222–4450
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2020,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_202 / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:11086–11528
-- MINIMOS_AUTONOMICOS_IRPF_2017 / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2017.ts:3220–3249
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:13995–14012
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2016,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:8418–8860
-- filas([
-  ["0", "0", ".12"],
-  ["17707.20", "2124.86", ".14"],
-  ["33007.20", "4266.86", ".185"],
-  ["53407.20", "8040.86", ".215"],
-  ["90000", "15908.31", ".2 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:1940–2176
-- parametroNormativo({
-  nombre: "Mínimos autonómicos IRPF 2015",
-  valor: {
-    ...MINIMOS_ESTATALES_POR_COMUNIDAD_2015,
-    "illes-balears": MINIMOS_ILLES_BALEA / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2015.ts:2749–3088
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2021,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_202 / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:11753–12195
-- { base, tramos, escalasPublicadas } / escalasPublicadas (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1505–1540
-- {
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-} / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/repositorio-parametros.ts:495–567
-- {
-      baseLiquidableGeneral,
-      comunidadAutonoma,
-      fechaFallecimiento,
-    } / comunidadAutonoma (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:8034–8121
-- {
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-} / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/repositorio-parametros.ts:495–567
-- MINIMOS_AUTONOMICOS_IRPF_2024.valor / contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2024.ts:881–916
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2017,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:9085–9527
-- {
-      base: b,
-      tramos: parametros.escalaAutonomica.tramos,
-      escalasPublicadas: publicada === undefined ? undefined : [publicada],
-    } / base (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7955–8103
-- anio >= 2014 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3923–3935
-- anio <= 2016 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3943–3955
-- ESCALAS_AUTONOMICAS_IRPF_2021 / tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2021.ts:14302–14331
 - (filas) =>
         Option.match(
           EffectArray.findLast(
@@ -1350,53 +347,12 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
             (fila) =>
               base.gt(0) &&
               (fila.inferi / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1954–3046
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:14414–14431
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16975–16992
-- Match.value(comunidadAutonoma).pipe(
-    Match.when(
-      "simulada-estatal",
-      () =>
-        ({
-          _tag: "ParametrosComunidadAutonoma",
-          c / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:15400–16426
-- {
-    anio: 2025,
-    comunidadAutonoma: "madrid",
-    baseLiquidableGeneral: base,
-  } / comunidadAutonoma (selector, selection); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7461–7548
-- resolverParametrosComunidadAutonoma2015({
-        baseLiquidableGeneral,
-        comunidadAutonoma,
-        fechaFallecimiento,
-      }) / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17043–17179
 - importe("5550") / value (EUR, value); Contrato de llamada pendiente: importe; lib/dominio/normativa/datos/minimos-autonomicos-2025.ts:2345–2360
-- MINIMOS_AUTONOMICOS_IRPF_2021.valor / contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2021.ts:2288–2323
-- {
-  contribuyente: {
-    general: importe("5550"),
-    adicionalMayor65: importe("1150"),
-    adicionalMayor75: importe("1400"),
-  },
-  descendientes: {
-    pri / contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2025.ts:2311–2817
-- Match.value(anio).pipe(
-    Match.when(2012, () =>
-      resolverParametrosComunidadAutonoma2012(comunidadAutonoma)
-    ),
-    Match.when(2013, () =>
-      reso / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16639–18919
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:10390–10407
-- resolverParametrosComunidadAutonoma2017(comunidadAutonoma) / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17319–17377
 - {
     "simulada-estatal": MINIMOS_ESTATALES_2025,
     andalucia: MINIMOS_ANDALUCIA_2025,
     aragon: MINIMOS_ESTATALES_2025,
     asturias: MINIMOS_ASTURIAS_2025 / contribuyente.general (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/normativa/datos/minimos-autonomicos-2025.ts:7732–8564
-- anio >= 2022 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4137–4149
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4321–4325
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4100–4117
-- comunidadAutonoma === "catalunya" / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4100–4133
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:6862–6879
 - {
   ...MINIMOS_AUTONOMICOS_IRPF_2025.valor["illes-balears"],
   descendientes: {
@@ -1408,13 +364,11 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
     "illes-balears": MINIMOS_ILLES_BALEARS_2020,
     catalunya: MINIMOS_CATALUNYA_2020_CANONICO,
     madrid: MINI / contribuyente.general (selector, selection); Forma AST no admitida: SatisfiesExpression; lib/dominio/normativa/datos/minimos-autonomicos-2020.ts:3221–3527
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4497–4514
 - {
   "simulada-estatal": escala2014({
     comunidadAutonoma: "simulada-estatal",
     nombre: "Simulada estatal / art. 65 LIRPF 2014",
     tramos: TRAMOS_IRPF_AUT / tramos (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/normativa/datos/irpf-autonomico-2014.ts:4121–9202
-- { base, tramos, escalasPublicadas } / tramos (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1505–1540
 - {
   "simulada-estatal":
     ESCALAS_AUTONOMICAS_IRPF_2018_DISTINTAS_DE_2025["simulada-estatal"],
@@ -1423,62 +377,11 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
   "simulada-estatal":
     ESCALAS_AUTONOMICAS_IRPF_2019_DISTINTAS_DE_2025["simulada-estatal"],
   andalucia: ESCALAS_AUTONOMICAS_IRPF_2019_DISTINTAS_DE_2025.an / tramos (EUR, value); Propiedad no resuelta (spread/alias): tramos; lib/dominio/normativa/datos/irpf-autonomico-2019.ts:13270–14720
-- MINIMOS_AUTONOMICOS_IRPF_2024 / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2024.ts:881–910
 - datos.map(([baseInferior, cuota, tipo]) => ({
     baseInferior: new Decimal(baseInferior),
     cuota: new Decimal(cuota),
     tipo: new Decimal(tipo),
   })) / value (selector, selection); Contrato de llamada pendiente: datos.map; lib/dominio/irpf/cuotas/escalas-publicadas.ts:560–716
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:18010–18027
-- MINIMOS_AUTONOMICOS_IRPF_2013 / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2013.ts:3363–3392
-- resolverParametrosComunidadAutonoma2024(comunidadAutonoma) / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:18106–18164
-- {
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-} / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/repositorio-parametros.ts:495–567
-- MINIMOS_ESTATALES_2025 / contribuyente.general (selector, selection); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:8193–8215
-- comunidadAutonoma === "madrid" / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4283–4313
-- escalasPublicadas / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1521–1538
-- obtenerMinimosAutonomicosIrpf2024(comunidadAutonoma) / contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:12357–12409
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2020,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_202 / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:11086–11528
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3923–3927
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2013,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / minimosAutonomicos.contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:6155–6562
-- parametros / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7986–7996
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2020,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_202 / minimosAutonomicos.contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:11086–11528
-- {
-        baseLiquidableGeneral,
-        comunidadAutonoma,
-      } / comunidadAutonoma (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16934–17001
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:18146–18163
-- "5550" / value (selector, selection); literal; lib/dominio/normativa/datos/minimos-autonomicos-2025.ts:2353–2359
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16736–16753
-- {
-  nombre: "Mínimos autonómicos IRPF 2023",
-  valor: {
-    ...MINIMOS_AUTONOMICOS_IRPF_2025.valor,
-    asturias: MINIMOS_ESTATALES_2023,
-    canarias: MINIMOS_ / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2023.ts:1114–1426
-- ({
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-}) / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/repositorio-parametros.ts:494–568
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4321–4325
 - ESCALAS_AUTONOMICAS_IRPF_2024[comunidadAutonoma] / tramos (EUR, value); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/irpf-autonomico-2024.ts:5988–6036
 - ({
           _tag: "ComunidadAutonomaNoSoportada",
@@ -1486,263 +389,50 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
           anio: 2026,
           motivo:
             "IRPF 2026 solo esta modelad / escalaAutonomica.tramos (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16051–16416
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2022.ts:3821–3838
 - {
   "simulada-estatal": escala2012({
     comunidadAutonoma: "simulada-estatal",
     nombre: "Simulada estatal / art. 65 LIRPF 2012",
     tramos: TRAMOS_IRPF_AUT / tramos (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/normativa/datos/irpf-autonomico-2012.ts:3175–8090
-- resolverParametrosComunidadAutonoma2023({
-        comunidadAutonoma,
-        fechaFallecimiento,
-      }) / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17960–18065
-- 2025 / value (selector, selection); literal; lib/dominio/irpf/trabajo-anual/conexion.ts:7473–7477
 - MINIMOS_AUTONOMICOS_IRPF_2017.valor[comunidadAutonoma] / contribuyente.general (selector, selection); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/minimos-autonomicos-2017.ts:3220–3274
-- D.max(neto, 0) / value (selector, selection); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7390–7404
-- anio === 2022 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4535–4548
-- comunidadAutonoma === "murcia" &&
-    anio === 2022 &&
-    fechaFallecimiento === undefined / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4497–4588
-- obtenerEscalaAutonomicaIrpf2022({
-      comunidadAutonoma,
-      fechaFallecimiento,
-    }) / tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:14374–14465
-- ({
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-}) / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/repositorio-parametros.ts:494–568
-- ESCALAS_AUTONOMICAS_IRPF_2023 / tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2023.ts:10424–10453
 - [
   [importe("17707.2"), tipo("12.75")],
   [importe("33007.2"), tipo("16")],
   [importe("53407.2"), tipo("21.5")],
   [importe("120000.2"), tipo("25.5")],
   [imp / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/normativa/datos/irpf-autonomico-2013.ts:1575–1845
-- resolverParametrosComunidadAutonoma2018(comunidadAutonoma) / minimosAutonomicos.contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17418–17476
-- {
-      base: b,
-      tramos: parametros.escalaAutonomica.tramos,
-      escalasPublicadas: publicada === undefined ? undefined : [publicada],
-    } / base (selector, selection); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7955–8103
-- ({
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-}) / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/repositorio-parametros.ts:494–568
-- comunidadAutonoma === "murcia" / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4497–4527
-- fechaFallecimiento === undefined / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4556–4588
-- valor / contribuyente.general (selector, selection); productor; lib/dominio/normativa/repositorio-parametros.ts:549–554
-- escalasPublicadas / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1935–1952
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2015,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:7716–8193
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:12773–12790
-- base.lte(0) / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3125–3136
-- fechaFallecimiento / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4556–4574
-- Match.value(comunidadAutonoma).pipe(
-    Match.when(
-      "simulada-estatal",
-      () =>
-        ({
-          _tag: "ParametrosComunidadAutonoma",
-          c / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:15400–16426
-- D.min(base, MINIMOS_ESTATALES_2025.contribuyente.general) / value (selector, selection); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:8181–8238
-- comunidadAutonoma === "andalucia" && anio >= 2012 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3762–3811
 - Option.match({
       onNone: () => false,
       onSome: (fechaFallecimiento) =>
         fechaCivilIsoUtc(fechaFallecimiento) < fechaCorte,
     }) / value (selector, selection); Contrato de llamada pendiente: Option.match; lib/dominio/normativa/datos/irpf-autonomico-2015.ts:2558–2703
-- TRAMOS_IRPF_ESTATAL_GENERAL_2018 / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:10017–10049
-- MINIMOS_AUTONOMICOS_IRPF_2014.valor / contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2014.ts:4420–4455
-- comunidadAutonoma === "madrid" &&
-    anio === 2025 &&
-    fechaFallecimiento === undefined / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4283–4374
-- MINIMOS_AUTONOMICOS_IRPF_2012.valor / contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2012.ts:3363–3398
-- {
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-} / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/repositorio-parametros.ts:495–567
-- obtenerMinimosAutonomicosIrpf2025(comunidadAutonoma) / contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:14698–14750
-- MINIMOS_AUTONOMICOS_IRPF_2014 / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2014.ts:4420–4449
-- TRAMOS_IRPF_ESTATAL_GENERAL_2013 / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:6385–6417
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3815–3819
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4049–4053
-- b / value (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7969–7970
-- {
-      base: b,
-      tramos: parametros.escalaAutonomica.tramos,
-      escalasPublicadas: publicada === undefined ? undefined : [publicada],
-    } / tramos (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7955–8103
 - [publicada] / value (selector, selection); Array completo requiere contrato por elemento; lib/dominio/irpf/trabajo-anual/conexion.ts:8085–8096
 - datos.map(([baseInferior, cuota, tipo]) => ({
     baseInferior: new Decimal(baseInferior),
     cuota: new Decimal(cuota),
     tipo: new Decimal(tipo),
   })) / value (selector, selection); Contrato de llamada pendiente: datos.map; lib/dominio/irpf/cuotas/escalas-publicadas.ts:560–716
-- base.lte(0) / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3125–3136
-- { base, tramos, escalasPublicadas } / tramos (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1505–1540
-- "catalunya" / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4122–4133
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2022,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_202 / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:14053–14536
-- D.max(
-    0,
-    autonomica(base).minus(
-      autonomica(
-        D.min(base, parametros.minimosAutonomicos.contribuyente.general)
-      )
-    )
-  ) / value (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:8276–8426
-- D.max(neto, 0) / value (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7390–7404
-- valor / contribuyente.general (selector, selection); productor; lib/dominio/normativa/repositorio-parametros.ts:549–554
 - [
   [importe(12450), tipo("9.5")],
   [importe(20200), tipo("12")],
   [importe(35200), tipo("15")],
   [importe(60000), tipo("18.5")],
   [importe(Infinity), tipo( / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/normativa/datos/irpf-autonomico-2017.ts:581–752
-- ESCALA_ILLES_BALEARS_2015_FALLECIDO_ANTES_31_DICIEMBRE / tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2015.ts:11351–11405
-- resolverParametrosComunidadAutonoma2014({
-        baseLiquidableGeneral,
-        comunidadAutonoma,
-      }) / minimosAutonomicos.contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16894–17002
-- ESCALAS_AUTONOMICAS_IRPF_2014 / tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2014.ts:10051–10080
-- obtenerMinimosAutonomicosIrpf2013(comunidadAutonoma) / contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:6092–6144
-- {
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-} / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/repositorio-parametros.ts:495–567
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2019,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:10419–10861
-- MINIMOS_AUTONOMICOS_IRPF_2020.valor / contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2020.ts:3706–3741
-- parametros.escalaEstatalGeneral / value (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7856–7887
 - ([baseInferior, cuota, tipo]) => ({
     baseInferior: new Decimal(baseInferior),
     cuota: new Decimal(cuota),
     tipo: new Decimal(tipo),
   }) / value (selector, selection); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/cuotas/escalas-publicadas.ts:570–715
-- parametroNormativo({
-  nombre: "Mínimos autonómicos IRPF 2020",
-  valor: {
-    ...MINIMOS_ESTATALES_POR_COMUNIDAD_2020,
-    "illes-balears": MINIMOS_ILLES_BALEA / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2020.ts:3148–3574
-- obtenerMinimosAutonomicosIrpf2024(comunidadAutonoma) / contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:12357–12409
-- filas([
-  ["0", "0", ".105"],
-  ["12450", "1307.25", ".12"],
-  ["17707.20", "1938.11", ".14"],
-  ["21000", "2399.10", ".15"],
-  ["33007.20", "4200.18", ".188"], / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:2212–2511
-- ({
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-}) / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/repositorio-parametros.ts:494–568
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4535–4539
-- obtenerMinimosAutonomicosIrpf2017(comunidadAutonoma) / contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:9022–9074
-- {
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-} / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/repositorio-parametros.ts:495–567
-- ESCALAS_AUTONOMICAS_IRPF_2015 / illes-balears.tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2015.ts:11444–11473
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2012,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / minimosAutonomicos.contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:5523–5930
-- "madrid" / value (selector, selection); literal; lib/dominio/irpf/trabajo-anual/conexion.ts:7502–7510
-- ({
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-}) / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/repositorio-parametros.ts:494–568
 - ESCALAS_AUTONOMICAS_IRPF_2024[comunidadAutonoma] / tramos (EUR, value); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/irpf-autonomico-2024.ts:5988–6036
-- comunidadAutonoma === "madrid" && anio === 2022 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4204–4251
-- obtenerEscalaAutonomicaIrpf2020(comunidadAutonoma) / tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:11407–11457
 - (total, tramo) => total.plus(tramo.cuota) / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1564–1605
-- ESCALAS_AUTONOMICAS_IRPF_2013 / tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2013.ts:8327–8356
-- {
-  contribuyente: {
-    general: importe("5550"),
-    adicionalMayor65: importe("1150"),
-    adicionalMayor75: importe("1400"),
-  },
-  descendientes: {
-    pri / contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2025.ts:2311–2817
-- escalasPublicadas / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1935–1952
-- base.lte(0) / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3125–3136
-- valor / contribuyente.general (selector, selection); productor; lib/dominio/normativa/repositorio-parametros.ts:549–554
 - ESCALAS_AUTONOMICAS_IRPF_2016[comunidadAutonoma] / tramos (EUR, value); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/irpf-autonomico-2016.ts:9182–9230
 - ESCALAS_AUTONOMICAS_IRPF_2014[comunidadAutonoma] / tramos (EUR, value); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/irpf-autonomico-2014.ts:10051–10099
-- 0 / value (EUR, value); literal; lib/dominio/irpf/trabajo-anual/conexion.ts:8287–8288
-- ({
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-}) / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/repositorio-parametros.ts:494–568
-- MINIMOS_AUTONOMICOS_IRPF_2018.valor / contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2018.ts:3587–3622
-- undefined / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4625–4634
-- {
-  nombre: "Mínimos autonómicos IRPF 2015",
-  valor: {
-    ...MINIMOS_ESTATALES_POR_COMUNIDAD_2015,
-    "illes-balears": MINIMOS_ILLES_BALEARS_2015,
-    madrid / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2015.ts:2768–3087
 - {
     ...MINIMOS_ESTATALES_POR_COMUNIDAD_2012,
     madrid: MINIMOS_MADRID_2012,
   } satisfies Readonly<
     Record<ComunidadAutonoma, MinimosPersonalesFamiliare / contribuyente.general (selector, selection); Forma AST no admitida: SatisfiesExpression; lib/dominio/normativa/datos/minimos-autonomicos-2012.ts:3014–3184
-- minimos({
-  contribuyente: {
-    general: importe("5550"),
-    adicionalMayor65: importe("1150"),
-    adicionalMayor75: importe("1400"),
-  },
-  descendientes: { / contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2025.ts:2303–2818
-- resolverParametrosComunidadAutonoma2023({
-        comunidadAutonoma,
-        fechaFallecimiento,
-      }) / minimosAutonomicos.contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17960–18065
-- escalasPublicadas !== undefined
-    ? EffectArray.flatMap(escalasPublicadas, (filas) =>
-        Option.match(
-          EffectArray.findLast(
-            filas, / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1877–4468
-- minimosAutonomicos / contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:6497–6515
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3871–3888
-- tramos / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3256–3262
-- resolverParametrosComunidadAutonoma2013(comunidadAutonoma) / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16795–16853
-- VALENCIA_2014_2016 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3971–3989
-- obtenerMinimosAutonomicosIrpf2022({
-    comunidadAutonoma,
-    fechaFallecimiento,
-  }) / contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:13955–14042
-- obtenerMinimosAutonomicosIrpf2015(comunidadAutonoma) / contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:7653–7705
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17864–17881
-- minimosAutonomicos / contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:10796–10814
 - [publicada] / value (selector, selection); Array completo requiere contrato por elemento; lib/dominio/irpf/trabajo-anual/conexion.ts:8085–8096
-- 2024 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4161–4165
 - ({
           _tag: "ComunidadAutonomaNoSoportada",
           comunidadAutonoma,
@@ -1753,68 +443,25 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
               {
                 limiteAnterior: base.mul(0),
                 tramos: EffectArray.empty<TramoCuotaGener / tramos (EUR, value); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3222–4443
-- minimosAutonomicos / contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:11463–11481
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/normativa/datos/irpf-autonomico-2015.ts:11089–11106
 - ({
           _tag: "ComunidadAutonomaNoSoportada",
           comunidadAutonoma,
           anio: 2026,
           motivo:
             "IRPF 2026 solo esta modelad / minimosAutonomicos.contribuyente.general (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16051–16416
-- publicada === undefined ? undefined : [publicada] / value (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:8047–8096
-- comunidadAutonoma === "catalunya" && anio >= 2022 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4100–4149
 - [
   [importe(12450), tipo("9.5")],
   [importe(20200), tipo("12")],
   [importe(35200), tipo("15")],
   [importe(60000), tipo("18.5")],
   [importe(Infinity), tipo( / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/normativa/datos/irpf-autonomico-2016.ts:581–752
-- {
-        baseLiquidableGeneral,
-        comunidadAutonoma,
-      } / comunidadAutonoma (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16934–17001
 - [publicada] / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/irpf/trabajo-anual/conexion.ts:8085–8096
-- valor / contribuyente.general (EUR, value); productor; lib/dominio/normativa/repositorio-parametros.ts:549–554
-- resolverParametrosComunidadAutonoma2024(comunidadAutonoma) / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:18106–18164
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:13158–13175
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2018,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / minimosAutonomicos.contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:9752–10194
-- { base, tramos, escalasPublicadas } / escalasPublicadas (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1505–1540
 - {
   "simulada-estatal":
     ESCALAS_AUTONOMICAS_IRPF_2020_DISTINTAS_DE_2025["simulada-estatal"],
   andalucia: ESCALAS_AUTONOMICAS_IRPF_2020_DISTINTAS_DE_2025.an / tramos (EUR, value); Propiedad no resuelta (spread/alias): tramos; lib/dominio/normativa/datos/irpf-autonomico-2020.ts:13172–14622
-- filas([
-  ["0", "0", ".085"],
-  ["13362.22", "1135.79", ".107"],
-  ["19004.63", "1739.53", ".128"],
-  ["35425.68", "3841.42", ".174"],
-  ["57320.40", "7651.10", / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:2890–3062
 - [] / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3154–3156
-- anio >= 2014 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3923–3935
-- TRAMOS_IRPF_ESTATAL_GENERAL_2016 / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:8683–8715
-- obtenerEscalaAutonomicaIrpf2021(comunidadAutonoma) / tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:12074–12124
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:18010–18027
-- parametroNormativo({
-  nombre: "Mínimos autonómicos IRPF 2018",
-  valor: {
-    ...MINIMOS_ESTATALES_POR_COMUNIDAD_2018,
-    "illes-balears": MINIMOS_ILLES_BALEA / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2018.ts:3077–3455
-- TRAMOS_IRPF_ESTATAL_GENERAL_2016 / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:8683–8715
 - MINIMOS_AUTONOMICOS_IRPF_2015.valor[comunidadAutonoma] / contribuyente.general (EUR, value); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/minimos-autonomicos-2015.ts:3220–3274
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:10772–10789
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2025,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_202 / minimosAutonomicos.contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:14761–15262
-- {
-      comunidadAutonoma,
-      fechaFallecimiento,
-    } / comunidadAutonoma (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:14406–14464
 - [
   [importe(12450), tipo("9.5")],
   [importe(20200), tipo("12")],
@@ -1832,27 +479,12 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
     "illes-balears": MINIMOS_ILLES_BALEARS_2018,
     madrid: MINIMOS_MADRID_2018,
     "la-rioja": MINIMOS_LA_RIOJ / contribuyente.general (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/normativa/datos/minimos-autonomicos-2018.ts:3150–3408
-- {
-  nombre: "Mínimos autonómicos IRPF 2020",
-  valor: {
-    ...MINIMOS_ESTATALES_POR_COMUNIDAD_2020,
-    "illes-balears": MINIMOS_ILLES_BALEARS_2020,
-    catalu / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2020.ts:3167–3573
-- 2024 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4161–4165
-- 2025 / value (selector, selection); literal; lib/dominio/irpf/trabajo-anual/conexion.ts:7732–7736
-- resolverParametrosComunidadAutonoma2015({
-        baseLiquidableGeneral,
-        comunidadAutonoma,
-        fechaFallecimiento,
-      }) / minimosAutonomicos.contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17043–17179
 - [
   [importe("17707.2"), tipo("12.75")],
   [importe("33007.2"), tipo("16")],
   [importe("53407.2"), tipo("21.5")],
   [importe("120000.2"), tipo("25.5")],
   [imp / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/normativa/datos/irpf-autonomico-2012.ts:1575–1845
-- TRAMOS_IRPF_ESTATAL_GENERAL_2025 / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:12685–12717
-- resolverParametrosComunidadAutonoma2018(comunidadAutonoma) / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17418–17476
 - datos.map(([baseInferior, cuota, tipo]) => ({
     baseInferior: new Decimal(baseInferior),
     cuota: new Decimal(cuota),
@@ -1862,39 +494,11 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
   "simulada-estatal":
     ESCALAS_AUTONOMICAS_IRPF_2016_DISTINTAS_DE_2025["simulada-estatal"],
   andalucia: ESCALAS_AUTONOMICAS_IRPF_2016_DISTINTAS_DE_2025.an / tramos (EUR, value); Propiedad no resuelta (spread/alias): tramos; lib/dominio/normativa/datos/irpf-autonomico-2016.ts:7611–9061
-- MINIMOS_AUTONOMICOS_IRPF_2020 / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2020.ts:3706–3735
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16975–16992
-- obtenerParametrosComunidadAutonoma({
-    anio: 2025,
-    comunidadAutonoma: "madrid",
-    baseLiquidableGeneral: base,
-  }) / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7426–7549
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2016,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:8418–8860
-- TRAMOS_IRPF_ESTATAL_GENERAL_2015 / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:7946–7978
-- "5550" / value (selector, selection); literal; lib/dominio/normativa/datos/minimos-autonomicos-2025.ts:2353–2359
 - EffectArray.reduce(
               tramos,
               {
                 limiteAnterior: base.mul(0),
                 tramos: EffectArray.empty<TramoCuotaGener / tramos (EUR, value); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3222–4443
-- {
-    anio: 2025,
-    comunidadAutonoma: "madrid",
-    baseLiquidableGeneral: base,
-  } / anio (selector, selection); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7461–7548
-- MINIMOS_AUTONOMICOS_IRPF_2022 / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2022.ts:3785–3814
-- CATALUNYA_2020_2021 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4074–4093
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2021,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_202 / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:11753–12195
-- escalasPublicadas / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1521–1538
-- base / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1547–1551
 - {
   "simulada-estatal": escala2013({
     comunidadAutonoma: "simulada-estatal",
@@ -1906,340 +510,68 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
   [importe(35200), tipo("15")],
   [importe(60000), tipo("18.5")],
   [importe(Infinity), tipo( / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/normativa/datos/irpf-autonomico-2019.ts:581–752
-- autonomica(base).minus(
-      autonomica(
-        D.min(base, parametros.minimosAutonomicos.contribuyente.general)
-      )
-    ) / value (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:8294–8422
 - [
   [importe(12450), tipo("9.5")],
   [importe(20200), tipo("12")],
   [importe(35200), tipo("15")],
   [importe(60000), tipo("18.5")],
   [importe(300000), tipo("2 / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/normativa/datos/irpf-autonomico-2025.ts:645–851
-- resolverParametrosComunidadAutonoma2016(comunidadAutonoma) / minimosAutonomicos.contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17220–17278
-- obtenerMinimosAutonomicosIrpf2015(comunidadAutonoma) / contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:7653–7705
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2024,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_202 / minimosAutonomicos.contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:12420–12862
-- Match.value(comunidadAutonoma).pipe(
-    Match.when("galicia", () =>
-      Option.fromNullishOr(baseLiquidableGeneral).pipe(
-        Option.match({
-          on / tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2014.ts:9367–10109
-- obtenerEscalaAutonomicaIrpf2016(comunidadAutonoma) / tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:8739–8789
-- {
-  contribuyente: {
-    general: importe("5550"),
-    adicionalMayor65: importe("1150"),
-    adicionalMayor75: importe("1400"),
-  },
-  descendientes: {
-    pri / contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2025.ts:2311–2817
-- valor / contribuyente.general (EUR, value); productor; lib/dominio/normativa/repositorio-parametros.ts:549–554
-- MINIMOS_AUTONOMICOS_IRPF_2025.valor / contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2025.ts:8743–8778
-- obtenerMinimosAutonomicosIrpf2012(comunidadAutonoma) / contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:5460–5512
-- {
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-} / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/repositorio-parametros.ts:495–567
-- obtenerMinimosAutonomicosIrpf2021(comunidadAutonoma) / contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:11690–11742
-- {
-  nombre: "Mínimos autonómicos IRPF 2024",
-  valor: {
-    ...MINIMOS_AUTONOMICOS_IRPF_2025.valor,
-    asturias: MINIMOS_ESTATALES_2024,
-  } satisfies Readonly / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2024.ts:474–748
-- resolverParametrosComunidadAutonoma2019(comunidadAutonoma) / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17517–17575
-- ESCALAS_AUTONOMICAS_IRPF_2018 / tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2018.ts:9239–9268
 - {
   "simulada-estatal": reutilizarEscala2025ConFuente2021(
     ESCALAS_AUTONOMICAS_IRPF_2025["simulada-estatal"]
   ),
   andalucia: ESCALAS_AUTONOMICAS_IRPF_2021 / tramos (EUR, value); Propiedad no resuelta (spread/alias): tramos; lib/dominio/normativa/datos/irpf-autonomico-2021.ts:12710–14181
-- resolverParametrosComunidadAutonoma2013(comunidadAutonoma) / minimosAutonomicos.contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16795–16853
 - MINIMOS_AUTONOMICOS_IRPF_2014.valor[comunidadAutonoma] / contribuyente.general (selector, selection); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/minimos-autonomicos-2014.ts:4420–4474
-- obtenerEscalaAutonomicaIrpf2025(comunidadAutonoma) / tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:15082–15132
-- parametros / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7986–7996
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:14732–14749
-- parametros.escalaAutonomica / tramos (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7986–8013
-- estatal(D.min(base, MINIMOS_ESTATALES_2025.contribuyente.general)) / value (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:8173–8239
 - [
   [importe(12450), tipo("9.5")],
   [importe(20200), tipo("12")],
   [importe(35200), tipo("15")],
   [importe(60000), tipo("18.5")],
   [importe(300000), tipo("2 / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/normativa/datos/irpf-autonomico-2025.ts:645–851
-- obtenerMinimosAutonomicosIrpf2019(comunidadAutonoma) / contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:10356–10408
 - {
   comunidadAutonoma: "comunitat-valenciana",
   nombre: "Comunitat Valenciana - fallecido antes del 28/10/2022",
   condicionAplicacion:
     "Aplicable solo a c / tramos (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/normativa/datos/irpf-autonomico-2022.ts:10641–11680
 - neto / value (selector, selection); Asignaciones y flujo imperativo pendientes: neto; lib/dominio/irpf/trabajo-anual/conexion.ts:7396–7400
-- fallecidoAntesDeFechaCivil({
-          fechaCorte: "2015-12-31",
-          fechaFallecimiento,
-        }) / value (selector, selection); productor; lib/dominio/normativa/datos/irpf-autonomico-2015.ts:11179–11284
-- parametroNormativo({
-  nombre: "Mínimos autonómicos IRPF 2012 pre-reforma 2015",
-  valor: {
-    ...MINIMOS_ESTATALES_POR_COMUNIDAD_2012,
-    madrid: MINIMOS_MAD / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2012.ts:2924–3231
-- obtenerMinimosAutonomicosIrpf2016(comunidadAutonoma) / contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:8355–8407
-- Match.value(comunidadAutonoma).pipe(
-    Match.when(
-      "simulada-estatal",
-      () =>
-        ({
-          _tag: "ParametrosComunidadAutonoma",
-          c / minimosAutonomicos.contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:15400–16426
-- base / value (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:8350–8354
-- { base, tramos, escalasPublicadas } / tramos (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1505–1540
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2013,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / minimosAutonomicos.contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:6155–6562
-- D.min(base, parametros.minimosAutonomicos.contribuyente.general) / value (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:8344–8408
-- valor / contribuyente.general (EUR, value); productor; lib/dominio/normativa/repositorio-parametros.ts:549–554
 - {
   "simulada-estatal":
     ESCALAS_AUTONOMICAS_IRPF_2018_DISTINTAS_DE_2025["simulada-estatal"],
   andalucia: ESCALAS_AUTONOMICAS_IRPF_2018_DISTINTAS_DE_2025.an / tramos (EUR, value); Propiedad no resuelta (spread/alias): tramos; lib/dominio/normativa/datos/irpf-autonomico-2018.ts:7668–9118
-- Match.value(
-        fallecidoAntesDeFechaCivil({
-          fechaCorte: "2015-12-31",
-          fechaFallecimiento,
-        })
-      ).pipe(
-        Match.when( / tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2015.ts:11158–11499
-- Match.value(anio).pipe(
-    Match.when(2012, () =>
-      resolverParametrosComunidadAutonoma2012(comunidadAutonoma)
-    ),
-    Match.when(2013, () =>
-      reso / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16639–18919
-- Match.value({
-    comunidadAutonoma,
-    fallecidoAntesExtremadura: fallecidoAntesDe({
-      fechaFallecimiento,
-      fechaLimiteMs: fechaLimiteExtremaduraMs,
- / tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2023.ts:10056–10477
-- ({
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-}) / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/repositorio-parametros.ts:494–568
-- resolverParametrosComunidadAutonoma2019(comunidadAutonoma) / minimosAutonomicos.contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17517–17575
-- base / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1507–1511
-- resolverParametrosComunidadAutonoma2012(comunidadAutonoma) / minimosAutonomicos.contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16696–16754
-- Match.value(anio).pipe(
-    Match.when(2012, () =>
-      resolverParametrosComunidadAutonoma2012(comunidadAutonoma)
-    ),
-    Match.when(2013, () =>
-      reso / minimosAutonomicos.contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16639–18919
-- minimosAutonomicos / contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:14471–14489
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2019.ts:3623–3640
-- valor / contribuyente.general (EUR, value); productor; lib/dominio/normativa/repositorio-parametros.ts:549–554
 - {
   "simulada-estatal": escala2015({
     comunidadAutonoma: "simulada-estatal",
     nombre: "Simulada estatal / art. 65 LIRPF 2015",
     tramos: TRAMOS_IRPF_AUT / illes-balears.tramos (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/normativa/datos/irpf-autonomico-2015.ts:4118–9368
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17755–17772
 - {
     anio: 2025,
     comunidadAutonoma: "madrid",
   } / fechaFallecimiento (selector, selection); Propiedad no resuelta (spread/alias): fechaFallecimiento; lib/dominio/irpf/trabajo-anual/conexion.ts:7720–7774
-- "madrid" / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4305–4313
-- escalasPublicadas / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1521–1538
-- { base: b, tramos: parametros.escalaEstatalGeneral } / base (selector, selection); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7837–7889
-- ({
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-}) / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/repositorio-parametros.ts:494–568
-- CATALUNYA_2020_2021 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4074–4093
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/normativa/datos/irpf-autonomico-2014.ts:9379–9396
-- resolverParametrosComunidadAutonoma2015({
-        baseLiquidableGeneral,
-        comunidadAutonoma,
-        fechaFallecimiento,
-      }) / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17043–17179
-- 2014 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3931–3935
-- { base, tramos, escalasPublicadas } / base (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1505–1540
-- ({
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-}) / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/repositorio-parametros.ts:494–568
-- anio / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16651–16655
-- parametroNormativo({
-  nombre: "Mínimos autonómicos IRPF 2019",
-  valor: {
-    ...MINIMOS_ESTATALES_POR_COMUNIDAD_2019,
-    "illes-balears": MINIMOS_ILLES_BALEA / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2019.ts:3077–3455
 - {
   comunidadAutonoma: "comunitat-valenciana",
   nombre: "Comunitat Valenciana - fallecido antes del 28/10/2022",
   condicionAplicacion:
     "Aplicable solo a c / tramos (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/normativa/datos/irpf-autonomico-2022.ts:10641–11680
-- minimosAutonomicos / contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:8795–8813
-- ESCALA_EXTREMADURA_2023_FALLECIDO_ANTES_15_SEPTIEMBRE / tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2023.ts:10340–10393
-- "comunitat-valenciana" / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3893–3915
-- anio >= 2012 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3799–3811
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2024,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_202 / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:12420–12862
-- ESCALA_EXTREMADURA_2023_FALLECIDO_ANTES_15_SEPTIEMBRE / tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2023.ts:10340–10393
 - MINIMOS_AUTONOMICOS_IRPF_2023.valor[comunidadAutonoma] / contribuyente.general (EUR, value); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/minimos-autonomicos-2023.ts:2480–2534
 - [publicada] / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/irpf/trabajo-anual/conexion.ts:8085–8096
-- Match.value({
-    comunidadAutonoma,
-    fallecidoAntesIllesBalears: fallecidoAntesDe({
-      fechaFallecimiento,
-      fechaLimiteMs: fechaLimiteIllesBalearsMs / contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2023.ts:2105–2539
-- {
-  nombre: "Mínimos autonómicos IRPF 2023",
-  valor: {
-    ...MINIMOS_AUTONOMICOS_IRPF_2025.valor,
-    asturias: MINIMOS_ESTATALES_2023,
-    canarias: MINIMOS_ / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2023.ts:1114–1426
-- {
-        comunidadAutonoma,
-        fechaFallecimiento,
-      } / comunidadAutonoma (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:18000–18064
 - {
                 limiteAnterior: base.mul(0),
                 tramos: EffectArray.empty<TramoCuotaGeneralCalculado>(),
               } / value (EUR, value); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3278–3413
-- MINIMOS_AUTONOMICOS_IRPF_2015 / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2015.ts:3220–3249
-- base.mul(0) / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1547–1558
-- obtenerMinimosAutonomicosIrpf2025(comunidadAutonoma) / contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:14698–14750
-- obtenerMinimosAutonomicosIrpf2020(comunidadAutonoma) / contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:11023–11075
-- 2025 / value (selector, selection); literal; lib/dominio/irpf/trabajo-anual/conexion.ts:7473–7477
-- {
-    comunidadAutonoma,
-    fechaFallecimiento,
-  } / comunidadAutonoma (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:13152–13204
-- parametroNormativo({
-  nombre: "Mínimos autonómicos IRPF 2025",
-  valor: {
-    "simulada-estatal": MINIMOS_ESTATALES_2025,
-    andalucia: MINIMOS_ANDALUCIA_2025 / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2025.ts:7659–8611
-- escalasPublicadas / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1521–1538
-- {
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-} / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/repositorio-parametros.ts:495–567
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2022,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_202 / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:14053–14536
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2012,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:5523–5930
-- minimos({
-  contribuyente: {
-    general: importe("5550"),
-    adicionalMayor65: importe("1150"),
-    adicionalMayor75: importe("1400"),
-  },
-  descendientes: { / contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2025.ts:2303–2818
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2012.ts:3399–3416
-- resolverParametrosComunidadAutonoma2021(comunidadAutonoma) / minimosAutonomicos.contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17715–17773
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/normativa/datos/irpf-autonomico-2016.ts:9212–9229
-- MINIMOS_ESTATALES_2022 / contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2022.ts:3732–3754
-- valor / contribuyente.general (selector, selection); productor; lib/dominio/normativa/repositorio-parametros.ts:549–554
-- D.min(base, MINIMOS_ESTATALES_2025.contribuyente.general) / value (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:8181–8238
-- parametroNormativo({
-  nombre: "Mínimos autonómicos IRPF 2022",
-  valor: {
-    ...MINIMOS_AUTONOMICOS_IRPF_2025.valor,
-    asturias: MINIMOS_ESTATALES_2022,
-    / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2022.ts:2209–2623
-- {
-  nombre: "Mínimos autonómicos IRPF 2019",
-  valor: {
-    ...MINIMOS_ESTATALES_POR_COMUNIDAD_2019,
-    "illes-balears": MINIMOS_ILLES_BALEARS_2019,
-    madrid / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2019.ts:3096–3454
-- 2022 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4247–4251
-- comunidadAutonoma === "comunitat-valenciana" &&
-    anio >= 2014 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3871–3935
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:15412–15429
-- Match.value(base).pipe(
-        Match.when(
-          (base) => base.lte(0),
-          () => []
-        ),
-        Match.orElse(
-          (base) =>
-            / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3061–4468
-- base / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3125–3129
-- MINIMOS_AUTONOMICOS_IRPF_2017 / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2017.ts:3220–3249
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:7687–7704
-- comunidadAutonoma === "madrid" &&
-    anio === 2025 &&
-    fechaFallecimiento === undefined / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4283–4374
 - ESCALAS_AUTONOMICAS_IRPF_2020[comunidadAutonoma] / tramos (EUR, value); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/irpf-autonomico-2020.ts:14743–14791
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2022,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_202 / minimosAutonomicos.contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:14053–14536
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/normativa/datos/irpf-autonomico-2012.ts:8241–8258
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17656–17673
-- ESCALAS_AUTONOMICAS_IRPF_2024 / tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2024.ts:5988–6017
 - importe("5550") / value (EUR, value); Contrato de llamada pendiente: importe; lib/dominio/normativa/datos/minimos-autonomicos-2025.ts:2345–2360
 - {
   "simulada-estatal": reutilizarEscala2025ConFuente2023(
     ESCALAS_AUTONOMICAS_IRPF_2025["simulada-estatal"]
   ),
   andalucia: reutilizarEscala2025ConFuente / tramos (EUR, value); Propiedad no resuelta (spread/alias): tramos; lib/dominio/normativa/datos/irpf-autonomico-2023.ts:7725–9388
-- { base, tramos, escalasPublicadas } / tramos (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1505–1540
 - [] / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3154–3156
-- minimosAutonomicos / contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:6497–6515
-- valor / contribuyente.general (EUR, value); productor; lib/dominio/normativa/repositorio-parametros.ts:549–554
-- 2025 / value (selector, selection); literal; lib/dominio/irpf/trabajo-anual/conexion.ts:7473–7477
-- comunidadAutonoma === "murcia" &&
-    anio === 2022 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4497–4548
-- MINIMOS_ESTATALES_2025 / contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2022.ts:536–558
-- MADRID_2025 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4390–4401
 - ESCALAS_AUTONOMICAS_IRPF_2020[comunidadAutonoma] / tramos (EUR, value); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/irpf-autonomico-2020.ts:14743–14791
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/normativa/datos/irpf-autonomico-2015.ts:12184–12201
-- {
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-} / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/repositorio-parametros.ts:495–567
 - datos.map(([baseInferior, cuota, tipo]) => ({
     baseInferior: new Decimal(baseInferior),
     cuota: new Decimal(cuota),
     tipo: new Decimal(tipo),
   })) / value (selector, selection); Contrato de llamada pendiente: datos.map; lib/dominio/irpf/cuotas/escalas-publicadas.ts:560–716
-- undefined / value (selector, selection); literal; lib/dominio/irpf/trabajo-anual/conexion.ts:8061–8070
-- fechaFallecimiento === undefined / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4342–4374
-- ESCALA_COMUNITAT_VALENCIANA_2022_FALLECIDO_ANTES_28_OCTUBRE / tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2022.ts:14436–14495
-- base / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3073–3077
-- obtenerMinimosAutonomicosIrpf2019(comunidadAutonoma) / contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:10356–10408
 - [
   [importe(12450), tipo("9.5")],
   [importe(20200), tipo("12")],
@@ -2247,36 +579,10 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
   [importe(60000), tipo("18.5")],
   [importe(Infinity), tipo( / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/normativa/datos/irpf-autonomico-2019.ts:581–752
 - MINIMOS_AUTONOMICOS_IRPF_2012.valor[comunidadAutonoma] / contribuyente.general (EUR, value); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/minimos-autonomicos-2012.ts:3363–3417
-- 0 / value (EUR, value); literal; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1556–1557
-- MINIMOS_AUTONOMICOS_IRPF_2012 / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2012.ts:3363–3392
-- calcularCuotaPorEscala({
-      base: b,
-      tramos: parametros.escalaAutonomica.tramos,
-      escalasPublicadas: publicada === undefined ? undefined : [public / value (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7932–8104
 - {
   ...escala,
   fuente,
 } / tramos (EUR, value); Propiedad no resuelta (spread/alias): tramos; lib/dominio/normativa/datos/irpf-autonomico-2015.ts:1869–1895
-- ({
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-}) / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/repositorio-parametros.ts:494–568
-- obtenerMinimosAutonomicosIrpf2017(comunidadAutonoma) / contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:9022–9074
-- Match.value(anio).pipe(
-    Match.when(2012, () =>
-      resolverParametrosComunidadAutonoma2012(comunidadAutonoma)
-    ),
-    Match.when(2013, () =>
-      reso / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16639–18919
-- resolverParametrosComunidadAutonoma2014({
-        baseLiquidableGeneral,
-        comunidadAutonoma,
-      }) / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16894–17002
-- obtenerEscalaAutonomicaIrpf2021(comunidadAutonoma) / tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:12074–12124
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16835–16852
-- ESCALAS_AUTONOMICAS_IRPF_2015["illes-balears"] / tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2015.ts:11444–11490
 - obtenerEscalaAutonomicaPublicada({
     anio: 2025,
     comunidadAutonoma: "madrid",
@@ -2285,8 +591,6 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
           onNone: () => ESCALA_GALICIA_2014_BASE_SUPERIOR_17707_20,
           onSome: (baseLiquidableGeneral) =>
             Match.value(baseLiqu / value (EUR, value); Contrato de llamada pendiente: Option.match; lib/dominio/normativa/datos/irpf-autonomico-2014.ts:9500–9988
-- obtenerEscalaAutonomicaIrpf2024(comunidadAutonoma) / tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:12741–12791
-- ESCALAS_AUTONOMICAS_IRPF_2017 / tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2017.ts:9233–9262
 - {
           onNone: () => ESCALA_GALICIA_2014_BASE_SUPERIOR_17707_20,
           onSome: (baseLiquidableGeneral) =>
@@ -2297,64 +601,23 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
     madrid: MINIMOS_MADRID_2016,
   } satisfies Readonly<
     Rec / contribuyente.general (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/normativa/datos/minimos-autonomicos-2016.ts:2822–3041
-- comunidadAutonoma === "andalucia" / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3762–3795
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4283–4300
-- resolverParametrosComunidadAutonoma2016(comunidadAutonoma) / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17220–17278
 - { base: b, tramos: parametros.escalaEstatalGeneral } / escalasPublicadas (selector, selection); Propiedad no resuelta (spread/alias): escalasPublicadas; lib/dominio/irpf/trabajo-anual/conexion.ts:7837–7889
 - ({
           _tag: "ComunidadAutonomaNoSoportada",
           comunidadAutonoma,
           anio,
           motivo: `Escalas autonomicas del anio ${anio} aun no i / escalaEstatalGeneral (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:18412–18909
-- MINIMOS_AUTONOMICOS_IRPF_2023.valor / contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2023.ts:2480–2515
-- base / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3073–3077
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:7246–7263
-- TRAMOS_IRPF_ESTATAL_GENERAL_2025 / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:14318–14350
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/normativa/datos/irpf-autonomico-2013.ts:8357–8374
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2023,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_202 / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:13216–13699
-- publicada === undefined ? undefined : [publicada] / value (selector, selection); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:8047–8096
 - [
   [importe(12450), tipo("9.5")],
   [importe(20200), tipo("12")],
   [importe(35200), tipo("15")],
   [importe(60000), tipo("18.5")],
   [importe(300000), tipo("2 / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/normativa/datos/irpf-autonomico-2025.ts:645–851
-- calcularCuotaPorEscala({ base: b, tramos: parametros.escalaEstatalGeneral }) / value (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7814–7890
 - EffectArray.reduce(
     calcularDesgloseCuotaPorEscala({ base, tramos, escalasPublicadas }),
     base.mul(0),
     (total, tramo) => total.plus(tramo.cuota)
   ) / value (EUR, value); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1450–1609
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:6473–6490
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4137–4141
-- minimosAutonomicos / contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:7277–7295
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2020,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_202 / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:11086–11528
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2014.ts:4456–4473
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:6473–6490
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17755–17772
-- parametroNormativo({
-  nombre: "Mínimos autonómicos IRPF 2024",
-  valor: {
-    ...MINIMOS_AUTONOMICOS_IRPF_2025.valor,
-    asturias: MINIMOS_ESTATALES_2024,
-  } / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2024.ts:455–749
-- autonomica(base) / value (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:8294–8310
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2016,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / minimosAutonomicos.contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:8418–8860
-- valor / contribuyente.general (selector, selection); productor; lib/dominio/normativa/repositorio-parametros.ts:549–554
-- ESCALAS_AUTONOMICAS_IRPF_2020 / tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2020.ts:14743–14772
-- TRAMOS_IRPF_ESTATAL_GENERAL_2019 / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:10684–10716
 - ([baseInferior, cuota, tipo]) => ({
     baseInferior: new Decimal(baseInferior),
     cuota: new Decimal(cuota),
@@ -2368,185 +631,56 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
   }),
  / tramos (EUR, value); Propiedad no resuelta (spread/alias): tramos; lib/dominio/normativa/datos/irpf-autonomico-2025.ts:1561–8032
 - {
-  nombre: "Mínimos autonómicos IRPF 2025",
-  valor: {
-    "simulada-estatal": MINIMOS_ESTATALES_2025,
-    andalucia: MINIMOS_ANDALUCIA_2025,
-    aragon: MINIM / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2025.ts:7678–8610
-- {
     ...MINIMOS_ESTATALES_POR_COMUNIDAD_2015,
     "illes-balears": MINIMOS_ILLES_BALEARS_2015,
     madrid: MINIMOS_MADRID_2015,
   } satisfies Readonly<
     Rec / contribuyente.general (selector, selection); Forma AST no admitida: SatisfiesExpression; lib/dominio/normativa/datos/minimos-autonomicos-2015.ts:2822–3041
-- MINIMOS_ILLES_BALEARS_2023_FALLECIDO_ANTES_26_NOVIEMBRE / contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2023.ts:2394–2449
-- resolverParametrosComunidadAutonoma2017(comunidadAutonoma) / minimosAutonomicos.contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17319–17377
-- publicada === undefined / value (selector, selection); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:8047–8070
 - ({
           _tag: "ComunidadAutonomaNoSoportada",
           comunidadAutonoma,
           anio,
           motivo: `Escalas autonomicas del anio ${anio} aun no i / minimosAutonomicos.contribuyente.general (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:18412–18909
-- resolverParametrosComunidadAutonoma2015({
-        baseLiquidableGeneral,
-        comunidadAutonoma,
-        fechaFallecimiento,
-      }) / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17043–17179
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/normativa/datos/irpf-autonomico-2014.ts:9379–9396
-- parametroNormativo({
-  nombre: "Mínimos autonómicos IRPF 2021",
-  valor: {
-    ...MINIMOS_AUTONOMICOS_IRPF_2025.valor,
-    andalucia: MINIMOS_ESTATALES_2021,
-   / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2021.ts:1614–2156
 - ({
           _tag: "ParametrosComunidadAutonoma",
           comunidadAutonoma,
           anio: 2026,
           minimoAutonomicoIgualEstatal: true,
           esc / escalaEstatalGeneral (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:15499–15988
-- parametroNormativo({
-  nombre: "Mínimos autonómicos IRPF 2017",
-  valor: {
-    ...MINIMOS_ESTATALES_POR_COMUNIDAD_2017,
-    "illes-balears": MINIMOS_ILLES_BALEA / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2017.ts:2749–3088
-- {
-      base: b,
-      tramos: parametros.escalaAutonomica.tramos,
-      escalasPublicadas: publicada === undefined ? undefined : [publicada],
-    } / escalasPublicadas (selector, selection); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7955–8103
-- {
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-} / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/repositorio-parametros.ts:495–567
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16835–16852
-- { base, tramos, escalasPublicadas } / escalasPublicadas (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1505–1540
 - datos.map(([baseInferior, cuota, tipo]) => ({
     baseInferior: new Decimal(baseInferior),
     cuota: new Decimal(cuota),
     tipo: new Decimal(tipo),
   })) / value (selector, selection); Contrato de llamada pendiente: datos.map; lib/dominio/irpf/cuotas/escalas-publicadas.ts:560–716
-- ESCALAS_AUTONOMICAS_IRPF_2013 / tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2013.ts:8327–8356
-- {
-      baseLiquidableGeneral,
-      comunidadAutonoma,
-    } / comunidadAutonoma (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:7209–7270
-- parametroNormativo({
-  nombre: "Mínimos autonómicos IRPF 2018",
-  valor: {
-    ...MINIMOS_ESTATALES_POR_COMUNIDAD_2018,
-    "illes-balears": MINIMOS_ILLES_BALEA / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2018.ts:3077–3455
-- {
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-} / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/repositorio-parametros.ts:495–567
-- base / value (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:8187–8191
-- publicada / value (selector, selection); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:8047–8056
-- MINIMOS_AUTONOMICOS_IRPF_2015 / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2015.ts:3220–3249
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/normativa/datos/irpf-autonomico-2025.ts:8183–8200
-- resolverParametrosComunidadAutonoma2014({
-        baseLiquidableGeneral,
-        comunidadAutonoma,
-      }) / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16894–17002
-- parametroNormativo({
-  nombre: "Mínimos autonómicos IRPF 2013 pre-reforma 2015",
-  valor: {
-    ...MINIMOS_ESTATALES_POR_COMUNIDAD_2013,
-    madrid: MINIMOS_MAD / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2013.ts:2924–3231
-- obtenerEscalaAutonomicaIrpf2025(comunidadAutonoma) / tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:15082–15132
 - importe("5550") / value (selector, selection); Contrato de llamada pendiente: importe; lib/dominio/normativa/datos/minimos-autonomicos-2025.ts:2345–2360
-- resolverParametrosComunidadAutonoma2016(comunidadAutonoma) / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17220–17278
 - ESCALAS_AUTONOMICAS_IRPF_2019[comunidadAutonoma] / tramos (EUR, value); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/irpf-autonomico-2019.ts:14841–14889
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2014,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:6891–7342
-- ESCALAS_AUTONOMICAS_IRPF_2012 / tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2012.ts:8211–8240
-- valor / contribuyente.general (EUR, value); productor; lib/dominio/normativa/repositorio-parametros.ts:549–554
-- ESCALAS_AUTONOMICAS_IRPF_2022 / tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2022.ts:14526–14555
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:11724–11741
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/normativa/datos/irpf-autonomico-2020.ts:14773–14790
-- {
-        baseLiquidableGeneral,
-        comunidadAutonoma,
-        fechaFallecimiento,
-      } / comunidadAutonoma (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17083–17178
-- escalasPublicadas / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1521–1538
-- "madrid" / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4226–4234
-- cuotaEstatal / value (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:8445–8457
 - ESCALAS_AUTONOMICAS_IRPF_2023[comunidadAutonoma] / tramos (EUR, value); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/irpf-autonomico-2023.ts:10424–10472
-- resolverParametrosComunidadAutonoma2020(comunidadAutonoma) / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17616–17674
-- resolverParametrosComunidadAutonoma2026(comunidadAutonoma) / minimosAutonomicos.contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:18304–18362
 - {
     "simulada-estatal": MINIMOS_ESTATALES_2025,
     andalucia: MINIMOS_ANDALUCIA_2025,
     aragon: MINIMOS_ESTATALES_2025,
     asturias: MINIMOS_ASTURIAS_2025 / contribuyente.general (selector, selection); Forma AST no admitida: SatisfiesExpression; lib/dominio/normativa/datos/minimos-autonomicos-2025.ts:7732–8564
-- resolverParametrosComunidadAutonoma2018(comunidadAutonoma) / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17418–17476
-- TRAMOS_IRPF_ESTATAL_GENERAL_2014 / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:7121–7153
-- {
-      comunidadAutonoma,
-      fechaFallecimiento,
-    } / comunidadAutonoma (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:13569–13627
 - datos.map(([baseInferior, cuota, tipo]) => ({
     baseInferior: new Decimal(baseInferior),
     cuota: new Decimal(cuota),
     tipo: new Decimal(tipo),
   })) / value (selector, selection); Contrato de llamada pendiente: datos.map; lib/dominio/irpf/cuotas/escalas-publicadas.ts:560–716
-- base / value (selector, selection); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:8350–8354
-- 2020 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4041–4045
-- fechaFallecimiento / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4342–4360
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:11439–11456
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4153–4157
 - {
   "simulada-estatal": reutilizarEscala2025ConFuente2023(
     ESCALAS_AUTONOMICAS_IRPF_2025["simulada-estatal"]
   ),
   andalucia: reutilizarEscala2025ConFuente / tramos (EUR, value); Propiedad no resuelta (spread/alias): tramos; lib/dominio/normativa/datos/irpf-autonomico-2023.ts:7725–9388
-- resolverParametrosComunidadAutonoma2013(comunidadAutonoma) / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16795–16853
-- parametros.minimosAutonomicos.contribuyente / general (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:8356–8399
-- TRAMOS_IRPF_ESTATAL_GENERAL_2020 / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:11351–11383
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17458–17475
-- ({
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-}) / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/repositorio-parametros.ts:494–568
 - {
     ...MINIMOS_ESTATALES_POR_COMUNIDAD_2013,
     madrid: MINIMOS_MADRID_2013,
   } satisfies Readonly<
     Record<ComunidadAutonoma, MinimosPersonalesFamiliare / contribuyente.general (selector, selection); Forma AST no admitida: SatisfiesExpression; lib/dominio/normativa/datos/minimos-autonomicos-2013.ts:3014–3184
-- anio <= 2024 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4153–4165
-- 2012 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3807–3811
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:12106–12123
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:15114–15131
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/normativa/datos/irpf-autonomico-2015.ts:12184–12201
-- ESCALAS_AUTONOMICAS_IRPF_2023 / tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2023.ts:10424–10453
 - [
   [importe(12450), tipo("9.5")],
   [importe(20200), tipo("12")],
   [importe(35200), tipo("15")],
   [importe(60000), tipo("18.5")],
   [importe(300000), tipo("2 / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/normativa/datos/irpf-autonomico-2025.ts:645–851
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17557–17574
-- "murcia" / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4519–4527
-- comunidadAutonoma === "andalucia" / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3762–3795
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2024.ts:917–934
-- comunidadAutonoma === "comunitat-valenciana" &&
-    anio >= 2014 &&
-    anio <= 2016 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3871–3955
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2023,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_202 / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:13216–13699
 - Option.fromNullishOr(baseLiquidableGeneral).pipe(
         Option.match({
           onNone: () => ESCALA_GALICIA_2014_BASE_SUPERIOR_17707_20,
@@ -2556,102 +690,18 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
     cantabria: MINIMOS_CANTABRIA_2014,
     "castilla-la-mancha": MINIMOS_CASTILLA_LA_MANCHA_2014,
     madrid: MIN / contribuyente.general (selector, selection); Forma AST no admitida: SatisfiesExpression; lib/dominio/normativa/datos/minimos-autonomicos-2014.ts:3973–4241
-- 0 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3134–3135
-- 2016 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3951–3955
 - ({
           _tag: "ParametrosComunidadAutonoma",
           comunidadAutonoma,
           anio: 2026,
           minimoAutonomicoIgualEstatal: true,
           esc / minimosAutonomicos.contribuyente.general (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:15499–15988
-- comunidadAutonoma === "madrid" &&
-    anio === 2025 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4283–4334
-- comunidadAutonoma === "catalunya" / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3996–4029
-- minimosAutonomicos / contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:8795–8813
-- {
-  nombre: "Mínimos autonómicos IRPF 2016",
-  valor: {
-    ...MINIMOS_ESTATALES_POR_COMUNIDAD_2016,
-    "illes-balears": MINIMOS_ILLES_BALEARS_2016,
-    madrid / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2016.ts:2768–3087
-- "murcia" / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4519–4527
-- obtenerMinimosAutonomicosIrpf2021(comunidadAutonoma) / contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:11690–11742
-- anio === 2022 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4238–4251
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16975–16992
-- {
-  nombre: "Mínimos autonómicos IRPF 2012 pre-reforma 2015",
-  valor: {
-    ...MINIMOS_ESTATALES_POR_COMUNIDAD_2012,
-    madrid: MINIMOS_MADRID_2012,
-  } satis / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2012.ts:2943–3230
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2017,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / minimosAutonomicos.contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:9085–9527
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/normativa/datos/irpf-autonomico-2014.ts:10081–10098
-- MINIMOS_AUTONOMICOS_IRPF_2022.valor / contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2022.ts:3785–3820
-- comunidadAutonoma === "andalucia" && anio >= 2012 && anio <= 2015 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3762–3827
-- resolverParametrosComunidadAutonoma2021(comunidadAutonoma) / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17715–17773
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3762–3779
-- comunidadAutonoma === "catalunya" && anio >= 2020 && anio <= 2021 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3996–4061
 - MINIMOS_AUTONOMICOS_IRPF_2018.valor[comunidadAutonoma] / contribuyente.general (EUR, value); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/minimos-autonomicos-2018.ts:3587–3641
-- VALENCIA_2014_2016 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3971–3989
-- {
-      comunidadAutonoma,
-      fechaFallecimiento,
-    } / comunidadAutonoma (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:13569–13627
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2023,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_202 / minimosAutonomicos.contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:13216–13699
-- minimosAutonomicos / contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:9462–9480
 - ESCALAS_AUTONOMICAS_IRPF_2021[comunidadAutonoma] / tramos (EUR, value); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/irpf-autonomico-2021.ts:14302–14350
-- valor / contribuyente.general (EUR, value); productor; lib/dominio/normativa/repositorio-parametros.ts:549–554
-- {
-    anio: 2025,
-    comunidadAutonoma: "madrid",
-    baseLiquidableGeneral: base,
-  } / comunidadAutonoma (selector, selection); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7461–7548
-- { base, tramos, escalasPublicadas } / escalasPublicadas (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1505–1540
 - {
   "simulada-estatal":
     ESCALAS_AUTONOMICAS_IRPF_2015_DISTINTAS_DE_2025["simulada-estatal"],
   andalucia: ESCALAS_AUTONOMICAS_IRPF_2015_DISTINTAS_DE_2025.an / tramos (EUR, value); Propiedad no resuelta (spread/alias): tramos; lib/dominio/normativa/datos/irpf-autonomico-2015.ts:9482–10890
-- parametros.minimosAutonomicos / contribuyente.general (selector, selection); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:8356–8385
-- minimosIrpf / contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2025.ts:2252–2263
-- ({
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-}) / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/repositorio-parametros.ts:494–568
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/normativa/datos/irpf-autonomico-2014.ts:10081–10098
-- fechaFallecimiento / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4342–4360
-- ({
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-}) / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/repositorio-parametros.ts:494–568
-- {
-      comunidadAutonoma,
-      fechaFallecimiento,
-    } / comunidadAutonoma (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:14406–14464
-- ({
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-}) / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/repositorio-parametros.ts:494–568
-- EffectArray.reduce(
-              tramos,
-              {
-                limiteAnterior: base.mul(0),
-                tramos: EffectArray.empty<TramoCuotaGener / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3222–4450
-- anio / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16651–16655
-- TRAMOS_IRPF_ESTATAL_GENERAL_2025 / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:13481–13513
 - {
     comunidadAutonoma,
     fallecidoAntesComunitatValenciana: fallecidoAntesDeFechaCivil({
@@ -2659,93 +709,33 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
       fechaCorte: "2022-10-28",
     }),
   / value (selector, selection); Objeto completo: se exige propiedad de salida; lib/dominio/normativa/datos/irpf-autonomico-2022.ts:14121–14283
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:7246–7263
 - {
     ...MINIMOS_ESTATALES_POR_COMUNIDAD_2019,
     "illes-balears": MINIMOS_ILLES_BALEARS_2019,
     madrid: MINIMOS_MADRID_2019,
     "la-rioja": MINIMOS_LA_RIOJ / contribuyente.general (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/normativa/datos/minimos-autonomicos-2019.ts:3150–3408
-- base / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1507–1511
-- {
-  nombre: "Mínimos autonómicos IRPF 2025",
-  valor: {
-    "simulada-estatal": MINIMOS_ESTATALES_2025,
-    andalucia: MINIMOS_ANDALUCIA_2025,
-    aragon: MINIM / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2025.ts:7678–8610
-- ANDALUCIA_2012_2015 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3840–3859
-- parametroNormativo({
-  nombre: "Mínimos autonómicos IRPF 2024",
-  valor: {
-    ...MINIMOS_AUTONOMICOS_IRPF_2025.valor,
-    asturias: MINIMOS_ESTATALES_2024,
-  } / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2024.ts:455–749
-- resolverParametrosComunidadAutonoma2024(comunidadAutonoma) / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:18106–18164
-- publicada === undefined ? undefined : [publicada] / value (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:8047–8096
-- MINIMOS_ESTATALES_2025.contribuyente / general (selector, selection); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:8193–8229
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3799–3803
-- anio / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16651–16655
-- ESCALAS_AUTONOMICAS_IRPF_2018 / tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2018.ts:9239–9268
-- obtenerEscalaAutonomicaIrpf2023({
-      comunidadAutonoma,
-      fechaFallecimiento,
-    }) / tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:13537–13628
 - ESCALAS_AUTONOMICAS_IRPF_2017[comunidadAutonoma] / tramos (EUR, value); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/irpf-autonomico-2017.ts:9233–9281
-- { base: b, tramos: parametros.escalaEstatalGeneral } / tramos (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7837–7889
-- 0 / value (EUR, value); literal; lib/dominio/irpf/trabajo-anual/conexion.ts:8139–8140
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/normativa/datos/irpf-autonomico-2017.ts:9263–9280
-- b / value (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7845–7846
 - {
   "simulada-estatal":
     ESCALAS_AUTONOMICAS_IRPF_2016_DISTINTAS_DE_2025["simulada-estatal"],
   andalucia: ESCALAS_AUTONOMICAS_IRPF_2016_DISTINTAS_DE_2025.an / tramos (EUR, value); Propiedad no resuelta (spread/alias): tramos; lib/dominio/normativa/datos/irpf-autonomico-2016.ts:7611–9061
-- EffectArray.reduce(
-              tramos,
-              {
-                limiteAnterior: base.mul(0),
-                tramos: EffectArray.empty<TramoCuotaGener / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3222–4450
 - [
   [importe(12450), tipo("9.5")],
   [importe(20200), tipo("12")],
   [importe(34000), tipo("15")],
   [importe(60000), tipo("18.5")],
   [importe(Infinity), tipo( / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/normativa/datos/irpf-autonomico-2015.ts:872–1043
-- base / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1507–1511
-- comunidadAutonoma === "murcia" &&
-    anio === 2022 &&
-    fechaFallecimiento === undefined / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4497–4588
-- resolverParametrosComunidadAutonoma2019(comunidadAutonoma) / minimosAutonomicos.contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17517–17575
-- Match.value(anio).pipe(
-    Match.when(2012, () =>
-      resolverParametrosComunidadAutonoma2012(comunidadAutonoma)
-    ),
-    Match.when(2013, () =>
-      reso / minimosAutonomicos.contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16639–18919
-- MINIMOS_AUTONOMICOS_IRPF_2013.valor / contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2013.ts:3363–3398
-- obtenerEscalaAutonomicaIrpf2018(comunidadAutonoma) / tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:10073–10123
 - ([baseInferior, cuota, tipo]) => ({
     baseInferior: new Decimal(baseInferior),
     cuota: new Decimal(cuota),
     tipo: new Decimal(tipo),
   }) / value (selector, selection); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/cuotas/escalas-publicadas.ts:570–715
-- resolverParametrosComunidadAutonoma2024(comunidadAutonoma) / minimosAutonomicos.contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:18106–18164
-- obtenerEscalaAutonomicaIrpf2020(comunidadAutonoma) / tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:11407–11457
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:18344–18361
-- resolverParametrosComunidadAutonoma2018(comunidadAutonoma) / minimosAutonomicos.contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17418–17476
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2025,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_202 / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:14761–15262
-- MINIMOS_AUTONOMICOS_IRPF_2016.valor / contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2016.ts:3220–3255
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:18146–18163
-- ESCALAS_AUTONOMICAS_IRPF_2012 / tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2012.ts:8211–8240
 - [
   [importe(12450), tipo("9.5")],
   [importe(20200), tipo("12")],
   [importe(35200), tipo("15")],
   [importe(60000), tipo("18.5")],
   [importe(Infinity), tipo( / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/normativa/datos/irpf-autonomico-2018.ts:581–752
-- TRAMOS_IRPF_ESTATAL_GENERAL_2025 / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:14318–14350
 - Option.fromNullishOr(baseLiquidableGeneral).pipe(
         Option.match({
           onNone: () => ESCALA_GALICIA_2015_BASE_SUPERIOR_17707_20,
@@ -2755,9 +745,6 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
     madrid: MINIMOS_MADRID_2012,
   } satisfies Readonly<
     Record<ComunidadAutonoma, MinimosPersonalesFamiliare / contribuyente.general (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/normativa/datos/minimos-autonomicos-2012.ts:3014–3184
-- anio <= 2015 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3815–3827
-- MINIMOS_ESTATALES_2025 / contribuyente.general (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:8193–8215
-- minimosAutonomicos / contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:11463–11481
 - [
   [importe(12450), tipo("9.5")],
   [importe(20200), tipo("12")],
@@ -2771,115 +758,35 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
           anio: 2026,
           minimoAutonomicoIgualEstatal: true,
           esc / escalaAutonomica.tramos (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:15499–15988
-- Match.value(comunidadAutonoma).pipe(
-    Match.when(
-      "simulada-estatal",
-      () =>
-        ({
-          _tag: "ParametrosComunidadAutonoma",
-          c / minimosAutonomicos.contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:15400–16426
 - {
     ...MINIMOS_AUTONOMICOS_IRPF_2025.valor,
     asturias: MINIMOS_ESTATALES_2023,
     canarias: MINIMOS_ESTATALES_2023,
   } satisfies Readonly<
     Record<Com / contribuyente.general (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/normativa/datos/minimos-autonomicos-2023.ts:1168–1380
-- resolverParametrosComunidadAutonoma2026(comunidadAutonoma) / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:18304–18362
-- obtenerEscalaAutonomicaIrpf2014({
-      baseLiquidableGeneral,
-      comunidadAutonoma,
-    }) / tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:7177–7271
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2023,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_202 / minimosAutonomicos.contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:13216–13699
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17359–17376
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17864–17881
-- {
-        baseLiquidableGeneral,
-        comunidadAutonoma,
-        fechaFallecimiento,
-      } / comunidadAutonoma (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17083–17178
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2025.ts:8779–8796
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:18146–18163
-- ({
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-}) / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/repositorio-parametros.ts:494–568
 - {
           onNone: () => ESCALA_GALICIA_2014_BASE_SUPERIOR_17707_20,
           onSome: (baseLiquidableGeneral) =>
             Match.value(baseLiquidableGeneral / value (EUR, value); Objeto completo: se exige propiedad de salida; lib/dominio/normativa/datos/irpf-autonomico-2014.ts:9513–9987
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17124–17141
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2021,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_202 / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:11753–12195
 - {
           onNone: () => ESCALA_GALICIA_2015_BASE_SUPERIOR_17707_20,
           onSome: (baseLiquidableGeneral) =>
             Match.value(baseLiquidableGeneral / value (EUR, value); Objeto completo: se exige propiedad de salida; lib/dominio/normativa/datos/irpf-autonomico-2015.ts:11616–12090
-- undefined / value (selector, selection); literal; lib/dominio/irpf/trabajo-anual/conexion.ts:8073–8082
 - {
   comunidadAutonoma: "extremadura",
   nombre: "Extremadura - fallecido antes del 15/09/2023",
   condicionAplicacion:
     "Aplicable solo a contribuyentes fall / tramos (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/normativa/datos/irpf-autonomico-2023.ts:6645–7611
-- escalasPublicadas / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1521–1538
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2013.ts:3399–3416
-- MINIMOS_AUTONOMICOS_IRPF_2012.valor / contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2012.ts:3363–3398
 - ([baseInferior, cuota, tipo]) => ({
     baseInferior: new Decimal(baseInferior),
     cuota: new Decimal(cuota),
     tipo: new Decimal(tipo),
   }) / value (selector, selection); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/cuotas/escalas-publicadas.ts:570–715
-- ({
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-}) / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/repositorio-parametros.ts:494–568
-- ({
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-}) / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/repositorio-parametros.ts:494–568
-- MINIMOS_AUTONOMICOS_IRPF_2021 / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2021.ts:2288–2317
-- obtenerParametrosComunidadAutonoma({
-    anio: 2025,
-    comunidadAutonoma: "madrid",
-    baseLiquidableGeneral: base,
-  }) / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7426–7549
-- resolverParametrosComunidadAutonoma2022({
-        comunidadAutonoma,
-        fechaFallecimiento,
-      }) / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17814–17919
-- parametroNormativo({
-  nombre: "Mínimos autonómicos IRPF 2013 pre-reforma 2015",
-  valor: {
-    ...MINIMOS_ESTATALES_POR_COMUNIDAD_2013,
-    madrid: MINIMOS_MAD / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2013.ts:2924–3231
-- "catalunya" / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4018–4029
 - {
   ...escala,
   fuente,
 } / tramos (EUR, value); Propiedad no resuelta (spread/alias): tramos; lib/dominio/normativa/datos/irpf-autonomico-2015.ts:1869–1895
-- resolverParametrosComunidadAutonoma2019(comunidadAutonoma) / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17517–17575
-- resolverParametrosComunidadAutonoma2017(comunidadAutonoma) / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17319–17377
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2018,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / minimosAutonomicos.contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:9752–10194
-- MINIMOS_AUTONOMICOS_IRPF_2025 / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2025.ts:8743–8772
-- anio === 2022 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4535–4548
 - MINIMOS_AUTONOMICOS_IRPF_2021.valor[comunidadAutonoma] / contribuyente.general (selector, selection); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/minimos-autonomicos-2021.ts:2288–2342
-- undefined / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4579–4588
 - MINIMOS_AUTONOMICOS_IRPF_2015.valor[comunidadAutonoma] / contribuyente.general (selector, selection); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/minimos-autonomicos-2015.ts:3220–3274
 - {
     ...MINIMOS_AUTONOMICOS_IRPF_2025.valor,
@@ -2891,15 +798,6 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
   nombre: "Extremadura - fallecido antes del 15/09/2023",
   condicionAplicacion:
     "Aplicable solo a contribuyentes fall / tramos (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/normativa/datos/irpf-autonomico-2023.ts:6645–7611
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2015,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / minimosAutonomicos.contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:7716–8193
-- valor / contribuyente.general (EUR, value); productor; lib/dominio/normativa/repositorio-parametros.ts:549–554
-- obtenerEscalaAutonomicaIrpf2017(comunidadAutonoma) / tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:9406–9456
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17458–17475
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4204–4221
 - [
   [importe("17707.2"), tipo("12.75")],
   [importe("33007.2"), tipo("16")],
@@ -2912,195 +810,32 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
             filas,
             (fila) =>
               b / value (EUR, value); Contrato de llamada pendiente: EffectArray.flatMap; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1915–3054
-- MINIMOS_AUTONOMICOS_IRPF_2016 / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2016.ts:3220–3249
-- Match.value(base).pipe(
-        Match.when(
-          (base) => base.lte(0),
-          () => []
-        ),
-        Match.orElse(
-          (base) =>
-            / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3061–4468
 - ESCALAS_AUTONOMICAS_IRPF_2012[comunidadAutonoma] / tramos (EUR, value); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/irpf-autonomico-2012.ts:8211–8259
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:8771–8788
-- parametroNormativo({
-  nombre: "Mínimos autonómicos IRPF 2021",
-  valor: {
-    ...MINIMOS_AUTONOMICOS_IRPF_2025.valor,
-    andalucia: MINIMOS_ESTATALES_2021,
-   / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2021.ts:1614–2156
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/normativa/datos/irpf-autonomico-2019.ts:14871–14888
-- undefined / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4579–4588
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4283–4300
-- comunidadAutonoma === "comunitat-valenciana" / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3871–3915
 - MINIMOS_AUTONOMICOS_IRPF_2020.valor[comunidadAutonoma] / contribuyente.general (EUR, value); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/minimos-autonomicos-2020.ts:3706–3760
-- resolverParametrosComunidadAutonoma2022({
-        comunidadAutonoma,
-        fechaFallecimiento,
-      }) / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17814–17919
-- valor / contribuyente.general (EUR, value); productor; lib/dominio/normativa/repositorio-parametros.ts:549–554
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2020.ts:3742–3759
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2021,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_202 / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:11753–12195
 - ESCALAS_AUTONOMICAS_IRPF_2017[comunidadAutonoma] / tramos (EUR, value); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/irpf-autonomico-2017.ts:9233–9281
-- obtenerEscalaAutonomicaIrpf2014({
-      baseLiquidableGeneral,
-      comunidadAutonoma,
-    }) / tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:7177–7271
-- {
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-} / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/repositorio-parametros.ts:495–567
-- anio === 2022 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4238–4251
-- "5550" / value (EUR, value); literal; lib/dominio/normativa/datos/minimos-autonomicos-2025.ts:2353–2359
-- undefined / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1899–1908
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2017,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:9085–9527
 - [
   [importe(12450), tipo("9.5")],
   [importe(20200), tipo("12")],
   [importe(35200), tipo("15")],
   [importe(60000), tipo("18.5")],
   [importe(300000), tipo("2 / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/normativa/datos/irpf-autonomico-2025.ts:645–851
-- tramos / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1513–1519
 - {
   "simulada-estatal":
     ESCALAS_AUTONOMICAS_IRPF_2020_DISTINTAS_DE_2025["simulada-estatal"],
   andalucia: ESCALAS_AUTONOMICAS_IRPF_2020_DISTINTAS_DE_2025.an / tramos (EUR, value); Propiedad no resuelta (spread/alias): tramos; lib/dominio/normativa/datos/irpf-autonomico-2020.ts:13172–14622
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4100–4117
-- filas([
-  ["0", "0", ".12"],
-  ["17707.20", "2124.86", ".14"],
-  ["33007.20", "4266.86", ".185"],
-  ["53407.20", "8040.86", ".215"],
-  ["60000", "9458.31", ".23 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:1452–1653
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:13577–13594
-- TRAMOS_IRPF_ESTATAL_GENERAL_2014 / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:7121–7153
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:12773–12790
-- minimosAutonomicos / contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:7277–7295
-- obtenerMinimosAutonomicosIrpf2014(comunidadAutonoma) / contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:6828–6880
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2023.ts:2516–2533
-- minimosAutonomicos / contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:10129–10147
-- MINIMOS_AUTONOMICOS_IRPF_2024 / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2024.ts:881–910
-- {
-    anio: 2025,
-    comunidadAutonoma: "madrid",
-  } / anio (selector, selection); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7720–7774
-- { base: b, tramos: parametros.escalaEstatalGeneral } / base (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7837–7889
-- EffectArray.reduce(
-              tramos,
-              {
-                limiteAnterior: base.mul(0),
-                tramos: EffectArray.empty<TramoCuotaGener / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3222–4450
-- {
-      base: b,
-      tramos: parametros.escalaAutonomica.tramos,
-      escalasPublicadas: publicada === undefined ? undefined : [publicada],
-    } / escalasPublicadas (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7955–8103
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4204–4221
-- anio === 2025 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4321–4334
-- minimosAutonomicos / contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:15138–15156
 - {
     ...MINIMOS_AUTONOMICOS_IRPF_2025.valor,
     asturias: MINIMOS_ESTATALES_2024,
   } satisfies Readonly<
     Record<ComunidadAutonoma, MinimosPersonalesFamil / contribuyente.general (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/normativa/datos/minimos-autonomicos-2024.ts:528–702
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:18245–18262
-- obtenerParametrosComunidadAutonoma({
-    anio: 2025,
-    comunidadAutonoma: "madrid",
-    baseLiquidableGeneral: base,
-  }) / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7426–7549
-- TRAMOS_IRPF_ESTATAL_GENERAL_2025 / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:15026–15058
-- cuotaAutonomica / value (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:8463–8478
-- obtenerEscalaAutonomicaIrpf2024(comunidadAutonoma) / tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:12741–12791
-- resolverParametrosComunidadAutonoma2016(comunidadAutonoma) / minimosAutonomicos.contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17220–17278
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2024,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_202 / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:12420–12862
 - Option.fromNullishOr(fechaFallecimiento).pipe(
     Option.match({
       onNone: () => false,
       onSome: (fechaFallecimiento) =>
         fechaCivilIsoUtc(fech / value (selector, selection); Contrato de llamada pendiente: Option.fromNullishOr(fechaFallecimiento).pipe; lib/dominio/normativa/datos/irpf-autonomico-2015.ts:2507–2707
-- obtenerMinimosAutonomicosIrpf2018(comunidadAutonoma) / contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:9689–9741
 - MINIMOS_AUTONOMICOS_IRPF_2016.valor[comunidadAutonoma] / contribuyente.general (EUR, value); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/minimos-autonomicos-2016.ts:3220–3274
-- comunidadAutonoma === "madrid" && anio === 2022 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4204–4251
-- {
-      base: b,
-      tramos: parametros.escalaAutonomica.tramos,
-      escalasPublicadas: publicada === undefined ? undefined : [publicada],
-    } / tramos (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7955–8103
-- 0 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3134–3135
-- {
-      baseLiquidableGeneral,
-      comunidadAutonoma,
-      fechaFallecimiento,
-    } / comunidadAutonoma (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:8034–8121
-- resolverParametrosComunidadAutonoma2023({
-        comunidadAutonoma,
-        fechaFallecimiento,
-      }) / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17960–18065
 - ESCALAS_AUTONOMICAS_IRPF_2023[comunidadAutonoma] / tramos (EUR, value); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/irpf-autonomico-2023.ts:10424–10472
-- 0 / value (EUR, value); literal; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1556–1557
-- MINIMOS_AUTONOMICOS_IRPF_2025 / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2025.ts:8743–8772
-- {
-      base: b,
-      tramos: parametros.escalaAutonomica.tramos,
-      escalasPublicadas: publicada === undefined ? undefined : [publicada],
-    } / base (selector, selection); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7955–8103
-- Match.value({
-    comunidadAutonoma,
-    fallecidoAntesComunitatValenciana: fallecidoAntesDeFechaCivil({
-      fechaFallecimiento,
-      fechaCorte: "2022-10-28 / tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2022.ts:14109–14579
 - MINIMOS_AUTONOMICOS_IRPF_2024.valor[comunidadAutonoma] / contribuyente.general (EUR, value); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/minimos-autonomicos-2024.ts:881–935
-- MINIMOS_AUTONOMICOS_IRPF_2018.valor / contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2018.ts:3587–3622
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2022,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_202 / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:14053–14536
-- ({
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-}) / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/repositorio-parametros.ts:494–568
-- parametros.minimosAutonomicos.contribuyente.general / value (selector, selection); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:8356–8407
-- parametros / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7856–7866
-- comunidadAutonoma === "catalunya" && anio >= 2020 && anio <= 2021 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3996–4061
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2017,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:9085–9527
-- {
-  nombre: "Mínimos autonómicos IRPF 2014 pre-reforma 2015",
-  valor: {
-    ...MINIMOS_ESTATALES_POR_COMUNIDAD_2014,
-    cantabria: MINIMOS_CANTABRIA_2014,
-    / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2014.ts:3902–4287
-- TRAMOS_IRPF_ESTATAL_GENERAL_2019 / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:10684–10716
-- undefined / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1899–1908
-- minimosAutonomicos / contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:5865–5883
-- parametroNormativo({
-  nombre: "Mínimos autonómicos IRPF 2017",
-  valor: {
-    ...MINIMOS_ESTATALES_POR_COMUNIDAD_2017,
-    "illes-balears": MINIMOS_ILLES_BALEA / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2017.ts:2749–3088
-- "madrid" / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4305–4313
-- MINIMOS_AUTONOMICOS_IRPF_2024.valor / contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2024.ts:881–916
 - {
     comunidadAutonoma,
     fallecidoAntesExtremadura: fallecidoAntesDe({
@@ -3108,11 +843,6 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
       fechaLimiteMs: fechaLimiteExtremaduraMs,
     }),
   } / value (selector, selection); Objeto completo: se exige propiedad de salida; lib/dominio/normativa/datos/irpf-autonomico-2023.ts:10068–10227
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2018,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:9752–10194
 - {
                 limiteAnterior: base.mul(0),
                 tramos: EffectArray.empty<TramoCuotaGeneralCalculado>(),
@@ -3123,25 +853,10 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
                   base.minus(estado.limiteAnterior)
         / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3429–4429
 - {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2017,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:9085–9527
-- b / value (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7845–7846
-- {
     ...MINIMOS_AUTONOMICOS_IRPF_2025.valor,
     andalucia: MINIMOS_ESTATALES_2021,
     asturias: MINIMOS_ESTATALES_2021,
     "illes-balears": MINIMOS_ILLES_BA / contribuyente.general (selector, selection); Forma AST no admitida: SatisfiesExpression; lib/dominio/normativa/datos/minimos-autonomicos-2021.ts:1687–2109
-- comunidadAutonoma === "comunitat-valenciana" / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3871–3915
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4049–4053
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:18245–18262
-- minimosAutonomicos / contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:12797–12815
-- {
-    general: importe("5550"),
-    adicionalMayor65: importe("1150"),
-    adicionalMayor75: importe("1400"),
-  } / general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2025.ts:2330–2443
 - {
     ...MINIMOS_AUTONOMICOS_IRPF_2025.valor,
     asturias: MINIMOS_ESTATALES_2022,
@@ -3152,34 +867,18 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
     cuota: new Decimal(cuota),
     tipo: new Decimal(tipo),
   }) / value (selector, selection); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/cuotas/escalas-publicadas.ts:570–715
-- 0 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3134–3135
-- resolverParametrosComunidadAutonoma2026(comunidadAutonoma) / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:18304–18362
-- undefined / value (selector, selection); literal; lib/dominio/irpf/trabajo-anual/conexion.ts:8073–8082
 - EffectArray.reduce(
     calcularDesgloseCuotaPorEscala({ base, tramos, escalasPublicadas }),
     base.mul(0),
     (total, tramo) => total.plus(tramo.cuota)
   ) / value (EUR, value); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1450–1609
-- ESCALAS_AUTONOMICAS_IRPF_2015_DISTINTAS_DE_2025 / illes-balears.tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2015.ts:9810–9857
-- resolverParametrosComunidadAutonoma2012(comunidadAutonoma) / minimosAutonomicos.contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16696–16754
 - MINIMOS_AUTONOMICOS_IRPF_2012.valor[comunidadAutonoma] / contribuyente.general (selector, selection); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/minimos-autonomicos-2012.ts:3363–3417
-- comunidadAutonoma === "comunitat-valenciana" &&
-    anio >= 2014 &&
-    anio <= 2016 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3871–3955
 - [
   [importe(12450), tipo("9.5")],
   [importe(20200), tipo("12")],
   [importe(35200), tipo("15")],
   [importe(60000), tipo("18.5")],
   [importe(300000), tipo("2 / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/normativa/datos/irpf-autonomico-2025.ts:645–851
-- resolverParametrosComunidadAutonoma2021(comunidadAutonoma) / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17715–17773
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17124–17141
-- obtenerEscalaAutonomicaIrpf2016(comunidadAutonoma) / tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:8739–8789
-- {
-    anio: 2025,
-    comunidadAutonoma: "madrid",
-  } / anio (selector, selection); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7720–7774
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17124–17141
 - [
   [importe("17707.2"), tipo("12.75")],
   [importe("33007.2"), tipo("16")],
@@ -3193,142 +892,34 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
             (fila) =>
               base.gt(0) &&
               (fila.inferi / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1954–3046
-- resolverParametrosComunidadAutonoma2020(comunidadAutonoma) / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17616–17674
-- resolverParametrosComunidadAutonoma2022({
-        comunidadAutonoma,
-        fechaFallecimiento,
-      }) / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17814–17919
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2018,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:9752–10194
 - {
     ...MINIMOS_ESTATALES_POR_COMUNIDAD_2017,
     "illes-balears": MINIMOS_ILLES_BALEARS_2017,
     madrid: MINIMOS_MADRID_2017,
   } satisfies Readonly<
     Rec / contribuyente.general (selector, selection); Forma AST no admitida: SatisfiesExpression; lib/dominio/normativa/datos/minimos-autonomicos-2017.ts:2822–3041
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2022,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_202 / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:14053–14536
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17260–17277
-- CATALUNYA_2022_2024 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4178–4197
-- new D(0) / value (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:1970–1978
-- ({
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-}) / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/repositorio-parametros.ts:494–568
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2023,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_202 / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:13216–13699
-- ESCALAS_AUTONOMICAS_IRPF_2017 / tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2017.ts:9233–9262
-- obtenerEscalaAutonomicaIrpf2015({
-      baseLiquidableGeneral,
-      comunidadAutonoma,
-      fechaFallecimiento,
-    }) / tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:8002–8122
-- 2025 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4330–4334
 - ESCALAS_AUTONOMICAS_IRPF_2018[comunidadAutonoma] / tramos (EUR, value); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/irpf-autonomico-2018.ts:9239–9287
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2014,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:6891–7342
-- MADRID_2022 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4260–4271
-- {
-  nombre: "Mínimos autonómicos IRPF 2015",
-  valor: {
-    ...MINIMOS_ESTATALES_POR_COMUNIDAD_2015,
-    "illes-balears": MINIMOS_ILLES_BALEARS_2015,
-    madrid / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2015.ts:2768–3087
-- anio === 2025 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4321–4334
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/normativa/datos/irpf-autonomico-2022.ts:14556–14573
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2024,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_202 / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:12420–12862
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16736–16753
-- comunidadAutonoma === "murcia" / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4497–4527
 - (estado, [limite, tipo]) => {
                 const baseRestante = Decimal.max(
                   0,
                   base.minus(estado.limiteAnterior)
         / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3429–4429
-- {
-    general: importe("5550"),
-    adicionalMayor65: importe("1150"),
-    adicionalMayor75: importe("1400"),
-  } / general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2025.ts:2330–2443
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2020,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_202 / minimosAutonomicos.contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:11086–11528
-- comunidadAutonoma === "catalunya" / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3996–4029
-- 2015 / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3823–3827
 - ({
           _tag: "ComunidadAutonomaNoSoportada",
           comunidadAutonoma,
           anio: 2026,
           motivo:
             "IRPF 2026 solo esta modelad / escalaEstatalGeneral (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16051–16416
-- obtenerEscalaAutonomicaIrpf2012(comunidadAutonoma) / tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:5809–5859
-- ({
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-}) / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/repositorio-parametros.ts:494–568
-- tramos / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1513–1519
-- obtenerEscalaAutonomicaIrpf2022({
-      comunidadAutonoma,
-      fechaFallecimiento,
-    }) / tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:14374–14465
-- resolverParametrosComunidadAutonoma2019(comunidadAutonoma) / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17517–17575
-- autonomica(
-        D.min(base, parametros.minimosAutonomicos.contribuyente.general)
-      ) / value (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:8324–8416
-- ESCALAS_AUTONOMICAS_IRPF_2019 / tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2019.ts:14841–14870
-- minimos({
-  contribuyente: {
-    general: importe("5550"),
-    adicionalMayor65: importe("1150"),
-    adicionalMayor75: importe("1400"),
-  },
-  descendientes: { / contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2025.ts:2303–2818
 - ([baseInferior, cuota, tipo]) => ({
     baseInferior: new Decimal(baseInferior),
     cuota: new Decimal(cuota),
     tipo: new Decimal(tipo),
   }) / value (selector, selection); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/cuotas/escalas-publicadas.ts:570–715
-- resolverParametrosComunidadAutonoma2013(comunidadAutonoma) / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16795–16853
-- escala2015({
-    comunidadAutonoma: "illes-balears",
-    nombre: "Illes Balears - fallecido antes del 31/12/2015",
-    condicionAplicacion:
-      "Aplicable sol / tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2015.ts:3540–4053
-- parametros / minimosAutonomicos.contribuyente.general (selector, selection); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:8356–8366
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4535–4539
-- MINIMOS_AUTONOMICOS_IRPF_2020.valor / contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2020.ts:3706–3741
-- ESCALAS_AUTONOMICAS_IRPF_2015 / tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2015.ts:12154–12183
 - EffectArray.reduce(
     calcularDesgloseCuotaPorEscala({ base, tramos, escalasPublicadas }),
     base.mul(0),
     (total, tramo) => total.plus(tramo.cuota)
   ) / value (EUR, value); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1450–1609
-- ESCALAS_AUTONOMICAS_IRPF_2024 / tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2024.ts:5988–6017
-- valor / contribuyente.general (selector, selection); productor; lib/dominio/normativa/repositorio-parametros.ts:549–554
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/normativa/datos/irpf-autonomico-2021.ts:14332–14349
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:10105–10122
-- anio >= 2020 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4033–4045
 - [
   [importe(12450), tipo("9.5")],
   [importe(20200), tipo("12")],
@@ -3336,24 +927,7 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
   [importe(60000), tipo("18.5")],
   [importe(Infinity), tipo( / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/normativa/datos/irpf-autonomico-2018.ts:581–752
 - (total, tramo) => total.plus(tramo.cuota) / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1564–1605
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2019,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / minimosAutonomicos.contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:10419–10861
 - (total, tramo) => total.plus(tramo.cuota) / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1564–1605
-- b / value (selector, selection); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7845–7846
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4033–4037
-- obtenerMinimosAutonomicosIrpf2020(comunidadAutonoma) / contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:11023–11075
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:12106–12123
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2017,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / minimosAutonomicos.contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:9085–9527
-- "catalunya" / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4122–4133
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:11057–11074
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16736–16753
 - Option.fromNullishOr(fechaFallecimiento).pipe(
     Option.match({
       onNone: () => false,
@@ -3369,19 +943,6 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
                   0,
                   base.minus(estado.limiteAnterior)
         / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3429–4429
-- resolverParametrosComunidadAutonoma2015({
-        baseLiquidableGeneral,
-        comunidadAutonoma,
-        fechaFallecimiento,
-      }) / minimosAutonomicos.contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17043–17179
-- anio <= 2021 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4049–4061
-- fechaFallecimiento / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4556–4574
-- resolverParametrosComunidadAutonoma2017(comunidadAutonoma) / minimosAutonomicos.contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17319–17377
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2018,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:9752–10194
 - {
     comunidadAutonoma,
     fallecidoAntesExtremadura: fallecidoAntesDe({
@@ -3390,170 +951,33 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
     }),
   } / value (selector, selection); Objeto completo: se exige propiedad de salida; lib/dominio/normativa/datos/irpf-autonomico-2023.ts:10068–10227
 - {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2015,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:7716–8193
-- undefined / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4365–4374
-- calcularCuotaPorEscala({
-      base: b,
-      tramos: parametros.escalaAutonomica.tramos,
-      escalasPublicadas: publicada === undefined ? undefined : [public / value (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7932–8104
-- parametros.minimosAutonomicos.contribuyente.general / value (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:8356–8407
-- {
   "simulada-estatal": reutilizarEscala2025ConFuente2022(
     ESCALAS_AUTONOMICAS_IRPF_2025["simulada-estatal"]
   ),
   andalucia: reutilizarEscala2025ConFuente / tramos (EUR, value); Propiedad no resuelta (spread/alias): tramos; lib/dominio/normativa/datos/irpf-autonomico-2022.ts:11794–13336
-- b / value (selector, selection); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7845–7846
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:9438–9455
-- base / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3073–3077
-- {
-  "simulada-estatal":
-    ESCALAS_AUTONOMICAS_IRPF_2015_DISTINTAS_DE_2025["simulada-estatal"],
-  andalucia: ESCALAS_AUTONOMICAS_IRPF_2015_DISTINTAS_DE_2025.an / illes-balears.tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2015.ts:9482–10890
-- "madrid" / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4226–4234
-- ({
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-}) / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/repositorio-parametros.ts:494–568
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2023,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_202 / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:13216–13699
-- escalasPublicadas !== undefined
-    ? EffectArray.flatMap(escalasPublicadas, (filas) =>
-        Option.match(
-          EffectArray.findLast(
-            filas, / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1877–4468
-- filas([
-  ["0", "0", ".12"],
-  ["17707.20", "2124.86", ".14"],
-  ["33007.20", "4266.86", ".185"],
-  ["53407.20", "8040.86", ".215"],
-  ["90000", "15908.31", ".2 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:1940–2176
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/normativa/datos/irpf-autonomico-2012.ts:8241–8258
-- { base, tramos, escalasPublicadas } / escalasPublicadas (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1505–1540
-- {
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-} / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/repositorio-parametros.ts:495–567
-- valor / contribuyente.general (selector, selection); productor; lib/dominio/normativa/repositorio-parametros.ts:549–554
-- parametroNormativo({
-  nombre: "Mínimos autonómicos IRPF 2022",
-  valor: {
-    ...MINIMOS_AUTONOMICOS_IRPF_2025.valor,
-    asturias: MINIMOS_ESTATALES_2022,
-    / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2022.ts:2209–2623
-- valor / contribuyente.general (selector, selection); productor; lib/dominio/normativa/repositorio-parametros.ts:549–554
-- MINIMOS_ESTATALES_2022 / contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2022.ts:3732–3754
-- ({
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-}) / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/repositorio-parametros.ts:494–568
-- publicada === undefined / value (selector, selection); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:8047–8070
-- parametroNormativo({
-  nombre: "Mínimos autonómicos IRPF 2014 pre-reforma 2015",
-  valor: {
-    ...MINIMOS_ESTATALES_POR_COMUNIDAD_2014,
-    cantabria: MINIMOS_ / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2014.ts:3883–4288
-- resolverParametrosComunidadAutonoma2018(comunidadAutonoma) / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17418–17476
-- obtenerParametrosComunidadAutonoma({
-    anio: 2025,
-    comunidadAutonoma: "madrid",
-    baseLiquidableGeneral: base,
-  }) / minimosAutonomicos.contribuyente.general (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7426–7549
-- ({
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-}) / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/repositorio-parametros.ts:494–568
-- parametroNormativo({
-  nombre: "Mínimos autonómicos IRPF 2020",
-  valor: {
-    ...MINIMOS_ESTATALES_POR_COMUNIDAD_2020,
-    "illes-balears": MINIMOS_ILLES_BALEA / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2020.ts:3148–3574
-- obtenerEscalaAutonomicaIrpf2013(comunidadAutonoma) / tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:6441–6491
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:10772–10789
-- {
-  nombre: "Mínimos autonómicos IRPF 2022",
-  valor: {
-    ...MINIMOS_AUTONOMICOS_IRPF_2025.valor,
-    asturias: MINIMOS_ESTATALES_2022,
-    canarias: MINIMOS_ / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2022.ts:2228–2622
-- "andalucia" / value (selector, selection); literal; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3784–3795
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:15412–15429
 - [
   [importe(12450), tipo("9.5")],
   [importe(20200), tipo("12")],
   [importe(35200), tipo("15")],
   [importe(60000), tipo("18.5")],
   [importe(300000), tipo("2 / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/normativa/datos/irpf-autonomico-2025.ts:645–851
-- MINIMOS_AUTONOMICOS_IRPF_2021 / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2021.ts:2288–2317
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:5494–5511
 - obtenerEscalaAutonomicaPublicada({
     anio: 2025,
     comunidadAutonoma: "madrid",
   }) / value (selector, selection); Retornos/guardas imperativas requieren contrato: obtenerEscalaAutonomicaPublicada; lib/dominio/irpf/trabajo-anual/conexion.ts:7687–7775
-- {
-        comunidadAutonoma,
-        fechaFallecimiento,
-      } / comunidadAutonoma (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17854–17918
-- b / value (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7969–7970
-- resolverParametrosComunidadAutonoma2012(comunidadAutonoma) / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16696–16754
-- anio / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16651–16655
-- calcularDesgloseCuotaPorEscala({ base, tramos, escalasPublicadas }) / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1474–1541
-- base / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1547–1551
 - ESCALAS_AUTONOMICAS_IRPF_2019[comunidadAutonoma] / tramos (EUR, value); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/irpf-autonomico-2019.ts:14841–14889
-- {
-    anio: 2025,
-    comunidadAutonoma: "madrid",
-  } / comunidadAutonoma (selector, selection); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7720–7774
 - ({
           _tag: "ComunidadAutonomaNoSoportada",
           comunidadAutonoma,
           anio,
           motivo: `Escalas autonomicas del anio ${anio} aun no i / escalaAutonomica.tramos (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:18412–18909
-- minimosAutonomicos / contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:12130–12148
-- obtenerEscalaAutonomicaIrpf2015({
-      baseLiquidableGeneral,
-      comunidadAutonoma,
-      fechaFallecimiento,
-    }) / tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:8002–8122
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2021,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_202 / minimosAutonomicos.contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:11753–12195
-- MINIMOS_ILLES_BALEARS_2023_FALLECIDO_ANTES_26_NOVIEMBRE / contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2023.ts:2394–2449
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:12391–12408
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16835–16852
-- escalasPublicadas !== undefined / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1877–1908
-- undefined / value (EUR, value); literal; lib/dominio/irpf/trabajo-anual/conexion.ts:8073–8082
 - [
   [importe("17707.2"), tipo("12.75")],
   [importe("33007.2"), tipo("16")],
   [importe("53407.2"), tipo("21.5")],
   [importe("120000.2"), tipo("25.5")],
   [imp / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/normativa/datos/irpf-autonomico-2014.ts:1771–2041
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2014,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:6891–7342
-- base.lte(0) / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3125–3136
-- TRAMOS_IRPF_ESTATAL_GENERAL_2012 / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:5753–5785
 - MINIMOS_AUTONOMICOS_IRPF_2016.valor[comunidadAutonoma] / contribuyente.general (selector, selection); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/minimos-autonomicos-2016.ts:3220–3274
-- 0 / value (selector, selection); literal; lib/dominio/irpf/trabajo-anual/conexion.ts:1976–1977
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:11439–11456
 - ESCALAS_AUTONOMICAS_IRPF_2025[comunidadAutonoma] / tramos (EUR, value); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/irpf-autonomico-2025.ts:8153–8201
 - {
   "simulada-estatal": escala({
@@ -3562,12 +986,6 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
     tramos: TRAMOS_IRPF_ESTATAL_GENERAL_2025,
   }),
  / tramos (EUR, value); Propiedad no resuelta (spread/alias): tramos; lib/dominio/normativa/datos/irpf-autonomico-2025.ts:1561–8032
-- Match.value(comunidadAutonoma).pipe(
-    Match.when("illes-balears", () =>
-      Match.value(
-        fallecidoAntesDeFechaCivil({
-          fechaCorte: "2015-1 / tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2015.ts:11077–12212
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:8071–8088
 - [
   [importe(12450), tipo("9.5")],
   [importe(20200), tipo("12")],
@@ -3581,21 +999,7 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
           motivo:
             "IRPF 2026 solo esta modelad / minimosAutonomicos.contribuyente.general (selector, selection); Forma AST no admitida: SatisfiesExpression; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16051–16416
 - ESCALAS_AUTONOMICAS_IRPF_2013[comunidadAutonoma] / tramos (EUR, value); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/irpf-autonomico-2013.ts:8327–8375
-- Match.value(comunidadAutonoma).pipe(
-    Match.when(
-      "simulada-estatal",
-      () =>
-        ({
-          _tag: "ParametrosComunidadAutonoma",
-          c / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:15400–16426
 - MINIMOS_AUTONOMICOS_IRPF_2023.valor[comunidadAutonoma] / contribuyente.general (selector, selection); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/minimos-autonomicos-2023.ts:2480–2534
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:15412–15429
-- MINIMOS_AUTONOMICOS_IRPF_2017.valor / contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2017.ts:3220–3255
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2022,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_202 / minimosAutonomicos.contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:14053–14536
 - {
     ...MINIMOS_AUTONOMICOS_IRPF_2025.valor,
     asturias: MINIMOS_ESTATALES_2023,
@@ -3606,14 +1010,11 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
           onNone: () => ESCALA_GALICIA_2015_BASE_SUPERIOR_17707_20,
           onSome: (baseLiquidableGeneral) =>
             Match.value(baseLiquidableGeneral / value (EUR, value); Objeto completo: se exige propiedad de salida; lib/dominio/normativa/datos/irpf-autonomico-2015.ts:11616–12090
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4238–4242
-- MINIMOS_ESTATALES_2025.contribuyente / general (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:8193–8229
 - {
     ...MINIMOS_ESTATALES_POR_COMUNIDAD_2014,
     cantabria: MINIMOS_CANTABRIA_2014,
     "castilla-la-mancha": MINIMOS_CASTILLA_LA_MANCHA_2014,
     madrid: MIN / contribuyente.general (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/normativa/datos/minimos-autonomicos-2014.ts:3973–4241
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/normativa/datos/irpf-autonomico-2019.ts:14871–14888
 - [
   ...filas([
     ["0", "0", ".096"],
@@ -3623,13 +1024,6 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
   ]),
   {
  / value (selector, selection); Array completo requiere contrato por elemento; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3107–3406
-- CATALUNYA_2022_2024 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4178–4197
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2014,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / minimosAutonomicos.contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:6891–7342
-- MINIMOS_ESTATALES_2025.contribuyente.general / value (selector, selection); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:8193–8237
 - ([baseInferior, cuota, tipo]) => ({
     baseInferior: new Decimal(baseInferior),
     cuota: new Decimal(cuota),
@@ -3640,140 +1034,33 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
     cuota: new Decimal(cuota),
     tipo: new Decimal(tipo),
   }) / value (selector, selection); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/cuotas/escalas-publicadas.ts:570–715
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:18344–18361
-- {
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-} / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/repositorio-parametros.ts:495–567
-- {
-    anio: 2025,
-    comunidadAutonoma: "madrid",
-    baseLiquidableGeneral: base,
-  } / comunidadAutonoma (selector, selection); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7461–7548
-- TRAMOS_IRPF_ESTATAL_GENERAL_2020 / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:11351–11383
-- valor / contribuyente.general (selector, selection); productor; lib/dominio/normativa/repositorio-parametros.ts:549–554
-- TRAMOS_IRPF_ESTATAL_GENERAL_2025 / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:12018–12050
-- Match.value({
-    comunidadAutonoma,
-    fallecidoAntesComunitatValenciana: fallecidoAntesDeFechaCivil({
-      fechaFallecimiento,
-      fechaCorte: "2022-10-28 / contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2022.ts:3405–3844
-- Match.value(anio).pipe(
-    Match.when(2012, () =>
-      resolverParametrosComunidadAutonoma2012(comunidadAutonoma)
-    ),
-    Match.when(2013, () =>
-      reso / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16639–18919
-- resolverParametrosComunidadAutonoma2020(comunidadAutonoma) / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17616–17674
-- anio <= 2024 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4153–4165
-- anio / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4238–4242
-- ESCALA_ILLES_BALEARS_2015_FALLECIDO_ANTES_31_DICIEMBRE / tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2015.ts:11351–11405
-- escala2015({
-    comunidadAutonoma: "illes-balears",
-    nombre: "Illes Balears - fallecido antes del 31/12/2015",
-    condicionAplicacion:
-      "Aplicable sol / tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2015.ts:3540–4053
-- MADRID_2025 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4390–4401
 - ({
           _tag: "ComunidadAutonomaNoSoportada",
           comunidadAutonoma,
           anio,
           motivo: `Escalas autonomicas del anio ${anio} aun no i / minimosAutonomicos.contribuyente.general (selector, selection); Forma AST no admitida: SatisfiesExpression; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:18412–18909
 - [] / value (EUR, value); Array completo requiere contrato por elemento; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3154–3156
-- MINIMOS_ESTATALES_2025.contribuyente.general / value (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:8193–8237
-- undefined / value (selector, selection); literal; lib/dominio/irpf/trabajo-anual/conexion.ts:8061–8070
-- parametroNormativo({
-  nombre: "Mínimos autonómicos IRPF 2025",
-  valor: {
-    "simulada-estatal": MINIMOS_ESTATALES_2025,
-    andalucia: MINIMOS_ANDALUCIA_2025 / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2025.ts:7659–8611
-- base / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3073–3077
-- {
-  nombre: "Mínimos autonómicos IRPF 2024",
-  valor: {
-    ...MINIMOS_AUTONOMICOS_IRPF_2025.valor,
-    asturias: MINIMOS_ESTATALES_2024,
-  } satisfies Readonly / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2024.ts:474–748
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17260–17277
-- escalasPublicadas !== undefined
-    ? EffectArray.flatMap(escalasPublicadas, (filas) =>
-        Option.match(
-          EffectArray.findLast(
-            filas, / value (EUR, value); productor; lib/dominio/irpf/cuotas/escalas-gravamen.ts:1877–4468
-- MINIMOS_AUTONOMICOS_IRPF_2025.valor / contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2025.ts:8743–8778
 - MINIMOS_AUTONOMICOS_IRPF_2013.valor[comunidadAutonoma] / contribuyente.general (EUR, value); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/minimos-autonomicos-2013.ts:3363–3417
-- resolverParametrosComunidadAutonoma2014({
-        baseLiquidableGeneral,
-        comunidadAutonoma,
-      }) / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16894–17002
 - Option.match({
           onNone: () => ESCALA_GALICIA_2015_BASE_SUPERIOR_17707_20,
           onSome: (baseLiquidableGeneral) =>
             Match.value(baseLiqu / value (EUR, value); Contrato de llamada pendiente: Option.match; lib/dominio/normativa/datos/irpf-autonomico-2015.ts:11603–12091
-- {
-    _tag: "ParametrosComunidadAutonoma",
-    comunidadAutonoma,
-    anio: 2015,
-    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / escalaAutonomica.tramos (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:7716–8193
-- MINIMOS_AUTONOMICOS_IRPF_2018 / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/datos/minimos-autonomicos-2018.ts:3587–3616
 - MINIMOS_AUTONOMICOS_IRPF_2013.valor[comunidadAutonoma] / contribuyente.general (selector, selection); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/minimos-autonomicos-2013.ts:3363–3417
 - ESCALAS_AUTONOMICAS_IRPF_2025[comunidadAutonoma] / tramos (EUR, value); Índice dinámico/array: requiere contrato por elemento; lib/dominio/normativa/datos/irpf-autonomico-2025.ts:8153–8201
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:10105–10122
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17359–17376
-- comunidadAutonoma === "murcia" &&
-    anio === 2022 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:4497–4548
-- {
-    general: importe("5550"),
-    adicionalMayor65: importe("1150"),
-    adicionalMayor75: importe("1400"),
-  } / general (selector, selection); productor; lib/dominio/normativa/datos/minimos-autonomicos-2025.ts:2330–2443
-- {
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-} / valor.contribuyente.general (EUR, value); productor; lib/dominio/normativa/repositorio-parametros.ts:495–567
 - Option.match({
           onNone: () => ESCALA_GALICIA_2014_BASE_SUPERIOR_17707_20,
           onSome: (baseLiquidableGeneral) =>
             Match.value(baseLiqu / value (EUR, value); Contrato de llamada pendiente: Option.match; lib/dominio/normativa/datos/irpf-autonomico-2014.ts:9500–9988
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17755–17772
-- minimosAutonomicos / contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:12130–12148
-- resolverParametrosComunidadAutonoma2025(comunidadAutonoma) / escalaEstatalGeneral (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:18205–18263
-- ({
-  ...escala,
-  fuente,
-}) / tramos (EUR, value); productor; lib/dominio/normativa/datos/irpf-autonomico-2015.ts:1868–1896
-- {
-  _tag: "ParametroNormativoEjecutable",
-  nombre,
-  valor,
-  fuente,
-} / valor.contribuyente.general (selector, selection); productor; lib/dominio/normativa/repositorio-parametros.ts:495–567
-- 0 / value (selector, selection); literal; lib/dominio/irpf/trabajo-anual/conexion.ts:7402–7403
 - {
   "simulada-estatal": reutilizarEscala2025ConFuente2021(
     ESCALAS_AUTONOMICAS_IRPF_2025["simulada-estatal"]
   ),
   andalucia: ESCALAS_AUTONOMICAS_IRPF_2021 / tramos (EUR, value); Propiedad no resuelta (spread/alias): tramos; lib/dominio/normativa/datos/irpf-autonomico-2021.ts:12710–14181
-- anio <= 2016 / value (selector, selection); productor; lib/dominio/irpf/cuotas/escalas-publicadas.ts:3943–3955
 - posterior / value (EUR, value); Asignaciones y flujo imperativo pendientes: posterior; lib/dominio/irpf/trabajo-anual/conexion.ts:11683–11692
-- D.min(base, parametros.minimosAutonomicos.contribuyente.general) / value (selector, selection); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:8344–8408
-- minimosAutonomicos / contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:8128–8146
 - {
                 limiteAnterior: base.mul(0),
                 tramos: EffectArray.empty<TramoCuotaGeneralCalculado>(),
               } / value (EUR, value); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/cuotas/escalas-gravamen.ts:3278–3413
-- obtenerMinimosAutonomicosIrpf2013(comunidadAutonoma) / contribuyente.general (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:6092–6144
-- {
-    anio: 2025,
-    comunidadAutonoma: "madrid",
-    baseLiquidableGeneral: base,
-  } / anio (selector, selection); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:7461–7548
-- resolverParametrosComunidadAutonoma2025(comunidadAutonoma) / minimosAutonomicos.contribuyente.general (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:18205–18263
-
 ## Condiciones por relación
 
 - [value] constructor Decimal; e:6402

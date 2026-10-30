@@ -1,6 +1,8 @@
 # Auditoría candidata de retenciones del trabajo, 2012–2019
 
-Esta entrega NO valida el motor histórico ni declara completada la auditoría exhaustiva solicitada. Documenta diferencias sustantivas, coincidencias parciales y lagunas concretas. Todos los hallazgos quedan pendientes de revisión independiente. No se han modificado cálculos, tests, índices de VCS, bookmarks ni archivos de otros auditores.
+Documento histórico: los resultados, referencias al motor y pendientes corresponden a la base examinada; no describen el estado vigente del proyecto.
+
+Este análisis documenta diferencias sustantivas, coincidencias parciales y lagunas concretas; no valida el motor histórico ni acredita una auditoría exhaustiva. Los hallazgos requieren revisión independiente.
 
 ## Resultado principal
 
@@ -60,7 +62,7 @@ Los tests existentes comprueban casos 2025/26 y un importe de límite 2019, adem
 - Separar HTML histórico de PDF original. Objeción: un consolidado puede escoger versión equivocada. Motivo: conservar el intento fallido y verificar cabecera; coste: no declarar validación histórica con una URL aparente.
 - Usar extracción por bloques y cajas, con inspección visual selectiva. Objeción:2019 contiene tachados invisibles para texto plano. Motivo: citas literales verificables sin alterar originales; coste: selección fina y revisión visual de cada evidencia antes de aceptación.
 - No usar copias secundarias como evidencia ni desactivar TLS. Objeción: deja algoritmos antiguos sin recuperar. Motivo: el estándar exige procedencia oficial; coste: huecos 2012–2016 explícitos y búsqueda posterior en archivo oficial.
-- No corregir el motor ni sustituir tests existentes. Objeción: mantiene errores conocidos. Motivo: autorización de esta ronda solo documental y aceptación por agente nuevo; coste: resultados siguen incorrectos hasta contrarrevisión y prueba fallida.
+- No corregir el motor ni sustituir tests existentes. Objeción: mantiene errores conocidos. Motivo: cualquier corrección fiscal requiere revisión independiente y prueba fallida previa; coste: los candidatos no autorizan por sí solos un cambio del motor.
 - Generar ejemplos con fórmula independiente sin ejecutar suite pesada. Objeción: una transcripción puede diferir del programa. Motivo: casos revisables de alcance acotado; coste: no llamarlos resultados ejecutados del motor y exigir prueba posterior.
 
 ## Reproducción y límites de entrega
@@ -75,7 +77,7 @@ Actualización de evidencia histórica: recuperadas redacciones RIRPF de 20/12/2
 
 ## Conteos y comprobación local
 
-Entrega:34 hallazgos candidatos (11 mismatch,13 missing,5 ambiguous,5 match),160 celdas paso-año,89 comparaciones de celdas de umbrales (81 generales incluida casilla inexistente y 8 especiales 2018),22 originales únicos y 2314 citas candidatas. Ningún hallazgo aceptado. Las coincidencias se limitan al subpaso o importe descrito.
+Resultado: 34 hallazgos candidatos (11 mismatch,13 missing,5 ambiguous,5 match),160 celdas paso-año,89 comparaciones de celdas de umbrales (81 generales incluida casilla inexistente y 8 especiales 2018),22 originales únicos y 2314 citas candidatas. Ningún hallazgo aceptado. Las coincidencias se limitan al subpaso o importe descrito.
 
 `verificacion-local.json`: hashes de 22 originales comprobados,2292 citasPDF reextraídas desde cajas con igualdad exacta del texto y 22 citasHTML sin geometría ficticia. Cero errores en esas verificaciones; no equivalen a aceptación jurídica. Reproducción mediante `verificar.py` en scratch con el mismo entorno PyMuPDF descrito. `adquisicion-pendiente.json` conserva las URLs y errores de descarga. `tablas-comparadas.json` distingue tabla general y variante 2018 omitida.
 

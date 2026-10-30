@@ -1,6 +1,8 @@
 # Contratos autonómicos 2025: entrega candidata
 
-Base indicada por el padre: d9ff49c7. Entrega por archivos, sin mutaciones VCS, sin subdelegación, sin regenerar inventario. Las fuentes cambiadas dejan obsoleto el artefacto: corresponde al integrador reconstruirlo una sola vez.
+Documento histórico del candidato de este directorio. Los resultados y estados corresponden a esa versión; no acreditan el estado actual del proyecto.
+
+Base del candidato documentado: `d9ff49c7`. Los cambios de fuentes requieren reconstruir el inventario antes de integrar.
 
 ## Resultado y frontera de integración
 
@@ -8,7 +10,7 @@ Se exige ejercicio y territorio en el helper heredado. Se filtra antes de sumar,
 
 El módulo `contratos-2025.ts` añade un contrato por solicitud con ejercicio, territorio, contribuyente y modalidad. Distingue `evaluacion_automatica`, `calculo_parcial`, `importe_externo`, `excluida` y `no_soportado`. Toda interpretación conserva `aceptacionFiscal: pendiente`. El agregado nuevo rechaza parciales, desconocidos, ámbitos ajenos y solicitudes repetidas; no los convierte en cero. No es el límite de cuota ni una certificación fiscal.
 
-**Limitación material:** los perfiles nuevos no están conectados a los controles antiguos de la pantalla. Estos conservan aritmética parcial, ahora identificada como tal; el filtro territorial sí está conectado. El helper numérico antiguo no adquiere validación fiscal por recibir un ámbito. El padre no debe presentar esta entrega como sustitución completa de todas las rutas antiguas ni como siete contratos jurídicos íntegros. La conexión de perfiles exige nuevas entradas; aquí se respeta la propiedad limitada del componente a ámbito/estado. No se han eliminado silenciosamente todas las capacidades existentes.
+**Limitación material:** los perfiles nuevos no están conectados a los controles antiguos de la pantalla. Estos conservan aritmética parcial, ahora identificada como tal; el filtro territorial sí está conectado. El helper numérico antiguo no adquiere validación fiscal por recibir un ámbito. El integrador no debe presentar esta entrega como sustitución completa de todas las rutas antiguas ni como siete contratos jurídicos íntegros. La conexión de perfiles exige nuevas entradas; aquí se respeta la propiedad limitada del componente a ámbito/estado. No se han eliminado silenciosamente todas las capacidades existentes.
 
 ## Cobertura nueva
 

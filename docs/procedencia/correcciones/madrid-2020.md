@@ -1,6 +1,6 @@
 # Madrid 2020: límite legal y ejercicio del rastro
 
-Corrección del orquestador, 29 de octubre de 2026, después de la contrarrevisión independiente de `AUT1721-MADRID-2020-LIMITE` y `AUT1721-RASTRO-ANIO`.
+Corrección del hallazgo `AUT1721-MAD-2020` contrastado en la revisión independiente.
 
 La Ley 6/2018, artículo único.Dos, publicada en [BOCM-20181228-1](https://www.bocm.es/boletin/CM_Orden_BOCM/2018/12/28/BOCM-20181228-1.PDF), página física 4, fija el inicio del último tramo en 53.407,20 euros. SHA-256 del original: `8a77dd284eb0c38b271ea0530ee475eb24f07762ea18d78a34f3d01a48648660`. La caja refinada es `[98, 628, 497, 748]`, en puntos PDF. La revisión de vigencia, incluida la corrección de 2019 y la reforma efectiva desde 2022, está en `../revisiones/autonomicas-2017-2021/`. El orquestador volvió a leer la tabla mediante pdftotext.
 

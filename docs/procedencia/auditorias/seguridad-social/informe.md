@@ -1,5 +1,7 @@
 # Seguridad Social 2012–2026: auditoría documental candidata
 
+Documento histórico: los resultados, referencias al motor y pendientes corresponden a la base examinada; no describen el estado vigente del proyecto.
+
 Esta entrega examina el cálculo de cotizaciones de IRoboPF, no certifica una nómina. Todos los hallazgos, incluidas las coincidencias, requieren revisión por otro auditor. No se ha modificado el motor ni se han aceptado correcciones. La evidencia está en originales BOE descargados por el adquirente compartido; los índices Markdown no se usan como prueba.
 
 ## Resultado principal
@@ -56,7 +58,7 @@ Los hashes verifican identidad e integridad local. No se ha validado criptográf
 
 Scripts propios: `.cache/procedencia/seguridad-social/{adquirir,extras,extraer,tablas,casos,redactar}.py`. Adquisición: `nix shell nixpkgs#python3 -c python .cache/procedencia/seguridad-social/adquirir.py` y después `extras.py`. Ambos llaman al adquirente oficial del proyecto y respetan su bloqueo/ritmo. Ejemplos/Excel: `nix shell nixpkgs#python3 -c python .cache/procedencia/seguridad-social/casos.py`.
 
-Para PyMuPDF se usó `uv run --python` con el Python de Nix y `--with pymupdf`, proporcionando `LD_LIBRARY_PATH` de `nixpkgs#stdenv.cc.cc.lib`. El primer intento con el Python gestionado por uv falló porque el binario genérico no arrancaba en NixOS; se resolvió usando el intérprete Nix, sin instalación global. No se ejecutaron builds ni suite legacy exhaustiva.
+Para PyMuPDF se usó `uv run --python` con el Python de Nix y `--with pymupdf`, proporcionando `LD_LIBRARY_PATH` de `nixpkgs#stdenv.cc.cc.lib`.
 
 La cobertura normativa no se confunde con haber descargado una orden. Permanecen pendientes los controles de vigencia señalados en `cobertura.json`, las tarifas completas y excepciones no representables, redondeo TGSS y contrarrevisión. Este informe no declara exhaustividad jurídica cerrada de todos los regímenes de Seguridad Social.
 
@@ -70,7 +72,7 @@ El original de RDL 28/2018 y el de RDL 3/2026 sí documentan en su cuadro II el 
 
 La base de 2026 **no es una proyección**: PJC/297/2026, publicada el 31 de marzo, desarrolla con efectos desde enero el máximo de 5.101,20 €/mes, equivalente a 61.214,40 € únicamente bajo doce meses mensuales completos. RDL 3/2026 es parte de su cadena normativa. El máximo del grupo diario es 170,04 €/día, que no autoriza convertir toda situación diaria en doce mensualidades.
 
-Se han ejecutado aisladamente las dos funciones puras `obtener_parametros` y `calcular_nomina_agregada` del Python original mediante AST, sin imports ni `main`. `comparacion-python.json` conserva las 18 comparaciones de frontera con una réplica decimal de la aritmética leída en TypeScript y con las tasas legales separadas. No se afirma haber ejecutado TypeScript en esta ronda. La compatibilidad observada sigue siendo evidencia del oracle, nunca prueba normativa.
+Se han ejecutado aisladamente las dos funciones puras `obtener_parametros` y `calcular_nomina_agregada` del Python original mediante AST, sin imports ni `main`. `comparacion-python.json` conserva las 18 comparaciones de frontera con una réplica decimal de la aritmética leída en TypeScript y con las tasas legales separadas. No se ejecutó TypeScript en este análisis. La compatibilidad observada sigue siendo evidencia del oracle, nunca prueba normativa.
 
 Se descargó también el compendio oficial TGSS de Noticias RED 2020–2024 (20 MB), buscando las tablas históricas y el criterio de redondeo. La búsqueda de su capa de texto no cerró las bases mínimas por grupo de 2020/enero–agosto de 2021. Se conserva el original y la limitación; los pasajes de redondeo para colectivos específicos no se generalizan. Poppler avisó de destinos de anotación defectuosos, no de pérdida del texto; no se renderizó el compendio.
 

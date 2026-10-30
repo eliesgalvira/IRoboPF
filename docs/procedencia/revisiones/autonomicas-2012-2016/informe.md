@@ -1,6 +1,8 @@
 # Revisión independiente de autonómicas 2012–2016
 
-Revisión del código actual del checkout compartido, 29 de octubre de 2026. **13 de 13 IDs examinados: 10 aceptados con alcance expresamente limitado y 3 necesitan evidencia. Ninguna de las 90 escalas anuales completas queda certificada.** Las decisiones individuales, estado candidato previo, severidad, acciones, archivos y líneas están en `revisiones.json`; `cobertura-ids.json` comprueba la ausencia de omisiones. No se han modificado hallazgos del autor, código, pruebas mantenidas ni VCS.
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
+Revisión del 29 de octubre de 2026 sobre los archivos fijados en esta entrega. **13 de 13 IDs examinados: 10 aceptados con alcance expresamente limitado y 3 necesitan evidencia. Ninguna de las 90 escalas anuales completas queda certificada.** Las decisiones individuales, estado candidato previo, severidad, acciones, archivos y líneas están en `revisiones.json`; `cobertura-ids.json` comprueba la ausencia de omisiones.
 
 ## Cambios que merece preparar el orquestador
 
@@ -10,7 +12,7 @@ En Andalucía, base 60.000: resultado actual 9.458,316; redondeado 9.458,32; cuo
 
 En Valencia, base120.000,20: resultado actual22.304,8932; redondeado22.304,89; cuota publicada22.304,90. A175.000,20 la integral da34.668,8932 y la tabla34.668,90. **La carencia de norma introductoria2014 señalada por el autor queda resuelta:** Ley7/2014, art45, PDF pp57–58; DF4.b, p127, establece entrada1/1/2014. El BOE se publicó10/2/2015 y el DOGV29/12/2014. La corrección BOE-A-2015-4032 afecta únicamente a los arts119/120, no a la escala. La siguiente reforma del art2 identificada en el historial es Ley13/2016: original art11 p60 y DF2 p120, efectos1/1/2017. Se comprobó personalmente ese original y se comparó con los tres manuales del período.
 
-Se ejecutaron **siete comprobaciones fallidas propias**, cuatro andaluzas y tres valencianas, contra `calcularCuotaPorEscala`: salida1 esperada del script, siete expectativas incumplidas. Datos exactos en `casos-discriminantes.json`; script en `.cache/procedencia/revision-autonomicas-2012-2016/fallos.ts`. Son pruebas de cuota bruta; **no se ejecutaron declaraciones completas con mínimos**. Antes de integrar un cambio, el orquestador debe probar cuota fija más exceso en cada frontera, mínimo, suma final y redondeo. No debe cambiar todos los territorios a partir de estos dos casos.
+Se ejecutaron **siete comprobaciones fallidas propias**, cuatro andaluzas y tres valencianas, contra `calcularCuotaPorEscala`: salida1 esperada del script, siete expectativas incumplidas. Datos exactos en `casos-discriminantes.json`; script en `.cache/procedencia/revision-autonomicas-2012-2016/fallos.ts`. Son pruebas de cuota bruta; **no se ejecutaron declaraciones completas con mínimos**. La corrección debe comprobar cuota fija más exceso en cada frontera, mínimo, suma final y redondeo. No debe cambiar todos los territorios a partir de estos dos casos.
 
 ## Objeciones resueltas y pendientes
 
@@ -44,4 +46,4 @@ El estado auditado es el código posterior a lint y a las dos correcciones comun
 
 Se mantiene la separación entre igualdad numérica y vigencia: las cifras coincidentes no promocionan las90 escalas. Hacienda aporta evidencia oficial secundaria y localización, pero sus errores de Murcia/Asturias impiden usarla como oráculo. Se conservan los céntimos porque las normas imprimen cuotas propias; la objeción sobre mínimos sigue abierta y limita el fix. Las cajas verificadas no sustituyen revisión visual ni PAdES/CSV: no se declaran firmas válidas. La interacción de mínimos se leyó, pero no se duplicó una auditoría de sus cuantías. Finalmente, la objeción de ausencia de pruebas ejecutadas queda resuelta **solo para los casos brutos entregados**, con siete fallos reales y sin modificación del motor.
 
-El coste explícito de esta revisión es no afirmar cierre jurídico exhaustivo: todos los IDs tienen decisión y todas las filas tienen contraste, pero faltan cadenas y liquidaciones para parte del ámbito. El orquestador puede actuar sobre los dos defectos de cuotas con las pruebas aportadas y los límites anteriores; no puede presentar estos resultados como certificación general de2012–2016.
+El coste explícito de esta revisión es no afirmar cierre jurídico exhaustivo: todos los IDs tienen decisión y todas las filas tienen contraste, pero faltan cadenas y liquidaciones para parte del ámbito. Las pruebas aportadas fundamentan los dos defectos de cuotas dentro de esos límites; no certifican globalmente 2012–2016.

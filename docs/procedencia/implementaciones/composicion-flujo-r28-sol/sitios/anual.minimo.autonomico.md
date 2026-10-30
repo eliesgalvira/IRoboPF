@@ -1,12 +1,14 @@
 # anual.minimo.autonomico
 
-Candidato pendiente de revisión independiente. Cierre técnico: false. Publicación y aceptación jurídica: false.
+Estado del candidato histórico: revisión independiente pendiente; cierre técnico, publicación y aceptación jurídica: false.
 
 Fórmula TS: parametrosComunidad.minimoAutonomicoIgualEstatal
                 ? "Coincide con el mínimo estatal"
                 : `Minimos autonomicos IRPF ${caso.anio} de ${parametrosComunidad.escalaAutonomica.nombre}`
 
 Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y aplicabilidad separados; ninguna aceptación jurídica.
+
+El detalle de productores y literales, con archivo, rango y relación, se conserva en [composicion.json.gz](../composicion.json.gz). Las limitaciones no resueltas de esta ficha son:
 
 - {
     _tag: "ParametrosComunidadAutonoma",
@@ -25,30 +27,11 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
         Effect.fail({
           _ta / minimosAutonomicos.contribuyente.general (EUR, value); Admisión Effect/servicio pendiente; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:16362–17338
 - {
-    anio,
-    edad: situacionFamiliar.edad,
-    minimos,
-  } / minimos.contribuyente.adicionalMayor65 (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:62994–63056
-- {
     _tag: "ParametrosComunidadAutonoma",
     comunidadAutonoma,
     anio: 2024,
     minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_202 / value (EUR, value); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:12420–12862
-- caso.situacionFamiliar / discapacidad (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21850–21872
 - (a, b) => b.edad - a.edad / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/minimos/minimo-descendientes.ts:1066–1091
-- obtenerMinimoDiscapacidadFamiliares(
-    situacionFamiliar.descendientes,
-    minimos
-  ).plus(
-    obtenerMinimoDiscapacidadAscendientes(
-      situacionFamili / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63429–63629
-- minimos / contribuyente.general (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63044–63051
-- caso.derechosMinimos === undefined
-      ? undefined
-      : yield* calcularDerechosMinimos(
-          caso.derechosMinimos,
-          parametrosComunidad.minim / total (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20196–20423
-- IMPORTE_CERO / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-discapacidad.ts:1835–1847
 - caso / comunidadAutonoma (selector, selection); public-input; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:9398–9402
 - ({
           _tag: "ComunidadAutonomaNoSoportada",
@@ -56,54 +39,34 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
           anio: 2026,
           motivo:
             "IRPF 2026 solo esta modelad / value (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16051–16416
-- caso / situacionFamiliar.edad (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21850–21854
-- resolverParametrosComunidadAutonoma2018(comunidadAutonoma) / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17418–17476
 - {
     _tag: "ParametrosComunidadAutonoma",
     comunidadAutonoma,
     anio: 2018,
     minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / value (EUR, value); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:9752–10194
-- resolverParametrosComunidadAutonoma2022({
-        comunidadAutonoma,
-        fechaFallecimiento,
-      }) / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17814–17919
-- caso.situacionFamiliar / ascendientes (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21850–21872
 - EffectArray.reduce(ascendientes, IMPORTE_CERO, (total, ascendiente) =>
     total.plus(
       obtenerMinimoPorDiscapacidad(
         ascendiente.discapacidad,
     / value (EUR, value); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/irpf/minimos/minimo-discapacidad.ts:1802–2017
-- Match.value(edad).pipe(
-    Match.when(
-      (edad) => edad >= 75,
-      () => minimos.contribuyente.adicionalMayor75
-    ),
-    Match.orElse(() => IMPORTE_CER / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1383–1549
-- minimos.contribuyente / adicionalMayor75 (EUR, value); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1463–1484
-- situacionFamiliar / edad (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63016–63033
-- parametrosComunidad.minimosAutonomicos / contribuyente.adicionalMayor75 (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21912–21950
 - Match.valueTags(
     resultadoParametrosComunidad,
     {
       ComunidadAutonomaNoSoportada: (parametrosComunidad) =>
         Effect.fail({
           _tag: "Res / minimosAutonomicos.contribuyente.adicionalMayor65 (EUR, value); Contrato de llamada pendiente: Match.valueTags; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:16369–17338
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- ascendientes / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-ascendientes.ts:531–543
 - {
     _tag: "ParametrosComunidadAutonoma",
     comunidadAutonoma,
     anio: 2020,
     minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_202 / value (EUR, value); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:11086–11528
 - Effect.mapError(errorDerechosMinimos) / value (EUR, value); Contrato de llamada pendiente: Effect.mapError; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20385–20422
-- minimoDiscapacidadContribuyente / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63731–63762
 - ({
           _tag: "ParametrosComunidadAutonoma",
           comunidadAutonoma,
           anio: 2026,
           minimoAutonomicoIgualEstatal: true,
           esc / value (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:15499–15988
-- IMPORTE_CERO / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-ascendientes.ts:545–557
 - calcularDerechosMinimos(
           caso.derechosMinimos,
           parametrosComunidad.minimosAutonomicos
@@ -111,10 +74,6 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
           caso.derechosMinimos,
           parametrosComunidad.minimosAutonomicos
         ).pipe; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20264–20423
-- incrementoMayor75 / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1600–1617
-- resolverParametrosComunidadAutonoma2024(comunidadAutonoma) / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:18106–18164
-- anio / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16651–16655
-- minimoBase.plus(incrementoMayor65).plus(incrementoMayor75) / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1560–1618
 - descendientes
       .filter(
         (familiar) =>
@@ -126,82 +85,30 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
           familiar.edad < 25 || familiar.discapacidad._tag !== "SinDiscapacidad"
       )
       .toSorted; lib/dominio/irpf/minimos/minimo-descendientes.ts:910–1092
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- caso / derechosMinimos (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20196–20200
-- crearImporteMonetario(0) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- minimos / contribuyente.general (EUR, value); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1130–1137
-- situacionFamiliar / ascendientes (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63574–63591
-- minimos.contribuyente / general (EUR, value); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1130–1151
-- {
-      situacionFamiliar: caso.situacionFamiliar,
-      anio: caso.anio,
-      minimos: parametrosComunidad.minimosAutonomicos,
-    } / situacionFamiliar.ascendientes (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21823–21957
-- minimos / contribuyente.adicionalMayor65 (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63044–63051
-- resolverParametrosComunidadAutonoma2019(comunidadAutonoma) / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17517–17575
 - EffectArray.reduce(familiares, IMPORTE_CERO, (total, familiar) =>
     total.plus(
       obtenerMinimoPorDiscapacidad(
         familiar.discapacidad,
         min / value (EUR, value); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/irpf/minimos/minimo-discapacidad.ts:1406–1614
-- minimos / contribuyente.adicionalMayor75 (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63044–63051
 - caso / situacionFamiliar.edad (selector, selection); public-input; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:9398–9402
-- caso.situacionFamiliar / descendientes (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21850–21872
-- {
-      situacionFamiliar: caso.situacionFamiliar,
-      anio: caso.anio,
-      minimos: parametrosComunidad.minimosAutonomicos,
-    } / situacionFamiliar.edad (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21823–21957
-- Match.value(comunidadAutonoma).pipe(
-    Match.when(
-      "simulada-estatal",
-      () =>
-        ({
-          _tag: "ParametrosComunidadAutonoma",
-          c / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:15400–16426
-- edad / value (selector, selection); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1200–1204
-- minimos.contribuyente.adicionalMayor65 / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1268–1306
-- familiares / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-discapacidad.ts:1425–1435
-- minimos.contribuyente.adicionalMayor75 / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1463–1501
-- minimoAscendientes / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63701–63719
 - {
     _tag: "ParametrosComunidadAutonoma",
     comunidadAutonoma,
     anio: 2022,
     minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_202 / value (EUR, value); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:14053–14536
-- situacionFamiliar / discapacidad (EUR, value); productor; lib/dominio/irpf/minimos/minimo-discapacidad.ts:1148–1165
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:18344–18361
-- 0 / value (EUR, value); literal; lib/dominio/dinero/importe-monetario.ts:492–493
 - {
     _tag: "ParametrosComunidadAutonoma",
     comunidadAutonoma,
     anio: 2014,
     minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / value (EUR, value); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:6891–7342
-- minimoContribuyente / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63640–63659
-- resolverParametrosComunidadAutonoma2023({
-        comunidadAutonoma,
-        fechaFallecimiento,
-      }) / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17960–18065
-- caso.derechosMinimos / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20196–20216
 - caso / anio (selector, selection); public-input; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:9398–9402
-- 0 / value (EUR, value); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- minimoDescendientes / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63670–63689
 - yield* Match.valueTags(
     resultadoParametrosComunidad,
     {
       ComunidadAutonomaNoSoportada: (parametrosComunidad) =>
         Effect.fail({
           _ta / minimosAutonomicos.contribuyente.adicionalMayor65 (EUR, value); Admisión Effect/servicio pendiente; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:16362–17338
-- resolverParametrosComunidadAutonoma2013(comunidadAutonoma) / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16795–16853
-- parametrosComunidad / minimosAutonomicos.contribuyente.general (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21912–21931
 - caso / situacionFamiliar.discapacidad (EUR, value); public-input; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:9398–9402
-- {
-    anio,
-    edad: situacionFamiliar.edad,
-    minimos,
-  } / edad (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:62994–63056
-- 0 / value (EUR, value); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
 - (total, ascendiente) =>
     total.plus(
       obtenerMinimoPorDiscapacidad(
@@ -209,205 +116,74 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
         minimos.discapacidad.ascendiente
       )
   / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/minimos/minimo-discapacidad.ts:1849–2013
-- derechosAutonomicos / total (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21757–21776
-- parametrosComunidad / minimosAutonomicos.contribuyente.adicionalMayor65 (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21912–21931
-- resolverParametrosComunidadAutonoma2026(comunidadAutonoma) / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:18304–18362
-- edad >= 75 / value (selector, selection); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1439–1449
-- caso.comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:16181–16203
-- minimos.contribuyente.general / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1130–1159
-- minimoBase / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1560–1570
 - {
       ComunidadAutonomaNoSoportada: (parametrosComunidad) =>
         Effect.fail({
           _tag: "ResultadoNoSoportado",
           motivo: parametrosComunid / value (EUR, value); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:16424–17334
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- undefined / total (EUR, value); literal; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20239–20248
 - {
     _tag: "ParametrosComunidadAutonoma",
     comunidadAutonoma,
     anio: 2013,
     minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / value (EUR, value); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:6155–6562
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- situacionFamiliar.ascendientes / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63118–63148
 - Match.valueTags(
     resultadoParametrosComunidad,
     {
       ComunidadAutonomaNoSoportada: (parametrosComunidad) =>
         Effect.fail({
           _tag: "Res / minimosAutonomicos.contribuyente.adicionalMayor75 (EUR, value); Contrato de llamada pendiente: Match.valueTags; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:16369–17338
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- caso / situacionFamiliar.descendientes (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21850–21854
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- minimos / contribuyente.adicionalMayor75 (EUR, value); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1463–1470
-- minimoContribuyente
-    .plus(minimoDescendientes)
-    .plus(minimoAscendientes) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63640–63720
 - ({
           _tag: "ComunidadAutonomaNoSoportada",
           comunidadAutonoma,
           anio,
           motivo: `Escalas autonomicas del anio ${anio} aun no i / value (EUR, value); Forma AST no admitida: SatisfiesExpression; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:18412–18909
-- caso.derechosMinimos === undefined / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20196–20230
-- calcularMinimoPersonalYFamiliar({
-      situacionFamiliar: caso.situacionFamiliar,
-      anio: caso.anio,
-      minimos: parametrosComunidad.minimosAutonomicos, / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21791–21958
-- edad / value (selector, selection); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1395–1399
-- obtenerMinimoContribuyente({
-    anio,
-    edad: situacionFamiliar.edad,
-    minimos,
-  }) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:62967–63057
 - {
     _tag: "ParametrosComunidadAutonoma",
     comunidadAutonoma,
     anio: 2016,
     minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / value (EUR, value); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:8418–8860
-- comunidadAutonoma / value (selector, selection); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:15412–15429
-- IMPORTE_CERO / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1337–1349
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- obtenerMinimoDiscapacidadFamiliares(
-    situacionFamiliar.descendientes,
-    minimos
-  ) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63429–63518
-- crearImporteMonetario(0) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- minimoDiscapacidadFamiliares / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63774–63802
-- valor / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:279–284
-- caso / anio (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:16112–16116
-- derechosAutonomicos?.total / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21757–21783
-- obtenerParametrosComunidadAutonomaPuro({
-        anio: caso.anio,
-        baseLiquidableGeneral,
-        comunidadAutonoma: caso.comunidadAutonoma,
-        fech / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:16057–16266
-- edad / value (selector, selection); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1244–1248
-- obtenerMinimoDiscapacidadContribuyente(situacionFamiliar, minimos) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63323–63389
-- resolverParametrosComunidadAutonoma2014({
-        baseLiquidableGeneral,
-        comunidadAutonoma,
-      }) / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16894–17002
-- 0 / value (EUR, value); literal; lib/dominio/dinero/importe-monetario.ts:492–493
 - (total, descendiente, indice) => {
       const incrementoMenorTres =
         descendiente.edad < 3
           ? minimos.descendientes.adicionalMenorTres
          / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/minimos/minimo-descendientes.ts:1116–1400
-- caso / comunidadAutonoma (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:16181–16185
-- discapacidad / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-discapacidad.ts:573–585
 - (total, ascendiente) => {
     const minimoPorEdad =
       ascendiente.edad >= 65 ||
       ascendiente.discapacidad._tag !== "SinDiscapacidad"
         ? minimos. / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/minimos/minimo-ascendientes.ts:559–974
-- caso.situacionFamiliar / edad (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21850–21872
-- situacionFamiliar.descendientes / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63470–63501
-- resolverParametrosComunidadAutonoma2021(comunidadAutonoma) / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17715–17773
 - {
     _tag: "ParametrosComunidadAutonoma",
     comunidadAutonoma,
     anio: 2025,
     minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_202 / value (EUR, value); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:14761–15262
-- resolverParametrosComunidadAutonoma2020(comunidadAutonoma) / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17616–17674
-- 0 / value (EUR, value); literal; lib/dominio/dinero/importe-monetario.ts:492–493
-- resolverParametrosComunidadAutonoma2025(comunidadAutonoma) / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:18205–18263
-- IMPORTE_CERO / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-descendientes.ts:1098–1110
-- {
-        anio: caso.anio,
-        baseLiquidableGeneral,
-        comunidadAutonoma: caso.comunidadAutonoma,
-        fechaFallecimiento: caso.fechaFallecimiento / comunidadAutonoma (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:16096–16265
-- minimoPersonalYFamiliarAutonomico / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:45229–45262
 - {
     _tag: "ParametrosComunidadAutonoma",
     comunidadAutonoma,
     anio: 2019,
     minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / value (EUR, value); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:10419–10861
-- situacionFamiliar / descendientes (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63470–63487
-- {
-    anio,
-    edad: situacionFamiliar.edad,
-    minimos,
-  } / minimos.contribuyente.general (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:62994–63056
 - {
     SinDiscapacidad: () => IMPORTE_CERO,
     Discapacidad33a64: ({ necesitaAyudaOMovilidadReducida }) =>
       necesitaAyudaOMovilidadReducida
         ? minim / value (EUR, value); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/minimos/minimo-discapacidad.ts:587–921
-- derechosAutonomicos?.total ??
-    calcularMinimoPersonalYFamiliar({
-      situacionFamiliar: caso.situacionFamiliar,
-      anio: caso.anio,
-      minimos: param / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21757–21958
-- minimos / contribuyente.adicionalMayor65 (EUR, value); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1268–1275
-- situacionFamiliar.discapacidad / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-discapacidad.ts:1148–1178
 - errorDerechosMinimos / value (EUR, value); Función sin instancia de llamada; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20401–20421
-- obtenerMinimoDiscapacidadAscendientes(
-      situacionFamiliar.ascendientes,
-      minimos
-    ) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63529–63625
-- 65 / value (selector, selection); literal; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1252–1254
-- crearImporteMonetario(0) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:470–494
 - {
     _tag: "ParametrosComunidadAutonoma",
     comunidadAutonoma,
     anio: 2015,
     minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / value (EUR, value); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:7716–8193
-- Match.value(edad).pipe(
-    Match.when(
-      (edad) => edad >= 65,
-      () => minimos.contribuyente.adicionalMayor65
-    ),
-    Match.orElse(() => IMPORTE_CER / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1188–1354
-- situacionFamiliar.edad / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63016–63038
-- obtenerMinimoDescendientes(
-    situacionFamiliar.descendientes,
-    minimos
-  ) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63196–63276
-- crearImporteMonetario(0) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- {
-      situacionFamiliar: caso.situacionFamiliar,
-      anio: caso.anio,
-      minimos: parametrosComunidad.minimosAutonomicos,
-    } / situacionFamiliar.descendientes (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21823–21957
-- medirAuditoriaSync(
-    "liquidacion.parametrosComunidad.obtener",
-    () =>
-      obtenerParametrosComunidadAutonomaPuro({
-        anio: caso.anio,
-        bas / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15974–16270
 - {
     _tag: "ParametrosComunidadAutonoma",
     comunidadAutonoma,
     anio: 2012,
     minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_201 / value (EUR, value); Objeto completo: se exige propiedad de salida; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:5523–5930
-- resolverParametrosComunidadAutonoma2015({
-        baseLiquidableGeneral,
-        comunidadAutonoma,
-        fechaFallecimiento,
-      }) / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17043–17179
-- minimoContribuyente
-    .plus(minimoDescendientes) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63640–63690
-- resolverParametrosComunidadAutonoma2012(comunidadAutonoma) / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16696–16754
-- crearImporteMonetario(0) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- undefined / value (selector, selection); literal; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20221–20230
 - Match.valueTags(
     resultadoParametrosComunidad,
     {
       ComunidadAutonomaNoSoportada: (parametrosComunidad) =>
         Effect.fail({
           _tag: "Res / minimosAutonomicos.contribuyente.general (EUR, value); Contrato de llamada pendiente: Match.valueTags; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:16369–17338
-- parametrosComunidad / minimosAutonomicos.contribuyente.adicionalMayor75 (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21912–21931
-- resultadoParametrosComunidad / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:16390–16418
-- IMPORTE_CERO / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1532–1544
-- Match.value(anio).pipe(
-    Match.when(2012, () =>
-      resolverParametrosComunidadAutonoma2012(comunidadAutonoma)
-    ),
-    Match.when(2013, () =>
-      reso / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:16639–18919
-- situacionFamiliar / discapacidad (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63362–63379
-- 0 / value (EUR, value); literal; lib/dominio/dinero/importe-monetario.ts:492–493
 - {
     _tag: "ParametrosComunidadAutonoma",
     comunidadAutonoma,
@@ -420,83 +196,18 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
       ComunidadAutonomaNoSoportada: (parametrosComunidad) =>
         Effect.fail({
           _ta / minimosAutonomicos.contribuyente.adicionalMayor75 (EUR, value); Admisión Effect/servicio pendiente; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:16362–17338
-- obtenerMinimoAscendientes(
-    situacionFamiliar.ascendientes,
-    minimos
-  ) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63087–63165
-- minimoContribuyente
-    .plus(minimoDescendientes)
-    .plus(minimoAscendientes)
-    .plus(minimoDiscapacidadContribuyente) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63640–63763
-- {
-      situacionFamiliar: caso.situacionFamiliar,
-      anio: caso.anio,
-      minimos: parametrosComunidad.minimosAutonomicos,
-    } / situacionFamiliar.discapacidad (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21823–21957
-- situacionFamiliar.ascendientes / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63574–63604
-- caso / situacionFamiliar.ascendientes (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21850–21854
-- minimoContribuyente
-    .plus(minimoDescendientes)
-    .plus(minimoAscendientes)
-    .plus(minimoDiscapacidadContribuyente)
-    .plus(minimoDiscapacidadFamiliar / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63640–63803
-- obtenerMinimoPorDiscapacidad(
-    situacionFamiliar.discapacidad,
-    minimos.discapacidad.contribuyente
-  ) / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-discapacidad.ts:1114–1222
-- {
-    anio,
-    edad: situacionFamiliar.edad,
-    minimos,
-  } / minimos.contribuyente.adicionalMayor75 (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:62994–63056
-- edad >= 65 / value (selector, selection); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1244–1254
-- {
-        anio: caso.anio,
-        baseLiquidableGeneral,
-        comunidadAutonoma: caso.comunidadAutonoma,
-        fechaFallecimiento: caso.fechaFallecimiento / anio (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:16096–16265
-- {
-      situacionFamiliar: caso.situacionFamiliar,
-      anio: caso.anio,
-      minimos: parametrosComunidad.minimosAutonomicos,
-    } / minimos.contribuyente.general (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21823–21957
-- {
-      situacionFamiliar: caso.situacionFamiliar,
-      anio: caso.anio,
-      minimos: parametrosComunidad.minimosAutonomicos,
-    } / minimos.contribuyente.adicionalMayor65 (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21823–21957
-- 75 / value (selector, selection); literal; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1447–1449
 - caso / situacionFamiliar.descendientes (EUR, value); public-input; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:9398–9402
-- situacionFamiliar / ascendientes (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:63118–63135
-- resolverParametrosComunidadAutonoma2016(comunidadAutonoma) / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17220–17278
-- crearImporteMonetario(0) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:470–494
-- IMPORTE_CERO / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-discapacidad.ts:1437–1449
 - EffectArray.reduce(
     descendientes
       .filter(
         (familiar) =>
           familiar.edad < 25 || familiar.discapacidad._tag !== "SinDiscapacidad"
      / value (EUR, value); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/irpf/minimos/minimo-descendientes.ts:886–1404
-- parametrosComunidad.minimosAutonomicos / contribuyente.adicionalMayor65 (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21912–21950
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
-- minimoBase.plus(incrementoMayor65) / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1560–1594
-- minimos.contribuyente / adicionalMayor65 (EUR, value); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1268–1289
-- caso.anio / value (selector, selection); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:16112–16121
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
 - EffectArray.reduce(ascendientes, IMPORTE_CERO, (total, ascendiente) => {
     const minimoPorEdad =
       ascendiente.edad >= 65 ||
       ascendiente.discapacida / value (EUR, value); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/irpf/minimos/minimo-ascendientes.ts:512–975
 - caso / situacionFamiliar.ascendientes (EUR, value); public-input; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:9398–9402
-- parametrosComunidad.minimosAutonomicos / contribuyente.general (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21912–21950
-- caso / situacionFamiliar.discapacidad (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21850–21854
-- edad / value (selector, selection); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1439–1443
-- ascendientes / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-discapacidad.ts:1821–1833
-- {
-      situacionFamiliar: caso.situacionFamiliar,
-      anio: caso.anio,
-      minimos: parametrosComunidad.minimosAutonomicos,
-    } / minimos.contribuyente.adicionalMayor75 (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:21823–21957
 - (total, familiar) =>
     total.plus(
       obtenerMinimoPorDiscapacidad(
@@ -508,14 +219,10 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
     SinDiscapacidad: () => IMPORTE_CERO,
     Discapacidad33a64: ({ necesitaAyudaOMovilidadReducida }) =>
       necesitaAyudaOMov / value (EUR, value); Contrato de llamada pendiente: Match.valueTags; lib/dominio/irpf/minimos/minimo-discapacidad.ts:557–922
-- new Decimal(valor) / value (EUR, value); productor; lib/dominio/dinero/importe-monetario.ts:267–285
 - yield* calcularDerechosMinimos(
           caso.derechosMinimos,
           parametrosComunidad.minimosAutonomicos
         ).pipe(Effect.mapError(errorDerechosMin / total (EUR, value); Admisión Effect/servicio pendiente; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:20257–20423
-- resolverParametrosComunidadAutonoma2017(comunidadAutonoma) / value (EUR, value); productor; lib/dominio/irpf/comunidades/comunidad-autonoma.ts:17319–17377
-- incrementoMayor65 / value (EUR, value); productor; lib/dominio/irpf/minimos/minimo-contribuyente.ts:1576–1593
-
 ## Condiciones por relación
 
 - [selection] binding único desde servicio anual; e:2001

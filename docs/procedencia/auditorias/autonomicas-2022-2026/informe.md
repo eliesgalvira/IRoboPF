@@ -1,6 +1,8 @@
 # Auditoría candidata de escalas autonómicas 2022–2026
 
-Esta entrega no cierra la auditoría normativa exhaustiva: cubre la lectura de las tablas y resolutores del motor, el contraste de todas las escalas generales de 2022–2025 con los manuales AEAT de cada ejercicio y las dos variantes explícitas por fallecimiento. Falta completar la cadena de normas originales y modificaciones de cada territorio. Ningún hallazgo está aceptado. No se ha modificado código fiscal, ejecutado builds, inicializado repositorios, hecho commits ni movido bookmarks.
+Documento histórico: los resultados, referencias al motor y pendientes corresponden a la base examinada; no describen el estado vigente del proyecto.
+
+Esta entrega no cierra la auditoría normativa exhaustiva: cubre la lectura de las tablas y resolutores del motor, el contraste de todas las escalas generales de 2022–2025 con los manuales AEAT de cada ejercicio y las dos variantes explícitas por fallecimiento. Falta completar la cadena de normas originales y modificaciones de cada territorio. Ningún hallazgo está aceptado.
 
 ## Resultado comprobado
 
@@ -51,7 +53,7 @@ Las rutas ELI ensayadas para Valencia, Murcia y Canarias devolvieron HTML de err
 
 Pendiente por todos los años/territorios: cerrar modificaciones, correcciones de errores, derogaciones y vigencia exacta. En particular, falta cadena original completa para Andalucía, Aragón, Illes Balears, Cantabria, Castilla-La Mancha, Castilla y León, Galicia y los cambios posteriores de Madrid/Murcia/Valencia/Cataluña, además de los antecedentes de las escalas anteriores por fallecimiento. Las normas obtenidas para Asturias, Extremadura, La Rioja y Canarias aportan tramos o vigencia concretos, pero no se declaran cadenas completas. `cobertura.json` mantiene `complete: false` y detalla la matriz de 102 entradas: 68 generales reales, dos variantes, cinco simulaciones, diez ausencias forales y 17 rechazos reales de 2026. No son 102 checks normativos aprobados.
 
-Objeción experta a entregar esta ronda: aún no cumple la petición exhaustiva de originales para cada herencia. Motivo de conservarla: ofrece evidencia concreta y contraejemplos revisables sin contaminar el motor. Coste aceptado explícito: la investigación normativa restante sigue abierta y no debe cerrarse por el número de filas o por los tests existentes.
+Objeción experta al alcance documental: aún no cumple la petición exhaustiva de originales para cada herencia. Motivo de conservarla: ofrece evidencia concreta y contraejemplos revisables sin contaminar el motor. Coste aceptado explícito: la investigación normativa restante sigue abierta y no debe cerrarse por el número de filas o por los tests existentes.
 
 ## Reproducción
 

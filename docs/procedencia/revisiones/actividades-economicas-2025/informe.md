@@ -1,8 +1,10 @@
 # Revisión independiente de actividades económicas 2025
 
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
 Requiere cambios antes de implementar. Revisados los 16 IDs, los 18 ejemplos, las 16 fronteras y la especificación completa. Decisiones en `revisiones.json`: 12 aceptaciones de alcance limitado, un rechazo contractual (AE25-02) y tres pendientes de evidencia (AE25-03, 04, 08). **No son doce reglas completas certificadas ni autorización de liquidación.** Todos conservan el estado funcional previo `missing`: el motor actual no tiene rama de actividades.
 
-Revisión personal, sin delegados, modificaciones de código ni mutaciones VCS. Fuentes candidatas consultadas como índice; las conclusiones se apoyan en originales, extracción propia y lectura actual del código. Los cambios de Madrid y del texto del ejercicio no afectan a esta vertical. No se interpreta una diferencia con el hash inicial d4d708f6 como corrupción.
+Las conclusiones se apoyan en originales, extracción propia y lectura del código de la versión examinada. Las fuentes candidatas se consultaron como índice. Los cambios de Madrid y del texto del ejercicio no afectan a esta vertical; una diferencia respecto del hash inicial d4d708f6 no se interpreta por sí sola como corrupción.
 
 ## Cambios necesarios
 
@@ -42,7 +44,7 @@ El código actual confirma ausencia en `caso-fiscal-anual.ts:98` y `base-imponib
 
 ## Casos, cobertura y objeciones
 
-`casos.json` conserva decisión y alcance de cada uno de los18 ejemplos y16 fronteras, más cinco casos independientes para pruebas futuras del orquestador. Se recalcularon los18 ejemplos con Decimal propio:18 coincidencias aritméticas, sin ejecutar motor. Los booleanos de elegibilidad de esos fixtures son supuestos; no prueban contrato ni derecho. Se ejecutaron comparaciones50/70/30%,600000 y las cuatro fronteras8000/12000. El resto de fronteras se revisó documentalmente; no se etiquetan como pruebas ejecutadas. RETA y prorrata quedan pendientes en F07/F09. El caso de2026 es solo secuencia hipotética del plazo, no aceptación de normativa2026.
+`casos.json` conserva decisión y alcance de cada uno de los18 ejemplos y16 fronteras, más cinco casos independientes para pruebas futuras. Se recalcularon los18 ejemplos con Decimal propio:18 coincidencias aritméticas, sin ejecutar motor. Los booleanos de elegibilidad de esos fixtures son supuestos; no prueban contrato ni derecho. Se ejecutaron comparaciones50/70/30%,600000 y las cuatro fronteras8000/12000. El resto de fronteras se revisó documentalmente; no se etiquetan como pruebas ejecutadas. RETA y prorrata quedan pendientes en F07/F09. El caso de2026 es solo secuencia hipotética del plazo, no aceptación de normativa2026.
 
 Las objeciones del autor se revisaron una por una: mantener servicios/sin otras rentas es defendible con coste de baja cobertura; lista cerrada evita deducción libre pero requiere los nuevos rechazos; opción ordinaria de amortización es lícita y no optimiza incentivos; separar RETA pagada de simulación TGSS evita circularidad pero no suple doctrina; separar art32/art20 es obligatorio; impedir liquidación antes de BIG/BLG es correcto; consolidados como índice son útiles pero insuficientes; cajas sin recorte publicado no cumplen todavía captura final. Ninguna de estas objeciones se resuelve contando tests.
 

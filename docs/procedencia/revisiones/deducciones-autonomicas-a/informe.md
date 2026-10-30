@@ -1,12 +1,14 @@
 # Revisión independiente — deducciones autonómicas A
 
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
 Veredicto: **requiere cambios y continuación documental**. Fecha: 29/10/2026. Se emite decisión para los **191 IDs**, sin omisiones. Se confirma por lectura del evaluador y sondeo de cada código la clasificación de las **168 fichas: 111 manuales, 32 genéricas y 25 específicas parciales**. Se reproducen las salidas de los **19 casos** sobre código actual. Se ejecutan además cuatro contraejemplos propios. **No se ha completado la auditoría jurídica de todas las condiciones de las 168 fichas ni los contratos íntegros solicitados.** No se certifica fiscalidad por conteos, coincidencias ni autotests.
 
 `revisiones.json` contiene estado anterior, decisión, motivo, acceptanceScope, fuentes utilizadas, localización actual y objeciones por ID. `cobertura-ids.json` demuestra igualdad de conjuntos, no suficiencia jurídica. Resultado: 119 accepted y 72 needs-evidence; cero rejected. De los 119, **111 aceptan exclusivamente ausencia de fórmula automática**, siete aceptan discrepancias puntuales bajo supuestos delimitados y uno el defecto de ámbito. Ninguna ficha fiscal completa está aprobada. La clasificación técnica de las otras 57 fichas también está comprobada, aunque su hallazgo integral queda needs-evidence.
 
 ## Hallazgos accionables
 
-**P1 — contaminación territorial.** `components/liquidacion-irpf.tsx:571` conserva entradas en estado; `:597` solo anula el resultado para simulada-estatal; `:817` pasa el setter sin limpieza; `:1342` lo conecta directamente al selector; `:1407` actualiza por mezcla con el objeto anterior. El helper `lib/dominio/irpf/deducciones-autonomicas-aplicadas.ts:882` no recibe territorio y suma todas las comunidades. Repro: activar un nacido andaluz (200), cambiar a Aragón con las entradas persistentes; el llamador sigue produciendo 200. Confirmado por flujo de código y reproducción del llamador, **sin navegador ni prueba de montaje React**. Añadir regresión de interacción y contrato de filtrado en el orquestador. La pantalla declara expresamente 2025: se descarta atribuirle un selector histórico observado; la falta de ejercicio es una limitación del helper reutilizable.
+**P1 — contaminación territorial.** `components/liquidacion-irpf.tsx:571` conserva entradas en estado; `:597` solo anula el resultado para simulada-estatal; `:817` pasa el setter sin limpieza; `:1342` lo conecta directamente al selector; `:1407` actualiza por mezcla con el objeto anterior. El helper `lib/dominio/irpf/deducciones-autonomicas-aplicadas.ts:882` no recibe territorio y suma todas las comunidades. Repro: activar un nacido andaluz (200), cambiar a Aragón con las entradas persistentes; el llamador sigue produciendo 200. Confirmado por flujo de código y reproducción del llamador, **sin navegador ni prueba de montaje React**. La corrección requiere una regresión de interacción y un contrato de filtrado. La pantalla declara expresamente 2025: se descarta atribuirle un selector histórico observado; la falta de ejercicio es una limitación del helper reutilizable.
 
 **P1 — nacimiento andaluz.** Helper `:885`. Repro múltiple: dos nacidos, municipio ordinario, un titular: 400 frente a 800. Repro reparto: un nacido, dos titulares con derecho: 200 frente a 100 para cada uno. La combinación de nacimiento y familia numerosa del caso del autor suma 400 donde no deben acumularse. Original modificador nuevo BOE-A-2026-945, pp. 79 y 93: artículo completo y efectos 1/1/2025. Esta proposición se contrasta con el original 2021 y manual; la página 79 se inspeccionó visualmente, sin tachados. Corregir después de prueba fallida con sujetos/evento/titulares representados. No reintroducir el límite de renta de 2021, suprimido por esta reforma.
 
@@ -20,7 +22,7 @@ Veredicto: **requiere cambios y continuación documental**. Fecha: 29/10/2026. S
 
 ## Evidencia independiente y avances de vigencia
 
-Se leyeron BRIEF, contrato, coordinación y estado. Los informes y JSON del autor se usaron como **lista de candidatos**, no como autoridad probatoria. Se abrieron originales desde CAS, se comprobaron 41 hashes y se reextrajeron los 4415 selectores PDF de los cuatro archivos: cero diferencias. `integridad-extraccion.json` registra cada comprobación. Los dos HTML genéricos de Castilla y León siguen sin ser articulado: comprobar su hash no revoca su rechazo documental.
+Los informes y JSON de la entrega se usaron como **lista de candidatos**, sin atribuirles autoridad probatoria. Se abrieron originales desde CAS, se comprobaron 41 hashes y se reextrajeron los 4415 selectores PDF de los cuatro archivos: cero diferencias. `integridad-extraccion.json` registra cada comprobación. Los dos HTML genéricos de Castilla y León siguen sin ser articulado: comprobar su hash no revoca su rechazo documental.
 
 Se adquirieron **siete originales adicionales** mediante el descargador autorizado, en CAS propio, con su lock de máquina, User-Agent y ritmo: reforma andaluza Ley 8/2025; Ley cántabra 3/2024; originales HTML aragoneses Leyes 13/2005 y 12/2010; BOC original Ley cántabra 3/2023; consolidado asturiano posterior; original Ley asturiana 5/2025. El consolidado adicional es documento de contraste, no disposición original. `documentos-adicionales.json` conserva adquisición, hash y alcance de autenticidad sin validar; no se ha validado PAdES/CSV.
 
@@ -35,7 +37,7 @@ Cantabria: las sustituciones completas de alquiler, cuidado y nacimiento están 
 - Consignación profesional: objeción válida; se reduce la aceptación al modo de ejecución, sin desacreditar una entrada manual explícita.
 - Porcentaje correcto: insuficiente; no elimina prorratas, límites conjuntos, identidad ni incompatibilidades. Las fichas parciales quedan pendientes.
 - Edición actual frente a antigua: hashes diferentes no son corrupción. Se mantiene el original de 635 páginas y sus selectores; no se aplica desplazamiento fijo a la versión antigua.
-- Corrección inmediata: no se cambia código aquí. Se entregan casos propios y candidatos para que el orquestador escriba regresiones fallidas antes del fix.
+- Los casos propios fijan expectativas para regresiones previas a la corrección.
 - Extracción por bloques: verifica texto, no cada condición. Se añaden líneas prioritarias; faltan facsímiles finales, celdas y revisión visual completa.
 - Exhaustividad: 191 decisiones no equivalen a revisión jurídica exhaustiva. El encargo de cerrar todos los contratos sigue sin satisfacer; se deja explícito en cada aceptación limitada y en los 72 pendientes.
 

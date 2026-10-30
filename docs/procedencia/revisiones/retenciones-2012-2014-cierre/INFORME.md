@@ -1,6 +1,8 @@
 # Revisión 2012–2014: entrega parcial, cierre NO alcanzado
 
-Base y HEAD: `65cff4fd8eb8c6269c2ce97b88e770aa711bff7f`. Revisor Codex en `t3-cc935516`, trabajo personal sin subdelegación. No se han cambiado el motor, versiones habilitadas, oracles, registros ni atestaciones. No debe integrarse esta entrega como cierre fiscal de 2012–2014.
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
+Base examinada: `65cff4fd8eb8c6269c2ce97b88e770aa711bff7f`. Este informe no constituye cierre fiscal de 2012–2014 ni habilita sus versiones.
 
 Se comprobaron las 9.391 entradas de la base con lstat y lectura del destino de los enlaces simbólicos cuando corresponde: cero ausencias; diff inicial vacío. Los cuatro PDF de enero/febrero de 2012, 2013 y 2014 coinciden con SHA-256, SHA-512 y tamaños del manifiesto previo. Son 187 páginas, no 187 páginas jurídicamente revisadas. Se extrajeron todas a scratch; se inspeccionaron personalmente doce imágenes AEAT: páginas físicas 22, 28 y 29 de cada versión. Además se adquirió el original BOE de RD439/2007 y se leyó e inspeccionó su página física 39, impresa 14135. El mapa registra expresamente las páginas no inspeccionadas. No se declara lectura jurídica ni visual exhaustiva.
 

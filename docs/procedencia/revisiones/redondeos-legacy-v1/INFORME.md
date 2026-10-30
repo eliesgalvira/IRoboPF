@@ -1,6 +1,8 @@
 # Revisión independiente de redondeos legacy v1
 
-Base comprobada: eaed990c620b5fc4d3ff2e74dc68e0c8481c43db. Revisión personal, sin subdelegación ni fixes. Solo se escribe en esta carpeta absoluta del padre. No se cambia el fixture canonical-tabular-hashes.json, código, originales, package, lockfiles, CI, ESTADO ni DECISIONES. No hay operaciones VCS mutantes, PR, despliegue ni borrados.
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
+Base examinada: eaed990c620b5fc4d3ff2e74dc68e0c8481c43db. Se conserva el fixture `canonical-tabular-hashes.json`; esta revisión no corrige el código ni los esperados.
 
 ## Método y decisión
 

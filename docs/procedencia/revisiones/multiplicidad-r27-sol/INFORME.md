@@ -1,12 +1,14 @@
 # Contrarrevisión personal de multiplicidad y BORM R27
 
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
 Dictamen de las comprobaciones terminadas: RX25-01 se reproduce con las fuentes anteriores y la solución actual conserva los 228 enlaces admitidos, sin deduplicar ejercicios. La revisión conserva además contrapruebas de reconstrucción y de estados distintos; sus resultados definitivos se registran al final de este informe. No se autoriza promoción de confianza ni aceptación de una regla fiscal completa. El encargo global continúa abierto.
 
-Trabajo realizado personalmente en T3 Code mediante harness Codex, modelo efectivo comunicado por runtime gpt-6.1-sol, esfuerzo high. Priority solicitada, sin telemetría independiente del tier. Sin subdelegación. Base/HEAD exigidos: `1ed8acfdf77dfee5330da0f0131f42956b45206a`, 15.730 entradas. Contraste histórico: `ae37484d2ea5e56ff6cda68283ec7e1ef7a443df`. comparacion.diff conserva los cambios de fuentes pertinentes. No hay fixes de producto, commits ni mutaciones VCS. Se escribe exclusivamente esta carpeta y `.cache/multiplicidad-r27-sol/`.
+Base examinada: `1ed8acfdf77dfee5330da0f0131f42956b45206a`, 15.730 entradas. Contraste histórico: `ae37484d2ea5e56ff6cda68283ec7e1ef7a443df`. `comparacion.diff` conserva los cambios de fuentes pertinentes.
 
 ## Fuentes, identidad y recepción
 
-Se leen íntegros BRIEF, AGENTS, contrato y coordinación; se examinan la situación actual de ESTADO/DECISIONES, los informes del padre R27 y recepción, la revisión registro-exacto-r25-sol y el código anterior/actual. Las primeras lecturas conjuntas se truncaron y se reabrieron los informes pertinentes por separado. Se respeta la sustitución expresa del modelo del BRIEF y de sus permisos históricos de edición y VCS. No se leen entregas en curso de CAS, v5, escalas o preservación.
+Se examinaron los informes R27 y recepción, registro-exacto-r25-sol y código anterior y posterior.
 
 El cotejo inicial compara físicamente todas las entradas, un blob cada vez, con lstat/readlink/bytes y ejecutabilidad aplicable en ambos sentidos: cero discrepancias y diff vacío. El índice no es la prueba de presencia. Cada archivo de esta entrega es nuevo, con baseSha256 null; ningún original asignado cambia. El cotejo final y el manifiesto completan la comprobación de salida.
 

@@ -1,6 +1,8 @@
 # Contrarrevisión de coherencia e IPC v1
 
-Base: `c61a306107f280c399eb57e57a7c45452bd68864`. Revisión personal, sin subdelegación, fixes, operaciones VCS mutantes ni nuevas atestaciones. **Las correcciones RTI-01/02/03, AUD-MODO, CV2-01/02 y CMV2-01 son aprobables dentro del alcance técnico descrito. La separación IPC observado/escenario y el inverso quedan comprobados. Esto no cierra los redondeos legacy ni certifica liquidaciones completas.**
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
+Base examinada: `c61a306107f280c399eb57e57a7c45452bd68864`. **Las correcciones RTI-01/02/03, AUD-MODO, CV2-01/02 y CMV2-01 son aprobables dentro del alcance técnico descrito. La separación IPC observado/escenario y el inverso quedan comprobados. Esto no cierra los redondeos legacy ni certifica liquidaciones completas.**
 
 ## Decisiones individuales
 
@@ -36,7 +38,7 @@ Quedan fuera de cierre: concordancia Excel completa, asimetría mensual de Math.
 
 ## Evidencia, integridad y entrega
 
-Se leen íntegros BRIEF, AGENTS, contrato, coordinación, estado, decisiones y los seis informes principales de las carpetas solicitadas, incluidos ambos de corrección. Se inspeccionan los instrumentos, hallazgos y logs pertinentes. `lecturas-inventario.json` registra lectura mecánica íntegra y parseo de los 87 archivos auxiliares de esas carpetas; esto no equivale a nueva revisión sustantiva de cada una de las 625 cajas históricas ni a inspección visual de sus imágenes. No se atribuyen como propias las pruebas y verificaciones históricas que no se repitieron.
+Se examinaron los seis informes principales, incluidos ambos de corrección, y sus instrumentos, hallazgos y logs. `lecturas-inventario.json` registra lectura mecánica íntegra y parseo de 87 archivos auxiliares; esto no equivale a nueva revisión sustantiva de las 625 cajas históricas ni a inspección visual de sus imágenes. Las comprobaciones históricas no repetidas conservan su autoría.
 
 `base-verificada.json` coteja los 5.281 archivos de la base con los bytes presentes: cero ausencias; 5.280 coinciden. Solo AGENTS.md difiere de la base; no lo he editado y se conserva, sin reparación del índice. Las fuentes de producto examinadas coinciden con la base. Todos los entregables están en la carpeta exclusiva del padre. No hay patch porque no hay implementación ni fixes; no hay binarios nuevos.
 

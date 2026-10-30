@@ -1,10 +1,12 @@
 # anual.ganancias.total
 
-Candidato pendiente de revisión independiente. Cierre técnico: false. Publicación y aceptación jurídica: false.
+Estado del candidato histórico: revisión independiente pendiente; cierre técnico, publicación y aceptación jurídica: false.
 
 Fórmula TS: "Suma de ganancias por transmisión"
 
 Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y aplicabilidad separados; ninguna aceptación jurídica.
+
+El detalle de productores y literales, con archivo, rango y relación, se conserva en [composicion.json.gz](../composicion.json.gz). Las limitaciones no resueltas de esta ficha son:
 
 - (ganancia) =>
       calcularGananciaPatrimonialPorTransmision({
@@ -13,7 +15,6 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
         ganancia,
         convertirCentimos,
       }) / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1477–1635
-- gananciasPatrimoniales / gananciaTotal (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:46820–46842
 - EffectArray.map(ganancias, (ganancia) =>
       calcularGananciaPatrimonialPorTransmision({
         anio,
@@ -35,11 +36,6 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
 - (total, ganancia) => ({
       gananciaTotal: total.gananciaTotal.plus(ganancia.gananciaTotal),
       gananciaExenta: total.gananciaExenta.plus(ganancia.ganancia / value (EUR, value); Forma AST no admitida: ArrowFunction; lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1816–2358
-- {
-        anio: caso.anio,
-        edadContribuyente: caso.situacionFamiliar.edad,
-        ganancias: Option.fromNullishOr(
-          caso.rendimientos.ganancia / ganancias (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14069–14338
 - Option.getOrElse(() => []) / value (EUR, value); Contrato de llamada pendiente: Option.getOrElse; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14259–14285
 - EffectArray.reduce(
     EffectArray.map(ganancias, (ganancia) =>
@@ -47,19 +43,6 @@ Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y
         anio,
         edadContribuyente,
      / gananciaTotal (EUR, value); Contrato de llamada pendiente: EffectArray.reduce; lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1426–2362
-- medirAuditoriaSync(
-    "liquidacion.gananciasPatrimoniales",
-    () =>
-      calcularGananciasPatrimonialesPorTransmision({
-        anio: caso.anio,
-        ed / gananciaTotal (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13946–14343
-- calcularGananciasPatrimonialesPorTransmision({
-        anio: caso.anio,
-        edadContribuyente: caso.situacionFamiliar.edad,
-        ganancias: Option.fromNu / gananciaTotal (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14024–14339
-- ganancias / value (EUR, value); productor; lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1466–1475
-- gananciasPatrimoniales.gananciaTotal / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:46820–46856
-
 ## Condiciones por relación
 
 - [value] argumento conservado sin afirmar cierre; e:1

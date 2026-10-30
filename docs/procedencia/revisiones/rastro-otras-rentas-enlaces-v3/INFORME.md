@@ -1,8 +1,10 @@
 # Revisión independiente de rastro, otras rentas y enlaces v3
 
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
 Dictamen: **solicitar una corrección técnica acotada, RV3-01 (P2)**. TDE-09/10 y ENV2-01 son aprobables dentro de sus contratos explícitos. No se acepta fiscalmente el inventario, una liquidación completa ni el payload nuevo de Madrid.
 
-Base examinada: `c2894133f9b5179a7a67364897fe0b04671715f1`. Revisión personal nueva, sin subdelegación, fixes, operaciones VCS mutantes, servidor ni navegador. El diff de fuentes lib/scripts/components/tests/corpus contra la base estaba vacío. Lectura de BRIEF, AGENTS, CONTRATO-AUDITORIA, COORDINACION, ESTADO, DECISIONES, RASTRO-INSTRUMENTADO, informes de trabajo, enlaces-v2 y sus correcciones. Solo se entrega esta carpeta. No se han modificado registros de confianza ni informes anteriores.
+Base examinada: `c2894133f9b5179a7a67364897fe0b04671715f1`. Las fuentes de lib, scripts, components, tests y corpus coincidían con esa base. Se examinaron RASTRO-INSTRUMENTADO, informes de trabajo, enlaces-v2 y sus correcciones.
 
 ## RV3-01 — La comprobación del rastro actual no detecta software de explicación obsoleto
 

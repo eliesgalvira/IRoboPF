@@ -6,9 +6,8 @@ Fórmula TS: "Importe declarado en el caso fiscal"
 
 Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y aplicabilidad separados; ninguna aceptación jurídica.
 
-- caso.retencionesSoportadasCentimos / value (centimos, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:58752–58786
-- centimosAEuros(caso.retencionesSoportadasCentimos) / value (EUR, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:58737–58787
-- caso / retencionesSoportadasCentimos (centimos, value); productor; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:58752–58756
+El detalle de productores y literales, con archivo, rango y relación, se conserva en [composicion.json.gz](../composicion.json.gz). Las limitaciones no resueltas de esta ficha son:
+
 - centimosAEuros = (centimos: number): ImporteMonetario =>
   crearImporteMonetario(centimos).div(100) / signature:centimosAEuros (EUR, value); primitive; lib/dominio/dinero/importe-monetario.ts:561–660
 - caso / retencionesSoportadasCentimos (centimos, value); public-input; lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:9398–9402

@@ -1,6 +1,8 @@
 # Diez sitios explícitos R62
 
-Candidato de implementación de gpt-6.1-sol high, trabajo personal sin subdelegación. Priority es la configuración solicitada; no hay recibo independiente del tier servido. Base exacta `1b0676b83dd3be448484c8167ebd1e308dacae30`, 23.648 entradas. Pendiente una única revisión independiente de este lote. No es autoaceptación fiscal.
+Documento histórico del candidato de este directorio. Los resultados y estados corresponden a esa versión; no acreditan el estado actual del proyecto.
+
+Base del candidato documentado: `1b0676b83dd3be448484c8167ebd1e308dacae30`.
 
 ## Alcance y decisiones
 
@@ -39,17 +41,15 @@ Los casos de actividad se admiten mediante la API financiera real, modifican ent
 
 ## Cronología y conservación
 
-El primer cotejo individual no tuvo lock; precedió las escrituras y encontró cero diferencias. Se repitió completo con lock antes de escribir, también sin diferencias, conservando el resultado inicial y esta desviación. `.git` es infraestructura del checkout, no un payload nuevo. El cotejo terminal usa el lock físico y compara todas las entradas contra blobs, con lstat/readlink/bytes/ejecutable y censo de extras; diff no lo sustituye.
-
-La primera invocación Node de effect-solutions falló por resolución de `ws`; Bun de Nix ejecutó list y show antes de la modificación del núcleo. Se consultó la fuente local v4 de Schema. El primer intento del oracle no resolvía un import JSON: no fue el rojo sustantivo. El rojo conservado alcanza una liquidación real con diferencial478.8217 y falla solo al exigir evidencia causal. Su ensayo y la versión previa del consumidor se conservan.
+El rojo conservado alcanza una liquidación real con diferencial 478.8217 y falla al exigir evidencia causal. El ensayo y la versión previa del consumidor se conservan.
 
 No se reescriben históricos/pins ni informes ajenos. Las pruebas pesadas toman flock exclusivamente durante cada comando, un trabajador; no se sostiene al escribir o esperar herramientas. No hay Next build ni suites legacy masivas. No hay mutaciones VCS, checkouts, main, PR, despliegue, servidor, preview, red externa, LFS, gasto, transferencia, limpieza o promoción de confianza.
 
 ## Entrega y trabajo posterior
 
-Manifiesto por ruta con SHA256/SHA512/tamaño/modo/baseSha256; patch gzip contra preimagen exacta y objetos por hash para binarios/vacíos. Reconstrucción en scratch que no es checkout, cotejo de conjunto/bytes/modos incluidos vacíos. Sobre y recibo terminal separados del payload, sin autorreferencia. Originales técnicos y paquetes conservados por hash. Ningún archivo alcanza10MiB.
+Los manifiestos del paquete histórico conservan sus hashes; la integridad no acredita aceptación fiscal.
 
-Tras completar las comprobaciones propias solo corresponde una revisión independiente de este lote, y otra ronda únicamente ante defecto reproducido. Estimación para esa revisión:4–8 horas; recepción mecánica:30–60 minutos. El trabajo futuro de familias excluidas requeriría aproximadamente20–40 horas de implementación y12–24 de revisión para propiedades, colecciones, etapas y variantes; es una estimación con incertidumbre, no un encargo iniciado. Composición global/admisión/puertas necesitan estimación propia y permanecen fuera. El tipado integral MJS se declara por separado de tipos principales y no se da por aprobado mediante coerciones.
+El lote requiere revisión independiente. Las familias de actividad, composición global, admisión y puertas quedan fuera del alcance. El tipado integral MJS se declara separado de los tipos principales.
 
 ## Resultado de ejecución propio
 
@@ -59,14 +59,12 @@ Las cuatro regresiones seleccionadas terminan0: SS compartida2025 canónico, nú
 
 Tipos TS del alcance y vendor terminan0 con compilador y plugins reales. Oxlint y ESLint terminan0; se elimina la variable local innecesaria del traductor nuevo. ESLint solo conserva el aviso de resolución de React del host. El ensayo negativo confirma16 reglas a error y ambos plugins reales rechazando su fixture. Los globales se mantienen separados: tras completar resolución real de Effect, React y @effect/vitest y corregir las firmas del consumidor, quedan cinco diagnósticos globales. No se afirma verde global en este checkout.
 
-Incidencias propias adicionales conservadas: un adverso asignaba otra lista vacía a obligaciones, sin producir ninguna alteración; se sustituye por una obligación ajena real. Una ejecución coincidió con el cambio de la firma del consumidor y rechazó correctamente la reconstrucción del contrato; la pasada final empieza con las fuentes estables y pasa. Un arnés de schema se lanzó antes de existir casos.json y terminó1 por ENOENT, después de validar el contrato; no es un fallo financiero ni un pase de testigos. Se conserva cada salida. La repetición propia está justificada por esos defectos concretos del arnés y por la regresión de tipos corregida.
+La mutación adversa añade una obligación ajena real: sustituir una lista vacía por otra no altera el contrato y no constituye un control negativo.
 
 El cuerpo histórico try/catch del consumidor es idéntico byte a byte a su preimagen; cuerpo-historico.json fija sus hashes. Las nuevas sobrecargas distinguen llamadas históricas y modo causal sin una aserción de tipo ni declaración ficticia. CheckJs estricto MJS permanece rojo y se desglosa por archivo/código, incluidos diagnósticos de archivos nuevos; no se atribuye el total a deuda anterior. Su coste futuro debe presupuestarse aparte (estimación orientativa12–24h para endurecer el lote nuevo y sus fronteras, con incertidumbre alta por la clausura común). No se reduce severidad ni se equipara a los tipos TS verdes.
 
 Cierre de calidad: schema estricto valida el contrato y25 testigos/225 salidas; se reproducen dos originales seleccionados. Los cinco diagnósticos globales coinciden byte a byte con la ejecución del compilador real sobre las tres preimágenes exactas leídas virtualmente, sin modificar el checkout. El checkJs terminal correcto registra1302 diagnósticos, 232 en archivos nuevos; el desglose completo permanece en checkjs-terminal-resumen.json.
 
-Una incidencia del arnés hizo coincidir el nombre de salida de un comando con checkjs.json, sobrescribiendo esa configuración tras la primera ejecución. La pasada posterior mal configurada se conserva y no se usa como evidencia de tipado. Se reconstruye la configuración real en checkjs-config.json y se ejecuta de nuevo bajo lock, manteniendo strict/checkJs/plugins/severidades. No se presenta el resultado rojo como aprobación. El índice schemas.json es el resultado estructural final; el ENOENT anterior se conserva en schemas.log.
+La evidencia válida de checkJs usa checkjs-config.json y mantiene strict/checkJs/plugins/severidades; su resultado es rojo. schemas.json conserva el resultado estructural final.
 
 COMANDOS.json y RESULTADOS.json distinguen fallos, pases y omisiones. Ningún testigo histórico previo al encargo ha sido reescrito. Los testigos intermedios propios se conservan por hash y no se suman a los25 actuales. La clasificación funcional del lote no acredita tipado integral MJS ni aceptación fiscal.
-
-El primer transporte se detuvo antes del cotejo de reconstrucción por un patch mal formado: splitlines interpretaba separadores Unicode internos como líneas, aunque el formato patch cuenta LF. Se conservan manifiesto, patch y programa del intento. El generador corregido divide exclusivamente por LF y aplica patch en modo binario para no normalizar CRLF. No cambia fuentes financieras ni resultados; la nueva reconstrucción usa otro scratch.

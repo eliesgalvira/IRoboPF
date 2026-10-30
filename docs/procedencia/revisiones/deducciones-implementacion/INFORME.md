@@ -1,8 +1,10 @@
 # Revisión independiente de la implementación de deducciones
 
-**Requiere cambios.** Revisión del 29 de octubre de 2026, realizada personalmente, sin subdelegar ni modificar implementación. Los seis archivos fijados en `hashes-codigo.json` coinciden byte a byte con `0ca324b08267`. El diff contra `d9ff49c7` está en `logs/diff-acotado.patch`: componente 12 líneas añadidas/4 retiradas, helper 10/4 y dos módulos nuevos, además de los dos tests nuevos. No se atribuyen al cambio los defectos aritméticos que ya estaban en la base.
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
 
-Se leyeron BRIEF completo, AGENTS, contrato, coordinación, estado, decisiones e integración R5; informe y pruebas de implementación; revisiones A/B y fuentes prioritarias originales. No se han copiado notas privadas. No hay operaciones VCS mutantes, instalaciones, regeneración de inventario, cambios de normativa, UI, oracle o registros ajenos. El único enlace creado fuera del scratch es node_modules de lectura autorizado. Los resultados fiscales siguen pendientes de aceptación; no se aceptan globalmente 183 ni 168 fichas por catalogarlas.
+**Requiere cambios en la versión examinada, del 29 de octubre de 2026.** Los seis archivos fijados en `hashes-codigo.json` coinciden byte a byte con `0ca324b08267`. `logs/diff-acotado.patch` conserva la diferencia respecto de `d9ff49c7`. Los defectos aritméticos preexistentes se distinguen de los introducidos por ese cambio.
+
+Se examinaron informe y pruebas de implementación, revisiones A/B y fuentes prioritarias originales. Los resultados fiscales siguen pendientes de aceptación; catalogar 183 o 168 fichas no implica aceptarlas globalmente.
 
 ## Hallazgos que requieren intervención
 

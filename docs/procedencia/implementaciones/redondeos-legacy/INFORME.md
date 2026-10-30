@@ -1,6 +1,8 @@
 # Redondeos del detalle tabular heredado
 
-Entrega candidata contra c61a306107f280c399eb57e57a7c45452bd68864. Integración y revisión nueva corresponden al padre. Sin mutaciones VCS, originales alterados, fixtures regenerados, contratos canónicos modificados ni aceptación fiscal propia.
+Documento histórico del candidato de este directorio. Los resultados y estados corresponden a esa versión; no acreditan el estado actual del proyecto.
+
+Entrega candidata contra c61a306107f280c399eb57e57a7c45452bd68864. Integración y revisión nueva corresponden al integrador. Sin mutaciones VCS, originales alterados, fixtures regenerados, contratos canónicos modificados ni aceptación fiscal propia.
 
 ## Decisión, objeción y coste
 
@@ -30,7 +32,7 @@ Las etiquetas de columnas y estructura de filas se conservan. oracle_acotado.py 
 
 La API mensual de céntimos conserva su contrato histórico: Math.round(anual/12), con empate hacia +∞. +18 produce +2 y −18 produce −1. Se nombra expresamente mensualizarCentimosPresentacionLegacy y se prueba la falta de antisimetría. No se introduce una API fiscal nueva sin norma y no se altera la API canónica ajena. El Python tabular divide el delta preciso de euros antes de redondear; por ejemplo 0,059/12 da 0,00, mientras mensualizar seis céntimos liquidados da uno. Las dos etapas se prueban y no se equiparan.
 
-Las 543 celdas CONTROL (195 generales y 348 de tramos) conservan la implementación actual y se cotejan íntegramente con la extracción del libro, incluidas cabeceras. El glosario atribuye half-even al helper de porcentajes, pero porcentajeCompatibleLegacy ejecuta HALF_UP. Una prueba discriminante con ±0,01005 produce ±1,01 %. Decisión: no cambiar ese helper fuera de propiedad ni deducir otra política de controles que no contienen empates discriminantes. Propuesta documental al padre: sustituir la entrada genérica «Half-even tabular legacy» por contratos separados de porcentajes actuales, round NumPy y round Python del detalle; limitar half-up al dinero liquidado de las APIs. No se editó el glosario ni GLOSSARY.md.
+Las 543 celdas CONTROL (195 generales y 348 de tramos) conservan la implementación actual y se cotejan íntegramente con la extracción del libro, incluidas cabeceras. El glosario atribuye half-even al helper de porcentajes, pero porcentajeCompatibleLegacy ejecuta HALF_UP. Una prueba discriminante con ±0,01005 produce ±1,01 %. Decisión: no cambiar ese helper fuera de propiedad ni deducir otra política de controles que no contienen empates discriminantes. Propuesta documental al integrador: sustituir la entrada genérica «Half-even tabular legacy» por contratos separados de porcentajes actuales, round NumPy y round Python del detalle; limitar half-up al dinero liquidado de las APIs. No se editó el glosario ni GLOSSARY.md.
 
 ## Integridad, autenticidad, interpretación, exactitud y aceptación
 
@@ -38,9 +40,7 @@ Integridad: hashes del libro, Python, base y entrega; originales sin alteración
 
 ## Límites de integración
 
-La caracterización previa falla con salario 20.000 en 2012: espera 3.979,31 en tramo e íntegra y el adaptador entrega 3.979,30. verde-inicial.log conserva el fallo. No se cambian sus expectativas ni se oculta con tolerancia de un céntimo. La decisión sobre esa caracterización corresponde al padre tras contrastar los originales. El informe distingue este fallo de una suite global verde.
-
-No se han ejecutado Next build ni las suites legacy pesadas. No se han cambiado package, lockfiles, CI, ESTADO, DECISIONES, corpus, contenidos, UI ni contratos fiscales canónicos. El enlace node_modules no forma parte de la entrega para integrar.
+La caracterización previa falla con salario 20.000 en 2012: espera 3.979,31 en tramo e íntegra y el adaptador entrega 3.979,30. verde-inicial.log conserva el fallo. No se cambian sus expectativas ni se oculta con tolerancia de un céntimo. La decisión sobre esa caracterización corresponde al integrador tras contrastar los originales. El informe distingue este fallo de una suite global verde.
 
 ## Resultado final de la validación
 
@@ -49,4 +49,4 @@ No se han ejecutado Next build ni las suites legacy pesadas. No se han cambiado 
 - Confirmación adicional: DAT_2012 fila 20002, tramo e íntegra = 3.979,30 en Excel, Python original y adaptador. El fixture previo espera 3.979,31; permanece sin modificar y su suite no está verde.
 - ESLint y oxlint con política existente: correctos en las cinco fuentes TS de la entrega. Ruff: correcto en los tres scripts Python.
 - Typecheck principal sin incremental: correcto; no se ha cambiado vendor.
-- Pendiente: integración selectiva, contrarrevisión nueva, decisión del padre sobre caracterización previa y reconciliación separada de COMPARATIVA_INFLACION. No se afirma regresión global verde ni equivalencia universal del libro.
+- Pendiente: integración selectiva, contrarrevisión nueva, decisión del integrador sobre caracterización previa y reconciliación separada de COMPARATIVA_INFLACION. No se afirma regresión global verde ni equivalencia universal del libro.

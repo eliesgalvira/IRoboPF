@@ -1,8 +1,10 @@
 # Contrarrevisión de contenidos integrados
 
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
 Veredicto: **requiere cambios técnicos** por CI-01 y CI-02. La preservación histórica corregida por el padre es aprobable en el alcance probado. Ningún resultado fiscal nuevo queda aceptado.
 
-Revisión personal de la base `0ca324b082676e15ae443b3c83d7f81828fbc0ce`, el 29-10-2026. Leídos completos BRIEF, AGENTS, CONTRATO-AUDITORIA, COORDINACION, ESTADO, DECISIONES, INTEGRACION-R5, ADR 0005, revisión arquitectónica e informe ENTREGA. Examinados todos los archivos de `lib/procedencia`, `app/procedencia`, scripts contenido, schema y suite asignada, además del lector de artefactos. Sin delegación, fixes, operaciones VCS mutantes, reconstrucción de inventario, build, navegador ni descargas. Dependencias enlazadas solo para lectura. Pruebas con Nix, un worker y lock común; temporales dentro del scratch propio. No se ha escrito código Effect nuevo.
+Revisión de la base `0ca324b082676e15ae443b3c83d7f81828fbc0ce`, el 29-10-2026. Se examinaron INTEGRACION-R5, ADR 0005, la revisión arquitectónica y el informe ENTREGA; todos los archivos de `lib/procedencia` y `app/procedencia`, los scripts de contenido, schema, suite asignada y lector de artefactos. Las pruebas se ejecutaron con Nix, un trabajador y el bloqueo común.
 
 ## Hallazgos que requieren corrección
 

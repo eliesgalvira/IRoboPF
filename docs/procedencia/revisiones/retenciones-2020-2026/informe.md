@@ -1,8 +1,10 @@
 # Contrarrevisión de retenciones 2020–2026
 
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
 Decisión individual sobre los veinte candidatos en `revisiones.json`: doce aceptados **solo en el alcance indicado**, siete necesitan evidencia y uno rechazado. Aceptar un defecto de implementación no certifica su regla sustitutiva ni un ejercicio completo. No se modifica motor, informes históricos, ESTADO, DECISIONES, inventario ni VCS. Base indicada por el encargo: d9ff49c7; los hashes del motor efectivamente leído están en `motor-examinado.json` porque el checkout es compartido.
 
-Se leyeron BRIEF, AGENTS, CONTRATO-AUDITORIA, COORDINACION, ESTADO y DECISIONES. Las decisiones locales conservan objeción, motivo y coste dentro de cada registro. La principal objeción a una aceptación amplia es que una tabla correcta, una extracción reproducible y una salida aritmética correcta son pruebas distintas de vigencia, elegibilidad y cumplimiento del procedimiento.
+Las decisiones locales conservan objeción, motivo y coste dentro de cada registro. La principal reserva ante una aceptación amplia es que una tabla correcta, una extracción reproducible y una salida aritmética correcta acreditan cosas distintas de la vigencia, elegibilidad y cumplimiento del procedimiento.
 
 ## Defectos reproducidos en el servicio real
 

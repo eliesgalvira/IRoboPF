@@ -1,6 +1,6 @@
 # Contrato de inventario y hallazgos
 
-Versión inicial: 1. El inventario ejecutable y su esquema se construirán en la primera fase. Este contrato fija la información exigida a cada auditor.
+Este contrato fija la información exigida al inventario y a los hallazgos documentales. La reproducción del inventario se describe en `INVENTARIO.md`; sus elementos técnicos requieren interpretación fiscal y revisión independiente.
 
 ## Elemento inventariado
 

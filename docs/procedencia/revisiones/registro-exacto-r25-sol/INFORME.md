@@ -1,10 +1,12 @@
 # Revisión independiente del registro exacto R25
 
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
 Dictamen candidato: **la proyección de las dos identidades y los 264 pares exactos es coherente con los originales recibidos; su promoción conjunta está bloqueada por RX25-01, `ID duplicado`, en el adaptador real de evidencia**. No se ha generado un snapshot nuevo que permita acreditar las rutas de los 264 pares. No procede activar el registro por esta entrega. Los hallazgos y decisiones nuevos requieren contraste posterior del padre.
 
-Trabajo personal mediante T3 Code y Codex, runtime gpt-6.1-sol, esfuerzo high. Prioridad solicitada; no dispongo de medición independiente del servicio efectivo. No hay subdelegación, fixes de producto, nuevas atestaciones, alta operativa, commit ni mutación VCS. HEAD/base: `1f8067b8dd01d0d1377e639776c356c98cae4a05`, 15.175 entradas. Solo se escribe esta carpeta y `.cache/registro-exacto-r25-sol/`.
+Base examinada: `1f8067b8dd01d0d1377e639776c356c98cae4a05`, 15.175 entradas. La revisión no emite nuevas atestaciones ni activa el registro operativo.
 
-Se leen íntegros BRIEF, AGENTS, contrato y coordinación; se examinan las secciones actuales de ESTADO y DECISIONES, recepción R23–R25, proyección candidata, revisión técnica R23, contratos R21, las revisiones estatales y autonómicas R19 y la implementación de ámbitos con sus instrumentos. Las primeras lecturas conjuntas demasiado grandes quedaron truncadas; se volvieron a abrir los informes necesarios por separado. COORDINACION está en docs/procedencia, no en el contexto externo. No se inspeccionan checkouts de hijos activos ni preservación v4. Los dos flujos R21 no se utilizan para atribuir resultados nuevos a este ensayo.
+Se examinaron recepción R23–R25, proyección candidata, revisión técnica R23, contratos R21, revisiones estatales y autonómicas R19 e implementación de ámbitos con sus instrumentos. Los dos flujos R21 no se utilizan para atribuir resultados nuevos a este ensayo.
 
 ## RX25-01: colisión de sujetos durante el recorrido completo
 
@@ -48,7 +50,7 @@ El control de continuidad se ejecuta sobre esos originales en lectura; no regene
 
 ## Entrega y pasos pendientes
 
-El padre debe contrastar RX25-01 y definir explícitamente cómo representar varios bindings exactos para un sujeto: conservación de cada ámbito anual y de sus aprobaciones, sin perder aristas ni reutilizar una aceptación entre versiones. Después debe corregir con una prueba roja que conserve este lote, obtener revisión independiente nueva y repetir una ejecución completa que llegue a snapshot, cierre y GET de ficha/PDF/PNG. Debe incluir recibo/fuente/CAS ausentes y alterados después de Python, y nuevos estados visibles, antes de decidir altas individuales en el registro activo. Esta entrega no acepta una implementación futura del padre ni prescribe un fix aprobado.
+RX25-01 exige definir cómo representar varios bindings exactos para un sujeto: conservación de cada ámbito anual y de sus aprobaciones, sin perder aristas ni reutilizar una aceptación entre versiones. Después debe corregir con una prueba roja que conserve este lote, obtener revisión independiente nueva y repetir una ejecución completa que llegue a snapshot, cierre y GET de ficha/PDF/PNG. Debe incluir recibo/fuente/CAS ausentes y alterados después de Python, y nuevos estados visibles, antes de decidir altas individuales en el registro activo. La propuesta no supone aceptación de una implementación futura.
 
 Decisión RX25-D5: entregar revisión y transporte sin mutación operativa. Objeción experta: deja el encargo global abierto. Respuesta: es el resultado exigido de una revisión independiente que detecta un bloqueo real; no corresponde ocultarlo con fixes propios. Coste: otro ciclo de implementación y contraste.
 

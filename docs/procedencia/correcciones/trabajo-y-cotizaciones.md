@@ -1,6 +1,6 @@
 # Trabajo y cotizaciones: correcciones acotadas
 
-29 de octubre de 2026. Integración del orquestador, después de las contrarrevisiones de Seguridad Social y trabajo. No certifica una liquidación ni una nómina TGSS.
+Correcciones contrastadas de Seguridad Social y trabajo. No certifican una liquidación ni una nómina TGSS.
 
 ## Extremo de la reducción del trabajo
 
@@ -22,7 +22,7 @@ Los originales, hashes, citas y condiciones están en `auditorias/seguridad-soci
 
 Cuatro pruebas del nuevo contrato fallaron cuando se delegaba al cálculo legacy. Después de implementar el perfil pasan esos casos, seis controles adicionales de los tres tramos y un control de conservación del contrato legacy. Con las tres pruebas TDE-18 y las tres de cotizaciones existentes son 17 pruebas correctas. Lint y typecheck pasan.
 
-**Integración anual pendiente:** este módulo aún no sustituye la estimación legacy en la liquidación anual ni su rastro. Ese archivo lo está editando otro hijo; el orquestador realizará la conexión una vez recibida la entrega, con pruebas de integración y distinción explícita de modos. El oracle Python/Excel y la API legacy conservan su comportamiento histórico para poder observar discrepancias.
+**Límite de integración:** el perfil analítico es un contrato separado del cálculo legacy anual. Su corrección aislada no acredita que la liquidación anual ni su rastro lo consuman; esa conexión requiere contraste propio y distinción explícita de modos. El oracle Python/Excel y la API legacy conservan su comportamiento histórico para observar discrepancias.
 
 ```sh
 flock /tmp/irobopf-validacion-pesada.lock nix shell nixpkgs#bun nixpkgs#nodejs -c bun run test tests/cotizaciones-perfil-uniforme.test.ts tests/reduccion-trabajo-procedencia.test.ts tests/cotizaciones-sociales.test.ts --maxWorkers=1

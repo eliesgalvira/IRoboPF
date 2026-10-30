@@ -1,4 +1,4 @@
-# Rectificaciones de representación de los flujos R28
+# Rectificaciones de representación de los flujos
 
 Edición candidata separada de los tres grafos históricos R23. El motor no cambia. Los originales, sus informes y sus pruebas rojas permanecen intactos; el contenedor `rectificaciones.json` fija cada fuente, sustitución anterior/posterior y hash del candidato. Los campos históricos de los cuerpos identifican su procedencia, no una nueva autoría de R23. La edición R28 se identifica en ese contenedor y requiere revisión independiente antes de composición.
 
@@ -18,7 +18,7 @@ Edición candidata separada de los tres grafos históricos R23. El motor no camb
 
 Quedan abiertos aporte frente a etapas y sus llamadores, condiciones por rama, puertos concretos de entrada/salida, selección de modo hasta cada componente SS, conversiones céntimos/EUR, instancias por lado y cierre alcanzable. Los validadores heredados no descubren todas las omisiones o adiciones causales; tampoco se presenta el nuevo contraste fijo como garantía de ellas. Los cinco rojos recibidos de escalas y los límites del resto siguen conservados en sus carpetas originales.
 
-La composición posterior necesita un contrato común y adaptadores explícitos entre direcciones y vocabularios de los lotes. Debe resolver propiedades y argumentos concretos, distinguir valor/selección/admisión y producir cierres por sitio con condiciones, sin completar desconocidos mediante prosa genérica. El padre encarga esa implementación sustantiva por separado; los campos `completeClosure`, `wiringAllowed` y `completeRuleAcceptance` siguen en `false`.
+La composición posterior necesita un contrato común y adaptadores explícitos entre direcciones y vocabularios de los lotes. Debe resolver propiedades y argumentos concretos, distinguir valor/selección/admisión y producir cierres por sitio con condiciones, sin completar desconocidos mediante prosa genérica. los campos `completeClosure`, `wiringAllowed` y `completeRuleAcceptance` siguen en `false`.
 
 Objeción experta: corregir localizadores no completa una explicación verificable. Respuesta: se corrigen solo las afirmaciones reproducibles y se bloquea la publicación hasta resolver y revisar el resto. Coste: mantener versiones candidatas y un adaptador adicional; no se rebaja el estándar ni se transforma coincidencia técnica en aceptación fiscal. No se generan nuevos snapshots, registros de confianza o atestaciones en este bloque.
 

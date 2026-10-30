@@ -1,5 +1,7 @@
 # IPC y redondeos: primera revisión documental
 
+Documento histórico: los resultados, referencias al motor y pendientes corresponden a la base examinada; no describen el estado vigente del proyecto.
+
 Fecha de corte: 29 de octubre de 2026. Todos los hallazgos son candidatos; ninguno está aceptado. No se ha modificado código del motor, ni ejecutado builds o la suite legacy exhaustiva. Los identificadores locales se enlazarán al inventario global por archivo y símbolo; `itemIds` permanece vacío mientras ese enlace no esté contrastado.
 
 ## Resultado sustantivo
@@ -79,7 +81,7 @@ No se ha acreditado una norma universal que obligue a half-up en toda Seguridad 
 - **Producto de tasas frente a cociente de índices.** Objeción del experto: ambos parten de datos publicados con redondeo y responden a un contrato preciso. Motivo: conservar separados el oracle y la medida estadística. Coste: documentar dos métodos y no corregir silenciosamente el histórico.
 - **Diciembre frente a media anual.** Objeción: salario anual no equivale a salario de diciembre. Motivo: el motor declara cierre; no se inventa una exigencia legal de deflactor. Coste: la comparación no debe anunciarse como poder adquisitivo medio anual sin esa limitación.
 - **2026 escenario.** Objeción: cambiarlo por inflación reciente sigue sin observar diciembre. Motivo: mantener horizonte y origen distintos. Coste: resultados condicionados a hipótesis, no una cifra histórica validada.
-- **Compatibilidad y redondeo canónico.** Objeción: half-up no reproduce el oracle. Motivo: conservar evidencia de ambos antes de elegir. Coste: no aceptar la promesa de equivalencia actual ni arreglar resultados en esta ronda.
+- **Compatibilidad y redondeo canónico.** Objeción: half-up no reproduce el oracle. Motivo: conservar evidencia de ambos antes de elegir. Coste: no aceptar la promesa de equivalencia actual ni deducir de ello una corrección fiscal.
 - **Muestra Excel acotada.** Objeción: 0–100 € no cubre brackets fiscales ni solidaridad. Motivo: instrucciones excluyen suite legacy exhaustiva y el libro es grande. Coste: demuestra contraejemplos, no tasa global de fallo ni cobertura normativa; los tramos reales quedan pendientes.
 - **Fuentes y autenticidad.** Objeción: hash no prueba emisor ni vigencia. Motivo: originales HTTPS con cabeceras y hashes, citas exactas y revisión nueva. Coste: firma/CSV/TSA no validados; no llamar autenticado a un blob solo por SHA.
 - **Reglas históricas incompletas.** Objeción: 2026 no demuestra 2012. Motivo: etiquetar lagunas por ejercicio/operación. Coste: el ámbito no se considera cerrado ni exhaustivamente validado mientras existan esas lagunas.
@@ -117,6 +119,6 @@ Se ejecutó además un contraste independiente de los 15 factores exportados con
 
 La serie nueva IPC290751 permite comparar los mismos diciembres en base 2025. Diciembre de 2012 = 79,714 y diciembre de 2025 = 101,289: cociente 1,270655091953734601199287453. Frente al cociente base 2021, la diferencia es aproximadamente 0,0000022962 (unos 0,069 € sobre 30.000 €); esto es compatible con redondear los niveles publicados. No es prueba de revisión de una tasa histórica. La serie descargada termina en septiembre de 2026. Queda pendiente comprobar separadamente enlaces intermedios 2011/2016, vigencia histórica del redondeo y los bordes fiscales reales enumerados.
 
-No se declara cerrado el encargo exhaustivo: esta entrega documenta los resultados sustantivos y deja las lagunas concretas para continuación y contrarrevisión. Los JSON son válidos, los originales coinciden con sus hashes y las cajas se reextraen sin discrepancia. No hubo commits, init, cambios de bookmarks, PR ni modificaciones ajenas al ámbito autorizado.
+No se declara cerrado el encargo exhaustivo: esta entrega documenta los resultados sustantivos y deja las lagunas concretas para continuación y contrarrevisión. Los JSON son válidos, los originales coinciden con sus hashes y las cajas se reextraen sin discrepancia.
 
 Las cabeceras de sesión y autorización se han eliminado recursivamente de los JSON publicables; los originales y sus hashes no se alteraron.

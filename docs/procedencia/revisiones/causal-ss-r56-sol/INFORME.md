@@ -1,10 +1,12 @@
 # Contrarrevisión independiente R56 de las correcciones causales SS
 
+Alcance: versión y condiciones examinadas en este dictamen. El [informe final](../../INFORME-FINAL.md) reúne el resultado de los 65 sitios y sus límites.
+
 Dictamen: N01 y N02 quedan corregidos bajo las precondiciones del hito SS. No he demostrado un defecto nuevo. Las cinco salidas afectadas conservan cinco celdas ordinarias propias y cero contrarias; las otras seis conservan sus expectativas. Esto permite al padre contrastar el cambio antes de extender la vertical. No constituye otra auditoría favorable de los bytes antiguos ni cierre de los otros 54 sitios y 19 familias.
 
-Trabajo personal en T3 Code/Codex, gpt-6.1-sol, high, sin subdelegación. Priority fue solicitado; no dispongo de recibo independiente del tier servido. Base exigida y observada: `4a130762edf270019e1192a81c9484803f7fdb16`. Antes de escribir se cotejaron las 22.251 entradas con lstat, readlink, bytes y ejecutable contra cada blob individual, cero diferencias y ningún extra. La comprobación terminal y el censo se entregan por separado del payload. No se modifica implementación, fuente fiscal, inventario, confianza, snapshots, ESTADO, DECISIONES ni informes ajenos. Sin operaciones VCS mutantes.
+Base examinada: `4a130762edf270019e1192a81c9484803f7fdb16`. Se cotejaron las 22.251 entradas mediante lstat, readlink, bytes y ejecutable contra cada blob individual, sin diferencias ni extras. La comprobación terminal y el censo se conservan separados del payload.
 
-Leídos BRIEF completo en su ubicación externa, AGENTS, contrato, coordinación, cabecera ESTADO y D126/D127, informes y validación R55, hallazgos y dictámenes, los cuatro módulos, schema, pruebas R54/R56 y expediente de corrección R56. Las instrucciones actuales prevalecen sobre el BRIEF histórico. Se verifican las 93 referencias conservadas por SHA256/SHA512 antes de reutilizarlas; fuentes actuales e instrumentos recibidos figuran en fuentes.json. Los hashes fijan bytes, sin autenticar al emisor o el entorno.
+Se examinaron informes y validación R55, hallazgos y dictámenes, los cuatro módulos, schema, pruebas R54/R56 y expediente de corrección R56. Se verificaron las 93 referencias por SHA256 y SHA512 antes de reutilizarlas; `fuentes.json` fija fuentes e instrumentos. Los hashes identifican bytes, sin autenticar al emisor ni el entorno.
 
 ## N01: la frontera directa exige cierre derivado
 
@@ -42,4 +44,4 @@ Objeción de compatibilidad: conservar versión 1 podría sugerir aceptación cr
 
 Se presupone IR fija derivada de fuentes, datos ordinarios densos síncronos finitos, Decimal concreto sin reconfiguración, instrumentación sin fallos, Node24 y dependencias padre en lectura, perfil uniforme analítico, ejercicios/modos soportados y admisión externa. Los hashes de entradas de decimal/effect no fijan toda la clausura transitiva, resolver, TypeScript o autenticidad del entorno. Fuera de esta IR, las primitivas no tienen prueba universal. No se reabre fiscalidad histórica, codec, puertos ni auditoría 65/19.
 
-Objeción experta: un resultado condicionado podría emplearse como aceptación global. Respuesta: los cuatro indicadores admissionClosed/siteClosed/wiringAllowed/completeRuleAcceptance permanecen false, también en dictámenes y testigos. Coste: mantener las obligaciones futuras de extensión, composición y admisión por separado. Límite: no se emiten atestaciones ni se promueve confianza o aceptación fiscal. El padre debe contrastar esta entrega; el encargo global sigue abierto.
+Objeción experta: un resultado condicionado podría emplearse como aceptación global. Respuesta: los cuatro indicadores admissionClosed/siteClosed/wiringAllowed/completeRuleAcceptance permanecen false, también en dictámenes y testigos. Coste: mantener las obligaciones futuras de extensión, composición y admisión por separado. Límite: no se emiten atestaciones ni se promueve confianza o aceptación fiscal.

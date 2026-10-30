@@ -1,6 +1,8 @@
 # Revisión independiente: capital y ganancias
 
-Corte: 29 de octubre de 2026. Se revisaron los **32 IDs**, las **37 expectativas** y se reprodujeron los **seis casos** del autor con un script propio. Hay 27 decisiones `accepted` de alcance limitado y cinco `needs-evidence`; ninguna aceptación certifica el conjunto de reglas fiscales de un ID. CG-07 pasa de `match` candidato a `ambiguous`: las fechas válidas incluyen una frontera bisiesta todavía sin resolver. No se modificaron código, VCS ni hallazgos del autor.
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
+Corte: 29 de octubre de 2026. Se revisaron los **32 IDs**, las **37 expectativas** y se reprodujeron los **seis casos** de la entrega con un script propio. Hay 27 decisiones `accepted` de alcance limitado y cinco `needs-evidence`; ninguna aceptación certifica el conjunto de reglas fiscales de un ID. CG-07 pasa de `match` candidato a `ambiguous`: las fechas válidas incluyen una frontera bisiesta todavía sin resolver.
 
 ## Dictamen y prioridad
 
@@ -366,4 +368,3 @@ Alcance aceptable: Presencia documental y ausencia técnica verificadas; no habi
 Objeción examinada: No condicionar toda la exención directa a la orden de la cuenta: la espera de treinta días y orden afecta reinversión complementaria.
 
 Acción: Cerrar situación parlamentaria y distinguir venta directa desde08-10 de desarrollo de cuenta; ningún cierre2026 certificado.
-

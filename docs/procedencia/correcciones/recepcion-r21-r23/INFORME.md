@@ -1,6 +1,4 @@
-# Recepción R21 para integración R23
-
-Recibidas cinco entregas: contrato técnico, preservación, contraste de retenciones 2012–2014 y dos flujos editoriales. Se cotejaron los manifiestos y 271 archivos, 19.317.018 bytes. En cada checkout se compararon físicamente las 14.537 entradas de la base 960773f9 mediante lstat, readlink y un blob cada vez: cero diferencias y borrados. `recepcion.json` conserva rutas, hashes, tamaños y bases.
+# Contratos y flujos editoriales candidatos
 
 Los defectos acotados del AST y preservación se corrigen en `../tecnica-r23/`; C01/C02 tienen edición documental separada en `../retenciones-2012-2014-r23/`. Toda corrección nueva requiere revisión independiente. Los informes recibidos no se alteran ni se convierten en aceptaciones.
 

@@ -1,15 +1,14 @@
 # anual.explicito.da61
 
-Candidato pendiente de revisión independiente. Cierre técnico: false. Publicación y aceptación jurídica: false.
+Estado del candidato histórico: revisión independiente pendiente; cierre técnico, publicación y aceptación jurídica: false.
 
 Fórmula TS: "deducción de servicios después del artículo 80, una sola vez"
 
 Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y aplicabilidad separados; ninguna aceptación jurídica.
 
-- deduccion / value (EUR, value); Asignaciones y flujo imperativo pendientes: deduccion; lib/dominio/irpf/trabajo-anual/conexion.ts:11416–11425
-- new D(0) / value (EUR, value); productor; lib/dominio/irpf/trabajo-anual/conexion.ts:8498–8506
-- 0 / value (EUR, value); literal; lib/dominio/irpf/trabajo-anual/conexion.ts:8504–8505
+El detalle de productores y literales, con archivo, rango y relación, se conserva en [composicion.json.gz](../composicion.json.gz). Las limitaciones no resueltas de esta ficha son:
 
+- deduccion / value (EUR, value); Asignaciones y flujo imperativo pendientes: deduccion; lib/dominio/irpf/trabajo-anual/conexion.ts:11416–11425
 ## Condiciones por relación
 
 - [value] constructor Decimal; e:8551

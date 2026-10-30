@@ -1,6 +1,6 @@
 # Rectificación documental 2012–2014
 
-El padre contrasta C01/C02 de la revisión independiente y prepara doce reemplazos separados. Los 80 dictámenes y 44 ramas originales se conservan. La rectificación retira solo las inferencias erróneas sobre los operadores de edad y añade un techo condicionado; no habilita versiones ni acepta una liquidación.
+El contraste de integración examina C01/C02 de la revisión independiente y prepara doce reemplazos separados. Los 80 dictámenes y 44 ramas originales se conservan. La rectificación retira solo las inferencias erróneas sobre los operadores de edad y añade un techo condicionado; no habilita versiones ni acepta una liquidación.
 
 Inspección personal de los ocho recortes de las cuatro versiones: p10 muestra ≥25 y p16 muestra ≤64. Se reabren los cuatro PDF por ambos hashes y tamaño, se extrae el texto en las cajas declaradas y se regeneran los ocho PNG idénticos a los recibidos. Las pérdidas de trazos de la capa textual permanecen documentadas. Los problemas de índices, prefijos y requisitos personales no se dan por resueltos con esta observación.
 

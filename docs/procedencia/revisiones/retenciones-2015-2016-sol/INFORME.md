@@ -1,12 +1,14 @@
 # Revisión personal de retenciones 2015–2016
 
+Dictamen histórico: los defectos y estados descritos corresponden a la versión examinada. El [informe final](../../INFORME-FINAL.md) recoge el resultado posterior y sus condiciones.
+
 Dictamen: **no habilitar versiones ni aceptar fiscalmente el procedimiento completo**. Se completa el examen personal de las140 páginas de los tres algoritmos (47enero2015,46julio2015,47de2016), incluidas entradas, salidas, tablas, marcas y todas las páginas de regularización. Se entregan60 decisiones nuevas por celda/version, contrato candidato, casos independientes, reproducciones documentales y facsímiles por hash. Los bloqueos se localizan en proposiciones concretas; no se justifican por volumen ni por falta de lectura pendiente de estos PDF.
 
-Revisor gpt-6.1-sol, trabajo personal sin subdelegación ni otro modelo. HEAD y base `1ec684b4e4408068282febf1319c12c6ac8a15c1`. Control inicial de10583 entradas con lstat, tres enlaces con readlink y destino existente; diff vacío. El trabajo se escribe solo en esta carpeta absoluta del padre y scratch propio. Ningún fix, habilitación, VCS mutante, reparación de índice, servidor o preview. Tampoco se modifican ESTADO, DECISIONES, informes anteriores, originales, package, locks o CI.
+Base examinada: `1ec684b4e4408068282febf1319c12c6ac8a15c1`. El control inicial comprobó 10.583 entradas con lstat y tres enlaces con readlink y destino existente, sin diferencias.
 
 ## Evidencia examinada y alcance de lectura
 
-Se leyeron el BRIEF y las instrucciones actuales, AGENTS, contrato de auditoría, coordinación, estado, decisiones, integración de ronda13 y recepción del cambio de modelo. Se contrastaron las auditorías y revisiones de retenciones2012–2019 y originales2012–2016, sus contratos/casos y la continuación2015–2016 anterior. Sus aceptaciones no se heredan. `antecedentes-comprobados.json` registra la entrega histórica preservada; permanece intacta.
+Se contrastaron la integración de ronda 13, auditorías y revisiones de retenciones 2012–2019 y originales 2012–2016, sus contratos y casos, y la continuación anterior de 2015–2016. Sus aceptaciones no se heredan. `antecedentes-comprobados.json` registra la entrega histórica preservada.
 
 `mapa-paginas.json` registra individualmente las140 páginas examinadas, sección, observación y hash del facsímil. La lectura visual se hizo de imágenes individuales completas, no de miniaturas de una muestra. La capa textual apoyó la lectura de fórmulas; los tachados se decidieron sobre imágenes. `citas-paginas.json` conserva geometría de página y texto literal, que deliberadamente incluye material tachado. Son citas contextuales, no recortes finos por cada número. No se declara haber inspeccionado todas las690 páginas de los19 documentos históricos, ni las páginas ajenas al ámbito de este encargo.
 

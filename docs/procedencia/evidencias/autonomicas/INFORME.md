@@ -1,6 +1,8 @@
 # Evidencia autonómica candidata sobre base ed6a43fd
 
-Investigación personal, sin subdelegación. Base declarada: `ed6a43fd750de05609abc3710dabdc2f8261020c`. No se ha mutado VCS, motor, registro de confianza, aceptaciones ni Madrid 2020. El padre debe cotejar base, manifiesto y ausencias antes de integrar. El alcance prioritario comprende Andalucía 2012–2015, Comunitat Valenciana 2014–2016, Catalunya 2020–2024, Madrid 2022 y Murcia 2022.
+Documento histórico: los resultados, referencias al motor y pendientes corresponden a la base examinada; no describen el estado vigente del proyecto.
+
+Base examinada: `ed6a43fd750de05609abc3710dabdc2f8261020c`. El alcance prioritario comprende Andalucía 2012–2015, Comunitat Valenciana 2014–2016, Catalunya 2020–2024, Madrid 2022 y Murcia 2022.
 
 ## Resultado y alcance
 
@@ -9,7 +11,7 @@ Resultado medido: **186 celdas EUR anuales, 94 celdas documentales, 93 citas de 
 
 `cobertura.json` enumera cada base inferior y cuota de las tablas prioritarias por ejercicio, más los tipos pendientes y los extremos infinitos. `citas-celdas.json` fija texto literal, geometría individual, fila, columna y cabecera. Cada cita de corpus conserva además la tabla completa para revisar su contexto; la cláusula murciana tiene cita separada. `payloads/` contiene exclusivamente propuestas asociadas a ocurrencias **effective** del artefacto fijado. No se han convertido literales sintácticos en valores efectivos.
 
-Los payloads enlazan límites de las tablas anuales, **no las cuotas del helper canónico**. Las funciones canónicas pueden usar las tablas publicadas de `escalas-publicadas.ts`; identificar un límite anual de igual número no acredita la identidad de esa otra ocurrencia. Cada registro conserva esta diferencia. Todas las cuotas y bases de los helpers se mantienen bloqueadas para binding canónico: son constantes privadas no exportadas y el inventario actual no ofrece sus valores efectivos. Sí se conservan símbolo, fila, posición y ocurrencias sintácticas para que el padre pueda investigar el extractor sin cambiar el cálculo.
+Los payloads enlazan límites de las tablas anuales, **no las cuotas del helper canónico**. Las funciones canónicas pueden usar las tablas publicadas de `escalas-publicadas.ts`; identificar un límite anual de igual número no acredita la identidad de esa otra ocurrencia. Cada registro conserva esta diferencia. Todas las cuotas y bases de los helpers se mantienen bloqueadas para binding canónico: son constantes privadas no exportadas y el inventario actual no ofrece sus valores efectivos. Sí se conservan símbolo, fila, posición y ocurrencias sintácticas para investigar el extractor sin deducir cambios del cálculo de una coincidencia numérica.
 
 La matriz no se limita a las discrepancias famosas: incluye filas iniciales de cero y todas las filas intermedias de los períodos prioritarios. Las bases iniciales cero tampoco se sustituyen por el límite superior de otra fila. Los extremos `Infinity` no son cantidades EUR citables. Los tipos porcentuales y fracciones quedan pendientes: solo se admite conversión identity. `matriz-revisiones.json` conserva además una entrada por cada decisión de las seis revisiones de escalas/cadenas; no extiende el trabajo de facsímiles prioritarios a todos los territorios por asociación.
 
@@ -27,7 +29,7 @@ Original BORM 4846 de 29/09/2022, página física 4, SHA-256 `962a88eff2128d036b
 
 La selección documental se apoya en las revisiones previas acotadas: Ley 3/2012 p.4; Ley 7/2014 p.58; Ley 5/2020 p.62; Ley 2/2021 pp.46–47; refundición catalana 2024 p.6; Ley 8/2022 madrileña p.3 y BORM murciano p.4. Se usan siete originales conservados, sin nuevas descargas. La primera y la última columna de una tabla no se confunden: el límite superior técnico se coteja con la base inferior de la siguiente fila, con índice explícito.
 
-Las revisiones de cadenas A/B/C y de escalas se leyeron junto con contrato, coordinación, estado, decisiones, CORPUS, ENLACES-VERIFICABLES y el informe de integración ronda 7. La revisión de integración de escalas describe la representación canónica actual; las reproducciones antiguas de integrales no se presentan como fallos nuevos del motor corregido.
+Las reproducciones antiguas de integrales describen la base histórica; no acreditan fallos nuevos de la representación canónica posterior.
 
 ## Cinco planos separados
 
@@ -45,9 +47,9 @@ Las revisiones de cadenas A/B/C y de escalas se leyeron junto con contrato, coor
 
 **No promocionar aceptaciones previas.** Objeción experta: aceptar un defecto en un punto no certifica cada fila de una escala. Motivo: preservar el alcance de los revisores. Coste: los payloads numéricamente coincidentes necesitan revisión jurídica del binding y adaptación del contrato de decisiones por su propietario.
 
-**Reutilizar CAS y renderizar solo tablas.** Objeción archivística: referencias locales no garantizan restauración fuera del equipo. Motivo: evitar duplicar PDFs grandes y respetar el corpus existente. Coste: el padre debe integrar la resolución CAS y mantener su preservación; manifiesto y recortes no reemplazan originales.
+**Reutilizar CAS y renderizar solo tablas.** Objeción archivística: referencias locales no garantizan restauración fuera del equipo. Motivo: evitar duplicar PDFs grandes y respetar el corpus existente. Coste: la integración debe integrar la resolución CAS y mantener su preservación; manifiesto y recortes no reemplazan originales.
 
-**Comprobar por lote el contexto fijado.** Objeción experta: leer un artefacto no reconstruye el motor. Motivo: el encargo prohíbe regenerar el inventario principal y pide comprobación por lotes. Se usa readArtifact y cotejo de entradas de generación, sin atribuirle reconstrucción. Coste: el coordinador fresco sigue pendiente tras la integración.
+**Comprobar por lote el contexto fijado.** Objeción experta: leer un artefacto no reconstruye el motor. Motivo: el encargo prohíbe regenerar el inventario principal y pide comprobación por lotes. Se usa readArtifact y cotejo de entradas de generación, sin atribuirle reconstrucción. Coste: la verificación completa de la base integrada sigue pendiente tras la integración.
 
 ## Reproducción y entrega
 
@@ -55,6 +57,6 @@ Las revisiones de cadenas A/B/C y de escalas se leyeron junto con contrato, coor
 
 Reproducción desde raíz: copiar `reproduccion/leer.mjs.txt`, `generar.py.txt`, `completar.py.txt` y `verificar.py.txt` a `.cache/autonomicas-investigacion/` quitando `.txt`. Ejecutar `leer.mjs` con Bun de Nix; después `generar.py`, `completar.py` y `verificar.py` con `tools/procedencia/run.sh`, usando el lock común para render. Los manifiestos públicos permiten localizar los originales por hash sin conservar índices privados de adquisición.
 
-Los instrumentos conservados como `.txt` se copian a scratch para reproducción; no son código de producto ni una vía para desactivar lint. No se añade TypeScript/Effect mantenido, ni se cambian package, lockfiles o CI. No se atribuye lint/typecheck ajeno a esta entrega. La primera preparación falló porque el lexer no admite la unidad literal `Euros`; se conservó el literal dejando ese binding pendiente. Hubo también un intento de Python sin shell Nix, que no ejecutó la edición; se repitió mediante Nix.
+Los instrumentos conservados como `.txt` se copian a scratch para reproducción; no son código de producto ni una vía para desactivar lint. No se añade TypeScript/Effect mantenido, ni se cambian package, lockfiles o CI. No se atribuye lint/typecheck ajeno a esta entrega. El lexer no admite la unidad literal `Euros`; se conserva el literal y el bloqueo de ese binding.
 
 `manifiesto.json` relaciona todos los archivos de entrega contra base (todos nuevos) y sus SHA-256. `entrega.patch` contiene las altas textuales; los PNG se integran por archivo y hash, no mediante el marcador textual de diff. El manifiesto excluye su propio hash y el patch para evitar autorreferencia; `entrega-hashes.json` fija esos dos artefactos. Ningún archivo base se propone borrar.
