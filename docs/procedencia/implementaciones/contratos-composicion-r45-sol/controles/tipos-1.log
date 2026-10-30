@@ -1,0 +1,7 @@
+tests/composicion-r45-resultados.test.ts(24,79): error TS2379: Argument of type '{ anio: number; procedimiento: "regularizacion" | "inicial"; fechaPago?: string; perfilTemporal?: "cierre"; edad?: number; retribucionAnualCentimos: number; cotizacionesCentimos?: number; ... 14 more ...; pagosViviendaHabitual?: boolean; }' is not assignable to parameter of type 'CasoRetencionTrabajo' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Types of property 'anio' are incompatible.
+    Type 'number' is not assignable to type 'AnioFiscal'.
+tests/composicion-r45-resultados.test.ts(26,75): error TS2379: Argument of type '{ anio: number; procedimiento: "regularizacion" | "inicial"; fechaPago?: string; perfilTemporal?: "cierre"; edad?: number; retribucionAnualCentimos: number; cotizacionesCentimos?: number; ... 14 more ...; pagosViviendaHabitual?: boolean; }' is not assignable to parameter of type 'CasoRetencionTrabajo' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Types of property 'anio' are incompatible.
+    Type 'number' is not assignable to type 'AnioFiscal'.
+tests/composicion-r45-resultados.test.ts(46,100): error TS2339: Property 'args' does not exist on type '{ op: string; id: string; }'.
