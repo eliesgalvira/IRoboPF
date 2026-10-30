@@ -1,0 +1,38 @@
+{
+  "source": "/home/elies/.t3/worktrees/IRoboPF/t3-6528906c/.cache/push-explicitos-r65-sol/independiente.test.mjs",
+  "adaptation": "Solo imports relativos de scripts a rutas absolutas del padre; carpeta de salida relativa al instrumento propio; expectativas intactas.",
+  "sourceSha256": "02c1404736f576c5515908483cacea7b0fc096383b8675d38e60def8a3884f5c",
+  "adaptedSha256": "a8e2c57a19012b928b36522c1a263ee613c67f0f377cde28b01562e2bcba4473",
+  "result": {
+    "fullReturn": true,
+    "lengths": [
+      1,
+      2
+    ],
+    "priorSelections": [
+      0,
+      1
+    ],
+    "snapshots": [
+      1,
+      2
+    ],
+    "secondMutationDependsOnFirst": true,
+    "historyUnchanged": true,
+    "inputUnchanged": true,
+    "executionIsolation": true,
+    "arrayAliasEvents": {
+      "local": 183,
+      "property": 71,
+      "parameter:0": 50,
+      "return": 18,
+      "function-return": 64,
+      "array-selection": 0
+    }
+  },
+  "exactJSON": true,
+  "exactGzip": true,
+  "tests": 1,
+  "newIndependentReview": false,
+  "command": "nix shell nixpkgs#nodejs -c flock /tmp/irobopf-validacion-pesada.lock node node_modules/vitest/vitest.mjs run --config .cache/orquestador-recepcion/r66/vitest.config.mjs --configLoader native --reporter=json --outputFile=.cache/orquestador-recepcion/r66/vitest.json"
+}

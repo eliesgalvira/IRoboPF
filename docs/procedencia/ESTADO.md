@@ -1,8 +1,18 @@
 # Estado de la auditoría documental
 
-Inicio: 29 de octubre de 2026. Trabajo en curso; no es una certificación fiscal.
+Inicio: 29 de octubre de 2026. Cierre del alcance final: 30 de octubre de 2026. No es una certificación fiscal.
 
-## Situación más reciente, ronda 65 del 30 de octubre
+## Cierre del encargo acotado, ronda 66 del 30 de octubre
+
+**65 sitios conciliados con el catálogo: 64 corroborados técnicamente bajo condiciones y uno con bloqueo demostrado.** Entrega final: [INFORME-FINAL.md](INFORME-FINAL.md), con límites, estimaciones de familias/composición/admisión/puertas, commits y conservación. [Matriz individual](correcciones/cierre-r66/MATRIZ-65.md).
+
+Recibida y contrastada la última revisión favorable de R64-PUSH-01: retorno completo, longitudes [1,2], instantáneas y dos ejecuciones independientes correctas. El padre reproduce una prueba focalizada con resultado exacto; coteja 24.058 entradas intactas y reconstruye 131 rutas, sin borrados. No hay cambios de producto ni otra revisión favorable. No se lanza ningún subagente nuevo.
+
+El bloqueo de actividad y las variantes excluidas permanecen. Las 19 familias, composición global, admisión y cuatro puertas no se inician; sus candidatos históricos no se declaran completos. Se mantienen las reservas fiscales y checkJs. D137 fija el cierre por la orden final de Elies, que prevalece sobre el objetivo abierto del BRIEF.
+
+V5 conserva el corte R26; Crossa sigue en V1 desfasado, copia local fuera de Victus del mismo propietario/casa. Sin main, PR, despliegue, LFS, gasto, transferencia ni limpieza. Se respalda esta entrega únicamente en origin/procedencia-documental; el recibo final queda en correcciones/cierre-r66.
+
+## Situación anterior, ronda 65 del 30 de octubre
 
 Recibida la única revisión de los diez explícitos: nueve valores/selecciones locales corroborados y bloqueo de actividad demostrado; R64-PUSH-01 impide cerrar la propagación completa. El padre reproduce [1,1]/cero pasos, corrige identidad de arrays e historia causal y obtiene [1,2]/dos pasos. Cotejo físico de 23.958 entradas intactas, transporte exacto de 195 rutas, 58 integradas y siete originales técnicos preservados. Informe: correcciones/push-explicitos-r65.
 

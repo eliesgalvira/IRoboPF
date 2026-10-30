@@ -1,0 +1,85 @@
+import hashlib
+import json
+from pathlib import Path
+
+R = Path('/home/elies/Repos/IRoboPF')
+O = R/'docs/procedencia/correcciones/cierre-r66'
+REV = 'docs/procedencia/revisiones/'
+GROUPS = [
+    ('SS', 'causal-ss-r56-sol/dictamenes-individual11.json', 11, 'correcciones/causal-ss-r57'),
+    ('Retenciones y pagos', 'causal-retenciones-r58-sol/decisiones-sitios.json', 6, 'correcciones/causal-retenciones-r59'),
+    ('Rentas generales', 'causal-rentas-r60-sol/decisiones-diez.json', 10, 'correcciones/causal-rentas-r61'),
+    ('Escalas, bases y mínimos', 'causal-escalas-r62-sol/DICTAMEN28.json', 28, 'correcciones/causal-escalas-r63'),
+    ('Explícitos finales', 'push-explicitos-r65-sol/DICTAMEN10.json', 10, 'correcciones/cierre-r66'),
+]
+
+
+def sha(data):
+    return hashlib.sha256(data).hexdigest()
+
+
+catalog_path = 'lib/procedencia/rastro-generado.json'
+catalog = json.loads((R/catalog_path).read_text())
+catalog_ids = [b['siteId'] for b in catalog['bindings']]
+assert len(catalog_ids) == len(set(catalog_ids)) == 65
+rows = []
+sources = []
+for group, path, count, parent in GROUPS:
+    full_path = REV+path
+    data = (R/full_path).read_bytes()
+    decisions = json.loads(data)
+    assert len(decisions) == count
+    sources.append(dict(path=full_path, sha256=sha(data), decisions=count))
+    for index, decision in enumerate(decisions):
+        site_id = next(decision[k] for k in ('siteId', 'site', 'id') if k in decision)
+        blocked = site_id == 'anual.explicito.actividad.etapa'
+        verdict = next(decision[k] for k in ('decision', 'dictamen') if k in decision)
+        conditions = next(decision[k] for k in ('scope', 'alcance', 'limite', 'limites') if k in decision)
+        rows.append(dict(
+            siteId=site_id, group=group,
+            status='bloqueo-demostrado' if blocked else 'corroborado-tecnico-condicionado',
+            reviewVerdict=verdict, conditions=conditions,
+            review=dict(path=full_path, sha256=sha(data), jsonPointer='/'+str(index)),
+            reviewReport=REV+path.split('/')[0]+'/INFORME.md',
+            excludedActivityVariant=site_id.startswith('anual.explicito.'),
+            activityDependency=decision.get('bloqueo') or (
+                'adaptarActividadGeneral → calcularActividad2025 → etapas/aporte; las 19 familias quedan fuera del encargo'
+                if blocked else None),
+            parentContrast='docs/procedencia/'+parent,
+            siteClosed=False, admissionClosed=False, wiringAllowed=False, completeRuleAcceptance=False,
+        ))
+assert len(rows) == len({r['siteId'] for r in rows}) == 65
+assert set(catalog_ids) == {r['siteId'] for r in rows}
+assert sum(r['status'] == 'corroborado-tecnico-condicionado' for r in rows) == 64
+assert sum(r['status'] == 'bloqueo-demostrado' for r in rows) == 1
+for row in rows:
+    assert (R/row['reviewReport']).is_file()
+    assert (R/row['parentContrast']).is_dir(), row['parentContrast']
+result = dict(
+    version=1, scope='Cierre del encargo acotado de 65 sitios, no cierre fiscal ni público',
+    catalog=dict(path=catalog_path, sha256=sha((R/catalog_path).read_bytes()), active=catalog['actual']),
+    counts=dict(catalog=65, uniqueDecisions=65, conditionalTechnical=64, demonstratedBlocker=1),
+    agreement=dict(noMissingIds=True, noExtraIds=True, noDuplicateIds=True),
+    commonConditions=[
+        'Descriptor derivado de fuentes y software exactos; evidencia completa, no slice aislado.',
+        'Datos ordinarios, finitos, síncronos y arrays densos; Decimal/runtime fijados.',
+        'Hechos y derechos previamente admitidos; no prueba de admisión pública.',
+        'Solo modos, ejercicios, servicios y perfiles descritos en cada dictamen.',
+        'Una muestra finita y replay compartido no prueban semántica universal ni validez fiscal.',
+    ],
+    sources=sources, sites=sorted(rows, key=lambda row: row['siteId']),
+)
+(O/'matriz-65.json').write_text(json.dumps(result, ensure_ascii=False, indent=2)+'\n')
+table = ['# Los 65 sitios al cierre', '',
+         '64 tienen corroboración técnica condicionada; uno tiene bloqueo demostrado. Cada fila enlaza su dictamen. '
+         'Las condiciones y hashes están en [matriz-65.json](matriz-65.json). Ninguna fila abre puertas públicas o fiscales.', '',
+         '| ID | Lote | Resultado |', '| --- | --- | --- |']
+for row in result['sites']:
+    report = '../../'+row['reviewReport'].removeprefix('docs/procedencia/')
+    label = 'Bloqueo demostrado' if row['status'] == 'bloqueo-demostrado' else 'Condicionado'
+    if row['excludedActivityVariant'] and label == 'Condicionado':
+        label += '; actividad excluida'
+    table.append('| `'+row['siteId']+'` | '+row['group']+' | ['+label+']('+report+') |')
+(O/'MATRIZ-65.md').write_text('\n'.join(table)+'\n')
+(O/'conciliar.py.txt').write_bytes(Path(__file__).read_bytes())
+print(json.dumps(result['counts']))
