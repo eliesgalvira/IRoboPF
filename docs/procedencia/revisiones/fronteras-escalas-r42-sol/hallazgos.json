@@ -1,0 +1,24 @@
+{
+  "defectosNuevosProducto": [],
+  "corroboraciones": [
+    "R40-01",
+    "R40-02"
+  ],
+  "condicionesAbiertas": [
+    "R40-03",
+    "admision",
+    "siteClosed",
+    "wiring",
+    "aceptacionFiscal"
+  ],
+  "hipotesisRefutada": {
+    "id": "PROPIO-H01",
+    "hipotesis": "Omitir previo siempre lanza con callback constante",
+    "observado": "Transporta undefined; callback ignora argumento",
+    "clasificacion": "Error de expectativa propia; no defecto producto",
+    "evidencia": [
+      "propios-intento1.log",
+      "propios-ajuste.patch"
+    ]
+  }
+}

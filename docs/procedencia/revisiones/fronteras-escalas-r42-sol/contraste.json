@@ -1,0 +1,144 @@
+{
+  "changes": [
+    {
+      "id": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts:1797:4183:boundary",
+      "before": [
+        "cotizacionTrabajador:EUR"
+      ],
+      "after": [
+        "cotizacionTrabajador:EUR",
+        "cotizacionEmpresarial:EUR",
+        "meiEmpresarial:EUR",
+        "meiTrabajador:EUR",
+        "solidaridadEmpresarial:EUR",
+        "solidaridadTrabajador:EUR"
+      ]
+    },
+    {
+      "id": "lib/dominio/laboral/cotizaciones-sociales.ts:7772:9547:boundary",
+      "before": [
+        "cotizacionTrabajador:EUR"
+      ],
+      "after": [
+        "cotizacionTrabajador:EUR",
+        "cotizacionEmpresarial:EUR",
+        "meiEmpresarial:EUR",
+        "meiTrabajador:EUR",
+        "solidaridadEmpresarial:EUR",
+        "solidaridadTrabajador:EUR"
+      ]
+    },
+    {
+      "id": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:636:1428:boundary",
+      "before": [
+        "rendimientoNeto:EUR",
+        "rendimientoPrevioNeto:EUR"
+      ],
+      "after": [
+        "rendimientoIntegro:EUR",
+        "rendimientoNeto:EUR",
+        "rendimientoPrevioNeto:EUR",
+        "gastosDeducibles:EUR",
+        "cotizacionTrabajador:EUR"
+      ]
+    },
+    {
+      "id": "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:1081:2362:boundary",
+      "before": [
+        "gananciaSujetaGeneral:EUR",
+        "gananciaSujetaAhorro:EUR"
+      ],
+      "after": [
+        "gananciaSujetaGeneral:EUR",
+        "gananciaSujetaAhorro:EUR",
+        "gananciaTotal:EUR",
+        "gananciaExenta:EUR"
+      ]
+    },
+    {
+      "id": "lib/dominio/irpf/trabajo-anual/adaptador.ts:192:891:boundary",
+      "before": [
+        "estado:discrete",
+        "rendimientoAntesArt20:EUR-string",
+        "argumentoArt20:EUR-string",
+        "gastos.integro:EUR-string"
+      ],
+      "after": [
+        "estado:discrete",
+        "rendimientoAntesArt20:EUR-string",
+        "argumentoArt20:EUR-string",
+        "gastos.integro:EUR-string",
+        "motivo:string"
+      ]
+    },
+    {
+      "id": "lib/dominio/irpf/actividades-economicas/adaptador.ts:591:942:boundary",
+      "before": [
+        "estado:discrete",
+        "aporte.importeEurosExactos:EUR-string"
+      ],
+      "after": [
+        "estado:discrete",
+        "aporte.importeEurosExactos:EUR-string",
+        "aporte.retencionesEuros:EUR-string",
+        "aporte.pagosFraccionadosEuros:EUR-string",
+        "motivos[].motivo:string"
+      ]
+    },
+    {
+      "id": "lib/dominio/irpf/trabajo-anual/calcular.ts:4528:7082:boundary",
+      "before": [
+        "estado:discrete",
+        "importeAplicable:EUR-string",
+        "cuotaPosterior:EUR-string"
+      ],
+      "after": [
+        "estado:discrete",
+        "importeAplicable:EUR-string",
+        "cuotaPosterior:EUR-string",
+        "motivo:string"
+      ]
+    }
+  ],
+  "signatureCases": [
+    {
+      "code": "const x=(direct:string)=>{const nested=(wrong:number)=>wrong;return direct}",
+      "expected": [
+        "direct"
+      ],
+      "status": "pass"
+    },
+    {
+      "code": "const x=Effect.fn(\"owner\")(function*(entrada:DerechosMinimos2025){const nested=(wrong:number)=>wrong})",
+      "expected": [
+        "entrada"
+      ],
+      "status": "pass"
+    },
+    {
+      "code": "const x=Effect.fn(\"owner\")(function*(caso:DerechosMinimos2025,rentaNoExenta:Decimal){})",
+      "expected": [
+        "caso",
+        "rentaNoExenta"
+      ],
+      "status": "pass"
+    },
+    {
+      "code": "const x=unknownFactory(()=>{})",
+      "expected": null,
+      "status": "pass"
+    },
+    {
+      "code": "const x=Effect.fn(\"owner\")(function*(){},function*(){})",
+      "expected": null,
+      "status": "pass"
+    }
+  ],
+  "operations": 20900,
+  "sources": 57,
+  "sites": 28,
+  "callBindingsUnchanged": true,
+  "otherSignaturesUnchanged": 11,
+  "replicaIdentica": true,
+  "adaptacionSoloRenombrado": true
+}

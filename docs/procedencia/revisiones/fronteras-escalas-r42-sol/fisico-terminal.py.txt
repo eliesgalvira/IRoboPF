@@ -1,0 +1,42 @@
+import subprocess,os,stat,json,gzip,hashlib
+from pathlib import Path
+r=Path.cwd();o=r/'docs/procedencia/revisiones/fronteras-escalas-r42-sol';base='4bc6fe74d9c3b3df0584457767227a64bb5294b9'
+assert subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()==base
+proc=subprocess.Popen(['git','cat-file','--batch'],stdin=subprocess.PIPE,stdout=subprocess.PIPE)
+records=[];known=set()
+for entry in subprocess.check_output(['git','ls-tree','-rz',base]).split(b'\0'):
+ if not entry:continue
+ meta,p=entry.split(b'\t');mode,typ,oid=meta.split();rel=os.fsdecode(p);known.add(rel)
+ # Una solicitud/respuesta completa antes de pedir el siguiente blob.
+ proc.stdin.write(oid+b'\n');proc.stdin.flush();header=proc.stdout.readline().split();assert header[1]==b'blob';size=int(header[2]);expected=proc.stdout.read(size);assert proc.stdout.read(1)==b'\n'
+ st=os.lstat(r/rel);link=stat.S_ISLNK(st.st_mode);actual=os.fsencode(os.readlink(r/rel)) if link else (r/rel).read_bytes()
+ assert actual==expected,rel
+ assert (mode==b'120000')==link,rel
+ assert link or bool(st.st_mode&0o111)==(mode==b'100755'),rel
+ records.append(dict(path=rel,size=len(actual),sha256=hashlib.sha256(actual).hexdigest(),baseSha256=hashlib.sha256(expected).hexdigest(),mode=mode.decode(),physicalMode=oct(stat.S_IMODE(st.st_mode))))
+proc.stdin.close();assert proc.wait()==0;assert len(records)==21013
+additions=[]
+for root,dirs,files in os.walk(r,followlinks=False):
+ if Path(root)==r:dirs[:]=[d for d in dirs if d not in ['.git','.jj']]
+ for name in files+[d for d in dirs if (Path(root)/d).is_symlink()]:
+  p=Path(root)/name;rel=str(p.relative_to(r))
+  if rel in known or rel in ['.git','.jj']:continue
+  assert rel.startswith(('docs/procedencia/revisiones/fronteras-escalas-r42-sol/','.cache/revision-fronteras-escalas-r42-sol/')),rel
+  st=p.lstat();data=os.fsencode(os.readlink(p)) if p.is_symlink() else p.read_bytes()
+  additions.append(dict(path=rel,sha256=hashlib.sha256(data).hexdigest(),size=len(data),mode=oct(stat.S_IMODE(st.st_mode)),symlink=p.is_symlink()))
+assert subprocess.check_output(['git','diff','HEAD','--'])==b''
+# Transporte terminado antes del recibo terminal: verificar de nuevo los archivos de payload restaurados.
+m=json.loads((o/'MANIFIESTO.json').read_text());t=json.loads((o/'transporte.json').read_text());assert t['exactBytes'] and t['exactMode']
+for item in m['files']:
+ for p in [r/item['path'],r/t['restoration']/item['path']]:
+  data=p.read_bytes();assert len(data)==item['size'] and hashlib.sha256(data).hexdigest()==item['sha256'];assert bool(p.stat().st_mode&0o111)==item['executable']
+receipt=dict(head=base,entries=21013,records=records,additions=additions,baseChanges=[],deleted=[],diffEmpty=True,transportCompletedAndRechecked=True,method='lstat/readlink/bytes/modo; git cat-file --batch con una sola solicitud pendiente y un blob cada vez; censo físico completo salvo metadatos VCS')
+(o/'fisico-terminal.json.gz').write_bytes(gzip.compress((json.dumps(receipt,ensure_ascii=False)+'\n').encode(),mtime=0))
+(o/'fisico-terminal.py.txt').write_bytes(Path(__file__).read_bytes())
+# Recibo terminal fuera del payload, incluido explícitamente en sobre sin autorreferencia.
+sobre=json.loads((o/'SOBRE.json').read_text());files=[]
+for p in sorted(o.rglob('*')):
+ if p.is_file() and p.name!='SOBRE.json':
+  data=p.read_bytes();files.append(dict(path=str(p.relative_to(r)),sha256=hashlib.sha256(data).hexdigest(),size=len(data),baseSha256=None))
+sobre.update(files=files,terminalReceipt='fisico-terminal.json.gz',terminalReceiptOutsidePayload=True,transportRechecked=True);(o/'SOBRE.json').write_text(json.dumps(sobre,ensure_ascii=False,indent=2)+'\n')
+print(json.dumps(dict(head=base,entries=21013,baseChanges=0,deleted=0,transport='exacto y recotejado',payloadFiles=len(m['files']),envelopeFiles=len(files),additions=len(additions))))

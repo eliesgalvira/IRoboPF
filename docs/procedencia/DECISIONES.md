@@ -493,3 +493,11 @@ El objeto anual intermedio consume más propiedades que las fronteras documental
 ## D112 — Corroborar R41 sin encadenar revisiones favorables de los mismos bytes
 
 La revisión independiente corrobora los cinco arreglos documentales SS/rentas y reproduce los rojos anteriores. Objeción: aceptar ese dictamen podría extenderse indebidamente al cierre fiscal o a toda la causalidad. Respuesta: cotejar transporte, productores y conclusiones con las reproducciones propias R41, aceptar solo esas correcciones y mantener condiciones de verificación/admisión, dominio ordinario y checkJs SS incompleto. Coste: futuras composiciones necesitan su propia evidencia; no se repite una revisión favorable sin un cambio o problema nuevo.
+
+## D113 — Corroborar fronteras bajo sus condiciones y conservar el arnés original
+
+La revisión independiente y el contraste del padre acreditan propiedades consumidas y firmas R42, sin nuevo defecto de producto. Objeción: un schema permisivo o callback que ignore argumentos puede aparentar suficiencia. Respuesta: distinguir capas, observar argumentos, probar sustracción y mantener los límites de errores/admisión; adaptar solo el tipo faltante del arnés para tipos globales estrictos, conservando original, diff y equivalencia del AST emitido. Coste: doble identidad documental del test integrado y cierre técnico condicionado, sin repetir otra revisión favorable de los mismos cambios.
+
+## D114 — Componer contratos revisados sin anticipar la admisión
+
+Los cuatro grupos tienen recorridos finitos revisados, pero sus fronteras aún deben conectarse por propiedad, instancia, unidad y condición. Objeción: concatenar 65 fichas o usar callbacks financieros arbitrarios mantendría la dependencia sin resolver. Respuesta: compositor ejecutable con enlaces concretos a programas y primitivas verificadas, errores/admisión como contratos explícitos y puerta pública cerrada mientras falte su revisión. Coste: implementación y contrarrevisión comunes, conservando las 19 instancias y dominios anual/aislado separados, sin modificar fórmulas fiscales ni inventar un compilador universal.
