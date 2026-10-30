@@ -8,7 +8,7 @@ Recibida e integrada como candidata la admisión completa R36: 92 archivos, 2.74
 
 El padre reproduce 236 pruebas correctas, reconstrucción idéntica y consumidor autónomo sin motor/TypeScript. Pasan tipos principal/vendor y lint global. Se conservan los cinco rojos históricos; checkJs=false mantiene su límite sobre MJS. Seis familias, 27 fronteras y 48 instancias quedan como candidatas, sin aceptación por recuentos. Los diecisiete cierres, wiring y aceptación fiscal permanecen false.
 
-Se prepara una revisión independiente nueva Sol 6.1 high priority de la admisión. La composición R43 sigue activa sobre su base exacta, sin incorporar todavía esta entrega ni leer su trabajo parcial. Su conexión posterior deberá contrastarse expresamente.
+Bloque respaldado en origin, commit `20db524962aab05e648fa96c875213c090bd9df1`: 117 archivos, hashes comprobados y cero borrados. Lanzada una revisión independiente nueva de admisión sobre ese commit y sus 21.243 entradas, con gpt-6.1-sol, high y priority explícitos y confirmados por el lanzador. Encargo y respuesta completos en delegaciones-ronda44.json. Su finalización reactivará el hilo; no se sondea su ejecución. La composición R43 sigue activa sobre su base exacta, sin incorporar todavía esta entrega ni leer su trabajo parcial. Su conexión posterior deberá contrastarse expresamente.
 
 Motor, inventario, confianza y 45 snapshots intactos. V5 mantiene corte R26 y Crossa v1 desfasado. Sin main, PR, despliegue, LFS, gasto, transferencias o limpieza. El encargo global continúa abierto.
 
