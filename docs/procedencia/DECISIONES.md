@@ -521,3 +521,7 @@ Dos encargos amplios de composición entregan avances útiles pero incompletos s
 ## D119 — Conservar atributos de constructor y versionar el recibo
 
 La contrarrevisión descubre tres colisiones dentro del dominio anunciado. Objeción: equivalencia monetaria CJS/ESM podría justificar normalizar el constructor entero. Respuesta: conservar presencia, orden y atributos, normalizando solo el valor de los dos constructores reconocidos mediante un marcador tipado; mantener la guardia y los límites frente a funciones externas. Coste: codec v3 incompatible con los recibos v2, que requieren regeneración explícita y nueva revisión del cambio. No convertir identidad en autenticación ni atribuir al defecto una diferencia de cuota no demostrada. A02–A05 permanecen corroborados con el alcance independiente, sin otra revisión repetida de esos mismos arreglos.
+
+## D120 — Corroborar identidad sin confundirla con aceptación de valores
+
+La revisión independiente y el contraste del padre corroboran R47-N01 y compatibilidad v3, sin nuevo defecto reproducido. Objeción: aceptar identidad del recibo podría trasladarse a sus importes o provocar una cadena interminable de revisiones idénticas. Respuesta: cerrar solo el hallazgo técnico, mantener obligaciones financieras y admisión separadas, y avanzar a la contrarrevisión pendiente del módulo de resultados R45. Coste: regeneración explícita de recibos v2 y revisión propia de la composición posterior; no promover confianza ni fiscalidad por hashes o pruebas.

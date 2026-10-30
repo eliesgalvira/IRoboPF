@@ -1,0 +1,254 @@
+import { createRequire } from 'node:module'
+import { types } from 'node:util'
+import { pathToFileURL } from 'node:url'
+import { evaluateRightsProgram as evaluateProgram } from "/home/elies/.t3/worktrees/IRoboPF/t3-10c13f45/scripts/procedencia/flujo-admision-r36-derechos.mjs"
+const require=createRequire(process.env.IROBOPF_DEPENDENCIES_PACKAGE ?? new URL('../../package.json',import.meta.url))
+const Decimal=require('decimal.js')
+const Ajv=require('ajv')
+const inputValidators=new WeakMap(),outputValidators=new WeakMap(),failureValidators=new WeakMap()
+const DecimalEsm=(await import(pathToFileURL(require.resolve('decimal.js').replace(/decimal\.js$/, 'decimal.mjs')).href)).default
+const isDecimal=value=>value instanceof Decimal||value instanceof DecimalEsm
+export class AdmissionPending extends Error {}
+export class AdmissionReject extends Error { constructor(value) { super(value?.motivo ?? String(value)); this.value=value } }
+/** Codec v2: etiquetas fuera del espacio de objetos, propiedades propias y alias. */
+export function encodeAdmissionValue(value) {
+  const references=new Map()
+  function encode(input) {
+    if(input===undefined)return ['undefined']
+    if(input===null)return ['null']
+    if(Object(input)!==input) {
+      if(['[object Symbol]','[object BigInt]'].includes(Object.prototype.toString.call(input)))throw new AdmissionPending('Primitiva sin codec')
+      return [Object.prototype.toString.call(input),Object.is(input,-0)?'-0':String(input)]
+    }
+    if(types.isProxy(input))throw new AdmissionPending('Proxy sin codec')
+    if(references.has(input))return ['reference',references.get(input)]
+    const id=references.size;references.set(input,id)
+    const descriptors=Object.getOwnPropertyDescriptors(input)
+    if(Object.getOwnPropertySymbols(input).length||Object.values(descriptors).some(d=>d.get||d.set))throw new AdmissionPending('Propiedad sin codec de datos')
+    const properties=(excluded=[])=>Object.entries(descriptors).filter(([key])=>!excluded.includes(key)).map(([key,d])=>[key,d.enumerable,d.configurable,d.writable,encode(d.value)])
+    if(isDecimal(input))return ['Decimal',id,input.toString(),input.isNegative(),properties([Decimal,DecimalEsm].includes(descriptors.constructor?.value)?['constructor']:[])]
+    if(input instanceof Date)return ['Date',id,String(input.getTime()),properties()]
+    if(input instanceof Function) {
+      if(!input.r36Origin)throw new AdmissionPending('Función sin origen de programa')
+      return ['function',id,input.r36Origin]
+    }
+    if(Array.isArray(input))return ['array',id,properties()]
+    return ['object',id,Object.getPrototypeOf(input)===null?'null':'Object',properties()]
+  }
+  return {codec:'admission-value-v2',value:encode(value)}
+}
+class Returned {constructor(value){this.value=value}}
+class Continued {}
+const isFunction=x=>x instanceof Function
+
+/** Dominio acotado comprobado antes de leer propiedades: datos, Decimal y Date nativos. */
+export function checkRuntimeDomain(value, stack = new Set()) {
+  if (Object(value)!==value) {if(['[object Symbol]','[object BigInt]'].includes(Object.prototype.toString.call(value)))throw new AdmissionPending('Primitiva fuera del dominio');return}
+  if(types.isProxy(value)) throw new AdmissionPending('Proxy fuera del dominio')
+  if(Object.getOwnPropertySymbols(value).length)throw new AdmissionPending('Símbolos propios fuera del dominio')
+  if(stack.has(value)) throw new AdmissionPending('Ciclo fuera del dominio')
+  const descriptors=Object.getOwnPropertyDescriptors(value)
+  for(const key of [...Object.keys(descriptors),...Object.getOwnPropertySymbols(descriptors)])if(descriptors[key].get||descriptors[key].set)throw new AdmissionPending('Accessor fuera del dominio')
+  const native=isDecimal(value) ? (value instanceof Decimal?Decimal.prototype:DecimalEsm.prototype) : value instanceof Date ? Date.prototype : null
+  if(native&&Object.getPrototypeOf(value)!==native)throw new AdmissionPending('Subclase fuera del dominio')
+  if(Array.isArray(value)&&Object.getPrototypeOf(value)!==Array.prototype)throw new AdmissionPending('Subclase Array fuera del dominio')
+  if(!native&&!Array.isArray(value)&&![Object.prototype,null].includes(Object.getPrototypeOf(value))) throw new AdmissionPending('Prototipo fuera del dominio')
+  stack.add(value)
+  for(const [key,d] of Object.entries(Object.getOwnPropertyDescriptors(value))) {
+    if(native&&key==='constructor'&&[Decimal,DecimalEsm,Date].includes(d.value))continue
+    if(d.get||d.set) throw new AdmissionPending('Accessor fuera del dominio')
+    checkRuntimeDomain(d.value,stack)
+  }
+  stack.delete(value)
+}
+function matches(pattern,value) {
+  if(isFunction(pattern)) return pattern(value)
+  if(pattern!==null&&Object(pattern)===pattern) return value!==null&&Object(value)===value&&Object.entries(pattern).every(([k,p])=>matches(p,value[k]))
+  return Object.is(pattern,value)
+}
+
+/** Solo consume IR JSON. Ninguna API del motor, lectura TS, eval o compilación durante ejecución. */
+export function executeAdmissionGraph(fragment, entry, args, evidence = {}) {
+  const graph=fragment.graph, definitions=new Map(graph.definitions.map(d=>[d.key,d.value])), globals=new Map()
+  const trace=[], identities=new WeakMap();let serial=0, instance=0
+  const optionalAbsent=Symbol('optional-chain-not-evaluated')
+  const normalize=value=>value===optionalAbsent?undefined:value
+  const identity=x=>{if(Object(x)!==x)return null;if(!identities.has(x))identities.set(x,++instance);return identities.get(x)}
+  const snap=x=>x===undefined||x===optionalAbsent?{kind:'undefined'}:isDecimal(x)?{kind:'Decimal',value:x.toString(),instance:identity(x)}:x instanceof Date?{kind:'Date',milliseconds:Number.isNaN(x.getTime())?'NaN':x.getTime(),instance:identity(x)}:Object(x)===x?{kind:'reference',instance:identity(x)}:Number.isNaN(x)||x===Infinity||x===-Infinity?{kind:'number',value:String(x)}:x
+  const record=(n,frame,value,detail={})=>{trace.push({node:n.id,op:n.op,frame:frame.id,iteration:frame.iteration??null,value:snap(value),...detail});return value}
+  const matchValue=value=>({value,clauses:[]})
+  const schema=accept=>({accept,check(...checks){return schema(value=>accept(value)&&checks.every(check=>check(value)))}})
+  const struct=fields=>schema(value=>value!==null&&Object(value)===value&&!Array.isArray(value)&&Object.keys(value).every(k=>Object.hasOwn(fields,k))&&Object.entries(fields).every(([k,s])=>Object.hasOwn(value,k)&&s.accept(value[k])))
+  const builtins={
+    Schema:{String:schema(x=>Object.prototype.toString.call(x)==='[object String]'&&Object(x)!==x),Literal:value=>schema(x=>x===value),Literals:values=>schema(x=>values.includes(x)),Struct:struct,Array:s=>schema(x=>Array.isArray(x)&&x.every(s.accept)),NullOr:s=>schema(x=>x===null||s.accept(x)),isPattern:re=>x=>re.test(x),isMinLength:n=>x=>x.length>=n,is:s=>x=>s.accept(x),decodeUnknownSync:s=>(x)=>{if(!s.accept(x))throw Error('Schema estructural no satisfecho');return x}},
+    undefined,Infinity,NaN,Decimal,Number,String,Object,Array,Math,Map,Set,Date,Error,
+    EffectArray:{reduce:(a,seed,fn)=>a.reduce(fn,seed),map:(a,fn)=>a.map(fn),findFirst:(a,fn)=>{const x=a.find(fn);return x===undefined?{_tag:'None'}:{_tag:'Some',value:x}}},
+    medirAuditoriaSync:(_name,fn)=>fn(),registrarTiempoAgregadoAuditoria:()=>undefined,tiempoAuditoriaMs:()=>0,
+    ...Object.fromEntries(['validarDerechosMinimos','validarRentasAnualesDerechos','hayAlimentosPropiosSinMinimo'].map(name=>[name,(...values)=>{const r=evaluateProgram(fragment.rights,name,values);trace.push(...r.trace.map(t=>({...t,frame:'rights:'+t.frame})));if(r.outcome==='reject')throw new AdmissionReject({motivo:r.reason});if(r.outcome==='defect')throw Error(r.reason);if(r.outcome==='pending')throw new AdmissionPending(r.reason);return r.value}])),
+    DateTime:{makeUnsafe:s=>({epochMilliseconds:new Date(s).getTime()})},
+    Match:{
+      value:matchValue,
+      when:(pattern,body)=>m=>({...m,clauses:[...m.clauses,{pattern,body}]}),
+      orElse:body=>m=>{const found=m.clauses.find(c=>matches(c.pattern,m.value));return (found?.body??body)(m.value)},
+      exhaustive:m=>{const found=m.clauses.find(c=>matches(c.pattern,m.value));if(!found)throw Error('Match.exhaustive');return found.body(m.value)},
+      withReturnType:()=>x=>x,
+      valueTags:(value,handlers)=>handlers[value._tag](value),
+      undefined:x=>x===undefined,
+      string:x=>Object.prototype.toString.call(x)==='[object String]'&&Object(x)!==x,
+      number:x=>Object.prototype.toString.call(x)==='[object Number]'&&Object(x)!==x
+    },
+    Option:{
+      fromNullishOr:x=>x==null?{_tag:'None'}:{_tag:'Some',value:x},
+      none:()=>({_tag:'None'}),some:value=>({_tag:'Some',value}),
+      match:(...args)=>{const match=(x,h)=>x._tag==='None'?h.onNone():h.onSome(x.value);return args.length===1?x=>match(x,args[0]):match(args[0],args[1])},
+      getOrElse:otherwise=>x=>x._tag==='None'?otherwise():x.value,
+      getOrThrow:x=>{if(x._tag!=='Some')throw Error('Option.getOrThrow');return x.value}
+    },
+    Effect:{
+      succeed:x=>x,fail:x=>{throw new AdmissionReject(x)},die:x=>{throw x},
+      mapError:map=>({mapError:map}),provide:()=>x=>x,annotateCurrentSpan:()=>undefined
+    }
+  }
+  const services=new Map()
+  function programValue(key,id){return ev({id,op:'global',key},{id:++serial,locals:new Map()})}
+  function bindingValue(spec){
+    if(spec.kind==='program')return programValue(spec.key,spec.id)
+    if(spec.kind==='captured')return Object.freeze({provider:spec.provider,capturedOnly:true})
+    if(spec.kind==='service')return serviceValue(spec.serviceId)
+    if(spec.kind==='object')return Object.fromEntries(spec.fields.map(f=>[f.name,bindingValue(f.value)]))
+    throw Error('Binding de servicio desconocido')
+  }
+  function serviceValue(id){
+    const contract=fragment.services.find(s=>s.id===id)
+    if(!contract)throw Error('Servicio sin contrato '+id)
+    if(contract.directEntry===entry)return {layer:{service:id},[contract.method]:(...values)=>{const result=fragment.boundaries.find(b=>b.name===contract.injectedResult);return boundary(result.name,values,{id:result.instances[0].node},{id:++serial,locals:new Map()})}}
+    if(!services.has(id)){const factory=programValue(contract.factory,contract.anchor.id);services.set(id,{layer:{service:id,providers:contract.providers.map(p=>p.provider)},[contract.method]:factory(...contract.arguments.map(bindingValue))})}
+    return services.get(id)
+  }
+  for(const service of fragment.services)Object.defineProperty(builtins,service.id,{get:()=>serviceValue(service.id)})
+  function bind(pattern,value,frame) {
+    if(pattern.name) frame.locals.set(pattern.name,value)
+    else if(pattern.fields) for(const f of pattern.fields) bind(f.binding,f.rest?Object.fromEntries(Object.entries(value).filter(([key])=>!pattern.fields.some(other=>!other.rest&&other.key===key))):value[f.key]===undefined&&f.fallback?ev(f.fallback,frame):value[f.key],frame)
+    else for(const [i,p] of pattern.items.entries()) bind(p,value[i],frame)
+  }
+  function boundary(name,values,n,frame) {
+    const contract=fragment.boundaries.find(b=>b.name===name)
+    const key=n.id+':'+trace.filter(t=>t.op==='boundary-result'&&t.node===n.id).length
+    const encoded=encodeAdmissionValue(values)
+    record({...n,op:'boundary-call'},frame,undefined,{name,key,arguments:encoded,instance:contract?.instances.find(i=>i.node===n.id)??null})
+    for(const input of contract?.inputs??[]) {
+      let value=values
+      for(const key of input.path)value=value?.[key]
+      const valid=input.kind==='Decimal'?isDecimal(value):input.kind==='year'?Number.isInteger(value)&&value>=2012&&value<=2026:input.kind==='number'?Number.isFinite(value):input.kind==='array'?Array.isArray(value):input.kind==='gains'?(()=>{if(!inputValidators.has(input))inputValidators.set(input,new Ajv({allErrors:true}).compile(input.schema));return inputValidators.get(input)(value)})():input.kind==='converter'?value?.r36Origin?.endsWith('importe-monetario.ts#centimosAEuros'):false
+      if(!valid)throw new AdmissionPending('Entrada fuera del dominio de frontera '+name+' '+input.path.join('.'))
+    }
+    let selection
+    if(name==='calcularDerechosMinimos') {
+      const selected=evaluateProgram(fragment.rights,'calcularDerechosMinimos',[values[0]])
+      trace.push(...selected.trace.map(t=>({...t,frame:'selection:'+t.frame})))
+      selection=selected.value
+      if(selected.outcome==='reject')throw new AdmissionReject({motivo:selected.reason})
+      if(selected.outcome!=='success')throw new AdmissionPending(selected.reason)
+    }
+    const supplied=evidence[key]??evidence[name]
+    if(!contract||!supplied) throw new AdmissionPending('Evidencia ausente: '+name+' '+key)
+    // Una función inyectada sola no acredita el contrato de esta instancia.
+    const result=isFunction(supplied)?supplied(values,{node:n.id,frame:frame.id,key}):supplied
+    if(!result?.arguments||JSON.stringify(result.arguments)!==JSON.stringify(encoded))throw new AdmissionPending('Recibo no ligado a operandos de la instancia '+key)
+    if(result.node!==n.id)throw new AdmissionPending('Recibo de otra instancia '+key)
+    if(!result||!['success','reject','defect','pending'].includes(result.outcome)) throw new AdmissionPending('Resultado sin contrato: '+name)
+    if(result.outcome==='pending') throw new AdmissionPending(result.reason??name)
+    if(result.outcome==='reject') {checkRuntimeDomain(result.value);if(result.value?._tag!=='ResultadoNoSoportado'||Object.prototype.toString.call(result.value?.motivo)!=='[object String]')throw Error('Fallo sin contrato '+name);if(!contract.reject)throw Error('Rechazo fuera del contrato '+name);if(!failureValidators.has(contract))failureValidators.set(contract,new Ajv({allErrors:true}).compile(contract.failureSchema));if(!failureValidators.get(contract)(result.value))throw Error('Fallo del servicio no satisface DTO completo');throw new AdmissionReject(result.value)}
+    if(result.outcome==='defect') throw Error(result.reason??name)
+    checkRuntimeDomain(result.value)
+    if(contract.resultKind==='array'&&!Array.isArray(result.value))throw Error('Salida array ausente '+name)
+    if(contract.resultKind==='optional-object'&&result.value!==undefined) {
+      if(!contract.resultSchema)throw new AdmissionPending('Variante opcional sin contrato de propiedades '+name)
+      if(!outputValidators.has(contract)){const ajv=new Ajv({allErrors:true});ajv.addKeyword('r36Decimal',{validate:(_schema,value)=>isDecimal(value),errors:false});outputValidators.set(contract,ajv.compile(contract.resultSchema))}
+      if(!outputValidators.get(contract)(result.value))throw Error('Salida opcional no satisface sus propiedades '+name)
+    }
+    if(contract.resultKind==='object'&&(result.value===null||Object(result.value)!==result.value))throw Error('Salida object ausente '+name)
+    if(contract.resultKind==='Decimal'&&!isDecimal(result.value))throw Error('Salida Decimal ausente '+name)
+    if(contract.resultKind==='option'&&!['None','Some'].includes(result.value?._tag))throw Error('Salida Option ausente '+name)
+    for(const field of contract.outputs) {
+      let value=result.value
+      for(const key of field.path) value=value?.[key]
+      if(field.kind==='schema'){if(!outputValidators.has(field)){const ajv=new Ajv({allErrors:true});ajv.addKeyword('r36Decimal',{validate:(_schema,value)=>isDecimal(value),errors:false});outputValidators.set(field,ajv.compile(field.schema))}if(!outputValidators.get(field)(value))throw Error('Salida del servicio no satisface DTO anual completo')}
+      if(field.kind==='Decimal'&&!(isDecimal(value)))throw Error('Salida Decimal ausente '+name+'.'+field.path.join('.'))
+      if(field.kind==='annual-tag'&&value!=='LiquidacionIrpfAnualCalculada')throw Error('Tag anual inválido '+name)
+      if(field.kind==='array'&&!Array.isArray(value))throw Error('Salida array ausente '+name+'.'+field.path.join('.'))
+      if(field.kind==='decimal-string'&&(Object(value)===value||!new Decimal(value).isFinite()))throw Error('Porcentaje inválido '+name)
+      if(field.kind==='retention-tag'&&value!=='RetencionTrabajoCalculada')throw Error('Tag inválido '+name)
+      if(field.kind==='number'&&!Number.isFinite(value))throw Error('Salida numérica inválida '+name+'.'+field.path.join('.'))
+    }
+    if(selection){
+      const selector=graph.roots.find(r=>r.name==='seleccionarIncrementoDerechos')
+      if(!selector)throw new AdmissionPending('Selección de incremento no representada')
+      const increment=ev(selector.value,{id:++serial,locals:new Map()})
+      const attrs=result.value.atribuciones
+      if(attrs.length!==selection.length||attrs.some((a,i)=>a.sujetoId!==selection[i].descendiente.sujetoId||a.orden!==i+1||a.divisor!==selection[i].titulares.length||JSON.stringify(a.titulares)!==JSON.stringify(selection[i].titulares.map(t=>t.titularId))||a.incremento!==increment(selection[i],values[0])||!isDecimal(a.minimo)||!isDecimal(a.discapacidad)))throw Error('Resultado monetario no conserva selección por instancia')
+    }
+    record({...n,op:'boundary-result'},frame,result.value,{name,key,arguments:values.map(snap),contract:contract.id})
+    return result.value
+  }
+  function ev(n,frame) {
+    const e=x=>normalize(ev(x,frame));let value
+    switch(n.op) {
+      case 'literal':case 'json':value=n.value;break
+      case 'builtin':if(!Object.hasOwn(builtins,n.name))throw Error('Primitiva desconocida '+n.name);value=builtins[n.name];break
+      case 'local':if(!frame.locals.has(n.name))throw Error('Local ausente '+n.name);value=frame.locals.get(n.name);break
+      case 'global':if(!globals.has(n.key)){if(!definitions.has(n.key))throw Error('Global ausente '+n.key);const globalValue=ev(definitions.get(n.key),{id:++serial,locals:new Map()});if(isFunction(globalValue))globalValue.r36Origin=n.key;globals.set(n.key,globalValue)}value=globals.get(n.key);break
+      case 'boundary':value=(...values)=>boundary(n.name,values,n,frame);break
+      case 'regex':value=new RegExp(n.pattern,n.flags);break
+      case 'get':{const target=ev(n.target,frame);if(target===optionalAbsent||(n.optional&&target==null)){value=optionalAbsent;break}const key=e(n.key);value=target[key];record(n,frame,value,{receiver:identity(target),key,operand:n.target.id});if(isFunction(value))value=value.bind(target);return value}
+      case 'array':value=[];for(const item of n.items)if(item.op==='spread')value.push(...e(item.value));else value.push(e(item));break
+      case 'object':value={};for(const field of n.fields)if(field.spread)Object.assign(value,e(field.spread));else value[field.key]=e(field.value);break
+      case 'choose':value=e(n.condition)?e(n.yes):e(n.no);break
+      case 'unary':if(n.operator==='!')value=!e(n.value);else if(n.operator==='-')value=-e(n.value);else throw Error('Unario desconocido');break
+      case 'binary':{
+        const a=e(n.left)
+        if(n.operator==='&&'){value=a&&e(n.right);break}
+        if(n.operator==='||'){value=a||e(n.right);break}
+        if(n.operator==='??'){value=a??e(n.right);break}
+        const b=e(n.right)
+        switch(n.operator){
+          case '===':value=a===b;break;case '!==':value=a!==b;break;case '<':value=a<b;break;case '<=':value=a<=b;break;case '>':value=a>b;break;case '>=':value=a>=b;break;case '+':value=a+b;break;case '-':value=a-b;break;case '*':value=a*b;break;case '/':value=a/b;break;case '%':value=a%b;break;case 'in':value=a in b;break;
+          case '=':if(n.left.op!=='local')throw Error('Asignación no local');frame.locals.set(n.left.name,b);value=b;break;
+          default:throw Error('Binario desconocido '+n.operator)
+        }break
+      }
+      case 'template':value=n.head+n.parts.map(p=>String(e(p.value))+p.tail).join('');break
+      case 'lambda':value=(...values)=>{const child={id:++serial,locals:new Map(frame.locals)};let index=0;for(const p of n.params){const v=p.rest?values.slice(index):values[index++];bind(p.binding,v===undefined&&p.fallback?ev(p.fallback,child):v,child)}try{block(n.body,child)}catch(error){if(error instanceof Returned)return error.value;throw error}};break
+      case 'call':{const fn=ev(n.callee,frame),values=[];if(fn===optionalAbsent){value=optionalAbsent;break}if(!isFunction(fn))throw Error('Callee no invocable '+n.id);for(const a of n.args)if(a.op==='spread')values.push(...e(a.value));else values.push(e(a));value=fn(...values);break}
+      case 'new':{const constructor=e(n.callee);value=new constructor(...n.args.map(e));break}
+      case 'run':value=e(n.value)();break
+      case 'yield':value=e(n.value);break
+      case 'pipe':{const steps=n.steps.map(e);try{value=e(n.value);for(const s of steps)if(!s.mapError)value=s(value)}catch(error){const mapper=steps.find(s=>s.mapError);if(error instanceof AdmissionReject&&mapper)throw new AdmissionReject(mapper.mapError(error.value));throw error}break}
+      default:throw Error('Operador desconocido '+n.op)
+    }
+    return record(n,frame,value)
+  }
+  function block(body,frame) {
+    for(const n of body) {
+      record(n,frame,undefined)
+      if(n.op==='bind')bind(n.binding,normalize(ev(n.value,frame)),frame)
+      else if(n.op==='return')throw new Returned(normalize(ev(n.value,frame)))
+      else if(n.op==='evaluate')ev(n.value,frame)
+      else if(n.op==='if')block(ev(n.condition,frame)?n.yes:n.no,frame)
+      else if(n.op==='for'){let index=0;for(const value of ev(n.collection,frame)){const iteration={id:++serial,locals:new Map(frame.locals),iteration:{node:n.id,index:index++}};bind(n.binding,value,iteration);try{block(n.body,iteration)}catch(error){if(!(error instanceof Continued))throw error}}}
+      else if(n.op==='continue')throw new Continued()
+      else if(n.op==='throw')throw ev(n.value,frame)
+      else throw Error('Sentencia desconocida '+n.op)
+    }
+  }
+  try {
+    args.forEach(x=>checkRuntimeDomain(x))
+    const conversion=fragment.conversions.find(c=>c.program.endsWith('#'+entry))
+    if(conversion&&!(conversion.input.kind==='Decimal'?isDecimal(args[0]):Number.isFinite(args[0])))throw new AdmissionPending('Entrada fuera del dominio monetario '+entry)
+    const selected=graph.roots.find(r=>r.name===entry)
+    if(!selected)throw Error('Entrada desconocida '+entry)
+    const value=ev(selected.value,{id:++serial,locals:new Map()})(...args)
+    const present=value?._tag==='LiquidacionIrpfAnualCalculada'?new Set(value.rastro.pasos.flatMap(p=>p.lineasCalculo??[]).map(l=>l.origen?.siteId)):new Set()
+    return {outcome:'success',value,trace,sites:fragment.sites.map(s=>s.siteId).filter(id=>present.has(id))}
+  }catch(error){return {outcome:error instanceof AdmissionPending?'pending':error instanceof AdmissionReject?'reject':'defect',reason:error.message,value:error.value,trace,sites:[]}}
+}

@@ -1,0 +1,11 @@
+--- docs/procedencia/correcciones/codec-admision-r48/runtime-anterior.mjs.txt	2026-10-30 03:52:01.796233871 +0100
++++ .cache/revision-codec-admision-r48-sol/runtime-anterior.mjs	2026-10-30 03:54:16.923645177 +0100
+@@ -1,7 +1,7 @@
+ import { createRequire } from 'node:module'
+ import { types } from 'node:util'
+ import { pathToFileURL } from 'node:url'
+-import { evaluateRightsProgram as evaluateProgram } from './flujo-admision-r36-derechos.mjs'
++import { evaluateRightsProgram as evaluateProgram } from "/home/elies/.t3/worktrees/IRoboPF/t3-10c13f45/scripts/procedencia/flujo-admision-r36-derechos.mjs"
+ const require=createRequire(process.env.IROBOPF_DEPENDENCIES_PACKAGE ?? new URL('../../package.json',import.meta.url))
+ const Decimal=require('decimal.js')
+ const Ajv=require('ajv')

@@ -1,0 +1,4 @@
+process.env.IROBOPF_DEPENDENCIES_PACKAGE='/home/elies/Repos/IRoboPF/package.json';
+import {createRequire} from 'node:module';
+const require=createRequire('/home/elies/Repos/IRoboPF/package.json');
+export default {cacheDir:"/home/elies/.t3/worktrees/IRoboPF/t3-10c13f45/.cache/revision-codec-admision-r48-sol/vite",resolve:{alias:{'@':process.cwd()}},plugins:[{name:'dependencias',enforce:'pre',resolveId(id){if(!id.startsWith('.')&&!id.startsWith('/')&&!id.startsWith('node:')&&!id.startsWith('@/')){try{return id==='vitest'?'/home/elies/Repos/IRoboPF/node_modules/vitest/dist/index.js':require.resolve(id)}catch{return null}}}}],test:{include:JSON.parse(process.env.REVIEW_INCLUDE),cache:false,maxWorkers:1,testTimeout:60000}};

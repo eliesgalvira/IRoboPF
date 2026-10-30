@@ -1,0 +1,12 @@
+import json,os,subprocess
+from pathlib import Path
+r=Path('/home/elies/Repos/IRoboPF');c=r/'.cache/orquestador-recepcion/r49';o=r/'docs/procedencia/correcciones/recepcion-codec-r49'
+v=['node','node_modules/vitest/vitest.mjs','run','--configLoader','native','--config',str(c/'vitest.mjs'),'--reporter=json']
+jobs=[('codec',v+['--outputFile='+str(o/'codec.json')],['docs/procedencia/revisiones/codec-admision-r48-sol/propios.test.ts','docs/procedencia/revisiones/admision-r46-r47-sol/codec.rojo.ts',str(c/'protocolo.test.mjs')]),('recibos-reales',v+['--outputFile='+str(o/'recibos-reales.json'),'-t','recibo real fijado|ROJO recibo anual'],[str(c/'contraste.test.mjs')]),('types',['bun','run','typecheck'],None),('oxlint',['node_modules/.bin/oxlint','--threads=1','--disable-nested-config'],None),('eslint',['bun','run','lint:eslint'],None)]
+results=[]
+for name,cmd,include in jobs:
+ env=dict(os.environ,NODE_PATH=str(r/'node_modules'))
+ if include is not None:env['REVIEW_INCLUDE']=json.dumps(include)
+ with (o/(name+'.log')).open('wb') as log:p=subprocess.run(['flock','/tmp/irobopf-validacion-pesada.lock',*cmd],cwd=r,env=env,stdout=log,stderr=subprocess.STDOUT)
+ results.append(dict(name=name,command=cmd,include=include,exitCode=p.returncode));(o/'validacion.json').write_text(json.dumps(results,indent=2)+'\n');print(json.dumps(results[-1]),flush=True)
+ if p.returncode:break

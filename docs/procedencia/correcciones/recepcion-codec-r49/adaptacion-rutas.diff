@@ -1,0 +1,67 @@
+--- runtime-anterior.mjs.recibido
++++ runtime-anterior.mjs.adaptado
+@@ -1,7 +1,7 @@
+ import { createRequire } from 'node:module'
+ import { types } from 'node:util'
+ import { pathToFileURL } from 'node:url'
+-import { evaluateRightsProgram as evaluateProgram } from "/home/elies/.t3/worktrees/IRoboPF/t3-10c13f45/scripts/procedencia/flujo-admision-r36-derechos.mjs"
++import { evaluateRightsProgram as evaluateProgram } from "/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-admision-r36-derechos.mjs"
+ const require=createRequire(process.env.IROBOPF_DEPENDENCIES_PACKAGE ?? new URL('../../package.json',import.meta.url))
+ const Decimal=require('decimal.js')
+ const Ajv=require('ajv')
+--- protocolo.test.mjs.recibido
++++ protocolo.test.mjs.adaptado
+@@ -1,8 +1,8 @@
+ import { expect, it } from 'vitest'
+ import { encodeAdmissionValue as oldEncode } from './runtime-anterior.mjs'
+-import { encodeAdmissionValue } from '../../scripts/procedencia/flujo-admision-r36-runtime.mjs'
+-import { buildCompleteAdmission, evaluateCompleteAdmission } from '../../scripts/procedencia/flujo-admision-r36.mjs'
+-import { base } from '../../docs/procedencia/revisiones/admision-anual-r34-sol/fixtures.mjs'
++import { encodeAdmissionValue } from '/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-admision-r36-runtime.mjs'
++import { buildCompleteAdmission, evaluateCompleteAdmission } from '/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-admision-r36.mjs'
++import { base } from '/home/elies/Repos/IRoboPF/docs/procedencia/revisiones/admision-anual-r34-sol/fixtures.mjs'
+ import { synthetic } from './puertos.mjs'
+ const fragment = buildCompleteAdmission()
+ for (const [label, encode, outcome] of [['v2 real', oldEncode, 'pending'], ['v3', encodeAdmissionValue, 'success']]) it(`I06 protocolo ${label}`, () => {
+--- contraste.test.mjs.recibido
++++ contraste.test.mjs.adaptado
+@@ -2,13 +2,13 @@
+ import {readFileSync} from 'node:fs'
+ import Decimal from 'decimal.js'
+ import {Effect,Result} from 'effect'
+-import {buildCompleteAdmission,evaluateCompleteAdmission,verifyCompleteAdmission} from '/home/elies/.t3/worktrees/IRoboPF/t3-10c13f45/scripts/procedencia/flujo-admision-r36.mjs'
+-import {encodeAdmissionValue,checkRuntimeDomain} from '/home/elies/.t3/worktrees/IRoboPF/t3-10c13f45/scripts/procedencia/flujo-admision-r36-runtime.mjs'
+-import {evaluateRightsProgram} from '/home/elies/.t3/worktrees/IRoboPF/t3-10c13f45/scripts/procedencia/flujo-admision-r36-derechos.mjs'
+-import {liquidarIrpfAnual} from '/home/elies/.t3/worktrees/IRoboPF/t3-10c13f45/lib/dominio/irpf/liquidacion/liquidar-irpf-anual'
+-import {calcularDerechosMinimos,validarDerechosMinimos} from '/home/elies/.t3/worktrees/IRoboPF/t3-10c13f45/lib/dominio/irpf/minimos/derechos'
+-import {MINIMOS_ESTATALES_2025} from '/home/elies/.t3/worktrees/IRoboPF/t3-10c13f45/lib/dominio/normativa/datos/minimos-autonomicos-2025'
+-import {base,ret,derechos} from '/home/elies/.t3/worktrees/IRoboPF/t3-10c13f45/docs/procedencia/revisiones/admision-anual-r34-sol/fixtures.mjs'
++import {buildCompleteAdmission,evaluateCompleteAdmission,verifyCompleteAdmission} from '/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-admision-r36.mjs'
++import {encodeAdmissionValue,checkRuntimeDomain} from '/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-admision-r36-runtime.mjs'
++import {evaluateRightsProgram} from '/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-admision-r36-derechos.mjs'
++import {liquidarIrpfAnual} from '/home/elies/Repos/IRoboPF/lib/dominio/irpf/liquidacion/liquidar-irpf-anual'
++import {calcularDerechosMinimos,validarDerechosMinimos} from '/home/elies/Repos/IRoboPF/lib/dominio/irpf/minimos/derechos'
++import {MINIMOS_ESTATALES_2025} from '/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/minimos-autonomicos-2025'
++import {base,ret,derechos} from '/home/elies/Repos/IRoboPF/docs/procedencia/revisiones/admision-anual-r34-sol/fixtures.mjs'
+ import {synthetic} from './puertos.mjs'
+ const f=buildCompleteAdmission()
+ const run=(caso=base,ports=synthetic(),entry='liquidarIrpfAnual')=>evaluateCompleteAdmission(f,entry,[caso,{modo:'canonico'}],ports)
+--- puertos.mjs.recibido
++++ puertos.mjs.adaptado
+@@ -1,6 +1,6 @@
+ import Decimal from 'decimal.js';
+-import {buildCompleteAdmission} from '/home/elies/.t3/worktrees/IRoboPF/t3-10c13f45/scripts/procedencia/flujo-admision-r36.mjs';
+-import {encodeAdmissionValue} from '/home/elies/.t3/worktrees/IRoboPF/t3-10c13f45/scripts/procedencia/flujo-admision-r36-runtime.mjs';
++import {buildCompleteAdmission} from '/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-admision-r36.mjs';
++import {encodeAdmissionValue} from '/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-admision-r36-runtime.mjs';
+ const f=buildCompleteAdmission();
+ export function synthetic(overrides={}){
+  const ports={}
+--- vitest.mjs.recibido
++++ vitest.mjs.adaptado
+@@ -1,4 +1,4 @@
+ process.env.IROBOPF_DEPENDENCIES_PACKAGE='/home/elies/Repos/IRoboPF/package.json';
+ import {createRequire} from 'node:module';
+ const require=createRequire('/home/elies/Repos/IRoboPF/package.json');
+-export default {cacheDir:"/home/elies/.t3/worktrees/IRoboPF/t3-10c13f45/.cache/revision-codec-admision-r48-sol/vite",resolve:{alias:{'@':process.cwd()}},plugins:[{name:'dependencias',enforce:'pre',resolveId(id){if(!id.startsWith('.')&&!id.startsWith('/')&&!id.startsWith('node:')&&!id.startsWith('@/')){try{return id==='vitest'?'/home/elies/Repos/IRoboPF/node_modules/vitest/dist/index.js':require.resolve(id)}catch{return null}}}}],test:{include:JSON.parse(process.env.REVIEW_INCLUDE),cache:false,maxWorkers:1,testTimeout:60000}};
++export default {cacheDir:"/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r49/vite",resolve:{alias:{'@':process.cwd()}},plugins:[{name:'dependencias',enforce:'pre',resolveId(id){if(!id.startsWith('.')&&!id.startsWith('/')&&!id.startsWith('node:')&&!id.startsWith('@/')){try{return id==='vitest'?'/home/elies/Repos/IRoboPF/node_modules/vitest/dist/index.js':require.resolve(id)}catch{return null}}}}],test:{include:JSON.parse(process.env.REVIEW_INCLUDE),cache:false,maxWorkers:1,testTimeout:60000}};

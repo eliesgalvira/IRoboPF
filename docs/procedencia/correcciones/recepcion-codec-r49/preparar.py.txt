@@ -1,0 +1,12 @@
+import difflib,json
+from pathlib import Path
+r=Path('/home/elies/Repos/IRoboPF');c=r/'.cache/orquestador-recepcion/r49';o=r/'docs/procedencia/correcciones/recepcion-codec-r49';f=r/'docs/procedencia/revisiones/codec-admision-r48-sol/instrumentos';s='/home/elies/.t3/worktrees/IRoboPF/t3-10c13f45'
+changes=[]
+for name in ['runtime-anterior.mjs','protocolo.test.mjs','contraste.test.mjs','puertos.mjs','vitest.mjs']:
+ original=(f/(name+'.txt')).read_text()
+ adapted=original.replace(s+'/.cache/revision-codec-admision-r48-sol',str(c)).replace(s,str(r)).replace("'../../scripts/","'"+str(r)+"/scripts/").replace("'../../docs/","'"+str(r)+"/docs/")
+ (c/name).write_text(adapted)
+ changes.extend(difflib.unified_diff(original.splitlines(True),adapted.splitlines(True),fromfile=name+'.recibido',tofile=name+'.adaptado'))
+(o/'adaptacion-rutas.diff').write_text(''.join(changes))
+for name in ['incidencia-recepcion.json','recibir-primer-intento.py','preparar.py']:
+ (o/(name if name.endswith('.json') else name+'.txt')).write_bytes((c/name).read_bytes())

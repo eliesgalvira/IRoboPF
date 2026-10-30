@@ -1,0 +1,19 @@
+{
+  "node": "24.19.0",
+  "tools": "nix shell nixpkgs#nodejs nixpkgs#bun; rg por nixpkgs#ripgrep",
+  "dependencies": "/home/elies/Repos/IRoboPF/node_modules solo lectura",
+  "finalInheritedEnvironment": {
+    "NODE_PATH": "/home/elies/Repos/IRoboPF/node_modules"
+  },
+  "sourceCommand": {
+    "command": "IROBOPF_DEPENDENCIES_PACKAGE=/home/elies/Repos/IRoboPF/package.json flock /tmp/irobopf-validacion-pesada.lock nix shell nixpkgs#nodejs -c node .cache/revision-codec-admision-r48-sol/fuentes.mjs",
+    "exitCode": 0
+  },
+  "physicalCommand": "flock /tmp/irobopf-recepcion-acotada.lock nix shell nixpkgs#nodejs -c node .cache/revision-codec-admision-r48-sol/fisico.mjs",
+  "transportCommand": "flock /tmp/irobopf-validacion-pesada.lock nix shell nixpkgs#nodejs -c node .cache/revision-codec-admision-r48-sol/empaquetar.mjs",
+  "writesOnly": [
+    "docs/procedencia/revisiones/codec-admision-r48-sol/",
+    ".cache/revision-codec-admision-r48-sol/"
+  ],
+  "noVcsMutations": true
+}

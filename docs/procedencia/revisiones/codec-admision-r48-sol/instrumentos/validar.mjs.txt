@@ -1,0 +1,14 @@
+import fs from 'node:fs'
+import {spawnSync} from 'node:child_process'
+const d='docs/procedencia/revisiones/codec-admision-r48-sol',s='.cache/revision-codec-admision-r48-sol'
+const commands=[]
+function run(name,cmd,args,env={}){const r=spawnSync('flock',['/tmp/irobopf-validacion-pesada.lock',cmd,...args],{env:{...process.env,...env},encoding:'utf8',maxBuffer:16e6});fs.writeFileSync(d+'/'+name+'.log',(r.stdout??'')+(r.stderr??''));commands.push({name,command:['flock','/tmp/irobopf-validacion-pesada.lock',cmd,...args],env,exitCode:r.status,error:r.error?.message});fs.writeFileSync(d+'/COMANDOS.json',JSON.stringify(commands,null,2));console.log(name,r.status)}
+const vitest='/home/elies/Repos/IRoboPF/node_modules/vitest/vitest.mjs'
+const test=(name,include,filter=[])=>run(name,'node',[vitest,'run','--configLoader','native','--config',s+'/vitest.mjs','--reporter=json','--outputFile='+d+'/'+name+'.json',...filter],{REVIEW_INCLUDE:JSON.stringify(include)})
+test('rojo-previo',[s+'/rojo-previo.test.ts'])
+test('rojo-actual',[s+'/rojo-actual.test.ts'])
+test('codec-final',['tests/admision-r48.test.ts',d+'/propios.test.ts',s+'/protocolo.test.mjs'])
+test('recibos-reales',[s+'/contraste.test.mjs'],['-t','recibo real fijado|ROJO recibo anual'])
+run('tipos','node',['/home/elies/Repos/IRoboPF/node_modules/typescript/bin/tsc','-p',s+'/tsconfig.json','--noEmit'])
+run('oxlint','/home/elies/Repos/IRoboPF/node_modules/.bin/oxlint',['--threads=1','--disable-nested-config','--config',s+'/oxlint.json',d+'/propios.test.ts'])
+run('eslint','node',['/home/elies/Repos/IRoboPF/node_modules/eslint/bin/eslint.js',d+'/propios.test.ts'])

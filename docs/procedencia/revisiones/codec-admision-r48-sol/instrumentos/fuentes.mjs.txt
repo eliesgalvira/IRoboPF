@@ -1,0 +1,23 @@
+import fs from 'node:fs'
+import {createHash} from 'node:crypto'
+import {gzipSync} from 'node:zlib'
+import {createRequire} from 'node:module'
+import {execFileSync} from 'node:child_process'
+import {buildCompleteAdmission,verifyCompleteAdmission} from '../../scripts/procedencia/flujo-admision-r36.mjs'
+const d='docs/procedencia/revisiones/codec-admision-r48-sol',s='.cache/revision-codec-admision-r48-sol',root=process.cwd()
+const f=buildCompleteAdmission();verifyCompleteAdmission(f)
+const paths=new Set([...f.graph.sources,...f.rights.sources].map(x=>x.path))
+for(const p of fs.readdirSync('scripts/procedencia').filter(x=>x.startsWith('flujo-admision-r36')&&x.endsWith('.mjs')))paths.add('scripts/procedencia/'+p)
+for(const p of ['package.json','bun.lock','.oxlintrc.json','tsconfig.json','eslint.config.mjs','tests/admision-r48.test.ts','tests/admision-r46.test.ts','schemas/procedencia/flujo/admision-r36.schema.json','docs/procedencia/revisiones/admision-r46-r47-sol/codec.rojo.ts','docs/procedencia/revisiones/admision-r46-r47-sol/propios.test.ts','docs/procedencia/correcciones/codec-admision-r48/runtime-anterior.mjs.txt','docs/procedencia/correcciones/codec-admision-r48/cambios.diff','docs/procedencia/correcciones/admision-r46/puertos.mjs','docs/procedencia/revisiones/admision-anual-r34-sol/fixtures.mjs'])paths.add(p)
+const require=createRequire('/home/elies/Repos/IRoboPF/package.json')
+for(const pkg of ['decimal.js','typescript','vitest','ajv','effect']){paths.add(require.resolve(pkg));if(pkg==='decimal.js')paths.add(require.resolve(pkg).replace(/decimal\.js$/,'decimal.mjs'))}
+const hash=(b,a='sha256')=>createHash(a).update(b).digest('hex')
+const pins=[];for(const p of paths){const b=fs.readFileSync(p),sha256=hash(b),sha512=hash(b,'sha512');const copies=[];for(const [alg,h]of [['sha256',sha256],['sha512',sha512]]){const dir=s+'/cas/'+alg;fs.mkdirSync(dir,{recursive:true});const dst=dir+'/'+h;fs.writeFileSync(dst,b);if(!fs.readFileSync(dst).equals(b))throw Error(p);copies.push(root+'/'+dst)}pins.push({path:p,size:b.length,sha256,sha512,copies})}fs.writeFileSync(d+'/CAS.json',JSON.stringify(pins,null,2))
+const bytes=gzipSync(JSON.stringify(f),{level:9}),expected='9d8f62076250c197e6fd840ac5b336306dc5cdcb3ff6a183ec8892604ac29b9a';if(hash(bytes)!==expected)throw Error('IR distinto');fs.writeFileSync(s+'/fragmento.json.gz',bytes)
+const old=fs.readFileSync('docs/procedencia/correcciones/codec-admision-r48/runtime-anterior.mjs.txt','utf8'),now=fs.readFileSync('scripts/procedencia/flujo-admision-r36-runtime.mjs','utf8');
+const strip=t=>t.slice(0,t.indexOf('/** Codec'))+t.slice(t.indexOf('class Returned'))
+if(strip(old)!==strip(now))throw Error('Cambio fuera del codec');
+const meta={artifactSha256:hash(bytes),artifactIdenticalReceived:bytes.equals(fs.readFileSync('docs/procedencia/correcciones/codec-admision-r48/fragmento-corregido.json.gz')),runtimeBefore:hash(old),runtimeAfter:hash(now),outsideCodecByteIdentical:strip(old)===strip(now),software:pins.filter(x=>x.path.startsWith('scripts/')||x.path.includes('schema')),sites:f.sites,wiringAllowed:f.wiringAllowed,completeRuleAcceptance:f.completeRuleAcceptance}
+fs.writeFileSync(d+'/contraste-fuentes.json',JSON.stringify(meta,null,2));
+for(const name of ['pruebas-final.json','rojo-previo.json','artefacto.json','dictamenes-padre.json','calidad-final.json']){const p='docs/procedencia/correcciones/codec-admision-r48/'+name;JSON.parse(fs.readFileSync(p,'utf8'))}
+console.log(JSON.stringify({pins:pins.length,artifact:hash(bytes),runtimeBefore:meta.runtimeBefore,runtimeAfter:meta.runtimeAfter,outsideCodecByteIdentical:meta.outsideCodecByteIdentical}))

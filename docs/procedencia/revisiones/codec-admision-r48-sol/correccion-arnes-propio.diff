@@ -1,0 +1,20 @@
+--- .cache/revision-codec-admision-r48-sol/propios-inicial.ts	2026-10-30 03:55:31.917914402 +0100
++++ docs/procedencia/revisiones/codec-admision-r48-sol/propios.test.ts	2026-10-30 03:57:26.753035901 +0100
+@@ -16,13 +16,15 @@
+   checkRuntimeDomain(left); checkRuntimeDomain(right)
+   const encoded = encodeAdmissionValue(left)
+   expect(encoded).toEqual(encodeAdmissionValue(right))
+-  expect(encoded.value[4]).toEqual(Object.entries(Object.getOwnPropertyDescriptors(left)).map(([key, d]) => [key, d.enumerable, d.configurable, d.writable, key === 'constructor' ? ['native-constructor', 'Decimal'] : encodeAdmissionValue(d.value).value]))
++  const properties: ReadonlyArray<readonly [string, boolean, boolean, boolean, object]> = encoded.value[4]
++  expect(properties.map(p => p.slice(0, 4))).toEqual(Object.entries(Object.getOwnPropertyDescriptors(left)).map(([key, d]) => [key, d.enumerable, d.configurable, d.writable]))
++  expect(properties.find(p => p[0] === 'constructor')).toEqual(['constructor', descriptor.enumerable, descriptor.configurable, descriptor.writable, ['native-constructor', 'Decimal']])
+ })
+ it('I02 ausencia, reinserción y orden alrededor de propiedades adicionales', () => {
+   const a = new Decimal(7), b = new Decimal(7), c = new Decimal(7)
+   for (const x of [a, b, c]) Object.defineProperty(x, 'antes', { value: 1, configurable: true })
+   const descriptor = Object.getOwnPropertyDescriptor(c, 'constructor')
+-  if (!descriptor) throw Error('Control sin constructor')
++  if (descriptor === undefined) throw Error('Control sin constructor')
+   expect(Reflect.deleteProperty(b, 'constructor')).toBe(true)
+   expect(Reflect.deleteProperty(c, 'constructor')).toBe(true)
+   Object.defineProperty(c, 'constructor', descriptor)

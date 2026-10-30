@@ -1,0 +1,72 @@
+[
+  {
+    "name": "codec",
+    "command": [
+      "node",
+      "node_modules/vitest/vitest.mjs",
+      "run",
+      "--configLoader",
+      "native",
+      "--config",
+      "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r49/vitest.mjs",
+      "--reporter=json",
+      "--outputFile=/home/elies/Repos/IRoboPF/docs/procedencia/correcciones/recepcion-codec-r49/codec.json"
+    ],
+    "include": [
+      "docs/procedencia/revisiones/codec-admision-r48-sol/propios.test.ts",
+      "docs/procedencia/revisiones/admision-r46-r47-sol/codec.rojo.ts",
+      "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r49/protocolo.test.mjs"
+    ],
+    "exitCode": 0
+  },
+  {
+    "name": "recibos-reales",
+    "command": [
+      "node",
+      "node_modules/vitest/vitest.mjs",
+      "run",
+      "--configLoader",
+      "native",
+      "--config",
+      "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r49/vitest.mjs",
+      "--reporter=json",
+      "--outputFile=/home/elies/Repos/IRoboPF/docs/procedencia/correcciones/recepcion-codec-r49/recibos-reales.json",
+      "-t",
+      "recibo real fijado|ROJO recibo anual"
+    ],
+    "include": [
+      "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r49/contraste.test.mjs"
+    ],
+    "exitCode": 0
+  },
+  {
+    "name": "types",
+    "command": [
+      "bun",
+      "run",
+      "typecheck"
+    ],
+    "include": null,
+    "exitCode": 0
+  },
+  {
+    "name": "oxlint",
+    "command": [
+      "node_modules/.bin/oxlint",
+      "--threads=1",
+      "--disable-nested-config"
+    ],
+    "include": null,
+    "exitCode": 0
+  },
+  {
+    "name": "eslint",
+    "command": [
+      "bun",
+      "run",
+      "lint:eslint"
+    ],
+    "include": null,
+    "exitCode": 0
+  }
+]

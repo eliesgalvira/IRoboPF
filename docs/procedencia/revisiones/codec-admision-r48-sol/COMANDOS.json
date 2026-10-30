@@ -1,0 +1,251 @@
+[
+  {
+    "name": "rojo-previo",
+    "command": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "node",
+      "/home/elies/Repos/IRoboPF/node_modules/vitest/vitest.mjs",
+      "run",
+      "--configLoader",
+      "native",
+      "--config",
+      ".cache/revision-codec-admision-r48-sol/vitest.mjs",
+      "--reporter=json",
+      "--outputFile=docs/procedencia/revisiones/codec-admision-r48-sol/rojo-previo.json"
+    ],
+    "env": {
+      "REVIEW_INCLUDE": "[\".cache/revision-codec-admision-r48-sol/rojo-previo.test.ts\"]"
+    },
+    "exitCode": 1
+  },
+  {
+    "name": "rojo-actual",
+    "command": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "node",
+      "/home/elies/Repos/IRoboPF/node_modules/vitest/vitest.mjs",
+      "run",
+      "--configLoader",
+      "native",
+      "--config",
+      ".cache/revision-codec-admision-r48-sol/vitest.mjs",
+      "--reporter=json",
+      "--outputFile=docs/procedencia/revisiones/codec-admision-r48-sol/rojo-actual.json"
+    ],
+    "env": {
+      "REVIEW_INCLUDE": "[\".cache/revision-codec-admision-r48-sol/rojo-actual.test.ts\"]"
+    },
+    "exitCode": 0
+  },
+  {
+    "name": "codec-final",
+    "command": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "node",
+      "/home/elies/Repos/IRoboPF/node_modules/vitest/vitest.mjs",
+      "run",
+      "--configLoader",
+      "native",
+      "--config",
+      ".cache/revision-codec-admision-r48-sol/vitest.mjs",
+      "--reporter=json",
+      "--outputFile=docs/procedencia/revisiones/codec-admision-r48-sol/codec-final.json"
+    ],
+    "env": {
+      "REVIEW_INCLUDE": "[\"tests/admision-r48.test.ts\",\"docs/procedencia/revisiones/codec-admision-r48-sol/propios.test.ts\",\".cache/revision-codec-admision-r48-sol/protocolo.test.mjs\"]"
+    },
+    "exitCode": 1
+  },
+  {
+    "name": "recibos-reales",
+    "command": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "node",
+      "/home/elies/Repos/IRoboPF/node_modules/vitest/vitest.mjs",
+      "run",
+      "--configLoader",
+      "native",
+      "--config",
+      ".cache/revision-codec-admision-r48-sol/vitest.mjs",
+      "--reporter=json",
+      "--outputFile=docs/procedencia/revisiones/codec-admision-r48-sol/recibos-reales.json",
+      "-t",
+      "recibo real fijado|ROJO recibo anual"
+    ],
+    "env": {
+      "REVIEW_INCLUDE": "[\".cache/revision-codec-admision-r48-sol/contraste.test.mjs\"]"
+    },
+    "exitCode": 0
+  },
+  {
+    "name": "tipos",
+    "command": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "node",
+      "/home/elies/Repos/IRoboPF/node_modules/typescript/bin/tsc",
+      "-p",
+      ".cache/revision-codec-admision-r48-sol/tsconfig.json",
+      "--noEmit"
+    ],
+    "env": {},
+    "exitCode": 2
+  },
+  {
+    "name": "oxlint",
+    "command": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "/home/elies/Repos/IRoboPF/node_modules/.bin/oxlint",
+      "--threads=1",
+      "--disable-nested-config",
+      "--config",
+      ".cache/revision-codec-admision-r48-sol/oxlint.json",
+      "docs/procedencia/revisiones/codec-admision-r48-sol/propios.test.ts"
+    ],
+    "env": {},
+    "exitCode": 0
+  },
+  {
+    "name": "eslint",
+    "command": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "node",
+      "/home/elies/Repos/IRoboPF/node_modules/eslint/bin/eslint.js",
+      "docs/procedencia/revisiones/codec-admision-r48-sol/propios.test.ts"
+    ],
+    "env": {},
+    "exitCode": 2
+  },
+  {
+    "name": "codec-definitivo",
+    "command": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "node",
+      "/home/elies/Repos/IRoboPF/node_modules/vitest/vitest.mjs",
+      "run",
+      "--configLoader",
+      "native",
+      "--config",
+      ".cache/revision-codec-admision-r48-sol/vitest.mjs",
+      "--reporter=json",
+      "--outputFile=docs/procedencia/revisiones/codec-admision-r48-sol/codec-definitivo.json"
+    ],
+    "env": {
+      "REVIEW_INCLUDE": "[\"tests/admision-r48.test.ts\",\"docs/procedencia/revisiones/codec-admision-r48-sol/propios.test.ts\",\".cache/revision-codec-admision-r48-sol/protocolo.test.mjs\"]"
+    },
+    "exitCode": 0
+  },
+  {
+    "name": "tipos-final",
+    "command": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "node",
+      "/home/elies/Repos/IRoboPF/node_modules/typescript/bin/tsc",
+      "-p",
+      ".cache/revision-codec-admision-r48-sol/tsconfig.json",
+      "--noEmit"
+    ],
+    "env": {},
+    "exitCode": 2
+  },
+  {
+    "name": "oxlint-final",
+    "command": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "/home/elies/Repos/IRoboPF/node_modules/.bin/oxlint",
+      "--threads=1",
+      "--disable-nested-config",
+      "--config",
+      ".cache/revision-codec-admision-r48-sol/oxlint.json",
+      "docs/procedencia/revisiones/codec-admision-r48-sol/propios.test.ts"
+    ],
+    "env": {},
+    "exitCode": 0
+  },
+  {
+    "name": "eslint-final",
+    "command": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "node",
+      "/home/elies/Repos/IRoboPF/node_modules/eslint/bin/eslint.js",
+      "--config",
+      ".cache/revision-codec-admision-r48-sol/eslint.mjs",
+      "docs/procedencia/revisiones/codec-admision-r48-sol/propios.test.ts"
+    ],
+    "env": {},
+    "exitCode": 0
+  },
+  {
+    "name": "codec-cierre",
+    "command": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "node",
+      "/home/elies/Repos/IRoboPF/node_modules/vitest/vitest.mjs",
+      "run",
+      "--configLoader",
+      "native",
+      "--config",
+      ".cache/revision-codec-admision-r48-sol/vitest.mjs",
+      "--reporter=json",
+      "--outputFile=docs/procedencia/revisiones/codec-admision-r48-sol/codec-cierre.json"
+    ],
+    "env": {
+      "REVIEW_INCLUDE": "[\"tests/admision-r48.test.ts\",\"docs/procedencia/revisiones/codec-admision-r48-sol/propios.test.ts\",\".cache/revision-codec-admision-r48-sol/protocolo.test.mjs\"]"
+    },
+    "exitCode": 0
+  },
+  {
+    "name": "tipos-cierre",
+    "command": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "node",
+      "/home/elies/Repos/IRoboPF/node_modules/typescript/bin/tsc",
+      "-p",
+      ".cache/revision-codec-admision-r48-sol/tsconfig.json",
+      "--noEmit"
+    ],
+    "env": {},
+    "exitCode": 0
+  },
+  {
+    "name": "oxlint-cierre",
+    "command": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "/home/elies/Repos/IRoboPF/node_modules/.bin/oxlint",
+      "--threads=1",
+      "--disable-nested-config",
+      "--config",
+      ".cache/revision-codec-admision-r48-sol/oxlint.json",
+      "docs/procedencia/revisiones/codec-admision-r48-sol/propios.test.ts"
+    ],
+    "env": {},
+    "exitCode": 0
+  },
+  {
+    "name": "eslint-cierre",
+    "command": [
+      "flock",
+      "/tmp/irobopf-validacion-pesada.lock",
+      "node",
+      "/home/elies/Repos/IRoboPF/node_modules/eslint/bin/eslint.js",
+      "--config",
+      ".cache/revision-codec-admision-r48-sol/eslint.mjs",
+      "docs/procedencia/revisiones/codec-admision-r48-sol/propios.test.ts"
+    ],
+    "env": {},
+    "exitCode": 0
+  }
+]

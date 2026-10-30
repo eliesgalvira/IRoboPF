@@ -1,0 +1,59 @@
+import { expect, it } from 'vitest'
+import Decimal from 'decimal.js'
+import { createRequire } from 'node:module'
+import { checkRuntimeDomain, encodeAdmissionValue } from '../../../../scripts/procedencia/flujo-admision-r36-runtime.mjs'
+import { buildCompleteAdmission, evaluateCompleteAdmission, verifyCompleteAdmission } from '../../../../scripts/procedencia/flujo-admision-r36.mjs'
+import { base } from '../admision-anual-r34-sol/fixtures.mjs'
+import { synthetic } from '../../correcciones/admision-r46/puertos.mjs'
+const require = createRequire('/home/elies/Repos/IRoboPF/package.json')
+const DecimalCjs: typeof Decimal = require('decimal.js')
+const fragment = buildCompleteAdmission()
+for (let bits = 0; bits < 8; bits++) it(`I01 matriz propia ${bits}: flags y ambos valores nativos del constructor`, () => {
+  const descriptor = { enumerable: Boolean(bits & 1), configurable: Boolean(bits & 2), writable: Boolean(bits & 4) }
+  const left = new Decimal(7), right = new DecimalCjs(7)
+  Object.defineProperty(left, 'constructor', { ...descriptor, value: DecimalCjs })
+  Object.defineProperty(right, 'constructor', { ...descriptor, value: Decimal })
+  checkRuntimeDomain(left); checkRuntimeDomain(right)
+  const encoded = encodeAdmissionValue(left)
+  expect(encoded).toEqual(encodeAdmissionValue(right))
+  expect(encoded.value[4]).toEqual(Object.entries(Object.getOwnPropertyDescriptors(left)).map(([key, d]) => [key, d.enumerable, d.configurable, d.writable, key === 'constructor' ? ['native-constructor', 'Decimal'] : encodeAdmissionValue(d.value).value]))
+})
+it('I02 ausencia, reinserción y orden alrededor de propiedades adicionales', () => {
+  const a = new Decimal(7), b = new Decimal(7), c = new Decimal(7)
+  for (const x of [a, b, c]) Object.defineProperty(x, 'antes', { value: 1, configurable: true })
+  const descriptor = Object.getOwnPropertyDescriptor(c, 'constructor')
+  if (!descriptor) throw Error('Control sin constructor')
+  expect(Reflect.deleteProperty(b, 'constructor')).toBe(true)
+  expect(Reflect.deleteProperty(c, 'constructor')).toBe(true)
+  Object.defineProperty(c, 'constructor', descriptor)
+  for (const x of [a, b, c]) { Object.defineProperty(x, 'despues', { value: 2 }); checkRuntimeDomain(x) }
+  expect(new Set([a, b, c].map(x => JSON.stringify(encodeAdmissionValue(x)))).size).toBe(3)
+})
+for (const flag of ['enumerable', 'configurable', 'writable'] as const) it(`I03 datos ordinarios en constructor preservan ${flag}`, () => {
+  const a = new Decimal(7), b = new Decimal(7), native = new Decimal(7)
+  const markerA = ['native-constructor', 'Decimal'], markerB = ['native-constructor', 'Decimal']
+  Object.defineProperty(markerB, 'extra', { value: 1, enumerable: true, configurable: true, writable: true })
+  Object.defineProperty(markerA, 'extra', { value: 1, enumerable: true, configurable: true, writable: true, [flag]: false })
+  Object.defineProperty(a, 'constructor', { value: markerA })
+  Object.defineProperty(b, 'constructor', { value: markerB })
+  for (const x of [a, b, native]) checkRuntimeDomain(x)
+  expect(encodeAdmissionValue(a)).not.toEqual(encodeAdmissionValue(b))
+  expect(encodeAdmissionValue(a)).not.toEqual(encodeAdmissionValue(native))
+})
+it('I04 marcador reservado solo al valor de constructor de Decimal nativo', () => {
+  const data = { constructor: ['native-constructor', 'Decimal'] }
+  checkRuntimeDomain(data)
+  expect(encodeAdmissionValue(data).value[0]).toBe('object')
+  const external = Object.assign(() => 7, { r36Origin: 'fabricado' })
+  const result = evaluateCompleteAdmission(fragment, 'liquidarIrpfAnual', [{ ...base, extra: { constructor: external } }, { modo: 'canonico' }], synthetic())
+  expect(result.outcome).toBe('pending'); expect(result.sites).toEqual([])
+  expect(result.trace).toEqual([])
+})
+it('I05 las 17 puertas y promociones continúan falsas', () => {
+  expect(fragment.sites).toHaveLength(17)
+  expect(verifyCompleteAdmission(fragment)).toBe(true)
+  expect(fragment.wiringAllowed).toBe(false); expect(fragment.completeRuleAcceptance).toBe(false)
+  for (const site of fragment.sites) {
+    expect(site.admissionClosed).toBe(false); expect(site.siteClosed).toBe(false)
+  }
+})

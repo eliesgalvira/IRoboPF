@@ -1,0 +1,11 @@
+--- docs/procedencia/revisiones/admision-r46-r47-sol/instrumentos/puertos.mjs.txt	2026-10-30 03:52:01.767232279 +0100
++++ .cache/revision-codec-admision-r48-sol/puertos.mjs	2026-10-30 03:54:16.933645725 +0100
+@@ -1,6 +1,6 @@
+ import Decimal from 'decimal.js';
+-import {buildCompleteAdmission} from '/home/elies/.t3/worktrees/IRoboPF/t3-af222c8b/scripts/procedencia/flujo-admision-r36.mjs';
+-import {encodeAdmissionValue} from '/home/elies/.t3/worktrees/IRoboPF/t3-af222c8b/scripts/procedencia/flujo-admision-r36-runtime.mjs';
++import {buildCompleteAdmission} from '/home/elies/.t3/worktrees/IRoboPF/t3-10c13f45/scripts/procedencia/flujo-admision-r36.mjs';
++import {encodeAdmissionValue} from '/home/elies/.t3/worktrees/IRoboPF/t3-10c13f45/scripts/procedencia/flujo-admision-r36-runtime.mjs';
+ const f=buildCompleteAdmission();
+ export function synthetic(overrides={}){
+  const ports={}

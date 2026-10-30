@@ -1,0 +1,16 @@
+import fs from 'node:fs'
+import path from 'node:path'
+import {spawnSync} from 'node:child_process'
+import {gzipSync} from 'node:zlib'
+import {createHash} from 'node:crypto'
+const d='docs/procedencia/revisiones/codec-admision-r48-sol',s='.cache/revision-codec-admision-r48-sol',root=process.cwd()
+const envelope=new Set(['MANIFIESTO.json','cambios.diff.gz','TRANSPORTE.json','RECONSTRUCCION.json'])
+const hash=b=>createHash('sha256').update(b).digest('hex')
+const files=[];function walk(dir){for(const e of fs.readdirSync(dir,{withFileTypes:true})){const p=dir+'/'+e.name;if(e.isDirectory())walk(p);else if(!envelope.has(e.name)&&!p.startsWith(d+'/binarios/'))files.push(p)}}walk(d)
+let patch='';const manifest=[]
+for(const p of files.sort()){const b=fs.readFileSync(p),mode=fs.statSync(p).mode&0o777,binary=b.includes(0),row={path:p,sha256:hash(b),size:b.length,baseSha256:null,mode,binary};if(binary){row.binaryPath=d+'/binarios/'+row.sha256;fs.mkdirSync(d+'/binarios',{recursive:true});fs.writeFileSync(row.binaryPath,b)}else if(b.length){const r=spawnSync('diff',['-u','--label','/dev/null','--label',p,'/dev/null',p],{encoding:'utf8',maxBuffer:16e6});if(r.status!==1)throw Error('diff '+p+' '+r.status);patch+=r.stdout}manifest.push(row)}
+fs.writeFileSync(d+'/MANIFIESTO.json',JSON.stringify({base:'85705808bf692ebd54f1a1cc432ff0cc7142d834',scope:d,payload:manifest,excludedEnvelope:[...envelope],emptyFiles:'crear por manifiesto; diff textual vacío no crea archivo vacío'},null,2));fs.writeFileSync(d+'/cambios.diff.gz',gzipSync(patch,{level:9}))
+const scratch=fs.mkdtempSync(root+'/'+s+'/reconstruccion-');const applied=spawnSync('patch',['-p0','--batch'],{cwd:scratch,input:patch,encoding:'utf8',maxBuffer:4e6});fs.writeFileSync(s+'/patch-reconstruccion.log',(applied.stdout??'')+(applied.stderr??''));if(applied.status!==0)throw Error('patch '+applied.status)
+for(const row of manifest){const dst=scratch+'/'+row.path;fs.mkdirSync(path.dirname(dst),{recursive:true});if(row.binary)fs.writeFileSync(dst,fs.readFileSync(row.binaryPath));else if(row.size===0)fs.writeFileSync(dst,'');fs.chmodSync(dst,row.mode);const actual=fs.readFileSync(dst);if(hash(actual)!==row.sha256||actual.length!==row.size||!actual.equals(fs.readFileSync(row.path))||(fs.statSync(dst).mode&0o777)!==row.mode)throw Error(row.path)}
+fs.writeFileSync(d+'/RECONSTRUCCION.json',JSON.stringify({exitCode:0,patchExitCode:applied.status,scratch,files:manifest.length,empty:manifest.filter(x=>x.size===0).map(x=>x.path),verified:'bytes, SHA256, size, mode; patch real en scratch nuevo, archivos vacíos por manifiesto',baseSha256AllNull:manifest.every(x=>x.baseSha256===null)},null,2))
+const transport=[...envelope].filter(x=>x!=='TRANSPORTE.json').map(p=>{const b=fs.readFileSync(d+'/'+p);return{path:d+'/'+p,size:b.length,sha256:hash(b)}});fs.writeFileSync(d+'/TRANSPORTE.json',JSON.stringify({payloadFiles:manifest.length,files:transport},null,2));console.log(JSON.stringify({files:manifest.length,bytes:manifest.reduce((a,b)=>a+b.size,0),scratch,patchExitCode:applied.status}))

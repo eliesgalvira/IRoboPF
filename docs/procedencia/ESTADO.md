@@ -2,7 +2,17 @@
 
 Inicio: 29 de octubre de 2026. Trabajo en curso; no es una certificación fiscal.
 
-## Situación más reciente, ronda 48 del 30 de octubre
+## Situación más reciente, ronda 49 del 30 de octubre
+
+Recibida la revisión del codec R48: 62 archivos, 333.402 bytes, transporte exacto de 58 archivos de payload y cotejo físico de 21.594 entradas intactas, cero borrados. Preservadas 102 fuentes técnicas por ambos hashes. El padre reproduce 19 pruebas de identidad/protocolo y dos de recibos reales; tipos principal/vendor y lint global pasan. Incidencia propia del primer patch -p1 corregida a -p0 y conservada, sin modificar la entrega.
+
+R47-N01 y el protocolo v3 quedan corroborados con alcance técnico limitado, sin nuevo defecto reproducido. Software e IR fijados por separado; recibos v2 requieren regeneración. No se repite otra revisión favorable de los mismos bytes. Detalle en correcciones/recepcion-codec-r49.
+
+Pendiente respaldo y lanzamiento de la revisión independiente del módulo de resultados R45, aún no contrastado por otro agente. La implementación de puertos R47 sigue aparte; no se sondea ni se lee trabajo parcial.
+
+Motor, inventario, confianza y 45 snapshots intactos. V5 mantiene corte R26 y Crossa v1 desfasado. Sin main, PR, despliegue, LFS, gasto, transferencia o limpieza. El encargo global continúa abierto.
+
+## Situación anterior, ronda 48 del 30 de octubre
 
 Recibida la contrarrevisión R47 de admisión: 51 archivos, 3.579.965 bytes, transporte exacto y 21.514 entradas base físicamente intactas, cero borrados. Preservadas 84 fuentes técnicas por ambos hashes. A02–A05 corroborados con alcance limitado; el padre reproduce las tres colisiones residuales de atributos de Decimal.constructor. Detalle en correcciones/codec-admision-r48.
 
