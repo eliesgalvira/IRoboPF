@@ -1,3 +1,4 @@
+import { prepareRentas } from "./causal-rentas-r59-contratos.mjs";
 import {
   prepareRetenciones,
   prepareSS,
@@ -48,7 +49,7 @@ interface DecimalAPI {
   isDecimal(v: unknown): v is DecimalValue;
 }
 const Decimal: DecimalAPI = require("decimal.js");
-const { Schema }: typeof import("effect") = require("effect");
+const { Schema, DateTime }: typeof import("effect") = require("effect");
 const record = Schema.is(Schema.Record(Schema.String, Schema.Unknown));
 const text = Schema.is(Schema.String),
   number = Schema.is(Schema.Number),
@@ -56,6 +57,7 @@ const text = Schema.is(Schema.String),
 interface Pattern {
   name?: string;
   fields?: { key: string; binding: Pattern }[];
+  elements?: ({ binding: Pattern; default: string | null } | null)[];
 }
 interface Node {
   id: string;
@@ -112,13 +114,15 @@ class ReturnValue {
 }
 const digest = <T>(v: T) =>
   createHash("sha256").update(JSON.stringify(v)).digest("hex");
-const absent = { absent: true };
 function shown(v: Value["raw"], internal = false): JSONValue {
   if (internal && v === Infinity) return { infinity: true };
   if (internal && v instanceof RegExp)
     return { regex: v.source, flags: v.flags };
+  if (internal && v instanceof Date) return { date: v.toISOString() };
+  if (internal && DateTime.isDateTime(v))
+    return { dateTime: DateTime.toEpochMillis(v) };
   if (Decimal.isDecimal(v)) return { decimal: v.toFixed() };
-  if (v === undefined) return absent;
+  if (v === undefined) return { absent: true };
   if (v === null || text(v) || boolean(v)) return v;
   if (number(v)) {
     if (!Number.isFinite(v)) throw Error("Número no finito");
@@ -171,7 +175,7 @@ const binary = (op: string, a: Value["raw"], b: Value["raw"]): JSONValue => {
   }
 };
 export interface FiniteOptions {
-  kind: "causal-ss-r54" | "causal-retenciones-r57";
+  kind: "causal-ss-r54" | "causal-retenciones-r57" | "causal-rentas-r59";
 }
 interface VerifiedOptions extends FiniteOptions {
   software: string[];
@@ -186,7 +190,18 @@ export function executeFiniteCausal(
 ): CausalResult {
   let prepared: SSFragment;
   let software: string[];
-  if (options.kind === "causal-retenciones-r57" && "fieldBindings" in g) {
+  if (options.kind === "causal-rentas-r59") {
+    prepared = prepareRentas(g, caso, contexto);
+    software = [
+      "scripts/procedencia/causal-rentas-r59-contratos.mjs",
+      "scripts/procedencia/causal-rentas-r59.mjs",
+      "scripts/procedencia/flujo-rentas-r36.mjs",
+      "scripts/procedencia/flujo-rentas-r36-consumidor.mjs",
+    ];
+  } else if (
+    options.kind === "causal-retenciones-r57" &&
+    "fieldBindings" in g
+  ) {
     prepared = prepareRetenciones(g, caso, contexto);
     software = [
       "scripts/procedencia/causal-retenciones-r57.ts",
@@ -216,8 +231,11 @@ function evaluateVerifiedFinite(
   execution: string,
   options: VerifiedOptions,
 ): CausalResult {
-  shown(caso);
+  shown(caso, options.kind === "causal-rentas-r59");
   shown(contexto);
+  const normalizedInput =
+    options.kind === "causal-rentas-r59" ? shown(caso, true) : caso;
+  if (!record(normalizedInput)) throw Error("Entrada anual no ordinaria");
   const nodes = new Map(g.program.map((n) => [n.id, n])),
     globals = new Map(g.globalBindings.map((b) => [b.name, b.node])),
     values = new Map<string, Value>();
@@ -247,11 +265,11 @@ function evaluateVerifiedFinite(
       property,
       unit,
       value:
-        options.kind === "causal-retenciones-r57" && raw === Infinity
+        options.kind !== "causal-ss-r54" && raw === Infinity
           ? { infinity: true }
           : raw instanceof RegExp
             ? { regex: raw.source, flags: raw.flags }
-            : shown(raw, options.kind === "causal-retenciones-r57"),
+            : shown(raw, options.kind !== "causal-ss-r54"),
       edges: [
         ...edges,
         ...controls.map((x) => ({ role: "selection", to: x.ref })),
@@ -295,7 +313,7 @@ function evaluateVerifiedFinite(
       [],
       path,
       path.endsWith("importeIntegroCentimos") ||
-        (options.kind === "causal-retenciones-r57" && path.endsWith("Centimos"))
+        (options.kind !== "causal-ss-r54" && path.endsWith("Centimos"))
         ? "centimos"
         : path.endsWith("anio")
           ? "ejercicio"
@@ -327,7 +345,7 @@ function evaluateVerifiedFinite(
         ],
         key,
       );
-    if (options.kind === "causal-retenciones-r57") {
+    if (options.kind !== "causal-ss-r54") {
       if (
         v.native === "Decimal" &&
         ["ROUND_HALF_UP", "ROUND_DOWN"].includes(key)
@@ -343,6 +361,8 @@ function evaluateVerifiedFinite(
         (Array.isArray(v.raw) &&
           [
             "filter",
+            "map",
+            "join",
             "every",
             "find",
             "reduce",
@@ -350,13 +370,23 @@ function evaluateVerifiedFinite(
             "reverse",
             "slice",
           ].includes(key)) ||
-        (text(v.raw) && ["startsWith", "slice"].includes(key)) ||
+        (text(v.raw) &&
+          ["startsWith", "slice", "split", "padStart"].includes(key)) ||
         (v.raw instanceof RegExp && key === "test")
       ) {
         const out = native("receiver." + key);
         out.props.set("receiver", v);
         return out;
       }
+    }
+    if (
+      options.kind === "causal-rentas-r59" &&
+      v.raw instanceof Date &&
+      ["getUTCFullYear", "getUTCMonth", "getUTCDate"].includes(key)
+    ) {
+      const out = native("date." + key);
+      out.props.set("receiver", v);
+      return out;
     }
     if (v.native !== undefined && v.native !== "")
       return native(v.native + "." + key);
@@ -374,7 +404,7 @@ function evaluateVerifiedFinite(
       return emit(
         "length",
         v.raw.length,
-        options.kind === "causal-retenciones-r57"
+        options.kind !== "causal-ss-r54"
           ? [
               { role: "identity:receiver", to: v.ref },
               ...(v.structure ?? []).map((x) => ({
@@ -392,9 +422,7 @@ function evaluateVerifiedFinite(
       [
         {
           role:
-            options.kind === "causal-retenciones-r57"
-              ? "identity:receiver"
-              : "receiver",
+            options.kind !== "causal-ss-r54" ? "identity:receiver" : "receiver",
           to: v.ref,
         },
       ],
@@ -409,7 +437,15 @@ function evaluateVerifiedFinite(
   ): void {
     if (p.name !== undefined && p.name !== "")
       env.set(p.name, alias(v, role, [], p.name));
-    else
+    else if ("elements" in p && Array.isArray(p.elements)) {
+      for (const [i, e] of p.elements.entries())
+        if (e !== null) {
+          let child = prop(v, String(i));
+          if (child.raw === undefined && e.default !== null && e.default !== "")
+            child = evaluate(e.default, env);
+          bind(e.binding, child, env, role);
+        }
+    } else
       for (const f of p.fields ?? [])
         bind(f.binding, prop(v, f.key), env, role);
   }
@@ -421,8 +457,17 @@ function evaluateVerifiedFinite(
       else if (
         [
           "Decimal",
-          ...(options.kind === "causal-retenciones-r57"
-            ? ["Effect", "Number", "Array", "Math", "Error"]
+          ...(options.kind !== "causal-ss-r54"
+            ? [
+                "Effect",
+                "Number",
+                "Array",
+                "Math",
+                "Error",
+                "Option",
+                "String",
+                "DateTime",
+              ]
             : []),
           "Match",
           "EffectArray",
@@ -431,7 +476,7 @@ function evaluateVerifiedFinite(
         ].includes(name)
       )
         values.set(name, native(name));
-      else if (name === "Infinity" && options.kind === "causal-retenciones-r57")
+      else if (name === "Infinity" && options.kind !== "causal-ss-r54")
         values.set(name, emit("literal-infinity", Infinity));
       else if (name === "undefined")
         values.set(name, emit("literal", undefined));
@@ -489,7 +534,7 @@ function evaluateVerifiedFinite(
           else throw e;
         }
         return alias(
-          options.kind === "causal-retenciones-r57" &&
+          options.kind !== "causal-ss-r54" &&
             g.functionUnits?.some((u) => u.id === f.node) === true
             ? {
                 ...result,
@@ -500,7 +545,11 @@ function evaluateVerifiedFinite(
           [{ role: "identity:callee", to: fn.ref }],
         );
       }
-      return invokeNative(must(fn.native, "Callback opaco"), fn, xs);
+      return invokeNative(
+        must(fn.native, "Callback opaco en " + String(current)),
+        fn,
+        xs,
+      );
     } finally {
       frame = previousFrame;
       current = previousNode;
@@ -513,11 +562,11 @@ function evaluateVerifiedFinite(
       xs.map((x) => x.raw),
       xs.map((x, i) => ({ role: "element:" + i, to: x.ref })),
     );
-    if (options.kind === "causal-retenciones-r57") v.structure = [...controls];
+    if (options.kind !== "causal-ss-r54") v.structure = [...controls];
     xs.forEach((x, i) =>
       v.props.set(
         String(i),
-        options.kind === "causal-retenciones-r57"
+        options.kind !== "causal-ss-r54"
           ? alias(x, "member", [{ role: "identity:collection", to: v.ref }])
           : x,
       ),
@@ -528,7 +577,8 @@ function evaluateVerifiedFinite(
     if (
       pattern.closure !== undefined ||
       pattern.native === "Match.number" ||
-      pattern.native === "Match.string"
+      pattern.native === "Match.string" ||
+      pattern.native === "Match.undefined"
     )
       return invoke(pattern, [input], current);
     if (pattern.props.size > 0) {
@@ -553,7 +603,7 @@ function evaluateVerifiedFinite(
     const x = (i: number) => must(xs[i]),
       raw = xs.map((v) => v.raw),
       edges = xs.map((v, i) => ({ role: "argument:" + i, to: v.ref }));
-    if (options.kind === "causal-retenciones-r57") {
+    if (options.kind !== "causal-ss-r54") {
       if (name === "retencion-concrete")
         return invoke(global("calcularRetencionTrabajoAeatImpl"), xs, current);
       if (name === "Effect.annotateCurrentSpan")
@@ -562,6 +612,39 @@ function evaluateVerifiedFinite(
         throw Error(
           "ResultadoNoSoportado: " + String(prop(x(0), "motivo").raw),
         );
+      if (name === "String") return emit(name, String(raw[0]), edges);
+      if (name === "DateTime.makeUnsafe") {
+        const input = Schema.decodeUnknownSync(
+          Schema.Struct({
+            year: Schema.Number,
+            month: Schema.Number,
+            day: Schema.Number,
+          }),
+        )(raw[0]);
+        return emit(name, DateTime.makeUnsafe(input), edges);
+      }
+      if (name === "DateTime.toPartsUtc") {
+        if (!DateTime.isDateTime(raw[0])) throw Error("DateTime requerido");
+        const parts = DateTime.toPartsUtc(raw[0]);
+        const out = emit(name, parts, edges);
+        for (const [k, v] of Object.entries(parts))
+          out.props.set(k, emit("date-part", v, edges, k));
+        return out;
+      }
+      if (name.startsWith("date.")) {
+        const receiver = must(fn.props.get("receiver"));
+        if (!(receiver.raw instanceof Date)) throw Error("Date requerido");
+        const d = receiver.raw;
+        return emit(
+          name,
+          name === "date.getUTCFullYear"
+            ? d.getUTCFullYear()
+            : name === "date.getUTCMonth"
+              ? d.getUTCMonth()
+              : d.getUTCDate(),
+          [{ role: "receiver", to: receiver.ref }],
+        );
+      }
       if (name === "Number") return emit(name, Number(raw[0]), edges);
       if (name === "Number.isSafeInteger")
         return emit(name, Number.isSafeInteger(raw[0]), edges);
@@ -571,6 +654,8 @@ function evaluateVerifiedFinite(
           Array.isArray(raw[0]),
           edges.map((e) => ({ ...e, role: "identity:" + e.role })),
         );
+      if (name === "Match.undefined")
+        return emit(name, raw[0] === undefined, edges);
       if (name === "Match.number") return emit(name, number(raw[0]), edges);
       if (name === "Match.string") return emit(name, text(raw[0]), edges);
       if (name === "Math.max")
@@ -579,7 +664,27 @@ function evaluateVerifiedFinite(
       if (name.startsWith("receiver.")) {
         const receiver = must(fn.props.get("receiver")),
           key = name.slice(9);
-        if (text(receiver.raw))
+        if (text(receiver.raw)) {
+          if (key === "split")
+            return collection(
+              receiver.raw
+                .split(String(raw[0]))
+                .map((v, i) =>
+                  emit(
+                    "split-part",
+                    v,
+                    [{ role: "receiver", to: receiver.ref }, ...edges],
+                    String(i),
+                  ),
+                ),
+              "split-return",
+            );
+          if (key === "padStart")
+            return emit(
+              name,
+              receiver.raw.padStart(Number(raw[0]), String(raw[1])),
+              [{ role: "receiver", to: receiver.ref }, ...edges],
+            );
           return emit(
             name,
             key === "slice"
@@ -590,6 +695,7 @@ function evaluateVerifiedFinite(
               : receiver.raw.startsWith(String(raw[0])),
             [{ role: "receiver", to: receiver.ref }, ...edges],
           );
+        }
         if (receiver.raw instanceof RegExp)
           return emit(name, receiver.raw.test(String(raw[0])), [
             { role: "receiver", to: receiver.ref },
@@ -616,6 +722,25 @@ function evaluateVerifiedFinite(
             [{ role: "collection", to: selection.ref }],
             "index",
             "index",
+          );
+        if (key === "join")
+          return emit(
+            "join",
+            raw[0] === undefined
+              ? members.map((v) => String(v.raw)).join()
+              : members.map((v) => String(v.raw)).join(String(raw[0])),
+            [
+              { role: "collection", to: selection.ref },
+              ...members.map((v) => ({ role: "member", to: v.ref })),
+              ...edges,
+            ],
+          );
+        if (key === "map")
+          return collection(
+            members.map((v, i) =>
+              invoke(x(0), [v, index(i), receiver], current),
+            ),
+            "map-return",
           );
         if (key === "reduce") {
           let acc = x(1);
@@ -693,7 +818,7 @@ function evaluateVerifiedFinite(
         new Decimal(raw[0]),
         edges,
         "",
-        options.kind === "causal-retenciones-r57"
+        options.kind !== "causal-ss-r54"
           ? (units.get(current ?? "") ?? x(0).unit)
           : x(0).unit,
       );
@@ -737,25 +862,24 @@ function evaluateVerifiedFinite(
         ? "boolean"
         : key === "toFixed" || key === "toString"
           ? (receiver?.unit ?? "contextual") + "-decimal-string"
-          : options.kind === "causal-retenciones-r57" &&
-              units.has(current ?? "")
+          : options.kind !== "causal-ss-r54" && units.has(current ?? "")
             ? must(units.get(current ?? ""))
-            : options.kind === "causal-retenciones-r57" &&
+            : options.kind !== "causal-ss-r54" &&
                 key === "div" &&
                 receiver?.unit === "EUR" &&
                 x(0).unit === "EUR"
               ? "ratio"
-              : options.kind === "causal-retenciones-r57" &&
+              : options.kind !== "causal-ss-r54" &&
                   key === "mul" &&
                   receiver?.unit === "ratio" &&
                   raw[0] === 100
                 ? "percent"
-                : options.kind === "causal-retenciones-r57" &&
+                : options.kind !== "causal-ss-r54" &&
                     key === "mul" &&
                     receiver?.unit === "EUR" &&
                     x(0).unit === "percent"
                   ? "EUR*percent"
-                  : options.kind === "causal-retenciones-r57" &&
+                  : options.kind !== "causal-ss-r54" &&
                       key === "div" &&
                       receiver?.unit === "EUR*percent" &&
                       x(0).unit === "percent-divisor"
@@ -780,6 +904,43 @@ function evaluateVerifiedFinite(
     }
     if (name === "Object.values")
       return collection([...x(0).props.values()], "Object.values");
+    if (name === "EffectArray.map") {
+      const receiver = x(0),
+        callback = x(1);
+      const selection = emit("array-selection", receiver.props.size, [
+        { role: "identity:receiver", to: receiver.ref },
+        ...[...receiver.props.values()].map((v, i) => ({
+          role: "identity:element:" + i,
+          to: v.ref,
+        })),
+        { role: "callback", to: callback.ref },
+      ]);
+      const prev = controls;
+      controls = [...controls, selection];
+      try {
+        return collection(
+          [...receiver.props.values()].map((v, i) =>
+            invoke(
+              callback,
+              [
+                v,
+                emit(
+                  "index",
+                  i,
+                  [{ role: "collection", to: selection.ref }],
+                  "index",
+                  "index",
+                ),
+              ],
+              current,
+            ),
+          ),
+          "map-return",
+        );
+      } finally {
+        controls = prev;
+      }
+    }
     if (name === "EffectArray.reduce") {
       const receiver = x(0),
         seed = x(1),
@@ -814,6 +975,20 @@ function evaluateVerifiedFinite(
         { role: "collection-selection", to: selection.ref },
       ]);
     }
+    if (name === "Option.fromNullishOr") {
+      const v = emit(
+        name,
+        null,
+        edges.map((e) => ({ ...e, role: "identity:" + e.role })),
+      );
+      v.state = { input: x(0), selections: [] };
+      return v;
+    }
+    if (name === "Option.getOrElse" || name === "Option.match") {
+      const v = native(name + ":apply");
+      v.props.set("0", x(0));
+      return v;
+    }
     if (name === "Match.value") {
       const v = emit(name, null, edges);
       v.state = { input: x(0), selections: [] };
@@ -826,12 +1001,11 @@ function evaluateVerifiedFinite(
     ) {
       const v = emit(name, null, edges);
       v.native = name + ":apply";
-      if (options.kind === "causal-retenciones-r57")
-        v.structure = [...controls];
+      if (options.kind !== "causal-ss-r54") v.structure = [...controls];
       xs.forEach((x, i) =>
         v.props.set(
           String(i),
-          options.kind === "causal-retenciones-r57"
+          options.kind !== "causal-ss-r54"
             ? alias(x, "member", [{ role: "identity:collection", to: v.ref }])
             : x,
         ),
@@ -841,6 +1015,37 @@ function evaluateVerifiedFinite(
     if (name === "match.pipe") {
       let state = must(fn.state);
       for (const op of xs) {
+        if (
+          op.native === "Option.getOrElse:apply" ||
+          op.native === "Option.match:apply"
+        ) {
+          const present =
+            state.input.raw !== undefined && state.input.raw !== null;
+          const selection = emit("option-presence", present, [
+            { role: "identity:input", to: state.input.ref },
+          ]);
+          const prev = controls;
+          controls = [...controls, selection];
+          try {
+            if (op.native === "Option.getOrElse:apply")
+              return alias(
+                present
+                  ? state.input
+                  : invoke(must(op.props.get("0")), [], current),
+                "option-return",
+              );
+            return alias(
+              invoke(
+                prop(must(op.props.get("0")), present ? "onSome" : "onNone"),
+                present ? [state.input] : [],
+                current,
+              ),
+              "option-return",
+            );
+          } finally {
+            controls = prev;
+          }
+        }
         if (op.native === "Match.withReturnType:apply") continue;
         if (op.native === "Match.exhaustive") {
           if (state.result === undefined) throw Error("Match no exhaustivo");
@@ -855,10 +1060,10 @@ function evaluateVerifiedFinite(
           const pattern = must(op.props.get("0")),
             callback = must(op.props.get("1"));
           const predicate =
-            pattern.closure !== undefined
+            pattern.closure !== undefined ||
+            pattern.native === "Match.undefined"
               ? invoke(pattern, [state.input], current)
-              : options.kind === "causal-retenciones-r57" &&
-                  pattern.props.size > 0
+              : options.kind !== "causal-ss-r54" && pattern.props.size > 0
                 ? matchPattern(pattern, state.input)
                 : emit("match-equals", pattern.raw === state.input.raw, [
                     { role: "input", to: state.input.ref },
@@ -985,7 +1190,7 @@ function evaluateVerifiedFinite(
           let continuation = false;
           try {
             continuation =
-              options.kind === "causal-retenciones-r57" &&
+              options.kind !== "causal-ss-r54" &&
               n.op === "if" &&
               terminates(n.args[branch === 1 ? 2 : 1]);
             return Boolean(n.args[branch])
@@ -1042,7 +1247,7 @@ function evaluateVerifiedFinite(
             const selection = emit("short-circuit", take, [
               {
                 role:
-                  options.kind === "causal-retenciones-r57" &&
+                  options.kind !== "causal-ss-r54" &&
                   (record(a.raw) || Array.isArray(a.raw))
                     ? "identity:predicate"
                     : "predicate",
@@ -1059,7 +1264,7 @@ function evaluateVerifiedFinite(
           }
           const b = ev(1);
           const presence =
-            options.kind === "causal-retenciones-r57" &&
+            options.kind !== "causal-ss-r54" &&
             ["===", "!=="].includes(op) &&
             (a.raw === undefined ||
               a.raw === null ||
@@ -1069,7 +1274,7 @@ function evaluateVerifiedFinite(
             record(v.raw) || Array.isArray(v.raw);
           return emit(
             presence ? "presence-comparison" : "binary",
-            options.kind === "causal-retenciones-r57" &&
+            options.kind !== "causal-ss-r54" &&
               text(a.raw) &&
               text(b.raw) &&
               ["<", ">", "<=", ">="].includes(op)
@@ -1230,8 +1435,16 @@ function evaluateVerifiedFinite(
     )
       continue;
     const v =
-      options.kind === "causal-retenciones-r57"
-        ? invoke(global("crearLineaCalculo"), [lineArgument(b, env)], b.node)
+      options.kind !== "causal-ss-r54"
+        ? invoke(
+            global(
+              options.kind === "causal-rentas-r59"
+                ? "rentas:lib/dominio/explicacion/linea-calculo.ts:crearLineaCalculo"
+                : "crearLineaCalculo",
+            ),
+            [lineArgument(b, env)],
+            b.node,
+          )
         : evaluate(b.node, env);
     lines.push(v.raw);
     const decimal = prop(prop(v, "origen"), "decimal"),
@@ -1248,7 +1461,12 @@ function evaluateVerifiedFinite(
   return {
     lines,
     evidence: {
-      version: options.kind === "causal-ss-r54" ? 1 : 2,
+      version:
+        options.kind === "causal-ss-r54"
+          ? 1
+          : options.kind === "causal-rentas-r59"
+            ? 3
+            : 2,
       kind: options.kind,
       execution,
       program: digest(g),
@@ -1267,7 +1485,7 @@ function evaluateVerifiedFinite(
         file,
         sha256: createHash("sha256").update(readFileSync(file)).digest("hex"),
       })),
-      input: structuredClone(caso),
+      input: structuredClone(normalizedInput),
       context: structuredClone(contexto),
       frames,
       events,

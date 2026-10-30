@@ -2,7 +2,15 @@
 
 Inicio: 29 de octubre de 2026. Trabajo en curso; no es una certificación fiscal.
 
-## Situación más reciente, ronda 59 del 30 de octubre
+## Alcance final vigente y ronda 60 del 30 de octubre
+
+Elies fija final: terminar los 65 sitios o demostrar bloqueos. Una implementación y una revisión independiente por lote; repetir solo ante un defecto reproducido. No iniciar las 19 familias, composición, admisión ni las cuatro puertas. Al terminar: INFORME-FINAL.md en español con demostraciones condicionadas, pendientes, estimaciones honestas de rondas/horas y commits clave, respaldado solo en origin/procedencia-documental. Sin limpieza.
+
+R59 entregada e integrada como candidata: diez salidas generales de rentas con llamada real al programa SS, sin alterar fórmulas. Cotejo de las 22.524 entradas base, cuatro modificaciones autorizadas, cero borrados; reconstrucción exacta de 671 rutas. Incorporadas 353 rutas y preservadas 43 referencias técnicas. Validación: 99 pruebas correctas, tipos globales correctos y 63 testigos recibidos verificados (630 salidas) con schema válido. Detalle en correcciones/recepcion-causal-rentas-r60. SS11 y retenciones6 conservan su corroboración condicionada; rentas10 necesita su única revisión nueva. Restan otros 38 sitios (28 escalas y diez explícitos). Los contadores técnicos no abren las cuatro puertas.
+
+Crossa conserva v1 desfasado y V5 el corte R26. Sin main, PR, despliegue, LFS, gasto, transferencia ni limpieza. El alcance final sigue abierto hasta el informe y respaldo.
+
+## Situación anterior, ronda 59 del 30 de octubre
 
 Recibida y contrastada la revisión R58: 22.458 entradas del hijo físicamente intactas, cero borrados; reconstrucción exacta de 88 rutas e incorporación de 33 archivos. Preservadas 188 referencias técnicas. El padre reproduce las trece pruebas propias, cinco controles estructurales y compatibilidad SS con distinción de testigos históricos; tipos globales y lint correctos. Detalle en correcciones/causal-retenciones-r59.
 

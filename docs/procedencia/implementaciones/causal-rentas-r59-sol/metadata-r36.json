@@ -1,0 +1,22 @@
+{
+  "file": "scripts/procedencia/flujo-rentas-r36.mjs",
+  "base": "e8eff9ec7cea9e016d291f312f1e6ec2d414a03a",
+  "baseSha256": "7554e759c5572bde456710c8b53316222985b6a99523243b0073f1b16061574d",
+  "baseSha512": "f148796ff02a35f12c222e4281b253bc75f807255eb83a861b2a341954e6e40cedd611d34be4c8dcaa5449545068d2090506f534e55934770c4568f0f3e2ac57",
+  "sha256": "aebc4282c5895e9003c19ef093346c84c24ef67c6ae5cffdc01628132228fdb3",
+  "sha512": "eb601893b5ca1d7a8ecc348267ad8532e71e5dddb5176b55b806e52903d01f85ff2154d2a05cd5dcdd8540ad49bd2a2f6e1ba0adf431c2202ae2635918e1f4d8",
+  "reason": "Aislar datos públicos de listas privadas usadas para reconstruir la correspondencia. Sin cambios de IR, fórmulas, cifras, unidades u obligaciones.",
+  "changes": [
+    "Copia de primitiveNames al devolver terminals.primitives",
+    "Catálogo privado declaredSitesR36 y copia publicada sitesR36"
+  ],
+  "red": [
+    "rojo-publico-primitivas.log",
+    "rojo-catalogo.log"
+  ],
+  "green": [
+    "publico-suite.json",
+    "regeneracion-suite.json"
+  ],
+  "comparison": "aislamiento-comparado.json"
+}

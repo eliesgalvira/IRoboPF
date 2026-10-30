@@ -1,0 +1,952 @@
+{
+  "suites": [
+    {
+      "name": "regeneracion-suite",
+      "total": 99,
+      "passed": 99,
+      "failed": 0,
+      "success": true
+    }
+  ],
+  "overlap": "El grupo principal se repite en rentas-terminal; no sumar como cobertura independiente.",
+  "matrixInputs": 52,
+  "matrixOracleOutputs": 520,
+  "additionalConditionInputs": 7,
+  "additionalGainAssertions": 14,
+  "currentWitnesses": 63,
+  "currentOutputs": 630,
+  "collectionInputs": 4,
+  "collectionRationalOutputs": 40,
+  "publicIsolationTests": 4,
+  "adverseMatrixMutations": 12,
+  "additionalAdverses": 26,
+  "schema": [
+    {
+      "schema": "causal-rentas-r59.json",
+      "files": 1,
+      "valid": true
+    },
+    {
+      "schema": "ejecucion-r59.json",
+      "files": 63,
+      "valid": true
+    }
+  ],
+  "checks": [
+    {
+      "name": "schema",
+      "command": [
+        "/nix/store/ipjv9qq222qldhqmvg4g1bdz3frppg65-uv-0.11.21/bin/uv",
+        "run",
+        "--no-project",
+        "--offline",
+        "--python",
+        "/home/elies/Repos/IRoboPF/tools/procedencia/.venv/bin/python",
+        "/home/elies/.t3/worktrees/IRoboPF/t3-3749da54/.cache/causal-rentas-r59-sol/schema.py"
+      ],
+      "exitCode": 0,
+      "expected": 0,
+      "passCheck": true
+    },
+    {
+      "name": "verde",
+      "command": [
+        "/nix/store/v6wsd9nyglmwh32yn7w8z11dq9cksg4m-nodejs-24.20.0/bin/node",
+        "/home/elies/.t3/worktrees/IRoboPF/t3-3749da54/.cache/causal-rentas-r59-sol/verde.mjs"
+      ],
+      "exitCode": 0,
+      "expected": 0,
+      "passCheck": true
+    },
+    {
+      "name": "verde-undefined",
+      "command": [
+        "/nix/store/v6wsd9nyglmwh32yn7w8z11dq9cksg4m-nodejs-24.20.0/bin/node",
+        "/home/elies/.t3/worktrees/IRoboPF/t3-3749da54/.cache/causal-rentas-r59-sol/rojo-undefined.mjs"
+      ],
+      "exitCode": 0,
+      "expected": 0,
+      "passCheck": true
+    },
+    {
+      "name": "calibracion",
+      "command": [
+        "/nix/store/v6wsd9nyglmwh32yn7w8z11dq9cksg4m-nodejs-24.20.0/bin/node",
+        "/home/elies/Repos/IRoboPF/node_modules/oxlint/bin/oxlint",
+        "--threads=1",
+        "--disable-nested-config",
+        "--config",
+        "/home/elies/.t3/worktrees/IRoboPF/t3-3749da54/.cache/causal-rentas-r59-sol/oxlint-calibracion.json",
+        "/home/elies/.t3/worktrees/IRoboPF/t3-3749da54/.cache/causal-rentas-r59-sol/calibracion.ts"
+      ],
+      "exitCode": 1,
+      "expected": 1,
+      "passCheck": true
+    },
+    {
+      "name": "types-terminal",
+      "command": [
+        "/nix/store/v6wsd9nyglmwh32yn7w8z11dq9cksg4m-nodejs-24.20.0/bin/node",
+        "/home/elies/Repos/IRoboPF/node_modules/typescript/bin/tsc",
+        "-p",
+        "/home/elies/.t3/worktrees/IRoboPF/t3-3749da54/.cache/causal-rentas-r59-sol/tsconfig.json"
+      ],
+      "exitCode": 0,
+      "expected": 0,
+      "passCheck": true
+    },
+    {
+      "name": "oxlint-terminal",
+      "command": [
+        "/nix/store/v6wsd9nyglmwh32yn7w8z11dq9cksg4m-nodejs-24.20.0/bin/node",
+        "/home/elies/Repos/IRoboPF/node_modules/oxlint/bin/oxlint",
+        "--threads=1",
+        "--disable-nested-config",
+        "--config",
+        "/home/elies/.t3/worktrees/IRoboPF/t3-3749da54/.cache/causal-rentas-r59-sol/oxlint.json",
+        "scripts/procedencia/causal-rentas-r59-colecciones.mjs",
+        "scripts/procedencia/causal-rentas-r59-adversos.mjs",
+        "scripts/procedencia/causal-rentas-r59-condiciones.mjs",
+        "scripts/procedencia/causal-rentas-r59-ensayos.mjs",
+        "scripts/procedencia/causal-rentas-r59-contratos.mjs",
+        "scripts/procedencia/causal-rentas-r59.mjs",
+        "scripts/procedencia/causal-rentas-r59-schemas.mjs",
+        "tests/causal-rentas-r59-condiciones.test.ts",
+        "tests/causal-rentas-r59-adversos.test.ts",
+        "tests/causal-rentas-r59-colecciones.test.ts",
+        "tests/causal-rentas-r59.test.ts",
+        "tests/causal-rentas-r59-publico.test.ts",
+        "scripts/procedencia/evidencia-causal-r57.ts",
+        "scripts/procedencia/evidencia-ejecucion-r54.ts",
+        "scripts/procedencia/flujo-rentas-r36-consumidor.mjs"
+      ],
+      "exitCode": 0,
+      "expected": 0,
+      "passCheck": true
+    },
+    {
+      "name": "eslint-terminal",
+      "command": [
+        "/nix/store/v6wsd9nyglmwh32yn7w8z11dq9cksg4m-nodejs-24.20.0/bin/node",
+        "/home/elies/Repos/IRoboPF/node_modules/eslint/bin/eslint.js",
+        "--config",
+        "/home/elies/Repos/IRoboPF/eslint.config.mjs",
+        "scripts/procedencia/causal-rentas-r59-colecciones.mjs",
+        "scripts/procedencia/causal-rentas-r59-adversos.mjs",
+        "scripts/procedencia/causal-rentas-r59-condiciones.mjs",
+        "scripts/procedencia/causal-rentas-r59-ensayos.mjs",
+        "scripts/procedencia/causal-rentas-r59-contratos.mjs",
+        "scripts/procedencia/causal-rentas-r59.mjs",
+        "scripts/procedencia/causal-rentas-r59-schemas.mjs",
+        "tests/causal-rentas-r59-condiciones.test.ts",
+        "tests/causal-rentas-r59-adversos.test.ts",
+        "tests/causal-rentas-r59-colecciones.test.ts",
+        "tests/causal-rentas-r59.test.ts",
+        "tests/causal-rentas-r59-publico.test.ts",
+        "scripts/procedencia/evidencia-causal-r57.ts",
+        "scripts/procedencia/evidencia-ejecucion-r54.ts",
+        "scripts/procedencia/flujo-rentas-r36-consumidor.mjs"
+      ],
+      "exitCode": 0,
+      "expected": 0,
+      "passCheck": true
+    }
+  ],
+  "schemaCorrectionChecks": [
+    {
+      "name": "schema-oxlint-final",
+      "command": [
+        "/nix/store/v6wsd9nyglmwh32yn7w8z11dq9cksg4m-nodejs-24.20.0/bin/node",
+        "/home/elies/Repos/IRoboPF/node_modules/oxlint/bin/oxlint",
+        "--threads=1",
+        "--disable-nested-config",
+        "--config",
+        "/home/elies/.t3/worktrees/IRoboPF/t3-3749da54/.cache/causal-rentas-r59-sol/oxlint.json",
+        "scripts/procedencia/causal-rentas-r59-schemas.mjs"
+      ],
+      "exitCode": 0
+    },
+    {
+      "name": "schema-eslint-final",
+      "command": [
+        "/nix/store/v6wsd9nyglmwh32yn7w8z11dq9cksg4m-nodejs-24.20.0/bin/node",
+        "/home/elies/Repos/IRoboPF/node_modules/eslint/bin/eslint.js",
+        "--config",
+        "/home/elies/Repos/IRoboPF/eslint.config.mjs",
+        "scripts/procedencia/causal-rentas-r59-schemas.mjs"
+      ],
+      "exitCode": 0
+    }
+  ],
+  "compatibility": {
+    "witnesses": 63,
+    "changed": [
+      "software",
+      "program (pin del compositor R36)"
+    ],
+    "descriptorR36": "idéntico salvo software; aislamiento de datos públicos sin cambio de IR ni obligaciones",
+    "operations": 6196,
+    "results": [
+      {
+        "file": "matriz/2012-canonico.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "matriz/2012-compatible-legacy.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "matriz/2013-canonico.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "matriz/2013-compatible-legacy.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "matriz/2014-canonico.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "matriz/2014-compatible-legacy.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "matriz/2015-canonico.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "matriz/2015-compatible-legacy.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "matriz/2017-canonico.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "matriz/2017-compatible-legacy.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "matriz/2018-07-04.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "matriz/2018-07-05.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "matriz/2018-canonico.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "matriz/2018-compatible-legacy.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "matriz/2022-canonico.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "matriz/2022-compatible-legacy.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "matriz/2023-canonico.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "matriz/2023-compatible-legacy.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "matriz/2024-canonico.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "matriz/2024-compatible-legacy.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "matriz/2025-canonico.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "matriz/2025-compatible-legacy.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "matriz/2026-canonico.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "matriz/2026-compatible-legacy.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "matriz/adversos.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "matriz/alta-2018-canonico.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "matriz/alta-2018-compatible-legacy.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "matriz/alta-2025-canonico.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "matriz/alta-2025-compatible-legacy.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "matriz/alta-2026-canonico.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "matriz/alta-2026-compatible-legacy.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "matriz/base-2013-01-01.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "matriz/base-2013-01-02.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "matriz/collection-.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "matriz/collection-0.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "matriz/collection-1234567-7654321.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "matriz/collection-20000.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "matriz/collection-307-307.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "matriz/otras-650000.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "matriz/otras-650001.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "matriz/racional-trabajo.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "matriz/urbano-2012-05-11.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "matriz/urbano-2012-05-12.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "matriz/urbano-2012-10-31.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "matriz/urbano-2012-11-01.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "matriz/urbano-2012-12-31.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "matriz/urbano-2013-01-01.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "matriz/vitalicia-2014-64.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "matriz/vitalicia-2014-65.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "matriz/vitalicia-2015-64.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "matriz/vitalicia-2015-65.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "matriz/vivienda.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "condiciones/margen-agotado.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "condiciones/no-oneroso.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "condiciones/no-urbano.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "condiciones/reinversion-completa.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "condiciones/transmision-cero.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "condiciones/urbano-valido.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "condiciones/vinculada.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "colecciones/inversa.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "colecciones/mixta.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "colecciones/repetidas.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      },
+      {
+        "file": "colecciones/vacias.json.gz",
+        "unchanged": [
+          "events",
+          "frames",
+          "outputs",
+          "annualBindings",
+          "input",
+          "context",
+          "sources"
+        ]
+      }
+    ]
+  },
+  "admissionClosed": false,
+  "siteClosed": false,
+  "wiringAllowed": false,
+  "completeRuleAcceptance": false
+}

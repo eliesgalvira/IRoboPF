@@ -1,3 +1,7 @@
+import {isDeepStrictEqual} from "node:util"
+import {executeCausalRentas} from "./causal-rentas-r59.mjs"
+import {composeCausalRentas} from "./causal-rentas-r59-contratos.mjs"
+import {verifyRentasR36,composeRentasR36} from "./flujo-rentas-r36.mjs"
 import { createRequire } from "node:module"
 const require = createRequire("/home/elies/Repos/IRoboPF/package.json")
 const Decimal = require("decimal.js").Decimal
@@ -334,14 +338,23 @@ export function executeRentasFinite(
 
 /** Entradas generales previamente admitidas. SS se aporta solo mediante contratos ajenos.
  * La admisión común sigue pendiente: este resultado no habilita wiring. */
-/** @param {((event: import("./puertos-composicion-r47").Observation) => void)|null} observe */
+/** @param {((event: import("./puertos-composicion-r47").Observation) => void)|null} observe
+ * @param {{causal?:boolean,execution?:string}|null} causalOptions */
 export function consumeGeneralRentas(
   fragment,
   caso,
   contexto,
   boundaries = {},
-  observe = null
+  observe = null,
+  causalOptions = null
 ) {
+  if (causalOptions?.causal === true) {
+    verifyRentasR36(fragment)
+    if(!isDeepStrictEqual(fragment,composeRentasR36()))throw Error("Descriptor de rentas no derivado")
+    if (Object.keys(boundaries).length || observe !== null) throw Error("Callbacks externos fuera del contrato causal")
+    const result = executeCausalRentas(composeCausalRentas(), caso, contexto, causalOptions.execution)
+    return {...result, admission: "pending-common-contract", wiringAllowed: false}
+  }
   const bindings = [
     ["caso", caso],
     ["contexto", contexto],
