@@ -1,0 +1,14 @@
+import { readFileSync } from "node:fs"
+import { gunzipSync } from "node:zlib"
+import { deepStrictEqual } from "node:assert"
+import { createHash } from "node:crypto"
+import { produceComposition, verifyComposition } from "../../../scripts/procedencia/composicion-r43"
+
+const bytes = readFileSync("docs/procedencia/implementaciones/composicion-r43-sol/artefacto.json.gz")
+const candidate = JSON.parse(gunzipSync(bytes).toString())
+const rebuilt = produceComposition()
+deepStrictEqual(rebuilt, candidate)
+deepStrictEqual(verifyComposition(candidate), candidate)
+const groups = [candidate.fragments.ss.outputBindings, candidate.fragments.retenciones.outputBindings, candidate.fragments.escalas.outputBindings, candidate.fragments.rentas.outputs]
+const ids = groups.flatMap(group => group.map((item: { siteId: string }) => item.siteId))
+console.log(JSON.stringify({ equal: true, verified: true, gzipSha256: createHash("sha256").update(bytes).digest("hex"), sites: ids.length, uniqueSites: new Set(ids).size, propertyPorts: candidate.propertyPorts.length, admission: candidate.admission, limitation: "Exact reconstruction and integrity do not prove causal completeness" }, null, 2))

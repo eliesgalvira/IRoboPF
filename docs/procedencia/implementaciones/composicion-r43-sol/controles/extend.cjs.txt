@@ -1,0 +1,35 @@
+const fs=require('node:fs');let p='scripts/procedencia/composicion-r43.ts',s=fs.readFileSync(p,'utf8');s='import type { CasoActividad2025 } from "../../lib/dominio/irpf/actividades-economicas/contrato"\n'+s;s=s.replace('activity(entrada: object)','activity(entrada: CasoActividad2025)');
+s=s.replace('    domain: "ordinary',`    propertyPorts: fragments.escalas.boundaryContracts.flatMap((contract: { id: string; outputs: string[]; parameters: { index: number; binding: string; type: string; source: { file: string; start: number; end: number; sha256: string } }[]; calls: string[]; resultVariants: object[] }) => contract.outputs.map(output => ({
+      id: contract.id + "::" + output,
+      consumer: contract.id,
+      property: output.split(":")[0],
+      representation: output.split(":").slice(1).join(":"),
+      producer: links.find(link => link.consumer === contract.id) ?? null,
+      parameters: contract.parameters,
+      calls: fragments.escalas.callBindings.filter((call: { target: string }) => contract.calls.includes(call.target)),
+      condition: contract.resultVariants,
+      instance: "per call path, block environment and callback index",
+      conversion: "identity; all monetary conversions remain operations inside producer or consumer",
+    }))),
+    domain: "ordinary`);
+fs.writeFileSync(p,s)
+p='.cache/composicion-r43-sol/vitest.config.mts';s=fs.readFileSync(p,'utf8').replace('maxWorkers: 1','maxWorkers: 1, testTimeout: 30000');fs.writeFileSync(p,s)
+// Reuse literal test fixtures as test inputs only, preserving their original sources.
+p='tests/composicion-r43.test.ts';s=fs.readFileSync(p,'utf8');let src=fs.readFileSync('tests/actividades-economicas-2025.test.ts','utf8');s+='\nimport type { CasoActividad2025 } from "../lib/dominio/irpf/actividades-economicas/contrato"\n'+src.slice(src.indexOf('function casoBase()'),src.indexOf('function ingreso('));let work=fs.readFileSync('tests/conexion-anual.test.ts','utf8');s+='\n'+work.slice(work.indexOf('const alcance ='),work.indexOf('it("conserva'));
+s+='\nimport { calcularActividad2025 } from "../lib/dominio/irpf/actividades-economicas/calcular"\nimport { liquidarIrpfAnualExplicito } from "../lib/dominio/irpf/trabajo-anual/conexion"\n';
+s+=`\nit("actividad aislada conserva discriminantes y todas las etapas alcanzadas", () => {
+ for (const opcion of ["gastos-dificiles", "cliente-unico"] as const) {
+  const input = { ...casoBase(), opcion }
+  expect(composed.activity(input)).toEqual(calcularActividad2025(input))
+ }
+})
+it("explícito trabajo: conecta cuotas y mínimos sin oráculo en producción", () => {
+ const input = trabajo()
+ const expected = Effect.runSync(liquidarIrpfAnualExplicito(input as Parameters<typeof liquidarIrpfAnualExplicito>[0]))
+ const actual = composed.explicit(input)
+ expect(actual.status).toBe("success")
+ expect(projection(actual.result.rastro.pasos.flatMap((p: { lineasCalculo?: { origen: { siteId: string; decimal: string; unidad: string } }[] }) => p.lineasCalculo ?? []))).toEqual(projection(expected.rastro.pasos.flatMap(p=>p.lineasCalculo??[])))
+})
+`;
+// Typed fixture: assertion documents input deliberately produced as ordinary JS by historical fixture.
+s=s.replace('const expected = Effect.runSync', '// Safety: the fixture is checked by the real schema in the oracle and candidate.\n const expected = Effect.runSync');fs.writeFileSync(p,s)

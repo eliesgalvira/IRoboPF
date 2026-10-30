@@ -1,0 +1,24 @@
+lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts(1116,26): error TS7006: Parameter 'a' implicitly has an 'any' type.
+lib/dominio/irpf/minimos/derechos.ts(241,8): error TS2550: Property 'toSorted' does not exist on type '{ descendiente: { readonly discapacidad: { readonly _tag: "SinDiscapacidad"; } | { readonly _tag: "Discapacidad33a64"; readonly necesitaAyudaOMovilidadReducida: boolean; } | { readonly _tag: "Discapacidad65OMas"; }; ... 7 more ...; readonly titulares: readonly { ...; }[]; }; titulares: { ...; }[]; }[]'. Do you need to change your target library? Try changing the 'lib' compiler option to 'es2023' or later.
+lib/dominio/irpf/minimos/derechos.ts(242,10): error TS7006: Parameter 'a' implicitly has an 'any' type.
+lib/dominio/irpf/minimos/derechos.ts(242,13): error TS7006: Parameter 'b' implicitly has an 'any' type.
+lib/dominio/irpf/minimos/derechos.ts(262,24): error TS7031: Binding element 'd' implicitly has an 'any' type.
+lib/dominio/irpf/minimos/derechos.ts(262,27): error TS7031: Binding element 'titulares' implicitly has an 'any' type.
+lib/dominio/irpf/minimos/derechos.ts(262,40): error TS7006: Parameter 'indice' implicitly has an 'any' type.
+lib/dominio/irpf/minimos/derechos.ts(264,12): error TS7006: Parameter 't' implicitly has an 'any' type.
+lib/dominio/irpf/minimos/derechos.ts(292,37): error TS7006: Parameter 't' implicitly has an 'any' type.
+lib/dominio/irpf/minimos/minimo-descendientes.ts(32,8): error TS2550: Property 'toSorted' does not exist on type 'FamiliarFiscal[]'. Do you need to change your target library? Try changing the 'lib' compiler option to 'es2023' or later.
+lib/dominio/irpf/minimos/minimo-descendientes.ts(32,18): error TS7006: Parameter 'a' implicitly has an 'any' type.
+lib/dominio/irpf/minimos/minimo-descendientes.ts(32,21): error TS7006: Parameter 'b' implicitly has an 'any' type.
+lib/dominio/irpf/minimos/minimo-descendientes.ts(36,9): error TS18046: 'descendiente' is of type 'unknown'.
+tests/composicion-r43.test.ts(29,79): error TS2339: Property 'motivo' does not exist on type 'LiquidacionIrpfAnualCalculada'.
+tests/composicion-r43.test.ts(31,85): error TS2345: Argument of type 'LineaCalculo[]' is not assignable to parameter of type '{ origen: { siteId: string; decimal: string; unidad: string; }; }[]'.
+  Type 'LineaCalculo' is not assignable to type '{ origen: { siteId: string; decimal: string; unidad: string; }; }'.
+    Types of property 'origen' are incompatible.
+      Type '{ readonly siteId: string; readonly instanceId: string; readonly decimal: string; readonly unidad: "EUR" | "percent"; } | undefined' is not assignable to type '{ siteId: string; decimal: string; unidad: string; }'.
+        Type 'undefined' is not assignable to type '{ siteId: string; decimal: string; unidad: string; }'.
+tests/composicion-r43.test.ts(187,193): error TS2345: Argument of type 'LineaCalculo[]' is not assignable to parameter of type '{ origen: { siteId: string; decimal: string; unidad: string; }; }[]'.
+  Type 'LineaCalculo' is not assignable to type '{ origen: { siteId: string; decimal: string; unidad: string; }; }'.
+    Types of property 'origen' are incompatible.
+      Type '{ readonly siteId: string; readonly instanceId: string; readonly decimal: string; readonly unidad: "EUR" | "percent"; } | undefined' is not assignable to type '{ siteId: string; decimal: string; unidad: string; }'.
+        Type 'undefined' is not assignable to type '{ siteId: string; decimal: string; unidad: string; }'.

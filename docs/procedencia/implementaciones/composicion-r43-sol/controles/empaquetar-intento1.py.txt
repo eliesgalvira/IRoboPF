@@ -1,0 +1,28 @@
+from pathlib import Path
+import json,gzip,hashlib,subprocess,difflib,shutil
+root=Path.cwd(); d=root/'docs/procedencia/implementaciones/composicion-r43-sol'; scratch=root/'.cache/composicion-r43-sol'; controls=d/'controles'; controls.mkdir(exist_ok=True)
+for p in scratch.iterdir():
+ if p.is_file() and (p.suffix in ['.log','.json','.gz','.py','.cjs','.sh','.mts'] or p.name=='rojo-previo.test.ts'):
+  name=p.name+('.txt' if p.suffix in ['.py','.cjs','.sh','.mts','.ts'] else '')
+  b=p.read_bytes()
+  if len(b)>1000000 and p.suffix!='.gz': b=gzip.compress(b,mtime=0);name+='.gz'
+  (controls/name).write_bytes(b)
+paths=[root/'scripts/procedencia/composicion-r43.ts',root/'scripts/procedencia/composicion-r43-archivos.mjs',root/'tests/composicion-r43.test.ts',root/'schemas/procedencia/flujo/composicion-r43.schema.json']
+paths+=sorted(p for p in d.rglob('*') if p.is_file() and p.relative_to(d).parts[0] not in ['binarios'] and p.name not in ['MANIFIESTO.json','BINARIOS.json','entrega.patch.gz','transporte.json'])
+rows=[];binary=[];patch=[];bin_dir=d/'binarios';bin_dir.mkdir(exist_ok=True);transport=scratch/'transporte';transport.mkdir(exist_ok=True)
+for p in paths:
+ b=p.read_bytes();rel=p.relative_to(root).as_posix();sha=hashlib.sha256(b).hexdigest();rows.append(dict(path=rel,sha256=sha,size=len(b),baseSha256=None))
+ try: text=b.decode('utf8');assert '\0' not in text
+ except (UnicodeDecodeError,AssertionError):
+  obj=bin_dir/(sha+'.bin');obj.write_bytes(b);binary.append(dict(path=rel,sha256=sha,object=obj.relative_to(root).as_posix()));continue
+ patch.extend(difflib.unified_diff([],text.splitlines(keepends=True),fromfile='/dev/null',tofile='b/'+rel))
+ if text and not text.endswith('\n'):patch.append('\n\\ No newline at end of file\n')
+(d/'MANIFIESTO.json').write_text(json.dumps(dict(head=subprocess.check_output(['git','rev-parse','HEAD']).decode().strip(),files=rows,excludes=['MANIFIESTO.json','BINARIOS.json','entrega.patch.gz','transporte.json','binarios/'],baseChanges=[],deletions=[]),indent=2))
+(d/'BINARIOS.json').write_text(json.dumps(binary,indent=2));payload=''.join(patch).encode();(d/'entrega.patch.gz').write_bytes(gzip.compress(payload,mtime=0))
+proc=subprocess.run(['patch','-p1','--batch','--directory',str(transport)],input=payload,stdout=subprocess.PIPE,stderr=subprocess.STDOUT);(scratch/'transporte-patch.log').write_bytes(proc.stdout);assert proc.returncode==0,proc.stdout[-2000:]
+for obj in binary:
+ target=transport/obj['path'];target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes((root/obj['object']).read_bytes())
+for row in rows:
+ b=(transport/row['path']).read_bytes();assert len(b)==row['size'] and hashlib.sha256(b).hexdigest()==row['sha256'],row['path']
+(d/'transporte.json').write_text(json.dumps(dict(files=len(rows),bytes=sum(r['size'] for r in rows),exact=True,method='GNU patch textual + objetos binarios por SHA256; no checkout ni VCS'),indent=2))
+print('transporte exacto',len(rows),'archivos')

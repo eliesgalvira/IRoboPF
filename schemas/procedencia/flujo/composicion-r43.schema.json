@@ -1,0 +1,16 @@
+{
+ "$schema":"https://json-schema.org/draft/2020-12/schema",
+ "title":"Composición financiera R43 candidata, admisión cerrada",
+ "type":"object","additionalProperties":false,
+ "required":["version","base","fragments","links","dependencies","propertyPorts","domain","admission"],
+ "properties":{
+  "version":{"const":"composicion-r43.1"},
+  "base":{"const":"05cf0e159cc0a0eb3b87d554447a2d14939115c2"},
+  "fragments":{"type":"object","additionalProperties":false,"required":["ss","retenciones","rentas","escalas"],"properties":{"ss":{"$ref":"ss-r36.schema.json"},"retenciones":{"$ref":"retenciones-r34.schema.json"},"rentas":{"$ref":"rentas-r36.schema.json"},"escalas":{"$ref":"escalas-r36.schema.json"}}},
+  "links":{"type":"array","items":{"type":"object","additionalProperties":false,"required":["consumer","group","producer","conversion"],"properties":{"consumer":{"type":"string"},"group":{"enum":["ss","rentas","escalas"]},"producer":{"type":"string"},"conversion":{"type":"string"}}}},
+  "dependencies":{"type":"array","items":{"type":"object","additionalProperties":false,"required":["path","sha256"],"properties":{"path":{"type":"string"},"sha256":{"type":"string","pattern":"^[a-f0-9]{64}$"}}}},
+  "propertyPorts":{"type":"array","items":{"type":"object","required":["id","consumer","property","representation","producer","parameters","calls","condition","instance","conversion"]}},
+  "domain":{"type":"string"},
+  "admission":{"type":"object","additionalProperties":false,"required":["route","reviewedPackage","admissionClosed","siteClosed","wiringAllowed","completeRuleAcceptance"],"properties":{"route":{"const":"annual-public-admission"},"reviewedPackage":{"type":"null"},"admissionClosed":{"const":false},"siteClosed":{"const":false},"wiringAllowed":{"const":false},"completeRuleAcceptance":{"const":false}}}
+ }
+}
