@@ -1,0 +1,15 @@
+import gzip,json,importlib.metadata
+from pathlib import Path
+from jsonschema import Draft202012Validator
+r=Path('/home/elies/Repos/IRoboPF');o=r/'docs/procedencia/correcciones/puertos-r52'
+composition=json.loads(gzip.decompress((o/'candidato-composicion.json.gz').read_bytes()))
+results=[]
+for group in ['escalas','rentas']:
+ path=r/'schemas/procedencia/flujo'/f'{group}-r36.schema.json'
+ schema=json.loads(path.read_text());Draft202012Validator.check_schema(schema)
+ validator=Draft202012Validator(schema);errors=list(validator.iter_errors(composition['fragments'][group]))
+ results.append(dict(group=group,schema=str(path.relative_to(r)),errors=[e.message for e in errors]))
+ assert not errors,results[-1]
+result=dict(validator='jsonschema.Draft202012Validator',version=importlib.metadata.version('jsonschema'),groups=results)
+(o/'schemas.json').write_text(json.dumps(result,indent=2)+'\n')
+print(json.dumps(result))

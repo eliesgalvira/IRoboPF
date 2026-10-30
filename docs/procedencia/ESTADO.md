@@ -2,7 +2,17 @@
 
 Inicio: 29 de octubre de 2026. Trabajo en curso; no es una certificación fiscal.
 
-## Situación más reciente, ronda 51 del 30 de octubre
+## Situación más reciente, ronda 52 del 30 de octubre
+
+Recibida la revisión de puertos R51: cotejo físico de 21.896 entradas intactas, cero borrados y reconstrucción exacta de 263 rutas de payload. El padre incorpora los 35 archivos documentales y de transporte, conservando el scratch reconstruido y las 87 fuentes técnicas fuera del worktree. Detalle en correcciones/puertos-r52.
+
+Corroborados con alcance limitado N01/N02/N03. Los cinco rojos se reproducen antes y pasan después: registros sin prototipo en serializadores, dos campos de gastos, cuatro de etapas y discriminante/motivo autonómicos con variantes. Sin cambios del motor fiscal. El primer pase amplio obtiene 124 pruebas correctas; tras ajustar el guard de cadenas a Schema.is, el pase focalizado final obtiene 50 pruebas correctas. Tipos principal/vendor, lint global y schemas pasan; los recuentos solapados no se suman.
+
+La composición conserva 22 puertos y 24 asociaciones; las operaciones financieras de sus programas permanecen iguales. Los contratos y testigos corregidos siguen candidatos para contrarrevisión independiente nueva con Sol 6.1 High y prioridad. Después quedan el grafo transitivo de 65 sitios/19 instancias y la admisión. Las cuatro puertas siguen falsas.
+
+Motor, inventario, confianza y 45 snapshots intactos. V5 mantiene corte R26; Crossa v1 sigue desfasado. Sin main, PR, despliegue, LFS, gasto, transferencia o limpieza. El encargo global permanece abierto.
+
+## Situación anterior, ronda 51 del 30 de octubre
 
 Integrado por archivos el candidato de puertos R47: 120 archivos recibidos, 8.674.610 bytes; transporte exacto de 109 rutas, incluidos 17 vacíos. Cotejo físico de 21.514 entradas del hijo, tres modificaciones declaradas y cero borrados. Preimágenes de la raíz coincidentes, 87 fuentes técnicas preservadas por ambos hashes. Detalle en correcciones/recepcion-puertos-r51.
 

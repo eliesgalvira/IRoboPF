@@ -1,0 +1,43 @@
+import {readFileSync,writeFileSync,mkdirSync,existsSync} from 'node:fs'
+import {gzipSync,gunzipSync} from 'node:zlib'
+import {createHash} from 'node:crypto'
+import {createRequire} from 'node:module'
+import {produceComposition,verifyComposition} from '../../../scripts/procedencia/composicion-r43'
+import {producePortContract,verifyPortContract,inspectPortContract} from '../../../scripts/procedencia/puertos-composicion-r47'
+const folder='docs/procedencia/correcciones/puertos-r52/'
+const composition=produceComposition();verifyComposition(composition)
+const contract=producePortContract(composition);verifyPortContract(contract,composition)
+const original=JSON.parse(gunzipSync(readFileSync('docs/procedencia/implementaciones/puertos-composicion-r47-sol/candidato-composicion.json.gz')).toString())
+const require=createRequire('/home/elies/Repos/IRoboPF/package.json');const Ajv=require('ajv');const schemaChecks=[]
+for(const group of ['escalas','rentas']){
+ const schema=JSON.parse(readFileSync('schemas/procedencia/flujo/'+group+'-r36.schema.json','utf8'))
+ const validate=new Ajv({allErrors:true}).compile(schema)
+ if(!validate(composition.fragments[group]))throw Error(JSON.stringify(validate.errors))
+ schemaChecks.push(group)
+}
+const changedNodes=[]
+for(const group of ['ss','retenciones','rentas','escalas']){
+ const old=original.fragments[group].program;const current=composition.fragments[group].program
+ if(old.length!==current.length)throw Error('Número de operaciones distinto: '+group)
+ for(let index=0;index<old.length;index++){
+  const before=old[index],after=current[index]
+  if(JSON.stringify(before)===JSON.stringify(after))continue
+  if(group!=='escalas'||before.op!=='boundary')throw Error('Operación cambiada: '+before.id)
+  const strippedBefore=structuredClone(before),strippedAfter=structuredClone(after)
+  delete strippedBefore.data.outputs;delete strippedAfter.data.outputs
+  if(JSON.stringify(strippedBefore)!==JSON.stringify(strippedAfter))throw Error('Cambio no documental: '+before.id)
+  changedNodes.push({group,id:before.id,beforeOutputs:before.data.outputs,afterOutputs:after.data.outputs})
+ }
+}
+writeFileSync(folder+'candidato-composicion.json.gz',gzipSync(JSON.stringify(composition)))
+writeFileSync(folder+'contrato.json.gz',gzipSync(JSON.stringify(contract,null,2)))
+const report=inspectPortContract(contract,composition)
+const sha=(b:Buffer,algorithm='sha256')=>createHash(algorithm).update(b).digest('hex')
+const files=new Set<string>([...Object.values(composition.fragments).flatMap(f=>f.sources.map((s:{file:string})=>s.file)),...contract.dependencies.map(d=>d.path),'tests/puertos-r52.test.ts'])
+const cas='/home/elies/Repos/IRoboPF/.cache/orquestador-preservacion/puertos-r52/sha256';mkdirSync(cas,{recursive:true})
+const sources=[]
+for(const file of files){const bytes=readFileSync(file),hash=sha(bytes);if(!existsSync(cas+'/'+hash))writeFileSync(cas+'/'+hash,bytes);if(!readFileSync(cas+'/'+hash).equals(bytes))throw Error('CAS distinto');sources.push({file,size:bytes.length,sha256:hash,sha512:sha(bytes,'sha512'),preservedPath:cas+'/'+hash})}
+writeFileSync(folder+'fuentes-actuales.json',JSON.stringify(sources,null,2)+'\n')
+const output={ports:contract.ports.length,calls:contract.ports.reduce((n,p)=>n+p.calls.length,0),obligations:report.obligations.length,status:report.status,schemaChecks,changedNodes,financialOperationsUnchanged:true,compositionSha256:sha(Buffer.from(JSON.stringify(composition))),contractSha256:sha(Buffer.from(JSON.stringify(contract))),pending:report.pending,admission:composition.admission}
+writeFileSync(folder+'artefactos.json',JSON.stringify(output,null,2)+'\n')
+console.log(JSON.stringify(output))

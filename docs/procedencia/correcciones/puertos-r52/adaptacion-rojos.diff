@@ -1,0 +1,12 @@
+--- /home/elies/Repos/IRoboPF/docs/procedencia/revisiones/puertos-composicion-r51-sol/nullproto.test.ts.txt	2026-10-30 04:41:32.339598570 +0100
++++ /home/elies/Repos/IRoboPF/docs/procedencia/correcciones/puertos-r52/nullproto.test.ts.txt	2026-10-30 04:41:59.556589230 +0100
+@@ -1,7 +1,7 @@
+ import { createComposition as legacy } from "./legacy"
+-import { produceComposition } from "/home/elies/.t3/worktrees/IRoboPF/t3-28d60c24/scripts/procedencia/composicion-r43"
++import { produceComposition } from "/home/elies/Repos/IRoboPF/scripts/procedencia/composicion-r43"
+ import { expect,it } from "vitest"
+-import { createPortComposition, producePortContract } from "/home/elies/.t3/worktrees/IRoboPF/t3-28d60c24/scripts/procedencia/puertos-composicion-r47"
++import { createPortComposition, producePortContract } from "/home/elies/Repos/IRoboPF/scripts/procedencia/puertos-composicion-r47"
+ const candidate=produceComposition()
+ const contract=producePortContract(candidate)
+ const subcase={anio:2020,edad:40,retribucionAnualCentimos:4020000,cotizacionesCentimos:20000,situacionFamiliar:"situacion3",situacionLaboral:"activo",contrato:"general",descendientes:[],ascendientes:[],discapacidad:"sin-discapacidad"}

@@ -1,0 +1,18 @@
+import {createRequire} from 'node:module'
+import {writeFileSync} from 'node:fs'
+const ts=createRequire('/home/elies/Repos/IRoboPF/package.json')('typescript')
+const root=process.cwd(), scratch=root+'/.cache/puertos-composicion-r51-sol/'
+const remap=p=>p.startsWith(root+'/.cache/puertos-composicion-r47-sol')?p.replace('/.cache/puertos-composicion-r47-sol','/.cache/puertos-composicion-r51-sol'):p.startsWith(root+'/node_modules')?p.replace(root+'/node_modules','/home/elies/Repos/IRoboPF/node_modules'):p
+const sys={...ts.sys}
+for(const key of ['readFile','fileExists','directoryExists','getDirectories','realpath']) {const original=ts.sys[key];if(original)sys[key]=(p,...args)=>original(remap(p),...args)}
+const config=ts.readConfigFile(root+'/tsconfig.json',sys.readFile)
+const parsed=ts.parseJsonConfigFileContent(config.config,sys,root)
+const files=[...parsed.fileNames,scratch+'autor.test.ts',scratch+'nullproto.test.ts',scratch+'observador.test.ts',scratch+'propiedades.test.ts']
+const host=ts.createCompilerHost(parsed.options)
+for(const key of ['readFile','fileExists','directoryExists','getDirectories','realpath'])if(sys[key])host[key]=sys[key]
+const program=ts.createProgram(files,{...parsed.options,incremental:false},host)
+const diagnostics=ts.getPreEmitDiagnostics(program)
+const results=diagnostics.map(d=>({code:d.code,file:d.file?.fileName,start:d.start,message:ts.flattenDiagnosticMessageText(d.messageText,'\n')}))
+writeFileSync(scratch+'tipos.json',JSON.stringify({version:ts.version,config:root+'/tsconfig.json',checkJs:parsed.options.checkJs??false,files:files.length,diagnostics:results},null,2))
+console.log(ts.formatDiagnosticsWithColorAndContext(diagnostics,{getCurrentDirectory:()=>root,getCanonicalFileName:p=>p,getNewLine:()=> '\n'}))
+process.exitCode=diagnostics.length?1:0

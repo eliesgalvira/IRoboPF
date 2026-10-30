@@ -1,7 +1,7 @@
 import { createRequire } from "node:module"
 const require = createRequire("/home/elies/Repos/IRoboPF/package.json")
 const { Decimal } = require("decimal.js")
-const { Match, Option, DateTime, Array: EffectArray } = require("effect")
+const { Match, Option, DateTime, Schema, Array: EffectArray } = require("effect")
 class Environment extends Map {
   parent = null
 }
@@ -50,15 +50,16 @@ function bind(
       )
 }
 const present = (x) => x !== undefined && x !== null
+const printableString = Schema.is(Schema.String)
 const printable = (v) => {
   if (Decimal.isDecimal(v)) return { decimal: v.toFixed() }
   if (Array.isArray(v)) return v.map(printable)
-  if (v && Object.getPrototypeOf(v) === Object.prototype)
+  if (v && [Object.prototype, null].includes(Object.getPrototypeOf(v)))
     return Object.fromEntries(
       Object.entries(v).map(([k, x]) => [k, printable(x)])
     )
   if (v === undefined) return { absent: true }
-  if (Number.isFinite(v) || [null, true, false].includes(v) || String(v) === v)
+  if (Number.isFinite(v) || [null, true, false].includes(v) || printableString(v))
     return v
   return { opaquePrimitive: true }
 }

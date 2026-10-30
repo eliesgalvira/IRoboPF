@@ -1,0 +1,121 @@
+diff --git a/scripts/procedencia/flujo-escalas-r36-consumidor.mjs b/scripts/procedencia/flujo-escalas-r36-consumidor.mjs
+index a3c8ede..178c162 100644
+--- a/scripts/procedencia/flujo-escalas-r36-consumidor.mjs
++++ b/scripts/procedencia/flujo-escalas-r36-consumidor.mjs
+@@ -1,7 +1,7 @@
+ import { createRequire } from "node:module"
+ const require = createRequire("/home/elies/Repos/IRoboPF/package.json")
+ const { Decimal } = require("decimal.js")
+-const { Match, Option, DateTime, Array: EffectArray } = require("effect")
++const { Match, Option, DateTime, Schema, Array: EffectArray } = require("effect")
+ class Environment extends Map {
+   parent = null
+ }
+@@ -50,15 +50,16 @@ function bind(
+       )
+ }
+ const present = (x) => x !== undefined && x !== null
++const printableString = Schema.is(Schema.String)
+ const printable = (v) => {
+   if (Decimal.isDecimal(v)) return { decimal: v.toFixed() }
+   if (Array.isArray(v)) return v.map(printable)
+-  if (v && Object.getPrototypeOf(v) === Object.prototype)
++  if (v && [Object.prototype, null].includes(Object.getPrototypeOf(v)))
+     return Object.fromEntries(
+       Object.entries(v).map(([k, x]) => [k, printable(x)])
+     )
+   if (v === undefined) return { absent: true }
+-  if (Number.isFinite(v) || [null, true, false].includes(v) || String(v) === v)
++  if (Number.isFinite(v) || [null, true, false].includes(v) || printableString(v))
+     return v
+   return { opaquePrimitive: true }
+ }
+diff --git a/scripts/procedencia/flujo-escalas-r36.mjs b/scripts/procedencia/flujo-escalas-r36.mjs
+index 7da850c..326fa00 100644
+--- a/scripts/procedencia/flujo-escalas-r36.mjs
++++ b/scripts/procedencia/flujo-escalas-r36.mjs
+@@ -54,12 +54,14 @@ const external = new Map([
+       "rendimientoAntesArt20:EUR-string",
+       "argumentoArt20:EUR-string",
+       "gastos.integro:EUR-string",
++      "gastos.gastosAE:EUR-string",
++      "gastos.generalesAplicados:EUR-string",
+       "motivo:string"
+     ]
+   ],
+   [
+     "adaptarActividadGeneral",
+-    ["estado:discrete", "aporte.importeEurosExactos:EUR-string", "aporte.retencionesEuros:EUR-string", "aporte.pagosFraccionadosEuros:EUR-string", "motivos[].motivo:string"]
++    ["estado:discrete", "aporte.importeEurosExactos:EUR-string", "aporte.retencionesEuros:EUR-string", "aporte.pagosFraccionadosEuros:EUR-string", "etapas[].importe:EUR-string", "etapas[].reglaId:string", "etapas[].id:string", "etapas[].formula:string", "motivos[].motivo:string"]
+   ],
+   [
+     "calcularDeduccionTrabajo",
+@@ -77,11 +79,11 @@ const external = new Map([
+ // coexistan. Las condiciones fijan el contrato por estado del productor real.
+ const resultVariants = new Map([
+   ["adaptarTrabajoAnual", [
+-    { when: { property: "estado", equals: "aporte-disponible" }, outputs: ["estado:discrete", "rendimientoAntesArt20:EUR-string", "argumentoArt20:EUR-string", "gastos.integro:EUR-string"] },
++    { when: { property: "estado", equals: "aporte-disponible" }, outputs: ["estado:discrete", "rendimientoAntesArt20:EUR-string", "argumentoArt20:EUR-string", "gastos.integro:EUR-string", "gastos.gastosAE:EUR-string", "gastos.generalesAplicados:EUR-string"] },
+     { when: { property: "estado", equals: "no-soportado" }, outputs: ["estado:discrete", "motivo:string"] }
+   ]],
+   ["adaptarActividadGeneral", [
+-    { when: { property: "estado", equals: "aporte-disponible" }, outputs: ["estado:discrete", "aporte.importeEurosExactos:EUR-string", "aporte.retencionesEuros:EUR-string", "aporte.pagosFraccionadosEuros:EUR-string"] },
++    { when: { property: "estado", equals: "aporte-disponible" }, outputs: ["estado:discrete", "aporte.importeEurosExactos:EUR-string", "aporte.retencionesEuros:EUR-string", "aporte.pagosFraccionadosEuros:EUR-string", "etapas[].importe:EUR-string", "etapas[].reglaId:string", "etapas[].id:string", "etapas[].formula:string"] },
+     { when: { property: "estado", equals: "no-soportado" }, outputs: ["estado:discrete", "motivos[].motivo:string"] }
+   ]],
+   ["calcularDeduccionTrabajo", [
+diff --git a/scripts/procedencia/flujo-rentas-r36-consumidor.mjs b/scripts/procedencia/flujo-rentas-r36-consumidor.mjs
+index b385519..33f38d1 100644
+--- a/scripts/procedencia/flujo-rentas-r36-consumidor.mjs
++++ b/scripts/procedencia/flujo-rentas-r36-consumidor.mjs
+@@ -42,15 +42,16 @@ function bind(pattern, value, env, defaultValue) {
+       bind(f.binding, value[f.key], env, defaultValue)
+ }
+ const present = (x) => x !== undefined && x !== null
++const printableString = Schema.is(Schema.String)
+ const printable = (v) => {
+   if (Decimal.isDecimal(v)) return { decimal: v.toFixed() }
+   if (Array.isArray(v)) return v.map(printable)
+-  if (v && Object.getPrototypeOf(v) === Object.prototype)
++  if (v && [Object.prototype, null].includes(Object.getPrototypeOf(v)))
+     return Object.fromEntries(
+       Object.entries(v).map(([k, x]) => [k, printable(x)])
+     )
+   if (v === undefined) return { absent: true }
+-  if (Number.isFinite(v) || [null, true, false].includes(v) || String(v) === v)
++  if (Number.isFinite(v) || [null, true, false].includes(v) || printableString(v))
+     return v
+   return { opaquePrimitive: true }
+ }
+diff --git a/scripts/procedencia/flujo-rentas-r36.mjs b/scripts/procedencia/flujo-rentas-r36.mjs
+index b131f4c..d166f67 100644
+--- a/scripts/procedencia/flujo-rentas-r36.mjs
++++ b/scripts/procedencia/flujo-rentas-r36.mjs
+@@ -732,6 +732,8 @@ export function composeRentasR36(root = process.cwd()) {
+         ? ["return.cotizacionTrabajador"]
+         : name === "obtenerParametrosComunidadAutonoma"
+           ? [
++              "return._tag",
++              "return.motivo",
+               "return.escalaEstatalGeneral",
+               "return.escalaAutonomica.tramos",
+               "return.minimosAutonomicos.contribuyente.general",
+diff --git a/scripts/procedencia/puertos-composicion-r47.ts b/scripts/procedencia/puertos-composicion-r47.ts
+index c32f594..d4e5809 100644
+--- a/scripts/procedencia/puertos-composicion-r47.ts
++++ b/scripts/procedencia/puertos-composicion-r47.ts
+@@ -109,8 +109,12 @@ export function producePortContract(candidate: Composition): PortContract {
+   const provider=endpoint(g[group],root)
+   const reviewed = g.rentas.boundaries.find((b:{name:string})=>b.name===target)
+   if(reviewed === undefined) throw Error("Contrato recibido ausente: "+target)
+-  const output: Property[] = projection ? ["cotizacionEmpresarial","cotizacionTrabajador"].map(path=>({path,representation:"EUR"})) : group === "ss" ? ["cotizacionEmpresarial","cotizacionTrabajador","meiEmpresarial","meiTrabajador","solidaridadEmpresarial","solidaridadTrabajador"].map(path=>({path,representation:"EUR"})) : reviewed.properties.map((path:string)=>({path:path.replace(/^return\./,""),representation:constant?"EUR-base-Decimal":symbol === "calcularCuotaPorEscala"?"EUR-tax-Decimal":symbol === "obtenerEscalaAutonomicaPublicada"?"absent|array<{baseInferior:EUR-base-Decimal,cuota:EUR-tax-Decimal,tipo:ratio-Decimal,inferiorExclusivo?:boolean}>":path.endsWith("general")?"EUR-base-Decimal":"array<[EUR-base-Decimal,ratio-Decimal]>"}))
+-  ports.push({id:"rentas::"+target,consumer:"rentas",target,kind:constant?"constant":projection?"projection":"financial",provider:{group,...provider,dimensionReference:dimensionReference(candidate,group,provider.source,root)},operator:constant?"global":projection?"project":"invoke-root",arguments:provider.parameters.map((_,index)=>({op:"argument",index})),output,variants:[],calls:callsFor(g.rentas,target,constant),projection:projection?output.map(p=>({from:p.path,to:p.path})):[]})
++  const output: Property[] = projection ? ["cotizacionEmpresarial","cotizacionTrabajador"].map(path=>({path,representation:"EUR"})) : group === "ss" ? ["cotizacionEmpresarial","cotizacionTrabajador","meiEmpresarial","meiTrabajador","solidaridadEmpresarial","solidaridadTrabajador"].map(path=>({path,representation:"EUR"})) : reviewed.properties.map((path:string)=>({path:path.replace(/^return\./,""),representation:path === "return._tag"?"discrete":path === "return.motivo"?"string":constant?"EUR-base-Decimal":symbol === "calcularCuotaPorEscala"?"EUR-tax-Decimal":symbol === "obtenerEscalaAutonomicaPublicada"?"absent|array<{baseInferior:EUR-base-Decimal,cuota:EUR-tax-Decimal,tipo:ratio-Decimal,inferiorExclusivo?:boolean}>":path.endsWith("general")?"EUR-base-Decimal":"array<[EUR-base-Decimal,ratio-Decimal]>"}))
++  const variants: Variant[] = symbol === "obtenerParametrosComunidadAutonoma" ? [
++   {when:{property:"_tag",equals:"ParametrosComunidadAutonoma"},outputs:output.filter(p=>p.path!=="motivo").map(p=>p.path+":"+p.representation)},
++   {when:{property:"_tag",equals:"ComunidadAutonomaNoSoportada"},outputs:output.filter(p=>p.path==="_tag"||p.path==="motivo").map(p=>p.path+":"+p.representation)},
++  ] : []
++  ports.push({id:"rentas::"+target,consumer:"rentas",target,kind:constant?"constant":projection?"projection":"financial",provider:{group,...provider,dimensionReference:dimensionReference(candidate,group,provider.source,root)},operator:constant?"global":projection?"project":"invoke-root",arguments:provider.parameters.map((_,index)=>({op:"argument",index})),output,variants,calls:callsFor(g.rentas,target,constant),projection:projection?output.map(p=>({from:p.path,to:p.path})):[]})
+  }
+  const scaleProgram: Node[] = g.escalas.program
+  const ret = scaleProgram.find(n=>n.op === "boundaryCall" && n.data.target === "retencion.calcular")

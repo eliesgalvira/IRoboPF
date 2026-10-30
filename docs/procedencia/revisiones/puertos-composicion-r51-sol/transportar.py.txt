@@ -1,0 +1,39 @@
+from pathlib import Path
+import os,stat,hashlib,json,gzip,subprocess,fcntl
+r=Path.cwd();s=r/'.cache/puertos-composicion-r51-sol';d=r/'docs/procedencia/revisiones/puertos-composicion-r51-sol';t=d/'transporte';t.mkdir(exist_ok=True);o=t/'objetos';o.mkdir(exist_ok=True)
+exclude={str(t.relative_to(r))};payload=[]
+for root in [s,d]:
+ for p in sorted(root.rglob('*')):
+  rel=str(p.relative_to(r))
+  if rel.startswith(str(t.relative_to(r))+'/') or rel.startswith(str((s/'reconstruccion').relative_to(r))+'/') or p.name in ['CONSERVACION-TERMINAL.json.gz','RECONSTRUCCION.json','TRANSPORTE.json']:continue
+  if p.is_file():payload.append((rel,p))
+manifest=[];patch=[];binary=[]
+for rel,p in payload:
+ b=p.read_bytes();assert len(b)<10*1024*1024,(rel,len(b));sha=hashlib.sha256(b).hexdigest();mode='100755' if p.stat().st_mode&0o111 else '100644'
+ rec=dict(path=rel,sha256=sha,size=len(b),mode=mode,baseSha256=None);manifest.append(rec)
+ try:txt=b.decode('utf-8');textual=bool(b) and '\0' not in txt
+ except UnicodeDecodeError:textual=False
+ if not textual:
+  (o/sha).write_bytes(b);binary.append(dict(path=rel,sha256=sha,size=len(b)));continue
+ lines=txt.split('\n');count=len(lines)-(1 if txt.endswith('\n') else 0)
+ patch.extend(['--- /dev/null\n','+++ '+rel+'\n',f'@@ -0,0 +1,{count} @@\n'])
+ for i,line in enumerate(lines[:count]):
+  patch.append('+'+line+'\n')
+  if i==count-1 and not txt.endswith('\n'):patch.append('\\ No newline at end of file\n')
+(t/'entrega.patch.gz').write_bytes(gzip.compress(''.join(patch).encode(),mtime=0))
+(t/'MANIFIESTO.json').write_text(json.dumps(manifest,indent=2)+'\n');(t/'BINARIOS.json').write_text(json.dumps(binary,indent=2)+'\n')
+# Reconstrucción independiente: solo lee sobre/patch/objetos desde aquí.
+recon=s/'reconstruccion';assert not recon.exists();recon.mkdir()
+lock=open('/tmp/irobopf-validacion-pesada.lock','a');fcntl.flock(lock,fcntl.LOCK_EX)
+result=subprocess.run(['patch','--batch','--binary','-p0','-d',str(recon)],input=gzip.decompress((t/'entrega.patch.gz').read_bytes()),stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
+(t/'reconstruccion.log').write_bytes(result.stdout);assert result.returncode==0,result.stdout[-2000:]
+for obj in json.loads((t/'BINARIOS.json').read_text()):
+ b=(t/'objetos'/obj['sha256']).read_bytes();assert hashlib.sha256(b).hexdigest()==obj['sha256'] and len(b)==obj['size'];p=recon/obj['path'];p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(b)
+rows=json.loads((t/'MANIFIESTO.json').read_text())
+for row in rows:
+ p=recon/row['path'];p.chmod(0o755 if row['mode']=='100755' else 0o644);b=p.read_bytes();assert b==(r/row['path']).read_bytes();assert len(b)==row['size'] and hashlib.sha256(b).hexdigest()==row['sha256'];assert bool(p.stat().st_mode&0o111)==(row['mode']=='100755')
+actual={str(p.relative_to(recon)) for p in recon.rglob('*') if p.is_file()};assert actual=={x['path'] for x in rows}
+fcntl.flock(lock,fcntl.LOCK_UN)
+(d/'RECONSTRUCCION.json').write_text(json.dumps(dict(ok=True,files=len(rows),bytes=sum(x['size'] for x in rows),patchSha256=hashlib.sha256((t/'entrega.patch.gz').read_bytes()).hexdigest(),emptyFiles=sum(x['size']==0 for x in rows),method='patch gzip y objetos transportados; nunca copia de fuentes al destino'),indent=2)+'\n')
+(d/'TRANSPORTE.json').write_text(json.dumps(dict(payload='Todas las rutas de transporte/MANIFIESTO.json; docs y scratch autorizado, incluidas fuentes por ambos hashes, vacíos y archivos sin newline.',envelope=['TRANSPORTE.json','RECONSTRUCCION.json','CONSERVACION-TERMINAL.json.gz','transporte/**'],reconstructionCache='Scratch reconstruccion excluido del payload y del sobre; es copia de comprobación, sin checkout.',oldObjects='Se conservan todos los intentos y fuentes recibidas; no existe manifiesto provisional publicado de esta entrega. Los originales R47 siguen en la base sin modificación.',base='debadd0495ce99cbec3de580c7786328ab064a61',baseHashes='null para todas las altas; ningún cambio de archivo base.'),ensure_ascii=False,indent=2)+'\n')
+print(json.dumps(dict(files=len(rows),binary=len(binary),ok=True)))

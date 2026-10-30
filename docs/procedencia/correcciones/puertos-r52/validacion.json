@@ -1,0 +1,49 @@
+[
+  {
+    "name": "suite",
+    "command": [
+      "node",
+      "node_modules/vitest/vitest.mjs",
+      "run",
+      "--configLoader",
+      "native",
+      "--config",
+      "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r52/vitest.mjs",
+      "--reporter=json",
+      "--outputFile=/home/elies/Repos/IRoboPF/docs/procedencia/correcciones/puertos-r52/suite.json"
+    ],
+    "include": [
+      "tests/puertos-r52.test.ts",
+      "tests/puertos-composicion-r47.test.ts",
+      "tests/composicion-r43.test.ts",
+      "tests/composicion-r45-resultados.test.ts",
+      "docs/procedencia/revisiones/resultados-composicion-r49-sol/revision.test.ts",
+      "tests/flujo-escalas-r36.test.ts",
+      "tests/flujo-rentas-r36.test.ts"
+    ],
+    "expectedExit": 0,
+    "exitCode": 0
+  },
+  {
+    "name": "types",
+    "command": [
+      "bun",
+      "run",
+      "typecheck"
+    ],
+    "include": null,
+    "expectedExit": 0,
+    "exitCode": 0
+  },
+  {
+    "name": "oxlint",
+    "command": [
+      "node_modules/.bin/oxlint",
+      "--threads=1",
+      "--disable-nested-config"
+    ],
+    "include": null,
+    "expectedExit": 0,
+    "exitCode": 1
+  }
+]

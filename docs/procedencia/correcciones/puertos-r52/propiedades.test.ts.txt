@@ -1,0 +1,19 @@
+import { expect,it } from "vitest"
+import { produceComposition } from "/home/elies/Repos/IRoboPF/scripts/procedencia/composicion-r43"
+import { producePortContract } from "/home/elies/Repos/IRoboPF/scripts/procedencia/puertos-composicion-r47"
+const contract=producePortContract(produceComposition())
+it("R51-N03a ROJO: trabajo debe declarar gastos usados para producir las líneas",()=>{
+ const port=contract.ports.find(p=>p.target.endsWith("#adaptarTrabajoAnual"))!
+ const paths=port.output.map(o=>o.path)
+ expect(paths).toContain("gastos.gastosAE")
+ expect(paths).toContain("gastos.generalesAplicados")
+})
+it("R51-N03b ROJO: actividad debe declarar colección y campos consumidos por el callback",()=>{
+ const port=contract.ports.find(p=>p.target.endsWith("#adaptarActividadGeneral"))!
+ const paths=port.output.map(o=>o.path)
+ for(const path of ["etapas[].importe","etapas[].reglaId","etapas[].id","etapas[].formula"])expect(paths).toContain(path)
+})
+it("R51-N03c ROJO: parámetros debe declarar discriminante leído antes de usar las escalas",()=>{
+ const port=contract.ports.find(p=>p.target==="boundary:obtenerParametrosComunidadAutonoma")!
+ expect(port.output.map(o=>o.path)).toContain("_tag")
+})

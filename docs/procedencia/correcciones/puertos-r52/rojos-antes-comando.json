@@ -1,0 +1,22 @@
+{
+  "command": [
+    "flock",
+    "/tmp/irobopf-validacion-pesada.lock",
+    "node",
+    "node_modules/vitest/vitest.mjs",
+    "run",
+    "--configLoader",
+    "native",
+    "--config",
+    "/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r52/vitest.mjs",
+    "--reporter=json",
+    "--outputFile=/home/elies/Repos/IRoboPF/docs/procedencia/correcciones/puertos-r52/rojos-antes.json"
+  ],
+  "include": [
+    ".cache/orquestador-recepcion/r52/run/nullproto.test.ts",
+    ".cache/orquestador-recepcion/r52/run/observador.test.ts",
+    ".cache/orquestador-recepcion/r52/run/propiedades.test.ts"
+  ],
+  "exitCode": 1,
+  "failures": 5
+}

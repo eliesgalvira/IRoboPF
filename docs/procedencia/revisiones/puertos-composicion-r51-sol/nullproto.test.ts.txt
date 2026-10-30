@@ -1,0 +1,20 @@
+import { createComposition as legacy } from "./legacy"
+import { produceComposition } from "/home/elies/.t3/worktrees/IRoboPF/t3-28d60c24/scripts/procedencia/composicion-r43"
+import { expect,it } from "vitest"
+import { createPortComposition, producePortContract } from "/home/elies/.t3/worktrees/IRoboPF/t3-28d60c24/scripts/procedencia/puertos-composicion-r47"
+const candidate=produceComposition()
+const contract=producePortContract(candidate)
+const subcase={anio:2020,edad:40,retribucionAnualCentimos:4020000,cotizacionesCentimos:20000,situacionFamiliar:"situacion3",situacionLaboral:"activo",contrato:"general",descendientes:[],ascendientes:[],discapacidad:"sin-discapacidad"}
+const caso={anio:2020,comunidadAutonoma:"madrid",situacionFamiliar:{tipo:"individual",edad:40,descendientes:[],ascendientes:[],discapacidad:{_tag:"SinDiscapacidad"}},rendimientos:{trabajo:[{importeIntegroCentimos:3000000}]},reducciones:[],deducciones:[],retencionesSoportadasCentimos:0,pagosACuentaCentimos:0}
+it("R51-N01 ROJO: datos sin prototipo admitidos deben conservar argumentos realmente usados",()=>{
+ const router=createPortComposition(candidate,contract)
+ const plain=router.annual({...caso,retencionTrabajoAeat:subcase},{modo:"canonico"})
+ const alternate=Object.assign(Object.create(null),subcase)
+ expect(()=>legacy(candidate).annual({...caso,retencionTrabajoAeat:alternate},{modo:"canonico"})).toThrow(/Cannot convert object to primitive value/)
+ const actual=router.annual({...caso,retencionTrabajoAeat:alternate},{modo:"canonico"})
+ expect(actual.lines).toEqual(plain.lines)
+ const witnesses=router.witnesses.filter(w=>w.port==="escalas::retencion.calcular")
+ expect(witnesses).toHaveLength(2)
+ expect(witnesses[0]!.arguments[0]).toHaveProperty("retribucionAnualCentimos",4020000)
+ expect(witnesses[1]!.arguments[0]).toHaveProperty("retribucionAnualCentimos",4020000)
+})
