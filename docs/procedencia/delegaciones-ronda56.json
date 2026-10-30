@@ -1,0 +1,57 @@
+{
+  "round": 56,
+  "base": "4a130762edf270019e1192a81c9484803f7fdb16",
+  "baseEntries": 22251,
+  "delegations": [
+    {
+      "request": {
+        "clientRequestId": "irobopf-r56-sol-revision-causal-ss",
+        "title": "Contrarrevisión Sol de obligaciones y estructura causal SS R56",
+        "role": "review",
+        "mode": "async",
+        "isolation": "worktree",
+        "target": {
+          "providerInstanceId": "codex",
+          "model": "gpt-6.1-sol",
+          "options": {
+            "reasoningEffort": "high",
+            "serviceTier": "priority"
+          }
+        },
+        "task": "Encargo de Elies, revisión independiente NUEVA. gpt-6.1-sol, high, priority explícitos; no subdelegar. Lee BRIEF completo, AGENTS.md, CONTRATO-AUDITORIA.md, COORDINACION.md, cabecera ESTADO y D126/D127. Prevalece Sol sobre el modelo histórico del BRIEF. Español claro; evidencia, objeción experta, respuesta, coste y límite por conclusión.\n\nHEAD exigido 4a130762edf270019e1192a81c9484803f7fdb16, 22251 entradas físicas. Checkout preparado por T3: no crear checkouts en shell. Antes de escribir y al terminar coteja TODAS las entradas con lstat/readlink/bytes/ejecutable contra blobs uno a uno; diff vacío no sustituye la prueba. Censa extras. NUNCA jj git init dentro del worktree Git T3. Cero operaciones VCS mutantes (init/reset/commit/bookmark/push/PR). Nunca rm/mv relativos: solo absolutos dentro de TU scratch. No borrar contexto, originales, históricos, worktrees ni trabajo ajeno. Sin main/PR/deploy/servidor/preview/LFS/gasto/transferencia externa/X/mensajes externos. No tocar implementación, motor, normativa, inventario, confianza, snapshots, ESTADO/DECISIONES ni informes ajenos.\n\nHITO: contrarrevisar las correcciones R56 de R55-N01 y R55-N02 y su impacto en las once salidas SS. No repetir fiscalidad histórica, puertos, codec ni auditoría 65/19; la revisión anterior ya aporta 82 casos propios y dictámenes condicionados, pero rechazó la suficiencia causal por estos dos defectos. No se pide construir nada ni aplicar fixes. Entrega dictamen útil sobre esos cambios y controles propios de las once salidas, preservando límites. Si no hay defecto nuevo demostrado, no inventar otra revisión favorable de los mismos bytes. El padre contrastará tus conclusiones antes de extender la vertical.\n\nLEE: scripts/procedencia/causal-ss-r54.ts, evidencia-ejecucion-r54.ts, flujo-ss-r36.mjs y -consumidor.mjs, schema ejecucion-r54, tests/causal-ss-r56.test.ts y pruebas R54 relevantes. Lee íntegra docs/procedencia/revisiones/causal-ss-r55-sol/INFORME.md, VALIDACION.md, hallazgos y dictámenes; luego correcciones/causal-ss-r56/INFORME.md, decisiones-hallazgos.json, cambios.diff/json, rojos, comparación de testigos, ajustes de tipos y resultados terminales. No asumir que las etiquetas o un replay común acreditan suficiencia.\n\nN01 corroborado por el padre: un literal 0.236→0.999 con obligación explícitamente pendiente pasaba validateSS (permitido por su contrato), executeCausalSS y verifyCausalSS. El wrapper ya rechazaba. El padre reproduce 9.420→32.310 y el testigo adulterado byte a byte. Fix: requireExecutableSS ejecuta validateSS y exige pending vacío y todas las obligaciones satisfied, en ambas API directas. validateSS conserva la capacidad de describir pendientes. Examina el orden y las rutas directas, fragmentos falsamente etiquetados/cierres no derivados y el control positivo. No presentar esto como defecto del motor original ni autenticación de emisor. Reproduce el rojo anterior contra sus bytes, no un import roto ni un rechazo por hash obsoleto. Hay una regresión que declara pendiente una operación auténtica y recalcula solo el sobre para aislar la obligación.\n\nN02 corroborado: reduce-return→collection-selection→receiver→Object.values incluía las diez hojas de tipos en cinco slices que deben consumir solo cinco del lado propio. Fix R56: identity:receiver y miembros ordenados identity:element:<índice> conservan estructura; la semilla y el callback siguen como dependencias y los valores financieros llegan por propiedades consumidas. El consumidor comprueba receptor array, cardinalidad, orden, valores de miembros y semilla/callback únicos. El replay comprueba también productores exactos. No se elimina evidencia del receptor ni se cambian las operaciones financieras.\n\nOBJECIÓN CENTRAL: excluir receiver del recorrido financiero no debe perder una selección realmente necesaria ni esconder estructura detrás de una etiqueta. Contrasta por lectura y casos propios que se conserva cardinalidad/membresía/orden y marcos, incluidos vacío y repetidos de igual valor. Rechazo al cambiar productor con igual importe es necesario. Examina qué obligaciones relacionales se ejercen realmente y qué queda sostenido por replay/entorno. No te limites a repetir que el JSON nuevo coincide consigo mismo.\n\nComprueba las cinco salidas afectadas (empresarial/trabajador ordinarias, ambos totales y coste) con cinco celdas propias y cero contrarias; conserva expectativas monetarias y las otras seis salidas (base, exceso, MEI por lado, solidaridad por lado). Casos acotados de ambos modos, 2018, MEI 2022/23, solidaridad 2025/26, vacío/repetidos y alguna frontera discriminante. No repetir 684 casos ni toda auditoría fiscal por rutina. Nuevos adversos según evidencia: receptor/miembro ausente, duplicado/orden/cardinalidad, identidad con valores iguales, lado/selector/contexto y fuente. Distingue no aceptación de fragmento alterado, falsa atribución causal y error financiero; no inferir uno del otro.\n\nR56 tiene siete rojos previos y ocho controles nuevos; batería terminal 101 (incluye 65 SS y 21 puertos anteriores), 18 testigos/198 salidas comparados. Testigos originales R54/R55/revisor intactos. Usa correcciones/causal-ss-r56/testigos-r56.json.gz con software actual; históricos requieren su software histórico. Comparación exige importes/display/transporte, frames/bindings y valores de eventos iguales; solo aristas de collection-selection, slices y software cambian. No reescribir testigos recibidos. La firma never adicional emitió JS idéntico para corregir estrechamiento de tipos; no es un fix financiero. Schema/protocolo estructural v1 se conserva; revisa si el alcance de compatibilidad declarado es correcto.\n\nPrecondiciones: IR SS fija derivada de fuentes, datos ordinarios densos síncronos finitos, Decimal sin reconfiguración, instrumentación sin fallos, Node24 y dependencias concretas en lectura, perfil uniforme analítico, años/modos soportados y admisión externa. Hash de entradas de paquetes no acredita toda la clausura transitiva ni autenticidad del entorno. Fuera de la IR real, las primitivas no tienen prueba universal. admissionClosed/siteClosed/wiringAllowed/completeRuleAcceptance siguen false. No emitir atestaciones ni promover confianza/aceptación fiscal.\n\nEscritura EXCLUSIVA docs/procedencia/revisiones/causal-ss-r56-sol/ y .cache/causal-ss-r56-sol/ de TU checkout. No modificar base ni tests recibidos. Preimágenes y originales técnicos en /home/elies/Repos/IRoboPF/.cache/orquestador-preservacion/recepciones-r56/sha256 (y recepciones-r55) solo lectura, con hashes a comprobar. Transporte R55 reconstruido en /home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r56/transporte/.cache/causal-ss-r55-sol; contiene scripts de reproducción, testigos y logs. El sobre está versionado en revisiones/causal-ss-r55-sol/entrega. Copia/adapta instrumentos a TU scratch; no ejecutar preparadores con rutas de escritura ajenas. Conservar originales y declarar cualquier adaptación.\n\nNix para herramientas. Dependencias padre solo lectura, sin instalar globalmente ni modificar lockfiles. Python uv con caché/env propios absolutos; nunca crear tools/procedencia/.venv ni mutar la del padre. Antes de nuevo código Effect, effect-solutions list/show y fuentes v4 locales; CLI bun /home/elies/.bun/install/cache/effect-solutions@0.5.3@@@1/dist/cli.js. Dieciséis reglas anti-slop a error. Tipos estrictos propios y configuración real con Effect; checkJs es deuda, no afirmar pase. La revisión anterior documenta fixtures .cache/puertos-composicion-r47-sol ausentes y una importación absoluta que afectan tipos globales en su checkout; no rebajar plugins ni ocultar diagnósticos. Puedes resolver esas dependencias desde las copias padre en lectura, con adaptación explícita del host, sin modificar tests ni copiar escrituras a caches compartidas.\n\nMemoria 11GB sin swap: flock /tmp/irobopf-validacion-pesada.lock por COMANDO y liberar al acabar. No anidar ni mantener durante lectura/redacción/API/espera. Cotejo físico usa /tmp/irobopf-recepcion-acotada.lock, blobs individuales. maxWorkers1, --configLoader native, cache:false, cacheDir absoluto propio. No Next build/suite legacy masiva, node_modules/.vite-temp ni .cache de otros. No abrir servidor/preview.\n\nEntrega sustantiva: informe, decisiones N01/N02 y efectos por las once salidas, casos/expectativas propios, fuentes SHA256/SHA512, logs y límites. Conserva nuevos rojos SIN fixes y fallos instrumentales; si hay defecto, mínimo reproducible real, no hipótesis genérica. Manifiesto por ruta/hash/tamaño/modo/baseSha256, patch gzip, binarios por hash, vacíos y ausencia de newline, archivos <10MiB. Reconstrucción desde patch/objetos en scratch independiente y cotejo de rutas/bytes/modos/extras; no copiar payload para simular reconstrucción. Separar payload/sobre/recibo sin autorreferencia y conservar también instrumentos incluidos. Cotejo terminal completo base intacta, cero borrados y sin extras ajenos. Sin VCS mutante. Tu final reactiva al padre; el encargo global sigue abierto.\n"
+      },
+      "response": {
+        "taskId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r56-sol-revision-causal-ss",
+        "childThreadId": "thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r56-sol-revision-causal-ss",
+        "link": "<t3-thread://v2/4f105205-a3fb-47c7-a78d-1e1279710ed6/thread:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r56-sol-revision-causal-ss>",
+        "childRunId": "run:thread:thread%3Adelegated-task%3Acommand%253Amcp%253A99a9fe10-4fb8-419d-8198-e5c0210805ae%253Adelegate-task%253Airobopf-r56-sol-revision-causal-ss:ordinal:1",
+        "childNodeId": "node:delegated-task:command%3Amcp%3A99a9fe10-4fb8-419d-8198-e5c0210805ae%3Adelegate-task%3Airobopf-r56-sol-revision-causal-ss",
+        "status": "running",
+        "workState": "working",
+        "hasPendingChildRuns": false,
+        "latestTerminalRunId": null,
+        "latestTerminalStatus": null,
+        "latestTerminalSummary": null,
+        "latestTerminalResultContextTransferId": null,
+        "providerInstanceId": "codex",
+        "model": "gpt-6.1-sol",
+        "options": [
+          {
+            "id": "reasoningEffort",
+            "value": "high"
+          },
+          {
+            "id": "serviceTier",
+            "value": "priority"
+          }
+        ],
+        "summary": null,
+        "resultContextTransferId": null,
+        "hasPendingQuestion": false,
+        "pendingApproval": null,
+        "waitTimedOut": false,
+        "next": "Completion wakes this thread, so end your turn. Do not wait on it or poll it."
+      }
+    }
+  ]
+}

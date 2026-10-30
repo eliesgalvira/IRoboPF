@@ -43,3 +43,7 @@ D127 exige cierre en todas las entradas de evidencia y preserva prueba estructur
 Solo cambian el módulo causal y un archivo de regresiones nuevo. Inventario, motor, tablas, confianza y 45 snapshots se conservan. Los otros 54 sitios y 19 familias, la composición y admisión siguen pendientes. V5 conserva el corte R26; Crossa v1 está desfasado. Sin main, PR, despliegue, LFS, gasto, transferencia externa ni limpieza. El encargo global permanece abierto.
 
 Validación terminal terminada: 101 pruebas correctas, tipos globales principal/vendor y lint global correctos. Los 18 testigos verifican y cumplen schema 2020-12. Los JSON terminales acreditan estos resultados; los fallos anteriores se conservan.
+
+Respaldo en origin/procedencia-documental: `4a130762edf270019e1192a81c9484803f7fdb16`, 67 archivos y 6.332.087 bytes, hashes cotejados, cero borrados. El cotejo del padre examinó 22.187 entradas; el commit contiene 22.251. Las seis diferencias históricas excluidas permanecen intactas.
+
+Lanzada una única contrarrevisión independiente sobre ese commit, con gpt-6.1-sol, high y priority explícitos y confirmados por el lanzador. Encargo y respuesta completos en delegaciones-ronda56.json. La finalización reactivará al padre, sin sondeos ni lecturas parciales. Las correcciones siguen candidatas hasta su contraste; no hay cierre global.
