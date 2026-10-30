@@ -2,7 +2,13 @@
 
 Inicio: 29 de octubre de 2026. Trabajo en curso; no es una certificación fiscal.
 
-## Situación más reciente, ronda 56 del 30 de octubre
+## Situación más reciente, ronda 57 del 30 de octubre
+
+Recibida y contrastada la revisión independiente R56: 22.251 entradas del hijo físicamente intactas, cero borrados; transporte exacto de 59 rutas e incorporación de 15 archivos documentales y de transporte. Preservadas 87 referencias técnicas. El padre reproduce 42 entradas/462 comparaciones, 29 adversos heredados/adaptados, 18 relacionales adicionales y tres ejecuciones de estructura; comprueba 18 testigos/198 salidas. Recuentos solapados, no sumados. Tipos globales principal/vendor correctos; TS2345 del host del hijo no reproducido en la raíz. Deuda checkJs conservada. Detalle en correcciones/causal-ss-r57.
+
+N01/N02 y el hito SS de once salidas quedan corroborados bajo sus condiciones, sin defecto nuevo ni cambios de producto. D128 evita otra revisión favorable idéntica y avanza a las seis salidas de retenciones/pagos mediante extensión del protocolo causal, seguida de revisión independiente. Siguen pendientes los otros 54 sitios y 19 familias, composición y admisión; las cuatro puertas permanecen falsas. Motor, inventario, confianza y 45 snapshots intactos. V5 conserva corte R26; Crossa v1 sigue desfasado. Sin main, PR, despliegue, LFS, gasto, transferencia o limpieza. El encargo global continúa abierto.
+
+## Situación anterior, ronda 56 del 30 de octubre
 
 Recibida la revisión R55: 22.185 entradas del hijo físicamente intactas, cero borrados; reconstrucción exacta de 64 rutas e incorporación de 15 archivos documentales y de transporte. Preservadas 93 referencias técnicas. N01 y N02 reproducidos por el padre, incluidos los dos rojos originales y siete regresiones nuevas. Detalle en correcciones/causal-ss-r56.
 

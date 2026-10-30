@@ -1,0 +1,28 @@
+[
+  {
+    "id": "R55-N01",
+    "decision": "corrección corroborada condicionadamente",
+    "evidencia": [
+      "historico-identico.json",
+      "relaciones.json",
+      "suite.log"
+    ],
+    "objecion": "Wrapper ya rechazaba; los hashes podrían ser el único motivo del rechazo nuevo.",
+    "respuesta": "Rojo histórico por aserción y testigo byte idéntico; pendiente auténtico cambia solo sobre, rechazado por obligaciones antes del sobre. Cierres falsos rechazados por validateSS.",
+    "coste": "Exigir derivación y cierre en ambas API; regeneración de evidencia.",
+    "limite": "No defecto del motor ni autenticación de emisor."
+  },
+  {
+    "id": "R55-N02",
+    "decision": "corrección corroborada para las cinco salidas afectadas",
+    "evidencia": [
+      "expectations.json",
+      "estructura.json",
+      "relaciones.json"
+    ],
+    "objecion": "Excluir receiver puede ocultar selección necesaria y aceptar otro productor igual.",
+    "respuesta": "Identidad receptor/miembros permanece; controles locales de estructura, marcos/productores por replay exacto. Propiedades consumidas mantienen valor propio; cinco hojas propias y cero contrarias.",
+    "coste": "Evidencia estructural conservada y controles adicionales; dependencia explícita del replay para identidad exacta.",
+    "limite": "No demostración universal de primitivas ni error financiero; no defecto nuevo demostrado."
+  }
+]

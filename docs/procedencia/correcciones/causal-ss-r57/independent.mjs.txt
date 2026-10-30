@@ -1,0 +1,45 @@
+import assert from 'node:assert/strict'
+import {createRequire} from 'node:module'
+import {readFileSync,writeFileSync} from 'node:fs'
+import {gunzipSync,gzipSync} from 'node:zlib'
+import {composeSS} from '/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-ss-r36.mjs'
+import {executeCausalSS,verifyCausalSS} from '/home/elies/Repos/IRoboPF/scripts/procedencia/causal-ss-r54.ts'
+import {createSSEvaluator} from '/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-ss-r36-consumidor.mjs'
+const require=createRequire('/home/elies/Repos/IRoboPF/package.json'), D=require('decimal.js'),g=composeSS(), evaluate=createSSEvaluator(g),prefix='/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r57/run/'
+const max={2018:'45014.4',2022:'49672.8',2023:'53946',2025:'58914',2026:'61214.4'}, mei={2018:[0,0],2022:[0,0],2023:['.005','.001'],2025:['.0067','.0013'],2026:['.0075','.0015']}
+// Oracle propio de pruebas: tramos por intersección de intervalos, constantes nominales ya contrastadas.
+function expected(year,mode,cents){const s=new D(cents.reduce((a,b)=>a+BigInt(b),0n).toString()).div(100), cap=new D(max[year]);let base=D.min(s,cap)
+ if(year===2018&&mode==='canonico')base=D.min(s,45014.4).mul(7).plus(D.min(s,45644.4).mul(5)).div(12)
+ const ex=D.max(0,s.minus(base)),ordinary=[base.mul('.314'),base.mul('.0635')],m=mei[year].map(x=>base.mul(x));let sol=[new D(0),new D(0)]
+ if(year>=2025){const amount=[D.min(ex,cap.div(10)),D.max(0,D.min(ex,cap.div(2)).minus(cap.div(10))),D.max(0,ex.minus(cap.div(2)))];const rates=year===2025?[['.0077','.0083','.0098'],['.0015','.0017','.0019']]:[['.0096','.0104','.0122'],['.0019','.0021','.0024']]
+ if(mode==='canonico')sol=rates.map(rs=>amount.reduce((a,b,i)=>a.plus(b.mul(rs[i])),new D(0)))
+ else{const rs=year===2025?['.0092','.0100','.0117']:['.0115','.0125','.0146']; const sum=amount.reduce((a,b,i)=>a.plus(b.mul(rs[i])),new D(0)); sol=[sum.mul(5).div(6),sum.div(6)]}}
+ const totals=ordinary.map((x,i)=>x.plus(m[i]).plus(sol[i]));return [base,ex,...ordinary,...m,...sol,...totals,s.plus(totals[0])]}
+const results=[], witnesses=[]
+for(const year of [2018,2022,2023,2025,2026])for(const mode of ['canonico','compatible-legacy']){
+ const amounts=[[],[203,203],[2345678,6543210]]
+ if(year===2018)amounts.push([4501441],[4524000],[4564441])
+ if(year===2026)for(const factor of [110]){const boundary=new D(max[year]).mul(factor).toNumber();for(const step of [-1,0,1])amounts.push([boundary+step])}
+ for(const cents of amounts){const c={anio:year,rendimientos:{trabajo:cents.map(importeIntegroCentimos=>({importeIntegroCentimos}))}},ctx={modo:mode},id='own-'+results.length;const {evidence:e,lines}=executeCausalSS(g,c,ctx,id);const values=expected(year,mode,cents)
+ values.forEach((v,i)=>{assert.ok(new D(e.outputs[i].decimal).minus(v).abs().lt('1e-12'),`${id}/${i}`);assert.equal(e.outputs[i].display,new D(e.outputs[i].decimal).toFixed(2)+' euros')});assert.equal(verifyCausalSS(g,e,c,ctx,id),true);assert.deepEqual(lines,evaluate(c,ctx,false).lines);assert.deepEqual(lines,evaluate(c,ctx,true).lines)
+ for(const selection of e.events.filter(v=>v.operation==='collection-selection')){const cb=selection.edges.find(v=>v.role==='callback'); const node=e.events.find(v=>v.id===cb.to).node; const frames=e.frames.filter(f=>f.parent===selection.frame&&f.call===selection.node&&f.function===node);assert.equal(frames.length,selection.value);assert.deepEqual(e.events.filter(v=>v.operation==='index'&&v.edges.some(edge=>edge.to===selection.id)).map(v=>v.value),Array.from({length:selection.value},(_,i)=>i))}
+ for(const [i,side] of [[2,'empresarial'],[3,'trabajador'],[8,'empresarial'],[9,'trabajador'],[10,'empresarial']]){const nodes=new Set(e.events.filter(v=>e.outputs[i].slice.includes(v.id)).map(v=>v.node));const cells=g.cells.filter(v=>v.path.includes('TIPOS_SEGURIDAD_SOCIAL_LEGACY')&&nodes.has(v.id));assert.equal(cells.length,5);assert.ok(cells.every(v=>v.path.at(-1)===side))}
+ results.push({id,year,mode,cents,expected:values.map(x=>x.toFixed()),actual:e.outputs.map(x=>x.decimal),verified:true});if((year===2018&&cents[0]===4524000)||(year===2025&&cents.length===2)||year===2022&&cents.length===0)witnesses.push({id,evidence:e})
+ }}
+const e=witnesses.find(w=>w.evidence.input.anio===2025).evidence;const adverses=[]
+function reject(name,change){const copy=structuredClone(e);change(copy);assert.throws(()=>verifyCausalSS(g,copy,e.input,e.context,e.execution));adverses.push(name)}
+for(let i=0;i<11;i++)reject('transport-'+i,c=>c.events.find(v=>v.id===c.outputs[i].root).edges=[])
+const event=(c,p)=>{const v=c.events.find(p);assert.ok(v);return v}
+for(const [name,mutate] of [
+ ['binding',c=>event(c,v=>v.operation==='annual-binding'&&v.property==='cotizacionesSociales/baseOrdinaria').edges=[]],
+ ['same-value-side',c=>{const i=c.events.find(v=>v.operation==='property'&&v.property==='trabajador');i.property='empresarial'}],
+ ['year',c=>event(c,v=>v.property==='caso/anio').value=2026],['mode',c=>event(c,v=>v.property==='contexto/modo').value='compatible-legacy'],
+ ['unit',c=>event(c,v=>v.unit==='centimos').unit='EUR'],['cell',c=>event(c,v=>v.operation==='property'&&v.property==='0').property='1'],
+ ['seed',c=>{const v=event(c,v=>v.operation==='collection-selection');v.edges=v.edges.filter(x=>x.role!=='seed')}],
+ ['capture',c=>event(c,v=>v.operation==='capture').edges=[]],['order',c=>event(c,v=>v.operation==='index'&&v.value===1).value=0],
+ ['merged-frame',c=>event(c,v=>v.frame===c.frames[2].id).frame=c.frames[1].id],['argument',c=>event(c,v=>v.operation==='invoke').edges.pop()],
+ ['slice',c=>c.outputs[0].slice=[]],['source',c=>c.sources[0].sha256='0'.repeat(64)],['software',c=>c.software[0].sha256='0'.repeat(64)],['execution',c=>c.execution='other'],['input',c=>c.input.anio=2026],
+ ['identity-edge',c=>{const v=event(c,v=>v.edges.some(x=>x.role.startsWith('identity:')));v.edges=v.edges.filter(x=>!x.role.startsWith('identity:'))}],
+ ['equal-parameter-origin',c=>{const xs=c.events.filter(v=>v.operation==='parameter:1'&&v.property.endsWith('importeIntegroCentimos'));assert.ok(xs.length>=2);xs[1].edges=structuredClone(xs[0].edges)}]
+])reject(name,mutate)
+writeFileSync(prefix+'expectations.json',JSON.stringify(results,null,2));writeFileSync(prefix+'adverses.json',JSON.stringify(adverses,null,2));writeFileSync(prefix+'own-witnesses.json.gz',gzipSync(JSON.stringify(witnesses)));console.log(JSON.stringify({cases:results.length,outputs:results.length*11,adverses:adverses.length}))

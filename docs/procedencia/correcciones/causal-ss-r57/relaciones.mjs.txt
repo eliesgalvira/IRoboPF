@@ -1,0 +1,33 @@
+import assert from 'node:assert/strict'
+import {readFileSync,writeFileSync} from 'node:fs'
+import {createHash} from 'node:crypto'
+import {gunzipSync} from 'node:zlib'
+import {composeSS,inspectSS,validateSS} from '/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-ss-r36.mjs'
+import {executeCausalSS,verifyCausalSS} from '/home/elies/Repos/IRoboPF/scripts/procedencia/causal-ss-r54.ts'
+const g=composeSS(),prefix='/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r57/run/',ctx={modo:'canonico'},c={anio:2025,rendimientos:{trabajo:[{importeIntegroCentimos:307},{importeIntegroCentimos:307}]}},e=executeCausalSS(g,c,ctx,'relaciones').evidence,results=[]
+function reject(name,mutate){const copy=structuredClone(e),before=JSON.stringify(copy.outputs);mutate(copy);assert.equal(JSON.stringify(copy.outputs),before);let message;try{verifyCausalSS(g,copy,c,ctx,e.execution)}catch(err){message=err.message}assert.ok(message,name);results.push({name,message,unchangedOutputs:true})}
+const select=x=>{const v=x.events.find(v=>v.operation==='collection-selection'&&v.value===2);assert.ok(v);return v}
+for(const role of ['identity:receiver','identity:element:0','seed','callback']){
+ reject('ausente '+role,x=>{const s=select(x);s.edges=s.edges.filter(v=>v.role!==role)})
+ reject('duplicado '+role,x=>{const s=select(x);s.edges.push({...s.edges.find(v=>v.role===role)})})
+}
+reject('permutar miembros y renumerar con valores iguales',x=>{const a=select(x).edges.filter(v=>v.role.startsWith('identity:element:'));[a[0].to,a[1].to]=[a[1].to,a[0].to]})
+reject('productor igual duplicado',x=>{const a=select(x).edges.filter(v=>v.role.startsWith('identity:element:'));a[0].to=a[1].to})
+reject('receptor escalar',x=>{select(x).edges.find(v=>v.role==='identity:receiver').to=x.events.find(v=>v.operation==='literal'&&v.value===0).id})
+reject('cardinalidad',x=>{select(x).value=1})
+reject('marco callback',x=>{const s=select(x),cb=x.events.find(v=>v.id===s.edges.find(v=>v.role==='callback').to);const f=x.frames.find(v=>v.parent===s.frame&&v.call===s.node&&v.function===cb.node);assert.ok(f);f.parent=x.frames[0].id})
+reject('etiqueta para esconder seleccion',x=>{select(x).operation='literal'})
+for(const [name,mutation] of [
+ ['lado',x=>{x.events.find(v=>v.operation==='property'&&v.property==='trabajador').property='empresarial'}],
+ ['contexto',x=>{x.context.modo='compatible-legacy'}],
+ ['selector',x=>{x.events.find(v=>v.operation==='input'&&v.property==='caso/anio').value=2026}],
+ ['fuente',x=>{x.sources[0].sha256='f'.repeat(64)}]
+])reject(name,mutation)
+const bad=structuredClone(g),n=bad.program.find(v=>v.op==='literal'&&v.data.value==='0.236');n.data.value='0.999';bad.pending=['program:'+n.id];Object.assign(bad,inspectSS(bad,g));assert.equal(validateSS(bad),true)
+assert.throws(()=>executeCausalSS(bad,c,ctx),/obligaciones pendientes/)
+const pending=structuredClone(g);pending.pending=[g.obligations[0].id];Object.assign(pending,inspectSS(pending,g));const over=structuredClone(e);over.program=createHash('sha256').update(JSON.stringify(pending)).digest('hex');assert.throws(()=>verifyCausalSS(pending,over,c,ctx,e.execution),/obligaciones pendientes/)
+for(const variant of ['sin-pending','falso-satisfecho','cierre-sin-derivar']){const b=structuredClone(bad);if(variant==='sin-pending')b.pending=[];if(variant==='falso-satisfecho')b.obligations.forEach(v=>v.status='satisfied');if(variant==='cierre-sin-derivar')b.sites.forEach(v=>v.valueClosed=true);assert.throws(()=>executeCausalSS(b,c,ctx));assert.throws(()=>verifyCausalSS(b,e,c,ctx,e.execution))}
+const received=JSON.parse(gunzipSync(readFileSync('docs/procedencia/correcciones/causal-ss-r56/testigos-r56.json.gz'))),originals=[...JSON.parse(gunzipSync(readFileSync('docs/procedencia/correcciones/recepcion-causal-ss-r55/testigos-integracion.json.gz'))),...JSON.parse(gunzipSync(readFileSync('/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r56/transporte/.cache/causal-ss-r55-sol/own-witnesses.json.gz')))];let outputs=0
+assert.equal(received.length,18)
+for(let i=0;i<18;i++){const w=received[i],a=w.evidence,b=originals[i].evidence;assert.equal(verifyCausalSS(g,a,a.input,a.context,a.execution),true);assert.deepEqual(a.frames,b.frames);assert.deepEqual(a.annualBindings,b.annualBindings);assert.deepEqual(a.events.map(({edges,...v})=>v),b.events.map(({edges,...v})=>v));for(let j=0;j<a.events.length;j++)if(a.events[j].operation!=='collection-selection')assert.deepEqual(a.events[j],b.events[j]);assert.deepEqual(a.outputs.map(({slice,...v})=>v),b.outputs.map(({slice,...v})=>v));for(const k of ['program','sources','input','context'])assert.deepEqual(a[k],b[k]);outputs+=a.outputs.length}
+writeFileSync(prefix+'relaciones.json',JSON.stringify({adverses:results,pendingChecks:9,received:received.length,outputs,comparison:'only collection-selection edges, derived slices and software differ'},null,2));console.log(JSON.stringify({adverses:results.length,pendingChecks:9,received:18,outputs}))

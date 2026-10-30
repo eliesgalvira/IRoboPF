@@ -1,0 +1,15 @@
+--- revisor/relaciones.mjs
++++ padre/relaciones.mjs
+@@ -2,9 +2,9 @@
+ import {readFileSync,writeFileSync} from 'node:fs'
+ import {createHash} from 'node:crypto'
+ import {gunzipSync} from 'node:zlib'
+-import {composeSS,inspectSS,validateSS} from '../../scripts/procedencia/flujo-ss-r36.mjs'
+-import {executeCausalSS,verifyCausalSS} from '../../scripts/procedencia/causal-ss-r54.ts'
+-const g=composeSS(),prefix='.cache/causal-ss-r56-sol/',ctx={modo:'canonico'},c={anio:2025,rendimientos:{trabajo:[{importeIntegroCentimos:307},{importeIntegroCentimos:307}]}},e=executeCausalSS(g,c,ctx,'relaciones').evidence,results=[]
++import {composeSS,inspectSS,validateSS} from '/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-ss-r36.mjs'
++import {executeCausalSS,verifyCausalSS} from '/home/elies/Repos/IRoboPF/scripts/procedencia/causal-ss-r54.ts'
++const g=composeSS(),prefix='/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r57/run/',ctx={modo:'canonico'},c={anio:2025,rendimientos:{trabajo:[{importeIntegroCentimos:307},{importeIntegroCentimos:307}]}},e=executeCausalSS(g,c,ctx,'relaciones').evidence,results=[]
+ function reject(name,mutate){const copy=structuredClone(e),before=JSON.stringify(copy.outputs);mutate(copy);assert.equal(JSON.stringify(copy.outputs),before);let message;try{verifyCausalSS(g,copy,c,ctx,e.execution)}catch(err){message=err.message}assert.ok(message,name);results.push({name,message,unchangedOutputs:true})}
+ const select=x=>{const v=x.events.find(v=>v.operation==='collection-selection'&&v.value===2);assert.ok(v);return v}
+ for(const role of ['identity:receiver','identity:element:0','seed','callback']){

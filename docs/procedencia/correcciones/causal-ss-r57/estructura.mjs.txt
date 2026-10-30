@@ -1,0 +1,9 @@
+import assert from 'node:assert/strict'
+import {writeFileSync} from 'node:fs'
+import {composeSS} from '/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-ss-r36.mjs'
+import {executeCausalSS} from '/home/elies/Repos/IRoboPF/scripts/procedencia/causal-ss-r54.ts'
+const g=composeSS(),results=[]
+for(const cents of [[],[307,307],[307,401]]){const e=executeCausalSS(g,{anio:2026,rendimientos:{trabajo:cents.map(importeIntegroCentimos=>({importeIntegroCentimos}))}},{modo:'canonico'},'estructura').evidence,byId=new Map(e.events.map(v=>[v.id,v]));let selections=0
+for(const s of e.events.filter(v=>v.operation==='collection-selection')){const receiver=byId.get(s.edges.find(v=>v.role==='identity:receiver').to),elements=s.edges.filter(v=>v.role.startsWith('identity:element:')),cb=byId.get(s.edges.find(v=>v.role==='callback').to);assert.ok(Array.isArray(receiver.value));assert.equal(s.value,receiver.value.length);assert.deepEqual(elements.map(v=>v.role),receiver.value.map((_,i)=>'identity:element:'+i));assert.deepEqual(elements.map(v=>byId.get(v.to).value),receiver.value);const frames=e.frames.filter(v=>v.parent===s.frame&&v.call===s.node&&v.function===cb.node);assert.equal(frames.length,s.value);frames.forEach((frame,i)=>{const inv=e.events.find(v=>v.operation==='invoke'&&v.frame===frame.id);assert.equal(inv.edges.find(v=>v.role==='argument:1').to,elements[i].to)});selections++}
+results.push({cents,selections,orderedProducerToInvocation:true})}
+writeFileSync('/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r57/run/estructura.json',JSON.stringify(results,null,2));console.log(JSON.stringify(results))

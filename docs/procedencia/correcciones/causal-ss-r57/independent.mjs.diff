@@ -1,0 +1,17 @@
+--- revisor/independent.mjs
++++ padre/independent.mjs
+@@ -2,10 +2,10 @@
+ import {createRequire} from 'node:module'
+ import {readFileSync,writeFileSync} from 'node:fs'
+ import {gunzipSync,gzipSync} from 'node:zlib'
+-import {composeSS} from '../../scripts/procedencia/flujo-ss-r36.mjs'
+-import {executeCausalSS,verifyCausalSS} from '../../scripts/procedencia/causal-ss-r54.ts'
+-import {createSSEvaluator} from '../../scripts/procedencia/flujo-ss-r36-consumidor.mjs'
+-const require=createRequire('/home/elies/Repos/IRoboPF/package.json'), D=require('decimal.js'),g=composeSS(), evaluate=createSSEvaluator(g),prefix='.cache/causal-ss-r56-sol/'
++import {composeSS} from '/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-ss-r36.mjs'
++import {executeCausalSS,verifyCausalSS} from '/home/elies/Repos/IRoboPF/scripts/procedencia/causal-ss-r54.ts'
++import {createSSEvaluator} from '/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-ss-r36-consumidor.mjs'
++const require=createRequire('/home/elies/Repos/IRoboPF/package.json'), D=require('decimal.js'),g=composeSS(), evaluate=createSSEvaluator(g),prefix='/home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r57/run/'
+ const max={2018:'45014.4',2022:'49672.8',2023:'53946',2025:'58914',2026:'61214.4'}, mei={2018:[0,0],2022:[0,0],2023:['.005','.001'],2025:['.0067','.0013'],2026:['.0075','.0015']}
+ // Oracle propio de pruebas: tramos por intersección de intervalos, constantes nominales ya contrastadas.
+ function expected(year,mode,cents){const s=new D(cents.reduce((a,b)=>a+BigInt(b),0n).toString()).div(100), cap=new D(max[year]);let base=D.min(s,cap)
