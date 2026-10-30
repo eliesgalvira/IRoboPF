@@ -1,0 +1,695 @@
+{
+  "checks": [
+    {
+      "id": "rentas.argument4.0",
+      "actual": [
+        8274,
+        8279,
+        "cuota"
+      ],
+      "expected": [
+        10064,
+        10069,
+        "cuota"
+      ],
+      "pass": false
+    },
+    {
+      "id": "rentas.argument4.1",
+      "actual": [
+        10206,
+        10224,
+        "saldo.minus(cuota)"
+      ],
+      "expected": [
+        10206,
+        10224,
+        "saldo.minus(cuota)"
+      ],
+      "pass": true
+    },
+    {
+      "id": "rentas.argument4.2",
+      "actual": [
+        12267,
+        12280,
+        "new D(i.base)"
+      ],
+      "expected": [
+        12267,
+        12280,
+        "new D(i.base)"
+      ],
+      "pass": true
+    },
+    {
+      "id": "rentas.argument4.3",
+      "actual": [
+        12461,
+        12474,
+        "new D(g.base)"
+      ],
+      "expected": [
+        12461,
+        12474,
+        "new D(g.base)"
+      ],
+      "pass": true
+    },
+    {
+      "id": "rentas.argument4.4",
+      "actual": [
+        10861,
+        10877,
+        "new D(r.importe)"
+      ],
+      "expected": [
+        12637,
+        12653,
+        "new D(r.importe)"
+      ],
+      "pass": false
+    },
+    {
+      "id": "rentas.argument4.5",
+      "actual": [
+        12797,
+        12835,
+        "suma(caso.ingresos.map((i) => i.base))"
+      ],
+      "expected": [
+        12797,
+        12835,
+        "suma(caso.ingresos.map((i) => i.base))"
+      ],
+      "pass": true
+    },
+    {
+      "id": "rentas.argument4.6",
+      "actual": [
+        12971,
+        13007,
+        "suma(caso.gastos.map((g) => g.base))"
+      ],
+      "expected": [
+        12971,
+        13007,
+        "suma(caso.gastos.map((g) => g.base))"
+      ],
+      "pass": true
+    },
+    {
+      "id": "rentas.argument4.7",
+      "actual": [
+        13139,
+        13176,
+        "suma(caso.reta.map((r) => r.importe))"
+      ],
+      "expected": [
+        13139,
+        13176,
+        "suma(caso.reta.map((r) => r.importe))"
+      ],
+      "pass": true
+    },
+    {
+      "id": "rentas.argument4.8",
+      "actual": [
+        8437,
+        8449,
+        "amortizacion"
+      ],
+      "expected": [
+        13288,
+        13300,
+        "amortizacion"
+      ],
+      "pass": false
+    },
+    {
+      "id": "rentas.argument4.9",
+      "actual": [
+        13486,
+        13508,
+        "ingresos.minus(gastos)"
+      ],
+      "expected": [
+        13486,
+        13508,
+        "ingresos.minus(gastos)"
+      ],
+      "pass": true
+    },
+    {
+      "id": "rentas.argument4.10",
+      "actual": [
+        14306,
+        14401,
+        "caso.opcion === \"cliente-unico\"\n      ? new D(0)\n      : D.min(2000, D.max(P, 0).times(\"0.05\"))"
+      ],
+      "expected": [
+        14306,
+        14401,
+        "caso.opcion === \"cliente-unico\"\n      ? new D(0)\n      : D.min(2000, D.max(P, 0).times(\"0.05\"))"
+      ],
+      "pass": true
+    },
+    {
+      "id": "rentas.argument4.11",
+      "actual": [
+        14461,
+        14471,
+        "P.minus(G)"
+      ],
+      "expected": [
+        14461,
+        14471,
+        "P.minus(G)"
+      ],
+      "pass": true
+    },
+    {
+      "id": "rentas.argument4.12",
+      "actual": [
+        14551,
+        14560,
+        "adicional"
+      ],
+      "expected": [
+        15032,
+        15041,
+        "adicional"
+      ],
+      "pass": false
+    },
+    {
+      "id": "rentas.argument4.13",
+      "actual": [
+        14682,
+        14692,
+        "incremento"
+      ],
+      "expected": [
+        15177,
+        15187,
+        "incremento"
+      ],
+      "pass": false
+    },
+    {
+      "id": "rentas.argument4.14",
+      "actual": [
+        1040,
+        1049,
+        "reduccion"
+      ],
+      "expected": [
+        15573,
+        15582,
+        "reduccion"
+      ],
+      "pass": false
+    },
+    {
+      "id": "rentas.argument4.15",
+      "actual": [
+        16311,
+        16430,
+        "caso.aplicarInicio && inicioElegible\n      ? D.min(100000, D.max(0, RN.minus(reduccion))).times(\"0.2\")\n      : new D(0)"
+      ],
+      "expected": [
+        16311,
+        16430,
+        "caso.aplicarInicio && inicioElegible\n      ? D.min(100000, D.max(0, RN.minus(reduccion))).times(\"0.2\")\n      : new D(0)"
+      ],
+      "pass": true
+    },
+    {
+      "id": "rentas.argument4.16",
+      "actual": [
+        16553,
+        16595,
+        "RN.minus(reduccion).minus(reduccionInicio)"
+      ],
+      "expected": [
+        16553,
+        16595,
+        "RN.minus(reduccion).minus(reduccionInicio)"
+      ],
+      "pass": true
+    },
+    {
+      "id": "rentas.argument4.17",
+      "actual": [
+        16734,
+        16778,
+        "suma(caso.retenciones.map((r) => r.importe))"
+      ],
+      "expected": [
+        16734,
+        16778,
+        "suma(caso.retenciones.map((r) => r.importe))"
+      ],
+      "pass": true
+    },
+    {
+      "id": "rentas.argument4.18",
+      "actual": [
+        16938,
+        16988,
+        "suma(caso.pagosFraccionados.map((p) => p.importe))"
+      ],
+      "expected": [
+        16938,
+        16988,
+        "suma(caso.pagosFraccionados.map((p) => p.importe))"
+      ],
+      "pass": true
+    },
+    {
+      "id": "instancias.argument4.0",
+      "actual": [
+        8274,
+        8279,
+        "cuota"
+      ],
+      "expected": [
+        10064,
+        10069,
+        "cuota"
+      ],
+      "pass": false
+    },
+    {
+      "id": "instancias.argument4.1",
+      "actual": [
+        10206,
+        10224,
+        "saldo.minus(cuota)"
+      ],
+      "expected": [
+        10206,
+        10224,
+        "saldo.minus(cuota)"
+      ],
+      "pass": true
+    },
+    {
+      "id": "instancias.argument4.2",
+      "actual": [
+        12267,
+        12280,
+        "new D(i.base)"
+      ],
+      "expected": [
+        12267,
+        12280,
+        "new D(i.base)"
+      ],
+      "pass": true
+    },
+    {
+      "id": "instancias.argument4.3",
+      "actual": [
+        12461,
+        12474,
+        "new D(g.base)"
+      ],
+      "expected": [
+        12461,
+        12474,
+        "new D(g.base)"
+      ],
+      "pass": true
+    },
+    {
+      "id": "instancias.argument4.4",
+      "actual": [
+        10861,
+        10877,
+        "new D(r.importe)"
+      ],
+      "expected": [
+        12637,
+        12653,
+        "new D(r.importe)"
+      ],
+      "pass": false
+    },
+    {
+      "id": "instancias.argument4.5",
+      "actual": [
+        12797,
+        12835,
+        "suma(caso.ingresos.map((i) => i.base))"
+      ],
+      "expected": [
+        12797,
+        12835,
+        "suma(caso.ingresos.map((i) => i.base))"
+      ],
+      "pass": true
+    },
+    {
+      "id": "instancias.argument4.6",
+      "actual": [
+        12971,
+        13007,
+        "suma(caso.gastos.map((g) => g.base))"
+      ],
+      "expected": [
+        12971,
+        13007,
+        "suma(caso.gastos.map((g) => g.base))"
+      ],
+      "pass": true
+    },
+    {
+      "id": "instancias.argument4.7",
+      "actual": [
+        13139,
+        13176,
+        "suma(caso.reta.map((r) => r.importe))"
+      ],
+      "expected": [
+        13139,
+        13176,
+        "suma(caso.reta.map((r) => r.importe))"
+      ],
+      "pass": true
+    },
+    {
+      "id": "instancias.argument4.8",
+      "actual": [
+        8437,
+        8449,
+        "amortizacion"
+      ],
+      "expected": [
+        13288,
+        13300,
+        "amortizacion"
+      ],
+      "pass": false
+    },
+    {
+      "id": "instancias.argument4.9",
+      "actual": [
+        13486,
+        13508,
+        "ingresos.minus(gastos)"
+      ],
+      "expected": [
+        13486,
+        13508,
+        "ingresos.minus(gastos)"
+      ],
+      "pass": true
+    },
+    {
+      "id": "instancias.argument4.10",
+      "actual": [
+        14306,
+        14401,
+        "caso.opcion === \"cliente-unico\"\n      ? new D(0)\n      : D.min(2000, D.max(P, 0).times(\"0.05\"))"
+      ],
+      "expected": [
+        14306,
+        14401,
+        "caso.opcion === \"cliente-unico\"\n      ? new D(0)\n      : D.min(2000, D.max(P, 0).times(\"0.05\"))"
+      ],
+      "pass": true
+    },
+    {
+      "id": "instancias.argument4.11",
+      "actual": [
+        14461,
+        14471,
+        "P.minus(G)"
+      ],
+      "expected": [
+        14461,
+        14471,
+        "P.minus(G)"
+      ],
+      "pass": true
+    },
+    {
+      "id": "instancias.argument4.12",
+      "actual": [
+        14551,
+        14560,
+        "adicional"
+      ],
+      "expected": [
+        15032,
+        15041,
+        "adicional"
+      ],
+      "pass": false
+    },
+    {
+      "id": "instancias.argument4.13",
+      "actual": [
+        14682,
+        14692,
+        "incremento"
+      ],
+      "expected": [
+        15177,
+        15187,
+        "incremento"
+      ],
+      "pass": false
+    },
+    {
+      "id": "instancias.argument4.14",
+      "actual": [
+        1040,
+        1049,
+        "reduccion"
+      ],
+      "expected": [
+        15573,
+        15582,
+        "reduccion"
+      ],
+      "pass": false
+    },
+    {
+      "id": "instancias.argument4.15",
+      "actual": [
+        16311,
+        16430,
+        "caso.aplicarInicio && inicioElegible\n      ? D.min(100000, D.max(0, RN.minus(reduccion))).times(\"0.2\")\n      : new D(0)"
+      ],
+      "expected": [
+        16311,
+        16430,
+        "caso.aplicarInicio && inicioElegible\n      ? D.min(100000, D.max(0, RN.minus(reduccion))).times(\"0.2\")\n      : new D(0)"
+      ],
+      "pass": true
+    },
+    {
+      "id": "instancias.argument4.16",
+      "actual": [
+        16553,
+        16595,
+        "RN.minus(reduccion).minus(reduccionInicio)"
+      ],
+      "expected": [
+        16553,
+        16595,
+        "RN.minus(reduccion).minus(reduccionInicio)"
+      ],
+      "pass": true
+    },
+    {
+      "id": "instancias.argument4.17",
+      "actual": [
+        16734,
+        16778,
+        "suma(caso.retenciones.map((r) => r.importe))"
+      ],
+      "expected": [
+        16734,
+        16778,
+        "suma(caso.retenciones.map((r) => r.importe))"
+      ],
+      "pass": true
+    },
+    {
+      "id": "instancias.argument4.18",
+      "actual": [
+        16938,
+        16988,
+        "suma(caso.pagosFraccionados.map((p) => p.importe))"
+      ],
+      "expected": [
+        16938,
+        16988,
+        "suma(caso.pagosFraccionados.map((p) => p.importe))"
+      ],
+      "pass": true
+    },
+    {
+      "id": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts#resolverParametrosComunidadAutonoma2012.escalaAutonomicaIgualEstatal",
+      "actual": {
+        "inputs": [
+          "comunidadAutonoma"
+        ],
+        "role": "selection"
+      },
+      "expected": {
+        "inputs": [],
+        "role": "value"
+      },
+      "pass": false
+    },
+    {
+      "id": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts#resolverParametrosComunidadAutonoma2013.escalaAutonomicaIgualEstatal",
+      "actual": {
+        "inputs": [
+          "comunidadAutonoma"
+        ],
+        "role": "selection"
+      },
+      "expected": {
+        "inputs": [],
+        "role": "value"
+      },
+      "pass": false
+    },
+    {
+      "id": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts#resolverParametrosComunidadAutonoma2014.escalaAutonomicaIgualEstatal",
+      "actual": {
+        "inputs": [
+          "comunidadAutonoma"
+        ],
+        "role": "selection"
+      },
+      "expected": {
+        "inputs": [],
+        "role": "value"
+      },
+      "pass": false
+    },
+    {
+      "id": "lib/dominio/irpf/comunidades/comunidad-autonoma.ts#resolverParametrosComunidadAutonoma2015.escalaAutonomicaIgualEstatal",
+      "actual": {
+        "inputs": [
+          "comunidadAutonoma"
+        ],
+        "role": "selection"
+      },
+      "expected": {
+        "inputs": [],
+        "role": "value"
+      },
+      "pass": false
+    },
+    {
+      "id": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#cuotaIntegraGeneralEstatal.value",
+      "actual": true,
+      "expected": false,
+      "pass": false
+    },
+    {
+      "id": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#cuotaIntegraGeneralAutonomica.value",
+      "actual": true,
+      "expected": false,
+      "pass": false
+    },
+    {
+      "id": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#desgloseCuotaIntegraGeneralEstatal.value",
+      "actual": true,
+      "expected": false,
+      "pass": false
+    },
+    {
+      "id": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#desgloseCuotaIntegraGeneralAutonomica.value",
+      "actual": true,
+      "expected": false,
+      "pass": false
+    },
+    {
+      "id": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#cuotaMinimoPersonalEstatal.value",
+      "actual": true,
+      "expected": false,
+      "pass": false
+    },
+    {
+      "id": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#cuotaMinimoPersonalAutonomica.value",
+      "actual": true,
+      "expected": false,
+      "pass": false
+    },
+    {
+      "id": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#desgloseCuotaMinimoPersonalEstatal.value",
+      "actual": true,
+      "expected": false,
+      "pass": false
+    },
+    {
+      "id": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts#desgloseCuotaMinimoPersonalAutonomica.value",
+      "actual": true,
+      "expected": false,
+      "pass": false
+    },
+    {
+      "id": "FA25-03",
+      "actual": {
+        "file": "lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts",
+        "sha256": "9087fd03dd973a32e904dd9842ded3d3b33a5e239c7d34c6f062487a698b2479",
+        "start": 8110,
+        "end": 8539,
+        "offsetEncoding": "utf16",
+        "text": "sumarUnAnioFechaCivilIso = (fechaIso: string): string => {\n  const [year = 0, month = 1, day = 1] = fechaIso.split(\"-\").map(Number)\n  const fecha = DateTime.makeUnsafe({ year: year + 1, month, day })\n  const partes = DateTime.toPartsUtc(fecha)\n  const yyyy = String(partes.year).padStart(4, \"0\")\n  const mm = String(partes.month).padStart(2, \"0\")\n  const dd = String(partes.day).padStart(2, \"0\")\n\n  return `${yyyy}-${mm}-${dd}`\n}",
+        "rangeRole": "declaration; not literal"
+      },
+      "expected": {
+        "file": "lib/dominio/dinero/importe-monetario.ts",
+        "sha256": "c34f0bfb31dbef47799eb25743810e8e482703d2a2f445763f4f62747949bea5",
+        "start": 197,
+        "end": 660,
+        "offsetEncoding": "utf16",
+        "text": "crearImporteMonetario = (valor: Decimal.Value): ImporteMonetario =>\n  new Decimal(valor)\n\n// Constantes Decimal compartidas para evitar mezclar literales `number` en\n// acumuladores monetarios y para expresar identidades aritmeticas de dominio.\nexport const IMPORTE_CERO = crearImporteMonetario(0)\nexport const IMPORTE_UNO = crearImporteMonetario(1)\n\nexport const centimosAEuros = (centimos: number): ImporteMonetario =>\n  crearImporteMonetario(centimos).div(100)",
+        "rangeRole": "span de declaraciones crearImporteMonetario a centimosAEuros; no literal individual"
+      },
+      "pass": false
+    },
+    {
+      "id": "RSS26-02.entrada:contexto.modo",
+      "actual": "valor",
+      "expected": "control-seleccion",
+      "pass": false
+    },
+    {
+      "id": "RSS26-02.R.menor3",
+      "actual": "valor",
+      "expected": "control-seleccion",
+      "pass": false
+    },
+    {
+      "id": "RSS26-source-mode",
+      "actual": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "start": 9979,
+        "end": 10029,
+        "offsetEncoding": "utf16",
+        "text": "cotizacionesSociales = yield* CotizacionesSociales"
+      },
+      "expected": {
+        "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+        "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+        "start": 12683,
+        "end": 13022,
+        "offsetEncoding": "utf16",
+        "text": "cotizacionesSociales = medirAuditoriaSync(\n    \"liquidacion.cotizacionesSociales.desglosar\",\n    () =>\n      (contexto.modo === \"canonico\"\n        ? calcularDesgloseCotizacionesPerfilUniforme\n        : calcularDesgloseCotizacionesSocialesLegacy)({\n        anio: caso.anio,\n        salarioBrutoAnual: rendimientoIntegroTrabajo,\n      })\n  )"
+      },
+      "pass": false
+    }
+  ],
+  "failures": 28
+}

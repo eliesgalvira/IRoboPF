@@ -1,0 +1,12 @@
+30861 | }
+30862 | function isBindingElement(node) {
+30863 |   return node.kind === 209 /* BindingElement */;
+30864 | }
+30865 | function isArrayLiteralExpression(node) {
+30866 |   return node.kind === 210 /* ArrayLiteralExpression */;
+                 ^
+TypeError: undefined is not an object (evaluating 'node.kind')
+      at isArrayLiteralExpression (/home/elies/Repos/IRoboPF/node_modules/typescript/lib/typescript.js:30866:10)
+      at /home/elies/.t3/worktrees/IRoboPF/t3-7b33b163/.cache/revision-unidades-colecciones-r41-sol/revisar.mjs:16:371
+
+Bun v1.3.13 (Linux x64)

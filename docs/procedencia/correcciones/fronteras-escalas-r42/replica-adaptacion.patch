@@ -1,0 +1,13 @@
+--- /home/elies/Repos/IRoboPF/docs/procedencia/revisiones/flujo-escalas-r40-sol/revisar.mjs	2026-10-30 02:34:19.664605965 +0100
++++ /home/elies/Repos/IRoboPF/.cache/orquestador-recepcion/r42/replica/revisar-adaptado.mjs	2026-10-30 02:34:41.598618411 +0100
+@@ -24,7 +24,9 @@
+ }
+ const fragment=composeEscalasR36(); assert(verifyEscalasR36(fragment))
+ const received=JSON.parse(gunzipSync(fs.readFileSync('docs/procedencia/implementaciones/flujo-escalas-r36-sol/fragmento.json.gz')).toString())
+-assert.deepEqual(fragment,received)
++const operations = g => g.program.map(n => n.op === 'boundary' ? {...n,data:{...n.data,outputs:[]}} : n)
++assert.deepEqual(operations(fragment),operations(received))
++assert.deepEqual(fragment.sources,received.sources)
+ const byName=name=>{const all=fragment.globalBindings.filter(b=>b.name.endsWith('#'+name));assert.equal(all.length,1,name);return all[0]}
+ const run=(name,args,boundaries=new Map())=>executeEscalasR36(fragment,byName(name).name,args,true,null,[],boundaries)
+ const quota=load('lib/dominio/irpf/cuotas/escalas-gravamen.ts')

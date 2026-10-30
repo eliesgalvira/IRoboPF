@@ -1,0 +1,48 @@
+import json,gzip,hashlib,pathlib,shutil,difflib,subprocess,os,stat
+R=pathlib.Path.cwd();S=R/'.cache/revision-unidades-colecciones-r41-sol';O=R/'docs/procedencia/revisiones/unidades-colecciones-r41-sol'
+sha=lambda b:hashlib.sha256(b).hexdigest()
+# Instrumentos y registros propios: no distribuir entornos ni fuentes copiadas.
+for name in ['revisar.mjs','casos.mjs','calidad.mjs','schema.py','vitest.config.mjs','oxlint.json','tsconfig-ss-antes.json','tsconfig-ss-despues.json','tsconfig-rentas.json','entregar.py','terminal.py']:
+ (O/(name+'.txt')).write_bytes((S/name).read_bytes())
+for name in ['contraste.log','casos.log','calidad.log','schema.log','vitest.log']:(O/name).write_bytes((S/name).read_bytes())
+(O/'fisico-inicial.json.gz').write_bytes(gzip.compress((S/'fisico-inicial.json').read_bytes(),mtime=0))
+p=O/'casos-propios.json';(O/'casos-propios.json.gz').write_bytes(gzip.compress(p.read_bytes(),mtime=0));p.unlink()
+findings=[]
+for ident,domain in [('SS39-01','cinco objetos MEI'),('SS39-02','cuatro ternas trabajador'),('SS39-03','registro categorías/lados y unión runtime'),('SS39-04','dos ceros EUR contextuales'),('RR40-01','cuatro llamadas EffectArray data-first')]:
+ findings.append({'id':ident,'domain':domain,'verdict':'corroborado-corregido-en-R41','fiscalAcceptance':False,'newProductDefect':False,'requiresParentContrast':True,'evidence':['contraste-propio.json','casos-propios.json.gz','ceros-contextos.json','solidaridad-propia.json'],'objection':'La receta y su verificador pueden compartir un error','response':'AST independiente, runtime TS y racionales propios además del rojo histórico','cost':'Validez finita en fuentes fijadas; revisar si cambian'})
+(O/'hallazgos.json').write_text(json.dumps(findings,ensure_ascii=False,indent=2))
+(O/'decisiones.json').write_text(json.dumps([{'id':'D1','decision':'Corroboración documental limitada','objection':'Promoción a fiscalidad completa','response':'Dictamen por dominio; sin admisión/wiring','cost':'Composición y juicio fiscal pendientes'},{'id':'D2','decision':'Conservar checkJs SS rojo previo','objection':'Garantía estática incompleta','response':'Mismos mensajes y posiciones antes/después','cost':'No afirmar tipado completo'},{'id':'D3','decision':'Pruebas focalizadas y racionales discriminantes','objection':'Cambios numéricos inadvertidos','response':'Programa/fuentes idénticos más TS real','cost':'Sin auditoría jurídica nueva'},{'id':'D4','decision':'Separar payload y controles terminales','objection':'Autorreferencia del manifiesto','response':'Sobre exterior con exclusiones explícitas','cost':'Preservar también controles exteriores'}],ensure_ascii=False,indent=2))
+(O/'COMANDOS.md').write_text('''# Reproducción desde la raíz de este checkout
+
+Herramientas por `nix shell nixpkgs#bun nixpkgs#nodejs nixpkgs#ripgrep`; Python estándar por `nix shell nixpkgs#python3` y `uv run --no-project --python python3`, PYTHONDONTWRITEBYTECODE=1, UV_PROJECT_ENVIRONMENT absoluto bajo scratch propio. Schema añade `--with jsonschema`. No pip ni instalación global. Los instrumentos .txt son copias exactas de los ejecutados; reubicarlos en el scratch asignado antes de ejecutarlos. Los scripts usan process.cwd()/Path.cwd() como raíz.
+
+- `flock /tmp/irobopf-validacion-pesada.lock bun .cache/revision-unidades-colecciones-r41-sol/revisar.mjs`: 13 grupos correctos, 17 mutaciones rechazadas y contextos de todos los ceros. Antes: 16 rojos; después: cero.
+- `flock /tmp/irobopf-validacion-pesada.lock env NODE_PATH=/home/elies/Repos/IRoboPF/node_modules bun .cache/revision-unidades-colecciones-r41-sol/casos.mjs`: racionales/TS y runtime correctos; 24 contrapruebas de selector; 41 controles rentas repetidos. Bandas por índice/lado correctas.
+- `flock /tmp/irobopf-validacion-pesada.lock /home/elies/Repos/IRoboPF/node_modules/.bin/vitest run --config .cache/revision-unidades-colecciones-r41-sol/vitest.config.mjs --configLoader native --maxWorkers 1 --cache false`: 4 archivos/78 pruebas correctos.
+- `flock /tmp/irobopf-validacion-pesada.lock bun .cache/revision-unidades-colecciones-r41-sol/calidad.mjs`: SS checkJs exit2 antes/después, cinco mensajes idénticos; rentas exit0; Oxlint exit0. Instrumento inicial de preparación, crea herramientas/enlace solo si no existen.
+- Oxlint final, bajo flock pesado: binario anterior `--config .cache/revision-unidades-colecciones-r41-sol/oxlint.json --threads 1 --disable-nested-config --no-ignore` sobre los dos productores y revisar.mjs/casos.mjs/calidad.mjs propios: exit0; `--debug files` confirma los cinco archivos, lista conservada. 16 reglas a error.
+- Schema, bajo flock pesado: uv con jsonschema ejecuta schema.py: ambos schemas/candidatos válidos.
+- Transporte: entregar.py, bajo flock pesado, crea patch textual gzip/objetos por hash y los aplica a directorio ordinario; compara cada byte del payload.
+- Cotejo final: terminal.py bajo `flock /tmp/irobopf-recepcion-acotada.lock`, compara lstat/readlink/bytes/ejecutabilidad de 20.836 entradas, un blob cada vez, enumera altas y diff. No se apoya en el índice.
+
+Incidencias conservadas: python3 ausente fuera de Nix; primer comando cat buscó COORDINACION en raíz; sonda AST propia inválida registrada antes de corregirla. No son pruebas aprobadas ni defectos fiscales. El primer lint se amplía con --no-ignore y lista explícita para acreditar selección; no se desactivan reglas. Ningún productor histórico se ejecuta como CLI de escritura.
+''')
+rows=[];patch=[];binary=[];B=O/'binarios';B.mkdir(exist_ok=False)
+for p in sorted(O.iterdir()):
+ if not p.is_file():continue
+ b=p.read_bytes();rel=p.relative_to(R).as_posix();h=sha(b);rows.append({'path':rel,'sha256':h,'size':len(b),'baseSha256':None,'change':'add'})
+ try:
+  text=b.decode('utf8');assert b and '\x00' not in text
+ except (UnicodeDecodeError,AssertionError):
+  (B/h).write_bytes(b);binary.append({'path':rel,'sha256':h,'size':len(b),'object':str((B/h).relative_to(R))});continue
+ patch.extend(difflib.unified_diff([],text.splitlines(keepends=True),fromfile='/dev/null',tofile='b/'+rel))
+ # difflib needs newline marker for missing terminal newline
+ if text and not text.endswith('\n'):patch.append('\n\\ No newline at end of file\n')
+(O/'manifiesto.json').write_text(json.dumps({'head':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),'entries':rows,'excluded':'manifiesto, patch, binarios, recibos de transporte y terminales, sobre exterior'},ensure_ascii=False,indent=2))
+(O/'binarios.json').write_text(json.dumps(binary,indent=2));P=''.join(patch).encode();(O/'entrega.patch.gz').write_bytes(gzip.compress(P,mtime=0))
+T=S/'transporte-ensayo';T.mkdir(exist_ok=False);pr=subprocess.run(['patch','-p1','--batch','-d',str(T)],input=P,capture_output=True);(O/'transporte.log').write_bytes(pr.stdout+pr.stderr);assert pr.returncode==0,pr.stderr
+for row in binary:
+ target=T/row['path'];target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes((R/row['object']).read_bytes())
+for row in rows:
+ b=(T/row['path']).read_bytes();assert sha(b)==row['sha256'] and len(b)==row['size'],row['path']
+(O/'transporte.json').write_text(json.dumps({'payloadFiles':len(rows),'textPatchSha256':sha(P),'gzipSha256':sha((O/'entrega.patch.gz').read_bytes()),'binaryRoutes':len(binary),'allPayloadBytesEqual':True,'mutatingVCS':False,'scratch':str(T)},indent=2));print('Transporte exacto',len(rows),'archivos')

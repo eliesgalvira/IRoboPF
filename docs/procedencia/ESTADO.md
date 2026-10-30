@@ -2,7 +2,17 @@
 
 Inicio: 29 de octubre de 2026. Trabajo en curso; no es una certificación fiscal.
 
-## Situación más reciente, ronda 41 del 30 de octubre
+## Situación más reciente, ronda 42 del 30 de octubre
+
+Recibidas revisión de escalas R40 y contrarrevisión documental R41: 116 archivos, 5.792.973 bytes, transportes exactos y cotejos físicos de 20.670/20.836 entradas intactas; cero borrados. Detalle en correcciones/fronteras-escalas-r42.
+
+Corregidos contratos de siete resultados externos de escalas y firmas de dos validadores Effect.fn tras diez rojos previos. Se distinguen resultados disponibles y rechazados. Los operadores numéricos, operandos y fuentes permanecen iguales; el fragmento nuevo conserva 28 sitios sin wiring. Pasan 30 pruebas, tipos principal/vendor, checkJs del productor y lint global. Se repiten 301 registros correctos y un rojo histórico deliberado, más 264 celdas, con resultados idénticos al revisor. Schema correcto tras conservar y resolver una ejecución prematura sin candidato. Adaptación mínima de lint del instrumento recibido documentada por original, diff y hashes.
+
+Corroboradas técnicamente las cinco correcciones documentales SS/rentas R41 tras revisión independiente, contraste con los antecedentes propios y comprobación de productores idénticos a la base revisada. No se repite otra revisión favorable de ese bloque. Sus cinco diagnósticos checkJs SS preexistentes siguen declarados. Se prepara una única revisión nueva de las fronteras/firmas de escalas; admisión sigue aparte.
+
+R40-03 y las condiciones de admisión/errores de Effect permanecen abiertas. Sin aceptación fiscal nueva, cambios de confianza, inventario o 45 snapshots. V5 mantiene corte R26; Crossa v1 desfasado. Sin main, PR, despliegue, LFS, gasto, transferencia o limpieza. El encargo global continúa abierto.
+
+## Situación anterior, ronda 41 del 30 de octubre
 
 Recibidas SS R39 y rentas R40: 122 archivos, 8.222.268 bytes y transporte exacto. Cotejos físicos de 20.498 y 20.670 entradas intactas, cero borrados. Informes y contraste del padre en correcciones/unidades-colecciones-r41.
 

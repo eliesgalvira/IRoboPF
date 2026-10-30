@@ -1,0 +1,28 @@
+import hashlib,json,shutil,gzip
+from pathlib import Path
+root=Path.cwd();out=root/'docs/procedencia/revisiones/flujo-escalas-r40-sol';scratch=root/'.cache/revision-escalas-r40-sol'
+def record(p):
+ b=p.read_bytes();return {'path':str(p.relative_to(root)) if p.is_relative_to(root) else str(p),'sha256':hashlib.sha256(b).hexdigest(),'sha512':hashlib.sha512(b).hexdigest(),'size':len(b)}
+f=json.load(gzip.open('docs/procedencia/implementaciones/flujo-escalas-r36-sol/fragmento.json.gz'))
+paths=[root/s['file'] for s in f['sources']]
+for p in ['scripts/procedencia/flujo-escalas-r36.mjs','scripts/procedencia/flujo-escalas-r36-consumidor.mjs','schemas/procedencia/flujo/escalas-r36.schema.json','tests/flujo-escalas-r36.test.ts','docs/procedencia/implementaciones/flujo-escalas-r36-sol/logs/pruebas-inicial.log','docs/procedencia/implementaciones/flujo-escalas-r36-sol/logs/pruebas-ampliadas.log','docs/procedencia/correcciones/escalas-rentas-r40/adaptacion-pruebas.patch','docs/procedencia/correcciones/escalas-rentas-r40/pruebas-escalas-recibidas.ts.txt']:paths.append(root/p)
+objects=[]
+for p in paths:
+ r=record(p);dst=scratch/'cas/sha256'/r['sha256'];dst.parent.mkdir(parents=True,exist_ok=True);dst.write_bytes(p.read_bytes());r['casPath']=str(dst);objects.append(r)
+(out/'CAS.json').write_text(json.dumps({'objects':objects,'scope':'Software y antecedentes entregados; no originales oficiales nuevos. Restaurar por ruta/hash sin tocar históricos.','authority':'Copia técnica saneada; hashes no son autenticación.'},indent=2)+'\n')
+deps=[]
+for p in ['node_modules/typescript/lib/typescript.js','node_modules/decimal.js/decimal.js','node_modules/effect/package.json','node_modules/effect/dist/index.js','node_modules/vitest/package.json','node_modules/oxlint/package.json','tools/oxlint/anti-slop/index.ts','tools/oxlint/anti-slop/effect/index.ts']:
+ q=Path('/home/elies/Repos/IRoboPF')/p
+ r=record(q);r['meaning']='Dependencia leída; no censo ni integridad transitiva del árbol externo';deps.append(r)
+ if p.startswith('tools/'):
+  assert q.read_bytes()==(root/p).read_bytes()
+(out/'dependencias.json').write_text(json.dumps(deps,indent=2)+'\n')
+for name in ['tsconfig.json','oxlint.json','vitest.mjs']:
+ shutil.copyfile(scratch/name,out/(name+'.txt'))
+shutil.copyfile(scratch/'inicial.json',out/'fisico-inicial.json')
+shutil.copyfile(scratch/'r26/mutantes-validador.json',out/'rojos-r26-reproducidos.json')
+for name in ['antes.json','rectificaciones.json']:
+ shutil.copyfile(scratch/'r28'/name,out/('r28-'+name))
+originals=['docs/procedencia/revisiones/flujo-escalas-r26-sol/INFORME.md','docs/procedencia/revisiones/flujos-rectificaciones-r28-sol/INFORME.md','docs/procedencia/implementaciones/flujo-escalas-r36-sol/HALLAZGOS.json','docs/procedencia/correcciones/escalas-rentas-r40/adaptacion-pruebas.json']
+(out/'antecedentes.json').write_text(json.dumps([record(root/p) for p in originals],indent=2)+'\n')
+(out/'RESULTADOS.json').write_text(json.dumps({'head':'314efe543def21276acb44d0e3b0816dd5f78d58','baseEntries':20670,'cases':'resumen.json; 302 registros, uno rojo contractual; no sumar con sondas264','vitest':{'exit':0,'tests':17,'log':'logs/vitest.log'},'r26':{'exit':0,'protectiveReds':5},'r28Before':{'exit':1,'checks':54,'failures':28},'r28After':{'exit':0,'checks':54,'failures':0},'schema':{'exit':0},'checkJs':'logs/checkjs-definitivo.log; noImplicitAny:false; no fiscal static typing','lint':'logs/oxlint-definitivo.log; 16 reglas error, un hilo','completeRuleAcceptance':False,'wiringAllowed':False,'conclusionsRequireParentContrast':True},ensure_ascii=False,indent=2)+'\n')

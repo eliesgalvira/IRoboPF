@@ -1,0 +1,165 @@
+import fs from 'node:fs'
+import path from 'node:path'
+import vm from 'node:vm'
+import assert from 'node:assert/strict'
+import {createRequire} from 'node:module'
+import {createHash} from 'node:crypto'
+import {gunzipSync,gzipSync} from 'node:zlib'
+import {composeEscalasR36,verifyEscalasR36} from '../../../../scripts/procedencia/flujo-escalas-r36.mjs'
+import {executeEscalasR36,consumeEscalasR36} from '../../../../scripts/procedencia/flujo-escalas-r36-consumidor.mjs'
+const out=path.dirname(new URL(import.meta.url).pathname)
+const require=createRequire('/home/elies/Repos/IRoboPF/package.json')
+const ts=require('typescript'), {Decimal}=require('decimal.js'), {Effect}=require('effect')
+const d=x=>new Decimal(x), cache=new Map(), cases=[]
+const write=(name,x)=>{const bytes=Buffer.from(JSON.stringify(x,null,2)+'\n');fs.writeFileSync(path.join(out,name+(bytes.length>1000000?'.gz':'')),bytes.length>1000000?gzipSync(bytes):bytes)}
+// Contraste separado: transpila módulos TS completos, sin usar el bajador R36.
+function load(file){
+ file=path.resolve(file)
+ if(cache.has(file)) return cache.get(file).exports
+ const module={exports:{}}; cache.set(file,module)
+ const code=ts.transpileModule(fs.readFileSync(file,'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022,esModuleInterop:true}}).outputText
+ const local=spec=>spec.startsWith('.')?load(path.resolve(path.dirname(file),spec+'.ts')):require(spec)
+ vm.runInThisContext('(function(require,module,exports){'+code+'\n})',{filename:file})(local,module,module.exports)
+ return module.exports
+}
+const fragment=composeEscalasR36(); assert(verifyEscalasR36(fragment))
+const received=JSON.parse(gunzipSync(fs.readFileSync('docs/procedencia/implementaciones/flujo-escalas-r36-sol/fragmento.json.gz')).toString())
+assert.deepEqual(fragment,received)
+const byName=name=>{const all=fragment.globalBindings.filter(b=>b.name.endsWith('#'+name));assert.equal(all.length,1,name);return all[0]}
+const run=(name,args,boundaries=new Map())=>executeEscalasR36(fragment,byName(name).name,args,true,null,[],boundaries)
+const quota=load('lib/dominio/irpf/cuotas/escalas-gravamen.ts')
+const select=load('lib/dominio/irpf/comunidades/comunidad-autonoma.ts')
+const savings=load('lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts')
+const published=load('lib/dominio/irpf/cuotas/escalas-publicadas.ts')
+function check(id,expected,fn){try{const observed=fn();assert.deepEqual(observed,expected);cases.push({id,expected,observed,status:'pass'})}catch(e){cases.push({id,expected,status:'FAIL',error:String(e)})}}
+const row=(l,q,t)=>({baseInferior:d(l),cuota:d(q),tipo:d(t)})
+// Aritmética racional en centésimas/milésimas, expectativas literales no derivadas del productor.
+for(const [id,base,table,expected] of [
+ ['publicada-L',150,[row(0,0,'.1'),row(100,7,'.2')],'17'],
+ ['publicada-Q',150,[row(0,0,'.1'),row(100,8,'.2')],'18'],
+ ['publicada-orden',150,[row(0,0,'.1'),row(100,7,'.2'),row(50,9,'.3')],'39'],
+ ['publicada-vacia',150,[],'0']]){
+ const a={base:d(base),tramos:[[d(Infinity),d('.9')]],escalasPublicadas:[table]}
+ check(id,expected,()=>run('calcularCuotaPorEscala',[a]).result.toFixed())
+ check(id+'-TS',expected,()=>quota.calcularCuotaPorEscala(a).toFixed())
+}
+check('integrada-ancho-semilla','25',()=>run('calcularCuotaPorEscala',[{base:d(150),tramos:[[d(100),d('.1')],[d(Infinity),d('.3')]]}]).result.toFixed())
+for(const [base,expected] of [['60000','8625.8332'],['60000.01','8716.67227']]){
+ const a={base:d(base),tramos:[],escalasPublicadas:[published.MURCIA_2022]}
+ check('murcia-'+base,expected,()=>run('calcularCuotaPorEscala',[a]).result.toFixed())
+ check('murcia-TS-'+base,expected,()=>quota.calcularCuotaPorEscala(a).toFixed())
+}
+const cells=JSON.parse(fs.readFileSync('docs/procedencia/correcciones/editorial-r21/escalas-celdas.json','utf8'))
+const cellResults=[]
+for(const c of cells){
+ const binding=byName(c.selector.simbolo), table=executeEscalasR36(fragment,null,[],false,binding.node).result
+ const actual=published[c.selector.simbolo],i=c.filaCodigo0Based,p=c.columna
+ assert.equal(table[i][p].toFixed(),d(c.valor).toFixed()); assert.equal(actual[i][p].toFixed(),d(c.valor).toFixed())
+ // Prueba por fila, no por coincidencia de importe: dos bases alrededor de L; Q no se integra.
+ const probes=[]
+ for(const delta of ['0.001','1']){
+ const base=actual[i].baseInferior.plus(delta), input={base,tramos:[],escalasPublicadas:[actual]}
+ const eligible=actual.filter(r=>base.gt(0)&&(r.inferiorExclusivo?base.gt(r.baseInferior):base.gte(r.baseInferior))).at(-1)
+ const expected=eligible?eligible.cuota.plus(base.minus(eligible.baseInferior).mul(eligible.tipo)).toFixed():'0'
+ const result=run('calcularCuotaPorEscala',[input]).result.toFixed();assert.equal(result,expected);assert.equal(quota.calcularCuotaPorEscala(input).toFixed(),expected)
+ probes.push({base:base.toFixed(),expected,result})
+ }
+ cellResults.push({cell:c,source:binding.source,probes,meaning:'valor nominal y ruta de fila; no vigencia ni autenticidad jurídica'})
+}
+write('celdas-264.json',cellResults)
+const norm=x=>JSON.parse(JSON.stringify(x,(k,v)=>k==='deduccionesAutonomicasSoportadas'?undefined:v))
+const territories=['andalucia','aragon','asturias','illes-balears','canarias','cantabria','castilla-la-mancha','castilla-y-leon','catalunya','extremadura','galicia','madrid','murcia','la-rioja','comunitat-valenciana','simulada-estatal']
+for(let anio=2012;anio<=2026;anio++) for(const comunidadAutonoma of territories){
+ const a={anio,comunidadAutonoma,baseLiquidableGeneral:d(17707.2)}
+ check('selector-'+anio+'-'+comunidadAutonoma,norm(select.obtenerParametrosComunidadAutonoma(a)),()=>norm(run('obtenerParametrosComunidadAutonoma',[a]).result))
+}
+for(const [anio,territory,cut] of [[2015,'illes-balears','2015-12-31'],[2022,'comunitat-valenciana','2022-10-28'],[2023,'extremadura','2023-09-15'],[2023,'illes-balears','2023-11-26']]) for(const delta of [-1,0,1]){
+ const a={anio,comunidadAutonoma:territory,fechaFallecimiento:new Date(Date.parse(cut+'T00:00:00Z')+delta)}
+ check('corte-'+cut+'-'+delta,norm(select.obtenerParametrosComunidadAutonoma(a)),()=>norm(run('obtenerParametrosComunidadAutonoma',[a]).result))
+}
+for(const bg of ['17707.20','17707.21','0']) for(const year of [2014,2015,2020,2021,2022]){
+ const a={anio:year,comunidadAutonoma:year<2020?'galicia':'catalunya',baseLiquidableGeneral:d(bg)}
+ check('BG-minimo-'+year+'-'+bg,norm(select.obtenerParametrosComunidadAutonoma(a)),()=>norm(run('obtenerParametrosComunidadAutonoma',[a]).result))
+}
+for(const year of [2014,2015,2025,2026]){
+ const a={anio:year,base:d(9000),baseGeneral:d(100),minimoEstatal:d(1000),minimoAutonomico:d(2000)}
+ check('ahorro-TS-'+year,norm(savings.calcularAhorroConMinimos(a)),()=>norm(run('calcularAhorroConMinimos',[a]).result))
+}
+for(const [year,expected] of [[2014,['994.5','685.5']],[2015,['799.5','740']]]){
+ const a={anio:year,base:d(9000),baseGeneral:d(100),minimoEstatal:d(1000),minimoAutonomico:d(2000)}
+ check('ahorro-racional-'+year,expected,()=>{const r=run('calcularAhorroConMinimos',[a]).result;return [r.estatal.despuesMinimo.toFixed(),r.autonomico.despuesMinimo.toFixed()]})
+}
+const family={tipo:'individual',edad:40,descendientes:[],ascendientes:[],discapacidad:{_tag:'SinDiscapacidad'}}
+const caso={anio:2025,comunidadAutonoma:'madrid',situacionFamiliar:family,rendimientos:{trabajo:[]},reducciones:[],deducciones:[],retencionesSoportadasCentimos:100,pagosACuentaCentimos:100}
+function witnesses(){
+ /** @type {Map<string, object>} Salidas heterogéneas de testigos, no contrato fiscal estático. */
+ const values=new Map(/** @type {[string, object][]} Descripción del protocolo heterogéneo de ensayo. */ ([
+ ['sumarRendimientosTrabajo',d(30000)],['calcularRendimientoNetoTrabajo',{rendimientoIntegro:d(30000),rendimientoNeto:d(26000),rendimientoPrevioNeto:d(28000),gastosDeducibles:d(2000),cotizacionTrabajador:d(2000)}],
+ ['sumarRendimientosCapitalInmobiliario',d(0)],['calcularRendimientoNetoCapitalInmobiliarioSimplificado',{rendimientoNeto:d(0)}],['calcularGananciasPatrimonialesPorTransmision',{gananciaSujetaGeneral:d(0),gananciaSujetaAhorro:d(1000),gananciaTotal:d(1000),gananciaExenta:d(0)}],['calcularReduccionTrabajoConOtrasRentas',d(0)],['calcularDesgloseCotizacionesPerfilUniforme',Object.fromEntries(['cotizacionTrabajador','cotizacionEmpresarial','meiEmpresarial','meiTrabajador','solidaridadEmpresarial','solidaridadTrabajador'].map(k=>[k,d(2000)]))]
+ ]))
+ /** @type {Map<string, Function>} Funciones de protocolo dinámico; argumentos verificados por los casos. */
+ const result=new Map(fragment.globalBindings.filter(b=>values.has(b.name.split('#')[1])).map(b=>[b.name,()=>values.get(b.name.split('#')[1])]))
+ return result
+}
+const projection=(input=caso,b=witnesses())=>consumeEscalasR36(fragment,'annual',input,{modo:'canonico'},b)
+const amount=(r,id)=>r.lines.filter(l=>l.origen.siteId===id).map(l=>l.origen.decimal)
+const initial=projection()
+for(const [field,delta] of [['retencionesSoportadasCentimos',1],['pagosACuentaCentimos',1]]) check('unidades-'+field,'-0.01',()=>d(amount(projection({...caso,[field]:101}),'anual.cuota.diferencial')[0]).minus(amount(initial,'anual.cuota.diferencial')[0]).toFixed())
+check('retencion-estimada-centimos','-0.01',()=>{const b=witnesses();b.set('retencion.calcular',(input,ctx)=>{assert.equal(input.token,123);assert.equal(ctx.modo,'canonico');return {importeRetencionAnualCentimos:1}});return d(amount(projection({...caso,retencionTrabajoAeat:{token:123}},b),'anual.cuota.diferencial')[0]).minus(amount(initial,'anual.cuota.diferencial')[0]).toFixed()})
+check('igual-cifra-instancias',[['95','95'],true],()=>{const ls=initial.lines.filter(l=>l.origen.siteId==='anual.cuota.ahorro-componente-postminimo');return [ls.map(l=>l.origen.decimal),ls[0].origen.instanceId!==ls[1].origen.instanceId]})
+// Solo las propiedades declaradas por el contrato externo: ¿son suficientes para el consumidor exacto?
+let minimalError=null
+try {const b=witnesses();b.set(byName('calcularRendimientoNetoTrabajo').name,()=>({rendimientoNeto:d(26000),rendimientoPrevioNeto:d(28000)}));projection(caso,b)}catch(e){minimalError=String(e)}
+cases.push({id:'R40-01-contrato-rentas-incompleto',expected:'proyección con contrato por outputs declarado',observed:minimalError,status:minimalError?'red':'pass',classification:'insuficiencia de contrato de frontera; no defecto fiscal'})
+// Errores: la frontera distingue fallo tipado, pero mapError R36 lo descarta.
+const rights=load('lib/dominio/irpf/minimos/derechos.ts')
+const invalid={}
+const actualExit=Effect.runSyncExit(rights.calcularDerechosMinimos(invalid,{}))
+const error=new Error('fallo-controlado-validarDerechosMinimos')
+let propagated
+try{run('calcularDerechosMinimos',[invalid,{}],new Map([[byName('validarDerechosMinimos').name,()=>{throw error}]]))}catch(e){propagated=e===error}
+check('fallo-frontera-no-convertido-en-cero',true,()=>actualExit._tag==='Failure'&&propagated)
+// Identidad de las 264 celdas a través del selector, no solamente por símbolo.
+for(const c of cells){const s=c.selector;const tables=s.territorio==='estatal-comun'?[published.ESTATAL_ORDINARIA_2012_2014,published.ESTATAL_COMPLEMENTARIA_2012_2014]:[published.obtenerEscalaAutonomicaPublicada({anio:s.ejercicio,comunidadAutonoma:s.territorio})];assert(tables.includes(published[s.simbolo]),c.id)}
+const minimal=executeEscalasR36(fragment,null,[],false,byName('MINIMOS_ESTATALES_2025').node).result
+const titular=id=>({titularId:id,grado:1,rentasNoExentasCentimos:2000000,residenteIrpf:true,relacion:'convivencia',custodia:'no-procede',alimentosJudiciales:false,vinculo:{clase:'consanguinidad'}})
+const child=(id,date,holders)=>({sujetoId:id,edadDevengo:2025-Number(date.slice(0,4)),fechaNacimiento:date,rentasNoExentasCentimos:0,declaracion:{modalidad:'no-presenta'},discapacidad:{_tag:'SinDiscapacidad'},titulares:holders.map(titular)})
+const rightsCase={contribuyenteId:'p',edadContribuyenteDevengo:40,discapacidadContribuyente:{_tag:'SinDiscapacidad'},descendientes:[child('joven','2020-01-01',['p']),child('mayor','2015-01-01',['p','q'])]}
+const rightsBoundary=new Map([[byName('validarDerechosMinimos').name,x=>x]])
+check('derechos-orden-reparto-por-sujeto',['3900', ['mayor','joven'],[2,1]],()=>{const r=run('calcularDerechosMinimos',[rightsCase,minimal],rightsBoundary).result;return [r.descendientes.toFixed(),r.atribuciones.map(a=>a.sujetoId),r.atribuciones.map(a=>a.divisor)]})
+const tied={...rightsCase,descendientes:[child('a','2020-01-01',['p']),child('b','2020-01-01',['p','q'])]}
+check('derechos-empate-divisores-rechazo',true,()=>{try{run('calcularDerechosMinimos',[tied,minimal],rightsBoundary);return false}catch(e){return String(e).includes('Empate')}})
+const expCase={perfil:'solo-trabajo',trabajo:{ejercicio:2025,discapacidadActiva:'ninguna',rendimientos:[{clase:'pension'}]},retenciones:[],conciliacion:{procedencia:['ensayo-condicionado']}}
+function explicitBoundaries(){
+/** @type {Map<string, Function>} Testigos heterogéneos; no sustituyen contratos externos reales. */
+const result=new Map(/** @type {[string, Function][]} Testigos dinámicos con aserciones de argumentos en cada caso. */ ([
+ ['explicit.decode',x=>({_tag:'Success',success:x})],
+ [byName('adaptarTrabajoAnual').name,()=>({estado:'calculado',rendimientoAntesArt20:'10000',argumentoArt20:'10000',gastos:{integro:'10000'}})],
+ [byName('calcularReduccionTrabajoConOtrasRentas').name,x=>{assert.equal(x.rendimientoPrevioNeto.toFixed(),'10000');assert.equal(x.otrasRentasNoExentas.toFixed(),'0');return d(0)}],
+ [byName('adaptarActividadGeneral').name,()=>({estado:'calculado',aporte:{importeEurosExactos:'-100',retencionesEuros:'0',pagosFraccionadosEuros:'0'}})]]))
+return result
+}
+const exp=(c,b=explicitBoundaries())=>consumeEscalasR36(fragment,'explicit',c,{},b)
+for(const profile of ['solo-trabajo','solo-actividad-eds']){
+ const r=exp({...expCase,perfil:profile,actividad:{activos:[],discapacidad:{grado:0}}})
+ check('explicito-'+profile,profile==='solo-trabajo'?['10000','10000','422.75','343.68475','766.43475','766.43475']:['-100','-100','0','0','0','0'],()=>['anual.explicito.big','anual.explicito.blg','anual.explicito.cuota.estatal','anual.explicito.cuota.autonomica','anual.explicito.cuota.liquida-legal','anual.explicito.cuota.posterior'].map(id=>amount(r,id)[0]))
+}
+const employed={...expCase,trabajo:{...expCase.trabajo,rendimientos:[{clase:'empleo-laboral'}]}}
+check('explicito-Set-spread-DA61', ['766.43475','756.43475'],()=>{const b=explicitBoundaries();b.set(byName('calcularDeduccionTrabajo').name,x=>{assert.equal(x.regla,'da61');assert.equal(x.brutoServicios,'10000');assert.equal(x.baseLiquidableGeneral,'10000');assert.equal(x.cuotaTrasArt80,'766.43475');return {estado:'calculado',importeAplicable:'10',cuotaPosterior:'756.43475'}});const r=exp(employed,b);return [amount(r,'anual.explicito.cuota.liquida-legal')[0],amount(r,'anual.explicito.cuota.posterior')[0]]})
+check('explicito-art20-argumentos-disjuntos','9999',()=>{const b=explicitBoundaries();b.set(byName('adaptarTrabajoAnual').name,()=>({estado:'calculado',rendimientoAntesArt20:'10000',argumentoArt20:'11000',gastos:{integro:'12000'}}));b.set(byName('calcularReduccionTrabajoConOtrasRentas').name,x=>{assert.equal(x.rendimientoPrevioNeto.toFixed(),'11000');return d(1)});return amount(exp(expCase,b),'anual.explicito.big')[0]})
+const trace=initial.trace.filter(t=>t.operation==='external-boundary')
+write('fronteras-observadas.json',{declared:fragment.boundaryContracts,trace,requiredBeyondDeclared:{calcularRendimientoNetoTrabajo:['rendimientoIntegro','gastosDeducibles','cotizacionTrabajador'],calcularGananciasPatrimonialesPorTransmision:['gananciaTotal','gananciaExenta'],SS:['cotizacionEmpresarial','meiEmpresarial','meiTrabajador','solidaridadEmpresarial','solidaridadTrabajador'],adaptarActividadGeneral:['aporte.retencionesEuros','aporte.pagosFraccionadosEuros']},errorLimit:'mapError elimina transformación; intérprete síncrono no modela canales Effect, defect/interrupción/entorno'})
+write('proyeccion-lineas.json',initial.lines)
+
+check('base-general-sumandos-signados-racional','-5',()=>run('calcularBaseImponibleGeneral',[{rendimientoTrabajo:{rendimientoNeto:d(-10)},rendimientoCapitalInmobiliario:{rendimientoNeto:d(-3)},gananciaPatrimonialGeneral:d(-2)}]).result.toFixed())
+check('techo-autonomico-racional',['2223.62211','2550.5'],()=>{const r=projection({...caso,deduccionAutonomicaAgregadaCentimos:1e9});return [amount(r,'anual.deducciones.autonomicas')[0],amount(r,'anual.cuota.liquida')[0]]})
+check('liquida-sin-deduccion-racional','4774.12211',()=>amount(initial,'anual.cuota.liquida')[0])
+check('explicito-autonomica-TS-racional','343.68475',()=>quota.calcularCuotaPorEscala({base:d(10000),tramos:[],escalasPublicadas:[published.MADRID_2025]}).minus(quota.calcularCuotaPorEscala({base:d('5956.65'),tramos:[],escalasPublicadas:[published.MADRID_2025]})).toFixed())
+const observedOps=new Set(fragment.program.map(n=>n.op))
+const sourceBytes=fragment.sources.map(s=>({...s,observedSha256:createHash('sha256').update(fs.readFileSync(s.file)).digest('hex')}))
+assert(sourceBytes.every(s=>s.sha256===s.observedSha256))
+write('fuentes.json',sourceBytes)
+write('casos.json',cases)
+write('resumen.json',{cases:cases.length,failed:cases.filter(c=>c.status==='FAIL'),reds:cases.filter(c=>c.status==='red'),operations:[...observedOps],sources:sourceBytes.length,admission:'pendiente composición con contrato ajeno; callbacks no son validadores',completeRuleAcceptance:false})
+process.stdout.write(JSON.stringify({cases:cases.length,failed:cases.filter(c=>c.status==='FAIL'),reds:cases.filter(c=>c.status==='red')})+'\n')
+if(cases.some(c=>c.status==='FAIL'))process.exitCode=1

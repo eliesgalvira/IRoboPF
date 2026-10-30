@@ -1,0 +1,11 @@
+$ tsc --noEmit && tsc --noEmit -p tools/oxlint/tsconfig.json
+tests/fronteras-escalas-r42.test.ts(12,8): error TS17: Unexpected `undefined` type in condition, expected strictly a boolean instead.    effect(strictBooleanExpressions)
+tests/fronteras-escalas-r42.test.ts(12,8): error TS17: Unexpected `{ id: any; outputs: any; resultVariants: { when: { property: string; equals: string; }; outputs: string[]; }[]; parameters: { index: number; binding: string; type: string | null; source: { file: any; start: any; end: any; sha256: any; offsetEncoding: string; }; }[]; calls: any[]; review: string; closure: string; }` type in condition, expected strictly a boolean instead.    effect(strictBooleanExpressions)
+tests/fronteras-escalas-r42.test.ts(38,10): error TS17: Unexpected `object` type in condition, expected strictly a boolean instead.    effect(strictBooleanExpressions)
+tests/fronteras-escalas-r42.test.ts(38,10): error TS17: Unexpected `undefined` type in condition, expected strictly a boolean instead.    effect(strictBooleanExpressions)
+tests/fronteras-escalas-r42.test.ts(43,30): error TS7006: Parameter 'l' implicitly has an 'any' type.
+tests/fronteras-escalas-r42.test.ts(78,27): error TS7006: Parameter 'l' implicitly has an 'any' type.
+tests/fronteras-escalas-r42.test.ts(84,39): error TS17: Unexpected `any` type in condition, expected strictly a boolean instead.    effect(strictBooleanExpressions)
+tests/fronteras-escalas-r42.test.ts(85,39): error TS17: Unexpected `any` type in condition, expected strictly a boolean instead.    effect(strictBooleanExpressions)
+tests/fronteras-escalas-r42.test.ts(113,10): error TS17: Unexpected `undefined` type in condition, expected strictly a boolean instead.    effect(strictBooleanExpressions)
+tests/fronteras-escalas-r42.test.ts(113,10): error TS17: Unexpected `{ id: any; outputs: any; resultVariants: { when: { property: string; equals: string; }; outputs: string[]; }[]; parameters: { index: number; binding: string; type: string | null; source: { file: any; start: any; end: any; sha256: any; offsetEncoding: string; }; }[]; calls: any[]; review: string; closure: string; }` type in condition, expected strictly a boolean instead.    effect(strictBooleanExpressions)

@@ -1,0 +1,28 @@
+from pathlib import Path
+import os,stat,subprocess,json,hashlib,gzip
+root=Path.cwd();out=root/'docs/procedencia/revisiones/flujo-escalas-r40-sol';head=subprocess.check_output(['git','rev-parse','HEAD']).decode().strip();assert head=='314efe543def21276acb44d0e3b0816dd5f78d58'
+def sha(b):return hashlib.sha256(b).hexdigest()
+entries=subprocess.check_output(['git','ls-tree','-rz',head]).split(b'\0');rows=[];changes=[];base=set();cat=subprocess.Popen(['git','cat-file','--batch'],stdin=subprocess.PIPE,stdout=subprocess.PIPE)
+for e in entries:
+ if not e:continue
+ meta,p=e.split(b'\t',1);mode,typ,oid=meta.split();p=os.fsdecode(p);base.add(p)
+ cat.stdin.write(oid+b'\n');cat.stdin.flush();header=cat.stdout.readline().split();size=int(header[2]);expected=cat.stdout.read(size);assert len(expected)==size;assert cat.stdout.read(1)==b'\n'
+ try:
+  s=os.lstat(p);actual=os.fsencode(os.readlink(p)) if stat.S_ISLNK(s.st_mode) else Path(p).read_bytes();valid=stat.S_ISLNK(s.st_mode) if mode==b'120000' else stat.S_ISREG(s.st_mode) and bool(s.st_mode&0o111)==(mode==b'100755')
+  row={'path':p,'baseSha256':sha(expected),'sha256':sha(actual),'size':len(actual),'mode':oct(s.st_mode),'equal':valid and actual==expected};rows.append(row)
+  if not row['equal']:changes.append(row)
+ except FileNotFoundError:changes.append({'path':p,'deleted':True})
+cat.stdin.close();assert cat.wait()==0
+additions=[];unexpected=[];directories=[]
+for directory,dirs,files in os.walk(root,followlinks=False):
+ for name in dirs:directories.append(str((Path(directory)/name).relative_to(root)))
+ for name in files+[n for n in dirs if (Path(directory)/n).is_symlink()]:
+  p=Path(directory)/name;rel=str(p.relative_to(root))
+  if rel in base:continue
+  s=p.lstat();b=os.fsencode(os.readlink(p)) if p.is_symlink() else p.read_bytes();r={'path':rel,'sha256':sha(b),'size':len(b),'mode':oct(s.st_mode)};additions.append(r)
+  if rel!='.git' and not rel.startswith(('docs/procedencia/revisiones/flujo-escalas-r40-sol/','.cache/revision-escalas-r40-sol/')):unexpected.append(r)
+diff=subprocess.check_output(['git','diff','--no-ext-diff',head,'--']);assert not diff
+result={'head':head,'entries':len(base),'method':'lstat/readlink/bytes/executable; cat-file --batch un blob solicitado/consumido cada vez','base':rows,'changes':changes,'additions':additions,'directories':directories,'unexpected':unexpected,'diffEmpty':not diff,'scope':'Toda entrada de base físicamente comparada; árbol completo de adiciones, .git metadata T3 exceptuado; recibo no se incluye a sí mismo.'}
+assert len(base)==20670 and not changes and not unexpected
+(out/'fisico-final.json.gz').write_bytes(gzip.compress(json.dumps(result,ensure_ascii=False,indent=2).encode(),mtime=0))
+print(json.dumps({'head':head,'entries':len(base),'changes':len(changes),'unexpected':len(unexpected),'additions':len(additions),'diffEmpty':not diff}))
