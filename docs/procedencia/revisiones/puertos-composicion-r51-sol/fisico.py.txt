@@ -1,0 +1,35 @@
+from pathlib import Path
+import subprocess,os,stat,hashlib,json,gzip,fcntl
+r=Path.cwd();s=r/'.cache/puertos-composicion-r51-sol';d=r/'docs/procedencia/revisiones/puertos-composicion-r51-sol'
+lock=open('/tmp/irobopf-recepcion-acotada.lock','a');fcntl.flock(lock,fcntl.LOCK_EX)
+assert subprocess.check_output(['git','rev-parse','HEAD']).decode().strip()=='debadd0495ce99cbec3de580c7786328ab064a61'
+entries=subprocess.check_output(['git','ls-tree','-rz','HEAD']).split(b'\0');proc=subprocess.Popen(['git','cat-file','--batch'],stdin=subprocess.PIPE,stdout=subprocess.PIPE);rows=[];bad=[];parents=set()
+for entry in entries:
+ if not entry:continue
+ meta,name=entry.split(b'\t');mode,kind,oid=meta.split();rel=os.fsdecode(name);p=r/rel
+ for parent in p.parents:
+  if parent==r:break
+  parents.add(str(parent.relative_to(r)))
+ st=p.lstat();b=os.fsencode(os.readlink(p)) if stat.S_ISLNK(st.st_mode) else p.read_bytes();proc.stdin.write(oid+b'\n');proc.stdin.flush();head=proc.stdout.readline().split();size=int(head[2]);base=proc.stdout.read(size);assert proc.stdout.read(1)==b'\n'
+ ok=b==base and (stat.S_ISLNK(st.st_mode) if mode==b'120000' else stat.S_ISREG(st.st_mode) and bool(st.st_mode&0o111)==(mode==b'100755'))
+ rec=dict(path=rel,size=len(b),sha256=hashlib.sha256(b).hexdigest(),mode=mode.decode(),ok=ok);rows.append(rec)
+ if not ok:bad.append(rec)
+proc.stdin.close();proc.wait();assert len(rows)==21896
+for parent in parents:assert stat.S_ISDIR((r/parent).lstat().st_mode),parent
+known={x['path'] for x in rows}|parents;extras=[];outside=[]
+allowed=['.cache/puertos-composicion-r51-sol','docs/procedencia/revisiones/puertos-composicion-r51-sol']
+for root,dirs,files in os.walk(r,followlinks=False):
+ for name in dirs+files:
+  rel=str((Path(root)/name).relative_to(r))
+  if rel in known:continue
+  if rel=='.git':extras.append(dict(path=rel,kind='metadato-T3-inicial'));continue
+  good=any(rel==a or rel.startswith(a+'/') or a.startswith(rel+'/') for a in allowed)
+  item=dict(path=rel,kind='dir' if (r/rel).is_dir() else 'file',authorized=good);extras.append(item)
+  if not good:outside.append(item)
+ dirs[:]=[x for x in dirs if x!='.git']
+diff=subprocess.check_output(['git','diff','HEAD','--binary']);assert not diff and not bad and not outside
+receipt=dict(base='debadd0495ce99cbec3de580c7786328ab064a61',entries=rows,bad=bad,extras=extras,outsideScope=outside,diffBytes=len(diff),parentDirectoriesChecked=len(parents),allFilesUnder10MiB=all(p.stat().st_size<10*1024*1024 for a in allowed for p in (r/a).rglob('*') if p.is_file()))
+assert receipt['allFilesUnder10MiB']
+with gzip.open(d/'CONSERVACION-TERMINAL.json.gz','wt') as f:json.dump(receipt,f)
+fcntl.flock(lock,fcntl.LOCK_UN)
+print(json.dumps(dict(entries=len(rows),bad=len(bad),outside=len(outside),extras=len(extras),diffBytes=len(diff),under10MiB=True)))

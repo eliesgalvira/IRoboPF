@@ -1,0 +1,26 @@
+[
+  {
+    "id": "R51-N01",
+    "parentDecision": "corroborated-limited",
+    "scope": "Dato sin prototipo admitido por guardia; TypeError en serialización de marcos de escalas. Limitación histórica reproducida, no una regresión fiscal demostrada.",
+    "test": "nullproto.test.ts, antes rojo y después verde, con serializadores anteriores congelados para el control legacy.",
+    "fix": "Preservar las propiedades propias enumerables de registros con prototipo null.",
+    "reviewOfFix": "pending-new-independent"
+  },
+  {
+    "id": "R51-N02",
+    "parentDecision": "corroborated-limited",
+    "scope": "Hook inocuo altera observación de lectura global en arnés privado con objeto sin prototipo. El proveedor real de mínimos no exige actualmente ese arnés.",
+    "test": "observador.test.ts, antes rojo y después verde; control adicional anidado y Decimal auténtico.",
+    "fix": "Misma serialización de registros en rentas, sin coerción String; cadenas comprobadas por Schema.is(Schema.String).",
+    "reviewOfFix": "pending-new-independent"
+  },
+  {
+    "id": "R51-N03",
+    "parentDecision": "corroborated-limited",
+    "scope": "Ocho propiedades consumidas: dos gastos, cuatro campos de etapas, _tag y motivo autonómicos; dominio de variantes explícito. No se demuestra importe fiscal incorrecto.",
+    "test": "Tres rojos originales más testigos, sustracción de cada campo/variante y rechazo autonómico por sensibilidad privada.",
+    "fix": "Completar catálogos de origen, variantes y representación en el contrato de puertos.",
+    "reviewOfFix": "pending-new-independent"
+  }
+]
