@@ -1,0 +1,13 @@
+import json,gzip
+from jsonschema import Draft202012Validator
+from pathlib import Path
+root=Path('/home/elies/.t3/worktrees/IRoboPF/t3-dc880819')
+schema=json.loads((root/'schemas/procedencia/flujo/ss-r36.schema.json').read_text())
+g=json.loads(gzip.decompress((root/'docs/procedencia/implementaciones/flujo-ss-r36-sol/fragmento.json.gz').read_bytes()))
+v=Draft202012Validator(schema)
+v.validate(g)
+g['pending']=[g['obligations'][0]['id']]
+g['obligations'][0]['status']='pending'
+for s in g['sites']:s['valueClosed']=False;s['selectionClosed']=False
+v.validate(g)
+print('Draft202012Validator: fragmento y pendiente representable correctos; no acredita semántica')

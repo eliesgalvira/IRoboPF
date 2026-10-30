@@ -1,0 +1,20 @@
+import fs from 'node:fs'
+import zlib from 'node:zlib'
+import assert from 'node:assert/strict'
+import { createHash } from 'node:crypto'
+import { composeSS } from '/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-ss-r36.mjs'
+const graph = composeSS()
+const file = 'docs/procedencia/implementaciones/flujo-ss-r36-sol/fragmento.json.gz'
+const original = fs.readFileSync(file)
+assert.deepEqual(graph, JSON.parse(zlib.gunzipSync(original)))
+const result = {
+  artifactSha256: createHash('sha256').update(original).digest('hex'),
+  structureExact: true,
+  operations: graph.program.length, obligations: graph.obligations.length,
+  cells: graph.cells.length, calls: graph.calls.length, literalUnits: graph.literalUnits.length,
+  sites: graph.sites,
+  completeRuleAcceptance: graph.completeRuleAcceptance,
+  wiringAllowed: graph.wiringAllowed,
+}
+fs.writeFileSync('docs/procedencia/correcciones/ss-r39/reconstruccion.json', JSON.stringify(result, null, 2)+'\n')
+console.log(JSON.stringify({ ...result, sites: result.sites.length }))

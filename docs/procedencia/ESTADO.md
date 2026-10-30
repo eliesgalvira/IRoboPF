@@ -2,7 +2,17 @@
 
 Inicio: 29 de octubre de 2026. Trabajo en curso; no es una certificación fiscal.
 
-## Situación más reciente, ronda 38 del 30 de octubre
+## Situación más reciente, ronda 39 del 30 de octubre
+
+Recibido el candidato Sol SS R36: 75 archivos y 6.234.744 bytes con sobres/objetos de transporte. Las 20.227 entradas base del hijo coinciden físicamente, sin borrados ni cambios. Patch y binarios reconstruidos exactamente. Recibos y contraste en correcciones/ss-r39; entrega original en implementaciones/flujo-ss-r36-sol.
+
+El padre ejecuta 58 pruebas y 684 casos, reconstruye exactamente el artefacto y comprueba tipos principal/vendor, lint global y schema: correctos. Vitest usa cargador nativo y caché propia. Se preservan los rojos previos y la incidencia declarada de temporales Vite externos del primer arnés del hijo.
+
+Los once cierres siguen candidatos. El padre documenta cinco anotaciones de `mei` como EUR que requieren contraste dimensional independiente; no se cambian cifras ni se acepta el hallazgo por esta lectura. Admisión, wiring, cierre de sitio y aceptación fiscal permanecen pendientes/falsos. Se prepara una revisión nueva sobre el commit exacto, con Sol 6.1 High y prioridad explícitas.
+
+Continúan los tres encargos R36 de admisión, escalas y rentas, sin sondeos ni lectura de entregas parciales. Motor, confianza activa, inventario y 45 snapshots intactos. V5 mantiene corte R26; Crossa sigue v1 desfasado, copia local fuera de Victus del mismo dueño/casa. Sin main, PR, despliegue, LFS, gasto, transferencia externa ni limpieza. El encargo global permanece abierto.
+
+## Situación anterior, ronda 38 del 30 de octubre
 
 Recibida la contrarrevisión Sol de retenciones por propiedad R36: 64 archivos y 3.450.287 bytes, incluidos sobres; 20.227 entradas originales físicamente idénticas, cero borrados. Los 59 archivos de contenido se reconstruyen exactamente mediante patch y binarios. Informe y recibos del padre en correcciones/retenciones-r38; revisión en revisiones/retenciones-propiedades-r36-sol.
 

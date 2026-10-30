@@ -1,0 +1,33 @@
+import json
+import os
+import subprocess
+from pathlib import Path
+
+R = Path('/home/elies/Repos/IRoboPF')
+S = R/'.cache/orquestador-recepcion/r39'
+O = R/'docs/procedencia/correcciones/ss-r39'
+jobs = [
+    ('tests', ['node', 'node_modules/vitest/vitest.mjs', 'run', '--configLoader', 'native', '--config', str(S/'vitest.mjs'), '--reporter=json', '--outputFile='+str(O/'tests.json')]),
+    ('casos', ['bun', str(S/'casos.mjs')]),
+    ('reconstruccion', ['node', str(S/'reconstruir.mjs')]),
+    ('types', ['bun', 'run', 'typecheck']),
+    ('oxlint', ['node_modules/.bin/oxlint', '--disable-nested-config', '--threads=1']),
+    ('eslint', ['bun', 'run', 'lint:eslint']),
+    ('schema', ['bash', 'tools/procedencia/run.sh', str(S/'schema.py')]),
+]
+env = dict(os.environ, PYTHONDONTWRITEBYTECODE='1', UV_PROJECT_ENVIRONMENT=str(S/'venv'))
+results = []
+for name, command in jobs:
+    with (O/(name+'.log')).open('wb') as stream:
+        p = subprocess.run(['flock', '/tmp/irobopf-validacion-pesada.lock', *command], cwd=R, env=env, stdout=stream, stderr=subprocess.STDOUT)
+    results.append(dict(name=name, command=command, exitCode=p.returncode))
+    (O/'validacion.json').write_text(json.dumps(results, indent=2)+'\n')
+    print(json.dumps(results[-1]), flush=True)
+    assert p.returncode == 0
+cases = json.loads((S/'casos.json').read_text())
+original = json.loads((R/'docs/procedencia/implementaciones/flujo-ss-r36-sol/casos.json').read_text())
+assert cases == original and len(cases['rows']) == 684 and cases['failures'] == 0
+(O/'casos.json').write_bytes((S/'casos.json').read_bytes())
+tests = json.loads((O/'tests.json').read_text())
+assert tests['success'] and tests['numTotalTests'] == tests['numPassedTests'] == 58
+print('58 pruebas, 684 casos exactos y reconstrucción, tipos, lint y schema correctos.', flush=True)

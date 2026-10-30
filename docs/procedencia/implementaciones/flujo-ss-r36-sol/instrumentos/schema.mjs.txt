@@ -1,0 +1,15 @@
+import fs from 'node:fs'
+import {composeSS} from '../../scripts/procedencia/flujo-ss-r36.mjs'
+const g=composeSS()
+function shape(v){
+ if(v===null)return {type:'null'}
+ if(Array.isArray(v))return {type:'array',items:v.length?{anyOf:[...new Map(v.map(x=>{const s=shape(x);return [JSON.stringify(s),s]})).values()]}:{}}
+ if(v&&Object.getPrototypeOf(v)===Object.prototype)return {type:'object',additionalProperties:false,required:Object.keys(v),properties:Object.fromEntries(Object.entries(v).map(([k,x])=>[k,shape(x)]))}
+ if(String(v)===v)return {type:'string'}
+ if([true,false].includes(v))return {type:'boolean'}
+ return {type:'number'}
+}
+const schema=shape(g);schema.$schema='https://json-schema.org/draft/2020-12/schema'
+for(const k of ['version','kind','base','completeRuleAcceptance','wiringAllowed'])schema.properties[k]={const:g[k]}
+schema.properties.pending={type:'array',uniqueItems:true,items:{type:'string'}}
+fs.writeFileSync('schemas/procedencia/flujo/ss-r36.schema.json',JSON.stringify(schema,null,2)+'\n')

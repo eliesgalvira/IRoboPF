@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set +e
+root=/home/elies/.t3/worktrees/IRoboPF/t3-dc880819
+cd "$root/.cache/flujo-ss-r36/calidad" || exit 1
+for check in tests tipos oxlint eslint; do
+ case "$check" in
+ tests) cmd=(node node_modules/vitest/vitest.mjs run --configLoader native --config vitest.config.mjs);;
+ tipos) cmd=(node node_modules/typescript/bin/tsc --noEmit);;
+ oxlint) cmd=(node node_modules/oxlint/bin/oxlint --threads=1 --disable-nested-config --no-ignore scripts/procedencia/flujo-ss-r36.mjs scripts/procedencia/flujo-ss-r36-consumidor.mjs tests/flujo-ss-r36.test.ts);;
+ eslint) cmd=(node node_modules/eslint/bin/eslint.js scripts/procedencia/flujo-ss-r36.mjs scripts/procedencia/flujo-ss-r36-consumidor.mjs tests/flujo-ss-r36.test.ts);;
+ esac
+ flock /tmp/irobopf-validacion-pesada.lock "${cmd[@]}" > "$root/.cache/flujo-ss-r36/$check.log" 2>&1
+ printf '%s %s\n' "$check" "$?"
+done

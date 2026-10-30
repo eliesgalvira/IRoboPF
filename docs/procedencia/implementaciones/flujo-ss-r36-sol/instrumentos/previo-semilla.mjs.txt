@@ -1,0 +1,20 @@
+import fs from 'node:fs'
+import { composeSS, traceSSClosure, validateSS } from '../../scripts/procedencia/flujo-ss-r32.mjs'
+import { Sources, ts } from '../../scripts/procedencia/flujo-ast.mjs'
+const graph=composeSS(), g=structuredClone(graph)
+const reduce=g.ports.find(p=>p.op==='reduce'), seed=g.ports.find(p=>p.id===reduce.args[1])
+const zero=g.ports.find(p=>p.id===seed.args[0]);zero.detail.value='1'
+let rejected=false
+try{validateSS(g)}catch{rejected=true}
+const closed=g.sites.filter(s=>traceSSClosure(g,s.output).closed).map(s=>s.siteId)
+const sources=new Sources()
+const audit=graph.ports.map(p=>{
+ const ref=graph.sources.find(s=>s.id===p.source), n=sources.exact(ref), ancestors=[]
+ let current=n.parent
+ while(current){if(ts.isVariableDeclaration(current)||ts.isFunctionDeclaration(current)||ts.isPropertyAssignment(current))ancestors.push(current.name?.getText());current=current.parent}
+ return {port:p.id,op:p.op,unit:p.unit,detail:p.detail,source:ref,ancestors}
+})
+fs.writeFileSync('.cache/flujo-ss-r36/previo-auditoria-fuentes.json',JSON.stringify(audit,null,2))
+fs.writeFileSync('.cache/flujo-ss-r36/previo-semilla.json',JSON.stringify({change:'literal de semilla 0 a 1, conservando aristas',expectedClosed:[],closed,pinRejected:rejected},null,2))
+console.log(JSON.stringify({pinRejected:rejected,closed:closed.length,expected:0}))
+if(closed.length)process.exitCode=1

@@ -1,0 +1,12 @@
+import fs from 'node:fs'
+const root=process.cwd(),dest=root+'/.cache/flujo-ss-r36/calidad'
+fs.mkdirSync(dest,{recursive:true})
+for(const name of ['lib'])if(!fs.existsSync(dest+'/'+name))fs.symlinkSync(root+'/'+name,dest+'/'+name)
+if(!fs.existsSync(dest+'/node_modules'))fs.symlinkSync('/home/elies/Repos/IRoboPF/node_modules',dest+'/node_modules')
+for(const file of ['scripts/procedencia/flujo-ss-r32.mjs','scripts/procedencia/flujo-ast.mjs','scripts/procedencia/flujo-ss-r36.mjs','scripts/procedencia/flujo-ss-r36-consumidor.mjs','tests/flujo-ss-r32.test.ts','tests/flujo-ss-r36.test.ts']){fs.mkdirSync(dest+'/'+file.slice(0,file.lastIndexOf('/')),{recursive:true});fs.copyFileSync(file,dest+'/'+file)}
+fs.cpSync('tools/oxlint',dest+'/tools/oxlint',{recursive:true})
+for(const f of ['.oxlintrc.json','eslint.config.mjs','package.json'])fs.copyFileSync(f,dest+'/'+f)
+const cfg=JSON.parse(fs.readFileSync('tsconfig.json'));cfg.include=['tests/flujo-ss-r36.test.ts','tests/flujo-ss-r32.test.ts'];cfg.compilerOptions.incremental=false
+fs.writeFileSync(dest+'/tsconfig.json',JSON.stringify(cfg))
+fs.writeFileSync(dest+'/vitest.config.mjs',"import {defineConfig} from 'vitest/config';export default defineConfig({cacheDir:'.cache-vite',test:{include:['tests/flujo-ss-r32.test.ts','tests/flujo-ss-r36.test.ts'],maxWorkers:1}})")
+const l=JSON.parse(fs.readFileSync('.oxlintrc.json'));if(Object.keys(l.rules).length!==16||Object.values(l.rules).some(v=>v!=='error'))throw Error('anti-slop')
