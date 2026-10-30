@@ -10,6 +10,8 @@ La recepción reproduce los 30 casos racionales/300 comparaciones, con resultado
 
 Quedan 27 sitios corroborados técnicamente bajo condiciones (SS11, retenciones6, rentas10) y 38 pendientes: escalas28 en implementación Sol R60 y diez explícitos posteriores. No se inicia otra revisión de rentas ni ninguna tarea excluida. El encargo termina en 65 sitios o bloqueos demostrados, con INFORME-FINAL.md y respaldo; las 19 familias, composición, admisión y cuatro puertas siguen fuera. Crossa v1 sigue desfasado. Sin main, PR, despliegue, LFS, gasto, transferencia ni limpieza.
 
+Recepción y cierre técnico respaldados en origin/procedencia-documental, commit `adcaaa4bd93f90b0a3dc3f589cf8a5070a0f3652`: 491 archivos, hashes cotejados y cero borrados. No se lanza nueva revisión ni nuevo subagente. Se espera la entrega de la implementación de escalas Sol R60 ya activa, sin sondeos ni lectura parcial.
+
 ## Alcance final vigente y ronda 60 del 30 de octubre
 
 Elies fija final: terminar los 65 sitios o demostrar bloqueos. Una implementación y una revisión independiente por lote; repetir solo ante un defecto reproducido. No iniciar las 19 familias, composición, admisión ni las cuatro puertas. Al terminar: INFORME-FINAL.md en español con demostraciones condicionadas, pendientes, estimaciones honestas de rondas/horas y commits clave, respaldado solo en origin/procedencia-documental. Sin limpieza.
