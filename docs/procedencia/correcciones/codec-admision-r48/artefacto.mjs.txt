@@ -1,0 +1,22 @@
+import { readFileSync, writeFileSync } from 'node:fs'
+import { createHash } from 'node:crypto'
+import { gzipSync } from 'node:zlib'
+import { buildCompleteAdmission, verifyCompleteAdmission } from '../../../scripts/procedencia/flujo-admision-r36.mjs'
+const destination='docs/procedencia/correcciones/codec-admision-r48/'
+const fragment=buildCompleteAdmission()
+verifyCompleteAdmission(fragment)
+const bytes=gzipSync(JSON.stringify(fragment),{level:9})
+writeFileSync(destination+'fragmento-corregido.json.gz',bytes)
+const paths=[
+ 'scripts/procedencia/flujo-admision-r36.mjs',
+ 'scripts/procedencia/flujo-admision-r36-runtime.mjs',
+ 'scripts/procedencia/flujo-admision-r36-compilador.mjs',
+ 'scripts/procedencia/flujo-admision-r36-verificador.mjs',
+ 'scripts/procedencia/flujo-admision-r36-derechos.mjs',
+ 'schemas/procedencia/flujo/admision-r36.schema.json',
+ 'tests/admision-r46.test.ts', 'tests/admision-r48.test.ts',
+]
+const dependencies=paths.map(path=>{const bytes=readFileSync(path);return {path,size:bytes.length,sha256:createHash('sha256').update(bytes).digest('hex'),sha512:createHash('sha512').update(bytes).digest('hex')}})
+const receipt={artifactSha256:createHash('sha256').update(bytes).digest('hex'),dependencies,graphNodes:fragment.graph.anchors.length,rightsNodes:fragment.rights.anchors.length,sites:fragment.sites.length,selectionRoot:fragment.graph.roots.find(r=>r.name==='seleccionarIncrementoDerechos'),codec:'admission-value-v3',verified:true,completeRuleAcceptance:false,wiringAllowed:false}
+writeFileSync(destination+'artefacto.json',JSON.stringify(receipt,null,2)+'\n')
+console.log(JSON.stringify({artifactSha256:receipt.artifactSha256,graphNodes:receipt.graphNodes,sites:receipt.sites,verified:true}))

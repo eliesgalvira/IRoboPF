@@ -1,0 +1,9 @@
+import json,subprocess
+from pathlib import Path
+r=Path('/home/elies/Repos/IRoboPF');c=r/'.cache/orquestador-recepcion/r48';o=r/'docs/procedencia/correcciones/codec-admision-r48'
+jobs=[('pruebas',['node','node_modules/vitest/vitest.mjs','run','--configLoader','native','--config',str(c/'vitest-final.mjs'),'--reporter=json','--outputFile='+str(o/'pruebas-final.json')]),('artefacto',['node',str(c/'artefacto.mjs')]),('types',['bun','run','typecheck']),('oxlint',['node_modules/.bin/oxlint','--threads=1','--disable-nested-config']),('eslint',['bun','run','lint:eslint'])]
+results=[]
+for name,cmd in jobs:
+ with (o/(name+'-final.log')).open('wb') as log:p=subprocess.run(['flock','/tmp/irobopf-validacion-pesada.lock',*cmd],cwd=r,stdout=log,stderr=subprocess.STDOUT)
+ results.append(dict(name=name,command=cmd,exitCode=p.returncode));(o/'calidad-final.json').write_text(json.dumps(results,indent=2)+'\n');print(json.dumps(results[-1]),flush=True)
+ if p.returncode:break

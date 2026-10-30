@@ -1,0 +1,59 @@
+import fcntl,gzip,hashlib,json,os,shutil,stat,subprocess
+from pathlib import Path
+R=Path('/home/elies/Repos/IRoboPF');C=R/'.cache/orquestador-recepcion/r48';O=R/'docs/procedencia/correcciones/codec-admision-r48'
+S=Path('/home/elies/.t3/worktrees/IRoboPF/t3-af222c8b');F='docs/procedencia/revisiones/admision-r46-r47-sol'
+BASE='a6fc3e5e4ec2a7fc7e123356e641817b2f19d908';PIN='98d9fde7a8e453213c5ca8afc38923b0a6f6b88c4f55ee9795f59887e460a336'
+def sha(b):return hashlib.sha256(b).hexdigest()
+def git(root,*args):return subprocess.check_output(['git',*args],cwd=root)
+def row(p):
+ b=(S/p).read_bytes();return dict(path=p,size=len(b),sha256=sha(b),baseSha256=None,executable=False)
+raw=(S/F/'MANIFIESTO.json').read_bytes();assert sha(raw)==PIN;payload=json.loads(raw)
+assert git(S,'rev-parse','HEAD').decode().strip()==BASE and not git(S,'diff','--name-status',BASE+'..HEAD').strip()
+binary=json.loads((S/F/'binarios.json').read_text())
+extra=[F+'/'+n for n in ['MANIFIESTO.json','TRANSPORTE.json','binarios.json','patch.diff.gz']]+[e['payload'] for e in binary]
+rows=payload+[row(p) for p in extra]
+assert len(rows)==len({e['path'] for e in rows})
+assert {str(p.relative_to(S)) for p in (S/F).rglob('*') if p.is_file()}=={e['path'] for e in rows}
+for e in rows:
+ p=e['path'];assert p.startswith(F+'/') and '..' not in Path(p).parts and not (R/p).exists()
+ b=(S/p).read_bytes();st=(S/p).lstat();assert stat.S_ISREG(st.st_mode) and not st.st_mode&stat.S_IXUSR
+ assert sha(b)==e['sha256'] and len(b)==e['size'] and len(b)<10485760 and e['baseSha256'] is None and not e['executable']
+lock=open('/tmp/irobopf-recepcion-acotada.lock','a');fcntl.flock(lock,fcntl.LOCK_EX)
+reader=subprocess.Popen(['git','cat-file','--batch'],cwd=R,stdin=subprocess.PIPE,stdout=subprocess.PIPE);n=0
+for entry in git(R,'ls-tree','-rz',BASE).split(b'\0'):
+ if not entry:continue
+ meta,p=entry.split(b'\t');mode,kind,oid=meta.split();assert kind==b'blob'
+ reader.stdin.write(oid+b'\n');reader.stdin.flush();header=reader.stdout.readline().split();expected=reader.stdout.read(int(header[2]));assert reader.stdout.read(1)==b'\n'
+ file=S/p.decode();st=file.lstat()
+ if mode==b'120000':assert stat.S_ISLNK(st.st_mode);actual=os.readlink(file).encode()
+ else:assert stat.S_ISREG(st.st_mode) and bool(st.st_mode&stat.S_IXUSR)==(mode==b'100755');actual=file.read_bytes()
+ assert actual==expected,p;n+=1
+reader.stdin.close();assert reader.wait()==0 and n==21514
+fcntl.flock(lock,fcntl.LOCK_UN);lock.close()
+trial=C/'transporte';trial.mkdir();patch=(S/F/'patch.diff.gz').read_bytes()
+subprocess.run(['patch','--batch','-p1','-d',str(trial)],input=gzip.decompress(patch),stdout=(C/'transporte.log').open('wb'),check=True)
+for e in binary:
+ assert any(x['path']==e['path'] and x['sha256']==e['sha256'] for x in payload)
+ src=S/e['payload'];assert sha(src.read_bytes())==e['sha256']
+ dst=trial/e['path'];dst.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(src,dst)
+for e in payload:
+ dst=trial/e['path']
+ if e['size']==0 and not dst.exists():dst.parent.mkdir(parents=True,exist_ok=True);dst.write_bytes(b'')
+ assert sha(dst.read_bytes())==e['sha256'] and len(dst.read_bytes())==e['size'] and not dst.stat().st_mode&stat.S_IXUSR
+assert {str(p.relative_to(trial)) for p in trial.rglob('*') if p.is_file()}=={e['path'] for e in payload}
+O.mkdir(parents=True)
+for e in rows:
+ src=S/e['path'];dst=R/e['path'];assert sha(src.read_bytes())==e['sha256'];dst.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(src,dst);os.chmod(dst,0o644);assert sha(dst.read_bytes())==e['sha256']
+receipt=dict(source=str(S),base=BASE,manifestSha256=PIN,physicalEntriesChecked=n,changes=[],deletions=[],transportExact=True,patchSha256=sha(patch),emptyFiles=[e['path'] for e in payload if e['size']==0],files=rows)
+(O/'recepcion.json').write_text(json.dumps(receipt,indent=2)+'\n')
+(O/'recibir.py.txt').write_bytes(Path(__file__).read_bytes())
+preserved=[];cas=R/'.cache/orquestador-preservacion/recepciones-r48/sha256';cas.mkdir(parents=True)
+for e in json.loads((S/F/'CAS.json').read_text()):
+ src=Path(e['localPath']);b=src.read_bytes();assert sha(b)==e['sha256'] and hashlib.sha512(b).hexdigest()==e['sha512'] and len(b)==e['size']
+ assert (S/e['path']).read_bytes()==b and (R/e['path']).read_bytes()==b
+ dst=cas/e['sha256']
+ if dst.exists():assert dst.read_bytes()==b
+ else:dst.write_bytes(b)
+ preserved.append(dict(path=e['path'],size=e['size'],sha256=e['sha256'],sha512=e['sha512'],preservedPath=str(dst)))
+(O/'cas-preservado.json').write_text(json.dumps(dict(objects=preserved,kind='software-tecnico',officialDocumentsAdded=0),indent=2)+'\n')
+print(json.dumps(dict(entries=n,files=len(rows),bytes=sum(e['size'] for e in rows),deletions=0,transportExact=True,casSources=len(preserved))),flush=True)

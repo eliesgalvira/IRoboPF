@@ -1,0 +1,67 @@
+[
+  {
+    "name": "pruebas",
+    "command": [
+      "node",
+      "/home/elies/Repos/IRoboPF/node_modules/vitest/vitest.mjs",
+      "run",
+      "--configLoader",
+      "native",
+      "--config",
+      "/home/elies/.t3/worktrees/IRoboPF/t3-af222c8b/.cache/revision-admision-r46-r47-sol/vitest.mjs",
+      "--reporter=json",
+      "--outputFile=/home/elies/.t3/worktrees/IRoboPF/t3-af222c8b/docs/procedencia/revisiones/admision-r46-r47-sol/pruebas.json"
+    ],
+    "exitCode": 0
+  },
+  {
+    "name": "rojos",
+    "command": [
+      "node",
+      "/home/elies/Repos/IRoboPF/node_modules/vitest/vitest.mjs",
+      "run",
+      "--configLoader",
+      "native",
+      "--config",
+      "/home/elies/.t3/worktrees/IRoboPF/t3-af222c8b/.cache/revision-admision-r46-r47-sol/vitest-rojo.mjs",
+      "--passWithNoTests=false",
+      "--reporter=json",
+      "--outputFile=/home/elies/.t3/worktrees/IRoboPF/t3-af222c8b/docs/procedencia/revisiones/admision-r46-r47-sol/rojos.json"
+    ],
+    "exitCode": 1
+  },
+  {
+    "name": "fuentes",
+    "command": [
+      "node",
+      "/home/elies/.t3/worktrees/IRoboPF/t3-af222c8b/.cache/revision-admision-r46-r47-sol/contraste-fuentes.mjs"
+    ],
+    "exitCode": 0
+  },
+  {
+    "name": "tipos",
+    "command": [
+      "node",
+      "/home/elies/Repos/IRoboPF/node_modules/typescript/bin/tsc",
+      "--project",
+      "/home/elies/.t3/worktrees/IRoboPF/t3-af222c8b/.cache/revision-admision-r46-r47-sol/tsconfig.json",
+      "--noEmit"
+    ],
+    "exitCode": 0
+  },
+  {
+    "name": "oxlint",
+    "command": [
+      "/home/elies/Repos/IRoboPF/node_modules/.bin/oxlint",
+      "--threads=1",
+      "--disable-nested-config",
+      "--config",
+      "/home/elies/.t3/worktrees/IRoboPF/t3-af222c8b/.cache/revision-admision-r46-r47-sol/oxlint.json",
+      "/home/elies/.t3/worktrees/IRoboPF/t3-af222c8b/docs/procedencia/revisiones/admision-r46-r47-sol/propios.test.ts",
+      "/home/elies/.t3/worktrees/IRoboPF/t3-af222c8b/docs/procedencia/revisiones/admision-r46-r47-sol/codec.rojo.ts",
+      "/home/elies/.t3/worktrees/IRoboPF/t3-af222c8b/.cache/revision-admision-r46-r47-sol/contraste-fuentes.mjs",
+      "/home/elies/.t3/worktrees/IRoboPF/t3-af222c8b/.cache/revision-admision-r46-r47-sol/validar.mjs"
+    ],
+    "exitCode": 0
+  }
+]

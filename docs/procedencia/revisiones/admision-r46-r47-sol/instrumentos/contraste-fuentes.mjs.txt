@@ -1,0 +1,29 @@
+import fs from 'node:fs'
+import {createHash} from 'node:crypto'
+import {createRequire} from 'node:module'
+import {gunzipSync,gzipSync} from 'node:zlib'
+import {buildCompleteAdmission,verifyCompleteAdmission} from '../../scripts/procedencia/flujo-admision-r36.mjs'
+const require=createRequire('/home/elies/Repos/IRoboPF/package.json'),ts=require('typescript')
+const root=process.cwd(),scratch=root+'/.cache/revision-admision-r46-r47-sol',out=root+'/docs/procedencia/revisiones/admision-r46-r47-sol'
+const sha=(b,alg='sha256')=>createHash(alg).update(b).digest('hex')
+const received=fs.readFileSync('docs/procedencia/correcciones/admision-r46/fragmento-corregido.json.gz'),f=JSON.parse(gunzipSync(received)),built=buildCompleteAdmission()
+const docs=new Map(),sources=[]
+for(const p of new Set([...f.graph.sources,...f.rights.sources].map(s=>s.path).concat(['scripts/procedencia/flujo-admision-r36.mjs','scripts/procedencia/flujo-admision-r36-runtime.mjs','scripts/procedencia/flujo-admision-r36-compilador.mjs','scripts/procedencia/flujo-admision-r36-verificador.mjs','scripts/procedencia/flujo-admision-r36-derechos.mjs','schemas/procedencia/flujo/admision-r36.schema.json','tests/admision-r46.test.ts']))){
+ const bytes=fs.readFileSync(p),h=sha(bytes),h512=sha(bytes,'sha512')
+ for(const [alg,digest] of [['sha256',h],['sha512',h512]]){const d=scratch+'/cas/'+alg;fs.mkdirSync(d,{recursive:true});fs.writeFileSync(d+'/'+digest,bytes)}
+ sources.push({path:p,size:bytes.length,sha256:h,sha512:h512,localPath:scratch+'/cas/sha256/'+h,sha512Path:scratch+'/cas/sha512/'+h512})
+ const sf=ts.createSourceFile(p,bytes.toString(),ts.ScriptTarget.Latest,true),spans=new Map();function visit(n){const k=n.getStart(sf)+':'+n.end;if(!spans.has(k))spans.set(k,[]);spans.get(k).push(n);ts.forEachChild(n,visit)}visit(sf);docs.set(p,{text:bytes.toString(),spans,sf,hash:h})
+}
+const mismatches=[],checked=[]
+const anchors=[...f.graph.anchors,...f.rights.anchors]
+function bindings(b){anchors.push(b.anchor);if(b.fields)b.fields.forEach(x=>bindings(x.value))}
+for(const s of f.services){anchors.push(s.anchor);s.arguments.forEach(bindings);s.providers.forEach(p=>anchors.push(p.anchor))}
+for(const a of anchors){const d=docs.get(a.path),valid=d&&d.hash===a.sha256&&a.end<=d.text.length&&d.spans.has(a.start+':'+a.end);if(!valid)mismatches.push(a);checked.push({id:a.id,path:a.path,start:a.start,end:a.end,lengthUtf16:d?.text.length,sha256:a.sha256,valid})}
+const semantic=[];function walk(n){if(!n||Object(n)!==n)return;if(n.op==='binary'||n.op==='unary'){const a=f.graph.anchors.find(a=>a.id===n.id),d=docs.get(a.path);const matches=d.spans.get(a.start+':'+a.end);const valid=matches.some(ast=>n.op==='binary'?ts.isBinaryExpression(ast)&&ast.operatorToken.getText(d.sf)===n.operator:ts.isPrefixUnaryExpression(ast)&&ts.tokenToString(ast.operator)===n.operator);semantic.push({id:n.id,operator:n.operator,valid});if(!valid)mismatches.push(n)}for(const v of Object.values(n))if(Array.isArray(v))v.forEach(walk);else if(v&&Object(v)===v)walk(v)}f.graph.definitions.forEach(d=>walk(d.value));f.graph.roots.forEach(r=>walk(r.value))
+const old=JSON.parse(gunzipSync(fs.readFileSync('docs/procedencia/implementaciones/admision-completa-r36-sol/fragmento.json.gz')))
+const reexports=['r36-22735','r36-22799'].map(id=>{const before=old.graph.anchors.find(a=>a.id===id),after=f.graph.anchors.find(a=>a.id===id),d=docs.get(after.path);return {id,before,after,text:d.text.slice(after.start,after.end),oldFileLength:fs.readFileSync(before.path,'utf8').length}})
+const globals=[];function scan(n){if(!n||Object(n)!==n)return;if(reexports.some(a=>a.id===n.id))globals.push(n);for(const v of Object.values(n))if(Array.isArray(v))v.forEach(scan);else if(v&&Object(v)===v)scan(v)}f.graph.definitions.forEach(d=>scan(d.value));f.graph.roots.forEach(scan)
+const chains=globals.map(n=>{const chain=[];let current=n;while(current?.op==='global'){chain.push(current.key);current=f.graph.definitions.find(d=>d.key===current.key)?.value}return {node:n,chain,resolved:current?.op}})
+const mutations=[];for(const group of ['graph','rights','service']){const altered=structuredClone(f);const anchor=group==='service'?altered.services[0].anchor:altered[group].anchors[0];anchor.start++;try{verifyCompleteAdmission(altered);mutations.push({group,rejected:false})}catch(e){mutations.push({group,rejected:true,reason:e.message})}}
+const result={artifactSha256:sha(received),jsonEqual:JSON.stringify(f)===JSON.stringify(built),gzipEqual:received.equals(gzipSync(JSON.stringify(built),{level:9})),verified:verifyCompleteAdmission(f),anchorsChecked:checked.length,mismatches,semanticOperators:semantic.length,mutations,reexports,chains,sites:f.sites,completeRuleAcceptance:f.completeRuleAcceptance,wiringAllowed:f.wiringAllowed}
+fs.writeFileSync(out+'/CAS.json',JSON.stringify(sources,null,2)+'\n');fs.writeFileSync(out+'/anclas.json.gz',gzipSync(JSON.stringify(checked)));fs.writeFileSync(out+'/contraste-fuentes.json',JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify(result))

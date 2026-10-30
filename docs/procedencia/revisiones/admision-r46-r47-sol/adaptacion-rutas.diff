@@ -1,0 +1,45 @@
+--- docs/procedencia/correcciones/admision-r46/instrumentos/contraste.test.mjs.txt	2026-10-30 03:31:33.737947034 +0100
++++ .cache/revision-admision-r46-r47-sol/contraste.test.mjs	2026-10-30 03:34:48.698541998 +0100
+@@ -2,13 +2,13 @@
+ import {readFileSync} from 'node:fs'
+ import Decimal from 'decimal.js'
+ import {Effect,Result} from 'effect'
+-import {buildCompleteAdmission,evaluateCompleteAdmission,verifyCompleteAdmission} from '../../../scripts/procedencia/flujo-admision-r36.mjs'
+-import {encodeAdmissionValue,checkRuntimeDomain} from '../../../scripts/procedencia/flujo-admision-r36-runtime.mjs'
+-import {evaluateRightsProgram} from '../../../scripts/procedencia/flujo-admision-r36-derechos.mjs'
+-import {liquidarIrpfAnual} from '../../../lib/dominio/irpf/liquidacion/liquidar-irpf-anual'
+-import {calcularDerechosMinimos,validarDerechosMinimos} from '../../../lib/dominio/irpf/minimos/derechos'
+-import {MINIMOS_ESTATALES_2025} from '../../../lib/dominio/normativa/datos/minimos-autonomicos-2025'
+-import {base,ret,derechos} from '../../../docs/procedencia/revisiones/admision-anual-r34-sol/fixtures.mjs'
++import {buildCompleteAdmission,evaluateCompleteAdmission,verifyCompleteAdmission} from '/home/elies/.t3/worktrees/IRoboPF/t3-af222c8b/scripts/procedencia/flujo-admision-r36.mjs'
++import {encodeAdmissionValue,checkRuntimeDomain} from '/home/elies/.t3/worktrees/IRoboPF/t3-af222c8b/scripts/procedencia/flujo-admision-r36-runtime.mjs'
++import {evaluateRightsProgram} from '/home/elies/.t3/worktrees/IRoboPF/t3-af222c8b/scripts/procedencia/flujo-admision-r36-derechos.mjs'
++import {liquidarIrpfAnual} from '/home/elies/.t3/worktrees/IRoboPF/t3-af222c8b/lib/dominio/irpf/liquidacion/liquidar-irpf-anual'
++import {calcularDerechosMinimos,validarDerechosMinimos} from '/home/elies/.t3/worktrees/IRoboPF/t3-af222c8b/lib/dominio/irpf/minimos/derechos'
++import {MINIMOS_ESTATALES_2025} from '/home/elies/.t3/worktrees/IRoboPF/t3-af222c8b/lib/dominio/normativa/datos/minimos-autonomicos-2025'
++import {base,ret,derechos} from '/home/elies/.t3/worktrees/IRoboPF/t3-af222c8b/docs/procedencia/revisiones/admision-anual-r34-sol/fixtures.mjs'
+ import {synthetic} from './puertos.mjs'
+ const f=buildCompleteAdmission()
+ const run=(caso=base,ports=synthetic(),entry='liquidarIrpfAnual')=>evaluateCompleteAdmission(f,entry,[caso,{modo:'canonico'}],ports)
+
+--- docs/procedencia/correcciones/admision-r46/instrumentos/oracle.test.ts.txt	2026-10-30 03:31:33.737947034 +0100
++++ .cache/revision-admision-r46-r47-sol/oracle.test.ts	2026-10-30 03:34:48.698541998 +0100
+@@ -1,12 +1,12 @@
+ import {expect,it} from 'vitest'
+ import Decimal from 'decimal.js'
+ import {DateTime,Effect,Result} from 'effect'
+-import {obtenerParametrosComunidadAutonoma} from '../../../lib/dominio/irpf/comunidades/comunidad-autonoma'
+-import type {EntradaParametrosComunidadAutonoma} from '../../../lib/dominio/irpf/comunidades/comunidad-autonoma'
+-import {liquidarIrpfAnual} from '../../../lib/dominio/irpf/liquidacion/liquidar-irpf-anual'
+-import type {CasoFiscalAnual} from '../../../lib/dominio/irpf/liquidacion/liquidar-irpf-anual'
+-import {centimosAEuros,eurosACentimos} from '../../../lib/dominio/dinero/importe-monetario'
+-import {buildCompleteAdmission,evaluateCompleteAdmission} from '../../../scripts/procedencia/flujo-admision-r36.mjs'
++import {obtenerParametrosComunidadAutonoma} from '/home/elies/.t3/worktrees/IRoboPF/t3-af222c8b/lib/dominio/irpf/comunidades/comunidad-autonoma'
++import type {EntradaParametrosComunidadAutonoma} from '/home/elies/.t3/worktrees/IRoboPF/t3-af222c8b/lib/dominio/irpf/comunidades/comunidad-autonoma'
++import {liquidarIrpfAnual} from '/home/elies/.t3/worktrees/IRoboPF/t3-af222c8b/lib/dominio/irpf/liquidacion/liquidar-irpf-anual'
++import type {CasoFiscalAnual} from '/home/elies/.t3/worktrees/IRoboPF/t3-af222c8b/lib/dominio/irpf/liquidacion/liquidar-irpf-anual'
++import {centimosAEuros,eurosACentimos} from '/home/elies/.t3/worktrees/IRoboPF/t3-af222c8b/lib/dominio/dinero/importe-monetario'
++import {buildCompleteAdmission,evaluateCompleteAdmission} from '/home/elies/.t3/worktrees/IRoboPF/t3-af222c8b/scripts/procedencia/flujo-admision-r36.mjs'
+ const f=buildCompleteAdmission()
+ const caso:CasoFiscalAnual={anio:2026,comunidadAutonoma:'madrid',situacionFamiliar:{tipo:'individual',edad:40,discapacidad:{_tag:'SinDiscapacidad'},descendientes:[],ascendientes:[]},rendimientos:{trabajo:[]},reducciones:[],deducciones:[],retencionesSoportadasCentimos:0,pagosACuentaCentimos:0}
+ it('2026 selector es éxito de evaluación de ausencia y anual es rechazo',()=>{
