@@ -8,7 +8,9 @@ Recibidos escalas y rentas R36: 123 archivos, 6.430.773 bytes, dos cotejos físi
 
 Pasan 18 pruebas Vitest: 17 grupos de escalas y una suite con 41 controles internos de rentas. Se repiten directamente los 41 con JSON idéntico al recibido, sin sumar recuentos solapados. Seis discriminantes propios correctos. Artefactos reconstruidos exactamente; tipos principal/vendor, checkJs del alcance, lint global y schemas correctos. Se preservan los fallos iniciales del arnés de escalas y el diff que adapta tipos/imports a las reglas globales; no se relaja ninguna regla ni se cambia el motor.
 
-Se preparan dos revisiones nuevas de los candidatos exactos con Sol 6.1 High y prioridad. La revisión SS R39 acaba de llegar y queda pendiente de recepción/contraste del padre, registrada en correcciones/escalas-rentas-r40/pendiente-ss.json; sus cuatro grupos documentales todavía no se aceptan. El encargo de admisión R36 continúa sin sondeos ni lectura parcial.
+Bloque respaldado en origin, commit `314efe543def21276acb44d0e3b0816dd5f78d58`: 172 archivos y todos sus hashes comprobados, cero borrados. Se lanzan dos revisiones independientes nuevas sobre ese commit y sus 20.670 entradas: escalas y rentas. Ambas con gpt-6.1-sol, high y priority explícitos y confirmados por el lanzador; encargos y respuestas íntegros en delegaciones-ronda40.json. Sus finalizaciones reactivarán el hilo, sin esperas ni sondeos.
+
+La revisión SS R39 acaba de llegar y queda pendiente de recepción/contraste del padre, registrada en correcciones/escalas-rentas-r40/pendiente-ss.json; sus cuatro grupos documentales todavía no se aceptan. El encargo de admisión R36 continúa sin sondeos ni lectura parcial.
 
 Motor, confianza, inventario y 45 snapshots intactos. Admisión, composición, wiring y aceptación fiscal completa pendientes/falsos. V5 mantiene corte R26 y Crossa v1 desfasado. Sin LFS, gasto, transferencias, main, PR, despliegue o limpieza. El encargo global permanece abierto.
 
