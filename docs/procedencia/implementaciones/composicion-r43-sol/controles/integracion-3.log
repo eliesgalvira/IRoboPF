@@ -1,0 +1,27 @@
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-9e10bf62
+
+ ❯ tests/composicion-r43.test.ts (8 tests | 1 failed) 12017ms
+   × rechaza paquete alterado y mantiene cerrada la puerta pública 6886ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/composicion-r43.test.ts > rechaza paquete alterado y mantiene cerrada la puerta pública
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ tests/composicion-r43.test.ts:35:1
+     33|   }
+     34| }
+     35| it("rechaza paquete alterado y mantiene cerrada la puerta pública", ()…
+       | ^
+     36|   const m = structuredClone(candidate)
+     37|   m.links[0]!.producer = m.links[1]!.producer
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 7 passed (8)
+   Start at  02:58:01
+   Duration  17.34s (transform 468ms, setup 0ms, import 5.22s, tests 12.02s, environment 0ms)
+

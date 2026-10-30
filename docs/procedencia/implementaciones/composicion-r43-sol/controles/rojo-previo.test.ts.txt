@@ -1,0 +1,13 @@
+import { expect, it } from "vitest"
+import { composeEscalasR36 } from "../scripts/procedencia/flujo-escalas-r36.mjs"
+import { consumeEscalasR36 } from "../scripts/procedencia/flujo-escalas-r36-consumidor.mjs"
+const caso = {
+  anio: 2025, comunidadAutonoma: "madrid",
+  situacionFamiliar: { tipo: "individual", edad: 40, descendientes: [], ascendientes: [], discapacidad: { _tag: "SinDiscapacidad" } },
+  rendimientos: { trabajo: [{ importeIntegroCentimos: 3000000 }] },
+  reducciones: [], deducciones: [], retencionesSoportadasCentimos: 123, pagosACuentaCentimos: 321
+}
+it("compone las fronteras financieras sin callbacks del llamante", () => {
+  const result = consumeEscalasR36(composeEscalasR36(), "annual", caso, { modo: "canonico" }, new Map())
+  expect(result.lines.length).toBeGreaterThan(0)
+})

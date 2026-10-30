@@ -2,7 +2,17 @@
 
 Inicio: 29 de octubre de 2026. Trabajo en curso; no es una certificación fiscal.
 
-## Situación más reciente, ronda 44 del 30 de octubre
+## Situación más reciente, ronda 45 del 30 de octubre
+
+Recibida la composición parcial R43: 94 archivos, 7.982.400 bytes y transporte exacto. Cotejo físico de las 21.126 entradas de base del hijo: intactas, cero borrados. Se incorporan los puentes financieros como candidato parcial, sin declarar completos los contratos comunes ni los cierres. Detalle en correcciones/recepcion-composicion-r45.
+
+El padre reproduce 21 pruebas correctas y reconstrucción idéntica. Pasan tipos principal/vendor, lint global y schema; no se reproduce el diagnóstico de tipos declarado por el hijo ni se cambia su código para ocultarlo. Los 65 IDs y 41 puertos no acreditan por sí solos suficiencia causal. Faltan contratos completos por propiedad e instancia, derivación transitiva, normalización común de resultados y cobertura individual de las 19 instancias.
+
+Se prepara el respaldo exacto y una continuación Sol de esos contratos ejecutables. La revisión independiente de admisión R44 sigue activa; no se sondea ni se lee su trabajo parcial. La composición completa tendrá después su revisión nueva. El avance de un candidato no habilita admisión pública, wiring ni aceptación fiscal.
+
+Motor, inventario, confianza y 45 snapshots intactos. V5 mantiene corte R26 y Crossa v1 desfasado. Sin main, PR, despliegue, LFS, gasto, transferencias o limpieza. El encargo global continúa abierto.
+
+## Situación anterior, ronda 44 del 30 de octubre
 
 Recibida e integrada como candidata la admisión completa R36: 92 archivos, 2.744.212 bytes, transporte exacto y cotejo físico de 20.227 entradas intactas; cero borrados. Preservados 87 objetos CAS técnicos fuera del worktree, coincidentes con las fuentes actuales. Detalle en correcciones/recepcion-admision-r44.
 

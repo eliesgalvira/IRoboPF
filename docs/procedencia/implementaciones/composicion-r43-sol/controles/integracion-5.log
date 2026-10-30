@@ -1,0 +1,30 @@
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-9e10bf62
+
+ ❯ tests/composicion-r43.test.ts (15 tests | 2 failed) 12818ms
+   × retención subcaso 0, bruto anual distinto y pagos efectivos distintos 103ms
+   × retención subcaso 4020000, bruto anual distinto y pagos efectivos distintos 60ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/composicion-r43.test.ts > retención subcaso 0, bruto anual distinto y pagos efectivos distintos
+ FAIL  tests/composicion-r43.test.ts > retención subcaso 4020000, bruto anual distinto y pagos efectivos distintos
+TypeError: Cannot read properties of undefined (reading 'siteId')
+ ❯ tests/composicion-r43.test.ts:22:35
+     20| const composed = createComposition(candidate)
+     21| function projection(lines: { origen?: { siteId: string; decimal: strin…
+     22|   return lines.flatMap(l => l.origen ? [[l.origen.siteId, l.origen.dec…
+       |                                   ^
+     23| }
+     24| for (const modo of ["canonico", "compatible-legacy"] as const) {
+ ❯ projection tests/composicion-r43.test.ts:22:16
+ ❯ tests/composicion-r43.test.ts:198:82
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 13 passed (15)
+   Start at  02:59:33
+   Duration  18.17s (transform 475ms, setup 0ms, import 5.24s, tests 12.82s, environment 0ms)
+

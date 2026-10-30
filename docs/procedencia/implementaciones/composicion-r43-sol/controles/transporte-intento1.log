@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-9e10bf62/.cache/composicion-r43-sol/empaquetar.py", line 26, in <module>
+    b=(transport/row['path']).read_bytes();assert len(b)==row['size'] and hashlib.sha256(b).hexdigest()==row['sha256'],row['path']
+  File "/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/lib/python3.13/pathlib/_abc.py", line 625, in read_bytes
+    with self.open(mode='rb') as f:
+         ~~~~~~~~~^^^^^^^^^^^
+  File "/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/lib/python3.13/pathlib/_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/elies/.t3/worktrees/IRoboPF/t3-9e10bf62/.cache/composicion-r43-sol/transporte/docs/procedencia/implementaciones/composicion-r43-sol/controles/lint-definitivo.log'

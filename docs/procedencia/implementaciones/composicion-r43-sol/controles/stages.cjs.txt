@@ -1,0 +1,17 @@
+const fs=require('node:fs');const p='tests/composicion-r43.test.ts';let s=fs.readFileSync(p,'utf8'),o=fs.readFileSync('tests/actividades-economicas-2025.test.ts','utf8');s+='\n'+o.slice(o.indexOf('function ingreso('),o.indexOf('it("AEI-01'));
+s+=`\nfor(const opcion of ["gastos-dificiles", "cliente-unico"] as const) {
+ for(const grado of [0,33,65] as const) {
+  it(\`instancias aisladas: \${opcion}, discapacidad \${grado}, activos e importes efectivos\`,()=>{
+   const input: CasoActividad2025 = { ...casoBase(), opcion, ingresos:[ingreso("24000",true)], gastos:[gasto("1000")], activos:[activo()], reta:[{id:"reta",justificante:"tgss",fecha:"2025-06-01",importe:"300",tipo:"ordinaria",propia:true,efectiva:true,periodo:"2025-06"}], discapacidad:{grado,ayudaOMovilidad:false,ejercicioEfectivo:true,documento:"testigo"} }
+   const actual=composed.activity(input),expected=calcularActividad2025(input)
+   expect(actual).toEqual(expected)
+   expect(actual.estado).toBe("soportado")
+   if(actual.estado === "soportado") {
+    const amortizacion=actual.etapas.find((e:{id:string})=>e.id==="amortizacion:pc")
+    if(amortizacion) expect(new Decimal(amortizacion.importe).eq(260)).toBe(true)
+   }
+  })
+ }
+}
+`;
+fs.writeFileSync(p,s)

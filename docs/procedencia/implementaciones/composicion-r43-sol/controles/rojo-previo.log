@@ -1,0 +1,35 @@
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-9e10bf62
+
+ ❯ tests/composicion-r43.test.ts (1 test | 1 failed) 593ms
+   × compone las fronteras financieras sin callbacks del llamante 592ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/composicion-r43.test.ts > compone las fronteras financieras sin callbacks del llamante
+Error: Frontera sin contrato suministrado lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts#sumarRendimientosTrabajo
+ ❯ value scripts/procedencia/flujo-escalas-r36-consumidor.mjs:151:19
+    149|           const fn = boundaries.get(n.data.target)
+    150|           if (!fn)
+    151|             throw Error("Frontera sin contrato suministrado " + n.data…
+       |                   ^
+    152|           const result = fn(...xs)
+    153|           record({
+ ❯ evaluate scripts/procedencia/flujo-escalas-r36-consumidor.mjs:335:19
+ ❯ value scripts/procedencia/flujo-escalas-r36-consumidor.mjs:234:20
+ ❯ evaluate scripts/procedencia/flujo-escalas-r36-consumidor.mjs:139:22
+ ❯ ev scripts/procedencia/flujo-escalas-r36-consumidor.mjs:124:23
+ ❯ evaluate scripts/procedencia/flujo-escalas-r36-consumidor.mjs:254:17
+ ❯ evaluate scripts/procedencia/flujo-escalas-r36-consumidor.mjs:251:33
+ ❯ evaluate scripts/procedencia/flujo-escalas-r36-consumidor.mjs:246:33
+ ❯ value scripts/procedencia/flujo-escalas-r36-consumidor.mjs:234:20
+ ❯ executeEscalasR36 scripts/procedencia/flujo-escalas-r36-consumidor.mjs:380:27
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed (1)
+   Start at  02:56:20
+   Duration  1.08s (transform 43ms, setup 0ms, import 375ms, tests 593ms, environment 0ms)
+

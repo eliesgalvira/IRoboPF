@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -u
+base_bin=/home/elies/Repos/IRoboPF/node_modules/.bin
+nix shell nixpkgs#bun -c bun .cache/composicion-r43-sol/generar.ts > .cache/composicion-r43-sol/generacion-final.log 2>&1
+gen_status=$?
+nix shell nixpkgs#nodejs -c "$base_bin/vitest" run --config .cache/composicion-r43-sol/vitest.config.mts --configLoader native > .cache/composicion-r43-sol/tests-definitivos.log 2>&1
+test_status=$?
+nix shell nixpkgs#nodejs -c "$base_bin/tsc" -p .cache/composicion-r43-sol/tsconfig.json > .cache/composicion-r43-sol/types-final.log 2>&1
+type_status=$?
+nix shell nixpkgs#nodejs -c "$base_bin/oxlint" --threads 1 --disable-nested-config --config /home/elies/Repos/IRoboPF/.oxlintrc.json scripts/procedencia/composicion-r43.ts tests/composicion-r43.test.ts > .cache/composicion-r43-sol/lint-definitivo.log 2>&1
+lint_status=$?
+PYTHONDONTWRITEBYTECODE=1 UV_PROJECT_ENVIRONMENT=/home/elies/.t3/worktrees/IRoboPF/t3-9e10bf62/.cache/composicion-r43-sol/uv bash tools/procedencia/run.sh .cache/composicion-r43-sol/schema.py > .cache/composicion-r43-sol/schema-final.log 2>&1
+schema_status=$?
+printf '{"generation":%s,"tests":%s,"types":%s,"oxlint":%s,"schema":%s}\n' "$gen_status" "$test_status" "$type_status" "$lint_status" "$schema_status" > .cache/composicion-r43-sol/calidad.json

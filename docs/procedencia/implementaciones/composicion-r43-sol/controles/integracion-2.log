@@ -1,0 +1,25 @@
+
+ RUN  v4.1.5 /home/elies/.t3/worktrees/IRoboPF/t3-9e10bf62
+
+ ❯ tests/composicion-r43.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/composicion-r43.test.ts [ tests/composicion-r43.test.ts ]
+Error: Cannot find package 'effect' imported from /home/elies/.t3/worktrees/IRoboPF/t3-9e10bf62/tests/composicion-r43.test.ts
+ ❯ tests/composicion-r43.test.ts:15:1
+     13| })
+     14|
+     15| import { Effect } from "effect"
+       | ^
+     16| import { liquidarIrpfAnual } from "../lib/dominio/irpf/liquidacion/liq…
+     17| import type { CasoFiscalAnual } from "../lib/dominio/irpf/caso-fiscal-…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  02:57:55
+   Duration  583ms (transform 102ms, setup 0ms, import 0ms, tests 0ms, environment 0ms)
+

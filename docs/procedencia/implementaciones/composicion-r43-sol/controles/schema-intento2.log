@@ -1,0 +1,28 @@
+/home/elies/.t3/worktrees/IRoboPF/t3-9e10bf62/.cache/composicion-r43-sol/schema.py:5: DeprecationWarning: jsonschema.RefResolver is deprecated as of v4.18.0, in favor of the https://github.com/python-jsonschema/referencing library, which provides more compliant referencing behavior as well as more flexible APIs for customization. A future release will remove RefResolver. Please file a feature request (on referencing) if you are missing an API for the kind of customization you need.
+  jsonschema.Draft202012Validator(s,resolver=jsonschema.RefResolver(p.as_uri(),s,store={k:v for f in p.parent.glob("*.schema.json") for v in [json.loads(f.read_text())] for k in [v.get("$id",f.as_uri()),f.as_uri()]})).validate(candidate)
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-9e10bf62/.cache/composicion-r43-sol/schema.py", line 5, in <module>
+    jsonschema.Draft202012Validator(s,resolver=jsonschema.RefResolver(p.as_uri(),s,store={k:v for f in p.parent.glob("*.schema.json") for v in [json.loads(f.read_text())] for k in [v.get("$id",f.as_uri()),f.as_uri()]})).validate(candidate)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-9e10bf62/.cache/composicion-r43-sol/uv/lib/python3.13/site-packages/jsonschema/validators.py", line 451, in validate
+    raise error
+jsonschema.exceptions.ValidationError: {'elements': [{'name': 'nombre'}, {'name': 'componente'}]} is not valid under any of the given schemas
+
+Failed validating 'oneOf' in schema['properties']['fragments']['properties']['escalas']['properties']['program']['items']['properties']['data']['properties']['parameters']['items']['properties']['binding']:
+    {'oneOf': [{'type': 'object',
+                'additionalProperties': False,
+                'required': ['name'],
+                'properties': {'name': {'type': 'string'}}},
+               {'type': 'object',
+                'additionalProperties': False,
+                'required': ['fields'],
+                'properties': {'fields': {'type': 'array',
+                                          'items': {'type': 'object',
+                                                    'additionalProperties': False,
+                                                    'required': ['key',
+                                                                 'binding'],
+                                                    'properties': {'key': {'type': 'string'},
+                                                                   'binding': {'$ref': '#/$defs/pattern'}}}}}}]}
+
+On instance['fragments']['escalas']['program'][1527]['data']['parameters'][0]['binding']:
+    {'elements': [{'name': 'nombre'}, {'name': 'componente'}]}

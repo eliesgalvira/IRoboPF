@@ -1,0 +1,8 @@
+const fs=require('node:fs'),path=require('node:path');const p='.cache/composicion-r43-sol/global.json',g=JSON.parse(fs.readFileSync(p)),paths=g.compilerOptions.paths,root='/home/elies/Repos/IRoboPF/node_modules/';
+for(const n of Object.keys({...JSON.parse(fs.readFileSync('package.json')).dependencies,...JSON.parse(fs.readFileSync('package.json')).devDependencies})){
+ const pkg=JSON.parse(fs.readFileSync(root+n+'/package.json'));const select=x=>{if(typeof x==='string')return x;if(!x||Array.isArray(x))return null;return select(x.types)||select(x.import)||select(x.default)};
+ const entries=pkg.exports&&Object.keys(pkg.exports).some(k=>k.startsWith('.'))?Object.entries(pkg.exports):[['.',pkg.exports]];
+ for(const [sub,value]of entries){let f=select(value);if(!f)continue;if(f.endsWith('.js')&&fs.existsSync(root+n+'/'+f.replace(/\.js$/,'.d.ts')))f=f.replace(/\.js$/,'.d.ts');if(f.endsWith('.d.ts'))paths[n+(sub==='.'?'':sub.slice(1))]=[root+n+'/'+f]}
+ if(pkg.types||pkg.typings)paths[n]=[root+n+'/'+(pkg.types||pkg.typings)]
+}
+paths.react=[root+'@types/react/index.d.ts'];paths['react/*']=[root+'@types/react/*.d.ts'];paths['react-dom']=[root+'@types/react-dom/index.d.ts'];paths['react-dom/*']=[root+'@types/react-dom/*.d.ts'];fs.writeFileSync(p,JSON.stringify(g))

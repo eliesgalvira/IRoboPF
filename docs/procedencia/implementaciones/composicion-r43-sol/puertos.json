@@ -1,0 +1,2187 @@
+[
+  {
+    "id": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts#sumarRendimientosTrabajo::return:EUR",
+    "consumer": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts#sumarRendimientosTrabajo",
+    "property": "return",
+    "representation": "EUR",
+    "producer": {
+      "consumer": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts#sumarRendimientosTrabajo",
+      "group": "rentas",
+      "producer": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:sumarRendimientosTrabajo",
+      "conversion": "identity; preserve properties and call arguments"
+    },
+    "parameters": [
+      {
+        "index": 0,
+        "binding": "rendimientos",
+        "type": "ReadonlyArray<RendimientoTrabajo>",
+        "source": {
+          "file": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts",
+          "start": 1474,
+          "end": 1521,
+          "sha256": "fd9f91710a717ffa2d115ca42f0a5c4e3baf383f563820df509432d8acf57e54",
+          "offsetEncoding": "utf16"
+        }
+      },
+      {
+        "index": 1,
+        "binding": "crearImporte",
+        "type": "(centimos: number) => Decimal",
+        "source": {
+          "file": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts",
+          "start": 1525,
+          "end": 1568,
+          "sha256": "fd9f91710a717ffa2d115ca42f0a5c4e3baf383f563820df509432d8acf57e54",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "calls": [
+      {
+        "id": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12193:12260:call",
+        "target": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12193:12217:global",
+        "arguments": [
+          {
+            "index": 0,
+            "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12218:12243:get"
+          },
+          {
+            "index": 1,
+            "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:12245:12259:global"
+          }
+        ],
+        "instance": "call-path + callback-index; never-value-equality",
+        "condition": "evaluated-only-in-selected-control-flow",
+        "source": {
+          "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+          "start": 12193,
+          "end": 12260,
+          "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "condition": [],
+    "instance": "per call path, block environment and callback index",
+    "conversion": "identity; all monetary conversions remain operations inside producer or consumer"
+  },
+  {
+    "id": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts#calcularDesgloseCotizacionesPerfilUniforme::cotizacionTrabajador:EUR",
+    "consumer": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts#calcularDesgloseCotizacionesPerfilUniforme",
+    "property": "cotizacionTrabajador",
+    "representation": "EUR",
+    "producer": {
+      "consumer": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts#calcularDesgloseCotizacionesPerfilUniforme",
+      "group": "ss",
+      "producer": "calcularDesgloseCotizacionesPerfilUniforme",
+      "conversion": "identity; Decimal EUR fields; MEI parameters remain ratios"
+    },
+    "parameters": [
+      {
+        "index": 0,
+        "binding": "{\n  anio,\n  salarioBrutoAnual,\n}",
+        "type": "EntradaCotizacionesSocialesLegacy",
+        "source": {
+          "file": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
+          "start": 1843,
+          "end": 1910,
+          "sha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "calls": [],
+    "condition": [],
+    "instance": "per call path, block environment and callback index",
+    "conversion": "identity; all monetary conversions remain operations inside producer or consumer"
+  },
+  {
+    "id": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts#calcularDesgloseCotizacionesPerfilUniforme::cotizacionEmpresarial:EUR",
+    "consumer": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts#calcularDesgloseCotizacionesPerfilUniforme",
+    "property": "cotizacionEmpresarial",
+    "representation": "EUR",
+    "producer": {
+      "consumer": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts#calcularDesgloseCotizacionesPerfilUniforme",
+      "group": "ss",
+      "producer": "calcularDesgloseCotizacionesPerfilUniforme",
+      "conversion": "identity; Decimal EUR fields; MEI parameters remain ratios"
+    },
+    "parameters": [
+      {
+        "index": 0,
+        "binding": "{\n  anio,\n  salarioBrutoAnual,\n}",
+        "type": "EntradaCotizacionesSocialesLegacy",
+        "source": {
+          "file": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
+          "start": 1843,
+          "end": 1910,
+          "sha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "calls": [],
+    "condition": [],
+    "instance": "per call path, block environment and callback index",
+    "conversion": "identity; all monetary conversions remain operations inside producer or consumer"
+  },
+  {
+    "id": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts#calcularDesgloseCotizacionesPerfilUniforme::meiEmpresarial:EUR",
+    "consumer": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts#calcularDesgloseCotizacionesPerfilUniforme",
+    "property": "meiEmpresarial",
+    "representation": "EUR",
+    "producer": {
+      "consumer": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts#calcularDesgloseCotizacionesPerfilUniforme",
+      "group": "ss",
+      "producer": "calcularDesgloseCotizacionesPerfilUniforme",
+      "conversion": "identity; Decimal EUR fields; MEI parameters remain ratios"
+    },
+    "parameters": [
+      {
+        "index": 0,
+        "binding": "{\n  anio,\n  salarioBrutoAnual,\n}",
+        "type": "EntradaCotizacionesSocialesLegacy",
+        "source": {
+          "file": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
+          "start": 1843,
+          "end": 1910,
+          "sha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "calls": [],
+    "condition": [],
+    "instance": "per call path, block environment and callback index",
+    "conversion": "identity; all monetary conversions remain operations inside producer or consumer"
+  },
+  {
+    "id": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts#calcularDesgloseCotizacionesPerfilUniforme::meiTrabajador:EUR",
+    "consumer": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts#calcularDesgloseCotizacionesPerfilUniforme",
+    "property": "meiTrabajador",
+    "representation": "EUR",
+    "producer": {
+      "consumer": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts#calcularDesgloseCotizacionesPerfilUniforme",
+      "group": "ss",
+      "producer": "calcularDesgloseCotizacionesPerfilUniforme",
+      "conversion": "identity; Decimal EUR fields; MEI parameters remain ratios"
+    },
+    "parameters": [
+      {
+        "index": 0,
+        "binding": "{\n  anio,\n  salarioBrutoAnual,\n}",
+        "type": "EntradaCotizacionesSocialesLegacy",
+        "source": {
+          "file": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
+          "start": 1843,
+          "end": 1910,
+          "sha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "calls": [],
+    "condition": [],
+    "instance": "per call path, block environment and callback index",
+    "conversion": "identity; all monetary conversions remain operations inside producer or consumer"
+  },
+  {
+    "id": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts#calcularDesgloseCotizacionesPerfilUniforme::solidaridadEmpresarial:EUR",
+    "consumer": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts#calcularDesgloseCotizacionesPerfilUniforme",
+    "property": "solidaridadEmpresarial",
+    "representation": "EUR",
+    "producer": {
+      "consumer": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts#calcularDesgloseCotizacionesPerfilUniforme",
+      "group": "ss",
+      "producer": "calcularDesgloseCotizacionesPerfilUniforme",
+      "conversion": "identity; Decimal EUR fields; MEI parameters remain ratios"
+    },
+    "parameters": [
+      {
+        "index": 0,
+        "binding": "{\n  anio,\n  salarioBrutoAnual,\n}",
+        "type": "EntradaCotizacionesSocialesLegacy",
+        "source": {
+          "file": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
+          "start": 1843,
+          "end": 1910,
+          "sha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "calls": [],
+    "condition": [],
+    "instance": "per call path, block environment and callback index",
+    "conversion": "identity; all monetary conversions remain operations inside producer or consumer"
+  },
+  {
+    "id": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts#calcularDesgloseCotizacionesPerfilUniforme::solidaridadTrabajador:EUR",
+    "consumer": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts#calcularDesgloseCotizacionesPerfilUniforme",
+    "property": "solidaridadTrabajador",
+    "representation": "EUR",
+    "producer": {
+      "consumer": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts#calcularDesgloseCotizacionesPerfilUniforme",
+      "group": "ss",
+      "producer": "calcularDesgloseCotizacionesPerfilUniforme",
+      "conversion": "identity; Decimal EUR fields; MEI parameters remain ratios"
+    },
+    "parameters": [
+      {
+        "index": 0,
+        "binding": "{\n  anio,\n  salarioBrutoAnual,\n}",
+        "type": "EntradaCotizacionesSocialesLegacy",
+        "source": {
+          "file": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
+          "start": 1843,
+          "end": 1910,
+          "sha256": "7b5e150d27f82301d07c9b8ca9a4e58747902f3475ca0e4a4769a1a713b2cf18",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "calls": [],
+    "condition": [],
+    "instance": "per call path, block environment and callback index",
+    "conversion": "identity; all monetary conversions remain operations inside producer or consumer"
+  },
+  {
+    "id": "lib/dominio/laboral/cotizaciones-sociales.ts#calcularDesgloseCotizacionesSocialesLegacy::cotizacionTrabajador:EUR",
+    "consumer": "lib/dominio/laboral/cotizaciones-sociales.ts#calcularDesgloseCotizacionesSocialesLegacy",
+    "property": "cotizacionTrabajador",
+    "representation": "EUR",
+    "producer": {
+      "consumer": "lib/dominio/laboral/cotizaciones-sociales.ts#calcularDesgloseCotizacionesSocialesLegacy",
+      "group": "ss",
+      "producer": "calcularDesgloseCotizacionesSocialesLegacy",
+      "conversion": "identity; Decimal EUR fields; MEI parameters remain ratios"
+    },
+    "parameters": [
+      {
+        "index": 0,
+        "binding": "{\n  salarioBrutoAnual,\n  anio,\n}",
+        "type": "EntradaCotizacionesSocialesLegacy",
+        "source": {
+          "file": "lib/dominio/laboral/cotizaciones-sociales.ts",
+          "start": 7818,
+          "end": 7885,
+          "sha256": "7c5b5567d5d4222286e9f167e85954ceebf044fe8fcc826666daa7ad4f0323f1",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "calls": [],
+    "condition": [],
+    "instance": "per call path, block environment and callback index",
+    "conversion": "identity; all monetary conversions remain operations inside producer or consumer"
+  },
+  {
+    "id": "lib/dominio/laboral/cotizaciones-sociales.ts#calcularDesgloseCotizacionesSocialesLegacy::cotizacionEmpresarial:EUR",
+    "consumer": "lib/dominio/laboral/cotizaciones-sociales.ts#calcularDesgloseCotizacionesSocialesLegacy",
+    "property": "cotizacionEmpresarial",
+    "representation": "EUR",
+    "producer": {
+      "consumer": "lib/dominio/laboral/cotizaciones-sociales.ts#calcularDesgloseCotizacionesSocialesLegacy",
+      "group": "ss",
+      "producer": "calcularDesgloseCotizacionesSocialesLegacy",
+      "conversion": "identity; Decimal EUR fields; MEI parameters remain ratios"
+    },
+    "parameters": [
+      {
+        "index": 0,
+        "binding": "{\n  salarioBrutoAnual,\n  anio,\n}",
+        "type": "EntradaCotizacionesSocialesLegacy",
+        "source": {
+          "file": "lib/dominio/laboral/cotizaciones-sociales.ts",
+          "start": 7818,
+          "end": 7885,
+          "sha256": "7c5b5567d5d4222286e9f167e85954ceebf044fe8fcc826666daa7ad4f0323f1",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "calls": [],
+    "condition": [],
+    "instance": "per call path, block environment and callback index",
+    "conversion": "identity; all monetary conversions remain operations inside producer or consumer"
+  },
+  {
+    "id": "lib/dominio/laboral/cotizaciones-sociales.ts#calcularDesgloseCotizacionesSocialesLegacy::meiEmpresarial:EUR",
+    "consumer": "lib/dominio/laboral/cotizaciones-sociales.ts#calcularDesgloseCotizacionesSocialesLegacy",
+    "property": "meiEmpresarial",
+    "representation": "EUR",
+    "producer": {
+      "consumer": "lib/dominio/laboral/cotizaciones-sociales.ts#calcularDesgloseCotizacionesSocialesLegacy",
+      "group": "ss",
+      "producer": "calcularDesgloseCotizacionesSocialesLegacy",
+      "conversion": "identity; Decimal EUR fields; MEI parameters remain ratios"
+    },
+    "parameters": [
+      {
+        "index": 0,
+        "binding": "{\n  salarioBrutoAnual,\n  anio,\n}",
+        "type": "EntradaCotizacionesSocialesLegacy",
+        "source": {
+          "file": "lib/dominio/laboral/cotizaciones-sociales.ts",
+          "start": 7818,
+          "end": 7885,
+          "sha256": "7c5b5567d5d4222286e9f167e85954ceebf044fe8fcc826666daa7ad4f0323f1",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "calls": [],
+    "condition": [],
+    "instance": "per call path, block environment and callback index",
+    "conversion": "identity; all monetary conversions remain operations inside producer or consumer"
+  },
+  {
+    "id": "lib/dominio/laboral/cotizaciones-sociales.ts#calcularDesgloseCotizacionesSocialesLegacy::meiTrabajador:EUR",
+    "consumer": "lib/dominio/laboral/cotizaciones-sociales.ts#calcularDesgloseCotizacionesSocialesLegacy",
+    "property": "meiTrabajador",
+    "representation": "EUR",
+    "producer": {
+      "consumer": "lib/dominio/laboral/cotizaciones-sociales.ts#calcularDesgloseCotizacionesSocialesLegacy",
+      "group": "ss",
+      "producer": "calcularDesgloseCotizacionesSocialesLegacy",
+      "conversion": "identity; Decimal EUR fields; MEI parameters remain ratios"
+    },
+    "parameters": [
+      {
+        "index": 0,
+        "binding": "{\n  salarioBrutoAnual,\n  anio,\n}",
+        "type": "EntradaCotizacionesSocialesLegacy",
+        "source": {
+          "file": "lib/dominio/laboral/cotizaciones-sociales.ts",
+          "start": 7818,
+          "end": 7885,
+          "sha256": "7c5b5567d5d4222286e9f167e85954ceebf044fe8fcc826666daa7ad4f0323f1",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "calls": [],
+    "condition": [],
+    "instance": "per call path, block environment and callback index",
+    "conversion": "identity; all monetary conversions remain operations inside producer or consumer"
+  },
+  {
+    "id": "lib/dominio/laboral/cotizaciones-sociales.ts#calcularDesgloseCotizacionesSocialesLegacy::solidaridadEmpresarial:EUR",
+    "consumer": "lib/dominio/laboral/cotizaciones-sociales.ts#calcularDesgloseCotizacionesSocialesLegacy",
+    "property": "solidaridadEmpresarial",
+    "representation": "EUR",
+    "producer": {
+      "consumer": "lib/dominio/laboral/cotizaciones-sociales.ts#calcularDesgloseCotizacionesSocialesLegacy",
+      "group": "ss",
+      "producer": "calcularDesgloseCotizacionesSocialesLegacy",
+      "conversion": "identity; Decimal EUR fields; MEI parameters remain ratios"
+    },
+    "parameters": [
+      {
+        "index": 0,
+        "binding": "{\n  salarioBrutoAnual,\n  anio,\n}",
+        "type": "EntradaCotizacionesSocialesLegacy",
+        "source": {
+          "file": "lib/dominio/laboral/cotizaciones-sociales.ts",
+          "start": 7818,
+          "end": 7885,
+          "sha256": "7c5b5567d5d4222286e9f167e85954ceebf044fe8fcc826666daa7ad4f0323f1",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "calls": [],
+    "condition": [],
+    "instance": "per call path, block environment and callback index",
+    "conversion": "identity; all monetary conversions remain operations inside producer or consumer"
+  },
+  {
+    "id": "lib/dominio/laboral/cotizaciones-sociales.ts#calcularDesgloseCotizacionesSocialesLegacy::solidaridadTrabajador:EUR",
+    "consumer": "lib/dominio/laboral/cotizaciones-sociales.ts#calcularDesgloseCotizacionesSocialesLegacy",
+    "property": "solidaridadTrabajador",
+    "representation": "EUR",
+    "producer": {
+      "consumer": "lib/dominio/laboral/cotizaciones-sociales.ts#calcularDesgloseCotizacionesSocialesLegacy",
+      "group": "ss",
+      "producer": "calcularDesgloseCotizacionesSocialesLegacy",
+      "conversion": "identity; Decimal EUR fields; MEI parameters remain ratios"
+    },
+    "parameters": [
+      {
+        "index": 0,
+        "binding": "{\n  salarioBrutoAnual,\n  anio,\n}",
+        "type": "EntradaCotizacionesSocialesLegacy",
+        "source": {
+          "file": "lib/dominio/laboral/cotizaciones-sociales.ts",
+          "start": 7818,
+          "end": 7885,
+          "sha256": "7c5b5567d5d4222286e9f167e85954ceebf044fe8fcc826666daa7ad4f0323f1",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "calls": [],
+    "condition": [],
+    "instance": "per call path, block environment and callback index",
+    "conversion": "identity; all monetary conversions remain operations inside producer or consumer"
+  },
+  {
+    "id": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts#calcularRendimientoNetoTrabajo::rendimientoIntegro:EUR",
+    "consumer": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts#calcularRendimientoNetoTrabajo",
+    "property": "rendimientoIntegro",
+    "representation": "EUR",
+    "producer": {
+      "consumer": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts#calcularRendimientoNetoTrabajo",
+      "group": "rentas",
+      "producer": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:calcularRendimientoNetoTrabajo",
+      "conversion": "identity; preserve properties and call arguments"
+    },
+    "parameters": [
+      {
+        "index": 0,
+        "binding": "{\n  anio,\n  rendimientoIntegro,\n  cotizacionTrabajador,\n}",
+        "type": "{\n  readonly anio: AnioFiscal\n  readonly rendimientoIntegro: Decimal\n  readonly cotizacionTrabajador?: Decimal\n}",
+        "source": {
+          "file": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts",
+          "start": 670,
+          "end": 841,
+          "sha256": "fd9f91710a717ffa2d115ca42f0a5c4e3baf383f563820df509432d8acf57e54",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "calls": [
+      {
+        "id": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13132:13326:call",
+        "target": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13132:13162:global",
+        "arguments": [
+          {
+            "index": 0,
+            "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13163:13325:object"
+          }
+        ],
+        "instance": "call-path + callback-index; never-value-equality",
+        "condition": "evaluated-only-in-selected-control-flow",
+        "source": {
+          "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+          "start": 13132,
+          "end": 13326,
+          "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "condition": [],
+    "instance": "per call path, block environment and callback index",
+    "conversion": "identity; all monetary conversions remain operations inside producer or consumer"
+  },
+  {
+    "id": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts#calcularRendimientoNetoTrabajo::rendimientoNeto:EUR",
+    "consumer": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts#calcularRendimientoNetoTrabajo",
+    "property": "rendimientoNeto",
+    "representation": "EUR",
+    "producer": {
+      "consumer": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts#calcularRendimientoNetoTrabajo",
+      "group": "rentas",
+      "producer": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:calcularRendimientoNetoTrabajo",
+      "conversion": "identity; preserve properties and call arguments"
+    },
+    "parameters": [
+      {
+        "index": 0,
+        "binding": "{\n  anio,\n  rendimientoIntegro,\n  cotizacionTrabajador,\n}",
+        "type": "{\n  readonly anio: AnioFiscal\n  readonly rendimientoIntegro: Decimal\n  readonly cotizacionTrabajador?: Decimal\n}",
+        "source": {
+          "file": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts",
+          "start": 670,
+          "end": 841,
+          "sha256": "fd9f91710a717ffa2d115ca42f0a5c4e3baf383f563820df509432d8acf57e54",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "calls": [
+      {
+        "id": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13132:13326:call",
+        "target": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13132:13162:global",
+        "arguments": [
+          {
+            "index": 0,
+            "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13163:13325:object"
+          }
+        ],
+        "instance": "call-path + callback-index; never-value-equality",
+        "condition": "evaluated-only-in-selected-control-flow",
+        "source": {
+          "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+          "start": 13132,
+          "end": 13326,
+          "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "condition": [],
+    "instance": "per call path, block environment and callback index",
+    "conversion": "identity; all monetary conversions remain operations inside producer or consumer"
+  },
+  {
+    "id": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts#calcularRendimientoNetoTrabajo::rendimientoPrevioNeto:EUR",
+    "consumer": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts#calcularRendimientoNetoTrabajo",
+    "property": "rendimientoPrevioNeto",
+    "representation": "EUR",
+    "producer": {
+      "consumer": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts#calcularRendimientoNetoTrabajo",
+      "group": "rentas",
+      "producer": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:calcularRendimientoNetoTrabajo",
+      "conversion": "identity; preserve properties and call arguments"
+    },
+    "parameters": [
+      {
+        "index": 0,
+        "binding": "{\n  anio,\n  rendimientoIntegro,\n  cotizacionTrabajador,\n}",
+        "type": "{\n  readonly anio: AnioFiscal\n  readonly rendimientoIntegro: Decimal\n  readonly cotizacionTrabajador?: Decimal\n}",
+        "source": {
+          "file": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts",
+          "start": 670,
+          "end": 841,
+          "sha256": "fd9f91710a717ffa2d115ca42f0a5c4e3baf383f563820df509432d8acf57e54",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "calls": [
+      {
+        "id": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13132:13326:call",
+        "target": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13132:13162:global",
+        "arguments": [
+          {
+            "index": 0,
+            "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13163:13325:object"
+          }
+        ],
+        "instance": "call-path + callback-index; never-value-equality",
+        "condition": "evaluated-only-in-selected-control-flow",
+        "source": {
+          "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+          "start": 13132,
+          "end": 13326,
+          "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "condition": [],
+    "instance": "per call path, block environment and callback index",
+    "conversion": "identity; all monetary conversions remain operations inside producer or consumer"
+  },
+  {
+    "id": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts#calcularRendimientoNetoTrabajo::gastosDeducibles:EUR",
+    "consumer": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts#calcularRendimientoNetoTrabajo",
+    "property": "gastosDeducibles",
+    "representation": "EUR",
+    "producer": {
+      "consumer": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts#calcularRendimientoNetoTrabajo",
+      "group": "rentas",
+      "producer": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:calcularRendimientoNetoTrabajo",
+      "conversion": "identity; preserve properties and call arguments"
+    },
+    "parameters": [
+      {
+        "index": 0,
+        "binding": "{\n  anio,\n  rendimientoIntegro,\n  cotizacionTrabajador,\n}",
+        "type": "{\n  readonly anio: AnioFiscal\n  readonly rendimientoIntegro: Decimal\n  readonly cotizacionTrabajador?: Decimal\n}",
+        "source": {
+          "file": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts",
+          "start": 670,
+          "end": 841,
+          "sha256": "fd9f91710a717ffa2d115ca42f0a5c4e3baf383f563820df509432d8acf57e54",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "calls": [
+      {
+        "id": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13132:13326:call",
+        "target": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13132:13162:global",
+        "arguments": [
+          {
+            "index": 0,
+            "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13163:13325:object"
+          }
+        ],
+        "instance": "call-path + callback-index; never-value-equality",
+        "condition": "evaluated-only-in-selected-control-flow",
+        "source": {
+          "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+          "start": 13132,
+          "end": 13326,
+          "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "condition": [],
+    "instance": "per call path, block environment and callback index",
+    "conversion": "identity; all monetary conversions remain operations inside producer or consumer"
+  },
+  {
+    "id": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts#calcularRendimientoNetoTrabajo::cotizacionTrabajador:EUR",
+    "consumer": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts#calcularRendimientoNetoTrabajo",
+    "property": "cotizacionTrabajador",
+    "representation": "EUR",
+    "producer": {
+      "consumer": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts#calcularRendimientoNetoTrabajo",
+      "group": "rentas",
+      "producer": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:calcularRendimientoNetoTrabajo",
+      "conversion": "identity; preserve properties and call arguments"
+    },
+    "parameters": [
+      {
+        "index": 0,
+        "binding": "{\n  anio,\n  rendimientoIntegro,\n  cotizacionTrabajador,\n}",
+        "type": "{\n  readonly anio: AnioFiscal\n  readonly rendimientoIntegro: Decimal\n  readonly cotizacionTrabajador?: Decimal\n}",
+        "source": {
+          "file": "lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts",
+          "start": 670,
+          "end": 841,
+          "sha256": "fd9f91710a717ffa2d115ca42f0a5c4e3baf383f563820df509432d8acf57e54",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "calls": [
+      {
+        "id": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13132:13326:call",
+        "target": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13132:13162:global",
+        "arguments": [
+          {
+            "index": 0,
+            "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13163:13325:object"
+          }
+        ],
+        "instance": "call-path + callback-index; never-value-equality",
+        "condition": "evaluated-only-in-selected-control-flow",
+        "source": {
+          "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+          "start": 13132,
+          "end": 13326,
+          "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "condition": [],
+    "instance": "per call path, block environment and callback index",
+    "conversion": "identity; all monetary conversions remain operations inside producer or consumer"
+  },
+  {
+    "id": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts#sumarRendimientosCapitalInmobiliario::return:EUR",
+    "consumer": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts#sumarRendimientosCapitalInmobiliario",
+    "property": "return",
+    "representation": "EUR",
+    "producer": {
+      "consumer": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts#sumarRendimientosCapitalInmobiliario",
+      "group": "rentas",
+      "producer": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts:sumarRendimientosCapitalInmobiliario",
+      "conversion": "identity; preserve properties and call arguments"
+    },
+    "parameters": [
+      {
+        "index": 0,
+        "binding": "rendimientos",
+        "type": "ReadonlyArray<RendimientoCapitalInmobiliario>",
+        "source": {
+          "file": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts",
+          "start": 349,
+          "end": 408,
+          "sha256": "0c81577c19cbf3b39620b19a8073a00861a694093e1af9927e314f02db2adbd8",
+          "offsetEncoding": "utf16"
+        }
+      },
+      {
+        "index": 1,
+        "binding": "convertirCentimosAEuros",
+        "type": "(centimos: number) => Decimal",
+        "source": {
+          "file": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts",
+          "start": 412,
+          "end": 466,
+          "sha256": "0c81577c19cbf3b39620b19a8073a00861a694093e1af9927e314f02db2adbd8",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "calls": [
+      {
+        "id": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13460:13650:call",
+        "target": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13460:13496:global",
+        "arguments": [
+          {
+            "index": 0,
+            "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13506:13618:call"
+          },
+          {
+            "index": 1,
+            "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13628:13642:global"
+          }
+        ],
+        "instance": "call-path + callback-index; never-value-equality",
+        "condition": "evaluated-only-in-selected-control-flow",
+        "source": {
+          "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+          "start": 13460,
+          "end": 13650,
+          "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "condition": [],
+    "instance": "per call path, block environment and callback index",
+    "conversion": "identity; all monetary conversions remain operations inside producer or consumer"
+  },
+  {
+    "id": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts#calcularRendimientoNetoCapitalInmobiliarioSimplificado::rendimientoNeto:EUR",
+    "consumer": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts#calcularRendimientoNetoCapitalInmobiliarioSimplificado",
+    "property": "rendimientoNeto",
+    "representation": "EUR",
+    "producer": {
+      "consumer": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts#calcularRendimientoNetoCapitalInmobiliarioSimplificado",
+      "group": "rentas",
+      "producer": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts:calcularRendimientoNetoCapitalInmobiliarioSimplificado",
+      "conversion": "identity; preserve properties and call arguments"
+    },
+    "parameters": [
+      {
+        "index": 0,
+        "binding": "{\n  rendimientoIntegro,\n}",
+        "type": "{\n  readonly rendimientoIntegro: Decimal\n}",
+        "source": {
+          "file": "lib/dominio/irpf/rendimientos/rendimientos-capital-inmobiliario.ts",
+          "start": 1266,
+          "end": 1335,
+          "sha256": "0c81577c19cbf3b39620b19a8073a00861a694093e1af9927e314f02db2adbd8",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "calls": [
+      {
+        "id": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13776:13908:call",
+        "target": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13776:13830:global",
+        "arguments": [
+          {
+            "index": 0,
+            "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:13831:13907:object"
+          }
+        ],
+        "instance": "call-path + callback-index; never-value-equality",
+        "condition": "evaluated-only-in-selected-control-flow",
+        "source": {
+          "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+          "start": 13776,
+          "end": 13908,
+          "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "condition": [],
+    "instance": "per call path, block environment and callback index",
+    "conversion": "identity; all monetary conversions remain operations inside producer or consumer"
+  },
+  {
+    "id": "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts#calcularGananciasPatrimonialesPorTransmision::gananciaSujetaGeneral:EUR",
+    "consumer": "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts#calcularGananciasPatrimonialesPorTransmision",
+    "property": "gananciaSujetaGeneral",
+    "representation": "EUR",
+    "producer": {
+      "consumer": "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts#calcularGananciasPatrimonialesPorTransmision",
+      "group": "rentas",
+      "producer": "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:calcularGananciasPatrimonialesPorTransmision",
+      "conversion": "identity; preserve properties and call arguments"
+    },
+    "parameters": [
+      {
+        "index": 0,
+        "binding": "{\n  anio,\n  edadContribuyente,\n  ganancias,\n  convertirCentimos,\n}",
+        "type": "{\n  readonly anio: AnioFiscal\n  readonly edadContribuyente: number\n  readonly ganancias: ReadonlyArray<GananciaPatrimonialTransmision>\n  readonly convertirCentimos: typeof centimosAEuros\n}",
+        "source": {
+          "file": "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts",
+          "start": 1129,
+          "end": 1385,
+          "sha256": "4bf3fae25e9a40fb0099141fb63afb774f6d4f2d3c4eb025a3445992fa8defb4",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "calls": [
+      {
+        "id": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14024:14339:call",
+        "target": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14024:14068:global",
+        "arguments": [
+          {
+            "index": 0,
+            "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14069:14338:object"
+          }
+        ],
+        "instance": "call-path + callback-index; never-value-equality",
+        "condition": "evaluated-only-in-selected-control-flow",
+        "source": {
+          "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+          "start": 14024,
+          "end": 14339,
+          "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "condition": [],
+    "instance": "per call path, block environment and callback index",
+    "conversion": "identity; all monetary conversions remain operations inside producer or consumer"
+  },
+  {
+    "id": "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts#calcularGananciasPatrimonialesPorTransmision::gananciaSujetaAhorro:EUR",
+    "consumer": "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts#calcularGananciasPatrimonialesPorTransmision",
+    "property": "gananciaSujetaAhorro",
+    "representation": "EUR",
+    "producer": {
+      "consumer": "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts#calcularGananciasPatrimonialesPorTransmision",
+      "group": "rentas",
+      "producer": "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:calcularGananciasPatrimonialesPorTransmision",
+      "conversion": "identity; preserve properties and call arguments"
+    },
+    "parameters": [
+      {
+        "index": 0,
+        "binding": "{\n  anio,\n  edadContribuyente,\n  ganancias,\n  convertirCentimos,\n}",
+        "type": "{\n  readonly anio: AnioFiscal\n  readonly edadContribuyente: number\n  readonly ganancias: ReadonlyArray<GananciaPatrimonialTransmision>\n  readonly convertirCentimos: typeof centimosAEuros\n}",
+        "source": {
+          "file": "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts",
+          "start": 1129,
+          "end": 1385,
+          "sha256": "4bf3fae25e9a40fb0099141fb63afb774f6d4f2d3c4eb025a3445992fa8defb4",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "calls": [
+      {
+        "id": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14024:14339:call",
+        "target": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14024:14068:global",
+        "arguments": [
+          {
+            "index": 0,
+            "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14069:14338:object"
+          }
+        ],
+        "instance": "call-path + callback-index; never-value-equality",
+        "condition": "evaluated-only-in-selected-control-flow",
+        "source": {
+          "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+          "start": 14024,
+          "end": 14339,
+          "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "condition": [],
+    "instance": "per call path, block environment and callback index",
+    "conversion": "identity; all monetary conversions remain operations inside producer or consumer"
+  },
+  {
+    "id": "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts#calcularGananciasPatrimonialesPorTransmision::gananciaTotal:EUR",
+    "consumer": "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts#calcularGananciasPatrimonialesPorTransmision",
+    "property": "gananciaTotal",
+    "representation": "EUR",
+    "producer": {
+      "consumer": "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts#calcularGananciasPatrimonialesPorTransmision",
+      "group": "rentas",
+      "producer": "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:calcularGananciasPatrimonialesPorTransmision",
+      "conversion": "identity; preserve properties and call arguments"
+    },
+    "parameters": [
+      {
+        "index": 0,
+        "binding": "{\n  anio,\n  edadContribuyente,\n  ganancias,\n  convertirCentimos,\n}",
+        "type": "{\n  readonly anio: AnioFiscal\n  readonly edadContribuyente: number\n  readonly ganancias: ReadonlyArray<GananciaPatrimonialTransmision>\n  readonly convertirCentimos: typeof centimosAEuros\n}",
+        "source": {
+          "file": "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts",
+          "start": 1129,
+          "end": 1385,
+          "sha256": "4bf3fae25e9a40fb0099141fb63afb774f6d4f2d3c4eb025a3445992fa8defb4",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "calls": [
+      {
+        "id": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14024:14339:call",
+        "target": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14024:14068:global",
+        "arguments": [
+          {
+            "index": 0,
+            "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14069:14338:object"
+          }
+        ],
+        "instance": "call-path + callback-index; never-value-equality",
+        "condition": "evaluated-only-in-selected-control-flow",
+        "source": {
+          "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+          "start": 14024,
+          "end": 14339,
+          "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "condition": [],
+    "instance": "per call path, block environment and callback index",
+    "conversion": "identity; all monetary conversions remain operations inside producer or consumer"
+  },
+  {
+    "id": "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts#calcularGananciasPatrimonialesPorTransmision::gananciaExenta:EUR",
+    "consumer": "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts#calcularGananciasPatrimonialesPorTransmision",
+    "property": "gananciaExenta",
+    "representation": "EUR",
+    "producer": {
+      "consumer": "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts#calcularGananciasPatrimonialesPorTransmision",
+      "group": "rentas",
+      "producer": "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:calcularGananciasPatrimonialesPorTransmision",
+      "conversion": "identity; preserve properties and call arguments"
+    },
+    "parameters": [
+      {
+        "index": 0,
+        "binding": "{\n  anio,\n  edadContribuyente,\n  ganancias,\n  convertirCentimos,\n}",
+        "type": "{\n  readonly anio: AnioFiscal\n  readonly edadContribuyente: number\n  readonly ganancias: ReadonlyArray<GananciaPatrimonialTransmision>\n  readonly convertirCentimos: typeof centimosAEuros\n}",
+        "source": {
+          "file": "lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts",
+          "start": 1129,
+          "end": 1385,
+          "sha256": "4bf3fae25e9a40fb0099141fb63afb774f6d4f2d3c4eb025a3445992fa8defb4",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "calls": [
+      {
+        "id": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14024:14339:call",
+        "target": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14024:14068:global",
+        "arguments": [
+          {
+            "index": 0,
+            "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14069:14338:object"
+          }
+        ],
+        "instance": "call-path + callback-index; never-value-equality",
+        "condition": "evaluated-only-in-selected-control-flow",
+        "source": {
+          "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+          "start": 14024,
+          "end": 14339,
+          "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "condition": [],
+    "instance": "per call path, block environment and callback index",
+    "conversion": "identity; all monetary conversions remain operations inside producer or consumer"
+  },
+  {
+    "id": "lib/dominio/irpf/minimos/derechos.ts#validarRentasAnualesDerechos::return:admission-pending-review",
+    "consumer": "lib/dominio/irpf/minimos/derechos.ts#validarRentasAnualesDerechos",
+    "property": "return",
+    "representation": "admission-pending-review",
+    "producer": null,
+    "parameters": [
+      {
+        "index": 0,
+        "binding": "caso",
+        "type": "DerechosMinimos2025",
+        "source": {
+          "file": "lib/dominio/irpf/minimos/derechos.ts",
+          "start": 8098,
+          "end": 8123,
+          "sha256": "c484d8615fd0181302874fa6f652c88f187a8703ff4a80359d73e9ae4c0d8185",
+          "offsetEncoding": "utf16"
+        }
+      },
+      {
+        "index": 1,
+        "binding": "rentaNoExenta",
+        "type": "Decimal",
+        "source": {
+          "file": "lib/dominio/irpf/minimos/derechos.ts",
+          "start": 8125,
+          "end": 8147,
+          "sha256": "c484d8615fd0181302874fa6f652c88f187a8703ff4a80359d73e9ae4c0d8185",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "calls": [
+      {
+        "id": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14818:14949:call",
+        "target": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14818:14846:global",
+        "arguments": [
+          {
+            "index": 0,
+            "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14854:14874:get"
+          },
+          {
+            "index": 1,
+            "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:14882:14943:call"
+          }
+        ],
+        "instance": "call-path + callback-index; never-value-equality",
+        "condition": "evaluated-only-in-selected-control-flow",
+        "source": {
+          "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+          "start": 14818,
+          "end": 14949,
+          "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "condition": [],
+    "instance": "per call path, block environment and callback index",
+    "conversion": "identity; all monetary conversions remain operations inside producer or consumer"
+  },
+  {
+    "id": "lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts#calcularReduccionTrabajoConOtrasRentas::return:EUR",
+    "consumer": "lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts#calcularReduccionTrabajoConOtrasRentas",
+    "property": "return",
+    "representation": "EUR",
+    "producer": {
+      "consumer": "lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts#calcularReduccionTrabajoConOtrasRentas",
+      "group": "rentas",
+      "producer": "lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts:calcularReduccionTrabajoConOtrasRentas",
+      "conversion": "identity; preserve properties and call arguments"
+    },
+    "parameters": [
+      {
+        "index": 0,
+        "binding": "{\n  anio,\n  fechaFallecimiento,\n  rendimientoPrevioNeto,\n  otrasRentasNoExentas,\n}",
+        "type": "{\n  readonly anio: AnioFiscal\n  readonly fechaFallecimiento?: Date | undefined\n  readonly rendimientoPrevioNeto: Decimal\n  /** Suma algebraica de rentas distintas del trabajo, antes de reducciones y compensaciones. */\n  readonly otrasRentasNoExentas: Decimal\n}",
+        "source": {
+          "file": "lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts",
+          "start": 848,
+          "end": 1192,
+          "sha256": "71165de6c9520090e3f15a50e28b809f32e0a4ed99cb2c3866e01103efb0e696",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "calls": [
+      {
+        "id": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15117:15347:call",
+        "target": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15117:15155:global",
+        "arguments": [
+          {
+            "index": 0,
+            "operand": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts:15156:15346:object"
+          }
+        ],
+        "instance": "call-path + callback-index; never-value-equality",
+        "condition": "evaluated-only-in-selected-control-flow",
+        "source": {
+          "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
+          "start": 15117,
+          "end": 15347,
+          "sha256": "096215328f083d711fc1e61d70b41ae555ee115b4872a55f7df0c512d05a439f",
+          "offsetEncoding": "utf16"
+        }
+      },
+      {
+        "id": "lib/dominio/irpf/trabajo-anual/conexion.ts:3138:3309:call",
+        "target": "lib/dominio/irpf/trabajo-anual/conexion.ts:3138:3176:global",
+        "arguments": [
+          {
+            "index": 0,
+            "operand": "lib/dominio/irpf/trabajo-anual/conexion.ts:3177:3308:object"
+          }
+        ],
+        "instance": "call-path + callback-index; never-value-equality",
+        "condition": "evaluated-only-in-selected-control-flow",
+        "source": {
+          "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+          "start": 3138,
+          "end": 3309,
+          "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "condition": [],
+    "instance": "per call path, block environment and callback index",
+    "conversion": "identity; all monetary conversions remain operations inside producer or consumer"
+  },
+  {
+    "id": "lib/dominio/irpf/trabajo-anual/adaptador.ts#adaptarTrabajoAnual::estado:discrete",
+    "consumer": "lib/dominio/irpf/trabajo-anual/adaptador.ts#adaptarTrabajoAnual",
+    "property": "estado",
+    "representation": "discrete",
+    "producer": {
+      "consumer": "lib/dominio/irpf/trabajo-anual/adaptador.ts#adaptarTrabajoAnual",
+      "group": "rentas",
+      "producer": "lib/dominio/irpf/trabajo-anual/adaptador.ts:adaptarTrabajoAnual",
+      "conversion": "identity; preserve properties and call arguments"
+    },
+    "parameters": [
+      {
+        "index": 0,
+        "binding": "caso",
+        "type": "GastosTrabajo",
+        "source": {
+          "file": "lib/dominio/irpf/trabajo-anual/adaptador.ts",
+          "start": 228,
+          "end": 247,
+          "sha256": "8d5b5b250044ec80386ac7bae17413e0c783cbd387f7b172043537af21688b94",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "calls": [
+      {
+        "id": "lib/dominio/irpf/trabajo-anual/conexion.ts:2899:2932:call",
+        "target": "lib/dominio/irpf/trabajo-anual/conexion.ts:2899:2918:global",
+        "arguments": [
+          {
+            "index": 0,
+            "operand": "lib/dominio/irpf/trabajo-anual/conexion.ts:2919:2931:get"
+          }
+        ],
+        "instance": "call-path + callback-index; never-value-equality",
+        "condition": "evaluated-only-in-selected-control-flow",
+        "source": {
+          "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+          "start": 2899,
+          "end": 2932,
+          "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "condition": [
+      {
+        "when": {
+          "property": "estado",
+          "equals": "aporte-disponible"
+        },
+        "outputs": [
+          "estado:discrete",
+          "rendimientoAntesArt20:EUR-string",
+          "argumentoArt20:EUR-string",
+          "gastos.integro:EUR-string"
+        ]
+      },
+      {
+        "when": {
+          "property": "estado",
+          "equals": "no-soportado"
+        },
+        "outputs": [
+          "estado:discrete",
+          "motivo:string"
+        ]
+      }
+    ],
+    "instance": "per call path, block environment and callback index",
+    "conversion": "identity; all monetary conversions remain operations inside producer or consumer"
+  },
+  {
+    "id": "lib/dominio/irpf/trabajo-anual/adaptador.ts#adaptarTrabajoAnual::rendimientoAntesArt20:EUR-string",
+    "consumer": "lib/dominio/irpf/trabajo-anual/adaptador.ts#adaptarTrabajoAnual",
+    "property": "rendimientoAntesArt20",
+    "representation": "EUR-string",
+    "producer": {
+      "consumer": "lib/dominio/irpf/trabajo-anual/adaptador.ts#adaptarTrabajoAnual",
+      "group": "rentas",
+      "producer": "lib/dominio/irpf/trabajo-anual/adaptador.ts:adaptarTrabajoAnual",
+      "conversion": "identity; preserve properties and call arguments"
+    },
+    "parameters": [
+      {
+        "index": 0,
+        "binding": "caso",
+        "type": "GastosTrabajo",
+        "source": {
+          "file": "lib/dominio/irpf/trabajo-anual/adaptador.ts",
+          "start": 228,
+          "end": 247,
+          "sha256": "8d5b5b250044ec80386ac7bae17413e0c783cbd387f7b172043537af21688b94",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "calls": [
+      {
+        "id": "lib/dominio/irpf/trabajo-anual/conexion.ts:2899:2932:call",
+        "target": "lib/dominio/irpf/trabajo-anual/conexion.ts:2899:2918:global",
+        "arguments": [
+          {
+            "index": 0,
+            "operand": "lib/dominio/irpf/trabajo-anual/conexion.ts:2919:2931:get"
+          }
+        ],
+        "instance": "call-path + callback-index; never-value-equality",
+        "condition": "evaluated-only-in-selected-control-flow",
+        "source": {
+          "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+          "start": 2899,
+          "end": 2932,
+          "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "condition": [
+      {
+        "when": {
+          "property": "estado",
+          "equals": "aporte-disponible"
+        },
+        "outputs": [
+          "estado:discrete",
+          "rendimientoAntesArt20:EUR-string",
+          "argumentoArt20:EUR-string",
+          "gastos.integro:EUR-string"
+        ]
+      },
+      {
+        "when": {
+          "property": "estado",
+          "equals": "no-soportado"
+        },
+        "outputs": [
+          "estado:discrete",
+          "motivo:string"
+        ]
+      }
+    ],
+    "instance": "per call path, block environment and callback index",
+    "conversion": "identity; all monetary conversions remain operations inside producer or consumer"
+  },
+  {
+    "id": "lib/dominio/irpf/trabajo-anual/adaptador.ts#adaptarTrabajoAnual::argumentoArt20:EUR-string",
+    "consumer": "lib/dominio/irpf/trabajo-anual/adaptador.ts#adaptarTrabajoAnual",
+    "property": "argumentoArt20",
+    "representation": "EUR-string",
+    "producer": {
+      "consumer": "lib/dominio/irpf/trabajo-anual/adaptador.ts#adaptarTrabajoAnual",
+      "group": "rentas",
+      "producer": "lib/dominio/irpf/trabajo-anual/adaptador.ts:adaptarTrabajoAnual",
+      "conversion": "identity; preserve properties and call arguments"
+    },
+    "parameters": [
+      {
+        "index": 0,
+        "binding": "caso",
+        "type": "GastosTrabajo",
+        "source": {
+          "file": "lib/dominio/irpf/trabajo-anual/adaptador.ts",
+          "start": 228,
+          "end": 247,
+          "sha256": "8d5b5b250044ec80386ac7bae17413e0c783cbd387f7b172043537af21688b94",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "calls": [
+      {
+        "id": "lib/dominio/irpf/trabajo-anual/conexion.ts:2899:2932:call",
+        "target": "lib/dominio/irpf/trabajo-anual/conexion.ts:2899:2918:global",
+        "arguments": [
+          {
+            "index": 0,
+            "operand": "lib/dominio/irpf/trabajo-anual/conexion.ts:2919:2931:get"
+          }
+        ],
+        "instance": "call-path + callback-index; never-value-equality",
+        "condition": "evaluated-only-in-selected-control-flow",
+        "source": {
+          "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+          "start": 2899,
+          "end": 2932,
+          "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "condition": [
+      {
+        "when": {
+          "property": "estado",
+          "equals": "aporte-disponible"
+        },
+        "outputs": [
+          "estado:discrete",
+          "rendimientoAntesArt20:EUR-string",
+          "argumentoArt20:EUR-string",
+          "gastos.integro:EUR-string"
+        ]
+      },
+      {
+        "when": {
+          "property": "estado",
+          "equals": "no-soportado"
+        },
+        "outputs": [
+          "estado:discrete",
+          "motivo:string"
+        ]
+      }
+    ],
+    "instance": "per call path, block environment and callback index",
+    "conversion": "identity; all monetary conversions remain operations inside producer or consumer"
+  },
+  {
+    "id": "lib/dominio/irpf/trabajo-anual/adaptador.ts#adaptarTrabajoAnual::gastos.integro:EUR-string",
+    "consumer": "lib/dominio/irpf/trabajo-anual/adaptador.ts#adaptarTrabajoAnual",
+    "property": "gastos.integro",
+    "representation": "EUR-string",
+    "producer": {
+      "consumer": "lib/dominio/irpf/trabajo-anual/adaptador.ts#adaptarTrabajoAnual",
+      "group": "rentas",
+      "producer": "lib/dominio/irpf/trabajo-anual/adaptador.ts:adaptarTrabajoAnual",
+      "conversion": "identity; preserve properties and call arguments"
+    },
+    "parameters": [
+      {
+        "index": 0,
+        "binding": "caso",
+        "type": "GastosTrabajo",
+        "source": {
+          "file": "lib/dominio/irpf/trabajo-anual/adaptador.ts",
+          "start": 228,
+          "end": 247,
+          "sha256": "8d5b5b250044ec80386ac7bae17413e0c783cbd387f7b172043537af21688b94",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "calls": [
+      {
+        "id": "lib/dominio/irpf/trabajo-anual/conexion.ts:2899:2932:call",
+        "target": "lib/dominio/irpf/trabajo-anual/conexion.ts:2899:2918:global",
+        "arguments": [
+          {
+            "index": 0,
+            "operand": "lib/dominio/irpf/trabajo-anual/conexion.ts:2919:2931:get"
+          }
+        ],
+        "instance": "call-path + callback-index; never-value-equality",
+        "condition": "evaluated-only-in-selected-control-flow",
+        "source": {
+          "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+          "start": 2899,
+          "end": 2932,
+          "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "condition": [
+      {
+        "when": {
+          "property": "estado",
+          "equals": "aporte-disponible"
+        },
+        "outputs": [
+          "estado:discrete",
+          "rendimientoAntesArt20:EUR-string",
+          "argumentoArt20:EUR-string",
+          "gastos.integro:EUR-string"
+        ]
+      },
+      {
+        "when": {
+          "property": "estado",
+          "equals": "no-soportado"
+        },
+        "outputs": [
+          "estado:discrete",
+          "motivo:string"
+        ]
+      }
+    ],
+    "instance": "per call path, block environment and callback index",
+    "conversion": "identity; all monetary conversions remain operations inside producer or consumer"
+  },
+  {
+    "id": "lib/dominio/irpf/trabajo-anual/adaptador.ts#adaptarTrabajoAnual::motivo:string",
+    "consumer": "lib/dominio/irpf/trabajo-anual/adaptador.ts#adaptarTrabajoAnual",
+    "property": "motivo",
+    "representation": "string",
+    "producer": {
+      "consumer": "lib/dominio/irpf/trabajo-anual/adaptador.ts#adaptarTrabajoAnual",
+      "group": "rentas",
+      "producer": "lib/dominio/irpf/trabajo-anual/adaptador.ts:adaptarTrabajoAnual",
+      "conversion": "identity; preserve properties and call arguments"
+    },
+    "parameters": [
+      {
+        "index": 0,
+        "binding": "caso",
+        "type": "GastosTrabajo",
+        "source": {
+          "file": "lib/dominio/irpf/trabajo-anual/adaptador.ts",
+          "start": 228,
+          "end": 247,
+          "sha256": "8d5b5b250044ec80386ac7bae17413e0c783cbd387f7b172043537af21688b94",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "calls": [
+      {
+        "id": "lib/dominio/irpf/trabajo-anual/conexion.ts:2899:2932:call",
+        "target": "lib/dominio/irpf/trabajo-anual/conexion.ts:2899:2918:global",
+        "arguments": [
+          {
+            "index": 0,
+            "operand": "lib/dominio/irpf/trabajo-anual/conexion.ts:2919:2931:get"
+          }
+        ],
+        "instance": "call-path + callback-index; never-value-equality",
+        "condition": "evaluated-only-in-selected-control-flow",
+        "source": {
+          "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+          "start": 2899,
+          "end": 2932,
+          "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "condition": [
+      {
+        "when": {
+          "property": "estado",
+          "equals": "aporte-disponible"
+        },
+        "outputs": [
+          "estado:discrete",
+          "rendimientoAntesArt20:EUR-string",
+          "argumentoArt20:EUR-string",
+          "gastos.integro:EUR-string"
+        ]
+      },
+      {
+        "when": {
+          "property": "estado",
+          "equals": "no-soportado"
+        },
+        "outputs": [
+          "estado:discrete",
+          "motivo:string"
+        ]
+      }
+    ],
+    "instance": "per call path, block environment and callback index",
+    "conversion": "identity; all monetary conversions remain operations inside producer or consumer"
+  },
+  {
+    "id": "lib/dominio/irpf/actividades-economicas/adaptador.ts#adaptarActividadGeneral::estado:discrete",
+    "consumer": "lib/dominio/irpf/actividades-economicas/adaptador.ts#adaptarActividadGeneral",
+    "property": "estado",
+    "representation": "discrete",
+    "producer": {
+      "consumer": "lib/dominio/irpf/actividades-economicas/adaptador.ts#adaptarActividadGeneral",
+      "group": "rentas",
+      "producer": "lib/dominio/irpf/actividades-economicas/adaptador.ts:adaptarActividadGeneral",
+      "conversion": "identity; preserve properties and call arguments"
+    },
+    "parameters": [
+      {
+        "index": 0,
+        "binding": "caso",
+        "type": "CasoActividad2025",
+        "source": {
+          "file": "lib/dominio/irpf/actividades-economicas/adaptador.ts",
+          "start": 634,
+          "end": 657,
+          "sha256": "a31693ab167c3931fa4230c964a6a00d232693b892942243c0ced3ca8ce4f7c5",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "calls": [
+      {
+        "id": "lib/dominio/irpf/trabajo-anual/conexion.ts:6161:6200:call",
+        "target": "lib/dominio/irpf/trabajo-anual/conexion.ts:6161:6184:global",
+        "arguments": [
+          {
+            "index": 0,
+            "operand": "lib/dominio/irpf/trabajo-anual/conexion.ts:6185:6199:get"
+          }
+        ],
+        "instance": "call-path + callback-index; never-value-equality",
+        "condition": "evaluated-only-in-selected-control-flow",
+        "source": {
+          "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+          "start": 6161,
+          "end": 6200,
+          "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "condition": [
+      {
+        "when": {
+          "property": "estado",
+          "equals": "aporte-disponible"
+        },
+        "outputs": [
+          "estado:discrete",
+          "aporte.importeEurosExactos:EUR-string",
+          "aporte.retencionesEuros:EUR-string",
+          "aporte.pagosFraccionadosEuros:EUR-string"
+        ]
+      },
+      {
+        "when": {
+          "property": "estado",
+          "equals": "no-soportado"
+        },
+        "outputs": [
+          "estado:discrete",
+          "motivos[].motivo:string"
+        ]
+      }
+    ],
+    "instance": "per call path, block environment and callback index",
+    "conversion": "identity; all monetary conversions remain operations inside producer or consumer"
+  },
+  {
+    "id": "lib/dominio/irpf/actividades-economicas/adaptador.ts#adaptarActividadGeneral::aporte.importeEurosExactos:EUR-string",
+    "consumer": "lib/dominio/irpf/actividades-economicas/adaptador.ts#adaptarActividadGeneral",
+    "property": "aporte.importeEurosExactos",
+    "representation": "EUR-string",
+    "producer": {
+      "consumer": "lib/dominio/irpf/actividades-economicas/adaptador.ts#adaptarActividadGeneral",
+      "group": "rentas",
+      "producer": "lib/dominio/irpf/actividades-economicas/adaptador.ts:adaptarActividadGeneral",
+      "conversion": "identity; preserve properties and call arguments"
+    },
+    "parameters": [
+      {
+        "index": 0,
+        "binding": "caso",
+        "type": "CasoActividad2025",
+        "source": {
+          "file": "lib/dominio/irpf/actividades-economicas/adaptador.ts",
+          "start": 634,
+          "end": 657,
+          "sha256": "a31693ab167c3931fa4230c964a6a00d232693b892942243c0ced3ca8ce4f7c5",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "calls": [
+      {
+        "id": "lib/dominio/irpf/trabajo-anual/conexion.ts:6161:6200:call",
+        "target": "lib/dominio/irpf/trabajo-anual/conexion.ts:6161:6184:global",
+        "arguments": [
+          {
+            "index": 0,
+            "operand": "lib/dominio/irpf/trabajo-anual/conexion.ts:6185:6199:get"
+          }
+        ],
+        "instance": "call-path + callback-index; never-value-equality",
+        "condition": "evaluated-only-in-selected-control-flow",
+        "source": {
+          "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+          "start": 6161,
+          "end": 6200,
+          "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "condition": [
+      {
+        "when": {
+          "property": "estado",
+          "equals": "aporte-disponible"
+        },
+        "outputs": [
+          "estado:discrete",
+          "aporte.importeEurosExactos:EUR-string",
+          "aporte.retencionesEuros:EUR-string",
+          "aporte.pagosFraccionadosEuros:EUR-string"
+        ]
+      },
+      {
+        "when": {
+          "property": "estado",
+          "equals": "no-soportado"
+        },
+        "outputs": [
+          "estado:discrete",
+          "motivos[].motivo:string"
+        ]
+      }
+    ],
+    "instance": "per call path, block environment and callback index",
+    "conversion": "identity; all monetary conversions remain operations inside producer or consumer"
+  },
+  {
+    "id": "lib/dominio/irpf/actividades-economicas/adaptador.ts#adaptarActividadGeneral::aporte.retencionesEuros:EUR-string",
+    "consumer": "lib/dominio/irpf/actividades-economicas/adaptador.ts#adaptarActividadGeneral",
+    "property": "aporte.retencionesEuros",
+    "representation": "EUR-string",
+    "producer": {
+      "consumer": "lib/dominio/irpf/actividades-economicas/adaptador.ts#adaptarActividadGeneral",
+      "group": "rentas",
+      "producer": "lib/dominio/irpf/actividades-economicas/adaptador.ts:adaptarActividadGeneral",
+      "conversion": "identity; preserve properties and call arguments"
+    },
+    "parameters": [
+      {
+        "index": 0,
+        "binding": "caso",
+        "type": "CasoActividad2025",
+        "source": {
+          "file": "lib/dominio/irpf/actividades-economicas/adaptador.ts",
+          "start": 634,
+          "end": 657,
+          "sha256": "a31693ab167c3931fa4230c964a6a00d232693b892942243c0ced3ca8ce4f7c5",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "calls": [
+      {
+        "id": "lib/dominio/irpf/trabajo-anual/conexion.ts:6161:6200:call",
+        "target": "lib/dominio/irpf/trabajo-anual/conexion.ts:6161:6184:global",
+        "arguments": [
+          {
+            "index": 0,
+            "operand": "lib/dominio/irpf/trabajo-anual/conexion.ts:6185:6199:get"
+          }
+        ],
+        "instance": "call-path + callback-index; never-value-equality",
+        "condition": "evaluated-only-in-selected-control-flow",
+        "source": {
+          "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+          "start": 6161,
+          "end": 6200,
+          "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "condition": [
+      {
+        "when": {
+          "property": "estado",
+          "equals": "aporte-disponible"
+        },
+        "outputs": [
+          "estado:discrete",
+          "aporte.importeEurosExactos:EUR-string",
+          "aporte.retencionesEuros:EUR-string",
+          "aporte.pagosFraccionadosEuros:EUR-string"
+        ]
+      },
+      {
+        "when": {
+          "property": "estado",
+          "equals": "no-soportado"
+        },
+        "outputs": [
+          "estado:discrete",
+          "motivos[].motivo:string"
+        ]
+      }
+    ],
+    "instance": "per call path, block environment and callback index",
+    "conversion": "identity; all monetary conversions remain operations inside producer or consumer"
+  },
+  {
+    "id": "lib/dominio/irpf/actividades-economicas/adaptador.ts#adaptarActividadGeneral::aporte.pagosFraccionadosEuros:EUR-string",
+    "consumer": "lib/dominio/irpf/actividades-economicas/adaptador.ts#adaptarActividadGeneral",
+    "property": "aporte.pagosFraccionadosEuros",
+    "representation": "EUR-string",
+    "producer": {
+      "consumer": "lib/dominio/irpf/actividades-economicas/adaptador.ts#adaptarActividadGeneral",
+      "group": "rentas",
+      "producer": "lib/dominio/irpf/actividades-economicas/adaptador.ts:adaptarActividadGeneral",
+      "conversion": "identity; preserve properties and call arguments"
+    },
+    "parameters": [
+      {
+        "index": 0,
+        "binding": "caso",
+        "type": "CasoActividad2025",
+        "source": {
+          "file": "lib/dominio/irpf/actividades-economicas/adaptador.ts",
+          "start": 634,
+          "end": 657,
+          "sha256": "a31693ab167c3931fa4230c964a6a00d232693b892942243c0ced3ca8ce4f7c5",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "calls": [
+      {
+        "id": "lib/dominio/irpf/trabajo-anual/conexion.ts:6161:6200:call",
+        "target": "lib/dominio/irpf/trabajo-anual/conexion.ts:6161:6184:global",
+        "arguments": [
+          {
+            "index": 0,
+            "operand": "lib/dominio/irpf/trabajo-anual/conexion.ts:6185:6199:get"
+          }
+        ],
+        "instance": "call-path + callback-index; never-value-equality",
+        "condition": "evaluated-only-in-selected-control-flow",
+        "source": {
+          "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+          "start": 6161,
+          "end": 6200,
+          "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "condition": [
+      {
+        "when": {
+          "property": "estado",
+          "equals": "aporte-disponible"
+        },
+        "outputs": [
+          "estado:discrete",
+          "aporte.importeEurosExactos:EUR-string",
+          "aporte.retencionesEuros:EUR-string",
+          "aporte.pagosFraccionadosEuros:EUR-string"
+        ]
+      },
+      {
+        "when": {
+          "property": "estado",
+          "equals": "no-soportado"
+        },
+        "outputs": [
+          "estado:discrete",
+          "motivos[].motivo:string"
+        ]
+      }
+    ],
+    "instance": "per call path, block environment and callback index",
+    "conversion": "identity; all monetary conversions remain operations inside producer or consumer"
+  },
+  {
+    "id": "lib/dominio/irpf/actividades-economicas/adaptador.ts#adaptarActividadGeneral::motivos[].motivo:string",
+    "consumer": "lib/dominio/irpf/actividades-economicas/adaptador.ts#adaptarActividadGeneral",
+    "property": "motivos[].motivo",
+    "representation": "string",
+    "producer": {
+      "consumer": "lib/dominio/irpf/actividades-economicas/adaptador.ts#adaptarActividadGeneral",
+      "group": "rentas",
+      "producer": "lib/dominio/irpf/actividades-economicas/adaptador.ts:adaptarActividadGeneral",
+      "conversion": "identity; preserve properties and call arguments"
+    },
+    "parameters": [
+      {
+        "index": 0,
+        "binding": "caso",
+        "type": "CasoActividad2025",
+        "source": {
+          "file": "lib/dominio/irpf/actividades-economicas/adaptador.ts",
+          "start": 634,
+          "end": 657,
+          "sha256": "a31693ab167c3931fa4230c964a6a00d232693b892942243c0ced3ca8ce4f7c5",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "calls": [
+      {
+        "id": "lib/dominio/irpf/trabajo-anual/conexion.ts:6161:6200:call",
+        "target": "lib/dominio/irpf/trabajo-anual/conexion.ts:6161:6184:global",
+        "arguments": [
+          {
+            "index": 0,
+            "operand": "lib/dominio/irpf/trabajo-anual/conexion.ts:6185:6199:get"
+          }
+        ],
+        "instance": "call-path + callback-index; never-value-equality",
+        "condition": "evaluated-only-in-selected-control-flow",
+        "source": {
+          "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+          "start": 6161,
+          "end": 6200,
+          "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "condition": [
+      {
+        "when": {
+          "property": "estado",
+          "equals": "aporte-disponible"
+        },
+        "outputs": [
+          "estado:discrete",
+          "aporte.importeEurosExactos:EUR-string",
+          "aporte.retencionesEuros:EUR-string",
+          "aporte.pagosFraccionadosEuros:EUR-string"
+        ]
+      },
+      {
+        "when": {
+          "property": "estado",
+          "equals": "no-soportado"
+        },
+        "outputs": [
+          "estado:discrete",
+          "motivos[].motivo:string"
+        ]
+      }
+    ],
+    "instance": "per call path, block environment and callback index",
+    "conversion": "identity; all monetary conversions remain operations inside producer or consumer"
+  },
+  {
+    "id": "lib/dominio/irpf/trabajo-anual/calcular.ts#calcularDeduccionTrabajo::estado:discrete",
+    "consumer": "lib/dominio/irpf/trabajo-anual/calcular.ts#calcularDeduccionTrabajo",
+    "property": "estado",
+    "representation": "discrete",
+    "producer": {
+      "consumer": "lib/dominio/irpf/trabajo-anual/calcular.ts#calcularDeduccionTrabajo",
+      "group": "rentas",
+      "producer": "lib/dominio/irpf/trabajo-anual/calcular.ts:calcularDeduccionTrabajo",
+      "conversion": "identity; preserve properties and call arguments"
+    },
+    "parameters": [
+      {
+        "index": 0,
+        "binding": "caso",
+        "type": "DeduccionTrabajo",
+        "source": {
+          "file": "lib/dominio/irpf/trabajo-anual/calcular.ts",
+          "start": 4572,
+          "end": 4594,
+          "sha256": "b8681bb3355ceba11762a47ecdb020c63d76e8363be24b1d9914f9f8103824d9",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "calls": [
+      {
+        "id": "lib/dominio/irpf/trabajo-anual/conexion.ts:8584:9103:call",
+        "target": "lib/dominio/irpf/trabajo-anual/conexion.ts:8584:8608:global",
+        "arguments": [
+          {
+            "index": 0,
+            "operand": "lib/dominio/irpf/trabajo-anual/conexion.ts:8609:9102:object"
+          }
+        ],
+        "instance": "call-path + callback-index; never-value-equality",
+        "condition": "evaluated-only-in-selected-control-flow",
+        "source": {
+          "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+          "start": 8584,
+          "end": 9103,
+          "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "condition": [
+      {
+        "when": {
+          "property": "estado",
+          "equals": "calculado"
+        },
+        "outputs": [
+          "estado:discrete",
+          "importeAplicable:EUR-string",
+          "cuotaPosterior:EUR-string"
+        ]
+      },
+      {
+        "when": {
+          "property": "estado",
+          "equals": "no-soportado"
+        },
+        "outputs": [
+          "estado:discrete",
+          "motivo:string"
+        ]
+      }
+    ],
+    "instance": "per call path, block environment and callback index",
+    "conversion": "identity; all monetary conversions remain operations inside producer or consumer"
+  },
+  {
+    "id": "lib/dominio/irpf/trabajo-anual/calcular.ts#calcularDeduccionTrabajo::importeAplicable:EUR-string",
+    "consumer": "lib/dominio/irpf/trabajo-anual/calcular.ts#calcularDeduccionTrabajo",
+    "property": "importeAplicable",
+    "representation": "EUR-string",
+    "producer": {
+      "consumer": "lib/dominio/irpf/trabajo-anual/calcular.ts#calcularDeduccionTrabajo",
+      "group": "rentas",
+      "producer": "lib/dominio/irpf/trabajo-anual/calcular.ts:calcularDeduccionTrabajo",
+      "conversion": "identity; preserve properties and call arguments"
+    },
+    "parameters": [
+      {
+        "index": 0,
+        "binding": "caso",
+        "type": "DeduccionTrabajo",
+        "source": {
+          "file": "lib/dominio/irpf/trabajo-anual/calcular.ts",
+          "start": 4572,
+          "end": 4594,
+          "sha256": "b8681bb3355ceba11762a47ecdb020c63d76e8363be24b1d9914f9f8103824d9",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "calls": [
+      {
+        "id": "lib/dominio/irpf/trabajo-anual/conexion.ts:8584:9103:call",
+        "target": "lib/dominio/irpf/trabajo-anual/conexion.ts:8584:8608:global",
+        "arguments": [
+          {
+            "index": 0,
+            "operand": "lib/dominio/irpf/trabajo-anual/conexion.ts:8609:9102:object"
+          }
+        ],
+        "instance": "call-path + callback-index; never-value-equality",
+        "condition": "evaluated-only-in-selected-control-flow",
+        "source": {
+          "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+          "start": 8584,
+          "end": 9103,
+          "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "condition": [
+      {
+        "when": {
+          "property": "estado",
+          "equals": "calculado"
+        },
+        "outputs": [
+          "estado:discrete",
+          "importeAplicable:EUR-string",
+          "cuotaPosterior:EUR-string"
+        ]
+      },
+      {
+        "when": {
+          "property": "estado",
+          "equals": "no-soportado"
+        },
+        "outputs": [
+          "estado:discrete",
+          "motivo:string"
+        ]
+      }
+    ],
+    "instance": "per call path, block environment and callback index",
+    "conversion": "identity; all monetary conversions remain operations inside producer or consumer"
+  },
+  {
+    "id": "lib/dominio/irpf/trabajo-anual/calcular.ts#calcularDeduccionTrabajo::cuotaPosterior:EUR-string",
+    "consumer": "lib/dominio/irpf/trabajo-anual/calcular.ts#calcularDeduccionTrabajo",
+    "property": "cuotaPosterior",
+    "representation": "EUR-string",
+    "producer": {
+      "consumer": "lib/dominio/irpf/trabajo-anual/calcular.ts#calcularDeduccionTrabajo",
+      "group": "rentas",
+      "producer": "lib/dominio/irpf/trabajo-anual/calcular.ts:calcularDeduccionTrabajo",
+      "conversion": "identity; preserve properties and call arguments"
+    },
+    "parameters": [
+      {
+        "index": 0,
+        "binding": "caso",
+        "type": "DeduccionTrabajo",
+        "source": {
+          "file": "lib/dominio/irpf/trabajo-anual/calcular.ts",
+          "start": 4572,
+          "end": 4594,
+          "sha256": "b8681bb3355ceba11762a47ecdb020c63d76e8363be24b1d9914f9f8103824d9",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "calls": [
+      {
+        "id": "lib/dominio/irpf/trabajo-anual/conexion.ts:8584:9103:call",
+        "target": "lib/dominio/irpf/trabajo-anual/conexion.ts:8584:8608:global",
+        "arguments": [
+          {
+            "index": 0,
+            "operand": "lib/dominio/irpf/trabajo-anual/conexion.ts:8609:9102:object"
+          }
+        ],
+        "instance": "call-path + callback-index; never-value-equality",
+        "condition": "evaluated-only-in-selected-control-flow",
+        "source": {
+          "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+          "start": 8584,
+          "end": 9103,
+          "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "condition": [
+      {
+        "when": {
+          "property": "estado",
+          "equals": "calculado"
+        },
+        "outputs": [
+          "estado:discrete",
+          "importeAplicable:EUR-string",
+          "cuotaPosterior:EUR-string"
+        ]
+      },
+      {
+        "when": {
+          "property": "estado",
+          "equals": "no-soportado"
+        },
+        "outputs": [
+          "estado:discrete",
+          "motivo:string"
+        ]
+      }
+    ],
+    "instance": "per call path, block environment and callback index",
+    "conversion": "identity; all monetary conversions remain operations inside producer or consumer"
+  },
+  {
+    "id": "lib/dominio/irpf/trabajo-anual/calcular.ts#calcularDeduccionTrabajo::motivo:string",
+    "consumer": "lib/dominio/irpf/trabajo-anual/calcular.ts#calcularDeduccionTrabajo",
+    "property": "motivo",
+    "representation": "string",
+    "producer": {
+      "consumer": "lib/dominio/irpf/trabajo-anual/calcular.ts#calcularDeduccionTrabajo",
+      "group": "rentas",
+      "producer": "lib/dominio/irpf/trabajo-anual/calcular.ts:calcularDeduccionTrabajo",
+      "conversion": "identity; preserve properties and call arguments"
+    },
+    "parameters": [
+      {
+        "index": 0,
+        "binding": "caso",
+        "type": "DeduccionTrabajo",
+        "source": {
+          "file": "lib/dominio/irpf/trabajo-anual/calcular.ts",
+          "start": 4572,
+          "end": 4594,
+          "sha256": "b8681bb3355ceba11762a47ecdb020c63d76e8363be24b1d9914f9f8103824d9",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "calls": [
+      {
+        "id": "lib/dominio/irpf/trabajo-anual/conexion.ts:8584:9103:call",
+        "target": "lib/dominio/irpf/trabajo-anual/conexion.ts:8584:8608:global",
+        "arguments": [
+          {
+            "index": 0,
+            "operand": "lib/dominio/irpf/trabajo-anual/conexion.ts:8609:9102:object"
+          }
+        ],
+        "instance": "call-path + callback-index; never-value-equality",
+        "condition": "evaluated-only-in-selected-control-flow",
+        "source": {
+          "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
+          "start": 8584,
+          "end": 9103,
+          "sha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "condition": [
+      {
+        "when": {
+          "property": "estado",
+          "equals": "calculado"
+        },
+        "outputs": [
+          "estado:discrete",
+          "importeAplicable:EUR-string",
+          "cuotaPosterior:EUR-string"
+        ]
+      },
+      {
+        "when": {
+          "property": "estado",
+          "equals": "no-soportado"
+        },
+        "outputs": [
+          "estado:discrete",
+          "motivo:string"
+        ]
+      }
+    ],
+    "instance": "per call path, block environment and callback index",
+    "conversion": "identity; all monetary conversions remain operations inside producer or consumer"
+  },
+  {
+    "id": "lib/dominio/irpf/minimos/derechos.ts#validarDerechosMinimos::return:validated-rights-pending-review",
+    "consumer": "lib/dominio/irpf/minimos/derechos.ts#validarDerechosMinimos",
+    "property": "return",
+    "representation": "validated-rights-pending-review",
+    "producer": null,
+    "parameters": [
+      {
+        "index": 0,
+        "binding": "entrada",
+        "type": "DerechosMinimos2025",
+        "source": {
+          "file": "lib/dominio/irpf/minimos/derechos.ts",
+          "start": 2499,
+          "end": 2527,
+          "sha256": "c484d8615fd0181302874fa6f652c88f187a8703ff4a80359d73e9ae4c0d8185",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "calls": [
+      {
+        "id": "lib/dominio/irpf/minimos/derechos.ts:9198:9229:call",
+        "target": "lib/dominio/irpf/minimos/derechos.ts:9198:9220:global",
+        "arguments": [
+          {
+            "index": 0,
+            "operand": "lib/dominio/irpf/minimos/derechos.ts:9221:9228:local"
+          }
+        ],
+        "instance": "call-path + callback-index; never-value-equality",
+        "condition": "evaluated-only-in-selected-control-flow",
+        "source": {
+          "file": "lib/dominio/irpf/minimos/derechos.ts",
+          "start": 9198,
+          "end": 9229,
+          "sha256": "c484d8615fd0181302874fa6f652c88f187a8703ff4a80359d73e9ae4c0d8185",
+          "offsetEncoding": "utf16"
+        }
+      }
+    ],
+    "condition": [],
+    "instance": "per call path, block environment and callback index",
+    "conversion": "identity; all monetary conversions remain operations inside producer or consumer"
+  }
+]

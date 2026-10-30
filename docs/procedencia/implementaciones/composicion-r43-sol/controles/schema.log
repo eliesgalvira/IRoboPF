@@ -1,0 +1,131 @@
+Using CPython 3.13.15 interpreter at: /nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/bin/python3
+Creating virtual environment at: .cache/composicion-r43-sol/uv
+Installed 6 packages in 9ms
+/home/elies/.t3/worktrees/IRoboPF/t3-9e10bf62/.cache/composicion-r43-sol/schema.py:5: DeprecationWarning: jsonschema.RefResolver is deprecated as of v4.18.0, in favor of the https://github.com/python-jsonschema/referencing library, which provides more compliant referencing behavior as well as more flexible APIs for customization. A future release will remove RefResolver. Please file a feature request (on referencing) if you are missing an API for the kind of customization you need.
+  jsonschema.Draft202012Validator(s,resolver=jsonschema.RefResolver(p.as_uri(),s)).validate(candidate)
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-9e10bf62/.cache/composicion-r43-sol/uv/lib/python3.13/site-packages/jsonschema/validators.py", line 1119, in resolve_from_url
+    document = self.store[url]
+               ~~~~~~~~~~^^^^^
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-9e10bf62/.cache/composicion-r43-sol/uv/lib/python3.13/site-packages/jsonschema/_utils.py", line 20, in __getitem__
+    return self.store[self.normalize(uri)]
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'urn:irobopf:flujo-retenciones-r34'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-9e10bf62/.cache/composicion-r43-sol/uv/lib/python3.13/site-packages/jsonschema/validators.py", line 1122, in resolve_from_url
+    document = self.resolve_remote(url)
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-9e10bf62/.cache/composicion-r43-sol/uv/lib/python3.13/site-packages/jsonschema/validators.py", line 1228, in resolve_remote
+    with urlopen(uri) as url:  # noqa: S310
+         ~~~~~~~^^^^^
+  File "/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/lib/python3.13/urllib/request.py", line 189, in urlopen
+    return opener.open(url, data, timeout)
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/lib/python3.13/urllib/request.py", line 489, in open
+    response = self._open(req, data)
+  File "/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/lib/python3.13/urllib/request.py", line 511, in _open
+    return self._call_chain(self.handle_open, 'unknown',
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                            'unknown_open', req)
+                            ^^^^^^^^^^^^^^^^^^^^
+  File "/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/lib/python3.13/urllib/request.py", line 466, in _call_chain
+    result = func(*args)
+  File "/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/lib/python3.13/urllib/request.py", line 1394, in unknown_open
+    raise URLError('unknown url type: %s' % type)
+urllib.error.URLError: <urlopen error unknown url type: urn>
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-9e10bf62/.cache/composicion-r43-sol/schema.py", line 5, in <module>
+    jsonschema.Draft202012Validator(s,resolver=jsonschema.RefResolver(p.as_uri(),s)).validate(candidate)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-9e10bf62/.cache/composicion-r43-sol/uv/lib/python3.13/site-packages/jsonschema/validators.py", line 450, in validate
+    for error in self.iter_errors(*args, **kwargs):
+                 ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-9e10bf62/.cache/composicion-r43-sol/uv/lib/python3.13/site-packages/jsonschema/validators.py", line 384, in iter_errors
+    for error in errors:
+                 ^^^^^^
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-9e10bf62/.cache/composicion-r43-sol/uv/lib/python3.13/site-packages/jsonschema/_keywords.py", line 296, in properties
+    yield from validator.descend(
+    ...<4 lines>...
+    )
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-9e10bf62/.cache/composicion-r43-sol/uv/lib/python3.13/site-packages/jsonschema/validators.py", line 432, in descend
+    for error in errors:
+                 ^^^^^^
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-9e10bf62/.cache/composicion-r43-sol/uv/lib/python3.13/site-packages/jsonschema/_keywords.py", line 296, in properties
+    yield from validator.descend(
+    ...<4 lines>...
+    )
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-9e10bf62/.cache/composicion-r43-sol/uv/lib/python3.13/site-packages/jsonschema/validators.py", line 432, in descend
+    for error in errors:
+                 ^^^^^^
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-9e10bf62/.cache/composicion-r43-sol/uv/lib/python3.13/site-packages/jsonschema/_keywords.py", line 275, in ref
+    yield from validator._validate_reference(ref=ref, instance=instance)
+               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-9e10bf62/.cache/composicion-r43-sol/uv/lib/python3.13/site-packages/jsonschema/validators.py", line 482, in _validate_reference
+    return list(self.descend(instance, resolved))
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-9e10bf62/.cache/composicion-r43-sol/uv/lib/python3.13/site-packages/jsonschema/validators.py", line 432, in descend
+    for error in errors:
+                 ^^^^^^
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-9e10bf62/.cache/composicion-r43-sol/uv/lib/python3.13/site-packages/jsonschema/_keywords.py", line 296, in properties
+    yield from validator.descend(
+    ...<4 lines>...
+    )
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-9e10bf62/.cache/composicion-r43-sol/uv/lib/python3.13/site-packages/jsonschema/validators.py", line 432, in descend
+    for error in errors:
+                 ^^^^^^
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-9e10bf62/.cache/composicion-r43-sol/uv/lib/python3.13/site-packages/jsonschema/_keywords.py", line 78, in items
+    yield from validator.descend(
+    ...<3 lines>...
+    )
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-9e10bf62/.cache/composicion-r43-sol/uv/lib/python3.13/site-packages/jsonschema/validators.py", line 432, in descend
+    for error in errors:
+                 ^^^^^^
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-9e10bf62/.cache/composicion-r43-sol/uv/lib/python3.13/site-packages/jsonschema/_keywords.py", line 355, in oneOf
+    errs = list(validator.descend(instance, subschema, schema_path=index))
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-9e10bf62/.cache/composicion-r43-sol/uv/lib/python3.13/site-packages/jsonschema/validators.py", line 432, in descend
+    for error in errors:
+                 ^^^^^^
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-9e10bf62/.cache/composicion-r43-sol/uv/lib/python3.13/site-packages/jsonschema/_keywords.py", line 296, in properties
+    yield from validator.descend(
+    ...<4 lines>...
+    )
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-9e10bf62/.cache/composicion-r43-sol/uv/lib/python3.13/site-packages/jsonschema/validators.py", line 432, in descend
+    for error in errors:
+                 ^^^^^^
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-9e10bf62/.cache/composicion-r43-sol/uv/lib/python3.13/site-packages/jsonschema/_keywords.py", line 296, in properties
+    yield from validator.descend(
+    ...<4 lines>...
+    )
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-9e10bf62/.cache/composicion-r43-sol/uv/lib/python3.13/site-packages/jsonschema/validators.py", line 432, in descend
+    for error in errors:
+                 ^^^^^^
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-9e10bf62/.cache/composicion-r43-sol/uv/lib/python3.13/site-packages/jsonschema/_keywords.py", line 78, in items
+    yield from validator.descend(
+    ...<3 lines>...
+    )
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-9e10bf62/.cache/composicion-r43-sol/uv/lib/python3.13/site-packages/jsonschema/validators.py", line 432, in descend
+    for error in errors:
+                 ^^^^^^
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-9e10bf62/.cache/composicion-r43-sol/uv/lib/python3.13/site-packages/jsonschema/_keywords.py", line 296, in properties
+    yield from validator.descend(
+    ...<4 lines>...
+    )
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-9e10bf62/.cache/composicion-r43-sol/uv/lib/python3.13/site-packages/jsonschema/validators.py", line 432, in descend
+    for error in errors:
+                 ^^^^^^
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-9e10bf62/.cache/composicion-r43-sol/uv/lib/python3.13/site-packages/jsonschema/_keywords.py", line 275, in ref
+    yield from validator._validate_reference(ref=ref, instance=instance)
+               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-9e10bf62/.cache/composicion-r43-sol/uv/lib/python3.13/site-packages/jsonschema/validators.py", line 478, in _validate_reference
+    scope, resolved = resolve(ref)
+                      ~~~~~~~^^^^^
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-9e10bf62/.cache/composicion-r43-sol/uv/lib/python3.13/site-packages/jsonschema/validators.py", line 1108, in resolve
+    return url, self._remote_cache(url)
+                ~~~~~~~~~~~~~~~~~~^^^^^
+  File "/home/elies/.t3/worktrees/IRoboPF/t3-9e10bf62/.cache/composicion-r43-sol/uv/lib/python3.13/site-packages/jsonschema/validators.py", line 1124, in resolve_from_url
+    raise exceptions._RefResolutionError(exc) from exc
+jsonschema.exceptions._RefResolutionError: <urlopen error unknown url type: urn>
