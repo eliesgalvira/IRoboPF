@@ -29,3 +29,7 @@ No se vuelve a revisar favorablemente los 55 sitios anteriores; solo hay regresi
 ## Resultado terminal de recepción
 
 Las dos pruebas repetidas pasan: 25 casos/225 salidas, API real, racionales, adversos y bloqueo de actividad. La primera ejecución ya había pasado las cuatro regresiones compartidas; no se repiten ni se suman los 21 casos omitidos por filtro. El contrato y los 25 testigos originales recibidos validan con Ajv estricto; dos originales se reproducen exactamente. Tipos principal/vendor y lint global pasan, con 16 avisos ESLint previos. El test corregido pasa ambos linters focalizados. Las veinte anclas de diez IDs coinciden por hash, UTF16 y llamada literal (`anclas-cotejadas.json`). El contraste independiente sigue pendiente.
+
+Integración exacta en `cd41524b432c5d4c2a7f665603debef6be5abc28`: 154 archivos, 78.426.956 bytes y cero borrados; todos los hashes cotejados. El primer movimiento del bookmark falló por un index.lock transitorio. La comprobación posterior encontró que ya no existía, sin borrar ni resetear nada; el reintento de JJ movió el bookmark correctamente. El respaldo solo apunta a procedencia-documental.
+
+Origin confirma cd41524b. La única revisión independiente se ha lanzado con gpt-6.1-sol, high y priority confirmados en delegaciones-ronda64.json; sus conclusiones siguen pendientes.

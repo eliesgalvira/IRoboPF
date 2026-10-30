@@ -12,6 +12,10 @@ Resultado terminal: pasan las dos pruebas repetidas con 25 casos/225 salidas y e
 
 D135 mantiene el final de Elies: después de esa revisión, correcciones solo si reproduce defectos; al cerrar los 65 sitios o demostrar bloqueos, INFORME-FINAL.md, respaldo y parada. Familias, composición global, admisión y cuatro puertas fuera. Crossa v1 desfasado, V5 corte R26. Sin main, PR, despliegue, LFS, gasto, transferencia ni limpieza.
 
+Integración comprobada en `cd41524b432c5d4c2a7f665603debef6be5abc28`: 154 archivos y cero borrados. Incidencia transitoria del índice resuelta por reintento de JJ tras desaparecer el lock, sin borrado ni reset.
+
+Respaldo de cd41524b comprobado en origin/procedencia-documental. Lanzada una sola revisión independiente nueva de los diez explícitos, sobre ese commit y sus 23.958 entradas: gpt-6.1-sol, high y priority explícitos y confirmados. Encargo y respuesta en delegaciones-ronda64.json. No se sondea ni se lee trabajo parcial; la entrega reactivará al padre para el cierre o para corregir defectos reproducidos.
+
 ## Situación anterior, ronda 63 del 30 de octubre
 
 Recibida la única revisión independiente de escalas: sin defecto funcional nuevo. El padre cotejó físicamente 23.648 entradas intactas, reconstruyó exactamente 211 rutas, integró 139 y preservó 90 referencias técnicas. Reproduce 183 comparaciones racionales, con resultados idénticos a los recibidos, y coteja las 28 anclas del importe por hash/UTF16. Detalle en correcciones/causal-escalas-r63 y revisiones/causal-escalas-r62-sol.
