@@ -1,3 +1,4 @@
+import { resolverCommit } from "./commit-historico.mjs"
 import fs from 'node:fs'
 import path from 'node:path'
 import {execFileSync} from 'node:child_process'
@@ -13,7 +14,7 @@ export class Sources {
     if(!this.files.has(file)){
       if(!file.startsWith('lib/')&&!file.startsWith('tests/'))throw Error('Fuente fuera del subconjunto: '+file)
       const bytes=fs.readFileSync(file),text=bytes.toString('utf8')
-      const original=execFileSync('git',['cat-file','blob','5e69c68077ffd18be20457160595adb3f0ff52e4:'+file],{maxBuffer:8*1024*1024})
+      const original=execFileSync('git',['cat-file','blob',resolverCommit('5e69c68077ffd18be20457160595adb3f0ff52e4')+':'+file],{maxBuffer:8*1024*1024})
       if(!bytes.equals(original))throw Error('Código actual alterado respecto a base fijada: '+file)
       const ast=ts.createSourceFile(file,text,ts.ScriptTarget.Latest,true)
       const ranges=new Map();function index(n){ranges.set(n.getStart()+':'+n.end,n);ts.forEachChild(n,index)}index(ast)

@@ -18,3 +18,5 @@ git -C restauracion.git fsck --full
 ```
 
 Para restaurar de nuevo, clonar el bundle en un directorio nuevo y copiar `semilla-backend/` a otro directorio nuevo. No sobrescribir estas copias. Son locales en host-a; no constituyen custodia independiente. La copia previa de host-b no contiene este corte.
+
+La semilla ampliada con los objetos generados por esta migración está en `semilla-final/`, con `semilla-final-manifiesto.json` y `semilla-final.sha256`. Se restauró y verificó también en `semilla-final-restaurada/`. Para comprobarla: `(cd semilla-final && sha256sum -c ../semilla-final.sha256)`. Es la semilla que debe recibir el backend. La copia inicial permanece intacta.

@@ -8,7 +8,6 @@ En host-a, la copia de trabajo es `/home/local/.local/share/irobopf/procedencia/
 export IROBOPF_CAS_LOCAL=/home/local/.local/share/irobopf/procedencia/objetos
 bun scripts/procedencia/rastro-verificar.mjs
 bun scripts/procedencia/contenido-verificar.mjs
-bun scripts/procedencia/verificar-enlaces.mjs --cas-root "$IROBOPF_CAS_LOCAL"
 ```
 
 Cada lectura verifica SHA-256 y el tamaño esperado cuando consta en el descriptor. Los PDF externos comprueban además SHA-512 y firma de formato PDF. Las rutas públicas conservan su lista permitida por snapshot; una ausencia o corrupción no se convierte en contenido válido.
@@ -16,3 +15,5 @@ Cada lectura verifica SHA-256 y el tamaño esperado cuando consta en el descript
 Next conserva únicamente el índice en su trazado de archivos, nunca el almacén. Los previews de `procedencia-documental` continúan desactivados. La interfaz y el despliegue del backend corresponden al otro hilo.
 
 Los generadores escriben los objetos nuevos en el directorio externo y los índices en Git. Antes de distribuir un índice nuevo, hay que transferir y verificar sus objetos. Los destinos explícitos de ensayo/restauración siguen admitidos; no son destinos de producción.
+
+La comprobación de los snapshots históricos y sus dependencias pasa, igual que las rutas y el rastro actual. El coordinador `verificar-enlaces.mjs` del registro activo rechaza un binding de otro inventario. Esa discrepancia ya está en la punta anterior a la migración; se conserva y se detalla en [VALIDACION.md](VALIDACION.md). No se han trasladado las aceptaciones históricas al inventario actual.
