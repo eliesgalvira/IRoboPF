@@ -1,6 +1,6 @@
 # Contrato de entrega y verificación
 
-Entrega candidata para revisión independiente. No emite dictámenes fiscales ni acepta los de otros lotes.
+Contrato técnico revisado, con [correcciones contrastadas independientemente](../revisiones/contrato-corregido/INFORME.md). No emite dictámenes fiscales ni acepta los de otros lotes; esos paquetes siguen siendo candidatos hasta su revisión normativa.
 
 Desde la raíz, con Node, Python 3 del sistema y uv disponibles (jsonschema 4.26.0 se resuelve en caché externa):
 

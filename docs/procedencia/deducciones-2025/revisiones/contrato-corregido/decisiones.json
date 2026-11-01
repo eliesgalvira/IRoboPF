@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "baseCommit": "900fd0991e58c852179f93b8effa1c76b5a4b6e2",
+  "alcance": "Contraste técnico acotado de R01, R02 y R03; sin aceptación fiscal",
+  "dictamen": "correcciones_comprobadas_sin_defecto_nuevo_reproducido",
+  "decisiones": [
+    {"id": "R01", "estado": "corregido", "migracion": "Historia conservada mediante momento antes explícito; texto libre no determina fase"},
+    {"id": "R02", "estado": "corregido", "limite": "IDs y citas locales; metadatos independientes preservados; coherencia de contenido compartido"},
+    {"id": "R03", "estado": "corregido", "limite": "Cinco nombres de credencial filtrados tras decodificación y casefold; no garantía universal de privacidad"}
+  ],
+  "resultados": {
+    "anterior": {"ejecutados": 6, "pasan": 1, "fallos": 3, "errores": 2},
+    "regresionesActuales": {"ejecutados": 37, "pasan": 37},
+    "casosPropios": {"ejecutados": 7, "pasan": 7},
+    "ruff": "sin_incidencias",
+    "vitest": "no_ejecutable_dependencias_ausentes"
+  },
+  "defectosNuevosReproducidos": [],
+  "contraste": "concluido_sin_recomendar_otra_ronda_favorable"
+}
