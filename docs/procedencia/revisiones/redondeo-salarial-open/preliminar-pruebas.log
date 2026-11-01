@@ -1,0 +1,42 @@
+
+ RUN  v4.1.5 /home/local/.ws/worktrees/IRoboPF/t3-5faaec37/.cache/revision-redondeo-sol/stage
+
+ ❯ tests/rastro-anual-procedencia.test.ts (7 tests | 2 failed) 947ms
+   × RV3-01 rechaza software de explicación cambiado fuera del dominio 12ms
+     × coteja el catálogo generado con fuentes, inventario y fichas 7ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/rastro-anual-procedencia.test.ts > RV3-01 rechaza software de explicación cambiado fuera del dominio
+Error: ENOENT: no such file or directory, lstat '/home/local/.ws/worktrees/IRoboPF/t3-5faaec37/.cache/revision-redondeo-sol/stage/app/procedencia'
+ ❯ tests/rastro-anual-procedencia.test.ts:35:5
+     33|     "next.config.mjs",
+     34|   ])
+     35|     cpSync(resolve(carpeta), resolve(scratch, carpeta), { recursive: t…
+       |     ^
+     36|   mkdirSync(resolve(scratch, "docs/procedencia"), { recursive: true })
+     37|   cpSync(
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/rastro-anual-procedencia.test.ts > rastro con identidad explícita > coteja el catálogo generado con fuentes, inventario y fichas
+Error: ENOENT: no such file or directory, open '/home/local/.ws/worktrees/IRoboPF/t3-5faaec37/.cache/revision-redondeo-sol/stage/next.config.mjs'
+ ❯ scripts/procedencia/explicacion-version.mjs:41:22
+     39|   )
+     40|   const fuentesSoftware = FUENTES_EXPLICACION.map((file) =>
+     41|     hash(readFileSync(resolve(root, file)))
+       |                      ^
+     42|   )
+     43|   if (
+ ❯ verificarSoftwareExplicacion scripts/procedencia/explicacion-version.mjs:40:47
+ ❯ verificarRastroGenerado scripts/procedencia/rastro-verificar.mjs:30:31
+ ❯ tests/rastro-anual-procedencia.test.ts:172:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed | 8 passed (9)
+      Tests  2 failed | 278 passed (280)
+   Start at  15:23:39
+   Duration  5.83s (transform 911ms, setup 0ms, import 3.34s, tests 1.51s, environment 1ms)
+

@@ -1,0 +1,18 @@
+{
+  "head": "f8f1e53198fb27bc6123e03ba0b084d8e1536a0e",
+  "bloqueo": "flock /tmp/irobopf-validacion-pesada.lock",
+  "workers": 1,
+  "stage": "/home/local/.ws/worktrees/IRoboPF/t3-5faaec37/.cache/revision-redondeo-sol/stage",
+  "dependenciasSoloLectura": "/home/local/Repos/IRoboPF/node_modules",
+  "resultado": "rojo exit=1\ntests exit=0\ntipos exit=0\nvendor exit=0\noxlint exit=0\neslint exit=0\nreglas exit=0\nrastro exit=0\ncontenido exit=0\n",
+  "comando": "nix shell nixpkgs#bun nixpkgs#nodejs -c flock /tmp/irobopf-validacion-pesada.lock bash .cache/revision-redondeo-sol/checks.sh",
+  "actividad": {
+    "comparacion": "cmp actividad-anterior.json actividad-actual.json: exit 0",
+    "comando": "extras.sh bajo flock pesado"
+  },
+  "tiposGlobales": "No se ejecutan ni se afirman: cuatro diagn\u00f3sticos preexistentes declarados por el padre",
+  "lint": "Solo focal propio; global 0 errores/17 avisos es evidencia del padre, no una ejecuci\u00f3n propia",
+  "preliminares": "No acreditan producto: primer stage incompleto (app/procedencia y next.config ausentes); copia concurrente de preparaci\u00f3n invalid\u00f3 el rojo preliminar. Se conserva separado. Validaci\u00f3n final con stage completo y estable; SHA256 de fuente anterior 11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754.",
+  "effect": "Bun list/show basics testing y referencia local Effect.test.ts antes de escribir runner; logs en cache",
+  "prohibidosEjecutados": []
+}

@@ -1,0 +1,21 @@
+36 | export function verificarSoftwareExplicacion(snapshot, root) {
+37 |   const generador = hash(
+38 |     readFileSync(resolve(root, "scripts/procedencia/contenido-generar.mjs"))
+39 |   )
+40 |   const fuentesSoftware = FUENTES_EXPLICACION.map((file) =>
+41 |     hash(readFileSync(resolve(root, file)))
+              ^
+ENOENT: no such file or directory, open '/home/local/.ws/worktrees/IRoboPF/t3-5faaec37/.cache/revision-redondeo-sol/stage/next.config.mjs'
+    path: "/home/local/.ws/worktrees/IRoboPF/t3-5faaec37/.cache/revision-redondeo-sol/stage/next.config.mjs",
+ syscall: "open",
+   errno: -2,
+    code: "ENOENT"
+
+      at <anonymous> (/home/local/.ws/worktrees/IRoboPF/t3-5faaec37/.cache/revision-redondeo-sol/stage/scripts/procedencia/explicacion-version.mjs:41:10)
+      at map (1:11)
+      at verificarSoftwareExplicacion (/home/local/.ws/worktrees/IRoboPF/t3-5faaec37/.cache/revision-redondeo-sol/stage/scripts/procedencia/explicacion-version.mjs:40:47)
+      at verificarRastroGenerado (/home/local/.ws/worktrees/IRoboPF/t3-5faaec37/.cache/revision-redondeo-sol/stage/scripts/procedencia/rastro-verificar.mjs:30:3)
+      at /home/local/.ws/worktrees/IRoboPF/t3-5faaec37/.cache/revision-redondeo-sol/stage/scripts/procedencia/rastro-verificar.mjs:88:39
+      at loadAndEvaluateModule (2:1)
+
+Bun v1.3.13 (Linux x64)
