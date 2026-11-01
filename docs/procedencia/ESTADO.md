@@ -8,22 +8,24 @@ Revisión de **351 fichas** contra los originales de los boletines autonómicos,
 | --- | --- | ---: | --- |
 | A | Andalucía, Aragón, Catalunya | 49 | Candidato recibido; revisión independiente pendiente |
 | B | Asturias, Cantabria | 48 | Candidato integrado; revisión independiente en curso |
-| C | Canarias, Illes Balears | 51 | Contraste normativo en curso |
-| D | Castilla-La Mancha, Castilla y León, Extremadura | 63 | Contraste normativo en curso |
+| C | Canarias, Illes Balears | 51 | Candidato recibido; revisión independiente pendiente |
+| D | Castilla-La Mancha, Castilla y León, Extremadura | 63 | Candidato recibido; revisión independiente pendiente |
 | E | Galicia, La Rioja | 49 | Contraste normativo en curso |
 | F | Madrid, Murcia | 51 | Candidato recibido; revisión independiente pendiente |
 | G | Comunitat Valenciana | 40 | Candidato recibido; revisión independiente pendiente |
 
 El contrato aditivo conserva campos y valores de las fichas y muestra pendiente cuando no hay evidencia. Los tres defectos del verificador están corregidos y contrastados independientemente: coherencia del dictamen global, adquisiciones compartidas y filtrado de URL. Pasan 37 regresiones y siete casos del revisor; las diez pruebas Vitest se ejecutaron en el repositorio principal. Revisión técnica cerrada, sin aceptar todavía normas. [Contrato y uso](deducciones-2025/contrato/README.md), [dictamen independiente](deducciones-2025/revisiones/contrato-corregido/INFORME.md).
 
-**188 dictámenes candidatos recibidos; 163 pendientes de entrega. Ninguno aceptado todavía.** Los resultados posteriores propuestos son 93 diferencias y 95 no verificables para el alcance completo. Las diferencias incluyen omisiones de ficha: no equivalen a 93 errores de cálculo.
+**302 dictámenes candidatos recibidos; 49 pendientes de entrega. Ninguno aceptado todavía.** Los resultados posteriores propuestos son 203 diferencias y 99 no verificables para el alcance completo. Las diferencias incluyen omisiones de ficha: no equivalen a 203 errores de cálculo.
 
 - [Asturias y Cantabria](deducciones-2025/lotes/b/INFORME.md): dos diferencias del helper compartido y 46 no verificables con reservas. Se corrige el límite de cuidado de familiares y se amplían 18 descripciones; revisión independiente en curso.
 - [Andalucía, Aragón y Catalunya](deducciones-2025/lotes/a/INFORME.md): ocho correcciones documentales; los 49 dictámenes completos conservan reservas concretas de vigencia, remisiones o cálculo.
+- [Canarias e Illes Balears](deducciones-2025/lotes/c/informe.md): 51 referencias de página corregidas, 41 descripciones de consignación precisadas y restricción individual del incremento por enfermedad. Se conservan cinco discrepancias propuestas del auxiliar heredado.
+- [Castilla-La Mancha, Castilla y León y Extremadura](deducciones-2025/lotes/d/INFORME.md): 63 referencias de página corregidas; persisten 59 diferencias documentales y cuatro no verificables. La reserva sobre una incompatibilidad de vivienda CLM distingue norma y criterio administrativo.
 - [Madrid y Murcia](deducciones-2025/lotes/f/informe.md): 51 referencias de página corregidas; persisten omisiones documentales y dos diferencias propuestas del helper compartido.
 - [Comunitat Valenciana](deducciones-2025/lotes/g/INFORME.md): 40 referencias de página corregidas; las 40 fichas conservan diferencias documentales y reservas normativas.
 
-Se han reextraído las 3.962 citas de los cuatro lotes y comprobado sus originales externos con ambos hashes y tamaño. El verificador central admite los 188 registros con CAS explícito. Los cuatro contraejemplos financieros propuestos se deben contrastar en la API concreta: no se atribuyen automáticamente a la liquidación anual, que consume importes consignados.
+Se han reextraído las 9.128 citas de los seis lotes y comprobado sus originales externos con ambos hashes y tamaño. El verificador central admite los 302 registros con CAS explícito. Los nueve contraejemplos financieros propuestos se deben contrastar en la API concreta: no se atribuyen automáticamente a la liquidación anual, que consume importes consignados.
 
 El contrato admite publicaciones primarias clasificadas como reforma o corrección, sin reclasificarlas como norma inicial. También distingue una URL oficial de una ruta local y el pie editorial del manual de su fecha de publicación no acreditada. Pasan 44 regresiones del consumidor; el contraste independiente de estas ampliaciones acompaña a las revisiones de los lotes B y A.
 

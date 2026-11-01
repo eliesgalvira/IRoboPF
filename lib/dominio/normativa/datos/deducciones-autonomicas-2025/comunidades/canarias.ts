@@ -54,7 +54,7 @@ export const CANARIAS_NACIMIENTO_ADOPCION_2025 = {
   ],
   fuenteManual: {
     documento: "ManualRenta2025Parte2",
-    paginas: [181, 182],
+    paginas: [182, 183],
   },
 } as const satisfies FichaDeduccionAutonomica
 
@@ -97,7 +97,7 @@ export const CANARIAS_DISCAPACIDAD_MAYORES_65_2025 = {
   ],
   fuenteManual: {
     documento: "ManualRenta2025Parte2",
-    paginas: [183],
+    paginas: [184],
   },
 } as const satisfies FichaDeduccionAutonomica
 
@@ -141,7 +141,7 @@ export const CANARIAS_FAMILIA_NUMEROSA_2025 = {
   ],
   fuenteManual: {
     documento: "ManualRenta2025Parte2",
-    paginas: [186, 187],
+    paginas: [187, 188],
   },
 } as const satisfies FichaDeduccionAutonomica
 
@@ -181,7 +181,7 @@ export const CANARIAS_CONTRIBUYENTES_DESEMPLEADOS_2025 = {
   ],
   fuenteManual: {
     documento: "ManualRenta2025Parte2",
-    paginas: [200, 201],
+    paginas: [201, 202],
   },
 } as const satisfies FichaDeduccionAutonomica
 
@@ -201,7 +201,7 @@ export const CANARIAS_ALQUILER_VIVIENDA_HABITUAL_2025 = fichaImplementada(
     "Límite incrementado: 760 euros",
     "Base imponible general + ahorro máximo 46.455 euros individual y 61.770 conjunta",
   ],
-  [193, 194]
+  [194, 195, 196]
 )
 
 export const CANARIAS_GASTO_ENFERMEDAD_2025 = fichaImplementada(
@@ -212,15 +212,15 @@ export const CANARIAS_GASTO_ENFERMEDAD_2025 = fichaImplementada(
   {
     tipo: "mixta",
     descripcion:
-      "12% de gastos médicos/sanitarios y aparatos; límite 500/700 euros, incremento 100 euros, o límite 150 euros si supera umbral",
+      "12% de gastos médicos/sanitarios y aparatos; límite 500/700 euros, incremento 100 euros solo en tributación individual, o límite 150 euros si supera umbral",
   },
   [
     "12% de gastos deducibles",
     "Límite 500 euros individual y 700 euros conjunta si cumple umbral de bases",
-    "Incremento 100 euros por mayor de 65 o discapacidad igual/superior al 65%",
+    "Incremento 100 euros solo en tributación individual por mayor de 65 o discapacidad igual/superior al 65%",
     "Si se superan umbrales de base: límite 150 euros por contribuyente",
   ],
-  [201, 202]
+  [202, 203, 204]
 )
 
 export const CANARIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
@@ -232,13 +232,13 @@ export const CANARIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Importe final de consignación externa; esta ficha no acredita el cálculo automático de la deducción.",
     },
     [
-      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 167 a 206.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 168.",
+      "La consignación del importe no verifica por sí sola los requisitos de la norma.",
     ],
-    [167, 206],
+    [168],
     [
       "canarias_donaciones_finalidad_ecologica:importe",
       "canarias_donaciones_finalidad_ecologica:cumple",
@@ -253,13 +253,13 @@ export const CANARIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Importe final de consignación externa; esta ficha no acredita el cálculo automático de la deducción.",
     },
     [
-      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 167 a 206.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 169 a 170.",
+      "La consignación del importe no verifica por sí sola los requisitos de la norma.",
     ],
-    [167, 206],
+    [169, 170],
     [
       "canarias_donaciones_patrimonio_historico:importe",
       "canarias_donaciones_patrimonio_historico:cumple",
@@ -278,13 +278,13 @@ export const CANARIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Importe final de consignación externa; esta ficha no acredita el cálculo automático de la deducción.",
     },
     [
-      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 167 a 206.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 170 a 171.",
+      "La consignación del importe no verifica por sí sola los requisitos de la norma.",
     ],
-    [167, 206],
+    [170, 171],
     [
       "canarias_donaciones_fines_culturales_deportivos_investigacion_docencia:importe",
       "canarias_donaciones_fines_culturales_deportivos_investigacion_docencia:cumple",
@@ -303,13 +303,13 @@ export const CANARIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Importe final de consignación externa; esta ficha no acredita el cálculo automático de la deducción.",
     },
     [
-      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 167 a 206.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 171 a 172.",
+      "La consignación del importe no verifica por sí sola los requisitos de la norma.",
     ],
-    [167, 206],
+    [171, 172],
     [
       "canarias_donaciones_entidades_sin_animo_lucro:importe",
       "canarias_donaciones_entidades_sin_animo_lucro:cumple",
@@ -328,13 +328,13 @@ export const CANARIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Importe final de consignación externa; esta ficha no acredita el cálculo automático de la deducción.",
     },
     [
-      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 167 a 206.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 174.",
+      "La consignación del importe no verifica por sí sola los requisitos de la norma.",
     ],
-    [167, 206],
+    [174],
     [
       "canarias_restauracion_bienes_interes_cultural:importe",
       "canarias_restauracion_bienes_interes_cultural:cumple",
@@ -349,13 +349,13 @@ export const CANARIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Importe final de consignación externa; esta ficha no acredita el cálculo automático de la deducción.",
     },
     [
-      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 167 a 206.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 174 a 177.",
+      "La consignación del importe no verifica por sí sola los requisitos de la norma.",
     ],
-    [167, 206],
+    [174, 175, 176, 177],
     [
       "canarias_estudios_educacion_superior:importe",
       "canarias_estudios_educacion_superior:cumple",
@@ -370,13 +370,13 @@ export const CANARIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Importe final de consignación externa; esta ficha no acredita el cálculo automático de la deducción.",
     },
     [
-      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 167 a 206.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 177 a 179.",
+      "La consignación del importe no verifica por sí sola los requisitos de la norma.",
     ],
-    [167, 206],
+    [177, 178, 179],
     [
       "canarias_estudios_no_superiores:importe",
       "canarias_estudios_no_superiores:cumple",
@@ -395,13 +395,13 @@ export const CANARIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Importe final de consignación externa; esta ficha no acredita el cálculo automático de la deducción.",
     },
     [
-      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 167 a 206.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 179 a 180.",
+      "La consignación del importe no verifica por sí sola los requisitos de la norma.",
     ],
-    [167, 206],
+    [179, 180],
     [
       "canarias_traslado_residencia_otra_isla_trabajo:importe",
       "canarias_traslado_residencia_otra_isla_trabajo:cumple",
@@ -420,13 +420,13 @@ export const CANARIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Importe final de consignación externa; esta ficha no acredita el cálculo automático de la deducción.",
     },
     [
-      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 167 a 206.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 180 a 182.",
+      "La consignación del importe no verifica por sí sola los requisitos de la norma.",
     ],
-    [167, 206],
+    [180, 181, 182],
     [
       "canarias_inversion_entidades_nuevas_reciente_creacion:importe",
       "canarias_inversion_entidades_nuevas_reciente_creacion:cumple",
@@ -441,13 +441,13 @@ export const CANARIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Importe final de consignación externa; esta ficha no acredita el cálculo automático de la deducción.",
     },
     [
-      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 167 a 206.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 184 a 185.",
+      "La consignación del importe no verifica por sí sola los requisitos de la norma.",
     ],
-    [167, 206],
+    [184, 185],
     [
       "canarias_acogimiento_menores:importe",
       "canarias_acogimiento_menores:cumple",
@@ -462,13 +462,13 @@ export const CANARIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Importe final de consignación externa; esta ficha no acredita el cálculo automático de la deducción.",
     },
     [
-      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 167 a 206.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 185 a 186.",
+      "La consignación del importe no verifica por sí sola los requisitos de la norma.",
     ],
-    [167, 206],
+    [185, 186],
     [
       "canarias_familias_monoparentales:importe",
       "canarias_familias_monoparentales:cumple",
@@ -483,13 +483,13 @@ export const CANARIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Importe final de consignación externa; esta ficha no acredita el cálculo automático de la deducción.",
     },
     [
-      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 167 a 206.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 186 a 187.",
+      "La consignación del importe no verifica por sí sola los requisitos de la norma.",
     ],
-    [167, 206],
+    [186, 187],
     [
       "canarias_custodia_guarderias:importe",
       "canarias_custodia_guarderias:cumple",
@@ -504,13 +504,13 @@ export const CANARIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Importe final de consignación externa; esta ficha no acredita el cálculo automático de la deducción.",
     },
     [
-      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 167 a 206.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 188 a 190.",
+      "La consignación del importe no verifica por sí sola los requisitos de la norma.",
     ],
-    [167, 206],
+    [188, 189, 190],
     [
       "canarias_inversion_vivienda_habitual:importe",
       "canarias_inversion_vivienda_habitual:cumple",
@@ -527,13 +527,13 @@ export const CANARIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Importe final de consignación externa; esta ficha no acredita el cálculo automático de la deducción.",
     },
     [
-      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 167 a 206.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 190 a 193.",
+      "La consignación del importe no verifica por sí sola los requisitos de la norma.",
     ],
-    [167, 206],
+    [190, 191, 192, 193],
     [
       "canarias_rehabilitacion_energetica_vivienda:importe",
       "canarias_rehabilitacion_energetica_vivienda:cumple",
@@ -548,13 +548,13 @@ export const CANARIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Importe final de consignación externa; esta ficha no acredita el cálculo automático de la deducción.",
     },
     [
-      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 167 a 206.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 193 a 194.",
+      "La consignación del importe no verifica por sí sola los requisitos de la norma.",
     ],
-    [167, 206],
+    [193, 194],
     [
       "canarias_adecuacion_vivienda_discapacidad:importe",
       "canarias_adecuacion_vivienda_discapacidad:cumple",
@@ -569,13 +569,13 @@ export const CANARIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Importe final de consignación externa; esta ficha no acredita el cálculo automático de la deducción.",
     },
     [
-      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 167 a 206.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 196 a 197.",
+      "La consignación del importe no verifica por sí sola los requisitos de la norma.",
     ],
-    [167, 206],
+    [196, 197],
     [
       "canarias_arrendamiento_dacion_pago:importe",
       "canarias_arrendamiento_dacion_pago:cumple",
@@ -592,13 +592,13 @@ export const CANARIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Importe final de consignación externa; esta ficha no acredita el cálculo automático de la deducción.",
     },
     [
-      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 167 a 206.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 197 a 198.",
+      "La consignación del importe no verifica por sí sola los requisitos de la norma.",
     ],
-    [167, 206],
+    [197, 198],
     [
       "canarias_adecuacion_inmueble_arrendamiento:importe",
       "canarias_adecuacion_inmueble_arrendamiento:cumple",
@@ -615,13 +615,13 @@ export const CANARIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Importe final de consignación externa; esta ficha no acredita el cálculo automático de la deducción.",
     },
     [
-      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 167 a 206.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 198 a 200.",
+      "La consignación del importe no verifica por sí sola los requisitos de la norma.",
     ],
-    [167, 206],
+    [198, 199, 200],
     [
       "canarias_primas_seguro_impago_arrendamientos:importe",
       "canarias_primas_seguro_impago_arrendamientos:cumple",
@@ -640,13 +640,13 @@ export const CANARIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Importe final de consignación externa; esta ficha no acredita el cálculo automático de la deducción.",
     },
     [
-      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 167 a 206.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 200 a 201.",
+      "La consignación del importe no verifica por sí sola los requisitos de la norma.",
     ],
-    [167, 206],
+    [200, 201],
     [
       "canarias_puesta_viviendas_mercado_arrendamiento:importe",
       "canarias_puesta_viviendas_mercado_arrendamiento:cumple",
@@ -665,13 +665,13 @@ export const CANARIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Importe final de consignación externa; esta ficha no acredita el cálculo automático de la deducción.",
     },
     [
-      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 167 a 206.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 204 a 205.",
+      "La consignación del importe no verifica por sí sola los requisitos de la norma.",
     ],
-    [167, 206],
+    [204, 205],
     [
       "canarias_familiares_dependientes_discapacidad:importe",
       "canarias_familiares_dependientes_discapacidad:cumple",
@@ -690,13 +690,13 @@ export const CANARIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Importe final de consignación externa; esta ficha no acredita el cálculo automático de la deducción.",
     },
     [
-      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 167 a 206.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 205 a 206.",
+      "La consignación del importe no verifica por sí sola los requisitos de la norma.",
     ],
-    [167, 206],
+    [205, 206],
     [
       "canarias_cuotas_seguridad_social_empleados_hogar:importe",
       "canarias_cuotas_seguridad_social_empleados_hogar:cumple",

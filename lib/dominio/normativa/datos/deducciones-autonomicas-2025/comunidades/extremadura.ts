@@ -16,7 +16,7 @@ export const EXTREMADURA_TRABAJO_DEPENDIENTE_2025 = fichaImplementada(
     por: "contribuyente con trabajo dependiente",
   },
   ["75 euros por contribuyente"],
-  [330]
+  [331, 331]
 )
 
 export const EXTREMADURA_CUIDADO_FAMILIARES_DISCAPACIDAD_2025 =
@@ -35,7 +35,7 @@ export const EXTREMADURA_CUIDADO_FAMILIARES_DISCAPACIDAD_2025 =
       "220 euros si tiene derecho reconocido a ayuda a la dependencia pero no la percibe",
       "Base imponible general + ahorro máximo 19.000 euros individual y 24.000 conjunta, con reglas especiales para municipios de menos de 3.000 habitantes",
     ],
-    [333, 334, 335]
+    [334, 336]
   )
 
 export const EXTREMADURA_ARRENDAMIENTO_VIVIENDA_HABITUAL_2025 =
@@ -55,7 +55,7 @@ export const EXTREMADURA_ARRENDAMIENTO_VIVIENDA_HABITUAL_2025 =
       "Límite medio rural: 1.500 euros",
       "Base imponible general + ahorro máximo 28.000 euros individual y 45.000 conjunta, con excepciones por municipio",
     ],
-    [342, 343, 344]
+    [343, 346]
   )
 
 export const EXTREMADURA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
@@ -67,13 +67,13 @@ export const EXTREMADURA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Consignación de importe externo; no acredita evaluación automática de fórmula, requisitos, límites, prorrateos ni incompatibilidades.",
     },
     [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 330 a 363.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "El importe consignado requiere comprobación fiscal externa.",
     ],
-    [330, 363],
+    [331, 333],
     [
       "extremadura_partos_multiples:importe",
       "extremadura_partos_multiples:cumple",
@@ -88,13 +88,13 @@ export const EXTREMADURA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Consignación de importe externo; no acredita evaluación automática de fórmula, requisitos, límites, prorrateos ni incompatibilidades.",
     },
     [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 330 a 363.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "El importe consignado requiere comprobación fiscal externa.",
     ],
-    [330, 363],
+    [333, 334],
     [
       "extremadura_acogimiento_menores:importe",
       "extremadura_acogimiento_menores:cumple",
@@ -109,13 +109,13 @@ export const EXTREMADURA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Consignación de importe externo; no acredita evaluación automática de fórmula, requisitos, límites, prorrateos ni incompatibilidades.",
     },
     [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 330 a 363.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "El importe consignado requiere comprobación fiscal externa.",
     ],
-    [330, 363],
+    [336, 339],
     [
       "extremadura_cuidado_hijos_hasta_14:importe",
       "extremadura_cuidado_hijos_hasta_14:cumple",
@@ -130,13 +130,13 @@ export const EXTREMADURA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Consignación de importe externo; no acredita evaluación automática de fórmula, requisitos, límites, prorrateos ni incompatibilidades.",
     },
     [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 330 a 363.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "El importe consignado requiere comprobación fiscal externa.",
     ],
-    [330, 363],
+    [339, 340],
     [
       "extremadura_contribuyentes_viudos:importe",
       "extremadura_contribuyentes_viudos:cumple",
@@ -155,13 +155,13 @@ export const EXTREMADURA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Consignación de importe externo; no acredita evaluación automática de fórmula, requisitos, límites, prorrateos ni incompatibilidades.",
     },
     [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 330 a 363.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "El importe consignado requiere comprobación fiscal externa.",
     ],
-    [330, 363],
+    [340, 343],
     [
       "extremadura_vivienda_jovenes_victimas_terrorismo:importe",
       "extremadura_vivienda_jovenes_victimas_terrorismo:cumple",
@@ -176,13 +176,13 @@ export const EXTREMADURA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Consignación de importe externo; no acredita evaluación automática de fórmula, requisitos, límites, prorrateos ni incompatibilidades.",
     },
     [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 330 a 363.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "El importe consignado requiere comprobación fiscal externa.",
     ],
-    [330, 363],
+    [346, 349],
     [
       "extremadura_arrendadores_viviendas_vacias:importe",
       "extremadura_arrendadores_viviendas_vacias:cumple",
@@ -201,13 +201,13 @@ export const EXTREMADURA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Consignación de importe externo; no acredita evaluación automática de fórmula, requisitos, límites, prorrateos ni incompatibilidades.",
     },
     [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 330 a 363.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "El importe consignado requiere comprobación fiscal externa.",
     ],
-    [330, 363],
+    [349, 351],
     [
       "extremadura_rehabilitacion_viviendas_zonas_rurales_alquiler:importe",
       "extremadura_rehabilitacion_viviendas_zonas_rurales_alquiler:cumple",
@@ -222,13 +222,13 @@ export const EXTREMADURA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Consignación de importe externo; no acredita evaluación automática de fórmula, requisitos, límites, prorrateos ni incompatibilidades.",
     },
     [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 330 a 363.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "El importe consignado requiere comprobación fiscal externa.",
     ],
-    [330, 363],
+    [351, 352],
     [
       "extremadura_material_escolar:importe",
       "extremadura_material_escolar:cumple",
@@ -247,13 +247,13 @@ export const EXTREMADURA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Consignación de importe externo; no acredita evaluación automática de fórmula, requisitos, límites, prorrateos ni incompatibilidades.",
     },
     [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 330 a 363.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "El importe consignado requiere comprobación fiscal externa.",
     ],
-    [330, 363],
+    [352, 354],
     [
       "extremadura_inversion_acciones_participaciones_mercantiles:importe",
       "extremadura_inversion_acciones_participaciones_mercantiles:cumple",
@@ -268,13 +268,13 @@ export const EXTREMADURA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Consignación de importe externo; no acredita evaluación automática de fórmula, requisitos, límites, prorrateos ni incompatibilidades.",
     },
     [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 330 a 363.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "El importe consignado requiere comprobación fiscal externa.",
     ],
-    [330, 363],
+    [354, 358],
     [
       "extremadura_vivienda_zonas_rurales:importe",
       "extremadura_vivienda_zonas_rurales:cumple",
@@ -291,13 +291,13 @@ export const EXTREMADURA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Consignación de importe externo; no acredita evaluación automática de fórmula, requisitos, límites, prorrateos ni incompatibilidades.",
     },
     [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 330 a 363.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "El importe consignado requiere comprobación fiscal externa.",
     ],
-    [330, 363],
+    [358, 359],
     [
       "extremadura_residencia_municipios_menos_3000:importe",
       "extremadura_residencia_municipios_menos_3000:cumple",
@@ -312,13 +312,13 @@ export const EXTREMADURA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Consignación de importe externo; no acredita evaluación automática de fórmula, requisitos, límites, prorrateos ni incompatibilidades.",
     },
     [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 330 a 363.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "El importe consignado requiere comprobación fiscal externa.",
     ],
-    [330, 363],
+    [359, 360],
     [
       "extremadura_intereses_vivienda_jovenes:importe",
       "extremadura_intereses_vivienda_jovenes:cumple",
@@ -337,13 +337,13 @@ export const EXTREMADURA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Consignación de importe externo; no acredita evaluación automática de fórmula, requisitos, límites, prorrateos ni incompatibilidades.",
     },
     [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 330 a 363.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "El importe consignado requiere comprobación fiscal externa.",
     ],
-    [330, 363],
+    [360, 361],
     [
       "extremadura_donaciones_entidades_culturales_deportistas:importe",
       "extremadura_donaciones_entidades_culturales_deportistas:cumple",
@@ -358,13 +358,13 @@ export const EXTREMADURA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Consignación de importe externo; no acredita evaluación automática de fórmula, requisitos, límites, prorrateos ni incompatibilidades.",
     },
     [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 330 a 363.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "El importe consignado requiere comprobación fiscal externa.",
     ],
-    [330, 363],
+    [361, 363],
     [
       "extremadura_traslado_residencia_habitual:importe",
       "extremadura_traslado_residencia_habitual:cumple",
@@ -379,13 +379,13 @@ export const EXTREMADURA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Consignación de importe externo; no acredita evaluación automática de fórmula, requisitos, límites, prorrateos ni incompatibilidades.",
     },
     [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 330 a 363.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "El importe consignado requiere comprobación fiscal externa.",
     ],
-    [330, 363],
+    [363, 363],
     [
       "extremadura_ayudas_subvenciones_ela:importe",
       "extremadura_ayudas_subvenciones_ela:cumple",
@@ -400,13 +400,13 @@ export const EXTREMADURA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Consignación de importe externo; no acredita evaluación automática de fórmula, requisitos, límites, prorrateos ni incompatibilidades.",
     },
     [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 330 a 363.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "El importe consignado requiere comprobación fiscal externa.",
     ],
-    [330, 363],
+    [363, 365],
     [
       "extremadura_enfermos_ela_familiares:importe",
       "extremadura_enfermos_ela_familiares:cumple",
