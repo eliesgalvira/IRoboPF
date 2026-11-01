@@ -1,5 +1,23 @@
 # Estado de la auditoría documental
 
+## En curso: deducciones autonómicas de 2025
+
+Revisión de **351 fichas** contra los originales de los boletines autonómicos, sus reformas y el manual AEAT. Base: `464e0fd8`; solo commits nuevos. [Censo y reparto](deducciones-2025/censo.json), [criterios de dictamen](deducciones-2025/ENCARGO.md), [compatibilidad para el rediseño](deducciones-2025/CAMBIOS-PARA-REDISENO.md).
+
+| Lote | Comunidades | Fichas | Estado |
+| --- | --- | ---: | --- |
+| A | Andalucía, Aragón, Catalunya | 49 | Preparado |
+| B | Asturias, Cantabria | 48 | Preparado |
+| C | Canarias, Illes Balears | 51 | Preparado |
+| D | Castilla-La Mancha, Castilla y León, Extremadura | 63 | Preparado |
+| E | Galicia, La Rioja | 49 | Preparado |
+| F | Madrid, Murcia | 51 | Preparado |
+| G | Comunitat Valenciana | 40 | Preparado |
+
+**0 dictámenes nuevos recibidos; 351 pendientes.** Pendiente no significa «no verificable». Las auditorías históricas sirven de punto de partida, no de validación automática. Los originales nuevos irán al almacén externo y se mantendrá compatible la forma de las fichas.
+
+## Resultados anteriores
+
 **El cálculo anual salarial de Madrid 2025 está terminado y revisado dentro de su perfil admitido.** Incluye el redondeo contrastado con siete ejecuciones de Renta WEB Open. La interfaz queda para Opus. [Alcance, resultados y límites actuales](DECLARACION-SALARIAL-2025.md).
 
 **El alcance técnico acotado de 65 sitios está cerrado: 64 corroboraciones bajo condiciones y un bloqueo demostrado.** Un sitio es un punto identificado del rastro de cálculo; no equivale a una regla fiscal completa. La auditoría fiscal exhaustiva de 2012–2026 permanece incompleta.
