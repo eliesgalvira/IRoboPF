@@ -1,3 +1,4 @@
+import { resolverCommit } from "./commit-historico.mjs"
 import fs from 'node:fs'
 import {createRequire} from 'node:module'
 import {execFileSync} from 'node:child_process'
@@ -24,7 +25,7 @@ function walk(n) {
 // Gramática finita heredada y acotada a los cuerpos SS; no ejecuta texto TS.
 function build() {
  const sources=[],asts=new Map()
- for(const file of files){const b=fs.readFileSync(file),base=execFileSync('git',['cat-file','blob',BASE+':'+file],{maxBuffer:8e6});if(!b.equals(base))throw Error('Fuente alterada: '+file);sources.push({file,sha256:sha(b)});asts.set(file,ts.createSourceFile(file,b.toString(),ts.ScriptTarget.Latest,true))}
+ for(const file of files){const b=fs.readFileSync(file),base=execFileSync('git',['cat-file','blob',resolverCommit(BASE)+':'+file],{maxBuffer:8e6});if(!b.equals(base))throw Error('Fuente alterada: '+file);sources.push({file,sha256:sha(b)});asts.set(file,ts.createSourceFile(file,b.toString(),ts.ScriptTarget.Latest,true))}
   const ref = (n) => ({
     file: n.getSourceFile().fileName,
     start: n.getStart(),

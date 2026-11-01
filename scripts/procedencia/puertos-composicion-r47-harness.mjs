@@ -1,3 +1,4 @@
+import { resolverCommit } from "./commit-historico.mjs"
 // @ts-check
 // Preparador exclusivo de pruebas: no lo importa el router ni se exporta el constructor privado.
 // @effect-diagnostics effect/nodeBuiltinImport:off
@@ -13,6 +14,6 @@ const imports = (/** @type {string} */ text) => text
 const current = readFileSync(root + "/scripts/procedencia/puertos-composicion-r47.ts", "utf8")
 if (!current.includes("function routeContract(")) throw Error("Constructor privado no localizado")
 writeFileSync(scratch + "privado.ts", imports(current.replace("function routeContract(", "export function routeContract(")))
-const previous = execFileSync("git", ["cat-file", "blob", "a6fc3e5e4ec2a7fc7e123356e641817b2f19d908:scripts/procedencia/composicion-r43.ts"], { maxBuffer: 1_000_000 }).toString()
+const previous = execFileSync("git", ["cat-file", "blob", resolverCommit("a6fc3e5e4ec2a7fc7e123356e641817b2f19d908") + ":scripts/procedencia/composicion-r43.ts"], { maxBuffer: 1_000_000 }).toString()
 if (!previous.includes("const g = verifyComposition(candidate).fragments")) throw Error("Rojo previo no localizado")
 writeFileSync(scratch + "legacy.ts", imports(previous.replace("const g = verifyComposition(candidate).fragments", "const g = candidate.fragments")))
