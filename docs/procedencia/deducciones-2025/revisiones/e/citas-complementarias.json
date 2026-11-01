@@ -1,0 +1,78 @@
+{
+  "version": 1,
+  "citas": [
+    {
+      "codigo": "galicia_ayudas_incendios_peifoga_2025",
+      "documentoId": "e-765c89ade626abf97268",
+      "textoLiteral": "El importe de esta deducción será el resultado de aplicar los tipos medios de gravamen al \nimporte de la subvención o ayuda que se integre en la base liquidable.\n•\n",
+      "localizador": {
+        "tipo": "pdf",
+        "paginaFisica": 388,
+        "bbox": [
+          54.04999923706055,
+          67.9800033569336,
+          546.8758544921875,
+          98.86802673339844
+        ]
+      }
+    },
+    {
+      "codigo": "galicia_ayudas_deportistas_alto_nivel",
+      "documentoId": "e-765c89ade626abf97268",
+      "textoLiteral": "El importe de la deducción será el resultado de aplicar los tipos medios de gravamen al \nimporte de la subvención o ayuda pública en la base liquidable.\n",
+      "localizador": {
+        "tipo": "pdf",
+        "paginaFisica": 390,
+        "bbox": [
+          48.0,
+          556.18994140625,
+          532.2099609375,
+          587.1740112304688
+        ]
+      }
+    },
+    {
+      "codigo": "galicia_ayudas_ela_fenotipos",
+      "documentoId": "e-765c89ade626abf97268",
+      "textoLiteral": "El importe de esta deducción será el resultado de aplicar los tipos medios de gravamen al \nimporte de la subvención o ayuda pública que se integre en la base liquidable.\n•\n",
+      "localizador": {
+        "tipo": "pdf",
+        "paginaFisica": 399,
+        "bbox": [
+          54.04999923706055,
+          629.0299682617188,
+          546.8758544921875,
+          659.9180297851562
+        ]
+      }
+    },
+    {
+      "codigo": "galicia_rehabilitacion_centros_historicos",
+      "documentoId": "revision-e-centros-2018",
+      "articulo": "Artículo único",
+      "textoLiteral": "1. Los centros históricos a que se refieren los números 14 del articulo 5 y 6 y 7 del artículo 13 ter del texto refundido de las disposiciones legales de la Comunidad Autónoma de Galicia en materia de tributos cedidos por el Estado, aprobado por el Decreto legislativo 1/2011, de 28 de julio, serán los enumerados en el anexo, delimitados de acuerdo con los instrumentos jurídicos que se señalan para cada centro histórico.",
+      "localizador": {
+        "tipo": "html",
+        "selector": "p",
+        "indiceGlobal": 15,
+        "inicio": 0,
+        "fin": 423,
+        "recetaExtraccion": "BeautifulSoup(bytes, 'html.parser').select('p')[15].get_text(' ', strip=True)[0:423]"
+      }
+    },
+    {
+      "codigo": "galicia_rehabilitacion_centros_historicos",
+      "documentoId": "revision-e-centros-2018",
+      "articulo": "Artículo único",
+      "textoLiteral": "2. La pertenencia del bien inmueble a un centro histórico se acreditará mediante certificado emitido por el ayuntamiento correspondiente de que el bien inmueble se encuentra situado dentro de la delimitación fijada en el anexo.",
+      "localizador": {
+        "tipo": "html",
+        "selector": "p",
+        "indiceGlobal": 16,
+        "inicio": 0,
+        "fin": 227,
+        "recetaExtraccion": "BeautifulSoup(bytes, 'html.parser').select('p')[16].get_text(' ', strip=True)[0:227]"
+      }
+    }
+  ]
+}
