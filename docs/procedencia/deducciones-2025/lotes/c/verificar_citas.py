@@ -6,6 +6,7 @@ Cada --cas admite ROOT/HASH y ROOT/sha256/HASH. No usa rutas de manifiestos hist
 import argparse
 import hashlib
 import json
+import re
 from pathlib import Path
 
 from bs4 import BeautifulSoup
@@ -33,6 +34,7 @@ def verificar(carpeta, roots):
             pdf[documento['id']] = pymupdf.open(archivo)
         else:
             html[documento['id']] = BeautifulSoup(raw, 'html.parser')
+    nodos = {}
     total = 0
     codigos = set()
     for deduccion in lote['deducciones']:
@@ -50,7 +52,26 @@ def verificar(carpeta, roots):
                     clip=pymupdf.Rect(loc['bbox']), sort=False
                 )
             else:
-                nodes = html[did].select(loc['selector'])
+                key = (did, loc['selector'])
+                if key not in nodos:
+                    parts = loc['selector'].split(' > ')
+                    root = re.fullmatch(r'(\w+)#([\w-]+)', parts[0])
+                    if root:
+                        root_key = (did, parts[0])
+                        if root_key not in nodos:
+                            nodos[root_key] = html[did].find_all(root[1], id=root[2])
+                        selected = nodos[root_key]
+                        for part in parts[1:]:
+                            step = re.fullmatch(r'(\w+):nth-of-type\((\d+)\)', part)
+                            if not step:
+                                selected = html[did].select(loc['selector'])
+                                break
+                            selected = [child for parent in selected for child in
+                                        parent.find_all(step[1], recursive=False)[int(step[2])-1:int(step[2])]]
+                        nodos[key] = selected
+                    else:
+                        nodos[key] = html[did].select(loc['selector'])
+                nodes = nodos[key]
                 assert len(nodes) == 1, cita['id']
                 original = nodes[0].get_text(' ', strip=True)[loc['inicio']:loc['fin']]
             assert original == cita['textoLiteral'], cita['id']

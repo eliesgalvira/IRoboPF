@@ -1,0 +1,105 @@
+{
+  "version": 1,
+  "estado": "candidato",
+  "rectificaciones": [
+    {
+      "codigo": "andalucia_inversion_vivienda_habitual_protegida_jovenes",
+      "regla": "VPO o menor35; conjunta al menos cónyuge/progenitor; vivienda histórica2012, patrimonio, reinversión y rehabilitación25%.",
+      "frontera": "35 años sin VPO no habilita; VPO sí; gasto10000=>542,40 antes de otras restricciones.",
+      "cambio": {
+        "archivo": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/andalucia.ts",
+        "motivo": "VPO o menor35; conjunta al menos cónyuge/progenitor; vivienda histórica2012, patrimonio, reinversión y rehabilitación25%.",
+        "pruebaRojaAnterior": "tests/deducciones-procedencia-2025-a-evidencias.test.ts: 12 fallos documentales antes del fix (nueve diferencias de revisión y tres remisiones).",
+        "resultadoPosterior": "Las condiciones discriminantes pasan tras el cambio; cálculo compartido pendiente."
+      }
+    },
+    {
+      "codigo": "andalucia_alquiler_vivienda_habitual",
+      "regla": "Menor35 o mayor65 o víctima habilitante; discapacidad vía propia; NIF arrendador; conjunta habilitación de cónyuge/progenitor; por pago.",
+      "frontera": "35 años sin otra habilitación excluye;65 exactos sin otra excluye;8000=>1200;10000 discapacidad=>1500; Ley8 también efectos2025.",
+      "cambio": {
+        "archivo": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/andalucia.ts",
+        "motivo": "Menor35 o mayor65 o víctima habilitante; discapacidad vía propia; NIF arrendador; conjunta habilitación de cónyuge/progenitor; por pago.",
+        "pruebaRojaAnterior": "tests/deducciones-procedencia-2025-a-evidencias.test.ts: 12 fallos documentales antes del fix (nueve diferencias de revisión y tres remisiones).",
+        "resultadoPosterior": "Las condiciones discriminantes pasan tras el cambio; cálculo compartido pendiente."
+      }
+    },
+    {
+      "codigo": "andalucia_nacimiento_adopcion_acogimiento_menores",
+      "regla": "Dos titulares mitades; acogimiento90 días sin ayuda andaluza; no duplicar acogimiento preadoptivo/adopción; incompatibilidades art12/14.",
+      "frontera": "89 días acogimiento no basta,90 sí; gemelos general=>800 total antes reparto; BI90000 no excluye por sí.",
+      "cambio": {
+        "archivo": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/andalucia.ts",
+        "motivo": "Dos titulares mitades; acogimiento90 días sin ayuda andaluza; no duplicar acogimiento preadoptivo/adopción; incompatibilidades art12/14.",
+        "pruebaRojaAnterior": "tests/deducciones-procedencia-2025-a-evidencias.test.ts: 12 fallos documentales antes del fix (nueve diferencias de revisión y tres remisiones).",
+        "resultadoPosterior": "Las condiciones discriminantes pasan tras el cambio; cálculo compartido pendiente."
+      }
+    },
+    {
+      "codigo": "aragon_primer_segundo_hijo_poblaciones_menos_10000",
+      "regla": "Residencia contribuyente año del nacimiento y anterior, no solo población del municipio; convivencia reparto; incompatibilidad110-3.",
+      "frontera": "Traslado a municipio pequeño solo2025 no satisface residencia2024; exactamente10000 no es inferior.",
+      "cambio": {
+        "archivo": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/aragon.ts",
+        "motivo": "Residencia contribuyente año del nacimiento y anterior, no solo población del municipio; convivencia reparto; incompatibilidad110-3.",
+        "pruebaRojaAnterior": "tests/deducciones-procedencia-2025-a-evidencias.test.ts: 12 fallos documentales antes del fix (nueve diferencias de revisión y tres remisiones).",
+        "resultadoPosterior": "Las condiciones discriminantes pasan tras el cambio; cálculo compartido pendiente."
+      }
+    },
+    {
+      "codigo": "aragon_guarderia_menores_3",
+      "regla": "Mínimo descendientes; centro autorizado Educación; reparto convivientes;125 año cumple3;160-1/2.",
+      "frontera": "Dos titulares hijo menor3,gasto2000=>125 cada uno general; BL35000 individual excluye.",
+      "cambio": {
+        "archivo": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/aragon.ts",
+        "motivo": "Mínimo descendientes; centro autorizado Educación; reparto convivientes;125 año cumple3;160-1/2.",
+        "pruebaRojaAnterior": "tests/deducciones-procedencia-2025-a-evidencias.test.ts: 12 fallos documentales antes del fix (nueve diferencias de revisión y tres remisiones).",
+        "resultadoPosterior": "Las condiciones discriminantes pasan tras el cambio; cálculo compartido pendiente."
+      }
+    },
+    {
+      "codigo": "cataluna_angel_inversor",
+      "regla": "Participación familiar35%; tres años participación,domicilio,actividad y empleo; facturación<=1M no solo ampliaciones; sin dirección/empleo; escritura.",
+      "frontera": "Inversión40000=>12000 general;35% exacto sí,35,01% no; constitución facturación1.000.001 también excluye.",
+      "cambio": {
+        "archivo": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/catalunya.ts",
+        "motivo": "Participación familiar35%; tres años participación,domicilio,actividad y empleo; facturación<=1M no solo ampliaciones; sin dirección/empleo; escritura.",
+        "pruebaRojaAnterior": "tests/deducciones-procedencia-2025-a-evidencias.test.ts: 12 fallos documentales antes del fix (nueve diferencias de revisión y tres remisiones).",
+        "resultadoPosterior": "Las condiciones discriminantes pasan tras el cambio; cálculo compartido pendiente."
+      }
+    },
+    {
+      "codigo": "cataluna_nacimiento_adopcion_acogimiento",
+      "regla": "Acogimiento Ley14/2010; no acumular adopción y acogimiento; efectos1/1/2025 art3.2DL5.",
+      "frontera": "Adopción más acogimiento mismo supuesto no autoriza600; familia monoparental300 incluso individual.",
+      "cambio": {
+        "archivo": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/catalunya.ts",
+        "motivo": "Acogimiento Ley14/2010; no acumular adopción y acogimiento; efectos1/1/2025 art3.2DL5.",
+        "pruebaRojaAnterior": "tests/deducciones-procedencia-2025-a-evidencias.test.ts: 12 fallos documentales antes del fix (nueve diferencias de revisión y tres remisiones).",
+        "resultadoPosterior": "Las condiciones discriminantes pasan tras el cambio; cálculo compartido pendiente."
+      }
+    },
+    {
+      "codigo": "cataluna_alquiler_vivienda_habitual",
+      "regla": "Edad<=35,paro183,discapacidad65 o viudo>=65; FN/monoparental vía propia; vivienda máximo1000 y división declarantes; NIF; Ley8/2025DF3.",
+      "frontera": "Edad36 sin otra condición excluye;35 sí; dos titulares gasto total12000=>500 cada uno; BI30000,01 individual excluye.",
+      "cambio": {
+        "archivo": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/catalunya.ts",
+        "motivo": "Edad<=35,paro183,discapacidad65 o viudo>=65; FN/monoparental vía propia; vivienda máximo1000 y división declarantes; NIF; Ley8/2025DF3.",
+        "pruebaRojaAnterior": "tests/deducciones-procedencia-2025-a-evidencias.test.ts: 12 fallos documentales antes del fix (nueve diferencias de revisión y tres remisiones).",
+        "resultadoPosterior": "Las condiciones discriminantes pasan tras el cambio; cálculo compartido pendiente."
+      }
+    },
+    {
+      "codigo": "cataluna_obligacion_declarar_mas_de_un_pagador",
+      "regla": "Obligación causada por varios pagadores art96; excluye incluso quien pueda acogerse art89.A RIRPF.",
+      "frontera": "Cuotas1000/900=>100 solo si habilita; pensionista elegible89.A excluido aunque no optara.",
+      "cambio": {
+        "archivo": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/catalunya.ts",
+        "motivo": "Obligación causada por varios pagadores art96; excluye incluso quien pueda acogerse art89.A RIRPF.",
+        "pruebaRojaAnterior": "tests/deducciones-procedencia-2025-a-evidencias.test.ts: 12 fallos documentales antes del fix (nueve diferencias de revisión y tres remisiones).",
+        "resultadoPosterior": "Las condiciones discriminantes pasan tras el cambio; cálculo compartido pendiente."
+      }
+    }
+  ]
+}
