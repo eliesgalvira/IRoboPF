@@ -23,3 +23,9 @@ El formato ejecutable se documenta en [contrato](contrato/README.md). Los nombre
 ## Certificados de celiaquía y atribución del parcial
 
 `evaluarCeliaquiaRioja` conserva su firma y estados. Un diagnóstico posterior a la emisión del certificado devuelve `no_soportado`; se admite la emisión posterior a 2025 para un diagnóstico de ese ejercicio. El importe parcial pertenece al contribuyente indicado y nunca representa el total de una declaración conjunta. El agregado sigue rechazando estos parciales. No cambia la interfaz visual ni se añaden integrantes familiares al contrato.
+
+## Auxiliar numérico con hechos explícitos
+
+Se añade un tercer argumento opcional `hechos` a `calcularDeduccionesAutonomicasAplicadas`. Para nueve códigos afectados por pérdida de datos de personas, reparto o eventos, las llamadas activas sin esos hechos lanzan `RangeError`; no deben convertirse en cero ni reutilizar la fórmula anterior. Se conserva el retorno numérico para el cálculo parcial condicionado y se ofrece `evaluarHechosAuxiliar2025` cuando el consumidor necesite el resultado etiquetado.
+
+La ruta anual de importes consignados y el agregado que rechaza parciales permanecen intactos. El cambio está integrado como candidato pendiente de revisión independiente. El [aviso de interfaz](correcciones/auxiliar-hechos/AVISO-INTERFAZ.md) contiene los tipos, rechazos y un ejemplo de migración; el [informe](correcciones/auxiliar-hechos/INFORME.md) delimita los hechos que todavía deben acreditarse externamente. No se modifica UI.
