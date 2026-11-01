@@ -773,7 +773,7 @@ export const BALEARS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       {
         tipo: "mixta",
         descripcion:
-          "Importe final de consignación externa; esta ficha no acredita el cálculo automático de la deducción. Regla: 40%,660; reforzada50%,900 desde11julio; renta, trabajo, banco, días y reparto.",
+          "Importe final de consignación externa; esta ficha no acredita el cálculo automático de la deducción. Regla general: 40%, máximo 660 euros. El régimen reforzado de la Ley 11/2023 ya prevé 50%, máximo 900 euros, para los colectivos cualificados. Desde el 11 de julio de 2025 se añaden los autónomos con al menos 183 días de alta y el incremento del límite de renta del 30% para familias numerosas de categoría especial; el régimen reforzado anterior sigue aplicándose a los devengos previos que cumplan sus requisitos.",
       },
       [
         "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 153 a 155.",

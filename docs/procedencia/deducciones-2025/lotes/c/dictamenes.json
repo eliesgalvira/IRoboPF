@@ -19320,6 +19320,57 @@
             "fin": 344,
             "recetaExtraccion": "BeautifulSoup(bytes, 'html.parser').select_one(selector).get_text(' ', strip=True)[inicio:fin]"
           }
+        },
+        {
+          "id": "camp-01-encabezado-df10",
+          "documentoId": "cc-2c5f46bdb36e9ab8",
+          "articulo": "Disposición final décima, encabezado",
+          "apartado": "Pasaje delimitado del PDF oficial",
+          "textoLiteral": "Décima. Modificación del texto refundido de las disposiciones legales dictadas por \nla Comunidad Autónoma de Canarias en materia de tributos cedidos, aprobado por \nel Decreto Legislativo 1/2009, de 21 de abril.",
+          "localizador": {
+            "tipo": "pdf",
+            "paginaFisica": 142,
+            "bbox": [
+              99.11449279785157,
+              486.72882690429685,
+              498.9159790039063,
+              526.1548095703125
+            ]
+          }
+        },
+        {
+          "id": "camp-01-efectos-2024",
+          "documentoId": "cc-2c5f46bdb36e9ab8",
+          "articulo": "Disposición final décima, efectos",
+          "apartado": "Pasaje delimitado del PDF oficial",
+          "textoLiteral": "Con efectos desde el 1 de enero de 2024 y con vigencia indefinida, se modifica el texto \nrefundido de las disposiciones legales dictadas por la Comunidad Autónoma de Canarias \nen materia de tributos cedidos, aprobado por el Decreto Legislativo 1/2009, de 21 de abril, \nsalvo lo dispuesto en el apartado Cuatro de esta disposición, en los siguientes términos:",
+          "localizador": {
+            "tipo": "pdf",
+            "paginaFisica": 142,
+            "bbox": [
+              99.11449279785157,
+              534.2488159179687,
+              498.9226318359375,
+              585.2688842773438
+            ]
+          }
+        },
+        {
+          "id": "camp-01-art8.4-2024",
+          "documentoId": "cc-2c5f46bdb36e9ab8",
+          "articulo": "Disposición final décima.Tres; artículo 8.4",
+          "apartado": "Pasaje delimitado del PDF oficial",
+          "textoLiteral": "4. Solo tendrán derecho a la aplicación de esta deducción los contribuyentes que no \nhayan obtenido rentas en el periodo impositivo en que se origina el derecho a la deducción \npor importe superior a 45.500 euros; y, en el supuesto de tributación conjunta, cuando la \nunidad familiar no haya obtenido rentas por importe superior a 60.500 euros».",
+          "localizador": {
+            "tipo": "pdf",
+            "paginaFisica": 145,
+            "bbox": [
+              99.11449279785157,
+              109.472998046875,
+              498.9215026855469,
+              163.49604187011718
+            ]
+          }
         }
       ],
       "manual": {
@@ -19574,6 +19625,12 @@
           "motivo": "Completar condiciones documentales del artículo 8 sin modificar el auxiliar.",
           "pruebaRojaAnterior": "tests/deducciones-procedencia-2025-c-evidencias.test.ts: discriminantes documentales fallaban antes del cambio; registro privado.",
           "resultadoPosterior": "Condiciones individuales y remisiones descritas; resultado de ejecución en informe de correcciones/c."
+        },
+        {
+          "archivo": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/canarias.ts",
+          "motivo": "Corregir CAMP-01: ejercicio y umbral de origen",
+          "pruebaRojaAnterior": "docs/procedencia/deducciones-2025/revisiones/c-ampliado/casos.ts, conservada en 6301c8da y entrega independiente",
+          "resultadoPosterior": "Corrección documental candidata; no modifica un cálculo financiero. Contraste independiente pendiente."
         }
       ],
       "pendientes": [
@@ -92804,6 +92861,12 @@
           "motivo": "Completar condiciones documentales del artículo 6 bis sin modificar el auxiliar.",
           "pruebaRojaAnterior": "tests/deducciones-procedencia-2025-c-evidencias.test.ts: discriminantes documentales fallaban antes del cambio; registro privado.",
           "resultadoPosterior": "Condiciones individuales y remisiones descritas; resultado de ejecución en informe de correcciones/c."
+        },
+        {
+          "archivo": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/illes-balears.ts",
+          "motivo": "Corregir CAMP-02: régimen reforzado anterior a julio de 2025",
+          "pruebaRojaAnterior": "docs/procedencia/deducciones-2025/revisiones/c-ampliado/casos.ts, conservada en 6301c8da y entrega independiente",
+          "resultadoPosterior": "Corrección documental candidata; no modifica un cálculo financiero. Contraste independiente pendiente."
         }
       ],
       "pendientes": [
