@@ -54,7 +54,7 @@ describe("Limitaciones financieras del agregador compartido", () => {
     }
   )
   for (const ficha of fichas.filter((f) =>
-    f.entradaNecesaria.includes(`${f.codigo}:importe`)
+    f.entradaNecesaria.some((campo) => campo === `${f.codigo}:importe`)
   )) {
     it(`${ficha.codigo}: la ruta es consignación, sin liquidación de hechos`, () => {
       expect(

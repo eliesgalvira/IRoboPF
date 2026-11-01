@@ -45,8 +45,18 @@ describe("deducciones autonómicas 2025", () => {
     ).toBe(true)
   })
 
-  it("expone las 351 deducciones catalogadas de 2025 como implementadas", () => {
-    expect(DEDUCCIONES_AUTONOMICAS_2025_IMPLEMENTADAS.valor).toHaveLength(351)
+  it("no presenta las cuarenta fichas valencianas documentadas como cálculos implementados", () => {
+    const valencianas =
+      DEDUCCIONES_AUTONOMICAS_2025_POR_COMUNIDAD["comunitat-valenciana"]
+    expect(valencianas).toHaveLength(40)
+    for (const ficha of valencianas) {
+      expect(ficha.estado).toBe("normalizada_pendiente_tests")
+      expect(
+        DEDUCCIONES_AUTONOMICAS_2025_IMPLEMENTADAS.valor.some(
+          (implementada) => implementada.codigo === ficha.codigo
+        )
+      ).toBe(false)
+    }
   })
 
   it("clasifica códigos ASCII de adopción como circunstancias familiares", () => {
