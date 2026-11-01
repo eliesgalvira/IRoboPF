@@ -10,7 +10,7 @@ Revisión de **351 fichas** contra los originales de los boletines autonómicos,
 | B | Asturias, Cantabria | 48 | Candidato integrado; revisión independiente en curso |
 | C | Canarias, Illes Balears | 51 | Candidato integrado; revisión independiente en curso |
 | D | Castilla-La Mancha, Castilla y León, Extremadura | 63 | Candidato integrado; revisión independiente en curso |
-| E | Galicia, La Rioja | 49 | Candidato integrado; revisión independiente pendiente |
+| E | Galicia, La Rioja | 49 | Candidato integrado; revisión independiente en curso |
 | F | Madrid, Murcia | 51 | Candidato integrado; revisión independiente en curso |
 | G | Comunitat Valenciana | 40 | Candidato integrado; revisión independiente en curso |
 
