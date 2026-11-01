@@ -1,3 +1,7 @@
+import {
+  directorioObjetos,
+  leerLocalCerrado,
+} from "../../lib/procedencia/io.mjs"
 import { readFileSync, readdirSync, lstatSync, realpathSync } from "node:fs"
 import { resolve } from "node:path"
 import { Schema } from "effect"
@@ -28,6 +32,13 @@ function leer(root, path) {
     path.startsWith("/")
   )
     throw new Error("Ruta no canónica")
+  if (path.startsWith(almacen))
+    return leerLocalCerrado(
+      directorioObjetos(resolve(root, almacen, "..")),
+      path.slice(almacen.length),
+      10_000_000,
+      undefined
+    )
   const absolute = resolve(root, path)
   if (!lstatSync(absolute).isFile() || realpathSync(absolute) !== absolute)
     throw new Error("Dependencia no ordinaria")

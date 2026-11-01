@@ -1,4 +1,11 @@
-import { readFileSync, resolve, leerLocalCerrado, leerExterno } from "./io.mjs"
+import {
+  readFileSync,
+  resolve,
+  leerLocalCerrado,
+  leerExterno,
+  directorioContenido,
+  directorioObjetos,
+} from "./io.mjs"
 import { gunzipSync } from "node:zlib"
 import { Schema } from "effect"
 import {
@@ -11,10 +18,7 @@ import {
 } from "./modelo"
 import { hash, bytesEntidad } from "./verificador"
 
-export const directorioContenido = resolve(
-  process.cwd(),
-  "docs/procedencia/implementaciones/contenidos/datos"
-)
+export { directorioContenido } from "./io.mjs"
 const Indice = Schema.Array(Referencia)
 export function objeto(raiz: string, revision: string, snapshot?: Snapshot) {
   Schema.decodeUnknownSync(Hash)(revision)
@@ -24,7 +28,7 @@ export function objeto(raiz: string, revision: string, snapshot?: Snapshot) {
       : undefined
   if (externo !== undefined) return leerExterno(externo)
   return leerLocalCerrado(
-    resolve(raiz, "objetos"),
+    directorioObjetos(raiz),
     revision,
     10_000_000,
     undefined
