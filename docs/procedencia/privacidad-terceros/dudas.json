@@ -1,0 +1,22 @@
+{
+  "items": [
+    {
+      "id": "D01",
+      "type": "metadato-institucional-de-atribucion-incierta",
+      "reference": "../privacidad/dudas.json",
+      "action": "Se conserva el PDF oficial y la duda de la revisión anterior; no se atribuye a una persona de los hilos."
+    },
+    {
+      "id": "D02",
+      "type": "atribucion-de-identificadores-sociales",
+      "reference": "terceros.json",
+      "action": "No se investiga ni se afirma la identidad civil de las 28 cuentas. Sus publicaciones y referencias identificativas se retiran igualmente."
+    }
+  ],
+  "excludedFalsePositives": [
+    {
+      "type": "etiqueta-de-documentacion-de-JavaScript",
+      "action": "Conservada: no es una cuenta social."
+    }
+  ]
+}

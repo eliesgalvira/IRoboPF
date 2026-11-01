@@ -1,5 +1,7 @@
 # Respaldos privados y restauración
 
+El corte más reciente, anterior a la retirada de referencias de terceros, conserva un bundle de 2.982.979.274 bytes y dos copias verificadas del almacén. Sus hashes y comprobaciones están en el [informe de retirada](../privacidad-terceros/INFORME.md#respaldo-privado). Las copias descritas a continuación se conservan como antecedentes.
+
 Se conservan fuera del repositorio dos cortes íntegros: antes de retirar el almacén y antes de anonimizar la historia. Sus directorios se entregan al propietario fuera de Git; en los comandos siguientes se representan mediante variables que debe configurar con esas ubicaciones.
 
 ## Historia anterior a la anonimización
