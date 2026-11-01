@@ -7,7 +7,7 @@ Revisión de **351 fichas** contra los originales de los boletines autonómicos,
 | Lote | Comunidades | Fichas | Estado |
 | --- | --- | ---: | --- |
 | A | Andalucía, Aragón, Catalunya | 49 | Contraste normativo en curso |
-| B | Asturias, Cantabria | 48 | Contraste normativo en curso |
+| B | Asturias, Cantabria | 48 | Candidato recibido; revisión independiente pendiente |
 | C | Canarias, Illes Balears | 51 | Contraste normativo en curso |
 | D | Castilla-La Mancha, Castilla y León, Extremadura | 63 | Contraste normativo en curso |
 | E | Galicia, La Rioja | 49 | Contraste normativo en curso |
@@ -16,7 +16,9 @@ Revisión de **351 fichas** contra los originales de los boletines autonómicos,
 
 El contrato aditivo conserva campos y valores de las fichas y muestra pendiente cuando no hay evidencia. Los tres defectos del verificador están corregidos y contrastados independientemente: coherencia del dictamen global, adquisiciones compartidas y filtrado de URL. Pasan 37 regresiones y siete casos del revisor; las diez pruebas Vitest se ejecutaron en el repositorio principal. Revisión técnica cerrada, sin aceptar todavía normas. [Contrato y uso](deducciones-2025/contrato/README.md), [dictamen independiente](deducciones-2025/revisiones/contrato-corregido/INFORME.md).
 
-**0 dictámenes nuevos recibidos; 351 pendientes.** Pendiente no significa «no verificable». Las auditorías históricas sirven de punto de partida, no de validación automática. Los originales nuevos irán al almacén externo y se mantendrá compatible la forma de las fichas.
+**48 dictámenes candidatos recibidos; 303 pendientes de entrega. Ninguno aceptado todavía.** El lote B propone dos diferencias del helper compartido y 46 no verificables con reservas. Incluye una corrección del límite de cuidado de familiares y 18 aclaraciones de fichas cántabras; estas últimas no equivalen a errores numéricos corregidos. Se han comprobado 16 originales externos y las citas, y pasan 26 pruebas. La revisión debe contrastar los dictámenes y precisar las cadenas normativas aún incompletas. [Informe candidato de Asturias y Cantabria](deducciones-2025/lotes/b/INFORME.md).
+
+Pendiente no significa «no verificable». Las auditorías históricas sirven de punto de partida, no de validación automática. Los originales nuevos se conservan en el almacén externo y se mantiene compatible la forma de las fichas.
 
 ## Resultados anteriores
 

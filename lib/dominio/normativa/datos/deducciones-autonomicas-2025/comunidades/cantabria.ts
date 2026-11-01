@@ -34,7 +34,7 @@ export const CANTABRIA_CUIDADO_FAMILIARES_2025 = fichaImplementada(
   [
     "100 euros por familiar",
     "Un menor de 3 años con discapacidad igual o superior al 65% puede generar doble derecho según la ficha",
-    "Base liquidable general + ahorro minorada por mínimo personal y familiar inferior a 31.485 euros",
+    "Rentas brutas del ascendiente o descendiente no superiores a 6.000 euros; en los supuestos de discapacidad, límite de 1,5 veces el IPREM. El artículo 2.2 no establece un límite de base liquidable del contribuyente.",
   ],
   [208, 209]
 )
@@ -61,11 +61,11 @@ export const CANTABRIA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "15% de las obras elegibles; máximo 1.000 euros individual y 1.500 conjunta, con incremento por discapacidad y arrastre de dos ejercicios.",
     },
     [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 207 a 237.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Artículo 2.3 del Decreto Legislativo 62/2008. Manual 2025, edición 21/10/2026, páginas físicas 211 a 213.",
     ],
     [207, 237],
     ["cantabria_obras_mejora:importe", "cantabria_obras_mejora:cumple"],
@@ -83,11 +83,11 @@ export const CANTABRIA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "15% de donaciones a fundaciones y asociaciones de discapacidad elegibles; 12% al Fondo Cantabria Coopera; base limitada al 10% de base liquidable.",
     },
     [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 207 a 237.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Artículo 2.4 del Decreto Legislativo 62/2008. Manual 2025, edición 21/10/2026, páginas físicas 213 a 214.",
     ],
     [207, 237],
     [
@@ -104,11 +104,11 @@ export const CANTABRIA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "240 euros por el número máximo de menores acogidos simultáneamente; máximo 1.200 euros; reparto por mitad en declaraciones individuales de la pareja.",
     },
     [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 207 a 237.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Artículo 2.5 del Decreto Legislativo 62/2008. Manual 2025, edición 21/10/2026, páginas físicas 214 a 215.",
     ],
     [207, 237],
     [
@@ -129,11 +129,11 @@ export const CANTABRIA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "15% de inversión elegible en constitución o ampliación de capital; máximo 1.000 euros; participación familiar hasta tercer grado no superior al 40% y mantenimiento de tres años.",
     },
     [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 207 a 237.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Artículo 2.6 del Decreto Legislativo 62/2008. Manual 2025, edición 21/10/2026, páginas físicas 215 a 217.",
     ],
     [207, 237],
     [
@@ -150,11 +150,11 @@ export const CANTABRIA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "10% de gastos sanitarios elegibles no cubiertos; máximo 500 euros individual y 700 conjunta, incrementados por discapacidad. Base liquidable menos mínimo inferior a 22.946/31.485 euros.",
     },
     [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 207 a 237.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Artículo 2.7 del Decreto Legislativo 62/2008. Manual 2025, edición 21/10/2026, páginas físicas 217 a 218.",
     ],
     [207, 237],
     [
@@ -171,11 +171,11 @@ export const CANTABRIA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "15% de guardería; máximo 300 euros por hijo menor de tres años, con reparto del límite según gastos justificados; incompatible con guardería en despoblamiento.",
     },
     [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 207 a 237.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Artículo 2.8 del Decreto Legislativo 62/2008. Manual 2025, edición 21/10/2026, páginas físicas 218 a 219.",
     ],
     [207, 237],
     ["cantabria_gastos_guarderia:importe", "cantabria_gastos_guarderia:cumple"],
@@ -189,11 +189,11 @@ export const CANTABRIA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "200 euros al titular de familia monoparental; base liquidable menos mínimo inferior a 31.485 euros.",
     },
     [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 207 a 237.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Artículo 2.9 del Decreto Legislativo 62/2008. Manual 2025, edición 21/10/2026, páginas físicas 220 a 220.",
     ],
     [207, 237],
     [
@@ -214,11 +214,11 @@ export const CANTABRIA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "20% del alquiler; máximo 600 euros individual y 1.200 conjunta; vivienda en municipio delimitado por riesgo de despoblamiento; incompatible para la misma vivienda con alquiler general.",
     },
     [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 207 a 237.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Artículo 2.11.1 del Decreto Legislativo 62/2008. Manual 2025, edición 21/10/2026, páginas físicas 221 a 223.",
     ],
     [207, 237],
     [
@@ -239,11 +239,11 @@ export const CANTABRIA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "30% de guardería; máximo 600 euros por hijo menor de tres años; residencia en municipio delimitado e incompatibilidad con guardería general.",
     },
     [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 207 a 237.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Artículo 2.11.2 del Decreto Legislativo 62/2008. Manual 2025, edición 21/10/2026, páginas físicas 223 a 224.",
     ],
     [207, 237],
     [
@@ -264,11 +264,11 @@ export const CANTABRIA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "500 euros por traslado laboral a municipio en riesgo; exige mantenimiento de residencia y límite de cuota procedente de trabajo y actividades económicas.",
     },
     [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 207 a 237.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Artículo 2.11.3 del Decreto Legislativo 62/2008. Manual 2025, edición 21/10/2026, páginas físicas 224 a 225.",
     ],
     [207, 237],
     [
@@ -287,11 +287,11 @@ export const CANTABRIA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "200 euros por hijo estudiante desplazado; rentas anuales no superiores a 8.000 euros y reparto por mitad en individual.",
     },
     [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 207 a 237.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Artículo 2.11.4 del Decreto Legislativo 62/2008. Manual 2025, edición 21/10/2026, páginas físicas 225 a 226.",
     ],
     [207, 237],
     [
@@ -312,11 +312,11 @@ export const CANTABRIA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "20% de cuota íntegra autonómica, máximo 500 euros; contribuyente menor de 40 años residente en municipio afectado por riesgo de despoblamiento.",
     },
     [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 207 a 237.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Artículo 2.11.5 del Decreto Legislativo 62/2008. Manual 2025, edición 21/10/2026, páginas físicas 226 a 227.",
     ],
     [207, 237],
     [
@@ -337,11 +337,11 @@ export const CANTABRIA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "20% de aportaciones para ser socio, 50% de donaciones para actividad y 25% para fomento de economía social; límite conjunto 3.000 euros; incompatibilidades por inversión.",
     },
     [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 207 a 237.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Artículo 2.12 del Decreto Legislativo 62/2008. Manual 2025, edición 21/10/2026, páginas físicas 227 a 229.",
     ],
     [207, 237],
     [
@@ -358,11 +358,11 @@ export const CANTABRIA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "100% de libros y 15% de idiomas extraescolares en enseñanza obligatoria; límite conjunto 200 euros por unidad familiar; mitad en individual; factura y pago no efectivo.",
     },
     [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 207 a 237.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Artículo 2.13 del Decreto Legislativo 62/2008. Manual 2025, edición 21/10/2026, páginas físicas 229 a 230.",
     ],
     [207, 237],
     ["cantabria_gastos_educacion:importe", "cantabria_gastos_educacion:cumple"],
@@ -376,11 +376,11 @@ export const CANTABRIA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "20% de cotizaciones del empleado de hogar, máximo 300 euros; empleador y vivienda habitual en Cantabria, con hijos y rentas laborales o edad de al menos 75 años.",
     },
     [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 207 a 237.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Artículo 2.14 del Decreto Legislativo 62/2008. Manual 2025, edición 21/10/2026, páginas físicas 230 a 232.",
     ],
     [207, 237],
     ["cantabria_ayuda_domestica:importe", "cantabria_ayuda_domestica:cumple"],
@@ -398,11 +398,11 @@ export const CANTABRIA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "20% de inversión elegible sin intereses; residencia adquirida desde 2025 tras cinco años fuera de España; mantenimiento seis años y arrastre por insuficiencia cinco años.",
     },
     [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 207 a 237.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Artículo 2.15 del Decreto Legislativo 62/2008. Manual 2025, edición 21/10/2026, páginas físicas 232 a 235.",
     ],
     [207, 237],
     [
@@ -423,11 +423,11 @@ export const CANTABRIA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "10% de gastos de traslado, máximo 1.000 euros, o 25% y 1.500 por traslado laboral; ejercicio de adquisición de residencia y tres siguientes, con arrastre cuatro años.",
     },
     [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 207 a 237.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Artículo 2.16 del Decreto Legislativo 62/2008. Manual 2025, edición 21/10/2026, páginas físicas 235 a 237.",
     ],
     [207, 237],
     [
@@ -444,11 +444,11 @@ export const CANTABRIA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "500 euros por vivienda vacía al menos un año puesta en alquiler; prorrata por titularidad, duración efectiva de tres años, renta mensual hasta 1.000 euros y máximo tres viviendas por contribuyente.",
     },
     [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 207 a 237.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Artículo 2.17 del Decreto Legislativo 62/2008. Manual 2025, edición 21/10/2026, páginas físicas 237 a 238.",
     ],
     [207, 237],
     [
