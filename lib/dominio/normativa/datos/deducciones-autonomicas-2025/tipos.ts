@@ -1,3 +1,5 @@
+import type { ReferenciaProcedenciaDeduccion2025 } from "./procedencia"
+
 export type CategoriaDeduccionAutonomica =
   | "circunstancias_personales_familiares"
   | "vivienda_habitual"
@@ -50,6 +52,7 @@ export interface FuenteManualDeduccionAutonomica {
 }
 
 export type FichaDeduccionAutonomica = {
+  readonly procedencia?: ReferenciaProcedenciaDeduccion2025
   readonly codigo: string
   readonly comunidad: string
   readonly nombre: string

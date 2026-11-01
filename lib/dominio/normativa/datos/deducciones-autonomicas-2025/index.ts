@@ -28,6 +28,7 @@ import { CEUTA_DEDUCCIONES_AUTONOMICAS_2025 } from "./comunidades/ceuta"
 import { MELILLA_DEDUCCIONES_AUTONOMICAS_2025 } from "./comunidades/melilla"
 
 export * from "./tipos"
+export * from "./procedencia"
 export { DEDUCCIONES_AUTONOMICAS_2025_FALTANTES_SEGUN_GUIA } from "./helpers"
 export * from "./comunidades/andalucia"
 export * from "./comunidades/aragon"
