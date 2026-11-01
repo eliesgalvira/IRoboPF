@@ -5,17 +5,23 @@ const contexto = { ejercicio: 2025, territorio: "la-rioja", contribuyente: "a", 
 const certificado = { referencia: "supuesto", medico: "facultativo ficticio", colegiado: "ficticio", especialidad: "digestivo", fechaEmision: "2026-02-01", fechaDiagnostico: "2025-12-31", diagnostico: "definitivo", ejercicioMedico: "activo" } as const
 const persona = (cambio: Partial<PersonaCeliacaRioja> = {}): PersonaCeliacaRioja => ({ id: "a", relacion: "contribuyente", titularesDelMinimo: [], titularesDeduccion: ["a"], certificado, ...cambio })
 const cuota = (p: PersonaCeliacaRioja, conjunta = false) => evaluarCeliaquiaRioja({ ...contexto, modalidad: conjunta ? "conjunta" : "individual" }, [p])
+function importeParcial(resultado: ReturnType<typeof cuota>): number {
+  if (resultado.estado !== "calculo_parcial")
+    throw new Error("El caso debe producir un cálculo parcial con importe")
+  assert.ok(Number.isFinite(resultado.importe))
+  return resultado.importe
+}
 assert.deepEqual(cuota(persona()), { estado: "calculo_parcial", importe: 250, motivo: "Cuantía y reparto 2025; derecho al mínimo y vínculo conyugal aportados externamente, no evaluados aquí", aceptacionFiscal: "pendiente" })
 // Un cónyuge también puede tener derecho por la misma persona. El positivo del lote
 // puede ser admisible bajo este hecho, aunque su entrada no lo documenta.
-assert.equal((cuota(persona({ titularesDeduccion: ["a", "b"] })) as {importe:number}).importe, 125)
+assert.equal(importeParcial(cuota(persona({ titularesDeduccion: ["a", "b"] }))), 125)
 for (const relacion of ["descendiente", "ascendiente"] as const) {
   const p = persona({ id: "familiar", relacion, titularesDelMinimo: ["a", "b"], titularesDeduccion: ["a", "b"] })
-  assert.equal((cuota(p) as {importe:number}).importe, 125)
-  assert.equal((cuota({ ...p, titularesDelMinimo: ["b"] }) as {importe:number}).importe, 0)
-  assert.equal((cuota(p, true) as {importe:number}).importe, 125)
+  assert.equal(importeParcial(cuota(p)), 125)
+  assert.equal(importeParcial(cuota({ ...p, titularesDelMinimo: ["b"] })), 0)
+  assert.equal(importeParcial(cuota(p, true)), 125)
 }
-assert.equal((cuota(persona({ certificado: { ...certificado, fechaDiagnostico: "2026-01-01" } })) as {importe:number}).importe, 0)
+assert.equal(importeParcial(cuota(persona({ certificado: { ...certificado, fechaDiagnostico: "2026-01-01" } }))), 0)
 assert.equal(cuota(persona({ certificado: null })).estado, "no_soportado")
 assert.equal(cuota(persona({ certificado: {...certificado, fechaDiagnostico: "2025-02-30"} })).estado, "no_soportado")
 assert.equal(totalDeduccionesEvaluadas(contexto, [{ tipo: "rioja_celiaquia", contexto, personas: [persona()] }]).estado, "no_soportado")
