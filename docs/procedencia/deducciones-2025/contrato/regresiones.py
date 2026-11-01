@@ -105,6 +105,17 @@ class ContratoCorregido(revision.Contrato):
         self.paquetes[0]['fuentes']['documentos'][0]['urlOficial'] += '?id=ley-2025'
         self.verificar(self.paquetes[:1], 'parcial')
 
+    def test_publicacion_original_de_reforma_o_correccion(self):
+        for tipo in ('reforma', 'correccion'):
+            with self.subTest(tipo=tipo):
+                self.paquetes[0]['fuentes']['documentos'][0]['tipo'] = tipo
+                self.verificar(self.paquetes[:1], 'parcial')
+
+    def test_consolidado_no_sustituye_publicacion_original(self):
+        self.paquetes[0]['fuentes']['documentos'][0]['tipo'] = 'consolidado'
+        with self.assertRaisesRegex(ValueError, 'sin original/comparación'):
+            self.verificar(self.paquetes[:1], 'parcial')
+
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)

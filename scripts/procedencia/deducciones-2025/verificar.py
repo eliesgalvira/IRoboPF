@@ -166,7 +166,9 @@ def verificar_paquetes(censo, paquetes, modo='parcial', cas=None):
                 exigir(f['cambios'], f'{codigo}: transición sin prueba roja/fix')
             comprobar_comparaciones(f)
             if any(x != 'no_verificable' for x in actuales):
-                exigir(f['comparaciones'] and any(docs[x['documentoId']]['tipo'] == 'original' for x in f['citas']), f'{codigo}: dictamen sin original/comparación')
+                # Una reforma o corrección también tiene publicación original;
+                # la categoría describe su función, no reduce su valor de fuente.
+                exigir(f['comparaciones'] and any(docs[x['documentoId']]['tipo'] in ('original', 'reforma', 'correccion') for x in f['citas']), f'{codigo}: dictamen sin original/comparación')
                 manual = f['manual']
                 exigir(docs.get(manual.get('documentoId'), {}).get('tipo') == 'manual', f'{codigo}: manual sin documento')
                 exigir(manual.get('paginasFicha') == c['fuenteManual']['paginas'], f'{codigo}: páginas de ficha no preservadas')
