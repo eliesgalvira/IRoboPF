@@ -533,6 +533,16 @@
                 "pattern": "\\S"
               },
               "fechaPublicacion": {
+                "type": ["string", "null"],
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "fechaEditorial": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "reservaFechaPublicacion": {
                 "type": "string",
                 "minLength": 1,
                 "pattern": "\\S"

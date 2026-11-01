@@ -42,7 +42,7 @@ export const MADRID_NACIMIENTO_ADOPCION_2025 = {
   ],
   fuenteManual: {
     documento: "ManualRenta2025Parte2",
-    paginas: [403, 404],
+    paginas: [404, 405],
   },
 } as const satisfies FichaDeduccionAutonomica
 
@@ -63,7 +63,7 @@ export const MADRID_ARRENDAMIENTO_VIVIENDA_HABITUAL_2025 = fichaImplementada(
     "Base imponible general + ahorro del contribuyente máximo 26.414,22 euros individual y 37.322,20 conjunta",
     "Base imponible general + ahorro de la unidad familiar máximo 61.860 euros",
   ],
-  [408, 409]
+  [409, 410, 411]
 )
 
 export const MADRID_GASTOS_EDUCATIVOS_2025 = fichaImplementada(
@@ -84,68 +84,71 @@ export const MADRID_GASTOS_EDUCATIVOS_2025 = fichaImplementada(
     "Límite 927,90 euros si hay escolaridad",
     "Límite 1.031 euros para primer ciclo de Educación Infantil",
   ],
-  [419, 420, 421]
+  [420, 421, 422, 423]
 )
 
 export const MADRID_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
-  fichaImplementadaFormula("madrid_adopcion_internacional", [403, 438]),
-  fichaImplementadaFormula("madrid_acogimiento_familiar_menores", [403, 438]),
+  fichaImplementadaFormula("madrid_adopcion_internacional", [406]),
+  fichaImplementadaFormula("madrid_acogimiento_familiar_menores", [406, 407]),
   fichaImplementadaFormula(
     "madrid_acogimiento_mayores_65_discapacidad",
-    [403, 438]
+    [408, 409]
   ),
-  fichaImplementadaFormula("madrid_cuidado_ascendientes", [403, 438]),
-  fichaImplementadaFormula("madrid_gastos_arrendamiento_viviendas", [403, 438]),
-  fichaImplementadaFormula("madrid_arrendamiento_viviendas_vacias", [403, 438]),
+  fichaImplementadaFormula("madrid_cuidado_ascendientes", [409]),
+  fichaImplementadaFormula("madrid_gastos_arrendamiento_viviendas", [411, 412]),
+  fichaImplementadaFormula(
+    "madrid_arrendamiento_viviendas_vacias",
+    [412, 413, 414]
+  ),
   fichaImplementadaFormula(
     "madrid_donativos_fundaciones_clubes_deportivos",
-    [403, 438]
+    [414]
   ),
   fichaImplementadaFormula(
     "madrid_incremento_costes_financiacion_vivienda",
-    [403, 438]
+    [414, 415, 416]
   ),
   fichaImplementadaFormula(
     "madrid_cambio_residencia_municipio_despoblacion",
-    [403, 438]
+    [416, 417, 418]
   ),
   fichaImplementadaFormula(
     "madrid_vivienda_municipios_despoblacion",
-    [403, 438]
+    [418, 419, 420]
   ),
   fichaImplementadaFormula(
     "madrid_cuidado_hijos_mayores_dependientes_discapacidad",
-    [403, 438]
+    [423, 424, 425]
   ),
   fichaImplementadaFormula(
     "madrid_intereses_vivienda_jovenes_menores_30",
-    [403, 438]
+    [426]
   ),
   fichaImplementadaFormula(
     "madrid_intereses_estudios_grado_master_doctorado",
-    [403, 438]
+    [426, 427, 428]
   ),
   fichaImplementadaFormula(
     "madrid_vivienda_nacimiento_adopcion_hijos",
-    [403, 438]
+    [428, 429, 430, 431]
   ),
-  fichaImplementadaFormula("madrid_condicion_familia_numerosa", [403, 438]),
+  fichaImplementadaFormula("madrid_condicion_familia_numerosa", [431, 432]),
   fichaImplementadaFormula(
     "madrid_familias_dos_descendientes_ingresos_reducidos",
-    [403, 438]
+    [432, 433]
   ),
   fichaImplementadaFormula(
     "madrid_inversion_entidades_nuevas_reciente_creacion",
-    [403, 438]
+    [433, 434, 435]
   ),
-  fichaImplementadaFormula("madrid_autoempleo_jovenes_menores_35", [403, 438]),
+  fichaImplementadaFormula("madrid_autoempleo_jovenes_menores_35", [435, 436]),
   fichaImplementadaFormula(
     "madrid_inversiones_mercado_alternativo_bursatil",
-    [403, 438]
+    [436, 437]
   ),
   fichaImplementadaFormula(
     "madrid_inversiones_nuevos_contribuyentes_extranjero",
-    [403, 438]
+    [437, 438, 439, 440]
   ),
 ] as const satisfies ReadonlyArray<FichaDeduccionAutonomica>
 

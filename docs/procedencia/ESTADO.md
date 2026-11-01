@@ -6,17 +6,26 @@ Revisión de **351 fichas** contra los originales de los boletines autonómicos,
 
 | Lote | Comunidades | Fichas | Estado |
 | --- | --- | ---: | --- |
-| A | Andalucía, Aragón, Catalunya | 49 | Contraste normativo en curso |
-| B | Asturias, Cantabria | 48 | Candidato recibido; revisión independiente pendiente |
+| A | Andalucía, Aragón, Catalunya | 49 | Candidato recibido; revisión independiente pendiente |
+| B | Asturias, Cantabria | 48 | Candidato integrado; revisión independiente en curso |
 | C | Canarias, Illes Balears | 51 | Contraste normativo en curso |
 | D | Castilla-La Mancha, Castilla y León, Extremadura | 63 | Contraste normativo en curso |
 | E | Galicia, La Rioja | 49 | Contraste normativo en curso |
-| F | Madrid, Murcia | 51 | Contraste normativo en curso |
-| G | Comunitat Valenciana | 40 | Contraste normativo en curso |
+| F | Madrid, Murcia | 51 | Candidato recibido; revisión independiente pendiente |
+| G | Comunitat Valenciana | 40 | Candidato recibido; revisión independiente pendiente |
 
 El contrato aditivo conserva campos y valores de las fichas y muestra pendiente cuando no hay evidencia. Los tres defectos del verificador están corregidos y contrastados independientemente: coherencia del dictamen global, adquisiciones compartidas y filtrado de URL. Pasan 37 regresiones y siete casos del revisor; las diez pruebas Vitest se ejecutaron en el repositorio principal. Revisión técnica cerrada, sin aceptar todavía normas. [Contrato y uso](deducciones-2025/contrato/README.md), [dictamen independiente](deducciones-2025/revisiones/contrato-corregido/INFORME.md).
 
-**48 dictámenes candidatos recibidos; 303 pendientes de entrega. Ninguno aceptado todavía.** El lote B propone dos diferencias del helper compartido y 46 no verificables con reservas. Incluye una corrección del límite de cuidado de familiares y 18 aclaraciones de fichas cántabras; estas últimas no equivalen a errores numéricos corregidos. Se han comprobado 16 originales externos y las citas, y pasan 26 pruebas. La revisión debe contrastar los dictámenes y precisar las cadenas normativas aún incompletas. [Informe candidato de Asturias y Cantabria](deducciones-2025/lotes/b/INFORME.md).
+**188 dictámenes candidatos recibidos; 163 pendientes de entrega. Ninguno aceptado todavía.** Los resultados posteriores propuestos son 93 diferencias y 95 no verificables para el alcance completo. Las diferencias incluyen omisiones de ficha: no equivalen a 93 errores de cálculo.
+
+- [Asturias y Cantabria](deducciones-2025/lotes/b/INFORME.md): dos diferencias del helper compartido y 46 no verificables con reservas. Se corrige el límite de cuidado de familiares y se amplían 18 descripciones; revisión independiente en curso.
+- [Andalucía, Aragón y Catalunya](deducciones-2025/lotes/a/INFORME.md): ocho correcciones documentales; los 49 dictámenes completos conservan reservas concretas de vigencia, remisiones o cálculo.
+- [Madrid y Murcia](deducciones-2025/lotes/f/informe.md): 51 referencias de página corregidas; persisten omisiones documentales y dos diferencias propuestas del helper compartido.
+- [Comunitat Valenciana](deducciones-2025/lotes/g/INFORME.md): 40 referencias de página corregidas; las 40 fichas conservan diferencias documentales y reservas normativas.
+
+Se han reextraído las 3.962 citas de los cuatro lotes y comprobado sus originales externos con ambos hashes y tamaño. El verificador central admite los 188 registros con CAS explícito. Los cuatro contraejemplos financieros propuestos se deben contrastar en la API concreta: no se atribuyen automáticamente a la liquidación anual, que consume importes consignados.
+
+El contrato admite publicaciones primarias clasificadas como reforma o corrección, sin reclasificarlas como norma inicial. También distingue una URL oficial de una ruta local y el pie editorial del manual de su fecha de publicación no acreditada. Pasan 44 regresiones del consumidor; el contraste independiente de estas ampliaciones acompaña a las revisiones de los lotes B y A.
 
 Pendiente no significa «no verificable». Las auditorías históricas sirven de punto de partida, no de validación automática. Los originales nuevos se conservan en el almacén externo y se mantiene compatible la forma de las fichas.
 

@@ -116,6 +116,40 @@ class ContratoCorregido(revision.Contrato):
         with self.assertRaisesRegex(ValueError, 'sin original/comparación'):
             self.verificar(self.paquetes[:1], 'parcial')
 
+    def test_ruta_web_home_no_es_ruta_local(self):
+        self.paquetes[0]['fuentes']['documentos'][0]['urlOficial'] = (
+            'https://example.invalid/home/boletin/disposicion')
+        self.verificar(self.paquetes[:1], 'parcial')
+
+    def test_ruta_local_en_texto_sigue_rechazada(self):
+        self.f['motivo'] = 'Referencia sintética /home/persona/documento'
+        with self.assertRaisesRegex(ValueError, 'Contenido privado'):
+            self.verificar(self.paquetes[:1], 'parcial')
+
+    def test_manual_separa_fecha_editorial_de_publicacion_desconocida(self):
+        manual = self.paquetes[0]['fuentes']['documentos'][1]
+        manual.update(fechaPublicacion=None, fechaEditorial='2026-10-21',
+                      reservaFechaPublicacion='Solo se conoce el pie editorial del documento')
+        self.verificar(self.paquetes[:1], 'parcial')
+
+    def test_fecha_desconocida_requiere_reserva_y_se_limita_al_manual(self):
+        for indice in (0, 1):
+            with self.subTest(documento=indice):
+                doc = self.paquetes[0]['fuentes']['documentos'][indice]
+                doc['fechaPublicacion'] = None
+                if indice == 0:
+                    doc['reservaFechaPublicacion'] = 'Desconocida en fixture'
+                with self.assertRaises(Exception):
+                    self.verificar(self.paquetes[:1], 'parcial')
+                doc.update(self.docs[indice])
+
+    def test_fecha_editorial_invalida_se_rechaza(self):
+        manual = self.paquetes[0]['fuentes']['documentos'][1]
+        manual.update(fechaPublicacion=None, fechaEditorial='2026-02-30',
+                      reservaFechaPublicacion='Solo se conoce el pie editorial')
+        with self.assertRaises(Exception):
+            self.verificar(self.paquetes[:1], 'parcial')
+
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)

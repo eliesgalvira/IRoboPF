@@ -16,4 +16,6 @@ El SHA-256 de paquete identifica los bytes JSON exactos, sin canonicalización i
 
 Las comparaciones documentales admiten el campo aditivo `momento: "antes" | "despues"`; si falta se consideran actuales. Los lectores que distingan errores corregidos de diferencias vigentes deben usar ese campo, no interpretar texto libre. Esto no cambia la interfaz de cálculo ni las cifras.
 
+En los manifiestos de fuentes, `fechaPublicacion` puede ser `null` para un manual cuya fecha de publicación no esté acreditada. En ese caso se exige `reservaFechaPublicacion`; la fecha del pie se conserva aparte como `fechaEditorial`. El lector no debe mostrar esta última como fecha de publicación. No cambia la forma de las fichas ni la interfaz del motor.
+
 El formato ejecutable se documenta en [contrato](contrato/README.md). Los nombres mínimos comunes permanecen; los subcampos fiscales heterogéneos de `vigencia` y `manual` admiten reservas explícitas y extensiones. Las comprobaciones conocidas de referencias no se omiten por esa apertura. Antes de integrar lotes con convenciones distintas se debe acordar una ampliación aditiva del schema, sin adaptar datos fiscales a etiquetas ficticias para superar controles.

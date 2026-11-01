@@ -112,7 +112,7 @@ describe("deducciones autonómicas 2025", () => {
       deduccionesPorCodigo.get("madrid_nacimiento_adopcion_hijos")
     ).toMatchObject({
       normativa: "Ficha normalizada desde Manual Renta 2025 Parte 2",
-      fuenteManual: { paginas: [403, 404] },
+      fuenteManual: { paginas: [404, 405] },
     })
     expect(
       deduccionesPorCodigo.get("cataluna_alquiler_victimas_violencia_machista")
