@@ -1,0 +1,570 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "lote": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "const": 1
+        },
+        "ejercicio": {
+          "const": 2025
+        },
+        "lote": {
+          "enum": [
+            "a",
+            "b",
+            "c",
+            "d",
+            "e",
+            "f",
+            "g"
+          ]
+        },
+        "baseCommit": {
+          "const": "016ec72d9539ccd887202735960ce306bd2354e5"
+        },
+        "deducciones": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "codigo": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "comunidad": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "dictamenAntes": {
+                "enum": [
+                  "coincide",
+                  "diferencia",
+                  "no_verificable"
+                ]
+              },
+              "dictamenDespues": {
+                "enum": [
+                  "coincide",
+                  "diferencia",
+                  "no_verificable"
+                ]
+              },
+              "dictamenFicha": {
+                "enum": [
+                  "coincide",
+                  "diferencia",
+                  "no_verificable"
+                ]
+              },
+              "dictamenCalculo": {
+                "enum": [
+                  "coincide",
+                  "diferencia",
+                  "no_verificable"
+                ]
+              },
+              "alcance": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "motivo": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "estadoRevision": {
+                "const": "candidato"
+              },
+              "vigencia": {
+                "type": "object",
+                "properties": {
+                  "citas": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "pattern": "\\S"
+                    },
+                    "minItems": 0
+                  },
+                  "reservas": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "pattern": "\\S"
+                    },
+                    "minItems": 0
+                  }
+                },
+                "required": [],
+                "additionalProperties": true
+              },
+              "citas": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "minLength": 1,
+                      "pattern": "\\S"
+                    },
+                    "documentoId": {
+                      "type": "string",
+                      "minLength": 1,
+                      "pattern": "\\S"
+                    },
+                    "articulo": {
+                      "type": "string",
+                      "minLength": 1,
+                      "pattern": "\\S"
+                    },
+                    "apartado": {
+                      "type": "string"
+                    },
+                    "textoLiteral": {
+                      "type": "string",
+                      "minLength": 1,
+                      "pattern": "\\S"
+                    },
+                    "localizador": {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "tipo": {
+                              "const": "pdf"
+                            },
+                            "paginaFisica": {
+                              "type": "integer",
+                              "minimum": 1
+                            },
+                            "bbox": {
+                              "type": "array",
+                              "items": {
+                                "type": "number",
+                                "minimum": 0
+                              },
+                              "minItems": 4,
+                              "maxItems": 4
+                            }
+                          },
+                          "required": [
+                            "tipo",
+                            "paginaFisica",
+                            "bbox"
+                          ],
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "tipo": {
+                              "const": "html"
+                            },
+                            "selector": {
+                              "type": "string",
+                              "minLength": 1,
+                              "pattern": "\\S"
+                            },
+                            "inicio": {
+                              "type": "integer",
+                              "minimum": 0
+                            },
+                            "fin": {
+                              "type": "integer",
+                              "minimum": 1
+                            },
+                            "recetaExtraccion": {
+                              "type": "string",
+                              "minLength": 1,
+                              "pattern": "\\S"
+                            }
+                          },
+                          "required": [
+                            "tipo",
+                            "selector",
+                            "inicio",
+                            "fin",
+                            "recetaExtraccion"
+                          ],
+                          "additionalProperties": false
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "documentoId",
+                    "articulo",
+                    "apartado",
+                    "textoLiteral",
+                    "localizador"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 0
+              },
+              "manual": {
+                "type": "object",
+                "properties": {
+                  "documentoId": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  },
+                  "paginasFicha": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer",
+                      "minimum": 1
+                    },
+                    "minItems": 0
+                  },
+                  "paginasComprobadas": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer",
+                      "minimum": 1
+                    },
+                    "minItems": 0
+                  },
+                  "citas": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "pattern": "\\S"
+                    },
+                    "minItems": 0
+                  },
+                  "concordancias": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "pattern": "\\S"
+                    },
+                    "minItems": 0
+                  },
+                  "discrepancias": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "pattern": "\\S"
+                    },
+                    "minItems": 0
+                  },
+                  "reservas": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "pattern": "\\S"
+                    },
+                    "minItems": 0
+                  }
+                },
+                "required": [],
+                "additionalProperties": true
+              },
+              "comparaciones": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "campoCodigo": {
+                      "type": "string",
+                      "minLength": 1,
+                      "pattern": "\\S"
+                    },
+                    "valorCodigo": {},
+                    "reglaOficial": {
+                      "type": "string",
+                      "minLength": 1,
+                      "pattern": "\\S"
+                    },
+                    "citas": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "minLength": 1,
+                        "pattern": "\\S"
+                      },
+                      "minItems": 1
+                    },
+                    "resultado": {
+                      "enum": [
+                        "coincide",
+                        "diferencia",
+                        "no_verificable"
+                      ]
+                    },
+                    "motivo": {
+                      "type": "string",
+                      "minLength": 1,
+                      "pattern": "\\S"
+                    }
+                  },
+                  "required": [
+                    "campoCodigo",
+                    "valorCodigo",
+                    "reglaOficial",
+                    "citas",
+                    "resultado",
+                    "motivo"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 0
+              },
+              "contraejemplos": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "entradas": {
+                      "type": "object"
+                    },
+                    "esperado": {},
+                    "calculoIndependiente": {
+                      "type": "string",
+                      "minLength": 1,
+                      "pattern": "\\S"
+                    },
+                    "observado": {},
+                    "apiOCampo": {
+                      "type": "string",
+                      "minLength": 1,
+                      "pattern": "\\S"
+                    },
+                    "pruebaReproducible": {
+                      "type": "string",
+                      "minLength": 1,
+                      "pattern": "\\S"
+                    },
+                    "alcance": {
+                      "type": "string",
+                      "minLength": 1,
+                      "pattern": "\\S"
+                    }
+                  },
+                  "required": [
+                    "entradas",
+                    "esperado",
+                    "calculoIndependiente",
+                    "observado",
+                    "apiOCampo",
+                    "pruebaReproducible",
+                    "alcance"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 0
+              },
+              "cambios": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "archivo": {
+                      "type": "string",
+                      "minLength": 1,
+                      "pattern": "\\S"
+                    },
+                    "motivo": {
+                      "type": "string",
+                      "minLength": 1,
+                      "pattern": "\\S"
+                    },
+                    "pruebaRojaAnterior": {
+                      "type": "string",
+                      "minLength": 1,
+                      "pattern": "\\S"
+                    },
+                    "resultadoPosterior": {
+                      "type": "string",
+                      "minLength": 1,
+                      "pattern": "\\S"
+                    }
+                  },
+                  "required": [
+                    "archivo",
+                    "motivo",
+                    "pruebaRojaAnterior",
+                    "resultadoPosterior"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 0
+              },
+              "pendientes": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "causa": {
+                      "type": "string",
+                      "minLength": 1,
+                      "pattern": "\\S"
+                    },
+                    "actuacionesRealizadas": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "minLength": 1,
+                        "pattern": "\\S"
+                      },
+                      "minItems": 1
+                    },
+                    "evidenciaNecesaria": {
+                      "type": "string",
+                      "minLength": 1,
+                      "pattern": "\\S"
+                    }
+                  },
+                  "required": [
+                    "causa",
+                    "actuacionesRealizadas",
+                    "evidenciaNecesaria"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 0
+              }
+            },
+            "required": [
+              "codigo",
+              "comunidad",
+              "dictamenAntes",
+              "dictamenDespues",
+              "dictamenFicha",
+              "dictamenCalculo",
+              "alcance",
+              "motivo",
+              "estadoRevision",
+              "vigencia",
+              "citas",
+              "manual",
+              "comparaciones",
+              "contraejemplos",
+              "cambios",
+              "pendientes"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "version",
+        "ejercicio",
+        "lote",
+        "baseCommit",
+        "deducciones"
+      ],
+      "additionalProperties": false
+    },
+    "fuentes": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "const": 1
+        },
+        "documentos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "sha512": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{128}$"
+              },
+              "bytes": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "mimeType": {
+                "enum": [
+                  "application/pdf",
+                  "text/html",
+                  "application/xhtml+xml"
+                ]
+              },
+              "urlOficial": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "fechaRecuperacion": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "boletin": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "identificador": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "fechaPublicacion": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "tipo": {
+                "enum": [
+                  "original",
+                  "reforma",
+                  "correccion",
+                  "consolidado",
+                  "manual"
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "sha256",
+              "sha512",
+              "bytes",
+              "mimeType",
+              "urlOficial",
+              "fechaRecuperacion",
+              "boletin",
+              "identificador",
+              "fechaPublicacion",
+              "tipo"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "version",
+        "documentos"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

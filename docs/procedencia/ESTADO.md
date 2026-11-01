@@ -14,7 +14,7 @@ Revisión de **351 fichas** contra los originales de los boletines autonómicos,
 | F | Madrid, Murcia | 51 | Contraste normativo en curso |
 | G | Comunitat Valenciana | 40 | Contraste normativo en curso |
 
-El contrato aditivo de procedencia y sus verificadores se están preparando en paralelo.
+El contrato aditivo de procedencia y sus verificadores están integrados como candidatos: diez pruebas pasan; revisión independiente pendiente. Las fichas conservan sus campos y valores y la ausencia de evidencia se muestra como pendiente. [Contrato y uso](deducciones-2025/contrato/README.md).
 
 **0 dictámenes nuevos recibidos; 351 pendientes.** Pendiente no significa «no verificable». Las auditorías históricas sirven de punto de partida, no de validación automática. Los originales nuevos irán al almacén externo y se mantendrá compatible la forma de las fichas.
 
