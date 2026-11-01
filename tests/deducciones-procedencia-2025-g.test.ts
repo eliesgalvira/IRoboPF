@@ -1,4 +1,3 @@
-import { calcularDeduccionesAutonomicasAplicadas } from "../lib/dominio/irpf/deducciones-autonomicas-aplicadas"
 import { describe, expect, it } from "vitest"
 import paginasManual from "../docs/procedencia/deducciones-2025/lotes/g/paginas-manual.json"
 import { VALENCIANA_DEDUCCIONES_AUTONOMICAS_2025 } from "../lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/comunitat-valenciana"
@@ -19,42 +18,16 @@ describe("referencias valencianas en la edición fijada del Manual Renta 2025", 
   }
 })
 
-// Caracteriza la consignación externa; estos casos no acreditan elegibilidad fiscal.
-describe("alcance real del evaluador valenciano", () => {
-  const ambito = { ejercicio: 2025, territorio: "comunitat-valenciana" }
+// El comportamiento de consignación anterior se conserva por hash y en las pruebas
+// privadas de la base b95e56d6; no se exige como contrato del motor único.
+describe("datos regionales para integrar en el cálculo único", () => {
   for (const ficha of VALENCIANA_DEDUCCIONES_AUTONOMICAS_2025) {
-    if (ficha.codigo === "valenciana_ascendientes_mayores_discapacidad")
-      continue
-    it(`${ficha.codigo}: necesita importe calculado fuera`, () => {
-      expect(
-        calcularDeduccionesAutonomicasAplicadas(
-          {
-            [`${ficha.codigo}:cumple`]: true,
-            [`${ficha.codigo}:importe`]: 123.45,
-          },
-          ambito
-        )
-      ).toBe(123.45)
-      expect(
-        calcularDeduccionesAutonomicasAplicadas(
-          {
-            [`${ficha.codigo}:cumple`]: true,
-            [`${ficha.codigo}:base`]: 1000,
-          },
-          ambito
-        )
-      ).toBe(0)
+    it(`${ficha.codigo}: requiere hechos y no se presenta como cálculo completo`, () => {
+      expect(ficha.estado).toBe("normalizada_pendiente_tests")
+      expect(ficha.entradaNecesaria.length).toBeGreaterThan(4)
+      expect(ficha.entradaNecesaria.join(" ")).not.toContain(":cumple")
+      expect(ficha.entradaNecesaria.join(" ")).not.toContain(":importe")
+      expect(ficha.requisitos.length).toBeGreaterThan(1)
     })
   }
-  it("ascendientes: multiplica unidades sin recibir la base liquidable", () => {
-    expect(
-      calcularDeduccionesAutonomicasAplicadas(
-        {
-          "valenciana_ascendientes_mayores_discapacidad:cumple": true,
-          "valenciana_ascendientes_mayores_discapacidad:unidades": 2,
-        },
-        ambito
-      )
-    ).toBe(394)
-  })
 })
