@@ -22,7 +22,7 @@ export const CANTABRIA_ARRENDAMIENTO_JOVENES_MAYORES_DISCAPACIDAD_2025 =
       "Límite 300 euros en tributación individual",
       "Límite 600 euros en tributación conjunta",
     ],
-    [207, 208]
+    [208, 209]
   )
 
 export const CANTABRIA_CUIDADO_FAMILIARES_2025 = fichaImplementada(
@@ -36,7 +36,7 @@ export const CANTABRIA_CUIDADO_FAMILIARES_2025 = fichaImplementada(
     "Un menor de 3 años con discapacidad igual o superior al 65% puede generar doble derecho según la ficha",
     "Rentas brutas del ascendiente o descendiente no superiores a 6.000 euros; en los supuestos de discapacidad, límite de 1,5 veces el IPREM. El artículo 2.2 no establece un límite de base liquidable del contribuyente.",
   ],
-  [208, 209]
+  [209, 210]
 )
 
 export const CANTABRIA_NACIMIENTO_ADOPCION_HIJOS_2025 = fichaImplementada(
@@ -48,8 +48,9 @@ export const CANTABRIA_NACIMIENTO_ADOPCION_HIJOS_2025 = fichaImplementada(
   [
     "1.400 euros por nacimiento o adopción",
     "Aplicable en el ejercicio del nacimiento o adopción y en los dos ejercicios siguientes",
+    "Nacimientos o adopciones desde el 1 de enero de 2024; en declaración individual, prorrateo por mitad a cada progenitor o adoptante. Compatible con la deducción estatal. El helper parcial no aplica este reparto.",
   ],
-  [219, 220]
+  [220, 221]
 )
 
 export const CANTABRIA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
@@ -66,8 +67,9 @@ export const CANTABRIA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 207 a 237.",
       "Artículo 2.3 del Decreto Legislativo 62/2008. Manual 2025, edición 21/10/2026, páginas físicas 211 a 213.",
+      "El límite se incrementa en 500 euros por discapacidad de grado igual o superior al 65%; en conjunta, 500 euros por cada contribuyente con ese grado. No son elegibles obras en viviendas afectas, garajes, jardines, parques, piscinas ni instalaciones deportivas.",
     ],
-    [207, 237],
+    [211, 212, 213],
     ["cantabria_obras_mejora:importe", "cantabria_obras_mejora:cumple"],
     ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
   ),
@@ -88,8 +90,9 @@ export const CANTABRIA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 207 a 237.",
       "Artículo 2.4 del Decreto Legislativo 62/2008. Manual 2025, edición 21/10/2026, páginas físicas 213 a 214.",
+      "La suma de la base de esta deducción y las bases de las deducciones estatales de los artículos 68.3 y 68.5 LIRPF no podrá exceder del 10% de la base liquidable; no es una base adicional independiente.",
     ],
-    [207, 237],
+    [213, 214],
     [
       "cantabria_donativos_fundaciones_fondo_cantabria_coopera_discapacidad:importe",
       "cantabria_donativos_fundaciones_fondo_cantabria_coopera_discapacidad:cumple",
@@ -110,7 +113,7 @@ export const CANTABRIA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 207 a 237.",
       "Artículo 2.5 del Decreto Legislativo 62/2008. Manual 2025, edición 21/10/2026, páginas físicas 214 a 215.",
     ],
-    [207, 237],
+    [214, 215],
     [
       "cantabria_acogimiento_familiar_menores:importe",
       "cantabria_acogimiento_familiar_menores:cumple",
@@ -135,7 +138,7 @@ export const CANTABRIA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 207 a 237.",
       "Artículo 2.6 del Decreto Legislativo 62/2008. Manual 2025, edición 21/10/2026, páginas físicas 215 a 217.",
     ],
-    [207, 237],
+    [215, 216, 217],
     [
       "cantabria_inversion_entidades_nuevas_reciente_creacion:importe",
       "cantabria_inversion_entidades_nuevas_reciente_creacion:cumple",
@@ -156,7 +159,7 @@ export const CANTABRIA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 207 a 237.",
       "Artículo 2.7 del Decreto Legislativo 62/2008. Manual 2025, edición 21/10/2026, páginas físicas 217 a 218.",
     ],
-    [207, 237],
+    [217, 218],
     [
       "cantabria_gastos_enfermedad:importe",
       "cantabria_gastos_enfermedad:cumple",
@@ -177,7 +180,7 @@ export const CANTABRIA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 207 a 237.",
       "Artículo 2.8 del Decreto Legislativo 62/2008. Manual 2025, edición 21/10/2026, páginas físicas 218 a 219.",
     ],
-    [207, 237],
+    [218, 219],
     ["cantabria_gastos_guarderia:importe", "cantabria_gastos_guarderia:cumple"],
     ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
   ),
@@ -195,7 +198,7 @@ export const CANTABRIA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 207 a 237.",
       "Artículo 2.9 del Decreto Legislativo 62/2008. Manual 2025, edición 21/10/2026, páginas físicas 220 a 220.",
     ],
-    [207, 237],
+    [220],
     [
       "cantabria_familias_monoparentales:importe",
       "cantabria_familias_monoparentales:cumple",
@@ -220,7 +223,7 @@ export const CANTABRIA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 207 a 237.",
       "Artículo 2.11.1 del Decreto Legislativo 62/2008. Manual 2025, edición 21/10/2026, páginas físicas 221 a 223.",
     ],
-    [207, 237],
+    [221, 222, 223],
     [
       "cantabria_arrendamiento_municipios_riesgo_despoblamiento:importe",
       "cantabria_arrendamiento_municipios_riesgo_despoblamiento:cumple",
@@ -245,7 +248,7 @@ export const CANTABRIA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 207 a 237.",
       "Artículo 2.11.2 del Decreto Legislativo 62/2008. Manual 2025, edición 21/10/2026, páginas físicas 223 a 224.",
     ],
-    [207, 237],
+    [223, 224],
     [
       "cantabria_guarderia_municipios_riesgo_despoblamiento:importe",
       "cantabria_guarderia_municipios_riesgo_despoblamiento:cumple",
@@ -270,7 +273,7 @@ export const CANTABRIA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 207 a 237.",
       "Artículo 2.11.3 del Decreto Legislativo 62/2008. Manual 2025, edición 21/10/2026, páginas físicas 224 a 225.",
     ],
-    [207, 237],
+    [224, 225],
     [
       "cantabria_traslado_residencia_motivos_laborales_despoblamiento:importe",
       "cantabria_traslado_residencia_motivos_laborales_despoblamiento:cumple",
@@ -293,7 +296,7 @@ export const CANTABRIA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 207 a 237.",
       "Artículo 2.11.4 del Decreto Legislativo 62/2008. Manual 2025, edición 21/10/2026, páginas físicas 225 a 226.",
     ],
-    [207, 237],
+    [225, 226],
     [
       "cantabria_traslado_estudios_despoblamiento:importe",
       "cantabria_traslado_estudios_despoblamiento:cumple",
@@ -318,7 +321,7 @@ export const CANTABRIA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 207 a 237.",
       "Artículo 2.11.5 del Decreto Legislativo 62/2008. Manual 2025, edición 21/10/2026, páginas físicas 226 a 227.",
     ],
-    [207, 237],
+    [226, 227],
     [
       "cantabria_residencia_municipio_riesgo_despoblamiento:importe",
       "cantabria_residencia_municipio_riesgo_despoblamiento:cumple",
@@ -342,8 +345,9 @@ export const CANTABRIA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 207 a 237.",
       "Artículo 2.12 del Decreto Legislativo 62/2008. Manual 2025, edición 21/10/2026, páginas físicas 227 a 229.",
+      "En aportaciones para ser socio, mantener la participación durante cinco años. Domicilio social y fiscal en Cantabria, actividad económica y al menos una persona con contrato laboral a jornada completa y alta en Seguridad Social: requisitos de entidad durante tres años. No duplicar la base entre modalidades.",
     ],
-    [207, 237],
+    [227, 228, 229],
     [
       "cantabria_inversiones_donaciones_economia_social:importe",
       "cantabria_inversiones_donaciones_economia_social:cumple",
@@ -364,7 +368,7 @@ export const CANTABRIA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 207 a 237.",
       "Artículo 2.13 del Decreto Legislativo 62/2008. Manual 2025, edición 21/10/2026, páginas físicas 229 a 230.",
     ],
-    [207, 237],
+    [229, 230],
     ["cantabria_gastos_educacion:importe", "cantabria_gastos_educacion:cumple"],
     ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
   ),
@@ -382,7 +386,7 @@ export const CANTABRIA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 207 a 237.",
       "Artículo 2.14 del Decreto Legislativo 62/2008. Manual 2025, edición 21/10/2026, páginas físicas 230 a 232.",
     ],
-    [207, 237],
+    [230, 231, 232],
     ["cantabria_ayuda_domestica:importe", "cantabria_ayuda_domestica:cumple"],
     ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
   ),
@@ -404,7 +408,7 @@ export const CANTABRIA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 207 a 237.",
       "Artículo 2.15 del Decreto Legislativo 62/2008. Manual 2025, edición 21/10/2026, páginas físicas 232 a 235.",
     ],
-    [207, 237],
+    [232, 233, 234, 235],
     [
       "cantabria_inversiones_nuevos_contribuyentes_extranjero:importe",
       "cantabria_inversiones_nuevos_contribuyentes_extranjero:cumple",
@@ -429,7 +433,7 @@ export const CANTABRIA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 207 a 237.",
       "Artículo 2.16 del Decreto Legislativo 62/2008. Manual 2025, edición 21/10/2026, páginas físicas 235 a 237.",
     ],
-    [207, 237],
+    [235, 236, 237],
     [
       "cantabria_desplazamiento_permanencia_nuevos_residentes:importe",
       "cantabria_desplazamiento_permanencia_nuevos_residentes:cumple",
@@ -449,8 +453,9 @@ export const CANTABRIA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 207 a 237.",
       "Artículo 2.17 del Decreto Legislativo 62/2008. Manual 2025, edición 21/10/2026, páginas físicas 237 a 238.",
+      "El contribuyente no puede ser titular de más de tres viviendas, aunque solo pretenda deducir una. No arrendar a cónyuge ni familiares hasta tercer grado; si termina antes de tres años, nuevo alquiler en seis meses para conservar el derecho.",
     ],
-    [207, 237],
+    [237, 238],
     [
       "cantabria_arrendamiento_viviendas_vacias:importe",
       "cantabria_arrendamiento_viviendas_vacias:cumple",

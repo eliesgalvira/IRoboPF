@@ -15,7 +15,7 @@ export const ASTURIAS_ACOGIMIENTO_MAYORES_65_2025 = fichaImplementada(
     "500 euros por persona acogida",
     "Base imponible general + ahorro: máximo 26.000 euros individual y 37.000 conjunta",
   ],
-  [89, 90]
+  [90, 91]
 )
 
 export const ASTURIAS_ARRENDAMIENTO_VIVIENDA_HABITUAL_2025 = fichaImplementada(
@@ -33,7 +33,7 @@ export const ASTURIAS_ARRENDAMIENTO_VIVIENDA_HABITUAL_2025 = fichaImplementada(
     "Jóvenes hasta 35, familias numerosas, monoparentales, víctimas de violencia de género o despoblamiento: 30%, máximo 1.500 euros",
     "Base imponible general + ahorro: máximo 35.000 euros individual y 45.000 conjunta",
   ],
-  [93, 94]
+  [93, 94, 95]
 )
 
 export const ASTURIAS_FAMILIAS_NUMEROSAS_2025 = fichaImplementada(
@@ -66,7 +66,7 @@ export const ASTURIAS_CENTROS_CERO_TRES_2025 = fichaImplementada(
     "General: base imponible general + ahorro máximo 26.000 euros individual y 37.000 conjunta",
     "Despoblamiento: máximo 35.000 euros individual y 45.000 conjunta",
   ],
-  [100, 101, 102]
+  [100, 101, 102, 103]
 )
 
 export const ASTURIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
@@ -283,7 +283,7 @@ export const ASTURIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       "Residencia habitual del declarante en concejo en riesgo de despoblamiento o en crisis demográfica.",
       "En nacimientos o adopciones de hijos comunes en individual, se prorratea en todo caso.",
     ],
-    [105, 106],
+    [105, 106, 107],
     [
       "asturias_segundo_sucesivos_hijos_concejos_despoblamiento:unidades",
       "asturias_segundo_sucesivos_hijos_concejos_despoblamiento:cumple",
@@ -309,7 +309,7 @@ export const ASTURIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       "No aplicable a autónomos colaboradores ni socios de sociedades mercantiles de capital.",
       "No aplicable si cesó en la misma actividad en los seis meses anteriores al inicio.",
     ],
-    [106, 107, 108],
+    [107, 108],
     [
       "asturias_autonomos_concejos_despoblamiento:unidades",
       "asturias_autonomos_concejos_despoblamiento:cumple",
@@ -416,7 +416,7 @@ export const ASTURIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       "Base imponible general + ahorro: máximo 35.000 euros individual y 45.000 conjunta.",
       "La vivienda debe constituir o ir a constituir vivienda habitual; en concejos en riesgo, el domicilio fiscal debe mantenerse al menos tres años salvo fallecimiento.",
     ],
-    [116, 117, 118],
+    [116, 117, 118, 119],
     [
       "asturias_vivienda_determinados_colectivos:importe",
       "asturias_vivienda_determinados_colectivos:cumple",
@@ -443,7 +443,7 @@ export const ASTURIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       "Si hay varios adquirentes, la base máxima de 50.000 euros es conjunta y se prorratea entre adquirentes.",
       "Ámbito temporal prorrogado a 2025.",
     ],
-    [119, 120],
+    [119, 120, 121],
     [
       "asturias_vehiculos_electricos:base",
       "asturias_vehiculos_electricos:cumple",
@@ -468,7 +468,7 @@ export const ASTURIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       "Si hay más de un contribuyente con derecho, se prorratea por partes iguales.",
       "Incompatible, para los mismos descendientes y por contribuyente, con gastos de descendientes en centros de cero a tres años.",
     ],
-    [120, 121],
+    [121, 122],
     [
       "asturias_cuidado_descendientes_hasta_25:importe",
       "asturias_cuidado_descendientes_hasta_25:cumple",
@@ -496,7 +496,7 @@ export const ASTURIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       "Base imponible general + ahorro: máximo 35.000 euros individual y 45.000 conjunta.",
       "Gastos vinculados: mobiliario, transporte, arrendamiento o adquisición de vivienda, entre otros.",
     ],
-    [121, 122],
+    [122, 123],
     [
       "asturias_emancipacion_jovenes_hasta_35:base",
       "asturias_emancipacion_jovenes_hasta_35:cumple",
@@ -518,7 +518,7 @@ export const ASTURIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       "Solo por ayudas o subvenciones públicas otorgadas por el Principado de Asturias a enfermos de ELA integradas en la base imponible general.",
       "No tiene límite cuantitativo específico en la ficha; el importe depende de los tipos medios de gravamen.",
     ],
-    [122, 123],
+    [123],
     ["asturias_ayudas_ela:importe", "asturias_ayudas_ela:cumple"],
     ["Ayuda o subvención ELA integrada en la base imponible general."]
   ),
@@ -619,7 +619,7 @@ export const ASTURIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       "Constitución: al menos una persona contratada a jornada completa desde el primer ejercicio fiscal.",
       "Ampliación: entidad constituida en los tres años anteriores e incremento de plantilla media durante los dos ejercicios posteriores, mantenido 24 meses.",
     ],
-    [127, 128],
+    [127, 128, 129],
     [
       "asturias_inversion_entidades_nuevas_reciente_creacion:base",
       "asturias_inversion_entidades_nuevas_reciente_creacion:cumple",
@@ -644,7 +644,7 @@ export const ASTURIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       "Importe máximo de 100 euros por persona que dé derecho a deducción, sin perjuicio de prorrateo.",
       "Si dos o más contribuyentes tienen derecho respecto de los mismos ascendientes o descendientes, el importe máximo se prorratea por partes iguales.",
     ],
-    [128, 129],
+    [129, 130],
     [
       "asturias_enfermedad_celiaca:unidades",
       "asturias_enfermedad_celiaca:cumple",
