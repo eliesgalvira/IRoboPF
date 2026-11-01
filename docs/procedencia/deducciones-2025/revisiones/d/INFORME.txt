@@ -51,3 +51,5 @@ bun docs/procedencia/deducciones-2025/revisiones/d/pruebas.ts
 node scripts/procedencia/deducciones-2025/verificar.mjs --lotes docs/procedencia/deducciones-2025/lotes --modo parcial
 
 El último comando Bun debe conservar los siete rojos mientras el paquete del autor permanezca igual. Las dependencias y cachés se resuelven fuera del checkout; no se requieren builds ni suites legacy. El cotejo físico final y manifiesto SHA256/patch se conservan en entrega privada. No se han realizado operaciones VCS mutantes.
+
+El arnés integrado usa importaciones JSON tipadas y estrechamiento de estados, sin los seis `any` de la entrega original conservada en 656eedef9f16172db2195f4044e62dd7580491da. Se ha comprobado que conserva exactamente la salida: 78 controles conformes y los mismos siete rojos. ESLint, Oxlint y tipos pasan. Este ajuste no cambia las conclusiones ni corrige el producto.
