@@ -18,7 +18,7 @@ export const VALENCIANA_NACIMIENTO_ADOPCION_GUARDA_ACOGIMIENTO_2025 =
       "Base liquidable general + ahorro máximo 30.000 euros individual y 47.000 conjunta",
       "Entre umbrales, aplicar fórmula reductora",
     ],
-    [527, 528, 529, 530, 531]
+    [529, 530, 531, 532, 533, 534]
   )
 
 export const VALENCIANA_ASCENDIENTES_MAYORES_DISCAPACIDAD_2025 =
@@ -37,7 +37,7 @@ export const VALENCIANA_ASCENDIENTES_MAYORES_DISCAPACIDAD_2025 =
       "Base liquidable general + ahorro máximo 30.000 euros individual y 47.000 conjunta",
       "Entre umbrales, aplicar fórmula reductora",
     ],
-    [551, 552]
+    [553, 554, 555]
   )
 
 export const VALENCIANA_ARRENDAMIENTO_CESION_USO_VIVIENDA_2025 =
@@ -57,7 +57,7 @@ export const VALENCIANA_ARRENDAMIENTO_CESION_USO_VIVIENDA_2025 =
       "30%, límite 1.100 euros si cumple dos o más condiciones",
       "Base liquidable general + ahorro máximo 30.000 euros individual y 47.000 conjunta",
     ],
-    [564, 565, 566]
+    [566, 567, 568, 569, 570]
   )
 
 export const VALENCIANA_DEPORTE_ACTIVIDADES_SALUDABLES_2025 = fichaImplementada(
@@ -77,117 +77,132 @@ export const VALENCIANA_DEPORTE_ACTIVIDADES_SALUDABLES_2025 = fichaImplementada(
     "Límite máximo 150 euros anuales por contribuyente",
     "Base liquidable general + ahorro máximo 60.000 euros individual y 78.000 conjunta",
   ],
-  [614, 615, 616]
+  [616, 617, 618]
 )
 
 export const VALENCIANA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
   fichaImplementadaFormula(
     "valenciana_nacimiento_adopcion_multiples",
-    [527, 624]
+    [534, 535]
   ),
   fichaImplementadaFormula(
     "valenciana_nacimiento_adopcion_acogimiento_discapacidad",
-    [527, 624]
+    [535, 536, 537, 538, 539]
   ),
   fichaImplementadaFormula(
     "valenciana_familia_numerosa_monoparental",
-    [527, 624]
+    [539, 540, 541, 542]
   ),
   fichaImplementadaFormula(
     "valenciana_custodia_guarderias_menores_3",
-    [527, 624]
+    [542, 543, 544, 545, 546]
   ),
   fichaImplementadaFormula(
     "valenciana_conciliacion_trabajo_familia",
-    [527, 624]
+    [546, 547, 548, 549, 550, 551]
   ),
-  fichaImplementadaFormula("valenciana_discapacidad_65", [527, 624]),
+  fichaImplementadaFormula("valenciana_discapacidad_65", [551, 552, 553]),
   fichaImplementadaFormula(
     "valenciana_empleados_hogar_cuidado_personas",
-    [527, 624]
+    [555, 556, 557, 558, 559]
   ),
   fichaImplementadaFormula(
     "valenciana_arrendador_renta_precio_referencia",
-    [527, 624]
+    [559, 560]
   ),
   fichaImplementadaFormula(
     "valenciana_primera_vivienda_menores_35",
-    [527, 624]
+    [560, 561, 562]
   ),
-  fichaImplementadaFormula("valenciana_vivienda_discapacidad", [527, 624]),
-  fichaImplementadaFormula("valenciana_vivienda_ayudas_publicas", [527, 624]),
+  fichaImplementadaFormula(
+    "valenciana_vivienda_discapacidad",
+    [562, 563, 564, 565]
+  ),
+  fichaImplementadaFormula("valenciana_vivienda_ayudas_publicas", [565, 566]),
   fichaImplementadaFormula(
     "valenciana_arrendamiento_actividad_distinto_municipio",
-    [527, 624]
+    [570, 571, 572]
   ),
-  fichaImplementadaFormula("valenciana_autoconsumo_renovables", [527, 624]),
+  fichaImplementadaFormula(
+    "valenciana_autoconsumo_renovables",
+    [572, 573, 574, 575, 576]
+  ),
   fichaImplementadaFormula(
     "valenciana_donaciones_finalidad_ecologica",
-    [527, 624]
+    [576, 577]
   ),
   fichaImplementadaFormula(
     "valenciana_donaciones_bienes_patrimonio_cultural",
-    [527, 624]
+    [577, 578]
   ),
   fichaImplementadaFormula(
     "valenciana_donativos_conservacion_patrimonio_cultural",
-    [527, 624]
+    [578, 579, 580]
   ),
   fichaImplementadaFormula(
     "valenciana_conservacion_patrimonio_cultural_titulares",
-    [527, 624]
+    [580, 581]
   ),
   fichaImplementadaFormula(
     "valenciana_donaciones_lengua_valenciana",
-    [527, 624]
+    [581, 582]
   ),
   fichaImplementadaFormula(
     "valenciana_donaciones_cesiones_fines_culturales_cientificos_deportivos",
-    [527, 624]
+    [582, 583, 584, 585]
   ),
-  fichaImplementadaFormula("valenciana_dos_o_mas_descendientes", [527, 624]),
+  fichaImplementadaFormula("valenciana_dos_o_mas_descendientes", [587, 588]),
   fichaImplementadaFormula(
     "valenciana_incremento_costes_financiacion_vivienda",
-    [527, 624]
+    [588, 589, 590]
   ),
-  fichaImplementadaFormula("valenciana_material_escolar", [527, 624]),
+  fichaImplementadaFormula(
+    "valenciana_material_escolar",
+    [590, 591, 592, 593, 594]
+  ),
   fichaImplementadaFormula(
     "valenciana_obras_conservacion_mejora_periodo",
-    [527, 624]
+    [594, 595, 596, 597, 598, 599]
   ),
   fichaImplementadaFormula(
     "valenciana_obras_conservacion_mejora_2014_2015",
-    [527, 624]
+    [599, 600, 601]
   ),
-  fichaImplementadaFormula("valenciana_abonos_culturales", [527, 624]),
-  fichaImplementadaFormula("valenciana_vehiculos_orden_5_2020", [527, 624]),
+  fichaImplementadaFormula("valenciana_abonos_culturales", [601, 602]),
+  fichaImplementadaFormula(
+    "valenciana_vehiculos_orden_5_2020",
+    [602, 603, 604, 605, 606]
+  ),
   fichaImplementadaFormula(
     "valenciana_inversion_entidades_nuevas_reciente_creacion",
-    [527, 624]
+    [606, 607, 608, 609, 610, 611]
   ),
   fichaImplementadaFormula(
     "valenciana_municipio_riesgo_despoblamiento",
-    [527, 624]
+    [611, 612, 613]
   ),
-  fichaImplementadaFormula("valenciana_tratamientos_fertilidad", [527, 624]),
-  fichaImplementadaFormula("valenciana_gastos_salud", [527, 624]),
-  fichaImplementadaFormula("valenciana_fomento_formacion_musical", [527, 624]),
-  fichaImplementadaFormula("valenciana_ayudas_publicas_erte_covid", [527, 624]),
+  fichaImplementadaFormula("valenciana_tratamientos_fertilidad", [613, 614]),
+  fichaImplementadaFormula("valenciana_gastos_salud", [614, 615, 616]),
+  fichaImplementadaFormula(
+    "valenciana_fomento_formacion_musical",
+    [618, 619, 620]
+  ),
+  fichaImplementadaFormula("valenciana_ayudas_publicas_erte_covid", [620, 621]),
   fichaImplementadaFormula(
     "valenciana_donaciones_covid_investigacion",
-    [527, 624]
+    [621, 622]
   ),
   fichaImplementadaFormula(
     "valenciana_donaciones_covid_gastos_crisis_sanitaria",
-    [527, 624]
+    [622, 623]
   ),
   fichaImplementadaFormula(
     "valenciana_dana_danos_materiales_vivienda_habitual",
-    [527, 624]
+    [623, 624, 625, 626]
   ),
   fichaImplementadaFormula(
     "valenciana_dana_aportaciones_fondos_propios_entidades",
-    [527, 624]
+    [626, 627, 628]
   ),
 ] as const satisfies ReadonlyArray<FichaDeduccionAutonomica>
 

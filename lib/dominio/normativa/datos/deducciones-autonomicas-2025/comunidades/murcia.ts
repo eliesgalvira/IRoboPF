@@ -17,7 +17,7 @@ export const MURCIA_GASTOS_GUARDERIA_2025 = fichaImplementada(
     "Máximo 1.000 euros por hijo o descendiente",
     "Base imponible general + ahorro máximo 30.000 euros individual y 50.000 conjunta",
   ],
-  [446, 447]
+  [447, 448, 449]
 )
 
 export const MURCIA_ARRENDAMIENTO_VIVIENDA_HABITUAL_2025 = fichaImplementada(
@@ -37,7 +37,7 @@ export const MURCIA_ARRENDAMIENTO_VIVIENDA_HABITUAL_2025 = fichaImplementada(
     "Base imponible general menos mínimo personal y familiar inferior a 40.000 euros",
     "Base imponible del ahorro no superior a 1.800 euros",
   ],
-  [461, 462]
+  [462, 463]
 )
 
 export const MURCIA_GASTOS_VETERINARIOS_2025 = fichaImplementada(
@@ -56,61 +56,61 @@ export const MURCIA_GASTOS_VETERINARIOS_2025 = fichaImplementada(
     "Límite máximo 100 euros anuales por declaración",
     "Base imponible general + ahorro máximo 25.000 euros individual y 40.000 conjunta",
   ],
-  [478]
+  [479, 480]
 )
 
 export const MURCIA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
-  fichaImplementadaFormula("murcia_vivienda_jovenes_hasta_40", [439, 480]),
+  fichaImplementadaFormula("murcia_vivienda_jovenes_hasta_40", [440, 441, 442]),
   fichaImplementadaFormula(
     "murcia_donativos_patrimonio_cultural_actividades",
-    [439, 480]
+    [442, 443, 444]
   ),
   fichaImplementadaFormula(
     "murcia_donativos_investigacion_biosanitaria",
-    [439, 480]
+    [444, 445]
   ),
   fichaImplementadaFormula(
     "murcia_donaciones_bienes_patrimonio_cultural",
-    [439, 480]
+    [445, 446, 447]
   ),
-  fichaImplementadaFormula("murcia_dispositivos_ahorro_agua", [439, 480]),
+  fichaImplementadaFormula("murcia_dispositivos_ahorro_agua", [449, 450]),
   fichaImplementadaFormula(
     "murcia_instalaciones_recursos_energeticos_renovables",
-    [439, 480]
+    [450, 451, 452]
   ),
   fichaImplementadaFormula(
     "murcia_inversion_entidades_nuevas_reciente_creacion",
-    [439, 480]
+    [452, 453, 454]
   ),
-  fichaImplementadaFormula("murcia_inversion_mab", [439, 480]),
-  fichaImplementadaFormula("murcia_material_escolar_libros_texto", [439, 480]),
-  fichaImplementadaFormula("murcia_nacimiento_adopcion", [439, 480]),
-  fichaImplementadaFormula("murcia_contribuyentes_discapacidad", [439, 480]),
-  fichaImplementadaFormula("murcia_conciliacion", [439, 480]),
-  fichaImplementadaFormula(
-    "murcia_acogimiento_mayores_65_discapacidad",
-    [439, 480]
-  ),
-  fichaImplementadaFormula("murcia_mujeres_trabajadoras", [439, 480]),
+  fichaImplementadaFormula("murcia_inversion_mab", [454, 455, 456]),
+  fichaImplementadaFormula("murcia_material_escolar_libros_texto", [456, 457]),
+  fichaImplementadaFormula("murcia_nacimiento_adopcion", [457, 458]),
+  fichaImplementadaFormula("murcia_contribuyentes_discapacidad", [458]),
+  fichaImplementadaFormula("murcia_conciliacion", [458, 459, 460, 461]),
+  fichaImplementadaFormula("murcia_acogimiento_mayores_65_discapacidad", [461]),
+  fichaImplementadaFormula("murcia_mujeres_trabajadoras", [463, 464, 465]),
   fichaImplementadaFormula(
     "murcia_nueva_vivienda_o_ampliacion_familias_numerosas",
-    [439, 480]
+    [465, 466]
   ),
-  fichaImplementadaFormula("murcia_familia_monoparental", [439, 480]),
-  fichaImplementadaFormula("murcia_ensenanza_idiomas", [439, 480]),
-  fichaImplementadaFormula("murcia_acceso_internet", [439, 480]),
-  fichaImplementadaFormula("murcia_vehiculos_electricos", [439, 480]),
-  fichaImplementadaFormula("murcia_recarga_vehiculos_electricos", [439, 480]),
+  fichaImplementadaFormula("murcia_familia_monoparental", [467, 468]),
+  fichaImplementadaFormula("murcia_ensenanza_idiomas", [468]),
+  fichaImplementadaFormula("murcia_acceso_internet", [469, 470]),
+  fichaImplementadaFormula("murcia_vehiculos_electricos", [470, 471, 472, 473]),
+  fichaImplementadaFormula(
+    "murcia_recarga_vehiculos_electricos",
+    [473, 474, 475]
+  ),
   fichaImplementadaFormula(
     "murcia_cristales_lentes_soluciones_limpieza",
-    [439, 480]
+    [475, 476]
   ),
-  fichaImplementadaFormula("murcia_deporte_actividades_saludables", [439, 480]),
-  fichaImplementadaFormula("murcia_enfermedades_raras", [439, 480]),
-  fichaImplementadaFormula("murcia_inversion_economia_social", [439, 480]),
+  fichaImplementadaFormula("murcia_deporte_actividades_saludables", [476, 477]),
+  fichaImplementadaFormula("murcia_enfermedades_raras", [477, 478]),
+  fichaImplementadaFormula("murcia_inversion_economia_social", [478, 479]),
   fichaImplementadaFormula(
     "murcia_regimen_transitorio_inversion_vivienda_habitual",
-    [439, 480]
+    [480, 481]
   ),
 ] as const satisfies ReadonlyArray<FichaDeduccionAutonomica>
 

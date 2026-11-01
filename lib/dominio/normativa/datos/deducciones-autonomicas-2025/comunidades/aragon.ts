@@ -354,7 +354,7 @@ export const ARAGON_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
         "100% de libros de texto y material escolar de Primaria/ESO, minorado por becas y ayudas, con límites por descendiente según base, tributación, familia numerosa y fiscalidad diferenciada.",
     },
     [
-      "Fórmula: min(100% de gastos - becas/ayudas, límite por descendiente aplicable).",
+      "Fórmula: max(0, min(100% de gastos, límite por descendiente aplicable) - becas/ayudas).",
       "Régimen general, conjunta no numerosa: 100 euros hasta 12.000; 50 euros hasta 20.000; 37,50 euros hasta 25.000.",
       "Régimen general, individual no numerosa: 50 euros hasta 6.500; 37,50 euros hasta 10.000; 25 euros hasta 12.500.",
       "Régimen general, familia numerosa: 150 euros por descendiente en conjunta y 75 euros en individual, con límites de base 40.000/30.000.",
@@ -483,7 +483,7 @@ export const ARAGON_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
         "25% de clases de apoyo o refuerzo extraescolar, minorado por ayudas, con límites por descendiente según base, tributación y familia numerosa.",
     },
     [
-      "Fórmula: min(25% de gastos - ayudas, límite por descendiente aplicable).",
+      "Fórmula: max(0, min(25% de gastos, límite por descendiente aplicable) - ayudas).",
       "Conjunta no numerosa: 200 euros hasta 12.000; 100 euros hasta 20.000; 80 euros hasta 25.000.",
       "Individual no numerosa: 100 euros hasta 6.500; 80 euros hasta 10.000; 50 euros hasta 12.500.",
       "Familia numerosa: límite 300 euros por descendiente, con base máxima 30.000 individual y 40.000 conjunta.",
@@ -511,7 +511,7 @@ export const ARAGON_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
         "25% de formación para autonomía y vida independiente de descendientes menores con discapacidad igual o superior al 65%, minorado por ayudas, con límites por descendiente según base, tributación y familia numerosa.",
     },
     [
-      "Fórmula: min(25% de gastos - ayudas, límite por descendiente aplicable).",
+      "Fórmula: max(0, min(25% de gastos, límite por descendiente aplicable) - ayudas).",
       "Conjunta no numerosa: 200 euros hasta 12.000; 100 euros hasta 20.000; 80 euros hasta 25.000.",
       "Individual no numerosa: 100 euros hasta 6.500; 80 euros hasta 10.000; 50 euros hasta 12.500.",
       "Familia numerosa: límite 300 euros por descendiente, con base máxima 30.000 individual y 40.000 conjunta.",

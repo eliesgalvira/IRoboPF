@@ -33,7 +33,12 @@ def privacidad(valor):
     if isinstance(valor, float):
         exigir(math.isfinite(valor), "Número JSON no finito")
     if isinstance(valor, str):
-        exigir(not re.search(r'/(?:home|Users|tmp|private|var|mnt)/|file://|[A-Z]:\\|data:[^;]+;base64|-----BEGIN|<html\b|%PDF-', valor, re.I), 'Contenido privado u original embebido')
+        exigir(not re.search(r'data:[^;]+;base64|-----BEGIN|<html\b|%PDF-', valor, re.I), 'Contenido privado u original embebido')
+        # /home/ también es un segmento legítimo en portales oficiales.
+        # Solo una URL HTTPS completa se distingue de una ruta del equipo.
+        url_https = re.fullmatch(r'https://[^\s]+', valor, re.I) and urlsplit(valor).hostname
+        if not url_https:
+            exigir(not re.search(r'/(?:home|Users|tmp|private|var|mnt)/|file://|[A-Z]:\\', valor, re.I), 'Contenido privado u original embebido')
         exigir(len(valor) <= 20000, 'Texto excesivo: revisar original embebido')
     elif isinstance(valor, list):
         for x in valor:
@@ -123,7 +128,13 @@ def verificar_paquetes(censo, paquetes, modo='parcial', cas=None):
             exigir(url.scheme == 'https' and url.hostname and not url.username and not url.password and not url.fragment and not re.match(r'localhost$|\d+\.\d+\.\d+\.\d+$|.*:', url.hostname), f"URL pública inválida: {d['id']}")
             parametros = {k.casefold() for k, _ in parse_qsl(url.query, keep_blank_values=True)}
             exigir(not parametros.intersection({'token', 'key', 'session', 'signature', 'auth'}), 'URL con credenciales')
-            date.fromisoformat(d['fechaPublicacion'])
+            if d['fechaPublicacion'] is None:
+                exigir(d['tipo'] == 'manual' and d.get('reservaFechaPublicacion', '').strip(),
+                       'Publicación desconocida: solo manual con reserva explícita')
+            else:
+                date.fromisoformat(d['fechaPublicacion'])
+            if 'fechaEditorial' in d:
+                date.fromisoformat(d['fechaEditorial'])
             datetime.fromisoformat(d['fechaRecuperacion'].replace('Z', '+00:00'))
             # Los IDs pertenecen al lote; cada adquisición conserva URL y fecha.
             # El contenido compartido debe conservar tamaño, digest y formato.

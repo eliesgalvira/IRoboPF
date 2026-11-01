@@ -256,18 +256,21 @@ export const CATALUNYA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "15% de donativos; límite del 10% de la cuota íntegra autonómica.",
     },
     [
-      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 314 a 328.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "15% de donativos, con límite del 10% de la cuota íntegra autonómica.",
+      "Destinatarios: entidades e instituciones del artículo 612-6; inclusión en el censo cuando proceda.",
+      "Justificación documental suficiente y comunicación de donativos por la entidad a la ATC.",
     ],
     [314, 328],
     [
       "cataluna_donativos_lengua_catalana_occitana:importe",
       "cataluna_donativos_lengua_catalana_occitana:cumple",
     ],
-    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+    [
+      "Donativo a destinatario legalmente admitido que fomente la lengua catalana u occitana.",
+    ]
   ),
   fichaImplementada(
     { estado: "implementada" },
@@ -277,15 +280,18 @@ export const CATALUNYA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "30% de donativos a entidades de investigación; límite del 10% de la cuota íntegra autonómica.",
     },
     [
-      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 314 a 328.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "30% de donativos, con límite del 10% de la cuota íntegra autonómica.",
+      "La suma con la deducción estatal por donativos no puede superar el 100% del donativo.",
+      "Universidades catalanas y centros de investigación admitidos por el artículo 612-7; justificación documental e información a la ATC.",
     ],
     [314, 328],
     ["cataluna_donativos_idi:importe", "cataluna_donativos_idi:cumple"],
-    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+    [
+      "Donativo a universidad o centro de investigación comprendido en el artículo 612-7.",
+    ]
   ),
   fichaImplementada(
     { estado: "implementada" },
@@ -299,18 +305,21 @@ export const CATALUNYA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "15% de donativos; límite del 5% de la cuota íntegra autonómica.",
     },
     [
-      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 314 a 328.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "15% de cantidades donadas, con límite del 5% de la cuota íntegra autonómica.",
+      "Fundación o asociación incluida en el censo de entidades ambientales competente.",
+      "Justificación documental suficiente e información de donativos a la ATC.",
     ],
     [314, 328],
     [
       "cataluna_donaciones_medio_ambiente_patrimonio_natural:importe",
       "cataluna_donaciones_medio_ambiente_patrimonio_natural:cumple",
     ],
-    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+    [
+      "Donativo a entidad censada en beneficio del medio ambiente, patrimonio natural o custodia del territorio.",
+    ]
   ),
   fichaImplementada(
     { estado: "implementada" },
@@ -320,15 +329,21 @@ export const CATALUNYA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "40% de la inversión, hasta 12.000 euros; 50% hasta 12.000 euros para sociedades creadas o participadas por universidades o centros de investigación.",
     },
     [
-      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 314 a 328.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "40% de cantidades invertidas, máximo 12.000 euros; régimen universidades o centros de investigación: 50%, máximo 12.000 euros.",
+      "En conjunta, los límites se aplican a cada contribuyente.",
+      "Participación con cónyuge y familiares hasta tercer grado: máximo 35%; mantenimiento mínimo tres años.",
+      "Sociedad SA, SL, SAL o SLL con domicilio social y fiscal en Catalunya, actividad económica y al menos una persona empleada a jornada completa en Régimen General.",
+      "En ampliación, constitución en los tres años anteriores y sin cotización en mercado nacional ni alternativo; facturación anual máxima de un millón de euros.",
+      "Sin funciones ejecutivas o de dirección ni relación laboral; escritura pública; mantenimiento y regularización según artículo 612-9.",
     ],
     [314, 328],
     ["cataluna_angel_inversor:importe", "cataluna_angel_inversor:cumple"],
-    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+    [
+      "Inversión en constitución o ampliación de capital que cumpla los requisitos del artículo 612-9.",
+    ]
   ),
   fichaImplementada(
     { estado: "implementada" },
@@ -342,18 +357,23 @@ export const CATALUNYA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Régimen transitorio: 7,5% general; 15% por adecuación para discapacidad; 9% en los supuestos anteriores al 30/07/2011 previstos en el artículo 613-1.",
     },
     [
-      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 314 a 328.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Aplicable solo bajo el régimen transitorio de la disposición transitoria decimoctava LIRPF.",
+      "7,5% general y 15% para obras de adecuación de vivienda habitual de personas con discapacidad.",
+      "9% para adquisiciones o cantidades de construcción anteriores al 30/07/2011 si se cumple alguno de los supuestos legales.",
+      "Para el 9%: edad hasta 32 años, paro al menos 183 días, discapacidad al menos 65% o unidad familiar con al menos un hijo a devengo.",
+      "Para el 9%: base imponible general más ahorro menos mínimo personal y familiar no superior a 30.000 euros; en conjunta se computa individualmente por contribuyente con derecho.",
     ],
     [314, 328],
     [
       "cataluna_tramo_autonomico_inversion_vivienda_habitual:importe",
       "cataluna_tramo_autonomico_inversion_vivienda_habitual:cumple",
     ],
-    ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
+    [
+      "Derecho al régimen transitorio estatal y cumplimiento de las condiciones del artículo 613-1.",
+    ]
   ),
 ] as const satisfies ReadonlyArray<FichaDeduccionAutonomica>
 
