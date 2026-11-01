@@ -7,7 +7,7 @@ Revisión de **351 fichas** contra los originales de los boletines autonómicos,
 | Lote | Comunidades | Fichas | Estado |
 | --- | --- | ---: | --- |
 | A | Andalucía, Aragón, Catalunya | 49 | Candidato integrado; revisión independiente en curso |
-| B | Asturias, Cantabria | 48 | Revisión recibida; rectificaciones documentales y del auxiliar pendientes |
+| B | Asturias, Cantabria | 48 | Rectificación documental en curso; dos cambios del auxiliar pendientes |
 | C | Canarias, Illes Balears | 51 | Candidato integrado; revisión independiente en curso |
 | D | Castilla-La Mancha, Castilla y León, Extremadura | 63 | Candidato integrado; revisión independiente en curso |
 | E | Galicia, La Rioja | 49 | Candidato integrado; revisión independiente en curso |
