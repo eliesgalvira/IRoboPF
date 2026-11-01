@@ -2,9 +2,9 @@
 
 La revisión de 2025 conserva los campos existentes de `FichaDeduccionAutonomica`, sus códigos y las exportaciones del catálogo. Se añadirá procedencia verificable sin cambios de diseño en `app/procedencia/**` ni en otros componentes.
 
-Se ha incorporado el contrato aditivo descrito a continuación como candidato, pendiente de revisión independiente. La ausencia de procedencia revisada no debe interpretarse como conformidad normativa.
+Se ha incorporado el contrato aditivo descrito a continuación y se ha contrastado técnicamente mediante revisión independiente. Los dictámenes normativos de las deducciones siguen pendientes. La ausencia de procedencia revisada no debe interpretarse como conformidad normativa.
 
-## Conexión documental candidata
+## Conexión documental
 
 Se añade `procedencia?` a `FichaDeduccionAutonomica` y se exporta `obtenerProcedenciaDeduccion2025`. Se conservan campos, exports, códigos, cifras e identidades de objetos. La referencia contiene versión, ejercicio, código, estado documental y opcionalmente el SHA-256 del paquete. No contiene citas extensas, rutas de almacenamiento ni originales.
 

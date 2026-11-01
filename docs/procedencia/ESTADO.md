@@ -14,7 +14,7 @@ Revisión de **351 fichas** contra los originales de los boletines autonómicos,
 | F | Madrid, Murcia | 51 | Contraste normativo en curso |
 | G | Comunitat Valenciana | 40 | Contraste normativo en curso |
 
-El contrato aditivo conserva campos y valores de las fichas y muestra pendiente cuando no hay evidencia. La revisión independiente reprodujo tres defectos del verificador: coherencia del dictamen global, adquisiciones compartidas y filtrado de URL. Sus correcciones pasan 37 regresiones y quedan pendientes de contraste independiente. [Contrato y uso](deducciones-2025/contrato/README.md), [hallazgos reproducidos](deducciones-2025/revisiones/contrato/INFORME.md).
+El contrato aditivo conserva campos y valores de las fichas y muestra pendiente cuando no hay evidencia. Los tres defectos del verificador están corregidos y contrastados independientemente: coherencia del dictamen global, adquisiciones compartidas y filtrado de URL. Pasan 37 regresiones y siete casos del revisor; las diez pruebas Vitest se ejecutaron en el repositorio principal. Revisión técnica cerrada, sin aceptar todavía normas. [Contrato y uso](deducciones-2025/contrato/README.md), [dictamen independiente](deducciones-2025/revisiones/contrato-corregido/INFORME.md).
 
 **0 dictámenes nuevos recibidos; 351 pendientes.** Pendiente no significa «no verificable». Las auditorías históricas sirven de punto de partida, no de validación automática. Los originales nuevos irán al almacén externo y se mantendrá compatible la forma de las fichas.
 
