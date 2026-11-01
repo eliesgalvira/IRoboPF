@@ -1,5 +1,9 @@
 # Informe de resultados de la auditoría documental
 
+**Resultado posterior disponible:** el cálculo anual interno del perfil salarial admitido de Madrid 2025 está terminado y revisado, con el redondeo contrastado contra siete ejecuciones de Renta WEB Open. La interfaz queda para Opus. El [resumen del perfil salarial](DECLARACION-SALARIAL-2025.md) explica sus condiciones y límites sin exigir leer esta auditoría completa.
+
+El cierre de 65 sitios descrito a continuación conserva sus versiones de código y evidencias históricas. La corrección salarial posterior no recibe automáticamente esos dictámenes; tiene una [revisión independiente propia](revisiones/redondeo-salarial-open/INFORME.md).
+
 **Los 65 sitios del catálogo tienen conclusión individual: 64 están corroborados técnicamente bajo condiciones y uno tiene un bloqueo demostrado.** Este es el cierre del alcance técnico acotado; la auditoría fiscal exhaustiva de 2012–2026 permanece incompleta. El [estado](ESTADO.md) sirve como índice y las [decisiones](DECISIONES.md) explican los criterios y costes.
 
 Un «sitio» es un punto identificado del rastro de cálculo. Su dictamen acredita el origen del valor y la selección del cálculo dentro del perfil examinado; no equivale a una regla fiscal completa ni valida automáticamente fuentes, hechos o derechos.
