@@ -6,13 +6,13 @@ Revisión de **351 fichas** contra los originales de los boletines autonómicos,
 
 | Lote | Comunidades | Fichas | Estado |
 | --- | --- | ---: | --- |
-| A | Andalucía, Aragón, Catalunya | 49 | Candidato recibido; revisión independiente pendiente |
+| A | Andalucía, Aragón, Catalunya | 49 | Candidato integrado; revisión independiente en curso |
 | B | Asturias, Cantabria | 48 | Candidato integrado; revisión independiente en curso |
-| C | Canarias, Illes Balears | 51 | Candidato recibido; revisión independiente pendiente |
-| D | Castilla-La Mancha, Castilla y León, Extremadura | 63 | Candidato recibido; revisión independiente pendiente |
+| C | Canarias, Illes Balears | 51 | Candidato integrado; revisión independiente en curso |
+| D | Castilla-La Mancha, Castilla y León, Extremadura | 63 | Candidato integrado; revisión independiente en curso |
 | E | Galicia, La Rioja | 49 | Contraste normativo en curso |
-| F | Madrid, Murcia | 51 | Candidato recibido; revisión independiente pendiente |
-| G | Comunitat Valenciana | 40 | Candidato recibido; revisión independiente pendiente |
+| F | Madrid, Murcia | 51 | Candidato integrado; revisión independiente en curso |
+| G | Comunitat Valenciana | 40 | Candidato integrado; revisión independiente en curso |
 
 El contrato aditivo conserva campos y valores de las fichas y muestra pendiente cuando no hay evidencia. Los tres defectos del verificador están corregidos y contrastados independientemente: coherencia del dictamen global, adquisiciones compartidas y filtrado de URL. Pasan 37 regresiones y siete casos del revisor; las diez pruebas Vitest se ejecutaron en el repositorio principal. Revisión técnica cerrada, sin aceptar todavía normas. [Contrato y uso](deducciones-2025/contrato/README.md), [dictamen independiente](deducciones-2025/revisiones/contrato-corregido/INFORME.md).
 
