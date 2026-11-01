@@ -53,7 +53,7 @@ export const RIOJA_ENFERMEDAD_CELIACA_2025 = fichaImplementada(
   [
     "250 euros por persona integrante del núcleo familiar con enfermedad celíaca diagnosticada",
   ],
-  [520, 521]
+  [520]
 )
 
 export const RIOJA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
@@ -93,7 +93,7 @@ export const RIOJA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
   ),
   fichaImplementadaFormula(
     "rioja_bicicletas_pedaleo_no_asistido",
-    [504, 505, 506]
+    [504]
   ),
   fichaImplementadaFormula(
     "rioja_obras_rehabilitacion_vivienda_habitual",

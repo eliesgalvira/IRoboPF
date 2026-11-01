@@ -72,9 +72,9 @@ test("celiaquía: dos titulares reciben 125 por persona común", () => {
     },
     [
       {
-        id: "t1",
-        relacion: "contribuyente",
-        titularesDelMinimo: [],
+        id: "descendiente-comun",
+        relacion: "descendiente",
+        titularesDelMinimo: ["t1", "t2"],
         titularesDeduccion: ["t1", "t2"],
         certificado: {
           referencia: "hipotetica",

@@ -19,3 +19,7 @@ Las comparaciones documentales admiten el campo aditivo `momento: "antes" | "des
 En los manifiestos de fuentes, `fechaPublicacion` puede ser `null` para un manual cuya fecha de publicación no esté acreditada. En ese caso se exige `reservaFechaPublicacion`; la fecha del pie se conserva aparte como `fechaEditorial`. El lector no debe mostrar esta última como fecha de publicación. No cambia la forma de las fichas ni la interfaz del motor.
 
 El formato ejecutable se documenta en [contrato](contrato/README.md). Los nombres mínimos comunes permanecen; los subcampos fiscales heterogéneos de `vigencia` y `manual` admiten reservas explícitas y extensiones. Las comprobaciones conocidas de referencias no se omiten por esa apertura. Antes de integrar lotes con convenciones distintas se debe acordar una ampliación aditiva del schema, sin adaptar datos fiscales a etiquetas ficticias para superar controles.
+
+## Certificados de celiaquía y atribución del parcial
+
+`evaluarCeliaquiaRioja` conserva su firma y estados. Un diagnóstico posterior a la emisión del certificado devuelve `no_soportado`; se admite la emisión posterior a 2025 para un diagnóstico de ese ejercicio. El importe parcial pertenece al contribuyente indicado y nunca representa el total de una declaración conjunta. El agregado sigue rechazando estos parciales. No cambia la interfaz visual ni se añaden integrantes familiares al contrato.
