@@ -1,0 +1,40 @@
+{
+  "base": "3af102ba5c9b02a2de7df643673f80ed34090b32",
+  "head": "3af102ba5c9b02a2de7df643673f80ed34090b32",
+  "tracked": 24631,
+  "discrepancias": [],
+  "manifiestoAutorDiscrepancias": [],
+  "fuentesEjecutadasDiscrepancias": [],
+  "fechaUTC": "2026-11-01T13:45:50.453825+00:00",
+  "diffTracked": "",
+  "comandos": "reproducir.sh",
+  "rojosProducto": [],
+  "validacion": {
+    "testsRecibidos": 61,
+    "recorridosPropios": 182,
+    "rechazosPropios": 30,
+    "tiposAlcanceExit": 0,
+    "lint16ReglasExit": 0
+  },
+  "busquedas": [
+    {
+      "q": "site.agenciatributaria.es IRPF 2025 redondeo decimales casillas cálculo",
+      "resultado": "Orden HAC/277/2026 y fuentes de retenciones; sin regla localizada por etapa anual"
+    },
+    {
+      "q": "site.sede.agenciatributaria.gob.es Renta redondeo decimales",
+      "resultado": "Tipos medios sin redondeo y ayuda importacion; no algoritmo anual"
+    },
+    {
+      "q": "site.sede.agenciatributaria.gob.es 2025 diseños 100 registro renta",
+      "resultado": "XSD y diccionario adquiridos, fuentes en adquisiciones.json"
+    }
+  ],
+  "incidencias": [
+    "jj sin repo: no inicializado",
+    "Sin node_modules local: aliases para pruebas recibidas, copias de lib byte-identicas y dependencias leidas de ruta compartida para API propia",
+    "Tipos de copias: claves deterministas por ruta; tipos iniciales originales: resolver effect no encontraba exports; pase final con path a dist/index.d.ts",
+    "Lint inicial: plugin sin dependencia; copia byte-identica en scratch con resolucion de dependencias compartidas",
+    "Oracle inicial propio: faltaba corte art20 >=19747.50; corregido antes de contrastar motor"
+  ]
+}
