@@ -14,7 +14,7 @@ import {
   consumeExplicitRentas,
   executeRentasFinite,
 } from "./flujo-rentas-r36-consumidor.mjs"
-const require = createRequire("/home/local/Repos/IRoboPF/package.json")
+const require = createRequire(new URL("../../package.json", import.meta.url))
 const ts = require("typescript"),
   Decimal = require("decimal.js").Decimal
 // Contraste TS separado: carga fuentes locales; dependencias de terceros solo lectura.

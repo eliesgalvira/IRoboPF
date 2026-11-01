@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import {createRequire} from "node:module";
-const require=createRequire("/home/local/Repos/IRoboPF/package.json");
+const require=createRequire(new URL("../../package.json", import.meta.url));
 const ts=require("typescript");
 export function loadTs(file, cache = new Map()) {
   file = path.resolve(file)

@@ -1,9 +1,10 @@
+import { resolverCommit } from "./commit-historico.mjs"
 import fs from "node:fs"
 import path from "node:path"
 import { createRequire } from "node:module"
 import { createHash } from "node:crypto"
 import { execFileSync } from "node:child_process"
-const require = createRequire("/home/local/Repos/IRoboPF/package.json")
+const require = createRequire(new URL("../../package.json", import.meta.url))
 const ts = require("typescript")
 export const baseR36 = "50f9e949544e20d3e4e0bffc79b926d396267319"
 const sha = (b) => createHash("sha256").update(b).digest("hex")
@@ -85,7 +86,7 @@ export function composeRentasR36(root = process.cwd()) {
     const b = fs.readFileSync(path.join(root, file))
     const pinned = execFileSync(
       "git",
-      ["cat-file", "blob", baseR36 + ":" + file],
+      ["cat-file", "blob", resolverCommit(baseR36) + ":" + file],
       { maxBuffer: 8e6 }
     )
     if (!b.equals(pinned)) throw Error("Fuente alterada " + file)

@@ -1,7 +1,7 @@
 import {executeCausalSS} from './causal-ss-r54.ts'
 import {validateSS} from './flujo-ss-r36.mjs'
 import { createRequire } from "node:module"
-const require = createRequire("/home/local/Repos/IRoboPF/package.json")
+const require = createRequire(new URL("../../package.json", import.meta.url))
 const Decimal = require("decimal.js")
 const { Match, Array: EffectArray } = require("effect")
 const returned = Symbol("return")

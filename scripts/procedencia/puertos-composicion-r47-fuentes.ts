@@ -4,7 +4,7 @@ import { createRequire } from "node:module"
 // @effect-diagnostics effect/nodeBuiltinImport:off
 import { readFileSync } from "node:fs"
 import type { Source } from "./puertos-composicion-r47"
-const ts: typeof import("typescript") = createRequire("/home/local/Repos/IRoboPF/package.json")("typescript")
+const ts: typeof import("typescript") = createRequire(new URL("../../package.json", import.meta.url))("typescript")
 const asts = new Map<string, import("typescript").SourceFile>()
 export function signature(source: Source) {
  let ast=asts.get(source.file)
@@ -17,7 +17,7 @@ export function signature(source: Source) {
  return { parameters:fn.parameters.map((p,index)=>({index,binding:p.name.getText(),type:p.type?.getText()??null,source:{...source,start:p.getStart(),end:p.end}})),returns:fn.type?.getText()??null }
 }
 
-const Decimal: typeof import("decimal.js").default = createRequire("/home/local/Repos/IRoboPF/package.json")("decimal.js").Decimal
+const Decimal: typeof import("decimal.js").default = createRequire(new URL("../../package.json", import.meta.url))("decimal.js").Decimal
 /** Frontera de datos ordinarios de las APIs del laboratorio. Las funciones internas de IR
  * atraviesan el router por sus conexiones privadas; el usuario no aporta callbacks financieros. */
 export function assertPortInputs(values: ReturnType<typeof import("./flujo-ss-r36-consumidor.mjs").executeFinite>["result"][]) {

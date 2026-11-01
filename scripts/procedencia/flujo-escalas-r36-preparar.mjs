@@ -5,7 +5,7 @@ const root = process.cwd(),
 fs.cpSync("tools/oxlint", cache + "/oxlint", { recursive: true })
 try {
   fs.symlinkSync(
-    "/home/local/Repos/IRoboPF/node_modules",
+    root + "/node_modules",
     cache + "/node_modules",
     "dir"
   )
@@ -39,16 +39,16 @@ fs.writeFileSync(
         baseUrl: root,
         paths: {
           "decimal.js": [
-            "/home/local/Repos/IRoboPF/node_modules/decimal.js/decimal.d.ts"
+            root + "/node_modules/decimal.js/decimal.d.ts"
           ],
           effect: [
-            "/home/local/Repos/IRoboPF/node_modules/effect/dist/index.d.ts"
+            root + "/node_modules/effect/dist/index.d.ts"
           ],
           typescript: [
-            "/home/local/Repos/IRoboPF/node_modules/typescript/lib/typescript.d.ts"
+            root + "/node_modules/typescript/lib/typescript.d.ts"
           ]
         },
-        typeRoots: ["/home/local/Repos/IRoboPF/node_modules/@types"]
+        typeRoots: [root + "/node_modules/@types"]
       },
       files
     },
@@ -69,5 +69,5 @@ types.files = [root + "/tests/flujo-escalas-r36.test.ts"]
 fs.writeFileSync(cache + "/tsconfig-tests.json", JSON.stringify(types, null, 2))
 fs.writeFileSync(
   cache + "/vitest.mjs",
-  `import {defineConfig} from '/home/local/Repos/IRoboPF/node_modules/vitest/dist/config.js';export default defineConfig({cacheDir:'${cache}/vite',test:{cache:false,include:['tests/flujo-escalas-r36*.test.ts'],maxWorkers:1},resolve:{alias:{'decimal.js':'/home/local/Repos/IRoboPF/node_modules/decimal.js/decimal.mjs',effect:'/home/local/Repos/IRoboPF/node_modules/effect/dist/index.js'}}})`
+  `import {defineConfig} from '${root}/node_modules/vitest/dist/config.js';export default defineConfig({cacheDir:'${cache}/vite',test:{cache:false,include:['tests/flujo-escalas-r36*.test.ts'],maxWorkers:1},resolve:{alias:{'decimal.js':'${root}/node_modules/decimal.js/decimal.mjs',effect:'${root}/node_modules/effect/dist/index.js'}}})`
 )

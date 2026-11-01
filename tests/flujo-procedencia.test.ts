@@ -3,7 +3,7 @@ import {
   describe,
   it,
   expect,
-} from "/home/local/Repos/IRoboPF/node_modules/vitest/dist/index.js"
+} from "vitest"
 import * as fs from "../lib/procedencia/io.mjs"
 import { resolve } from "../lib/procedencia/io.mjs"
 import { DateTime } from "effect"
@@ -21,7 +21,7 @@ import {
 } from "../scripts/procedencia/flujo-componer.mjs"
 import { Sources, ts, callArgument } from "../scripts/procedencia/flujo-ast.mjs"
 import { closure, validate } from "../scripts/procedencia/flujo-contrato.mjs"
-const require = createRequire("/home/local/Repos/IRoboPF/package.json")
+const require = createRequire(new URL("../package.json", import.meta.url))
 const Decimal = require("decimal.js").Decimal
 function loader(mutationFile = "", before = "", after = "") {
   const cache = new Map()

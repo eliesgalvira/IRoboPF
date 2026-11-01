@@ -35,7 +35,7 @@ export class Composer {
       }
       if(ts.isParameter(declaration)){
         const fn=declaration.parent;
-        /** @type {import('/home/local/Repos/IRoboPF/node_modules/typescript/lib/typescript.js').Node | undefined} */
+        /** @type {import('typescript').Node | undefined} */
         let owner=fn
         while(owner&&!ts.isVariableDeclaration(owner)&&!ts.isFunctionDeclaration(owner))owner=owner.parent
         const label=(owner&&(ts.isVariableDeclaration(owner)||ts.isFunctionDeclaration(owner)))?owner.name?.getText():null
@@ -179,7 +179,7 @@ export class Composer {
       const ref=this.sources.ref(declaration),bound=env.get(ref.file+':'+ref.start)
       if(bound){this.invoke(node,bound.node,p,prop,bound.env,instance+':callback:'+ref.start,unit,role,connect);return}
     }
-    /** @type {import('/home/local/Repos/IRoboPF/node_modules/typescript/lib/typescript.js').Node | undefined} */ let fn=declaration
+    /** @type {import('typescript').Node | undefined} */ let fn=declaration
     if(declaration&&ts.isVariableDeclaration(declaration))fn=declaration.initializer
     if(!fn||!(ts.isArrowFunction(fn)||ts.isFunctionExpression(fn)||ts.isFunctionDeclaration(fn))||!fn.body){p.unresolved='Contrato de llamada pendiente: '+name;for(const a of node.arguments)connect(a,'',role,'argumento conservado sin afirmar cierre');return}
     const callRef=this.sources.ref(node),next=new Map(env),callInstance=instance+'/'+callRef.file+':'+callRef.start

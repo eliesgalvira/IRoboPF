@@ -11,7 +11,7 @@ import {
 } from "./causal-rentas-r59.mjs"
 import { consumeGeneralRentas } from "./flujo-rentas-r36-consumidor.mjs"
 import { composeRentasR36 } from "./flujo-rentas-r36.mjs"
-const require = createRequire("/home/local/Repos/IRoboPF/package.json")
+const require = createRequire(new URL("../../package.json", import.meta.url))
 const ts = require("typescript"),
   D = require("decimal.js")
 // Oracle externo: este cargador existe exclusivamente en ensayos, nunca en productor/núcleo.

@@ -1,3 +1,4 @@
+import { resolverCommit } from "./commit-historico.mjs"
 import fs from "node:fs"
 import path from "node:path"
 import { execFileSync } from "node:child_process"
@@ -5,7 +6,7 @@ import { createRequire } from "node:module"
 import { createHash } from "node:crypto"
 import { gzipSync } from "node:zlib"
 import { pathToFileURL } from "node:url"
-const require = createRequire("/home/local/Repos/IRoboPF/package.json")
+const require = createRequire(new URL("../../package.json", import.meta.url))
 const ts = require("typescript")
 export const baseR32 = "846f25e183ba07414065d4e6bdf9e98311b98a17"
 const annual = "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts"
@@ -35,7 +36,7 @@ export function composeRetencionesR32(root = process.cwd()) {
     const bytes = fs.readFileSync(path.join(root, file))
     const pinned = execFileSync(
       "git",
-      ["cat-file", "blob", baseR32 + ":" + file],
+      ["cat-file", "blob", resolverCommit(baseR32) + ":" + file],
       { maxBuffer: 8 * 1024 * 1024 }
     )
     if (!bytes.equals(pinned))

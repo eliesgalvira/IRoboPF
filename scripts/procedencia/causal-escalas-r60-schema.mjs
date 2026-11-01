@@ -1,6 +1,6 @@
 import { createRequire } from "node:module";
 import { executeRentasFinite } from "./flujo-rentas-r36-consumidor.mjs";
-const { Schema } = createRequire("/home/local/Repos/IRoboPF/package.json")(
+const { Schema } = createRequire(new URL("../../package.json", import.meta.url))(
   "effect",
 );
 /** Exclusivamente decodificación estructural de contratos; no evalúa cuerpos financieros. */

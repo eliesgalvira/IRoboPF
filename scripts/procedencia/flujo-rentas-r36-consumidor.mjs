@@ -5,7 +5,7 @@ import {executeCausalRentas} from "./causal-rentas-r59.mjs"
 import {composeCausalRentas} from "./causal-rentas-r59-contratos.mjs"
 import {verifyRentasR36,composeRentasR36} from "./flujo-rentas-r36.mjs"
 import { createRequire } from "node:module"
-const require = createRequire("/home/local/Repos/IRoboPF/package.json")
+const require = createRequire(new URL("../../package.json", import.meta.url))
 const Decimal = require("decimal.js").Decimal
 const {
   Match,

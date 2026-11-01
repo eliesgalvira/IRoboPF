@@ -3,7 +3,7 @@ import fs from 'node:fs'
 import {createRequire} from 'node:module'
 import {execFileSync} from 'node:child_process'
 import {createHash} from 'node:crypto'
-const require=createRequire('/home/local/Repos/IRoboPF/package.json')
+const require=createRequire(new URL("../../package.json", import.meta.url))
 const ts=require('typescript')
 export const BASE='50f9e949544e20d3e4e0bffc79b926d396267319'
 const annual='lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts'

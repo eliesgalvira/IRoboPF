@@ -1,3 +1,4 @@
+import { resolverCommit } from "./commit-historico.mjs"
 import fs from "node:fs"
 import path from "node:path"
 import { createRequire } from "node:module"
@@ -5,7 +6,7 @@ import { createHash } from "node:crypto"
 import { execFileSync } from "node:child_process"
 import { composeRetencionesR32 } from "./flujo-retenciones-r32.mjs"
 
-const require = createRequire("/home/local/Repos/IRoboPF/package.json")
+const require = createRequire(new URL("../../package.json", import.meta.url))
 const ts = require("typescript")
 export const baseR34 = "d70af62d19291c83d0deb281c09df106ee4a3575"
 const ret = "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts"
@@ -70,7 +71,7 @@ export function composeRetencionesR34(root = process.cwd()) {
     const b = fs.readFileSync(path.join(root, s.file))
     const pinned = execFileSync(
       "git",
-      ["cat-file", "blob", `${baseR34}:${s.file}`],
+      ["cat-file", "blob", `${resolverCommit(baseR34)}:${s.file}`],
       { maxBuffer: 8e6 }
     )
     if (!b.equals(pinned)) throw Error("Integridad de fuente: " + s.file)

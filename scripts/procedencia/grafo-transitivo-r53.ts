@@ -8,7 +8,7 @@ import type { Composition } from "./composicion-r43"
 import { producePortContract, verifyPortContract } from "./puertos-composicion-r47"
 import type { Source, PortContract } from "./puertos-composicion-r47"
 import { hashFile } from "./composicion-r43-archivos.mjs"
-const ts: typeof import("typescript") = createRequire("/home/local/Repos/IRoboPF/package.json")("typescript")
+const ts: typeof import("typescript") = createRequire(new URL("../../package.json", import.meta.url))("typescript")
 export type Group = "ss" | "retenciones" | "rentas" | "escalas"
 interface Data { name?: string; key?: string; target?: string }
 interface Operation { id: string; op: string; args: string[]; source: Source; data: Data }
@@ -114,7 +114,7 @@ export function produceTransitiveGraph(candidate: Composition, ports: PortContra
 export function verifyTransitiveGraph(candidate: Composition, graph: Graph): Graph {
  const expected = produceTransitiveGraph(candidate)
  const schema = JSON.parse(readFileSync("schemas/procedencia/flujo/grafo-transitivo-r53.schema.json","utf8"))
- const Ajv: typeof import("ajv") = createRequire("/home/local/Repos/IRoboPF/package.json")("ajv")
+ const Ajv: typeof import("ajv") = createRequire(new URL("../../package.json", import.meta.url))("ajv")
  const validate = new Ajv({allErrors:true}).compile(schema)
  if(validate(graph) !== true) throw Error("Schema R53: "+JSON.stringify(validate.errors))
  const ids = new Set(graph.vertices.map(v=>v.id))
