@@ -14,7 +14,7 @@ Las ampliaciones regionales de deducciones y el censo automático de A continúa
 | B. Comunidades en 2026 | Pendiente de inicio; reutilizará las fuentes de A |
 | C. Simuladores oficiales | Pendiente de inicio |
 | D. Redondeo de cotizaciones | Pendiente de inicio con criterio de comportamiento observado |
-| E. Mínimos familiares | Prioridad: preparar la retirada de `FamiliarFiscal`, mínimos duplicados y modo legacy; extensión normativa por año pendiente |
+| E. Mínimos familiares | En curso con `gpt-6.1-sol`, esfuerzo `high`: retirada de `FamiliarFiscal`, mínimos duplicados y modo legacy; extensión normativa por año pendiente |
 | F. Actividad y declaración completa | Encargado; pendiente de productores y contratos anteriores |
 
 ## En curso: deducciones autonómicas de 2025
