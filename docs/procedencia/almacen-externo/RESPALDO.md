@@ -1,22 +1,27 @@
-# Respaldo completo anterior a la migración
+# Respaldos privados y restauración
 
-Directorio de conservación en host-a: `/home/local/Backups/IRoboPF/procedencia-20261101-2b6afac3`.
+Se conservan fuera del repositorio dos cortes íntegros: antes de retirar el almacén y antes de anonimizar la historia. Sus directorios se entregan al propietario fuera de Git; en los comandos siguientes se representan mediante variables que debe configurar con esas ubicaciones.
 
-- `repositorio-completo.bundle`: todos los refs Git; restauración independiente en `restauracion.git`, comprobada con `git fsck --full` y cotejo de 1.184 refs.
-- `semilla-backend/`: objetos actuales e históricos, PDF externo y registro de snapshots. `almacen-restaurado/` es una segunda copia verificada, sin hardlinks.
-- `almacen-manifiesto.json` y `almacen.sha256`: inventario con tamaño y SHA-256. La copia versionada del manifiesto está en esta carpeta.
-- `pendientes/`: copia adicional de los archivos de trabajo que no pertenecían a la punta publicada. No se incorporan a la rama.
+## Historia anterior a la anonimización
 
-Comprobación desde el directorio de conservación:
+`antes.bundle` ocupa 2.356.334.737 bytes y tiene SHA-256 `2b5991f18c244fe434e5108c262594da6c0f355419b88a060187972950aee8bb`. Se restauró en un repositorio independiente, pasó `git fsck --full` y se cotejaron sus 1.356 referencias, incluidas las de worktrees. Los archivos de trabajo pendientes también son recuperables; no se incorporan a la rama pública.
 
 ```sh
-sha256sum -c repositorio-completo.bundle.sha256
-git -C restauracion.git bundle verify ../repositorio-completo.bundle
-git -C restauracion.git fsck --full
-(cd semilla-backend && sha256sum -c ../almacen.sha256)
-(cd almacen-restaurado && sha256sum -c ../almacen.sha256)
+sha256sum "$RESPALDO_PRIVACIDAD/antes.bundle"
+git bundle verify "$RESPALDO_PRIVACIDAD/antes.bundle"
 ```
 
-Para restaurar de nuevo, clonar el bundle en un directorio nuevo y copiar `semilla-backend/` a otro directorio nuevo. No sobrescribir estas copias. Son locales en host-a; no constituyen custodia independiente. La copia previa de host-b no contiene este corte.
+Una restauración nueva se hace clonando el bundle en otro directorio. No sobrescribir las copias conservadas ni trasladar sus refs antiguos a origin.
 
-La semilla ampliada con los objetos generados por esta migración está en `semilla-final/`, con `semilla-final-manifiesto.json` y `semilla-final.sha256`. Se restauró y verificó también en `semilla-final-restaurada/`. Para comprobarla: `(cd semilla-final && sha256sum -c ../semilla-final.sha256)`. Es la semilla que debe recibir el backend. La copia inicial permanece intacta.
+## Historia original y semilla documental
+
+El primer respaldo conserva `repositorio-completo.bundle`, restaurado y verificado, y el almacén completo. La semilla ampliada está en `semilla-final/`, con manifiesto y lista SHA-256; `semilla-final-restaurada/` es otra copia verificada, sin hardlinks. Son 10.067 archivos y 523.865.905 bytes por copia. Pin del manifiesto: `5462e689ff034b3e21c59bb801d651e5e2e96ad71b0be2b441714244c761685c`.
+
+```sh
+(cd "$RESPALDO_ALMACEN/semilla-final" && sha256sum -c ../semilla-final.sha256)
+(cd "$RESPALDO_ALMACEN/semilla-final-restaurada" && sha256sum -c ../semilla-final.sha256)
+```
+
+La semilla conserva los originales y el PDF externo de 42.900.459 bytes. Incluye metadatos privados históricos: necesita revisión antes de distribuirse desde el backend. No se ha implementado ni desplegado ese backend.
+
+Son copias locales del propietario. La copia anterior en su otro equipo sigue desfasada; no se le atribuye una actualización ni custodia independiente. Ningún respaldo ni worktree se ha borrado.

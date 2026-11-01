@@ -1,40 +1,33 @@
 # Migración de la historia documental
 
-Solo se ha reescrito `procedencia-documental`. Los 213 commits del corte preparado se conservan en el mismo orden y con los mismos padres relativos; 128 cambian de identificador. Mensajes, autores, fechas, modos de archivo y todos los demás archivos se cotejaron para cada commit. Las 19 firmas pertenecen a commits sin cambios y siguen intactas.
+Solo se reescribe `procedencia-documental`: primero se retiró el almacén y después se anonimizaron datos del entorno. La segunda pasada conserva los 214 commits existentes, sus mensajes, autores, fechas y las 19 firmas. Cambian 149 identificadores de commit. Se cotejaron todos los archivos y modos de cada commit; solo se aplicaron las sustituciones y los dos cambios de nombre documentados. [Comprobación de historia](../privacidad/historia.json).
 
-| Referencia | Antes | Después del filtro |
+| Referencia histórica | SHA antiguo | Correspondencia actual |
 | --- | --- | --- |
-| Punta publicada al iniciar | `2b6afac382046ed7e7e5846050c686813f0fda64` | `f36ad4f1fa3725a21d3fb24be5e6083619106d00` |
-| Base de `rediseno/expertos` en host-b | `6b0f071bf059e621364d9d24b6e620f2b79434ce` | `afa5a930db20fb6f8dce58b05bc28ebc8aeb0327` |
-| Preparación del almacén externo | `81d33e78821a124767195cde380f53ac9f60f4d9` | `4cfc256c2920a8996cecc19051ed9886de919530` |
+| Punta anterior a la retirada del almacén | `2b6afac382046ed7e7e5846050c686813f0fda64` | `692e355ba40ee05aa4da3c8163164daaf9fa4671` |
+| Punta anterior a la anonimización | `4ea70baed920bcb35782c8f883bac59f5c3f0a48` | `279bec2ee519abc7a8bb7dbb3e976933b42b4db4` |
+| Base de `rediseno/expertos` | `6b0f071bf059e621364d9d24b6e620f2b79434ce` | `7b5435a83600e6b614678243cea524dbd83f5d91` |
 
-Después del filtro se añaden commits de migración y validación. La punta final está en `origin/procedencia-documental`; no confundirla con la correspondencia de la punta anterior.
+Las correspondencias son estados históricos. La punta publicada incluye además los commits posteriores de portabilidad y documentación y se consulta en `origin/procedencia-documental`.
 
-## Worktrees existentes
+## Migrar un trabajo existente
 
-No se han cambiado sus ramas ni sus archivos. Antes de migrar cada trabajo, conservar sus cambios y comprobar su base. Para `rediseno/expertos`, con el árbol limpio y después de traer la nueva rama, la operación equivalente en Git es:
-
-```sh
-git rebase --onto origin/procedencia-documental 6b0f071bf059e621364d9d24b6e620f2b79434ce rediseno/expertos
-```
-
-Debe ejecutarla el responsable de ese checkout. No inicializar JJ en un worktree Git creado por T3 ni mezclar ambos sistemas en él. El rebase conserva únicamente los commits propios posteriores a la base indicada; los conflictos necesitan revisión.
-
-## Evidencias y citas históricas
-
-[mapa-commits.tsv](mapa-commits.tsv) contiene la correspondencia completa, incluidos los commits que no cambian. [referencias-historicas.json](referencias-historicas.json) localiza las citas de commits en los documentos. Los SHA originales siguen identificando el estado que se auditó; cambiarlos dentro de manifiestos, citas o informes alteraría sus hashes.
-
-Para consultar un archivo que sigue en Git:
+Conservar los cambios locales y traer la rama nueva antes de migrar. Para trasladar únicamente los commits propios de `rediseno/expertos` sobre la base equivalente, la operación Git es:
 
 ```sh
-nuevo=$(bun scripts/procedencia/commit-historico.mjs SHA_ANTIGUO)
-git show "$nuevo:ruta/del/archivo"
+git rebase --onto 7b5435a83600e6b614678243cea524dbd83f5d91 6b0f071bf059e621364d9d24b6e620f2b79434ce rediseno/expertos
 ```
 
-Los tres consumidores activos que abrían bases fijas por SHA usan ese resolver. Los scripts de reproducción archivados en `docs/` conservan su versión original: para reproducir el árbol histórico completo, usar la restauración del bundle indicada en [RESPALDO.md](RESPALDO.md). Si la ruta histórica pertenece al almacén retirado, sus bytes se recuperan por su SHA-256 en la semilla externa, no mediante `git show`.
+Usar `origin/procedencia-documental` como destino incorpora también los cambios posteriores a aquella base. Debe elegirlo el responsable del checkout y revisar los conflictos y el diff antes de publicar, para no reintroducir el almacén ni datos retirados. No mezclar Git y JJ dentro de un worktree Git creado por T3. No se ha migrado ni limpiado ningún otro worktree.
 
-## Alcance de la retirada
+## Resolver citas históricas
 
-Se retira únicamente `docs/procedencia/implementaciones/contenidos/datos/objetos/` y se aplica también la exclusión del PDF externo `e7b629a…d4a4f4`. El PDF de 42.900.459 bytes no aparecía como blob en esta rama; sí se conservó y verificó en la semilla. Los manifiestos, los paquetes de entrega y sus posibles copias incrustadas permanecen, conforme al requisito de conservar todos los demás archivos.
+El [mapa acumulado](mapa-commits.tsv) contiene las identidades de ambas reescrituras. Los informes mantienen sus SHA originales; el resolver devuelve la correspondencia final:
 
-El filtro no purga copias de otras ramas, worktrees, backups ni retenciones internas de GitHub. El bundle completo preserva deliberadamente la historia anterior. No se ha configurado LFS, desplegado ningún servicio ni modificado `main`.
+```sh
+bun scripts/procedencia/commit-historico.mjs SHA_ANTIGUO
+```
+
+Los destinos del mapa existen en la historia nueva. Los originales retirados del almacén se recuperan de la semilla por hash. Los archivos anonimizados tienen otro hash y su [mapa de objetos](../privacidad/objetos.json) identifica la copia pública sin renovar la revisión de sus bytes. Para reproducir exactamente un recibo antiguo se conserva el bundle privado.
+
+`main` y las otras ramas no se reescriben. Los clones, worktrees, respaldos y posibles cachés del proveedor conservan su propia historia; un force-push no los elimina. [Límites de eliminación en GitHub](https://docs.github.com/es/authentication/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository).
