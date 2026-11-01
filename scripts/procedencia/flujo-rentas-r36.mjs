@@ -1,9 +1,9 @@
-import { resolverCommit } from "./commit-historico.mjs"
+// base identifica la genealogía histórica; los bytes ejecutados se fijan en fuentes-actuales.json.
+import { verificarFuente } from "./fuente-fijada.mjs"
 import fs from "node:fs"
 import path from "node:path"
 import { createRequire } from "node:module"
 import { createHash } from "node:crypto"
-import { execFileSync } from "node:child_process"
 const require = createRequire(new URL("../../package.json", import.meta.url))
 const ts = require("typescript")
 export const baseR36 = "50f9e949544e20d3e4e0bffc79b926d396267319"
@@ -84,12 +84,7 @@ export function composeRentasR36(root = process.cwd()) {
   function load(file) {
     if (asts.has(file)) return asts.get(file)
     const b = fs.readFileSync(path.join(root, file))
-    const pinned = execFileSync(
-      "git",
-      ["cat-file", "blob", resolverCommit(baseR36) + ":" + file],
-      { maxBuffer: 8e6 }
-    )
-    if (!b.equals(pinned)) throw Error("Fuente alterada " + file)
+    verificarFuente(file, b)
     sources.push({ file, sha256: sha(b) })
     const ast = ts.createSourceFile(
       file,

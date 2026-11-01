@@ -1,7 +1,6 @@
-import { resolverCommit } from "./commit-historico.mjs"
+import { verificarFuente } from "./fuente-fijada.mjs"
 import fs from 'node:fs'
 import path from 'node:path'
-import {execFileSync} from 'node:child_process'
 import crypto from 'node:crypto'
 import {createRequire} from 'node:module'
 const require=createRequire(new URL("../../package.json", import.meta.url))
@@ -14,8 +13,7 @@ export class Sources {
     if(!this.files.has(file)){
       if(!file.startsWith('lib/')&&!file.startsWith('tests/'))throw Error('Fuente fuera del subconjunto: '+file)
       const bytes=fs.readFileSync(file),text=bytes.toString('utf8')
-      const original=execFileSync('git',['cat-file','blob',resolverCommit('5e69c68077ffd18be20457160595adb3f0ff52e4')+':'+file],{maxBuffer:8*1024*1024})
-      if(!bytes.equals(original))throw Error('Código actual alterado respecto a base fijada: '+file)
+      verificarFuente(file, bytes)
       const ast=ts.createSourceFile(file,text,ts.ScriptTarget.Latest,true)
       const ranges=new Map();function index(n){ranges.set(n.getStart()+':'+n.end,n);ts.forEachChild(n,index)}index(ast)
       this.files.set(file,{bytes,text,ast,sha256:sha(bytes),ranges})

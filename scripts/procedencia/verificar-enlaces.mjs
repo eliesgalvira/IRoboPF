@@ -115,10 +115,17 @@ if (
   resolve(process.argv[1]) === fileURLToPath(import.meta.url)
 ) {
   const { values } = parseArgs({
-    options: { "cas-root": { type: "string", multiple: true } },
+    options: { "cas-root": { type: "string", multiple: true }, fixture: { type: "boolean" } },
   })
+  if (values.fixture) {
+    const run = spawnSync("bash", ["tools/procedencia/run.sh", "tests/procedencia-enlaces_test.py"], { stdio: "inherit" })
+    if (run.error) throw run.error
+    if (run.status !== 0) throw new Error("Verificador con fixture fallido")
+    process.stdout.write("Fixture Madrid: comprobada; corpus completo CAS: omitido explícitamente\n")
+  } else {
   const result = await verifyLinks(process.cwd(), {
     casRoots: values["cas-root"],
   })
   process.stdout.write(JSON.stringify(result, null, 2) + "\n")
+}
 }

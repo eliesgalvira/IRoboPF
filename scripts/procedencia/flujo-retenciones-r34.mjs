@@ -1,9 +1,9 @@
-import { resolverCommit } from "./commit-historico.mjs"
+// base identifica la genealogía histórica; los bytes ejecutados se fijan en fuentes-actuales.json.
+import { verificarFuente } from "./fuente-fijada.mjs"
 import fs from "node:fs"
 import path from "node:path"
 import { createRequire } from "node:module"
 import { createHash } from "node:crypto"
-import { execFileSync } from "node:child_process"
 import { composeRetencionesR32 } from "./flujo-retenciones-r32.mjs"
 
 const require = createRequire(new URL("../../package.json", import.meta.url))
@@ -69,12 +69,7 @@ export function composeRetencionesR34(root = process.cwd()) {
   const asts = new Map()
   for (const s of sources) {
     const b = fs.readFileSync(path.join(root, s.file))
-    const pinned = execFileSync(
-      "git",
-      ["cat-file", "blob", `${resolverCommit(baseR34)}:${s.file}`],
-      { maxBuffer: 8e6 }
-    )
-    if (!b.equals(pinned)) throw Error("Integridad de fuente: " + s.file)
+    verificarFuente(s.file, b)
     asts.set(
       s.file,
       ts.createSourceFile(s.file, b.toString(), ts.ScriptTarget.Latest, true)

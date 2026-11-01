@@ -1,7 +1,7 @@
-import { resolverCommit } from "./commit-historico.mjs"
+// base identifica la genealogía histórica; los bytes ejecutados se fijan en fuentes-actuales.json.
+import { verificarFuente } from "./fuente-fijada.mjs"
 import fs from "node:fs"
 import path from "node:path"
-import { execFileSync } from "node:child_process"
 import { createRequire } from "node:module"
 import { createHash } from "node:crypto"
 import { gzipSync } from "node:zlib"
@@ -27,20 +27,14 @@ function nodes(root, predicate) {
   visit(root)
   return result
 }
-/** Contrato de fuentes externo al artefacto: los blobs de la base fijada son el ancla.
+/** Contrato por contenido externo al artefacto: fuentes-actuales.json es el ancla.
  * root permite mutaciones en scratch, nunca actualiza los pins automáticamente. */
 export function composeRetencionesR32(root = process.cwd()) {
   const sources = [],
     asts = new Map()
   for (const file of files) {
     const bytes = fs.readFileSync(path.join(root, file))
-    const pinned = execFileSync(
-      "git",
-      ["cat-file", "blob", resolverCommit(baseR32) + ":" + file],
-      { maxBuffer: 8 * 1024 * 1024 }
-    )
-    if (!bytes.equals(pinned))
-      throw Error("Contrato de fuente R32 cambiado: " + file)
+    verificarFuente(file, bytes)
     sources.push({ file, sha256: sha(bytes) })
     asts.set(
       file,
