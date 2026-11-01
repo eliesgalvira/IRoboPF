@@ -394,7 +394,11 @@ function esFechaCivil(fecha: string): boolean {
     Option.isSome(parsed) && DateTime.formatIsoDateUtc(parsed.value) === fecha
   )
 }
-/** Ley 9/2025 art. 1.4 y DF única.2: efectos expresos desde 1/1/2025. */
+/**
+ * Ley 9/2025 art. 1.4 y DF única.2: efectos expresos desde 1/1/2025.
+ * Importe parcial atribuible al contribuyente indicado, nunca total de conjunta.
+ * La titularidad y el derecho al mínimo se aportan externamente; no se acreditan aquí.
+ */
 export function evaluarCeliaquiaRioja(
   contexto: ContextoDeduccion,
   personas: readonly PersonaCeliacaRioja[]
@@ -439,6 +443,8 @@ export function evaluarCeliaquiaRioja(
       !esFechaCivil(certificado.fechaEmision)
     )
       return noSoportado("Fechas del certificado inválidas")
+    if (certificado.fechaDiagnostico > certificado.fechaEmision)
+      return noSoportado("El diagnóstico es posterior a la emisión del certificado")
     if (certificado.fechaDiagnostico > "2025-12-31") continue
     total = total.plus(new Decimal(250).div(persona.titularesDeduccion.length))
   }
