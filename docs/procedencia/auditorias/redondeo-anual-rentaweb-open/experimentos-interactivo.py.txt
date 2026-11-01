@@ -1,0 +1,85 @@
+from datetime import datetime, timezone
+
+CASES = json.loads((OUT.parents[1]/'docs/procedencia/auditorias/redondeo-anual-rentaweb-open/casos.json').read_text())
+
+def settle():
+    page.wait_for_timeout(500)
+
+def click_title(title):
+    page.get_by_title(title, exact=True).click()
+    settle()
+
+def work_page():
+    click_title('Apartados declaración')
+    page.get_by_text('Rendimientos del trabajo (sueldos, nóminas, pensiones, etc.)', exact=True).click()
+    page.get_by_text('0025', exact=True).wait_for()
+    settle()
+
+def capture(name):
+    data = {'utc': datetime.now(timezone.utc).isoformat(), 'url': 'https://www2.agenciatributaria.gob.es/wlpl/PARE-RW25/OPEN/index.zul?EJER=2025&TACCESO=COLAB', 'inputs': page.locator('input:visible').evaluate_all('(es)=>es.map(e=>({title:e.title,value:e.value,checked:e.checked}))'), 'texto':page.locator('body').inner_text()}
+    (OUT/(name+'.json')).write_text(json.dumps(data,ensure_ascii=False,indent=2))
+
+def save_case(name):
+    capture(name+'-trabajo')
+    if page.get_by_title('Mostrar opciones',exact=True).count():
+        click_title('Mostrar opciones')
+    with page.expect_download() as di:
+        click_title('Guardar datos trabajo (.ses)')
+    di.value.save_as(str(OUT/(name+'.ses')))
+    click_title('Resumen de declaraciones')
+    capture(name+'-resumen')
+    page.get_by_role('button',name='Vista previa',exact=True).click()
+    settle()
+    page.wait_for_function('Array.from(document.querySelectorAll("iframe")).some(e=>e.src.includes("PDFborrador.pdf"))')
+    url = page.locator('iframe').evaluate_all('(es)=>es.map(e=>e.src).find(s=>s.includes("PDFborrador.pdf"))')
+    response = context.request.get(url)
+    assert response.status == 200 and response.body().startswith(b'%PDF')
+    (OUT/(name+'.pdf')).write_bytes(response.body())
+    page.get_by_role('button',name='Volver a declaración',exact=True).click()
+    settle()
+    print('SAVED',name,flush=True)
+
+def enter_case(case):
+    name=case['id']
+    page.get_by_text('0003',exact=True).locator('xpath=../../..').get_by_role('button').click()
+    page.get_by_role('button',name='Aceptar',exact=True).wait_for()
+    settle()
+    rs=case['entrada']['trabajo']['rendimientos']
+    # Public dialog accepts totals for this taxpayer. Annual caps are applied
+    # to the combined eligible college and legal expenses, never per payer.
+    values={
+        'Importe íntegro:':sum(Decimal(r['integro']) for r in rs),
+        'Seguridad Social y otros:':sum(sum(Decimal(v) for k,v in r['cotizaciones'].items() if k!='clase') for r in rs),
+        'Retención:':sum(Decimal(r['importe']) for r in case['entrada']['retenciones']),
+        'Cuotas satisfechas a Sindicatos:':sum(Decimal(r['sindicato']['importe']) for r in rs),
+        'Cuotas a Colegios profesionales:':sum(Decimal(r['colegio']['importe']) for r in rs),
+        'Gastos de defensa jurídica:':sum(Decimal(r['defensa']['importe']) for r in rs),
+    }
+    fields=page.get_by_role('dialog').locator('input[type=text]:visible').evaluate_all('(es)=>es.map(e=>({id:e.id,title:e.title}))')
+    ids={title:fields[idx]['id'] for title,idx in [('Importe íntegro:',0),('Seguridad Social y otros:',1),('Retención:',2),('Cuotas satisfechas a Sindicatos:',3),('Cuotas a Colegios profesionales:',4),('Gastos de defensa jurídica:',6)]}
+    for title,value in values.items():
+        field=page.locator('#'+ids[title]); field.click(); field.press('ControlOrMeta+A'); field.press_sequentially(str(value).replace('.',','),delay=40); field.press('Tab'); settle()
+        actual=Decimal(field.input_value().replace('.','').replace(',','.') or '0')
+        assert actual == value, (title,actual,value)
+    settle()
+    capture(name+'-entrada')
+    page.get_by_role('button',name='Aceptar',exact=True).click()
+    settle()
+    page.get_by_text('0003',exact=True).locator('xpath=../../..').get_by_role('button').click()
+    settle()
+    page.get_by_text('Deducción por obtención de rendimientos del trabajo',exact=True).click()
+    settle()
+    da_fields=page.get_by_role('dialog').locator('input[type=text]:visible')
+    # DA61 has a separate public dialog for qualifying employment, as opposed
+    # to pensions. All supplied income qualifies; no irregular reductions.
+    qualifying_costs=values['Seguridad Social y otros:']
+    for idx,value in [(0,values['Importe íntegro:']),(8,qualifying_costs)]:
+        field=da_fields.nth(idx); field.click(); field.press('ControlOrMeta+A'); field.press_sequentially(str(value).replace('.',','),delay=40); field.press('Tab'); settle()
+        assert Decimal(field.input_value().replace('.','').replace(',','.') or '0') == value
+    capture(name+'-entrada-da61')
+    page.get_by_role('dialog').get_by_role('button',name='Aceptar',exact=True).click()
+    settle()
+    work_page()
+    save_case(name)
+
+from decimal import Decimal

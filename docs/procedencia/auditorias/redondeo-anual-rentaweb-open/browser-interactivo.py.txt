@@ -1,0 +1,21 @@
+import json
+import shutil
+import sys
+from pathlib import Path
+from playwright.sync_api import sync_playwright
+
+OUT = Path(__file__).resolve().parent
+with sync_playwright() as pw:
+    browser = pw.chromium.launch(executable_path=shutil.which('chromium'), headless=True)
+    context = browser.new_context(accept_downloads=True)
+    page = context.new_page()
+    page.set_default_timeout(20000)
+    print('READY', browser.version, flush=True)
+    for line in sys.stdin:
+        try:
+            exec(line, globals(), locals())
+        except Exception as exc:
+            print(type(exc).__name__, str(exc), flush=True)
+        print('DONE', flush=True)
+    context.close()
+    browser.close()
