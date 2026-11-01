@@ -162,6 +162,27 @@ class ContratoCorregido(revision.Contrato):
                     with self.assertRaisesRegex(ValueError, 'credenciales'):
                         self.verificar(self.paquetes[:1], 'parcial')
 
+    def test_destino_markdown_no_incluye_su_delimitador(self):
+        for query in ('%54OKEN', 'session', 'key', 'auth', 'signature'):
+            url = 'https://example.invalid/norma?' + query
+            for texto in (f'[norma]({url})', f'({url})',
+                          f'[norma]({url} "título")',
+                          f'[otra](https://example.invalid/ley)[norma]({url})',
+                          f'[norma](https://example.invalid/articulo(2)?{query})'):
+                with self.subTest(query=query, texto=texto):
+                    self.f['vigencia']['reservaURL'] = texto
+                    with self.assertRaisesRegex(ValueError, 'credenciales') as error:
+                        self.verificar(self.paquetes[:1], 'parcial')
+                    self.assertNotIn('example.invalid', str(error.exception))
+
+    def test_parentesis_del_destino_y_enlaces_legitimos_se_conservan(self):
+        for texto in ('[norma](https://example.invalid/articulo(2)?id=ley)',
+                      '[uno](https://example.invalid/1)[dos](https://example.invalid/2)',
+                      'https://example.invalid/articulo(2)?id=ley'):
+            with self.subTest(texto=texto):
+                self.f['vigencia']['reservaURL'] = texto
+                self.verificar(self.paquetes[:1], 'parcial')
+
     def test_schema_aislado_no_admite_fecha_nula_normativa(self):
         for tipo in ('original', 'reforma', 'correccion', 'consolidado'):
             for reserva in (None, 'Desconocida en fixture'):
