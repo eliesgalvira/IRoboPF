@@ -1,4 +1,9 @@
 import {
+  adaptarHechosAuxiliar,
+  exigeHechosAuxiliar,
+} from "./deducciones/adaptador-auxiliar-2025"
+import type { HechosAuxiliar2025 } from "./deducciones/hechos-auxiliar-2025"
+import {
   filtrarEntradasPorAmbito,
   type AmbitoDeducciones,
 } from "./deducciones/ambito"
@@ -908,9 +913,11 @@ const calcularDeduccionGenerica = (
 
 export const calcularDeduccionesAutonomicasAplicadas = (
   entradasOriginales: EntradasDeduccionesAutonomicas,
-  ambito: AmbitoDeducciones
+  ambito: AmbitoDeducciones,
+  hechos: HechosAuxiliar2025 = []
 ): number => {
   const entradas = filtrarEntradasPorAmbito(entradasOriginales, ambito)
+  const importeHechos = adaptarHechosAuxiliar(entradas, ambito, hechos)
   const andaluciaNacimiento =
     (numeroDeduccion(entradas, "andaluciaHijosNacimientoAdopcion") +
       numeroDeduccion(entradas, "andaluciaMenoresAcogidos")) *
@@ -1013,50 +1020,6 @@ export const calcularDeduccionesAutonomicasAplicadas = (
     booleanoDeduccion(entradas, "aragonMayor70CumpleRequisitos"),
     75
   )
-  const canariasNacimientoPorHijo = Match.value(
-    textoDeduccion(entradas, "canariasOrdenHijoNacimientoAdopcion")
-  ).pipe(
-    Match.when("tercero", () => 530),
-    Match.when("cuarto", () => 796),
-    Match.when("quinto-sucesivos", () => 928),
-    Match.orElse(() => 265)
-  )
-  const canariasNacimiento = importeSi(
-    booleanoDeduccion(entradas, "canariasNacimientoCumpleLimites"),
-    numeroDeduccion(entradas, "canariasHijosNacimientoAdopcion") *
-      canariasNacimientoPorHijo +
-      numeroDeduccion(
-        entradas,
-        "canariasHijosNacimientoAdopcionDiscapacidad65"
-      ) *
-        numeroSi(canariasNacimientoPorHijo <= 265, 600, 1100)
-  )
-  const canariasDiscapacidadMayores = importeSi(
-    booleanoDeduccion(entradas, "canariasDiscapacidadMayoresCumpleLimites"),
-    importeSi(
-      booleanoDeduccion(entradas, "canariasContribuyenteDiscapacidad33"),
-      400
-    ) +
-      importeSi(
-        booleanoDeduccion(entradas, "canariasContribuyenteMayor65"),
-        160
-      )
-  )
-  const canariasFamiliaNumerosa =
-    textoDeduccion(entradas, "canariasCategoriaFamiliaNumerosa") === "especial"
-      ? booleanoDeduccion(entradas, "canariasFamiliaNumerosaDiscapacidad65")
-        ? 1459
-        : 796
-      : textoDeduccion(entradas, "canariasCategoriaFamiliaNumerosa") ===
-          "general"
-        ? booleanoDeduccion(entradas, "canariasFamiliaNumerosaDiscapacidad65")
-          ? 1326
-          : 597
-        : 0
-  const canariasDesempleados = importeSi(
-    booleanoDeduccion(entradas, "canariasDesempleadoCumpleRequisitos"),
-    120
-  )
   const clmNacimiento = importeSi(
     booleanoDeduccion(entradas, "clmNacimientoCumpleLimites"),
     numeroDeduccion(entradas, "clmPartosAdopcionesUnHijo") * 100 +
@@ -1103,16 +1066,12 @@ export const calcularDeduccionesAutonomicasAplicadas = (
   const deduccionesGenericas = EffectArray.reduce(
     DEDUCCIONES_AUTONOMICAS_2025_IMPLEMENTADAS.valor,
     0,
-    (total, deduccion) => total + calcularDeduccionGenerica(deduccion, entradas)
+    (total, deduccion) =>
+      total +
+      (exigeHechosAuxiliar(deduccion.codigo)
+        ? 0
+        : calcularDeduccionGenerica(deduccion, entradas))
   )
-  const madridNacimiento =
-    numeroDeduccion(entradas, "madridHijosNacimientoAdopcion") *
-    721.7 *
-    numeroSi(
-      booleanoDeduccion(entradas, "madridProrrateoDosProgenitores"),
-      0.5,
-      1
-    )
   const catalunyaAlquiler = importeSi(
     booleanoDeduccion(entradas, "catalunyaVictimaViolenciaMachista"),
     Math.min(
@@ -1136,7 +1095,8 @@ export const calcularDeduccionesAutonomicasAplicadas = (
 
   return (
     Math.round(
-      (andaluciaNacimiento +
+      (importeHechos +
+        andaluciaNacimiento +
         andaluciaMonoparental +
         andaluciaAdopcionInternacional +
         andaluciaFamiliaNumerosa +
@@ -1148,10 +1108,6 @@ export const calcularDeduccionesAutonomicasAplicadas = (
         aragonTercerHijo +
         aragonDependientes +
         aragonMayores70 +
-        canariasNacimiento +
-        canariasDiscapacidadMayores +
-        canariasFamiliaNumerosa +
-        canariasDesempleados +
         clmNacimiento +
         clmFamiliaNumerosa +
         clmDiscapacidadContribuyente +
@@ -1160,7 +1116,6 @@ export const calcularDeduccionesAutonomicasAplicadas = (
         catalunyaRehabilitacion +
         catalunyaInteresesMasterDoctorado +
         deduccionesGenericas +
-        madridNacimiento +
         catalunyaAlquiler +
         catalunyaCooperativas) *
         100
