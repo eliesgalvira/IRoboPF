@@ -195,6 +195,46 @@ class ContratoCorregido(revision.Contrato):
                     with self.assertRaises(ValidationError):
                         revision.v.validar_schema(fuentes, revision.v.SCHEMA['$defs']['fuentes'])
 
+    def test_destinos_angulares_y_escapados_no_ocultan_parametros(self):
+        for query in ('session', '%54OKEN=', 'key=', 'auth', 'signature='):
+            for texto in (f'[norma](<https://example.invalid/articulo)?{query}>)',
+                          f'[norma](https://example.invalid/articulo\\)?{query})'):
+                with self.subTest(query=query, texto=texto):
+                    self.f['vigencia']['reservaURL'] = texto
+                    with self.assertRaisesRegex(ValueError, 'credenciales'):
+                        self.verificar(self.paquetes[:1], 'parcial')
+
+    def test_entidades_referencias_e_imagenes_no_ocultan_parametros(self):
+        for texto in ('[norma](https&#58;//example.invalid/norma?session)',
+                      '[norma](https://example.invalid/norma?&#115;ession)',
+                      '[norma](https://example.invalid/norma&#63;session)',
+                      '![norma](https://example.invalid/norma?&#115;ession)',
+                      '[norma][r]\n\n[r]: <https://example.invalid/norma)?session>',
+                      '[norma](https://example.invalid/norma?x=1&amp;session)'):
+            with self.subTest(texto=texto):
+                self.f['vigencia']['reservaURL'] = texto
+                with self.assertRaisesRegex(ValueError, 'credenciales') as error:
+                    self.verificar(self.paquetes[:1], 'parcial')
+                self.assertNotIn('example.invalid', str(error.exception))
+
+    def test_parentesis_en_url_textual_no_oculta_query_posterior(self):
+        for query in ('session', '%54OKEN=', 'key=', 'auth', 'signature='):
+            self.f['vigencia']['reservaURL'] = f'https://example.invalid/articulo)?{query}'
+            with self.assertRaisesRegex(ValueError, 'credenciales'):
+                self.verificar(self.paquetes[:1], 'parcial')
+
+    def test_destinos_markdown_complejos_inocuos_se_admiten(self):
+        for texto in ('[norma](<https://example.invalid/articulo)?id=ley>)',
+                      '[norma](https://example.invalid/articulo\\)?id=ley)',
+                      '[norma](https://example.invalid/norma?x=1&amp;id=ley)',
+                      '[norma][r]\n\n[r]: <https://example.invalid/norma)?id=ley>',
+                      '![norma](https://example.invalid/imagen?id=ley)',
+                      '[norma](https://example.invalid/norma?se\\ssion)',
+                      '[norma](https://example.invalid/norma?id=&#115;ession)'):
+            with self.subTest(texto=texto):
+                self.f['vigencia']['reservaURL'] = texto
+                self.verificar(self.paquetes[:1], 'parcial')
+
     def test_schema_aislado_exige_reserva_del_manual(self):
         for reserva in (None, '', '   '):
             with self.subTest(reserva=reserva):

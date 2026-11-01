@@ -2,7 +2,7 @@
 
 Contrato técnico revisado, con [correcciones contrastadas independientemente](../revisiones/contrato-corregido/INFORME.md). No emite dictámenes fiscales ni acepta los de otros lotes; esos paquetes siguen siendo candidatos hasta su revisión normativa.
 
-Desde la raíz, con Node, Python 3 del sistema y uv disponibles (jsonschema 4.26.0 se resuelve en caché externa):
+Desde la raíz, con Node, Python 3 del sistema y uv disponibles (`jsonschema==4.26.0` y `markdown-it-py==4.0.0` se resuelven en caché externa):
 
 ```sh
 node scripts/procedencia/deducciones-2025/verificar.mjs --lotes docs/procedencia/deducciones-2025/lotes --modo parcial
@@ -13,7 +13,7 @@ node scripts/procedencia/deducciones-2025/verificar.mjs --lotes docs/procedencia
 
 El modo parcial admite lotes enteros aún no recibidos y devuelve sus códigos como pendientes. Cada lote recibido debe estar completo. El modo completo exige los 351 códigos exactos del censo, con comunidad y lote correctos; Ceuta y Melilla no añaden registros. La base de paquete es el commit exacto indicado en el encargo de implementación.
 
-El JSON Schema `scripts/procedencia/deducciones-2025/contrato.schema.json` contiene `$defs.lote` y `$defs.fuentes` (Draft 2020-12). El consumidor usa `jsonschema` (Draft202012Validator) mediante `uv run --no-project --python python3 --no-managed-python --with jsonschema==4.26.0`; no crea un entorno dentro del repositorio. Se pueden fijar `UV_CACHE_DIR` y `UV_PROJECT_ENVIRONMENT` a ubicaciones externas; por defecto usa el directorio temporal del sistema. Para usar otro validador se selecciona la definición correspondiente con `$ref`. El schema exige todos los campos comunes; los arrays vacíos no fabrican evidencia. `pendientes` exige `causa`, `actuacionesRealizadas` (array no vacío) y `evidenciaNecesaria`.
+El JSON Schema `scripts/procedencia/deducciones-2025/contrato.schema.json` contiene `$defs.lote` y `$defs.fuentes` (Draft 2020-12). El lanzador usa `jsonschema` (Draft202012Validator) y un parser CommonMark para comprobar destinos de enlaces, con versiones fijadas y sin entorno dentro del repositorio. La ejecución directa con uv admite las dependencias declaradas en `verificar.py`; una importación desde otro script necesita ambas. Se pueden fijar `UV_CACHE_DIR` y `UV_PROJECT_ENVIRONMENT` a ubicaciones externas; por defecto usa el directorio temporal del sistema. Para usar otro validador se selecciona la definición correspondiente con `$ref`. El schema exige todos los campos comunes; los arrays vacíos no fabrican evidencia. `pendientes` exige `causa`, `actuacionesRealizadas` (array no vacío) y `evidenciaNecesaria`.
 
 Convenciones precisas: un localizador HTML usa `selector`, `inicio`, `fin` (rango semiabierto de caracteres) y `recetaExtraccion`; PDF usa página física desde 1 y bbox `[x0,y0,x1,y1]` en puntos. `manual.documentoId` referencia un documento de tipo manual, `manual.citas` solo citas a ese documento. `paginasFicha` conserva el censo; `paginasComprobadas` registra lo realmente contrastado. Las diferencias de paginación se explican en reservas. `vigencia.citas` y las listas anidadas `citas`/`citaIds` se contrastan con las citas locales. Las reservas pueden detallar reformas, transitorios, límites y remisiones todavía abiertos.
 

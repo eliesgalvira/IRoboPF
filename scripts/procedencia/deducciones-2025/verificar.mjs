@@ -12,6 +12,8 @@ const argumentosUv = [
   "--no-managed-python",
   "--with",
   "jsonschema==4.26.0",
+  "--with",
+  "markdown-it-py==4.0.0",
   "python",
   script,
 ]
