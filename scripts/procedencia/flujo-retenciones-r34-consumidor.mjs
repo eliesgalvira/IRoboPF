@@ -1,6 +1,6 @@
 import { executeCausalRetenciones } from "./causal-retenciones-r57.ts"
 import { createRequire } from "node:module"
-const require = createRequire("/home/local/Repos/IRoboPF/package.json")
+const require = createRequire(new URL("../../package.json", import.meta.url))
 const Decimal = require("decimal.js")
 const { Match } = require("effect")
 const returned = Symbol("return")

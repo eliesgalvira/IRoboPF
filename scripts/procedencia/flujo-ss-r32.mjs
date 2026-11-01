@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import { createRequire } from 'node:module'
 import { Sources, ts, sha } from './flujo-ast.mjs'
-const require = createRequire('/home/local/Repos/IRoboPF/package.json')
+const require = createRequire(new URL("../../package.json", import.meta.url))
 const Decimal = require('decimal.js')
 export const BASE = '846f25e183ba07414065d4e6bdf9e98311b98a17'
 const legacy = 'lib/dominio/laboral/cotizaciones-sociales.ts'

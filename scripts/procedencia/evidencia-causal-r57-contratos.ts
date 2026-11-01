@@ -7,9 +7,7 @@ import type {
   AnnualInput,
   ContextInput,
 } from "./causal-retenciones-r57.ts";
-const { Schema }: typeof import("effect") = createRequire(
-  "/home/local/Repos/IRoboPF/package.json",
-)("effect");
+const { Schema }: typeof import("effect") = createRequire(new URL("../../package.json", import.meta.url))("effect");
 const record = Schema.is(Schema.Record(Schema.String, Schema.Unknown));
 const caseSchema = Schema.Struct({
   anio: Schema.Number,

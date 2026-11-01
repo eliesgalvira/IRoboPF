@@ -31,7 +31,7 @@ type JSONValue =
   | string
   | JSONValue[]
   | { [key: string]: JSONValue }
-const require = createRequire("/home/local/Repos/IRoboPF/package.json")
+const require = createRequire(new URL("../../../package.json", import.meta.url))
 interface DecimalValue {
   toFixed(n?: number): string
 }

@@ -28,7 +28,7 @@ type JSONValue =
   | string
   | JSONValue[]
   | { [key: string]: JSONValue }
-const require = createRequire("/home/local/Repos/IRoboPF/package.json")
+const require = createRequire(new URL("../../package.json", import.meta.url))
 const { Schema }: typeof import("effect") = require("effect")
 const text = Schema.is(Schema.String)
 interface Pattern {

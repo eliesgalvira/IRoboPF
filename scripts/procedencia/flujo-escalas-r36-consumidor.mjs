@@ -2,7 +2,7 @@ import { verifyEscalasR36 } from "./flujo-escalas-r36.mjs"
 import { composeCausalEscalas } from "./causal-escalas-r60-contratos.mjs"
 import { executeCausalEscalas } from "./causal-escalas-r60.mjs"
 import { createRequire } from "node:module"
-const require = createRequire("/home/local/Repos/IRoboPF/package.json")
+const require = createRequire(new URL("../../package.json", import.meta.url))
 const { Decimal } = require("decimal.js")
 const { Match, Option, DateTime, Schema, Array: EffectArray } = require("effect")
 class Environment extends Map {

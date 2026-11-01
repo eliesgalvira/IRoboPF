@@ -4,8 +4,8 @@ import path from 'node:path'
 import {execFileSync} from 'node:child_process'
 import crypto from 'node:crypto'
 import {createRequire} from 'node:module'
-const require=createRequire('/home/local/Repos/IRoboPF/package.json')
-/** @type {typeof import('/home/local/Repos/IRoboPF/node_modules/typescript/lib/typescript.js')} */
+const require=createRequire(new URL("../../package.json", import.meta.url))
+/** @type {typeof import('typescript')} */
 export const ts=require('typescript')
 export const sha=bytes=>crypto.createHash('sha256').update(bytes).digest('hex')
 export class Sources {
@@ -25,7 +25,7 @@ export class Sources {
   ref(node){const file=node.getSourceFile().fileName,s=this.load(file);return {file,sha256:s.sha256,start:node.getStart(),end:node.end,text:node.getText(),offsetEncoding:'utf16',syntax:ts.SyntaxKind[node.kind]}}
   exact(ref){const s=this.load(ref.file);if(s.sha256!==ref.sha256||ref.start<0||ref.end> s.text.length||ref.end<=ref.start||s.text.slice(ref.start,ref.end)!==ref.text)throw Error('Fuente/rango alterado: '+ref.file);const found=s.ranges.get(ref.start+':'+ref.end);if(!found)throw Error('Rango no AST');return found}
   imported(node){const file=node.getSourceFile().fileName;let result;const ast=node.getSourceFile();for(const statement of ast.statements){if(!ts.isImportDeclaration(statement))continue;const bindings=statement.importClause?.namedBindings;if(!bindings||!ts.isNamedImports(bindings))continue;for(const item of bindings.elements){if(item.name.text!==node.text)continue;if(!ts.isStringLiteral(statement.moduleSpecifier))continue;const spec=statement.moduleSpecifier.text;if(!spec.startsWith('.'))continue;let target=path.posix.normalize(path.posix.join(path.posix.dirname(file),spec));if(!target.endsWith('.ts'))target+='.ts';const symbol=(item.propertyName??item.name).text;result={file:target,symbol}}}return result}
-  /** @returns {import('/home/local/Repos/IRoboPF/node_modules/typescript/lib/typescript.js').VariableDeclaration | import('/home/local/Repos/IRoboPF/node_modules/typescript/lib/typescript.js').FunctionDeclaration | import('/home/local/Repos/IRoboPF/node_modules/typescript/lib/typescript.js').ParameterDeclaration | import('/home/local/Repos/IRoboPF/node_modules/typescript/lib/typescript.js').BindingElement | undefined} */
+  /** @returns {import('typescript').VariableDeclaration | import('typescript').FunctionDeclaration | import('typescript').ParameterDeclaration | import('typescript').BindingElement | undefined} */
   declaration(node){
     const name=node.text;let scope=node.parent
     while(scope){

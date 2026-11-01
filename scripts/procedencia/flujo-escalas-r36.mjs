@@ -1,10 +1,11 @@
+import { resolverCommit } from "./commit-historico.mjs"
 import fs from "node:fs"
 import path from "node:path"
 import { gunzipSync } from "node:zlib"
 import { createRequire } from "node:module"
 import { createHash } from "node:crypto"
 import { execFileSync } from "node:child_process"
-const require = createRequire("/home/local/Repos/IRoboPF/package.json")
+const require = createRequire(new URL("../../package.json", import.meta.url))
 const ts = require("typescript")
 export const baseR36 = "50f9e949544e20d3e4e0bffc79b926d396267319"
 const annual = "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
@@ -122,7 +123,7 @@ export function composeEscalasR36(root = process.cwd()) {
     const bytes = fs.readFileSync(path.join(root, file))
     const pinned = execFileSync(
       "git",
-      ["cat-file", "blob", baseR36 + ":" + file],
+      ["cat-file", "blob", resolverCommit(baseR36) + ":" + file],
       { maxBuffer: 20e6 }
     )
     if (!bytes.equals(pinned)) throw Error("Fuente distinta: " + file)
