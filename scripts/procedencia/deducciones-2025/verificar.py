@@ -1,4 +1,8 @@
-"""Validación documental; nunca aceptación fiscal. Dependencia: jsonschema==4.26.0."""
+# /// script
+# requires-python = ">=3.13"
+# dependencies = ["jsonschema==4.26.0", "markdown-it-py==4.0.0"]
+# ///
+"""Validación documental; nunca aceptación fiscal."""
 import argparse
 import hashlib
 import json
@@ -10,10 +14,12 @@ from urllib.parse import parse_qsl, urlsplit
 from datetime import date, datetime
 
 from jsonschema import Draft202012Validator
+from markdown_it import MarkdownIt
 
 HERE = Path(__file__).resolve().parent
 REPO = HERE.parents[2]
 SCHEMA = json.loads((HERE / 'contrato.schema.json').read_text())
+MARKDOWN = MarkdownIt('commonmark')
 
 
 def exigir(ok, mensaje):
@@ -49,21 +55,38 @@ def destino_url_en_texto(candidato):
     return candidato
 
 
+def comprobar_destinos_markdown(texto):
+    """Examina destinos resueltos, incluidos escapes, entidades y referencias."""
+    pendientes = MARKDOWN.parse(texto)
+    while pendientes:
+        token = pendientes.pop()
+        if token.children:
+            pendientes.extend(token.children)
+        atributo = 'href' if token.type == 'link_open' else 'src' if token.type == 'image' else None
+        if atributo:
+            destino = token.attrGet(atributo)
+            if destino and urlsplit(destino).scheme in ('https', 'http'):
+                comprobar_credenciales_url(urlsplit(destino))
+
+
 def privacidad(valor):
     if isinstance(valor, float):
         exigir(math.isfinite(valor), "Número JSON no finito")
     if isinstance(valor, str):
         exigir(not re.search(r'data:[^;]+;base64|-----BEGIN|<html\b|%PDF-', valor, re.I), 'Contenido privado u original embebido')
+        exigir(len(valor) <= 20000, 'Texto excesivo: revisar original embebido')
         # El lookahead permite examinar también enlaces contiguos sin espacios.
         for coincidencia in re.finditer(r'(?=(https?://[^\s<>\"]+))', valor, re.I):
+            # Un cierre puede pertenecer a una URL textual, no a un enlace.
+            comprobar_credenciales_url(urlsplit(coincidencia.group(1)))
             destino = destino_url_en_texto(coincidencia.group(1))
             comprobar_credenciales_url(urlsplit(destino))
+        comprobar_destinos_markdown(valor)
         # /home/ también es un segmento legítimo en portales oficiales.
         # Solo una URL HTTPS completa se distingue de una ruta del equipo.
         url_https = re.fullmatch(r'https://[^\s]+', valor, re.I) and urlsplit(valor).hostname
         if not url_https:
             exigir(not re.search(r'/(?:home|Users|tmp|private|var|mnt)/|file://|[A-Z]:\\', valor, re.I), 'Contenido privado u original embebido')
-        exigir(len(valor) <= 20000, 'Texto excesivo: revisar original embebido')
     elif isinstance(valor, list):
         for x in valor:
             privacidad(x)
