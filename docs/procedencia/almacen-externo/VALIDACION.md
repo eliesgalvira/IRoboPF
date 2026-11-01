@@ -15,3 +15,7 @@ El inventario, el registro, ese payload, el coordinador y el auxiliar Python son
 Los enlaces conservados dentro de cada snapshot sí verifican contra sus propias dependencias. Resolver el registro activo requiere decidir qué bindings se renuevan para el nuevo inventario y revisar sus bytes; no forma parte de mover el almacenamiento y no se ha simulado una aceptación.
 
 Los resultados y hashes de logs están en [validacion.json](validacion.json). Los logs íntegros, incluidas las ejecuciones iniciales con entorno incompleto, se conservan junto al respaldo fuera del repositorio.
+
+## Comprobación posterior de privacidad
+
+La [validación de la anonimización](../privacidad/VALIDACION.md) vuelve a comprobar los 49 snapshots y actualiza el mapa acumulado. Las cifras y logs anteriores describen el primer corte de migración.

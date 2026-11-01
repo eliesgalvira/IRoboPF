@@ -16,6 +16,8 @@ El resultado distingue `bytes-originales` de `copia-anonimizada`. Este comprobad
 
 La copia íntegra anterior a la anonimización y la semilla documental se conservan fuera del repositorio. **Contienen material privado y requieren revisión antes de distribuirse desde un backend.** La ubicación local y las instrucciones de restauración se entregan al propietario fuera de Git.
 
+Los enlaces internos a hilos se han convertido en identificadores neutros: no son enlaces públicos de consulta. Su contexto original permanece en el respaldo privado. Las referencias a documentos oficiales se conservan.
+
 ## Referencias a commits
 
 El [mapa acumulado](../almacen-externo/mapa-commits.tsv) permite resolver las referencias anteriores a ambas reescrituras:
@@ -34,3 +36,5 @@ Los clones y worktrees basados en la historia anterior deben migrarse antes de v
 - Un metadato de usuario en un PDF institucional tiene atribución indeterminada. Dos cachés MessagePack del entorno Python se identificaron y reconstruyeron sin pérdida estructural; una contenía rutas anonimizadas. El PDF conservado se enumera en [dudas.json](dudas.json), sin reproducir el dato encontrado.
 
 El análisis combina patrones, Gitleaks, revisión de contenedores y extracción de documentos e imágenes. No acredita ausencia de información oculta mediante cifrado, esteganografía o formatos no reconocidos.
+
+La [validación](VALIDACION.md) distingue controles actuales, reproducciones históricas y rechazos que permanecen abiertos. [Archivos modificados por blob y commit](archivos.json).

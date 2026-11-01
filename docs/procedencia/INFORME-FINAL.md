@@ -72,6 +72,8 @@ El endurecimiento del tipado del último lote MJS y sus fronteras tiene una orie
 
 ## Respaldo y conservación
 
+El respaldo completo actual del código y de la semilla externa se describe en [Respaldos privados y restauración](almacen-externo/RESPALDO.md). Los cortes V5 y V1 que siguen son antecedentes conservados. Las rutas locales de los informes históricos están anonimizadas; no son instrucciones para localizar las copias actuales.
+
 El respaldo de código, informes y evidencias seleccionadas utiliza `origin/procedencia-documental`. Una clonación Git necesita además restaurar el CAS local y configurar su ubicación para recuperar todos los originales grandes. [Expediente de cierre](correcciones/cierre-r66/INFORME.md).
 
 host-a conserva **V5 r2, corte R26**, con paquete y restauración en `/home/local/Repos/IRoboPF/.cache/orquestador-preservacion/v5-r2-2b15925970d4/`. El pin de manifiesto es `2b15925970d4819973598e1640c375ce95fc16c87e6e9981af1e86a2cb0d1c88`: 1.447 objetos, 18.146 archivos físicos y 2.169.593.524 bytes por copia, incluidos auxiliares. Sus reservas de selección y privacidad y las adquisiciones posteriores se conservan por separado; no es una copia actualizada al cierre. [Identidad del paquete](correcciones/recepcion-r26-r28/preservacion-v5.json).
@@ -79,3 +81,19 @@ host-a conserva **V5 r2, corte R26**, con paquete y restauración en `/home/loca
 **host-b conserva V1 desfasado**, en `/home/usuario/Backups/IRoboPF/corpus-2026-10-29-manifest-2df6c208/`, manifiesto `2df6c208eed389614e678c9009ccf463b00f3bfed9cf098876ce7d9329f593fb`. La copia comunicada contiene 709 archivos y 980.219.072 bytes; se informó del cotejo SHA-256 de los 708 objetos, sin ejecutar `preservacion.py verify`. No se atribuye una nueva verificación en destino. Es otra máquina del mismo propietario y vivienda: copia local fuera de host-a, sin custodia independiente ni respaldo remoto completo acreditado. [Registro de la copia](preservacion/copia-host-b.json).
 
 Los paquetes y originales conservan su identidad. Las mejoras del consumidor y de la documentación no actualizan por sí solas esos cortes ni autorizan transferencia, gasto, LFS o despliegue.
+
+## Privacidad
+
+Se ha revisado la historia completa de `procedencia-documental`, incluidos mensajes, Excel, PDF, imágenes, sesiones y transportes comprimidos. Se sustituyeron rutas y cuentas locales, nombres de equipos, referencias internas de hilos y metadatos de propietario de archivos. La historia conserva sus **214 commits, mensajes, autores, fechas y 19 firmas**. Los hashes antiguos siguen resolviéndose mediante el [mapa acumulado](almacen-externo/mapa-commits.tsv).
+
+No se han confirmado credenciales ni nóminas, DNI, teléfonos, direcciones o datos bancarios reales atribuibles al propietario. El Excel es una matriz generada; las sesiones de Renta WEB son simulaciones documentadas. Se conservan las atribuciones públicas, los ejemplos y los datos institucionales. **Queda una duda:** una ruta de usuario en un metadato de un PDF institucional, sin atribución demostrada al propietario. Se mantiene el original; [archivo y commit, sin reproducir el dato](privacidad/dudas.json).
+
+Los hallazgos confirmados no aparecen como blobs idénticos en las otras ocho ramas publicadas. Se comprobaron además las rutas conocidas en sus blobs adicionales; esto no equivale a una auditoría integral de esas ramas. `main` y las otras ramas no se han reescrito. Las copias locales y posibles cachés del proveedor conservan su propia historia. [Alcance y límites](privacidad/README.md).
+
+El respaldo completo anterior se restauró y verificó fuera de Git, junto con la semilla documental. **Los originales privados no se han perdido.** La semilla contiene metadatos históricos que deben revisarse antes de distribuirla desde el backend. Las copias públicas anonimizadas tienen su propio [mapa de hashes](privacidad/objetos.json); no se confunden con los bytes que se revisaron originalmente.
+
+Pasan los 49 snapshots con sus dependencias, las rutas, el tipado del producto y lint. Se mantienen expresamente los rechazos previos por inventario o fuentes históricas distintos; no se ha renovado aceptación fiscal. [Resultados y límites de las comprobaciones](privacidad/VALIDACION.md).
+
+La historia empaquetada de una clonación limitada a esta rama pasa de aproximadamente **1,37 GB a 1,08 GB** tras retirar el almacén y anonimizarla. El disco de trabajo conserva también las ramas antiguas y respaldos; no se ha hecho limpieza. El almacén externo se configura mediante `IROBOPF_CAS_LOCAL`, con lecturas verificadas por hash. No se implementa backend ni se altera la interfaz.
+
+Commits de preparación: `279bec2ee519abc7a8bb7dbb3e976933b42b4db4` —historia anonimizada—, `59d5380d` —mapas y verificador de copias— y `9203c112` —portabilidad y lectores históricos—. La [guía de migración](almacen-externo/MIGRACION.md) da las correspondencias para los worktrees y `rediseno/expertos`.
