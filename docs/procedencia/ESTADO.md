@@ -4,11 +4,11 @@
 
 Además de las deducciones de 2025, está encargado el [plan completo A–F](PLAN-COMPLETO.md): procedencia automática de todos los datos de 2012–2026; comunidades reales en 2026; miles de comparaciones con simuladores oficiales; redondeo observado de cotizaciones; mínimos familiares unificados; y actividad, composición, admisión y puertas. El cierre técnico anterior de 65 sitios conserva sus resultados y deja de ser el límite del encargo.
 
-Las siete ampliaciones regionales de deducciones continúan. La entrega del auxiliar compartido ya está incorporada como candidata y requiere revisión independiente. La capacidad liberada se destina al censo y extracción automática del bloque A; después se inician B, C, D y E en ese orden, con paralelo cuando sus ámbitos no compitan. F sigue a esos bloques y a sus dependencias. Cada bloque recibe revisión independiente y un balance de cobertura, diferencias, correcciones y decisiones.
+Las siete ampliaciones regionales de deducciones continúan. La entrega del auxiliar compartido ya está incorporada como candidata y requiere revisión independiente. Ha comenzado el censo y extracción automática del bloque A con `gpt-6.1-sol`, esfuerzo `high`: reutiliza el corpus y prepara el contrato común, con primeras comparaciones de tablas reales y artefactos externos. Después se inician B, C, D y E en ese orden, con paralelo cuando sus ámbitos no compitan. F sigue a esos bloques y a sus dependencias. Cada bloque recibe revisión independiente y un balance de cobertura, diferencias, correcciones y decisiones.
 
 | Bloque | Estado |
 | --- | --- |
-| A. Datos de 2012–2026 | Preparado para comenzar al liberarse capacidad |
+| A. Datos de 2012–2026 | En curso: censo, fuentes y canalización automática; cobertura completa aún pendiente |
 | B. Comunidades en 2026 | Pendiente de inicio; reutilizará las fuentes de A |
 | C. Simuladores oficiales | Pendiente de inicio |
 | D. Redondeo de cotizaciones | Pendiente de inicio con criterio de comportamiento observado |
