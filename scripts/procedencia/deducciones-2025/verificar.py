@@ -36,13 +36,28 @@ def comprobar_credenciales_url(url):
            'URL con credenciales')
 
 
+def destino_url_en_texto(candidato):
+    """Conserva paréntesis del destino y excluye el cierre del enlace o la prosa."""
+    abiertos = 0
+    for indice, caracter in enumerate(candidato):
+        if caracter == '(':
+            abiertos += 1
+        elif caracter == ')':
+            if abiertos == 0:
+                return candidato[:indice]
+            abiertos -= 1
+    return candidato
+
+
 def privacidad(valor):
     if isinstance(valor, float):
         exigir(math.isfinite(valor), "Número JSON no finito")
     if isinstance(valor, str):
         exigir(not re.search(r'data:[^;]+;base64|-----BEGIN|<html\b|%PDF-', valor, re.I), 'Contenido privado u original embebido')
-        for coincidencia in re.finditer(r'https?://[^\s<>\"]+', valor, re.I):
-            comprobar_credenciales_url(urlsplit(coincidencia.group()))
+        # El lookahead permite examinar también enlaces contiguos sin espacios.
+        for coincidencia in re.finditer(r'(?=(https?://[^\s<>\"]+))', valor, re.I):
+            destino = destino_url_en_texto(coincidencia.group(1))
+            comprobar_credenciales_url(urlsplit(destino))
         # /home/ también es un segmento legítimo en portales oficiales.
         # Solo una URL HTTPS completa se distingue de una ruta del equipo.
         url_https = re.fullmatch(r'https://[^\s]+', valor, re.I) and urlsplit(valor).hostname
