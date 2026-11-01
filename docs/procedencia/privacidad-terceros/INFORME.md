@@ -20,6 +20,10 @@ Los originales sociales quedan únicamente en el respaldo privado. Las copias do
 
 Se conserva el contenido propio del responsable del proyecto sobre la Ley del euro, junto con los documentos oficiales que lo sustentan. La retirada no cambia las decisiones sobre CX-01/CX-03 ni convierte las observaciones sociales en fuentes normativas.
 
+## Comprobaciones
+
+La [validación](VALIDACION.md) distingue conservación de historia, decisiones técnicas, copias anonimizadas y pruebas de funcionamiento. No se renuevan dictámenes fiscales.
+
 ## Respaldo privado
 
 Antes de reescribir se creó y restauró un bundle de **2.982.979.274 bytes**. SHA-256: `b03c3b4117c5b7dbdd2225f9fc64db9c8410e949df8bf9b24f21bfdccdb38c88`. Se comprobaron 1.376 referencias y `git fsck --full`.
