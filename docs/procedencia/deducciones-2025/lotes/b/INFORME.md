@@ -2,7 +2,7 @@
 
 Entrega **candidata con reservas**, sobre `016ec72d9539ccd887202735960ce306bd2354e5`. Contiene los 48 códigos censados: 27 de Asturias y 21 de Cantabria. No supone aceptación normativa ni cierre de todas las cadenas históricas.
 
-Se contrastan las fichas, los artículos individuales, sus secciones del manual y las rutas reales de cálculo. Los dictámenes separan ficha y cálculo. Hay 460 comparaciones y 672 citas de 16 documentos conservados externamente. Las comparaciones anteriores a una corrección llevan `momento: antes`; las actuales del mismo campo conservan las reservas. La cita de nacimiento enlaza también el artículo 3.Seis de la Ley 3/2023 publicado en BOE; sigue pendiente completar su cadena autonómica.
+Se contrastan las fichas, los artículos individuales, sus secciones del manual y las rutas reales de cálculo. Los dictámenes separan ficha y cálculo. Hay 462 comparaciones y 673 citas de 16 documentos conservados externamente. Las comparaciones anteriores a una corrección llevan `momento: antes`; las actuales del mismo campo conservan las reservas. La cita de nacimiento enlaza también el artículo 3.Seis de la Ley 3/2023 publicado en BOE; el original BOC se conserva ahora en el complemento de la revisión, pendiente de incorporar al paquete junto a las rectificaciones.
 
 ## Cambios documentales
 
@@ -24,6 +24,8 @@ Dos diferencias quedan reproducidas en el helper exportado `calcularDeduccionesA
 La ruta visible actual usa `calcularDeduccionesConsignadas`. Sin `:importe` devuelve cero en estos casos; una consignación explícita conserva el importe suministrado. Por ello las diferencias del helper no acreditan una liquidación anual actual incorrecta. Las otras 46 deducciones carecen en estas rutas de una evaluación fiscal completa verificable: una cantidad externa o una multiplicación genérica no acredita elegibilidad, sujetos, reparto e incompatibilidades.
 
 Los dictámenes anteriores contienen 21 diferencias y 27 no verificables. Después de las correcciones documentales permanecen dos diferencias del helper y 46 no verificables. Ninguna ficha recibe coincidencia global: las coincidencias cuantitativas parciales no cierran su cadena histórica.
+
+La [revisión independiente](../../revisiones/b/INFORME.md) detectó una tercera diferencia documental en estudios: la renta igual a 8.000 quedaba incluida en el resumen. Está corregida con prueba y cita original completa. También identificó 18 atribuciones incorrectas, citas de educación confundidas con inflación y un testimonio de vehículos que incorpora 2026. Esas rectificaciones siguen pendientes; los recuentos candidatos anteriores no constituyen aceptación. El [contraste posterior](../../revisiones/b/CONTRASTE.md) distingue los cambios ya comprobados de los trabajos abiertos.
 
 ## Fuentes y reservas
 

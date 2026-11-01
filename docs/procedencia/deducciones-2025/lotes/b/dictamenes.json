@@ -16696,6 +16696,20 @@
               431.44635009765625
             ]
           }
+        },
+        {
+          "id": "cantabria_traslado_estudios_despoblamiento-original-umbral-estudios",
+          "documentoId": "b-cantabria-2025-643",
+          "articulo": "Artículo 3.Uno de Ley 3/2024; nueva redacción del artículo 2.11.4 del Decreto Legislativo 62/2008",
+          "apartado": "11.4",
+          "textoLiteral": "El contribuyente con residencia habitual en municipios afectados por riesgo de despoblamiento podrá deducirse 200 euros por cada hijo estudiante menor de 25 años, que no tenga rentas anuales iguales o superiores a 8.000 euros, que curse estudios de bachillerato, formación profesional o enseñanzas universitarias fuera del municipio. En el caso de tributación individual esta deducción se prorrateará por mitad a cada progenitor.",
+          "localizador": {
+            "tipo": "html",
+            "selector": "#textoxslt",
+            "inicio": 64709,
+            "fin": 65138,
+            "recetaExtraccion": "BeautifulSoup(bytes, 'html.parser').select_one(selector).get_text(' ', strip=True)[inicio:fin]"
+          }
         }
       ],
       "manual": {
@@ -16732,7 +16746,7 @@
             "tipo": "mixta",
             "descripcion": "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas."
           },
-          "reglaOficial": "200 euros por hijo estudiante desplazado; rentas anuales no superiores a 8.000 euros y reparto por mitad en individual.",
+          "reglaOficial": "200 euros por hijo estudiante desplazado; rentas anuales inferiores a 8.000 euros y reparto por mitad en individual.",
           "citas": [
             "cantabria_traslado_estudios_despoblamiento-n2"
           ],
@@ -16782,10 +16796,11 @@
         },
         {
           "campoCodigo": "cuantia",
-          "valorCodigo": "200 euros por hijo estudiante desplazado; rentas anuales no superiores a 8.000 euros y reparto por mitad en individual.",
-          "reglaOficial": "200 euros por hijo estudiante desplazado; rentas anuales no superiores a 8.000 euros y reparto por mitad en individual.",
+          "valorCodigo": "200 euros por hijo estudiante desplazado; rentas anuales inferiores a 8.000 euros y reparto por mitad en individual.",
+          "reglaOficial": "200 euros por hijo estudiante desplazado; rentas anuales inferiores a 8.000 euros y reparto por mitad en individual.",
           "citas": [
-            "cantabria_traslado_estudios_despoblamiento-n2"
+            "cantabria_traslado_estudios_despoblamiento-n2",
+            "cantabria_traslado_estudios_despoblamiento-original-umbral-estudios"
           ],
           "resultado": "coincide",
           "motivo": "Resumen cuantitativo corregido; permanecen las reservas de requisitos completos y cadena histórica, no una fórmula automática.",
@@ -16803,6 +16818,28 @@
           ],
           "resultado": "no_verificable",
           "motivo": "Helper exportado: importe externo. La ruta visible usa calcularDeduccionesConsignadas: solo aplica :importe explícito; no ejecuta estas fórmulas como elegibilidad fiscal."
+        },
+        {
+          "campoCodigo": "cuantia.descripcion.umbralRentaEstudios",
+          "valorCodigo": "rentas anuales no superiores a 8.000 euros",
+          "reglaOficial": "El contribuyente con residencia habitual en municipios afectados por riesgo de despoblamiento podrá deducirse 200 euros por cada hijo estudiante menor de 25 años, que no tenga rentas anuales iguales o superiores a 8.000 euros, que curse estudios de bachillerato, formación profesional o enseñanzas universitarias fuera del municipio. En el caso de tributación individual esta deducción se prorrateará por mitad a cada progenitor.",
+          "citas": [
+            "cantabria_traslado_estudios_despoblamiento-original-umbral-estudios"
+          ],
+          "resultado": "diferencia",
+          "motivo": "La descripción intermedia incorporada en c7d9c04f incluía renta igual a 8.000; la norma la excluye. Discrepancia de ficha, no de consignación.",
+          "momento": "antes"
+        },
+        {
+          "campoCodigo": "cuantia.descripcion.umbralRentaEstudios",
+          "valorCodigo": "rentas anuales inferiores a 8.000 euros",
+          "reglaOficial": "El contribuyente con residencia habitual en municipios afectados por riesgo de despoblamiento podrá deducirse 200 euros por cada hijo estudiante menor de 25 años, que no tenga rentas anuales iguales o superiores a 8.000 euros, que curse estudios de bachillerato, formación profesional o enseñanzas universitarias fuera del municipio. En el caso de tributación individual esta deducción se prorrateará por mitad a cada progenitor.",
+          "citas": [
+            "cantabria_traslado_estudios_despoblamiento-original-umbral-estudios"
+          ],
+          "resultado": "coincide",
+          "motivo": "Se corrige exclusivamente la desigualdad del resumen; permanecen las reservas sobre hechos y cálculo completo.",
+          "momento": "despues"
         }
       ],
       "contraejemplos": [
@@ -16812,7 +16849,7 @@
             "tipoCuantia": "mixta",
             "documental": true
           },
-          "esperado": "200 euros por hijo estudiante desplazado; rentas anuales no superiores a 8.000 euros y reparto por mitad en individual.",
+          "esperado": "200 euros por hijo estudiante desplazado; rentas anuales inferiores a 8.000 euros y reparto por mitad en individual.",
           "calculoIndependiente": "Discriminante documental: contrastar el campo cuantia con los apartados normativos citados y comprobar que la ruta exige un importe externo; no se infiere una cuota ni elegibilidad fiscal.",
           "observado": {
             "tipo": "mixta",
@@ -16821,6 +16858,20 @@
           "apiOCampo": "cantabria_traslado_estudios_despoblamiento.cuantia",
           "pruebaReproducible": "tests/deducciones-procedencia-2025-b.test.ts: conserva las 48 identidades sin prometer fórmulas en fichas manuales; comparar con el archivo regional de la base 016ec72d9539ccd887202735960ce306bd2354e5",
           "alcance": "Omisión de magnitudes y promesa documental de automatización; no demuestra importe erróneo de una liquidación. El resumen añadido sigue pendiente de revisión normativa."
+        },
+        {
+          "entradas": {
+            "rentaAnualEstudiante": 8000,
+            "edad": 24,
+            "restantesRequisitos": "supuestos cumplidos",
+            "modalidad": "individual"
+          },
+          "esperado": "El estudiante queda excluido; deducción por él de 0 euros.",
+          "calculoIndependiente": "La condición es renta < 8.000. A 7.999,99 puede cumplirse; a 8.000 y 8.000,01 no.",
+          "observado": "La frase intermedia no superiores a 8.000 incluía el caso igual; no es un resultado del motor.",
+          "apiOCampo": "cuantia.descripcion.umbralRentaEstudios",
+          "pruebaReproducible": "tests/deducciones-procedencia-2025-b.test.ts: excluye la renta de exactamente 8.000 euros en traslado por estudios",
+          "alcance": "Discriminante documental de frontera; no se convierte consignación manual en evaluación de hechos."
         }
       ],
       "cambios": [
@@ -16829,6 +16880,12 @@
           "motivo": "Sustituir descripción genérica por magnitudes fiscales contrastadas del artículo 2.11.4.",
           "pruebaRojaAnterior": "tests/deducciones-procedencia-2025-b.test.ts: falla la detección de promesa genérica; obras/economía social fallan por ausencia de magnitudes. Rojo conservado en transporte privado.",
           "resultadoPosterior": "4 casos focalizados pasan. Es corrección documental; no se implementa fórmula ni se altera la consignación."
+        },
+        {
+          "archivo": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/cantabria.ts",
+          "motivo": "Excluir renta igual a 8.000 en el resumen de estudios, conforme a Ley 3/2024 art.3.Uno.",
+          "pruebaRojaAnterior": "Prueba excluye la renta de exactamente 8.000 euros: falló sobre d798d5c5; log original preservado en respaldo privado.",
+          "resultadoPosterior": "La descripción exige renta inferior a 8.000; sin cambio de evaluador ni importes consignados."
         }
       ],
       "pendientes": [
