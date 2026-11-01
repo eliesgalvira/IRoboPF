@@ -85,7 +85,7 @@ describe("condiciones documentales que no valida la consignación", () => {
 })
 
 it("no atribuye a artículos de escala, tasas o créditos pasajes de deducción", () => {
-  const esperadas: Record<string, string> = {
+  const esperadas = {
     cantabria_arrendamiento_jovenes_mayores_discapacidad: "3.Dos",
     cantabria_obras_mejora: "3.Cuatro",
     cantabria_inversion_entidades_nuevas_reciente_creacion: "10.Uno",
