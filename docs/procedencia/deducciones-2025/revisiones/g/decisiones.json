@@ -1,0 +1,1719 @@
+{
+  "version": 1,
+  "ejercicio": 2025,
+  "lote": "g",
+  "headRevisado": "a6abaf0c35b018fe54d75fe7e4f16197f1600f42",
+  "baseAuditoria": "016ec72d9539ccd887202735960ce306bd2354e5",
+  "estado": "revision_con_objeciones; no aceptación global",
+  "reglasComunes": {
+    "rentaGeneral": {
+      "liquidableMaximaIndividual": 30000,
+      "liquidableMaximaConjunta": 47000,
+      "inicioReduccionIndividual": 27000,
+      "inicioReduccionConjunta": 44000,
+      "divisor": 3000,
+      "citasAutorSufijo": [
+        "com5",
+        "com6"
+      ],
+      "reserva": "Reextraer además párrafos completos de4Cinco con fórmulas; com6 solo recoge umbral, no toda la fórmula."
+    },
+    "modalidad": "Distinguir importes/límites por contribuyente, vivienda y gasto compartido; no multiplicar topes de conjunta por número de miembros.",
+    "patrimonio": "Art4Dos exige incremento patrimonial en j/k/l/m/o; tope30% liquidable SOLO q2/q3/r/s. z no está incluido.",
+    "certificacion": "Art4Tres para p/q1/q2/r/s; comodato tiene certificado diferenciado; revocación genera reintegro e intereses. No aplicarlo automáticamente a q3.",
+    "pago": "DA16: e/k/l/m/n/ñ/o/p/q/r/s/v/w/x/y/z y DA17c/d. ac/ad/ae remiten expresamente a sus medios; no efectivo.",
+    "fechas": "Ley5/2025 desde1junio (corrección regional12junio afecta DF3 arts24/25); art25 con efectos1enero2024. DL14/2025 desde30dic y errata19enero2026 n compatibleñ; errata21enero no altera este extremo. DL1/2026 yDL2/2026 efectos2025 expresos; no trasladar Ley3/2026 de julio sin cláusula.",
+    "DA6": "Discapacidad por certificado; asimilaciones pensionistas y discapacidad judicial/curatela tienen alcance distinto. Leer texto anterior y posterior30dic; no atribuir toda la asimilación a cualquier grado."
+  },
+  "decisiones": [
+    {
+      "codigo": "valenciana_nacimiento_adopcion_multiples",
+      "articulo": "Ley13/1997 art4.Uno.b",
+      "decisionFicha": "diferencia",
+      "decisionCalculoCompleto": "no_verificable",
+      "decisionPaginacion": "coincide",
+      "decisionSobreAutor": "diferencia_documental_sostenida_con_reserva_especifica",
+      "descripcion": "Las dos adopciones deben constituirse en la misma fecha; no basta tener dos hijos. No extender a dos ejercicios posteriores.",
+      "alcancePorAspecto": {
+        "cuantiasPorcentajesLimites": "Parto gemelar, dos declarantes con derecho y liquidable individual 28.500 cada uno: 61,50 por declarante (246×0,5×0,5).",
+        "requisitosTitularesFechasRemisiones": "Las dos adopciones deben constituirse en la misma fecha; no basta tener dos hijos. No extender a dos ejercicios posteriores.",
+        "rentaModalidadProrrateos": "Aplicar reglas comunes solo cuando el apartado remite a ellas. Base liquidable general más ahorro: 30.000 individual/47.000 conjunta; reducción 27.000/44.000 a razón de 3.000",
+        "consignacion": "Ruta :cumple/:importe; acepta importe calculado fuera. :base no acredita cálculo jurídico.",
+        "calculoAutomaticoParcial": "No hay cálculo fiscal específico de esta deducción en la ruta observada."
+      },
+      "discriminanteDocumental": "246",
+      "expectativaIndependiente": "Parto gemelar, dos declarantes con derecho y liquidable individual 28.500 cada uno: 61,50 por declarante (246×0,5×0,5).",
+      "fuentesNormativas": "Ley7/2014 art46; DL14/2022 art4; comunes4/5",
+      "manual": {
+        "sha256": "765c89ade626abf9726835373d5f15c671b610b00e72109c547f66b8ef9a005c",
+        "paginasActuales": [
+          534,
+          535
+        ],
+        "paginasBase": [
+          527,
+          624
+        ],
+        "citasRefinadas": [
+          "valenciana_nacimiento_adopcion_multiples-rm1",
+          "valenciana_nacimiento_adopcion_multiples-rm2"
+        ],
+        "citasAutorObjetadas": [
+          "valenciana_nacimiento_adopcion_multiples-m1",
+          "valenciana_nacimiento_adopcion_multiples-m2"
+        ]
+      },
+      "reservaConcreta": "Fijar remisión estatal al mínimo por descendientes (Ley35/2006 arts58/61) y sus efectos2025. Cuantía propia y modalidad/renta regional están contrastadas; la elegibilidad del descendiente no se infiere de :cumple.",
+      "arregloMinimoPropuesto": "Completar descripción/requisitos/topes y remisiones de la ficha, conservar códigos/campos/exportaciones y ruta manual. Corregir dictamen y citas según esta revisión; implementar fórmula solo tras contrato de entradas suficiente. No cambiar una cuota por este discriminante."
+    },
+    {
+      "codigo": "valenciana_nacimiento_adopcion_acogimiento_discapacidad",
+      "articulo": "Ley13/1997 art4.Uno.c",
+      "decisionFicha": "diferencia",
+      "decisionCalculoCompleto": "no_verificable",
+      "decisionPaginacion": "coincide",
+      "decisionSobreAutor": "diferencia_documental_sostenida_con_reserva_especifica",
+      "descripcion": "Antes1junio: nacimiento/adopción y hermano cualificado para303; desde1junio incorpora guarda/acogimiento; desde30diciembre exige permanencia en intelectual/mental y admite303 con otra persona con derecho.",
+      "alcancePorAspecto": {
+        "cuantiasPorcentajesLimites": "Un único menor con discapacidad cualificada, renta baja y dos declarantes: 123 cada uno.",
+        "requisitosTitularesFechasRemisiones": "Antes1junio: nacimiento/adopción y hermano cualificado para303; desde1junio incorpora guarda/acogimiento; desde30diciembre exige permanencia en intelectual/mental y admite303 con otra persona con derecho.",
+        "rentaModalidadProrrateos": "Aplicar reglas comunes solo cuando el apartado remite a ellas. Base liquidable general más ahorro: 30.000/47.000; reducción 27.000/44.000",
+        "consignacion": "Ruta :cumple/:importe; acepta importe calculado fuera. :base no acredita cálculo jurídico.",
+        "calculoAutomaticoParcial": "No hay cálculo fiscal específico de esta deducción en la ruta observada."
+      },
+      "discriminanteDocumental": "303",
+      "expectativaIndependiente": "Un único menor con discapacidad cualificada, renta baja y dos declarantes: 123 cada uno.",
+      "fuentesNormativas": "Ley5/2025 art22; DL14/2025 art65",
+      "manual": {
+        "sha256": "765c89ade626abf9726835373d5f15c671b610b00e72109c547f66b8ef9a005c",
+        "paginasActuales": [
+          535,
+          536,
+          537,
+          538,
+          539
+        ],
+        "paginasBase": [
+          527,
+          624
+        ],
+        "citasRefinadas": [
+          "valenciana_nacimiento_adopcion_acogimiento_discapacidad-rm1",
+          "valenciana_nacimiento_adopcion_acogimiento_discapacidad-rm2"
+        ],
+        "citasAutorObjetadas": [
+          "valenciana_nacimiento_adopcion_acogimiento_discapacidad-m1",
+          "valenciana_nacimiento_adopcion_acogimiento_discapacidad-m2",
+          "valenciana_nacimiento_adopcion_acogimiento_discapacidad-m3"
+        ]
+      },
+      "reservaConcreta": "Cerrar remisión al mínimo por descendientes y, si hay guarda/acogimiento, Ley26/2018 arts127/149 y equivalencias Código Civil. El original modificador Ley5/2025 acredita el corte1junio; la reserva no excluye de oficio a todo acogimiento. Cotejar DA6 completa y certificado/asimilación según fecha de devengo: la permanencia intelectual/mental y curatela plena desde30dic no se anticipan a fallecimientos anteriores. Original regional de reforma DL14/2025 no aportado por el autor como facsímil (HTML BOE sí).",
+      "arregloMinimoPropuesto": "Completar descripción/requisitos/topes y remisiones de la ficha, conservar códigos/campos/exportaciones y ruta manual. Corregir dictamen y citas según esta revisión; implementar fórmula solo tras contrato de entradas suficiente. No cambiar una cuota por este discriminante."
+    },
+    {
+      "codigo": "valenciana_familia_numerosa_monoparental",
+      "articulo": "Ley13/1997 art4.Uno.d",
+      "decisionFicha": "diferencia",
+      "decisionCalculoCompleto": "no_verificable",
+      "decisionPaginacion": "coincide",
+      "decisionSobreAutor": "diferencia_documental_sostenida_con_reserva_especifica",
+      "descripcion": "35.000 individual o58.000 conjunta: deducción0; título/condición a devengo y convivencia. General330, especial660, prorrateo entre declarantes.",
+      "alcancePorAspecto": {
+        "cuantiasPorcentajesLimites": "Categoría especial y liquidable individual33.000: 330 (660×0,5).",
+        "requisitosTitularesFechasRemisiones": "35.000 individual o58.000 conjunta: deducción0; título/condición a devengo y convivencia. General330, especial660, prorrateo entre declarantes.",
+        "rentaModalidadProrrateos": "Aplicar reglas comunes solo cuando el apartado remite a ellas. General: 30.000/47.000, reducción 27.000/44.000; especial: 35.000/58.000, reducción 31.000/54.000 con divisor 4.000",
+        "consignacion": "Ruta :cumple/:importe; acepta importe calculado fuera. :base no acredita cálculo jurídico.",
+        "calculoAutomaticoParcial": "No hay cálculo fiscal específico de esta deducción en la ruta observada."
+      },
+      "discriminanteDocumental": "660",
+      "expectativaIndependiente": "Categoría especial y liquidable individual33.000: 330 (660×0,5).",
+      "fuentesNormativas": "Ley7/2021 art19; DL14/2022 art4 y8",
+      "manual": {
+        "sha256": "765c89ade626abf9726835373d5f15c671b610b00e72109c547f66b8ef9a005c",
+        "paginasActuales": [
+          539,
+          540,
+          541,
+          542
+        ],
+        "paginasBase": [
+          527,
+          624
+        ],
+        "citasRefinadas": [
+          "valenciana_familia_numerosa_monoparental-rm1",
+          "valenciana_familia_numerosa_monoparental-rm2"
+        ],
+        "citasAutorObjetadas": [
+          "valenciana_familia_numerosa_monoparental-m1",
+          "valenciana_familia_numerosa_monoparental-m2",
+          "valenciana_familia_numerosa_monoparental-m3",
+          "valenciana_familia_numerosa_monoparental-m11",
+          "valenciana_familia_numerosa_monoparental-m12"
+        ]
+      },
+      "reservaConcreta": "Cotejar Decreto19/2018 arts2–4, títulos y situaciones equiparadas, y Ley40/2003 para categorías. Falta fijar sus originales y reformas; las cuantías330/660 y reducción están acreditadas en DL14/2022.",
+      "arregloMinimoPropuesto": "Completar descripción/requisitos/topes y remisiones de la ficha, conservar códigos/campos/exportaciones y ruta manual. Corregir dictamen y citas según esta revisión; implementar fórmula solo tras contrato de entradas suficiente. No cambiar una cuota por este discriminante."
+    },
+    {
+      "codigo": "valenciana_custodia_guarderias_menores_3",
+      "articulo": "Ley13/1997 art4.Uno.e",
+      "decisionFicha": "diferencia",
+      "decisionCalculoCompleto": "no_verificable",
+      "decisionPaginacion": "coincide",
+      "decisionSobreAutor": "diferencia_documental_sostenida_con_reserva_especifica",
+      "descripcion": "15%, límite297 por menor, días menor3; actividad remunerada de personas indicadas; DA16 pago; incompatible i). Desde1junio guarda/acogimiento.",
+      "alcancePorAspecto": {
+        "cuantiasPorcentajesLimites": "Gasto2.000, menor todo2025 y dos declarantes: límite148,50 cada uno; gasto propio suficiente no permite297 a ambos.",
+        "requisitosTitularesFechasRemisiones": "15%, límite297 por menor, días menor3; actividad remunerada de personas indicadas; DA16 pago; incompatible i). Desde1junio guarda/acogimiento.",
+        "rentaModalidadProrrateos": "Aplicar reglas comunes solo cuando el apartado remite a ellas. Base liquidable general más ahorro 30.000/47.000; reducción 27.000/44.000",
+        "consignacion": "Ruta :cumple/:importe; acepta importe calculado fuera. :base no acredita cálculo jurídico.",
+        "calculoAutomaticoParcial": "No hay cálculo fiscal específico de esta deducción en la ruta observada."
+      },
+      "discriminanteDocumental": "297",
+      "expectativaIndependiente": "Gasto2.000, menor todo2025 y dos declarantes: límite148,50 cada uno; gasto propio suficiente no permite297 a ambos.",
+      "fuentesNormativas": "Ley5/2025 art22; DL14/2022 art4",
+      "manual": {
+        "sha256": "765c89ade626abf9726835373d5f15c671b610b00e72109c547f66b8ef9a005c",
+        "paginasActuales": [
+          542,
+          543,
+          544,
+          545,
+          546
+        ],
+        "paginasBase": [
+          527,
+          624
+        ],
+        "citasRefinadas": [
+          "valenciana_custodia_guarderias_menores_3-rm1",
+          "valenciana_custodia_guarderias_menores_3-rm2"
+        ],
+        "citasAutorObjetadas": [
+          "valenciana_custodia_guarderias_menores_3-m1"
+        ]
+      },
+      "reservaConcreta": "Cerrar remisión al mínimo por descendientes y, si hay guarda/acogimiento, Ley26/2018 arts127/149 y equivalencias Código Civil. El original modificador Ley5/2025 acredita el corte1junio; la reserva no excluye de oficio a todo acogimiento.",
+      "arregloMinimoPropuesto": "Completar descripción/requisitos/topes y remisiones de la ficha, conservar códigos/campos/exportaciones y ruta manual. Corregir dictamen y citas según esta revisión; implementar fórmula solo tras contrato de entradas suficiente. No cambiar una cuota por este discriminante."
+    },
+    {
+      "codigo": "valenciana_conciliacion_trabajo_familia",
+      "articulo": "Ley13/1997 art4.Uno.f",
+      "decisionFicha": "diferencia",
+      "decisionCalculoCompleto": "no_verificable",
+      "decisionPaginacion": "coincide",
+      "decisionSobreAutor": "diferencia_documental_sostenida_con_reserva_especifica",
+      "descripcion": "460 anual, mayor3 menor5, último día mensual y alta cualquier día; madre/acogedora, padre por muerte/custodia exclusiva o acogedor sin acogedora; adopción/guarda cuarto-quinto año; reparto e incompatibilidad i).",
+      "alcancePorAspecto": {
+        "cuantiasPorcentajesLimites": "Doce meses con derecho y cotización íntegra300 del intervalo: deducción300, no460.",
+        "requisitosTitularesFechasRemisiones": "460 anual, mayor3 menor5, último día mensual y alta cualquier día; madre/acogedora, padre por muerte/custodia exclusiva o acogedor sin acogedora; adopción/guarda cuarto-quinto año; reparto e incompatibilidad i).",
+        "rentaModalidadProrrateos": "Aplicar reglas comunes solo cuando el apartado remite a ellas. Base liquidable general más ahorro 30.000/47.000; límite cotizaciones íntegras del intervalo de edad",
+        "consignacion": "Ruta :cumple/:importe; acepta importe calculado fuera. :base no acredita cálculo jurídico.",
+        "calculoAutomaticoParcial": "No hay cálculo fiscal específico de esta deducción en la ruta observada."
+      },
+      "discriminanteDocumental": "460",
+      "expectativaIndependiente": "Doce meses con derecho y cotización íntegra300 del intervalo: deducción300, no460.",
+      "fuentesNormativas": "Ley5/2025 art22; Ley7/2014 art46",
+      "manual": {
+        "sha256": "765c89ade626abf9726835373d5f15c671b610b00e72109c547f66b8ef9a005c",
+        "paginasActuales": [
+          546,
+          547,
+          548,
+          549,
+          550,
+          551
+        ],
+        "paginasBase": [
+          527,
+          624
+        ],
+        "citasRefinadas": [
+          "valenciana_conciliacion_trabajo_familia-rm1",
+          "valenciana_conciliacion_trabajo_familia-rm2"
+        ],
+        "citasAutorObjetadas": [
+          "valenciana_conciliacion_trabajo_familia-m1",
+          "valenciana_conciliacion_trabajo_familia-m2",
+          "valenciana_conciliacion_trabajo_familia-m3"
+        ]
+      },
+      "reservaConcreta": "Cerrar remisión al mínimo por descendientes y, si hay guarda/acogimiento, Ley26/2018 arts127/149 y equivalencias Código Civil. El original modificador Ley5/2025 acredita el corte1junio; la reserva no excluye de oficio a todo acogimiento.",
+      "arregloMinimoPropuesto": "Completar descripción/requisitos/topes y remisiones de la ficha, conservar códigos/campos/exportaciones y ruta manual. Corregir dictamen y citas según esta revisión; implementar fórmula solo tras contrato de entradas suficiente. No cambiar una cuota por este discriminante."
+    },
+    {
+      "codigo": "valenciana_discapacidad_65",
+      "articulo": "Ley13/1997 art4.Uno.g",
+      "decisionFicha": "diferencia",
+      "decisionCalculoCompleto": "no_verificable",
+      "decisionPaginacion": "coincide",
+      "decisionSobreAutor": "diferencia_documental_sostenida_con_reserva_especifica",
+      "descripcion": "No procede si recibe prestación exenta por esa discapacidad. Edad>=65; situación a devengo, acreditación DA6. No presumir un importe por miembro de conjunta.",
+      "alcancePorAspecto": {
+        "cuantiasPorcentajesLimites": "Contribuyente de65 años,33% discapacidad, renta baja y sin prestación exenta:197.",
+        "requisitosTitularesFechasRemisiones": "No procede si recibe prestación exenta por esa discapacidad. Edad>=65; situación a devengo, acreditación DA6. No presumir un importe por miembro de conjunta.",
+        "rentaModalidadProrrateos": "Aplicar reglas comunes solo cuando el apartado remite a ellas. Base liquidable general más ahorro 30.000/47.000; reducción 27.000/44.000",
+        "consignacion": "Ruta :cumple/:importe; acepta importe calculado fuera. :base no acredita cálculo jurídico.",
+        "calculoAutomaticoParcial": "No hay cálculo fiscal específico de esta deducción en la ruta observada."
+      },
+      "discriminanteDocumental": "197",
+      "expectativaIndependiente": "Contribuyente de65 años,33% discapacidad, renta baja y sin prestación exenta:197.",
+      "fuentesNormativas": "DL14/2022 art4; DA6",
+      "manual": {
+        "sha256": "765c89ade626abf9726835373d5f15c671b610b00e72109c547f66b8ef9a005c",
+        "paginasActuales": [
+          551,
+          552,
+          553
+        ],
+        "paginasBase": [
+          527,
+          624
+        ],
+        "citasRefinadas": [
+          "valenciana_discapacidad_65-rm1",
+          "valenciana_discapacidad_65-rm2"
+        ],
+        "citasAutorObjetadas": [
+          "valenciana_discapacidad_65-m1",
+          "valenciana_discapacidad_65-m2",
+          "valenciana_discapacidad_65-m3"
+        ]
+      },
+      "reservaConcreta": " Cotejar DA6 completa y certificado/asimilación según fecha de devengo: la permanencia intelectual/mental y curatela plena desde30dic no se anticipan a fallecimientos anteriores. Original regional de reforma DL14/2025 no aportado por el autor como facsímil (HTML BOE sí).",
+      "arregloMinimoPropuesto": "Completar descripción/requisitos/topes y remisiones de la ficha, conservar códigos/campos/exportaciones y ruta manual. Corregir dictamen y citas según esta revisión; implementar fórmula solo tras contrato de entradas suficiente. No cambiar una cuota por este discriminante."
+    },
+    {
+      "codigo": "valenciana_empleados_hogar_cuidado_personas",
+      "articulo": "Ley13/1997 art4.Uno.i",
+      "decisionFicha": "diferencia",
+      "decisionCalculoCompleto": "no_verificable",
+      "decisionPaginacion": "coincide",
+      "decisionSobreAutor": "diferencia_documental_sostenida_con_reserva_especifica",
+      "descripcion": "Contrato indefinido, cuotas meses con requisitos último día, trabajo remunerado; menores5, ascendientes75 o65 cualificados; topes menores660/1100 (también monoparental), ascendientes330/550; incompatibles e/f/h.",
+      "alcancePorAspecto": {
+        "cuantiasPorcentajesLimites": "Un menor a cargo, cuotas2.000: mínimo(1.000,660)=660 antes de reducción/reparto.",
+        "requisitosTitularesFechasRemisiones": "Contrato indefinido, cuotas meses con requisitos último día, trabajo remunerado; menores5, ascendientes75 o65 cualificados; topes menores660/1100 (también monoparental), ascendientes330/550; incompatibles e/f/h.",
+        "rentaModalidadProrrateos": "Aplicar reglas comunes solo cuando el apartado remite a ellas. Menores: límite 660 o 1.100 euros; ascendientes: 330 o 550; base liquidable 30.000/47.000",
+        "consignacion": "Ruta :cumple/:importe; acepta importe calculado fuera. :base no acredita cálculo jurídico.",
+        "calculoAutomaticoParcial": "No hay cálculo fiscal específico de esta deducción en la ruta observada."
+      },
+      "discriminanteDocumental": "660",
+      "expectativaIndependiente": "Un menor a cargo, cuotas2.000: mínimo(1.000,660)=660 antes de reducción/reparto.",
+      "fuentesNormativas": "Ley7/2021 art20; DL14/2022 art4; DL14/2025 art65",
+      "manual": {
+        "sha256": "765c89ade626abf9726835373d5f15c671b610b00e72109c547f66b8ef9a005c",
+        "paginasActuales": [
+          555,
+          556,
+          557,
+          558,
+          559
+        ],
+        "paginasBase": [
+          527,
+          624
+        ],
+        "citasRefinadas": [
+          "valenciana_empleados_hogar_cuidado_personas-rm1",
+          "valenciana_empleados_hogar_cuidado_personas-rm2"
+        ],
+        "citasAutorObjetadas": [
+          "valenciana_empleados_hogar_cuidado_personas-m1",
+          "valenciana_empleados_hogar_cuidado_personas-m2",
+          "valenciana_empleados_hogar_cuidado_personas-m3",
+          "valenciana_empleados_hogar_cuidado_personas-m15"
+        ]
+      },
+      "reservaConcreta": " Cotejar DA6 completa y certificado/asimilación según fecha de devengo: la permanencia intelectual/mental y curatela plena desde30dic no se anticipan a fallecimientos anteriores. Original regional de reforma DL14/2025 no aportado por el autor como facsímil (HTML BOE sí).",
+      "arregloMinimoPropuesto": "Completar descripción/requisitos/topes y remisiones de la ficha, conservar códigos/campos/exportaciones y ruta manual. Corregir dictamen y citas según esta revisión; implementar fórmula solo tras contrato de entradas suficiente. No cambiar una cuota por este discriminante."
+    },
+    {
+      "codigo": "valenciana_arrendador_renta_precio_referencia",
+      "articulo": "Ley13/1997 art4.Uno.j",
+      "decisionFicha": "diferencia",
+      "decisionCalculoCompleto": "no_verificable",
+      "decisionPaginacion": "coincide",
+      "decisionSobreAutor": "diferencia_documental_sostenida_con_reserva_especifica",
+      "descripcion": "No 5% del neto: contrato iniciado2025, cambio inquilino si anterior<3años, precio referencia y depósito fianza antes finperiodo; art4Dos patrimonio.",
+      "alcancePorAspecto": {
+        "cuantiasPorcentajesLimites": "Rendimiento íntegro4.000 de contrato admisible:165 (0,05×3.300).",
+        "requisitosTitularesFechasRemisiones": "No 5% del neto: contrato iniciado2025, cambio inquilino si anterior<3años, precio referencia y depósito fianza antes finperiodo; art4Dos patrimonio.",
+        "rentaModalidadProrrateos": "Aplicar reglas comunes solo cuando el apartado remite a ellas. Base máxima 3.300 euros; no confundir base con cuota máxima 165",
+        "consignacion": "Ruta :cumple/:importe; acepta importe calculado fuera. :base no acredita cálculo jurídico.",
+        "calculoAutomaticoParcial": "No hay cálculo fiscal específico de esta deducción en la ruta observada."
+      },
+      "discriminanteDocumental": "3.300",
+      "expectativaIndependiente": "Rendimiento íntegro4.000 de contrato admisible:165 (0,05×3.300).",
+      "fuentesNormativas": "Ley27/2018 art28; DL14/2022 art4",
+      "manual": {
+        "sha256": "765c89ade626abf9726835373d5f15c671b610b00e72109c547f66b8ef9a005c",
+        "paginasActuales": [
+          559,
+          560
+        ],
+        "paginasBase": [
+          527,
+          624
+        ],
+        "citasRefinadas": [
+          "valenciana_arrendador_renta_precio_referencia-rm1",
+          "valenciana_arrendador_renta_precio_referencia-rm2"
+        ],
+        "citasAutorObjetadas": [
+          "valenciana_arrendador_renta_precio_referencia-m1",
+          "valenciana_arrendador_renta_precio_referencia-m2",
+          "valenciana_arrendador_renta_precio_referencia-m6"
+        ]
+      },
+      "reservaConcreta": "Falta original de la resolución/orden que fija precio de referencia para contrato2025 y régimen de depósito fianza; no puede decidirse admisibilidad de una renta concreta solo con165.",
+      "arregloMinimoPropuesto": "Completar descripción/requisitos/topes y remisiones de la ficha, conservar códigos/campos/exportaciones y ruta manual. Corregir dictamen y citas según esta revisión; implementar fórmula solo tras contrato de entradas suficiente. No cambiar una cuota por este discriminante."
+    },
+    {
+      "codigo": "valenciana_primera_vivienda_menores_35",
+      "articulo": "Ley13/1997 art4.Uno.k",
+      "decisionFicha": "diferencia",
+      "decisionCalculoCompleto": "no_verificable",
+      "decisionPaginacion": "coincide",
+      "decisionSobreAutor": "diferencia_documental_sostenida_con_reserva_especifica",
+      "descripcion": "Edad<=35 al devengo, primera adquisición, vivienda habitual estatal, incremento patrimonio y pago DA16; compatible j/l, incompatible m para mismas cantidades.",
+      "alcancePorAspecto": {
+        "cuantiasPorcentajesLimites": "Primera compra10.000 sin intereses y liquidable29.000:500; no reducir automáticamente ese porcentaje por art4Cinco.",
+        "requisitosTitularesFechasRemisiones": "Edad<=35 al devengo, primera adquisición, vivienda habitual estatal, incremento patrimonio y pago DA16; compatible j/l, incompatible m para mismas cantidades.",
+        "rentaModalidadProrrateos": "Aplicar reglas comunes solo cuando el apartado remite a ellas. Base liquidable general más ahorro 30.000/47.000; no aplicar automáticamente reducción del art.4.Cinco a la base de esta inversión",
+        "consignacion": "Ruta :cumple/:importe; acepta importe calculado fuera. :base no acredita cálculo jurídico.",
+        "calculoAutomaticoParcial": "No hay cálculo fiscal específico de esta deducción en la ruta observada."
+      },
+      "discriminanteDocumental": "35",
+      "expectativaIndependiente": "Primera compra10.000 sin intereses y liquidable29.000:500; no reducir automáticamente ese porcentaje por art4Cinco.",
+      "fuentesNormativas": "DL14/2022 art4; Ley13/1997 art4Dos",
+      "manual": {
+        "sha256": "765c89ade626abf9726835373d5f15c671b610b00e72109c547f66b8ef9a005c",
+        "paginasActuales": [
+          560,
+          561,
+          562
+        ],
+        "paginasBase": [
+          527,
+          624
+        ],
+        "citasRefinadas": [
+          "valenciana_primera_vivienda_menores_35-rm1",
+          "valenciana_primera_vivienda_menores_35-rm2"
+        ],
+        "citasAutorObjetadas": [
+          "valenciana_primera_vivienda_menores_35-m1",
+          "valenciana_primera_vivienda_menores_35-m2",
+          "valenciana_primera_vivienda_menores_35-m9"
+        ]
+      },
+      "reservaConcreta": " Cerrar remisión estatal a vivienda habitual/adquisición y, en su caso, rehabilitación/adaptación; conservar limitaciones patrimoniales solo j/k/l/m/o. Falta facsímil regional de los modificadores concretos indicados, no el DOGV3153 ya recuperado.",
+      "arregloMinimoPropuesto": "Completar descripción/requisitos/topes y remisiones de la ficha, conservar códigos/campos/exportaciones y ruta manual. Corregir dictamen y citas según esta revisión; implementar fórmula solo tras contrato de entradas suficiente. No cambiar una cuota por este discriminante."
+    },
+    {
+      "codigo": "valenciana_vivienda_discapacidad",
+      "articulo": "Ley13/1997 art4.Uno.l",
+      "decisionFicha": "diferencia",
+      "decisionCalculoCompleto": "no_verificable",
+      "decisionPaginacion": "coincide",
+      "decisionSobreAutor": "diferencia_documental_sostenida_con_reserva_especifica",
+      "descripcion": "Vivienda habitual estatal y patrimonio; discapacidad65% o intelectual/mental33%; desde30diciembre permanencia. No duplicar con m para mismas cantidades; DA16.",
+      "alcancePorAspecto": {
+        "cuantiasPorcentajesLimites": "Compra10.000 sin intereses, discapacidad cualificada y renta baja:500.",
+        "requisitosTitularesFechasRemisiones": "Vivienda habitual estatal y patrimonio; discapacidad65% o intelectual/mental33%; desde30diciembre permanencia. No duplicar con m para mismas cantidades; DA16.",
+        "rentaModalidadProrrateos": "Aplicar reglas comunes solo cuando el apartado remite a ellas. Base liquidable general más ahorro 30.000/47.000",
+        "consignacion": "Ruta :cumple/:importe; acepta importe calculado fuera. :base no acredita cálculo jurídico.",
+        "calculoAutomaticoParcial": "No hay cálculo fiscal específico de esta deducción en la ruta observada."
+      },
+      "discriminanteDocumental": "65",
+      "expectativaIndependiente": "Compra10.000 sin intereses, discapacidad cualificada y renta baja:500.",
+      "fuentesNormativas": "DL14/2025 art65; DL14/2022 art4",
+      "manual": {
+        "sha256": "765c89ade626abf9726835373d5f15c671b610b00e72109c547f66b8ef9a005c",
+        "paginasActuales": [
+          562,
+          563,
+          564,
+          565
+        ],
+        "paginasBase": [
+          527,
+          624
+        ],
+        "citasRefinadas": [
+          "valenciana_vivienda_discapacidad-rm1",
+          "valenciana_vivienda_discapacidad-rm2"
+        ],
+        "citasAutorObjetadas": [
+          "valenciana_vivienda_discapacidad-m1",
+          "valenciana_vivienda_discapacidad-m2",
+          "valenciana_vivienda_discapacidad-m10",
+          "valenciana_vivienda_discapacidad-m11",
+          "valenciana_vivienda_discapacidad-m12"
+        ]
+      },
+      "reservaConcreta": " Cotejar DA6 completa y certificado/asimilación según fecha de devengo: la permanencia intelectual/mental y curatela plena desde30dic no se anticipan a fallecimientos anteriores. Original regional de reforma DL14/2025 no aportado por el autor como facsímil (HTML BOE sí). Cerrar remisión estatal a vivienda habitual/adquisición y, en su caso, rehabilitación/adaptación; conservar limitaciones patrimoniales solo j/k/l/m/o. Falta facsímil regional de los modificadores concretos indicados, no el DOGV3153 ya recuperado.",
+      "arregloMinimoPropuesto": "Completar descripción/requisitos/topes y remisiones de la ficha, conservar códigos/campos/exportaciones y ruta manual. Corregir dictamen y citas según esta revisión; implementar fórmula solo tras contrato de entradas suficiente. No cambiar una cuota por este discriminante."
+    },
+    {
+      "codigo": "valenciana_vivienda_ayudas_publicas",
+      "articulo": "Ley13/1997 art4.Uno.m",
+      "decisionFicha": "diferencia",
+      "decisionCalculoCompleto": "no_verificable",
+      "decisionPaginacion": "coincide",
+      "decisionSobreAutor": "diferencia_documental_sostenida_con_reserva_especifica",
+      "descripcion": "Alternativa regeneración: tipo medio general autonómico×ayuda; destino efectivo adquisición/rehabilitación, origen Generalitat y patrimonio; no usar112 además de alternativa; incompatible k/l mismas cantidades.",
+      "alcancePorAspecto": {
+        "cuantiasPorcentajesLimites": "Ayuda admisible imputada por mitades en dos ejercicios:56 cada uno en régimen fijo112.",
+        "requisitosTitularesFechasRemisiones": "Alternativa regeneración: tipo medio general autonómico×ayuda; destino efectivo adquisición/rehabilitación, origen Generalitat y patrimonio; no usar112 además de alternativa; incompatible k/l mismas cantidades.",
+        "rentaModalidadProrrateos": "Aplicar reglas comunes solo cuando el apartado remite a ellas. Ayuda efectivamente destinada a adquisición/rehabilitación; patrimonio art.4.Dos",
+        "consignacion": "Ruta :cumple/:importe; acepta importe calculado fuera. :base no acredita cálculo jurídico.",
+        "calculoAutomaticoParcial": "No hay cálculo fiscal específico de esta deducción en la ruta observada."
+      },
+      "discriminanteDocumental": "112",
+      "expectativaIndependiente": "Ayuda admisible imputada por mitades en dos ejercicios:56 cada uno en régimen fijo112.",
+      "fuentesNormativas": "Ley27/2018 art29; DL14/2022 art4",
+      "manual": {
+        "sha256": "765c89ade626abf9726835373d5f15c671b610b00e72109c547f66b8ef9a005c",
+        "paginasActuales": [
+          565,
+          566
+        ],
+        "paginasBase": [
+          527,
+          624
+        ],
+        "citasRefinadas": [
+          "valenciana_vivienda_ayudas_publicas-rm1",
+          "valenciana_vivienda_ayudas_publicas-rm2"
+        ],
+        "citasAutorObjetadas": []
+      },
+      "reservaConcreta": " Cerrar remisión estatal a vivienda habitual/adquisición y, en su caso, rehabilitación/adaptación; conservar limitaciones patrimoniales solo j/k/l/m/o. Falta facsímil regional de los modificadores concretos indicados, no el DOGV3153 ya recuperado.",
+      "arregloMinimoPropuesto": "Completar descripción/requisitos/topes y remisiones de la ficha, conservar códigos/campos/exportaciones y ruta manual. Corregir dictamen y citas según esta revisión; implementar fórmula solo tras contrato de entradas suficiente. No cambiar una cuota por este discriminante."
+    },
+    {
+      "codigo": "valenciana_arrendamiento_actividad_distinto_municipio",
+      "articulo": "Ley13/1997 art4.Uno.ñ",
+      "decisionFicha": "diferencia",
+      "decisionCalculoCompleto": "no_verificable",
+      "decisionPaginacion": "coincide",
+      "decisionSobreAutor": "diferencia_documental_sostenida_con_reserva_especifica",
+      "descripcion": "Distancia estrictamente>50km (50 no basta), vivienda en CV por trabajo distinto municipio, no reembolso empleador, días contrato; compatible n; DA16; requisito ITP suprimido desde2019.",
+      "alcancePorAspecto": {
+        "cuantiasPorcentajesLimites": "Alquiler3.000 todoaño, un declarante admisible:224; dos declarantes con gasto suficiente:112 por límite.",
+        "requisitosTitularesFechasRemisiones": "Distancia estrictamente>50km (50 no basta), vivienda en CV por trabajo distinto municipio, no reembolso empleador, días contrato; compatible n; DA16; requisito ITP suprimido desde2019.",
+        "rentaModalidadProrrateos": "Aplicar reglas comunes solo cuando el apartado remite a ellas. Base liquidable general más ahorro 30.000/47.000 y reducción 27.000/44.000",
+        "consignacion": "Ruta :cumple/:importe; acepta importe calculado fuera. :base no acredita cálculo jurídico.",
+        "calculoAutomaticoParcial": "No hay cálculo fiscal específico de esta deducción en la ruta observada."
+      },
+      "discriminanteDocumental": "224",
+      "expectativaIndependiente": "Alquiler3.000 todoaño, un declarante admisible:224; dos declarantes con gasto suficiente:112 por límite.",
+      "fuentesNormativas": "Ley5/2013 art56; DL1/2020 DA1; DL14/2022 art4",
+      "manual": {
+        "sha256": "765c89ade626abf9726835373d5f15c671b610b00e72109c547f66b8ef9a005c",
+        "paginasActuales": [
+          570,
+          571,
+          572
+        ],
+        "paginasBase": [
+          527,
+          624
+        ],
+        "citasRefinadas": [
+          "valenciana_arrendamiento_actividad_distinto_municipio-rm1",
+          "valenciana_arrendamiento_actividad_distinto_municipio-rm2"
+        ],
+        "citasAutorObjetadas": [
+          "valenciana_arrendamiento_actividad_distinto_municipio-m1",
+          "valenciana_arrendamiento_actividad_distinto_municipio-m2",
+          "valenciana_arrendamiento_actividad_distinto_municipio-m3",
+          "valenciana_arrendamiento_actividad_distinto_municipio-m9"
+        ]
+      },
+      "reservaConcreta": " Cerrar remisión estatal a vivienda habitual/adquisición y, en su caso, rehabilitación/adaptación; conservar limitaciones patrimoniales solo j/k/l/m/o. Falta facsímil regional de los modificadores concretos indicados, no el DOGV3153 ya recuperado.",
+      "arregloMinimoPropuesto": "Completar descripción/requisitos/topes y remisiones de la ficha, conservar códigos/campos/exportaciones y ruta manual. Corregir dictamen y citas según esta revisión; implementar fórmula solo tras contrato de entradas suficiente. No cambiar una cuota por este discriminante."
+    },
+    {
+      "codigo": "valenciana_autoconsumo_renovables",
+      "articulo": "Ley13/1997 art4.Uno.o",
+      "decisionFicha": "diferencia",
+      "decisionCalculoCompleto": "no_verificable",
+      "decisionPaginacion": "coincide",
+      "decisionSobreAutor": "requiere_rectificacion",
+      "descripcion": "8.800 por vivienda/ejercicio; copropiedad coeficiente; no obligatorias CTE; requisitos técnicos registros, localización CV, justificantes y patrimonio. Arrastre4años por insuficiencia de cuota, no por cualquier exceso de base.",
+      "alcancePorAspecto": {
+        "cuantiasPorcentajesLimites": "Inversión admisible10.000 en vivienda habitual sin ayudas:3.520 (40%×8.800). Segunda residencia:1.760.",
+        "requisitosTitularesFechasRemisiones": "8.800 por vivienda/ejercicio; copropiedad coeficiente; no obligatorias CTE; requisitos técnicos registros, localización CV, justificantes y patrimonio. Arrastre4años por insuficiencia de cuota, no por cualquier exceso de base.",
+        "rentaModalidadProrrateos": "Base8.800 por vivienda/ejercicio, habitual40%/segunda20%, exclusión ayudas y obligatoriasCTE, pagoDA16, patrimonio4Dos. Arrastre4 por insuficiencia de cuota, no por superar base.",
+        "consignacion": "Ruta :cumple/:importe; acepta importe calculado fuera. :base no acredita cálculo jurídico.",
+        "calculoAutomaticoParcial": "No hay cálculo fiscal específico de esta deducción en la ruta observada."
+      },
+      "discriminanteDocumental": "8.800",
+      "expectativaIndependiente": "Inversión admisible10.000 en vivienda habitual sin ayudas:3.520 (40%×8.800). Segunda residencia:1.760.",
+      "fuentesNormativas": "Ley3/2020 art36; DL14/2022 art4",
+      "manual": {
+        "sha256": "765c89ade626abf9726835373d5f15c671b610b00e72109c547f66b8ef9a005c",
+        "paginasActuales": [
+          572,
+          573,
+          574,
+          575,
+          576
+        ],
+        "paginasBase": [
+          527,
+          624
+        ],
+        "citasRefinadas": [
+          "valenciana_autoconsumo_renovables-rm1",
+          "valenciana_autoconsumo_renovables-rm2"
+        ],
+        "citasAutorObjetadas": [
+          "valenciana_autoconsumo_renovables-m1",
+          "valenciana_autoconsumo_renovables-m2",
+          "valenciana_autoconsumo_renovables-m15"
+        ]
+      },
+      "reservaConcreta": "Cerrar remisiones técnicas Ley24/2013 art9, reglamentación autoconsumo y CTE obligatorio; no basta la etiqueta energía renovable. Falta asociar artículo técnico a cada instalación, no recuperar otra vez Ley13/1997.",
+      "arregloMinimoPropuesto": "Completar descripción/requisitos/topes y remisiones de la ficha, conservar códigos/campos/exportaciones y ruta manual. Corregir dictamen y citas según esta revisión; implementar fórmula solo tras contrato de entradas suficiente. No cambiar una cuota por este discriminante."
+    },
+    {
+      "codigo": "valenciana_donaciones_finalidad_ecologica",
+      "articulo": "Ley13/1997 art4.Uno.p",
+      "decisionFicha": "diferencia",
+      "decisionCalculoCompleto": "no_verificable",
+      "decisionPaginacion": "coincide",
+      "decisionSobreAutor": "diferencia_documental_sostenida_con_reserva_especifica",
+      "descripcion": "20% primeros250 y25% resto; tramo150 antes1junio. Destinatarios ecológicos enumerados, registros CV, afectación y certificado art4Tres; DA16. No trasladar tope30% de q2/q3/r/s.",
+      "alcancePorAspecto": {
+        "cuantiasPorcentajesLimites": "Donación300:62,50; si fallece antes1junio:67,50.",
+        "requisitosTitularesFechasRemisiones": "20% primeros250 y25% resto; tramo150 antes1junio. Destinatarios ecológicos enumerados, registros CV, afectación y certificado art4Tres; DA16. No trasladar tope30% de q2/q3/r/s.",
+        "rentaModalidadProrrateos": "Aplicar reglas comunes solo cuando el apartado remite a ellas. Importe donado a entidades legalmente previstas",
+        "consignacion": "Ruta :cumple/:importe; acepta importe calculado fuera. :base no acredita cálculo jurídico.",
+        "calculoAutomaticoParcial": "No hay cálculo fiscal específico de esta deducción en la ruta observada."
+      },
+      "discriminanteDocumental": "250",
+      "expectativaIndependiente": "Donación300:62,50; si fallece antes1junio:67,50.",
+      "fuentesNormativas": "Ley5/2025 art23; Ley20/2018 DT1",
+      "manual": {
+        "sha256": "765c89ade626abf9726835373d5f15c671b610b00e72109c547f66b8ef9a005c",
+        "paginasActuales": [
+          576,
+          577
+        ],
+        "paginasBase": [
+          527,
+          624
+        ],
+        "citasRefinadas": [
+          "valenciana_donaciones_finalidad_ecologica-rm1",
+          "valenciana_donaciones_finalidad_ecologica-rm2"
+        ],
+        "citasAutorObjetadas": [
+          "valenciana_donaciones_finalidad_ecologica-m1",
+          "valenciana_donaciones_finalidad_ecologica-m2"
+        ]
+      },
+      "reservaConcreta": "Fijar facsímil regional del último modificador indicado y comprobar remisiones de acreditación específicas de este artículo; las cantidades y fronteras del caso independiente quedan contrastadas con originales BOE y manual fijado. No subsiste reserva sobre recuperación DOGV3153.",
+      "arregloMinimoPropuesto": "Completar descripción/requisitos/topes y remisiones de la ficha, conservar códigos/campos/exportaciones y ruta manual. Corregir dictamen y citas según esta revisión; implementar fórmula solo tras contrato de entradas suficiente. No cambiar una cuota por este discriminante."
+    },
+    {
+      "codigo": "valenciana_donaciones_bienes_patrimonio_cultural",
+      "articulo": "Ley13/1997 art4.Uno.q.1",
+      "decisionFicha": "diferencia",
+      "decisionCalculoCompleto": "no_verificable",
+      "decisionPaginacion": "coincide",
+      "decisionSobreAutor": "diferencia_documental_sostenida_con_reserva_especifica",
+      "descripcion": "Donación pura/simple, bien inventariado y destinatario habilitado Ley20/2018 art3; valoración/entrega y certificado. No confundir con gasto propio q3 ni aplicar por analogía30% de base.",
+      "alcancePorAspecto": {
+        "cuantiasPorcentajesLimites": "Bien admisible valor300:62,50 en devengo posterior31mayo.",
+        "requisitosTitularesFechasRemisiones": "Donación pura/simple, bien inventariado y destinatario habilitado Ley20/2018 art3; valoración/entrega y certificado. No confundir con gasto propio q3 ni aplicar por analogía30% de base.",
+        "rentaModalidadProrrateos": "Aplicar reglas comunes solo cuando el apartado remite a ellas. Valor de bienes conforme legislación y reglas de mecenazgo",
+        "consignacion": "Ruta :cumple/:importe; acepta importe calculado fuera. :base no acredita cálculo jurídico.",
+        "calculoAutomaticoParcial": "No hay cálculo fiscal específico de esta deducción en la ruta observada."
+      },
+      "discriminanteDocumental": "inventario",
+      "expectativaIndependiente": "Bien admisible valor300:62,50 en devengo posterior31mayo.",
+      "fuentesNormativas": "Ley5/2025 art23; Ley3/2020 art37; Ley20/2018",
+      "manual": {
+        "sha256": "765c89ade626abf9726835373d5f15c671b610b00e72109c547f66b8ef9a005c",
+        "paginasActuales": [
+          577,
+          578
+        ],
+        "paginasBase": [
+          527,
+          624
+        ],
+        "citasRefinadas": [
+          "valenciana_donaciones_bienes_patrimonio_cultural-rm1",
+          "valenciana_donaciones_bienes_patrimonio_cultural-rm2"
+        ],
+        "citasAutorObjetadas": [
+          "valenciana_donaciones_bienes_patrimonio_cultural-m1",
+          "valenciana_donaciones_bienes_patrimonio_cultural-m2",
+          "valenciana_donaciones_bienes_patrimonio_cultural-m3"
+        ]
+      },
+      "reservaConcreta": "Cerrar destinatarios Ley20/2018 art3 y requisitos del inventario cultural. Se recuperó texto original Ley20/2018; falta facsímil DOGV y cadena específica del inventario/valoración.",
+      "arregloMinimoPropuesto": "Completar descripción/requisitos/topes y remisiones de la ficha, conservar códigos/campos/exportaciones y ruta manual. Corregir dictamen y citas según esta revisión; implementar fórmula solo tras contrato de entradas suficiente. No cambiar una cuota por este discriminante."
+    },
+    {
+      "codigo": "valenciana_donativos_conservacion_patrimonio_cultural",
+      "articulo": "Ley13/1997 art4.Uno.q.2",
+      "decisionFicha": "diferencia",
+      "decisionCalculoCompleto": "no_verificable",
+      "decisionPaginacion": "coincide",
+      "decisionSobreAutor": "diferencia_documental_sostenida_con_reserva_especifica",
+      "descripcion": "Dinero para conservación/reparación/restauración de bienes inventariados; destinatarios q1, afectación siguiente presupuesto Generalitat, certificado y DA16;30% liquidable.",
+      "alcancePorAspecto": {
+        "cuantiasPorcentajesLimites": "Donación300 y liquidable500:base limitada150; deducción30.",
+        "requisitosTitularesFechasRemisiones": "Dinero para conservación/reparación/restauración de bienes inventariados; destinatarios q1, afectación siguiente presupuesto Generalitat, certificado y DA16;30% liquidable.",
+        "rentaModalidadProrrateos": "Aplicar reglas comunes solo cuando el apartado remite a ellas. Base no superior al 30% de base liquidable art.4.Dos",
+        "consignacion": "Ruta :cumple/:importe; acepta importe calculado fuera. :base no acredita cálculo jurídico.",
+        "calculoAutomaticoParcial": "No hay cálculo fiscal específico de esta deducción en la ruta observada."
+      },
+      "discriminanteDocumental": "30",
+      "expectativaIndependiente": "Donación300 y liquidable500:base limitada150; deducción30.",
+      "fuentesNormativas": "Ley5/2025 art23; Ley3/2020 art37; art4Dos/Tres",
+      "manual": {
+        "sha256": "765c89ade626abf9726835373d5f15c671b610b00e72109c547f66b8ef9a005c",
+        "paginasActuales": [
+          578,
+          579,
+          580
+        ],
+        "paginasBase": [
+          527,
+          624
+        ],
+        "citasRefinadas": [
+          "valenciana_donativos_conservacion_patrimonio_cultural-rm1",
+          "valenciana_donativos_conservacion_patrimonio_cultural-rm2"
+        ],
+        "citasAutorObjetadas": [
+          "valenciana_donativos_conservacion_patrimonio_cultural-m1",
+          "valenciana_donativos_conservacion_patrimonio_cultural-m2",
+          "valenciana_donativos_conservacion_patrimonio_cultural-m3",
+          "valenciana_donativos_conservacion_patrimonio_cultural-m9"
+        ]
+      },
+      "reservaConcreta": "Cerrar destinatarios Ley20/2018 art3, inventario y certificación art4Tres; no falta la regla30% ni el cambio250/150.",
+      "arregloMinimoPropuesto": "Completar descripción/requisitos/topes y remisiones de la ficha, conservar códigos/campos/exportaciones y ruta manual. Corregir dictamen y citas según esta revisión; implementar fórmula solo tras contrato de entradas suficiente. No cambiar una cuota por este discriminante."
+    },
+    {
+      "codigo": "valenciana_conservacion_patrimonio_cultural_titulares",
+      "articulo": "Ley13/1997 art4.Uno.q.3",
+      "decisionFicha": "diferencia",
+      "decisionCalculoCompleto": "no_verificable",
+      "decisionPaginacion": "coincide",
+      "decisionSobreAutor": "diferencia_documental_sostenida_con_reserva_especifica",
+      "descripcion": "Titular de bien inventariado; destino conservación/reparación/restauración; no es donación ni corresponde certificado de donatario q1/q2. DA16 y30% liquidable.",
+      "alcancePorAspecto": {
+        "cuantiasPorcentajesLimites": "Gasto titular300 y liquidable500:base150; deducción30.",
+        "requisitosTitularesFechasRemisiones": "Titular de bien inventariado; destino conservación/reparación/restauración; no es donación ni corresponde certificado de donatario q1/q2. DA16 y30% liquidable.",
+        "rentaModalidadProrrateos": "Aplicar reglas comunes solo cuando el apartado remite a ellas. Base no superior al 30% de base liquidable art.4.Dos",
+        "consignacion": "Ruta :cumple/:importe; acepta importe calculado fuera. :base no acredita cálculo jurídico.",
+        "calculoAutomaticoParcial": "No hay cálculo fiscal específico de esta deducción en la ruta observada."
+      },
+      "discriminanteDocumental": "titulares",
+      "expectativaIndependiente": "Gasto titular300 y liquidable500:base150; deducción30.",
+      "fuentesNormativas": "Ley5/2025 art23; Ley3/2020 art37; art4Dos",
+      "manual": {
+        "sha256": "765c89ade626abf9726835373d5f15c671b610b00e72109c547f66b8ef9a005c",
+        "paginasActuales": [
+          580,
+          581
+        ],
+        "paginasBase": [
+          527,
+          624
+        ],
+        "citasRefinadas": [
+          "valenciana_conservacion_patrimonio_cultural_titulares-rm1",
+          "valenciana_conservacion_patrimonio_cultural_titulares-rm2"
+        ],
+        "citasAutorObjetadas": [
+          "valenciana_conservacion_patrimonio_cultural_titulares-m1",
+          "valenciana_conservacion_patrimonio_cultural_titulares-m2",
+          "valenciana_conservacion_patrimonio_cultural_titulares-m5",
+          "valenciana_conservacion_patrimonio_cultural_titulares-m6"
+        ]
+      },
+      "reservaConcreta": "Cerrar inscripción en Inventario General y definición de intervención sobre bien cultural; no exigir certificado de donatario ajeno a gasto del titular.",
+      "arregloMinimoPropuesto": "Completar descripción/requisitos/topes y remisiones de la ficha, conservar códigos/campos/exportaciones y ruta manual. Corregir dictamen y citas según esta revisión; implementar fórmula solo tras contrato de entradas suficiente. No cambiar una cuota por este discriminante."
+    },
+    {
+      "codigo": "valenciana_donaciones_lengua_valenciana",
+      "articulo": "Ley13/1997 art4.Uno.r",
+      "decisionFicha": "diferencia",
+      "decisionCalculoCompleto": "no_verificable",
+      "decisionPaginacion": "coincide",
+      "decisionSobreAutor": "diferencia_documental_sostenida_con_reserva_especifica",
+      "descripcion": "Dinero; destinatarios enumerados, censo entidades a último día; afectación presupuestaria cuando Generalitat; certificado art4Tres y DA16; tramo150 antes1junio.",
+      "alcancePorAspecto": {
+        "cuantiasPorcentajesLimites": "Donación300 a entidad admisible y renta suficiente:62,50; renta500 limita base150 y cuota30.",
+        "requisitosTitularesFechasRemisiones": "Dinero; destinatarios enumerados, censo entidades a último día; afectación presupuestaria cuando Generalitat; certificado art4Tres y DA16; tramo150 antes1junio.",
+        "rentaModalidadProrrateos": "Aplicar reglas comunes solo cuando el apartado remite a ellas. Base no superior al 30% de base liquidable art.4.Dos",
+        "consignacion": "Ruta :cumple/:importe; acepta importe calculado fuera. :base no acredita cálculo jurídico.",
+        "calculoAutomaticoParcial": "No hay cálculo fiscal específico de esta deducción en la ruta observada."
+      },
+      "discriminanteDocumental": "250",
+      "expectativaIndependiente": "Donación300 a entidad admisible y renta suficiente:62,50; renta500 limita base150 y cuota30.",
+      "fuentesNormativas": "Ley5/2025 art23; Ley7/2021 art23; art4Dos/Tres",
+      "manual": {
+        "sha256": "765c89ade626abf9726835373d5f15c671b610b00e72109c547f66b8ef9a005c",
+        "paginasActuales": [
+          581,
+          582
+        ],
+        "paginasBase": [
+          527,
+          624
+        ],
+        "citasRefinadas": [
+          "valenciana_donaciones_lengua_valenciana-rm1",
+          "valenciana_donaciones_lengua_valenciana-rm2"
+        ],
+        "citasAutorObjetadas": [
+          "valenciana_donaciones_lengua_valenciana-m1",
+          "valenciana_donaciones_lengua_valenciana-m4",
+          "valenciana_donaciones_lengua_valenciana-m5",
+          "valenciana_donaciones_lengua_valenciana-m6"
+        ]
+      },
+      "reservaConcreta": "Ley7/2021 art23 recuperado delimita entidades. Falta fijar regulación y acto de inscripción en censo de entidades al cierre2025; no falta la lista legal ni la fórmula20/25.",
+      "arregloMinimoPropuesto": "Completar descripción/requisitos/topes y remisiones de la ficha, conservar códigos/campos/exportaciones y ruta manual. Corregir dictamen y citas según esta revisión; implementar fórmula solo tras contrato de entradas suficiente. No cambiar una cuota por este discriminante."
+    },
+    {
+      "codigo": "valenciana_donaciones_cesiones_fines_culturales_cientificos_deportivos",
+      "articulo": "Ley13/1997 art4.Uno.s",
+      "decisionFicha": "diferencia",
+      "decisionCalculoCompleto": "no_verificable",
+      "decisionPaginacion": "coincide",
+      "decisionSobreAutor": "diferencia_documental_sostenida_con_reserva_especifica",
+      "descripcion": "Interés social y beneficiarios Ley20/2018 art3, exclusión q/r; valoración según especie/usufructo/comodato, días y límite mercado; base30% liquidable, certificaciones diferenciadas art4Tres y DA16.",
+      "alcancePorAspecto": {
+        "cuantiasPorcentajesLimites": "Donación300:75 sin deducción estatal68.3.a;62,50 si concurre esta; comodato inmueble catastral100.000 año entero:base4.000.",
+        "requisitosTitularesFechasRemisiones": "Interés social y beneficiarios Ley20/2018 art3, exclusión q/r; valoración según especie/usufructo/comodato, días y límite mercado; base30% liquidable, certificaciones diferenciadas art4Tres y DA16.",
+        "rentaModalidadProrrateos": "Aplicar reglas comunes solo cuando el apartado remite a ellas. Base con valoración específica donación/usufructo/comodato y límite valor de mercado; base máxima 30% base liquidable",
+        "consignacion": "Ruta :cumple/:importe; acepta importe calculado fuera. :base no acredita cálculo jurídico.",
+        "calculoAutomaticoParcial": "No hay cálculo fiscal específico de esta deducción en la ruta observada."
+      },
+      "discriminanteDocumental": "25",
+      "expectativaIndependiente": "Donación300:75 sin deducción estatal68.3.a;62,50 si concurre esta; comodato inmueble catastral100.000 año entero:base4.000.",
+      "fuentesNormativas": "Ley5/2025 art23; Ley3/2020 art39; Ley20/2018",
+      "manual": {
+        "sha256": "765c89ade626abf9726835373d5f15c671b610b00e72109c547f66b8ef9a005c",
+        "paginasActuales": [
+          582,
+          583,
+          584,
+          585
+        ],
+        "paginasBase": [
+          527,
+          624
+        ],
+        "citasRefinadas": [
+          "valenciana_donaciones_cesiones_fines_culturales_cientificos_deportivos-rm1",
+          "valenciana_donaciones_cesiones_fines_culturales_cientificos_deportivos-rm2"
+        ],
+        "citasAutorObjetadas": [
+          "valenciana_donaciones_cesiones_fines_culturales_cientificos_deportivos-m11"
+        ]
+      },
+      "reservaConcreta": "Ley20/2018 recuperada: artículo3 delimita beneficiarios y no todo proyecto es interés social. Falta facsímil regional y reformas de declaración de interés social aplicables a cada proyecto.",
+      "arregloMinimoPropuesto": "Completar descripción/requisitos/topes y remisiones de la ficha, conservar códigos/campos/exportaciones y ruta manual. Corregir dictamen y citas según esta revisión; implementar fórmula solo tras contrato de entradas suficiente. No cambiar una cuota por este discriminante."
+    },
+    {
+      "codigo": "valenciana_dos_o_mas_descendientes",
+      "articulo": "Ley13/1997 art4.Uno.t",
+      "decisionFicha": "diferencia",
+      "decisionCalculoCompleto": "no_verificable",
+      "decisionPaginacion": "coincide",
+      "decisionSobreAutor": "diferencia_documental_sostenida_con_reserva_especifica",
+      "descripcion": "Agregar contribuyentes con derecho por mismos descendientes, estos y restantes miembros conjunta. Base30.000,01 excluye. No usar base liquidable individual ni porcentaje de gastos.",
+      "alcancePorAspecto": {
+        "cuantiasPorcentajesLimites": "Cuota íntegra1.000 y otras minoraciones200:80, si bases imponibles agregadas<=30.000.",
+        "requisitosTitularesFechasRemisiones": "Agregar contribuyentes con derecho por mismos descendientes, estos y restantes miembros conjunta. Base30.000,01 excluye. No usar base liquidable individual ni porcentaje de gastos.",
+        "rentaModalidadProrrateos": "Aplicar reglas comunes solo cuando el apartado remite a ellas. Suma bases imponibles de contribuyentes con derecho, descendientes y otros miembros conjunta no superior a 30.000 euros",
+        "consignacion": "Ruta :cumple/:importe; acepta importe calculado fuera. :base no acredita cálculo jurídico.",
+        "calculoAutomaticoParcial": "No hay cálculo fiscal específico de esta deducción en la ruta observada."
+      },
+      "discriminanteDocumental": "30.000",
+      "expectativaIndependiente": "Cuota íntegra1.000 y otras minoraciones200:80, si bases imponibles agregadas<=30.000.",
+      "fuentesNormativas": "DL14/2022 art7",
+      "manual": {
+        "sha256": "765c89ade626abf9726835373d5f15c671b610b00e72109c547f66b8ef9a005c",
+        "paginasActuales": [
+          587,
+          588
+        ],
+        "paginasBase": [
+          527,
+          624
+        ],
+        "citasRefinadas": [
+          "valenciana_dos_o_mas_descendientes-rm1",
+          "valenciana_dos_o_mas_descendientes-rm2"
+        ],
+        "citasAutorObjetadas": [
+          "valenciana_dos_o_mas_descendientes-m1",
+          "valenciana_dos_o_mas_descendientes-m2"
+        ]
+      },
+      "reservaConcreta": "Fijar remisión estatal al mínimo por descendientes (Ley35/2006 arts58/61) y sus efectos2025. Cuantía propia y modalidad/renta regional están contrastadas; la elegibilidad del descendiente no se infiere de :cumple.",
+      "arregloMinimoPropuesto": "Completar descripción/requisitos/topes y remisiones de la ficha, conservar códigos/campos/exportaciones y ruta manual. Corregir dictamen y citas según esta revisión; implementar fórmula solo tras contrato de entradas suficiente. No cambiar una cuota por este discriminante."
+    },
+    {
+      "codigo": "valenciana_incremento_costes_financiacion_vivienda",
+      "articulo": "Ley13/1997 art4.Uno.u",
+      "decisionFicha": "diferencia",
+      "decisionCalculoCompleto": "no_verificable",
+      "decisionPaginacion": "coincide",
+      "decisionSobreAutor": "diferencia_documental_sostenida_con_reserva_especifica",
+      "descripcion": "Máximo100, excluida deducción estatal vivienda; préstamo añoanterior usa factor días/360 antes de restar intereses anteriores; definición estatal vivienda, renta30/47 y reducción aplicable del límite.",
+      "alcancePorAspecto": {
+        "cuantiasPorcentajesLimites": "Intereses2025=1.000 y2024=900 de préstamo antiguo:50; si2025=800:0.",
+        "requisitosTitularesFechasRemisiones": "Máximo100, excluida deducción estatal vivienda; préstamo añoanterior usa factor días/360 antes de restar intereses anteriores; definición estatal vivienda, renta30/47 y reducción aplicable del límite.",
+        "rentaModalidadProrrateos": "Aplicar reglas comunes solo cuando el apartado remite a ellas. Base liquidable general más ahorro 30.000/47.000",
+        "consignacion": "Ruta :cumple/:importe; acepta importe calculado fuera. :base no acredita cálculo jurídico.",
+        "calculoAutomaticoParcial": "No hay cálculo fiscal específico de esta deducción en la ruta observada."
+      },
+      "discriminanteDocumental": "100",
+      "expectativaIndependiente": "Intereses2025=1.000 y2024=900 de préstamo antiguo:50; si2025=800:0.",
+      "fuentesNormativas": "DL14/2022 art5; art4Cuatro/Cinco",
+      "manual": {
+        "sha256": "765c89ade626abf9726835373d5f15c671b610b00e72109c547f66b8ef9a005c",
+        "paginasActuales": [
+          588,
+          589,
+          590
+        ],
+        "paginasBase": [
+          527,
+          624
+        ],
+        "citasRefinadas": [
+          "valenciana_incremento_costes_financiacion_vivienda-rm1",
+          "valenciana_incremento_costes_financiacion_vivienda-rm2"
+        ],
+        "citasAutorObjetadas": [
+          "valenciana_incremento_costes_financiacion_vivienda-m1",
+          "valenciana_incremento_costes_financiacion_vivienda-m2",
+          "valenciana_incremento_costes_financiacion_vivienda-m3",
+          "valenciana_incremento_costes_financiacion_vivienda-m9"
+        ]
+      },
+      "reservaConcreta": " Cerrar remisión estatal a vivienda habitual/adquisición y, en su caso, rehabilitación/adaptación; conservar limitaciones patrimoniales solo j/k/l/m/o. Falta facsímil regional de los modificadores concretos indicados, no el DOGV3153 ya recuperado.",
+      "arregloMinimoPropuesto": "Completar descripción/requisitos/topes y remisiones de la ficha, conservar códigos/campos/exportaciones y ruta manual. Corregir dictamen y citas según esta revisión; implementar fórmula solo tras contrato de entradas suficiente. No cambiar una cuota por este discriminante."
+    },
+    {
+      "codigo": "valenciana_material_escolar",
+      "articulo": "Ley13/1997 art4.Uno.v",
+      "decisionFicha": "diferencia",
+      "decisionCalculoCompleto": "no_verificable",
+      "decisionPaginacion": "coincide",
+      "decisionSobreAutor": "diferencia_documental_sostenida_con_reserva_especifica",
+      "descripcion": "Primaria/ESO/especial público/concertado al devengo y mínimo descendientes; contribuyente o pareja conviviente demandante desempleado; guarda/acogimiento desde1junio, días efectivos y suma días guardadores con topeperiodo; reparto, DA16.",
+      "alcancePorAspecto": {
+        "cuantiasPorcentajesLimites": "Un menor y180días desempleo admisibles, un declarante:110×180/365=54,246575… antes redondeo.",
+        "requisitosTitularesFechasRemisiones": "Primaria/ESO/especial público/concertado al devengo y mínimo descendientes; contribuyente o pareja conviviente demandante desempleado; guarda/acogimiento desde1junio, días efectivos y suma días guardadores con topeperiodo; reparto, DA16.",
+        "rentaModalidadProrrateos": "Aplicar reglas comunes solo cuando el apartado remite a ellas. Base liquidable general más ahorro 30.000/47.000; reducción 27.000/44.000",
+        "consignacion": "Ruta :cumple/:importe; acepta importe calculado fuera. :base no acredita cálculo jurídico.",
+        "calculoAutomaticoParcial": "No hay cálculo fiscal específico de esta deducción en la ruta observada."
+      },
+      "discriminanteDocumental": "110",
+      "expectativaIndependiente": "Un menor y180días desempleo admisibles, un declarante:110×180/365=54,246575… antes redondeo.",
+      "fuentesNormativas": "Ley5/2025 art22; DL14/2022 art4",
+      "manual": {
+        "sha256": "765c89ade626abf9726835373d5f15c671b610b00e72109c547f66b8ef9a005c",
+        "paginasActuales": [
+          590,
+          591,
+          592,
+          593,
+          594
+        ],
+        "paginasBase": [
+          527,
+          624
+        ],
+        "citasRefinadas": [
+          "valenciana_material_escolar-rm1",
+          "valenciana_material_escolar-rm2"
+        ],
+        "citasAutorObjetadas": [
+          "valenciana_material_escolar-m1",
+          "valenciana_material_escolar-m2",
+          "valenciana_material_escolar-m14",
+          "valenciana_material_escolar-m15"
+        ]
+      },
+      "reservaConcreta": "Cerrar remisión al mínimo por descendientes y, si hay guarda/acogimiento, Ley26/2018 arts127/149 y equivalencias Código Civil. El original modificador Ley5/2025 acredita el corte1junio; la reserva no excluye de oficio a todo acogimiento.",
+      "arregloMinimoPropuesto": "Completar descripción/requisitos/topes y remisiones de la ficha, conservar códigos/campos/exportaciones y ruta manual. Corregir dictamen y citas según esta revisión; implementar fórmula solo tras contrato de entradas suficiente. No cambiar una cuota por este discriminante."
+    },
+    {
+      "codigo": "valenciana_obras_conservacion_mejora_periodo",
+      "articulo": "Ley13/1997 art4.Uno.w",
+      "decisionFicha": "diferencia",
+      "decisionCalculoCompleto": "no_verificable",
+      "decisionPaginacion": "coincide",
+      "decisionSobreAutor": "diferencia_documental_sostenida_con_reserva_especifica",
+      "descripcion": "Base5.500 por vivienda, propiedad/uso real, planes vivienda vigentes y normativa autonómica, NIF ejecutor, pago bancario; exclusión subvenciones/renovables y garajes salvo accesibilidad; reparto por titularidad.",
+      "alcancePorAspecto": {
+        "cuantiasPorcentajesLimites": "Obra admisible6.000:1.100 general;2.750 accesibilidad33%, antes renta/reparto.",
+        "requisitosTitularesFechasRemisiones": "Base5.500 por vivienda, propiedad/uso real, planes vivienda vigentes y normativa autonómica, NIF ejecutor, pago bancario; exclusión subvenciones/renovables y garajes salvo accesibilidad; reparto por titularidad.",
+        "rentaModalidadProrrateos": "Aplicar reglas comunes solo cuando el apartado remite a ellas. Base máxima anual 5.500 euros; base liquidable 30.000/47.000 y reducción 27.000/44.000",
+        "consignacion": "Ruta :cumple/:importe; acepta importe calculado fuera. :base no acredita cálculo jurídico.",
+        "calculoAutomaticoParcial": "No hay cálculo fiscal específico de esta deducción en la ruta observada."
+      },
+      "discriminanteDocumental": "5.500",
+      "expectativaIndependiente": "Obra admisible6.000:1.100 general;2.750 accesibilidad33%, antes renta/reparto.",
+      "fuentesNormativas": "Ley13/2016 art12; Ley7/2023 art13",
+      "manual": {
+        "sha256": "765c89ade626abf9726835373d5f15c671b610b00e72109c547f66b8ef9a005c",
+        "paginasActuales": [
+          594,
+          595,
+          596,
+          597,
+          598,
+          599
+        ],
+        "paginasBase": [
+          527,
+          624
+        ],
+        "citasRefinadas": [
+          "valenciana_obras_conservacion_mejora_periodo-rm1",
+          "valenciana_obras_conservacion_mejora_periodo-rm2"
+        ],
+        "citasAutorObjetadas": [
+          "valenciana_obras_conservacion_mejora_periodo-m1",
+          "valenciana_obras_conservacion_mejora_periodo-m18"
+        ]
+      },
+      "reservaConcreta": "Fijar plan estatal vigente al devengo2025 y normas autonómicas accesibilidad/rehabilitación/diseño para tipo de obra; se conoce exclusión de garajes y excepción accesibilidad, no se presume toda reforma admisible.",
+      "arregloMinimoPropuesto": "Completar descripción/requisitos/topes y remisiones de la ficha, conservar códigos/campos/exportaciones y ruta manual. Corregir dictamen y citas según esta revisión; implementar fórmula solo tras contrato de entradas suficiente. No cambiar una cuota por este discriminante."
+    },
+    {
+      "codigo": "valenciana_obras_conservacion_mejora_2014_2015",
+      "articulo": "Ley13/1997 DA13",
+      "decisionFicha": "diferencia",
+      "decisionCalculoCompleto": "no_verificable",
+      "decisionPaginacion": "coincide",
+      "decisionSobreAutor": "diferencia_documental_sostenida_con_reserva_especifica",
+      "descripcion": "Obras2014/2015, vivienda habitual propiedad/uso, plan2013-2015; baseanual4.500, acumulada5.000 por vivienda y porcentaje titularidad. Cero efectivo25.000/40.000 aunque remisión de acceso4Cuatro superior. NIF/pago bancario; excluidas subvenciones/renovables/garajes.",
+      "alcancePorAspecto": {
+        "cuantiasPorcentajesLimites": "Obra2015 pagada2025 de4.500 y liquidable24.000:base2.250; cuota562,50; obra2014 misma base225.",
+        "requisitosTitularesFechasRemisiones": "Obras2014/2015, vivienda habitual propiedad/uso, plan2013-2015; baseanual4.500, acumulada5.000 por vivienda y porcentaje titularidad. Cero efectivo25.000/40.000 aunque remisión de acceso4Cuatro superior. NIF/pago bancario; excluidas subvenciones/renovables/garajes.",
+        "rentaModalidadProrrateos": "Aplicar reglas comunes solo cuando el apartado remite a ellas. Base máxima anual 4.500 euros; base acumulada máxima 5.000 por vivienda; reducción propia 23.000-25.000 individual y 37.000-40.000 conjunta, divisores 2.000/3.000; remisión de acceso a art.4.Cuatro",
+        "consignacion": "Ruta :cumple/:importe; acepta importe calculado fuera. :base no acredita cálculo jurídico.",
+        "calculoAutomaticoParcial": "No hay cálculo fiscal específico de esta deducción en la ruta observada."
+      },
+      "discriminanteDocumental": "4.500",
+      "expectativaIndependiente": "Obra2015 pagada2025 de4.500 y liquidable24.000:base2.250; cuota562,50; obra2014 misma base225.",
+      "fuentesNormativas": "Ley7/2014 art50; Ley5/2013 art67",
+      "manual": {
+        "sha256": "765c89ade626abf9726835373d5f15c671b610b00e72109c547f66b8ef9a005c",
+        "paginasActuales": [
+          599,
+          600,
+          601
+        ],
+        "paginasBase": [
+          527,
+          624
+        ],
+        "citasRefinadas": [
+          "valenciana_obras_conservacion_mejora_2014_2015-rm1",
+          "valenciana_obras_conservacion_mejora_2014_2015-rm2"
+        ],
+        "citasAutorObjetadas": [
+          "valenciana_obras_conservacion_mejora_2014_2015-m1",
+          "valenciana_obras_conservacion_mejora_2014_2015-m2"
+        ]
+      },
+      "reservaConcreta": "Fijar RD233/2013 y normas autonómicas por obra2014/2015. Pago2025 no convierte la obra en régimen w. Restante base acumulada y titularidad son hechos externos.",
+      "arregloMinimoPropuesto": "Completar descripción/requisitos/topes y remisiones de la ficha, conservar códigos/campos/exportaciones y ruta manual. Corregir dictamen y citas según esta revisión; implementar fórmula solo tras contrato de entradas suficiente. No cambiar una cuota por este discriminante."
+    },
+    {
+      "codigo": "valenciana_abonos_culturales",
+      "articulo": "Ley13/1997 art4.Uno.x",
+      "decisionFicha": "diferencia",
+      "decisionCalculoCompleto": "no_verificable",
+      "decisionPaginacion": "coincide",
+      "decisionSobreAutor": "diferencia_documental_sostenida_con_reserva_especifica",
+      "descripcion": "Liquidable estrictamente<50.000; a50.000 cero. Empresas/instituciones adheridas a convenio específico Culturarts; DA16.165 es base, no deducción.",
+      "alcancePorAspecto": {
+        "cuantiasPorcentajesLimites": "Abono200 admisible:34,65 (21%×165).",
+        "requisitosTitularesFechasRemisiones": "Liquidable estrictamente<50.000; a50.000 cero. Empresas/instituciones adheridas a convenio específico Culturarts; DA16.165 es base, no deducción.",
+        "rentaModalidadProrrateos": "Aplicar reglas comunes solo cuando el apartado remite a ellas. Suma base liquidable general y ahorro inferior a 50.000 euros",
+        "consignacion": "Ruta :cumple/:importe; acepta importe calculado fuera. :base no acredita cálculo jurídico.",
+        "calculoAutomaticoParcial": "No hay cálculo fiscal específico de esta deducción en la ruta observada."
+      },
+      "discriminanteDocumental": "165",
+      "expectativaIndependiente": "Abono200 admisible:34,65 (21%×165).",
+      "fuentesNormativas": "Ley13/2016 art12",
+      "manual": {
+        "sha256": "765c89ade626abf9726835373d5f15c671b610b00e72109c547f66b8ef9a005c",
+        "paginasActuales": [
+          601,
+          602
+        ],
+        "paginasBase": [
+          527,
+          624
+        ],
+        "citasRefinadas": [
+          "valenciana_abonos_culturales-rm1",
+          "valenciana_abonos_culturales-rm2"
+        ],
+        "citasAutorObjetadas": [
+          "valenciana_abonos_culturales-m1",
+          "valenciana_abonos_culturales-m2",
+          "valenciana_abonos_culturales-m3"
+        ]
+      },
+      "reservaConcreta": "Fijar facsímil regional del último modificador indicado y comprobar remisiones de acreditación específicas de este artículo; las cantidades y fronteras del caso independiente quedan contrastadas con originales BOE y manual fijado. No subsiste reserva sobre recuperación DOGV3153.",
+      "arregloMinimoPropuesto": "Completar descripción/requisitos/topes y remisiones de la ficha, conservar códigos/campos/exportaciones y ruta manual. Corregir dictamen y citas según esta revisión; implementar fórmula solo tras contrato de entradas suficiente. No cambiar una cuota por este discriminante."
+    },
+    {
+      "codigo": "valenciana_vehiculos_orden_5_2020",
+      "articulo": "Ley13/1997 art4.Uno.y",
+      "decisionFicha": "diferencia",
+      "decisionCalculoCompleto": "no_verificable",
+      "decisionPaginacion": "coincide",
+      "decisionSobreAutor": "requiere_rectificacion",
+      "descripcion": "Un vehículo nuevo por contribuyente; factura, categorías Orden5/2020, máximo subvencionable+10%, excluir ayudas, pago bancario, reparto base mismo vehículo y límite conjunta; tabla exige comprobar características técnicas.",
+      "alcancePorAspecto": {
+        "cuantiasPorcentajesLimites": "Bicicleta eléctrica admisible sin ayuda precio1.600:base1.540 y cuota154 antes renta.",
+        "requisitosTitularesFechasRemisiones": "Un vehículo nuevo por contribuyente; factura, categorías Orden5/2020, máximo subvencionable+10%, excluir ayudas, pago bancario, reparto base mismo vehículo y límite conjunta; tabla exige comprobar características técnicas.",
+        "rentaModalidadProrrateos": "Aplicar reglas comunes solo cuando el apartado remite a ellas. Base máxima importe subvencionable Orden5/2020 incrementado 10%, excluidas ayudas; liquidable 30.000/47.000",
+        "consignacion": "Ruta :cumple/:importe; acepta importe calculado fuera. :base no acredita cálculo jurídico.",
+        "calculoAutomaticoParcial": "No hay cálculo fiscal específico de esta deducción en la ruta observada."
+      },
+      "discriminanteDocumental": "vehículo",
+      "expectativaIndependiente": "Bicicleta eléctrica admisible sin ayuda precio1.600:base1.540 y cuota154 antes renta.",
+      "fuentesNormativas": "Ley3/2020 art40; Ley7/2021 art24; DL14/2022 art4",
+      "manual": {
+        "sha256": "765c89ade626abf9726835373d5f15c671b610b00e72109c547f66b8ef9a005c",
+        "paginasActuales": [
+          602,
+          603,
+          604,
+          605,
+          606
+        ],
+        "paginasBase": [
+          527,
+          624
+        ],
+        "citasRefinadas": [
+          "valenciana_vehiculos_orden_5_2020-rm1",
+          "valenciana_vehiculos_orden_5_2020-rm2"
+        ],
+        "citasAutorObjetadas": [
+          "valenciana_vehiculos_orden_5_2020-m1",
+          "valenciana_vehiculos_orden_5_2020-m2",
+          "valenciana_vehiculos_orden_5_2020-m3"
+        ]
+      },
+      "reservaConcreta": "Falta original Orden5/2020 y sus reformas técnicas; tabla manual603–604 cotejada visualmente: bici eléctrica1540, kit660,VMP495. No certificar categoría solo por importe.",
+      "arregloMinimoPropuesto": "Completar descripción/requisitos/topes y remisiones de la ficha, conservar códigos/campos/exportaciones y ruta manual. Corregir dictamen y citas según esta revisión; implementar fórmula solo tras contrato de entradas suficiente. No cambiar una cuota por este discriminante."
+    },
+    {
+      "codigo": "valenciana_inversion_entidades_nuevas_reciente_creacion",
+      "articulo": "Ley13/1997 art4.Uno.z",
+      "decisionFicha": "diferencia",
+      "decisionCalculoCompleto": "no_verificable",
+      "decisionPaginacion": "coincide",
+      "decisionSobreAutor": "requiere_rectificacion",
+      "descripcion": "30% general;15% adicional, límite15.000 desde30diciembre, independiente de6.600 si inversiones distintas. No existe tope30% liquidable en4Dos para z. Actividad/domicilio3años, empleo y excepciones, antigüedad ampliaciones3años antes30dic y5/7 después; escritura/certificado; tenencia3años y arrastre3; incompatibilidad DANA mismaentidad/ejercicio.",
+      "alcancePorAspecto": {
+        "cuantiasPorcentajesLimites": "Inversión cualificada40.000 en régimen desde30diciembre y cuota suficiente:15.000; antes30diciembre:9.900. General:6.600.",
+        "requisitosTitularesFechasRemisiones": "30% general;15% adicional, límite15.000 desde30diciembre, independiente de6.600 si inversiones distintas. No existe tope30% liquidable en4Dos para z. Actividad/domicilio3años, empleo y excepciones, antigüedad ampliaciones3años antes30dic y5/7 después; escritura/certificado; tenencia3años y arrastre3; incompatibilidad DANA mismaentidad/ejercicio.",
+        "rentaModalidadProrrateos": "Eliminar tope30% liquidable atribuido por autor: art4Dos no enumera z. General6600 y reforzado15000/9900 por fecha; no multiplicar por miembros conjunta.",
+        "consignacion": "Ruta :cumple/:importe; acepta importe calculado fuera. :base no acredita cálculo jurídico.",
+        "calculoAutomaticoParcial": "No hay cálculo fiscal específico de esta deducción en la ruta observada."
+      },
+      "discriminanteDocumental": "15.000",
+      "expectativaIndependiente": "Inversión cualificada40.000 en régimen desde30diciembre y cuota suficiente:15.000; antes30diciembre:9.900. General:6.600. Incluso con liquidable1.000 el art4Dos no limita a300 la base de z.",
+      "fuentesNormativas": "Ley7/2023 art14; DL14/2022 art4; DL14/2025 art65",
+      "manual": {
+        "sha256": "765c89ade626abf9726835373d5f15c671b610b00e72109c547f66b8ef9a005c",
+        "paginasActuales": [
+          606,
+          607,
+          608,
+          609,
+          610,
+          611
+        ],
+        "paginasBase": [
+          527,
+          624
+        ],
+        "citasRefinadas": [
+          "valenciana_inversion_entidades_nuevas_reciente_creacion-rm1",
+          "valenciana_inversion_entidades_nuevas_reciente_creacion-rm2"
+        ],
+        "citasAutorObjetadas": [
+          "valenciana_inversion_entidades_nuevas_reciente_creacion-m1",
+          "valenciana_inversion_entidades_nuevas_reciente_creacion-m2",
+          "valenciana_inversion_entidades_nuevas_reciente_creacion-m3",
+          "valenciana_inversion_entidades_nuevas_reciente_creacion-m16",
+          "valenciana_inversion_entidades_nuevas_reciente_creacion-m17",
+          "valenciana_inversion_entidades_nuevas_reciente_creacion-m18"
+        ]
+      },
+      "reservaConcreta": "Cerrar calificación pyme innovadora RD475/2014, empresa emergente Ley28/2022 y calificación valenciana; cotejar anexos municipales2024/2025 si se usa criterio territorial. Reglas15.000 y ausencia30% liquidable no quedan en reserva. Se han recuperado los anexos oficiales AEAT2024(rg-11) y2025(rg-12), ambos escaneados. Ademuz figura visualmente en ambos: ese municipio queda cubierto territorialmente. Resta cotejar el documento matriz2025 por CSV y demás municipios, no es imposibilidad de acceso.",
+      "arregloMinimoPropuesto": "Completar descripción/requisitos/topes y remisiones de la ficha, conservar códigos/campos/exportaciones y ruta manual. Corregir dictamen y citas según esta revisión; implementar fórmula solo tras contrato de entradas suficiente. No cambiar una cuota por este discriminante."
+    },
+    {
+      "codigo": "valenciana_municipio_riesgo_despoblamiento",
+      "articulo": "Ley13/1997 art4.Uno.aa",
+      "decisionFicha": "diferencia",
+      "decisionCalculoCompleto": "no_verificable",
+      "decisionPaginacion": "coincide",
+      "decisionSobreAutor": "diferencia_documental_sostenida_con_reserva_especifica",
+      "descripcion": "Importe adicional único por número descendientes; reparto solo adicional; excluye mismos descendientes a/b/c. Residencia habitual estatal, municipio beneficiario fondo2024 o2025; no imponer renta4Cuatro.",
+      "alcancePorAspecto": {
+        "cuantiasPorcentajesLimites": "Un declarante residente admisible con dos descendientes computables:528 (330+198), no330+2×198.",
+        "requisitosTitularesFechasRemisiones": "Importe adicional único por número descendientes; reparto solo adicional; excluye mismos descendientes a/b/c. Residencia habitual estatal, municipio beneficiario fondo2024 o2025; no imponer renta4Cuatro.",
+        "rentaModalidadProrrateos": "Aplicar reglas comunes solo cuando el apartado remite a ellas. No aplicar límites generales de renta ajenos a aa)",
+        "consignacion": "Ruta :cumple/:importe; acepta importe calculado fuera. :base no acredita cálculo jurídico.",
+        "calculoAutomaticoParcial": "No hay cálculo fiscal específico de esta deducción en la ruta observada."
+      },
+      "discriminanteDocumental": "330",
+      "expectativaIndependiente": "Un declarante residente admisible con dos descendientes computables:528 (330+198), no330+2×198.",
+      "fuentesNormativas": "Ley3/2020 art42; DL14/2022 art4; Ley5/2025 art25",
+      "manual": {
+        "sha256": "765c89ade626abf9726835373d5f15c671b610b00e72109c547f66b8ef9a005c",
+        "paginasActuales": [
+          611,
+          612,
+          613
+        ],
+        "paginasBase": [
+          527,
+          624
+        ],
+        "citasRefinadas": [
+          "valenciana_municipio_riesgo_despoblamiento-rm1",
+          "valenciana_municipio_riesgo_despoblamiento-rm2"
+        ],
+        "citasAutorObjetadas": []
+      },
+      "reservaConcreta": "Resoluciones/listas2024–2025 enlazadas en manual: adquisición complementaria en curso; cotejar anexo y municipio. La ley ya permite ejercicio actual o anterior; no falta una reforma de Ley13/1997. Se han recuperado los anexos oficiales AEAT2024(rg-11) y2025(rg-12), ambos escaneados. Ademuz figura visualmente en ambos: ese municipio queda cubierto territorialmente. Resta cotejar el documento matriz2025 por CSV y demás municipios, no es imposibilidad de acceso.",
+      "arregloMinimoPropuesto": "Completar descripción/requisitos/topes y remisiones de la ficha, conservar códigos/campos/exportaciones y ruta manual. Corregir dictamen y citas según esta revisión; implementar fórmula solo tras contrato de entradas suficiente. No cambiar una cuota por este discriminante."
+    },
+    {
+      "codigo": "valenciana_tratamientos_fertilidad",
+      "articulo": "Ley13/1997 art4.Uno.ab",
+      "decisionFicha": "diferencia",
+      "decisionCalculoCompleto": "no_verificable",
+      "decisionPaginacion": "coincide",
+      "decisionSobreAutor": "requiere_rectificacion",
+      "descripcion": "100 con reducción4Cinco y límites30/47; clínica autorizada; solo mujer tratada40–45 ambos incluidos a devengo. No aplicar renta60/78 ni porcentaje de gastos de salud.",
+      "alcancePorAspecto": {
+        "cuantiasPorcentajesLimites": "Mujer40años con gasto admisible y liquidable28.500:50, no100;45años incluida,46excluida.",
+        "requisitosTitularesFechasRemisiones": "100 con reducción4Cinco y límites30/47; clínica autorizada; solo mujer tratada40–45 ambos incluidos a devengo. No aplicar renta60/78 ni porcentaje de gastos de salud.",
+        "rentaModalidadProrrateos": "Renta30.000/47.000 y reducción27.000/44.000 por4Cinco: ejemplo28.500→50. No aplicar umbral sanitario60/78.",
+        "consignacion": "Ruta :cumple/:importe; acepta importe calculado fuera. :base no acredita cálculo jurídico.",
+        "calculoAutomaticoParcial": "No hay cálculo fiscal específico de esta deducción en la ruta observada."
+      },
+      "discriminanteDocumental": "100",
+      "expectativaIndependiente": "Mujer40años con gasto admisible y liquidable28.500:50, no100;45años incluida,46excluida.",
+      "fuentesNormativas": "DL14/2022 art6; art4Cuatro/Cinco",
+      "manual": {
+        "sha256": "765c89ade626abf9726835373d5f15c671b610b00e72109c547f66b8ef9a005c",
+        "paginasActuales": [
+          613,
+          614
+        ],
+        "paginasBase": [
+          527,
+          624
+        ],
+        "citasRefinadas": [
+          "valenciana_tratamientos_fertilidad-rm1",
+          "valenciana_tratamientos_fertilidad-rm2"
+        ],
+        "citasAutorObjetadas": [
+          "valenciana_tratamientos_fertilidad-m1",
+          "valenciana_tratamientos_fertilidad-m2",
+          "valenciana_tratamientos_fertilidad-m3"
+        ]
+      },
+      "reservaConcreta": "Fijar facsímil regional del último modificador indicado y comprobar remisiones de acreditación específicas de este artículo; las cantidades y fronteras del caso independiente quedan contrastadas con originales BOE y manual fijado. No subsiste reserva sobre recuperación DOGV3153.",
+      "arregloMinimoPropuesto": "Completar descripción/requisitos/topes y remisiones de la ficha, conservar códigos/campos/exportaciones y ruta manual. Corregir dictamen y citas según esta revisión; implementar fórmula solo tras contrato de entradas suficiente. No cambiar una cuota por este discriminante."
+    },
+    {
+      "codigo": "valenciana_gastos_salud",
+      "articulo": "Ley13/1997 art4.Uno.ac",
+      "decisionFicha": "diferencia",
+      "decisionCalculoCompleto": "no_verificable",
+      "decisionPaginacion": "coincide",
+      "decisionSobreAutor": "requiere_rectificacion",
+      "descripcion": "Crónicas/raras y cerebral/alzhéimer100/150familia; dental/mental30% máximo150; óptica30% máximo100. Compatibles; familiares con mínimo, reparto base; factura, informe y registro sanitario, DA16; excluye seguros/reembolsos y donativo estatal68.3. Desde1enero2025 renta60/78 y reducción54/72 divisor6000.",
+      "alcancePorAspecto": {
+        "cuantiasPorcentajesLimites": "Gasto dental1.000 y liquidable57.000:75 (límite150×0,5); óptica gasto400:50 por límite100×0,5.",
+        "requisitosTitularesFechasRemisiones": "Crónicas/raras y cerebral/alzhéimer100/150familia; dental/mental30% máximo150; óptica30% máximo100. Compatibles; familiares con mínimo, reparto base; factura, informe y registro sanitario, DA16; excluye seguros/reembolsos y donativo estatal68.3. Desde1enero2025 renta60/78 y reducción54/72 divisor6000.",
+        "rentaModalidadProrrateos": "Aplicar reglas comunes solo cuando el apartado remite a ellas. Liquidable 60.000/78.000; reducción límites desde54.000/72.000 divisor6.000 por DL1/2026 efectos2025",
+        "consignacion": "Ruta :cumple/:importe; acepta importe calculado fuera. :base no acredita cálculo jurídico.",
+        "calculoAutomaticoParcial": "No hay cálculo fiscal específico de esta deducción en la ruta observada."
+      },
+      "discriminanteDocumental": "78.000",
+      "expectativaIndependiente": "Gasto dental1.000 y liquidable57.000:75 (límite150×0,5); óptica gasto400:50 por límite100×0,5.",
+      "fuentesNormativas": "Ley7/2023 art15; Ley5/2025 art24 corregido; DL1/2026 art2",
+      "manual": {
+        "sha256": "765c89ade626abf9726835373d5f15c671b610b00e72109c547f66b8ef9a005c",
+        "paginasActuales": [
+          614,
+          615,
+          616
+        ],
+        "paginasBase": [
+          527,
+          624
+        ],
+        "citasRefinadas": [
+          "valenciana_gastos_salud-rm1",
+          "valenciana_gastos_salud-rm2"
+        ],
+        "citasAutorObjetadas": [
+          "valenciana_gastos_salud-m1",
+          "valenciana_gastos_salud-m2",
+          "valenciana_gastos_salud-m3"
+        ]
+      },
+      "reservaConcreta": " La redacción operativa íntegra DL1/2026 arts2/3 o DL2/2026 art2 sustituye la regla para devengos desde1enero2025 y permite cerrar renta60/78 y reducción54/72. No reservar genéricamente su retroactividad; quedan acreditaciones fácticas y remisiones indicadas.",
+      "arregloMinimoPropuesto": "Completar descripción/requisitos/topes y remisiones de la ficha, conservar códigos/campos/exportaciones y ruta manual. Corregir dictamen y citas según esta revisión; implementar fórmula solo tras contrato de entradas suficiente. No cambiar una cuota por este discriminante."
+    },
+    {
+      "codigo": "valenciana_fomento_formacion_musical",
+      "articulo": "Ley13/1997 art4.Uno.ae",
+      "decisionFicha": "diferencia",
+      "decisionCalculoCompleto": "no_verificable",
+      "decisionPaginacion": "coincide",
+      "decisionSobreAutor": "diferencia_documental_sostenida_con_reserva_especifica",
+      "descripcion": "Hasta150 por contribuyente; 100% en manual. Conservatorios/escuelas registradas, sociedades federadas, formación centros oficiales, instrumentos/partituras vinculados y conciertos entidades a/b; cónyuge/descendientes con mínimo, reparto base, pago DA16. Efectos2025 expresos.",
+      "alcancePorAspecto": {
+        "cuantiasPorcentajesLimites": "Gasto musical200 admisible, liquidable57.000:75; a60.000:0; ascendiente no incluido por mínimo.",
+        "requisitosTitularesFechasRemisiones": "Hasta150 por contribuyente; 100% en manual. Conservatorios/escuelas registradas, sociedades federadas, formación centros oficiales, instrumentos/partituras vinculados y conciertos entidades a/b; cónyuge/descendientes con mínimo, reparto base, pago DA16. Efectos2025 expresos.",
+        "rentaModalidadProrrateos": "Aplicar reglas comunes solo cuando el apartado remite a ellas. Liquidable60.000/78.000; reducción límite54.000/72.000 divisor6.000",
+        "consignacion": "Ruta :cumple/:importe; acepta importe calculado fuera. :base no acredita cálculo jurídico.",
+        "calculoAutomaticoParcial": "No hay cálculo fiscal específico de esta deducción en la ruta observada."
+      },
+      "discriminanteDocumental": "150",
+      "expectativaIndependiente": "Gasto musical200 admisible, liquidable57.000:75; a60.000:0; ascendiente no incluido por mínimo.",
+      "fuentesNormativas": "DL2/2026 art2",
+      "manual": {
+        "sha256": "765c89ade626abf9726835373d5f15c671b610b00e72109c547f66b8ef9a005c",
+        "paginasActuales": [
+          618,
+          619,
+          620
+        ],
+        "paginasBase": [
+          527,
+          624
+        ],
+        "citasRefinadas": [
+          "valenciana_fomento_formacion_musical-rm1",
+          "valenciana_fomento_formacion_musical-rm2"
+        ],
+        "citasAutorObjetadas": [
+          "valenciana_fomento_formacion_musical-m1",
+          "valenciana_fomento_formacion_musical-m2",
+          "valenciana_fomento_formacion_musical-m3"
+        ]
+      },
+      "reservaConcreta": " La redacción operativa íntegra DL1/2026 arts2/3 o DL2/2026 art2 sustituye la regla para devengos desde1enero2025 y permite cerrar renta60/78 y reducción54/72. No reservar genéricamente su retroactividad; quedan acreditaciones fácticas y remisiones indicadas.",
+      "arregloMinimoPropuesto": "Completar descripción/requisitos/topes y remisiones de la ficha, conservar códigos/campos/exportaciones y ruta manual. Corregir dictamen y citas según esta revisión; implementar fórmula solo tras contrato de entradas suficiente. No cambiar una cuota por este discriminante."
+    },
+    {
+      "codigo": "valenciana_ayudas_publicas_erte_covid",
+      "articulo": "Ley13/1997 DA17a",
+      "decisionFicha": "diferencia",
+      "decisionCalculoCompleto": "no_verificable",
+      "decisionPaginacion": "coincide",
+      "decisionSobreAutor": "diferencia_documental_sostenida_con_reserva_especifica",
+      "descripcion": "Ayuda DL3/2020 trabajadores ERTE/reducción jornada conciliación; solo parte efectivamente integrada, no tipo marginal ni estatal.",
+      "alcancePorAspecto": {
+        "cuantiasPorcentajesLimites": "Ayuda integrada1.000 con tipo medio general autonómico10%:100; ayuda exenta:0.",
+        "requisitosTitularesFechasRemisiones": "Ayuda DL3/2020 trabajadores ERTE/reducción jornada conciliación; solo parte efectivamente integrada, no tipo marginal ni estatal.",
+        "rentaModalidadProrrateos": "Aplicar reglas comunes solo cuando el apartado remite a ellas. Ayuda del Decreto ley3/2020 integrada en base imponible",
+        "consignacion": "Ruta :cumple/:importe; acepta importe calculado fuera. :base no acredita cálculo jurídico.",
+        "calculoAutomaticoParcial": "No hay cálculo fiscal específico de esta deducción en la ruta observada."
+      },
+      "discriminanteDocumental": "tipo medio",
+      "expectativaIndependiente": "Ayuda integrada1.000 con tipo medio general autonómico10%:100; ayuda exenta:0.",
+      "fuentesNormativas": "Ley3/2020 art52; DL6/2021 DF2.1",
+      "manual": {
+        "sha256": "765c89ade626abf9726835373d5f15c671b610b00e72109c547f66b8ef9a005c",
+        "paginasActuales": [
+          620,
+          621
+        ],
+        "paginasBase": [
+          527,
+          624
+        ],
+        "citasRefinadas": [
+          "valenciana_ayudas_publicas_erte_covid-rm1",
+          "valenciana_ayudas_publicas_erte_covid-rm2"
+        ],
+        "citasAutorObjetadas": [
+          "valenciana_ayudas_publicas_erte_covid-m1",
+          "valenciana_ayudas_publicas_erte_covid-m2",
+          "valenciana_ayudas_publicas_erte_covid-m3",
+          "valenciana_ayudas_publicas_erte_covid-m6"
+        ]
+      },
+      "reservaConcreta": "Fijar DL3/2020 y acto de ayuda para comprobar integración fiscal efectiva; importe libre no demuestra recepción de ayuda admisible.",
+      "arregloMinimoPropuesto": "Completar descripción/requisitos/topes y remisiones de la ficha, conservar códigos/campos/exportaciones y ruta manual. Corregir dictamen y citas según esta revisión; implementar fórmula solo tras contrato de entradas suficiente. No cambiar una cuota por este discriminante."
+    },
+    {
+      "codigo": "valenciana_donaciones_covid_investigacion",
+      "articulo": "Ley13/1997 DA17c",
+      "decisionFicha": "diferencia",
+      "decisionCalculoCompleto": "no_verificable",
+      "decisionPaginacion": "coincide",
+      "decisionSobreAutor": "diferencia_documental_sostenida_con_reserva_especifica",
+      "descripcion": "20%primeros150 y25%resto, investigación Covid, destinatarios enumerados CV y finalidad principal; no aplicar250 de p–s; DA16.",
+      "alcancePorAspecto": {
+        "cuantiasPorcentajesLimites": "Donación300:67,50, también con devengo31diciembre2025.",
+        "requisitosTitularesFechasRemisiones": "20%primeros150 y25%resto, investigación Covid, destinatarios enumerados CV y finalidad principal; no aplicar250 de p–s; DA16.",
+        "rentaModalidadProrrateos": "Aplicar reglas comunes solo cuando el apartado remite a ellas. Donaciones dinerarias, no aplicar umbral250 de p)-s)",
+        "consignacion": "Ruta :cumple/:importe; acepta importe calculado fuera. :base no acredita cálculo jurídico.",
+        "calculoAutomaticoParcial": "No hay cálculo fiscal específico de esta deducción en la ruta observada."
+      },
+      "discriminanteDocumental": "150",
+      "expectativaIndependiente": "Donación300:67,50, también con devengo31diciembre2025.",
+      "fuentesNormativas": "Ley3/2020 art52",
+      "manual": {
+        "sha256": "765c89ade626abf9726835373d5f15c671b610b00e72109c547f66b8ef9a005c",
+        "paginasActuales": [
+          621,
+          622
+        ],
+        "paginasBase": [
+          527,
+          624
+        ],
+        "citasRefinadas": [
+          "valenciana_donaciones_covid_investigacion-rm1",
+          "valenciana_donaciones_covid_investigacion-rm2"
+        ],
+        "citasAutorObjetadas": [
+          "valenciana_donaciones_covid_investigacion-m1",
+          "valenciana_donaciones_covid_investigacion-m2"
+        ]
+      },
+      "reservaConcreta": "Fijar facsímil regional del último modificador indicado y comprobar remisiones de acreditación específicas de este artículo; las cantidades y fronteras del caso independiente quedan contrastadas con originales BOE y manual fijado. No subsiste reserva sobre recuperación DOGV3153.",
+      "arregloMinimoPropuesto": "Completar descripción/requisitos/topes y remisiones de la ficha, conservar códigos/campos/exportaciones y ruta manual. Corregir dictamen y citas según esta revisión; implementar fórmula solo tras contrato de entradas suficiente. No cambiar una cuota por este discriminante."
+    },
+    {
+      "codigo": "valenciana_donaciones_covid_gastos_crisis_sanitaria",
+      "articulo": "Ley13/1997 DA17d",
+      "decisionFicha": "diferencia",
+      "decisionCalculoCompleto": "no_verificable",
+      "decisionPaginacion": "coincide",
+      "decisionSobreAutor": "diferencia_documental_sostenida_con_reserva_especifica",
+      "descripcion": "20/25 tramo150; dineraria/especie, DL4/2020 art4 aceptación y destino, valoración si especie; DA16 para dinero. No extender donación genérica.",
+      "alcancePorAspecto": {
+        "cuantiasPorcentajesLimites": "Donación300 admisible:67,50; aportación300 sin aceptación/destino exigido no demuestra derecho.",
+        "requisitosTitularesFechasRemisiones": "20/25 tramo150; dineraria/especie, DL4/2020 art4 aceptación y destino, valoración si especie; DA16 para dinero. No extender donación genérica.",
+        "rentaModalidadProrrateos": "Aplicar reglas comunes solo cuando el apartado remite a ellas. Donaciones dinerarias o en especie conforme DL4/2020 art.4",
+        "consignacion": "Ruta :cumple/:importe; acepta importe calculado fuera. :base no acredita cálculo jurídico.",
+        "calculoAutomaticoParcial": "No hay cálculo fiscal específico de esta deducción en la ruta observada."
+      },
+      "discriminanteDocumental": "150",
+      "expectativaIndependiente": "Donación300 admisible:67,50; aportación300 sin aceptación/destino exigido no demuestra derecho.",
+      "fuentesNormativas": "DL6/2021 DF2.2; DL4/2020 art4",
+      "manual": {
+        "sha256": "765c89ade626abf9726835373d5f15c671b610b00e72109c547f66b8ef9a005c",
+        "paginasActuales": [
+          622,
+          623
+        ],
+        "paginasBase": [
+          527,
+          624
+        ],
+        "citasRefinadas": [
+          "valenciana_donaciones_covid_gastos_crisis_sanitaria-rm1",
+          "valenciana_donaciones_covid_gastos_crisis_sanitaria-rm2"
+        ],
+        "citasAutorObjetadas": [
+          "valenciana_donaciones_covid_gastos_crisis_sanitaria-m1",
+          "valenciana_donaciones_covid_gastos_crisis_sanitaria-m2"
+        ]
+      },
+      "reservaConcreta": "Fijar original DL4/2020 art4 y aceptación/valoración para donación dineraria o especie. La reforma DF2.2 DL6/2021 sí está fijada y da tramo150.",
+      "arregloMinimoPropuesto": "Completar descripción/requisitos/topes y remisiones de la ficha, conservar códigos/campos/exportaciones y ruta manual. Corregir dictamen y citas según esta revisión; implementar fórmula solo tras contrato de entradas suficiente. No cambiar una cuota por este discriminante."
+    },
+    {
+      "codigo": "valenciana_dana_danos_materiales_vivienda_habitual",
+      "articulo": "DL12/2024 art4",
+      "decisionFicha": "diferencia",
+      "decisionCalculoCompleto": "no_verificable",
+      "decisionPaginacion": "coincide",
+      "decisionSobreAutor": "diferencia_documental_sostenida_con_reserva_especifica",
+      "descripcion": "100% gasto no cubierto, máximo2.000; renta45/60, reducción40/55 divisor5000; vivienda habitual dañada directamente en municipio anexo; excluye enseres/actividad; reparto ayudas/límite, pago bancario, arrastre4. Periodos2024/2025.",
+      "alcancePorAspecto": {
+        "cuantiasPorcentajesLimites": "Gasto reparación5.000, seguro1.000 y ayuda1.000:base3.000, cuota2.000 con renta baja; renta42.500 límite1.000.",
+        "requisitosTitularesFechasRemisiones": "100% gasto no cubierto, máximo2.000; renta45/60, reducción40/55 divisor5000; vivienda habitual dañada directamente en municipio anexo; excluye enseres/actividad; reparto ayudas/límite, pago bancario, arrastre4. Periodos2024/2025.",
+        "rentaModalidadProrrateos": "Aplicar reglas comunes solo cuando el apartado remite a ellas. Liquidable45.000/60.000; reducción límite desde40.000/55.000 divisor5.000",
+        "consignacion": "Ruta :cumple/:importe; acepta importe calculado fuera. :base no acredita cálculo jurídico.",
+        "calculoAutomaticoParcial": "No hay cálculo fiscal específico de esta deducción en la ruta observada."
+      },
+      "discriminanteDocumental": "2.000",
+      "expectativaIndependiente": "Gasto reparación5.000, seguro1.000 y ayuda1.000:base3.000, cuota2.000 con renta baja; renta42.500 límite1.000.",
+      "fuentesNormativas": "DL12/2024 arts2/4 yDF",
+      "manual": {
+        "sha256": "765c89ade626abf9726835373d5f15c671b610b00e72109c547f66b8ef9a005c",
+        "paginasActuales": [
+          623,
+          624,
+          625,
+          626
+        ],
+        "paginasBase": [
+          527,
+          624
+        ],
+        "citasRefinadas": [
+          "valenciana_dana_danos_materiales_vivienda_habitual-rm1",
+          "valenciana_dana_danos_materiales_vivienda_habitual-rm2"
+        ],
+        "citasAutorObjetadas": []
+      },
+      "reservaConcreta": "Fijar acuerdo04nov2024 y ampliaciones del anexo territorial aplicables2025. DL12/2024 art4 está completo; reserva limitada al ámbito territorial y hechos cobertura seguro/ayudas.",
+      "arregloMinimoPropuesto": "Completar descripción/requisitos/topes y remisiones de la ficha, conservar códigos/campos/exportaciones y ruta manual. Corregir dictamen y citas según esta revisión; implementar fórmula solo tras contrato de entradas suficiente. No cambiar una cuota por este discriminante."
+    },
+    {
+      "codigo": "valenciana_dana_aportaciones_fondos_propios_entidades",
+      "articulo": "DL12/2024 art5",
+      "decisionFicha": "diferencia",
+      "decisionCalculoCompleto": "no_verificable",
+      "decisionPaginacion": "coincide",
+      "decisionSobreAutor": "diferencia_documental_sostenida_con_reserva_especifica",
+      "descripcion": "45%,máximo9.900 y base30% liquidable expresamente propia;13nov2024–31dic2025, domicilio social/fiscal zona, ERTE preexistentes, actividad/empleo3años, escritura/certificado, tenencia3años, arrastre3; incompatibilidad z mismaentidad/ejercicio/contribuyente.",
+      "alcancePorAspecto": {
+        "cuantiasPorcentajesLimites": "Aportación30.000, liquidable100.000, requisitos y cuota suficientes:9.900; liquidable20.000:2.700 (45%×6.000).",
+        "requisitosTitularesFechasRemisiones": "45%,máximo9.900 y base30% liquidable expresamente propia;13nov2024–31dic2025, domicilio social/fiscal zona, ERTE preexistentes, actividad/empleo3años, escritura/certificado, tenencia3años, arrastre3; incompatibilidad z mismaentidad/ejercicio/contribuyente.",
+        "rentaModalidadProrrateos": "Aplicar reglas comunes solo cuando el apartado remite a ellas. Base máxima30% de liquidable",
+        "consignacion": "Ruta :cumple/:importe; acepta importe calculado fuera. :base no acredita cálculo jurídico.",
+        "calculoAutomaticoParcial": "No hay cálculo fiscal específico de esta deducción en la ruta observada."
+      },
+      "discriminanteDocumental": "9.900",
+      "expectativaIndependiente": "Aportación30.000, liquidable100.000, requisitos y cuota suficientes:9.900; liquidable20.000:2.700 (45%×6.000).",
+      "fuentesNormativas": "DL12/2024 arts2/5 yDF",
+      "manual": {
+        "sha256": "765c89ade626abf9726835373d5f15c671b610b00e72109c547f66b8ef9a005c",
+        "paginasActuales": [
+          626,
+          627,
+          628
+        ],
+        "paginasBase": [
+          527,
+          624
+        ],
+        "citasRefinadas": [
+          "valenciana_dana_aportaciones_fondos_propios_entidades-rm1",
+          "valenciana_dana_aportaciones_fondos_propios_entidades-rm2"
+        ],
+        "citasAutorObjetadas": []
+      },
+      "reservaConcreta": "Fijar acuerdo04nov2024/anexo y modificaciones para domicilio; comprobar certificado ERTE si entidad preexistente. No falta la base30% ni plazo31dic2025 del art5.",
+      "arregloMinimoPropuesto": "Completar descripción/requisitos/topes y remisiones de la ficha, conservar códigos/campos/exportaciones y ruta manual. Corregir dictamen y citas según esta revisión; implementar fórmula solo tras contrato de entradas suficiente. No cambiar una cuota por este discriminante."
+    },
+    {
+      "codigo": "valenciana_nacimiento_adopcion_guarda_acogimiento",
+      "articulo": "Ley13/1997 art4.Uno.a",
+      "decisionFicha": "diferencia",
+      "decisionCalculoCompleto": "no_verificable",
+      "decisionPaginacion": "coincide",
+      "decisionSobreAutor": "requiere_rectificacion",
+      "descripcion": "600/750/900 por orden individual para hechos2025; régimen300 fallecidos antes1junio y nacidos/adoptados anteriores con derecho previo. Mínimo descendientes, renta30/47 reducción27/44, prorrateo días y declarantes, dos años posteriores solo nacimiento/adopción; compatible b/c/d, no adicional aa mismo descendiente.",
+      "alcancePorAspecto": {
+        "cuantiasPorcentajesLimites": "Hijo nacido2024 con derecho previo:300 en2025 a renta baja, no600; segundo acogido computable requiere>183días (183 no basta).",
+        "requisitosTitularesFechasRemisiones": "600/750/900 por orden individual para hechos2025; régimen300 fallecidos antes1junio y nacidos/adoptados anteriores con derecho previo. Mínimo descendientes, renta30/47 reducción27/44, prorrateo días y declarantes, dos años posteriores solo nacimiento/adopción; compatible b/c/d, no adicional aa mismo descendiente.",
+        "rentaModalidadProrrateos": "Aplicar reglas comunes solo cuando el apartado remite a ellas. Liquidable30.000/47.000; reducción27.000/44.000 divisor3.000",
+        "consignacion": "Ruta :cumple/:importe; acepta importe calculado fuera. :base no acredita cálculo jurídico.",
+        "calculoAutomaticoParcial": "No hay cálculo fiscal específico de esta deducción en la ruta observada."
+      },
+      "discriminanteDocumental": "183",
+      "expectativaIndependiente": "Hijo nacido2024 con derecho previo:300 en2025 a renta baja, no600; segundo acogido computable requiere>183días (183 no basta).",
+      "fuentesNormativas": "Ley5/2025 art22; DL14/2022 art4",
+      "manual": {
+        "sha256": "765c89ade626abf9726835373d5f15c671b610b00e72109c547f66b8ef9a005c",
+        "paginasActuales": [
+          529,
+          530,
+          531,
+          532,
+          533,
+          534
+        ],
+        "paginasBase": [
+          527,
+          528,
+          529,
+          530,
+          531
+        ],
+        "citasRefinadas": [
+          "valenciana_nacimiento_adopcion_guarda_acogimiento-rm1",
+          "valenciana_nacimiento_adopcion_guarda_acogimiento-rm2"
+        ],
+        "citasAutorObjetadas": [
+          "valenciana_nacimiento_adopcion_guarda_acogimiento-m1",
+          "valenciana_nacimiento_adopcion_guarda_acogimiento-m17"
+        ]
+      },
+      "reservaConcreta": "Fijar Ley26/2018 arts127/149, Código Civil173bis/176bis y remisión al mínimo estatal (Ley35/2006 arts58/61): faltan originales/remisiones de elegibilidad, no las cuantías o el corte1junio2025. Para nacidos/adoptados anteriores, conservar régimen previo300 según manual534.",
+      "arregloMinimoPropuesto": "Completar descripción/requisitos/topes y remisiones de la ficha, conservar códigos/campos/exportaciones y ruta manual. Corregir dictamen y citas según esta revisión; implementar fórmula solo tras contrato de entradas suficiente. No cambiar una cuota por este discriminante."
+    },
+    {
+      "codigo": "valenciana_ascendientes_mayores_discapacidad",
+      "articulo": "Ley13/1997 art4.Uno.h",
+      "decisionFicha": "diferencia",
+      "decisionCalculoCompleto": "no_verificable",
+      "decisionPaginacion": "coincide",
+      "decisionSobreAutor": "diferencia_documental_sostenida_con_reserva_especifica",
+      "descripcion": "197 por ascendiente:>75 o>65 con discapacidad65% o intelectual/mental33% permanente desde30dic; renta noexenta<=8.000, si declara<=1.800; convivencia mitadperiodo incluso centro especializado dependiente; parentesco próximo salvo excepción; incompatible i y DA6.",
+      "alcancePorAspecto": {
+        "cuantiasPorcentajesLimites": "Dos ascendientes, dos declarantes con derecho y liquidable28.500:98,50 cada uno (197×2×0,5×0,5).",
+        "requisitosTitularesFechasRemisiones": "197 por ascendiente:>75 o>65 con discapacidad65% o intelectual/mental33% permanente desde30dic; renta noexenta<=8.000, si declara<=1.800; convivencia mitadperiodo incluso centro especializado dependiente; parentesco próximo salvo excepción; incompatible i y DA6.",
+        "rentaModalidadProrrateos": "Aplicar reglas comunes solo cuando el apartado remite a ellas. Liquidable30.000/47.000; reducción27.000/44.000 divisor3.000",
+        "consignacion": "197×unidades si :cumple, sin recibir renta/derechos/reparto",
+        "calculoAutomaticoParcial": "Multiplicación197×unidades comprobable; elegibilidad/reducción/prorrateo externos."
+      },
+      "discriminanteDocumental": "8.000",
+      "expectativaIndependiente": "Dos ascendientes, dos declarantes con derecho y liquidable28.500:98,50 cada uno (197×2×0,5×0,5).",
+      "fuentesNormativas": "DL14/2025 art65; Ley7/2014 art46; DL14/2022 art4",
+      "manual": {
+        "sha256": "765c89ade626abf9726835373d5f15c671b610b00e72109c547f66b8ef9a005c",
+        "paginasActuales": [
+          553,
+          554,
+          555
+        ],
+        "paginasBase": [
+          551,
+          552
+        ],
+        "citasRefinadas": [
+          "valenciana_ascendientes_mayores_discapacidad-rm1",
+          "valenciana_ascendientes_mayores_discapacidad-rm2"
+        ],
+        "citasAutorObjetadas": [
+          "valenciana_ascendientes_mayores_discapacidad-m1",
+          "valenciana_ascendientes_mayores_discapacidad-m2",
+          "valenciana_ascendientes_mayores_discapacidad-m3"
+        ]
+      },
+      "reservaConcreta": " Cotejar DA6 completa y certificado/asimilación según fecha de devengo: la permanencia intelectual/mental y curatela plena desde30dic no se anticipan a fallecimientos anteriores. Original regional de reforma DL14/2025 no aportado por el autor como facsímil (HTML BOE sí).",
+      "arregloMinimoPropuesto": "Completar descripción/requisitos/topes y remisiones de la ficha, conservar códigos/campos/exportaciones y ruta manual. Corregir dictamen y citas según esta revisión; implementar fórmula solo tras contrato de entradas suficiente. No cambiar una cuota por este discriminante."
+    },
+    {
+      "codigo": "valenciana_arrendamiento_cesion_uso_vivienda",
+      "articulo": "Ley13/1997 art4.Uno.n",
+      "decisionFicha": "diferencia",
+      "decisionCalculoCompleto": "no_verificable",
+      "decisionPaginacion": "coincide",
+      "decisionSobreAutor": "diferencia_documental_sostenida_con_reserva_especifica",
+      "descripcion": "20/25/30%, límites800/950/1100; condiciones<=35/discapacidad/violencia género; contrato>23abril1998 y>=1año, vivienda CV, restricciones otra vivienda<50km salvo excepciones, sin deducción inversión; días vigencia/circunstancias y reparto gananciales; DA16. Desde30dic cesiónuso/servicios con recibo separado y errata compatible ñ.",
+      "alcancePorAspecto": {
+        "cuantiasPorcentajesLimites": "Alquiler10.000 todoaño, sin condiciones reforzadas y liquidable28.500:400; dos declarantes mismo supuesto con gasto suficiente:200 cada uno.",
+        "requisitosTitularesFechasRemisiones": "20/25/30%, límites800/950/1100; condiciones<=35/discapacidad/violencia género; contrato>23abril1998 y>=1año, vivienda CV, restricciones otra vivienda<50km salvo excepciones, sin deducción inversión; días vigencia/circunstancias y reparto gananciales; DA16. Desde30dic cesiónuso/servicios con recibo separado y errata compatible ñ.",
+        "rentaModalidadProrrateos": "Aplicar reglas comunes solo cuando el apartado remite a ellas. Liquidable30.000/47.000; reducción límite27.000/44.000 divisor3.000",
+        "consignacion": "Ruta :cumple/:importe; acepta importe calculado fuera. :base no acredita cálculo jurídico.",
+        "calculoAutomaticoParcial": "No hay cálculo fiscal específico de esta deducción en la ruta observada."
+      },
+      "discriminanteDocumental": "días",
+      "expectativaIndependiente": "Alquiler10.000 todoaño, sin condiciones reforzadas y liquidable28.500:400; dos declarantes mismo supuesto con gasto suficiente:200 cada uno.",
+      "fuentesNormativas": "Ley7/2023 art12; Ley3/2023 DF3.2 ycorrección; DL14/2025 art65 yerrata19enero",
+      "manual": {
+        "sha256": "765c89ade626abf9726835373d5f15c671b610b00e72109c547f66b8ef9a005c",
+        "paginasActuales": [
+          566,
+          567,
+          568,
+          569,
+          570
+        ],
+        "paginasBase": [
+          564,
+          565,
+          566
+        ],
+        "citasRefinadas": [
+          "valenciana_arrendamiento_cesion_uso_vivienda-rm1",
+          "valenciana_arrendamiento_cesion_uso_vivienda-rm2"
+        ],
+        "citasAutorObjetadas": [
+          "valenciana_arrendamiento_cesion_uso_vivienda-m1",
+          "valenciana_arrendamiento_cesion_uso_vivienda-m2",
+          "valenciana_arrendamiento_cesion_uso_vivienda-m3"
+        ]
+      },
+      "reservaConcreta": " Cotejar DA6 completa y certificado/asimilación según fecha de devengo: la permanencia intelectual/mental y curatela plena desde30dic no se anticipan a fallecimientos anteriores. Original regional de reforma DL14/2025 no aportado por el autor como facsímil (HTML BOE sí). Cerrar remisión estatal a vivienda habitual/adquisición y, en su caso, rehabilitación/adaptación; conservar limitaciones patrimoniales solo j/k/l/m/o. Falta facsímil regional de los modificadores concretos indicados, no el DOGV3153 ya recuperado.",
+      "arregloMinimoPropuesto": "Completar descripción/requisitos/topes y remisiones de la ficha, conservar códigos/campos/exportaciones y ruta manual. Corregir dictamen y citas según esta revisión; implementar fórmula solo tras contrato de entradas suficiente. No cambiar una cuota por este discriminante."
+    },
+    {
+      "codigo": "valenciana_deporte_actividades_saludables",
+      "articulo": "Ley13/1997 art4.Uno.ad",
+      "decisionFicha": "diferencia",
+      "decisionCalculoCompleto": "no_verificable",
+      "decisionPaginacion": "coincide",
+      "decisionSobreAutor": "diferencia_documental_sostenida_con_reserva_especifica",
+      "descripcion": "30/50/100 según edad estrictamente>65/>75 o discapacidad>=33/>=65;150 máximo por contribuyente; familia con mínimo, reparto base, actividades enumeradas, factura yDA16; renta60/78 reducción54/72 divisor6000 desde1enero2025.",
+      "alcancePorAspecto": {
+        "cuantiasPorcentajesLimites": "Contribuyente exactamente65años sin discapacidad, gasto100 y renta baja:30;66años:50;76años:100. Con renta57.000 límite75.",
+        "requisitosTitularesFechasRemisiones": "30/50/100 según edad estrictamente>65/>75 o discapacidad>=33/>=65;150 máximo por contribuyente; familia con mínimo, reparto base, actividades enumeradas, factura yDA16; renta60/78 reducción54/72 divisor6000 desde1enero2025.",
+        "rentaModalidadProrrateos": "Aplicar reglas comunes solo cuando el apartado remite a ellas. Liquidable60.000/78.000; reducción límite54.000/72.000 divisor6.000 por DL1/2026 efectos2025",
+        "consignacion": "Ruta :cumple/:importe; acepta importe calculado fuera. :base no acredita cálculo jurídico.",
+        "calculoAutomaticoParcial": "No hay cálculo fiscal específico de esta deducción en la ruta observada."
+      },
+      "discriminanteDocumental": "factura",
+      "expectativaIndependiente": "Contribuyente exactamente65años sin discapacidad, gasto100 y renta baja:30;66años:50;76años:100. Con renta57.000 límite75.",
+      "fuentesNormativas": "Ley7/2023 art16; DL1/2026 art3; DA6",
+      "manual": {
+        "sha256": "765c89ade626abf9726835373d5f15c671b610b00e72109c547f66b8ef9a005c",
+        "paginasActuales": [
+          616,
+          617,
+          618
+        ],
+        "paginasBase": [
+          614,
+          615,
+          616
+        ],
+        "citasRefinadas": [
+          "valenciana_deporte_actividades_saludables-rm1",
+          "valenciana_deporte_actividades_saludables-rm2"
+        ],
+        "citasAutorObjetadas": [
+          "valenciana_deporte_actividades_saludables-m1",
+          "valenciana_deporte_actividades_saludables-m2",
+          "valenciana_deporte_actividades_saludables-m3"
+        ]
+      },
+      "reservaConcreta": " Cotejar DA6 completa y certificado/asimilación según fecha de devengo: la permanencia intelectual/mental y curatela plena desde30dic no se anticipan a fallecimientos anteriores. Original regional de reforma DL14/2025 no aportado por el autor como facsímil (HTML BOE sí). La redacción operativa íntegra DL1/2026 arts2/3 o DL2/2026 art2 sustituye la regla para devengos desde1enero2025 y permite cerrar renta60/78 y reducción54/72. No reservar genéricamente su retroactividad; quedan acreditaciones fácticas y remisiones indicadas.",
+      "arregloMinimoPropuesto": "Completar descripción/requisitos/topes y remisiones de la ficha, conservar códigos/campos/exportaciones y ruta manual. Corregir dictamen y citas según esta revisión; implementar fórmula solo tras contrato de entradas suficiente. No cambiar una cuota por este discriminante."
+    }
+  ]
+}

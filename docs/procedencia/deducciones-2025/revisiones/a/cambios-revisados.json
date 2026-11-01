@@ -1,0 +1,200 @@
+{
+  "version": 1,
+  "cambios": [
+    {
+      "codigo": "aragon_libros_texto_material_escolar",
+      "archivo": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/aragon.ts",
+      "antes": "\"Fórmula: min(100% de gastos - becas/ayudas, límite por descendiente aplicable).\"",
+      "despues": {
+        "cuantia": {
+          "tipo": "mixta",
+          "descripcion": "100% de libros de texto y material escolar de Primaria/ESO, minorado por becas y ayudas, con límites por descendiente según base, tributación, familia numerosa y fiscalidad diferenciada."
+        },
+        "limites": [
+          "Fórmula: max(0, min(100% de gastos, límite por descendiente aplicable) - becas/ayudas).",
+          "Régimen general, conjunta no numerosa: 100 euros hasta 12.000; 50 euros hasta 20.000; 37,50 euros hasta 25.000.",
+          "Régimen general, individual no numerosa: 50 euros hasta 6.500; 37,50 euros hasta 10.000; 25 euros hasta 12.500.",
+          "Régimen general, familia numerosa: 150 euros por descendiente en conjunta y 75 euros en individual, con límites de base 40.000/30.000.",
+          "Fiscalidad diferenciada, conjunta no numerosa: 120 euros hasta 12.000; 60 euros hasta 20.000; 45 euros hasta 25.000.",
+          "Fiscalidad diferenciada, individual no numerosa: 60 euros hasta 6.500; 45 euros hasta 10.000; 30 euros hasta 12.500.",
+          "Fiscalidad diferenciada, familia numerosa: 180 euros por descendiente en conjunta y 90 euros en individual.",
+          "Gasto pagado con tarjeta, transferencia, cheque nominativo o ingreso en cuenta.",
+          "Si hay consorcio conyugal aragonés o análogo, las cantidades se atribuyen por mitades."
+        ],
+        "requisitos": [
+          "Descendientes con derecho al mínimo por descendientes en Primaria o ESO."
+        ]
+      },
+      "resultado": "Mejora documental reproducida; no implementa una fórmula de liquidación",
+      "prueba": "pruebas.py; ocho discriminantes contra016ec72d y HEAD",
+      "reserva": "Falta cotejo regional íntegro de reformas históricas BOE-A-2016-822; BOE-A-2023-10878; BOE-A-2014-1510; BOE-A-2013-1424. Recuperadas Ley17/2023 y Ley13/2023 regionales y Ley10/2012 BOE con dos correcciones. No se ha completado búsqueda BOA de cada publicación/corrección; trabajo pendiente, no fuente inaccesible."
+    },
+    {
+      "codigo": "aragon_clases_apoyo_refuerzo",
+      "archivo": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/aragon.ts",
+      "antes": "\"Fórmula: min(25% de gastos - ayudas, límite por descendiente aplicable).\"",
+      "despues": {
+        "cuantia": {
+          "tipo": "mixta",
+          "descripcion": "25% de clases de apoyo o refuerzo extraescolar, minorado por ayudas, con límites por descendiente según base, tributación y familia numerosa."
+        },
+        "limites": [
+          "Fórmula: max(0, min(25% de gastos, límite por descendiente aplicable) - ayudas).",
+          "Conjunta no numerosa: 200 euros hasta 12.000; 100 euros hasta 20.000; 80 euros hasta 25.000.",
+          "Individual no numerosa: 100 euros hasta 6.500; 80 euros hasta 10.000; 50 euros hasta 12.500.",
+          "Familia numerosa: límite 300 euros por descendiente, con base máxima 30.000 individual y 40.000 conjunta.",
+          "General no numerosa: base general + ahorro máxima 12.500 individual y 25.000 conjunta.",
+          "Pago mediante tarjeta, transferencia, cheque nominativo o ingreso en cuenta.",
+          "Si hay consorcio conyugal aragonés o análogo, las cantidades satisfechas se atribuyen por mitades."
+        ],
+        "requisitos": [
+          "Descendientes con derecho al mínimo por descendientes; clases extraescolares de materias de Infantil, Educación Básica Obligatoria o FP Básica."
+        ]
+      },
+      "resultado": "Mejora documental reproducida; no implementa una fórmula de liquidación",
+      "prueba": "pruebas.py; ocho discriminantes contra016ec72d y HEAD",
+      "reserva": "Falta cotejo regional íntegro de reformas históricas BOE-A-2024-903. Recuperadas Ley17/2023 y Ley13/2023 regionales y Ley10/2012 BOE con dos correcciones. No se ha completado búsqueda BOA de cada publicación/corrección; trabajo pendiente, no fuente inaccesible."
+    },
+    {
+      "codigo": "aragon_formacion_autonomia_menores_discapacidad",
+      "archivo": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/aragon.ts",
+      "antes": "\"Fórmula: min(25% de gastos - ayudas, límite por descendiente aplicable).\"",
+      "despues": {
+        "cuantia": {
+          "tipo": "mixta",
+          "descripcion": "25% de formación para autonomía y vida independiente de descendientes menores con discapacidad igual o superior al 65%, minorado por ayudas, con límites por descendiente según base, tributación y familia numerosa."
+        },
+        "limites": [
+          "Fórmula: max(0, min(25% de gastos, límite por descendiente aplicable) - ayudas).",
+          "Conjunta no numerosa: 200 euros hasta 12.000; 100 euros hasta 20.000; 80 euros hasta 25.000.",
+          "Individual no numerosa: 100 euros hasta 6.500; 80 euros hasta 10.000; 50 euros hasta 12.500.",
+          "Familia numerosa: límite 300 euros por descendiente, con base máxima 30.000 individual y 40.000 conjunta.",
+          "General no numerosa: base general + ahorro máxima 12.500 individual y 25.000 conjunta.",
+          "Pago mediante tarjeta, transferencia, cheque nominativo o ingreso en cuenta.",
+          "Si hay consorcio conyugal aragonés o análogo, las cantidades satisfechas se atribuyen por mitades."
+        ],
+        "requisitos": [
+          "Descendiente menor de edad con discapacidad igual o superior al 65% y con derecho al mínimo por descendientes."
+        ]
+      },
+      "resultado": "Mejora documental reproducida; no implementa una fórmula de liquidación",
+      "prueba": "pruebas.py; ocho discriminantes contra016ec72d y HEAD",
+      "reserva": "Falta cotejo regional íntegro de reformas históricas BOE-A-2024-903. Recuperadas Ley17/2023 y Ley13/2023 regionales y Ley10/2012 BOE con dos correcciones. No se ha completado búsqueda BOA de cada publicación/corrección; trabajo pendiente, no fuente inaccesible."
+    },
+    {
+      "codigo": "cataluna_donativos_lengua_catalana_occitana",
+      "archivo": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/catalunya.ts",
+      "antes": "Descripción genérica sin las magnitudes: «Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.»",
+      "despues": {
+        "cuantia": {
+          "tipo": "mixta",
+          "descripcion": "15% de donativos; límite del 10% de la cuota íntegra autonómica."
+        },
+        "limites": [
+          "15% de donativos, con límite del 10% de la cuota íntegra autonómica.",
+          "Destinatarios: entidades e instituciones del artículo 612-6; inclusión en el censo cuando proceda.",
+          "Justificación documental suficiente y comunicación de donativos por la entidad a la ATC."
+        ],
+        "requisitos": [
+          "Donativo a destinatario legalmente admitido que fomente la lengua catalana u occitana."
+        ]
+      },
+      "resultado": "Mejora documental reproducida; no implementa una fórmula de liquidación",
+      "prueba": "pruebas.py; ocho discriminantes contra016ec72d y HEAD",
+      "reserva": "Cotejo de original inicial y DL5 disponible; pendiente original DOGC Ley8/2025 para612-3 y búsqueda completa de correcciones. Remisiones estatales/históricas y órdenes ATC según condiciones; no basta el índice para probar ausencia."
+    },
+    {
+      "codigo": "cataluna_donativos_idi",
+      "archivo": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/catalunya.ts",
+      "antes": "Descripción genérica sin las magnitudes: «Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.»",
+      "despues": {
+        "cuantia": {
+          "tipo": "mixta",
+          "descripcion": "30% de donativos a entidades de investigación; límite del 10% de la cuota íntegra autonómica."
+        },
+        "limites": [
+          "30% de donativos, con límite del 10% de la cuota íntegra autonómica.",
+          "La suma con la deducción estatal por donativos no puede superar el 100% del donativo.",
+          "Universidades catalanas y centros de investigación admitidos por el artículo 612-7; justificación documental e información a la ATC."
+        ],
+        "requisitos": [
+          "Donativo a universidad o centro de investigación comprendido en el artículo 612-7."
+        ]
+      },
+      "resultado": "Mejora documental reproducida; no implementa una fórmula de liquidación",
+      "prueba": "pruebas.py; ocho discriminantes contra016ec72d y HEAD",
+      "reserva": "Cotejo de original inicial y DL5 disponible; pendiente original DOGC Ley8/2025 para612-3 y búsqueda completa de correcciones. Remisiones estatales/históricas y órdenes ATC según condiciones; no basta el índice para probar ausencia."
+    },
+    {
+      "codigo": "cataluna_donaciones_medio_ambiente_patrimonio_natural",
+      "archivo": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/catalunya.ts",
+      "antes": "Descripción genérica sin las magnitudes: «Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.»",
+      "despues": {
+        "cuantia": {
+          "tipo": "mixta",
+          "descripcion": "15% de donativos; límite del 5% de la cuota íntegra autonómica."
+        },
+        "limites": [
+          "15% de cantidades donadas, con límite del 5% de la cuota íntegra autonómica.",
+          "Fundación o asociación incluida en el censo de entidades ambientales competente.",
+          "Justificación documental suficiente e información de donativos a la ATC."
+        ],
+        "requisitos": [
+          "Donativo a entidad censada en beneficio del medio ambiente, patrimonio natural o custodia del territorio."
+        ]
+      },
+      "resultado": "Mejora documental reproducida; no implementa una fórmula de liquidación",
+      "prueba": "pruebas.py; ocho discriminantes contra016ec72d y HEAD",
+      "reserva": "Cotejo de original inicial y DL5 disponible; pendiente original DOGC Ley8/2025 para612-3 y búsqueda completa de correcciones. Remisiones estatales/históricas y órdenes ATC según condiciones; no basta el índice para probar ausencia."
+    },
+    {
+      "codigo": "cataluna_angel_inversor",
+      "archivo": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/catalunya.ts",
+      "antes": "Descripción genérica sin las magnitudes: «Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.»",
+      "despues": {
+        "cuantia": {
+          "tipo": "mixta",
+          "descripcion": "40% de la inversión, hasta 12.000 euros; 50% hasta 12.000 euros para sociedades creadas o participadas por universidades o centros de investigación."
+        },
+        "limites": [
+          "40% de cantidades invertidas, máximo 12.000 euros; régimen universidades o centros de investigación: 50%, máximo 12.000 euros.",
+          "En conjunta, los límites se aplican a cada contribuyente.",
+          "Participación con cónyuge y familiares hasta tercer grado: máximo 35%; mantenimiento mínimo tres años.",
+          "Sociedad SA, SL, SAL o SLL con domicilio social y fiscal en Catalunya, actividad económica y al menos una persona empleada a jornada completa en Régimen General.",
+          "En ampliación, constitución en los tres años anteriores y sin cotización en mercado nacional ni alternativo; facturación anual máxima de un millón de euros.",
+          "Sin funciones ejecutivas o de dirección ni relación laboral; escritura pública; mantenimiento y regularización según artículo 612-9."
+        ],
+        "requisitos": [
+          "Inversión en constitución o ampliación de capital que cumpla los requisitos del artículo 612-9."
+        ]
+      },
+      "resultado": "Mejora documental reproducida; no implementa una fórmula de liquidación",
+      "prueba": "pruebas.py; ocho discriminantes contra016ec72d y HEAD",
+      "reserva": "Cotejo de original inicial y DL5 disponible; pendiente original DOGC Ley8/2025 para612-3 y búsqueda completa de correcciones. Remisiones estatales/históricas y órdenes ATC según condiciones; no basta el índice para probar ausencia."
+    },
+    {
+      "codigo": "cataluna_tramo_autonomico_inversion_vivienda_habitual",
+      "archivo": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/catalunya.ts",
+      "antes": "Descripción genérica sin las magnitudes: «Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.»",
+      "despues": {
+        "cuantia": {
+          "tipo": "mixta",
+          "descripcion": "Régimen transitorio: 7,5% general; 15% por adecuación para discapacidad; 9% en los supuestos anteriores al 30/07/2011 previstos en el artículo 613-1."
+        },
+        "limites": [
+          "Aplicable solo bajo el régimen transitorio de la disposición transitoria decimoctava LIRPF.",
+          "7,5% general y 15% para obras de adecuación de vivienda habitual de personas con discapacidad.",
+          "9% para adquisiciones o cantidades de construcción anteriores al 30/07/2011 si se cumple alguno de los supuestos legales.",
+          "Para el 9%: edad hasta 32 años, paro al menos 183 días, discapacidad al menos 65% o unidad familiar con al menos un hijo a devengo.",
+          "Para el 9%: base imponible general más ahorro menos mínimo personal y familiar no superior a 30.000 euros; en conjunta se computa individualmente por contribuyente con derecho."
+        ],
+        "requisitos": [
+          "Derecho al régimen transitorio estatal y cumplimiento de las condiciones del artículo 613-1."
+        ]
+      },
+      "resultado": "Mejora documental reproducida; no implementa una fórmula de liquidación",
+      "prueba": "pruebas.py; ocho discriminantes contra016ec72d y HEAD",
+      "reserva": "Cotejo de original inicial y DL5 disponible; pendiente original DOGC Ley8/2025 para612-3 y búsqueda completa de correcciones. Remisiones estatales/históricas y órdenes ATC según condiciones; no basta el índice para probar ausencia. Recuperadas versiones históricas LIRPF/RIRPF2012; falta reconstrucción desde originales BOE del68.1/78/DT18 y reglas2012, no usar art68.1 actual de empresas."
+    }
+  ]
+}
