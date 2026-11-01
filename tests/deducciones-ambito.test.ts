@@ -88,24 +88,24 @@ it.each([2024, 2026])("no hereda catálogo en %s", (ejercicio) => {
 
 it("Madrid → Murcia → Madrid tampoco contamina", () => {
   const entradas = { madridHijosNacimientoAdopcion: 1 }
-  expect(
+  expect(() =>
     calcularDeduccionesAutonomicasAplicadas(entradas, {
       ejercicio: 2025,
       territorio: "madrid",
     })
-  ).toBe(721.7)
+  ).toThrow("Hechos insuficientes")
   expect(
     calcularDeduccionesAutonomicasAplicadas(entradas, {
       ejercicio: 2025,
       territorio: "murcia",
     })
   ).toBe(0)
-  expect(
+  expect(() =>
     calcularDeduccionesAutonomicasAplicadas(entradas, {
       ejercicio: 2025,
       territorio: "madrid",
     })
-  ).toBe(721.7)
+  ).toThrow("Hechos insuficientes")
 })
 it.each([0.5, -1])(
   "no usa personas fraccionarias ni negativas: %s",

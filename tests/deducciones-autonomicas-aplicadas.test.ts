@@ -1,3 +1,4 @@
+import { exigeHechosAuxiliar } from "../lib/dominio/irpf/deducciones/adaptador-auxiliar-2025"
 import { territorioDeCodigo } from "../lib/dominio/irpf/deducciones/ambito"
 import { Effect, Option } from "effect"
 import { describe, expect, it } from "@effect/vitest"
@@ -41,7 +42,7 @@ describe("deducciones autonómicas aplicadas", () => {
   })
 
   it.effect(
-    "todas las deducciones implementadas tienen control y cálculo de prueba",
+    "todas tienen control; los nueve casos ambiguos exigen hechos explícitos",
     () =>
       Effect.gen(function* () {
         const controles = DEDUCCIONES_AUTONOMICAS_2025_IMPLEMENTADAS.valor.map(
@@ -55,6 +56,18 @@ describe("deducciones autonómicas aplicadas", () => {
           Effect.sync(() => {
             const control = Option.getOrThrow(controlOption)
 
+            if (exigeHechosAuxiliar(control.codigo)) {
+              expect(() =>
+                calcularDeduccionesAutonomicasAplicadas(
+                  control.entradasPrueba,
+                  {
+                    ejercicio: 2025,
+                    territorio: territorioDeCodigo(control.codigo),
+                  }
+                )
+              ).toThrow("Hechos insuficientes")
+              return
+            }
             const importeCalculado = calcularDeduccionesAutonomicasAplicadas(
               control.entradasPrueba,
               {

@@ -60,7 +60,10 @@ describe("procedencia de Asturias y Cantabria en 2025", () => {
     const ambito = { ejercicio: 2025, territorio: "cantabria" }
     // Artículo 2.1: con 6.000 elegibles en conjunta corresponde min(10%, 600).
     expect(Math.min(6000 * 0.1, 600)).toBe(600)
-    expect(calcularDeduccionesAutonomicasAplicadas(entradas, ambito)).toBe(300)
+    // Antes devolvía 300 sin conocer modalidad; el rojo previo se conserva privadamente.
+    expect(() =>
+      calcularDeduccionesAutonomicasAplicadas(entradas, ambito)
+    ).toThrow("Hechos insuficientes")
     // La ruta de consignación no aplica esa fórmula parcial.
     expect(calcularDeduccionesConsignadas(entradas, ambito)).toBe(0)
     expect(
@@ -76,7 +79,10 @@ describe("procedencia de Asturias y Cantabria en 2025", () => {
     const ambito = { ejercicio: 2025, territorio: "cantabria" }
     const entradas = { [`${codigo}:cumple`]: true, [`${codigo}:unidades`]: 1 }
     expect(1400 / 2).toBe(700)
-    expect(calcularDeduccionesAutonomicasAplicadas(entradas, ambito)).toBe(1400)
+    // Antes devolvía 1.400 sin titulares ni modalidad.
+    expect(() =>
+      calcularDeduccionesAutonomicasAplicadas(entradas, ambito)
+    ).toThrow("Hechos insuficientes")
     expect(calcularDeduccionesConsignadas(entradas, ambito)).toBe(0)
   })
 })
