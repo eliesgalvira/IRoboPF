@@ -6,29 +6,31 @@ Revisión de **351 fichas** contra los originales de los boletines autonómicos,
 
 | Lote | Comunidades | Fichas | Estado |
 | --- | --- | ---: | --- |
-| A | Andalucía, Aragón, Catalunya | 49 | Candidato integrado; revisión independiente en curso |
+| A | Andalucía, Aragón, Catalunya | 49 | Revisión recibida; rectificación y remisiones pendientes |
 | B | Asturias, Cantabria | 48 | Rectificación documental en curso; dos cambios del auxiliar pendientes |
-| C | Canarias, Illes Balears | 51 | Candidato integrado; revisión independiente en curso |
-| D | Castilla-La Mancha, Castilla y León, Extremadura | 63 | Candidato integrado; revisión independiente en curso |
-| E | Galicia, La Rioja | 49 | Candidato integrado; revisión independiente en curso |
-| F | Madrid, Murcia | 51 | Candidato integrado; revisión independiente en curso |
-| G | Comunitat Valenciana | 40 | Candidato integrado; revisión independiente en curso |
+| C | Canarias, Illes Balears | 51 | Revisión recibida; rectificación y remisiones pendientes |
+| D | Castilla-La Mancha, Castilla y León, Extremadura | 63 | Revisión recibida; rectificación y remisiones pendientes |
+| E | Galicia, La Rioja | 49 | Citas y certificado corregidos; contraste y remisiones pendientes |
+| F | Madrid, Murcia | 51 | Revisión recibida; rectificación y remisiones pendientes |
+| G | Comunitat Valenciana | 40 | Revisión recibida; rectificación y remisiones pendientes |
 
 El contrato aditivo conserva campos y valores de las fichas y muestra pendiente cuando no hay evidencia. Los tres defectos del verificador están corregidos y contrastados independientemente: coherencia del dictamen global, adquisiciones compartidas y filtrado de URL. Pasan 37 regresiones y siete casos del revisor; las diez pruebas Vitest se ejecutaron en el repositorio principal. Revisión técnica cerrada, sin aceptar todavía normas. [Contrato y uso](deducciones-2025/contrato/README.md), [dictamen independiente](deducciones-2025/revisiones/contrato-corregido/INFORME.md).
 
-**351 dictámenes candidatos recibidos; cobertura completa del censo. Ninguno aceptado todavía.** Los resultados posteriores propuestos son 252 diferencias y 99 no verificables para el alcance completo. Las diferencias incluyen omisiones de ficha: no equivalen a 252 errores de cálculo.
+**351 dictámenes candidatos y las siete revisiones independientes recibidos; cobertura completa del censo. Ningún lote aceptado íntegramente todavía.** Los autores propusieron 252 diferencias y 99 no verificables para el alcance completo. Son recuentos provisionales; las revisiones y rectificaciones se deben conciliar antes del balance final. Las diferencias incluyen omisiones de ficha: no equivalen a 252 errores de cálculo.
 
 - [Asturias y Cantabria](deducciones-2025/lotes/b/INFORME.md): dos diferencias del helper compartido y 46 no verificables con reservas. La revisión confirma esos dos defectos y detecta la inclusión incorrecta de renta igual a 8.000 euros en estudios, ya corregida con prueba. Quedan por rectificar 18 atribuciones jurídicas y las reservas concretas de la matriz. [Contraste del lote](deducciones-2025/revisiones/b/CONTRASTE.md).
-- [Andalucía, Aragón y Catalunya](deducciones-2025/lotes/a/INFORME.md): ocho correcciones documentales; los 49 dictámenes completos conservan reservas concretas de vigencia, remisiones o cálculo.
-- [Canarias e Illes Balears](deducciones-2025/lotes/c/informe.md): 51 referencias de página corregidas, 41 descripciones de consignación precisadas y restricción individual del incremento por enfermedad. Se conservan cinco discrepancias propuestas del auxiliar heredado.
-- [Castilla-La Mancha, Castilla y León y Extremadura](deducciones-2025/lotes/d/INFORME.md): 63 referencias de página corregidas; persisten 59 diferencias documentales y cuatro no verificables. La reserva sobre una incompatibilidad de vivienda CLM distingue norma y criterio administrativo.
-- [Galicia y La Rioja](deducciones-2025/lotes/e/informe.md): 49 referencias de página corregidas y precisión de la base neta de mínimos en nacimiento gallego. Persisten omisiones documentales y una reserva de contrato sobre celiaquía en conjunta; no se ha corregido ninguna cuota.
-- [Madrid y Murcia](deducciones-2025/lotes/f/informe.md): 51 referencias de página corregidas; persisten omisiones documentales y dos diferencias propuestas del helper compartido.
-- [Comunitat Valenciana](deducciones-2025/lotes/g/INFORME.md): 40 referencias de página corregidas; las 40 fichas conservan diferencias documentales y reservas normativas.
+- [Andalucía, Aragón y Catalunya](deducciones-2025/lotes/a/INFORME.md): ocho cambios previos corroborados; la revisión señala nueve diferencias documentales actuales y trabajo concreto de vigencia y remisiones. [Revisión](deducciones-2025/revisiones/a/INFORME.md).
+- [Canarias e Illes Balears](deducciones-2025/lotes/c/informe.md): 51 referencias de página corregidas, 41 descripciones de consignación precisadas y restricción individual del incremento por enfermedad. La revisión confirma cinco discrepancias del auxiliar heredado y precisa efectos temporales y remisiones pendientes. [Revisión](deducciones-2025/revisiones/c/INFORME.md).
+- [Castilla-La Mancha, Castilla y León y Extremadura](deducciones-2025/lotes/d/INFORME.md): 63 referencias de página corregidas; persisten 59 diferencias documentales y cuatro no verificables. La revisión detecta cinco artículos equivocados y mezclas de secciones, pendientes de rectificar. La incompatibilidad de vivienda CLM conserva una reserva entre norma y criterio administrativo. [Revisión](deducciones-2025/revisiones/d/INFORME.txt).
+- [Galicia y La Rioja](deducciones-2025/lotes/e/informe.md): 49 referencias de página corregidas y precisión de la base neta de mínimos en nacimiento gallego. Corregidas tres citas AEAT de deducciones vecinas, dos intervalos de páginas y la aceptación de un certificado anterior al diagnóstico. Se ha precisado el parcial por titular, conservando su bloqueo en el agregado. Pasan 159 pruebas; faltan contraste independiente de los cambios y remisiones normativas. [Correcciones](deducciones-2025/correcciones/e/CONTRASTE.md).
+- [Madrid y Murcia](deducciones-2025/lotes/f/informe.md): 51 referencias de página corregidas; la revisión confirma dos diferencias del auxiliar compartido. Persisten remisiones y un solapamiento legal en el umbral de 35.000 euros de vehículos murcianos. [Revisión](deducciones-2025/revisiones/f/INFORME.md).
+- [Comunitat Valenciana](deducciones-2025/lotes/g/INFORME.md): 40 referencias de página corregidas; la revisión precisa el límite reforzado de inversión, la lista de deducciones sujeta al 30 % y reservas temporales. Hay que rectificar comparaciones y citas y completar las descripciones y remisiones. [Revisión](deducciones-2025/revisiones/g/INFORME.md).
 
-Se han reextraído las 10.177 citas de los siete lotes y comprobado sus originales externos con ambos hashes y tamaño. El verificador central completo admite los 351 registros con CAS explícito; no hay códigos ausentes ni duplicados. Los nueve contraejemplos financieros propuestos se deben contrastar en la API concreta: no se atribuyen automáticamente a la liquidación anual, que consume importes consignados.
+Se han reextraído las 10.177 citas de los siete lotes y comprobado sus originales externos con ambos hashes y tamaño. El verificador central completo admite los 351 registros con CAS explícito; no hay códigos ausentes ni duplicados. Las revisiones confirman los nueve contraejemplos del auxiliar compartido. Su corrección requiere representar los hechos que faltan en la API: no se atribuyen automáticamente a la liquidación anual, que consume importes consignados.
 
-El contrato admite publicaciones primarias clasificadas como reforma o corrección, sin reclasificarlas como norma inicial. También distingue una URL oficial de una ruta local y el pie editorial del manual de su fecha de publicación no acreditada. Pasan 44 regresiones del consumidor; el cambio de categorías normativas está corroborado por la revisión B. Las precisiones de URL y fecha se contrastan en la revisión A.
+El contrato admite publicaciones primarias clasificadas como reforma o corrección, sin reclasificarlas como norma inicial. También distingue una URL oficial de una ruta local y el pie editorial del manual de su fecha de publicación no acreditada. Pasan 44 regresiones del consumidor; el cambio de categorías normativas está corroborado por la revisión B. La revisión A corroboró los positivos de URL y fecha y encontró dos defectos adicionales: credenciales dentro de reservas y fecha nula normativa admitida por el schema aislado. Están corregidos, con 47 regresiones y contraste nuevo pendiente. [Arreglo acotado](deducciones-2025/correcciones/contrato-url-fecha/CONTRASTE.md).
+
+Se han comprobado también las 425 citas complementarias de las siete revisiones. La reextracción no basta para atribuir una cita al artículo correcto; esa pertenencia y la vigencia se contrastan por separado.
 
 Pendiente no significa «no verificable». Las auditorías históricas sirven de punto de partida, no de validación automática. Los originales nuevos se conservan en el almacén externo y se mantiene compatible la forma de las fichas.
 
