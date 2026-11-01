@@ -1,0 +1,47 @@
+
+ RUN  v4.1.5 /home/local/.ws/worktrees/IRoboPF/t3-a7121849/.cache/redondeo/stage
+
+ ❯ tests/calculo-salario-legacy.test.ts (8 tests | 1 failed | 1 skipped) 528ms
+     × mantiene la compatibilidad 2012-2025 contra puntos representativos del detalle anual canónico 283ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/calculo-salario-legacy.test.ts > calcularSalarioLegacy > mantiene la compatibilidad 2012-2025 contra puntos representativos del detalle anual canónico
+AssertionError: expected { …(6) } to deeply equal { …(6) }
+
+- Expected
++ Received
+
+@@ -2,7 +2,7 @@
+    "costeLaboralCentimos": 2365200,
+    "cotizacionEmpresarialCentimos": 565200,
+    "cotizacionTrabajadorCentimos": 114300,
+    "irpfFinalCentimos": 193522,
+    "salarioBrutoAnualCentimos": 1800000,
+-   "salarioNetoAnualCentimos": 1492178,
++   "salarioNetoAnualCentimos": 1492179,
+  }
+
+ ❯ Array.<anonymous> tests/calculo-salario-legacy.test.ts:58:46
+     56|       })
+     57|
+     58|       expect(sinPrecisionDecimal(resultado)).toEqual({
+       |                                              ^
+     59|         salarioBrutoAnualCentimos: salarioBrutoEuros * 100,
+     60|         cotizacionEmpresarialCentimos: centimosDesdeCeldaEuros(
+ ❯ next ../../../../../../../Repos/IRoboPF/node_modules/effect/src/internal/effect.ts:1276:25
+ ❯ Object.~effect/Effect/evaluate ../../../../../../../Repos/IRoboPF/node_modules/effect/src/internal/core.ts:531:30
+ ❯ FiberImpl.runLoop ../../../../../../../Repos/IRoboPF/node_modules/effect/src/internal/effect.ts:633:39
+ ❯ runLoop ../../../../../../../Repos/IRoboPF/node_modules/effect/src/internal/effect.ts:593:22
+ ❯ evaluate ../../../../../../../Repos/IRoboPF/node_modules/effect/src/internal/effect.ts:916:12
+ ❯ MixedSchedulerDispatcher.runTasks ../../../../../../../Repos/IRoboPF/node_modules/effect/src/Scheduler.ts:161:16
+ ❯ runTasks ../../../../../../../Repos/IRoboPF/node_modules/effect/src/Scheduler.ts:150:9
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 6 passed | 1 skipped (8)
+   Start at  15:10:46
+   Duration  1.44s (transform 472ms, setup 0ms, import 784ms, tests 528ms, environment 0ms)
+
