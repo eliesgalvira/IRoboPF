@@ -1,3 +1,4 @@
+import { directorioObjetos } from "../../lib/procedencia/io.mjs"
 import {
   readFileSync,
   writeFileSync,
@@ -161,12 +162,12 @@ export function generar(
     }),
     unidad: p.unidad,
   }))
-  mkdirSync(resolve(destino, "objetos"), { recursive: true })
+  mkdirSync(directorioObjetos(destino), { recursive: true })
   function guardar(bytes) {
     if (bytes.length >= 10_000_000)
       throw new Error("Presupuesto de archivo excedido")
     const revision = hash(bytes)
-    const ruta = resolve(destino, "objetos", revision)
+    const ruta = resolve(directorioObjetos(destino), revision)
     if (existsSync(ruta) && hash(readFileSync(ruta)) !== revision)
       throw new Error("Objeto existente corrupto")
     if (!existsSync(ruta)) writeFileSync(ruta, bytes, { flag: "wx" })

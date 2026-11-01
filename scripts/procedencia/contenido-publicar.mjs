@@ -14,7 +14,7 @@ import {
 } from "node:fs"
 import { resolve } from "node:path"
 import { createHash, randomUUID } from "node:crypto"
-import { guardarExterno } from "../../lib/procedencia/io.mjs"
+import { guardarExterno, directorioObjetos } from "../../lib/procedencia/io.mjs"
 import { gzipSync } from "node:zlib"
 import { Schema } from "effect"
 import { Snapshot } from "../../lib/procedencia/modelo.ts"
@@ -244,12 +244,12 @@ export async function publicar(
   // Primero objetos externos completos; el registro visible se cambia al final.
   for (const descriptor of externos)
     guardarExterno(descriptor, objetos.get(descriptor.hash))
-  mkdirSync(resolve(destino, "objetos"), { recursive: true })
+  mkdirSync(directorioObjetos(destino), { recursive: true })
   for (const [h, bytes] of objetos) {
     if (externos.some((e) => e.hash === h)) continue
     if (bytes.length > 10_000_000)
       throw new Error("CAS externo no resoluble: objeto excede 10 MB")
-    const ruta = resolve(destino, "objetos", h)
+    const ruta = resolve(directorioObjetos(destino), h)
     if (!existsSync(ruta)) escribirDurable(ruta, bytes)
     const real = readFileSync(ruta)
     if (hash(real) !== h || real.length !== bytes.length)
@@ -258,10 +258,10 @@ export async function publicar(
   verificarContenido(snapshot, destino)
   const bytes = Buffer.from(JSON.stringify(snapshot))
   const id = hash(bytes)
-  const ruta = resolve(destino, "objetos", id)
+  const ruta = resolve(directorioObjetos(destino), id)
   if (!existsSync(ruta)) escribirDurable(ruta, bytes)
   if (hash(readFileSync(ruta)) !== id) throw new Error("Snapshot corrupto")
-  const fdObjetos = openSync(resolve(destino, "objetos"), "r")
+  const fdObjetos = openSync(directorioObjetos(destino), "r")
   try {
     fsyncSync(fdObjetos)
   } finally {

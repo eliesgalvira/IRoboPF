@@ -2,6 +2,7 @@ import { describe, expect, it } from "@effect/vitest"
 import { renderToStaticMarkup } from "react-dom/server"
 import {
   mkdtempSync,
+  directorioObjetos,
   readFileSync,
   writeFileSync,
   mkdirSync,
@@ -432,13 +433,13 @@ describe("contenido versionado", () => {
       resolve(raiz, "snapshots.json")
     )
     cpSync(
-      resolve(directorioContenido, "objetos", snapshotId),
+      resolve(directorioObjetos(), snapshotId),
       resolve(raiz, "objetos", snapshotId)
     )
     const s = leerSnapshot(snapshotId)
     if (s === null) throw new Error("Fixture ausente")
     const p = s.paquetes[0]
-    const raw = readFileSync(resolve(directorioContenido, "objetos", p.indice))
+    const raw = readFileSync(resolve(directorioObjetos(), p.indice))
     writeFileSync(resolve(raiz, "objetos", p.indice), raw)
     const indice: Array<{ id: string; revision: string }> = JSON.parse(
       raw.toString("utf8")

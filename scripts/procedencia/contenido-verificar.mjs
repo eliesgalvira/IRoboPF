@@ -179,7 +179,7 @@ export function verificarContenido(snapshot, raiz) {
     if (prefijos.has(paquete.prefijo)) throw new Error("Paquete duplicado")
     prefijos.add(paquete.prefijo)
     const grupo = leerPaquete(snapshot, paquete.prefijo, raiz)
-    const raw = readFileSync(resolve(raiz, "objetos", paquete.indice))
+    const raw = objeto(raiz, paquete.indice)
     if (hash(raw) !== paquete.indice) throw new Error("Índice corrupto")
     const indice = Schema.decodeUnknownSync(
       Schema.fromJsonString(Schema.Array(Referencia))
@@ -204,13 +204,11 @@ export function verificarContenido(snapshot, raiz) {
   if (entradas.length !== snapshot.cantidad)
     throw new Error("Conteo incorrecto")
   // Cada snapshot se coteja con su propio artefacto, nunca con el actual.
-  const datosBytes = readFileSync(
-    resolve(raiz, "objetos", snapshot.versiones.datos)
-  )
+  const datosBytes = objeto(raiz, snapshot.versiones.datos)
   if (hash(datosBytes) !== snapshot.versiones.datos)
     throw new Error("Inventario histórico corrupto")
   const { files, manifest } = readArtifactBytes(
-    readFileSync(resolve(raiz, "objetos", snapshot.inventario)),
+    objeto(raiz, snapshot.inventario),
     datosBytes
   )
   if (

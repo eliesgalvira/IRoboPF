@@ -5,6 +5,7 @@ import { Schema } from "effect"
 import { CatalogoRastro } from "../../lib/procedencia/rastro-anual.ts"
 import {
   leerSnapshot,
+  objeto,
   resolver,
   directorioContenido,
 } from "../../lib/procedencia/almacen.ts"
@@ -44,7 +45,7 @@ export function verificarRastroGenerado(
     !snapshot.auxiliares.includes(catalogoSha256)
   )
     throw new Error("Bindings distintos del catálogo conservado")
-  const conservado = readFileSync(resolve(raiz, "objetos", catalogoSha256))
+  const conservado = objeto(raiz, catalogoSha256)
   if (hash(conservado) !== catalogoSha256)
     throw new Error("Catálogo conservado corrupto")
   if (puntos.length !== catalogo.bindings.length)
@@ -69,10 +70,7 @@ export function verificarRastroGenerado(
   }
   for (const f of fuentes) {
     const h = hash(f.bytes)
-    if (
-      !snapshot.auxiliares.includes(h) ||
-      hash(readFileSync(resolve(raiz, "objetos", h))) !== h
-    )
+    if (!snapshot.auxiliares.includes(h) || hash(objeto(raiz, h)) !== h)
       throw new Error("Fuente instrumentada no conservada")
   }
   return {
