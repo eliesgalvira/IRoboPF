@@ -15,7 +15,17 @@ export const ASTURIAS_ACOGIMIENTO_MAYORES_65_2025 = fichaImplementada(
     "500 euros por persona acogida",
     "Base imponible general + ahorro: máximo 26.000 euros individual y 37.000 conjunta",
   ],
-  [90, 91]
+  [90, 91],
+  ["importeBase", "cumpleRequisitosYLimites"],
+  [
+    "1. El contribuyente podrá deducir 500 euros por cada persona mayor de 65 años que conviva con él durante más de 183 días al año en régimen de acogimiento sin contraprestación.",
+    "2. La presente deducción no será de aplicación cuando:",
+    "a) El acogedor o acogido perciban ayudas o subvenciones del Principado de Asturias por causa del acogimiento.",
+    "b) El acogido esté ligado al contribuyente por un vínculo de parentesco de consanguinidad o de afinidad de grado igual o inferior al tercero.",
+    "3. Sólo tendrá derecho a esta deducción el contribuyente cuya base imponible no resulte superior a 26.000 euros en tributación individual ni a 37.000 euros en tributación conjunta.",
+    "4. Cuando el sujeto acogido conviva con más de un contribuyente, el importe de la deducción se prorrateará por partes iguales entre los contribuyentes que convivan con el acogido y se aplicará únicamente en la declaración de aquéllos que cumplan las condiciones establecidas para ser beneficiarios de la misma.",
+    "5. El contribuyente que desee gozar de la deducción deberá estar en posesión del documento acreditativo del correspondiente acogimiento no remunerado, expedido por la Consejería competente en materia de asuntos sociales.",
+  ]
 )
 
 export const ASTURIAS_ARRENDAMIENTO_VIVIENDA_HABITUAL_2025 = fichaImplementada(
@@ -33,7 +43,30 @@ export const ASTURIAS_ARRENDAMIENTO_VIVIENDA_HABITUAL_2025 = fichaImplementada(
     "Jóvenes hasta 35, familias numerosas, monoparentales, víctimas de violencia de género o despoblamiento: 30%, máximo 1.500 euros",
     "Base imponible general + ahorro: máximo 35.000 euros individual y 45.000 conjunta",
   ],
-  [93, 94, 95]
+  [93, 94, 95],
+  ["importeBase", "cumpleRequisitosYLimites"],
+  [
+    "1. El contribuyente podrá deducirse el 10 por ciento de las cantidades satisfechas en el período impositivo por arrendamiento de la vivienda habitual, con un máximo de 500 euros y siempre que la base imponible no exceda de 35.000 euros en tributación individual ni de 45.000 euros en tributación conjunta.",
+    "2. Siempre que la base imponible no exceda de 35.000 euros en tributación individual ni de 45.000 euros en tributación conjunta, el porcentaje de deducción será del 30 por ciento con el límite de 1.500 euros en caso de arrendamiento de vivienda habitual por contribuyentes con residencia en concejos en riesgo de despoblamiento o en crisis demográfica, así clasificados según lo dispuesto en el Decreto 83/2025, de 23 de junio, por el que establece la zonificación demográfica y se regula el Indicador Sintético de Estado Demográfico del Principado de Asturias.",
+    "3. El porcentaje de deducción será del 30 por ciento con el límite de 1.500 euros en caso de arrendamiento de vivienda habitual por jóvenes de hasta 35 años, familias numerosas, familias monoparentales y mujeres víctimas de violencia de género, cualquiera que sea la ubicación del inmueble, siempre que la base imponible no exceda de 35.000 euros en tributación individual ni de 45.000 euros en tributación conjunta.",
+    "4. (Suprimido)",
+    "5. Las condiciones necesarias para la consideración de familia numerosa y su clasificación por categorías se determinarán con arreglo a lo establecido en la Ley 40/2003, de 18 de noviembre , de Protección a las Familias Numerosas.",
+    "6. A los efectos de la presente deducción, se consideran miembros de familias monoparentales a las unidades familiares que cumplan los requisitos previstos en el artículo 12.",
+    "7. Cuando dos o más contribuyentes tengan derecho a la aplicación de esta deducción respecto de los mismos bienes para un mismo período impositivo, el importe máximo de la deducción se prorrateará entre ellos por partes iguales, aplicándose el beneficio fiscal únicamente en la declaración de aquéllos que cumplan las condiciones establecidas para ser beneficiarios de la misma.",
+    "Familia numerosa: título oficial y categorías de la Ley 40/2003; especial con cinco o más hijos o cuatro en los supuestos legales, incluidos los de ingresos por miembro no superiores al 75% del IPREM. Cada hijo con discapacidad o incapacidad para trabajar computa como dos para la categoría. Se mantienen las equiparaciones propias expresas de esta deducción.",
+    "Para la condición de familia monoparental se aplican también las siguientes reglas del artículo 12:",
+    "1. Podrá aplicar una deducción de 500 euros todo contribuyente que tenga a su cargo descendientes, siempre que no conviva con cualquier otra persona ajena a los citados descendientes, salvo que se trate de ascendientes que generen el derecho a la aplicación del mínimo por ascendientes establecido en el artículo 59 de la Ley 35/2006, de 28 de noviembre , del Impuesto sobre la Renta de las Personas Físicas y de modificación parcial de las leyes de los Impuestos sobre Sociedades, sobre la Renta de no Residentes y sobre el Patrimonio.",
+    "2. Se considerarán descendientes a los efectos de la presente deducción:",
+    "a) Los hijos menores de edad, tanto por relación de paternidad como de adopción, siempre que convivan con el contribuyente y no tengan rentas anuales, excluidas las exentas, superiores a 8.000 euros.",
+    "b) Los hijos mayores de edad con discapacidad, tanto por relación de paternidad como de adopción, siempre que convivan con el contribuyente y no tengan rentas anuales, excluidas las exentas, superiores a 8.000 euros.",
+    "c) Los descendientes a que se refieren las letras a) y b) anteriores que, sin convivir con el contribuyente, dependan económicamente de él y estén internados en centros especializados.",
+    "3. Se asimilarán a descendientes aquellas personas vinculadas al contribuyente por razón de tutela y acogimiento, en los términos previstos en la legislación civil aplicable.",
+    "4. En caso de convivencia con descendientes que no generen derecho a deducción, no se perderá el derecho a la misma siempre y cuando las rentas anuales de aquél, excluidas las exentas, no sean superiores a 8.000 euros.",
+    "5. Sólo tendrá derecho a esta deducción el contribuyente cuya base imponible no resulte superior a 45.000 euros. No tendrán derecho a deducir cantidad alguna por esta vía los contribuyentes cuya suma de renta del período y anualidades por alimentos exentas excedan de 45.000 euros.",
+    "6. La presente deducción no resultará aplicable a los supuestos de custodia compartida.",
+    "7. Cuando a lo largo del ejercicio se lleve a cabo una alteración de la situación familiar por cualquier causa, a efectos de aplicación de la deducción, se entenderá que ha existido convivencia cuando tal situación se haya producido durante al menos 183 días al año.",
+    "El mínimo por descendientes exige edad inferior a 25 años o discapacidad cualquiera que sea la edad, convivencia o dependencia asimilada y rentas anuales, excluidas las exentas, no superiores a 8.000 euros; no procede si presenta declaración con rentas superiores a 1.800 euros. Se aplican las reglas de reparto y prioridad de grado de los artículos 58 a 61 LIRPF, salvo ampliación o regla especial expresa de esta deducción.",
+  ]
 )
 
 export const ASTURIAS_FAMILIAS_NUMEROSAS_2025 = fichaImplementada(
@@ -47,7 +80,17 @@ export const ASTURIAS_FAMILIAS_NUMEROSAS_2025 = fichaImplementada(
       "1.000 euros categoría general; 2.000 euros categoría especial",
   },
   ["1.000 euros para categoría general", "2.000 euros para categoría especial"],
-  [96, 97]
+  [96, 97],
+  ["importeBase", "cumpleRequisitosYLimites"],
+  [
+    "1. Los contribuyentes que formen parte de una unidad familiar que, a fecha de devengo del impuesto, ostente el título de familia numerosa expedido por la autoridad competente en materia de servicios sociales, tendrán derecho a una deducción de:",
+    "a) 1000 euros para familias numerosas de categoría general.",
+    "b) 2000 euros para familias numerosas de categoría especial.",
+    "Se equiparan a familia numerosa de categoría general, a los efectos de la presente deducción, las familias que a fecha de devengo del impuesto estén constituidas por uno o dos ascendientes con dos hijos, sean o no comunes. En este supuesto solo tendrá derecho a esta deducción el contribuyente cuya base imponible no resulte superior a 35 000 euros en tributación individual ni a 45 000 euros en tributación conjunta.",
+    "2. Las condiciones necesarias para la consideración de familia numerosa y su clasificación por categorías se determinarán con arreglo a lo establecido en la Ley 40/2003, de 18 de noviembre , de Protección a las Familias Numerosas.",
+    "3. La deducción únicamente resultará aplicable en los supuestos de convivencia del contribuyente con el resto de la unidad familiar. Cuando exista más de un contribuyente con derecho a la aplicación de la deducción y éstos realicen declaración individual del impuesto, la deducción se prorrateará por partes iguales, aplicándose el beneficio fiscal únicamente en la declaración de aquéllos que cumplan las condiciones establecidas para ser beneficiarios de la misma. Las anteriores circunstancias se entenderán referidas a la fecha de devengo del impuesto.",
+    "Familia numerosa: título oficial y categorías de la Ley 40/2003; especial con cinco o más hijos o cuatro en los supuestos legales, incluidos los de ingresos por miembro no superiores al 75% del IPREM. Cada hijo con discapacidad o incapacidad para trabajar computa como dos para la categoría. Se mantienen las equiparaciones propias expresas de esta deducción.",
+  ]
 )
 
 export const ASTURIAS_CENTROS_CERO_TRES_2025 = fichaImplementada(
@@ -66,7 +109,17 @@ export const ASTURIAS_CENTROS_CERO_TRES_2025 = fichaImplementada(
     "General: base imponible general + ahorro máximo 26.000 euros individual y 37.000 conjunta",
     "Despoblamiento: máximo 35.000 euros individual y 45.000 conjunta",
   ],
-  [100, 101, 102, 103]
+  [100, 101, 102, 103],
+  ["importeBase", "cumpleRequisitosYLimites"],
+  [
+    "1. Los contribuyentes podrán deducir el 15 por ciento de las cantidades satisfechas en el período impositivo en concepto de gastos de descendientes en centros de cero a tres años con el límite de 500 euros anuales por cada descendiente que no supere la citada edad.",
+    "2. El porcentaje de deducción será del 30 por ciento con un límite de 1.000 euros anuales para contribuyentes con residencia habitual en concejos en riesgo de despoblamiento o en crisis demográfica, así clasificados según lo dispuesto en el Decreto 83/2025, de 23 de junio, por el que establece la zonificación demográfica y se regula el Indicador Sintético de Estado Demográfico del Principado de Asturias.",
+    "3. Sólo tendrá derecho a esta deducción el contribuyente cuya base imponible no resulte superior a 26.000 euros en tributación individual ni a 37.000 euros en tributación conjunta. No obstante, para contribuyentes con residencia en concejos en riesgo de despoblación, los límites de base imponible serán de 35.000 en tributación individual y 45.000 euros en tributación conjunta.",
+    "4. La deducción y el límite a la misma en el período impositivo en el que el menor cumpla los tres años se calcularán de forma proporcional al número de meses en que se cumplan los requisitos previstos en el presente artículo.",
+    "5. La deducción establecida en el presente artículo deberá minorarse, por cada descendiente, en la cantidad correspondiente a las ayudas percibidas en el período impositivo procedentes del Principado de Asturias asociadas a los gastos generados por el cuidado de hijos de cero a tres años.",
+    "6. La deducción únicamente resultará aplicable cuando los progenitores, adoptantes, o tutores convivan con el menor. Cuando exista más de un contribuyente con derecho a la aplicación del beneficio fiscal, el importe de la deducción se prorrateará por partes iguales en la declaración de cada uno de ellos, aplicándose únicamente a aquellos que cumplan las condiciones establecidas para ser beneficiarios de la misma.",
+    "7. La presente deducción será incompatible con la prevista en el artículo 14 duodecies del presente texto refundido.",
+  ]
 )
 
 export const ASTURIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
@@ -94,7 +147,15 @@ export const ASTURIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       "asturias_vivienda_discapacidad:base",
       "asturias_vivienda_discapacidad:cumple",
     ],
-    ["Vivienda habitual en el Principado de Asturias."]
+    [
+      "Vivienda habitual en el Principado de Asturias.",
+      "1. Los contribuyentes que acrediten un grado de discapacidad igual o superior al 65 por ciento, con residencia habitual en el Principado de Asturias, podrán deducir el 3 por ciento de las cantidades satisfechas durante el ejercicio en la adquisición o adecuación de aquella vivienda que constituya o vaya a constituir su residencia habitual.",
+      "2. La presente deducción resultará igualmente aplicable cuando la discapacidad sea padecida por el cónyuge, ascendientes o descendientes que convivan con el contribuyente durante más de 183 días al año y que no tengan rentas anuales, incluidas las exentas, superiores a 35 000 euros.",
+      "3. La adquisición de la nueva vivienda o, en su caso, las obras e instalaciones en que la adecuación consista, deberán resultar estrictamente necesarias para la accesibilidad y comunicación sensorial, de manera que faciliten el desenvolvimiento digno y adecuado de las personas con discapacidad, extremo que habrá de ser acreditado ante la administración tributaria mediante resolución o certificado expedido por la consejería competente en materia de valoración de discapacidad.",
+      "4. La base de la deducción la constituyen las cantidades satisfechas durante el ejercicio en la adquisición o rehabilitación de la vivienda, incluyéndose los importes destinados a la amortización de préstamos hipotecarios.",
+      "5. La base máxima de esta deducción será de 15 000 euros.",
+      "6. Cuando dos o más contribuyentes tengan derecho a la aplicación de esta deducción respecto de los mismos ascendientes o descendientes para un mismo período impositivo, la base máxima de la deducción se prorrateará entre ellos por partes iguales. No obstante, cuando los contribuyentes tengan distinto grado de parentesco con el ascendiente o descendiente, la aplicación de la reducción corresponderá a los de grado más cercano.",
+    ]
   ),
   fichaImplementada(
     { estado: "implementada" },
@@ -118,7 +179,17 @@ export const ASTURIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       "asturias_vivienda_protegida:importe",
       "asturias_vivienda_protegida:cumple",
     ],
-    ["Gastos acreditados mediante factura o medio admitido en Derecho."]
+    [
+      "Gastos acreditados mediante factura o medio admitido en Derecho.",
+      "1. Los contribuyentes que adquieran o rehabiliten una vivienda habitual que tenga la consideración de protegida, conforme a la normativa estatal o autonómica en la materia, tendrán derecho a aplicar la siguiente deducción por las cantidades satisfechas durante el ejercicio en la adquisición o rehabilitación de aquella:",
+      "Hasta 5.000 euros en el ejercicio en el que se lleve a cabo la adquisición o rehabilitación.",
+      "Hasta 1.000 euros en los ejercicios sucesivos.",
+      "2. En el supuesto de que el gasto que origine el derecho a la deducción no resulte superior a los importes establecidos en el apartado anterior, el límite máximo de la deducción se fijará en la cuantía del citado gasto efectivo. El importe total de esta deducción no podrá superar en ningún caso los importes fijados en el apartado anterior.",
+      "3. La base de la deducción la constituyen las cantidades satisfechas durante el ejercicio en la adquisición o rehabilitación de la vivienda, incluyéndose los importes destinados a la amortización de préstamos hipotecarios.",
+      "4. En su caso, la acreditación documental de los gastos que generen derecho a deducción deberá realizarse mediante factura o cualquier otro medio del tráfico jurídico o económico admitido en Derecho.",
+      "5. En el supuesto en que el contribuyente carezca de cuota íntegra autonómica suficiente para aplicarse el total de la deducción en el período impositivo en que se lleve a cabo el gasto, el importe no deducido podrá aplicarse en los tres períodos impositivos siguientes hasta agotar, en su caso, el importe total de la deducción respetando lo previsto en el apartado 2. La aplicación de las cantidades pendientes de ejercicios previos se llevará a cabo después de aplicar las deducciones del ejercicio a las que el contribuyente tenga derecho.",
+      "6. Cuando dos o más contribuyentes tengan derecho a la aplicación de esta deducción respecto de los mismos bienes para un mismo período impositivo, el importe máximo de la deducción se prorrateará entre ellos por partes iguales, aplicándose el beneficio fiscal únicamente en la declaración de aquéllos que cumplan las condiciones establecidas para ser beneficiarios de la misma.",
+    ]
   ),
   fichaImplementada(
     { estado: "implementada" },
@@ -141,7 +212,13 @@ export const ASTURIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       "asturias_adopcion_internacional:unidades",
       "asturias_adopcion_internacional:cumple",
     ],
-    ["Adopción internacional de menor conforme a la Ley 54/2007."]
+    [
+      "Adopción internacional de menor conforme a la Ley 54/2007.",
+      "1. En los supuestos de adopción internacional de menores, en los términos establecidos en la Ley 54/2007, de 28 de diciembre , de Adopción internacional, el contribuyente podrá practicar una deducción de 1.500 euros por cada hijo adoptado en el período impositivo, siempre que el menor conviva con el declarante.",
+      "2. La adopción se entenderá realizada en el ejercicio impositivo en que se lleve a cabo la inscripción en el Registro Civil español. Cuando la inscripción no sea necesaria, se atenderá al período impositivo en que se produzca la resolución judicial o administrativa correspondiente.",
+      "3. Cuando exista más de un contribuyente con derecho a la aplicación de la deducción y éstos realicen declaración individual del impuesto, la deducción se prorrateará por partes iguales en la declaración de cada uno de ellos.",
+      "2. A los efectos del título I de esta ley se entiende por adopción internacional aquella en la que un menor considerado adoptable por la autoridad extranjera competente y con residencia habitual en el extranjero, es o va a ser desplazado a España por adoptantes con residencia habitual en España, bien después de su adopción en el Estado de origen, bien con la finalidad de constituir tal adopción en España.",
+    ]
   ),
   fichaImplementada(
     { estado: "implementada" },
@@ -164,7 +241,12 @@ export const ASTURIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       "asturias_partos_multiples_adopciones_misma_fecha:unidades",
       "asturias_partos_multiples_adopciones_misma_fecha:cumple",
     ],
-    ["Parto múltiple o dos o más adopciones constituidas en la misma fecha."]
+    [
+      "Parto múltiple o dos o más adopciones constituidas en la misma fecha.",
+      "1. Como consecuencia de partos múltiples o de dos o más adopciones constituidas en la misma fecha, los contribuyentes tendrán derecho a la aplicación de una deducción de 1.000 euros por hijo nacido o adoptado en el período impositivo en que se lleve a cabo el nacimiento o adopción.",
+      "2. La adopción se entenderá realizada en el ejercicio impositivo en que se lleve a cabo la inscripción en el Registro Civil español. Cuando la inscripción no sea necesaria, se atenderá al período impositivo en que se produzca la resolución judicial o administrativa correspondiente.",
+      "3. Esta deducción únicamente será de aplicación cuando el menor conviva con el progenitor o adoptante. En el supuesto de matrimonios o uniones de hecho la deducción se prorrateará por partes iguales en la declaración de cada uno de ellos cuando éstos opten por la presentación de declaración individual. Las anteriores circunstancias se entenderán referidas a la fecha de devengo del impuesto.",
+    ]
   ),
   fichaImplementada(
     { estado: "implementada" },
@@ -189,6 +271,17 @@ export const ASTURIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     ],
     [
       "Contribuyente con descendientes a cargo y sin convivencia con persona ajena a esos descendientes, salvo ascendientes con derecho al mínimo.",
+      "1. Podrá aplicar una deducción de 500 euros todo contribuyente que tenga a su cargo descendientes, siempre que no conviva con cualquier otra persona ajena a los citados descendientes, salvo que se trate de ascendientes que generen el derecho a la aplicación del mínimo por ascendientes establecido en el artículo 59 de la Ley 35/2006, de 28 de noviembre , del Impuesto sobre la Renta de las Personas Físicas y de modificación parcial de las leyes de los Impuestos sobre Sociedades, sobre la Renta de no Residentes y sobre el Patrimonio.",
+      "2. Se considerarán descendientes a los efectos de la presente deducción:",
+      "a) Los hijos menores de edad, tanto por relación de paternidad como de adopción, siempre que convivan con el contribuyente y no tengan rentas anuales, excluidas las exentas, superiores a 8.000 euros.",
+      "b) Los hijos mayores de edad con discapacidad, tanto por relación de paternidad como de adopción, siempre que convivan con el contribuyente y no tengan rentas anuales, excluidas las exentas, superiores a 8.000 euros.",
+      "c) Los descendientes a que se refieren las letras a) y b) anteriores que, sin convivir con el contribuyente, dependan económicamente de él y estén internados en centros especializados.",
+      "3. Se asimilarán a descendientes aquellas personas vinculadas al contribuyente por razón de tutela y acogimiento, en los términos previstos en la legislación civil aplicable.",
+      "4. En caso de convivencia con descendientes que no generen derecho a deducción, no se perderá el derecho a la misma siempre y cuando las rentas anuales de aquél, excluidas las exentas, no sean superiores a 8.000 euros.",
+      "5. Sólo tendrá derecho a esta deducción el contribuyente cuya base imponible no resulte superior a 45.000 euros. No tendrán derecho a deducir cantidad alguna por esta vía los contribuyentes cuya suma de renta del período y anualidades por alimentos exentas excedan de 45.000 euros.",
+      "6. La presente deducción no resultará aplicable a los supuestos de custodia compartida.",
+      "7. Cuando a lo largo del ejercicio se lleve a cabo una alteración de la situación familiar por cualquier causa, a efectos de aplicación de la deducción, se entenderá que ha existido convivencia cuando tal situación se haya producido durante al menos 183 días al año.",
+      "El mínimo por descendientes exige edad inferior a 25 años o discapacidad cualquiera que sea la edad, convivencia o dependencia asimilada y rentas anuales, excluidas las exentas, no superiores a 8.000 euros; no procede si presenta declaración con rentas superiores a 1.800 euros. Se aplican las reglas de reparto y prioridad de grado de los artículos 58 a 61 LIRPF, salvo ampliación o regla especial expresa de esta deducción.",
     ]
   ),
   fichaImplementada(
@@ -211,7 +304,11 @@ export const ASTURIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       "asturias_acogimiento_familiar_menores:importe",
       "asturias_acogimiento_familiar_menores:cumple",
     ],
-    ["Menor en régimen de acogimiento familiar."]
+    [
+      "Menor en régimen de acogimiento familiar.",
+      "1. El contribuyente podrá aplicar una deducción de 500 euros por cada menor en régimen de acogimiento familiar, con exclusión de aquéllos que tengan finalidad preadoptiva, siempre que conviva con el menor 183 días durante el período impositivo. Si el tiempo de convivencia durante el período impositivo fuera superior a 90 e inferior a 183 días, el importe de la deducción por cada menor acogido será de 250 euros.",
+      "2. Cuando exista más de un contribuyente con derecho a la aplicación de la deducción y éstos realicen declaración individual del impuesto, la deducción se prorrateará por partes iguales en la declaración de cada uno de ellos.",
+    ]
   ),
   fichaImplementada(
     { estado: "implementada" },
@@ -237,6 +334,10 @@ export const ASTURIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     ],
     [
       "Propietario de montes situados en Asturias con certificación de gestión forestal sostenible.",
+      "1. Los contribuyentes que sean propietarios de montes ubicados en el territorio de la Comunidad Autónoma y que hayan obtenido certificación de la gestión forestal sostenible otorgada por la Entidad Solicitante de la Certificación Forestal Regional del Principado de Asturias o entidad equivalente, podrán aplicar una deducción del 30 por ciento de las cantidades invertidas durante el ejercicio para la obtención de la citada certificación.",
+      "2. La base de la deducción la constituyen las cantidades invertidas durante el ejercicio en la obtención de la certificación de la gestión forestal sostenible, incluyendo todos los costes asociados al logro de la propia certificación y excluyendo las subvenciones que, en su caso, hubiese recibido el propietario de la finca para ese fin.",
+      "3. La deducción se aplicará en el ejercicio en que se obtenga la certificación de la gestión forestal sostenible y el importe máximo será de 1.000 euros por contribuyente.",
+      "4. Cuando exista más de un contribuyente con derecho a la aplicación de la deducción en relación con los mismos bienes y aquéllos realicen declaración individual del impuesto, la deducción se prorrateará por partes iguales en la declaración de cada uno de ellos.",
     ]
   ),
   fichaImplementada(
@@ -264,6 +365,20 @@ export const ASTURIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     ],
     [
       "Gastos por descendientes en Educación Primaria o Secundaria Obligatoria; también tutela y acogimiento.",
+      "1. Los contribuyentes podrán deducirse los importes destinados a la adquisición de libros de texto para sus descendientes, que hayan sido editados para Educación Primaria y Educación Secundaria Obligatoria, así como las cantidades destinadas a la adquisición de material escolar para dichos niveles educativos con los siguientes límites:",
+      "a) En las declaraciones conjuntas, los contribuyentes para los que la cantidad resultante de la suma de la base imponible general y de la base imponible del ahorro se encuentre comprendida en los tramos que se indican a continuación, podrán deducirse hasta las siguientes cuantías:",
+      "– Hasta 12 000,00 euros: 100 euros por descendiente.",
+      "– Entre 12 000,01 y 20 000,00 euros: 75 euros por descendiente.",
+      "– Entre 20 000,01 y 37 000,00 euros: 50 euros por descendiente.",
+      "b) En las declaraciones individuales, los contribuyentes para los que la cantidad resultante de la suma de la base imponible general y de la base imponible del ahorro se encuentre comprendida en los tramos que se indican a continuación, podrán deducirse hasta las siguientes cuantías:",
+      "– Hasta 6 500,00 euros: 50 euros por descendiente.",
+      "– Entre 6 500,01 y 10 000,00: euros 37,50 euros por descendiente.",
+      "– Entre 10 000,01 y 26 000,00 euros: 25 euros por descendiente.",
+      "c) En el supuesto de contribuyentes que formen parte de una unidad familiar que, a fecha de devengo del impuesto, ostente el título de familia numerosa expedido por la autoridad competente en materia de servicios sociales, el importe máximo de la deducción será de 150 euros en el supuesto de declaración conjunta y 75 euros cuando se opte por presentar declaración individual.",
+      "2. Solo tendrá derecho a esta deducción el contribuyente cuya base imponible no resulte superior a 26 000 euros en tributación individual, ni a 37 000 euros en tributación conjunta.",
+      "3. La deducción corresponderá al ascendiente que haya satisfecho las cantidades destinadas a la adquisición de los libros de texto y del material escolar. Cuando exista más de un contribuyente con derecho a la aplicación del beneficio fiscal, el importe de la deducción se prorrateará por partes iguales en la declaración de cada uno de ellos.",
+      "4. La deducción establecida en el presente artículo deberá minorarse, por cada descendiente, en la cantidad correspondiente a las becas y ayudas percibidas en el período impositivo procedentes del Principado de Asturias o de cualquier otra Administración Pública que cubra la totalidad o parte de los gastos por adquisición de los libros de texto y material escolar.",
+      "Familia numerosa: título oficial y categorías de la Ley 40/2003; especial con cinco o más hijos o cuatro en los supuestos legales, incluidos los de ingresos por miembro no superiores al 75% del IPREM. Cada hijo con discapacidad o incapacidad para trabajar computa como dos para la categoría. Se mantienen las equiparaciones propias expresas de esta deducción.",
     ]
   ),
   fichaImplementada(
@@ -288,7 +403,13 @@ export const ASTURIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       "asturias_segundo_sucesivos_hijos_concejos_despoblamiento:unidades",
       "asturias_segundo_sucesivos_hijos_concejos_despoblamiento:cumple",
     ],
-    ["Nacimiento o adopción del segundo hijo o sucesivos."]
+    [
+      "Nacimiento o adopción del segundo hijo o sucesivos.",
+      "1. El contribuyente podrá practicar una deducción de 300 euros por cada segundo hijo y sucesivos, nacido o adoptado en el período impositivo, siempre que el menor conviva con el declarante y que el mismo tenga su residencia habitual en concejos en riesgo de despoblamiento o en crisis demográfica, así clasificados según lo dispuesto en el Decreto 83/2025, de 23 de junio, por el que establece la zonificación demográfica y se regula el Indicador Sintético de Estado Demográfico del Principado de Asturias.",
+      "2. La deducción únicamente resultará aplicable en los supuestos de convivencia del contribuyente con el resto de la unidad familiar. Cuando exista más de un contribuyente con derecho a la aplicación de la deducción y estos realicen declaración individual del impuesto, la deducción se prorrateará por partes iguales en la declaración de cada uno de ellos aplicándose a aquellos que cumplan los requisitos para aplicarse el beneficio fiscal. Las anteriores circunstancias se entenderán referidas a la fecha de devengo del impuesto.",
+      "3. Solo tendrá derecho a esta deducción el contribuyente cuya base imponible no resulte superior a 35.000 euros en tributación individual ni a 45.000 euros en tributación conjunta.",
+      "4. (Suprimido)",
+    ]
   ),
   fichaImplementada(
     { estado: "implementada" },
@@ -314,7 +435,15 @@ export const ASTURIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       "asturias_autonomos_concejos_despoblamiento:unidades",
       "asturias_autonomos_concejos_despoblamiento:cumple",
     ],
-    ["Alta en RETA o mutualidad correspondiente."]
+    [
+      "Alta en RETA o mutualidad correspondiente.",
+      "1. Tendrán derecho a practicar una deducción de 1.000 euros los contribuyentes que comiencen el ejercicio de una actividad en el Principado de Asturias como trabajadores autónomos o por cuenta propia cuando su residencia habitual se ubique en concejos en riesgo de despoblamiento o en crisis demográfica, así clasificados según lo dispuesto en el Decreto 83/2025, de 23 de junio, por el que establece la zonificación demográfica y se regula el Indicador Sintético de Estado Demográfico del Principado de Asturias.",
+      "2. A efectos de la presente deducción, y con independencia de su situación de alta en el régimen especial de la Seguridad Social o en la mutualidad de previsión social correspondiente, no tendrán la consideración de trabajadores por cuenta propia o autónomos, los autónomos colaboradores ni los socios de sociedades mercantiles de capital.",
+      "3. Esta deducción se aplicará en el período impositivo en el que se produzca el inicio de la actividad, entendiendo por tal la fecha del alta en el régimen especial de la Seguridad Social o en la mutualidad de previsión social correspondiente. La situación de alta habrá de mantenerse durante un período mínimo de un año, salvo fallecimiento dentro de dicho período.",
+      "4. No podrán beneficiarse de la presente deducción quienes, en los seis meses inmediatamente anteriores a la fecha de inicio de la actividad que sirve de base a la deducción, hubieran cesado en la misma actividad. A estos efectos, se entenderá como fecha de cese en la actividad la de la baja en el régimen especial de la Seguridad Social o, en su caso, en la mutualidad correspondiente.",
+      "5. Solo tendrá derecho a esta deducción el contribuyente cuya base imponible no resulte superior a 35.000 euros en tributación individual ni a 45.000 euros en tributación conjunta. En el supuesto de tributación conjunta, si más de un contribuyente de la unidad familiar cumpliese los requisitos para la aplicación de la deducción, el importe de la misma será el resultado de multiplicar la deducción de 1.000 euros por el número de contribuyentes con derecho a deducción.",
+      "6. (Suprimido)",
+    ]
   ),
   fichaImplementada(
     { estado: "implementada" },
@@ -340,7 +469,19 @@ export const ASTURIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       "asturias_transporte_publico_despoblamiento:importe",
       "asturias_transporte_publico_despoblamiento:cumple",
     ],
-    ["Gastos acreditados por factura o medio admitido en Derecho."]
+    [
+      "Gastos acreditados por factura o medio admitido en Derecho.",
+      "1. Los contribuyentes que tengan su residencia habitual en concejos en riesgo de despoblamiento o en crisis demográfica, así clasificados según lo dispuesto en el Decreto 83/2025, de 23 de junio, por el que establece la zonificación demográfica y se regula el Indicador Sintético de Estado Demográfico del Principado de Asturias, podrán practicar una deducción por el importe de los gastos en que incurran para adquirir abonos de transporte público de carácter unipersonal y nominal, con el límite de 100 euros.",
+      "2. Adicionalmente, los contribuyentes podrán deducirse por cada descendiente que genere derecho a la aplicación del mínimo por descendientes regulado en el artículo 58 de la Ley del Impuesto y que curse estudios de bachillerato, de formación profesional o enseñanzas universitarias fuera del concejo en riesgo de despoblación, el 10 por ciento de los gastos de transporte originados con el límite de 300 euros, siempre y cuando los citados gastos se deban a la adquisición de abonos de transporte público de carácter unipersonal y nominal.",
+      "Cuando varios contribuyentes tengan distinto grado de parentesco con quien curse los estudios que originan el derecho a la deducción, solamente podrán practicar la deducción los de grado más cercano.",
+      "Cuando el descendiente conviva con más de un contribuyente con los que tenga idéntico grado de parentesco, el importe de la deducción se prorrateará entre ellos por partes iguales aplicándose la deducción en la declaración de aquellos que cumplan los requisitos establecidos.",
+      "En el supuesto de tributación conjunta, si más de un contribuyente de la unidad familiar cumpliese los requisitos para la aplicación de la deducción de hasta 100 euros, el importe de la misma será el resultado de multiplicar la deducción por el número de contribuyentes con derecho a deducción, siempre con el límite de los gastos efectivos en los que se haya incurrido.",
+      "3. En su caso, la acreditación documental de los gastos que generen derecho a deducción deberá realizarse mediante factura o cualquier otro medio del tráfico jurídico o económico admitido en Derecho.",
+      "4. Esta deducción se aplicará en el período impositivo en el que se efectúe el gasto con independencia del período de vigencia del abono adquirido.",
+      "5. Solo tendrá derecho a esta deducción el contribuyente cuya base imponible no resulte superior a 35.000 euros en tributación individual ni a 45.000 euros en tributación conjunta.",
+      "6. (Suprimido)",
+      "El mínimo por descendientes exige edad inferior a 25 años o discapacidad cualquiera que sea la edad, convivencia o dependencia asimilada y rentas anuales, excluidas las exentas, no superiores a 8.000 euros; no procede si presenta declaración con rentas superiores a 1.800 euros. Se aplican las reglas de reparto y prioridad de grado de los artículos 58 a 61 LIRPF, salvo ampliación o regla especial expresa de esta deducción.",
+    ]
   ),
   fichaImplementada(
     { estado: "implementada" },
@@ -367,7 +508,33 @@ export const ASTURIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       "asturias_formacion_trabajos_cualificados_idi:base",
       "asturias_formacion_trabajos_cualificados_idi:cumple",
     ],
-    ["Gastos de formación satisfechos por el contribuyente."]
+    [
+      "Gastos de formación satisfechos por el contribuyente.",
+      "1. Los contribuyentes que hayan incurrido en gastos de formación para el desarrollo de trabajos especialmente cualificados, relacionados directa y principalmente con actividades de investigación y desarrollo, científicas o de carácter técnico, podrán practicar en la cuota íntegra autonómica una deducción por el importe de los gastos de formación satisfechos, con el límite máximo de 2.000 euros, siempre que se cumplan las siguientes condiciones:",
+      "a) Que no hayan transcurrido más de tres años desde que el contribuyente finalizase su formación académica.",
+      "b) Que el contribuyente tenga su residencia habitual en el Principado de Asturias y la misma se mantenga durante al menos tres años.",
+      "c) Que, si la actividad se desarrolla por cuenta ajena, exista un contrato de trabajo. Si la actividad se desarrolla por cuenta propia, el contribuyente deberá figurar de alta en el régimen especial de la Seguridad Social o en la mutualidad de previsión social correspondiente.",
+      "2. Esta deducción se aplicará una sola vez, por todos los gastos en que hayan incurrido los contribuyentes durante la formación, en el período impositivo en el que se produzca la incorporación al mercado laboral, entendiendo por tal, para el supuesto de inicio de actividades por cuenta ajena, la fecha de firma del contrato de trabajo y, para el inicio de actividades por cuenta propia, la fecha del alta en el régimen especial de la Seguridad Social o en la mutualidad de previsión social correspondiente. En este último supuesto, la situación de alta habrá de mantenerse durante un período mínimo de un año, salvo fallecimiento dentro de dicho período.",
+      "3. A los efectos de la presente deducción, tendrán la consideración de trabajos especialmente cualificados aquellos realizados por personas trabajadoras con una categoría profesional comprendida en el Grupo de Cotización 1 del Régimen General de la Seguridad Social, conforme a lo dispuesto por la normativa vigente al efecto, relacionados, directa y principalmente, con las siguientes actividades:",
+      "a) Actividades de investigación y desarrollo, comprendiendo:",
+      "1.º La “investigación básica” o la indagación original y planificada que persiga descubrir nuevos conocimientos y una superior comprensión en el ámbito científico o tecnológico, desvinculada de fines comerciales o industriales.",
+      "2.º La “investigación aplicada” o la indagación original y planificada que persiga la obtención de nuevos conocimientos con el propósito de que los mismos puedan ser utilizados en el desarrollo de nuevos productos, procesos o servicios, o en la mejora significativa de los ya existentes.",
+      "3.º El “desarrollo experimental” o la materialización de los resultados de la investigación aplicada en un plan, esquema o diseño de nuevos productos, procesos o servicios, o su mejora significativa, así como la creación de prototipos no comercializables y los proyectos de demostración inicial o proyectos piloto, siempre que los mismos no puedan convertirse o utilizarse para aplicaciones industriales o para su explotación comercial.",
+      "4.º La concepción de “software” avanzado, entendiendo como tal el que suponga la implementación de soluciones innovadoras. No se incluyen a estos efectos las actividades habituales o rutinarias relacionadas con el “software”. En cualquier caso, este supuesto deberá contar con informe favorable por parte de los órganos de la Administración del Principado de Asturias con competencias en este ámbito.",
+      "b) Actividades científicas y de carácter técnico, comprendiendo:",
+      "1.º La “innovación tecnológica” entendida como aquella actividad cuyo resultado sea un avance tecnológico en la obtención de nuevos productos o procesos de producción o mejoras sustanciales de los ya existentes. Se considerarán nuevos aquellos productos o procesos cuyas características o aplicaciones, desde el punto de vista tecnológico, difieran sustancialmente de las existentes con anterioridad. Esta actividad incluirá la materialización de los nuevos productos o procesos en un plan, esquema o diseño, así como la elaboración de estudios de viabilidad y la creación de prototipos y los proyectos de demostración inicial o proyectos piloto, incluso los que puedan convertirse o utilizarse para aplicaciones industriales o para su explotación comercial. También se incluyen las actividades de diagnóstico tecnológico tendentes a la identificación, la definición y la orientación de soluciones tecnológicas avanzadas.",
+      "2.º Las actividades relacionadas con proyectos dentro del ámbito del desarrollo sostenible y de la protección y mejora medioambiental que tengan como objeto:",
+      "La minimización, reutilización y valoración de residuos.",
+      "La movilidad y el transporte sostenible.",
+      "La regeneración medioambiental de espacios naturales consecuencia de la ejecución de medidas compensatorias o de otro tipo de actuaciones voluntarias.",
+      "La minimización del consumo de agua y su depuración.",
+      "El empleo de energías renovables y eficiencia energética.",
+      "3.º Las actividades que se presten para entidades que se consideren “empresas innovadoras” por cumplir los requisitos establecidos en la normativa comunitaria.",
+      "4.º Las actividades que se presten a entidades que cumplan con la finalidad de promoción empresarial y reforzamiento de la actividad productiva. Se entenderá que cumplen dicha finalidad las empresas que implementen proyectos empresariales relevantes que supongan el desarrollo de nuevas actividades, productos o mercados, la ampliación o consolidación de otros existentes o la creación de empleos estables. A estos efectos, la entidad para la que preste servicios la persona trabajadora deberá justificar el cumplimiento de la finalidad de promoción empresarial y reforzamiento de la actividad productiva resultante de su actividad.",
+      "5.º Las actividades que se presten para entidades que se encuentren en la etapa inicial de desarrollo de un nuevo proyecto empresarial o en su fase de desarrollo, siempre que se trate de microempresas y pequeñas y medianas empresas con alto potencial de crecimiento.",
+      "4. La presente deducción será incompatible con la prevista en el artículo 14 octies del presente texto refundido.",
+      "La empresa innovadora debe cumplir una de las alternativas de la definición 80 del Reglamento651/2014, sustituida por Reglamento2023/1315: evaluación externa de innovación con riesgo tecnológico o industrial; costes de I+D de al menos el 10% de costes de explotación en el período previsto; sello de excelencia o inversión del Consejo Europeo de Innovación en los tres años anteriores; o participación reciente en las iniciativas europeas enumeradas en esa definición. No basta una autodenominación innovadora.",
+    ]
   ),
   fichaImplementada(
     { estado: "implementada" },
@@ -396,6 +563,38 @@ export const ASTURIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     ],
     [
       "Traslado de domicilio fiscal al Principado de Asturias por motivos laborales.",
+      "1. Los contribuyentes que trasladen su domicilio fiscal al Principado de Asturias por motivos laborales, podrán practicar en la cuota íntegra autonómica una deducción del 15 por ciento de los gastos que se generen como consecuencia del citado traslado, con el límite de 1000 euros, siempre que se cumplan las siguientes condiciones:",
+      "a) Que el contribuyente no haya tenido su residencia habitual en el Principado de Asturias durante los cuatro años anteriores a la fecha del traslado por motivos laborales.",
+      "b) Que el contribuyente fije su residencia habitual en el Principado de Asturias y la misma se mantenga durante al menos tres años adicionales al del propio traslado.",
+      "c) Que, en el supuesto de trabajos por cuenta ajena, exista un contrato de trabajo.",
+      "d) Que, en el supuesto de trabajos por cuenta propia, el contribuyente se encuentre en situación de alta en el régimen especial de la Seguridad Social o en la mutualidad de previsión social correspondiente.",
+      "En el supuesto en que el contribuyente desarrolle trabajos especialmente cualificados, relacionados directa y principalmente con actividades de investigación y desarrollo, científicas o de carácter técnico, el límite de la deducción será de 2000 euros.",
+      "2. Esta deducción se aplicará en el período impositivo en el que se produzca el traslado de domicilio por motivos laborales y durante los tres ejercicios posteriores.",
+      "3. A los efectos de la presente deducción, se considerarán gastos generados como consecuencia del traslado de domicilio los siguientes:",
+      "a) Gastos de viaje y mudanza necesarios para el establecimiento del contribuyente y los miembros de su unidad familiar en el Principado de Asturias.",
+      "b) Gastos derivados de la escolarización en el Principado de Asturias de los descendientes del contribuyente.",
+      "c) Gastos por adquisición o arrendamiento de vivienda habitual del contribuyente en el Principado de Asturias, incluyéndose a estos efectos los gastos originados por la contratación de servicios o suministros vinculados a la misma.",
+      "4. A los efectos de la presente deducción, tendrán la consideración de trabajos especialmente cualificados los definidos en el apartado 3 del artículo 14 septies.",
+      "5. Para los trabajadores que desarrollen trabajos especialmente cualificados, relacionados directa y principalmente con actividades de investigación y desarrollo, científicas o de carácter técnico, la presente deducción será incompatible con la prevista en el artículo 14 septies del presente texto refundido.",
+      "Para el límite de trabajos especialmente cualificados, la remisión al artículo 14 septies.3 exige grupo de cotización 1 y las actividades siguientes:",
+      "3. A los efectos de la presente deducción, tendrán la consideración de trabajos especialmente cualificados aquellos realizados por personas trabajadoras con una categoría profesional comprendida en el Grupo de Cotización 1 del Régimen General de la Seguridad Social, conforme a lo dispuesto por la normativa vigente al efecto, relacionados, directa y principalmente, con las siguientes actividades:",
+      "a) Actividades de investigación y desarrollo, comprendiendo:",
+      "1.º La “investigación básica” o la indagación original y planificada que persiga descubrir nuevos conocimientos y una superior comprensión en el ámbito científico o tecnológico, desvinculada de fines comerciales o industriales.",
+      "2.º La “investigación aplicada” o la indagación original y planificada que persiga la obtención de nuevos conocimientos con el propósito de que los mismos puedan ser utilizados en el desarrollo de nuevos productos, procesos o servicios, o en la mejora significativa de los ya existentes.",
+      "3.º El “desarrollo experimental” o la materialización de los resultados de la investigación aplicada en un plan, esquema o diseño de nuevos productos, procesos o servicios, o su mejora significativa, así como la creación de prototipos no comercializables y los proyectos de demostración inicial o proyectos piloto, siempre que los mismos no puedan convertirse o utilizarse para aplicaciones industriales o para su explotación comercial.",
+      "4.º La concepción de “software” avanzado, entendiendo como tal el que suponga la implementación de soluciones innovadoras. No se incluyen a estos efectos las actividades habituales o rutinarias relacionadas con el “software”. En cualquier caso, este supuesto deberá contar con informe favorable por parte de los órganos de la Administración del Principado de Asturias con competencias en este ámbito.",
+      "b) Actividades científicas y de carácter técnico, comprendiendo:",
+      "1.º La “innovación tecnológica” entendida como aquella actividad cuyo resultado sea un avance tecnológico en la obtención de nuevos productos o procesos de producción o mejoras sustanciales de los ya existentes. Se considerarán nuevos aquellos productos o procesos cuyas características o aplicaciones, desde el punto de vista tecnológico, difieran sustancialmente de las existentes con anterioridad. Esta actividad incluirá la materialización de los nuevos productos o procesos en un plan, esquema o diseño, así como la elaboración de estudios de viabilidad y la creación de prototipos y los proyectos de demostración inicial o proyectos piloto, incluso los que puedan convertirse o utilizarse para aplicaciones industriales o para su explotación comercial. También se incluyen las actividades de diagnóstico tecnológico tendentes a la identificación, la definición y la orientación de soluciones tecnológicas avanzadas.",
+      "2.º Las actividades relacionadas con proyectos dentro del ámbito del desarrollo sostenible y de la protección y mejora medioambiental que tengan como objeto:",
+      "La minimización, reutilización y valoración de residuos.",
+      "La movilidad y el transporte sostenible.",
+      "La regeneración medioambiental de espacios naturales consecuencia de la ejecución de medidas compensatorias o de otro tipo de actuaciones voluntarias.",
+      "La minimización del consumo de agua y su depuración.",
+      "El empleo de energías renovables y eficiencia energética.",
+      "3.º Las actividades que se presten para entidades que se consideren “empresas innovadoras” por cumplir los requisitos establecidos en la normativa comunitaria.",
+      "4.º Las actividades que se presten a entidades que cumplan con la finalidad de promoción empresarial y reforzamiento de la actividad productiva. Se entenderá que cumplen dicha finalidad las empresas que implementen proyectos empresariales relevantes que supongan el desarrollo de nuevas actividades, productos o mercados, la ampliación o consolidación de otros existentes o la creación de empleos estables. A estos efectos, la entidad para la que preste servicios la persona trabajadora deberá justificar el cumplimiento de la finalidad de promoción empresarial y reforzamiento de la actividad productiva resultante de su actividad.",
+      "5.º Las actividades que se presten para entidades que se encuentren en la etapa inicial de desarrollo de un nuevo proyecto empresarial o en su fase de desarrollo, siempre que se trate de microempresas y pequeñas y medianas empresas con alto potencial de crecimiento.",
+      "La empresa innovadora debe cumplir una de las alternativas de la definición 80 del Reglamento651/2014, sustituida por Reglamento2023/1315: evaluación externa de innovación con riesgo tecnológico o industrial; costes de I+D de al menos el 10% de costes de explotación en el período previsto; sello de excelencia o inversión del Consejo Europeo de Innovación en los tres años anteriores; o participación reciente en las iniciativas europeas enumeradas en esa definición. No basta una autodenominación innovadora.",
     ]
   ),
   fichaImplementada(
@@ -421,7 +620,31 @@ export const ASTURIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       "asturias_vivienda_determinados_colectivos:importe",
       "asturias_vivienda_determinados_colectivos:cumple",
     ],
-    ["Gastos acreditados mediante factura o medio admitido en Derecho."]
+    [
+      "Gastos acreditados mediante factura o medio admitido en Derecho.",
+      "1. Los contribuyentes que adquieran o rehabiliten una vivienda que vaya a constituir su vivienda habitual y que se ubique en concejos en riesgo de despoblamiento o en crisis demográfica, así clasificados según lo dispuesto en el Decreto 83/2025, de 23 de junio, por el que establece la zonificación demográfica y se regula el Indicador Sintético de Estado Demográfico del Principado de Asturias, podrán aplicar una deducción del 5 por ciento de las cantidades satisfechas durante el ejercicio en concepto de adquisición o rehabilitación de la citada vivienda. El porcentaje de deducción será del 10 por ciento cuando la adquisición o rehabilitación se lleve a cabo por contribuyentes de hasta 35 años, así como por los miembros de familias numerosas o monoparentales.",
+      "2. Los contribuyentes de hasta 35 años de edad que adquieran o rehabiliten inmuebles que vaya a constituir su vivienda habitual y que no se ubique en un concejo en riesgo de despoblamiento o en crisis demográfica, podrán aplicar una deducción del 5 por ciento de las cantidades satisfechas durante el ejercicio en concepto de adquisición o rehabilitación de la citada vivienda siempre y cuando el valor de los mismos no exceda de 250.000 euros.",
+      "3. En el supuesto previsto en el apartado 1 el domicilio fiscal deberá mantenerse en el concejo en riesgo de despoblamiento o en crisis demográfica durante al menos tres años.",
+      "4. La base máxima de esta deducción será de 10.000 euros y vendrá constituida por las cantidades invertidas durante el ejercicio en la adquisición o rehabilitación de la vivienda, incluyéndose los importes destinados a la amortización de préstamos hipotecarios.",
+      "5. Para la aplicación de la presente deducción la base imponible del contribuyente no excederá de 35.000 euros en tributación individual ni de 45.000 euros en tributación conjunta. En el supuesto de que más de un contribuyente tenga derecho a la aplicación de la deducción por los mismos bienes para un mismo período impositivo, la base máxima de la deducción se prorrateará entre ellos por partes iguales, aplicándose el beneficio fiscal únicamente en la declaración de aquellos que cumplan las condiciones establecidas para ser beneficiarios de la misma.",
+      "6. En su caso, la acreditación documental de los gastos que generen derecho a deducción deberá realizarse mediante factura o cualquier otro medio del tráfico jurídico o económico admitido en Derecho.",
+      "7. A los efectos de la presente deducción, se consideran miembros de familias numerosas a los contribuyentes que formen parte de una unidad familiar que, a fecha de devengo del impuesto, ostente el título de familia numerosa expedido por la autoridad competente en materia de servicios sociales.",
+      "8. A los efectos de la presente deducción, se consideran miembros de familias monoparentales a las unidades familiares que cumplan los requisitos previstos en el artículo 12.",
+      "9. (Suprimido)",
+      "Familia numerosa: título oficial y categorías de la Ley 40/2003; especial con cinco o más hijos o cuatro en los supuestos legales, incluidos los de ingresos por miembro no superiores al 75% del IPREM. Cada hijo con discapacidad o incapacidad para trabajar computa como dos para la categoría. Se mantienen las equiparaciones propias expresas de esta deducción.",
+      "Para la condición de familia monoparental se aplican también las siguientes reglas del artículo 12:",
+      "1. Podrá aplicar una deducción de 500 euros todo contribuyente que tenga a su cargo descendientes, siempre que no conviva con cualquier otra persona ajena a los citados descendientes, salvo que se trate de ascendientes que generen el derecho a la aplicación del mínimo por ascendientes establecido en el artículo 59 de la Ley 35/2006, de 28 de noviembre , del Impuesto sobre la Renta de las Personas Físicas y de modificación parcial de las leyes de los Impuestos sobre Sociedades, sobre la Renta de no Residentes y sobre el Patrimonio.",
+      "2. Se considerarán descendientes a los efectos de la presente deducción:",
+      "a) Los hijos menores de edad, tanto por relación de paternidad como de adopción, siempre que convivan con el contribuyente y no tengan rentas anuales, excluidas las exentas, superiores a 8.000 euros.",
+      "b) Los hijos mayores de edad con discapacidad, tanto por relación de paternidad como de adopción, siempre que convivan con el contribuyente y no tengan rentas anuales, excluidas las exentas, superiores a 8.000 euros.",
+      "c) Los descendientes a que se refieren las letras a) y b) anteriores que, sin convivir con el contribuyente, dependan económicamente de él y estén internados en centros especializados.",
+      "3. Se asimilarán a descendientes aquellas personas vinculadas al contribuyente por razón de tutela y acogimiento, en los términos previstos en la legislación civil aplicable.",
+      "4. En caso de convivencia con descendientes que no generen derecho a deducción, no se perderá el derecho a la misma siempre y cuando las rentas anuales de aquél, excluidas las exentas, no sean superiores a 8.000 euros.",
+      "5. Sólo tendrá derecho a esta deducción el contribuyente cuya base imponible no resulte superior a 45.000 euros. No tendrán derecho a deducir cantidad alguna por esta vía los contribuyentes cuya suma de renta del período y anualidades por alimentos exentas excedan de 45.000 euros.",
+      "6. La presente deducción no resultará aplicable a los supuestos de custodia compartida.",
+      "7. Cuando a lo largo del ejercicio se lleve a cabo una alteración de la situación familiar por cualquier causa, a efectos de aplicación de la deducción, se entenderá que ha existido convivencia cuando tal situación se haya producido durante al menos 183 días al año.",
+      "El mínimo por descendientes exige edad inferior a 25 años o discapacidad cualquiera que sea la edad, convivencia o dependencia asimilada y rentas anuales, excluidas las exentas, no superiores a 8.000 euros; no procede si presenta declaración con rentas superiores a 1.800 euros. Se aplican las reglas de reparto y prioridad de grado de los artículos 58 a 61 LIRPF, salvo ampliación o regla especial expresa de esta deducción.",
+    ]
   ),
   fichaImplementada(
     { estado: "implementada" },
@@ -448,7 +671,14 @@ export const ASTURIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       "asturias_vehiculos_electricos:base",
       "asturias_vehiculos_electricos:cumple",
     ],
-    ["Contrato de compraventa del vehículo."]
+    [
+      "Contrato de compraventa del vehículo.",
+      "Aplicable a las adquisiciones de vehículos eléctricos nuevos o kilómetro cero enchufables y de pila de combustible en 2025: 15% de las cantidades satisfechas.",
+      "2. Para la aplicación de la presente deducción el contribuyente deberá disponer del correspondiente contrato de compraventa. En el supuesto de compraventa de vehículos en régimen de gananciales, salvo que en el contrato se identifique claramente al comprador, la deducción podrá prorratearse a partes iguales por ambos cónyuges aun cuando la factura se emita únicamente a nombre de uno de ellos.",
+      "3. La base máxima de la deducción será de 50 000,00 euros; no obstante, a los efectos de la aplicación de la deducción, la base de la deducción se reducirá, en su caso, por el importe de las ayudas públicas percibidas por el contribuyente para la adquisición del vehículo. El beneficio fiscal resultará de aplicación al ejercicio en el que se incurra en el gasto.",
+      '4. Únicamente darán derecho a la aplicación de la presente deducción los vehículos nuevos o kilómetro cero pertenecientes a las categorías descritas en el anexo I, Programa de incentivos 1: Adquisición de vehículos eléctricos "enchufables" y de pila combustible, del Real Decreto 266/2021, de 13 de abril , por el que se aprueba la concesión directa de ayudas a las comunidades autónomas y a las ciudades de Ceuta y Melilla para la ejecución de programas de incentivos ligados a la movilidad eléctrica (MOVES III) en el marco del Plan de Recuperación, Transformación y Resiliencia de la Economía Española.',
+      "5. La presente deducción no resultará aplicable a vehículos afectados al desarrollo de actividades económicas por parte del adquirente.",
+    ]
   ),
   fichaImplementada(
     { estado: "implementada" },
@@ -475,6 +705,13 @@ export const ASTURIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     ],
     [
       "Descendiente o adoptado que genere derecho al mínimo por descendientes, o supuesto extendido hasta 26 años.",
+      "1. Los contribuyentes podrán deducir 600 euros por cada descendiente que genere derecho a la aplicación del mínimo por descendientes regulado en el artículo 58 de la Ley del Impuesto.",
+      "La deducción será igualmente aplicable hasta que el descendiente cumpla los 26 años de edad, aun cuando no genere derecho a la aplicación del mínimo por descendientes, siempre que cumplan los restantes requisitos definidos en el citado artículo 58.",
+      "2. Sólo tendrá derecho a esta deducción el contribuyente cuya base imponible no resulte superior a 35 000 euros en tributación individual ni a 45 000 euros en tributación conjunta.",
+      "3. En el período impositivo en el que el descendiente cumpla veintiséis años el importe de la deducción se calculará de forma proporcional al número de meses en que se cumplan los requisitos previstos en el presente artículo.",
+      "4. La deducción únicamente resultará aplicable cuando los progenitores, adoptantes, o tutores convivan con el descendiente. Cuando exista más de un contribuyente con derecho a la aplicación del beneficio fiscal, el importe de la deducción se prorrateará por partes iguales en la declaración de cada uno de ellos, aplicándose únicamente a aquellos que cumplan las condiciones establecidas para ser beneficiarios de la misma.",
+      "5. La presente deducción será incompatible con la prevista en el artículo 14 bis del presente texto refundido.",
+      "El mínimo por descendientes exige edad inferior a 25 años o discapacidad cualquiera que sea la edad, convivencia o dependencia asimilada y rentas anuales, excluidas las exentas, no superiores a 8.000 euros; no procede si presenta declaración con rentas superiores a 1.800 euros. Se aplican las reglas de reparto y prioridad de grado de los artículos 58 a 61 LIRPF, salvo ampliación o regla especial expresa de esta deducción.",
     ]
   ),
   fichaImplementada(
@@ -501,7 +738,14 @@ export const ASTURIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       "asturias_emancipacion_jovenes_hasta_35:base",
       "asturias_emancipacion_jovenes_hasta_35:cumple",
     ],
-    ["Gastos acreditados mediante factura o medio admitido en Derecho."]
+    [
+      "Gastos acreditados mediante factura o medio admitido en Derecho.",
+      "1. Los contribuyentes de hasta 35 años de edad que se emancipen durante el ejercicio impositivo podrán aplicar una deducción de hasta 1.000 euros.",
+      "2. Se entenderá que se lleva a cabo la emancipación en el ejercicio en que el contribuyente deja de convivir con sus ascendientes y traslada su domicilio a una nueva vivienda habitual situada en el Principado de Asturias que ocupará en régimen de propiedad o arrendamiento. Se perderá el derecho de deducción en el supuesto en el que el contribuyente retorne al hogar familiar antes de que transcurran tres años.",
+      "3. La deducción podrá aplicarse una única vez en el ejercicio en que se lleve a cabo la primera emancipación.",
+      "4. Sólo tendrá derecho a esta deducción el contribuyente cuya base imponible no resulte superior a 35.000 euros en tributación individual ni a 45.000 euros en tributación conjunta.",
+      "5. En su caso, la acreditación documental de los gastos que generen derecho a deducción deberá realizarse mediante factura o cualquier otro medio del tráfico jurídico o económico admitido en Derecho.",
+    ]
   ),
   fichaImplementada(
     { estado: "implementada" },
@@ -520,7 +764,10 @@ export const ASTURIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     ],
     [123],
     ["asturias_ayudas_ela:importe", "asturias_ayudas_ela:cumple"],
-    ["Ayuda o subvención ELA integrada en la base imponible general."]
+    [
+      "Ayuda o subvención ELA integrada en la base imponible general.",
+      "Cuando el contribuyente hubiese integrado en la base imponible general el importe correspondiente a una subvención o cualquier otra ayuda pública otorgada por el Principado de Asturias a enfermos de Esclerosis Lateral Amiotrófica, podrá aplicar una deducción en la cuota íntegra por el importe que resulte de aplicar los tipos medios de gravamen a la cuantía de la subvención o ayuda que se integre en la base liquidable.",
+    ]
   ),
   fichaImplementada(
     { estado: "implementada" },
@@ -548,6 +795,8 @@ export const ASTURIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     ],
     [
       "Gastos vinculados a arrendamientos que cumplan el requisito de renta durante los meses de vigencia del contrato.",
+      "Los contribuyentes que obtengan rendimientos del capital inmobiliario por el arrendamiento de viviendas, cuando su destino sea el de vivienda habitual del arrendatario, siempre y cuando correspondan a arrendamientos retribuidos a precios con sostenibilidad social, podrán deducirse el importe de las cantidades satisfechas en el ejercicio por gastos de conservación y reparación, la formalización de contratos de arrendamiento, primas de seguros por daños e impagos y la obtención de certificados de eficiencia energética vinculados con tales arrendamientos, con un límite de deducción de 500 euros anuales.",
+      "Se considerará que el arrendamiento de vivienda habitual se retribuye a precios con sostenibilidad en virtud de lo previsto en la normativa del Principado de Asturias a estos efectos.",
     ]
   ),
   fichaImplementada(
@@ -574,7 +823,22 @@ export const ASTURIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       "asturias_gastos_vitales_hasta_35:importe",
       "asturias_gastos_vitales_hasta_35:cumple",
     ],
-    ["Contribuyente de hasta 35 años; gastos acreditados documentalmente."]
+    [
+      "Contribuyente de hasta 35 años; gastos acreditados documentalmente.",
+      "1. Los contribuyentes de hasta 35 años de edad cuya base imponible no resulte superior a 28.000 euros anuales, podrán deducirse el importe de las cantidades satisfechas en concepto de:",
+      "a) Gastos de vivienda y suministros asociados a la misma.",
+      "b) Gastos educativos.",
+      "c) Gastos de transporte y movilidad.",
+      "d) Gastos en tecnología.",
+      "e) Gastos deportivos.",
+      "f) Gastos culturales.",
+      "2. El importe máximo de la deducción será de:",
+      "2.000 euros para los contribuyentes de hasta 25 años.",
+      "1.500 euros para los contribuyentes con edades comprendidas entre los 26 y los 30 años.",
+      "1.000 euros para los contribuyentes con edades comprendidas entre los 30 y los 35 años.",
+      "3. En su caso, la acreditación documental de los gastos que generen derecho a deducción deberá realizarse mediante factura o cualquier otro medio del tráfico jurídico o económico admitido en Derecho.",
+      "Existe una ambigüedad en la edad de 30 años: la ley imprime 26–30 y 30–35; el manual indica 31–35 en el último tramo. No se ha localizado corrección o criterio vinculante que resuelva el solapamiento.",
+    ]
   ),
   fichaImplementada(
     { estado: "implementada" },
@@ -597,7 +861,12 @@ export const ASTURIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       "asturias_descendiente_fallecimiento_progenitor_accidente_laboral:unidades",
       "asturias_descendiente_fallecimiento_progenitor_accidente_laboral:cumple",
     ],
-    ["Descendiente que genere derecho al mínimo por descendientes."]
+    [
+      "Descendiente que genere derecho al mínimo por descendientes.",
+      "1. Los contribuyentes con descendientes que generen derecho a la aplicación del mínimo por descendientes regulado en el artículo 58 de la Ley del Impuesto, podrán aplicar una deducción de 1.000 euros por cada uno de los citados descendientes en los supuestos en que se haya producido el fallecimiento del otro progenitor como consecuencia de un accidente laboral.",
+      "2. La deducción resultará de aplicación hasta la fecha en que el descendiente deje de generar el derecho a la aplicación del mínimo por descendientes.",
+      "El mínimo por descendientes exige edad inferior a 25 años o discapacidad cualquiera que sea la edad, convivencia o dependencia asimilada y rentas anuales, excluidas las exentas, no superiores a 8.000 euros; no procede si presenta declaración con rentas superiores a 1.800 euros. Se aplican las reglas de reparto y prioridad de grado de los artículos 58 a 61 LIRPF, salvo ampliación o regla especial expresa de esta deducción.",
+    ]
   ),
   fichaImplementada(
     { estado: "implementada" },
@@ -626,6 +895,19 @@ export const ASTURIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     ],
     [
       "Inversión por constitución o ampliación de capital en sociedad anónima, limitada, cooperativa o laboral.",
+      "1. Los contribuyentes podrán aplicar una deducción del 30 por ciento de las cantidades invertidas durante el ejercicio en la adquisición de acciones y participaciones sociales como consecuencia de acuerdos de constitución de sociedades o de ampliación de capital en las sociedades mercantiles que revistan la forma de sociedad anónima, sociedad de responsabilidad limitada y sociedad cooperativa, incluidas las sociedades laborales.",
+      "2. El límite de deducción aplicable será de 6.000 euros anuales.",
+      "3. Para la aplicación de la deducción deberán cumplirse los siguientes requisitos:",
+      "a) Que, como consecuencia de la participación adquirida por el contribuyente, computada junto con la que posean de la misma entidad su cónyuge o personas unidas al contribuyente por razón de parentesco, en línea recta o colateral, por consanguinidad o afinidad hasta el tercer grado incluido, no se llegue a poseer durante ningún día del año natural más del 40 por ciento del total del capital social de la entidad o de sus derechos de voto.",
+      "b) Que dicha participación se mantenga un mínimo de tres años.",
+      "c) Que la entidad de la que se adquieran las acciones o participaciones cumpla los siguientes requisitos:",
+      "– Que tenga su domicilio social y fiscal en el Principado de Asturias.",
+      "– Que tenga la condición de microempresa o pequeña y mediana empresa.",
+      "– Que desarrolle una actividad económica. A estos efectos no se considerará que desarrolla una actividad económica cuando tenga por actividad principal la gestión de un patrimonio mobiliario o inmobiliario, de acuerdo con lo establecido en el artículo 4.ocho.dos.a) de la Ley 19/1991, de 6 de junio , del Impuesto sobre el Patrimonio.",
+      "– Que, para el caso en que la inversión efectuada corresponda a la constitución de la entidad, desde el primer ejercicio fiscal esta cuente, al menos, con una persona contratada con contrato laboral y a jornada completa y dada de alta en el Régimen General de la Seguridad Social.",
+      "– Que, para el caso en que la inversión efectuada corresponda a una ampliación de capital de la entidad, dicha entidad hubiera sido constituida dentro de los tres años anteriores a la ampliación de capital y que la plantilla media de la entidad durante los dos ejercicios fiscales posteriores al de la ampliación se incremente respecto de la plantilla media que tuviera en los doce meses anteriores al menos en una persona con los requisitos anteriores, y dicho incremento se mantenga durante al menos otros veinticuatro meses. Para el cálculo de la plantilla media total de la entidad y de su incremento se tomarán las personas empleadas en los términos que disponga la legislación laboral, teniendo en cuenta la jornada contratada en relación a la jornada completa.",
+      "No es actividad económica la gestión patrimonial del artículo 4.Ocho.Dos.a) de la Ley 19/1991: durante más de 90 días del ejercicio, más de la mitad del activo constituido por valores o no afecto a actividades, con las exclusiones legales de valores y beneficios empresariales no distribuidos de los últimos diez años.",
+      "PYME según la Recomendación 2003/361/CE: menos de 250 personas y volumen de negocios anual hasta 50 millones de euros o balance hasta 43 millones; se agregan los datos de empresas asociadas y vinculadas en los términos del anexo, no solo los de la sociedad receptora.",
     ]
   ),
   fichaImplementada(
@@ -651,6 +933,14 @@ export const ASTURIAS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     ],
     [
       "El contribuyente debe satisfacer efectivamente los gastos y contar con informe médico oficial de diagnóstico.",
+      "1. Los contribuyentes podrán aplicar una deducción de 100 euros por los gastos en que incurran asociados a la enfermedad celíaca por cada miembro de la unidad familiar diagnosticado con la citada enfermedad.",
+      "2. A los exclusivos efectos de esta deducción, se considerarán personas integrantes de la unidad familiar del contribuyente al propio contribuyente, su cónyuge en los casos de declaración conjunta y aquellas personas que generen el derecho a la aplicación del mínimo por ascendientes o descendientes regulado en la normativa estatal del impuesto sobre la renta de las personas físicas.",
+      "3. Cuando dos o más contribuyentes tengan derecho a la aplicación de esta deducción respecto de los mismos ascendientes o descendientes para un mismo período impositivo, el importe máximo de la deducción se prorrateará entre ellos por partes iguales.",
+      "4. La condición de enfermedad celíaca deberá acreditarse mediante informe médico oficial que recoja el diagnóstico definitivo conforme a los criterios reconocidos por la comunidad científica. Dicho informe deberá ser emitido:",
+      "a) Por profesionales en ejercicio en el Servicio de Salud del Principado de Asturias o en otros servicios de salud públicos integrados en el Sistema Nacional de Salud (SNS), debidamente identificados mediante su Código Numérico Personal (CNP) o el homólogo que corresponda en cada Comunidad Autónoma.",
+      "b) En el caso de pacientes con aseguramiento sanitario privado, por profesionales adscritos a la entidad aseguradora correspondiente, debidamente identificados mediante su número de colegiado.",
+      "5. Sólo tendrán derecho a esta deducción los contribuyentes cuya base imponible no resulte superior a 35.000 en tributación individual y 45.000 euros en tributación conjunta.",
+      "El mínimo por descendientes exige edad inferior a 25 años o discapacidad cualquiera que sea la edad, convivencia o dependencia asimilada y rentas anuales, excluidas las exentas, no superiores a 8.000 euros; no procede si presenta declaración con rentas superiores a 1.800 euros. Se aplican las reglas de reparto y prioridad de grado de los artículos 58 a 61 LIRPF, salvo ampliación o regla especial expresa de esta deducción.",
     ]
   ),
 ] as const satisfies ReadonlyArray<FichaDeduccionAutonomica>

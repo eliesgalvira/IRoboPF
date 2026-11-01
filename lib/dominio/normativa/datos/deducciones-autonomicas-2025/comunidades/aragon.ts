@@ -48,7 +48,7 @@ export const ARAGON_NACIMIENTO_ADOPCION_TERCER_HIJO_SUCESIVOS_2025 = {
   ],
   fuenteManual: {
     documento: "ManualRenta2025Parte2",
-    paginas: [61, 62],
+    paginas: [61, 62, 63],
   },
 } as const satisfies FichaDeduccionAutonomica
 
@@ -80,7 +80,7 @@ export const ARAGON_CUIDADO_PERSONAS_DEPENDIENTES_2025 = {
   ],
   prorrateo: [
     "Si dos o más contribuyentes tienen derecho, se prorratea por partes iguales",
-    "Si hay contribuyentes con distinto grado de parentesco, corresponde al grado más cercano, salvo que no cumpla rentas",
+    "Si hay contribuyentes con distinto grado de parentesco, corresponde al grado más cercano, salvo que estos tengan rentas anuales, excluidas las exentas, no superiores a 8.000 euros; en ese caso corresponde al siguiente grado",
   ],
   incompatibilidades: [
     "El régimen de fiscalidad diferenciada es incompatible con el régimen general",
@@ -99,7 +99,7 @@ export const ARAGON_CUIDADO_PERSONAS_DEPENDIENTES_2025 = {
   ],
   fuenteManual: {
     documento: "ManualRenta2025Parte2",
-    paginas: [66],
+    paginas: [66, 67],
   },
 } as const satisfies FichaDeduccionAutonomica
 
@@ -156,6 +156,9 @@ export const ARAGON_GUARDERIA_MENORES_3_2025 = fichaImplementada(
       "15% de gastos de custodia; límite 250/125 euros general o 300/150 euros con fiscalidad diferenciada",
   },
   [
+    "Centro autorizado por el Departamento competente en Educación para la custodia de menores de tres años; descendiente con derecho al mínimo del artículo 58 LIRPF.",
+    "Si el hijo convive con más de un contribuyente, la deducción se prorratea por partes iguales.",
+    "Pago de gastos mediante tarjeta de crédito o débito, transferencia bancaria, cheque nominativo o ingreso en cuenta: disposición adicional segunda, no artículo 110-1.",
     "15% de las cantidades satisfechas",
     "Régimen general: 250 euros por hijo, 125 euros si cumple 3 años",
     "Fiscalidad diferenciada: 300 euros por hijo, 150 euros si cumple 3 años",
@@ -208,7 +211,7 @@ export const ARAGON_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       "Si el niño adoptado convive con ambos padres adoptivos, se prorratea por partes iguales.",
       "Compatible con tercer hijo o sucesivos, hijo con discapacidad y primer/segundo hijo en poblaciones de menos de 10.000 habitantes.",
     ],
-    [64, 65],
+    [64, 65, 66],
     [
       "aragon_adopcion_internacional:importe",
       "aragon_adopcion_internacional:cumple",
@@ -251,6 +254,9 @@ export const ARAGON_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       limiteMaximoEuros: "271.20",
     },
     [
+      "Vivienda habitual histórica: residencia continuada al menos tres años y ocupación efectiva dentro de doce meses desde adquisición o terminación; se exceptúan fallecimiento o circunstancias que necesariamente exijan el cambio o impidan la ocupación, según artículo 54 RIRPF de 2012.",
+      "Comprobación patrimonial: el patrimonio al final del ejercicio debe exceder al inicial al menos en la inversión deducida, sin computar intereses, otros gastos de financiación ni meras variaciones de valor; artículo 70 LIRPF.",
+      "La deducción por una vivienda anterior y la ganancia exenta por reinversión reducen la nueva base conforme al artículo 68.1.2 de 2012; no duplicar las cantidades ya deducidas.",
       "Fórmula operativa: min(3% de cantidades satisfechas, 271,20 euros), tomando como referencia la base máxima estatal de 9.040 euros vigente a 31-12-2012.",
       "La vivienda nueva debe estar acogida a protección pública y constituir o ir a constituir la primera residencia habitual.",
       "Contribuyente víctima del terrorismo; en su defecto, por este orden, cónyuge o pareja de hecho, o hijos convivientes.",
@@ -327,6 +333,9 @@ export const ARAGON_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
         "5% de cantidades satisfechas en régimen general; 7,5% con fiscalidad diferenciada; conceptos y base máxima según normativa estatal de vivienda habitual vigente a 31-12-2012.",
     },
     [
+      "Vivienda habitual histórica: residencia continuada al menos tres años y ocupación efectiva dentro de doce meses desde adquisición o terminación; se exceptúan fallecimiento o circunstancias que necesariamente exijan el cambio o impidan la ocupación, según artículo 54 RIRPF de 2012.",
+      "Comprobación patrimonial: el patrimonio al final del ejercicio debe exceder al inicial al menos en la inversión deducida, sin computar intereses, otros gastos de financiación ni meras variaciones de valor; artículo 70 LIRPF.",
+      "La deducción por una vivienda anterior y la ganancia exenta por reinversión reducen la nueva base conforme al artículo 68.1.2 de 2012; no duplicar las cantidades ya deducidas.",
       "Fórmula general: 5% de cantidades satisfechas por adquisición o rehabilitación de primera vivienda habitual en núcleo rural o análogo.",
       "Fórmula con fiscalidad diferenciada: 7,5% de cantidades satisfechas.",
       "Base imponible general + ahorro - mínimo del contribuyente - mínimo por descendientes: máximo 21.000 euros individual y 35.000 conjunta.",
@@ -383,12 +392,13 @@ export const ARAGON_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       limiteMaximoEuros: "480",
     },
     [
+      "Vivienda habitual histórica: residencia continuada al menos tres años y ocupación efectiva dentro de doce meses desde adquisición o terminación; se exceptúan fallecimiento o circunstancias que necesariamente exijan el cambio o impidan la ocupación, según artículo 54 RIRPF de 2012.",
       "Fórmula: min(10% de alquiler satisfecho, 480 euros), por base máxima de 4.800 euros anuales.",
       "Base imponible general + ahorro: máximo 15.000 euros individual y 25.000 conjunta.",
       "Debe existir adjudicación de vivienda habitual en pago de la totalidad de la deuda hipotecaria y contrato de arrendamiento con opción de compra de la misma vivienda.",
       "Fianza depositada ante el órgano competente dentro de plazo.",
     ],
-    [77],
+    [77, 78],
     [
       "aragon_arrendamiento_dacion_pago:base",
       "aragon_arrendamiento_dacion_pago:cumple",
@@ -430,6 +440,8 @@ export const ARAGON_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
         "100 euros por primer hijo y 150 euros por segundo; 200 y 300 euros respectivamente si la base general + ahorro no supera 23.000 individual o 35.000 conjunta.",
     },
     [
+      "El contribuyente debe haber residido en el año del nacimiento y en el anterior en municipios aragoneses de población de derecho inferior a 10.000 habitantes.",
+      "La deducción corresponde a quien conviva con los hijos; si conviven con varios contribuyentes se reparte por partes iguales. Incompatible con el artículo 110-3 respecto del mismo hijo.",
       "Fórmula general: 100 euros por primer hijo y 150 euros por segundo hijo.",
       "Fórmula incrementada: 200 euros por primer hijo y 300 euros por segundo hijo si base imponible general + ahorro no supera 23.000 euros individual o 35.000 conjunta.",
       "Solo en el período del nacimiento o adopción.",
@@ -539,6 +551,7 @@ export const ARAGON_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       por: "contribuyente que cumpla los requisitos de residencia",
     },
     [
+      "Cuantía regulada por el artículo 160-2.8, bajo las condiciones del 160-1: Rango X e índice sintético de desarrollo territorial inferior a 100.",
       "Fórmula: 600 euros por contribuyente que cumpla los requisitos; en conjunta, 600 euros por cada contribuyente con derecho.",
       "Bases liquidables general + ahorro: inferior a 35.000 euros individual y 50.000 conjunta.",
       "Base imponible del ahorro: máximo 4.000 euros en cualquier modalidad.",

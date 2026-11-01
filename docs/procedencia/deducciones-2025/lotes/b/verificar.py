@@ -44,6 +44,17 @@ def main():
             html[fuente["id"]] = BeautifulSoup(data, "html.parser")
         else:
             pdf[fuente["id"]] = fitz.open(path)
+    indices = json.loads(
+        (repo / "docs/procedencia/deducciones-2025/correcciones/b-condiciones/cadenas.json").read_text()
+    )["indices"]
+    for indice in indices:
+        matches = [root / indice["sha256"] for root in args.cas_plano
+                   if (root / indice["sha256"]).is_file()]
+        assert matches, "Índice ausente: " + indice["sha256"]
+        data = matches[0].read_bytes()
+        assert len(data) == indice["bytes"]
+        assert hashlib.sha256(data).hexdigest() == indice["sha256"]
+        assert hashlib.sha512(data).hexdigest() == indice["sha512"]
     count = 0
     for registro in lote["deducciones"]:
         ids = {c["id"] for c in registro["citas"]}
@@ -73,7 +84,7 @@ def main():
                 extraido = candidatos[0]
             assert extraido == cita["textoLiteral"], cita["id"]
             count += 1
-    print(json.dumps({"registros": 48, "documentos": len(fuentes), "citasReextraidas": count,
+    print(json.dumps({"registros": 48, "documentos": len(fuentes), "citasReextraidas": count, "indicesComprobados": len(indices),
                       "integridad": "comprobada", "estado": "candidato"}))
 
 

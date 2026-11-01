@@ -1,9 +1,9 @@
-# Asturias y Cantabria: procedencia de deducciones de 2025
+# Asturias y Cantabria: deducciones de 2025
 
-Entrega candidata de48 códigos:27 Asturias y21 Cantabria. El [informe de rectificación](../../correcciones/b/INFORME.md) describe los cambios definitivos, comprobaciones y reservas. No hay aceptación ni cierre normativo integral.
+Paquete candidato de 48 códigos: 27 de Asturias y 21 de Cantabria. El [informe de condiciones](../../correcciones/b-condiciones/INFORME.md) completa el cotejo interno posterior a la [rectificación histórica](../../correcciones/b/INFORME.md). Requiere revisión independiente.
 
-Se resuelven las18 atribuciones observadas y las confusiones de educación/inflación y vehículos/2026. Se conservan la corrección de estudios (renta inferior a8.000) y rb-9 dispositivo. La matriz por código incorpora originales regionales y efectos concretos. Los anexos territoriales están disponibles; no se infiere un municipio real.
+La matriz y el registro individual enlazan condiciones comunes, remisiones, cadenas y anexos territoriales. Las fichas incorporan los requisitos descriptivos omitidos. Se mantienen la rectificación de estudios —renta inferior a 8.000 euros— y rb-9 dispositivo. La ambigüedad de los 30 años conserva una reserva específica.
 
-Fuentes:37 documentos externos,798 citas reextraídas. La edición del manual tiene fecha editorial21/10/2026 y fecha de publicación no acreditada. Las páginas censales se conservan separadas de las páginas actuales.
+El dictamen de ficha distingue descripción y hechos particulares; el de cálculo se limita a la API examinada. Los dos defectos numéricos reproducidos pertenecen a la base histórica y no se atribuyen a la integración posterior del motor. No se añade otra ruta de cálculo ni un puente de compatibilidad.
 
-Se mantienen dos diferencias del helper compartido y las reservas de cálculo integral/consignación. Las coincidencias documentales parciales no certifican elegibilidad ni cuota. El cotejo final íntegro de condiciones comunes e índices/correcciones sigue abierto; no se sustituye por un recuento de pruebas aprobadas.
+La fecha editorial del manual, 21 de octubre de 2026, no acredita su fecha de publicación. Se conserva esta reserva editorial, separada de las reglas normativas de 2025.

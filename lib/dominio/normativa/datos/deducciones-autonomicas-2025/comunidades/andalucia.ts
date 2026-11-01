@@ -14,9 +14,10 @@ export const ANDALUCIA_NACIMIENTO_ADOPCION_ACOGIMIENTO_2025 = {
   },
   requisitos: [
     "Nacimiento, adopción o acogimiento en el período impositivo",
-    "En acogimiento, convivencia con el contribuyente según los requisitos del manual",
+    "En acogimiento, el menor debe convivir con el contribuyente al menos 90 días durante el período en que se produzca el acogimiento",
     "Para aplicar 400 euros, residencia en municipio andaluz con problemas de despoblación",
     "Si son dos los contribuyentes con derecho, el importe se distribuye por partes iguales",
+    "El acogimiento preadoptivo no genera otra deducción si la adopción se produce en el mismo ejercicio; desde 2025 se suprime el límite de renta del artículo 11.4 anterior por Ley 8/2025 DF novena.2 y decimoctava.b.",
     "En acogimiento, no puede haber recibido ayudas de la Administración de Andalucía vinculadas con el acogimiento",
   ],
   limites: [
@@ -24,7 +25,9 @@ export const ANDALUCIA_NACIMIENTO_ADOPCION_ACOGIMIENTO_2025 = {
     "400 euros por hijo nacido/adoptado o menor acogido si reside en municipio andaluz con problemas de despoblacion",
     "Incremento de 200 euros por cada hijo o menor en partos, adopciones o acogimientos múltiples",
   ],
-  prorrateo: ["Normalizar reglas cuando dos contribuyentes tengan derecho"],
+  prorrateo: [
+    "Cuando sean dos los contribuyentes con derecho, el importe se distribuye por partes iguales",
+  ],
   compatibilidades: [],
   incompatibilidades: [
     "Incompatible respecto de los mismos hijos con adopción internacional",
@@ -204,7 +207,7 @@ export const ANDALUCIA_CONTRIBUYENTE_DISCAPACIDAD_2025 = {
   ],
   fuenteManual: {
     documento: "ManualRenta2025Parte2",
-    paginas: [48],
+    paginas: [47, 48],
   },
 } as const satisfies FichaDeduccionAutonomica
 
@@ -246,7 +249,7 @@ export const ANDALUCIA_CONYUGE_PAREJA_DISCAPACIDAD_2025 = {
   ],
   fuenteManual: {
     documento: "ManualRenta2025Parte2",
-    paginas: [49],
+    paginas: [48, 49],
   },
 } as const satisfies FichaDeduccionAutonomica
 
@@ -378,7 +381,7 @@ export const ANDALUCIA_INVERSION_ACCIONES_PARTICIPACIONES_2025 = {
   ],
   fuenteManual: {
     documento: "ManualRenta2025Parte2",
-    paginas: [52],
+    paginas: [52, 53],
   },
 } as const satisfies FichaDeduccionAutonomica
 
@@ -395,12 +398,17 @@ export const ANDALUCIA_INVERSION_VIVIENDA_HABITUAL_PROTEGIDA_JOVENES_2025 =
       limiteMaximoEuros: "542.40",
     },
     [
+      "Vivienda habitual histórica: residencia continuada al menos tres años y ocupación efectiva dentro de doce meses desde adquisición o terminación; se exceptúan fallecimiento o circunstancias que necesariamente exijan el cambio o impidan la ocupación, según artículo 54 RIRPF de 2012.",
+      "Comprobación patrimonial: el patrimonio al final del ejercicio debe exceder al inicial al menos en la inversión deducida, sin computar intereses, otros gastos de financiación ni meras variaciones de valor; artículo 70 LIRPF.",
+      "La deducción por una vivienda anterior y la ganancia exenta por reinversión reducen la nueva base conforme al artículo 68.1.2 de 2012; no duplicar las cantidades ya deducidas.",
+      "Vivienda protegida o adquirente menor de 35 años a devengo: son condiciones alternativas. En conjunta basta que cumpla la edad uno de los cónyuges o el progenitor de familia monoparental.",
+      "Conceptos de vivienda habitual, adquisición y rehabilitación, base y patrimonio conforme a la normativa estatal vigente a 31/12/2012; no se exige acceso al régimen transitorio estatal para esta deducción autonómica.",
       "6% de las cantidades satisfechas",
       "Base máxima anual de deducción: 9.040 euros",
       "Deducción máxima derivada de la base máxima: 542,40 euros",
       "Base imponible general + ahorro: máximo 25.000 euros individual y 30.000 conjunta",
     ],
-    [37, 38]
+    [37, 38, 39]
   )
 
 export const ANDALUCIA_ALQUILER_VIVIENDA_HABITUAL_2025 = fichaImplementada(
@@ -414,12 +422,16 @@ export const ANDALUCIA_ALQUILER_VIVIENDA_HABITUAL_2025 = fichaImplementada(
       "15% del alquiler; límite 1.200 euros, o 1.500 euros si el contribuyente tiene discapacidad",
   },
   [
+    "A devengo: menores de 35 años, mayores de 65 años, víctimas de violencia doméstica, víctimas del terrorismo o personas afectadas; la discapacidad habilita por sí misma el límite de 1.500 euros.",
+    "En conjunta basta que el supuesto habilitante concurra en uno de los cónyuges o en el progenitor de familia monoparental.",
+    "Identificar el NIF del arrendador. Cada declarante con derecho aplica el porcentaje a lo efectivamente pagado por él, con su límite de 1.200 o 1.500 euros.",
+    "Ley 8/2025, DF novena.1 y DF decimoctava.b: límites aplicables con efectos desde el 1 de enero de 2025.",
     "15% de las cantidades satisfechas",
     "Límite general: 1.200 euros anuales",
     "Límite para contribuyente con discapacidad: 1.500 euros anuales",
     "Base imponible general + ahorro: máximo 25.000 euros individual y 30.000 conjunta",
   ],
-  [39, 40]
+  [39, 40, 41]
 )
 
 export const ANDALUCIA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
