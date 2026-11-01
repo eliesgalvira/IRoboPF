@@ -30,10 +30,10 @@ def verificar(carpeta, indice):
             fuente = fuentes[cita["documentoId"]]
             loc = cita["localizador"]
             if loc["tipo"] == "html":
-                patron = r"BeautifulSoup\(bytes, 'html.parser'\)\.select\('p'\)\[(\d+)\]\.get_text\(' ', strip=True\); aplicar \[inicio:fin\]"
+                patron = r"BeautifulSoup\(bytes, 'html.parser'\)\.select\('(p|table)'\)\[(\d+)\]\.get_text\(' ', strip=True\); aplicar \[inicio:fin\]"
                 coincidencia = re.fullmatch(patron, loc["recetaExtraccion"])
                 assert coincidencia, cita["id"]
-                texto = fuente.select("p")[int(coincidencia[1])].get_text(" ", strip=True)
+                texto = fuente.select(coincidencia[1])[int(coincidencia[2])].get_text(" ", strip=True)
                 texto = texto[loc["inicio"]:loc["fin"]]
             else:
                 bloques = fuente[loc["paginaFisica"] - 1].get_text("blocks")
