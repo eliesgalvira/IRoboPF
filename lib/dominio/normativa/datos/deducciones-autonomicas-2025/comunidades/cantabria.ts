@@ -282,6 +282,7 @@ export const CANTABRIA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       "A los efectos de esta Ley, en los casos de separación legal o cuando no existiera vínculo matrimonial, tendrá la consideración de familia monoparental la formada por la madre o el padre y los hijos que convivan con una u otro y que reúnan alguno de los siguientes requisitos:",
       "a) Hijos menores de edad, con excepción de los que, con el consentimiento de los padres, vivan independientes de estos.",
       "b) Hijos mayores de edad incapacitados judicialmente sujetos a patria potestad prorrogada o rehabilitada.",
+      "Criterio del Manual AEAT 2025, página 220: se incluyen los hijos mayores de edad con curatela representativa declarada judicialmente; la referencia a incapacitación judicial se extiende a esas resoluciones tras la Ley 8/2021.",
     ]
   ),
   fichaImplementada(

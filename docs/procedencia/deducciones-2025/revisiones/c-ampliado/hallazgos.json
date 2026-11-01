@@ -1,0 +1,61 @@
+{
+  "head": "6301c8da457ced81c348bdb10d8e5e04f67ec7fe",
+  "hallazgos": [
+    {
+      "id": "CAMP-01",
+      "codigo": "canarias_traslado_residencia_otra_isla_trabajo",
+      "prioridad": "media",
+      "alcance": "descripción; no error ejecutable demostrado",
+      "problema": "La ficha ampliada da solo el umbral 46.455/61.770, sin distinguir el año de origen del derecho. Falta 45.500/60.500 para el traslado de 2024 cuya segunda anualidad se aplica en 2025.",
+      "contraejemplo": {
+        "ejercicio": 2025,
+        "modalidad": "individual",
+        "traslado": "2024-03-01",
+        "rentaOrigen": 46000,
+        "renta2025": 30000,
+        "actividad": "trabajo por cuenta ajena en isla de destino",
+        "residencia": "mantenida en destino desde el traslado, compromiso de permanencia cumplido",
+        "cuotaAutonomicaTrabajo": 1000,
+        "ayudas": 0,
+        "otrasDeducciones": 0,
+        "esperado": 0,
+        "lecturaLiteralFicha": 300
+      },
+      "citas": [
+        "canarias_traslado_residencia_otra_isla_trabajo-manual-19",
+        "canarias_traslado_residencia_otra_isla_trabajo-ley-4",
+        "camp-traslado-umbral-origen"
+      ],
+      "cambioPropuesto": "Añadir año del traslado y renta del ejercicio de origen; delimitar las dos anualidades y el umbral correspondiente. No sustituirlo por la renta corriente."
+    },
+    {
+      "id": "CAMP-02",
+      "codigo": "balears_conciliacion_menores_6",
+      "prioridad": "media",
+      "alcance": "contradicción entre resumen/propuesta y requisitos; no error ejecutable demostrado",
+      "problema": "La reglaDocumentada y cuantia.descripcion dicen reforzada50%,900 desde11julio, aunque Ley 11/2023 ya establecía ese régimen para los colectivos cualificados. El requisito detallado sí conserva la regla previa. La propuesta no debe transmitir al motor un inicio general del régimen reforzado en julio.",
+      "contraejemplo": {
+        "ejercicio": 2025,
+        "devengo": "2025-07-10",
+        "modalidad": "individual",
+        "edadContribuyente": 35,
+        "descendienteEdad": 4,
+        "descendiente": "conviviente todo el período, con mínimo; un solo titular con derecho",
+        "trabajo": "cuenta ajena durante el período",
+        "baseImponibleTotal": 20000,
+        "gasto": 1000,
+        "servicio": "custodia en centro educativo",
+        "pago": "transferencia bancaria",
+        "ayudas": 0,
+        "otrasDeducciones": 0,
+        "cuotaAutonomica": 2000,
+        "esperado": 500,
+        "lecturaResumenGeneral": 400
+      },
+      "citas": [
+        "balears_conciliacion_menores_6-prim-delimitado-10"
+      ],
+      "cambioPropuesto": "Describir 50%/900 como régimen previo; fechar solo autónomos 183 días y el incremento específico del umbral de familia numerosa especial. Los requisitos extensos no necesitan volver a corregirse."
+    }
+  ]
+}
