@@ -1,5 +1,7 @@
 # Informe de resultados de la auditoría documental
 
+**Alcance ampliado:** este informe conserva el cierre técnico anterior. El encargo actual continúa con las deducciones de 2025 y el [plan completo A–F](PLAN-COMPLETO.md), que incluye las 19 familias de actividad, composición, admisión y puertas. Su avance está en [ESTADO](ESTADO.md).
+
 **Resultado posterior disponible:** el cálculo anual interno del perfil salarial admitido de Madrid 2025 está terminado y revisado, con el redondeo contrastado contra siete ejecuciones de Renta WEB Open. La interfaz queda para Opus. El [resumen del perfil salarial](DECLARACION-SALARIAL-2025.md) explica sus condiciones y límites sin exigir leer esta auditoría completa.
 
 El cierre de 65 sitios descrito a continuación conserva sus versiones de código y evidencias históricas. La corrección salarial posterior no recibe automáticamente esos dictámenes; tiene una [revisión independiente propia](revisiones/redondeo-salarial-open/INFORME.md).
