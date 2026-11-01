@@ -20,7 +20,7 @@ export const BALEARS_ARRENDAMIENTO_VIVIENDA_HABITUAL_2025 = fichaImplementada(
     "20%, límite 650 euros: menores de 30, discapacidad, familia numerosa/monoparental o autónomos",
     "Límite base general: 33.000 euros individual y 52.800 conjunta",
   ],
-  [132, 133, 134]
+  [133, 134, 135, 136]
 )
 
 export const BALEARS_LIBROS_TEXTO_2025 = fichaImplementada(
@@ -38,7 +38,7 @@ export const BALEARS_LIBROS_TEXTO_2025 = fichaImplementada(
     "Límite general: 220 euros por hijo",
     "Límite incrementado: 350 euros por hijo",
   ],
-  [135, 136, 137]
+  [136, 137, 138]
 )
 
 export const BALEARS_NACIMIENTO_2025 = fichaImplementada(
@@ -58,7 +58,7 @@ export const BALEARS_NACIMIENTO_2025 = fichaImplementada(
     "1.400 euros cuarto y siguientes",
     "Si se superan límites de renta, puede aplicarse el 50%",
   ],
-  [154, 155]
+  [155, 156, 157, 158]
 )
 
 export const BALEARS_GASTOS_MAYORES_65_DISCAPACIDAD_2025 = fichaImplementada(
@@ -77,7 +77,7 @@ export const BALEARS_GASTOS_MAYORES_65_DISCAPACIDAD_2025 = fichaImplementada(
     "Máximo 660 euros anuales por persona que genere derecho",
     "Base imponible general + ahorro máximo 33.000 euros individual y 52.800 conjunta",
   ],
-  [159, 160]
+  [160, 161]
 )
 
 export const BALEARS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
@@ -89,13 +89,13 @@ export const BALEARS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Importe final de consignación externa; esta ficha no acredita el cálculo automático de la deducción.",
     },
     [
-      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 130 a 166.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 131 a 133.",
+      "La consignación del importe no verifica por sí sola los requisitos de la norma.",
     ],
-    [130, 166],
+    [131, 132, 133],
     [
       "balears_mejora_sostenibilidad_vivienda:importe",
       "balears_mejora_sostenibilidad_vivienda:cumple",
@@ -114,13 +114,13 @@ export const BALEARS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Importe final de consignación externa; esta ficha no acredita el cálculo automático de la deducción.",
     },
     [
-      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 130 a 166.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 136.",
+      "La consignación del importe no verifica por sí sola los requisitos de la norma.",
     ],
-    [130, 166],
+    [136],
     [
       "balears_subvenciones_zona_emergencia_proteccion_civil:importe",
       "balears_subvenciones_zona_emergencia_proteccion_civil:cumple",
@@ -135,13 +135,13 @@ export const BALEARS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Importe final de consignación externa; esta ficha no acredita el cálculo automático de la deducción.",
     },
     [
-      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 130 a 166.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 138 a 139.",
+      "La consignación del importe no verifica por sí sola los requisitos de la norma.",
     ],
-    [130, 166],
+    [138, 139],
     [
       "balears_idiomas_extraescolares:importe",
       "balears_idiomas_extraescolares:cumple",
@@ -156,13 +156,13 @@ export const BALEARS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Importe final de consignación externa; esta ficha no acredita el cálculo automático de la deducción.",
     },
     [
-      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 130 a 166.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 140 a 141.",
+      "La consignación del importe no verifica por sí sola los requisitos de la norma.",
     ],
-    [130, 166],
+    [140, 141],
     [
       "balears_estudios_superiores_fuera_isla:importe",
       "balears_estudios_superiores_fuera_isla:cumple",
@@ -181,13 +181,13 @@ export const BALEARS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Importe final de consignación externa; esta ficha no acredita el cálculo automático de la deducción.",
     },
     [
-      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 130 a 166.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 141 a 142.",
+      "La consignación del importe no verifica por sí sola los requisitos de la norma.",
     ],
-    [130, 166],
+    [141, 142],
     [
       "balears_arrendador_vivienda_permanente_primas_seguro:importe",
       "balears_arrendador_vivienda_permanente_primas_seguro:cumple",
@@ -206,13 +206,13 @@ export const BALEARS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Importe final de consignación externa; esta ficha no acredita el cálculo automático de la deducción.",
     },
     [
-      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 130 a 166.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 142 a 144.",
+      "La consignación del importe no verifica por sí sola los requisitos de la norma.",
     ],
-    [130, 166],
+    [142, 143, 144],
     [
       "balears_arrendador_vivienda_permanente_otros_gastos:importe",
       "balears_arrendador_vivienda_permanente_otros_gastos:cumple",
@@ -227,13 +227,13 @@ export const BALEARS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Importe final de consignación externa; esta ficha no acredita el cálculo automático de la deducción.",
     },
     [
-      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 130 a 166.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 144 a 145.",
+      "La consignación del importe no verifica por sí sola los requisitos de la norma.",
     ],
-    [130, 166],
+    [144, 145],
     [
       "balears_arrendamiento_traslado_laboral:importe",
       "balears_arrendamiento_traslado_laboral:cumple",
@@ -252,13 +252,13 @@ export const BALEARS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Importe final de consignación externa; esta ficha no acredita el cálculo automático de la deducción.",
     },
     [
-      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 130 a 166.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 145 a 146.",
+      "La consignación del importe no verifica por sí sola los requisitos de la norma.",
     ],
-    [130, 166],
+    [145, 146],
     [
       "balears_vivienda_ocupada_ilegalmente_suspension_lanzamiento:importe",
       "balears_vivienda_ocupada_ilegalmente_suspension_lanzamiento:cumple",
@@ -277,13 +277,13 @@ export const BALEARS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Importe final de consignación externa; esta ficha no acredita el cálculo automático de la deducción.",
     },
     [
-      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 130 a 166.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 146 a 147.",
+      "La consignación del importe no verifica por sí sola los requisitos de la norma.",
     ],
-    [130, 166],
+    [146, 147],
     [
       "balears_donaciones_investigacion_desarrollo_innovacion:importe",
       "balears_donaciones_investigacion_desarrollo_innovacion:cumple",
@@ -302,13 +302,13 @@ export const BALEARS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Importe final de consignación externa; esta ficha no acredita el cálculo automático de la deducción.",
     },
     [
-      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 130 a 166.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 148 a 150.",
+      "La consignación del importe no verifica por sí sola los requisitos de la norma.",
     ],
-    [130, 166],
+    [148, 149, 150],
     [
       "balears_mecenazgo_cultural_cientifico_tecnologico:importe",
       "balears_mecenazgo_cultural_cientifico_tecnologico:cumple",
@@ -323,13 +323,13 @@ export const BALEARS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Importe final de consignación externa; esta ficha no acredita el cálculo automático de la deducción.",
     },
     [
-      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 130 a 166.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 150.",
+      "La consignación del importe no verifica por sí sola los requisitos de la norma.",
     ],
-    [130, 166],
+    [150],
     [
       "balears_mecenazgo_deportivo:importe",
       "balears_mecenazgo_deportivo:cumple",
@@ -344,13 +344,13 @@ export const BALEARS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Importe final de consignación externa; esta ficha no acredita el cálculo automático de la deducción.",
     },
     [
-      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 130 a 166.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 151 a 152.",
+      "La consignación del importe no verifica por sí sola los requisitos de la norma.",
     ],
-    [130, 166],
+    [151, 152],
     [
       "balears_fomento_lengua_catalana:importe",
       "balears_fomento_lengua_catalana:cumple",
@@ -365,13 +365,13 @@ export const BALEARS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Importe final de consignación externa; esta ficha no acredita el cálculo automático de la deducción.",
     },
     [
-      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 130 a 166.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 152.",
+      "La consignación del importe no verifica por sí sola los requisitos de la norma.",
     ],
-    [130, 166],
+    [152],
     [
       "balears_entidades_tercer_sector:importe",
       "balears_entidades_tercer_sector:cumple",
@@ -390,13 +390,13 @@ export const BALEARS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Importe final de consignación externa; esta ficha no acredita el cálculo automático de la deducción.",
     },
     [
-      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 130 a 166.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 152 a 153.",
+      "La consignación del importe no verifica por sí sola los requisitos de la norma.",
     ],
-    [130, 166],
+    [152, 153],
     [
       "balears_declarantes_discapacidad_o_descendientes_discapacidad:importe",
       "balears_declarantes_discapacidad_o_descendientes_discapacidad:cumple",
@@ -411,13 +411,13 @@ export const BALEARS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Importe final de consignación externa; esta ficha no acredita el cálculo automático de la deducción.",
     },
     [
-      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 130 a 166.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 153 a 155.",
+      "La consignación del importe no verifica por sí sola los requisitos de la norma.",
     ],
-    [130, 166],
+    [153, 154, 155],
     [
       "balears_conciliacion_menores_6:importe",
       "balears_conciliacion_menores_6:cumple",
@@ -432,13 +432,13 @@ export const BALEARS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Importe final de consignación externa; esta ficha no acredita el cálculo automático de la deducción.",
     },
     [
-      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 130 a 166.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 158 a 160.",
+      "La consignación del importe no verifica por sí sola los requisitos de la norma.",
     ],
-    [130, 166],
+    [158, 159, 160],
     ["balears_adopcion:importe", "balears_adopcion:cumple"],
     ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
   ),
@@ -450,13 +450,13 @@ export const BALEARS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Importe final de consignación externa; esta ficha no acredita el cálculo automático de la deducción.",
     },
     [
-      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 130 a 166.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 161 a 162.",
+      "La consignación del importe no verifica por sí sola los requisitos de la norma.",
     ],
-    [130, 166],
+    [161, 162],
     ["balears_gastos_ela:importe", "balears_gastos_ela:cumple"],
     ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
   ),
@@ -472,13 +472,13 @@ export const BALEARS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Importe final de consignación externa; esta ficha no acredita el cálculo automático de la deducción.",
     },
     [
-      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 130 a 166.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 162 a 165.",
+      "La consignación del importe no verifica por sí sola los requisitos de la norma.",
     ],
-    [130, 166],
+    [162, 163, 164, 165],
     [
       "balears_inversion_entidades_nuevas_reciente_creacion:importe",
       "balears_inversion_entidades_nuevas_reciente_creacion:cumple",
@@ -493,13 +493,13 @@ export const BALEARS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Importe final de consignación externa; esta ficha no acredita el cálculo automático de la deducción.",
     },
     [
-      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 130 a 166.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 165 a 166.",
+      "La consignación del importe no verifica por sí sola los requisitos de la norma.",
     ],
-    [130, 166],
+    [165, 166],
     [
       "balears_fomento_autoocupacion:importe",
       "balears_fomento_autoocupacion:cumple",
@@ -514,13 +514,13 @@ export const BALEARS_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Importe final de consignación externa; esta ficha no acredita el cálculo automático de la deducción.",
     },
     [
-      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 130 a 166.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 166 a 167.",
+      "La consignación del importe no verifica por sí sola los requisitos de la norma.",
     ],
-    [130, 166],
+    [166, 167],
     [
       "balears_plazas_dificil_cobertura:importe",
       "balears_plazas_dificil_cobertura:cumple",

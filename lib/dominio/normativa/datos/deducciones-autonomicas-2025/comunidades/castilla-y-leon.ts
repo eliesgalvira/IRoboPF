@@ -22,7 +22,7 @@ export const CYL_FAMILIA_NUMEROSA_2025 = fichaImplementada(
     "Incremento de 1.000 euros por cada descendiente a partir del sexto",
     "Incremento de 600 euros por discapacidad igual o superior al 65%",
   ],
-  [282, 283]
+  [283, 284]
 )
 
 export const CYL_NACIMIENTO_ADOPCION_HIJOS_2025 = fichaImplementada(
@@ -40,7 +40,7 @@ export const CYL_NACIMIENTO_ADOPCION_HIJOS_2025 = fichaImplementada(
     "Medio rural: 1.420 euros primer hijo, 2.070 segundo, 3.300 tercero y sucesivos",
     "Duplicación si discapacidad del nacido/adoptado igual o superior al 33%",
   ],
-  [283, 284]
+  [284, 285, 286, 287]
 )
 
 export const CYL_ARRENDAMIENTO_VIVIENDA_JOVENES_2025 = fichaImplementada(
@@ -58,7 +58,7 @@ export const CYL_ARRENDAMIENTO_VIVIENDA_JOVENES_2025 = fichaImplementada(
     "25%, límite 612 euros en municipios o entidades locales menores de población reducida",
     "Base imponible general + ahorro - mínimo personal y familiar máximo 18.900 euros individual y 31.500 conjunta",
   ],
-  [302, 303]
+  [303, 304, 305]
 )
 
 export const CYL_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
@@ -70,13 +70,13 @@ export const CYL_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Consignación de importe externo; no acredita evaluación automática de fórmula, requisitos, límites, prorrateos ni incompatibilidades.",
     },
     [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 282 a 313.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "El importe consignado requiere comprobación fiscal externa.",
     ],
-    [282, 313],
+    [287, 288, 289],
     [
       "cyl_partos_adopciones_multiples:importe",
       "cyl_partos_adopciones_multiples:cumple",
@@ -91,13 +91,13 @@ export const CYL_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Consignación de importe externo; no acredita evaluación automática de fórmula, requisitos, límites, prorrateos ni incompatibilidades.",
     },
     [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 282 a 313.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "El importe consignado requiere comprobación fiscal externa.",
     ],
-    [282, 313],
+    [289, 290],
     ["cyl_gastos_adopcion:importe", "cyl_gastos_adopcion:cumple"],
     ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
   ),
@@ -109,13 +109,13 @@ export const CYL_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Consignación de importe externo; no acredita evaluación automática de fórmula, requisitos, límites, prorrateos ni incompatibilidades.",
     },
     [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 282 a 313.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "El importe consignado requiere comprobación fiscal externa.",
     ],
-    [282, 313],
+    [290, 291, 292],
     ["cyl_cuidado_hijos_menores:importe", "cyl_cuidado_hijos_menores:cumple"],
     ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
   ),
@@ -129,13 +129,13 @@ export const CYL_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Consignación de importe externo; no acredita evaluación automática de fórmula, requisitos, límites, prorrateos ni incompatibilidades.",
     },
     [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 282 a 313.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "El importe consignado requiere comprobación fiscal externa.",
     ],
-    [282, 313],
+    [293, 294],
     [
       "cyl_cuotas_seguridad_social_empleados_hogar:importe",
       "cyl_cuotas_seguridad_social_empleados_hogar:cumple",
@@ -150,13 +150,13 @@ export const CYL_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Consignación de importe externo; no acredita evaluación automática de fórmula, requisitos, límites, prorrateos ni incompatibilidades.",
     },
     [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 282 a 313.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "El importe consignado requiere comprobación fiscal externa.",
     ],
-    [282, 313],
+    [294, 295],
     [
       "cyl_contribuyentes_discapacidad:importe",
       "cyl_contribuyentes_discapacidad:cumple",
@@ -171,13 +171,13 @@ export const CYL_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Consignación de importe externo; no acredita evaluación automática de fórmula, requisitos, límites, prorrateos ni incompatibilidades.",
     },
     [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 282 a 313.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "El importe consignado requiere comprobación fiscal externa.",
     ],
-    [282, 313],
+    [295, 296, 297, 298],
     [
       "cyl_vivienda_jovenes_medio_rural:importe",
       "cyl_vivienda_jovenes_medio_rural:cumple",
@@ -196,13 +196,13 @@ export const CYL_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Consignación de importe externo; no acredita evaluación automática de fórmula, requisitos, límites, prorrateos ni incompatibilidades.",
     },
     [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 282 a 313.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "El importe consignado requiere comprobación fiscal externa.",
     ],
-    [282, 313],
+    [298, 299, 300],
     [
       "cyl_rehabilitacion_subvencionada_eficiencia_sostenibilidad_discapacidad:importe",
       "cyl_rehabilitacion_subvencionada_eficiencia_sostenibilidad_discapacidad:cumple",
@@ -221,13 +221,13 @@ export const CYL_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Consignación de importe externo; no acredita evaluación automática de fórmula, requisitos, límites, prorrateos ni incompatibilidades.",
     },
     [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 282 a 313.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "El importe consignado requiere comprobación fiscal externa.",
     ],
-    [282, 313],
+    [300, 301, 302, 303],
     [
       "cyl_rehabilitacion_viviendas_medio_rural_alquiler:importe",
       "cyl_rehabilitacion_viviendas_medio_rural_alquiler:cumple",
@@ -242,13 +242,13 @@ export const CYL_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Consignación de importe externo; no acredita evaluación automática de fórmula, requisitos, límites, prorrateos ni incompatibilidades.",
     },
     [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 282 a 313.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "El importe consignado requiere comprobación fiscal externa.",
     ],
-    [282, 313],
+    [305, 306, 307],
     ["cyl_fomento_emprendimiento:importe", "cyl_fomento_emprendimiento:cumple"],
     ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
   ),
@@ -264,13 +264,13 @@ export const CYL_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Consignación de importe externo; no acredita evaluación automática de fórmula, requisitos, límites, prorrateos ni incompatibilidades.",
     },
     [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 282 a 313.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "El importe consignado requiere comprobación fiscal externa.",
     ],
-    [282, 313],
+    [307, 308],
     [
       "cyl_recuperacion_patrimonio_historico_cultural_natural:importe",
       "cyl_recuperacion_patrimonio_historico_cultural_natural:cumple",
@@ -285,13 +285,13 @@ export const CYL_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Consignación de importe externo; no acredita evaluación automática de fórmula, requisitos, límites, prorrateos ni incompatibilidades.",
     },
     [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 282 a 313.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "El importe consignado requiere comprobación fiscal externa.",
     ],
-    [282, 313],
+    [308, 309, 310],
     [
       "cyl_donaciones_fundaciones_patrimonio:importe",
       "cyl_donaciones_fundaciones_patrimonio:cumple",
@@ -306,13 +306,13 @@ export const CYL_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Consignación de importe externo; no acredita evaluación automática de fórmula, requisitos, límites, prorrateos ni incompatibilidades.",
     },
     [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 282 a 313.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "El importe consignado requiere comprobación fiscal externa.",
     ],
-    [282, 313],
+    [310],
     ["cyl_donaciones_idi:importe", "cyl_donaciones_idi:cumple"],
     ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
   ),
@@ -324,13 +324,13 @@ export const CYL_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Consignación de importe externo; no acredita evaluación automática de fórmula, requisitos, límites, prorrateos ni incompatibilidades.",
     },
     [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 282 a 313.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "El importe consignado requiere comprobación fiscal externa.",
     ],
-    [282, 313],
+    [310, 311, 312],
     ["cyl_movilidad_sostenible:importe", "cyl_movilidad_sostenible:cumple"],
     ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
   ),
@@ -342,13 +342,13 @@ export const CYL_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "Ficha implementada con control de interfaz para aplicar fórmula, límites, prorrateos e incompatibilidades operativas.",
+        "Consignación de importe externo; no acredita evaluación automática de fórmula, requisitos, límites, prorrateos ni incompatibilidades.",
     },
     [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 282 a 313.",
-      "El cálculo se verifica mediante el control de deducción correspondiente.",
+      "El importe consignado requiere comprobación fiscal externa.",
     ],
-    [282, 313],
+    [312, 313, 314],
     [
       "cyl_vivienda_nueva_construccion:importe",
       "cyl_vivienda_nueva_construccion:cumple",
