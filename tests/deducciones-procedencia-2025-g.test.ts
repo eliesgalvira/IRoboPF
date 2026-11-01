@@ -1,14 +1,9 @@
 import { calcularDeduccionesAutonomicasAplicadas } from "../lib/dominio/irpf/deducciones-autonomicas-aplicadas"
 import { describe, expect, it } from "vitest"
-import { readFileSync } from "node:fs"
+import paginasManual from "../docs/procedencia/deducciones-2025/lotes/g/paginas-manual.json"
 import { VALENCIANA_DEDUCCIONES_AUTONOMICAS_2025 } from "../lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/comunitat-valenciana"
 
-const paginas: Record<string, number[]> = JSON.parse(
-  readFileSync(
-    "docs/procedencia/deducciones-2025/lotes/g/paginas-manual.json",
-    "utf8"
-  )
-)
+const paginas: Record<string, number[]> = paginasManual
 
 describe("referencias valencianas en la edición fijada del Manual Renta 2025", () => {
   it("conserva exactamente las cuarenta fichas censadas", () => {
