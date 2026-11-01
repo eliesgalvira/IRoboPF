@@ -1,5 +1,11 @@
 # Estado de la auditoría documental
 
+## Prioridad: CI reproducible
+
+La integración de deducciones y A–F queda aplazada hasta dejar verde el workflow «Comprobaciones». Las pruebas ordinarias deben funcionar con un checkout limpio, sin `.cache`, archivos privados, corpus externo local ni objetos Git históricos. Los ensayos que necesitan el corpus completo se separan como comprobaciones locales opcionales, con omisión explícita y documentada en CI. Cada push debe pasar previamente los mismos comandos del workflow; los cambios se agrupan.
+
+Están reproducidos los imports privados, las consultas históricas y la dependencia del CAS de las pruebas de contenido. Corregidos localmente el registro temporal del ensayo de enlaces y las aserciones de importe de la revisión gallega/riojana. El CI todavía no está verde; falta completar la separación de pruebas, validación limpia y revisión independiente.
+
 ## Alcance completo aprobado
 
 Además de las deducciones de 2025, está encargado el [plan completo A–F](PLAN-COMPLETO.md): procedencia automática de todos los datos de 2012–2026; comunidades reales en 2026; miles de comparaciones con simuladores oficiales; redondeo observado de cotizaciones; mínimos familiares unificados; y actividad, composición, admisión y puertas. El cierre técnico anterior de 65 sitios conserva sus resultados y deja de ser el límite del encargo.

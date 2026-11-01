@@ -49,6 +49,11 @@ class BindingTest(unittest.TestCase):
         self.context = {**self.payload['inventory'], 'items': [copy.deepcopy(self.real_item)]}
         # El fixture se mantiene candidato aunque posteriormente se apruebe en repo.
         registry = json.loads((self.root / REGISTRY).read_text())
+        # El ensayo copia una sola evidencia; no depende de las incorporaciones
+        # posteriores del registro público ni de su corpus completo.
+        registry['entries'] = [entry for entry in registry['entries']
+                               if entry['payload']['path'] == PAYLOAD]
+        self.assertEqual(len(registry['entries']), 1)
         registry['entries'][0]['attestation'] = None
         self.write(REGISTRY, registry)
         self.refresh_registry()
