@@ -281,7 +281,10 @@
                   "type": "object",
                   "properties": {
                     "momento": {
-                      "enum": ["antes", "despues"],
+                      "enum": [
+                        "antes",
+                        "despues"
+                      ],
                       "default": "despues",
                       "description": "Sin este campo la comparación es actual. Las anteriores requieren cambio y comparación actual del mismo aspecto."
                     },
@@ -533,7 +536,10 @@
                 "pattern": "\\S"
               },
               "fechaPublicacion": {
-                "type": ["string", "null"],
+                "type": [
+                  "string",
+                  "null"
+                ],
                 "minLength": 1,
                 "pattern": "\\S"
               },
@@ -570,7 +576,31 @@
               "fechaPublicacion",
               "tipo"
             ],
-            "additionalProperties": false
+            "additionalProperties": false,
+            "allOf": [
+              {
+                "if": {
+                  "properties": {
+                    "fechaPublicacion": {
+                      "type": "null"
+                    }
+                  },
+                  "required": [
+                    "fechaPublicacion"
+                  ]
+                },
+                "then": {
+                  "properties": {
+                    "tipo": {
+                      "const": "manual"
+                    }
+                  },
+                  "required": [
+                    "reservaFechaPublicacion"
+                  ]
+                }
+              }
+            ]
           },
           "minItems": 0
         }
