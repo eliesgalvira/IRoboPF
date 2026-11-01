@@ -86,7 +86,7 @@ Los paquetes y originales conservan su identidad. Las mejoras del consumidor y d
 
 Se han retirado de la historia las referencias personales, publicaciones, imágenes y transportes sociales de terceros. Las conclusiones técnicas y las fuentes oficiales se conservan; el origen social se cita como «un divulgador en X (referencia privada)». Los créditos de README y de la aplicación permanecen por decisión expresa del propietario.
 
-La reescritura conserva los 217 commits anteriores, sus autores, fechas, mensajes y las 19 firmas. El [informe de retirada](privacidad-terceros/INFORME.md) detalla el respaldo verificado, las dudas, la migración del rediseño y la solicitud pendiente a GitHub Support. No se han reescrito `main` ni otras ramas. El material íntegro queda únicamente en el respaldo privado.
+La reescritura conserva los 217 commits anteriores, sus autores, fechas, mensajes y las 19 firmas. Pasan los 49 snapshots, las pruebas de rutas e integridad y el mapa de 494 identidades históricas. El [informe de retirada](privacidad-terceros/INFORME.md) detalla el respaldo verificado, las dudas, la migración del rediseño y la solicitud pendiente a GitHub Support. No se han reescrito `main` ni otras ramas. El material íntegro queda únicamente en el respaldo privado.
 
 ## Privacidad del entorno: revisión anterior
 
