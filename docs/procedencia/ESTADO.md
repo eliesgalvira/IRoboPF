@@ -6,13 +6,15 @@ Revisión de **351 fichas** contra los originales de los boletines autonómicos,
 
 | Lote | Comunidades | Fichas | Estado |
 | --- | --- | ---: | --- |
-| A | Andalucía, Aragón, Catalunya | 49 | Preparado |
-| B | Asturias, Cantabria | 48 | Preparado |
-| C | Canarias, Illes Balears | 51 | Preparado |
-| D | Castilla-La Mancha, Castilla y León, Extremadura | 63 | Preparado |
-| E | Galicia, La Rioja | 49 | Preparado |
-| F | Madrid, Murcia | 51 | Preparado |
-| G | Comunitat Valenciana | 40 | Preparado |
+| A | Andalucía, Aragón, Catalunya | 49 | Contraste normativo en curso |
+| B | Asturias, Cantabria | 48 | Contraste normativo en curso |
+| C | Canarias, Illes Balears | 51 | Contraste normativo en curso |
+| D | Castilla-La Mancha, Castilla y León, Extremadura | 63 | Contraste normativo en curso |
+| E | Galicia, La Rioja | 49 | Contraste normativo en curso |
+| F | Madrid, Murcia | 51 | Contraste normativo en curso |
+| G | Comunitat Valenciana | 40 | Contraste normativo en curso |
+
+El contrato aditivo de procedencia y sus verificadores se están preparando en paralelo.
 
 **0 dictámenes nuevos recibidos; 351 pendientes.** Pendiente no significa «no verificable». Las auditorías históricas sirven de punto de partida, no de validación automática. Los originales nuevos irán al almacén externo y se mantendrá compatible la forma de las fichas.
 
