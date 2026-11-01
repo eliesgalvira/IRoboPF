@@ -31,7 +31,7 @@ Cada deducción: `codigo`, `comunidad`, `dictamenAntes`, `dictamenDespues`, `dic
 - `vigencia`: fechas de efecto, normas y reformas con IDs de cita, régimen transitorio y reservas, incluso si la regla no se puede cerrar.
 - `citas`: `id`, `documentoId`, `articulo`, `apartado`, `textoLiteral` y `localizador`. PDF: tipo `pdf`, `paginaFisica` desde 1 y `bbox` en puntos; HTML: tipo `html`, selector y rango de caracteres sobre el original fijado, con receta de extracción. Las citas deben reextraerse y cotejarse, no copiarse de un resultado de búsqueda.
 - `manual`: documento por hash, `paginasFicha`, `paginasComprobadas`, IDs de cita, concordancias y discrepancias. No suponer que la edición actual conserva la paginación histórica.
-- `comparaciones`: una entrada por aspecto (`campoCodigo`, `valorCodigo`, `reglaOficial`, `citas`, `resultado`, `motivo`). No agrupar todos los requisitos en un único «coincide» sin desglose.
+- `comparaciones`: una entrada por aspecto (`campoCodigo`, `valorCodigo`, `reglaOficial`, `citas`, `resultado`, `motivo`). No agrupar todos los requisitos en un único «coincide» sin desglose. Son actuales salvo `momento: "antes"`, que requiere cambio acreditado y comparación actual del mismo aspecto. La referencia a documentos es local al lote; adquisiciones independientes del mismo contenido conservan sus metadatos.
 - `contraejemplos`: entradas hipotéticas, esperado y su cálculo independiente, observado, API o campo examinado, prueba reproducible y alcance. Sin datos personales reales.
 - `cambios`: archivo relativo, motivo, prueba roja anterior y resultado posterior. `pendientes`: causa concreta y siguiente evidencia necesaria, sin listas genéricas reutilizadas.
 
