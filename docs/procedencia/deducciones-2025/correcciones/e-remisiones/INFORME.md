@@ -1,0 +1,52 @@
+# Descripción y remisiones de Galicia y La Rioja en 2025
+
+Entrega candidata sobre `dc8f21545b27bf7c3b5f2165aeff95de371f79a0`. Completa las descripciones de las 49 fichas y conserva el contraste anterior por propiedad en [propiedades.json](propiedades.json). No acepta sus propios cambios ni acredita una liquidación anual. La revisión independiente de las nuevas adiciones corresponde al integrador.
+
+Las fichas regionales pasan a ser datos explícitos. Se retiran de estos dos archivos las llamadas que producían cuantías y requisitos genéricos mediante helpers; no se añade otro evaluador ni una vía regional de cálculo. Los identificadores siguen permitiendo enlazar las 49 decisiones con su evidencia. No hay borrados de archivos ni cambios en contratos, helpers, interfaz o revisiones ajenas.
+
+Los dictámenes distinguen la coincidencia descriptiva, dentro de los pasajes y condiciones consignados, de la liquidación completa no comprobada. El global conserva esta reserva. Una consignación no acredita sus hechos ni sus límites. Las comparaciones anteriores quedan identificadas como `antes`; los valores actuales y las propiedades que no cambian se conservan separadamente. Los contraejemplos ejecutados en esta entrega corresponden exclusivamente a la base indicada: no describen el comportamiento de cambios posteriores, incluido `c5c6988d`.
+
+## Resultados del contraste
+
+Nacimiento gallego incluye convivencia al devengo, prolongación durante dos ejercicios, reparto y distinción entre los umbrales de 22.000 y 31.000. Su renta se determina por general más ahorro menos mínimos. El alquiler utiliza general más ahorro antes de mínimos, y añade edad, fecha de contrato, fianza y reparto. Las deducciones por dos descendientes y por familia numerosa separan Tres.1 y Tres.2, con reparto de Tres.3 e incompatibilidad de Tres.4.
+
+Las inversiones incluyen porcentajes, límites conjuntos, modalidades de capital, préstamo y garantía, participaciones familiares, empleo, escritura y mantenimiento cuando el apartado concreto los exige. La corrección DOG 39/2014 impide convertir los 20.000 euros de Diez en tres límites independientes. DOG 43/2015 mantiene la exclusión de patrimonio mobiliario **o** inmobiliario. Se desarrolla la remisión a 4.Ocho.Dos.a de la Ley del Patrimonio sin importar las condiciones de participación o remuneración de sus letras b/c. Se añaden calificación, inscripción y requisitos de IEBT, incluida su corrección DOG 78/2007, y acreditación del sello de PYME innovadora.
+
+Para proyectos de especial interés se exige la declaración del régimen de los artículos 17 y 20 de Ley 2/2024 y el objeto social exclusivo. No se importa escritura o permanencia de otros apartados por semejanza verbal. Los pasajes originales de esos artículos se incorporan como complemento.
+
+La orden de centros históricos queda incorporada con su artículo único y el anexo completo de instrumentos y fechas. [Centros históricos](centros-historicos.json) distingue los planes especiales, generales, áreas de rehabilitación y restantes delimitaciones de cada centro. El certificado municipal debe acreditar inclusión en ese perímetro. La ausencia de un inmueble concreto en este encargo no es falta de la norma ni imposibilidad documental: no se ha solicitado resolver la localización real de ninguno.
+
+En ayudas por incendios se cotejan las categorías de los artículos 6–12 del Decreto 76/2025 y la ampliación al otoño del Decreto 79/2025. Se distingue el beneficiario persona física de entidades locales u otros destinatarios y se exige identificar concepto, cobertura y resolución. La fórmula solo alcanza la ayuda efectivamente integrada en base liquidable: primero se debe resolver la exención o no integración estatal, incluidas las condiciones específicas para daños personales del acuerdo estatal y las de la disposición adicional quinta de IRPF para daños patrimoniales. Los originales estatales de diciembre de 2025 y febrero de 2026 conservados acreditan sus textos y efectos declarados; no se presume que toda ayuda autonómica por daños personales esté cubierta por el acuerdo estatal. La pertenencia a una categoría del decreto no prueba por sí sola integración ni exención.
+
+Deportistas requieren reconocimiento administrativo de alto nivel y ausencia de rendimientos de actividad económica. ELA gallega neutraliza ayudas, mientras ELA riojana deduce gastos. Talidomida conserva su efecto desde 2023, con alcance de esta entrega limitado a 2025.
+
+Los [anexos riojanos](anexos-rioja-2025.json) proceden de las tablas del original de 2017. Se fijan ambas listas separadamente, sin sustituirlas por la lista de pequeños municipios y entidades menores publicada en diciembre de 2025 para 2026. Las remisiones de cada modalidad y la disposición final de Ley 9/2025 se conservan en el paquete. Se distingue la suspensión parcial de vehículos desde 2024 de la regla original de matriculación de un vehículo por persona. Se usa esa regla original para 2025; no se anticipa la modificación de 2026. Las retroactividades de 32.8/19 y 32.20 se tratan separadamente.
+
+Vivienda histórica incorpora los originales de IRPF, su reglamento y la reforma transitoria de 2012: ocupación, permanencia, construcción, exclusiones, ampliaciones excepcionales y pagos previos a 2013. Adecuación por discapacidad añade la exigencia estatal de obras previas a 2013 y conclusión antes de 2017; no basta trasladar el párrafo regional sobre adquisición. Se mantienen las bases regionales propias. El consolidado actual de IRPF no sustituye el artículo 68.1 histórico derogado.
+
+Mecenazgo conserva el original de 2021, destinatarios, exclusión de determinadas aportaciones a personas físicas vinculadas, valoración y límite de mercado, incompatibilidades entre modalidades y con el crédito fiscal. Se distinguen el crédito reconocido administrativamente para otros tributos y la deducción en IRPF. BOR 84/2021 corrige 14.a para COVID; BOR 119/2021 corrige el capítulo de 41 bis, sin alterar por ello los tipos de 32.14. La aclaración de remisión de 2026 no es la fuente temporal utilizada para 2025.
+
+Libros gallegos incorpora facturas de 1 de julio a 31 de diciembre, efectivo excepcional de 2025, categorías y exclusiones de la orden de marzo de 2026 y límites de gasto de 300/150 euros, distintos del máximo de deducción de 105 por descendiente. La corrección de disposición adicional quinta permanece en la evidencia. La excepción de efectivo no se extiende a energía.
+
+## Discrepancias con la revisión y alcance pendiente
+
+Se contrastaron las decisiones, sin copiarlas automáticamente:
+
+- ELA riojana: original y manual dicen **50 %**, frente al 40 % del discriminante de revisión.
+- Segunda vivienda rural: original dice **8 %**, frente al 7 % del discriminante.
+- Proyectos de especial interés: original establece **20 % sobre base máxima de 10.000 por entidad entre periodos**, frente al máximo de 20.000 y otras condiciones importadas en el discriminante.
+- Adecuación gallega: 3.000 es base anual, no deducción anual. El exceso de base ordinario tiene dos ejercicios; concurrencia de viviendas y remanente por insuficiencia de cuota tienen reglas propias de cuatro ejercicios. La reforma de 2025 reproducida no incluye el máximo de alquiler de 700 que sí mantiene la deducción distinta por viviendas vacías. Se rectificó ese discriminante de prueba, conservando el fallo y la fuente que lo refuta en el transporte.
+
+Se completan además las remisiones materiales a SOFOR (artículo 122 quinquies, redacción original de Ley 11/2021), declaración y perímetro de aldeas modelo, organismo de investigación de Reglamento 651/2014 artículo 2.83 y definición de renovables del artículo 2.a de Directiva 2009/28/CE. Las condiciones del expediente de declaración de aldea no se convierten en un porcentaje de participación del contribuyente. La pertenencia de un inmueble concreto requiere su ubicación y acto de delimitación; no se ha aportado ese supuesto real.
+
+**Reserva que impide cerrar la clasificación de incendios:** las resoluciones oficiales de 27 de enero y 26 de febrero de 2026 derogan, respectivamente, RDL 16/2025 y 2/2026. Se recuperaron los cuatro originales y se contrastaron los pasajes de exención y derogación. La búsqueda adicional en BOE por incendios de 2025, exención y daños personales devuelve los textos citados, sin localizar en este contraste una disposición posterior que resuelva expresamente para todas las ayudas autonómicas de 2025 la relación entre su retroactividad y esas derogaciones. No se presume ni exención general actual ni inclusión general. Falta cerrar su aplicación temporal al concreto devengo/cobro, además de los hechos de pérdida, reparación y cobertura que exige DA quinta. El dictamen de esa parte permanece no verificable y no se presenta como conformidad de las 49 cadenas. La literalidad de una disposición derogada no basta para zanjar ese efecto jurídico. No se ha pedido una consulta ni se ha realizado ningún envío externo.
+
+## Validación
+
+La base produjo 50 fallos en los discriminantes nuevos; se conservan los resultados anteriores y el fallo intermedio que detectó la atribución de 700 euros. Tras los cambios pasan 167 pruebas en los tres archivos E, sin modificar `-e-correcciones.test.ts`. Se mantienen las tres citas de ayudas corregidas, las páginas de bicicletas/celiaquía y el contrato parcial por titular y su bloqueo en el agregado.
+
+Tipos de los regionales, pruebas E y dependencias importadas pasan. ESLint y oxlint pasan para el código cambiado, con las 16 reglas del proyecto a error. Se usaron dependencias de lectura mediante configuración privada; los fallos iniciales de resolución se conservan. No se ejecutaron builds ni suites pesadas.
+
+Se reextraen todos los literales actuales con ambos hashes y tamaño; el verificador admite ahora también las dos tablas HTML del anexo, con receta fija y sin ejecutar código arbitrario. Las tablas originales HTML de Rioja y centros se renderizaron externamente y se inspeccionaron visualmente, incluidas ambas páginas del anexo de centros. El verificador central completo exige los 351 registros y los bytes del CAS. Ninguno de estos controles equivale a aceptación fiscal.
+
+La reextracción final comprende **1.618 citas de 57 fuentes**. El control central completo pasa con 351 registros e integridad de bytes comprobada. Ruff del verificador también pasa. No se ha lanzado otra revisión independiente ni se ha modificado VCS.

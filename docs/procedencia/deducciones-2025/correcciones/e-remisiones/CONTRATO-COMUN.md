@@ -1,0 +1,13 @@
+# Requisitos para la ruta común de cálculo
+
+Esta entrega no define otra API regional. Los datos descriptivos se mantienen como inventario normativo y las llamadas regionales a los constructores genéricos se retiran. La reforma del motor común deberá convertir cada parámetro y condición en hechos acreditados y evaluar una única ruta, con procedencia de cada resultado. No se solicita mantener las firmas heredadas.
+
+El indicador `cumple` y el importe introducido no bastan para calcular ni acreditar una deducción. Deben reemplazarse en la ruta común por hechos pertinentes, fecha y ejercicio, titular del derecho, operación o gasto, fuente y versión aplicable, y documentación que respalda cada condición. El inventario por propiedad señala importes, bases, límites temporales, reparto e incompatibilidades de las 49 entradas; los textos no son funciones de evaluación.
+
+La distinción entre base de deducción, cuota máxima y límite conjunto debe ser explícita. Una inversión de 10.000 euros en proyectos de especial interés da como máximo 2.000 por entidad; 3.000 de base anual de adecuación no son 3.000 de cuota. Las ayudas requieren separar lo concedido, lo no integrado o exento y lo integrado en base liquidable antes de aplicar los tipos medios. La procedencia de cada valor intermedio debe identificar el apartado y la operación que lo produce.
+
+Para inversiones se precisan modalidades de capital/préstamo/garantía y sus límites compartidos, participación computable, actividad y patrimonio, empleo, plazos de mantenimiento, escritura o calificación cuando se exijan, y acreditación de las inscripciones. Para vivienda se necesitan fechas, modalidad, titularidad, importes subvencionados, ubicación en la lista o perímetro aplicable y límites comunes. Para gastos se necesitan destinatario, pagador, concepto, factura, pago, subvenciones e incompatibilidades. No basta una etiqueta de categoría para asignar una norma.
+
+La aportación de un certificado municipal prueba el perímetro declarado por la Administración; la falta de dirección de un supuesto no debe convertirse en ausencia de norma. En celiaquía, el parcial atribuido a un titular tampoco representa el total de una declaración. La integración de sus hechos y evaluador útil en la ruta común corresponde a su propietario, que deberá retirar cualquier puente duplicado. Este encargo no añade composición familiar, admisión ni otra puerta de producto.
+
+El helper candidato posterior `c5c6988d` debe contrastarse en su propia base al absorber sus evaluadores útiles. Las pruebas históricas de esta entrega no acreditan defectos actuales de ese cambio.
