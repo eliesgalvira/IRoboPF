@@ -1,12 +1,12 @@
 // Ejecutar desde la raíz con bun. NODE_PATH puede señalar dependencias ya instaladas.
 import assert from "node:assert/strict"
-import { readFileSync } from "node:fs"
+import seccionesManual from "../../lotes/d/secciones-manual.json"
+import lote from "../../lotes/d/dictamenes.json"
 import { DEDUCCIONES_AUTONOMICAS_2025_IMPLEMENTADAS as catalogo } from "../../../../../lib/dominio/normativa/datos/deducciones-autonomicas-2025"
 import { evaluarConsignacion } from "../../../../../lib/dominio/irpf/deducciones/contratos-2025"
 import { calcularDeduccionesAutonomicasAplicadas as parcial } from "../../../../../lib/dominio/irpf/deducciones-autonomicas-aplicadas"
-const root = "docs/procedencia/deducciones-2025/"
-const secciones = JSON.parse(readFileSync(root + "lotes/d/secciones-manual.json", "utf8")).secciones
-const dictamenes = JSON.parse(readFileSync(root + "lotes/d/dictamenes.json", "utf8")).deducciones
+const secciones: Readonly<Record<string, { readonly paginas: readonly number[] }>> = seccionesManual.secciones
+const dictamenes = lote.deducciones
 const fichas = catalogo.valor.filter(f => f.codigo in secciones)
 let verdes = 0
 function prueba(nombre: string, accion: () => void) { accion(); verdes++ }
@@ -18,7 +18,7 @@ if (process.argv.includes("--autor")) process.exit(0)
 const ambito = { ejercicio: 2025, territorio: "castilla-la-mancha" }
 const contexto = { ...ambito, contribuyente: "sujeto-hipotetico", modalidad: "individual" as const }
 const entrada = { ...ambito, contribuyente: contexto.contribuyente, codigo: "clm_familia_monoparental", soporte: "supuesto sintético", importe: 123 }
-prueba("externo no es automático", () => { const r = evaluarConsignacion(contexto, entrada); assert.equal(r.estado, "importe_externo"); assert.equal((r as any).aceptacionFiscal, "pendiente") })
+prueba("externo no es automático", () => { const r = evaluarConsignacion(contexto, entrada); assert(r.estado === "importe_externo"); assert.equal(r.aceptacionFiscal, "pendiente") })
 for (const importe of [-1, NaN, Infinity]) prueba("importe inválido", () => assert.equal(evaluarConsignacion(contexto, {...entrada, importe}).estado, "no_soportado"))
 prueba("titular ajeno", () => assert.equal(evaluarConsignacion(contexto, {...entrada, contribuyente: "otro-sujeto-hipotetico"}).estado, "excluida"))
 prueba("partos distintos no suman hijos en un solo parto", () => assert.equal(parcial({clmPartosAdopcionesUnHijo: 2, clmNacimientoCumpleLimites: true}, ambito), 200))
@@ -36,8 +36,13 @@ const esperados = {
  extremadura_ayudas_subvenciones_ela:"Artículo 11 septies",
  extremadura_enfermos_ela_familiares:"Artículo 11 octies",
 }
-for (const [codigo, articulo] of Object.entries(esperados)) rojo(`referencia documental ${codigo}`,()=>assert(dictamenes.find((r:any)=>r.codigo===codigo).vigencia.articulo.startsWith(articulo)))
-rojo("ayudas ELA: no atribuir importe fijo de enfermos",()=>assert(!dictamenes.find((r:any)=>r.codigo==="extremadura_ayudas_subvenciones_ela").comparaciones.some((c:any)=>c.reglaOficial==="2.000 euros anuales por contribuyente.")))
-rojo("familiares discapacidad: no importar cuidado de hijos",()=>assert(!dictamenes.find((r:any)=>r.codigo==="extremadura_cuidado_familiares_discapacidad").comparaciones.some((c:any)=>c.reglaOficial.includes("hijos menores de hasta 14"))))
+function dictamen(codigo: string) {
+  const encontrado = dictamenes.find((r) => r.codigo === codigo)
+  assert(encontrado, `Falta dictamen de ${codigo}`)
+  return encontrado
+}
+for (const [codigo, articulo] of Object.entries(esperados)) rojo(`referencia documental ${codigo}`,()=>assert(dictamen(codigo).vigencia.articulo.startsWith(articulo)))
+rojo("ayudas ELA: no atribuir importe fijo de enfermos",()=>assert(!dictamen("extremadura_ayudas_subvenciones_ela").comparaciones.some((c)=>c.reglaOficial==="2.000 euros anuales por contribuyente.")))
+rojo("familiares discapacidad: no importar cuidado de hijos",()=>assert(!dictamen("extremadura_cuidado_familiares_discapacidad").comparaciones.some((c)=>c.reglaOficial.includes("hijos menores de hasta 14"))))
 console.log(JSON.stringify({rojosDocumentales:rojos},null,2))
 process.exitCode = rojos.length ? 1 : 0
