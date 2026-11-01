@@ -43,6 +43,17 @@ describe("procedencia de Asturias y Cantabria en 2025", () => {
     expect(JSON.stringify(ficha)).toContain("6.000")
   })
 
+  it("excluye la renta de exactamente 8.000 euros en traslado por estudios", () => {
+    const ficha = fichas.find(
+      (ficha) => ficha.codigo === "cantabria_traslado_estudios_despoblamiento"
+    )
+    // Ley 3/2024, art. 3.Uno: art. 2.11.4, rentas inferiores a 8.000.
+    expect(JSON.stringify(ficha)).toContain(
+      "rentas anuales inferiores a 8.000 euros"
+    )
+    expect(JSON.stringify(ficha)).not.toContain("no superiores a 8.000")
+  })
+
   it("reproduce la limitación del helper parcial de alquiler conjunto", () => {
     const codigo = "cantabria_arrendamiento_jovenes_mayores_discapacidad"
     const entradas = { [`${codigo}:cumple`]: true, [`${codigo}:base`]: 6000 }

@@ -287,7 +287,7 @@ export const CANTABRIA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     {
       tipo: "mixta",
       descripcion:
-        "200 euros por hijo estudiante desplazado; rentas anuales no superiores a 8.000 euros y reparto por mitad en individual.",
+        "200 euros por hijo estudiante desplazado; rentas anuales inferiores a 8.000 euros y reparto por mitad en individual.",
     },
     [
       "Ficha normalizada desde el Manual Renta 2025 Parte 2, páginas 207 a 237.",

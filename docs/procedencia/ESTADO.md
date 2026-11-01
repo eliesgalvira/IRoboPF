@@ -7,7 +7,7 @@ Revisión de **351 fichas** contra los originales de los boletines autonómicos,
 | Lote | Comunidades | Fichas | Estado |
 | --- | --- | ---: | --- |
 | A | Andalucía, Aragón, Catalunya | 49 | Candidato integrado; revisión independiente en curso |
-| B | Asturias, Cantabria | 48 | Candidato integrado; revisión independiente en curso |
+| B | Asturias, Cantabria | 48 | Revisión recibida; rectificaciones documentales y del auxiliar pendientes |
 | C | Canarias, Illes Balears | 51 | Candidato integrado; revisión independiente en curso |
 | D | Castilla-La Mancha, Castilla y León, Extremadura | 63 | Candidato integrado; revisión independiente en curso |
 | E | Galicia, La Rioja | 49 | Candidato integrado; revisión independiente en curso |
@@ -18,7 +18,7 @@ El contrato aditivo conserva campos y valores de las fichas y muestra pendiente 
 
 **351 dictámenes candidatos recibidos; cobertura completa del censo. Ninguno aceptado todavía.** Los resultados posteriores propuestos son 252 diferencias y 99 no verificables para el alcance completo. Las diferencias incluyen omisiones de ficha: no equivalen a 252 errores de cálculo.
 
-- [Asturias y Cantabria](deducciones-2025/lotes/b/INFORME.md): dos diferencias del helper compartido y 46 no verificables con reservas. Se corrige el límite de cuidado de familiares y se amplían 18 descripciones; revisión independiente en curso.
+- [Asturias y Cantabria](deducciones-2025/lotes/b/INFORME.md): dos diferencias del helper compartido y 46 no verificables con reservas. La revisión confirma esos dos defectos y detecta la inclusión incorrecta de renta igual a 8.000 euros en estudios, ya corregida con prueba. Quedan por rectificar 18 atribuciones jurídicas y las reservas concretas de la matriz. [Contraste del lote](deducciones-2025/revisiones/b/CONTRASTE.md).
 - [Andalucía, Aragón y Catalunya](deducciones-2025/lotes/a/INFORME.md): ocho correcciones documentales; los 49 dictámenes completos conservan reservas concretas de vigencia, remisiones o cálculo.
 - [Canarias e Illes Balears](deducciones-2025/lotes/c/informe.md): 51 referencias de página corregidas, 41 descripciones de consignación precisadas y restricción individual del incremento por enfermedad. Se conservan cinco discrepancias propuestas del auxiliar heredado.
 - [Castilla-La Mancha, Castilla y León y Extremadura](deducciones-2025/lotes/d/INFORME.md): 63 referencias de página corregidas; persisten 59 diferencias documentales y cuatro no verificables. La reserva sobre una incompatibilidad de vivienda CLM distingue norma y criterio administrativo.
@@ -26,9 +26,9 @@ El contrato aditivo conserva campos y valores de las fichas y muestra pendiente 
 - [Madrid y Murcia](deducciones-2025/lotes/f/informe.md): 51 referencias de página corregidas; persisten omisiones documentales y dos diferencias propuestas del helper compartido.
 - [Comunitat Valenciana](deducciones-2025/lotes/g/INFORME.md): 40 referencias de página corregidas; las 40 fichas conservan diferencias documentales y reservas normativas.
 
-Se han reextraído las 10.176 citas de los siete lotes y comprobado sus originales externos con ambos hashes y tamaño. El verificador central completo admite los 351 registros con CAS explícito; no hay códigos ausentes ni duplicados. Los nueve contraejemplos financieros propuestos se deben contrastar en la API concreta: no se atribuyen automáticamente a la liquidación anual, que consume importes consignados.
+Se han reextraído las 10.177 citas de los siete lotes y comprobado sus originales externos con ambos hashes y tamaño. El verificador central completo admite los 351 registros con CAS explícito; no hay códigos ausentes ni duplicados. Los nueve contraejemplos financieros propuestos se deben contrastar en la API concreta: no se atribuyen automáticamente a la liquidación anual, que consume importes consignados.
 
-El contrato admite publicaciones primarias clasificadas como reforma o corrección, sin reclasificarlas como norma inicial. También distingue una URL oficial de una ruta local y el pie editorial del manual de su fecha de publicación no acreditada. Pasan 44 regresiones del consumidor; el contraste independiente de estas ampliaciones acompaña a las revisiones de los lotes B y A.
+El contrato admite publicaciones primarias clasificadas como reforma o corrección, sin reclasificarlas como norma inicial. También distingue una URL oficial de una ruta local y el pie editorial del manual de su fecha de publicación no acreditada. Pasan 44 regresiones del consumidor; el cambio de categorías normativas está corroborado por la revisión B. Las precisiones de URL y fecha se contrastan en la revisión A.
 
 Pendiente no significa «no verificable». Las auditorías históricas sirven de punto de partida, no de validación automática. Los originales nuevos se conservan en el almacén externo y se mantiene compatible la forma de las fichas.
 
