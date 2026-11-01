@@ -1,5 +1,7 @@
 # Privacidad de la historia documental
 
+La retirada posterior de referencias personales de terceros se documenta en el [informe específico](../privacidad-terceros/INFORME.md). Los mapas de objetos y commits acumulan ambas operaciones; los resultados de auditoría descritos abajo corresponden a la anonimización anterior del entorno.
+
 La rama conserva los resultados de las auditorías y los originales oficiales. Se han sustituido datos identificativos del entorno de trabajo en archivos y transportes comprimidos. Los 214 mensajes se revisaron y no precisaron sustituciones; autoría y fechas también se conservan.
 
 ## Originales y copias anonimizadas
