@@ -1,5 +1,20 @@
 # Estado de la auditoría documental
 
+## Alcance completo aprobado
+
+Además de las deducciones de 2025, está encargado el [plan completo A–F](PLAN-COMPLETO.md): procedencia automática de todos los datos de 2012–2026; comunidades reales en 2026; miles de comparaciones con simuladores oficiales; redondeo observado de cotizaciones; mínimos familiares unificados; y actividad, composición, admisión y puertas. El cierre técnico anterior de 65 sitios conserva sus resultados y deja de ser el límite del encargo.
+
+Los ocho trabajos delegados activos de deducciones continúan. La primera capacidad libre se destina al censo y extracción automática del bloque A; después se inician B, C, D y E en ese orden, con paralelo cuando sus ámbitos no compitan. F sigue a esos bloques y a sus dependencias. Cada bloque recibe revisión independiente y un balance de cobertura, diferencias, correcciones y decisiones. No se ha iniciado todavía ningún subagente nuevo de A–F.
+
+| Bloque | Estado |
+| --- | --- |
+| A. Datos de 2012–2026 | Preparado para comenzar al liberarse capacidad |
+| B. Comunidades en 2026 | Pendiente de inicio; reutilizará las fuentes de A |
+| C. Simuladores oficiales | Pendiente de inicio |
+| D. Redondeo de cotizaciones | Pendiente de inicio con criterio de comportamiento observado |
+| E. Mínimos familiares | Pendiente de inicio; incluye retirada de rutas erróneas |
+| F. Actividad y declaración completa | Encargado; pendiente de productores y contratos anteriores |
+
 ## En curso: deducciones autonómicas de 2025
 
 Revisión de **351 fichas** contra los originales de los boletines autonómicos, sus reformas y el manual AEAT. Base: `464e0fd8`; solo commits nuevos. [Censo y reparto](deducciones-2025/censo.json), [criterios de dictamen](deducciones-2025/ENCARGO.md), [compatibilidad para el rediseño](deducciones-2025/CAMBIOS-PARA-REDISENO.md).
