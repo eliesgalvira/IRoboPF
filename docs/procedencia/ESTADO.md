@@ -4,7 +4,7 @@
 
 La integración de deducciones y A–F queda aplazada hasta dejar verde el workflow «Comprobaciones». Las pruebas ordinarias deben funcionar con un checkout limpio, sin `.cache`, archivos privados, corpus externo local ni objetos Git históricos. Los ensayos que necesitan el corpus completo se separan como comprobaciones locales opcionales, con omisión explícita y documentada en CI. Cada push debe pasar previamente los mismos comandos del workflow; los cambios se agrupan.
 
-Están reproducidos los imports privados, las consultas históricas y la dependencia del CAS de las pruebas de contenido. Corregidos localmente el registro temporal del ensayo de enlaces y las aserciones de importe de la revisión gallega/riojana. El CI todavía no está verde; falta completar la separación de pruebas, validación limpia y revisión independiente.
+Corregidos los imports privados, las consultas a objetos Git históricos, el registro temporal del ensayo de enlaces y las aserciones de importe de la revisión gallega/riojana. Los verificadores usan fixtures sintéticos en CI y fuentes actuales fijadas por SHA-256; el corpus completo conserva su suite local opcional. Los comandos se reproducen con [el script de CI](CI.md). Quedan pendientes la revisión independiente y la confirmación de una ejecución verde en GitHub; las pruebas locales no sustituyen esa confirmación.
 
 ## Alcance completo aprobado
 

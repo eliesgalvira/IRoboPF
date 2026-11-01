@@ -5,9 +5,10 @@ import { createHash } from "node:crypto";
 import {
   verificarNominalPublicado,
   seleccionarContextoNominal,
-} from "../scripts/procedencia/nominal-contrato.mjs";
+} from "../../scripts/procedencia/nominal-contrato.mjs";
 
-const root = new URL("../", import.meta.url);
+const root = new URL("../../", import.meta.url);
+import { directorioObjetos, leerLocalCerrado } from "../../lib/procedencia/io.mjs";
 const out = "docs/procedencia/implementaciones/contrato-nominal-r29-sol/";
 const digest = (b) => createHash("sha256").update(b).digest("hex");
 function fixture() {
@@ -32,9 +33,7 @@ function fixture() {
   for (const blob of closure.blobs)
     objects.set(
       blob.sha256,
-      readFileSync(
-        new URL(".cache/nominal-r29/cas/sha256/" + blob.sha256, root),
-      ),
+      leerLocalCerrado(directorioObjetos(), blob.sha256, 100_000_000, blob.size),
     );
   const p = JSON.parse(objects.get(payload.sha256));
   objects.set(p.source.sha256, readFileSync(new URL(p.source.file, root)));

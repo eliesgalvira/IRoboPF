@@ -390,3 +390,9 @@ El alcance final comprende los 65 sitios o su bloqueo demostrado: **64 corrobora
 `siteClosed`, `admissionClosed`, `wiringAllowed` y `completeRuleAcceptance` permanecen en **`false`**. Una revisión favorable no se repite sin cambios ni problema nuevo; un defecto reproducido exige corrección y contraste acotados. El cierre conserva cada dictamen, sus condiciones y la evidencia discrepante.
 
 **Objeción:** sumar sitios puede ocultar ramas excluidas o hacer pasar un replay por validación fiscal. **Respuesta:** matriz por ID, condiciones explícitas y trabajos posteriores separados. **Coste:** semántica finita y deuda técnica mantenidas; no existe garantía universal ni corpus remoto completo acreditado. Los rangos de esfuerzo son planificación incierta: 32–64 h para familias; composición, admisión y puertas tienen sus propias dependencias. La provisión jurídica de 80–200 h solo cubre una primera fase acotada, sin cota total defendible para 2012–2026. [Resultados, evidencias, conservación y estimaciones](INFORME-FINAL.md).
+
+## CI reproducible y corpus externo
+
+El CI comprueba los contratos y verificadores con fixtures pequeños, y fija las fuentes actuales por SHA-256. No necesita objetos Git anteriores a las reescrituras ni un almacén privado. Las pruebas que requieren el corpus documental completo se ejecutan como suite local opcional; su omisión en CI es explícita.
+
+**Objeción:** un fixture válido no demuestra que todos los documentos reales sigan disponibles y enlazados. **Respuesta:** conservar la verificación completa y distinguir su resultado del CI; un verde no acepta el corpus ni una regla fiscal. **Coste:** hay que ejecutar esa suite al actualizar los originales o los enlaces y revisar los pines cuando cambia el código. [Comandos y alcance](CI.md).

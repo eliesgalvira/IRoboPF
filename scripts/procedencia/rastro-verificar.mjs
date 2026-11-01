@@ -83,4 +83,7 @@ if (
   process.argv[1] &&
   resolve(process.argv[1]) === fileURLToPath(import.meta.url)
 )
-  process.stdout.write(JSON.stringify(verificarRastroGenerado()) + "\n")
+  {
+    const fixture = process.argv.includes("--fixture") ? (await import("./fixture-ci.mjs")).crearFixtureCI() : null
+    process.stdout.write(JSON.stringify(fixture ? verificarRastroGenerado(fixture.root, fixture.raiz) : verificarRastroGenerado()) + "\n")
+  }

@@ -192,11 +192,27 @@ export class Composer {
     for(const ret of returns){for(const g of ret.guards)connect(g.node,'','selection',String(g.truth),'selector',next,callInstance);connect(ret.node,prop,role,'retorno de '+name,unit,next,callInstance)}
   }
 }
+// El registro histórico conserva sus rangos; el contrato actual se localiza
+// por identidad literal única y se verifica contra las fuentes fijadas actuales.
+function currentSite(sources, file, siteId) {
+  const matches = []
+  function visit(node) {
+    if (ts.isCallExpression(node) &&
+        node.expression.getText() === "crearLineaCalculo" &&
+        node.arguments[0] && ts.isObjectLiteralExpression(node.arguments[0]) &&
+        property(node.arguments[0], "siteId")?.initializer?.text === siteId)
+      matches.push(node)
+    ts.forEachChild(node, visit)
+  }
+  visit(sources.load(file).ast)
+  if (matches.length !== 1) throw Error("Sitio actual ausente o duplicado: " + siteId)
+  return siteCall(sources, sources.ref(matches[0]))
+}
 export function compose(){
   const batches=inputs(),composer=new Composer(),sites=[],historical=[]
   for(const batch of batches){if(Array.isArray(batch.body))continue;const graph=batch.body
     for(const old of graph.edges){historical.push({input:batch.id,identity:old.id??identity(old),direction:graph.direction??graph.edgeDirection??'producer-to-consumer',record:old,status:'pending-independent',usedForClosure:false})}
-    for(const s of graph.sites){let refs=s.currentSource??s.source;if(!Array.isArray(refs))refs=[{...refs,text:s.expression}];const call=siteCall(composer.sources,refs[0]),object=call.arguments[0],value=property(object,'importe'),unit=property(object,'unidad').initializer.text
+    for(const s of graph.sites){let refs=s.currentSource??s.source;if(!Array.isArray(refs))refs=[{...refs,text:s.expression}];const call=currentSite(composer.sources,refs[0].file,s.siteId),object=call.arguments[0],value=property(object,'importe'),unit=property(object,'unidad').initializer.text
       const output=composer.trace(value.initializer,'',new Map(),'entry:'+call.getSourceFile().fileName,unit)
       sites.push({siteId:s.siteId,historical:{input:batch.id,subject:s.subject,snapshot:s.historicalSnapshot??s.snapshot,record:s},source:composer.sources.ref(call),formula:property(object,'formula').initializer.getText(),output:output.id,conditions:guards(call,composer.sources),domain:{status:'pending-exact-admission-contract',valueIsNotAdmission:true},closed:false,closure:null,producerMap:[],branches:[],review:'pending-independent',legalReservations:'Evidencia técnica candidata; integridad, autenticidad, valor, interpretación y aplicabilidad separados; ninguna aceptación jurídica.'})
     }

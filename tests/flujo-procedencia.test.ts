@@ -467,3 +467,10 @@ it("R30: los contratos enlazan el retorno monetario concreto y conservan las div
   const check = new Ajv({allErrors:true}).compile(schema)
   expect(check(r),JSON.stringify(check.errors)).toBe(true)
 }, 120_000)
+
+import { verificarFuente } from "../scripts/procedencia/fuente-fijada.mjs"
+it("el pin por contenido rechaza bytes distintos sin consultar Git", () => {
+  const bytes = fs.readFileSync(money)
+  expect(() => verificarFuente(money, bytes)).not.toThrow()
+  expect(() => verificarFuente(money, Buffer.concat([bytes, Buffer.from("\n")]))).toThrow("Contrato de fuente")
+})

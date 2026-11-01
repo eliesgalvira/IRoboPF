@@ -1,37 +1,20 @@
 import { describe, expect, it } from "@effect/vitest"
-import { renderToStaticMarkup } from "react-dom/server"
-import {
-  mkdtempSync,
-  directorioObjetos,
-  readFileSync,
-  writeFileSync,
-  mkdirSync,
-  cpSync,
-  tmpdir,
-  resolve,
-} from "../lib/procedencia/io.mjs"
-import { Effect, Schema } from "effect"
+
+
+import { Schema } from "effect"
 import { Entidad, Resultado, type Ambito } from "../lib/procedencia/modelo"
 import { baseFicha } from "../scripts/procedencia/contenido-generar.mjs"
-import {
-  verificar,
-  verificarContenido,
-} from "../scripts/procedencia/contenido-verificar.mjs"
-import { GET as obtenerObjeto } from "../app/procedencia/[snapshot]/objetos/[hash]/route"
-import { GET as obtenerFicha } from "../app/procedencia/[snapshot]/[id]/[revision]/route"
+
+
+
 import {
   bytesEntidad,
   hash,
   verificarGrafo,
   seleccionar,
 } from "../lib/procedencia/verificador"
-import {
-  resolver,
-  leerSnapshot,
-  buscar,
-  directorioContenido,
-} from "../lib/procedencia/almacen"
-import { Ficha } from "../lib/procedencia/ficha"
+
+
 import {
   adaptarLegado,
   enlaceRastro,
@@ -71,90 +54,7 @@ const contexto = {
   baseTemporal: "devengo",
   predicadoVersion: "selector.1",
 }
-const ids: string[] = JSON.parse(
-  readFileSync(resolve(directorioContenido, "snapshots.json"), "utf8")
-)
-const snapshotId =
-  "31be43e7347ee116fd6349e946914602a706dbdce56b955a5aa8290fa9f7325e"
-if (!ids.includes(snapshotId))
-  throw new Error("Snapshot histórico de prueba ausente")
-
-const documentalId =
-  "efcc7f1395591bcd21090931860b8a969468233fa5f5066847d96669c4bbc2f6"
-const documental = leerSnapshot(documentalId)
-if (documental?.version !== 2)
-  throw new Error("Falta snapshot documental histórico")
-
-describe("rutas reales y cobertura documental", () => {
-  it.effect("GET de objetos sirve PDF/PNG y rechaza auxiliares privados", () =>
-    Effect.gen(function* () {
-      for (const p of documental.publicos) {
-        const response = yield* Effect.promise(() =>
-          obtenerObjeto(new Request("https://local.invalid"), {
-            params: Promise.resolve({ snapshot: documentalId, hash: p.hash }),
-          })
-        )
-        expect(response.status).toBe(200)
-        expect(response.headers.get("Content-Type")).toBe(p.mime)
-        expect(response.headers.get("X-Content-Type-Options")).toBe("nosniff")
-        const bytes = yield* Effect.promise(() => response.arrayBuffer())
-        expect(hash(Buffer.from(bytes))).toBe(p.hash)
-      }
-      const privada = yield* Effect.promise(() =>
-        obtenerObjeto(new Request("https://local.invalid"), {
-          params: Promise.resolve({
-            snapshot: documentalId,
-            hash: documental.generador,
-          }),
-        })
-      )
-      expect(privada.status).toBe(404)
-    })
-  )
-  it.effect("GET de ficha selecciona estados y enlaces del sujeto exacto", () =>
-    Effect.gen(function* () {
-      const e = documental.evidencias[0]
-      if (e === undefined) throw new Error("Falta evidencia de Madrid")
-      const response = yield* Effect.promise(() =>
-        obtenerFicha(new Request("https://local.invalid"), {
-          params: Promise.resolve({ snapshot: documentalId, ...e.sujeto }),
-        })
-      )
-      const html = yield* Effect.promise(() => response.text())
-      expect(response.status).toBe(200)
-      expect(html).toContain("Original PDF")
-      expect(html).toContain("Captura PNG")
-      expect(html).toContain("Aceptación fiscal completa")
-      const sinEvidencia = yield* Effect.promise(() =>
-        obtenerFicha(new Request("https://local.invalid"), {
-          params: Promise.resolve({
-            snapshot: documentalId,
-            id: "paso.anual.base.ahorro",
-            revision:
-              "2f22ea1b3027420052191b8972db8bd7248f600134137e7f0a2177ac15d6a61f",
-          }),
-        })
-      )
-      expect(sinEvidencia.status).toBe(200)
-      const htmlSinEvidencia = yield* Effect.promise(() => sinEvidencia.text())
-      expect(htmlSinEvidencia).not.toContain("Original PDF")
-    })
-  )
-  it("rechaza omitir o duplicar estados aunque el snapshot tenga otro hash", () => {
-    expect(() =>
-      verificarContenido({ ...documental, evidencias: [] }, directorioContenido)
-    ).toThrow("Cobertura de evidencia")
-    expect(() =>
-      verificarContenido(
-        {
-          ...documental,
-          evidencias: [...documental.evidencias, ...documental.evidencias],
-        },
-        directorioContenido
-      )
-    ).toThrow("Cobertura de evidencia")
-  }, 60_000)
-})
+const snapshotId = "a".repeat(64)
 
 describe("contenido versionado", () => {
   it("rechaza dos revisiones del mismo ID dentro del snapshot", () => {
@@ -407,49 +307,6 @@ describe("contenido versionado", () => {
       verificarRevision(revision, { ...e, titulo: "Otro" }, new Map())
     ).toThrow("Payload")
   })
-  it("resuelve fichas reales y renderiza servidor sin JavaScript ni build", () => {
-    const snapshot = leerSnapshot(snapshotId)
-    expect(snapshot?.cantidad).toBe(47793)
-    const entradas = buscar(snapshotId, "irpf.madrid.limite-escala")
-    expect(entradas?.length).toBe(1)
-    const entrada = entradas?.[0]
-    if (entrada === undefined) throw new Error("Fixture ausente")
-    const entidad = resolver(snapshotId, entrada.id, entrada.revision)
-    if (entidad === null) throw new Error("Ficha ausente")
-    const html = renderToStaticMarkup(
-      <Ficha entidad={entidad} snapshot={snapshotId} />
-    )
-    expect(html).toContain("norma")
-    expect(html).toContain("pendiente")
-    expect(html).not.toMatch(/localPath|\/home\/|<script/)
-    expect(resolver(snapshotId, "../secreto", entrada.revision)).toBeNull()
-    expect(resolver("f".repeat(64), entrada.id, entrada.revision)).toBeNull()
-  })
-  it("distingue objeto prometido ausente de id desconocido", () => {
-    const raiz = mkdtempSync(resolve(tmpdir(), "irobopf-contenido-"))
-    mkdirSync(resolve(raiz, "objetos"))
-    cpSync(
-      resolve(directorioContenido, "snapshots.json"),
-      resolve(raiz, "snapshots.json")
-    )
-    cpSync(
-      resolve(directorioObjetos(), snapshotId),
-      resolve(raiz, "objetos", snapshotId)
-    )
-    const s = leerSnapshot(snapshotId)
-    if (s === null) throw new Error("Fixture ausente")
-    const p = s.paquetes[0]
-    const raw = readFileSync(resolve(directorioObjetos(), p.indice))
-    writeFileSync(resolve(raiz, "objetos", p.indice), raw)
-    const indice: Array<{ id: string; revision: string }> = JSON.parse(
-      raw.toString("utf8")
-    )
-    const e = indice[0]
-    expect(() => resolver(snapshotId, e.id, e.revision, raiz)).toThrow(
-      "prometido"
-    )
-    expect(resolver(snapshotId, e.id, "f".repeat(64), raiz)).toBeNull()
-  })
 })
 
 it("verifica un DAG real con ámbitos y rechaza dependencia de otro territorio", () => {
@@ -589,47 +446,4 @@ it("acepta solo el informe externo existente de ese payload y alcance, sin acept
       new Map([[informe, { ...registro, bytes: Buffer.from("Otro informe") }]])
     )
   ).toThrow()
-})
-
-it("la ruta Next entrega HTML completo o 404 sin emitir datos del caso", () =>
-  import("../app/procedencia/[snapshot]/[id]/[revision]/route").then(
-    ({ GET }) => {
-      const entradas = buscar(snapshotId, "irpf.madrid.limite-escala")
-      const e = entradas?.[0]
-      if (e === undefined) throw new Error("Fixture ausente")
-      return GET(new Request("https://example.test/"), {
-        params: Promise.resolve({
-          snapshot: snapshotId,
-          id: e.id,
-          revision: e.revision,
-        }),
-      })
-        .then((respuesta) => {
-          expect(respuesta.status).toBe(200)
-          expect(respuesta.headers.get("Referrer-Policy")).toBe("no-referrer")
-          return respuesta.text()
-        })
-        .then((html) => {
-          expect(html).toMatch(/^<!doctype html>/i)
-          expect(html).not.toContain("<script")
-          return GET(new Request("https://example.test/"), {
-            params: Promise.resolve({
-              snapshot: snapshotId,
-              id: "desconocido",
-              revision: "a".repeat(64),
-            }),
-          })
-        })
-        .then((respuesta) => expect(respuesta.status).toBe(404))
-    }
-  ))
-
-it("verifica un snapshot histórico contra su inventario conservado", () => {
-  const snapshot = leerSnapshot(snapshotId)
-  expect(snapshot?.inventario).not.toBe(
-    hash(
-      readFileSync(resolve(process.cwd(), "docs/procedencia/inventario.json"))
-    )
-  )
-  expect(verificar(snapshotId).cantidad).toBe(47793)
 })

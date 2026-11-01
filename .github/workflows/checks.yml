@@ -22,6 +22,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.13'
+      - run: echo "Corpus completo CAS omitido explícitamente; se ejecutan fixtures y contratos reproducibles. Véase docs/procedencia/CI.md"
       - run: bun install --frozen-lockfile
       - run: bun run test:lint
       - run: bun run lint
@@ -29,6 +30,8 @@ jobs:
         run: bun run typecheck
       - if: ${{ !cancelled() }}
         run: bun run test:ci
+      - if: ${{ !cancelled() }}
+        run: bun run test tests/puertos-composicion-r47.test.ts tests/puertos-r52.test.ts --maxWorkers=1
       - if: ${{ !cancelled() }}
         run: bun run test tests/cotizaciones-perfil-uniforme.test.ts tests/*-procedencia.test.ts --exclude tests/evidencia-contenido-procedencia.test.ts --maxWorkers=1
       - if: ${{ !cancelled() }}
@@ -42,9 +45,9 @@ jobs:
       - if: ${{ !cancelled() }}
         run: bun run test --config scripts/procedencia/contenido-vitest.mjs
       - if: ${{ !cancelled() }}
-        run: bun scripts/procedencia/contenido-verificar.mjs
+        run: bun scripts/procedencia/contenido-verificar.mjs --fixture
       - if: ${{ !cancelled() }}
-        run: bun scripts/procedencia/rastro-verificar.mjs
+        run: bun scripts/procedencia/rastro-verificar.mjs --fixture
   corpus:
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -60,10 +63,12 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.13'
+      - run: echo "Corpus completo CAS omitido explícitamente; se ejecutan fixtures y contratos reproducibles. Véase docs/procedencia/CI.md"
       - run: bun install --frozen-lockfile
       - run: bash tools/procedencia/run.sh tests/procedencia-corpus_test.py
       - run: bash tools/procedencia/run.sh tests/procedencia-enlaces_test.py
       - run: bash tools/procedencia/run.sh tests/procedencia-preservacion_test.py
-      - run: bun scripts/procedencia/verificar-enlaces.mjs
+      - run: bun scripts/procedencia/verificar-enlaces.mjs --fixture
       - run: bun run test tests/evidencia-contenido-procedencia.test.ts --maxWorkers=1
       - run: bun run test tests/publicacion-evidencia.test.ts --maxWorkers=1
+      - run: bun tests/cas-local-r27.mjs

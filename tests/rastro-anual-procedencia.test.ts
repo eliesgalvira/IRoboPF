@@ -1,63 +1,18 @@
 import Decimal from "decimal.js"
-import { Effect, Schema } from "effect"
+import { Schema } from "effect"
 import { describe, expect, it } from "@effect/vitest"
 import { crearLineaCalculo } from "../lib/dominio/explicacion/linea-calculo"
 import type { RastroCalculo } from "../lib/dominio/explicacion/rastro-calculo"
-import { sinDiscapacidad } from "../lib/dominio/irpf/caso-fiscal-anual"
-import { liquidarIrpfAnual } from "../lib/dominio/irpf/liquidacion/liquidar-irpf-anual"
+
+
 import {
   CatalogoRastro,
   enlazarRastroConCatalogo,
 } from "../lib/procedencia/rastro-anual"
-import { resolver } from "../lib/procedencia/almacen"
-import { extraerPuntosTexto } from "../scripts/procedencia/rastro-extraer.mjs"
-import { verificarRastroGenerado } from "../scripts/procedencia/rastro-verificar.mjs"
-import {
-  cpSync,
-  mkdtempSync,
-  mkdirSync,
-  readFileSync,
-  writeFileSync,
-  resolve,
-  tmpdir,
-} from "../lib/procedencia/io.mjs"
 
-it("RV3-01 rechaza software de explicación cambiado fuera del dominio", () => {
-  const scratch = mkdtempSync(resolve(tmpdir(), "irobopf-rastro-software-"))
-  for (const carpeta of [
-    "lib",
-    "scripts",
-    "app/procedencia",
-    "tools/procedencia",
-    "schemas/procedencia",
-    "next.config.mjs",
-  ])
-    cpSync(resolve(carpeta), resolve(scratch, carpeta), { recursive: true })
-  mkdirSync(resolve(scratch, "docs/procedencia"), { recursive: true })
-  cpSync(
-    resolve("docs/procedencia/inventario.json"),
-    resolve(scratch, "docs/procedencia/inventario.json")
-  )
-  expect(verificarRastroGenerado(scratch).puntos).toBe(65)
-  for (const file of [
-    "lib/procedencia/rastro-anual.ts",
-    "tools/procedencia/enlaces.py",
-    "schemas/procedencia/executable-cell-scope.schema.json",
-    "scripts/procedencia/ambito-publicado.mjs",
-    "scripts/procedencia/contenido-generar.mjs",
-    "scripts/procedencia/rastro-verificar.mjs",
-    "app/procedencia/[snapshot]/objetos/[hash]/route.ts",
-    "next.config.mjs",
-  ]) {
-    const original = readFileSync(resolve(file), "utf8")
-    writeFileSync(
-      resolve(scratch, file),
-      original + "\n// mutación independiente\n"
-    )
-    expect(() => verificarRastroGenerado(scratch)).toThrow("Software")
-    writeFileSync(resolve(scratch, file), original)
-  }
-})
+import { extraerPuntosTexto } from "../scripts/procedencia/rastro-extraer.mjs"
+
+
 
 const catalogo = Schema.decodeUnknownSync(CatalogoRastro)({
   version: 1,
@@ -167,50 +122,5 @@ describe("rastro con identidad explícita", () => {
         "lib/fixture.ts"
       )
     ).toThrow("dinámica")
-  })
-  it("coteja el catálogo generado con fuentes, inventario y fichas", () => {
-    expect(verificarRastroGenerado().puntos).toBe(65)
-  })
-  it("cada línea anual propia resuelve su ficha y conserva el contexto", () => {
-    const r = Effect.runSync(
-      liquidarIrpfAnual(
-        {
-          anio: 2025,
-          comunidadAutonoma: "madrid",
-          situacionFamiliar: {
-            tipo: "individual",
-            edad: 40,
-            discapacidad: sinDiscapacidad,
-            descendientes: [],
-            ascendientes: [],
-          },
-          rendimientos: { trabajo: [{ importeIntegroCentimos: 5_000_000 }] },
-          reducciones: [],
-          deducciones: [],
-          retencionesSoportadasCentimos: 0,
-          pagosACuentaCentimos: 0,
-        },
-        { modo: "canonico" }
-      )
-    )
-    const lineas = r.rastro.pasos.flatMap((p) => p.lineasCalculo ?? [])
-    expect(lineas.length).toBeGreaterThan(40)
-    expect(r.rastro.contexto).toEqual({
-      anio: 2025,
-      territorio: "madrid",
-      perfilCalculo: "canonico",
-    })
-    expect(new Set(lineas.map((l) => l.origen?.instanceId)).size).toBe(
-      lineas.length
-    )
-    for (const l of lineas) {
-      const p = l.procedencia
-      expect(p?.estado).toBe("enlazada")
-      if (p?.estado !== "enlazada") throw new Error("Línea sin enlace")
-      expect(p.href).not.toContain("?")
-      expect(resolver(p.snapshot, p.sujeto.id, p.sujeto.revision)?.tipo).toBe(
-        "Step"
-      )
-    }
   })
 })

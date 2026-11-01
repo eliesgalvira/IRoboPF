@@ -377,6 +377,11 @@ if (
   process.argv[1] &&
   resolve(process.argv[1]) === fileURLToPath(import.meta.url)
 ) {
+  if (process.argv.includes("--fixture")) {
+    const { crearFixtureCI } = await import("./fixture-ci.mjs")
+    const f = crearFixtureCI()
+    process.stdout.write(JSON.stringify({ modo: "fixture-sintetica", ...verificar(f.id, f.raiz) }) + "\n")
+  } else {
   const ids = JSON.parse(
     readFileSync(resolve(directorioContenido, "snapshots.json"), "utf8")
   )
@@ -384,4 +389,5 @@ if (
     process.stdout.write(
       JSON.stringify({ snapshot: id, ...verificar(id) }) + "\n"
     )
+}
 }
