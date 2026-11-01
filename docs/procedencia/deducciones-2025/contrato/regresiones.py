@@ -8,6 +8,7 @@ import importlib.util
 from pathlib import Path
 import sys
 import unittest
+from jsonschema import ValidationError
 
 sys.dont_write_bytecode = True
 REPO = Path(__file__).resolve().parents[4]
@@ -149,6 +150,40 @@ class ContratoCorregido(revision.Contrato):
                       reservaFechaPublicacion='Solo se conoce el pie editorial')
         with self.assertRaises(Exception):
             self.verificar(self.paquetes[:1], 'parcial')
+
+    def test_credenciales_en_reservas_y_texto_se_rechazan(self):
+        for url in ('https://user:pass@example.invalid/home/doc',
+                    'https://example.invalid/home/doc?token=MARCADOR',
+                    'https://example.invalid/norma?%54OKEN=',
+                    'https://example.invalid/norma?session'):
+            for valor in (url, 'Documento citado: ' + url):
+                with self.subTest(valor=valor):
+                    self.f['vigencia']['reservaURL'] = valor
+                    with self.assertRaisesRegex(ValueError, 'credenciales'):
+                        self.verificar(self.paquetes[:1], 'parcial')
+
+    def test_schema_aislado_no_admite_fecha_nula_normativa(self):
+        for tipo in ('original', 'reforma', 'correccion', 'consolidado'):
+            for reserva in (None, 'Desconocida en fixture'):
+                with self.subTest(tipo=tipo, reserva=reserva):
+                    fuentes = copy.deepcopy(self.paquetes[0]['fuentes'])
+                    documento = fuentes['documentos'][0]
+                    documento.update(tipo=tipo, fechaPublicacion=None)
+                    if reserva is not None:
+                        documento['reservaFechaPublicacion'] = reserva
+                    with self.assertRaises(ValidationError):
+                        revision.v.validar_schema(fuentes, revision.v.SCHEMA['$defs']['fuentes'])
+
+    def test_schema_aislado_exige_reserva_del_manual(self):
+        for reserva in (None, '', '   '):
+            with self.subTest(reserva=reserva):
+                fuentes = copy.deepcopy(self.paquetes[0]['fuentes'])
+                manual = fuentes['documentos'][1]
+                manual['fechaPublicacion'] = None
+                if reserva is not None:
+                    manual['reservaFechaPublicacion'] = reserva
+                with self.assertRaises(ValidationError):
+                    revision.v.validar_schema(fuentes, revision.v.SCHEMA['$defs']['fuentes'])
 
 
 if __name__ == '__main__':

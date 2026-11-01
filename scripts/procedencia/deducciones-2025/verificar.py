@@ -29,11 +29,20 @@ def validar_schema(valor, regla):
     Draft202012Validator(regla).validate(valor)
 
 
+def comprobar_credenciales_url(url):
+    exigir(url.username is None and url.password is None, 'URL pública inválida: credenciales')
+    parametros = {k.casefold() for k, _ in parse_qsl(url.query, keep_blank_values=True)}
+    exigir(not parametros.intersection({'token', 'key', 'session', 'signature', 'auth'}),
+           'URL con credenciales')
+
+
 def privacidad(valor):
     if isinstance(valor, float):
         exigir(math.isfinite(valor), "Número JSON no finito")
     if isinstance(valor, str):
         exigir(not re.search(r'data:[^;]+;base64|-----BEGIN|<html\b|%PDF-', valor, re.I), 'Contenido privado u original embebido')
+        for coincidencia in re.finditer(r'https?://[^\s<>\"]+', valor, re.I):
+            comprobar_credenciales_url(urlsplit(coincidencia.group()))
         # /home/ también es un segmento legítimo en portales oficiales.
         # Solo una URL HTTPS completa se distingue de una ruta del equipo.
         url_https = re.fullmatch(r'https://[^\s]+', valor, re.I) and urlsplit(valor).hostname
@@ -126,8 +135,7 @@ def verificar_paquetes(censo, paquetes, modo='parcial', cas=None):
         for d in docs.values():
             url = urlsplit(d['urlOficial'])
             exigir(url.scheme == 'https' and url.hostname and not url.username and not url.password and not url.fragment and not re.match(r'localhost$|\d+\.\d+\.\d+\.\d+$|.*:', url.hostname), f"URL pública inválida: {d['id']}")
-            parametros = {k.casefold() for k, _ in parse_qsl(url.query, keep_blank_values=True)}
-            exigir(not parametros.intersection({'token', 'key', 'session', 'signature', 'auth'}), 'URL con credenciales')
+            comprobar_credenciales_url(url)
             if d['fechaPublicacion'] is None:
                 exigir(d['tipo'] == 'manual' and d.get('reservaFechaPublicacion', '').strip(),
                        'Publicación desconocida: solo manual con reserva explícita')
