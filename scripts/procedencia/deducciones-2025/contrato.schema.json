@@ -280,6 +280,11 @@
                 "items": {
                   "type": "object",
                   "properties": {
+                    "momento": {
+                      "enum": ["antes", "despues"],
+                      "default": "despues",
+                      "description": "Sin este campo la comparación es actual. Las anteriores requieren cambio y comparación actual del mismo aspecto."
+                    },
                     "campoCodigo": {
                       "type": "string",
                       "minLength": 1,

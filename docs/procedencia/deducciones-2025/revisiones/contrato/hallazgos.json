@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "baseCommit": "37eb33d02955e5b0858d5f0b144caa1d4d31fe6c",
+  "alcance": "Contrato y consumidor documental; sin validación normativa",
+  "dictamen": "desfavorable",
+  "casos": {"total": 25, "pasan": 20, "rojos": 5},
+  "hallazgos": [
+    {
+      "id": "R01",
+      "severidad": "alta",
+      "archivo": "scripts/procedencia/deducciones-2025/verificar.py",
+      "lineas": [132, 151],
+      "defecto": "El dictamen coincide puede contradecir comparaciones actuales discrepantes o no verificables sin conservar reservas.",
+      "casos": ["test_R01_comparacion_actual_discrepante", "test_R01_comparacion_actual_no_verificable"],
+      "esperado": "Rechazar contradicciones actuales manteniendo admisibles las comparaciones históricas corregidas y explicadas.",
+      "observado": "Acepta ambos paquetes con integridadBytes comprobada.",
+      "estado": "reproducido_sin_fix"
+    },
+    {
+      "id": "R02",
+      "severidad": "media",
+      "archivo": "scripts/procedencia/deducciones-2025/verificar.py",
+      "lineas": [103, 104],
+      "defecto": "Un manual idéntico adquirido independientemente en dos lotes no admite fechas propias con ID compartido ni IDs propios por adquisición.",
+      "casos": ["test_R02_manual_mismo_id_adquisicion_distinta", "test_R02_manual_id_independiente"],
+      "esperado": "Representar y validar ambas adquisiciones legítimas conservando metadatos y hashes verdaderos.",
+      "observado": "Documento global contradictorio o Hash repetido con IDs distintos.",
+      "estado": "reproducido_sin_fix"
+    },
+    {
+      "id": "R03",
+      "severidad": "media",
+      "archivo": "scripts/procedencia/deducciones-2025/verificar.py",
+      "lineas": [100],
+      "defecto": "El filtro de credenciales omite token cuando es el primer parámetro de la query.",
+      "casos": ["test_R03_url_primer_parametro"],
+      "esperado": "Rechazar el parámetro de credenciales también al inicio de la query.",
+      "observado": "Acepta el marcador sintético inicial; rechaza el mismo nombre en segunda posición.",
+      "estado": "reproducido_sin_fix"
+    }
+  ],
+  "objecionesDescartadas": [
+    "La comparación histórica explicada no obliga a mantener diferencia en el dictamen actual corregido.",
+    "La cobertura completa sin CAS declara integridad no comprobada, según el límite explícito.",
+    "La verificación de hashes no promete reextracción literal ni aceptación jurídica.",
+    "Los cuatro errores de tipos r47/r52 no son diagnósticos de esta capa."
+  ]
+}

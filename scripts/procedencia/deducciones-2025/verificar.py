@@ -6,7 +6,7 @@ import math
 import re
 import sys
 from pathlib import Path
-from urllib.parse import urlsplit
+from urllib.parse import parse_qsl, urlsplit
 from datetime import date, datetime
 
 from jsonschema import Draft202012Validator
@@ -76,6 +76,31 @@ def comprobar_bytes(documento, cas):
         exigir(hashlib.new(algoritmo, contenido).hexdigest() == documento[algoritmo], f"Hash {algoritmo} incorrecto: {documento['id']}")
 
 
+def comprobar_comparaciones(f):
+    codigo = f['codigo']
+    anteriores = [x for x in f['comparaciones'] if x.get('momento', 'despues') == 'antes']
+    actuales = [x for x in f['comparaciones'] if x.get('momento', 'despues') == 'despues']
+    campos_actuales = {x['campoCodigo'] for x in actuales}
+    if anteriores:
+        exigir(f['cambios'], f'{codigo}: comparación anterior sin cambio acreditado')
+        exigir(all(x['campoCodigo'] in campos_actuales for x in anteriores),
+               f'{codigo}: comparación anterior sin contraste actual del mismo aspecto')
+    resultados = {x['resultado'] for x in actuales}
+    if 'diferencia' in resultados:
+        exigir(f['dictamenDespues'] == 'diferencia'
+               and 'diferencia' in (f['dictamenFicha'], f['dictamenCalculo']),
+               f'{codigo}: global oculta diferencia actual')
+    if 'no_verificable' in resultados:
+        exigir(f['pendientes'] and f['dictamenDespues'] != 'coincide',
+               f'{codigo}: global oculta reserva actual')
+    if f['dictamenDespues'] == 'diferencia':
+        exigir('diferencia' in resultados,
+               f'{codigo}: diferencia actual sin comparación actual discrepante')
+    if f['dictamenDespues'] == 'coincide':
+        exigir(actuales and resultados == {'coincide'},
+               f'{codigo}: coincidencia sin comparación actual concordante')
+
+
 def verificar_paquetes(censo, paquetes, modo='parcial', cas=None):
     exigir(modo in ('parcial', 'completo'), 'Modo desconocido')
     exigir(censo['total'] == 351 and len(censo['fichas']) == 351, 'Censo: se requieren exactamente 351 fichas')
@@ -84,7 +109,7 @@ def verificar_paquetes(censo, paquetes, modo='parcial', cas=None):
     for f in censo['fichas']:
         exigir(f['comunidad'] in censo['lotes'].get(f['lote'], []), 'Censo: lote/comunidad incoherente')
     unicos([p['dictamenes']['lote'] for p in paquetes], 'Lotes')
-    vistos, globales = set(), {}
+    vistos, contenidos = set(), {}
     for paquete in paquetes:
         lote, fuentes = paquete['dictamenes'], paquete['fuentes']
         validar_schema(lote, SCHEMA['$defs']['lote'])
@@ -92,17 +117,20 @@ def verificar_paquetes(censo, paquetes, modo='parcial', cas=None):
         privacidad(lote)
         privacidad(fuentes)
         unicos([d['id'] for d in fuentes['documentos']], 'Documentos')
-        unicos([d['sha256'] for d in fuentes['documentos']], 'Hashes de documentos')
         docs = {d['id']: d for d in fuentes['documentos']}
         for d in docs.values():
             url = urlsplit(d['urlOficial'])
             exigir(url.scheme == 'https' and url.hostname and not url.username and not url.password and not url.fragment and not re.match(r'localhost$|\d+\.\d+\.\d+\.\d+$|.*:', url.hostname), f"URL pública inválida: {d['id']}")
-            exigir(not re.search(r'[?&](token|key|session|signature|auth)=', url.query, re.I), 'URL con credenciales')
+            parametros = {k.casefold() for k, _ in parse_qsl(url.query, keep_blank_values=True)}
+            exigir(not parametros.intersection({'token', 'key', 'session', 'signature', 'auth'}), 'URL con credenciales')
             date.fromisoformat(d['fechaPublicacion'])
             datetime.fromisoformat(d['fechaRecuperacion'].replace('Z', '+00:00'))
-            exigir(d['id'] not in globales or globales[d['id']] == d, f"Documento global contradictorio: {d['id']}")
-            exigir(not any(x['sha256'] == d['sha256'] and x['id'] != d['id'] for x in globales.values()), 'Hash repetido con IDs distintos')
-            globales[d['id']] = d
+            # Los IDs pertenecen al lote; cada adquisición conserva URL y fecha.
+            # El contenido compartido debe conservar tamaño, digest y formato.
+            contenido = {k: d[k] for k in ('sha512', 'bytes', 'mimeType')}
+            exigir(d['sha256'] not in contenidos or contenidos[d['sha256']] == contenido,
+                   f"Contenido contradictorio: {d['id']}")
+            contenidos[d['sha256']] = contenido
             if cas:
                 comprobar_bytes(d, cas)
         for f in lote['deducciones']:
@@ -136,6 +164,7 @@ def verificar_paquetes(censo, paquetes, modo='parcial', cas=None):
                 exigir(f['contraejemplos'] and any(x['resultado'] == 'diferencia' for x in f['comparaciones']), f'{codigo}: diferencia sin discriminante')
             if f['dictamenAntes'] != f['dictamenDespues']:
                 exigir(f['cambios'], f'{codigo}: transición sin prueba roja/fix')
+            comprobar_comparaciones(f)
             if any(x != 'no_verificable' for x in actuales):
                 exigir(f['comparaciones'] and any(docs[x['documentoId']]['tipo'] == 'original' for x in f['citas']), f'{codigo}: dictamen sin original/comparación')
                 manual = f['manual']
