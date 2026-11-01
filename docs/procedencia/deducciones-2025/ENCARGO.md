@@ -10,7 +10,7 @@ La comparación debe desglosar cuantías, porcentajes, límites, bases y condici
 
 Los originales PDF/HTML, capturas y recortes van exclusivamente al CAS externo por SHA-256. En Git se conservan código, pruebas, dictámenes, citas y manifiestos; no se añaden originales, transportes, volcados de páginas completas ni logs de sesión. Los manifiestos públicos excluyen rutas locales, nombres de equipos, cuentas personales, identificadores de hilos, cookies y credenciales. El firmante personal de un boletín no es necesario en una cita fiscal.
 
-## Dictamen y compatibilidad
+## Dictamen y modelo del motor
 
 - `coincide`: la evidencia acredita los aspectos revisados; se declaran expresamente su alcance y condiciones.
 - `diferencia`: hay contradicción u omisión demostrada, con contraejemplo o discriminante verificable. No se confunde un error de metadatos con una cuota incorrecta.
@@ -18,7 +18,7 @@ Los originales PDF/HTML, capturas y recortes van exclusivamente al CAS externo p
 
 Un fallo de descarga aislado o trabajo todavía no realizado es `pendiente`, no un dictamen definitivo. Se distingue el dictamen de la ficha del de su cálculo; una consignación externa no acredita cálculo automático. El dictamen global prioriza una diferencia demostrada y mantiene los límites de lo no verificado. Los recuentos iniciales y posteriores a fixes se separan.
 
-Se mantienen todos los campos existentes de las fichas y sus identificadores. La procedencia se añade sin renombrarlos ni retirarlos. Los errores de cálculo requieren prueba roja, fix y revisión independiente. Las ampliaciones inevitables de contrato se documentan para el rediseño; no se modifica la interfaz visual.
+No hay obligación de conservar campos, firmas o rutas antiguas. Se aplica la [reforma de motor único](../REFORMA-MOTOR.md): una sola ruta por cálculo y procedencia explícita. Los códigos históricos se mantienen en los dictámenes para identificar la evidencia, aunque cambie el modelo de producto. Los errores de cálculo requieren prueba roja, fix y revisión independiente. La API nueva se documenta para el rediseño; solo se permiten adaptaciones mínimas de las páginas actuales para compilar.
 
 ## Formato común de entrega
 
@@ -39,6 +39,6 @@ Los auxiliares y pruebas se conservan cuando sostienen un resultado; los recibos
 
 ## Distribución y cierre
 
-Siete lotes cubren 49, 48, 51, 63, 49, 51 y 40 fichas. Una línea independiente prepara el contrato aditivo de procedencia y los controles de cobertura/compatibilidad. Después se revisa cada entrega; solo se repite una revisión favorable si hay un cambio material o defecto reproducido. La aceptación de los resultados y la integración corresponden al orquestador.
+Siete lotes cubren 49, 48, 51, 63, 49, 51 y 40 fichas. El contrato documental y los controles de cobertura se coordinan con la API nueva. Después se revisa cada entrega; solo se repite una revisión favorable si hay un cambio material o defecto reproducido. La aceptación de los resultados y la integración corresponden al orquestador.
 
 El trabajo se realiza con commits nuevos sobre `464e0fd8`, solo en `procedencia-documental`. No hay reescritura, cambios de `main`, PR, despliegue, LFS ni publicación de fuentes personales. Los previews permanecen desactivados. El estado y el informe final separarán trabajo pendiente de dictámenes emitidos y de errores corregidos.

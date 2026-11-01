@@ -2,7 +2,7 @@
 
 Este plan amplía el encargo de las 351 deducciones de 2025. Se mantienen sus correcciones y revisiones en curso. Después del cierre técnico anterior de 65 sitios, también quedan encargadas las 19 familias de actividad y la declaración como un todo. El trabajo termina cuando estén resueltos todos los bloques; los informes parciales sirven para comunicar resultados, no como nuevas peticiones de autorización.
 
-El orden de inicio es A, B, C, D, E y F, aprovechando el trabajo paralelo que permitan las dependencias. El [estado](ESTADO.md) registra la ejecución y los resultados. Las conclusiones anteriores conservan su alcance y sus versiones de código.
+La [reforma de motor único](REFORMA-MOTOR.md) tiene prioridad: se retiran `FamiliarFiscal`, el modo legacy y las rutas duplicadas, sin conservar compatibilidad. Las deducciones y A continúan en paralelo; después avanzan B, C, D y F según sus dependencias. E se integra en esta reforma prioritaria. El [estado](ESTADO.md) registra la ejecución y los resultados. Las conclusiones anteriores conservan su alcance y sus versiones de código.
 
 ## A. Procedencia automática de todos los datos de 2012–2026
 
@@ -18,7 +18,7 @@ Cada resultado identifica el documento y la evidencia por hash, la ubicación, e
 
 Se incorporan escalas, mínimos y deducciones autonómicas publicados y aplicables a 2026, con evidencia de sus efectos temporales. Una norma anterior puede seguir vigente si se acredita; copiar los valores de 2025 sin esa comprobación no sirve.
 
-El resolver debe distinguir los datos respaldados de los pendientes por publicar o verificar. Un conjunto incompleto no se presenta como una liquidación completa ni se sustituye por el escenario estatal simulado. Las pruebas cubren selección real por comunidad, fechas y rechazo de lo que falte. El catálogo de fichas mantiene su forma pública.
+El resolver debe distinguir los datos respaldados de los pendientes por publicar o verificar. Un conjunto incompleto no se presenta como una liquidación completa ni se sustituye por el escenario estatal simulado. Las pruebas cubren selección real por comunidad, fechas y rechazo de lo que falte. El catálogo puede cambiar para expresar ese contrato.
 
 ## C. Miles de comparaciones con herramientas oficiales
 
@@ -36,9 +36,9 @@ La política elegida se documenta como **«comportamiento observado en herramien
 
 ## E. Una sola ruta de mínimos familiares
 
-Se localizan todos los consumidores de `FamiliarFiscal` y se conectan con `DerechosMinimos`, o se rechazan expresamente los casos cuyo reparto no pueda representarse. No permanece accesible una función que entregue a cada progenitor el mínimo entero cuando el derecho debe repartirse.
+Se eliminan `FamiliarFiscal` y sus cálculos duplicados. Todos sus consumidores usan la única lógica de derechos familiares, o rechazan expresamente los casos cuyo reparto todavía no pueda representarse. No permanece accesible una función que entregue a cada progenitor el mínimo entero cuando el derecho debe repartirse.
 
-La lógica se extiende a los ejercicios y comunidades soportados utilizando los datos y condiciones territoriales contrastados. Las pruebas distinguen titulares, convivencia, rentas, edades, discapacidad y especialidades que alteren el derecho. Los ejemplos históricos erróneos se conservan por commit y evidencia externa, sin exigir mantener el error en el código ejecutable. Los cambios de comportamiento y compatibilidad se documentan para el rediseño.
+La lógica se extiende a los ejercicios y comunidades soportados utilizando los datos y condiciones territoriales contrastados. Las pruebas distinguen titulares, convivencia, rentas, edades, discapacidad y especialidades que alteren el derecho. Los ejemplos históricos erróneos se conservan por commit y evidencia externa, sin mantener el error en el código ejecutable. La API nueva se documenta para el rediseño.
 
 ## F. Actividad y declaración completa
 
@@ -60,12 +60,12 @@ Después se completa la composición entre programas, la admisión de entradas y
 
 Cada implementación tiene revisión independiente con `gpt-6.1-sol` y esfuerzo `high`. Una revisión favorable no se repite sin cambios materiales o un defecto nuevo reproducido. Los defectos se conservan como pruebas, se corrigen y se recontrastan con alcance preciso. Los recuentos técnicos no sustituyen comprobaciones pendientes.
 
-## Conservación, compatibilidad y entrega
+## Conservación, API y entrega
 
 Solo se añaden commits a `procedencia-documental`; no se reescribe historia ni se modifica `main`. Los previews permanecen desactivados. No hay PR, despliegue, LFS, gasto ni envíos a terceros. No se publican datos personales ni identificadores del sistema. Nunca se utiliza `rm` con rutas relativas y no se autoriza limpieza de respaldos.
 
 Los originales y los artefactos voluminosos de extracción, simulación y evidencia se conservan en el almacén externo por hash. Git contiene código, pruebas, informes, índices y manifiestos que permiten verificarlos; no vuelve a alojar el almacén documental. Se conservan las referencias y herramientas de restauración. Los archivos privados de transporte y los logs no se incorporan al repositorio público.
 
-Se mantienen compatibles las fichas y la interfaz pública del motor. Cualquier cambio necesario de firma, entrada, resultado o rechazo se describe en un fichero de cambios para el rediseño, con ejemplos de migración. No se altera el diseño de la interfaz.
+No hay obligación de compatibilidad de fichas ni de interfaz pública del motor. Las firmas, entradas, resultados y rechazos reales se documentan en [API-MOTOR.md](API-MOTOR.md). Las páginas actuales pueden adaptarse lo mínimo o desconectarse para compilar; no se conserva código antiguo para ellas ni se añade diseño visual.
 
 Al terminar las deducciones y cada bloque se entrega un informe breve con cobertura, valores que coinciden, difieren o no se pudieron verificar, errores corregidos y decisiones que realmente requieran intervención. Se distinguen datos pendientes de publicación, limitaciones demostradas y trabajo interno pendiente. La falta de evidencia no se resuelve inventando valores, resultados oficiales ni aceptaciones.

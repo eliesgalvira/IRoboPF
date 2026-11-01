@@ -1,6 +1,12 @@
 # Decisiones de la auditoría documental
 
-Los criterios siguientes consolidan las decisiones técnicas y sus límites. Los IDs D001–D137 conservan sus referencias; agruparlos no convierte candidatos históricos en trabajos terminados. El [informe](INFORME-FINAL.md) y la [matriz por sitio](correcciones/cierre-r66/MATRIZ-65.md) delimitan el resultado vigente.
+Los criterios siguientes consolidan las decisiones técnicas y sus límites. Los IDs D001–D137 conservan sus referencias; agruparlos no convierte candidatos históricos en trabajos terminados. El [informe](INFORME-FINAL.md) y la [matriz por sitio](correcciones/cierre-r66/MATRIZ-65.md) delimitan el cierre técnico anterior. El [plan completo](PLAN-COMPLETO.md) amplía el encargo y la decisión siguiente sustituye los requisitos históricos de compatibilidad.
+
+## Motor único sin compatibilidad heredada
+
+Se eliminan `FamiliarFiscal`, el modo legacy y los cálculos duplicados o conocidos como incorrectos. La evidencia histórica permanece por commit, sin conservar una segunda implementación de producto. Las fichas y la API pueden cambiar; el rediseño dispondrá del [contrato nuevo](API-MOTOR.md).
+
+**Objeción:** una retirada amplia puede romper consumidores y perder casos válidos entre errores antiguos. **Respuesta:** inventariar consumidores, migrarlos a la ruta única, conservar pruebas independientes y rechazar explícitamente lo no soportado. Las páginas actuales se adaptan lo mínimo o se desconectan para compilar. **Coste:** trabajo de migración y actualización de contratos y pruebas; no se transfiere automáticamente la revisión histórica a código nuevo. [Reglas de la reforma](REFORMA-MOTOR.md).
 
 ## Mapa de decisiones
 

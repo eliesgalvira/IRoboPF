@@ -4,7 +4,9 @@
 
 Además de las deducciones de 2025, está encargado el [plan completo A–F](PLAN-COMPLETO.md): procedencia automática de todos los datos de 2012–2026; comunidades reales en 2026; miles de comparaciones con simuladores oficiales; redondeo observado de cotizaciones; mínimos familiares unificados; y actividad, composición, admisión y puertas. El cierre técnico anterior de 65 sitios conserva sus resultados y deja de ser el límite del encargo.
 
-Las siete ampliaciones regionales de deducciones continúan. La entrega del auxiliar compartido ya está incorporada como candidata y requiere revisión independiente. Ha comenzado el censo y extracción automática del bloque A con `gpt-6.1-sol`, esfuerzo `high`: reutiliza el corpus y prepara el contrato común, con primeras comparaciones de tablas reales y artefactos externos. Después se inician B, C, D y E en ese orden, con paralelo cuando sus ámbitos no compitan. F sigue a esos bloques y a sus dependencias. Cada bloque recibe revisión independiente y un balance de cobertura, diferencias, correcciones y decisiones.
+La [reforma de motor único](REFORMA-MOTOR.md) tiene prioridad. Queda anulada la compatibilidad de fichas, firmas y resultados antiguos: se retiran `FamiliarFiscal`, el modo legacy y las rutas duplicadas. Las páginas actuales pueden adaptarse lo mínimo o desconectarse para compilar. La API nueva se documenta en [API-MOTOR.md](API-MOTOR.md); todavía no se presenta como implementada.
+
+Las ampliaciones regionales de deducciones y el censo automático de A continúan con esa instrucción. La entrega del auxiliar compartido es candidata: sus cálculos útiles deben incorporarse a la ruta única y revisarse allí, sin perpetuar su fachada heredada. Los cambios compartidos tienen un responsable para evitar nuevas APIs divergentes. B, C, D y F continúan según sus dependencias; E se adelanta como parte de la reforma. Cada bloque recibe revisión independiente y un balance de cobertura, diferencias, correcciones y decisiones.
 
 | Bloque | Estado |
 | --- | --- |
@@ -12,12 +14,12 @@ Las siete ampliaciones regionales de deducciones continúan. La entrega del auxi
 | B. Comunidades en 2026 | Pendiente de inicio; reutilizará las fuentes de A |
 | C. Simuladores oficiales | Pendiente de inicio |
 | D. Redondeo de cotizaciones | Pendiente de inicio con criterio de comportamiento observado |
-| E. Mínimos familiares | Pendiente de inicio; incluye retirada de rutas erróneas |
+| E. Mínimos familiares | Prioridad: preparar la retirada de `FamiliarFiscal`, mínimos duplicados y modo legacy; extensión normativa por año pendiente |
 | F. Actividad y declaración completa | Encargado; pendiente de productores y contratos anteriores |
 
 ## En curso: deducciones autonómicas de 2025
 
-Revisión de **351 fichas** contra los originales de los boletines autonómicos, sus reformas y el manual AEAT. Base: `464e0fd8`; solo commits nuevos. [Censo y reparto](deducciones-2025/censo.json), [criterios de dictamen](deducciones-2025/ENCARGO.md), [compatibilidad para el rediseño](deducciones-2025/CAMBIOS-PARA-REDISENO.md).
+Revisión de **351 fichas** contra los originales de los boletines autonómicos, sus reformas y el manual AEAT. Base: `464e0fd8`; solo commits nuevos. [Censo y reparto](deducciones-2025/censo.json), [criterios de dictamen](deducciones-2025/ENCARGO.md), [transición para el rediseño](deducciones-2025/CAMBIOS-PARA-REDISENO.md).
 
 | Lote | Comunidades | Fichas | Estado |
 | --- | --- | ---: | --- |
@@ -29,7 +31,7 @@ Revisión de **351 fichas** contra los originales de los boletines autonómicos,
 | F | Madrid, Murcia | 51 | Rectificación documental y remisiones en curso |
 | G | Comunitat Valenciana | 40 | Rectificación documental y remisiones en curso |
 
-El contrato aditivo conserva campos y valores de las fichas y muestra pendiente cuando no hay evidencia. Los tres defectos del verificador están corregidos y contrastados independientemente: coherencia del dictamen global, adquisiciones compartidas y filtrado de URL. Pasan 37 regresiones y siete casos del revisor; las diez pruebas Vitest se ejecutaron en el repositorio principal. Revisión técnica cerrada, sin aceptar todavía normas. [Contrato y uso](deducciones-2025/contrato/README.md), [dictamen independiente](deducciones-2025/revisiones/contrato-corregido/INFORME.md).
+El contrato documental inicial muestra pendiente cuando no hay evidencia. Su carácter aditivo ya no limita el modelo definitivo. Los tres defectos del verificador están corregidos y contrastados independientemente: coherencia del dictamen global, adquisiciones compartidas y filtrado de URL. Pasan 37 regresiones y siete casos del revisor; las diez pruebas Vitest se ejecutaron en el repositorio principal. Revisión técnica cerrada, sin aceptar todavía normas. [Contrato y uso](deducciones-2025/contrato/README.md), [dictamen independiente](deducciones-2025/revisiones/contrato-corregido/INFORME.md).
 
 **351 dictámenes candidatos y las siete revisiones independientes recibidos; cobertura completa del censo. Ningún lote aceptado íntegramente todavía.** Los autores propusieron 252 diferencias y 99 no verificables para el alcance completo. Son recuentos provisionales; las revisiones y rectificaciones se deben conciliar antes del balance final. Las diferencias incluyen omisiones de ficha: no equivalen a 252 errores de cálculo.
 
@@ -49,7 +51,7 @@ El contrato admite publicaciones primarias clasificadas como reforma o correcci�
 
 Se han comprobado también las 425 citas complementarias de las siete revisiones. La reextracción no basta para atribuir una cita al artículo correcto; esa pertenencia y la vigencia se contrastan por separado.
 
-Pendiente no significa «no verificable». Las auditorías históricas sirven de punto de partida, no de validación automática. Los originales nuevos se conservan en el almacén externo y se mantiene compatible la forma de las fichas.
+Pendiente no significa «no verificable». Las auditorías históricas sirven de punto de partida, no de validación automática. Los originales nuevos se conservan en el almacén externo. Las fichas pueden cambiar para expresar correctamente el cálculo y su procedencia.
 
 ## Resultados anteriores
 

@@ -1,6 +1,6 @@
-# Compatibilidad del catálogo de deducciones
+# Transición del catálogo de deducciones
 
-La revisión de 2025 conserva los campos existentes de `FichaDeduccionAutonomica`, sus códigos y las exportaciones del catálogo. Se añadirá procedencia verificable sin cambios de diseño en `app/procedencia/**` ni en otros componentes.
+**La obligación de compatibilidad queda anulada.** El catálogo y la API pueden cambiar para dejar una sola ruta de cálculo con procedencia. El contrato nuevo se publicará en [API-MOTOR.md](../API-MOTOR.md). Las secciones siguientes describen entregas anteriores; sus garantías de conservación de campos, firmas o rutas no condicionan la reforma.
 
 Se ha incorporado el contrato aditivo descrito a continuación y se ha contrastado técnicamente mediante revisión independiente. Los dictámenes normativos de las deducciones siguen pendientes. La ausencia de procedencia revisada no debe interpretarse como conformidad normativa.
 
