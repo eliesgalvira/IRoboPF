@@ -2,10 +2,10 @@
 
 El índice permitido de snapshots sigue en `docs/procedencia/implementaciones/contenidos/datos/snapshots.json`. Los objetos, incluidos los snapshots, están fuera de Git. Lectores y generadores usan `IROBOPF_CAS_LOCAL`, una ruta absoluta a un directorio cuyos nombres son hashes SHA-256. No se admite una raíz dentro de Git ni una raíz con symlinks. No hay descarga ni fallback al almacén antiguo.
 
-En host-a, la copia de trabajo es `/home/local/.local/share/irobopf/procedencia/objetos`. El respaldo independiente de esta copia de trabajo se describe en [RESPALDO.md](RESPALDO.md). El backend futuro podrá recibir la semilla; este cambio no implementa ese backend ni configura un servicio externo.
+La ubicación se configura en cada entorno. El [respaldo privado](RESPALDO.md) conserva los originales para preparar el backend; su contenido necesita revisión de privacidad antes de publicarse. Este cambio no implementa un backend ni configura un servicio externo.
 
 ```sh
-export IROBOPF_CAS_LOCAL=/home/local/.local/share/irobopf/procedencia/objetos
+export IROBOPF_CAS_LOCAL="$HOME/.local/share/irobopf/procedencia/objetos"
 bun scripts/procedencia/rastro-verificar.mjs
 bun scripts/procedencia/contenido-verificar.mjs
 ```
