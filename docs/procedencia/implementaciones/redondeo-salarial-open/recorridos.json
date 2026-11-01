@@ -1,0 +1,5059 @@
+[
+  {
+    "nombre": "ingresar-dos-pagadores-limites-anuales",
+    "entrada": {
+      "ejercicio": 2025,
+      "comunidadAutonoma": "madrid",
+      "edad": 40,
+      "modalidad": "individual",
+      "residenciaTodoElAnio": true,
+      "devengo": "2025-12-31",
+      "otrasRentas": "ninguna",
+      "familiaresConDerechoMinimo": "ninguno",
+      "discapacidad": "ninguna",
+      "reduccionesBase": "ninguna",
+      "saldosAnteriores": "ninguno",
+      "deducciones": "solo-da61-si-procede",
+      "rentasExtranjeras": "ninguna",
+      "especialidades": "ninguna",
+      "perfil": "solo-trabajo",
+      "conciliacion": {
+        "ejercicio": 2025,
+        "estado": "totales-anuales-sin-duplicados",
+        "procedencia": [
+          "sintetico:datos-fiscales-2025",
+          "sintetico:certificados-pagadores"
+        ]
+      },
+      "trabajo": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna",
+        "rendimientos": [
+          {
+            "id": "a",
+            "clase": "empleo-laboral",
+            "integro": "18000",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1200",
+              "derechosPasivos": "0",
+              "colegiosHuerfanos": "0"
+            },
+            "sindicato": {
+              "importe": "60",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "400",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "200",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          },
+          {
+            "id": "b",
+            "clase": "empleo-laboral",
+            "integro": "12000",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "800",
+              "derechosPasivos": "0",
+              "colegiosHuerfanos": "0"
+            },
+            "sindicato": {
+              "importe": "40",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "200",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "200",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ]
+      },
+      "retenciones": [
+        {
+          "operacionId": "ret-0",
+          "procedencia": "sintetico:certificado-0",
+          "ejercicio": 2025,
+          "importe": "1500",
+          "efectiva": true
+        },
+        {
+          "operacionId": "ret-1",
+          "procedencia": "sintetico:certificado-1",
+          "ejercicio": 2025,
+          "importe": "1500",
+          "efectiva": true
+        }
+      ]
+    },
+    "esperado": {
+      "rendimientoNetoReducido": "25100",
+      "baseImponibleGeneral": "25100",
+      "baseLiquidableGeneral": "25100",
+      "baseLiquidableAhorro": "0",
+      "reduccionArt20": "0",
+      "cuotaLiquidaLegal": "4333.92",
+      "deduccionTrabajo": "0",
+      "cuotaPosterior": "4333.92",
+      "retenciones": "3000",
+      "pagosFraccionados": "0",
+      "cuotaDiferencial": "1333.92",
+      "cuotaDiferencialPresentada": "1333.92"
+    },
+    "lineas": [
+      {
+        "siteId": "anual.explicito.trabajo.integro",
+        "decimal": "30000",
+        "presentado": "30000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gastos-a-e",
+        "decimal": "2900",
+        "presentado": "2900.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gasto-f",
+        "decimal": "2000",
+        "presentado": "2000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art19",
+        "decimal": "25100",
+        "presentado": "25100.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art20",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.big",
+        "decimal": "25100",
+        "presentado": "25100.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.blg",
+        "decimal": "25100",
+        "presentado": "25100.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.estatal",
+        "decimal": "2320.5",
+        "presentado": "2320.50 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.autonomica",
+        "decimal": "2013.42",
+        "presentado": "2013.42 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.liquida-legal",
+        "decimal": "4333.92",
+        "presentado": "4333.92 euros"
+      },
+      {
+        "siteId": "anual.explicito.da61",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.posterior",
+        "decimal": "4333.92",
+        "presentado": "4333.92 euros"
+      },
+      {
+        "siteId": "anual.explicito.retenciones",
+        "decimal": "3000",
+        "presentado": "3000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.pagos",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.diferencial",
+        "decimal": "1333.92",
+        "presentado": "1333.92 euros"
+      }
+    ],
+    "control": {
+      "minimoEstatal": "5550",
+      "minimoMadrid": "5956.65",
+      "previoArt20": "27100"
+    }
+  },
+  {
+    "nombre": "devolver-da61-ss-efectiva",
+    "entrada": {
+      "ejercicio": 2025,
+      "comunidadAutonoma": "madrid",
+      "edad": 40,
+      "modalidad": "individual",
+      "residenciaTodoElAnio": true,
+      "devengo": "2025-12-31",
+      "otrasRentas": "ninguna",
+      "familiaresConDerechoMinimo": "ninguno",
+      "discapacidad": "ninguna",
+      "reduccionesBase": "ninguna",
+      "saldosAnteriores": "ninguno",
+      "deducciones": "solo-da61-si-procede",
+      "rentasExtranjeras": "ninguna",
+      "especialidades": "ninguna",
+      "perfil": "solo-trabajo",
+      "conciliacion": {
+        "ejercicio": 2025,
+        "estado": "totales-anuales-sin-duplicados",
+        "procedencia": [
+          "sintetico:datos-fiscales-2025",
+          "sintetico:certificados-pagadores"
+        ]
+      },
+      "trabajo": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna",
+        "rendimientos": [
+          {
+            "id": "a",
+            "clase": "empleo-laboral",
+            "integro": "17576.01",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "0",
+              "colegiosHuerfanos": "0"
+            },
+            "sindicato": {
+              "importe": "0",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ]
+      },
+      "retenciones": [
+        {
+          "operacionId": "ret-0",
+          "procedencia": "sintetico:certificado-0",
+          "ejercicio": 2025,
+          "importe": "1000",
+          "efectiva": true
+        }
+      ]
+    },
+    "esperado": {
+      "rendimientoNetoReducido": "10291.03",
+      "baseImponibleGeneral": "10291.03",
+      "baseLiquidableGeneral": "10291.03",
+      "baseLiquidableAhorro": "0",
+      "reduccionArt20": "4284.98",
+      "cuotaLiquidaLegal": "818.82",
+      "deduccionTrabajo": "140",
+      "cuotaPosterior": "678.82",
+      "retenciones": "1000",
+      "pagosFraccionados": "0",
+      "cuotaDiferencial": "-321.18",
+      "cuotaDiferencialPresentada": "-321.18"
+    },
+    "lineas": [
+      {
+        "siteId": "anual.explicito.trabajo.integro",
+        "decimal": "17576.01",
+        "presentado": "17576.01 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gastos-a-e",
+        "decimal": "1000",
+        "presentado": "1000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gasto-f",
+        "decimal": "2000",
+        "presentado": "2000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art19",
+        "decimal": "14576.01",
+        "presentado": "14576.01 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art20",
+        "decimal": "4284.98",
+        "presentado": "4284.98 euros"
+      },
+      {
+        "siteId": "anual.explicito.big",
+        "decimal": "10291.03",
+        "presentado": "10291.03 euros"
+      },
+      {
+        "siteId": "anual.explicito.blg",
+        "decimal": "10291.03",
+        "presentado": "10291.03 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.estatal",
+        "decimal": "450.4",
+        "presentado": "450.40 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.autonomica",
+        "decimal": "368.42",
+        "presentado": "368.42 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.liquida-legal",
+        "decimal": "818.82",
+        "presentado": "818.82 euros"
+      },
+      {
+        "siteId": "anual.explicito.da61",
+        "decimal": "140",
+        "presentado": "140.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.posterior",
+        "decimal": "678.82",
+        "presentado": "678.82 euros"
+      },
+      {
+        "siteId": "anual.explicito.retenciones",
+        "decimal": "1000",
+        "presentado": "1000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.pagos",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.diferencial",
+        "decimal": "-321.18",
+        "presentado": "-321.18 euros"
+      }
+    ],
+    "control": {
+      "minimoEstatal": "5550",
+      "minimoMadrid": "5956.65",
+      "previoArt20": "16576.01"
+    }
+  },
+  {
+    "nombre": "cero",
+    "entrada": {
+      "ejercicio": 2025,
+      "comunidadAutonoma": "madrid",
+      "edad": 40,
+      "modalidad": "individual",
+      "residenciaTodoElAnio": true,
+      "devengo": "2025-12-31",
+      "otrasRentas": "ninguna",
+      "familiaresConDerechoMinimo": "ninguno",
+      "discapacidad": "ninguna",
+      "reduccionesBase": "ninguna",
+      "saldosAnteriores": "ninguno",
+      "deducciones": "solo-da61-si-procede",
+      "rentasExtranjeras": "ninguna",
+      "especialidades": "ninguna",
+      "perfil": "solo-trabajo",
+      "conciliacion": {
+        "ejercicio": 2025,
+        "estado": "totales-anuales-sin-duplicados",
+        "procedencia": [
+          "sintetico:datos-fiscales-2025",
+          "sintetico:certificados-pagadores"
+        ]
+      },
+      "trabajo": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna",
+        "rendimientos": [
+          {
+            "id": "a",
+            "clase": "empleo-laboral",
+            "integro": "0",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "0",
+              "derechosPasivos": "0",
+              "colegiosHuerfanos": "0"
+            },
+            "sindicato": {
+              "importe": "0",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ]
+      },
+      "retenciones": []
+    },
+    "esperado": {
+      "rendimientoNetoReducido": "0",
+      "baseImponibleGeneral": "0",
+      "baseLiquidableGeneral": "0",
+      "baseLiquidableAhorro": "0",
+      "reduccionArt20": "0",
+      "cuotaLiquidaLegal": "0",
+      "deduccionTrabajo": "0",
+      "cuotaPosterior": "0",
+      "retenciones": "0",
+      "pagosFraccionados": "0",
+      "cuotaDiferencial": "0",
+      "cuotaDiferencialPresentada": "0.00"
+    },
+    "lineas": [
+      {
+        "siteId": "anual.explicito.trabajo.integro",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gastos-a-e",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gasto-f",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art19",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art20",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.big",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.blg",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.estatal",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.autonomica",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.liquida-legal",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.da61",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.posterior",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.retenciones",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.pagos",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.diferencial",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      }
+    ],
+    "control": {
+      "minimoEstatal": "5550",
+      "minimoMadrid": "5956.65",
+      "previoArt20": "0"
+    }
+  },
+  {
+    "nombre": "perdida",
+    "entrada": {
+      "ejercicio": 2025,
+      "comunidadAutonoma": "madrid",
+      "edad": 40,
+      "modalidad": "individual",
+      "residenciaTodoElAnio": true,
+      "devengo": "2025-12-31",
+      "otrasRentas": "ninguna",
+      "familiaresConDerechoMinimo": "ninguno",
+      "discapacidad": "ninguna",
+      "reduccionesBase": "ninguna",
+      "saldosAnteriores": "ninguno",
+      "deducciones": "solo-da61-si-procede",
+      "rentasExtranjeras": "ninguna",
+      "especialidades": "ninguna",
+      "perfil": "solo-trabajo",
+      "conciliacion": {
+        "ejercicio": 2025,
+        "estado": "totales-anuales-sin-duplicados",
+        "procedencia": [
+          "sintetico:datos-fiscales-2025",
+          "sintetico:certificados-pagadores"
+        ]
+      },
+      "trabajo": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna",
+        "rendimientos": [
+          {
+            "id": "a",
+            "clase": "empleo-laboral",
+            "integro": "0",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "100",
+              "derechosPasivos": "0",
+              "colegiosHuerfanos": "0"
+            },
+            "sindicato": {
+              "importe": "0",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ]
+      },
+      "retenciones": []
+    },
+    "esperado": {
+      "rendimientoNetoReducido": "-100",
+      "baseImponibleGeneral": "-100",
+      "baseLiquidableGeneral": "-100",
+      "baseLiquidableAhorro": "0",
+      "reduccionArt20": "0",
+      "cuotaLiquidaLegal": "0",
+      "deduccionTrabajo": "0",
+      "cuotaPosterior": "0",
+      "retenciones": "0",
+      "pagosFraccionados": "0",
+      "cuotaDiferencial": "0",
+      "cuotaDiferencialPresentada": "0.00"
+    },
+    "lineas": [
+      {
+        "siteId": "anual.explicito.trabajo.integro",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gastos-a-e",
+        "decimal": "100",
+        "presentado": "100.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gasto-f",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art19",
+        "decimal": "-100",
+        "presentado": "-100.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art20",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.big",
+        "decimal": "-100",
+        "presentado": "-100.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.blg",
+        "decimal": "-100",
+        "presentado": "-100.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.estatal",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.autonomica",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.liquida-legal",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.da61",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.posterior",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.retenciones",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.pagos",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.diferencial",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      }
+    ],
+    "control": {
+      "minimoEstatal": "5550",
+      "minimoMadrid": "5956.65",
+      "previoArt20": "-100"
+    }
+  },
+  {
+    "nombre": "deduccion-limitada-por-cuota",
+    "entrada": {
+      "ejercicio": 2025,
+      "comunidadAutonoma": "madrid",
+      "edad": 40,
+      "modalidad": "individual",
+      "residenciaTodoElAnio": true,
+      "devengo": "2025-12-31",
+      "otrasRentas": "ninguna",
+      "familiaresConDerechoMinimo": "ninguno",
+      "discapacidad": "ninguna",
+      "reduccionesBase": "ninguna",
+      "saldosAnteriores": "ninguno",
+      "deducciones": "solo-da61-si-procede",
+      "rentasExtranjeras": "ninguna",
+      "especialidades": "ninguna",
+      "perfil": "solo-trabajo",
+      "conciliacion": {
+        "ejercicio": 2025,
+        "estado": "totales-anuales-sin-duplicados",
+        "procedencia": [
+          "sintetico:datos-fiscales-2025",
+          "sintetico:certificados-pagadores"
+        ]
+      },
+      "trabajo": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna",
+        "rendimientos": [
+          {
+            "id": "a",
+            "clase": "empleo-laboral",
+            "integro": "16000",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "0",
+              "colegiosHuerfanos": "0"
+            },
+            "sindicato": {
+              "importe": "0",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ]
+      },
+      "retenciones": [
+        {
+          "operacionId": "ret-0",
+          "procedencia": "sintetico:certificado-0",
+          "ejercicio": 2025,
+          "importe": "50",
+          "efectiva": true
+        }
+      ]
+    },
+    "esperado": {
+      "rendimientoNetoReducido": "5957",
+      "baseImponibleGeneral": "5957",
+      "baseLiquidableGeneral": "5957",
+      "baseLiquidableAhorro": "0",
+      "reduccionArt20": "7043",
+      "cuotaLiquidaLegal": "38.7",
+      "deduccionTrabajo": "38.7",
+      "cuotaPosterior": "0",
+      "retenciones": "50",
+      "pagosFraccionados": "0",
+      "cuotaDiferencial": "-50",
+      "cuotaDiferencialPresentada": "-50.00"
+    },
+    "lineas": [
+      {
+        "siteId": "anual.explicito.trabajo.integro",
+        "decimal": "16000",
+        "presentado": "16000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gastos-a-e",
+        "decimal": "1000",
+        "presentado": "1000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gasto-f",
+        "decimal": "2000",
+        "presentado": "2000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art19",
+        "decimal": "13000",
+        "presentado": "13000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art20",
+        "decimal": "7043",
+        "presentado": "7043.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.big",
+        "decimal": "5957",
+        "presentado": "5957.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.blg",
+        "decimal": "5957",
+        "presentado": "5957.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.estatal",
+        "decimal": "38.67",
+        "presentado": "38.67 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.autonomica",
+        "decimal": "0.03",
+        "presentado": "0.03 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.liquida-legal",
+        "decimal": "38.7",
+        "presentado": "38.70 euros"
+      },
+      {
+        "siteId": "anual.explicito.da61",
+        "decimal": "38.7",
+        "presentado": "38.70 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.posterior",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.retenciones",
+        "decimal": "50",
+        "presentado": "50.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.pagos",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.diferencial",
+        "decimal": "-50",
+        "presentado": "-50.00 euros"
+      }
+    ],
+    "control": {
+      "minimoEstatal": "5550",
+      "minimoMadrid": "5956.65",
+      "previoArt20": "15000"
+    }
+  },
+  {
+    "nombre": "base-entre-minimos",
+    "entrada": {
+      "ejercicio": 2025,
+      "comunidadAutonoma": "madrid",
+      "edad": 40,
+      "modalidad": "individual",
+      "residenciaTodoElAnio": true,
+      "devengo": "2025-12-31",
+      "otrasRentas": "ninguna",
+      "familiaresConDerechoMinimo": "ninguno",
+      "discapacidad": "ninguna",
+      "reduccionesBase": "ninguna",
+      "saldosAnteriores": "ninguno",
+      "deducciones": "solo-da61-si-procede",
+      "rentasExtranjeras": "ninguna",
+      "especialidades": "ninguna",
+      "perfil": "solo-trabajo",
+      "conciliacion": {
+        "ejercicio": 2025,
+        "estado": "totales-anuales-sin-duplicados",
+        "procedencia": [
+          "sintetico:datos-fiscales-2025",
+          "sintetico:certificados-pagadores"
+        ]
+      },
+      "trabajo": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna",
+        "rendimientos": [
+          {
+            "id": "a",
+            "clase": "empleo-laboral",
+            "integro": "15900",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "0",
+              "colegiosHuerfanos": "0"
+            },
+            "sindicato": {
+              "importe": "0",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ]
+      },
+      "retenciones": [
+        {
+          "operacionId": "ret-0",
+          "procedencia": "sintetico:certificado-0",
+          "ejercicio": 2025,
+          "importe": "50",
+          "efectiva": true
+        }
+      ]
+    },
+    "esperado": {
+      "rendimientoNetoReducido": "5682",
+      "baseImponibleGeneral": "5682",
+      "baseLiquidableGeneral": "5682",
+      "baseLiquidableAhorro": "0",
+      "reduccionArt20": "7218",
+      "cuotaLiquidaLegal": "12.54",
+      "deduccionTrabajo": "12.54",
+      "cuotaPosterior": "0",
+      "retenciones": "50",
+      "pagosFraccionados": "0",
+      "cuotaDiferencial": "-50",
+      "cuotaDiferencialPresentada": "-50.00"
+    },
+    "lineas": [
+      {
+        "siteId": "anual.explicito.trabajo.integro",
+        "decimal": "15900",
+        "presentado": "15900.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gastos-a-e",
+        "decimal": "1000",
+        "presentado": "1000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gasto-f",
+        "decimal": "2000",
+        "presentado": "2000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art19",
+        "decimal": "12900",
+        "presentado": "12900.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art20",
+        "decimal": "7218",
+        "presentado": "7218.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.big",
+        "decimal": "5682",
+        "presentado": "5682.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.blg",
+        "decimal": "5682",
+        "presentado": "5682.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.estatal",
+        "decimal": "12.54",
+        "presentado": "12.54 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.autonomica",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.liquida-legal",
+        "decimal": "12.54",
+        "presentado": "12.54 euros"
+      },
+      {
+        "siteId": "anual.explicito.da61",
+        "decimal": "12.54",
+        "presentado": "12.54 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.posterior",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.retenciones",
+        "decimal": "50",
+        "presentado": "50.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.pagos",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.diferencial",
+        "decimal": "-50",
+        "presentado": "-50.00 euros"
+      }
+    ],
+    "control": {
+      "minimoEstatal": "5550",
+      "minimoMadrid": "5956.65",
+      "previoArt20": "14900"
+    }
+  },
+  {
+    "nombre": "art20-14851.99",
+    "entrada": {
+      "ejercicio": 2025,
+      "comunidadAutonoma": "madrid",
+      "edad": 40,
+      "modalidad": "individual",
+      "residenciaTodoElAnio": true,
+      "devengo": "2025-12-31",
+      "otrasRentas": "ninguna",
+      "familiaresConDerechoMinimo": "ninguno",
+      "discapacidad": "ninguna",
+      "reduccionesBase": "ninguna",
+      "saldosAnteriores": "ninguno",
+      "deducciones": "solo-da61-si-procede",
+      "rentasExtranjeras": "ninguna",
+      "especialidades": "ninguna",
+      "perfil": "solo-trabajo",
+      "conciliacion": {
+        "ejercicio": 2025,
+        "estado": "totales-anuales-sin-duplicados",
+        "procedencia": [
+          "sintetico:datos-fiscales-2025",
+          "sintetico:certificados-pagadores"
+        ]
+      },
+      "trabajo": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna",
+        "rendimientos": [
+          {
+            "id": "a",
+            "clase": "empleo-laboral",
+            "integro": "15851.99",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "0",
+              "colegiosHuerfanos": "0"
+            },
+            "sindicato": {
+              "importe": "0",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ]
+      },
+      "retenciones": [
+        {
+          "operacionId": "ret-0",
+          "procedencia": "sintetico:certificado-0",
+          "ejercicio": 2025,
+          "importe": "100",
+          "efectiva": true
+        }
+      ]
+    },
+    "esperado": {
+      "rendimientoNetoReducido": "5549.99",
+      "baseImponibleGeneral": "5549.99",
+      "baseLiquidableGeneral": "5549.99",
+      "baseLiquidableAhorro": "0",
+      "reduccionArt20": "7302",
+      "cuotaLiquidaLegal": "0",
+      "deduccionTrabajo": "0",
+      "cuotaPosterior": "0",
+      "retenciones": "100",
+      "pagosFraccionados": "0",
+      "cuotaDiferencial": "-100",
+      "cuotaDiferencialPresentada": "-100.00"
+    },
+    "lineas": [
+      {
+        "siteId": "anual.explicito.trabajo.integro",
+        "decimal": "15851.99",
+        "presentado": "15851.99 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gastos-a-e",
+        "decimal": "1000",
+        "presentado": "1000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gasto-f",
+        "decimal": "2000",
+        "presentado": "2000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art19",
+        "decimal": "12851.99",
+        "presentado": "12851.99 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art20",
+        "decimal": "7302",
+        "presentado": "7302.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.big",
+        "decimal": "5549.99",
+        "presentado": "5549.99 euros"
+      },
+      {
+        "siteId": "anual.explicito.blg",
+        "decimal": "5549.99",
+        "presentado": "5549.99 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.estatal",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.autonomica",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.liquida-legal",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.da61",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.posterior",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.retenciones",
+        "decimal": "100",
+        "presentado": "100.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.pagos",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.diferencial",
+        "decimal": "-100",
+        "presentado": "-100.00 euros"
+      }
+    ],
+    "control": {
+      "minimoEstatal": "5550",
+      "minimoMadrid": "5956.65",
+      "previoArt20": "14851.99"
+    }
+  },
+  {
+    "nombre": "art20-14852",
+    "entrada": {
+      "ejercicio": 2025,
+      "comunidadAutonoma": "madrid",
+      "edad": 40,
+      "modalidad": "individual",
+      "residenciaTodoElAnio": true,
+      "devengo": "2025-12-31",
+      "otrasRentas": "ninguna",
+      "familiaresConDerechoMinimo": "ninguno",
+      "discapacidad": "ninguna",
+      "reduccionesBase": "ninguna",
+      "saldosAnteriores": "ninguno",
+      "deducciones": "solo-da61-si-procede",
+      "rentasExtranjeras": "ninguna",
+      "especialidades": "ninguna",
+      "perfil": "solo-trabajo",
+      "conciliacion": {
+        "ejercicio": 2025,
+        "estado": "totales-anuales-sin-duplicados",
+        "procedencia": [
+          "sintetico:datos-fiscales-2025",
+          "sintetico:certificados-pagadores"
+        ]
+      },
+      "trabajo": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna",
+        "rendimientos": [
+          {
+            "id": "a",
+            "clase": "empleo-laboral",
+            "integro": "15852",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "0",
+              "colegiosHuerfanos": "0"
+            },
+            "sindicato": {
+              "importe": "0",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ]
+      },
+      "retenciones": [
+        {
+          "operacionId": "ret-0",
+          "procedencia": "sintetico:certificado-0",
+          "ejercicio": 2025,
+          "importe": "100",
+          "efectiva": true
+        }
+      ]
+    },
+    "esperado": {
+      "rendimientoNetoReducido": "5550",
+      "baseImponibleGeneral": "5550",
+      "baseLiquidableGeneral": "5550",
+      "baseLiquidableAhorro": "0",
+      "reduccionArt20": "7302",
+      "cuotaLiquidaLegal": "0",
+      "deduccionTrabajo": "0",
+      "cuotaPosterior": "0",
+      "retenciones": "100",
+      "pagosFraccionados": "0",
+      "cuotaDiferencial": "-100",
+      "cuotaDiferencialPresentada": "-100.00"
+    },
+    "lineas": [
+      {
+        "siteId": "anual.explicito.trabajo.integro",
+        "decimal": "15852",
+        "presentado": "15852.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gastos-a-e",
+        "decimal": "1000",
+        "presentado": "1000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gasto-f",
+        "decimal": "2000",
+        "presentado": "2000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art19",
+        "decimal": "12852",
+        "presentado": "12852.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art20",
+        "decimal": "7302",
+        "presentado": "7302.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.big",
+        "decimal": "5550",
+        "presentado": "5550.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.blg",
+        "decimal": "5550",
+        "presentado": "5550.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.estatal",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.autonomica",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.liquida-legal",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.da61",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.posterior",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.retenciones",
+        "decimal": "100",
+        "presentado": "100.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.pagos",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.diferencial",
+        "decimal": "-100",
+        "presentado": "-100.00 euros"
+      }
+    ],
+    "control": {
+      "minimoEstatal": "5550",
+      "minimoMadrid": "5956.65",
+      "previoArt20": "14852"
+    }
+  },
+  {
+    "nombre": "art20-14852.01",
+    "entrada": {
+      "ejercicio": 2025,
+      "comunidadAutonoma": "madrid",
+      "edad": 40,
+      "modalidad": "individual",
+      "residenciaTodoElAnio": true,
+      "devengo": "2025-12-31",
+      "otrasRentas": "ninguna",
+      "familiaresConDerechoMinimo": "ninguno",
+      "discapacidad": "ninguna",
+      "reduccionesBase": "ninguna",
+      "saldosAnteriores": "ninguno",
+      "deducciones": "solo-da61-si-procede",
+      "rentasExtranjeras": "ninguna",
+      "especialidades": "ninguna",
+      "perfil": "solo-trabajo",
+      "conciliacion": {
+        "ejercicio": 2025,
+        "estado": "totales-anuales-sin-duplicados",
+        "procedencia": [
+          "sintetico:datos-fiscales-2025",
+          "sintetico:certificados-pagadores"
+        ]
+      },
+      "trabajo": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna",
+        "rendimientos": [
+          {
+            "id": "a",
+            "clase": "empleo-laboral",
+            "integro": "15852.01",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "0",
+              "colegiosHuerfanos": "0"
+            },
+            "sindicato": {
+              "importe": "0",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ]
+      },
+      "retenciones": [
+        {
+          "operacionId": "ret-0",
+          "procedencia": "sintetico:certificado-0",
+          "ejercicio": 2025,
+          "importe": "100",
+          "efectiva": true
+        }
+      ]
+    },
+    "esperado": {
+      "rendimientoNetoReducido": "5550.03",
+      "baseImponibleGeneral": "5550.03",
+      "baseLiquidableGeneral": "5550.03",
+      "baseLiquidableAhorro": "0",
+      "reduccionArt20": "7301.98",
+      "cuotaLiquidaLegal": "0",
+      "deduccionTrabajo": "0",
+      "cuotaPosterior": "0",
+      "retenciones": "100",
+      "pagosFraccionados": "0",
+      "cuotaDiferencial": "-100",
+      "cuotaDiferencialPresentada": "-100.00"
+    },
+    "lineas": [
+      {
+        "siteId": "anual.explicito.trabajo.integro",
+        "decimal": "15852.01",
+        "presentado": "15852.01 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gastos-a-e",
+        "decimal": "1000",
+        "presentado": "1000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gasto-f",
+        "decimal": "2000",
+        "presentado": "2000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art19",
+        "decimal": "12852.01",
+        "presentado": "12852.01 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art20",
+        "decimal": "7301.98",
+        "presentado": "7301.98 euros"
+      },
+      {
+        "siteId": "anual.explicito.big",
+        "decimal": "5550.03",
+        "presentado": "5550.03 euros"
+      },
+      {
+        "siteId": "anual.explicito.blg",
+        "decimal": "5550.03",
+        "presentado": "5550.03 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.estatal",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.autonomica",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.liquida-legal",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.da61",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.posterior",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.retenciones",
+        "decimal": "100",
+        "presentado": "100.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.pagos",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.diferencial",
+        "decimal": "-100",
+        "presentado": "-100.00 euros"
+      }
+    ],
+    "control": {
+      "minimoEstatal": "5550",
+      "minimoMadrid": "5956.65",
+      "previoArt20": "14852.01"
+    }
+  },
+  {
+    "nombre": "art20-17673.51",
+    "entrada": {
+      "ejercicio": 2025,
+      "comunidadAutonoma": "madrid",
+      "edad": 40,
+      "modalidad": "individual",
+      "residenciaTodoElAnio": true,
+      "devengo": "2025-12-31",
+      "otrasRentas": "ninguna",
+      "familiaresConDerechoMinimo": "ninguno",
+      "discapacidad": "ninguna",
+      "reduccionesBase": "ninguna",
+      "saldosAnteriores": "ninguno",
+      "deducciones": "solo-da61-si-procede",
+      "rentasExtranjeras": "ninguna",
+      "especialidades": "ninguna",
+      "perfil": "solo-trabajo",
+      "conciliacion": {
+        "ejercicio": 2025,
+        "estado": "totales-anuales-sin-duplicados",
+        "procedencia": [
+          "sintetico:datos-fiscales-2025",
+          "sintetico:certificados-pagadores"
+        ]
+      },
+      "trabajo": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna",
+        "rendimientos": [
+          {
+            "id": "a",
+            "clase": "empleo-laboral",
+            "integro": "18673.51",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "0",
+              "colegiosHuerfanos": "0"
+            },
+            "sindicato": {
+              "importe": "0",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ]
+      },
+      "retenciones": [
+        {
+          "operacionId": "ret-0",
+          "procedencia": "sintetico:certificado-0",
+          "ejercicio": 2025,
+          "importe": "100",
+          "efectiva": true
+        }
+      ]
+    },
+    "esperado": {
+      "rendimientoNetoReducido": "13309.15",
+      "baseImponibleGeneral": "13309.15",
+      "baseLiquidableGeneral": "13309.15",
+      "baseLiquidableAhorro": "0",
+      "reduccionArt20": "2364.36",
+      "cuotaLiquidaLegal": "1383.56",
+      "deduccionTrabajo": "0",
+      "cuotaPosterior": "1383.56",
+      "retenciones": "100",
+      "pagosFraccionados": "0",
+      "cuotaDiferencial": "1283.56",
+      "cuotaDiferencialPresentada": "1283.56"
+    },
+    "lineas": [
+      {
+        "siteId": "anual.explicito.trabajo.integro",
+        "decimal": "18673.51",
+        "presentado": "18673.51 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gastos-a-e",
+        "decimal": "1000",
+        "presentado": "1000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gasto-f",
+        "decimal": "2000",
+        "presentado": "2000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art19",
+        "decimal": "15673.51",
+        "presentado": "15673.51 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art20",
+        "decimal": "2364.36",
+        "presentado": "2364.36 euros"
+      },
+      {
+        "siteId": "anual.explicito.big",
+        "decimal": "13309.15",
+        "presentado": "13309.15 euros"
+      },
+      {
+        "siteId": "anual.explicito.blg",
+        "decimal": "13309.15",
+        "presentado": "13309.15 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.estatal",
+        "decimal": "758.6",
+        "presentado": "758.60 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.autonomica",
+        "decimal": "624.96",
+        "presentado": "624.96 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.liquida-legal",
+        "decimal": "1383.56",
+        "presentado": "1383.56 euros"
+      },
+      {
+        "siteId": "anual.explicito.da61",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.posterior",
+        "decimal": "1383.56",
+        "presentado": "1383.56 euros"
+      },
+      {
+        "siteId": "anual.explicito.retenciones",
+        "decimal": "100",
+        "presentado": "100.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.pagos",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.diferencial",
+        "decimal": "1283.56",
+        "presentado": "1283.56 euros"
+      }
+    ],
+    "control": {
+      "minimoEstatal": "5550",
+      "minimoMadrid": "5956.65",
+      "previoArt20": "17673.51"
+    }
+  },
+  {
+    "nombre": "art20-17673.52",
+    "entrada": {
+      "ejercicio": 2025,
+      "comunidadAutonoma": "madrid",
+      "edad": 40,
+      "modalidad": "individual",
+      "residenciaTodoElAnio": true,
+      "devengo": "2025-12-31",
+      "otrasRentas": "ninguna",
+      "familiaresConDerechoMinimo": "ninguno",
+      "discapacidad": "ninguna",
+      "reduccionesBase": "ninguna",
+      "saldosAnteriores": "ninguno",
+      "deducciones": "solo-da61-si-procede",
+      "rentasExtranjeras": "ninguna",
+      "especialidades": "ninguna",
+      "perfil": "solo-trabajo",
+      "conciliacion": {
+        "ejercicio": 2025,
+        "estado": "totales-anuales-sin-duplicados",
+        "procedencia": [
+          "sintetico:datos-fiscales-2025",
+          "sintetico:certificados-pagadores"
+        ]
+      },
+      "trabajo": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna",
+        "rendimientos": [
+          {
+            "id": "a",
+            "clase": "empleo-laboral",
+            "integro": "18673.52",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "0",
+              "colegiosHuerfanos": "0"
+            },
+            "sindicato": {
+              "importe": "0",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ]
+      },
+      "retenciones": [
+        {
+          "operacionId": "ret-0",
+          "procedencia": "sintetico:certificado-0",
+          "ejercicio": 2025,
+          "importe": "100",
+          "efectiva": true
+        }
+      ]
+    },
+    "esperado": {
+      "rendimientoNetoReducido": "13309.18",
+      "baseImponibleGeneral": "13309.18",
+      "baseLiquidableGeneral": "13309.18",
+      "baseLiquidableAhorro": "0",
+      "reduccionArt20": "2364.34",
+      "cuotaLiquidaLegal": "1383.56",
+      "deduccionTrabajo": "0",
+      "cuotaPosterior": "1383.56",
+      "retenciones": "100",
+      "pagosFraccionados": "0",
+      "cuotaDiferencial": "1283.56",
+      "cuotaDiferencialPresentada": "1283.56"
+    },
+    "lineas": [
+      {
+        "siteId": "anual.explicito.trabajo.integro",
+        "decimal": "18673.52",
+        "presentado": "18673.52 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gastos-a-e",
+        "decimal": "1000",
+        "presentado": "1000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gasto-f",
+        "decimal": "2000",
+        "presentado": "2000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art19",
+        "decimal": "15673.52",
+        "presentado": "15673.52 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art20",
+        "decimal": "2364.34",
+        "presentado": "2364.34 euros"
+      },
+      {
+        "siteId": "anual.explicito.big",
+        "decimal": "13309.18",
+        "presentado": "13309.18 euros"
+      },
+      {
+        "siteId": "anual.explicito.blg",
+        "decimal": "13309.18",
+        "presentado": "13309.18 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.estatal",
+        "decimal": "758.6",
+        "presentado": "758.60 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.autonomica",
+        "decimal": "624.96",
+        "presentado": "624.96 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.liquida-legal",
+        "decimal": "1383.56",
+        "presentado": "1383.56 euros"
+      },
+      {
+        "siteId": "anual.explicito.da61",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.posterior",
+        "decimal": "1383.56",
+        "presentado": "1383.56 euros"
+      },
+      {
+        "siteId": "anual.explicito.retenciones",
+        "decimal": "100",
+        "presentado": "100.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.pagos",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.diferencial",
+        "decimal": "1283.56",
+        "presentado": "1283.56 euros"
+      }
+    ],
+    "control": {
+      "minimoEstatal": "5550",
+      "minimoMadrid": "5956.65",
+      "previoArt20": "17673.52"
+    }
+  },
+  {
+    "nombre": "art20-17673.53",
+    "entrada": {
+      "ejercicio": 2025,
+      "comunidadAutonoma": "madrid",
+      "edad": 40,
+      "modalidad": "individual",
+      "residenciaTodoElAnio": true,
+      "devengo": "2025-12-31",
+      "otrasRentas": "ninguna",
+      "familiaresConDerechoMinimo": "ninguno",
+      "discapacidad": "ninguna",
+      "reduccionesBase": "ninguna",
+      "saldosAnteriores": "ninguno",
+      "deducciones": "solo-da61-si-procede",
+      "rentasExtranjeras": "ninguna",
+      "especialidades": "ninguna",
+      "perfil": "solo-trabajo",
+      "conciliacion": {
+        "ejercicio": 2025,
+        "estado": "totales-anuales-sin-duplicados",
+        "procedencia": [
+          "sintetico:datos-fiscales-2025",
+          "sintetico:certificados-pagadores"
+        ]
+      },
+      "trabajo": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna",
+        "rendimientos": [
+          {
+            "id": "a",
+            "clase": "empleo-laboral",
+            "integro": "18673.53",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "0",
+              "colegiosHuerfanos": "0"
+            },
+            "sindicato": {
+              "importe": "0",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ]
+      },
+      "retenciones": [
+        {
+          "operacionId": "ret-0",
+          "procedencia": "sintetico:certificado-0",
+          "ejercicio": 2025,
+          "importe": "100",
+          "efectiva": true
+        }
+      ]
+    },
+    "esperado": {
+      "rendimientoNetoReducido": "13309.2",
+      "baseImponibleGeneral": "13309.2",
+      "baseLiquidableGeneral": "13309.2",
+      "baseLiquidableAhorro": "0",
+      "reduccionArt20": "2364.33",
+      "cuotaLiquidaLegal": "1383.56",
+      "deduccionTrabajo": "0",
+      "cuotaPosterior": "1383.56",
+      "retenciones": "100",
+      "pagosFraccionados": "0",
+      "cuotaDiferencial": "1283.56",
+      "cuotaDiferencialPresentada": "1283.56"
+    },
+    "lineas": [
+      {
+        "siteId": "anual.explicito.trabajo.integro",
+        "decimal": "18673.53",
+        "presentado": "18673.53 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gastos-a-e",
+        "decimal": "1000",
+        "presentado": "1000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gasto-f",
+        "decimal": "2000",
+        "presentado": "2000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art19",
+        "decimal": "15673.53",
+        "presentado": "15673.53 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art20",
+        "decimal": "2364.33",
+        "presentado": "2364.33 euros"
+      },
+      {
+        "siteId": "anual.explicito.big",
+        "decimal": "13309.2",
+        "presentado": "13309.20 euros"
+      },
+      {
+        "siteId": "anual.explicito.blg",
+        "decimal": "13309.2",
+        "presentado": "13309.20 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.estatal",
+        "decimal": "758.6",
+        "presentado": "758.60 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.autonomica",
+        "decimal": "624.96",
+        "presentado": "624.96 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.liquida-legal",
+        "decimal": "1383.56",
+        "presentado": "1383.56 euros"
+      },
+      {
+        "siteId": "anual.explicito.da61",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.posterior",
+        "decimal": "1383.56",
+        "presentado": "1383.56 euros"
+      },
+      {
+        "siteId": "anual.explicito.retenciones",
+        "decimal": "100",
+        "presentado": "100.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.pagos",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.diferencial",
+        "decimal": "1283.56",
+        "presentado": "1283.56 euros"
+      }
+    ],
+    "control": {
+      "minimoEstatal": "5550",
+      "minimoMadrid": "5956.65",
+      "previoArt20": "17673.53"
+    }
+  },
+  {
+    "nombre": "art20-19747.49",
+    "entrada": {
+      "ejercicio": 2025,
+      "comunidadAutonoma": "madrid",
+      "edad": 40,
+      "modalidad": "individual",
+      "residenciaTodoElAnio": true,
+      "devengo": "2025-12-31",
+      "otrasRentas": "ninguna",
+      "familiaresConDerechoMinimo": "ninguno",
+      "discapacidad": "ninguna",
+      "reduccionesBase": "ninguna",
+      "saldosAnteriores": "ninguno",
+      "deducciones": "solo-da61-si-procede",
+      "rentasExtranjeras": "ninguna",
+      "especialidades": "ninguna",
+      "perfil": "solo-trabajo",
+      "conciliacion": {
+        "ejercicio": 2025,
+        "estado": "totales-anuales-sin-duplicados",
+        "procedencia": [
+          "sintetico:datos-fiscales-2025",
+          "sintetico:certificados-pagadores"
+        ]
+      },
+      "trabajo": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna",
+        "rendimientos": [
+          {
+            "id": "a",
+            "clase": "empleo-laboral",
+            "integro": "20747.49",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "0",
+              "colegiosHuerfanos": "0"
+            },
+            "sindicato": {
+              "importe": "0",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ]
+      },
+      "retenciones": [
+        {
+          "operacionId": "ret-0",
+          "procedencia": "sintetico:certificado-0",
+          "ejercicio": 2025,
+          "importe": "100",
+          "efectiva": true
+        }
+      ]
+    },
+    "esperado": {
+      "rendimientoNetoReducido": "17747.48",
+      "baseImponibleGeneral": "17747.48",
+      "baseLiquidableGeneral": "17747.48",
+      "baseLiquidableAhorro": "0",
+      "reduccionArt20": "0.01",
+      "cuotaLiquidaLegal": "2389.89",
+      "deduccionTrabajo": "0",
+      "cuotaPosterior": "2389.89",
+      "retenciones": "100",
+      "pagosFraccionados": "0",
+      "cuotaDiferencial": "2289.89",
+      "cuotaDiferencialPresentada": "2289.89"
+    },
+    "lineas": [
+      {
+        "siteId": "anual.explicito.trabajo.integro",
+        "decimal": "20747.49",
+        "presentado": "20747.49 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gastos-a-e",
+        "decimal": "1000",
+        "presentado": "1000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gasto-f",
+        "decimal": "2000",
+        "presentado": "2000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art19",
+        "decimal": "17747.49",
+        "presentado": "17747.49 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art20",
+        "decimal": "0.01",
+        "presentado": "0.01 euros"
+      },
+      {
+        "siteId": "anual.explicito.big",
+        "decimal": "17747.48",
+        "presentado": "17747.48 euros"
+      },
+      {
+        "siteId": "anual.explicito.blg",
+        "decimal": "17747.48",
+        "presentado": "17747.48 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.estatal",
+        "decimal": "1291.2",
+        "presentado": "1291.20 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.autonomica",
+        "decimal": "1098.69",
+        "presentado": "1098.69 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.liquida-legal",
+        "decimal": "2389.89",
+        "presentado": "2389.89 euros"
+      },
+      {
+        "siteId": "anual.explicito.da61",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.posterior",
+        "decimal": "2389.89",
+        "presentado": "2389.89 euros"
+      },
+      {
+        "siteId": "anual.explicito.retenciones",
+        "decimal": "100",
+        "presentado": "100.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.pagos",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.diferencial",
+        "decimal": "2289.89",
+        "presentado": "2289.89 euros"
+      }
+    ],
+    "control": {
+      "minimoEstatal": "5550",
+      "minimoMadrid": "5956.65",
+      "previoArt20": "19747.49"
+    }
+  },
+  {
+    "nombre": "art20-19747.5",
+    "entrada": {
+      "ejercicio": 2025,
+      "comunidadAutonoma": "madrid",
+      "edad": 40,
+      "modalidad": "individual",
+      "residenciaTodoElAnio": true,
+      "devengo": "2025-12-31",
+      "otrasRentas": "ninguna",
+      "familiaresConDerechoMinimo": "ninguno",
+      "discapacidad": "ninguna",
+      "reduccionesBase": "ninguna",
+      "saldosAnteriores": "ninguno",
+      "deducciones": "solo-da61-si-procede",
+      "rentasExtranjeras": "ninguna",
+      "especialidades": "ninguna",
+      "perfil": "solo-trabajo",
+      "conciliacion": {
+        "ejercicio": 2025,
+        "estado": "totales-anuales-sin-duplicados",
+        "procedencia": [
+          "sintetico:datos-fiscales-2025",
+          "sintetico:certificados-pagadores"
+        ]
+      },
+      "trabajo": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna",
+        "rendimientos": [
+          {
+            "id": "a",
+            "clase": "empleo-laboral",
+            "integro": "20747.5",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "0",
+              "colegiosHuerfanos": "0"
+            },
+            "sindicato": {
+              "importe": "0",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ]
+      },
+      "retenciones": [
+        {
+          "operacionId": "ret-0",
+          "procedencia": "sintetico:certificado-0",
+          "ejercicio": 2025,
+          "importe": "100",
+          "efectiva": true
+        }
+      ]
+    },
+    "esperado": {
+      "rendimientoNetoReducido": "17747.5",
+      "baseImponibleGeneral": "17747.5",
+      "baseLiquidableGeneral": "17747.5",
+      "baseLiquidableAhorro": "0",
+      "reduccionArt20": "0",
+      "cuotaLiquidaLegal": "2389.89",
+      "deduccionTrabajo": "0",
+      "cuotaPosterior": "2389.89",
+      "retenciones": "100",
+      "pagosFraccionados": "0",
+      "cuotaDiferencial": "2289.89",
+      "cuotaDiferencialPresentada": "2289.89"
+    },
+    "lineas": [
+      {
+        "siteId": "anual.explicito.trabajo.integro",
+        "decimal": "20747.5",
+        "presentado": "20747.50 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gastos-a-e",
+        "decimal": "1000",
+        "presentado": "1000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gasto-f",
+        "decimal": "2000",
+        "presentado": "2000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art19",
+        "decimal": "17747.5",
+        "presentado": "17747.50 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art20",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.big",
+        "decimal": "17747.5",
+        "presentado": "17747.50 euros"
+      },
+      {
+        "siteId": "anual.explicito.blg",
+        "decimal": "17747.5",
+        "presentado": "17747.50 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.estatal",
+        "decimal": "1291.2",
+        "presentado": "1291.20 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.autonomica",
+        "decimal": "1098.69",
+        "presentado": "1098.69 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.liquida-legal",
+        "decimal": "2389.89",
+        "presentado": "2389.89 euros"
+      },
+      {
+        "siteId": "anual.explicito.da61",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.posterior",
+        "decimal": "2389.89",
+        "presentado": "2389.89 euros"
+      },
+      {
+        "siteId": "anual.explicito.retenciones",
+        "decimal": "100",
+        "presentado": "100.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.pagos",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.diferencial",
+        "decimal": "2289.89",
+        "presentado": "2289.89 euros"
+      }
+    ],
+    "control": {
+      "minimoEstatal": "5550",
+      "minimoMadrid": "5956.65",
+      "previoArt20": "19747.5"
+    }
+  },
+  {
+    "nombre": "art20-19747.51",
+    "entrada": {
+      "ejercicio": 2025,
+      "comunidadAutonoma": "madrid",
+      "edad": 40,
+      "modalidad": "individual",
+      "residenciaTodoElAnio": true,
+      "devengo": "2025-12-31",
+      "otrasRentas": "ninguna",
+      "familiaresConDerechoMinimo": "ninguno",
+      "discapacidad": "ninguna",
+      "reduccionesBase": "ninguna",
+      "saldosAnteriores": "ninguno",
+      "deducciones": "solo-da61-si-procede",
+      "rentasExtranjeras": "ninguna",
+      "especialidades": "ninguna",
+      "perfil": "solo-trabajo",
+      "conciliacion": {
+        "ejercicio": 2025,
+        "estado": "totales-anuales-sin-duplicados",
+        "procedencia": [
+          "sintetico:datos-fiscales-2025",
+          "sintetico:certificados-pagadores"
+        ]
+      },
+      "trabajo": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna",
+        "rendimientos": [
+          {
+            "id": "a",
+            "clase": "empleo-laboral",
+            "integro": "20747.51",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "0",
+              "colegiosHuerfanos": "0"
+            },
+            "sindicato": {
+              "importe": "0",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ]
+      },
+      "retenciones": [
+        {
+          "operacionId": "ret-0",
+          "procedencia": "sintetico:certificado-0",
+          "ejercicio": 2025,
+          "importe": "100",
+          "efectiva": true
+        }
+      ]
+    },
+    "esperado": {
+      "rendimientoNetoReducido": "17747.51",
+      "baseImponibleGeneral": "17747.51",
+      "baseLiquidableGeneral": "17747.51",
+      "baseLiquidableAhorro": "0",
+      "reduccionArt20": "0",
+      "cuotaLiquidaLegal": "2389.9",
+      "deduccionTrabajo": "0",
+      "cuotaPosterior": "2389.9",
+      "retenciones": "100",
+      "pagosFraccionados": "0",
+      "cuotaDiferencial": "2289.9",
+      "cuotaDiferencialPresentada": "2289.90"
+    },
+    "lineas": [
+      {
+        "siteId": "anual.explicito.trabajo.integro",
+        "decimal": "20747.51",
+        "presentado": "20747.51 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gastos-a-e",
+        "decimal": "1000",
+        "presentado": "1000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gasto-f",
+        "decimal": "2000",
+        "presentado": "2000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art19",
+        "decimal": "17747.51",
+        "presentado": "17747.51 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art20",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.big",
+        "decimal": "17747.51",
+        "presentado": "17747.51 euros"
+      },
+      {
+        "siteId": "anual.explicito.blg",
+        "decimal": "17747.51",
+        "presentado": "17747.51 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.estatal",
+        "decimal": "1291.2",
+        "presentado": "1291.20 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.autonomica",
+        "decimal": "1098.7",
+        "presentado": "1098.70 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.liquida-legal",
+        "decimal": "2389.9",
+        "presentado": "2389.90 euros"
+      },
+      {
+        "siteId": "anual.explicito.da61",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.posterior",
+        "decimal": "2389.9",
+        "presentado": "2389.90 euros"
+      },
+      {
+        "siteId": "anual.explicito.retenciones",
+        "decimal": "100",
+        "presentado": "100.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.pagos",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.diferencial",
+        "decimal": "2289.9",
+        "presentado": "2289.90 euros"
+      }
+    ],
+    "control": {
+      "minimoEstatal": "5550",
+      "minimoMadrid": "5956.65",
+      "previoArt20": "19747.51"
+    }
+  },
+  {
+    "nombre": "da61-16575.99",
+    "entrada": {
+      "ejercicio": 2025,
+      "comunidadAutonoma": "madrid",
+      "edad": 40,
+      "modalidad": "individual",
+      "residenciaTodoElAnio": true,
+      "devengo": "2025-12-31",
+      "otrasRentas": "ninguna",
+      "familiaresConDerechoMinimo": "ninguno",
+      "discapacidad": "ninguna",
+      "reduccionesBase": "ninguna",
+      "saldosAnteriores": "ninguno",
+      "deducciones": "solo-da61-si-procede",
+      "rentasExtranjeras": "ninguna",
+      "especialidades": "ninguna",
+      "perfil": "solo-trabajo",
+      "conciliacion": {
+        "ejercicio": 2025,
+        "estado": "totales-anuales-sin-duplicados",
+        "procedencia": [
+          "sintetico:datos-fiscales-2025",
+          "sintetico:certificados-pagadores"
+        ]
+      },
+      "trabajo": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna",
+        "rendimientos": [
+          {
+            "id": "a",
+            "clase": "empleo-laboral",
+            "integro": "16575.99",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "0",
+              "colegiosHuerfanos": "0"
+            },
+            "sindicato": {
+              "importe": "0",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ]
+      },
+      "retenciones": [
+        {
+          "operacionId": "ret-0",
+          "procedencia": "sintetico:certificado-0",
+          "ejercicio": 2025,
+          "importe": "100",
+          "efectiva": true
+        }
+      ]
+    },
+    "esperado": {
+      "rendimientoNetoReducido": "7540.97",
+      "baseImponibleGeneral": "7540.97",
+      "baseLiquidableGeneral": "7540.97",
+      "baseLiquidableAhorro": "0",
+      "reduccionArt20": "6035.02",
+      "cuotaLiquidaLegal": "323.8",
+      "deduccionTrabajo": "323.8",
+      "cuotaPosterior": "0",
+      "retenciones": "100",
+      "pagosFraccionados": "0",
+      "cuotaDiferencial": "-100",
+      "cuotaDiferencialPresentada": "-100.00"
+    },
+    "lineas": [
+      {
+        "siteId": "anual.explicito.trabajo.integro",
+        "decimal": "16575.99",
+        "presentado": "16575.99 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gastos-a-e",
+        "decimal": "1000",
+        "presentado": "1000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gasto-f",
+        "decimal": "2000",
+        "presentado": "2000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art19",
+        "decimal": "13575.99",
+        "presentado": "13575.99 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art20",
+        "decimal": "6035.02",
+        "presentado": "6035.02 euros"
+      },
+      {
+        "siteId": "anual.explicito.big",
+        "decimal": "7540.97",
+        "presentado": "7540.97 euros"
+      },
+      {
+        "siteId": "anual.explicito.blg",
+        "decimal": "7540.97",
+        "presentado": "7540.97 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.estatal",
+        "decimal": "189.14",
+        "presentado": "189.14 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.autonomica",
+        "decimal": "134.66",
+        "presentado": "134.66 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.liquida-legal",
+        "decimal": "323.8",
+        "presentado": "323.80 euros"
+      },
+      {
+        "siteId": "anual.explicito.da61",
+        "decimal": "323.8",
+        "presentado": "323.80 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.posterior",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.retenciones",
+        "decimal": "100",
+        "presentado": "100.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.pagos",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.diferencial",
+        "decimal": "-100",
+        "presentado": "-100.00 euros"
+      }
+    ],
+    "control": {
+      "minimoEstatal": "5550",
+      "minimoMadrid": "5956.65",
+      "previoArt20": "15575.99"
+    }
+  },
+  {
+    "nombre": "da61-16576",
+    "entrada": {
+      "ejercicio": 2025,
+      "comunidadAutonoma": "madrid",
+      "edad": 40,
+      "modalidad": "individual",
+      "residenciaTodoElAnio": true,
+      "devengo": "2025-12-31",
+      "otrasRentas": "ninguna",
+      "familiaresConDerechoMinimo": "ninguno",
+      "discapacidad": "ninguna",
+      "reduccionesBase": "ninguna",
+      "saldosAnteriores": "ninguno",
+      "deducciones": "solo-da61-si-procede",
+      "rentasExtranjeras": "ninguna",
+      "especialidades": "ninguna",
+      "perfil": "solo-trabajo",
+      "conciliacion": {
+        "ejercicio": 2025,
+        "estado": "totales-anuales-sin-duplicados",
+        "procedencia": [
+          "sintetico:datos-fiscales-2025",
+          "sintetico:certificados-pagadores"
+        ]
+      },
+      "trabajo": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna",
+        "rendimientos": [
+          {
+            "id": "a",
+            "clase": "empleo-laboral",
+            "integro": "16576",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "0",
+              "colegiosHuerfanos": "0"
+            },
+            "sindicato": {
+              "importe": "0",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ]
+      },
+      "retenciones": [
+        {
+          "operacionId": "ret-0",
+          "procedencia": "sintetico:certificado-0",
+          "ejercicio": 2025,
+          "importe": "100",
+          "efectiva": true
+        }
+      ]
+    },
+    "esperado": {
+      "rendimientoNetoReducido": "7541",
+      "baseImponibleGeneral": "7541",
+      "baseLiquidableGeneral": "7541",
+      "baseLiquidableAhorro": "0",
+      "reduccionArt20": "6035",
+      "cuotaLiquidaLegal": "323.82",
+      "deduccionTrabajo": "323.82",
+      "cuotaPosterior": "0",
+      "retenciones": "100",
+      "pagosFraccionados": "0",
+      "cuotaDiferencial": "-100",
+      "cuotaDiferencialPresentada": "-100.00"
+    },
+    "lineas": [
+      {
+        "siteId": "anual.explicito.trabajo.integro",
+        "decimal": "16576",
+        "presentado": "16576.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gastos-a-e",
+        "decimal": "1000",
+        "presentado": "1000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gasto-f",
+        "decimal": "2000",
+        "presentado": "2000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art19",
+        "decimal": "13576",
+        "presentado": "13576.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art20",
+        "decimal": "6035",
+        "presentado": "6035.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.big",
+        "decimal": "7541",
+        "presentado": "7541.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.blg",
+        "decimal": "7541",
+        "presentado": "7541.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.estatal",
+        "decimal": "189.15",
+        "presentado": "189.15 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.autonomica",
+        "decimal": "134.67",
+        "presentado": "134.67 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.liquida-legal",
+        "decimal": "323.82",
+        "presentado": "323.82 euros"
+      },
+      {
+        "siteId": "anual.explicito.da61",
+        "decimal": "323.82",
+        "presentado": "323.82 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.posterior",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.retenciones",
+        "decimal": "100",
+        "presentado": "100.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.pagos",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.diferencial",
+        "decimal": "-100",
+        "presentado": "-100.00 euros"
+      }
+    ],
+    "control": {
+      "minimoEstatal": "5550",
+      "minimoMadrid": "5956.65",
+      "previoArt20": "15576"
+    }
+  },
+  {
+    "nombre": "da61-16576.01",
+    "entrada": {
+      "ejercicio": 2025,
+      "comunidadAutonoma": "madrid",
+      "edad": 40,
+      "modalidad": "individual",
+      "residenciaTodoElAnio": true,
+      "devengo": "2025-12-31",
+      "otrasRentas": "ninguna",
+      "familiaresConDerechoMinimo": "ninguno",
+      "discapacidad": "ninguna",
+      "reduccionesBase": "ninguna",
+      "saldosAnteriores": "ninguno",
+      "deducciones": "solo-da61-si-procede",
+      "rentasExtranjeras": "ninguna",
+      "especialidades": "ninguna",
+      "perfil": "solo-trabajo",
+      "conciliacion": {
+        "ejercicio": 2025,
+        "estado": "totales-anuales-sin-duplicados",
+        "procedencia": [
+          "sintetico:datos-fiscales-2025",
+          "sintetico:certificados-pagadores"
+        ]
+      },
+      "trabajo": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna",
+        "rendimientos": [
+          {
+            "id": "a",
+            "clase": "empleo-laboral",
+            "integro": "16576.01",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "0",
+              "colegiosHuerfanos": "0"
+            },
+            "sindicato": {
+              "importe": "0",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ]
+      },
+      "retenciones": [
+        {
+          "operacionId": "ret-0",
+          "procedencia": "sintetico:certificado-0",
+          "ejercicio": 2025,
+          "importe": "100",
+          "efectiva": true
+        }
+      ]
+    },
+    "esperado": {
+      "rendimientoNetoReducido": "7541.03",
+      "baseImponibleGeneral": "7541.03",
+      "baseLiquidableGeneral": "7541.03",
+      "baseLiquidableAhorro": "0",
+      "reduccionArt20": "6034.98",
+      "cuotaLiquidaLegal": "323.82",
+      "deduccionTrabajo": "323.82",
+      "cuotaPosterior": "0",
+      "retenciones": "100",
+      "pagosFraccionados": "0",
+      "cuotaDiferencial": "-100",
+      "cuotaDiferencialPresentada": "-100.00"
+    },
+    "lineas": [
+      {
+        "siteId": "anual.explicito.trabajo.integro",
+        "decimal": "16576.01",
+        "presentado": "16576.01 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gastos-a-e",
+        "decimal": "1000",
+        "presentado": "1000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gasto-f",
+        "decimal": "2000",
+        "presentado": "2000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art19",
+        "decimal": "13576.01",
+        "presentado": "13576.01 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art20",
+        "decimal": "6034.98",
+        "presentado": "6034.98 euros"
+      },
+      {
+        "siteId": "anual.explicito.big",
+        "decimal": "7541.03",
+        "presentado": "7541.03 euros"
+      },
+      {
+        "siteId": "anual.explicito.blg",
+        "decimal": "7541.03",
+        "presentado": "7541.03 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.estatal",
+        "decimal": "189.15",
+        "presentado": "189.15 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.autonomica",
+        "decimal": "134.67",
+        "presentado": "134.67 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.liquida-legal",
+        "decimal": "323.82",
+        "presentado": "323.82 euros"
+      },
+      {
+        "siteId": "anual.explicito.da61",
+        "decimal": "323.82",
+        "presentado": "323.82 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.posterior",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.retenciones",
+        "decimal": "100",
+        "presentado": "100.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.pagos",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.diferencial",
+        "decimal": "-100",
+        "presentado": "-100.00 euros"
+      }
+    ],
+    "control": {
+      "minimoEstatal": "5550",
+      "minimoMadrid": "5956.65",
+      "previoArt20": "15576.01"
+    }
+  },
+  {
+    "nombre": "da61-18275.99",
+    "entrada": {
+      "ejercicio": 2025,
+      "comunidadAutonoma": "madrid",
+      "edad": 40,
+      "modalidad": "individual",
+      "residenciaTodoElAnio": true,
+      "devengo": "2025-12-31",
+      "otrasRentas": "ninguna",
+      "familiaresConDerechoMinimo": "ninguno",
+      "discapacidad": "ninguna",
+      "reduccionesBase": "ninguna",
+      "saldosAnteriores": "ninguno",
+      "deducciones": "solo-da61-si-procede",
+      "rentasExtranjeras": "ninguna",
+      "especialidades": "ninguna",
+      "perfil": "solo-trabajo",
+      "conciliacion": {
+        "ejercicio": 2025,
+        "estado": "totales-anuales-sin-duplicados",
+        "procedencia": [
+          "sintetico:datos-fiscales-2025",
+          "sintetico:certificados-pagadores"
+        ]
+      },
+      "trabajo": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna",
+        "rendimientos": [
+          {
+            "id": "a",
+            "clase": "empleo-laboral",
+            "integro": "18275.99",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "0",
+              "colegiosHuerfanos": "0"
+            },
+            "sindicato": {
+              "importe": "0",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ]
+      },
+      "retenciones": [
+        {
+          "operacionId": "ret-0",
+          "procedencia": "sintetico:certificado-0",
+          "ejercicio": 2025,
+          "importe": "100",
+          "efectiva": true
+        }
+      ]
+    },
+    "esperado": {
+      "rendimientoNetoReducido": "12215.97",
+      "baseImponibleGeneral": "12215.97",
+      "baseLiquidableGeneral": "12215.97",
+      "baseLiquidableAhorro": "0",
+      "reduccionArt20": "3060.02",
+      "cuotaLiquidaLegal": "1165.31",
+      "deduccionTrabajo": "0",
+      "cuotaPosterior": "1165.31",
+      "retenciones": "100",
+      "pagosFraccionados": "0",
+      "cuotaDiferencial": "1065.31",
+      "cuotaDiferencialPresentada": "1065.31"
+    },
+    "lineas": [
+      {
+        "siteId": "anual.explicito.trabajo.integro",
+        "decimal": "18275.99",
+        "presentado": "18275.99 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gastos-a-e",
+        "decimal": "1000",
+        "presentado": "1000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gasto-f",
+        "decimal": "2000",
+        "presentado": "2000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art19",
+        "decimal": "15275.99",
+        "presentado": "15275.99 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art20",
+        "decimal": "3060.02",
+        "presentado": "3060.02 euros"
+      },
+      {
+        "siteId": "anual.explicito.big",
+        "decimal": "12215.97",
+        "presentado": "12215.97 euros"
+      },
+      {
+        "siteId": "anual.explicito.blg",
+        "decimal": "12215.97",
+        "presentado": "12215.97 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.estatal",
+        "decimal": "633.27",
+        "presentado": "633.27 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.autonomica",
+        "decimal": "532.04",
+        "presentado": "532.04 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.liquida-legal",
+        "decimal": "1165.31",
+        "presentado": "1165.31 euros"
+      },
+      {
+        "siteId": "anual.explicito.da61",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.posterior",
+        "decimal": "1165.31",
+        "presentado": "1165.31 euros"
+      },
+      {
+        "siteId": "anual.explicito.retenciones",
+        "decimal": "100",
+        "presentado": "100.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.pagos",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.diferencial",
+        "decimal": "1065.31",
+        "presentado": "1065.31 euros"
+      }
+    ],
+    "control": {
+      "minimoEstatal": "5550",
+      "minimoMadrid": "5956.65",
+      "previoArt20": "17275.99"
+    }
+  },
+  {
+    "nombre": "da61-18276",
+    "entrada": {
+      "ejercicio": 2025,
+      "comunidadAutonoma": "madrid",
+      "edad": 40,
+      "modalidad": "individual",
+      "residenciaTodoElAnio": true,
+      "devengo": "2025-12-31",
+      "otrasRentas": "ninguna",
+      "familiaresConDerechoMinimo": "ninguno",
+      "discapacidad": "ninguna",
+      "reduccionesBase": "ninguna",
+      "saldosAnteriores": "ninguno",
+      "deducciones": "solo-da61-si-procede",
+      "rentasExtranjeras": "ninguna",
+      "especialidades": "ninguna",
+      "perfil": "solo-trabajo",
+      "conciliacion": {
+        "ejercicio": 2025,
+        "estado": "totales-anuales-sin-duplicados",
+        "procedencia": [
+          "sintetico:datos-fiscales-2025",
+          "sintetico:certificados-pagadores"
+        ]
+      },
+      "trabajo": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna",
+        "rendimientos": [
+          {
+            "id": "a",
+            "clase": "empleo-laboral",
+            "integro": "18276",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "0",
+              "colegiosHuerfanos": "0"
+            },
+            "sindicato": {
+              "importe": "0",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ]
+      },
+      "retenciones": [
+        {
+          "operacionId": "ret-0",
+          "procedencia": "sintetico:certificado-0",
+          "ejercicio": 2025,
+          "importe": "100",
+          "efectiva": true
+        }
+      ]
+    },
+    "esperado": {
+      "rendimientoNetoReducido": "12216",
+      "baseImponibleGeneral": "12216",
+      "baseLiquidableGeneral": "12216",
+      "baseLiquidableAhorro": "0",
+      "reduccionArt20": "3060",
+      "cuotaLiquidaLegal": "1165.31",
+      "deduccionTrabajo": "0",
+      "cuotaPosterior": "1165.31",
+      "retenciones": "100",
+      "pagosFraccionados": "0",
+      "cuotaDiferencial": "1065.31",
+      "cuotaDiferencialPresentada": "1065.31"
+    },
+    "lineas": [
+      {
+        "siteId": "anual.explicito.trabajo.integro",
+        "decimal": "18276",
+        "presentado": "18276.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gastos-a-e",
+        "decimal": "1000",
+        "presentado": "1000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gasto-f",
+        "decimal": "2000",
+        "presentado": "2000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art19",
+        "decimal": "15276",
+        "presentado": "15276.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art20",
+        "decimal": "3060",
+        "presentado": "3060.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.big",
+        "decimal": "12216",
+        "presentado": "12216.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.blg",
+        "decimal": "12216",
+        "presentado": "12216.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.estatal",
+        "decimal": "633.27",
+        "presentado": "633.27 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.autonomica",
+        "decimal": "532.04",
+        "presentado": "532.04 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.liquida-legal",
+        "decimal": "1165.31",
+        "presentado": "1165.31 euros"
+      },
+      {
+        "siteId": "anual.explicito.da61",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.posterior",
+        "decimal": "1165.31",
+        "presentado": "1165.31 euros"
+      },
+      {
+        "siteId": "anual.explicito.retenciones",
+        "decimal": "100",
+        "presentado": "100.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.pagos",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.diferencial",
+        "decimal": "1065.31",
+        "presentado": "1065.31 euros"
+      }
+    ],
+    "control": {
+      "minimoEstatal": "5550",
+      "minimoMadrid": "5956.65",
+      "previoArt20": "17276"
+    }
+  },
+  {
+    "nombre": "da61-18276.01",
+    "entrada": {
+      "ejercicio": 2025,
+      "comunidadAutonoma": "madrid",
+      "edad": 40,
+      "modalidad": "individual",
+      "residenciaTodoElAnio": true,
+      "devengo": "2025-12-31",
+      "otrasRentas": "ninguna",
+      "familiaresConDerechoMinimo": "ninguno",
+      "discapacidad": "ninguna",
+      "reduccionesBase": "ninguna",
+      "saldosAnteriores": "ninguno",
+      "deducciones": "solo-da61-si-procede",
+      "rentasExtranjeras": "ninguna",
+      "especialidades": "ninguna",
+      "perfil": "solo-trabajo",
+      "conciliacion": {
+        "ejercicio": 2025,
+        "estado": "totales-anuales-sin-duplicados",
+        "procedencia": [
+          "sintetico:datos-fiscales-2025",
+          "sintetico:certificados-pagadores"
+        ]
+      },
+      "trabajo": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna",
+        "rendimientos": [
+          {
+            "id": "a",
+            "clase": "empleo-laboral",
+            "integro": "18276.01",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "0",
+              "colegiosHuerfanos": "0"
+            },
+            "sindicato": {
+              "importe": "0",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ]
+      },
+      "retenciones": [
+        {
+          "operacionId": "ret-0",
+          "procedencia": "sintetico:certificado-0",
+          "ejercicio": 2025,
+          "importe": "100",
+          "efectiva": true
+        }
+      ]
+    },
+    "esperado": {
+      "rendimientoNetoReducido": "12216.03",
+      "baseImponibleGeneral": "12216.03",
+      "baseLiquidableGeneral": "12216.03",
+      "baseLiquidableAhorro": "0",
+      "reduccionArt20": "3059.98",
+      "cuotaLiquidaLegal": "1165.31",
+      "deduccionTrabajo": "0",
+      "cuotaPosterior": "1165.31",
+      "retenciones": "100",
+      "pagosFraccionados": "0",
+      "cuotaDiferencial": "1065.31",
+      "cuotaDiferencialPresentada": "1065.31"
+    },
+    "lineas": [
+      {
+        "siteId": "anual.explicito.trabajo.integro",
+        "decimal": "18276.01",
+        "presentado": "18276.01 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gastos-a-e",
+        "decimal": "1000",
+        "presentado": "1000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gasto-f",
+        "decimal": "2000",
+        "presentado": "2000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art19",
+        "decimal": "15276.01",
+        "presentado": "15276.01 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art20",
+        "decimal": "3059.98",
+        "presentado": "3059.98 euros"
+      },
+      {
+        "siteId": "anual.explicito.big",
+        "decimal": "12216.03",
+        "presentado": "12216.03 euros"
+      },
+      {
+        "siteId": "anual.explicito.blg",
+        "decimal": "12216.03",
+        "presentado": "12216.03 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.estatal",
+        "decimal": "633.27",
+        "presentado": "633.27 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.autonomica",
+        "decimal": "532.04",
+        "presentado": "532.04 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.liquida-legal",
+        "decimal": "1165.31",
+        "presentado": "1165.31 euros"
+      },
+      {
+        "siteId": "anual.explicito.da61",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.posterior",
+        "decimal": "1165.31",
+        "presentado": "1165.31 euros"
+      },
+      {
+        "siteId": "anual.explicito.retenciones",
+        "decimal": "100",
+        "presentado": "100.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.pagos",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.diferencial",
+        "decimal": "1065.31",
+        "presentado": "1065.31 euros"
+      }
+    ],
+    "control": {
+      "minimoEstatal": "5550",
+      "minimoMadrid": "5956.65",
+      "previoArt20": "17276.01"
+    }
+  },
+  {
+    "nombre": "escala-19004.62",
+    "entrada": {
+      "ejercicio": 2025,
+      "comunidadAutonoma": "madrid",
+      "edad": 40,
+      "modalidad": "individual",
+      "residenciaTodoElAnio": true,
+      "devengo": "2025-12-31",
+      "otrasRentas": "ninguna",
+      "familiaresConDerechoMinimo": "ninguno",
+      "discapacidad": "ninguna",
+      "reduccionesBase": "ninguna",
+      "saldosAnteriores": "ninguno",
+      "deducciones": "solo-da61-si-procede",
+      "rentasExtranjeras": "ninguna",
+      "especialidades": "ninguna",
+      "perfil": "solo-trabajo",
+      "conciliacion": {
+        "ejercicio": 2025,
+        "estado": "totales-anuales-sin-duplicados",
+        "procedencia": [
+          "sintetico:datos-fiscales-2025",
+          "sintetico:certificados-pagadores"
+        ]
+      },
+      "trabajo": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna",
+        "rendimientos": [
+          {
+            "id": "a",
+            "clase": "empleo-laboral",
+            "integro": "22004.62",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "0",
+              "colegiosHuerfanos": "0"
+            },
+            "sindicato": {
+              "importe": "0",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ]
+      },
+      "retenciones": [
+        {
+          "operacionId": "ret-0",
+          "procedencia": "sintetico:certificado-0",
+          "ejercicio": 2025,
+          "importe": "100",
+          "efectiva": true
+        }
+      ]
+    },
+    "esperado": {
+      "rendimientoNetoReducido": "19004.62",
+      "baseImponibleGeneral": "19004.62",
+      "baseLiquidableGeneral": "19004.62",
+      "baseLiquidableAhorro": "0",
+      "reduccionArt20": "0",
+      "cuotaLiquidaLegal": "2675.26",
+      "deduccionTrabajo": "0",
+      "cuotaPosterior": "2675.26",
+      "retenciones": "100",
+      "pagosFraccionados": "0",
+      "cuotaDiferencial": "2575.26",
+      "cuotaDiferencialPresentada": "2575.26"
+    },
+    "lineas": [
+      {
+        "siteId": "anual.explicito.trabajo.integro",
+        "decimal": "22004.62",
+        "presentado": "22004.62 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gastos-a-e",
+        "decimal": "1000",
+        "presentado": "1000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gasto-f",
+        "decimal": "2000",
+        "presentado": "2000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art19",
+        "decimal": "19004.62",
+        "presentado": "19004.62 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art20",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.big",
+        "decimal": "19004.62",
+        "presentado": "19004.62 euros"
+      },
+      {
+        "siteId": "anual.explicito.blg",
+        "decimal": "19004.62",
+        "presentado": "19004.62 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.estatal",
+        "decimal": "1442.05",
+        "presentado": "1442.05 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.autonomica",
+        "decimal": "1233.21",
+        "presentado": "1233.21 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.liquida-legal",
+        "decimal": "2675.26",
+        "presentado": "2675.26 euros"
+      },
+      {
+        "siteId": "anual.explicito.da61",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.posterior",
+        "decimal": "2675.26",
+        "presentado": "2675.26 euros"
+      },
+      {
+        "siteId": "anual.explicito.retenciones",
+        "decimal": "100",
+        "presentado": "100.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.pagos",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.diferencial",
+        "decimal": "2575.26",
+        "presentado": "2575.26 euros"
+      }
+    ],
+    "control": {
+      "minimoEstatal": "5550",
+      "minimoMadrid": "5956.65",
+      "previoArt20": "21004.62"
+    }
+  },
+  {
+    "nombre": "escala-19004.63",
+    "entrada": {
+      "ejercicio": 2025,
+      "comunidadAutonoma": "madrid",
+      "edad": 40,
+      "modalidad": "individual",
+      "residenciaTodoElAnio": true,
+      "devengo": "2025-12-31",
+      "otrasRentas": "ninguna",
+      "familiaresConDerechoMinimo": "ninguno",
+      "discapacidad": "ninguna",
+      "reduccionesBase": "ninguna",
+      "saldosAnteriores": "ninguno",
+      "deducciones": "solo-da61-si-procede",
+      "rentasExtranjeras": "ninguna",
+      "especialidades": "ninguna",
+      "perfil": "solo-trabajo",
+      "conciliacion": {
+        "ejercicio": 2025,
+        "estado": "totales-anuales-sin-duplicados",
+        "procedencia": [
+          "sintetico:datos-fiscales-2025",
+          "sintetico:certificados-pagadores"
+        ]
+      },
+      "trabajo": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna",
+        "rendimientos": [
+          {
+            "id": "a",
+            "clase": "empleo-laboral",
+            "integro": "22004.63",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "0",
+              "colegiosHuerfanos": "0"
+            },
+            "sindicato": {
+              "importe": "0",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ]
+      },
+      "retenciones": [
+        {
+          "operacionId": "ret-0",
+          "procedencia": "sintetico:certificado-0",
+          "ejercicio": 2025,
+          "importe": "100",
+          "efectiva": true
+        }
+      ]
+    },
+    "esperado": {
+      "rendimientoNetoReducido": "19004.63",
+      "baseImponibleGeneral": "19004.63",
+      "baseLiquidableGeneral": "19004.63",
+      "baseLiquidableAhorro": "0",
+      "reduccionArt20": "0",
+      "cuotaLiquidaLegal": "2675.27",
+      "deduccionTrabajo": "0",
+      "cuotaPosterior": "2675.27",
+      "retenciones": "100",
+      "pagosFraccionados": "0",
+      "cuotaDiferencial": "2575.27",
+      "cuotaDiferencialPresentada": "2575.27"
+    },
+    "lineas": [
+      {
+        "siteId": "anual.explicito.trabajo.integro",
+        "decimal": "22004.63",
+        "presentado": "22004.63 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gastos-a-e",
+        "decimal": "1000",
+        "presentado": "1000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gasto-f",
+        "decimal": "2000",
+        "presentado": "2000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art19",
+        "decimal": "19004.63",
+        "presentado": "19004.63 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art20",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.big",
+        "decimal": "19004.63",
+        "presentado": "19004.63 euros"
+      },
+      {
+        "siteId": "anual.explicito.blg",
+        "decimal": "19004.63",
+        "presentado": "19004.63 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.estatal",
+        "decimal": "1442.06",
+        "presentado": "1442.06 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.autonomica",
+        "decimal": "1233.21",
+        "presentado": "1233.21 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.liquida-legal",
+        "decimal": "2675.27",
+        "presentado": "2675.27 euros"
+      },
+      {
+        "siteId": "anual.explicito.da61",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.posterior",
+        "decimal": "2675.27",
+        "presentado": "2675.27 euros"
+      },
+      {
+        "siteId": "anual.explicito.retenciones",
+        "decimal": "100",
+        "presentado": "100.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.pagos",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.diferencial",
+        "decimal": "2575.27",
+        "presentado": "2575.27 euros"
+      }
+    ],
+    "control": {
+      "minimoEstatal": "5550",
+      "minimoMadrid": "5956.65",
+      "previoArt20": "21004.63"
+    }
+  },
+  {
+    "nombre": "escala-19004.64",
+    "entrada": {
+      "ejercicio": 2025,
+      "comunidadAutonoma": "madrid",
+      "edad": 40,
+      "modalidad": "individual",
+      "residenciaTodoElAnio": true,
+      "devengo": "2025-12-31",
+      "otrasRentas": "ninguna",
+      "familiaresConDerechoMinimo": "ninguno",
+      "discapacidad": "ninguna",
+      "reduccionesBase": "ninguna",
+      "saldosAnteriores": "ninguno",
+      "deducciones": "solo-da61-si-procede",
+      "rentasExtranjeras": "ninguna",
+      "especialidades": "ninguna",
+      "perfil": "solo-trabajo",
+      "conciliacion": {
+        "ejercicio": 2025,
+        "estado": "totales-anuales-sin-duplicados",
+        "procedencia": [
+          "sintetico:datos-fiscales-2025",
+          "sintetico:certificados-pagadores"
+        ]
+      },
+      "trabajo": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna",
+        "rendimientos": [
+          {
+            "id": "a",
+            "clase": "empleo-laboral",
+            "integro": "22004.64",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "0",
+              "colegiosHuerfanos": "0"
+            },
+            "sindicato": {
+              "importe": "0",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ]
+      },
+      "retenciones": [
+        {
+          "operacionId": "ret-0",
+          "procedencia": "sintetico:certificado-0",
+          "ejercicio": 2025,
+          "importe": "100",
+          "efectiva": true
+        }
+      ]
+    },
+    "esperado": {
+      "rendimientoNetoReducido": "19004.64",
+      "baseImponibleGeneral": "19004.64",
+      "baseLiquidableGeneral": "19004.64",
+      "baseLiquidableAhorro": "0",
+      "reduccionArt20": "0",
+      "cuotaLiquidaLegal": "2675.27",
+      "deduccionTrabajo": "0",
+      "cuotaPosterior": "2675.27",
+      "retenciones": "100",
+      "pagosFraccionados": "0",
+      "cuotaDiferencial": "2575.27",
+      "cuotaDiferencialPresentada": "2575.27"
+    },
+    "lineas": [
+      {
+        "siteId": "anual.explicito.trabajo.integro",
+        "decimal": "22004.64",
+        "presentado": "22004.64 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gastos-a-e",
+        "decimal": "1000",
+        "presentado": "1000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gasto-f",
+        "decimal": "2000",
+        "presentado": "2000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art19",
+        "decimal": "19004.64",
+        "presentado": "19004.64 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art20",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.big",
+        "decimal": "19004.64",
+        "presentado": "19004.64 euros"
+      },
+      {
+        "siteId": "anual.explicito.blg",
+        "decimal": "19004.64",
+        "presentado": "19004.64 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.estatal",
+        "decimal": "1442.06",
+        "presentado": "1442.06 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.autonomica",
+        "decimal": "1233.21",
+        "presentado": "1233.21 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.liquida-legal",
+        "decimal": "2675.27",
+        "presentado": "2675.27 euros"
+      },
+      {
+        "siteId": "anual.explicito.da61",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.posterior",
+        "decimal": "2675.27",
+        "presentado": "2675.27 euros"
+      },
+      {
+        "siteId": "anual.explicito.retenciones",
+        "decimal": "100",
+        "presentado": "100.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.pagos",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.diferencial",
+        "decimal": "2575.27",
+        "presentado": "2575.27 euros"
+      }
+    ],
+    "control": {
+      "minimoEstatal": "5550",
+      "minimoMadrid": "5956.65",
+      "previoArt20": "21004.64"
+    }
+  },
+  {
+    "nombre": "escala-20200",
+    "entrada": {
+      "ejercicio": 2025,
+      "comunidadAutonoma": "madrid",
+      "edad": 40,
+      "modalidad": "individual",
+      "residenciaTodoElAnio": true,
+      "devengo": "2025-12-31",
+      "otrasRentas": "ninguna",
+      "familiaresConDerechoMinimo": "ninguno",
+      "discapacidad": "ninguna",
+      "reduccionesBase": "ninguna",
+      "saldosAnteriores": "ninguno",
+      "deducciones": "solo-da61-si-procede",
+      "rentasExtranjeras": "ninguna",
+      "especialidades": "ninguna",
+      "perfil": "solo-trabajo",
+      "conciliacion": {
+        "ejercicio": 2025,
+        "estado": "totales-anuales-sin-duplicados",
+        "procedencia": [
+          "sintetico:datos-fiscales-2025",
+          "sintetico:certificados-pagadores"
+        ]
+      },
+      "trabajo": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna",
+        "rendimientos": [
+          {
+            "id": "a",
+            "clase": "empleo-laboral",
+            "integro": "23200",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "0",
+              "colegiosHuerfanos": "0"
+            },
+            "sindicato": {
+              "importe": "0",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ]
+      },
+      "retenciones": [
+        {
+          "operacionId": "ret-0",
+          "procedencia": "sintetico:certificado-0",
+          "ejercicio": 2025,
+          "importe": "100",
+          "efectiva": true
+        }
+      ]
+    },
+    "esperado": {
+      "rendimientoNetoReducido": "20200",
+      "baseImponibleGeneral": "20200",
+      "baseLiquidableGeneral": "20200",
+      "baseLiquidableAhorro": "0",
+      "reduccionArt20": "0",
+      "cuotaLiquidaLegal": "2971.72",
+      "deduccionTrabajo": "0",
+      "cuotaPosterior": "2971.72",
+      "retenciones": "100",
+      "pagosFraccionados": "0",
+      "cuotaDiferencial": "2871.72",
+      "cuotaDiferencialPresentada": "2871.72"
+    },
+    "lineas": [
+      {
+        "siteId": "anual.explicito.trabajo.integro",
+        "decimal": "23200",
+        "presentado": "23200.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gastos-a-e",
+        "decimal": "1000",
+        "presentado": "1000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gasto-f",
+        "decimal": "2000",
+        "presentado": "2000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art19",
+        "decimal": "20200",
+        "presentado": "20200.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art20",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.big",
+        "decimal": "20200",
+        "presentado": "20200.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.blg",
+        "decimal": "20200",
+        "presentado": "20200.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.estatal",
+        "decimal": "1585.5",
+        "presentado": "1585.50 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.autonomica",
+        "decimal": "1386.22",
+        "presentado": "1386.22 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.liquida-legal",
+        "decimal": "2971.72",
+        "presentado": "2971.72 euros"
+      },
+      {
+        "siteId": "anual.explicito.da61",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.posterior",
+        "decimal": "2971.72",
+        "presentado": "2971.72 euros"
+      },
+      {
+        "siteId": "anual.explicito.retenciones",
+        "decimal": "100",
+        "presentado": "100.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.pagos",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.diferencial",
+        "decimal": "2871.72",
+        "presentado": "2871.72 euros"
+      }
+    ],
+    "control": {
+      "minimoEstatal": "5550",
+      "minimoMadrid": "5956.65",
+      "previoArt20": "22200"
+    }
+  },
+  {
+    "nombre": "escala-35425.68",
+    "entrada": {
+      "ejercicio": 2025,
+      "comunidadAutonoma": "madrid",
+      "edad": 40,
+      "modalidad": "individual",
+      "residenciaTodoElAnio": true,
+      "devengo": "2025-12-31",
+      "otrasRentas": "ninguna",
+      "familiaresConDerechoMinimo": "ninguno",
+      "discapacidad": "ninguna",
+      "reduccionesBase": "ninguna",
+      "saldosAnteriores": "ninguno",
+      "deducciones": "solo-da61-si-procede",
+      "rentasExtranjeras": "ninguna",
+      "especialidades": "ninguna",
+      "perfil": "solo-trabajo",
+      "conciliacion": {
+        "ejercicio": 2025,
+        "estado": "totales-anuales-sin-duplicados",
+        "procedencia": [
+          "sintetico:datos-fiscales-2025",
+          "sintetico:certificados-pagadores"
+        ]
+      },
+      "trabajo": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna",
+        "rendimientos": [
+          {
+            "id": "a",
+            "clase": "empleo-laboral",
+            "integro": "38425.68",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "0",
+              "colegiosHuerfanos": "0"
+            },
+            "sindicato": {
+              "importe": "0",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ]
+      },
+      "retenciones": [
+        {
+          "operacionId": "ret-0",
+          "procedencia": "sintetico:certificado-0",
+          "ejercicio": 2025,
+          "importe": "100",
+          "efectiva": true
+        }
+      ]
+    },
+    "esperado": {
+      "rendimientoNetoReducido": "35425.68",
+      "baseImponibleGeneral": "35425.68",
+      "baseLiquidableGeneral": "35425.68",
+      "baseLiquidableAhorro": "0",
+      "reduccionArt20": "0",
+      "cuotaLiquidaLegal": "7212.35",
+      "deduccionTrabajo": "0",
+      "cuotaPosterior": "7212.35",
+      "retenciones": "100",
+      "pagosFraccionados": "0",
+      "cuotaDiferencial": "7112.35",
+      "cuotaDiferencialPresentada": "7112.35"
+    },
+    "lineas": [
+      {
+        "siteId": "anual.explicito.trabajo.integro",
+        "decimal": "38425.68",
+        "presentado": "38425.68 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gastos-a-e",
+        "decimal": "1000",
+        "presentado": "1000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gasto-f",
+        "decimal": "2000",
+        "presentado": "2000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art19",
+        "decimal": "35425.68",
+        "presentado": "35425.68 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art20",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.big",
+        "decimal": "35425.68",
+        "presentado": "35425.68 euros"
+      },
+      {
+        "siteId": "anual.explicito.blg",
+        "decimal": "35425.68",
+        "presentado": "35425.68 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.estatal",
+        "decimal": "3877.25",
+        "presentado": "3877.25 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.autonomica",
+        "decimal": "3335.1",
+        "presentado": "3335.10 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.liquida-legal",
+        "decimal": "7212.35",
+        "presentado": "7212.35 euros"
+      },
+      {
+        "siteId": "anual.explicito.da61",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.posterior",
+        "decimal": "7212.35",
+        "presentado": "7212.35 euros"
+      },
+      {
+        "siteId": "anual.explicito.retenciones",
+        "decimal": "100",
+        "presentado": "100.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.pagos",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.diferencial",
+        "decimal": "7112.35",
+        "presentado": "7112.35 euros"
+      }
+    ],
+    "control": {
+      "minimoEstatal": "5550",
+      "minimoMadrid": "5956.65",
+      "previoArt20": "37425.68"
+    }
+  },
+  {
+    "nombre": "escala-57320.40",
+    "entrada": {
+      "ejercicio": 2025,
+      "comunidadAutonoma": "madrid",
+      "edad": 40,
+      "modalidad": "individual",
+      "residenciaTodoElAnio": true,
+      "devengo": "2025-12-31",
+      "otrasRentas": "ninguna",
+      "familiaresConDerechoMinimo": "ninguno",
+      "discapacidad": "ninguna",
+      "reduccionesBase": "ninguna",
+      "saldosAnteriores": "ninguno",
+      "deducciones": "solo-da61-si-procede",
+      "rentasExtranjeras": "ninguna",
+      "especialidades": "ninguna",
+      "perfil": "solo-trabajo",
+      "conciliacion": {
+        "ejercicio": 2025,
+        "estado": "totales-anuales-sin-duplicados",
+        "procedencia": [
+          "sintetico:datos-fiscales-2025",
+          "sintetico:certificados-pagadores"
+        ]
+      },
+      "trabajo": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna",
+        "rendimientos": [
+          {
+            "id": "a",
+            "clase": "empleo-laboral",
+            "integro": "60320.4",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "0",
+              "colegiosHuerfanos": "0"
+            },
+            "sindicato": {
+              "importe": "0",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ]
+      },
+      "retenciones": [
+        {
+          "operacionId": "ret-0",
+          "procedencia": "sintetico:certificado-0",
+          "ejercicio": 2025,
+          "importe": "100",
+          "efectiva": true
+        }
+      ]
+    },
+    "esperado": {
+      "rendimientoNetoReducido": "57320.4",
+      "baseImponibleGeneral": "57320.4",
+      "baseLiquidableGeneral": "57320.4",
+      "baseLiquidableAhorro": "0",
+      "reduccionArt20": "0",
+      "cuotaLiquidaLegal": "15072.55",
+      "deduccionTrabajo": "0",
+      "cuotaPosterior": "15072.55",
+      "retenciones": "100",
+      "pagosFraccionados": "0",
+      "cuotaDiferencial": "14972.55",
+      "cuotaDiferencialPresentada": "14972.55"
+    },
+    "lineas": [
+      {
+        "siteId": "anual.explicito.trabajo.integro",
+        "decimal": "60320.4",
+        "presentado": "60320.40 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gastos-a-e",
+        "decimal": "1000",
+        "presentado": "1000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gasto-f",
+        "decimal": "2000",
+        "presentado": "2000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art19",
+        "decimal": "57320.4",
+        "presentado": "57320.40 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art20",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.big",
+        "decimal": "57320.4",
+        "presentado": "57320.40 euros"
+      },
+      {
+        "siteId": "anual.explicito.blg",
+        "decimal": "57320.4",
+        "presentado": "57320.40 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.estatal",
+        "decimal": "7927.77",
+        "presentado": "7927.77 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.autonomica",
+        "decimal": "7144.78",
+        "presentado": "7144.78 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.liquida-legal",
+        "decimal": "15072.55",
+        "presentado": "15072.55 euros"
+      },
+      {
+        "siteId": "anual.explicito.da61",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.posterior",
+        "decimal": "15072.55",
+        "presentado": "15072.55 euros"
+      },
+      {
+        "siteId": "anual.explicito.retenciones",
+        "decimal": "100",
+        "presentado": "100.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.pagos",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.diferencial",
+        "decimal": "14972.55",
+        "presentado": "14972.55 euros"
+      }
+    ],
+    "control": {
+      "minimoEstatal": "5550",
+      "minimoMadrid": "5956.65",
+      "previoArt20": "59320.4"
+    }
+  },
+  {
+    "nombre": "escala-60000",
+    "entrada": {
+      "ejercicio": 2025,
+      "comunidadAutonoma": "madrid",
+      "edad": 40,
+      "modalidad": "individual",
+      "residenciaTodoElAnio": true,
+      "devengo": "2025-12-31",
+      "otrasRentas": "ninguna",
+      "familiaresConDerechoMinimo": "ninguno",
+      "discapacidad": "ninguna",
+      "reduccionesBase": "ninguna",
+      "saldosAnteriores": "ninguno",
+      "deducciones": "solo-da61-si-procede",
+      "rentasExtranjeras": "ninguna",
+      "especialidades": "ninguna",
+      "perfil": "solo-trabajo",
+      "conciliacion": {
+        "ejercicio": 2025,
+        "estado": "totales-anuales-sin-duplicados",
+        "procedencia": [
+          "sintetico:datos-fiscales-2025",
+          "sintetico:certificados-pagadores"
+        ]
+      },
+      "trabajo": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna",
+        "rendimientos": [
+          {
+            "id": "a",
+            "clase": "empleo-laboral",
+            "integro": "63000",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "0",
+              "colegiosHuerfanos": "0"
+            },
+            "sindicato": {
+              "importe": "0",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ]
+      },
+      "retenciones": [
+        {
+          "operacionId": "ret-0",
+          "procedencia": "sintetico:certificado-0",
+          "ejercicio": 2025,
+          "importe": "100",
+          "efectiva": true
+        }
+      ]
+    },
+    "esperado": {
+      "rendimientoNetoReducido": "60000",
+      "baseImponibleGeneral": "60000",
+      "baseLiquidableGeneral": "60000",
+      "baseLiquidableAhorro": "0",
+      "reduccionArt20": "0",
+      "cuotaLiquidaLegal": "16117.6",
+      "deduccionTrabajo": "0",
+      "cuotaPosterior": "16117.6",
+      "retenciones": "100",
+      "pagosFraccionados": "0",
+      "cuotaDiferencial": "16017.6",
+      "cuotaDiferencialPresentada": "16017.60"
+    },
+    "lineas": [
+      {
+        "siteId": "anual.explicito.trabajo.integro",
+        "decimal": "63000",
+        "presentado": "63000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gastos-a-e",
+        "decimal": "1000",
+        "presentado": "1000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gasto-f",
+        "decimal": "2000",
+        "presentado": "2000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art19",
+        "decimal": "60000",
+        "presentado": "60000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art20",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.big",
+        "decimal": "60000",
+        "presentado": "60000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.blg",
+        "decimal": "60000",
+        "presentado": "60000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.estatal",
+        "decimal": "8423.5",
+        "presentado": "8423.50 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.autonomica",
+        "decimal": "7694.1",
+        "presentado": "7694.10 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.liquida-legal",
+        "decimal": "16117.6",
+        "presentado": "16117.60 euros"
+      },
+      {
+        "siteId": "anual.explicito.da61",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.posterior",
+        "decimal": "16117.6",
+        "presentado": "16117.60 euros"
+      },
+      {
+        "siteId": "anual.explicito.retenciones",
+        "decimal": "100",
+        "presentado": "100.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.pagos",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.diferencial",
+        "decimal": "16017.6",
+        "presentado": "16017.60 euros"
+      }
+    ],
+    "control": {
+      "minimoEstatal": "5550",
+      "minimoMadrid": "5956.65",
+      "previoArt20": "62000"
+    }
+  },
+  {
+    "nombre": "escala-300000",
+    "entrada": {
+      "ejercicio": 2025,
+      "comunidadAutonoma": "madrid",
+      "edad": 40,
+      "modalidad": "individual",
+      "residenciaTodoElAnio": true,
+      "devengo": "2025-12-31",
+      "otrasRentas": "ninguna",
+      "familiaresConDerechoMinimo": "ninguno",
+      "discapacidad": "ninguna",
+      "reduccionesBase": "ninguna",
+      "saldosAnteriores": "ninguno",
+      "deducciones": "solo-da61-si-procede",
+      "rentasExtranjeras": "ninguna",
+      "especialidades": "ninguna",
+      "perfil": "solo-trabajo",
+      "conciliacion": {
+        "ejercicio": 2025,
+        "estado": "totales-anuales-sin-duplicados",
+        "procedencia": [
+          "sintetico:datos-fiscales-2025",
+          "sintetico:certificados-pagadores"
+        ]
+      },
+      "trabajo": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna",
+        "rendimientos": [
+          {
+            "id": "a",
+            "clase": "empleo-laboral",
+            "integro": "303000",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "0",
+              "colegiosHuerfanos": "0"
+            },
+            "sindicato": {
+              "importe": "0",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ]
+      },
+      "retenciones": [
+        {
+          "operacionId": "ret-0",
+          "procedencia": "sintetico:certificado-0",
+          "ejercicio": 2025,
+          "importe": "100",
+          "efectiva": true
+        }
+      ]
+    },
+    "esperado": {
+      "rendimientoNetoReducido": "300000",
+      "baseImponibleGeneral": "300000",
+      "baseLiquidableGeneral": "300000",
+      "baseLiquidableAhorro": "0",
+      "reduccionArt20": "0",
+      "cuotaLiquidaLegal": "119317.6",
+      "deduccionTrabajo": "0",
+      "cuotaPosterior": "119317.6",
+      "retenciones": "100",
+      "pagosFraccionados": "0",
+      "cuotaDiferencial": "119217.6",
+      "cuotaDiferencialPresentada": "119217.60"
+    },
+    "lineas": [
+      {
+        "siteId": "anual.explicito.trabajo.integro",
+        "decimal": "303000",
+        "presentado": "303000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gastos-a-e",
+        "decimal": "1000",
+        "presentado": "1000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gasto-f",
+        "decimal": "2000",
+        "presentado": "2000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art19",
+        "decimal": "300000",
+        "presentado": "300000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art20",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.big",
+        "decimal": "300000",
+        "presentado": "300000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.blg",
+        "decimal": "300000",
+        "presentado": "300000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.estatal",
+        "decimal": "62423.5",
+        "presentado": "62423.50 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.autonomica",
+        "decimal": "56894.1",
+        "presentado": "56894.10 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.liquida-legal",
+        "decimal": "119317.6",
+        "presentado": "119317.60 euros"
+      },
+      {
+        "siteId": "anual.explicito.da61",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.posterior",
+        "decimal": "119317.6",
+        "presentado": "119317.60 euros"
+      },
+      {
+        "siteId": "anual.explicito.retenciones",
+        "decimal": "100",
+        "presentado": "100.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.pagos",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.diferencial",
+        "decimal": "119217.6",
+        "presentado": "119217.60 euros"
+      }
+    ],
+    "control": {
+      "minimoEstatal": "5550",
+      "minimoMadrid": "5956.65",
+      "previoArt20": "302000"
+    }
+  },
+  {
+    "nombre": "escala-300000.01",
+    "entrada": {
+      "ejercicio": 2025,
+      "comunidadAutonoma": "madrid",
+      "edad": 40,
+      "modalidad": "individual",
+      "residenciaTodoElAnio": true,
+      "devengo": "2025-12-31",
+      "otrasRentas": "ninguna",
+      "familiaresConDerechoMinimo": "ninguno",
+      "discapacidad": "ninguna",
+      "reduccionesBase": "ninguna",
+      "saldosAnteriores": "ninguno",
+      "deducciones": "solo-da61-si-procede",
+      "rentasExtranjeras": "ninguna",
+      "especialidades": "ninguna",
+      "perfil": "solo-trabajo",
+      "conciliacion": {
+        "ejercicio": 2025,
+        "estado": "totales-anuales-sin-duplicados",
+        "procedencia": [
+          "sintetico:datos-fiscales-2025",
+          "sintetico:certificados-pagadores"
+        ]
+      },
+      "trabajo": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna",
+        "rendimientos": [
+          {
+            "id": "a",
+            "clase": "empleo-laboral",
+            "integro": "303000.01",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1000",
+              "derechosPasivos": "0",
+              "colegiosHuerfanos": "0"
+            },
+            "sindicato": {
+              "importe": "0",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ]
+      },
+      "retenciones": [
+        {
+          "operacionId": "ret-0",
+          "procedencia": "sintetico:certificado-0",
+          "ejercicio": 2025,
+          "importe": "100",
+          "efectiva": true
+        }
+      ]
+    },
+    "esperado": {
+      "rendimientoNetoReducido": "300000.01",
+      "baseImponibleGeneral": "300000.01",
+      "baseLiquidableGeneral": "300000.01",
+      "baseLiquidableAhorro": "0",
+      "reduccionArt20": "0",
+      "cuotaLiquidaLegal": "119317.6",
+      "deduccionTrabajo": "0",
+      "cuotaPosterior": "119317.6",
+      "retenciones": "100",
+      "pagosFraccionados": "0",
+      "cuotaDiferencial": "119217.6",
+      "cuotaDiferencialPresentada": "119217.60"
+    },
+    "lineas": [
+      {
+        "siteId": "anual.explicito.trabajo.integro",
+        "decimal": "303000.01",
+        "presentado": "303000.01 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gastos-a-e",
+        "decimal": "1000",
+        "presentado": "1000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.gasto-f",
+        "decimal": "2000",
+        "presentado": "2000.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art19",
+        "decimal": "300000.01",
+        "presentado": "300000.01 euros"
+      },
+      {
+        "siteId": "anual.explicito.trabajo.art20",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.big",
+        "decimal": "300000.01",
+        "presentado": "300000.01 euros"
+      },
+      {
+        "siteId": "anual.explicito.blg",
+        "decimal": "300000.01",
+        "presentado": "300000.01 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.estatal",
+        "decimal": "62423.5",
+        "presentado": "62423.50 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.autonomica",
+        "decimal": "56894.1",
+        "presentado": "56894.10 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.liquida-legal",
+        "decimal": "119317.6",
+        "presentado": "119317.60 euros"
+      },
+      {
+        "siteId": "anual.explicito.da61",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.cuota.posterior",
+        "decimal": "119317.6",
+        "presentado": "119317.60 euros"
+      },
+      {
+        "siteId": "anual.explicito.retenciones",
+        "decimal": "100",
+        "presentado": "100.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.pagos",
+        "decimal": "0",
+        "presentado": "0.00 euros"
+      },
+      {
+        "siteId": "anual.explicito.diferencial",
+        "decimal": "119217.6",
+        "presentado": "119217.60 euros"
+      }
+    ],
+    "control": {
+      "minimoEstatal": "5550",
+      "minimoMadrid": "5956.65",
+      "previoArt20": "302000.01"
+    }
+  }
+]

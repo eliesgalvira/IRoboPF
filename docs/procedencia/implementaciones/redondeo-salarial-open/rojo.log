@@ -1,0 +1,500 @@
+
+ RUN  v4.1.5 /home/local/.ws/worktrees/IRoboPF/t3-a7121849/.cache/redondeo/stage
+
+ ❯ tests/redondeo-salarial-open.test.ts (7 tests | 7 failed) 32ms
+   × Open 1.19: 'art20' 14ms
+   × Open 1.19: 'componentes' 4ms
+   × Open 1.19: 'gravamen' 3ms
+   × Open 1.19: 'da61' 3ms
+   × Open 1.19: 'posterior' 2ms
+   × Open 1.19: 'ingresar-dos-pagadores-limites-anuales' 2ms
+   × Open 1.19: 'devolver-da61-ss-efectiva' 2ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 7 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/redondeo-salarial-open.test.ts > Open 1.19: 'art20'
+AssertionError: 0533: expected '1098.70' to be '1098.69' // Object.is equality
+
+Expected: "1098.69"
+Received: "1098.70"
+
+ ❯ tests/redondeo-salarial-open.test.ts:19:73
+     17|   for (const [casilla, sitio] of [["0532", "estatal"], ["0533", "auton…
+     18|     const linea = lineas.find(l => l.origen?.siteId === `anual.explici…
+     19|     expect.soft(new Decimal(linea.origen!.decimal).toFixed(2), casilla…
+       |                                                                         ^
+     20|   }
+     21|   // Cada gravamen debe figurar en la fórmula ejecutada, antes de la r…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/30]⎯
+
+ FAIL  tests/redondeo-salarial-open.test.ts > Open 1.19: 'art20'
+AssertionError: expected 'escala(base positiva) − escala(mínimo…' to contain '1818.45 − 527.25'
+
+Expected: "1818.45 − 527.25"
+Received: "escala(base positiva) − escala(mínimo limitado a base)"
+
+ ❯ tests/redondeo-salarial-open.test.ts:22:96
+     20|   }
+     21|   // Cada gravamen debe figurar en la fórmula ejecutada, antes de la r…
+     22|   expect.soft(lineas.find(l => l.origen?.siteId === "anual.explicito.c…
+       |                                                                                                ^
+     23|   expect.soft(lineas.find(l => l.origen?.siteId === "anual.explicito.c…
+     24| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/30]⎯
+
+ FAIL  tests/redondeo-salarial-open.test.ts > Open 1.19: 'art20'
+AssertionError: expected 'escala publicada Madrid(base) − escal…' to contain '1605.01 − 506.32'
+
+Expected: "1605.01 − 506.32"
+Received: "escala publicada Madrid(base) − escala(mínimo limitado a base)"
+
+ ❯ tests/redondeo-salarial-open.test.ts:23:99
+     21|   // Cada gravamen debe figurar en la fórmula ejecutada, antes de la r…
+     22|   expect.soft(lineas.find(l => l.origen?.siteId === "anual.explicito.c…
+     23|   expect.soft(lineas.find(l => l.origen?.siteId === "anual.explicito.c…
+       |                                                                                                   ^
+     24| })
+     25|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/30]⎯
+
+ FAIL  tests/redondeo-salarial-open.test.ts > Open 1.19: 'componentes'
+AssertionError: 0595: expected '2675.27' to be '2675.26' // Object.is equality
+
+Expected: "2675.26"
+Received: "2675.27"
+
+ ❯ tests/redondeo-salarial-open.test.ts:14:81
+     12|   for (const [casilla, actual] of Object.entries(campos)) {
+     13|     const esperado = casillas[casilla as keyof typeof casillas]
+     14|     if (esperado !== null) expect.soft(new Decimal(actual).toFixed(2),…
+       |                                                                                 ^
+     15|   }
+     16|   const lineas = r.rastro.pasos.flatMap(p => p.lineasCalculo ?? [])
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/30]⎯
+
+ FAIL  tests/redondeo-salarial-open.test.ts > Open 1.19: 'componentes'
+AssertionError: 0610: expected '2575.27' to be '2575.26' // Object.is equality
+
+Expected: "2575.26"
+Received: "2575.27"
+
+ ❯ tests/redondeo-salarial-open.test.ts:14:81
+     12|   for (const [casilla, actual] of Object.entries(campos)) {
+     13|     const esperado = casillas[casilla as keyof typeof casillas]
+     14|     if (esperado !== null) expect.soft(new Decimal(actual).toFixed(2),…
+       |                                                                                 ^
+     15|   }
+     16|   const lineas = r.rastro.pasos.flatMap(p => p.lineasCalculo ?? [])
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/30]⎯
+
+ FAIL  tests/redondeo-salarial-open.test.ts > Open 1.19: 'componentes'
+AssertionError: 0670: expected '2575.27' to be '2575.26' // Object.is equality
+
+Expected: "2575.26"
+Received: "2575.27"
+
+ ❯ tests/redondeo-salarial-open.test.ts:14:81
+     12|   for (const [casilla, actual] of Object.entries(campos)) {
+     13|     const esperado = casillas[casilla as keyof typeof casillas]
+     14|     if (esperado !== null) expect.soft(new Decimal(actual).toFixed(2),…
+       |                                                                                 ^
+     15|   }
+     16|   const lineas = r.rastro.pasos.flatMap(p => p.lineasCalculo ?? [])
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/30]⎯
+
+ FAIL  tests/redondeo-salarial-open.test.ts > Open 1.19: 'componentes'
+AssertionError: expected 'escala(base positiva) − escala(mínimo…' to contain '1969.30 − 527.25'
+
+Expected: "1969.30 − 527.25"
+Received: "escala(base positiva) − escala(mínimo limitado a base)"
+
+ ❯ tests/redondeo-salarial-open.test.ts:22:96
+     20|   }
+     21|   // Cada gravamen debe figurar en la fórmula ejecutada, antes de la r…
+     22|   expect.soft(lineas.find(l => l.origen?.siteId === "anual.explicito.c…
+       |                                                                                                ^
+     23|   expect.soft(lineas.find(l => l.origen?.siteId === "anual.explicito.c…
+     24| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/30]⎯
+
+ FAIL  tests/redondeo-salarial-open.test.ts > Open 1.19: 'componentes'
+AssertionError: expected 'escala publicada Madrid(base) − escal…' to contain '1739.53 − 506.32'
+
+Expected: "1739.53 − 506.32"
+Received: "escala publicada Madrid(base) − escala(mínimo limitado a base)"
+
+ ❯ tests/redondeo-salarial-open.test.ts:23:99
+     21|   // Cada gravamen debe figurar en la fórmula ejecutada, antes de la r…
+     22|   expect.soft(lineas.find(l => l.origen?.siteId === "anual.explicito.c…
+     23|   expect.soft(lineas.find(l => l.origen?.siteId === "anual.explicito.c…
+       |                                                                                                   ^
+     24| })
+     25|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/30]⎯
+
+ FAIL  tests/redondeo-salarial-open.test.ts > Open 1.19: 'gravamen'
+AssertionError: 0595: expected '1383.57' to be '1383.56' // Object.is equality
+
+Expected: "1383.56"
+Received: "1383.57"
+
+ ❯ tests/redondeo-salarial-open.test.ts:14:81
+     12|   for (const [casilla, actual] of Object.entries(campos)) {
+     13|     const esperado = casillas[casilla as keyof typeof casillas]
+     14|     if (esperado !== null) expect.soft(new Decimal(actual).toFixed(2),…
+       |                                                                                 ^
+     15|   }
+     16|   const lineas = r.rastro.pasos.flatMap(p => p.lineasCalculo ?? [])
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/30]⎯
+
+ FAIL  tests/redondeo-salarial-open.test.ts > Open 1.19: 'gravamen'
+AssertionError: 0610: expected '1283.57' to be '1283.56' // Object.is equality
+
+Expected: "1283.56"
+Received: "1283.57"
+
+ ❯ tests/redondeo-salarial-open.test.ts:14:81
+     12|   for (const [casilla, actual] of Object.entries(campos)) {
+     13|     const esperado = casillas[casilla as keyof typeof casillas]
+     14|     if (esperado !== null) expect.soft(new Decimal(actual).toFixed(2),…
+       |                                                                                 ^
+     15|   }
+     16|   const lineas = r.rastro.pasos.flatMap(p => p.lineasCalculo ?? [])
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/30]⎯
+
+ FAIL  tests/redondeo-salarial-open.test.ts > Open 1.19: 'gravamen'
+AssertionError: 0670: expected '1283.57' to be '1283.56' // Object.is equality
+
+Expected: "1283.56"
+Received: "1283.57"
+
+ ❯ tests/redondeo-salarial-open.test.ts:14:81
+     12|   for (const [casilla, actual] of Object.entries(campos)) {
+     13|     const esperado = casillas[casilla as keyof typeof casillas]
+     14|     if (esperado !== null) expect.soft(new Decimal(actual).toFixed(2),…
+       |                                                                                 ^
+     15|   }
+     16|   const lineas = r.rastro.pasos.flatMap(p => p.lineasCalculo ?? [])
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/30]⎯
+
+ FAIL  tests/redondeo-salarial-open.test.ts > Open 1.19: 'gravamen'
+AssertionError: 0533: expected '624.97' to be '624.96' // Object.is equality
+
+Expected: "624.96"
+Received: "624.97"
+
+ ❯ tests/redondeo-salarial-open.test.ts:19:73
+     17|   for (const [casilla, sitio] of [["0532", "estatal"], ["0533", "auton…
+     18|     const linea = lineas.find(l => l.origen?.siteId === `anual.explici…
+     19|     expect.soft(new Decimal(linea.origen!.decimal).toFixed(2), casilla…
+       |                                                                         ^
+     20|   }
+     21|   // Cada gravamen debe figurar en la fórmula ejecutada, antes de la r…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/30]⎯
+
+ FAIL  tests/redondeo-salarial-open.test.ts > Open 1.19: 'gravamen'
+AssertionError: expected 'escala(base positiva) − escala(mínimo…' to contain '1285.85 − 527.25'
+
+Expected: "1285.85 − 527.25"
+Received: "escala(base positiva) − escala(mínimo limitado a base)"
+
+ ❯ tests/redondeo-salarial-open.test.ts:22:96
+     20|   }
+     21|   // Cada gravamen debe figurar en la fórmula ejecutada, antes de la r…
+     22|   expect.soft(lineas.find(l => l.origen?.siteId === "anual.explicito.c…
+       |                                                                                                ^
+     23|   expect.soft(lineas.find(l => l.origen?.siteId === "anual.explicito.c…
+     24| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/30]⎯
+
+ FAIL  tests/redondeo-salarial-open.test.ts > Open 1.19: 'gravamen'
+AssertionError: expected 'escala publicada Madrid(base) − escal…' to contain '1131.28 − 506.32'
+
+Expected: "1131.28 − 506.32"
+Received: "escala publicada Madrid(base) − escala(mínimo limitado a base)"
+
+ ❯ tests/redondeo-salarial-open.test.ts:23:99
+     21|   // Cada gravamen debe figurar en la fórmula ejecutada, antes de la r…
+     22|   expect.soft(lineas.find(l => l.origen?.siteId === "anual.explicito.c…
+     23|   expect.soft(lineas.find(l => l.origen?.siteId === "anual.explicito.c…
+       |                                                                                                   ^
+     24| })
+     25|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/30]⎯
+
+ FAIL  tests/redondeo-salarial-open.test.ts > Open 1.19: 'da61'
+AssertionError: 0025: expected '8708.16' to be '8708.15' // Object.is equality
+
+Expected: "8708.15"
+Received: "8708.16"
+
+ ❯ tests/redondeo-salarial-open.test.ts:14:81
+     12|   for (const [casilla, actual] of Object.entries(campos)) {
+     13|     const esperado = casillas[casilla as keyof typeof casillas]
+     14|     if (esperado !== null) expect.soft(new Decimal(actual).toFixed(2),…
+       |                                                                                 ^
+     15|   }
+     16|   const lineas = r.rastro.pasos.flatMap(p => p.lineasCalculo ?? [])
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/30]⎯
+
+ FAIL  tests/redondeo-salarial-open.test.ts > Open 1.19: 'da61'
+AssertionError: 0500: expected '8708.16' to be '8708.15' // Object.is equality
+
+Expected: "8708.15"
+Received: "8708.16"
+
+ ❯ tests/redondeo-salarial-open.test.ts:14:81
+     12|   for (const [casilla, actual] of Object.entries(campos)) {
+     13|     const esperado = casillas[casilla as keyof typeof casillas]
+     14|     if (esperado !== null) expect.soft(new Decimal(actual).toFixed(2),…
+       |                                                                                 ^
+     15|   }
+     16|   const lineas = r.rastro.pasos.flatMap(p => p.lineasCalculo ?? [])
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/30]⎯
+
+ FAIL  tests/redondeo-salarial-open.test.ts > Open 1.19: 'da61'
+AssertionError: 0505: expected '8708.16' to be '8708.15' // Object.is equality
+
+Expected: "8708.15"
+Received: "8708.16"
+
+ ❯ tests/redondeo-salarial-open.test.ts:14:81
+     12|   for (const [casilla, actual] of Object.entries(campos)) {
+     13|     const esperado = casillas[casilla as keyof typeof casillas]
+     14|     if (esperado !== null) expect.soft(new Decimal(actual).toFixed(2),…
+       |                                                                                 ^
+     15|   }
+     16|   const lineas = r.rastro.pasos.flatMap(p => p.lineasCalculo ?? [])
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/30]⎯
+
+ FAIL  tests/redondeo-salarial-open.test.ts > Open 1.19: 'da61'
+AssertionError: 0595: expected '278.79' to be '278.77' // Object.is equality
+
+Expected: "278.77"
+Received: "278.79"
+
+ ❯ tests/redondeo-salarial-open.test.ts:14:81
+     12|   for (const [casilla, actual] of Object.entries(campos)) {
+     13|     const esperado = casillas[casilla as keyof typeof casillas]
+     14|     if (esperado !== null) expect.soft(new Decimal(actual).toFixed(2),…
+       |                                                                                 ^
+     15|   }
+     16|   const lineas = r.rastro.pasos.flatMap(p => p.lineasCalculo ?? [])
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/30]⎯
+
+ FAIL  tests/redondeo-salarial-open.test.ts > Open 1.19: 'da61'
+AssertionError: 0610: expected '-721.21' to be '-721.23' // Object.is equality
+
+Expected: "-721.23"
+Received: "-721.21"
+
+ ❯ tests/redondeo-salarial-open.test.ts:14:81
+     12|   for (const [casilla, actual] of Object.entries(campos)) {
+     13|     const esperado = casillas[casilla as keyof typeof casillas]
+     14|     if (esperado !== null) expect.soft(new Decimal(actual).toFixed(2),…
+       |                                                                                 ^
+     15|   }
+     16|   const lineas = r.rastro.pasos.flatMap(p => p.lineasCalculo ?? [])
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[19/30]⎯
+
+ FAIL  tests/redondeo-salarial-open.test.ts > Open 1.19: 'da61'
+AssertionError: 0670: expected '-721.21' to be '-721.23' // Object.is equality
+
+Expected: "-721.23"
+Received: "-721.21"
+
+ ❯ tests/redondeo-salarial-open.test.ts:14:81
+     12|   for (const [casilla, actual] of Object.entries(campos)) {
+     13|     const esperado = casillas[casilla as keyof typeof casillas]
+     14|     if (esperado !== null) expect.soft(new Decimal(actual).toFixed(2),…
+       |                                                                                 ^
+     15|   }
+     16|   const lineas = r.rastro.pasos.flatMap(p => p.lineasCalculo ?? [])
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[20/30]⎯
+
+ FAIL  tests/redondeo-salarial-open.test.ts > Open 1.19: 'da61'
+AssertionError: 0533: expected '233.88' to be '233.87' // Object.is equality
+
+Expected: "233.87"
+Received: "233.88"
+
+ ❯ tests/redondeo-salarial-open.test.ts:19:73
+     17|   for (const [casilla, sitio] of [["0532", "estatal"], ["0533", "auton…
+     18|     const linea = lineas.find(l => l.origen?.siteId === `anual.explici…
+     19|     expect.soft(new Decimal(linea.origen!.decimal).toFixed(2), casilla…
+       |                                                                         ^
+     20|   }
+     21|   // Cada gravamen debe figurar en la fórmula ejecutada, antes de la r…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[21/30]⎯
+
+ FAIL  tests/redondeo-salarial-open.test.ts > Open 1.19: 'da61'
+AssertionError: expected 'escala(base positiva) − escala(mínimo…' to contain '827.27 − 527.25'
+
+Expected: "827.27 − 527.25"
+Received: "escala(base positiva) − escala(mínimo limitado a base)"
+
+ ❯ tests/redondeo-salarial-open.test.ts:22:96
+     20|   }
+     21|   // Cada gravamen debe figurar en la fórmula ejecutada, antes de la r…
+     22|   expect.soft(lineas.find(l => l.origen?.siteId === "anual.explicito.c…
+       |                                                                                                ^
+     23|   expect.soft(lineas.find(l => l.origen?.siteId === "anual.explicito.c…
+     24| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[22/30]⎯
+
+ FAIL  tests/redondeo-salarial-open.test.ts > Open 1.19: 'da61'
+AssertionError: expected 'escala publicada Madrid(base) − escal…' to contain '740.19 − 506.32'
+
+Expected: "740.19 − 506.32"
+Received: "escala publicada Madrid(base) − escala(mínimo limitado a base)"
+
+ ❯ tests/redondeo-salarial-open.test.ts:23:99
+     21|   // Cada gravamen debe figurar en la fórmula ejecutada, antes de la r…
+     22|   expect.soft(lineas.find(l => l.origen?.siteId === "anual.explicito.c…
+     23|   expect.soft(lineas.find(l => l.origen?.siteId === "anual.explicito.c…
+       |                                                                                                   ^
+     24| })
+     25|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[23/30]⎯
+
+ FAIL  tests/redondeo-salarial-open.test.ts > Open 1.19: 'posterior'
+AssertionError: 0595: expected '279.16' to be '279.15' // Object.is equality
+
+Expected: "279.15"
+Received: "279.16"
+
+ ❯ tests/redondeo-salarial-open.test.ts:14:81
+     12|   for (const [casilla, actual] of Object.entries(campos)) {
+     13|     const esperado = casillas[casilla as keyof typeof casillas]
+     14|     if (esperado !== null) expect.soft(new Decimal(actual).toFixed(2),…
+       |                                                                                 ^
+     15|   }
+     16|   const lineas = r.rastro.pasos.flatMap(p => p.lineasCalculo ?? [])
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[24/30]⎯
+
+ FAIL  tests/redondeo-salarial-open.test.ts > Open 1.19: 'posterior'
+AssertionError: expected 'escala(base positiva) − escala(mínimo…' to contain '827.41 − 527.25'
+
+Expected: "827.41 − 527.25"
+Received: "escala(base positiva) − escala(mínimo limitado a base)"
+
+ ❯ tests/redondeo-salarial-open.test.ts:22:96
+     20|   }
+     21|   // Cada gravamen debe figurar en la fórmula ejecutada, antes de la r…
+     22|   expect.soft(lineas.find(l => l.origen?.siteId === "anual.explicito.c…
+       |                                                                                                ^
+     23|   expect.soft(lineas.find(l => l.origen?.siteId === "anual.explicito.c…
+     24| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[25/30]⎯
+
+ FAIL  tests/redondeo-salarial-open.test.ts > Open 1.19: 'posterior'
+AssertionError: expected 'escala publicada Madrid(base) − escal…' to contain '740.32 − 506.32'
+
+Expected: "740.32 − 506.32"
+Received: "escala publicada Madrid(base) − escala(mínimo limitado a base)"
+
+ ❯ tests/redondeo-salarial-open.test.ts:23:99
+     21|   // Cada gravamen debe figurar en la fórmula ejecutada, antes de la r…
+     22|   expect.soft(lineas.find(l => l.origen?.siteId === "anual.explicito.c…
+     23|   expect.soft(lineas.find(l => l.origen?.siteId === "anual.explicito.c…
+       |                                                                                                   ^
+     24| })
+     25|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[26/30]⎯
+
+ FAIL  tests/redondeo-salarial-open.test.ts > Open 1.19: 'ingresar-dos-pagadores-limites-anuales'
+AssertionError: expected 'escala(base positiva) − escala(mínimo…' to contain '2847.75 − 527.25'
+
+Expected: "2847.75 − 527.25"
+Received: "escala(base positiva) − escala(mínimo limitado a base)"
+
+ ❯ tests/redondeo-salarial-open.test.ts:22:96
+     20|   }
+     21|   // Cada gravamen debe figurar en la fórmula ejecutada, antes de la r…
+     22|   expect.soft(lineas.find(l => l.origen?.siteId === "anual.explicito.c…
+       |                                                                                                ^
+     23|   expect.soft(lineas.find(l => l.origen?.siteId === "anual.explicito.c…
+     24| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[27/30]⎯
+
+ FAIL  tests/redondeo-salarial-open.test.ts > Open 1.19: 'ingresar-dos-pagadores-limites-anuales'
+AssertionError: expected 'escala publicada Madrid(base) − escal…' to contain '2519.74 − 506.32'
+
+Expected: "2519.74 − 506.32"
+Received: "escala publicada Madrid(base) − escala(mínimo limitado a base)"
+
+ ❯ tests/redondeo-salarial-open.test.ts:23:99
+     21|   // Cada gravamen debe figurar en la fórmula ejecutada, antes de la r…
+     22|   expect.soft(lineas.find(l => l.origen?.siteId === "anual.explicito.c…
+     23|   expect.soft(lineas.find(l => l.origen?.siteId === "anual.explicito.c…
+       |                                                                                                   ^
+     24| })
+     25|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[28/30]⎯
+
+ FAIL  tests/redondeo-salarial-open.test.ts > Open 1.19: 'devolver-da61-ss-efectiva'
+AssertionError: expected 'escala(base positiva) − escala(mínimo…' to contain '977.65 − 527.25'
+
+Expected: "977.65 − 527.25"
+Received: "escala(base positiva) − escala(mínimo limitado a base)"
+
+ ❯ tests/redondeo-salarial-open.test.ts:22:96
+     20|   }
+     21|   // Cada gravamen debe figurar en la fórmula ejecutada, antes de la r…
+     22|   expect.soft(lineas.find(l => l.origen?.siteId === "anual.explicito.c…
+       |                                                                                                ^
+     23|   expect.soft(lineas.find(l => l.origen?.siteId === "anual.explicito.c…
+     24| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[29/30]⎯
+
+ FAIL  tests/redondeo-salarial-open.test.ts > Open 1.19: 'devolver-da61-ss-efectiva'
+AssertionError: expected 'escala publicada Madrid(base) − escal…' to contain '874.74 − 506.32'
+
+Expected: "874.74 − 506.32"
+Received: "escala publicada Madrid(base) − escala(mínimo limitado a base)"
+
+ ❯ tests/redondeo-salarial-open.test.ts:23:99
+     21|   // Cada gravamen debe figurar en la fórmula ejecutada, antes de la r…
+     22|   expect.soft(lineas.find(l => l.origen?.siteId === "anual.explicito.c…
+     23|   expect.soft(lineas.find(l => l.origen?.siteId === "anual.explicito.c…
+       |                                                                                                   ^
+     24| })
+     25|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[30/30]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  7 failed (7)
+   Start at  15:09:42
+   Duration  1.06s (transform 559ms, setup 0ms, import 859ms, tests 32ms, environment 0ms)
+

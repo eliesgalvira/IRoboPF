@@ -88,10 +88,10 @@ it("conserva magnitudes calculadas de más de dos decimales en DA61", () => {
 it("conecta gastos efectivos, art20 y DA61 sin cotización simulada ni doble SMI", () => {
   const r = Effect.runSync(liquidarEntradaJavaScript(trabajo()))
   expect(r).toMatchObject({
-    baseImponibleGeneral: "10291.0275",
-    baseLiquidableGeneral: "10291.0275",
-    reduccionArt20: "4284.9825",
-    deduccionTrabajo: "339.998",
+    baseImponibleGeneral: "10291.03",
+    baseLiquidableGeneral: "10291.03",
+    reduccionArt20: "4284.98",
+    deduccionTrabajo: "340",
     aceptacionFiscal: "pendiente",
   })
 })
@@ -319,16 +319,16 @@ it("rastro conserva decimales e identidades distintas", () => {
   expect(
     lineas.find((l) => l.origen?.siteId === "anual.explicito.big")?.origen
       ?.decimal
-  ).toBe("10291.0275")
+  ).toBe("10291.03")
   expect(new Set(lineas.map((l) => l.origen?.instanceId)).size).toBe(
     lineas.length
   )
 })
 it("cuota legal de trabajo y posterior mantienen el orden con expectativa independiente", () => {
-  // 4741,0275 * 9,5% + 4334,3775 * 8,5%; DA61 = 340 − 0,01 * 0,2.
+  // Etapas Open: gravámenes 977,65 − 527,25 y 874,74 − 506,32; DA61 a céntimos = 340.
   expect(Effect.runSync(liquidarEntradaJavaScript(trabajo()))).toMatchObject({
-    cuotaLiquidaLegal: "818.8197",
-    cuotaPosterior: "478.8217",
+    cuotaLiquidaLegal: "818.82",
+    cuotaPosterior: "478.82",
     cuotaDiferencialPresentada: "478.82",
   })
 })
@@ -413,8 +413,8 @@ function liquidarEntradaJavaScript<Entrada extends CasoAnualJavaScript>(entrada:
 }
 
 it.each([
-  ["25000.02", "3750.12767", "3750.13"],
-  ["60000", "15337.60275", "15337.60"],
+  ["25000.02", "3750.12", "3750.12"],
+  ["60000", "15337.6", "15337.60"],
 ])("usa la cuota publicada de Madrid para bruto %s", (bruto, exacta, presentada) => {
   const r = Effect.runSync(liquidarEntradaJavaScript(trabajo(bruto)))
   expect(r.cuotaDiferencial).toBe(exacta)

@@ -1,0 +1,129 @@
+{
+  "base": "b99c6842e615e5df2ad9820ef24ad4eed17e59b6",
+  "comandos": [
+    {
+      "comando": "nix shell nixpkgs#python3 -c flock /tmp/irobopf-recepcion-acotada.lock python3 .cache/redondeo/base.py",
+      "resultado": "24735 archivos leídos; contenido contra git cat-file, modos y symlinks; HEAD base exacto"
+    },
+    {
+      "comando": "bun /home/local/.bun/install/cache/effect-solutions@0.5.3@@@1/dist/cli.js list; ... show basics testing",
+      "resultado": "0; wrapper nativo falla stub-ld NixOS; dist/cli.js funciona con Bun; referencia local Effect.test.ts líneas 67 y 2415–2430"
+    },
+    {
+      "comando": "python3 .cache/redondeo/originales/extraer.py",
+      "resultado": "0; siete PDF/SES y entradas cotejados; no escritura de originales"
+    },
+    {
+      "comando": "node node_modules/vitest/vitest.mjs run tests/redondeo-salarial-open.test.ts --maxWorkers=1 (antes de cambiar producto)",
+      "resultado": "1; 7 casos fallan; rojo.log; diferencias 2575.27/2575.26, 1283.57/1283.56, -721.21/-721.23"
+    },
+    {
+      "comando": "python3 docs/procedencia/implementaciones/redondeo-salarial-open/expectativas.py",
+      "resultado": "0; 30 expectativas racionales; no ejecuta TS; históricos sin cambios"
+    },
+    {
+      "comando": "bash .cache/redondeo/final-checks.sh bajo flock pesado",
+      "resultado": "backend-final.log, tipos-alcance.log, tipos-vendor.log, anti-slop.log, lint-focal.log",
+      "tests": [
+        "redondeo-salarial-open",
+        "anual-salarial-completo",
+        "conexion-anual",
+        "trabajo-anual-contratos",
+        "liquidacion-irpf-anual",
+        "actividades-economicas-2025",
+        "redondeos-legacy-oracle",
+        "dinero"
+      ]
+    },
+    {
+      "comando": "node node_modules/typescript/bin/tsc --noEmit --incremental false (baseline y actual, stage completo)",
+      "resultado": "4 diagnósticos iguales en ambos; imports .cache/puertos-composicion-r47-sol/{privado,legacy}, TS7006 w en puertos-r52; no pase global"
+    },
+    {
+      "comando": "node node_modules/vitest/vitest.mjs run tests/calculo-salario-legacy.test.ts --maxWorkers=1 (baseline)",
+      "resultado": "1; mismo fallo anual neto 1492178 vs 1492179; suite pesada no activada; no se toca legacy"
+    },
+    {
+      "comando": "bun run lint (baseline stage)",
+      "resultado": "1; ejecución preliminar incluye node_modules por stage sin metadatos VCS; no se usa su volumen como deuda del repositorio. Se conserva comprimida. Alcance modificado comprobado con oxlint+ESLint focales y 16 reglas sin relajación."
+    },
+    {
+      "comando": "bun scripts/procedencia/inventario-artefacto.mjs write; ... check; bun scripts/procedencia/contenido-generar.mjs; bun scripts/procedencia/rastro-verificar.mjs",
+      "resultado": "0; snapshot candidato cb3eb7602899073ef92e6bfb1c392c7e8c519c969855a1eb7fcd8cf00cd454ad, 65 puntos, 465 objetos nuevos; RSS generador contenido 1480003584 bytes"
+    },
+    {
+      "comando": "verificar(snapshot actual) desde contenido-verificar.mjs",
+      "resultado": "contenido.log; no se reejecutan ni se trasladan automáticamente cierres históricos"
+    }
+  ],
+  "tsconfigAlcance": {
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+      "incremental": false
+    },
+    "include": [
+      "lib/**/*.ts",
+      "lib/**/*.tsx",
+      "tests/redondeo-salarial-open.test.ts",
+      "tests/anual-salarial-completo.test.ts",
+      "tests/conexion-anual.test.ts"
+    ],
+    "exclude": [
+      "node_modules",
+      ".cache"
+    ]
+  },
+  "dependencias": "/home/local/Repos/IRoboPF/node_modules (symlink en stage, solo lectura)",
+  "scratch": ".cache/redondeo",
+  "locks": [
+    "/tmp/irobopf-recepcion-acotada.lock",
+    "/tmp/irobopf-validacion-pesada.lock"
+  ],
+  "trabajadores": 1,
+  "fuenteAnteriorSha256": "11a2f8c154a5ae692a05a6dd7cbb3aa1f4074f237bb98dfd00ed9a891a502754",
+  "causalidadHistorica": "R62 y snapshots/recibos conservados prueban sus bytes y no el nuevo algoritmo; sin nueva aceptación global",
+  "objeciones": [
+    "Siete casos no son cobertura universal ni norma escrita del orden interno",
+    "No se aisló el empate negativo final; no cambia half-up universal",
+    "No se contrastaron pensiones ni actividad con Open",
+    "Snapshot candidato no implica aceptación fiscal",
+    "Lint global preliminar contaminado por dependencia enlazada; solo se afirma pase focal"
+  ],
+  "coste": {
+    "tiempoAproximadoMinutos": 15,
+    "buildNext": false,
+    "excelMasivo": false,
+    "swapUsado": false
+  },
+  "aceptacionFiscal": "pendiente",
+  "resultadosFinales": {
+    "backend": {
+      "archivos": 8,
+      "pruebas": 273,
+      "exit": 0
+    },
+    "rastro": {
+      "pruebas": 7,
+      "exit": 0
+    },
+    "tiposAlcance": 0,
+    "tiposVendor": 0,
+    "lintFocalOxlint": 0,
+    "lintFocalESLint": 0,
+    "antiSlop": {
+      "reglas": 16,
+      "exit": 0
+    },
+    "tiposGlobal": {
+      "baselineExit": 2,
+      "actualExit": 2,
+      "diagnosticos": 4,
+      "logsIdenticos": true
+    },
+    "contenido": {
+      "integridad": "comprobada",
+      "cantidad": 52557,
+      "aceptacionFiscal": "pendiente"
+    }
+  }
+}

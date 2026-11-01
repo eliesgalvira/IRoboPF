@@ -38,6 +38,11 @@ export const liquidarIrpfAnualExplicito = Effect.fn(
       )
     )
   const caso = decoded.success
+  let redondeoSalarialOpen = false
+  const cuantizarEtapa = (importe: Decimal) =>
+    redondeoSalarialOpen
+      ? importe.toDecimalPlaces(2, Decimal.ROUND_HALF_UP)
+      : importe
   const pasos: RastroCalculo["pasos"][number][] = []
   let neto = new D(0),
     reduccionArt20 = new D(0),
@@ -65,6 +70,8 @@ export const liquidarIrpfAnualExplicito = Effect.fn(
           "Atribución de gastos y reducciones entre pensión, empleo u otras rentas no soportada"
         )
       )
+    // Observado en Open 2025; no extrapolar a pensión ni actividad.
+    redondeoSalarialOpen = empleo
     const trabajo = adaptarTrabajoAnual(caso.trabajo)
     if (trabajo.estado === "no-soportado")
       return yield* Effect.fail(rechazar(trabajo.motivo))
@@ -77,6 +84,7 @@ export const liquidarIrpfAnualExplicito = Effect.fn(
         otrasRentasNoExentas: new D(0),
       })
     )
+    reduccionArt20 = cuantizarEtapa(reduccionArt20)
     neto = neto.minus(reduccionArt20)
     if (empleo) brutoServicios = new D(trabajo.gastos.integro)
     if (
@@ -137,7 +145,9 @@ export const liquidarIrpfAnualExplicito = Effect.fn(
           unidad: "EUR",
           etiqueta: "Reducción artículo 20",
           formula:
-            "min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0)",
+            redondeoSalarialOpen
+              ? "céntimos half-up de min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0), observado en Open 2025"
+              : "min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0)",
         }),
       ],
     })
@@ -205,20 +215,16 @@ export const liquidarIrpfAnualExplicito = Effect.fn(
       tramos: parametros.escalaAutonomica.tramos,
       escalasPublicadas: publicada === undefined ? undefined : [publicada],
     })
-  const cuotaEstatal = D.max(
-    0,
-    estatal(base).minus(
-      estatal(D.min(base, MINIMOS_ESTATALES_2025.contribuyente.general))
-    )
+  const gravamenEstatal = cuantizarEtapa(estatal(base))
+  const gravamenMinimoEstatal = cuantizarEtapa(
+    estatal(D.min(base, MINIMOS_ESTATALES_2025.contribuyente.general))
   )
-  const cuotaAutonomica = D.max(
-    0,
-    autonomica(base).minus(
-      autonomica(
-        D.min(base, parametros.minimosAutonomicos.contribuyente.general)
-      )
-    )
+  const gravamenAutonomico = cuantizarEtapa(autonomica(base))
+  const gravamenMinimoAutonomico = cuantizarEtapa(
+    autonomica(D.min(base, parametros.minimosAutonomicos.contribuyente.general))
   )
+  const cuotaEstatal = D.max(0, gravamenEstatal.minus(gravamenMinimoEstatal))
+  const cuotaAutonomica = D.max(0, gravamenAutonomico.minus(gravamenMinimoAutonomico))
   const liquida = cuotaEstatal.plus(cuotaAutonomica)
   let deduccion = new D(0),
     posterior = liquida
@@ -239,15 +245,19 @@ export const liquidarIrpfAnualExplicito = Effect.fn(
     })
     if (resultado.estado === "no-soportado")
       return yield* Effect.fail(rechazar(resultado.motivo))
-    deduccion = new D(resultado.importeAplicable)
-    posterior = new D(resultado.cuotaPosterior)
+    deduccion = cuantizarEtapa(new D(resultado.importeAplicable))
+    posterior = redondeoSalarialOpen
+      ? liquida.minus(deduccion)
+      : new D(resultado.cuotaPosterior)
   }
   const diferencial = posterior.minus(retenciones).minus(pagos)
   pasos.push({
     _tag: "PasoExplicacion",
     titulo: "Bases, cuotas y pagos anuales",
     descripcion:
-      "Sin ahorro, reducciones de base ni otras deducciones. Artículo 80 sin importe al excluir rentas extranjeras. Cuota líquida legal conservada antes de DA61. Precisión decimal hasta salida; presentación final half-up a céntimos, pendiente de aceptación fiscal.",
+      redondeoSalarialOpen
+        ? "Empleo Madrid 2025: artículo 20, cada gravamen y DA61 a céntimos half-up antes de restar, según siete casos de Open 1.19. Evidencia observada, sin aceptación fiscal automática ni cobertura universal."
+        : "Sin ahorro, reducciones de base ni otras deducciones. Artículo 80 sin importe al excluir rentas extranjeras. Cuota líquida legal conservada antes de DA61. Precisión decimal hasta salida; presentación final half-up a céntimos, pendiente de aceptación fiscal.",
     fuentes: [
       {
         titulo: "Alcance y evidencia de la conexión anual",
@@ -278,7 +288,9 @@ export const liquidarIrpfAnualExplicito = Effect.fn(
         importe: cuotaEstatal,
         unidad: "EUR",
         etiqueta: "Cuota estatal",
-        formula: "escala(base positiva) − escala(mínimo limitado a base)",
+        formula: redondeoSalarialOpen
+          ? `gravámenes a céntimos Open: ${gravamenEstatal.toFixed(2)} − ${gravamenMinimoEstatal.toFixed(2)}`
+          : "escala(base positiva) − escala(mínimo limitado a base)",
       }),
       crearLineaCalculo({
         siteId: "anual.explicito.cuota.autonomica",
@@ -287,7 +299,9 @@ export const liquidarIrpfAnualExplicito = Effect.fn(
         unidad: "EUR",
         etiqueta: "Cuota autonómica",
         formula:
-          "escala publicada Madrid(base) − escala(mínimo limitado a base)",
+          redondeoSalarialOpen
+            ? `gravámenes a céntimos Open Madrid: ${gravamenAutonomico.toFixed(2)} − ${gravamenMinimoAutonomico.toFixed(2)}`
+            : "escala publicada Madrid(base) − escala(mínimo limitado a base)",
       }),
       crearLineaCalculo({
         siteId: "anual.explicito.cuota.liquida-legal",
@@ -303,7 +317,9 @@ export const liquidarIrpfAnualExplicito = Effect.fn(
         importe: deduccion,
         unidad: "EUR",
         etiqueta: "DA61",
-        formula: "deducción de servicios después del artículo 80, una sola vez",
+        formula: redondeoSalarialOpen
+          ? "DA61 a céntimos half-up antes de restar, observado en Open 2025"
+          : "deducción de servicios después del artículo 80, una sola vez",
       }),
       crearLineaCalculo({
         siteId: "anual.explicito.cuota.posterior",

@@ -2,9 +2,9 @@ import { expect, it } from "vitest"
 import { Effect, Schema } from "effect"
 import { liquidarIrpfAnualExplicito } from "../lib/dominio/irpf/liquidacion/liquidar-irpf-anual"
 import { CasoFiscalAnualExplicito } from "../lib/dominio/irpf/trabajo-anual/conexion-contrato"
-import casos from "../docs/procedencia/implementaciones/anual-salarial-completo/casos.json"
+import casos from "../docs/procedencia/implementaciones/redondeo-salarial-open/recorridos.json"
 
-// Expectativas racionales estáticas: expectativas.py no importa el motor TS.
+// Expectativas racionales estáticas con etapas Open; se conserva el JSON analítico histórico.
 it.each(casos)("recorrido real: $nombre", ({ entrada, esperado, lineas }) => {
   const copia = structuredClone(entrada)
   const admitida = Schema.decodeUnknownSync(CasoFiscalAnualExplicito)(entrada)
@@ -79,5 +79,5 @@ it("retenciones efectivas alteran solo pagos y diferencial, sin recalcular tipo 
   if (admitida.perfil !== "solo-trabajo") throw new Error("El ejemplo debe ser salarial")
   const antes = Effect.runSync(liquidarIrpfAnualExplicito(admitida))
   const despues = Effect.runSync(liquidarIrpfAnualExplicito({ ...admitida, retenciones: [] }))
-  expect(despues).toMatchObject({ cuotaPosterior: antes.cuotaPosterior, cuotaLiquidaLegal: antes.cuotaLiquidaLegal, baseLiquidableGeneral: antes.baseLiquidableGeneral, retenciones: "0", cuotaDiferencial: "4333.92211" })
+  expect(despues).toMatchObject({ cuotaPosterior: antes.cuotaPosterior, cuotaLiquidaLegal: antes.cuotaLiquidaLegal, baseLiquidableGeneral: antes.baseLiquidableGeneral, retenciones: "0", cuotaDiferencial: "4333.92" })
 })
