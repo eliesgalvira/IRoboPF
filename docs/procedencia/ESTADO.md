@@ -1,5 +1,36 @@
 # Estado de la auditoría documental
 
+## Recursos y reanudación del 3 de noviembre
+
+Las [reglas de recursos y entregas](RECURSOS.md) limitan las ejecuciones a dos
+suites pesadas en toda la máquina, con `timeout` para cada orden. Las entregas
+se conservan como commits o parches y manifiestos, con cachés compartidas y sin
+copias completas de dependencias. El límite conjunto de copias y worktrees es
+de 150 GB. La retirada de una copia pendiente no acepta su candidato.
+
+La limpieza retira 88 worktrees inactivos, conserva sus ramas y elimina 14
+entregas publicadas, 28 exportaciones o archivos redundantes y cuatro archivos
+de base ya publicados. Se han vuelto a comprobar los hashes de los 57.241
+objetos únicos conservados. Repositorio, respaldos, worktrees restantes y
+corpus suman 103,7 GB; quedan 312,7 GB libres en disco (unidades decimales).
+Permanecen tres directorios de trabajo: el de escalas, el usado para reproducir
+las revisiones pendientes y uno antiguo con metadatos Git/Jujutsu mezclados.
+Este último se conserva para no eliminar metadatos sin cotejo.
+
+Se han recuperado los informes de unidades/enlaces e IPC/SS y repetido las
+pruebas interrumpidas. Sobre los candidatos conservados pasan los 37 tests
+comunes, el wrapper sin Git, el censo IPC/SS y la comprobación aritmética de
+196 pares de años y cinco bases de cotización de 2018. Estas comprobaciones no
+acreditan por sí solas la vigencia jurídica.
+
+Los siete adversos de unidades/enlaces terminan con dos fallos: la cabecera
+ajena puede acreditar una unidad al ampliar su caja, y el resolver AST admite
+una función `async` como identidad síncrona. Los seis discriminantes IPC/SS
+terminan con tres fallos al comprobar sujeto, año y columna/período. Se
+conservan sus aserciones y logs; no se integran los candidatos ni se declaran
+cerradas las revisiones. Las ejecuciones anteriores terminadas por SIGTERM
+siguen sin contarse como aprobadas.
+
 ## CI reproducible
 
 El workflow «Comprobaciones» está verde en [la ejecución 41539191212](https://github.com/eliesgalvira/IRoboPF/actions/runs/41539191212), commit `9f8e6a8f75aaa12fd6ffd18ea8a09eeefe004275`: `checks` y `corpus` correctos. Se reanuda la integración de deducciones y A–F. Las pruebas ordinarias funcionan con un checkout limpio, sin cachés previas, archivos privados, corpus externo local ni objetos Git históricos. Los ensayos que necesitan el corpus completo se mantienen como comprobaciones locales opcionales, con omisión explícita en CI. Cada push debe pasar previamente los mismos comandos del workflow; los cambios se agrupan.
