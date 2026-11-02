@@ -6,6 +6,11 @@ set -euo pipefail
 : "${DATOS_OUTPUT:?Manifiesto de salida}"
 # NODE_PATH puede apuntar a dependencias congeladas externas al checkout.
 # UV_CACHE_DIR y UV_PROJECT_ENVIRONMENT, si se configuran, deben ser externos.
+if [[ -n "${DATOS_OBLIGATIONS:-}${DATOS_OBLIGATIONS_SHA256:-}" ]]; then
+  : "${DATOS_OBLIGATIONS:?Archivo de obligaciones independiente}"
+  : "${DATOS_OBLIGATIONS_SHA256:?SHA256 esperado declarado aparte}"
+  set -- --obligations "$DATOS_OBLIGATIONS" --obligations-sha256 "$DATOS_OBLIGATIONS_SHA256" "$@"
+fi
 exec uv run --no-project --python python3 --no-managed-python \
   --with pymupdf==1.26.7 --with jsonschema==4.25.1 \
   python tools/procedencia/datos/flujo.py \

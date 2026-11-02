@@ -1,0 +1,228 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "const": 1
+    },
+    "basis": {
+      "type": "string",
+      "minLength": 1
+    },
+    "tables": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "code": {
+            "type": "string",
+            "minLength": 1
+          },
+          "year": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1900,
+            "maximum": 2200
+          },
+          "territory": {
+            "type": "string",
+            "minLength": 1
+          },
+          "document": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "size": {
+                "type": "integer",
+                "minimum": 1
+              }
+            },
+            "required": [
+              "sha256",
+              "size"
+            ]
+          },
+          "page": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "format": {
+            "enum": [
+              "pdf",
+              "ine-json"
+            ]
+          },
+          "series": {
+            "type": "string",
+            "minLength": 1
+          },
+          "rows": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "cells": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "row": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "column": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "bbox": {
+                  "oneOf": [
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      },
+                      "minItems": 4,
+                      "maxItems": 4
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "unit": {
+                  "enum": [
+                    "EUR",
+                    "percent",
+                    "index",
+                    "proportion"
+                  ]
+                },
+                "unitEvidence": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "bbox": {
+                          "type": "array",
+                          "items": {
+                            "type": "number"
+                          },
+                          "minItems": 4,
+                          "maxItems": 4
+                        },
+                        "literal": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "unit": {
+                          "enum": [
+                            "EUR",
+                            "percent",
+                            "index",
+                            "proportion"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "bbox",
+                        "literal",
+                        "unit"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "FK_Unidad": {
+                          "const": 133
+                        },
+                        "FK_Escala": {
+                          "const": 1
+                        }
+                      },
+                      "required": [
+                        "FK_Unidad",
+                        "FK_Escala"
+                      ]
+                    }
+                  ]
+                },
+                "numberFormat": {
+                  "const": "decimal"
+                }
+              },
+              "required": [
+                "row",
+                "column",
+                "bbox",
+                "unit",
+                "unitEvidence"
+              ]
+            },
+            "minItems": 1
+          }
+        },
+        "required": [
+          "code",
+          "year",
+          "territory",
+          "document",
+          "cells"
+        ]
+      }
+    },
+    "semantics": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "unit": {
+            "enum": [
+              "EUR",
+              "percent",
+              "index",
+              "proportion"
+            ]
+          },
+          "sourceSha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "quote": {
+            "type": "string",
+            "minLength": 1
+          },
+          "scope": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "unit",
+          "sourceSha256",
+          "quote"
+        ]
+      }
+    }
+  },
+  "required": [
+    "version",
+    "basis",
+    "tables",
+    "semantics"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

@@ -21,6 +21,7 @@ from cas import ordinary_path  # noqa: E402
 from descargar import DEFAULT_HOSTS, check_url  # noqa: E402
 from corpus import extract, geometry, selectors  # noqa: E402
 import pymupdf  # noqa: E402
+import jsonschema  # noqa: E402
 
 OBLIGATIONS_SHA256 = "8b63636058d79ebff248f7f083baf857d2c6fa6a6962a95a6b42f0012cea847b"
 
@@ -227,6 +228,71 @@ def validate_obligations(tables: list[dict], obligations: list[dict]) -> None:
         raise ValueError('Obligaciones revisadas omitidas o alteradas')
 
 
+def load_registry(repo: Path, path: Path | None, expected_sha256: str | None) -> tuple[dict, bytes, dict]:
+    """La selección técnica no es una revisión de las obligaciones recibidas."""
+    if (path is None) != (expected_sha256 is None):
+        raise ValueError('Registro y SHA256 esperado deben declararse juntos')
+    pilot_path = repo / 'docs/procedencia/datos-2012-2026/obligaciones.json'
+    pilot_raw = pilot_path.read_bytes()
+    if digest(pilot_raw) != OBLIGATIONS_SHA256:
+        raise ValueError('Registro piloto cambió: requiere revisión explícita')
+    expected = OBLIGATIONS_SHA256 if path is None else expected_sha256
+    if not isinstance(expected, str) or re.fullmatch(r'[0-9a-f]{64}', expected) is None:
+        raise ValueError('SHA256 esperado inválido')
+    raw = pilot_raw if path is None else path.read_bytes()
+    if digest(raw) != expected:
+        raise ValueError('Registro distinto del SHA256 esperado declarado')
+    json_positions(raw.decode('utf-8'))  # También rechaza claves duplicadas.
+    registry = json.loads(raw)
+    schema = json.loads((repo / 'docs/procedencia/datos-2012-2026/contrato-obligaciones-lotes/schema.json').read_bytes())
+    jsonschema.Draft202012Validator(schema).validate(registry)
+    codes = set()
+    for table in registry['tables']:
+        if table['code'] in codes:
+            raise ValueError('Tabla de obligaciones duplicada')
+        codes.add(table['code'])
+        keys = [(c['row'], c['column']) for c in table['cells']]
+        if len(set(keys)) != len(keys):
+            raise ValueError('Celda de obligaciones duplicada')
+        is_json = table.get('format') == 'ine-json'
+        if is_json:
+            if 'page' in table or not all(k in table for k in ('series', 'rows')):
+                raise ValueError('Selectores INE incompletos')
+            if table['rows'] != len(keys) or [c['row'] for c in table['cells']] != [str(i) for i in range(table['rows'])]:
+                raise ValueError('Cobertura INE incompleta')
+        elif 'page' not in table or any(k in table for k in ('series', 'rows')):
+            raise ValueError('Posición física PDF incompleta')
+        for cell in table['cells']:
+            boxes = [cell['bbox']]
+            proof = cell['unitEvidence']
+            if is_json:
+                if cell['bbox'] is not None or cell.get('numberFormat') != 'decimal' or cell['unit'] != 'index':
+                    raise ValueError('Celda INE inválida')
+                if proof is not None and proof != {'FK_Unidad':133, 'FK_Escala':1}:
+                    raise ValueError('Prueba de unidad INE inválida')
+            else:
+                if cell['bbox'] is None or 'numberFormat' in cell:
+                    raise ValueError('Caja PDF inválida')
+                if proof is not None:
+                    if 'bbox' not in proof or proof['unit'] != cell['unit']:
+                        raise ValueError('Enlace de unidad PDF inválido')
+                    boxes.append(proof['bbox'])
+            for box in boxes:
+                if box is not None and not (box[0] < box[2] and box[1] < box[3]):
+                    raise ValueError('Geometría de obligación inválida')
+    # Un registro recibido no puede inventar acreditaciones de unidades del motor.
+    reviewed = json.loads(pilot_raw)['semantics']
+    for binding, proof in registry['semantics'].items():
+        if reviewed.get(binding) != proof:
+            raise ValueError('Semántica nueva requiere revisión separada')
+        expression_unit({'binding':json.loads(binding)}, registry['semantics'], repo)
+    return registry, raw, {'expectedSha256':expected,
+                           'selection':'pilot' if path is None else 'explicit',
+                           'validation':'structure-coverage-evidence-checked',
+                           'review':'pilot-pinned-scope' if path is None else 'pending',
+                           'legalAcceptance':'pending'}
+
+
 def evidence_unit(store: Store, table: dict, obligation: dict) -> bool:
     proof = obligation.get('unitEvidence')
     if proof is None:
@@ -348,7 +414,8 @@ def catalog(repo: Path, store: Store) -> list[dict]:
     return sorted(found.values(), key=lambda x: x['sha256'])
 
 
-def run(repo: Path, cas: Path, roots: list[Path], work: Path, mapping: Path, base: str) -> dict:
+def run(repo: Path, cas: Path, roots: list[Path], work: Path, mapping: Path, base: str, *,
+        obligations: Path | None = None, obligations_sha256: str | None = None) -> dict:
     if re.fullmatch(r'[0-9a-f]{40}', base) is None:
         raise ValueError('Base debe ser SHA completo declarado')
     if cas.is_relative_to(repo) or work.is_relative_to(repo):
@@ -356,17 +423,18 @@ def run(repo: Path, cas: Path, roots: list[Path], work: Path, mapping: Path, bas
     cas.mkdir(parents=True, exist_ok=True)
     work.mkdir(parents=True, exist_ok=True)
     store = Store([cas, *roots])
+    registry, registry_raw, selection = load_registry(repo, obligations, obligations_sha256)
+    tables = json.loads(mapping.read_bytes())
+    validate_obligations(tables, registry['tables'])
+    for table in registry['tables']:
+        store.read(table['document'])
+        for cell in table['cells']:
+            evidence_unit(store, table, cell)
     folder = Path(tempfile.mkdtemp(prefix='censo-', dir=work))
     subprocess.run(['bun', str(repo / 'tools/procedencia/datos/censo.mjs'), str(repo), str(folder)], check=True)
     summary = json.loads((folder / 'inventario.json').read_bytes())
     items = [item for page in summary['pages'] for item in json.loads((folder / page['file']).read_bytes())]
-    tables = json.loads(mapping.read_bytes())
     cells = [cell for table in tables for cell in (ine_table(store, table) if table.get('format') == 'ine-json' else pdf_table(store, table))]
-    registry_path = repo / 'docs/procedencia/datos-2012-2026/obligaciones.json'
-    registry_raw = registry_path.read_bytes()
-    if digest(registry_raw) != OBLIGATIONS_SHA256:
-        raise ValueError('Registro de obligaciones cambió: requiere revisión explícita')
-    registry = json.loads(registry_raw)
     results = compare(tables, cells, items, obligations=registry['tables'], store=store, semantics=registry['semantics'], repo=repo)
     censo = json.loads((folder / 'censo-completo.json').read_bytes())
     artifacts = {p.name:put(cas, p.read_bytes()) for p in sorted(folder.iterdir())}
@@ -378,12 +446,12 @@ def run(repo: Path, cas: Path, roots: list[Path], work: Path, mapping: Path, bas
     artifacts['mapping'] = put(cas, mapping.read_bytes())
     artifacts['obligations'] = put(cas, registry_raw)
     counts = Counter(r['status'] for r in results)
-    return {'version':2, 'base':base,
+    return {'version':3, 'base':base, 'obligationsSelection':selection,
             'artifacts':artifacts, 'inventoryCounts':summary['counts'], 'censusCounts':dict(Counter(c['classification'] for c in censo['leaves'])),
             'files':len(censo['modules']), 'cells':dict(counts), 'sources':dict(Counter(s['availability'] for s in sources)),
             'codeInputs':software_inputs(repo),
             'runtime':runtime_inputs(),
-            'acceptance':'pending', 'coverage':'pilot; bloque A abierto'}
+            'acceptance':'pending', 'coverage':'selected obligations only; bloque A abierto'}
 
 
 def software_inputs(repo: Path) -> dict:
@@ -391,7 +459,8 @@ def software_inputs(repo: Path) -> dict:
              *(repo / 'tools/procedencia').glob('*.py'),
              *(repo / 'scripts/procedencia').glob('*.mjs'),
              repo / 'tools/procedencia/pyproject.toml', repo / 'tools/procedencia/uv.lock',
-             repo / 'package.json', repo / 'bun.lock']
+             repo / 'package.json', repo / 'bun.lock',
+             repo / 'docs/procedencia/datos-2012-2026/contrato-obligaciones-lotes/schema.json']
     return {str(p.relative_to(repo)): digest(p.read_bytes()) for p in sorted(paths)}
 
 
@@ -427,16 +496,35 @@ def main() -> None:
     parser.add_argument('--cas', type=Path, required=True)
     parser.add_argument('--read-root', type=Path, action='append', default=[])
     parser.add_argument('--work', type=Path, required=True)
-    parser.add_argument('--mapping', type=Path, required=True)
+    parser.add_argument('--mapping', type=Path)
+    parser.add_argument('--obligations', type=Path)
+    parser.add_argument('--obligations-sha256')
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--verify', type=Path)
     args = parser.parse_args()
+    if args.cas.resolve().is_relative_to(args.repo.resolve()) or args.work.resolve().is_relative_to(args.repo.resolve()):
+        parser.error('CAS y temporales deben ser externos')
     if args.verify:
         old = json.loads(args.verify.read_bytes())
+        if old['codeInputs'] != software_inputs(args.repo.resolve()):
+            raise ValueError('Preimagen de código distinta')
         storage = Store([args.cas.resolve(), *args.read_root])
         for ref in old['artifacts'].values():
             storage.read(ref)
-    result = run(args.repo.resolve(), args.cas.resolve(), args.read_root, args.work.resolve(), args.mapping, args.base)
+        args.work.mkdir(parents=True, exist_ok=True)
+        if args.mapping is None:
+            args.mapping = args.work / 'replay-mapping.json'
+            args.mapping.write_bytes(storage.read(old['artifacts']['mapping']))
+        if args.obligations is None and args.obligations_sha256 is None:
+            selection = old['obligationsSelection']
+            if selection['selection'] == 'explicit':
+                args.obligations = args.work / 'replay-obligations.json'
+                args.obligations.write_bytes(storage.read(old['artifacts']['obligations']))
+                args.obligations_sha256 = selection['expectedSha256']
+    if args.mapping is None:
+        parser.error('--mapping es obligatorio salvo reconstrucción --verify')
+    result = run(args.repo.resolve(), args.cas.resolve(), args.read_root, args.work.resolve(), args.mapping, args.base,
+                 obligations=args.obligations, obligations_sha256=args.obligations_sha256)
     if args.verify and encode(result) != encode(json.loads(args.verify.read_bytes())):
         raise ValueError('Reconstrucción distinta: fuente, cita, motor o artefacto cambió')
     args.output.write_bytes(encode(result))

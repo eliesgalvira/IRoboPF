@@ -1,4 +1,4 @@
-# Contrato ejecutable de datos, versión 2
+# Contrato ejecutable de datos, versión 3
 
 Cambios y API: [correcciones RP01–RP09](CORRECCIONES-RP.md). La ejecución histórica v1 se conserva sin reinterpretación.
 
@@ -21,3 +21,13 @@ La comparación exige cobertura exacta contra obligaciones independientes y ause
 Los originales externos se adquieren con `tools/procedencia/descargar.py --root DIRECTORIO_EXTERNO`. Los objetos planos pueden resolverse también desde el CAS de contenido y el de deducciones. `cas.ordinary_path` rechaza rutas relativas, ascensos y symlinks. Los descriptores públicos no contienen rutas locales. No se sobrescriben objetos existentes por hash. Los recortes raster no son necesarios para este contrato: los originales y cajas permiten verificarlos; no se promociona una firma, cita ni binding del registro jurídico compartido.
 
 Los lotes siguientes fijan primero obligaciones y pruebas de unidad independientes y después añaden tablas al mapping y utilizan la misma CLI y cola: estado, autonomías, mínimos, reducciones, retenciones, IPC y SS. Retenciones necesita el algoritmo AEAT de cada versión intranual; SS necesita TGSS; IPC necesita serie/medida/periodo exactos. Una fuente anual ausente no se sustituye por la del año anterior. La desaparición de un símbolo produce binding ausente y exige remapeo, nunca alias automático.
+
+## Selección de obligaciones por lote
+
+`--obligations REGISTRO.json --obligations-sha256 SHA256_ESPERADO` selecciona explícitamente un registro independiente. Ambos argumentos son inseparables. El pin procede de la declaración de quien ejecuta, nunca del documento recibido. Sin ambos se usa únicamente el piloto con su hash histórico fijo. No se modifica el registro piloto ni se deducen obligaciones del mapping o de igualdades numéricas.
+
+La API `run(..., *, obligations=None, obligations_sha256=None)` comparte parser, extracción, comparador y cola. Antes del censo valida el [schema](contrato-obligaciones-lotes/schema.json), claves JSON únicas, geometría, filas/columnas únicas, cobertura exacta ordenada y ámbito/documento/página/unidad contra el mapping. Reabre originales por CAS y comprueba cabeceras literales antes de comparar. Una prueba ausente conserva `source-unit-unproven`; una prueba falsa o una cabecera fuera del vocabulario acreditado produce error explícito. Los campos semánticos deben ser un subconjunto exacto de las pruebas del piloto fijado: ampliar acreditaciones del motor o vocabulario requiere revisión de código separada. No se admite que un registro recibido se autoacredite mediante `reviewed` ni mediante una cita arbitraria.
+
+El manifiesto v3 conserva el registro íntegro como artefacto y `obligationsSelection.expectedSha256` como declaración separada; distingue selección técnica, validación estructural/documental, revisión del registro y aceptación jurídica. Un lote explícito mantiene `review=pending` y `legalAcceptance=pending`, aunque dé igualdades. El piloto conserva `pilot-pinned-scope`, limitado a su evidencia anterior, y aceptación pendiente. Validar cobertura contra un registro no demuestra su exhaustividad jurídica: esta sigue pendiente de revisión independiente.
+
+`--verify MANIFIESTO` puede omitir mapping y registro: recupera ambos del CAS y utiliza el pin declarado en el manifiesto, comprueba primero la preimagen de código y todos los artefactos, luego reextrae originales y exige igualdad del manifiesto entero. No necesita Git, red, cachés de extracción ni corpus privado para los fixtures. Sí necesita código, runtime/dependencias idénticos y originales explícitos por hash. Los manifiestos históricos v1/v2 se conservan sin reinterpretar; deben ejecutarse con su código fijado. Un atacante que sustituya conjuntamente manifiesto, pin y fuentes entrega otra declaración, cuya autenticidad/aceptación no queda acreditada por esta CLI.
