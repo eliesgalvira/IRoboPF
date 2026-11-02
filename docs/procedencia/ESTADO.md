@@ -16,7 +16,7 @@ Las ampliaciones regionales de deducciones y el censo automático de A continúa
 
 | Bloque | Estado |
 | --- | --- |
-| A. Datos de 2012–2026 | Piloto de 277 celdas y 87 coincidencias revisado; corregir unidades, signos y cobertura independiente antes de ampliarlo |
+| A. Datos de 2012–2026 | Corrección candidata: 277 celdas, 50 coincidencias, 226 sin verificación y una ausencia explícita; revisión independiente pendiente |
 | B. Comunidades en 2026 | Pendiente de inicio; reutilizará las fuentes de A |
 | C. Simuladores oficiales | Pendiente de inicio |
 | D. Redondeo de cotizaciones | Pendiente de inicio con criterio de comportamiento observado |
@@ -65,7 +65,7 @@ Pendiente no significa «no verificable». Las auditorías históricas sirven de
 
 La [canalización candidata](datos-2012-2026/INFORME.md) inventaría 57 módulos y 116.170 rutas efectivas en su versión fijada. Las rutas incluyen alias, textos y metadatos; no son 116.170 magnitudes fiscales distintas.
 
-Su primera ejecución extrae 277 celdas: 87 coinciden, ninguna difiere, 189 carecen todavía de comparación y una contiene una ausencia. La [revisión técnica](datos-2012-2026/revision-canalizacion/INFORME.md) reproduce el piloto y detecta defectos de unidades, signos y obligaciones de cobertura, además de límites en selectores y huellas de ejecución. Deben corregirse antes de ampliar las tablas. No se declara cerrado el bloque A.
+La primera ejecución extrajo 277 celdas: 87 coincidencias numéricas, 189 sin comparación y una ausencia. La [revisión técnica](datos-2012-2026/revision-canalizacion/INFORME.md) detectó defectos de unidades, signos y obligaciones de cobertura, además de límites en selectores y huellas de ejecución. La [corrección candidata](datos-2012-2026/CORRECCIONES-RP.md) conserva 50 coincidencias con unidad acreditada, 226 celdas sin verificación y una ausencia explícita. Las otras 37 igualdades anteriores dejan de considerarse verificadas porque falta acreditar su unidad; no son nuevas diferencias numéricas. La reconstrucción del piloto y las 18 pruebas sintéticas pasan, junto con dos regresiones estrictas. Requiere revisión independiente antes de ampliar las tablas; el bloque A sigue abierto. El control adicional checkJs conserva cinco diagnósticos compartidos, distintos de las comprobaciones ordinarias de CI.
 
 El catálogo local encuentra los bytes de 79 fuentes y no los de otras 440 en las raíces consultadas. Esa ausencia local no demuestra que una fuente oficial sea inaccesible: hay que buscar en los respaldos y completar las adquisiciones. Los manifiestos, citas y posiciones permanecen en Git; los originales y los artefactos voluminosos se conservan fuera.
 

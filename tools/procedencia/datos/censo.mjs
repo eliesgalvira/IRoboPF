@@ -1,7 +1,7 @@
 // @ts-check
-import { readFileSync, writeFileSync } from "node:fs"
-import { resolve } from "node:path"
-import { pathToFileURL } from "node:url"
+import { existsSync, readFileSync, writeFileSync } from "node:fs"
+import { dirname, relative, resolve } from "node:path"
+import { fileURLToPath, pathToFileURL } from "node:url"
 import Decimal from "decimal.js"
 import { generate, filesUnder, dimensions } from "../../../scripts/procedencia/inventario.mjs"
 import { extractTs, hash } from "../../../scripts/procedencia/inventario-ast.mjs"
@@ -36,3 +36,15 @@ for (const file of filesUnder(resolve(root, "lib/dominio/normativa/datos")).filt
   }
 }
 writeFileSync(resolve(output,"censo-completo.json"),JSON.stringify({version:1,modules,leaves,inventory:summary.counts,deductions:{census:"docs/procedencia/deducciones-2025/censo.json", evidence:"docs/procedencia/deducciones-2025", policy:"enlazar; no recertificar"}})+"\n")
+
+// Fingerprint the actual resolved dependency trees, beyond declarations in the lock.
+const dependencies = {}
+for (const name of ["decimal.js", "typescript", "effect"]) {
+  let directory = dirname(fileURLToPath(import.meta.resolve(name)))
+  while (!existsSync(resolve(directory, "package.json")) || JSON.parse(readFileSync(resolve(directory, "package.json"), "utf8")).name !== name) {
+    directory = dirname(directory)
+  }
+  const files = filesUnder(directory).sort()
+  dependencies[name] = files.map(file => ({ file: relative(directory, file), sha256: hash(readFileSync(file)) }))
+}
+writeFileSync(resolve(output, "dependencias-runtime.json"), JSON.stringify(dependencies) + "\n")
