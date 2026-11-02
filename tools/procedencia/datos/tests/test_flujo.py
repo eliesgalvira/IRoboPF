@@ -166,6 +166,48 @@ class Contract(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'JSON Pointer'):
                 f.ine_table(f.Store([self.root]),table)
 
+    def test_external_sign_geometry_across_font_sizes_and_vertical_offsets(self):
+        for fontsize, baseline in [(6,50),(8,50),(14,50),(17,50),(11,47),(11,53)]:
+            for x in (40,66):
+                for sign in ('-', '+'):
+                    with self.subTest(fontsize=fontsize,baseline=baseline,x=x,sign=sign):
+                        doc = f.pymupdf.open()
+                        page = doc.new_page()
+                        page.insert_text((50,50), '12', fontsize=11)
+                        page.insert_text((x,baseline), sign, fontsize=fontsize)
+                        ref = f.put(self.root,doc.tobytes(),'application/pdf')
+                        doc.close()
+                        table = {**self.table,'document':ref,
+                                 'cells':[{**self.cell,'bbox':[48,35,64,54]}]}
+                        with self.assertRaisesRegex(ValueError, 'Signo próximo'):
+                            f.pdf_table(f.Store([self.root]),table)
+
+    def test_signs_in_separate_rows_or_distant_columns_do_not_change_cell(self):
+        for x, baseline in [(40,20),(66,80),(40,64),(66,36),(10,50),(100,50)]:
+            for sign in ('-', '+'):
+                with self.subTest(x=x,baseline=baseline,sign=sign):
+                    doc = f.pymupdf.open()
+                    page = doc.new_page()
+                    page.insert_text((50,50), '12', fontsize=11)
+                    page.insert_text((x,baseline), sign, fontsize=8)
+                    ref = f.put(self.root,doc.tobytes(),'application/pdf')
+                    doc.close()
+                    table = {**self.table,'document':ref,
+                             'cells':[{**self.cell,'bbox':[48,35,64,54]}]}
+                    self.assertEqual(f.pdf_table(f.Store([self.root]),table)[0]['normalized'],'12')
+
+    def test_contained_signs_keep_their_value(self):
+        for sign, expected in [('-', '-12'), ('+', '12')]:
+            with self.subTest(sign=sign):
+                doc = f.pymupdf.open()
+                page = doc.new_page()
+                page.insert_text((50,50), sign + '12', fontsize=11)
+                ref = f.put(self.root,doc.tobytes(),'application/pdf')
+                doc.close()
+                table = {**self.table,'document':ref,
+                         'cells':[{**self.cell,'bbox':[48,35,100,54]}]}
+                self.assertEqual(f.pdf_table(f.Store([self.root]),table)[0]['normalized'],expected)
+
     def test_json_positions_are_structural(self):
         text = '{"other":{"Valor":12},"Data":[{"note":"Valor", "Valor":12}]}'
         start, end = f.json_positions(text)['/Data/0/Valor']

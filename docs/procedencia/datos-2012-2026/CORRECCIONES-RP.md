@@ -10,7 +10,7 @@ El bloque A permanece abierto. El manifiesto histórico y la revisión previa se
 | RP04 | Una caja sin palabras lanza error. Los trazos explícitos admitidos conservan `extraction-absent`, sin cero. |
 | RP05 | La fila debe ser el índice decimal canónico. Los rangos se obtienen del árbol JSON con el mismo Pointer; se rechazan claves duplicadas y literales no numéricos. |
 | RP06 | El cambio del valor efectivo sigue produciendo `difference` cuando la comparación acredita ambas unidades. |
-| RP07 | Signos externos próximos a izquierda o derecha hacen fallar la extracción. Se comprueban ambas direcciones y signos positivos/negativos. |
+| RP07 | La revisión reprodujo ocho signos externos ignorados por usar otra fuente o tener desplazamiento vertical. El arreglo candidato comprueba distancia horizontal y solapamiento de cajas, sin exigir igual coordenada superior. Rechaza la lectura ambigua; no adivina el signo. Requiere contraste independiente. |
 | RP08 | El manifiesto v2 fija auxiliares Python, generadores JavaScript, locks, registro, versiones efectivas y hashes de módulos Python cargados. El censo añade hashes de los árboles efectivamente resueltos de Decimal, TypeScript y Effect. No publica rutas locales de dependencias. |
 | RP09 | Sin binding significa sin correspondencia en los exports admitidos del inventario revisado. No demuestra ausencia en todos los exports o cálculos del motor. |
 
@@ -41,3 +41,9 @@ Se preservan las 277 obligaciones y sus posiciones de la revisión independiente
 Los dos rojos estrictos se reprodujeron sobre la base en una exportación sin Git antes de aplicar el candidato. Las pruebas ordinarias y los controles estrictos se ejecutan también allí con los bytes candidatos. Se añaden discriminantes para unidades de operaciones y selectores JSON con valores repetidos. Los logs, manifiesto actual, originales y reconstrucción se conservan en la entrega privada; no se incorporan originales al repositorio. El candidato sigue pendiente de recepción y revisión independiente de sus bytes finales.
 
 La pasada completa de `bash scripts/ci-comprobaciones.sh` ha terminado con salida 0 en la exportación sin Git. El piloto actual conserva 277 celdas y su manifiesto v2 se reconstruye exactamente allí, incluidos los 404 artefactos referenciados. Esto no elimina los cinco errores del control checkJs adicional ni acepta globalmente el bloque A.
+
+## Signos externos y geometría
+
+La [revisión independiente](revision-correcciones/INFORME.md) sostiene las correcciones anteriores dentro del piloto, salvo RP07. Sus ocho contraejemplos se reprodujeron antes del arreglo y pasan después. El criterio candidato considera ambiguo un signo externo a menos de 12 puntos horizontales cuando sus cajas comparten al menos la mitad de la altura de la menor. Es una precaución de extracción para estas tablas, no una convención contable ni una garantía para cualquier maquetación. Las cajas deben incluir el signo cuando forma parte del valor; una ambigüedad requiere revisar el original.
+
+Los controles incluyen distintas fuentes y posiciones verticales, signos interiores, otras filas y columnas alejadas. Pasan 21 pruebas sintéticas y las dos regresiones independientes con ocho subcasos. Se conserva el informe del defecto sin modificar sus expectativas. No se cambian obligaciones, unidades, normas ni cálculos del motor. El arreglo queda pendiente de revisión independiente antes de ampliar el piloto.
