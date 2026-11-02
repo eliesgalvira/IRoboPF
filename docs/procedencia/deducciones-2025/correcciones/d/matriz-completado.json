@@ -3480,7 +3480,20 @@
       "entradasConservadas": [
         "cyl_partos_adopciones_multiples:importe",
         "cyl_partos_adopciones_multiples:cumple"
-      ]
+      ],
+      "dictamenFicha": "coincide_documentalmente_en_condiciones_explicitadas",
+      "apartado": "4.4/4.6",
+      "reservas": [],
+      "reglas": [
+        "renta",
+        "minimos-residencia",
+        "discapacidad",
+        "territorio",
+        "saldos-2022",
+        "ayudas-familiares"
+      ],
+      "evidencia": "correcciones/d-cyl-remisiones/matriz.json",
+      "estadoRevision": "candidato"
     },
     {
       "codigo": "cyl_gastos_adopcion",
@@ -3570,7 +3583,18 @@
       "entradasConservadas": [
         "cyl_gastos_adopcion:importe",
         "cyl_gastos_adopcion:cumple"
-      ]
+      ],
+      "dictamenFicha": "coincide_documentalmente_en_condiciones_explicitadas",
+      "apartado": "4.5/4.6",
+      "reservas": [],
+      "reglas": [
+        "renta",
+        "minimos-residencia",
+        "saldos-2022",
+        "ayudas-familiares"
+      ],
+      "evidencia": "correcciones/d-cyl-remisiones/matriz.json",
+      "estadoRevision": "candidato"
     },
     {
       "codigo": "cyl_cuidado_hijos_menores",
@@ -3744,7 +3768,20 @@
       "entradasConservadas": [
         "cyl_cuidado_hijos_menores:importe",
         "cyl_cuidado_hijos_menores:cumple"
-      ]
+      ],
+      "dictamenFicha": "coincide_documentalmente_en_condiciones_explicitadas",
+      "apartado": "5.1",
+      "reservas": [],
+      "reglas": [
+        "renta",
+        "minimos-residencia",
+        "cuidado-maternidad",
+        "saldos-2022",
+        "ayudas-familiares",
+        "registro-centros"
+      ],
+      "evidencia": "correcciones/d-cyl-remisiones/matriz.json",
+      "estadoRevision": "candidato"
     },
     {
       "codigo": "cyl_cuotas_seguridad_social_empleados_hogar",
@@ -3860,7 +3897,19 @@
       "entradasConservadas": [
         "cyl_cuotas_seguridad_social_empleados_hogar:importe",
         "cyl_cuotas_seguridad_social_empleados_hogar:cumple"
-      ]
+      ],
+      "dictamenFicha": "coincide_documentalmente_en_condiciones_explicitadas",
+      "apartado": "5.2",
+      "reservas": [],
+      "reglas": [
+        "renta",
+        "minimos-residencia",
+        "cuidado-maternidad",
+        "saldos-2022",
+        "ayudas-familiares"
+      ],
+      "evidencia": "correcciones/d-cyl-remisiones/matriz.json",
+      "estadoRevision": "candidato"
     },
     {
       "codigo": "cyl_contribuyentes_discapacidad",
@@ -3957,7 +4006,17 @@
       "entradasConservadas": [
         "cyl_contribuyentes_discapacidad:importe",
         "cyl_contribuyentes_discapacidad:cumple"
-      ]
+      ],
+      "dictamenFicha": "coincide_documentalmente_en_condiciones_explicitadas",
+      "apartado": "6",
+      "reservas": [],
+      "reglas": [
+        "renta",
+        "minimos-residencia",
+        "discapacidad"
+      ],
+      "evidencia": "correcciones/d-cyl-remisiones/matriz.json",
+      "estadoRevision": "candidato"
     },
     {
       "codigo": "cyl_vivienda_jovenes_medio_rural",
@@ -4177,7 +4236,21 @@
       "entradasConservadas": [
         "cyl_vivienda_jovenes_medio_rural:importe",
         "cyl_vivienda_jovenes_medio_rural:cumple"
-      ]
+      ],
+      "dictamenFicha": "coincide_documentalmente_en_condiciones_explicitadas",
+      "apartado": "7.1/7.6",
+      "reservas": [],
+      "reglas": [
+        "renta",
+        "minimos-residencia",
+        "vivienda-2012",
+        "rehabilitacion-iva",
+        "territorio",
+        "regularizacion",
+        "rural-transitorio"
+      ],
+      "evidencia": "correcciones/d-cyl-remisiones/matriz.json",
+      "estadoRevision": "candidato"
     },
     {
       "codigo": "cyl_rehabilitacion_subvencionada_eficiencia_sostenibilidad_discapacidad",
@@ -4330,7 +4403,20 @@
       "entradasConservadas": [
         "cyl_rehabilitacion_subvencionada_eficiencia_sostenibilidad_discapacidad:importe",
         "cyl_rehabilitacion_subvencionada_eficiencia_sostenibilidad_discapacidad:cumple"
-      ]
+      ],
+      "dictamenFicha": "diferencia_actual_con_reserva",
+      "apartado": "7.2",
+      "reservas": [
+        "7.2 permite planes estatales O autonómicos; manual dice únicamente planes estatales gestionados por DirecciónGeneralVivienda y enumera convocatorias2021–2024 pagadas2025. Un plan exclusivamente autonómico que financie actuación listada queda delimitado: no se excluye por el manual sin contrastar su acto de concesión y programa."
+      ],
+      "reglas": [
+        "renta",
+        "minimos-residencia",
+        "vivienda-2012",
+        "regularizacion"
+      ],
+      "evidencia": "correcciones/d-cyl-remisiones/matriz.json",
+      "estadoRevision": "candidato"
     },
     {
       "codigo": "cyl_rehabilitacion_viviendas_medio_rural_alquiler",
@@ -4569,7 +4655,20 @@
       "entradasConservadas": [
         "cyl_rehabilitacion_viviendas_medio_rural_alquiler:importe",
         "cyl_rehabilitacion_viviendas_medio_rural_alquiler:cumple"
-      ]
+      ],
+      "dictamenFicha": "coincide_documentalmente_en_condiciones_explicitadas",
+      "apartado": "7.3/7.6 y remisión exclusiva a7.1.c",
+      "reservas": [],
+      "reglas": [
+        "renta",
+        "rehabilitacion-iva",
+        "territorio",
+        "alquiler-rural",
+        "regularizacion",
+        "deposito-fianza"
+      ],
+      "evidencia": "correcciones/d-cyl-remisiones/matriz.json",
+      "estadoRevision": "candidato"
     },
     {
       "codigo": "cyl_fomento_emprendimiento",
@@ -4769,7 +4868,19 @@
       "entradasConservadas": [
         "cyl_fomento_emprendimiento:importe",
         "cyl_fomento_emprendimiento:cumple"
-      ]
+      ],
+      "dictamenFicha": "diferencia_actual_con_reserva",
+      "apartado": "8",
+      "reservas": [
+        "8.1: domicilioCyL no expreso en inversión directa frente a requisito general del manual. ProyectoCyL y sede fuera discrimina."
+      ],
+      "reglas": [
+        "renta",
+        "emprendimiento",
+        "regularizacion"
+      ],
+      "evidencia": "correcciones/d-cyl-remisiones/matriz.json",
+      "estadoRevision": "candidato"
     },
     {
       "codigo": "cyl_recuperacion_patrimonio_historico_cultural_natural",
@@ -4820,7 +4931,19 @@
       "entradasConservadas": [
         "cyl_recuperacion_patrimonio_historico_cultural_natural:importe",
         "cyl_recuperacion_patrimonio_historico_cultural_natural:cumple"
-      ]
+      ],
+      "dictamenFicha": "diferencia_actual_con_reserva",
+      "apartado": "9.a/9.b",
+      "reservas": [
+        "9.b: O legal frente a E del manual. Una sola autorización o un solo informe favorable discrimina."
+      ],
+      "reglas": [
+        "renta",
+        "patrimonio",
+        "donaciones"
+      ],
+      "evidencia": "correcciones/d-cyl-remisiones/matriz.json",
+      "estadoRevision": "candidato"
     },
     {
       "codigo": "cyl_donaciones_fundaciones_patrimonio",
@@ -4874,7 +4997,17 @@
       "entradasConservadas": [
         "cyl_donaciones_fundaciones_patrimonio:importe",
         "cyl_donaciones_fundaciones_patrimonio:cumple"
-      ]
+      ],
+      "dictamenFicha": "coincide_documentalmente_en_condiciones_explicitadas",
+      "apartado": "9.c/9.d/9.e",
+      "reservas": [],
+      "reglas": [
+        "renta",
+        "patrimonio",
+        "donaciones"
+      ],
+      "evidencia": "correcciones/d-cyl-remisiones/matriz.json",
+      "estadoRevision": "candidato"
     },
     {
       "codigo": "cyl_donaciones_idi",
@@ -4923,7 +5056,16 @@
       "entradasConservadas": [
         "cyl_donaciones_idi:importe",
         "cyl_donaciones_idi:cumple"
-      ]
+      ],
+      "dictamenFicha": "coincide_documentalmente_en_condiciones_explicitadas",
+      "apartado": "9.f",
+      "reservas": [],
+      "reglas": [
+        "renta",
+        "donaciones"
+      ],
+      "evidencia": "correcciones/d-cyl-remisiones/matriz.json",
+      "estadoRevision": "candidato"
     },
     {
       "codigo": "cyl_movilidad_sostenible",
@@ -5038,7 +5180,17 @@
       "entradasConservadas": [
         "cyl_movilidad_sostenible:importe",
         "cyl_movilidad_sostenible:cumple"
-      ]
+      ],
+      "dictamenFicha": "coincide_documentalmente_en_condiciones_explicitadas",
+      "apartado": "9.g",
+      "reservas": [],
+      "reglas": [
+        "renta",
+        "movilidad",
+        "regularizacion"
+      ],
+      "evidencia": "correcciones/d-cyl-remisiones/matriz.json",
+      "estadoRevision": "candidato"
     },
     {
       "codigo": "cyl_vivienda_nueva_construccion",
@@ -5109,7 +5261,17 @@
       "entradasConservadas": [
         "cyl_vivienda_nueva_construccion:importe",
         "cyl_vivienda_nueva_construccion:cumple"
-      ]
+      ],
+      "dictamenFicha": "coincide_documentalmente_en_condiciones_explicitadas",
+      "apartado": "DT5 TR2008 preservada; no artículo7.1",
+      "reservas": [],
+      "reglas": [
+        "minimos-residencia",
+        "vivienda-2012",
+        "nueva-dt5"
+      ],
+      "evidencia": "correcciones/d-cyl-remisiones/matriz.json",
+      "estadoRevision": "candidato"
     },
     {
       "codigo": "cyl_familia_numerosa",
@@ -5253,7 +5415,19 @@
       "entradasConservadas": [
         "importeBase",
         "cumpleRequisitosYLimites"
-      ]
+      ],
+      "dictamenFicha": "coincide_documentalmente_en_condiciones_explicitadas",
+      "apartado": "3",
+      "reservas": [],
+      "reglas": [
+        "renta",
+        "minimos-residencia",
+        "familia-numerosa",
+        "discapacidad",
+        "saldos-2022"
+      ],
+      "evidencia": "correcciones/d-cyl-remisiones/matriz.json",
+      "estadoRevision": "candidato"
     },
     {
       "codigo": "cyl_nacimiento_adopcion_hijos",
@@ -5441,7 +5615,20 @@
       "entradasConservadas": [
         "importeBase",
         "cumpleRequisitosYLimites"
-      ]
+      ],
+      "dictamenFicha": "coincide_documentalmente_en_condiciones_explicitadas",
+      "apartado": "4.1/4.2/4.3/4.6",
+      "reservas": [],
+      "reglas": [
+        "renta",
+        "minimos-residencia",
+        "discapacidad",
+        "territorio",
+        "saldos-2022",
+        "ayudas-familiares"
+      ],
+      "evidencia": "correcciones/d-cyl-remisiones/matriz.json",
+      "estadoRevision": "candidato"
     },
     {
       "codigo": "cyl_arrendamiento_vivienda_jovenes",
@@ -5570,7 +5757,18 @@
       "entradasConservadas": [
         "importeBase",
         "cumpleRequisitosYLimites"
-      ]
+      ],
+      "dictamenFicha": "coincide_documentalmente_en_condiciones_explicitadas",
+      "apartado": "7.4/7.5",
+      "reservas": [],
+      "reglas": [
+        "renta",
+        "minimos-residencia",
+        "vivienda-2012",
+        "territorio"
+      ],
+      "evidencia": "correcciones/d-cyl-remisiones/matriz.json",
+      "estadoRevision": "candidato"
     },
     {
       "codigo": "extremadura_partos_multiples",
