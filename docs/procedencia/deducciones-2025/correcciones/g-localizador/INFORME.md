@@ -12,4 +12,4 @@ PYTHONDONTWRITEBYTECODE=1 python3 tests/g-vivienda-localizador.py -v
 
 Dos comprobaciones fallaban con el índice; las tres pasan con el artículo. Verifican contenido material, delimitación del artículo y conservación de documento y remisión. La reextracción del PDF original comprueba adicionalmente los bytes, ambos hashes y la posición literal; requiere el almacén externo y se ejecuta con `correcciones/g-vivienda/verificar.py --cas` y las dependencias fijadas en esa entrega.
 
-La corrección requiere contraste independiente de su localizador. Las demás conclusiones favorables de la revisión se conservan; la reserva sobre el precio histórico del alquiler sigue abierta.
+La [revisión independiente del localizador](../../revisiones/g-localizador/INFORME.md) es favorable en su alcance: inspecciona las páginas 87–88 y reproduce la posición exacta. Las demás conclusiones favorables se conservan; la reserva sobre el precio histórico del alquiler sigue abierta.

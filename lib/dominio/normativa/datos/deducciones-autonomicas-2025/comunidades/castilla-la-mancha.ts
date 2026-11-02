@@ -219,9 +219,7 @@ export const CLM_MAYORES_75_2025 = {
     "Para la aplicación de estas deducciones se tendrán en cuenta las normas para la aplicación de los mínimos por contribuyente y por ascendientes contenidas en la Ley del IRPF.",
   ],
   limites: ["150 euros para los contribuyentes mayores de 75 años."],
-  prorrateo: [
-    "No obstante, en el caso de la deducción por el cuidado de ascendiente mayor de 75 años, cuando dos o más contribuyentes tengan derecho a la aplicación de esta deducción respecto de los mismos ascendientes y alguno de ellos no cumpla el requisito anterior, el importe de la deducción para los demás contribuyentes quedará reducido a la proporción que resulte de la aplicación de las normas para el prorrateo del mínimo por ascendientes.",
-  ],
+  prorrateo: [],
   compatibilidades: [],
   incompatibilidades: [
     'Las deducciones "Para contribuyentes mayores de 75 años" y "Por el cuidado de ascendientes mayores de 75 años" resultan incompatibles, respectivamente, con la aplicación de las deducciones autonómicas "Por discapacidad del contribuyente" y "Por discapacidad de ascendientes", respecto de la misma persona mayor de 75 años.',
@@ -1320,6 +1318,7 @@ export const CLM_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     ),
     normativa: "Artículo 12 octies; Ley 8/2013, de 21 de noviembre; IRPF 2025.",
     requisitos: [
+      "Las cuentas deberán identificarse separadamente en la autoliquidación del impuesto, incluyendo la fecha de apertura y el incremento de saldo correspondiente al ejercicio (artículo 12 octies.3.g).",
       "Deberán estar separadas de cualquier otro tipo de imposición, pudiendo únicamente cada contribuyente mantener una cuenta de este tipo. a.",
       "El saldo de la cuenta a fecha de devengo del impuesto deberá ser superior a la fecha de devengo del periodo impositivo anterior, al menos por el mismo importe que ha dado derecho a practicarse la deducción.",
       "Se entenderá que no se incumple el requisito de disposición cuando las cantidades depositadas que hayan generado el derecho a la deducción se repongan o se aporten íntegramente, con anterioridad al devengo del Impuesto, a una cuenta de la misma o de otra entidad de crédito que cumpla la misma finalidad y condiciones.",
@@ -1373,13 +1372,17 @@ export const CLM_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     ),
     normativa: "Artículo 12 nonies; Ley 8/2013, de 21 de noviembre; IRPF 2025.",
     requisitos: [
+      "Que se haya reconocido la unidad de vinculación entre el contribuyente y el perro de asistencia por la consejería competente en bienestar social conforme a la Ley 5/2018, de 21 de diciembre, o por otra comunidad autónoma.",
+      "Los gastos deben estar efectivamente satisfechos por el contribuyente y justificados mediante factura expedida por profesional o centro veterinario legalmente autorizado; no pueden haber sido subvencionados por entidades públicas o privadas.",
+      "La suma de la base imponible general y del ahorro no debe superar 27.000 euros en tributación individual ni 36.000 euros en tributación conjunta.",
       "El 30 por 100 de las cantidades satisfechas en el periodo impositivo en concepto de gastos veterinarios y vacunación derivados de la tenencia de perros de asistencia.",
     ],
     limites: [
+      "El importe máximo es de 100 euros anuales por contribuyente, durante todo el período de tenencia del animal.",
       "El 30 por 100 de las cantidades satisfechas en el periodo impositivo en concepto de gastos veterinarios y vacunación derivados de la tenencia de perros de asistencia.",
       "Tendrán la consideración de gastos deducibles los relativos a vacunaciones, desparasitación, esterilización y demás tratamientos que resulten obligatorios conforme a la normativa específica aplicable a los perros de asistencia.",
       "Se entenderá por perro de asistencia, el que tras superar un proceso de selección genética y sanitaria ha finalizado su adiestramiento en una entidad especializada y oficialmente reconocida u homologada en la comunidad autónoma, con la adquisición de las aptitudes necesarias para dar servicio y asistencia a personas con discapacidad o que padecen alguna de las enfermedades indicadas en el apartado siguiente.",
-      "Los perrros de asistencia se clasifican en los siguientes tipos:",
+      "Los perros de asistencia se clasifican en los siguientes tipos:",
       "Perro guía: el perro adiestrado para guiar a una persona con discapacidad visual, ya sea total o parcial, o con una discapacidad auditiva añadida. a.",
       "Perro de señalización de sonidos: el perro adiestrado para avisar a las personas con discapacidad auditiva de la emisión de sonidos y de su procedencia. b.",
       "Perro de servicio: el perro adiestrado para prestar ayuda y asistencia a las personas con discapacidad física en las actividades de la vida diaria, tanto en el entorno privado como en el externo. c.",
@@ -1387,6 +1390,7 @@ export const CLM_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       "Perro para personas con trastorno del espectro autista: el perro adiestrado para cuidar de la integridad física de una persona con trastorno del espectro autista, guiarla y controlar las situaciones de emergencia que pueda sufrir.",
       "No tendrán tal consideración:",
       "Los perros utilizados en actividades de terapia asistida con animales, aun cuando las personas destinatarias sean personas con discapacidad. a.",
+      "También se excluyen los perros utilizados en proyectos de atención o tratamiento a víctimas de violencia de género u otros delitos, personas en riesgo o exclusión social o mayores; los perros de apoyo emocional a personas con trastornos de la personalidad o enfermedades mentales; y los animales de especies distintas de la canina.",
     ],
     prorrateo: [],
     compatibilidades: [],
