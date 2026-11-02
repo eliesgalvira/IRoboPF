@@ -104,24 +104,10 @@ bun run lint
 bun run build
 ```
 
-Validaciones legacy pesadas:
-
-```bash
-bun run test:legacy-completo
-bun run test:liquidacion-legacy-completo
-```
-
-Regenerar el fixture canónico tabular:
-
-```bash
-bun run fixture:canonico-tabular
-```
-
-Ejecutar el script Python original para regenerar el Excel legacy:
-
-```bash
-uv run --with-requirements requirements.txt python Calculo_Salario_IRPF.py
-```
+La API vigente y su cobertura están en [API-MOTOR.md](docs/procedencia/API-MOTOR.md).
+Se han retirado las ejecuciones legacy y los regeneradores de sus tablas. Los
+fixtures y el original Python son evidencia documental; el inventario lo lee
+como AST, y el producto no lo importa ni lo ejecuta como alternativa de cálculo.
 
 ## Arquitectura
 

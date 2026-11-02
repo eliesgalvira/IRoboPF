@@ -1,6 +1,6 @@
 export type PerfilCalculo =
-  | "legacy-progresividad-frio"
+  | "analisis-progresividad-frio"
   | "renta-individual-general"
   | "retenciones-trabajo-aeat"
 
-export type ModoCalculo = "compatible-legacy" | "canonico"
+export type ModoCalculo = "canonico"

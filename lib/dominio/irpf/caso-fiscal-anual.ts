@@ -1,5 +1,5 @@
-import type { DerechosMinimos2025 } from "./minimos/derechos-contrato"
 import type { AnioFiscal } from "../normativa/anio-fiscal"
+import type { DerechosMinimos2025 } from "./minimos/derechos-contrato"
 import type { CasoRetencionTrabajo } from "./retenciones/retencion-trabajo-aeat"
 
 export type ComunidadAutonoma =
@@ -50,17 +50,11 @@ export const discapacidad65OMas = {
   _tag: "Discapacidad65OMas",
 } as const satisfies DiscapacidadFiscal
 
-/** Perfil parcial histórico: edad/discapacidad no acreditan elegibilidad ni reparto. */
-export interface FamiliarFiscal {
-  readonly edad: number
-  readonly discapacidad: DiscapacidadFiscal
-}
-
 export interface SituacionFamiliarIndividual {
   readonly tipo: "individual"
   readonly edad: number
-  readonly descendientes: ReadonlyArray<FamiliarFiscal>
-  readonly ascendientes: ReadonlyArray<FamiliarFiscal>
+  readonly descendientes: ReadonlyArray<never>
+  readonly ascendientes: ReadonlyArray<never>
   readonly discapacidad: DiscapacidadFiscal
 }
 
@@ -108,7 +102,7 @@ export interface DeduccionAutonomicaCatalogadaAplicada {
 }
 
 export interface CasoFiscalAnual {
-  /** Optativo y exclusivo del modo canónico; nunca inferido de FamiliarFiscal. */
+  /** Hechos completos de reparto; obligatorios cuando existen familiares. */
   readonly derechosMinimos?: DerechosMinimos2025
   readonly anio: AnioFiscal
   readonly comunidadAutonoma: ComunidadAutonoma
@@ -123,5 +117,5 @@ export interface CasoFiscalAnual {
   readonly retencionTrabajoAeat?: CasoRetencionTrabajo
 }
 
-/** Entrada optativa; no altera los contratos ni perfiles salariales anteriores. */
+/** Entrada anual con importes efectivos y admisión explícita. */
 export { CasoFiscalAnualExplicito } from "./trabajo-anual/conexion-contrato"

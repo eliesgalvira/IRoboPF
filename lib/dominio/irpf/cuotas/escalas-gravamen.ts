@@ -1,11 +1,7 @@
 import Decimal from "decimal.js"
 import { Array as EffectArray, Match, Option } from "effect"
 
-import type { AnioFiscal } from "../../normativa/anio-fiscal"
-import {
-  obtenerTramosIrpfLegacy,
-  type TramosIrpf,
-} from "../../normativa/datos/irpf-estatal-2012-2026"
+import type { TramosIrpf } from "../../normativa/datos/irpf-estatal-2012-2026"
 
 import type { EscalaPublicada } from "./escalas-publicadas"
 
@@ -19,34 +15,6 @@ export interface TramoCuotaCalculado {
 }
 
 export type TramoCuotaGeneralCalculado = TramoCuotaCalculado
-
-export const calcularCuotaPorEscalaGeneral = ({
-  anio,
-  base,
-}: {
-  readonly anio: AnioFiscal
-  readonly base: Decimal
-}): Decimal =>
-  EffectArray.reduce(
-    calcularDesgloseCuotaPorEscala({
-      base,
-      tramos: obtenerTramosIrpfLegacy(anio),
-    }),
-    base.mul(0),
-    (total, tramo) => total.plus(tramo.cuota)
-  )
-
-export const calcularDesgloseCuotaPorEscalaGeneral = ({
-  anio,
-  base,
-}: {
-  readonly anio: AnioFiscal
-  readonly base: Decimal
-}): ReadonlyArray<TramoCuotaGeneralCalculado> =>
-  calcularDesgloseCuotaPorEscala({
-    base,
-    tramos: obtenerTramosIrpfLegacy(anio),
-  })
 
 export const calcularCuotaPorEscala = ({
   base,

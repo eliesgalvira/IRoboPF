@@ -1,18 +1,15 @@
+import { construirTablaControlGeneralCompatible } from "../../lib/dominio/analisis-salarial/progresividad-frio"
 import { createHash } from "node:crypto"
 
-import { Schema, Match } from "effect"
+import { Match, Schema } from "effect"
 
 import {
   aniosFiscalesLegacy,
-  construirTablaComparativaInflacionCompatible,
-  construirTablaControlGeneralCompatible,
-  construirTablaControlTramosIrpfCompatible,
-  construirTablaDetalleAnualCompatible,
   type TablaCompatible,
   type ValorCeldaCompatible,
-} from "../../lib/dominio/compatibilidad-legacy/progresividad-frio"
+} from "../../lib/dominio/analisis-salarial/progresividad-frio"
 
-export type { ValorCeldaCompatible } from "../../lib/dominio/compatibilidad-legacy/progresividad-frio"
+export type { ValorCeldaCompatible } from "../../lib/dominio/analisis-salarial/progresividad-frio"
 
 export const ARCHIVO_LEGACY_EXCEL =
   "Auditoria_Integral_Nominas_e_Inflacion_2012_2026.xlsx"
@@ -106,31 +103,6 @@ export const crearAcumuladorHashTabular = (
   }
 }
 
-export const tablaEsperadaPorHoja = (nombreHoja: string): TablaCompatible =>
-  Match.value(nombreHoja).pipe(
-    Match.when("CONTROL_GENERAL", () =>
-      construirTablaControlGeneralCompatible()
-    ),
-    Match.when("CONTROL_TRAMOS_IRPF", () =>
-      construirTablaControlTramosIrpfCompatible()
-    ),
-    Match.when("COMPARATIVA_INFLACION", () =>
-      construirTablaComparativaInflacionCompatible()
-    ),
-    Match.when(
-      (nombreHoja) => nombreHoja.startsWith("DAT_"),
-      (nombreHoja) =>
-        construirTablaDetalleAnualCompatible(
-          Schema.decodeUnknownSync(Schema.Literals(aniosFiscalesLegacy))(
-            Number(nombreHoja.slice(4))
-          )
-        )
-    ),
-    Match.orElse((nombreHoja) => {
-      throw new Error(`Hoja legacy no esperada: ${nombreHoja}`)
-    })
-  )
-
 export const hashTablaCompatible = (
   nombreHoja: string,
   tabla: TablaCompatible
@@ -155,12 +127,9 @@ export const hashTablaCompatibleExacta = (
   }
 }
 
-export const construirFixtureCanonicoDesdeTablasEffect =
-  (): FixtureCanonicoTabular => ({
-    schemaVersion: 1,
-    source: ARCHIVO_LEGACY_EXCEL,
-    canonicalization: "tipo+valor-tabular-normalizado-a-2-decimales-v1",
-    sheets: HOJAS_LEGACY_COMPLETAS.map((nombreHoja) =>
-      hashTablaCompatible(nombreHoja, tablaEsperadaPorHoja(nombreHoja))
-    ),
-  })
+/** Solo metadatos: las hojas salariales históricas ya no se regeneran. */
+export const tablaEsperadaPorHoja = (nombre: string): TablaCompatible => {
+  if (nombre === "CONTROL_GENERAL")
+    return construirTablaControlGeneralCompatible()
+  throw new Error("La tabulación salarial histórica está retirada")
+}

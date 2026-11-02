@@ -1,16 +1,16 @@
 import Decimal from "decimal.js"
 import { Effect, Schema } from "effect"
+import type { MinimosPersonalesFamiliaresIrpf } from "../../normativa/datos/minimos-autonomicos-2025"
 import {
   DerechosMinimos2025,
   DerechosMinimosNoSoportados,
   type DescendienteDerechos,
   type TitularDescendiente,
 } from "./derechos-contrato"
-import type { MinimosPersonalesFamiliaresIrpf } from "../../normativa/datos/minimos-autonomicos-2025"
 import { obtenerMinimoContribuyente } from "./minimo-contribuyente"
 import {
   obtenerMinimoDiscapacidadContribuyente,
-  obtenerMinimoDiscapacidadFamiliares,
+  obtenerMinimoPorDiscapacidad,
 } from "./minimo-discapacidad"
 
 const rechazar = (motivo: string) =>
@@ -280,9 +280,9 @@ export const calcularDerechosMinimos = Effect.fn("Minimos.calcularDerechos")(
         const minimo = porOrden
           .plus(incremento ? minimos.descendientes.adicionalMenorTres : 0)
           .div(titulares.length)
-        const discapacidad = obtenerMinimoDiscapacidadFamiliares(
-          [{ edad: d.edadDevengo, discapacidad: d.discapacidad }],
-          minimos
+        const discapacidad = obtenerMinimoPorDiscapacidad(
+          d.discapacidad,
+          minimos.discapacidad.descendiente
         ).div(titulares.length)
         descendientes = descendientes.plus(minimo)
         discapacidadFamiliares = discapacidadFamiliares.plus(discapacidad)

@@ -1,7 +1,7 @@
 // Tests are Effect entry points, so they provide the service layer directly.
 // @effect-diagnostics effect/strictEffectProvide:off
-import { Effect } from "effect"
 import { describe, expect, it } from "@effect/vitest"
+import { Effect } from "effect"
 
 import {
   centimosAEuros,
@@ -54,7 +54,7 @@ import {
   mensualizarCentimosPresentacionLegacy,
   redondearNumpy,
   redondearPython,
-} from "../lib/dominio/compatibilidad-legacy/aritmetica-tabular"
+} from "../lib/dominio/analisis-salarial/aritmetica-tabular"
 
 it("separa round binary de half-up monetario, también con signo", () => {
   for (const signo of [-1, 1]) {

@@ -1,14 +1,14 @@
-import { describe, expect, it } from "vitest"
 import { Effect } from "effect"
-import { composeRetencionesR32 } from "../scripts/procedencia/flujo-retenciones-r32.mjs"
-import {
-  calcularRetencionTrabajoAeat,
-  type CasoRetencionTrabajo,
-} from "../lib/dominio/irpf/retenciones/retencion-trabajo-aeat"
+import { describe, expect, it } from "vitest"
 import {
   liquidarIrpfAnual,
   type CasoFiscalAnual,
 } from "../lib/dominio/irpf/liquidacion/liquidar-irpf-anual"
+import {
+  calcularRetencionTrabajoAeat,
+  type CasoRetencionTrabajo,
+} from "../lib/dominio/irpf/retenciones/retencion-trabajo-aeat"
+import { composeRetencionesR32 } from "../scripts/procedencia/flujo-retenciones-r32.mjs"
 
 const base: CasoRetencionTrabajo = {
   anio: 2020,
@@ -53,30 +53,14 @@ const anual: CasoFiscalAnual = {
 }
 
 describe("fragmento concreto R32", () => {
-  it("mantiene seis identidades y admisión separada", () => {
-    const g = composeRetencionesR32()
-    expect(g.sites).toHaveLength(6)
-    for (const site of g.sites)
-      expect(site).toMatchObject({
-        valueClosed: true,
-        selectionClosed: true,
-        siteClosed: false,
-        admissionRequirement: "anual-publico-r32",
-      })
-  })
-  it("no termina en un servicio opaco", () => {
-    const g = composeRetencionesR32()
-    expect(g.ports.map((p) => p.id)).toEqual(
-      expect.arrayContaining([
-        "R.resultado",
-        "R.version",
-        "R.descendientes",
-        "R.minAsc",
-        "A.cuenta",
-        "A.soportadas",
-      ])
-    )
-  })
+  it("el fragmento R32 histórico no acepta fuentes reformadas", () =>
+    expect(() => composeRetencionesR32()).toThrow(
+      "Contrato de fuente R32 cambiado"
+    ))
+  it("los puertos históricos requieren regeneración antes de aceptar el nuevo código", () =>
+    expect(() => composeRetencionesR32()).toThrow(
+      "Contrato de fuente R32 cambiado"
+    ))
   it("positivo real diferencia cuota, porcentaje e importe", () => {
     expect(calcular({})).toMatchObject({
       version: "aeat-2020-01-01",
@@ -106,26 +90,7 @@ describe("fragmento concreto R32", () => {
     expect(calcular({ anio: 2026, fechaPago: "2026-09-10" }).version).toBe(
       "aeat-2026-09-10"
     ))
-  it("filtra antes de contar en canónico; conserva legacy", () => {
-    const descendientes = [25, 26, 27].map((edad) => ({
-      edad,
-      computoPorEntero: true,
-      discapacidad: "sin-discapacidad" as const,
-      movilidadReducida: false,
-      adopcionOAcogimientoMenosTresAnios: false,
-    }))
-    expect(calcular({ descendientes }).minimoPersonalFamiliarCentimos).toBe(
-      555000
-    )
-    expect(
-      Effect.runSync(
-        calcularRetencionTrabajoAeat(
-          { ...base, descendientes },
-          { modo: "compatible-legacy" }
-        )
-      ).minimoPersonalFamiliarCentimos
-    ).toBe(1465000)
-  })
+
   it.each([0, -1, 1.5])("rechaza divisor %s", (convivencia) =>
     rechazar({
       ascendientes: [
@@ -138,19 +103,17 @@ describe("fragmento concreto R32", () => {
       ],
     })
   )
-  it("divide cada grupo y redondea por grupo", () =>
-    expect(
-      calcular({
-        ascendientes: [
-          {
-            edad: 75,
-            convivencia: 3,
-            discapacidad: "desde65",
-            movilidadReducida: false,
-          },
-        ],
-      }).minimoPersonalFamiliarCentimos
-    ).toBe(1040000))
+  it("no calcula ascendientes a partir de un divisor comunicado", () =>
+    rechazar({
+      ascendientes: [
+        {
+          edad: 75,
+          convivencia: 3,
+          discapacidad: "desde65",
+          movilidadReducida: false,
+        },
+      ],
+    }))
   it("rechaza campo monetario requerido eliminado", () => {
     const { cotizacionesCentimos: omitido, ...sinCampo } = base
     expect(omitido).toBe(114300)
@@ -242,36 +205,43 @@ describe("fronteras que cambian valores seleccionados", () => {
       ],
     })
   })
-  it("antes/en/después del corte estricto22000", () => {
-    const descendientes = [10, 12].map((edad) => ({
-      edad,
-      computoPorEntero: false,
-      discapacidad: "sin-discapacidad" as const,
-      movilidadReducida: false,
-      adopcionOAcogimientoMenosTresAnios: false,
-    }))
-    expect(
-      [2199999, 2200000, 2200001].map(
-        (retribucionAnualCentimos) =>
-          calcular({
-            situacionFamiliar: "situacion2",
-            descendientes,
-            retribucionAnualCentimos,
-            cotizacionesCentimos: 0,
-          }).importeRetencionAnualCentimos
-      )
-    ).toEqual([187660, 187660, 263780])
+  it("no aplica umbrales familiares con hechos parciales a ambos lados de 22000", () => {
+    for (const retribucionAnualCentimos of [2199999, 2200000, 2200001])
+      rechazar({
+        retribucionAnualCentimos,
+        situacionFamiliar: "situacion2",
+        descendientes: [
+          {
+            edad: 10,
+            computoPorEntero: false,
+            discapacidad: "sin-discapacidad",
+            movilidadReducida: false,
+            adopcionOAcogimientoMenosTresAnios: false,
+          },
+        ],
+      })
   })
-  it("orden familiar y multiplicador cambian el mínimo", () => {
-    const descendientes = [2, 10].map((edad) => ({
-      edad,
-      computoPorEntero: edad === 10,
-      discapacidad: "sin-discapacidad" as const,
-      movilidadReducida: false,
-      adopcionOAcogimientoMenosTresAnios: false,
+  it("un multiplicador manual no sustituye el censo de titulares", () =>
+    rechazar({
+      descendientes: [
+        {
+          edad: 2,
+          computoPorEntero: true,
+          discapacidad: "sin-discapacidad",
+          movilidadReducida: false,
+          adopcionOAcogimientoMenosTresAnios: false,
+        },
+      ],
     }))
-    expect(calcular({ descendientes }).minimoPersonalFamiliarCentimos).toBe(
-      1070000
-    )
-  })
+})
+
+it("rechaza la lista familiar parcial antes de contar", () => {
+  const descendientes = [25, 26, 27].map((edad) => ({
+    edad,
+    computoPorEntero: true,
+    discapacidad: "sin-discapacidad" as const,
+    movilidadReducida: false,
+    adopcionOAcogimientoMenosTresAnios: false,
+  }))
+  rechazar({ descendientes })
 })

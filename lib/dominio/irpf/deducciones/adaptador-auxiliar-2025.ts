@@ -61,7 +61,15 @@ export function adaptarHechosAuxiliar(
     if (
       !exigeHechosAuxiliar(h.codigo) ||
       h.contexto.ejercicio !== ambito.ejercicio ||
-      h.contexto.territorio !== ambito.territorio
+      h.contexto.territorio !== ambito.territorio ||
+      (ambito.modalidad !== undefined &&
+        h.contexto.modalidad !== ambito.modalidad) ||
+      (ambito.contribuyente !== undefined &&
+        !h.declarantes.includes(ambito.contribuyente)) ||
+      (ambito.declarantes !== undefined &&
+        (new Set(ambito.declarantes).size !== ambito.declarantes.length ||
+          ambito.declarantes.length !== h.declarantes.length ||
+          ambito.declarantes.some((id) => !h.declarantes.includes(id))))
     )
       throw new RangeError("Hechos de otro ámbito")
     if (entradas[h.codigo + ":importe"] !== undefined)
@@ -73,7 +81,8 @@ export function adaptarHechosAuxiliar(
       throw new RangeError("Hechos insuficientes para deducción: " + h.codigo)
     const referencia = hechos[0]
     if (
-      h.contexto.contribuyente !== referencia.contexto.contribuyente ||
+      (h.contexto.modalidad === "individual" &&
+        h.contexto.contribuyente !== referencia.contexto.contribuyente) ||
       h.contexto.modalidad !== referencia.contexto.modalidad ||
       h.declarantes.length !== referencia.declarantes.length ||
       h.declarantes.some((id) => !referencia.declarantes.includes(id))

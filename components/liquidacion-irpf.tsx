@@ -1,9 +1,9 @@
 "use client"
 
-import * as React from "react"
 import { Dialog } from "@base-ui/react/dialog"
-import { Effect, Match, Option, Result } from "effect"
+import { Effect, Match, Result } from "effect"
 import { AlertTriangle, CircleHelp, FileText } from "lucide-react"
+import * as React from "react"
 
 import { NavegacionSitio } from "@/components/navegacion-sitio"
 import { Button } from "@/components/ui/button"
@@ -12,28 +12,11 @@ import { NumberField } from "@/components/ui/number-field"
 import { Select } from "@/components/ui/select"
 import { Switch } from "@/components/ui/switch"
 import { Tooltip } from "@/components/ui/tooltip"
+import { crearImporteMonetario } from "@/lib/dominio/dinero/importe-monetario"
 import {
-  discapacidad33a64,
-  discapacidad65OMas,
   sinDiscapacidad,
   type ComunidadAutonoma,
 } from "@/lib/dominio/irpf/caso-fiscal-anual"
-import {
-  liquidarIrpfAnual,
-  type CasoFiscalAnual,
-  type ResultadoLiquidacionIrpf,
-} from "@/lib/dominio/irpf/liquidacion/liquidar-irpf-anual"
-import type { ConciliacionSimuladorLegacy } from "@/lib/dominio/irpf/liquidacion/conciliacion-simulador-legacy"
-import { calcularCotizacionesSocialesLegacy } from "@/lib/dominio/laboral/cotizaciones-sociales"
-import { crearImporteMonetario } from "@/lib/dominio/dinero/importe-monetario"
-import type {
-  CasoRetencionTrabajo,
-  ContratoRetencion,
-  DiscapacidadRetencion,
-  SituacionFamiliarRetencion,
-  SituacionLaboralRetencion,
-} from "@/lib/dominio/irpf/retenciones/retencion-trabajo-aeat"
-import { CATALOGO_DEDUCCIONES_AUTONOMICAS_2025 } from "@/lib/dominio/normativa/datos/deducciones-autonomicas-2025"
 import {
   booleanoDeduccion,
   calcularDeduccionesConsignadas,
@@ -42,10 +25,24 @@ import {
   textoDeduccion,
   type EntradasDeduccionesAutonomicas,
 } from "@/lib/dominio/irpf/deducciones-autonomicas-aplicadas"
+import {
+  liquidarIrpfAnual,
+  type CasoFiscalAnual,
+  type ResultadoLiquidacionIrpf,
+} from "@/lib/dominio/irpf/liquidacion/liquidar-irpf-anual"
+import type {
+  CasoRetencionTrabajo,
+  ContratoRetencion,
+  DiscapacidadRetencion,
+  SituacionFamiliarRetencion,
+  SituacionLaboralRetencion,
+} from "@/lib/dominio/irpf/retenciones/retencion-trabajo-aeat"
+import { calcularDesgloseCotizacionesPerfilUniforme } from "@/lib/dominio/laboral/cotizaciones-perfil-uniforme"
 import type {
   CuantiaDeduccionAutonomica,
   FichaDeduccionAutonomica,
 } from "@/lib/dominio/normativa/datos/deducciones-autonomicas-2025"
+import { CATALOGO_DEDUCCIONES_AUTONOMICAS_2025 } from "@/lib/dominio/normativa/datos/deducciones-autonomicas-2025"
 import { formatearPuntosPorcentuales } from "@/lib/formato"
 import { cn } from "@/lib/utils"
 
@@ -289,7 +286,7 @@ const AYUDAS_FORMULARIO = {
 } satisfies Record<string, string>
 
 const estimarCotizacionTrabajadorEuros = (salarioBrutoAnualEuros: number) =>
-  calcularCotizacionesSocialesLegacy({
+  calcularDesgloseCotizacionesPerfilUniforme({
     anio: 2025,
     salarioBrutoAnual: crearImporteMonetario(salarioBrutoAnualEuros),
   }).cotizacionTrabajador.toNumber()
@@ -664,22 +661,8 @@ export function LiquidacionIrpf() {
       situacionFamiliar: {
         tipo: "individual",
         edad,
-        descendientes: Array.from({ length: descendientes }, (_, indice) => ({
-          edad: 10,
-          discapacidad:
-            indice < descendientesDiscapacidad65
-              ? discapacidad65OMas
-              : indice < descendientesConDiscapacidad
-                ? discapacidad33a64({
-                    necesitaAyudaOMovilidadReducida:
-                      indice < descendientesConAsistencia,
-                  })
-                : sinDiscapacidad,
-        })),
-        ascendientes: Array.from({ length: ascendientes }, () => ({
-          edad: 78,
-          discapacidad: sinDiscapacidad,
-        })),
+        descendientes: [],
+        ascendientes: [],
         discapacidad: sinDiscapacidad,
       },
       rendimientos: {
@@ -747,13 +730,8 @@ export function LiquidacionIrpf() {
       ? conDeducciones
       : { ...conDeducciones, retencionTrabajoAeat }
   }, [
-    ascendientes,
     capitalInmobiliarioEuros,
     comunidadAutonoma,
-    descendientes,
-    descendientesConAsistencia,
-    descendientesConDiscapacidad,
-    descendientesDiscapacidad65,
     deduccionesAutonomicasEuros,
     edad,
     gananciaPatrimonialEuros,
@@ -771,14 +749,29 @@ export function LiquidacionIrpf() {
     () =>
       Result.match(
         Effect.runSync(
-          Effect.result(liquidarIrpfAnual(caso, { modo: "canonico" }))
+          Effect.result(
+            Effect.gen(function* () {
+              if (descendientes > 0 || ascendientes > 0)
+                return yield* Effect.fail({
+                  _tag: "ResultadoNoSoportado" as const,
+                  motivo:
+                    "Esta ficha no recoge los hechos completos del reparto familiar; use derechosMinimos en la API.",
+                  fuenteReconocida: "docs/procedencia/API-MOTOR.md",
+                  rastro: {
+                    titulo: "Hechos familiares insuficientes",
+                    pasos: [],
+                  },
+                })
+              return yield* liquidarIrpfAnual(caso, { modo: "canonico" })
+            })
+          )
         ),
         {
           onFailure: (error) => error,
           onSuccess: (liquidacion) => liquidacion,
         }
       ),
-    [caso]
+    [caso, descendientes, ascendientes]
   )
 
   return (
@@ -2746,14 +2739,6 @@ function Resultado({
                   valor={formatearEuros(resultado.cuotaDiferencialCentimos)}
                 />
               </GrupoResumen>
-              {Option.match(resultado.conciliacionSimuladorLegacy, {
-                onNone: () => null,
-                onSome: (conciliacion) => (
-                  <ConciliacionSimuladorLegacyPanel
-                    conciliacion={conciliacion}
-                  />
-                ),
-              })}
             </div>
           )}
         </div>
@@ -2853,103 +2838,6 @@ function Resultado({
         </a>
       </section>
     </section>
-  )
-}
-
-function ConciliacionSimuladorLegacyPanel({
-  conciliacion,
-}: {
-  readonly conciliacion: ConciliacionSimuladorLegacy
-}) {
-  const reconstruccionHistorica =
-    conciliacion.naturaleza === "reconstruccion-legacy-hasta-2014"
-  return (
-    <GrupoResumen
-      tono="amarillo"
-      titulo={`Conciliación con simulador simplificado ${conciliacion.anio}`}
-    >
-      <div className="rounded-sm bg-[color-mix(in_oklab,var(--paper),transparent_36%)] px-3 py-3 text-sm leading-6 text-[var(--ink-soft)]">
-        {reconstruccionHistorica
-          ? "Reconstrucción salarial legacy hasta 2014 desde el bruto, sus cotizaciones, reducción, escala y mínimo heredados. La cuota anual mostrada no interviene en ese resultado."
-          : `Ajuste salarial del perfil simplificado desde la cuota anual suministrada en modo ${conciliacion.modoCuotaOrigen}.`}{" "}
-        Aplica convenciones heredadas de deducción y límite de nómina. No es un
-        oracle independiente del Excel ni una retención oficial. Importes
-        nominales de {conciliacion.anio}.
-      </div>
-      <LineaResumen
-        ayuda={
-          reconstruccionHistorica
-            ? "Cuota de la liquidación anual para contraste; la reconstrucción legacy no parte de ella."
-            : "Cuota anual antes de restar retenciones y pagos a cuenta; base del ajuste salarial."
-        }
-        etiqueta="Cuota liquidada anual"
-        signo="+"
-        valor={formatearEuros(conciliacion.cuotaLiquidadaAnualCentimos)}
-      />
-      <LineaResumen
-        ayuda="Deducción vinculada al SMI usada para estimar el IRPF final de nómina."
-        etiqueta="Deducción SMI"
-        signo="-"
-        valor={formatearEuros(conciliacion.deduccionSmiCentimos)}
-      />
-      <LineaResumen
-        ayuda="Cuota anual después de aplicar la deducción vinculada al SMI."
-        etiqueta="Cuota tras SMI"
-        signo="="
-        valor={formatearEuros(conciliacion.cuotaTrasDeduccionSmiCentimos)}
-      />
-      <LineaResumen
-        ayuda="Límite máximo nominal de retención en nómina aplicado por el simulador simplificado."
-        detalle={
-          <>
-            <span>
-              Rendimientos del trabajo nominales - minimo exento de retención
-              nominal:{" "}
-              {formatearEuros(conciliacion.rendimientoIntegroTrabajoCentimos)} -{" "}
-              {formatearEuros(conciliacion.minimoExentoRetencionCentimos)} ={" "}
-              {formatearEuros(
-                conciliacion.rendimientoIntegroTrabajoCentimos -
-                  conciliacion.minimoExentoRetencionCentimos
-              )}
-              .
-            </span>
-            <span className="block">
-              Límite maximo legal nominal de retención en nómina, art. 85.3
-              RIRPF:{" "}
-              {formatearEuros(
-                conciliacion.rendimientoIntegroTrabajoCentimos -
-                  conciliacion.minimoExentoRetencionCentimos
-              )}{" "}
-              ×{" "}
-              {formatearPuntosPorcentuales(
-                conciliacion.tipoMaximoRetencionNominaPorcentaje
-              )}{" "}
-              = {formatearEuros(conciliacion.limiteRetencionNominaCentimos)}.
-            </span>
-          </>
-        }
-        etiqueta="Límite retención nómina nominal"
-        valor={formatearEuros(conciliacion.limiteRetencionNominaCentimos)}
-      />
-      <LineaResumen
-        ayuda={
-          reconstruccionHistorica
-            ? "Resultado reconstruido desde el bruto con las reglas legacy hasta 2014, incluido su límite de nómina. No se obtiene de la cuota tras SMI mostrada arriba."
-            : "Resultado que muestra el simulador simplificado como IRPF final: el menor entre cuota tras SMI y límite de retención."
-        }
-        destacado
-        etiqueta="IRPF final simulador"
-        signo="="
-        valor={formatearEuros(conciliacion.irpfFinalSimuladorCentimos)}
-      />
-      <LineaResumen
-        ayuda="Diferencia entre la cuota diferencial visible en esta liquidación y el IRPF final de nómina del simulador simplificado."
-        etiqueta="Diferencia explicada"
-        valor={formatearEuros(
-          conciliacion.diferenciaCuotaDiferencialEIrpfFinalCentimos
-        )}
-      />
-    </GrupoResumen>
   )
 }
 

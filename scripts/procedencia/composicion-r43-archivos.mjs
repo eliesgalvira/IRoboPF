@@ -9,3 +9,9 @@ import { readFileSync } from "node:fs"
 export function hashFile(path) {
   return createHash("sha256").update(readFileSync(path)).digest("hex")
 }
+/** Bytes actuales para censos documentales síncronos por contenido.
+ * @param {string} path
+ */
+export function readSourceBytes(path) {
+  return readFileSync(path)
+}

@@ -1,18 +1,18 @@
 // Tests are Effect entry points, so they provide the service layer directly.
 // @effect-diagnostics effect/strictEffectProvide:off
-import { DateTime, Effect } from "effect"
 import { describe, expect, it } from "@effect/vitest"
+import { DateTime, Effect } from "effect"
 
-import {
-  LiquidacionIrpfAnual,
-  liquidarIrpfAnual,
-  type CasoFiscalAnual,
-} from "../lib/dominio/irpf/liquidacion/liquidar-irpf-anual"
 import {
   discapacidad33a64,
   discapacidad65OMas,
   sinDiscapacidad,
 } from "../lib/dominio/irpf/caso-fiscal-anual"
+import {
+  LiquidacionIrpfAnual,
+  liquidarIrpfAnual,
+  type CasoFiscalAnual,
+} from "../lib/dominio/irpf/liquidacion/liquidar-irpf-anual"
 
 const liquidarCasoCanonico = (caso: CasoFiscalAnual) =>
   Effect.runSync(liquidarIrpfAnual(caso, { modo: "canonico" }))
@@ -92,49 +92,6 @@ describe("liquidarIrpfAnual", () => {
         })
       })
   )
-
-  it("explica la conciliacion entre cuota anual e IRPF final del simulador legacy", () => {
-    const caso = {
-      anio: 2025,
-      comunidadAutonoma: "simulada-estatal",
-      situacionFamiliar: {
-        tipo: "individual",
-        edad: 40,
-        descendientes: [],
-        ascendientes: [],
-        discapacidad: sinDiscapacidad,
-      },
-      rendimientos: {
-        trabajo: [{ importeIntegroCentimos: 18_000_00 }],
-      },
-      reducciones: [],
-      deducciones: [],
-      retencionesSoportadasCentimos: 0,
-      pagosACuentaCentimos: 0,
-    } satisfies CasoFiscalAnual
-
-    expect(liquidarCasoCanonico(caso)).toMatchObject({
-      _tag: "LiquidacionIrpfAnualCalculada",
-      cuotaLiquidaCentimos: 103_539,
-      cuotaDiferencialCentimos: 103_539,
-      conciliacionSimuladorLegacy: {
-        _tag: "Some",
-        value: {
-          _tag: "ConciliacionSimuladorLegacy",
-          anio: 2025,
-          cuotaLiquidadaAnualCentimos: 103_539,
-          deduccionSmiCentimos: 5_520,
-          cuotaTrasDeduccionSmiCentimos: 98_019,
-          rendimientoIntegroTrabajoCentimos: 1_800_000,
-          minimoExentoRetencionCentimos: 1_587_600,
-          tipoMaximoRetencionNominaPorcentaje: "43",
-          limiteRetencionNominaCentimos: 91_332,
-          irpfFinalSimuladorCentimos: 91_332,
-          diferenciaCuotaDiferencialEIrpfFinalCentimos: 12_207,
-        },
-      },
-    })
-  })
 
   it.effect(
     "resta la retención estimada y la incorpora al rastro general",
@@ -1630,7 +1587,7 @@ describe("liquidarIrpfAnual", () => {
     })
   })
 
-  it("aplica mínimo por descendientes", () => {
+  it("rechaza hechos parciales: aplica mínimo por descendientes", () => {
     const caso = {
       anio: 2025,
       comunidadAutonoma: "simulada-estatal",
@@ -1648,17 +1605,13 @@ describe("liquidarIrpfAnual", () => {
       deducciones: [],
       retencionesSoportadasCentimos: 0,
       pagosACuentaCentimos: 0,
-    } satisfies CasoFiscalAnual
-
-    expect(liquidarCasoCanonico(caso)).toMatchObject({
-      _tag: "LiquidacionIrpfAnualCalculada",
-      cuotaMinimoPersonalCentimos: 151_050,
-      cuotaLiquidaCentimos: 447_180,
-      cuotaDiferencialCentimos: 447_180,
-    })
+    }
+    // @ts-expect-error frontera: la antigua lista no acredita derechos.
+    const calculo = liquidarIrpfAnual(caso, { modo: "canonico" })
+    expect(Effect.runSync(Effect.exit(calculo))._tag).toBe("Failure")
   })
 
-  it("aplica mínimo por discapacidad de descendientes", () => {
+  it("rechaza hechos parciales: aplica mínimo por discapacidad de descendientes", () => {
     const caso = {
       anio: 2025,
       comunidadAutonoma: "simulada-estatal",
@@ -1676,17 +1629,13 @@ describe("liquidarIrpfAnual", () => {
       deducciones: [],
       retencionesSoportadasCentimos: 0,
       pagosACuentaCentimos: 0,
-    } satisfies CasoFiscalAnual
-
-    expect(liquidarCasoCanonico(caso)).toMatchObject({
-      _tag: "LiquidacionIrpfAnualCalculada",
-      cuotaMinimoPersonalCentimos: 208_050,
-      cuotaLiquidaCentimos: 390_180,
-      cuotaDiferencialCentimos: 390_180,
-    })
+    }
+    // @ts-expect-error frontera: la antigua lista no acredita derechos.
+    const calculo = liquidarIrpfAnual(caso, { modo: "canonico" })
+    expect(Effect.runSync(Effect.exit(calculo))._tag).toBe("Failure")
   })
 
-  it("aplica mínimo por discapacidad severa y asistencia de descendientes", () => {
+  it("rechaza hechos parciales: aplica mínimo por discapacidad severa y asistencia de descendientes", () => {
     const caso = {
       anio: 2025,
       comunidadAutonoma: "simulada-estatal",
@@ -1712,14 +1661,10 @@ describe("liquidarIrpfAnual", () => {
       deducciones: [],
       retencionesSoportadasCentimos: 0,
       pagosACuentaCentimos: 0,
-    } satisfies CasoFiscalAnual
-
-    expect(liquidarCasoCanonico(caso)).toMatchObject({
-      _tag: "LiquidacionIrpfAnualCalculada",
-      cuotaMinimoPersonalCentimos: 598_230,
-      cuotaLiquidaCentimos: 0,
-      cuotaDiferencialCentimos: 0,
-    })
+    }
+    // @ts-expect-error frontera: la antigua lista no acredita derechos.
+    const calculo = liquidarIrpfAnual(caso, { modo: "canonico" })
+    expect(Effect.runSync(Effect.exit(calculo))._tag).toBe("Failure")
   })
 
   it("resta deducción autonómica agregada no desglosada de la cuota líquida", () => {
@@ -1893,7 +1838,7 @@ describe("liquidarIrpfAnual", () => {
     })
   })
 
-  it("aplica mínimo por ascendientes por edad", () => {
+  it("rechaza hechos parciales: aplica mínimo por ascendientes por edad", () => {
     const caso = {
       anio: 2025,
       comunidadAutonoma: "simulada-estatal",
@@ -1911,17 +1856,13 @@ describe("liquidarIrpfAnual", () => {
       deducciones: [],
       retencionesSoportadasCentimos: 0,
       pagosACuentaCentimos: 0,
-    } satisfies CasoFiscalAnual
-
-    expect(liquidarCasoCanonico(caso)).toMatchObject({
-      _tag: "LiquidacionIrpfAnualCalculada",
-      cuotaMinimoPersonalCentimos: 153_900,
-      cuotaLiquidaCentimos: 444_330,
-      cuotaDiferencialCentimos: 444_330,
-    })
+    }
+    // @ts-expect-error frontera: la antigua lista no acredita derechos.
+    const calculo = liquidarIrpfAnual(caso, { modo: "canonico" })
+    expect(Effect.runSync(Effect.exit(calculo))._tag).toBe("Failure")
   })
 
-  it("aplica mínimo por ascendientes con discapacidad aunque no superen 65 años", () => {
+  it("rechaza hechos parciales: aplica mínimo por ascendientes con discapacidad aunque no superen 65 años", () => {
     const caso = {
       anio: 2025,
       comunidadAutonoma: "simulada-estatal",
@@ -1939,17 +1880,13 @@ describe("liquidarIrpfAnual", () => {
       deducciones: [],
       retencionesSoportadasCentimos: 0,
       pagosACuentaCentimos: 0,
-    } satisfies CasoFiscalAnual
-
-    expect(liquidarCasoCanonico(caso)).toMatchObject({
-      _tag: "LiquidacionIrpfAnualCalculada",
-      cuotaMinimoPersonalCentimos: 184_300,
-      cuotaLiquidaCentimos: 413_930,
-      cuotaDiferencialCentimos: 413_930,
-    })
+    }
+    // @ts-expect-error frontera: la antigua lista no acredita derechos.
+    const calculo = liquidarIrpfAnual(caso, { modo: "canonico" })
+    expect(Effect.runSync(Effect.exit(calculo))._tag).toBe("Failure")
   })
 
-  it("ignora ascendientes menores de 65 años sin discapacidad sin bloquear el calculo", () => {
+  it("rechaza hechos parciales: ignora ascendientes menores de 65 años sin discapacidad sin bloquear el calculo", () => {
     const caso = {
       anio: 2025,
       comunidadAutonoma: "simulada-estatal",
@@ -1967,13 +1904,9 @@ describe("liquidarIrpfAnual", () => {
       deducciones: [],
       retencionesSoportadasCentimos: 0,
       pagosACuentaCentimos: 0,
-    } satisfies CasoFiscalAnual
-
-    expect(liquidarCasoCanonico(caso)).toMatchObject({
-      _tag: "LiquidacionIrpfAnualCalculada",
-      cuotaMinimoPersonalCentimos: 105_450,
-      cuotaLiquidaCentimos: 492_780,
-      cuotaDiferencialCentimos: 492_780,
-    })
+    }
+    // @ts-expect-error frontera: la antigua lista no acredita derechos.
+    const calculo = liquidarIrpfAnual(caso, { modo: "canonico" })
+    expect(Effect.runSync(Effect.exit(calculo))._tag).toBe("Failure")
   })
 })

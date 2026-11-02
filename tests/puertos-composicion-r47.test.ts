@@ -1,274 +1,107 @@
-// Cada caso reconstruye contratos AST completos; límite propio para ejecución serial con memoria compartida.
 import { expect, it } from "vitest"
-import Decimal from "decimal.js"
-import { produceComposition, createComposition } from "../scripts/procedencia/composicion-r43"
-import type { Snapshot, SnapshotFields } from "../scripts/procedencia/puertos-composicion-r47"
-import { producePortContract, inspectPortContract, verifyPortContract, createPortComposition } from "../scripts/procedencia/puertos-composicion-r47"
-const candidate=produceComposition()
-const contract=producePortContract(candidate)
-const composed=createPortComposition(candidate,contract)
-const caso={anio:2025,comunidadAutonoma:"madrid",situacionFamiliar:{tipo:"individual",edad:40,descendientes:[],ascendientes:[],discapacidad:{_tag:"SinDiscapacidad"}},rendimientos:{trabajo:[{importeIntegroCentimos:3000000}]},reducciones:[],deducciones:[],retencionesSoportadasCentimos:123,pagosACuentaCentimos:321}
-function record(value: Snapshot): SnapshotFields {
- if(value === null || value === undefined || Array.isArray(value) || !(value instanceof Object)) throw Error("Testigo estructural ausente")
- return value
-}
-const context={modo:"canonico"}
-it("R47: el constructor público rechaza un puerto omitido",()=>{
- const ports=structuredClone(contract);ports.ports.shift()
- expect(()=>createPortComposition(candidate,ports)).toThrow(/coverage:ports/)
-}, 60000)
-it("R47-CENSO: cada asignación R43 tiene contrato y llamadas concretas",()=>{
- expect(contract.ports.filter(p=>p.consumer==="escalas" && p.provider.group==="rentas" && p.kind==="financial")).toHaveLength(9)
- expect(contract.ports.filter(p=>p.provider.group==="ss" && p.kind==="financial")).toHaveLength(4)
- expect(contract.ports.filter(p=>p.consumer==="rentas" && p.provider.group==="escalas" && p.kind==="financial")).toHaveLength(3)
- expect(contract.ports.filter(p=>p.kind==="projection")).toHaveLength(1)
- expect(contract.ports.filter(p=>p.kind==="constant")).toHaveLength(1)
- expect(contract.ports.filter(p=>p.kind==="admission-precondition" && p.target.includes("/minimos/derechos"))).toHaveLength(2)
- expect(contract.ports.filter(p=>p.provider.group==="retenciones")).toHaveLength(1)
- for(const p of contract.ports){expect(p.calls.length,p.id).toBeGreaterThan(0);expect(p.provider.source.sha256).toMatch(/^[0-9a-f]{64}$/);for(const call of p.calls){expect(call.node).toContain(":"+call.source.start+":"+call.source.end+":");for(const arg of call.arguments)expect(arg.binding[0]?.id).toBe(arg.operand)}}
-}, 60000)
-it("R47-ENVELOPE: mutaciones de todas las familias con hashes del sobre vigentes fallan por obligación concreta",()=>{
- const results: {port:string;field:string;failed:string[]}[]=[]
- for(const port of contract.ports){
-  for(const field of ["provider","arguments","output","calls","operator","projection","variants"] as const){
-   const m=structuredClone(contract),p=m.ports.find(p=>p.id===port.id)!
-   if(field==="provider")p.provider.root+="-otro"
-   if(field==="arguments")p.arguments.push({op:"argument",index:99})
-   if(field==="output")p.output[0]!.representation="ratio-incompatible"
-   if(field==="calls")p.calls[0]!.arguments.push({index:99,operand:"otra-instancia",binding:[]})
-   if(field==="operator")p.operator=p.operator === "project"?"invoke-root":"project"
-   if(field==="projection")p.projection.push({from:"cotizacionEmpresarial",to:"cotizacionTrabajador"})
-   if(field==="variants")p.variants.push({when:{property:"estado",equals:"inexistente"},outputs:[]})
-   const report=inspectPortContract(m,candidate),failed=report.obligations.filter(o=>!o.ok).map(o=>o.id)
-   expect(failed).toContain(port.id+":"+field);expect(failed).not.toContain("hashes:dependencies")
-   results.push({port:port.id,field,failed})
-  }
- }
-}, 120000)
-it("R47-SCHEMA: una propiedad extra no es admisible",()=>{
- expect(()=>verifyPortContract(Object.assign(structuredClone(contract),{extra:true}),candidate)).toThrow(/Schema/)
-}, 60000)
-it("R47-BINDING: el subcaso propio y el contexto llegan a retenciones",()=>{
- const subcase={anio:2020,edad:40,retribucionAnualCentimos:4020000,cotizacionesCentimos:20000,situacionFamiliar:"situacion3",situacionLaboral:"activo",contrato:"general",descendientes:[],ascendientes:[],discapacidad:"sin-discapacidad"}
- const router=createComposition(candidate)
- router.annual({...caso,anio:2020,retencionTrabajoAeat:subcase},context)
- const witness=router.witnesses.find(w=>w.port==="escalas::retencion.calcular")!
- expect(record(witness.arguments[0]).retribucionAnualCentimos).toBe(4020000)
- expect(record(witness.arguments[0]).retribucionAnualCentimos).not.toBe(caso.rendimientos.trabajo[0]!.importeIntegroCentimos)
- expect(witness.node).toContain(":boundaryCall")
- expect(witness.frames.length).toBeGreaterThan(1)
- const m=structuredClone(contract),p=m.ports.find(p=>p.provider.group==="retenciones")!;p.arguments=[{op:"argument",index:1},{op:"argument",index:0}]
- expect(()=>createPortComposition(candidate,m)).toThrow(/arguments/)
-}, 60000)
-it("R47-MODO: los consumidores SS separados conservan año/modo y cotización por lado",()=>{
- for(const modo of ["canonico","compatible-legacy"]){const router=createComposition(candidate);router.annual(caso,{modo});const reached=router.witnesses.filter(w=>w.port.includes("Cotizaciones")&& !w.port.includes("SocialesLegacy::"));expect(reached.length).toBeGreaterThan(1);for(const w of reached){expect(record(w.arguments[0]).anio).toBe(2025);expect(w.properties.some(p=>p.path==="cotizacionTrabajador")).toBe(true)}}
-}, 60000)
-it("R47-TESTIGOS: localizadores y propiedades realmente transportadas",()=>{
- composed.annual(caso,context)
- for(const w of composed.witnesses){const p=contract.ports.find(p=>p.id===w.port)!;expect(p.calls.some(c=>c.node===w.node)).toBe(true);expect(w.frames.length).toBeGreaterThan(0);for(const f of w.properties)expect(p.output.some(o=>o.path===f.path&&o.representation===f.representation)).toBe(true)}
-}, 60000)
-
-import { Effect, Schema } from "effect"
-import type { CasoFiscalAnual } from "../lib/dominio/irpf/caso-fiscal-anual"
+import { Effect } from "effect"
+import {
+  producirContratoMotor,
+  verificarContratoMotor,
+} from "../scripts/procedencia/contrato-motor-unico"
 import { liquidarIrpfAnual } from "../lib/dominio/irpf/liquidacion/liquidar-irpf-anual"
-import { DerechosMinimos2025 } from "../lib/dominio/irpf/minimos/derechos-contrato"
-import { calcularDerechosMinimos } from "../lib/dominio/irpf/minimos/derechos"
-import { MINIMOS_ESTATALES_2025 } from "../lib/dominio/normativa/datos/minimos-autonomicos-2025"
-import { derechos } from "../docs/procedencia/revisiones/admision-anual-r34-sol/fixtures.mjs"
-function lines(values:{origen?:{siteId:string;decimal:string}}[]) {return values.flatMap(v=>v.origen === undefined ? [] : [[v.origen.siteId,v.origen.decimal]]).sort((a,b)=>a[0]!.localeCompare(b[0]!))}
-it("R47-AHORRO: valores y alcanzabilidad con ganancias y mínimos contra TS",()=>{
- const input:CasoFiscalAnual={anio:2025,comunidadAutonoma:"madrid",situacionFamiliar:{tipo:"individual",edad:40,descendientes:[],ascendientes:[],discapacidad:{_tag:"SinDiscapacidad"}},rendimientos:{trabajo:[],gananciasPatrimoniales:[{importeGananciaCentimos:2000000,tratamientoMayores65:{_tag:"SinExencionMayores65"}}]},reducciones:[],deducciones:[],retencionesSoportadasCentimos:0,pagosACuentaCentimos:0}
- const expected=Effect.runSync(liquidarIrpfAnual(input,{modo:"canonico"}))
- if(expected._tag !== "LiquidacionIrpfAnualCalculada")throw Error("Oracle rechazado")
- const result=composed.annual(input,{modo:"canonico"})
- expect(lines(result.lines)).toEqual(lines(expected.rastro.pasos.flatMap(p=>p.lineasCalculo??[])))
- expect(result.lines.some((l:{origen:{siteId:string;decimal:string}})=>l.origen.siteId==="anual.base.ahorro"&&new Decimal(l.origen.decimal).gt(0))).toBe(true)
-}, 60000)
-it("R47-DERECHOS: dominio admitido, cálculo real y ambas identidades observadas",()=>{
- const seed=Schema.decodeUnknownSync(DerechosMinimos2025)(derechos)
- const router=createComposition(candidate)
- const root="lib/dominio/irpf/minimos/derechos.ts#calcularDerechosMinimos"
- const actual=router.roots.scales(root,[seed,MINIMOS_ESTATALES_2025])
- const expected=Effect.runSync(calcularDerechosMinimos(seed,MINIMOS_ESTATALES_2025))
- expect(actual.total.toFixed()).toBe(expected.total.toFixed())
- expect(actual.atribuciones.map((v:{sujetoId:string;divisor:number})=>[v.sujetoId,v.divisor])).toEqual(expected.atribuciones.map(v=>[v.sujetoId,v.divisor]))
- router.annual({...caso,derechosMinimos:seed},{modo:"canonico"})
- for(const port of contract.ports.filter(p=>p.kind==="admission-precondition" && p.target.includes("/minimos/derechos")))expect(router.witnesses.some(w=>w.port===port.id)).toBe(true)
- const m=structuredClone(contract),p=m.ports.find(p=>p.target.endsWith("#validarDerechosMinimos"))!;p.arguments[0]!.index=1
- expect(()=>createPortComposition(candidate,m)).toThrow(/arguments/)
-}, 60000)
-const explicit={ejercicio:2025,comunidadAutonoma:"madrid",edad:40,modalidad:"individual",residenciaTodoElAnio:true,devengo:"2025-12-31",otrasRentas:"ninguna",familiaresConDerechoMinimo:"ninguno",discapacidad:"ninguna",reduccionesBase:"ninguna",saldosAnteriores:"ninguno",deducciones:"solo-da61-si-procede",rentasExtranjeras:"ninguna",especialidades:"ninguna",perfil:"solo-trabajo",conciliacion:{ejercicio:2025,estado:"totales-anuales-sin-duplicados",procedencia:["certificado-anual#2025"]},trabajo:{ejercicio:2025,territorio:"comun",reduccionesArt18:"ninguna",movilidad:"ninguna",discapacidadActiva:"ninguna",rendimientos:[{id:"anual",clase:"empleo-laboral",integro:"30000",cotizaciones:{clase:"efectivas",seguridadSocial:"0",derechosPasivos:"0",colegiosHuerfanos:"0"},sindicato:{importe:"0",satisfecho:"no"},colegio:{importe:"0",satisfecho:"no",obligatorio:"no",finesEsenciales:"no"},defensa:{importe:"0",satisfecho:"no",litigioDirectoPagador:"no"}}]},retenciones:[]}
-it("R47-CONDICION: no se fabrica llamada de retención ausente y modos no se confunden",()=>{
- const router=createComposition(candidate);router.annual(caso,{modo:"canonico"})
- expect(router.witnesses.some(w=>w.port==="escalas::retencion.calcular")).toBe(false)
- const canonical=router.witnesses.filter(w=>w.port.includes("CotizacionesPerfilUniforme"))
- expect(canonical).toHaveLength(2)
- const alternate=createComposition(candidate);alternate.annual(caso,{modo:"compatible-legacy"})
- expect(alternate.witnesses.filter(w=>w.port.includes("CotizacionesSocialesLegacy")&& !w.port.endsWith("calcularCotizacionesSocialesLegacy"))).toHaveLength(2)
- const m=structuredClone(contract),p=m.ports.find(p=>p.target.endsWith("#calcularDesgloseCotizacionesPerfilUniforme"))!;p.calls[0]!.selector=[]
- expect(inspectPortContract(m,candidate).obligations.find(o=>o.id===p.id+":"+p.calls[0]!.node+":selector")?.ok).toBe(false)
-}, 60000)
-it("R47-DIMENSIONES: cuota escalar, tabla publicada opcional y estructuras separadas",()=>{
- const cuota=contract.ports.find(p=>p.target==="boundary:calcularCuotaPorEscala")!
- expect(cuota.output).toEqual([{path:"return",representation:"EUR-tax-Decimal"}])
- const tabla=contract.ports.find(p=>p.target==="boundary:obtenerEscalaAutonomicaPublicada")!
- expect(tabla.output[0]!.representation).toContain("absent|array<")
- for(const p of contract.ports.filter(p=>p.provider.group==="ss"))expect(p.provider.signature.parameters[0]!.type).toContain("EntradaCotizacionesSocialesLegacy")
- const m=structuredClone(contract),p=m.ports.find(p=>p.id===cuota.id)!
- p.calls[0]!.environment=[]
- expect(inspectPortContract(m,candidate).obligations.find(o=>o.id===p.id+":"+p.calls[0]!.node+":environment")?.ok).toBe(false)
-}, 60000)
-it("R47-LLAMADAS: todas las condiciones, unidades, bindings y marcos del sobre recalculado tienen obligación",()=>{
- const results:{port:string;node:string;field:string;failed:string[]}[]=[]
- for(const port of contract.ports)for(const call of port.calls){
-  for(const field of ["source","conditions","frames","selector","dimensions","environment"] as const){
-   const m=structuredClone(contract),p=m.ports.find(p=>p.id===port.id)!,c=p.calls.find(c=>c.node===call.node)!
-   if(field==="source")c.source.start++
-   if(field==="conditions")c.conditions=c.conditions.length>0?[]:[c.environment[0]!]
-   if(field==="frames")c.frames.push("otra-funcion")
-   if(field==="selector")c.selector=c.selector.length>0?[]:[c.environment[0]!]
-   if(field==="dimensions")c.dimensions.push({node:c.node,property:"homonima",unit:"ratio-incompatible",owner:"otro-propietario"})
-   if(field==="environment")c.environment=c.environment.length>0?[]:[c.selector[0]!]
-   const failed=inspectPortContract(m,candidate).obligations.filter(o=>!o.ok).map(o=>o.id)
-   expect(failed).toContain(p.id+":"+call.node+":"+field);expect(failed).not.toContain("hashes:dependencies")
-   results.push({port:p.id,node:call.node,field,failed})
+import { calcularSalario } from "../lib/dominio/analisis-salarial/calculo-salario"
+import { sinDiscapacidad } from "../lib/dominio/irpf/caso-fiscal-anual"
+
+it("el contrato actual rechaza omisiones y mutaciones de cada fuente, llamada y argumento", () => {
+  const contract = producirContratoMotor()
+  expect(verificarContratoMotor(contract)).toBe(contract)
+  for (const [i, source] of contract.sources.entries()) {
+    expect(source.calls.length).toBeGreaterThan(0)
+    const missing = structuredClone(contract)
+    missing.sources.splice(i, 1)
+    expect(() => verificarContratoMotor(missing)).toThrow("Contrato")
+    for (const field of ["path", "sha256"] as const) {
+      const altered = structuredClone(contract)
+      altered.sources[i][field] += "alterado"
+      expect(() => verificarContratoMotor(altered)).toThrow("Contrato")
+    }
+    for (const [j, call] of source.calls.entries()) {
+      const altered = structuredClone(contract)
+      altered.sources[i].calls[j].callee += "alterado"
+      expect(() => verificarContratoMotor(altered)).toThrow("Contrato")
+      for (const k of call.arguments.keys()) {
+        const alteredArgument = structuredClone(contract)
+        alteredArgument.sources[i].calls[j].arguments[k] += "alterado"
+        expect(() => verificarContratoMotor(alteredArgument)).toThrow(
+          "Contrato"
+        )
+      }
+    }
   }
- }
- const m=structuredClone(contract),a=m.ports.find(p=>p.target==="boundary:calcularCuotaPorEscala")!,b=m.ports.find(p=>p.provider.group==="retenciones")!
- a.calls[0]!.arguments[0]=structuredClone(b.calls[0]!.arguments[0]!)
- expect(inspectPortContract(m,candidate).obligations.find(o=>o.id===a.id+":"+a.calls[0]!.node+":arguments")?.ok).toBe(false)
-}, 120000)
-it("R47-SOBRE: dominio, pendientes, hashes, identidad, destino y clasificación no son decorativos",()=>{
- for(const field of ["domain","pending","dependencies","id","consumer","target","kind"]){const m=structuredClone(contract);if(field==="domain")Object.assign(m,{domain:"sin-admision"});if(field==="pending")m.pending=[];if(field==="dependencies")m.dependencies[0]!.sha256="0".repeat(64);if(field==="id")m.ports[0]!.id+="otra";if(field==="consumer")m.ports[0]!.consumer="rentas";if(field==="target")m.ports[0]!.target+="otro";if(field==="kind")m.ports[0]!.kind="constant";expect(inspectPortContract(m,candidate).status,field).toBe("ports-pending")}
-}, 60000)
-it("R47-AISLAMIENTO: modificar copias expuestas no modifica transporte ni testigos privados",()=>{
- const router=createComposition(candidate)
- const expected=router.annual(caso,context).lines
- const view=router.contract
- view.ports.length=0
- const witnessView=router.witnesses
- witnessView.length=0
- expect(router.contract.ports).toHaveLength(0)
- expect(router.witnesses.length).toBeGreaterThan(0)
- expect(router.annual(caso,context).lines).toEqual(expected)
-}, 60000)
-it("R47-DOMINIO: ninguna API de raíces admite callbacks financieros del usuario",()=>{
- let reached=0
- const callback=()=>{reached++;return new Decimal(999)}
- expect(()=>composed.roots.rent("lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:sumarRendimientosTrabajo",[[],callback])).toThrow(/Callback externo/)
- expect(()=>composed.roots.scales("lib/dominio/irpf/minimos/derechos.ts#calcularDerechosMinimos",[{calcular:callback}])).toThrow(/Callback externo/)
- expect(()=>composed.roots.rent("lib/dominio/irpf/rendimientos/ganancias-perdidas-patrimoniales.ts:calcularGananciasPatrimonialesPorTransmision",[Object.assign(Object.create(null),{convertirCentimos:callback})])).toThrow(/Callback externo/)
- expect(reached).toBe(0)
-}, 60000)
-it("R47-UNIDADES: cada proveedor referencia los contratos revisados por identidad concreta",()=>{
- for(const p of contract.ports){const ref=p.provider.dimensionReference;expect(ref.ids.length,p.id).toBeGreaterThan(0);if(ref.registry==="ss.unitContracts"){const dimension=candidate.fragments.ss.unitContracts.find(d=>d.id===p.provider.root)!;expect(ref.ids).toEqual([dimension.id]);expect(dimension.parameters[0]).toBe("{anio:ejercicio,salarioBrutoAnual:EUR}")}if(ref.registry==="retenciones.fieldBindings")expect(ref.ids).toContain("CasoRetencionTrabajo.retribucionAnualCentimos");const m=structuredClone(contract);m.ports.find(v=>v.id===p.id)!.provider.dimensionReference.ids=[];expect(inspectPortContract(m,candidate).obligations.find(o=>o.id===p.id+":provider")?.ok).toBe(false)}
-}, 60000)
+}, 120_000)
 
-import type { CasoActividad2025 } from "../lib/dominio/irpf/actividades-economicas/contrato"
-function portActivityFixture(): CasoActividad2025 {
-  return {
-    ejercicio: 2025,
-    territorio: "comun",
-    individual: true,
-    actividadId: "profesion",
-    iae: "servicios",
-    fechaInicio: "2025-01-01",
-    fechaFin: "2025-12-31",
-    serviciosOrdinarios: true,
-    hechos: {
-      otrasActividades: false,
-      otrasRentas: false,
-      existencias: false,
-      empleados: false,
-      artistica: false,
-      irregular: false,
-      subvenciones: false,
-      transmisiones: false,
-      extranjero: false,
-      mutualidad: false,
-      especialidadesTerritoriales: false,
-      saldosPendientes: false,
-      serviciosGratuitos: false,
-      autoconsumo: false,
-      noFacturados: false,
-      subvalorados: false,
-      trade: false,
-      hechosDesconocidos: false,
-    },
-    historial: [],
-    actividadPreviaAlInicio: "ausente",
-    regimen2025: "eds",
-    criterio2025: "devengo",
-    documentoCriterio2025: "alta",
-    renuncia2025: false,
-    exclusion2025: false,
-    volumen2024: "0",
-    diasActividad2024: 0,
-    documentoVolumen2024: "sin-actividad",
-    clientes: [
-      {
-        id: "cliente",
-        vinculado: false,
-        empleadorEnAnioAnteriorAlInicio: false,
-        documento: "contrato",
-      },
-    ],
-    ingresos: [],
-    gastos: [],
-    reta: [],
-    activos: [],
-    obligacionesFormales: true,
-    documentoObligaciones: "libros",
-    discapacidad: {
-      grado: 0,
-      ayudaOMovilidad: false,
-      ejercicioEfectivo: true,
-      documento: "sin-discapacidad",
-    },
-    opcion: "gastos-dificiles",
-    aplicarRentasBajas: true,
-    aplicarInicio: false,
-    retenciones: [],
-    pagosFraccionados: [],
+it("las llamadas de producto apuntan a la liquidación, derechos y cotización únicas", () => {
+  const { sources, gates } = producirContratoMotor()
+  const calls = (suffix: string) =>
+    sources.find((s) => s.path.endsWith(suffix))!.calls.map((c) => c.callee)
+  expect(calls("analisis-salarial/calculo-salario.ts")).toContain(
+    "liquidacionIrpf.liquidar"
+  )
+  expect(calls("liquidacion/liquidar-irpf-anual.ts")).toContain(
+    "calcularDerechosMinimos"
+  )
+  expect(calls("retenciones/retencion-trabajo-aeat.ts")).toContain(
+    "calcularDerechosMinimos"
+  )
+  expect(calls("laboral/cotizaciones-sociales.ts")).toContain(
+    "calcularDesgloseCotizacionesPerfilUniforme"
+  )
+  expect(Object.values(gates)).toEqual([false, false, false, false])
+  for (const source of sources)
+    expect(
+      source.calls.some((c) =>
+        /calcular.*Legacy|obtenerMinimoDescendientes|obtenerMinimoAscendientes/.test(
+          c.callee
+        )
+      )
+    ).toBe(false)
+})
+
+it("el análisis salarial conserva la cuota y neto de la ruta anual en fronteras salariales", () => {
+  for (const brutoAnualCentimos of [
+    0, 1587600, 1657600, 2200000, 3000000, 5000000, 9000000,
+  ]) {
+    const annual = Effect.runSync(
+      liquidarIrpfAnual(
+        {
+          anio: 2025,
+          comunidadAutonoma: "madrid",
+          situacionFamiliar: {
+            tipo: "individual",
+            edad: 40,
+            discapacidad: sinDiscapacidad,
+            descendientes: [],
+            ascendientes: [],
+          },
+          rendimientos: {
+            trabajo: [{ importeIntegroCentimos: brutoAnualCentimos }],
+          },
+          reducciones: [],
+          deducciones: [],
+          retencionesSoportadasCentimos: 0,
+          pagosACuentaCentimos: 0,
+        },
+        { modo: "canonico" }
+      )
+    )
+    const salary = Effect.runSync(
+      calcularSalario({
+        anio: 2025,
+        salarioBrutoAnualCentimos: brutoAnualCentimos,
+        comunidadAutonoma: "madrid",
+      })
+    )
+    expect(salary.irpfFinalCentimos).toBe(annual.cuotaLiquidaCentimos)
+    expect(salary.salarioNetoAnualCentimos).toBe(
+      brutoAnualCentimos -
+        annual.cotizacionTrabajadorCentimos -
+        annual.cuotaLiquidaCentimos
+    )
   }
-}
-
-const portScope = {
-  ejercicio: 2025,
-  comunidadAutonoma: "madrid",
-  edad: 40,
-  modalidad: "individual",
-  residenciaTodoElAnio: true,
-  devengo: "2025-12-31",
-  otrasRentas: "ninguna",
-  familiaresConDerechoMinimo: "ninguno",
-  discapacidad: "ninguna",
-  reduccionesBase: "ninguna",
-  saldosAnteriores: "ninguno",
-  deducciones: "solo-da61-si-procede",
-  rentasExtranjeras: "ninguna",
-  especialidades: "ninguna",
-}
-it("R47-TODOS: cada puerto y cada llamada real tiene testigo; explícitos de escalas contra TS",()=>{
- const router=createComposition(candidate)
- for(const modo of ["canonico","compatible-legacy"])router.annual(caso,{modo})
- router.explicit(explicit)
- router.roots.rent("lib/dominio/irpf/rendimientos/rendimientos-trabajo.ts:calcularRendimientoNetoTrabajo",[{anio:2025,rendimientoIntegro:new Decimal(10000)}])
- const activityInput={...portScope,perfil:"solo-actividad-eds",actividad:portActivityFixture()}
- for(const input of [explicit,activityInput]){
-  const actual=router.roots.scales("lib/dominio/irpf/trabajo-anual/conexion.ts#liquidarIrpfAnualExplicito",[input]).flat()
-  const expected=Effect.runSync(liquidarIrpfAnualExplicito(Schema.decodeUnknownSync(CasoFiscalAnualExplicito)(input)))
-  const scaleSites=new Set(candidate.fragments.escalas.sites.filter(s=>s.siteId.startsWith("anual.explicito.")).map(s=>s.siteId))
-  expect(lines(actual)).toEqual(lines(expected.rastro.pasos.flatMap(p=>p.lineasCalculo??[]).filter(l=>l.origen !== undefined && scaleSites.has(l.origen.siteId))))
- }
- router.annual({...caso,derechosMinimos:Schema.decodeUnknownSync(DerechosMinimos2025)(derechos)},context)
- router.annual({...caso,anio:2020,retencionTrabajoAeat:{anio:2020,edad:40,retribucionAnualCentimos:4020000,cotizacionesCentimos:20000,situacionFamiliar:"situacion3",situacionLaboral:"activo",contrato:"general",descendientes:[],ascendientes:[],discapacidad:"sin-discapacidad"}},context)
- const witnesses=router.witnesses
- const coverage=contract.ports.map(p=>({port:p.id,calls:p.calls.map(c=>({node:c.node,reached:witnesses.some(w=>w.port===p.id&&w.node===c.node)}))}))
- for(const p of coverage)for(const call of p.calls)expect(call.reached,p.port+" "+call.node).toBe(true)
- expect(()=>router.roots.scales("lib/dominio/irpf/trabajo-anual/conexion.ts#liquidarIrpfAnualExplicito",[{}])).toThrow(/ResultadoNoSoportado/)
- expect(router.witnesses.some(w=>w.port==="escalas::explicit.decode"&&w.variant?.equals==="Failure")).toBe(true)
-}, 60000)
-import { liquidarIrpfAnualExplicito } from "../lib/dominio/irpf/trabajo-anual/conexion"
-
-import { CasoFiscalAnualExplicito } from "../lib/dominio/irpf/trabajo-anual/conexion-contrato"
+})

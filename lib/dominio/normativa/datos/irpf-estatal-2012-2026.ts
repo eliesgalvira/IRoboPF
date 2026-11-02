@@ -76,41 +76,6 @@ export const GASTOS_FIJOS_IRPF_LEGACY: Readonly<Record<AnioFiscal, Decimal>> = {
   2026: importe(2000),
 }
 
-export const TRAMOS_IRPF_HASTA_2014: TramosIrpf = [
-  [importe(17707), importe("0.2475")],
-  [importe(33007), importe("0.30")],
-  [importe(53407), importe("0.40")],
-  [importe(120000), importe("0.47")],
-  [importe(175000), importe("0.49")],
-  [importe(300000), importe("0.51")],
-  [importe(Infinity), importe("0.52")],
-]
-
-export const TRAMOS_IRPF_2015: TramosIrpf = [
-  [importe(12450), importe("0.195")],
-  [importe(20200), importe("0.245")],
-  [importe(34000), importe("0.305")],
-  [importe(60000), importe("0.38")],
-  [importe(Infinity), importe("0.46")],
-]
-
-export const TRAMOS_IRPF_2016_A_2020: TramosIrpf = [
-  [importe(12450), importe("0.19")],
-  [importe(20200), importe("0.24")],
-  [importe(35200), importe("0.30")],
-  [importe(60000), importe("0.37")],
-  [importe(Infinity), importe("0.45")],
-]
-
-export const TRAMOS_IRPF_DESDE_2021: TramosIrpf = [
-  [importe(12450), importe("0.19")],
-  [importe(20200), importe("0.24")],
-  [importe(35200), importe("0.30")],
-  [importe(60000), importe("0.37")],
-  [importe(300000), importe("0.45")],
-  [importe(Infinity), importe("0.47")],
-]
-
 export const TRAMOS_IRPF_AHORRO_2025: TramosIrpf = [
   [importe(6000), importe("0.19")],
   [importe(50000), importe("0.21")],
@@ -274,20 +239,6 @@ export const clasificarGananciaPatrimonialHasta2014 = ({
     ? "base-ahorro"
     : "base-general"
 }
-
-export const obtenerTramosIrpfLegacy = (anio: AnioFiscal): TramosIrpf =>
-  Match.value(anio).pipe(
-    Match.when(
-      (anio) => anio <= 2014,
-      () => TRAMOS_IRPF_HASTA_2014
-    ),
-    Match.when(2015, () => TRAMOS_IRPF_2015),
-    Match.when(
-      (anio) => anio <= 2020,
-      () => TRAMOS_IRPF_2016_A_2020
-    ),
-    Match.orElse(() => TRAMOS_IRPF_DESDE_2021)
-  )
 
 export const obtenerTramosIrpfAhorro = (anio: AnioFiscal): TramosIrpf =>
   Match.value(anio).pipe(

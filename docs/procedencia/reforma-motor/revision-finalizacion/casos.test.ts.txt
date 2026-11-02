@@ -1,0 +1,44 @@
+import { expect, it } from "vitest"
+import Decimal from "decimal.js"
+import { Effect } from "effect"
+import { calcularCuotaPorEscalaGeneral } from "../../../../lib/dominio/irpf/cuotas/escalas-gravamen"
+import { liquidarIrpfAnual } from "../../../../lib/dominio/irpf/liquidacion/liquidar-irpf-anual"
+import { calcularSalario } from "../../../../lib/dominio/analisis-salarial/calculo-salario"
+import { construirTablaControlTramosIrpfCompatible } from "../../../../lib/dominio/analisis-salarial/progresividad-frio"
+
+it("R-M01: la frontera general 2014 conserva los céntimos publicados", () => {
+  expect(calcularCuotaPorEscalaGeneral({ anio: 2014, base: new Decimal("17707.20") }).toString()).toBe("4382.532")
+})
+it("R-M02: la tabla exportada no trunca la primera frontera de 2014", () => {
+  const filas = [...construirTablaControlTramosIrpfCompatible().filas]
+  const fila = filas.find(f => f[0] === 2014)!
+  expect(fila).toBeDefined()
+  expect(fila[2]).toBe(17707.2)
+})
+it("R-C01: la liquidación pública 2014 evita la escala truncada", () => {
+  const r = Effect.runSync(liquidarIrpfAnual({
+    anio: 2014, comunidadAutonoma: "simulada-estatal",
+    situacionFamiliar: { tipo: "individual", edad: 40, discapacidad: { _tag: "SinDiscapacidad" }, descendientes: [], ascendientes: [] },
+    rendimientos: { trabajo: [], capitalInmobiliario: [{ importeIntegroCentimos: 1770720 }] },
+    reducciones: [], deducciones: [], retencionesSoportadasCentimos: 0, pagosACuentaCentimos: 0,
+  }, { modo: "canonico" }))
+  const s = Effect.runSync(calcularSalario({ anio: 2014, salarioBrutoAnualCentimos: 2500000 }))
+  expect(s.irpfFinalCentimos).toBeGreaterThan(0)
+  const base = new Decimal(r.baseLiquidableGeneralCentimos).div(100)
+  expect(base.toString()).toBe("17707.2")
+  const corregida = new Decimal("17707.20").mul("0.2475").plus(base.minus("17707.20").mul("0.30"))
+
+  expect(r.cuotaIntegraGeneralCentimos).toBe(corregida.mul(100).toDecimalPlaces(0).toNumber())
+})
+it("R-M03: rechaza modalidad anual conjunta sin derechos también en JavaScript", () => {
+  const r = Effect.runSync(Effect.exit(liquidarIrpfAnual({
+    anio: 2025, comunidadAutonoma: "madrid",
+    situacionFamiliar: {
+      // @ts-expect-error entrada JavaScript fuera del contrato individual.
+      tipo: "conjunta", edad: 40, discapacidad: { _tag: "SinDiscapacidad" }, descendientes: [], ascendientes: [],
+    },
+    rendimientos: { trabajo: [{ importeIntegroCentimos: 3000000 }] },
+    reducciones: [], deducciones: [], retencionesSoportadasCentimos: 0, pagosACuentaCentimos: 0,
+  }, { modo: "canonico" })))
+  expect(r._tag).toBe("Failure")
+})

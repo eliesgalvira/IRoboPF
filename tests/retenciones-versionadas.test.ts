@@ -1,5 +1,5 @@
-import { Effect } from "effect"
 import { describe, expect, it } from "@effect/vitest"
+import { Effect } from "effect"
 import {
   calcularRetencionTrabajoAeat,
   type CasoRetencionTrabajo,
@@ -61,21 +61,37 @@ describe("Retenciones históricas: referencias independientes, SS suministrada",
     [2199999, 187660],
     [2200000, 187660],
     [2200001, 263780],
-  ] as const)("corte 43: %s", (retribucionAnualCentimos, esperado) => {
+  ] as const)(
+    "perfil familiar parcial %s; referencia histórica %s",
+    (retribucionAnualCentimos, referenciaHistorica) => {
+      const r = calcularRetencionTrabajoAeat(
+        {
+          ...base,
+          fechaPago: "2020-12-31",
+          retribucionAnualCentimos,
+          cotizacionesCentimos: 0,
+          situacionFamiliar: "situacion2",
+          descendientes: [hijo(10), hijo(12)],
+        },
+        { modo: "canonico" }
+      )
+      expect(
+        Effect.runSync(Effect.exit(r))._tag,
+        `Referencia histórica ${referenciaHistorica}; no acredita hechos familiares`
+      ).toBe("Failure")
+    }
+  )
+  it("no convierte edad 25 en censo familiar completo", () => {
     expect(
-      calcular({
-        fechaPago: "2020-12-31",
-        retribucionAnualCentimos,
-        cotizacionesCentimos: 0,
-        situacionFamiliar: "situacion2",
-        descendientes: [hijo(10), hijo(12)],
-      }).importeRetencionAnualCentimos
-    ).toBe(esperado)
-  })
-  it("excluye al descendiente de 25 sin discapacidad", () => {
-    expect(
-      calcular({ descendientes: [hijo(25)] }).minimoPersonalFamiliarCentimos
-    ).toBe(555000)
+      Effect.runSync(
+        Effect.exit(
+          calcularRetencionTrabajoAeat(
+            { ...base, descendientes: [hijo(25)] },
+            { modo: "canonico" }
+          )
+        )
+      )._tag
+    ).toBe("Failure")
   })
   it.each(["2020-02-30", "2021-01-01", "invalid"])(
     "rechaza fecha %s",
@@ -103,13 +119,6 @@ describe("Retenciones históricas: referencias independientes, SS suministrada",
       ).toBe("Failure")
     }
   )
-  it("legacy conserva la reproducción de base", () => {
-    expect(
-      Effect.runSync(
-        calcularRetencionTrabajoAeat(base, { modo: "compatible-legacy" })
-      ).importeRetencionAnualCentimos
-    ).toBe(104760)
-  })
 })
 
 describe("Contrato temporal, límites y controles", () => {
@@ -285,13 +294,10 @@ describe("Fronteras de reducción con cotización cero sintética", () => {
   })
 })
 
-it("legacy rechaza instrucciones temporales que no puede aplicar", () => {
-  expect(
-    Effect.runSyncExit(
-      calcularRetencionTrabajoAeat(
-        { ...base, fechaPago: "2020-12-31" },
-        { modo: "compatible-legacy" }
-      )
-    )._tag
-  ).toBe("Failure")
+it("rechaza el modo retirado sin omitir la versión temporal", () => {
+  const efecto = calcularRetencionTrabajoAeat(base, {
+    // @ts-expect-error frontera JavaScript de la API retirada.
+    modo: "compatible-legacy",
+  })
+  expect(Effect.runSync(Effect.exit(efecto))._tag).toBe("Failure")
 })

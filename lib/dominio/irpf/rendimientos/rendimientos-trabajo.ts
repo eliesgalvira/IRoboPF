@@ -1,7 +1,7 @@
 import Decimal from "decimal.js"
 import { Array as EffectArray } from "effect"
 
-import { calcularCotizacionesSocialesLegacy } from "../../laboral/cotizaciones-sociales"
+import { calcularDesgloseCotizacionesPerfilUniforme } from "../../laboral/cotizaciones-perfil-uniforme"
 import type { AnioFiscal } from "../../normativa/anio-fiscal"
 import { GASTOS_FIJOS_IRPF_LEGACY } from "../../normativa/datos/irpf-estatal-2012-2026"
 import type { RendimientoTrabajo } from "../caso-fiscal-anual"
@@ -25,7 +25,7 @@ export const calcularRendimientoNetoTrabajo = ({
 }): RendimientoNetoTrabajo => {
   const cotizacionAplicada =
     cotizacionTrabajador ??
-    calcularCotizacionesSocialesLegacy({
+    calcularDesgloseCotizacionesPerfilUniforme({
       anio,
       salarioBrutoAnual: rendimientoIntegro,
     }).cotizacionTrabajador

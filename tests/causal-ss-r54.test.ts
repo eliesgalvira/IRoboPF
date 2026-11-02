@@ -1,21 +1,20 @@
-import { expect, test } from "vitest"
-import { composeSS, validateSS } from "../scripts/procedencia/flujo-ss-r36.mjs"
-import { createSSEvaluator } from "../scripts/procedencia/flujo-ss-r36-consumidor.mjs"
-import { verifyCausalSS } from "../scripts/procedencia/causal-ss-r54.ts"
-import type {
-  ExecutionEvidence,
-  Event,
-} from "../scripts/procedencia/evidencia-ejecucion-r54.ts"
 import Decimal from "decimal.js"
-import { calcularDesgloseCotizacionesSocialesLegacy } from "../lib/dominio/laboral/cotizaciones-sociales"
+import { expect, test } from "vitest"
 import { calcularDesgloseCotizacionesPerfilUniforme } from "../lib/dominio/laboral/cotizaciones-perfil-uniforme"
 import type { AnioFiscal } from "../lib/dominio/normativa/anio-fiscal"
+import { verifyCausalSS } from "../scripts/procedencia/causal-ss-r54.ts"
+import type {
+  Event,
+  ExecutionEvidence,
+} from "../scripts/procedencia/evidencia-ejecucion-r54.ts"
+import { createSSEvaluator } from "../scripts/procedencia/flujo-ss-r36-consumidor.mjs"
+import { composeSS, validateSS } from "../scripts/procedencia/flujo-ss-r36.mjs"
 const g = composeSS(),
   evaluate = createSSEvaluator(g)
 function run(
   caso: ReturnType<typeof make>,
   context: { modo: string },
-  mode: boolean | "causal" = false,
+  mode: boolean | "causal" = false
 ) {
   const result = evaluate(caso, context, mode)
   if (mode === "causal" && !("evidence" in result)) throw Error("Sin evidencia")
@@ -60,7 +59,7 @@ const check = (e: ExecutionEvidence) =>
   verifyCausalSS(g, e, sample, context, e.execution)
 
 for (const anio of [2018, 2022, 2023, 2025, 2026] as const)
-  for (const modo of ["canonico", "compatible-legacy"])
+  for (const modo of ["canonico"])
     test(`equivalencia real por propiedad ${anio}/${modo}`, () => {
       const max = anio === 2025 ? 58914 : anio === 2026 ? 61214.4 : 45014.4
       for (const cents of [
@@ -80,25 +79,22 @@ for (const anio of [2018, 2022, 2023, 2025, 2026] as const)
         const e = result.evidence!
         expect(verifyCausalSS(g, e, caso, ctx, e.execution)).toBe(true)
         const bruto = new Decimal(
-          cents.reduce((a, b) => a + BigInt(b), 0n).toString(),
+          cents.reduce((a, b) => a + BigInt(b), 0n).toString()
         ).div(100)
         const real = (
           modo === "canonico"
             ? calcularDesgloseCotizacionesPerfilUniforme
-            : calcularDesgloseCotizacionesSocialesLegacy
+            : calcularDesgloseCotizacionesPerfilUniforme
         )({ anio, salarioBrutoAnual: bruto })
         fields.forEach((key, i) =>
           expect(
-            new Decimal(e.outputs[i].decimal)
-              .minus(real[key])
-              .abs()
-              .lt("1e-12"),
-          ).toBe(true),
+            new Decimal(e.outputs[i].decimal).minus(real[key]).abs().lt("1e-12")
+          ).toBe(true)
         )
         expect(
           new Decimal(e.outputs[10].decimal).eq(
-            bruto.plus(real.cotizacionEmpresarial),
-          ),
+            bruto.plus(real.cotizacionEmpresarial)
+          )
         ).toBe(true)
         expect(result.lines).toEqual(run(caso, ctx).lines)
       }
@@ -150,17 +146,17 @@ test("once expectativas propias racionales y visual separado", () => {
     expect(e.outputs[i].display).toBe(value.toFixed(2) + " euros")
   })
   expect(e.outputs[4].decimal).not.toBe(
-    new Decimal(e.outputs[4].decimal).toFixed(2),
+    new Decimal(e.outputs[4].decimal).toFixed(2)
   )
 })
 test("2018 saturación propia siete/cinco meses y ambas ramas", () => {
   const caso = make(2018, [2000000, 2524000])
   expect(
-    run(caso, { modo: "canonico" }, "causal").evidence!.outputs[0].decimal,
+    run(caso, { modo: "canonico" }, "causal").evidence!.outputs[0].decimal
   ).toBe("45108.4")
   expect(
     run(caso, { modo: "compatible-legacy" }, "causal").evidence!.outputs[0]
-      .decimal,
+      .decimal
   ).toBe("45014.4")
 })
 test("vertical base desde dos salarios sin MEI; bindings, selecciones, conversión individual", () => {
@@ -174,26 +170,26 @@ test("vertical base desde dos salarios sin MEI; bindings, selecciones, conversi�
       .filter(
         (x) =>
           x.operation === "input" &&
-          x.property.endsWith("importeIntegroCentimos"),
+          x.property.endsWith("importeIntegroCentimos")
       )
-      .map((x) => x.value),
+      .map((x) => x.value)
   ).toEqual([1000000, 2000000])
   expect(
     slice.some(
       (x) =>
         x.operation === "annual-binding" &&
-        x.property === "rendimientoIntegroTrabajo",
-    ),
+        x.property === "rendimientoIntegroTrabajo"
+    )
   ).toBe(true)
   expect(
     slice.some(
       (x) =>
         x.operation === "annual-binding" &&
-        x.property === "cotizacionesSociales/baseOrdinaria",
-    ),
+        x.property === "cotizacionesSociales/baseOrdinaria"
+    )
   ).toBe(true)
   const meiNodes = new Set(
-    g.cells.filter((x) => x.path.includes("obtenerTiposMei")).map((x) => x.id),
+    g.cells.filter((x) => x.path.includes("obtenerTiposMei")).map((x) => x.id)
   )
   expect(slice.some((x) => meiNodes.has(x.node))).toBe(false)
 })
@@ -205,7 +201,7 @@ test("repetidos, llamadas independientes y copia pública sin efecto sobre sigui
   const params = first.events.filter(
     (x) =>
       x.operation === "parameter:1" &&
-      x.property.endsWith("/importeIntegroCentimos"),
+      x.property.endsWith("/importeIntegroCentimos")
   )
   expect(new Set(params.map((x) => x.frame)).size).toBeGreaterThanOrEqual(2)
   first.outputs[0].decimal = "false"
@@ -219,7 +215,7 @@ const mutations: [string, (e: ExecutionEvidence) => void][] = [
         e,
         (x) =>
           x.operation === "annual-binding" &&
-          x.property === "cotizacionesSociales/baseOrdinaria",
+          x.property === "cotizacionesSociales/baseOrdinaria"
       ).edges = []
     },
   ],
@@ -228,7 +224,7 @@ const mutations: [string, (e: ExecutionEvidence) => void][] = [
     (e) => {
       event(
         e,
-        (x) => x.operation === "property" && x.property === "trabajador",
+        (x) => x.operation === "property" && x.property === "trabajador"
       ).property = "empresarial"
     },
   ],
@@ -237,7 +233,7 @@ const mutations: [string, (e: ExecutionEvidence) => void][] = [
     (e) => {
       event(
         e,
-        (x) => x.operation === "input" && x.property === "contexto/modo",
+        (x) => x.operation === "input" && x.property === "contexto/modo"
       ).value = "compatible-legacy"
     },
   ],
@@ -246,7 +242,7 @@ const mutations: [string, (e: ExecutionEvidence) => void][] = [
     (e) => {
       event(
         e,
-        (x) => x.operation === "input" && x.property === "caso/anio",
+        (x) => x.operation === "input" && x.property === "caso/anio"
       ).value = 2026
     },
   ],
@@ -267,7 +263,7 @@ const mutations: [string, (e: ExecutionEvidence) => void][] = [
     (e) => {
       event(
         e,
-        (x) => x.operation === "property" && x.property === "0",
+        (x) => x.operation === "property" && x.property === "0"
       ).property = "1"
     },
   ],
@@ -287,7 +283,7 @@ const mutations: [string, (e: ExecutionEvidence) => void][] = [
     (e) => {
       event(e, (x) => x.operation === "collection-selection").edges = event(
         e,
-        (x) => x.operation === "collection-selection",
+        (x) => x.operation === "collection-selection"
       ).edges.filter((x) => x.role !== "seed")
     },
   ],
@@ -337,10 +333,10 @@ for (const [name, mutate] of mutations)
 test("recibo de otra entrada o ejecución rechazado", () => {
   const e = evidence()
   expect(() =>
-    verifyCausalSS(g, e, make(2025, [1]), context, e.execution),
+    verifyCausalSS(g, e, make(2025, [1]), context, e.execution)
   ).toThrow()
   expect(() =>
-    verifyCausalSS(g, e, sample, context, "otra-ejecucion"),
+    verifyCausalSS(g, e, sample, context, "otra-ejecucion")
   ).toThrow()
 })
 test("programa sin validación y función externa no son terminales resueltos", () => {
@@ -362,7 +358,7 @@ for (const binding of g.outputBindings)
       const root = event(e, (x) => x.id === output.root)
       root.edges = []
       expect(() => check(e)).toThrow()
-    },
+    }
   )
 test("intercambiar lados MEI con importe cero igual no identifica procedencia", () => {
   const caso = make(2022, [1000000]),
@@ -380,7 +376,7 @@ test("colecciones efectivas: semilla, callback, orden y multiplicidad, también 
     const e = run(make(2025, amounts), context, "causal").evidence!
     const events = new Map(e.events.map((x) => [x.id, x]))
     for (const selection of e.events.filter(
-      (x) => x.operation === "collection-selection",
+      (x) => x.operation === "collection-selection"
     )) {
       const callback = selection.edges.find((x) => x.role === "callback")
       const seed = selection.edges.find((x) => x.role === "seed")
@@ -391,16 +387,16 @@ test("colecciones efectivas: semilla, callback, orden y multiplicidad, también 
         (f) =>
           f.parent === selection.frame &&
           f.call === selection.node &&
-          f.function === callbackNode,
+          f.function === callbackNode
       )
       expect(calls).toHaveLength(Number(selection.value))
       const indexes = e.events.filter(
         (x) =>
           x.operation === "index" &&
-          x.edges.some((edge) => edge.to === selection.id),
+          x.edges.some((edge) => edge.to === selection.id)
       )
       expect(indexes.map((x) => x.value)).toEqual(
-        Array.from({ length: Number(selection.value) }, (_, i) => i),
+        Array.from({ length: Number(selection.value) }, (_, i) => i)
       )
     }
   }

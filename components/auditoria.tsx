@@ -1,14 +1,16 @@
 "use client"
+
+import type { LiquidarIrpfAnualError } from "@/lib/dominio/irpf/liquidacion/liquidar-irpf-anual"
 import { aniosFiscalesLegacy } from "@/lib/dominio/normativa/anio-fiscal"
 
-import Decimal from "decimal.js"
-import * as React from "react"
-import { useRouter } from "next/navigation"
 import { Dialog } from "@base-ui/react/dialog"
 import { NumberField } from "@base-ui/react/number-field"
 import { Slider } from "@base-ui/react/slider"
 import { Tabs } from "@base-ui/react/tabs"
-import { Schema, Cause, Effect, Exit, Fiber, Match, Option } from "effect"
+import Decimal from "decimal.js"
+import { Cause, Effect, Exit, Fiber, Match, Option, Schema } from "effect"
+import { useRouter } from "next/navigation"
+import * as React from "react"
 import {
   Area,
   AreaChart,
@@ -21,33 +23,22 @@ import {
   YAxis,
 } from "recharts"
 
+import {
+  BotonCopiarImagenGrafico,
+  DIMENSIONES_ESCRITORIO_EXPORTACION_GRAFICO,
+} from "@/components/copiar-imagen-grafico"
 import { NavegacionSitio } from "@/components/navegacion-sitio"
 import {
-  ANIOS_COMPARABLES,
-  centimosAEuros,
-  eurosACentimos,
-  formatearCentimosEnteros,
-  formatearPuntosPorcentuales,
-  dinero,
-  porcentaje,
-  type AnioFiscal,
-} from "@/lib/formato"
+  SelectorModoGrafico,
+  type OpcionesSelectorModoGrafico,
+} from "@/components/selector-modo-grafico"
+import { Button } from "@/components/ui/button"
 import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
   type ChartConfig,
 } from "@/components/ui/chart"
-import {
-  BotonCopiarImagenGrafico,
-  DIMENSIONES_ESCRITORIO_EXPORTACION_GRAFICO,
-} from "@/components/copiar-imagen-grafico"
-import {
-  SelectorModoGrafico,
-  type OpcionesSelectorModoGrafico,
-} from "@/components/selector-modo-grafico"
-import { Tooltip } from "@/components/ui/tooltip"
-import { Button } from "@/components/ui/button"
 import {
   Combobox,
   ComboboxChevronTrigger,
@@ -59,27 +50,30 @@ import {
   ComboboxList,
 } from "@/components/ui/combobox"
 import { Skeleton } from "@/components/ui/skeleton"
+import { Tooltip } from "@/components/ui/tooltip"
+import { ticksSalarioEuros } from "@/lib/auditoria-graficos"
 import {
   anioGraficoCunaFiscalPorDefecto,
   anioGraficoTipoMarginalIrpfPorDefecto,
   aniosGraficoDiferenciaTipoIrpfPorDefecto,
   aniosGraficoTipoEfectivoIrpfPorDefecto,
-  type CambioEscenarioAuditoriaNormativa,
   comunidadesAuditoriaNormativa,
   decodificarPerfilAuditoriaNormativa,
-  detallePerfilAuditoriaNormativa,
   describirComunidadAutonomaAuditoria,
   describirPerfilAuditoriaNormativa,
+  detallePerfilAuditoriaNormativa,
+  escenarioPermiteReferenciaTecnica2026,
   leerEscenarioAuditoriaNormativaDesdeUrl,
   leerRangoSalarialAuditoriaDesdeUrl,
   leerSeleccionGraficoAuditoriaDesdeUrl,
   modoCunaFiscalGraficoAuditoriaPorDefecto,
   modoDiferenciaGraficoAuditoriaPorDefecto,
   modoTipoEfectivoGraficoAuditoriaPorDefecto,
-  perfilesAuditoriaNormativa,
   perfilAuditoriaNormativaParaRetencionPersonalizada,
-  escenarioPermiteReferenciaTecnica2026,
+  perfilesAuditoriaNormativa,
   serializarEscenarioAuditoriaNormativa,
+  umbralRetencionPerfilAuditoriaEuros,
+  type CambioEscenarioAuditoriaNormativa,
   type DescendientePerfilAuditoriaNormativa,
   type EscenarioAuditoriaNormativaHistorica,
   type GraficoAuditoriaNormativa,
@@ -87,27 +81,32 @@ import {
   type RangoSalarialAuditoria,
   type SeleccionGraficoAuditoriaNormativa,
   type SituacionRetencionPerfilAuditoria,
-  umbralRetencionPerfilAuditoriaEuros,
 } from "@/lib/dominio/auditoria/auditoria-normativa-historica"
 import {
-  configuracionRangoAuditoria,
   auditarProgresividadFrio,
+  configuracionRangoAuditoria,
   construirPuntosAuditoriaAnioAjustado,
   type AuditoriaRangoSalarial,
   type PuntoAuditoriaRangoSalarial,
 } from "@/lib/dominio/auditoria/auditoria-progresividad-frio"
-import { calcularSalarioLegacy } from "@/lib/dominio/compatibilidad-legacy/calculo-salario-legacy"
-import { factorIpcPerfilLegacy } from "@/lib/dominio/inflacion/factor-ipc"
 import { seleccionarImportesComparables } from "@/lib/dominio/auditoria/importes-comparables"
+import { factorIpcPerfilLegacy } from "@/lib/dominio/inflacion/factor-ipc"
 import { UMBRAL_RENDIMIENTOS_TRABAJO_NO_OBLIGACION_DECLARAR_UN_PAGADOR_CENTIMOS } from "@/lib/dominio/normativa/datos/irpf-obligacion-declarar"
 import {
   exportarAuditoriaCompatibleExcelConProgreso,
   exportarAuditoriaEducativaExcel,
   type ProgresoExportacionCompatible,
 } from "@/lib/export/auditoria-excel"
-import { obtenerEspecificacionCompatibilidadHistorica } from "@/lib/dominio/normativa/datos/compatibilidad-historica"
-import { cn } from "@/lib/utils"
-import { ticksSalarioEuros } from "@/lib/auditoria-graficos"
+import {
+  ANIOS_COMPARABLES,
+  centimosAEuros,
+  dinero,
+  eurosACentimos,
+  formatearCentimosEnteros,
+  formatearPuntosPorcentuales,
+  porcentaje,
+  type AnioFiscal,
+} from "@/lib/formato"
 import {
   instrumentarEffectAuditoria,
   metricaDuracionFilasGraficosAuditoria,
@@ -115,6 +114,7 @@ import {
   registrarMarcaAuditoria,
   tiempoAuditoriaMs,
 } from "@/lib/observabilidad/auditoria-rendimiento"
+import { cn } from "@/lib/utils"
 
 const MAX_LOGS_EXPORTACION_COMPATIBLE = 120
 const VERSION_CALCULO_AUDITORIA_IRPF = "irpf-efectivo-salario-v5"
@@ -501,7 +501,7 @@ function AuditoriaImpl({
     const fibra = Effect.runFork(
       auditarProgresividadFrio(
         {
-          perfil: "legacy-progresividad-frio",
+          perfil: "analisis-progresividad-frio",
           perfilAuditoria: perfilAuditoriaNormativaParaRetencionPersonalizada(
             escenarioAuditoria.perfil
           ),
@@ -518,7 +518,7 @@ function AuditoriaImpl({
           anioComparado: escenarioAuditoria.anioComparado,
           anioReferencia: escenarioAuditoria.anioReferencia,
         },
-        { modo: "compatible-legacy" }
+        { modo: "canonico" }
       )
     )
 
@@ -2281,19 +2281,19 @@ const irpfConDeclaracionCentimos = (
 
 const irpfBaseMarginalCentimos = (
   desglose: PuntoAuditoriaRangoSalarial["comparacion"]["referencia"]
-) => desglose.irpfCuotaTrasDeduccionSmiCentimos ?? desglose.irpfFinalCentimos
+) => desglose.irpfFinalCentimos
 
 const irpfBaseMarginalPrecisoEuros = (
   desglose: PuntoAuditoriaRangoSalarial["comparacion"]["referencia"]
 ) => {
   const cuotaTrasDeduccionSmiPrecisa = Option.fromNullishOr(
-    desglose.irpfCuotaTrasDeduccionSmiPrecisoEuros
+    desglose.irpfFinalPrecisoEuros
   )
   if (Option.isSome(cuotaTrasDeduccionSmiPrecisa)) {
     return cuotaTrasDeduccionSmiPrecisa
   }
 
-  return desglose.irpfCuotaTrasDeduccionSmiCentimos === undefined
+  return desglose.irpfFinalCentimos === undefined
     ? Option.fromNullishOr(desglose.irpfFinalPrecisoEuros)
     : Option.none<string>()
 }
@@ -3158,31 +3158,10 @@ const alinearDominioSecundarioPorCero = ({
   return [inferiorSecundario, superiorSecundario] as const
 }
 
-const deduccionSmiFormula = (anio: AnioFiscal): string =>
-  Match.value(anio).pipe(
-    Match.when(
-      2025,
-      () =>
-        "340,00 € si bruto <= 16.576,00 €; max(0, 340,00 € - 20,00% x (bruto - 16.576,00 €)) si bruto <= 18.276,00 €; 0,00 € si supera el tramo"
-    ),
-    Match.when(
-      2026,
-      () =>
-        "590,89 € si bruto <= 17.094,00 €; max(0, 590,89 € - 20,00% x (bruto - 17.094,00 €)) si 17.094,00 € < bruto < 20.048,45 €; 0,00 € si supera el tramo"
-    ),
-    Match.orElse(() => "0,00 €")
-  )
-
-const parametrosFormulaTipoEfectivoIrpf = (anio: AnioFiscal) => {
-  const especificacion = obtenerEspecificacionCompatibilidadHistorica(anio)
-
-  return {
-    tipoMaximoRetencion: formatearPuntosPorcentuales(
-      especificacion.tipoMaximoRetencionNomina.mul(100).toString()
-    ),
-    deduccionSmi: deduccionSmiFormula(anio),
-  }
-}
+const parametrosFormulaTipoEfectivoIrpf = () => ({
+  tipoMaximoRetencion: "No se aplica un límite de retención a la cuota anual",
+  deduccionSmi: "Importe recibido de la liquidación anual",
+})
 
 interface CalculoSaltoDeclaracion {
   readonly anio: AnioFiscal
@@ -3207,96 +3186,18 @@ type EstadoCalculosSaltoDeclaracion =
     }
   | { readonly _tag: "error"; readonly clave: string; readonly mensaje: string }
 
-const construirCalculoSaltoDeclaracion = Effect.fn(
-  "auditoria.ui.construirCalculoSaltoDeclaracion"
-)(function* ({
-  anio,
-  anioReferencia,
-  comunidadAutonoma,
-  perfil,
-}: {
+const construirCalculoSaltoDeclaracion = (entrada: {
   readonly anio: AnioFiscal
   readonly anioReferencia: AnioFiscal
   readonly comunidadAutonoma: ComunidadAuditada
   readonly perfil: PerfilAuditado
-}) {
-  const salarioSinObligacionCentimos =
-    UMBRAL_RENDIMIENTOS_TRABAJO_NO_OBLIGACION_DECLARAR_UN_PAGADOR_CENTIMOS
-  const salarioConObligacionCentimos =
-    UMBRAL_RENDIMIENTOS_TRABAJO_NO_OBLIGACION_DECLARAR_UN_PAGADOR_CENTIMOS + 100
-  const perfilAuditoria =
-    perfilAuditoriaNormativaParaRetencionPersonalizada(perfil)
-  const sinObligacion = yield* calcularSalarioLegacy({
-    anio,
-    salarioBrutoAnualCentimos: salarioSinObligacionCentimos,
-    comunidadAutonoma,
-    perfilAuditoria,
+}): Effect.Effect<CalculoSaltoDeclaracion, LiquidarIrpfAnualError> =>
+  Effect.fail({
+    _tag: "ResultadoNoSoportado",
+    motivo: `El panel del salto se ha retirado para ${entrada.anio}: la obligación de declarar no sustituye la cuota anual por una retención. Consulte el cálculo anual.`,
+    fuenteReconocida: "docs/procedencia/API-MOTOR.md",
+    rastro: { titulo: "Análisis retirado", pasos: [] },
   })
-  const conObligacion = yield* calcularSalarioLegacy({
-    anio,
-    salarioBrutoAnualCentimos: salarioConObligacionCentimos,
-    comunidadAutonoma,
-    perfilAuditoria,
-  })
-  const especificacion = obtenerEspecificacionCompatibilidadHistorica(anio)
-  const tipoMaximoRetencion =
-    especificacion.tipoMaximoRetencionNomina.toNumber()
-  const umbralRetencionActualCentimos = eurosACentimos(
-    umbralRetencionPerfilAuditoriaEuros({ anio, perfil })
-  )
-  const salarioSinObligacionEuros = centimosAEuros(salarioSinObligacionCentimos)
-  const cuotaAnualUmbralCentimos =
-    sinObligacion.irpfCuotaTrasDeduccionSmiCentimos ??
-    sinObligacion.irpfFinalCentimos
-  const limiteRetencionUmbralCentimos = eurosACentimos(
-    Math.max(
-      0,
-      (salarioSinObligacionEuros -
-        centimosAEuros(umbralRetencionActualCentimos)) *
-        tipoMaximoRetencion
-    )
-  )
-  const umbralRetencionCriticoCentimos = eurosACentimos(
-    salarioSinObligacionEuros -
-      centimosAEuros(cuotaAnualUmbralCentimos) / tipoMaximoRetencion
-  )
-  const irpfAntesUmbralCentimos =
-    sinObligacion.irpfConObligacionDeclararCentimos ??
-    sinObligacion.irpfFinalCentimos
-  const irpfDespuesUmbralCentimos =
-    conObligacion.irpfConObligacionDeclararCentimos ??
-    conObligacion.irpfFinalCentimos
-  const ajustarAGrafico = (centimosNominales: number) =>
-    ajustarCentimosAAnioReferencia({
-      centimosNominales,
-      anioNominal: anio,
-      anioReferencia,
-    })
-
-  return {
-    anio,
-    salarioGraficoUmbralCentimos: ajustarAGrafico(salarioSinObligacionCentimos),
-    cuotaAnualUmbralCentimos: ajustarAGrafico(cuotaAnualUmbralCentimos),
-    limiteRetencionUmbralCentimos: ajustarAGrafico(
-      limiteRetencionUmbralCentimos
-    ),
-    irpfAntesUmbralCentimos: ajustarAGrafico(irpfAntesUmbralCentimos),
-    irpfDespuesUmbralCentimos: ajustarAGrafico(irpfDespuesUmbralCentimos),
-    saltoCentimos: ajustarAGrafico(
-      irpfDespuesUmbralCentimos - irpfAntesUmbralCentimos
-    ),
-    tipoMaximoRetencionPorcentaje: formatearPuntosPorcentuales(
-      especificacion.tipoMaximoRetencionNomina.mul(100).toString()
-    ),
-    umbralRetencionActualCentimos: ajustarAGrafico(
-      umbralRetencionActualCentimos
-    ),
-    umbralRetencionCriticoCentimos: ajustarAGrafico(
-      umbralRetencionCriticoCentimos
-    ),
-    haySalto: umbralRetencionActualCentimos > umbralRetencionCriticoCentimos,
-  } satisfies CalculoSaltoDeclaracion
-})
 
 const formatoEurosEnteros = (euros: number): string =>
   formatearCentimosEnteros(eurosACentimos(euros))
@@ -4019,7 +3920,7 @@ function FormulaTipoEfectivoIrpf({
 
       <div className="grid min-w-0 items-stretch gap-2 sm:grid-cols-2 lg:grid-cols-3">
         {anios.map((anio) => {
-          const parametros = parametrosFormulaTipoEfectivoIrpf(anio)
+          const parametros = parametrosFormulaTipoEfectivoIrpf()
           const umbralRetencion = umbralRetencionPerfil({
             anio,
             anioReferencia,
@@ -4100,7 +4001,7 @@ function FormulaTipoMarginalIrpf({
   readonly perfil: PerfilAuditado
   readonly pasoCentimos: number
 }) {
-  const parametros = parametrosFormulaTipoEfectivoIrpf(anio)
+  const parametros = parametrosFormulaTipoEfectivoIrpf()
   const detallePerfil = detallePerfilAuditoriaNormativa(perfil)
   const pasoCalculoCentimos = pasoCalculoTipoMarginalCentimos(pasoCentimos)
   const umbralRetencion = umbralRetencionPerfil({

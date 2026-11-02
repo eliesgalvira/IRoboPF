@@ -1,10 +1,10 @@
-import { describe, expect, it } from "vitest"
 import { Effect } from "effect"
+import { describe, expect, it } from "vitest"
 import {
   compararAjustadoPorIpc,
   compararPasadoAjustadoPorIpc,
   type DesgloseLiquidado,
-} from "../lib/dominio/compatibilidad-legacy/progresividad-frio"
+} from "../lib/dominio/analisis-salarial/progresividad-frio"
 import { seleccionarImportesComparables } from "../lib/dominio/auditoria/importes-comparables"
 
 describe("cuota y neto de la comparación gráfica, CX-07-B", () => {
@@ -17,13 +17,13 @@ describe("cuota y neto de la comparación gráfica, CX-07-B", () => {
       })
     )
     const original = comparacion.comparado.ajustado
-    expect(original.irpfFinalCentimos).toBe(272_959)
-    expect(original.salarioNetoAnualCentimos).toBe(1_849_960)
+    expect(original.irpfFinalCentimos).toBe(287_330)
+    expect(original.salarioNetoAnualCentimos).toBe(1_835_589)
     const elegido = seleccionarImportesComparables(original)
     expect(elegido.irpfCentimos).toBe(287_330)
     expect(elegido.netoCentimos).toBe(1_835_589)
-    expect(elegido.ajusteNetoCentimos).toBe(-14_371)
-    expect(original.salarioNetoAnualCentimos).toBe(1_849_960)
+    expect(elegido.ajusteNetoCentimos).toBe(0)
+    expect(original.salarioNetoAnualCentimos).toBe(1_835_589)
   })
 
   it("concilia los céntimos visibles, incluso si el total se redondeó antes", () => {
