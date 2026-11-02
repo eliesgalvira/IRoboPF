@@ -26,7 +26,7 @@ export const CYL_FAMILIA_NUMEROSA_2025 = {
     [283, 284]
   ),
   normativa:
-    "Artículo 3. Deducciones por familia numerosa.; Decreto Legislativo 1/2013, de 12 de septiembre; IRPF 2025.",
+    "Artículo 3; artículo 10 y disposición transitoria sobre deducciones generadas hasta 2022; Decreto Legislativo 1/2013, de 12 de septiembre; IRPF 2025.",
   requisitos: [
     "El importe de la deducción se incrementará en 600 euros cuando alguno de los cónyuges o descendientes a los que sea de aplicación el mínimo por descendiente tenga un grado de discapacidad igual o superior al 65 por 100.",
     "A estos efectos, el grado de discapacidad, cuya determinación se efectuará conforme al baremo establecido actualmente en el artículo 354 del texto refundido de la Ley General de la Seguridad Social, aprobado por el Real Decreto Legislativo 8/2015, de 30 de octubre (BOE de 31 de octubre), se acreditará mediante certificación expedida por el órgano competente en la materia.",
@@ -37,7 +37,7 @@ export const CYL_FAMILIA_NUMEROSA_2025 = {
     "Véase al respecto la Ley 40/2003, de 18 de noviembre, de protección a las familias numerosa (BOE de 19 de noviembre).",
     "-Corresponderá la mitad del importe total de la deducción al contribuyente cuyo cónyuge no haya residido en la Comunidad de Castilla y León en el ejercicio.",
     "Para la aplicación de esta deducción, el contribuyente deberá estar en posesión del documento acreditativo de la condición de familia numerosa expedido por el órgano competente en la materia de la Comunidad de Castilla y León vigente a la fecha de devengo del impuesto.",
-    "Los contribuyentes que en el ejercicio citado hubieran tenido derecho a aplicar la presente deducción y hubieran carecido de cuota íntegra autonómica suficiente para aplicarse el total del importe generado por dicha deducción conservarán el derecho a aplicarse el importe no deducido en los tres períodos impositivos consecutivos siguientes hasta agotar, en su caso, el importe total de la deducción.",
+    "Los contribuyentes que en el ejercicio 2022 hubieran tenido derecho a aplicar la presente deducción y hubieran carecido de cuota íntegra autonómica suficiente para aplicarse el total del importe generado por dicha deducción conservarán el derecho a aplicarse el importe no deducido en los tres períodos impositivos consecutivos siguientes hasta agotar, en su caso, el importe total de la deducción.",
     "Por tanto, en la declaración del IRPF del ejercicio 2025 finaliza la posibilidad de aplicar el importe generado en el ejercicio 2022 y no deducido, pudiendo, en su caso, tal y como se indica en el párrafo siguiente, solicitar a la Junta de Castilla y León el abono de la cantidad que les reste por aplicar.",
     "De no resultar finalmente aplicada la totalidad de la deducción podrán solicitar a la Junta de Castilla y León, conforme al procedimiento establecido en la Orden EYH/706/2015, de 24 de agosto (BOCyL del 1 de septiembre), el abono de la cantidad que les reste por aplicar.",
   ],
@@ -74,7 +74,7 @@ export const CYL_NACIMIENTO_ADOPCION_HIJOS_2025 = {
     [284, 285, 286, 287]
   ),
   normativa:
-    "Artículo 4. Deducciones por nacimiento o adopción.; Decreto Legislativo 1/2013, de 12 de septiembre; IRPF 2025.",
+    "Artículo 4.1, 4.2, 4.3 y 4.6; artículo 10 y disposición transitoria sobre deducciones generadas hasta 2022; Decreto Legislativo 1/2013, de 12 de septiembre; IRPF 2025.",
   requisitos: [
     "Por cada hijo nacido o adoptado en el período impositivo, que genere derecho a la aplicación del mínimo por descendientes, las siguientes cantidades:",
     "1.010 euros si se trata del primer hijo.",
@@ -93,7 +93,7 @@ export const CYL_NACIMIENTO_ADOPCION_HIJOS_2025 = {
     "El contribuyente no tendrá derecho a la aplicación de esta deducción cuando hubiera optado por solicitar ayudas y prestaciones públicas otorgadas por la Junta de Castilla y León de análoga naturaleza por causa de nacimiento o adopción y se hubieran concedido.",
     "En consecuencia, esta deducción resulta incompatible con la percepción de las ayudas reguladas en la ORDEN FAM/83/2024, de 2 de febrero, por la que se modifica la ORDEN FAM/1972/2022, de 29 de diciembre, por la que se aprueban las bases reguladoras para la concesión del Bono Nacimiento a las familias de Castilla y León para el cuidado de hijos, por nacimiento o adopción. La determinación de la incompatibilidad entre la deducción por nacimiento o adopción y el Bono Nacimiento deberá hacerse por cada hijo por quien se perciba.",
     "La normativa reguladora del Bono Nacimiento contempla la concesión de una ayuda complementaria por discapacidad, que podrá ser solicitada al mismo tiempo que la subvención por nacimiento o adopción o posteriormente y antes de que el niño cumpla 5 años, al amparo de las convocatorias posteriores. Si por un primer hijo nacido en 2024 al que se le reconoce la discapacidad en 2025 no se abona dicha ayuda complementaria, procederá aplicar en 2025 el incremento por discapacidad de la deducción por nacimiento previsto en el punto c. anterior, con independencia de si se percibió o no Bono Nacimiento en 2024. No obsta a lo anterior que el contribuyente haya optado por el Bono Nacimiento por un segundo hijo nacido en 2025, sin derecho por lo tanto por este último hijo a la aplicación de la deducción por nacimiento o adopción.",
-    "Los contribuyentes que en el ejercicio citado hubieran tenido derecho a aplicar la presente deducción y hubieran carecido de cuota íntegra autonómica suficiente para aplicarse el total del importe generado por dicha deducción conservarán el derecho a aplicarse el importe no deducido en los tres períodos impositivos consecutivos siguientes hasta agotar, en su caso, el importe total de la deducción.",
+    "Los contribuyentes que en el ejercicio 2022 hubieran tenido derecho a aplicar la presente deducción y hubieran carecido de cuota íntegra autonómica suficiente para aplicarse el total del importe generado por dicha deducción conservarán el derecho a aplicarse el importe no deducido en los tres períodos impositivos consecutivos siguientes hasta agotar, en su caso, el importe total de la deducción.",
     "Por tanto, en la declaración del IRPF del ejercicio 2025 finaliza la posibilidad de aplicar el importe generado en el ejercicio 2022 y no deducido, pudiendo, en su caso, tal y como se indica en el párrafo siguiente, solicitar a la Junta de Castilla y León el abono de la cantidad que les reste por aplicar.",
     "De no resultar finalmente aplicada la totalidad de la deducción podrán solicitar a la Junta de Castilla y León, conforme al procedimiento establecido en la Orden EYH/706/2015, de 24 de agosto (BOCyL del 1 de septiembre), el abono de la cantidad que les reste por aplicar.",
   ],
@@ -126,7 +126,7 @@ export const CYL_ARRENDAMIENTO_VIVIENDA_JOVENES_2025 = {
     [303, 304, 305]
   ),
   normativa:
-    "Artículo 7. Deducciones en materia de vivienda.; Decreto Legislativo 1/2013, de 12 de septiembre; IRPF 2025.",
+    "Artículo 7.4 y 7.5; artículo 10; Decreto Legislativo 1/2013, de 12 de septiembre; IRPF 2025.",
   requisitos: [
     "Que el contribuyente tenga menos de 36 años a la fecha de devengo del impuesto (normalmente, el 31 de diciembre).",
     "Que la base imponible general más la base imponible del ahorro menos el mínimo personal y familiar (casillas [0435], [0460] y [0520] de la declaración, respectivamente) no supere las siguientes cantidades:",
@@ -181,7 +181,7 @@ export const CYL_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
     ),
     normativa:
-      "Artículo 4. Deducciones por nacimiento o adopción.; Decreto Legislativo 1/2013, de 12 de septiembre; IRPF 2025.",
+      "Artículo 4.4 y 4.6; artículo 10 y disposición transitoria sobre deducciones generadas hasta 2022; Decreto Legislativo 1/2013, de 12 de septiembre; IRPF 2025.",
     requisitos: [
       "901 euros durante los dos años siguientes al del último nacimiento o adopción que se compute a efectos de entender producido el parto múltiple o a la adopción simultánea que da derecho a aplicar la deducción.",
       "A efectos de determinar el número de orden del hijo nacido o adoptado, se tendrá en cuenta al hijo nacido y a los restantes hijos, de cualquiera de los dos progenitores, que convivan con el contribuyente en la fecha de devengo del impuesto (normalmente, el 31 de diciembre), computándose a estos efectos tanto los que lo sean por naturaleza como por adopción.",
@@ -191,7 +191,7 @@ export const CYL_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       "Conforme a lo anterior, si el parto múltiple se produce en 2025, por el nacimiento de dos hijos de forma simultánea, siempre que en 2025 se perciba el Bono Nacimiento, por uno o los dos hijos, no existirá derecho a la aplicación de las deducciones por parto múltiple ni por nacimiento.",
       "En el caso de partos sucesivos en un periodo de doce meses, por el nacimiento de dos hijos, los dos en 2025 o el primero en 2024 y el segundo en 2025, la percepción del Bono Nacimiento por el primer nacido por cualquier hecho causante que habilitara para su percepción, es independiente del derecho a la aplicación de la deducción por nacimiento y parto múltiple por el segundo nacido, siempre que tampoco se perciba el Bono Nacimiento por este segundo nacido.",
       "La percepción del Bono Nacimiento en el año 2024 por cualquier hecho causante que habilitara para su percepción es independiente del derecho a la deducción por nacimiento o por partos múltiples que se genere en 2025.",
-      "Los contribuyentes que en el ejercicio citado hubieran tenido derecho a aplicar la presente deducción y hubieran carecido de cuota íntegra autonómica suficiente para aplicarse el total del importe generado por dicha deducción conservarán el derecho a aplicarse el importe no deducido en los tres períodos impositivos consecutivos siguientes hasta agotar, en su caso, el importe total de la deducción.",
+      "Los contribuyentes que en el ejercicio 2022 hubieran tenido derecho a aplicar la presente deducción y hubieran carecido de cuota íntegra autonómica suficiente para aplicarse el total del importe generado por dicha deducción conservarán el derecho a aplicarse el importe no deducido en los tres períodos impositivos consecutivos siguientes hasta agotar, en su caso, el importe total de la deducción.",
       "Por tanto, en la declaración del IRPF del ejercicio 2025 finaliza la posibilidad de aplicar el importe generado en el ejercicio 2022 y no deducido, pudiendo, en su caso, tal y como se indica en el párrafo siguiente, solicitar a la Junta de Castilla y León el abono de la cantidad que les reste por aplicar.",
       "De no resultar finalmente aplicada la totalidad de la deducción podrán solicitar a la Junta de Castilla y León, conforme al procedimiento establecido en la Orden EYH/706/2015, de 24 de agosto (BOCyL del 1 de septiembre), el abono de la cantidad que les reste por aplicar.",
     ],
@@ -230,12 +230,12 @@ export const CYL_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
     ),
     normativa:
-      "Artículo 4. Deducciones por nacimiento o adopción.; Decreto Legislativo 1/2013, de 12 de septiembre; IRPF 2025.",
+      "Artículo 4.5 y 4.6; artículo 10 y disposición transitoria sobre deducciones generadas hasta 2022; Decreto Legislativo 1/2013, de 12 de septiembre; IRPF 2025.",
     requisitos: [
       "La deducción será aplicable al período impositivo correspondiente al momento en que se produzca la inscripción en el Registro Civil.",
       "El contribuyente no tendrá derecho a la aplicación de esta deducción cuando hubiera optado por solicitar ayudas y prestaciones públicas otorgadas por la Junta de Castilla y León de análoga naturaleza y se hubieran concedido.",
       "En consecuencia, esta deducción resulta incompatible con la percepción de las ayudas reguladas en la ORDEN FAM/83/2024, de 2 de febrero, por la que se modifica la ORDEN FAM/1972/2022, de 29 de diciembre, por la que se aprueban las bases reguladoras para la concesión del Bono Nacimiento a las familias de Castilla y León para el cuidado de hijos, por nacimiento o adopción.",
-      "Los contribuyentes que en el ejercicio citado hubieran tenido derecho a aplicar la presente deducción y hubieran carecido de cuota íntegra autonómica suficiente para aplicarse el total del importe generado por dicha deducción conservarán el derecho a aplicarse el importe no deducido en los tres períodos impositivos consecutivos siguientes hasta agotar, en su caso, el importe total de la deducción.",
+      "Los contribuyentes que en el ejercicio 2022 hubieran tenido derecho a aplicar la presente deducción y hubieran carecido de cuota íntegra autonómica suficiente para aplicarse el total del importe generado por dicha deducción conservarán el derecho a aplicarse el importe no deducido en los tres períodos impositivos consecutivos siguientes hasta agotar, en su caso, el importe total de la deducción.",
       "Por tanto, en la declaración del IRPF del ejercicio 2025 finaliza la posibilidad de aplicar el importe generado en el ejercicio 2022 y no deducido, pudiendo, en su caso, tal y como se indica en el párrafo siguiente, solicitar a la Junta de Castilla y León el abono de la cantidad que les reste por aplicar.",
       "De no resultar finalmente aplicada la totalidad de la deducción podrán solicitar a la Junta de Castilla y León, conforme al procedimiento establecido en la Orden EYH/706/2015, de 24 de agosto (BOCyL del 1 de septiembre), el abono de la cantidad que les reste por aplicar.",
     ],
@@ -272,7 +272,7 @@ export const CYL_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
     ),
     normativa:
-      "Artículo 5. Deducciones por cuidado de hijos menores.; Decreto Legislativo 1/2013, de 12 de septiembre; IRPF 2025.",
+      "Artículo 5.1; artículo 10 y disposición transitoria sobre deducciones generadas hasta 2022; Decreto Legislativo 1/2013, de 12 de septiembre; IRPF 2025.",
     requisitos: [
       "Que, a la fecha de devengo del impuesto (normalmente, el 31 de diciembre), los hijos a los que sea de aplicación el mínimo por descendientes tuvieran menos de 4 años de edad.",
       "Que ambos padres realicen una actividad por cuenta propia o ajena, por la cual estén dados de alta en el régimen correspondiente de la Seguridad Social o Mutualidad.",
@@ -288,7 +288,7 @@ export const CYL_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       "Se hace constar, a tal efecto, la compatibilidad de la presente deducción con la percepción de las ayudas reguladas en la ORDEN FAM/882/2021, de 12 de julio, por la que se aprueban las bases reguladoras para la concesión del «Bono Concilia» a las familias de Castilla y León para la conciliación de la vida personal, familiar y laboral en el cuidado de menores de cero a tres años, por no presentar naturaleza análoga, de acuerdo con el criterio remitido por la Comunidad Autónoma.",
       "El importe del Bono Concilia percibido no computa a efectos de comprobar que el importe total de la deducción aplicada por ambos progenitores más, en su caso, el importe del incremento por la deducción estatal por maternidad y el de otras ayudas públicas percibidas por el concepto de cuidado de hijos menores, supera el gasto efectivamente incurrido por dicho concepto, ni en la consiguiente minoración de la cuantía máxima deducible si se diera este supuesto.",
       'Se hace constar, adicionalmente, la compatibilidad de la presente deducción con la percepción de "Ayudas por reducción de jornada y excedencia" reguladas por la ORDEN FAM/1454/2023, de 18 de diciembre, por la que se aprueban las bases reguladoras para la concesión de subvenciones destinadas a la conciliación de la vida personal, familiar y laboral en Castilla y León. El importe percibido por estas ayudas por reducción de jornada y excedencia tampoco computa a los efectos mencionados en el párrafo anterior.',
-      "Los contribuyentes que en el ejercicio citado hubieran tenido derecho a aplicar la presente deducción y hubieran carecido de cuota íntegra autonómica suficiente para aplicarse el total del importe generado por dicha deducción conservarán el derecho a aplicarse el importe no deducido en los tres períodos impositivos consecutivos siguientes hasta agotar, en su caso, el importe total de la deducción.",
+      "Los contribuyentes que en el ejercicio 2022 hubieran tenido derecho a aplicar la presente deducción y hubieran carecido de cuota íntegra autonómica suficiente para aplicarse el total del importe generado por dicha deducción conservarán el derecho a aplicarse el importe no deducido en los tres períodos impositivos consecutivos siguientes hasta agotar, en su caso, el importe total de la deducción.",
       "Por tanto, en la declaración del IRPF del ejercicio 2025 finaliza la posibilidad de aplicar el importe generado en el ejercicio 2022 y no deducido, pudiendo, en su caso, tal y como se indica en el párrafo siguiente, solicitar a la Junta de Castilla y León el abono de la cantidad que les reste por aplicar.",
       "De no resultar finalmente aplicada la totalidad de la deducción podrán solicitar a la Junta de Castilla y León, conforme al procedimiento establecido en la Orden EYH/706/2015, de 24 de agosto (BOCyL del 1 de septiembre), el abono de la cantidad que les reste por aplicar.",
     ],
@@ -337,15 +337,15 @@ export const CYL_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
     ),
     normativa:
-      "Artículo 5. Deducciones por cuidado de hijos menores.; Decreto Legislativo 1/2013, de 12 de septiembre; IRPF 2025.",
+      "Artículo 5.2; artículo 10 y disposición transitoria sobre deducciones generadas hasta 2022; Decreto Legislativo 1/2013, de 12 de septiembre; IRPF 2025.",
     requisitos: [
       "La deducción será aplicable solo por los contribuyentes que a la fecha de devengo del impuesto tengan un hijo menor de 4 años, al que sea de aplicación el mínimo por descendientes regulado en la normativa del IRPF.",
       "Para aplicar esta deducción la base imponible total (casillas [0435] y [0460] de la declaración) menos el mínimo personal y familiar (casilla [0520] de la declaración) no puede superar las siguientes cantidades:",
       "- 18.900 euros en tributación individual.",
       "- 31.500 euros en tributación conjunta.",
-      "El contribuyente no tendrá derecho a la aplicación de esta deducción cuando hubiera optado por solicitar ayudas y prestaciones públicas otorgadas por la Junta de Castilla y León de análoga naturaleza por causa de cuidado de hijos menores y se hubieran",
+      "El contribuyente no tendrá derecho a la aplicación de esta deducción cuando hubiera optado por solicitar ayudas y prestaciones públicas otorgadas por la Junta de Castilla y León de análoga naturaleza por causa de cuidado de hijos menores y se hubieran concedido.",
       "Se hace constar, a tal efecto, la compatibilidad de la presente deducción con la percepción de las ayudas reguladas en la ORDEN FAM/882/2021, de 12 de julio, por la que se aprueban las bases reguladoras para la concesión del «Bono Concilia» a las familias de Castilla y León para la conciliación de la vida personal, familiar y laboral en el cuidado de menores de cero a tres años, por no presentar naturaleza análoga, de acuerdo con el criterio remitido por la Comunidad Autónoma.",
-      "Los contribuyentes que en el ejercicio citado hubieran tenido derecho a aplicar la presente deducción y hubieran carecido de cuota íntegra autonómica suficiente para aplicarse el total del importe generado por dicha deducción conservarán el derecho a aplicarse el importe no deducido en los tres períodos impositivos consecutivos siguientes hasta agotar, en su caso, el importe total de la deducción.",
+      "Los contribuyentes que en el ejercicio 2022 hubieran tenido derecho a aplicar la presente deducción y hubieran carecido de cuota íntegra autonómica suficiente para aplicarse el total del importe generado por dicha deducción conservarán el derecho a aplicarse el importe no deducido en los tres períodos impositivos consecutivos siguientes hasta agotar, en su caso, el importe total de la deducción.",
       "Por tanto, en la declaración del IRPF del ejercicio 2025 finaliza la posibilidad de aplicar el importe generado en el ejercicio 2022 y no deducido, pudiendo, en su caso, tal y como se indica en el párrafo siguiente, solicitar a la Junta de Castilla y León el abono de la cantidad que les reste por aplicar.",
       "De no resultar finalmente aplicada la totalidad de la deducción podrán solicitar a la Junta de Castilla y León, conforme al procedimiento establecido en la Orden EYH/706/2015, de 24 de agosto (BOCyL del 1 de septiembre), el abono de la cantidad que les reste por aplicar.",
     ],
@@ -385,7 +385,7 @@ export const CYL_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
     ),
     normativa:
-      "Artículo 6. Deducción por discapacidad.; Decreto Legislativo 1/2013, de 12 de septiembre; IRPF 2025.",
+      "Artículo 6; artículo 10; Decreto Legislativo 1/2013, de 12 de septiembre; IRPF 2025.",
     requisitos: [
       "Que la suma de la base imponible general y la base imponible del ahorro del contribuyente menos el mínimo personal y familiar (casillas [0435], [0460] y [0520] de la declaración, respectivamente) no supere las siguientes cantidades:",
       "- 18.900 euros en tributación individual.",
@@ -428,7 +428,7 @@ export const CYL_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
     ),
     normativa:
-      "Artículo 7. Deducciones en materia de vivienda.; Decreto Legislativo 1/2013, de 12 de septiembre; IRPF 2025.",
+      "Artículo 7.1 y 7.6; artículo 10; disposición transitoria de la Ley 1/2023; Decreto Legislativo 1/2013, de 12 de septiembre; IRPF 2025.",
     requisitos: [
       "Que el contribuyente tenga su residencia habitual en la Comunidad de Castilla y León y que, a la fecha de devengo del impuesto (normalmente, el 31 de diciembre), tenga menos de 36 años.",
       "Que se trate de su primera vivienda habitual. Se considera que el contribuyente adquiere su primera vivienda cuando no dispusiera ni hubiera dispuesto de ningún derecho de plena propiedad igual o superior al 50 por 100 sobre otra vivienda.",
@@ -492,8 +492,9 @@ export const CYL_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
     ),
     normativa:
-      "Artículo 7. Deducciones en materia de vivienda.; Decreto Legislativo 1/2013, de 12 de septiembre; IRPF 2025.",
+      "Artículo 7.2; artículo 10.2.e), 10.3.d) y 10.4.e); Decreto Legislativo 1/2013, de 12 de septiembre; IRPF 2025.",
     requisitos: [
+      "Reserva documental del artículo 7.2: la norma admite planes estatales o autonómicos de vivienda; el manual restringe la relación a planes estatales gestionados por la Dirección General de Vivienda. Un programa exclusivamente autonómico con actuaciones de las enumeradas en el artículo queda afectado por esta diferencia. Deben comprobarse la concesión, su finalidad y el pago de la subvención en el ejercicio.",
       "Únicamente podrán ser objeto de deducción las actuaciones de rehabilitación de viviendas subvencionadas en el marco de programas regulados en los Planes Estatales de vivienda gestionados por Dirección General de Vivienda, Arquitectura, Ordenación del Territorio y Urbanismo de la Junta de Castilla y León, con las finalidades mencionadas en el apartado anterior.",
       "Las convocatorias para las que se han realizado pagos durante el año 2025 que pudieran generar el derecho a la aplicación de la deducción son las siguientes:",
       "Convocatoria año 2021 (Orden de 27 de octubre de 2021):",
@@ -549,7 +550,7 @@ export const CYL_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
     ),
     normativa:
-      "Artículo 7. Deducciones en materia de vivienda.; Decreto Legislativo 1/2013, de 12 de septiembre; IRPF 2025.",
+      "Artículo 7.3 y 7.6; artículo 10.3.d); Decreto Legislativo 1/2013, de 12 de septiembre; IRPF 2025.",
     requisitos: [
       "El concepto de rehabilitación de viviendas es el recogido en el artículo 20.Uno.22.B de la Ley 37/1992, de 28 de diciembre, del Impuesto sobre el Valor Añadido, o norma que le sustituya.",
       "A efectos de lo dispuesto en el artículo 20.Uno.22.B de la Ley 37/1992, de 28 de diciembre, del Impuesto sobre el Valor Añadido son obras de rehabilitación de edificaciones las que reúnan los siguientes requisitos:",
@@ -610,8 +611,9 @@ export const CYL_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
     ),
     normativa:
-      "Artículo 8. Deducción para el fomento de emprendimiento.; Decreto Legislativo 1/2013, de 12 de septiembre; IRPF 2025.",
+      "Artículo 8; artículo 10.3.d); Decreto Legislativo 1/2013, de 12 de septiembre; IRPF 2025.",
     requisitos: [
+      "Reserva documental: el artículo 8.1 exige proyecto de inversión en Castilla y León; el domicilio social y fiscal en la Comunidad aparece expresamente en el artículo 8.4 para la sociedad receptora en la inversión indirecta. El manual formula también el domicilio como requisito general. Queda delimitado el caso de inversión directa con proyecto regional y domicilio fuera de la Comunidad.",
       "Para la aplicación de la deducción deben cumplirse los siguientes requisitos y condiciones:",
       "Destino de la inversión: adquisición de acciones o participaciones como consecuencia de acuerdos de constitución de sociedades o de ampliación del capital en las siguientes sociedades:",
       "- Sociedades anónimas, limitadas o laborales cuando la sociedad destine la financiación recibida a proyectos de inversión realizados en el territorio de Castilla y León.",
@@ -670,8 +672,9 @@ export const CYL_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
     ),
     normativa:
-      "Artículo 9. Deducciones para la recuperación del patrimonio cultural y natural, por donaciones a fundaciones y para el fomento de la investigación, el desarrollo y la innovación y para el fomento de la movilidad sostenible.; Decreto Legislativo 1/2013, de 12 de septiembre; IRPF 2025.",
+      "Artículo 9.a) y 9.b); artículo 10; Decreto Legislativo 1/2013, de 12 de septiembre; IRPF 2025.",
     requisitos: [
+      "Reserva documental del artículo 9.b): la norma exige actuaciones autorizadas O informadas favorablemente; el manual emplea E. El caso con solo autorización o solo informe favorable queda afectado por esta diferencia. La referencia a la Ley 12/2002 debe leerse junto con su derogación por la Ley 7/2024, vigente desde 27 de septiembre de 2024, y su disposición adicional séptima sobre incorporación al Censo del Patrimonio Cultural; la mera inclusión de un bien documentado en el censo no demuestra por sí sola la categoría protegida exigida.",
       "a. Las cantidades destinadas por los titulares de bienes inmuebles ubicados en el territorio de Castilla y León a la restauración, rehabilitación o reparación de los mismos, siempre que concurran las siguientes condiciones:",
     ],
     limites: [
@@ -713,8 +716,9 @@ export const CYL_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
     ),
     normativa:
-      "Artículo 9. Deducciones para la recuperación del patrimonio cultural y natural, por donaciones a fundaciones y para el fomento de la investigación, el desarrollo y la innovación y para el fomento de la movilidad sostenible.; Decreto Legislativo 1/2013, de 12 de septiembre; IRPF 2025.",
+      "Artículo 9.c), 9.d) y 9.e); artículo 10; Decreto Legislativo 1/2013, de 12 de septiembre; IRPF 2025.",
     requisitos: [
+      "Artículo 9.e): se exige inscripción de la fundación en el Registro de Fundaciones de Castilla y León y previsión estatutaria de actividades culturales, asistenciales o ecológicas. El manual lo expresa como clasificación por fines. La Ley 7/2024 derogó la Ley 12/2002 desde 27 de septiembre de 2024; su disposición adicional séptima incorpora los antiguos registros al Censo, sin equiparar todos los bienes documentados a bienes declarados o inventariados.",
       "a. Rehabilitación o conservación de bienes que se encuentren en el territorio de Castilla y León, que formen parte del Patrimonio Histórico Español o del Patrimonio Cultural de Castilla y León y que estén inscritos en el Registro General de Bienes de Interés Cultural o incluidos en el Inventario General a que se refiere la Ley 16/1985, de 25",
     ],
     limites: [
@@ -758,8 +762,9 @@ export const CYL_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
     ),
     normativa:
-      "Artículo 9. Deducciones para la recuperación del patrimonio cultural y natural, por donaciones a fundaciones y para el fomento de la investigación, el desarrollo y la innovación y para el fomento de la movilidad sostenible.; Decreto Legislativo 1/2013, de 12 de septiembre; IRPF 2025.",
+      "Artículo 9.f); artículo 10.3.b); Decreto Legislativo 1/2013, de 12 de septiembre; IRPF 2025.",
     requisitos: [
+      "El artículo 9.f) está exceptuado del umbral de renta de 18.900/31.500 euros por el artículo 10.1, pero su base sí participa en el límite conjunto del 10% de base liquidable del artículo 10.3.b). Las reformas de movilidad de la letra g) no modifican esta letra f).",
       "Fundaciones y otras instituciones cuya actividad principal sea la investigación, el desarrollo y la innovación empresarial para la financiación de proyectos desarrollados en Castilla y León con alguna de estas finalidades.",
     ],
     limites: [
@@ -793,8 +798,9 @@ export const CYL_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
       ["Cumplir los requisitos indicados en la ficha normativa normalizada."]
     ),
     normativa:
-      "Artículo 9. Deducciones para la recuperación del patrimonio cultural y natural, por donaciones a fundaciones y para el fomento de la investigación, el desarrollo y la innovación y para el fomento de la movilidad sostenible.; Decreto Legislativo 1/2013, de 12 de septiembre; IRPF 2025.",
+      "Artículo 9.g); artículo 10.2.j), 10.3.d) y 10.4.d); Decreto Legislativo 1/2013, de 12 de septiembre; IRPF 2025.",
     requisitos: [
+      "El artículo 9.g) prevé prorratear, en su caso, el máximo de 4.000 euros entre los adquirentes. La factura acredita titular, fecha y pago conforme al artículo 10.4.d); no elimina ese reparto legal. La minoración por la deducción estatal de la disposición adicional 58 de la LIRPF afecta al máximo del mismo vehículo, incluso si se aplicó en otro ejercicio.",
       "El valor de adquisición del vehículo, impuestos incluidos, no podrá superar los 40.000 euros.",
       "El vehículo adquirido no podrá estar afecto a actividades profesionales o empresariales, cualquiera que sea el titular de estas actividades.",
       "La deducción solamente será de aplicación en el periodo impositivo en el cual se matricule el vehículo cuya adquisición genera el derecho a aplicar la deducción.",

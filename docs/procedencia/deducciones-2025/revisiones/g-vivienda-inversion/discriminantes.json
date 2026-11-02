@@ -1,0 +1,138 @@
+[
+  {
+    "id": "RV-01",
+    "codigo": "valenciana_arrendador_renta_precio_referencia",
+    "supuesto": "Renta520, IBI20, suministros40; referencia540",
+    "juicioIndependiente": "Comparar540; igualdad admitida. No incluir40 ni comparar520 solo.",
+    "fuenteLocalizador": "gv-1,gv-6",
+    "naturaleza": "discriminante_documental_no_test_financiero"
+  },
+  {
+    "id": "RV-02",
+    "codigo": "valenciana_arrendador_renta_precio_referencia",
+    "supuesto": "Inicio real1nov, firma15nov; depósito10dic",
+    "juicioIndependiente": "Mes administrativo desde1nov, pero depósito dentro2025 satisface solo condición temporal fiscal.",
+    "fuenteLocalizador": "gv-1,gv-5",
+    "naturaleza": "discriminante_documental_no_test_financiero"
+  },
+  {
+    "id": "RV-03",
+    "codigo": "valenciana_arrendador_renta_precio_referencia",
+    "supuesto": "80m² útiles,100m² construidos vivienda,20m² comunes",
+    "juicioIndependiente": "Usar100 de construida vivienda para tablas de metodología identificada; no80 ni120. No deduce un precio sin celda.",
+    "fuenteLocalizador": "R11; gv-10",
+    "naturaleza": "discriminante_documental_no_test_financiero"
+  },
+  {
+    "id": "RV-04",
+    "codigo": "valenciana_arrendador_renta_precio_referencia",
+    "supuesto": "Metadato2023 de tablas2018, sin celda conservada2025",
+    "juicioIndependiente": "No indexar ni presumir precio histórico; la regla de superficie sí puede documentarse.",
+    "fuenteLocalizador": "gv-10; R11",
+    "naturaleza": "discriminante_documental_no_test_financiero"
+  },
+  {
+    "id": "RV-05",
+    "codigo": "valenciana_obras_conservacion_mejora_periodo",
+    "supuesto": "Obra edificio solo acredita30% primaria, zonaD y no acredita demanda ni excepción",
+    "juicioIndependiente": "No basta umbral30%; art33 añade demanda35% salvo excepciones.",
+    "fuenteLocalizador": "gv-43",
+    "naturaleza": "discriminante_documental_no_test_financiero"
+  },
+  {
+    "id": "RV-06",
+    "codigo": "valenciana_obras_conservacion_mejora_periodo",
+    "supuesto": "Vivienda acredita7% demanda, no30% primaria; resto programa acreditado",
+    "juicioIndependiente": "Art43 ofrece alternativas; no exigir ambos umbrales.",
+    "fuenteLocalizador": "gv-44",
+    "naturaleza": "discriminante_documental_no_test_financiero"
+  },
+  {
+    "id": "RV-07",
+    "codigo": "valenciana_obras_conservacion_mejora_periodo",
+    "supuesto": "Ascensor patio30dic, ocupación21%, resto acreditado",
+    "juicioIndependiente": "Art60 no autoriza por sola flexibilidad: máximo20%. No certifica solución técnica.",
+    "fuenteLocalizador": "R1",
+    "naturaleza": "discriminante_documental_no_test_financiero"
+  },
+  {
+    "id": "RV-08",
+    "codigo": "valenciana_obras_conservacion_mejora_periodo",
+    "supuesto": "Licencia solicitada15jul2019, pago2025",
+    "juicioIndependiente": "No imponer D65 por fecha del pago; examinar DT y DC09 aplicable.",
+    "fuenteLocalizador": "gv-30",
+    "naturaleza": "discriminante_documental_no_test_financiero"
+  },
+  {
+    "id": "RV-09",
+    "codigo": "valenciana_obras_conservacion_mejora_2014_2015",
+    "supuesto": "Ejecución2015 pagada2025; solo vía autonómica acreditada",
+    "juicioIndependiente": "No acumular plan estatal2022; rama alternativa DA13,25% condicionado resto.",
+    "fuenteLocalizador": "gv-14,gv-53",
+    "naturaleza": "discriminante_documental_no_test_financiero"
+  },
+  {
+    "id": "RV-10",
+    "codigo": "valenciana_obras_conservacion_mejora_2014_2015",
+    "supuesto": "Fallo2016 dice21, auto2017 dice22.1",
+    "juicioIndependiente": "Aplicar rectificación limitada personal OCAces, no anulación DC09.",
+    "fuenteLocalizador": "gv-26,gv-27",
+    "naturaleza": "discriminante_documental_no_test_financiero"
+  },
+  {
+    "id": "RV-11",
+    "codigo": "valenciana_inversion_entidades_nuevas_reciente_creacion",
+    "supuesto": "EECV tiene3 residentes y2 cotizantes distintos de10 contratados laborales/mercantiles exigidos",
+    "juicioIndependiente": "Contar unión de personas sin duplicar; 5/10 cumple umbral, todavía exige restoart21.",
+    "fuenteLocalizador": "eecv-def",
+    "naturaleza": "discriminante_documental_no_test_financiero"
+  },
+  {
+    "id": "RV-12",
+    "codigo": "valenciana_inversion_entidades_nuevas_reciente_creacion",
+    "supuesto": "Tecnología encargada a empresa española fueraCV con derechos exigidos, demásart21 probado",
+    "juicioIndependiente": "Art21.4.c no exige añadir domicilioCV al proveedor; no rechazar por ese hecho solo.",
+    "fuenteLocalizador": "eecv-def",
+    "naturaleza": "discriminante_documental_no_test_financiero"
+  },
+  {
+    "id": "RV-13",
+    "codigo": "valenciana_inversion_entidades_nuevas_reciente_creacion",
+    "supuesto": "Devengo31dic, entidad6años con selloPYME; sin supuesto emergente estratégico",
+    "juicioIndependiente": "PYME no acredita ampliación7años; no confundir alternativas de incremento y antigüedad.",
+    "fuenteLocalizador": "z-regimen",
+    "naturaleza": "discriminante_documental_no_test_financiero"
+  },
+  {
+    "id": "RV-14",
+    "codigo": "valenciana_dana_danos_materiales_vivienda_habitual",
+    "supuesto": "Vivienda fuera pedanías sur; pagador reside en pedanía sur",
+    "juicioIndependiente": "No satisface ubicación art4; domicilio del pagador no traslada vivienda.",
+    "fuenteLocalizador": "dana-vivienda,dana-acuerdo",
+    "naturaleza": "discriminante_documental_no_test_financiero"
+  },
+  {
+    "id": "RV-15",
+    "codigo": "valenciana_dana_danos_materiales_vivienda_habitual",
+    "supuesto": "ViviendaLoriguilla sin prueba núcleoA3, ayuda concedida",
+    "juicioIndependiente": "Ayuda no prueba subámbito fiscal; requerir ubicación sin cuota ficticia.",
+    "fuenteLocalizador": "dana-ambito,dana-acuerdo",
+    "naturaleza": "discriminante_documental_no_test_financiero"
+  },
+  {
+    "id": "RV-16",
+    "codigo": "valenciana_dana_aportaciones_fondos_propios_entidades",
+    "supuesto": "SocialXeraco, fiscalPaiporta, amparo resolución16dic",
+    "juicioIndependiente": "No cumple doble domicilio en ámbito fiscal; ayuda municipal no amplíaart2.",
+    "fuenteLocalizador": "dana-reforma,excluir-diciembre",
+    "naturaleza": "discriminante_documental_no_test_financiero"
+  },
+  {
+    "id": "RV-17",
+    "codigo": "valenciana_dana_aportaciones_fondos_propios_entidades",
+    "supuesto": "Entidad preexistente ambos domicilios acreditados29oct y solicitudERTE por temporal; sin resoluciónERTE",
+    "juicioIndependiente": "Norma pide solicitud; ausencia de concesión no invalida por sí sola esta condición. Resto pendiente.",
+    "fuenteLocalizador": "dana-reforma",
+    "naturaleza": "discriminante_documental_no_test_financiero"
+  }
+]
