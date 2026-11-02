@@ -1,0 +1,70 @@
+{
+  "base": "7a91219490ab8daaa3f9a19275c168bafc3e5668",
+  "naturaleza": "Revisión independiente documental; recepción corresponde al padre",
+  "decisiones": [
+    {
+      "id": "AAMP-01",
+      "decision": "Rectificación documental corroborada",
+      "motivo": "Ocho identificadores retirados del expediente de donativos, cobertura y proposiciones; preservados en celiaquía con artículo 22 quater. Se conservan BOJA art.22 y 10%/150.",
+      "discriminantes": "Donativo admisible de 1.499,90: 149,99; 1.500 y 1.500,10: máximo 150, sin trasladar diagnóstico celíaco al donativo.",
+      "evidencias": [
+        "CA-BOJA-dd45dbc7f39c-309",
+        "CA-BOJA-dd45dbc7f39c-312",
+        "CA-andalucia-274 a 279,281,282"
+      ]
+    },
+    {
+      "id": "BC01",
+      "decision": "Rectificación documental corroborada",
+      "motivo": "Curatela representativa judicial expresamente como criterio del Manual, sin interpolación en la ley autonómica. Patria potestad prorrogada/rehabilitada preservada mientras no se revise. La curatela meramente asistencial no satisface por sí sola este criterio.",
+      "discriminantes": "Hijo de 28 años con curatela representativa judicial: incluido por manual si cumple los demás requisitos. Con curatela solo asistencial: no se acredita este supuesto; anterior patria potestad aún no revisada: no excluir por el cambio terminológico.",
+      "evidencias": [
+        "rbc-manual-3",
+        "rbc-manual-4",
+        "cinco-DT2"
+      ]
+    },
+    {
+      "id": "BC02",
+      "decision": "Rectificación documental corroborada",
+      "motivo": "Ley 3/2024 art.3.Uno -> 2.11.4 excluye rentas iguales o superiores a 8.000; manual p.226 admite no superiores. La divergencia queda registrada y la ficha mantiene <8.000.",
+      "discriminantes": "7.999,99: supera filtro de renta; 8.000: excluido legalmente aunque el manual lo admita; 8.000,01: excluido por ambos. Resto de requisitos separado.",
+      "evidencias": [
+        "rb-1",
+        "rbc-manual-5"
+      ]
+    },
+    {
+      "id": "CAMP-01",
+      "decision": "Rectificación documental corroborada, incluida atribución",
+      "motivo": "La segunda anualidad conserva ejercicio/renta/modalidad de origen: 45.500/60.500 para 2024; 46.455/61.770 para 2025. Ley 5/2024 DF décima.Tres, no DF12; efectos 1/1/2024 y excepción Cuatro no aplicable al artículo 8.",
+      "discriminantes": "Origen 2024 individual 45.500 y renta 2025 de 90.000: supera filtro de renta de origen. Origen 45.500,01 y renta corriente cero: no nace derecho. Conjunta 60.500 inclusivo. En origen 2025, 46.455/61.770 inclusivos. Permanencia y cuota limitan aparte.",
+      "evidencias": [
+        "camp-01-encabezado-df10",
+        "camp-01-efectos-2024",
+        "camp-01-art8.4-2024",
+        "cinco-extra-96",
+        "canarias_traslado_residencia_otra_isla_trabajo-manual-19"
+      ]
+    },
+    {
+      "id": "CAMP-02",
+      "decision": "Rectificación documental corroborada",
+      "motivo": "Ley 11/2023 art.sexto, página 5, ya añade 6 bis.6 con 50%/900; entrada en vigor p.14. Ley 3/2025 DF tercera p.17 añade autónomos 183 días y 30% para numerosas especiales; DF quinta p.18 y publicación 10/7 sitúan entrada 11/7. Se preserva régimen anterior para devengos previos.",
+      "discriminantes": "35 años, fallecimiento 10/7/2025, menor todo el año, un titular y demás requisitos: gasto 1.000 -> 500. Gasto 2.000 -> tope 900. Contribuyente no cualificado -> régimen general 40%/660. Ser solo autónomo no habilita retroactivamente el nuevo colectivo en el devengo anterior.",
+      "evidencias": [
+        "balears_conciliacion_menores_6-prim-delimitado-10",
+        "cinco-suplemento-1",
+        "cinco-suplemento-2",
+        "cinco-suplemento-3",
+        "cinco-extra-99"
+      ]
+    }
+  ],
+  "limites": [
+    "Sin validación fiscal de API ni modificación de producto",
+    "Sin repetición de 142 concordancias previas",
+    "VEH/192/2018: integración común pendiente distinta de AAMP-01",
+    "Selector histórico rbc-ley-1 no reextraíble con beautifulsoup4 4.14.3; original y literal DT2 contrastados con localizador independiente cinco-DT2"
+  ]
+}
