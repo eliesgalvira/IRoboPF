@@ -22,7 +22,10 @@ describe("rectificación de evidencia del lote D", () => {
       expect(r.vigencia.articulo.startsWith(articulo)).toBe(true)
       expect(
         r.citas.some(
-          (c) => c.documentoId !== "D-manual" && c.articulo.includes(articulo)
+          (c) =>
+            c.documentoId !== "D-manual" &&
+            c.articulo !== undefined &&
+            c.articulo.includes(articulo)
         )
       ).toBe(true)
     })

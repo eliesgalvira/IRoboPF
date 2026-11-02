@@ -60,6 +60,8 @@ export const EXTREMADURA_CUIDADO_FAMILIARES_DISCAPACIDAD_2025 = {
   normativa:
     "Artículo 5. Deducción autonómica por cuidado de familiares con discapacidad.; Decreto Legislativo 1/2018, de 10 de abril; IRPF 2025.",
   requisitos: [
+    "La obligación de declarar por Patrimonio se determina conforme al artículo 37 de la Ley 19/1991: cuota a ingresar o valor de bienes y derechos superior a 2.000.000 de euros. La presentación voluntaria no equivale a obligación legal.",
+    "El certificado o resolución de discapacidad corresponde al IMSERSO u órgano autonómico competente conforme al artículo 72 del Reglamento del IRPF. La presunción de discapacidad del 33 por 100 de determinados pensionistas no acredita por sí sola el umbral del 65 por 100.",
     "Que el ascendiente o descendiente con discapacidad conviva de forma ininterrumpida con el contribuyente al menos la mitad del período impositivo.",
     "Que se acredite la convivencia efectiva por los Servicios Sociales de base o por cualquier otro organismo público competente.",
     "Que la renta general y del ahorro del ascendiente o descendiente con discapacidad no sean superiores al doble del indicador público de renta de efectos múltiples (IPREM), incluidas las exentas ni tenga obligación legal de presentar declaración por el Impuesto sobre el Patrimonio. Para el ejercicio 2025, dicha cuantía asciende a 16.800 euros (8.400 x 2).",
@@ -407,6 +409,8 @@ export const EXTREMADURA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     normativa:
       "Artículo 8. Deducción autonómica por adquisición de vivienda para jóvenes y para víctimas del terrorismo con residencia en la Comunidad Autónoma de Extremadura.; Decreto Legislativo 1/2018, de 10 de abril; IRPF 2025.",
     requisitos: [
+      "A efectos del artículo 13.1.f, primera vivienda exige no disponer ni haber dispuesto de un derecho de plena propiedad igual o superior al 50 por 100 sobre otra vivienda.",
+      "La comprobación patrimonial se rige por el artículo 70.1 de la Ley del IRPF aplicable a 31 de diciembre de 2012: incremento patrimonial al menos igual a la inversión, excluidos intereses y demás gastos de financiación y variaciones de valor de bienes que permanezcan en el patrimonio.",
       "La aplicación de la deducción está condicionada al cumplimiento de los mismos requisitos y condiciones exigidos en relación con la deducción general por adquisición, rehabilitación de la vivienda habitual, base de deducción y límite máximo fijados por la normativa estatal en su redacción en vigor a 31 de diciembre de 2012, incluido el relativo a la comprobación de la situación patrimonial del contribuyente y, además, los siguientes:",
       "Debe tratarse de una vivienda nueva.",
       "Se considera vivienda nueva aquella cuya adquisición represente la primera transmisión de la misma con posterioridad a la declaración de obra nueva, siempre que no hayan transcurrido 3 años desde esta.",
@@ -533,6 +537,8 @@ export const EXTREMADURA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     normativa:
       "Artículo 9 ter. Deducción autonómica por inversiones en la rehabilitación de viviendas en zonas rurales para ser destinadas a su alquiler.; Decreto Legislativo 1/2018, de 10 de abril; IRPF 2025.",
     requisitos: [
+      "El censo de núcleos diferenciados del artículo 9 quater y anexo, incorporados por la Ley 1/2025 con efectos desde el 1 de enero de 2025, se aplica exclusivamente al beneficio del artículo 9 ter. No amplía las deducciones de los artículos 8, 9, 11 bis, 11 ter ni las excepciones del artículo 12 bis. Su actualización corresponde por resolución a la Consejería competente en reto demográfico.",
+      "La rehabilitación del artículo 20.Uno.22.B de la Ley del IVA exige que más del 50 por 100 del coste del proyecto corresponda a consolidación o tratamiento de estructuras, fachadas o cubiertas u obras análogas o conexas, y que el coste total exceda del 25 por 100 del precio de adquisición en los dos años anteriores o del valor de mercado, descontando el suelo.",
       "Que no se dediquen a la promoción inmobiliaria ni al arrendamiento de viviendas en los términos del artículo 27 de la Ley del IRPF, siendo la rehabilitación o el alquiler objeto de su actividad.",
       "Que la vivienda esté situada en alguno de los municipios y entidades locales menores en los que la población de derecho a 31 de diciembre del ejercicio del devengo sea inferior a 3.000 habitantes, así como en núcleos de población diferenciados que formen parte del Censo que se apruebe por la Comunidad Autónoma de Extremadura a efectos de beneficios fiscales.",
       "Puede consultar los municipios y las entidades locales menores con una población inferior a 3.000 habitantes y los núcleos de población diferenciados que no son ninguno de los anteriores y que pertenecen a un municipio de más de 3.000 habitantes y sus diseminados en los enlaces indicados al término de la presente sección.",
@@ -644,6 +650,8 @@ export const EXTREMADURA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     normativa:
       "Artículo 11. Deducción autonómica por inversión en la adquisición de acciones y participaciones sociales como consecuencia de acuerdos de constitución de sociedades o ampliación de capital en las sociedades mercantiles.; Decreto Legislativo 1/2018, de 10 de abril; IRPF 2025.",
     requisitos: [
+      "El artículo 4.Ocho.Dos.a de la Ley del Impuesto sobre el Patrimonio considera gestión patrimonial, con sus excepciones expresas, que durante más de 90 días del ejercicio social más de la mitad del activo esté constituido por valores o no esté afecto a actividades económicas.",
+      "Las cantidades que sirven de base a esta deducción autonómica no forman parte de la base de la deducción estatal por inversión en empresas de nueva o reciente creación, conforme al artículo 68.1 de la Ley del IRPF.",
       "Que, como consecuencia de la participación adquirida por el contribuyente, computada junto con la que posean de la misma entidad su cónyuge o personas unidas al contribuyente por razón de parentesco, en línea directa o colateral, por consanguinidad o afinidad hasta el tercer grado incluido, no se llegue a poseer durante ningún día del año natural más del 40 por 100 del total del capital social de la entidad o de sus derechos de voto.",
       "Que las participaciones adquiridas han de mantenerse en el patrimonio del contribuyente durante un período mínimo de tres años, siguientes a la constitución o ampliación y este no debe ejercer funciones ejecutivas ni de dirección en la entidad.",
       "Que la entidad de la que se adquieran las acciones o participaciones cumpla los siguientes requisitos:",
@@ -690,6 +698,8 @@ export const EXTREMADURA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     normativa:
       "Artículo 11 bis. Deducción por adquisición o rehabilitación de la vivienda habitual en zonas rurales.; Decreto Legislativo 1/2018, de 10 de abril; IRPF 2025.",
     requisitos: [
+      "Reserva temporal: el artículo 11 bis.1.b remite a adquisiciones o rehabilitaciones desde la entrada en vigor de la Ley 3/2022 (22 de marzo de 2022), mientras el Manual Renta 2025 indica 1 de enero de 2022 atendiendo a sus efectos fiscales. Las adquisiciones del 1 de enero al 21 de marzo de 2022 requieren resolver esta divergencia antes de aceptar la deducción.",
+      "El censo de núcleos diferenciados del artículo 9 quater no amplía el ámbito territorial de esta deducción.",
       "Que la vivienda esté situada en alguno de los municipios y entidades locales menores de Extremadura en los que la población de derecho a 31 de diciembre sea inferior a 3.000 habitantes.",
       "Puede consultar los municipios y las entidades locales menores con una población inferior a 3.000 habitantes en los enlaces indicados al término de la presente deducción.",
       "Que la adquisición o rehabilitación de la vivienda se haya producido a partir del día 1 de enero de 2022.",
@@ -760,6 +770,7 @@ export const EXTREMADURA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     normativa:
       "Artículo 11 ter. Deducción en la cuota íntegra autonómica para los contribuyentes con residencia habitual en municipios y entidades locales menores de Extremadura con población inferior a 3.000 habitantes.; Decreto Legislativo 1/2018, de 10 de abril; IRPF 2025.",
     requisitos: [
+      "En 2025, la excepción familiar del artículo 12 bis no comprende el artículo 11 ter: se mantienen los límites de 28.000 y 45.000 euros. El censo de núcleos del artículo 9 quater no amplía esta deducción.",
       "Que el contribuyente resida habitualmente en alguno de los municipios y entidades locales menores de Extremadura en los que la población sea inferior a 3.000 habitantes.",
       "Puede consultar los municipios y las entidades locales menores con una población inferior a 3.000 habitantes en los enlaces indicados al término de la presente deducción.",
       "Que la suma de la base imponible general y del ahorro, casillas [0435] y [0460] de la declaración, no debe ser superior a:",
@@ -799,6 +810,9 @@ export const EXTREMADURA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     normativa:
       "Artículo 11 quater; Decreto Legislativo 1/2018, de 10 de abril; IRPF 2025.",
     requisitos: [
+      "La base máxima de 1.000 euros limita los intereses deducibles; al 25 por 100, la deducción máxima es de 250 euros.",
+      "Primera vivienda: no disponer ni haber dispuesto de plena propiedad igual o superior al 50 por 100 sobre otra vivienda, conforme al artículo 13.1.f.",
+      "La comprobación patrimonial del artículo 70.1 de la Ley del IRPF en su redacción aplicable a 31 de diciembre de 2012 excluye intereses, gastos de financiación y meras variaciones de valor. En 2025 el artículo 12 bis no elimina el límite de renta de esta deducción.",
       "Que el contribuyente tenga su residencia habitual en la Comunidad Autónoma de Extremadura.",
       "Que a la fecha de devengo del impuesto el contribuyente tenga menos de 36 años.",
       "Que se trate de su primera vivienda.",
@@ -848,6 +862,7 @@ export const EXTREMADURA_DEDUCCIONES_PENDIENTES_IMPLEMENTADAS_2025 = [
     normativa:
       "Artículo 11 quinquies; Decreto Legislativo 1/2018, de 10 de abril; IRPF 2025.",
     requisitos: [
+      "El deportista del artículo 21.2 de la Ley 39/2022 debe ejercer profesionalmente por cuenta propia, percibir retribuciones de terceros distintos de sus entidades deportivas que no sean mera compensación de gastos o premios, y estar o deber estar de alta en el régimen correspondiente de la Seguridad Social. La práctica aficionada por sí sola no cumple esta remisión.",
       "Las donaciones deberán ser puras, simples e irrevocables, formalizarse por escrito y dejar constancia expresa de tal carácter en el documento que recoja la donación.",
       "No darán derecho a la deducción las donaciones realizadas por quien tenga la condición de socio, asociado o partícipe de la entidad beneficiaria, o por el cónyuge, pareja de hecho, ascendiente o descendiente de cualquiera de ellos, siempre que tengan una cuota de participación en el capital igual o superior al 50 por 100, ya sea computada de manera individual o conjunta con su cónyuge, ascendiente o descendiente.",
       "Tampoco darán derecho a la deducción las donaciones realizadas a los deportistas contemplados en el artículo 21.2 de la Ley 39/2022, de 30 de diciembre, del Deporte, cuando se efectúen por quien tenga la condición de cónyuge, pareja de hecho, ascendiente o descendiente del beneficiario.",
