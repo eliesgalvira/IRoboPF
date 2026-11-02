@@ -1,5 +1,6 @@
 import type Decimal from "decimal.js"
-import { Array as EffectArray, Context, Effect, Layer, Match } from "effect"
+import { Context, Effect, Array as EffectArray, Layer, Match } from "effect"
+import { calcularDesgloseCotizacionesPerfilUniforme } from "./cotizaciones-perfil-uniforme"
 
 import {
   IMPORTE_CERO,
@@ -31,11 +32,6 @@ interface ParametrosCotizacionLegacy {
   readonly tiposSeguridadSocial: Readonly<Record<string, TiposCotizacion>>
   readonly mei: TiposCotizacion
   readonly solidaridad: PoliticaSolidaridad
-}
-
-interface BaseCotizacion {
-  readonly baseOrdinaria: Decimal
-  readonly excesoBase: Decimal
 }
 
 export interface TotalesCotizacionesSociales {
@@ -89,18 +85,6 @@ export const TIPOS_SEGURIDAD_SOCIAL_LEGACY = {
 const SIN_SOLIDARIDAD = {
   _tag: "SinSolidaridad",
 } as const satisfies PoliticaSolidaridad
-
-const minimo = (a: Decimal, b: Decimal) =>
-  Match.value(a.lessThan(b)).pipe(
-    Match.when(true, () => a),
-    Match.orElse(() => b)
-  )
-
-const maximo = (a: Decimal, b: Decimal) =>
-  Match.value(a.greaterThan(b)).pipe(
-    Match.when(true, () => a),
-    Match.orElse(() => b)
-  )
 
 const tipoCotizacionPorLado = (tipos: TiposCotizacion, lado: LadoCotizacion) =>
   Match.value(lado).pipe(
@@ -176,137 +160,11 @@ export const obtenerParametrosCotizacionLegacy = (
   solidaridad: obtenerPoliticaSolidaridad(anio),
 })
 
-const baseCotizacionPara = (
-  bruto: Decimal,
-  parametros: ParametrosCotizacionLegacy
-): BaseCotizacion => ({
-  baseOrdinaria: minimo(bruto, parametros.baseMaxima),
-  excesoBase: maximo(IMPORTE_CERO, bruto.minus(parametros.baseMaxima)),
-})
-
-const calcularTotalSolidaridad = (
-  baseCotizacion: BaseCotizacion,
-  parametros: ParametrosCotizacionLegacy
-) =>
-  Match.valueTags(parametros.solidaridad, {
-    SinSolidaridad: () => IMPORTE_CERO,
-    ConSolidaridad: (politica) =>
-      Match.value(baseCotizacion.excesoBase).pipe(
-        Match.when(
-          (excesoBase) => excesoBase.lte(0),
-          () => IMPORTE_CERO
-        ),
-        Match.orElse(() => {
-          const limitePrimerTramo = parametros.baseMaxima.mul("0.10")
-          const limiteSegundoTramo = parametros.baseMaxima.mul("0.50")
-          const excesoPrimerTramo = minimo(
-            baseCotizacion.excesoBase,
-            limitePrimerTramo
-          )
-          const excesoSegundoTramo = minimo(
-            maximo(
-              IMPORTE_CERO,
-              baseCotizacion.excesoBase.minus(limitePrimerTramo)
-            ),
-            limiteSegundoTramo.minus(limitePrimerTramo)
-          )
-          const excesoRestante = maximo(
-            IMPORTE_CERO,
-            baseCotizacion.excesoBase.minus(limiteSegundoTramo)
-          )
-
-          return excesoPrimerTramo
-            .mul(politica.tipoPrimerExceso)
-            .plus(excesoSegundoTramo.mul(politica.tipoSegundoExceso))
-            .plus(excesoRestante.mul(politica.tipoExcesoRestante))
-        })
-      ),
-  })
-
-const repartirCotizacionSolidaridad = (
-  totalSolidaridad: Decimal
-): TotalesCotizacionesSociales => ({
-  cotizacionEmpresarial: totalSolidaridad.mul(5).div(6),
-  cotizacionTrabajador: totalSolidaridad.div(6),
-})
-
-const sumarCotizacionesSociales = (
-  izquierda: TotalesCotizacionesSociales,
-  derecha: TotalesCotizacionesSociales
-): TotalesCotizacionesSociales => ({
-  cotizacionEmpresarial: izquierda.cotizacionEmpresarial.plus(
-    derecha.cotizacionEmpresarial
-  ),
-  cotizacionTrabajador: izquierda.cotizacionTrabajador.plus(
-    derecha.cotizacionTrabajador
-  ),
-})
-
-export const calcularCotizacionesSocialesLegacy = ({
-  salarioBrutoAnual,
-  anio,
-}: EntradaCotizacionesSocialesLegacy): TotalesCotizacionesSociales => {
-  const desglose = calcularDesgloseCotizacionesSocialesLegacy({
-    salarioBrutoAnual,
-    anio,
-  })
-
-  return {
-    cotizacionEmpresarial: desglose.cotizacionEmpresarial,
-    cotizacionTrabajador: desglose.cotizacionTrabajador,
-  }
-}
-
-export const calcularDesgloseCotizacionesSocialesLegacy = ({
-  salarioBrutoAnual,
-  anio,
-}: EntradaCotizacionesSocialesLegacy): DesgloseCotizacionesSociales => {
-  const parametros = obtenerParametrosCotizacionLegacy(anio)
-  const baseCotizacion = baseCotizacionPara(salarioBrutoAnual, parametros)
-  const cotizacionesOrdinarias = {
-    cotizacionEmpresarial: baseCotizacion.baseOrdinaria.mul(
-      sumarTipoCotizacionLegacy(parametros, "empresarial")
-    ),
-    cotizacionTrabajador: baseCotizacion.baseOrdinaria.mul(
-      sumarTipoCotizacionLegacy(parametros, "trabajador")
-    ),
-  }
-  const cotizacionesMei = {
-    cotizacionEmpresarial: baseCotizacion.baseOrdinaria.mul(
-      parametros.mei.empresarial
-    ),
-    cotizacionTrabajador: baseCotizacion.baseOrdinaria.mul(
-      parametros.mei.trabajador
-    ),
-  }
-  const cotizacionesSolidaridad = repartirCotizacionSolidaridad(
-    calcularTotalSolidaridad(baseCotizacion, parametros)
-  )
-  const cotizacionesTotales = sumarCotizacionesSociales(
-    sumarCotizacionesSociales(cotizacionesOrdinarias, cotizacionesMei),
-    cotizacionesSolidaridad
-  )
-
-  return {
-    baseOrdinaria: baseCotizacion.baseOrdinaria,
-    excesoBase: baseCotizacion.excesoBase,
-    cotizacionEmpresarial: cotizacionesTotales.cotizacionEmpresarial,
-    cotizacionTrabajador: cotizacionesTotales.cotizacionTrabajador,
-    cotizacionEmpresarialOrdinaria:
-      cotizacionesOrdinarias.cotizacionEmpresarial,
-    cotizacionTrabajadorOrdinaria: cotizacionesOrdinarias.cotizacionTrabajador,
-    meiEmpresarial: cotizacionesMei.cotizacionEmpresarial,
-    meiTrabajador: cotizacionesMei.cotizacionTrabajador,
-    solidaridadEmpresarial: cotizacionesSolidaridad.cotizacionEmpresarial,
-    solidaridadTrabajador: cotizacionesSolidaridad.cotizacionTrabajador,
-  }
-}
-
 export interface ServicioCotizacionesSociales {
-  readonly calcularLegacy: (
+  readonly calcular: (
     entrada: EntradaCotizacionesSocialesLegacy
   ) => Effect.Effect<TotalesCotizacionesSociales>
-  readonly desglosarLegacy: (
+  readonly desglosar: (
     entrada: EntradaCotizacionesSocialesLegacy
   ) => Effect.Effect<DesgloseCotizacionesSociales>
 }
@@ -316,15 +174,15 @@ export class CotizacionesSociales extends Context.Service<
   ServicioCotizacionesSociales
 >()("irobopf/lib/dominio/laboral/cotizaciones-sociales/CotizacionesSociales") {
   static readonly layer = Layer.succeed(CotizacionesSociales, {
-    calcularLegacy: Effect.fn("CotizacionesSociales.calcularLegacy")(function* (
+    calcular: Effect.fn("CotizacionesSociales.calcular")(function* (
       entrada: EntradaCotizacionesSocialesLegacy
     ) {
-      return calcularCotizacionesSocialesLegacy(entrada)
+      return calcularDesgloseCotizacionesPerfilUniforme(entrada)
     }),
-    desglosarLegacy: Effect.fn("CotizacionesSociales.desglosarLegacy")(
-      function* (entrada: EntradaCotizacionesSocialesLegacy) {
-        return calcularDesgloseCotizacionesSocialesLegacy(entrada)
-      }
-    ),
+    desglosar: Effect.fn("CotizacionesSociales.desglosar")(function* (
+      entrada: EntradaCotizacionesSocialesLegacy
+    ) {
+      return calcularDesgloseCotizacionesPerfilUniforme(entrada)
+    }),
   })
 }

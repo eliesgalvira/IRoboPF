@@ -2,7 +2,6 @@ import { describe, expect, it } from "@effect/vitest"
 import Decimal from "decimal.js"
 
 import { calcularDesgloseCotizacionesPerfilUniforme } from "../lib/dominio/laboral/cotizaciones-perfil-uniforme"
-import { calcularDesgloseCotizacionesSocialesLegacy } from "../lib/dominio/laboral/cotizaciones-sociales"
 
 describe("cotizaciones analíticas de doce mensualidades uniformes", () => {
   it.each([
@@ -58,18 +57,4 @@ describe("cotizaciones analíticas de doce mensualidades uniformes", () => {
       expect(r.solidaridadTrabajador.toString()).toBe(trabajador)
     }
   )
-
-  it("mantiene los resultados del contrato legacy", () => {
-    const r = calcularDesgloseCotizacionesSocialesLegacy({
-      anio: 2018,
-      salarioBrutoAnual: new Decimal("50000"),
-    })
-    expect(r.baseOrdinaria.toString()).toBe("45014.4")
-    const s = calcularDesgloseCotizacionesSocialesLegacy({
-      anio: 2025,
-      salarioBrutoAnual: new Decimal("64805.40"),
-    })
-    expect(s.solidaridadEmpresarial.toString()).toBe("45.1674")
-    expect(s.solidaridadTrabajador.toString()).toBe("9.03348")
-  })
 })

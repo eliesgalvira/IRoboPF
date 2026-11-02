@@ -1,15 +1,15 @@
-import { Effect, Result } from "effect"
 import { expect, it } from "@effect/vitest"
-import {
-  calcularRetencionTrabajoAeat,
-  type CasoRetencionTrabajo,
-} from "../lib/dominio/irpf/retenciones/retencion-trabajo-aeat"
+import { Effect, Result } from "effect"
+import { calcularSalario } from "../lib/dominio/analisis-salarial/calculo-salario"
+import { auditarProgresividadFrio } from "../lib/dominio/auditoria/auditoria-progresividad-frio"
 import {
   liquidarIrpfAnual,
   type CasoFiscalAnual,
 } from "../lib/dominio/irpf/liquidacion/liquidar-irpf-anual"
-import { calcularSalarioLegacy } from "../lib/dominio/compatibilidad-legacy/calculo-salario-legacy"
-import { auditarProgresividadFrio } from "../lib/dominio/auditoria/auditoria-progresividad-frio"
+import {
+  calcularRetencionTrabajoAeat,
+  type CasoRetencionTrabajo,
+} from "../lib/dominio/irpf/retenciones/retencion-trabajo-aeat"
 
 const retencion: CasoRetencionTrabajo = {
   anio: 2020,
@@ -44,7 +44,7 @@ it.effect(
   "RTI-01 rechaza retenciones de otro ejercicio antes de descontarlas",
   () =>
     Effect.gen(function* () {
-      for (const modo of ["canonico", "compatible-legacy"] as const) {
+      for (const modo of ["canonico"] as const) {
         const r = yield* Effect.result(
           liquidarIrpfAnual(
             { ...anual, retencionTrabajoAeat: retencion },
@@ -102,22 +102,24 @@ it.effect(
             )
           ).toBe(true)
       }
-      const r = yield* calcularRetencionTrabajoAeat(
-        {
-          ...retencion,
-          descendientes: [
-            {
-              edad: 0,
-              computoPorEntero: true,
-              discapacidad: "sin-discapacidad",
-              movilidadReducida: false,
-              adopcionOAcogimientoMenosTresAnios: false,
-            },
-          ],
-        },
-        { modo: "canonico" }
+      const r = yield* Effect.result(
+        calcularRetencionTrabajoAeat(
+          {
+            ...retencion,
+            descendientes: [
+              {
+                edad: 0,
+                computoPorEntero: true,
+                discapacidad: "sin-discapacidad",
+                movilidadReducida: false,
+                adopcionOAcogimientoMenosTresAnios: false,
+              },
+            ],
+          },
+          { modo: "canonico" }
+        )
       )
-      expect(r.minimoPersonalFamiliarCentimos).toBe(1075000)
+      expect(Result.isFailure(r)).toBe(true)
     })
 )
 
@@ -131,12 +133,12 @@ it.effect(
         salarioBrutoAnualCentimos: 1800000,
         perfilAuditoria: "soltero_sin_hijos",
       } as const
-      const r = yield* calcularSalarioLegacy({
+      const r = yield* calcularSalario({
         ...entrada,
         seleccionRetencion: { perfilTemporal: "cierre" },
       })
       expect(Number.isFinite(r.irpfFinalCentimos)).toBe(true)
-      const rechazo = yield* Effect.result(calcularSalarioLegacy(entrada))
+      const rechazo = yield* Effect.result(calcularSalario(entrada))
       expect(Result.isFailure(rechazo)).toBe(true)
     })
 )
@@ -146,7 +148,7 @@ it.effect(
   () =>
     Effect.gen(function* () {
       const entrada = {
-        perfil: "legacy-progresividad-frio",
+        perfil: "analisis-progresividad-frio",
         anioComparado: 2018,
         anioReferencia: 2018,
         salarioBrutoAnualMinimoCentimos: 6000000,
@@ -154,7 +156,7 @@ it.effect(
         pasoCentimos: 100,
       } as const
       const r = yield* auditarProgresividadFrio(entrada, { modo: "canonico" })
-      const directo = yield* calcularSalarioLegacy({
+      const directo = yield* calcularSalario({
         anio: 2018,
         salarioBrutoAnualCentimos: 6000000,
         modo: "canonico",

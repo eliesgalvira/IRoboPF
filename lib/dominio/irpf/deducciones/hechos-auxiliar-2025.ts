@@ -169,6 +169,10 @@ export function evaluarHechosAuxiliar2025(
     !esColeccion(h.declarantes) ||
     !idsValidos(h.declarantes) ||
     !h.declarantes.includes(c.contribuyente) ||
+    (c.declarantes !== undefined &&
+      (!idsValidos(c.declarantes) ||
+        c.declarantes.length !== h.declarantes.length ||
+        c.declarantes.some((id) => !h.declarantes.includes(id)))) ||
     (c.modalidad === "individual" && h.declarantes.length !== 1)
   )
     return insuficiente()
@@ -381,7 +385,11 @@ export function evaluarHechosAuxiliar2025(
           )
         )
           return insuficiente()
-        const resultado = evaluarNacimientoMadrid(c, evento, h.historia)
+        const resultado = evaluarNacimientoMadrid(
+          { ...c, declarantes: h.declarantes },
+          evento,
+          h.historia
+        )
         if (resultado.estado === "no_soportado") return resultado
         if ("importe" in resultado) total = total.plus(resultado.importe)
       }
@@ -396,6 +404,10 @@ export function evaluarHechosAuxiliar2025(
         )
       )
         return insuficiente()
-      return calcularGuarderiaMurciaParcial(c, h.gastos, h.baseImponible)
+      return calcularGuarderiaMurciaParcial(
+        { ...c, declarantes: h.declarantes },
+        h.gastos,
+        h.baseImponible
+      )
   }
 }

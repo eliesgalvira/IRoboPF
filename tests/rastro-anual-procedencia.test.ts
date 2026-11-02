@@ -1,18 +1,16 @@
+import { sinDiscapacidad } from "../lib/dominio/irpf/caso-fiscal-anual"
+import { liquidarIrpfAnual } from "../lib/dominio/irpf/liquidacion/liquidar-irpf-anual"
 import Decimal from "decimal.js"
-import { Schema } from "effect"
+import { Effect, Schema } from "effect"
 import { describe, expect, it } from "@effect/vitest"
 import { crearLineaCalculo } from "../lib/dominio/explicacion/linea-calculo"
 import type { RastroCalculo } from "../lib/dominio/explicacion/rastro-calculo"
-
 
 import {
   CatalogoRastro,
   enlazarRastroConCatalogo,
 } from "../lib/procedencia/rastro-anual"
-
 import { extraerPuntosTexto } from "../scripts/procedencia/rastro-extraer.mjs"
-
-
 
 const catalogo = Schema.decodeUnknownSync(CatalogoRastro)({
   version: 1,
@@ -122,5 +120,48 @@ describe("rastro con identidad explícita", () => {
         "lib/fixture.ts"
       )
     ).toThrow("dinámica")
+  })
+  it("cada línea reformada conserva referencias históricas sin heredar revisión", () => {
+    const r = Effect.runSync(
+      liquidarIrpfAnual(
+        {
+          anio: 2025,
+          comunidadAutonoma: "madrid",
+          situacionFamiliar: {
+            tipo: "individual",
+            edad: 40,
+            discapacidad: sinDiscapacidad,
+            descendientes: [],
+            ascendientes: [],
+          },
+          rendimientos: { trabajo: [{ importeIntegroCentimos: 5_000_000 }] },
+          reducciones: [],
+          deducciones: [],
+          retencionesSoportadasCentimos: 0,
+          pagosACuentaCentimos: 0,
+        },
+        { modo: "canonico" }
+      )
+    )
+    const lineas = r.rastro.pasos.flatMap((p) => p.lineasCalculo ?? [])
+    expect(lineas.length).toBeGreaterThan(40)
+    expect(r.rastro.contexto).toEqual({
+      anio: 2025,
+      territorio: "madrid",
+      perfilCalculo: "canonico",
+    })
+    expect(new Set(lineas.map((l) => l.origen?.instanceId)).size).toBe(
+      lineas.length
+    )
+    for (const l of lineas) {
+      const p = l.procedencia
+      expect(p?.estado).toBe("pendiente")
+      if (p?.estado !== "pendiente")
+        throw new Error("La reforma debe quedar pendiente")
+      expect(p.motivo).toContain("Reforma pendiente de nuevo snapshot")
+      expect(p.motivo).toContain("/procedencia/")
+      expect(p.motivo).toMatch(/snapshot [a-f0-9]{64}/)
+      expect(p.motivo).toMatch(/algoritmo [a-f0-9]{64}/)
+    }
   })
 })

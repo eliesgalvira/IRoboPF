@@ -35,9 +35,9 @@ jobs:
       - if: ${{ !cancelled() }}
         run: bun run test tests/cotizaciones-perfil-uniforme.test.ts tests/*-procedencia.test.ts --exclude tests/evidencia-contenido-procedencia.test.ts --maxWorkers=1
       - if: ${{ !cancelled() }}
-        run: bun run test tests/retenciones-versionadas.test.ts tests/trabajo-anual-contratos.test.ts tests/actividades-economicas-2025.test.ts tests/deducciones-contratos.test.ts tests/deducciones-ambito.test.ts tests/calculo-salario-neto-irpf.test.ts --maxWorkers=1
+        run: bun run test tests/retenciones-versionadas.test.ts tests/trabajo-anual-contratos.test.ts tests/actividades-economicas-2025.test.ts tests/deducciones-contratos.test.ts tests/deducciones-ambito.test.ts tests/deducciones-conjunta-identidad.test.ts tests/calculo-salario-neto-irpf.test.ts --maxWorkers=1
       - if: ${{ !cancelled() }}
-        run: bun run test tests/conexion-anual.test.ts tests/comparativa-inflacion-tabular.test.ts tests/redondeos-legacy-oracle.test.ts tests/correcciones-x-solidaridad.test.ts --maxWorkers=1
+        run: bun run test tests/conexion-anual.test.ts tests/retirada-rutas.test.ts tests/motor-unico-revision.test.ts tests/minimos-derechos.test.ts tests/retenciones-derechos.test.ts tests/liquidacion-irpf-anual.test.ts tests/correcciones-x-solidaridad.test.ts --maxWorkers=1
       - if: ${{ !cancelled() }}
         run: bun run inventario:verificar
       - if: ${{ !cancelled() }}

@@ -5,6 +5,23 @@ import type { AmbitoDeducciones } from "./ambito"
 export type ContextoDeduccion = AmbitoDeducciones & {
   readonly contribuyente: string
   readonly modalidad: "individual" | "conjunta"
+  readonly declarantes?: readonly string[]
+}
+/** Identidades exhaustivas de la declaración. La referencia no elige al titular. */
+export function declarantesDeduccion(
+  contexto: ContextoDeduccion
+): readonly string[] | undefined {
+  const ids =
+    contexto.declarantes ??
+    (contexto.modalidad === "individual" ? [contexto.contribuyente] : [])
+  if (
+    !identidadesValidas(ids) ||
+    !ids.includes(contexto.contribuyente) ||
+    !["individual", "conjunta"].includes(contexto.modalidad) ||
+    (contexto.modalidad === "individual" && ids.length !== 1)
+  )
+    return undefined
+  return ids
 }
 export type ResultadoDeduccion =
   | { readonly estado: "no_soportado" | "excluida"; readonly motivo: string }
@@ -233,6 +250,14 @@ export function evaluarNacimientoMadrid(
 ): ResultadoDeduccion {
   if (!ambitoValido(contexto, "madrid"))
     return noSoportado("Solo Madrid, ejercicio 2025")
+  const declarantes = declarantesDeduccion(contexto)
+  if (declarantes === undefined)
+    return noSoportado("Unidad de declaración incompleta")
+  if (
+    contexto.modalidad === "conjunta" &&
+    evento.progenitoresConvivientes.some((id) => !declarantes.includes(id))
+  )
+    return noSoportado("Progenitor ajeno a la unidad")
   if (!Number.isInteger(evento.ejercicio))
     return noSoportado("Año del evento no entero o no finito")
   if (
@@ -244,7 +269,7 @@ export function evaluarNacimientoMadrid(
   if (
     evento.ejercicio > 2025 ||
     evento.ejercicio < 2023 ||
-    !evento.progenitoresConvivientes.includes(contexto.contribuyente)
+    !evento.progenitoresConvivientes.some((id) => declarantes.includes(id))
   )
     return excluida("Fuera de ventana temporal o sin convivencia")
   for (let ejercicio = evento.ejercicio; ejercicio <= 2025; ejercicio++) {
@@ -295,6 +320,9 @@ export function calcularGuarderiaMurciaParcial(
 ): ResultadoDeduccion {
   if (!ambitoValido(contexto, "murcia") || !Number.isFinite(baseImponible))
     return noSoportado("Ámbito o base inválidos")
+  const declarantes = declarantesDeduccion(contexto)
+  if (declarantes === undefined)
+    return noSoportado("Unidad de declaración incompleta")
   if (baseImponible > (contexto.modalidad === "individual" ? 30000 : 50000))
     return excluida("Base imponible excedida")
   if (gastos.length > 0 && !identidadesValidas(gastos.map((g) => g.hijo)))
@@ -303,7 +331,9 @@ export function calcularGuarderiaMurciaParcial(
   for (const gasto of gastos) {
     if (
       !identidadesValidas(gasto.titulares) ||
-      !gasto.titulares.includes(contexto.contribuyente) ||
+      !gasto.titulares.some((id) => declarantes.includes(id)) ||
+      (contexto.modalidad === "conjunta" &&
+        gasto.titulares.some((id) => !declarantes.includes(id))) ||
       ![
         gasto.custodia,
         gasto.alimentacion,
@@ -444,7 +474,9 @@ export function evaluarCeliaquiaRioja(
     )
       return noSoportado("Fechas del certificado inválidas")
     if (certificado.fechaDiagnostico > certificado.fechaEmision)
-      return noSoportado("El diagnóstico es posterior a la emisión del certificado")
+      return noSoportado(
+        "El diagnóstico es posterior a la emisión del certificado"
+      )
     if (certificado.fechaDiagnostico > "2025-12-31") continue
     total = total.plus(new Decimal(250).div(persona.titularesDeduccion.length))
   }
@@ -581,10 +613,18 @@ export function totalDeduccionesEvaluadas(
     )
   for (const solicitud of solicitudes) {
     const contexto = solicitud.contexto
+    const idsSolicitud = declarantesDeduccion(contexto)
+    const idsAmbito = declarantesDeduccion(ambito)
     if (
       contexto.ejercicio !== ambito.ejercicio ||
       contexto.territorio !== ambito.territorio ||
-      contexto.contribuyente !== ambito.contribuyente ||
+      (contexto.modalidad === "individual" &&
+        contexto.contribuyente !== ambito.contribuyente) ||
+      (contexto.modalidad === "conjunta" &&
+        (idsSolicitud === undefined ||
+          idsAmbito === undefined ||
+          idsSolicitud.length !== idsAmbito.length ||
+          idsSolicitud.some((id) => !idsAmbito.includes(id)))) ||
       contexto.modalidad !== ambito.modalidad
     )
       return noSoportado("Solicitud ajena al ámbito del agregado")

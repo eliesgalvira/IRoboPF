@@ -1,19 +1,27 @@
+import {
+  calcularDerechosMinimos,
+  hayAlimentosPropiosSinMinimo,
+} from "../minimos/derechos"
+import type { DerechosMinimos2025 } from "../minimos/derechos-contrato"
+import { obtenerMinimoContribuyente } from "../minimos/minimo-contribuyente"
+import { obtenerMinimoPorDiscapacidad } from "../minimos/minimo-discapacidad"
+import { MINIMOS_ESTATALES_2025 } from "../../normativa/datos/minimos-autonomicos-2025"
 import Decimal from "decimal.js"
 import { Context, Effect, Layer, Match } from "effect"
 
-import type { ModoCalculo } from "../perfil-calculo"
-import type { RastroCalculo } from "../../explicacion/rastro-calculo"
-import type { AnioFiscal } from "../../normativa/anio-fiscal"
 import {
   centimosAEuros,
   eurosACentimos,
   redondearImporteLiquidado,
   truncarImporteMonetario,
 } from "../../dinero/importe-monetario"
+import type { RastroCalculo } from "../../explicacion/rastro-calculo"
+import type { AnioFiscal } from "../../normativa/anio-fiscal"
 import {
   maximoUmbralRetencionTrabajoEuros,
   umbralRetencionTrabajoRequeridoEuros,
 } from "../../normativa/datos/irpf-retenciones-trabajo-2012-2026"
+import type { ModoCalculo } from "../perfil-calculo"
 
 import {
   seleccionarVersionRetencion,
@@ -21,6 +29,8 @@ import {
 } from "./versiones/catalogo"
 
 export interface CasoRetencionTrabajo {
+  readonly derechosMinimos?: DerechosMinimos2025
+
   /** Fecha civil del pago; no devengo ni publicación. */
   readonly fechaPago?: string
   readonly perfilTemporal?: "cierre"
@@ -28,7 +38,7 @@ export interface CasoRetencionTrabajo {
   readonly procedimiento?: "inicial" | "regularizacion"
 
   readonly anio: AnioFiscal
-  readonly edad?: number
+  readonly edad: number
   readonly retribucionAnualCentimos: number
   readonly cotizacionesCentimos?: number
   readonly situacionFamiliar: SituacionFamiliarRetencion
@@ -119,11 +129,6 @@ export interface ServicioRetencionTrabajoAeat {
   ) => Effect.Effect<RetencionTrabajoCalculada, CalcularRetencionTrabajoError>
 }
 
-const FUENTE_RETENCIONES_AEAT = {
-  titulo: "Algoritmo de retenciones 2026",
-  referencia: "docs/fuentes/aeat/algoritmo-retenciones-2026.md",
-} as const
-
 const CERO = new Decimal(0)
 const CIEN = new Decimal(100)
 
@@ -176,8 +181,8 @@ const esCasoCalculable = (
   readonly descendientes: ReadonlyArray<DescendienteRetencion>
   readonly ascendientes: ReadonlyArray<AscendienteRetencion>
 } =>
-  (caso.edad === undefined ||
-    (Number.isSafeInteger(caso.edad) && caso.edad >= 0)) &&
+  Number.isSafeInteger(caso.edad) &&
+  caso.edad >= 0 &&
   Match.number(caso.cotizacionesCentimos) &&
   Number.isSafeInteger(caso.retribucionAnualCentimos) &&
   caso.retribucionAnualCentimos >= 0 &&
@@ -212,12 +217,6 @@ const esCasoCalculable = (
 
 const importeOpcional = (centimos: number | undefined): Decimal =>
   centimosAEuros(centimos ?? 0)
-
-const multiplicadorDescendiente = (descendiente: DescendienteRetencion) =>
-  Match.value(descendiente.computoPorEntero).pipe(
-    Match.when(true, () => new Decimal(1)),
-    Match.orElse(() => new Decimal(0.5))
-  )
 
 const incrementoMovilidadGeografica = (caso: CasoRetencionTrabajo) =>
   Match.value(caso).pipe(
@@ -310,13 +309,10 @@ const reduccionLineal = (
     new Decimal(maximo).minus(max(CERO, rnt.minus(inicio)).mul(pendiente))
   )
 
-const calcularReduccionTrabajo = (
-  rnt: Decimal,
-  version: VersionRetencion | undefined
-) => {
+const calcularReduccionTrabajo = (rnt: Decimal, version: VersionRetencion) => {
   const antigua = reduccionLineal(rnt, 3700, 11250, 1.15625)
   const nueva = reduccionLineal(rnt, 5565, 13115, 1.5)
-  switch (version?.reduccion) {
+  switch (version.reduccion) {
     case "antigua":
       return redondear1(antigua)
     case "media2018":
@@ -330,205 +326,30 @@ const calcularReduccionTrabajo = (
   }
 }
 
-const cuantiaMinimoDescendiente = (indice: number) =>
-  Match.value(indice).pipe(
-    Match.when(0, () => new Decimal(2400)),
-    Match.when(1, () => new Decimal(2700)),
-    Match.when(2, () => new Decimal(4000)),
-    Match.orElse(() => new Decimal(4500))
-  )
-
-const esDescendienteMenorTres = (descendiente: DescendienteRetencion) =>
-  Match.value(descendiente).pipe(
-    Match.when({ edad: (edad) => edad < 3 }, () => true),
-    Match.when({ adopcionOAcogimientoMenosTresAnios: true }, () => true),
-    Match.orElse(() => false)
-  )
-
-const calcularMinimoDescendientes = (
-  descendientes: ReadonlyArray<DescendienteRetencion>
-) => {
-  const descendientesOrdenados = [...descendientes].sort(
-    (a, b) => b.edad - a.edad
-  )
-  const minimoGeneral = descendientesOrdenados.reduce(
-    (total, descendiente, indice) => {
-      const cuantia = cuantiaMinimoDescendiente(indice)
-      const multiplicador = multiplicadorDescendiente(descendiente)
-
-      return total.plus(cuantia.mul(multiplicador))
-    },
-    CERO
-  )
-  const minimoMenoresTres = descendientesOrdenados.reduce(
-    (total, descendiente) =>
-      Match.value(esDescendienteMenorTres(descendiente)).pipe(
-        Match.when(false, () => total),
-        Match.orElse(() =>
-          total.plus(
-            new Decimal(2800).mul(multiplicadorDescendiente(descendiente))
-          )
-        )
-      ),
-    CERO
-  )
-
-  return redondear1(minimoGeneral).plus(redondear1(minimoMenoresTres))
-}
-
-const calcularMinimoAscendientes = (
-  ascendientes: ReadonlyArray<AscendienteRetencion>
-) => {
-  const minimo65 = ascendientes.reduce((total, ascendiente) => {
-    const computaPorEdad = ascendiente.edad >= 65
-    const computaPorDiscapacidad =
-      ascendiente.discapacidad !== "sin-discapacidad"
-
-    return Match.value({ computaPorDiscapacidad, computaPorEdad }).pipe(
-      Match.when(
-        { computaPorDiscapacidad: false, computaPorEdad: false },
-        () => total
-      ),
-      Match.orElse(() =>
-        total.plus(new Decimal(1150).div(ascendiente.convivencia))
-      )
+const calcularMinimoPerceptor = (caso: CasoRetencionTrabajo) => {
+  const discapacidad =
+    caso.discapacidad === "desde65"
+      ? { _tag: "Discapacidad65OMas" as const }
+      : caso.discapacidad === "de33a65"
+        ? {
+            _tag: "Discapacidad33a64" as const,
+            necesitaAyudaOMovilidadReducida:
+              caso.movilidadReducidaPerceptor === true,
+          }
+        : { _tag: "SinDiscapacidad" as const }
+  return obtenerMinimoContribuyente({
+    anio: caso.anio,
+    edad: caso.edad,
+  }).plus(
+    obtenerMinimoPorDiscapacidad(
+      discapacidad,
+      MINIMOS_ESTATALES_2025.discapacidad.contribuyente
     )
-  }, CERO)
-  const minimo75 = ascendientes.reduce(
-    (total, ascendiente) =>
-      Match.value(ascendiente.edad).pipe(
-        Match.when(
-          (edad) => edad < 75,
-          () => total
-        ),
-        Match.orElse(() =>
-          total.plus(new Decimal(1400).div(ascendiente.convivencia))
-        )
-      ),
-    CERO
   )
-
-  return redondear1(minimo65).plus(redondear1(minimo75))
 }
 
-const minimoDiscapacidad = (discapacidad: DiscapacidadRetencion) =>
-  Match.value(discapacidad).pipe(
-    Match.when("desde65", () => new Decimal(9000)),
-    Match.when("de33a65", () => new Decimal(3000)),
-    Match.orElse(() => CERO)
-  )
-
-const minimoAsistencia = ({
-  discapacidad,
-  movilidadReducida,
-}: {
-  readonly discapacidad: DiscapacidadRetencion
-  readonly movilidadReducida: boolean
-}) =>
-  Match.value({ discapacidad, movilidadReducida }).pipe(
-    Match.when({ discapacidad: "desde65" }, () => new Decimal(3000)),
-    Match.when(
-      { discapacidad: "de33a65", movilidadReducida: true },
-      () => new Decimal(3000)
-    ),
-    Match.orElse(() => CERO)
-  )
-
-const calcularMinimoDiscapacidad = ({
-  caso,
-  descendientes,
-  ascendientes,
-}: {
-  readonly caso: CasoRetencionTrabajo
-  readonly descendientes: ReadonlyArray<DescendienteRetencion>
-  readonly ascendientes: ReadonlyArray<AscendienteRetencion>
-}) => {
-  const discapacidadPerceptor = minimoDiscapacidad(caso.discapacidad)
-  const asistenciaPerceptor = minimoAsistencia({
-    discapacidad: caso.discapacidad,
-    movilidadReducida: caso.movilidadReducidaPerceptor === true,
-  })
-  const discapacidadDescendientes = descendientes.reduce(
-    (total, descendiente) =>
-      total.plus(
-        minimoDiscapacidad(descendiente.discapacidad).mul(
-          multiplicadorDescendiente(descendiente)
-        )
-      ),
-    CERO
-  )
-  const asistenciaDescendientes = descendientes.reduce(
-    (total, descendiente) =>
-      total.plus(
-        minimoAsistencia({
-          discapacidad: descendiente.discapacidad,
-          movilidadReducida: descendiente.movilidadReducida,
-        }).mul(multiplicadorDescendiente(descendiente))
-      ),
-    CERO
-  )
-  const discapacidadAscendientes = ascendientes.reduce(
-    (total, ascendiente) =>
-      total.plus(
-        minimoDiscapacidad(ascendiente.discapacidad).div(
-          ascendiente.convivencia
-        )
-      ),
-    CERO
-  )
-  const asistenciaAscendientes = ascendientes.reduce(
-    (total, ascendiente) =>
-      total.plus(
-        minimoAsistencia({
-          discapacidad: ascendiente.discapacidad,
-          movilidadReducida: ascendiente.movilidadReducida,
-        }).div(ascendiente.convivencia)
-      ),
-    CERO
-  )
-
-  return discapacidadPerceptor
-    .plus(asistenciaPerceptor)
-    .plus(redondear1(discapacidadDescendientes))
-    .plus(redondear1(asistenciaDescendientes))
-    .plus(redondear1(discapacidadAscendientes))
-    .plus(redondear1(asistenciaAscendientes))
-}
-
-const calcularMinimoPersonalFamiliar = ({
-  caso,
-  descendientes,
-  ascendientes,
-}: {
-  readonly caso: CasoRetencionTrabajo
-  readonly descendientes: ReadonlyArray<DescendienteRetencion>
-  readonly ascendientes: ReadonlyArray<AscendienteRetencion>
-}) => {
-  const edad = caso.edad ?? 40
-  const incrementoEdad = Match.value(edad).pipe(
-    Match.when(
-      (valor) => valor >= 75,
-      () => new Decimal(2550)
-    ),
-    Match.when(
-      (valor) => valor >= 65,
-      () => new Decimal(1150)
-    ),
-    Match.orElse(() => CERO)
-  )
-  const minimoContribuyente = new Decimal(5550).plus(incrementoEdad)
-
-  return minimoContribuyente
-    .plus(calcularMinimoDescendientes(descendientes))
-    .plus(calcularMinimoAscendientes(ascendientes))
-    .plus(calcularMinimoDiscapacidad({ caso, descendientes, ascendientes }))
-}
-
-const calcularCuotaEscala = (
-  base: Decimal,
-  version: VersionRetencion | undefined
-) => {
-  if (version !== undefined && version.anio <= 2020 && base.gte(60000))
+const calcularCuotaEscala = (base: Decimal, version: VersionRetencion) => {
+  if (version.anio <= 2020 && base.gte(60000))
     return new Decimal(17901.5).plus(base.minus(60000).mul(0.45))
   const tramos = [
     { desde: 0, cuota: 0, resto: 12_450, tipo: 0.19 },
@@ -550,7 +371,7 @@ const calcularCuotaRetencion = ({
   base,
   minimoPersonalFamiliar,
 }: {
-  readonly version: VersionRetencion | undefined
+  readonly version: VersionRetencion
   readonly anualidades: Decimal
   readonly base: Decimal
   readonly minimoPersonalFamiliar: Decimal
@@ -609,7 +430,7 @@ const cuotaRetencionInicial = ({
   exento,
   minimoPersonalFamiliar,
 }: {
-  readonly version: VersionRetencion | undefined
+  readonly version: VersionRetencion
   readonly anualidades: Decimal
   readonly baseRetencion: Decimal
   readonly exento: boolean
@@ -634,7 +455,7 @@ const calcularLimite43 = ({
   retribucion,
   umbralConReducciones,
 }: {
-  readonly version: VersionRetencion | undefined
+  readonly version: VersionRetencion
   readonly cuotaInicial: Decimal
   readonly exento: boolean
   readonly retribucion: Decimal
@@ -646,10 +467,7 @@ const calcularLimite43 = ({
       {
         retribucion: (valor) =>
           valor.gt(
-            version !== undefined &&
-              (version.anio < 2023 || version.reduccion === "2019")
-              ? 22000
-              : 35200
+            version.anio < 2023 || version.reduccion === "2019" ? 22000 : 35200
           ),
       },
       () => cuotaInicial
@@ -682,7 +500,7 @@ const calcularDiferenciaPositiva = ({
   minopago,
 }: {
   readonly ceutaMelilla: boolean
-  readonly version: VersionRetencion | undefined
+  readonly version: VersionRetencion
   readonly cuotaRetencion: Decimal
   readonly minopago: Decimal
 }) =>
@@ -692,8 +510,7 @@ const calcularDiferenciaPositiva = ({
         CERO,
         cuotaRetencion
           .mul(
-            version !== undefined &&
-              (version.anio === 2017 || version.id === "aeat-2018-01-01")
+            version.anio === 2017 || version.id === "aeat-2018-01-01"
               ? 0.5
               : 0.4
           )
@@ -726,7 +543,7 @@ const aplicarMinimoContrato = ({
 }: {
   readonly ceutaMelilla: boolean
   readonly contrato: ContratoRetencion
-  readonly version: VersionRetencion | undefined
+  readonly version: VersionRetencion
   readonly tipoCalculado: Decimal
 }) =>
   Match.value({ ceutaMelilla, contrato, tipoCalculado }).pipe(
@@ -734,19 +551,17 @@ const aplicarMinimoContrato = ({
       {
         ceutaMelilla: true,
         contrato: "especial",
-        tipoCalculado: (tipo) =>
-          tipo.lt(version !== undefined && version.anio < 2019 ? 8 : 6),
+        tipoCalculado: (tipo) => tipo.lt(version.anio < 2019 ? 8 : 6),
       },
-      () => new Decimal(version !== undefined && version.anio < 2019 ? 8 : 6)
+      () => new Decimal(version.anio < 2019 ? 8 : 6)
     ),
     Match.when(
       {
         ceutaMelilla: true,
         contrato: "inferior-anio",
-        tipoCalculado: (tipo) =>
-          tipo.lt(version !== undefined && version.anio < 2019 ? 1 : 0.8),
+        tipoCalculado: (tipo) => tipo.lt(version.anio < 2019 ? 1 : 0.8),
       },
-      () => new Decimal(version !== undefined && version.anio < 2019 ? 1 : 0.8)
+      () => new Decimal(version.anio < 2019 ? 1 : 0.8)
     ),
     Match.when(
       {
@@ -788,18 +603,15 @@ const calcularRetencionTrabajo = (
     readonly descendientes: ReadonlyArray<DescendienteRetencion>
     readonly ascendientes: ReadonlyArray<AscendienteRetencion>
   },
-  version: VersionRetencion | undefined
+  version: VersionRetencion,
+  minimoPersonalFamiliar: Decimal,
+  numeroDescendientes: number,
+  detalleMinimo: string
 ): RetencionTrabajoCalculada => {
-  const fuente =
-    version === undefined
-      ? {
-          ...FUENTE_RETENCIONES_AEAT,
-          titulo: "Reproducción compatible-legacy; sin vigencia jurídica",
-        }
-      : {
-          titulo: `${version.id}; SHA-256 ${version.sha256}`,
-          referencia: version.referencia,
-        }
+  const fuente = {
+    titulo: `${version.id}; SHA-256 ${version.sha256}`,
+    referencia: version.referencia,
+  }
   const retribucion = centimosAEuros(caso.retribucionAnualCentimos)
   const cotizaciones = centimosAEuros(caso.cotizacionesCentimos)
   const irregular1 = importeOpcional(caso.irregular1Centimos)
@@ -833,24 +645,19 @@ const calcularRetencionTrabajo = (
     .plus(reduccionLaboral.desempleado)
     .plus(pensionCompensatoria)
   const baseRetencion = max(CERO, rendimientoNetoReducido.minus(reducciones))
-  const minimoPersonalFamiliar = calcularMinimoPersonalFamiliar({
-    caso,
-    descendientes,
-    ascendientes: caso.ascendientes,
-  })
   const umbral = new Decimal(
     umbralRetencionTrabajoRequeridoEuros({
       anio: caso.anio,
-      fecha: version?.desde,
+      fecha: version.desde,
       situacionFamiliar: caso.situacionFamiliar,
       situacionLaboral: caso.situacionLaboral,
-      numeroDescendientes: descendientes.length,
+      numeroDescendientes,
     })
   )
   const umbralMaximo = new Decimal(
     maximoUmbralRetencionTrabajoEuros({
       anio: caso.anio,
-      fecha: version?.desde,
+      fecha: version.desde,
       situacionLaboral: caso.situacionLaboral,
     })
   )
@@ -900,7 +707,7 @@ const calcularRetencionTrabajo = (
   return {
     _tag: "RetencionTrabajoCalculada",
     anio: caso.anio,
-    version: version?.id ?? "compatible-legacy",
+    version: version.id,
     rendimientoNetoTrabajoCentimos: aCentimos(rendimientoNetoTrabajo),
     reduccionRendimientosTrabajoCentimos: aCentimos(
       reduccionRendimientosTrabajo
@@ -919,7 +726,7 @@ const calcularRetencionTrabajo = (
           _tag: "PasoExplicacion",
           titulo: "Base de retención",
           descripcion:
-            "Cálculo inicial parcial con remuneración anual y cotizaciones suministradas; familia elegible comunicada, edades al 31 de diciembre. No es nómina completa ni aceptación fiscal.",
+            "Cálculo inicial parcial con remuneración anual y cotizaciones suministradas; mínimos familiares por derechos completos cuando se aportan, edades al 31 de diciembre. No es nómina completa ni aceptación fiscal.",
           lineasCalculo: [
             {
               etiqueta: "Rendimiento neto del trabajo",
@@ -947,8 +754,7 @@ const calcularRetencionTrabajo = (
           lineasCalculo: [
             {
               etiqueta: "Mínimo personal y familiar",
-              formula:
-                "Contribuyente, descendientes, ascendientes y discapacidad",
+              formula: detalleMinimo,
               resultado: euros(minimoPersonalFamiliar),
             },
             {
@@ -977,11 +783,32 @@ const calcularRetencionTrabajo = (
 const calcularRetencionTrabajoAeatImpl = Effect.fn(
   "RetencionTrabajoAeat.calcular"
 )(function* (caso: CasoRetencionTrabajo, contexto: ContextoRetencionTrabajo) {
+  if (contexto.modo !== "canonico")
+    return yield* Effect.fail(
+      resultadoNoSoportadoRetencion(
+        caso,
+        "Modo retirado: existe una única ruta canónica"
+      )
+    )
   yield* Effect.annotateCurrentSpan("retencion.anio", caso.anio)
   yield* Effect.annotateCurrentSpan("retencion.modo", contexto.modo)
 
+  if (!Number.isSafeInteger(caso.edad) || caso.edad < 0)
+    return yield* Effect.fail(
+      resultadoNoSoportadoRetencion(
+        caso,
+        "Falta una edad entera no negativa del perceptor al cierre del ejercicio; no se presume 40 años"
+      )
+    )
   if (!esCasoCalculable(caso))
     return yield* Effect.fail(resultadoNoSoportadoRetencion(caso))
+  if (caso.descendientes.length !== 0 || caso.ascendientes.length !== 0)
+    return yield* Effect.fail(
+      resultadoNoSoportadoRetencion(
+        caso,
+        "Las listas comunicadas y computoPorEntero no acreditan titulares, rentas ni convivencia: use derechosMinimos completos; ascendientes pendientes de soporte"
+      )
+    )
   if (caso.procedimiento === "regularizacion")
     return yield* Effect.fail(
       resultadoNoSoportadoRetencion(
@@ -989,17 +816,7 @@ const calcularRetencionTrabajoAeatImpl = Effect.fn(
         "Regularización no implementada: no se sustituye por cálculo inicial"
       )
     )
-  if (contexto.modo === "compatible-legacy") {
-    if (caso.fechaPago !== undefined || caso.perfilTemporal !== undefined) {
-      return yield* Effect.fail(
-        resultadoNoSoportadoRetencion(
-          caso,
-          "Compatible-legacy no aplica selección temporal; use modo canónico"
-        )
-      )
-    }
-    return calcularRetencionTrabajo(caso, undefined)
-  }
+
   const version = seleccionarVersionRetencion(caso)
   if (version === undefined)
     return yield* Effect.fail(
@@ -1028,12 +845,78 @@ const calcularRetencionTrabajoAeatImpl = Effect.fn(
         "Jornales requieren contrato específico; no se inventa anualización"
       )
     )
-  const descendientes = caso.descendientes.filter(
-    (d) => d.edad < 25 || d.discapacidad !== "sin-discapacidad"
+  let minimo = calcularMinimoPerceptor(caso)
+  let numeroDescendientes = 0
+  let detalleMinimo =
+    "Perceptor por edad y discapacidad; ausencia declarada de familiares"
+  if (caso.derechosMinimos !== undefined) {
+    const derechos = caso.derechosMinimos
+    const calculados = yield* calcularDerechosMinimos(
+      derechos,
+      MINIMOS_ESTATALES_2025
+    ).pipe(
+      Effect.mapError((error) =>
+        resultadoNoSoportadoRetencion(caso, error.motivo)
+      )
+    )
+    const discapacidad = derechos.discapacidadContribuyente
+    const discapacidadCompatible =
+      discapacidad._tag === "SinDiscapacidad"
+        ? caso.discapacidad === "sin-discapacidad"
+        : discapacidad._tag === "Discapacidad65OMas"
+          ? caso.discapacidad === "desde65"
+          : caso.discapacidad === "de33a65" &&
+            discapacidad.necesitaAyudaOMovilidadReducida ===
+              (caso.movilidadReducidaPerceptor === true)
+    if (
+      caso.anio !== derechos.ejercicio ||
+      caso.edad !== derechos.edadContribuyenteDevengo ||
+      !discapacidadCompatible ||
+      hayAlimentosPropiosSinMinimo(derechos)
+    )
+      return yield* Effect.fail(
+        resultadoNoSoportadoRetencion(
+          caso,
+          "Derechos incompatibles con ejercicio, edad, discapacidad o especialidad de alimentos del perceptor"
+        )
+      )
+    // Situación 1 y prestaciones con reducción por hijos precisan hechos propios del procedimiento.
+    if (
+      caso.situacionFamiliar !== "situacion3" ||
+      caso.situacionLaboral !== "activo" ||
+      (caso.anualidadesAlimentosHijosCentimos ?? 0) !== 0
+    )
+      return yield* Effect.fail(
+        resultadoNoSoportadoRetencion(
+          caso,
+          "Conexión de derechos en retenciones limitada a activo situación 3 sin anualidades; otras especialidades pendientes"
+        )
+      )
+    minimo = calculados.total
+    numeroDescendientes = calculados.atribuciones.length
+    detalleMinimo =
+      "Perceptor y derechos atribuidos: " +
+      calculados.atribuciones
+        .map(
+          (a) =>
+            `${a.sujetoId}, divisor ${a.divisor}, mínimo ${a.minimo.toString()} y discapacidad ${a.discapacidad.toString()} EUR`
+        )
+        .join("; ")
+  }
+  if (caso.situacionFamiliar === "situacion1")
+    return yield* Effect.fail(
+      resultadoNoSoportadoRetencion(
+        caso,
+        "Situación 1 requiere hechos familiares completos y su conexión con el procedimiento, pendiente de soporte"
+      )
+    )
+  return calcularRetencionTrabajo(
+    caso,
+    version,
+    minimo,
+    numeroDescendientes,
+    detalleMinimo
   )
-  if (caso.situacionFamiliar === "situacion1" && descendientes.length === 0)
-    return yield* Effect.fail(resultadoNoSoportadoRetencion(caso))
-  return calcularRetencionTrabajo({ ...caso, descendientes }, version)
 })
 
 export class RetencionTrabajoAeat extends Context.Service<

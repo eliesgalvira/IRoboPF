@@ -7,7 +7,6 @@ import {guards} from './flujo-fronteras.mjs'
 export const destinationR30='docs/procedencia/implementaciones/flujo-retenciones-ss-r30-sol/'
 const annual='lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts'
 const retention='lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts'
-const legacy='lib/dominio/laboral/cotizaciones-sociales.ts'
 const uniform='lib/dominio/laboral/cotizaciones-perfil-uniforme.ts'
 export const targetSite=id=>/^anual\.(ss|retencion|pagos)\./.test(id)
 function nodes(root,predicate){const result=[];function visit(n){if(predicate(n))result.push(n);ts.forEachChild(n,visit)}visit(root);return result}
@@ -16,7 +15,7 @@ function functionBody(d){let n=ts.isVariableDeclaration(d)?d.initializer:d;if(n&
 /** Inventario de contratos concretos: los callbacks y servicios conservan sus cuerpos;
  * ninguna llamada se convierte en terminal por tener contrato editorial. */
 export function contractsR30(sources=new Sources()){
- const queue=[[annual,'pasoRetencionTrabajoAeat'],[annual,'liquidarTrabajoIndividualSimple'],[annual,'construirLiquidarIrpfAnual'],[retention,'calcularRetencionTrabajoAeatImpl'],[uniform,'calcularDesgloseCotizacionesPerfilUniforme'],[legacy,'calcularDesgloseCotizacionesSocialesLegacy']]
+ const queue=[[annual,'pasoRetencionTrabajoAeat'],[annual,'liquidarTrabajoIndividualSimple'],[annual,'construirLiquidarIrpfAnual'],[retention,'calcularRetencionTrabajoAeatImpl'],[uniform,'calcularDesgloseCotizacionesPerfilUniforme']]
  const contracts=[],seen=new Set()
  while(queue.length){const [file,name]=queue.shift(),key=file+':'+name;if(seen.has(key))continue;seen.add(key)
   const d=declaration(sources,file,name),fn=functionBody(d);if(!fn?.body)throw Error('Sin cuerpo concreto: '+key)

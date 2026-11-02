@@ -5,6 +5,9 @@ import { Schema } from "effect"
 export type AmbitoDeducciones = {
   readonly ejercicio: number
   readonly territorio: string
+  readonly contribuyente?: string
+  readonly modalidad?: "individual" | "conjunta"
+  readonly declarantes?: readonly string[]
 }
 
 export function territorioDeCodigo(codigo: string): string {

@@ -3,11 +3,10 @@ import { Match } from "effect"
 
 import { crearImporteMonetario } from "../dinero/importe-monetario"
 import {
-  calcularDesgloseCotizacionesSocialesLegacy,
   obtenerParametrosCotizacionLegacy,
   sumarTipoCotizacionLegacy,
-  type EntradaCotizacionesSocialesLegacy,
   type DesgloseCotizacionesSociales,
+  type EntradaCotizacionesSocialesLegacy,
 } from "./cotizaciones-sociales"
 
 // Órdenes PJC/178/2025 art. 17 y PJC/297/2026 art. 17.
@@ -56,10 +55,6 @@ export const calcularDesgloseCotizacionesPerfilUniforme = ({
   salarioBrutoAnual,
 }: EntradaCotizacionesSocialesLegacy): CotizacionesPerfilUniforme => {
   const parametros = obtenerParametrosCotizacionLegacy(anio)
-  const legacy = calcularDesgloseCotizacionesSocialesLegacy({
-    anio,
-    salarioBrutoAnual,
-  })
   // ESS/55/2018 art. 2 y Ley 6/2018 art. 130 + DF 46: agosto, no julio.
   // Forma algebraica de 7 min(S/12,3751.20) + 5 min(S/12,3803.70),
   // con una sola división para evitar redondear S/12 antes de aplicar topes.
@@ -74,7 +69,7 @@ export const calcularDesgloseCotizacionesPerfilUniforme = ({
             ).mul(5)
           )
           .div(12)
-      : legacy.baseOrdinaria
+      : Decimal.min(salarioBrutoAnual, parametros.baseMaxima)
   const excesoBase = Decimal.max(0, salarioBrutoAnual.minus(baseOrdinaria))
   const solidaridad = Match.value(anio).pipe(
     Match.when(2025, () => tiposSolidaridad[2025]),

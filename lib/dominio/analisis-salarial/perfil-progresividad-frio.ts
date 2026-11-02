@@ -3,16 +3,16 @@ import { Context, Effect, Layer } from "effect"
 import type { DesgloseLiquidado } from "./progresividad-frio"
 import type { AnioFiscal } from "../normativa/anio-fiscal"
 import type { ModoCalculo, PerfilCalculo } from "../irpf/perfil-calculo"
-import { CompatibilidadSalarioLegacy } from "./calculo-salario-legacy"
+import { CalculoSalario } from "./calculo-salario"
 import type { LiquidarIrpfAnualError } from "../irpf/liquidacion/liquidar-irpf-anual"
 
-export type PerfilCalculoLegacy = Extract<
+export type PerfilCalculoAnalitico = Extract<
   PerfilCalculo,
-  "legacy-progresividad-frio"
+  "analisis-progresividad-frio"
 >
 
 export interface EntradaCalculoSalarioNetoIrpf {
-  readonly perfil: PerfilCalculoLegacy
+  readonly perfil: PerfilCalculoAnalitico
   readonly anio: AnioFiscal
   readonly salarioBrutoAnualCentimos: number
 }
@@ -23,22 +23,22 @@ export interface ContextoCalculo {
 
 export interface ResultadoCalculoSalarioNetoIrpf {
   readonly _tag: "ResultadoCalculoSalarioNetoIrpf"
-  readonly perfil: PerfilCalculoLegacy
+  readonly perfil: PerfilCalculoAnalitico
   readonly modo: ModoCalculo
   readonly anio: AnioFiscal
   readonly desglose: DesgloseLiquidado
 }
 
 const construirCalcularSalarioNetoEIrpf = ({
-  compatibilidadSalarioLegacy,
+  calculoSalario,
 }: {
-  readonly compatibilidadSalarioLegacy: CompatibilidadSalarioLegacy["Service"]
+  readonly calculoSalario: CalculoSalario["Service"]
 }) =>
   Effect.fn("compatibilidadLegacy.calcularSalarioNetoEIrpf")(function* (
     entrada: EntradaCalculoSalarioNetoIrpf,
     contexto: ContextoCalculo
   ) {
-    const desglose = yield* compatibilidadSalarioLegacy.calcular({
+    const desglose = yield* calculoSalario.calcular({
       anio: entrada.anio,
       salarioBrutoAnualCentimos: entrada.salarioBrutoAnualCentimos,
       modo: contexto.modo,
@@ -53,8 +53,8 @@ const construirCalcularSalarioNetoEIrpf = ({
     } satisfies ResultadoCalculoSalarioNetoIrpf
   })
 
-export class PerfilProgresividadFrioLegacy extends Context.Service<
-  PerfilProgresividadFrioLegacy,
+export class PerfilProgresividadFrio extends Context.Service<
+  PerfilProgresividadFrio,
   {
     readonly calcular: (
       entrada: EntradaCalculoSalarioNetoIrpf,
@@ -62,20 +62,20 @@ export class PerfilProgresividadFrioLegacy extends Context.Service<
     ) => Effect.Effect<ResultadoCalculoSalarioNetoIrpf, LiquidarIrpfAnualError>
   }
 >()(
-  "irobopf/lib/dominio/compatibilidad-legacy/perfil-progresividad-frio-legacy/PerfilProgresividadFrioLegacy"
+  "irobopf/lib/dominio/analisis-salarial/perfil-progresividad-frio/PerfilProgresividadFrio"
 ) {
   static readonly layer = Layer.effect(
-    PerfilProgresividadFrioLegacy,
+    PerfilProgresividadFrio,
     Effect.gen(function* () {
-      const compatibilidadSalarioLegacy = yield* CompatibilidadSalarioLegacy
+      const calculoSalario = yield* CalculoSalario
 
       return {
         calcular: construirCalcularSalarioNetoEIrpf({
-          compatibilidadSalarioLegacy,
+          calculoSalario,
         }),
       }
     })
-  ).pipe(Layer.provideMerge(CompatibilidadSalarioLegacy.layer))
+  ).pipe(Layer.provideMerge(CalculoSalario.layer))
 }
 
 const calcularSalarioNetoEIrpfDesdeServicio = Effect.fn(
@@ -84,7 +84,7 @@ const calcularSalarioNetoEIrpfDesdeServicio = Effect.fn(
   entrada: EntradaCalculoSalarioNetoIrpf,
   contexto: ContextoCalculo
 ) {
-  const perfil = yield* PerfilProgresividadFrioLegacy
+  const perfil = yield* PerfilProgresividadFrio
 
   return yield* perfil.calcular(entrada, contexto)
 })
@@ -95,5 +95,5 @@ export const calcularSalarioNetoEIrpf = (
 ): Effect.Effect<ResultadoCalculoSalarioNetoIrpf, LiquidarIrpfAnualError> =>
   // @effect-diagnostics-next-line effect/strictEffectProvide:off
   calcularSalarioNetoEIrpfDesdeServicio(entrada, contexto).pipe(
-    Effect.provide(PerfilProgresividadFrioLegacy.layer)
+    Effect.provide(PerfilProgresividadFrio.layer)
   )

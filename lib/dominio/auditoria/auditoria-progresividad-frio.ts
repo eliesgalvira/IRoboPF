@@ -1,44 +1,43 @@
 import Decimal from "decimal.js"
 import {
-  Array as EffectArray,
   Context,
   Effect,
+  Array as EffectArray,
   Layer,
   Match,
   Option,
 } from "effect"
 
-import type { ModoCalculo, PerfilCalculo } from "../irpf/perfil-calculo"
-import type { PerfilAuditoriaNormativa } from "./auditoria-normativa-historica"
-import type { ComunidadAutonoma } from "../irpf/caso-fiscal-anual"
 import {
-  anotarImportesIrpfAuxiliares,
+  instrumentarEffectAuditoria,
+  medirAuditoriaSync,
+  metricaDuracionCalculoAuditoria,
+  registrarResumenTiemposAuditoria,
+  registrarTiempoAgregadoAuditoria,
+  reiniciarTiemposAgregadosAuditoria,
+  tiempoAuditoriaMs,
+} from "../../observabilidad/auditoria-rendimiento"
+import {
+  CalculoSalario,
+  type SeleccionTemporalRetencion,
+  type ServicioCalculoSalario,
+} from "../analisis-salarial/calculo-salario"
+import {
   type AuditoriaRangoSalarial,
   type ComparacionAjustadaPorIpc,
   type DesgloseLiquidado,
   type EntradaAuditoriaRangoSalarial,
   type HallazgoAuditoria,
   type PuntoAuditoriaRangoSalarial,
-} from "../compatibilidad-legacy/progresividad-frio"
-import {
-  CompatibilidadSalarioLegacy,
-  type ServicioCompatibilidadSalarioLegacy,
-  type SeleccionTemporalRetencion,
-} from "../compatibilidad-legacy/calculo-salario-legacy"
-import type { LiquidarIrpfAnualError } from "../irpf/liquidacion/liquidar-irpf-anual"
-import type { AnioFiscal } from "../normativa/anio-fiscal"
+} from "../analisis-salarial/progresividad-frio"
 import { centimosAEuros, eurosACentimos } from "../dinero/importe-monetario"
 import { factorIpcPerfilLegacy } from "../inflacion/factor-ipc"
+import type { ComunidadAutonoma } from "../irpf/caso-fiscal-anual"
+import type { LiquidarIrpfAnualError } from "../irpf/liquidacion/liquidar-irpf-anual"
+import type { ModoCalculo, PerfilCalculo } from "../irpf/perfil-calculo"
+import type { AnioFiscal } from "../normativa/anio-fiscal"
 import { UMBRAL_RENDIMIENTOS_TRABAJO_NO_OBLIGACION_DECLARAR_UN_PAGADOR_CENTIMOS } from "../normativa/datos/irpf-obligacion-declarar"
-import {
-  instrumentarEffectAuditoria,
-  medirAuditoriaSync,
-  metricaDuracionCalculoAuditoria,
-  registrarTiempoAgregadoAuditoria,
-  registrarResumenTiemposAuditoria,
-  reiniciarTiemposAgregadosAuditoria,
-  tiempoAuditoriaMs,
-} from "../../observabilidad/auditoria-rendimiento"
+import type { PerfilAuditoriaNormativa } from "./auditoria-normativa-historica"
 
 export {
   aniosFiscalesLegacy,
@@ -48,11 +47,8 @@ export {
   configuracionControlSalario,
   configuracionExportacionCompatibleLegacy,
   configuracionRangoAuditoria,
-  construirTablaComparativaInflacionCompatible,
   construirTablaControlGeneralCompatible,
-  construirTablaControlTramosIrpfCompatible,
-  construirTablaDetalleAnualCompatible,
-} from "../compatibilidad-legacy/progresividad-frio"
+} from "../analisis-salarial/progresividad-frio"
 
 export type {
   AnioFiscal,
@@ -69,10 +65,10 @@ export type {
   RangoSalarialEuros,
   TablaCompatible,
   ValorCeldaCompatible,
-} from "../compatibilidad-legacy/progresividad-frio"
+} from "../analisis-salarial/progresividad-frio"
 
 export type PerfilAuditoriaProgresividadFrio =
-  | Extract<PerfilCalculo, "legacy-progresividad-frio">
+  | Extract<PerfilCalculo, "analisis-progresividad-frio">
   | PerfilAuditoriaNormativa
 
 export interface EntradaAuditoriaProgresividadFrio extends EntradaAuditoriaRangoSalarial {
@@ -139,6 +135,7 @@ const ajustarDesglose = (
   factor: Decimal
 ): DesgloseLiquidado => {
   const ajustado = {
+    ...desglose,
     salarioBrutoAnualCentimos: escalarCentimos(
       desglose.salarioBrutoAnualCentimos,
       factor
@@ -166,20 +163,7 @@ const ajustarDesglose = (
     ),
   }
 
-  return anotarImportesIrpfAuxiliares(ajustado, {
-    irpfConObligacionDeclararCentimos:
-      desglose.irpfConObligacionDeclararCentimos === undefined
-        ? undefined
-        : escalarCentimos(desglose.irpfConObligacionDeclararCentimos, factor),
-    irpfCuotaTrasDeduccionSmiCentimos:
-      desglose.irpfCuotaTrasDeduccionSmiCentimos === undefined
-        ? undefined
-        : escalarCentimos(desglose.irpfCuotaTrasDeduccionSmiCentimos, factor),
-    irpfCuotaTrasDeduccionSmiPrecisoEuros: escalarDecimalTexto(
-      desglose.irpfCuotaTrasDeduccionSmiPrecisoEuros,
-      factor
-    ),
-  })
+  return ajustado
 }
 
 const compararAjustadoPorIpcConLiquidacion = Effect.fn(
@@ -194,7 +178,7 @@ const compararAjustadoPorIpcConLiquidacion = Effect.fn(
   readonly anioReferencia: AnioFiscal
   readonly comunidadAutonoma?: ComunidadAutonoma | undefined
   readonly perfilAuditoria?: PerfilAuditoriaNormativa | undefined
-  readonly compatibilidadSalarioLegacy: ServicioCompatibilidadSalarioLegacy
+  readonly calculoSalario: ServicioCalculoSalario
 }) {
   const factor = medirAuditoriaSync("auditoria.comparacion.factorIpc", () =>
     factorIpc(entrada.anioComparado, entrada.anioReferencia)
@@ -207,7 +191,7 @@ const compararAjustadoPorIpcConLiquidacion = Effect.fn(
       )
   )
   const inicioReferencia = tiempoAuditoriaMs()
-  const referencia = yield* entrada.compatibilidadSalarioLegacy.calcular({
+  const referencia = yield* entrada.calculoSalario.calcular({
     modo: entrada.modo,
     seleccionRetencion:
       entrada.seleccionRetencionPorAnio?.[entrada.anioReferencia],
@@ -221,7 +205,7 @@ const compararAjustadoPorIpcConLiquidacion = Effect.fn(
     tiempoAuditoriaMs() - inicioReferencia
   )
   const inicioComparado = tiempoAuditoriaMs()
-  const comparadoNominal = yield* entrada.compatibilidadSalarioLegacy.calcular({
+  const comparadoNominal = yield* entrada.calculoSalario.calcular({
     modo: entrada.modo,
     seleccionRetencion:
       entrada.seleccionRetencionPorAnio?.[entrada.anioComparado],
@@ -396,7 +380,7 @@ const construirPuntoAuditoriaConLiquidacion = Effect.fn(
 )(function* (
   entrada: EntradaAuditoriaRangoSalarialConComunidad,
   salarioBrutoAnualCentimos: number,
-  compatibilidadSalarioLegacy: ServicioCompatibilidadSalarioLegacy
+  calculoSalario: ServicioCalculoSalario
 ) {
   const inicioComparacion = tiempoAuditoriaMs()
   const comparacion = yield* compararAjustadoPorIpcConLiquidacion({
@@ -407,7 +391,7 @@ const construirPuntoAuditoriaConLiquidacion = Effect.fn(
     anioReferencia: entrada.anioReferencia,
     comunidadAutonoma: entrada.comunidadAutonoma,
     perfilAuditoria: entrada.perfilAuditoria,
-    compatibilidadSalarioLegacy,
+    calculoSalario,
   })
   registrarTiempoAgregadoAuditoria(
     "auditoria.punto.comparacion",
@@ -440,7 +424,7 @@ const construirPuntoAuditoriaAnioAjustadoConLiquidacion = Effect.fn(
   entrada: EntradaPuntosAuditoriaAnioAjustado,
   salarioBrutoAnualReferenciaCentimos: number,
   factor: Decimal,
-  compatibilidadSalarioLegacy: ServicioCompatibilidadSalarioLegacy
+  calculoSalario: ServicioCalculoSalario
 ) {
   const salarioBrutoNominalAnualCentimos = medirAuditoriaSync(
     "auditoria.serieAnio.salarioNominal",
@@ -455,7 +439,7 @@ const construirPuntoAuditoriaAnioAjustadoConLiquidacion = Effect.fn(
       )
   )
   const inicioLiquidacion = tiempoAuditoriaMs()
-  const desgloseNominal = yield* compatibilidadSalarioLegacy.calcular({
+  const desgloseNominal = yield* calculoSalario.calcular({
     modo: entrada.modo,
     seleccionRetencion: entrada.seleccionRetencion,
     anio: entrada.anio,
@@ -548,7 +532,7 @@ const construirPuntosAuditoriaAnioAjustadoImpl = Effect.fn(
       pasoCentimos: entrada.pasoCentimos,
     },
     efecto: Effect.gen(function* () {
-      const compatibilidadSalarioLegacy = yield* CompatibilidadSalarioLegacy
+      const calculoSalario = yield* CalculoSalario
       const puntosPorLote = yield* Effect.forEach(
         lotes,
         (lote) =>
@@ -557,7 +541,7 @@ const construirPuntosAuditoriaAnioAjustadoImpl = Effect.fn(
               entrada,
               salarioBrutoAnualCentimos,
               factor,
-              compatibilidadSalarioLegacy
+              calculoSalario
             )
           ),
         { concurrency: CONCURRENCIA_AUDITORIA_RANGO }
@@ -674,7 +658,7 @@ const auditarRangoSalarialConLiquidacionIrpf = Effect.fn(
       concurrencia: CONCURRENCIA_AUDITORIA_RANGO,
     },
     efecto: Effect.gen(function* () {
-      const compatibilidadSalarioLegacy = yield* CompatibilidadSalarioLegacy
+      const calculoSalario = yield* CalculoSalario
       const puntosPorLote = yield* Effect.forEach(
         lotes,
         (lote) =>
@@ -682,7 +666,7 @@ const auditarRangoSalarialConLiquidacionIrpf = Effect.fn(
             construirPuntoAuditoriaConLiquidacion(
               entrada,
               salarioBrutoAnualCentimos,
-              compatibilidadSalarioLegacy
+              calculoSalario
             )
           ),
         { concurrency: CONCURRENCIA_AUDITORIA_RANGO }
@@ -729,13 +713,13 @@ const auditarProgresividadFrioImpl = Effect.fn(
     comunidadAutonoma: entrada.comunidadAutonoma,
     perfilAuditoria:
       entrada.perfilAuditoria ??
-      (entrada.perfil === "legacy-progresividad-frio"
+      (entrada.perfil === "analisis-progresividad-frio"
         ? undefined
         : entrada.perfil),
   })
   // @effect-diagnostics-next-line effect/strictEffectProvide:off
   const auditoria = yield* auditoriaEffect.pipe(
-    Effect.provide(CompatibilidadSalarioLegacy.layer)
+    Effect.provide(CalculoSalario.layer)
   )
 
   return {
@@ -793,5 +777,5 @@ export const construirPuntosAuditoriaAnioAjustado = (
 > =>
   // @effect-diagnostics-next-line effect/strictEffectProvide:off
   construirPuntosAuditoriaAnioAjustadoImpl(entrada).pipe(
-    Effect.provide(CompatibilidadSalarioLegacy.layer)
+    Effect.provide(CalculoSalario.layer)
   )

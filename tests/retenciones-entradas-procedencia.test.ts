@@ -44,7 +44,7 @@ describe("RET20-008: nunca devolver Success con importes no finitos", () => {
       )
     }
   )
-  it("conserva el divisor uno como control", () => {
+  it("un divisor uno no acredita elegibilidad ni titularidad", () => {
     const r = ejecutar({
       ...base,
       ascendientes: [
@@ -56,8 +56,6 @@ describe("RET20-008: nunca devolver Success con importes no finitos", () => {
         },
       ],
     })
-    expect(r._tag).toBe("Success")
-    if (r._tag === "Success")
-      expect(Number.isFinite(r.value.importeRetencionAnualCentimos)).toBe(true)
+    expect(r._tag).toBe("Failure")
   })
 })

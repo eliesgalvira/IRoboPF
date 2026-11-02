@@ -1,5 +1,5 @@
-import { Effect } from "effect"
 import { describe, expect, it } from "@effect/vitest"
+import { Effect } from "effect"
 
 import { sinDiscapacidad } from "../lib/dominio/irpf/caso-fiscal-anual"
 import {
@@ -45,11 +45,5 @@ describe("cotizaciones integradas en liquidación anual", () => {
     const text = JSON.stringify(r.rastro)
     expect(text).not.toContain("5/6 de la cuota")
     expect(text).toContain("mensualidades uniformes")
-  })
-  it("conserva cotizaciones del modo compatible-legacy", () => {
-    const r = Effect.runSync(
-      liquidarIrpfAnual(caso(2018, 5_000_000), { modo: "compatible-legacy" })
-    )
-    expect(r.cotizacionTrabajadorCentimos).toBe(285841)
   })
 })

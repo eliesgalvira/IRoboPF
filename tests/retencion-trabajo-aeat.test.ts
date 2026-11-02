@@ -132,67 +132,81 @@ describe("calcularRetencionTrabajoAeat", () => {
     })
   )
 
-  it.effect("usa el umbral 2026 de situacion 2 con dos descendientes", () =>
-    Effect.gen(function* () {
-      const resultado = yield* calcularRetencionTrabajoAeat(
-        {
-          ...casoRetencionCalculable(),
-          situacionFamiliar: "situacion2",
-          descendientes: [
+  it.effect(
+    "rechaza el perfil familiar parcial 2026 de situacion 2 con dos descendientes",
+    () =>
+      Effect.gen(function* () {
+        const resultado = yield* Effect.exit(
+          calcularRetencionTrabajoAeat(
             {
-              edad: 8,
-              computoPorEntero: true,
-              discapacidad: "sin-discapacidad",
-              movilidadReducida: false,
-              adopcionOAcogimientoMenosTresAnios: false,
+              ...casoRetencionCalculable(),
+              situacionFamiliar: "situacion2",
+              descendientes: [
+                {
+                  edad: 8,
+                  computoPorEntero: true,
+                  discapacidad: "sin-discapacidad",
+                  movilidadReducida: false,
+                  adopcionOAcogimientoMenosTresAnios: false,
+                },
+                {
+                  edad: 5,
+                  computoPorEntero: true,
+                  discapacidad: "sin-discapacidad",
+                  movilidadReducida: false,
+                  adopcionOAcogimientoMenosTresAnios: false,
+                },
+              ],
             },
-            {
-              edad: 5,
-              computoPorEntero: true,
-              discapacidad: "sin-discapacidad",
-              movilidadReducida: false,
-              adopcionOAcogimientoMenosTresAnios: false,
-            },
-          ],
-        },
-        { modo: "canonico" }
-      )
+            { modo: "canonico" }
+          )
+        )
 
-      expect(resultado.limite43Centimos).toBe(461_734)
-    })
+        expect(
+          resultado._tag,
+          "Referencia histórica 461_734; faltan titulares y rentas"
+        ).toBe("Failure")
+      })
   )
 
-  it.effect("usa el umbral 2019 de situacion 2 con dos descendientes", () =>
-    Effect.gen(function* () {
-      const resultado = yield* calcularRetencionTrabajoAeat(
-        {
-          ...casoRetencionCalculable(),
-          anio: 2019,
-          fechaPago: "2019-12-31",
-          retribucionAnualCentimos: 2200000,
-          situacionFamiliar: "situacion2",
-          descendientes: [
+  it.effect(
+    "rechaza el perfil familiar parcial 2019 de situacion 2 con dos descendientes",
+    () =>
+      Effect.gen(function* () {
+        const resultado = yield* Effect.exit(
+          calcularRetencionTrabajoAeat(
             {
-              edad: 8,
-              computoPorEntero: true,
-              discapacidad: "sin-discapacidad",
-              movilidadReducida: false,
-              adopcionOAcogimientoMenosTresAnios: false,
+              ...casoRetencionCalculable(),
+              anio: 2019,
+              fechaPago: "2019-12-31",
+              retribucionAnualCentimos: 2200000,
+              situacionFamiliar: "situacion2",
+              descendientes: [
+                {
+                  edad: 8,
+                  computoPorEntero: true,
+                  discapacidad: "sin-discapacidad",
+                  movilidadReducida: false,
+                  adopcionOAcogimientoMenosTresAnios: false,
+                },
+                {
+                  edad: 5,
+                  computoPorEntero: true,
+                  discapacidad: "sin-discapacidad",
+                  movilidadReducida: false,
+                  adopcionOAcogimientoMenosTresAnios: false,
+                },
+              ],
             },
-            {
-              edad: 5,
-              computoPorEntero: true,
-              discapacidad: "sin-discapacidad",
-              movilidadReducida: false,
-              adopcionOAcogimientoMenosTresAnios: false,
-            },
-          ],
-        },
-        { modo: "canonico" }
-      )
+            { modo: "canonico" }
+          )
+        )
 
-      expect(resultado.limite43Centimos).toBe(187_738)
-    })
+        expect(
+          resultado._tag,
+          "Referencia histórica 187_738; faltan titulares y rentas"
+        ).toBe("Failure")
+      })
   )
 
   it.effect("expone el procedimiento de retención como servicio Effect", () =>
@@ -249,6 +263,7 @@ describe("calcularRetencionTrabajoAeat", () => {
 
 const casoRetencionBasico = (): CasoRetencionTrabajo => {
   const caso = {
+    edad: 40,
     anio: 2026,
     fechaPago: "2026-09-10",
     retribucionAnualCentimos: 30_000_00,

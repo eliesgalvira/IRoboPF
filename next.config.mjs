@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactCompiler: true,
+  experimental: { cpus: 1 },
   // Solo el índice permitido. Los objetos pertenecen al almacén externo.
   outputFileTracingIncludes: {
     "/procedencia": [

@@ -1,8 +1,8 @@
-import { Effect } from "effect"
 import { expect, it } from "@effect/vitest"
-import { IPC_ANUAL_DICIEMBRE } from "../lib/dominio/normativa/datos/ipc-2012-2026"
-import { compararAjustadoPorIpc } from "../lib/dominio/compatibilidad-legacy/progresividad-frio"
+import { Effect } from "effect"
+import { compararAjustadoPorIpc } from "../lib/dominio/analisis-salarial/progresividad-frio"
 import { calcularFactorIpcDiciembre } from "../lib/dominio/inflacion/factor-ipc"
+import { IPC_ANUAL_DICIEMBRE } from "../lib/dominio/normativa/datos/ipc-2012-2026"
 
 it("IPC-AUSENCIA rechaza datos ausentes y conserva la identidad del año base", () => {
   expect(() =>

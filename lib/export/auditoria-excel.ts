@@ -1,22 +1,18 @@
+import { Clock, DateTime, Effect, Match } from "effect"
 import ExcelJS from "exceljs"
-import { Match, Clock, DateTime, Effect } from "effect"
 import { Deflate } from "fflate"
+import type { AnioFiscal } from "../dominio/normativa/anio-fiscal"
 
 import type {
-  HallazgoAuditoria,
   AuditoriaRangoSalarial,
+  HallazgoAuditoria,
   OpcionesRangoSalarialEuros,
   PuntoAuditoriaRangoSalarial,
-  RangoSalarialEuros,
   TablaCompatible,
 } from "../dominio/auditoria/auditoria-progresividad-frio"
 import {
   aniosFiscalesLegacy,
-  configuracionExportacionCompatibleLegacy,
-  construirTablaComparativaInflacionCompatible,
   construirTablaControlGeneralCompatible,
-  construirTablaControlTramosIrpfCompatible,
-  construirTablaDetalleAnualCompatible,
 } from "../dominio/auditoria/auditoria-progresividad-frio"
 
 const centimosAEuros = (centimos: number) => centimos / 100
@@ -27,6 +23,8 @@ const DESCRIPCION_IPC =
   "IPC: producto de tasas de diciembre publicadas para 2013–2025. Diciembre de 2026 usa el escenario heredado del 3 %, no una observación INE. Corte documental: 2026-10-29."
 
 export interface OpcionesLibroAuditoriaCompatible {
+  readonly tablaComparativa?: TablaCompatible
+  readonly tablasDetalle?: Partial<Record<AnioFiscal, TablaCompatible>>
   readonly comparativa?: OpcionesRangoSalarialEuros
   readonly detalle?: OpcionesRangoSalarialEuros
 }
@@ -126,51 +124,11 @@ const anadirTabla = (
   aplicarEstiloCabecera(hoja)
 }
 
-const rangoSalarialEuros = (
-  rangoPorDefecto: RangoSalarialEuros,
-  opciones: OpcionesRangoSalarialEuros | undefined
-): RangoSalarialEuros => ({
-  salarioMinimoEuros:
-    opciones?.salarioMinimoEuros ?? rangoPorDefecto.salarioMinimoEuros,
-  salarioMaximoEuros:
-    opciones?.salarioMaximoEuros ?? rangoPorDefecto.salarioMaximoEuros,
-  pasoEuros: opciones?.pasoEuros ?? rangoPorDefecto.pasoEuros,
-})
-
-const contarFilasRango = (rango: RangoSalarialEuros): number => {
-  if (
-    rango.pasoEuros <= 0 ||
-    rango.salarioMaximoEuros < rango.salarioMinimoEuros
-  ) {
-    return 0
-  }
-
-  return (
-    Math.floor(
-      (rango.salarioMaximoEuros - rango.salarioMinimoEuros) / rango.pasoEuros
-    ) + 1
-  )
-}
-
 const crearPlanCompatible = (
   opciones: OpcionesLibroAuditoriaCompatible
 ): ReadonlyArray<PlanHojaCompatible> => {
+  const tablaComparativa = opciones.tablaComparativa
   const tablaControlGeneral = construirTablaControlGeneralCompatible()
-  const tablaControlTramos = construirTablaControlTramosIrpfCompatible()
-  const filasComparativa =
-    aniosFiscalesLegacy.length *
-    contarFilasRango(
-      rangoSalarialEuros(
-        configuracionExportacionCompatibleLegacy.comparativa,
-        opciones.comparativa
-      )
-    )
-  const filasDetalle = contarFilasRango(
-    rangoSalarialEuros(
-      configuracionExportacionCompatibleLegacy.detalleAnual,
-      opciones.detalle
-    )
-  )
 
   return [
     {
@@ -178,26 +136,20 @@ const crearPlanCompatible = (
       filasTotales: Array.from(tablaControlGeneral.filas).length,
       construirTabla: () => tablaControlGeneral,
     },
-    {
-      nombre: "CONTROL_TRAMOS_IRPF",
-      filasTotales: Array.from(tablaControlTramos.filas).length,
-      construirTabla: () => tablaControlTramos,
-    },
-    {
-      nombre: "COMPARATIVA_INFLACION",
-      filasTotales: filasComparativa,
-      construirTabla: () =>
-        construirTablaComparativaInflacionCompatible(opciones.comparativa),
-    },
-    ...aniosFiscalesLegacy.map(
-      (anio) =>
-        ({
-          nombre: `DAT_${anio}`,
-          filasTotales: filasDetalle,
-          construirTabla: () =>
-            construirTablaDetalleAnualCompatible(anio, opciones.detalle),
-        }) satisfies PlanHojaCompatible
-    ),
+    ...(tablaComparativa === undefined
+      ? []
+      : [
+          {
+            nombre: "COMPARATIVA_INFLACION",
+            filasTotales: Array.from(tablaComparativa.filas).length,
+            construirTabla: () => tablaComparativa,
+          },
+        ]),
+    ...Object.entries(opciones.tablasDetalle ?? {}).map(([anio, tabla]) => ({
+      nombre: `DAT_${anio}`,
+      filasTotales: Array.from(tabla.filas).length,
+      construirTabla: () => tabla,
+    })),
   ]
 }
 
@@ -439,49 +391,56 @@ export const exportarAuditoriaEducativaExcel = Effect.fn(
   )
 })
 
+const opcionesConResultados = (
+  auditoria: AuditoriaRangoSalarial,
+  opciones: OpcionesLibroAuditoriaCompatible
+): OpcionesLibroAuditoriaCompatible => ({
+  ...opciones,
+  tablaComparativa: opciones.tablaComparativa ?? {
+    cabeceras: [
+      "Bruto referencia (EUR)",
+      "IRPF anual referencia (EUR)",
+      "Neto referencia (EUR)",
+      "IRPF comparado ajustado (EUR)",
+      "Neto comparado ajustado (EUR)",
+    ],
+    filas: auditoria.puntos.map((punto) => {
+      const comparacion = punto.comparacion
+      return [
+        comparacion.referencia.salarioBrutoAnualCentimos / 100,
+        comparacion.referencia.irpfFinalCentimos / 100,
+        comparacion.referencia.salarioNetoAnualCentimos / 100,
+        comparacion.comparado.ajustado.irpfFinalCentimos / 100,
+        comparacion.comparado.ajustado.salarioNetoAnualCentimos / 100,
+      ]
+    }),
+  },
+})
+
 export const construirLibroAuditoriaCompatible = (
-  _auditoria: AuditoriaRangoSalarial,
+  auditoria: AuditoriaRangoSalarial,
   opciones: OpcionesLibroAuditoriaCompatible = {}
 ) => {
   const libro = crearLibro()
-  anadirTabla(
-    libro,
-    "CONTROL_GENERAL",
-    construirTablaControlGeneralCompatible()
-  )
-  anadirTabla(
-    libro,
-    "CONTROL_TRAMOS_IRPF",
-    construirTablaControlTramosIrpfCompatible()
-  )
-  anadirTabla(
-    libro,
-    "COMPARATIVA_INFLACION",
-    construirTablaComparativaInflacionCompatible(opciones.comparativa)
-  )
-
-  // La exportacion compatible replica el oracle congelado completo; por eso las
-  // hojas DAT_YYYY no dependen del rango educativo elegido en la pantalla.
-  for (const anio of aniosFiscalesLegacy) {
-    anadirTabla(
-      libro,
-      `DAT_${anio}`,
-      construirTablaDetalleAnualCompatible(anio, opciones.detalle)
-    )
-  }
-
+  for (const plan of crearPlanCompatible(
+    opcionesConResultados(auditoria, opciones)
+  ))
+    anadirTabla(libro, plan.nombre, plan.construirTabla())
   return libro
 }
 
 export const construirLibroAuditoriaCompatibleConProgreso = Effect.fn(
   "export.auditoriaExcel.construirLibroAuditoriaCompatibleConProgreso"
 )(function* (
-  _auditoria: AuditoriaRangoSalarial,
+  auditoria: AuditoriaRangoSalarial,
   opciones: OpcionesExportacionCompatibleConProgreso = {}
 ) {
   const libro = crearLibro()
   const inicioMillis = yield* Clock.currentTimeMillis
-  const planes = crearPlanCompatible(opciones)
+  const planes = crearPlanCompatible({
+    ...opciones,
+    ...opcionesConResultados(auditoria, opciones),
+  })
   const hojasTotales = planes.length
   const filasTotales = planes.reduce(
     (total, plan) => total + plan.filasTotales,
@@ -936,7 +895,7 @@ export const exportarAuditoriaCompatibleExcelConProgreso = Effect.fn(
   auditoria: AuditoriaRangoSalarial,
   opciones: OpcionesExportacionCompatibleConProgreso = {}
 ) {
-  void auditoria
+  opciones = { ...opciones, ...opcionesConResultados(auditoria, opciones) }
   const inicioMillis = yield* Clock.currentTimeMillis
   const filasTotales = crearPlanCompatible(opciones).reduce(
     (total, plan) => total + plan.filasTotales,

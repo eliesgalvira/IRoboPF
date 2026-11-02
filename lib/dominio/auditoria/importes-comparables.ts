@@ -1,4 +1,4 @@
-import type { DesgloseLiquidado } from "../compatibilidad-legacy/progresividad-frio"
+import type { DesgloseLiquidado } from "../analisis-salarial/progresividad-frio"
 
 /**
  * Selección de la comparación gráfica; no determina obligación de declarar.
@@ -6,8 +6,7 @@ import type { DesgloseLiquidado } from "../compatibilidad-legacy/progresividad-f
  * comparación. El resultado original y su precisión histórica no se alteran.
  */
 export const seleccionarImportesComparables = (desglose: DesgloseLiquidado) => {
-  const irpfCentimos =
-    desglose.irpfConObligacionDeclararCentimos ?? desglose.irpfFinalCentimos
+  const irpfCentimos = desglose.irpfFinalCentimos
   const netoCentimos =
     desglose.salarioBrutoAnualCentimos -
     desglose.cotizacionTrabajadorCentimos -
@@ -18,10 +17,7 @@ export const seleccionarImportesComparables = (desglose: DesgloseLiquidado) => {
     irpfCentimos,
     netoCentimos,
     costeLaboralCentimos,
-    origenIrpf:
-      desglose.irpfConObligacionDeclararCentimos === undefined
-        ? "resultado-final"
-        : "cuota-comparable",
+    origenIrpf: "resultado-final",
     ajusteNetoCentimos: netoCentimos - desglose.salarioNetoAnualCentimos,
     ajusteCosteCentimos: costeLaboralCentimos - desglose.costeLaboralCentimos,
   }

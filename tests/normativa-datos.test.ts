@@ -6,7 +6,6 @@ import {
   METADATOS_ARTICULO_20_LEGACY,
   MINIMO_EXENTO_RETENCION_LEGACY,
   MINIMO_PERSONAL_IRPF_LEGACY,
-  obtenerTramosIrpfLegacy,
 } from "../lib/dominio/normativa/datos/irpf-estatal-2012-2026"
 import {
   IPC_ANUAL_DICIEMBRE,
@@ -37,8 +36,6 @@ describe("parámetros normativos ejecutables legacy", () => {
     expect(MINIMO_PERSONAL_IRPF_LEGACY[2026].toString()).toBe("5550")
     expect(GASTOS_FIJOS_IRPF_LEGACY[2012].toString()).toBe("0")
     expect(GASTOS_FIJOS_IRPF_LEGACY[2026].toString()).toBe("2000")
-    expect(obtenerTramosIrpfLegacy(2012)).toHaveLength(7)
-    expect(obtenerTramosIrpfLegacy(2026)).toHaveLength(6)
     expect(METADATOS_ARTICULO_20_LEGACY[2018].umbralInferior).toBe(
       "Transitorio"
     )

@@ -7,8 +7,8 @@ bun run typecheck
 bun run test:ci
 bun run test tests/puertos-composicion-r47.test.ts tests/puertos-r52.test.ts --maxWorkers=1
 bun run test tests/cotizaciones-perfil-uniforme.test.ts tests/*-procedencia.test.ts --exclude tests/evidencia-contenido-procedencia.test.ts --maxWorkers=1
-bun run test tests/retenciones-versionadas.test.ts tests/trabajo-anual-contratos.test.ts tests/actividades-economicas-2025.test.ts tests/deducciones-contratos.test.ts tests/deducciones-ambito.test.ts tests/calculo-salario-neto-irpf.test.ts --maxWorkers=1
-bun run test tests/conexion-anual.test.ts tests/comparativa-inflacion-tabular.test.ts tests/redondeos-legacy-oracle.test.ts tests/correcciones-x-solidaridad.test.ts --maxWorkers=1
+bun run test tests/retenciones-versionadas.test.ts tests/trabajo-anual-contratos.test.ts tests/actividades-economicas-2025.test.ts tests/deducciones-contratos.test.ts tests/deducciones-ambito.test.ts tests/deducciones-conjunta-identidad.test.ts tests/calculo-salario-neto-irpf.test.ts --maxWorkers=1
+bun run test tests/conexion-anual.test.ts tests/retirada-rutas.test.ts tests/motor-unico-revision.test.ts tests/minimos-derechos.test.ts tests/retenciones-derechos.test.ts tests/liquidacion-irpf-anual.test.ts tests/correcciones-x-solidaridad.test.ts --maxWorkers=1
 bun run inventario:verificar
 bun run test:inventario
 bun run test --config scripts/procedencia/contenido-vitest.mjs

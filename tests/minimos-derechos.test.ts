@@ -1,5 +1,13 @@
-import { expect, it } from "vitest"
 import { Effect, Result } from "effect"
+import { expect, it } from "vitest"
+import {
+  sinDiscapacidad,
+  type CasoFiscalAnual,
+} from "../lib/dominio/irpf/caso-fiscal-anual"
+import {
+  liquidarIrpfAnual,
+  liquidarIrpfAnualConDerechos,
+} from "../lib/dominio/irpf/liquidacion/liquidar-irpf-anual"
 import { calcularDerechosMinimos } from "../lib/dominio/irpf/minimos/derechos"
 import type {
   DerechosMinimos2025,
@@ -7,14 +15,6 @@ import type {
   TitularDescendiente,
 } from "../lib/dominio/irpf/minimos/derechos-contrato"
 import { MINIMOS_ESTATALES_2025 } from "../lib/dominio/normativa/datos/minimos-autonomicos-2025"
-import {
-  liquidarIrpfAnual,
-  liquidarIrpfAnualConDerechos,
-} from "../lib/dominio/irpf/liquidacion/liquidar-irpf-anual"
-import {
-  sinDiscapacidad,
-  type CasoFiscalAnual,
-} from "../lib/dominio/irpf/caso-fiscal-anual"
 
 const titular = (titularId: string): TitularDescendiente => ({
   titularId,
@@ -257,6 +257,7 @@ it("conexión anual aplica mínimos estatal y madrileño atribuidos", () => {
 it("legacy rechaza usar hechos nuevos y entrada anual incoherente falla sin Die", () => {
   const r = Effect.runSync(
     Effect.result(
+      // @ts-expect-error el modo antiguo fue retirado.
       liquidarIrpfAnual(anual(hechos()), { modo: "compatible-legacy" })
     )
   )
@@ -329,6 +330,7 @@ it("rechaza falta de hechos, incompatibilidad anual y fechas especiales", () => 
           ...caso,
           situacionFamiliar: {
             ...caso.situacionFamiliar,
+            // @ts-expect-error frontera antigua sin hechos suficientes.
             descendientes: [{ edad: 8, discapacidad: sinDiscapacidad }],
           },
         },
