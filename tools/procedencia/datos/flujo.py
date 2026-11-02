@@ -91,8 +91,15 @@ def pdf_table(store: Store, table: dict) -> list[dict]:
             selected = [w for w in page.get_text('words', flags=0, sort=True) if box.contains(pymupdf.Rect(w[:4]))]
             literal = ' '.join(w[4] for w in selected)
             for word in page.get_text('words', flags=0):
-                if word[4] in ('+', '-', '−', '–', '—') and selected and any(abs(word[1] - chosen[1]) < 2 for chosen in selected) and (0 <= min(w[0] for w in selected) - word[2] < 12 or 0 <= word[0] - max(w[2] for w in selected) < 12) and word not in selected:
-                    raise ValueError('Signo próximo fuera de la celda')
+                if word[4] not in ('+', '-', '−', '–', '—') or word in selected:
+                    continue
+                for chosen in selected:
+                    overlap = min(word[3], chosen[3]) - max(word[1], chosen[1])
+                    height = min(word[3] - word[1], chosen[3] - chosen[1])
+                    gap = max(chosen[0] - word[2], word[0] - chosen[2], 0)
+                    # Geometric ambiguity guard, independent of font size and PDF text blocks.
+                    if height > 0 and overlap >= height / 2 and gap < 12:
+                        raise ValueError('Signo próximo fuera de la celda')
             normalized = number(literal, spec['unit'])
             cells.append({**spec, 'quote': quote, 'literal': literal, 'normalized': normalized,
                           'words': [list(w[:5]) for w in selected],
