@@ -1,0 +1,13 @@
+# Integración de las remisiones de Castilla-La Mancha
+
+La ampliación de los 27 expedientes había incorporado al registro común citas XML sin un localizador admitido y referencias a 22 documentos no declarados allí. El verificador central rechazaba ese registro, aunque las pruebas de los expedientes regionales pasaban. No se demuestra con ello un error de cuota.
+
+Se retira esa proyección incompatible del registro común y se conserva su último cotejo válido, identificando la integración pendiente en cada código. Las descripciones del catálogo corregidas no se revierten. Todas las citas complementarias permanecen literalmente en [el expediente regional](../d-clm-remisiones/citas.json), junto con sus [fuentes](../d-clm-remisiones/fuentes.json), [propuestas](../d-clm-remisiones/propuestas-por-codigo.json) y [revisión independiente](../../revisiones/d-clm-remisiones/INFORME.md). El recuento correcto de 25 municipios y las reservas de vivienda se conservan. La versión incompatible sigue disponible en el commit `a1be4f9dadacb1fdd1ec0e4b4d8387a39a342dd3`.
+
+Dos comparaciones anteriores quedan identificadas expresamente como históricas: la errata tipográfica de perros de asistencia y el prorrateo de ascendientes atribuido a la deducción personal de mayores de 75 años. Ambas conservan la cita literal y una comparación del campo actual; la segunda mantiene la reserva jurídica. La prueba del catálogo comprueba los valores actuales, incluida su lista vacía de prorrateo.
+
+Queda un trabajo interno concreto: representar los localizadores XML en el contrato, atribuir artículo y apartado desde cada versión, normalizar los metadatos de las fuentes complementarias y comprobar su incorporación. Los historiales de consolidación no deben declararse publicaciones originales. No falta la evidencia regional ni se ha demostrado un bloqueo externo.
+
+También se normaliza la representación de los 17 dictámenes de Castilla y León: las 14 concordancias documentales condicionadas usan `coincide` para la ficha, y las tres reservas usan `no_verificable`. El cálculo y el dictamen global siguen sin verificar. Los rótulos originales, apartados, reglas, reservas y enlace al expediente se conservan íntegros en `vigencia.remisionesRevisadas`; no se convierten las reservas en aceptación ni se pierde su evidencia.
+
+El CI incorpora el control completo de los 351 registros sin CAS ni Git histórico. Comprueba schema, referencias y coherencia de dictámenes; no sustituye la reextracción de los originales ni su revisión normativa. La comprobación de integridad del CAS es independiente. La reparación de esta proyección requiere contraste acotado, sin repetir el dictamen favorable sobre las reglas regionales.

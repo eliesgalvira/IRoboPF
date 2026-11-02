@@ -123,16 +123,29 @@ describe("fronteras y cadenas recuperadas", () => {
       )
     })
   }
-  it("cada comparación descriptiva corresponde al valor exportado", () => {
+  it("conserva el prorrateo anterior sin atribuirlo al contribuyente actual", () => {
+    const r = registro("clm_mayores_75")
+    expect(r.comparaciones.find((c) =>
+      c.campoCodigo === "prorrateo" && c.momento === "antes"
+    )?.valorCodigo).toEqual(expect.stringContaining("cuidado de ascendiente"))
+    expect(r.comparaciones.find((c) =>
+      c.campoCodigo === "prorrateo" && c.momento === "despues"
+    )?.valorCodigo).toEqual([])
+    expect(catalogo.valor.find((f) => f.codigo === r.codigo)?.prorrateo).toEqual([])
+  })
+  it("cada comparación descriptiva actual corresponde al valor exportado", () => {
     for (const r of lote.deducciones) {
       const f = catalogo.valor.find((f) => f.codigo === r.codigo)
       for (const c of r.comparaciones) {
+        if (c.momento === "antes") continue
         if (c.campoCodigo === "requisitos")
           expect(f?.requisitos).toContain(c.valorCodigo)
         if (c.campoCodigo === "limites")
           expect(f?.limites).toContain(c.valorCodigo)
-        if (c.campoCodigo === "prorrateo")
-          expect(f?.prorrateo).toContain(c.valorCodigo)
+        if (c.campoCodigo === "prorrateo") {
+          // La comparación describe un elemento o la lista completa, incluida la vacía.
+          expect([f?.prorrateo, ...(f?.prorrateo ?? [])]).toContainEqual(c.valorCodigo)
+        }
         if (c.campoCodigo === "incompatibilidades")
           expect(f?.incompatibilidades).toContain(c.valorCodigo)
       }

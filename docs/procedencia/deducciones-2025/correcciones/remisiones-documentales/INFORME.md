@@ -14,4 +14,4 @@ Los seis discriminantes actuales se ejecutan sin red, almacén externo ni histor
 PYTHONDONTWRITEBYTECODE=1 python3 tests/remisiones-clm-cultura-documentales.py -v
 ```
 
-La reextracción de los nuevos pasajes requiere el original externo. La comprobación estructural de citas y propuestas se ejecuta con `correcciones/g-cultura-lengua/verificar.py`. El contraste independiente de estas tres correcciones queda pendiente; los dictámenes favorables sobre las demás remisiones se conservan.
+La reextracción de los nuevos pasajes requiere el original externo. La comprobación estructural de citas y propuestas se ejecuta con `correcciones/g-cultura-lengua/verificar.py`. El [contraste independiente](../../revisiones/remisiones-documentales/INFORME.md) es favorable para las tres correcciones: conserva los 18 fallos anteriores y añade siete discriminantes. Las reservas jurídicas permanecen; no hace falta otra revisión del mismo alcance.
