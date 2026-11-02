@@ -1,0 +1,71 @@
+[
+  {
+    "codigo": "valenciana_arrendador_renta_precio_referencia",
+    "path": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/comunitat-valenciana.ts",
+    "base": "39b29c55474f57b296a10654ae44350c8294b501",
+    "fileSha256": "f9765941d658e04ab59e6a36b89f93e3150b88caf3834e4fefb33b6a2a56fd22",
+    "preimagen": "  {\n    codigo: \"valenciana_arrendador_renta_precio_referencia\",\n    comunidad: \"comunitat-valenciana\",\n    nombre:\n      \"Por obtención de rentas derivadas de  arrendamientos de vivienda, cuya renta no supere  el precio de referencia de los alquileres privados de  la Comunitat Valenciana (deducción del arrendador)\",\n    categoria: \"vivienda_habitual\",\n    normativa:\n      \"Ley13/1997 art4.Uno.j; ejercicio 2025, con los efectos temporales descritos\",\n    cuantia: {\n      tipo: \"mixta\",\n      descripcion: \"5% de rendimientos íntegros\",\n    },\n    requisitos: [\n      \"Contrato de vivienda iniciado en ejercicio; cambio de inquilino si anterior inferior a tres años; precio de referencia; fianza depositada\",\n      \"No 5% del neto: contrato iniciado 2025, cambio inquilino si anterior<3años, precio referencia y depósito fianza antes finperiodo; art 4Dos patrimonio.\",\n    ],\n    limites: [\n      \"Base máxima 3.300 euros; no confundir base con cuota máxima 165\",\n    ],\n    prorrateo: [\n      \"Requisito patrimonial art.4.Dos; cuantía conjunta conforme regla común; no consta prorrata específica en j)\",\n    ],\n    compatibilidades: [],\n    incompatibilidades: [],\n    entradaNecesaria: [\n      \"fecha de devengo y modalidad individual/conjunta\",\n      \"base liquidable general y del ahorro separadas\",\n      \"identidad sintética del contribuyente y de las personas que generan derecho\",\n      \"cuota íntegra autonómica disponible antes de esta deducción\",\n      \"valores y pruebas de origen por ejercicio, sin importe libre ni booleano global de cumplimiento\",\n      \"situación y titularidad/derecho de uso de vivienda, residencia efectiva, adquisición, ocupación y excepciones justificadas\",\n      \"gastos fechados por concepto, pagador, medio de pago, ayudas, reembolsos y porcentaje de participación\",\n      \"contrato, fechas y distancias cuando sean requisitos; identificación del ejecutor y calificación técnica de obra/instalación\",\n    ],\n    fuenteManual: {\n      documento: \"ManualRenta2025Parte2\",\n      paginas: [559, 560],\n    },\n    estado: \"normalizada_pendiente_tests\",\n  },",
+    "preimagenSha256": "cdfbdc8ced284e47b3d22c5c266991625b984b5cf56b36713098b09352227c2a",
+    "preimagenSha512": "4b703321b522d297c061d011511212667a61ae741af13b6f44f93ca357bf4fbd4356c183912215dcebe07dfecf9bb1bd0b5a6bedd8ad493852816ad7204b175d",
+    "operaciones": [
+      {
+        "operacion": "append_unless_present",
+        "campo": "requisitos",
+        "valor": "Precio de referencia autonómico: renta mensual pactada más gastos y tributos repercutidos según contrato, excluidos suministros; no superior al precio mediano aplicable a la vivienda. Manual AEAT2025 remite al visor GVA. Identificar tabla, zona, período constructivo, superficie y versión; la antigüedad2018 del conjunto oficial no autoriza indexarlo por IPC o IRAV ni sustituirlo por SERPAVI. Depósito a favor Generalitat antes de finalizar el período; plazo administrativo distinto de un mes desde contrato o inicio real anterior, Decreto46/2022 art3."
+      },
+      {
+        "operacion": "append_unless_present",
+        "campo": "entradaNecesaria",
+        "valor": "renta y repercusiones contractuales desglosadas; fecha de inicio real y formalización; duración y arrendatarios del contrato anterior; justificante del depósito y fecha; evidencia del valor de referencia autonómico con versión, área y parámetros, conservada privadamente"
+      }
+    ],
+    "justificacion": "Completar remisiones del ámbito; no cambia fórmula ni acepta automáticamente la ficha. Ver cadenas y dictamen por código.",
+    "estado": "candidato_revision_independiente"
+  },
+  {
+    "codigo": "valenciana_obras_conservacion_mejora_periodo",
+    "path": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/comunitat-valenciana.ts",
+    "base": "39b29c55474f57b296a10654ae44350c8294b501",
+    "fileSha256": "f9765941d658e04ab59e6a36b89f93e3150b88caf3834e4fefb33b6a2a56fd22",
+    "preimagen": "  {\n    codigo: \"valenciana_obras_conservacion_mejora_periodo\",\n    comunidad: \"comunitat-valenciana\",\n    nombre:\n      \"Por obras de conservación o mejora de la calidad,  sostenibilidad y accesibilidad en la vivienda  habitual, efectuadas en el período\",\n    categoria: \"otros_conceptos\",\n    normativa:\n      \"Ley13/1997 art4.Uno.w; ejercicio 2025, con los efectos temporales descritos\",\n    cuantia: {\n      tipo: \"mixta\",\n      descripcion: \"20%; 50% accesibilidad discapacidad al menos 33%\",\n    },\n    requisitos: [\n      \"Vivienda habitual con propiedad/uso real; obras en planes estatales y normativa autonómica; excluidos conceptos enumerados y subvenciones\",\n      \"Base 5.500 por vivienda, propiedad/uso real, planes vivienda vigentes y normativa autonómica, NIF ejecutor, pago bancario; exclusión subvenciones/renovables y garajes salvo accesibilidad; reparto por titularidad.\",\n    ],\n    limites: [\n      \"Base máxima anual 5.500 euros; base liquidable 30.000/47.000 y reducción 27.000/44.000\",\n      \"Cuando el apartado remite al artículo 4.Cinco, el importe o límite sometido a reducción se multiplica por (30.000 - base liquidable)/3.000 en individual o (47.000 - base liquidable)/3.000 en conjunta dentro del intervalo 27.000–30.000 / 44.000–47.000; en el extremo superior resulta cero. No se reduce automáticamente la inversión de k) o l).\",\n    ],\n    prorrateo: [\n      \"Base por vivienda y reparto por propiedad; DA16; no duplicar inversiones renovables letra o)\",\n    ],\n    compatibilidades: [],\n    incompatibilidades: [],\n    entradaNecesaria: [\n      \"fecha de devengo y modalidad individual/conjunta\",\n      \"base liquidable general y del ahorro separadas\",\n      \"identidad sintética del contribuyente y de las personas que generan derecho\",\n      \"cuota íntegra autonómica disponible antes de esta deducción\",\n      \"valores y pruebas de origen por ejercicio, sin importe libre ni booleano global de cumplimiento\",\n      \"situación y titularidad/derecho de uso de vivienda, residencia efectiva, adquisición, ocupación y excepciones justificadas\",\n      \"gastos fechados por concepto, pagador, medio de pago, ayudas, reembolsos y porcentaje de participación\",\n      \"contrato, fechas y distancias cuando sean requisitos; identificación del ejecutor y calificación técnica de obra/instalación\",\n    ],\n    fuenteManual: {\n      documento: \"ManualRenta2025Parte2\",\n      paginas: [594, 595, 596, 597, 598, 599],\n    },\n    estado: \"normalizada_pendiente_tests\",\n  },",
+    "preimagenSha256": "0a8b20fa1d32b755cb95eb003ec7bdfe18c1446d406d3378566d6ba295be6b00",
+    "preimagenSha512": "f51b012f3203355b1e295d5f396350a4d645bdc2169a0dacb743829accd0d9690b21a73fbefdf9a503ad826c824aa0c2cb173a71b2919e1289470df728d3b4c1",
+    "operaciones": [
+      {
+        "operacion": "append_unless_present",
+        "campo": "requisitos",
+        "valor": "Obras ejecutadas desde2017; 50% de accesibilidad cualificada solo desde2022. Pagos2025 no convierten obras2014/2015 en esta letra. Para2025, contrastar carácter subvencionable con RD42/2022 arts110–115 o RD853/2021 programa material pertinente, con reformas y erratas2022. DC09: Orden7diciembre2009 corregida29diciembre, Orden19/2010 y Decreto65/2019 con su transición y reforma DL14/2025 art60 desde30diciembre. DC23 quedó derogada por Ley5/2025 antes de entrar en vigor. No exigir concesión de subvención para acreditar carácter subvencionable."
+      },
+      {
+        "operacion": "append_unless_present",
+        "campo": "entradaNecesaria",
+        "valor": "certificación de fechas y alcance real de ejecución; solicitud de licencia y régimen transitorio; memoria que justifique cada condición técnica y programa, características del edificio, certificados energéticos cuando correspondan, ayudas por concepto y pagos acreditados"
+      }
+    ],
+    "justificacion": "Completar remisiones del ámbito; no cambia fórmula ni acepta automáticamente la ficha. Ver cadenas y dictamen por código.",
+    "estado": "candidato_revision_independiente"
+  },
+  {
+    "codigo": "valenciana_obras_conservacion_mejora_2014_2015",
+    "path": "lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/comunitat-valenciana.ts",
+    "base": "39b29c55474f57b296a10654ae44350c8294b501",
+    "fileSha256": "f9765941d658e04ab59e6a36b89f93e3150b88caf3834e4fefb33b6a2a56fd22",
+    "preimagen": "  {\n    codigo: \"valenciana_obras_conservacion_mejora_2014_2015\",\n    comunidad: \"comunitat-valenciana\",\n    nombre:\n      \"Por obras de conservación o mejora de la calidad,  sostenibilidad y accesibilidad en la vivienda  habitual efectuadas en 2014 y 2015\",\n    categoria: \"otros_conceptos\",\n    normativa:\n      \"Ley13/1997 DA13; ejercicio 2025, con los efectos temporales descritos\",\n    cuantia: {\n      tipo: \"mixta\",\n      descripcion: \"10% obras 2014; 25% obras 2015\",\n    },\n    requisitos: [\n      \"Obras realizadas entre 01-01-2014 y 31-12-2015; pagos actuales conservan régimen propio; requisitos planes vivienda\",\n      \"Obras 2014/2015, vivienda habitual propiedad/uso, plan 2013-2015; baseanual 4.500, acumulada 5.000 por vivienda y porcentaje titularidad. Cero efectivo 25.000/40.000 aunque remisión de acceso 4Cuatro superior. NIF/pago bancario; excluidas subvenciones/renovables/garajes.\",\n    ],\n    limites: [\n      \"Base máxima anual 4.500 euros; base acumulada máxima 5.000 por vivienda; reducción propia 23.000-25.000 individual y 37.000-40.000 conjunta, divisores 2.000/3.000; remisión de acceso a art.4.Cuatro\",\n    ],\n    prorrateo: [\n      \"Reparto por titularidad; no equiparar obras actuales art.4.Uno.w; pagos bancarios y exclusión subvenciones/renovables\",\n    ],\n    compatibilidades: [],\n    incompatibilidades: [],\n    entradaNecesaria: [\n      \"fecha de devengo y modalidad individual/conjunta\",\n      \"base liquidable general y del ahorro separadas\",\n      \"identidad sintética del contribuyente y de las personas que generan derecho\",\n      \"cuota íntegra autonómica disponible antes de esta deducción\",\n      \"valores y pruebas de origen por ejercicio, sin importe libre ni booleano global de cumplimiento\",\n      \"situación y titularidad/derecho de uso de vivienda, residencia efectiva, adquisición, ocupación y excepciones justificadas\",\n      \"gastos fechados por concepto, pagador, medio de pago, ayudas, reembolsos y porcentaje de participación\",\n      \"contrato, fechas y distancias cuando sean requisitos; identificación del ejecutor y calificación técnica de obra/instalación\",\n    ],\n    fuenteManual: {\n      documento: \"ManualRenta2025Parte2\",\n      paginas: [599, 600, 601],\n    },\n    estado: \"normalizada_pendiente_tests\",\n  },",
+    "preimagenSha256": "0e6114eecde2a1439932ab94ff5229fc352c9bfc2471fa5dc9cd6690fe6f4a66",
+    "preimagenSha512": "d961da04df0f3aa25e44d94a6b8ef7d4ef90f35d57b19d4499d8147d8884a499002b0e986ee3c31f7631092c8702404950f590213fa0cd9d56df4fbcc4968a29",
+    "operaciones": [
+      {
+        "operacion": "append_unless_present",
+        "campo": "requisitos",
+        "valor": "Obras2014/2015 pagadas2025 mantienen DA13: RD233/2013 histórico o normativa autonómica de rehabilitación/diseño/calidad, según alternativa que se acredite. No exigir planes2022–2025 ni Decreto65/2019 retroactivamente por fecha de pago. DC09 histórica incorpora errata2009, Orden19/2010 y Decreto184/2013; la sentencia2016 aclarada2017 solo afecta al art22.1 sobre personal de OCAces. Distinguir propiedad y derecho real, pagos y base acumulada por vivienda."
+      },
+      {
+        "operacion": "append_unless_present",
+        "campo": "entradaNecesaria",
+        "valor": "certificación técnica de ejecución2014 o2015, proyecto y solicitud de licencia; justificación de vía estatal histórica o autonómica aplicable; facturas y pagos2025; ayudas, porcentajes de titularidad y base deducida previamente por la vivienda"
+      }
+    ],
+    "justificacion": "Completar remisiones del ámbito; no cambia fórmula ni acepta automáticamente la ficha. Ver cadenas y dictamen por código.",
+    "estado": "candidato_revision_independiente"
+  }
+]
