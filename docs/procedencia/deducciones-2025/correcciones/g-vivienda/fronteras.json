@@ -1,0 +1,202 @@
+[
+  {
+    "id": "j-igualdad",
+    "codigo": "valenciana_arrendador_renta_precio_referencia",
+    "entradaSintetica": {
+      "renta": 500,
+      "gastosTributos": 20,
+      "suministros": 40,
+      "referencia": 520
+    },
+    "resultadoJuridicoEsperado": "La comparación admite igualdad520; excluir40 suministros.",
+    "tipo": "especificacion_documental_no_test_de_motor"
+  },
+  {
+    "id": "j-repercutidos",
+    "codigo": "valenciana_arrendador_renta_precio_referencia",
+    "entradaSintetica": {
+      "renta": 500,
+      "gastosTributos": 21,
+      "referencia": 520
+    },
+    "resultadoJuridicoEsperado": "521 supera520: no cumple condición precio.",
+    "tipo": "especificacion_documental_no_test_de_motor"
+  },
+  {
+    "id": "j-no-tabla",
+    "codigo": "valenciana_arrendador_renta_precio_referencia",
+    "entradaSintetica": {
+      "referencia": null
+    },
+    "resultadoJuridicoEsperado": "Falta acreditación; no cuota cero ni sustitución IRAV.",
+    "tipo": "especificacion_documental_no_test_de_motor"
+  },
+  {
+    "id": "j-mismo-inquilino-3",
+    "codigo": "valenciana_arrendador_renta_precio_referencia",
+    "entradaSintetica": {
+      "anteriorAnios": 3,
+      "mismoInquilino": true
+    },
+    "resultadoJuridicoEsperado": "La condición legal inferior a3 no se activa por igualdad exacta3; documentar duración real.",
+    "tipo": "especificacion_documental_no_test_de_motor"
+  },
+  {
+    "id": "fianza-tarde-en-ejercicio",
+    "codigo": "valenciana_arrendador_renta_precio_referencia",
+    "entradaSintetica": {
+      "contrato": "2025-01-01",
+      "deposito": "2025-03-01"
+    },
+    "resultadoJuridicoEsperado": "Incumple plazo general; satisface condición temporal fiscal del depósito si correctamente constituido.",
+    "tipo": "especificacion_documental_no_test_de_motor"
+  },
+  {
+    "id": "fianza-enero",
+    "codigo": "valenciana_arrendador_renta_precio_referencia",
+    "entradaSintetica": {
+      "contrato": "2025-12-15",
+      "deposito": "2026-01-10"
+    },
+    "resultadoJuridicoEsperado": "Puede estar en mes general; incumple depósito antes de finalizar período2025.",
+    "tipo": "especificacion_documental_no_test_de_motor"
+  },
+  {
+    "id": "fianza-devengo-anticipado",
+    "codigo": "valenciana_arrendador_renta_precio_referencia",
+    "entradaSintetica": {
+      "devengo": "2025-07-01",
+      "deposito": "2025-07-02"
+    },
+    "resultadoJuridicoEsperado": "Incumple condición fiscal aunque anterior31diciembre; usar fin del período individual.",
+    "tipo": "especificacion_documental_no_test_de_motor"
+  },
+  {
+    "id": "obra-2014-pago2025",
+    "codigo": "valenciana_obras_conservacion_mejora_2014_2015",
+    "entradaSintetica": {
+      "ejecucion": 2014,
+      "pago": 2025
+    },
+    "resultadoJuridicoEsperado": "DA13,10%; no w20%.",
+    "tipo": "especificacion_documental_no_test_de_motor"
+  },
+  {
+    "id": "obra-2015-pago2025",
+    "codigo": "valenciana_obras_conservacion_mejora_2014_2015",
+    "entradaSintetica": {
+      "ejecucion": 2015,
+      "pago": 2025
+    },
+    "resultadoJuridicoEsperado": "DA13,25%; no w20%.",
+    "tipo": "especificacion_documental_no_test_de_motor"
+  },
+  {
+    "id": "obra-2016",
+    "codigo": "valenciana_obras_conservacion_mejora_periodo",
+    "entradaSintetica": {
+      "ejecucion": 2016,
+      "pago": 2025
+    },
+    "resultadoJuridicoEsperado": "No DA13 ni w por fecha de pago.",
+    "tipo": "especificacion_documental_no_test_de_motor"
+  },
+  {
+    "id": "obra-2017",
+    "codigo": "valenciana_obras_conservacion_mejora_periodo",
+    "entradaSintetica": {
+      "ejecucion": 2017,
+      "pago": 2025
+    },
+    "resultadoJuridicoEsperado": "w20% si resto requisitos.",
+    "tipo": "especificacion_documental_no_test_de_motor"
+  },
+  {
+    "id": "acceso-2021",
+    "codigo": "valenciana_obras_conservacion_mejora_periodo",
+    "entradaSintetica": {
+      "ejecucion": 2021,
+      "pago": 2025,
+      "discapacidad": 33
+    },
+    "resultadoJuridicoEsperado": "No incremento50% por fecha; examinar20%.",
+    "tipo": "especificacion_documental_no_test_de_motor"
+  },
+  {
+    "id": "acceso-2022",
+    "codigo": "valenciana_obras_conservacion_mejora_periodo",
+    "entradaSintetica": {
+      "ejecucion": 2022,
+      "pago": 2025,
+      "discapacidad": 33
+    },
+    "resultadoJuridicoEsperado": "Puede50% si concreta actuación y resto requisitos.",
+    "tipo": "especificacion_documental_no_test_de_motor"
+  },
+  {
+    "id": "dc23-febrero",
+    "codigo": "valenciana_obras_conservacion_mejora_periodo",
+    "entradaSintetica": {
+      "fecha": "2025-02-02"
+    },
+    "resultadoJuridicoEsperado": "No entra DC23 por prórroga180/2024.",
+    "tipo": "especificacion_documental_no_test_de_motor"
+  },
+  {
+    "id": "dc23-octubre",
+    "codigo": "valenciana_obras_conservacion_mejora_periodo",
+    "entradaSintetica": {
+      "fecha": "2025-10-02"
+    },
+    "resultadoJuridicoEsperado": "No entra DC23 por derogación efectiva1junio.",
+    "tipo": "especificacion_documental_no_test_de_motor"
+  },
+  {
+    "id": "patio-29dic",
+    "codigo": "valenciana_obras_conservacion_mejora_periodo",
+    "entradaSintetica": {
+      "devengo": "2025-12-29"
+    },
+    "resultadoJuridicoEsperado": "No anticipar DL14 art60.",
+    "tipo": "especificacion_documental_no_test_de_motor"
+  },
+  {
+    "id": "patio-30dic",
+    "codigo": "valenciana_obras_conservacion_mejora_periodo",
+    "entradaSintetica": {
+      "devengo": "2025-12-30"
+    },
+    "resultadoJuridicoEsperado": "Aplicar nueva versión anexoII2.c si régimen técnico corresponde.",
+    "tipo": "especificacion_documental_no_test_de_motor"
+  },
+  {
+    "id": "licencia-2019-previa",
+    "codigo": "valenciana_obras_conservacion_mejora_periodo",
+    "entradaSintetica": {
+      "licenciaSolicitada": "2019-07-15",
+      "pago": 2025
+    },
+    "resultadoJuridicoEsperado": "Aplicar transición; no imponer65/2019 por pago.",
+    "tipo": "especificacion_documental_no_test_de_motor"
+  },
+  {
+    "id": "subvencion-denegada",
+    "codigo": "valenciana_obras_conservacion_mejora_periodo",
+    "entradaSintetica": {
+      "concesion": false,
+      "actuacionSubvencionable": true
+    },
+    "resultadoJuridicoEsperado": "Denegación por presupuesto no excluye automáticamente fiscalidad; probar requisitos materiales.",
+    "tipo": "especificacion_documental_no_test_de_motor"
+  },
+  {
+    "id": "tabla-2018",
+    "codigo": "valenciana_arrendador_renta_precio_referencia",
+    "entradaSintetica": {
+      "anioDatos": 2018,
+      "versionMetadato": "2023-11-09"
+    },
+    "resultadoJuridicoEsperado": "No rechazar solo por antigüedad ni actualizar automáticamente; documentar versión aplicable.",
+    "tipo": "especificacion_documental_no_test_de_motor"
+  }
+]

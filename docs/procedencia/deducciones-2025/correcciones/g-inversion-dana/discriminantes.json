@@ -1,0 +1,207 @@
+[
+  {
+    "id": "E01",
+    "codigo": "valenciana_inversion_entidades_nuevas_reciente_creacion",
+    "hechos": {
+      "devengo": "2025-12-29",
+      "alternativa": "EECV"
+    },
+    "expectativa": "rechazo_temporal",
+    "citas": [
+      "eecv-efecto",
+      "aeat-z"
+    ],
+    "clase": "frontera_documental_sin_calculo"
+  },
+  {
+    "id": "E02",
+    "codigo": "valenciana_inversion_entidades_nuevas_reciente_creacion",
+    "hechos": {
+      "devengo": "2025-12-30",
+      "solo": "ENISA"
+    },
+    "expectativa": "falta_acreditacion_EECV",
+    "citas": [
+      "eecv-def"
+    ],
+    "clase": "frontera_documental_sin_calculo"
+  },
+  {
+    "id": "E03",
+    "codigo": "valenciana_inversion_entidades_nuevas_reciente_creacion",
+    "hechos": {
+      "personalCV": 29,
+      "personalTotal": 100
+    },
+    "expectativa": "rechazo_umbral_EECV",
+    "citas": [
+      "eecv-def"
+    ],
+    "clase": "frontera_documental_sin_calculo"
+  },
+  {
+    "id": "E04",
+    "codigo": "valenciana_inversion_entidades_nuevas_reciente_creacion",
+    "hechos": {
+      "personalCV": 30,
+      "personalTotal": 100,
+      "restoArt21": "acreditado"
+    },
+    "expectativa": "umbral_EECV_cumplido_sin_certificar_cuota",
+    "citas": [
+      "eecv-def"
+    ],
+    "clase": "frontera_documental_sin_calculo"
+  },
+  {
+    "id": "E05",
+    "codigo": "valenciana_inversion_entidades_nuevas_reciente_creacion",
+    "hechos": {
+      "alternativa": "PYME",
+      "sello": "caducado",
+      "otroSoporte": false
+    },
+    "expectativa": "falta_acreditacion_innovadora_vigente",
+    "citas": [
+      "pyme-validez",
+      "pyme-baja"
+    ],
+    "clase": "frontera_documental_sin_calculo"
+  },
+  {
+    "id": "E06",
+    "codigo": "valenciana_inversion_entidades_nuevas_reciente_creacion",
+    "hechos": {
+      "alternativa": "PYME",
+      "sello": "vigente",
+      "EECV": false
+    },
+    "expectativa": "no_exigir_EECV_para_alternativa_PYME",
+    "citas": [
+      "z-regimen"
+    ],
+    "clase": "frontera_documental_sin_calculo"
+  },
+  {
+    "id": "E07",
+    "codigo": "valenciana_inversion_entidades_nuevas_reciente_creacion",
+    "hechos": {
+      "antiguedadAmpliacionAnios": 6,
+      "solo": "PYME"
+    },
+    "expectativa": "no_acredita_supuesto_siete_anios",
+    "citas": [
+      "z-regimen",
+      "emergente-def"
+    ],
+    "clase": "frontera_documental_sin_calculo"
+  },
+  {
+    "id": "E08",
+    "codigo": "valenciana_inversion_entidades_nuevas_reciente_creacion",
+    "hechos": {
+      "ENISA": "concedida",
+      "tecnologiaCV": "no_acreditada"
+    },
+    "expectativa": "falta_acreditacion_EECV",
+    "citas": [
+      "eecv-def",
+      "pcm-procedimiento"
+    ],
+    "clase": "frontera_documental_sin_calculo"
+  },
+  {
+    "id": "D01",
+    "codigo": "valenciana_dana_danos_materiales_vivienda_habitual",
+    "hechos": {
+      "municipio": "Loriguilla",
+      "subambito": "fuera_nucleo_A3"
+    },
+    "expectativa": "rechazo_territorial",
+    "citas": [
+      "dana-acuerdo"
+    ],
+    "clase": "frontera_documental_sin_calculo"
+  },
+  {
+    "id": "D02",
+    "codigo": "valenciana_dana_danos_materiales_vivienda_habitual",
+    "hechos": {
+      "municipio": "València",
+      "subambito": "pedanias_sur"
+    },
+    "expectativa": "territorio_admitido_sin_certificar_cuota",
+    "citas": [
+      "dana-acuerdo"
+    ],
+    "clase": "frontera_documental_sin_calculo"
+  },
+  {
+    "id": "D03",
+    "codigo": "valenciana_dana_aportaciones_fondos_propios_entidades",
+    "hechos": {
+      "municipio": "Xeraco",
+      "soporte": "res16dic2024"
+    },
+    "expectativa": "no_incorporar_al_ambito_fiscal",
+    "citas": [
+      "excluir-diciembre",
+      "aeat-territorio"
+    ],
+    "clase": "frontera_documental_sin_calculo"
+  },
+  {
+    "id": "D04",
+    "codigo": "valenciana_dana_aportaciones_fondos_propios_entidades",
+    "hechos": {
+      "municipio": "Carcaixent",
+      "soporte": "res19nov2024"
+    },
+    "expectativa": "no_incorporar_al_ambito_fiscal",
+    "citas": [
+      "excluir-nov163",
+      "excluir-nov164"
+    ],
+    "clase": "frontera_documental_sin_calculo"
+  },
+  {
+    "id": "D05",
+    "codigo": "valenciana_dana_aportaciones_fondos_propios_entidades",
+    "hechos": {
+      "domicilioSocial": "fuera",
+      "domicilioFiscal": "dentro"
+    },
+    "expectativa": "rechazo_domicilio_doble",
+    "citas": [
+      "dana-reforma"
+    ],
+    "clase": "frontera_documental_sin_calculo"
+  },
+  {
+    "id": "D06",
+    "codigo": "valenciana_dana_danos_materiales_vivienda_habitual",
+    "hechos": {
+      "municipio": "Loriguilla",
+      "subambito": "desconocido"
+    },
+    "expectativa": "requerir_subambito",
+    "citas": [
+      "dana-acuerdo"
+    ],
+    "clase": "frontera_documental_sin_calculo"
+  },
+  {
+    "id": "D07",
+    "codigo": "valenciana_dana_aportaciones_fondos_propios_entidades",
+    "hechos": {
+      "EECV": true,
+      "empleo": "ninguno",
+      "tipo": "SL"
+    },
+    "expectativa": "EECV_no_exime_empleo_DANA",
+    "citas": [
+      "dana-reforma"
+    ],
+    "clase": "frontera_documental_sin_calculo"
+  }
+]
