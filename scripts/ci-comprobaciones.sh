@@ -17,6 +17,7 @@ bun scripts/procedencia/rastro-verificar.mjs --fixture
 bash tools/procedencia/run.sh tests/procedencia-corpus_test.py
 bash tools/procedencia/run.sh tests/procedencia-enlaces_test.py
 bash tools/procedencia/run.sh tests/procedencia-preservacion_test.py
+bash scripts/procedencia/deducciones-2025/verificar.sh --lotes docs/procedencia/deducciones-2025/lotes --modo completo
 bun scripts/procedencia/verificar-enlaces.mjs --fixture
 bun run test tests/evidencia-contenido-procedencia.test.ts --maxWorkers=1
 bun run test tests/publicacion-evidencia.test.ts --maxWorkers=1

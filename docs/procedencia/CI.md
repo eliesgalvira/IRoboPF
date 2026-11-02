@@ -18,6 +18,13 @@ respuestas HTTP, restricciones de acceso, ausencia, corrupción y enlaces simbó
 sin necesitar un almacén previamente instalado.
 
 El corpus CAS completo está **omitido explícitamente en CI**, no aprobado.
+El contrato de los siete lotes de deducciones sí se valida con los manifiestos
+versionados: exige los 351 códigos, localizadores admitidos y referencias a
+documentos declarados. Se ejecuta sin CAS; no certifica los originales ni sus
+interpretaciones jurídicas. Una ampliación regional debe normalizarse antes
+de incorporarla al registro común. Sus expedientes conservan la evidencia
+complementaria mientras esa incorporación está pendiente.
+
 Con el almacén externo configurado, la suite local opcional es:
 
 ```sh

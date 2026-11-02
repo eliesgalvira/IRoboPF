@@ -68,6 +68,7 @@ jobs:
       - run: bash tools/procedencia/run.sh tests/procedencia-corpus_test.py
       - run: bash tools/procedencia/run.sh tests/procedencia-enlaces_test.py
       - run: bash tools/procedencia/run.sh tests/procedencia-preservacion_test.py
+      - run: bash scripts/procedencia/deducciones-2025/verificar.sh --lotes docs/procedencia/deducciones-2025/lotes --modo completo
       - run: bun scripts/procedencia/verificar-enlaces.mjs --fixture
       - run: bun run test tests/evidencia-contenido-procedencia.test.ts --maxWorkers=1
       - run: bun run test tests/publicacion-evidencia.test.ts --maxWorkers=1

@@ -14929,7 +14929,7 @@
       "dictamenFicha": "no_verificable",
       "dictamenCalculo": "no_verificable",
       "alcance": "Cotejo descriptivo de todas las propiedades existentes para 2025, incluidas condiciones de cuantía, requisitos, límites, reparto y documentación; no acredita los hechos de un contribuyente ni una cuota final. Las remisiones que aún requieren contraste adicional se identifican expresamente en el informe de remisiones.",
-      "motivo": "Descripción de fórmula y categorías completada; reserva concreta de aplicación temporal de exenciones estatales después de las dos derogaciones de 2026, sin inferir inclusión o exención general.",
+      "motivo": "La exención personal del artículo 2 del RDL 10/2026 y su convalidación completan la cadena posterior a las derogaciones. Su ámbito no cubre automáticamente todas las ayudas autonómicas; faltan los hechos de la ayuda particular y su importe efectivamente integrado. La rectificación documental requiere contraste independiente.",
       "estadoRevision": "candidato",
       "vigencia": {
         "norma": "Decreto legislativo 1/2011",
@@ -14938,12 +14938,23 @@
         "citas": [
           "galicia_ayudas_incendios_peifoga_2025-vigencia-0",
           "galicia_ayudas_incendios_peifoga_2025-vigencia-1",
-          "galicia_ayudas_incendios_peifoga_2025-vigencia-2"
+          "galicia_ayudas_incendios_peifoga_2025-vigencia-2",
+          "galicia_ayudas_incendios_peifoga_2025-exencion-rdl10-art2",
+          "galicia_ayudas_incendios_peifoga_2025-exencion-rdl10-df4",
+          "galicia_ayudas_incendios_peifoga_2025-exencion-rdl10-convalidacion"
         ],
         "cadenaLocalizada": [
           {
             "norma": "2025-5",
             "documentoId": "e-2f0538526531797d0142"
+          },
+          {
+            "norma": "RDL 10/2026, artículo 2: efectos desde 26/08/2025; entrada en vigor 30/04/2026 (DF cuarta)",
+            "documentoId": "rev-e-rdl10"
+          },
+          {
+            "norma": "Resolución de 20/05/2026: convalidación del RDL 10/2026; publicada el 22/05/2026",
+            "documentoId": "rev-e-convalidacion10"
           }
         ],
         "normasSinLocalizador": [],
@@ -15394,6 +15405,48 @@
             "fin": 460,
             "recetaExtraccion": "BeautifulSoup(bytes, 'html.parser').select('p')[4].get_text(' ', strip=True); aplicar [inicio:fin]"
           }
+        },
+        {
+          "id": "galicia_ayudas_incendios_peifoga_2025-exencion-rdl10-art2",
+          "documentoId": "rev-e-rdl10",
+          "articulo": "Artículo 2",
+          "apartado": "Exención personal estatal: ámbito y efectos",
+          "textoLiteral": "Desde el 26 de agosto de 2025 estarán exentas del Impuesto sobre la Renta de las Personas Físicas las ayudas por daños personales a las que se refiere el Acuerdo del Consejo de Ministros, de 26 de agosto de 2025, por el que se declara «Zona afectada gravemente por una Emergencia de Protección Civil» el territorio afectado como consecuencia de los incendios forestales y otras emergencias de protección civil acaecidas entre el 23 de junio y el 25 de agosto de 2025.",
+          "localizador": {
+            "tipo": "html",
+            "selector": "p",
+            "inicio": 0,
+            "fin": 467,
+            "recetaExtraccion": "BeautifulSoup(bytes, 'html.parser').select('p')[62].get_text(' ', strip=True); aplicar [inicio:fin]"
+          }
+        },
+        {
+          "id": "galicia_ayudas_incendios_peifoga_2025-exencion-rdl10-df4",
+          "documentoId": "rev-e-rdl10",
+          "articulo": "Disposición final cuarta",
+          "apartado": "Exención personal estatal: ámbito y efectos",
+          "textoLiteral": "Este real decreto-ley entrará en vigor el día siguiente al de su publicación en el «Boletín Oficial del Estado».",
+          "localizador": {
+            "tipo": "html",
+            "selector": "p",
+            "inicio": 0,
+            "fin": 112,
+            "recetaExtraccion": "BeautifulSoup(bytes, 'html.parser').select('p')[118].get_text(' ', strip=True); aplicar [inicio:fin]"
+          }
+        },
+        {
+          "id": "galicia_ayudas_incendios_peifoga_2025-exencion-rdl10-convalidacion",
+          "documentoId": "rev-e-convalidacion10",
+          "articulo": "Acuerdo de convalidación de 20 de mayo de 2026",
+          "apartado": "Exención personal estatal: ámbito y efectos",
+          "textoLiteral": "De conformidad con lo dispuesto en el artículo 86.2 de la Constitución, el Congreso de los Diputados, en su sesión del día de hoy, acordó convalidar el Real Decreto-ley 10/2026, de 28 de abril, por el que se aprueban medidas tributarias urgentes y otras medidas de apoyo en respuesta a los daños causados a las víctimas de siniestros de la DANA y otras situaciones de emergencia, publicado en el «Boletín Oficial del Estado» número 104, de 29 de abril de 2026.",
+          "localizador": {
+            "tipo": "html",
+            "selector": "p",
+            "inicio": 0,
+            "fin": 460,
+            "recetaExtraccion": "BeautifulSoup(bytes, 'html.parser').select('p')[4].get_text(' ', strip=True); aplicar [inicio:fin]"
+          }
         }
       ],
       "manual": {
@@ -15731,7 +15784,7 @@
         },
         {
           "campoCodigo": "requisitos",
-          "valorCodigo": "[\"Reserva temporal de exenciones estatales: RDL 16/2025 y RDL 2/2026 incluyeron exención por daños personales, pero fueron derogados mediante resoluciones de 27 de enero y 26 de febrero de 2026. No se les atribuye vigencia general actual ni se infiere que toda ayuda del Decreto 76/2025 quede exenta. Antes del cálculo debe fijarse la norma y efecto temporal del concreto cobro, y separar no integración patrimonial de DA quinta de IRPF y eventual exención personal; los tipos medios solo alcanzan la parte integrada.\", \"Cuando el contribuyente integre en la base imponible general el importe correspondiente a una subvención o cualquier otra ayuda pública obtenida de la Administración general de la Comunidad Autónoma de Galicia de las incluidas en el Decreto 76/2025, de 29 de agosto, de medidas urgentes de ayuda para la reparación de los daños causados por los incendios forestales producidos en Galicia durante el verano y el otoño de 2025, podrá aplicarse una deducción en la cuota íntegra autonómica del impuesto sobre la renta de las personas físicas.\", \"El importe de dicha deducción será el resultado de aplicar los tipos medios de gravamen al importe de la subvención en la base liquidable.\", \"La práctica de las deducciones en la cuota íntegra autonómica del impuesto sobre la renta de las personas físicas quedará en todo caso condicionada a la justificación documental adecuada y suficiente del supuesto de hecho y a los requisitos que determinen su aplicabilidad.\", \"Decreto 76/2025: daños personales; vivienda habitual u ocasional y menaje; establecimientos; terrenos cinegéticos; infraestructuras de espacios protegidos; explotaciones forestales, agrícolas y ganaderas; entidades locales. No toda categoría produce renta de una persona física. Identificar resolución, beneficiario, concepto y cobertura pública/privada; la ayuda es subsidiaria/complementaria hasta el daño. Aplicar primero exención o no integración estatal: daños personales del acuerdo de 26 de agosto de 2025, y reglas de ayudas por destrucción/reparación patrimonial de la DA quinta de Ley 35/2006. Solo el importe efectivamente integrado en base general y después en base liquidable entra en la fórmula; una ayuda íntegramente no integrada no genera deducción.\"]",
+          "valorCodigo": "[\"RDL 16/2025 y RDL 2/2026 fueron derogados; sus textos se conservan como antecedentes. El artículo 2 del RDL 10/2026, convalidado el 20 de mayo de 2026, establece desde el 26 de agosto de 2025 la exención de ayudas por daños personales del Acuerdo del Consejo de Ministros de esa fecha para siniestros entre el 23 de junio y el 25 de agosto de 2025. Entró en vigor el 30 de abril de 2026. La ampliación autonómica al otoño no amplía el intervalo estatal. No se infiere que toda ayuda del Decreto 76/2025 quede exenta: acreditar el ámbito concreto y separar la no integración patrimonial de DA quinta de IRPF. Solo la parte integrada entra en la fórmula.\",\"Cuando el contribuyente integre en la base imponible general el importe correspondiente a una subvención o cualquier otra ayuda pública obtenida de la Administración general de la Comunidad Autónoma de Galicia de las incluidas en el Decreto 76/2025, de 29 de agosto, de medidas urgentes de ayuda para la reparación de los daños causados por los incendios forestales producidos en Galicia durante el verano y el otoño de 2025, podrá aplicarse una deducción en la cuota íntegra autonómica del impuesto sobre la renta de las personas físicas.\",\"El importe de dicha deducción será el resultado de aplicar los tipos medios de gravamen al importe de la subvención en la base liquidable.\",\"La práctica de las deducciones en la cuota íntegra autonómica del impuesto sobre la renta de las personas físicas quedará en todo caso condicionada a la justificación documental adecuada y suficiente del supuesto de hecho y a los requisitos que determinen su aplicabilidad.\",\"Decreto 76/2025: daños personales; vivienda habitual u ocasional y menaje; establecimientos; terrenos cinegéticos; infraestructuras de espacios protegidos; explotaciones forestales, agrícolas y ganaderas; entidades locales. No toda categoría produce renta de una persona física. Identificar resolución, beneficiario, concepto y cobertura pública/privada; la ayuda es subsidiaria/complementaria hasta el daño. Aplicar primero exención o no integración estatal: daños personales del acuerdo de 26 de agosto de 2025, y reglas de ayudas por destrucción/reparación patrimonial de la DA quinta de Ley 35/2006. Solo el importe efectivamente integrado en base general y después en base liquidable entra en la fórmula; una ayuda íntegramente no integrada no genera deducción.\"]",
           "reglaOficial": "Descripción normativa acreditada por los pasajes enlazados; se coteja la propiedad completa y sus condiciones, sin verificar una liquidación.",
           "citas": [
             "galicia_ayudas_incendios_peifoga_2025-original-0",
@@ -15740,7 +15793,10 @@
             "galicia_ayudas_incendios_peifoga_2025-regla-1",
             "galicia_ayudas_incendios_peifoga_2025-rem-decretoincendios-14",
             "galicia_ayudas_incendios_peifoga_2025-rem-decretoincendios-16",
-            "galicia_ayudas_incendios_peifoga_2025-rem-decretoincendios-17"
+            "galicia_ayudas_incendios_peifoga_2025-rem-decretoincendios-17",
+            "galicia_ayudas_incendios_peifoga_2025-exencion-rdl10-art2",
+            "galicia_ayudas_incendios_peifoga_2025-exencion-rdl10-df4",
+            "galicia_ayudas_incendios_peifoga_2025-exencion-rdl10-convalidacion"
           ],
           "resultado": "coincide",
           "motivo": "Se conserva el dato concordante o se sustituye la omisión por condiciones expresas. La ausencia de evaluador no altera el cotejo descriptivo.",
@@ -15783,15 +15839,18 @@
         {
           "campoCodigo": "requisitos.exencionEstatal",
           "valorCodigo": "Identificar norma y efecto temporal; excluir de la fórmula lo que no se integre en base liquidable.",
-          "reglaOficial": "Los textos originales prevén exención personal con efecto desde agosto de 2025, pero las resoluciones posteriores derogan ambos reales decretos-leyes.",
+          "reglaOficial": "Artículo 2 del RDL 10/2026: exención desde 26 de agosto de 2025 de ayudas por daños personales del Acuerdo de esa fecha, por sucesos de 23 de junio a 25 de agosto de 2025. La ampliación autonómica al otoño no amplía el intervalo estatal. La DF cuarta fija entrada en vigor al día siguiente de publicación; convalidación de 20 de mayo de 2026.",
           "citas": [
             "galicia_ayudas_incendios_peifoga_2025-rem-exencion2025-336",
             "galicia_ayudas_incendios_peifoga_2025-rem-exencion2026-259",
             "galicia_ayudas_incendios_peifoga_2025-aux-derogacion16-4",
-            "galicia_ayudas_incendios_peifoga_2025-aux-derogacion2-4"
+            "galicia_ayudas_incendios_peifoga_2025-aux-derogacion2-4",
+            "galicia_ayudas_incendios_peifoga_2025-exencion-rdl10-art2",
+            "galicia_ayudas_incendios_peifoga_2025-exencion-rdl10-df4",
+            "galicia_ayudas_incendios_peifoga_2025-exencion-rdl10-convalidacion"
           ],
-          "resultado": "no_verificable",
-          "motivo": "No se ha cerrado el efecto de ambas derogaciones sobre el devengo/cobro concreto ni localizado una norma posterior que resuelva expresamente todos los supuestos autonómicos.",
+          "resultado": "coincide",
+          "motivo": "Concordancia documental de la regla y sus límites; no acredita que una ayuda concreta esté dentro de ese ámbito ni calcula su cuota. Las derogaciones anteriores se conservan como antecedentes.",
           "momento": "despues"
         }
       ],
@@ -15840,12 +15899,12 @@
           "evidenciaNecesaria": "Acreditación del supuesto concreto y liquidación externa revisada; para celiaquía la API sigue expresando solo el parcial del titular."
         },
         {
-          "causa": "Clasificación temporal de exención estatal de daños personales tras derogaciones expresas de RDL 16/2025 y 2/2026.",
+          "causa": "Acreditar el ámbito de la ayuda concreta y la parte integrada; no falta una norma posterior para la exención personal expresamente cubierta.",
           "actuacionesRealizadas": [
-            "Recuperados y cotejados ambos originales y resoluciones de derogación de enero y febrero de 2026.",
-            "Búsqueda adicional oficial BOE de incendios 2025, exención y daños personales; no localizada disposición posterior que cierre expresamente todos los supuestos."
+            "Conservados RDL 16/2025 y 2/2026 y sus derogaciones.",
+            "Verificados artículo 2 y DF cuarta del RDL 10/2026 y su convalidación. La ampliación autonómica al otoño no amplía el intervalo estatal."
           ],
-          "evidenciaNecesaria": "Norma o criterio oficial que cierre el efecto temporal al devengo/cobro examinado, junto con resolución y concepto de ayuda; no presumir exención o inclusión general."
+          "evidenciaNecesaria": "Resolución de concesión, beneficiario, concepto, fecha y circunstancias del siniestro y cobertura de daños. Separar exención personal del artículo 2 y no integración patrimonial de DA quinta de IRPF; no presumir exención o inclusión general."
         }
       ]
     },
