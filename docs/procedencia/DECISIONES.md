@@ -396,3 +396,20 @@ El alcance final comprende los 65 sitios o su bloqueo demostrado: **64 corrobora
 El CI comprueba los contratos y verificadores con fixtures pequeños, y fija las fuentes actuales por SHA-256. No necesita objetos Git anteriores a las reescrituras ni un almacén privado. Las pruebas que requieren el corpus documental completo se ejecutan como suite local opcional; su omisión en CI es explícita.
 
 **Objeción:** un fixture válido no demuestra que todos los documentos reales sigan disponibles y enlazados. **Respuesta:** conservar la verificación completa y distinguir su resultado del CI; un verde no acepta el corpus ni una regla fiscal. **Coste:** hay que ejecutar esa suite al actualizar los originales o los enlaces y revisar los pines cuando cambia el código. [Comandos y alcance](CI.md).
+
+## Entregas compactas y límites de recursos
+
+Las entregas usan commits o parches y manifiestos. Se retiran los árboles de
+trabajo inactivos después de conservar las ramas y cotejar sus archivos. Los
+bytes únicos se guardan por hash; los archivos ya presentes en commits se
+referencian por commit, ruta y objeto. Se eliminan las dependencias instalables
+y se utiliza una caché compartida. Las ejecuciones tienen `timeout` y un máximo
+global de dos suites pesadas. [Reglas operativas](RECURSOS.md).
+
+**Objeción:** retirar un árbol pendiente puede perder trabajo sin publicar o
+hacer depender su recuperación de una caché. **Respuesta:** preservar antes
+sus archivos únicos, modos, enlaces y ausencias, volver a verificar los hashes
+y conservar las referencias que permiten reconstruirlo. Los originales no se
+clasifican como dependencias. **Coste:** reconstruir un candidato requiere su
+commit y manifiesto; los contenedores tar retirados no se conservan byte a byte,
+pero sí sus miembros no regenerables. Retirar el árbol no acepta el candidato.
