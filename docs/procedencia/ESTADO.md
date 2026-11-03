@@ -1,5 +1,14 @@
 # Estado de la auditoría documental
 
+## Corrección técnica del 4 de noviembre
+
+Los cinco defectos pendientes de unidades/enlaces e IPC/SS están corregidos y
+revisados por el orquestador. Pasan 75 tests del bloque, las comprobaciones
+generales de CI, 196 pares IPC y cinco bases de 2018; el replay real se reproduce
+byte a byte. Los candidatos se integran con sus antecedentes y límites explícitos. Se mantiene el alcance fiscal pendiente:
+las declaraciones SS sin pruebas de columna y vigencia ya no producen
+coincidencias verificadas. [Cambios, pruebas y límites](datos-2012-2026/correcciones-cinco/INFORME.md).
+
 ## Recursos y reanudación del 3 de noviembre
 
 Las [reglas de recursos y entregas](RECURSOS.md) limitan las ejecuciones a dos
@@ -23,12 +32,13 @@ comunes, el wrapper sin Git, el censo IPC/SS y la comprobación aritmética de
 196 pares de años y cinco bases de cotización de 2018. Estas comprobaciones no
 acreditan por sí solas la vigencia jurídica.
 
-Los siete adversos de unidades/enlaces terminan con dos fallos: la cabecera
+En la reanudación del 3 de noviembre, los siete adversos de unidades/enlaces
+terminaron con dos fallos: la cabecera
 ajena puede acreditar una unidad al ampliar su caja, y el resolver AST admite
 una función `async` como identidad síncrona. Los seis discriminantes IPC/SS
 terminan con tres fallos al comprobar sujeto, año y columna/período. Se
-conservan sus aserciones y logs; no se integran los candidatos ni se declaran
-cerradas las revisiones. Las ejecuciones anteriores terminadas por SIGTERM
+conservaron sus aserciones y logs; en ese corte no se integraron los candidatos
+ni se declararon cerradas las revisiones. Las ejecuciones anteriores terminadas por SIGTERM
 siguen sin contarse como aprobadas.
 
 ## CI reproducible

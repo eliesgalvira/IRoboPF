@@ -1,0 +1,445 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "const": 2
+    },
+    "basis": {
+      "type": "string",
+      "minLength": 1
+    },
+    "tables": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "code": {
+            "type": "string",
+            "minLength": 1
+          },
+          "year": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1900,
+            "maximum": 2200
+          },
+          "territory": {
+            "type": "string",
+            "minLength": 1
+          },
+          "document": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "size": {
+                "type": "integer",
+                "minimum": 1
+              }
+            },
+            "required": [
+              "sha256",
+              "size"
+            ]
+          },
+          "page": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "format": {
+            "enum": [
+              "pdf",
+              "ine-json"
+            ]
+          },
+          "series": {
+            "type": "string",
+            "minLength": 1
+          },
+          "rows": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "cells": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "row": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "column": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "bbox": {
+                  "oneOf": [
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      },
+                      "minItems": 4,
+                      "maxItems": 4
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "unit": {
+                  "enum": [
+                    "EUR",
+                    "percent",
+                    "index",
+                    "proportion"
+                  ]
+                },
+                "unitEvidence": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "bbox": {
+                          "type": "array",
+                          "items": {
+                            "type": "number"
+                          },
+                          "minItems": 4,
+                          "maxItems": 4
+                        },
+                        "literal": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "unit": {
+                          "enum": [
+                            "EUR",
+                            "percent",
+                            "index",
+                            "proportion"
+                          ]
+                        },
+                        "relation": {
+                          "enum": [
+                            "column",
+                            "adjacent"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "bbox",
+                        "literal",
+                        "unit",
+                        "relation"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "FK_Unidad": {
+                          "const": 133
+                        },
+                        "FK_Escala": {
+                          "const": 1
+                        }
+                      },
+                      "required": [
+                        "FK_Unidad",
+                        "FK_Escala"
+                      ]
+                    }
+                  ]
+                },
+                "numberFormat": {
+                  "const": "decimal"
+                },
+                "subject": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "conditions": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "engineExpression": {
+                  "type": [
+                    "object",
+                    "null"
+                  ]
+                },
+                "literalVariant": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "literal": {
+                      "type": "string"
+                    },
+                    "kind": {
+                      "enum": [
+                        "open",
+                        "percent-suffix"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "literal",
+                    "kind"
+                  ]
+                }
+              },
+              "required": [
+                "row",
+                "column",
+                "bbox",
+                "unit",
+                "unitEvidence",
+                "subject",
+                "conditions",
+                "engineExpression"
+              ]
+            },
+            "minItems": 1
+          }
+        },
+        "required": [
+          "code",
+          "year",
+          "territory",
+          "document",
+          "cells"
+        ]
+      }
+    },
+    "semantics": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "unit": {
+            "enum": [
+              "EUR",
+              "percent",
+              "index",
+              "proportion"
+            ]
+          },
+          "sourceSha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "quote": {
+            "type": "string",
+            "minLength": 1
+          },
+          "position": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "start": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "end": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "offsetEncoding": {
+                "const": "utf16"
+              }
+            },
+            "required": [
+              "start",
+              "end",
+              "offsetEncoding"
+            ]
+          },
+          "targets": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "year": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ],
+                  "minimum": 1900,
+                  "maximum": 2200
+                },
+                "territory": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "row": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "column": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "subject": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "conditions": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "code",
+                "year",
+                "territory",
+                "row",
+                "column",
+                "subject",
+                "conditions"
+              ]
+            }
+          },
+          "adapter": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "start": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "end": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "quote": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "start",
+              "end",
+              "quote"
+            ]
+          }
+        },
+        "required": [
+          "unit",
+          "sourceSha256",
+          "quote",
+          "position",
+          "targets"
+        ]
+      }
+    },
+    "retirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "previousBinding": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "file": {
+                "type": "string",
+                "minLength": 1
+              },
+              "symbol": {
+                "type": "string",
+                "minLength": 1
+              },
+              "path": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "file",
+              "symbol",
+              "path"
+            ]
+          },
+          "previousSourceSha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "successor": {
+            "oneOf": [
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "symbol": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "path": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "file",
+                  "symbol",
+                  "path"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "previousBinding",
+          "previousSourceSha256",
+          "successor",
+          "reason"
+        ]
+      }
+    }
+  },
+  "required": [
+    "version",
+    "basis",
+    "tables",
+    "semantics"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

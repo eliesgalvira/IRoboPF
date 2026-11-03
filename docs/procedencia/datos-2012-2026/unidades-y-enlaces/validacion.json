@@ -1,0 +1,105 @@
+{
+  "version": 1,
+  "base": "7cabefcf666ca93aeb767c572e003b50c874514e",
+  "scope": "Technical candidate; independent per-lot review and legal acceptance pending. No gates changed.",
+  "lots": [
+    {
+      "lot": "pdf",
+      "manifestSha256": "cb402906876c1bda419f91d66ecdd1a73ef95c7bb320bf72c54d6d509a181f21",
+      "manifestSize": 103065,
+      "obligationsSha256": "fe085d5deedfc2ec6877147051e304ec2728e02be552ba31466960364abcb25e",
+      "comparison": {
+        "mediaType": "application/json",
+        "sha256": "81554a3fb92a450bb45096937fa09f227e4e269ad8c5d3162aad4d1838a72bdb",
+        "size": 10689
+      },
+      "runtimeDependencies": {
+        "mediaType": "application/json",
+        "sha256": "1009562884e16c97e722f27f6903c129c03f87849d2e5c5a28e41ef70f5447cc",
+        "size": 258533
+      },
+      "cells": {
+        "match": 23,
+        "not-verifiable": 1
+      },
+      "exactReplay": true,
+      "gitDisabledReplay": true,
+      "review": "pending",
+      "acceptance": "pending"
+    },
+    {
+      "lot": "ine",
+      "manifestSha256": "b08adad1ddd7738fb1376ac1616e9f529f6fa7860ec963875bb24a02dc426200",
+      "manifestSize": 102962,
+      "obligationsSha256": "94a3611c51839f1d7fa9b5d47750d6323e11be4d8a06a781c1dcf139aca55b3a",
+      "comparison": {
+        "mediaType": "application/json",
+        "sha256": "0fc0f9b286b2e8628782c3f7263da1fe25661846ba0b0813bbac5713650b5770",
+        "size": 69022
+      },
+      "runtimeDependencies": {
+        "mediaType": "application/json",
+        "sha256": "1009562884e16c97e722f27f6903c129c03f87849d2e5c5a28e41ef70f5447cc",
+        "size": 258533
+      },
+      "cells": {
+        "not-verifiable": 168
+      },
+      "exactReplay": true,
+      "gitDisabledReplay": true,
+      "review": "pending",
+      "acceptance": "pending"
+    },
+    {
+      "lot": "pilot-current",
+      "manifestSha256": "cd4bc9d99d3383ea24bf92bbcd8014705b67a648c7a9caeeeba8b169de960af8",
+      "manifestSize": 103095,
+      "obligationsSha256": "c3d00f978008d20048fda7beef5ab6bfaa1ec1e7c8397ed040b30afa3774cee4",
+      "comparison": {
+        "mediaType": "application/json",
+        "sha256": "ae08882d0b05c8e9370878b1cf82259d6ec68a57b89a7e5c9202b45b482b41c2",
+        "size": 110664
+      },
+      "runtimeDependencies": {
+        "mediaType": "application/json",
+        "sha256": "1009562884e16c97e722f27f6903c129c03f87849d2e5c5a28e41ef70f5447cc",
+        "size": 258533
+      },
+      "cells": {
+        "extraction-absent": 1,
+        "match": 50,
+        "not-verifiable": 226
+      },
+      "exactReplay": true,
+      "gitDisabledReplay": true,
+      "review": "pending",
+      "acceptance": "pending"
+    }
+  ],
+  "historical": {
+    "extractionReplayExact": true,
+    "comparisonReplayExact": true,
+    "censusRegenerated": false,
+    "cells": {
+      "match": 87,
+      "not-verifiable": 189,
+      "extraction-absent": 1
+    }
+  },
+  "newOriginal": {
+    "url": "https://servicios.ine.es/wstempus/js/ES/DATOS_SERIE/IPC251852?date=20120101:20261231",
+    "sha256": "8786d9b266a83ea6e0a6045c55e4574fa927ac13c1ab45802de92d8795afb043",
+    "size": 17970,
+    "sha512": "f41af28c612edb2d1d71a5cf8637bf889523aeef66da38c744b6378a3d363cffd5eae32224d8617610837445862ac656df97a615b101a9565407ad429b26ab0c"
+  },
+  "runtime": {
+    "resolution": "explicit-private-installation; automatic installation disabled; inherited by isolated census process",
+    "allMeasuredPackageFilesPhysicallyVerified": true,
+    "installationPathsExcludedFromFingerprint": true
+  },
+  "tests": {
+    "commonPassed": 37,
+    "historicalCounterexamplesUnchanged": true,
+    "geometryPassed": 4
+  }
+}

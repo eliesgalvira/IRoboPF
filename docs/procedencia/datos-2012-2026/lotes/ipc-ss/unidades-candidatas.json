@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "status": "candidate-for-common-contract-independent-review",
+  "declarations": [
+    {"unit":"EUR/month","dimension":"currency/time","scope":"general; full month; groups 1–7; common-contingency basis; both parties","operationToAnnualUniformProfile":"multiply(12)","restriction":"Do not apply to daily groups or varying monthly remuneration"},
+    {"unit":"EUR/day","dimension":"currency/time","scope":"general; groups 8–11; common-contingency basis; both parties","operationToAnnualUniformProfile":null,"restriction":"Daily days in contribution period needed; never multiply(12)"},
+    {"unit":"percent","dimension":"dimensionless","operationToProportion":"divide(100)","restriction":"Concept, liable party, regime and effective months must agree"},
+    {"unit":"proportion","dimension":"dimensionless","scope":"solidarity component by liable party and excess band","restriction":"Use published component, never apportion rounded total by common-contingency ratio"},
+    {"unit":"proportion","dimension":"dimensionless","scope":"INE 50902; national general CPI; base 2021; monthly December year-on-year rate","operationToFactor":"product(1 + publishedRatePercent / 100); reciprocal for inverse direction","restriction":"Not annual-average inflation; December 2026 is scenario only"}
+  ]
+}

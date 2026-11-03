@@ -4,8 +4,8 @@
 Instalar Bun 1.3.13, Node 24, Python 3.13 y Nix; desde la raíz:
 
 ```sh
-bun install --frozen-lockfile
-bash scripts/ci-comprobaciones.sh
+timeout -k 30s 10m bun install --frozen-lockfile
+timeout -k 30s 40m bash scripts/ci-comprobaciones.sh
 ```
 
 Los comandos `contenido-verificar.mjs --fixture` y `rastro-verificar.mjs --fixture`
@@ -43,3 +43,14 @@ revisar su contrato explícitamente, sin consultar objetos Git históricos.
 
 `UV_PROJECT_ENVIRONMENT`, `UV_CACHE_DIR` y `TMPDIR` pueden apuntar a rutas privadas
 fuera del repositorio. No se necesita `.venv` dentro del checkout.
+
+El trabajo `corpus` incluye `scripts/ci-datos.sh`: regresiones públicas de unidades,
+resolución de propiedades e IPC/SS, además de la aritmética del motor. Usa Python
+3.13, PyMuPDF 1.26.7 y jsonschema 4.25.1 mediante `uv`; la caché es
+`$HOME/.cache/uv`. Cada suite tiene su propio `timeout` y se ejecuta en secuencia.
+Estos casos no necesitan los originales privados ni aceptan la vigencia fiscal
+del corpus. Para ejecutar sólo este bloque:
+
+```sh
+timeout -k 30s 12m nix develop path:tools/procedencia --command bash scripts/ci-datos.sh
+```

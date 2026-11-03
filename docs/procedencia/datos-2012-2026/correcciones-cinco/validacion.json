@@ -1,0 +1,90 @@
+{
+  "version": 1,
+  "date": "2026-11-04",
+  "base": "28a6fc76deeac986ce7efd9f09af374b36634eae",
+  "review": "orquestador; alcance técnico de cinco defectos; sin nueva revisión independiente",
+  "regressions": {
+    "common": 40,
+    "unitAdversaries": 7,
+    "ipcContext": 15,
+    "ipcDiscriminants": 6,
+    "ipcAdapter": 7,
+    "total": 75,
+    "passed": true,
+    "note": "Primera ejecución: expectativa antigua de signo separado incompatible. Se corrige con control negativo textual y positivo geométrico y se repiten sus siete tests."
+  },
+  "motor": {
+    "ipcPairs": 196,
+    "bases2018": 5,
+    "passed": true,
+    "scope": "aritmética; no vigencia"
+  },
+  "generalChecks": {
+    "script": "scripts/ci-comprobaciones.sh",
+    "passed": true,
+    "note": "Bloque ci-datos ejecutado aparte; todas las órdenes generales pasaron. ESLint: 18 avisos previos, cero errores. Ruff E9,F: correcto mediante nix shell nixpkgs#ruff."
+  },
+  "replay": {
+    "byteExact": true,
+    "sha256": "75d2bb82556fdd8acaaaa96c85128bee10582b1b613ad46b04c005402129f4fa",
+    "censusSha256": "97b59e897da1a2ffb51ee8b9bc21eda933185b203432a89f1f613572c852d52e",
+    "censusUnchanged": true,
+    "counts": {
+      "ipc": 13,
+      "bases": 414,
+      "ambiguous": 3,
+      "physicalRates": 101,
+      "rates": 0,
+      "links": 48,
+      "numericCases": 60,
+      "rateGaps": 0
+    },
+    "linkStates": {
+      "metadata": 9,
+      "declared-scenario": 1,
+      "match": 13,
+      "not-verifiable": 24,
+      "declared-assumption": 1
+    },
+    "baseScopes": {
+      "unverified": 414
+    }
+  },
+  "inputs": {
+    "configSha256": "7c6e9624b4b7ae8e0ef7a88da1e2fa064137b950cc445d8de687df42f9823b21",
+    "censusSha256": "97b59e897da1a2ffb51ee8b9bc21eda933185b203432a89f1f613572c852d52e",
+    "sourcesSha256": "f5fa2f37b43b7d47049ff294ee5e210e0ab3d8412490482a73534be5ab201813"
+  },
+  "sources": {
+    ".github/workflows/checks.yml": "7a68589fe2416499b2c94a8ea9799f595b9a47187b39c58e4a7c50ed7dbde993",
+    "docs/procedencia/datos-2012-2026/revision-unidades-enlaces/casos.py": "41919959b55c309a35b2172d19b243a12b2982d4fd8df9a38918ff7fa4d3a3e6",
+    "docs/procedencia/datos-2012-2026/revisiones/ipc-ss-enlaces/reextraer_local.py": "b41047b12da8aec2fcc06d0ac04e03a2f76a524aca25241dabe880097dee080f",
+    "docs/procedencia/datos-2012-2026/revisiones/ipc-ss-enlaces/test_discriminantes.py": "5749c9a2508a91bf2aa813e3f71751a0bfb33576d37a209faf3031b788e132af",
+    "docs/procedencia/datos-2012-2026/revisiones/ipc-ss-enlaces/verificar_motor.mjs": "a319df9b35a6576f5ae685e7247a977d135a0086c286ab14cbb0c3f2c15876af",
+    "scripts/ci-comprobaciones.sh": "a9fa73632108dba1f1aa9764a9694a2d8a875e295ae21edf053f8112a9bb83f3",
+    "scripts/ci-datos.sh": "546dd8eb600aeed7247d4302ae9ef90186a7f173022c3e1c57eeeaa39d175d02",
+    "tests/datos-ipc-ss.test.py": "69dff944a155a327b5f03c66a1c5170b27261fb3d56793a0c88e9d89b814a708",
+    "tools/procedencia/datos/binding-position.mjs": "f4139bcecaf1b1f3425c8437e38174c2dff55aa0caea9cc49bb84443f52f578d",
+    "tools/procedencia/datos/ejecutar.sh": "bc2b143980243778a650601c1061bb6e5c1fa3ded26fda0aff6604f84bc2859d",
+    "tools/procedencia/datos/flujo.py": "d842f68da5c225eb20ff5904bd771caa9c8a531d1f58a6963edfcaee06f14772",
+    "tools/procedencia/datos/lotes/ipc-ss/censar.mjs": "d6bc4e7381ec46a33dbc8772aa7d59a476834fff48a0b44e8511c23a0d01af1f",
+    "tools/procedencia/datos/lotes/ipc-ss/contexto.py": "e489ca0b8419cefef1d4099eb29a632deff7a30caf522c224512fcadb9228122",
+    "tools/procedencia/datos/lotes/ipc-ss/enlaces.py": "5f0fe8d16a83546f73168bb9f9122ab21026259e1268b8b0a96036727d09dde5",
+    "tools/procedencia/datos/lotes/ipc-ss/lote.py": "fe8fe76c5c064e28832ae4270b6ccce9c5fc5d2ac0e852555c958146607e2182",
+    "tools/procedencia/datos/lotes/ipc-ss/test_contexto.py": "e0faca0cc92bf8f335727bed60fc7a1905c073e58b7efbe10b9cb308b905a42a",
+    "tools/procedencia/datos/lotes/ipc-ss/test_enlaces.py": "43f5b331ecee6360f1ca1328146625e5d5d97c63653eb7d3fd13097d5de6225c",
+    "tools/procedencia/datos/runtime-resolver.mjs": "d30eeb6658c2e5a81578df07608777bd39a87548807b32a268c7d37c8c91356b",
+    "tools/procedencia/datos/tests/test_geometria_identidad.py": "4f6f868d3b3a974b9fedae47c18abd30969b22623d534953fd5d06948f263d00",
+    "tools/procedencia/datos/tests/test_unidades_enlaces.py": "faed595b0793054bcbc085f9d5f873bf8c385a6db9b07b83ec81b60045064a78"
+  },
+  "privateLogHashes": {
+    "unidades-rojo.log": "0b34cb293e0f2d71c96588fdc503169057325131399aec505526c741d4e1c9dd",
+    "ipc-rojo.log": "61fb7fd837bc7c736e7a0ddbd35f36f85901b4b61e288337187e2160aa5cb354",
+    "ci-datos.log": "4215dab38ea9cff1753c45e7888a6c8ed3d449e73fdace682bd957272aaa126e",
+    "ci-datos-cierre.log": "bbdc436b5b64deb70a0eba361cec21ad5a1ce38f9e59e7cfc8852f8af0442459",
+    "ci-comprobaciones.log": "80aa08296e532e4337b83d60b879a0ff6a0cc48eacb77d887f29c30f3870153f",
+    "ipc-replay.log": "8fd5e54384e11880a471af29e92bc63dfcf393e11f3bcba65665ec294984feff",
+    "ipc-replay-verificado.log": "8fd5e54384e11880a471af29e92bc63dfcf393e11f3bcba65665ec294984feff"
+  },
+  "acceptance": "technical-five-defects-only; SS documentary scope remains unverified"
+}

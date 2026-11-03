@@ -413,3 +413,29 @@ y conservar las referencias que permiten reconstruirlo. Los originales no se
 clasifican como dependencias. **Coste:** reconstruir un candidato requiere su
 commit y manifiesto; los contenedores tar retirados no se conservan byte a byte,
 pero sí sus miembros no regenerables. Retirar el árbol no acepta el candidato.
+
+## Contexto físico obligatorio en unidades y enlaces IPC/SS (4 de noviembre)
+
+Una caja de selección amplia no acredita la posición de una cabecera: se usan
+las coordenadas de sus palabras. Una función `async` no es una identidad
+síncrona; el adaptador sólo admite el subconjunto explícito probado. El cargo
+trabajador exige su literal, y el año de los tipos procede del título de la
+orden, separándolo de los años históricos citados en su preámbulo.
+
+La columna, el grupo, la unidad diaria/mensual y el período de una base necesitan
+selectores físicos propios. Los períodos admitidos delimitan meses completos
+del mismo año y preceden al bloque correspondiente. Una vigencia abierta no
+adquiere automáticamente diciembre como final; un intervalo parcial no acredita
+un parámetro anual. Las declaraciones sin prueba se conservan como candidatas y
+no entran en comparaciones verificadas. Tampoco se infiere un cero del trabajador
+por ausencia de una celda.
+
+**Objeción:** exigir estas pruebas reduce la cobertura que anunciaba el candidato
+v2. **Respuesta:** conservar sus manifiestos como históricos y reextraer los
+números, declarando la falta de contexto; repetir una etiqueta no la verifica.
+**Coste:** completar las pruebas de vigencia y remisiones reales es trabajo
+documental pendiente. El parser admite un subconjunto explícito de textos, no
+todas las formulaciones jurídicas. Esta corrección cierra cinco defectos técnicos;
+no declara cerrado el lote SS ni la auditoría fiscal. La revisión adicional es
+del orquestador, conforme al encargo de continuar solo; no se presenta como una
+nueva revisión independiente. [Informe y pruebas](datos-2012-2026/correcciones-cinco/INFORME.md).

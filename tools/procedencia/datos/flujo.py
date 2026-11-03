@@ -5,12 +5,15 @@ import argparse
 from collections import Counter
 from decimal import Decimal
 import hashlib
+from functools import lru_cache
 import importlib.metadata
 import platform
+import os
 import json
 from pathlib import Path
 import re
 import shutil
+import shlex
 import subprocess
 import sys
 import tempfile
@@ -22,6 +25,8 @@ from descargar import DEFAULT_HOSTS, check_url  # noqa: E402
 from corpus import extract, geometry, selectors  # noqa: E402
 import pymupdf  # noqa: E402
 import jsonschema  # noqa: E402
+
+PILOT_MAPPING_SHA256 = "35955e153054f6e1f520227208fa7a0b0088c6f95830cbb55df337af4e911e3a"
 
 OBLIGATIONS_SHA256 = "8b63636058d79ebff248f7f083baf857d2c6fa6a6962a95a6b42f0012cea847b"
 
@@ -74,11 +79,32 @@ def number(literal: str, unit: str) -> str:
         if unit != 'EUR':
             raise ValueError('Centinela con unidad incompatible')
         return 'Infinity'
-    if re.fullmatch(r'[+-] [0-9].*', literal):
-        literal = literal[0] + literal[2:]
     if not re.fullmatch(r'[+-]?(?:[0-9]{1,3}(?:\.[0-9]{3})+|[0-9]+)(?:,[0-9]+)?', literal):
         raise ValueError('Número/signo/separadores ambiguos: ' + literal)
     return str(Decimal(literal.replace('.', '').replace(',', '.')))
+
+
+def declared_number(literal: str, spec: dict) -> str:
+    variant = spec.get('literalVariant')
+    if variant is None:
+        return number(literal, spec['unit'])
+    if literal != variant['literal']:
+        raise ValueError('Variante literal distinta')
+    if variant['kind'] == 'open' and spec['unit'] == 'EUR' and literal in ('En adelante', 'en adelante', 'En adelante.'):
+        return 'Infinity'
+    if variant['kind'] == 'percent-suffix' and spec['unit'] == 'percent' and literal.endswith('%'):
+        return number(literal[:-1], 'percent')
+    raise ValueError('Variante de número no admitida')
+
+
+def physical_number(literal: str, spec: dict, words: list) -> str:
+    # Two separately emitted PDF tokens, both wholly inside the selected cell.
+    # Keep the original literal and boxes; never repair an interior number space.
+    if len(words) == 2 and words[0][4] in ('+', '-') and literal == words[0][4] + ' ' + words[1][4]:
+        box = pymupdf.Rect(spec['bbox'])
+        if all(box.contains(pymupdf.Rect(w[:4])) for w in words):
+            return declared_number(words[0][4] + words[1][4], spec)
+    return declared_number(literal, spec)
 
 
 def pdf_table(store: Store, table: dict) -> list[dict]:
@@ -101,10 +127,10 @@ def pdf_table(store: Store, table: dict) -> list[dict]:
                     # Geometric ambiguity guard, independent of font size and PDF text blocks.
                     if height > 0 and overlap >= height / 2 and gap < 12:
                         raise ValueError('Signo próximo fuera de la celda')
-            normalized = number(literal, spec['unit'])
+            normalized = physical_number(literal, spec, selected)
             cells.append({**spec, 'quote': quote, 'literal': literal, 'normalized': normalized,
                           'words': [list(w[:5]) for w in selected],
-                          'normalization': 'fully-contained-words; es-grouping-dot-decimal-comma; open-sentinel',
+                          'normalization': 'fully-contained-words; explicit-contained-sign-token; es-grouping-dot-decimal-comma; declared-variant',
                           'document': table['document'], 'page': table['page'],
                           'table': table['code'], 'year': table['year'], 'territory': table['territory'],
                           'geometry': geometry(page), 'selectors': selectors(table['page'], spec['bbox'], quote)})
@@ -191,7 +217,7 @@ def normalized_cell(cell: dict) -> str:
         if not re.fullmatch(r'-?[0-9]+(?:\.[0-9]+)?', cell['literal']) or cell['unit'] != 'index':
             raise ValueError('Formato/unidad JSON alterados')
         return str(Decimal(cell['literal']))
-    return number(cell['literal'], cell['unit'])
+    return physical_number(cell['literal'], cell, cell.get('words', []))
 
 
 def engine_value(items: list[dict], binding: dict) -> Decimal:
@@ -219,10 +245,10 @@ def validate_obligations(tables: list[dict], obligations: list[dict]) -> None:
     """Registro revisado separado del mapping; no se deriva de la extracción."""
     fields = ('code', 'year', 'territory', 'document', 'page', 'format', 'series', 'rows')
     actual = [{**{k: t.get(k) for k in fields},
-               'cells': [{k: c.get(k) for k in ('row', 'column', 'bbox', 'unit', 'numberFormat')} for c in t['cells']]}
+               'cells': [{k: c.get(k) for k in ('row', 'column', 'bbox', 'unit', 'numberFormat', 'literalVariant')} for c in t['cells']]}
               for t in tables]
     expected = [{**{k: t.get(k) for k in fields},
-                 'cells': [{k: c.get(k) for k in ('row', 'column', 'bbox', 'unit', 'numberFormat')} for c in t['cells']]}
+                 'cells': [{k: c.get(k) for k in ('row', 'column', 'bbox', 'unit', 'numberFormat', 'literalVariant')} for c in t['cells']]}
                 for t in obligations]
     if actual != expected:
         raise ValueError('Obligaciones revisadas omitidas o alteradas')
@@ -244,7 +270,8 @@ def load_registry(repo: Path, path: Path | None, expected_sha256: str | None) ->
         raise ValueError('Registro distinto del SHA256 esperado declarado')
     json_positions(raw.decode('utf-8'))  # También rechaza claves duplicadas.
     registry = json.loads(raw)
-    schema = json.loads((repo / 'docs/procedencia/datos-2012-2026/contrato-obligaciones-lotes/schema.json').read_bytes())
+    schema_path = 'unidades-y-enlaces/schema-v2.json' if registry.get('version') == 2 else 'contrato-obligaciones-lotes/schema.json'
+    schema = json.loads((repo / 'docs/procedencia/datos-2012-2026' / schema_path).read_bytes())
     jsonschema.Draft202012Validator(schema).validate(registry)
     codes = set()
     for table in registry['tables']:
@@ -280,17 +307,70 @@ def load_registry(repo: Path, path: Path | None, expected_sha256: str | None) ->
             for box in boxes:
                 if box is not None and not (box[0] < box[2] and box[1] < box[3]):
                     raise ValueError('Geometría de obligación inválida')
+    if registry['version'] == 2:
+        validate_links(registry, repo)
     # Un registro recibido no puede inventar acreditaciones de unidades del motor.
     reviewed = json.loads(pilot_raw)['semantics']
     for binding, proof in registry['semantics'].items():
-        if reviewed.get(binding) != proof:
+        if registry['version'] == 1 and reviewed.get(binding) != proof:
             raise ValueError('Semántica nueva requiere revisión separada')
-        expression_unit({'binding':json.loads(binding)}, registry['semantics'], repo)
+        if registry['version'] == 2:
+            expression_unit({'binding':json.loads(binding)}, registry['semantics'], repo)
+    if registry['version'] == 1 and registry['semantics']:
+        pilot = json.loads(pilot_raw)
+        mapping_raw = (repo / 'docs/procedencia/datos-2012-2026/tablas.json').read_bytes()
+        if digest(mapping_raw) != PILOT_MAPPING_SHA256:
+            raise ValueError('Mapping histórico piloto alterado')
+        pilot_mapping = json.loads(mapping_raw)
+        for table in registry['tables']:
+            if table not in pilot['tables']:
+                raise ValueError('Semántica legacy fuera del ámbito piloto; use contrato v2')
+            original = next(t for t in pilot_mapping if t['code'] == table['code'])
+            for cell, spec in zip(table['cells'], original['cells'], strict=True):
+                cell['engineExpression'] = spec.get('expression')
     return registry, raw, {'expectedSha256':expected,
                            'selection':'pilot' if path is None else 'explicit',
                            'validation':'structure-coverage-evidence-checked',
                            'review':'pilot-pinned-scope' if path is None else 'pending',
                            'legalAcceptance':'pending'}
+
+
+def validate_links(registry: dict, repo: Path) -> None:
+    used = set()
+    for retired in registry.get('retirements', []):
+        key = encode(retired['previousBinding']).decode().strip()
+        if registry['semantics'].get(key, {}).get('sourceSha256') == retired['previousSourceSha256']:
+            raise ValueError('Binding retirado reutilizado como evidencia viva')
+    for table in registry['tables']:
+        for cell in table['cells']:
+            scope = {k:table[k] for k in ('code', 'year', 'territory')}
+            scope.update({k:cell[k] for k in ('row', 'column', 'subject', 'conditions')})
+            def walk(expression):
+                if expression is None:
+                    return
+                if set(expression) == {'binding'}:
+                    binding = expression['binding']
+                    if set(binding) != {'file', 'symbol', 'path'} or not isinstance(binding['path'], list):
+                        raise ValueError('Binding inválido')
+                    file = Path(binding['file'])
+                    if file.is_absolute() or '..' in file.parts or not (repo / file).resolve().is_relative_to(repo.resolve()):
+                        raise ValueError('Fuente fuera del repositorio')
+                    key = encode(binding).decode().strip()
+                    proof = registry['semantics'].get(key)
+                    if proof is None or scope not in proof['targets']:
+                        raise ValueError('Binding trasplantado o ámbito sin declarar')
+                    used.add(key)
+                elif set(expression) == {'op', 'args'} and expression['op'] in ('sum', 'subtract', 'percent'):
+                    args = expression['args']
+                    if not isinstance(args, list) or not args or (expression['op'] == 'percent' and len(args) != 1) or (expression['op'] == 'subtract' and len(args) != 2):
+                        raise ValueError('Aridad inválida')
+                    for child in args:
+                        walk(child)
+                else:
+                    raise ValueError('Expresión de unidad inventada')
+            walk(cell['engineExpression'])
+    if used != set(registry['semantics']):
+        raise ValueError('Semántica sin correspondencia')
 
 
 def evidence_unit(store: Store, table: dict, obligation: dict) -> bool:
@@ -304,10 +384,42 @@ def evidence_unit(store: Store, table: dict, obligation: dict) -> bool:
         return data['FK_Unidad'] == 133 and data['FK_Escala'] == 1
     with pymupdf.open(stream=store.read(table['document']), filetype='pdf') as document:
         page = document[table['page'] - 1]
+        if not page.rect.contains(pymupdf.Rect(proof['bbox'])):
+            raise ValueError('Cabecera fuera de página')
         box = pymupdf.Rect(proof['bbox'])
-        literal = ' '.join(w[4] for w in page.get_text('words', flags=0, sort=True) if box.contains(pymupdf.Rect(w[:4])))
+        words = [w for w in page.get_text('words', flags=0, sort=True) if box.contains(pymupdf.Rect(w[:4]))]
+        literal = ' '.join(w[4] for w in words)
     if literal != proof['literal'] or proof['unit'] != obligation['unit']:
         raise ValueError('Cabecera de unidad no reproducible')
+    if 'relation' in proof:
+        tokens = {'EUR': r'(?<!\w)(?:euros|Euros|EUR)(?!\w)|€',
+                  'percent': r'%|(?<!\w)(?:Porcentaje|porcentaje)(?!\w)',
+                  'proportion': r'(?<!\w)(?:proporción|fracción|por uno)(?!\w)',
+                  'index': r'(?<!\w)(?:Índice|índice|Index|index)(?!\w)'}
+        if re.search(tokens[proof['unit']], literal) is None:
+            raise ValueError('Expresión literal de unidad sin acreditar')
+        if not words:
+            raise ValueError('Cabecera sin palabras')
+        # La caja declarada selecciona texto; no acredita su posición efectiva.
+        header = pymupdf.Rect(min(w[0] for w in words), min(w[1] for w in words),
+                             max(w[2] for w in words), max(w[3] for w in words))
+        cell = pymupdf.Rect(obligation['bbox'])
+        relation = proof['relation']
+        if relation == 'column':
+            valid = header.y1 <= cell.y0 and min(header.x1, cell.x1) > max(header.x0, cell.x0)
+            valid = valid and any(min(w[2], cell.x1) > max(w[0], cell.x0) for w in words)
+        else:
+            overlap = min(header.y1, cell.y1) - max(header.y0, cell.y0)
+            valid = relation == 'adjacent' and overlap > 0 and 0 <= header.x0 - cell.x1 <= 24
+        if relation == 'column':
+            for other in table['cells']:
+                if other['row'] == obligation['row'] and other['column'] != obligation['column']:
+                    foreign = pymupdf.Rect(other['bbox'])
+                    if header.x0 <= (foreign.x0 + foreign.x1) / 2 <= header.x1:
+                        valid = False
+        if not valid:
+            raise ValueError('Cabecera ajena a columna/celda')
+        return True
     # Cabeceras del piloto: no se infiere una unidad de cualquier texto arbitrario.
     if (proof['unit'], literal) not in (('EUR', 'Base liquidable hasta euros'),
                                         ('EUR', 'Cuota íntegra euros'),
@@ -321,6 +433,12 @@ def evidence_unit(store: Store, table: dict, obligation: dict) -> bool:
     return True
 
 
+@lru_cache(maxsize=4096)
+def binding_position(repo: str, source: str, symbol: str, path: str, source_hash: str, resolver_hash: str) -> dict:
+    # Both preimages are part of the key; edits cannot reuse a cached position.
+    return json.loads(subprocess.check_output(['bun', '--no-install', str(Path(repo) / 'tools/procedencia/datos/binding-position.mjs'), source, symbol, path], text=True))
+
+
 def expression_unit(expression: dict, semantics: dict, repo: Path) -> str | None:
     if 'binding' in expression:
         binding = expression['binding']
@@ -330,6 +448,10 @@ def expression_unit(expression: dict, semantics: dict, repo: Path) -> str | None
         source = repo / binding['file']
         if digest(source.read_bytes()) != proof['sourceSha256'] or proof['quote'] not in source.read_text():
             raise ValueError('Semántica del campo sin fuente reproducible')
+        if 'position' in proof:
+            position = binding_position(str(repo), str(source), binding['symbol'], json.dumps(binding['path']), digest(source.read_bytes()), digest((repo / 'tools/procedencia/datos/binding-position.mjs').read_bytes()))
+            if position != {**proof['position'], 'quote':proof['quote'], **({'adapter':proof['adapter']} if 'adapter' in proof else {})}:
+                raise ValueError('Posición/propiedad del binding distinta')
         return proof['unit']
     units = [expression_unit(child, semantics, repo) for child in expression['args']]
     if expression['op'] == 'percent' and units == ['proportion']:
@@ -339,6 +461,32 @@ def expression_unit(expression: dict, semantics: dict, repo: Path) -> str | None
     if expression['op'] == 'sum' and units and all(unit == 'EUR' for unit in units):
         return 'EUR'
     return None
+
+
+def validate_engine_scope(expression: dict | None, items: list[dict], table: dict, semantics: dict) -> None:
+    if expression is None:
+        return
+    if 'binding' not in expression:
+        for child in expression['args']:
+            validate_engine_scope(child, items, table, semantics)
+        return
+    binding = expression['binding']
+    matches = [i for i in items if i['layer'] == 'effective' and i['source']['file'] == binding['file']
+               and i['symbol'] == binding['symbol'] and json.loads(i['path']) == binding['path']]
+    if len(matches) != 1:
+        raise ValueError('Binding ausente o duplicado')
+    item = matches[0]
+    if item.get('years') and table['year'] not in item['years']:
+        raise ValueError('Anualidad del código distinta del lote')
+    if item.get('territories') and table['territory'] not in item['territories']:
+        raise ValueError('Territorio del código distinto del lote')
+    known = {'EUR':'EUR', 'EUR (mínimo anual del código)':'EUR',
+             'EUR (límite de base; periodicidad pendiente)':'EUR',
+             'proporción por uno':'proportion', 'porcentaje por cien':'percent'}
+    inferred = known.get(item.get('unit'))
+    proof = semantics[encode(binding).decode().strip()]
+    if inferred is not None and proof['unit'] != inferred:
+        raise ValueError('Unidad declarada contradice propiedad del código')
 
 
 def compare(tables: list[dict], cells: list[dict], items: list[dict], *,
@@ -357,7 +505,11 @@ def compare(tables: list[dict], cells: list[dict], items: list[dict], *,
     for table, obligation_table in zip(tables, obligations, strict=True):
         for spec, obligation in zip(table['cells'], obligation_table['cells'], strict=True):
             cell = lookup[table['code'], spec['row'], spec['column']]
-            for key in ('unit', 'bbox', 'expression', 'numberFormat'):
+            if 'subject' in obligation and any(spec.get(k) != obligation[k] for k in ('subject','conditions')):
+                raise ValueError('Sujeto/condiciones distintos')
+            if 'engineExpression' in obligation and spec.get('expression') != obligation['engineExpression']:
+                raise ValueError('Correspondencia distinta de obligación independiente')
+            for key in ('unit', 'bbox', 'expression', 'numberFormat', 'literalVariant', 'subject', 'conditions'):
                 if cell.get(key) != spec.get(key):
                     raise ValueError('Celda alterada: ' + key)
             if cell['year'] != table['year'] or cell['territory'] != table['territory']:
@@ -367,6 +519,8 @@ def compare(tables: list[dict], cells: list[dict], items: list[dict], *,
             source_unit = evidence_unit(store, table, obligation)
             if normalized_cell(cell) != cell['normalized']:
                 raise ValueError('Normalización alterada')
+            if 'subject' in obligation:
+                validate_engine_scope(spec.get('expression'), items, table, semantics or {})
             observed = None
             if spec.get('expression') is not None:
                 observed = str(evaluate(items, spec['expression']))
@@ -431,7 +585,14 @@ def run(repo: Path, cas: Path, roots: list[Path], work: Path, mapping: Path, bas
         for cell in table['cells']:
             evidence_unit(store, table, cell)
     folder = Path(tempfile.mkdtemp(prefix='censo-', dir=work))
-    subprocess.run(['bun', str(repo / 'tools/procedencia/datos/censo.mjs'), str(repo), str(folder)], check=True)
+    runtime_args = ['--no-install']
+    runtime_root = os.environ.get('DATOS_RUNTIME_ROOT')
+    if runtime_root is not None:
+        config = Path(tempfile.mkdtemp(prefix='runtime-', dir=work)) / 'tsconfig.json'
+        config.write_bytes(subprocess.check_output(['bun', '--no-install', str(repo / 'tools/procedencia/datos/runtime-resolver.mjs'), runtime_root]))
+        runtime_args += ['--tsconfig-override', str(config)]
+    subprocess.run(['bun', *runtime_args, str(repo / 'tools/procedencia/datos/censo.mjs'), str(repo), str(folder)], check=True,
+                   env={**os.environ, 'BUN_OPTIONS':shlex.join(runtime_args), 'BUN_RUNTIME_TRANSPILER_CACHE_PATH':'0'})
     summary = json.loads((folder / 'inventario.json').read_bytes())
     items = [item for page in summary['pages'] for item in json.loads((folder / page['file']).read_bytes())]
     cells = [cell for table in tables for cell in (ine_table(store, table) if table.get('format') == 'ine-json' else pdf_table(store, table))]
@@ -460,7 +621,8 @@ def software_inputs(repo: Path) -> dict:
              *(repo / 'scripts/procedencia').glob('*.mjs'),
              repo / 'tools/procedencia/pyproject.toml', repo / 'tools/procedencia/uv.lock',
              repo / 'package.json', repo / 'bun.lock',
-             repo / 'docs/procedencia/datos-2012-2026/contrato-obligaciones-lotes/schema.json']
+             repo / 'docs/procedencia/datos-2012-2026/contrato-obligaciones-lotes/schema.json',
+             repo / 'docs/procedencia/datos-2012-2026/unidades-y-enlaces/schema-v2.json']
     return {str(p.relative_to(repo)): digest(p.read_bytes()) for p in sorted(paths)}
 
 
