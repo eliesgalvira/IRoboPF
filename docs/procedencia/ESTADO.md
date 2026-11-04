@@ -32,7 +32,29 @@ ejecuciones Vitest y 227 métodos Python ejecutados, además de siete omisiones
 explícitas de originales privados. Inventario, tipos y lint pasan; quedan los
 18 avisos anteriores. [CI previo a publicar la cuota](revisiones/cuota-valenciana-ci-20261104/CI.md).
 La aceptación fiscal completa de las fichas sigue separada de esta entrega de
-producto. El CI remoto de la publicación queda pendiente de comprobación.
+producto. Publicado en `8584afe2f8448b7491556aa99827168a009433eb`;
+`checks` y `corpus` pasan en la
+[ejecución 41918467861](https://github.com/eliesgalvira/IRoboPF/actions/runs/41918467861).
+
+C300 ha terminado la red salarial: 300 entradas distintas de Madrid 2025,
+3.550 casillas iguales, 650 ausencias oficiales y cero diferencias. La revisión
+del corte de 218 detectó cuatro diferencias del artículo 20; la corrección
+integrada las resuelve y conserva los siete anclajes anteriores. La política
+observada queda acotada a empleo Madrid 2025 y operandos hasta un millón de
+euros; fuera se conserva Decimal. El arreglo de lectura del journal pasa siete
+pruebas nuevas/focales y catorce portables. El primer intento portable carecía
+de `pdftotext`; se conserva junto a la repetición correcta con el ejecutable Nix.
+La captura adicional de Andalucía queda corregida y revisada: sus doce casillas
+presentes coinciden, conserva dos ausencias y el resultado final es 101,04 EUR.
+El conjunto tiene 301 entradas, 3.562 casillas iguales, 652 ausencias y cero
+diferencias. Otras once variantes quedan sólo preparadas. El [cierre monetario](simuladores/c300/CIERRE.md)
+distingue el alcance salarial y las reservas de hechos sintéticos. Se ha iniciado
+el piloto histórico secuencial 2018–2024; todavía no se atribuyen resultados
+a las 14.140 comparaciones previstas.
+El [CI final de C2025](revisiones/c300-ci-20261104/CI.md) pasa los 30 comandos
+del workflow en entorno limpio: 1.573 ejecuciones Vitest, 234 métodos Python
+ejecutados y siete omisiones expresas. Las 516 fuentes fijadas conservan sus
+hashes; tipos, lint, inventario y generados pasan.
 
 A2025 conserva 1.477 cotejos documentales y las 72 diferencias anteriores en
 cuatro territorios, doce con distinto céntimo. La revisión es favorable acotada;

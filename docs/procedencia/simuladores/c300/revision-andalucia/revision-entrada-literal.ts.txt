@@ -1,0 +1,69 @@
+export default {
+  comunidadAutonoma: "andalucia",
+  conciliacion: {
+    ejercicio: 2025,
+    estado: "totales-anuales-sin-duplicados",
+    procedencia: [
+      "sintetico:datos-fiscales-2025",
+      "sintetico:certificados-pagadores",
+    ],
+  },
+  deducciones: "solo-da61-si-procede",
+  devengo: "2025-12-31",
+  discapacidad: "ninguna",
+  edad: 40,
+  ejercicio: 2025,
+  especialidades: "ninguna",
+  familiaresConDerechoMinimo: "ninguno",
+  modalidad: "individual",
+  otrasRentas: "ninguna",
+  perfil: "solo-trabajo",
+  reduccionesBase: "ninguna",
+  rentasExtranjeras: "ninguna",
+  residenciaTodoElAnio: true,
+  retenciones: [
+    {
+      efectiva: true,
+      ejercicio: 2025,
+      importe: "3100.03",
+      operacionId: "ret-0",
+      procedencia: "sintetico:certificado-0",
+    },
+  ],
+  saldosAnteriores: "ninguno",
+  trabajo: {
+    discapacidadActiva: "ninguna",
+    ejercicio: 2025,
+    movilidad: "ninguna",
+    reduccionesArt18: "ninguna",
+    rendimientos: [
+      {
+        clase: "empleo-laboral",
+        colegio: {
+          finesEsenciales: "si",
+          importe: "499.99",
+          obligatorio: "si",
+          satisfecho: "si",
+        },
+        cotizaciones: {
+          clase: "efectivas",
+          colegiosHuerfanos: "0",
+          derechosPasivos: "0",
+          seguridadSocial: "1630.02",
+        },
+        defensa: {
+          importe: "299.99",
+          litigioDirectoPagador: "si",
+          satisfecho: "si",
+        },
+        id: "a",
+        integro: "25000.17",
+        sindicato: {
+          importe: "123.45",
+          satisfecho: "si",
+        },
+      },
+    ],
+    territorio: "comun",
+  },
+}

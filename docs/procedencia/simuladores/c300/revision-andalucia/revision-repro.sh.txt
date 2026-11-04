@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euo pipefail
+source /home/local/Backups/IRoboPF/limpieza-recursos-20261103/env-pruebas.sh
+cd /home/local/Repos/IRoboPF
+timeout -k 30s 45s python /home/local/Backups/IRoboPF/producto-c300-andalucia-revision-20261104/verificar-evidencia.py
+timeout -k 30s 4m bun node_modules/vitest/vitest.mjs run --config /home/local/Backups/IRoboPF/producto-c300-andalucia-revision-20261104/vitest.config.mjs
+timeout -k 30s 60s bun /home/local/Backups/IRoboPF/producto-c300-andalucia-revision-20261104/preimagen.ts

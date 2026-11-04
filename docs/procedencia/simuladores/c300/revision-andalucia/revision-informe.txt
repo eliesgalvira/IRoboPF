@@ -1,0 +1,89 @@
+REVISIÓN INDEPENDIENTE ÚNICA — Andalucía C300 — 2026-11-04
+
+Dictamen: SIN HALLAZGOS BLOQUEANTES en la corrección examinada. Un ajuste de
+redacción del rastro, sin efecto monetario, queda propuesto como parche opcional.
+No equivale a aceptación fiscal, acreditación de F ni certificación territorial.
+
+1. Origen e integridad
+Los cuatro archivos coinciden con los hashes finales del manifiesto del autor;
+las dos preimágenes coinciden con sus hashes iniciales. Se verificaron también
+todos los artefactos enumerados en ese manifiesto. El parche entregado contiene
+exactamente esas cuatro rutas; no altera fixtures oficiales ni tests anteriores.
+
+Se descomprimieron los originales embebidos sin imprimir base64. Coinciden byte
+a byte con los CAS referidos en variante-andalucia-comparacion.json: SES de 2034
+bytes, SHA256 84891c615682be96042b5bcc3d53f0407ad0219e87add316946941cfa7d8e357;
+PDF de 142159 bytes, SHA256
+9e30e0c4f600fb98a7f64e23120fa3929c0efaf03b7fd9dc4b898fd910c722df.
+
+Se validó además la fila extension-territorio-andalucia del índice privado
+variants-results.jsonl: identidad canónica/key, entrada, referencias CAS, fields,
+cabecera/versiones, bootstrap y resumen, mediante validate_result. Se examinó
+variants.py, idéntico al externalScript fijado en CAS: formulario nuevo por UI,
+selección Andalucía, identificación personal y entrada de los seis importes;
+no importa SES modificado ni fabrica salidas. No se ejecutó ese transporte.
+La versión visible es 1.19, reglas N000088955, modelo 0.12, ejercicio 2025.
+CAD_D=ANDALUCIA, CAC_D=ZCCAD=01, edad 40, nacimiento 01/01/1985 e INDV=true.
+No se ha certificado de nuevo la cadena general de captura ni su entorno.
+
+La entrada literal del test es idéntica a la conservada en el recibo original.
+Se conciliaron IDII 25000.17, GSS 1630.02, GCS 123.45, GCC 499.99, GDJ 299.99,
+IDRE 3100.03 y los dos operandos declarados de DA61. Los gastos se consumen
+una vez: 25000.17 - 1630.02 - 123.45 - 499.99 - 299.99 - 2000 = 20446.72.
+La extracción pdftotext -layout y pdf_checks confirmó doce casillas presentes
+y dos ausencias (0023/0414); se conservaron como ausencias, nunca como ceros.
+El PDF extraído coincide por hash con el del autor. Sin red ni nuevas capturas.
+
+2. Cálculo y alcance
+El diff incorpora una política a la composición anual existente, sin ruta de
+liquidación paralela. Cuantiza a céntimos half-up los gravámenes antes de las
+restas y sumas. El selector requiere empleo laboral/estatutario efectivo 2025,
+Andalucía y ausencia de derechos familiares. La admisión individual y restantes
+restricciones siguen en el contrato anterior. La composición rechaza territorio,
+año, cotización estimada o derechos incompatibles con esa política.
+
+El selector Madrid y la compatibilidad binaria art20 no cambian. cuantizarEtapa
+sigue exclusivamente ligado a Madrid. DA61 se cuantiza sólo para la política
+Madrid; Andalucía conserva su importe Decimal. La regresión fraccionaria prueba
+art20=4284.9825 y DA61=339.998; no los presenta como observaciones oficiales.
+Pensiones, familia andaluza, Murcia y Cataluña conservan los decimales previos.
+Los históricos quedan fuera de la nueva selección por contrato y condición.
+
+Las expectativas oficiales anteriores y los siete anclajes quedan fuera del
+parche; los tests y JSON anteriores examinados conservan sus hashes antes/después.
+No se repitieron sus contrastes ni los 300 Madrid. Las 353 regresiones y tipado/
+lint son resultados aportados por el autor, no ejecuciones de esta revisión.
+
+3. Reproducciones independientes
+Una suite focal, maxWorkers=1, 21/21 pruebas en 2.79 s: seis pruebas existentes
+de Andalucía y quince controles propios. Estos últimos verifican la identidad
+de entrada, gastos, ambos lados y empate half-up, signo negativo, cambio de
+retención hasta devolución, empleo estatutario, rechazo de mezcla empleo/pensión,
+cuatro rechazos de ámbito y bases 0/1000/5550/5790. No se emplean tolerancias.
+Además se reprodujo el fallo previo cargando las dos preimágenes en memoria con
+un plugin de Bun: siete diferencias exactas y final 101.03. Las expectativas
+proceden del recibo oficial original; ninguna fuente raíz se sustituyó.
+La suite actual confirma doce presentes exactas, dos ausencias y final 101.04.
+
+4. Observación no bloqueante
+conexion.ts, descripción del paso «Bases, cuotas y pagos anuales»: Andalucía
+todavía recibe el texto genérico «Precisión decimal hasta salida», aunque sus
+gravámenes ya se cuantizan. Los importes y el informe ANDALUCIA.md son correctos.
+Se entrega ajuste-rastro-opcional.patch para describir esa política con precisión;
+no está aplicado ni ejecutado como cambio de producto. No modifica cálculos.
+
+ANDALUCIA.md describe honestamente una sola observación laboral, distingue
+estatutario no observado, regresiones sintéticas y ausencias, y no acredita
+diecisiete territorios, familias, F o CI completo. El padre conserva el cotejo
+300 Madrid, inventario/generados y CI Nix limpio/publicación.
+
+5. Conservación y límites operativos
+Trabajo en raíz sólo lectura; sin subdelegación, VCS, push, worktree ni browser.
+PESADO2: una única suite propia y un único worker; comandos de scripts/pruebas
+con timeout y límite al grupo de procesos. Entrega sin PDF/base64 redundante,
+node_modules, venv ni cachés. Los ocho hashes vigilados antes/después son idénticos.
+rg no estaba disponible tampoco en el entorno indicado; se informó en la salida
+de herramientas y se usaron lecturas directas y búsquedas acotadas alternativas.
+Hubo dos intentos auxiliares de shell corregidos antes de ejecutar validaciones
+y una comprobación de formato de parche ajustada a unified diff; no fueron
+fallos del producto ni llevaron a modificar fuentes o expectativas.
