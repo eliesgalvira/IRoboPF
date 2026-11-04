@@ -18,6 +18,33 @@ la cobertura familiar fuera de Madrid 2025 ni acredita documentalmente el
 núcleo nuevo. [Alcance del cierre](reforma-motor/bloque-e/CIERRE.md) y
 [balance A–F con estimaciones](BALANCE-A-F.md).
 
+Publicado en `ab29bae79b238f1d96b568cd1ba3d4b9688985fb`; `checks` y `corpus`
+correctos en la [ejecución remota 41863400023](https://github.com/eliesgalvira/IRoboPF/actions/runs/41863400023).
+
+## Continuación de A y demostración de C
+
+Se reanuda el candidato incompleto de escalas y mínimos de A sobre los
+extractores corregidos. La entrega anterior conserva 11.204 ocurrencias
+deduplicadas; sus cifras no se aceptan como cobertura verificada.
+
+De C se recibe una demostración de transporte oficial remoto, secuencial y
+reanudable, con 16 ejecuciones PDF/SES: siete recargas de casos conservados,
+un discriminante de retención, siete ejercicios 2018–2024 y un piloto DA61.
+Se han preparado 2.020 entradas, todavía sin ejecutar como lote masivo.
+La revisión independiente exige cinco correcciones antes de ampliar: ámbito
+SES, cobertura mínima de comparación, integridad e identidad al reutilizar,
+recuperación de escrituras parciales y cotejo PDF anterior a la aceptación.
+El candidato corregido del orquestador pasa 21 métodos de regresión y conserva
+las 16 capturas anteriores. Un piloto nuevo obtiene −721,23 con cotejo previo
+a su aceptación; su repetición verifica la evidencia antes de reutilizarla.
+Se conserva un intento previo fallido por timeout del diálogo, sin resultado
+aceptado. El contraste independiente del candidato está pendiente. Falta conectar la
+API del commit actual. El cotejo con un snapshot antiguo del motor no demuestra
+esa conexión. Siguen pendientes el
+adaptador de 2017 y la recuperación ejecutable de PADRE; los intentos fallidos
+no prueban la indisponibilidad de todas sus versiones. Los originales y los
+registros con identificadores efímeros permanecen privados, fuera del producto.
+
 ## Corrección técnica del 4 de noviembre
 
 Los cinco defectos pendientes de unidades/enlaces e IPC/SS están corregidos y
@@ -77,7 +104,7 @@ Las ampliaciones regionales de deducciones y el censo automático de A continúa
 | --- | --- |
 | A. Datos de 2012–2026 | Extractor corregido y contrastado en el piloto, incluido RP07. Recibidas extracciones parciales de escalas y mínimos de 2012–2018 y 2019–2026; falta completar sus enlaces. IPC/SS: extracción parcial integrada con cinco correcciones técnicas; 13 coincidencias IPC y alcances SS aún sin verificar cuando falta contexto documental. Piloto: 277 celdas, 50 coincidencias, 226 sin verificación y una ausencia explícita |
 | B. Comunidades en 2026 | Pendiente de inicio; reutilizará las fuentes de A |
-| C. Simuladores oficiales | Pendiente de inicio |
+| C. Simuladores oficiales | Transporte remoto demostrado con 16 capturas; cinco defectos de aceptación y reanudación en corrección. Conexión API y comparación masiva pendientes |
 | D. Redondeo de cotizaciones | Pendiente de inicio con criterio de comportamiento observado |
 | E. Mínimos familiares | Motor anual común y API revisados, incluida corrección de precisión. Cobertura familiar Madrid 2025 individual; extensión normativa por año/territorio y acreditación del núcleo pendientes |
 | F. Actividad y declaración completa | Encargado; pendiente de productores y contratos anteriores |
