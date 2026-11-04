@@ -25,3 +25,4 @@ run bun run test tests/publicacion-evidencia.test.ts --maxWorkers=1
 run bun tests/cas-local-r27.mjs
 printf '%s\n' 'OMITIDO: ensayo histórico del corpus completo CAS. Ejecutar suite local explícita; esto no acredita ese corpus.'
 run nix develop path:tools/procedencia --command bash scripts/ci-datos.sh
+run nix develop path:tools/procedencia --command bash scripts/ci-simuladores.sh

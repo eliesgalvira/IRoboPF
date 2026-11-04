@@ -74,3 +74,4 @@ jobs:
       - run: timeout -k 30s 12m bun run test tests/publicacion-evidencia.test.ts --maxWorkers=1
       - run: timeout -k 30s 12m bun tests/cas-local-r27.mjs
       - run: timeout -k 30s 12m nix develop path:tools/procedencia --command bash scripts/ci-datos.sh
+      - run: timeout -k 30s 12m nix develop path:tools/procedencia --command bash scripts/ci-simuladores.sh

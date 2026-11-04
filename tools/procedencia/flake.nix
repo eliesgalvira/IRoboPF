@@ -5,7 +5,7 @@
     pkgs = import nixpkgs { system = "x86_64-linux"; };
   in {
     devShells.x86_64-linux.default = pkgs.mkShell {
-      packages = [ pkgs.python313 pkgs.uv pkgs.poppler-utils ];
+      packages = [ pkgs.python313 pkgs.uv pkgs.poppler-utils pkgs.jujutsu ];
       LD_LIBRARY_PATH = "${pkgs.stdenv.cc.cc.lib}/lib";
       UV_PYTHON_DOWNLOADS = "never";
     };

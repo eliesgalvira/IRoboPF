@@ -37,7 +37,10 @@ Ambos pares canonical/replay se reproducen byte a byte con un único censo
 vigente, sin excluir la fuente cambiada por C. Se conservan importes, rechazos,
 propuestas de unidad y conteos; solo cambian las tres razones obsoletas.
 Las 445 coincidencias conservan sus reservas y están en la cola de aplicabilidad.
-Corresponde un contraste independiente acotado antes de integrar el candidato.
+El contraste independiente A1–A2 es favorable: reproduce los dos fallos,
+ejecuta 46 regresiones y seis métodos propios, y reextrae 100 celdas con 101
+bindings AST. Conserva los 1.095 hashes fijados. Se incorporan las regresiones
+al CI antes de publicar el candidato.
 
 Los dos lotes aportan replay idéntico y 40 pruebas propias, según el autor.
 El suplemento de mínimos no añade cobertura: se detiene ante una referencia
@@ -76,10 +79,11 @@ simbólico. El candidato corregido del orquestador pasa 14 métodos portables,
 22 privados y seis del contraste adaptado; mantiene 224 coincidencias y las
 17 filas incompletas. El contraste acotado de las tres correcciones es favorable:
 14 métodos portables, 22 privados, seis adaptados y cinco propios pasan;
-los seis fallos originales se reproducen sobre las preimágenes. Falta integrar
-el candidato aprobado en el CI reproducible y publicarlo. La integración de CI
-está preparada: incluye las pruebas portables y el operador real, con Jujutsu
-en el entorno fijado; se inicia la comprobación completa antes de publicarla.
+los seis fallos originales se reproducen sobre las preimágenes. La integración
+del candidato aprobado en CI está comprobada: incluye las pruebas portables y
+el operador real, con Jujutsu en el entorno fijado. El CI completo local termina
+con salida cero; lint y tipos pasan, con 18 advertencias existentes. Se incorpora
+el candidato a la rama con el inventario y el pin de la proyección actualizados.
 El trabajo posterior es demostrar la equivalencia de configuración de las
 simulaciones; no acreditar hechos reales de personas ficticias. Los recibos
 fijan base, inventario de fuentes y entorno del

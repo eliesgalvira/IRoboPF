@@ -54,3 +54,23 @@ del corpus. Para ejecutar sólo este bloque:
 ```sh
 timeout -k 30s 12m nix develop path:tools/procedencia --command bash scripts/ci-datos.sh
 ```
+
+`scripts/ci-simuladores.sh` añade los 14 métodos portables del transporte y
+88 pruebas Vitest de proyección, composición y referencias Open. Incluye el
+operador Bun real con entradas válidas y rechazo por campo sobrante. Las
+capturas oficiales privadas y la campaña masiva siguen fuera de estos fixtures.
+
+Ese operador necesita Jujutsu para identificar su base. El entorno Nix fijado
+incluye `jj`; en GitHub Actions se inicializa sobre el checkout Git normal de
+la acción. Se rechaza un `.git` que sea archivo de worktree. En local se usa
+el repositorio Jujutsu existente, sin inicializar ni copiar otro checkout:
+
+```sh
+timeout -k 30s 12m nix develop path:tools/procedencia --command bash scripts/ci-simuladores.sh
+```
+
+La proyección de seis componentes de cuota aprobada en C actualiza únicamente
+el pin de `trabajo-anual/conexion.ts` al SHA-256
+`f765ec216bb9892b9936054a619fedd1054600d34f40a5695aec9bd55b7a1eb3`.
+No cambia las siete referencias monetarias ni se atribuye aceptación fiscal
+a los resultados del operador.
