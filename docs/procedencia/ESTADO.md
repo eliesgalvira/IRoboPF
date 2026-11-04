@@ -39,8 +39,10 @@ propuestas de unidad y conteos; solo cambian las tres razones obsoletas.
 Las 445 coincidencias conservan sus reservas y están en la cola de aplicabilidad.
 El contraste independiente A1–A2 es favorable: reproduce los dos fallos,
 ejecuta 46 regresiones y seis métodos propios, y reextrae 100 celdas con 101
-bindings AST. Conserva los 1.095 hashes fijados. Se incorporan las regresiones
-al CI antes de publicar el candidato.
+bindings AST. Conserva los 1.095 hashes fijados. Las regresiones están incorporadas
+al CI: la entrada completa de datos pasa con 121 métodos Python y los controles
+IPC/SS del motor. Se integra el candidato con sus antecedentes, reservas y
+manifiestos; A sigue abierto por los pendientes siguientes.
 
 Los dos lotes aportan replay idéntico y 40 pruebas propias, según el autor.
 El suplemento de mínimos no añade cobertura: se detiene ante una referencia
@@ -84,6 +86,11 @@ del candidato aprobado en CI está comprobada: incluye las pruebas portables y
 el operador real, con Jujutsu en el entorno fijado. El CI completo local termina
 con salida cero; lint y tipos pasan, con 18 advertencias existentes. Se incorpora
 el candidato a la rama con el inventario y el pin de la proyección actualizados.
+Publicado C en `a16b1438b407c55545611d7efaf68f1611e4a940`.
+Las cuatro entregas de integración, revisión y correcciones se retiran tras
+preservar 2.398 objetos únicos y comprobar sus hashes. Los manifiestos de retirada
+conservan su relación con rutas y commit; los originales activos del transporte
+histórico permanecen separados para continuar C.
 El trabajo posterior es demostrar la equivalencia de configuración de las
 simulaciones; no acreditar hechos reales de personas ficticias. Los recibos
 fijan base, inventario de fuentes y entorno del

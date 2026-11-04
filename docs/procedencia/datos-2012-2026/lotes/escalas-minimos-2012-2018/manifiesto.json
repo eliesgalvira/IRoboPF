@@ -1,0 +1,2045 @@
+{
+  "version": "correcciones-resultados-20261104",
+  "base": "a818ccb2e3c4ca5695ef3ad20d52a65b94c44dec",
+  "completeA": false,
+  "legalAcceptance": "pending",
+  "independentReview": {
+    "status": "favorable acotado A1-A2",
+    "manifestSha256": "5abcd3040837356f681ad2afadf1a461fb9e836bca030f8933bf60774231669a",
+    "candidateManifestSha256": "6529c828d1f6688d0848328a7a310f8d86398a3e23085463620ad97a7e90286c",
+    "reportSha256": "ab8ddb723c7d4a784a70e910a3fb22ae13c7d1e7505f0294dbc81cc4c8652854",
+    "fiscalAcceptance": "pending"
+  },
+  "canonical": {
+    "sha256": "a50d8038e2521793794a716b7998f2243f31231e4603717026a5bf481b6094f5",
+    "size": 105005,
+    "mediaType": "application/json"
+  },
+  "replay": "byte-identical; separate processes; pinned census reused",
+  "counts": {
+    "extraction-absent": 1,
+    "match": 176,
+    "not-verifiable": 3925
+  },
+  "occurrences": {
+    "match": 130,
+    "not-applicable": 237,
+    "not-verifiable": 5109
+  },
+  "reasons": {
+    "integration-unit-or-scope-review": 1910,
+    "selector-not-implemented": 1668,
+    "simulation-not-official-territory": 237,
+    "table-extraction-rejected": 1531
+  },
+  "tableErrors": 197,
+  "rejectedCells": 1904,
+  "queue": {
+    "mediaType": "application/json",
+    "sha256": "99cc887f81bae16aa8d5908ee5fb3acc241d98cef08081abd5580d84fefdbeca",
+    "size": 6660325
+  },
+  "balance": {
+    "mediaType": "application/json",
+    "sha256": "78729f35e236b9e94f98532c0e2adcb432d9326de3e35829e73b1e49c5588684",
+    "size": 6953330
+  },
+  "inputs": {
+    "mapping": {
+      "mediaType": "application/json",
+      "sha256": "3ccf7dcff3407284c1128ff552c208bd2e68a267c02d30612066be3cd86579db",
+      "size": 3422374
+    },
+    "obligations": {
+      "mediaType": "application/json",
+      "sha256": "ba3281578294e649e8a65923a365a818cbf9f1d845649343df1e2873aa9208b8",
+      "size": 2734311
+    },
+    "proposals": {
+      "mediaType": "application/json",
+      "sha256": "42832bcfcc24b545b0b5887d14310ec2b848f7a8f011ee40af3facfadb40d3ff",
+      "size": 2274098
+    },
+    "scope": {
+      "mediaType": "application/json",
+      "sha256": "8a7a4e9f0f939da78addd2f6f18bf85e7875599353f5edf2081be65c9b9119c7",
+      "size": 2738589
+    }
+  },
+  "inventory": {
+    "censo-completo.json": {
+      "mediaType": "application/json",
+      "sha256": "bbf1ff33699b3b2ab1682934839557744dad3005f76e41c26d3493423d5bf28e",
+      "size": 88665940
+    },
+    "dependencias-runtime.json": {
+      "mediaType": "application/json",
+      "sha256": "1009562884e16c97e722f27f6903c129c03f87849d2e5c5a28e41ef70f5447cc",
+      "size": 258533
+    },
+    "inventario-bindings.json": {
+      "mediaType": "application/json",
+      "sha256": "7af4560e2b16c944f5be79d2875f4107af2b60ae90f1827dbd047b5d3bb5832c",
+      "size": 3605421
+    },
+    "inventario-cobertura.json": {
+      "mediaType": "application/json",
+      "sha256": "384d409cd5a575164780676e12978f86302b6ddb932807a7f02e8edd3439b8b8",
+      "size": 61798
+    },
+    "inventario-deducciones.json": {
+      "mediaType": "application/json",
+      "sha256": "6d58eebb24b366da3a9d0a1ec18aceeef8b66211b659c56d86c9ee6bb27c40ea",
+      "size": 1360243
+    },
+    "inventario-forales.json": {
+      "mediaType": "application/json",
+      "sha256": "8c528a2b4715892417f5b2d2bcfab6bb3a08bb5ad864ec957e7c8c6b5ab5543e",
+      "size": 1059
+    },
+    "inventario-indice-0000.json": {
+      "mediaType": "application/json",
+      "sha256": "b01496d772d456fe2217a3601701d4c36d9c3b663a4143ce4bf1d4d73b5a467e",
+      "size": 41502
+    },
+    "inventario-indice-0001.json": {
+      "mediaType": "application/json",
+      "sha256": "c59e8add9c12c38ad0b3fcdbe84c91bcf657c1f5d9c0db628e372f09abe77012",
+      "size": 41502
+    },
+    "inventario-indice-0002.json": {
+      "mediaType": "application/json",
+      "sha256": "bcbfa223d94e33299cb881ccc8c8364891f569a775578b60eb23da6aed63faf8",
+      "size": 41502
+    },
+    "inventario-indice-0003.json": {
+      "mediaType": "application/json",
+      "sha256": "d1c4fdc4ac04e4db7f60ed5914d005a0fc353d8a22a12ab5a044ad4bc368c694",
+      "size": 41502
+    },
+    "inventario-indice-0004.json": {
+      "mediaType": "application/json",
+      "sha256": "3cb9c43645ca87260d791d85a83b35ef41aff9c4703a7823b7ac458d365fb681",
+      "size": 41502
+    },
+    "inventario-indice-0005.json": {
+      "mediaType": "application/json",
+      "sha256": "e6714cee78179cd81137d37ac9a230aeb6225dbedbd815ce589a90b438b6ade0",
+      "size": 41502
+    },
+    "inventario-indice-0006.json": {
+      "mediaType": "application/json",
+      "sha256": "fcd26066022a9c944d7e59c10cd24949b648cc82d544a6e22566f95b6f5cb119",
+      "size": 41502
+    },
+    "inventario-indice-0007.json": {
+      "mediaType": "application/json",
+      "sha256": "95653bda515a0a12c8db74224ad533cccdba7d3df96d184433b79b1df2334511",
+      "size": 41502
+    },
+    "inventario-indice-0008.json": {
+      "mediaType": "application/json",
+      "sha256": "d8410c7f1bdab39e798471fae7752459b0d45b5f7b3c0d71449283d02b2f6289",
+      "size": 41502
+    },
+    "inventario-indice-0009.json": {
+      "mediaType": "application/json",
+      "sha256": "f3fffd5e1eb2ce8c6e765a78e917f14029e500b48dfe4b866992e6ced8678a79",
+      "size": 41502
+    },
+    "inventario-indice-0010.json": {
+      "mediaType": "application/json",
+      "sha256": "d4771fb61392cdcf7eb79803601eabf754464e626797e0f7cd545dfd7cd23d8b",
+      "size": 41502
+    },
+    "inventario-indice-0011.json": {
+      "mediaType": "application/json",
+      "sha256": "a3a6f074f76df828c67fc701e2d402bc07854331abda90c11e0825b5fb5b1317",
+      "size": 41502
+    },
+    "inventario-indice-0012.json": {
+      "mediaType": "application/json",
+      "sha256": "38a8d527d5a65b3f2b72ace29b04a731d76b14a9b467c26b599500923e5d8214",
+      "size": 41502
+    },
+    "inventario-indice-0013.json": {
+      "mediaType": "application/json",
+      "sha256": "9fce681d0eb7e6a59c73d116c14676cac632b872e0a298d3f9ff7710b8724c3e",
+      "size": 41502
+    },
+    "inventario-indice-0014.json": {
+      "mediaType": "application/json",
+      "sha256": "d0693861871f319cf216476ae6a28df4fc8c12e248bffcfb304213653b11dcb0",
+      "size": 41502
+    },
+    "inventario-indice-0015.json": {
+      "mediaType": "application/json",
+      "sha256": "ff97af788dae4c7c72a6e390764cc710b1a45abce55ad7d716cf290a9d0bc8a9",
+      "size": 41502
+    },
+    "inventario-indice-0016.json": {
+      "mediaType": "application/json",
+      "sha256": "a3e0dfdba35e1898d0d6cf338a805c0662ccacd02df67e9120134fdd2430ff95",
+      "size": 41502
+    },
+    "inventario-indice-0017.json": {
+      "mediaType": "application/json",
+      "sha256": "b13d1dd8cea5f275d9a697840a99ecdbe70ad7de24f89202b4964cc6512e5212",
+      "size": 41502
+    },
+    "inventario-indice-0018.json": {
+      "mediaType": "application/json",
+      "sha256": "b279bb104cfe9df6f0e8406a41e2b7499801b3aac672a45a0557818a41f6bcc6",
+      "size": 41502
+    },
+    "inventario-indice-0019.json": {
+      "mediaType": "application/json",
+      "sha256": "56d97009ea983d3e53cc150f14aa158c791f0d0f772395af98d30e4cf803fded",
+      "size": 41502
+    },
+    "inventario-indice-0020.json": {
+      "mediaType": "application/json",
+      "sha256": "d61a73846d08dddb77c4b47521d3c890754d6d8407a7d1e1c56c7d2667bb7f2b",
+      "size": 41502
+    },
+    "inventario-indice-0021.json": {
+      "mediaType": "application/json",
+      "sha256": "6ca15a07ec9364d39ae39b4825af4d2039042e51ccee8e83b9e4dad0b3959ab5",
+      "size": 41502
+    },
+    "inventario-indice-0022.json": {
+      "mediaType": "application/json",
+      "sha256": "4f1ba0fa530f338d37730520192978107acafa68891428d90926856d545b5d8e",
+      "size": 41502
+    },
+    "inventario-indice-0023.json": {
+      "mediaType": "application/json",
+      "sha256": "806c2f6ecf8a47c8b17d231e871750396acf01d91bc3c1050e62f92ff2c039cb",
+      "size": 41502
+    },
+    "inventario-indice-0024.json": {
+      "mediaType": "application/json",
+      "sha256": "353ba2c5352746d158af0546c85ae81da00795d760a3a1f50c507524845cf5b2",
+      "size": 41502
+    },
+    "inventario-indice-0025.json": {
+      "mediaType": "application/json",
+      "sha256": "8e4d4606b104c031ae1f1e452713ff6e568451d1b5a48bef800c3c1134c009a3",
+      "size": 41502
+    },
+    "inventario-indice-0026.json": {
+      "mediaType": "application/json",
+      "sha256": "832112326a1726611e502d8e5988369794b36fb93e55bb9e4381a05d8a043905",
+      "size": 41502
+    },
+    "inventario-indice-0027.json": {
+      "mediaType": "application/json",
+      "sha256": "29de4d3fcce5f032eb5ea0523eec2bdc0edbff903a718f83a6d192f33e13a764",
+      "size": 41502
+    },
+    "inventario-indice-0028.json": {
+      "mediaType": "application/json",
+      "sha256": "247071aef92d27760a3c475b990c22774de8578d534cb9d432e186eaa662f2d3",
+      "size": 41502
+    },
+    "inventario-indice-0029.json": {
+      "mediaType": "application/json",
+      "sha256": "be9cf070d1b588b14c9688b2f72f32a329cf41c444cd8921e018c917020ed6b6",
+      "size": 41502
+    },
+    "inventario-indice-0030.json": {
+      "mediaType": "application/json",
+      "sha256": "2da1a3b8259761635cfd5710fbd51c0ab326c162656f9711ca00eb3e6e6a5205",
+      "size": 41502
+    },
+    "inventario-indice-0031.json": {
+      "mediaType": "application/json",
+      "sha256": "a67880c58f3d7d69a1f31151c399ffe21467c92060f56cfd27abadf570f572b3",
+      "size": 41502
+    },
+    "inventario-indice-0032.json": {
+      "mediaType": "application/json",
+      "sha256": "641811e7853af79a1fe7590c22ae617602a4be08c984155f01e0847a02470a18",
+      "size": 41502
+    },
+    "inventario-indice-0033.json": {
+      "mediaType": "application/json",
+      "sha256": "e67d8b076ccc15963e7992fbf266cd10c24615fc19b9f0304be35615ba00bcbe",
+      "size": 41502
+    },
+    "inventario-indice-0034.json": {
+      "mediaType": "application/json",
+      "sha256": "b6fa612ab97176d0b41975f24e05cf37be38f64b4cf5a30ae51ca0dc8613a1a0",
+      "size": 41502
+    },
+    "inventario-indice-0035.json": {
+      "mediaType": "application/json",
+      "sha256": "5aab270f1df5e66e19e38c66aa2abea2d0182fc7ed3c463aeb2cd5ef0149714e",
+      "size": 41502
+    },
+    "inventario-indice-0036.json": {
+      "mediaType": "application/json",
+      "sha256": "ebcb2b63cc3b164073eac0f299e2a91880d26633b7168902d3fe9c78d94d2227",
+      "size": 41502
+    },
+    "inventario-indice-0037.json": {
+      "mediaType": "application/json",
+      "sha256": "435d3b0f53b8442eeaf4af61bed311767cb483626e0a46084a8925d3452edb7c",
+      "size": 41502
+    },
+    "inventario-indice-0038.json": {
+      "mediaType": "application/json",
+      "sha256": "2bd9911bd8088dfbccbde1918f509e74ac502912d6d40140d40de9f0dc444527",
+      "size": 41502
+    },
+    "inventario-indice-0039.json": {
+      "mediaType": "application/json",
+      "sha256": "0ae40101830551ef05bd053a209aafe1713e81954a26d7c7ebcf477c8bfcf701",
+      "size": 41502
+    },
+    "inventario-indice-0040.json": {
+      "mediaType": "application/json",
+      "sha256": "daf915dd9fcff03335f61d8666524d30c2232cf218c68de28042cb2c2619f301",
+      "size": 41502
+    },
+    "inventario-indice-0041.json": {
+      "mediaType": "application/json",
+      "sha256": "68f476e6370ba279174fdfea90f0d198201573fbd41a672b1136c6eeefca0cac",
+      "size": 41502
+    },
+    "inventario-indice-0042.json": {
+      "mediaType": "application/json",
+      "sha256": "237dc4c237e0d920f4d3949fddcd8dd94904a9e6d86ed240f5363729f9f801f2",
+      "size": 41502
+    },
+    "inventario-indice-0043.json": {
+      "mediaType": "application/json",
+      "sha256": "877c217fd552ec14fd33f6daf51396348da838133186345390330690b19be831",
+      "size": 41502
+    },
+    "inventario-indice-0044.json": {
+      "mediaType": "application/json",
+      "sha256": "e8c08e69502cbdf10253cdd2523bc10656deed733487d66875225c6da40392c7",
+      "size": 41502
+    },
+    "inventario-indice-0045.json": {
+      "mediaType": "application/json",
+      "sha256": "bdd7fc3c24781295be9c5c89f935943f90a45d2a12b5d05c3540e98e8a8f587a",
+      "size": 41502
+    },
+    "inventario-indice-0046.json": {
+      "mediaType": "application/json",
+      "sha256": "c1a2af9f574535e80b0b3d7ca6ee6fc3edff0de03f83dbebfe4fd5e648ad44a1",
+      "size": 41502
+    },
+    "inventario-indice-0047.json": {
+      "mediaType": "application/json",
+      "sha256": "fb7df5a453fe6894ee738cdf354009122e4562259b99db2e2c7e9ac1c5d705e8",
+      "size": 41502
+    },
+    "inventario-indice-0048.json": {
+      "mediaType": "application/json",
+      "sha256": "5f2686c1da1576528c9b768da950bebaf954a657074868548f7b0f6c75f3df6f",
+      "size": 41502
+    },
+    "inventario-indice-0049.json": {
+      "mediaType": "application/json",
+      "sha256": "3f070744dc90063c75a5f4b77eaeb533fc2a5ce9337d129b0fbf09d95dc53a94",
+      "size": 41502
+    },
+    "inventario-indice-0050.json": {
+      "mediaType": "application/json",
+      "sha256": "cda83818ca039f5d84c57c2b671654f263832ed57ba22cbf2754e5b61e002e58",
+      "size": 41502
+    },
+    "inventario-indice-0051.json": {
+      "mediaType": "application/json",
+      "sha256": "4af5427a7fb536532ecc1a6a22ff67e4c141c5f0f2562f3a0daff26b3a9c16a1",
+      "size": 41502
+    },
+    "inventario-indice-0052.json": {
+      "mediaType": "application/json",
+      "sha256": "45ea21adf6089c6d153161b06c085066560ead29ca845131364d6f673d49bae8",
+      "size": 41502
+    },
+    "inventario-indice-0053.json": {
+      "mediaType": "application/json",
+      "sha256": "3be8031d06be39e5a3377423f1adcab493329bc2ab9401cfb87f24c5fd029b71",
+      "size": 41502
+    },
+    "inventario-indice-0054.json": {
+      "mediaType": "application/json",
+      "sha256": "a558465ba6d0a40b7d164f00a7beeab688676a7c5c005840ffd6cc0432a03c4d",
+      "size": 41502
+    },
+    "inventario-indice-0055.json": {
+      "mediaType": "application/json",
+      "sha256": "36091d44d903f51a8aad74e8e529ab0f2aa3c99dae232046623eab338860e402",
+      "size": 41502
+    },
+    "inventario-indice-0056.json": {
+      "mediaType": "application/json",
+      "sha256": "913b232bfbfa01ba69c1e080c641b6de00da0841dd54e600377c47348dc6c6e4",
+      "size": 41502
+    },
+    "inventario-indice-0057.json": {
+      "mediaType": "application/json",
+      "sha256": "3ae0239fe0da4fe3b72328f5a6172e24b5e9d8c134f809344f89429834bf44c2",
+      "size": 41502
+    },
+    "inventario-indice-0058.json": {
+      "mediaType": "application/json",
+      "sha256": "b3b4482f62823174a726fe444fee95b5430a4485271b5665df6494be43b5a8ca",
+      "size": 41502
+    },
+    "inventario-indice-0059.json": {
+      "mediaType": "application/json",
+      "sha256": "40343552ced7a509814ade2c4b18bd159a271e513b2bd4c79fab5e4be5f0291e",
+      "size": 41502
+    },
+    "inventario-indice-0060.json": {
+      "mediaType": "application/json",
+      "sha256": "d39f3491b35957f7ad413dae6b59bfcf5db1a3e4cf2ce7735eb45de0343dd49f",
+      "size": 41502
+    },
+    "inventario-indice-0061.json": {
+      "mediaType": "application/json",
+      "sha256": "4a79cf43603e7625832b0cb31e5d923b43e5b64e6c53f93af90dacbf70bc3af4",
+      "size": 41502
+    },
+    "inventario-indice-0062.json": {
+      "mediaType": "application/json",
+      "sha256": "93bfc96de0612ec655c8a5a838c55ec39aebb50e58b66894120f0f81791107ae",
+      "size": 41502
+    },
+    "inventario-indice-0063.json": {
+      "mediaType": "application/json",
+      "sha256": "0c14b811878dd1f1c16dd3855561c4c7248610a1eabb7e8b3cdcd9a2f2df4ed3",
+      "size": 41502
+    },
+    "inventario-indice-0064.json": {
+      "mediaType": "application/json",
+      "sha256": "fd90a373a7bfd76261c6903ee1e4a734a3ad9a7562b79fd550d36fddc0f24c0a",
+      "size": 41502
+    },
+    "inventario-indice-0065.json": {
+      "mediaType": "application/json",
+      "sha256": "6d30993ed85d21e54edd675cc03e6b9290c49358f021ee83fd2ffffb184fa7b4",
+      "size": 41502
+    },
+    "inventario-indice-0066.json": {
+      "mediaType": "application/json",
+      "sha256": "5def4aa79d3a25b51ba847a207058bd52ba1b82d9bfae69cee4a1c667959aba3",
+      "size": 41502
+    },
+    "inventario-indice-0067.json": {
+      "mediaType": "application/json",
+      "sha256": "0b22e88b1677d948475ce8bb504969fdb22835fc6ff6a1ea8c1d95ceb8042748",
+      "size": 41502
+    },
+    "inventario-indice-0068.json": {
+      "mediaType": "application/json",
+      "sha256": "7bd64e074d6b8f51d6cee2fb3a67acc4aee08fb08f0d9da52967a9fe0e6bb1c0",
+      "size": 41502
+    },
+    "inventario-indice-0069.json": {
+      "mediaType": "application/json",
+      "sha256": "74786c499ba4980eec7d5acaa7ca44acde7d85e8be4e76a9fca0fab0cafc4816",
+      "size": 41502
+    },
+    "inventario-indice-0070.json": {
+      "mediaType": "application/json",
+      "sha256": "892c1ca1f266db12ce89434cc03f8dc46407b3d76520de7554da0efff65e54bb",
+      "size": 41502
+    },
+    "inventario-indice-0071.json": {
+      "mediaType": "application/json",
+      "sha256": "b59743de05811d9c02f7b0375ac019f06efc318e70281e07977cc81ec02c8dad",
+      "size": 41502
+    },
+    "inventario-indice-0072.json": {
+      "mediaType": "application/json",
+      "sha256": "00e35c0476e344075dc48fd67634961b11bde4b6abde44a9aba2ac99ea07ab8e",
+      "size": 41502
+    },
+    "inventario-indice-0073.json": {
+      "mediaType": "application/json",
+      "sha256": "9764a7217dace74dd6f431eea42b44d6df3f81fcf668123c4de66b08d47bd93d",
+      "size": 41502
+    },
+    "inventario-indice-0074.json": {
+      "mediaType": "application/json",
+      "sha256": "710f28f23e50a8edd3315abb69b3c5dc37d7f418e6bc720d6c32b3ae78459c4c",
+      "size": 41502
+    },
+    "inventario-indice-0075.json": {
+      "mediaType": "application/json",
+      "sha256": "87b4598c5eaaa42187466af0a02fadfc9d308b212a293e9de937ef17d12e8ff8",
+      "size": 41502
+    },
+    "inventario-indice-0076.json": {
+      "mediaType": "application/json",
+      "sha256": "24571db38261f4d6ab1d01e52c1016b7f5c40961e2a15123b1ad7532ffb92539",
+      "size": 41502
+    },
+    "inventario-indice-0077.json": {
+      "mediaType": "application/json",
+      "sha256": "89d18b7287417a0542bd781240abf1ab1b3b82e19d6ac95bf67379f134953931",
+      "size": 41502
+    },
+    "inventario-indice-0078.json": {
+      "mediaType": "application/json",
+      "sha256": "4647bff9d7410e13189a8e45ed0c3efb376dea55cee1e279a674e6300ad17b7d",
+      "size": 41502
+    },
+    "inventario-indice-0079.json": {
+      "mediaType": "application/json",
+      "sha256": "e6ee9f547bce79e3c33065d0f1ea76020528d6557d3193e317a96229854d47f8",
+      "size": 41502
+    },
+    "inventario-indice-0080.json": {
+      "mediaType": "application/json",
+      "sha256": "d6302c8d80eff4d1736b6d6e9917ad3a8ef51a9fb3b57ce833d08ed2a5208429",
+      "size": 41502
+    },
+    "inventario-indice-0081.json": {
+      "mediaType": "application/json",
+      "sha256": "cf64ff787f12f325cc8f44d03616e6c4a646b11ba81f74cdcbb59954a2f61317",
+      "size": 41502
+    },
+    "inventario-indice-0082.json": {
+      "mediaType": "application/json",
+      "sha256": "9df82e095c75f48de9df43ce4b2fb5ca08ed81ed960d208488fd8c4c829eccc6",
+      "size": 41502
+    },
+    "inventario-indice-0083.json": {
+      "mediaType": "application/json",
+      "sha256": "690d6bb6990cf7a730adaf5cbc689311676165278b63e5c539aee5dc5e02b184",
+      "size": 41502
+    },
+    "inventario-indice-0084.json": {
+      "mediaType": "application/json",
+      "sha256": "433f165790ee17a8bf4ccfd7abd6782b92fe945eebf581f00663faa860a56caa",
+      "size": 41502
+    },
+    "inventario-indice-0085.json": {
+      "mediaType": "application/json",
+      "sha256": "13c5c2d1a4a7e9e8c46fc2e28860b3306e31e07abb5d84f1fc93d2a0975e1a7c",
+      "size": 41502
+    },
+    "inventario-indice-0086.json": {
+      "mediaType": "application/json",
+      "sha256": "c0a1a8236776ce73c727708cb6d715479d82ca5f4a91ed5be7cd6a5ddadbe142",
+      "size": 41502
+    },
+    "inventario-indice-0087.json": {
+      "mediaType": "application/json",
+      "sha256": "8791c51332c29bb73b692219b1dc230528bcf383af0f34631d9bec0d6b939da8",
+      "size": 41502
+    },
+    "inventario-indice-0088.json": {
+      "mediaType": "application/json",
+      "sha256": "1751ebe4a1fd117ac153ccee79d386f310a8ab9579872ed57ae7c015cfbfaa43",
+      "size": 41502
+    },
+    "inventario-indice-0089.json": {
+      "mediaType": "application/json",
+      "sha256": "332685e073623c57ad81385bcff5c84db02d7911ab76038a5c412308cab50817",
+      "size": 41502
+    },
+    "inventario-indice-0090.json": {
+      "mediaType": "application/json",
+      "sha256": "72cf8f0f2d1e5fc2ad45e32825d239bcbc4d03f7513bbf6e193a843e6fd1c42b",
+      "size": 41502
+    },
+    "inventario-indice-0091.json": {
+      "mediaType": "application/json",
+      "sha256": "ddeda655225e86daca770444cf9b6535e94ff8098e984ca020ef9db6a66e3e77",
+      "size": 41502
+    },
+    "inventario-indice-0092.json": {
+      "mediaType": "application/json",
+      "sha256": "2be03c89933a699af44f2577d882f90a8888ce616bff6cb561ae569277606757",
+      "size": 41502
+    },
+    "inventario-indice-0093.json": {
+      "mediaType": "application/json",
+      "sha256": "00a2ba64c3ab36b7c91af1bb15ba3c9a06c60b478f649b7c6b73aa8b76e482b7",
+      "size": 41502
+    },
+    "inventario-indice-0094.json": {
+      "mediaType": "application/json",
+      "sha256": "08f245609246dc469d4c8159a2336e7b16ccb0e92396c9665215160e5b118c3e",
+      "size": 41502
+    },
+    "inventario-indice-0095.json": {
+      "mediaType": "application/json",
+      "sha256": "df97290b1edea31d8ff05f31945012939df726e940952886f63f3a9bd41d6461",
+      "size": 41502
+    },
+    "inventario-indice-0096.json": {
+      "mediaType": "application/json",
+      "sha256": "ea7f145b17a699422b80797e0e49fd6841c8aac1475cebed7a147f21811d368f",
+      "size": 41502
+    },
+    "inventario-indice-0097.json": {
+      "mediaType": "application/json",
+      "sha256": "ac9ef8ee83d9d6cb13a37aceb786d313399adb0e47fd5d447f44e14ca478a087",
+      "size": 41502
+    },
+    "inventario-indice-0098.json": {
+      "mediaType": "application/json",
+      "sha256": "55d23f7ac3c23163bbb63b23a4bfd2c954a8fc926dfb70cc5aa5ea3306dd040b",
+      "size": 41502
+    },
+    "inventario-indice-0099.json": {
+      "mediaType": "application/json",
+      "sha256": "29e6a89964bd91b8b8f5f648a60197a5a3cfeaa5adb9be103313f6185762d828",
+      "size": 41502
+    },
+    "inventario-indice-0100.json": {
+      "mediaType": "application/json",
+      "sha256": "38303bd8d3d80e71d95907dcccd8bbda3a579dfa7fdca0faa000fad6dda812e9",
+      "size": 41502
+    },
+    "inventario-indice-0101.json": {
+      "mediaType": "application/json",
+      "sha256": "17ca9aad6bb7e159260e10c1d22516895c9a3922f6c0a31ce5622138f3ca9cd5",
+      "size": 41502
+    },
+    "inventario-indice-0102.json": {
+      "mediaType": "application/json",
+      "sha256": "39af5e48547ca1c94fae54959c4f248d2d5a5144967828959b932b61c77937bc",
+      "size": 41502
+    },
+    "inventario-indice-0103.json": {
+      "mediaType": "application/json",
+      "sha256": "8b28ceaf93b71d653c2301fd54fb95b214bf07f2d1ef98eeb428b0cf8eb9dfe5",
+      "size": 41502
+    },
+    "inventario-indice-0104.json": {
+      "mediaType": "application/json",
+      "sha256": "e23ff644692c380da478070fce5cb1c6ee4b7857faf3f0bb562c248c74d45ed3",
+      "size": 41502
+    },
+    "inventario-indice-0105.json": {
+      "mediaType": "application/json",
+      "sha256": "b849dd0978b933c911c8109254a613b8324a9e62b072ad8413b5331389e1e489",
+      "size": 41502
+    },
+    "inventario-indice-0106.json": {
+      "mediaType": "application/json",
+      "sha256": "877e653eaa528b9f2e12f8d92f77f86b1552fb3d5b7a63cdf06c3452b5f1adb4",
+      "size": 41502
+    },
+    "inventario-indice-0107.json": {
+      "mediaType": "application/json",
+      "sha256": "22fd79c1f6ecbeb81938e1b5345e14b7cf7e7b1b1e2e075b2d5bc8e471092a80",
+      "size": 41502
+    },
+    "inventario-indice-0108.json": {
+      "mediaType": "application/json",
+      "sha256": "77fdd9bd9e5eff035cb6942303178406e001feaf41272090d7ac926724061109",
+      "size": 10543
+    },
+    "inventario-indice.json": {
+      "mediaType": "application/json",
+      "sha256": "f74bf6f2307e39fc9d6fcf15878bba6457145d2817bd8ce4e1cb6c5c2d6e2e59",
+      "size": 13845
+    },
+    "inventario-pagina-0000.json": {
+      "mediaType": "application/json",
+      "sha256": "d575f0c9897b2d1f59d654e760c3b7c55182e9675b66e11c079eb3ca0c339bf2",
+      "size": 266569
+    },
+    "inventario-pagina-0001.json": {
+      "mediaType": "application/json",
+      "sha256": "3f5132cda854ac15c1c906e8f5222d790196bcdd3062480da140beda0593fe60",
+      "size": 259567
+    },
+    "inventario-pagina-0002.json": {
+      "mediaType": "application/json",
+      "sha256": "6338e6dfe5cb7dc930e8e4392d41d5e864f3c598bcc790617bb06f0ea9a24e51",
+      "size": 258334
+    },
+    "inventario-pagina-0003.json": {
+      "mediaType": "application/json",
+      "sha256": "39b51b6b317dca3df275728956b80821be21937cd5630fb4bd4112345f6e0a86",
+      "size": 274166
+    },
+    "inventario-pagina-0004.json": {
+      "mediaType": "application/json",
+      "sha256": "96cf42cd252947f93127e7e406aaf8fb9e28f4aa0b171d2551ec4bf436dc3553",
+      "size": 270017
+    },
+    "inventario-pagina-0005.json": {
+      "mediaType": "application/json",
+      "sha256": "9bdf2970bfe71ea1f131b2e2ac67967c741c3c6afeac05af21fc86394789a7b7",
+      "size": 264337
+    },
+    "inventario-pagina-0006.json": {
+      "mediaType": "application/json",
+      "sha256": "d342f25b706bb9484d36145fc5ff73cc9a48de8d63e11deb632fb62a74b2887e",
+      "size": 271309
+    },
+    "inventario-pagina-0007.json": {
+      "mediaType": "application/json",
+      "sha256": "6f29d4cbcb3d235e5e958161f91df7e4ba4de980982fd398d76b385afe091925",
+      "size": 262475
+    },
+    "inventario-pagina-0008.json": {
+      "mediaType": "application/json",
+      "sha256": "590c2f64677381d08c8f7d6e47ceedc87289bcc7f4c92afd812899e2a5634dab",
+      "size": 247250
+    },
+    "inventario-pagina-0009.json": {
+      "mediaType": "application/json",
+      "sha256": "0706b107c586ddb0b993c4aa1e499fcc76eb2e2ea5dd183b621407f91c359ed3",
+      "size": 257516
+    },
+    "inventario-pagina-0010.json": {
+      "mediaType": "application/json",
+      "sha256": "b98778b56c927726399211edba2c7a76bad25bcf1b97f1d8b5650c1ad5363aeb",
+      "size": 254954
+    },
+    "inventario-pagina-0011.json": {
+      "mediaType": "application/json",
+      "sha256": "0e5337198b81c40adedd39eb67c4f7b270d3aea69288522746fcaab7d21c2c03",
+      "size": 266812
+    },
+    "inventario-pagina-0012.json": {
+      "mediaType": "application/json",
+      "sha256": "22ef013c69e3fa74fa0f7e547b7289f504873d349d00076f100469836c671449",
+      "size": 261550
+    },
+    "inventario-pagina-0013.json": {
+      "mediaType": "application/json",
+      "sha256": "5cf69ffd8b6da14ffb2aa300c0198e19a136f46e78e947c1a95aaeaa516d0907",
+      "size": 264828
+    },
+    "inventario-pagina-0014.json": {
+      "mediaType": "application/json",
+      "sha256": "c0fc8b3731a45afa85e510ab8251d84af5b59f110a9f3c2bd63515f9a8ab8309",
+      "size": 255581
+    },
+    "inventario-pagina-0015.json": {
+      "mediaType": "application/json",
+      "sha256": "0f3056972e7eb2bd3f00627b8afd69723cf4ed59fdeffbc4af2644095d1c8d7b",
+      "size": 261530
+    },
+    "inventario-pagina-0016.json": {
+      "mediaType": "application/json",
+      "sha256": "09c7877f92134742ee3d2260da1ab9eee8f90c2bcb780ccc65bec8d86bef2a0c",
+      "size": 253455
+    },
+    "inventario-pagina-0017.json": {
+      "mediaType": "application/json",
+      "sha256": "531668ce7e0a38f6ba86161eb9eb9aa2256295e8c2e46221f89e49b17af2b61f",
+      "size": 263341
+    },
+    "inventario-pagina-0018.json": {
+      "mediaType": "application/json",
+      "sha256": "4f7a930a8918b376db3fda56961f4db5853b1d01ac86f7ad6e6ce8e6cd0f7007",
+      "size": 273986
+    },
+    "inventario-pagina-0019.json": {
+      "mediaType": "application/json",
+      "sha256": "337ae8030c9d385c9ce0cf17cacd37352e1635d612ff08e89fb1c339bf5805f6",
+      "size": 260039
+    },
+    "inventario-pagina-0020.json": {
+      "mediaType": "application/json",
+      "sha256": "962edb3638c07d96441913e23f14921af54400c7cbd94dc73809badbe678676e",
+      "size": 261324
+    },
+    "inventario-pagina-0021.json": {
+      "mediaType": "application/json",
+      "sha256": "4da950abad9d827a681778f8ef1fa2f0dc807099f8322fb672c3f4f67265b872",
+      "size": 257358
+    },
+    "inventario-pagina-0022.json": {
+      "mediaType": "application/json",
+      "sha256": "6aa3ee74df25bb11fc9d418ccbdaa1983b614a4eec48639c56d0c405a1c8d791",
+      "size": 251495
+    },
+    "inventario-pagina-0023.json": {
+      "mediaType": "application/json",
+      "sha256": "8598fcb534f3278655cb1709375ca34235b1f82874df3f3770eb0e28bce92d73",
+      "size": 252762
+    },
+    "inventario-pagina-0024.json": {
+      "mediaType": "application/json",
+      "sha256": "3d788792003c02cd085f34e74163e5b50fcea4473b298220a6eba1de642b4db1",
+      "size": 281991
+    },
+    "inventario-pagina-0025.json": {
+      "mediaType": "application/json",
+      "sha256": "9d47db1ab90f88e0a883d710f4fc83f335415f5e51b6bf8fb6257b452c382bc4",
+      "size": 256604
+    },
+    "inventario-pagina-0026.json": {
+      "mediaType": "application/json",
+      "sha256": "a7cff6b997898beca7b163e65a11e9c493ac3f7ae8a90e9d69038c0aef898d03",
+      "size": 294923
+    },
+    "inventario-pagina-0027.json": {
+      "mediaType": "application/json",
+      "sha256": "9d8d89ef6fcadcfa2a94071dbcf7b920fbb6505b03175fbaa97393ab7c2c563c",
+      "size": 256919
+    },
+    "inventario-pagina-0028.json": {
+      "mediaType": "application/json",
+      "sha256": "53e551e9ab48b5b907515d84c61946b4a8fc1e01ca2aa81d128f170aefd4c590",
+      "size": 263859
+    },
+    "inventario-pagina-0029.json": {
+      "mediaType": "application/json",
+      "sha256": "9dee95f4c715b4277e4f43f18d0ca59d9df417a980bcda25202f956ab88414ad",
+      "size": 252572
+    },
+    "inventario-pagina-0030.json": {
+      "mediaType": "application/json",
+      "sha256": "490c4ae54f57c78ce897a5c379e44c7841d71a6b01a29e9a3771de056596881b",
+      "size": 262176
+    },
+    "inventario-pagina-0031.json": {
+      "mediaType": "application/json",
+      "sha256": "66153336e2f7ddff9fd5cf20cd9dbc9be7be97b47becd3298a6d6f6e82948c1f",
+      "size": 252596
+    },
+    "inventario-pagina-0032.json": {
+      "mediaType": "application/json",
+      "sha256": "ba29d9d429e63bdce9dadf882269f90a4381d0d6ecf007bb9b7186ae42d79914",
+      "size": 289750
+    },
+    "inventario-pagina-0033.json": {
+      "mediaType": "application/json",
+      "sha256": "5c6235861892527a594a4b54b62d2f130f78134bf886d92aece1e4f5e0ae62a3",
+      "size": 319930
+    },
+    "inventario-pagina-0034.json": {
+      "mediaType": "application/json",
+      "sha256": "f576f3cbf01f4016c1cf51f46e1144577ab0bffa99c3bfab512cb896060a8161",
+      "size": 257042
+    },
+    "inventario-pagina-0035.json": {
+      "mediaType": "application/json",
+      "sha256": "338ff9652f55e4dcab1ef6e2d2f95b9d6c95cb73c1517d44cfc76a7d0d386f95",
+      "size": 252639
+    },
+    "inventario-pagina-0036.json": {
+      "mediaType": "application/json",
+      "sha256": "905556b369e796f8994a96834e4eff1b288ba12814de6b7a54f58c2db8ccfe97",
+      "size": 261605
+    },
+    "inventario-pagina-0037.json": {
+      "mediaType": "application/json",
+      "sha256": "e524bd272aded4ed655d1e93ad1de320d8c1d965cd84dc27cad1d3e1e7683538",
+      "size": 258797
+    },
+    "inventario-pagina-0038.json": {
+      "mediaType": "application/json",
+      "sha256": "9b632dc7fd0cf6887fd9a191253e41a564813bb7c3b72223e5b0e7bcbeaf5d59",
+      "size": 248506
+    },
+    "inventario-pagina-0039.json": {
+      "mediaType": "application/json",
+      "sha256": "6834c9f06eea28c61630fc6d801e9413209c1c47d485f25de1412795a2537af8",
+      "size": 265857
+    },
+    "inventario-pagina-0040.json": {
+      "mediaType": "application/json",
+      "sha256": "e2ad7bf72910e6a9c97986c62ba12a5ac148d0a835d09a5b411f97e5272d690e",
+      "size": 260622
+    },
+    "inventario-pagina-0041.json": {
+      "mediaType": "application/json",
+      "sha256": "1570b4601c0bccff81309f53d204cba10f5282673dfa367ae43c1c311b58fad2",
+      "size": 364409
+    },
+    "inventario-pagina-0042.json": {
+      "mediaType": "application/json",
+      "sha256": "2acabefa95578cd91c33d0d3adc010b94981cb0835789c3ef53c61ca6130654f",
+      "size": 262357
+    },
+    "inventario-pagina-0043.json": {
+      "mediaType": "application/json",
+      "sha256": "987919efb2a3aba9adea33fcde3cc9d7f47336a8fb7136b0e9b516986f1f03bb",
+      "size": 255506
+    },
+    "inventario-pagina-0044.json": {
+      "mediaType": "application/json",
+      "sha256": "10927948c316ec4163784ed87bc1da71caec4e530a8f75c73dccc86aca6dff64",
+      "size": 272964
+    },
+    "inventario-pagina-0045.json": {
+      "mediaType": "application/json",
+      "sha256": "994bc049471ff71793e5655b3512e331d816c08eef76197f3a21d65dc184d31b",
+      "size": 261200
+    },
+    "inventario-pagina-0046.json": {
+      "mediaType": "application/json",
+      "sha256": "ef114c9b69c1d4b2ff52f1e39615488cbb67b30041aeed247656b514e8dc9203",
+      "size": 263123
+    },
+    "inventario-pagina-0047.json": {
+      "mediaType": "application/json",
+      "sha256": "b8c20a79e644a21c43f602e5dc575ed1abbf40481ec7a2b7e1527f77d69d171a",
+      "size": 259799
+    },
+    "inventario-pagina-0048.json": {
+      "mediaType": "application/json",
+      "sha256": "c0338f51524b1793dd327ceffe0fdf420c05316d6742ae622639021d9bb2eafa",
+      "size": 272930
+    },
+    "inventario-pagina-0049.json": {
+      "mediaType": "application/json",
+      "sha256": "92e8fdddba11ba88294bba84bff424df3ba0851a9d31b741c157d6128e73919a",
+      "size": 255908
+    },
+    "inventario-pagina-0050.json": {
+      "mediaType": "application/json",
+      "sha256": "70f67aad3bb9fe5ae529e136a760f3e6b673d46f9c4e84f55717f0cfd4867458",
+      "size": 271087
+    },
+    "inventario-pagina-0051.json": {
+      "mediaType": "application/json",
+      "sha256": "32fb8595325b1ec0ed69f18be11f2f151942f272d56c4f3a6b0a89d3d3575291",
+      "size": 277117
+    },
+    "inventario-pagina-0052.json": {
+      "mediaType": "application/json",
+      "sha256": "9db521de17e5de8ad19c8a8c0e954e1c56cb3bd9eb0628c990757af88b93aa29",
+      "size": 267467
+    },
+    "inventario-pagina-0053.json": {
+      "mediaType": "application/json",
+      "sha256": "d80774bbee7ec38a0998f40b8133651528e01265d031d77b9d16ac802c3f6709",
+      "size": 282436
+    },
+    "inventario-pagina-0054.json": {
+      "mediaType": "application/json",
+      "sha256": "9fb3a1179bb10953875ba96a72e40a1d96001f8eef2c222e553d7d51db15e91a",
+      "size": 284563
+    },
+    "inventario-pagina-0055.json": {
+      "mediaType": "application/json",
+      "sha256": "d62d0c8e3ee42a188493a64e55d6247d2206b5b4ed9f65c43f321353c3190ecc",
+      "size": 269760
+    },
+    "inventario-pagina-0056.json": {
+      "mediaType": "application/json",
+      "sha256": "500b27f2dfa96054076d230552ba7cfd3bb2013f30f0f14d8134469dd84043f7",
+      "size": 280717
+    },
+    "inventario-pagina-0057.json": {
+      "mediaType": "application/json",
+      "sha256": "66f309d1e07595c20fcd3f9e91d013f756868e3efab76bd02ea5726d69279e91",
+      "size": 263870
+    },
+    "inventario-pagina-0058.json": {
+      "mediaType": "application/json",
+      "sha256": "d584f9924927f3c619e94126ee9a330ec6d24a974fd4c676142124bef98949f0",
+      "size": 259038
+    },
+    "inventario-pagina-0059.json": {
+      "mediaType": "application/json",
+      "sha256": "a49a60e49073279c8d62ad350715ce053bc4c4d0476ac968dc09d7b1297599f9",
+      "size": 256353
+    },
+    "inventario-pagina-0060.json": {
+      "mediaType": "application/json",
+      "sha256": "901cddd966d5a6526d65698218ff0a95546383efefe10c134ff9be0519aaa791",
+      "size": 256303
+    },
+    "inventario-pagina-0061.json": {
+      "mediaType": "application/json",
+      "sha256": "5e85cb39335a325a8b6faf770728512caae54cfca2ad5f8e0550b1f7f3fab540",
+      "size": 263077
+    },
+    "inventario-pagina-0062.json": {
+      "mediaType": "application/json",
+      "sha256": "502d3b4c5846c430d399813e40175c0617e33565bdbadf7cb552777549f75a3d",
+      "size": 268495
+    },
+    "inventario-pagina-0063.json": {
+      "mediaType": "application/json",
+      "sha256": "e2d964c104833ecadfa5bd0b460da6683f5f353df4259cdbf949122aaeefa6c1",
+      "size": 267321
+    },
+    "inventario-pagina-0064.json": {
+      "mediaType": "application/json",
+      "sha256": "5b4cf6629280f24c16707a977465bdff5eb2ca8f013d53488c52dcb31958e42a",
+      "size": 258179
+    },
+    "inventario-pagina-0065.json": {
+      "mediaType": "application/json",
+      "sha256": "af3b79f82c813aeed0ebd6d5ef971936e203239d85a8180fa5748b097a6630e0",
+      "size": 257328
+    },
+    "inventario-pagina-0066.json": {
+      "mediaType": "application/json",
+      "sha256": "064660ab52e3f32ac8b5e03184cdbeb91b98356788c8d2952f7315c0d63d7157",
+      "size": 256926
+    },
+    "inventario-pagina-0067.json": {
+      "mediaType": "application/json",
+      "sha256": "822415d9d79ae7bdf13dc5b3b27cb7256e3bbb9a3a529e3675cf42cc2b880a5f",
+      "size": 267203
+    },
+    "inventario-pagina-0068.json": {
+      "mediaType": "application/json",
+      "sha256": "b6108745f385eea874b8ebd2be5e32c849151f07686d691a0531695ec844c9fb",
+      "size": 259086
+    },
+    "inventario-pagina-0069.json": {
+      "mediaType": "application/json",
+      "sha256": "5a8e405b926580690d8c871c7c1b48101ca99dea9c9abba2f99571fddd3056d0",
+      "size": 280900
+    },
+    "inventario-pagina-0070.json": {
+      "mediaType": "application/json",
+      "sha256": "7bb8fa64a04d6733e13b95543d3d731302a43dd349f7a8b123dbad2810e247d0",
+      "size": 256343
+    },
+    "inventario-pagina-0071.json": {
+      "mediaType": "application/json",
+      "sha256": "1d9047c1391cb9beec52e00a5314651d8cadca5c410d3d53c0677c1017cdb645",
+      "size": 264367
+    },
+    "inventario-pagina-0072.json": {
+      "mediaType": "application/json",
+      "sha256": "5462805abf01a6771ef57a98412120ed488cb47ff42cba23c8f9a24b812c216d",
+      "size": 287734
+    },
+    "inventario-pagina-0073.json": {
+      "mediaType": "application/json",
+      "sha256": "1c8c7b51a69d2c7dd87ec938021a42186b6c7b592c5408c9445f548ac71b6e54",
+      "size": 263183
+    },
+    "inventario-pagina-0074.json": {
+      "mediaType": "application/json",
+      "sha256": "fe349917324ac512efb91f55a1c2cb513f134473de5df1b05cef3de294903b85",
+      "size": 252986
+    },
+    "inventario-pagina-0075.json": {
+      "mediaType": "application/json",
+      "sha256": "80cfc3101f2a8a2595438de433a05542437265f9db3d0bad2a465c6687999103",
+      "size": 268285
+    },
+    "inventario-pagina-0076.json": {
+      "mediaType": "application/json",
+      "sha256": "0f81493686cdd9ec2381c41202a0ef7b2e4d2b60d3cf52f06f46e457933bd790",
+      "size": 265355
+    },
+    "inventario-pagina-0077.json": {
+      "mediaType": "application/json",
+      "sha256": "ff21dcd6e7c66fb2f4e2e097fe59b957be0c2b08b13e70c641658bd8fa390502",
+      "size": 267371
+    },
+    "inventario-pagina-0078.json": {
+      "mediaType": "application/json",
+      "sha256": "810a9ccdcffc6c7f398fc1fac4cbc2d498ba36fe9514bee385c5a9e740f26d9c",
+      "size": 252907
+    },
+    "inventario-pagina-0079.json": {
+      "mediaType": "application/json",
+      "sha256": "dd10106480200e97b8b38b43a48b96b1fedf9bcf9d75569b12bdfffa730e34b5",
+      "size": 279126
+    },
+    "inventario-pagina-0080.json": {
+      "mediaType": "application/json",
+      "sha256": "4875a6deeec954ab9baf2fc2dca2e6f3e6c296cc4b2b558fa15c36eff8f4ae65",
+      "size": 260495
+    },
+    "inventario-pagina-0081.json": {
+      "mediaType": "application/json",
+      "sha256": "8e7479ab8fb0142a6a85df1ceb13a23c9be157f63b6b3fb4f031c00049e7654b",
+      "size": 259215
+    },
+    "inventario-pagina-0082.json": {
+      "mediaType": "application/json",
+      "sha256": "10af8b4febe3e3e397bc33e0a915a69319586ca20b136fe3e7c2cd7bc0e579c6",
+      "size": 323069
+    },
+    "inventario-pagina-0083.json": {
+      "mediaType": "application/json",
+      "sha256": "340da5fbad4b38246c886e9a6909b6ab41615657c9593abcb7efe33c351b53f0",
+      "size": 258835
+    },
+    "inventario-pagina-0084.json": {
+      "mediaType": "application/json",
+      "sha256": "7e219940986462096755243b2eb9c23ccab973800319523d99deb6ce5ba600f8",
+      "size": 273131
+    },
+    "inventario-pagina-0085.json": {
+      "mediaType": "application/json",
+      "sha256": "400faecd6ee400721705a9e9eab88159346fafe64c07364aaa4d84b86961b0ec",
+      "size": 274517
+    },
+    "inventario-pagina-0086.json": {
+      "mediaType": "application/json",
+      "sha256": "f6287ce7a1cc266642585eccbcfc6d47339a564ba26438648602b85a8fcf6c81",
+      "size": 359248
+    },
+    "inventario-pagina-0087.json": {
+      "mediaType": "application/json",
+      "sha256": "db6d1fa345d2b1f72d3e638d0c3f759c552697e6a67aec530faeb8c61eab0905",
+      "size": 279696
+    },
+    "inventario-pagina-0088.json": {
+      "mediaType": "application/json",
+      "sha256": "4b6f1e523d1287218db2378cc2d541439eb4139c21fd3c911cc60630b4d39055",
+      "size": 264377
+    },
+    "inventario-pagina-0089.json": {
+      "mediaType": "application/json",
+      "sha256": "40cf7f6326d37c71c3b4bf418cd2a69f0c8d597211e1863fff3af8ca901ab27e",
+      "size": 249236
+    },
+    "inventario-pagina-0090.json": {
+      "mediaType": "application/json",
+      "sha256": "47ed228819eb155e17f1fcf541d5cfdf6d0ec97d50311b79d19f71f273abe9de",
+      "size": 255954
+    },
+    "inventario-pagina-0091.json": {
+      "mediaType": "application/json",
+      "sha256": "2f66f1d84db4922c764c0c5436f199ac7695465e0fefd511ac5eb36dd249f66e",
+      "size": 294879
+    },
+    "inventario-pagina-0092.json": {
+      "mediaType": "application/json",
+      "sha256": "ee1c3b996ee62d791f8543a33c44d5ceb0d11714df3aca2bfc7a551009e5b843",
+      "size": 267481
+    },
+    "inventario-pagina-0093.json": {
+      "mediaType": "application/json",
+      "sha256": "790524ab1615c325d5822de2bee3b747a87f4dec8034ee88cde9df86192689c9",
+      "size": 269785
+    },
+    "inventario-pagina-0094.json": {
+      "mediaType": "application/json",
+      "sha256": "8bb24752e940d762cff12fc987054292d3fb36fb839772c6112119b7d82e43e3",
+      "size": 249478
+    },
+    "inventario-pagina-0095.json": {
+      "mediaType": "application/json",
+      "sha256": "b640697b488267058e3b6ab864cd86a85ee906f7030a0325eda2dec16d19fcf7",
+      "size": 274298
+    },
+    "inventario-pagina-0096.json": {
+      "mediaType": "application/json",
+      "sha256": "d0dd3d84387d74a6a0861f87a6dea707b2c3a3250f402efaa90e2edf3f9de10b",
+      "size": 267894
+    },
+    "inventario-pagina-0097.json": {
+      "mediaType": "application/json",
+      "sha256": "3d782ac0ebdf866ee4cb978e13919e088723cf6170cf546671bb593bab317c6f",
+      "size": 255297
+    },
+    "inventario-pagina-0098.json": {
+      "mediaType": "application/json",
+      "sha256": "50be2ffc75afc1aa5274a4385eaf3ead2ed3a691ce5eadab5886006df0007a28",
+      "size": 253917
+    },
+    "inventario-pagina-0099.json": {
+      "mediaType": "application/json",
+      "sha256": "0ad2054a462c710d8cd1533b0a5707aece5a5aa79755c477684e5d19e8bced11",
+      "size": 269392
+    },
+    "inventario-pagina-0100.json": {
+      "mediaType": "application/json",
+      "sha256": "c7905f697c74c89d5381bdaa42c39300cfe51ea898295555d9a63c945e833822",
+      "size": 262887
+    },
+    "inventario-pagina-0101.json": {
+      "mediaType": "application/json",
+      "sha256": "d9fc6ad177f5fff865a51bd92962c66bfceebe8789faf3d43bf0bf361bacfbc1",
+      "size": 266665
+    },
+    "inventario-pagina-0102.json": {
+      "mediaType": "application/json",
+      "sha256": "7d5f01bd754d4d0528c184ff6f8acd617d6b9f419017188e1b0d04b7c55705bc",
+      "size": 278619
+    },
+    "inventario-pagina-0103.json": {
+      "mediaType": "application/json",
+      "sha256": "adfcd1b8b477288c3244abb04f3f1fd6a532d78f809b4a5d71ae8594a6530b59",
+      "size": 257277
+    },
+    "inventario-pagina-0104.json": {
+      "mediaType": "application/json",
+      "sha256": "eadb9c0d0665d9ef851a8b82df3d8a77a446e8ad26ca58570bbb19b59dad2a80",
+      "size": 271887
+    },
+    "inventario-pagina-0105.json": {
+      "mediaType": "application/json",
+      "sha256": "6dfdb8ba77c9672e3c13c55649400f91987bd2e1300eb7c08f37fce944c815bd",
+      "size": 256082
+    },
+    "inventario-pagina-0106.json": {
+      "mediaType": "application/json",
+      "sha256": "24cbef861446641448879ec18e183e15961eb6c9fdcefded1e3302f6a2ce6d9a",
+      "size": 262266
+    },
+    "inventario-pagina-0107.json": {
+      "mediaType": "application/json",
+      "sha256": "3707de0bdd1f43ab427e67d130cc1ba99c7dd924750babddb63dd676bdf7ed9d",
+      "size": 278641
+    },
+    "inventario-pagina-0108.json": {
+      "mediaType": "application/json",
+      "sha256": "03a6e7d3dbcadfddaf0272282310d6f2d19b5629f34f7222c3f603e51fd17281",
+      "size": 260826
+    },
+    "inventario-pagina-0109.json": {
+      "mediaType": "application/json",
+      "sha256": "f62b7e30a939546d7a2df136decef3288c095b0fa565142efa74b74d471e558e",
+      "size": 268398
+    },
+    "inventario-pagina-0110.json": {
+      "mediaType": "application/json",
+      "sha256": "cd65cc02077c3336f4b83f9ac6f6143fbc0213e1657ca3f3158b40d869d8de05",
+      "size": 263403
+    },
+    "inventario-pagina-0111.json": {
+      "mediaType": "application/json",
+      "sha256": "83a564b9032bdec5e707cb791ecd34f9edb8d3e4a2a09a0cc5320a5ea7402275",
+      "size": 267211
+    },
+    "inventario-pagina-0112.json": {
+      "mediaType": "application/json",
+      "sha256": "16ec39812c97f7e216d94c514555ff271ea4667766d94d91bc34e75f1d55c59a",
+      "size": 275733
+    },
+    "inventario-pagina-0113.json": {
+      "mediaType": "application/json",
+      "sha256": "ba48fceee01d0218b5970d9d73fc09dff1e2cb3aeb1c19a6b561d3950a78f0fe",
+      "size": 262094
+    },
+    "inventario-pagina-0114.json": {
+      "mediaType": "application/json",
+      "sha256": "44e257b7b77dbacb72b6d57f4fc3061f298073f937c0dd23010d31e1c6d7ddd7",
+      "size": 264219
+    },
+    "inventario-pagina-0115.json": {
+      "mediaType": "application/json",
+      "sha256": "817c5ee223be597536f6deceece5a26bd977680c88114a3a973cf3b5c0efeb81",
+      "size": 258473
+    },
+    "inventario-pagina-0116.json": {
+      "mediaType": "application/json",
+      "sha256": "220cb9bc425cb4ec9e85f193122b292710c94e6d1c1743445d0222404bf03676",
+      "size": 361256
+    },
+    "inventario-pagina-0117.json": {
+      "mediaType": "application/json",
+      "sha256": "b8329280bdef186bf52d9ef60cca343a195db22cbda92262032e3e933526359b",
+      "size": 266437
+    },
+    "inventario-pagina-0118.json": {
+      "mediaType": "application/json",
+      "sha256": "c6aedf5c63f762ff09306996c512391deb1873dd68962917879387b2d83230b3",
+      "size": 265328
+    },
+    "inventario-pagina-0119.json": {
+      "mediaType": "application/json",
+      "sha256": "8f55bcf041fa6cb41411ced548f5b446f89b2c218e2dd552f4a5f9bd1c82972a",
+      "size": 264472
+    },
+    "inventario-pagina-0120.json": {
+      "mediaType": "application/json",
+      "sha256": "abbcffafbc82ca690e9818f63f6f0551492381c9e5513124633ce01ad7d63518",
+      "size": 271074
+    },
+    "inventario-pagina-0121.json": {
+      "mediaType": "application/json",
+      "sha256": "6a43d0cc688de739c8415711fbcc21b16f17eb8a5a2d9ee3d74271802132ccd3",
+      "size": 273544
+    },
+    "inventario-pagina-0122.json": {
+      "mediaType": "application/json",
+      "sha256": "252b7a90adb8438147d3a509cdd583d4f60db2532429a5a70cd58737f610f466",
+      "size": 267328
+    },
+    "inventario-pagina-0123.json": {
+      "mediaType": "application/json",
+      "sha256": "d56bfdd433cb5b0dd57767218f31df5cdb832ce2d55cea09c5d130e584c2da59",
+      "size": 421071
+    },
+    "inventario-pagina-0124.json": {
+      "mediaType": "application/json",
+      "sha256": "7ef4c26b96a1a2869cb257186a43ab19895038204357fb6038c8dc100469b75f",
+      "size": 265007
+    },
+    "inventario-pagina-0125.json": {
+      "mediaType": "application/json",
+      "sha256": "5cc50aca9d4265d625bd5ebe75943dc03f4b25ab9d466038e6084cc8f8cccce8",
+      "size": 278008
+    },
+    "inventario-pagina-0126.json": {
+      "mediaType": "application/json",
+      "sha256": "8a62375b28d1772eac6bbae96a71cc4b359a774b9641a06292154fd8c255b658",
+      "size": 275293
+    },
+    "inventario-pagina-0127.json": {
+      "mediaType": "application/json",
+      "sha256": "eefa9797bd434a83f1bbbd4b44d3a1f2b7461c8eca8fc9e225a9fae65a768e9d",
+      "size": 268407
+    },
+    "inventario-pagina-0128.json": {
+      "mediaType": "application/json",
+      "sha256": "ea06a6c8e62512780ca0d12a3adcc554c8a8d918cd12be83ae573c64a77f0687",
+      "size": 259555
+    },
+    "inventario-pagina-0129.json": {
+      "mediaType": "application/json",
+      "sha256": "1ce752b2d1fe0af3e9e71613eae8f0e050221d8d53cd8066d4b45efdd0bf98ef",
+      "size": 397167
+    },
+    "inventario-pagina-0130.json": {
+      "mediaType": "application/json",
+      "sha256": "5744b5f8d49b94fb1b155bf191ae0b58878bd9a91f7cedd2d7af83257a9a364a",
+      "size": 264590
+    },
+    "inventario-pagina-0131.json": {
+      "mediaType": "application/json",
+      "sha256": "0cb07decd18d3c5d0830e89af572bed6fa9cd5b9bbf6d7d0aa95b3b729d6a98f",
+      "size": 278060
+    },
+    "inventario-pagina-0132.json": {
+      "mediaType": "application/json",
+      "sha256": "7be58eb41c58bf2ee11c9c126bd2c762b53ff5e7ad6d676dbc3ecf7e243050b0",
+      "size": 334061
+    },
+    "inventario-pagina-0133.json": {
+      "mediaType": "application/json",
+      "sha256": "196ed487794ac86d9ee2e0fd010855b410ef555c08dacda37fc0dc0d683b70fc",
+      "size": 261580
+    },
+    "inventario-pagina-0134.json": {
+      "mediaType": "application/json",
+      "sha256": "79a675274b5754c19df6065fe8d0f319af1fe5553335294d385d453ec571eb4f",
+      "size": 272053
+    },
+    "inventario-pagina-0135.json": {
+      "mediaType": "application/json",
+      "sha256": "6c0ad2ad1584ec80d3bce8e0d8866d5105c48f8d0c8a165b069805f99efdedd1",
+      "size": 279129
+    },
+    "inventario-pagina-0136.json": {
+      "mediaType": "application/json",
+      "sha256": "13ec70935d0c14e7ca19e4d59d48d51e8f3bdb31ed78bda812d2378f5298663e",
+      "size": 267221
+    },
+    "inventario-pagina-0137.json": {
+      "mediaType": "application/json",
+      "sha256": "fce27f1df7862e4a650c038fd6cc9b0e5456972faa55125bacd6902a0843ee59",
+      "size": 273999
+    },
+    "inventario-pagina-0138.json": {
+      "mediaType": "application/json",
+      "sha256": "61e0df4da7929b7fafb089df5d5696186af28464d43f0127cbeded03ac28fcec",
+      "size": 276050
+    },
+    "inventario-pagina-0139.json": {
+      "mediaType": "application/json",
+      "sha256": "6cba9afeced0f2c0291ffb374d38d55f65126f8bb762e9a28a86dcef49318a4d",
+      "size": 270015
+    },
+    "inventario-pagina-0140.json": {
+      "mediaType": "application/json",
+      "sha256": "cbeb567023f871de074e3d9983f582f4bb58ea6f995123d4dbc959b47d2eee48",
+      "size": 334843
+    },
+    "inventario-pagina-0141.json": {
+      "mediaType": "application/json",
+      "sha256": "e631ec211724dfe18636ff6639f328a546e77bcf568e1260f6c132a05269ebdf",
+      "size": 257716
+    },
+    "inventario-pagina-0142.json": {
+      "mediaType": "application/json",
+      "sha256": "5bc34385abfa7e979a7ad76252bb307220d6cc12fce3886a471164234e0c4fe6",
+      "size": 256083
+    },
+    "inventario-pagina-0143.json": {
+      "mediaType": "application/json",
+      "sha256": "fa635b29c03778c3e25c5299b961345355f75ccbf17ac41568f06c8e77889479",
+      "size": 262151
+    },
+    "inventario-pagina-0144.json": {
+      "mediaType": "application/json",
+      "sha256": "bbb833be9f47ef05e7526d51a2ef7debbc86f5fcae4443b75b70133b1b0ee094",
+      "size": 272998
+    },
+    "inventario-pagina-0145.json": {
+      "mediaType": "application/json",
+      "sha256": "7381e31494ae2348680712247517660d22df6f94d9e05a9d977dea8539bba911",
+      "size": 256851
+    },
+    "inventario-pagina-0146.json": {
+      "mediaType": "application/json",
+      "sha256": "592d700d478d577bb769a82a1c8260c90f4e6dbf65dd0543482e496054ed5306",
+      "size": 260137
+    },
+    "inventario-pagina-0147.json": {
+      "mediaType": "application/json",
+      "sha256": "26282ae7be01934a814f2b07927c1be4d4421d33d42e91befa6b7f8e3cda2302",
+      "size": 274703
+    },
+    "inventario-pagina-0148.json": {
+      "mediaType": "application/json",
+      "sha256": "b67519a3a7796c9db23ef374cd754b65bbce4495e4c5871a8a3d037f58aa8ac1",
+      "size": 263371
+    },
+    "inventario-pagina-0149.json": {
+      "mediaType": "application/json",
+      "sha256": "5b3980bd47e4d3da4e362bd5787e8140fbab598b1327ac762c10e45f9b8dbc09",
+      "size": 260380
+    },
+    "inventario-pagina-0150.json": {
+      "mediaType": "application/json",
+      "sha256": "ef084f0831f008e67d7b6c638ff7077b8eeff4953c17631f30bc35581a446951",
+      "size": 263576
+    },
+    "inventario-pagina-0151.json": {
+      "mediaType": "application/json",
+      "sha256": "6e761a7095f2d3b9f1089f98ec295f19a4ba0ac62c79fbe936e9e3f98dbb77d7",
+      "size": 368496
+    },
+    "inventario-pagina-0152.json": {
+      "mediaType": "application/json",
+      "sha256": "21ab16418ba9918178ed7319883de1e32bfd120161fe10f290ffc16a05377ee8",
+      "size": 259778
+    },
+    "inventario-pagina-0153.json": {
+      "mediaType": "application/json",
+      "sha256": "63cf21c756cb624363704d28cc7c41d388cefda67b0b75f7e60d245392f0e235",
+      "size": 347524
+    },
+    "inventario-pagina-0154.json": {
+      "mediaType": "application/json",
+      "sha256": "331744b9eb5cca3f09a9ecf71c0ba064937d7c1ce22bba6989c6f811d7fa7d4b",
+      "size": 264720
+    },
+    "inventario-pagina-0155.json": {
+      "mediaType": "application/json",
+      "sha256": "5c8354a3d7ae7f6cba574f17fbbdb3af77cb976fa830d8e07d4a98f432298984",
+      "size": 263822
+    },
+    "inventario-pagina-0156.json": {
+      "mediaType": "application/json",
+      "sha256": "c5307018e25fdea372a8e11c6507500a9219b999a8a554ed1f80b09cd60428aa",
+      "size": 266654
+    },
+    "inventario-pagina-0157.json": {
+      "mediaType": "application/json",
+      "sha256": "c4977bb0aae25b5ede48952d9a62a9b512b85eaad9f7c9e20c0f35f69fdd8f3e",
+      "size": 257461
+    },
+    "inventario-pagina-0158.json": {
+      "mediaType": "application/json",
+      "sha256": "d27c958523776f6e8e8b674b1f236d8ac6b95ea0b214fb98cc871c8c7df08c54",
+      "size": 266200
+    },
+    "inventario-pagina-0159.json": {
+      "mediaType": "application/json",
+      "sha256": "0f36c585956352356b2b8a8f743f0ecf410bde48c4b50349d842e06142e7d141",
+      "size": 256758
+    },
+    "inventario-pagina-0160.json": {
+      "mediaType": "application/json",
+      "sha256": "7521971c4d6e3e66547a30a2e4eaa9c916f6e247866c182baa395dedbd09a8f2",
+      "size": 271286
+    },
+    "inventario-pagina-0161.json": {
+      "mediaType": "application/json",
+      "sha256": "56f2d4ffa6cdb5742c4f9ba6371863af7bee984dbc6b07e54dd2779fa12064a4",
+      "size": 254439
+    },
+    "inventario-pagina-0162.json": {
+      "mediaType": "application/json",
+      "sha256": "1a5338ce0bce13fcf8a11d10e1687fe44d780fbd6dd9b3fc2f22a39c173daafc",
+      "size": 264459
+    },
+    "inventario-pagina-0163.json": {
+      "mediaType": "application/json",
+      "sha256": "2f670dac198237ee5d8f0efa64a50820ed10751e6d7819728bd40159f3a502cc",
+      "size": 260271
+    },
+    "inventario-pagina-0164.json": {
+      "mediaType": "application/json",
+      "sha256": "7fbe599c2136a9778fbf7bee1eac71d78c87bc7c50a75c9bb318cec8fc7df03d",
+      "size": 255070
+    },
+    "inventario-pagina-0165.json": {
+      "mediaType": "application/json",
+      "sha256": "ca6f1e088854548f448c741e8694c49fe4f0ac114364513f7e2daf295260d12d",
+      "size": 264593
+    },
+    "inventario-pagina-0166.json": {
+      "mediaType": "application/json",
+      "sha256": "9f07557d7d30c6b314db94422e3cd41c98cc03bc72fa970d17ebd9b7631d9fdb",
+      "size": 278421
+    },
+    "inventario-pagina-0167.json": {
+      "mediaType": "application/json",
+      "sha256": "b4e8ec9e136ad15d7ec261b82bfc81ab139463a12d11c3529d102a3ea539e251",
+      "size": 254797
+    },
+    "inventario-pagina-0168.json": {
+      "mediaType": "application/json",
+      "sha256": "818479f08bdd30ae576fc92540684e3a0fe490d81bd5b8de808e61b990f2b2c7",
+      "size": 275341
+    },
+    "inventario-pagina-0169.json": {
+      "mediaType": "application/json",
+      "sha256": "592e27e9819abf26dacc6c300e6da6ab26c2201377c9951d59aa1427b59d55e4",
+      "size": 263270
+    },
+    "inventario-pagina-0170.json": {
+      "mediaType": "application/json",
+      "sha256": "4639aca60e75597cd46597c69c36fd338555f5cde5df720c2f66640e6296c8dd",
+      "size": 247772
+    },
+    "inventario-pagina-0171.json": {
+      "mediaType": "application/json",
+      "sha256": "d1b5400ecb22aabd8c9deaf728c83f74186a2ad70bdf6bd055f8f92632fa9f62",
+      "size": 267661
+    },
+    "inventario-pagina-0172.json": {
+      "mediaType": "application/json",
+      "sha256": "bb6e4148d0e831396d73145286087bef7872af1bac4ea624c4dbb555c5584f67",
+      "size": 258609
+    },
+    "inventario-pagina-0173.json": {
+      "mediaType": "application/json",
+      "sha256": "7f5ec4326142dfafda8e1bff8c3e917092c072a1e27ab16d4f44a19f3da5396d",
+      "size": 262819
+    },
+    "inventario-pagina-0174.json": {
+      "mediaType": "application/json",
+      "sha256": "bef770a43eda0661c099feb8f36e326c8c0e5e437fc7ce6d57d2fa9d831c5e51",
+      "size": 256814
+    },
+    "inventario-pagina-0175.json": {
+      "mediaType": "application/json",
+      "sha256": "cb5bdcfaa0aee79801fff624bdc5ef58982a4a0eb081e5646770d25ee21e6c84",
+      "size": 263863
+    },
+    "inventario-pagina-0176.json": {
+      "mediaType": "application/json",
+      "sha256": "81599129cb9bc3527ad863a66fbcf7b2caf2ce6e1cbf1612649c35e44239506c",
+      "size": 249880
+    },
+    "inventario-pagina-0177.json": {
+      "mediaType": "application/json",
+      "sha256": "73c20e51d5b531df886d6a37538e63a52ac65e3f99b72f9ded86fb670f87dee9",
+      "size": 262443
+    },
+    "inventario-pagina-0178.json": {
+      "mediaType": "application/json",
+      "sha256": "417b892cf75ebd9e7d31614736e3db36a5f7d8f2ad4a6190184e0fe253e2bfcf",
+      "size": 267246
+    },
+    "inventario-pagina-0179.json": {
+      "mediaType": "application/json",
+      "sha256": "28c6b8b34adcb725863207b10ded0afa2991fb11e811248f30be92adebdb5261",
+      "size": 255022
+    },
+    "inventario-pagina-0180.json": {
+      "mediaType": "application/json",
+      "sha256": "3f1ee0c652fa4ac1c7124066163bf27f5394443cdd0a76c7f1eee6f28cb62801",
+      "size": 275178
+    },
+    "inventario-pagina-0181.json": {
+      "mediaType": "application/json",
+      "sha256": "4fc4bc971d1fda2b513e26d5d9a780bcaa7b7710f12ed0e7fc2e8b9e0af36b8c",
+      "size": 263169
+    },
+    "inventario-pagina-0182.json": {
+      "mediaType": "application/json",
+      "sha256": "a3e63b5b5b7b7110c5feb45897a667023d1fe35c9c592398d6aaafc4a1833708",
+      "size": 268969
+    },
+    "inventario-pagina-0183.json": {
+      "mediaType": "application/json",
+      "sha256": "b49676f87834f7084e9c88bfe4445db5c49af3429782c7aad8bae199df45c5a4",
+      "size": 264186
+    },
+    "inventario-pagina-0184.json": {
+      "mediaType": "application/json",
+      "sha256": "8b7aa2925590e9997847793d50c83faa4af185abe93154017227e76bb682de4c",
+      "size": 278790
+    },
+    "inventario-pagina-0185.json": {
+      "mediaType": "application/json",
+      "sha256": "1c24419c229470281a976a927ebedd023c7df8fdea33a1efbf0d4d6d4c3c180d",
+      "size": 270124
+    },
+    "inventario-pagina-0186.json": {
+      "mediaType": "application/json",
+      "sha256": "68fd576eaaa16b1732bbfbd7f162c759bf4d9a84007159a4f5c4ae577471034d",
+      "size": 264795
+    },
+    "inventario-pagina-0187.json": {
+      "mediaType": "application/json",
+      "sha256": "96a09de7600b6302b1f5e80601ad4f4841ac4d5284928414e1f7d4533c7b385d",
+      "size": 247562
+    },
+    "inventario-pagina-0188.json": {
+      "mediaType": "application/json",
+      "sha256": "8b55021bf94f8c11c89224e91562115255a3ef7f7fec9a4f766bf2ad93a1e6fe",
+      "size": 262595
+    },
+    "inventario-pagina-0189.json": {
+      "mediaType": "application/json",
+      "sha256": "04e0df7a66adf44924debdc9f1765b0551f2bdb15c0c46f9ba49f2848d854346",
+      "size": 260904
+    },
+    "inventario-pagina-0190.json": {
+      "mediaType": "application/json",
+      "sha256": "456a2570a2cd73e5b0bb7becec8dca3b595e50e46978c4c8768465b678ea091c",
+      "size": 269070
+    },
+    "inventario-pagina-0191.json": {
+      "mediaType": "application/json",
+      "sha256": "7e86d1010c3b94f3a7b84a05db9aade138f447360a7cdd159816fe32d5269a66",
+      "size": 281146
+    },
+    "inventario-pagina-0192.json": {
+      "mediaType": "application/json",
+      "sha256": "20637333c0aa521516438da61b8c85de81c1e611917821fb04a37faa6666dd81",
+      "size": 256915
+    },
+    "inventario-pagina-0193.json": {
+      "mediaType": "application/json",
+      "sha256": "b58ffd0128ba2a65592ff2ebfcf55dd9d822fae7db399cc15bed79db3e00c92f",
+      "size": 258603
+    },
+    "inventario-pagina-0194.json": {
+      "mediaType": "application/json",
+      "sha256": "537dc927394b6c84e028736ca524f717f843cdd5a9cd8a913ec97e11a53c336a",
+      "size": 256236
+    },
+    "inventario-pagina-0195.json": {
+      "mediaType": "application/json",
+      "sha256": "9a8809e8f03b650734889282d5dba9b0bdb9065b3df346a061bf60df382bd43b",
+      "size": 258663
+    },
+    "inventario-pagina-0196.json": {
+      "mediaType": "application/json",
+      "sha256": "61e78ab904f96890a597c6f399881fd9a41974e73edb61a0800596a3b278eb76",
+      "size": 281261
+    },
+    "inventario-pagina-0197.json": {
+      "mediaType": "application/json",
+      "sha256": "1eda3671393dbf9c198da2abd5ce66d82ac1798add33d51dbb6b6b74237c5207",
+      "size": 269188
+    },
+    "inventario-pagina-0198.json": {
+      "mediaType": "application/json",
+      "sha256": "dbf0989f14aa0ef3cc6df8d381807fd4cf6ce7a1510306470e9984db630d77ea",
+      "size": 257801
+    },
+    "inventario-pagina-0199.json": {
+      "mediaType": "application/json",
+      "sha256": "4503ea8ed8f5002610cb39720b327fd91f82e4954cde284e21112c6955c0d60d",
+      "size": 278240
+    },
+    "inventario-pagina-0200.json": {
+      "mediaType": "application/json",
+      "sha256": "6fec2c8c0674d616260951d47cb06e44b159ce93c0aaffeb38b85b915d9f6be2",
+      "size": 259706
+    },
+    "inventario-pagina-0201.json": {
+      "mediaType": "application/json",
+      "sha256": "0a89208cb201963555585334a7dd5d81f19d6c3576c7de1f6ff9dcbba8af0cdc",
+      "size": 272369
+    },
+    "inventario-pagina-0202.json": {
+      "mediaType": "application/json",
+      "sha256": "d85b99b758f2170f410e3ee57588aaf4377c780529db117c2eeeb6dd9a7e92f6",
+      "size": 264365
+    },
+    "inventario-pagina-0203.json": {
+      "mediaType": "application/json",
+      "sha256": "21dcc18beedc9935706437cd52ca8db821f316694da50696c887b4f8d2f6d393",
+      "size": 259935
+    },
+    "inventario-pagina-0204.json": {
+      "mediaType": "application/json",
+      "sha256": "3db8ad9068aae6a0cd5f5b2ae7431fedf3304cf2595785b7315607dec4d3e0b8",
+      "size": 251593
+    },
+    "inventario-pagina-0205.json": {
+      "mediaType": "application/json",
+      "sha256": "e48efd019113d995025daef28d3f22df8a78e227a1c00960992df8b597b9dc08",
+      "size": 258501
+    },
+    "inventario-pagina-0206.json": {
+      "mediaType": "application/json",
+      "sha256": "5a753d6f7f797a661552dfc05cc13295660e36196770678d33540c3f6e9c7cad",
+      "size": 264272
+    },
+    "inventario-pagina-0207.json": {
+      "mediaType": "application/json",
+      "sha256": "37bc7cfbedc326ee0e991b59f675021095a60b06e986265fcc7663b1890dd806",
+      "size": 267072
+    },
+    "inventario-pagina-0208.json": {
+      "mediaType": "application/json",
+      "sha256": "d935f8c3e91990a3a607431d9d3d14b98d9603d839dca2567b907846fce4d8f0",
+      "size": 256909
+    },
+    "inventario-pagina-0209.json": {
+      "mediaType": "application/json",
+      "sha256": "f41e60b9941d47a1043566f6e546779640967ad987bcc952ec8024cd7d65dda5",
+      "size": 266572
+    },
+    "inventario-pagina-0210.json": {
+      "mediaType": "application/json",
+      "sha256": "35c26a798f63112a408ba33e82720e2cb7becd938ab9d28bb61a5f9fc6934890",
+      "size": 261027
+    },
+    "inventario-pagina-0211.json": {
+      "mediaType": "application/json",
+      "sha256": "b2a376852325b717517996bfdb6c34539083fb50378e9a31cd40cb7e3a77b95d",
+      "size": 261913
+    },
+    "inventario-pagina-0212.json": {
+      "mediaType": "application/json",
+      "sha256": "c2dc76be096e66b59419fda72e404e31bfb4f252a9c147615ea3c73a8b489066",
+      "size": 270548
+    },
+    "inventario-pagina-0213.json": {
+      "mediaType": "application/json",
+      "sha256": "4dc9a071be660ceac7758919cb926a5bcede4734369c17dadf62e1b8262dda44",
+      "size": 254477
+    },
+    "inventario-pagina-0214.json": {
+      "mediaType": "application/json",
+      "sha256": "f0ca4a9a389df8bff7187772c72ab068faf6cdd0763eaef6e1d8ae5e55245bb9",
+      "size": 251663
+    },
+    "inventario-pagina-0215.json": {
+      "mediaType": "application/json",
+      "sha256": "949870e3de7e01523723d283f997177cdde19ee1c107f6e8378d3e1ee7693fa3",
+      "size": 259192
+    },
+    "inventario-pagina-0216.json": {
+      "mediaType": "application/json",
+      "sha256": "d9262d6d0f90920c22be7321245f65e91b0816183a4a56979d4e5809d3f0eb4e",
+      "size": 265002
+    },
+    "inventario-pagina-0217.json": {
+      "mediaType": "application/json",
+      "sha256": "d095defc83a7617bc4d9ff6f6da2825bcd6fc24df7fba5d3f7ec23d67782301a",
+      "size": 253434
+    },
+    "inventario-pagina-0218.json": {
+      "mediaType": "application/json",
+      "sha256": "1dd8793797a70606c385c4de283585ff0feeffe3a9e4e36700c995d72f0c6deb",
+      "size": 272152
+    },
+    "inventario-pagina-0219.json": {
+      "mediaType": "application/json",
+      "sha256": "d5222140c1e476484968bf010375eb11ee65f8f7500c5592338b27541b51acd1",
+      "size": 269405
+    },
+    "inventario-pagina-0220.json": {
+      "mediaType": "application/json",
+      "sha256": "4140ce33ec9dc75380ab9cbf573f02769e7529e924147a353aea0e72194b0db9",
+      "size": 246395
+    },
+    "inventario-pagina-0221.json": {
+      "mediaType": "application/json",
+      "sha256": "0c0b60f2546beffa7482f38e1acc1e94c7538ee9d3f0ea3b65dfb5d4eca3bfe2",
+      "size": 269694
+    },
+    "inventario-pagina-0222.json": {
+      "mediaType": "application/json",
+      "sha256": "06fbc7d49420af3a3b5017cd94a10810f469df408d12e0c5e3ca9e77575b47ee",
+      "size": 271921
+    },
+    "inventario-pagina-0223.json": {
+      "mediaType": "application/json",
+      "sha256": "2fefe4c7e7276cd77e070891e3b4fafd8568281b3aee280d706bd6331e6e5f7a",
+      "size": 273171
+    },
+    "inventario-pagina-0224.json": {
+      "mediaType": "application/json",
+      "sha256": "c28cef123e4351ac8e3ec00e03cbc48e6375af1e846b9c87260268f058f4292b",
+      "size": 266130
+    },
+    "inventario-pagina-0225.json": {
+      "mediaType": "application/json",
+      "sha256": "0842d0fb1e2829f23b46134db4b337e25a96c2fb6831858d4cb99758ce74179b",
+      "size": 273980
+    },
+    "inventario-pagina-0226.json": {
+      "mediaType": "application/json",
+      "sha256": "b4c5a4efb8e2acf596cda7e9e609fef8d4a13a6d529e9803d0469fa9aef9390d",
+      "size": 260971
+    },
+    "inventario-pagina-0227.json": {
+      "mediaType": "application/json",
+      "sha256": "fac813d7c7ca0eec2705235223aeb90fe8865b86647800df616fdc130223c786",
+      "size": 267747
+    },
+    "inventario-pagina-0228.json": {
+      "mediaType": "application/json",
+      "sha256": "5ee32cf1ce1b52c3fd80160183f70322c75e7ec5f60b3e5420de98eca19bda3b",
+      "size": 259124
+    },
+    "inventario-pagina-0229.json": {
+      "mediaType": "application/json",
+      "sha256": "eb13357e2157da390f502d1ce42a288fc08ba52e7a42ecd68540944c8c289823",
+      "size": 258599
+    },
+    "inventario-pagina-0230.json": {
+      "mediaType": "application/json",
+      "sha256": "689eb82c15515f1ef2152daee3522b01fd6fa5ffb0ca1d438fad0b2b19f52337",
+      "size": 276438
+    },
+    "inventario-pagina-0231.json": {
+      "mediaType": "application/json",
+      "sha256": "1f31b89031efc5227856983bb5e0dbca815bab832c9e9029a6557803a7e7fe10",
+      "size": 269629
+    },
+    "inventario-pagina-0232.json": {
+      "mediaType": "application/json",
+      "sha256": "c9eb4074f6bd03b1087b75071d06f12d39071ee66daf046656c3e05869f85178",
+      "size": 266271
+    },
+    "inventario-pagina-0233.json": {
+      "mediaType": "application/json",
+      "sha256": "ca457fe4b50ef0c80faa2400fee91c4f437a1f8dbf6a85df457aef05305958d8",
+      "size": 265442
+    },
+    "inventario-pagina-0234.json": {
+      "mediaType": "application/json",
+      "sha256": "0a23dce1f2c502226a4ef9def6f09f8cb6794f92487a2f0f7a2be4ed474f3535",
+      "size": 252775
+    },
+    "inventario-pagina-0235.json": {
+      "mediaType": "application/json",
+      "sha256": "6c1499c0e3aca0ae6e9b6627341de3b7d19570311fa42cc64226ae6d514d53bf",
+      "size": 270412
+    },
+    "inventario-pagina-0236.json": {
+      "mediaType": "application/json",
+      "sha256": "8369cbf73165f52f3cd71ca264077e0019905703125ff7a5c20e20d00109a6d2",
+      "size": 256429
+    },
+    "inventario-pagina-0237.json": {
+      "mediaType": "application/json",
+      "sha256": "47f1f232b288580a97bb4e54add95a686af5d00b0c17ddd53b76f069dea56ea6",
+      "size": 255207
+    },
+    "inventario-pagina-0238.json": {
+      "mediaType": "application/json",
+      "sha256": "5751077d438eae6d96274201c645fc32043c1e3cd10ab8029285272c6e1eb86c",
+      "size": 262733
+    },
+    "inventario-pagina-0239.json": {
+      "mediaType": "application/json",
+      "sha256": "6d02e357897024e278fa9229b811e4861786e27cd16882f022f80054e4971e9e",
+      "size": 268628
+    },
+    "inventario-pagina-0240.json": {
+      "mediaType": "application/json",
+      "sha256": "a5a5f74275537b3c03194f2051993c94cdd781e1139dddab1ecd1d36318412a4",
+      "size": 268094
+    },
+    "inventario-pagina-0241.json": {
+      "mediaType": "application/json",
+      "sha256": "5e49d37d20d33d563a6e702cce2df420060a3ac89762556764361ba99801ebfc",
+      "size": 252229
+    },
+    "inventario-pagina-0242.json": {
+      "mediaType": "application/json",
+      "sha256": "eedcd0ecd2477f7dadb595899061e01fd52615e0174d9a8bdacf06eb25e84bc3",
+      "size": 261777
+    },
+    "inventario-pagina-0243.json": {
+      "mediaType": "application/json",
+      "sha256": "1c8ffe23eb3ec07628d3196ad7f660d438d62a892f53d56b04668f939d0cc16e",
+      "size": 260733
+    },
+    "inventario-pagina-0244.json": {
+      "mediaType": "application/json",
+      "sha256": "cc38604e731c3bd4f29030a0b185388890c4d6ed3eae54ef381ce4bed1caaa58",
+      "size": 250931
+    },
+    "inventario-pagina-0245.json": {
+      "mediaType": "application/json",
+      "sha256": "e05408e96ec17f3f034fe455d74182ca26de012d86e2767f49ce97a667bf85dd",
+      "size": 265315
+    },
+    "inventario-pagina-0246.json": {
+      "mediaType": "application/json",
+      "sha256": "514f53ac7327d3f3d2d9ea63e8ffa76af8c7d15746a146594c16036c6a7bb0b4",
+      "size": 258034
+    },
+    "inventario-pagina-0247.json": {
+      "mediaType": "application/json",
+      "sha256": "253c9060fb6969d18a0ae9d05c0fc32df110947ba0b72960635cd70a9645c38a",
+      "size": 267419
+    },
+    "inventario-pagina-0248.json": {
+      "mediaType": "application/json",
+      "sha256": "eff501322ad987b2998393fcc860e0e7090b065863130f4072be23a4b3c6683b",
+      "size": 256321
+    },
+    "inventario-pagina-0249.json": {
+      "mediaType": "application/json",
+      "sha256": "99d1442b5b46b58eaa4cf957d85ca7a2722d45475a3904f4b5bf15eafdc642c9",
+      "size": 267390
+    },
+    "inventario-pagina-0250.json": {
+      "mediaType": "application/json",
+      "sha256": "099f7bfed2196beb941c2731c69f436277d44157853b37bee6b2c75c2f3485d9",
+      "size": 264994
+    },
+    "inventario-pagina-0251.json": {
+      "mediaType": "application/json",
+      "sha256": "4f376d1eed4524e0451adc2b9694e74d2df870f111184beda6b943f2e32c16c9",
+      "size": 252951
+    },
+    "inventario-pagina-0252.json": {
+      "mediaType": "application/json",
+      "sha256": "d3cdd85eaab2a3c31ac2fc4cc01869c6d574e20d0af2b747b8896fb0dd110228",
+      "size": 251040
+    },
+    "inventario-pagina-0253.json": {
+      "mediaType": "application/json",
+      "sha256": "8ef73122d19af3fde81cad809e314408101e9f31f3a12462405ac610259576dd",
+      "size": 274464
+    },
+    "inventario-pagina-0254.json": {
+      "mediaType": "application/json",
+      "sha256": "4aae1fff82935ea3385cf614985f002d58ea400bae349cdbcb5ad3aeaa46bd29",
+      "size": 272769
+    },
+    "inventario-pagina-0255.json": {
+      "mediaType": "application/json",
+      "sha256": "1b512258b116cf571c185ebd1351cc6f93964f467e4df0d3a23bbd51851cd084",
+      "size": 279527
+    },
+    "inventario-pagina-0256.json": {
+      "mediaType": "application/json",
+      "sha256": "852ff94299e08de816836e5023bcce18fe0844d1a3ad9fc62f9a69948fb8dbfa",
+      "size": 273844
+    },
+    "inventario-pagina-0257.json": {
+      "mediaType": "application/json",
+      "sha256": "b1fb746a4ecbdf177d59e0910a3f5a6c097d7c8b012b8e6d9dcb8dfd9ddf6ae9",
+      "size": 261786
+    },
+    "inventario-pagina-0258.json": {
+      "mediaType": "application/json",
+      "sha256": "53c0a115082319e77468a5017b83cf160e3d6da5140fc1ed5bae9dce76cece11",
+      "size": 274909
+    },
+    "inventario-pagina-0259.json": {
+      "mediaType": "application/json",
+      "sha256": "dd2c0011104720238b61d14b6383b072db26fa045be6184a349d6f4d4a6d62f2",
+      "size": 274094
+    },
+    "inventario-pagina-0260.json": {
+      "mediaType": "application/json",
+      "sha256": "fed22de934f84c067c0925fe57bd59aa2eb3a03a378aa5763acf17a8fd1cccdc",
+      "size": 257674
+    },
+    "inventario-pagina-0261.json": {
+      "mediaType": "application/json",
+      "sha256": "cd0da2081f3c1c740fec0ade599a6f172828a3e2df85f43869e0e08ca325ac99",
+      "size": 259713
+    },
+    "inventario-pagina-0262.json": {
+      "mediaType": "application/json",
+      "sha256": "f3ee3c8a0392251cb721fccfdf20e7e6a702e1709f64102dc80574861fd7808e",
+      "size": 264593
+    },
+    "inventario-pagina-0263.json": {
+      "mediaType": "application/json",
+      "sha256": "1ed33e6208bb31e4a715b352fd2e1bcb4ebd31db7159a6beab64c1d16be33879",
+      "size": 259309
+    },
+    "inventario-pagina-0264.json": {
+      "mediaType": "application/json",
+      "sha256": "3a1d31c69270922ea01d0d3babbefe5bfc7a075ce5bb3b149e0f19fee61f9ca1",
+      "size": 258803
+    },
+    "inventario-pagina-0265.json": {
+      "mediaType": "application/json",
+      "sha256": "a3aa68867ff1e98c14fb3960017c32ec0d5b0a60b488fd65a4d7a36d3d3ce8b4",
+      "size": 260333
+    },
+    "inventario-pagina-0266.json": {
+      "mediaType": "application/json",
+      "sha256": "1a473c42e40e84f60f84f4e24f33cf2f41ce86d2606e730fb41801d14660ab42",
+      "size": 331985
+    },
+    "inventario-pagina-0267.json": {
+      "mediaType": "application/json",
+      "sha256": "baba288cf9f30bb6ffc07f7047b8aed0d2362ee801e0c177044f347204039600",
+      "size": 356898
+    },
+    "inventario-pagina-0268.json": {
+      "mediaType": "application/json",
+      "sha256": "eea1bd8cc190628e01eb917069f2b0891df505d4e6af528d4e3cc3d660a3b93b",
+      "size": 270088
+    },
+    "inventario-pagina-0269.json": {
+      "mediaType": "application/json",
+      "sha256": "678ee988eb51e15c943add5a88127e14d53486e7c2645958ce9d963ec046b678",
+      "size": 269389
+    },
+    "inventario-pagina-0270.json": {
+      "mediaType": "application/json",
+      "sha256": "3ad8f9fdf708e79b1f0e9b2a9ddbb791d7dce0990d71781840a1ba0f0137aafe",
+      "size": 166550
+    },
+    "inventario.json": {
+      "mediaType": "application/json",
+      "sha256": "045ff32b4f24045bfbc4a8a0ca9826c704d96de48c2c0ef52792be985ac2012c",
+      "size": 139459
+    }
+  },
+  "supplements": {
+    "reconciliation": {
+      "sha256": "2d648f6042c0b474f6605957737ef80b7384ad6778896c7bd7a4a611ef999263",
+      "size": 6750777,
+      "mediaType": "application/json"
+    },
+    "resolution-failures": {
+      "sha256": "ff5923ccc1a7700ec2c376b9c7a7841d000f969040bd511cb9f48a74e2e46d21",
+      "size": 912843,
+      "mediaType": "application/json"
+    },
+    "binding-gaps": {
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "size": 3,
+      "mediaType": "application/json"
+    }
+  },
+  "globalBalance": {
+    "sha256": "a9e22ea0b845ccdb143286bf586140d13bcab182d08e65b8707b95a8e6957d76",
+    "size": 291270,
+    "mediaType": "application/json"
+  },
+  "engineModuleAbsences": [],
+  "previousManifest": {
+    "sha256": "45b0635a07190e7cf0e122d5c12c7aedaa0aaec54d9ed8a453cf1cefffe7d437",
+    "size": 75411,
+    "mediaType": "application/json"
+  },
+  "applicabilityQueue": {
+    "mediaType": "application/json",
+    "sha256": "99cc887f81bae16aa8d5908ee5fb3acc241d98cef08081abd5580d84fefdbeca",
+    "size": 6660325
+  },
+  "supplementsPolicy": "historical supplements preserved; current census scope checked identical by binding and all fields"
+}

@@ -74,3 +74,11 @@ el pin de `trabajo-anual/conexion.ts` al SHA-256
 `f765ec216bb9892b9936054a619fedd1054600d34f40a5695aec9bd55b7a1eb3`.
 No cambia las siete referencias monetarias ni se atribuye aceptación fiscal
 a los resultados del operador.
+
+El bloque de datos incluye además 46 regresiones públicas de escalas y mínimos:
+reanudación, extracción de ambos lotes, enlaces y transporte de reservas A1–A2.
+Con ellas, `scripts/ci-datos.sh` ejecuta 121 métodos Python, además del control
+aritmético IPC/SS. No necesita los originales privados ni regenera el censo
+real de los lotes. El contraejemplo canario `tests/datos-escalas-minimos-canarias.mjs`
+permanece rojo y separado del CI ordinario hasta integrar su corrección financiera
+acotada; no se cuenta como un pase ni como un defecto resuelto.
