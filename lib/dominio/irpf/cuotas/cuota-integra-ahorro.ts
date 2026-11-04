@@ -15,24 +15,30 @@ export type TramoCuotaAhorroCalculado = TramoCuotaCalculado
 export const calcularCuotaPorEscalaAhorro = ({
   anio,
   base,
+  aritmetica = Decimal,
 }: {
   readonly anio: AnioFiscal
   readonly base: Decimal
+  readonly aritmetica?: Decimal.Constructor
 }): Decimal =>
   calcularCuotaPorEscala({
     base,
+    aritmetica,
     tramos: obtenerTramosIrpfAhorro(anio),
   })
 
 export const calcularDesgloseCuotaPorEscalaAhorro = ({
   anio,
   base,
+  aritmetica = Decimal,
 }: {
   readonly anio: AnioFiscal
   readonly base: Decimal
+  readonly aritmetica?: Decimal.Constructor
 }): ReadonlyArray<TramoCuotaAhorroCalculado> =>
   calcularDesgloseCuotaPorEscala({
     base,
+    aritmetica,
     tramos: obtenerTramosIrpfAhorro(anio),
   })
 
@@ -42,14 +48,17 @@ export type ComponenteAhorro = "estatal" | "autonomico"
 export const calcularCuotaComponenteAhorro = ({
   anio,
   base,
+  aritmetica = Decimal,
   componente,
 }: {
   readonly anio: AnioFiscal
   readonly base: Decimal
+  readonly aritmetica?: Decimal.Constructor
   readonly componente: ComponenteAhorro
 }): Decimal =>
   calcularCuotaPorEscala({
     base,
+    aritmetica,
     tramos: [],
     escalasPublicadas: obtenerEscalasAhorroPublicadas(anio, componente),
   })
@@ -58,39 +67,47 @@ export const calcularCuotaComponenteAhorro = ({
 export const calcularAhorroConMinimos = ({
   anio,
   base,
+  aritmetica = Decimal,
   baseGeneral,
   minimoEstatal,
   minimoAutonomico,
 }: {
   readonly anio: AnioFiscal
   readonly base: Decimal
+  readonly aritmetica?: Decimal.Constructor
   readonly baseGeneral: Decimal
   readonly minimoEstatal: Decimal
   readonly minimoAutonomico: Decimal
 }) => {
+  const A = aritmetica
+  const baseSeleccionada = new A(base)
+  const general = new A(baseGeneral)
   const componente = (nombre: ComponenteAhorro, minimo: Decimal) => {
-    const remanente = Decimal.min(
-      Decimal.max(0, minimo.minus(Decimal.max(0, baseGeneral))),
-      Decimal.max(0, base)
+    const remanente = A.min(
+      A.max(0, new A(minimo).minus(A.max(0, general))),
+      A.max(0, baseSeleccionada)
     )
     const bruta = calcularCuotaComponenteAhorro({
       anio,
       base,
+      aritmetica,
       componente: nombre,
     })
     const despuesMinimo =
       anio <= 2014
         ? calcularCuotaComponenteAhorro({
             anio,
-            base: Decimal.max(0, base.minus(remanente)),
+            base: A.max(0, baseSeleccionada.minus(remanente)),
+            aritmetica,
             componente: nombre,
           })
-        : Decimal.max(
+        : A.max(
             0,
             bruta.minus(
               calcularCuotaComponenteAhorro({
                 anio,
                 base: remanente,
+                aritmetica,
                 componente: nombre,
               })
             )

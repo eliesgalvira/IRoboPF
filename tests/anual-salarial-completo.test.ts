@@ -27,7 +27,8 @@ it.each(casos)("recorrido real: $nombre", ({ entrada, esperado, lineas }) => {
     expect(linea.origen?.unidad).toBe("EUR")
     expect(linea.origen?.instanceId).toBe(`${linea.origen?.siteId}.0`)
     expect(linea.formula.length).toBeGreaterThan(0)
-    expect(linea.procedencia?.estado).toBe("enlazada")
+    expect(linea.procedencia?.estado).toBe("pendiente")
+    if (linea.procedencia?.estado === "pendiente") expect(linea.procedencia.motivo).toContain("Referencia histórica")
   }
   expect(entrada).toEqual(copia)
 })

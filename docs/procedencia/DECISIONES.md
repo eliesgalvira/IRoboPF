@@ -439,3 +439,22 @@ todas las formulaciones jurídicas. Esta corrección cierra cinco defectos técn
 no declara cerrado el lote SS ni la auditoría fiscal. La revisión adicional es
 del orquestador, conforme al encargo de continuar solo; no se presenta como una
 nueva revisión independiente. [Informe y pruebas](datos-2012-2026/correcciones-cinco/INFORME.md).
+
+## Composición anual común con políticas explícitas (4 de noviembre)
+
+Las entradas técnica y efectiva consumen la misma composición anual. Sus
+productores mantienen cotizaciones estimadas o efectivas y sus gastos admitidos;
+la cuota no se vuelve a construir en cada adaptador. Se conservan 20 cifras
+para el perfil técnico, 80 para el efectivo y las cuantizaciones Open en sus
+etapas declaradas. La precisión se propaga mediante un constructor local,
+también al reparto familiar; no se modifica la configuración global.
+
+**Objeción:** compartir un nombre podría ocultar dos algoritmos o hacer pasar
+estimaciones por pagos efectivos. **Respuesta:** retirar las fórmulas de los
+adaptadores, comprobar la llamada única, conservar la naturaleza de los hechos
+y probar resultados discriminantes. La revisión independiente confirmó la
+composición y exigió corregir la pérdida de precisión antes de aprobarla.
+**Coste:** la UI debe respetar los contratos y ámbitos distintos, y el núcleo
+nuevo requiere acreditación documental propia. La extensión familiar fuera
+de Madrid 2025 no se da por hecha para cerrar el hito del rediseño.
+[Cierre y límites](reforma-motor/bloque-e/CIERRE.md).

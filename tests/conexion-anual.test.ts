@@ -432,7 +432,8 @@ it("fija contexto y enlaces al devolver ambos perfiles anuales", () => {
     const lineas = r.rastro.pasos.flatMap((p) => p.lineasCalculo ?? [])
     expect(lineas.length).toBeGreaterThan(0)
     for (const linea of lineas) {
-      expect(linea.procedencia?.estado).toBe("enlazada")
+      expect(linea.procedencia?.estado).toBe("pendiente")
+    if (linea.procedencia?.estado === "pendiente") expect(linea.procedencia.motivo).toContain("Referencia histórica")
     }
   }
 })

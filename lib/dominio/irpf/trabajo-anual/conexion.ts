@@ -1,18 +1,19 @@
+import { liquidarPagosAnuales } from "../cuotas/cuota-diferencial"
+import {
+  componerLiquidacionAnual,
+  cuantizarAnual,
+} from "../liquidacion/composicion-anual"
 import Decimal from "decimal.js"
 import { Effect, Result, Schema } from "effect"
 import { CasoFiscalAnualExplicito } from "./conexion-contrato"
 import { adaptarTrabajoAnual } from "./adaptador"
 import { adaptarActividadGeneral } from "../actividades-economicas/adaptador"
-import { calcularDeduccionTrabajo } from "./calcular"
 import { calcularReduccionTrabajoConOtrasRentas } from "../reducciones/reduccion-rendimientos-trabajo"
-import { obtenerParametrosComunidadAutonoma } from "../comunidades/comunidad-autonoma"
-import { obtenerEscalaAutonomicaPublicada } from "../cuotas/escalas-publicadas"
 import { MINIMOS_ESTATALES_2025 } from "../../normativa/datos/minimos-autonomicos-2025"
-import { calcularCuotaPorEscala } from "../cuotas/escalas-gravamen"
 import { crearLineaCalculo } from "../../explicacion/linea-calculo"
 import type { RastroCalculo } from "../../explicacion/rastro-calculo"
 import type { ResultadoNoSoportado } from "../liquidacion/liquidar-irpf-anual"
-import { enlazarRastroAnualActual } from "../../../procedencia/rastro-anual"
+import { rastroTrasReforma } from "../../../procedencia/rastro-reforma"
 
 const D = Decimal.clone({ precision: 80 })
 const rechazar = (motivo: string): ResultadoNoSoportado => ({
@@ -40,10 +41,12 @@ export const liquidarIrpfAnualExplicito = Effect.fn(
   const caso = decoded.success
   let redondeoSalarialOpen = false
   const cuantizarEtapa = (importe: Decimal) =>
-    redondeoSalarialOpen
-      ? importe.toDecimalPlaces(2, Decimal.ROUND_HALF_UP)
-      : importe
+    cuantizarAnual(
+      importe,
+      redondeoSalarialOpen ? "open-empleo-madrid-2025" : "decimal-hasta-salida"
+    )
   const pasos: RastroCalculo["pasos"][number][] = []
+  let cotizacionEfectiva = new D(0)
   let neto = new D(0),
     reduccionArt20 = new D(0),
     brutoServicios = new D(0)
@@ -75,6 +78,14 @@ export const liquidarIrpfAnualExplicito = Effect.fn(
     const trabajo = adaptarTrabajoAnual(caso.trabajo)
     if (trabajo.estado === "no-soportado")
       return yield* Effect.fail(rechazar(trabajo.motivo))
+    cotizacionEfectiva = caso.trabajo.rendimientos.reduce(
+      (total, r) =>
+        total
+          .plus(r.cotizaciones.seguridadSocial)
+          .plus(r.cotizaciones.derechosPasivos)
+          .plus(r.cotizaciones.colegiosHuerfanos),
+      new D(0)
+    )
     neto = new D(trabajo.rendimientoAntesArt20)
     reduccionArt20 = D.min(
       D.max(neto, 0),
@@ -144,10 +155,9 @@ export const liquidarIrpfAnualExplicito = Effect.fn(
           importe: reduccionArt20,
           unidad: "EUR",
           etiqueta: "Reducción artículo 20",
-          formula:
-            redondeoSalarialOpen
-              ? "céntimos half-up de min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0), observado en Open 2025"
-              : "min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0)",
+          formula: redondeoSalarialOpen
+            ? "céntimos half-up de min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0), observado en Open 2025"
+            : "min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0)",
         }),
       ],
     })
@@ -167,6 +177,10 @@ export const liquidarIrpfAnualExplicito = Effect.fn(
       return yield* Effect.fail(
         rechazar(actividad.motivos.map((m) => m.motivo).join("; "))
       )
+    cotizacionEfectiva = caso.actividad.reta.reduce(
+      (total, r) => total.plus(r.importe),
+      new D(0)
+    )
     neto = new D(actividad.aporte.importeEurosExactos)
     retenciones = new D(actividad.aporte.retencionesEuros)
     pagos = new D(actividad.aporte.pagosFraccionadosEuros)
@@ -196,68 +210,50 @@ export const liquidarIrpfAnualExplicito = Effect.fn(
   }
   // Sin otras rentas, reducciones de base ni saldos anteriores: BIG = BLG con signo.
   const base = D.max(neto, 0)
-  const parametros = obtenerParametrosComunidadAutonoma({
-    anio: 2025,
-    comunidadAutonoma: "madrid",
-    baseLiquidableGeneral: base,
+  const composicion = yield* componerLiquidacionAnual({
+    ambito: {
+      anio: 2025,
+      comunidadAutonoma: "madrid",
+      situacionFamiliar: {
+        tipo: "individual",
+        edad: caso.edad,
+        discapacidad: { _tag: "SinDiscapacidad" },
+        descendientes: [],
+        ascendientes: [],
+      },
+    },
+    cotizaciones: { naturaleza: "efectivas", trabajador: cotizacionEfectiva },
+    precision: 80,
+    politica: redondeoSalarialOpen
+      ? "open-empleo-madrid-2025"
+      : "decimal-hasta-salida",
+    baseGeneral: base,
+    baseAhorro: new D(0),
+    rentasAntesReducciones: neto.plus(reduccionArt20),
+    minimosEstatales: MINIMOS_ESTATALES_2025,
+    deduccionesAutonomicasCentimos: 0,
+    serviciosLaborales: brutoServicios.gt(0)
+      ? { bruto: brutoServicios }
+      : undefined,
   })
-  if (parametros._tag === "ComunidadAutonomaNoSoportada")
-    return yield* Effect.fail(rechazar(parametros.motivo))
-  const publicada = obtenerEscalaAutonomicaPublicada({
-    anio: 2025,
-    comunidadAutonoma: "madrid",
-  })
-  const estatal = (b: Decimal) =>
-    calcularCuotaPorEscala({ base: b, tramos: parametros.escalaEstatalGeneral })
-  const autonomica = (b: Decimal) =>
-    calcularCuotaPorEscala({
-      base: b,
-      tramos: parametros.escalaAutonomica.tramos,
-      escalasPublicadas: publicada === undefined ? undefined : [publicada],
-    })
-  const gravamenEstatal = cuantizarEtapa(estatal(base))
-  const gravamenMinimoEstatal = cuantizarEtapa(
-    estatal(D.min(base, MINIMOS_ESTATALES_2025.contribuyente.general))
-  )
-  const gravamenAutonomico = cuantizarEtapa(autonomica(base))
-  const gravamenMinimoAutonomico = cuantizarEtapa(
-    autonomica(D.min(base, parametros.minimosAutonomicos.contribuyente.general))
-  )
-  const cuotaEstatal = D.max(0, gravamenEstatal.minus(gravamenMinimoEstatal))
-  const cuotaAutonomica = D.max(0, gravamenAutonomico.minus(gravamenMinimoAutonomico))
-  const liquida = cuotaEstatal.plus(cuotaAutonomica)
-  let deduccion = new D(0),
-    posterior = liquida
-  if (brutoServicios.gt(0)) {
-    const resultado = calcularDeduccionTrabajo({
-      regla: "da61",
-      ambito: "comun-individual",
-      ejercicio: 2025,
-      brutoServicios: brutoServicios.toFixed(),
-      otrasRentasNoExentas: "0",
-      netoReducidoServicios: base.toFixed(),
-      baseLiquidableGeneral: base.toFixed(),
-      cuotaIntegraGeneral: liquida.toFixed(),
-      cuotaLiquidaTotal: liquida.toFixed(),
-      cuotaTrasArt80: liquida.toFixed(),
-      etapa: "despues-art80-sin-deduccion-trabajo",
-      calificacion: "laboral-estatutaria-acreditada",
-    })
-    if (resultado.estado === "no-soportado")
-      return yield* Effect.fail(rechazar(resultado.motivo))
-    deduccion = cuantizarEtapa(new D(resultado.importeAplicable))
-    posterior = redondeoSalarialOpen
-      ? liquida.minus(deduccion)
-      : new D(resultado.cuotaPosterior)
-  }
-  const diferencial = posterior.minus(retenciones).minus(pagos)
+  const {
+    cuotaIntegraGeneralEstatal: gravamenEstatal,
+    cuotaMinimoPersonalEstatal: gravamenMinimoEstatal,
+    cuotaIntegraGeneralAutonomica: gravamenAutonomico,
+    cuotaMinimoPersonalAutonomica: gravamenMinimoAutonomico,
+    cuotaEstatalDespuesMinimo: cuotaEstatal,
+    cuotaAutonomicaGeneralDespuesMinimo: cuotaAutonomica,
+    cuotaLiquida: liquida,
+    deduccionTrabajo: deduccion,
+    cuotaPosterior: posterior,
+  } = composicion
+  const diferencial = liquidarPagosAnuales(posterior, retenciones, pagos)
   pasos.push({
     _tag: "PasoExplicacion",
     titulo: "Bases, cuotas y pagos anuales",
-    descripcion:
-      redondeoSalarialOpen
-        ? "Empleo Madrid 2025: artículo 20, cada gravamen y DA61 a céntimos half-up antes de restar, según siete casos de Open 1.19. Evidencia observada, sin aceptación fiscal automática ni cobertura universal."
-        : "Sin ahorro, reducciones de base ni otras deducciones. Artículo 80 sin importe al excluir rentas extranjeras. Cuota líquida legal conservada antes de DA61. Precisión decimal hasta salida; presentación final half-up a céntimos, pendiente de aceptación fiscal.",
+    descripcion: redondeoSalarialOpen
+      ? "Empleo Madrid 2025: artículo 20, cada gravamen y DA61 a céntimos half-up antes de restar, según siete casos de Open 1.19. Evidencia observada, sin aceptación fiscal automática ni cobertura universal."
+      : "Sin ahorro, reducciones de base ni otras deducciones. Artículo 80 sin importe al excluir rentas extranjeras. Cuota líquida legal conservada antes de DA61. Precisión decimal hasta salida; presentación final half-up a céntimos, pendiente de aceptación fiscal.",
     fuentes: [
       {
         titulo: "Alcance y evidencia de la conexión anual",
@@ -298,10 +294,9 @@ export const liquidarIrpfAnualExplicito = Effect.fn(
         importe: cuotaAutonomica,
         unidad: "EUR",
         etiqueta: "Cuota autonómica",
-        formula:
-          redondeoSalarialOpen
-            ? `gravámenes a céntimos Open Madrid: ${gravamenAutonomico.toFixed(2)} − ${gravamenMinimoAutonomico.toFixed(2)}`
-            : "escala publicada Madrid(base) − escala(mínimo limitado a base)",
+        formula: redondeoSalarialOpen
+          ? `gravámenes a céntimos Open Madrid: ${gravamenAutonomico.toFixed(2)} − ${gravamenMinimoAutonomico.toFixed(2)}`
+          : "escala publicada Madrid(base) − escala(mínimo limitado a base)",
       }),
       crearLineaCalculo({
         siteId: "anual.explicito.cuota.liquida-legal",
@@ -374,9 +369,13 @@ export const liquidarIrpfAnualExplicito = Effect.fn(
     cuotaDiferencial: diferencial.toFixed(),
     cuotaDiferencialPresentada: diferencial.toFixed(2, Decimal.ROUND_HALF_UP),
     aceptacionFiscal: "pendiente" as const,
-    rastro: enlazarRastroAnualActual({
+    rastro: rastroTrasReforma({
       titulo: "Liquidación anual explícita 2025",
-      contexto: { anio: 2025, territorio: "madrid", perfilCalculo: caso.perfil },
+      contexto: {
+        anio: 2025,
+        territorio: "madrid",
+        perfilCalculo: caso.perfil,
+      },
       pasos,
     }),
   }

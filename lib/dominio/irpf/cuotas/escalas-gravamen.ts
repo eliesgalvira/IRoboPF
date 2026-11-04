@@ -20,27 +20,37 @@ export const calcularCuotaPorEscala = ({
   base,
   tramos,
   escalasPublicadas,
+  aritmetica = Decimal,
 }: {
   readonly base: Decimal
   readonly tramos: TramosIrpf
   readonly escalasPublicadas?: ReadonlyArray<EscalaPublicada> | undefined
+  readonly aritmetica?: Decimal.Constructor
 }): Decimal =>
   EffectArray.reduce(
-    calcularDesgloseCuotaPorEscala({ base, tramos, escalasPublicadas }),
-    base.mul(0),
+    calcularDesgloseCuotaPorEscala({
+      base,
+      tramos,
+      escalasPublicadas,
+      aritmetica,
+    }),
+    new aritmetica(0),
     (total, tramo) => total.plus(tramo.cuota)
   )
 
 export const calcularDesgloseCuotaPorEscala = ({
-  base,
+  base: baseEntrada,
   tramos,
   escalasPublicadas,
+  aritmetica: A = Decimal,
 }: {
   readonly base: Decimal
   readonly tramos: TramosIrpf
   readonly escalasPublicadas?: ReadonlyArray<EscalaPublicada> | undefined
-}): ReadonlyArray<TramoCuotaCalculado> =>
-  escalasPublicadas !== undefined
+  readonly aritmetica?: Decimal.Constructor
+}): ReadonlyArray<TramoCuotaCalculado> => {
+  const base = new A(baseEntrada)
+  return escalasPublicadas !== undefined
     ? EffectArray.flatMap(escalasPublicadas, (filas) =>
         Option.match(
           EffectArray.findLast(
@@ -55,20 +65,20 @@ export const calcularDesgloseCuotaPorEscala = ({
             onNone: () => [],
             onSome: (fila) => [
               {
-                limiteInferior: fila.baseInferior,
+                limiteInferior: new A(fila.baseInferior),
                 limiteSuperior: Option.match(
                   EffectArray.findFirst(filas, (otra) =>
                     otra.baseInferior.gt(fila.baseInferior)
                   ),
                   {
-                    onNone: () => new Decimal(Infinity),
-                    onSome: (otra) => otra.baseInferior,
+                    onNone: () => new A(Infinity),
+                    onSome: (otra) => new A(otra.baseInferior),
                   }
                 ),
                 baseAplicada: base.minus(fila.baseInferior),
-                tipo: fila.tipo,
-                cuotaFija: fila.cuota,
-                cuota: fila.cuota.plus(
+                tipo: new A(fila.tipo),
+                cuotaFija: new A(fila.cuota),
+                cuota: new A(fila.cuota).plus(
                   base.minus(fila.baseInferior).mul(fila.tipo)
                 ),
               },
@@ -90,22 +100,19 @@ export const calcularDesgloseCuotaPorEscala = ({
                 tramos: EffectArray.empty<TramoCuotaGeneralCalculado>(),
               },
               (estado, [limite, tipo]) => {
-                const baseRestante = Decimal.max(
-                  0,
-                  base.minus(estado.limiteAnterior)
-                )
-                const anchoTramo = limite.minus(estado.limiteAnterior)
-                const importeEnTramo = Decimal.min(baseRestante, anchoTramo)
+                const baseRestante = A.max(0, base.minus(estado.limiteAnterior))
+                const anchoTramo = new A(limite).minus(estado.limiteAnterior)
+                const importeEnTramo = A.min(baseRestante, anchoTramo)
                 const tramo = {
                   limiteInferior: estado.limiteAnterior,
-                  limiteSuperior: limite,
+                  limiteSuperior: new A(limite),
                   baseAplicada: importeEnTramo,
-                  tipo,
+                  tipo: new A(tipo),
                   cuota: importeEnTramo.mul(tipo),
                 }
 
                 return {
-                  limiteAnterior: limite,
+                  limiteAnterior: new A(limite),
                   tramos: Match.value(importeEnTramo).pipe(
                     Match.when(
                       (importeEnTramo) => importeEnTramo.gt(0),
@@ -118,3 +125,4 @@ export const calcularDesgloseCuotaPorEscala = ({
             ).tramos
         )
       )
+}

@@ -66,6 +66,9 @@ const declaredSitesR36 = [
 ]
 export const sitesR36 = [...declaredSitesR36]
 const externalNames = [
+  // Núcleo anual nuevo fuera del intérprete histórico: contrato externo pendiente.
+  "componerLiquidacionAnual",
+  "rastroTrasReforma",
   "calcularDesgloseCotizacionesPerfilUniforme",
   "calcularDesgloseCotizacionesSocialesLegacy",
   "calcularCotizacionesSocialesLegacy",
