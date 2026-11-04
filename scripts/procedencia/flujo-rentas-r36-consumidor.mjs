@@ -93,6 +93,7 @@ export function executeRentasFinite(
       Map,
       Date,
       Number,
+      JSON,
       Array,
       Math,
       Error,

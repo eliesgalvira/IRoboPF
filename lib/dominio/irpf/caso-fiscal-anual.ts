@@ -1,3 +1,4 @@
+import type { SolicitudDeduccionesValencianasAnual2025 } from "./deducciones/valenciana-2025/anual"
 import type { AnioFiscal } from "../normativa/anio-fiscal"
 import type { DerechosMinimosAnuales } from "./minimos/derechos-contrato"
 import type { CasoRetencionTrabajo } from "./retenciones/retencion-trabajo-aeat"
@@ -104,6 +105,10 @@ export interface DeduccionAutonomicaCatalogadaAplicada {
 export interface CasoFiscalAnual {
   /** Hechos completos de reparto; obligatorios cuando existen familiares. */
   readonly derechosMinimos?: DerechosMinimosAnuales | undefined
+  readonly contribuyenteId?: string | undefined
+  readonly deduccionesValencianas2025?:
+    | SolicitudDeduccionesValencianasAnual2025
+    | undefined
   readonly anio: AnioFiscal
   readonly comunidadAutonoma: ComunidadAutonoma
   readonly fechaFallecimiento?: Date | undefined

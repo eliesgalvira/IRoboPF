@@ -1,3 +1,4 @@
+import { pasosDeduccionesValencianasAnual } from "../deducciones/valenciana-2025/anual"
 import { liquidarPagosAnuales } from "../cuotas/cuota-diferencial"
 import {
   componerLiquidacionAnual,
@@ -38,6 +39,28 @@ export const liquidarIrpfAnualExplicito = Effect.fn("Liquidacion.explicita")(
         )
       )
     const caso = decoded.success
+    const solicitudValenciana =
+      "deduccionesValencianas2025" in caso
+        ? caso.deduccionesValencianas2025
+        : undefined
+    if (
+      (caso.deducciones === "valencianas-por-hechos-y-da61") !==
+      (solicitudValenciana !== undefined)
+    )
+      return yield* Effect.fail(
+        rechazar(
+          "Discriminante de deducciones incompatible con la solicitud por hechos"
+        )
+      )
+    if (
+      (caso.saldosAnteriores === "solo-deducciones-valencianas") !==
+      (solicitudValenciana?.arrastres.length ?? 0) > 0
+    )
+      return yield* Effect.fail(
+        rechazar(
+          "La declaración de saldos anteriores debe coincidir con los arrastres valencianos; no habilita compensaciones de base"
+        )
+      )
     if (
       caso.devengo !== `${caso.ejercicio}-12-31` ||
       (caso.perfil === "solo-trabajo" &&
@@ -263,6 +286,8 @@ export const liquidarIrpfAnualExplicito = Effect.fn("Liquidacion.explicita")(
     const base = D.max(neto, 0)
     const composicion = yield* componerLiquidacionAnual({
       ambito: {
+        contribuyenteId:
+          "contribuyenteId" in caso ? caso.contribuyenteId : undefined,
         anio: caso.ejercicio,
         comunidadAutonoma: caso.comunidadAutonoma,
         derechosMinimos: caso.derechosMinimos,
@@ -288,6 +313,7 @@ export const liquidarIrpfAnualExplicito = Effect.fn("Liquidacion.explicita")(
       // Se conserva esa selección histórica; no constituye una nueva acreditación.
       minimosEstatales: MINIMOS_ESTATALES_2025,
       deduccionesAutonomicasCentimos: 0,
+      deduccionesValencianas2025: solicitudValenciana,
       serviciosLaborales:
         caso.ejercicio === 2025 && brutoServicios.gt(0)
           ? { bruto: brutoServicios }
@@ -304,15 +330,23 @@ export const liquidarIrpfAnualExplicito = Effect.fn("Liquidacion.explicita")(
       deduccionTrabajo: deduccion,
       cuotaPosterior: posterior,
     } = composicion
+    pasos.push(
+      ...pasosDeduccionesValencianasAnual(
+        composicion.deduccionesValencianas2025
+      )
+    )
     const diferencial = liquidarPagosAnuales(posterior, retenciones, pagos)
     pasos.push({
       _tag: "PasoExplicacion",
       titulo: "Bases, cuotas y pagos anuales",
-      descripcion: redondeoSalarialOpen
-        ? "Empleo Madrid 2025: artículo 20 con compatibilidad numérica observada y acotada por operandos; gravámenes y DA61 a céntimos half-up antes de restar. Evidencias Open 1.19 y C300, sin aceptación fiscal automática ni cobertura universal."
-        : redondeoCuotasAndaluciaOpen
-          ? "Empleo Andalucía 2025 sin derechos familiares: gravámenes a céntimos half-up antes de restar mínimos y sumar cuotas. Artículo 20 y DA61 conservan precisión decimal. Evidencia C300 de una entrada; aceptación fiscal pendiente."
-          : "Sin ahorro, reducciones de base ni otras deducciones. Artículo 80 sin importe al excluir rentas extranjeras. Cuota líquida legal conservada antes de DA61. Precisión decimal hasta salida; presentación final half-up a céntimos, pendiente de aceptación fiscal.",
+      descripcion:
+        solicitudValenciana !== undefined
+          ? "Deducciones valencianas por hechos aplicadas una sola vez a cuota autonómica; resultado condicionado. DA61 y pagos conservan sus etapas únicas posteriores."
+          : redondeoSalarialOpen
+            ? "Empleo Madrid 2025: artículo 20 con compatibilidad numérica observada y acotada por operandos; gravámenes y DA61 a céntimos half-up antes de restar. Evidencias Open 1.19 y C300, sin aceptación fiscal automática ni cobertura universal."
+            : redondeoCuotasAndaluciaOpen
+              ? "Empleo Andalucía 2025 sin derechos familiares: gravámenes a céntimos half-up antes de restar mínimos y sumar cuotas. Artículo 20 y DA61 conservan precisión decimal. Evidencia C300 de una entrada; aceptación fiscal pendiente."
+              : "Sin ahorro, reducciones de base ni otras deducciones. Artículo 80 sin importe al excluir rentas extranjeras. Cuota líquida legal conservada antes de DA61. Precisión decimal hasta salida; presentación final half-up a céntimos, pendiente de aceptación fiscal.",
       fuentes: [
         {
           titulo: "Alcance y evidencia de la conexión anual",
@@ -363,7 +397,10 @@ export const liquidarIrpfAnualExplicito = Effect.fn("Liquidacion.explicita")(
           importe: liquida,
           unidad: "EUR",
           etiqueta: "Cuota líquida legal",
-          formula: "cuota estatal + autonómica; sin otras deducciones",
+          formula:
+            solicitudValenciana === undefined
+              ? "cuota estatal + autonómica; sin otras deducciones"
+              : "cuota estatal + autonómica - deducciones valencianas aplicadas a cuota común",
         }),
         crearLineaCalculo({
           siteId: "anual.explicito.da61",
@@ -431,6 +468,7 @@ export const liquidarIrpfAnualExplicito = Effect.fn("Liquidacion.explicita")(
         cuotaEstatal: cuotaEstatal.toFixed(),
         cuotaAutonomica: cuotaAutonomica.toFixed(),
       },
+      deduccionesValencianas2025: composicion.deduccionesValencianas2025,
       cuotaLiquidaLegal: liquida.toFixed(),
       deduccionTrabajo: deduccion.toFixed(),
       cuotaPosterior: posterior.toFixed(),

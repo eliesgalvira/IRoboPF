@@ -22,6 +22,7 @@ const primitiveNames = [
   "Object",
   "Array",
   "Math",
+  "JSON",
   "Set",
   "Map",
   "Date",

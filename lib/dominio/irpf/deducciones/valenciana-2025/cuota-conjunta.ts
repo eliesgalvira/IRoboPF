@@ -2,41 +2,44 @@ import Decimal from "decimal.js"
 import { Schema } from "effect"
 import {
   componerDeduccionesValencianas2025,
+  componerDeduccionesValencianasConCuotaAnual2025,
   type ComposicionValenciana2025,
   type CuotaSeparada,
   type ResultadoComposicion,
 } from "./composicion"
 
-export type AplicacionCuotaConjuntaValenciana2025 = {
-  readonly hechos: ComposicionValenciana2025 & { readonly cuota: CuotaSeparada }
+export type AplicacionCuotaConjuntaValenciana2025<Importe = number> = {
+  readonly hechos: ComposicionValenciana2025<Importe> & {
+    readonly cuota: CuotaSeparada<Importe>
+  }
   /** Todos los ids históricos y los ids JSON.stringify([codigo,2025,titular]). */
   readonly ordenConsumo: readonly string[]
   readonly criterioOrden: "eleccion_experta"
 }
-export type MovimientoCuotaConjunta = {
+export type MovimientoCuotaConjunta<Importe = number> = {
   readonly id: string
   readonly codigo: string
   readonly contribuyente: string
   readonly origen: number
   readonly soporte: string
   readonly clase: "historico" | "generado_2025"
-  readonly deduccionDisponible: number
-  readonly aplicado: number
+  readonly deduccionDisponible: Importe
+  readonly aplicado: Importe
   /** Sólo saldo utilizable después de 2025; nunca base/gasto excesivo. */
-  readonly pendiente: number
-  readonly perdidoPorCuota: number
-  readonly caducadoAlCierre: number
+  readonly pendiente: Importe
+  readonly perdidoPorCuota: Importe
+  readonly caducadoAlCierre: Importe
   readonly ultimoEjercicio?: number
 }
-export type ResultadoCuotaConjuntaValenciana2025 = {
+export type ResultadoCuotaConjuntaValenciana2025<Importe = number> = {
   readonly estado: "calculo_parcial" | "no_soportado"
   readonly aceptacionFiscal: "pendiente"
-  readonly composicion: ResultadoComposicion
+  readonly composicion: ResultadoComposicion<Importe>
   readonly incidencias: readonly string[]
-  readonly movimientos: readonly MovimientoCuotaConjunta[]
+  readonly movimientos: readonly MovimientoCuotaConjunta<Importe>[]
   readonly referenciaCuota?: string
-  readonly totalAplicado?: number
-  readonly cuotaRestante?: number
+  readonly totalAplicado?: Importe
+  readonly cuotaRestante?: Importe
   readonly reserva: string
 }
 
@@ -93,14 +96,42 @@ function euros(n: Decimal): number {
 export function aplicarCuotaConjuntaValenciana2025(
   a: AplicacionCuotaConjuntaValenciana2025
 ): ResultadoCuotaConjuntaValenciana2025 {
-  let composicion: ResultadoComposicion = {
+  return aplicar(a, componerDeduccionesValencianas2025, euros, reserva)
+}
+
+/** Comparte validación, orden y consumo con el contrato aislado. Los movimientos
+ * de la cuota anual se serializan sin cuantizar ni convertirlos a Number.
+ */
+export function aplicarCuotaAnualValenciana2025(
+  a: AplicacionCuotaConjuntaValenciana2025<string>
+): ResultadoCuotaConjuntaValenciana2025<string> {
+  return aplicar(
+    a,
+    componerDeduccionesValencianasConCuotaAnual2025,
+    (v) => v.div(100).toString(),
+    reserva.replace(
+      "a una cuota externa declarada, sin liquidación ni aceptación fiscal",
+      "a la cuota decimal calculada por el núcleo anual, sin aceptación fiscal"
+    )
+  )
+}
+
+function aplicar<Importe extends number | string>(
+  a: AplicacionCuotaConjuntaValenciana2025<Importe>,
+  componer: (
+    hechos: ComposicionValenciana2025<Importe>
+  ) => ResultadoComposicion<Importe>,
+  presentar: (v: Decimal) => Importe,
+  reserva: string
+): ResultadoCuotaConjuntaValenciana2025<Importe> {
+  let composicion: ResultadoComposicion<Importe> = {
     estado: "no_soportado",
     aceptacionFiscal: "pendiente",
     resultados: [],
     incidencias: [],
   }
   try {
-    composicion = componerDeduccionesValencianas2025(a.hechos)
+    composicion = componer(a.hechos)
     if (composicion.estado !== "calculo_parcial")
       return {
         estado: "no_soportado",
@@ -122,7 +153,13 @@ export function aplicarCuotaConjuntaValenciana2025(
     )
     const cuota = composicion.cuotaSinAplicar
     exigir(cuota !== undefined, "Falta cuota externa identificada")
-    let disponible = centimos(cuota.disponible)
+    const exacta = new Decimal(cuota.disponible)
+    const D = Decimal.clone({
+      precision: Math.max(80, exacta.precision() + Math.max(0, -exacta.e) + 20),
+    })
+    let disponible = Schema.is(Schema.Number)(cuota.disponible)
+      ? new D(centimos(cuota.disponible))
+      : new D(cuota.disponible).times(100)
     const inicial = disponible
     type Saldo = {
       id: string
@@ -201,27 +238,29 @@ export function aplicarCuotaConjuntaValenciana2025(
           `${codigo}: los saldos históricos preceden a la generación corriente (manual AEAT 2025)`
         )
     }
-    const movimientos: MovimientoCuotaConjunta[] = []
+    const movimientos: MovimientoCuotaConjunta<Importe>[] = []
     for (const id of a.ordenConsumo) {
       const v = porId.get(id)!
-      const saldo = centimos(v.pendiente)
-      const aplicado = Decimal.min(disponible, saldo)
+      const saldo = new D(centimos(v.pendiente))
+      const aplicado = D.min(disponible, saldo)
       disponible = disponible.minus(aplicado)
       const resto = saldo.minus(aplicado)
       const anos = plazo(v.codigo)
       const ultimo = v.origen + anos
-      const movimiento: MovimientoCuotaConjunta = {
+      const movimiento: MovimientoCuotaConjunta<Importe> = {
         id: v.id,
         codigo: v.codigo,
         contribuyente: v.contribuyente,
         origen: v.origen,
         soporte: v.soporte,
         clase: v.clase,
-        deduccionDisponible: euros(saldo),
-        aplicado: euros(aplicado),
-        pendiente: anos > 0 && ultimo > 2025 ? euros(resto) : 0,
-        perdidoPorCuota: anos === 0 ? euros(resto) : 0,
-        caducadoAlCierre: anos > 0 && ultimo === 2025 ? euros(resto) : 0,
+        deduccionDisponible: presentar(saldo),
+        aplicado: presentar(aplicado),
+        pendiente: presentar(anos > 0 && ultimo > 2025 ? resto : new D(0)),
+        perdidoPorCuota: presentar(anos === 0 ? resto : new D(0)),
+        caducadoAlCierre: presentar(
+          anos > 0 && ultimo === 2025 ? resto : new D(0)
+        ),
       }
       movimientos.push(
         anos > 0 ? { ...movimiento, ultimoEjercicio: ultimo } : movimiento
@@ -234,8 +273,8 @@ export function aplicarCuotaConjuntaValenciana2025(
       incidencias: [],
       movimientos,
       referenciaCuota: cuota.referencia,
-      totalAplicado: euros(inicial.minus(disponible)),
-      cuotaRestante: euros(disponible),
+      totalAplicado: presentar(inicial.minus(disponible)),
+      cuotaRestante: presentar(disponible),
       reserva,
     }
   } catch (error) {

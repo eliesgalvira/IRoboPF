@@ -1,0 +1,84 @@
+{
+  "anio": 2025,
+  "comunidadAutonoma": "comunitat-valenciana",
+  "contribuyenteId": "A",
+  "situacionFamiliar": {
+    "tipo": "individual",
+    "edad": 30,
+    "discapacidad": {
+      "_tag": "SinDiscapacidad"
+    },
+    "descendientes": [],
+    "ascendientes": []
+  },
+  "rendimientos": {
+    "trabajo": [],
+    "capitalInmobiliario": [
+      {
+        "importeIntegroCentimos": 2000000
+      }
+    ]
+  },
+  "reducciones": [],
+  "deducciones": [],
+  "retencionesSoportadasCentimos": 0,
+  "pagosACuentaCentimos": 0,
+  "deduccionesValencianas2025": {
+    "ejercicio": 2025,
+    "territorio": "comunitat-valenciana",
+    "modalidad": "individual",
+    "devengo": "2025-12-31",
+    "contribuyente": "A",
+    "cantidades": [
+      {
+        "id": "p",
+        "euros": 100
+      }
+    ],
+    "solicitudes": [
+      {
+        "codigo": "valenciana_deporte_actividades_saludables",
+        "eleccion": "aplicar",
+        "unidades": [
+          {
+            "id": "gasto-deporte",
+            "titulares": [
+              "A"
+            ],
+            "fecha": "2025-06-02",
+            "numeros": {
+              "edad": 76,
+              "grado": 0,
+              "gasto": 100,
+              "ayudas": 0,
+              "reembolsos": 0
+            },
+            "textos": {}
+          }
+        ],
+        "referencias": [
+          {
+            "unidad": "gasto-deporte",
+            "sujetos": [
+              "A"
+            ],
+            "bienes": [],
+            "eventos": [
+              "deporte"
+            ],
+            "cantidades": [
+              "p"
+            ]
+          }
+        ]
+      }
+    ],
+    "ordenBase30": [],
+    "consignaciones": [],
+    "arrastres": [],
+    "ordenConsumo": [
+      "[\"valenciana_deporte_actividades_saludables\",2025,\"A\"]"
+    ],
+    "criterioOrden": "eleccion_experta"
+  }
+}

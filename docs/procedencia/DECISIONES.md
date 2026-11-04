@@ -634,3 +634,36 @@ binaria del artículo 20 y la cuantización de DA61 sin evidencia nueva.
 **Coste:** la observación acredita una entrada, no todas las rentas o familias.
 Las once extensiones todavía no capturadas siguen pendientes y no incrementan
 la cobertura. La corrección de importes recibe su revisión independiente.
+
+
+## Deducciones por hechos y conexión anual tras C2025
+
+El catálogo y la consignación externa de las 351 fichas tienen utilidad, pero no
+sustituyen la evaluación de sus requisitos ni el consumo único de la cuota. El
+balance operativo separa 51 códigos con evaluadores específicos parciales de los
+300 restantes, sin llamar errores monetarios a las ausencias de contrato. El
+punto 4 continúa abierto. La conexión valenciana reutiliza las fórmulas y la
+aplicación de cuota ya revisadas; el núcleo anual debe aportar la cuota real y
+conciliar bases e identidad. Se conserva la elección experta del orden de consumo,
+sin añadir un optimizador ni convertirla en requisito para F general aplazado.
+
+Se preparan en paralelo los contratos de hechos territoriales y una conciliación
+por código de las revisiones documentales existentes. No se resuelven las reservas
+mediante booleanos genéricos ni se repiten revisiones favorables. Cada nueva
+implementación monetaria recibe una revisión independiente antes de publicarse.
+
+### 5/11 · Cuota valenciana interna y prioridad de pruebas
+
+El contrato aislado a céntimos no justifica truncar una cuota calculada con
+precisión decimal. La revisión reprodujo un cambio de un céntimo. Se comparte
+el algoritmo de consumo, manteniendo el contrato externo anterior, y la ruta
+anual serializa los importes como textos decimales exactos. Así aplicado,
+remanente, pérdida y caducidad concilian sin introducir una política fiscal de
+redondeo nueva. La identidad de una persona se obtiene de la referencia de la
+unidad; un id de gasto no sustituye al id del sujeto.
+
+La captura histórica b01 termina antes de ceder su turno a revisión de
+deducciones. Se prioriza el punto4 frente a iniciar otro bloque de20minutos:
+los originales ya obtenidos permanecen reanudables y su adquisición no depende
+de publicar cálculos pendientes. Ningún informe de captura acredita igualdad
+con la API.

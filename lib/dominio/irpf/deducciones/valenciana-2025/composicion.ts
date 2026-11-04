@@ -27,9 +27,9 @@ export type PeticionComposicion = {
   /** Sólo aa: personas que generan el incremento, nunca las del importe fijo. */
   readonly descendientesIncremento?: readonly string[]
 }
-export type CuotaSeparada = {
+export type CuotaSeparada<Importe = number> = {
   readonly referencia: string
-  readonly disponible: number
+  readonly disponible: Importe
   readonly arrastres: readonly {
     readonly id: string
     readonly codigo: string
@@ -39,7 +39,7 @@ export type CuotaSeparada = {
     readonly soporte: string
   }[]
 }
-export type ComposicionValenciana2025 = {
+export type ComposicionValenciana2025<Importe = number> = {
   readonly ejercicio: 2025
   readonly territorio: "comunitat-valenciana"
   readonly modalidad: "individual"
@@ -58,7 +58,7 @@ export type ComposicionValenciana2025 = {
     readonly codigo: string
     readonly contribuyente: string
   }[]
-  readonly cuota?: CuotaSeparada
+  readonly cuota?: CuotaSeparada<Importe>
 }
 export type FilaComposicion = {
   readonly codigo: string
@@ -70,7 +70,7 @@ export type FilaComposicion = {
     readonly exceso: number
   }
 }
-export type ResultadoComposicion = {
+export type ResultadoComposicion<Importe = number> = {
   readonly estado: "calculo_parcial" | "no_soportado"
   readonly aceptacionFiscal: "pendiente"
   readonly resultados: readonly FilaComposicion[]
@@ -78,7 +78,7 @@ export type ResultadoComposicion = {
   /** Ausente si hay un rechazo: nunca se sustituye por cero. Antes de cuota. */
   readonly totalParcialAntesCuota?: number
   readonly limiteBase30?: number
-  readonly cuotaSinAplicar?: CuotaSeparada
+  readonly cuotaSinAplicar?: CuotaSeparada<Importe>
 }
 
 const c = (s: string) => "valenciana_" + s
@@ -156,6 +156,22 @@ function plazo(codigo: string) {
 export function componerDeduccionesValencianas2025(
   a: ComposicionValenciana2025
 ): ResultadoComposicion {
+  return componer(a, false)
+}
+
+/** Ruta interna anual: la cuota calculada conserva su decimal exacto serializado.
+ * El contrato público aislado sigue exigiendo una cuota externa a céntimos.
+ */
+export function componerDeduccionesValencianasConCuotaAnual2025(
+  a: ComposicionValenciana2025<string>
+): ResultadoComposicion<string> {
+  return componer(a, true)
+}
+
+function componer<Importe extends number | string>(
+  a: ComposicionValenciana2025<Importe>,
+  cuotaAnualExacta: boolean
+): ResultadoComposicion<Importe> {
   const resultados: FilaComposicion[] = []
   const incidencias: string[] = []
   try {
@@ -450,8 +466,13 @@ export function componerDeduccionesValencianas2025(
       claves(a.cuota, ["referencia", "disponible", "arrastres"])
       exigir(
         texto(a.cuota.referencia) &&
-          dinero(a.cuota.disponible) &&
-          new Decimal(a.cuota.disponible).decimalPlaces() <= 2 &&
+          (cuotaAnualExacta
+            ? Schema.is(Schema.String)(a.cuota.disponible) &&
+              new Decimal(a.cuota.disponible).isFinite() &&
+              new Decimal(a.cuota.disponible).gte(0)
+            : Schema.is(Schema.Number)(a.cuota.disponible) &&
+              dinero(a.cuota.disponible) &&
+              new Decimal(a.cuota.disponible).decimalPlaces() <= 2) &&
           ids(a.cuota.arrastres.map((v) => v.id)),
         "Cuota/saldos separados inválidos"
       )
@@ -563,14 +584,14 @@ export function componerDeduccionesValencianas2025(
       dinero(total.toNumber()),
       "Total fuera del intervalo monetario representable"
     )
-    const salida: ResultadoComposicion = {
+    const salida: ResultadoComposicion<Importe> = {
       estado: incidencias.length > 0 ? "no_soportado" : "calculo_parcial",
       aceptacionFiscal: "pendiente",
       resultados,
       incidencias,
       limiteBase30: techo.toNumber(),
     }
-    const conTotal: ResultadoComposicion =
+    const conTotal: ResultadoComposicion<Importe> =
       incidencias.length > 0
         ? salida
         : { ...salida, totalParcialAntesCuota: total.toNumber() }

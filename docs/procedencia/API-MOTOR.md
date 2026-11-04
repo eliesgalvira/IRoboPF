@@ -186,3 +186,26 @@ cotejar catorce casillas; una omisión oficial permanece ausencia. La coincidenc
 monetaria no acredita todos los hechos de la entrada ni aceptación fiscal.
 La campaña histórica debe comprobar la correspondencia de casillas de cada
 ejercicio; una casilla inexistente o ausente no se convierte en cero.
+
+<!-- valenciana-anual-2025:start -->
+## Deducciones valencianas en la ruta anual
+
+La solicitud `deduccionesValencianas2025` y `contribuyenteId` conectan hechos y
+saldos con la composición anual individual ordinaria de 2025. La entrada efectiva
+usa `deducciones: "valencianas-por-hechos-y-da61"`; conserva el discriminante previo
+sin solicitud y el contrato histórico sin deducciones. Las dos entradas consumen
+el mismo núcleo, que deriva bases y cuota autonómica disponible, aplica una sola
+vez la composición/cuota compartida revisada y conserva los pagos finales únicos.
+No recibe cuota ni bases externas, no consume el total parcial como agregado ni
+mezcla consignaciones. Conserva resultado detallado, motivos y reservas en salida
+y rastro; `aceptacionFiscal` permanece pendiente. Los importes de los movimientos
+y totales de esta conexión son textos decimales EUR exactos; la cuota interna no
+se trunca a céntimos. El aplicador aislado conserva su contrato numérico anterior.
+
+El [contrato y límites de esta conexión](deducciones-2025/VALENCIANA-ANUAL.md)
+especifica el rechazo acotado de bases no representables y de la deducción de dos
+o más descendientes sin bases familiares exhaustivas. Las afirmaciones anteriores
+sobre separación anual describen la API parcial aislada; esta sección delimita
+la nueva conexión por hechos. No amplía 2026, conjunta ni las ramas fiscales
+pendientes, y no cierra las 351 fichas.
+<!-- valenciana-anual-2025:end -->

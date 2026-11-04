@@ -1,5 +1,13 @@
 import Decimal from "decimal.js"
-import { Effect } from "effect"
+import { Effect, Schema, Result } from "effect"
+import {
+  SolicitudDeduccionesValencianasAnual2025,
+  pasosDeduccionesValencianasAnual,
+} from "../deducciones/valenciana-2025/anual"
+import {
+  aplicarCuotaAnualValenciana2025,
+  type ResultadoCuotaConjuntaValenciana2025,
+} from "../deducciones/valenciana-2025/cuota-conjunta"
 import type { CasoFiscalAnual } from "../caso-fiscal-anual"
 import { centimosAEuros } from "../../dinero/importe-monetario"
 import { obtenerParametrosComunidadAutonoma as obtenerParametrosComunidadAutonomaPuro } from "../comunidades/comunidad-autonoma"
@@ -38,6 +46,7 @@ export type PoliticaAnual =
 export interface EntradaComposicionAnual {
   readonly ambito: Pick<
     CasoFiscalAnual,
+    | "contribuyenteId"
     | "anio"
     | "comunidadAutonoma"
     | "fechaFallecimiento"
@@ -55,6 +64,9 @@ export interface EntradaComposicionAnual {
   readonly rentasAntesReducciones: Decimal
   readonly minimosEstatales: MinimosPersonalesFamiliaresIrpf
   readonly deduccionesAutonomicasCentimos: number
+  readonly deduccionesValencianas2025?:
+    | SolicitudDeduccionesValencianasAnual2025
+    | undefined
   readonly serviciosLaborales?: { readonly bruto: Decimal } | undefined
 }
 const errorDerechosMinimos = ({
@@ -319,14 +331,250 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
     const deduccionesAutonomicasDeclaradas = centimosAEuros(
       entrada.deduccionesAutonomicasCentimos
     )
-    const deduccionesAutonomicasAplicadas = usaEscalaAutonomicaReal
-      ? A.min(
-          deduccionesAutonomicasDeclaradas,
-          cuotaAutonomicaGeneralDespuesMinimo.plus(
-            ahorroConMinimos.autonomico.despuesMinimo
-          )
+    const cuotaAutonomicaDisponible = cuotaAutonomicaGeneralDespuesMinimo.plus(
+      ahorroConMinimos.autonomico.despuesMinimo
+    )
+    let deduccionesValencianas2025:
+      | ResultadoCuotaConjuntaValenciana2025<string>
+      | undefined
+    if (entrada.deduccionesValencianas2025 !== undefined) {
+      const decoded = Schema.decodeUnknownResult(
+        SolicitudDeduccionesValencianasAnual2025
+      )(entrada.deduccionesValencianas2025, { onExcessProperty: "error" })
+      if (Result.isFailure(decoded))
+        return yield* Effect.fail(
+          errorDerechosMinimos({
+            motivo:
+              "Solicitud anual valenciana incompleta o con bases/cuota externas",
+          })
         )
-      : deduccionesAutonomicasDeclaradas
+      const s = decoded.success
+      if (
+        caso.anio !== 2025 ||
+        caso.comunidadAutonoma !== "comunitat-valenciana" ||
+        caso.situacionFamiliar.tipo !== "individual" ||
+        caso.fechaFallecimiento !== undefined ||
+        caso.contribuyenteId !== s.contribuyente ||
+        (caso.derechosMinimos !== undefined &&
+          caso.derechosMinimos.contribuyenteId !== s.contribuyente)
+      )
+        return yield* Effect.fail(
+          errorDerechosMinimos({
+            motivo:
+              "Identidad o ámbito incompatible con deducciones valencianas anuales",
+          })
+        )
+      if (
+        entrada.deduccionesAutonomicasCentimos !== 0 ||
+        s.consignaciones.length !== 0
+      )
+        return yield* Effect.fail(
+          errorDerechosMinimos({
+            motivo:
+              "No mezclar hechos valencianos con consignaciones o agregado externo",
+          })
+        )
+      if (
+        s.solicitudes.some(
+          (p) =>
+            p.eleccion === "aplicar" &&
+            p.codigo === "valenciana_dos_o_mas_descendientes"
+        )
+      )
+        return yield* Effect.fail(
+          errorDerechosMinimos({
+            motivo:
+              "Dos o más descendientes: falta representar y conciliar las bases imponibles de todas las personas de la unidad familiar; no se admite cuota externa",
+          })
+        )
+      const requierenMinimo = new Set([
+        "valenciana_nacimiento_adopcion_guarda_acogimiento",
+        "valenciana_nacimiento_adopcion_multiples",
+        "valenciana_nacimiento_adopcion_acogimiento_discapacidad",
+        "valenciana_custodia_guarderias_menores_3",
+        "valenciana_conciliacion_trabajo_familia",
+        "valenciana_material_escolar",
+      ])
+      const gastosFamiliares = new Set([
+        "valenciana_gastos_salud",
+        "valenciana_deporte_actividades_saludables",
+        "valenciana_fomento_formacion_musical",
+      ])
+      for (const p of s.solicitudes.filter((p) => p.eleccion === "aplicar")) {
+        if (
+          p.codigo === "valenciana_ascendientes_mayores_discapacidad" ||
+          (p.codigo === "valenciana_empleados_hogar_cuidado_personas" &&
+            p.unidades.some((u) => u.textos.grupo === "ascendientes"))
+        )
+          return yield* Effect.fail(
+            errorDerechosMinimos({
+              motivo:
+                "Ascendientes no representados en los derechos anuales; la evidencia externa de deducciones no habilita esa rama",
+            })
+          )
+        if (requierenMinimo.has(p.codigo) || gastosFamiliares.has(p.codigo)) {
+          const sujetos = p.referencias
+            .flatMap((r) => r.sujetos)
+            .filter((id) => id !== s.contribuyente)
+          if (
+            (requierenMinimo.has(p.codigo) && sujetos.length === 0) ||
+            sujetos.some(
+              (id) =>
+                derechosEstatales?.atribuciones.some(
+                  (a) => a.sujetoId === id
+                ) !== true
+            )
+          )
+            return yield* Effect.fail(
+              errorDerechosMinimos({
+                motivo:
+                  "Sujetos de deducción sin derecho a mínimo conciliado con el caso anual; no basta elegibilidad externa",
+              })
+            )
+        }
+      }
+      // Una unidad puede ser un gasto: su id no identifica a la persona.
+      for (const p of s.solicitudes.filter((p) => p.eleccion === "aplicar"))
+        for (const u of p.unidades) {
+          const propias = [
+            "valenciana_primera_vivienda_menores_35",
+            "valenciana_discapacidad_65",
+            "valenciana_tratamientos_fertilidad",
+            "valenciana_vivienda_discapacidad",
+          ].includes(p.codigo)
+          const referencias = p.referencias.filter((r) => r.unidad === u.id)
+          const sujetos = referencias.flatMap((r) => r.sujetos)
+          const tieneDatosPersonales =
+            u.numeros.edad !== undefined || u.numeros.grado !== undefined
+          if (
+            (tieneDatosPersonales || propias) &&
+            (referencias.length !== 1 ||
+              sujetos.length !== 1 ||
+              (propias && sujetos[0] !== s.contribuyente))
+          )
+            return yield* Effect.fail(
+              errorDerechosMinimos({
+                motivo: "Identidad personal ambigua o ajena en deducciones",
+              })
+            )
+          const propia = sujetos[0] === s.contribuyente
+          const descendiente = caso.derechosMinimos?.descendientes.find(
+            (d) => d.sujetoId === sujetos[0]
+          )
+          const edad = propia
+            ? caso.situacionFamiliar.edad
+            : descendiente?.edadDevengo
+          const discapacidad = propia
+            ? caso.situacionFamiliar.discapacidad
+            : descendiente?.discapacidad
+          if (
+            tieneDatosPersonales &&
+            (edad === undefined || discapacidad === undefined)
+          )
+            return yield* Effect.fail(
+              errorDerechosMinimos({
+                motivo:
+                  "Sujeto de deducción sin datos personales conciliados en el caso anual",
+              })
+            )
+          if (u.numeros.edad !== undefined && u.numeros.edad !== edad)
+            return yield* Effect.fail(
+              errorDerechosMinimos({
+                motivo: "Edad contradictoria del sujeto en deducciones",
+              })
+            )
+          if (u.numeros.grado !== undefined && discapacidad !== undefined) {
+            const grado = u.numeros.grado,
+              d = discapacidad._tag
+            if (
+              (d === "SinDiscapacidad" && grado >= 33) ||
+              (d === "Discapacidad33a64" && (grado < 33 || grado >= 65)) ||
+              (d === "Discapacidad65OMas" && grado < 65)
+            )
+              return yield* Effect.fail(
+                errorDerechosMinimos({
+                  motivo:
+                    "Discapacidad contradictoria del sujeto en deducciones",
+                })
+              )
+          }
+          if (
+            p.codigo === "valenciana_vivienda_discapacidad" &&
+            caso.situacionFamiliar.discapacidad._tag === "SinDiscapacidad"
+          )
+            return yield* Effect.fail(
+              errorDerechosMinimos({
+                motivo:
+                  "Vivienda por discapacidad incompatible con ausencia de discapacidad propia",
+              })
+            )
+        }
+      // Estas bases son las únicas del perfil actual, sin reducciones de base.
+      // No redondear una base ni sanear un negativo para ganar elegibilidad.
+      const bases = {
+        liquidableGeneral: baseLiquidableGeneral.toNumber(),
+        liquidableAhorro: baseLiquidableAhorro.toNumber(),
+        imponibleGeneral: entrada.baseGeneral.toNumber(),
+        imponibleAhorro: entrada.baseAhorro.toNumber(),
+      }
+      if (
+        ![
+          baseLiquidableGeneral,
+          baseLiquidableAhorro,
+          entrada.baseGeneral,
+          entrada.baseAhorro,
+        ].every((v, i) => v.gte(0) && v.eq(Object.values(bases)[i]))
+      )
+        return yield* Effect.fail(
+          errorDerechosMinimos({
+            motivo:
+              "Bases negativas o no representables sin pérdida en el contrato valenciano por hechos",
+          })
+        )
+      // La disponibilidad y todos sus movimientos conservan el decimal exacto.
+      const disponible = cuotaAutonomicaDisponible.toString()
+      const { arrastres, ordenConsumo, criterioOrden, ...hechos } = s
+      deduccionesValencianas2025 = aplicarCuotaAnualValenciana2025({
+        hechos: {
+          ...hechos,
+          solicitudes: hechos.solicitudes.map(
+            ({ descendientesIncremento, ...p }) =>
+              descendientesIncremento === undefined
+                ? p
+                : { ...p, descendientesIncremento }
+          ),
+          bases,
+          cuota: {
+            referencia: "cuota-autonomica-anual-2025:" + s.contribuyente,
+            disponible,
+            arrastres,
+          },
+        },
+        ordenConsumo,
+        criterioOrden,
+      })
+      if (deduccionesValencianas2025.estado !== "calculo_parcial")
+        return yield* Effect.fail({
+          ...errorDerechosMinimos({
+            motivo: deduccionesValencianas2025.incidencias.join("; "),
+          }),
+          rastro: {
+            titulo: "Deducciones valencianas rechazadas",
+            pasos: pasosDeduccionesValencianasAnual(deduccionesValencianas2025),
+          },
+        })
+    }
+    const deduccionesAutonomicasAplicadas =
+      deduccionesValencianas2025 !== undefined
+        ? new A(deduccionesValencianas2025.totalAplicado!)
+        : usaEscalaAutonomicaReal
+          ? A.min(
+              deduccionesAutonomicasDeclaradas,
+              cuotaAutonomicaGeneralDespuesMinimo.plus(
+                ahorroConMinimos.autonomico.despuesMinimo
+              )
+            )
+          : deduccionesAutonomicasDeclaradas
     const cuotaLiquida = A.max(
       0,
       cuotaGeneralDespuesMinimo
@@ -374,6 +622,8 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
     }
     const cuotaPosterior = cuotaLiquida.minus(deduccionTrabajo)
     return {
+      deduccionesValencianas2025,
+      cuotaAutonomicaDisponible,
       cotizaciones: entrada.cotizaciones,
       cuotaEstatalDespuesMinimo,
       parametrosComunidad,

@@ -1,5 +1,7 @@
 import { MINIMOS_ESTATALES_2026 } from "../../normativa/datos/minimos-estatales-2026"
 import { liquidarPagosAnuales } from "../cuotas/cuota-diferencial"
+import { pasosDeduccionesValencianasAnual } from "../deducciones/valenciana-2025/anual"
+import type { ResultadoCuotaConjuntaValenciana2025 } from "../deducciones/valenciana-2025/cuota-conjunta"
 import { componerLiquidacionAnual } from "./composicion-anual"
 import Decimal from "decimal.js"
 import { Context, Effect, Layer, Match, Option } from "effect"
@@ -94,6 +96,9 @@ export interface LiquidacionIrpfAnualCalculada {
   readonly cuotaIntegraAhorroCentimos: number
   readonly cuotaMinimoPersonalCentimos: number
   readonly cuotaMinimoPersonalAhorroCentimos: number
+  readonly deduccionesValencianas2025?:
+    | ResultadoCuotaConjuntaValenciana2025<string>
+    | undefined
   readonly deduccionesAutonomicasCentimos: number
   readonly cuotaLiquidaCentimos: number
   readonly retencionesYPagosACuentaCentimos: number
@@ -145,6 +150,17 @@ const construirLiquidarIrpfAnual = (
       return yield* Effect.fail(
         errorDerechosMinimos({
           motivo: "La liquidación anual solo admite modalidad individual",
+        })
+      )
+    if (
+      caso.deduccionesValencianas2025 !== undefined &&
+      (caso.deduccionAutonomicaAgregadaCentimos !== undefined ||
+        caso.deducciones.length > 0)
+    )
+      return yield* Effect.fail(
+        errorDerechosMinimos({
+          motivo:
+            "No mezclar solicitud valenciana por hechos con consignaciones o agregado externo",
         })
       )
     yield* Effect.annotateCurrentSpan("irpf.anio", caso.anio)
@@ -433,6 +449,7 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
     cuotaAutonomicaGeneralDespuesMinimo,
     cuotaAhorroDespuesMinimo,
     deduccionesAutonomicasAplicadas,
+    deduccionesValencianas2025,
     cuotaLiquida,
   } = yield* componerLiquidacionAnual({
     ambito: caso,
@@ -447,6 +464,7 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
     rentasAntesReducciones:
       rendimientoTrabajo.rendimientoNeto.plus(otrasRentasNoExentas),
     minimosEstatales,
+    deduccionesValencianas2025: caso.deduccionesValencianas2025,
     deduccionesAutonomicasCentimos: sumarDeduccionesAutonomicasCentimos(caso),
   })
   const importesLiquidacion = medirAuditoriaSync(
@@ -588,6 +606,7 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
       importesLiquidacion.cuotaMinimoPersonalCentimos,
     cuotaMinimoPersonalAhorroCentimos:
       importesLiquidacion.cuotaMinimoPersonalAhorroCentimos,
+    deduccionesValencianas2025,
     deduccionesAutonomicasCentimos:
       importesLiquidacion.deduccionesAutonomicasAplicadasCentimos,
     cuotaLiquidaCentimos: importesLiquidacion.cuotaLiquidaCentimos,
@@ -602,6 +621,7 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
         perfilCalculo: contexto.modo,
       },
       pasos: [
+        ...pasosDeduccionesValencianasAnual(deduccionesValencianas2025),
         {
           _tag: "PasoExplicacion",
           titulo: "Rendimientos del trabajo",
@@ -1304,15 +1324,17 @@ const sumarDeduccionesAutonomicasCentimos = (caso: CasoFiscalAnual): number =>
   caso.deduccionAutonomicaAgregadaCentimos ?? 0
 
 const deduccionesAutonomicasDescripcion = (caso: CasoFiscalAnual): string =>
-  Match.value(caso.deduccionAutonomicaAgregadaCentimos).pipe(
-    Match.when(
-      (deduccionAutonomicaAgregadaCentimos) =>
-        deduccionAutonomicaAgregadaCentimos === undefined ||
-        deduccionAutonomicaAgregadaCentimos === 0,
-      () => "Sin deducciones autonómicas declaradas en el caso"
-    ),
-    Match.orElse(() => "importe_agregado_no_desglosado")
-  )
+  caso.deduccionesValencianas2025 !== undefined
+    ? "Hechos valencianos evaluados y aplicados una vez a cuota anual compartida; acreditación pendiente"
+    : Match.value(caso.deduccionAutonomicaAgregadaCentimos).pipe(
+        Match.when(
+          (deduccionAutonomicaAgregadaCentimos) =>
+            deduccionAutonomicaAgregadaCentimos === undefined ||
+            deduccionAutonomicaAgregadaCentimos === 0,
+          () => "Sin deducciones autonómicas declaradas en el caso"
+        ),
+        Match.orElse(() => "importe_agregado_no_desglosado")
+      )
 
 const rastroResultadoNoSoportado = ({
   caso,
