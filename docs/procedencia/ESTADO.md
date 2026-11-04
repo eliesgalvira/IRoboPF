@@ -28,8 +28,16 @@ extractores corregidos. Conserva 11.204 ocurrencias deduplicadas: propone
 269 coincidencias técnicas, 470 escenarios simulados no aplicables y 10.465
 sin verificar. La aplicabilidad temporal y territorial sigue pendiente,
 también en las coincidencias técnicas. No se aceptan como cobertura fiscal.
-El padre verifica los 30 archivos, 31 auxiliares, parche y objetos de resultados;
-encarga revisión independiente del candidato antes de integrarlo.
+El padre verifica los 30 archivos, 31 auxiliares, parche y objetos de resultados.
+La revisión independiente detecta dos defectos de salida: los 445 match de
+celdas pierden sus reservas de aplicabilidad y tres ocurrencias agregadas
+conservan una razón incompatible con su estado. Ambos tienen prueba roja
+previa y corrección candidata; pasan seis regresiones nuevas y las 40 anteriores.
+Ambos pares canonical/replay se reproducen byte a byte con un único censo
+vigente, sin excluir la fuente cambiada por C. Se conservan importes, rechazos,
+propuestas de unidad y conteos; solo cambian las tres razones obsoletas.
+Las 445 coincidencias conservan sus reservas y están en la cola de aplicabilidad.
+Corresponde un contraste independiente acotado antes de integrar el candidato.
 
 Los dos lotes aportan replay idéntico y 40 pruebas propias, según el autor.
 El suplemento de mínimos no añade cobertura: se detiene ante una referencia
@@ -38,7 +46,8 @@ de funciones auxiliares no admitidas, 2.640 de caminos indirectos y 141 de
 índices; esos recuentos son intentos, no magnitudes distintas. Siguen faltando
 selectores y pruebas físicas de unidad y aplicabilidad. El candidato conserva
 una regresión roja de la escala canaria de 2015 y una propuesta separada de
-cuotas publicadas, sin aplicar ni aceptar su extensión a 2016.
+cuotas publicadas, sin aplicar. La revisión aporta sustento para 2015–2016
+ordinarios y mantiene reservas sobre política monetaria y fallecimiento.
 
 De C se recibe una demostración de transporte oficial remoto, secuencial y
 reanudable, con 16 ejecuciones PDF/SES: siete recargas de casos conservados,
@@ -65,7 +74,12 @@ y encuentra tres defectos P2: registros personales malformados invisibles,
 lanzador omitido de la identidad y separación de rutas eludible por enlace
 simbólico. El candidato corregido del orquestador pasa 14 métodos portables,
 22 privados y seis del contraste adaptado; mantiene 224 coincidencias y las
-17 filas incompletas. Falta el contraste acotado de las tres correcciones.
+17 filas incompletas. El contraste acotado de las tres correcciones es favorable:
+14 métodos portables, 22 privados, seis adaptados y cinco propios pasan;
+los seis fallos originales se reproducen sobre las preimágenes. Falta integrar
+el candidato aprobado en el CI reproducible y publicarlo. La integración de CI
+está preparada: incluye las pruebas portables y el operador real, con Jujutsu
+en el entorno fijado; se inicia la comprobación completa antes de publicarla.
 El trabajo posterior es demostrar la equivalencia de configuración de las
 simulaciones; no acreditar hechos reales de personas ficticias. Los recibos
 fijan base, inventario de fuentes y entorno del
