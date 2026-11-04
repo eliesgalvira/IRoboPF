@@ -1,21 +1,26 @@
 import { Schema } from "effect"
+import {
+  DerechosMinimosAnuales,
+  TerritorioMinimosComun,
+} from "../minimos/derechos-contrato"
 import { Euros, GastosTrabajo } from "./contrato"
 import { CasoActividad2025 } from "../actividades-economicas/contrato"
 
 const Procedencia = Schema.String.check(Schema.isPattern(/\S/))
 const Alcance = {
   ejercicio: Schema.Literal(2025),
-  comunidadAutonoma: Schema.Literal("madrid"),
+  comunidadAutonoma: TerritorioMinimosComun,
   edad: Schema.Number.check(
     Schema.isInt(),
     Schema.isGreaterThanOrEqualTo(18),
-    Schema.isLessThanOrEqualTo(64)
+    Schema.isLessThanOrEqualTo(150)
   ),
   modalidad: Schema.Literal("individual"),
   residenciaTodoElAnio: Schema.Literal(true),
   devengo: Schema.Literal("2025-12-31"),
   otrasRentas: Schema.Literal("ninguna"),
-  familiaresConDerechoMinimo: Schema.Literal("ninguno"),
+  familiaresConDerechoMinimo: Schema.Literals(["ninguno", "segun-derechos"]),
+  derechosMinimos: Schema.optional(DerechosMinimosAnuales),
   discapacidad: Schema.Literal("ninguna"),
   reduccionesBase: Schema.Literal("ninguna"),
   saldosAnteriores: Schema.Literal("ninguno"),

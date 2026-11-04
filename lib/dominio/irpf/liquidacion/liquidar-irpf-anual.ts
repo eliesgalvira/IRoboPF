@@ -1,3 +1,4 @@
+import { MINIMOS_ESTATALES_2026 } from "../../normativa/datos/minimos-estatales-2026"
 import { liquidarPagosAnuales } from "../cuotas/cuota-diferencial"
 import { componerLiquidacionAnual } from "./composicion-anual"
 import Decimal from "decimal.js"
@@ -319,6 +320,7 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
         Match.when(2012, () => MINIMOS_ESTATALES_2012),
         Match.when(2013, () => MINIMOS_ESTATALES_2013),
         Match.when(2014, () => MINIMOS_ESTATALES_2014),
+        Match.when(2026, () => MINIMOS_ESTATALES_2026),
         Match.orElse(
           () => dependencias.parametrosNormativos.minimosEstatales2025
         )
@@ -438,7 +440,7 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
       naturaleza: "estimadas-perfil-uniforme",
       trabajador: cotizacionesSociales.cotizacionTrabajador,
     },
-    precision: 20,
+    precision: caso.derechosMinimos === undefined ? 20 : 80,
     politica: "decimal-hasta-salida",
     baseGeneral: baseLiquidableGeneral,
     baseAhorro: baseLiquidableAhorro,

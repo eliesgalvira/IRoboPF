@@ -1,0 +1,50 @@
+from pathlib import Path
+import json,hashlib,re
+R=Path("/home/elies/Repos/IRoboPF"); B=Path("/home/elies/Backups/IRoboPF/producto-deducciones-datos-20261104"); O=Path(__file__).parent
+load=lambda p:json.loads(p.read_text())
+records=[]
+for x in load(B/"referencias-hashes.json")["referencias"]:
+ p=R/x["ruta"]; b=p.read_bytes()
+ assert len(b)==x["bytes"]
+ for alg in ["sha256","sha512"]: assert hashlib.new(alg,b).hexdigest()==x[alg],str(p)
+ records.append({"ruta":str(p),"sha256":x["sha256"]})
+# Reconstrucción del diff en memoria, sin modificar las preimágenes ni el checkout.
+lines=(B/"datos-producto.patch").read_text().splitlines(True);i=0; files=[]
+while i<len(lines):
+ assert lines[i].startswith("--- ");old=lines[i][4:].strip();new=lines[i+1][4:].strip();i+=2
+ path=new.removeprefix("b/");src=[] if old=="/dev/null" else (B/"preimagenes"/path).read_text().splitlines(True);out=[];pos=0
+ while i<len(lines) and lines[i].startswith("@@"):
+  match=re.match(r"@@ -(\d+)(?:,(\d+))? \+(\d+)(?:,(\d+))? @@",lines[i]);assert match
+  start=max(0,int(match[1])-1);out+=src[pos:start];pos=start;i+=1
+  while i<len(lines) and not lines[i].startswith(("@@","--- ")):
+   l=lines[i];i+=1
+   if ord(l[0]) == 92:continue
+   if l[0] in " -":assert src[pos]==l[1:];pos+=1
+   if l[0] in " +":out.append(l[1:])
+ out+=src[pos:];expected="".join(out);actual=(R/path).read_text()
+ if path=="tests/deducciones-valencianas-datos-producto.test.ts":
+  assert expected.count("if (!f)")==1
+  expected=expected.replace("if (!f)","if (f === undefined)")
+ assert expected==actual,path
+ files.append(path)
+# Integridad entre bloques de preimagen y propuestas, y operaciones literales vivienda.
+ts=files[0];text=(R/ts).read_text();old=(B/"preimagenes"/ts).read_text()
+blocks=lambda t:{re.search(r"codigo:\s*\"([^\"]+)",b)[1]:b for b in re.findall(r"  \{\n    codigo:.*?\n  \},",t,re.S)}
+a=blocks(old);b=blocks(text)
+for x in load(R/"docs/procedencia/deducciones-2025/correcciones/g-vivienda/propuestas.json"):
+ assert a[x["codigo"]]==x["preimagen"]
+ for op in x["operaciones"]:assert op["valor"] in b[x["codigo"]],x["codigo"]
+for x in load(R/"docs/procedencia/deducciones-2025/correcciones/g-cultura-lengua/propuestas-por-codigo.json")["propuestas"]:
+ assert a[x["codigo"]]==x["preimagen"]["bloque"]
+res=load(R/"docs/procedencia/deducciones-2025/correcciones/g/resoluciones-citas.json")
+assert len(res["resoluciones"]) == 111
+guard=(R/"lib/dominio/irpf/deducciones-autonomicas-aplicadas.ts").read_text()
+pre=Path("/home/elies/Backups/IRoboPF/producto-deducciones-cierre-20261104/auxiliar-preimagen.ts").read_text()
+start=guard.index("  for (const fichas of Object.values(",guard.index("export const calcularDeduccionesAutonomicasAplicadas"))
+end=guard.index("  const importeHechos",start)
+assert len(guard[start:end].splitlines()) == 15
+assert (guard[:start]+guard[end:]).replace("  DEDUCCIONES_AUTONOMICAS_2025_POR_COMUNIDAD,\n", "", 1) == pre
+# Forma explícita para dejar recuento sin asumir que el objeto raíz es un array.
+print("Forma resoluciones:",list(res) if isinstance(res,dict) else len(res))
+(O/"fidelidad-resultados.json").write_text(json.dumps({"archivosReconstruidos":files,"excepcionUnica":"if (!f) → if (f === undefined), modificación del padre","referenciasVerificadas":records},indent=2)+"\n")
+print("OK: cinco archivos reconstruidos en memoria, única excepción declarada;",len(records),"referencias con ambos hashes y tamaño; preimágenes y operaciones vivienda conservadas")

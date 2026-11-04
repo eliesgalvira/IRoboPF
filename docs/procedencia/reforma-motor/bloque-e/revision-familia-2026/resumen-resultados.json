@@ -1,0 +1,27 @@
+{
+  "dictamen": "sin hallazgos bloqueantes en alcance revisado, no certificacion total",
+  "propios": {
+    "passed": 764,
+    "total": 764
+  },
+  "regresiones": {
+    "passed": 594,
+    "files": 8,
+    "maxWorkers": 1
+  },
+  "hashes": {
+    "intactos": 21,
+    "total": 21
+  },
+  "CAS": {
+    "tablas": 17,
+    "filas": 115,
+    "filas_discrepantes_consumidas_base_y_minimo": 24
+  },
+  "PESADO1": "LIBERADO",
+  "reproduccion": [
+    "timeout -k 30s 30s /home/elies/.cache/irobopf-corpus/.venv/bin/python /home/elies/Backups/IRoboPF/producto-eb-revision-20261104/extraer-primarios.py",
+    "timeout -k 30s 60s bash -c 'source /home/elies/Backups/IRoboPF/limpieza-recursos-20261103/env-pruebas.sh; bun /home/elies/Backups/IRoboPF/producto-eb-revision-20261104/pruebas-propias.mjs'",
+    "timeout -k 30s 2m bash -c 'source /home/elies/Backups/IRoboPF/limpieza-recursos-20261103/env-pruebas.sh; node node_modules/vitest/vitest.mjs run tests/minimos-derechos-anuales.test.ts tests/comunidades-autonomas.test.ts tests/territorios-2026.test.ts tests/minimos-derechos.test.ts tests/minimos-derechos-integracion.test.ts tests/minimos-procedencia.test.ts tests/redondeo-salarial-open.test.ts tests/retenciones-derechos.test.ts --maxWorkers=1 --no-cache'"
+  ]
+}

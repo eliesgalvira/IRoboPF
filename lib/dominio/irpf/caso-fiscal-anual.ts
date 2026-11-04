@@ -1,5 +1,5 @@
 import type { AnioFiscal } from "../normativa/anio-fiscal"
-import type { DerechosMinimos2025 } from "./minimos/derechos-contrato"
+import type { DerechosMinimosAnuales } from "./minimos/derechos-contrato"
 import type { CasoRetencionTrabajo } from "./retenciones/retencion-trabajo-aeat"
 
 export type ComunidadAutonoma =
@@ -103,7 +103,7 @@ export interface DeduccionAutonomicaCatalogadaAplicada {
 
 export interface CasoFiscalAnual {
   /** Hechos completos de reparto; obligatorios cuando existen familiares. */
-  readonly derechosMinimos?: DerechosMinimos2025
+  readonly derechosMinimos?: DerechosMinimosAnuales | undefined
   readonly anio: AnioFiscal
   readonly comunidadAutonoma: ComunidadAutonoma
   readonly fechaFallecimiento?: Date | undefined

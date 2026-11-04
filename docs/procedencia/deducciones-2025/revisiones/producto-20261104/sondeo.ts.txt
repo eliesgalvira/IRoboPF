@@ -1,0 +1,80 @@
+import assert from "node:assert/strict";
+import { readFileSync, writeFileSync } from "node:fs";
+import { calcularDeduccionesAutonomicasAplicadas as calc, calcularDeduccionesConsignadas as cons } from "/home/elies/Repos/IRoboPF/lib/dominio/irpf/deducciones-autonomicas-aplicadas.ts";
+import { evaluarHechosAuxiliar2025 as ev } from "/home/elies/Repos/IRoboPF/lib/dominio/irpf/deducciones/hechos-auxiliar-2025.ts";
+import { VALENCIANA_DEDUCCIONES_AUTONOMICAS_2025 as fichas } from "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/comunitat-valenciana.ts";
+import { VALENCIANA_DEDUCCIONES_AUTONOMICAS_2025 as previas } from "/home/elies/Backups/IRoboPF/producto-deducciones-datos-20261104/preimagenes/lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/comunitat-valenciana.ts";
+const out = new URL(".", import.meta.url); let n=0;const resultados:any[]=[];
+function eq(nombre:string, actual:any, esperado:any) {assert.deepEqual(actual,esperado,nombre);n++;resultados.push({nombre,actual:typeof actual === "object" ? "igualdad estructural verificada" : actual,esperado:typeof esperado === "object" ? "igualdad estructural verificada" : esperado});}
+function rechaza(nombre:string, f:()=>unknown) {assert.throws(f,RangeError,nombre);n++;resultados.push({nombre,actual:"RangeError",esperado:"RangeError"});}
+const cv={ejercicio:2025,territorio:"comunitat-valenciana"};
+for (const f of fichas) {
+ const entrada={[f.codigo+":cumple"]:true,[f.codigo+":importe"]:50};
+ rechaza("pendiente activa "+f.codigo,()=>calc(entrada,cv));
+ eq("consigna "+f.codigo,cons(entrada,cv),50);
+ eq("inactiva "+f.codigo,calc({...entrada,[f.codigo+":cumple"]:false},cv),0);
+ eq("otro territorio "+f.codigo,calc(entrada,{...cv,territorio:"madrid"}),0);
+}
+rechaza("activa incluso con importe cero",()=>calc({"valenciana_tratamientos_fertilidad:cumple":true,"valenciana_tratamientos_fertilidad:importe":0},cv));
+eq("importe sin activacion",calc({"valenciana_tratamientos_fertilidad:importe":50},cv),0);
+eq("soportada andalucia",calc({andaluciaHijosNacimientoAdopcion:2},{ejercicio:2025,territorio:"andalucia"}),400);
+eq("soportada catalunya",calc({catalunyaRehabilitacionVivienda:1000},{ejercicio:2025,territorio:"catalunya"}),15);
+const marco=(territorio:string,conjunta=false)=>({contexto:{ejercicio:2025,territorio,contribuyente:"a",modalidad:conjunta?"conjunta":"individual"},declarantes:conjunta?["a","b"]:["a"],elegibilidadExterna:true});
+function cuantia(nombre:string,h:any,importe:number){const r=ev(h);eq(nombre,[r.estado,"importe" in r?r.importe:null],["calculo_parcial",importe]);}
+function ns(nombre:string,h:any){eq(nombre,ev(h).estado,"no_soportado");}
+const alquiler={...marco("cantabria"),codigo:"cantabria_arrendamiento_jovenes_mayores_discapacidad",gastoElegible:2999.9};
+cuantia("alquiler bajo tope",alquiler,299.99);cuantia("alquiler tope individual",{...alquiler,gastoElegible:6000},300);cuantia("alquiler conjunta",{...alquiler,...marco("cantabria",true),gastoElegible:6000},600);
+const nacimiento={...marco("cantabria"),codigo:"cantabria_nacimiento_adopcion_hijos",hijos:[{hijo:"h",ejercicio:2024,progenitores:["a","b"]}]};
+cuantia("cantabro reparto",nacimiento,700);cuantia("cantabro conjunta",{...nacimiento,...marco("cantabria",true)},1400);
+for(const ejercicio of [2023,2026]) cuantia("cantabro fuera ventana "+ejercicio,{...nacimiento,hijos:[{...nacimiento.hijos[0],ejercicio}]},0);
+ns("cantabro unico individual",{...nacimiento,hijos:[{...nacimiento.hijos[0],progenitores:["a"]}]});
+ns("cantabro duplicado",{...nacimiento,hijos:[nacimiento.hijos[0],nacimiento.hijos[0]]});
+const canario={...marco("canarias"),codigo:"canarias_nacimiento_adopcion_hijos",titulares:["a","b"],renta:46455,hijos:[{id:"h",ejercicio:2025,orden:4,ordenDiscapacidad:1}]};
+cuantia("canario cuarto mitad",canario,698);cuantia("canario conjunta",{...canario,...marco("canarias",true),renta:61770},1396);
+cuantia("canario supera renta",{...canario,renta:46455.01},0);
+cuantia("canario tercero",{...canario,titulares:["a"],hijos:[{...canario.hijos[0],orden:3}]},1130);
+ns("canario orden duplicado",{...canario,hijos:[canario.hijos[0],{...canario.hijos[0],id:"h2"}]});
+ns("canario titular ajeno conjunta",{...canario,...marco("canarias",true),titulares:["a","c"]});
+const familia={...marco("canarias"),codigo:"canarias_familia_numerosa",categoria:"general",discapacidad65:false,titulares:["a","b"]};
+cuantia("familia mitad",familia,298.5);cuantia("familia especial discapacidad conjunta",{...familia,...marco("canarias",true),categoria:"especial",discapacidad65:true},1459);
+ns("familia titulares duplicados",{...familia,titulares:["a","a"]});
+const discapacidad={...marco("canarias",true),codigo:"canarias_discapacidad_mayores_65",renta:61770,personas:[{id:"a",discapacidad:33,edad:65},{id:"b",discapacidad:32,edad:66}]};
+cuantia("discapacidad edad65 excluye mayor",discapacidad,560);cuantia("discapacidad supera renta",{...discapacidad,renta:61770.01},0);
+ns("discapacidad falta declarante",{...discapacidad,personas:[discapacidad.personas[0]]});ns("discapacidad duplicado",{...discapacidad,personas:[discapacidad.personas[0],discapacidad.personas[0]]});
+const paro={...marco("canarias",true),codigo:"canarias_contribuyentes_desempleados",otrasBases:1600,personas:[{id:"a",mesesDesempleoLegal:7,percibePrestacion:true,rendimientosTrabajo:9000},{id:"b",mesesDesempleoLegal:7,percibePrestacion:true,rendimientosTrabajo:9000}]};
+cuantia("paro suma trabajo conjunta",paro,240);cuantia("paro seis meses",{...paro,personas:paro.personas.map(p=>({...p,mesesDesempleoLegal:6}))},0);
+for(const [trabajo,esperado] of [[15876,0],[15876.01,240],[22000,240],[22000.01,0]]) cuantia("paro frontera "+trabajo,{...paro,personas:paro.personas.map(p=>({...p,rendimientosTrabajo:trabajo/2}))},esperado);
+cuantia("paro otras bases excedidas",{...paro,otrasBases:1600.01},0);
+ns("paro falta declarante",{...paro,personas:[paro.personas[0]]});
+const balear={...marco("illes-balears"),codigo:"balears_gastos_mayores_65_discapacidad",baseImponible:33000,personas:[{id:"h",relacion:"descendiente",titulares:["a","b"],gastoElegible:2000,ayudas:1000}]};
+cuantia("balear ayudas antes tope y reparto",balear,200);cuantia("balear descendiente conjunta",{...balear,...marco("illes-balears",true)},400);
+cuantia("balear ascendiente no divide",{...balear,personas:[{...balear.personas[0],relacion:"ascendiente"}]},400);
+cuantia("balear ayudas exceso",{...balear,personas:[{...balear.personas[0],ayudas:3000}]},0);
+cuantia("balear renta excedida",{...balear,baseImponible:33000.01},0);
+ns("balear persona duplicada",{...balear,personas:[balear.personas[0],balear.personas[0]]});
+const madrid={...marco("madrid",true),codigo:"madrid_nacimiento_adopcion_hijos",eventos:[{ejercicio:2025,hijos:["h1","h2"],progenitoresConvivientes:["a","b"]}],historia:[{ejercicio:2025,general:37322.2,ahorro:0,basesUnidadFamiliar:[37322.2]}]};
+cuantia("madrid multiple conjunta",madrid,2886.8);cuantia("madrid multiple individual",{...madrid,...marco("madrid"),historia:[{...madrid.historia[0],general:20000}]},1443.4);
+cuantia("madrid limite excedido parcial cero",{...madrid,historia:[{...madrid.historia[0],ahorro:0.01}]},0);
+ns("madrid historial falta",{...madrid,historia:[]});ns("madrid hijos duplicados",{...madrid,eventos:[madrid.eventos[0],madrid.eventos[0]]});
+const murcia={...marco("murcia"),codigo:"murcia_gastos_guarderia",baseImponible:30000,gastos:[{hijo:"h",titulares:["a","b"],custodia:6000,alimentacion:0,vestuarioEscolar:0,ayudas:2000}]};
+cuantia("murcia ayudas antes tope",murcia,400);cuantia("murcia conjunta",{...murcia,...marco("murcia",true)},800);
+cuantia("murcia tope por hijo",{...murcia,gastos:[{...murcia.gastos[0],titulares:["a"],ayudas:0},{...murcia.gastos[0],hijo:"h2",titulares:["a"],ayudas:0}]},2000);
+eq("murcia limite excedido excluida",ev({...murcia,baseImponible:30000.01}).estado,"excluida");
+ns("murcia duplicado",{...murcia,gastos:[murcia.gastos[0],murcia.gastos[0]]});
+for(const h of [alquiler,nacimiento,canario,familia,discapacidad,paro,balear,madrid,murcia]) {
+ cuantia("exclusion externa "+h.codigo,{...h,elegibilidadExterna:false},0);
+ ns("ejercicio ajeno "+h.codigo,{...h,contexto:{...h.contexto,ejercicio:2024}});
+ rechaza("activacion sin hechos "+h.codigo,()=>calc({[h.codigo+":cumple"]:true},h.contexto));
+ rechaza("manual y hechos "+h.codigo,()=>calc({[h.codigo+":importe"]:0},h.contexto,[h as any]));
+}
+// Composición: conservación de TODOS los campos excepto los dos autorizados.
+eq("40 fichas",fichas.length,40);
+for (let i=0;i<fichas.length;i++) {const {requisitos:r,entradaNecesaria:e,...resto}=fichas[i];const {requisitos:pr,entradaNecesaria:pe,...antes}=previas[i];eq("conservacion campos "+fichas[i].codigo,resto,antes);}
+const root="/home/elies/Repos/IRoboPF/";const backup="/home/elies/Backups/IRoboPF/producto-deducciones-datos-20261104/";
+const json=(p:string)=>JSON.parse(readFileSync(p,"utf8"));const correspondencia=json(backup+"correspondencia-12.json");
+const changed=correspondencia.filter((x:any)=>x.destino.endsWith(".ts")).map((x:any)=>x.codigo);
+eq("exactamente nueve bloques modificados",fichas.filter((f,i)=>JSON.stringify(f)!==JSON.stringify(previas[i])).map(f=>f.codigo).sort(),changed.sort());
+const matrixPath="docs/procedencia/deducciones-2025/correcciones/g/matriz-completada.json";const antes=json(backup+"preimagenes/"+matrixPath);const despues=json(root+matrixPath);const {articulos:a,...metaA}=antes;const {articulos:b,...metaB}=despues;eq("metadatos matriz sin cambios",metaB,metaA);eq("40 filas matriz",b.length,40);
+const rows=correspondencia.filter((x:any)=>x.destino===matrixPath).map((x:any)=>x.codigo);
+for(let i=0;i<a.length;i++) {if(!rows.includes(a[i].codigo))eq("fila identica "+a[i].codigo,b[i],a[i]);else {const {remisionesContrastadas:r,remisionesYReserva:y,pendienteConcreto:p,...rest}=b[i];const {remisionesContrastadas:ra,remisionesYReserva:ya,pendienteConcreto:pa,...old}=a[i];eq("fila preserva resto "+a[i].codigo,rest,old);eq("conserva contrastes previos "+a[i].codigo,r.slice(0,ra.length),ra);}}
+writeFileSync(new URL("resultados.json",out),JSON.stringify({aserciones:n,resultados},null,2)+"\n");console.log("OK",n,"aserciones propias; sin frameworks ni workers");

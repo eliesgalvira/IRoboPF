@@ -1,3 +1,4 @@
+import { ESCALAS_PUBLICADAS_AUTONOMICAS_2026 } from "../../normativa/datos/irpf-autonomico-2026"
 import Decimal from "decimal.js"
 import type { AnioFiscal } from "../../normativa/anio-fiscal"
 import type { ComunidadAutonoma } from "../caso-fiscal-anual"
@@ -115,6 +116,8 @@ export const obtenerEscalaAutonomicaPublicada = ({
   readonly comunidadAutonoma: ComunidadAutonoma
   readonly fechaFallecimiento?: Date | undefined
 }): EscalaPublicada | undefined => {
+  if (anio === 2026 && comunidadAutonoma !== "simulada-estatal")
+    return ESCALAS_PUBLICADAS_AUTONOMICAS_2026[comunidadAutonoma]
   if (comunidadAutonoma === "andalucia" && anio >= 2012 && anio <= 2015)
     return ANDALUCIA_2012_2015
   if (
@@ -182,7 +185,8 @@ export const AHORRO_2025 = [
   ]),
 ]
 
-/** 2026 conserva la hipótesis previa de continuidad; no acepta cierre normativo. */
+/** LIRPF arts.66/76 vigentes al 4-11-2026: escala desde 2025 (Ley 7/2024).
+ * B2026: evidencia estatal fijada en CAS; no hipótesis de prórroga. */
 export const obtenerEscalasAhorroPublicadas = (
   anio: AnioFiscal,
   componente: "estatal" | "autonomico"

@@ -869,6 +869,8 @@ const calcularRetencionTrabajoAeatImpl = Effect.fn(
             discapacidad.necesitaAyudaOMovilidadReducida ===
               (caso.movilidadReducidaPerceptor === true)
     if (
+      derechos.ejercicio !== 2025 ||
+      derechos.territorio !== "madrid" ||
       caso.anio !== derechos.ejercicio ||
       caso.edad !== derechos.edadContribuyenteDevengo ||
       !discapacidadCompatible ||

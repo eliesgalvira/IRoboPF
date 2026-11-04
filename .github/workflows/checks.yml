@@ -44,6 +44,8 @@ jobs:
       - if: ${{ !cancelled() && steps.dependencies.outcome == 'success' }}
         run: timeout -k 30s 12m bun run inventario:verificar
       - if: ${{ !cancelled() && steps.dependencies.outcome == 'success' }}
+        run: timeout -k 30s 12m bun run test tests/minimos-derechos-anuales.test.ts tests/territorios-2026.test.ts tests/comunidades-autonomas.test.ts tests/deducciones-pendientes.test.ts tests/deducciones-valencianas-datos-producto.test.ts --maxWorkers=1
+      - if: ${{ !cancelled() && steps.dependencies.outcome == 'success' }}
         run: timeout -k 30s 12m bun run test:inventario
       - if: ${{ !cancelled() && steps.dependencies.outcome == 'success' }}
         run: timeout -k 30s 12m bun run test --config scripts/procedencia/contenido-vitest.mjs

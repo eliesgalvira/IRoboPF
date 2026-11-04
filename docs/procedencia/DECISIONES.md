@@ -20,6 +20,33 @@ Los scripts finitos tienen límites internos y Vitest un trabajador por suite.
 Los servicios interactivos `dev` y `start` conservan su ciclo de vida normal;
 no son suites de prueba. CI comprueba rutas `.cache` antes de crear artefactos.
 
+La integración de B2026 se adelanta como dependencia concreta de E familiar:
+no basta habilitar mínimos si el selector mantiene bloqueadas las escalas
+territoriales de ese ejercicio. La revisión conjunta es favorable en el alcance examinado,
+incluidos los cambios de Valencia y Extremadura y las cuotas fijas publicadas.
+El coste es retrasar brevemente la publicación de E2012–2025 para entregar su
+matriz completa hasta 2026. La comparación C puede conservar capturas oficiales
+y reevaluar el motor final sin repetirlas por un cambio de fuentes internas.
+
+La integración actualiza la identidad técnica de doce fuentes y añade tres
+módulos de 2026 al manifiesto de contratos AST. Se conserva la revisión fiscal
+histórica como histórica: cambiar hashes no concede aceptación. Las pruebas de
+contrato se ajustan al alcance admitido (edad hasta 150 y 17 territorios de
+2026), manteniendo intactos todos los esperados monetarios Open anteriores.
+
+D concluye su tramo acotado con textos utilizables y discriminantes conservados.
+La objeción pendiente es no conocer aún la etapa de cuantización mensual TGSS.
+Se mantiene visible la naturaleza efectiva o estimada de las cotizaciones y no
+se cambia una cuota sin una observación que distinga las políticas posibles.
+
+El añadido de las 20:40 incorpora comparación histórica Open 2018–2024 con las
+2.020 entradas preparadas, en segundo plano y como tarea ligera. Arranca sólo
+cuando el comparador 2025 esté revisado y pase; investigar discrepancias conserva
+la prioridad de producto y evita repetir acreditación general. Los pilotos
+históricos guardados acreditan ejecución oficial, no coincidencia con la API.
+Antes de 2018 se conserva la vía documental de A, aplazada; no se dedica más
+trabajo inmediato a recuperar ejecutables antiguos.
+
 
 Los criterios siguientes consolidan las decisiones técnicas y sus límites. Los IDs D001–D137 conservan sus referencias; agruparlos no convierte candidatos históricos en trabajos terminados. El [informe](INFORME-FINAL.md) y la [matriz por sitio](correcciones/cierre-r66/MATRIZ-65.md) delimitan el cierre técnico anterior. El [plan completo](PLAN-COMPLETO.md) amplía el encargo y la decisión siguiente sustituye los requisitos históricos de compatibilidad.
 

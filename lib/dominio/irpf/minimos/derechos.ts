@@ -2,7 +2,7 @@ import Decimal from "decimal.js"
 import { Effect, Schema } from "effect"
 import type { MinimosPersonalesFamiliaresIrpf } from "../../normativa/datos/minimos-autonomicos-2025"
 import {
-  DerechosMinimos2025,
+  DerechosMinimosAnuales,
   DerechosMinimosNoSoportados,
   type DescendienteDerechos,
   type TitularDescendiente,
@@ -28,18 +28,20 @@ const cumpleRentas = (d: DescendienteDerechos) =>
   d.rentasNoExentasCentimos <= 800000 &&
   (d.declaracion.modalidad === "no-presenta" ||
     d.declaracion.rentasCentimos <= 180000)
-const tieneRelacion = (t: TitularDescendiente) =>
+const tieneRelacion = (t: TitularDescendiente, ejercicio: number) =>
   t.residenteIrpf &&
-  (t.relacion !== "ninguna" || t.custodia === "compartida") &&
+  (t.relacion === "convivencia" ||
+    (ejercicio >= 2015 && t.relacion === "dependencia-economica") ||
+    t.custodia === "compartida") &&
   !(t.alimentosJudiciales && t.custodia === "sin-custodia")
 
-const titularesConDerecho = (d: DescendienteDerechos) => {
+const titularesConDerecho = (d: DescendienteDerechos, ejercicio: number) => {
   if (
     !cumpleRentas(d) ||
     (d.edadDevengo >= 25 && d.discapacidad._tag === "SinDiscapacidad")
   )
     return []
-  const posibles = d.titulares.filter(tieneRelacion)
+  const posibles = d.titulares.filter((t) => tieneRelacion(t, ejercicio))
   const grado = Math.min(...posibles.map((t) => t.grado))
   const cercanos = posibles.filter((t) => t.grado === grado)
   const siguientes = posibles.filter((t) => t.grado > grado)
@@ -50,19 +52,22 @@ const titularesConDerecho = (d: DescendienteDerechos) => {
 }
 
 /** Reserva del contrato anual; no decide la especialidad ni calcula alimentos. */
-export const hayAlimentosPropiosSinMinimo = (caso: DerechosMinimos2025) =>
+export const hayAlimentosPropiosSinMinimo = (caso: DerechosMinimosAnuales) =>
   caso.descendientes.some(
     (d) =>
       d.titulares.some(
         (t) => t.titularId === caso.contribuyenteId && t.alimentosJudiciales
       ) &&
-      !titularesConDerecho(d).some((t) => t.titularId === caso.contribuyenteId)
+      (caso.ejercicio <= 2014 ||
+        !titularesConDerecho(d, caso.ejercicio).some(
+          (t) => t.titularId === caso.contribuyenteId
+        ))
   )
 
 /** Valida estructura y coherencia antes de cualquier operación monetaria. */
 export const validarDerechosMinimos = Effect.fn("Minimos.validarDerechos")(
-  function* (entrada: DerechosMinimos2025) {
-    const caso = yield* Schema.decodeUnknownEffect(DerechosMinimos2025)(
+  function* (entrada: DerechosMinimosAnuales) {
+    const caso = yield* Schema.decodeUnknownEffect(DerechosMinimosAnuales)(
       entrada,
       { onExcessProperty: "error" }
     ).pipe(
@@ -70,10 +75,14 @@ export const validarDerechosMinimos = Effect.fn("Minimos.validarDerechos")(
         () =>
           new DerechosMinimosNoSoportados({
             motivo:
-              "Hechos incompletos o fuera del alcance Madrid 2025 individual sin fallecimientos ni ascendientes",
+              "Hechos incompletos o fuera del alcance común 2012–2026 individual sin fallecimientos ni ascendientes",
           })
       )
     )
+    if (caso.devengo !== `${caso.ejercicio}-12-31`)
+      return yield* rechazar(
+        "El devengo debe ser el cierre del ejercicio declarado"
+      )
     const datosTitulares = new Map<
       string,
       { readonly renta: number; readonly residente: boolean }
@@ -90,7 +99,7 @@ export const validarDerechosMinimos = Effect.fn("Minimos.validarDerechos")(
       if (
         !fechaValida(d.fechaNacimiento) ||
         d.fechaNacimiento > caso.devengo ||
-        2025 - Number(d.fechaNacimiento.slice(0, 4)) !== d.edadDevengo
+        caso.ejercicio - Number(d.fechaNacimiento.slice(0, 4)) !== d.edadDevengo
       )
         return yield* rechazar("Nacimiento y edad al devengo incoherentes")
       if (
@@ -182,7 +191,9 @@ export const validarDerechosMinimos = Effect.fn("Minimos.validarDerechos")(
             )
         }
       }
-      const posibles = d.titulares.filter(tieneRelacion)
+      const posibles = d.titulares.filter((t) =>
+        tieneRelacion(t, caso.ejercicio)
+      )
       const grados = new Set(posibles.map((t) => t.grado))
       const cercanos = posibles.filter(
         (t) => t.grado === Math.min(...posibles.map((p) => p.grado))
@@ -204,7 +215,7 @@ export const validarDerechosMinimos = Effect.fn("Minimos.validarDerechos")(
 /** Conciliación interna del perfil anual parcial, previa a reducciones y bases. */
 export const validarRentasAnualesDerechos = Effect.fn(
   "Minimos.validarRentasAnuales"
-)(function* (caso: DerechosMinimos2025, rentaNoExenta: Decimal) {
+)(function* (caso: DerechosMinimosAnuales, rentaNoExenta: Decimal) {
   if (caso.conciliacionRentasContribuyente === undefined)
     return yield* rechazar(
       "Falta declarar la conciliación de rentas y gastos con el perfil anual parcial"
@@ -229,13 +240,16 @@ export const validarRentasAnualesDerechos = Effect.fn(
 
 export const calcularDerechosMinimos = Effect.fn("Minimos.calcularDerechos")(
   function* (
-    entrada: DerechosMinimos2025,
+    entrada: DerechosMinimosAnuales,
     minimos: MinimosPersonalesFamiliaresIrpf,
-    aritmetica: Decimal.Constructor = Decimal
+    aritmetica: Decimal.Constructor = Decimal.clone({ precision: 80 })
   ) {
     const caso = yield* validarDerechosMinimos(entrada)
     const elegibles = caso.descendientes
-      .map((d) => ({ descendiente: d, titulares: titularesConDerecho(d) }))
+      .map((d) => ({
+        descendiente: d,
+        titulares: titularesConDerecho(d, caso.ejercicio),
+      }))
       .filter((d) =>
         d.titulares.some((t) => t.titularId === caso.contribuyenteId)
       )
@@ -270,7 +284,8 @@ export const calcularDerechosMinimos = Effect.fn("Minimos.calcularDerechos")(
             ? Number(titular.vinculo.fechaInicioIncremento.slice(0, 4))
             : 0
         const incremento =
-          d.edadDevengo < 3 || (inicio >= 2023 && inicio <= 2025)
+          d.edadDevengo < 3 ||
+          (inicio >= caso.ejercicio - 2 && inicio <= caso.ejercicio)
         const porOrden =
           indice === 0
             ? minimos.descendientes.primero
@@ -302,7 +317,7 @@ export const calcularDerechosMinimos = Effect.fn("Minimos.calcularDerechos")(
       }
     )
     const contribuyente = obtenerMinimoContribuyente({
-      anio: 2025,
+      anio: caso.ejercicio,
       edad: caso.edadContribuyenteDevengo,
       minimos,
     })

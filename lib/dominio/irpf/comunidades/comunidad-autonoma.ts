@@ -1,3 +1,9 @@
+import { MINIMOS_ESTATALES_2026 } from "../../normativa/datos/minimos-estatales-2026"
+import { obtenerMinimosAutonomicosIrpf2026 } from "../../normativa/datos/minimos-autonomicos-2026"
+import {
+  obtenerEscalaAutonomicaIrpf2026,
+  TRAMOS_IRPF_ESTATAL_GENERAL_2026,
+} from "../../normativa/datos/irpf-autonomico-2026"
 import type Decimal from "decimal.js"
 import { Context, Effect, Layer, Match, Option } from "effect"
 
@@ -114,6 +120,8 @@ import {
   MINIMOS_ESTATALES_2012,
   obtenerMinimosAutonomicosIrpf2012,
 } from "../../normativa/datos/minimos-autonomicos-2012"
+import { TerritorioMinimosComun } from "../minimos/derechos-contrato"
+import { Schema } from "effect"
 import type { ComunidadAutonoma } from "../caso-fiscal-anual"
 
 export interface EntradaParametrosComunidadAutonoma {
@@ -450,43 +458,42 @@ const resolverParametrosComunidadAutonoma2025 = (
 
 const resolverParametrosComunidadAutonoma2026 = (
   comunidadAutonoma: ComunidadAutonoma
-): ResultadoParametrosComunidadAutonoma =>
-  Match.value(comunidadAutonoma).pipe(
-    Match.when(
-      "simulada-estatal",
-      () =>
-        ({
-          _tag: "ParametrosComunidadAutonoma",
-          comunidadAutonoma,
-          anio: 2026,
-          minimoAutonomicoIgualEstatal: true,
-          escalaAutonomicaIgualEstatal: true,
-          escalaEstatalGeneral: TRAMOS_IRPF_ESTATAL_GENERAL_2025,
-          escalaAutonomica: obtenerEscalaAutonomicaIrpf2025(comunidadAutonoma),
-          minimosAutonomicos: MINIMOS_ESTATALES_2025,
-          deduccionesAutonomicasSoportadas: [],
-        }) satisfies ParametrosComunidadAutonoma
-    ),
-    Match.orElse(
-      (comunidadAutonoma) =>
-        ({
-          _tag: "ComunidadAutonomaNoSoportada",
-          comunidadAutonoma,
-          anio: 2026,
-          motivo:
-            "IRPF 2026 solo esta modelado como caso técnico para soltero sin hijos con comunidad simulada estatal.",
-          fuenteReconocida: "docs/fuentes/aeat/algoritmo-retenciones-2026.md",
-        }) satisfies ComunidadAutonomaNoSoportada
-    )
-  )
+): ParametrosComunidadAutonoma => {
+  const minimosAutonomicos =
+    obtenerMinimosAutonomicosIrpf2026(comunidadAutonoma)
+  return {
+    _tag: "ParametrosComunidadAutonoma",
+    comunidadAutonoma,
+    anio: 2026,
+    minimoAutonomicoIgualEstatal: minimosAutonomicos === MINIMOS_ESTATALES_2026,
+    escalaAutonomicaIgualEstatal: comunidadAutonoma === "simulada-estatal",
+    escalaEstatalGeneral: TRAMOS_IRPF_ESTATAL_GENERAL_2026,
+    escalaAutonomica: obtenerEscalaAutonomicaIrpf2026(comunidadAutonoma),
+    minimosAutonomicos,
+    deduccionesAutonomicasSoportadas: [],
+  }
+}
 
 export const obtenerParametrosComunidadAutonoma = ({
   anio,
   baseLiquidableGeneral,
   comunidadAutonoma,
   fechaFallecimiento,
-}: EntradaParametrosComunidadAutonoma): ResultadoParametrosComunidadAutonoma =>
-  Match.value(anio).pipe(
+}: EntradaParametrosComunidadAutonoma): ResultadoParametrosComunidadAutonoma => {
+  if (
+    comunidadAutonoma !== "simulada-estatal" &&
+    !Schema.is(TerritorioMinimosComun)(comunidadAutonoma)
+  )
+    return {
+      _tag: "ComunidadAutonomaNoSoportada",
+      comunidadAutonoma,
+      anio,
+      motivo:
+        "Territorio foral o desconocido no admitido por el motor del régimen común",
+      fuenteReconocida:
+        "https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764#a4",
+    }
+  return Match.value(anio).pipe(
     Match.when(2012, () =>
       resolverParametrosComunidadAutonoma2012(comunidadAutonoma)
     ),
@@ -557,6 +564,7 @@ export const obtenerParametrosComunidadAutonoma = ({
         }) satisfies ComunidadAutonomaNoSoportada
     )
   )
+}
 
 const deduccionesImplementadasPorComunidad = (
   comunidadAutonoma: ComunidadAutonoma
