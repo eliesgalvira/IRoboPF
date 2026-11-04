@@ -12,4 +12,6 @@ Se completan los comandos requeridos del CI local, incluido datos y transporte p
 
 Las primeras ejecuciones detectaron un test nuevo que usaba una condición booleana no admitida, identidades AST desactualizadas y expectativas de alcance antiguas. Se corrigieron y repitieron los pasos afectados, continuando los restantes sin repetir suites ya correctas. En el test salarial cambian sólo el literal de alcance y la frontera de edad admitida; en inventario cambia la lista de territorios disponibles en 2026. Todos los esperados monetarios Open anteriores permanecen intactos.
 
-Los hashes actuales fijan doce fuentes cambiadas y tres módulos nuevos para ejecutar los contratos técnicos. No trasladan aceptación fiscal de snapshots históricos. Los logs de intentos rojos y verdes, el manifiesto de rutas y el resumen de validación se conservan en la entrega compacta `producto-eb-publicacion-20261104`. La ejecución remota se registrará por el hash publicado, sin atribuirle anticipadamente el resultado local.
+Los hashes actuales fijan doce fuentes cambiadas y tres módulos nuevos para ejecutar los contratos técnicos. No trasladan aceptación fiscal de snapshots históricos. Los logs de intentos rojos y verdes, el manifiesto de rutas y el resumen de validación se conservan en la entrega compacta `producto-eb-publicacion-20261104`.
+
+Publicado en `461e16323ca11e428c3e391568755c3e6b2766ab`, rama `procedencia-documental`. `checks` y `corpus` pasan en la [ejecución remota 41902081685](https://github.com/eliesgalvira/IRoboPF/actions/runs/41902081685).

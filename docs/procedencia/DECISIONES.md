@@ -540,3 +540,34 @@ haría perder una distinción útil al auditor. **Coste:** crecen las salidas y 
 colas; siguen fuera del repositorio, identificadas por hash. Se genera una sola
 vez un censo actualizado para el checkout combinado con C y se reutiliza en
 los replay, sin excluir ni retocar las preimágenes antiguas.
+
+## Prioridad de producto y campaña histórica acotada (4 de noviembre, noche)
+
+Se ejecuta el orden de producto indicado por Elies: familia por la API común,
+comparación de 2025, territorios 2026, deducciones 2025, A de 2025–2026 y series
+consumidas por el contraste, y D con un máximo de cuatro horas. El histórico
+completo de A y F no condicionan esas entregas. Cada cambio de importes o datos
+públicos recibe una revisión independiente; las correcciones ordinarias se
+comprueban con su prueba y no abren otra ronda, salvo defecto grave.
+
+**Objeción:** reducir acreditación y rondas podría ocultar errores de alcance.
+**Respuesta:** conservar los dictámenes y reservas, ejecutar pruebas de frontera
+y bloquear importes erróneos o información pública falsa. Un positivo técnico
+no se renombra como aceptación fiscal. **Coste:** quedan explícitamente pendientes
+la auditoría exhaustiva, la autenticidad documental que no se haya comprobado y
+los perfiles excluidos. Un informe de avance no detiene el trabajo autorizado.
+
+La matriz de 2.020 entradas preparada para C no incorpora el ejercicio. Se
+reutilizará completa en cada año de 2018–2024: 14.140 comparaciones previstas,
+separadas por año e identidad de entrada. No son ejecuciones realizadas. El
+arranque espera al comparador de 2025 revisado y correcto. Se ejecutará de forma
+secuencial, reanudable y ligera; sólo se investigarán discrepancias. Los rechazos
+y las casillas ausentes se conservarán separados. Antes de 2018 se mantiene A
+documental para después, sin recuperar PADRE ni ampliar el adaptador de 2017.
+
+**Objeción:** una matriz salarial de Madrid no verifica todos los perfiles de un
+ejercicio ni prueba cómo redondea cada versión de Open. **Respuesta:** declarar
+su alcance, conservar PDF/SES, verificar las casillas por año y conectar la API
+con el ejercicio real. No trasladar automáticamente la política observada de
+2025 a años anteriores. **Coste:** la campaña remota puede durar varios días;
+una comparación pendiente o incompleta no se contará como coincidencia.
