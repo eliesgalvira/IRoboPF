@@ -23,9 +23,22 @@ correctos en la [ejecución remota 41863400023](https://github.com/eliesgalvira/
 
 ## Continuación de A y demostración de C
 
-Se reanuda el candidato incompleto de escalas y mínimos de A sobre los
-extractores corregidos. La entrega anterior conserva 11.204 ocurrencias
-deduplicadas; sus cifras no se aceptan como cobertura verificada.
+Recibida la reanudación incompleta de escalas y mínimos de A sobre los
+extractores corregidos. Conserva 11.204 ocurrencias deduplicadas: propone
+269 coincidencias técnicas, 470 escenarios simulados no aplicables y 10.465
+sin verificar. La aplicabilidad temporal y territorial sigue pendiente,
+también en las coincidencias técnicas. No se aceptan como cobertura fiscal.
+El padre verifica los 30 archivos, 31 auxiliares, parche y objetos de resultados;
+encarga revisión independiente del candidato antes de integrarlo.
+
+Los dos lotes aportan replay idéntico y 40 pruebas propias, según el autor.
+El suplemento de mínimos no añade cobertura: se detiene ante una referencia
+indirecta de 2019. Los intentos de resolver enlaces concentran 4.612 rechazos
+de funciones auxiliares no admitidas, 2.640 de caminos indirectos y 141 de
+índices; esos recuentos son intentos, no magnitudes distintas. Siguen faltando
+selectores y pruebas físicas de unidad y aplicabilidad. El candidato conserva
+una regresión roja de la escala canaria de 2015 y una propuesta separada de
+cuotas publicadas, sin aplicar ni aceptar su extensión a 2016.
 
 De C se recibe una demostración de transporte oficial remoto, secuencial y
 reanudable, con 16 ejecuciones PDF/SES: siete recargas de casos conservados,
@@ -42,9 +55,14 @@ aceptado. El [contraste independiente](simuladores/TRANSPORTE-REVISADO.md) es
 favorable para F1–F5: 65 expectativas propias correctas, sin bloqueos nuevos
 reproducidos en ese alcance. Se prepara la integración reproducible y la
 proyección estructurada de los seis componentes de cuota ya calculados por el
-núcleo común. Falta conectar la
-API del commit actual. El cotejo con un snapshot antiguo del motor no demuestra
-esa conexión. Siguen pendientes el
+núcleo común. Se recibe candidato de esa integración con operador real de la
+API: 224 casillas iguales, cero diferencias y 14 ausencias en 17 filas, que
+representan nueve entradas distintas. Excluye siete capturas de 2018–2024.
+Las 17 filas permanecen incompletas por la comprobación de hechos fiscales;
+no equivalen a 17 comparaciones plenamente aceptadas. Sus 22 archivos y parche
+están recibidos y verificados; el nuevo código y su vínculo requieren revisión
+independiente. Los recibos fijan base, inventario de fuentes y entorno del
+candidato, sin atribuirlo al commit limpio anterior. Siguen pendientes el
 adaptador de 2017 y la recuperación ejecutable de PADRE; los intentos fallidos
 no prueban la indisponibilidad de todas sus versiones. Los originales y los
 registros con identificadores efímeros permanecen privados, fuera del producto.
@@ -108,7 +126,7 @@ Las ampliaciones regionales de deducciones y el censo automático de A continúa
 | --- | --- |
 | A. Datos de 2012–2026 | Extractor corregido y contrastado en el piloto, incluido RP07. Recibidas extracciones parciales de escalas y mínimos de 2012–2018 y 2019–2026; falta completar sus enlaces. IPC/SS: extracción parcial integrada con cinco correcciones técnicas; 13 coincidencias IPC y alcances SS aún sin verificar cuando falta contexto documental. Piloto: 277 celdas, 50 coincidencias, 226 sin verificación y una ausencia explícita |
 | B. Comunidades en 2026 | Pendiente de inicio; reutilizará las fuentes de A |
-| C. Simuladores oficiales | Transporte remoto demostrado; cinco correcciones contrastadas favorablemente. Integración, conexión API y comparación masiva pendientes |
+| C. Simuladores oficiales | Cinco correcciones contrastadas; integración y operador API candidatos con coincidencias monetarias condicionadas. Revisión, comprobación de hechos y comparación masiva pendientes |
 | D. Redondeo de cotizaciones | Pendiente de inicio con criterio de comportamiento observado |
 | E. Mínimos familiares | Motor anual común y API revisados, incluida corrección de precisión. Cobertura familiar Madrid 2025 individual; extensión normativa por año/territorio y acreditación del núcleo pendientes |
 | F. Actividad y declaración completa | Encargado; pendiente de productores y contratos anteriores |
