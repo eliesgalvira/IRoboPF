@@ -667,3 +667,60 @@ deducciones. Se prioriza el punto4 frente a iniciar otro bloque de20minutos:
 los originales ya obtenidos permanecen reanudables y su adquisición no depende
 de publicar cálculos pendientes. Ningún informe de captura acredita igualdad
 con la API.
+
+### 5/11 · Publicación valenciana y continuación territorial
+
+La conexión anual y el registro351 se publican en `cdb82540` tras reproducir los
+31 comandos del workflow en un entorno sin el PATH del orquestador. El primer
+intento local detectó un global `JSON` ausente en el intérprete de procedencia:
+se corrigió con una regresión antes de repetir todo el CI y publicar. La versión
+remota se comprueba por separado; pasar en Victus no se presenta como pasar en
+GitHub.
+
+Los evaluadores territoriales se incorporan por códigos con hechos concretos y
+reservas delimitadas. Una matriz documental no sustituye una fórmula ni su
+composición anual. Las revisiones detectan errores de máximo, identidad e historia
+de acogimiento; el integrador los corrige con regresiones conservadas. No se repite
+una revisión completa favorable para cada arreglo ordinario.
+
+La adquisición histórica vuelve a ejecutarse como tarea ligera: un navegador,
+un caso cada vez y un bloque limitado a 60 pendientes. No ejecuta motor,
+inventario, tipos ni suites. Se mantienen dos turnos pesados para deducciones y
+cinco subagentes como máximo. La independencia entre captura y cálculo permite
+avanzar la campaña sin publicar ni dar por buenas sus discrepancias pendientes.
+
+En certificación forestal asturiana, el máximo personal se aplica después de
+repartir el expediente común. El BOPA y el manual fijan1.000 euros por
+contribuyente; limitar primero el expediente conjunto reducía indebidamente
+la cuantía individual. La composición conjunta de esta rama queda delimitada
+hasta representar sus reglas propias; no se inventa un máximo agregado.
+
+En conciliación balear, el manual2025 concreta el reparto del máximo, mientras
+el artículo6bis.4 formula el prorrateo de modo general. Se adopta explícitamente
+la interpretación operativa del manual sobre los pagos propios identificados,
+conservando ambas fuentes y la diferencia textual en rastro y matriz. No se
+extrapola a otras deducciones. Además, los díasRETA deben caber en el período
+que termina al devengo; un fallecimiento no permite días posteriores.
+
+
+### Deducciones territoriales, integración del 5/11
+
+Extremadura R1/R2: el reparto entre titulares de partos múltiples y material
+escolar se limita a individual, conforme al manual AEAT 2025 y artículos 3/10
+conservados. En conjunta se mantiene el importe completo si hay un titular en
+la declaración. No se cambia el reparto de ELA ni de otras comunidades. Pasan
+78 pruebas del integrador, incluidas las 33 independientes con expectativas
+intactas. Un error propio de fixture (trillizos tratados como gemelos) queda
+registrado aparte.
+
+Galicia/La Rioja: se integra el candidato sin cambios monetarios tras revisión
+independiente de diez ramas (30 pruebas propias). Los expedientes con pagos de
+varios contribuyentes permanecen rechazados explícitamente; no se reduce una
+lista de pagos para fingir exhaustividad.
+
+El registro351 permanece como corte histórico. La unión verificable de las
+matrices revisadas añade 55 códigos distintos, sin contar reutilizaciones ni
+ampliaciones privadas. Capacidad parcial por hechos y composición anual son
+estados separados. El workflow completo pasa los 31 comandos en entorno limpio, con 2.073
+ejecuciones Vitest y 247 métodos Python descubiertos (siete omitidos). Se publica
+este avance y se continúa con las ramas restantes y su conexión anual.

@@ -1,0 +1,39 @@
+# Lote documental D: reglas por hechos 2025
+
+Candidato privado: doce reglas parciales en tres módulos nuevos y 63 filas de alcance. No integra dispatcher, anual ni catálogo. Reutiliza revisiones regionales favorables y overlay de 4 de noviembre; no repite auditoría jurídica ni altera el cierre documental. Otros autores y CI del padre pueden trabajar en la raíz: esta entrega sólo añade rutas nuevas.
+
+## Contrato y alcance
+
+Cada función acepta contexto y hechos JSON en su frontera de entrada (`Schema.Json`), decodificados con esquemas concretos de Effect, rechaza campos sobrantes, magnitudes no decimales finitas, fechas civiles imposibles, identidades vacías/duplicadas y ramas desconocidas. Importes monetarios de entrada son cadenas (máximo 14 enteros y 8 decimales); bases pueden ser negativas y se suman con signo. Se exige ejercicio 2025, territorio, declarante y lista completa de declarantes. El devengo soportado es 31 de diciembre; fallecimiento durante el año queda pendiente. No hay booleano `cumple`, importe fiscal suministrado ni referencia que produzca reconocimiento de derecho.
+
+Las fórmulas devuelven `calculo_parcial`, `importeExacto` decimal sin redondeo monetario previo, requisitos concretos aún sin evaluar y `cuota_integra_autonomica_disponible_2025` como magnitud anual requerida. No limitan a cuota ni crean otro motor anual. `presentar` convierte a céntimos HALF_UP y al `ResultadoDeduccion` existente; no vuelve el parcial sumable ni automático. Se importa ese contrato sólo como tipo: no se reutilizan los auxiliares valencianos porque fijan otro territorio, números binarios y tablas distintas. No existen fórmulas de estos doce códigos en el contrato de hechos común que se puedan reutilizar. Decimal usa clon privado de precisión 80; divisiones periódicas conservan esa precisión y sólo se redondean a céntimos al presentar, sin prometer representación racional infinita.
+
+Las listas de `titularesMinimo`, `titulares` y `familiaresConDerecho` son afirmaciones externas **pendientes de evaluación**. Su cardinalidad sirve exclusivamente para cuantía/reparto parcial, nunca prueba de derecho. Deben contener todos los titulares del supuesto, incluso quienes exceden renta o no forman parte de esta declaración. Las listas vacías de eventos/causantes significan ausencia exhaustiva declarada, no ausencia inferida de un campo faltante. Un cero sigue siendo parcial. Las ramas fuera de alcance se rechazan, no se convierten en cero. El llamador debe conservar el carácter parcial y resolver los pendientes antes de componer la API única.
+
+## Ramas implementadas
+
+| Territorio | Funciones | Alcance propio |
+|---|---|---|
+| CLM | `discapacidadPropia`, `mayores75`, `nacimientoAdopcion`, `cuidadoAscendientes75` | Grados/edad/rentas, prevalencia discapacidad, estancias/Sescam, eventos y reparto con titulares externos. Nacimiento admite un conjunto común de titulares por evento; no deduce mínimos individuales. |
+| CyL | `discapacidadPropia`, `adopcion`, `cuotasHogar`, `familiaNumerosa` | Renta menos mínimo donde aplica (discapacidad/cuotas; arts. 3/4 exceptuados por 10.1), edad/grado/residencia, fecha de inscripción y ayudas, pagos privativos o gananciales con mismos titulares del mínimo, base/reparto/tope300, tramos de familia y suplemento único600. Familia admite cónyuge regional o ausencia de cónyuge; otro territorio requiere rama de mitad. |
+| Extremadura | `trabajoDependiente`, `partosMultiples`, `materialEscolar`, `ela` | Rentas exhaustivas por declarante y elección trabajo/viudedad; partos y escolar en rama ordinaria de renta; propio ELA íntegro y reparto familiar separado por causante. No calcula viudedad ni extiende excepciones rurales. |
+
+Cuotas de hogar rechaza conjuntos de titulares distintos de empleador privativo o ambos cónyuges gananciales: falta resolver la concurrencia adicional de 10.3. La autorización/alta/realidad de pagos sigue pendiente; un NIF no la acredita. Familia numerosa toma 600 como base general aunque haya menos de tres descendientes con mínimo, pues el título puede obedecer a otros supuestos legales. El incremento por discapacidad es único, no por persona. En ELA un diagnosticado que integre la declaración se representa como `propio` una sola vez; sus familiares se reparten separadamente sin incluirlo en el divisor. Concurrencia de un mismo familiar por varios diagnosticados se rechaza hasta modelar su techo personal. FP básica requiere identificar la etapa: la cadena genérica `fp` se rechaza.
+
+## Reservas conservadas
+
+Sólo concurrencia CLM 12/12 ter, nunca todos sus códigos. XML/XPath son localizadores técnicos: la matriz conserva artículo jurídico y citas desde las revisiones, no crea artículos a partir de XPath. Intermedias agrícolas: 25 municipios donde corresponda, sin extender su clasificación a adquisición/traslado.
+
+CyL conserva autorización **o** informe en naturaleza, inversión directa con sede externa frente a indirecta, y rehabilitación de programa exclusivamente autonómico elegible. Extremadura mantiene sin decisión favorable la adquisición/rehabilitación de 1 de enero a 21 de marzo de 2022: efectos fiscales y entrada en vigor son cuestiones distintas. La matriz reutiliza exactamente `reservasActuales` del overlay por código.
+
+## Validación y entrega
+
+Se ejecutó `tests/producto-lote-d-hechos.test.ts`: **41 pruebas conformes**, con expectativas numéricas literales independientes para las doce reglas, fronteras de renta/edad/fechas, reparto, duplicados, pagos, inscripción, desconocidos, identidades y aislamiento/redondeo Decimal. Vitest usa `--maxWorkers=1`. Tipos estrictos heredan las opciones y diagnósticos Effect del proyecto; TypeScript 5.9.3 con language-service 0.85.1 conforme. Oxlint 1.78.0, dieciséis reglas (incluido antislop/Effect), cuatro archivos, cero diagnósticos, comprobación final con un hilo. ESLint con la configuración raíz y `--max-warnings=0` conforme; emite dos avisos de entorno por React/pages ausentes en la entrega parcial, sin avisos de archivo ni reglas desactivadas.
+
+Se preservan el candidato previo como parche y los rojos privados: 31 pruebas iniciales verdes; tres pruebas nuevas de identidad rojas contra ese código; tipos rojos por `new Date` y resolución de contrato en el entorno privado; Oxlint rojo por diccionarios/entradas `unknown`. El código final decodifica schemas concretos sin diccionarios ni aserciones, usa `DateTime`, rechaza identidades imposibles y mantiene los resultados fiscales parciales. El alias de importación del contrato usa `@/lib/...` y la configuración privada resuelve a la raíz sin copiarla. El ESLint inicial no analizó archivos externos a su base: ese intento se conserva y no cuenta como validación; el final ejecuta desde payload y los analiza efectivamente.
+
+Cuotas de hogar identifica al hijo y lo separa de titulares/empleado. Familia numerosa identifica cónyuge, valida consistencia con la rama de residencia y rechaza suplementos ajenos a cónyuges/descendientes. Nadie figura como su propio nacido, adoptado, descendiente o ascendiente titular del mínimo. No se añade una fórmula genérica de derechos externos ni nuevas reservas jurídicas.
+
+El control Python pequeño verifica cobertura, referencias/hashes, seis oráculos decimales y reconstrucción byte a byte; no ejecuta TypeScript. Los resultados TS se acreditan por sus controles separados. No hay CI global, inventario, integración ni revisión independiente de cálculo nueva. Los originales CAS no se transportan.
+
+El padre debe revisar e integrar las altas y conectarlas a API/anual; la matriz detalla 51 códigos sin evaluador y siguientes ramas de los doce parciales. El bloqueo general F no se traslada a D. La raíz permanece en solo lectura; no se han creado worktree, commits/push/PR ni copiado dependencias/cachés. PESADO2 queda liberado al concluir estos controles.

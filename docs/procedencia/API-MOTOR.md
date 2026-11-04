@@ -8,7 +8,7 @@ Se retiran la selección legacy, los helpers familiares insuficientes y la recon
 
 Las notas anteriores del [catálogo de deducciones](deducciones-2025/CAMBIOS-PARA-REDISENO.md) describen entregas existentes, pero no obligan a conservar su API. El rediseño debe tomar como referencia el contrato vigente de esta página.
 
-El catálogo integrado conserva las colecciones regionales, pero Comunitat Valenciana, Galicia y La Rioja ya no exponen constructores o exportaciones intermedias para cada deducción. Sus descripciones expresan las condiciones documentadas; no constituyen todavía evaluadores automáticos completos. Las 40 fórmulas valencianas cuentan ahora con evaluadores parciales por hechos y pruebas revisadas. La composición individual resuelve límites e incompatibilidades declarados y `aplicarCuotaConjuntaValenciana2025` consume una cuota común y saldos históricos según orden explícito. Esta aplicación sigue siendo individual, parcial y separada de la liquidación anual; conserva la acreditación pendiente de las fichas. Véase [contrato de cuota y saldos](deducciones-2025/VALENCIANA-CUOTA-CONJUNTA.md).
+El catálogo integrado conserva las colecciones regionales, pero Comunitat Valenciana, Galicia y La Rioja ya no exponen constructores o exportaciones intermedias para cada deducción. Sus descripciones expresan las condiciones documentadas; no constituyen todavía evaluadores automáticos completos. Las 40 fórmulas valencianas cuentan ahora con evaluadores parciales por hechos y pruebas revisadas. La composición individual resuelve límites e incompatibilidades declarados y `aplicarCuotaConjuntaValenciana2025` consume una cuota común y saldos históricos según orden explícito. Esta aplicación conserva su alcance individual y parcial y la acreditación pendiente de las fichas. La ruta anual salarial valenciana de 2025 ya la consume con las condiciones del apartado «Deducciones valencianas en la ruta anual». Véase [contrato de cuota y saldos](deducciones-2025/VALENCIANA-CUOTA-CONJUNTA.md).
 El efecto devuelve la liquidación o un error recuperable `ResultadoNoSoportado` con `motivo`, `fuenteReconocida` y `rastro`. Se mantienen los campos de bases, cotizaciones, cuotas, deducciones, pagos y diferencial. Se elimina `conciliacionSimuladorLegacy`. Los importes de entrada y salida con sufijo `Centimos` son enteros en céntimos; las operaciones internas usan euros `Decimal`. Un diferencial positivo es a ingresar y uno negativo a devolver.
 
 `CasoFiscalAnual` se define en `lib/dominio/irpf/caso-fiscal-anual.ts`: ejercicio, comunidad, situación individual, rendimientos, reducciones, deducciones, retenciones y pagos. Las listas `situacionFamiliar.descendientes` y `ascendientes` solo admiten ausencia (`readonly never[]`). Una lista antigua no vacía se rechaza: no se completa con hechos supuestos. La modalidad se valida también al ejecutar: se rechaza cualquier valor distinto de `individual`, aunque no se aporten derechos familiares. La edad y discapacidad del contribuyente siguen siendo explícitas. Cuando hay familiares se aportan `derechosMinimos`; el ámbito, edad y discapacidad deben conciliar con el caso anual.
@@ -209,3 +209,11 @@ sobre separación anual describen la API parcial aislada; esta sección delimita
 la nueva conexión por hechos. No amplía 2026, conjunta ni las ramas fiscales
 pendientes, y no cierra las 351 fichas.
 <!-- valenciana-anual-2025:end -->
+
+Los [evaluadores territoriales por hechos de 2025](deducciones-2025/producto-territorial-20261105/INTEGRACION.md)
+añaden 55 códigos parciales revisados. Sus contratos aislados conservan las
+reservas y el importe anterior a cuota. Aún no forman parte de la solicitud
+anual común: no se deben sumar sus importes presentados ni introducir sus
+bases o cuotas como agregados externos. El registro de cobertura distingue
+estas altas de las deducciones valencianas que ya consume la ruta anual.
+
