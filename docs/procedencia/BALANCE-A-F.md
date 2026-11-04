@@ -1,5 +1,22 @@
 # Balance A–F del 4 de noviembre
 
+## Orden de producto vigente desde la noche del 4 de noviembre
+
+La instrucción posterior de Elies sustituye el orden y el alcance de trabajo
+de la tabla histórica: E familiar primero, para el viernes 6 a las 20:00;
+después unos 300 casos Open 2025, B de 2026, deducciones autonómicas 2025,
+A reciente y series históricas usadas, y D con un techo de cuatro horas.
+F completo y el resto histórico de A se aplazan. La investigación de D se
+mantiene separada de las deducciones: D corresponde a redondeo de Seguridad Social.
+
+No se exige terminar la acreditación exhaustiva de A para ejecutar escenarios
+explícitos ni se repite una revisión favorable por cada arreglo ordinario.
+Se conserva una revisión independiente de cambios monetarios y datos públicos.
+Las estimaciones siguientes describen el alcance anterior; no son el presupuesto
+de este nuevo tramo de producto. [Estado operativo](ESTADO.md).
+
+## Balance del alcance anterior
+
 Estimaciones de horas de reloj de trabajo continuado restante, no horas de
 revisión de Elies. Son rangos de planificación, no compromisos de cierre; se
 revisarán tras resolver las primeras diferencias de cada bloque. Suponen un

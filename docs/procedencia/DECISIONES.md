@@ -1,5 +1,26 @@
 # Decisiones de la auditoría documental
 
+## Prioridad de producto y revisión proporcionada (4 de noviembre, noche)
+
+Por instrucción de Elies, se priorizan derechos familiares, comparación de unos
+300 escenarios Open 2025, comunidades 2026 y deducciones 2025. A se limita a los
+años recientes y las series necesarias; D dispone de cuatro horas como máximo.
+Se aplazan F completo y la acreditación histórica exhaustiva. Una comparación
+puede investigar escenarios sintéticos explícitos conservando las reservas de
+acreditación; no representa aceptación fiscal universal.
+
+La objeción es perder cobertura documental o aceptar una diferencia inadvertida.
+Se conservan candidatos y pruebas por hash, se revisa independientemente cada
+cambio que afecte importes o datos públicos y se bloquean los errores monetarios
+o publicaciones incorrectas. Los arreglos ordinarios no repiten una revisión
+favorable; los graves sí justifican contraste. El coste aceptado es aplazar la
+acreditación exhaustiva para entregar capacidad útil y diferencias reproducibles.
+
+Los scripts finitos tienen límites internos y Vitest un trabajador por suite.
+Los servicios interactivos `dev` y `start` conservan su ciclo de vida normal;
+no son suites de prueba. CI comprueba rutas `.cache` antes de crear artefactos.
+
+
 Los criterios siguientes consolidan las decisiones técnicas y sus límites. Los IDs D001–D137 conservan sus referencias; agruparlos no convierte candidatos históricos en trabajos terminados. El [informe](INFORME-FINAL.md) y la [matriz por sitio](correcciones/cierre-r66/MATRIZ-65.md) delimitan el cierre técnico anterior. El [plan completo](PLAN-COMPLETO.md) amplía el encargo y la decisión siguiente sustituye los requisitos históricos de compatibilidad.
 
 ## Motor único sin compatibilidad heredada
