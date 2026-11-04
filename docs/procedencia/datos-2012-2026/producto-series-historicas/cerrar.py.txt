@@ -1,0 +1,11 @@
+from pathlib import Path
+import hashlib,json
+out=Path(__file__).resolve().parent
+before=json.loads((out/'hashes-antes.json').read_text())
+after={p:hashlib.sha256(Path(p).read_bytes()).hexdigest() for p in before}
+assert before==after
+(out/'hashes-despues.json').write_text(json.dumps(after,indent=2)+'\n')
+files={p.name:{'sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'bytes':p.stat().st_size} for p in sorted(out.iterdir()) if p.is_file() and p.name!='MANIFIESTO.json'}
+manifest={'tipo':'informe, sondeos, prueba roja y propuesta monetaria externa no aplicada','raizRepositorioSoloLectura':'/home/elies/Repos/IRoboPF','ambito':'empleo Madrid 2018-2024 devengo31/12 individual18-64 sin familia/discapacidad','Open':'no ejecutado','aceptacionMonetaria':'pendiente de revisión independiente del padre','fuentesNuevasDescargadas':0,'rutasFuenteCodigoIntactas':len(after),'rojaExitEsperado':1,'suitePesada':False,'bytesEntregaSinManifiesto':sum(v['bytes'] for v in files.values()),'archivos':files}
+(out/'MANIFIESTO.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
+print(json.dumps({'archivos':len(files),'bytes':manifest['bytesEntregaSinManifiesto'],'hashesIntactos':len(after)},ensure_ascii=False))

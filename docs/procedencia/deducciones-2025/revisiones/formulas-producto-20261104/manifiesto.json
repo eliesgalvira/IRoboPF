@@ -1,0 +1,138 @@
+{
+  "base": "461e16323ca11e428c3e391568755c3e6b2766ab",
+  "dictamen": "corregir H1-H3; integracion privada favorable acotada; O1 no bloqueante",
+  "PESADO1": "liberado",
+  "produccionModificada": false,
+  "parche": {
+    "ruta": "revision.patch",
+    "sha256": "516e175a18c162d5f2a595a34128daeb10c502c6e0585bb2a99b66c4ad4f23ff",
+    "archivos": [
+      {
+        "ruta": "tests/revision-valenciana-formulas.ts",
+        "operacion": "crear",
+        "preimagen": null,
+        "postimagenSHA256": "3f5d649b6fc12906339a42c0c6517f2f8ee06af764130069e7a0f27b8b067e74"
+      },
+      {
+        "ruta": "tests/revision-valenciana-integracion.ts",
+        "operacion": "crear",
+        "preimagen": null,
+        "postimagenSHA256": "798cede3a316337d8d118411c6ed88322548fd9a551e4faaae873fc9bb2f8948"
+      },
+      {
+        "ruta": "docs/procedencia/deducciones-2025/revisiones/formulas-producto-20261104/INFORME.md",
+        "operacion": "crear",
+        "preimagen": null,
+        "postimagenSHA256": "c3d28621a01fd7d8e660f3ccf967e8b756f35b5c3234332326e85d57758ba43f"
+      }
+    ]
+  },
+  "validacion": {
+    "regresiones": {
+      "total": 148,
+      "fallos": 0
+    },
+    "independientes": {
+      "total": 106,
+      "verdes": 102,
+      "hallazgosRojos": 3,
+      "observacionesRojas": 1
+    },
+    "integracion": {
+      "total": 23,
+      "fallos": 0
+    }
+  },
+  "preservacion": {
+    "archivos": 69,
+    "mapaAntesSHA256": "baa67f2c827812a5a5d2906eb7e5a2425d9a55bce6e0c1e2c3fa0cd5623c5cb0",
+    "mapaDespuesSHA256": "baa67f2c827812a5a5d2906eb7e5a2425d9a55bce6e0c1e2c3fa0cd5623c5cb0"
+  },
+  "artefactos": [
+    {
+      "ruta": "INFORME.md",
+      "bytes": 17363,
+      "sha256": "c3d28621a01fd7d8e660f3ccf967e8b756f35b5c3234332326e85d57758ba43f"
+    },
+    {
+      "ruta": "candidato-congelado.json",
+      "bytes": 2076,
+      "sha256": "6ffe430972a2989f094a21a75cdb2b0342e6cb07ccf3eb6e229b52fe3e435c98"
+    },
+    {
+      "ruta": "contraste-primarios.json",
+      "bytes": 186768,
+      "sha256": "826508585c2b873a71b4bd795902b8ab6fe0e0d6b6f7217f51eb277a3e19eb7c"
+    },
+    {
+      "ruta": "contratos-integracion.runtime.ts",
+      "bytes": 23143,
+      "sha256": "fabc4e94134d86f84ab2b6b6d36aa3d58b04c4f6e018e332cafa23a931294b5c"
+    },
+    {
+      "ruta": "fuentes-antes.json",
+      "bytes": 11812,
+      "sha256": "162ce934092b66c1f8a8adfa720a931cea0f943d96bd991cf68e6b91e0fd120d"
+    },
+    {
+      "ruta": "fuentes-despues.json",
+      "bytes": 11812,
+      "sha256": "162ce934092b66c1f8a8adfa720a931cea0f943d96bd991cf68e6b91e0fd120d"
+    },
+    {
+      "ruta": "integracion-resultados.json",
+      "bytes": 6464,
+      "sha256": "525fbf3ff19a987dc12a02483671b539ce87c61bedae9ebbf0f013d553fe0f38"
+    },
+    {
+      "ruta": "integracion-revision.ts",
+      "bytes": 3020,
+      "sha256": "522129a0e6740f74df21563e7ae5dd639e04dae3a31ffd33a7080376719b30fa"
+    },
+    {
+      "ruta": "preservacion.json",
+      "bytes": 264,
+      "sha256": "9c835ce79f3b23921129d7d22acfa41efa039af8ce6df356147b69392de55f79"
+    },
+    {
+      "ruta": "resultados.json",
+      "bytes": 167911,
+      "sha256": "3f00acf1b98dd7455394540a24a958544180c23c1b7f5e3f4e1d1d18b2f98a86"
+    },
+    {
+      "ruta": "revision.patch",
+      "bytes": 32344,
+      "sha256": "516e175a18c162d5f2a595a34128daeb10c502c6e0585bb2a99b66c4ad4f23ff"
+    },
+    {
+      "ruta": "revision.ts",
+      "bytes": 11600,
+      "sha256": "e0ac5451754f5bb0be8b4fab2580d05486ffdb445db9f0981cb57ea895591764"
+    },
+    {
+      "ruta": "vitest.config.mjs",
+      "bytes": 329,
+      "sha256": "7d0b9eeb2214661564bf275dacabeb642b5eb5d48535f39e37af46d62ce1507a"
+    },
+    {
+      "ruta": "logs/effect-referencia.log",
+      "bytes": 6801,
+      "sha256": "5c5126824428712e908a7599b7261f4a31a357ae67ffc1cdd82ef6b9d4d9c0a4"
+    },
+    {
+      "ruta": "logs/independientes.log",
+      "bytes": 6403,
+      "sha256": "6b4b4790789c50f87d23c66007a7a4b5ebe89d1c4f86296e4f17f39290e2e243"
+    },
+    {
+      "ruta": "logs/integracion.log",
+      "bytes": 49,
+      "sha256": "acef1add189bdcc87126bc170f35eabbea68c45e13d7398229579d5ceb299ff7"
+    },
+    {
+      "ruta": "logs/regresiones.log",
+      "bytes": 212,
+      "sha256": "802df2ec7c76b57bc00166ebb06a6e3a81debb8ed5f55004a17921d6661c29cd"
+    }
+  ]
+}

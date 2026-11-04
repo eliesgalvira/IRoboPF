@@ -1,0 +1,34 @@
+PASS orden cambia importe y no aplica dos veces 30
+PASS oraculo racional 121 techos y tramos
+PASS comodato fraccionario conserva precision
+PASS comodato con estatal tramo una vez
+PASS rechazo aunque techo cero
+PASS omitir invalida conserva motivo
+PASS excluida no se convierte en cero
+PASS rechazo dos magnitudes primarias
+PASS salud no repite categoria
+PASS alquiler consolidado reparte una vez
+PASS consignacion colisiona con omitida
+PASS JS malformado y recuperacion
+PASS deep freeze y cuota separada
+PASS arrastres fronteras tres cuatro
+FAIL DANA 2024 no es generacion 2025 sin arrastre AssertionError [ERR_ASSERTION]: {"estado":"calculo_parcial","aceptacionFiscal":"pendiente","resultados":[{"codigo":"valenciana_dana_aportaciones_fondos_propios_entidades","eleccion":"aplicar","resultado":{"estado":"calculo_parcial","importe":135,"motivo":"Cuantía generada; acreditaciones externas pendientes: Domicilio social/fiscal zona afectada, ERTE entidades preexistentes, actividad y empleo tres años; escritura/certificado cooperativa | 45%,máximo 9.900 y base 30% liquidable expresamente propia;13nov 2024–31dic 2025, domicilio social/fiscal zona, ERTE preexistentes, actividad/empleo 3años, escritura/certificado, tenencia 3años, arrastre 3; incompatibilidad z mismaentidad/ejercicio/contribuyente.. No es cuota aplicada ni liquidación; insuficiencia de cuota y arrastres requieren el módulo cuota.","aceptacionFiscal":"pendiente"}}],"incidencias":[],"totalParcialAntesCuota":135,"limiteBase30":600}
++ actual - expected
+
++ 'calculo_parcial'
+- 'no_soportado'
+
+    at no (/home/elies/Backups/IRoboPF/producto-valenciana-revision-composicion-20261104/adversos.runtime.ts:7:48)
+    at DANA 2024 no es generacion 2025 sin arrastre (/home/elies/Backups/IRoboPF/producto-valenciana-revision-composicion-20261104/adversos.runtime.ts:25:322)
+    at /home/elies/Backups/IRoboPF/producto-valenciana-revision-composicion-20261104/runner-adversos.ts:2:61
+    at moduleEvaluation (native:1:11)
+    at moduleEvaluation (native:1:11)
+    at loadAndEvaluateModule (native:2)
+    at processTicksAndRejections (native:7:39) {
+  generatedMessage: false,
+  actual: 'calculo_parcial',
+  expected: 'no_soportado',
+  operator: 'strictEqual',
+  code: 'ERR_ASSERTION'
+}
+15 grupos; fallos 1

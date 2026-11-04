@@ -1,0 +1,20 @@
+import { evaluarDeduccion as e, totalDeduccionesEvaluadas as t } from './contratos-integracion.runtime.ts'
+import { evaluarDeduccionValenciana2025 as directo } from '/home/elies/Repos/IRoboPF/lib/dominio/irpf/deducciones/valenciana-2025/index.ts'
+import { writeFileSync } from 'node:fs'
+const h={codigo:'valenciana_nacimiento_adopcion_multiples',ejercicio:2025,territorio:'comunitat-valenciana',contribuyente:'A',declarantes:['A'],modalidad:'individual',devengo:'2025-12-31',liquidableGeneral:28500,liquidableAhorro:0,imponibleGeneral:99999,imponibleAhorro:0,unidades:[{id:'evento',titulares:['A','B'],fecha:'2025-01-01',numeros:{personasMismaFecha:2},textos:{}}]}
+const contexto={ejercicio:2025,territorio:'comunitat-valenciana',contribuyente:'A',declarantes:['A'],modalidad:'individual'}
+const s={tipo:'valenciana_hechos',contexto,hechos:h};const resultados=[]
+function prueba(nombre,fn,esperado){try{const real=fn(); const ok=JSON.stringify(real)===JSON.stringify(esperado);resultados.push({nombre,ok,esperado,real})}catch(error){resultados.push({nombre,ok:false,error:String(error)})}}
+prueba('igualdad completa con parcial y reservas',()=>e(s),directo(h))
+prueba('importe independiente',()=>e(s).importe,61.5)
+prueba('agregado rechaza parcial',()=>t(contexto,[s]).estado,'no_soportado')
+for(const cambio of [{ejercicio:2024},{territorio:'madrid'},{modalidad:'conjunta'},{contribuyente:'B'},{declarantes:['A','A']},{declarantes:['B']}])prueba('contexto '+JSON.stringify(cambio),()=>e({...s,contexto:{...contexto,...cambio}}).estado,'no_soportado')
+for(const cambio of [{importe:987},{ejercicio:2024},{territorio:'madrid'},{contribuyente:'B'},{declarantes:['A','A']},{unidades:[{...h.unidades[0],extra:10}]},{liquidableGeneral:NaN}])prueba('hechos '+JSON.stringify(cambio),()=>e({...s,hechos:{...h,...cambio}}).estado,'no_soportado')
+const sc={...s,contexto:{...contexto,modalidad:'conjunta',declarantes:['A','B']},hechos:{...h,modalidad:'conjunta',declarantes:['B','A']}}
+prueba('conjunta orden declarantes irrelevante',()=>e(sc).importe,246)
+prueba('conjunta conjunto distinto',()=>e({...sc,hechos:{...sc.hechos,declarantes:['A','C']}}).estado,'no_soportado')
+prueba('individual omision declarantes contexto normaliza',()=>e({...s,contexto:{...contexto,declarantes:undefined}}).importe,61.5)
+const cons={tipo:'consignacion',contexto,entrada:{...contexto,codigo:h.codigo,importe:61.5,soporte:'externo'}}
+for(const solicitudes of [[s,s],[s,cons],[cons,s]])prueba('duplicado '+solicitudes.map(x=>x.tipo).join(','),()=>t(contexto,solicitudes).motivo.startsWith('Solicitud duplicada'),true)
+const antes=JSON.stringify(s);e(s);prueba('sin mutacion',()=>JSON.stringify(s),antes)
+console.log(JSON.stringify({total:resultados.length,verdes:resultados.filter(x=>x.ok).length,rojos:resultados.filter(x=>!x.ok)},null,2));writeFileSync('/home/elies/Backups/IRoboPF/producto-valenciana-revision-formulas-20261104/integracion-resultados.json',JSON.stringify(resultados,null,2)+'\n');process.exitCode=resultados.every(x=>x.ok)?0:1

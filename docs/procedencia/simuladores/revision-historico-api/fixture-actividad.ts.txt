@@ -1,0 +1,138 @@
+import type { CasoActividad2025 } from "/home/elies/Repos/IRoboPF/lib/dominio/irpf/actividades-economicas/contrato"
+const alcance = {
+  ejercicio: 2025,
+  comunidadAutonoma: "madrid",
+  edad: 40,
+  modalidad: "individual",
+  residenciaTodoElAnio: true,
+  devengo: "2025-12-31",
+  otrasRentas: "ninguna",
+  familiaresConDerechoMinimo: "ninguno",
+  discapacidad: "ninguna",
+  reduccionesBase: "ninguna",
+  saldosAnteriores: "ninguno",
+  deducciones: "solo-da61-si-procede",
+  rentasExtranjeras: "ninguna",
+  especialidades: "ninguna",
+}
+function casoBase(): CasoActividad2025 {
+  return {
+    ejercicio: 2025,
+    territorio: "comun",
+    individual: true,
+    actividadId: "profesion",
+    iae: "servicios",
+    fechaInicio: "2025-01-01",
+    fechaFin: "2025-12-31",
+    serviciosOrdinarios: true,
+    hechos: {
+      otrasActividades: false,
+      otrasRentas: false,
+      existencias: false,
+      empleados: false,
+      artistica: false,
+      irregular: false,
+      subvenciones: false,
+      transmisiones: false,
+      extranjero: false,
+      mutualidad: false,
+      especialidadesTerritoriales: false,
+      saldosPendientes: false,
+      serviciosGratuitos: false,
+      autoconsumo: false,
+      noFacturados: false,
+      subvalorados: false,
+      trade: false,
+      hechosDesconocidos: false,
+    },
+    historial: [],
+    actividadPreviaAlInicio: "ausente",
+    regimen2025: "eds",
+    criterio2025: "devengo",
+    documentoCriterio2025: "alta",
+    renuncia2025: false,
+    exclusion2025: false,
+    volumen2024: "0",
+    diasActividad2024: 0,
+    documentoVolumen2024: "sin-actividad",
+    clientes: [
+      {
+        id: "cliente",
+        vinculado: false,
+        empleadorEnAnioAnteriorAlInicio: false,
+        documento: "contrato",
+      },
+    ],
+    ingresos: [],
+    gastos: [],
+    reta: [],
+    activos: [],
+    obligacionesFormales: true,
+    documentoObligaciones: "libros",
+    discapacidad: {
+      grado: 0,
+      ayudaOMovilidad: false,
+      ejercicioEfectivo: true,
+      documento: "sin-discapacidad",
+    },
+    opcion: "gastos-dificiles",
+    aplicarRentasBajas: true,
+    aplicarInicio: false,
+    retenciones: [],
+    pagosFraccionados: [],
+  }
+}
+function ingreso(
+  base: string,
+  sujetoRetencion = false,
+  id = "factura",
+  clienteId = "cliente"
+): CasoActividad2025["ingresos"][number] {
+  return {
+    id,
+    justificante: id,
+    fecha: "2025-06-01",
+    base,
+    iva: "0",
+    ivaRecuperable: "0",
+    afectacionExclusiva: true,
+    registrado: true,
+    categoria: "servicio",
+    clienteId,
+    sujetoRetencion,
+    rectificativa: false,
+  }
+}
+export function actividad() {
+  return {
+    ...alcance,
+    perfil: "solo-actividad-eds",
+    actividad: {
+      ...casoBase(),
+      ingresos: [ingreso("10000", true)],
+      retenciones: [
+        {
+          id: "ret",
+          justificante: "cert",
+          fecha: "2025-12-31",
+          operacionId: "ret-1",
+          ingresoId: "factura",
+          importe: "1500",
+          efectiva: true,
+        },
+      ],
+      pagosFraccionados: [
+        {
+          id: "pago",
+          justificante: "130",
+          fecha: "2025-04-20",
+          operacionId: "pago-1",
+          periodo: "2025-1T",
+          modelo: "130",
+          importe: "100",
+          efectivo: true,
+        },
+      ],
+    },
+  }
+}

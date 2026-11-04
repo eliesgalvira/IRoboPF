@@ -1,0 +1,23 @@
+"""Reutiliza cuatro artículos conservados por B; no audita tablas 2026."""
+from pathlib import Path
+import json,hashlib,re,html
+P=Path(__file__).parent
+R=Path('/home/elies/Repos/IRoboPF')
+x=json.loads((R/'docs/procedencia/reforma-motor/bloque-e/revision-familia-2026/oraculo-escalas-cas.json').read_text())
+out=[]
+for region in ['aragon','asturias','galicia','castilla-y-leon']:
+    d=x[region];raw=Path(d['cas']).read_bytes();assert hashlib.sha256(raw).hexdigest()==d['sha256']
+    s=raw.decode();start=s.index('id="'+d['anchor']+'"');end=s.index('</blockquote>',start)+len('</blockquote>')
+    literal=s[start:end]
+    out.append({'territory':region,'sourcePath':d['cas'],'sha256':d['sha256'],'anchor':d['anchor'],'offsetEncoding':'unicode-code-points','start':start,'end':end,'literal':literal,'title':re.search(r'<title>(.*?)</title>',s,re.S).group(1),'yearBinding':'AEAT2025 + notas de modificación del artículo (sin nueva auditoría de cadena)','sourceKind':'BOE consolidado oficial versionado conservado por B; no original del diario','reusedFrom':'461e16323ca11e428c3e391568755c3e6b2766ab'})
+(P/'primarios-discrepancias.json').write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n')
+# Las cuotas provienen del manual por posición. La norma conservada se adjunta
+# como corroboración y contexto, sin convertir tablas2026 en esperados2025.
+r=json.loads((P/'resultado.json').read_text())
+from decimal import Decimal,ROUND_HALF_UP
+cases=[]
+for a in r['discrepancies']:
+    d=Decimal(a['actual'])-Decimal(a['expected']);a={**a,'differenceExactEUR':str(d),'actualHalfUp':str(Decimal(a['actual']).quantize(Decimal('.01'),rounding=ROUND_HALF_UP)),'expectedHalfUp':str(Decimal(a['expected']).quantize(Decimal('.01'),rounding=ROUND_HALF_UP))}
+    a['primary']=next(x['sha256'] for x in out if x['territory']==a['name'].split('/')[1]);cases.append(a)
+(P/'casos-monetarios.json').write_text(json.dumps(cases,ensure_ascii=False,indent=2)+'\n')
+print({'cases':len(cases),'differentCents':sum(x['actualHalfUp']!=x['expectedHalfUp'] for x in cases)})

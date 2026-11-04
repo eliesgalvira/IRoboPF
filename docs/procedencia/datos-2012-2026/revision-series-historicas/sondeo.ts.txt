@@ -1,0 +1,67 @@
+import {createRequire} from 'node:module'
+import {readFileSync,writeFileSync} from 'node:fs'
+import {deepStrictEqual} from 'node:assert'
+const req=createRequire('/home/elies/Repos/IRoboPF/package.json')
+const {Effect}=req('effect'), D=req('decimal.js')
+const root='/home/elies/Repos/IRoboPF/'
+const candidate=process.argv[2]==='verde'
+if(candidate) Bun.plugin({name:'candidato-privado',setup(build){build.onLoad({filter:/\/cuotas\/escalas-publicadas\.ts$/},()=>({contents:readFileSync(new URL('./escalas-publicadas.candidato.ts',import.meta.url),'utf8'),loader:'ts'}))}})
+const {obtenerEscalaAutonomicaPublicada:select}=await import(root+'lib/dominio/irpf/cuotas/escalas-publicadas.ts')
+const {obtenerParametrosComunidadAutonoma:params}=await import(root+'lib/dominio/irpf/comunidades/comunidad-autonoma.ts')
+const {calcularCuotaPorEscala:tax}=await import(root+'lib/dominio/irpf/cuotas/escalas-gravamen.ts')
+const {liquidarIrpfAnualExplicito:calc}=await import(root+'lib/dominio/irpf/trabajo-anual/conexion.ts')
+const {componerLiquidacionAnual:compose}=await import(root+'lib/dominio/irpf/liquidacion/composicion-anual.ts')
+const {MINIMOS_ESTATALES_2025:minimos}=await import(root+'lib/dominio/normativa/datos/minimos-autonomicos-2025.ts')
+const {efectivo,analitico}=await import(root+'docs/procedencia/reforma-motor/bloque-e/ejemplos.ts')
+const original=JSON.parse(readFileSync(new URL('../producto-a-series-historicas-20261104/runtime.json',import.meta.url),'utf8'))
+const out={candidate,selections:[],tariffs:[],cases:[],original:[],death:[],composed:[]}
+const serialize=t=>t?.map(r=>[r.baseInferior.toString(),r.cuota.toString(),r.tipo.toString()])??null
+out.open2025=[]
+out.oficiales2025=[]
+for(const {id,entrada,casillas} of JSON.parse(readFileSync(root+'docs/procedencia/implementaciones/redondeo-salarial-open/oficial.json','utf8'))){
+ const r=Effect.runSync(calc(entrada))
+ const campos={'0023':r.reduccionArt20,'0025':r.rendimientoNetoReducido,'0500':r.baseImponibleGeneral,'0505':r.baseLiquidableGeneral,'0414':r.deduccionTrabajo,'0595':r.cuotaPosterior,'0610':r.cuotaDiferencial,'0670':r.cuotaDiferencialPresentada}
+ for(const [k,v] of Object.entries(campos))if(casillas[k]!==null)deepStrictEqual(new D(v).toFixed(2),casillas[k])
+ const lines=r.rastro.pasos.flatMap(p=>p.lineasCalculo??[])
+ for(const [casilla,sitio,a,b] of [['0532','estatal','0528','0530'],['0533','autonomica','0529','0531']]){
+  const l=lines.find(l=>l.origen?.siteId===`anual.explicito.cuota.${sitio}`)
+  if(!l)throw new Error('Línea ausente')
+  deepStrictEqual(new D(l.origen.decimal).toFixed(2),casillas[casilla])
+  if(!l.formula.includes(`${casillas[a]} − ${casillas[b]}`))throw new Error('Gravámenes distintos')
+ }
+ out.oficiales2025.push({id,campos,componentes:r.componentesCuota})
+}
+const seven=JSON.parse(readFileSync(root+'docs/procedencia/implementaciones/redondeo-salarial-open/recorridos.json','utf8'))
+for(const {nombre,entrada,esperado,lineas} of seven){
+ const r=Effect.runSync(calc(entrada))
+ for(const [k,v] of Object.entries(esperado))deepStrictEqual(r[k],v)
+ deepStrictEqual(r.rastro.pasos.flatMap(p=>p.lineasCalculo??[]).map(l=>({siteId:l.origen?.siteId,decimal:l.origen?.decimal,presentado:l.resultado})),lineas)
+ out.open2025.push({nombre,esperado,lineas})
+}
+for(let y=2017;y<=2025;y++){
+ const p=params({anio:y,comunidadAutonoma:'madrid'})
+ const rows=select({anio:y,comunidadAutonoma:'madrid'})
+ out.selections.push({year:y,rows:serialize(rows)})
+ for(const date of ['01-01','07-04','07-05','12-30','12-31'])out.death.push({year:y,date,rows:serialize(select({anio:y,comunidadAutonoma:'madrid',fechaFallecimiento:new Date(`${y}-${date}T12:00:00Z`)}))})
+ const points=new Set(['0','1000','5550','5777.55','5956.65','100000','1000000'])
+ for(const b of ['12450','17707.20','33007.20','53407.20','12960.45','18433.20','34360.50','55596.90','13362.22','19004.63','35425.68','57320.40'])for(const delta of ['-.01','-.001','0','.001','.01'])points.add(new D(b).plus(delta).toFixed())
+ for(const b of points)out.tariffs.push({year:y,base:b,quota:tax({base:new D(b),tramos:p.escalaAutonomica.tramos,escalasPublicadas:rows?[rows]:undefined}).toFixed()})
+ for(const death of [undefined,new Date(`${y}-07-04T12:00:00Z`),new Date(`${y}-12-31T12:00:00Z`)])for(const b of ['1000','5550','5956.65','17707.199','17707.20','17707.201','53407.201','57320.401','60000']){
+  const r=Effect.runSync(compose({ambito:{...analitico,anio:y,fechaFallecimiento:death},cotizaciones:{naturaleza:'efectivas',trabajador:new D(0)},precision:80,politica:'decimal-hasta-salida',baseGeneral:new D(b),baseAhorro:new D(0),rentasAntesReducciones:new D(b),minimosEstatales:minimos,deduccionesAutonomicasCentimos:0}))
+  out.composed.push({year:y,date:death?.toISOString()??null,base:b,integra:r.cuotaIntegraGeneralAutonomica.toFixed(),minimo:r.cuotaMinimoPersonalAutonomica.toFixed(),final:r.cuotaLiquida.toFixed()})
+ }
+ if(y===2017)continue
+ const brutos=['0','2000','7000','7550','7777.55','7956.65','10000','13115','15000','16825','19000','22000','30000','60000','100000']
+ for(const bruto of brutos){
+  const c=structuredClone(efectivo);c.ejercicio=y;c.devengo=`${y}-12-31`;c.conciliacion.ejercicio=y;c.trabajo.ejercicio=y;c.deducciones=y===2025?'solo-da61-si-procede':'ninguna';c.trabajo.rendimientos[0].integro=bruto;c.trabajo.rendimientos[0].cotizaciones.seguridadSocial='0'
+  out.cases.push({year:y,bruto,result:Effect.runSync(calc(c))})
+ }
+ const prev=original.find(r=>r.year===y)
+ if(prev)for(const v of prev.cases){
+  const c=structuredClone(efectivo);c.ejercicio=y;c.devengo=`${y}-12-31`;c.conciliacion.ejercicio=y;c.trabajo.ejercicio=y;c.deducciones=y===2025?'solo-da61-si-procede':'ninguna';c.trabajo.rendimientos[0].integro=v.bruto;c.trabajo.rendimientos[0].cotizaciones.seguridadSocial='0'
+  out.original.push({year:y,bruto:v.bruto,result:Effect.runSync(calc(c))})
+ }
+}
+for(const c of [...out.cases,...out.original])delete c.result.rastro
+writeFileSync(new URL(candidate?'verde.json':'rojo.json',import.meta.url),JSON.stringify(out,null,2)+'\n')
+console.log(JSON.stringify({candidate,tariffs:out.tariffs.length,annual:out.cases.length,original:out.original.length,selections:out.selections.length,death:out.death.length}))

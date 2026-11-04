@@ -1,0 +1,70 @@
+from pathlib import Path
+from decimal import Decimal as D, ROUND_HALF_UP, getcontext
+import json, collections, sys
+getcontext().prec=80
+O=Path(__file__).parent
+def load(n):return json.loads((O/n).read_text())
+def save(n,v):(O/n).write_text(json.dumps(v,ensure_ascii=False,indent=2)+'\n')
+old=[['0','0','.09'],['12450','1120.50','.112'],['17707.20','1709.31','.133'],['33007.20','3744.21','.179'],['53407.20','7395.81','.21']]
+mid=[['0','0','.085'],['12960.45','1101.64','.107'],['18433.20','1687.22','.128'],['34360.50','3725.91','.174'],['55596.90','7421.04','.205']]
+new=[['0','0','.085'],['13362.22','1135.79','.107'],['19004.63','1739.53','.128'],['35425.68','3841.42','.174'],['57320.40','7651.10','.205']]
+state=[['0','0','.095'],['12450','1182.75','.12'],['20200','2112.75','.15'],['35200','4362.75','.185'],['60000','8950.75','.225']]
+def rows(y):return old if y<=2021 else mid if y==2022 else new
+def tariff(b,t):
+ if b<=0:return D(0)
+ l,q,r=next(row for row in reversed(t) if b>=D(row[0]));return D(q)+(b-D(l))*D(r)
+def reduction(y,n):
+ a=max(D(0),D(3700)-max(D(0),n-D(11250))*D('1.15625'))
+ b=max(D(0),D(5565)-max(D(0),n-D(13115))*D('1.5'))
+ if y==2018:return a+max(D(0),b-a)/2
+ if y<=2022:return b
+ if y==2023:return max(D(0),D(6498)-max(D(0),n-D('14047.50'))*D('1.14'))
+ if n<=14852:return D(7302)
+ if n<=D('17673.52'):return D(7302)-(n-D(14852))*D('1.75')
+ if n<D('19747.50'):return D('2364.34')-(n-D('17673.52'))*D('1.14')
+ return D(0)
+def minimum(y):return D(5550 if y<=2021 else '5777.55' if y==2022 else '5956.65')
+def quota(y,b):return tariff(b,state+([['300000','62950.75','.245']] if y>=2021 else []))-tariff(min(b,D(5550)),state)+tariff(b,rows(y))-tariff(min(b,minimum(y)),rows(y))
+red=load('rojo.json'); green=load('verde.json');fail=[]; redExact=collections.Counter();redCent=collections.Counter(); checks=collections.Counter()
+author=json.loads((O.parent/'producto-a-series-historicas-20261104/runtime.json').read_text())
+for r in author:
+ for v in r['reductions']:
+  assert D(v['actual'])==(D(0) if D(v['otras'])>6500 else reduction(r['year'],D(v['neto'])))
+  checks['art20AutorRecontrastado']+=1
+ assert r['gastos']['gastosAE']=='2700' and r['gastos']['generalesAplicados']=='2000' and r['gastos']['netoArt19']=='5300'
+ assert D(r['minimoMadrid'])==minimum(r['year']);checks['gastosMinimosAutorRecontrastados']+=2
+for label,data in [('rojo',red),('verde',green)]:
+ for c in data['original']+data['cases']:
+  y=c['year'];r=c['result']
+  if y==2025:continue
+  n=D(c['bruto']);net=max(D(0),n-D(2000));base=max(D(0),net-reduction(y,n))
+  assert base==D(r['baseLiquidableGeneral']),(y,n,base,r['baseLiquidableGeneral']);checks['basesPropias']+=1
+  q=quota(y,base);rounded=q.quantize(D('.01'),rounding=ROUND_HALF_UP)
+  if label=='verde':
+   assert q==D(r['cuotaLiquidaLegal']),(y,n,q,r['cuotaLiquidaLegal'])
+   comp=r['componentesCuota']
+   assert D(comp['gravamenAutonomico'])==tariff(base,rows(y))
+   assert D(comp['gravamenMinimoAutonomico'])==tariff(min(base,minimum(y)),rows(y))
+   assert rounded==D(r['cuotaDiferencialPresentada']);checks['cuotasYFinalVerdes']+=1
+  elif c in data['original']:
+   if q!=D(r['cuotaLiquidaLegal']):redExact[y]+=1
+   if rounded!=D(r['cuotaDiferencialPresentada']):redCent[y]+=1
+ for t in data['tariffs']:
+  if label=='verde' and 2018<=t['year']<=2024:
+   assert tariff(D(t['base']),rows(t['year']))==D(t['quota']),t;checks['fronterasVerdes']+=1
+for r,g in zip(red['composed'],green['composed']):
+ y=g['year'];b=D(g['base'])
+ if g['date'] is not None or y in [2017,2022,2025]:assert r==g;checks['composicionIntacta']+=1
+ else:
+  assert D(g['integra'])==tariff(b,rows(y))
+  assert D(g['minimo'])==tariff(min(b,minimum(y)),rows(y))
+  assert D(g['final'])==quota(y,b);checks['integraMinimoFinal']+=1
+assert red['death']==green['death'];checks['seleccionesFallecidosIntactas']=len(red['death'])
+assert len(green['oficiales2025'])==7 and red['oficiales2025']==green['oficiales2025'];checks['sieteOpen2025Locales']=7
+assert red['open2025']==green['open2025'];checks['recorridos2025Locales']=len(green['open2025'])
+for y in [2017,2022,2025]:assert next(r for r in red['selections'] if r['year']==y)==next(r for r in green['selections'] if r['year']==y)
+assert [c for c in red['cases'] if c['year']==2025]==[c for c in green['cases'] if c['year']==2025];checks['Madrid2025AnualesIntactos']=15
+assert sum(redCent.values())==40,redCent
+save('oraculo-resultados.json',{'checks':checks,'rojoExacto133':redExact,'rojoCentimo133':redCent,'verdeDiferencias':0,'nota':'Tablas constantes transcritas de columnas normativas; base anual recalculada desde bruto, sin tomar BLG del motor. 2025 sólo comparación antes/después, sin Open.'})
+print(json.dumps(load('oraculo-resultados.json'),ensure_ascii=False))
+if '--exigir-rojo' in sys.argv:assert sum(redCent.values())==0,'ROJO: 40 presentaciones discrepan de las cuotas publicadas; candidato privado sí pasa.'

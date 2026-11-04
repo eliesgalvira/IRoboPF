@@ -1,0 +1,8 @@
+from pathlib import Path
+import hashlib, json
+out = Path(__file__).resolve().parent
+before = json.loads((out / "hashes-antes.json").read_text())
+after = {p: hashlib.sha256(Path(p).read_bytes()).hexdigest() for p in before}
+(out / "hashes-despues.json").write_text(json.dumps(after, indent=2) + "\n")
+assert before == after, "Fuentes modificadas durante la revisión"
+print(json.dumps({"archivos": len(after), "sha256_antes_despues": "idénticos", "raiz_candidato_preimagenes": "intactos"}, ensure_ascii=False))

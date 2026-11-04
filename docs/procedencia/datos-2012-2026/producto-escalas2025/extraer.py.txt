@@ -1,0 +1,82 @@
+"""Extracción acotada 2025: sólo páginas y filas seleccionadas previamente."""
+import hashlib
+import json
+import re
+from pathlib import Path
+from decimal import Decimal
+import fitz
+
+ROOT = Path('/home/elies/Repos/IRoboPF')
+OUT = Path(__file__).parent
+SHA = '02c6e8300a7f56c8c24aa947d4c39c5657c9a9eda6f5d727d44b4112d7de15d4'
+ORIGINAL = Path('/home/elies/Backups/IRoboPF/producto-a-escalas2025-cas/sha256') / SHA
+def dump(name, value):
+    (OUT / name).write_text(json.dumps(value, ensure_ascii=False, indent=2)+'\n')
+def num(s):
+    return str(Decimal(s.strip().rstrip('%').replace('.', '').replace(',', '.')))
+assert hashlib.sha256(ORIGINAL.read_bytes()).hexdigest() == SHA
+fitz.TOOLS.set_small_glyph_heights(True)
+doc = fitz.open(ORIGINAL)
+pages = {}
+def page(n):
+    if str(n) not in pages:
+        p = doc[n-1]
+        pages[str(n)] = {'page':n, 'bbox':list(p.rect), 'quote':p.get_text(), 'sha256':SHA}
+    return pages[str(n)]['quote']
+assert 'Renta 2025' in page(1)
+citations = {x['id']:x for x in json.loads((ROOT/'docs/procedencia/auditorias/autonomicas-2022-2026/citas-candidatas.json').read_text())}
+old = json.loads((ROOT/'docs/procedencia/auditorias/autonomicas-2022-2026/comparacion-filas.json').read_text())
+scales = {}
+evidence=[]
+for row in old:
+    if row['year'] != 2025 or row['variant'] != 'general': continue
+    c = citations[row['citationId']]
+    assert c['documentSha256'] == SHA
+    cells=[]
+    for col, cell in zip(['baseInferior','cuota','ancho','porcentaje'],c['cells'],strict=True):
+        quote=doc[c['page']-1].get_textbox(fitz.Rect(cell['bbox']))
+        assert ' '.join(quote.split()) == ' '.join(cell['quote'].split())
+        cells.append({'column':col,'bbox':cell['bbox'],'quote':quote})
+    assert len(cells)==4
+    vals=[x['quote'].strip() for x in cells]
+    lo,q,rate=num(vals[0]),num(vals[1]),num(vals[3])
+    upper='Infinity' if 'adelante' in vals[2].lower() else str(Decimal(lo)+Decimal(num(vals[2])))
+    scales.setdefault(row['territory'],[]).append({'lower':lo,'quota':q,'upper':upper,'ratePercent':rate,'citation':c['id']})
+    evidence.append({**c,'territory':row['territory'],'year':2025,'columns':cells,'units':['EUR','EUR','EUR','percent']})
+    page(c['page'])
+    page(c['page']-1)
+assert len(scales)==17
+titles={'andalucia':'Andalucía','aragon':'Aragón','asturias':'Principado de Asturias','illes-balears':'Illes Balears','canarias':'Canarias','cantabria':'Cantabria','castilla-la-mancha':'Castilla-La Mancha','castilla-y-leon':'Castilla y León','catalunya':'Cataluña','extremadura':'Extremadura','galicia':'Galicia','madrid':'Madrid','murcia':'Murcia','la-rioja':'La Rioja','comunitat-valenciana':'Comunitat Valenciana','ceuta':'Ceuta','melilla':'Melilla'}
+contexts={}
+for region in scales:
+    first=next(c for c in evidence if c['territory']==region)
+    n=first['page'];boxes=[{'page':n-1,'bbox':list(doc[n-2].rect)},{'page':n,'bbox':[0,0,doc[n-1].rect.width,first['bbox'][1]]}]
+    for b in boxes:b['quote']=doc[b['page']-1].get_textbox(fitz.Rect(b['bbox']))
+    literal=' '.join(' '.join(b['quote'] for b in boxes).split())
+    assert titles[region] in literal,(region,literal)
+    assert 'ejercicio 2025' in literal
+    contexts[region]={'territory':region,'year':2025,'heading':titles[region],'sha256':SHA,'firstCitation':first['id'],'contexts':boxes}
+dump('ambitos-escalas.json',contexts)
+
+# Prosa elegida por encabezado y orden jurídico, nunca por el importe del motor.
+def body(ns):
+    return '\n'.join(page(n).split('20/05/2026 -')[0] for n in ns)
+regions=[('andalucia','Comunidad Autónoma de Andalucía',[1084,1085]),('asturias','Comunidad Autónoma del Principado de Asturias',[1085,1086]),('illes-balears','Comunidad Autónoma de las Illes Balears',[1086,1087]),('canarias','Comunidad Autónoma de Canarias',[1087,1088]),('galicia','Comunidad Autónoma de Galicia',[1089,1090]),('madrid','Comunidad de Madrid',[1090,1091]),('la-rioja','Comunidad Autónoma de La Rioja',[1091,1092]),('comunitat-valenciana','Comunitat Valenciana: Importes',[1092,1093])]
+minimum={}
+for region,heading,ns in regions:
+    text=body(ns);start=text.index(heading);text=text[start:]
+    # Siguiente territorio, no el siguiente encabezado de sujeto.
+    ends=[text.find(h) for _,h,_ in regions if h!=heading and text.find(h)>0]
+    if ends: text=text[:min(ends)]
+    amounts=re.findall(r'(\d[\d.,]*) euros(?: anuales)?',text)
+    # Secuencia de cuantías monetarias en prosa; fechas y porcentajes no se admiten.
+    values=[num(x) for x in amounts]
+    minimum[region]={'pages':ns,'heading':heading,'literal':text,'amountsEUR':values}
+dump('minimos-prosa.json',minimum)
+dump('escalas-oficiales.json',scales)
+dump('citas-escalas.json',evidence)
+for n in [1083,1084,1094,1095,1096,1097,1098,1117,1120,1131,1132]:page(n)
+dump('paginas.json',pages)
+meta=json.loads((ROOT/'docs/procedencia/auditorias/autonomicas-2022-2026/documentos.json').read_text())['manual-2025']
+dump('originales.json',[{**meta,'resolvedPath':str(ORIGINAL),'noRedownload':True}])
+print({r:v['amountsEUR'] for r,v in minimum.items()})

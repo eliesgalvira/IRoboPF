@@ -1,0 +1,73 @@
+import assert from 'node:assert/strict';
+import {readFileSync,writeFileSync} from 'node:fs';
+import {createHash} from 'node:crypto';
+import Decimal from '/home/elies/Repos/IRoboPF/node_modules/decimal.js/decimal.mjs';
+import {Effect} from '/home/elies/Repos/IRoboPF/node_modules/effect/dist/index.js';
+import {obtenerParametrosComunidadAutonoma} from '/home/elies/Repos/IRoboPF/lib/dominio/irpf/comunidades/comunidad-autonoma.ts';
+import {obtenerEscalaAutonomicaPublicada,obtenerEscalasAhorroPublicadas} from '/home/elies/Repos/IRoboPF/lib/dominio/irpf/cuotas/escalas-publicadas.ts';
+import {calcularCuotaPorEscala} from '/home/elies/Repos/IRoboPF/lib/dominio/irpf/cuotas/escalas-gravamen.ts';
+import {calcularDerechosMinimos} from '/home/elies/Repos/IRoboPF/lib/dominio/irpf/minimos/derechos.ts';
+import {MINIMOS_ESTATALES_2025} from '/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/minimos-autonomicos-2025.ts';
+const P=import.meta.dir+'/', load=n=>JSON.parse(readFileSync(P+n,'utf8'));
+const pins=load('preimagenes.json'), expected=load('esperados.json');
+const hash=b=>createHash('sha256').update(b).digest('hex');
+function preimages(p=pins){for(const [f,h] of Object.entries(p))assert.equal(hash(readFileSync(f)),h,`preimage ${f}`)}
+preimages();
+const A=Decimal.clone({precision:60}), results=[], selected={};
+const check=(name,actual,want)=>{const ok=new A(actual).eq(want);results.push({name,ok,actual:String(actual),expected:String(want)});};
+const get=(o,path)=>path.split('.').reduce((a,k)=>a[k],o);
+const off=(rows,base)=>{const b=new A(base);if(b.lte(0))return new A(0);const r=rows.findLast(r=>b.gte(r.lower));return new A(r.quota).plus(b.minus(r.lower).times(r.ratePercent).div(100));};
+const title={andalucia:'Andalucía',aragon:'Aragón',asturias:'Principado de Asturias','illes-balears':'Illes Balears',canarias:'Canarias',cantabria:'Cantabria','castilla-la-mancha':'Castilla-La Mancha','castilla-y-leon':'Castilla y León',catalunya:'Cataluña',extremadura:'Extremadura',galicia:'Galicia',madrid:'Madrid',murcia:'Murcia','la-rioja':'La Rioja','comunitat-valenciana':'Comunitat Valenciana',ceuta:'Ceuta',melilla:'Melilla'};
+const pages=load('paginas.json');const physical=Object.values(pages).map(p=>p.quote).join('\n');
+assert(physical.includes('Manual práctico de Renta 2025'));
+const citations=load('citas-escalas.json');
+const scopes=load('ambitos-escalas.json');
+function binding(c,territory,year=2025){
+ assert.equal(c.year,year);assert.equal(c.territory,territory);
+ assert.equal(c.documentSha256,'02c6e8300a7f56c8c24aa947d4c39c5657c9a9eda6f5d727d44b4112d7de15d4');
+ assert.deepEqual(c.units,['EUR','EUR','EUR','percent']);
+ assert.deepEqual(c.columns.map(x=>x.column),['baseInferior','cuota','ancho','porcentaje']);
+ const scope=scopes[territory];assert.equal(scope.year,year);assert.equal(scope.territory,territory);
+ const context=scope.contexts.map(x=>x.quote).join(' ').replace(/\s+/g,' ');
+ assert(context.includes(title[territory]));assert(context.includes('ejercicio 2025'));
+ // La referencia de fila está fijada por territorio y posición, no por valor.
+ assert(expected.scales[territory].some(r=>r.citation===c.id));
+}
+for(const c of citations)binding(c,c.territory);
+const adverse=[];
+for(const [name,mut] of Object.entries({year:c=>c.year=2026,territory:c=>c.territory='aragon',unit:c=>c.units[3]='EUR',column:c=>c.columns.reverse(),original:c=>c.documentSha256='0'.repeat(64)})){
+ const c=structuredClone(citations[0]);mut(c);assert.throws(()=>binding(c,'andalucia'));adverse.push({name,rejected:true});
+}
+const bad={...pins};bad[Object.keys(bad)[0]]='0'.repeat(64);assert.throws(()=>preimages(bad));adverse.push({name:'preimage',rejected:true});
+const facts=(territory,age=40,descendientes=[],discapacidadContribuyente={_tag:'SinDiscapacidad'})=>({ejercicio:2025,territorio:territory,regimen:'comun',modalidad:'individual',devengo:'2025-12-31',contribuyenteId:'s-1',edadContribuyenteDevengo:age,discapacidadContribuyente,ascendientes:'ninguno',fallecimientosEnElEjercicio:'ninguno',descendientesCompletos:true,conciliacionRentasContribuyente:{perfil:'caso-anual-parcial',otrasRentasOGastosNoRepresentados:'ninguno'},descendientes});
+const child=(id,age,discapacidad={_tag:'SinDiscapacidad'})=>({sujetoId:id,fechaNacimiento:`${2025-age}-12-31`,edadDevengo:age,vivoAlDevengo:true,rentasNoExentasCentimos:0,declaracion:{modalidad:'no-presenta'},discapacidad,titulares:[{titularId:'s-1',grado:1,vinculo:{clase:'consanguinidad'},relacion:'convivencia',custodia:'exclusiva',alimentosJudiciales:false,aplicaEspecialidadAlimentos:false,residenteIrpf:true,rentasNoExentasCentimos:3000000}],titularesCompletos:true});
+for(const [region,m] of Object.entries(expected.minimum)){
+ const territory=region==='estatal'?'aragon':region;
+ const p=obtenerParametrosComunidadAutonoma({anio:2025,comunidadAutonoma:territory});assert.equal(p._tag,'ParametrosComunidadAutonoma');assert.equal(p.anio,2025);
+ const actual=region==='estatal'?MINIMOS_ESTATALES_2025:p.minimosAutonomicos;
+ for(const [path,want] of Object.entries(m))check(`minimum/${region}/${path}`,get(actual,path),want);
+ selected[region]={anio:p.anio,territory,minimum:actual};
+ const calc=(age=40,ds=[],d={_tag:'SinDiscapacidad'})=>Effect.runSync(calcularDerechosMinimos(facts(territory,age,ds,d),actual));
+ for(const age of [40,64,65,74,75,76])check(`rights/${region}/age${age}`,calc(age).contribuyente,new A(m['contribuyente.general']).plus(age>=65?m['contribuyente.adicionalMayor65']:0).plus(age>=75?m['contribuyente.adicionalMayor75']:0));
+ for(const [age,order] of [[10,1],[10,2],[10,3],[10,4],[2,1],[3,1]]){
+  const ds=Array.from({length:order},(_,i)=>child(`s-${i+3}`,i===order-1?age:20-i));
+  const names=['primero','segundo','tercero','cuartoYSiguientes'];let want=new A(0);for(let i=0;i<order;i++)want=want.plus(m[`descendientes.${names[i]}`]);if(age<3)want=want.plus(m['descendientes.adicionalMenorTres']);check(`rights/${region}/children${order}/age${age}`,calc(40,ds).descendientes,want);
+ }
+ for(const [tag,amount,help] of [['Discapacidad33a64','grado33Hasta65',false],['Discapacidad33a64','grado33Hasta65',true],['Discapacidad65OMas','grado65OMas',false]]){
+  const d=tag==='Discapacidad65OMas'?{_tag:tag}:{_tag:tag,necesitaAyudaOMovilidadReducida:help};
+  check(`rights/${region}/own/${tag}/${help}`,calc(40,[],d).discapacidadContribuyente,new A(m[`discapacidad.contribuyente.${amount}`]).plus(help||tag==='Discapacidad65OMas'?m['discapacidad.contribuyente.gastosAsistencia']:0));
+  check(`rights/${region}/child/${tag}/${help}`,calc(40,[child('s-3',30,d)]).discapacidadFamiliares,new A(m[`discapacidad.descendiente.${amount}`]).plus(help||tag==='Discapacidad65OMas'?m['discapacidad.descendiente.gastosAsistencia']:0));
+ }
+}
+for(const [region,rows] of Object.entries(expected.scales)){
+ let tramos,published;
+ if(region.startsWith('ahorro-'))published=obtenerEscalasAhorroPublicadas(2025,region.slice(7));
+ else {const territory=region==='estatal'?'aragon':region;const p=obtenerParametrosComunidadAutonoma({anio:2025,comunidadAutonoma:territory});tramos=region==='estatal'?p.escalaEstatalGeneral:p.escalaAutonomica.tramos;const pub=region==='estatal'?undefined:obtenerEscalaAutonomicaPublicada({anio:2025,comunidadAutonoma:region});published=pub?[pub]:undefined;}
+ selected[region]={...selected[region],tramos,published,route:published?'published-quota-plus-excess':'integration'};
+ rows.forEach((r,i)=>{if(tramos){check(`scale/${region}/${i}/upper`,tramos[i][0],r.upper);check(`scale/${region}/${i}/rate`,tramos[i][1],new A(r.ratePercent).div(100));}if(published){check(`scale/${region}/${i}/fixed`,published[0][i].cuota,r.quota);check(`scale/${region}/${i}/lower`,published[0][i].baseInferior,r.lower);check(`scale/${region}/${i}/rate`,published[0][i].tipo,new A(r.ratePercent).div(100));}
+ for(const delta of ['-0.01','0','0.01','123.45']){const b=new A(r.lower).plus(delta);check(`quota/${region}/${b}`,calcularCuotaPorEscala({base:b,tramos:tramos??[],escalasPublicadas:published,aritmetica:A}),off(rows,b));}});
+}
+preimages();
+writeFileSync(P+'seleccion-real.json',JSON.stringify(selected,null,2)+'\n');
+writeFileSync(P+'resultado.json',JSON.stringify({year:2025,scope:'runtime selector on pinned sources; no general static causal closure',fiscalPermission:false,independentReview:'pending-parent',total:results.length,matched:results.filter(x=>x.ok).length,discrepancies:results.filter(x=>!x.ok),adverse,results},null,2)+'\n');
+console.log(JSON.stringify({total:results.length,matched:results.filter(x=>x.ok).length,discrepancies:results.filter(x=>!x.ok).length,adverse:adverse.length}));

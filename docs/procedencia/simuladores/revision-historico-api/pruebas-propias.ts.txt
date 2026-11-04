@@ -1,0 +1,115 @@
+import assert from "node:assert/strict"
+import { readFileSync } from "node:fs"
+import { Effect, Schema, Result } from "effect"
+import Decimal from "decimal.js"
+import { liquidarIrpfAnualExplicito as run } from "/home/elies/Backups/IRoboPF/producto-c-historico-api-20261104/conexion.runtime.ts"
+import { CasoFiscalAnualExplicito as contrato } from "/home/elies/Backups/IRoboPF/producto-c-historico-api-20261104/conexion-contrato.runtime.ts"
+import { liquidarIrpfAnualExplicito as root } from "/home/elies/Repos/IRoboPF/lib/dominio/irpf/trabajo-anual/conexion.ts"
+import { efectivo, derechos } from "/home/elies/Repos/IRoboPF/docs/procedencia/reforma-motor/bloque-e/ejemplos.ts"
+import { adaptarTrabajoAnual } from "/home/elies/Repos/IRoboPF/lib/dominio/irpf/trabajo-anual/adaptador.ts"
+import { calcularReduccionTrabajoConOtrasRentas as art20 } from "/home/elies/Repos/IRoboPF/lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts"
+import { componerLiquidacionAnual } from "/home/elies/Repos/IRoboPF/lib/dominio/irpf/liquidacion/composicion-anual.ts"
+import { MINIMOS_ESTATALES_2025 } from "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/minimos-autonomicos-2025.ts"
+import { actividad } from "./fixture-actividad.ts"
+const repo="/home/elies/Repos/IRoboPF/"
+const refs=JSON.parse(readFileSync(repo+"docs/procedencia/implementaciones/redondeo-salarial-open/oficial.json","utf8"))
+const base=refs[1].entrada
+const D=Decimal.clone({precision:80})
+let checks=0, scenarios=0
+const eq=(a:unknown,b:unknown,label:string)=>{assert.deepEqual(a,b,label);checks++}
+const calc=(x:any)=>{try{return Effect.runSync(run(x))}catch(e){console.error("Entrada que no pudo calcularse:",JSON.stringify(x));throw e}}
+const fail=(x:any,label:string)=>{
+ const result=Effect.runSync(Effect.result(run(x)))
+ eq(result._tag,"Failure",label)
+ if(Result.isFailure(result)) eq(result.failure._tag,"ResultadoNoSoportado",label)
+}
+function input(y:number,bruto="16576.01"){
+ const x=structuredClone(base)
+ x.ejercicio=y;x.devengo=y+"-12-31";x.trabajo.ejercicio=y;x.conciliacion.ejercicio=y
+ for(const r of x.retenciones)r.ejercicio=y
+ x.deducciones=y===2025?"solo-da61-si-procede":"ninguna"
+ x.trabajo.rendimientos[0].integro=bruto
+ return x
+}
+for(const y of [2018,2019,2020,2021,2022,2023,2024]){
+ for(const edad of [18,64]){
+  const x=input(y);x.edad=edad
+  eq(Schema.decodeUnknownResult(contrato)(x)._tag,"Success","literal "+y)
+  eq(calc(x).ejercicio,y,"año resultado");scenarios++
+ }
+ for(const bruto of ["0","1000","13000","14500","16000.01","18000.01","19500.01","22000.01","40000.01","999999999999.99"]){
+  const x=input(y,bruto), snapshot=structuredClone(x)
+  const t=adaptarTrabajoAnual(x.trabajo)
+  assert.equal(t.estado,"aporte-disponible")
+  if(t.estado!=="aporte-disponible") throw Error("aporte no disponible")
+  const expected=D.min(D.max(t.rendimientoAntesArt20,0),art20({anio:y as any,rendimientoPrevioNeto:new D(t.argumentoArt20),otrasRentasNoExentas:new D(0)}))
+  const r=calc(x)
+  eq(r.reduccionArt20,expected.toFixed(),"Art20 año real "+y)
+  eq(r.rendimientoNetoReducido,new D(t.rendimientoAntesArt20).minus(expected).toFixed(),"gastos efectivos")
+  eq(r.deduccionTrabajo,"0","DA61 histórica excluida")
+  eq(r.rastro.contexto.anio,y,"rastro año")
+  eq(r.aceptacionFiscal,"pendiente","no aceptación")
+  eq(x,snapshot,"entrada inmutable")
+  const cot=x.trabajo.rendimientos.reduce((s:any,v:any)=>s.plus(v.cotizaciones.seguridadSocial).plus(v.cotizaciones.derechosPasivos).plus(v.cotizaciones.colegiosHuerfanos),new D(0))
+  const c=Effect.runSync(componerLiquidacionAnual({
+   ambito:{anio:y as any,comunidadAutonoma:"madrid",situacionFamiliar:{tipo:"individual",edad:x.edad,discapacidad:{_tag:"SinDiscapacidad"},descendientes:[],ascendientes:[]}},
+   cotizaciones:{naturaleza:"efectivas",trabajador:cot},precision:80,politica:"decimal-hasta-salida",
+   baseGeneral:D.max(r.baseLiquidableGeneral,0),baseAhorro:new D(0),rentasAntesReducciones:new D(t.rendimientoAntesArt20),
+   minimosEstatales:MINIMOS_ESTATALES_2025,deduccionesAutonomicasCentimos:0
+  }))
+  eq(r.cuotaPosterior,c.cuotaPosterior.toFixed(),"composición con año real")
+  const sin=calc({...x,retenciones:[]})
+  eq(sin.cuotaPosterior,r.cuotaPosterior,"retención no cambia cuota")
+  eq(new D(sin.cuotaDiferencial).minus(r.cuotaDiferencial).toFixed(),r.retenciones,"pago efectivo")
+  scenarios++
+ }
+ const x=input(y)
+ for(const other of [2018,2019,2020,2021,2022,2023,2024,2025].filter(z=>z!==y)){
+  fail({...x,trabajo:{...x.trabajo,ejercicio:other}},"trabajo distinto")
+  fail({...x,conciliacion:{...x.conciliacion,ejercicio:other}},"conciliación distinta")
+  fail({...x,retenciones:x.retenciones.map((r:any)=>({...r,ejercicio:other}))},"retención distinta")
+  fail({...x,devengo:other+"-12-31"},"devengo distinto")
+ }
+ const variants=[
+ {...x,edad:17},{...x,edad:65},{...x,edad:40.5},{...x,comunidadAutonoma:"andalucia"},
+ {...x,perfil:"solo-actividad-eds",actividad:actividad().actividad},
+ {...x,derechosMinimos:derechos},{...x,familiaresConDerechoMinimo:"segun-derechos"},
+ {...x,otrasRentas:"si"},{...x,deducciones:"solo-da61-si-procede"},
+ {...x,trabajo:{...x.trabajo,territorio:"foral"}},
+ {...x,trabajo:{...x.trabajo,rendimientos:[]}},
+ {...x,retenciones:[...x.retenciones,...x.retenciones]},
+ ...["pension","otro-trabajo","desconocido"].map(clase=>({...x,trabajo:{...x.trabajo,rendimientos:x.trabajo.rendimientos.map((r:any)=>({...r,clase}))}})),
+ ...["estimadas","desconocidas"].map(clase=>({...x,trabajo:{...x.trabajo,rendimientos:x.trabajo.rendimientos.map((r:any)=>({...r,cotizaciones:{...r.cotizaciones,clase}}))}})),
+ ...["anio","politica","precision","cotizaciones","serviciosLaborales","pagosACuentaCentimos","retencionTrabajoAeat"].map(k=>({...x,[k]:k==="precision"?20:2025})),
+ {...x,trabajo:{...x.trabajo,precision:20}},
+ {...x,retenciones:x.retenciones.map((r:any)=>({...r,efectiva:false}))},
+ {...x,trabajo:{...x.trabajo,rendimientos:x.trabajo.rendimientos.map((r:any)=>({...r,extra:true}))}},
+ {...x,fechaFallecimiento:"2018-07-04"}
+ ]
+ for(const v of variants)fail(v,"fuera de alcance histórico "+y)
+}
+for(const y of [2012,2017,2026])fail(input(y),"año no admitido")
+// Variantes 2025 independientes de las 37 referencias del autor.
+for(const territorio of ["madrid","andalucia","catalunya","galicia","comunitat-valenciana"]){
+ for(const clase of ["empleo-laboral","empleo-estatutario","pension"]){
+  const x=input(2025);x.comunidadAutonoma=territorio;x.trabajo.rendimientos[0].clase=clase
+  const a=calc(x),b=Effect.runSync(root(x))
+  eq(a,b,"2025 "+territorio+"/"+clase);scenarios++
+ }
+ const x={...efectivo,comunidadAutonoma:territorio,familiaresConDerechoMinimo:"segun-derechos",derechosMinimos:{...derechos,territorio}}
+ eq(calc(x),Effect.runSync(root(x as any)),"familia E+B "+territorio);scenarios++
+ const a={...actividad(),comunidadAutonoma:territorio}
+ eq(calc(a),Effect.runSync(root(a as any)),"actividad "+territorio);scenarios++
+}
+for(const other of [2018,2024]){
+ const x=input(2025)
+ fail({...x,trabajo:{...x.trabajo,ejercicio:other}},"2025 trabajo otro año")
+ fail({...x,conciliacion:{...x.conciliacion,ejercicio:other}},"2025 conciliación otro año")
+ fail({...x,retenciones:x.retenciones.map((r:any)=>({...r,ejercicio:other}))},"2025 pagos otro año")
+}
+const arg={anio:2018 as const,rendimientoPrevioNeto:new D(13000),otrasRentasNoExentas:new D(0)}
+eq(art20({...arg,fechaFallecimiento:new Date("2018-07-04T00:00:00Z")}).toFixed(),"1676.5625","rama anterior 5 julio")
+eq(art20({...arg,fechaFallecimiento:new Date("2018-07-05T00:00:00Z")}).toFixed(),"3620.78125","rama posterior 5 julio")
+eq(art20(arg).toFixed(),"3620.78125","devengo 31 diciembre sin fallecimiento")
+eq(Decimal.precision,20,"precisión global preservada")
+console.log(JSON.stringify({checks,scenarios,resultado:"OK",historicos:"contrato y composición existente; ningún oráculo fiscal",oficialesConsultados:false}))

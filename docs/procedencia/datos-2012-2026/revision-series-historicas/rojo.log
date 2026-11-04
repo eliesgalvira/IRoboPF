@@ -1,0 +1,6 @@
+{"checks": {"art20AutorRecontrastado": 252, "gastosMinimosAutorRecontrastados": 14, "basesPropias": 476, "cuotasYFinalVerdes": 238, "fronterasVerdes": 469, "composicionIntacta": 189, "integraMinimoFinal": 54, "seleccionesFallecidosIntactas": 45, "sieteOpen2025Locales": 7, "recorridos2025Locales": 30, "Madrid2025AnualesIntactos": 15}, "rojoExacto133": {"2018": 19, "2019": 19, "2020": 19, "2021": 19, "2023": 19, "2024": 19}, "rojoCentimo133": {"2018": 8, "2019": 8, "2020": 8, "2021": 8, "2023": 4, "2024": 4}, "verdeDiferencias": 0, "nota": "Tablas constantes transcritas de columnas normativas; base anual recalculada desde bruto, sin tomar BLG del motor. 2025 sólo comparación antes/después, sin Open."}
+Traceback (most recent call last):
+  File "/home/elies/Backups/IRoboPF/producto-a-revision-series-historicas-20261104/oraculo.py", line 70, in <module>
+    if '--exigir-rojo' in sys.argv:assert sum(redCent.values())==0,'ROJO: 40 presentaciones discrepan de las cuotas publicadas; candidato privado sí pasa.'
+                                          ^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ROJO: 40 presentaciones discrepan de las cuotas publicadas; candidato privado sí pasa.

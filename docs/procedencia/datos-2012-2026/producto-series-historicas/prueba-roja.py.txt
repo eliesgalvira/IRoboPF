@@ -1,0 +1,8 @@
+from pathlib import Path
+import json
+p=Path(__file__).resolve().parent
+red=json.loads((p/'rojos.json').read_text())
+for year in range(2018,2025):
+ case=next((c for c in red if c['year']==year),None)
+ if case: print(f"FAIL {year}: bruto={case['bruto']} actual={case['actualPresentada']} esperado-tabla={case['expectedPresentada']}")
+assert not red, f'{len(red)} diferencias de céntimo contra tabla documental; no Open'

@@ -8,7 +8,7 @@ Se retiran la selección legacy, los helpers familiares insuficientes y la recon
 
 Las notas anteriores del [catálogo de deducciones](deducciones-2025/CAMBIOS-PARA-REDISENO.md) describen entregas existentes, pero no obligan a conservar su API. El rediseño debe tomar como referencia el contrato vigente de esta página.
 
-El catálogo integrado conserva las colecciones regionales, pero Comunitat Valenciana, Galicia y La Rioja ya no exponen constructores o exportaciones intermedias para cada deducción. Sus descripciones expresan las condiciones documentadas; no constituyen todavía evaluadores automáticos completos. Las 40 fichas valencianas están marcadas como pendientes de pruebas de cálculo.
+El catálogo integrado conserva las colecciones regionales, pero Comunitat Valenciana, Galicia y La Rioja ya no exponen constructores o exportaciones intermedias para cada deducción. Sus descripciones expresan las condiciones documentadas; no constituyen todavía evaluadores automáticos completos. Las 40 fórmulas valencianas cuentan ahora con evaluadores parciales por hechos y pruebas revisadas. Las fichas mantienen su estado pendiente: la composición individual acotada resuelve límites e incompatibilidades declarados, pero la aplicación conjunta de cuota y la acreditación completa siguen abiertas.
 El efecto devuelve la liquidación o un error recuperable `ResultadoNoSoportado` con `motivo`, `fuenteReconocida` y `rastro`. Se mantienen los campos de bases, cotizaciones, cuotas, deducciones, pagos y diferencial. Se elimina `conciliacionSimuladorLegacy`. Los importes de entrada y salida con sufijo `Centimos` son enteros en céntimos; las operaciones internas usan euros `Decimal`. Un diferencial positivo es a ingresar y uno negativo a devolver.
 
 `CasoFiscalAnual` se define en `lib/dominio/irpf/caso-fiscal-anual.ts`: ejercicio, comunidad, situación individual, rendimientos, reducciones, deducciones, retenciones y pagos. Las listas `situacionFamiliar.descendientes` y `ascendientes` solo admiten ausencia (`readonly never[]`). Una lista antigua no vacía se rechaza: no se completa con hechos supuestos. La modalidad se valida también al ejecutar: se rechaza cualquier valor distinto de `individual`, aunque no se aporten derechos familiares. La edad y discapacidad del contribuyente siguen siendo explícitas. Cuando hay familiares se aportan `derechosMinimos`; el ámbito, edad y discapacidad deben conciliar con el caso anual.
@@ -31,7 +31,7 @@ const caso: CasoFiscalAnual = {
 const efecto = liquidarIrpfAnual(caso, { modo: "canonico" })
 ```
 
-Este recorrido parcial conserva la selección normativa existente por ejercicio y territorio, incluidos los escenarios estatales simulados. Su cotización estimada corresponde al perfil uniforme descrito abajo. No acredita una declaración completa para todos los años ni la elegibilidad de deducciones. Las deducciones autonómicas actuales se consumen sin modificar su contrato; la unificación de ese contrato pertenece a otra entrega.
+Este recorrido parcial conserva la selección normativa existente por ejercicio y territorio, incluidos los escenarios estatales simulados. Su cotización estimada corresponde al perfil uniforme descrito abajo. No acredita una declaración completa para todos los años ni la elegibilidad de deducciones. Las deducciones parciales descritas abajo no se suman automáticamente a esta liquidación; la consignación anual de importes externos conserva su contrato.
 
 ## Derechos familiares
 
@@ -39,7 +39,7 @@ Este recorrido parcial conserva la selección normativa existente por ejercicio 
 
 La API anual familiar calcula 2012–2026 con los parámetros estatales/autonómicos existentes de cada ejercicio. Las cuantías estatales anteriores a 2015 son distintas: dos hijos compartidos producen 1.938 EUR para cada padre en 2012–2014 y 2.550 desde 2015. Antes de 2015 se exige convivencia declarada (incluida su asimilación legal por internamiento dependiente); la mera dependencia económica no concede mínimo. Desde 2015 se asimila dependencia, salvo especialidad de alimentos. La custodia compartida permite reparto entre titulares con derecho; la exclusiva no reparte por sí sola a un pagador judicial sin custodia. No se admiten porcentajes libres.
 
-2026 conecta el contrato familiar con `MINIMOS_ESTATALES_2026` (arts.57–61 sin reforma de cuantías en la fuente BOE de 4/11/2026) y con mínimos y escalas autonómicos B2026. Se admiten los 17 territorios comunes por la API canónica anual; las cuotas fijas oficiales se consumen en la composición común. La entrada efectiva conserva 2025; deducciones autonómicas 2026 soportadas: ninguna. El conjunto E+B cuenta con [revisión independiente favorable acotada](reforma-motor/bloque-e/revision-familia-2026/INFORME.md); su alcance parcial no equivale a una declaración completa.
+2026 conecta el contrato familiar con `MINIMOS_ESTATALES_2026` (arts.57–61 sin reforma de cuantías en la fuente BOE de 4/11/2026) y con mínimos y escalas autonómicos B2026. Se admiten los 17 territorios comunes por la API canónica anual; las cuotas fijas oficiales se consumen en la composición común. La entrada efectiva familiar conserva 2025; deducciones autonómicas 2026 soportadas: ninguna. El conjunto E+B cuenta con [revisión independiente favorable acotada](reforma-motor/bloque-e/revision-familia-2026/INFORME.md); su alcance parcial no equivale a una declaración completa.
 
 `minimos/derechos.ts` exporta `validarDerechosMinimos`, `calcularDerechosMinimos`, `validarRentasAnualesDerechos` y `hayAlimentosPropiosSinMinimo`. `calcularDerechosMinimos(hechos, minimos, aritmetica?)` recibe los hechos completos y los parámetros seleccionados, y devuelve euros `Decimal` para contribuyente, descendientes, discapacidad, total y atribuciones por sujeto, orden, titulares y divisor. El tercer argumento opcional es un constructor `Decimal`; por defecto crea un constructor local de 80 cifras. La composición pasa su constructor local para que el reparto y la suma respeten la precisión elegida (80 con derechos). No es por sí mismo una declaración. La ruta anual selecciona separadamente parámetros estatales y autonómicos.
 
@@ -52,6 +52,21 @@ El mínimo del contribuyente y la cuantía de discapacidad se calculan mediante 
 ## Entrada anual con importes efectivos
 
 `liquidarIrpfAnualExplicito` conserva los esquemas y contratos de `trabajo-anual/conexion-contrato.ts`. El contrato efectivo admite 2025 individual en los 17 territorios comunes, edad 18–150 y ausencia de discapacidad propia/otras especialidades. Con familiares exige `familiaresConDerechoMinimo: "segun-derechos"` y `derechosMinimos` completos, conciliados con los rendimientos efectivos antes del art.20. Sin derechos exige `"ninguno"`. Discapacidad de descendientes se recibe dentro de los derechos. Conserva las restricciones de los productores laboral, pensión y EDS. La política de céntimos Open solo se aplica al empleo Madrid 2025; en los demás territorios se conserva precisión decimal hasta salida, sin afirmar contraste oficial universal. No se sustituyen las cotizaciones efectivas por estimaciones. Los siete casos de Renta WEB Open 2025 y los ejemplos de 1.333,92 euros a ingresar y 321,18 euros a devolver mantienen sus expectativas y reservas. Véase [alcance salarial](DECLARACION-SALARIAL-2025.md).
+
+El mismo contrato admite además un perfil histórico de empleo: Madrid 2018–2024,
+individual, edad de 18 a 64 años, sin familiares, discapacidad, deducciones ni
+otras especialidades, con devengo el 31 de diciembre del ejercicio. Aportes,
+retenciones y conciliación deben declarar ese mismo año. Selecciona el artículo
+20 y los parámetros anuales reales mediante la composición común; conserva
+`decimal-hasta-salida` y excluye DA61. Su alcance de salida es
+`individual-madrid-2018-a-2024-hechos-explicitos`. La
+[revisión de la conexión](simuladores/revision-historico-api/INFORME.md)
+comprueba admisión, rechazo y conservación de 2025; aún no acredita coincidencia
+contra Open histórico. El perfil histórico no admite pensiones ni actividad.
+Madrid 2018–2021 y 2023–2024 consume las cuotas fijas publicadas en devengos
+ordinarios sin fallecimiento. La [integración revisada de esas series](datos-2012-2026/producto-series-historicas/INTEGRACION.md)
+corrige 40 diferencias de céntimo reproducidas y conserva 2022 y las referencias
+de 2025. Este contraste documental no sustituye la campaña Open histórica.
 
 ## Retenciones y cotizaciones estimadas
 
@@ -75,6 +90,20 @@ El contrato estructural actual y sus reservas se describen en [integración CI](
 
 ## Deducciones parciales: identidad de declaración
 
+`SolicitudDeduccion` admite `tipo: "valenciana_hechos"`, con `contexto` y
+`hechos: SolicitudValenciana2025`. `evaluarDeduccion` valida estrictamente esos
+hechos y concilia ejercicio, territorio, contribuyente, modalidad y conjunto
+exhaustivo de declarantes antes de llamar al evaluador valenciano. Conserva
+`calculo_parcial` y sus reservas; `totalDeduccionesEvaluadas` rechaza parciales
+y detecta el mismo código repetido, incluida su mezcla con consignaciones.
+`componerDeduccionesValencianas2025` ofrece una composición individual ordinaria
+anterior a cuota: bases únicas, libro de cantidades, elecciones y orden explícito
+para el límite conjunto del 30 %, con los resultados y reservas por código.
+Rechazos y exclusiones aplicadas impiden emitir un total. Cuota y arrastres quedan
+identificados y separados, sin consumirse. Véase [contrato y límites](deducciones-2025/VALENCIANA-COMPOSICION.md).
+No se activa una deducción genérica ni una suma automática en la liquidación anual. Véanse [hechos y alcance](deducciones-2025/VALENCIANA-EVALUADORES.md)
+y [correcciones de la revisión](deducciones-2025/revisiones/formulas-producto-20261104/CORRECCIONES.md).
+
 Madrid (nacimiento) y Murcia (guardería), ejercicio 2025, usan el mismo evaluador de contratos tanto desde `evaluarDeduccion` como desde `evaluarHechosAuxiliar2025` y `calcularDeduccionesAutonomicasAplicadas`. `ContextoDeduccion.declarantes` identifica exhaustivamente a los declarantes en conjunta: lista no vacía, sin duplicados y con la referencia `contribuyente` incluida. Omitirla en la API directa conjunta devuelve `no_soportado`. En hechos auxiliares la lista obligatoria `declarantes` se propaga íntegra al contexto; si también figura en el contexto ambas deben coincidir. El orden y la elección de referencia dentro de la unidad no cambian la cuantía.
 
 En conjunta se incluyen los derechos de los declarantes, sin sustituir la referencia por un titular. Progenitores o titulares externos a la unidad provocan rechazo explícito, incluidos los conjuntos mixtos de titulares internos y externos. En individual se conserva el reparto entre todos los titulares, aunque presenten declaraciones separadas. Murcia aplica el máximo de 1.000 euros por hijo antes del reparto individual; Madrid conserva ventana temporal, historial de bases, multiplicidad y redondeo.
@@ -82,6 +111,12 @@ En conjunta se incluyen los derechos de los declarantes, sin sustituir la refere
 El adaptador numérico admite un ámbito con identidad de referencia, modalidad y declarantes; cuando se aportan, los contrasta con los hechos y rechaza discrepancias. Una lista de declarantes es una afirmación externa exhaustiva: esta API no acredita parentesco, convivencia ni elegibilidad jurídica. Los resultados continúan siendo cálculos parciales, con aceptación fiscal pendiente. No amplían por sí mismas el contrato familiar. Mínimos anuales y retenciones tienen los alcances distintos descritos arriba.
 
 ## Escalas y exportación retiradas
+
+La selección de 2025 para Aragón, Asturias, Galicia y Castilla y León consume
+las 27 filas de cuotas fijas oficiales, además de sus tipos marginales. El
+[cotejo documental y su integración](datos-2012-2026/producto-escalas2025/INTEGRACION.md)
+conservan las diferencias anteriores y las pruebas de frontera. Este cambio se
+limita al cierre ordinario de 2025; no amplía cobertura a fallecimientos.
 
 Se eliminan `calcularCuotaPorEscalaGeneral`, `calcularDesgloseCuotaPorEscalaGeneral`, `obtenerTramosIrpfLegacy` y sus cuatro tablas combinadas. El cálculo utiliza `calcularCuotaPorEscala` y `calcularDesgloseCuotaPorEscala` con los parámetros del selector territorial y las cuotas publicadas cuando corresponda. No hay una API equivalente sin ámbito que pueda devolver la tarifa truncada.
 
@@ -103,7 +138,7 @@ Los adaptadores públicos conservan contratos distintos para hechos distintos. E
 | `liquidarIrpfAnualConDerechos(caso)` | Mismo caso, `derechosMinimos` completo obligatorio | Misma salida y composición, sin cuota familiar alternativa |
 | `liquidarIrpfAnualExplicito(caso)` | `CasoFiscalAnualExplicito`, `perfil: "solo-trabajo"` o `"solo-actividad-eds"`; importes aportados como texto EUR con hasta dos decimales, nunca `number` | `_tag: "LiquidacionIrpfAnualExplicitaCalculada"`; importes calculados como texto decimal EUR, `cuotaDiferencialPresentada` a dos decimales; `aceptacionFiscal: "pendiente"` |
 
-La entrada efectiva exige todos los discriminantes de `conexion-contrato.ts`: residencia anual, devengo, modalidad, ausencia de otras rentas y discapacidad propia, hechos familiares según el marcador declarado, reducciones de base, saldos, rentas extranjeras y especialidades. El empleo exige rendimientos laborales/estatutarios disjuntos, gastos acreditados y cotizaciones `clase: "efectivas"`; pensión sola se admite sin DA61 y sin mezclarla con empleo. `solo-actividad-eds` consume `CasoActividad2025` con los rechazos del adaptador; amortizaciones y discapacidad siguen fuera del anual. No se admiten importes estimados en esta entrada efectiva ni se rellenan hechos ausentes. Retenciones efectivas llevan ejercicio, identidad de operación única, procedencia e importe.
+La entrada efectiva exige todos los discriminantes de `conexion-contrato.ts`: residencia anual, devengo, modalidad, ausencia de otras rentas y discapacidad propia, hechos familiares según el marcador declarado, reducciones de base, saldos, rentas extranjeras y especialidades. El empleo exige rendimientos laborales/estatutarios disjuntos, gastos acreditados y cotizaciones `clase: "efectivas"`; en 2025, pensión sola se admite sin DA61 y sin mezclarla con empleo. `solo-actividad-eds`, limitado a 2025, consume `CasoActividad2025` con los rechazos del adaptador; amortizaciones y discapacidad siguen fuera del anual. No se admiten importes estimados en esta entrada efectiva ni se rellenan hechos ausentes. Retenciones efectivas llevan ejercicio, identidad de operación única, procedencia e importe.
 
 El perfil técnico conserva parámetros territoriales parciales 2012–2026 y el escenario `simulada-estatal` 2012–2026; esto no acredita declaraciones completas ni la procedencia universal de las tablas históricas. 2026 real admite mínimos y escalas vigentes al corte 4/11/2026, con cuotas fijas oficiales consumidas por el núcleo común. Los derechos familiares están conectados en 2012–2026 para los 17 territorios comunes mediante `liquidarIrpfAnualConDerechos(caso)` (y `liquidarIrpfAnual` con derechos). En 2026 la lista de deducciones autonómicas soportadas está vacía; no se heredan las de 2025. Véase [B2026](reforma-motor/bloque-e/B2026.md). Ascendientes, fallecimientos y hechos insuficientes conservan rechazo. El contrato efectivo admite familia 2025 en esos territorios; retenciones conserva Madrid 2025. No se abre ninguna puerta de actividad o aceptación fiscal general.
 
@@ -135,7 +170,8 @@ La salida efectiva incluye, además de `_tag`, `perfil`, `ejercicio`, `alcance`,
 ## Proyección de componentes anuales para contraste C
 
 `liquidarIrpfAnualExplicito` devuelve además `componentesCuota`, con `unidad:
-"EUR"` y seis textos decimales sin redondeo adicional: `gravamenEstatal` (0528),
+"EUR"` y seis textos decimales sin redondeo adicional, con estas casillas de
+2025: `gravamenEstatal` (0528),
 `gravamenAutonomico` (0529), `gravamenMinimoEstatal` (0530),
 `gravamenMinimoAutonomico` (0531), `cuotaEstatal` (0532) y `cuotaAutonomica`
 (0533). Son los valores ya calculados por `componerLiquidacionAnual`: gravámenes
@@ -147,3 +183,5 @@ En empleo Madrid 2025 se mantiene la cuantización Open ya vigente; en los otros
 perfiles admitidos se conserva su precisión existente. La proyección consume el alcance familiar y territorial vigente descrito arriba. Con los ocho escalares previos permite
 cotejar catorce casillas; una omisión oficial permanece ausencia. La coincidencia
 monetaria no acredita todos los hechos de la entrada ni aceptación fiscal.
+La campaña histórica debe comprobar la correspondencia de casillas de cada
+ejercicio; una casilla inexistente o ausente no se convierte en cero.

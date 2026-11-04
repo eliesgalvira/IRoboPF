@@ -1,0 +1,18 @@
+from pathlib import Path
+import urllib.request, hashlib, json, re, fitz
+O=Path(__file__).parent
+items=[('historial-art1.html','https://www.boe.es/buscar/act.php?id=BOCM-m-2010-90068&tn=1'),('art1-20181228.html','https://www.boe.es/buscar/act.php?id=BOCM-m-2010-90068&p=20181228&tn=1'),('BOE-A-2022-1192.pdf','https://www.boe.es/boe/dias/2022/01/26/pdfs/BOE-A-2022-1192.pdf')]
+result=[]
+for name,url in items:
+ p=O/name
+ if not p.exists():p.write_bytes(urllib.request.urlopen(url,timeout=6).read())
+ data=p.read_bytes()
+ result.append({'path':str(p),'url':url,'sha256':hashlib.sha256(data).hexdigest(),'sha512':hashlib.sha512(data).hexdigest()})
+ if name.endswith('.html'):
+  text=data.decode(); a=text.index('id="a1"');b=text.index('id="a2"',a)
+  (O/(name+'.articulo.txt')).write_text(re.sub('<[^>]+>',' ',text[a:b]))
+ else:
+  pdf=fitz.open(stream=data,filetype='pdf');(O/'ley2-2021-extracto.txt').write_text('\n'.join(p.get_text(sort=True) for p in pdf))
+  pdf[2].get_pixmap(matrix=fitz.Matrix(1,1)).save(str(O/'ley2-2021-3.png'))
+(O/'fuentes-nuevas.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
+print(json.dumps({'fuentesPuntuales':len(result),'paginasNormaNueva':3}))

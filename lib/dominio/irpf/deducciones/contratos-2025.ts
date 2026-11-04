@@ -1,5 +1,10 @@
 import Decimal from "decimal.js"
-import { DateTime, Option } from "effect"
+import { DateTime, Option, Result, Schema } from "effect"
+import {
+  evaluarDeduccionValenciana2025,
+  SolicitudValenciana2025,
+  type HechosValencianos2025,
+} from "./valenciana-2025"
 import type { AmbitoDeducciones } from "./ambito"
 
 export type ContextoDeduccion = AmbitoDeducciones & {
@@ -489,6 +494,11 @@ export function evaluarCeliaquiaRioja(
 
 export type SolicitudDeduccion =
   | {
+      readonly tipo: "valenciana_hechos"
+      readonly contexto: ContextoDeduccion
+      readonly hechos: HechosValencianos2025
+    }
+  | {
       readonly tipo: "andalucia_nacimiento"
       readonly contexto: ContextoDeduccion
       readonly eventos: readonly EventoAndaluz[]
@@ -527,6 +537,29 @@ export function evaluarDeduccion(
   solicitud: SolicitudDeduccion
 ): ResultadoDeduccion {
   switch (solicitud.tipo) {
+    case "valenciana_hechos": {
+      const decoded = Schema.decodeUnknownResult(SolicitudValenciana2025)(
+        solicitud.hechos,
+        { onExcessProperty: "error" }
+      )
+      if (Result.isFailure(decoded))
+        return noSoportado("Hechos valencianos inválidos")
+      const hechos = decoded.success
+      const contexto = solicitud.contexto
+      const ids = declarantesDeduccion(contexto)
+      if (
+        !ambitoValido(contexto, "comunitat-valenciana") ||
+        contexto.contribuyente !== hechos.contribuyente ||
+        contexto.modalidad !== hechos.modalidad ||
+        ids === undefined ||
+        ids.length !== hechos.declarantes.length ||
+        ids.some((id) => !hechos.declarantes.includes(id))
+      )
+        return noSoportado(
+          "Hechos valencianos ajenos al ámbito o a los declarantes"
+        )
+      return evaluarDeduccionValenciana2025(hechos)
+    }
     case "andalucia_nacimiento":
       return evaluarNacimientoAndaluz(
         solicitud.contexto,
@@ -573,7 +606,11 @@ export function totalDeduccionesEvaluadas(
   let total = new Decimal(0)
   let externo = false
   const claves = solicitudes.map((s) =>
-    s.tipo === "consignacion" ? s.entrada.codigo : s.tipo
+    s.tipo === "consignacion"
+      ? s.entrada.codigo
+      : s.tipo === "valenciana_hechos"
+        ? s.hechos.codigo
+        : s.tipo
   )
   if (new Set(claves).size !== claves.length)
     return noSoportado(

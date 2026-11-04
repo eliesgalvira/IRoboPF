@@ -1,0 +1,479 @@
+import assert from "node:assert/strict"
+import {
+  componerDeduccionesValencianas2025 as componer,
+  type ComposicionValenciana2025 as Entrada,
+  type PeticionComposicion as Peticion,
+} from "../lib/dominio/irpf/deducciones/valenciana-2025/composicion"
+const c = (s: string) => "valenciana_" + s
+const q = "donativos_conservacion_patrimonio_cultural",
+  r = "donaciones_lengua_valenciana"
+function peticion(
+  codigo: string,
+  numeros: Record<string, number>,
+  textos: Record<string, string> = {},
+  cantidad = "g1"
+): Peticion {
+  return {
+    codigo: c(codigo),
+    eleccion: "aplicar",
+    unidades: [
+      { id: "u", titulares: ["A"], fecha: "2025-06-02", numeros, textos },
+    ],
+    referencias: [
+      {
+        unidad: "u",
+        sujetos: ["persona1"],
+        bienes: ["bien1"],
+        eventos: ["evento1"],
+        cantidades: cantidad !== "" ? [cantidad] : [],
+      },
+    ],
+  }
+}
+function entrada(
+  solicitudes: Peticion[],
+  renta = 1000,
+  cantidades = [{ id: "g1", euros: 300 }]
+): Entrada {
+  return {
+    ejercicio: 2025,
+    territorio: "comunitat-valenciana",
+    modalidad: "individual",
+    devengo: "2025-12-31",
+    contribuyente: "A",
+    bases: {
+      liquidableGeneral: renta,
+      liquidableAhorro: 0,
+      imponibleGeneral: renta,
+      imponibleAhorro: 0,
+    },
+    cantidades,
+    solicitudes,
+    ordenBase30: solicitudes
+      .filter(
+        (p) =>
+          [
+            c(q),
+            c(r),
+            c("conservacion_patrimonio_cultural_titulares"),
+            c("donaciones_cesiones_fines_culturales_cientificos_deportivos"),
+          ].includes(p.codigo) && p.eleccion === "aplicar"
+      )
+      .map((p) => p.codigo),
+    consignaciones: [],
+  }
+}
+const rechaza = (a: Entrada, patron?: RegExp) => {
+  const v = componer(a)
+  assert.equal(v.estado, "no_soportado")
+  assert.equal(v.totalParcialAntesCuota, undefined)
+  if (patron !== undefined) assert.match(v.incidencias.join(" "), patron)
+}
+const total = (a: Entrada, n: number) => {
+  const v = componer(a)
+  assert.equal(v.estado, "calculo_parcial", JSON.stringify(v))
+  assert.equal(v.totalParcialAntesCuota, n)
+  return v
+}
+export const casos = {
+  "30% debajo igual encima": () => {
+    for (const [base, esperado] of [
+      [299.99, 62.5],
+      [300, 62.5],
+      [300.01, 62.5],
+    ])
+      total(
+        entrada([peticion(q, { valorAportado: base })], 1000, [
+          { id: "g1", euros: base },
+        ]),
+        esperado
+      )
+    const v = total(
+      entrada([peticion(q, { valorAportado: 300.01 })], 1000, [
+        { id: "g1", euros: 300.01 },
+      ]),
+      62.5
+    )
+    assert.equal(v.resultados[0].base30?.exceso, 0.01)
+  },
+  "dos códigos compiten y orden explícito": () => {
+    const a = entrada(
+      [
+        peticion(q, { valorAportado: 300 }),
+        peticion(r, { valorAportado: 300 }, { grupoDestinatario: "4" }, "g2"),
+      ],
+      1000,
+      [
+        { id: "g1", euros: 300 },
+        { id: "g2", euros: 300 },
+      ]
+    )
+    const v = total(a, 62.5)
+    assert.equal(v.resultados[1].resultado.estado, "calculo_parcial")
+    assert.equal(v.resultados[1].base30?.asignada, 0)
+    const w = total({ ...a, ordenBase30: [...a.ordenBase30].reverse() }, 62.5)
+    assert.equal(w.resultados[0].base30?.asignada, 0)
+    rechaza({ ...a, ordenBase30: [c(q)] }, /incompleto/)
+    rechaza({ ...a, ordenBase30: [c(q), c(q)] })
+  },
+  "bases únicas general y ahorro": () => {
+    const a = entrada([peticion(q, { valorAportado: 300 })], 500)
+    total({ ...a, bases: { ...a.bases, liquidableAhorro: 500 } }, 62.5)
+    rechaza({ ...a, bases: { ...a.bases, liquidableGeneral: NaN } })
+  },
+  "k ingresos debajo igual encima": () => {
+    const p = peticion("primera_vivienda_menores_35", {
+      edad: 30,
+      pagosSinIntereses: 300,
+    })
+    total(entrada([p], 29999.99), 15)
+    total(entrada([p], 30000), 15)
+    rechaza(entrada([p], 30000.01), /30.000/)
+  },
+  "k y l compatibles mismas cantidades": () =>
+    total(
+      entrada([
+        peticion("primera_vivienda_menores_35", {
+          edad: 30,
+          pagosSinIntereses: 300,
+        }),
+        peticion(
+          "vivienda_discapacidad",
+          { pagosSinIntereses: 300 },
+          { discapacidadCualificadaDevengo: "declarada" }
+        ),
+      ]),
+      30
+    ),
+  "k m misma cantidad frente cantidad distinta": () => {
+    const k = peticion("primera_vivienda_menores_35", {
+      edad: 30,
+      pagosSinIntereses: 300,
+    })
+    const m = peticion(
+      "vivienda_ayudas_publicas",
+      { ayudaIntegradaDestinada: 300, fraccionImputacion: 1 },
+      { regimen: "fijo" }
+    )
+    const a = entrada([k, m])
+    rechaza(a, /mismas cantidades/)
+    assert.equal(componer(a).resultados.length, 2)
+    total(
+      entrada(
+        [
+          k,
+          peticion(
+            "vivienda_ayudas_publicas",
+            m.unidades[0].numeros,
+            m.unidades[0].textos,
+            "g2"
+          ),
+        ],
+        1000,
+        [
+          { id: "g1", euros: 300 },
+          { id: "g2", euros: 300 },
+        ]
+      ),
+      127
+    )
+  },
+  "i incompatible e incluso con otro sujeto": () => {
+    const i = peticion(
+      "empleados_hogar_cuidado_personas",
+      { cuotasMesesDerecho: 300 },
+      { grupo: "menores", limite: "ordinario" }
+    )
+    const e = peticion(
+      "custodia_guarderias_menores_3",
+      { gastoCustodia: 300, diasMenorTres: 365 },
+      {},
+      "g2"
+    )
+    rechaza(
+      entrada([i, e], 1000, [
+        { id: "g1", euros: 300 },
+        { id: "g2", euros: 300 },
+      ]),
+      /i con e\/f\/h/
+    )
+    const otro = {
+      ...e,
+      referencias: e.referencias.map((v) => ({ ...v, sujetos: ["otra"] })),
+    }
+    rechaza(
+      entrada([i, otro], 1000, [
+        { id: "g1", euros: 300 },
+        { id: "g2", euros: 300 },
+      ])
+    )
+    total(
+      entrada([i, { ...e, eleccion: "omitir" }], 1000, [
+        { id: "g1", euros: 300 },
+        { id: "g2", euros: 300 },
+      ]),
+      150
+    )
+  },
+  "elección incompleta": () => {
+    const incompleta = {
+      ...peticion(q, { valorAportado: 300 }),
+      eleccion: undefined,
+    }
+    // @ts-expect-error Entrada JavaScript deliberadamente incompleta para probar rechazo runtime.
+    rechaza(entrada([incompleta]), /Elección incompleta/)
+  },
+  "duplicados código y libro": () => {
+    const p = peticion(q, { valorAportado: 300 })
+    rechaza(entrada([p, p]), /consolidada/)
+    rechaza(
+      entrada([p], 1000, [
+        { id: "g1", euros: 300 },
+        { id: "g1", euros: 300 },
+      ])
+    )
+    rechaza(
+      entrada([
+        { ...p, unidades: [p.unidades[0], { ...p.unidades[0], id: "otro" }] },
+      ])
+    )
+  },
+  "doble consignación": () => {
+    const a = entrada([peticion(q, { valorAportado: 300 })])
+    rechaza(
+      { ...a, consignaciones: [{ codigo: c(q), contribuyente: "A" }] },
+      /Doble consignación/
+    )
+    rechaza({
+      ...a,
+      consignaciones: [
+        { codigo: c("otro"), contribuyente: "A" },
+        { codigo: c("otro"), contribuyente: "A" },
+      ],
+    })
+  },
+  "sin mutación reservas específicas y sin cuota anual": () => {
+    const a = entrada([
+      peticion(
+        "autoconsumo_renovables",
+        { gasto: 300, ayudas: 0, reembolsos: 0, fraccionPagadaVivienda: 1 },
+        { vivienda: "habitual" }
+      ),
+    ])
+    const b = {
+      ...a,
+      cuota: {
+        referencia: "externa",
+        disponible: 1,
+        arrastres: [
+          {
+            id: "a2024",
+            codigo: c("autoconsumo_renovables"),
+            contribuyente: "A",
+            origen: 2024,
+            pendiente: 50,
+            soporte: "declarado",
+          },
+        ],
+      },
+    }
+    const antes = JSON.stringify(b)
+    const v = total(b, 120)
+    assert.equal(JSON.stringify(b), antes)
+    assert.match(v.resultados[0].resultado.motivo, /CTE/)
+    assert.equal(v.cuotaSinAplicar?.disponible, 1)
+    assert.notEqual(v.cuotaSinAplicar, b.cuota)
+  },
+  "no cero que oculta rechazo y reservas grupo5": () => {
+    const a = entrada(
+      [
+        peticion(q, { valorAportado: 300 }),
+        peticion(r, { valorAportado: 300 }, { grupoDestinatario: "5" }, "g2"),
+      ],
+      1000,
+      [
+        { id: "g1", euros: 300 },
+        { id: "g2", euros: 300 },
+      ]
+    )
+    rechaza(a, /inscripcionEficaz/)
+    assert.equal(componer(a).resultados.length, 2)
+    const b = {
+      ...a,
+      solicitudes: [
+        a.solicitudes[0],
+        peticion(
+          r,
+          { valorAportado: 300 },
+          { grupoDestinatario: "5", inscripcionEficazCenso2025: "declarado" },
+          "g2"
+        ),
+      ],
+    }
+    const v = total(b, 62.5)
+    assert.match(v.resultados[1].resultado.motivo, /censo|Censo/)
+  },
+  "comodato ordinario consume base valorada": () => {
+    const p = peticion(
+      "donaciones_cesiones_fines_culturales_cientificos_deportivos",
+      { valorCatastral: 36500, diasComodato: 100 },
+      { clase: "comodato_inmueble", deduccionEstatal683a: "no" },
+      ""
+    )
+    const v = total(entrada([p], 1000), 75)
+    assert.equal(v.resultados[0].base30?.solicitada, 400)
+    rechaza(
+      entrada([
+        {
+          ...p,
+          unidades: [
+            {
+              ...p.unidades[0],
+              numeros: { valorCatastral: 36500, diasComodato: 366 },
+            },
+          ],
+        },
+      ])
+    )
+  },
+  "contrato rechaza ampliaciones y booleano global": () => {
+    const a = entrada([peticion(q, { valorAportado: 300 })])
+    // @ts-expect-error Campo ajeno o literal incompatible: prueba de frontera JavaScript.
+    rechaza({ ...a, cumple: true })
+    // @ts-expect-error Campo ajeno o literal incompatible: prueba de frontera JavaScript.
+    rechaza({ ...a, devengo: "2025-06-01" })
+    // @ts-expect-error Campo ajeno o literal incompatible: prueba de frontera JavaScript.
+    rechaza({ ...a, modalidad: "conjunta" })
+    // @ts-expect-error Campo ajeno o literal incompatible: prueba de frontera JavaScript.
+    rechaza({ ...a, bases: { ...a.bases, importe: 20 } })
+  },
+  "libro debe cuadrar": () =>
+    rechaza(entrada([peticion(q, { valorAportado: 301 })]), /no concuerda/),
+  "arrastres caducados y duplicados económicos": () => {
+    const a = entrada([peticion(q, { valorAportado: 300 })])
+    const v = {
+      id: "a",
+      codigo: c("autoconsumo_renovables"),
+      contribuyente: "A",
+      origen: 2020,
+      pendiente: 50,
+      soporte: "declarado",
+    }
+    rechaza({
+      ...a,
+      cuota: { referencia: "cuota", disponible: 30, arrastres: [v] },
+    })
+    rechaza({
+      ...a,
+      cuota: {
+        referencia: "cuota",
+        disponible: 30,
+        arrastres: [
+          { ...v, origen: 2024 },
+          { ...v, id: "b", origen: 2024 },
+        ],
+      },
+    })
+  },
+  "aa sólo excluye el mismo descendiente del incremento": () => {
+    const aa = {
+      ...peticion(
+        "municipio_riesgo_despoblamiento",
+        { descendientesSinABC: 1 },
+        { municipioFondo2024o2025: "declarado" },
+        ""
+      ),
+      descendientesIncremento: ["persona1"],
+    }
+    const b = peticion(
+      "nacimiento_adopcion_multiples",
+      { personasMismaFecha: 2 },
+      {},
+      ""
+    )
+    rechaza(entrada([aa, b]), /mismo descendiente/)
+    total(entrada([{ ...aa, descendientesIncremento: ["otra"] }, b]), 708)
+    rechaza(entrada([{ ...aa, descendientesIncremento: [] }]), /Identificar/)
+  },
+  "z dana misma entidad frente entidades distintas": () => {
+    const z = peticion(
+      "inversion_entidades_nuevas_reciente_creacion",
+      { inversionDesembolsada: 300 },
+      { regimen: "general" }
+    )
+    const d = peticion(
+      "dana_aportaciones_fondos_propios_entidades",
+      { inversionDesembolsada: 300 },
+      {
+        municipio: "anexo_fiscal",
+        anexoFiscalAcuerdo4nov2024: "declarado",
+        entidad: "nueva",
+        domiciliosSocialFiscalYMantenimiento: "declarado",
+      },
+      "g2"
+    )
+    const a = entrada([z, d], 1000, [
+      { id: "g1", euros: 300 },
+      { id: "g2", euros: 300 },
+    ])
+    rechaza(a, /misma entidad/)
+    total(
+      {
+        ...a,
+        solicitudes: [
+          z,
+          {
+            ...d,
+            referencias: d.referencias.map((v) => ({
+              ...v,
+              bienes: ["entidad2"],
+            })),
+          },
+        ],
+      },
+      225
+    )
+  },
+  "tope consolidado deporte y reducción ingresos": () => {
+    const p = peticion("deporte_actividades_saludables", {
+      gasto: 600,
+      ayudas: 0,
+      reembolsos: 0,
+      edad: 30,
+      grado: 0,
+    })
+    for (const [renta, euros] of [
+      [53999.99, 150],
+      [54000, 150],
+      [54000.01, 150],
+      [60000, 0],
+    ])
+      total(entrada([p], renta, [{ id: "g1", euros: 600 }]), euros)
+    rechaza(
+      entrada(
+        [{ ...p, unidades: [p.unidades[0], { ...p.unidades[0], id: "u2" }] }],
+        1000,
+        [{ id: "g1", euros: 600 }]
+      )
+    )
+  },
+  "sin doble tramo mediante solicitudes partidas": () => {
+    const p = peticion(q, { valorAportado: 300 })
+    rechaza(
+      entrada([
+        p,
+        {
+          ...p,
+          referencias: p.referencias.map((v) => ({
+            ...v,
+            sujetos: ["otro"],
+            eventos: ["otro"],
+          })),
+        },
+      ]),
+      /consolidada/
+    )
+    const v = total(entrada([p]), 62.5)
+    assert.equal(v.resultados[0].resultado.estado, "calculo_parcial")
+  },
+}

@@ -1,0 +1,72 @@
+import hashlib,json,re
+from pathlib import Path
+from decimal import Decimal
+from extraer import ROOT, OUT, num
+
+def load(n):return json.loads((OUT/n).read_text())
+def dump(n,v):(OUT/n).write_text(json.dumps(v,ensure_ascii=False,indent=2)+'\n')
+p=load('paginas.json'); prose=load('minimos-prosa.json')
+state=re.findall(r'(\d[\d.,]*) euros',p['1083']['quote'])
+v=list(map(num,state))
+state13=v[:3]+v[6:11]+v[15:17]+v[3:6]
+assert len(state13)==13
+minimum={'estatal':state13}
+for r,s in prose.items():
+    v=s['amountsEUR']
+    if r=='illes-balears':
+        # General estatal <65; desde65 base6105 +1265; desde75 +1540.
+        v=[state13[0],str(Decimal(v[0])+Decimal(v[1])-Decimal(state13[0])),v[2],state13[3],*v[3:6],state13[7],*v[6:11]]
+    if r=='la-rioja':v=state13[:10]+v
+    assert len(v)==13,(r,v)
+    minimum[r]=v
+scales=load('escalas-oficiales.json')
+for r in scales:minimum.setdefault(r,state13)
+paths=['contribuyente.general','contribuyente.adicionalMayor65','contribuyente.adicionalMayor75','descendientes.primero','descendientes.segundo','descendientes.tercero','descendientes.cuartoYSiguientes','descendientes.adicionalMenorTres','ascendientes.mayor65OConDiscapacidad','ascendientes.adicionalMayor75']
+expanded={}
+for r,v in minimum.items():
+    d=dict(zip(paths,v[:10],strict=True))
+    for subject in ['contribuyente','descendiente','ascendiente']:
+        disability=state13[10:] if r=='la-rioja' and subject!='descendiente' else v[10:]
+        for k,a in zip(['grado33Hasta65','grado65OMas','gastosAsistencia'],disability,strict=True):d[f'discapacidad.{subject}.{k}']=a
+    expanded[r]=d
+# Filas estatales: delimitadores de encabezado y lectura posicional de columnas.
+def table(n,start,end,count):
+    s=p[str(n)]['quote'].split(start,1)[1].split(end,1)[0]
+    lines=[x.strip() for x in s.splitlines() if x.strip()]
+    assert len(lines)==count*4,(n,lines)
+    out=[]
+    for i in range(count):
+        a,q,w,t=lines[i*4:i*4+4]
+        lo=num(a);out.append({'lower':lo,'quota':num(q),'upper':'Infinity' if w=='En adelante' else str(Decimal(lo)+Decimal(num(w))),'ratePercent':num(t),'page':n})
+    return out
+scales['estatal']=table(1120,'Porcentaje\n','Escala aplicable',6)
+scales['ahorro-estatal']=table(1131,'Tipo \naplicable (%)\n','2. La cuantía',5)
+a=table(1131,'Para 2025 la base liquidable del ahorro se gravará a los tipos que aparecen en la \nsiguiente escala.\n','1. ',0) if False else None
+tail=p['1131']['quote'].split('Gravamen autonómico',1)[1]
+start=tail.split('Tipo \naplicable (%)\n',1)[1].split('1. ',1)[0]
+end=p['1132']['quote'].split('Tipo \naplicable (%)\n',1)[1].split('La cuantía resultante',1)[0]
+ls=[x.strip() for x in (start+end).splitlines() if x.strip()]
+assert len(ls)==20,ls
+scales['ahorro-autonomico']=[]
+for i in range(5):
+    a,q,w,t=ls[i*4:i*4+4];lo=num(a)
+    scales['ahorro-autonomico'].append({'lower':lo,'quota':num(q),'upper':'Infinity' if w=='En adelante' else str(Decimal(lo)+Decimal(num(w))),'ratePercent':num(t),'pages':[1131,1132]})
+dump('esperados.json',{'year':2025,'selection':'ordinary-no-death','scales':scales,'minimum':expanded,'unitMinimum':'EUR','columns':['lower','quota','upper','ratePercent'],'units':['EUR','EUR','EUR','percent']})
+# Preimágenes de la clausura de imports locales, sin inventario de valores/celdas.
+roots=['lib/dominio/irpf/comunidades/comunidad-autonoma.ts','lib/dominio/irpf/cuotas/escalas-publicadas.ts','lib/dominio/irpf/cuotas/escalas-gravamen.ts','lib/dominio/irpf/minimos/derechos.ts','lib/dominio/normativa/datos/minimos-autonomicos-2025.ts']
+seen={}
+def pin(f):
+    f=f.resolve()
+    if str(f) in seen:return
+    data=f.read_bytes();seen[str(f)]=hashlib.sha256(data).hexdigest()
+    if f.suffix not in ['.ts','.js','.mjs']:return
+    for rel in re.findall(r'(?:from\s*|import\s*)[\x22\x27](\.[^\x22\x27]+)[\x22\x27]',data.decode()):
+        target=f.parent/rel
+        for candidate in [target,target.with_suffix('.ts'),target/'index.ts']:
+            if candidate.is_file():pin(candidate);break
+        else:raise ValueError((f,rel))
+for r in roots:pin(ROOT/r)
+for r in ['package.json','bun.lock']:
+    if (ROOT/r).is_file():pin(ROOT/r)
+dump('preimagenes.json',seen)
+print({'modulesAndLock':len(seen),'territories':len(expanded)-1,'scaleRows':sum(map(len,scales.values()))})

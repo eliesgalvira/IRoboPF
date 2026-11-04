@@ -1,0 +1,5264 @@
+--- /dev/null
++++ b/docs/procedencia/revisiones/producto-a-escalas2025/INFORME.md
+@@ -0,0 +1,59 @@
++# Revisión independiente conjunta A2025 y corrección de cuotas
++
++Dictamen: **aprobación acotada de la acreditación documental y de la representación de cuotas publicadas en las cuatro tablas para 2025 ordinario**. No he encontrado un dato público ni un importe falso que bloquee esta propuesta. La corrección sigue privada, sin aplicar; esta revisión no integra, publica ni certifica una declaración fiscal completa. Fecha: 2026-11-04. Base declarada E+B: 461e16323ca11e428c3e391568755c3e6b2766ab. C300/Madrid no se modifica ni se reabre 2026.
++
++## Identidad y método
++
++Raíz y ambas entregas de autor sólo leídas; sin worktree, subdelegación, VCS mutante, instalación, Vitest, tipos globales, inventario ni suite pesada. LIGERO2, un proceso de sondeo cada vez, órdenes con `timeout -k 30s 25s`, entorno compartido y cachés del usuario. Consultados AGENTS.md, Effect Solutions list/testing y ejemplo `Effect.runSync` de la fuente local antes del sondeo de derechos.
++
++`fuentes-antes.json` y `fuentes-despues.json` fijan 122 fuentes, incluidas las 79 preimágenes de módulos/lock, los dos paquetes de autor, el manual y los cuatro primarios CAS; no cambian. `integridad.json` verifica también los manifiestos documentales y el parche monetario, aplicando sus tres diffs **en memoria** y comparándolos con los candidatos. El runtime privado sólo sustituye tres rutas de importación por rutas absolutas respecto al candidato revisado; no cambia fórmulas ni tablas.
++
++El SHA del manual AEAT es 02c6e8300a7f56c8c24aa947d4c39c5657c9a9eda6f5d727d44b4112d7de15d4. El verificador del autor, inspeccionado antes de ejecutarlo porque es de sólo lectura, pasa manifiestos, preimágenes, páginas, cajas físicas, contextos, offsets de primarios y fórmulas. No se ejecutan extraer/preparar/selector del autor porque escriben en su recepción.
++
++Mi `revisar.py` reextrae del PDF las cuatro columnas de 115 filas de 17 territorios, comprueba encabezados y ejercicio en las cajas físicas y vuelve a parsear los cuatro artículos HTML conservados. Las 27 filas de estos artículos coinciden numéricamente con el PDF y con el candidato. El primer intento del parser propio rechazó el guion de base cero de Asturias; se trató explícitamente sólo para su primera fila. No era un defecto de los datos públicos.
++
++## Documentación y mínimos
++
++Las 1.477 comparaciones del recibo son comparaciones técnicas del alcance descrito, no aceptación fiscal. Se comprueba la integridad del resultado y su recuento de 72 discrepancias. Mi fórmula Decimal reconstruida de las filas físicas reproduce las 72 diferencias exactas y los 12 cambios a céntimos; no copia los esperados monetarios del autor. Las restantes 60 diferencias exactas pueden desaparecer al redondear una salida.
++
++Estatal general y ahorro estatal/autonómico conservan sus tablas y páginas de evidencia, revisadas mediante la extracción y el replay documental. No atribuyo a esta revisión una nueva ejecución independiente de todas las ramas estatales/ahorro ni de las 1.477 comparaciones del motor. El replay conserva el resultado del autor, que queda separado del sondeo propio.
++
++Muestra propia de los **19 campos nominales completos de seis territorios** (114 comprobaciones): Aragón, Asturias, Baleares, Galicia, La Rioja y Madrid. Los valores se transcriben semánticamente tras leer la prosa y las páginas 1083–1093; no se construyen leyendo el objeto del motor. Incluye los tres sujetos de discapacidad y los dos importes nominales de ascendientes. No ejecuta atribución de ascendientes, fuera del contrato.
++
++Baleares: general 5.550 para el perfil menor de 65, total desde 65 de 7.370 = 6.105 + 1.265, por lo que el adicional representado sobre 5.550 es 1.820; desde 75 el total es 8.910. Se prueban 64/65/74/75/76. La Rioja: sólo discapacidad de descendientes cambia a 3.300/9.900; asistencia sigue en 3.000. Con ayuda, el sondeo obtiene 6.300; con grado 65 o más obtiene 12.900. Los campos de discapacidad propia y de ascendientes conservan 3.000/9.000/3.000.
++
++En los seis territorios se ejecutan controles propios de elegibilidad: hijo de 24 años y renta 8.000 admitido; 8.000,01 excluido; 25 años sin discapacidad excluido y con discapacidad admitido; declaración individual con renta 1.800 admitida y 1.800,01 excluida. Se declaran hechos completos, un titular residente, convivencia, consanguinidad, sin alimentos ni fallecimientos. Un primer intento del arnés propio empleaba IDs `p`/`h`, rechazados por el esquema; se corrigieron a `s-1`/`s-2`, sin cambiar expectativas ni producto. No se detectó falso positivo en esta muestra acotada.
++
++## Fuente y vigencia de las cuatro tablas
++
++Aragón: artículo 110-1 del texto refundido, corroboración CAS fa282a231a7a0d9ad67237af2086b67b59bd8e27cc05ff9eeda8519954ccd307; nota de Ley 17/2023, artículo 64.1, efectos desde 01/01/2023. Nueve filas coincidentes con el manual del ejercicio 2025.
++
++Asturias: artículo 2 del Decreto Legislativo 2/2014 y ocho filas coincidentes. La nota de reforma remite a Ley 3/2025. Se consultó además el [texto original BOE-A-2025-25707](https://www.boe.es/buscar/doc.php?id=BOE-A-2025-25707), artículo único.1, disposición final y análisis. Se publicó en BOPA el 02/12/2025 y entró en vigor el 03/12/2025; el preámbulo explica su aplicación al ejercicio fiscal 2025. No es una tabla aplicable indiscriminadamente desde enero ni por semestre: respalda el devengo ordinario a 31/12 aquí seleccionado. Los devengos por fallecimiento siguen reservados, incluido el posterior a la reforma, por decisión conservadora del candidato. No se pretende acreditar esas ramas.
++
++Galicia: artículo 4, CAS a0e7a4375c604e7f4e8bbf8b98b276036dfac4e6f634f41de6d3a24760efcaef; nota de Ley 7/2022, efectos 01/01/2022. Cinco filas coincidentes con AEAT2025.
++
++Castilla y León: artículo 1, CAS cb5a0ab67029f42bbc95bed62947ed46ce5149b31517aaa1f55153cf9cbaf2aa; nota de Ley 2/2022, efectos 01/01/2022. Cinco filas coincidentes. Los consolidados son corroboración oficial versionada, sin convertirlos en originales del diario ni reabrir la auditoría universal de vigencia. Los contextos del manual fijan la aplicación ordinaria 2025.
++
++## Corrección monetaria y composición
++
++El candidato transcribe base inferior/cuota fija/tipo de las 27 filas, con fracciones porcentuales correctas. En `calcularDesgloseCuotaPorEscala` se selecciona la última base inferior inclusiva; no hay `inferiorExclusivo` en estas filas. Se aplica cuota fija + exceso × tipo, sin reconstruir cuotas por integración ni imponer continuidad artificial. Esto preserva las pequeñas discontinuidades de tablas publicadas, como Asturias al alcanzar 70.000. No se cambian precisión ni políticas monetarias existentes.
++
++Sondeo independiente aprobado: **497 comprobaciones numéricas**, que incluyen 170 puntos monetarios propios (cada frontera ±0,001/±0,01, frontera exacta, interior +137,29, cero, negativos y base alta), las 72 discrepancias originales recalculadas desde la fuente física y 16 cálculos parciales base/mínimo con la misma escala. También pasan exclusiones de fallecimiento en enero, junio, 2/3 de diciembre y 31/12, año 2024 y conservación por identidad de la selección 2026. El replay separado del sondeo del autor confirma 72/12 antes y 72 exactos corregidos después.
++
++Cadena leída: `composicion-anual.ts` selecciona una vez `obtenerEscalaAutonomicaPublicada(caso)`, transporta la misma colección a la cuota general autonómica y a la cuota del mínimo limitado por la base, así como a ambos desgloses. La sustracción posterior y la aritmética `A` continúan en la composición común. El sondeo parcial no sustituye una liquidación anual completa; esa integración y CI corresponden al padre cuando C congele identidad. No atribuyo cierre AST ni el levantamiento de reservas generales de helpers.
++
++Las 76 pruebas Vitest propuestas se revisaron como código, no se ejecutaron. El cambio Madrid2026→2017 en la exclusión es coherente con E+B ya publicado; Asturias se reserva mediante fallecimiento explícito. No se cambian esperados monetarios históricos. No es necesario abrir una nueva ronda de revisión por cada ajuste de integración que conserve estas identidades, tablas y alcance.
++
++## Defectos, remedios y entrega
++
++No hay defecto bloqueante reproducible identificado. No se solicita una auditoría universal adicional F, ni nuevos casos completos para aprobar esta representación ordinaria. Persisten las reservas declaradas: hechos y residencia, otras ramas/devengos, ascendientes en ejecución y aceptación fiscal completa. La aprobación documental no se extiende al ejercicio entero.
++
++Se entrega este informe, scripts propios, oráculo derivado de fuentes físicas, resultados y recibos de integridad. `revision.patch` sólo añade los artefactos de esta revisión bajo docs/procedencia/revisiones/producto-a-escalas2025; no vuelve a introducir el parche de implementación del padre. `manifiesto.json` fija los SHA-256 de los archivos y del parche. Ninguna fuente original se modifica ni se borra.
++
++Reproducción, desde la raíz y un proceso cada vez:
++
++```sh
++timeout -k 30s 25s bash -c 'source /home/elies/Backups/IRoboPF/limpieza-recursos-20261103/env-pruebas.sh; /home/elies/.cache/irobopf-corpus/.venv/bin/python /home/elies/Backups/IRoboPF/producto-a-escalas-revision-20261104/revisar.py'
++timeout -k 30s 25s bash -c 'source /home/elies/Backups/IRoboPF/limpieza-recursos-20261103/env-pruebas.sh; bun --no-install /home/elies/Backups/IRoboPF/producto-a-escalas-revision-20261104/sondeo-independiente.mjs'
++timeout -k 30s 25s bash -c 'source /home/elies/Backups/IRoboPF/limpieza-recursos-20261103/env-pruebas.sh; /home/elies/.cache/irobopf-corpus/.venv/bin/python /home/elies/Backups/IRoboPF/producto-a-escalas-revision-20261104/empaquetar.py'
++```
+--- /dev/null
++++ b/docs/procedencia/revisiones/producto-a-escalas2025/empaquetar.py
+@@ -0,0 +1,49 @@
++from pathlib import Path
++import json,hashlib,difflib,re
++P=Path(__file__).parent;A=P.parent/'producto-a-escalas2025-20261104';B=P.parent/'producto-a-cuotas2025-correccion-20261104';R=Path('/home/elies/Repos/IRoboPF')
++sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
++load=lambda p:json.loads(p.read_text())
++save=lambda n,x:(P/n).write_text(json.dumps(x,ensure_ascii=False,indent=2)+'\n')
++before=load(P/'fuentes-antes.json');after={f:sha(Path(f)) for f in before}
++save('fuentes-despues.json',after)
++changes=[f for f in before if before[f]!=after[f]]
++assert not changes,changes
++for f,h in load(A/'preimagenes.json').items():assert sha(Path(f))==h
++m=load(B/'manifiesto.json');assert sha(B/'implementacion.patch')==m['patchSha256']
++for f in m['archivos']:
++    assert sha(Path(f['candidato']))==f['despues']
++    if f['antes'] is not None:assert sha(R/f['ruta'])==f['antes']
++e=load(A/'entrega-manifiesto.json')
++assert sha(A/'entrega.patch')==e['patch']['sha256']
++assert sha(A/'manifiesto.json')==e['manifestSha256']
++assert sha(A/'replay-recibo.log')==e['physicalReplayReceipt']['sha256']
++for name,v in load(A/'manifiesto.json')['files'].items():assert sha(A/name)==v['sha256']
++# Aplica los tres diffs en memoria contra preimágenes, sin tocar candidatos/raíz.
++patch=(B/'implementacion.patch').read_text().splitlines(True)
++index=0;verified=[]
++while index<len(patch):
++    assert patch[index].startswith('--- ')
++    oldpath=patch[index][4:].strip();newpath=patch[index+1][4:].strip();index+=2
++    target=newpath.removeprefix('b/')
++    candidate=next(f for f in m['archivos'] if f['ruta']==target)
++    old=[] if oldpath=='/dev/null' else (R/target).read_text().splitlines(True)
++    new=[];pos=0
++    while index<len(patch) and not patch[index].startswith('--- '):
++        header=patch[index];match=re.match(r'@@ -(\d+)(?:,\d+)? \+(\d+)(?:,\d+)? @@',header);assert match,header
++        start=max(0,int(match[1])-1);new.extend(old[pos:start]);pos=start;index+=1
++        while index<len(patch) and not patch[index].startswith(('@@ ','--- ')):
++            line=patch[index];index+=1
++            if line[0] in ' -':assert old[pos]==line[1:];pos+=1
++            if line[0] in ' +':new.append(line[1:])
++    new.extend(old[pos:]);assert ''.join(new)==Path(candidate['candidato']).read_text(),target
++    verified.append(target)
++save('integridad.json',{'sources':len(before),'unchanged':True,'preimages':79,'candidatePatchInMemory':verified,'documentationManifests':'pass'})
++# La entrega de revisión añade sólo sus artefactos pequeños en documentación.
++included=[f for f in sorted(P.iterdir()) if f.is_file() and f.name not in ['revision.patch','manifiesto.json']]
++text=''
++for f in included:
++    target='b/docs/procedencia/revisiones/producto-a-escalas2025/'+f.name
++    text+=''.join(difflib.unified_diff([],f.read_text().splitlines(True),fromfile='/dev/null',tofile=target))
++(P/'revision.patch').write_text(text)
++save('manifiesto.json',{'review':'aprobación acotada documental + corrección ordinaria 2025','fiscalPermission':False,'originalSourcesUnchanged':True,'files':{f.name:{'sha256':sha(f),'bytes':f.stat().st_size} for f in [*included,P/'revision.patch']}})
++print(json.dumps({'unchangedSources':len(before),'patchSha256':sha(P/'revision.patch'),'manifestSha256':sha(P/'manifiesto.json')}))
+--- /dev/null
++++ b/docs/procedencia/revisiones/producto-a-escalas2025/fuentes-antes.json
+@@ -0,0 +1,124 @@
++{
++  "/home/elies/Backups/IRoboPF/producto-a-cuotas2025-correccion-20261104/INFORME.md": "f106753be1f0532eede42333fe2f202679ddfae0fc80e1966d340caa8d9ac848",
++  "/home/elies/Backups/IRoboPF/producto-a-cuotas2025-correccion-20261104/casos-monetarios.json": "7225d3618cddefcae40f0b6f2bd4bcd8627aa9d5e57185ab201efc8af4761a4c",
++  "/home/elies/Backups/IRoboPF/producto-a-cuotas2025-correccion-20261104/escalas-publicadas-2025.test.ts": "7bca57569ef6d78479d70499dc6d17c7e45ef77f78a7cd5918e576472701fbb8",
++  "/home/elies/Backups/IRoboPF/producto-a-cuotas2025-correccion-20261104/escalas-publicadas.runtime.ts": "4aa768a071f29df059289e09b744b7c266492464bed4f676eb7f99cb9c00f1ac",
++  "/home/elies/Backups/IRoboPF/producto-a-cuotas2025-correccion-20261104/escalas-publicadas.test.ts": "8c060ce2f5453d83d4c96710510da7b54d868e35d0ddcb8577df79e861015a16",
++  "/home/elies/Backups/IRoboPF/producto-a-cuotas2025-correccion-20261104/escalas-publicadas.test.ts.preimagen": "503e9708c72c31a550bdb3bd3159493e559081f494cf3a2979de2340d8170d6e",
++  "/home/elies/Backups/IRoboPF/producto-a-cuotas2025-correccion-20261104/escalas-publicadas.ts": "650fed582c74a95d1446a19645df82659781d0023d67da592aafe8b6a6add922",
++  "/home/elies/Backups/IRoboPF/producto-a-cuotas2025-correccion-20261104/escalas-publicadas.ts.preimagen": "72e37d4bc100891e627674f474add14ffdb7b8276a2340c8d51b1e8af91bc4e7",
++  "/home/elies/Backups/IRoboPF/producto-a-cuotas2025-correccion-20261104/implementacion.patch": "1d9a1c9b7b9b762490178d42f130ad5ebde5d5f613a3010f4ebeddd051513654",
++  "/home/elies/Backups/IRoboPF/producto-a-cuotas2025-correccion-20261104/manifiesto.json": "caafea43ec7c328e3b8bca482161d954efda9178ee105795b4aa8aab9393f46a",
++  "/home/elies/Backups/IRoboPF/producto-a-cuotas2025-correccion-20261104/rojo-verde-2.log": "c15992a22bdf9f9a603e208ef3c4bad8b10d47e14122c10c313760444607695b",
++  "/home/elies/Backups/IRoboPF/producto-a-cuotas2025-correccion-20261104/rojo-verde.log": "26c7b55b36496c72af234c8c7f73bf80823e2f763f51d4172a534b72c6bc5df8",
++  "/home/elies/Backups/IRoboPF/producto-a-cuotas2025-correccion-20261104/runtime.json": "4c858904ff3146a5c714e62f246eb9d986b32d02e45b5683719a4f69147dd64c",
++  "/home/elies/Backups/IRoboPF/producto-a-cuotas2025-correccion-20261104/sondeo.ts": "704eb87b2ed2ae527fa83053801819c16080c8770c61b3a3509b463a82416c18",
++  "/home/elies/Backups/IRoboPF/producto-a-escalas2025-20261104/INFORME.md": "9b4acfd8282d5182540c98b85e9e460cc4f725a419bd73afab98fbf42b9805a7",
++  "/home/elies/Backups/IRoboPF/producto-a-escalas2025-20261104/ambitos-escalas.json": "afc7f5b15ff3305d01899f1881ccd139d392b386d2e5b2c3fd0804caf76be4e2",
++  "/home/elies/Backups/IRoboPF/producto-a-escalas2025-20261104/casos-monetarios.json": "7225d3618cddefcae40f0b6f2bd4bcd8627aa9d5e57185ab201efc8af4761a4c",
++  "/home/elies/Backups/IRoboPF/producto-a-escalas2025-20261104/citas-escalas.json": "0609666adcab0f39f743d431c8181b80b9672fa1ebb6bdbe63b621e28403e514",
++  "/home/elies/Backups/IRoboPF/producto-a-escalas2025-20261104/empaquetar.py": "fd43738034fe83f28b6ed12ecb9c1e8b87ce3083c63645ca1aa9d746caa93394",
++  "/home/elies/Backups/IRoboPF/producto-a-escalas2025-20261104/entrega-manifiesto.json": "a796f7c780f552bb66c5c8dafaf360bc943e08408ff0406710b76332d4679cee",
++  "/home/elies/Backups/IRoboPF/producto-a-escalas2025-20261104/entrega.patch": "b521f2f6d7ad9eb3d5bfe95bd83bebe8653778711c0fd4344ffac334a342f3e3",
++  "/home/elies/Backups/IRoboPF/producto-a-escalas2025-20261104/escalas-oficiales.json": "337d502fbb7954d0c55a9eab51746ddf1d0b1d422efe6e99d201c13d7d94a27b",
++  "/home/elies/Backups/IRoboPF/producto-a-escalas2025-20261104/esperados.json": "0c08c8e6c7bea4317941867f054df5a6bbe28c2897512776ed6df38ef3635abc",
++  "/home/elies/Backups/IRoboPF/producto-a-escalas2025-20261104/extraer.py": "c81408598ab8e991c251df9ca6b03f018b6d01668c7db78b92bf36f10636ea80",
++  "/home/elies/Backups/IRoboPF/producto-a-escalas2025-20261104/manifiesto.json": "95a2caf1574126c7c66bcf92708291ed48bc1216d00395c6ee7794b226f67fb6",
++  "/home/elies/Backups/IRoboPF/producto-a-escalas2025-20261104/minimos-prosa.json": "a6687e9869c1bc423cd319b90b8e05a53956591dabf2b12e8f4c9ad150235620",
++  "/home/elies/Backups/IRoboPF/producto-a-escalas2025-20261104/originales.json": "b9bbbab58a8721090dd01cb0a82b4c873d90ea61814eb08177e5e5497fd488c1",
++  "/home/elies/Backups/IRoboPF/producto-a-escalas2025-20261104/paginas.json": "262dc6b6c9f6eddd13fad7ee3984c083e31086db4772a49709d5e4ab23fd0572",
++  "/home/elies/Backups/IRoboPF/producto-a-escalas2025-20261104/preimagenes.json": "8b0eafb383c9c8565e30ef54cb63d63243bb4eb1988de438c817c47050bb3aaa",
++  "/home/elies/Backups/IRoboPF/producto-a-escalas2025-20261104/preparar.py": "1e494d7563bc461502fc70dae6f3ec5c9ab9c7adb205871be92de805d3e40a73",
++  "/home/elies/Backups/IRoboPF/producto-a-escalas2025-20261104/primarios-discrepancias.json": "682b447e6cb4bbad64765e3f45bf0b93f90954c33542158a771a1c2a79e38d58",
++  "/home/elies/Backups/IRoboPF/producto-a-escalas2025-20261104/primarios.py": "a7c055a91b80fbd6ab038c5c2697cf8f683417c268982a9428c93a63feca12e2",
++  "/home/elies/Backups/IRoboPF/producto-a-escalas2025-20261104/replay-recibo.log": "a9161bcfaca284d14bd8376075458d01a249018c9f2bccc3bf825677614e5369",
++  "/home/elies/Backups/IRoboPF/producto-a-escalas2025-20261104/resultado.json": "578eb41cd9120cbd520bace2469bcab6150fa2ae9f3b55fbd9e60d0383a8406e",
++  "/home/elies/Backups/IRoboPF/producto-a-escalas2025-20261104/seleccion-real.json": "c1a8b390e35a58900fbb572a0c509eb2350c778ce30982975e2fb4b7965663a3",
++  "/home/elies/Backups/IRoboPF/producto-a-escalas2025-20261104/selector.mjs": "b0198c3fd34528a0faf263c1c45c4d5ff5b8f1f6e19535816040e2ad823d5cd2",
++  "/home/elies/Backups/IRoboPF/producto-a-escalas2025-20261104/verificar.py": "39f588b2d7a3c2b04bf53144731dbb9358595246d0610bedaf29038dc2fe157f",
++  "/home/elies/Backups/IRoboPF/producto-a-escalas2025-cas/sha256/02c6e8300a7f56c8c24aa947d4c39c5657c9a9eda6f5d727d44b4112d7de15d4": "02c6e8300a7f56c8c24aa947d4c39c5657c9a9eda6f5d727d44b4112d7de15d4",
++  "/home/elies/Backups/IRoboPF/producto-b2026-cas/sha256/2465b13736a4bb690dd8e43aa9097d57e70898cc90f5864cb0e126313704a427": "2465b13736a4bb690dd8e43aa9097d57e70898cc90f5864cb0e126313704a427",
++  "/home/elies/Backups/IRoboPF/producto-b2026-cas/sha256/a0e7a4375c604e7f4e8bbf8b98b276036dfac4e6f634f41de6d3a24760efcaef": "a0e7a4375c604e7f4e8bbf8b98b276036dfac4e6f634f41de6d3a24760efcaef",
++  "/home/elies/Backups/IRoboPF/producto-b2026-cas/sha256/cb5a0ab67029f42bbc95bed62947ed46ce5149b31517aaa1f55153cf9cbaf2aa": "cb5a0ab67029f42bbc95bed62947ed46ce5149b31517aaa1f55153cf9cbaf2aa",
++  "/home/elies/Backups/IRoboPF/producto-b2026-cas/sha256/fa282a231a7a0d9ad67237af2086b67b59bd8e27cc05ff9eeda8519954ccd307": "fa282a231a7a0d9ad67237af2086b67b59bd8e27cc05ff9eeda8519954ccd307",
++  "/home/elies/Repos/IRoboPF/bun.lock": "e7972a35bad5a90fe31ea3e71511e538f17d1679e69df7425bae306042446d34",
++  "/home/elies/Repos/IRoboPF/lib/dominio/dinero/importe-monetario.ts": "c34f0bfb31dbef47799eb25743810e8e482703d2a2f445763f4f62747949bea5",
++  "/home/elies/Repos/IRoboPF/lib/dominio/dinero/redondeo.ts": "c2505129198148232fc880f8070ae7131d695218c3ce40ba4b984366af51e05e",
++  "/home/elies/Repos/IRoboPF/lib/dominio/explicacion/fuente-explicacion.ts": "0cd2770bc98027038b00f6bf9a8751592aae70e51e6eb11cd59cb094e4ca73a8",
++  "/home/elies/Repos/IRoboPF/lib/dominio/explicacion/paso-explicacion.ts": "712e2a5316395b78e904ce282b7de63d725faec83b20bcd22d9bc72a7ed61eee",
++  "/home/elies/Repos/IRoboPF/lib/dominio/explicacion/rastro-calculo.ts": "c4e69858a16578b7d46952c31efa2893b1ae7bff5102dd2d08338f1e3be4fdff",
++  "/home/elies/Repos/IRoboPF/lib/dominio/irpf/actividades-economicas/contrato.ts": "4fe8b43dae6f1607c6102cb858044982ebb637dfae18b80604468b69463a11a2",
++  "/home/elies/Repos/IRoboPF/lib/dominio/irpf/caso-fiscal-anual.ts": "99ab2ad30d97cdf08d86a7a0b2f0a8ff03d8e41cdb254f3edbc45b4b8c1617dc",
++  "/home/elies/Repos/IRoboPF/lib/dominio/irpf/comunidades/comunidad-autonoma.ts": "5f99de3789ac91d93816a0918f4dd7c491080443a4fbc085a11d9ff8d40879e0",
++  "/home/elies/Repos/IRoboPF/lib/dominio/irpf/cuotas/escalas-gravamen.ts": "fcd31a59c781d543fc50c04e3927259305014534d2cac770e1e7946e1ba2802a",
++  "/home/elies/Repos/IRoboPF/lib/dominio/irpf/cuotas/escalas-publicadas.ts": "72e37d4bc100891e627674f474add14ffdb7b8276a2340c8d51b1e8af91bc4e7",
++  "/home/elies/Repos/IRoboPF/lib/dominio/irpf/liquidacion/composicion-anual.ts": "e9afd501600a4039874e11b425cf419dd61e1dbf29dfc6117f9833fdd2234262",
++  "/home/elies/Repos/IRoboPF/lib/dominio/irpf/minimos/derechos-contrato.ts": "c25d6ab77e428184b40be4adf4a1c33026d680b392382f094d75b1cab55eb051",
++  "/home/elies/Repos/IRoboPF/lib/dominio/irpf/minimos/derechos.ts": "8d4a39841a974eee20791820246af645c17cdb10b3ccdab2f1487e95be8bd0a7",
++  "/home/elies/Repos/IRoboPF/lib/dominio/irpf/minimos/minimo-contribuyente.ts": "10a48cc57a9e5c97fd641805c69a67c22f30f8dd3f9f6822809f4cd10927291b",
++  "/home/elies/Repos/IRoboPF/lib/dominio/irpf/minimos/minimo-discapacidad.ts": "64e3e95b65e14987bbb4328876cb9197cacfada99a08d2532d5fc073243cadf8",
++  "/home/elies/Repos/IRoboPF/lib/dominio/irpf/perfil-calculo.ts": "0b28fd25f51e096b7c5c42ca702c7a0c9a6652be39f91214a079e6ae11f9f636",
++  "/home/elies/Repos/IRoboPF/lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts": "8b10c52e7595b99211bcd70d6f7e9cb718293fb30bd5aba500fd57f0c7373f72",
++  "/home/elies/Repos/IRoboPF/lib/dominio/irpf/retenciones/versiones/catalogo.ts": "b120e9a6cbab8ec3a512f4cf397de8fa5e20064754da9c1ca7bffa00720c08bb",
++  "/home/elies/Repos/IRoboPF/lib/dominio/irpf/trabajo-anual/conexion-contrato.ts": "80c3dc3a7662b234d5094170c4c430a561901ebd26e199bb55b39db2be3bf343",
++  "/home/elies/Repos/IRoboPF/lib/dominio/irpf/trabajo-anual/contrato.ts": "d16aa5cb704c3649ac5f7ee4dd7a60637dbece1e42abe333bc6d67707a88a005",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/anio-fiscal.ts": "49205de6f07e08bb00f7ff2960d0c13b99870714de70446f86779d42eadeb4cb",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/deducciones-autonomicas-2025.ts": "6d1d508288afa948cd430d159f2d1e096b34c8c70937b3ba843778514c789af9",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/andalucia.ts": "d20cd4231a83d147d78af334c09a65f22f8a934860cf1b3d1402cca9cbcbdced",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/aragon.ts": "5d04a6d0d19e324d3a36c98330209c302bad85518eb98247cb3e0a272d1b43a3",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/asturias.ts": "bf846ce88aaecc86ac760ea0af3878be99a9d5e7ec55a0aa645bcbcc96223ef9",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/canarias.ts": "3b86d7fc8966ed09f888e2fa29035dbae82319a66e47db634374a20a355a0645",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/cantabria.ts": "207dc5554b8c658e89361b8f9bee41e66ad85470676c8bc2d90b6bff61729dc9",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/castilla-la-mancha.ts": "e070df095614e353e8aeb219f6d7772ed1387da960a58e32da87a9aa1348d50e",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/castilla-y-leon.ts": "3a358805d236f08e441aa7f739a8abff31424750a649d77587df96d1d5f6f0df",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/catalunya.ts": "48e2a6dc5ebdd56ccbd040a21869e2ed3625809a8345902caba5b5db5de32ac7",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/ceuta.ts": "36323df1d11836f783d6159cadc0559a4b242358641454e496e617c7e4439035",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/comunitat-valenciana.ts": "07b3c3a8c010160874418d806f7d15876a284f7a8677bba4310b5b03338c5d00",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/extremadura.ts": "7d4cab0d1ce1c26b8b0f90cd07dceff4a2f81f4539f53afe9775c24e2f60af43",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/galicia.ts": "a27c994ccf7293f7d07fca4ad6820644656aeb1e2c69583124ed261a21656630",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/illes-balears.ts": "c0c927ceb8108087864b139247683253e11cd08855a99751a374c03763fda8bf",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/la-rioja.ts": "b8b0ba98ac9fee31a220c48100eb41aa94724983cbdc7dc525599170e6219b1d",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/madrid.ts": "feccf4898042918f99d9bfd73edd5dfe457d8b93654e34f774dfccea7b5d9c57",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/melilla.ts": "17209c632446ffbbb011614d84778cc056f46ef4c608b029cfc20af48efdb893",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/murcia.ts": "720b5c0a3c3c29f5f8ef01cc6d5840024eb70141c35a8a6b6e56f97961c1e945",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/deducciones-autonomicas-2025/helpers.ts": "5b65317d5b6f7ba6c1666151cc584920bdfb2722e20bf94f6eeb01b3eafa8caf",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/deducciones-autonomicas-2025/index.ts": "e5992f445e5cc5b13377b2a2f918dc4d9f2d3df780aeadf64277d953c4fa28ae",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/deducciones-autonomicas-2025/procedencia.ts": "efe5424ad6fc6d863661c4e329aa4983ebed1b53793d9f71249fd93ce258a60f",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/deducciones-autonomicas-2025/tipos.ts": "b58e910491542207b1e667e57541f1c6d761f0ccd0f818b8966dc29efb34d751",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/irpf-autonomico-2012.ts": "b12b2d79cd5dc274b0223254627787e82caef4b98ef824d549f87b467b44b0b1",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/irpf-autonomico-2013.ts": "9e9d0bcefbbe1da12bef28c5d8a369bc89134e99d269a522cca50dfa79c329fe",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/irpf-autonomico-2014.ts": "67516e13ecb70823ca8911dbb76d4571665ee9ef2e501d1a94d911a1eae4bde7",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/irpf-autonomico-2015.ts": "e8f4d13816644aeeba6f1a055ab39a56bbcdd63a461ccfeec8c63404e4ed3eab",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/irpf-autonomico-2016.ts": "29cde1b8cc08aac802d0e4379148ac3c1194314f4f977a0fd7e47fa73c28b45e",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/irpf-autonomico-2017.ts": "2e68eb054e044f3f18c2931bbb8fd491115f6b3b498afb1b8f3a712504715cdf",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/irpf-autonomico-2018.ts": "4a7bcbf0ce27ef02d519b2597d93ff48b32b484f01bee50241c903fdc5c5f0bf",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/irpf-autonomico-2019.ts": "f1cd332b94523cc0d5b89afa7a375d753db9fc1b106745758f59dc521962efb9",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/irpf-autonomico-2020.ts": "bb3570ef19053e88c97820c20d5ae12af2f9f0779e2305da6b4550a42761b8ab",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/irpf-autonomico-2021.ts": "3a36528508f461d59a91059ad66b19902d4be98f96dd96a6a67f7de4cebe3f65",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/irpf-autonomico-2022.ts": "12e1286393169deaf7f7be2909e30b8540a4626cfd5add976a60ba9a18d6fed7",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/irpf-autonomico-2023.ts": "792e4515cbc83f597ba3009f54ab2b4323b288d6c91780fc8eeabb72fb50ff23",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/irpf-autonomico-2024.ts": "9549a3f6bd9b742d9ede3e60505a5ab214445a0a57e08983655cfa2d7ba556ca",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/irpf-autonomico-2025.ts": "6ac04eb3025d80ac269df77fba30b523cf62cf695bd70627396fa5673bff51b0",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/irpf-autonomico-2026.ts": "fa74cadf7c1e03c82f8a42b2921e72a5f9396d462471695556922dcc0478f42b",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts": "4f9b59996a787399dc893ecb6af6cb46982fd9cc39181e226cfcc30605b86f2e",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/irpf-retenciones-trabajo-2012-2026.ts": "c13850c27b0214f232aafe53013aa3b858031ad52264bf5710234b19879a2703",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/minimos-autonomicos-2012.ts": "31af9984461634f5cdb661b644651f5dbb48c8663a12083f991e333f15b252cd",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/minimos-autonomicos-2013.ts": "690b7bd3f9f606ec94d373bfec94f55a111482b665467de8b47edf395f2ea269",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/minimos-autonomicos-2014.ts": "f93790837f23337f5f59be935670a7be9f01136dbaca63a28bf12dcd989dc5b1",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/minimos-autonomicos-2015.ts": "4484fdf822369a6342a69364e6fc7f59803111ab3c8d16a138b4f19c9520cd5c",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/minimos-autonomicos-2016.ts": "28c9e6fae0aaa064f0c1ea069c5efa3808310435564533b80fba52b41f6c6ce1",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/minimos-autonomicos-2017.ts": "6e15929ce03cac49dccbf28cc5509e6ce0782e32d7a3213823f42f5bf3ef355b",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/minimos-autonomicos-2018.ts": "93f9334dafb495e19f172c79b606372ac7a571b355f7a1c0a5f122774a64dd4e",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/minimos-autonomicos-2019.ts": "f2406060317d5b131cdae7d5eccd062d01e2e332b53a0f139efcc206e838316d",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/minimos-autonomicos-2020.ts": "6f1da95f4f69482913c9a0f187f1e8b9c7eb3ec28687cc95a6036f7d0bce3170",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/minimos-autonomicos-2021.ts": "83f23600ce9e13edf0d2e4ee10db6c00978423c415cbe33f2064fe25799d7a49",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/minimos-autonomicos-2022.ts": "68d1e7b37117df007e4ccd05d5759ee77fd53ad7422a527850bd2084a3da10d7",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/minimos-autonomicos-2023.ts": "32a8e8c97a1d3773b65ab22804320d32eb3f81b735cb9cbedf6c69ca9bc4ee07",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/minimos-autonomicos-2024.ts": "d7dbc0ac8eb862172aaccae40cb9e539a18111a445eced846cc715e13ec54dbe",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/minimos-autonomicos-2025.ts": "076a58f62806baa1fe9c62174c1eb1c54c474c9022db02a06063555a07b82023",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/minimos-autonomicos-2026.ts": "345297aee114c1a7fe59bb3569bc5e1434bc1e460e0fc64fec6ee76243ee2e09",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/minimos-estatales-2026.ts": "9dcd130fc1ff89695644ff316f8e8b30a99ace78027a2e2b2068adf01e54f8b0",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/fuente-normativa.ts": "7afd3d8459f1d35f1058bdb2f369bca8b252d2c9fcc8c9a2db413a01ec45e289",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/repositorio-parametros.ts": "7bdd714bf6524c59e46df0bb74fcd214e9cd7a6d128d2b9082829c46e9b33981",
++  "/home/elies/Repos/IRoboPF/package.json": "af55f4eaf203953a1cb5507d25aa78e7b712cc4104fa98fe6624ca9726593ad2"
++}
+--- /dev/null
++++ b/docs/procedencia/revisiones/producto-a-escalas2025/fuentes-despues.json
+@@ -0,0 +1,124 @@
++{
++  "/home/elies/Backups/IRoboPF/producto-a-cuotas2025-correccion-20261104/INFORME.md": "f106753be1f0532eede42333fe2f202679ddfae0fc80e1966d340caa8d9ac848",
++  "/home/elies/Backups/IRoboPF/producto-a-cuotas2025-correccion-20261104/casos-monetarios.json": "7225d3618cddefcae40f0b6f2bd4bcd8627aa9d5e57185ab201efc8af4761a4c",
++  "/home/elies/Backups/IRoboPF/producto-a-cuotas2025-correccion-20261104/escalas-publicadas-2025.test.ts": "7bca57569ef6d78479d70499dc6d17c7e45ef77f78a7cd5918e576472701fbb8",
++  "/home/elies/Backups/IRoboPF/producto-a-cuotas2025-correccion-20261104/escalas-publicadas.runtime.ts": "4aa768a071f29df059289e09b744b7c266492464bed4f676eb7f99cb9c00f1ac",
++  "/home/elies/Backups/IRoboPF/producto-a-cuotas2025-correccion-20261104/escalas-publicadas.test.ts": "8c060ce2f5453d83d4c96710510da7b54d868e35d0ddcb8577df79e861015a16",
++  "/home/elies/Backups/IRoboPF/producto-a-cuotas2025-correccion-20261104/escalas-publicadas.test.ts.preimagen": "503e9708c72c31a550bdb3bd3159493e559081f494cf3a2979de2340d8170d6e",
++  "/home/elies/Backups/IRoboPF/producto-a-cuotas2025-correccion-20261104/escalas-publicadas.ts": "650fed582c74a95d1446a19645df82659781d0023d67da592aafe8b6a6add922",
++  "/home/elies/Backups/IRoboPF/producto-a-cuotas2025-correccion-20261104/escalas-publicadas.ts.preimagen": "72e37d4bc100891e627674f474add14ffdb7b8276a2340c8d51b1e8af91bc4e7",
++  "/home/elies/Backups/IRoboPF/producto-a-cuotas2025-correccion-20261104/implementacion.patch": "1d9a1c9b7b9b762490178d42f130ad5ebde5d5f613a3010f4ebeddd051513654",
++  "/home/elies/Backups/IRoboPF/producto-a-cuotas2025-correccion-20261104/manifiesto.json": "caafea43ec7c328e3b8bca482161d954efda9178ee105795b4aa8aab9393f46a",
++  "/home/elies/Backups/IRoboPF/producto-a-cuotas2025-correccion-20261104/rojo-verde-2.log": "c15992a22bdf9f9a603e208ef3c4bad8b10d47e14122c10c313760444607695b",
++  "/home/elies/Backups/IRoboPF/producto-a-cuotas2025-correccion-20261104/rojo-verde.log": "26c7b55b36496c72af234c8c7f73bf80823e2f763f51d4172a534b72c6bc5df8",
++  "/home/elies/Backups/IRoboPF/producto-a-cuotas2025-correccion-20261104/runtime.json": "4c858904ff3146a5c714e62f246eb9d986b32d02e45b5683719a4f69147dd64c",
++  "/home/elies/Backups/IRoboPF/producto-a-cuotas2025-correccion-20261104/sondeo.ts": "704eb87b2ed2ae527fa83053801819c16080c8770c61b3a3509b463a82416c18",
++  "/home/elies/Backups/IRoboPF/producto-a-escalas2025-20261104/INFORME.md": "9b4acfd8282d5182540c98b85e9e460cc4f725a419bd73afab98fbf42b9805a7",
++  "/home/elies/Backups/IRoboPF/producto-a-escalas2025-20261104/ambitos-escalas.json": "afc7f5b15ff3305d01899f1881ccd139d392b386d2e5b2c3fd0804caf76be4e2",
++  "/home/elies/Backups/IRoboPF/producto-a-escalas2025-20261104/casos-monetarios.json": "7225d3618cddefcae40f0b6f2bd4bcd8627aa9d5e57185ab201efc8af4761a4c",
++  "/home/elies/Backups/IRoboPF/producto-a-escalas2025-20261104/citas-escalas.json": "0609666adcab0f39f743d431c8181b80b9672fa1ebb6bdbe63b621e28403e514",
++  "/home/elies/Backups/IRoboPF/producto-a-escalas2025-20261104/empaquetar.py": "fd43738034fe83f28b6ed12ecb9c1e8b87ce3083c63645ca1aa9d746caa93394",
++  "/home/elies/Backups/IRoboPF/producto-a-escalas2025-20261104/entrega-manifiesto.json": "a796f7c780f552bb66c5c8dafaf360bc943e08408ff0406710b76332d4679cee",
++  "/home/elies/Backups/IRoboPF/producto-a-escalas2025-20261104/entrega.patch": "b521f2f6d7ad9eb3d5bfe95bd83bebe8653778711c0fd4344ffac334a342f3e3",
++  "/home/elies/Backups/IRoboPF/producto-a-escalas2025-20261104/escalas-oficiales.json": "337d502fbb7954d0c55a9eab51746ddf1d0b1d422efe6e99d201c13d7d94a27b",
++  "/home/elies/Backups/IRoboPF/producto-a-escalas2025-20261104/esperados.json": "0c08c8e6c7bea4317941867f054df5a6bbe28c2897512776ed6df38ef3635abc",
++  "/home/elies/Backups/IRoboPF/producto-a-escalas2025-20261104/extraer.py": "c81408598ab8e991c251df9ca6b03f018b6d01668c7db78b92bf36f10636ea80",
++  "/home/elies/Backups/IRoboPF/producto-a-escalas2025-20261104/manifiesto.json": "95a2caf1574126c7c66bcf92708291ed48bc1216d00395c6ee7794b226f67fb6",
++  "/home/elies/Backups/IRoboPF/producto-a-escalas2025-20261104/minimos-prosa.json": "a6687e9869c1bc423cd319b90b8e05a53956591dabf2b12e8f4c9ad150235620",
++  "/home/elies/Backups/IRoboPF/producto-a-escalas2025-20261104/originales.json": "b9bbbab58a8721090dd01cb0a82b4c873d90ea61814eb08177e5e5497fd488c1",
++  "/home/elies/Backups/IRoboPF/producto-a-escalas2025-20261104/paginas.json": "262dc6b6c9f6eddd13fad7ee3984c083e31086db4772a49709d5e4ab23fd0572",
++  "/home/elies/Backups/IRoboPF/producto-a-escalas2025-20261104/preimagenes.json": "8b0eafb383c9c8565e30ef54cb63d63243bb4eb1988de438c817c47050bb3aaa",
++  "/home/elies/Backups/IRoboPF/producto-a-escalas2025-20261104/preparar.py": "1e494d7563bc461502fc70dae6f3ec5c9ab9c7adb205871be92de805d3e40a73",
++  "/home/elies/Backups/IRoboPF/producto-a-escalas2025-20261104/primarios-discrepancias.json": "682b447e6cb4bbad64765e3f45bf0b93f90954c33542158a771a1c2a79e38d58",
++  "/home/elies/Backups/IRoboPF/producto-a-escalas2025-20261104/primarios.py": "a7c055a91b80fbd6ab038c5c2697cf8f683417c268982a9428c93a63feca12e2",
++  "/home/elies/Backups/IRoboPF/producto-a-escalas2025-20261104/replay-recibo.log": "a9161bcfaca284d14bd8376075458d01a249018c9f2bccc3bf825677614e5369",
++  "/home/elies/Backups/IRoboPF/producto-a-escalas2025-20261104/resultado.json": "578eb41cd9120cbd520bace2469bcab6150fa2ae9f3b55fbd9e60d0383a8406e",
++  "/home/elies/Backups/IRoboPF/producto-a-escalas2025-20261104/seleccion-real.json": "c1a8b390e35a58900fbb572a0c509eb2350c778ce30982975e2fb4b7965663a3",
++  "/home/elies/Backups/IRoboPF/producto-a-escalas2025-20261104/selector.mjs": "b0198c3fd34528a0faf263c1c45c4d5ff5b8f1f6e19535816040e2ad823d5cd2",
++  "/home/elies/Backups/IRoboPF/producto-a-escalas2025-20261104/verificar.py": "39f588b2d7a3c2b04bf53144731dbb9358595246d0610bedaf29038dc2fe157f",
++  "/home/elies/Backups/IRoboPF/producto-a-escalas2025-cas/sha256/02c6e8300a7f56c8c24aa947d4c39c5657c9a9eda6f5d727d44b4112d7de15d4": "02c6e8300a7f56c8c24aa947d4c39c5657c9a9eda6f5d727d44b4112d7de15d4",
++  "/home/elies/Backups/IRoboPF/producto-b2026-cas/sha256/2465b13736a4bb690dd8e43aa9097d57e70898cc90f5864cb0e126313704a427": "2465b13736a4bb690dd8e43aa9097d57e70898cc90f5864cb0e126313704a427",
++  "/home/elies/Backups/IRoboPF/producto-b2026-cas/sha256/a0e7a4375c604e7f4e8bbf8b98b276036dfac4e6f634f41de6d3a24760efcaef": "a0e7a4375c604e7f4e8bbf8b98b276036dfac4e6f634f41de6d3a24760efcaef",
++  "/home/elies/Backups/IRoboPF/producto-b2026-cas/sha256/cb5a0ab67029f42bbc95bed62947ed46ce5149b31517aaa1f55153cf9cbaf2aa": "cb5a0ab67029f42bbc95bed62947ed46ce5149b31517aaa1f55153cf9cbaf2aa",
++  "/home/elies/Backups/IRoboPF/producto-b2026-cas/sha256/fa282a231a7a0d9ad67237af2086b67b59bd8e27cc05ff9eeda8519954ccd307": "fa282a231a7a0d9ad67237af2086b67b59bd8e27cc05ff9eeda8519954ccd307",
++  "/home/elies/Repos/IRoboPF/bun.lock": "e7972a35bad5a90fe31ea3e71511e538f17d1679e69df7425bae306042446d34",
++  "/home/elies/Repos/IRoboPF/lib/dominio/dinero/importe-monetario.ts": "c34f0bfb31dbef47799eb25743810e8e482703d2a2f445763f4f62747949bea5",
++  "/home/elies/Repos/IRoboPF/lib/dominio/dinero/redondeo.ts": "c2505129198148232fc880f8070ae7131d695218c3ce40ba4b984366af51e05e",
++  "/home/elies/Repos/IRoboPF/lib/dominio/explicacion/fuente-explicacion.ts": "0cd2770bc98027038b00f6bf9a8751592aae70e51e6eb11cd59cb094e4ca73a8",
++  "/home/elies/Repos/IRoboPF/lib/dominio/explicacion/paso-explicacion.ts": "712e2a5316395b78e904ce282b7de63d725faec83b20bcd22d9bc72a7ed61eee",
++  "/home/elies/Repos/IRoboPF/lib/dominio/explicacion/rastro-calculo.ts": "c4e69858a16578b7d46952c31efa2893b1ae7bff5102dd2d08338f1e3be4fdff",
++  "/home/elies/Repos/IRoboPF/lib/dominio/irpf/actividades-economicas/contrato.ts": "4fe8b43dae6f1607c6102cb858044982ebb637dfae18b80604468b69463a11a2",
++  "/home/elies/Repos/IRoboPF/lib/dominio/irpf/caso-fiscal-anual.ts": "99ab2ad30d97cdf08d86a7a0b2f0a8ff03d8e41cdb254f3edbc45b4b8c1617dc",
++  "/home/elies/Repos/IRoboPF/lib/dominio/irpf/comunidades/comunidad-autonoma.ts": "5f99de3789ac91d93816a0918f4dd7c491080443a4fbc085a11d9ff8d40879e0",
++  "/home/elies/Repos/IRoboPF/lib/dominio/irpf/cuotas/escalas-gravamen.ts": "fcd31a59c781d543fc50c04e3927259305014534d2cac770e1e7946e1ba2802a",
++  "/home/elies/Repos/IRoboPF/lib/dominio/irpf/cuotas/escalas-publicadas.ts": "72e37d4bc100891e627674f474add14ffdb7b8276a2340c8d51b1e8af91bc4e7",
++  "/home/elies/Repos/IRoboPF/lib/dominio/irpf/liquidacion/composicion-anual.ts": "e9afd501600a4039874e11b425cf419dd61e1dbf29dfc6117f9833fdd2234262",
++  "/home/elies/Repos/IRoboPF/lib/dominio/irpf/minimos/derechos-contrato.ts": "c25d6ab77e428184b40be4adf4a1c33026d680b392382f094d75b1cab55eb051",
++  "/home/elies/Repos/IRoboPF/lib/dominio/irpf/minimos/derechos.ts": "8d4a39841a974eee20791820246af645c17cdb10b3ccdab2f1487e95be8bd0a7",
++  "/home/elies/Repos/IRoboPF/lib/dominio/irpf/minimos/minimo-contribuyente.ts": "10a48cc57a9e5c97fd641805c69a67c22f30f8dd3f9f6822809f4cd10927291b",
++  "/home/elies/Repos/IRoboPF/lib/dominio/irpf/minimos/minimo-discapacidad.ts": "64e3e95b65e14987bbb4328876cb9197cacfada99a08d2532d5fc073243cadf8",
++  "/home/elies/Repos/IRoboPF/lib/dominio/irpf/perfil-calculo.ts": "0b28fd25f51e096b7c5c42ca702c7a0c9a6652be39f91214a079e6ae11f9f636",
++  "/home/elies/Repos/IRoboPF/lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts": "8b10c52e7595b99211bcd70d6f7e9cb718293fb30bd5aba500fd57f0c7373f72",
++  "/home/elies/Repos/IRoboPF/lib/dominio/irpf/retenciones/versiones/catalogo.ts": "b120e9a6cbab8ec3a512f4cf397de8fa5e20064754da9c1ca7bffa00720c08bb",
++  "/home/elies/Repos/IRoboPF/lib/dominio/irpf/trabajo-anual/conexion-contrato.ts": "80c3dc3a7662b234d5094170c4c430a561901ebd26e199bb55b39db2be3bf343",
++  "/home/elies/Repos/IRoboPF/lib/dominio/irpf/trabajo-anual/contrato.ts": "d16aa5cb704c3649ac5f7ee4dd7a60637dbece1e42abe333bc6d67707a88a005",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/anio-fiscal.ts": "49205de6f07e08bb00f7ff2960d0c13b99870714de70446f86779d42eadeb4cb",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/deducciones-autonomicas-2025.ts": "6d1d508288afa948cd430d159f2d1e096b34c8c70937b3ba843778514c789af9",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/andalucia.ts": "d20cd4231a83d147d78af334c09a65f22f8a934860cf1b3d1402cca9cbcbdced",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/aragon.ts": "5d04a6d0d19e324d3a36c98330209c302bad85518eb98247cb3e0a272d1b43a3",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/asturias.ts": "bf846ce88aaecc86ac760ea0af3878be99a9d5e7ec55a0aa645bcbcc96223ef9",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/canarias.ts": "3b86d7fc8966ed09f888e2fa29035dbae82319a66e47db634374a20a355a0645",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/cantabria.ts": "207dc5554b8c658e89361b8f9bee41e66ad85470676c8bc2d90b6bff61729dc9",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/castilla-la-mancha.ts": "e070df095614e353e8aeb219f6d7772ed1387da960a58e32da87a9aa1348d50e",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/castilla-y-leon.ts": "3a358805d236f08e441aa7f739a8abff31424750a649d77587df96d1d5f6f0df",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/catalunya.ts": "48e2a6dc5ebdd56ccbd040a21869e2ed3625809a8345902caba5b5db5de32ac7",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/ceuta.ts": "36323df1d11836f783d6159cadc0559a4b242358641454e496e617c7e4439035",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/comunitat-valenciana.ts": "07b3c3a8c010160874418d806f7d15876a284f7a8677bba4310b5b03338c5d00",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/extremadura.ts": "7d4cab0d1ce1c26b8b0f90cd07dceff4a2f81f4539f53afe9775c24e2f60af43",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/galicia.ts": "a27c994ccf7293f7d07fca4ad6820644656aeb1e2c69583124ed261a21656630",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/illes-balears.ts": "c0c927ceb8108087864b139247683253e11cd08855a99751a374c03763fda8bf",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/la-rioja.ts": "b8b0ba98ac9fee31a220c48100eb41aa94724983cbdc7dc525599170e6219b1d",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/madrid.ts": "feccf4898042918f99d9bfd73edd5dfe457d8b93654e34f774dfccea7b5d9c57",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/melilla.ts": "17209c632446ffbbb011614d84778cc056f46ef4c608b029cfc20af48efdb893",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/deducciones-autonomicas-2025/comunidades/murcia.ts": "720b5c0a3c3c29f5f8ef01cc6d5840024eb70141c35a8a6b6e56f97961c1e945",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/deducciones-autonomicas-2025/helpers.ts": "5b65317d5b6f7ba6c1666151cc584920bdfb2722e20bf94f6eeb01b3eafa8caf",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/deducciones-autonomicas-2025/index.ts": "e5992f445e5cc5b13377b2a2f918dc4d9f2d3df780aeadf64277d953c4fa28ae",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/deducciones-autonomicas-2025/procedencia.ts": "efe5424ad6fc6d863661c4e329aa4983ebed1b53793d9f71249fd93ce258a60f",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/deducciones-autonomicas-2025/tipos.ts": "b58e910491542207b1e667e57541f1c6d761f0ccd0f818b8966dc29efb34d751",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/irpf-autonomico-2012.ts": "b12b2d79cd5dc274b0223254627787e82caef4b98ef824d549f87b467b44b0b1",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/irpf-autonomico-2013.ts": "9e9d0bcefbbe1da12bef28c5d8a369bc89134e99d269a522cca50dfa79c329fe",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/irpf-autonomico-2014.ts": "67516e13ecb70823ca8911dbb76d4571665ee9ef2e501d1a94d911a1eae4bde7",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/irpf-autonomico-2015.ts": "e8f4d13816644aeeba6f1a055ab39a56bbcdd63a461ccfeec8c63404e4ed3eab",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/irpf-autonomico-2016.ts": "29cde1b8cc08aac802d0e4379148ac3c1194314f4f977a0fd7e47fa73c28b45e",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/irpf-autonomico-2017.ts": "2e68eb054e044f3f18c2931bbb8fd491115f6b3b498afb1b8f3a712504715cdf",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/irpf-autonomico-2018.ts": "4a7bcbf0ce27ef02d519b2597d93ff48b32b484f01bee50241c903fdc5c5f0bf",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/irpf-autonomico-2019.ts": "f1cd332b94523cc0d5b89afa7a375d753db9fc1b106745758f59dc521962efb9",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/irpf-autonomico-2020.ts": "bb3570ef19053e88c97820c20d5ae12af2f9f0779e2305da6b4550a42761b8ab",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/irpf-autonomico-2021.ts": "3a36528508f461d59a91059ad66b19902d4be98f96dd96a6a67f7de4cebe3f65",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/irpf-autonomico-2022.ts": "12e1286393169deaf7f7be2909e30b8540a4626cfd5add976a60ba9a18d6fed7",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/irpf-autonomico-2023.ts": "792e4515cbc83f597ba3009f54ab2b4323b288d6c91780fc8eeabb72fb50ff23",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/irpf-autonomico-2024.ts": "9549a3f6bd9b742d9ede3e60505a5ab214445a0a57e08983655cfa2d7ba556ca",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/irpf-autonomico-2025.ts": "6ac04eb3025d80ac269df77fba30b523cf62cf695bd70627396fa5673bff51b0",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/irpf-autonomico-2026.ts": "fa74cadf7c1e03c82f8a42b2921e72a5f9396d462471695556922dcc0478f42b",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/irpf-estatal-2012-2026.ts": "4f9b59996a787399dc893ecb6af6cb46982fd9cc39181e226cfcc30605b86f2e",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/irpf-retenciones-trabajo-2012-2026.ts": "c13850c27b0214f232aafe53013aa3b858031ad52264bf5710234b19879a2703",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/minimos-autonomicos-2012.ts": "31af9984461634f5cdb661b644651f5dbb48c8663a12083f991e333f15b252cd",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/minimos-autonomicos-2013.ts": "690b7bd3f9f606ec94d373bfec94f55a111482b665467de8b47edf395f2ea269",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/minimos-autonomicos-2014.ts": "f93790837f23337f5f59be935670a7be9f01136dbaca63a28bf12dcd989dc5b1",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/minimos-autonomicos-2015.ts": "4484fdf822369a6342a69364e6fc7f59803111ab3c8d16a138b4f19c9520cd5c",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/minimos-autonomicos-2016.ts": "28c9e6fae0aaa064f0c1ea069c5efa3808310435564533b80fba52b41f6c6ce1",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/minimos-autonomicos-2017.ts": "6e15929ce03cac49dccbf28cc5509e6ce0782e32d7a3213823f42f5bf3ef355b",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/minimos-autonomicos-2018.ts": "93f9334dafb495e19f172c79b606372ac7a571b355f7a1c0a5f122774a64dd4e",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/minimos-autonomicos-2019.ts": "f2406060317d5b131cdae7d5eccd062d01e2e332b53a0f139efcc206e838316d",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/minimos-autonomicos-2020.ts": "6f1da95f4f69482913c9a0f187f1e8b9c7eb3ec28687cc95a6036f7d0bce3170",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/minimos-autonomicos-2021.ts": "83f23600ce9e13edf0d2e4ee10db6c00978423c415cbe33f2064fe25799d7a49",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/minimos-autonomicos-2022.ts": "68d1e7b37117df007e4ccd05d5759ee77fd53ad7422a527850bd2084a3da10d7",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/minimos-autonomicos-2023.ts": "32a8e8c97a1d3773b65ab22804320d32eb3f81b735cb9cbedf6c69ca9bc4ee07",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/minimos-autonomicos-2024.ts": "d7dbc0ac8eb862172aaccae40cb9e539a18111a445eced846cc715e13ec54dbe",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/minimos-autonomicos-2025.ts": "076a58f62806baa1fe9c62174c1eb1c54c474c9022db02a06063555a07b82023",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/minimos-autonomicos-2026.ts": "345297aee114c1a7fe59bb3569bc5e1434bc1e460e0fc64fec6ee76243ee2e09",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/minimos-estatales-2026.ts": "9dcd130fc1ff89695644ff316f8e8b30a99ace78027a2e2b2068adf01e54f8b0",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/fuente-normativa.ts": "7afd3d8459f1d35f1058bdb2f369bca8b252d2c9fcc8c9a2db413a01ec45e289",
++  "/home/elies/Repos/IRoboPF/lib/dominio/normativa/repositorio-parametros.ts": "7bdd714bf6524c59e46df0bb74fcd214e9cd7a6d128d2b9082829c46e9b33981",
++  "/home/elies/Repos/IRoboPF/package.json": "af55f4eaf203953a1cb5507d25aa78e7b712cc4104fa98fe6624ca9726593ad2"
++}
+--- /dev/null
++++ b/docs/procedencia/revisiones/producto-a-escalas2025/integridad.json
+@@ -0,0 +1,11 @@
++{
++  "sources": 122,
++  "unchanged": true,
++  "preimages": 79,
++  "candidatePatchInMemory": [
++    "lib/dominio/irpf/cuotas/escalas-publicadas.ts",
++    "tests/escalas-publicadas-2025.test.ts",
++    "tests/escalas-publicadas.test.ts"
++  ],
++  "documentationManifests": "pass"
++}
+--- /dev/null
++++ b/docs/procedencia/revisiones/producto-a-escalas2025/oraculo-fronteras.json
+@@ -0,0 +1,2167 @@
++{
++  "rows": {
++    "andalucia": [
++      [
++        "0.00",
++        "0.00",
++        "0.095"
++      ],
++      [
++        "13000.00",
++        "1235.00",
++        "0.12"
++      ],
++      [
++        "21100.00",
++        "2207.00",
++        "0.15"
++      ],
++      [
++        "35200.00",
++        "4322.00",
++        "0.185"
++      ],
++      [
++        "60000.00",
++        "8910.00",
++        "0.225"
++      ]
++    ],
++    "aragon": [
++      [
++        "0.00",
++        "0.00",
++        "0.095"
++      ],
++      [
++        "13072.50",
++        "1241.89",
++        "0.12"
++      ],
++      [
++        "21210.00",
++        "2218.39",
++        "0.15"
++      ],
++      [
++        "36960.00",
++        "4580.89",
++        "0.185"
++      ],
++      [
++        "52500.00",
++        "7455.79",
++        "0.205"
++      ],
++      [
++        "60000.00",
++        "8993.29",
++        "0.23"
++      ],
++      [
++        "80000.00",
++        "13593.29",
++        "0.24"
++      ],
++      [
++        "90000.00",
++        "15993.29",
++        "0.25"
++      ],
++      [
++        "130000.00",
++        "25993.29",
++        "0.255"
++      ]
++    ],
++    "asturias": [
++      [
++        "0.00",
++        "0.00",
++        "0.09"
++      ],
++      [
++        "12450.00",
++        "1120.50",
++        "0.12"
++      ],
++      [
++        "17707.20",
++        "1751.36",
++        "0.14"
++      ],
++      [
++        "33007.20",
++        "3893.36",
++        "0.192"
++      ],
++      [
++        "53407.20",
++        "7810.16",
++        "0.215"
++      ],
++      [
++        "70000.00",
++        "11377.62",
++        "0.225"
++      ],
++      [
++        "90000.00",
++        "15877.62",
++        "0.25"
++      ],
++      [
++        "175000.00",
++        "37127.62",
++        "0.26"
++      ]
++    ],
++    "illes-balears": [
++      [
++        "0.00",
++        "0.00",
++        "0.09"
++      ],
++      [
++        "10000",
++        "900",
++        "0.1125"
++      ],
++      [
++        "18000",
++        "1800",
++        "0.1425"
++      ],
++      [
++        "30000",
++        "3510",
++        "0.175"
++      ],
++      [
++        "48000",
++        "6660",
++        "0.19"
++      ],
++      [
++        "70000",
++        "10840",
++        "0.2175"
++      ],
++      [
++        "90000",
++        "15190",
++        "0.2275"
++      ],
++      [
++        "120000",
++        "22015",
++        "0.2375"
++      ],
++      [
++        "175000",
++        "35077.50",
++        "0.2475"
++      ]
++    ],
++    "canarias": [
++      [
++        "0.00",
++        "0.00",
++        "0.09"
++      ],
++      [
++        "13748",
++        "1237.32",
++        "0.115"
++      ],
++      [
++        "19422",
++        "1889.83",
++        "0.14"
++      ],
++      [
++        "35924",
++        "4200.11",
++        "0.185"
++      ],
++      [
++        "57566",
++        "8203.88",
++        "0.235"
++      ],
++      [
++        "93268",
++        "16593.85",
++        "0.25"
++      ],
++      [
++        "123745",
++        "24213.10",
++        "0.26"
++      ]
++    ],
++    "cantabria": [
++      [
++        "0.00",
++        "0.00",
++        "0.085"
++      ],
++      [
++        "13000",
++        "1105",
++        "0.11"
++      ],
++      [
++        "21000",
++        "1985",
++        "0.145"
++      ],
++      [
++        "35200",
++        "4044",
++        "0.18"
++      ],
++      [
++        "60000",
++        "8508",
++        "0.225"
++      ],
++      [
++        "90000",
++        "15258",
++        "0.245"
++      ]
++    ],
++    "castilla-la-mancha": [
++      [
++        "0.00",
++        "0.00",
++        "0.095"
++      ],
++      [
++        "12450.00",
++        "1182.75",
++        "0.12"
++      ],
++      [
++        "20200.00",
++        "2112.75",
++        "0.15"
++      ],
++      [
++        "35200.00",
++        "4362.75",
++        "0.185"
++      ],
++      [
++        "60000.00",
++        "8950.75",
++        "0.225"
++      ]
++    ],
++    "castilla-y-leon": [
++      [
++        "0.00",
++        "0.00",
++        "0.09"
++      ],
++      [
++        "12450.00",
++        "1120.50",
++        "0.12"
++      ],
++      [
++        "20200.00",
++        "2050.50",
++        "0.14"
++      ],
++      [
++        "35200.00",
++        "4150.50",
++        "0.185"
++      ],
++      [
++        "53407.20",
++        "7518.83",
++        "0.215"
++      ]
++    ],
++    "catalunya": [
++      [
++        "0.00",
++        "0.00",
++        "0.095"
++      ],
++      [
++        "12500.00",
++        "1187.50",
++        "0.125"
++      ],
++      [
++        "22000.00",
++        "2375.00",
++        "0.16"
++      ],
++      [
++        "33000.00",
++        "4135.00",
++        "0.19"
++      ],
++      [
++        "53000.00",
++        "7935.00",
++        "0.215"
++      ],
++      [
++        "90000.00",
++        "15890.00",
++        "0.235"
++      ],
++      [
++        "120000.00",
++        "22940.00",
++        "0.245"
++      ],
++      [
++        "175000.00",
++        "36415.00",
++        "0.255"
++      ]
++    ],
++    "extremadura": [
++      [
++        "0",
++        "0",
++        "0.08"
++      ],
++      [
++        "12450.00",
++        "996.00",
++        "0.1"
++      ],
++      [
++        "20200.00",
++        "1771.00",
++        "0.16"
++      ],
++      [
++        "24200.00",
++        "2411.00",
++        "0.175"
++      ],
++      [
++        "35200.00",
++        "4336.00",
++        "0.21"
++      ],
++      [
++        "60000.00",
++        "9544.00",
++        "0.235"
++      ],
++      [
++        "80200.00",
++        "14291.00",
++        "0.24"
++      ],
++      [
++        "99200.00",
++        "18851.00",
++        "0.245"
++      ],
++      [
++        "120200.00",
++        "23996.00",
++        "0.25"
++      ]
++    ],
++    "galicia": [
++      [
++        "0.00",
++        "0.00",
++        "0.09"
++      ],
++      [
++        "12985.35",
++        "1168.68",
++        "0.1165"
++      ],
++      [
++        "21068.60",
++        "2110.38",
++        "0.149"
++      ],
++      [
++        "35200.00",
++        "4215.96",
++        "0.184"
++      ],
++      [
++        "60000.00",
++        "8779.16",
++        "0.225"
++      ]
++    ],
++    "madrid": [
++      [
++        "0",
++        "0",
++        "0.085"
++      ],
++      [
++        "13362.22",
++        "1135.79",
++        "0.107"
++      ],
++      [
++        "19004.63",
++        "1739.53",
++        "0.128"
++      ],
++      [
++        "35425.68",
++        "3841.42",
++        "0.174"
++      ],
++      [
++        "57320.40",
++        "7651.10",
++        "0.205"
++      ]
++    ],
++    "murcia": [
++      [
++        "0",
++        "0",
++        "0.095"
++      ],
++      [
++        "12450.00",
++        "1182.75",
++        "0.112"
++      ],
++      [
++        "20200.00",
++        "2050.75",
++        "0.133"
++      ],
++      [
++        "34000.00",
++        "3886.15",
++        "0.179"
++      ],
++      [
++        "60000.00",
++        "8540.15",
++        "0.225"
++      ]
++    ],
++    "la-rioja": [
++      [
++        "0.00",
++        "0.00",
++        "0.08"
++      ],
++      [
++        "12450.00",
++        "996.00",
++        "0.106"
++      ],
++      [
++        "20200.00",
++        "1817.50",
++        "0.136"
++      ],
++      [
++        "35200.00",
++        "3857.50",
++        "0.178"
++      ],
++      [
++        "40000",
++        "4711.90",
++        "0.183"
++      ],
++      [
++        "50000.00",
++        "6541.90",
++        "0.19"
++      ],
++      [
++        "60000.00",
++        "8441.90",
++        "0.245"
++      ],
++      [
++        "120000.00",
++        "23141.90",
++        "0.27"
++      ]
++    ],
++    "comunitat-valenciana": [
++      [
++        "0",
++        "0",
++        "0.09"
++      ],
++      [
++        "12000",
++        "1080.00",
++        "0.12"
++      ],
++      [
++        "22000",
++        "2280.00",
++        "0.15"
++      ],
++      [
++        "32000",
++        "3780.00",
++        "0.175"
++      ],
++      [
++        "42000",
++        "5530.00",
++        "0.20"
++      ],
++      [
++        "52000",
++        "7530.00",
++        "0.225"
++      ],
++      [
++        "62000",
++        "9780.00",
++        "0.25"
++      ],
++      [
++        "72000",
++        "12280.00",
++        "0.265"
++      ],
++      [
++        "100000",
++        "19700.00",
++        "0.275"
++      ],
++      [
++        "150000",
++        "33450.00",
++        "0.285"
++      ],
++      [
++        "200000",
++        "47700.00",
++        "0.295"
++      ]
++    ],
++    "ceuta": [
++      [
++        "0.00",
++        "0.00",
++        "0.095"
++      ],
++      [
++        "12450.00",
++        "1182.75",
++        "0.12"
++      ],
++      [
++        "20200.00",
++        "2112.75",
++        "0.15"
++      ],
++      [
++        "35200.00",
++        "4362.75",
++        "0.185"
++      ],
++      [
++        "60000.00",
++        "8950.75",
++        "0.225"
++      ]
++    ],
++    "melilla": [
++      [
++        "0.00",
++        "0.00",
++        "0.095"
++      ],
++      [
++        "12450.00",
++        "1182.75",
++        "0.12"
++      ],
++      [
++        "20200.00",
++        "2112.75",
++        "0.15"
++      ],
++      [
++        "35200.00",
++        "4362.75",
++        "0.185"
++      ],
++      [
++        "60000.00",
++        "8950.75",
++        "0.225"
++      ]
++    ]
++  },
++  "cases": [
++    {
++      "territory": "aragon",
++      "base": "-1",
++      "expected": "0",
++      "cents": "0.00"
++    },
++    {
++      "territory": "aragon",
++      "base": "-0.01",
++      "expected": "0",
++      "cents": "0.00"
++    },
++    {
++      "territory": "aragon",
++      "base": "-0.001",
++      "expected": "0",
++      "cents": "0.00"
++    },
++    {
++      "territory": "aragon",
++      "base": "0",
++      "expected": "0",
++      "cents": "0.00"
++    },
++    {
++      "territory": "aragon",
++      "base": "0.001",
++      "expected": "0.000095",
++      "cents": "0.00"
++    },
++    {
++      "territory": "aragon",
++      "base": "0.01",
++      "expected": "0.00095",
++      "cents": "0.00"
++    },
++    {
++      "territory": "aragon",
++      "base": "137.29",
++      "expected": "13.04255",
++      "cents": "13.04"
++    },
++    {
++      "territory": "aragon",
++      "base": "13072.49",
++      "expected": "1241.88655",
++      "cents": "1241.89"
++    },
++    {
++      "territory": "aragon",
++      "base": "13072.499",
++      "expected": "1241.887405",
++      "cents": "1241.89"
++    },
++    {
++      "territory": "aragon",
++      "base": "13072.50",
++      "expected": "1241.8900",
++      "cents": "1241.89"
++    },
++    {
++      "territory": "aragon",
++      "base": "13072.501",
++      "expected": "1241.89012",
++      "cents": "1241.89"
++    },
++    {
++      "territory": "aragon",
++      "base": "13072.51",
++      "expected": "1241.8912",
++      "cents": "1241.89"
++    },
++    {
++      "territory": "aragon",
++      "base": "13209.79",
++      "expected": "1258.3648",
++      "cents": "1258.36"
++    },
++    {
++      "territory": "aragon",
++      "base": "21209.99",
++      "expected": "2218.3888",
++      "cents": "2218.39"
++    },
++    {
++      "territory": "aragon",
++      "base": "21209.999",
++      "expected": "2218.38988",
++      "cents": "2218.39"
++    },
++    {
++      "territory": "aragon",
++      "base": "21210.00",
++      "expected": "2218.3900",
++      "cents": "2218.39"
++    },
++    {
++      "territory": "aragon",
++      "base": "21210.001",
++      "expected": "2218.39015",
++      "cents": "2218.39"
++    },
++    {
++      "territory": "aragon",
++      "base": "21210.01",
++      "expected": "2218.3915",
++      "cents": "2218.39"
++    },
++    {
++      "territory": "aragon",
++      "base": "21347.29",
++      "expected": "2238.9835",
++      "cents": "2238.98"
++    },
++    {
++      "territory": "aragon",
++      "base": "36959.99",
++      "expected": "4580.8885",
++      "cents": "4580.89"
++    },
++    {
++      "territory": "aragon",
++      "base": "36959.999",
++      "expected": "4580.88985",
++      "cents": "4580.89"
++    },
++    {
++      "territory": "aragon",
++      "base": "36960.00",
++      "expected": "4580.89000",
++      "cents": "4580.89"
++    },
++    {
++      "territory": "aragon",
++      "base": "36960.001",
++      "expected": "4580.890185",
++      "cents": "4580.89"
++    },
++    {
++      "territory": "aragon",
++      "base": "36960.01",
++      "expected": "4580.89185",
++      "cents": "4580.89"
++    },
++    {
++      "territory": "aragon",
++      "base": "37097.29",
++      "expected": "4606.28865",
++      "cents": "4606.29"
++    },
++    {
++      "territory": "aragon",
++      "base": "52499.99",
++      "expected": "7455.78815",
++      "cents": "7455.79"
++    },
++    {
++      "territory": "aragon",
++      "base": "52499.999",
++      "expected": "7455.789815",
++      "cents": "7455.79"
++    },
++    {
++      "territory": "aragon",
++      "base": "52500.00",
++      "expected": "7455.79000",
++      "cents": "7455.79"
++    },
++    {
++      "territory": "aragon",
++      "base": "52500.001",
++      "expected": "7455.790205",
++      "cents": "7455.79"
++    },
++    {
++      "territory": "aragon",
++      "base": "52500.01",
++      "expected": "7455.79205",
++      "cents": "7455.79"
++    },
++    {
++      "territory": "aragon",
++      "base": "52637.29",
++      "expected": "7483.93445",
++      "cents": "7483.93"
++    },
++    {
++      "territory": "aragon",
++      "base": "59999.99",
++      "expected": "8993.28795",
++      "cents": "8993.29"
++    },
++    {
++      "territory": "aragon",
++      "base": "59999.999",
++      "expected": "8993.289795",
++      "cents": "8993.29"
++    },
++    {
++      "territory": "aragon",
++      "base": "60000.00",
++      "expected": "8993.2900",
++      "cents": "8993.29"
++    },
++    {
++      "territory": "aragon",
++      "base": "60000.001",
++      "expected": "8993.29023",
++      "cents": "8993.29"
++    },
++    {
++      "territory": "aragon",
++      "base": "60000.01",
++      "expected": "8993.2923",
++      "cents": "8993.29"
++    },
++    {
++      "territory": "aragon",
++      "base": "60137.29",
++      "expected": "9024.8667",
++      "cents": "9024.87"
++    },
++    {
++      "territory": "aragon",
++      "base": "79999.99",
++      "expected": "13593.2877",
++      "cents": "13593.29"
++    },
++    {
++      "territory": "aragon",
++      "base": "79999.999",
++      "expected": "13593.28977",
++      "cents": "13593.29"
++    },
++    {
++      "territory": "aragon",
++      "base": "80000.00",
++      "expected": "13593.2900",
++      "cents": "13593.29"
++    },
++    {
++      "territory": "aragon",
++      "base": "80000.001",
++      "expected": "13593.29024",
++      "cents": "13593.29"
++    },
++    {
++      "territory": "aragon",
++      "base": "80000.01",
++      "expected": "13593.2924",
++      "cents": "13593.29"
++    },
++    {
++      "territory": "aragon",
++      "base": "80137.29",
++      "expected": "13626.2396",
++      "cents": "13626.24"
++    },
++    {
++      "territory": "aragon",
++      "base": "89999.99",
++      "expected": "15993.2876",
++      "cents": "15993.29"
++    },
++    {
++      "territory": "aragon",
++      "base": "89999.999",
++      "expected": "15993.28976",
++      "cents": "15993.29"
++    },
++    {
++      "territory": "aragon",
++      "base": "90000.00",
++      "expected": "15993.2900",
++      "cents": "15993.29"
++    },
++    {
++      "territory": "aragon",
++      "base": "90000.001",
++      "expected": "15993.29025",
++      "cents": "15993.29"
++    },
++    {
++      "territory": "aragon",
++      "base": "90000.01",
++      "expected": "15993.2925",
++      "cents": "15993.29"
++    },
++    {
++      "territory": "aragon",
++      "base": "90137.29",
++      "expected": "16027.6125",
++      "cents": "16027.61"
++    },
++    {
++      "territory": "aragon",
++      "base": "129999.99",
++      "expected": "25993.2875",
++      "cents": "25993.29"
++    },
++    {
++      "territory": "aragon",
++      "base": "129999.999",
++      "expected": "25993.28975",
++      "cents": "25993.29"
++    },
++    {
++      "territory": "aragon",
++      "base": "130000.00",
++      "expected": "25993.29000",
++      "cents": "25993.29"
++    },
++    {
++      "territory": "aragon",
++      "base": "130000.001",
++      "expected": "25993.290255",
++      "cents": "25993.29"
++    },
++    {
++      "territory": "aragon",
++      "base": "130000.01",
++      "expected": "25993.29255",
++      "cents": "25993.29"
++    },
++    {
++      "territory": "aragon",
++      "base": "130137.29",
++      "expected": "26028.29895",
++      "cents": "26028.30"
++    },
++    {
++      "territory": "aragon",
++      "base": "987654.32",
++      "expected": "244695.14160",
++      "cents": "244695.14"
++    },
++    {
++      "territory": "asturias",
++      "base": "-1",
++      "expected": "0",
++      "cents": "0.00"
++    },
++    {
++      "territory": "asturias",
++      "base": "-0.01",
++      "expected": "0",
++      "cents": "0.00"
++    },
++    {
++      "territory": "asturias",
++      "base": "-0.001",
++      "expected": "0",
++      "cents": "0.00"
++    },
++    {
++      "territory": "asturias",
++      "base": "0",
++      "expected": "0",
++      "cents": "0.00"
++    },
++    {
++      "territory": "asturias",
++      "base": "0.001",
++      "expected": "0.00009",
++      "cents": "0.00"
++    },
++    {
++      "territory": "asturias",
++      "base": "0.01",
++      "expected": "0.0009",
++      "cents": "0.00"
++    },
++    {
++      "territory": "asturias",
++      "base": "137.29",
++      "expected": "12.3561",
++      "cents": "12.36"
++    },
++    {
++      "territory": "asturias",
++      "base": "12449.99",
++      "expected": "1120.4991",
++      "cents": "1120.50"
++    },
++    {
++      "territory": "asturias",
++      "base": "12449.999",
++      "expected": "1120.49991",
++      "cents": "1120.50"
++    },
++    {
++      "territory": "asturias",
++      "base": "12450.00",
++      "expected": "1120.5000",
++      "cents": "1120.50"
++    },
++    {
++      "territory": "asturias",
++      "base": "12450.001",
++      "expected": "1120.50012",
++      "cents": "1120.50"
++    },
++    {
++      "territory": "asturias",
++      "base": "12450.01",
++      "expected": "1120.5012",
++      "cents": "1120.50"
++    },
++    {
++      "territory": "asturias",
++      "base": "12587.29",
++      "expected": "1136.9748",
++      "cents": "1136.97"
++    },
++    {
++      "territory": "asturias",
++      "base": "17707.19",
++      "expected": "1751.3628",
++      "cents": "1751.36"
++    },
++    {
++      "territory": "asturias",
++      "base": "17707.199",
++      "expected": "1751.36388",
++      "cents": "1751.36"
++    },
++    {
++      "territory": "asturias",
++      "base": "17707.20",
++      "expected": "1751.3600",
++      "cents": "1751.36"
++    },
++    {
++      "territory": "asturias",
++      "base": "17707.201",
++      "expected": "1751.36014",
++      "cents": "1751.36"
++    },
++    {
++      "territory": "asturias",
++      "base": "17707.21",
++      "expected": "1751.3614",
++      "cents": "1751.36"
++    },
++    {
++      "territory": "asturias",
++      "base": "17844.49",
++      "expected": "1770.5806",
++      "cents": "1770.58"
++    },
++    {
++      "territory": "asturias",
++      "base": "33007.19",
++      "expected": "3893.3586",
++      "cents": "3893.36"
++    },
++    {
++      "territory": "asturias",
++      "base": "33007.199",
++      "expected": "3893.35986",
++      "cents": "3893.36"
++    },
++    {
++      "territory": "asturias",
++      "base": "33007.20",
++      "expected": "3893.36000",
++      "cents": "3893.36"
++    },
++    {
++      "territory": "asturias",
++      "base": "33007.201",
++      "expected": "3893.360192",
++      "cents": "3893.36"
++    },
++    {
++      "territory": "asturias",
++      "base": "33007.21",
++      "expected": "3893.36192",
++      "cents": "3893.36"
++    },
++    {
++      "territory": "asturias",
++      "base": "33144.49",
++      "expected": "3919.71968",
++      "cents": "3919.72"
++    },
++    {
++      "territory": "asturias",
++      "base": "53407.19",
++      "expected": "7810.15808",
++      "cents": "7810.16"
++    },
++    {
++      "territory": "asturias",
++      "base": "53407.199",
++      "expected": "7810.159808",
++      "cents": "7810.16"
++    },
++    {
++      "territory": "asturias",
++      "base": "53407.20",
++      "expected": "7810.16000",
++      "cents": "7810.16"
++    },
++    {
++      "territory": "asturias",
++      "base": "53407.201",
++      "expected": "7810.160215",
++      "cents": "7810.16"
++    },
++    {
++      "territory": "asturias",
++      "base": "53407.21",
++      "expected": "7810.16215",
++      "cents": "7810.16"
++    },
++    {
++      "territory": "asturias",
++      "base": "53544.49",
++      "expected": "7839.67735",
++      "cents": "7839.68"
++    },
++    {
++      "territory": "asturias",
++      "base": "69999.99",
++      "expected": "11377.60985",
++      "cents": "11377.61"
++    },
++    {
++      "territory": "asturias",
++      "base": "69999.999",
++      "expected": "11377.611785",
++      "cents": "11377.61"
++    },
++    {
++      "territory": "asturias",
++      "base": "70000.00",
++      "expected": "11377.62000",
++      "cents": "11377.62"
++    },
++    {
++      "territory": "asturias",
++      "base": "70000.001",
++      "expected": "11377.620225",
++      "cents": "11377.62"
++    },
++    {
++      "territory": "asturias",
++      "base": "70000.01",
++      "expected": "11377.62225",
++      "cents": "11377.62"
++    },
++    {
++      "territory": "asturias",
++      "base": "70137.29",
++      "expected": "11408.51025",
++      "cents": "11408.51"
++    },
++    {
++      "territory": "asturias",
++      "base": "89999.99",
++      "expected": "15877.61775",
++      "cents": "15877.62"
++    },
++    {
++      "territory": "asturias",
++      "base": "89999.999",
++      "expected": "15877.619775",
++      "cents": "15877.62"
++    },
++    {
++      "territory": "asturias",
++      "base": "90000.00",
++      "expected": "15877.6200",
++      "cents": "15877.62"
++    },
++    {
++      "territory": "asturias",
++      "base": "90000.001",
++      "expected": "15877.62025",
++      "cents": "15877.62"
++    },
++    {
++      "territory": "asturias",
++      "base": "90000.01",
++      "expected": "15877.6225",
++      "cents": "15877.62"
++    },
++    {
++      "territory": "asturias",
++      "base": "90137.29",
++      "expected": "15911.9425",
++      "cents": "15911.94"
++    },
++    {
++      "territory": "asturias",
++      "base": "174999.99",
++      "expected": "37127.6175",
++      "cents": "37127.62"
++    },
++    {
++      "territory": "asturias",
++      "base": "174999.999",
++      "expected": "37127.61975",
++      "cents": "37127.62"
++    },
++    {
++      "territory": "asturias",
++      "base": "175000.00",
++      "expected": "37127.6200",
++      "cents": "37127.62"
++    },
++    {
++      "territory": "asturias",
++      "base": "175000.001",
++      "expected": "37127.62026",
++      "cents": "37127.62"
++    },
++    {
++      "territory": "asturias",
++      "base": "175000.01",
++      "expected": "37127.6226",
++      "cents": "37127.62"
++    },
++    {
++      "territory": "asturias",
++      "base": "175137.29",
++      "expected": "37163.3154",
++      "cents": "37163.32"
++    },
++    {
++      "territory": "asturias",
++      "base": "987654.32",
++      "expected": "248417.7432",
++      "cents": "248417.74"
++    },
++    {
++      "territory": "galicia",
++      "base": "-1",
++      "expected": "0",
++      "cents": "0.00"
++    },
++    {
++      "territory": "galicia",
++      "base": "-0.01",
++      "expected": "0",
++      "cents": "0.00"
++    },
++    {
++      "territory": "galicia",
++      "base": "-0.001",
++      "expected": "0",
++      "cents": "0.00"
++    },
++    {
++      "territory": "galicia",
++      "base": "0",
++      "expected": "0",
++      "cents": "0.00"
++    },
++    {
++      "territory": "galicia",
++      "base": "0.001",
++      "expected": "0.00009",
++      "cents": "0.00"
++    },
++    {
++      "territory": "galicia",
++      "base": "0.01",
++      "expected": "0.0009",
++      "cents": "0.00"
++    },
++    {
++      "territory": "galicia",
++      "base": "137.29",
++      "expected": "12.3561",
++      "cents": "12.36"
++    },
++    {
++      "territory": "galicia",
++      "base": "12985.34",
++      "expected": "1168.6806",
++      "cents": "1168.68"
++    },
++    {
++      "territory": "galicia",
++      "base": "12985.349",
++      "expected": "1168.68141",
++      "cents": "1168.68"
++    },
++    {
++      "territory": "galicia",
++      "base": "12985.35",
++      "expected": "1168.680000",
++      "cents": "1168.68"
++    },
++    {
++      "territory": "galicia",
++      "base": "12985.351",
++      "expected": "1168.6801165",
++      "cents": "1168.68"
++    },
++    {
++      "territory": "galicia",
++      "base": "12985.36",
++      "expected": "1168.681165",
++      "cents": "1168.68"
++    },
++    {
++      "territory": "galicia",
++      "base": "13122.64",
++      "expected": "1184.674285",
++      "cents": "1184.67"
++    },
++    {
++      "territory": "galicia",
++      "base": "21068.59",
++      "expected": "2110.377460",
++      "cents": "2110.38"
++    },
++    {
++      "territory": "galicia",
++      "base": "21068.599",
++      "expected": "2110.3785085",
++      "cents": "2110.38"
++    },
++    {
++      "territory": "galicia",
++      "base": "21068.60",
++      "expected": "2110.38000",
++      "cents": "2110.38"
++    },
++    {
++      "territory": "galicia",
++      "base": "21068.601",
++      "expected": "2110.380149",
++      "cents": "2110.38"
++    },
++    {
++      "territory": "galicia",
++      "base": "21068.61",
++      "expected": "2110.38149",
++      "cents": "2110.38"
++    },
++    {
++      "territory": "galicia",
++      "base": "21205.89",
++      "expected": "2130.83621",
++      "cents": "2130.84"
++    },
++    {
++      "territory": "galicia",
++      "base": "35199.99",
++      "expected": "4215.95711",
++      "cents": "4215.96"
++    },
++    {
++      "territory": "galicia",
++      "base": "35199.999",
++      "expected": "4215.958451",
++      "cents": "4215.96"
++    },
++    {
++      "territory": "galicia",
++      "base": "35200.00",
++      "expected": "4215.96000",
++      "cents": "4215.96"
++    },
++    {
++      "territory": "galicia",
++      "base": "35200.001",
++      "expected": "4215.960184",
++      "cents": "4215.96"
++    },
++    {
++      "territory": "galicia",
++      "base": "35200.01",
++      "expected": "4215.96184",
++      "cents": "4215.96"
++    },
++    {
++      "territory": "galicia",
++      "base": "35337.29",
++      "expected": "4241.22136",
++      "cents": "4241.22"
++    },
++    {
++      "territory": "galicia",
++      "base": "59999.99",
++      "expected": "8779.15816",
++      "cents": "8779.16"
++    },
++    {
++      "territory": "galicia",
++      "base": "59999.999",
++      "expected": "8779.159816",
++      "cents": "8779.16"
++    },
++    {
++      "territory": "galicia",
++      "base": "60000.00",
++      "expected": "8779.16000",
++      "cents": "8779.16"
++    },
++    {
++      "territory": "galicia",
++      "base": "60000.001",
++      "expected": "8779.160225",
++      "cents": "8779.16"
++    },
++    {
++      "territory": "galicia",
++      "base": "60000.01",
++      "expected": "8779.16225",
++      "cents": "8779.16"
++    },
++    {
++      "territory": "galicia",
++      "base": "60137.29",
++      "expected": "8810.05025",
++      "cents": "8810.05"
++    },
++    {
++      "territory": "galicia",
++      "base": "987654.32",
++      "expected": "217501.38200",
++      "cents": "217501.38"
++    },
++    {
++      "territory": "castilla-y-leon",
++      "base": "-1",
++      "expected": "0",
++      "cents": "0.00"
++    },
++    {
++      "territory": "castilla-y-leon",
++      "base": "-0.01",
++      "expected": "0",
++      "cents": "0.00"
++    },
++    {
++      "territory": "castilla-y-leon",
++      "base": "-0.001",
++      "expected": "0",
++      "cents": "0.00"
++    },
++    {
++      "territory": "castilla-y-leon",
++      "base": "0",
++      "expected": "0",
++      "cents": "0.00"
++    },
++    {
++      "territory": "castilla-y-leon",
++      "base": "0.001",
++      "expected": "0.00009",
++      "cents": "0.00"
++    },
++    {
++      "territory": "castilla-y-leon",
++      "base": "0.01",
++      "expected": "0.0009",
++      "cents": "0.00"
++    },
++    {
++      "territory": "castilla-y-leon",
++      "base": "137.29",
++      "expected": "12.3561",
++      "cents": "12.36"
++    },
++    {
++      "territory": "castilla-y-leon",
++      "base": "12449.99",
++      "expected": "1120.4991",
++      "cents": "1120.50"
++    },
++    {
++      "territory": "castilla-y-leon",
++      "base": "12449.999",
++      "expected": "1120.49991",
++      "cents": "1120.50"
++    },
++    {
++      "territory": "castilla-y-leon",
++      "base": "12450.00",
++      "expected": "1120.5000",
++      "cents": "1120.50"
++    },
++    {
++      "territory": "castilla-y-leon",
++      "base": "12450.001",
++      "expected": "1120.50012",
++      "cents": "1120.50"
++    },
++    {
++      "territory": "castilla-y-leon",
++      "base": "12450.01",
++      "expected": "1120.5012",
++      "cents": "1120.50"
++    },
++    {
++      "territory": "castilla-y-leon",
++      "base": "12587.29",
++      "expected": "1136.9748",
++      "cents": "1136.97"
++    },
++    {
++      "territory": "castilla-y-leon",
++      "base": "20199.99",
++      "expected": "2050.4988",
++      "cents": "2050.50"
++    },
++    {
++      "territory": "castilla-y-leon",
++      "base": "20199.999",
++      "expected": "2050.49988",
++      "cents": "2050.50"
++    },
++    {
++      "territory": "castilla-y-leon",
++      "base": "20200.00",
++      "expected": "2050.5000",
++      "cents": "2050.50"
++    },
++    {
++      "territory": "castilla-y-leon",
++      "base": "20200.001",
++      "expected": "2050.50014",
++      "cents": "2050.50"
++    },
++    {
++      "territory": "castilla-y-leon",
++      "base": "20200.01",
++      "expected": "2050.5014",
++      "cents": "2050.50"
++    },
++    {
++      "territory": "castilla-y-leon",
++      "base": "20337.29",
++      "expected": "2069.7206",
++      "cents": "2069.72"
++    },
++    {
++      "territory": "castilla-y-leon",
++      "base": "35199.99",
++      "expected": "4150.4986",
++      "cents": "4150.50"
++    },
++    {
++      "territory": "castilla-y-leon",
++      "base": "35199.999",
++      "expected": "4150.49986",
++      "cents": "4150.50"
++    },
++    {
++      "territory": "castilla-y-leon",
++      "base": "35200.00",
++      "expected": "4150.50000",
++      "cents": "4150.50"
++    },
++    {
++      "territory": "castilla-y-leon",
++      "base": "35200.001",
++      "expected": "4150.500185",
++      "cents": "4150.50"
++    },
++    {
++      "territory": "castilla-y-leon",
++      "base": "35200.01",
++      "expected": "4150.50185",
++      "cents": "4150.50"
++    },
++    {
++      "territory": "castilla-y-leon",
++      "base": "35337.29",
++      "expected": "4175.89865",
++      "cents": "4175.90"
++    },
++    {
++      "territory": "castilla-y-leon",
++      "base": "53407.19",
++      "expected": "7518.83015",
++      "cents": "7518.83"
++    },
++    {
++      "territory": "castilla-y-leon",
++      "base": "53407.199",
++      "expected": "7518.831815",
++      "cents": "7518.83"
++    },
++    {
++      "territory": "castilla-y-leon",
++      "base": "53407.20",
++      "expected": "7518.83000",
++      "cents": "7518.83"
++    },
++    {
++      "territory": "castilla-y-leon",
++      "base": "53407.201",
++      "expected": "7518.830215",
++      "cents": "7518.83"
++    },
++    {
++      "territory": "castilla-y-leon",
++      "base": "53407.21",
++      "expected": "7518.83215",
++      "cents": "7518.83"
++    },
++    {
++      "territory": "castilla-y-leon",
++      "base": "53544.49",
++      "expected": "7548.34735",
++      "cents": "7548.35"
++    },
++    {
++      "territory": "castilla-y-leon",
++      "base": "987654.32",
++      "expected": "208381.96080",
++      "cents": "208381.96"
++    }
++  ],
++  "originalDifferenceCases": [
++    {
++      "territory": "aragon",
++      "base": "13072.5",
++      "expected": "1241.8900",
++      "cents": "1241.89"
++    },
++    {
++      "territory": "aragon",
++      "base": "13072.51",
++      "expected": "1241.8912",
++      "cents": "1241.89"
++    },
++    {
++      "territory": "aragon",
++      "base": "13195.95",
++      "expected": "1256.7040",
++      "cents": "1256.70"
++    },
++    {
++      "territory": "aragon",
++      "base": "21209.99",
++      "expected": "2218.3888",
++      "cents": "2218.39"
++    },
++    {
++      "territory": "aragon",
++      "base": "21210",
++      "expected": "2218.3900",
++      "cents": "2218.39"
++    },
++    {
++      "territory": "aragon",
++      "base": "21210.01",
++      "expected": "2218.3915",
++      "cents": "2218.39"
++    },
++    {
++      "territory": "aragon",
++      "base": "21333.45",
++      "expected": "2236.9075",
++      "cents": "2236.91"
++    },
++    {
++      "territory": "aragon",
++      "base": "36959.99",
++      "expected": "4580.8885",
++      "cents": "4580.89"
++    },
++    {
++      "territory": "aragon",
++      "base": "36960",
++      "expected": "4580.89000",
++      "cents": "4580.89"
++    },
++    {
++      "territory": "aragon",
++      "base": "36960.01",
++      "expected": "4580.89185",
++      "cents": "4580.89"
++    },
++    {
++      "territory": "aragon",
++      "base": "37083.45",
++      "expected": "4603.72825",
++      "cents": "4603.73"
++    },
++    {
++      "territory": "aragon",
++      "base": "52499.99",
++      "expected": "7455.78815",
++      "cents": "7455.79"
++    },
++    {
++      "territory": "aragon",
++      "base": "52500",
++      "expected": "7455.79000",
++      "cents": "7455.79"
++    },
++    {
++      "territory": "aragon",
++      "base": "52500.01",
++      "expected": "7455.79205",
++      "cents": "7455.79"
++    },
++    {
++      "territory": "aragon",
++      "base": "52623.45",
++      "expected": "7481.09725",
++      "cents": "7481.10"
++    },
++    {
++      "territory": "aragon",
++      "base": "59999.99",
++      "expected": "8993.28795",
++      "cents": "8993.29"
++    },
++    {
++      "territory": "aragon",
++      "base": "60000",
++      "expected": "8993.2900",
++      "cents": "8993.29"
++    },
++    {
++      "territory": "aragon",
++      "base": "60000.01",
++      "expected": "8993.2923",
++      "cents": "8993.29"
++    },
++    {
++      "territory": "aragon",
++      "base": "60123.45",
++      "expected": "9021.6835",
++      "cents": "9021.68"
++    },
++    {
++      "territory": "aragon",
++      "base": "79999.99",
++      "expected": "13593.2877",
++      "cents": "13593.29"
++    },
++    {
++      "territory": "aragon",
++      "base": "80000",
++      "expected": "13593.2900",
++      "cents": "13593.29"
++    },
++    {
++      "territory": "aragon",
++      "base": "80000.01",
++      "expected": "13593.2924",
++      "cents": "13593.29"
++    },
++    {
++      "territory": "aragon",
++      "base": "80123.45",
++      "expected": "13622.9180",
++      "cents": "13622.92"
++    },
++    {
++      "territory": "aragon",
++      "base": "89999.99",
++      "expected": "15993.2876",
++      "cents": "15993.29"
++    },
++    {
++      "territory": "aragon",
++      "base": "90000",
++      "expected": "15993.2900",
++      "cents": "15993.29"
++    },
++    {
++      "territory": "aragon",
++      "base": "90000.01",
++      "expected": "15993.2925",
++      "cents": "15993.29"
++    },
++    {
++      "territory": "aragon",
++      "base": "90123.45",
++      "expected": "16024.1525",
++      "cents": "16024.15"
++    },
++    {
++      "territory": "aragon",
++      "base": "129999.99",
++      "expected": "25993.2875",
++      "cents": "25993.29"
++    },
++    {
++      "territory": "aragon",
++      "base": "130000",
++      "expected": "25993.29000",
++      "cents": "25993.29"
++    },
++    {
++      "territory": "aragon",
++      "base": "130000.01",
++      "expected": "25993.29255",
++      "cents": "25993.29"
++    },
++    {
++      "territory": "aragon",
++      "base": "130123.45",
++      "expected": "26024.76975",
++      "cents": "26024.77"
++    },
++    {
++      "territory": "asturias",
++      "base": "17707.2",
++      "expected": "1751.3600",
++      "cents": "1751.36"
++    },
++    {
++      "territory": "asturias",
++      "base": "17707.21",
++      "expected": "1751.3614",
++      "cents": "1751.36"
++    },
++    {
++      "territory": "asturias",
++      "base": "17830.65",
++      "expected": "1768.6430",
++      "cents": "1768.64"
++    },
++    {
++      "territory": "asturias",
++      "base": "33007.19",
++      "expected": "3893.3586",
++      "cents": "3893.36"
++    },
++    {
++      "territory": "asturias",
++      "base": "33007.2",
++      "expected": "3893.36000",
++      "cents": "3893.36"
++    },
++    {
++      "territory": "asturias",
++      "base": "33007.21",
++      "expected": "3893.36192",
++      "cents": "3893.36"
++    },
++    {
++      "territory": "asturias",
++      "base": "33130.65",
++      "expected": "3917.06240",
++      "cents": "3917.06"
++    },
++    {
++      "territory": "asturias",
++      "base": "53407.19",
++      "expected": "7810.15808",
++      "cents": "7810.16"
++    },
++    {
++      "territory": "asturias",
++      "base": "53407.2",
++      "expected": "7810.16000",
++      "cents": "7810.16"
++    },
++    {
++      "territory": "asturias",
++      "base": "53407.21",
++      "expected": "7810.16215",
++      "cents": "7810.16"
++    },
++    {
++      "territory": "asturias",
++      "base": "53530.65",
++      "expected": "7836.70175",
++      "cents": "7836.70"
++    },
++    {
++      "territory": "asturias",
++      "base": "69999.99",
++      "expected": "11377.60985",
++      "cents": "11377.61"
++    },
++    {
++      "territory": "asturias",
++      "base": "70000",
++      "expected": "11377.62000",
++      "cents": "11377.62"
++    },
++    {
++      "territory": "asturias",
++      "base": "70000.01",
++      "expected": "11377.62225",
++      "cents": "11377.62"
++    },
++    {
++      "territory": "asturias",
++      "base": "70123.45",
++      "expected": "11405.39625",
++      "cents": "11405.40"
++    },
++    {
++      "territory": "asturias",
++      "base": "89999.99",
++      "expected": "15877.61775",
++      "cents": "15877.62"
++    },
++    {
++      "territory": "asturias",
++      "base": "90000",
++      "expected": "15877.6200",
++      "cents": "15877.62"
++    },
++    {
++      "territory": "asturias",
++      "base": "90000.01",
++      "expected": "15877.6225",
++      "cents": "15877.62"
++    },
++    {
++      "territory": "asturias",
++      "base": "90123.45",
++      "expected": "15908.4825",
++      "cents": "15908.48"
++    },
++    {
++      "territory": "asturias",
++      "base": "174999.99",
++      "expected": "37127.6175",
++      "cents": "37127.62"
++    },
++    {
++      "territory": "asturias",
++      "base": "175000",
++      "expected": "37127.6200",
++      "cents": "37127.62"
++    },
++    {
++      "territory": "asturias",
++      "base": "175000.01",
++      "expected": "37127.6226",
++      "cents": "37127.62"
++    },
++    {
++      "territory": "asturias",
++      "base": "175123.45",
++      "expected": "37159.7170",
++      "cents": "37159.72"
++    },
++    {
++      "territory": "castilla-y-leon",
++      "base": "53407.2",
++      "expected": "7518.83000",
++      "cents": "7518.83"
++    },
++    {
++      "territory": "castilla-y-leon",
++      "base": "53407.21",
++      "expected": "7518.83215",
++      "cents": "7518.83"
++    },
++    {
++      "territory": "castilla-y-leon",
++      "base": "53530.65",
++      "expected": "7545.37175",
++      "cents": "7545.37"
++    },
++    {
++      "territory": "galicia",
++      "base": "12985.35",
++      "expected": "1168.680000",
++      "cents": "1168.68"
++    },
++    {
++      "territory": "galicia",
++      "base": "12985.36",
++      "expected": "1168.681165",
++      "cents": "1168.68"
++    },
++    {
++      "territory": "galicia",
++      "base": "13108.8",
++      "expected": "1183.061925",
++      "cents": "1183.06"
++    },
++    {
++      "territory": "galicia",
++      "base": "21068.59",
++      "expected": "2110.377460",
++      "cents": "2110.38"
++    },
++    {
++      "territory": "galicia",
++      "base": "21068.6",
++      "expected": "2110.38000",
++      "cents": "2110.38"
++    },
++    {
++      "territory": "galicia",
++      "base": "21068.61",
++      "expected": "2110.38149",
++      "cents": "2110.38"
++    },
++    {
++      "territory": "galicia",
++      "base": "21192.05",
++      "expected": "2128.77405",
++      "cents": "2128.77"
++    },
++    {
++      "territory": "galicia",
++      "base": "35199.99",
++      "expected": "4215.95711",
++      "cents": "4215.96"
++    },
++    {
++      "territory": "galicia",
++      "base": "35200",
++      "expected": "4215.96000",
++      "cents": "4215.96"
++    },
++    {
++      "territory": "galicia",
++      "base": "35200.01",
++      "expected": "4215.96184",
++      "cents": "4215.96"
++    },
++    {
++      "territory": "galicia",
++      "base": "35323.45",
++      "expected": "4238.67480",
++      "cents": "4238.67"
++    },
++    {
++      "territory": "galicia",
++      "base": "59999.99",
++      "expected": "8779.15816",
++      "cents": "8779.16"
++    },
++    {
++      "territory": "galicia",
++      "base": "60000",
++      "expected": "8779.16000",
++      "cents": "8779.16"
++    },
++    {
++      "territory": "galicia",
++      "base": "60000.01",
++      "expected": "8779.16225",
++      "cents": "8779.16"
++    },
++    {
++      "territory": "galicia",
++      "base": "60123.45",
++      "expected": "8806.93625",
++      "cents": "8806.94"
++    }
++  ],
++  "netCases": [
++    {
++      "territory": "aragon",
++      "base": "60123.45",
++      "minimum": "22000",
++      "expected": "6684.7935"
++    },
++    {
++      "territory": "aragon",
++      "base": "17707.20",
++      "minimum": "17707.20",
++      "expected": "0"
++    },
++    {
++      "territory": "aragon",
++      "base": "10000",
++      "minimum": "22000",
++      "expected": "0"
++    },
++    {
++      "territory": "aragon",
++      "base": "0",
++      "minimum": "5550",
++      "expected": "0"
++    },
++    {
++      "territory": "asturias",
++      "base": "60123.45",
++      "minimum": "22000",
++      "expected": "6901.80175"
++    },
++    {
++      "territory": "asturias",
++      "base": "17707.20",
++      "minimum": "17707.20",
++      "expected": "0"
++    },
++    {
++      "territory": "asturias",
++      "base": "10000",
++      "minimum": "22000",
++      "expected": "0"
++    },
++    {
++      "territory": "asturias",
++      "base": "0",
++      "minimum": "5550",
++      "expected": "0"
++    },
++    {
++      "territory": "galicia",
++      "base": "60123.45",
++      "minimum": "22000",
++      "expected": "6557.77765"
++    },
++    {
++      "territory": "galicia",
++      "base": "17707.20",
++      "minimum": "17707.20",
++      "expected": "0"
++    },
++    {
++      "territory": "galicia",
++      "base": "10000",
++      "minimum": "22000",
++      "expected": "0"
++    },
++    {
++      "territory": "galicia",
++      "base": "0",
++      "minimum": "5550",
++      "expected": "0"
++    },
++    {
++      "territory": "castilla-y-leon",
++      "base": "60123.45",
++      "minimum": "22000",
++      "expected": "6660.32375"
++    },
++    {
++      "territory": "castilla-y-leon",
++      "base": "17707.20",
++      "minimum": "17707.20",
++      "expected": "0"
++    },
++    {
++      "territory": "castilla-y-leon",
++      "base": "10000",
++      "minimum": "22000",
++      "expected": "0"
++    },
++    {
++      "territory": "castilla-y-leon",
++      "base": "0",
++      "minimum": "5550",
++      "expected": "0"
++    }
++  ]
++}
+--- /dev/null
++++ b/docs/procedencia/revisiones/producto-a-escalas2025/replay-documental.json
+@@ -0,0 +1,54 @@
++{
++  "physicalRows": 115,
++  "territories": 17,
++  "primaries": [
++    {
++      "territory": "aragon",
++      "rows": 9,
++      "sha256": "fa282a231a7a0d9ad67237af2086b67b59bd8e27cc05ff9eeda8519954ccd307",
++      "notes": [
++        "Se modifica, con efectos desde el 1 de enero de 2023, por el art. 64.1 de la Ley 17/2023, de 22 de diciembre. <a href=\"/buscar/doc.php?id=BOE-A-2024-903\" target=\"_blank\" title=\"Abre nueva ventana\">Ref. BOE-A-2024-903</a>",
++        "Se modifica, con efectos de 1 de enero de 2022, por el art. 64.1 de la Ley 8/2022, de 29 de diciembre. <a href=\"/buscar/doc.php?id=BOE-A-2023-1960\" target=\"_blank\" title=\"Abre nueva ventana\">Ref. BOE-A-2023-1960</a>",
++        "Se modifica por el art. 1.1 de la Ley 10/2015, de 28 de diciembre. <a href=\"/buscar/doc.php?id=BOE-A-2016-822\" target=\"_blank\" title=\"Abre nueva ventana\">Ref. BOE-A-2016-822</a>.",
++        "Se modifica por el art. 1.1 de la Ley 14/2014, de 30 de diciembre. <a href=\"/buscar/doc.php?id=BOE-A-2015-950\" target=\"_blank\" title=\"Abre nueva ventana\">Ref. BOE-A-2015-950</a>.",
++        "Se modifica por el art. 10.1 de la Ley 3/2012, de 8 de marzo. <a href=\"/buscar/doc.php?id=BOE-A-2012-5203\" target=\"_blank\" title=\"Abre nueva ventana\">Ref. BOE-A-2012-5203</a>.",
++        "Se modifica por el art. 1.1 de la Ley 12/2010, de 29 de diciembre. <a href=\"/buscar/doc.php?id=BOE-A-2011-3639\" target=\"_blank\" title=\"Abre nueva ventana\">Ref. BOE-A-2011-3639</a>.",
++        "Se modifica por el art. 1.1 de la Ley 8/2007, de 29 de diciembre. <a href=\"/buscar/doc.php?id=BOE-A-2008-3309\" target=\"_blank\" title=\"Abre nueva ventana\">Ref. BOE-A-2008-3309</a>."
++      ]
++    },
++    {
++      "territory": "asturias",
++      "rows": 8,
++      "sha256": "2465b13736a4bb690dd8e43aa9097d57e70898cc90f5864cb0e126313704a427",
++      "notes": [
++        "Se modifica por el art. único.1 de la Ley 3/2025, de 19 de noviembre. <a href=\"/buscar/doc.php?id=BOE-A-2025-25707\" target=\"_blank\" title=\"Abre nueva ventana\">Ref. BOE-A-2025-25707</a>",
++        "Se modifica por el art. 39.1 de la Ley 11/2014, de 29 de diciembre. <a href=\"/buscar/doc.php?id=BOE-A-2015-1764\" target=\"_blank\" title=\"Abre nueva ventana\">Ref. BOE-A-2015-1764</a>."
++      ]
++    },
++    {
++      "territory": "galicia",
++      "rows": 5,
++      "sha256": "a0e7a4375c604e7f4e8bbf8b98b276036dfac4e6f634f41de6d3a24760efcaef",
++      "notes": [
++        "Se modifica, con efectos desde el 1 de enero de 2022, por el art. 1 de la Ley 7/2022, de 27 de diciembre. <a href=\"/buscar/doc.php?id=BOE-A-2023-6382\" target=\"_blank\" title=\"Abre nueva ventana\">Ref. BOE-A-2023-6382</a>",
++        "Se modifica por el art. 1.1 de la Ley 18/2021, de 27 de diciembre. <a href=\"/buscar/doc.php?id=BOE-A-2022-3415\" target=\"_blank\" title=\"Abre nueva ventana\">Ref. BOE-A-2022-3415</a>",
++        "Se modifica por el art. 1 de la Ley 13/2015, de 24 de diciembre. <a href=\"/buscar/doc.php?id=BOE-A-2016-2017\" target=\"_blank\" title=\"Abre nueva ventana\">Ref. BOE-A-2016-2017</a>.",
++        "Se modifica por el art. 67.1 de la Ley 11/2013, de 26 de diciembre. <a href=\"/buscar/doc.php?id=BOE-A-2014-885\" target=\"_blank\" title=\"Abre nueva ventana\">Ref. BOE-A-2014-885</a>."
++      ]
++    },
++    {
++      "territory": "castilla-y-leon",
++      "rows": 5,
++      "sha256": "cb5a0ab67029f42bbc95bed62947ed46ce5149b31517aaa1f55153cf9cbaf2aa",
++      "notes": [
++        "Se modifica, con efectos desde el 1 de enero de 2022, por el art. 1.1 de la Ley 2/2022, de 1 de diciembre. <a href=\"/buscar/doc.php?id=BOE-A-2022-21578\" target=\"_blank\" title=\"Abre nueva ventana\">Ref. BOE-A-2022-21578</a>",
++        "Se modifica por el art. 1.1 de la Ley 7/2015, de 30 de diciembre. <a href=\"/buscar/doc.php?id=BOE-A-2016-1884\" target=\"_blank\" title=\"Abre nueva ventana\">Ref. BOE-A-2016-1884</a>.",
++        "Se modifica por el art. 1.1 de la Ley 10/2014, de 22 de diciembre. <a href=\"/buscar/doc.php?id=BOE-A-2015-1117\" target=\"_blank\" title=\"Abre nueva ventana\">Ref. BOE-A-2015-1117</a>."
++      ]
++    }
++  ],
++  "comparisonsReported": 1477,
++  "differencesRecalculated": 72,
++  "centsRecalculated": 12,
++  "independentCases": 170
++}
+--- /dev/null
++++ b/docs/procedencia/revisiones/producto-a-escalas2025/resultado-independiente.json
+@@ -0,0 +1,2494 @@
++{
++  "status": "pass",
++  "quotaCases": 170,
++  "originalDifferenceCases": 72,
++  "netCases": 16,
++  "checks": 497,
++  "results": [
++    {
++      "name": "quota/aragon/-1",
++      "actual": "0",
++      "expected": "0"
++    },
++    {
++      "name": "quota/aragon/-0.01",
++      "actual": "0",
++      "expected": "0"
++    },
++    {
++      "name": "quota/aragon/-0.001",
++      "actual": "0",
++      "expected": "0"
++    },
++    {
++      "name": "quota/aragon/0",
++      "actual": "0",
++      "expected": "0"
++    },
++    {
++      "name": "quota/aragon/0.001",
++      "actual": "0.000095",
++      "expected": "0.000095"
++    },
++    {
++      "name": "quota/aragon/0.01",
++      "actual": "0.00095",
++      "expected": "0.00095"
++    },
++    {
++      "name": "quota/aragon/137.29",
++      "actual": "13.04255",
++      "expected": "13.04255"
++    },
++    {
++      "name": "quota/aragon/13072.49",
++      "actual": "1241.88655",
++      "expected": "1241.88655"
++    },
++    {
++      "name": "quota/aragon/13072.499",
++      "actual": "1241.887405",
++      "expected": "1241.887405"
++    },
++    {
++      "name": "quota/aragon/13072.50",
++      "actual": "1241.89",
++      "expected": "1241.8900"
++    },
++    {
++      "name": "quota/aragon/13072.501",
++      "actual": "1241.89012",
++      "expected": "1241.89012"
++    },
++    {
++      "name": "quota/aragon/13072.51",
++      "actual": "1241.8912",
++      "expected": "1241.8912"
++    },
++    {
++      "name": "quota/aragon/13209.79",
++      "actual": "1258.3648",
++      "expected": "1258.3648"
++    },
++    {
++      "name": "quota/aragon/21209.99",
++      "actual": "2218.3888",
++      "expected": "2218.3888"
++    },
++    {
++      "name": "quota/aragon/21209.999",
++      "actual": "2218.38988",
++      "expected": "2218.38988"
++    },
++    {
++      "name": "quota/aragon/21210.00",
++      "actual": "2218.39",
++      "expected": "2218.3900"
++    },
++    {
++      "name": "quota/aragon/21210.001",
++      "actual": "2218.39015",
++      "expected": "2218.39015"
++    },
++    {
++      "name": "quota/aragon/21210.01",
++      "actual": "2218.3915",
++      "expected": "2218.3915"
++    },
++    {
++      "name": "quota/aragon/21347.29",
++      "actual": "2238.9835",
++      "expected": "2238.9835"
++    },
++    {
++      "name": "quota/aragon/36959.99",
++      "actual": "4580.8885",
++      "expected": "4580.8885"
++    },
++    {
++      "name": "quota/aragon/36959.999",
++      "actual": "4580.88985",
++      "expected": "4580.88985"
++    },
++    {
++      "name": "quota/aragon/36960.00",
++      "actual": "4580.89",
++      "expected": "4580.89000"
++    },
++    {
++      "name": "quota/aragon/36960.001",
++      "actual": "4580.890185",
++      "expected": "4580.890185"
++    },
++    {
++      "name": "quota/aragon/36960.01",
++      "actual": "4580.89185",
++      "expected": "4580.89185"
++    },
++    {
++      "name": "quota/aragon/37097.29",
++      "actual": "4606.28865",
++      "expected": "4606.28865"
++    },
++    {
++      "name": "quota/aragon/52499.99",
++      "actual": "7455.78815",
++      "expected": "7455.78815"
++    },
++    {
++      "name": "quota/aragon/52499.999",
++      "actual": "7455.789815",
++      "expected": "7455.789815"
++    },
++    {
++      "name": "quota/aragon/52500.00",
++      "actual": "7455.79",
++      "expected": "7455.79000"
++    },
++    {
++      "name": "quota/aragon/52500.001",
++      "actual": "7455.790205",
++      "expected": "7455.790205"
++    },
++    {
++      "name": "quota/aragon/52500.01",
++      "actual": "7455.79205",
++      "expected": "7455.79205"
++    },
++    {
++      "name": "quota/aragon/52637.29",
++      "actual": "7483.93445",
++      "expected": "7483.93445"
++    },
++    {
++      "name": "quota/aragon/59999.99",
++      "actual": "8993.28795",
++      "expected": "8993.28795"
++    },
++    {
++      "name": "quota/aragon/59999.999",
++      "actual": "8993.289795",
++      "expected": "8993.289795"
++    },
++    {
++      "name": "quota/aragon/60000.00",
++      "actual": "8993.29",
++      "expected": "8993.2900"
++    },
++    {
++      "name": "quota/aragon/60000.001",
++      "actual": "8993.29023",
++      "expected": "8993.29023"
++    },
++    {
++      "name": "quota/aragon/60000.01",
++      "actual": "8993.2923",
++      "expected": "8993.2923"
++    },
++    {
++      "name": "quota/aragon/60137.29",
++      "actual": "9024.8667",
++      "expected": "9024.8667"
++    },
++    {
++      "name": "quota/aragon/79999.99",
++      "actual": "13593.2877",
++      "expected": "13593.2877"
++    },
++    {
++      "name": "quota/aragon/79999.999",
++      "actual": "13593.28977",
++      "expected": "13593.28977"
++    },
++    {
++      "name": "quota/aragon/80000.00",
++      "actual": "13593.29",
++      "expected": "13593.2900"
++    },
++    {
++      "name": "quota/aragon/80000.001",
++      "actual": "13593.29024",
++      "expected": "13593.29024"
++    },
++    {
++      "name": "quota/aragon/80000.01",
++      "actual": "13593.2924",
++      "expected": "13593.2924"
++    },
++    {
++      "name": "quota/aragon/80137.29",
++      "actual": "13626.2396",
++      "expected": "13626.2396"
++    },
++    {
++      "name": "quota/aragon/89999.99",
++      "actual": "15993.2876",
++      "expected": "15993.2876"
++    },
++    {
++      "name": "quota/aragon/89999.999",
++      "actual": "15993.28976",
++      "expected": "15993.28976"
++    },
++    {
++      "name": "quota/aragon/90000.00",
++      "actual": "15993.29",
++      "expected": "15993.2900"
++    },
++    {
++      "name": "quota/aragon/90000.001",
++      "actual": "15993.29025",
++      "expected": "15993.29025"
++    },
++    {
++      "name": "quota/aragon/90000.01",
++      "actual": "15993.2925",
++      "expected": "15993.2925"
++    },
++    {
++      "name": "quota/aragon/90137.29",
++      "actual": "16027.6125",
++      "expected": "16027.6125"
++    },
++    {
++      "name": "quota/aragon/129999.99",
++      "actual": "25993.2875",
++      "expected": "25993.2875"
++    },
++    {
++      "name": "quota/aragon/129999.999",
++      "actual": "25993.28975",
++      "expected": "25993.28975"
++    },
++    {
++      "name": "quota/aragon/130000.00",
++      "actual": "25993.29",
++      "expected": "25993.29000"
++    },
++    {
++      "name": "quota/aragon/130000.001",
++      "actual": "25993.290255",
++      "expected": "25993.290255"
++    },
++    {
++      "name": "quota/aragon/130000.01",
++      "actual": "25993.29255",
++      "expected": "25993.29255"
++    },
++    {
++      "name": "quota/aragon/130137.29",
++      "actual": "26028.29895",
++      "expected": "26028.29895"
++    },
++    {
++      "name": "quota/aragon/987654.32",
++      "actual": "244695.1416",
++      "expected": "244695.14160"
++    },
++    {
++      "name": "quota/asturias/-1",
++      "actual": "0",
++      "expected": "0"
++    },
++    {
++      "name": "quota/asturias/-0.01",
++      "actual": "0",
++      "expected": "0"
++    },
++    {
++      "name": "quota/asturias/-0.001",
++      "actual": "0",
++      "expected": "0"
++    },
++    {
++      "name": "quota/asturias/0",
++      "actual": "0",
++      "expected": "0"
++    },
++    {
++      "name": "quota/asturias/0.001",
++      "actual": "0.00009",
++      "expected": "0.00009"
++    },
++    {
++      "name": "quota/asturias/0.01",
++      "actual": "0.0009",
++      "expected": "0.0009"
++    },
++    {
++      "name": "quota/asturias/137.29",
++      "actual": "12.3561",
++      "expected": "12.3561"
++    },
++    {
++      "name": "quota/asturias/12449.99",
++      "actual": "1120.4991",
++      "expected": "1120.4991"
++    },
++    {
++      "name": "quota/asturias/12449.999",
++      "actual": "1120.49991",
++      "expected": "1120.49991"
++    },
++    {
++      "name": "quota/asturias/12450.00",
++      "actual": "1120.5",
++      "expected": "1120.5000"
++    },
++    {
++      "name": "quota/asturias/12450.001",
++      "actual": "1120.50012",
++      "expected": "1120.50012"
++    },
++    {
++      "name": "quota/asturias/12450.01",
++      "actual": "1120.5012",
++      "expected": "1120.5012"
++    },
++    {
++      "name": "quota/asturias/12587.29",
++      "actual": "1136.9748",
++      "expected": "1136.9748"
++    },
++    {
++      "name": "quota/asturias/17707.19",
++      "actual": "1751.3628",
++      "expected": "1751.3628"
++    },
++    {
++      "name": "quota/asturias/17707.199",
++      "actual": "1751.36388",
++      "expected": "1751.36388"
++    },
++    {
++      "name": "quota/asturias/17707.20",
++      "actual": "1751.36",
++      "expected": "1751.3600"
++    },
++    {
++      "name": "quota/asturias/17707.201",
++      "actual": "1751.36014",
++      "expected": "1751.36014"
++    },
++    {
++      "name": "quota/asturias/17707.21",
++      "actual": "1751.3614",
++      "expected": "1751.3614"
++    },
++    {
++      "name": "quota/asturias/17844.49",
++      "actual": "1770.5806",
++      "expected": "1770.5806"
++    },
++    {
++      "name": "quota/asturias/33007.19",
++      "actual": "3893.3586",
++      "expected": "3893.3586"
++    },
++    {
++      "name": "quota/asturias/33007.199",
++      "actual": "3893.35986",
++      "expected": "3893.35986"
++    },
++    {
++      "name": "quota/asturias/33007.20",
++      "actual": "3893.36",
++      "expected": "3893.36000"
++    },
++    {
++      "name": "quota/asturias/33007.201",
++      "actual": "3893.360192",
++      "expected": "3893.360192"
++    },
++    {
++      "name": "quota/asturias/33007.21",
++      "actual": "3893.36192",
++      "expected": "3893.36192"
++    },
++    {
++      "name": "quota/asturias/33144.49",
++      "actual": "3919.71968",
++      "expected": "3919.71968"
++    },
++    {
++      "name": "quota/asturias/53407.19",
++      "actual": "7810.15808",
++      "expected": "7810.15808"
++    },
++    {
++      "name": "quota/asturias/53407.199",
++      "actual": "7810.159808",
++      "expected": "7810.159808"
++    },
++    {
++      "name": "quota/asturias/53407.20",
++      "actual": "7810.16",
++      "expected": "7810.16000"
++    },
++    {
++      "name": "quota/asturias/53407.201",
++      "actual": "7810.160215",
++      "expected": "7810.160215"
++    },
++    {
++      "name": "quota/asturias/53407.21",
++      "actual": "7810.16215",
++      "expected": "7810.16215"
++    },
++    {
++      "name": "quota/asturias/53544.49",
++      "actual": "7839.67735",
++      "expected": "7839.67735"
++    },
++    {
++      "name": "quota/asturias/69999.99",
++      "actual": "11377.60985",
++      "expected": "11377.60985"
++    },
++    {
++      "name": "quota/asturias/69999.999",
++      "actual": "11377.611785",
++      "expected": "11377.611785"
++    },
++    {
++      "name": "quota/asturias/70000.00",
++      "actual": "11377.62",
++      "expected": "11377.62000"
++    },
++    {
++      "name": "quota/asturias/70000.001",
++      "actual": "11377.620225",
++      "expected": "11377.620225"
++    },
++    {
++      "name": "quota/asturias/70000.01",
++      "actual": "11377.62225",
++      "expected": "11377.62225"
++    },
++    {
++      "name": "quota/asturias/70137.29",
++      "actual": "11408.51025",
++      "expected": "11408.51025"
++    },
++    {
++      "name": "quota/asturias/89999.99",
++      "actual": "15877.61775",
++      "expected": "15877.61775"
++    },
++    {
++      "name": "quota/asturias/89999.999",
++      "actual": "15877.619775",
++      "expected": "15877.619775"
++    },
++    {
++      "name": "quota/asturias/90000.00",
++      "actual": "15877.62",
++      "expected": "15877.6200"
++    },
++    {
++      "name": "quota/asturias/90000.001",
++      "actual": "15877.62025",
++      "expected": "15877.62025"
++    },
++    {
++      "name": "quota/asturias/90000.01",
++      "actual": "15877.6225",
++      "expected": "15877.6225"
++    },
++    {
++      "name": "quota/asturias/90137.29",
++      "actual": "15911.9425",
++      "expected": "15911.9425"
++    },
++    {
++      "name": "quota/asturias/174999.99",
++      "actual": "37127.6175",
++      "expected": "37127.6175"
++    },
++    {
++      "name": "quota/asturias/174999.999",
++      "actual": "37127.61975",
++      "expected": "37127.61975"
++    },
++    {
++      "name": "quota/asturias/175000.00",
++      "actual": "37127.62",
++      "expected": "37127.6200"
++    },
++    {
++      "name": "quota/asturias/175000.001",
++      "actual": "37127.62026",
++      "expected": "37127.62026"
++    },
++    {
++      "name": "quota/asturias/175000.01",
++      "actual": "37127.6226",
++      "expected": "37127.6226"
++    },
++    {
++      "name": "quota/asturias/175137.29",
++      "actual": "37163.3154",
++      "expected": "37163.3154"
++    },
++    {
++      "name": "quota/asturias/987654.32",
++      "actual": "248417.7432",
++      "expected": "248417.7432"
++    },
++    {
++      "name": "quota/galicia/-1",
++      "actual": "0",
++      "expected": "0"
++    },
++    {
++      "name": "quota/galicia/-0.01",
++      "actual": "0",
++      "expected": "0"
++    },
++    {
++      "name": "quota/galicia/-0.001",
++      "actual": "0",
++      "expected": "0"
++    },
++    {
++      "name": "quota/galicia/0",
++      "actual": "0",
++      "expected": "0"
++    },
++    {
++      "name": "quota/galicia/0.001",
++      "actual": "0.00009",
++      "expected": "0.00009"
++    },
++    {
++      "name": "quota/galicia/0.01",
++      "actual": "0.0009",
++      "expected": "0.0009"
++    },
++    {
++      "name": "quota/galicia/137.29",
++      "actual": "12.3561",
++      "expected": "12.3561"
++    },
++    {
++      "name": "quota/galicia/12985.34",
++      "actual": "1168.6806",
++      "expected": "1168.6806"
++    },
++    {
++      "name": "quota/galicia/12985.349",
++      "actual": "1168.68141",
++      "expected": "1168.68141"
++    },
++    {
++      "name": "quota/galicia/12985.35",
++      "actual": "1168.68",
++      "expected": "1168.680000"
++    },
++    {
++      "name": "quota/galicia/12985.351",
++      "actual": "1168.6801165",
++      "expected": "1168.6801165"
++    },
++    {
++      "name": "quota/galicia/12985.36",
++      "actual": "1168.681165",
++      "expected": "1168.681165"
++    },
++    {
++      "name": "quota/galicia/13122.64",
++      "actual": "1184.674285",
++      "expected": "1184.674285"
++    },
++    {
++      "name": "quota/galicia/21068.59",
++      "actual": "2110.37746",
++      "expected": "2110.377460"
++    },
++    {
++      "name": "quota/galicia/21068.599",
++      "actual": "2110.3785085",
++      "expected": "2110.3785085"
++    },
++    {
++      "name": "quota/galicia/21068.60",
++      "actual": "2110.38",
++      "expected": "2110.38000"
++    },
++    {
++      "name": "quota/galicia/21068.601",
++      "actual": "2110.380149",
++      "expected": "2110.380149"
++    },
++    {
++      "name": "quota/galicia/21068.61",
++      "actual": "2110.38149",
++      "expected": "2110.38149"
++    },
++    {
++      "name": "quota/galicia/21205.89",
++      "actual": "2130.83621",
++      "expected": "2130.83621"
++    },
++    {
++      "name": "quota/galicia/35199.99",
++      "actual": "4215.95711",
++      "expected": "4215.95711"
++    },
++    {
++      "name": "quota/galicia/35199.999",
++      "actual": "4215.958451",
++      "expected": "4215.958451"
++    },
++    {
++      "name": "quota/galicia/35200.00",
++      "actual": "4215.96",
++      "expected": "4215.96000"
++    },
++    {
++      "name": "quota/galicia/35200.001",
++      "actual": "4215.960184",
++      "expected": "4215.960184"
++    },
++    {
++      "name": "quota/galicia/35200.01",
++      "actual": "4215.96184",
++      "expected": "4215.96184"
++    },
++    {
++      "name": "quota/galicia/35337.29",
++      "actual": "4241.22136",
++      "expected": "4241.22136"
++    },
++    {
++      "name": "quota/galicia/59999.99",
++      "actual": "8779.15816",
++      "expected": "8779.15816"
++    },
++    {
++      "name": "quota/galicia/59999.999",
++      "actual": "8779.159816",
++      "expected": "8779.159816"
++    },
++    {
++      "name": "quota/galicia/60000.00",
++      "actual": "8779.16",
++      "expected": "8779.16000"
++    },
++    {
++      "name": "quota/galicia/60000.001",
++      "actual": "8779.160225",
++      "expected": "8779.160225"
++    },
++    {
++      "name": "quota/galicia/60000.01",
++      "actual": "8779.16225",
++      "expected": "8779.16225"
++    },
++    {
++      "name": "quota/galicia/60137.29",
++      "actual": "8810.05025",
++      "expected": "8810.05025"
++    },
++    {
++      "name": "quota/galicia/987654.32",
++      "actual": "217501.382",
++      "expected": "217501.38200"
++    },
++    {
++      "name": "quota/castilla-y-leon/-1",
++      "actual": "0",
++      "expected": "0"
++    },
++    {
++      "name": "quota/castilla-y-leon/-0.01",
++      "actual": "0",
++      "expected": "0"
++    },
++    {
++      "name": "quota/castilla-y-leon/-0.001",
++      "actual": "0",
++      "expected": "0"
++    },
++    {
++      "name": "quota/castilla-y-leon/0",
++      "actual": "0",
++      "expected": "0"
++    },
++    {
++      "name": "quota/castilla-y-leon/0.001",
++      "actual": "0.00009",
++      "expected": "0.00009"
++    },
++    {
++      "name": "quota/castilla-y-leon/0.01",
++      "actual": "0.0009",
++      "expected": "0.0009"
++    },
++    {
++      "name": "quota/castilla-y-leon/137.29",
++      "actual": "12.3561",
++      "expected": "12.3561"
++    },
++    {
++      "name": "quota/castilla-y-leon/12449.99",
++      "actual": "1120.4991",
++      "expected": "1120.4991"
++    },
++    {
++      "name": "quota/castilla-y-leon/12449.999",
++      "actual": "1120.49991",
++      "expected": "1120.49991"
++    },
++    {
++      "name": "quota/castilla-y-leon/12450.00",
++      "actual": "1120.5",
++      "expected": "1120.5000"
++    },
++    {
++      "name": "quota/castilla-y-leon/12450.001",
++      "actual": "1120.50012",
++      "expected": "1120.50012"
++    },
++    {
++      "name": "quota/castilla-y-leon/12450.01",
++      "actual": "1120.5012",
++      "expected": "1120.5012"
++    },
++    {
++      "name": "quota/castilla-y-leon/12587.29",
++      "actual": "1136.9748",
++      "expected": "1136.9748"
++    },
++    {
++      "name": "quota/castilla-y-leon/20199.99",
++      "actual": "2050.4988",
++      "expected": "2050.4988"
++    },
++    {
++      "name": "quota/castilla-y-leon/20199.999",
++      "actual": "2050.49988",
++      "expected": "2050.49988"
++    },
++    {
++      "name": "quota/castilla-y-leon/20200.00",
++      "actual": "2050.5",
++      "expected": "2050.5000"
++    },
++    {
++      "name": "quota/castilla-y-leon/20200.001",
++      "actual": "2050.50014",
++      "expected": "2050.50014"
++    },
++    {
++      "name": "quota/castilla-y-leon/20200.01",
++      "actual": "2050.5014",
++      "expected": "2050.5014"
++    },
++    {
++      "name": "quota/castilla-y-leon/20337.29",
++      "actual": "2069.7206",
++      "expected": "2069.7206"
++    },
++    {
++      "name": "quota/castilla-y-leon/35199.99",
++      "actual": "4150.4986",
++      "expected": "4150.4986"
++    },
++    {
++      "name": "quota/castilla-y-leon/35199.999",
++      "actual": "4150.49986",
++      "expected": "4150.49986"
++    },
++    {
++      "name": "quota/castilla-y-leon/35200.00",
++      "actual": "4150.5",
++      "expected": "4150.50000"
++    },
++    {
++      "name": "quota/castilla-y-leon/35200.001",
++      "actual": "4150.500185",
++      "expected": "4150.500185"
++    },
++    {
++      "name": "quota/castilla-y-leon/35200.01",
++      "actual": "4150.50185",
++      "expected": "4150.50185"
++    },
++    {
++      "name": "quota/castilla-y-leon/35337.29",
++      "actual": "4175.89865",
++      "expected": "4175.89865"
++    },
++    {
++      "name": "quota/castilla-y-leon/53407.19",
++      "actual": "7518.83015",
++      "expected": "7518.83015"
++    },
++    {
++      "name": "quota/castilla-y-leon/53407.199",
++      "actual": "7518.831815",
++      "expected": "7518.831815"
++    },
++    {
++      "name": "quota/castilla-y-leon/53407.20",
++      "actual": "7518.83",
++      "expected": "7518.83000"
++    },
++    {
++      "name": "quota/castilla-y-leon/53407.201",
++      "actual": "7518.830215",
++      "expected": "7518.830215"
++    },
++    {
++      "name": "quota/castilla-y-leon/53407.21",
++      "actual": "7518.83215",
++      "expected": "7518.83215"
++    },
++    {
++      "name": "quota/castilla-y-leon/53544.49",
++      "actual": "7548.34735",
++      "expected": "7548.34735"
++    },
++    {
++      "name": "quota/castilla-y-leon/987654.32",
++      "actual": "208381.9608",
++      "expected": "208381.96080"
++    },
++    {
++      "name": "quota/aragon/13072.5",
++      "actual": "1241.89",
++      "expected": "1241.8900"
++    },
++    {
++      "name": "quota/aragon/13072.51",
++      "actual": "1241.8912",
++      "expected": "1241.8912"
++    },
++    {
++      "name": "quota/aragon/13195.95",
++      "actual": "1256.704",
++      "expected": "1256.7040"
++    },
++    {
++      "name": "quota/aragon/21209.99",
++      "actual": "2218.3888",
++      "expected": "2218.3888"
++    },
++    {
++      "name": "quota/aragon/21210",
++      "actual": "2218.39",
++      "expected": "2218.3900"
++    },
++    {
++      "name": "quota/aragon/21210.01",
++      "actual": "2218.3915",
++      "expected": "2218.3915"
++    },
++    {
++      "name": "quota/aragon/21333.45",
++      "actual": "2236.9075",
++      "expected": "2236.9075"
++    },
++    {
++      "name": "quota/aragon/36959.99",
++      "actual": "4580.8885",
++      "expected": "4580.8885"
++    },
++    {
++      "name": "quota/aragon/36960",
++      "actual": "4580.89",
++      "expected": "4580.89000"
++    },
++    {
++      "name": "quota/aragon/36960.01",
++      "actual": "4580.89185",
++      "expected": "4580.89185"
++    },
++    {
++      "name": "quota/aragon/37083.45",
++      "actual": "4603.72825",
++      "expected": "4603.72825"
++    },
++    {
++      "name": "quota/aragon/52499.99",
++      "actual": "7455.78815",
++      "expected": "7455.78815"
++    },
++    {
++      "name": "quota/aragon/52500",
++      "actual": "7455.79",
++      "expected": "7455.79000"
++    },
++    {
++      "name": "quota/aragon/52500.01",
++      "actual": "7455.79205",
++      "expected": "7455.79205"
++    },
++    {
++      "name": "quota/aragon/52623.45",
++      "actual": "7481.09725",
++      "expected": "7481.09725"
++    },
++    {
++      "name": "quota/aragon/59999.99",
++      "actual": "8993.28795",
++      "expected": "8993.28795"
++    },
++    {
++      "name": "quota/aragon/60000",
++      "actual": "8993.29",
++      "expected": "8993.2900"
++    },
++    {
++      "name": "quota/aragon/60000.01",
++      "actual": "8993.2923",
++      "expected": "8993.2923"
++    },
++    {
++      "name": "quota/aragon/60123.45",
++      "actual": "9021.6835",
++      "expected": "9021.6835"
++    },
++    {
++      "name": "quota/aragon/79999.99",
++      "actual": "13593.2877",
++      "expected": "13593.2877"
++    },
++    {
++      "name": "quota/aragon/80000",
++      "actual": "13593.29",
++      "expected": "13593.2900"
++    },
++    {
++      "name": "quota/aragon/80000.01",
++      "actual": "13593.2924",
++      "expected": "13593.2924"
++    },
++    {
++      "name": "quota/aragon/80123.45",
++      "actual": "13622.918",
++      "expected": "13622.9180"
++    },
++    {
++      "name": "quota/aragon/89999.99",
++      "actual": "15993.2876",
++      "expected": "15993.2876"
++    },
++    {
++      "name": "quota/aragon/90000",
++      "actual": "15993.29",
++      "expected": "15993.2900"
++    },
++    {
++      "name": "quota/aragon/90000.01",
++      "actual": "15993.2925",
++      "expected": "15993.2925"
++    },
++    {
++      "name": "quota/aragon/90123.45",
++      "actual": "16024.1525",
++      "expected": "16024.1525"
++    },
++    {
++      "name": "quota/aragon/129999.99",
++      "actual": "25993.2875",
++      "expected": "25993.2875"
++    },
++    {
++      "name": "quota/aragon/130000",
++      "actual": "25993.29",
++      "expected": "25993.29000"
++    },
++    {
++      "name": "quota/aragon/130000.01",
++      "actual": "25993.29255",
++      "expected": "25993.29255"
++    },
++    {
++      "name": "quota/aragon/130123.45",
++      "actual": "26024.76975",
++      "expected": "26024.76975"
++    },
++    {
++      "name": "quota/asturias/17707.2",
++      "actual": "1751.36",
++      "expected": "1751.3600"
++    },
++    {
++      "name": "quota/asturias/17707.21",
++      "actual": "1751.3614",
++      "expected": "1751.3614"
++    },
++    {
++      "name": "quota/asturias/17830.65",
++      "actual": "1768.643",
++      "expected": "1768.6430"
++    },
++    {
++      "name": "quota/asturias/33007.19",
++      "actual": "3893.3586",
++      "expected": "3893.3586"
++    },
++    {
++      "name": "quota/asturias/33007.2",
++      "actual": "3893.36",
++      "expected": "3893.36000"
++    },
++    {
++      "name": "quota/asturias/33007.21",
++      "actual": "3893.36192",
++      "expected": "3893.36192"
++    },
++    {
++      "name": "quota/asturias/33130.65",
++      "actual": "3917.0624",
++      "expected": "3917.06240"
++    },
++    {
++      "name": "quota/asturias/53407.19",
++      "actual": "7810.15808",
++      "expected": "7810.15808"
++    },
++    {
++      "name": "quota/asturias/53407.2",
++      "actual": "7810.16",
++      "expected": "7810.16000"
++    },
++    {
++      "name": "quota/asturias/53407.21",
++      "actual": "7810.16215",
++      "expected": "7810.16215"
++    },
++    {
++      "name": "quota/asturias/53530.65",
++      "actual": "7836.70175",
++      "expected": "7836.70175"
++    },
++    {
++      "name": "quota/asturias/69999.99",
++      "actual": "11377.60985",
++      "expected": "11377.60985"
++    },
++    {
++      "name": "quota/asturias/70000",
++      "actual": "11377.62",
++      "expected": "11377.62000"
++    },
++    {
++      "name": "quota/asturias/70000.01",
++      "actual": "11377.62225",
++      "expected": "11377.62225"
++    },
++    {
++      "name": "quota/asturias/70123.45",
++      "actual": "11405.39625",
++      "expected": "11405.39625"
++    },
++    {
++      "name": "quota/asturias/89999.99",
++      "actual": "15877.61775",
++      "expected": "15877.61775"
++    },
++    {
++      "name": "quota/asturias/90000",
++      "actual": "15877.62",
++      "expected": "15877.6200"
++    },
++    {
++      "name": "quota/asturias/90000.01",
++      "actual": "15877.6225",
++      "expected": "15877.6225"
++    },
++    {
++      "name": "quota/asturias/90123.45",
++      "actual": "15908.4825",
++      "expected": "15908.4825"
++    },
++    {
++      "name": "quota/asturias/174999.99",
++      "actual": "37127.6175",
++      "expected": "37127.6175"
++    },
++    {
++      "name": "quota/asturias/175000",
++      "actual": "37127.62",
++      "expected": "37127.6200"
++    },
++    {
++      "name": "quota/asturias/175000.01",
++      "actual": "37127.6226",
++      "expected": "37127.6226"
++    },
++    {
++      "name": "quota/asturias/175123.45",
++      "actual": "37159.717",
++      "expected": "37159.7170"
++    },
++    {
++      "name": "quota/castilla-y-leon/53407.2",
++      "actual": "7518.83",
++      "expected": "7518.83000"
++    },
++    {
++      "name": "quota/castilla-y-leon/53407.21",
++      "actual": "7518.83215",
++      "expected": "7518.83215"
++    },
++    {
++      "name": "quota/castilla-y-leon/53530.65",
++      "actual": "7545.37175",
++      "expected": "7545.37175"
++    },
++    {
++      "name": "quota/galicia/12985.35",
++      "actual": "1168.68",
++      "expected": "1168.680000"
++    },
++    {
++      "name": "quota/galicia/12985.36",
++      "actual": "1168.681165",
++      "expected": "1168.681165"
++    },
++    {
++      "name": "quota/galicia/13108.8",
++      "actual": "1183.061925",
++      "expected": "1183.061925"
++    },
++    {
++      "name": "quota/galicia/21068.59",
++      "actual": "2110.37746",
++      "expected": "2110.377460"
++    },
++    {
++      "name": "quota/galicia/21068.6",
++      "actual": "2110.38",
++      "expected": "2110.38000"
++    },
++    {
++      "name": "quota/galicia/21068.61",
++      "actual": "2110.38149",
++      "expected": "2110.38149"
++    },
++    {
++      "name": "quota/galicia/21192.05",
++      "actual": "2128.77405",
++      "expected": "2128.77405"
++    },
++    {
++      "name": "quota/galicia/35199.99",
++      "actual": "4215.95711",
++      "expected": "4215.95711"
++    },
++    {
++      "name": "quota/galicia/35200",
++      "actual": "4215.96",
++      "expected": "4215.96000"
++    },
++    {
++      "name": "quota/galicia/35200.01",
++      "actual": "4215.96184",
++      "expected": "4215.96184"
++    },
++    {
++      "name": "quota/galicia/35323.45",
++      "actual": "4238.6748",
++      "expected": "4238.67480"
++    },
++    {
++      "name": "quota/galicia/59999.99",
++      "actual": "8779.15816",
++      "expected": "8779.15816"
++    },
++    {
++      "name": "quota/galicia/60000",
++      "actual": "8779.16",
++      "expected": "8779.16000"
++    },
++    {
++      "name": "quota/galicia/60000.01",
++      "actual": "8779.16225",
++      "expected": "8779.16225"
++    },
++    {
++      "name": "quota/galicia/60123.45",
++      "actual": "8806.93625",
++      "expected": "8806.93625"
++    },
++    {
++      "name": "net/aragon/60123.45/22000",
++      "actual": "6684.7935",
++      "expected": "6684.7935"
++    },
++    {
++      "name": "net/aragon/17707.20/17707.20",
++      "actual": "0",
++      "expected": "0"
++    },
++    {
++      "name": "net/aragon/10000/22000",
++      "actual": "0",
++      "expected": "0"
++    },
++    {
++      "name": "net/aragon/0/5550",
++      "actual": "0",
++      "expected": "0"
++    },
++    {
++      "name": "net/asturias/60123.45/22000",
++      "actual": "6901.80175",
++      "expected": "6901.80175"
++    },
++    {
++      "name": "net/asturias/17707.20/17707.20",
++      "actual": "0",
++      "expected": "0"
++    },
++    {
++      "name": "net/asturias/10000/22000",
++      "actual": "0",
++      "expected": "0"
++    },
++    {
++      "name": "net/asturias/0/5550",
++      "actual": "0",
++      "expected": "0"
++    },
++    {
++      "name": "net/galicia/60123.45/22000",
++      "actual": "6557.77765",
++      "expected": "6557.77765"
++    },
++    {
++      "name": "net/galicia/17707.20/17707.20",
++      "actual": "0",
++      "expected": "0"
++    },
++    {
++      "name": "net/galicia/10000/22000",
++      "actual": "0",
++      "expected": "0"
++    },
++    {
++      "name": "net/galicia/0/5550",
++      "actual": "0",
++      "expected": "0"
++    },
++    {
++      "name": "net/castilla-y-leon/60123.45/22000",
++      "actual": "6660.32375",
++      "expected": "6660.32375"
++    },
++    {
++      "name": "net/castilla-y-leon/17707.20/17707.20",
++      "actual": "0",
++      "expected": "0"
++    },
++    {
++      "name": "net/castilla-y-leon/10000/22000",
++      "actual": "0",
++      "expected": "0"
++    },
++    {
++      "name": "net/castilla-y-leon/0/5550",
++      "actual": "0",
++      "expected": "0"
++    },
++    {
++      "name": "aragon/lower/0",
++      "actual": "0",
++      "expected": "0.00"
++    },
++    {
++      "name": "aragon/fixed/0",
++      "actual": "0",
++      "expected": "0.00"
++    },
++    {
++      "name": "aragon/rate/0",
++      "actual": "0.095",
++      "expected": "0.095"
++    },
++    {
++      "name": "aragon/lower/1",
++      "actual": "13072.5",
++      "expected": "13072.50"
++    },
++    {
++      "name": "aragon/fixed/1",
++      "actual": "1241.89",
++      "expected": "1241.89"
++    },
++    {
++      "name": "aragon/rate/1",
++      "actual": "0.12",
++      "expected": "0.12"
++    },
++    {
++      "name": "aragon/lower/2",
++      "actual": "21210",
++      "expected": "21210.00"
++    },
++    {
++      "name": "aragon/fixed/2",
++      "actual": "2218.39",
++      "expected": "2218.39"
++    },
++    {
++      "name": "aragon/rate/2",
++      "actual": "0.15",
++      "expected": "0.15"
++    },
++    {
++      "name": "aragon/lower/3",
++      "actual": "36960",
++      "expected": "36960.00"
++    },
++    {
++      "name": "aragon/fixed/3",
++      "actual": "4580.89",
++      "expected": "4580.89"
++    },
++    {
++      "name": "aragon/rate/3",
++      "actual": "0.185",
++      "expected": "0.185"
++    },
++    {
++      "name": "aragon/lower/4",
++      "actual": "52500",
++      "expected": "52500.00"
++    },
++    {
++      "name": "aragon/fixed/4",
++      "actual": "7455.79",
++      "expected": "7455.79"
++    },
++    {
++      "name": "aragon/rate/4",
++      "actual": "0.205",
++      "expected": "0.205"
++    },
++    {
++      "name": "aragon/lower/5",
++      "actual": "60000",
++      "expected": "60000.00"
++    },
++    {
++      "name": "aragon/fixed/5",
++      "actual": "8993.29",
++      "expected": "8993.29"
++    },
++    {
++      "name": "aragon/rate/5",
++      "actual": "0.23",
++      "expected": "0.23"
++    },
++    {
++      "name": "aragon/lower/6",
++      "actual": "80000",
++      "expected": "80000.00"
++    },
++    {
++      "name": "aragon/fixed/6",
++      "actual": "13593.29",
++      "expected": "13593.29"
++    },
++    {
++      "name": "aragon/rate/6",
++      "actual": "0.24",
++      "expected": "0.24"
++    },
++    {
++      "name": "aragon/lower/7",
++      "actual": "90000",
++      "expected": "90000.00"
++    },
++    {
++      "name": "aragon/fixed/7",
++      "actual": "15993.29",
++      "expected": "15993.29"
++    },
++    {
++      "name": "aragon/rate/7",
++      "actual": "0.25",
++      "expected": "0.25"
++    },
++    {
++      "name": "aragon/lower/8",
++      "actual": "130000",
++      "expected": "130000.00"
++    },
++    {
++      "name": "aragon/fixed/8",
++      "actual": "25993.29",
++      "expected": "25993.29"
++    },
++    {
++      "name": "aragon/rate/8",
++      "actual": "0.255",
++      "expected": "0.255"
++    },
++    {
++      "name": "asturias/lower/0",
++      "actual": "0",
++      "expected": "0.00"
++    },
++    {
++      "name": "asturias/fixed/0",
++      "actual": "0",
++      "expected": "0.00"
++    },
++    {
++      "name": "asturias/rate/0",
++      "actual": "0.09",
++      "expected": "0.09"
++    },
++    {
++      "name": "asturias/lower/1",
++      "actual": "12450",
++      "expected": "12450.00"
++    },
++    {
++      "name": "asturias/fixed/1",
++      "actual": "1120.5",
++      "expected": "1120.50"
++    },
++    {
++      "name": "asturias/rate/1",
++      "actual": "0.12",
++      "expected": "0.12"
++    },
++    {
++      "name": "asturias/lower/2",
++      "actual": "17707.2",
++      "expected": "17707.20"
++    },
++    {
++      "name": "asturias/fixed/2",
++      "actual": "1751.36",
++      "expected": "1751.36"
++    },
++    {
++      "name": "asturias/rate/2",
++      "actual": "0.14",
++      "expected": "0.14"
++    },
++    {
++      "name": "asturias/lower/3",
++      "actual": "33007.2",
++      "expected": "33007.20"
++    },
++    {
++      "name": "asturias/fixed/3",
++      "actual": "3893.36",
++      "expected": "3893.36"
++    },
++    {
++      "name": "asturias/rate/3",
++      "actual": "0.192",
++      "expected": "0.192"
++    },
++    {
++      "name": "asturias/lower/4",
++      "actual": "53407.2",
++      "expected": "53407.20"
++    },
++    {
++      "name": "asturias/fixed/4",
++      "actual": "7810.16",
++      "expected": "7810.16"
++    },
++    {
++      "name": "asturias/rate/4",
++      "actual": "0.215",
++      "expected": "0.215"
++    },
++    {
++      "name": "asturias/lower/5",
++      "actual": "70000",
++      "expected": "70000.00"
++    },
++    {
++      "name": "asturias/fixed/5",
++      "actual": "11377.62",
++      "expected": "11377.62"
++    },
++    {
++      "name": "asturias/rate/5",
++      "actual": "0.225",
++      "expected": "0.225"
++    },
++    {
++      "name": "asturias/lower/6",
++      "actual": "90000",
++      "expected": "90000.00"
++    },
++    {
++      "name": "asturias/fixed/6",
++      "actual": "15877.62",
++      "expected": "15877.62"
++    },
++    {
++      "name": "asturias/rate/6",
++      "actual": "0.25",
++      "expected": "0.25"
++    },
++    {
++      "name": "asturias/lower/7",
++      "actual": "175000",
++      "expected": "175000.00"
++    },
++    {
++      "name": "asturias/fixed/7",
++      "actual": "37127.62",
++      "expected": "37127.62"
++    },
++    {
++      "name": "asturias/rate/7",
++      "actual": "0.26",
++      "expected": "0.26"
++    },
++    {
++      "name": "galicia/lower/0",
++      "actual": "0",
++      "expected": "0.00"
++    },
++    {
++      "name": "galicia/fixed/0",
++      "actual": "0",
++      "expected": "0.00"
++    },
++    {
++      "name": "galicia/rate/0",
++      "actual": "0.09",
++      "expected": "0.09"
++    },
++    {
++      "name": "galicia/lower/1",
++      "actual": "12985.35",
++      "expected": "12985.35"
++    },
++    {
++      "name": "galicia/fixed/1",
++      "actual": "1168.68",
++      "expected": "1168.68"
++    },
++    {
++      "name": "galicia/rate/1",
++      "actual": "0.1165",
++      "expected": "0.1165"
++    },
++    {
++      "name": "galicia/lower/2",
++      "actual": "21068.6",
++      "expected": "21068.60"
++    },
++    {
++      "name": "galicia/fixed/2",
++      "actual": "2110.38",
++      "expected": "2110.38"
++    },
++    {
++      "name": "galicia/rate/2",
++      "actual": "0.149",
++      "expected": "0.149"
++    },
++    {
++      "name": "galicia/lower/3",
++      "actual": "35200",
++      "expected": "35200.00"
++    },
++    {
++      "name": "galicia/fixed/3",
++      "actual": "4215.96",
++      "expected": "4215.96"
++    },
++    {
++      "name": "galicia/rate/3",
++      "actual": "0.184",
++      "expected": "0.184"
++    },
++    {
++      "name": "galicia/lower/4",
++      "actual": "60000",
++      "expected": "60000.00"
++    },
++    {
++      "name": "galicia/fixed/4",
++      "actual": "8779.16",
++      "expected": "8779.16"
++    },
++    {
++      "name": "galicia/rate/4",
++      "actual": "0.225",
++      "expected": "0.225"
++    },
++    {
++      "name": "castilla-y-leon/lower/0",
++      "actual": "0",
++      "expected": "0.00"
++    },
++    {
++      "name": "castilla-y-leon/fixed/0",
++      "actual": "0",
++      "expected": "0.00"
++    },
++    {
++      "name": "castilla-y-leon/rate/0",
++      "actual": "0.09",
++      "expected": "0.09"
++    },
++    {
++      "name": "castilla-y-leon/lower/1",
++      "actual": "12450",
++      "expected": "12450.00"
++    },
++    {
++      "name": "castilla-y-leon/fixed/1",
++      "actual": "1120.5",
++      "expected": "1120.50"
++    },
++    {
++      "name": "castilla-y-leon/rate/1",
++      "actual": "0.12",
++      "expected": "0.12"
++    },
++    {
++      "name": "castilla-y-leon/lower/2",
++      "actual": "20200",
++      "expected": "20200.00"
++    },
++    {
++      "name": "castilla-y-leon/fixed/2",
++      "actual": "2050.5",
++      "expected": "2050.50"
++    },
++    {
++      "name": "castilla-y-leon/rate/2",
++      "actual": "0.14",
++      "expected": "0.14"
++    },
++    {
++      "name": "castilla-y-leon/lower/3",
++      "actual": "35200",
++      "expected": "35200.00"
++    },
++    {
++      "name": "castilla-y-leon/fixed/3",
++      "actual": "4150.5",
++      "expected": "4150.50"
++    },
++    {
++      "name": "castilla-y-leon/rate/3",
++      "actual": "0.185",
++      "expected": "0.185"
++    },
++    {
++      "name": "castilla-y-leon/lower/4",
++      "actual": "53407.2",
++      "expected": "53407.20"
++    },
++    {
++      "name": "castilla-y-leon/fixed/4",
++      "actual": "7518.83",
++      "expected": "7518.83"
++    },
++    {
++      "name": "castilla-y-leon/rate/4",
++      "actual": "0.215",
++      "expected": "0.215"
++    },
++    {
++      "name": "minimum/aragon/0",
++      "actual": "5550",
++      "expected": "5550"
++    },
++    {
++      "name": "minimum/aragon/1",
++      "actual": "1150",
++      "expected": "1150"
++    },
++    {
++      "name": "minimum/aragon/2",
++      "actual": "1400",
++      "expected": "1400"
++    },
++    {
++      "name": "minimum/aragon/3",
++      "actual": "2400",
++      "expected": "2400"
++    },
++    {
++      "name": "minimum/aragon/4",
++      "actual": "2700",
++      "expected": "2700"
++    },
++    {
++      "name": "minimum/aragon/5",
++      "actual": "4000",
++      "expected": "4000"
++    },
++    {
++      "name": "minimum/aragon/6",
++      "actual": "4500",
++      "expected": "4500"
++    },
++    {
++      "name": "minimum/aragon/7",
++      "actual": "2800",
++      "expected": "2800"
++    },
++    {
++      "name": "minimum/aragon/8",
++      "actual": "1150",
++      "expected": "1150"
++    },
++    {
++      "name": "minimum/aragon/9",
++      "actual": "1400",
++      "expected": "1400"
++    },
++    {
++      "name": "minimum/aragon/contribuyente/grado33Hasta65",
++      "actual": "3000",
++      "expected": "3000"
++    },
++    {
++      "name": "minimum/aragon/contribuyente/grado65OMas",
++      "actual": "9000",
++      "expected": "9000"
++    },
++    {
++      "name": "minimum/aragon/contribuyente/gastosAsistencia",
++      "actual": "3000",
++      "expected": "3000"
++    },
++    {
++      "name": "minimum/aragon/descendiente/grado33Hasta65",
++      "actual": "3000",
++      "expected": "3000"
++    },
++    {
++      "name": "minimum/aragon/descendiente/grado65OMas",
++      "actual": "9000",
++      "expected": "9000"
++    },
++    {
++      "name": "minimum/aragon/descendiente/gastosAsistencia",
++      "actual": "3000",
++      "expected": "3000"
++    },
++    {
++      "name": "minimum/aragon/ascendiente/grado33Hasta65",
++      "actual": "3000",
++      "expected": "3000"
++    },
++    {
++      "name": "minimum/aragon/ascendiente/grado65OMas",
++      "actual": "9000",
++      "expected": "9000"
++    },
++    {
++      "name": "minimum/aragon/ascendiente/gastosAsistencia",
++      "actual": "3000",
++      "expected": "3000"
++    },
++    {
++      "name": "minimum/asturias/0",
++      "actual": "6105",
++      "expected": "6105"
++    },
++    {
++      "name": "minimum/asturias/1",
++      "actual": "1265",
++      "expected": "1265"
++    },
++    {
++      "name": "minimum/asturias/2",
++      "actual": "1540",
++      "expected": "1540"
++    },
++    {
++      "name": "minimum/asturias/3",
++      "actual": "2640",
++      "expected": "2640"
++    },
++    {
++      "name": "minimum/asturias/4",
++      "actual": "2970",
++      "expected": "2970"
++    },
++    {
++      "name": "minimum/asturias/5",
++      "actual": "4400",
++      "expected": "4400"
++    },
++    {
++      "name": "minimum/asturias/6",
++      "actual": "4950",
++      "expected": "4950"
++    },
++    {
++      "name": "minimum/asturias/7",
++      "actual": "3080",
++      "expected": "3080"
++    },
++    {
++      "name": "minimum/asturias/8",
++      "actual": "1265",
++      "expected": "1265"
++    },
++    {
++      "name": "minimum/asturias/9",
++      "actual": "1540",
++      "expected": "1540"
++    },
++    {
++      "name": "minimum/asturias/contribuyente/grado33Hasta65",
++      "actual": "3300",
++      "expected": "3300"
++    },
++    {
++      "name": "minimum/asturias/contribuyente/grado65OMas",
++      "actual": "9900",
++      "expected": "9900"
++    },
++    {
++      "name": "minimum/asturias/contribuyente/gastosAsistencia",
++      "actual": "3300",
++      "expected": "3300"
++    },
++    {
++      "name": "minimum/asturias/descendiente/grado33Hasta65",
++      "actual": "3300",
++      "expected": "3300"
++    },
++    {
++      "name": "minimum/asturias/descendiente/grado65OMas",
++      "actual": "9900",
++      "expected": "9900"
++    },
++    {
++      "name": "minimum/asturias/descendiente/gastosAsistencia",
++      "actual": "3300",
++      "expected": "3300"
++    },
++    {
++      "name": "minimum/asturias/ascendiente/grado33Hasta65",
++      "actual": "3300",
++      "expected": "3300"
++    },
++    {
++      "name": "minimum/asturias/ascendiente/grado65OMas",
++      "actual": "9900",
++      "expected": "9900"
++    },
++    {
++      "name": "minimum/asturias/ascendiente/gastosAsistencia",
++      "actual": "3300",
++      "expected": "3300"
++    },
++    {
++      "name": "minimum/illes-balears/0",
++      "actual": "5550",
++      "expected": "5550"
++    },
++    {
++      "name": "minimum/illes-balears/1",
++      "actual": "1820",
++      "expected": "1820"
++    },
++    {
++      "name": "minimum/illes-balears/2",
++      "actual": "1540",
++      "expected": "1540"
++    },
++    {
++      "name": "minimum/illes-balears/3",
++      "actual": "2400",
++      "expected": "2400"
++    },
++    {
++      "name": "minimum/illes-balears/4",
++      "actual": "2970",
++      "expected": "2970"
++    },
++    {
++      "name": "minimum/illes-balears/5",
++      "actual": "4400",
++      "expected": "4400"
++    },
++    {
++      "name": "minimum/illes-balears/6",
++      "actual": "4950",
++      "expected": "4950"
++    },
++    {
++      "name": "minimum/illes-balears/7",
++      "actual": "2800",
++      "expected": "2800"
++    },
++    {
++      "name": "minimum/illes-balears/8",
++      "actual": "1265",
++      "expected": "1265"
++    },
++    {
++      "name": "minimum/illes-balears/9",
++      "actual": "1540",
++      "expected": "1540"
++    },
++    {
++      "name": "minimum/illes-balears/contribuyente/grado33Hasta65",
++      "actual": "3300",
++      "expected": "3300"
++    },
++    {
++      "name": "minimum/illes-balears/contribuyente/grado65OMas",
++      "actual": "9900",
++      "expected": "9900"
++    },
++    {
++      "name": "minimum/illes-balears/contribuyente/gastosAsistencia",
++      "actual": "3300",
++      "expected": "3300"
++    },
++    {
++      "name": "minimum/illes-balears/descendiente/grado33Hasta65",
++      "actual": "3300",
++      "expected": "3300"
++    },
++    {
++      "name": "minimum/illes-balears/descendiente/grado65OMas",
++      "actual": "9900",
++      "expected": "9900"
++    },
++    {
++      "name": "minimum/illes-balears/descendiente/gastosAsistencia",
++      "actual": "3300",
++      "expected": "3300"
++    },
++    {
++      "name": "minimum/illes-balears/ascendiente/grado33Hasta65",
++      "actual": "3300",
++      "expected": "3300"
++    },
++    {
++      "name": "minimum/illes-balears/ascendiente/grado65OMas",
++      "actual": "9900",
++      "expected": "9900"
++    },
++    {
++      "name": "minimum/illes-balears/ascendiente/gastosAsistencia",
++      "actual": "3300",
++      "expected": "3300"
++    },
++    {
++      "name": "minimum/galicia/0",
++      "actual": "5789",
++      "expected": "5789"
++    },
++    {
++      "name": "minimum/galicia/1",
++      "actual": "1199",
++      "expected": "1199"
++    },
++    {
++      "name": "minimum/galicia/2",
++      "actual": "1460",
++      "expected": "1460"
++    },
++    {
++      "name": "minimum/galicia/3",
++      "actual": "2503",
++      "expected": "2503"
++    },
++    {
++      "name": "minimum/galicia/4",
++      "actual": "2816",
++      "expected": "2816"
++    },
++    {
++      "name": "minimum/galicia/5",
++      "actual": "4172",
++      "expected": "4172"
++    },
++    {
++      "name": "minimum/galicia/6",
++      "actual": "4694",
++      "expected": "4694"
++    },
++    {
++      "name": "minimum/galicia/7",
++      "actual": "2920",
++      "expected": "2920"
++    },
++    {
++      "name": "minimum/galicia/8",
++      "actual": "1199",
++      "expected": "1199"
++    },
++    {
++      "name": "minimum/galicia/9",
++      "actual": "1460",
++      "expected": "1460"
++    },
++    {
++      "name": "minimum/galicia/contribuyente/grado33Hasta65",
++      "actual": "3129",
++      "expected": "3129"
++    },
++    {
++      "name": "minimum/galicia/contribuyente/grado65OMas",
++      "actual": "9387",
++      "expected": "9387"
++    },
++    {
++      "name": "minimum/galicia/contribuyente/gastosAsistencia",
++      "actual": "3129",
++      "expected": "3129"
++    },
++    {
++      "name": "minimum/galicia/descendiente/grado33Hasta65",
++      "actual": "3129",
++      "expected": "3129"
++    },
++    {
++      "name": "minimum/galicia/descendiente/grado65OMas",
++      "actual": "9387",
++      "expected": "9387"
++    },
++    {
++      "name": "minimum/galicia/descendiente/gastosAsistencia",
++      "actual": "3129",
++      "expected": "3129"
++    },
++    {
++      "name": "minimum/galicia/ascendiente/grado33Hasta65",
++      "actual": "3129",
++      "expected": "3129"
++    },
++    {
++      "name": "minimum/galicia/ascendiente/grado65OMas",
++      "actual": "9387",
++      "expected": "9387"
++    },
++    {
++      "name": "minimum/galicia/ascendiente/gastosAsistencia",
++      "actual": "3129",
++      "expected": "3129"
++    },
++    {
++      "name": "minimum/la-rioja/0",
++      "actual": "5550",
++      "expected": "5550"
++    },
++    {
++      "name": "minimum/la-rioja/1",
++      "actual": "1150",
++      "expected": "1150"
++    },
++    {
++      "name": "minimum/la-rioja/2",
++      "actual": "1400",
++      "expected": "1400"
++    },
++    {
++      "name": "minimum/la-rioja/3",
++      "actual": "2400",
++      "expected": "2400"
++    },
++    {
++      "name": "minimum/la-rioja/4",
++      "actual": "2700",
++      "expected": "2700"
++    },
++    {
++      "name": "minimum/la-rioja/5",
++      "actual": "4000",
++      "expected": "4000"
++    },
++    {
++      "name": "minimum/la-rioja/6",
++      "actual": "4500",
++      "expected": "4500"
++    },
++    {
++      "name": "minimum/la-rioja/7",
++      "actual": "2800",
++      "expected": "2800"
++    },
++    {
++      "name": "minimum/la-rioja/8",
++      "actual": "1150",
++      "expected": "1150"
++    },
++    {
++      "name": "minimum/la-rioja/9",
++      "actual": "1400",
++      "expected": "1400"
++    },
++    {
++      "name": "minimum/la-rioja/contribuyente/grado33Hasta65",
++      "actual": "3000",
++      "expected": "3000"
++    },
++    {
++      "name": "minimum/la-rioja/contribuyente/grado65OMas",
++      "actual": "9000",
++      "expected": "9000"
++    },
++    {
++      "name": "minimum/la-rioja/contribuyente/gastosAsistencia",
++      "actual": "3000",
++      "expected": "3000"
++    },
++    {
++      "name": "minimum/la-rioja/descendiente/grado33Hasta65",
++      "actual": "3300",
++      "expected": "3300"
++    },
++    {
++      "name": "minimum/la-rioja/descendiente/grado65OMas",
++      "actual": "9900",
++      "expected": "9900"
++    },
++    {
++      "name": "minimum/la-rioja/descendiente/gastosAsistencia",
++      "actual": "3000",
++      "expected": "3000"
++    },
++    {
++      "name": "minimum/la-rioja/ascendiente/grado33Hasta65",
++      "actual": "3000",
++      "expected": "3000"
++    },
++    {
++      "name": "minimum/la-rioja/ascendiente/grado65OMas",
++      "actual": "9000",
++      "expected": "9000"
++    },
++    {
++      "name": "minimum/la-rioja/ascendiente/gastosAsistencia",
++      "actual": "3000",
++      "expected": "3000"
++    },
++    {
++      "name": "minimum/madrid/0",
++      "actual": "5956.65",
++      "expected": "5956.65"
++    },
++    {
++      "name": "minimum/madrid/1",
++      "actual": "1234.26",
++      "expected": "1234.26"
++    },
++    {
++      "name": "minimum/madrid/2",
++      "actual": "1502.58",
++      "expected": "1502.58"
++    },
++    {
++      "name": "minimum/madrid/3",
++      "actual": "2575.85",
++      "expected": "2575.85"
++    },
++    {
++      "name": "minimum/madrid/4",
++      "actual": "2897.83",
++      "expected": "2897.83"
++    },
++    {
++      "name": "minimum/madrid/5",
++      "actual": "4400",
++      "expected": "4400"
++    },
++    {
++      "name": "minimum/madrid/6",
++      "actual": "4950",
++      "expected": "4950"
++    },
++    {
++      "name": "minimum/madrid/7",
++      "actual": "3005.16",
++      "expected": "3005.16"
++    },
++    {
++      "name": "minimum/madrid/8",
++      "actual": "1234.26",
++      "expected": "1234.26"
++    },
++    {
++      "name": "minimum/madrid/9",
++      "actual": "1502.58",
++      "expected": "1502.58"
++    },
++    {
++      "name": "minimum/madrid/contribuyente/grado33Hasta65",
++      "actual": "3219.81",
++      "expected": "3219.81"
++    },
++    {
++      "name": "minimum/madrid/contribuyente/grado65OMas",
++      "actual": "9659.44",
++      "expected": "9659.44"
++    },
++    {
++      "name": "minimum/madrid/contribuyente/gastosAsistencia",
++      "actual": "3219.81",
++      "expected": "3219.81"
++    },
++    {
++      "name": "minimum/madrid/descendiente/grado33Hasta65",
++      "actual": "3219.81",
++      "expected": "3219.81"
++    },
++    {
++      "name": "minimum/madrid/descendiente/grado65OMas",
++      "actual": "9659.44",
++      "expected": "9659.44"
++    },
++    {
++      "name": "minimum/madrid/descendiente/gastosAsistencia",
++      "actual": "3219.81",
++      "expected": "3219.81"
++    },
++    {
++      "name": "minimum/madrid/ascendiente/grado33Hasta65",
++      "actual": "3219.81",
++      "expected": "3219.81"
++    },
++    {
++      "name": "minimum/madrid/ascendiente/grado65OMas",
++      "actual": "9659.44",
++      "expected": "9659.44"
++    },
++    {
++      "name": "minimum/madrid/ascendiente/gastosAsistencia",
++      "actual": "3219.81",
++      "expected": "3219.81"
++    },
++    {
++      "name": "rights/aragon/income8000",
++      "actual": "2400",
++      "expected": "2400"
++    },
++    {
++      "name": "rights/aragon/income8000.01",
++      "actual": "0",
++      "expected": "0"
++    },
++    {
++      "name": "rights/aragon/age25",
++      "actual": "0",
++      "expected": "0"
++    },
++    {
++      "name": "rights/aragon/age25-disabled",
++      "actual": "2400",
++      "expected": "2400"
++    },
++    {
++      "name": "rights/aragon/return1800",
++      "actual": "2400",
++      "expected": "2400"
++    },
++    {
++      "name": "rights/aragon/return1800.01",
++      "actual": "0",
++      "expected": "0"
++    },
++    {
++      "name": "rights/asturias/income8000",
++      "actual": "2640",
++      "expected": "2640"
++    },
++    {
++      "name": "rights/asturias/income8000.01",
++      "actual": "0",
++      "expected": "0"
++    },
++    {
++      "name": "rights/asturias/age25",
++      "actual": "0",
++      "expected": "0"
++    },
++    {
++      "name": "rights/asturias/age25-disabled",
++      "actual": "2640",
++      "expected": "2640"
++    },
++    {
++      "name": "rights/asturias/return1800",
++      "actual": "2640",
++      "expected": "2640"
++    },
++    {
++      "name": "rights/asturias/return1800.01",
++      "actual": "0",
++      "expected": "0"
++    },
++    {
++      "name": "rights/illes-balears/income8000",
++      "actual": "2400",
++      "expected": "2400"
++    },
++    {
++      "name": "rights/illes-balears/income8000.01",
++      "actual": "0",
++      "expected": "0"
++    },
++    {
++      "name": "rights/illes-balears/age25",
++      "actual": "0",
++      "expected": "0"
++    },
++    {
++      "name": "rights/illes-balears/age25-disabled",
++      "actual": "2400",
++      "expected": "2400"
++    },
++    {
++      "name": "rights/illes-balears/return1800",
++      "actual": "2400",
++      "expected": "2400"
++    },
++    {
++      "name": "rights/illes-balears/return1800.01",
++      "actual": "0",
++      "expected": "0"
++    },
++    {
++      "name": "rights/galicia/income8000",
++      "actual": "2503",
++      "expected": "2503"
++    },
++    {
++      "name": "rights/galicia/income8000.01",
++      "actual": "0",
++      "expected": "0"
++    },
++    {
++      "name": "rights/galicia/age25",
++      "actual": "0",
++      "expected": "0"
++    },
++    {
++      "name": "rights/galicia/age25-disabled",
++      "actual": "2503",
++      "expected": "2503"
++    },
++    {
++      "name": "rights/galicia/return1800",
++      "actual": "2503",
++      "expected": "2503"
++    },
++    {
++      "name": "rights/galicia/return1800.01",
++      "actual": "0",
++      "expected": "0"
++    },
++    {
++      "name": "rights/la-rioja/income8000",
++      "actual": "2400",
++      "expected": "2400"
++    },
++    {
++      "name": "rights/la-rioja/income8000.01",
++      "actual": "0",
++      "expected": "0"
++    },
++    {
++      "name": "rights/la-rioja/age25",
++      "actual": "0",
++      "expected": "0"
++    },
++    {
++      "name": "rights/la-rioja/age25-disabled",
++      "actual": "2400",
++      "expected": "2400"
++    },
++    {
++      "name": "rights/la-rioja/return1800",
++      "actual": "2400",
++      "expected": "2400"
++    },
++    {
++      "name": "rights/la-rioja/return1800.01",
++      "actual": "0",
++      "expected": "0"
++    },
++    {
++      "name": "rights/madrid/income8000",
++      "actual": "2575.85",
++      "expected": "2575.85"
++    },
++    {
++      "name": "rights/madrid/income8000.01",
++      "actual": "0",
++      "expected": "0"
++    },
++    {
++      "name": "rights/madrid/age25",
++      "actual": "0",
++      "expected": "0"
++    },
++    {
++      "name": "rights/madrid/age25-disabled",
++      "actual": "2575.85",
++      "expected": "2575.85"
++    },
++    {
++      "name": "rights/madrid/return1800",
++      "actual": "2575.85",
++      "expected": "2575.85"
++    },
++    {
++      "name": "rights/madrid/return1800.01",
++      "actual": "0",
++      "expected": "0"
++    },
++    {
++      "name": "balears/age64",
++      "actual": "5550",
++      "expected": "5550"
++    },
++    {
++      "name": "balears/age65",
++      "actual": "7370",
++      "expected": "7370"
++    },
++    {
++      "name": "balears/age74",
++      "actual": "7370",
++      "expected": "7370"
++    },
++    {
++      "name": "balears/age75",
++      "actual": "8910",
++      "expected": "8910"
++    },
++    {
++      "name": "balears/age76",
++      "actual": "8910",
++      "expected": "8910"
++    },
++    {
++      "name": "rioja/{\"_tag\":\"Discapacidad33a64\",\"necesitaAyudaOMovilidadReducida\":false}",
++      "actual": "3300",
++      "expected": "3300"
++    },
++    {
++      "name": "rioja/{\"_tag\":\"Discapacidad33a64\",\"necesitaAyudaOMovilidadReducida\":true}",
++      "actual": "6300",
++      "expected": "6300"
++    },
++    {
++      "name": "rioja/{\"_tag\":\"Discapacidad65OMas\"}",
++      "actual": "12900",
++      "expected": "12900"
++    }
++  ]
++}
+--- /dev/null
++++ b/docs/procedencia/revisiones/producto-a-escalas2025/revisar.py
+@@ -0,0 +1,75 @@
++"""Revisión independiente; sólo escribe en esta entrega, no reejecuta generadores del autor."""
++from pathlib import Path
++import json, hashlib, re, html
++from decimal import Decimal as D, ROUND_HALF_UP
++import fitz
++P=Path(__file__).parent
++A=P.parent/'producto-a-escalas2025-20261104'
++B=P.parent/'producto-a-cuotas2025-correccion-20261104'
++load=lambda p:json.loads(p.read_text())
++save=lambda n,x:(P/n).write_text(json.dumps(x,ensure_ascii=False,indent=2)+'\n')
++num=lambda s:D(re.sub(r'\s','',s).replace('.','').replace(',','.').replace('%','').replace('»',''))
++original=load(A/'originales.json')[0]
++assert hashlib.sha256(Path(original['resolvedPath']).read_bytes()).hexdigest()==original['sha256']
++doc=fitz.open(original['resolvedPath']);fitz.TOOLS.set_small_glyph_heights(True)
++rows={}
++for c in load(A/'citas-escalas.json'):
++    vals=[]
++    for cell in c['columns']:
++        literal=doc[c['page']-1].get_textbox(fitz.Rect(cell['bbox']))
++        assert ' '.join(literal.split())==' '.join(cell['quote'].split())
++        vals.append(literal)
++    lo,q,w,t=vals
++    rows.setdefault(c['territory'],[]).append([str(num(lo)),str(num(q)),str(num(t)/100)])
++for scope in load(A/'ambitos-escalas.json').values():
++    for c in scope['contexts']:assert doc[c['page']-1].get_textbox(fitz.Rect(c['bbox']))==c['quote']
++    text=' '.join(c['quote'] for c in scope['contexts'])
++    assert scope['heading'] in text and 'ejercicio 2025' in text
++primary=[]
++for c in load(A/'primarios-discrepancias.json'):
++    data=Path(c['sourcePath']).read_bytes();assert hashlib.sha256(data).hexdigest()==c['sha256']
++    assert data.decode()[c['start']:c['end']]==c['literal']
++    parsed=[]
++    for tr in re.findall(r'<tr>(.*?)</tr>',c['literal'],re.S):
++        cells=re.findall(r'<td[^>]*>(.*?)</td>',tr,re.S)
++        if not cells:continue
++        cells=[html.unescape(re.sub('<[^>]*>','',x)).strip() for x in cells]
++        if cells[0]=='–':
++            assert c['territory']=='asturias' and not parsed
++            cells[0]='0,00'
++        parsed.append([str(num(cells[0])),str(num(cells[1])),str(num(cells[3])/100)])
++    assert [[D(x) for x in r] for r in parsed]==[[D(x) for x in r] for r in rows[c['territory']]]
++    primary.append({'territory':c['territory'],'rows':len(parsed),'sha256':c['sha256'],'notes':re.findall(r'<p class="nota_pie">(.*?)</p>',c['literal'],re.S)})
++quota=lambda rr,b: D(0) if b<=0 else next(D(q)+(b-D(lo))*D(t) for lo,q,t in reversed(rr) if b>=D(lo))
++cases=[]
++for region in ['aragon','asturias','galicia','castilla-y-leon']:
++    rr=rows[region]
++    bases={D('-1'),D(0),D('0.001'),D('987654.32')}
++    for lo,_,_ in rr:
++        bases.update(D(lo)+d for d in [D('-.01'),D('-.001'),D(0),D('.001'),D('.01'),D('137.29')])
++    for b in sorted(bases):
++        q=quota(rr,b)
++        cases.append({'territory':region,'base':str(b),'expected':str(q),'cents':str(q.quantize(D('.01'),rounding=ROUND_HALF_UP))})
++result=load(A/'resultado.json');assert len(result['results'])==1477
++assert sum(not r['ok'] for r in result['results'])==72
++old=[]
++for r in result['results']:
++    if not r['name'].startswith('quota/'):continue
++    _,region,b=r['name'].split('/')
++    if region not in rows:continue
++    expected=quota(rows[region],D(b));assert expected==D(r['expected'])
++    if D(r['actual'])!=expected:old.append(r)
++assert len(old)==72
++assert sum(D(r['actual']).quantize(D('.01'),rounding=ROUND_HALF_UP)!=D(r['expected']).quantize(D('.01'),rounding=ROUND_HALF_UP) for r in old)==12
++oldcases=[]
++for r in old:
++    _,t,b=r['name'].split('/');q=quota(rows[t],D(b))
++    oldcases.append({'territory':t,'base':b,'expected':str(q),'cents':str(q.quantize(D('.01'),rounding=ROUND_HALF_UP))})
++net=[]
++for t in ['aragon','asturias','galicia','castilla-y-leon']:
++    for b,m in [('60123.45','22000'),('17707.20','17707.20'),('10000','22000'),('0','5550')]:
++        q=max(D(0),quota(rows[t],D(b))-quota(rows[t],min(D(b),D(m))))
++        net.append({'territory':t,'base':b,'minimum':m,'expected':str(q)})
++save('oraculo-fronteras.json',{'rows':rows,'cases':cases,'originalDifferenceCases':oldcases,'netCases':net})
++save('replay-documental.json',{'physicalRows':sum(map(len,rows.values())),'territories':len(rows),'primaries':primary,'comparisonsReported':1477,'differencesRecalculated':len(old),'centsRecalculated':12,'independentCases':len(cases)})
++print('Reextracción física y cuatro primarios correctos;',len(cases),'casos independientes generados')
+--- /dev/null
++++ b/docs/procedencia/revisiones/producto-a-escalas2025/sondeo-autor-replay.log
+@@ -0,0 +1 @@
++{"previa":{"diferenciasExactas":72,"diferenciasCentimo":12},"candidata":{"casosCorregidos":72},"checkout":"sin cambios","revision":"pendiente"}
+--- /dev/null
++++ b/docs/procedencia/revisiones/producto-a-escalas2025/sondeo-independiente.log
+@@ -0,0 +1 @@
++{"status":"pass","quotaCases":170,"originalDifferenceCases":72,"netCases":16,"checks":497}
+--- /dev/null
++++ b/docs/procedencia/revisiones/producto-a-escalas2025/sondeo-independiente.mjs
+@@ -0,0 +1,69 @@
++import assert from 'node:assert/strict';
++import {readFileSync,writeFileSync} from 'node:fs';
++import Decimal from '/home/elies/Repos/IRoboPF/node_modules/decimal.js/decimal.mjs';
++import {Effect,Schema} from '/home/elies/Repos/IRoboPF/node_modules/effect/dist/index.js';
++import {DerechosMinimosAnuales} from '/home/elies/Repos/IRoboPF/lib/dominio/irpf/minimos/derechos-contrato.ts';
++import {obtenerParametrosComunidadAutonoma as parametros} from '/home/elies/Repos/IRoboPF/lib/dominio/irpf/comunidades/comunidad-autonoma.ts';
++import {obtenerEscalaAutonomicaPublicada as candidato} from '../producto-a-cuotas2025-correccion-20261104/escalas-publicadas.runtime.ts';
++import {obtenerEscalaAutonomicaPublicada as anterior} from '/home/elies/Repos/IRoboPF/lib/dominio/irpf/cuotas/escalas-publicadas.ts';
++import {calcularCuotaPorEscala as gravar} from '/home/elies/Repos/IRoboPF/lib/dominio/irpf/cuotas/escalas-gravamen.ts';
++import {calcularDerechosMinimos} from '/home/elies/Repos/IRoboPF/lib/dominio/irpf/minimos/derechos.ts';
++const P=import.meta.dir+'/', oracle=JSON.parse(readFileSync(P+'oraculo-fronteras.json','utf8'));
++const results=[];
++function eq(name,actual,expected){assert(new Decimal(actual).eq(expected),`${name}: ${actual} != ${expected}`);results.push({name,actual:String(actual),expected:String(expected)});}
++for(const c of [...oracle.cases,...oracle.originalDifferenceCases]){
++ const ambito={anio:2025,comunidadAutonoma:c.territory};
++ const par=parametros(ambito), escala=candidato(ambito);
++ assert.equal(par._tag,'ParametrosComunidadAutonoma');
++ const actual=gravar({base:new Decimal(c.base),tramos:par.escalaAutonomica.tramos,escalasPublicadas:[escala]});
++ eq(`quota/${c.territory}/${c.base}`,actual,c.expected);
++ assert.equal(actual.toFixed(2,Decimal.ROUND_HALF_UP),c.cents);
++}
++for(const c of oracle.netCases){
++ const scope={anio:2025,comunidadAutonoma:c.territory}, par=parametros(scope), pub=[candidato(scope)];
++ const q=b=>gravar({base:new Decimal(b),tramos:par.escalaAutonomica.tramos,escalasPublicadas:pub});
++ eq(`net/${c.territory}/${c.base}/${c.minimum}`,Decimal.max(0,q(c.base).minus(q(Decimal.min(c.base,c.minimum)))),c.expected);
++}
++for(const t of ['aragon','asturias','galicia','castilla-y-leon']){
++ const scope={anio:2025,comunidadAutonoma:t};
++ const rr=oracle.rows[t], actual=candidato(scope);
++ assert.equal(actual.length,rr.length);
++ rr.forEach(([lo,q,rate],i)=>{eq(`${t}/lower/${i}`,actual[i].baseInferior,lo);eq(`${t}/fixed/${i}`,actual[i].cuota,q);eq(`${t}/rate/${i}`,actual[i].tipo,rate);assert.notEqual(actual[i].inferiorExclusivo,true);});
++ for(const date of ['2025-01-01','2025-06-30','2025-12-02','2025-12-03','2025-12-31'])assert.equal(candidato({...scope,fechaFallecimiento:new Date(date)}),undefined);
++ assert.equal(candidato({...scope,anio:2024}),undefined);
++ assert.equal(candidato({...scope,anio:2026}),anterior({...scope,anio:2026}));
++}
++// Muestra semántica transcrita por el revisor tras leer prosa y páginas 1083–1093.
++// Primeros 10: contribuyente3, descendientes5, ascendientes2; últimos3: discapacidad.
++const minimum={
++ 'aragon':[5550,1150,1400,2400,2700,4000,4500,2800,1150,1400,3000,9000,3000],
++ 'asturias':[6105,1265,1540,2640,2970,4400,4950,3080,1265,1540,3300,9900,3300],
++ 'illes-balears':[5550,1820,1540,2400,2970,4400,4950,2800,1265,1540,3300,9900,3300],
++ 'galicia':[5789,1199,1460,2503,2816,4172,4694,2920,1199,1460,3129,9387,3129],
++ 'la-rioja':[5550,1150,1400,2400,2700,4000,4500,2800,1150,1400,3000,9000,3000],
++ 'madrid':[5956.65,1234.26,1502.58,2575.85,2897.83,4400,4950,3005.16,1234.26,1502.58,3219.81,9659.44,3219.81],
++};
++for(const [t,v] of Object.entries(minimum)){
++ const m=parametros({anio:2025,comunidadAutonoma:t}).minimosAutonomicos;
++ const own=[...Object.values(m.contribuyente),...Object.values(m.descendientes),...Object.values(m.ascendientes)];
++ v.slice(0,10).forEach((x,i)=>eq(`minimum/${t}/${i}`,own[i],x));
++ for(const s of ['contribuyente','descendiente','ascendiente']){
++  const expected=t==='la-rioja'&&s==='descendiente'?[3300,9900,3000]:v.slice(10);
++  ['grado33Hasta65','grado65OMas','gastosAsistencia'].forEach((k,i)=>eq(`minimum/${t}/${s}/${k}`,m.discapacidad[s][k],expected[i]));
++ }
++}
++const child=()=>({sujetoId:'s-2',fechaNacimiento:'2001-06-01',edadDevengo:24,vivoAlDevengo:true,rentasNoExentasCentimos:800000,declaracion:{modalidad:'no-presenta'},discapacidad:{_tag:'SinDiscapacidad'},titulares:[{titularId:'s-1',grado:1,vinculo:{clase:'consanguinidad'},relacion:'convivencia',custodia:'exclusiva',alimentosJudiciales:false,aplicaEspecialidadAlimentos:false,residenteIrpf:true,rentasNoExentasCentimos:3000000}],titularesCompletos:true});
++function facts(t,ds,age=40){return {ejercicio:2025,territorio:t,regimen:'comun',modalidad:'individual',devengo:'2025-12-31',contribuyenteId:'s-1',edadContribuyenteDevengo:age,discapacidadContribuyente:{_tag:'SinDiscapacidad'},ascendientes:'ninguno',fallecimientosEnElEjercicio:'ninguno',descendientesCompletos:true,conciliacionRentasContribuyente:{perfil:'caso-anual-parcial',otrasRentasOGastosNoRepresentados:'ninguno'},descendientes:ds};}
++function rights(t,ds,age=40){const f=facts(t,ds,age);Schema.decodeUnknownSync(DerechosMinimosAnuales)(f,{onExcessProperty:'error'});return Effect.runSync(calcularDerechosMinimos(f,parametros({anio:2025,comunidadAutonoma:t}).minimosAutonomicos));}
++for(const t of Object.keys(minimum)){
++ const first=minimum[t][3]; let h=child();eq(`rights/${t}/income8000`,rights(t,[h]).descendientes,first);
++ h=child();h.rentasNoExentasCentimos++;eq(`rights/${t}/income8000.01`,rights(t,[h]).descendientes,0);
++ h=child();h.fechaNacimiento='2000-06-01';h.edadDevengo=25;eq(`rights/${t}/age25`,rights(t,[h]).descendientes,0);
++ h.discapacidad={_tag:'Discapacidad33a64',necesitaAyudaOMovilidadReducida:false};eq(`rights/${t}/age25-disabled`,rights(t,[h]).descendientes,first);
++ h=child();h.rentasNoExentasCentimos=180000;h.declaracion={modalidad:'individual',rentasCentimos:180000};eq(`rights/${t}/return1800`,rights(t,[h]).descendientes,first);
++ h.declaracion.rentasCentimos++;h.rentasNoExentasCentimos++;eq(`rights/${t}/return1800.01`,rights(t,[h]).descendientes,0);
++}
++for(const [age,want] of [[64,5550],[65,7370],[74,7370],[75,8910],[76,8910]])eq(`balears/age${age}`,rights('illes-balears',[],age).contribuyente,want);
++for(const [d,want] of [[{_tag:'Discapacidad33a64',necesitaAyudaOMovilidadReducida:false},3300],[{_tag:'Discapacidad33a64',necesitaAyudaOMovilidadReducida:true},6300],[{_tag:'Discapacidad65OMas'},12900]]){const h=child();h.discapacidad=d;eq(`rioja/${JSON.stringify(d)}`,rights('la-rioja',[h]).discapacidadFamiliares,want);}
++writeFileSync(P+'resultado-independiente.json',JSON.stringify({status:'pass',quotaCases:oracle.cases.length,originalDifferenceCases:oracle.originalDifferenceCases.length,netCases:oracle.netCases.length,checks:results.length,results},null,2)+'\n');
++console.log(JSON.stringify({status:'pass',quotaCases:oracle.cases.length,originalDifferenceCases:oracle.originalDifferenceCases.length,netCases:oracle.netCases.length,checks:results.length}));

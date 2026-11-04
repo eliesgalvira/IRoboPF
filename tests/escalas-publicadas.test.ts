@@ -1,4 +1,5 @@
 import Decimal from "decimal.js"
+import { DateTime } from "effect"
 import { describe, expect, it } from "vitest"
 import { calcularCuotaPorEscala } from "../lib/dominio/irpf/cuotas/escalas-gravamen"
 import {
@@ -91,11 +92,12 @@ it("no extiende una aceptación a otro año o a fallecimientos pendientes", () =
     obtenerEscalaAutonomicaPublicada({
       anio: 2025,
       comunidadAutonoma: "asturias",
+      fechaFallecimiento: DateTime.toDateUtc(DateTime.makeUnsafe("2025-06-30T12:00:00Z")),
     })
   ).toBeUndefined()
   expect(
     obtenerEscalaAutonomicaPublicada({
-      anio: 2026,
+      anio: 2017,
       comunidadAutonoma: "madrid",
     })
   ).toBeUndefined()

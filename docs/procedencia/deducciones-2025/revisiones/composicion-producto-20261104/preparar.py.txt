@@ -1,0 +1,7 @@
+from pathlib import Path
+out=Path(__file__).resolve().parent
+root=Path("/home/elies/Repos/IRoboPF")
+a=Path("/home/elies/Backups/IRoboPF/producto-valenciana-composicion-20261104")
+(out/"composicion.runtime.ts").write_text((a/"lib/dominio/irpf/deducciones/valenciana-2025/composicion.ts").read_text().replace('from "./index"',f'from "{root}/lib/dominio/irpf/deducciones/valenciana-2025/index.ts"'))
+(out/"casos.runtime.ts").write_text((a/"tests/composicion-valenciana.casos.ts").read_text().replace("../lib/dominio/irpf/deducciones/valenciana-2025/composicion","./composicion.runtime"))
+(out/"adversos.runtime.ts").write_text((out/"adversos.casos.ts").read_text().replace("../lib/dominio/irpf/deducciones/valenciana-2025/composicion","./composicion.runtime"))

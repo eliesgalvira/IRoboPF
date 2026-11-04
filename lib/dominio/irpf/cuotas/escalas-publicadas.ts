@@ -75,6 +75,15 @@ export const CATALUNYA_2022_2024 = filas([
   ["120000", "22952.83", ".245"],
   ["175000", "36427.83", ".255"],
 ])
+// BOCM-20181228-1 p4; AEAT 2018–2021. Sólo cierre ordinario, sin fallecimiento.
+// Revisión: docs/procedencia/datos-2012-2026/revision-series-historicas/DICTAMEN.md.
+export const MADRID_2018_2021 = filas([
+  ["0", "0", ".09"],
+  ["12450.00", "1120.50", ".112"],
+  ["17707.20", "1709.31", ".133"],
+  ["33007.20", "3744.21", ".179"],
+  ["53407.20", "7395.81", ".21"],
+])
 export const MADRID_2022 = filas([
   ["0", "0", ".085"],
   ["12960.45", "1101.64", ".107"],
@@ -83,13 +92,51 @@ export const MADRID_2022 = filas([
   ["55596.90", "7421.04", ".205"],
 ])
 // CAV1-01: Ley 13/2023, BOE-A-2024-5610 p3; manual AEAT 2025 p1128.
-// Ámbito revisado aquí: ejercicio 2025 ordinario, sin extender a fallecimientos.
+// Ámbito revisado: 2023–2025 ordinarios, sin extender a fallecimientos.
 export const MADRID_2025 = filas([
   ["0", "0", ".085"],
   ["13362.22", "1135.79", ".107"],
   ["19004.63", "1739.53", ".128"],
   ["35425.68", "3841.42", ".174"],
   ["57320.40", "7651.10", ".205"],
+])
+// A2025: cuotas de las tablas oficiales AEAT 2025, corroboradas con artículos autonómicos.
+// Sólo devengo ordinario a 31 de diciembre; sin extender a fallecimientos.
+// Evidencia y reservas: docs/procedencia/datos-2012-2026/producto-escalas2025/INFORME.md.
+export const ARAGON_2025 = filas([
+  ["0.00", "0.00", "0.095"],
+  ["13072.50", "1241.89", "0.12"],
+  ["21210.00", "2218.39", "0.15"],
+  ["36960.00", "4580.89", "0.185"],
+  ["52500.00", "7455.79", "0.205"],
+  ["60000.00", "8993.29", "0.23"],
+  ["80000.00", "13593.29", "0.24"],
+  ["90000.00", "15993.29", "0.25"],
+  ["130000.00", "25993.29", "0.255"],
+])
+export const ASTURIAS_2025 = filas([
+  ["0.00", "0.00", "0.09"],
+  ["12450.00", "1120.50", "0.12"],
+  ["17707.20", "1751.36", "0.14"],
+  ["33007.20", "3893.36", "0.192"],
+  ["53407.20", "7810.16", "0.215"],
+  ["70000.00", "11377.62", "0.225"],
+  ["90000.00", "15877.62", "0.25"],
+  ["175000.00", "37127.62", "0.26"],
+])
+export const GALICIA_2025 = filas([
+  ["0.00", "0.00", "0.09"],
+  ["12985.35", "1168.68", "0.1165"],
+  ["21068.60", "2110.38", "0.149"],
+  ["35200.00", "4215.96", "0.184"],
+  ["60000.00", "8779.16", "0.225"],
+])
+export const CASTILLA_Y_LEON_2025 = filas([
+  ["0.00", "0.00", "0.09"],
+  ["12450.00", "1120.50", "0.12"],
+  ["20200.00", "2050.50", "0.14"],
+  ["35200.00", "4150.50", "0.185"],
+  ["53407.20", "7518.83", "0.215"],
 ])
 export const MURCIA_2022: EscalaPublicada = [
   ...filas([
@@ -118,6 +165,12 @@ export const obtenerEscalaAutonomicaPublicada = ({
 }): EscalaPublicada | undefined => {
   if (anio === 2026 && comunidadAutonoma !== "simulada-estatal")
     return ESCALAS_PUBLICADAS_AUTONOMICAS_2026[comunidadAutonoma]
+  if (anio === 2025 && fechaFallecimiento === undefined) {
+    if (comunidadAutonoma === "aragon") return ARAGON_2025
+    if (comunidadAutonoma === "asturias") return ASTURIAS_2025
+    if (comunidadAutonoma === "galicia") return GALICIA_2025
+    if (comunidadAutonoma === "castilla-y-leon") return CASTILLA_Y_LEON_2025
+  }
   if (comunidadAutonoma === "andalucia" && anio >= 2012 && anio <= 2015)
     return ANDALUCIA_2012_2015
   if (
@@ -130,6 +183,11 @@ export const obtenerEscalaAutonomicaPublicada = ({
     return CATALUNYA_2020_2021
   if (comunidadAutonoma === "catalunya" && anio >= 2022 && anio <= 2024)
     return CATALUNYA_2022_2024
+  // Ley 13/2023 p3/p14; AEAT 2023 p1150 y 2024 p1243.
+  if (comunidadAutonoma === "madrid" && fechaFallecimiento === undefined) {
+    if (anio >= 2018 && anio <= 2021) return MADRID_2018_2021
+    if (anio === 2023 || anio === 2024) return MADRID_2025
+  }
   if (comunidadAutonoma === "madrid" && anio === 2022) return MADRID_2022
   if (
     comunidadAutonoma === "madrid" &&

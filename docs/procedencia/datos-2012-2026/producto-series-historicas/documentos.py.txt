@@ -1,0 +1,51 @@
+from pathlib import Path
+import json, hashlib, re, time
+import fitz
+ROOT=Path('/home/elies/Repos/IRoboPF')
+OUT=Path(__file__).resolve().parent
+CAS=Path('/home/elies/Backups/IRoboPF/limpieza-recursos-20261103/objetos-unicos')
+def object_path(h):
+ candidates=[CAS/h,Path('/home/elies/Backups/IRoboPF/plan-completo-20261101/entregas/triaje-worktrees-20261102/objects')/h[:2]/h,Path('/home/elies/.local/share/irobopf/procedencia/objetos')/h]
+ return next(p for p in candidates if p.is_file())
+def load(p): return json.loads((ROOT/p).read_text())
+def save(n,v): (OUT/n).write_text(json.dumps(v,ensure_ascii=False,indent=2)+'\n')
+docs=load('docs/procedencia/auditorias/trabajo-deducciones-estatales/documentos.json')
+sources={d['auditLabel']:d for d in docs}
+more=load('docs/procedencia/auditorias/autonomicas-2017-2021/documentos.json')
+sources['madrid2018']=next(d for d in more if 'BOCM-20181228-1.PDF' in d['canonicalUrl'])
+sources['madrid2022']=load('docs/procedencia/auditorias/autonomicas-2022-2026/documentos.json')['law-madrid-2022']
+md23=load('docs/procedencia/correcciones/editorial-r21/citas/madrid-tabla-ley13-2023.json')['original']
+sources['madrid2023']={**md23,'canonicalUrl':md23['url']}
+labels=['aeat'+str(y) for y in range(2018,2025)]+['ley26-2014','reglamento-original','ley6-2018','ley31-2022','rdl4-2024','madrid2018','madrid2022','madrid2023']
+files=[ROOT/'lib/dominio/irpf/trabajo-anual'/f for f in ['conexion.ts','conexion-contrato.ts','adaptador.ts','calcular.ts','contrato.ts']]
+files += [ROOT/p for p in ['lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts','lib/dominio/irpf/cuotas/escalas-gravamen.ts','lib/dominio/irpf/cuotas/escalas-publicadas.ts','lib/dominio/irpf/comunidades/comunidad-autonoma.ts','lib/dominio/irpf/liquidacion/composicion-anual.ts','lib/dominio/irpf/minimos/minimo-personal-familiar.ts'] if (ROOT/p).exists()]
+files += [ROOT/'lib/dominio/normativa/datos'/f'{stem}-{y}.ts' for stem in ['irpf-autonomico','minimos-autonomicos'] for y in range(2018,2026)]
+files += [object_path(sources[k]['sha256']) for k in labels]
+before={str(p):hashlib.sha256(p.read_bytes()).hexdigest() for p in files}
+save('hashes-antes.json',before)
+evidence=[]; catalog={}
+fixed={'ley26-2014':[11,12,27,28,62],'reglamento-original':[16,17], 'ley6-2018':[77,78,306], 'ley31-2022':[84], 'rdl4-2024':[23], 'madrid2018':[4,12], 'madrid2022':[2,3,4]}
+fixed['madrid2022']=[3,5]; fixed['madrid2023']=[3,14]
+tablepages={2018:[547,550],2019:[567,570],2020:[887,894],2021:[909,917],2022:[971,979],2023:[1141,1150],2024:[1235,1243]}
+for label in labels:
+ d=sources[label]; data=object_path(d['sha256']).read_bytes(); assert hashlib.sha256(data).hexdigest()==d['sha256']
+ assert hashlib.sha512(data).hexdigest()==d['sha512']
+ pdf=fitz.open(stream=data,filetype='pdf')
+ pages=set(fixed.get(label,[])); found={}
+ if label.startswith('aeat'):
+  year=int(label[4:]); pages.update(tablepages[year])
+  # Localizadores preservados del lote TDE; no barrido de manuales completos.
+  citas=load('docs/procedencia/auditorias/trabajo-deducciones-estatales/citas-candidatas.json')
+  for cita in citas:
+   if cita.get('sourceLabel')!=label or not cita.get('page'): continue
+   i=cita['page']-1; t=cita.get('quote','')
+   patterns={'art19':r'2\.000 euros anuales','art20':r'6\.500 euros','minimo':r'5\.550 euros','minimoMadrid':r'5\.(?:777,55|956,65)'}
+   for key,pat in patterns.items():
+    if re.search(pat,t) and len(found.get(key,[]))<3:
+     found.setdefault(key,[]).append(i+1); pages.add(i+1)
+ for n in sorted(pages):
+  if 0<n<=len(pdf): evidence.append({'source':label,'sha256':d['sha256'],'page':n,'text':pdf[n-1].get_text()})
+ catalog[label]={'sha256':d['sha256'],'sha512':d['sha512'],'url':d['canonicalUrl'],'cas':str(object_path(d['sha256'])),'pages':sorted(pages),'keywordPages':found}
+save('fuentes.json',catalog); save('extractos.json',evidence)
+after={p:hashlib.sha256(Path(p).read_bytes()).hexdigest() for p in before}; save('hashes-despues-documentos.json',after); assert before==after
+print(json.dumps({'sources':len(catalog),'pages':len(evidence),'hashes':len(before),'unchanged':before==after}))

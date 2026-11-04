@@ -1,0 +1,34 @@
+"""Replay físico y rechazo de alteraciones; no importa los validadores comunes."""
+import hashlib,json
+from pathlib import Path
+import fitz
+from decimal import Decimal
+P=Path(__file__).parent
+load=lambda n:json.loads((P/n).read_text())
+sha=lambda b:hashlib.sha256(b).hexdigest()
+m=load('manifiesto.json')
+for n,d in m['files'].items():assert sha((P/n).read_bytes())==d['sha256'],n
+for f,h in load('preimagenes.json').items():assert sha(Path(f).read_bytes())==h,f
+o=load('originales.json')[0];assert sha(Path(o['resolvedPath']).read_bytes())==o['sha256']
+doc=fitz.open(o['resolvedPath']);fitz.TOOLS.set_small_glyph_heights(True)
+for c in load('citas-escalas.json'):
+    for cell in c['columns']:
+        t=doc[c['page']-1].get_textbox(fitz.Rect(cell['bbox']))
+        assert ' '.join(t.split())==' '.join(cell['quote'].split()),c['id']
+for n,p in load('paginas.json').items():assert doc[int(n)-1].get_text()==p['quote'],n
+for scope in load('ambitos-escalas.json').values():
+    for c in scope['contexts']:
+        assert doc[c['page']-1].get_textbox(fitz.Rect(c['bbox']))==c['quote']
+for c in load('primarios-discrepancias.json'):
+    b=Path(c['sourcePath']).read_bytes();assert sha(b)==c['sha256']
+    assert b.decode()[c['start']:c['end']]==c['literal']
+expected=load('esperados.json')
+for c in load('resultado.json')['results']:
+    if not c['name'].startswith('quota/'):continue
+    _,territory,base=c['name'].split('/')
+    b=Decimal(base);want=Decimal(0)
+    if b>0:
+        row=next(r for r in reversed(expected['scales'][territory]) if b>=Decimal(r['lower']))
+        want=Decimal(row['quota'])+(b-Decimal(row['lower']))*Decimal(row['ratePercent'])/100
+    assert want==Decimal(c['expected']),c['name']
+print(json.dumps({'physicalReplay':'pass','manifestIntegrity':'pass','preimages':'pass','independentReview':'pending-parent','fiscalPermission':False}))

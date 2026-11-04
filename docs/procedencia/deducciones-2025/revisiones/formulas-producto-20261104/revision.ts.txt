@@ -1,0 +1,83 @@
+import { evaluarDeduccionValenciana2025 as evalua } from '/home/elies/Repos/IRoboPF/lib/dominio/irpf/deducciones/valenciana-2025/index.ts'
+import { evaluarCuotaValenciana2025 as cuota } from '/home/elies/Repos/IRoboPF/lib/dominio/irpf/deducciones/valenciana-2025/cuota.ts'
+import { totalDeduccionesEvaluadas } from '/home/elies/Repos/IRoboPF/lib/dominio/irpf/deducciones/contratos-2025.ts'
+import { writeFileSync } from 'node:fs'
+const salida='/home/elies/Backups/IRoboPF/producto-valenciana-revision-formulas-20261104/'
+const u=(numeros={},textos={},id='A',titulares=['A'],fecha='2025-01-01')=>({id,titulares,fecha,numeros,textos})
+const h=(c, unidades, renta=12000,extra={})=>({codigo:'valenciana_'+c,ejercicio:2025,territorio:'comunitat-valenciana',contribuyente:'A',declarantes:['A'],modalidad:'individual',devengo:'2025-12-31',liquidableGeneral:renta,liquidableAhorro:0,imponibleGeneral:renta,imponibleAhorro:0,unidades:Array.isArray(unidades)?unidades:[unidades],...extra})
+const net=(gasto)=>({gasto,ayudas:0,reembolsos:0})
+// Expectativas construidas por el revisor; no se importa catálogo ni casos del autor.
+const casos=[
+['nacimiento_adopcion_multiples',u({personasMismaFecha:3}),246],
+['nacimiento_adopcion_acogimiento_discapacidad',u({grado:70,otrasPersonasDerecho:1},{tipo:'adopcion'}),303],
+['familia_numerosa_monoparental',u({},{categoria:'general'}),330],
+['custodia_guarderias_menores_3',u({gastoCustodia:1000,diasMenorTres:365}),150],
+['conciliacion_trabajo_familia',u({mesesDerecho:6,cotizacionIntegraIntervalo:400}),230],
+['discapacidad_65',u({edad:70,grado:40},{prestacionExenta:'no'}),197],
+['empleados_hogar_cuidado_personas',u({cuotasMesesDerecho:400},{grupo:'ascendientes',limite:'reforzado'}),200],
+['arrendador_renta_precio_referencia',u({rendimientoIntegro:2000,rentaMensualConRepercusiones:500,precioReferenciaHistorico:500},{celdaCaLabVersion2025:'fuente/2025'}),100],
+['primera_vivienda_menores_35',u({edad:34,pagosSinIntereses:2460}),123],
+['vivienda_discapacidad',u({pagosSinIntereses:2460},{discapacidadCualificadaDevengo:'certificado'}),123],
+['vivienda_ayudas_publicas',u({ayudaIntegradaDestinada:2000,tipoMedioAutonomico:8},{regimen:'regeneracion'}),160],
+['arrendamiento_actividad_distinto_municipio',u({distanciaKm:70,alquilerNoReembolsado:1000,diasContrato:365}),100],
+['autoconsumo_renovables',u({...net(2000),ayudas:500,fraccionPagadaVivienda:1},{vivienda:'habitual'}),600],
+['donaciones_finalidad_ecologica',u({valorAportado:500}),112.5],
+['donaciones_bienes_patrimonio_cultural',u({valorAportado:500}),112.5],
+['donativos_conservacion_patrimonio_cultural',u({valorAportado:500}),112.5],
+['conservacion_patrimonio_cultural_titulares',u({valorAportado:500},{titularidadInventarioIntervencion:'factura'}),112.5],
+['donaciones_lengua_valenciana',u({valorAportado:500},{grupoDestinatario:'4'}),112.5],
+['donaciones_cesiones_fines_culturales_cientificos_deportivos',u({valorCatastral:36500,diasComodato:100},{clase:'comodato_inmueble',deduccionEstatal683a:'no'}),100],
+['dos_o_mas_descendientes',u({descendientesMinimo:3,imponiblesAgregadasPersonasUnicas:29999,cuotaIntegraAutonomica:2500,minoracionesEstatales:500}),200],
+['incremento_costes_financiacion_vivienda',u({diasPrestamoAnterior:360,intereses2025:1200,intereses2024:1100}),50],
+['material_escolar',u({diasDesempleo:73}),22],
+['obras_conservacion_mejora_periodo',u(net(1000),{planYActuacionCalificados:'plan',accesibilidad33:'si'}),500],
+['obras_conservacion_mejora_2014_2015',u({...net(1000),baseConsumidaHistorica:4500},{anioObra:'2014',plan2013a2015YBaseHistorica:'plan'}),50],
+['abonos_culturales',u(net(100),{adhesionYProrrogaVigentes2025:'convenio'}),21],
+['vehiculos_orden_5_2020',u(net(1000),{clase:'kit',caracteristicasOrden5:'ficha'}),66],
+['inversion_entidades_nuevas_reciente_creacion',u({inversionDesembolsada:1000},{regimen:'general'}),300],
+['municipio_riesgo_despoblamiento',u({descendientesSinABC:3},{municipioFondo2024o2025:'fondo'}),594],
+['tratamientos_fertilidad',u({edad:45,gastoTratamiento:500},{clinicaAutorizada:'registro'}),100],
+['gastos_salud',u(net(100),{clase:'mental'}),30],
+['fomento_formacion_musical',u(net(90),{relacion:'conyuge'}),90],
+['ayudas_publicas_erte_covid',u({ayudaTotal:500,ayudaIntegrada:300,ayudaExenta:200,tipoMedioAutonomico:8}),24],
+['donaciones_covid_investigacion',u({valorAportado:500}),117.5],
+['donaciones_covid_gastos_crisis_sanitaria',u({valorAportado:500},{aceptacionYDestinoDL4:'resolucion'}),117.5],
+['dana_danos_materiales_vivienda_habitual',u({...net(800),ayudas:300},{anexoFiscalAcuerdo4nov2024:'anexo',municipio:'Loriguilla',subambito:'nucleo_A3'}),500],
+['dana_aportaciones_fondos_propios_entidades',u({inversionDesembolsada:1000},{anexoFiscalAcuerdo4nov2024:'anexo',municipio:'anexo_fiscal',entidad:'preexistente',solicitudERTEPorTemporal:'exp',domiciliosSocialFiscalYMantenimiento:'escritura'}),450],
+['nacimiento_adopcion_guarda_acogimiento',u({ordenPorContribuyente:3},{tipo:'nacimiento'}),900],
+['ascendientes_mayores_discapacidad',u({edad:76,grado:0,rentaNoExenta:8000,rentaDeclaracion:1800,diasConvivencia:183},{claseDiscapacidad:'fisica'}),197],
+['arrendamiento_cesion_uso_vivienda',u({condicionesReforzadas:2,alquilerSinServicios:1000,diasContrato:365},{contrato:'alquiler'}),300],
+['deporte_actividades_saludables',u({...net(100),edad:75,grado:0}),50],
+]
+const resultados=[]
+function probar(nombre,entrada,esperado,fn=evalua){const real=fn(entrada); const ok=Object.entries(esperado).every(([k,v])=>real[k]===v);resultados.push({nombre,entrada,esperado,real,ok});console.log((ok?'PASS ':'FAIL ')+nombre+(!ok?' '+JSON.stringify({esperado,real}):''));return real}
+for(const [c,unidad,importe] of casos) probar('base40/'+c,h(c,unidad),{estado:'calculo_parcial',importe,aceptacionFiscal:'pendiente'})
+for(const edad of [65,66,75,76]) probar('deporte/edad'+edad,h('deporte_actividades_saludables',u({...net(100),edad,grado:0})),{importe:edad>75?100:edad>65?50:30})
+for(const modalidad of ['individual','conjunta']) for(const [renta,importe] of (modalidad==='individual'?[[54000,150],[57000,75],[60000,0]]:[[72000,150],[75000,75],[78000,0]])) for(const c of ['gastos_salud','fomento_formacion_musical','deporte_actividades_saludables']) probar(c+'/'+modalidad+'/'+renta,h(c,u({...net(1000),edad:50,grado:0},{clase:'dental',relacion:'contribuyente'}),renta,{modalidad}),{importe})
+for(const edad of [39,40,45,46]) probar('fertilidad/'+edad,h('tratamientos_fertilidad',u({edad,gastoTratamiento:500},{clinicaAutorizada:'registro'}),28500),edad<40||edad>45?{estado:'excluida'}:{importe:50})
+for(const c of ['custodia_guarderias_menores_3','material_escolar','conciliacion_trabajo_familia','nacimiento_adopcion_guarda_acogimiento','ascendientes_mayores_discapacidad','arrendamiento_cesion_uso_vivienda','arrendamiento_actividad_distinto_municipio']) probar('prorrata-rechazada/'+c,h(c,casos.find(x=>x[0]===c)[1],12000,{devengo:'2025-06-30'}),{estado:'no_soportado'})
+for(const fecha of ['2025-12-29','2025-12-30']) probar('inversion/corte'+fecha,h('inversion_entidades_nuevas_reciente_creacion',u({inversionDesembolsada:50000},{regimen:'cualificado',viaAdicional:'universidad',requisitosAdicionales:'exp'}),1000,{devengo:fecha}),{importe:fecha.endsWith('29')?9900:15000})
+for(const c of ['gastos_salud','deporte_actividades_saludables','autoconsumo_renovables','dana_danos_materiales_vivienda_habitual']){const base=casos.find(x=>x[0]===c)[1];probar('ayudas-sin-negativos/'+c,h(c,{...base,numeros:{...base.numeros,gasto:50,ayudas:60,reembolsos:30}}),{importe:0})}
+probar('multiples/renta-reparto',h('nacimiento_adopcion_multiples',u({personasMismaFecha:2},{},'evento',['A','B']),28500),{importe:61.5})
+probar('despoblacion/2hijos',h('municipio_riesgo_despoblamiento',u({descendientesSinABC:2},{municipioFondo2024o2025:'fondo'}),90000),{importe:528})
+const compartido=h('deporte_actividades_saludables',u({...net(200),edad:50,grado:0},{},'hijo',['A','B']))
+probar('H1-deporte-reparto-doble',compartido,{importe:30})
+const fertilidad=h('tratamientos_fertilidad',[u({edad:45,gastoTratamiento:500},{clinicaAutorizada:'reg'},'A'),u({edad:46,gastoTratamiento:500},{clinicaAutorizada:'reg'},'B',['B'])],12000,{modalidad:'conjunta',declarantes:['A','B']})
+probar('H2-fertilidad-mixta',fertilidad,{estado:'calculo_parcial',importe:100})
+probar('H3-comodato-366dias',h('donaciones_cesiones_fines_culturales_cientificos_deportivos',u({valorCatastral:36500,diasComodato:366},{clase:'comodato_inmueble',deduccionEstatal683a:'no'})),{estado:'no_soportado'})
+const mus=h('fomento_formacion_musical',[u(net(150),{relacion:'contribuyente'},'A',['A']),u(net(150),{relacion:'contribuyente'},'B',['B'])],12000,{modalidad:'conjunta',declarantes:['A','B']})
+// Sonda de tope conjunta: se documenta separadamente, no se convierte en hallazgo sin regla art84.
+probar('sonda-conjunta/musica-tope',mus,{importe:150})
+const antiguo=h('autoconsumo_renovables',u({...net(2000),fraccionPagadaVivienda:1},{vivienda:'habitual'}))
+for(const origen of [2020,2021]){const real=cuota({hechos:antiguo,cuotaDisponible:100,referenciaCuota:'ref',arrastres:[{id:'hist',codigo:antiguo.codigo,contribuyente:'A',origen,pendiente:200,soporte:'declaracion'}]});probar('arrastre/'+origen,real,{estado:origen===2020?'no_soportado':'calculo_parcial'},x=>x.resultado)}
+const pre=JSON.stringify(compartido);evalua(compartido);probar('sin-mutacion',{}, {igual:true},()=>({igual:JSON.stringify(compartido)===pre}))
+for(const alteracion of [{devengo:'2025-02-29'},{devengo:'2026-01-01'},{declarantes:['A','A']},{unidades:[compartido.unidades[0],compartido.unidades[0]]}])probar('runtime/'+JSON.stringify(alteracion),{...compartido,...alteracion},{estado:'no_soportado'})
+const conExtras={...compartido,importe:999,unidades:compartido.unidades.map(x=>({...x,numeros:{...x.numeros,extraSinUso:123}}))};probar('extras-no-inyectan',conExtras,{importe:15})
+for(const c of ['donativos_conservacion_patrimonio_cultural','conservacion_patrimonio_cultural_titulares','donaciones_lengua_valenciana','donaciones_cesiones_fines_culturales_cientificos_deportivos']){const b=casos.find(x=>x[0]===c)[1];const unidad={...b,numeros:{...b.numeros,valorAportado:9000},textos:{...b.textos,clase:'dinero',deduccionEstatal683a:'no'}};probar('base30/'+c,h(c,unidad,1000),{importe:c.endsWith('deportivos')?75:62.5})}
+for(const c of ['gastos_salud','abonos_culturales','conciliacion_trabajo_familia']){const b=casos.find(x=>x[0]===c)[1];probar('consolidacion/'+c,h(c,[b,{...b,id:'segunda'}]),{estado:'no_soportado'})}
+for(const clase of ['especie','usufructo','comodato_mueble'])probar('valoracion-rechazo/'+clase,h('donaciones_cesiones_fines_culturales_cientificos_deportivos',u({valorAportado:1000},{clase,deduccionEstatal683a:'no'})),{estado:'no_soportado'})
+for(const diasMedida of [183,184])probar('acogimiento/'+diasMedida,h('nacimiento_adopcion_guarda_acogimiento',u({diasMedida,ordenPorContribuyente:2},{tipo:'acogimiento',resolucionMedida:'resolucion'})),{importe:diasMedida===183?0:750})
+for(const r of resultados.filter(x=>x.nombre.startsWith('base40/')))if(!r.real.motivo?.includes('pendientes:'))throw Error('Reserva perdida '+r.nombre)
+const rc=cuota({hechos:antiguo,cuotaDisponible:100,referenciaCuota:'ref',arrastres:[]})
+probar('O1-cuota-conserva-reserva-CTE',rc,{conserva:true},r=>({conserva:r.resultado.motivo.includes('CTE')}))
+writeFileSync(salida+'resultados.json',JSON.stringify(resultados,null,2)+'\n'); const rojos=resultados.filter(x=>!x.ok);console.log(JSON.stringify({total:resultados.length,verdes:resultados.length-rojos.length,rojos:rojos.length}));process.exitCode=rojos.length?1:0

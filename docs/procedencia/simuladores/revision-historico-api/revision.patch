@@ -1,0 +1,323 @@
+--- /dev/null
++++ b/revision-historico-api/INFORME.md
+@@ -0,0 +1,50 @@
++# Revisión independiente de la API efectiva histórica privada
++
++Dictamen favorable para la conexión y preservación examinadas. No se encontraron defectos reproducibles de importes ni datos públicos incorrectos atribuibles al parche. No se propone corrección de producción. Esta revisión ligera no acredita equivalencia fiscal histórica ni sustituye la revisión de C2025. No autoriza capturas ni campañas históricas.
++
++Candidato: /home/elies/Backups/IRoboPF/producto-c-historico-api-20261104. Parche SHA256 b228b74a65eb6fdb6b3131f3007891b5335a13126ad3d4be34aac0697d3e7f6b. Leídos los ocho documentos solicitados y las dependencias de producción y referencias locales necesarias. Raíz, candidato y preimágenes intactos: 27 archivos con SHA256 antes/después idénticos (listas adjuntas). Sin worktree, VCS mutante, subdelegación ni turno pesado.
++
++## Evidencia propia
++
++pruebas-propias.ts: 1489 comprobaciones y 109 escenarios positivos, salida 0; evidencia en pruebas-propias.log.
++
++- Cada literal histórico 2018–2024 decodifica y ejecuta con edades 18 y 64. Preservadas 25 variantes válidas 2025: empleo laboral/estatutario/pensión, familia E+B y actividad EDS con pagos, en Madrid, Andalucía, Catalunya, Galicia y Comunitat Valenciana. Igualdad completa de objetos frente a raíz, incluido rastro.
++- Diez importes por año histórico, incluidos cero, distintas ramas Art20 y máximo de entrada. Reducción cotejada con productor existente recibiendo el año real; neto cotejado con productor de gastos y reducción. Cuota posterior cotejada con composición común invocada directamente con año real, precisión 80 y decimal-hasta-salida. Son comprobaciones de conexión al motor existente, no un oráculo fiscal histórico.
++- Devengo, conciliación, trabajo y retenciones de cada histórico cruzados con todos los otros años 2018–2025: rechazo ResultadoNoSoportado. También desajustes desde 2025 hacia históricos.
++- Negativos: pensión, actividad, familia/derechos, otro territorio, cotizaciones estimadas/desconocidas, otros años, edades fuera del rango, rendimientos vacíos, pagos no efectivos/duplicados, otras rentas y deducciones. Extras en raíz y estructuras anidadas, alias anio y controles politica/precision/cotizaciones/serviciosLaborales/pagosACuentaCentimos/retencionTrabajoAeat: rechazo.
++- Quitar retenciones conserva cuota posterior y cambia diferencial por el pago declarado. Entradas inmutables. DA61 histórica cero por exclusión explícita de serviciosLaborales, sin recuperar errores ni inventar ceros.
++- Art20 2018: neto previo 13000 produce 1676.5625 antes del 5 de julio y 3620.78125 desde esa fecha y al devengo ordinario. API histórica sólo admite devengo 31 de diciembre y rechaza fechaFallecimiento como extra. El enlace al productor recibe el año real. Precisión global Decimal permanece 20; conexión/composición usan clones de 80.
++
++sondeo-autor-repetido.log: ejecución separada del sondeo del autor, salida 0, 498 asserts y 30+7 resultados completos 2025. Sirve como evidencia de preservación 2025, nunca como aceptación histórica. No se capturaron ni consultaron resultados oficiales históricos. Las referencias locales 2025 no son capturas nuevas.
++
++## Selección e imports
++
++El contrato construye siete Struct con literal propio para ejercicio, primera propiedad heredada de Alcance. Los positivos de cada año y los 2025 fuera de Madrid comprueban el despacho efectivo en la versión instalada. No se introduce la unión de años que ocultaba ramas 2025.
++
++Conexión pasa caso.ejercicio a Art20 y composición, exige coincidencia de trabajo/conciliación/retenciones/devengo, restringe empleo histórico y conserva los productores de gastos y cuotas. Open y serviciosLaborales exigen 2025; los históricos llegan a composición con decimal-hasta-salida y sin serviciosLaborales.
++
++Mínimos estatales: liquidar-irpf-anual.ts:318–328 sólo singulariza 2012, 2013, 2014 y 2026; 2018–2024 usan dependencias.parametrosNormativos.minimosEstatales2025. El servicio predeterminado en comunidades/comunidad-autonoma.ts:612 apunta a MINIMOS_ESTATALES_2025, el mismo objeto pasado por el candidato. Para 18–64 sin familia/discapacidad mantiene 5550. Composición recibe el año real para escalas y mínimos autonómicos; no se troca el año. Esto verifica la selección existente, sin nueva acreditación normativa.
++
++auditoria-runtime.log: SHA del candidato y de preimágenes de raíz coinciden con manifiesto. Las copias runtime coinciden byte a byte con las propuestas tras resolver exclusivamente imports relativos; conexión importa el contrato privado y los demás módulos de raíz. Alias runtime de Effect, Decimal y TypeScript apuntan a dependencias de raíz. No hay sustituciones de lógica ni capas para silenciar errores.
++
++## Incidencias y límites
++
++Sin hallazgos que requieran solución mínima de producción. El primer sondeo propio usó por error valencia; se corrigió a comunitat-valenciana. Se conserva pruebas-propias-intento1.log. El fallo era del sondeo, no del candidato. La versión final imprime la entrada y relanza si falla una ejecución positiva.
++
++Bun emite el aviso interno conocido directory mismatch de tsconfig-override también con salida 0. No se toma ese aviso ni su ausencia como evidencia de corrección: cuentan assertions y código de salida.
++
++No se ejecutaron Vitest, tipos ni lint globales por el turno LIGERO3. Se leyeron los 17 casos Vitest propuestos; no se declara superada esa suite. La integración requiere sus checks ordinarios cuando tenga turno. No se amplía a auditoría universal de gastos ni se repiten revisiones fiscales históricas aceptadas.
++
++C2025 debe superar su revisión independiente antes de capturas/comparaciones históricas. Equivalencia Open histórica y redondeo oficial observado quedan pendientes para punto7. Aceptación fiscal permanece pendiente.
++
++## Entrega y reproducción
++
++revision.patch añade sólo recursos de revisión bajo revision-historico-api/. No contiene cambios sobre lib ni sobre el candidato. manifiesto-sha256.json identifica archivos y SHA256, excluyéndose a sí mismo. Sin dependencias, caches, entornos ni copias completas.
++
++Ejecutar un proceso por vez, desde cualquier directorio:
++
++    timeout -k 30s 25s bash -c 'source /home/elies/Backups/IRoboPF/limpieza-recursos-20261103/env-pruebas.sh; bun --no-install --tsconfig-override /home/elies/Backups/IRoboPF/producto-c-historico-api-20261104/runtime.json /home/elies/Backups/IRoboPF/producto-c-historico-api-revision-20261104/pruebas-propias.ts'
++
++    timeout -k 30s 25s bash -c 'source /home/elies/Backups/IRoboPF/limpieza-recursos-20261103/env-pruebas.sh; /home/elies/.cache/irobopf-corpus/.venv/bin/python /home/elies/Backups/IRoboPF/producto-c-historico-api-revision-20261104/verificar-fuentes.py'
++
++Consultadas guías Effect Solutions list/show basics, error-handling y testing, y fuente local Effect.result/runSync antes del sondeo.
+--- /dev/null
++++ b/revision-historico-api/pruebas-propias.ts
+@@ -0,0 +1,115 @@
++import assert from "node:assert/strict"
++import { readFileSync } from "node:fs"
++import { Effect, Schema, Result } from "effect"
++import Decimal from "decimal.js"
++import { liquidarIrpfAnualExplicito as run } from "/home/elies/Backups/IRoboPF/producto-c-historico-api-20261104/conexion.runtime.ts"
++import { CasoFiscalAnualExplicito as contrato } from "/home/elies/Backups/IRoboPF/producto-c-historico-api-20261104/conexion-contrato.runtime.ts"
++import { liquidarIrpfAnualExplicito as root } from "/home/elies/Repos/IRoboPF/lib/dominio/irpf/trabajo-anual/conexion.ts"
++import { efectivo, derechos } from "/home/elies/Repos/IRoboPF/docs/procedencia/reforma-motor/bloque-e/ejemplos.ts"
++import { adaptarTrabajoAnual } from "/home/elies/Repos/IRoboPF/lib/dominio/irpf/trabajo-anual/adaptador.ts"
++import { calcularReduccionTrabajoConOtrasRentas as art20 } from "/home/elies/Repos/IRoboPF/lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts"
++import { componerLiquidacionAnual } from "/home/elies/Repos/IRoboPF/lib/dominio/irpf/liquidacion/composicion-anual.ts"
++import { MINIMOS_ESTATALES_2025 } from "/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/minimos-autonomicos-2025.ts"
++import { actividad } from "./fixture-actividad.ts"
++const repo="/home/elies/Repos/IRoboPF/"
++const refs=JSON.parse(readFileSync(repo+"docs/procedencia/implementaciones/redondeo-salarial-open/oficial.json","utf8"))
++const base=refs[1].entrada
++const D=Decimal.clone({precision:80})
++let checks=0, scenarios=0
++const eq=(a:unknown,b:unknown,label:string)=>{assert.deepEqual(a,b,label);checks++}
++const calc=(x:any)=>{try{return Effect.runSync(run(x))}catch(e){console.error("Entrada que no pudo calcularse:",JSON.stringify(x));throw e}}
++const fail=(x:any,label:string)=>{
++ const result=Effect.runSync(Effect.result(run(x)))
++ eq(result._tag,"Failure",label)
++ if(Result.isFailure(result)) eq(result.failure._tag,"ResultadoNoSoportado",label)
++}
++function input(y:number,bruto="16576.01"){
++ const x=structuredClone(base)
++ x.ejercicio=y;x.devengo=y+"-12-31";x.trabajo.ejercicio=y;x.conciliacion.ejercicio=y
++ for(const r of x.retenciones)r.ejercicio=y
++ x.deducciones=y===2025?"solo-da61-si-procede":"ninguna"
++ x.trabajo.rendimientos[0].integro=bruto
++ return x
++}
++for(const y of [2018,2019,2020,2021,2022,2023,2024]){
++ for(const edad of [18,64]){
++  const x=input(y);x.edad=edad
++  eq(Schema.decodeUnknownResult(contrato)(x)._tag,"Success","literal "+y)
++  eq(calc(x).ejercicio,y,"año resultado");scenarios++
++ }
++ for(const bruto of ["0","1000","13000","14500","16000.01","18000.01","19500.01","22000.01","40000.01","999999999999.99"]){
++  const x=input(y,bruto), snapshot=structuredClone(x)
++  const t=adaptarTrabajoAnual(x.trabajo)
++  assert.equal(t.estado,"aporte-disponible")
++  if(t.estado!=="aporte-disponible") throw Error("aporte no disponible")
++  const expected=D.min(D.max(t.rendimientoAntesArt20,0),art20({anio:y as any,rendimientoPrevioNeto:new D(t.argumentoArt20),otrasRentasNoExentas:new D(0)}))
++  const r=calc(x)
++  eq(r.reduccionArt20,expected.toFixed(),"Art20 año real "+y)
++  eq(r.rendimientoNetoReducido,new D(t.rendimientoAntesArt20).minus(expected).toFixed(),"gastos efectivos")
++  eq(r.deduccionTrabajo,"0","DA61 histórica excluida")
++  eq(r.rastro.contexto.anio,y,"rastro año")
++  eq(r.aceptacionFiscal,"pendiente","no aceptación")
++  eq(x,snapshot,"entrada inmutable")
++  const cot=x.trabajo.rendimientos.reduce((s:any,v:any)=>s.plus(v.cotizaciones.seguridadSocial).plus(v.cotizaciones.derechosPasivos).plus(v.cotizaciones.colegiosHuerfanos),new D(0))
++  const c=Effect.runSync(componerLiquidacionAnual({
++   ambito:{anio:y as any,comunidadAutonoma:"madrid",situacionFamiliar:{tipo:"individual",edad:x.edad,discapacidad:{_tag:"SinDiscapacidad"},descendientes:[],ascendientes:[]}},
++   cotizaciones:{naturaleza:"efectivas",trabajador:cot},precision:80,politica:"decimal-hasta-salida",
++   baseGeneral:D.max(r.baseLiquidableGeneral,0),baseAhorro:new D(0),rentasAntesReducciones:new D(t.rendimientoAntesArt20),
++   minimosEstatales:MINIMOS_ESTATALES_2025,deduccionesAutonomicasCentimos:0
++  }))
++  eq(r.cuotaPosterior,c.cuotaPosterior.toFixed(),"composición con año real")
++  const sin=calc({...x,retenciones:[]})
++  eq(sin.cuotaPosterior,r.cuotaPosterior,"retención no cambia cuota")
++  eq(new D(sin.cuotaDiferencial).minus(r.cuotaDiferencial).toFixed(),r.retenciones,"pago efectivo")
++  scenarios++
++ }
++ const x=input(y)
++ for(const other of [2018,2019,2020,2021,2022,2023,2024,2025].filter(z=>z!==y)){
++  fail({...x,trabajo:{...x.trabajo,ejercicio:other}},"trabajo distinto")
++  fail({...x,conciliacion:{...x.conciliacion,ejercicio:other}},"conciliación distinta")
++  fail({...x,retenciones:x.retenciones.map((r:any)=>({...r,ejercicio:other}))},"retención distinta")
++  fail({...x,devengo:other+"-12-31"},"devengo distinto")
++ }
++ const variants=[
++ {...x,edad:17},{...x,edad:65},{...x,edad:40.5},{...x,comunidadAutonoma:"andalucia"},
++ {...x,perfil:"solo-actividad-eds",actividad:actividad().actividad},
++ {...x,derechosMinimos:derechos},{...x,familiaresConDerechoMinimo:"segun-derechos"},
++ {...x,otrasRentas:"si"},{...x,deducciones:"solo-da61-si-procede"},
++ {...x,trabajo:{...x.trabajo,territorio:"foral"}},
++ {...x,trabajo:{...x.trabajo,rendimientos:[]}},
++ {...x,retenciones:[...x.retenciones,...x.retenciones]},
++ ...["pension","otro-trabajo","desconocido"].map(clase=>({...x,trabajo:{...x.trabajo,rendimientos:x.trabajo.rendimientos.map((r:any)=>({...r,clase}))}})),
++ ...["estimadas","desconocidas"].map(clase=>({...x,trabajo:{...x.trabajo,rendimientos:x.trabajo.rendimientos.map((r:any)=>({...r,cotizaciones:{...r.cotizaciones,clase}}))}})),
++ ...["anio","politica","precision","cotizaciones","serviciosLaborales","pagosACuentaCentimos","retencionTrabajoAeat"].map(k=>({...x,[k]:k==="precision"?20:2025})),
++ {...x,trabajo:{...x.trabajo,precision:20}},
++ {...x,retenciones:x.retenciones.map((r:any)=>({...r,efectiva:false}))},
++ {...x,trabajo:{...x.trabajo,rendimientos:x.trabajo.rendimientos.map((r:any)=>({...r,extra:true}))}},
++ {...x,fechaFallecimiento:"2018-07-04"}
++ ]
++ for(const v of variants)fail(v,"fuera de alcance histórico "+y)
++}
++for(const y of [2012,2017,2026])fail(input(y),"año no admitido")
++// Variantes 2025 independientes de las 37 referencias del autor.
++for(const territorio of ["madrid","andalucia","catalunya","galicia","comunitat-valenciana"]){
++ for(const clase of ["empleo-laboral","empleo-estatutario","pension"]){
++  const x=input(2025);x.comunidadAutonoma=territorio;x.trabajo.rendimientos[0].clase=clase
++  const a=calc(x),b=Effect.runSync(root(x))
++  eq(a,b,"2025 "+territorio+"/"+clase);scenarios++
++ }
++ const x={...efectivo,comunidadAutonoma:territorio,familiaresConDerechoMinimo:"segun-derechos",derechosMinimos:{...derechos,territorio}}
++ eq(calc(x),Effect.runSync(root(x as any)),"familia E+B "+territorio);scenarios++
++ const a={...actividad(),comunidadAutonoma:territorio}
++ eq(calc(a),Effect.runSync(root(a as any)),"actividad "+territorio);scenarios++
++}
++for(const other of [2018,2024]){
++ const x=input(2025)
++ fail({...x,trabajo:{...x.trabajo,ejercicio:other}},"2025 trabajo otro año")
++ fail({...x,conciliacion:{...x.conciliacion,ejercicio:other}},"2025 conciliación otro año")
++ fail({...x,retenciones:x.retenciones.map((r:any)=>({...r,ejercicio:other}))},"2025 pagos otro año")
++}
++const arg={anio:2018 as const,rendimientoPrevioNeto:new D(13000),otrasRentasNoExentas:new D(0)}
++eq(art20({...arg,fechaFallecimiento:new Date("2018-07-04T00:00:00Z")}).toFixed(),"1676.5625","rama anterior 5 julio")
++eq(art20({...arg,fechaFallecimiento:new Date("2018-07-05T00:00:00Z")}).toFixed(),"3620.78125","rama posterior 5 julio")
++eq(art20(arg).toFixed(),"3620.78125","devengo 31 diciembre sin fallecimiento")
++eq(Decimal.precision,20,"precisión global preservada")
++console.log(JSON.stringify({checks,scenarios,resultado:"OK",historicos:"contrato y composición existente; ningún oráculo fiscal",oficialesConsultados:false}))
+--- /dev/null
++++ b/revision-historico-api/fixture-actividad.ts
+@@ -0,0 +1,138 @@
++import type { CasoActividad2025 } from "/home/elies/Repos/IRoboPF/lib/dominio/irpf/actividades-economicas/contrato"
++const alcance = {
++  ejercicio: 2025,
++  comunidadAutonoma: "madrid",
++  edad: 40,
++  modalidad: "individual",
++  residenciaTodoElAnio: true,
++  devengo: "2025-12-31",
++  otrasRentas: "ninguna",
++  familiaresConDerechoMinimo: "ninguno",
++  discapacidad: "ninguna",
++  reduccionesBase: "ninguna",
++  saldosAnteriores: "ninguno",
++  deducciones: "solo-da61-si-procede",
++  rentasExtranjeras: "ninguna",
++  especialidades: "ninguna",
++}
++function casoBase(): CasoActividad2025 {
++  return {
++    ejercicio: 2025,
++    territorio: "comun",
++    individual: true,
++    actividadId: "profesion",
++    iae: "servicios",
++    fechaInicio: "2025-01-01",
++    fechaFin: "2025-12-31",
++    serviciosOrdinarios: true,
++    hechos: {
++      otrasActividades: false,
++      otrasRentas: false,
++      existencias: false,
++      empleados: false,
++      artistica: false,
++      irregular: false,
++      subvenciones: false,
++      transmisiones: false,
++      extranjero: false,
++      mutualidad: false,
++      especialidadesTerritoriales: false,
++      saldosPendientes: false,
++      serviciosGratuitos: false,
++      autoconsumo: false,
++      noFacturados: false,
++      subvalorados: false,
++      trade: false,
++      hechosDesconocidos: false,
++    },
++    historial: [],
++    actividadPreviaAlInicio: "ausente",
++    regimen2025: "eds",
++    criterio2025: "devengo",
++    documentoCriterio2025: "alta",
++    renuncia2025: false,
++    exclusion2025: false,
++    volumen2024: "0",
++    diasActividad2024: 0,
++    documentoVolumen2024: "sin-actividad",
++    clientes: [
++      {
++        id: "cliente",
++        vinculado: false,
++        empleadorEnAnioAnteriorAlInicio: false,
++        documento: "contrato",
++      },
++    ],
++    ingresos: [],
++    gastos: [],
++    reta: [],
++    activos: [],
++    obligacionesFormales: true,
++    documentoObligaciones: "libros",
++    discapacidad: {
++      grado: 0,
++      ayudaOMovilidad: false,
++      ejercicioEfectivo: true,
++      documento: "sin-discapacidad",
++    },
++    opcion: "gastos-dificiles",
++    aplicarRentasBajas: true,
++    aplicarInicio: false,
++    retenciones: [],
++    pagosFraccionados: [],
++  }
++}
++function ingreso(
++  base: string,
++  sujetoRetencion = false,
++  id = "factura",
++  clienteId = "cliente"
++): CasoActividad2025["ingresos"][number] {
++  return {
++    id,
++    justificante: id,
++    fecha: "2025-06-01",
++    base,
++    iva: "0",
++    ivaRecuperable: "0",
++    afectacionExclusiva: true,
++    registrado: true,
++    categoria: "servicio",
++    clienteId,
++    sujetoRetencion,
++    rectificativa: false,
++  }
++}
++export function actividad() {
++  return {
++    ...alcance,
++    perfil: "solo-actividad-eds",
++    actividad: {
++      ...casoBase(),
++      ingresos: [ingreso("10000", true)],
++      retenciones: [
++        {
++          id: "ret",
++          justificante: "cert",
++          fecha: "2025-12-31",
++          operacionId: "ret-1",
++          ingresoId: "factura",
++          importe: "1500",
++          efectiva: true,
++        },
++      ],
++      pagosFraccionados: [
++        {
++          id: "pago",
++          justificante: "130",
++          fecha: "2025-04-20",
++          operacionId: "pago-1",
++          periodo: "2025-1T",
++          modelo: "130",
++          importe: "100",
++          efectivo: true,
++        },
++      ],
++    },
++  }
++}
+--- /dev/null
++++ b/revision-historico-api/verificar-fuentes.py
+@@ -0,0 +1,8 @@
++from pathlib import Path
++import hashlib, json
++out = Path(__file__).resolve().parent
++before = json.loads((out / "hashes-antes.json").read_text())
++after = {p: hashlib.sha256(Path(p).read_bytes()).hexdigest() for p in before}
++(out / "hashes-despues.json").write_text(json.dumps(after, indent=2) + "\n")
++assert before == after, "Fuentes modificadas durante la revisión"
++print(json.dumps({"archivos": len(after), "sha256_antes_despues": "idénticos", "raiz_candidato_preimagenes": "intactos"}, ensure_ascii=False))

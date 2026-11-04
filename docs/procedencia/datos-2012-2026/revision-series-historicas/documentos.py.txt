@@ -1,0 +1,24 @@
+from pathlib import Path
+import json, hashlib, fitz
+O=Path(__file__).parent
+A=Path('/home/elies/Backups/IRoboPF/producto-a-series-historicas-20261104')
+def save(n,x): (O/n).write_text(json.dumps(x,ensure_ascii=False,indent=2)+'\n')
+sources=json.loads((A/'fuentes.json').read_text())
+manifest=json.loads((A/'MANIFIESTO.json').read_text())
+for n,v in manifest['archivos'].items(): assert hashlib.sha256((A/n).read_bytes()).hexdigest()==v['sha256'],n
+paths=list(json.loads((A/'hashes-antes.json').read_text()))+[str(p) for p in A.iterdir() if p.is_file()]
+save('hashes-antes.json',{p:hashlib.sha256(Path(p).read_bytes()).hexdigest() for p in paths})
+excerpts=json.loads((A/'extractos.json').read_text()); result=[]
+for label,s in sources.items():
+ data=Path(s['cas']).read_bytes()
+ for alg in ['sha256','sha512']: assert hashlib.new(alg,data).hexdigest()==s[alg]
+ pdf=fitz.open(stream=data,filetype='pdf')
+ for e in excerpts:
+  if e['source']!=label: continue
+  text=pdf[e['page']-1].get_text(); assert text==e['text'],(label,e['page'])
+  result.append({'source':label,'page':e['page'],'text':pdf[e['page']-1].get_text(sort=True)})
+ for page in ([4,12] if label=='madrid2018' else [3,14] if label=='madrid2023' else []):
+  pdf[page-1].get_pixmap(matrix=fitz.Matrix(1.3,1.3)).save(str(O/f'{label}-{page}.png'))
+save('extraccion-propia.json',result)
+save('fuentes.json',sources)
+print(json.dumps({'originalesSHA256y512':len(sources),'paginasReextraidasIguales':len(result),'manifiestoAutor':'íntegro'}))

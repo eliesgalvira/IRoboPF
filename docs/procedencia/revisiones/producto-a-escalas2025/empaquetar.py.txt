@@ -1,0 +1,49 @@
+from pathlib import Path
+import json,hashlib,difflib,re
+P=Path(__file__).parent;A=P.parent/'producto-a-escalas2025-20261104';B=P.parent/'producto-a-cuotas2025-correccion-20261104';R=Path('/home/elies/Repos/IRoboPF')
+sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+load=lambda p:json.loads(p.read_text())
+save=lambda n,x:(P/n).write_text(json.dumps(x,ensure_ascii=False,indent=2)+'\n')
+before=load(P/'fuentes-antes.json');after={f:sha(Path(f)) for f in before}
+save('fuentes-despues.json',after)
+changes=[f for f in before if before[f]!=after[f]]
+assert not changes,changes
+for f,h in load(A/'preimagenes.json').items():assert sha(Path(f))==h
+m=load(B/'manifiesto.json');assert sha(B/'implementacion.patch')==m['patchSha256']
+for f in m['archivos']:
+    assert sha(Path(f['candidato']))==f['despues']
+    if f['antes'] is not None:assert sha(R/f['ruta'])==f['antes']
+e=load(A/'entrega-manifiesto.json')
+assert sha(A/'entrega.patch')==e['patch']['sha256']
+assert sha(A/'manifiesto.json')==e['manifestSha256']
+assert sha(A/'replay-recibo.log')==e['physicalReplayReceipt']['sha256']
+for name,v in load(A/'manifiesto.json')['files'].items():assert sha(A/name)==v['sha256']
+# Aplica los tres diffs en memoria contra preimágenes, sin tocar candidatos/raíz.
+patch=(B/'implementacion.patch').read_text().splitlines(True)
+index=0;verified=[]
+while index<len(patch):
+    assert patch[index].startswith('--- ')
+    oldpath=patch[index][4:].strip();newpath=patch[index+1][4:].strip();index+=2
+    target=newpath.removeprefix('b/')
+    candidate=next(f for f in m['archivos'] if f['ruta']==target)
+    old=[] if oldpath=='/dev/null' else (R/target).read_text().splitlines(True)
+    new=[];pos=0
+    while index<len(patch) and not patch[index].startswith('--- '):
+        header=patch[index];match=re.match(r'@@ -(\d+)(?:,\d+)? \+(\d+)(?:,\d+)? @@',header);assert match,header
+        start=max(0,int(match[1])-1);new.extend(old[pos:start]);pos=start;index+=1
+        while index<len(patch) and not patch[index].startswith(('@@ ','--- ')):
+            line=patch[index];index+=1
+            if line[0] in ' -':assert old[pos]==line[1:];pos+=1
+            if line[0] in ' +':new.append(line[1:])
+    new.extend(old[pos:]);assert ''.join(new)==Path(candidate['candidato']).read_text(),target
+    verified.append(target)
+save('integridad.json',{'sources':len(before),'unchanged':True,'preimages':79,'candidatePatchInMemory':verified,'documentationManifests':'pass'})
+# La entrega de revisión añade sólo sus artefactos pequeños en documentación.
+included=[f for f in sorted(P.iterdir()) if f.is_file() and f.name not in ['revision.patch','manifiesto.json']]
+text=''
+for f in included:
+    target='b/docs/procedencia/revisiones/producto-a-escalas2025/'+f.name
+    text+=''.join(difflib.unified_diff([],f.read_text().splitlines(True),fromfile='/dev/null',tofile=target))
+(P/'revision.patch').write_text(text)
+save('manifiesto.json',{'review':'aprobación acotada documental + corrección ordinaria 2025','fiscalPermission':False,'originalSourcesUnchanged':True,'files':{f.name:{'sha256':sha(f),'bytes':f.stat().st_size} for f in [*included,P/'revision.patch']}})
+print(json.dumps({'unchangedSources':len(before),'patchSha256':sha(P/'revision.patch'),'manifestSha256':sha(P/'manifiesto.json')}))

@@ -1,0 +1,15 @@
+from pathlib import Path
+import json,hashlib
+O=Path(__file__).parent
+A=O.parent/'producto-a-series-historicas-20261104'
+before=json.loads((O/'hashes-antes.json').read_text())
+after={p:hashlib.sha256(Path(p).read_bytes()).hexdigest() for p in before}
+(O/'hashes-despues.json').write_text(json.dumps(after,indent=2)+'\n')
+assert before==after,{p:[before[p],after[p]] for p in before if before[p]!=after[p]}
+patch=(A/'propuesta-monetaria-no-aplicada.patch').read_bytes()
+(O/'propuesta-revisada-no-aplicada.patch').write_bytes(patch)
+target='/home/elies/Repos/IRoboPF/lib/dominio/irpf/cuotas/escalas-publicadas.ts'
+files={p.name:{'sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'bytes':p.stat().st_size} for p in sorted(O.iterdir()) if p.is_file() and p.name!='MANIFIESTO.json'}
+manifest={'dictamen':'favorable acotado, sin bloqueantes','autor':str(A),'root':'/home/elies/Repos/IRoboPF','target':target,'preimagenSHA256':before[target],'candidatoSHA256':files['escalas-publicadas.candidato.ts']['sha256'],'patchSHA256':hashlib.sha256(patch).hexdigest(),'rutasIntactas':len(before),'OpenRemoto':False,'C300':False,'suitePesada':False,'rojoExit':1,'verdeExit':0,'bytesEntregaSinManifiesto':sum(v['bytes'] for v in files.values()),'archivos':files}
+(O/'MANIFIESTO.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
+print(json.dumps({k:v for k,v in manifest.items() if k!='archivos'},ensure_ascii=False))

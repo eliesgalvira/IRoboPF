@@ -1,0 +1,93 @@
+--- /dev/null
++++ b/tests/revision-composicion-valenciana.casos.ts
+@@ -0,0 +1,26 @@
++import assert from "node:assert/strict"
++import { componerDeduccionesValencianas2025 as componer } from "../lib/dominio/irpf/deducciones/valenciana-2025/composicion"
++const c=(s:string)=>"valenciana_"+s
++const q="donativos_conservacion_patrimonio_cultural", r="donaciones_lengua_valenciana", s="donaciones_cesiones_fines_culturales_cientificos_deportivos"
++function p(code:string, numeros:any, textos:any={}, id="g1"):any {return {codigo:c(code),eleccion:"aplicar",unidades:[{id:"u",titulares:["A"],fecha:"2025-06-02",numeros,textos}],referencias:[{unidad:"u",sujetos:["persona"],bienes:["bien"],eventos:["evento"],cantidades:id?[id]:[]}]}}
++function e(ps:any[], renta=2000, cantidades:any[]=[{id:"g1",euros:300}]):any {return {ejercicio:2025,territorio:"comunitat-valenciana",modalidad:"individual",devengo:"2025-12-31",contribuyente:"A",bases:{liquidableGeneral:renta,liquidableAhorro:0,imponibleGeneral:renta,imponibleAhorro:0},cantidades,solicitudes:ps,ordenBase30:ps.filter(p=>[c(q),c(r),c(s),c("conservacion_patrimonio_cultural_titulares")].includes(p.codigo)&&p.eleccion==="aplicar").map(p=>p.codigo),consignaciones:[]}}
++function no(a:any){const v=componer(a); assert.equal(v.estado,"no_soportado",JSON.stringify(v));assert.equal(v.totalParcialAntesCuota,undefined);return v}
++function total(a:any,n:number){const v=componer(a);assert.equal(v.estado,"calculo_parcial",JSON.stringify(v));assert.equal(v.totalParcialAntesCuota,n);return v}
++function freeze(a:any){if(a&&typeof a==="object"){Object.values(a).forEach(freeze);Object.freeze(a)}return a}
++export const casos:Record<string,()=>void>={
++ "orden cambia importe y no aplica dos veces 30":()=>{const a=e([p(q,{valorAportado:800}),p(r,{valorAportado:300},{grupoDestinatario:"4"},"g2")],2000,[{id:"g1",euros:800},{id:"g2",euros:300}]);const v=total(a,137.5);assert.equal(v.resultados[0].base30?.asignada,600);assert.equal(v.resultados[0].base30?.exceso,200);total({...a,ordenBase30:[...a.ordenBase30].reverse()},125)},
++ "oraculo racional 121 techos y tramos":()=>{for(let i=0;i<=120;i++){const base=Math.min(1000,i*3);const cents=Math.floor(Math.min(base,250)*20+Math.max(0,base-250)*25+.5);total(e([p(q,{valorAportado:1000})],i*10,[{id:"g1",euros:1000}]),cents/100)}},
++ "comodato fraccionario conserva precision":()=>{const v=total(e([p(s,{valorCatastral:1000,diasComodato:1},{clase:"comodato_inmueble",deduccionEstatal683a:"no"},"")]),.03);assert.ok(Math.abs(v.resultados[0].base30!.solicitada-40/365)<1e-14)},
++ "comodato con estatal tramo una vez":()=>total(e([p(s,{valorCatastral:36500,diasComodato:100},{clase:"comodato_inmueble",deduccionEstatal683a:"si"},"")],1000),62.5),
++ "rechazo aunque techo cero":()=>{const a=e([p(r,{valorAportado:300},{grupoDestinatario:"5"})],0);no(a);assert.match(componer(a).resultados[0].resultado.motivo,/inscripcion/)},
++ "omitir invalida conserva motivo":()=>{const a=e([p(q,{valorAportado:300}),{...p(r,{valorAportado:300},{grupoDestinatario:"5"},"g2"),eleccion:"omitir"}],2000,[{id:"g1",euros:300},{id:"g2",euros:300}]);const v=total(a,62.5);assert.equal(v.resultados[1].resultado.estado,"no_soportado")},
++ "excluida no se convierte en cero":()=>{const a=e([p("tratamientos_fertilidad",{edad:46,gastoTratamiento:300},{clinicaAutorizada:"declarada"})]);assert.equal(no(a).resultados[0].resultado.estado,"excluida")},
++ "rechazo dos magnitudes primarias":()=>no(e([p(q,{valorAportado:300,gasto:300})])),
++ "salud no repite categoria":()=>{const a=e([p("gastos_salud",{gasto:300,ayudas:0,reembolsos:0},{clase:"dental"})]);a.solicitudes[0].unidades.push({...a.solicitudes[0].unidades[0],id:"u2"});a.solicitudes[0].referencias.push({...a.solicitudes[0].referencias[0],unidad:"u2",cantidades:["g2"]});a.cantidades.push({id:"g2",euros:300});no(a)},
++ "alquiler consolidado reparte una vez":()=>{const a=e([p("arrendamiento_cesion_uso_vivienda",{alquilerSinServicios:10000,condicionesReforzadas:0,diasContrato:365},{contrato:"alquiler"})],28500,[{id:"g1",euros:10000}]);a.solicitudes[0].unidades[0].titulares=["A","B"];total(a,200)},
++ "consignacion colisiona con omitida":()=>{const a=e([{...p(q,{valorAportado:300}),eleccion:"omitir"}]);a.consignaciones=[{codigo:c(q),contribuyente:"A"}];no(a)},
++ "JS malformado y recuperacion":()=>{for(const a of [null,undefined,[],{},1,{...e([p(q,{valorAportado:300})]),solicitudes:[null]},{...e([p(q,{valorAportado:300})]),ordenBase30:null},{...e([p(q,{valorAportado:300})]),cantidades:[null]}])no(a);const a=e([p(q,{valorAportado:300})]);for(const field of ["numeros","textos","titulares"]){const b=structuredClone(a);b.solicitudes[0].unidades[0][field]=null;no(b)}total(a,62.5)},
++ "deep freeze y cuota separada":()=>{const a=e([p(q,{valorAportado:300})]);a.cuota={referencia:"externa",disponible:1,arrastres:[]};const v=total(freeze(a),62.5);assert.notEqual(v.cuotaSinAplicar,a.cuota);assert.equal(v.cuotaSinAplicar!.disponible,1)},
++ "arrastres fronteras tres cuatro":()=>{for(const [code,year,ok] of [["autoconsumo_renovables",2021,true],["autoconsumo_renovables",2020,false],["inversion_entidades_nuevas_reciente_creacion",2022,true],["inversion_entidades_nuevas_reciente_creacion",2021,false]] as const){const a=e([p(q,{valorAportado:300})]);a.cuota={referencia:"r",disponible:1,arrastres:[{id:"a",codigo:c(code),origen:year,pendiente:50,contribuyente:"A",soporte:"s"}]};if(ok)total(a,62.5);else no(a)}},
++ "DANA 2024 no es generacion 2025 sin arrastre":()=>{const a=e([p("dana_aportaciones_fondos_propios_entidades",{inversionDesembolsada:300},{municipio:"anexo_fiscal",anexoFiscalAcuerdo4nov2024:"declarado",entidad:"nueva",domiciliosSocialFiscalYMantenimiento:"declarado"})]);a.solicitudes[0].unidades[0].fecha="2024-12-01";no(a)},
++}
+--- /dev/null
++++ b/tests/revision-composicion-valenciana.test.ts
+@@ -0,0 +1,3 @@
++import { describe, it } from "vitest"
++import { casos } from "./revision-composicion-valenciana.casos"
++describe("revisión independiente composición valenciana",()=>{for(const [nombre,caso] of Object.entries(casos)) it(nombre,caso)})
+--- /dev/null
++++ b/docs/procedencia/deducciones-2025/revisiones/composicion-20261104/INFORME.md
+@@ -0,0 +1,55 @@
++# Revisión independiente de composición valenciana 2025
++
++Dictamen: **condicionado por un P2 monetario reproducido; no integrar importes todavía**. Cero P1 identificados. No se implementaron arreglos. Esta conclusión se limita al candidato recibido y a la composición individual ordinaria del 31/12/2025; no supone aceptación fiscal universal.
++
++## P2 · C01: aportación DANA de 2024 incorporada como generación de 2025
++
++Ruta candidata: `lib/dominio/irpf/deducciones/valenciana-2025/composicion.ts:205–223`, especialmente evaluación en 209 y suma en 218. La composición hereda la excepción de fecha de `index.ts` para DANA aportaciones y convierte su resultado en total de generación corriente sin separar el ejercicio de origen. La ventana 13/11/2024–31/12/2025 no autoriza regenerar en 2025 una deducción de 2024.
++
++Repro mínimo completo: `repro-minimo.json`. Contribuyente A, individual 2025, liquidable e imponible general 2.000 €, ahorro cero; aportación DANA única de 300 €, fecha **01/12/2024**, entidad nueva del ámbito fiscal declarado; libro coherente y **sin cuota ni arrastres**. Sólo una solicitud aplicada; no existe conflicto ni hecho alternativo que elegir.
++
++Esperado: rechazar la solicitud de generación corriente o marcarla excluida y no emitir `totalParcialAntesCuota`. La aportación pertenece al ejercicio 2024; únicamente un saldo histórico identificado puede entrar en la vía separada de arrastres, sin ser generación nueva. No se pide devolver cero ni deducir automáticamente un saldo histórico.
++
++Actual (`repro-actual.json`): `estado: calculo_parcial`, fila con `importe: 135`, `incidencias: []`, **`totalParcialAntesCuota: 135`**. Cálculo reproducido: 45 % × mínimo(300, 30 % × 2.000). Usa así la renta de 2025 para generar otra vez un derecho de 2024. El aviso de aceptación pendiente no evita el importe incorrecto.
++
++Oráculo primario: [DL17/2024, disposición final primera, nueva redacción del art.5.3 DL12/2024, página 9](https://www.boe.es/ccaa/dogv/2024/10011/r00001-00009.pdf). Establece el ejercicio de la aportación y permite trasladar exclusivamente el importe no deducido por insuficiencia de cuota durante tres ejercicios. El art.5.2 establece su propio techo del 30 %. [AEAT Renta 2025, aportaciones DANA](https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2025-deducciones-autonomicas/comunitat-valenciana/dirigidas-personas-afectadas-dana/aportaciones-fondos-propios-entidades-que-economicas.html) corrobora la separación temporal.
++
++Es un defecto de interacción entre la excepción histórica del evaluador y el nuevo total; no se reabren H1/H2/H3/O1 ni se exige autenticidad externa. Prueba roja preservada: último grupo de `adversos.casos.ts`, portable a Vitest mediante `adversos.test.ts`. No se inicia un segundo contraste sin decisión del padre.
++
++## Resultado del resto de la revisión
++
++Los 20 grupos del autor pasan en Bun. Los 15 grupos independientes terminan con **14 correctos y C01 rojo**; incluyen 121 asignaciones con oráculo racional de techos y tramos dentro de un único grupo. `adversos.log` conserva el fallo real. Hubo una ejecución previa con un fallo del constructor de mi prueba de JS nulo; se corrigió exclusivamente el constructor y se repitió, dejando C01 como único fallo. No se alteró ninguna expectativa monetaria.
++
++Se comprobó: orden que cambia asignaciones e importe (137,50 frente a 125 €); consumo conjunto sin una segunda reducción efectiva al 30 %; céntimos y comodato fraccionario sin redondeo previo; tramo de 250 € y régimen estatal de s; rechazo con base asignada cero; conservación del motivo del censo; omitidas sin suma; excluida sin cero sustitutorio; dos magnitudes primarias rechazadas; salud sin repetición de categoría; alquiler consolidado con reparto único (200 €); colisión de consignación con omitida; entrada congelada sin mutación; cuota devuelta como copia sin consumo; fronteras históricas de tres/cuatro años; JS null, arrays y campos internos malformados recuperables, seguidos de una llamada válida.
++
++La inspección de las reglas y los casos del autor respalda i frente a e/f/h aun con sujetos distintos, k/l por cantidades comunes, m sólo sobre otras porciones, aa por descendiente del incremento, z/DANA por entidad, y rechazo de otras cantidades comunes como límite de representación. No se ha encontrado otro importe incorrecto reproducible en ese ámbito.
++
++Contraste jurídico: [Ley13/1997, art.4, redacción 29/12/2025](https://www.boe.es/buscar/act.php?id=BOE-A-1998-8202&p=20251229&tn=1). Uno.i establece incompatibilidad personal con e/f/h; k y l son compatibles y m excluye las mismas cantidades; aa limita el conflicto al incremento por ese descendiente. Dos comprende q2/q3/r/s; no incorpora DANA. El art.5.4 DL12/2024 regula separadamente la incompatibilidad con z por entidad. q/r y s conservan sus regímenes porcentuales y las reservas de acreditación. No se sustituye la normativa aplicable a 2025 por el texto material de una reforma posterior.
++
++Leídos los informes conservados de `correcciones/g-inversion-dana`, `revisiones/g-vivienda-inversion`, `correcciones/g-cultura-lengua` y `revisiones/g-cultura-lengua`, además de `VALENCIANA-EVALUADORES.md`. Se conservan en el candidato las reservas de territorio/subámbito, ambos domicilios, ERTE, EECV diferenciada de ENISA y censo. C01 contradice precisamente la separación de ejercicio y arrastre, sin refutar esas rectificaciones. No se presenta una nueva auditoría exhaustiva de sus originales ni de todas las fórmulas congeladas.
++
++## Exposición, contratos y límites
++
++El parche de exposición sólo añade export de función y tipos. La raíz coincide con la preimagen; la postimagen reconstruida coincide con el hash declarado. No añade llamadas ni conecta el total a anual, cuota o agregado fiscal. La búsqueda en `lib` no encuentra usos de esta función o de su total en la raíz congelada. No se ejecutó el barrel parcheado: su ciclo con el evaluador se inspeccionó estáticamente; el sondeo privado redirige el import al barrel de raíz, como el del autor.
++
++Una solicitud/unidad por código y el rechazo de varias unidades no sanitarias son restricciones declaradas, aunque limiten expedientes legítimos. Tampoco se convierte el rechazo genérico de una acumulación legítima en prohibición jurídica ni en fallo monetario. Los IDs son correspondencias declaradas: el libro comprueba unicidad y sumas, pero no detecta que el aportante haya renombrado un pago real o una entidad. No se exige esa autenticidad externa. Los escalares son los contratos de los evaluadores: se comprobó la exclusión de dos magnitudes primarias; no se atribuye a la API una validación semántica exhaustiva de toda clave escalar sobrante. No se amplía a F.
++
++No ejecutados: Vitest, tipos, lint, suites globales ni CI; LIGERO1, un proceso de sondeo por vez y timeout de 25 s con kill de 30 s. No VCS mutante, instalaciones ni subdelegación. La publicación sigue correspondiendo al padre tras la orden del usuario y CI autorizado.
++
++## Reproducción e integridad
++
++Desde cualquier directorio, ejecutar cada bloque dentro de su timeout:
++
++```sh
++timeout -k 30s 25s bash <<'SH'
++source /home/elies/Backups/IRoboPF/limpieza-recursos-20261103/env-pruebas.sh
++/home/elies/.cache/irobopf-corpus/.venv/bin/python /home/elies/Backups/IRoboPF/producto-valenciana-revision-composicion-20261104/preparar.py
++bun /home/elies/Backups/IRoboPF/producto-valenciana-revision-composicion-20261104/sondeo.ts
++SH
++timeout -k 30s 25s bash <<'SH'
++source /home/elies/Backups/IRoboPF/limpieza-recursos-20261103/env-pruebas.sh
++bun /home/elies/Backups/IRoboPF/producto-valenciana-revision-composicion-20261104/runner-adversos.ts
++SH
++```
++
++El segundo comando debe salir con código 1 mientras persista C01. `repro-minimo.ts` imprime únicamente el resultado del caso mínimo. Las pruebas portables y este informe se entregan en `revision.patch`, sin arreglo de implementación. Los hashes de recepción y fuentes están en `hashes-antes.json`/`hashes-despues.json`, con comparación en `integridad.json`; `recepcion.json` valida todos los hashes declarados del manifiesto del autor y la preimagen. El original CAS primario del autor fue verificado contra su SHA256 f6fb99a07ec59a18cf0c8a543f2e80b07c3d6e09505831b8fb392aad7228bcc5; su extracción se identifica separadamente en `primarios-antes.json`/`primarios-despues.json`.

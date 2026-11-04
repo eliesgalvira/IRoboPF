@@ -1,0 +1,35 @@
+import {createRequire} from 'node:module'
+import {writeFileSync} from 'node:fs'
+const req=createRequire('/home/elies/Repos/IRoboPF/package.json')
+const {Effect}=req('effect'), Decimal=req('decimal.js')
+const root='/home/elies/Repos/IRoboPF/'
+const {obtenerParametrosComunidadAutonoma:select}=await import(root+'lib/dominio/irpf/comunidades/comunidad-autonoma.ts')
+const {obtenerEscalaAutonomicaPublicada:published}=await import(root+'lib/dominio/irpf/cuotas/escalas-publicadas.ts')
+const {calcularReduccionTrabajoConOtrasRentas:art20}=await import(root+'lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts')
+const {liquidarIrpfAnualExplicito:calc}=await import(root+'lib/dominio/irpf/trabajo-anual/conexion.ts')
+const {calcularGastosTrabajo:gastos}=await import(root+'lib/dominio/irpf/trabajo-anual/calcular.ts')
+const {efectivo}=await import(root+'docs/procedencia/reforma-motor/bloque-e/ejemplos.ts')
+const result=[]
+for(let y=2018;y<=2024;y++){
+ const params=select({anio:y,comunidadAutonoma:'madrid'})
+ const pub=published({anio:y,comunidadAutonoma:'madrid'})
+ const reductions=[]
+ for(const n of ['0','11250','11250.01','13115','14450','14852','16824.99','16825','17673.52','17673.53','19747.49','19747.50'])
+ for(const o of ['0','6500','6500.01'])reductions.push({neto:n,otras:o,actual:art20({anio:y,rendimientoPrevioNeto:new Decimal(n),otrasRentasNoExentas:new Decimal(o)}).toFixed()})
+ const cases=[]
+ // Bases exactas con céntimos en fronteras y dentro de cada tramo; cotización efectiva cero explícita.
+ const bases=['17707.21','17707.22','33007.21','53407.20','53407.21','53407.30','53407.31','19004.64','35425.69','57320.41','60000.01','60000.02','60000.03','60000.04','60000.05','60000.06','60000.07','60000.08','60000.09']
+ for(const b of bases){
+  const c=structuredClone(efectivo)
+  c.ejercicio=y;c.devengo=`${y}-12-31`;c.conciliacion.ejercicio=y;c.trabajo.ejercicio=y;c.deducciones='ninguna'
+  c.trabajo.rendimientos[0].integro=new Decimal(b).plus(2000).toFixed(2)
+  c.trabajo.rendimientos[0].cotizaciones.seguridadSocial='0'
+  const r=Effect.runSync(calc(c))
+  cases.push({bruto:c.trabajo.rendimientos[0].integro,base:r.baseLiquidableGeneral,cuota:r.cuotaLiquidaLegal,presentada:r.cuotaDiferencialPresentada,componentes:r.componentesCuota})
+ }
+ const c=structuredClone(efectivo.trabajo); c.ejercicio=y
+ const a=c.rendimientos[0];a.integro='10000';a.cotizaciones.seguridadSocial='1000';a.sindicato={importe:'900',satisfecho:'si'};a.colegio={importe:'700',satisfecho:'si',obligatorio:'si',finesEsenciales:'si'};a.defensa={importe:'600',satisfecho:'si',litigioDirectoPagador:'si'}
+ result.push({year:y,estatal:params.escalaEstatalGeneral.map(([l,t])=>[l.toString(),t.toString()]),madrid:params.escalaAutonomica.tramos.map(([l,t])=>[l.toString(),t.toString()]),minimoMadrid:params.minimosAutonomicos.contribuyente.general.toString(),publicada:pub?.map(f=>[f.baseInferior.toString(),f.cuota.toString(),f.tipo.toString()])??null,reductions,cases,gastos:gastos(c)})
+}
+writeFileSync(new URL('./runtime.json',import.meta.url),JSON.stringify(result,null,2)+'\n')
+console.log(JSON.stringify({years:result.length,art20:result.reduce((s,r)=>s+r.reductions.length,0),anuales:result.reduce((s,r)=>s+r.cases.length,0),Open:'no ejecutado'}))

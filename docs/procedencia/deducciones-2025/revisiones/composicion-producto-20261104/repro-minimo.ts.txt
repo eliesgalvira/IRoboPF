@@ -1,0 +1,3 @@
+import {componerDeduccionesValencianas2025 as componer} from "./composicion.runtime"
+import entrada from "./repro-minimo.json"
+console.log(JSON.stringify(componer(entrada as any),null,2))

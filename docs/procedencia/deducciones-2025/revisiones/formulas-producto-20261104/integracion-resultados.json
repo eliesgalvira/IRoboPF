@@ -1,0 +1,150 @@
+[
+  {
+    "nombre": "igualdad completa con parcial y reservas",
+    "ok": true,
+    "esperado": {
+      "estado": "calculo_parcial",
+      "importe": 61.5,
+      "motivo": "Cuantía generada; acreditaciones externas pendientes: Dos o más nacimientos/adopciones; mínimo por descendientes | Las dos adopciones deben constituirse en la misma fecha; no basta tener dos hijos. No extender a dos ejercicios posteriores. | Mínimo por descendientes (arts. 58 y 61 LIRPF): menor de 25 años o discapacidad sin límite de edad, convivencia o dependencia en términos legales, rentas anuales no exentas hasta 8.000 euros y sin declaración propia con rentas superiores a 1.800 euros. Situación a devengo y reparto entre titulares conforme al mínimo. | Acogimiento/guarda formal: modalidades de urgencia, temporal o permanente y delegación para adopción mediante resolución motivada; Ley 26/2018 arts. 127/149 y Código Civil arts. 173 bis/176 bis. La mera convivencia no acredita esa medida.. No es cuota aplicada ni liquidación; insuficiencia de cuota y arrastres requieren el módulo cuota.",
+      "aceptacionFiscal": "pendiente"
+    },
+    "real": {
+      "estado": "calculo_parcial",
+      "importe": 61.5,
+      "motivo": "Cuantía generada; acreditaciones externas pendientes: Dos o más nacimientos/adopciones; mínimo por descendientes | Las dos adopciones deben constituirse en la misma fecha; no basta tener dos hijos. No extender a dos ejercicios posteriores. | Mínimo por descendientes (arts. 58 y 61 LIRPF): menor de 25 años o discapacidad sin límite de edad, convivencia o dependencia en términos legales, rentas anuales no exentas hasta 8.000 euros y sin declaración propia con rentas superiores a 1.800 euros. Situación a devengo y reparto entre titulares conforme al mínimo. | Acogimiento/guarda formal: modalidades de urgencia, temporal o permanente y delegación para adopción mediante resolución motivada; Ley 26/2018 arts. 127/149 y Código Civil arts. 173 bis/176 bis. La mera convivencia no acredita esa medida.. No es cuota aplicada ni liquidación; insuficiencia de cuota y arrastres requieren el módulo cuota.",
+      "aceptacionFiscal": "pendiente"
+    }
+  },
+  {
+    "nombre": "importe independiente",
+    "ok": true,
+    "esperado": 61.5,
+    "real": 61.5
+  },
+  {
+    "nombre": "agregado rechaza parcial",
+    "ok": true,
+    "esperado": "no_soportado",
+    "real": "no_soportado"
+  },
+  {
+    "nombre": "contexto {\"ejercicio\":2024}",
+    "ok": true,
+    "esperado": "no_soportado",
+    "real": "no_soportado"
+  },
+  {
+    "nombre": "contexto {\"territorio\":\"madrid\"}",
+    "ok": true,
+    "esperado": "no_soportado",
+    "real": "no_soportado"
+  },
+  {
+    "nombre": "contexto {\"modalidad\":\"conjunta\"}",
+    "ok": true,
+    "esperado": "no_soportado",
+    "real": "no_soportado"
+  },
+  {
+    "nombre": "contexto {\"contribuyente\":\"B\"}",
+    "ok": true,
+    "esperado": "no_soportado",
+    "real": "no_soportado"
+  },
+  {
+    "nombre": "contexto {\"declarantes\":[\"A\",\"A\"]}",
+    "ok": true,
+    "esperado": "no_soportado",
+    "real": "no_soportado"
+  },
+  {
+    "nombre": "contexto {\"declarantes\":[\"B\"]}",
+    "ok": true,
+    "esperado": "no_soportado",
+    "real": "no_soportado"
+  },
+  {
+    "nombre": "hechos {\"importe\":987}",
+    "ok": true,
+    "esperado": "no_soportado",
+    "real": "no_soportado"
+  },
+  {
+    "nombre": "hechos {\"ejercicio\":2024}",
+    "ok": true,
+    "esperado": "no_soportado",
+    "real": "no_soportado"
+  },
+  {
+    "nombre": "hechos {\"territorio\":\"madrid\"}",
+    "ok": true,
+    "esperado": "no_soportado",
+    "real": "no_soportado"
+  },
+  {
+    "nombre": "hechos {\"contribuyente\":\"B\"}",
+    "ok": true,
+    "esperado": "no_soportado",
+    "real": "no_soportado"
+  },
+  {
+    "nombre": "hechos {\"declarantes\":[\"A\",\"A\"]}",
+    "ok": true,
+    "esperado": "no_soportado",
+    "real": "no_soportado"
+  },
+  {
+    "nombre": "hechos {\"unidades\":[{\"id\":\"evento\",\"titulares\":[\"A\",\"B\"],\"fecha\":\"2025-01-01\",\"numeros\":{\"personasMismaFecha\":2},\"textos\":{},\"extra\":10}]}",
+    "ok": true,
+    "esperado": "no_soportado",
+    "real": "no_soportado"
+  },
+  {
+    "nombre": "hechos {\"liquidableGeneral\":null}",
+    "ok": true,
+    "esperado": "no_soportado",
+    "real": "no_soportado"
+  },
+  {
+    "nombre": "conjunta orden declarantes irrelevante",
+    "ok": true,
+    "esperado": 246,
+    "real": 246
+  },
+  {
+    "nombre": "conjunta conjunto distinto",
+    "ok": true,
+    "esperado": "no_soportado",
+    "real": "no_soportado"
+  },
+  {
+    "nombre": "individual omision declarantes contexto normaliza",
+    "ok": true,
+    "esperado": 61.5,
+    "real": 61.5
+  },
+  {
+    "nombre": "duplicado valenciana_hechos,valenciana_hechos",
+    "ok": true,
+    "esperado": true,
+    "real": true
+  },
+  {
+    "nombre": "duplicado valenciana_hechos,consignacion",
+    "ok": true,
+    "esperado": true,
+    "real": true
+  },
+  {
+    "nombre": "duplicado consignacion,valenciana_hechos",
+    "ok": true,
+    "esperado": true,
+    "real": true
+  },
+  {
+    "nombre": "sin mutacion",
+    "ok": true,
+    "esperado": "{\"tipo\":\"valenciana_hechos\",\"contexto\":{\"ejercicio\":2025,\"territorio\":\"comunitat-valenciana\",\"contribuyente\":\"A\",\"declarantes\":[\"A\"],\"modalidad\":\"individual\"},\"hechos\":{\"codigo\":\"valenciana_nacimiento_adopcion_multiples\",\"ejercicio\":2025,\"territorio\":\"comunitat-valenciana\",\"contribuyente\":\"A\",\"declarantes\":[\"A\"],\"modalidad\":\"individual\",\"devengo\":\"2025-12-31\",\"liquidableGeneral\":28500,\"liquidableAhorro\":0,\"imponibleGeneral\":99999,\"imponibleAhorro\":0,\"unidades\":[{\"id\":\"evento\",\"titulares\":[\"A\",\"B\"],\"fecha\":\"2025-01-01\",\"numeros\":{\"personasMismaFecha\":2},\"textos\":{}}]}}",
+    "real": "{\"tipo\":\"valenciana_hechos\",\"contexto\":{\"ejercicio\":2025,\"territorio\":\"comunitat-valenciana\",\"contribuyente\":\"A\",\"declarantes\":[\"A\"],\"modalidad\":\"individual\"},\"hechos\":{\"codigo\":\"valenciana_nacimiento_adopcion_multiples\",\"ejercicio\":2025,\"territorio\":\"comunitat-valenciana\",\"contribuyente\":\"A\",\"declarantes\":[\"A\"],\"modalidad\":\"individual\",\"devengo\":\"2025-12-31\",\"liquidableGeneral\":28500,\"liquidableAhorro\":0,\"imponibleGeneral\":99999,\"imponibleAhorro\":0,\"unidades\":[{\"id\":\"evento\",\"titulares\":[\"A\",\"B\"],\"fecha\":\"2025-01-01\",\"numeros\":{\"personasMismaFecha\":2},\"textos\":{}}]}}"
+  }
+]

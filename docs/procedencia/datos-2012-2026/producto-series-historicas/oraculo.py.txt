@@ -1,0 +1,70 @@
+from pathlib import Path
+from decimal import Decimal as D, ROUND_HALF_UP
+import json, re, hashlib
+OUT=Path(__file__).resolve().parent; ROOT=Path('/home/elies/Repos/IRoboPF')
+def load(p):return json.loads(p.read_text())
+def save(n,v):(OUT/n).write_text(json.dumps(v,ensure_ascii=False,indent=2)+'\n')
+runtime=load(OUT/'runtime.json'); sources=load(OUT/'fuentes.json'); excerpts=load(OUT/'extractos.json')
+old=load(ROOT/'docs/procedencia/auditorias/autonomicas-2017-2021/comparacion-filas.json')
+new=load(ROOT/'docs/procedencia/auditorias/autonomicas-2022-2026/comparacion-filas.json')
+def num(s):return D(s.replace('.','').replace(',','.'))
+tables={}; locators={}; physical_checks=0
+for y in range(2018,2025):
+ if y<=2021:
+  t=next(v for v in old if v['year']==y and v['territory']=='madrid')
+  rows=[[str(num(r[0])),str(num(r[1])),str(num(r[3])/100)] for r in t['officialRows']]; page=t['pages'][0]
+ else:
+  t=[v for v in new if v['year']==y and v['territory']=='madrid'];page=t[0]['page']
+  rows=[[r['lower'],r['quota'],str(D(r['ratePercent'])/100)] for r in t]
+ text=next(e['text'] for e in excerpts if e['source']==f'aeat{y}' and e['page']==page)
+ tokens={num(v) for v in re.findall(r'(?<![\d.])\d+(?:\.\d{3})*(?:,\d+)?',text)}
+ for row in rows:
+  for v in [D(row[0]),D(row[1]),D(row[2])*100]:
+   assert v in tokens,(y,page,v);physical_checks+=1
+ if y==2020:rows[-1][0]='53407.20' # Norma BOCM p4 prevalece sobre errata manual, reserva explícita.
+ tables[y]=rows;locators[y]={'source':f'aeat{y}','page':page,'sha256':sources[f'aeat{y}']['sha256']}
+def tariff(b,rows):
+ row=next(r for r in reversed(rows) if b>=D(r[0]));return D(row[1])+(b-D(row[0]))*D(row[2])
+def reduction(y,n,o):
+ if o>D(6500):return D(0)
+ a=max(D(0),D(3700)-max(D(0),n-D(11250))*D('1.15625'))
+ b=max(D(0),D(5565)-max(D(0),n-D(13115))*D('1.5'))
+ if y==2018:return a+max(D(0),b-a)/2
+ if y<=2022:return b
+ if y==2023:return max(D(0),D(6498)-max(D(0),n-D('14047.5'))*D('1.14'))
+ if n<=D(14852):return D(7302)
+ if n<=D('17673.52'):return D(7302)-(n-D(14852))*D('1.75')
+ if n<D('19747.5'):return D('2364.34')-(n-D('17673.52'))*D('1.14')
+ return D(0)
+state=[['0','0','.095'],['12450','1182.75','.12'],['20200','2112.75','.15'],['35200','4362.75','.185'],['60000','8950.75','.225']]
+red=[];matrix=[];passed=0
+for r in runtime:
+ y=r['year']; expectedstate=state+([['300000','62950.75','.245']] if y>=2021 else [])
+ statepage={2018:547,2019:567,2020:887,2021:909,2022:971,2023:1141,2024:1235}[y]
+ statetext=next(e['text'] for e in excerpts if e['source']==f'aeat{y}' and e['page']==statepage)
+ statetokens={num(v) for v in re.findall(r'(?<![\d.])\d+(?:\.\d{3})*(?:,\d+)?',statetext)}
+ for row in expectedstate:
+  for v in [D(row[0]),D(row[1]),D(row[2])*100]:assert v in statetokens,(y,statepage,v)
+ assert r['estatal']==[[expectedstate[i+1][0] if i+1<len(expectedstate) else 'Infinity',str(D(row[2]))] for i,row in enumerate(expectedstate)]
+ for v in r['reductions']:assert D(v['actual'])==reduction(y,D(v['neto']),D(v['otras'])),(y,v);passed+=1
+ assert r['gastos']['gastosAE']=='2700' and r['gastos']['generalesAplicados']=='2000' and r['gastos']['netoArt19']=='5300';passed+=1
+ minmad=D('5550' if y<=2021 else '5777.55' if y==2022 else '5956.65');assert D(r['minimoMadrid'])==minmad;passed+=1
+ differences=[]
+ for c in r['cases']:
+  b=D(c['base'])
+  # Art20 también se contrasta en casos con reducción: base procede del motor,
+  # cuota esperada es independiente y no reusa helpers de composición.
+  q=tariff(b,expectedstate)-tariff(min(b,D(5550)),expectedstate)+tariff(b,tables[y])-tariff(min(b,minmad),tables[y])
+  presented=str(q.quantize(D('.01'),rounding=ROUND_HALF_UP))
+  if q!=D(c['cuota']):
+   v={'year':y,'bruto':c['bruto'],'base':c['base'],'actual':c['cuota'],'expected':str(q),'actualPresentada':c['presentada'],'expectedPresentada':presented,'centimoDistinto':presented!=c['presentada'],'source':locators[y]};differences.append(v)
+   if v['centimoDistinto']:red.append(v)
+ matrix.append({'year':y,'art19':{'status':'verificado-acotado','generalEUR':'2000','sindicato':'sin tope específico; satisfecho','colegioEUR':'500 anual obligatorio/fines esenciales','defensaEUR':'300 anual litigio directo pagador','sources':['ley26-2014 pp11-12','reglamento-original pp16-17']},'art20':{'status':'verificado-acotado','otrasRentasMaxEUR':'6500 inclusivo; perfil efectivo fija 0','source':'ley6-2018 pp77-78/306' if y<=2022 else 'ley31-2022 p84' if y==2023 else 'rdl4-2024 p23','probes':len(r['reductions'])},'estatal':{'status':'verificado-numérico; continuidad normativa reutilizada','rowsLowerQuotaRate':expectedstate,'consumedFixedQuota':False},'madrid':{'status':'discrepa' if differences else 'verificado-acotado','rowsLowerQuotaRate':tables[y],'consumedFixedQuota':r['publicada'],'locator':locators[y],'differences':differences,'reserve':'2020: manual 53407,29 vs norma 53407,20; continuidad de vigencia 2019-2021 no reabierta. Cierre ordinario exclusivamente.' if y==2020 else 'Cierre 31/12; no fallecimiento. Cuotas oficiales documentales no equivalen a aceptación Open.'},'minimosMenor65':{'status':'verificado-acotado','estatalEUR':'5550','madridEUR':str(minmad),'sources':['ley26-2014 p27', 'madrid2022 p3' if y==2022 else 'madrid2023 p3' if y>=2023 else 'revisión E conservada / art57']}})
+for row in matrix:
+ y=row['year']
+ row['art20']['formula']=('A+max(0,B-A)/2; A=max(0,3700-1.15625*max(0,N-11250)); B=max(0,5565-1.5*max(0,N-13115)); cortes11250/13115/14450/16825' if y==2018 else '5565 si N<=13115; 5565-1.5*(N-13115) si N<16825; 0 después' if y<=2022 else '6498 si N<=14047.50; 6498-1.14*(N-14047.50) si N<19747.50; 0 después' if y==2023 else '7302 si N<=14852; 7302-1.75*(N-14852) si N<=17673.52; 2364.34-1.14*(N-17673.52) si N<19747.50; 0 después')
+ row['estatal']['source']={'source':f'aeat{y}','sha256':sources[f'aeat{y}']['sha256'],'page':{2018:547,2019:567,2020:887,2021:909,2022:971,2023:1141,2024:1235}[y]}
+ row['art20']['reserve']='N=íntegro-gastos a-e (sin f); se limita además a max(0,neto art19). Devengo31/12, sin fallecimiento. Fórmulas sin cuantización intermedia.'
+save('matriz.json',matrix);save('rojos.json',red)
+before=load(OUT/'hashes-antes.json');after={p:hashlib.sha256(Path(p).read_bytes()).hexdigest() for p in before};save('hashes-despues.json',after);assert before==after
+print(json.dumps({'physicalNumericCells':physical_checks,'art20GastosMinimosChecks':passed,'centimosDistintos':len(red),'firstRed':red[:3],'hashesIntactos':len(after)},ensure_ascii=False))

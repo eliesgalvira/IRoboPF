@@ -1,0 +1,2 @@
+import { casos } from "./adversos.runtime"
+let fallos=0; for(const [n,c] of Object.entries(casos)){try{c();console.log("PASS",n)}catch(e){fallos++;console.error("FAIL",n,e)}}console.log(Object.keys(casos).length,"grupos; fallos",fallos);process.exitCode=fallos?1:0

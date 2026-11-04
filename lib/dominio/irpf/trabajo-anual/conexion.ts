@@ -21,111 +21,281 @@ const rechazar = (motivo: string): ResultadoNoSoportado => ({
   motivo,
   fuenteReconocida:
     "docs/procedencia/implementaciones/conexion-anual/INFORME.md",
-  rastro: { titulo: "Alcance anual explícito 2025", pasos: [] },
+  rastro: { titulo: "Alcance anual explícito", pasos: [] },
 })
 
 /** Liquidación condicionada a los hechos declarados, sin aceptación fiscal automática. */
-export const liquidarIrpfAnualExplicito = Effect.fn(
-  "Liquidacion.explicita2025"
-)(function* (entrada: CasoFiscalAnualExplicito) {
-  const decoded = Schema.decodeUnknownResult(CasoFiscalAnualExplicito)(
-    entrada,
-    { onExcessProperty: "error" }
-  )
-  if (Result.isFailure(decoded))
-    return yield* Effect.fail(
-      rechazar(
-        "Entrada incompleta o fuera del alcance individual común 2025 declarado"
+export const liquidarIrpfAnualExplicito = Effect.fn("Liquidacion.explicita")(
+  function* (entrada: CasoFiscalAnualExplicito) {
+    const decoded = Schema.decodeUnknownResult(CasoFiscalAnualExplicito)(
+      entrada,
+      { onExcessProperty: "error" }
+    )
+    if (Result.isFailure(decoded))
+      return yield* Effect.fail(
+        rechazar(
+          "Entrada incompleta o fuera del alcance anual efectivo declarado"
+        )
       )
-    )
-  const caso = decoded.success
-  if (
-    (caso.familiaresConDerechoMinimo === "segun-derechos") !==
-    (caso.derechosMinimos !== undefined)
-  )
-    return yield* Effect.fail(
-      rechazar(
-        "La declaración de familiares exige derechos completos y coherentes"
-      )
-    )
-  if (
-    caso.derechosMinimos !== undefined &&
-    caso.derechosMinimos.discapacidadContribuyente._tag !== "SinDiscapacidad"
-  )
-    return yield* Effect.fail(
-      rechazar(
-        "Discapacidad del contribuyente incompatible con la ausencia declarada en el perfil efectivo"
-      )
-    )
-  let redondeoSalarialOpen = false
-  const cuantizarEtapa = (importe: Decimal) =>
-    cuantizarAnual(
-      importe,
-      redondeoSalarialOpen ? "open-empleo-madrid-2025" : "decimal-hasta-salida"
-    )
-  const pasos: RastroCalculo["pasos"][number][] = []
-  let cotizacionEfectiva = new D(0)
-  let neto = new D(0),
-    reduccionArt20 = new D(0),
-    brutoServicios = new D(0)
-  let retenciones = new D(0),
-    pagos = new D(0)
-  if (caso.perfil === "solo-trabajo") {
+    const caso = decoded.success
     if (
-      caso.trabajo.ejercicio !== 2025 ||
-      caso.trabajo.discapacidadActiva !== "ninguna"
+      caso.devengo !== `${caso.ejercicio}-12-31` ||
+      (caso.perfil === "solo-trabajo" &&
+        (caso.conciliacion.ejercicio !== caso.ejercicio ||
+          caso.retenciones.some((r) => r.ejercicio !== caso.ejercicio)))
     )
       return yield* Effect.fail(
         rechazar(
-          "Ejercicio o discapacidad del trabajo incompatibles con el alcance anual"
+          "Ejercicios incompatibles entre devengo, conciliación y retenciones"
         )
       )
-    const clases = new Set(caso.trabajo.rendimientos.map((r) => r.clase))
-    const empleo = [...clases].every(
-      (c) => c === "empleo-laboral" || c === "empleo-estatutario"
+    if (
+      (caso.familiaresConDerechoMinimo === "segun-derechos") !==
+      (caso.derechosMinimos !== undefined)
     )
-    const pension = clases.size === 1 && clases.has("pension")
-    if ((!empleo && !pension) || caso.trabajo.rendimientos.length === 0)
       return yield* Effect.fail(
         rechazar(
-          "Atribución de gastos y reducciones entre pensión, empleo u otras rentas no soportada"
+          "La declaración de familiares exige derechos completos y coherentes"
         )
       )
-    // Observado en Open 2025; no extrapolar a pensión ni actividad.
-    redondeoSalarialOpen = empleo && caso.comunidadAutonoma === "madrid"
-    const trabajo = adaptarTrabajoAnual(caso.trabajo)
-    if (trabajo.estado === "no-soportado")
-      return yield* Effect.fail(rechazar(trabajo.motivo))
-    cotizacionEfectiva = caso.trabajo.rendimientos.reduce(
-      (total, r) =>
-        total
-          .plus(r.cotizaciones.seguridadSocial)
-          .plus(r.cotizaciones.derechosPasivos)
-          .plus(r.cotizaciones.colegiosHuerfanos),
-      new D(0)
+    if (
+      caso.derechosMinimos !== undefined &&
+      caso.derechosMinimos.discapacidadContribuyente._tag !== "SinDiscapacidad"
     )
-    neto = new D(trabajo.rendimientoAntesArt20)
-    reduccionArt20 = D.min(
-      D.max(neto, 0),
-      calcularReduccionTrabajoConOtrasRentas({
-        anio: 2025,
-        rendimientoPrevioNeto: new D(trabajo.argumentoArt20),
-        otrasRentasNoExentas: new D(0),
+      return yield* Effect.fail(
+        rechazar(
+          "Discapacidad del contribuyente incompatible con la ausencia declarada en el perfil efectivo"
+        )
+      )
+    let redondeoSalarialOpen = false
+    const cuantizarEtapa = (importe: Decimal) =>
+      cuantizarAnual(
+        importe,
+        redondeoSalarialOpen
+          ? "open-empleo-madrid-2025"
+          : "decimal-hasta-salida"
+      )
+    const pasos: RastroCalculo["pasos"][number][] = []
+    let cotizacionEfectiva = new D(0)
+    let neto = new D(0),
+      reduccionArt20 = new D(0),
+      brutoServicios = new D(0)
+    let retenciones = new D(0),
+      pagos = new D(0)
+    if (caso.perfil === "solo-trabajo") {
+      if (
+        caso.trabajo.ejercicio !== caso.ejercicio ||
+        caso.trabajo.discapacidadActiva !== "ninguna"
+      )
+        return yield* Effect.fail(
+          rechazar(
+            "Ejercicio o discapacidad del trabajo incompatibles con el alcance anual"
+          )
+        )
+      const clases = new Set(caso.trabajo.rendimientos.map((r) => r.clase))
+      const empleo = [...clases].every(
+        (c) => c === "empleo-laboral" || c === "empleo-estatutario"
+      )
+      const pension = clases.size === 1 && clases.has("pension")
+      if ((!empleo && !pension) || caso.trabajo.rendimientos.length === 0)
+        return yield* Effect.fail(
+          rechazar(
+            "Atribución de gastos y reducciones entre pensión, empleo u otras rentas no soportada"
+          )
+        )
+      if (caso.ejercicio !== 2025 && !empleo)
+        return yield* Effect.fail(
+          rechazar("El perfil histórico efectivo sólo admite empleo")
+        )
+      // Observado en Open 2025; no extrapolar a pensión ni actividad.
+      redondeoSalarialOpen =
+        empleo && caso.ejercicio === 2025 && caso.comunidadAutonoma === "madrid"
+      const trabajo = adaptarTrabajoAnual(caso.trabajo)
+      if (trabajo.estado === "no-soportado")
+        return yield* Effect.fail(rechazar(trabajo.motivo))
+      cotizacionEfectiva = caso.trabajo.rendimientos.reduce(
+        (total, r) =>
+          total
+            .plus(r.cotizaciones.seguridadSocial)
+            .plus(r.cotizaciones.derechosPasivos)
+            .plus(r.cotizaciones.colegiosHuerfanos),
+        new D(0)
+      )
+      neto = new D(trabajo.rendimientoAntesArt20)
+      reduccionArt20 = D.min(
+        D.max(neto, 0),
+        calcularReduccionTrabajoConOtrasRentas({
+          anio: caso.ejercicio,
+          rendimientoPrevioNeto: new D(trabajo.argumentoArt20),
+          otrasRentasNoExentas: new D(0),
+        })
+      )
+      reduccionArt20 = cuantizarEtapa(reduccionArt20)
+      neto = neto.minus(reduccionArt20)
+      if (empleo) brutoServicios = new D(trabajo.gastos.integro)
+      if (
+        new Set(caso.retenciones.map((r) => r.operacionId)).size !==
+        caso.retenciones.length
+      )
+        return yield* Effect.fail(rechazar("Operación de retención duplicada"))
+      retenciones = caso.retenciones.reduce(
+        (a, r) => a.plus(r.importe),
+        new D(0)
+      )
+      pasos.push({
+        _tag: "PasoExplicacion",
+        titulo: "Trabajo conciliado y reducción única",
+        descripcion: `Totales anuales disjuntos aportados: ${caso.conciliacion.procedencia.join(", ")}. Pensión excluida de DA61.`,
+        fuentes: [
+          {
+            titulo: "Alcance y evidencia de la conexión anual",
+            referencia:
+              "docs/procedencia/implementaciones/conexion-anual/INFORME.md",
+          },
+        ],
+        lineasCalculo: [
+          crearLineaCalculo({
+            siteId: "anual.explicito.trabajo.integro",
+            instancia: 0,
+            importe: new D(trabajo.gastos.integro),
+            unidad: "EUR",
+            etiqueta: "Trabajo íntegro",
+            formula: "suma de rendimientos anuales conciliados",
+          }),
+          crearLineaCalculo({
+            siteId: "anual.explicito.trabajo.gastos-a-e",
+            instancia: 0,
+            importe: new D(trabajo.gastos.gastosAE),
+            unidad: "EUR",
+            etiqueta: "Gastos a–e",
+            formula:
+              "cotizaciones efectivas + sindicato + colegio limitado + defensa limitada, una vez al año",
+          }),
+          crearLineaCalculo({
+            siteId: "anual.explicito.trabajo.gasto-f",
+            instancia: 0,
+            importe: new D(trabajo.gastos.generalesAplicados),
+            unidad: "EUR",
+            etiqueta: "Gasto general aplicado",
+            formula: "min(2000, saldo positivo después de a–e)",
+          }),
+          crearLineaCalculo({
+            siteId: "anual.explicito.trabajo.art19",
+            instancia: 0,
+            importe: new D(trabajo.rendimientoAntesArt20),
+            unidad: "EUR",
+            etiqueta: "Neto artículo 19",
+            formula: "íntegro menos gastos efectivos a–e y gasto f limitado",
+          }),
+          crearLineaCalculo({
+            siteId: "anual.explicito.trabajo.art20",
+            instancia: 0,
+            importe: reduccionArt20,
+            unidad: "EUR",
+            etiqueta: "Reducción artículo 20",
+            formula: redondeoSalarialOpen
+              ? "céntimos half-up de min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0), observado en Open 2025"
+              : "min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0)",
+          }),
+        ],
       })
-    )
-    reduccionArt20 = cuantizarEtapa(reduccionArt20)
-    neto = neto.minus(reduccionArt20)
-    if (empleo) brutoServicios = new D(trabajo.gastos.integro)
-    if (
-      new Set(caso.retenciones.map((r) => r.operacionId)).size !==
-      caso.retenciones.length
-    )
-      return yield* Effect.fail(rechazar("Operación de retención duplicada"))
-    retenciones = caso.retenciones.reduce((a, r) => a.plus(r.importe), new D(0))
+    } else {
+      // La cota del adaptador no concilia amortizaciones históricas: no promoverlas al anual.
+      if (
+        caso.actividad.activos.length > 0 ||
+        caso.actividad.discapacidad.grado !== 0
+      )
+        return yield* Effect.fail(
+          rechazar(
+            "Activos con amortización y discapacidad de actividad fuera del alcance anual integrado"
+          )
+        )
+      const actividad = adaptarActividadGeneral(caso.actividad)
+      if (actividad.estado === "no-soportado")
+        return yield* Effect.fail(
+          rechazar(actividad.motivos.map((m) => m.motivo).join("; "))
+        )
+      cotizacionEfectiva = caso.actividad.reta.reduce(
+        (total, r) => total.plus(r.importe),
+        new D(0)
+      )
+      neto = new D(actividad.aporte.importeEurosExactos)
+      retenciones = new D(actividad.aporte.retencionesEuros)
+      pagos = new D(actividad.aporte.pagosFraccionadosEuros)
+      pasos.push({
+        _tag: "PasoExplicacion",
+        titulo: "Actividad EDS 2025",
+        descripcion:
+          "RETA y artículo 32 ya incluidos en el aporte; no se aplican cotizaciones salariales ni artículo 20.",
+        fuentes: [
+          {
+            titulo: "Alcance y evidencia de la conexión anual",
+            referencia:
+              "docs/procedencia/implementaciones/conexion-anual/INFORME.md",
+          },
+        ],
+        lineasCalculo: actividad.etapas.map((e, instancia) =>
+          crearLineaCalculo({
+            siteId: "anual.explicito.actividad.etapa",
+            instancia: instancia,
+            importe: new D(e.importe),
+            unidad: "EUR",
+            etiqueta: `${e.reglaId}: ${e.id}`,
+            formula: e.formula,
+          })
+        ),
+      })
+    }
+    // Sin otras rentas, reducciones de base ni saldos anteriores: BIG = BLG con signo.
+    const base = D.max(neto, 0)
+    const composicion = yield* componerLiquidacionAnual({
+      ambito: {
+        anio: caso.ejercicio,
+        comunidadAutonoma: caso.comunidadAutonoma,
+        derechosMinimos: caso.derechosMinimos,
+        situacionFamiliar: {
+          tipo: "individual",
+          edad: caso.edad,
+          discapacidad: { _tag: "SinDiscapacidad" },
+          descendientes: [],
+          ascendientes: [],
+        },
+      },
+      cotizaciones: { naturaleza: "efectivas", trabajador: cotizacionEfectiva },
+      precision: 80,
+      politica: redondeoSalarialOpen
+        ? "open-empleo-madrid-2025"
+        : "decimal-hasta-salida",
+      baseGeneral: base,
+      baseAhorro: new D(0),
+      rentasAntesReducciones: neto.plus(reduccionArt20),
+      // Las tablas estatales 2018–2024 del motor remiten a estas mismas cuantías.
+      // Se conserva esa selección histórica; no constituye una nueva acreditación.
+      minimosEstatales: MINIMOS_ESTATALES_2025,
+      deduccionesAutonomicasCentimos: 0,
+      serviciosLaborales:
+        caso.ejercicio === 2025 && brutoServicios.gt(0)
+          ? { bruto: brutoServicios }
+          : undefined,
+    })
+    const {
+      cuotaIntegraGeneralEstatal: gravamenEstatal,
+      cuotaMinimoPersonalEstatal: gravamenMinimoEstatal,
+      cuotaIntegraGeneralAutonomica: gravamenAutonomico,
+      cuotaMinimoPersonalAutonomica: gravamenMinimoAutonomico,
+      cuotaEstatalDespuesMinimo: cuotaEstatal,
+      cuotaAutonomicaGeneralDespuesMinimo: cuotaAutonomica,
+      cuotaLiquida: liquida,
+      deduccionTrabajo: deduccion,
+      cuotaPosterior: posterior,
+    } = composicion
+    const diferencial = liquidarPagosAnuales(posterior, retenciones, pagos)
     pasos.push({
       _tag: "PasoExplicacion",
-      titulo: "Trabajo conciliado y reducción única",
-      descripcion: `Totales anuales disjuntos aportados: ${caso.conciliacion.procedencia.join(", ")}. Pensión excluida de DA61.`,
+      titulo: "Bases, cuotas y pagos anuales",
+      descripcion: redondeoSalarialOpen
+        ? "Empleo Madrid 2025: artículo 20, cada gravamen y DA61 a céntimos half-up antes de restar, según siete casos de Open 1.19. Evidencia observada, sin aceptación fiscal automática ni cobertura universal."
+        : "Sin ahorro, reducciones de base ni otras deducciones. Artículo 80 sin importe al excluir rentas extranjeras. Cuota líquida legal conservada antes de DA61. Precisión decimal hasta salida; presentación final half-up a céntimos, pendiente de aceptación fiscal.",
       fuentes: [
         {
           titulo: "Alcance y evidencia de la conexión anual",
@@ -135,275 +305,132 @@ export const liquidarIrpfAnualExplicito = Effect.fn(
       ],
       lineasCalculo: [
         crearLineaCalculo({
-          siteId: "anual.explicito.trabajo.integro",
+          siteId: "anual.explicito.big",
           instancia: 0,
-          importe: new D(trabajo.gastos.integro),
+          importe: neto,
           unidad: "EUR",
-          etiqueta: "Trabajo íntegro",
-          formula: "suma de rendimientos anuales conciliados",
+          etiqueta: "Base imponible general",
+          formula: "rendimiento neto reducido con signo",
         }),
         crearLineaCalculo({
-          siteId: "anual.explicito.trabajo.gastos-a-e",
+          siteId: "anual.explicito.blg",
           instancia: 0,
-          importe: new D(trabajo.gastos.gastosAE),
+          importe: neto,
           unidad: "EUR",
-          etiqueta: "Gastos a–e",
-          formula:
-            "cotizaciones efectivas + sindicato + colegio limitado + defensa limitada, una vez al año",
+          etiqueta: "Base liquidable general",
+          formula: "BIG sin reducciones de base ni compensaciones anteriores",
         }),
         crearLineaCalculo({
-          siteId: "anual.explicito.trabajo.gasto-f",
+          siteId: "anual.explicito.cuota.estatal",
           instancia: 0,
-          importe: new D(trabajo.gastos.generalesAplicados),
+          importe: cuotaEstatal,
           unidad: "EUR",
-          etiqueta: "Gasto general aplicado",
-          formula: "min(2000, saldo positivo después de a–e)",
-        }),
-        crearLineaCalculo({
-          siteId: "anual.explicito.trabajo.art19",
-          instancia: 0,
-          importe: new D(trabajo.rendimientoAntesArt20),
-          unidad: "EUR",
-          etiqueta: "Neto artículo 19",
-          formula: "íntegro menos gastos efectivos a–e y gasto f limitado",
-        }),
-        crearLineaCalculo({
-          siteId: "anual.explicito.trabajo.art20",
-          instancia: 0,
-          importe: reduccionArt20,
-          unidad: "EUR",
-          etiqueta: "Reducción artículo 20",
+          etiqueta: "Cuota estatal",
           formula: redondeoSalarialOpen
-            ? "céntimos half-up de min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0), observado en Open 2025"
-            : "min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0)",
+            ? `gravámenes a céntimos Open: ${gravamenEstatal.toFixed(2)} − ${gravamenMinimoEstatal.toFixed(2)}`
+            : "escala(base positiva) − escala(mínimo limitado a base)",
+        }),
+        crearLineaCalculo({
+          siteId: "anual.explicito.cuota.autonomica",
+          instancia: 0,
+          importe: cuotaAutonomica,
+          unidad: "EUR",
+          etiqueta: "Cuota autonómica",
+          formula: redondeoSalarialOpen
+            ? `gravámenes a céntimos Open Madrid: ${gravamenAutonomico.toFixed(2)} − ${gravamenMinimoAutonomico.toFixed(2)}`
+            : "escala autonómica(base) − escala(mínimo limitado a base)",
+        }),
+        crearLineaCalculo({
+          siteId: "anual.explicito.cuota.liquida-legal",
+          instancia: 0,
+          importe: liquida,
+          unidad: "EUR",
+          etiqueta: "Cuota líquida legal",
+          formula: "cuota estatal + autonómica; sin otras deducciones",
+        }),
+        crearLineaCalculo({
+          siteId: "anual.explicito.da61",
+          instancia: 0,
+          importe: deduccion,
+          unidad: "EUR",
+          etiqueta: "DA61",
+          formula: redondeoSalarialOpen
+            ? "DA61 a céntimos half-up antes de restar, observado en Open 2025"
+            : "deducción de servicios después del artículo 80, una sola vez",
+        }),
+        crearLineaCalculo({
+          siteId: "anual.explicito.cuota.posterior",
+          instancia: 0,
+          importe: posterior,
+          unidad: "EUR",
+          etiqueta: "Cuota posterior",
+          formula: "cuota líquida legal − DA61",
+        }),
+        crearLineaCalculo({
+          siteId: "anual.explicito.retenciones",
+          instancia: 0,
+          importe: retenciones,
+          unidad: "EUR",
+          etiqueta: "Retenciones efectivas",
+          formula: "suma por operación única",
+        }),
+        crearLineaCalculo({
+          siteId: "anual.explicito.pagos",
+          instancia: 0,
+          importe: pagos,
+          unidad: "EUR",
+          etiqueta: "Pagos fraccionados efectivos",
+          formula: "suma por operación única",
+        }),
+        crearLineaCalculo({
+          siteId: "anual.explicito.diferencial",
+          instancia: 0,
+          importe: diferencial,
+          unidad: "EUR",
+          etiqueta: "Cuota diferencial",
+          formula: "cuota posterior − retenciones − pagos fraccionados",
         }),
       ],
     })
-  } else {
-    // La cota del adaptador no concilia amortizaciones históricas: no promoverlas al anual.
-    if (
-      caso.actividad.activos.length > 0 ||
-      caso.actividad.discapacidad.grado !== 0
-    )
-      return yield* Effect.fail(
-        rechazar(
-          "Activos con amortización y discapacidad de actividad fuera del alcance anual integrado"
-        )
-      )
-    const actividad = adaptarActividadGeneral(caso.actividad)
-    if (actividad.estado === "no-soportado")
-      return yield* Effect.fail(
-        rechazar(actividad.motivos.map((m) => m.motivo).join("; "))
-      )
-    cotizacionEfectiva = caso.actividad.reta.reduce(
-      (total, r) => total.plus(r.importe),
-      new D(0)
-    )
-    neto = new D(actividad.aporte.importeEurosExactos)
-    retenciones = new D(actividad.aporte.retencionesEuros)
-    pagos = new D(actividad.aporte.pagosFraccionadosEuros)
-    pasos.push({
-      _tag: "PasoExplicacion",
-      titulo: "Actividad EDS 2025",
-      descripcion:
-        "RETA y artículo 32 ya incluidos en el aporte; no se aplican cotizaciones salariales ni artículo 20.",
-      fuentes: [
-        {
-          titulo: "Alcance y evidencia de la conexión anual",
-          referencia:
-            "docs/procedencia/implementaciones/conexion-anual/INFORME.md",
+    return {
+      _tag: "LiquidacionIrpfAnualExplicitaCalculada" as const,
+      perfil: caso.perfil,
+      ejercicio: caso.ejercicio,
+      alcance:
+        caso.ejercicio === 2025
+          ? ("individual-comun-2025-hechos-explicitos" as const)
+          : ("individual-madrid-2018-a-2024-hechos-explicitos" as const),
+      rendimientoNetoReducido: neto.toFixed(),
+      baseImponibleGeneral: neto.toFixed(),
+      baseLiquidableGeneral: neto.toFixed(),
+      baseLiquidableAhorro: "0",
+      reduccionArt20: reduccionArt20.toFixed(),
+      componentesCuota: {
+        unidad: "EUR" as const,
+        gravamenEstatal: gravamenEstatal.toFixed(),
+        gravamenMinimoEstatal: gravamenMinimoEstatal.toFixed(),
+        gravamenAutonomico: gravamenAutonomico.toFixed(),
+        gravamenMinimoAutonomico: gravamenMinimoAutonomico.toFixed(),
+        cuotaEstatal: cuotaEstatal.toFixed(),
+        cuotaAutonomica: cuotaAutonomica.toFixed(),
+      },
+      cuotaLiquidaLegal: liquida.toFixed(),
+      deduccionTrabajo: deduccion.toFixed(),
+      cuotaPosterior: posterior.toFixed(),
+      retenciones: retenciones.toFixed(),
+      pagosFraccionados: pagos.toFixed(),
+      cuotaDiferencial: diferencial.toFixed(),
+      cuotaDiferencialPresentada: diferencial.toFixed(2, Decimal.ROUND_HALF_UP),
+      aceptacionFiscal: "pendiente" as const,
+      rastro: rastroTrasReforma({
+        titulo: `Liquidación anual explícita ${caso.ejercicio}`,
+        contexto: {
+          anio: caso.ejercicio,
+          territorio: caso.comunidadAutonoma,
+          perfilCalculo: caso.perfil,
         },
-      ],
-      lineasCalculo: actividad.etapas.map((e, instancia) =>
-        crearLineaCalculo({
-          siteId: "anual.explicito.actividad.etapa",
-          instancia: instancia,
-          importe: new D(e.importe),
-          unidad: "EUR",
-          etiqueta: `${e.reglaId}: ${e.id}`,
-          formula: e.formula,
-        })
-      ),
-    })
+        pasos,
+      }),
+    }
   }
-  // Sin otras rentas, reducciones de base ni saldos anteriores: BIG = BLG con signo.
-  const base = D.max(neto, 0)
-  const composicion = yield* componerLiquidacionAnual({
-    ambito: {
-      anio: 2025,
-      comunidadAutonoma: caso.comunidadAutonoma,
-      derechosMinimos: caso.derechosMinimos,
-      situacionFamiliar: {
-        tipo: "individual",
-        edad: caso.edad,
-        discapacidad: { _tag: "SinDiscapacidad" },
-        descendientes: [],
-        ascendientes: [],
-      },
-    },
-    cotizaciones: { naturaleza: "efectivas", trabajador: cotizacionEfectiva },
-    precision: 80,
-    politica: redondeoSalarialOpen
-      ? "open-empleo-madrid-2025"
-      : "decimal-hasta-salida",
-    baseGeneral: base,
-    baseAhorro: new D(0),
-    rentasAntesReducciones: neto.plus(reduccionArt20),
-    minimosEstatales: MINIMOS_ESTATALES_2025,
-    deduccionesAutonomicasCentimos: 0,
-    serviciosLaborales: brutoServicios.gt(0)
-      ? { bruto: brutoServicios }
-      : undefined,
-  })
-  const {
-    cuotaIntegraGeneralEstatal: gravamenEstatal,
-    cuotaMinimoPersonalEstatal: gravamenMinimoEstatal,
-    cuotaIntegraGeneralAutonomica: gravamenAutonomico,
-    cuotaMinimoPersonalAutonomica: gravamenMinimoAutonomico,
-    cuotaEstatalDespuesMinimo: cuotaEstatal,
-    cuotaAutonomicaGeneralDespuesMinimo: cuotaAutonomica,
-    cuotaLiquida: liquida,
-    deduccionTrabajo: deduccion,
-    cuotaPosterior: posterior,
-  } = composicion
-  const diferencial = liquidarPagosAnuales(posterior, retenciones, pagos)
-  pasos.push({
-    _tag: "PasoExplicacion",
-    titulo: "Bases, cuotas y pagos anuales",
-    descripcion: redondeoSalarialOpen
-      ? "Empleo Madrid 2025: artículo 20, cada gravamen y DA61 a céntimos half-up antes de restar, según siete casos de Open 1.19. Evidencia observada, sin aceptación fiscal automática ni cobertura universal."
-      : "Sin ahorro, reducciones de base ni otras deducciones. Artículo 80 sin importe al excluir rentas extranjeras. Cuota líquida legal conservada antes de DA61. Precisión decimal hasta salida; presentación final half-up a céntimos, pendiente de aceptación fiscal.",
-    fuentes: [
-      {
-        titulo: "Alcance y evidencia de la conexión anual",
-        referencia:
-          "docs/procedencia/implementaciones/conexion-anual/INFORME.md",
-      },
-    ],
-    lineasCalculo: [
-      crearLineaCalculo({
-        siteId: "anual.explicito.big",
-        instancia: 0,
-        importe: neto,
-        unidad: "EUR",
-        etiqueta: "Base imponible general",
-        formula: "rendimiento neto reducido con signo",
-      }),
-      crearLineaCalculo({
-        siteId: "anual.explicito.blg",
-        instancia: 0,
-        importe: neto,
-        unidad: "EUR",
-        etiqueta: "Base liquidable general",
-        formula: "BIG sin reducciones de base ni compensaciones anteriores",
-      }),
-      crearLineaCalculo({
-        siteId: "anual.explicito.cuota.estatal",
-        instancia: 0,
-        importe: cuotaEstatal,
-        unidad: "EUR",
-        etiqueta: "Cuota estatal",
-        formula: redondeoSalarialOpen
-          ? `gravámenes a céntimos Open: ${gravamenEstatal.toFixed(2)} − ${gravamenMinimoEstatal.toFixed(2)}`
-          : "escala(base positiva) − escala(mínimo limitado a base)",
-      }),
-      crearLineaCalculo({
-        siteId: "anual.explicito.cuota.autonomica",
-        instancia: 0,
-        importe: cuotaAutonomica,
-        unidad: "EUR",
-        etiqueta: "Cuota autonómica",
-        formula: redondeoSalarialOpen
-          ? `gravámenes a céntimos Open Madrid: ${gravamenAutonomico.toFixed(2)} − ${gravamenMinimoAutonomico.toFixed(2)}`
-          : "escala autonómica(base) − escala(mínimo limitado a base)",
-      }),
-      crearLineaCalculo({
-        siteId: "anual.explicito.cuota.liquida-legal",
-        instancia: 0,
-        importe: liquida,
-        unidad: "EUR",
-        etiqueta: "Cuota líquida legal",
-        formula: "cuota estatal + autonómica; sin otras deducciones",
-      }),
-      crearLineaCalculo({
-        siteId: "anual.explicito.da61",
-        instancia: 0,
-        importe: deduccion,
-        unidad: "EUR",
-        etiqueta: "DA61",
-        formula: redondeoSalarialOpen
-          ? "DA61 a céntimos half-up antes de restar, observado en Open 2025"
-          : "deducción de servicios después del artículo 80, una sola vez",
-      }),
-      crearLineaCalculo({
-        siteId: "anual.explicito.cuota.posterior",
-        instancia: 0,
-        importe: posterior,
-        unidad: "EUR",
-        etiqueta: "Cuota posterior",
-        formula: "cuota líquida legal − DA61",
-      }),
-      crearLineaCalculo({
-        siteId: "anual.explicito.retenciones",
-        instancia: 0,
-        importe: retenciones,
-        unidad: "EUR",
-        etiqueta: "Retenciones efectivas",
-        formula: "suma por operación única",
-      }),
-      crearLineaCalculo({
-        siteId: "anual.explicito.pagos",
-        instancia: 0,
-        importe: pagos,
-        unidad: "EUR",
-        etiqueta: "Pagos fraccionados efectivos",
-        formula: "suma por operación única",
-      }),
-      crearLineaCalculo({
-        siteId: "anual.explicito.diferencial",
-        instancia: 0,
-        importe: diferencial,
-        unidad: "EUR",
-        etiqueta: "Cuota diferencial",
-        formula: "cuota posterior − retenciones − pagos fraccionados",
-      }),
-    ],
-  })
-  return {
-    _tag: "LiquidacionIrpfAnualExplicitaCalculada" as const,
-    perfil: caso.perfil,
-    ejercicio: 2025 as const,
-    alcance: "individual-comun-2025-hechos-explicitos" as const,
-    rendimientoNetoReducido: neto.toFixed(),
-    baseImponibleGeneral: neto.toFixed(),
-    baseLiquidableGeneral: neto.toFixed(),
-    baseLiquidableAhorro: "0",
-    reduccionArt20: reduccionArt20.toFixed(),
-    componentesCuota: {
-      unidad: "EUR" as const,
-      gravamenEstatal: gravamenEstatal.toFixed(),
-      gravamenMinimoEstatal: gravamenMinimoEstatal.toFixed(),
-      gravamenAutonomico: gravamenAutonomico.toFixed(),
-      gravamenMinimoAutonomico: gravamenMinimoAutonomico.toFixed(),
-      cuotaEstatal: cuotaEstatal.toFixed(),
-      cuotaAutonomica: cuotaAutonomica.toFixed(),
-    },
-    cuotaLiquidaLegal: liquida.toFixed(),
-    deduccionTrabajo: deduccion.toFixed(),
-    cuotaPosterior: posterior.toFixed(),
-    retenciones: retenciones.toFixed(),
-    pagosFraccionados: pagos.toFixed(),
-    cuotaDiferencial: diferencial.toFixed(),
-    cuotaDiferencialPresentada: diferencial.toFixed(2, Decimal.ROUND_HALF_UP),
-    aceptacionFiscal: "pendiente" as const,
-    rastro: rastroTrasReforma({
-      titulo: "Liquidación anual explícita 2025",
-      contexto: {
-        anio: 2025,
-        territorio: caso.comunidadAutonoma,
-        perfilCalculo: caso.perfil,
-      },
-      pasos,
-    }),
-  }
-})
+)
