@@ -8,6 +8,21 @@ import { CasoFiscalAnualExplicito } from "../lib/dominio/irpf/trabajo-anual/cone
 import { composeRentasR36 } from "../scripts/procedencia/flujo-rentas-r36.mjs"
 import { executeRentasFinite } from "../scripts/procedencia/flujo-rentas-r36-consumidor.mjs"
 const fragment = composeRentasR36()
+it("R52: conserva los decimales serializados del rastro de deducciones anuales", () => {
+  const resultado = {
+    estado: "calculo_parcial",
+    movimientos: [{ aplicado: "20.079", perdidoPorCuota: "479.921" }],
+    totalAplicado: "20.079",
+  }
+  const observado = executeRentasFinite(
+    fragment,
+    "lib/dominio/irpf/deducciones/valenciana-2025/anual.ts:pasosDeduccionesValencianasAnual",
+    [resultado]
+  ).result
+  expect(observado).toHaveLength(1)
+  expect(observado[0].descripcion).toContain(JSON.stringify(resultado))
+  expect(observado[0].lineasCalculo).toEqual([])
+})
 it("R52: el observador conserva registros sin prototipo anidados, arrays y Decimal", () => {
   const expression = fragment.program.find(
     (n) =>

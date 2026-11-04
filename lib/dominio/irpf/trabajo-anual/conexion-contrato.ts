@@ -1,4 +1,5 @@
 import { Schema } from "effect"
+import { SolicitudDeduccionesValencianasAnual2025 } from "../deducciones/valenciana-2025/anual"
 import {
   DerechosMinimosAnuales,
   TerritorioMinimosComun,
@@ -8,6 +9,10 @@ import { CasoActividad2025 } from "../actividades-economicas/contrato"
 
 const Procedencia = Schema.String.check(Schema.isPattern(/\S/))
 const Alcance = {
+  contribuyenteId: Schema.optional(Schema.String),
+  deduccionesValencianas2025: Schema.optional(
+    SolicitudDeduccionesValencianasAnual2025
+  ),
   ejercicio: Schema.Literal(2025),
   comunidadAutonoma: TerritorioMinimosComun,
   edad: Schema.Number.check(
@@ -23,8 +28,14 @@ const Alcance = {
   derechosMinimos: Schema.optional(DerechosMinimosAnuales),
   discapacidad: Schema.Literal("ninguna"),
   reduccionesBase: Schema.Literal("ninguna"),
-  saldosAnteriores: Schema.Literal("ninguno"),
-  deducciones: Schema.Literal("solo-da61-si-procede"),
+  saldosAnteriores: Schema.Literals([
+    "ninguno",
+    "solo-deducciones-valencianas",
+  ]),
+  deducciones: Schema.Literals([
+    "solo-da61-si-procede",
+    "valencianas-por-hechos-y-da61",
+  ]),
   rentasExtranjeras: Schema.Literal("ninguna"),
   especialidades: Schema.Literal("ninguna"),
 }
@@ -37,6 +48,8 @@ const CasosTrabajoHistorico = (
 ).map((ejercicio) =>
   Schema.Struct({
     ...Alcance,
+    contribuyenteId: Schema.optional(Schema.Never),
+    deduccionesValencianas2025: Schema.optional(Schema.Never),
     ejercicio: Schema.Literal(ejercicio),
     comunidadAutonoma: Schema.Literal("madrid"),
     edad: Schema.Number.check(
@@ -48,6 +61,7 @@ const CasosTrabajoHistorico = (
     familiaresConDerechoMinimo: Schema.Literal("ninguno"),
     derechosMinimos: Schema.optional(Schema.Never),
     deducciones: Schema.Literal("ninguna"),
+    saldosAnteriores: Schema.Literal("ninguno"),
     perfil: Schema.Literal("solo-trabajo"),
     trabajo: GastosTrabajo,
     conciliacion: Schema.Struct({
@@ -73,6 +87,10 @@ export const CasoFiscalAnualExplicito = Schema.Union([
     perfil: Schema.Literal("solo-trabajo"),
     trabajo: GastosTrabajo,
     conciliacion: Schema.Struct({
+      contribuyenteId: Schema.optional(Schema.String),
+      deduccionesValencianas2025: Schema.optional(
+        SolicitudDeduccionesValencianasAnual2025
+      ),
       ejercicio: Schema.Literal(2025),
       estado: Schema.Literal("totales-anuales-sin-duplicados"),
       procedencia: Schema.Array(Procedencia).check(Schema.isMinLength(1)),
@@ -81,6 +99,10 @@ export const CasoFiscalAnualExplicito = Schema.Union([
       Schema.Struct({
         operacionId: Procedencia,
         procedencia: Procedencia,
+        contribuyenteId: Schema.optional(Schema.String),
+        deduccionesValencianas2025: Schema.optional(
+          SolicitudDeduccionesValencianasAnual2025
+        ),
         ejercicio: Schema.Literal(2025),
         importe: Euros,
         efectiva: Schema.Literal(true),

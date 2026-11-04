@@ -2,6 +2,25 @@
 
 ## Prioridad de producto: 4 de noviembre, noche
 
+Actualización posterior a C2025: publicado `10ea938a5ef941a07d940d959e5b0a507bf10b80`;
+CI remoto en [ejecución 41926599696](https://github.com/eliesgalvira/IRoboPF/actions/runs/41926599696),
+ambos trabajos correctos. Retiradas las ocho entregas de C300 tras preservar
+sus archivos únicos por hash; los originales oficiales permanecen en CAS externo.
+El piloto histórico compara siete entradas nuevas y conserva siete SKIP: 41
+casillas coinciden, 42 difieren, 14 tienen mapeo pendiente y una está ausente.
+El resultado final difiere un céntimo en 2018–2021. Se inicia el primer bloque
+de capturas pendientes de 2018, separado de la corrección y de nuevos cotejos.
+
+El punto 4 sigue abierto. El balance estático del censo identifica 51 códigos con
+evaluación específica por hechos de alcance acotado (40 valencianos y 11 ajenos).
+Los otros 300 conservan catálogo, consignación y, en algunos casos, aritmética
+auxiliar genérica; eso no acredita una evaluación completa de sus hechos fiscales.
+La liquidación anual todavía sólo consume deducciones agregadas externas. Se
+trabaja en conectar la cuota valenciana revisada con la única composición anual,
+en conciliar las 351 fichas con sus revisiones vigentes y en los evaluadores del
+lote Andalucía/Aragón/Catalunya. Estos avances no cierran por sí solos las 351 ni
+reabren F general. No se repiten auditorías jurídicas favorables sin cambio material.
+
 El orden vigente es: (1) derechos familiares por año y comunidad mediante la API
 única, para el rediseño del viernes 6 a las 20:00; (2) unos 300 casos variados
 contra Open 2025, investigando discrepancias; (3) comunidades 2026; (4) cerrar
@@ -423,3 +442,34 @@ Los indicadores `siteClosed`, `admissionClosed`, `wiringAllowed` y `completeRule
 El informe conserva las limitaciones de retenciones, cotizaciones, deducciones y territorios; también distingue los tipos principal/vendor comprobados de la deuda estricta `checkJs`. Las estimaciones de trabajo posterior son orientativas y no comprometen una fecha ni una aceptación fiscal.
 
 El respaldo de código y evidencias seleccionadas utiliza `origin/procedencia-documental`. Los originales grandes requieren el CAS local: una clonación Git no basta. V5 r2 conserva el corte R26; host-b conserva V1 desfasado y no acredita custodia independiente ni respaldo remoto completo. [Conservación y límites](INFORME-FINAL.md#respaldo-y-conservación).
+
+### Continuación del 5/11, conexión anual y lote histórico
+
+C301 sigue publicado en `10ea938a`, con CI remoto verde. La revisión de conexión
+anual valenciana detectó dos P2: truncamiento de cuota 20,079 que elevaba el
+resultado de 102,42 a 102,43; edad propia contradictoria admitida con id de gasto.
+El integrador conserva cuota y movimientos decimales exactos y resuelve el sujeto
+por referencias. Pasan 260 regresiones focales y los controles monetarios nuevos;
+el CI completo posterior reproduce 31 comandos en entorno limpio: 1.602
+ejecuciones Vitest, 247 métodos Python descubiertos (siete omitidos) y todos los
+controles correctos. Los 527 archivos fijados permanecen intactos. Se prepara su
+publicación en procedencia-documental.
+
+La revisión del registro351 detectó 307 destinos históricos incorrectos, una
+proposición CAMP-02 refutada dentro de regla actual y tres nombres de orden
+incorrectos. Corregidos y verificadas las preimágenes rojas; seis controles
+portables verdes. Los estados jurídicos históricos permanecen intactos.
+
+Catalunya: revisión independiente con un P2 sobre acogimiento previo a la adopción;
+corrección privada preparada. Madrid/Murcia: revisión con contradicción de identidad
+hijo/progenitor; corrección privada preparada. Asturias/Cantabria: 48 pruebas y
+tipos/lints verdes, revisión independiente en curso. Canarias/Baleares: diez
+evaluadores parciales nuevos, validación de autor en curso. Castilla-La Mancha,
+Castilla y León y Extremadura: doce reglas parciales privadas pendientes de pruebas. El punto4 continúa abierto; no confundir el catálogo351 con
+evaluación completa por hechos.
+
+Histórico b01: 59 capturas UI nuevas y una reutilización validada, más SKIP del
+piloto previo; 61/2020 en2018, 67/14140 en conjunto. Sin errores, 20m44,70s. Las
+60 incorporaciones aún no se han comparado con la API. Dos turnos pesados
+reservados temporalmente a producto; siguiente captura y comparación esperan
+asignación, sin procesos en bucle ni suites adicionales.

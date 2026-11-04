@@ -1,0 +1,160 @@
+{
+  "workflowSha256": "b362209693b408a07200c19b148267d309597c3685c50315199b7fbcf83326d5",
+  "results": [
+    {
+      "command": "timeout -k 30s 1m python3 scripts/ci-no-cache.py",
+      "exit": 0,
+      "seconds": 0.056
+    },
+    {
+      "command": "echo \"Corpus completo CAS omitido explícitamente; se ejecutan fixtures y contratos reproducibles. Véase docs/procedencia/CI.md\"",
+      "exit": 0,
+      "seconds": 0.004
+    },
+    {
+      "command": "timeout -k 30s 12m bun install --frozen-lockfile",
+      "exit": 0,
+      "seconds": 0.37
+    },
+    {
+      "command": "timeout -k 30s 12m bun run test:lint",
+      "exit": 0,
+      "seconds": 0.217
+    },
+    {
+      "command": "timeout -k 30s 12m bun run lint",
+      "exit": 0,
+      "seconds": 11.775
+    },
+    {
+      "command": "timeout -k 30s 12m bun run typecheck",
+      "exit": 0,
+      "seconds": 10.27
+    },
+    {
+      "command": "timeout -k 30s 12m bun run test:ci",
+      "exit": 0,
+      "seconds": 0.844
+    },
+    {
+      "command": "timeout -k 30s 12m bun run test tests/puertos-composicion-r47.test.ts tests/puertos-r52.test.ts --maxWorkers=1",
+      "exit": 0,
+      "seconds": 10.878
+    },
+    {
+      "command": "timeout -k 30s 12m bun run test tests/cotizaciones-perfil-uniforme.test.ts tests/*-procedencia.test.ts --exclude tests/evidencia-contenido-procedencia.test.ts --maxWorkers=1",
+      "exit": 0,
+      "seconds": 13.001
+    },
+    {
+      "command": "timeout -k 30s 12m bun run test tests/retenciones-versionadas.test.ts tests/trabajo-anual-contratos.test.ts tests/actividades-economicas-2025.test.ts tests/deducciones-contratos.test.ts tests/deducciones-ambito.test.ts tests/deducciones-conjunta-identidad.test.ts tests/calculo-salario-neto-irpf.test.ts --maxWorkers=1",
+      "exit": 0,
+      "seconds": 3.488
+    },
+    {
+      "command": "timeout -k 30s 12m bun run test tests/composicion-anual-unica.test.ts tests/composicion-anual-revision.test.ts tests/composicion-precision.test.ts tests/composicion-precision-contraste.test.ts tests/anual-salarial-completo.test.ts tests/anual-historico-explicito.test.ts tests/conexion-anual.test.ts tests/retirada-rutas.test.ts tests/motor-unico-revision.test.ts tests/minimos-derechos.test.ts tests/retenciones-derechos.test.ts tests/liquidacion-irpf-anual.test.ts tests/correcciones-x-solidaridad.test.ts --maxWorkers=1",
+      "exit": 0,
+      "seconds": 6.454
+    },
+    {
+      "command": "timeout -k 30s 12m bun run inventario:verificar",
+      "exit": 0,
+      "seconds": 11.423
+    },
+    {
+      "command": "timeout -k 30s 12m bun run test tests/minimos-derechos-anuales.test.ts tests/territorios-2026.test.ts tests/comunidades-autonomas.test.ts tests/deducciones-pendientes.test.ts tests/deducciones-valencianas-datos-producto.test.ts tests/deducciones-valencianas-evaluacion.test.ts tests/deducciones-valencianas-correcciones.test.ts tests/deducciones-valencianas-composicion.test.ts tests/deducciones-valencianas-ejercicio.test.ts tests/deducciones-valencianas-cuota-conjunta.test.ts tests/deducciones-valencianas-anual.test.ts tests/escalas-publicadas.test.ts tests/escalas-publicadas-2025.test.ts tests/escalas-madrid-historicas.test.ts --maxWorkers=1",
+      "exit": 0,
+      "seconds": 7.089
+    },
+    {
+      "command": "timeout -k 30s 12m bun run test:inventario",
+      "exit": 0,
+      "seconds": 54.33
+    },
+    {
+      "command": "timeout -k 30s 12m bun run test --config scripts/procedencia/contenido-vitest.mjs",
+      "exit": 0,
+      "seconds": 1.046
+    },
+    {
+      "command": "timeout -k 30s 12m bun scripts/procedencia/contenido-verificar.mjs --fixture",
+      "exit": 0,
+      "seconds": 0.307
+    },
+    {
+      "command": "timeout -k 30s 12m bun scripts/procedencia/rastro-verificar.mjs --fixture",
+      "exit": 0,
+      "seconds": 0.303
+    },
+    {
+      "command": "timeout -k 30s 1m python3 scripts/ci-no-cache.py",
+      "exit": 0,
+      "seconds": 0.056
+    },
+    {
+      "command": "echo \"Corpus completo CAS omitido explícitamente; se ejecutan fixtures y contratos reproducibles. Véase docs/procedencia/CI.md\"",
+      "exit": 0,
+      "seconds": 0.005
+    },
+    {
+      "command": "timeout -k 30s 12m bun install --frozen-lockfile",
+      "exit": 0,
+      "seconds": 0.367
+    },
+    {
+      "command": "timeout -k 30s 12m bash tools/procedencia/run.sh tests/procedencia-corpus_test.py",
+      "exit": 0,
+      "seconds": 1.348
+    },
+    {
+      "command": "timeout -k 30s 12m bash tools/procedencia/run.sh tests/procedencia-enlaces_test.py",
+      "exit": 0,
+      "seconds": 2.274
+    },
+    {
+      "command": "timeout -k 30s 12m bash tools/procedencia/run.sh tests/procedencia-preservacion_test.py",
+      "exit": 0,
+      "seconds": 0.776
+    },
+    {
+      "command": "timeout -k 30s 1m python3 tests/procedencia-deducciones-registro_test.py",
+      "exit": 0,
+      "seconds": 0.745
+    },
+    {
+      "command": "timeout -k 30s 12m bash scripts/procedencia/deducciones-2025/verificar.sh --lotes docs/procedencia/deducciones-2025/lotes --modo completo",
+      "exit": 0,
+      "seconds": 17.005
+    },
+    {
+      "command": "timeout -k 30s 12m bun scripts/procedencia/verificar-enlaces.mjs --fixture",
+      "exit": 0,
+      "seconds": 2.464
+    },
+    {
+      "command": "timeout -k 30s 12m bun run test tests/evidencia-contenido-procedencia.test.ts --maxWorkers=1",
+      "exit": 0,
+      "seconds": 1.079
+    },
+    {
+      "command": "timeout -k 30s 12m bun run test tests/publicacion-evidencia.test.ts --maxWorkers=1",
+      "exit": 0,
+      "seconds": 1.056
+    },
+    {
+      "command": "timeout -k 30s 12m bun tests/cas-local-r27.mjs",
+      "exit": 0,
+      "seconds": 0.559
+    },
+    {
+      "command": "timeout -k 30s 12m nix develop path:tools/procedencia --command bash scripts/ci-datos.sh",
+      "exit": 0,
+      "seconds": 279.231
+    },
+    {
+      "command": "timeout -k 30s 12m nix develop path:tools/procedencia --command bash scripts/ci-simuladores.sh",
+      "exit": 0,
+      "seconds": 9.343
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "workflowSha256": "b362209693b408a07200c19b148267d309597c3685c50315199b7fbcf83326d5",
+  "comandos": 31,
+  "resultado": "correcto",
+  "segundos": 448.163,
+  "ejecucionesVitest": 1602,
+  "metodosPythonDescubiertos": 247,
+  "metodosPythonOmitidos": 7,
+  "fuentesCongeladasSinCambios": 527,
+  "archivoInventario": {
+    "file": "inventario-datos.json.gz",
+    "format": "gzip-json-files-v1",
+    "sha256": "4aafdaee2a96bee46282fa038ef5252d2b3172a80ebf0a41fe748184ebbfaf55",
+    "size": 12366841
+  },
+  "observaciones": [
+    "Órdenes run idénticas al YAML; entorno limpio sin heredar PATH ni variables del orquestador.",
+    "Nix develop path:tools/procedencia y comandos reales del workflow; versiones fijadas de Bun, Python y Node.",
+    "El guardia de caché recibe sólo rutas versionadas, sin copiar el repositorio.",
+    "No emula Ubuntu ni acciones de instalación de GitHub.",
+    "Conteos de ejecuciones, no de pruebas únicas; algunos grupos se ejecutan dos veces.",
+    "Intento previo local detectó JSON ausente en el intérprete de procedencia; corregido con regresión, antes del push."
+  ]
+}
