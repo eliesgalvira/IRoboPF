@@ -1,5 +1,23 @@
 # Estado de la auditoría documental
 
+## Motor y API para el rediseño: cierre técnico del 4 de noviembre
+
+Las entradas anual técnica y efectiva consumen una composición común de
+mínimos, escalas, ahorro, deducciones y cuota. Los adaptadores mantienen los
+hechos y políticas monetarias que les corresponden. La [API vigente](API-MOTOR.md)
+explica unidades, discriminantes, errores y ejemplos ejecutables; el rediseño
+puede consumir sus resultados sin reconstruir la cuota.
+
+La revisión independiente confirmó la composición única y encontró E-REV-01:
+la precisión declarada de 80 cifras se truncaba a 20 en los gravámenes. Se
+reprodujo, corrigió y obtuvo [contraste favorable](reforma-motor/bloque-e/CONTRASTE-PRECISION.md).
+El CI completo local pasa con 582 pruebas Vitest y 167 Python; las cuatro
+pruebas independientes posteriores también pasan y se incorporan al CI local
+y remoto. Tipos y lint pasan, con 18 avisos existentes. El cierre no amplía
+la cobertura familiar fuera de Madrid 2025 ni acredita documentalmente el
+núcleo nuevo. [Alcance del cierre](reforma-motor/bloque-e/CIERRE.md) y
+[balance A–F con estimaciones](BALANCE-A-F.md).
+
 ## Corrección técnica del 4 de noviembre
 
 Los cinco defectos pendientes de unidades/enlaces e IPC/SS están corregidos y
@@ -51,17 +69,17 @@ Corregidos los imports privados, las consultas a objetos Git históricos, el reg
 
 Además de las deducciones de 2025, está encargado el [plan completo A–F](PLAN-COMPLETO.md): procedencia automática de todos los datos de 2012–2026; comunidades reales en 2026; miles de comparaciones con simuladores oficiales; redondeo observado de cotizaciones; mínimos familiares unificados; y actividad, composición, admisión y puertas. El cierre técnico anterior de 65 sitios conserva sus resultados y deja de ser el límite del encargo.
 
-La [reforma de motor único](REFORMA-MOTOR.md) tiene prioridad. Queda anulada la compatibilidad de fichas, firmas y resultados antiguos: se retiran `FamiliarFiscal`, el modo legacy y las rutas duplicadas. Las páginas actuales pueden adaptarse lo mínimo o desconectarse para compilar. La [API actual](API-MOTOR.md) documenta la retirada integrada y sus límites. La [revisión independiente](reforma-motor/revision-finalizacion/INFORME.md) corroboró los arreglos de conjunta de deducciones y localizó un helper y una tabla truncados, además de un rechazo anual ausente. Las tres observaciones tienen [corrección y regresiones](reforma-motor/correcciones-finalizacion/INFORME.md) y [contraste independiente favorable](reforma-motor/revision-correcciones/INFORME.md). Los tres rojos anteriores se reprodujeron; se conservan la frontera 2014, las escalas canarias y las siete referencias salariales Open. El cambio marginal de 47 a 49 céntimos desde 2021 queda limitado a la simulación que duplica la parte estatal. No procede otra revisión del mismo alcance. La API de importes efectivos y el perfil anual técnico aún tienen recorridos separados; no se declara completa la reforma.
+La [reforma de motor único](REFORMA-MOTOR.md) tiene prioridad. Queda anulada la compatibilidad de fichas, firmas y resultados antiguos: se retiran `FamiliarFiscal`, el modo legacy y las rutas duplicadas. Las páginas actuales pueden adaptarse lo mínimo o desconectarse para compilar. La [API actual](API-MOTOR.md) documenta la retirada integrada y sus límites. La [revisión independiente](reforma-motor/revision-finalizacion/INFORME.md) corroboró los arreglos de conjunta de deducciones y localizó un helper y una tabla truncados, además de un rechazo anual ausente. Las tres observaciones tienen [corrección y regresiones](reforma-motor/correcciones-finalizacion/INFORME.md) y [contraste independiente favorable](reforma-motor/revision-correcciones/INFORME.md). Los tres rojos anteriores se reprodujeron; se conservan la frontera 2014, las escalas canarias y las siete referencias salariales Open. El cambio marginal de 47 a 49 céntimos desde 2021 queda limitado a la simulación que duplica la parte estatal. No procede otra revisión del mismo alcance. La composición común de las entradas efectiva y técnica se cierra en el hito del 4 de noviembre descrito arriba. La extensión familiar y la acreditación normativa siguen pendientes; no se declara completo el bloque E general.
 
 Las ampliaciones regionales de deducciones y el censo automático de A continúan con esa instrucción. La entrega del auxiliar compartido es candidata: sus cálculos útiles deben incorporarse a la ruta única y revisarse allí, sin perpetuar su fachada heredada. Los cambios compartidos tienen un responsable para evitar nuevas APIs divergentes. B, C, D y F continúan según sus dependencias; E se adelanta como parte de la reforma. Cada bloque recibe revisión independiente y un balance de cobertura, diferencias, correcciones y decisiones.
 
 | Bloque | Estado |
 | --- | --- |
-| A. Datos de 2012–2026 | Extractor corregido y contrastado en el piloto, incluido RP07. Recibidas extracciones parciales de escalas y mínimos de 2012–2018 y 2019–2026; falta completar sus enlaces. IPC/SS: extracción parcial recibida, todavía sin integrar ni revisar. Piloto: 277 celdas, 50 coincidencias, 226 sin verificación y una ausencia explícita |
+| A. Datos de 2012–2026 | Extractor corregido y contrastado en el piloto, incluido RP07. Recibidas extracciones parciales de escalas y mínimos de 2012–2018 y 2019–2026; falta completar sus enlaces. IPC/SS: extracción parcial integrada con cinco correcciones técnicas; 13 coincidencias IPC y alcances SS aún sin verificar cuando falta contexto documental. Piloto: 277 celdas, 50 coincidencias, 226 sin verificación y una ausencia explícita |
 | B. Comunidades en 2026 | Pendiente de inicio; reutilizará las fuentes de A |
 | C. Simuladores oficiales | Pendiente de inicio |
 | D. Redondeo de cotizaciones | Pendiente de inicio con criterio de comportamiento observado |
-| E. Mínimos familiares | Helpers insuficientes retirados y derechos conectados; tres correcciones posteriores contrastadas favorablemente. Cobertura familiar Madrid 2025 individual; extensión normativa por año pendiente |
+| E. Mínimos familiares | Motor anual común y API revisados, incluida corrección de precisión. Cobertura familiar Madrid 2025 individual; extensión normativa por año/territorio y acreditación del núcleo pendientes |
 | F. Actividad y declaración completa | Encargado; pendiente de productores y contratos anteriores |
 
 ## En curso: deducciones autonómicas de 2025

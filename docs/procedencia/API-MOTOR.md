@@ -1,12 +1,12 @@
 # API del motor
 
-Se retiran la selección legacy, los helpers familiares insuficientes y la reconstrucción salarial paralela de la cuota. `modo: "canonico"` es el único valor admitido; otro valor se rechaza también en JavaScript. El análisis salarial consume la liquidación anual. La API de importes efectivos conserva su recorrido condicionado separado; unificar y demostrar toda la composición sigue pendiente.
+Se retiran la selección legacy, los helpers familiares insuficientes y la reconstrucción salarial paralela de la cuota. `modo: "canonico"` es el único valor admitido; otro valor se rechaza también en JavaScript. El análisis salarial consume la liquidación anual. Las entradas analítica y efectiva normalizan hechos y consumen `componerLiquidacionAnual`; no seleccionan dos fórmulas de liquidación.
 
 ## Declaración anual
 
 `lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts` exporta `liquidarIrpfAnual(caso: CasoFiscalAnual, contexto: ContextoLiquidacionIrpf)`, `LiquidacionIrpfAnual` y su `layer`, `liquidarIrpfAnualConDerechos` y la reexportación `liquidarIrpfAnualExplicito`. Los tipos públicos incluyen `LiquidacionIrpfAnualCalculada`, `ResultadoNoSoportado`, `LiquidarIrpfAnualError`, `ContextoLiquidacionIrpf`.
 
-Las notas anteriores del [catálogo de deducciones](deducciones-2025/CAMBIOS-PARA-REDISENO.md) describen entregas existentes, pero no obligan a conservar su API. El rediseño debe tomar como referencia el contrato nuevo una vez integrado.
+Las notas anteriores del [catálogo de deducciones](deducciones-2025/CAMBIOS-PARA-REDISENO.md) describen entregas existentes, pero no obligan a conservar su API. El rediseño debe tomar como referencia el contrato vigente de esta página.
 
 El catálogo integrado conserva las colecciones regionales, pero Comunitat Valenciana, Galicia y La Rioja ya no exponen constructores o exportaciones intermedias para cada deducción. Sus descripciones expresan las condiciones documentadas; no constituyen todavía evaluadores automáticos completos. Las 40 fichas valencianas están marcadas como pendientes de pruebas de cálculo.
 El efecto devuelve la liquidación o un error recuperable `ResultadoNoSoportado` con `motivo`, `fuenteReconocida` y `rastro`. Se mantienen los campos de bases, cotizaciones, cuotas, deducciones, pagos y diferencial. Se elimina `conciliacionSimuladorLegacy`. Los importes de entrada y salida con sufijo `Centimos` son enteros en céntimos; las operaciones internas usan euros `Decimal`. Un diferencial positivo es a ingresar y uno negativo a devolver.
@@ -37,7 +37,7 @@ Este recorrido parcial conserva la selección normativa existente por ejercicio 
 
 `minimos/derechos-contrato.ts` exporta el esquema y tipo `DerechosMinimos2025`, `DescendienteDerechos`, `TitularDescendiente`, `DiscapacidadDerechos` y `DerechosMinimosNoSoportados`. El nombre refleja su alcance real: Madrid, 2025, régimen común, individual, devengo 31 de diciembre, sin ascendientes ni fallecimientos. No se extrapolan sus condiciones a otros ejercicios.
 
-`minimos/derechos.ts` exporta `validarDerechosMinimos`, `calcularDerechosMinimos`, `validarRentasAnualesDerechos` y `hayAlimentosPropiosSinMinimo`. `calcularDerechosMinimos(hechos, minimos)` recibe los hechos completos y los parámetros seleccionados, y devuelve euros `Decimal` para contribuyente, descendientes, discapacidad, total y atribuciones por sujeto, orden, titulares y divisor. No es por sí mismo una declaración. La ruta anual selecciona separadamente parámetros estatales y autonómicos.
+`minimos/derechos.ts` exporta `validarDerechosMinimos`, `calcularDerechosMinimos`, `validarRentasAnualesDerechos` y `hayAlimentosPropiosSinMinimo`. `calcularDerechosMinimos(hechos, minimos, aritmetica?)` recibe los hechos completos y los parámetros seleccionados, y devuelve euros `Decimal` para contribuyente, descendientes, discapacidad, total y atribuciones por sujeto, orden, titulares y divisor. El tercer argumento opcional es un constructor `Decimal`; por defecto conserva la aritmética global existente. La composición pasa su constructor local para que el reparto y la suma respeten las 20 u 80 cifras elegidas. No es por sí mismo una declaración. La ruta anual selecciona separadamente parámetros estatales y autonómicos.
 
 Los hechos incluyen identificadores locales anónimos, nacimiento y edad al devengo, rentas no exentas, declaración propia, discapacidad y censo completo de titulares con grado, vínculo, convivencia/dependencia, custodia, residencia, rentas y alimentos. La conexión anual exige además conciliación de rentas del contribuyente antes de reducciones. Dos titulares del mismo grado con derecho al primer descendiente reciben 1.200 euros estatales cada uno; no 2.400 cada uno. Tres reciben 800. La discapacidad del descendiente comparte el divisor y exige elegibilidad.
 
@@ -65,7 +65,7 @@ El mínimo del contribuyente y la cuantía de discapacidad se calculan mediante 
 
 ## Procedencia y revisión pendiente
 
-Los rastros conservan sitios, importes y fuentes. Para la liquidación anual reformada, las referencias del catálogo anterior quedan como referencias históricas por URL, snapshot y hashes dentro del motivo pendiente; no se atribuye a este código la revisión del anterior. `rastro-generado.json` y los ensayos de composición/causalidad que dependían de símbolos retirados necesitan regeneración y nueva revisión. Los artefactos previos permanecen por versión y no se promueve ninguna atestación, registro ni `completeRuleAcceptance`. Esta retirada no cierra A ni los demás bloques del plan.
+Los rastros conservan sitios, importes y fuentes. Para la liquidación anual reformada, las referencias del catálogo anterior quedan como referencias históricas por URL, snapshot y hashes dentro del motivo pendiente; no se atribuye a este código la revisión del anterior. El censo de fuentes y el inventario actuales se regeneran para esta composición. `rastro-generado.json` conserva su versión histórica; los ensayos simbólicos de composición/causalidad que dependían de símbolos retirados requieren nueva revisión. Ambas entradas devuelven referencias históricas dentro de motivos pendientes, sin atribuir sus certificados al núcleo nuevo. Los artefactos previos permanecen por versión y no se promueve ninguna atestación, registro ni `completeRuleAcceptance`. Esta retirada no cierra A ni los demás bloques del plan.
 
 El contrato estructural actual y sus reservas se describen en [integración CI](reforma-motor/integracion-ci/INFORME.md). Su censo AST no acredita la composición simbólica histórica ni promueve sus cuatro puertas.
 
@@ -84,3 +84,46 @@ Se eliminan `calcularCuotaPorEscalaGeneral`, `calcularDesgloseCuotaPorEscalaGene
 Se retira `construirTablaControlTramosIrpfCompatible` y la hoja `CONTROL_TRAMOS_IRPF` de la exportación corriente. Los controles históricos permanecen como evidencia; no se regeneran con código incorrecto.
 
 El escenario `simulada-estatal`, cuando duplica la parte estatal, deriva sus tipos de ese mismo selector. Desde 2021 su tipo simulado final pasa de 47 % a 49 % sobre el exceso de 300.000 euros. Es una simulación; no representa la cuota de una comunidad real ni amplía los ejercicios o situaciones admitidos.
+
+## Contrato de composición vigente (4 de noviembre de 2026)
+
+Los adaptadores públicos conservan contratos distintos para hechos distintos. El núcleo interno `liquidacion/composicion-anual.ts` recibe `EntradaComposicionAnual`: `ambito` (ejercicio, territorio, fecha de fallecimiento, contribuyente y derechos), bases general/ahorro integradas en euros `Decimal`, rentas antes de reducciones para conciliar derechos, parámetros estatales y deducciones autonómicas declaradas en céntimos. `cotizaciones.naturaleza` distingue `efectivas` y `estimadas-perfil-uniforme`; `trabajador` conserva el importe decimal recibido como procedencia, ya deducido por el productor de rendimientos. El núcleo no lo vuelve a restar. En actividad incluye RETA ya consumida por el aporte. Esta API interna presupone la admisión de cada productor; no debe exponerse directamente a formularios.
+
+`politica` declara `decimal-hasta-salida` o `open-empleo-madrid-2025`; `precision` declara 20 u 80 cifras significativas de composición, respectivamente según el productor analítico o efectivo. Son políticas monetarias, no algoritmos fiscales alternativos. El constructor local se propaga a escalas, cuotas fijas, remanentes del ahorro y reparto de mínimos antes de operar; no se cambia `Decimal.precision` global ni se recuperan cifras ya perdidas en la entrada. Los helpers de escala y ahorro aceptan `aritmetica?: Decimal.Constructor`, con el constructor global como valor predeterminado para los demás consumidores. Open se rechaza fuera de Madrid 2025 o con cotización estimada. El núcleo selecciona escalas, calcula derechos estatales y autonómicos, gravámenes y mínimos, ahorro, límite autonómico de deducciones, cuota líquida y, cuando el productor acredita servicios laborales, DA61 y cuota posterior. La política Open cuantiza cada gravamen y DA61 antes de restar; el adaptador cuantiza artículo 20 con la misma función. Los perfiles pensión y actividad conservan precisión hasta salida y excluyen DA61. No se deduce DA61 automáticamente de un bruto del perfil analítico, que no acredita la calificación efectiva requerida.
+
+`liquidarPagosAnuales` resta retenciones y pagos una vez, en la unidad y etapa monetaria recibidas. En el perfil técnico se aplica a la cuota ya liquidada a céntimos; en el efectivo a euros decimales y después se presenta a dos decimales. Los adaptadores solo preparan rendimientos/bases según su dominio y proyectan resultados y rastros. No recalculan los mínimos ni los gravámenes.
+
+| Entrada pública | Unidades / discriminantes | Resultado y uso |
+| --- | --- | --- |
+| `liquidarIrpfAnual(caso, { modo: "canonico" })` | Enteros `Centimos`; `anio`, `comunidadAutonoma`; `situacionFamiliar.tipo: "individual"`; cotización uniforme estimada | `LiquidacionIrpfAnualCalculada`; bases, cotizaciones, cuotas y diferencial en céntimos; análisis, servicios y derechos consumen esta salida |
+| `liquidarIrpfAnualConDerechos(caso)` | Mismo caso, `derechosMinimos` completo obligatorio | Misma salida y composición, sin cuota familiar alternativa |
+| `liquidarIrpfAnualExplicito(caso)` | `CasoFiscalAnualExplicito`, `perfil: "solo-trabajo"` o `"solo-actividad-eds"`; importes aportados como texto EUR con hasta dos decimales, nunca `number` | `_tag: "LiquidacionIrpfAnualExplicitaCalculada"`; importes calculados como texto decimal EUR, `cuotaDiferencialPresentada` a dos decimales; `aceptacionFiscal: "pendiente"` |
+
+La entrada efectiva exige todos los discriminantes de `conexion-contrato.ts`: residencia anual, devengo, modalidad, ausencia de otras rentas, familiares/discapacidad, reducciones de base, saldos, rentas extranjeras y especialidades. El empleo exige rendimientos laborales/estatutarios disjuntos, gastos acreditados y cotizaciones `clase: "efectivas"`; pensión sola se admite sin DA61 y sin mezclarla con empleo. `solo-actividad-eds` consume `CasoActividad2025` con los rechazos del adaptador; amortizaciones y discapacidad siguen fuera del anual. No se admiten importes estimados en esta entrada efectiva ni se rellenan hechos ausentes. Retenciones efectivas llevan ejercicio, identidad de operación única, procedencia e importe.
+
+El perfil técnico conserva parámetros territoriales parciales 2012–2025 y el escenario `simulada-estatal` 2012–2026; esto no acredita declaraciones completas ni mínimos familiares históricos. 2026 real se rechaza. Los derechos familiares siguen restringidos a Madrid 2025: otro año/territorio, ascendientes, fallecimientos o hechos insuficientes se rechazan, aunque existan parámetros numéricos. El contrato efectivo sigue limitado a Madrid 2025 individual de 18–64 años. No se abre ninguna puerta de actividad o aceptación fiscal general.
+
+Ambas funciones devuelven `Effect` sin servicios requeridos al llamante. Los rechazos anuales son fallos recuperables `_tag: "ResultadoNoSoportado"`, con `motivo`, `fuenteReconocida` y `rastro`; si se solicita retención AEAT puede propagarse `ResultadoNoSoportadoRetencion` (unión `LiquidarIrpfAnualError`). El núcleo mapea los rechazos de derechos a `ResultadoNoSoportado`; la API directa de derechos mantiene `DerechosMinimosNoSoportados`. Para UI usar `Effect.result`, distinguir `Result.isFailure` y mostrar el motivo. Nunca presentar un rechazo como impuesto cero.
+
+### Ejemplos ejecutables para el rediseño
+
+[ejemplos.ts](reforma-motor/bloque-e/ejemplos.ts) exporta hechos completos y sintéticos, comprobados en `tests/composicion-anual-unica.test.ts`. Desde un módulo TypeScript en la raíz:
+
+```ts
+import { Effect, Result } from "effect"
+import { analitico, efectivo, conDerechos } from "./docs/procedencia/reforma-motor/bloque-e/ejemplos"
+import { liquidarIrpfAnual, liquidarIrpfAnualExplicito, liquidarIrpfAnualConDerechos } from "./lib/dominio/irpf/liquidacion/liquidar-irpf-anual"
+
+const estimacion = Effect.runSync(liquidarIrpfAnual(analitico, { modo: "canonico" }))
+const declaracion = Effect.runSync(liquidarIrpfAnualExplicito(efectivo))
+const reparto = Effect.runSync(liquidarIrpfAnualConDerechos(conDerechos))
+// El primer descendiente tiene dos titulares: 1200 EUR estatales para cada uno.
+const rechazado = Effect.runSync(Effect.result(liquidarIrpfAnual(
+  { ...conDerechos, comunidadAutonoma: "canarias" }, { modo: "canonico" }
+)))
+if (Result.isFailure(rechazado)) console.log(rechazado.failure.motivo)
+```
+
+La UI presenta las cantidades y el signo del diferencial recibidos; no integra tarifas ni vuelve a aplicar artículo 20, mínimos o DA61. Los ejemplos no sustituyen los certificados efectivos del usuario. Las siete referencias Open conservan sus cantidades originales; el nuevo código ha pasado la revisión independiente y su contraste de precisión, documentados en el [cierre técnico](reforma-motor/bloque-e/CIERRE.md); no hereda certificación histórica.
+
+La salida efectiva incluye, además de `_tag`, `perfil`, `ejercicio`, `alcance`, `aceptacionFiscal` y `rastro`, estos textos EUR: `rendimientoNetoReducido`, `baseImponibleGeneral`, `baseLiquidableGeneral`, `baseLiquidableAhorro`, `reduccionArt20`, `cuotaLiquidaLegal` (antes de DA61), `deduccionTrabajo`, `cuotaPosterior` (después de DA61), `retenciones`, `pagosFraccionados`, `cuotaDiferencial` y `cuotaDiferencialPresentada`. Las bases con signo se conservan aunque el gravamen use su parte positiva. `cuotaDiferencialPresentada` es la presentación final; el resto puede tener más de dos decimales cuando la política no cuantiza esa etapa. No convertir esos textos a `number` para recalcular la declaración.

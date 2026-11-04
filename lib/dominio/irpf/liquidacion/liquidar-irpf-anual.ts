@@ -1,12 +1,12 @@
+import { liquidarPagosAnuales } from "../cuotas/cuota-diferencial"
+import { componerLiquidacionAnual } from "./composicion-anual"
 import Decimal from "decimal.js"
 import { Context, Effect, Layer, Match, Option } from "effect"
-import { enlazarRastroAnualActual } from "../../../procedencia/rastro-anual"
+import { rastroTrasReforma } from "../../../procedencia/rastro-reforma"
 import { crearLineaCalculo } from "../../explicacion/linea-calculo"
 import {
-  calcularDerechosMinimos,
   hayAlimentosPropiosSinMinimo,
   validarDerechosMinimos,
-  validarRentasAnualesDerechos,
 } from "../minimos/derechos"
 
 import {
@@ -24,35 +24,13 @@ import {
 import { MINIMOS_ESTATALES_2012 } from "../../normativa/datos/minimos-autonomicos-2012"
 import { MINIMOS_ESTATALES_2013 } from "../../normativa/datos/minimos-autonomicos-2013"
 import { MINIMOS_ESTATALES_2014 } from "../../normativa/datos/minimos-autonomicos-2014"
-import type { MinimosPersonalesFamiliaresIrpf } from "../../normativa/datos/minimos-autonomicos-2025"
-import type {
-  CasoFiscalAnual,
-  SituacionFamiliarIndividual,
-} from "../caso-fiscal-anual"
+import type { CasoFiscalAnual } from "../caso-fiscal-anual"
 import {
-  obtenerParametrosComunidadAutonoma as obtenerParametrosComunidadAutonomaPuro,
   ParametrosNormativosIrpf,
   type ServicioParametrosNormativosIrpf,
 } from "../comunidades/comunidad-autonoma"
-import { calcularCuotaDiferencialCentimos } from "../cuotas/cuota-diferencial"
-import {
-  calcularAhorroConMinimos,
-  calcularCuotaPorEscalaAhorro,
-  calcularDesgloseCuotaPorEscalaAhorro,
-} from "../cuotas/cuota-integra-ahorro"
-import {
-  calcularCuotaPorEscala,
-  calcularDesgloseCuotaPorEscala,
-} from "../cuotas/escalas-gravamen"
-import {
-  ESTATAL_COMPLEMENTARIA_2012_2014,
-  ESTATAL_ORDINARIA_2012_2014,
-  obtenerEscalaAutonomicaPublicada,
-} from "../cuotas/escalas-publicadas"
 import { calcularBaseImponibleAhorro } from "../integracion/base-imponible-ahorro"
 import { calcularBaseImponibleGeneral } from "../integracion/base-imponible-general"
-import { obtenerMinimoContribuyente } from "../minimos/minimo-contribuyente"
-import { obtenerMinimoDiscapacidadContribuyente } from "../minimos/minimo-discapacidad"
 import { calcularReduccionTrabajoConOtrasRentas } from "../reducciones/reduccion-rendimientos-trabajo"
 import { calcularGananciasPatrimonialesPorTransmision } from "../rendimientos/ganancias-perdidas-patrimoniales"
 import {
@@ -398,11 +376,6 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
   const otrasRentasNoExentas = rendimientoCapitalInmobiliario.rendimientoNeto
     .plus(gananciasPatrimoniales.gananciaSujetaGeneral)
     .plus(gananciasPatrimoniales.gananciaSujetaAhorro)
-  if (caso.derechosMinimos !== undefined)
-    yield* validarRentasAnualesDerechos(
-      caso.derechosMinimos,
-      rendimientoTrabajo.rendimientoNeto.plus(otrasRentasNoExentas)
-    ).pipe(Effect.mapError(errorDerechosMinimos))
   const reduccionRendimientosTrabajo = medirAuditoriaSync(
     "liquidacion.reduccionRendimientosTrabajo",
     () =>
@@ -432,231 +405,48 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
         gananciasPatrimoniales,
       })
   )
-  const resultadoParametrosComunidad = medirAuditoriaSync(
-    "liquidacion.parametrosComunidad.obtener",
-    () =>
-      obtenerParametrosComunidadAutonomaPuro({
-        anio: caso.anio,
-        baseLiquidableGeneral,
-        comunidadAutonoma: caso.comunidadAutonoma,
-        fechaFallecimiento: caso.fechaFallecimiento,
-      })
-  )
-  const inicioParametrosComunidadMatch = tiempoAuditoriaMs()
-  const parametrosComunidad = yield* Match.valueTags(
-    resultadoParametrosComunidad,
-    {
-      ComunidadAutonomaNoSoportada: (parametrosComunidad) =>
-        Effect.fail({
-          _tag: "ResultadoNoSoportado",
-          motivo: parametrosComunidad.motivo,
-          fuenteReconocida: parametrosComunidad.fuenteReconocida,
-          rastro: rastroResultadoNoSoportado({
-            caso,
-            fuentePaso:
-              "docs/fuentes/aeat/manual-renta-2025-parte-2-deducciones-autonomicas.md",
-            tituloFuentePaso: "Manual Renta 2025 Parte 2",
-            tituloPaso: "Comunidad autónoma no soportada",
-            descripcionPaso:
-              "El caso fiscal reconoce una comunidad autónoma real, pero esta version del motor solo calcula el caso técnico de contraste con tramo autonómico igualado al estatal.",
-          }),
-        } satisfies ResultadoNoSoportado),
-      ParametrosComunidadAutonoma: (parametrosComunidad) =>
-        Effect.succeed(parametrosComunidad),
-    }
-  )
-  registrarTiempoAgregadoAuditoria(
-    "liquidacion.parametrosComunidad.match",
-    tiempoAuditoriaMs() - inicioParametrosComunidadMatch
-  )
-  const inicioCuotasIntegras = tiempoAuditoriaMs()
-  const escalasPublicadasEstatales =
-    caso.anio <= 2014 && caso.comunidadAutonoma !== "simulada-estatal"
-      ? [ESTATAL_ORDINARIA_2012_2014, ESTATAL_COMPLEMENTARIA_2012_2014]
-      : undefined
-  const escalaPublicadaAutonomica = obtenerEscalaAutonomicaPublicada(caso)
-  const escalasPublicadasAutonomicas =
-    escalaPublicadaAutonomica === undefined
-      ? undefined
-      : [escalaPublicadaAutonomica]
-  const usaEscalaAutonomicaReal =
-    !parametrosComunidad.escalaAutonomicaIgualEstatal
-  // El escenario simulado duplica la parte estatal del mismo selector.
-  // No consulta otra tabla general ni representa una comunidad real.
-  const tramosIrpfEstatalGeneral = usaEscalaAutonomicaReal
-    ? parametrosComunidad.escalaEstatalGeneral
-    : parametrosComunidad.escalaEstatalGeneral.map(
-        ([limite, tipo]) => [limite, tipo.mul(2)] as const
-      )
-  const cuotaIntegraGeneralEstatal = calcularCuotaPorEscala({
-    base: baseLiquidableGeneral,
-    tramos: tramosIrpfEstatalGeneral,
-    escalasPublicadas: escalasPublicadasEstatales,
-  })
-  const cuotaIntegraGeneralAutonomica = usaEscalaAutonomicaReal
-    ? calcularCuotaPorEscala({
-        base: baseLiquidableGeneral,
-        tramos: parametrosComunidad.escalaAutonomica.tramos,
-        escalasPublicadas: escalasPublicadasAutonomicas,
-      })
-    : baseLiquidableGeneral.mul(0)
-  const cuotaIntegraGeneral = cuotaIntegraGeneralEstatal.plus(
-    cuotaIntegraGeneralAutonomica
-  )
-  const cuotaIntegraAhorro = calcularCuotaPorEscalaAhorro({
-    anio: caso.anio,
-    base: baseLiquidableAhorro,
-  })
-  const desgloseCuotaIntegraGeneralEstatal = calcularDesgloseCuotaPorEscala({
-    base: baseLiquidableGeneral,
-    tramos: tramosIrpfEstatalGeneral,
-    escalasPublicadas: escalasPublicadasEstatales,
-  })
-  const desgloseCuotaIntegraGeneralAutonomica = usaEscalaAutonomicaReal
-    ? calcularDesgloseCuotaPorEscala({
-        base: baseLiquidableGeneral,
-        tramos: parametrosComunidad.escalaAutonomica.tramos,
-        escalasPublicadas: escalasPublicadasAutonomicas,
-      })
-    : []
-  const desgloseCuotaIntegraAhorro = calcularDesgloseCuotaPorEscalaAhorro({
-    anio: caso.anio,
-    base: baseLiquidableAhorro,
-  })
-  registrarTiempoAgregadoAuditoria(
-    "liquidacion.cuotasIntegrasYDesgloses",
-    tiempoAuditoriaMs() - inicioCuotasIntegras
-  )
-  const inicioMinimos = tiempoAuditoriaMs()
-  const derechosEstatales =
-    caso.derechosMinimos === undefined
-      ? undefined
-      : yield* calcularDerechosMinimos(
-          caso.derechosMinimos,
-          minimosEstatales
-        ).pipe(Effect.mapError(errorDerechosMinimos))
-  const derechosAutonomicos =
-    caso.derechosMinimos === undefined
-      ? undefined
-      : yield* calcularDerechosMinimos(
-          caso.derechosMinimos,
-          parametrosComunidad.minimosAutonomicos
-        ).pipe(Effect.mapError(errorDerechosMinimos))
-  const minimoContribuyente =
-    derechosEstatales?.contribuyente ??
-    obtenerMinimoContribuyente({
-      anio: caso.anio,
-      edad: caso.situacionFamiliar.edad,
-      minimos: minimosEstatales,
-    })
-  const minimoAscendientes = derechosEstatales?.ascendientes ?? new Decimal(0)
-  const minimoDescendientes = derechosEstatales?.descendientes ?? new Decimal(0)
-  const minimoDiscapacidadContribuyente =
-    derechosEstatales?.discapacidadContribuyente ??
-    obtenerMinimoDiscapacidadContribuyente(
-      caso.situacionFamiliar,
-      minimosEstatales
-    )
-  const minimoDiscapacidadFamiliares =
-    derechosEstatales?.discapacidadFamiliares ?? new Decimal(0)
-  const minimoPersonalYFamiliar = minimoContribuyente
-    .plus(minimoDescendientes)
-    .plus(minimoAscendientes)
-    .plus(minimoDiscapacidadContribuyente)
-    .plus(minimoDiscapacidadFamiliares)
-  const minimoPersonalYFamiliarAutonomico =
-    derechosAutonomicos?.total ??
-    calcularMinimoPersonalYFamiliar({
-      situacionFamiliar: caso.situacionFamiliar,
-      anio: caso.anio,
-      minimos: parametrosComunidad.minimosAutonomicos,
-    })
-  registrarTiempoAgregadoAuditoria(
-    "liquidacion.minimosPersonalesFamiliares",
-    tiempoAuditoriaMs() - inicioMinimos
-  )
-  const inicioCuotasMinimo = tiempoAuditoriaMs()
-  const cuotaMinimoPersonalEstatal = calcularCuotaPorEscala({
-    base: Decimal.min(minimoPersonalYFamiliar, baseLiquidableGeneral),
-    tramos: tramosIrpfEstatalGeneral,
-    escalasPublicadas: escalasPublicadasEstatales,
-  })
-  const cuotaMinimoPersonalAutonomica = usaEscalaAutonomicaReal
-    ? calcularCuotaPorEscala({
-        base: Decimal.min(
-          minimoPersonalYFamiliarAutonomico,
-          baseLiquidableGeneral
-        ),
-        tramos: parametrosComunidad.escalaAutonomica.tramos,
-        escalasPublicadas: escalasPublicadasAutonomicas,
-      })
-    : minimoPersonalYFamiliar.mul(0)
-  const cuotaMinimoPersonal = cuotaMinimoPersonalEstatal.plus(
-    cuotaMinimoPersonalAutonomica
-  )
-  const ahorroConMinimos = calcularAhorroConMinimos({
-    anio: caso.anio,
-    base: baseLiquidableAhorro,
+  const {
+    parametrosComunidad,
+    escalaPublicadaAutonomica,
+    usaEscalaAutonomicaReal,
+    cuotaIntegraGeneral,
+    cuotaIntegraAhorro,
+    desgloseCuotaIntegraGeneralEstatal,
+    desgloseCuotaIntegraGeneralAutonomica,
+    desgloseCuotaIntegraAhorro,
+    derechosEstatales,
+    minimoContribuyente,
+    minimoAscendientes,
+    minimoDescendientes,
+    minimoDiscapacidadContribuyente,
+    minimoDiscapacidadFamiliares,
+    minimoPersonalYFamiliar,
+    minimoPersonalYFamiliarAutonomico,
+    cuotaMinimoPersonal,
+    ahorroConMinimos,
+    cuotaMinimoPersonalAhorro,
+    desgloseCuotaMinimoPersonalEstatal,
+    desgloseCuotaMinimoPersonalAutonomica,
+    cuotaGeneralDespuesMinimo,
+    cuotaAutonomicaGeneralDespuesMinimo,
+    cuotaAhorroDespuesMinimo,
+    deduccionesAutonomicasAplicadas,
+    cuotaLiquida,
+  } = yield* componerLiquidacionAnual({
+    ambito: caso,
+    cotizaciones: {
+      naturaleza: "estimadas-perfil-uniforme",
+      trabajador: cotizacionesSociales.cotizacionTrabajador,
+    },
+    precision: 20,
+    politica: "decimal-hasta-salida",
     baseGeneral: baseLiquidableGeneral,
-    minimoEstatal: minimoPersonalYFamiliar,
-    minimoAutonomico: minimoPersonalYFamiliarAutonomico,
+    baseAhorro: baseLiquidableAhorro,
+    rentasAntesReducciones:
+      rendimientoTrabajo.rendimientoNeto.plus(otrasRentasNoExentas),
+    minimosEstatales,
+    deduccionesAutonomicasCentimos: sumarDeduccionesAutonomicasCentimos(caso),
   })
-  const cuotaMinimoPersonalAhorro = ahorroConMinimos.estatal.minoracion.plus(
-    ahorroConMinimos.autonomico.minoracion
-  )
-  const desgloseCuotaMinimoPersonalEstatal = calcularDesgloseCuotaPorEscala({
-    base: Decimal.min(minimoPersonalYFamiliar, baseLiquidableGeneral),
-    tramos: tramosIrpfEstatalGeneral,
-    escalasPublicadas: escalasPublicadasEstatales,
-  })
-  const desgloseCuotaMinimoPersonalAutonomica = usaEscalaAutonomicaReal
-    ? calcularDesgloseCuotaPorEscala({
-        base: Decimal.min(
-          minimoPersonalYFamiliarAutonomico,
-          baseLiquidableGeneral
-        ),
-        tramos: parametrosComunidad.escalaAutonomica.tramos,
-        escalasPublicadas: escalasPublicadasAutonomicas,
-      })
-    : []
-  registrarTiempoAgregadoAuditoria(
-    "liquidacion.cuotasMinimoYDesgloses",
-    tiempoAuditoriaMs() - inicioCuotasMinimo
-  )
-  const inicioCuotaLiquida = tiempoAuditoriaMs()
-  const cuotaGeneralDespuesMinimo = Decimal.max(
-    0,
-    cuotaIntegraGeneral.minus(cuotaMinimoPersonal)
-  )
-  const cuotaAutonomicaGeneralDespuesMinimo = Decimal.max(
-    0,
-    cuotaIntegraGeneralAutonomica.minus(cuotaMinimoPersonalAutonomica)
-  )
-  const cuotaAhorroDespuesMinimo = Decimal.max(
-    0,
-    cuotaIntegraAhorro.minus(cuotaMinimoPersonalAhorro)
-  )
-  const deduccionesAutonomicasDeclaradas = centimosAEuros(
-    sumarDeduccionesAutonomicasCentimos(caso)
-  )
-  const deduccionesAutonomicasAplicadas = usaEscalaAutonomicaReal
-    ? Decimal.min(
-        deduccionesAutonomicasDeclaradas,
-        cuotaAutonomicaGeneralDespuesMinimo.plus(
-          ahorroConMinimos.autonomico.despuesMinimo
-        )
-      )
-    : deduccionesAutonomicasDeclaradas
-  const cuotaLiquida = Decimal.max(
-    0,
-    cuotaGeneralDespuesMinimo
-      .plus(cuotaAhorroDespuesMinimo)
-      .minus(deduccionesAutonomicasAplicadas)
-  )
-  registrarTiempoAgregadoAuditoria(
-    "liquidacion.deduccionesYCuotaLiquida",
-    tiempoAuditoriaMs() - inicioCuotaLiquida
-  )
   const importesLiquidacion = medirAuditoriaSync(
     "liquidacion.importesLiquidacion.redondeos",
     () => ({
@@ -741,11 +531,11 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
     retencionTrabajoAeat?.importeRetencionAnualCentimos ?? 0
   const pagosACuentaAplicadosCentimos =
     caso.pagosACuentaCentimos + retencionTrabajoAeatCentimos
-  const cuotaDiferencialCentimos = calcularCuotaDiferencialCentimos({
-    cuotaLiquidaCentimos: importesLiquidacion.cuotaLiquidaCentimos,
-    pagosACuentaCentimos: pagosACuentaAplicadosCentimos,
-    retencionesSoportadasCentimos: caso.retencionesSoportadasCentimos,
-  })
+  const cuotaDiferencialCentimos = liquidarPagosAnuales(
+    new Decimal(importesLiquidacion.cuotaLiquidaCentimos),
+    new Decimal(caso.retencionesSoportadasCentimos),
+    new Decimal(pagosACuentaAplicadosCentimos)
+  ).toNumber()
   registrarTiempoAgregadoAuditoria(
     "liquidacion.cuotaDiferencial",
     tiempoAuditoriaMs() - inicioCuotaDiferencial
@@ -1385,15 +1175,7 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
             crearLineaCalculo({
               siteId: "anual.cuota.diferencial",
               instancia: 0,
-              importe: centimosAEuros(
-                calcularCuotaDiferencialCentimos({
-                  cuotaLiquidaCentimos:
-                    importesLiquidacion.cuotaLiquidaCentimos,
-                  pagosACuentaCentimos: pagosACuentaAplicadosCentimos,
-                  retencionesSoportadasCentimos:
-                    caso.retencionesSoportadasCentimos,
-                })
-              ),
+              importe: centimosAEuros(cuotaDiferencialCentimos),
               unidad: "EUR",
               etiqueta: "Cuota diferencial",
               formula: `${euros(cuotaLiquida)} - ${euros(centimosAEuros(caso.retencionesSoportadasCentimos))} - ${euros(centimosAEuros(pagosACuentaAplicadosCentimos))}`,
@@ -1462,25 +1244,6 @@ const detectarCasoNoSoportado = Effect.fn(
       }),
   })
 })
-
-const calcularMinimoPersonalYFamiliar = ({
-  anio,
-  minimos,
-  situacionFamiliar,
-}: {
-  readonly anio: CasoFiscalAnual["anio"]
-  readonly minimos: MinimosPersonalesFamiliaresIrpf
-  readonly situacionFamiliar: SituacionFamiliarIndividual
-}): Decimal => {
-  const minimoContribuyente = obtenerMinimoContribuyente({
-    anio,
-    edad: situacionFamiliar.edad,
-    minimos,
-  })
-  return minimoContribuyente.plus(
-    obtenerMinimoDiscapacidadContribuyente(situacionFamiliar, minimos)
-  )
-}
 
 const euros = (importe: Decimal): string => `${importe.toFixed(2)} euros`
 
@@ -1585,29 +1348,3 @@ const rastroResultadoNoSoportado = ({
 })
 
 export { liquidarIrpfAnualExplicito } from "../trabajo-anual/conexion"
-
-/** Los enlaces conservan su versión histórica; no certifican este código. */
-const rastroTrasReforma = (rastro: RastroCalculo): RastroCalculo => {
-  const historico = enlazarRastroAnualActual(rastro)
-  return {
-    ...historico,
-    pasos: historico.pasos.map((paso) =>
-      paso.lineasCalculo === undefined
-        ? paso
-        : {
-            ...paso,
-            lineasCalculo: paso.lineasCalculo.map((linea) => {
-              const referencia = linea.procedencia
-              if (referencia?.estado !== "enlazada") return linea
-              return {
-                ...linea,
-                procedencia: {
-                  estado: "pendiente" as const,
-                  motivo: `Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: ${referencia.href}; snapshot ${referencia.snapshot}; algoritmo ${referencia.algoritmo}; datos ${referencia.datos}; explicación ${referencia.explicacion}; sujeto ${referencia.sujeto.id}@${referencia.sujeto.revision}`,
-                },
-              }
-            }),
-          }
-    ),
-  }
-}

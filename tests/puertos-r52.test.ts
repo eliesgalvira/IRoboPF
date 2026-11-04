@@ -199,3 +199,11 @@ const explicit = {
   },
   retenciones: [],
 }
+
+it("R52 declara pendiente la composición anual nueva; no hereda aceptación histórica", () => {
+  expect(fragment.boundaries.find(b => b.name === "boundary:componerLiquidacionAnual")).toMatchObject({
+    status: "requires-external-contract", admissionAvailable: false,
+  })
+  expect(fragment.completeRuleAcceptance).toBe(false)
+  expect(fragment.wiringAllowed).toBe(false)
+})

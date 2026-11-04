@@ -4,6 +4,7 @@ import ts from "typescript"
 import { verificarFuente } from "./fuente-fijada.mjs"
 
 const rutas = [
+  "lib/dominio/irpf/liquidacion/composicion-anual.ts",
   "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
   "lib/dominio/irpf/trabajo-anual/conexion.ts",
   "lib/dominio/irpf/retenciones/retencion-trabajo-aeat.ts",

@@ -44,7 +44,13 @@ it("las llamadas de producto apuntan a la liquidación, derechos y cotización �
     "liquidacionIrpf.liquidar"
   )
   expect(calls("liquidacion/liquidar-irpf-anual.ts")).toContain(
+    "componerLiquidacionAnual"
+  )
+  expect(calls("liquidacion/composicion-anual.ts")).toContain(
     "calcularDerechosMinimos"
+  )
+  expect(calls("trabajo-anual/conexion.ts")).toContain(
+    "componerLiquidacionAnual"
   )
   expect(calls("retenciones/retencion-trabajo-aeat.ts")).toContain(
     "calcularDerechosMinimos"

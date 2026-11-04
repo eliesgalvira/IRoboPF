@@ -230,7 +230,8 @@ export const validarRentasAnualesDerechos = Effect.fn(
 export const calcularDerechosMinimos = Effect.fn("Minimos.calcularDerechos")(
   function* (
     entrada: DerechosMinimos2025,
-    minimos: MinimosPersonalesFamiliaresIrpf
+    minimos: MinimosPersonalesFamiliaresIrpf,
+    aritmetica: Decimal.Constructor = Decimal
   ) {
     const caso = yield* validarDerechosMinimos(entrada)
     const elegibles = caso.descendientes
@@ -256,8 +257,9 @@ export const calcularDerechosMinimos = Effect.fn("Minimos.calcularDerechos")(
             "Empate de nacimiento con reparto distinto requiere criterio de orden"
           )
       }
-    let descendientes = new Decimal(0)
-    let discapacidadFamiliares = new Decimal(0)
+    const A = aritmetica
+    let descendientes = new A(0)
+    let discapacidadFamiliares = new A(0)
     const atribuciones = elegibles.map(
       ({ descendiente: d, titulares }, indice) => {
         const titular = titulares.find(
@@ -277,12 +279,14 @@ export const calcularDerechosMinimos = Effect.fn("Minimos.calcularDerechos")(
               : indice === 2
                 ? minimos.descendientes.tercero
                 : minimos.descendientes.cuartoYSiguientes
-        const minimo = porOrden
+        const minimo = new A(porOrden)
           .plus(incremento ? minimos.descendientes.adicionalMenorTres : 0)
           .div(titulares.length)
-        const discapacidad = obtenerMinimoPorDiscapacidad(
-          d.discapacidad,
-          minimos.discapacidad.descendiente
+        const discapacidad = new A(
+          obtenerMinimoPorDiscapacidad(
+            d.discapacidad,
+            minimos.discapacidad.descendiente
+          )
         ).div(titulares.length)
         descendientes = descendientes.plus(minimo)
         discapacidadFamiliares = discapacidadFamiliares.plus(discapacidad)
@@ -315,10 +319,10 @@ export const calcularDerechosMinimos = Effect.fn("Minimos.calcularDerechos")(
     return {
       contribuyente,
       descendientes,
-      ascendientes: new Decimal(0),
+      ascendientes: new A(0),
       discapacidadContribuyente,
       discapacidadFamiliares,
-      total: contribuyente
+      total: new A(contribuyente)
         .plus(descendientes)
         .plus(discapacidadContribuyente)
         .plus(discapacidadFamiliares),

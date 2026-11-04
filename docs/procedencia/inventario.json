@@ -110,15 +110,15 @@
     },
     {
       "file": "lib/dominio/irpf/cuotas/cuota-diferencial.ts",
-      "sha256": "f4ddb6d465ecd2449a463464b8dc478ce3ffa2cc172e8ac33956f6c46536d244"
+      "sha256": "b4c8578e9ae3df0f5e5ff1c953a6fe2a95ff39bd9b9345f30ff6007ac7d35637"
     },
     {
       "file": "lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts",
-      "sha256": "ce5b9963990b43ce994b103e2eba481ffda8bdf3c209dd4ae37a86a33948a8ad"
+      "sha256": "461ff20266909eb8ff8caae037eecf5156a4ef2b1dff2eb819bb7e9de7ab0cb8"
     },
     {
       "file": "lib/dominio/irpf/cuotas/escalas-gravamen.ts",
-      "sha256": "1d8e56cdf60af7e02ca80a6dd03c58f143fee59427c9620deefe293f9f355be5"
+      "sha256": "fcd31a59c781d543fc50c04e3927259305014534d2cac770e1e7946e1ba2802a"
     },
     {
       "file": "lib/dominio/irpf/cuotas/escalas-publicadas.ts",
@@ -153,8 +153,12 @@
       "sha256": "a119155b529db288099146050c1a8af3aede3f008d02748ec63fa2408adc6e82"
     },
     {
+      "file": "lib/dominio/irpf/liquidacion/composicion-anual.ts",
+      "sha256": "4fdd2b71874757c560636365f6faf25480839500c62f4f9c4671a272378ab072"
+    },
+    {
       "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
-      "sha256": "d1f8b1309a980bcb43313f7120b8d4f56effb7d4e89ed88cc99e189be201f536"
+      "sha256": "a6e140dbe3ff71aec9f63b2cc8f7a766ca89ddcdbf9663ce6b62beb0fd3888d5"
     },
     {
       "file": "lib/dominio/irpf/minimos/derechos-contrato.ts",
@@ -162,7 +166,7 @@
     },
     {
       "file": "lib/dominio/irpf/minimos/derechos.ts",
-      "sha256": "6bc38847c81a72f922e18952e492732da5853043e067ca7737429b9e60483811"
+      "sha256": "264e42263572d28df6c24dd263678fff639c6c92eba28973a6208f63ad2880ee"
     },
     {
       "file": "lib/dominio/irpf/minimos/minimo-contribuyente.ts",
@@ -214,7 +218,7 @@
     },
     {
       "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
-      "sha256": "b54527895dd1ffb31d439980a347e7931b0dac6af1887599ac992e17a804e135"
+      "sha256": "32368e673eefc58cd47e7ba503119e1bdad6c6fc6a779f5b8eabde128777f9c9"
     },
     {
       "file": "lib/dominio/irpf/trabajo-anual/contrato.ts",
@@ -519,12 +523,12 @@
   ],
   "sourceScope": "lib/**/*.ts(x) excepto lib/procedencia; Calculo_Salario_IRPF.py",
   "counts": {
-    "filesTs": 117,
+    "filesTs": 118,
     "filesPython": 1,
-    "syntactic": 25288,
+    "syntactic": 25365,
     "effective": 17028,
     "selected": 11727,
-    "pendingUnits": 31225,
+    "pendingUnits": 31302,
     "catalog": 351,
     "audited": 0
   },
@@ -738,17 +742,17 @@
     },
     {
       "file": "lib/dominio/irpf/cuotas/cuota-diferencial.ts",
-      "sha256": "f4ddb6d465ecd2449a463464b8dc478ce3ffa2cc172e8ac33956f6c46536d244",
-      "items": 3,
+      "sha256": "b4c8578e9ae3df0f5e5ff1c953a6fe2a95ff39bd9b9345f30ff6007ac7d35637",
+      "items": 9,
       "numeric": 0,
       "decimalStrings": 0,
-      "functions": 1,
+      "functions": 2,
       "conditions": 0
     },
     {
       "file": "lib/dominio/irpf/cuotas/cuota-integra-ahorro.ts",
-      "sha256": "ce5b9963990b43ce994b103e2eba481ffda8bdf3c209dd4ae37a86a33948a8ad",
-      "items": 43,
+      "sha256": "461ff20266909eb8ff8caae037eecf5156a4ef2b1dff2eb819bb7e9de7ab0cb8",
+      "items": 46,
       "numeric": 6,
       "decimalStrings": 0,
       "functions": 5,
@@ -756,8 +760,8 @@
     },
     {
       "file": "lib/dominio/irpf/cuotas/escalas-gravamen.ts",
-      "sha256": "1d8e56cdf60af7e02ca80a6dd03c58f143fee59427c9620deefe293f9f355be5",
-      "items": 76,
+      "sha256": "fcd31a59c781d543fc50c04e3927259305014534d2cac770e1e7946e1ba2802a",
+      "items": 86,
       "numeric": 6,
       "decimalStrings": 0,
       "functions": 17,
@@ -836,13 +840,22 @@
       "conditions": 3
     },
     {
+      "file": "lib/dominio/irpf/liquidacion/composicion-anual.ts",
+      "sha256": "4fdd2b71874757c560636365f6faf25480839500c62f4f9c4671a272378ab072",
+      "items": 240,
+      "numeric": 24,
+      "decimalStrings": 1,
+      "functions": 7,
+      "conditions": 74
+    },
+    {
       "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
-      "sha256": "d1f8b1309a980bcb43313f7120b8d4f56effb7d4e89ed88cc99e189be201f536",
-      "items": 805,
-      "numeric": 78,
+      "sha256": "a6e140dbe3ff71aec9f63b2cc8f7a766ca89ddcdbf9663ce6b62beb0fd3888d5",
+      "items": 649,
+      "numeric": 68,
       "decimalStrings": 0,
-      "functions": 65,
-      "conditions": 104
+      "functions": 57,
+      "conditions": 76
     },
     {
       "file": "lib/dominio/irpf/minimos/derechos-contrato.ts",
@@ -855,8 +868,8 @@
     },
     {
       "file": "lib/dominio/irpf/minimos/derechos.ts",
-      "sha256": "6bc38847c81a72f922e18952e492732da5853043e067ca7737429b9e60483811",
-      "items": 404,
+      "sha256": "264e42263572d28df6c24dd263678fff639c6c92eba28973a6208f63ad2880ee",
+      "items": 407,
       "numeric": 64,
       "decimalStrings": 0,
       "functions": 35,
@@ -972,12 +985,12 @@
     },
     {
       "file": "lib/dominio/irpf/trabajo-anual/conexion.ts",
-      "sha256": "b54527895dd1ffb31d439980a347e7931b0dac6af1887599ac992e17a804e135",
-      "items": 290,
+      "sha256": "32368e673eefc58cd47e7ba503119e1bdad6c6fc6a779f5b8eabde128777f9c9",
+      "items": 261,
       "numeric": 46,
-      "decimalStrings": 2,
+      "decimalStrings": 1,
       "functions": 11,
-      "conditions": 41
+      "conditions": 35
     },
     {
       "file": "lib/dominio/irpf/trabajo-anual/contrato.ts",
@@ -1874,1357 +1887,1357 @@
     {
       "file": "inventario-pagina-0000.json",
       "count": 200,
-      "sha256": "f3172e5e13470f6787375ea144fd27948b76e49bb2563844f3576028b65ffd1d"
+      "sha256": "103853b33cffc090e42b654e28f4917b27af46f1a7b04f252e2b9211292870eb"
     },
     {
       "file": "inventario-pagina-0001.json",
       "count": 200,
-      "sha256": "36b7f867f86d63398b37f7ba115b5002aff2395f6e22d964929bf372b4f39322"
+      "sha256": "6eff2d57cec5fc94612a743598aac1b2ae0da4e4be0f7e96dbd898e6be239e30"
     },
     {
       "file": "inventario-pagina-0002.json",
       "count": 200,
-      "sha256": "c526492febbb407ad6d9bd6e576a3fb01195a66e045224c62200d7cff5528719"
+      "sha256": "87758194a27fe160b20356cf7132e0be5cbf50054ab15ed19f853db52bc7a7d3"
     },
     {
       "file": "inventario-pagina-0003.json",
       "count": 200,
-      "sha256": "e748ce21a5f8c7dc6b1c0fd1531e4674e4d1ee29c047e9dea3ebe88171e4bcd0"
+      "sha256": "4b5e483d850ea3a5ca1bd069fd203e0359e44957a6832dab1086b7d1d79482c7"
     },
     {
       "file": "inventario-pagina-0004.json",
       "count": 200,
-      "sha256": "714bd5c75c561243d07676de04784299fc02ffaf2000d9cd9c016402dafc1b27"
+      "sha256": "aae8e071cdfa3cc8c74636315eb410ab2fd950e009e07a5332a12e34b5c3e628"
     },
     {
       "file": "inventario-pagina-0005.json",
       "count": 200,
-      "sha256": "2f8567a58a66875ed8560c187cd9292571dd57499c657b59f55afb4b567227d1"
+      "sha256": "cedea3fcee8a51833dfdf9cc56646f6c5a2f8fa9744b79d6b50f8e5cc2ae3590"
     },
     {
       "file": "inventario-pagina-0006.json",
       "count": 200,
-      "sha256": "5bb98555c404970c640408d9475ccd75ce61432a90683a469416bd4ece5a6561"
+      "sha256": "f867e58f7f99811def8b8ea5cdd1df925662fc221e752986a03616b5a1856cd6"
     },
     {
       "file": "inventario-pagina-0007.json",
       "count": 200,
-      "sha256": "de53dfb52b233caf387fb26d2547a8959321a43d066a5ac2641e0062eb2d54f4"
+      "sha256": "310f8f335813869f55a4e33ff17a29fea01ac3f5c483e1fb18af4c1485f95c3b"
     },
     {
       "file": "inventario-pagina-0008.json",
       "count": 200,
-      "sha256": "3b28ab708b809f6ad90308d1e9ed6d733202ac1213c749165f70898dbb8d524d"
+      "sha256": "766f1229cf954015a6293273eab91437d7d5b477d51ec1b3bbccc331479e185b"
     },
     {
       "file": "inventario-pagina-0009.json",
       "count": 200,
-      "sha256": "193ca331f8843ebb891e4f0ac1b2beab0080610625b97277c1d6ce4f05a5b7c8"
+      "sha256": "1d9608bf19984553a72d5e30d642bcf098a19b38f84a64db39162c5947a82d42"
     },
     {
       "file": "inventario-pagina-0010.json",
       "count": 200,
-      "sha256": "25a1a588aed8bde9390918e11148326094621e15f36dc308b46f9f8adcfafc01"
+      "sha256": "a6325bca0a687db367a5521456ccb600dc39efecc66728c6d5077910346cb559"
     },
     {
       "file": "inventario-pagina-0011.json",
       "count": 200,
-      "sha256": "fbe525d171e519581dd4392d395409ef8ddc942b9d2f237ac5e03f371562c5f3"
+      "sha256": "4559b2726f30233cd76246cdbfd0f7ea3363de737dbc612b290c3e3110f15bbc"
     },
     {
       "file": "inventario-pagina-0012.json",
       "count": 200,
-      "sha256": "27162b06dab6fa83aee36177a26a8901fccbbce2eaef5a1cb8d9dcdc20c056aa"
+      "sha256": "644b81fd5b1b1db889e571b2a7099c523c2173e88fa11d174c4644c7c5306f9e"
     },
     {
       "file": "inventario-pagina-0013.json",
       "count": 200,
-      "sha256": "73b8cf25b91de4c310e51e4a45ec7703b7f5dbd0291f1021c036a2b0e0a63f92"
+      "sha256": "4aa2f5d6b3741d237d85ef7376639e239b5436e7a4da28d224e563883ddac538"
     },
     {
       "file": "inventario-pagina-0014.json",
       "count": 200,
-      "sha256": "2f679e65160f13909e4ddbcb2eaf278c53843610c0966b3e1a389bd516dbfae0"
+      "sha256": "c85ff653bf702a3360da368b435058b7fb40030e4540f627ccea7f59aa842bc9"
     },
     {
       "file": "inventario-pagina-0015.json",
       "count": 200,
-      "sha256": "2b8e6f50728bdbebeb88dbb9562304fafba918a85510a704aecba9d6e81a0808"
+      "sha256": "f429a5b23c6c1a3527e01f1219ec9d77ed1f55110f4daa9a3fa1a33d5a810f02"
     },
     {
       "file": "inventario-pagina-0016.json",
       "count": 200,
-      "sha256": "deaacd4d5e6ed882bb662666a60efc5f4423ca59a9391aeaf0871d204e0f9fc0"
+      "sha256": "72d8103c3301f43c53882af7e679ab834b5239673fe3468b98292cc71e009467"
     },
     {
       "file": "inventario-pagina-0017.json",
       "count": 200,
-      "sha256": "85acfab6a10bf285fa63ef76e923b934d0ecc5155bebc06bf98b3f793a8acaae"
+      "sha256": "9cb4123217dc369cc00402945ba27319d04b6356095681339dba6b2e7bde0ec3"
     },
     {
       "file": "inventario-pagina-0018.json",
       "count": 200,
-      "sha256": "5d6bbeb99af386946a724080a43c314a65d94fdad9b47719a1bf15a514f47438"
+      "sha256": "95f46527bb849b675b8ed42ecac0b270183b96d6b7e336f79204c99a0f8197da"
     },
     {
       "file": "inventario-pagina-0019.json",
       "count": 200,
-      "sha256": "24aeda2bc274e609028540b13fbda8407421346f941bf46427acaf879db789c0"
+      "sha256": "8c56821c57bafbf58e9e6ae579bb9129ac82af4f626c3c16dd2f22148f4d756d"
     },
     {
       "file": "inventario-pagina-0020.json",
       "count": 200,
-      "sha256": "3972dd378fb689d5529e7a9ed81e9c27f0ce36a1e44d6e0f9a38a490d26d4732"
+      "sha256": "73343d189ceaf9b35400412af07b3047aa858a83f9cc95b4aa2a7eceeb422ee1"
     },
     {
       "file": "inventario-pagina-0021.json",
       "count": 200,
-      "sha256": "aa3b1a1c4f9303260fe0923a18187a243511585a678f2980fda895895ec549d4"
+      "sha256": "d59a9a7c1708ab6ae99aa2e149900ae12a72d5bdc4191c105518f1e91a3a338a"
     },
     {
       "file": "inventario-pagina-0022.json",
       "count": 200,
-      "sha256": "a21caf061ba343a03de437d16f23ff8c9779f5ae69498c6eacc5f390cc56cbdb"
+      "sha256": "fc3f7c7768c8389faee53a9b42496390c5298f5fb9cb2f063628a05943af9df1"
     },
     {
       "file": "inventario-pagina-0023.json",
       "count": 200,
-      "sha256": "eabc8131e414950f9873292706d176748d7bc63eb9b0fe5b964bbc714099f23b"
+      "sha256": "1738c8047c46db24a5ec9fae9885f20f822d6c3fd7e3fcd8b7fb8dc05f76483d"
     },
     {
       "file": "inventario-pagina-0024.json",
       "count": 200,
-      "sha256": "0ca7e49cca2d29d9eaf794b8382475eda92a15441c384a951973e514762fb346"
+      "sha256": "3324b7ea714f2d20b3ec34a16c0766dede601e7f20dbc61fcd4cb848757c37ed"
     },
     {
       "file": "inventario-pagina-0025.json",
       "count": 200,
-      "sha256": "5dd1e51bb767e4281b2941e1fe728bef1525ce81e380d73af09ea23146dc0a70"
+      "sha256": "0e19c49a71cb7b565e7155376f5ff4be2f45410525fde970156300ea6bdb3ebb"
     },
     {
       "file": "inventario-pagina-0026.json",
       "count": 200,
-      "sha256": "e4a3b038ae06600aab9dc0ebf49d431b008b0d6ebcfab728a1cfbab81e6bbe92"
+      "sha256": "8bc6fc8f04df9d5a91f8d7bf149b7c23224ceddec38fb84331ff06a87d9af886"
     },
     {
       "file": "inventario-pagina-0027.json",
       "count": 200,
-      "sha256": "56da8c4e5df1ee68c251c245de93ecd06da8f30ac81557328697cda820857e15"
+      "sha256": "0493ec96bb7fe3080917238b69f2c1c3dd0a52bbd5795a71af16abf8abf2808e"
     },
     {
       "file": "inventario-pagina-0028.json",
       "count": 200,
-      "sha256": "2d77bc2e12e00879425caf767ea4849e36a4505b9c99b175938412aa655d9398"
+      "sha256": "3147cf7a237e8edf5ad842544dc3306642a8936a6ef5e617fba2843f46ffccce"
     },
     {
       "file": "inventario-pagina-0029.json",
       "count": 200,
-      "sha256": "23c1c7e57f58a2705daed45a23a3d4b27f88c81da1970c108183d58d26879087"
+      "sha256": "c4717b1c613627591ff2265e848c53bcea1c6bad6e0e0b630345ec867a5c7518"
     },
     {
       "file": "inventario-pagina-0030.json",
       "count": 200,
-      "sha256": "d7f34a05216a66779eb13a8404e15af68f7423eaf1becb491435d80a8ad85cfa"
+      "sha256": "9a7f1a79c77b507d70e16ba350899e7b909147fe153a4b9bce0640812796f4bf"
     },
     {
       "file": "inventario-pagina-0031.json",
       "count": 200,
-      "sha256": "09a78a91214dc1141c62e049e29413bed46b82fad7031151a6760134ce69f77c"
+      "sha256": "d32e79ea042ac4ae3ad2f339bfdbfd68ea603892fd13e8bef7d7599d3c6ffed0"
     },
     {
       "file": "inventario-pagina-0032.json",
       "count": 200,
-      "sha256": "fc15d096bea08fa55201be93f9b9fee35754703a2153a8b084e3b1cf55e49ce2"
+      "sha256": "9371b08b8e82bd604cad132bc7bc0ef6bcc810891638dde6bfce104e735995da"
     },
     {
       "file": "inventario-pagina-0033.json",
       "count": 200,
-      "sha256": "3129599c369abbdf1dab1c5d38ecbfae51b497f6a2e25aab9e5a8e35e04444d3"
+      "sha256": "1542f7c797dc016732c4680478e484ad03e6b2fe82e111da8b9bdda8eed6b3a4"
     },
     {
       "file": "inventario-pagina-0034.json",
       "count": 200,
-      "sha256": "cb252a4d341fda596c2936a12c97d3a2d2148622b76130688dfdf458cf6c884e"
+      "sha256": "54fb9360639653d6f13a71a0d869f24ed6ec9fd7a346a31388b605ea3b65e8a0"
     },
     {
       "file": "inventario-pagina-0035.json",
       "count": 200,
-      "sha256": "664cdb7a15c6d04462e518a089c9a96aaae99242dde8126cbeaa4333f86c32e0"
+      "sha256": "c44780eee31c6c5ae499457e4ed0dc4371e04b469b3304ffcb853ab39adcc6f9"
     },
     {
       "file": "inventario-pagina-0036.json",
       "count": 200,
-      "sha256": "d894c0ee4df4b422ee312fd020bbe386b8f3abe5feda42000eab5f6ce115db97"
+      "sha256": "d46807749d0246a620ca2829ee37a0f6bd7cfeefb3cb9187f30acb0f27aa1162"
     },
     {
       "file": "inventario-pagina-0037.json",
       "count": 200,
-      "sha256": "5d0fc6dad7426a0bd2d31f9e325ea6c449dd82b1123ee75df7a49b68bb486195"
+      "sha256": "e5e7cb973636d34f6a5a939c9f667c71c761363a2b37150e9a05046545cd6f15"
     },
     {
       "file": "inventario-pagina-0038.json",
       "count": 200,
-      "sha256": "d89f8844ea8de13758c7223a670996b1d3648bf4f268a0941d689d43f97b6e5b"
+      "sha256": "b9fd67d58ee6121c2f2c822d14de5c1e9b1aacd8646ba6a553a7bce95e1d9905"
     },
     {
       "file": "inventario-pagina-0039.json",
       "count": 200,
-      "sha256": "8e896d8c2fcde4449b87ed2bf4763a2b12e06c4e7ed89ebfc00ae5aa569f34c2"
+      "sha256": "5a297502593cf7004c2d99ce503ee7b81ee24af68524936c4d374256f3a754c0"
     },
     {
       "file": "inventario-pagina-0040.json",
       "count": 200,
-      "sha256": "b647a1dbc57a6f108465112e9b51b81ff11a0dd22ef3cd1869691938c932fe8b"
+      "sha256": "f49fdce6fd5b040935d221165280175b56b4ab520c89ccc2fa4a75a51552e81d"
     },
     {
       "file": "inventario-pagina-0041.json",
       "count": 200,
-      "sha256": "78b873f36de96cb2e8f6765b5fbba8340f91d11130d302130a15866bdba1253e"
+      "sha256": "f5d7a429eb785b0d950588d79ec8b0268a6f834730f3c9afc950321b8564d877"
     },
     {
       "file": "inventario-pagina-0042.json",
       "count": 200,
-      "sha256": "af0c22f316231f2d6245e4252cf0d1d455c5b69294b815ec68f86b9e4773ee61"
+      "sha256": "347859cb9676c8fe564b2a3cfb9f3e8d89c8578465eff692fbd39da44e5ef987"
     },
     {
       "file": "inventario-pagina-0043.json",
       "count": 200,
-      "sha256": "4b31b508eeb3bcd3330ce759224e66022a7e77229bec312db556dff24a0952a7"
+      "sha256": "709fb1e85d11f579772b86805bb98f7e39e5a3177cec2752c7a985eab3f3278f"
     },
     {
       "file": "inventario-pagina-0044.json",
       "count": 200,
-      "sha256": "fb7515f796ef12d432eea211220540384b2254831bcc9b90f304f182eed29e8e"
+      "sha256": "1d2a7b147dc11f3cd3ec4ea17653b734676f6af8775fab357f08362a0085c346"
     },
     {
       "file": "inventario-pagina-0045.json",
       "count": 200,
-      "sha256": "516f8c4152b3d824ae71638dd8b3bec7bedafa761d24fc9a0b9511079f86724d"
+      "sha256": "b3fa698f19f239fc6e68f12e0d665fc7db8bcee95699f2f3bc1f5c869459e9bf"
     },
     {
       "file": "inventario-pagina-0046.json",
       "count": 200,
-      "sha256": "8c7e2b5a2f6b9f60877dc369243f8a045053e753f6f2d3f75e7b1f832c32d9e4"
+      "sha256": "b17b4802b8c83a4a2d7b485949f217db32d0a3328f4a37eef7bd2a0cb260ba0d"
     },
     {
       "file": "inventario-pagina-0047.json",
       "count": 200,
-      "sha256": "181457b36fdf41bd742ab88f87f8eeb6bac94fbffa77633471f07f325a39bcaa"
+      "sha256": "d56bbae7de0f7d74f11eb56b54bec7e77b6b44945b34077c897464ef310fc8df"
     },
     {
       "file": "inventario-pagina-0048.json",
       "count": 200,
-      "sha256": "8ab0c097e107907487011aba1c639caff8e1069feea66a67671f34eb47c36033"
+      "sha256": "c2568336953884b05673e6e83e024c14570028c2d37a34ef07e5cf74800236da"
     },
     {
       "file": "inventario-pagina-0049.json",
       "count": 200,
-      "sha256": "7041f432c61d8a11719366ec7d8ff24cdfc0fa7f8639bf183d2a38a32b7a2ba6"
+      "sha256": "7471b675640aa18d86c0ac1848a2148eee73c6421c8e418a7ee0b4cf2fc699a5"
     },
     {
       "file": "inventario-pagina-0050.json",
       "count": 200,
-      "sha256": "778910fedc6d43e9d926cffed27c7dadcb829a362e8cfe3cdb72417236bfe871"
+      "sha256": "cd682d7dea583655f32e5632326af430a5fffb65f0798f915e351a86f613cb37"
     },
     {
       "file": "inventario-pagina-0051.json",
       "count": 200,
-      "sha256": "037b57c9de39d93ea109f113b373c9b1b53c39b6bb664d6c19f12b8f043a73d6"
+      "sha256": "6bd7f4d4ba7e73e1f99308f884b42f47b33dfb0ad6ed486769ecbbaab603e324"
     },
     {
       "file": "inventario-pagina-0052.json",
       "count": 200,
-      "sha256": "c19bd088d444ef71e779f698599fa56e954c671c4307b3c0b3924b9420ba5e3f"
+      "sha256": "76919f505f6c7f40fa207b2cca3c0fb61babb9dab688a9fdda2c5ccee6275be0"
     },
     {
       "file": "inventario-pagina-0053.json",
       "count": 200,
-      "sha256": "91c512c3b9488fe84ef3cd93d5c5eaad544b2dc8b2e10b1fba3b58a61cf5c55e"
+      "sha256": "96eccea255e701f10c927667c780e3d8a4849b76dd0a5fd1d7a2bdc5df452a17"
     },
     {
       "file": "inventario-pagina-0054.json",
       "count": 200,
-      "sha256": "cd5435d65eb41dcc42292d1e4e2086fcc0053a60bcb7ca91d6d6234f020cdab1"
+      "sha256": "1f834173a1e82b0750f9658ff97431c9a7266107449bfe87404c2e47bcaf885d"
     },
     {
       "file": "inventario-pagina-0055.json",
       "count": 200,
-      "sha256": "a0d4d4e7951775f00a193b2dbb14836fc648c844910687a8f58f393f554ef05c"
+      "sha256": "beb41677b5eed79813f647a08fb6f6114cbf5374c3415089237d037a635dac1a"
     },
     {
       "file": "inventario-pagina-0056.json",
       "count": 200,
-      "sha256": "f61aec88f7e95dbed83612d668de76091baffffc17c34b6fbfa1884af154cacf"
+      "sha256": "95735d61f630d0011e3d15a9a61ca43fce6ea52f27d852428622b4cfbcdd0d90"
     },
     {
       "file": "inventario-pagina-0057.json",
       "count": 200,
-      "sha256": "0edaded6b06f1ac0bb9da02020c23a07bae5dd872997cc8f2d382cf7b79bd6f2"
+      "sha256": "82a040be6ee01ed85f9d98ef40961eb1e517060eb7a3bd44492da0a2825e4a94"
     },
     {
       "file": "inventario-pagina-0058.json",
       "count": 200,
-      "sha256": "2908a3e843950c041188e255d5b4001201af375e6567079d1bdc33f5c999a732"
+      "sha256": "c9a19c74728c5e8bcfbac019560bc12a4dba695f4c8926a696bcf0342b0b996f"
     },
     {
       "file": "inventario-pagina-0059.json",
       "count": 200,
-      "sha256": "e6395a600cfb268b71efe7c512f1118b9e7f65257a9501f9578b0415ff8b73fb"
+      "sha256": "584dea8fea4aebd9be08885e970686c701dfeb766af2f507ea1b7a74dde66b39"
     },
     {
       "file": "inventario-pagina-0060.json",
       "count": 200,
-      "sha256": "2e00c742b231a9e8ae9fe51a53a3dbaf41a5248a043b1783341db2a1b03ff27e"
+      "sha256": "672e3b505f6fb7118cb09e507cc957cf47ed089713e536bc0f90fbb02cb90cbc"
     },
     {
       "file": "inventario-pagina-0061.json",
       "count": 200,
-      "sha256": "8e2b4807443783c4ceac392d095d47db82133f828c1ca7bfb33c9291311c414d"
+      "sha256": "126f7fb18e0f15a725b9422b10423442ba32d6ce1631c3420540077fb5860f5e"
     },
     {
       "file": "inventario-pagina-0062.json",
       "count": 200,
-      "sha256": "49ab18dd8878984633d078e2474989596ce93ad0850db7f833eab8eddc5ceecb"
+      "sha256": "bf5da0645818cb61680eefe6c90fe08101b212cb1effca8b2e5f1df97ca3e18a"
     },
     {
       "file": "inventario-pagina-0063.json",
       "count": 200,
-      "sha256": "0ad063b83e23999d319f0188f2d6e8c3068575eb7562439cc2fcdbee3849ffe0"
+      "sha256": "e9496167f0d73b7a6ffcb037a6b29f48596f2187d9aa5c3ed0a8f1b91df03051"
     },
     {
       "file": "inventario-pagina-0064.json",
       "count": 200,
-      "sha256": "5a7f1efb83a758720b41b0e760515e54011402671adc00cfab4a802d3262b513"
+      "sha256": "96b84a22c59447b936c0a4bd01847d23efb5e1fd1cfb3f25f5c81fe0f2f2803d"
     },
     {
       "file": "inventario-pagina-0065.json",
       "count": 200,
-      "sha256": "09f38a7864b8d1370e140503b17a91c8fa99716bc73e5f117c189c31ff884e0e"
+      "sha256": "618de97b05f51ba64e7ff4d683633f3e88a371f7e55d289fd89a8046077e8053"
     },
     {
       "file": "inventario-pagina-0066.json",
       "count": 200,
-      "sha256": "19d7f17bd7e5df1a6963beeb84427add9eb2f5f8586f48f77a4517b082b3e714"
+      "sha256": "75f801522b2e9ba50441e6911a4c643381de80c34b07290a32de892285ad8829"
     },
     {
       "file": "inventario-pagina-0067.json",
       "count": 200,
-      "sha256": "121a3e7575a605024e5dee5470d6ceba6cd14a180b0d83b45fefc02535575354"
+      "sha256": "e6c4b06e442c6ff3e51657032b99c8fb778d773fab9434a63edf98614c2cd3bc"
     },
     {
       "file": "inventario-pagina-0068.json",
       "count": 200,
-      "sha256": "cfafe2b5315706d1313df5b21f3dd20e3c6e7be1035896a81fe55d21b6d87fe2"
+      "sha256": "87f3990c3bf2947d5c6f0a5552f7be82cffdfd2fe0829f5a4502a0f611ccf335"
     },
     {
       "file": "inventario-pagina-0069.json",
       "count": 200,
-      "sha256": "df7c7097dd2b9f328d0900f860259944bb89d48e24e4d3124df661f21110a48b"
+      "sha256": "176eaaef3aec20091ad9bccaa382dfa0c5b04521c45f5f974112c83c87969ae4"
     },
     {
       "file": "inventario-pagina-0070.json",
       "count": 200,
-      "sha256": "0236709e6a901cedba2254748111cd3086ca9e891af8ceff1f9f3ffb17d2cd60"
+      "sha256": "2514746b68ab6adad68632e44d63c9c985d7fd7b661cf5acb4028c1cf1684fca"
     },
     {
       "file": "inventario-pagina-0071.json",
       "count": 200,
-      "sha256": "0e62ac84b752473dbf5b49fb8ff667adb7a6578f9024da16e69b5ec496a17a85"
+      "sha256": "c5d725ec091f7d53cba658203e73d2052fcb814500854e40c7066b7fc657db31"
     },
     {
       "file": "inventario-pagina-0072.json",
       "count": 200,
-      "sha256": "62b69a6f418899be3c1fe74b2b3fdd4f9c8f542275692c5116e3ef8b437ab7cb"
+      "sha256": "fc8a0ec5738097e231bd997c66c028d8fc8412bc1d5ed7a11089a387e22f9839"
     },
     {
       "file": "inventario-pagina-0073.json",
       "count": 200,
-      "sha256": "24458bbb53a58370baa897b04643ce7d9fec14a31f6d3ecdba8115749353ab03"
+      "sha256": "ff03b3d9d3088ce8f032bf290aae73b048a65494940ae744731cef36dd15a490"
     },
     {
       "file": "inventario-pagina-0074.json",
       "count": 200,
-      "sha256": "1a4de05619c1050bb066d1f22db0cf09cd4f1042b3ebfaba09d401916e3849f7"
+      "sha256": "0e75573c773fc275011893c5220d36ad43f87d9805968e333d7007005ae7d981"
     },
     {
       "file": "inventario-pagina-0075.json",
       "count": 200,
-      "sha256": "90c4084dfbab44816824d30d46caf47d0962b11d9c2248ca3af401d51de3456c"
+      "sha256": "cc3620a0fb8dba6d010f91346e21afae60b2cc607688aa685967c96ff2781047"
     },
     {
       "file": "inventario-pagina-0076.json",
       "count": 200,
-      "sha256": "31370b996a517a678c69601fa86cb352b4ac21b0a9722997e44f55272055dd68"
+      "sha256": "01402854c4ea31fedbaa9383243e268ce08fcb17b1b971961f44984af6bf85d5"
     },
     {
       "file": "inventario-pagina-0077.json",
       "count": 200,
-      "sha256": "04c5c9998a9efe02fe89095ce5ab87c666d3fcbc32fbab9e373c26c87df20a28"
+      "sha256": "325034abaaf79aa3fe55b77b59ac814f33c5784d35c85dee6e776d313fc09234"
     },
     {
       "file": "inventario-pagina-0078.json",
       "count": 200,
-      "sha256": "5953f26552df81c8df1dc5bbb1e7b96947d5f252da306bdc457e6cb5020e507b"
+      "sha256": "9cfdb14f25c1dba8477ae74245cdec60d6e458ec4e0ec1cac85bbae715bf1446"
     },
     {
       "file": "inventario-pagina-0079.json",
       "count": 200,
-      "sha256": "5dece37725eb702af1633a97314b62ad6706ff95584e3ea64335119f39ce5427"
+      "sha256": "95e7e4db3ab5f1e87ae228da41176674ec1201b0677085d80da176dc97e24782"
     },
     {
       "file": "inventario-pagina-0080.json",
       "count": 200,
-      "sha256": "3c666b611cf22fa6f44dfaff2d64027bfaa5f7e90a0a3fe8d69e6c330a2e37c6"
+      "sha256": "0148965a551929ea15b31b30ddfaaef022df6c335a2ab7306b71f526480c2e17"
     },
     {
       "file": "inventario-pagina-0081.json",
       "count": 200,
-      "sha256": "3d9f671527f57b869ddcf1699b990650f9a9eb615fa573f6f703f7dd2384092a"
+      "sha256": "8185942bacccc275e9efb92fff9a69f2f1c55cd0e5cca2e7595ed55689396efa"
     },
     {
       "file": "inventario-pagina-0082.json",
       "count": 200,
-      "sha256": "aece997513cafe2945772f179e216c12f2d29e2bdeccd3939fb3336134f815a7"
+      "sha256": "c8f1d62537420224b5f04027495d5b57fc2c7188a4810210a2717df386f6fa35"
     },
     {
       "file": "inventario-pagina-0083.json",
       "count": 200,
-      "sha256": "5e53dc7e0cfbcf353bb2f25e5b6969808b1f189908b448c9afc13c0ed0dea48e"
+      "sha256": "c6ef0c2718c902b8dc5942efd7d7619fd30d18105cc4cfb6ae54b3792140c7a7"
     },
     {
       "file": "inventario-pagina-0084.json",
       "count": 200,
-      "sha256": "f43d1132c023528152fd466d6ee021535811064dc644bb32f8aca841426048b6"
+      "sha256": "1055933b87581d3f96e4194a9b74df75d937248aecac646c51c10c4ae6df645d"
     },
     {
       "file": "inventario-pagina-0085.json",
       "count": 200,
-      "sha256": "9d287a7600b5673330854ddbbc51f7b2d3391661c34939b25d86229600263f09"
+      "sha256": "b352a6c2873561aacfc7f71e892dbfc774920619da40d536bc6fc0c8d7b3f806"
     },
     {
       "file": "inventario-pagina-0086.json",
       "count": 200,
-      "sha256": "8eb133b972f037d8a0e04656fc335e7314bfd65a61b280c56dd88cdbbe1b6c4d"
+      "sha256": "189d137c1184d7c2228c8486629dfaef681086cd77b54679771650cb1c802460"
     },
     {
       "file": "inventario-pagina-0087.json",
       "count": 200,
-      "sha256": "ade604eed6e457d736d03437cad4783181e84cf1357e73334922dec2afa4b304"
+      "sha256": "2fe75b643f6b8bf575d76577c5c1a68e655dd46c48be31a005dd4c884a06b87d"
     },
     {
       "file": "inventario-pagina-0088.json",
       "count": 200,
-      "sha256": "b6cf7cdc3840f3230bb7572843a9ff8c6608f4bda01ec7838017221ca61af1b5"
+      "sha256": "9d5bf68f466f406d81bd52e2d33849ae2197a843c2b6f6291d306a044ed9b0e6"
     },
     {
       "file": "inventario-pagina-0089.json",
       "count": 200,
-      "sha256": "a889461012d0ee490d8a3f6802661a6a05081a5c242556e47d19f85065aa79a8"
+      "sha256": "fe7059b91d49698807ef5fab0a61991923c8723e6960b23c5d6ade70b8831e47"
     },
     {
       "file": "inventario-pagina-0090.json",
       "count": 200,
-      "sha256": "ff8da25f1fa739217ed256f9ec898fb02a97bda42496a8cf5cbec10ba2e439a1"
+      "sha256": "f10128d8e0f256f68012b9f820dd46f936b9ff6e273921fde2c3313c1e4b431f"
     },
     {
       "file": "inventario-pagina-0091.json",
       "count": 200,
-      "sha256": "e773d6a87e41b8a8fa04427b75eedd9ef3a2713504b244ad2ccfb6c244219e56"
+      "sha256": "a104638fe2c110ce7c78caa6e3339ab7f4a986add9b3a0df3dade7ae101e2ec0"
     },
     {
       "file": "inventario-pagina-0092.json",
       "count": 200,
-      "sha256": "2d25a48bcd0ba90af539337d3b1f9b7f2c629714a84369ef43e47a532593a466"
+      "sha256": "143c52034bd51acf2bdafe27a58d4afb2e9f180f641b69d79f8b8c0c1e66a275"
     },
     {
       "file": "inventario-pagina-0093.json",
       "count": 200,
-      "sha256": "594d410fa6fce88a33279a88966132565c79bf903f50c7cd6fd475465034e174"
+      "sha256": "4b2c6b17b80bfa8546958a3cb338a388819dcc091f716d39ba97ea358f09f900"
     },
     {
       "file": "inventario-pagina-0094.json",
       "count": 200,
-      "sha256": "14ec997e6ea6af2a3d408320180730ebee6d732b07bde42a63f3d54305f7c8f5"
+      "sha256": "c92d1a84ac9e1a31e4bb0f65393abaeda24c3c8a1b985b4aec222cdad65b122f"
     },
     {
       "file": "inventario-pagina-0095.json",
       "count": 200,
-      "sha256": "098db422c8a5aac83e33f45fa34f7b25da10dab04e37ca35229929bdba12828e"
+      "sha256": "f51f4d21fe79d48967d76aa25b25c3423219d90e727dce6233ac8f0612887e51"
     },
     {
       "file": "inventario-pagina-0096.json",
       "count": 200,
-      "sha256": "551580b67990d27f7886489080b83d0ee71a60b6d349b54cccf21a30c09aead8"
+      "sha256": "d7c5d6029f605c233d9eba67c7936ba7de4bf647f956e599e2c2cff19a1fd663"
     },
     {
       "file": "inventario-pagina-0097.json",
       "count": 200,
-      "sha256": "ec301a616ceecb0245e709a0b4f6b33550afb67fc7923a8c0e0c23e32f5761e8"
+      "sha256": "b5b09e375204b1d8ebc2117d447b4dd9b01a533a660396743b392727a376d2ad"
     },
     {
       "file": "inventario-pagina-0098.json",
       "count": 200,
-      "sha256": "9c42e031327fa85328d20b8fd429ed5c58a9657f88a148870edfeb2072d66aba"
+      "sha256": "b66079f1baf8c9a16f23858ec830a3f474215046fde7f3e564c93ee0d46f47bd"
     },
     {
       "file": "inventario-pagina-0099.json",
       "count": 200,
-      "sha256": "cda761d0e76d46f6135b7466352e1863369afaba87f8f7d1ef4aeebe763e95f3"
+      "sha256": "ec8b8315f1e7570232b0ff7c2d7c6d12f0e6a965d495f1d881ad2ba4028da8a4"
     },
     {
       "file": "inventario-pagina-0100.json",
       "count": 200,
-      "sha256": "a0be8345a91799744613aa7eacededde2a35b9a4dbb461bcced861c170a4e96d"
+      "sha256": "a6d29f08dbfe47dd889078bead88900233f55fd64232768b75bf065dca0df490"
     },
     {
       "file": "inventario-pagina-0101.json",
       "count": 200,
-      "sha256": "c744c3545a3454a0e68816e8580fde0e15d6da15a8ee869e13fe54aa9f922567"
+      "sha256": "2db26530cb1eba0d4c2cbb9a04c87bcf45203c8e00e855a1800c71c2437a7f8f"
     },
     {
       "file": "inventario-pagina-0102.json",
       "count": 200,
-      "sha256": "d961ccdbb00e394886b319d3f3c79a2da192d76933deb1ebb6240a7e32910643"
+      "sha256": "7820697f192f653f0a100f99de0c24bd79bc470ed9a05e9887cc2f974378d19c"
     },
     {
       "file": "inventario-pagina-0103.json",
       "count": 200,
-      "sha256": "c95baf60616eb3c36f12320ccd1466c8b98287aae69e62896ac610b34245d1c5"
+      "sha256": "6f42b03e91516417a82a30fe3216f09c77194a8d825cbdfd7649b127b5397616"
     },
     {
       "file": "inventario-pagina-0104.json",
       "count": 200,
-      "sha256": "093799e0d1689e2bf532ab51d2f5472046b0aa4a42432ca133755c8adef527d5"
+      "sha256": "311dacfb1a174d55585177df6d70b3dfc484a265ba92ab85d78ca117df4c3c35"
     },
     {
       "file": "inventario-pagina-0105.json",
       "count": 200,
-      "sha256": "efba3ac219b26912b0a2f4af1ef2911fecb8618a0f1f8590e37e49094d32dc46"
+      "sha256": "9240f45ac04a29371c75e3f197844a38e176f897cc967d09ef915690fd951b94"
     },
     {
       "file": "inventario-pagina-0106.json",
       "count": 200,
-      "sha256": "079a0999542e7acd38f764f3376389a00bc57c05e6f99bbefc6b7547a6a0555e"
+      "sha256": "f7fc7bf62d6221a3df16114017ec4ee5b876bef0d036f74f31e199423357f490"
     },
     {
       "file": "inventario-pagina-0107.json",
       "count": 200,
-      "sha256": "ae85330b7046d636b8662f86f21d23bc5b11e222722128c2211969007ac5a688"
+      "sha256": "95f4f9db0bdf6a3aa0eb2d40a50d06cff39cf9da4d6ba69f669763787d8d807c"
     },
     {
       "file": "inventario-pagina-0108.json",
       "count": 200,
-      "sha256": "7ddeb153bee0e11f808274fd7384a6169ef070ccbd9823990cd2b1c9d3d115b4"
+      "sha256": "442d24af4dcc3f3c6162350613b72f91810912a0a7dc36e72e08ded6d1814d17"
     },
     {
       "file": "inventario-pagina-0109.json",
       "count": 200,
-      "sha256": "2ffd7f9b3b0512eacd0c73c4387ac9f70d5ccca27aacef8b534743c6e6b5bb6d"
+      "sha256": "527c79413493818052fabf55b24a5f9c5f0814134f680f0ebb05def3016cb42c"
     },
     {
       "file": "inventario-pagina-0110.json",
       "count": 200,
-      "sha256": "2cd55652c35c60ef9ea6c2647a268d5ac66b2dd9ebb5e85b052a56ef0c77948f"
+      "sha256": "9e6fb8d80a56b31be1457faac5ef5c755ac98b3ce75cceed6d5534f30484212e"
     },
     {
       "file": "inventario-pagina-0111.json",
       "count": 200,
-      "sha256": "56add1d863ed21fdc0f339afb9438b821631175956d610a1d48d4a50fa248974"
+      "sha256": "99995ee801a162dda1f450cf41c4efcdb653450a3dbe6f9be4d89753fdadd8ff"
     },
     {
       "file": "inventario-pagina-0112.json",
       "count": 200,
-      "sha256": "f1fa10970478c9df955501f81f80a8633052344dee1a7292a807ff9506fc8f5a"
+      "sha256": "ad437c1978fc5e1f7856a2a5e3112f3b8f824257ba6b99e56873d6a77d9b81ae"
     },
     {
       "file": "inventario-pagina-0113.json",
       "count": 200,
-      "sha256": "7a95f142e7aad64ad17b0b8ff70348bc97ecfd458a7dd853775e3042e14555c2"
+      "sha256": "64aecb4ae2a1fdcdab60a38c2f9e167b8343880e8e6f6b997dcc97f038ced088"
     },
     {
       "file": "inventario-pagina-0114.json",
       "count": 200,
-      "sha256": "650559804e6f0231af2768bd527d9d8a50f337eea139dda47fe883bc5d781e56"
+      "sha256": "621694cd439f16c1d1e231b3330ae3eebc93149b4406340a50d3238d88a6752a"
     },
     {
       "file": "inventario-pagina-0115.json",
       "count": 200,
-      "sha256": "22c88c1aea49bd542f533a77a83f7fc6d2ae1a170659a94f08bf6b718ce82bcb"
+      "sha256": "7a4f22c84444ea20fc8ad1b6c6ab80cbbc0465721994b856de9d5a0c4cc5fa47"
     },
     {
       "file": "inventario-pagina-0116.json",
       "count": 200,
-      "sha256": "26d3e4ee57df34c1959222cf7597bd4925a4d466f438dabf5180fcb3e4859913"
+      "sha256": "24f87f923826165c34cc82f8ea6aaadb0bf77058e536eb8db63a766e9f50a8c0"
     },
     {
       "file": "inventario-pagina-0117.json",
       "count": 200,
-      "sha256": "2a2256c3703bf6982880f47db2f09135581b3d993d1cd00537c3e5875e3bb01f"
+      "sha256": "75c7e4e853febfe8e95a71281b1869f19ac7e7019c6fbef49d52876df0b3f7ab"
     },
     {
       "file": "inventario-pagina-0118.json",
       "count": 200,
-      "sha256": "ba761f737b40f15995ccbfe75efa35002417d6c4e78d8e625754c150edee0435"
+      "sha256": "565d5dab58bc449f6da2a24a8fa28da0d1994c2af955d72d2a29edf4d4d3d628"
     },
     {
       "file": "inventario-pagina-0119.json",
       "count": 200,
-      "sha256": "9fd0122a63c0784d5fba29612e4dc051f949d9c319eadd084722b3964da2eadb"
+      "sha256": "092b2dde01a300e6bfcc4e5dbab08c5da9b56c9896adef69bea151ee41351ac3"
     },
     {
       "file": "inventario-pagina-0120.json",
       "count": 200,
-      "sha256": "a01da9568d793594004f8d8f0c0b0f6f656555fd445def97af0d0ea1f882bdb8"
+      "sha256": "59fdba2669b35454f9518bbe20ef497e3c3c70bec681009bbdc9e6cfb733cb49"
     },
     {
       "file": "inventario-pagina-0121.json",
       "count": 200,
-      "sha256": "ad668ae03585736548b81776bf7a343f278869e5a5df97c74a34049668df13c2"
+      "sha256": "aaed7fb4dabdd2436a60b78d94ff1eeb3f4b58604dae57014d550086ffa636cc"
     },
     {
       "file": "inventario-pagina-0122.json",
       "count": 200,
-      "sha256": "56b022a08b4736d594df6f56909590c04c9141d6f859f63a35037d73a372a172"
+      "sha256": "4e2d44fd85371c849eb627b4bccfd795c81703cb000b1d714ee8e96b6072f446"
     },
     {
       "file": "inventario-pagina-0123.json",
       "count": 200,
-      "sha256": "5405c69d675833de3eef8093551ba8accf722268e123e2549d23b9e38a5413c4"
+      "sha256": "5dba9516f10695d9828a40c0c580c13e3c5e73d50a724d5dfc24014410a3db30"
     },
     {
       "file": "inventario-pagina-0124.json",
       "count": 200,
-      "sha256": "a51e4c3cf084e37b79dca0417a353325013b9349ce7a652fdf2589015e835182"
+      "sha256": "c8242bb93365e4922eb5c28e48e8d39e84685c4cf960123d4b68ab253e7c121f"
     },
     {
       "file": "inventario-pagina-0125.json",
       "count": 200,
-      "sha256": "894da5cf8b52ac52eeb51d4540597eb99729f8631e65c2c7b8af8edfef5809a0"
+      "sha256": "92bda852bd3871db29b8ae3bd34f5d146c700eed6659147ca622ba64d8831960"
     },
     {
       "file": "inventario-pagina-0126.json",
       "count": 200,
-      "sha256": "b560371a4a2e8bb3ad8d9147b0ef8d90566b3aee0fbfb0e0579ceb8615a4e6f9"
+      "sha256": "dbfc957431df6674daba6d7618ef91d0acbbfb2af911939e0713c472ed8782f0"
     },
     {
       "file": "inventario-pagina-0127.json",
       "count": 200,
-      "sha256": "734a68bd66d2f977ae57f3d1b061564ee296451427e09bf44e47406540d499c6"
+      "sha256": "04c717c40a7d72b0b26c73da6005b8c9e78c56e784bdc1d8db81d91616025138"
     },
     {
       "file": "inventario-pagina-0128.json",
       "count": 200,
-      "sha256": "390dde1bfaa7bb5425d6f2323ceff320fbaa9168d3a1e5dd724ec0f5af87e4d6"
+      "sha256": "8e8cdc94b0fceb4f943a306483b2c0614fd239626bdcf07cc3cc83ce5e2a16e3"
     },
     {
       "file": "inventario-pagina-0129.json",
       "count": 200,
-      "sha256": "81acb156eddd6fb1e0f4e6bc9c0c5a0352acbcc3be382aa3d88053e94fdb284b"
+      "sha256": "08f66f48ff1e0cdb666679f27a62f4b81c00cca0d7b871563e5c2be9f488d0f0"
     },
     {
       "file": "inventario-pagina-0130.json",
       "count": 200,
-      "sha256": "c0375833e4b96e664594ddd0d4ad909135cd0772c526b8b63e4a83a161d7c134"
+      "sha256": "bcd1d44b14177ca86ec1aefdcc741c88b8292d7248f4755c33e416bed3389be3"
     },
     {
       "file": "inventario-pagina-0131.json",
       "count": 200,
-      "sha256": "9b22e617100e354ea303fffca71bb1426ce7370869cced1872004cd6a0c3d010"
+      "sha256": "c20430bdc6163905c85788388e5811814ba312215f52934c21cc6f315836ac43"
     },
     {
       "file": "inventario-pagina-0132.json",
       "count": 200,
-      "sha256": "97ee468a87c8da6eec57c4bd63900643793931b131cf654a7317008f63c6df97"
+      "sha256": "1db62117aeb06e1e73c332a81d2663a906a645b5cf4eba2d4835710357fda5ae"
     },
     {
       "file": "inventario-pagina-0133.json",
       "count": 200,
-      "sha256": "c540a689a10db486e82e16a061b06eb90693ee2a9ec889ce3d10f27d19600931"
+      "sha256": "5c39cacb479c4c5ac510da78099bfe47c22e2a30f37b3e459723b85b4a905a90"
     },
     {
       "file": "inventario-pagina-0134.json",
       "count": 200,
-      "sha256": "8fecb32beb766aab770d94080fc50ae252ab33b76f457b3baba022ebddfb64a5"
+      "sha256": "0e213234fd2a935afc322fb579bdce76ea5830c9e4ee9cc9df1c6646584f3571"
     },
     {
       "file": "inventario-pagina-0135.json",
       "count": 200,
-      "sha256": "788c38cd6c6f0c23f20b73572df982f9309c73a4ced1d69d914cf029f9e1266b"
+      "sha256": "99dc7afa04e556a611cb5c3b3f0ef3f904152e55349c5774ca773e2ad967d62a"
     },
     {
       "file": "inventario-pagina-0136.json",
       "count": 200,
-      "sha256": "af0eaba780df5b66e3142356a6ded1c605fb851389ea71b10c09661992eefff0"
+      "sha256": "2eb1a28d2c039aa42a6344bbcfe18306fa9eeb94da254ee3757243be09ba297a"
     },
     {
       "file": "inventario-pagina-0137.json",
       "count": 200,
-      "sha256": "1e69031cfd984c778a464a3de9d88e7eee0dc2faf941efda80547cd6d1006443"
+      "sha256": "a6cafed8e511490522701f8733576d2a5c7f76af1b92a5c8a6c300184a20b6c8"
     },
     {
       "file": "inventario-pagina-0138.json",
       "count": 200,
-      "sha256": "e547f19dd89093b34a077036bac4d51c3a6f1533623dc0b8bf464491bc4f46e0"
+      "sha256": "f27d9ff320e10ae9fe6b44c08d4f707f67b7345604e7d95fbc0dcce90ef560b9"
     },
     {
       "file": "inventario-pagina-0139.json",
       "count": 200,
-      "sha256": "a2c8e844eb002abcba471d557f78785ba7157d9a485cd49f337d6bcb214e3006"
+      "sha256": "193b45477c99e9d34d4226b9c3030c3a0870a28120844ef881c92bfd6ad2a8f9"
     },
     {
       "file": "inventario-pagina-0140.json",
       "count": 200,
-      "sha256": "ded9fdf9618422ff60e6b0b55b945187686e29ce1449aff652ba2bcfd645997e"
+      "sha256": "4f4490461f8f66eb07044a322c79e10e4877b554f650e27e9524aca408e77c5d"
     },
     {
       "file": "inventario-pagina-0141.json",
       "count": 200,
-      "sha256": "fc776d802718a83bb50a28078846bc1a2d3b06b85dcdc24e0438f664a272caac"
+      "sha256": "6037b85fd82356718abac42c84ce2304056ef276aeee9547e94acf8e84c611cd"
     },
     {
       "file": "inventario-pagina-0142.json",
       "count": 200,
-      "sha256": "53cadb036625cd03cd741cca3392e62ff6681b40b034dff5b2669d5d01569b45"
+      "sha256": "f1570b2ed71576a87f72d468f952e9aef3e27c732cc956875202e53123c7a4bd"
     },
     {
       "file": "inventario-pagina-0143.json",
       "count": 200,
-      "sha256": "94e2e2af6cffb65bfa22fce0d1b797485e1b5a9d22f40ee04a585db4299eb49f"
+      "sha256": "d3b45fee84aa710c797d9f5369de87914edfbcc35719c69abd0fe35c73661c59"
     },
     {
       "file": "inventario-pagina-0144.json",
       "count": 200,
-      "sha256": "e3e3e5e6a225bef5037e691bbc73c7a9d154ec4cdab5e8b1cca558d78a98ae8d"
+      "sha256": "e667d02eed4b7fde8fe9302eff9e69842b02c621ffd33321694d8abcde33e4fd"
     },
     {
       "file": "inventario-pagina-0145.json",
       "count": 200,
-      "sha256": "d71596daeef145e46be43b3db266de99ed97d76f29521c7aec2d62f716f1b142"
+      "sha256": "e80a63e51aedf4897f392a577fdcb6da6cae5aecddd2bf5cb2e057eefb014ae7"
     },
     {
       "file": "inventario-pagina-0146.json",
       "count": 200,
-      "sha256": "412db47d856c36c1660b7264242db556eaffcad937fa351c3ba4fa7d9809fe87"
+      "sha256": "a4e1b553f305cc2ad71296f5ed870c9d9482c1a7992973ef841cb545e66bbea1"
     },
     {
       "file": "inventario-pagina-0147.json",
       "count": 200,
-      "sha256": "0da8353555991fe180e5e8bbc82c39088022ead5e02cb3a98a8abf5f328894b8"
+      "sha256": "0079537f445f88cca2ff017208241965cd107e4e747d94c811c0921ed68d663c"
     },
     {
       "file": "inventario-pagina-0148.json",
       "count": 200,
-      "sha256": "38dd6bd160a2a0a4364be770caeafcd5ff5edc22b663b2cc124be9351c0a95ba"
+      "sha256": "16381da6b9b27fb06bea0ea63cc25a18072279e7bebd96a00b54a88e325fdd52"
     },
     {
       "file": "inventario-pagina-0149.json",
       "count": 200,
-      "sha256": "54054bc547d2c3191cead416276869df849d2a4e181d431007c52fcd7574b423"
+      "sha256": "8a707dc4cc83cde7fa44f4a10031b59a8fc0307e7f79b1e0d1328e316dfac13d"
     },
     {
       "file": "inventario-pagina-0150.json",
       "count": 200,
-      "sha256": "7fa6d5bbb59d97c76040f1975b224fc901615f63e1801e70914c9064372fdbaf"
+      "sha256": "5dcb1c3bf18517faa05702195d2c72c7570999f3455459411aa6de4896b23d26"
     },
     {
       "file": "inventario-pagina-0151.json",
       "count": 200,
-      "sha256": "31e2970c77ea5be84e77fdd3db36ecd6747c5552ae45eac5beadbe97b957b2ce"
+      "sha256": "9cad3b169919ecb8ab1321e7dd2aadd455be29bcd32e8fcdd13d295af01e421b"
     },
     {
       "file": "inventario-pagina-0152.json",
       "count": 200,
-      "sha256": "3a5212eaf9f79384bfdbcab45e46935d788854779e50fc75e0ef9bc37df87623"
+      "sha256": "7af76440c4a755a74696b96e2b5f6a6f3a392e783c00c5aea5e80b40f412e51d"
     },
     {
       "file": "inventario-pagina-0153.json",
       "count": 200,
-      "sha256": "cab133066a7e6263a6b572812520286094a7e07e451c3943acbe18151c910fa7"
+      "sha256": "6f0b7b17e68a0c318697bb1552010a6ff620b1539683076e2ceb8c8fd1b1fd53"
     },
     {
       "file": "inventario-pagina-0154.json",
       "count": 200,
-      "sha256": "3a8b548183620c470e1610c60a4c6670524cbc0f82702007beee6b7ae19d9a44"
+      "sha256": "7c6c26db68a6dc28439078f96fe61de9ce5026af25bbc4015376c0e54b781d79"
     },
     {
       "file": "inventario-pagina-0155.json",
       "count": 200,
-      "sha256": "2f7f0ed57a84a5cb6fe0adefd8b63b01c108af439b789fadc4095b3b516da591"
+      "sha256": "6d30c1a9e0dad16c5e4f77dc6a66039f851aa61e1078547e784a8fba7e46dca8"
     },
     {
       "file": "inventario-pagina-0156.json",
       "count": 200,
-      "sha256": "5efeddf73727a9994511ed627f33681bc1c5891507f821bb6b649f51890a352a"
+      "sha256": "a374ae4a8f1f3e5aa82d604be25625409935cd55ed20d00c2dce5aba513d2965"
     },
     {
       "file": "inventario-pagina-0157.json",
       "count": 200,
-      "sha256": "7882e575f7ee744bc7d5c07b653355f5aa30b023523e3aa2a6bb78043e6746d0"
+      "sha256": "ebd1d518fea6455c7436795455082a9d6bbe6a5be9187fa190dfc8b9e4753d68"
     },
     {
       "file": "inventario-pagina-0158.json",
       "count": 200,
-      "sha256": "7daad87c75e5453cc78aa34e20db67bc5a4edc5e85097fda28b1d73eb23b46f7"
+      "sha256": "1f8bc731f09461b9254101bb36c06fc194516f0e234977a3bfb7b8e8953330e1"
     },
     {
       "file": "inventario-pagina-0159.json",
       "count": 200,
-      "sha256": "5f4a1684f52d32c2e07fc979851711ac8ca7e722a6becfd07492d8551550dde4"
+      "sha256": "458e338f1b8a4dc08a1a83f6bd27b3a1149b304764216f084921c518bde416ec"
     },
     {
       "file": "inventario-pagina-0160.json",
       "count": 200,
-      "sha256": "d9fa2e95fd2eb3c4c290405d858ec062c05fb1de1f908ec0230e1233a570993b"
+      "sha256": "3f71fa664d6b55562f66bd42b8c4baf43139d5bb3abc4d01228fe07c8c2f2d05"
     },
     {
       "file": "inventario-pagina-0161.json",
       "count": 200,
-      "sha256": "cb4527dd08ed14311bd9a5f5ba1f33184e77b70e3b48386d65a66a0e51dfbe4e"
+      "sha256": "2f5c18f9024218782dfd33e80f7ca34c35c8769fdba62a7efb0b9e0aa7b43551"
     },
     {
       "file": "inventario-pagina-0162.json",
       "count": 200,
-      "sha256": "5b35ed3a6864a9d0a38cf05cba8c6b1bbbff6fb151ff99ce8db7df67b3ea4050"
+      "sha256": "529564b32db9677f941cd34c4afbfb842b5c777d8b8b067f7a1f33fa694fc669"
     },
     {
       "file": "inventario-pagina-0163.json",
       "count": 200,
-      "sha256": "d3abb0a4226b71f1916a159927e36616fac220bd7e6d4d2e428cea9ddcf65cb8"
+      "sha256": "62ac716476d589780fdf20076b981f797907751813e3490302792bd54b851668"
     },
     {
       "file": "inventario-pagina-0164.json",
       "count": 200,
-      "sha256": "e9938d9039ae78edabffe4ff6475eb734f73e29682dd91f32f60c4c49ec33c75"
+      "sha256": "2c3cd85cba59f538198ff6cadc1b46e119e945a7383bcb32957500d5e9102165"
     },
     {
       "file": "inventario-pagina-0165.json",
       "count": 200,
-      "sha256": "af0b835cff96977b77c704b5e52fa68af3611acd5c0839d3041479ccf5a52915"
+      "sha256": "bcbc33c6f6c1d57de71410710bb382943df698077e79c79a1b243e77f136d88f"
     },
     {
       "file": "inventario-pagina-0166.json",
       "count": 200,
-      "sha256": "69037627f51e47155ca219d6cb11859cd4f2a3b55adfd308a6bd54eb8381a1a7"
+      "sha256": "abd0994d085b674b87b444df94810afa0a3e8e73ad06228b9fd444b92462b38d"
     },
     {
       "file": "inventario-pagina-0167.json",
       "count": 200,
-      "sha256": "18fedda3777ad97f67f04b2d539b8d82a6e5264383a59b182a7131aa62f03258"
+      "sha256": "798bfeac26a852fdfc2c08f226147bad6a60f301ef2ee4af13e72f7ba1a7ec43"
     },
     {
       "file": "inventario-pagina-0168.json",
       "count": 200,
-      "sha256": "04ae6fe6d2d33365f1a281dacda7b609d5fa2a20ce785acd62db1ed0ee1a1462"
+      "sha256": "7aee63950890fa9c3764a83c358078b112674fafd9c165467b4fad3a9a859894"
     },
     {
       "file": "inventario-pagina-0169.json",
       "count": 200,
-      "sha256": "0f24bc671b115d2d329d8192cb6a42bbe3a5baa86a261e5bcc94ec98a031d3ab"
+      "sha256": "2622ef965213f315b01f5a3ea955dfe29954e79d20897f79c8e5978d532b2f6e"
     },
     {
       "file": "inventario-pagina-0170.json",
       "count": 200,
-      "sha256": "2bd9ebab67fae93b02ed30af1a35abbeb4170dc8328953a2170e8a09a6319504"
+      "sha256": "009c1b3c0ab0fe504fed724f48b29aa6242947ee7f2e03545318f592c9c869b1"
     },
     {
       "file": "inventario-pagina-0171.json",
       "count": 200,
-      "sha256": "5a002c28142334e15182ee472b028422f1b5a2def0b09737347cc299a7acdd93"
+      "sha256": "da71be6615b4b142aac80dc16cfcb92258b23d7a93587e00c98abbc6d3935db1"
     },
     {
       "file": "inventario-pagina-0172.json",
       "count": 200,
-      "sha256": "8be0d86e3ebbb4aadfc5d6348971fa34bdffacb1ea34da1309940c2252f76e1c"
+      "sha256": "34a8b669b4f91aef24741e088ef977e0e9380f5e2441df2a6a8303bf9090391f"
     },
     {
       "file": "inventario-pagina-0173.json",
       "count": 200,
-      "sha256": "0fa48ade1601562c75dbb71bb7db0257c78aec5947268e3c22b85c72163ea6b7"
+      "sha256": "c31c0f33088e2c0e7a19eb18d03bb0761baae10c4f7cd894fa916f14c3b5d773"
     },
     {
       "file": "inventario-pagina-0174.json",
       "count": 200,
-      "sha256": "d87b02a9357f2e6ceb02c3fcec0f3ed997c4ca077903aab9bbc37a15742cfe4e"
+      "sha256": "ef537a5d22189bada54b361d2a5b986af3cc279a586acb62050044d87748cf78"
     },
     {
       "file": "inventario-pagina-0175.json",
       "count": 200,
-      "sha256": "900033a7776da8e58ec4800f3efa314d5374e1f4e37d7d00105965710b5e08fa"
+      "sha256": "82aecc8b13a65d8e428be6955b33d5b4d9e4804a257e5d108d8f0fab57aa261b"
     },
     {
       "file": "inventario-pagina-0176.json",
       "count": 200,
-      "sha256": "02924cddbcc36fcdb9d0a36869ccd703272d5cb6c29874dc3c7d96f7dd08b53b"
+      "sha256": "14a9c8a6821e36e70e76372838ed4a2bd93b247d6e83810ae2a236c7028639bd"
     },
     {
       "file": "inventario-pagina-0177.json",
       "count": 200,
-      "sha256": "2d7c474a2795d8e09a64a401c9df897c897ed182a81dfa40f0ed35f4c3afda8e"
+      "sha256": "665db0a9f89e9bca18263910888d664bd56b2de41826a21d4c0530a75ca5fbbd"
     },
     {
       "file": "inventario-pagina-0178.json",
       "count": 200,
-      "sha256": "7b01e5c1d0337d2126da68ba02c5405ab53288f0f6a10874719cec619b41d682"
+      "sha256": "aa2328a0dc3f695271a8f822bd71de4d45e97ddb323564fa1258cb6b4cac5ee1"
     },
     {
       "file": "inventario-pagina-0179.json",
       "count": 200,
-      "sha256": "524fd2bb2701ad641418a9c071f00d1a5c73ee11e5015fe9bc4a452577790583"
+      "sha256": "376fbe964a82837b0340221020d0a4e94b19e8e07600b7fb0326ac0ad33a6482"
     },
     {
       "file": "inventario-pagina-0180.json",
       "count": 200,
-      "sha256": "187a645a35d2342d4ece11b6b71e554be449f8514b083987ac5d0d06b7b82972"
+      "sha256": "26d43d5f692e065d25cfac211d6a03f94ed087f52ffc60866ffea6c998baaaa6"
     },
     {
       "file": "inventario-pagina-0181.json",
       "count": 200,
-      "sha256": "aeba555e7bbb0a29eaa1e6dc3c1f5276851b5bcd234683157c13c555b9ccb2db"
+      "sha256": "b3ed52bf8c403f0404392bdc40d4590e727ccd83e915d0fb0d0e5b0e6e29ed59"
     },
     {
       "file": "inventario-pagina-0182.json",
       "count": 200,
-      "sha256": "de80500d75d9cf5f76b8e2f951f3f2630e61fca14189d5093c33d7057aa53407"
+      "sha256": "1bbb553e6fcd9221990adbc4ace1006c73e323960b52b78db62540df426b4e43"
     },
     {
       "file": "inventario-pagina-0183.json",
       "count": 200,
-      "sha256": "998ca22f6ba20e327780ed8f951022dda1aa4bb6682f8d7dce2aaf2e74b25a5a"
+      "sha256": "fcbb0c4cde2d64390eecb083e253a8b37a88a630688cfae46c1aa508ed4a8daa"
     },
     {
       "file": "inventario-pagina-0184.json",
       "count": 200,
-      "sha256": "b7fe68d6048a4726e8d593224345291d0afde7e77b4f3cd08c5018f1a47b87e5"
+      "sha256": "5f90a72a179cdd501a8a4191e0730f42794ab909bdbd237784b868738f604927"
     },
     {
       "file": "inventario-pagina-0185.json",
       "count": 200,
-      "sha256": "0bb31e91f543492d503b94ad256d5d3a8249a5f59e9bc118b828b0664e6a0c89"
+      "sha256": "8161d41502cb9fcc1b48a5cbd4f47064887e2515b03f4abed56001982bc3cd3b"
     },
     {
       "file": "inventario-pagina-0186.json",
       "count": 200,
-      "sha256": "81642940855f91869ab6e02c597671c000255ac47e88471d8f9116271cd25e7a"
+      "sha256": "951e4debb05b838b336109ca49f1948d3a78eff051ac1c00088636bfe46c06dc"
     },
     {
       "file": "inventario-pagina-0187.json",
       "count": 200,
-      "sha256": "3e4b957c5bf31976cfd5e5d673953a551eb8f0f940f61e86ace7f7239554302e"
+      "sha256": "9d8d8393cf0e8c0cebca6db6143c026cf18b0a8c0c5251448375ec6278f8dcf5"
     },
     {
       "file": "inventario-pagina-0188.json",
       "count": 200,
-      "sha256": "74576e6edc813983a15fd0eb4696b0e01deb5c67b3730b94692e771f28f8d0b5"
+      "sha256": "c5eb97c8e0b5835d2d1a14480d99f2ea4fd6aaacb0772416314623f3f748381e"
     },
     {
       "file": "inventario-pagina-0189.json",
       "count": 200,
-      "sha256": "c3a8bb7c4b29594de3fd316d8b8b5ca928a40a4c9fdbeaa76348b055fd19af4e"
+      "sha256": "d62dad38fb627ab297a1d737ea4b72da3439f7a166eee38844a996f8e1e55cc3"
     },
     {
       "file": "inventario-pagina-0190.json",
       "count": 200,
-      "sha256": "bcfa56f9c093d9c0065ae7af19cf43021d1b3e15df8bec193546c88bb511a496"
+      "sha256": "563614d62f804e4e686378b25c5db165e73645ee4eb6335642f4f350699d2cce"
     },
     {
       "file": "inventario-pagina-0191.json",
       "count": 200,
-      "sha256": "39befcff8f40c1963a5068fd013b10dee13ebaff0a3027b8a9a59fa04e731b7f"
+      "sha256": "c43b7aa64ec0374ca51f4dee1d2162f6b69958714f3c528e3443d7ecd60c262b"
     },
     {
       "file": "inventario-pagina-0192.json",
       "count": 200,
-      "sha256": "e8fdd79143134778a829cd2007d3ed509e865fd51f8e4a4b6992a7d0de85080f"
+      "sha256": "d26a33b4487880089bdea4faf9ad5dbbe9aba115477567513fbd86c30f47a489"
     },
     {
       "file": "inventario-pagina-0193.json",
       "count": 200,
-      "sha256": "fd1e3519a5b813e5945852e54643483a9fce2cbf0e8cdfc411f8e363c4624b8e"
+      "sha256": "be09f2623a1bc1e7563106539d51cf359ce89cf92977ce8d3741b6afbd56f2f7"
     },
     {
       "file": "inventario-pagina-0194.json",
       "count": 200,
-      "sha256": "b706a6538f2e76346139a147277d77a2364bdc5f769a20f726a22509f163c81e"
+      "sha256": "250f1864f9870b811091208e25ef657a25aba851e78c659c72d01908aafe1b65"
     },
     {
       "file": "inventario-pagina-0195.json",
       "count": 200,
-      "sha256": "35fa6f9aca4756692f06344c89d30ff0b29fdefc23126ae658ebb978d980a1c6"
+      "sha256": "6825d370f5e1fc439e9c82a2f58aa090546d7aa534312a735aba4600299e697c"
     },
     {
       "file": "inventario-pagina-0196.json",
       "count": 200,
-      "sha256": "4f124de16b7b24f7f786d07e7a41290770f20d0cd5a2ae522b20cea324ccec21"
+      "sha256": "8cc5dfdb2aec27a885dae503eb213109ff54b50616c6eaa73734f96654ca635c"
     },
     {
       "file": "inventario-pagina-0197.json",
       "count": 200,
-      "sha256": "d43f419273d9b7c395725db231b124a17ffe1eef58129fcf0c9a9280ed1738b3"
+      "sha256": "9fcc20a74893e87e7645091654bbd5e179676b64ce2bed1ca54dd94ae4753167"
     },
     {
       "file": "inventario-pagina-0198.json",
       "count": 200,
-      "sha256": "469130b36181745f7c714d10ce26f75898e9325837307bc1c6195c2019ff9b77"
+      "sha256": "fd4b40a5c05be410d24dcf0795b26fd0563cac51447aa69cc314adab35cbe9e9"
     },
     {
       "file": "inventario-pagina-0199.json",
       "count": 200,
-      "sha256": "8418b0b4a1da8090b4b663f6339b92917128215efa5000657cc2d44d44348b30"
+      "sha256": "b662413b7af76f67e43dd23168fc771ed6ff4f1e87ada2f7c69177a464fa28a1"
     },
     {
       "file": "inventario-pagina-0200.json",
       "count": 200,
-      "sha256": "8fae6af5ce80921bf730b26ee831d5b124a574c60cba01f9b1d05c297cf6423c"
+      "sha256": "8995baec41e506464c79ff2475427a1feaed8a850537c3cfbfa17dfc4949101d"
     },
     {
       "file": "inventario-pagina-0201.json",
       "count": 200,
-      "sha256": "b324f36168024c83e0fa6bf421b4a312f91279528e0c741c827a43d14e755b9a"
+      "sha256": "62c0952ac911b2805f1c6751df6d19c278efe5e10e2f64a1332616764a09df87"
     },
     {
       "file": "inventario-pagina-0202.json",
       "count": 200,
-      "sha256": "09a0363b6fe0a97ccd5671b65e0a134424cbaff3e2230a02c1c5dd926fb3053f"
+      "sha256": "082a1f3c67c987a008bce444ca97d54bb68ae08d6fd2b0302c0f31af75d96f88"
     },
     {
       "file": "inventario-pagina-0203.json",
       "count": 200,
-      "sha256": "65045f40f9662f8685969e17a227e4f3f349a613c34e2db3d88a3d2e19edbf62"
+      "sha256": "1ce266d668a841f284594be981abe08a9c16d0fc5864cc61f84859502bf6e2da"
     },
     {
       "file": "inventario-pagina-0204.json",
       "count": 200,
-      "sha256": "00845c39c7f4b74b3dab1019c6f32fcd7dcb1ff7f2321919d13e912f06b4a621"
+      "sha256": "3816208bf1f323cfab74b7c6cf5108f9e0d8e63a08979970e9f9054687392ff8"
     },
     {
       "file": "inventario-pagina-0205.json",
       "count": 200,
-      "sha256": "dc8f0aa9e08499b9c46726975bff0b144f54951b13663fc76880c95afc90ec6c"
+      "sha256": "20ac0179e956a1baf47694774f2019fabb4a49e97f7965162b2b51cf5fe1736b"
     },
     {
       "file": "inventario-pagina-0206.json",
       "count": 200,
-      "sha256": "45495264b4acf32fdadbce7cb921e79629c47884a1799b60f306da894d53da56"
+      "sha256": "c87225fd997122e3a37c99b5d46fa58acda9961d80761d280d9767ee75927ad2"
     },
     {
       "file": "inventario-pagina-0207.json",
       "count": 200,
-      "sha256": "3eb1ab93a471269c33eace1f08acd1ee96535d36f2c9966fde20e8bed84e0e98"
+      "sha256": "83d0f8ff43e7d4b7e324d33d7a3580bda704f0a61fdb70b4ff9278b9497a5aa1"
     },
     {
       "file": "inventario-pagina-0208.json",
       "count": 200,
-      "sha256": "414fce746414edb1abe2fafdd814ade1546ce412f4930dce9226a241bcc1c161"
+      "sha256": "e49839fa29f044ed3e8403db71f523b5bc8063479dbf9b390c0d9a9ee0248ac0"
     },
     {
       "file": "inventario-pagina-0209.json",
       "count": 200,
-      "sha256": "31c12011b426a722c93fc553e992a52915b721f3c6db386fb15a48bdd9dea71f"
+      "sha256": "097d3ed60a00a754f1e75157a9acbf344608b223e22e1453bf41ac86dfb75a83"
     },
     {
       "file": "inventario-pagina-0210.json",
       "count": 200,
-      "sha256": "5bb675b1ebc3679aaba0d9ac07ee41149344292a54911b49a99c5ab7a20d454f"
+      "sha256": "724c99d2c98a8665b3aa8a4473423503f64e3e1a0df42ea2bbaaa38bf56790ca"
     },
     {
       "file": "inventario-pagina-0211.json",
       "count": 200,
-      "sha256": "b1a991c4ded7d7db5071b84f80814daeaad7149a6e849e3c0fffe2ec31e0ebf9"
+      "sha256": "7ce4fb709ea330049b58f488d406db27e33f4b60fe473d3bbf7aba83ad23d897"
     },
     {
       "file": "inventario-pagina-0212.json",
       "count": 200,
-      "sha256": "f25f14c05afcdc99a2132ce29ebe047b95ffc4a307f6ae68d6fa8f91ae559bf2"
+      "sha256": "b4681187fdf31351184910436ae1c87f4d1c8b5fde64c341978ea51e632fb22c"
     },
     {
       "file": "inventario-pagina-0213.json",
       "count": 200,
-      "sha256": "27a72bb32f010b2aa1d6808a55d81d37e566ced7d874339c64eb20576794738f"
+      "sha256": "7af29a200a7d991e687cddc9f270d81e175dbb4bb6f8222e4ce809f12fb2269d"
     },
     {
       "file": "inventario-pagina-0214.json",
       "count": 200,
-      "sha256": "d3afac2c85af3f17e4cf61eb20d8022bbd606d55067c6edd6e6d5d3c9ec3b505"
+      "sha256": "38269a312560fbce53621401330717c6b432157cc68d3682d0bec18ed6501175"
     },
     {
       "file": "inventario-pagina-0215.json",
       "count": 200,
-      "sha256": "2ea3864e409aca7386eaf2407aed3649eee9261db1deb690c7b02e74d706e115"
+      "sha256": "ef278969c7ec44314e52b3924ca38d2e8dceef80c3362273fd15d57e2b93c080"
     },
     {
       "file": "inventario-pagina-0216.json",
       "count": 200,
-      "sha256": "35c9e43cee3b5ef10eb01f983e27bee369ead7d5ae59899232be9edfa43f12cf"
+      "sha256": "46d69fcb2eabd61e23d814d7a879e0e3017ab6b48e2ede8c01e03f08c232f857"
     },
     {
       "file": "inventario-pagina-0217.json",
       "count": 200,
-      "sha256": "08dc170c6a4eafacb4e849b8e1cd6479078c0d4832012bd5aee44dd0142acb79"
+      "sha256": "7d7a9105fca6d1ac7a95d526ce374ede2cd67722ca149c03c38025d3325c8c4a"
     },
     {
       "file": "inventario-pagina-0218.json",
       "count": 200,
-      "sha256": "825577ea2eb86843cf8e33bdedaf16565bfd50ea14731d58899a9bb941b490f9"
+      "sha256": "bd10281f829b5069483d00284ce76cc421365d8d53d98db23e20ee596de24b86"
     },
     {
       "file": "inventario-pagina-0219.json",
       "count": 200,
-      "sha256": "0e3b5fcbbc4cee87e1287b83552b4a89efb16cc15938e1b55699a455967e344a"
+      "sha256": "50f11ae808e4bb2137531020812f3f7e2941417934f38755f14e841eb62a0a29"
     },
     {
       "file": "inventario-pagina-0220.json",
       "count": 200,
-      "sha256": "1ffa5655da4700bcd89528a2ea784e6ae808012f4cc0df2f9cc6db655946d562"
+      "sha256": "c62fa0fbcfecd1fb3e8c8e53fc8da1315217f159ccc8a25acdb3f7dd53ab7f65"
     },
     {
       "file": "inventario-pagina-0221.json",
       "count": 200,
-      "sha256": "403b68307957962717504e2371fcf67c37c133b09ab1ce29b76b29e9300f3ee6"
+      "sha256": "4ca49588e622ec6fee91e7eca71986d3aa34960f0ef4aa6e03c2a8e2db034abb"
     },
     {
       "file": "inventario-pagina-0222.json",
       "count": 200,
-      "sha256": "d60b2e08054586413ffc48e3caa86f9a269ae03973cd37c6a1da85f66c5eff67"
+      "sha256": "a5638347caa823779ba5a123c042c77cb1b408dda3fed8db05825629dfbb808a"
     },
     {
       "file": "inventario-pagina-0223.json",
       "count": 200,
-      "sha256": "d4772910efd5c6f0959dcc0fd002a1fc4292f80ec6478ee1751f5292073f9547"
+      "sha256": "701dfd26c15b5687ef15d42d0e6d3716d5bcbe86e8b53423046bd5484a2e8e18"
     },
     {
       "file": "inventario-pagina-0224.json",
       "count": 200,
-      "sha256": "f0c958c3afea858abf4a5f7e097ff67e44215e1274282fe3930798e22ef7f980"
+      "sha256": "3a1a5f3d143b0f2fd12f7db9b32977f3bb7d03d9e1d65a8a18d8f6bd15c14a0c"
     },
     {
       "file": "inventario-pagina-0225.json",
       "count": 200,
-      "sha256": "c7b3595f99ef7855e80fb87239231d7de5484c33262d296ff117c66ef14954de"
+      "sha256": "8ec97d629baa1bed2a21f6f9d281d469cc2a9ca5b1ac676c6963f8d36a2caf1a"
     },
     {
       "file": "inventario-pagina-0226.json",
       "count": 200,
-      "sha256": "6d4423692e3d16868ce8afe66f0e5e22c743a8151fffbe778d9cd4c5aa72dd37"
+      "sha256": "b5cf3ea75a1a2d935ec03486b8669dcce329cd241c6297ec60cdd0d32cc89988"
     },
     {
       "file": "inventario-pagina-0227.json",
       "count": 200,
-      "sha256": "7d1a2f97995a088f9e9fd47950a53e2474de27ed509f0e5e77f0e28cde8b901e"
+      "sha256": "72837be958dd77b44ff9e270971e4a11d11b9268eb703c0e4d343c2c92855266"
     },
     {
       "file": "inventario-pagina-0228.json",
       "count": 200,
-      "sha256": "4c30408de52588b5881dfc7f2f30c9834045c5d610535aab9b1fef581a23fdfd"
+      "sha256": "3bf79658a60427a2d8f6ff904367e4da59c2414a804f1ada5802465bd612be0b"
     },
     {
       "file": "inventario-pagina-0229.json",
       "count": 200,
-      "sha256": "172b1e1d523238d60664c59337610ae10e5aa578c68d3171433865b86cfbab7e"
+      "sha256": "04faadf2b6ed031db1f3c0a92f3f3b710bbb181e0cd6331087720eaf912b1747"
     },
     {
       "file": "inventario-pagina-0230.json",
       "count": 200,
-      "sha256": "df180a20589f1f7dbbecda03e248f19a6f74b134ab9ef5cfb5e30bd6f7818b03"
+      "sha256": "d399f8b3ff26c8437e938657e347d11187df7e97c5d37bae657f2c1cedff90c5"
     },
     {
       "file": "inventario-pagina-0231.json",
       "count": 200,
-      "sha256": "ef14e1d32655f7d9dcbf907e90c29abca02f1129008d01074487f69aaa5c92a2"
+      "sha256": "a87ebe6cbebe07477d0cd84efefce6846cb55479117c49ab3a1ec701f618fb3a"
     },
     {
       "file": "inventario-pagina-0232.json",
       "count": 200,
-      "sha256": "1db1970a9e829c6732f6e9e4b14ebc9f41f816149c91e93f830509e372d820ec"
+      "sha256": "d0d20f86d32734c43b2fc9c9acbfe56dad6cfd2bfd9321523f6d7dc15cc66828"
     },
     {
       "file": "inventario-pagina-0233.json",
       "count": 200,
-      "sha256": "577c23ca398bb5614bf6caa6d546e1976106c4afbbeb209b15fdf8ea63929b75"
+      "sha256": "9af63aae4968f489a636e8fda2ac356fd33f516da1c307c18ab009ea7d9e1c67"
     },
     {
       "file": "inventario-pagina-0234.json",
       "count": 200,
-      "sha256": "0a6a72565185155bf2c5abc2e71547cc0dcf42644da9afbfb97bb20f6e23fe5f"
+      "sha256": "570fa2938a2d96a0370552f5ff2be346ef268c5a95d688ee4320ecac643cb9e4"
     },
     {
       "file": "inventario-pagina-0235.json",
       "count": 200,
-      "sha256": "3d8c97329f777201fb45c6b120fd18f987b05518c35a687b3831fb2a66b82a3a"
+      "sha256": "db5141e2077748d940bc9d7210829e903338e9b7f93f7ce56c6f0ce376c2a881"
     },
     {
       "file": "inventario-pagina-0236.json",
       "count": 200,
-      "sha256": "f5c36b8e011d62a2c2d48b49974f266c2bdc2badb29a54744ccd4ed37682b3c0"
+      "sha256": "b70029b9d8cf8648750baea8d0dad2d8f9eee9c756db5e2819e6a2edb1c82bfd"
     },
     {
       "file": "inventario-pagina-0237.json",
       "count": 200,
-      "sha256": "83c3d58486f96764e50cc60e0249bc55bd731ea6dfa7f242c3d63b672d1ebdd9"
+      "sha256": "14e18ffd78fc4dcc93ffbe4c7e4916caa51939ade8f9846487e1a37bd306c0a8"
     },
     {
       "file": "inventario-pagina-0238.json",
       "count": 200,
-      "sha256": "4327760b3994c24376f8411694aedb8bf6171a1659c5921bf4fbce7708baa40d"
+      "sha256": "2992405c5b76dbda8d8a22b457f036874453df14535b92412e911ccf0085018b"
     },
     {
       "file": "inventario-pagina-0239.json",
       "count": 200,
-      "sha256": "ea7c9486a8e96611154c1e4ab9263347abaef6ad320da4e9e56e013a6f4db50f"
+      "sha256": "66c6f45741096c7a9bc1accf9bd041e5fd24b61e7d2e9cf88f06b1c97c2bcac5"
     },
     {
       "file": "inventario-pagina-0240.json",
       "count": 200,
-      "sha256": "7a4343e20f81e16bd3fdd88100aca116155f659cd675d7456e21d15e8c0bf4cb"
+      "sha256": "4c6eceab3962cf8cbfd4a4e8f731c4f174837c6d2cf82fe7165dcd42b3ee8a6d"
     },
     {
       "file": "inventario-pagina-0241.json",
       "count": 200,
-      "sha256": "3143d6bcf2c88b24521d03ee8b29cbaf024b20701ee6ae3455e4d241a63fc9de"
+      "sha256": "cd8bee9a1bffe255d352eccb76aa03a30efe45c9a6b55d6d2f8c064ecb9db48c"
     },
     {
       "file": "inventario-pagina-0242.json",
       "count": 200,
-      "sha256": "78dd64d8ee3d470b37141d51e19462b0c0e83f58919138664dc4c05b2db904e4"
+      "sha256": "8bd6461149f04379ba7979964e4df7a59a464db6ca94b45182a52f87d6edaa4a"
     },
     {
       "file": "inventario-pagina-0243.json",
       "count": 200,
-      "sha256": "c71c6bb15b2901c0a9de5064984558c4d94c1b21f2fb70aa07d805d633193f25"
+      "sha256": "43b217e9ab7c6465b2238d29431bd506c6f3f6eeba3a6672686d43c5145f2cb8"
     },
     {
       "file": "inventario-pagina-0244.json",
       "count": 200,
-      "sha256": "84b91bacb42c5596c07bdd4f1d65b6077fb6712218ae3ebc35e2d1d0d8df9dce"
+      "sha256": "3c3f556beb7c6aacd5de372b1c9aae63dee6d689013397d7420c577ab2a9caa4"
     },
     {
       "file": "inventario-pagina-0245.json",
       "count": 200,
-      "sha256": "a628999833511d0371ebf6044cf87292c580867b5ded02bfd1bef3779ed58c34"
+      "sha256": "032076cdce2b84ea3c97de97a3435960e499a788ef5a374dcb226837de8a4e1f"
     },
     {
       "file": "inventario-pagina-0246.json",
       "count": 200,
-      "sha256": "0429fb870416450d38645151b1df3548db3ac49fd7687a2f3c0b8ac4066edd9c"
+      "sha256": "9147aa6f8fddb57fb6c2aa1704ace52425db48b3b663791c9abf7e1e358f3cc6"
     },
     {
       "file": "inventario-pagina-0247.json",
       "count": 200,
-      "sha256": "45c62e38396ecb8d35dac16df44c4f8df6e9374fa2cdb0dae61d00df30478948"
+      "sha256": "a58327f9c676325231688170b3ee0b5e45df043ae98f965948126a4b31840dd4"
     },
     {
       "file": "inventario-pagina-0248.json",
       "count": 200,
-      "sha256": "fa1edad46960a49f4ff997d801040d258f3a9e3557bf621f552752e7015b672a"
+      "sha256": "3836c6368613caeef820751eb3d93426ec8041801041fb95cf069a6b7e671615"
     },
     {
       "file": "inventario-pagina-0249.json",
       "count": 200,
-      "sha256": "e2add33c0de3d944f8b24d4d6922712cfaa933fdecccfca5f383cc693d980365"
+      "sha256": "d7936de4b62fd413ddac1417d28de049eea879e82cf0eb4eb719114efc5667b9"
     },
     {
       "file": "inventario-pagina-0250.json",
       "count": 200,
-      "sha256": "6d601f8c567cd9db9ecea938b7799b79256d2b217cbd407323cc10052ff1198f"
+      "sha256": "2a485adf9caef5f3e8a91d1a789de6c284869617b7b6797ce7677dedb7fb9142"
     },
     {
       "file": "inventario-pagina-0251.json",
       "count": 200,
-      "sha256": "fbf421a42598afe227a9fc6bf164035fe890b542c27c164c6e83939fb6fac198"
+      "sha256": "3bc96602c2d13831a1baf7f2c87a3bb032a559aa08d724329f43c2dd937e815a"
     },
     {
       "file": "inventario-pagina-0252.json",
       "count": 200,
-      "sha256": "b76c4df24fc8fb72186509b4e8f089cc0621e9c21b984b126ae3ecede77d8cda"
+      "sha256": "a51faac2725dce5a585f471419c9cd64a76f2a789480efb5d0dee7e2ea9c7bdb"
     },
     {
       "file": "inventario-pagina-0253.json",
       "count": 200,
-      "sha256": "9432a736b1bd9863f0ebcd12e8de8c5fbe4a20bf88290b2ac08d839c571c86e6"
+      "sha256": "142fd69a8f4884eff31a329a1912f9396057ab5f9ad70490fd7b4130abff61ad"
     },
     {
       "file": "inventario-pagina-0254.json",
       "count": 200,
-      "sha256": "89f10bfe4058cc3eead936b69e7dbd3df6b0cb417d15d67f575ceae44eedca12"
+      "sha256": "4aae1fff82935ea3385cf614985f002d58ea400bae349cdbcb5ad3aeaa46bd29"
     },
     {
       "file": "inventario-pagina-0255.json",
       "count": 200,
-      "sha256": "c36d52702790ac069c46f21eb20288033eb78d3e74406021b097c977fb1cfe45"
+      "sha256": "a3e1b788a1e7b0c35039a22191aa2b57f5a3a2a580ea57dd6e7f2cc2eaffeae6"
     },
     {
       "file": "inventario-pagina-0256.json",
       "count": 200,
-      "sha256": "7a1fe93834d066da15c5c31e57c2987e2b98399a3fcd77858da177d747298e1d"
+      "sha256": "9d1dfdcf5fc099d80983ad63dcc3f298007cd10555dfb14b8b8a8eef241e73e8"
     },
     {
       "file": "inventario-pagina-0257.json",
       "count": 200,
-      "sha256": "a103e432fe6486812eca2fd40e85c391dc923de0b116e71b97df216298aee486"
+      "sha256": "a77ce3ae42a263e6fc964e4d8bd78f753752e72aa69fc0fa53ae5b792c8bc21e"
     },
     {
       "file": "inventario-pagina-0258.json",
       "count": 200,
-      "sha256": "b39065d0d20f495181d10ac245403e9acb30c8608fc51ec540498c3f474e72bd"
+      "sha256": "18b9810073b51e9c076ee01e0af8c92b66f95a9c3be1ade9743d678c9bfd08a4"
     },
     {
       "file": "inventario-pagina-0259.json",
       "count": 200,
-      "sha256": "46f1f039c0faa4cebe9e927725ddf2e36a056cb2a4f62c5ee0d636af9ff7e162"
+      "sha256": "1328c9e7bb8fea398ca37c594db62344ef5938ab74344b800d0f28a0686596c1"
     },
     {
       "file": "inventario-pagina-0260.json",
       "count": 200,
-      "sha256": "b28ab853cf17e250260c382a032f59993c5d487cf7da69fca4f52c718dff674d"
+      "sha256": "2583c4d2f731d1c09ca96bd26c2fed8deb9f9534e592931696b960d229c27c98"
     },
     {
       "file": "inventario-pagina-0261.json",
       "count": 200,
-      "sha256": "ca93cf2b2c0fdd108d535e6b1c51c05bb4910ee086bf6f4ea0d8a4b39db2c4ce"
+      "sha256": "20b132c41a631e7acc7964accf4f242695ced2a2445e037c97c17634d03cfe45"
     },
     {
       "file": "inventario-pagina-0262.json",
       "count": 200,
-      "sha256": "e008e4c7deb8fd7bd5fa982115f5e5a85be6e602b6aed5d1c6d282ce414444ca"
+      "sha256": "9be5d9c65ed1de5f14e0fe551f313a6fe56d1f2d58a3211fcdef539544e69e52"
     },
     {
       "file": "inventario-pagina-0263.json",
       "count": 200,
-      "sha256": "e67d3a6c511794cf541750a6c0c08c155734f8893875dd59b957af7c3e1df333"
+      "sha256": "6a691167af936b59101a0af42ab645e4621015556b5d663b445c7ec9eb483200"
     },
     {
       "file": "inventario-pagina-0264.json",
       "count": 200,
-      "sha256": "afbb59ce702f3eb9d74dfa7b150aae7efdbe744b9cb8ce90e2581fbcfd8346c4"
+      "sha256": "89722d783236285cf77648a1a492ed9295a2c72bc8383119d6483eae4b74e1f2"
     },
     {
       "file": "inventario-pagina-0265.json",
       "count": 200,
-      "sha256": "5c8274240a4bfdc2d8f5b29b267c0e29fc0c6f28c25651c044e08a7d0b3803e3"
+      "sha256": "0a7841d875ee5f187af8aae3b40ef880a0614514f4bd54aa64690a42532781f4"
     },
     {
       "file": "inventario-pagina-0266.json",
       "count": 200,
-      "sha256": "07cc779dfd7380c63c83418c83edabb7a3c508d5fad3a8273c4edeecd141b43b"
+      "sha256": "d9d5c6e22d7dc40075aea3c9d4aafb57e0738cebed5229003f3ece3e7f049d64"
     },
     {
       "file": "inventario-pagina-0267.json",
       "count": 200,
-      "sha256": "4f24b9319ba107982581a8bbc34f1478c626462900fdee35c84f1fb1e298e0e4"
+      "sha256": "f1ea131681c169331f424338055d835d4bdf2c40ceb3584b5e40007aa5e09263"
     },
     {
       "file": "inventario-pagina-0268.json",
       "count": 200,
-      "sha256": "b1a7f2a53c922ce7fb401aa3babd05c2062d7147a58c77d44581797a2baf0d65"
+      "sha256": "9aa1e0420b5550e33f372b87e7ebddac8b0abc3787ae1694d9b88cab88c8097f"
     },
     {
       "file": "inventario-pagina-0269.json",
       "count": 200,
-      "sha256": "e9ce622d1ed12ee14ec60a4c5655ed467191109f05729a40779356763f44b1d5"
+      "sha256": "c5f0014adc479d2f6e1c699d6b574b60626a1667c3b6df4006b7fe5897c1697b"
     },
     {
       "file": "inventario-pagina-0270.json",
-      "count": 43,
-      "sha256": "d8028f620a3f2e94616ca2dcbfcb7574a2f01a6a59ae0a4aef23efd32c57460d"
+      "count": 120,
+      "sha256": "3c2aa1e0c117b33e70cd8b9a0941d405b140f7dafbbac811178b301298eb7d82"
     }
   ],
   "interpretationGaps": [
@@ -3953,7 +3966,8 @@
       "file": "lib/dominio/irpf/cuotas/cuota-diferencial.ts",
       "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
       "symbols": [
-        "calcularCuotaDiferencialCentimos"
+        "calcularCuotaDiferencialCentimos",
+        "liquidarPagosAnuales"
       ]
     },
     {
@@ -3964,6 +3978,9 @@
         "calcularDesgloseCuotaPorEscalaAhorro",
         "calcularCuotaComponenteAhorro",
         "calcularAhorroConMinimos",
+        "A",
+        "baseSeleccionada",
+        "general",
         "componente",
         "remanente",
         "bruta",
@@ -3976,6 +3993,7 @@
       "symbols": [
         "calcularCuotaPorEscala",
         "calcularDesgloseCuotaPorEscala",
+        "base",
         "baseRestante",
         "anchoTramo",
         "importeEnTramo",
@@ -4160,6 +4178,65 @@
       ]
     },
     {
+      "file": "lib/dominio/irpf/liquidacion/composicion-anual.ts",
+      "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
+      "symbols": [
+        "errorDerechosMinimos",
+        "cuantizarAnual",
+        "componerLiquidacionAnual",
+        "A",
+        "caso",
+        "baseLiquidableGeneral",
+        "baseLiquidableAhorro",
+        "minimosEstatales",
+        "cuantizar",
+        "gravar",
+        "derechos",
+        "seleccion",
+        "parametrosComunidad",
+        "escalasPublicadasEstatales",
+        "escalaPublicadaAutonomica",
+        "escalasPublicadasAutonomicas",
+        "usaEscalaAutonomicaReal",
+        "tramosIrpfEstatalGeneral",
+        "cuotaIntegraGeneralEstatal",
+        "cuotaIntegraGeneralAutonomica",
+        "cuotaIntegraGeneral",
+        "cuotaIntegraAhorro",
+        "desgloseCuotaIntegraGeneralEstatal",
+        "desgloseCuotaIntegraGeneralAutonomica",
+        "desgloseCuotaIntegraAhorro",
+        "derechosEstatales",
+        "derechosAutonomicos",
+        "minimoContribuyente",
+        "minimoAscendientes",
+        "minimoDescendientes",
+        "minimoDiscapacidadContribuyente",
+        "minimoDiscapacidadFamiliares",
+        "minimoPersonalYFamiliar",
+        "minimoPersonalYFamiliarAutonomico",
+        "cuotaMinimoPersonalEstatal",
+        "cuotaMinimoPersonalAutonomica",
+        "cuotaMinimoPersonal",
+        "ahorroConMinimos",
+        "cuotaMinimoPersonalAhorro",
+        "desgloseCuotaMinimoPersonalEstatal",
+        "desgloseCuotaMinimoPersonalAutonomica",
+        "cuotaEstatalDespuesMinimo",
+        "cuotaGeneralDespuesMinimo",
+        "cuotaAutonomicaGeneralDespuesMinimo",
+        "cuotaAhorroDespuesMinimo",
+        "deduccionesAutonomicasDeclaradas",
+        "deduccionesAutonomicasAplicadas",
+        "cuotaLiquida",
+        "deduccionTrabajo",
+        "resultado",
+        "cuotaPosterior",
+        "calcularMinimoPersonalYFamiliar",
+        "minimoContribuyente"
+      ]
+    },
+    {
       "file": "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts",
       "reason": "Funciones y bindings no evaluados: requieren entradas, selección temporal y análisis dimensional",
       "symbols": [
@@ -4192,47 +4269,7 @@
         "baseImponibleGeneral",
         "baseLiquidableGeneral",
         "baseLiquidableAhorro",
-        "resultadoParametrosComunidad",
-        "inicioParametrosComunidadMatch",
-        "parametrosComunidad",
-        "inicioCuotasIntegras",
-        "escalasPublicadasEstatales",
-        "escalaPublicadaAutonomica",
-        "escalasPublicadasAutonomicas",
-        "usaEscalaAutonomicaReal",
-        "tramosIrpfEstatalGeneral",
-        "cuotaIntegraGeneralEstatal",
-        "cuotaIntegraGeneralAutonomica",
-        "cuotaIntegraGeneral",
-        "cuotaIntegraAhorro",
-        "desgloseCuotaIntegraGeneralEstatal",
-        "desgloseCuotaIntegraGeneralAutonomica",
-        "desgloseCuotaIntegraAhorro",
-        "inicioMinimos",
-        "derechosEstatales",
-        "derechosAutonomicos",
-        "minimoContribuyente",
-        "minimoAscendientes",
-        "minimoDescendientes",
-        "minimoDiscapacidadContribuyente",
-        "minimoDiscapacidadFamiliares",
-        "minimoPersonalYFamiliar",
-        "minimoPersonalYFamiliarAutonomico",
-        "inicioCuotasMinimo",
-        "cuotaMinimoPersonalEstatal",
-        "cuotaMinimoPersonalAutonomica",
-        "cuotaMinimoPersonal",
-        "ahorroConMinimos",
-        "cuotaMinimoPersonalAhorro",
-        "desgloseCuotaMinimoPersonalEstatal",
-        "desgloseCuotaMinimoPersonalAutonomica",
-        "inicioCuotaLiquida",
-        "cuotaGeneralDespuesMinimo",
-        "cuotaAutonomicaGeneralDespuesMinimo",
-        "cuotaAhorroDespuesMinimo",
-        "deduccionesAutonomicasDeclaradas",
-        "deduccionesAutonomicasAplicadas",
-        "cuotaLiquida",
+        "{\n    parametrosComunidad,\n    escalaPublicadaAutonomica,\n    usaEscalaAutonomicaReal,\n    cuotaIntegraGeneral,\n    cuotaIntegraAhorro,\n    desgloseCuotaIntegraGeneralEstatal,\n    desgloseCuotaIntegraGeneralAutonomica,\n    desgloseCuotaIntegraAhorro,\n    derechosEstatales,\n    minimoContribuyente,\n    minimoAscendientes,\n    minimoDescendientes,\n    minimoDiscapacidadContribuyente,\n    minimoDiscapacidadFamiliares,\n    minimoPersonalYFamiliar,\n    minimoPersonalYFamiliarAutonomico,\n    cuotaMinimoPersonal,\n    ahorroConMinimos,\n    cuotaMinimoPersonalAhorro,\n    desgloseCuotaMinimoPersonalEstatal,\n    desgloseCuotaMinimoPersonalAutonomica,\n    cuotaGeneralDespuesMinimo,\n    cuotaAutonomicaGeneralDespuesMinimo,\n    cuotaAhorroDespuesMinimo,\n    deduccionesAutonomicasAplicadas,\n    cuotaLiquida,\n  }",
         "importesLiquidacion",
         "inicioRetencionTrabajo",
         "retencionTrabajoAeat",
@@ -4245,17 +4282,12 @@
         "detectarCasoNoSoportado",
         "catalogada",
         "resultadoNoSoportado",
-        "calcularMinimoPersonalYFamiliar",
-        "minimoContribuyente",
         "euros",
         "porcentaje",
         "pasoRetencionTrabajoAeat",
         "sumarDeduccionesAutonomicasCentimos",
         "deduccionesAutonomicasDescripcion",
-        "rastroResultadoNoSoportado",
-        "rastroTrasReforma",
-        "historico",
-        "referencia"
+        "rastroResultadoNoSoportado"
       ]
     },
     {
@@ -4308,6 +4340,7 @@
         "calcularDerechosMinimos",
         "caso",
         "elegibles",
+        "A",
         "descendientes",
         "discapacidadFamiliares",
         "atribuciones",
@@ -4554,6 +4587,7 @@
         "redondeoSalarialOpen",
         "cuantizarEtapa",
         "pasos",
+        "cotizacionEfectiva",
         "neto",
         "reduccionArt20",
         "brutoServicios",
@@ -4565,20 +4599,8 @@
         "trabajo",
         "actividad",
         "base",
-        "parametros",
-        "publicada",
-        "estatal",
-        "autonomica",
-        "gravamenEstatal",
-        "gravamenMinimoEstatal",
-        "gravamenAutonomico",
-        "gravamenMinimoAutonomico",
-        "cuotaEstatal",
-        "cuotaAutonomica",
-        "liquida",
-        "deduccion",
-        "posterior",
-        "resultado",
+        "composicion",
+        "{\n    cuotaIntegraGeneralEstatal: gravamenEstatal,\n    cuotaMinimoPersonalEstatal: gravamenMinimoEstatal,\n    cuotaIntegraGeneralAutonomica: gravamenAutonomico,\n    cuotaMinimoPersonalAutonomica: gravamenMinimoAutonomico,\n    cuotaEstatalDespuesMinimo: cuotaEstatal,\n    cuotaAutonomicaGeneralDespuesMinimo: cuotaAutonomica,\n    cuotaLiquida: liquida,\n    deduccionTrabajo: deduccion,\n    cuotaPosterior: posterior,\n  }",
         "diferencial"
       ]
     },
@@ -5142,7 +5164,7 @@
   "artifact": {
     "file": "inventario-datos.json.gz",
     "format": "gzip-json-files-v1",
-    "sha256": "eb1d783bc0ad9d0bdf0b3405349574f8c00f2fa62226f58d9cd9b0ad35b11eb0",
-    "size": 10963605
+    "sha256": "735dca948cd5e7e89b22a18da73bcf117f61cb371e5b889ef8517fcfd8076464",
+    "size": 10998102
   }
 }
