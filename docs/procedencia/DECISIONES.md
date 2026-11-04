@@ -476,3 +476,19 @@ la corrupción intermedia se rechaza. **Coste:** la ampliación espera al
 contraste independiente de las cinco correcciones y al piloto. La conexión
 con el motor vigente y los seis componentes de cuota no proyectados siguen
 siendo trabajo distinto; las 2.020 entradas preparadas no son ejecuciones.
+
+## Reservas explícitas en los resultados de A (4 de noviembre)
+
+Se mantiene `match` como comparación técnica y se añade aplicabilidad pendiente
+con sujeto, condiciones y ámbito declarado en cada resultado y evidencia.
+La cola incluye también esas coincidencias. La unión recalcula sus causas y
+conserva por separado las reservas de cada lote.
+
+**Objeción:** mantener una coincidencia con aplicabilidad pendiente puede parecer
+cobertura fiscal. **Respuesta:** el estado de aplicabilidad y su cola son
+explícitos en cada nivel; no se habilita aceptación fiscal y no se incrementa
+la cobertura. Cambiar todos los cotejos numéricos a un único estado pendiente
+haría perder una distinción útil al auditor. **Coste:** crecen las salidas y las
+colas; siguen fuera del repositorio, identificadas por hash. Se genera una sola
+vez un censo actualizado para el checkout combinado con C y se reutiliza en
+los replay, sin excluir ni retocar las preimágenes antiguas.
