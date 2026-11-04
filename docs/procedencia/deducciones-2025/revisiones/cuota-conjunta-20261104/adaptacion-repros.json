@@ -1,0 +1,9 @@
+{
+  "source": "/home/local/Backups/IRoboPF/producto-valenciana-revision-cuota-conjunta-20261104/repros.ts",
+  "source_sha256": "cd2e296c39d11071679de23145e3f295029bbf7c953f1230e58edc603d552d39",
+  "target": "/home/local/Backups/IRoboPF/producto-valenciana-cuota-conjunta-20261104/repros-corregidos.ts",
+  "target_sha256": "dc86b4af83ab1ab34f7474bb9343c34f29795cfddea9a4596ed0e60eb73a2312",
+  "change": "Sólo la observación diagnóstica P2 exige ahora rechazo; 263 escenarios monetarios y demás expectativas intactos.",
+  "before": "const early=entrada([saldo(d,2023)]);comp=componer(early.hechos as any);assert.equal(comp.estado,'calculo_parcial');assert.equal(comp.totalParcialAntesCuota,0);rechaza(early)",
+  "after": "const early=entrada([saldo(d,2023)]);comp=componer(early.hechos as any);assert.equal(comp.estado,'no_soportado');assert.equal(comp.totalParcialAntesCuota,undefined);rechaza(early)"
+}

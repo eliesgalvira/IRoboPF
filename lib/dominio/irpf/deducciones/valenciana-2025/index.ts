@@ -196,3 +196,10 @@ export type {
   FilaComposicion,
   CuotaSeparada,
 } from "./composicion"
+
+export { aplicarCuotaConjuntaValenciana2025 } from "./cuota-conjunta"
+export type {
+  AplicacionCuotaConjuntaValenciana2025,
+  ResultadoCuotaConjuntaValenciana2025,
+  MovimientoCuotaConjunta,
+} from "./cuota-conjunta"
