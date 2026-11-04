@@ -90,13 +90,37 @@ export const DescendienteDerechos = Schema.Struct({
 export type DescendienteDerechos = typeof DescendienteDerechos.Type
 export type TitularDescendiente = typeof TitularDescendiente.Type
 
-/** Hechos declarados, nunca certificación de derecho ni porcentaje manual. */
-export const DerechosMinimos2025 = Schema.Struct({
-  ejercicio: Schema.Literal(2025),
-  territorio: Schema.Literal("madrid"),
+/** Territorios reales del régimen común; los forales se rechazan en frontera. */
+export const TerritorioMinimosComun = Schema.Literals([
+  "andalucia",
+  "aragon",
+  "asturias",
+  "illes-balears",
+  "canarias",
+  "cantabria",
+  "castilla-la-mancha",
+  "castilla-y-leon",
+  "catalunya",
+  "extremadura",
+  "galicia",
+  "madrid",
+  "murcia",
+  "la-rioja",
+  "comunitat-valenciana",
+  "ceuta",
+  "melilla",
+])
+export const EjercicioDerechosMinimos = Schema.Literals([
+  2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024,
+  2025, 2026,
+])
+/** Hechos al cierre anual, nunca certificación ni porcentaje manual. */
+export const DerechosMinimosAnuales = Schema.Struct({
+  ejercicio: EjercicioDerechosMinimos,
+  territorio: TerritorioMinimosComun,
   regimen: Schema.Literal("comun"),
   modalidad: Schema.Literal("individual"),
-  devengo: Schema.Literal("2025-12-31"),
+  devengo: Fecha,
   contribuyenteId: Id,
   edadContribuyenteDevengo: Entero.check(Schema.isGreaterThanOrEqualTo(18)),
   discapacidadContribuyente: DiscapacidadDerechos,
@@ -113,6 +137,14 @@ export const DerechosMinimos2025 = Schema.Struct({
   descendientes: Schema.Array(DescendienteDerechos).check(
     Schema.isMaxLength(100)
   ),
+})
+export type DerechosMinimosAnuales = typeof DerechosMinimosAnuales.Type
+/** @deprecated Use DerechosMinimosAnuales. Mismo cálculo y validación. */
+export const DerechosMinimos2025 = Schema.Struct({
+  ...DerechosMinimosAnuales.fields,
+  ejercicio: Schema.Literal(2025),
+  territorio: Schema.Literal("madrid"),
+  devengo: Schema.Literal("2025-12-31"),
 })
 export type DerechosMinimos2025 = typeof DerechosMinimos2025.Type
 

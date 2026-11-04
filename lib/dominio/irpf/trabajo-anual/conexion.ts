@@ -35,10 +35,28 @@ export const liquidarIrpfAnualExplicito = Effect.fn(
   if (Result.isFailure(decoded))
     return yield* Effect.fail(
       rechazar(
-        "Entrada incompleta o fuera del alcance individual Madrid 2025 declarado"
+        "Entrada incompleta o fuera del alcance individual común 2025 declarado"
       )
     )
   const caso = decoded.success
+  if (
+    (caso.familiaresConDerechoMinimo === "segun-derechos") !==
+    (caso.derechosMinimos !== undefined)
+  )
+    return yield* Effect.fail(
+      rechazar(
+        "La declaración de familiares exige derechos completos y coherentes"
+      )
+    )
+  if (
+    caso.derechosMinimos !== undefined &&
+    caso.derechosMinimos.discapacidadContribuyente._tag !== "SinDiscapacidad"
+  )
+    return yield* Effect.fail(
+      rechazar(
+        "Discapacidad del contribuyente incompatible con la ausencia declarada en el perfil efectivo"
+      )
+    )
   let redondeoSalarialOpen = false
   const cuantizarEtapa = (importe: Decimal) =>
     cuantizarAnual(
@@ -74,7 +92,7 @@ export const liquidarIrpfAnualExplicito = Effect.fn(
         )
       )
     // Observado en Open 2025; no extrapolar a pensión ni actividad.
-    redondeoSalarialOpen = empleo
+    redondeoSalarialOpen = empleo && caso.comunidadAutonoma === "madrid"
     const trabajo = adaptarTrabajoAnual(caso.trabajo)
     if (trabajo.estado === "no-soportado")
       return yield* Effect.fail(rechazar(trabajo.motivo))
@@ -213,7 +231,8 @@ export const liquidarIrpfAnualExplicito = Effect.fn(
   const composicion = yield* componerLiquidacionAnual({
     ambito: {
       anio: 2025,
-      comunidadAutonoma: "madrid",
+      comunidadAutonoma: caso.comunidadAutonoma,
+      derechosMinimos: caso.derechosMinimos,
       situacionFamiliar: {
         tipo: "individual",
         edad: caso.edad,
@@ -296,7 +315,7 @@ export const liquidarIrpfAnualExplicito = Effect.fn(
         etiqueta: "Cuota autonómica",
         formula: redondeoSalarialOpen
           ? `gravámenes a céntimos Open Madrid: ${gravamenAutonomico.toFixed(2)} − ${gravamenMinimoAutonomico.toFixed(2)}`
-          : "escala publicada Madrid(base) − escala(mínimo limitado a base)",
+          : "escala autonómica(base) − escala(mínimo limitado a base)",
       }),
       crearLineaCalculo({
         siteId: "anual.explicito.cuota.liquida-legal",
@@ -354,8 +373,7 @@ export const liquidarIrpfAnualExplicito = Effect.fn(
     _tag: "LiquidacionIrpfAnualExplicitaCalculada" as const,
     perfil: caso.perfil,
     ejercicio: 2025 as const,
-    alcance:
-      "individual-madrid-18-a-64-sin-familiares-ni-discapacidad" as const,
+    alcance: "individual-comun-2025-hechos-explicitos" as const,
     rendimientoNetoReducido: neto.toFixed(),
     baseImponibleGeneral: neto.toFixed(),
     baseLiquidableGeneral: neto.toFixed(),
@@ -382,7 +400,7 @@ export const liquidarIrpfAnualExplicito = Effect.fn(
       titulo: "Liquidación anual explícita 2025",
       contexto: {
         anio: 2025,
-        territorio: "madrid",
+        territorio: caso.comunidadAutonoma,
         perfilCalculo: caso.perfil,
       },
       pasos,

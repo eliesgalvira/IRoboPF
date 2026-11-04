@@ -14,7 +14,7 @@ it.each(casos)("recorrido real: $nombre", ({ entrada, esperado, lineas }) => {
     _tag: "LiquidacionIrpfAnualExplicitaCalculada",
     ejercicio: 2025,
     perfil: "solo-trabajo",
-    alcance: "individual-madrid-18-a-64-sin-familiares-ni-discapacidad",
+    alcance: "individual-comun-2025-hechos-explicitos",
     aceptacionFiscal: "pendiente",
   })
   expect(r.rastro.contexto).toEqual({ anio: 2025, territorio: "madrid", perfilCalculo: "solo-trabajo" })
@@ -40,7 +40,7 @@ function liquidarJavaScript<Entrada extends { readonly ejercicio: number }>(entr
 
 const base = casos[0]!.entrada
 it.each([
-  { ejercicio: 2024 }, { ejercicio: 2026 }, { edad: 17 }, { edad: 65 },
+  { ejercicio: 2024 }, { ejercicio: 2026 }, { edad: 17 }, { edad: 151 },
   { comunidadAutonoma: "cataluna" }, { modalidad: "conjunta" },
   { residenciaTodoElAnio: false }, { devengo: "2025-06-30" },
   { otrasRentas: "presentes" }, { familiaresConDerechoMinimo: "presentes" },
@@ -52,6 +52,15 @@ it.each([
 ])("rechaza alcance o campos ausentes: %j", cambio => {
   expect(liquidarJavaScript({ ...base, ...cambio })).toMatchObject({
     _tag: "Failure", failure: { _tag: "ResultadoNoSoportado" },
+  })
+})
+
+it.each([65, 75, 150])("admite edad %i en el contrato común ampliado", edad => {
+  expect(liquidarJavaScript({ ...base, edad })).toMatchObject({
+    _tag: "Success", success: {
+      _tag: "LiquidacionIrpfAnualExplicitaCalculada",
+      alcance: "individual-comun-2025-hechos-explicitos",
+    },
   })
 })
 

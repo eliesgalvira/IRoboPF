@@ -9,6 +9,11 @@ deducciones autonómicas 2025; (5) A limitado a 2025–2026 y series usadas en l
 comparación histórica; (6) D con un máximo de cuatro horas. F completo y el
 histórico restante de A quedan aplazados. Los balances antiguos no imponen otro orden.
 
+Añadido de las 20:40: después de que C2025 esté revisado y pase, ejecutar en
+segundo plano como tarea ligera C histórico 2018–2024 con las 2.020 entradas
+preparadas, investigando discrepancias. Antes de 2018 queda A histórico aplazado.
+El [estado por año](ESTADO-POR-ANIO.md) distingue capturas, cotejos, documentos y cálculo.
+
 El candidato A de importaciones de 2019 y sus dos hallazgos P1 quedan conservados
 sin publicar: efectos de módulo que invalidan la prueba y un constructor mal
 identificado. C de equivalencia sintética permanece parcial; se cancela su
@@ -28,11 +33,52 @@ El primer CI de esa protección encontró una caché histórica ya versionada en
 al scratch antiguo. Se conservó su destino y se retiró del seguimiento en
 `95930995a58a`; el árbol seguido ya no contiene ninguna ruta `.cache`.
 La misma corrección impide ejecutar pruebas posteriores si no se instalaron las
-dependencias. El nuevo CI remoto está en ejecución.
+dependencias. El CI de `1f71fb9d` supera `corpus`, tipos, lint y pruebas del motor,
+pero detecta un inventario desactualizado. Es el único paso fallido de la
+[ejecución 41893770656](https://github.com/eliesgalvira/IRoboPF/actions/runs/41893770656).
+Se regenera en el candidato familiar; no se declara verde aquella ejecución.
 
 Máximo cinco subagentes: dos pesados y tres ligeros. Investigadores y revisores
 leen desde la raíz sin worktree. Cada cambio de importes o datos públicos recibe
 una revisión independiente; sólo se repite el contraste de arreglos graves.
+
+La entrega acotada de D queda incorporada en [cotizaciones y producto](D-REDONDEO-PRODUCTO.md):
+textos de alcance para el rediseño, distinción entre cotización efectiva y
+estimada y discriminantes reutilizables. Sus siete artefactos coinciden por hash
+y el replay racional conserva los resultados revisados. El investigador empleó
+2 minutos y 44 segundos, sin suites pesadas ni evidencia oficial nueva. La
+consulta puntual posterior del padre tampoco aporta una política operativa
+nueva: el [manual público de consulta de cuotas, noviembre de 2018](https://sede.seg-social.gob.es/binarios/es/TGSS_Calculo_Cuotas)
+describe liquidaciones
+reales ya confirmadas, no un simulador de escenarios libres. No se modifican
+importes; termina este tramo acotado, mientras D general queda pendiente fuera
+del camino crítico de E.
+
+La ampliación familiar integrada cubre 255 combinaciones de 2012–2026 y los 17
+territorios comunes. La revisión independiente conjunta E+B es favorable en el
+alcance examinado: 764 discriminantes propios, 594 regresiones y 21 hashes de
+fuentes intactos. Reextrae 115 filas oficiales de 17 escalas. Mantiene excluidos
+ascendientes, fallecimientos y declaración conjunta; la entrada efectiva sigue
+limitada a 2025. Véanse [familia](reforma-motor/bloque-e/FAMILIA-ANUAL.md),
+[B2026](reforma-motor/bloque-e/B2026.md) y
+[dictamen](reforma-motor/bloque-e/revision-familia-2026/INFORME.md).
+El inventario está regenerado; se actualizan doce identidades de fuentes y se fijan tres módulos nuevos para
+que el CI examine el candidato, sin trasladar aceptación fiscal histórica.
+El CI local queda completado: 1.202 ejecuciones Vitest por bloques, con pruebas
+compartidas, y 227 métodos Python; tipos y lint correctos (18 avisos previos).
+Se publica este corte en `procedencia-documental`; el resultado remoto se
+registrará sobre su hash. [Cierre de integración](reforma-motor/bloque-e/CIERRE-FAMILIA-2026.md).
+
+La guardia del auxiliar rechaza explícitamente una deducción pendiente activa,
+evita el cero silencioso y conserva la consignación anual de importes externos.
+Se integran doce rectificaciones documentales en nueve fichas valencianas y
+tres filas de matriz, conservando cuantías, límites, páginas y estados. Pasan
+las catorce pruebas focales nuevas y tipos. La
+[revisión independiente](deducciones-2025/revisiones/producto-20261104/INFORME.txt)
+es favorable acotada: 333 aserciones propias, fidelidad de las doce propuestas y
+ningún error monetario nuevo reproducido en los nueve auxiliares. No se repiten
+los dictámenes documentales favorables. Las cuarenta fichas valencianas siguen
+pendientes de evaluación automática por hechos: este arreglo no cierra el punto 4.
 
 
 ## Motor y API para el rediseño: cierre técnico del 4 de noviembre

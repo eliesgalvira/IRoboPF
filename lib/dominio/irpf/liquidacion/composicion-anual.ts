@@ -319,15 +319,12 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
     )
     if (
       entrada.serviciosLaborales !== undefined &&
-      (caso.anio !== 2025 ||
-        caso.comunidadAutonoma !== "madrid" ||
-        entrada.baseAhorro.isZero() === false ||
-        caso.derechosMinimos !== undefined)
+      (caso.anio !== 2025 || entrada.baseAhorro.isZero() === false)
     )
       return yield* Effect.fail(
         errorDerechosMinimos({
           motivo:
-            "DA61 anual integrada limitada al perfil efectivo Madrid 2025 sin otras rentas ni derechos",
+            "DA61 anual integrada limitada al perfil efectivo común 2025 sin otras rentas",
         })
       )
     let deduccionTrabajo = new A(0)

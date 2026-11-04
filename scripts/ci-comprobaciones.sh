@@ -11,6 +11,7 @@ run bun run test tests/cotizaciones-perfil-uniforme.test.ts tests/*-procedencia.
 run bun run test tests/retenciones-versionadas.test.ts tests/trabajo-anual-contratos.test.ts tests/actividades-economicas-2025.test.ts tests/deducciones-contratos.test.ts tests/deducciones-ambito.test.ts tests/deducciones-conjunta-identidad.test.ts tests/calculo-salario-neto-irpf.test.ts --maxWorkers=1
 run bun run test tests/composicion-anual-unica.test.ts tests/composicion-anual-revision.test.ts tests/composicion-precision.test.ts tests/composicion-precision-contraste.test.ts tests/anual-salarial-completo.test.ts tests/conexion-anual.test.ts tests/retirada-rutas.test.ts tests/motor-unico-revision.test.ts tests/minimos-derechos.test.ts tests/retenciones-derechos.test.ts tests/liquidacion-irpf-anual.test.ts tests/correcciones-x-solidaridad.test.ts --maxWorkers=1
 run bun run inventario:verificar
+run bun run test tests/minimos-derechos-anuales.test.ts tests/territorios-2026.test.ts tests/comunidades-autonomas.test.ts tests/deducciones-pendientes.test.ts tests/deducciones-valencianas-datos-producto.test.ts --maxWorkers=1
 run bun run test:inventario
 run bun run test --config scripts/procedencia/contenido-vitest.mjs
 run bun scripts/procedencia/contenido-verificar.mjs --fixture

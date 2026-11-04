@@ -383,7 +383,12 @@ console.log("5551");
           (c) => c.year === 2026 && c.result === "ParametrosComunidadAutonoma"
         )
         .map((c) => c.territory)
-    ).toEqual(["simulada-estatal"])
+    ).toEqual([
+      "simulada-estatal", "andalucia", "aragon", "asturias", "illes-balears",
+      "canarias", "cantabria", "castilla-la-mancha", "castilla-y-leon",
+      "catalunya", "extremadura", "galicia", "madrid", "murcia", "la-rioja",
+      "comunitat-valenciana", "ceuta", "melilla",
+    ])
     expect(
       coverage.find((c) => c.year === 2025 && c.territory === "madrid").result
     ).toBe("ParametrosComunidadAutonoma")

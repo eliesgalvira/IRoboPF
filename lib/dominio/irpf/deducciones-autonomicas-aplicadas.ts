@@ -12,6 +12,7 @@ import Decimal from "decimal.js"
 
 import {
   DEDUCCIONES_AUTONOMICAS_2025_IMPLEMENTADAS,
+  DEDUCCIONES_AUTONOMICAS_2025_POR_COMUNIDAD,
   type FichaDeduccionAutonomica,
 } from "../normativa/datos/deducciones-autonomicas-2025"
 
@@ -917,6 +918,21 @@ export const calcularDeduccionesAutonomicasAplicadas = (
   hechos: HechosAuxiliar2025 = []
 ): number => {
   const entradas = filtrarEntradasPorAmbito(entradasOriginales, ambito)
+  for (const fichas of Object.values(
+    DEDUCCIONES_AUTONOMICAS_2025_POR_COMUNIDAD
+  )) {
+    for (const ficha of fichas) {
+      if (
+        ficha.estado !== "implementada" &&
+        entradas[`${ficha.codigo}:cumple`] === true
+      )
+        throw new RangeError(
+          "Deducción sin cálculo automático soportado: " +
+            ficha.codigo +
+            ". Utilice la ruta de consignación explícita para importes externos."
+        )
+    }
+  }
   const importeHechos = adaptarHechosAuxiliar(entradas, ambito, hechos)
   const andaluciaNacimiento =
     (numeroDeduccion(entradas, "andaluciaHijosNacimientoAdopcion") +

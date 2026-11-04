@@ -311,6 +311,8 @@ export const VALENCIANA_DEDUCCIONES_AUTONOMICAS_2025 = [
     requisitos: [
       "Contrato de vivienda iniciado en ejercicio; cambio de inquilino si anterior inferior a tres años; precio de referencia; fianza depositada",
       "No 5% del neto: contrato iniciado 2025, cambio inquilino si anterior<3años, precio referencia y depósito fianza antes finperiodo; art 4Dos patrimonio.",
+      "Precio de referencia autonómico: renta mensual pactada más gastos y tributos repercutidos según contrato, excluidos suministros; no superior al precio mediano aplicable a la vivienda. Manual AEAT2025 remite al visor GVA. Identificar tabla, zona, período constructivo, superficie y versión; la antigüedad2018 del conjunto oficial no autoriza indexarlo por IPC o IRAV ni sustituirlo por SERPAVI. Depósito a favor Generalitat antes de finalizar el período; plazo administrativo distinto de un mes desde contrato o inicio real anterior, Decreto46/2022 art3.",
+      "La metodología CaLab utiliza superficie construida catastral de uso vivienda, excluidos otros usos y comunes. La reserva es el valor de la celda y versión histórica aplicable en2025; una consulta actual no lo acredita.",
     ],
     limites: [
       "Base máxima 3.300 euros; no confundir base con cuota máxima 165",
@@ -329,6 +331,7 @@ export const VALENCIANA_DEDUCCIONES_AUTONOMICAS_2025 = [
       "situación y titularidad/derecho de uso de vivienda, residencia efectiva, adquisición, ocupación y excepciones justificadas",
       "gastos fechados por concepto, pagador, medio de pago, ayudas, reembolsos y porcentaje de participación",
       "contrato, fechas y distancias cuando sean requisitos; identificación del ejecutor y calificación técnica de obra/instalación",
+      "renta y repercusiones contractuales desglosadas; fecha de inicio real y formalización; duración y arrendatarios del contrato anterior; justificante del depósito y fecha; evidencia del valor de referencia autonómico con versión, área y parámetros, conservada privadamente",
     ],
     fuenteManual: {
       documento: "ManualRenta2025Parte2",
@@ -593,6 +596,7 @@ export const VALENCIANA_DEDUCCIONES_AUTONOMICAS_2025 = [
     requisitos: [
       "Inscripción de los bienes en el inventario general del patrimonio cultural valenciano; destinatarios habilitados",
       "Donación pura/simple, bien inventariado y destinatario habilitado Ley 20/2018 art 3; valoración/entrega y certificado. No confundir con gasto propio q 3 ni aplicar por analogía 30% de base.",
+      "acreditar inscripción, sección/identificación y acto; donación pura y simple; beneficiario limitado a art3.1.a (fin cultural), b–f y comparables3.2. No trasladar g/h/i de s. Certificado4.Tres.a con número Inventario y valoración/entrega. No imponer declaración interés social: Decreto2/2019 art2.",
     ],
     limites: ["Valor de bienes conforme legislación y reglas de mecenazgo"],
     prorrateo: [
@@ -606,8 +610,9 @@ export const VALENCIANA_DEDUCCIONES_AUTONOMICAS_2025 = [
       "identidad sintética del contribuyente y de las personas que generan derecho",
       "cuota íntegra autonómica disponible antes de esta deducción",
       "valores y pruebas de origen por ejercicio, sin importe libre ni booleano global de cumplimiento",
-      "beneficiario y acreditación de su categoría/registro; proyecto o bien y su calificación legal a fecha relevante",
-      "objeto, fecha, importe o valoración de la entrega; certificado, aceptación y destino; deducción estatal concurrente",
+      "bien efectivamente inscrito, sección, identificación y acto de inclusión en Inventario",
+      "donatario de art3.1.a con fin cultural, b–f o comparable3.2; exclusiones3.3; donación pura y simple",
+      "valoración, entrega y certificado4.Tres.a con número de Inventario",
     ],
     fuenteManual: {
       documento: "ManualRenta2025Parte2",
@@ -631,6 +636,7 @@ export const VALENCIANA_DEDUCCIONES_AUTONOMICAS_2025 = [
     requisitos: [
       "Donación dineraria a entidades previstas para conservación/reparación/restauración de bienes inventariados",
       "Dinero para conservación/reparación/restauración de bienes inventariados; destinatarios q 1, afectación siguiente presupuesto Generalitat, certificado y DA16;30% liquidable.",
+      "dinero donado para programa/actuación de conservación, reparación o restauración de bien inscrito. Beneficiarios q1; certificado4.Tres.a y destino; Generalitat/entidad pública cultural afectación presupuestaria siguiente ejercicio. Individualizar categoría y acto de intervención cuando proceda; no exigir al donante autorización personal del propietario. No requiere declaración interés social art2 Decreto2/2019.",
     ],
     limites: ["Base no superior al 30% de base liquidable art.4.Dos"],
     prorrateo: [
@@ -644,8 +650,9 @@ export const VALENCIANA_DEDUCCIONES_AUTONOMICAS_2025 = [
       "identidad sintética del contribuyente y de las personas que generan derecho",
       "cuota íntegra autonómica disponible antes de esta deducción",
       "valores y pruebas de origen por ejercicio, sin importe libre ni booleano global de cumplimiento",
-      "beneficiario y acreditación de su categoría/registro; proyecto o bien y su calificación legal a fecha relevante",
-      "objeto, fecha, importe o valoración de la entrega; certificado, aceptación y destino; deducción estatal concurrente",
+      "bien inventariado, categoría y actuación concreta de conservación, reparación o restauración",
+      "donatario habilitado como en q.1; importe, fecha y pago DA16; certificado4.Tres.a y destino",
+      "afectación al siguiente presupuesto cuando corresponda a Generalitat o entidad pública cultural; intervención pertinente sin exigir autorización personal al donante",
     ],
     fuenteManual: {
       documento: "ManualRenta2025Parte2",
@@ -669,6 +676,7 @@ export const VALENCIANA_DEDUCCIONES_AUTONOMICAS_2025 = [
     requisitos: [
       "Gastos de sus titulares sobre bienes pertenecientes al patrimonio cultural valenciano inscritos en inventario general; destino conservación/reparación/restauración",
       "Titular de bien inventariado; destino conservación/reparación/restauración; no es donación ni corresponde certificado de donatario q 1/q 2. DA16 y 30% liquidable.",
+      "gasto propio del titular de bien inscrito; acreditar titularidad, factura/pago, concepto conservación/reparación/restauración y régimen de intervención de su categoría. No donatario, no certificado4.Tres, no declaración interés social. Sustituir entradas genéricas de donación/beneficiario por acto del bien, titularidad, intervención, pagos y ayudas vinculadas sin presumir descuentos no normados.",
     ],
     limites: ["Base no superior al 30% de base liquidable art.4.Dos"],
     prorrateo: [
@@ -682,8 +690,9 @@ export const VALENCIANA_DEDUCCIONES_AUTONOMICAS_2025 = [
       "identidad sintética del contribuyente y de las personas que generan derecho",
       "cuota íntegra autonómica disponible antes de esta deducción",
       "valores y pruebas de origen por ejercicio, sin importe libre ni booleano global de cumplimiento",
-      "beneficiario y acreditación de su categoría/registro; proyecto o bien y su calificación legal a fecha relevante",
-      "objeto, fecha, importe o valoración de la entrega; certificado, aceptación y destino; deducción estatal concurrente",
+      "titularidad del contribuyente sobre el bien e identificación, sección y acto de inscripción efectiva en el Inventario",
+      "categoría del bien y autorización, licencia o régimen de intervención pertinente a conservación, reparación o restauración",
+      "facturas, concepto, fechas de ejecución y pagos acreditados por medio admitido DA16; ayudas vinculadas identificadas sin presumir descuentos no normados",
     ],
     fuenteManual: {
       documento: "ManualRenta2025Parte2",
@@ -706,6 +715,7 @@ export const VALENCIANA_DEDUCCIONES_AUTONOMICAS_2025 = [
     requisitos: [
       "Entidades públicas, universidades, enseñanzas artísticas o entidades en censo de fomento valenciano a fin de periodo",
       "Dinero; destinatarios enumerados, censo entidades a último día; afectación presupuestaria cuando Generalitat; certificado art 4Tres y DA16; tramo 150 antes 1junio.",
+      "solo dinero para fomento valenciano a los cinco grupos de4.Uno.r; solo grupo5 exige inscripción a último día del período (no siempre31diciembre si fallecimiento). No añadir entidades art3.a/e/g/h/i fuera de lista. Grupos1–4 acreditan categoría legal sin censo. Grupo5 exige acto/certificación oficial de inscripción con fecha efectiva; no sustituir por subvención ni censo catalán. Certificado4.Tres.a y DA16, afectación siguiente presupuesto si Generalitat/entidad pública. La operación del censo en2025 no queda acreditada por el proyecto2021 ni previsión presupuestaria2024.",
     ],
     limites: ["Base no superior al 30% de base liquidable art.4.Dos"],
     prorrateo: [
@@ -719,8 +729,9 @@ export const VALENCIANA_DEDUCCIONES_AUTONOMICAS_2025 = [
       "identidad sintética del contribuyente y de las personas que generan derecho",
       "cuota íntegra autonómica disponible antes de esta deducción",
       "valores y pruebas de origen por ejercicio, sin importe libre ni booleano global de cumplimiento",
-      "beneficiario y acreditación de su categoría/registro; proyecto o bien y su calificación legal a fecha relevante",
-      "objeto, fecha, importe o valoración de la entrega; certificado, aceptación y destino; deducción estatal concurrente",
+      "grupo legal del donatario: Generalitat/sector instrumental, entidades locales/dependientes, universidades públicas o privadas establecidas en la Comunitat, centros superiores de enseñanzas artísticas o entidades del quinto grupo",
+      "solo grupo5: acto o certificación oficial de inscripción efectiva en censo al último día del período, atendiendo a fallecimiento; grupos1–4 acreditan su categoría sin censo",
+      "dinero, fecha, pago DA16, destino al fomento del valenciano, certificado4.Tres.a y afectación al siguiente presupuesto cuando proceda",
     ],
     fuenteManual: {
       documento: "ManualRenta2025Parte2",
@@ -745,6 +756,8 @@ export const VALENCIANA_DEDUCCIONES_AUTONOMICAS_2025 = [
     requisitos: [
       "Proyectos de interés social y beneficiarios Ley 20/2018; deporte no profesional",
       "Interés social y beneficiarios Ley 20/2018 art 3, exclusión q/r; valoración según especie/usufructo/comodato, días y límite mercado; base 30% liquidable, certificaciones diferenciadas art 4Tres y DA16.",
+      "art3.1.a–i Ley20/2018 y comparables3.2; exclusiones3.3 y vínculos3.1.h para personas físicas. Art13 consideración legal solo Generalitat/sector instrumental, entidades locales/dependientes, universidades públicas/fundaciones/colegios adscritos, investigación pública. Las universidades privadas admitidas como beneficiarias no adquieren por ello interés social automático. Resto declaración expresa; art16 permite donación anterior posibilitante con declaración posterior, sin retroactividad indiscriminada. Certificados diferenciados4.Tres.a/b, valoración y días. Excluir q/r.",
+      "La consideración legal de interés social del art13 requiere comunicación cursada y ausencia de denegación (Decreto2/2019 art19). La reforma procedimental DL14/2025 art80 rige desde30diciembre2025; no se anticipa al resto del año.",
     ],
     limites: [
       "Base con valoración específica donación/usufructo/comodato y límite valor de mercado; base máxima 30% base liquidable",
@@ -760,8 +773,9 @@ export const VALENCIANA_DEDUCCIONES_AUTONOMICAS_2025 = [
       "identidad sintética del contribuyente y de las personas que generan derecho",
       "cuota íntegra autonómica disponible antes de esta deducción",
       "valores y pruebas de origen por ejercicio, sin importe libre ni booleano global de cumplimiento",
-      "beneficiario y acreditación de su categoría/registro; proyecto o bien y su calificación legal a fecha relevante",
-      "objeto, fecha, importe o valoración de la entrega; certificado, aceptación y destino; deducción estatal concurrente",
+      "beneficiario art3.1.a–i o comparable3.2, exclusiones3.3 y vínculos de personas físicas art3.1.h",
+      "proyecto y vía de interés social: resolución expresa o consideración legal art13 con comunicación cursada y ausencia de denegación; fechas y régimen anterior o desde30diciembre2025",
+      "donación, usufructo o comodato, valoración, días, entrega, destino y certificados diferenciados4.Tres.a/b; concurrencia estatal y exclusión q/r",
     ],
     fuenteManual: {
       documento: "ManualRenta2025Parte2",
@@ -905,6 +919,7 @@ export const VALENCIANA_DEDUCCIONES_AUTONOMICAS_2025 = [
     requisitos: [
       "Vivienda habitual con propiedad/uso real; obras en planes estatales y normativa autonómica; excluidos conceptos enumerados y subvenciones",
       "Base 5.500 por vivienda, propiedad/uso real, planes vivienda vigentes y normativa autonómica, NIF ejecutor, pago bancario; exclusión subvenciones/renovables y garajes salvo accesibilidad; reparto por titularidad.",
+      "Obras ejecutadas desde2017; 50% de accesibilidad cualificada solo desde2022. Pagos2025 no convierten obras2014/2015 en esta letra. Para2025, contrastar carácter subvencionable con RD42/2022 arts110–115 o RD853/2021 programa material pertinente, con reformas y erratas2022. DC09: Orden7diciembre2009 corregida29diciembre, Orden19/2010 y Decreto65/2019 con su transición y reforma DL14/2025 art60 desde30diciembre. DC23 quedó derogada por Ley5/2025 antes de entrar en vigor. No exigir concesión de subvención para acreditar carácter subvencionable.",
     ],
     limites: [
       "Base máxima anual 5.500 euros; base liquidable 30.000/47.000 y reducción 27.000/44.000",
@@ -924,6 +939,7 @@ export const VALENCIANA_DEDUCCIONES_AUTONOMICAS_2025 = [
       "situación y titularidad/derecho de uso de vivienda, residencia efectiva, adquisición, ocupación y excepciones justificadas",
       "gastos fechados por concepto, pagador, medio de pago, ayudas, reembolsos y porcentaje de participación",
       "contrato, fechas y distancias cuando sean requisitos; identificación del ejecutor y calificación técnica de obra/instalación",
+      "certificación de fechas y alcance real de ejecución; solicitud de licencia y régimen transitorio; memoria que justifique cada condición técnica y programa, características del edificio, certificados energéticos cuando correspondan, ayudas por concepto y pagos acreditados",
     ],
     fuenteManual: {
       documento: "ManualRenta2025Parte2",
@@ -946,6 +962,7 @@ export const VALENCIANA_DEDUCCIONES_AUTONOMICAS_2025 = [
     requisitos: [
       "Obras realizadas entre 01-01-2014 y 31-12-2015; pagos actuales conservan régimen propio; requisitos planes vivienda",
       "Obras 2014/2015, vivienda habitual propiedad/uso, plan 2013-2015; baseanual 4.500, acumulada 5.000 por vivienda y porcentaje titularidad. Cero efectivo 25.000/40.000 aunque remisión de acceso 4Cuatro superior. NIF/pago bancario; excluidas subvenciones/renovables/garajes.",
+      "Obras2014/2015 pagadas2025 mantienen DA13: RD233/2013 histórico o normativa autonómica de rehabilitación/diseño/calidad, según alternativa que se acredite. No exigir planes2022–2025 ni Decreto65/2019 retroactivamente por fecha de pago. DC09 histórica incorpora errata2009, Orden19/2010 y Decreto184/2013; la sentencia2016 aclarada2017 solo afecta al art22.1 sobre personal de OCAces. Distinguir propiedad y derecho real, pagos y base acumulada por vivienda.",
     ],
     limites: [
       "Base máxima anual 4.500 euros; base acumulada máxima 5.000 por vivienda; reducción propia 23.000-25.000 individual y 37.000-40.000 conjunta, divisores 2.000/3.000; remisión de acceso a art.4.Cuatro",
@@ -964,6 +981,7 @@ export const VALENCIANA_DEDUCCIONES_AUTONOMICAS_2025 = [
       "situación y titularidad/derecho de uso de vivienda, residencia efectiva, adquisición, ocupación y excepciones justificadas",
       "gastos fechados por concepto, pagador, medio de pago, ayudas, reembolsos y porcentaje de participación",
       "contrato, fechas y distancias cuando sean requisitos; identificación del ejecutor y calificación técnica de obra/instalación",
+      "certificación técnica de ejecución2014 o2015, proyecto y solicitud de licencia; justificación de vía estatal histórica o autonómica aplicable; facturas y pagos2025; ayudas, porcentajes de titularidad y base deducida previamente por la vivienda",
     ],
     fuenteManual: {
       documento: "ManualRenta2025Parte2",
@@ -986,6 +1004,7 @@ export const VALENCIANA_DEDUCCIONES_AUTONOMICAS_2025 = [
     requisitos: [
       "Abonos de empresas o instituciones adheridas al convenio específico con Culturarts Generalitat sobre Abono Cultural Valenciano",
       "Liquidable estrictamente<50.000; a 50.000 cero. Empresas/instituciones adheridas a convenio específico Culturarts; DA16.165 es base, no deducción.",
+      "importe pagado por abono cubierto por convenio específico y adhesión eficaz en fecha relevante. Solicitar convenio/adhesión, fechas y prórroga expresa si venció, modalidad de abono, factura/pago DA16. Ni entrada suelta ni listado promocional2019 prueban2025. Acreditados estos hechos, la regla fiscal general basta:21% de base hasta165, suma liquidables<50000; no inventar reglamento general pendiente ni límite de cuota165. No usar certificado de donatario4.Tres.",
     ],
     limites: ["Suma base liquidable general y ahorro inferior a 50.000 euros"],
     prorrateo: [
@@ -999,8 +1018,8 @@ export const VALENCIANA_DEDUCCIONES_AUTONOMICAS_2025 = [
       "identidad sintética del contribuyente y de las personas que generan derecho",
       "cuota íntegra autonómica disponible antes de esta deducción",
       "valores y pruebas de origen por ejercicio, sin importe libre ni booleano global de cumplimiento",
-      "beneficiario y acreditación de su categoría/registro; proyecto o bien y su calificación legal a fecha relevante",
-      "objeto, fecha, importe o valoración de la entrega; certificado, aceptación y destino; deducción estatal concurrente",
+      "convenio específico y adhesión eficaz del emisor en fecha relevante; vigencia y prórroga expresa si venció",
+      "modalidad del abono cubierto, factura, importe y fecha del pago admitido DA16; no basta entrada suelta o listado promocional2019",
     ],
     fuenteManual: {
       documento: "ManualRenta2025Parte2",

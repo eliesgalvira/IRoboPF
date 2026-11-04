@@ -894,31 +894,21 @@ describe("comunidad autónoma", () => {
     expect(minimosCantabria2012.descendientes.primero.toString()).toBe("1836")
   })
 
-  it("reserva 2026 al caso técnico con comunidad simulada estatal", () => {
-    const simulada2026 = obtenerParametrosComunidadAutonoma({
-      anio: 2026,
-      comunidadAutonoma: "simulada-estatal",
-    })
-    const madrid2026 = obtenerParametrosComunidadAutonoma({
-      anio: 2026,
-      comunidadAutonoma: "madrid",
-    })
-
-    Match.valueTags(simulada2026, {
-      ParametrosComunidadAutonoma: (parametros) => {
-        expect(parametros.minimoAutonomicoIgualEstatal).toBe(true)
-        expect(parametros.escalaAutonomicaIgualEstatal).toBe(true)
-      },
-      ComunidadAutonomaNoSoportada: (resultado) =>
-        expect.fail(resultado.motivo),
-    })
-
-    Match.valueTags(madrid2026, {
-      ParametrosComunidadAutonoma: () =>
-        expect.fail("Madrid 2026 no debe estar soportado en auditoria"),
-      ComunidadAutonomaNoSoportada: (resultado) =>
-        expect(resultado.motivo).toContain("caso técnico"),
-    })
+  it("resuelve 2026 real separado del escenario simulado", () => {
+    for (const comunidadAutonoma of comunidadesConEscala2025) {
+      const r = obtenerParametrosComunidadAutonoma({
+        anio: 2026,
+        comunidadAutonoma,
+      })
+      expect(r._tag).toBe("ParametrosComunidadAutonoma")
+      if (r._tag === "ParametrosComunidadAutonoma") {
+        expect(r.escalaAutonomicaIgualEstatal).toBe(
+          comunidadAutonoma === "simulada-estatal"
+        )
+        expect(r.deduccionesAutonomicasSoportadas).toEqual([])
+        expect(r.escalaAutonomica.fuente.titulo).toContain("2026")
+      }
+    }
   })
 
   it("mantiene el mínimo autonómico especial de La Rioja solo para discapacidad de descendientes", () => {
