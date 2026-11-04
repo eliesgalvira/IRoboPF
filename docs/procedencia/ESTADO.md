@@ -1,5 +1,40 @@
 # Estado de la auditoría documental
 
+## Prioridad de producto: 4 de noviembre, noche
+
+El orden vigente es: (1) derechos familiares por año y comunidad mediante la API
+única, para el rediseño del viernes 6 a las 20:00; (2) unos 300 casos variados
+contra Open 2025, investigando discrepancias; (3) comunidades 2026; (4) cerrar
+deducciones autonómicas 2025; (5) A limitado a 2025–2026 y series usadas en la
+comparación histórica; (6) D con un máximo de cuatro horas. F completo y el
+histórico restante de A quedan aplazados. Los balances antiguos no imponen otro orden.
+
+El candidato A de importaciones de 2019 y sus dos hallazgos P1 quedan conservados
+sin publicar: efectos de módulo que invalidan la prueba y un constructor mal
+identificado. C de equivalencia sintética permanece parcial; se cancela su
+continuación de acreditación. Se preservan quince archivos y sus parches fuera
+del checkout en el respaldo `prioridad-producto-20261104`. Los transportes C y
+las correcciones A1–A2 ya publicados se conservan. La comparación solicitada usa
+escenarios sintéticos explícitos; la aceptación fiscal general sigue pendiente.
+
+Publicadas protecciones en `3f397bef51b4`: exclusión completa de `/.cache/`,
+comprobación de rutas de caché al comienzo del CI y límites internos en scripts
+de paquete, Vitest y el lanzador Python. Se retiró `.cache` del seguimiento de
+Jujutsu conservando sus bytes locales. Pasan nueve pruebas focales, el control
+de rutas raíz/anidadas y la sintaxis del lanzador.
+
+El primer CI de esa protección encontró una caché histórica ya versionada en
+`docs/procedencia/revisiones/preservacion-v2/scratch/.cache`: un enlace simbólico
+al scratch antiguo. Se conservó su destino y se retiró del seguimiento en
+`95930995a58a`; el árbol seguido ya no contiene ninguna ruta `.cache`.
+La misma corrección impide ejecutar pruebas posteriores si no se instalaron las
+dependencias. El nuevo CI remoto está en ejecución.
+
+Máximo cinco subagentes: dos pesados y tres ligeros. Investigadores y revisores
+leen desde la raíz sin worktree. Cada cambio de importes o datos públicos recibe
+una revisión independiente; sólo se repite el contraste de arreglos graves.
+
+
 ## Motor y API para el rediseño: cierre técnico del 4 de noviembre
 
 Las entradas anual técnica y efectiva consumen una composición común de
