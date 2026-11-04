@@ -1,0 +1,4 @@
+import { casos } from "./casos.runtime"
+let fallos=0
+for (const [nombre, caso] of Object.entries(casos)) { try { caso(); console.log("PASS",nombre) } catch(e) { fallos++; console.error("FAIL",nombre,e) } }
+console.log(Object.keys(casos).length,"casos; fallos",fallos); process.exitCode=fallos?1:0

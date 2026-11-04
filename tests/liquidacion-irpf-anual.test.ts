@@ -1451,10 +1451,12 @@ describe("liquidarIrpfAnual", () => {
       _tag: "LiquidacionIrpfAnualCalculada",
       // SS uniforme revisada: 45276,90 × 6,35 % = 2875,08315.
       // El aumento de gasto 16,66875 reduce cuota al marginal conjunto 43,5 %.
+      // Cuotas publicadas revisadas: estatal 84353,85629125 + Madrid
+      // 7395,81 + (395124,91685 - 53407,20) × 0,21 = 163510,38682975.
       baseLiquidableGeneralCentimos: 39_512_492,
-      cuotaIntegraGeneralCentimos: 16_351_038,
+      cuotaIntegraGeneralCentimos: 16_351_039,
       cuotaMinimoPersonalCentimos: 102_675,
-      cuotaLiquidaCentimos: 16_248_363,
+      cuotaLiquidaCentimos: 16_248_364,
     })
   })
 

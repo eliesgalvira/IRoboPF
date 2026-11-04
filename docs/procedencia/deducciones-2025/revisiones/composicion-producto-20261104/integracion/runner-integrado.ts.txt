@@ -1,0 +1,2 @@
+import { casos } from "./adversos-integrados"
+let fallos=0;for(const [nombre,run] of Object.entries(casos)){try{run();console.log("PASS",nombre)}catch(e){fallos++;console.error("FAIL",nombre,e)}}console.log(JSON.stringify({grupos:15,fallos}));process.exitCode=fallos?1:0

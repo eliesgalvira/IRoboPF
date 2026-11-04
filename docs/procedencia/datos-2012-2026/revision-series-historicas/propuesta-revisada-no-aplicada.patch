@@ -1,0 +1,30 @@
+--- a/lib/dominio/irpf/cuotas/escalas-publicadas.ts
++++ b/lib/dominio/irpf/cuotas/escalas-publicadas.ts
+@@ -74,6 +74,15 @@
+   ["90000", "15902.83", ".235"],
+   ["120000", "22952.83", ".245"],
+   ["175000", "36427.83", ".255"],
++])
++// Candidato A histórico: BOCM-20181228-1 p4; AEAT 2018-2021.
++// Sólo cierre ordinario 31/12; requiere revisión independiente antes de integrar.
++export const MADRID_2018_2021 = filas([
++  ["0", "0", ".09"],
++  ["12450.00", "1120.50", ".112"],
++  ["17707.20", "1709.31", ".133"],
++  ["33007.20", "3744.21", ".179"],
++  ["53407.20", "7395.81", ".21"],
+ ])
+ export const MADRID_2022 = filas([
+   ["0", "0", ".085"],
+@@ -174,6 +183,11 @@
+     return CATALUNYA_2020_2021
+   if (comunidadAutonoma === "catalunya" && anio >= 2022 && anio <= 2024)
+     return CATALUNYA_2022_2024
++  // Ley 13/2023 p3/p14; AEAT 2023 p1150 y 2024 p1243.
++  if (comunidadAutonoma === "madrid" && fechaFallecimiento === undefined) {
++    if (anio >= 2018 && anio <= 2021) return MADRID_2018_2021
++    if (anio === 2023 || anio === 2024) return MADRID_2025
++  }
+   if (comunidadAutonoma === "madrid" && anio === 2022) return MADRID_2022
+   if (
+     comunidadAutonoma === "madrid" &&

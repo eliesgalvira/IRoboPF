@@ -1,6 +1,6 @@
 # Estado por ejercicio — 4 de noviembre de 2026
 
-Corte de publicación E+B, anterior a recibir C300. «Parcial» no acredita el ejercicio completo. Familia se refiere al alcance revisado: descendientes, régimen común y exclusiones de la API. La disponibilidad de cálculo no equivale a contraste oficial.
+Corte posterior a E+B y SS, con la API histórica y las correcciones 2025 integradas; anterior a recibir C300. «Parcial» no acredita el ejercicio completo. Familia se refiere al alcance revisado: descendientes, régimen común y exclusiones de la API. La disponibilidad de cálculo no equivale a contraste oficial.
 
 | Año | Open | Documentos | Cálculo disponible |
 | --- | --- | --- | --- |
@@ -10,14 +10,14 @@ Corte de publicación E+B, anterior a recibir C300. «Parcial» no acredita el e
 | 2015 | Sin vía ejecutable; fuera de campaña | Familia revisada; escalas parciales, reserva canaria | Anual y familia |
 | 2016 | Sin vía ejecutable; fuera de campaña | Familia revisada; escalas parciales, reserva canaria | Anual y familia |
 | 2017 | Sin vía ejecutable admitida en el plan | Familia revisada; documentos parciales | Anual y familia |
-| 2018 | Un piloto PDF/SES conservado; contraste API pendiente | Familia revisada; documentos parciales | Anual y familia |
-| 2019 | Un piloto PDF/SES conservado; contraste API pendiente | Familia revisada; documentos parciales | Anual y familia |
-| 2020 | Un piloto PDF/SES conservado; contraste API pendiente | Familia revisada; documentos parciales | Anual y familia |
-| 2021 | Un piloto PDF/SES conservado; contraste API pendiente | Familia revisada; documentos parciales | Anual y familia |
-| 2022 | Un piloto PDF/SES conservado; contraste API pendiente | Familia revisada; documentos parciales | Anual y familia |
-| 2023 | Un piloto PDF/SES conservado; contraste API pendiente | Familia revisada; documentos parciales | Anual y familia |
-| 2024 | Un piloto PDF/SES conservado; contraste API pendiente | Familia revisada; documentos parciales | Anual y familia |
-| 2025 | Cotejo anterior: 224 coincidencias, 0 diferencias, 14 ausencias; C300 en curso | Familia revisada; SS: 16 parámetros coincidentes condicionados; escalas y deducciones parciales | API efectiva y anual familiar |
+| 2018 | Un piloto PDF/SES conservado; contraste API pendiente | Familia revisada; escala Madrid y parámetros del empleo cotejados, alcance acotado | Anual, familia y empleo efectivo Madrid acotado |
+| 2019 | Un piloto PDF/SES conservado; contraste API pendiente | Familia revisada; escala Madrid y parámetros del empleo cotejados, alcance acotado | Anual, familia y empleo efectivo Madrid acotado |
+| 2020 | Un piloto PDF/SES conservado; contraste API pendiente | Familia revisada; escala Madrid y parámetros del empleo cotejados, alcance acotado | Anual, familia y empleo efectivo Madrid acotado |
+| 2021 | Un piloto PDF/SES conservado; contraste API pendiente | Familia revisada; escala Madrid y parámetros del empleo cotejados, alcance acotado | Anual, familia y empleo efectivo Madrid acotado |
+| 2022 | Un piloto PDF/SES conservado; contraste API pendiente | Familia revisada; escala Madrid y parámetros del empleo cotejados, alcance acotado | Anual, familia y empleo efectivo Madrid acotado |
+| 2023 | Un piloto PDF/SES conservado; contraste API pendiente | Familia revisada; escala Madrid y parámetros del empleo cotejados, alcance acotado | Anual, familia y empleo efectivo Madrid acotado |
+| 2024 | Un piloto PDF/SES conservado; contraste API pendiente | Familia revisada; escala Madrid y parámetros del empleo cotejados, alcance acotado | Anual, familia y empleo efectivo Madrid acotado |
+| 2025 | Cotejo anterior: 224 coincidencias, 0 diferencias, 14 ausencias; C300 en curso | Familia revisada; SS: 16 parámetros condicionados; 27 filas de cuotas revisadas y corregidas; deducciones parciales revisadas | API efectiva, anual familiar y 40 evaluadores valencianos parciales |
 | 2026 | Sin comparación Open | 17 escalas y mínimos E+B revisados; SS: 16 parámetros coincidentes condicionados; otras magnitudes parciales | Anual familiar |
 
 El cotejo anterior de 2025 contiene nueve entradas distintas en 17 filas, con repeticiones y reservas de configuración; no son 300 casos. Los siete pilotos de 2018–2024 se excluyeron expresamente de ese cotejo por estar fuera del perfil efectivo de la API entonces. Véase [integración y comparación anterior](simuladores/INTEGRACION-API.md) y [E+B revisado](reforma-motor/bloque-e/revision-familia-2026/INFORME.md). La campaña C300 sigue en ejecución y su informe se incorporará tras recibirlo y revisarlo.

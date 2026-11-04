@@ -14,21 +14,52 @@ segundo plano como tarea ligera C histórico 2018–2024 con las 2.020 entradas
 preparadas, investigando discrepancias. Antes de 2018 queda A histórico aplazado.
 El [estado por año](ESTADO-POR-ANIO.md) distingue capturas, cotejos, documentos y cálculo.
 
-Corte posterior a la publicación E+B: recibidas las cuarenta fórmulas valencianas
-como cálculo parcial, con 148 pruebas del autor; revisión independiente en curso.
-La propuesta documental A2025 compara 1.477 magnitudes y perfiles: el autor informa
-72 diferencias exactas de cuotas en cuatro territorios, doce con distinto céntimo.
-El candidato privado de corrección conserva las cuotas oficiales tabuladas; se
-revisa junto a las fuentes antes de integrarlo. SS2025–2026 aporta 88 celdas físicas,
-32 coincidencias numéricas condicionadas y seis pendientes. Su revisión independiente
-es favorable acotada; se integra con guardia AST y 22 pruebas correctas.
-Ninguna de estas recepciones declara cerrado el punto 4 ni A.
+Corte posterior a la publicación E+B: integradas las cuarenta fórmulas valencianas
+como cálculo parcial y su variante en el contrato común. La revisión independiente
+detectó tres defectos P2 y una reserva perdida; corregidos con regresiones, pasan
+las 106 comprobaciones repetidas. La composición individual de límites y elecciones
+está integrada. Su revisión detectó C01: una aportación DANA de 2024 generaba de
+nuevo deducción en 2025. Corregido en la guardia común, pasan 180 pruebas focales,
+los quince grupos independientes repetidos, tipos y lint. Cuota y arrastres
+permanecen separados, sin aplicación conjunta automática. El punto 4 espera
+el cierre de integración y su publicación.
 
-La conexión efectiva histórica se prepara fuera del checkout: mismo núcleo, año
+A2025 conserva 1.477 cotejos documentales y las 72 diferencias anteriores en
+cuatro territorios, doce con distinto céntimo. La revisión es favorable acotada;
+se integran 27 filas oficiales de cuotas fijas y 76 pruebas de importe/alcance.
+El sondeo resuelve las 72 diferencias. SS2025–2026, con 88 celdas físicas,
+32 coincidencias condicionadas y seis pendientes, está publicado en
+`73a9996a257dff2e6ef5e8093b0aa3cd311cf045`. Sus trabajos remotos `checks` y
+`corpus` pasan en la [ejecución 41906226556](https://github.com/eliesgalvira/IRoboPF/actions/runs/41906226556).
+A no se declara completo.
+
+La conexión efectiva histórica está integrada y revisada: mismo núcleo, año
 real y perfil de empleo Madrid sin familia. El sondeo conserva los resultados
-completos de 37 entradas de 2025; los positivos históricos sólo comprueban contrato,
-no equivalencia Open. La matriz prevista se aplica por separado a cada año:
-2.020 × 7 = 14.140 comparaciones. No ha comenzado la campaña histórica.
+completos de 37 entradas de 2025; la revisión añade 1.489 comprobaciones. Sus
+positivos históricos comprueban contrato, no equivalencia Open. La matriz prevista
+se aplica por separado a cada año: 2.020 × 7 = 14.140 comparaciones. No ha comenzado
+la campaña histórica. El cotejo de las series consumidas detectó 40 diferencias
+de céntimo en fronteras Madrid 2018–2021 y 2023–2024; se han reproducido en tests.
+La selección de sus cuotas fijas está integrada tras revisión independiente
+favorable acotada: 238 cuotas históricas, 469 sondeos de tarifa y los vecinos
+conservados. Pasan las 47 regresiones permanentes y el bloque focal de 228 pruebas.
+2022 no presenta diferencias en el sondeo. Véase la
+[integración histórica](datos-2012-2026/producto-series-historicas/INTEGRACION.md).
+
+El candidato combinado pasa los 30 comandos del workflow en entorno limpio:
+1.522 ejecuciones Vitest por bloques, con pruebas compartidas, y 234 métodos
+Python contabilizados (227 ejecutados y siete de originales privados omitidos
+explícitamente). Tipos, lint e inventario pasan; se conservan 18 avisos previos.
+Las 510 fuentes fijadas permanecen intactas. El resultado y las limitaciones de
+la reproducción manual están en la
+[validación previa a publicación](revisiones/integracion-producto-20261104/CI.md).
+El CI remoto del nuevo commit se comprobará después del push.
+
+La instrucción de las 21:50 añade una condición previa a cada push: repetir los
+pasos del workflow y verificar los generados en el mismo entorno. Los cambios
+del propio CI se reproducen con entorno limpio sin heredar el PATH de trabajo.
+Los fallos históricos de PATH en `3f397bef` e inventario en `1f71fb9d` se conservan
+como fallos; no basta con que una ejecución posterior esté verde.
 
 El candidato A de importaciones de 2019 y sus dos hallazgos P1 quedan conservados
 sin publicar: efectos de módulo que invalidan la prueba y un constructor mal
@@ -44,11 +75,13 @@ de paquete, Vitest y el lanzador Python. Se retiró `.cache` del seguimiento de
 Jujutsu conservando sus bytes locales. Pasan nueve pruebas focales, el control
 de rutas raíz/anidadas y la sintaxis del lanzador.
 
-El primer CI de esa protección encontró una caché histórica ya versionada en
+Las comprobaciones de esa protección encontraron una caché histórica ya versionada en
 `docs/procedencia/revisiones/preservacion-v2/scratch/.cache`: un enlace simbólico
 al scratch antiguo. Se conservó su destino y se retiró del seguimiento en
 `95930995a58a`; el árbol seguido ya no contiene ninguna ruta `.cache`.
-La misma corrección impide ejecutar pruebas posteriores si no se instalaron las
+El aviso del coordinador identifica además el fallo de `3f397bef`: se intentaba
+ejecutar `timeout bun` antes de disponer de Bun en el PATH (salida 127).
+La corrección impide ejecutar pruebas posteriores si no se instalaron las
 dependencias. El CI de `1f71fb9d` supera `corpus`, tipos, lint y pruebas del motor,
 pero detecta un inventario desactualizado. Es el único paso fallido de la
 [ejecución 41893770656](https://github.com/eliesgalvira/IRoboPF/actions/runs/41893770656).
@@ -74,8 +107,8 @@ La ampliación familiar integrada cubre 255 combinaciones de 2012–2026 y los 1
 territorios comunes. La revisión independiente conjunta E+B es favorable en el
 alcance examinado: 764 discriminantes propios, 594 regresiones y 21 hashes de
 fuentes intactos. Reextrae 115 filas oficiales de 17 escalas. Mantiene excluidos
-ascendientes, fallecimientos y declaración conjunta; la entrada efectiva sigue
-limitada a 2025. Véanse [familia](reforma-motor/bloque-e/FAMILIA-ANUAL.md),
+ascendientes, fallecimientos y declaración conjunta; la entrada efectiva familiar
+sigue limitada a 2025. Véanse [familia](reforma-motor/bloque-e/FAMILIA-ANUAL.md),
 [B2026](reforma-motor/bloque-e/B2026.md) y
 [dictamen](reforma-motor/bloque-e/revision-familia-2026/INFORME.md).
 El inventario está regenerado; se actualizan doce identidades de fuentes y se fijan tres módulos nuevos para
@@ -100,8 +133,9 @@ las catorce pruebas focales nuevas y tipos. La
 [revisión independiente](deducciones-2025/revisiones/producto-20261104/INFORME.txt)
 es favorable acotada: 333 aserciones propias, fidelidad de las doce propuestas y
 ningún error monetario nuevo reproducido en los nueve auxiliares. No se repiten
-los dictámenes documentales favorables. Las cuarenta fichas valencianas siguen
-pendientes de evaluación automática por hechos: este arreglo no cierra el punto 4.
+los dictámenes documentales favorables. En aquel corte E+B, las cuarenta fichas
+valencianas aún no tenían evaluadores por hechos; el avance posterior se describe
+al principio de este estado. Aquel arreglo documental no cerró el punto 4.
 
 
 ## Motor y API para el rediseño: cierre técnico del 4 de noviembre

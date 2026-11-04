@@ -571,3 +571,34 @@ su alcance, conservar PDF/SES, verificar las casillas por año y conectar la API
 con el ejercicio real. No trasladar automáticamente la política observada de
 2025 a años anteriores. **Coste:** la campaña remota puede durar varios días;
 una comparación pendiente o incompleta no se contará como coincidencia.
+
+## Cuotas publicadas, parciales valencianos y reproducción previa al push
+
+Se consumen las cuotas fijas oficiales de 2025 en Aragón, Asturias, Galicia y
+Castilla y León, conservando la composición común. **Objeción:** algunas cuotas
+tabuladas no coinciden exactamente con integrar los tipos de los tramos previos.
+**Respuesta:** no imponer continuidad que la tabla publicada no expresa; conservar
+las 72 diferencias anteriores y los 27 valores revisados. **Coste:** la selección
+queda limitada al cierre ordinario de 2025, con reserva expresa sobre fallecimientos.
+
+Las cuarenta fórmulas valencianas se exponen por hechos como cálculo parcial.
+**Objeción:** sumar parciales independientes puede duplicar un límite o combinar
+deducciones incompatibles. **Respuesta:** el agregado fiscal sigue rechazándolos;
+se integra una composición separada con elecciones explícitas y límites comunes,
+tras su revisión independiente y la corrección de C01. **Coste:** no se anuncia automatización integral
+ni se promociona el catálogo para cerrar una etiqueta de trabajo.
+
+La orden del coordinador de las 21:50 exige reproducir localmente el workflow
+antes de cada push, incluso generados, y probar sus cambios en un entorno limpio.
+**Objeción:** duplicar CI aumenta tiempo de máquina. **Respuesta:** los fallos de
+PATH e inventario ya mostraron que una prueba parcial no protege la publicación.
+Se ejecuta una suite pesada por turno y se conserva identidad de YAML, comandos,
+entorno y resultados. **Coste:** espera adicional antes de publicar; no se usan
+copias completas ni se heredan variables de desarrollo para ocultar dependencias.
+
+Madrid 2018–2021 y 2023–2024 selecciona las cuotas fijas contrastadas con sus
+normas de vigencia; 2022 permanece igual. **Objeción:** el manual de 2020 muestra
+53.407,29 donde la norma establece 53.407,20. **Respuesta:** conservar el valor
+normativo que ya tenía la tabla genérica, documentar la discrepancia y corregir
+sólo el uso de cuotas fijas revisadas. **Coste:** no extender la conclusión a
+fallecimientos ni confundir los 40 céntimos corregidos con verificación Open.

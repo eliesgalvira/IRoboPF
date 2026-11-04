@@ -1,5 +1,21 @@
 # CI reproducible
 
+Antes de cada push se ejecutan los pasos vigentes de `.github/workflows`, con
+sus comandos, versiones y flake Nix, incluida la comprobación del inventario
+generado. Una ejecución con variables adicionales de desarrollo no demuestra
+por sí sola que el workflow funcione. Los cambios del workflow o de sus scripts
+requieren `act` o reproducción de cada paso en un entorno limpio sin heredar
+el PATH del operador; sólo se publica si pasa. Se comprueba después el resultado
+remoto del commit publicado.
+
+En la reproducción manual, la fase anterior a `setup-bun` debe funcionar sin
+Bun. El control de cachés examina las rutas que tendría el checkout publicado,
+sin confundir la caché local ignorada con un archivo versionado. Puede usarse
+una representación de esas rutas sin contenido, copiando únicamente el script
+del control; las demás pruebas ejecutan el código real. Esto no emula la imagen
+Ubuntu ni las acciones de instalación: se registran los runtimes Nix usados y
+la identidad del YAML. No hace falta una copia completa del repositorio.
+
 `Comprobaciones` ejecuta contratos y verificadores sin historial Git ni CAS privado.
 Instalar Bun 1.3.13, Node 24, Python 3.13 y Nix; desde la raíz:
 
@@ -28,11 +44,11 @@ complementaria mientras esa incorporación está pendiente.
 Con el almacén externo configurado, la suite local opcional es:
 
 ```sh
-bun run test --config scripts/procedencia/corpus-local-vitest.mjs
-bun tests/corpus-local/nominal.test.mjs
-bun scripts/procedencia/contenido-verificar.mjs
-bun scripts/procedencia/rastro-verificar.mjs
-bun scripts/procedencia/verificar-enlaces.mjs
+timeout -k 30s 20m bun run test --config scripts/procedencia/corpus-local-vitest.mjs
+timeout -k 30s 20m bun tests/corpus-local/nominal.test.mjs
+timeout -k 30s 20m bun scripts/procedencia/contenido-verificar.mjs
+timeout -k 30s 20m bun scripts/procedencia/rastro-verificar.mjs
+timeout -k 30s 20m bun scripts/procedencia/verificar-enlaces.mjs
 ```
 
 Estos ensayos históricos pueden señalar desfase entre software actual y snapshots;
@@ -69,11 +85,10 @@ el repositorio Jujutsu existente, sin inicializar ni copiar otro checkout:
 timeout -k 30s 12m nix develop path:tools/procedencia --command bash scripts/ci-simuladores.sh
 ```
 
-La proyección de seis componentes de cuota aprobada en C actualiza únicamente
-el pin de `trabajo-anual/conexion.ts` al SHA-256
-`f765ec216bb9892b9936054a619fedd1054600d34f40a5695aec9bd55b7a1eb3`.
-No cambia las siete referencias monetarias ni se atribuye aceptación fiscal
-a los resultados del operador.
+La proyección de seis componentes de cuota aprobada en C conserva las siete
+referencias monetarias. Los pins vigentes están en
+`scripts/procedencia/fuentes-actuales.json`; la ampliación histórica posterior
+actualiza los módulos revisados sin atribuir aceptación fiscal al operador.
 
 El bloque de datos incluye además 46 regresiones públicas de escalas y mínimos:
 reanudación, extracción de ambos lotes, enlaces y transporte de reservas A1–A2.
