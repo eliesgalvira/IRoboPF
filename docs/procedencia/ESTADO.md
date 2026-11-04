@@ -14,6 +14,22 @@ segundo plano como tarea ligera C histórico 2018–2024 con las 2.020 entradas
 preparadas, investigando discrepancias. Antes de 2018 queda A histórico aplazado.
 El [estado por año](ESTADO-POR-ANIO.md) distingue capturas, cotejos, documentos y cálculo.
 
+Corte posterior a la publicación E+B: recibidas las cuarenta fórmulas valencianas
+como cálculo parcial, con 148 pruebas del autor; revisión independiente en curso.
+La propuesta documental A2025 compara 1.477 magnitudes y perfiles: el autor informa
+72 diferencias exactas de cuotas en cuatro territorios, doce con distinto céntimo.
+El candidato privado de corrección conserva las cuotas oficiales tabuladas; se
+revisa junto a las fuentes antes de integrarlo. SS2025–2026 aporta 88 celdas físicas,
+32 coincidencias numéricas condicionadas y seis pendientes. Su revisión independiente
+es favorable acotada; se integra con guardia AST y 22 pruebas correctas.
+Ninguna de estas recepciones declara cerrado el punto 4 ni A.
+
+La conexión efectiva histórica se prepara fuera del checkout: mismo núcleo, año
+real y perfil de empleo Madrid sin familia. El sondeo conserva los resultados
+completos de 37 entradas de 2025; los positivos históricos sólo comprueban contrato,
+no equivalencia Open. La matriz prevista se aplica por separado a cada año:
+2.020 × 7 = 14.140 comparaciones. No ha comenzado la campaña histórica.
+
 El candidato A de importaciones de 2019 y sus dos hallazgos P1 quedan conservados
 sin publicar: efectos de módulo que invalidan la prueba y un constructor mal
 identificado. C de equivalencia sintética permanece parcial; se cancela su
@@ -66,8 +82,15 @@ El inventario está regenerado; se actualizan doce identidades de fuentes y se f
 que el CI examine el candidato, sin trasladar aceptación fiscal histórica.
 El CI local queda completado: 1.202 ejecuciones Vitest por bloques, con pruebas
 compartidas, y 227 métodos Python; tipos y lint correctos (18 avisos previos).
-Se publica este corte en `procedencia-documental`; el resultado remoto se
-registrará sobre su hash. [Cierre de integración](reforma-motor/bloque-e/CIERRE-FAMILIA-2026.md).
+Publicado en `procedencia-documental`, commit `461e16323ca11e428c3e391568755c3e6b2766ab`.
+Los trabajos remotos `checks` y `corpus` pasan en la
+[ejecución 41902081685](https://github.com/eliesgalvira/IRoboPF/actions/runs/41902081685).
+[Cierre de integración](reforma-motor/bloque-e/CIERRE-FAMILIA-2026.md).
+
+Tras comprobar publicación e integridad, se retiraron cinco carpetas compactas
+de entregas E+B/D. Sus 121 archivos se conservan por commit o hash en el CAS
+externo, con manifiesto de recuperación. No se crearon worktrees. La medición
+posterior es 96,53 GB para IRoboPF y 318,96 GB libres; límite: 150 GB.
 
 La guardia del auxiliar rechaza explícitamente una deducción pendiente activa,
 evita el cero silencioso y conserva la consignación anual de importes externos.

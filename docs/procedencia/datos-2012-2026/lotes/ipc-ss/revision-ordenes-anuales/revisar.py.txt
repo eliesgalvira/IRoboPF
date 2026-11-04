@@ -1,0 +1,198 @@
+import copy
+import difflib
+import hashlib
+import json
+import os
+from pathlib import Path
+import re
+import sys
+import unittest
+from unittest.mock import patch
+
+ROOT = Path('/home/elies/Repos/IRoboPF')
+SRC = Path('/home/elies/Backups/IRoboPF/producto-a-ss2025-2026-20261104')
+OUT = Path('/home/elies/Backups/IRoboPF/producto-a-ss-revision-20261104')
+BACK = Path('/home/elies/Backups/IRoboPF/limpieza-recursos-20261103')
+manifest = json.loads((SRC / 'manifiesto.json').read_bytes())
+sources = [ROOT / 'AGENTS.md', BACK / 'env-pruebas.sh', BACK / 'ipc-censo-reanudado.json']
+sources += [Path(x['path']) for x in manifest['objects']]
+sources += [ROOT / x['path'] for x in manifest['readDependencies']]
+sources += [Path(x['path']) for x in manifest['artifacts']] + [SRC / 'manifiesto.json']
+def hashes():
+    return {str(p): {'sha256': hashlib.sha256(p.read_bytes()).hexdigest(), 'size': p.stat().st_size} for p in sources}
+if sys.argv[1:] == ['before']:
+    (OUT / 'fuentes-antes.json').write_text(json.dumps(hashes(), indent=2) + '\n')
+    sys.exit(0)
+if sys.argv[1:] == ['after']:
+    actual = hashes()
+    (OUT / 'fuentes-despues.json').write_text(json.dumps(actual, indent=2) + '\n')
+    assert actual == json.loads((OUT / 'fuentes-antes.json').read_bytes())
+    print('Todas las fuentes acotadas conservan SHA256 y tamaño.')
+    sys.exit(0)
+
+sys.path[:0] = [str(SRC), str(ROOT / 'tools/procedencia/datos/lotes/ipc-ss'), str(ROOT / 'tools/procedencia/datos')]
+import enlaces
+import flujo
+import orden_anual as annual
+registry = json.loads((SRC / 'ordenes-anuales-v1.json').read_bytes())
+census = json.loads((BACK / 'ipc-censo-reanudado.json').read_bytes())
+store = flujo.Store([BACK / 'objetos-unicos'])
+
+class Revision(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.result = annual.run(registry, store, census, ROOT)
+
+    def test_01_patch_and_manifest_exact(self):
+        lines = (SRC / 'propuesta.patch').read_text().splitlines(keepends=True)
+        files = {}; current = None
+        for line in lines:
+            if line.startswith('+++ b/'):
+                current = line[6:].strip(); files[current] = ''
+            elif current and line.startswith('+'):
+                files[current] += line[1:]
+        self.assertEqual(set(files), {c['path'] for c in manifest['changes']})
+        for c in manifest['changes']:
+            data = Path(c['artifact']).read_bytes()
+            self.assertEqual(files[c['path']].encode(), data)
+            self.assertEqual(hashlib.sha256(data).hexdigest(), c['postimage']['sha256'])
+            self.assertFalse((ROOT / c['path']).exists())
+        for c in manifest['readDependencies']:
+            self.assertEqual(hashlib.sha256((ROOT / c['path']).read_bytes()).hexdigest(), c['checkoutSha256'])
+
+    def test_02_exact_official_bytes_and_independent_text(self):
+        evidence = []
+        for o in registry:
+            raw = store.read(o['document'])
+            self.assertEqual(hashlib.sha256(raw).hexdigest(), o['document']['sha256'])
+            with flujo.pymupdf.open(stream=raw, filetype='pdf') as pdf:
+                self.assertIn('para el ejercicio ' + str(o['year']), ' '.join(pdf[0].get_text().split()))
+                for name, proofs in [('title',o['title']),('effects',o['effects']),*o['articles'].items()]:
+                    for proof in proofs:
+                        box = flujo.pymupdf.Rect(proof['bbox'])
+                        words = pdf[proof['page']-1].get_text('words',flags=0,sort=True)
+                        text = ' '.join(w[4] for w in words if box.contains(flujo.pymupdf.Rect(w[:4])))
+                        self.assertEqual(text, proof['literal'])
+                        evidence.append(dict(year=o['year'], section=name, **proof))
+                full = '\n'.join(pdf[p-1].get_text(sort=True) for p in sorted({s['page'] for s in o['effects']}))
+                self.assertIn('día siguiente', full)
+                self.assertIn('enero de ' + str(o['year']), full)
+                (OUT / ('seleccion-pdf-' + str(o['year']) + '.txt')).write_text('\n'.join(pdf[p-1].get_text(sort=True) for p in sorted({s['page'] for s in o['title']+o['effects']+sum(o['articles'].values(),[])})))
+        (OUT / 'evidencia-selectores.json').write_text(json.dumps(evidence,ensure_ascii=False,indent=2)+'\n')
+
+    def test_03_base_geometry_units_and_groups(self):
+        for o in registry:
+            for c in o['cells']:
+                if c['kind'] != 'base': continue
+                v, h, r = (flujo.pymupdf.Rect(c[k]['bbox']) for k in ('value','header','row'))
+                self.assertEqual(c['row']['literal'],str(c['group']))
+                self.assertEqual(c['periodUnit'], 'EUR/month' if c['group']<=7 else 'EUR/day')
+                self.assertIn('Euros/mes' if c['group']<=7 else 'Euros/día', c['header']['literal'])
+                self.assertIn('mínimas' if c['column']=='minimum' else 'máximas',c['header']['literal'])
+                self.assertEqual(c['value']['page'], c['row']['page'])
+                self.assertEqual(c['value']['page'], c['header']['page'])
+                self.assertLess(h.y1,v.y0)
+                self.assertGreater(min(h.x1,v.x1)-max(h.x0,v.x0),0)
+                self.assertGreater(min(r.y1,v.y1)-max(r.y0,v.y0),0)
+
+    def test_04_independent_expected_numbers(self):
+        for year, minima, cap, daily, mei, sol in [
+            (2025,['1929.00','1599.60','1391.70']+['1381.20']*4+['46.04']*4,'4909.50','163.65',['0.80','0.67','0.13'],[['0.92','0.77','0.15'],['1','0.83','0.17'],['1.17','0.98','0.19']]),
+            (2026,['1989.30','1649.70','1435.20']+['1424.40']*4+['47.48']*4,'5101.20','170.04',['0.90','0.75','0.15'],[['1.15','0.96','0.19'],['1.25','1.04','0.21'],['1.46','1.22','0.24']])]:
+            rows={r['id']:r for r in self.result['physicalCells'] if r['year']==year}
+            for i in range(1,12):
+                self.assertEqual(rows[f'base-{i}-minimum']['normalized'],minima[i-1])
+                self.assertEqual(rows[f'base-{i}-maximum']['normalized'],cap if i<=7 else daily)
+            expected = {'comunes':['28.30','23.60','4.70'],'desempleo':['7.05','5.5','1.55'],'fp':['0.70','0.60','0.10'],'mei':mei,**{f'solidaridad-{i+1}':s for i,s in enumerate(sol)}}
+            for concept,values in expected.items():
+                for party,value in zip(('total','empresarial','trabajador'),values):
+                    self.assertEqual(annual.Decimal(rows[f'{concept}-{party}']['normalized']),annual.Decimal(value))
+            self.assertEqual(annual.Decimal(rows['fogasa-empresarial']['normalized']),annual.Decimal('.20'))
+
+    def test_05_output_replay_and_pending_not_match(self):
+        saved=json.loads((SRC/'resultado-focal.json').read_bytes())
+        result={**self.result,'censusSha256':hashlib.sha256((BACK/'ipc-censo-reanudado.json').read_bytes()).hexdigest()}
+        self.assertEqual(saved,result)
+        self.assertEqual(result['counts'],{'match':32,'pending':6})
+        pending={(l['year'],l['id']) for l in result['links'] if l['status']=='pending'}
+        self.assertEqual(pending,{(y,k) for y in (2025,2026) for k in ('atep-empresarial','atep-trabajador','fogasa-trabajador')})
+        self.assertTrue(all(l['period']['through'] is None for l in result['links'] if l['status']=='match'))
+        self.assertEqual(len(result['physicalCells']),88)
+
+    def test_06_bindings_current_source_and_dimensions(self):
+        for l in self.result['links']:
+            if l['status']!='match': continue
+            b=l['binding']
+            if l['id']=='base-1-maximum':
+                self.assertEqual(l['factor'],'12')
+                literal = re.search(str(l['year']) + r': crearImporteMonetario\("([0-9.]+)"\)',(ROOT/annual.SS).read_text())[1]
+                self.assertEqual(annual.Decimal(literal), annual.Decimal(l['engine']))
+            else:
+                self.assertEqual(annual.Decimal(l['factor']),annual.Decimal('.01'))
+                if l['id'].startswith('solidaridad'):
+                    path=json.loads(b['path'])
+                    self.assertIn(['PropertyAssignment:'+str(l['year']),0],path)
+                    self.assertEqual(path[-1],['StringLiteral',int(l['id'].split('-')[1])-1])
+                    source = b['source']
+                    raw = (ROOT/source['file']).read_bytes()
+                    self.assertEqual(hashlib.sha256(raw).hexdigest(), source['sha256'])
+                    utf16 = raw.decode().encode('utf-16-le')
+                    expression = utf16[source['start']*2:source['end']*2].decode('utf-16-le')
+                    self.assertEqual(expression, b['expression'])
+                    self.assertEqual(json.loads(expression), l['engine'])
+                elif l['id'].startswith('mei'):
+                    self.assertEqual(b['censusParameter']['mei'][b['party']],l['engine'])
+                else:
+                    self.assertEqual(b['sourceSha256'],hashlib.sha256((ROOT/b['file']).read_bytes()).hexdigest())
+
+    def test_07_adversarial_duplicates_and_stale_binding(self):
+        rows=self.result['physicalCells']
+        with patch.object(annual,'verify_order',side_effect=lambda store,o:[r for r in rows if r['year']==o['year']]):
+            changed=copy.deepcopy(census)
+            changed['parameters'].append(copy.deepcopy(next(p for p in census['parameters'] if p['year']==2026)))
+            with self.assertRaisesRegex(ValueError,'ambiguo'): annual.run(registry,store,changed,ROOT)
+            changed=copy.deepcopy(census)
+            next(x for x in changed['leaves'] if x['file']==annual.SS and x['path']==['2025'])['sourceSha256']='0'*64
+            with self.assertRaisesRegex(ValueError,'otro módulo'): annual.run(registry,store,changed,ROOT)
+
+    def test_08_census_trust_boundary_reproduction(self):
+        # Describe a limitation, not a monetary discrepancy in the exact supplied census.
+        changed=copy.deepcopy(census)
+        target=next(x for x in changed['leaves'] if x['file']==annual.SS and x['path']==['2025'])
+        target['value']='0'
+        with patch.object(annual,'verify_order',side_effect=lambda store,o:[r for r in self.result['physicalCells'] if r['year']==o['year']]):
+            result=annual.run(registry,store,changed,ROOT)
+        self.assertEqual(next(l for l in result['links'] if l['year']==2025 and l['id']=='base-1-maximum')['status'],'difference')
+        (OUT/'limite-censo.json').write_text(json.dumps({'reproduction':'Alterar sólo leaves[SS,2025].value a 0, mantener SHA del módulo; run no rechaza el censo, pero devuelve difference. No produce match falso con los bytes exactos entregados.','counts':result['counts']},ensure_ascii=False,indent=2)+'\n')
+
+    def test_09_ast_source_sha_mismatch_and_minimal_fix(self):
+        changed=copy.deepcopy(census)
+        module=next(m for m in changed['modules'] if m['file']==annual.PROFILE)
+        item=next(x for x in module['ast']['items'] if x['symbol']=='tiposSolidaridad' and x.get('value')=='0.0077')
+        item['source']['sha256']='0'*64
+        rows=self.result['physicalCells']
+        original=(SRC/'orden_anual.py').read_text()
+        needle="            add(r, item['value'], item, Decimal('.01'))"
+        replacement="""            if (item['source']['sha256'] != module['sha256']
+                    or item['source']['file'] != PROFILE):
+                raise ValueError('AST de otro módulo')
+"""+needle
+        self.assertEqual(original.count(needle),1)
+        fixed=original.replace(needle,replacement)
+        (OUT/'revision.patch').write_text(''.join(difflib.unified_diff(original.splitlines(keepends=True),fixed.splitlines(keepends=True),fromfile='a/tools/procedencia/datos/lotes/ipc-ss/orden_anual.py',tofile='b/tools/procedencia/datos/lotes/ipc-ss/orden_anual.py')))
+        namespace={'__name__':'review_fixed_annual'}
+        exec(compile(fixed,'<review-minimal-fix>','exec'),namespace)
+        replay=lambda store,o:[r for r in rows if r['year']==o['year']]
+        with patch.object(annual,'verify_order',side_effect=replay):
+            result=annual.run(registry,store,changed,ROOT)
+        self.assertEqual(result['counts'],{'match':32,'pending':6})
+        bad=next(l for l in result['links'] if l['id']=='solidaridad-1-empresarial' and l['year']==2025)
+        self.assertEqual(bad['binding']['source']['sha256'],'0'*64)
+        namespace['verify_order']=replay
+        with self.assertRaisesRegex(ValueError,'AST de otro módulo'):
+            namespace['run'](registry,store,changed,ROOT)
+        namespace['verify_order']=annual.verify_order
+        self.assertEqual(namespace['run'](registry,store,census,ROOT),self.result)
+        (OUT/'defecto-reproducible.json').write_text(json.dumps({'severity':'no bloqueante: integridad defensiva del censo alternativo; sin dato público incorrecto en entrega exacta','change':'Sólo item AST tiposSolidaridad 2025 empresa[0].source.sha256 = 64 ceros; módulo y valor intactos','originalCounts':result['counts'],'forgedBinding':bad,'minimalFix':'Comparar source.sha256 y source.file con módulo ya verificado; parche probado en memoria; entrega original preservada','fixedRejects':True,'exactCensusOutputUnchanged':True},ensure_ascii=False,indent=2)+'\n')
+
+if __name__=='__main__': unittest.main()

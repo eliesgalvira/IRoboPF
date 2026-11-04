@@ -1,0 +1,60 @@
+{
+  "severity": "no bloqueante: integridad defensiva del censo alternativo; sin dato público incorrecto en entrega exacta",
+  "change": "Sólo item AST tiposSolidaridad 2025 empresa[0].source.sha256 = 64 ceros; módulo y valor intactos",
+  "originalCounts": {
+    "match": 32,
+    "pending": 6
+  },
+  "forgedBinding": {
+    "year": 2025,
+    "id": "solidaridad-1-empresarial",
+    "evidenceId": "solidaridad-1-empresarial",
+    "engine": "0.0077",
+    "binding": {
+      "id": "inv-64b5c3119e40f8f7350e178fe5b8be10",
+      "layer": "syntactic",
+      "kind": "Parameter",
+      "name": "Parámetro: tiposSolidaridad / [[\"FirstStatement:tiposSolidaridad\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:tiposSolidaridad\",0],[\"AsExpression\",0],[\"ObjectLiteralExpression\",0],[\"PropertyAssignment:2025\",0],[\"valor:2025\",0],[\"PropertyAssignment:empresa\",0],[\"valor:empresa\",0],[\"StringLiteral\",0]]",
+      "domain": "dominio/laboral",
+      "symbol": "tiposSolidaridad",
+      "path": "[[\"FirstStatement:tiposSolidaridad\",0],[\"VariableDeclarationList\",0],[\"VariableDeclaration:tiposSolidaridad\",0],[\"AsExpression\",0],[\"ObjectLiteralExpression\",0],[\"PropertyAssignment:2025\",0],[\"valor:2025\",0],[\"PropertyAssignment:empresa\",0],[\"valor:empresa\",0],[\"StringLiteral\",0]]",
+      "expression": "\"0.0077\"",
+      "value": "0.0077",
+      "unit": "pending",
+      "years": [],
+      "territories": [],
+      "regimes": [],
+      "applicability": "pending",
+      "status": "pending",
+      "evidence": "pending",
+      "independentReview": "pending",
+      "relations": {
+        "itemIds": [],
+        "ruleIds": [],
+        "citationIds": [],
+        "findingIds": []
+      },
+      "source": {
+        "file": "lib/dominio/laboral/cotizaciones-perfil-uniforme.ts",
+        "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+        "start": 504,
+        "end": 512,
+        "line": 16,
+        "column": 15,
+        "offsetEncoding": "utf16"
+      }
+    },
+    "factor": "0.01",
+    "status": "match",
+    "applicability": "conditional-uniform-profile",
+    "period": {
+      "from": "2025-01-01",
+      "through": null
+    },
+    "annualProjection": "conditional; requires no superseding provision",
+    "futurePart": null
+  },
+  "minimalFix": "Comparar source.sha256 y source.file con módulo ya verificado; parche probado en memoria; entrega original preservada",
+  "fixedRejects": true,
+  "exactCensusOutputUnchanged": true
+}

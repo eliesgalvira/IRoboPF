@@ -1,0 +1,12 @@
+--- a/tools/procedencia/datos/lotes/ipc-ss/orden_anual.py
++++ b/tools/procedencia/datos/lotes/ipc-ss/orden_anual.py
+@@ -140,6 +140,9 @@
+                 and ['PropertyAssignment:' + str(year), 0] in json.loads(x['path'])
+                 and ['PropertyAssignment:' + party, 0] in json.loads(x['path'])
+                 and json.loads(x['path'])[-1] == ['StringLiteral', tranche]])
++            if (item['source']['sha256'] != module['sha256']
++                    or item['source']['file'] != PROFILE):
++                raise ValueError('AST de otro módulo')
+             add(r, item['value'], item, Decimal('.01'))
+         else:
+             leaf = unique([x for x in census['leaves'] if x['file'] == RATES
