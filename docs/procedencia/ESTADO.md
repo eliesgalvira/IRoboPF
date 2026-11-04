@@ -452,24 +452,44 @@ El integrador conserva cuota y movimientos decimales exactos y resuelve el sujet
 por referencias. Pasan 260 regresiones focales y los controles monetarios nuevos;
 el CI completo posterior reproduce 31 comandos en entorno limpio: 1.602
 ejecuciones Vitest, 247 métodos Python descubiertos (siete omitidos) y todos los
-controles correctos. Los 527 archivos fijados permanecen intactos. Se prepara su
-publicación en procedencia-documental.
+controles correctos. Los 527 archivos fijados permanecen intactos. Publicado en
+`cdb82540`, con ambos trabajos de GitHub verdes (ejecución41933560885).
 
 La revisión del registro351 detectó 307 destinos históricos incorrectos, una
 proposición CAMP-02 refutada dentro de regla actual y tres nombres de orden
 incorrectos. Corregidos y verificadas las preimágenes rojas; seis controles
 portables verdes. Los estados jurídicos históricos permanecen intactos.
 
-Catalunya: revisión independiente con un P2 sobre acogimiento previo a la adopción;
-corrección privada preparada. Madrid/Murcia: revisión con contradicción de identidad
-hijo/progenitor; corrección privada preparada. Asturias/Cantabria: 48 pruebas y
-tipos/lints verdes, revisión independiente en curso. Canarias/Baleares: diez
-evaluadores parciales nuevos, validación de autor en curso. Castilla-La Mancha,
-Castilla y León y Extremadura: doce reglas parciales privadas pendientes de pruebas. El punto4 continúa abierto; no confundir el catálogo351 con
-evaluación completa por hechos.
+Catalunya: correcciones de acogimiento previo e identidad integradas en copia
+de trabajo; 95 pruebas. Madrid/Murcia: corregida identidad hijo/progenitor; 114
+pruebas. Asturias/Cantabria: corregido máximo forestal personal tras reparto y
+dos filas históricas; 75 pruebas. Canarias/Baleares: corregidos reparto del
+máximo de conciliación y días RETA incompatibles con el período; 67 pruebas.
+Los cuatro tienen tipos y lints verdes.
+CLM/CyL/Extremadura: corregidos los dos repartos en conjunta; 78 pruebas,
+tipos y lints conformes. Galicia/La Rioja: 79 pruebas de autor y 30 independientes,
+sin bloqueos demostrados. Los seis lotes pasan el CI conjunto: 31 comandos del workflow en entorno limpio,
+2.073 ejecuciones Vitest y 247 métodos Python descubiertos (siete omitidos),
+en 483,116 s. Los 529 archivos fijados permanecen idénticos. Publicación en curso.
+Añaden 55 códigos con evaluadores
+parciales a los 51 anteriores: 106 de 351, sin afirmar cierre de todas sus ramas.
+[Unión exacta y alcance](deducciones-2025/producto-territorial-20261105/INTEGRACION.md).
+La conexión anual de esas 55 altas sigue pendiente.
 
-Histórico b01: 59 capturas UI nuevas y una reutilización validada, más SKIP del
-piloto previo; 61/2020 en2018, 67/14140 en conjunto. Sin errores, 20m44,70s. Las
-60 incorporaciones aún no se han comparado con la API. Dos turnos pesados
-reservados temporalmente a producto; siguiente captura y comparación esperan
-asignación, sin procesos en bucle ni suites adicionales.
+La ampliación de Andalucía/Aragón/Catalunya añade 40 candidatos: sus 196 pruebas,
+tipos y lints pasan. La revisión independiente detectó cuatro hallazgos y nueve
+rojos, separados de este corte publicado; corrección en preparación. Asturias/Cantabria,
+Madrid/Murcia y Galicia/La Rioja preparan sus códigos restantes en fase ligera.
+El punto 4 continúa abierto.
+
+Histórico b02: 60 capturas nuevas, 61 SKIP, sin errores, 19 min 9,95 s.
+2018 alcanza 121/2.020 capturas; el conjunto, 127/14.140. Las 120 incorporaciones
+posteriores al piloto aún no se han comparado con la API. PSS máximo muestreado
+del árbol: 739,66 MiB. b03 tiene asignados los siguientes 60 pendientes de 2018
+como tarea ligera, con un navegador secuencial y cero motor/inventario o suites.
+La comparación de las nuevas capturas sigue pendiente; se mantienen dos turnos
+pesados como máximo para producto.
+
+Limpieza posterior a cdb82540: seis entregas retiradas,32.337 rutas de archivo
+preservadas por hash y manifiesto asociado al commit. No hubo worktrees nuevos.
+Medición de cuatro raíces:98,04GB; libres317,59GB, por debajo del límite150GB.

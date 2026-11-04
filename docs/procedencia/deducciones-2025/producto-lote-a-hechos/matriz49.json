@@ -1,0 +1,3817 @@
+{
+  "version": 1,
+  "ejercicio": 2025,
+  "total": 49,
+  "parcialesNuevos": 6,
+  "pendientesEnEstaEntrega": 43,
+  "deducciones": [
+    {
+      "codigo": "andalucia_gastos_educativos",
+      "estado": "pendiente",
+      "capacidadEntrega": "Sin nuevo evaluador en esta entrega; conserva catálogo, consignación y aritmética previa que exista",
+      "pendienteConcreto": "Modelar y probar estos hechos específicos ya documentados: Pago efectivo individual; gananciales por mitades; mínimo descendiente; escolar según proporción horaria, extraescolar academias o IAE; art60.",
+      "situacionAnterior": "El balance no identifica evaluador completo por hechos; esto no niega la aritmética genérica previa.",
+      "parametrosRevisados": "15%; 150 por descendiente; BI 80000/100000",
+      "fronteraDocumental": "Gasto1000=>150; BI80000 admite y80000,01 excluye individual; asignatura integrada solo parte proporcional.",
+      "evidencia": {
+        "reglas": "../correcciones/a/reglas-para-calculo.json",
+        "revision": "../revisiones/a-ampliado/decisiones.json",
+        "decision": "descripcion_concordante",
+        "citas": [
+          "CA-andalucia-175",
+          "CA-andalucia-176",
+          "CA-andalucia-177",
+          "CA-andalucia-178"
+        ],
+        "manual": {
+          "paginas": [
+            46,
+            47
+          ],
+          "citas": [
+            "CA-AEAT-46-9",
+            "CA-AEAT-46-10",
+            "CA-AEAT-46-11",
+            "CA-AEAT-46-12",
+            "CA-AEAT-46-13",
+            "CA-AEAT-46-14",
+            "CA-AEAT-46-15",
+            "CA-AEAT-46-16",
+            "CA-AEAT-46-17",
+            "CA-AEAT-46-18",
+            "CA-AEAT-46-19",
+            "CA-AEAT-47-0",
+            "CA-AEAT-47-1",
+            "CA-AEAT-47-2",
+            "CA-AEAT-47-3",
+            "CA-AEAT-47-4",
+            "CA-AEAT-47-5",
+            "CA-AEAT-47-6",
+            "CA-AEAT-47-7",
+            "CA-AEAT-47-8",
+            "CA-AEAT-47-9",
+            "CA-AEAT-47-10",
+            "CA-AEAT-47-11",
+            "CA-AEAT-47-12",
+            "CA-AEAT-47-13",
+            "CA-AEAT-47-14",
+            "CA-AEAT-47-15",
+            "CA-AEAT-47-16",
+            "CA-AEAT-47-17",
+            "CA-AEAT-47-18"
+          ]
+        },
+        "fuentesPrimarias": [
+          {
+            "documentoId": "BOJA-dd45dbc7f39c",
+            "citas": [
+              "CA-BOJA-dd45dbc7f39c-262",
+              "CA-BOJA-dd45dbc7f39c-263",
+              "CA-BOJA-dd45dbc7f39c-264",
+              "CA-BOJA-dd45dbc7f39c-265",
+              "CA-BOJA-dd45dbc7f39c-266",
+              "CA-BOJA-dd45dbc7f39c-267"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "codigo": "andalucia_defensa_juridica_laboral",
+      "estado": "pendiente",
+      "capacidadEntrega": "Sin nuevo evaluador en esta entrega; conserva catálogo, consignación y aritmética previa que exista",
+      "pendienteConcreto": "Modelar y probar estos hechos específicos ya documentados: Solo despido/extinción/reclamación judicial laboral; factura y art60.",
+      "situacionAnterior": "El balance no identifica evaluador completo por hechos; esto no niega la aritmética genérica previa.",
+      "parametrosRevisados": "100%; tope200 individual/conjunta; sin renta especial",
+      "fronteraDocumental": "Gasto199=>199;201=>200; asesoramiento extrajudicial aislado no basta.",
+      "evidencia": {
+        "reglas": "../correcciones/a/reglas-para-calculo.json",
+        "revision": "../revisiones/a-ampliado/decisiones.json",
+        "decision": "descripcion_concordante",
+        "citas": [
+          "CA-andalucia-231",
+          "CA-andalucia-232",
+          "CA-BOJA-dd45dbc7f39c-306",
+          "CA-BOJA-dd45dbc7f39c-307"
+        ],
+        "manual": {
+          "paginas": [
+            54
+          ],
+          "citas": [
+            "CA-AEAT-54-0",
+            "CA-AEAT-54-1",
+            "CA-AEAT-54-2",
+            "CA-AEAT-54-3",
+            "CA-AEAT-54-4",
+            "CA-AEAT-54-5",
+            "CA-AEAT-54-6",
+            "CA-AEAT-54-7",
+            "CA-AEAT-54-8",
+            "CA-AEAT-54-9",
+            "CA-AEAT-54-10",
+            "CA-AEAT-54-11"
+          ]
+        },
+        "fuentesPrimarias": [
+          {
+            "documentoId": "BOJA-dd45dbc7f39c",
+            "citas": [
+              "CA-BOJA-dd45dbc7f39c-306",
+              "CA-BOJA-dd45dbc7f39c-307"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "codigo": "andalucia_donativos_finalidad_ecologica",
+      "estado": "pendiente",
+      "capacidadEntrega": "Sin nuevo evaluador en esta entrega; conserva catálogo, consignación y aritmética previa que exista",
+      "pendienteConcreto": "Modelar y probar estos hechos específicos ya documentados: Entidades públicas ambientales andaluzas o entidades Ley49/2002 fin exclusivo y registro andaluz; certificado art24.",
+      "situacionAnterior": "El balance no identifica evaluador completo por hechos; esto no niega la aritmética genérica previa.",
+      "parametrosRevisados": "10%; tope150; sin renta especial",
+      "fronteraDocumental": "Donativo1500=>150;1600=>150; finalidad principal no exclusiva en entidad privada no basta.",
+      "evidencia": {
+        "reglas": "../correcciones/a/reglas-para-calculo.json",
+        "revision": "../revisiones/a-ampliado/decisiones.json",
+        "decision": "diferencia_reproducida",
+        "citas": [
+          "CA-BOJA-dd45dbc7f39c-309",
+          "CA-BOJA-dd45dbc7f39c-310",
+          "CA-BOJA-dd45dbc7f39c-311",
+          "CA-BOJA-dd45dbc7f39c-312"
+        ],
+        "manual": {
+          "paginas": [
+            54,
+            55
+          ],
+          "citas": [
+            "CA-AEAT-54-12",
+            "CA-AEAT-54-13",
+            "CA-AEAT-54-14",
+            "CA-AEAT-54-15",
+            "CA-AEAT-54-16",
+            "CA-AEAT-54-17",
+            "CA-AEAT-54-18",
+            "CA-AEAT-55-0",
+            "CA-AEAT-55-1",
+            "CA-AEAT-55-2",
+            "CA-AEAT-55-3",
+            "CA-AEAT-55-4",
+            "CA-AEAT-55-5"
+          ]
+        },
+        "fuentesPrimarias": [
+          {
+            "documentoId": "BOJA-dd45dbc7f39c",
+            "citas": [
+              "CA-BOJA-dd45dbc7f39c-309",
+              "CA-BOJA-dd45dbc7f39c-310",
+              "CA-BOJA-dd45dbc7f39c-311",
+              "CA-BOJA-dd45dbc7f39c-312",
+              "CA-BOJA-dd45dbc7f39c-313"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "codigo": "andalucia_ejercicio_fisico_deporte",
+      "estado": "pendiente",
+      "capacidadEntrega": "Sin nuevo evaluador en esta entrega; conserva catálogo, consignación y aritmética previa que exista",
+      "pendienteConcreto": "Modelar y probar estos hechos específicos ya documentados: Cuotas entidades enumeradas; beneficiario propio/cónyuge/pareja inscrita/mínimos; reparto por pago, art60; efectos2025 DF18.b.",
+      "situacionAnterior": "El balance no identifica evaluador completo por hechos; esto no niega la aritmética genérica previa.",
+      "parametrosRevisados": "15%; tope100 por contribuyente",
+      "fronteraDocumental": "Cuota1000=>100; dos pagadores300 cada uno=>45 cada uno, sin duplicar pago.",
+      "evidencia": {
+        "reglas": "../correcciones/a/reglas-para-calculo.json",
+        "revision": "../revisiones/a-ampliado/decisiones.json",
+        "decision": "descripcion_concordante",
+        "citas": [
+          "CA-andalucia-242",
+          "CA-andalucia-243",
+          "CA-andalucia-244",
+          "CA-andalucia-245"
+        ],
+        "manual": {
+          "paginas": [
+            55,
+            56
+          ],
+          "citas": [
+            "CA-AEAT-55-6",
+            "CA-AEAT-55-7",
+            "CA-AEAT-55-8",
+            "CA-AEAT-55-9",
+            "CA-AEAT-55-10",
+            "CA-AEAT-55-11",
+            "CA-AEAT-55-12",
+            "CA-AEAT-55-13",
+            "CA-AEAT-55-14",
+            "CA-AEAT-55-15",
+            "CA-AEAT-55-16",
+            "CA-AEAT-55-17",
+            "CA-AEAT-55-18",
+            "CA-AEAT-56-0",
+            "CA-AEAT-56-1",
+            "CA-AEAT-56-2",
+            "CA-AEAT-56-3",
+            "CA-AEAT-56-4",
+            "CA-AEAT-56-5",
+            "CA-AEAT-56-6",
+            "CA-AEAT-56-7",
+            "CA-AEAT-56-8",
+            "CA-AEAT-56-9",
+            "CA-AEAT-56-10",
+            "CA-AEAT-56-11",
+            "CA-AEAT-56-12",
+            "CA-AEAT-56-13",
+            "CA-AEAT-56-14"
+          ]
+        },
+        "fuentesPrimarias": [
+          {
+            "documentoId": "BOJA-617f3ab05330",
+            "citas": [
+              "CA-BOJA-617f3ab05330-22 bis-76-0",
+              "CA-BOJA-617f3ab05330-22 bis-76-1",
+              "CA-BOJA-617f3ab05330-22 bis-76-2",
+              "CA-BOJA-617f3ab05330-22 bis-76-3",
+              "CA-BOJA-617f3ab05330-22 bis-76-4"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "codigo": "andalucia_gastos_veterinarios_animales_compania_perros_asistencia",
+      "estado": "pendiente",
+      "capacidadEntrega": "Sin nuevo evaluador en esta entrega; conserva catálogo, consignación y aritmética previa que exista",
+      "pendienteConcreto": "Modelar y probar estos hechos específicos ya documentados: Adquisición desde1/1/2025; un año general, tres adopción, toda tenencia asistencia; tratamientos obligatorios y esterilización preceptiva; adquisición legal arts55-58 Ley7/2023.",
+      "situacionAnterior": "El balance no identifica evaluador completo por hechos; esto no niega la aritmética genérica previa.",
+      "parametrosRevisados": "30%; tope100; BI80000/100000",
+      "fronteraDocumental": "Compra31/12/2024 excluida; asistencia adquirida antes no excluida; gasto500=>100; no todo tratamiento veterinario.",
+      "evidencia": {
+        "reglas": "../correcciones/a/reglas-para-calculo.json",
+        "revision": "../revisiones/a-ampliado/decisiones.json",
+        "decision": "descripcion_concordante",
+        "citas": [
+          "CA-andalucia-252",
+          "CA-andalucia-253",
+          "CA-andalucia-254",
+          "CA-andalucia-255"
+        ],
+        "manual": {
+          "paginas": [
+            57,
+            58,
+            59
+          ],
+          "citas": [
+            "CA-AEAT-57-0",
+            "CA-AEAT-57-1",
+            "CA-AEAT-57-2",
+            "CA-AEAT-57-3",
+            "CA-AEAT-57-4",
+            "CA-AEAT-57-5",
+            "CA-AEAT-57-6",
+            "CA-AEAT-57-7",
+            "CA-AEAT-57-8",
+            "CA-AEAT-57-9",
+            "CA-AEAT-57-10",
+            "CA-AEAT-58-0",
+            "CA-AEAT-58-1",
+            "CA-AEAT-58-2",
+            "CA-AEAT-58-3",
+            "CA-AEAT-58-4",
+            "CA-AEAT-58-5",
+            "CA-AEAT-58-6",
+            "CA-AEAT-58-7",
+            "CA-AEAT-58-8",
+            "CA-AEAT-58-9",
+            "CA-AEAT-58-10",
+            "CA-AEAT-58-11",
+            "CA-AEAT-58-12",
+            "CA-AEAT-58-13",
+            "CA-AEAT-58-14",
+            "CA-AEAT-58-15",
+            "CA-AEAT-58-16",
+            "CA-AEAT-58-17",
+            "CA-AEAT-58-18",
+            "CA-AEAT-58-19",
+            "CA-AEAT-59-0",
+            "CA-AEAT-59-1",
+            "CA-AEAT-59-2",
+            "CA-AEAT-59-3",
+            "CA-AEAT-59-4",
+            "CA-AEAT-59-5"
+          ]
+        },
+        "fuentesPrimarias": [
+          {
+            "documentoId": "BOJA-617f3ab05330",
+            "citas": [
+              "CA-BOJA-617f3ab05330-22 ter-76-0",
+              "CA-BOJA-617f3ab05330-22 ter-76-1",
+              "CA-BOJA-617f3ab05330-22 ter-76-2",
+              "CA-BOJA-617f3ab05330-22 ter-76-3",
+              "CA-BOJA-617f3ab05330-22 ter-76-4",
+              "CA-BOJA-617f3ab05330-22 ter-76-5",
+              "CA-BOJA-617f3ab05330-22 ter-77-6",
+              "CA-BOJA-617f3ab05330-22 ter-77-7",
+              "CA-BOJA-617f3ab05330-22 ter-77-8",
+              "CA-BOJA-617f3ab05330-22 ter-77-9",
+              "CA-BOJA-617f3ab05330-22 ter-77-10",
+              "CA-BOJA-617f3ab05330-22 ter-77-11",
+              "CA-BOJA-617f3ab05330-22 ter-77-12",
+              "CA-BOJA-617f3ab05330-22 ter-77-13",
+              "CA-BOJA-617f3ab05330-22 ter-77-14",
+              "CA-BOJA-617f3ab05330-22 ter-77-15",
+              "CA-BOJA-617f3ab05330-22 ter-77-16"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "codigo": "andalucia_enfermedad_celiaca",
+      "estado": "pendiente",
+      "capacidadEntrega": "Sin nuevo evaluador en esta entrega; conserva catálogo, consignación y aritmética previa que exista",
+      "pendienteConcreto": "Modelar y probar estos hechos específicos ya documentados: Núcleo incluye mínimos; dos titulares=>50 cada uno; informe oficial de profesional SNS o aseguradora; efectos2025.",
+      "situacionAnterior": "El balance no identifica evaluador completo por hechos; esto no niega la aritmética genérica previa.",
+      "parametrosRevisados": "100 por miembro; sin renta especial",
+      "fronteraDocumental": "Una persona con tres titulares=>100/3 antes de redondeos; ningún contador prueba diagnóstico.",
+      "evidencia": {
+        "reglas": "../correcciones/a/reglas-para-calculo.json",
+        "revision": "../revisiones/a-ampliado/decisiones.json",
+        "decision": "descripcion_concordante",
+        "citas": [
+          "CA-andalucia-274",
+          "CA-andalucia-275",
+          "CA-andalucia-276",
+          "CA-andalucia-277"
+        ],
+        "manual": {
+          "paginas": [
+            59,
+            60
+          ],
+          "citas": [
+            "CA-AEAT-59-6",
+            "CA-AEAT-59-7",
+            "CA-AEAT-59-8",
+            "CA-AEAT-59-9",
+            "CA-AEAT-59-10",
+            "CA-AEAT-59-11",
+            "CA-AEAT-59-12",
+            "CA-AEAT-59-13",
+            "CA-AEAT-59-14",
+            "CA-AEAT-59-15",
+            "CA-AEAT-60-0",
+            "CA-AEAT-60-1",
+            "CA-AEAT-60-2"
+          ]
+        },
+        "fuentesPrimarias": [
+          {
+            "documentoId": "BOJA-617f3ab05330",
+            "citas": [
+              "CA-BOJA-617f3ab05330-22 quater-77-0",
+              "CA-BOJA-617f3ab05330-22 quater-77-1",
+              "CA-BOJA-617f3ab05330-22 quater-77-2",
+              "CA-BOJA-617f3ab05330-22 quater-78-3",
+              "CA-BOJA-617f3ab05330-22 quater-78-4",
+              "CA-BOJA-617f3ab05330-22 quater-78-5",
+              "CA-BOJA-617f3ab05330-22 quater-78-6"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "codigo": "andalucia_inversion_vivienda_habitual_protegida_jovenes",
+      "estado": "pendiente",
+      "capacidadEntrega": "Sin nuevo evaluador en esta entrega; conserva catálogo, consignación y aritmética previa que exista",
+      "pendienteConcreto": "Modelar y probar estos hechos específicos ya documentados: VPO o menor35; conjunta al menos cónyuge/progenitor; vivienda histórica2012, patrimonio, reinversión y rehabilitación25%.",
+      "situacionAnterior": "El balance no identifica evaluador completo por hechos; esto no niega la aritmética genérica previa.",
+      "parametrosRevisados": "6%; base9040=>542,40; BI25000/30000",
+      "fronteraDocumental": "35 años sin VPO no habilita; VPO sí; gasto10000=>542,40 antes de otras restricciones.",
+      "evidencia": {
+        "reglas": "../correcciones/a/reglas-para-calculo.json",
+        "revision": "../revisiones/a-ampliado/decisiones.json",
+        "decision": "descripcion_concordante",
+        "citas": [
+          "CA-andalucia-113",
+          "CA-andalucia-114",
+          "CA-andalucia-115",
+          "CA-andalucia-116"
+        ],
+        "manual": {
+          "paginas": [
+            37,
+            38,
+            39
+          ],
+          "citas": [
+            "CA-AEAT-37-2",
+            "CA-AEAT-37-3",
+            "CA-AEAT-37-4",
+            "CA-AEAT-37-5",
+            "CA-AEAT-37-6",
+            "CA-AEAT-37-7",
+            "CA-AEAT-37-8",
+            "CA-AEAT-37-9",
+            "CA-AEAT-37-10",
+            "CA-AEAT-37-11",
+            "CA-AEAT-37-12",
+            "CA-AEAT-37-13",
+            "CA-AEAT-37-14",
+            "CA-AEAT-37-15",
+            "CA-AEAT-38-0",
+            "CA-AEAT-38-1",
+            "CA-AEAT-38-2",
+            "CA-AEAT-38-3",
+            "CA-AEAT-38-4",
+            "CA-AEAT-38-5",
+            "CA-AEAT-38-6",
+            "CA-AEAT-38-7",
+            "CA-AEAT-38-8",
+            "CA-AEAT-38-9",
+            "CA-AEAT-38-10",
+            "CA-AEAT-38-11",
+            "CA-AEAT-38-12",
+            "CA-AEAT-38-13",
+            "CA-AEAT-38-14",
+            "CA-AEAT-38-15",
+            "CA-AEAT-38-16",
+            "CA-AEAT-39-0",
+            "CA-AEAT-39-1",
+            "CA-AEAT-39-2",
+            "CA-AEAT-39-3"
+          ]
+        },
+        "fuentesPrimarias": [
+          {
+            "documentoId": "BOJA-dd45dbc7f39c",
+            "citas": [
+              "CA-BOJA-dd45dbc7f39c-220",
+              "CA-BOJA-dd45dbc7f39c-221",
+              "CA-BOJA-dd45dbc7f39c-222",
+              "CA-BOJA-dd45dbc7f39c-223",
+              "CA-BOJA-dd45dbc7f39c-224",
+              "CA-BOJA-dd45dbc7f39c-225",
+              "CA-BOJA-dd45dbc7f39c-226",
+              "CA-BOJA-dd45dbc7f39c-227",
+              "CA-BOJA-dd45dbc7f39c-228",
+              "CA-BOJA-dd45dbc7f39c-229"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "codigo": "andalucia_alquiler_vivienda_habitual",
+      "estado": "pendiente",
+      "capacidadEntrega": "Sin nuevo evaluador en esta entrega; conserva catálogo, consignación y aritmética previa que exista",
+      "pendienteConcreto": "Modelar y probar estos hechos específicos ya documentados: Menor35 o mayor65 o víctima habilitante; discapacidad vía propia; NIF arrendador; conjunta habilitación de cónyuge/progenitor; por pago.",
+      "situacionAnterior": "El balance no identifica evaluador completo por hechos; esto no niega la aritmética genérica previa.",
+      "parametrosRevisados": "15%;1200/1500; BI25000/30000",
+      "fronteraDocumental": "35 años sin otra habilitación excluye;65 exactos sin otra excluye;8000=>1200;10000 discapacidad=>1500; Ley8 también efectos2025.",
+      "evidencia": {
+        "reglas": "../correcciones/a/reglas-para-calculo.json",
+        "revision": "../revisiones/a-ampliado/decisiones.json",
+        "decision": "descripcion_concordante",
+        "citas": [
+          "CA-andalucia-128",
+          "CA-andalucia-129",
+          "CA-andalucia-130",
+          "CA-andalucia-131"
+        ],
+        "manual": {
+          "paginas": [
+            39,
+            40,
+            41
+          ],
+          "citas": [
+            "CA-AEAT-39-4",
+            "CA-AEAT-39-5",
+            "CA-AEAT-39-6",
+            "CA-AEAT-39-7",
+            "CA-AEAT-39-8",
+            "CA-AEAT-39-9",
+            "CA-AEAT-39-10",
+            "CA-AEAT-39-11",
+            "CA-AEAT-39-12",
+            "CA-AEAT-39-13",
+            "CA-AEAT-39-14",
+            "CA-AEAT-39-15",
+            "CA-AEAT-39-16",
+            "CA-AEAT-39-17",
+            "CA-AEAT-39-18",
+            "CA-AEAT-39-19",
+            "CA-AEAT-40-0",
+            "CA-AEAT-40-1",
+            "CA-AEAT-40-2",
+            "CA-AEAT-40-3",
+            "CA-AEAT-40-4",
+            "CA-AEAT-40-5",
+            "CA-AEAT-40-6",
+            "CA-AEAT-40-7",
+            "CA-AEAT-40-8",
+            "CA-AEAT-40-9",
+            "CA-AEAT-40-10",
+            "CA-AEAT-40-11",
+            "CA-AEAT-40-12",
+            "CA-AEAT-40-13",
+            "CA-AEAT-40-14",
+            "CA-AEAT-40-15",
+            "CA-AEAT-40-16",
+            "CA-AEAT-40-17",
+            "CA-AEAT-40-18",
+            "CA-AEAT-40-19",
+            "CA-AEAT-41-0",
+            "CA-AEAT-41-1",
+            "CA-AEAT-41-2"
+          ]
+        },
+        "fuentesPrimarias": [
+          {
+            "documentoId": "BOJA-617f3ab05330",
+            "citas": [
+              "CA-BOJA-617f3ab05330-10-75-0",
+              "CA-BOJA-617f3ab05330-10-75-1",
+              "CA-BOJA-617f3ab05330-10-75-2",
+              "CA-BOJA-617f3ab05330-10-75-3",
+              "CA-BOJA-617f3ab05330-10-75-4",
+              "CA-BOJA-617f3ab05330-10-75-5",
+              "CA-BOJA-617f3ab05330-10-75-6"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "codigo": "andalucia_nacimiento_adopcion_acogimiento_menores",
+      "estado": "pendiente",
+      "capacidadEntrega": "Sin nuevo evaluador en esta entrega; conserva catálogo, consignación y aritmética previa que exista",
+      "pendienteConcreto": "Modelar y probar estos hechos específicos ya documentados: Dos titulares mitades; acogimiento90 días sin ayuda andaluza; no duplicar acogimiento preadoptivo/adopción; incompatibilidades art12/14.",
+      "situacionAnterior": "Ya tiene evaluador ordinario individual en contratos-2025.ts, con reservas; no se reemplaza.",
+      "parametrosRevisados": "200/400 despoblación; incremento200 por cada múltiple; sin límite BI desde2025",
+      "fronteraDocumental": "89 días acogimiento no basta,90 sí; gemelos general=>800 total antes reparto; BI90000 no excluye por sí.",
+      "evidencia": {
+        "reglas": "../correcciones/a/reglas-para-calculo.json",
+        "revision": "../revisiones/a-ampliado/decisiones.json",
+        "decision": "descripcion_concordante",
+        "citas": [
+          "CA-andalucia-144",
+          "CA-andalucia-145",
+          "CA-andalucia-146",
+          "CA-andalucia-147"
+        ],
+        "manual": {
+          "paginas": [
+            41,
+            42,
+            43
+          ],
+          "citas": [
+            "CA-AEAT-41-3",
+            "CA-AEAT-41-4",
+            "CA-AEAT-41-5",
+            "CA-AEAT-41-6",
+            "CA-AEAT-41-7",
+            "CA-AEAT-41-8",
+            "CA-AEAT-41-9",
+            "CA-AEAT-41-10",
+            "CA-AEAT-41-11",
+            "CA-AEAT-41-12",
+            "CA-AEAT-42-0",
+            "CA-AEAT-42-1",
+            "CA-AEAT-42-2",
+            "CA-AEAT-42-3",
+            "CA-AEAT-42-4",
+            "CA-AEAT-42-5",
+            "CA-AEAT-42-6",
+            "CA-AEAT-42-7",
+            "CA-AEAT-42-8",
+            "CA-AEAT-42-9",
+            "CA-AEAT-42-10",
+            "CA-AEAT-42-11",
+            "CA-AEAT-42-12",
+            "CA-AEAT-43-0",
+            "CA-AEAT-43-1",
+            "CA-AEAT-43-2",
+            "CA-AEAT-43-3"
+          ]
+        },
+        "fuentesPrimarias": [
+          {
+            "documentoId": "BOJA-617f3ab05330",
+            "citas": [
+              "CA-BOJA-617f3ab05330-11-75-0",
+              "CA-BOJA-617f3ab05330-11-75-1",
+              "CA-BOJA-617f3ab05330-11-75-2",
+              "CA-BOJA-617f3ab05330-11-75-3",
+              "CA-BOJA-617f3ab05330-11-75-4",
+              "CA-BOJA-617f3ab05330-11-76-5",
+              "CA-BOJA-617f3ab05330-11-76-6",
+              "CA-BOJA-617f3ab05330-11-76-7",
+              "CA-BOJA-617f3ab05330-11-76-8"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "codigo": "andalucia_adopcion_internacional",
+      "estado": "pendiente",
+      "capacidadEntrega": "Sin nuevo evaluador en esta entrega; conserva catálogo, consignación y aritmética previa que exista",
+      "pendienteConcreto": "Modelar y probar estos hechos específicos ya documentados: Internacional según normas/convenios; año inscripción Registro Civil; dos con derecho300; uno fuera de renta otro600.",
+      "situacionAnterior": "El balance no identifica evaluador completo por hechos; esto no niega la aritmética genérica previa.",
+      "parametrosRevisados": "600 por inscrito; BI80000/100000",
+      "fronteraDocumental": "Inscripción2026 no corresponde2025 aunque resolución2025; BI80000 exactos no excede.",
+      "evidencia": {
+        "reglas": "../correcciones/a/reglas-para-calculo.json",
+        "revision": "../revisiones/a-ampliado/decisiones.json",
+        "decision": "descripcion_concordante",
+        "citas": [
+          "CA-andalucia-157",
+          "CA-andalucia-158",
+          "CA-andalucia-159",
+          "CA-andalucia-160"
+        ],
+        "manual": {
+          "paginas": [
+            43
+          ],
+          "citas": [
+            "CA-AEAT-43-4",
+            "CA-AEAT-43-5",
+            "CA-AEAT-43-6",
+            "CA-AEAT-43-7",
+            "CA-AEAT-43-8",
+            "CA-AEAT-43-9",
+            "CA-AEAT-43-10",
+            "CA-AEAT-43-11",
+            "CA-AEAT-43-12",
+            "CA-AEAT-43-13",
+            "CA-AEAT-43-14",
+            "CA-AEAT-43-15",
+            "CA-AEAT-43-16",
+            "CA-AEAT-43-17",
+            "CA-AEAT-43-18",
+            "CA-AEAT-43-19",
+            "CA-AEAT-43-20"
+          ]
+        },
+        "fuentesPrimarias": [
+          {
+            "documentoId": "BOJA-dd45dbc7f39c",
+            "citas": [
+              "CA-BOJA-dd45dbc7f39c-247",
+              "CA-BOJA-dd45dbc7f39c-248",
+              "CA-BOJA-dd45dbc7f39c-249",
+              "CA-BOJA-dd45dbc7f39c-250"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "codigo": "andalucia_familia_monoparental_ascendientes_mayores_75",
+      "estado": "pendiente",
+      "capacidadEntrega": "Sin nuevo evaluador en esta entrega; conserva catálogo, consignación y aritmética previa que exista",
+      "pendienteConcreto": "Modelar y probar estos hechos específicos ya documentados: Definición monoparental completa art13; incremento según mínimos/convivencia y reparto estatal, no reparto de los100 básicos.",
+      "situacionAnterior": "El balance no identifica evaluador completo por hechos; esto no niega la aritmética genérica previa.",
+      "parametrosRevisados": "100 más100 por ascendiente; BI80000/100000",
+      "fronteraDocumental": "Ascendiente75 exactos no genera incremento por mayor75; dos titulares de incremento100=>50 cada uno si procede mínimo.",
+      "evidencia": {
+        "reglas": "../correcciones/a/reglas-para-calculo.json",
+        "revision": "../revisiones/a-ampliado/decisiones.json",
+        "decision": "descripcion_concordante",
+        "citas": [
+          "CA-andalucia-163",
+          "CA-andalucia-164",
+          "CA-andalucia-165",
+          "CA-andalucia-166"
+        ],
+        "manual": {
+          "paginas": [
+            44,
+            45
+          ],
+          "citas": [
+            "CA-AEAT-44-0",
+            "CA-AEAT-44-1",
+            "CA-AEAT-44-2",
+            "CA-AEAT-44-3",
+            "CA-AEAT-44-4",
+            "CA-AEAT-44-5",
+            "CA-AEAT-44-6",
+            "CA-AEAT-44-7",
+            "CA-AEAT-44-8",
+            "CA-AEAT-44-9",
+            "CA-AEAT-44-10",
+            "CA-AEAT-44-11",
+            "CA-AEAT-44-12",
+            "CA-AEAT-44-13",
+            "CA-AEAT-44-14",
+            "CA-AEAT-44-15",
+            "CA-AEAT-45-0",
+            "CA-AEAT-45-1"
+          ]
+        },
+        "fuentesPrimarias": [
+          {
+            "documentoId": "BOJA-dd45dbc7f39c",
+            "citas": [
+              "CA-BOJA-dd45dbc7f39c-252",
+              "CA-BOJA-dd45dbc7f39c-253",
+              "CA-BOJA-dd45dbc7f39c-254",
+              "CA-BOJA-dd45dbc7f39c-255"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "codigo": "andalucia_familia_numerosa",
+      "estado": "pendiente",
+      "capacidadEntrega": "Sin nuevo evaluador en esta entrega; conserva catálogo, consignación y aritmética previa que exista",
+      "pendienteConcreto": "Modelar y probar estos hechos específicos ya documentados: Ascendientes y hermanos huérfanos Ley40/2003; título/devengo; reparto titulares; incompatibilidad con art11.",
+      "situacionAnterior": "El balance no identifica evaluador completo por hechos; esto no niega la aritmética genérica previa.",
+      "parametrosRevisados": "200/400; BI25000/30000",
+      "fronteraDocumental": "Dos titulares individuales general=>100 cada uno; un titular fuera de renta no cuenta en reparto.",
+      "evidencia": {
+        "reglas": "../correcciones/a/reglas-para-calculo.json",
+        "revision": "../revisiones/a-ampliado/decisiones.json",
+        "decision": "descripcion_concordante",
+        "citas": [
+          "CA-andalucia-169",
+          "CA-andalucia-170",
+          "CA-andalucia-171",
+          "CA-andalucia-172"
+        ],
+        "manual": {
+          "paginas": [
+            45,
+            46
+          ],
+          "citas": [
+            "CA-AEAT-45-2",
+            "CA-AEAT-45-3",
+            "CA-AEAT-45-4",
+            "CA-AEAT-45-5",
+            "CA-AEAT-45-6",
+            "CA-AEAT-45-7",
+            "CA-AEAT-45-8",
+            "CA-AEAT-45-9",
+            "CA-AEAT-45-10",
+            "CA-AEAT-45-11",
+            "CA-AEAT-45-12",
+            "CA-AEAT-45-13",
+            "CA-AEAT-45-14",
+            "CA-AEAT-45-15",
+            "CA-AEAT-45-16",
+            "CA-AEAT-45-17",
+            "CA-AEAT-45-18",
+            "CA-AEAT-46-0",
+            "CA-AEAT-46-1",
+            "CA-AEAT-46-2",
+            "CA-AEAT-46-3",
+            "CA-AEAT-46-4",
+            "CA-AEAT-46-5",
+            "CA-AEAT-46-6",
+            "CA-AEAT-46-7",
+            "CA-AEAT-46-8"
+          ]
+        },
+        "fuentesPrimarias": [
+          {
+            "documentoId": "BOJA-dd45dbc7f39c",
+            "citas": [
+              "CA-BOJA-dd45dbc7f39c-257",
+              "CA-BOJA-dd45dbc7f39c-258",
+              "CA-BOJA-dd45dbc7f39c-259",
+              "CA-BOJA-dd45dbc7f39c-260"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "codigo": "andalucia_contribuyente_discapacidad",
+      "estado": "pendiente",
+      "capacidadEntrega": "Sin nuevo evaluador en esta entrega; conserva catálogo, consignación y aritmética previa que exista",
+      "pendienteConcreto": "Modelar y probar estos hechos específicos ya documentados: Calificación art3/DA2 y acreditación; conjunta no duplica con asistencia respecto mismo hijo.",
+      "situacionAnterior": "El balance no identifica evaluador completo por hechos; esto no niega la aritmética genérica previa.",
+      "parametrosRevisados": "150; discapacidad33%; BI25000/30000",
+      "fronteraDocumental": "33% habilita,32% no; BI25000 exactos admite,25000,01 individual excluye.",
+      "evidencia": {
+        "reglas": "../correcciones/a/reglas-para-calculo.json",
+        "revision": "../revisiones/a-ampliado/decisiones.json",
+        "decision": "descripcion_concordante",
+        "citas": [
+          "CA-andalucia-187",
+          "CA-andalucia-188",
+          "CA-BOJA-dd45dbc7f39c-269",
+          "CA-BOJA-dd45dbc7f39c-270"
+        ],
+        "manual": {
+          "paginas": [
+            47,
+            48
+          ],
+          "citas": [
+            "CA-AEAT-47-19",
+            "CA-AEAT-48-0",
+            "CA-AEAT-48-1",
+            "CA-AEAT-48-2",
+            "CA-AEAT-48-3",
+            "CA-AEAT-48-4",
+            "CA-AEAT-48-5",
+            "CA-AEAT-48-6",
+            "CA-AEAT-48-7",
+            "CA-AEAT-48-8",
+            "CA-AEAT-48-9",
+            "CA-AEAT-48-10",
+            "CA-AEAT-48-11"
+          ]
+        },
+        "fuentesPrimarias": [
+          {
+            "documentoId": "BOJA-dd45dbc7f39c",
+            "citas": [
+              "CA-BOJA-dd45dbc7f39c-269",
+              "CA-BOJA-dd45dbc7f39c-270"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "codigo": "andalucia_conyuge_pareja_discapacidad",
+      "estado": "pendiente",
+      "capacidadEntrega": "Sin nuevo evaluador en esta entrega; conserva catálogo, consignación y aritmética previa que exista",
+      "pendienteConcreto": "Modelar y probar estos hechos específicos ya documentados: Pareja registrada; cónyuge/pareja no declarante individual; incompatibilidad con deducción propia art16.",
+      "situacionAnterior": "El balance no identifica evaluador completo por hechos; esto no niega la aritmética genérica previa.",
+      "parametrosRevisados": "100;65%; BI25000/30000",
+      "fronteraDocumental": "65% cumple; pareja que presenta individual excluye; no trasladar el umbral33% propio.",
+      "evidencia": {
+        "reglas": "../correcciones/a/reglas-para-calculo.json",
+        "revision": "../revisiones/a-ampliado/decisiones.json",
+        "decision": "descripcion_concordante",
+        "citas": [
+          "CA-andalucia-191",
+          "CA-andalucia-192",
+          "CA-andalucia-193",
+          "CA-BOJA-dd45dbc7f39c-272"
+        ],
+        "manual": {
+          "paginas": [
+            48,
+            49
+          ],
+          "citas": [
+            "CA-AEAT-48-12",
+            "CA-AEAT-48-13",
+            "CA-AEAT-49-0",
+            "CA-AEAT-49-1",
+            "CA-AEAT-49-2",
+            "CA-AEAT-49-3",
+            "CA-AEAT-49-4",
+            "CA-AEAT-49-5",
+            "CA-AEAT-49-6",
+            "CA-AEAT-49-7",
+            "CA-AEAT-49-8",
+            "CA-AEAT-49-9",
+            "CA-AEAT-49-10",
+            "CA-AEAT-49-11",
+            "CA-AEAT-49-12",
+            "CA-AEAT-49-13",
+            "CA-AEAT-49-14"
+          ]
+        },
+        "fuentesPrimarias": [
+          {
+            "documentoId": "BOJA-dd45dbc7f39c",
+            "citas": [
+              "CA-BOJA-dd45dbc7f39c-272",
+              "CA-BOJA-dd45dbc7f39c-273",
+              "CA-BOJA-dd45dbc7f39c-274"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "codigo": "andalucia_asistencia_personas_discapacidad",
+      "estado": "pendiente",
+      "capacidadEntrega": "Sin nuevo evaluador en esta entrega; conserva catálogo, consignación y aritmética previa que exista",
+      "pendienteConcreto": "Modelar y probar estos hechos específicos ya documentados: Parte100 reparto estatal; adicional necesita terceros y mínimo asistencia; empleador TGSS Andalucía; mismo empleado incompatible art19.",
+      "situacionAnterior": "El balance no identifica evaluador completo por hechos; esto no niega la aritmética genérica previa.",
+      "parametrosRevisados": "100 por mínimo más20% SS; tope500 para asistencia; BI80000/100000",
+      "fronteraDocumental": "SS3000=>500 adicional; dos titulares de mínimo100=>50 cada uno; no repartir automáticamente500.",
+      "evidencia": {
+        "reglas": "../correcciones/a/reglas-para-calculo.json",
+        "revision": "../revisiones/a-ampliado/decisiones.json",
+        "decision": "descripcion_concordante",
+        "citas": [
+          "CA-andalucia-196",
+          "CA-andalucia-197",
+          "CA-andalucia-198",
+          "CA-andalucia-199"
+        ],
+        "manual": {
+          "paginas": [
+            49,
+            50
+          ],
+          "citas": [
+            "CA-AEAT-49-15",
+            "CA-AEAT-49-16",
+            "CA-AEAT-49-17",
+            "CA-AEAT-49-18",
+            "CA-AEAT-49-19",
+            "CA-AEAT-49-20",
+            "CA-AEAT-49-21",
+            "CA-AEAT-50-0",
+            "CA-AEAT-50-1",
+            "CA-AEAT-50-2",
+            "CA-AEAT-50-3",
+            "CA-AEAT-50-4",
+            "CA-AEAT-50-5",
+            "CA-AEAT-50-6",
+            "CA-AEAT-50-7",
+            "CA-AEAT-50-8",
+            "CA-AEAT-50-9",
+            "CA-AEAT-50-10"
+          ]
+        },
+        "fuentesPrimarias": [
+          {
+            "documentoId": "BOJA-dd45dbc7f39c",
+            "citas": [
+              "CA-BOJA-dd45dbc7f39c-276",
+              "CA-BOJA-dd45dbc7f39c-277",
+              "CA-BOJA-dd45dbc7f39c-278",
+              "CA-BOJA-dd45dbc7f39c-279",
+              "CA-BOJA-dd45dbc7f39c-280"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "codigo": "andalucia_ayuda_domestica",
+      "estado": "pendiente",
+      "capacidadEntrega": "Sin nuevo evaluador en esta entrega; conserva catálogo, consignación y aritmética previa que exista",
+      "pendienteConcreto": "Modelar y probar estos hechos específicos ya documentados: Hogar habitual TGSS Andalucía; hijos con mínimo y trabajo/actividad ambos miembros o75 años; elección cónyuge/pareja; mismo empleado incompatible18.3.",
+      "situacionAnterior": "El balance no identifica evaluador completo por hechos; esto no niega la aritmética genérica previa.",
+      "parametrosRevisados": "20% SS; tope500; sin renta especial",
+      "fronteraDocumental": "SS2500=>500;74 sin hijos no habilita;75 sí; no duplicar mismo pago entre cónyuges.",
+      "evidencia": {
+        "reglas": "../correcciones/a/reglas-para-calculo.json",
+        "revision": "../revisiones/a-ampliado/decisiones.json",
+        "decision": "descripcion_concordante",
+        "citas": [
+          "CA-andalucia-203",
+          "CA-andalucia-204",
+          "CA-andalucia-205",
+          "CA-andalucia-206"
+        ],
+        "manual": {
+          "paginas": [
+            50,
+            51
+          ],
+          "citas": [
+            "CA-AEAT-50-11",
+            "CA-AEAT-50-12",
+            "CA-AEAT-50-13",
+            "CA-AEAT-50-14",
+            "CA-AEAT-50-15",
+            "CA-AEAT-50-16",
+            "CA-AEAT-51-0",
+            "CA-AEAT-51-1",
+            "CA-AEAT-51-2",
+            "CA-AEAT-51-3",
+            "CA-AEAT-51-4",
+            "CA-AEAT-51-5",
+            "CA-AEAT-51-6",
+            "CA-AEAT-51-7",
+            "CA-AEAT-51-8",
+            "CA-AEAT-51-9",
+            "CA-AEAT-51-10",
+            "CA-AEAT-51-11",
+            "CA-AEAT-51-12",
+            "CA-AEAT-51-13"
+          ]
+        },
+        "fuentesPrimarias": [
+          {
+            "documentoId": "BOJA-dd45dbc7f39c",
+            "citas": [
+              "CA-BOJA-dd45dbc7f39c-282",
+              "CA-BOJA-dd45dbc7f39c-283",
+              "CA-BOJA-dd45dbc7f39c-284",
+              "CA-BOJA-dd45dbc7f39c-285",
+              "CA-BOJA-dd45dbc7f39c-286",
+              "CA-BOJA-dd45dbc7f39c-287",
+              "CA-BOJA-dd45dbc7f39c-288",
+              "CA-BOJA-dd45dbc7f39c-289"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "codigo": "andalucia_inversion_acciones_participaciones_mercantiles",
+      "estado": "pendiente",
+      "capacidadEntrega": "Sin nuevo evaluador en esta entrega; conserva catálogo, consignación y aritmética previa que exista",
+      "pendienteConcreto": "Modelar y probar estos hechos específicos ya documentados: Participación familiar<=40% todos los días; tres años; sin funciones ni empleo; escritura; domicilio; empleo y aumento plantilla24 meses.",
+      "situacionAnterior": "El balance no identifica evaluador completo por hechos; esto no niega la aritmética genérica previa.",
+      "parametrosRevisados": "20%/4000;50%/12000 universidades",
+      "fronteraDocumental": "40% exacto no excede,40,01% excluye; inversión20000 general=>4000; régimen universidad=>10000.",
+      "evidencia": {
+        "reglas": "../correcciones/a/reglas-para-calculo.json",
+        "revision": "../revisiones/a-ampliado/decisiones.json",
+        "decision": "descripcion_concordante",
+        "citas": [
+          "CA-andalucia-215",
+          "CA-andalucia-216",
+          "CA-andalucia-217",
+          "CA-andalucia-218"
+        ],
+        "manual": {
+          "paginas": [
+            52,
+            53
+          ],
+          "citas": [
+            "CA-AEAT-52-0",
+            "CA-AEAT-52-1",
+            "CA-AEAT-52-2",
+            "CA-AEAT-52-3",
+            "CA-AEAT-52-4",
+            "CA-AEAT-52-5",
+            "CA-AEAT-52-6",
+            "CA-AEAT-52-7",
+            "CA-AEAT-52-8",
+            "CA-AEAT-52-9",
+            "CA-AEAT-52-10",
+            "CA-AEAT-52-11",
+            "CA-AEAT-52-12",
+            "CA-AEAT-52-13",
+            "CA-AEAT-52-14",
+            "CA-AEAT-53-0",
+            "CA-AEAT-53-1",
+            "CA-AEAT-53-2",
+            "CA-AEAT-53-3",
+            "CA-AEAT-53-4",
+            "CA-AEAT-53-5",
+            "CA-AEAT-53-6",
+            "CA-AEAT-53-7",
+            "CA-AEAT-53-8",
+            "CA-AEAT-53-9",
+            "CA-AEAT-53-10",
+            "CA-AEAT-53-11",
+            "CA-AEAT-53-12"
+          ]
+        },
+        "fuentesPrimarias": [
+          {
+            "documentoId": "BOJA-dd45dbc7f39c",
+            "citas": [
+              "CA-BOJA-dd45dbc7f39c-291",
+              "CA-BOJA-dd45dbc7f39c-292",
+              "CA-BOJA-dd45dbc7f39c-293",
+              "CA-BOJA-dd45dbc7f39c-294",
+              "CA-BOJA-dd45dbc7f39c-295",
+              "CA-BOJA-dd45dbc7f39c-296",
+              "CA-BOJA-dd45dbc7f39c-297",
+              "CA-BOJA-dd45dbc7f39c-298",
+              "CA-BOJA-dd45dbc7f39c-299",
+              "CA-BOJA-dd45dbc7f39c-300",
+              "CA-BOJA-dd45dbc7f39c-301",
+              "CA-BOJA-dd45dbc7f39c-302",
+              "CA-BOJA-dd45dbc7f39c-303",
+              "CA-BOJA-dd45dbc7f39c-304"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "codigo": "aragon_nacimiento_adopcion_hijo_discapacidad_33",
+      "estado": "pendiente",
+      "capacidadEntrega": "Sin nuevo evaluador en esta entrega; conserva catálogo, consignación y aritmética previa que exista",
+      "pendienteConcreto": "Modelar y probar estos hechos específicos ya documentados: 33% reconocido a devengo; convivencia reparto; incompatible110-16 mismo hijo; arts160-1/2.",
+      "situacionAnterior": "El balance no identifica evaluador completo por hechos; esto no niega la aritmética genérica previa.",
+      "parametrosRevisados": "200/240 diferenciada; sin renta especial",
+      "fronteraDocumental": "32% no,33% sí; dos convivientes régimen general100 cada uno; no sumar200+240.",
+      "evidencia": {
+        "reglas": "../correcciones/a/reglas-para-calculo.json",
+        "revision": "../revisiones/a-ampliado/decisiones.json",
+        "decision": "descripcion_concordante",
+        "citas": [
+          "CA-aragon-120",
+          "CA-aragon-121",
+          "CA-aragon-122",
+          "CA-aragon-126"
+        ],
+        "manual": {
+          "paginas": [
+            63,
+            64
+          ],
+          "citas": [
+            "CA-AEAT-63-2",
+            "CA-AEAT-63-3",
+            "CA-AEAT-63-4",
+            "CA-AEAT-63-5",
+            "CA-AEAT-63-6",
+            "CA-AEAT-63-7",
+            "CA-AEAT-63-8",
+            "CA-AEAT-63-9",
+            "CA-AEAT-63-10",
+            "CA-AEAT-63-11",
+            "CA-AEAT-63-12",
+            "CA-AEAT-63-13",
+            "CA-AEAT-63-14",
+            "CA-AEAT-63-15",
+            "CA-AEAT-63-16",
+            "CA-AEAT-63-17",
+            "CA-AEAT-63-18",
+            "CA-AEAT-64-0",
+            "CA-AEAT-64-1",
+            "CA-AEAT-64-2",
+            "CA-AEAT-64-3",
+            "CA-AEAT-64-4",
+            "CA-AEAT-64-5",
+            "CA-AEAT-64-6",
+            "CA-AEAT-64-7",
+            "CA-AEAT-64-8",
+            "CA-AEAT-64-9",
+            "CA-AEAT-64-10",
+            "CA-AEAT-64-11",
+            "CA-AEAT-64-12"
+          ]
+        },
+        "fuentesPrimarias": [
+          {
+            "documentoId": "BOA-L14-2014-pdf",
+            "citas": [
+              "CA-BOA-L14-2014-pdf-110-3-43-0"
+            ]
+          },
+          {
+            "documentoId": "BOA-L14-2014-real",
+            "citas": [
+              "CA-BOA-L14-2014-real-art110-3"
+            ]
+          },
+          {
+            "documentoId": "BOE-A-2011-3639",
+            "citas": [
+              "CA-BOE-A-2011-3639-110-3-35-0",
+              "CA-BOE-A-2011-3639-110-3-35-1",
+              "CA-BOE-A-2011-3639-110-3-35-2",
+              "CA-BOE-A-2011-3639-110-3-35-3"
+            ]
+          },
+          {
+            "documentoId": "BOE-A-2015-950",
+            "citas": [
+              "CA-BOE-A-2015-950-110-3-56-0",
+              "CA-BOE-A-2015-950-110-3-56-1",
+              "CA-BOE-A-2015-950-110-3-56-2",
+              "CA-BOE-A-2015-950-110-3-56-3",
+              "CA-BOE-A-2015-950-110-3-56-4"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "codigo": "aragon_adopcion_internacional",
+      "estado": "pendiente",
+      "capacidadEntrega": "Sin nuevo evaluador en esta entrega; conserva catálogo, consignación y aritmética previa que exista",
+      "pendienteConcreto": "Modelar y probar estos hechos específicos ya documentados: Resolución judicial en ejercicio; tratados; convivencia reparto; compatible110-2/3/16;160-1/2.",
+      "situacionAnterior": "El balance no identifica evaluador completo por hechos; esto no niega la aritmética genérica previa.",
+      "parametrosRevisados": "600/720 diferenciada",
+      "fronteraDocumental": "Resolución2026 excluye2025 aunque gasto2025; dos convivientes general300 cada uno.",
+      "evidencia": {
+        "reglas": "../correcciones/a/reglas-para-calculo.json",
+        "revision": "../revisiones/a-ampliado/decisiones.json",
+        "decision": "descripcion_concordante",
+        "citas": [
+          "CA-aragon-133",
+          "CA-aragon-134",
+          "CA-aragon-135",
+          "CA-aragon-136"
+        ],
+        "manual": {
+          "paginas": [
+            64,
+            65,
+            66
+          ],
+          "citas": [
+            "CA-AEAT-64-13",
+            "CA-AEAT-64-14",
+            "CA-AEAT-64-15",
+            "CA-AEAT-64-16",
+            "CA-AEAT-64-17",
+            "CA-AEAT-65-0",
+            "CA-AEAT-65-1",
+            "CA-AEAT-65-2",
+            "CA-AEAT-65-3",
+            "CA-AEAT-65-4",
+            "CA-AEAT-65-5",
+            "CA-AEAT-65-6",
+            "CA-AEAT-65-7",
+            "CA-AEAT-65-8",
+            "CA-AEAT-65-9",
+            "CA-AEAT-65-10",
+            "CA-AEAT-65-11",
+            "CA-AEAT-65-12",
+            "CA-AEAT-65-13",
+            "CA-AEAT-65-14",
+            "CA-AEAT-65-15",
+            "CA-AEAT-66-0",
+            "CA-AEAT-66-1"
+          ]
+        },
+        "fuentesPrimarias": [
+          {
+            "documentoId": "BOA-L14-2014-pdf",
+            "citas": [
+              "CA-BOA-L14-2014-pdf-110-4-43-0"
+            ]
+          },
+          {
+            "documentoId": "BOA-L14-2014-real",
+            "citas": [
+              "CA-BOA-L14-2014-real-art110-4"
+            ]
+          },
+          {
+            "documentoId": "BOE-A-2011-3639",
+            "citas": [
+              "CA-BOE-A-2011-3639-110-4-35-0",
+              "CA-BOE-A-2011-3639-110-4-35-1",
+              "CA-BOE-A-2011-3639-110-4-35-2",
+              "CA-BOE-A-2011-3639-110-4-35-3",
+              "CA-BOE-A-2011-3639-110-4-35-4",
+              "CA-BOE-A-2011-3639-110-4-35-5"
+            ]
+          },
+          {
+            "documentoId": "BOE-A-2014-1510",
+            "citas": [
+              "CA-BOE-A-2014-1510-110-4-56-0",
+              "CA-BOE-A-2014-1510-110-4-56-1",
+              "CA-BOE-A-2014-1510-110-4-56-2",
+              "CA-BOE-A-2014-1510-110-4-56-3",
+              "CA-BOE-A-2014-1510-110-4-56-4",
+              "CA-BOE-A-2014-1510-110-4-56-5"
+            ]
+          },
+          {
+            "documentoId": "BOE-A-2015-950",
+            "citas": [
+              "CA-BOE-A-2015-950-110-4-56-0",
+              "CA-BOE-A-2015-950-110-4-56-1",
+              "CA-BOE-A-2015-950-110-4-56-2",
+              "CA-BOE-A-2015-950-110-4-56-3",
+              "CA-BOE-A-2015-950-110-4-56-4",
+              "CA-BOE-A-2015-950-110-4-56-5"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "codigo": "aragon_donaciones_ecologicas_idi",
+      "estado": "pendiente",
+      "capacidadEntrega": "Sin nuevo evaluador en esta entrega; conserva catálogo, consignación y aritmética previa que exista",
+      "pendienteConcreto": "Modelar y probar estos hechos específicos ya documentados: Dinero puro/simple; entidades públicas o Ley49/2002 arts2/3 fin exclusivo/principal, registro; condiciones comunes DA2.",
+      "situacionAnterior": "El balance no identifica evaluador completo por hechos; esto no niega la aritmética genérica previa.",
+      "parametrosRevisados": "20%;10% cuota íntegra autonómica",
+      "fronteraDocumental": "Donativo1000 y cuota1000=>100; bien en especie no cubierto por donación dineraria.",
+      "evidencia": {
+        "reglas": "../correcciones/a/reglas-para-calculo.json",
+        "revision": "../revisiones/a-ampliado/decisiones.json",
+        "decision": "descripcion_concordante",
+        "citas": [
+          "CA-aragon-167",
+          "CA-aragon-168",
+          "CA-aragon-169",
+          "CA-aragon-172"
+        ],
+        "manual": {
+          "paginas": [
+            67,
+            68
+          ],
+          "citas": [
+            "CA-AEAT-67-9",
+            "CA-AEAT-67-10",
+            "CA-AEAT-67-11",
+            "CA-AEAT-67-12",
+            "CA-AEAT-67-13",
+            "CA-AEAT-67-14",
+            "CA-AEAT-67-15",
+            "CA-AEAT-67-16",
+            "CA-AEAT-68-0",
+            "CA-AEAT-68-1",
+            "CA-AEAT-68-2"
+          ]
+        },
+        "fuentesPrimarias": [
+          {
+            "documentoId": "BOA-L14-2014-pdf",
+            "citas": [
+              "CA-BOA-L14-2014-pdf-110-6-43-0",
+              "CA-BOA-L14-2014-pdf-110-6-44-1",
+              "CA-BOA-L14-2014-pdf-110-6-44-2",
+              "CA-BOA-L14-2014-pdf-110-6-44-3"
+            ]
+          },
+          {
+            "documentoId": "BOA-L14-2014-real",
+            "citas": [
+              "CA-BOA-L14-2014-real-art110-6"
+            ]
+          },
+          {
+            "documentoId": "BOE-A-2011-3639",
+            "citas": [
+              "CA-BOE-A-2011-3639-110-6-35-0",
+              "CA-BOE-A-2011-3639-110-6-35-1",
+              "CA-BOE-A-2011-3639-110-6-35-2",
+              "CA-BOE-A-2011-3639-110-6-36-3",
+              "CA-BOE-A-2011-3639-110-6-36-4",
+              "CA-BOE-A-2011-3639-110-6-36-5"
+            ]
+          },
+          {
+            "documentoId": "BOE-A-2015-950",
+            "citas": [
+              "CA-BOE-A-2015-950-110-6-57-0",
+              "CA-BOE-A-2015-950-110-6-57-1",
+              "CA-BOE-A-2015-950-110-6-57-2",
+              "CA-BOE-A-2015-950-110-6-57-3",
+              "CA-BOE-A-2015-950-110-6-57-4"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "codigo": "aragon_vivienda_victimas_terrorismo",
+      "estado": "pendiente",
+      "capacidadEntrega": "Sin nuevo evaluador en esta entrega; conserva catálogo, consignación y aritmética previa que exista",
+      "pendienteConcreto": "Modelar y probar estos hechos específicos ya documentados: Nueva protegida primera vivienda Aragón; víctima o sustitutos por orden; remisión2012 y patrimonio.",
+      "situacionAnterior": "El balance no identifica evaluador completo por hechos; esto no niega la aritmética genérica previa.",
+      "parametrosRevisados": "3%; base9040=>271,20",
+      "fronteraDocumental": "Gasto10000=>271,20; segunda vivienda o libre excluida aunque víctima.",
+      "evidencia": {
+        "reglas": "../correcciones/a/reglas-para-calculo.json",
+        "revision": "../revisiones/a-ampliado/decisiones.json",
+        "decision": "descripcion_concordante",
+        "citas": [
+          "CA-aragon-180",
+          "CA-aragon-181",
+          "CA-aragon-182",
+          "CA-aragon-186"
+        ],
+        "manual": {
+          "paginas": [
+            68
+          ],
+          "citas": [
+            "CA-AEAT-68-3",
+            "CA-AEAT-68-4",
+            "CA-AEAT-68-5",
+            "CA-AEAT-68-6",
+            "CA-AEAT-68-7",
+            "CA-AEAT-68-8",
+            "CA-AEAT-68-9",
+            "CA-AEAT-68-10",
+            "CA-AEAT-68-11",
+            "CA-AEAT-68-12",
+            "CA-AEAT-68-13",
+            "CA-AEAT-68-14",
+            "CA-AEAT-68-15"
+          ]
+        },
+        "fuentesPrimarias": [
+          {
+            "documentoId": "BOA-L14-2014-pdf",
+            "citas": [
+              "CA-BOA-L14-2014-pdf-110-7-44-0"
+            ]
+          },
+          {
+            "documentoId": "BOA-L14-2014-real",
+            "citas": [
+              "CA-BOA-L14-2014-real-art110-7"
+            ]
+          },
+          {
+            "documentoId": "BOE-A-2011-3639",
+            "citas": [
+              "CA-BOE-A-2011-3639-110-7-36-0",
+              "CA-BOE-A-2011-3639-110-7-36-1",
+              "CA-BOE-A-2011-3639-110-7-36-2",
+              "CA-BOE-A-2011-3639-110-7-36-3"
+            ]
+          },
+          {
+            "documentoId": "BOE-A-2014-1510",
+            "citas": [
+              "CA-BOE-A-2014-1510-110-7-57-0",
+              "CA-BOE-A-2014-1510-110-7-57-1",
+              "CA-BOE-A-2014-1510-110-7-57-2",
+              "CA-BOE-A-2014-1510-110-7-57-3",
+              "CA-BOE-A-2014-1510-110-7-57-4"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "codigo": "aragon_inversion_acciones_mab",
+      "estado": "pendiente",
+      "capacidadEntrega": "Sin nuevo evaluador en esta entrega; conserva catálogo, consignación y aritmética previa que exista",
+      "pendienteConcreto": "Modelar y probar estos hechos específicos ya documentados: Suscripción ampliación MAB expansión; participación<=10%; dos años; domicilio Aragón; no patrimonial; incompatibilidades110-9/19.",
+      "situacionAnterior": "El balance no identifica evaluador completo por hechos; esto no niega la aritmética genérica previa.",
+      "parametrosRevisados": "20%;10000",
+      "fronteraDocumental": "Inversión60000=>10000;10% admitido,10,01% excluye; venta antes dos años requiere regularización.",
+      "evidencia": {
+        "reglas": "../correcciones/a/reglas-para-calculo.json",
+        "revision": "../revisiones/a-ampliado/decisiones.json",
+        "decision": "descripcion_concordante",
+        "citas": [
+          "CA-aragon-193",
+          "CA-aragon-194",
+          "CA-aragon-195",
+          "CA-aragon-196"
+        ],
+        "manual": {
+          "paginas": [
+            68,
+            69
+          ],
+          "citas": [
+            "CA-AEAT-68-16",
+            "CA-AEAT-69-0",
+            "CA-AEAT-69-1",
+            "CA-AEAT-69-2",
+            "CA-AEAT-69-3",
+            "CA-AEAT-69-4",
+            "CA-AEAT-69-5",
+            "CA-AEAT-69-6",
+            "CA-AEAT-69-7",
+            "CA-AEAT-69-8",
+            "CA-AEAT-69-9",
+            "CA-AEAT-69-10",
+            "CA-AEAT-69-11",
+            "CA-AEAT-69-12",
+            "CA-AEAT-69-13"
+          ]
+        },
+        "fuentesPrimarias": [
+          {
+            "documentoId": "BOA-L14-2014-pdf",
+            "citas": [
+              "CA-BOA-L14-2014-pdf-110-8-44-0"
+            ]
+          },
+          {
+            "documentoId": "BOA-L14-2014-real",
+            "citas": [
+              "CA-BOA-L14-2014-real-art110-8"
+            ]
+          },
+          {
+            "documentoId": "BOE-A-2011-3639",
+            "citas": [
+              "CA-BOE-A-2011-3639-110-8-36-0",
+              "CA-BOE-A-2011-3639-110-8-36-1",
+              "CA-BOE-A-2011-3639-110-8-36-2",
+              "CA-BOE-A-2011-3639-110-8-36-3",
+              "CA-BOE-A-2011-3639-110-8-36-4",
+              "CA-BOE-A-2011-3639-110-8-36-5",
+              "CA-BOE-A-2011-3639-110-8-36-6"
+            ]
+          },
+          {
+            "documentoId": "BOE-A-2012-5203",
+            "citas": [
+              "CA-BOE-A-2012-5203-110-8-97-0",
+              "CA-BOE-A-2012-5203-110-8-97-1",
+              "CA-BOE-A-2012-5203-110-8-97-2",
+              "CA-BOE-A-2012-5203-110-8-97-3",
+              "CA-BOE-A-2012-5203-110-8-97-4",
+              "CA-BOE-A-2012-5203-110-8-98-5",
+              "CA-BOE-A-2012-5203-110-8-98-6",
+              "CA-BOE-A-2012-5203-110-8-98-7"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "codigo": "aragon_inversion_entidades_nuevas_reciente_creacion",
+      "estado": "pendiente",
+      "capacidadEntrega": "Sin nuevo evaluador en esta entrega; conserva catálogo, consignación y aritmética previa que exista",
+      "pendienteConcreto": "Modelar y probar estos hechos específicos ya documentados: Art68.1 LIRPF vigente2025; reinversión38.2 solo exceso; domicilio Aragón, sin dirección/empleo; RIRPF59.",
+      "situacionAnterior": "El balance no identifica evaluador completo por hechos; esto no niega la aritmética genérica previa.",
+      "parametrosRevisados": "20%;4000 sobre exceso de base máxima estatal",
+      "fronteraDocumental": "Inversión100000 que solo alcanza base estatal no genera exceso autonómico; exceso20000=>4000.",
+      "evidencia": {
+        "reglas": "../correcciones/a/reglas-para-calculo.json",
+        "revision": "../revisiones/a-ampliado/decisiones.json",
+        "decision": "descripcion_concordante",
+        "citas": [
+          "CA-aragon-206",
+          "CA-aragon-207",
+          "CA-aragon-208",
+          "CA-aragon-209"
+        ],
+        "manual": {
+          "paginas": [
+            69,
+            70,
+            71
+          ],
+          "citas": [
+            "CA-AEAT-69-14",
+            "CA-AEAT-70-0",
+            "CA-AEAT-70-1",
+            "CA-AEAT-70-2",
+            "CA-AEAT-70-3",
+            "CA-AEAT-70-4",
+            "CA-AEAT-70-5",
+            "CA-AEAT-70-6",
+            "CA-AEAT-70-7",
+            "CA-AEAT-70-8",
+            "CA-AEAT-70-9",
+            "CA-AEAT-70-10",
+            "CA-AEAT-70-11",
+            "CA-AEAT-70-12",
+            "CA-AEAT-70-13",
+            "CA-AEAT-70-14",
+            "CA-AEAT-70-15",
+            "CA-AEAT-70-16",
+            "CA-AEAT-71-0",
+            "CA-AEAT-71-1",
+            "CA-AEAT-71-2",
+            "CA-AEAT-71-3"
+          ]
+        },
+        "fuentesPrimarias": [
+          {
+            "documentoId": "BOA-L14-2014-pdf",
+            "citas": [
+              "CA-BOA-L14-2014-pdf-110-9-44-0",
+              "CA-BOA-L14-2014-pdf-110-9-45-1",
+              "CA-BOA-L14-2014-pdf-110-9-45-2",
+              "CA-BOA-L14-2014-pdf-110-9-45-3"
+            ]
+          },
+          {
+            "documentoId": "BOA-L14-2014-real",
+            "citas": [
+              "CA-BOA-L14-2014-real-art110-9"
+            ]
+          },
+          {
+            "documentoId": "BOE-A-2012-5203",
+            "citas": [
+              "CA-BOE-A-2012-5203-110-9-98-0",
+              "CA-BOE-A-2012-5203-110-9-98-1",
+              "CA-BOE-A-2012-5203-110-9-98-2",
+              "CA-BOE-A-2012-5203-110-9-98-3",
+              "CA-BOE-A-2012-5203-110-9-98-4",
+              "CA-BOE-A-2012-5203-110-9-98-5",
+              "CA-BOE-A-2012-5203-110-9-98-6",
+              "CA-BOE-A-2012-5203-110-9-98-7",
+              "CA-BOE-A-2012-5203-110-9-98-8",
+              "CA-BOE-A-2012-5203-110-9-98-9",
+              "CA-BOE-A-2012-5203-110-9-98-10",
+              "CA-BOE-A-2012-5203-110-9-98-11",
+              "CA-BOE-A-2012-5203-110-9-98-12",
+              "CA-BOE-A-2012-5203-110-9-98-13",
+              "CA-BOE-A-2012-5203-110-9-99-14",
+              "CA-BOE-A-2012-5203-110-9-99-15"
+            ]
+          },
+          {
+            "documentoId": "BOE-A-2014-1510",
+            "citas": [
+              "CA-BOE-A-2014-1510-110-9-58-0",
+              "CA-BOE-A-2014-1510-110-9-58-1",
+              "CA-BOE-A-2014-1510-110-9-58-2",
+              "CA-BOE-A-2014-1510-110-9-58-3",
+              "CA-BOE-A-2014-1510-110-9-58-4",
+              "CA-BOE-A-2014-1510-110-9-58-5",
+              "CA-BOE-A-2014-1510-110-9-58-6",
+              "CA-BOE-A-2014-1510-110-9-58-7",
+              "CA-BOE-A-2014-1510-110-9-58-8",
+              "CA-BOE-A-2014-1510-110-9-59-9",
+              "CA-BOE-A-2014-1510-110-9-59-10"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "codigo": "aragon_vivienda_nucleos_rurales",
+      "estado": "pendiente",
+      "capacidadEntrega": "Sin nuevo evaluador en esta entrega; conserva catálogo, consignación y aritmética previa que exista",
+      "pendienteConcreto": "Modelar y probar estos hechos específicos ya documentados: Menor36; primera vivienda; municipios<3000 o entidades diferenciadas; desde2012; BI minorada21000/35000; patrimonio2012.",
+      "situacionAnterior": "El balance no identifica evaluador completo por hechos; esto no niega la aritmética genérica previa.",
+      "parametrosRevisados": "5%/7,5% diferenciada; base histórica9040",
+      "fronteraDocumental": "36 años excluye; general9040=>452; diferenciada=>678;3000 no es inferior3000.",
+      "evidencia": {
+        "reglas": "../correcciones/a/reglas-para-calculo.json",
+        "revision": "../revisiones/a-ampliado/decisiones.json",
+        "decision": "descripcion_concordante",
+        "citas": [
+          "CA-aragon-224",
+          "CA-aragon-225",
+          "CA-aragon-226",
+          "CA-aragon-227"
+        ],
+        "manual": {
+          "paginas": [
+            71,
+            72,
+            73
+          ],
+          "citas": [
+            "CA-AEAT-71-4",
+            "CA-AEAT-71-5",
+            "CA-AEAT-71-6",
+            "CA-AEAT-71-7",
+            "CA-AEAT-71-8",
+            "CA-AEAT-71-9",
+            "CA-AEAT-71-10",
+            "CA-AEAT-71-11",
+            "CA-AEAT-72-0",
+            "CA-AEAT-72-1",
+            "CA-AEAT-72-2",
+            "CA-AEAT-72-3",
+            "CA-AEAT-72-4",
+            "CA-AEAT-72-5",
+            "CA-AEAT-72-6",
+            "CA-AEAT-72-7",
+            "CA-AEAT-72-8",
+            "CA-AEAT-72-9",
+            "CA-AEAT-72-10",
+            "CA-AEAT-72-11",
+            "CA-AEAT-72-12",
+            "CA-AEAT-72-13",
+            "CA-AEAT-72-14",
+            "CA-AEAT-72-15",
+            "CA-AEAT-72-16",
+            "CA-AEAT-72-17",
+            "CA-AEAT-72-18",
+            "CA-AEAT-73-0",
+            "CA-AEAT-73-1",
+            "CA-AEAT-73-2",
+            "CA-AEAT-73-3",
+            "CA-AEAT-73-4",
+            "CA-AEAT-73-5",
+            "CA-AEAT-73-6",
+            "CA-AEAT-73-7",
+            "CA-AEAT-73-8",
+            "CA-AEAT-73-9",
+            "CA-AEAT-73-10",
+            "CA-AEAT-73-11",
+            "CA-AEAT-73-12",
+            "CA-AEAT-73-13",
+            "CA-AEAT-73-14",
+            "CA-AEAT-73-15"
+          ]
+        },
+        "fuentesPrimarias": [
+          {
+            "documentoId": "BOA-L14-2014-pdf",
+            "citas": [
+              "CA-BOA-L14-2014-pdf-110-10-45-0"
+            ]
+          },
+          {
+            "documentoId": "BOA-L14-2014-real",
+            "citas": [
+              "CA-BOA-L14-2014-real-art110-10"
+            ]
+          },
+          {
+            "documentoId": "BOE-A-2012-5203",
+            "citas": [
+              "CA-BOE-A-2012-5203-110-10-99-0",
+              "CA-BOE-A-2012-5203-110-10-99-1",
+              "CA-BOE-A-2012-5203-110-10-99-2",
+              "CA-BOE-A-2012-5203-110-10-99-3",
+              "CA-BOE-A-2012-5203-110-10-99-4",
+              "CA-BOE-A-2012-5203-110-10-99-5",
+              "CA-BOE-A-2012-5203-110-10-99-6",
+              "CA-BOE-A-2012-5203-110-10-99-7"
+            ]
+          },
+          {
+            "documentoId": "BOE-A-2014-1510",
+            "citas": [
+              "CA-BOE-A-2014-1510-110-10-59-0",
+              "CA-BOE-A-2014-1510-110-10-59-1",
+              "CA-BOE-A-2014-1510-110-10-59-2",
+              "CA-BOE-A-2014-1510-110-10-59-3",
+              "CA-BOE-A-2014-1510-110-10-59-4",
+              "CA-BOE-A-2014-1510-110-10-59-5",
+              "CA-BOE-A-2014-1510-110-10-59-6",
+              "CA-BOE-A-2014-1510-110-10-59-7",
+              "CA-BOE-A-2014-1510-110-10-59-8"
+            ]
+          },
+          {
+            "documentoId": "BOE-A-2015-950",
+            "citas": [
+              "CA-BOE-A-2015-950-110-10-58-0",
+              "CA-BOE-A-2015-950-110-10-58-1",
+              "CA-BOE-A-2015-950-110-10-58-2",
+              "CA-BOE-A-2015-950-110-10-58-3",
+              "CA-BOE-A-2015-950-110-10-58-4",
+              "CA-BOE-A-2015-950-110-10-59-5",
+              "CA-BOE-A-2015-950-110-10-59-6",
+              "CA-BOE-A-2015-950-110-10-59-7",
+              "CA-BOE-A-2015-950-110-10-59-8",
+              "CA-BOE-A-2015-950-110-10-59-9"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "codigo": "aragon_libros_texto_material_escolar",
+      "estado": "pendiente",
+      "capacidadEntrega": "Sin nuevo evaluador en esta entrega; conserva catálogo, consignación y aritmética previa que exista",
+      "pendienteConcreto": "Modelar y probar estos hechos específicos ya documentados: Ayudas se restan tras tope por descendiente; BI12500/25000 o FN30000/40000; pago bancario DA2 y consorcio mitades.",
+      "situacionAnterior": "El balance no identifica evaluador completo por hechos; esto no niega la aritmética genérica previa.",
+      "parametrosRevisados": "100%; tablas50/37,50/25 individual,100/50/37,50 conjunta; FN75/150; diferenciada+20%",
+      "fronteraDocumental": "Gasto200,tope50,ayuda20=>30;ayuda60=>0;BI6500 tope50 y6500,01 tope37,50 individual.",
+      "evidencia": {
+        "reglas": "../correcciones/a/reglas-para-calculo.json",
+        "revision": "../revisiones/a-ampliado/decisiones.json",
+        "decision": "descripcion_concordante",
+        "citas": [
+          "CA-aragon-244",
+          "CA-aragon-245",
+          "CA-aragon-246",
+          "CA-aragon-247"
+        ],
+        "manual": {
+          "paginas": [
+            73,
+            74,
+            75,
+            76,
+            77
+          ],
+          "citas": [
+            "CA-AEAT-73-16",
+            "CA-AEAT-73-17",
+            "CA-AEAT-73-18",
+            "CA-AEAT-73-19",
+            "CA-AEAT-73-20",
+            "CA-AEAT-73-21",
+            "CA-AEAT-73-22",
+            "CA-AEAT-73-23",
+            "CA-AEAT-74-0",
+            "CA-AEAT-74-1",
+            "CA-AEAT-74-2",
+            "CA-AEAT-74-3",
+            "CA-AEAT-74-4",
+            "CA-AEAT-74-5",
+            "CA-AEAT-74-6",
+            "CA-AEAT-74-7",
+            "CA-AEAT-74-8",
+            "CA-AEAT-74-9",
+            "CA-AEAT-74-10",
+            "CA-AEAT-74-11",
+            "CA-AEAT-74-12",
+            "CA-AEAT-74-13",
+            "CA-AEAT-74-14",
+            "CA-AEAT-74-15",
+            "CA-AEAT-74-16",
+            "CA-AEAT-74-17",
+            "CA-AEAT-74-18",
+            "CA-AEAT-74-19",
+            "CA-AEAT-74-20",
+            "CA-AEAT-75-0",
+            "CA-AEAT-75-1",
+            "CA-AEAT-75-2",
+            "CA-AEAT-75-3",
+            "CA-AEAT-75-4",
+            "CA-AEAT-75-5",
+            "CA-AEAT-75-6",
+            "CA-AEAT-75-7",
+            "CA-AEAT-75-8",
+            "CA-AEAT-75-9",
+            "CA-AEAT-75-10",
+            "CA-AEAT-75-11",
+            "CA-AEAT-75-12",
+            "CA-AEAT-75-13",
+            "CA-AEAT-75-14",
+            "CA-AEAT-75-15",
+            "CA-AEAT-75-16",
+            "CA-AEAT-75-17",
+            "CA-AEAT-75-18",
+            "CA-AEAT-75-19",
+            "CA-AEAT-75-20",
+            "CA-AEAT-75-21",
+            "CA-AEAT-76-0",
+            "CA-AEAT-76-1",
+            "CA-AEAT-76-2",
+            "CA-AEAT-76-3",
+            "CA-AEAT-76-4",
+            "CA-AEAT-76-5",
+            "CA-AEAT-76-6",
+            "CA-AEAT-76-7",
+            "CA-AEAT-76-8",
+            "CA-AEAT-76-9",
+            "CA-AEAT-76-10",
+            "CA-AEAT-76-11",
+            "CA-AEAT-76-12",
+            "CA-AEAT-76-13",
+            "CA-AEAT-76-14",
+            "CA-AEAT-76-15",
+            "CA-AEAT-76-16",
+            "CA-AEAT-76-17",
+            "CA-AEAT-76-18",
+            "CA-AEAT-76-19",
+            "CA-AEAT-76-20",
+            "CA-AEAT-76-21",
+            "CA-AEAT-77-0",
+            "CA-AEAT-77-1",
+            "CA-AEAT-77-2",
+            "CA-AEAT-77-3",
+            "CA-AEAT-77-4"
+          ]
+        },
+        "fuentesPrimarias": [
+          {
+            "documentoId": "BOA-L2-2014-pdf",
+            "citas": [
+              "CA-BOA-L2-2014-pdf-110-11-57-0",
+              "CA-BOA-L2-2014-pdf-110-11-57-1",
+              "CA-BOA-L2-2014-pdf-110-11-57-2",
+              "CA-BOA-L2-2014-pdf-110-11-57-3",
+              "CA-BOA-L2-2014-pdf-110-11-57-4",
+              "CA-BOA-L2-2014-pdf-110-11-58-5",
+              "CA-BOA-L2-2014-pdf-110-11-58-6",
+              "CA-BOA-L2-2014-pdf-110-11-58-7"
+            ]
+          },
+          {
+            "documentoId": "BOE-A-2014-1510",
+            "citas": [
+              "CA-BOE-A-2014-1510-110-11-59-0",
+              "CA-BOE-A-2014-1510-110-11-59-1",
+              "CA-BOE-A-2014-1510-110-11-59-2",
+              "CA-BOE-A-2014-1510-110-11-59-3",
+              "CA-BOE-A-2014-1510-110-11-59-4",
+              "CA-BOE-A-2014-1510-110-11-59-5",
+              "CA-BOE-A-2014-1510-110-11-59-6",
+              "CA-BOE-A-2014-1510-110-11-59-7",
+              "CA-BOE-A-2014-1510-110-11-60-8",
+              "CA-BOE-A-2014-1510-110-11-60-9",
+              "CA-BOE-A-2014-1510-110-11-60-10",
+              "CA-BOE-A-2014-1510-110-11-60-11",
+              "CA-BOE-A-2014-1510-110-11-60-12",
+              "CA-BOE-A-2014-1510-110-11-60-13",
+              "CA-BOE-A-2014-1510-110-11-60-14",
+              "CA-BOE-A-2014-1510-110-11-60-15",
+              "CA-BOE-A-2014-1510-110-11-60-16",
+              "CA-BOE-A-2014-1510-110-11-60-17",
+              "CA-BOE-A-2014-1510-110-11-60-18",
+              "CA-BOE-A-2014-1510-110-11-60-19",
+              "CA-BOE-A-2014-1510-110-11-60-20"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "codigo": "aragon_arrendamiento_dacion_pago",
+      "estado": "pendiente",
+      "capacidadEntrega": "Sin nuevo evaluador en esta entrega; conserva catálogo, consignación y aritmética previa que exista",
+      "pendienteConcreto": "Modelar y probar estos hechos específicos ya documentados: Operación121-10, dación totalidad deuda y alquiler opción compra; depósito fianza en plazo; vivienda2012.",
+      "situacionAnterior": "El balance no identifica evaluador completo por hechos; esto no niega la aritmética genérica previa.",
+      "parametrosRevisados": "10%; base4800=>480; BI15000/25000",
+      "fronteraDocumental": "Alquiler6000=>480; fianza fuera plazo no cumple aunque importe coincida.",
+      "evidencia": {
+        "reglas": "../correcciones/a/reglas-para-calculo.json",
+        "revision": "../revisiones/a-ampliado/decisiones.json",
+        "decision": "descripcion_concordante",
+        "citas": [
+          "CA-aragon-273",
+          "CA-aragon-274",
+          "CA-aragon-275",
+          "CA-aragon-276"
+        ],
+        "manual": {
+          "paginas": [
+            77,
+            78
+          ],
+          "citas": [
+            "CA-AEAT-77-5",
+            "CA-AEAT-77-6",
+            "CA-AEAT-77-7",
+            "CA-AEAT-77-8",
+            "CA-AEAT-77-9",
+            "CA-AEAT-77-10",
+            "CA-AEAT-77-11",
+            "CA-AEAT-77-12",
+            "CA-AEAT-77-13",
+            "CA-AEAT-77-14",
+            "CA-AEAT-77-15",
+            "CA-AEAT-77-16",
+            "CA-AEAT-77-17",
+            "CA-AEAT-77-18",
+            "CA-AEAT-78-0"
+          ]
+        },
+        "fuentesPrimarias": [
+          {
+            "documentoId": "BOA-L14-2014-pdf",
+            "citas": [
+              "CA-BOA-L14-2014-pdf-110-12-46-0",
+              "CA-BOA-L14-2014-pdf-110-12-47-1",
+              "CA-BOA-L14-2014-pdf-110-12-47-2",
+              "CA-BOA-L14-2014-pdf-110-12-47-3"
+            ]
+          },
+          {
+            "documentoId": "BOA-L14-2014-real",
+            "citas": [
+              "CA-BOA-L14-2014-real-art110-12"
+            ]
+          },
+          {
+            "documentoId": "BOE-A-2014-1510",
+            "citas": [
+              "CA-BOE-A-2014-1510-110-12-60-0",
+              "CA-BOE-A-2014-1510-110-12-60-1",
+              "CA-BOE-A-2014-1510-110-12-60-2",
+              "CA-BOE-A-2014-1510-110-12-61-3",
+              "CA-BOE-A-2014-1510-110-12-61-4",
+              "CA-BOE-A-2014-1510-110-12-61-5"
+            ]
+          },
+          {
+            "documentoId": "BOE-A-2015-950",
+            "citas": [
+              "CA-BOE-A-2015-950-110-12-60-0",
+              "CA-BOE-A-2015-950-110-12-60-1",
+              "CA-BOE-A-2015-950-110-12-60-2",
+              "CA-BOE-A-2015-950-110-12-60-3",
+              "CA-BOE-A-2015-950-110-12-60-4",
+              "CA-BOE-A-2015-950-110-12-60-5"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "codigo": "aragon_arrendamiento_vivienda_social_arrendador",
+      "estado": "pendiente",
+      "capacidadEntrega": "Sin nuevo evaluador en esta entrega; conserva catálogo, consignación y aritmética previa que exista",
+      "pendienteConcreto": "Modelar y probar estos hechos específicos ya documentados: Plan vivienda social; base liquidable derivada de rendimiento neto reducido art23.2/3 LIRPF; no30% del alquiler bruto.",
+      "situacionAnterior": "El balance no identifica evaluador completo por hechos; esto no niega la aritmética genérica previa.",
+      "parametrosRevisados": "30% de cuota autonómica imputable",
+      "fronteraDocumental": "Cuota atribuible1000=>300; renta bruta1000 no es esa cuota; pendiente método atribución exacto.",
+      "evidencia": {
+        "reglas": "../correcciones/a/reglas-para-calculo.json",
+        "revision": "../revisiones/a-ampliado/decisiones.json",
+        "decision": "descripcion_concordante",
+        "citas": [
+          "CA-aragon-286",
+          "CA-aragon-287",
+          "CA-aragon-291",
+          "CA-aragon-292"
+        ],
+        "manual": {
+          "paginas": [
+            78
+          ],
+          "citas": [
+            "CA-AEAT-78-1",
+            "CA-AEAT-78-2",
+            "CA-AEAT-78-3",
+            "CA-AEAT-78-4",
+            "CA-AEAT-78-5",
+            "CA-AEAT-78-6",
+            "CA-AEAT-78-7",
+            "CA-AEAT-78-8",
+            "CA-AEAT-78-9"
+          ]
+        },
+        "fuentesPrimarias": [
+          {
+            "documentoId": "BOA-L14-2014-pdf",
+            "citas": [
+              "CA-BOA-L14-2014-pdf-110-13-47-0"
+            ]
+          },
+          {
+            "documentoId": "BOA-L14-2014-real",
+            "citas": [
+              "CA-BOA-L14-2014-real-art110-13"
+            ]
+          },
+          {
+            "documentoId": "BOE-A-2014-1510",
+            "citas": [
+              "CA-BOE-A-2014-1510-110-13-61-0",
+              "CA-BOE-A-2014-1510-110-13-61-1",
+              "CA-BOE-A-2014-1510-110-13-61-2",
+              "CA-BOE-A-2014-1510-110-13-61-3",
+              "CA-BOE-A-2014-1510-110-13-61-4"
+            ]
+          },
+          {
+            "documentoId": "BOE-A-2015-950",
+            "citas": [
+              "CA-BOE-A-2015-950-110-13-60-0",
+              "CA-BOE-A-2015-950-110-13-60-1",
+              "CA-BOE-A-2015-950-110-13-60-2",
+              "CA-BOE-A-2015-950-110-13-61-3",
+              "CA-BOE-A-2015-950-110-13-61-4"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "codigo": "aragon_primer_segundo_hijo_poblaciones_menos_10000",
+      "estado": "pendiente",
+      "capacidadEntrega": "Sin nuevo evaluador en esta entrega; conserva catálogo, consignación y aritmética previa que exista",
+      "pendienteConcreto": "Modelar y probar estos hechos específicos ya documentados: Residencia contribuyente año del nacimiento y anterior, no solo población del municipio; convivencia reparto; incompatibilidad110-3.",
+      "situacionAnterior": "El balance no identifica evaluador completo por hechos; esto no niega la aritmética genérica previa.",
+      "parametrosRevisados": "100/150;200/300 si BI23000/35000",
+      "fronteraDocumental": "Traslado a municipio pequeño solo2025 no satisface residencia2024; exactamente10000 no es inferior.",
+      "evidencia": {
+        "reglas": "../correcciones/a/reglas-para-calculo.json",
+        "revision": "../revisiones/a-ampliado/decisiones.json",
+        "decision": "descripcion_concordante",
+        "citas": [
+          "CA-aragon-313",
+          "CA-aragon-314",
+          "CA-aragon-315",
+          "CA-aragon-316"
+        ],
+        "manual": {
+          "paginas": [
+            79,
+            80
+          ],
+          "citas": [
+            "CA-AEAT-79-7",
+            "CA-AEAT-79-8",
+            "CA-AEAT-79-9",
+            "CA-AEAT-79-10",
+            "CA-AEAT-79-11",
+            "CA-AEAT-79-12",
+            "CA-AEAT-79-13",
+            "CA-AEAT-79-14",
+            "CA-AEAT-79-15",
+            "CA-AEAT-79-16",
+            "CA-AEAT-79-17",
+            "CA-AEAT-79-18",
+            "CA-AEAT-79-19",
+            "CA-AEAT-80-0",
+            "CA-AEAT-80-1",
+            "CA-AEAT-80-2",
+            "CA-AEAT-80-3",
+            "CA-AEAT-80-4",
+            "CA-AEAT-80-5",
+            "CA-AEAT-80-6",
+            "CA-AEAT-80-7",
+            "CA-AEAT-80-8"
+          ]
+        },
+        "fuentesPrimarias": [
+          {
+            "documentoId": "BOA-L14-2014-pdf",
+            "citas": [
+              "CA-BOA-L14-2014-pdf-110-16-47-0",
+              "CA-BOA-L14-2014-pdf-110-16-48-1",
+              "CA-BOA-L14-2014-pdf-110-16-48-2",
+              "CA-BOA-L14-2014-pdf-110-16-48-3"
+            ]
+          },
+          {
+            "documentoId": "BOA-L14-2014-real",
+            "citas": [
+              "CA-BOA-L14-2014-real-art110-16"
+            ]
+          },
+          {
+            "documentoId": "BOE-A-2014-1510",
+            "citas": [
+              "CA-BOE-A-2014-1510-110-16-62-0",
+              "CA-BOE-A-2014-1510-110-16-62-1",
+              "CA-BOE-A-2014-1510-110-16-62-2",
+              "CA-BOE-A-2014-1510-110-16-62-3",
+              "CA-BOE-A-2014-1510-110-16-62-4",
+              "CA-BOE-A-2014-1510-110-16-62-5",
+              "CA-BOE-A-2014-1510-110-16-62-6",
+              "CA-BOE-A-2014-1510-110-16-62-7",
+              "CA-BOE-A-2014-1510-110-16-62-8"
+            ]
+          },
+          {
+            "documentoId": "BOE-A-2015-950",
+            "citas": [
+              "CA-BOE-A-2015-950-110-16-61-0",
+              "CA-BOE-A-2015-950-110-16-61-1",
+              "CA-BOE-A-2015-950-110-16-61-2",
+              "CA-BOE-A-2015-950-110-16-61-3",
+              "CA-BOE-A-2015-950-110-16-61-4",
+              "CA-BOE-A-2015-950-110-16-61-5",
+              "CA-BOE-A-2015-950-110-16-62-6",
+              "CA-BOE-A-2015-950-110-16-62-7",
+              "CA-BOE-A-2015-950-110-16-62-8"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "codigo": "aragon_inversion_economia_social",
+      "estado": "pendiente",
+      "capacidadEntrega": "Sin nuevo evaluador en esta entrega; conserva catálogo, consignación y aritmética previa que exista",
+      "pendienteConcreto": "Modelar y probar estos hechos específicos ya documentados: Ley5/2011; familiar<=40%; domicilio/empleado jornada completa cinco años; aportación cinco años; escritura; regularización; incompatibilidades.",
+      "situacionAnterior": "El balance no identifica evaluador completo por hechos; esto no niega la aritmética genérica previa.",
+      "parametrosRevisados": "20%;4000 individual/conjunta",
+      "fronteraDocumental": "Inversión25000=>4000; dos contribuyentes conjunta siguen límite4000; salida año4 requiere analizar regularización.",
+      "evidencia": {
+        "reglas": "../correcciones/a/reglas-para-calculo.json",
+        "revision": "../revisiones/a-ampliado/decisiones.json",
+        "decision": "descripcion_concordante",
+        "citas": [
+          "CA-aragon-345",
+          "CA-aragon-346",
+          "CA-aragon-347",
+          "CA-aragon-348"
+        ],
+        "manual": {
+          "paginas": [
+            82,
+            83,
+            84
+          ],
+          "citas": [
+            "CA-AEAT-82-13",
+            "CA-AEAT-82-14",
+            "CA-AEAT-82-15",
+            "CA-AEAT-82-16",
+            "CA-AEAT-82-17",
+            "CA-AEAT-83-0",
+            "CA-AEAT-83-1",
+            "CA-AEAT-83-2",
+            "CA-AEAT-83-3",
+            "CA-AEAT-83-4",
+            "CA-AEAT-83-5",
+            "CA-AEAT-83-6",
+            "CA-AEAT-83-7",
+            "CA-AEAT-83-8",
+            "CA-AEAT-83-9",
+            "CA-AEAT-83-10",
+            "CA-AEAT-83-11",
+            "CA-AEAT-83-12",
+            "CA-AEAT-83-13",
+            "CA-AEAT-83-14",
+            "CA-AEAT-83-15",
+            "CA-AEAT-83-16",
+            "CA-AEAT-83-17",
+            "CA-AEAT-83-18",
+            "CA-AEAT-84-0",
+            "CA-AEAT-84-1",
+            "CA-AEAT-84-2"
+          ]
+        },
+        "fuentesPrimarias": [
+          {
+            "documentoId": "BOA-L2-2016-pdf",
+            "citas": [
+              "CA-BOA-L2-2016-pdf-110-19-11-0"
+            ]
+          },
+          {
+            "documentoId": "BOE-A-2016-2408",
+            "citas": [
+              "CA-BOE-A-2016-2408-110-19-12-0",
+              "CA-BOE-A-2016-2408-110-19-12-1",
+              "CA-BOE-A-2016-2408-110-19-13-2",
+              "CA-BOE-A-2016-2408-110-19-13-3",
+              "CA-BOE-A-2016-2408-110-19-13-4",
+              "CA-BOE-A-2016-2408-110-19-13-5",
+              "CA-BOE-A-2016-2408-110-19-13-6",
+              "CA-BOE-A-2016-2408-110-19-13-7",
+              "CA-BOE-A-2016-2408-110-19-13-8",
+              "CA-BOE-A-2016-2408-110-19-13-9",
+              "CA-BOE-A-2016-2408-110-19-13-10",
+              "CA-BOE-A-2016-2408-110-19-13-11",
+              "CA-BOE-A-2016-2408-110-19-13-12"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "codigo": "aragon_clases_apoyo_refuerzo",
+      "estado": "pendiente",
+      "capacidadEntrega": "Sin nuevo evaluador en esta entrega; conserva catálogo, consignación y aritmética previa que exista",
+      "pendienteConcreto": "Modelar y probar estos hechos específicos ya documentados: Ayudas después tope; materias/centros/particular IAE; mínimo; pago bancario y consorcio; art64.2 Ley17/2023.",
+      "situacionAnterior": "El balance no identifica evaluador completo por hechos; esto no niega la aritmética genérica previa.",
+      "parametrosRevisados": "25%; topes100/80/50 individual,200/100/80 conjunta; FN300",
+      "fronteraDocumental": "800,tope100,ayuda20=>80; ayuda120=>0; BI6500=>100 y6500,01=>80 antes ayudas.",
+      "evidencia": {
+        "reglas": "../correcciones/a/reglas-para-calculo.json",
+        "revision": "../revisiones/a-ampliado/decisiones.json",
+        "decision": "descripcion_concordante",
+        "citas": [
+          "CA-aragon-367",
+          "CA-aragon-368",
+          "CA-aragon-369",
+          "CA-aragon-370"
+        ],
+        "manual": {
+          "paginas": [
+            84,
+            85,
+            86
+          ],
+          "citas": [
+            "CA-AEAT-84-3",
+            "CA-AEAT-84-4",
+            "CA-AEAT-84-5",
+            "CA-AEAT-84-6",
+            "CA-AEAT-84-7",
+            "CA-AEAT-84-8",
+            "CA-AEAT-84-9",
+            "CA-AEAT-84-10",
+            "CA-AEAT-84-11",
+            "CA-AEAT-84-12",
+            "CA-AEAT-84-13",
+            "CA-AEAT-84-14",
+            "CA-AEAT-85-0",
+            "CA-AEAT-85-1",
+            "CA-AEAT-85-2",
+            "CA-AEAT-85-3",
+            "CA-AEAT-85-4",
+            "CA-AEAT-85-5",
+            "CA-AEAT-85-6",
+            "CA-AEAT-85-7",
+            "CA-AEAT-85-8",
+            "CA-AEAT-85-9",
+            "CA-AEAT-85-10",
+            "CA-AEAT-85-11",
+            "CA-AEAT-85-12",
+            "CA-AEAT-85-13",
+            "CA-AEAT-85-14",
+            "CA-AEAT-85-15",
+            "CA-AEAT-85-16",
+            "CA-AEAT-85-17",
+            "CA-AEAT-85-18",
+            "CA-AEAT-85-19",
+            "CA-AEAT-85-20",
+            "CA-AEAT-85-21",
+            "CA-AEAT-85-22",
+            "CA-AEAT-85-23",
+            "CA-AEAT-86-0",
+            "CA-AEAT-86-1",
+            "CA-AEAT-86-2",
+            "CA-AEAT-86-3",
+            "CA-AEAT-86-4",
+            "CA-AEAT-86-5",
+            "CA-AEAT-86-6",
+            "CA-AEAT-86-7",
+            "CA-AEAT-86-8"
+          ]
+        },
+        "fuentesPrimarias": [
+          {
+            "documentoId": "BOE-A-2024-903",
+            "citas": [
+              "CA-BOE-A-2024-903-110-21-50-0",
+              "CA-BOE-A-2024-903-110-21-50-1",
+              "CA-BOE-A-2024-903-110-21-50-2",
+              "CA-BOE-A-2024-903-110-21-51-3",
+              "CA-BOE-A-2024-903-110-21-51-4",
+              "CA-BOE-A-2024-903-110-21-51-5",
+              "CA-BOE-A-2024-903-110-21-51-6",
+              "CA-BOE-A-2024-903-110-21-51-7",
+              "CA-BOE-A-2024-903-110-21-51-8",
+              "CA-BOE-A-2024-903-110-21-51-9",
+              "CA-BOE-A-2024-903-110-21-51-10",
+              "CA-BOE-A-2024-903-110-21-51-11",
+              "CA-BOE-A-2024-903-110-21-51-12",
+              "CA-BOE-A-2024-903-110-21-51-13",
+              "CA-BOE-A-2024-903-110-21-51-14",
+              "CA-BOE-A-2024-903-110-21-51-15",
+              "CA-BOE-A-2024-903-110-21-51-16",
+              "CA-BOE-A-2024-903-110-21-51-17",
+              "CA-BOE-A-2024-903-110-21-51-18",
+              "CA-BOE-A-2024-903-110-21-51-19",
+              "CA-BOE-A-2024-903-110-21-51-20"
+            ]
+          },
+          {
+            "documentoId": "RA-BOA-L17-2023",
+            "citas": [
+              "CA-RA-BOA-L17-2023-110-21-41-0",
+              "CA-RA-BOA-L17-2023-110-21-41-1",
+              "CA-RA-BOA-L17-2023-110-21-42-2",
+              "CA-RA-BOA-L17-2023-110-21-42-3",
+              "CA-RA-BOA-L17-2023-110-21-42-4",
+              "CA-RA-BOA-L17-2023-110-21-42-5",
+              "CA-RA-BOA-L17-2023-110-21-42-6",
+              "CA-RA-BOA-L17-2023-110-21-42-7",
+              "CA-RA-BOA-L17-2023-110-21-42-8",
+              "CA-RA-BOA-L17-2023-110-21-42-9",
+              "CA-RA-BOA-L17-2023-110-21-42-10",
+              "CA-RA-BOA-L17-2023-110-21-42-11",
+              "CA-RA-BOA-L17-2023-110-21-42-12",
+              "CA-RA-BOA-L17-2023-110-21-42-13",
+              "CA-RA-BOA-L17-2023-110-21-42-14",
+              "CA-RA-BOA-L17-2023-110-21-42-15",
+              "CA-RA-BOA-L17-2023-110-21-42-16",
+              "CA-RA-BOA-L17-2023-110-21-42-17",
+              "CA-RA-BOA-L17-2023-110-21-42-18",
+              "CA-RA-BOA-L17-2023-110-21-42-19",
+              "CA-RA-BOA-L17-2023-110-21-42-20"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "codigo": "aragon_formacion_autonomia_menores_discapacidad",
+      "estado": "pendiente",
+      "capacidadEntrega": "Sin nuevo evaluador en esta entrega; conserva catálogo, consignación y aritmética previa que exista",
+      "pendienteConcreto": "Modelar y probar estos hechos específicos ya documentados: Menor18,discapacidad>=65 y mínimo; ayudas después tope; consorcio, justificante,pago bancario; art64.12 Ley17/2023.",
+      "situacionAnterior": "El balance no identifica evaluador completo por hechos; esto no niega la aritmética genérica previa.",
+      "parametrosRevisados": "25%; mismos tramos apoyo; FN300",
+      "fronteraDocumental": "800,tope100,ayuda20=>80;18 años excluye;64% excluye; no aplicar incremento rural inexistente.",
+      "evidencia": {
+        "reglas": "../correcciones/a/reglas-para-calculo.json",
+        "revision": "../revisiones/a-ampliado/decisiones.json",
+        "decision": "descripcion_concordante",
+        "citas": [
+          "CA-aragon-390",
+          "CA-aragon-391",
+          "CA-aragon-392",
+          "CA-aragon-393"
+        ],
+        "manual": {
+          "paginas": [
+            86,
+            87,
+            88
+          ],
+          "citas": [
+            "CA-AEAT-86-9",
+            "CA-AEAT-86-10",
+            "CA-AEAT-86-11",
+            "CA-AEAT-86-12",
+            "CA-AEAT-86-13",
+            "CA-AEAT-86-14",
+            "CA-AEAT-86-15",
+            "CA-AEAT-86-16",
+            "CA-AEAT-86-17",
+            "CA-AEAT-86-18",
+            "CA-AEAT-86-19",
+            "CA-AEAT-87-0",
+            "CA-AEAT-87-1",
+            "CA-AEAT-87-2",
+            "CA-AEAT-87-3",
+            "CA-AEAT-87-4",
+            "CA-AEAT-87-5",
+            "CA-AEAT-87-6",
+            "CA-AEAT-87-7",
+            "CA-AEAT-87-8",
+            "CA-AEAT-87-9",
+            "CA-AEAT-87-10",
+            "CA-AEAT-87-11",
+            "CA-AEAT-87-12",
+            "CA-AEAT-87-13",
+            "CA-AEAT-87-14",
+            "CA-AEAT-87-15",
+            "CA-AEAT-87-16",
+            "CA-AEAT-87-17",
+            "CA-AEAT-87-18",
+            "CA-AEAT-87-19",
+            "CA-AEAT-87-20",
+            "CA-AEAT-87-21",
+            "CA-AEAT-87-22",
+            "CA-AEAT-88-0",
+            "CA-AEAT-88-1",
+            "CA-AEAT-88-2",
+            "CA-AEAT-88-3",
+            "CA-AEAT-88-4",
+            "CA-AEAT-88-5",
+            "CA-AEAT-88-6",
+            "CA-AEAT-88-7",
+            "CA-AEAT-88-8"
+          ]
+        },
+        "fuentesPrimarias": [
+          {
+            "documentoId": "BOE-A-2024-903",
+            "citas": [
+              "CA-BOE-A-2024-903-110-22-53-0",
+              "CA-BOE-A-2024-903-110-22-53-1",
+              "CA-BOE-A-2024-903-110-22-53-2",
+              "CA-BOE-A-2024-903-110-22-53-3",
+              "CA-BOE-A-2024-903-110-22-53-4",
+              "CA-BOE-A-2024-903-110-22-53-5",
+              "CA-BOE-A-2024-903-110-22-53-6",
+              "CA-BOE-A-2024-903-110-22-53-7",
+              "CA-BOE-A-2024-903-110-22-53-8",
+              "CA-BOE-A-2024-903-110-22-53-9",
+              "CA-BOE-A-2024-903-110-22-53-10",
+              "CA-BOE-A-2024-903-110-22-53-11",
+              "CA-BOE-A-2024-903-110-22-54-12",
+              "CA-BOE-A-2024-903-110-22-54-13",
+              "CA-BOE-A-2024-903-110-22-54-14",
+              "CA-BOE-A-2024-903-110-22-54-15",
+              "CA-BOE-A-2024-903-110-22-54-16",
+              "CA-BOE-A-2024-903-110-22-54-17",
+              "CA-BOE-A-2024-903-110-22-54-18",
+              "CA-BOE-A-2024-903-110-22-54-19",
+              "CA-BOE-A-2024-903-110-22-54-20",
+              "CA-BOE-A-2024-903-110-22-54-21"
+            ]
+          },
+          {
+            "documentoId": "RA-BOA-L17-2023",
+            "citas": [
+              "CA-RA-BOA-L17-2023-110-22-43-0",
+              "CA-RA-BOA-L17-2023-110-22-43-1",
+              "CA-RA-BOA-L17-2023-110-22-44-2",
+              "CA-RA-BOA-L17-2023-110-22-44-3",
+              "CA-RA-BOA-L17-2023-110-22-44-4",
+              "CA-RA-BOA-L17-2023-110-22-44-5",
+              "CA-RA-BOA-L17-2023-110-22-44-6",
+              "CA-RA-BOA-L17-2023-110-22-44-7",
+              "CA-RA-BOA-L17-2023-110-22-44-8",
+              "CA-RA-BOA-L17-2023-110-22-44-9",
+              "CA-RA-BOA-L17-2023-110-22-44-10",
+              "CA-RA-BOA-L17-2023-110-22-44-11",
+              "CA-RA-BOA-L17-2023-110-22-44-12",
+              "CA-RA-BOA-L17-2023-110-22-44-13",
+              "CA-RA-BOA-L17-2023-110-22-44-14",
+              "CA-RA-BOA-L17-2023-110-22-44-15",
+              "CA-RA-BOA-L17-2023-110-22-44-16",
+              "CA-RA-BOA-L17-2023-110-22-44-17",
+              "CA-RA-BOA-L17-2023-110-22-44-18",
+              "CA-RA-BOA-L17-2023-110-22-44-19"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "codigo": "aragon_residencia_determinados_municipios",
+      "estado": "pendiente",
+      "capacidadEntrega": "Sin nuevo evaluador en esta entrega; conserva catálogo, consignación y aritmética previa que exista",
+      "pendienteConcreto": "Modelar y probar estos hechos específicos ya documentados: Norma cuantía160-2.8, no solo160-1; RangoX y valorISDT<100; año devengo y cuatro siguientes.",
+      "situacionAnterior": "El balance no identifica evaluador completo por hechos; esto no niega la aritmética genérica previa.",
+      "parametrosRevisados": "600 por titular; BL<35000/50000; BI ahorro<=4000",
+      "fronteraDocumental": "BL35000 individual excluye,34999,99 admite;BIahorro4000 admite; dos titulares conjunta1200.",
+      "evidencia": {
+        "reglas": "../correcciones/a/reglas-para-calculo.json",
+        "revision": "../revisiones/a-ampliado/decisiones.json",
+        "decision": "descripcion_concordante",
+        "citas": [
+          "CA-aragon-1363",
+          "CA-aragon-1364",
+          "CA-aragon-1365",
+          "CA-aragon-1366"
+        ],
+        "manual": {
+          "paginas": [
+            88,
+            89
+          ],
+          "citas": [
+            "CA-AEAT-88-9",
+            "CA-AEAT-88-10",
+            "CA-AEAT-88-11",
+            "CA-AEAT-88-12",
+            "CA-AEAT-88-13",
+            "CA-AEAT-88-14",
+            "CA-AEAT-88-15",
+            "CA-AEAT-88-16",
+            "CA-AEAT-88-17",
+            "CA-AEAT-88-18",
+            "CA-AEAT-88-19",
+            "CA-AEAT-89-0",
+            "CA-AEAT-89-1",
+            "CA-AEAT-89-2"
+          ]
+        },
+        "fuentesPrimarias": [
+          {
+            "documentoId": "BOE-A-2023-10878",
+            "citas": [
+              "CA-BOE-A-2023-10878-160-2-60-0",
+              "CA-BOE-A-2023-10878-160-2-60-1",
+              "CA-BOE-A-2023-10878-160-2-60-2",
+              "CA-BOE-A-2023-10878-160-2-60-3",
+              "CA-BOE-A-2023-10878-160-2-60-4",
+              "CA-BOE-A-2023-10878-160-2-60-5",
+              "CA-BOE-A-2023-10878-160-2-60-6",
+              "CA-BOE-A-2023-10878-160-2-60-7",
+              "CA-BOE-A-2023-10878-160-2-60-8",
+              "CA-BOE-A-2023-10878-160-2-60-9",
+              "CA-BOE-A-2023-10878-160-2-60-10",
+              "CA-BOE-A-2023-10878-160-2-60-11",
+              "CA-BOE-A-2023-10878-160-2-60-12",
+              "CA-BOE-A-2023-10878-160-2-60-13",
+              "CA-BOE-A-2023-10878-160-2-60-14",
+              "CA-BOE-A-2023-10878-160-2-60-15",
+              "CA-BOE-A-2023-10878-160-2-61-16",
+              "CA-BOE-A-2023-10878-160-2-61-17",
+              "CA-BOE-A-2023-10878-160-2-61-18",
+              "CA-BOE-A-2023-10878-160-2-61-19"
+            ]
+          },
+          {
+            "documentoId": "RA-BOA-L13-2023",
+            "citas": [
+              "CA-RA-BOA-L13-2023-preciso-160-2-0",
+              "CA-RA-BOA-L13-2023-preciso-160-2-1",
+              "CA-RA-BOA-L13-2023-preciso-160-2-2",
+              "CA-RA-BOA-L13-2023-preciso-160-2-3",
+              "CA-RA-BOA-L13-2023-preciso-160-2-4",
+              "CA-RA-BOA-L13-2023-preciso-160-2-5",
+              "CA-RA-BOA-L13-2023-preciso-160-2-6",
+              "CA-RA-BOA-L13-2023-preciso-160-2-7",
+              "CA-RA-BOA-L13-2023-preciso-160-2-8",
+              "CA-RA-BOA-L13-2023-preciso-160-2-9",
+              "CA-RA-BOA-L13-2023-preciso-160-2-10",
+              "CA-RA-BOA-L13-2023-preciso-160-2-11"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "codigo": "aragon_nacimiento_adopcion_tercer_hijo_sucesivos",
+      "estado": "pendiente",
+      "capacidadEntrega": "Sin nuevo evaluador en esta entrega; conserva catálogo, consignación y aritmética previa que exista",
+      "pendienteConcreto": "Modelar y probar estos hechos específicos ya documentados: Solo año evento; tercero o sucesivo; convivencia reparto; 160-1 y160-2.1.",
+      "situacionAnterior": "El balance no identifica evaluador completo por hechos; esto no niega la aritmética genérica previa.",
+      "parametrosRevisados": "500/600; diferenciada600/720; BI minorada21000/35000",
+      "fronteraDocumental": "Dos titulares general base reducida300 cada uno; no acumular500+600;21000 exacto admite incremento.",
+      "evidencia": {
+        "reglas": "../correcciones/a/reglas-para-calculo.json",
+        "revision": "../revisiones/a-ampliado/decisiones.json",
+        "decision": "descripcion_concordante",
+        "citas": [
+          "CA-aragon-105",
+          "CA-aragon-106",
+          "CA-aragon-107",
+          "CA-aragon-108"
+        ],
+        "manual": {
+          "paginas": [
+            61,
+            62,
+            63
+          ],
+          "citas": [
+            "CA-AEAT-61-2",
+            "CA-AEAT-61-3",
+            "CA-AEAT-61-4",
+            "CA-AEAT-61-5",
+            "CA-AEAT-61-6",
+            "CA-AEAT-61-7",
+            "CA-AEAT-61-8",
+            "CA-AEAT-61-9",
+            "CA-AEAT-61-10",
+            "CA-AEAT-61-11",
+            "CA-AEAT-61-12",
+            "CA-AEAT-61-13",
+            "CA-AEAT-61-14",
+            "CA-AEAT-61-15",
+            "CA-AEAT-62-0",
+            "CA-AEAT-62-1",
+            "CA-AEAT-62-2",
+            "CA-AEAT-62-3",
+            "CA-AEAT-62-4",
+            "CA-AEAT-62-5",
+            "CA-AEAT-62-6",
+            "CA-AEAT-62-7",
+            "CA-AEAT-62-8",
+            "CA-AEAT-62-9",
+            "CA-AEAT-62-10",
+            "CA-AEAT-62-11",
+            "CA-AEAT-62-12",
+            "CA-AEAT-62-13",
+            "CA-AEAT-62-14",
+            "CA-AEAT-62-15",
+            "CA-AEAT-62-16",
+            "CA-AEAT-62-17",
+            "CA-AEAT-63-0",
+            "CA-AEAT-63-1"
+          ]
+        },
+        "fuentesPrimarias": [
+          {
+            "documentoId": "BOA-L14-2014-pdf",
+            "citas": [
+              "CA-BOA-L14-2014-pdf-110-2-42-0",
+              "CA-BOA-L14-2014-pdf-110-2-43-1",
+              "CA-BOA-L14-2014-pdf-110-2-43-2",
+              "CA-BOA-L14-2014-pdf-110-2-43-3"
+            ]
+          },
+          {
+            "documentoId": "BOA-L14-2014-real",
+            "citas": [
+              "CA-BOA-L14-2014-real-art110-2"
+            ]
+          },
+          {
+            "documentoId": "BOE-A-2011-3639",
+            "citas": [
+              "CA-BOE-A-2011-3639-110-2-34-0",
+              "CA-BOE-A-2011-3639-110-2-34-1",
+              "CA-BOE-A-2011-3639-110-2-34-2",
+              "CA-BOE-A-2011-3639-110-2-34-3",
+              "CA-BOE-A-2011-3639-110-2-34-4",
+              "CA-BOE-A-2011-3639-110-2-34-5",
+              "CA-BOE-A-2011-3639-110-2-34-6",
+              "CA-BOE-A-2011-3639-110-2-35-7"
+            ]
+          },
+          {
+            "documentoId": "BOE-A-2014-1510",
+            "citas": [
+              "CA-BOE-A-2014-1510-110-2-56-0",
+              "CA-BOE-A-2014-1510-110-2-56-1",
+              "CA-BOE-A-2014-1510-110-2-56-2",
+              "CA-BOE-A-2014-1510-110-2-56-3",
+              "CA-BOE-A-2014-1510-110-2-56-4",
+              "CA-BOE-A-2014-1510-110-2-56-5",
+              "CA-BOE-A-2014-1510-110-2-56-6"
+            ]
+          },
+          {
+            "documentoId": "BOE-A-2015-950",
+            "citas": [
+              "CA-BOE-A-2015-950-110-2-55-0",
+              "CA-BOE-A-2015-950-110-2-55-1",
+              "CA-BOE-A-2015-950-110-2-55-2",
+              "CA-BOE-A-2015-950-110-2-55-3",
+              "CA-BOE-A-2015-950-110-2-55-4",
+              "CA-BOE-A-2015-950-110-2-56-5",
+              "CA-BOE-A-2015-950-110-2-56-6",
+              "CA-BOE-A-2015-950-110-2-56-7"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "codigo": "aragon_cuidado_personas_dependientes",
+      "estado": "pendiente",
+      "capacidadEntrega": "Sin nuevo evaluador en esta entrega; conserva catálogo, consignación y aritmética previa que exista",
+      "pendienteConcreto": "Modelar y probar estos hechos específicos ya documentados: Mitad período convivencia; ascendiente>75 o ascendiente/descendiente>=65%; rentas dependiente<=8000; regla grado cercano con renta<=8000 cede al siguiente.",
+      "situacionAnterior": "El balance no identifica evaluador completo por hechos; esto no niega la aritmética genérica previa.",
+      "parametrosRevisados": "150/300 diferenciada; BI minorada21000/35000",
+      "fronteraDocumental": "Renta dependiente8000 sí,8000,01 no; revisar inversión del sentido del requisito en ficha de parentesco.",
+      "evidencia": {
+        "reglas": "../correcciones/a/reglas-para-calculo.json",
+        "revision": "../revisiones/a-ampliado/decisiones.json",
+        "decision": "descripcion_concordante",
+        "citas": [
+          "CA-aragon-152",
+          "CA-aragon-153",
+          "CA-aragon-154",
+          "CA-aragon-155"
+        ],
+        "manual": {
+          "paginas": [
+            66,
+            67
+          ],
+          "citas": [
+            "CA-AEAT-66-2",
+            "CA-AEAT-66-3",
+            "CA-AEAT-66-4",
+            "CA-AEAT-66-5",
+            "CA-AEAT-66-6",
+            "CA-AEAT-66-7",
+            "CA-AEAT-66-8",
+            "CA-AEAT-66-9",
+            "CA-AEAT-66-10",
+            "CA-AEAT-66-11",
+            "CA-AEAT-66-12",
+            "CA-AEAT-66-13",
+            "CA-AEAT-66-14",
+            "CA-AEAT-66-15",
+            "CA-AEAT-66-16",
+            "CA-AEAT-66-17",
+            "CA-AEAT-66-18",
+            "CA-AEAT-66-19",
+            "CA-AEAT-66-20",
+            "CA-AEAT-67-0",
+            "CA-AEAT-67-1",
+            "CA-AEAT-67-2",
+            "CA-AEAT-67-3",
+            "CA-AEAT-67-4",
+            "CA-AEAT-67-5",
+            "CA-AEAT-67-6",
+            "CA-AEAT-67-7",
+            "CA-AEAT-67-8"
+          ]
+        },
+        "fuentesPrimarias": [
+          {
+            "documentoId": "BOA-L14-2014-pdf",
+            "citas": [
+              "CA-BOA-L14-2014-pdf-110-5-43-0"
+            ]
+          },
+          {
+            "documentoId": "BOA-L14-2014-real",
+            "citas": [
+              "CA-BOA-L14-2014-real-art110-5"
+            ]
+          },
+          {
+            "documentoId": "BOE-A-2011-3639",
+            "citas": [
+              "CA-BOE-A-2011-3639-110-5-35-0",
+              "CA-BOE-A-2011-3639-110-5-35-1",
+              "CA-BOE-A-2011-3639-110-5-35-2",
+              "CA-BOE-A-2011-3639-110-5-35-3",
+              "CA-BOE-A-2011-3639-110-5-35-4",
+              "CA-BOE-A-2011-3639-110-5-35-5",
+              "CA-BOE-A-2011-3639-110-5-35-6"
+            ]
+          },
+          {
+            "documentoId": "BOE-A-2014-1510",
+            "citas": [
+              "CA-BOE-A-2014-1510-110-5-57-0",
+              "CA-BOE-A-2014-1510-110-5-57-1",
+              "CA-BOE-A-2014-1510-110-5-57-2",
+              "CA-BOE-A-2014-1510-110-5-57-3",
+              "CA-BOE-A-2014-1510-110-5-57-4",
+              "CA-BOE-A-2014-1510-110-5-57-5",
+              "CA-BOE-A-2014-1510-110-5-57-6"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "codigo": "aragon_mayores_70",
+      "estado": "pendiente",
+      "capacidadEntrega": "Sin nuevo evaluador en esta entrega; conserva catálogo, consignación y aritmética previa que exista",
+      "pendienteConcreto": "Modelar y probar estos hechos específicos ya documentados: >=70; rendimientos en base general no exclusivamente capital; no convertir sin prueba en condición exclusivamente trabajo/actividad.",
+      "situacionAnterior": "El balance no identifica evaluador completo por hechos; esto no niega la aritmética genérica previa.",
+      "parametrosRevisados": "75; BI23000/35000",
+      "fronteraDocumental": "69 no,70 sí; BI23000,01 individual no; imputación renta junto capital exige interpretación manual específica.",
+      "evidencia": {
+        "reglas": "../correcciones/a/reglas-para-calculo.json",
+        "revision": "../revisiones/a-ampliado/decisiones.json",
+        "decision": "descripcion_concordante",
+        "citas": [
+          "CA-aragon-297",
+          "CA-aragon-298",
+          "CA-aragon-299",
+          "CA-aragon-301"
+        ],
+        "manual": {
+          "paginas": [
+            78,
+            79
+          ],
+          "citas": [
+            "CA-AEAT-78-10",
+            "CA-AEAT-78-11",
+            "CA-AEAT-78-12",
+            "CA-AEAT-78-13",
+            "CA-AEAT-79-0",
+            "CA-AEAT-79-1",
+            "CA-AEAT-79-2",
+            "CA-AEAT-79-3",
+            "CA-AEAT-79-4",
+            "CA-AEAT-79-5",
+            "CA-AEAT-79-6"
+          ]
+        },
+        "fuentesPrimarias": [
+          {
+            "documentoId": "BOA-L14-2014-pdf",
+            "citas": [
+              "CA-BOA-L14-2014-pdf-110-14-47-0"
+            ]
+          },
+          {
+            "documentoId": "BOA-L14-2014-real",
+            "citas": [
+              "CA-BOA-L14-2014-real-art110-14"
+            ]
+          },
+          {
+            "documentoId": "BOE-A-2014-1510",
+            "citas": [
+              "CA-BOE-A-2014-1510-110-14-61-0",
+              "CA-BOE-A-2014-1510-110-14-61-1",
+              "CA-BOE-A-2014-1510-110-14-61-2",
+              "CA-BOE-A-2014-1510-110-14-61-3"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "codigo": "aragon_guarderia_menores_3",
+      "estado": "pendiente",
+      "capacidadEntrega": "Sin nuevo evaluador en esta entrega; conserva catálogo, consignación y aritmética previa que exista",
+      "pendienteConcreto": "Modelar y probar estos hechos específicos ya documentados: Mínimo descendientes; centro autorizado Educación; reparto convivientes;125 año cumple3;160-1/2.",
+      "situacionAnterior": "El balance no identifica evaluador completo por hechos; esto no niega la aritmética genérica previa.",
+      "parametrosRevisados": "15%;250/125; diferenciada300/150; BL<35000/50000; ahorro<=4000",
+      "fronteraDocumental": "Dos titulares hijo menor3,gasto2000=>125 cada uno general; BL35000 individual excluye.",
+      "evidencia": {
+        "reglas": "../correcciones/a/reglas-para-calculo.json",
+        "revision": "../revisiones/a-ampliado/decisiones.json",
+        "decision": "descripcion_concordante",
+        "citas": [
+          "CA-aragon-327",
+          "CA-aragon-328",
+          "CA-aragon-329",
+          "CA-aragon-330"
+        ],
+        "manual": {
+          "paginas": [
+            80,
+            81,
+            82
+          ],
+          "citas": [
+            "CA-AEAT-80-9",
+            "CA-AEAT-80-10",
+            "CA-AEAT-80-11",
+            "CA-AEAT-80-12",
+            "CA-AEAT-80-13",
+            "CA-AEAT-80-14",
+            "CA-AEAT-80-15",
+            "CA-AEAT-80-16",
+            "CA-AEAT-80-17",
+            "CA-AEAT-80-18",
+            "CA-AEAT-81-0",
+            "CA-AEAT-81-1",
+            "CA-AEAT-81-2",
+            "CA-AEAT-81-3",
+            "CA-AEAT-81-4",
+            "CA-AEAT-81-5",
+            "CA-AEAT-81-6",
+            "CA-AEAT-81-7",
+            "CA-AEAT-81-8",
+            "CA-AEAT-81-9",
+            "CA-AEAT-81-10",
+            "CA-AEAT-81-11",
+            "CA-AEAT-81-12",
+            "CA-AEAT-81-13",
+            "CA-AEAT-81-14",
+            "CA-AEAT-81-15",
+            "CA-AEAT-81-16",
+            "CA-AEAT-81-17",
+            "CA-AEAT-81-18",
+            "CA-AEAT-81-19",
+            "CA-AEAT-81-20",
+            "CA-AEAT-82-0",
+            "CA-AEAT-82-1",
+            "CA-AEAT-82-2",
+            "CA-AEAT-82-3",
+            "CA-AEAT-82-4",
+            "CA-AEAT-82-5",
+            "CA-AEAT-82-6",
+            "CA-AEAT-82-7",
+            "CA-AEAT-82-8",
+            "CA-AEAT-82-9",
+            "CA-AEAT-82-10",
+            "CA-AEAT-82-11",
+            "CA-AEAT-82-12"
+          ]
+        },
+        "fuentesPrimarias": [
+          {
+            "documentoId": "BOA-L14-2014-pdf",
+            "citas": [
+              "CA-BOA-L14-2014-pdf-110-17-48-0"
+            ]
+          },
+          {
+            "documentoId": "BOA-L14-2014-real",
+            "citas": [
+              "CA-BOA-L14-2014-real-art110-17"
+            ]
+          },
+          {
+            "documentoId": "BOE-A-2015-950",
+            "citas": [
+              "CA-BOE-A-2015-950-110-17-62-0",
+              "CA-BOE-A-2015-950-110-17-62-1",
+              "CA-BOE-A-2015-950-110-17-62-2",
+              "CA-BOE-A-2015-950-110-17-62-3",
+              "CA-BOE-A-2015-950-110-17-62-4",
+              "CA-BOE-A-2015-950-110-17-62-5",
+              "CA-BOE-A-2015-950-110-17-62-6",
+              "CA-BOE-A-2015-950-110-17-62-7"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "codigo": "cataluna_donativos_lengua_catalana_occitana",
+      "estado": "parcial",
+      "capacidadEntrega": "Evaluador específico por hechos individual ordinario, importe generado; referencias jurídicas aportadas",
+      "pendienteConcreto": "Verificación documental de destinatario/censo, certificado y comunicación modelo993; presentaciones extemporáneas/correcciones; composición/conjunta/fallecimiento.",
+      "situacionAnterior": "El balance no identifica evaluador completo por hechos; esto no niega la aritmética genérica previa.",
+      "parametrosRevisados": "15%;10% cuota íntegra autonómica",
+      "fronteraDocumental": "Donativo1000,cuota1000=>100; entidad no censada cuando exigible excluye; comunicación día20/21 exige precisar plazo.",
+      "evidencia": {
+        "reglas": "../correcciones/a/reglas-para-calculo.json",
+        "revision": "../revisiones/a-ampliado/decisiones.json",
+        "decision": "descripcion_concordante",
+        "citas": [
+          "CA-catalunya-2025-167",
+          "CA-catalunya-2025-168",
+          "CA-catalunya-2025-169"
+        ],
+        "manual": {
+          "paginas": [
+            320,
+            321
+          ],
+          "citas": [
+            "CA-AEAT-320-7",
+            "CA-AEAT-320-8",
+            "CA-AEAT-320-9",
+            "CA-AEAT-320-10",
+            "CA-AEAT-320-11",
+            "CA-AEAT-320-12",
+            "CA-AEAT-320-13",
+            "CA-AEAT-320-14",
+            "CA-AEAT-320-15",
+            "CA-AEAT-321-0",
+            "CA-AEAT-321-1",
+            "CA-AEAT-321-2",
+            "CA-AEAT-321-3"
+          ]
+        },
+        "fuentesPrimarias": [
+          {
+            "documentoId": "catalunya-original",
+            "citas": [
+              "CA-catalunya-original-612-6-8-0",
+              "CA-catalunya-original-612-6-8-1",
+              "CA-catalunya-original-612-6-8-2",
+              "CA-catalunya-original-612-6-8-3",
+              "CA-catalunya-original-612-6-8-4"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "codigo": "cataluna_donativos_idi",
+      "estado": "parcial",
+      "capacidadEntrega": "Evaluador específico por hechos individual ordinario, importe generado; referencias jurídicas aportadas",
+      "pendienteConcreto": "Verificación documental de destinatario/censo, certificado y comunicación modelo993; presentaciones extemporáneas/correcciones; composición/conjunta/fallecimiento.",
+      "situacionAnterior": "El balance no identifica evaluador completo por hechos; esto no niega la aritmética genérica previa.",
+      "parametrosRevisados": "30%;10% cuota autonómica; combinado estatal<=100% donativo",
+      "fronteraDocumental": "Donativo100,estatal80,cuota1000=>autonómica20, no30; cuota100=>máximo10.",
+      "evidencia": {
+        "reglas": "../correcciones/a/reglas-para-calculo.json",
+        "revision": "../revisiones/a-ampliado/decisiones.json",
+        "decision": "descripcion_concordante",
+        "citas": [
+          "CA-catalunya-2025-172",
+          "CA-catalunya-2025-173",
+          "CA-catalunya-2025-174"
+        ],
+        "manual": {
+          "paginas": [
+            321,
+            322
+          ],
+          "citas": [
+            "CA-AEAT-321-4",
+            "CA-AEAT-321-5",
+            "CA-AEAT-321-6",
+            "CA-AEAT-321-7",
+            "CA-AEAT-321-8",
+            "CA-AEAT-321-9",
+            "CA-AEAT-321-10",
+            "CA-AEAT-321-11",
+            "CA-AEAT-321-12",
+            "CA-AEAT-321-13",
+            "CA-AEAT-321-14",
+            "CA-AEAT-321-15",
+            "CA-AEAT-321-16",
+            "CA-AEAT-322-0",
+            "CA-AEAT-322-1"
+          ]
+        },
+        "fuentesPrimarias": [
+          {
+            "documentoId": "catalunya-original",
+            "citas": [
+              "CA-catalunya-original-612-7-8-0",
+              "CA-catalunya-original-612-7-8-1",
+              "CA-catalunya-original-612-7-8-2",
+              "CA-catalunya-original-612-7-9-3",
+              "CA-catalunya-original-612-7-9-4",
+              "CA-catalunya-original-612-7-9-5"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "codigo": "cataluna_donaciones_medio_ambiente_patrimonio_natural",
+      "estado": "parcial",
+      "capacidadEntrega": "Evaluador específico por hechos individual ordinario, importe generado; referencias jurídicas aportadas",
+      "pendienteConcreto": "Verificación documental de destinatario/censo, certificado y comunicación modelo993; presentaciones extemporáneas/correcciones; composición/conjunta/fallecimiento.",
+      "situacionAnterior": "El balance no identifica evaluador completo por hechos; esto no niega la aritmética genérica previa.",
+      "parametrosRevisados": "15%;5% cuota autonómica",
+      "fronteraDocumental": "Donativo1000,cuota1000=>50; entidad ambiental sin censo no habilita por mera finalidad.",
+      "evidencia": {
+        "reglas": "../correcciones/a/reglas-para-calculo.json",
+        "revision": "../revisiones/a-ampliado/decisiones.json",
+        "decision": "descripcion_concordante",
+        "citas": [
+          "CA-catalunya-2025-177",
+          "CA-catalunya-2025-178",
+          "CA-catalunya-2025-179"
+        ],
+        "manual": {
+          "paginas": [
+            322
+          ],
+          "citas": [
+            "CA-AEAT-322-2",
+            "CA-AEAT-322-3",
+            "CA-AEAT-322-4",
+            "CA-AEAT-322-5",
+            "CA-AEAT-322-6",
+            "CA-AEAT-322-7",
+            "CA-AEAT-322-8"
+          ]
+        },
+        "fuentesPrimarias": [
+          {
+            "documentoId": "catalunya-original",
+            "citas": [
+              "CA-catalunya-original-612-8-9-0",
+              "CA-catalunya-original-612-8-9-1",
+              "CA-catalunya-original-612-8-9-2",
+              "CA-catalunya-original-612-8-9-3",
+              "CA-catalunya-original-612-8-9-4"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "codigo": "cataluna_angel_inversor",
+      "estado": "pendiente",
+      "capacidadEntrega": "Sin nuevo evaluador en esta entrega; conserva catálogo, consignación y aritmética previa que exista",
+      "pendienteConcreto": "Modelar y probar estos hechos específicos ya documentados: Participación familiar35%; tres años participación,domicilio,actividad y empleo; facturación<=1M no solo ampliaciones; sin dirección/empleo; escritura.",
+      "situacionAnterior": "El balance no identifica evaluador completo por hechos; esto no niega la aritmética genérica previa.",
+      "parametrosRevisados": "40%/12000;50%/12000 universidad; conjunta límite por contribuyente",
+      "fronteraDocumental": "Inversión40000=>12000 general;35% exacto sí,35,01% no; constitución facturación1.000.001 también excluye.",
+      "evidencia": {
+        "reglas": "../correcciones/a/reglas-para-calculo.json",
+        "revision": "../revisiones/a-ampliado/decisiones.json",
+        "decision": "descripcion_concordante",
+        "citas": [
+          "CA-catalunya-2025-182",
+          "CA-catalunya-2025-183",
+          "CA-catalunya-2025-184",
+          "CA-catalunya-2025-185",
+          "CA-catalunya-2025-186",
+          "CA-catalunya-2025-187",
+          "CA-catalunya-2025-188",
+          "CA-catalunya-2025-189",
+          "CA-catalunya-2025-190",
+          "CA-catalunya-2025-191",
+          "CA-catalunya-2025-192",
+          "CA-catalunya-2025-193",
+          "CA-catalunya-2025-194",
+          "CA-catalunya-2025-195",
+          "CA-catalunya-2025-196",
+          "CA-catalunya-2025-197"
+        ],
+        "manual": {
+          "paginas": [
+            322,
+            323,
+            324
+          ],
+          "citas": [
+            "CA-AEAT-322-9",
+            "CA-AEAT-322-10",
+            "CA-AEAT-323-0",
+            "CA-AEAT-323-1",
+            "CA-AEAT-323-2",
+            "CA-AEAT-323-3",
+            "CA-AEAT-323-4",
+            "CA-AEAT-323-5",
+            "CA-AEAT-323-6",
+            "CA-AEAT-323-7",
+            "CA-AEAT-323-8",
+            "CA-AEAT-323-9",
+            "CA-AEAT-323-10",
+            "CA-AEAT-323-11",
+            "CA-AEAT-323-12",
+            "CA-AEAT-323-13",
+            "CA-AEAT-323-14",
+            "CA-AEAT-323-15",
+            "CA-AEAT-323-16",
+            "CA-AEAT-323-17",
+            "CA-AEAT-323-18",
+            "CA-AEAT-323-19",
+            "CA-AEAT-323-20",
+            "CA-AEAT-323-21",
+            "CA-AEAT-324-0",
+            "CA-AEAT-324-1",
+            "CA-AEAT-324-2",
+            "CA-AEAT-324-3",
+            "CA-AEAT-324-4",
+            "CA-AEAT-324-5",
+            "CA-AEAT-324-6",
+            "CA-AEAT-324-7"
+          ]
+        },
+        "fuentesPrimarias": [
+          {
+            "documentoId": "catalunya-original",
+            "citas": [
+              "CA-catalunya-original-612-9-9-0",
+              "CA-catalunya-original-612-9-9-1",
+              "CA-catalunya-original-612-9-9-2",
+              "CA-catalunya-original-612-9-9-3",
+              "CA-catalunya-original-612-9-9-4",
+              "CA-catalunya-original-612-9-9-5",
+              "CA-catalunya-original-612-9-9-6",
+              "CA-catalunya-original-612-9-9-7",
+              "CA-catalunya-original-612-9-9-8",
+              "CA-catalunya-original-612-9-9-9",
+              "CA-catalunya-original-612-9-10-10",
+              "CA-catalunya-original-612-9-10-11",
+              "CA-catalunya-original-612-9-10-12",
+              "CA-catalunya-original-612-9-10-13",
+              "CA-catalunya-original-612-9-10-14",
+              "CA-catalunya-original-612-9-10-15",
+              "CA-catalunya-original-612-9-10-16",
+              "CA-catalunya-original-612-9-10-17"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "codigo": "cataluna_tramo_autonomico_inversion_vivienda_habitual",
+      "estado": "pendiente",
+      "capacidadEntrega": "Sin nuevo evaluador en esta entrega; conserva catálogo, consignación y aritmética previa que exista",
+      "pendienteConcreto": "Modelar y probar estos hechos específicos ya documentados: DT18 estatal y redacción2012; adquisición/construcción antes30/7/2011;<=32,paro183,>=65% o hijo;BI menos mínimo<=30000 individual también conjunta.",
+      "situacionAnterior": "El balance no identifica evaluador completo por hechos; esto no niega la aritmética genérica previa.",
+      "parametrosRevisados": "7,5%;15% adecuación;9% especial",
+      "fronteraDocumental": "Adquirida30/7/2011 no entra9%;29/7 sí si demás; base9040=>678 general/813,60 especial; adecuación base12080 histórica.",
+      "evidencia": {
+        "reglas": "../correcciones/a/reglas-para-calculo.json",
+        "revision": "../revisiones/a-ampliado/decisiones.json",
+        "decision": "descripcion_concordante",
+        "citas": [
+          "CA-catalunya-2025-228",
+          "CA-catalunya-2025-229",
+          "CA-catalunya-2025-230",
+          "CA-catalunya-2025-231",
+          "CA-catalunya-2025-232",
+          "CA-catalunya-2025-233",
+          "CA-catalunya-2025-234",
+          "CA-catalunya-2025-235",
+          "CA-catalunya-2025-236"
+        ],
+        "manual": {
+          "paginas": [
+            329,
+            330
+          ],
+          "citas": [
+            "CA-AEAT-329-2",
+            "CA-AEAT-329-3",
+            "CA-AEAT-329-4",
+            "CA-AEAT-329-5",
+            "CA-AEAT-329-6",
+            "CA-AEAT-329-7",
+            "CA-AEAT-329-8",
+            "CA-AEAT-329-9",
+            "CA-AEAT-329-10",
+            "CA-AEAT-329-11",
+            "CA-AEAT-329-12",
+            "CA-AEAT-329-13",
+            "CA-AEAT-330-0"
+          ]
+        },
+        "fuentesPrimarias": [
+          {
+            "documentoId": "catalunya-original",
+            "citas": [
+              "CA-catalunya-original-613-1-10-0",
+              "CA-catalunya-original-613-1-10-1",
+              "CA-catalunya-original-613-1-10-2",
+              "CA-catalunya-original-613-1-10-3",
+              "CA-catalunya-original-613-1-10-4",
+              "CA-catalunya-original-613-1-11-5",
+              "CA-catalunya-original-613-1-11-6",
+              "CA-catalunya-original-613-1-11-7",
+              "CA-catalunya-original-613-1-11-8",
+              "CA-catalunya-original-613-1-11-9",
+              "CA-catalunya-original-613-1-11-10",
+              "CA-catalunya-original-613-1-11-11",
+              "CA-catalunya-original-613-1-11-12",
+              "CA-catalunya-original-613-1-11-13"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "codigo": "cataluna_nacimiento_adopcion_acogimiento",
+      "estado": "parcial",
+      "capacidadEntrega": "Evaluador específico por hechos individual ordinario, importe generado; referencias jurídicas aportadas",
+      "pendienteConcreto": "Integración dispatcher/composición; conjunta y devengo por fallecimiento; resolución de eventos incompatibles de una misma persona; títulos familiares externos.",
+      "situacionAnterior": "El balance no identifica evaluador completo por hechos; esto no niega la aritmética genérica previa.",
+      "parametrosRevisados": "150 individual;300 conjunta/monoparental",
+      "fronteraDocumental": "Adopción más acogimiento mismo supuesto no autoriza600; familia monoparental300 incluso individual.",
+      "evidencia": {
+        "reglas": "../correcciones/a/reglas-para-calculo.json",
+        "revision": "../revisiones/a-ampliado/decisiones.json",
+        "decision": "descripcion_concordante",
+        "citas": [
+          "CA-catalunya-2025-122",
+          "CA-catalunya-2025-123",
+          "CA-catalunya-2025-124",
+          "CA-catalunya-2025-125",
+          "CA-catalunya-2025-126",
+          "CA-catalunya-2025-127",
+          "CA-catalunya-2025-129",
+          "CA-catalunya-2025-130",
+          "CA-DOGC-DL5-2025-612-1-14-0",
+          "CA-DOGC-DL5-2025-612-1-14-1",
+          "CA-DOGC-DL5-2025-612-1-14-2",
+          "CA-DOGC-DL5-2025-612-1-14-3",
+          "CA-DOGC-DL5-2025-612-1-14-4",
+          "CA-DOGC-DL5-2025-612-1-14-5",
+          "CA-DOGC-DL5-2025-612-1-14-6"
+        ],
+        "manual": {
+          "paginas": [
+            315,
+            316
+          ],
+          "citas": [
+            "CA-AEAT-315-2",
+            "CA-AEAT-315-3",
+            "CA-AEAT-315-4",
+            "CA-AEAT-315-5",
+            "CA-AEAT-315-6",
+            "CA-AEAT-315-7",
+            "CA-AEAT-315-8",
+            "CA-AEAT-315-9",
+            "CA-AEAT-315-10",
+            "CA-AEAT-315-11",
+            "CA-AEAT-315-12",
+            "CA-AEAT-315-13",
+            "CA-AEAT-315-14",
+            "CA-AEAT-316-0",
+            "CA-AEAT-316-1",
+            "CA-AEAT-316-2",
+            "CA-AEAT-316-3",
+            "CA-AEAT-316-4",
+            "CA-AEAT-316-5",
+            "CA-AEAT-316-6",
+            "CA-AEAT-316-7",
+            "CA-AEAT-316-8",
+            "CA-AEAT-316-9",
+            "CA-AEAT-316-10",
+            "CA-AEAT-316-11",
+            "CA-AEAT-316-12",
+            "CA-AEAT-316-13",
+            "CA-AEAT-316-14",
+            "CA-AEAT-316-15",
+            "CA-AEAT-316-16",
+            "CA-AEAT-316-17",
+            "CA-AEAT-316-18",
+            "CA-AEAT-316-19",
+            "CA-AEAT-316-20"
+          ]
+        },
+        "fuentesPrimarias": [
+          {
+            "documentoId": "DOGC-DL5-2025",
+            "citas": [
+              "CA-DOGC-DL5-2025-612-1-14-0",
+              "CA-DOGC-DL5-2025-612-1-14-1",
+              "CA-DOGC-DL5-2025-612-1-14-2",
+              "CA-DOGC-DL5-2025-612-1-14-3",
+              "CA-DOGC-DL5-2025-612-1-14-4",
+              "CA-DOGC-DL5-2025-612-1-14-5",
+              "CA-DOGC-DL5-2025-612-1-14-6"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "codigo": "cataluna_alquiler_vivienda_habitual",
+      "estado": "pendiente",
+      "capacidadEntrega": "Sin nuevo evaluador en esta entrega; conserva catálogo, consignación y aritmética previa que exista",
+      "pendienteConcreto": "Modelar y probar estos hechos específicos ya documentados: Edad<=35,paro183,discapacidad65 o viudo>=65; FN/monoparental vía propia; vivienda máximo1000 y división declarantes; NIF; Ley8/2025DF3.",
+      "situacionAnterior": "El balance no identifica evaluador completo por hechos; esto no niega la aritmética genérica previa.",
+      "parametrosRevisados": "10%;500/1000; BI menos mínimo30000/45000",
+      "fronteraDocumental": "Edad36 sin otra condición excluye;35 sí; dos titulares gasto total12000=>500 cada uno; BI30000,01 individual excluye.",
+      "evidencia": {
+        "reglas": "../correcciones/a/reglas-para-calculo.json",
+        "revision": "../revisiones/a-ampliado/decisiones.json",
+        "decision": "descripcion_concordante",
+        "citas": [
+          "CA-catalunya-2025-137",
+          "CA-catalunya-2025-138",
+          "CA-catalunya-2025-139",
+          "CA-catalunya-2025-140",
+          "CA-catalunya-2025-141",
+          "CA-catalunya-2025-142",
+          "CA-catalunya-2025-143",
+          "CA-catalunya-2025-144",
+          "CA-catalunya-2025-145",
+          "CA-catalunya-2025-146",
+          "CA-catalunya-2025-147",
+          "CA-catalunya-2025-148",
+          "CA-catalunya-2025-149",
+          "CA-catalunya-2025-150",
+          "CA-catalunya-2025-151",
+          "CA-catalunya-2025-154"
+        ],
+        "manual": {
+          "paginas": [
+            317,
+            318,
+            319
+          ],
+          "citas": [
+            "CA-AEAT-317-10",
+            "CA-AEAT-317-11",
+            "CA-AEAT-317-12",
+            "CA-AEAT-317-13",
+            "CA-AEAT-318-0",
+            "CA-AEAT-318-1",
+            "CA-AEAT-318-2",
+            "CA-AEAT-318-3",
+            "CA-AEAT-318-4",
+            "CA-AEAT-318-5",
+            "CA-AEAT-318-6",
+            "CA-AEAT-318-7",
+            "CA-AEAT-318-8",
+            "CA-AEAT-318-9",
+            "CA-AEAT-318-10",
+            "CA-AEAT-318-11",
+            "CA-AEAT-318-12",
+            "CA-AEAT-318-13",
+            "CA-AEAT-318-14",
+            "CA-AEAT-318-15",
+            "CA-AEAT-318-16",
+            "CA-AEAT-318-17",
+            "CA-AEAT-318-18",
+            "CA-AEAT-318-19",
+            "CA-AEAT-318-20",
+            "CA-AEAT-318-21",
+            "CA-AEAT-319-0",
+            "CA-AEAT-319-1",
+            "CA-AEAT-319-2",
+            "CA-AEAT-319-3",
+            "CA-AEAT-319-4",
+            "CA-AEAT-319-5",
+            "CA-AEAT-319-6",
+            "CA-AEAT-319-7",
+            "CA-AEAT-319-8",
+            "CA-AEAT-319-9",
+            "CA-AEAT-319-10"
+          ]
+        },
+        "fuentesPrimarias": [
+          {
+            "documentoId": "DOGC-L8-2025-alt",
+            "citas": [
+              "CA-DOGC-L8-2025-alt-612-3-31-0",
+              "CA-DOGC-L8-2025-alt-612-3-31-1",
+              "CA-DOGC-L8-2025-alt-612-3-31-2",
+              "CA-DOGC-L8-2025-alt-612-3-31-3",
+              "CA-DOGC-L8-2025-alt-612-3-31-4",
+              "CA-DOGC-L8-2025-alt-612-3-31-5",
+              "CA-DOGC-L8-2025-alt-612-3-31-6",
+              "CA-DOGC-L8-2025-alt-612-3-31-7",
+              "CA-DOGC-L8-2025-alt-612-3-31-8",
+              "CA-DOGC-L8-2025-alt-612-3-31-9",
+              "CA-DOGC-L8-2025-alt-612-3-31-10",
+              "CA-DOGC-L8-2025-alt-612-3-31-11",
+              "CA-DOGC-L8-2025-alt-612-3-31-12",
+              "CA-DOGC-L8-2025-alt-612-3-31-13",
+              "CA-DOGC-L8-2025-alt-612-3-31-14",
+              "CA-DOGC-L8-2025-alt-612-3-32-15",
+              "CA-DOGC-L8-2025-alt-612-3-32-16"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "codigo": "cataluna_obligacion_declarar_mas_de_un_pagador",
+      "estado": "pendiente",
+      "capacidadEntrega": "Sin nuevo evaluador en esta entrega; conserva catálogo, consignación y aritmética previa que exista",
+      "pendienteConcreto": "Modelar y probar estos hechos específicos ya documentados: Obligación causada por varios pagadores art96; excluye incluso quien pueda acogerse art89.A RIRPF.",
+      "situacionAnterior": "El balance no identifica evaluador completo por hechos; esto no niega la aritmética genérica previa.",
+      "parametrosRevisados": "max(cuota autonómica-estatal,0)",
+      "fronteraDocumental": "Cuotas1000/900=>100 solo si habilita; pensionista elegible89.A excluido aunque no optara.",
+      "evidencia": {
+        "reglas": "../correcciones/a/reglas-para-calculo.json",
+        "revision": "../revisiones/a-ampliado/decisiones.json",
+        "decision": "descripcion_concordante",
+        "citas": [
+          "CA-catalunya-2025-200",
+          "CA-catalunya-2025-201"
+        ],
+        "manual": {
+          "paginas": [
+            324,
+            325,
+            326
+          ],
+          "citas": [
+            "CA-AEAT-324-8",
+            "CA-AEAT-324-9",
+            "CA-AEAT-324-10",
+            "CA-AEAT-325-0",
+            "CA-AEAT-325-1",
+            "CA-AEAT-325-2",
+            "CA-AEAT-325-3",
+            "CA-AEAT-325-4",
+            "CA-AEAT-325-5",
+            "CA-AEAT-325-6",
+            "CA-AEAT-325-7",
+            "CA-AEAT-325-8",
+            "CA-AEAT-325-9",
+            "CA-AEAT-325-10",
+            "CA-AEAT-325-11",
+            "CA-AEAT-325-12",
+            "CA-AEAT-325-13",
+            "CA-AEAT-325-14",
+            "CA-AEAT-325-15",
+            "CA-AEAT-325-16",
+            "CA-AEAT-325-17",
+            "CA-AEAT-326-0",
+            "CA-AEAT-326-1",
+            "CA-AEAT-326-2",
+            "CA-AEAT-326-3",
+            "CA-AEAT-326-4",
+            "CA-AEAT-326-5",
+            "CA-AEAT-326-6",
+            "CA-AEAT-326-7",
+            "CA-AEAT-326-8",
+            "CA-AEAT-326-9",
+            "CA-AEAT-326-10",
+            "CA-AEAT-326-11"
+          ]
+        },
+        "fuentesPrimarias": [
+          {
+            "documentoId": "catalunya-original",
+            "citas": [
+              "CA-catalunya-original-612-10-10-0",
+              "CA-catalunya-original-612-10-10-1",
+              "CA-catalunya-original-612-10-10-2",
+              "CA-catalunya-original-612-10-10-3"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "codigo": "cataluna_viudedad_2023_2024_2025",
+      "estado": "parcial",
+      "capacidadEntrega": "Evaluador específico por hechos individual ordinario, importe generado; referencias jurídicas aportadas",
+      "pendienteConcreto": "Conectar derechos al mínimo verificados en cada ejercicio sin duplicar su motor; cambios/interrupciones de descendientes; conjunta/fallecimiento y composición.",
+      "situacionAnterior": "El balance no identifica evaluador completo por hechos; esto no niega la aritmética genérica previa.",
+      "parametrosRevisados": "150/300; año viudedad y dos siguientes",
+      "fronteraDocumental": "Viudedad2022 excluye2025;2023 sí; dos descendientes=>300,no600.",
+      "evidencia": {
+        "reglas": "../correcciones/a/reglas-para-calculo.json",
+        "revision": "../revisiones/a-ampliado/decisiones.json",
+        "decision": "descripcion_concordante",
+        "citas": [
+          "CA-catalunya-2025-133",
+          "CA-catalunya-2025-134"
+        ],
+        "manual": {
+          "paginas": [
+            317
+          ],
+          "citas": [
+            "CA-AEAT-317-0",
+            "CA-AEAT-317-1",
+            "CA-AEAT-317-2",
+            "CA-AEAT-317-3",
+            "CA-AEAT-317-4",
+            "CA-AEAT-317-5",
+            "CA-AEAT-317-6",
+            "CA-AEAT-317-7",
+            "CA-AEAT-317-8",
+            "CA-AEAT-317-9"
+          ]
+        },
+        "fuentesPrimarias": [
+          {
+            "documentoId": "catalunya-original",
+            "citas": [
+              "CA-catalunya-original-612-2-7-0",
+              "CA-catalunya-original-612-2-7-1",
+              "CA-catalunya-original-612-2-7-2",
+              "CA-catalunya-original-612-2-7-3"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "codigo": "cataluna_rehabilitacion_vivienda_habitual",
+      "estado": "pendiente",
+      "capacidadEntrega": "Sin nuevo evaluador en esta entrega; conserva catálogo, consignación y aritmética previa que exista",
+      "pendienteConcreto": "Modelar y probar estos hechos específicos ya documentados: Habitual y rehabilitación remisión estatal histórica; compatible tramo transitorio cuando proceda;sin renta especial.",
+      "situacionAnterior": "El balance no identifica evaluador completo por hechos; esto no niega la aritmética genérica previa.",
+      "parametrosRevisados": "1,5%;base9040=>135,60",
+      "fronteraDocumental": "Gasto10000=>135,60; reforma cosmética no basta; concepto depende redacción2012 y plazo ocupación.",
+      "evidencia": {
+        "reglas": "../correcciones/a/reglas-para-calculo.json",
+        "revision": "../revisiones/a-ampliado/decisiones.json",
+        "decision": "descripcion_concordante",
+        "citas": [
+          "CA-catalunya-2025-159",
+          "CA-catalunya-2025-160"
+        ],
+        "manual": {
+          "paginas": [
+            319
+          ],
+          "citas": [
+            "CA-AEAT-319-11",
+            "CA-AEAT-319-12",
+            "CA-AEAT-319-13",
+            "CA-AEAT-319-14",
+            "CA-AEAT-319-15",
+            "CA-AEAT-319-16",
+            "CA-AEAT-319-17"
+          ]
+        },
+        "fuentesPrimarias": [
+          {
+            "documentoId": "catalunya-original",
+            "citas": [
+              "CA-catalunya-original-612-4-8-0",
+              "CA-catalunya-original-612-4-8-1",
+              "CA-catalunya-original-612-4-8-2",
+              "CA-catalunya-original-612-4-8-3"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "codigo": "cataluna_intereses_prestamos_master_doctorado",
+      "estado": "parcial",
+      "capacidadEntrega": "Evaluador específico por hechos individual ordinario, importe generado; referencias jurídicas aportadas",
+      "pendienteConcreto": "Verificación documental de concesión AGAUR, calificación de cada pago como interés y titularidad; composición/conjunta/fallecimiento.",
+      "situacionAnterior": "El balance no identifica evaluador completo por hechos; esto no niega la aritmética genérica previa.",
+      "parametrosRevisados": "100% intereses sin tope propio",
+      "fronteraDocumental": "Interés100=>100;principal1000 no deducible; préstamo banco sin canalAGAUR no habilita.",
+      "evidencia": {
+        "reglas": "../correcciones/a/reglas-para-calculo.json",
+        "revision": "../revisiones/a-ampliado/decisiones.json",
+        "decision": "descripcion_concordante",
+        "citas": [
+          "CA-catalunya-2025-163",
+          "CA-catalunya-2025-164"
+        ],
+        "manual": {
+          "paginas": [
+            320
+          ],
+          "citas": [
+            "CA-AEAT-320-0",
+            "CA-AEAT-320-1",
+            "CA-AEAT-320-2",
+            "CA-AEAT-320-3",
+            "CA-AEAT-320-4",
+            "CA-AEAT-320-5",
+            "CA-AEAT-320-6"
+          ]
+        },
+        "fuentesPrimarias": [
+          {
+            "documentoId": "catalunya-original",
+            "citas": [
+              "CA-catalunya-original-612-5-8-0",
+              "CA-catalunya-original-612-5-8-1",
+              "CA-catalunya-original-612-5-8-2",
+              "CA-catalunya-original-612-5-8-3"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "codigo": "cataluna_alquiler_victimas_violencia_machista",
+      "estado": "pendiente",
+      "capacidadEntrega": "Sin nuevo evaluador en esta entrega; conserva catálogo, consignación y aritmética previa que exista",
+      "pendienteConcreto": "Modelar y probar estos hechos específicos ya documentados: Tres ejercicios consecutivos; prueba Ley5/2008; incremento65% o hijo menor; art612-11 no contiene límite por vivienda del612-3.",
+      "situacionAnterior": "El balance no identifica evaluador completo por hechos; esto no niega la aritmética genérica previa.",
+      "parametrosRevisados": "20%/1000;25%/1200;BI menos mínimo<=30000",
+      "fronteraDocumental": "Dos víctimas no relacionadas y contratos elegibles en una vivienda: no importar automáticamente límite común1000; pago6000=>1000/1200.",
+      "evidencia": {
+        "reglas": "../correcciones/a/reglas-para-calculo.json",
+        "revision": "../revisiones/a-ampliado/decisiones.json",
+        "decision": "descripcion_concordante",
+        "citas": [
+          "CA-catalunya-2025-204",
+          "CA-catalunya-2025-205",
+          "CA-catalunya-2025-206",
+          "CA-catalunya-2025-207",
+          "CA-catalunya-2025-209",
+          "CA-DOGC-DL5-2025-612-11-15-0",
+          "CA-DOGC-DL5-2025-612-11-15-1",
+          "CA-DOGC-DL5-2025-612-11-15-2",
+          "CA-DOGC-DL5-2025-612-11-15-3",
+          "CA-DOGC-DL5-2025-612-11-15-4"
+        ],
+        "manual": {
+          "paginas": [
+            326,
+            327
+          ],
+          "citas": [
+            "CA-AEAT-326-12",
+            "CA-AEAT-326-13",
+            "CA-AEAT-326-14",
+            "CA-AEAT-326-15",
+            "CA-AEAT-327-0",
+            "CA-AEAT-327-1",
+            "CA-AEAT-327-2",
+            "CA-AEAT-327-3",
+            "CA-AEAT-327-4",
+            "CA-AEAT-327-5",
+            "CA-AEAT-327-6",
+            "CA-AEAT-327-7",
+            "CA-AEAT-327-8",
+            "CA-AEAT-327-9",
+            "CA-AEAT-327-10",
+            "CA-AEAT-327-11",
+            "CA-AEAT-327-12",
+            "CA-AEAT-327-13",
+            "CA-AEAT-327-14",
+            "CA-AEAT-327-15",
+            "CA-AEAT-327-16",
+            "CA-AEAT-327-17"
+          ]
+        },
+        "fuentesPrimarias": [
+          {
+            "documentoId": "DOGC-DL5-2025",
+            "citas": [
+              "CA-DOGC-DL5-2025-612-11-15-0",
+              "CA-DOGC-DL5-2025-612-11-15-1",
+              "CA-DOGC-DL5-2025-612-11-15-2",
+              "CA-DOGC-DL5-2025-612-11-15-3",
+              "CA-DOGC-DL5-2025-612-11-15-4"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "codigo": "cataluna_inversion_cooperativas_agrarias_vivienda",
+      "estado": "pendiente",
+      "capacidadEntrega": "Sin nuevo evaluador en esta entrega; conserva catálogo, consignación y aritmética previa que exista",
+      "pendienteConcreto": "Modelar y probar estos hechos específicos ya documentados: Voto<=25%; no socio temporal; registro y certificado; no vivienda turística; cinco años incluidas condiciones; excepciones reinversión/transmisión.",
+      "situacionAnterior": "El balance no identifica evaluador completo por hechos; esto no niega la aritmética genérica previa.",
+      "parametrosRevisados": "20%;3000; arrastre insuficiencia sin plazo fijado aquí",
+      "fronteraDocumental": "Aportación20000=>3000;voto25% sí,25,01% no; reinversión válida no debe regularizar automáticamente.",
+      "evidencia": {
+        "reglas": "../correcciones/a/reglas-para-calculo.json",
+        "revision": "../revisiones/a-ampliado/decisiones.json",
+        "decision": "descripcion_concordante",
+        "citas": [
+          "CA-catalunya-2025-212",
+          "CA-catalunya-2025-213",
+          "CA-catalunya-2025-214",
+          "CA-catalunya-2025-215",
+          "CA-catalunya-2025-216",
+          "CA-catalunya-2025-217",
+          "CA-catalunya-2025-218",
+          "CA-catalunya-2025-219",
+          "CA-catalunya-2025-220",
+          "CA-catalunya-2025-221",
+          "CA-catalunya-2025-223",
+          "CA-DOGC-DL5-2025-612-12-15-0",
+          "CA-DOGC-DL5-2025-612-12-15-1",
+          "CA-DOGC-DL5-2025-612-12-15-2",
+          "CA-DOGC-DL5-2025-612-12-15-3",
+          "CA-DOGC-DL5-2025-612-12-15-4"
+        ],
+        "manual": {
+          "paginas": [
+            327,
+            328,
+            329
+          ],
+          "citas": [
+            "CA-AEAT-327-18",
+            "CA-AEAT-327-19",
+            "CA-AEAT-328-0",
+            "CA-AEAT-328-1",
+            "CA-AEAT-328-2",
+            "CA-AEAT-328-3",
+            "CA-AEAT-328-4",
+            "CA-AEAT-328-5",
+            "CA-AEAT-328-6",
+            "CA-AEAT-328-7",
+            "CA-AEAT-328-8",
+            "CA-AEAT-328-9",
+            "CA-AEAT-328-10",
+            "CA-AEAT-328-11",
+            "CA-AEAT-328-12",
+            "CA-AEAT-328-13",
+            "CA-AEAT-328-14",
+            "CA-AEAT-328-15",
+            "CA-AEAT-328-16",
+            "CA-AEAT-328-17",
+            "CA-AEAT-328-18",
+            "CA-AEAT-328-19",
+            "CA-AEAT-329-0",
+            "CA-AEAT-329-1"
+          ]
+        },
+        "fuentesPrimarias": [
+          {
+            "documentoId": "DOGC-DL5-2025",
+            "citas": [
+              "CA-DOGC-DL5-2025-612-12-15-0",
+              "CA-DOGC-DL5-2025-612-12-15-1",
+              "CA-DOGC-DL5-2025-612-12-15-2",
+              "CA-DOGC-DL5-2025-612-12-15-3",
+              "CA-DOGC-DL5-2025-612-12-15-4",
+              "CA-DOGC-DL5-2025-612-12-15-5",
+              "CA-DOGC-DL5-2025-612-12-15-6",
+              "CA-DOGC-DL5-2025-612-12-15-7",
+              "CA-DOGC-DL5-2025-612-12-15-8",
+              "CA-DOGC-DL5-2025-612-12-15-9",
+              "CA-DOGC-DL5-2025-612-12-15-10"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
