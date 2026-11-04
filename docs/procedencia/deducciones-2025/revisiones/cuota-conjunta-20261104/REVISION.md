@@ -1,0 +1,37 @@
+# Revisión independiente de cuota conjunta valenciana
+
+Dictamen: **defecto P1 bloqueante por reparto monetario incorrecto**. No publicar esta candidata sin corregir la prioridad de históricos de autoconsumo. Una observación P2 adicional no bloquea. Revisión única, sin subdelegación, sin VCS, sin worktree y sin cambios en raíz. Base publicada declarada por el padre: f4ffa938e2bc994b0fab8c222f2b3157896612f1; no consultada por VCS. Las seis postimágenes y el parche coinciden exactamente con el manifiesto del autor; hashes y fuentes verificados en MANIFIESTO.json.
+
+## P1: autoconsumo permite consumir generación corriente antes de históricos
+
+Ubicación: lib/dominio/irpf/deducciones/valenciana-2025/cuota-conjunta.ts, validación de prioridad que comienza con `const z` y sólo comprueba ese código. Afecta a `movimientos.aplicado`, `pendiente` y `caducadoAlCierre`; la suma aplicada puede seguir correcta mientras se altera el saldo fiscal futuro.
+
+Repro independiente `repro-p1.ts`: deducción histórica de autoconsumo por insuficiencia de cuota, origen 2021, saldo 30; instalación habitual de 2025 por 100 genera 40; cuota 20. Se solicita corriente antes que histórico. **Actual:** calculo_parcial, corriente aplicado20/pendiente20, histórico aplicado0/caducado30. **Esperado:** rechazar ese orden sin importe aplicado, como hace el candidato para z. Con orden conforme histórico/corriente, el propio candidato calcula histórico aplicado20/caducado10, corriente aplicado0/pendiente40. La diferencia indebida es 20 de saldo futuro y 20 de caducidad. No se está pasando exceso de base como saldo: el histórico es deducción pendiente por cuota.
+
+Fundamento: [Manual AEAT 2025, autoconsumo, Reglas de aplicación](https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2025-deducciones-autonomicas/comunitat-valenciana/cantidades-invertidas-instalaciones-autoconsumo-generacion-termica.html), comprobado en web durante esta revisión, apartado que ordena aplicar los ejercicios anteriores antes del corriente. Se trata de una prioridad administrativa expresa del mismo tipo que la ya validada para z; la elección experta y la reserva genérica no justifican aceptar el orden contrario. No se deduce FIFO entre históricos ni prioridad entre códigos.
+
+`rojo-p1.log` conserva salida1 con ambas respuestas completas y assertion, sin retocar candidato. Corrección sugerida al padre: extender la validación de históricos sobre corriente a autoconsumo y añadir este caso permanente. Requiere comprobación focal de esta corrección por el padre; no hace falta repetir toda la revisión.
+
+## P2 no bloqueante: composición vacía acepta diagnóstico de DANA anterior al régimen
+
+`repro-p2.ts`: solicitudes vacías, histórico DANA aportaciones2023 por20 y cuota10. **Actual composición:** calculo_parcial, totalParcialAntesCuota0 y cuotaSinAplicar con el saldo inválido. **Esperado deseable:** no_soportado por origen anterior al régimen. **Actual conjunta:** no_soportado, movimientos[], sin totalAplicado ni cuotaRestante; por tanto no hay importe incorrectamente aplicado. El defecto de validación de origen ya existía en composición con solicitudes; la ampliación hace accesible el diagnóstico sin hechos corrientes. No presentarlo como fallo monetario nuevo. El padre puede unificar la validación de origen sin recontraste de esta revisión. `rojo-p2.log` conserva salida1.
+
+## Comprobación monetaria y de contratos
+
+`repros.ts` pasa en Bun en menos de un segundo: 263 escenarios independientes y 21 grupos del autor con imports reales del barrel integrado, sin arnés que sustituya módulos. 240 escenarios usan oráculo de céntimos enteros independiente de Decimal: tres códigos, dos órdenes, cuota cero/insuficiente/excedente, saldos de distintos orígenes, último ejercicio y conservación exacta por movimiento y cuota. Otros comprueban plazos de los cuatro regímenes, cuota/saldos inválidos, orden incompleto/repetido, cuenta e id duplicados, identidad, código ajeno, consignación externa, falta de cuota, contexto y no mutación.
+
+Los grupos del autor, inspeccionados y ejecutados como complemento, verifican k/l con cuota20 (15+5 frente a orden inverso), pérdidas sin arrastre, suma0,10+0,20, cuota exacta/excedente, colisión histórico/generado, omisiones, reservas/censo, exceso de base30 separado, generación renovable3520, prioridad z y C01. La revisión independiente también ejecuta C01 en el evaluador: aportación2024 no genera importe corriente2025; un saldo DANA2024 identificado sí se aplica sin solicitudes. C01 no se transforma en simulación de liquidación2024.
+
+Composición sin solicitudes conserva los controles de bases, contexto, identidad y plazo; sin saldo también rechaza. Resultado válido sigue siendo diagnóstico con total antes de cuota0, nunca aplicación de saldo. La cuota devuelta se clona. El ciclo index/composición/cuota-conjunta funciona en ejecución real de Bun; no certifica por sí solo todas las modalidades de empaquetado.
+
+## Fuentes y límites
+
+Reutilizados y hasheados los originales CAS dl12, dl17-original y aeat-inversion de la entrega g-inversion-dana; extracciones y fuentes de raíz coinciden con hashes del autor. `pasajes.txt` contiene localizadores y pasajes de ley13-2025, DL12 art.4 y DL17 DF primera/art.5.3. Ley13 art.4.Uno.o/z confirma cuatro/tres ejercicios; DL12 vivienda2024/2025 y cuatro siguientes; DL17 aportación en su año original y tres siguientes por insuficiencia. DANA2024 es histórico legítimo; 2023 no. El [manual AEAT de inversión z](https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2025-deducciones-autonomicas/comunitat-valenciana/inversion-adquisicion-acciones-participaciones-entidades.html), consultado también en web, permite elegir entre históricos y exige su prioridad sobre corriente. La comprobación adicional del manual de autoconsumo descubrió P1.
+
+El manual de autoconsumo distingue el exceso de inversión hasta2022 de la deducción pendiente por insuficiencia de cuota. Esta API sólo recibe deducción monetaria previamente acreditada; no calcula bases históricas ni certifica sus porcentajes. Identidad material, soportes, exhaustividad de saldos, posibles obligaciones no modeladas y persistencia siguen externos. Estos límites no bloquean universalmente el cálculo parcial, pero tampoco neutralizan la prioridad explícita omitida en P1. No certificada la totalidad del catálogo351, ni liquidación anual ni aceptación fiscal.
+
+## Reproducción y entrega
+
+Cargar `/home/elies/Backups/IRoboPF/limpieza-recursos-20261103/env-pruebas.sh`. Ejecutar secuencialmente `timeout -k 30s 24s bun` sobre `repros.ts` (exit0), `repro-p1.ts` (exit1 esperado) y `repro-p2.ts` (exit1 esperado), con rutas absolutas de esta entrega. `auditar.py` se ejecuta con `timeout -k 30s 24s python`; valida postimágenes/fuentes/CAS y genera manifiesto. Los logs rojos no se reescribieron después de ningún arreglo.
+
+Sólo informe, scripts ligeros, pasajes, logs y manifiesto; sin copias completas, dependencias ni cachés. Ninguna suite pesada, Vitest, tipos, lint global, inventario, CI, instalación, push o publicación. El padre comunicó tipos y177 regresiones verdes; no se atribuyen a esta revisión. Antes de publicar siguen correspondiendo al padre todos los pasos workflow con Nix y CI remoto. No se ejecutó ni escribió código Effect, por lo que no fue necesario consultar guías para implementarlo.

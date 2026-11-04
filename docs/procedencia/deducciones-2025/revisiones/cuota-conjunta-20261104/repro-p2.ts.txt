@@ -1,0 +1,6 @@
+import assert from 'node:assert/strict'
+import { componerDeduccionesValencianas2025 as componer, aplicarCuotaConjuntaValenciana2025 as aplicar } from '/home/elies/Repos/IRoboPF/lib/dominio/irpf/deducciones/valenciana-2025/index'
+const hechos:any={ejercicio:2025,territorio:'comunitat-valenciana',modalidad:'individual',devengo:'2025-12-31',contribuyente:'A',bases:{liquidableGeneral:0,liquidableAhorro:0,imponibleGeneral:0,imponibleAhorro:0},cantidades:[],solicitudes:[],ordenBase30:[],consignaciones:[],cuota:{referencia:'exp',disponible:10,arrastres:[{id:'h',codigo:'valenciana_dana_aportaciones_fondos_propios_entidades',origen:2023,pendiente:20,contribuyente:'A',soporte:'exp'}]}}
+const composicion=componer(hechos), conjunta=aplicar({hechos,ordenConsumo:['h'],criterioOrden:'eleccion_experta'})
+console.log(JSON.stringify({composicion,conjunta},null,2))
+assert.equal(composicion.estado,'no_soportado','P2: composición acepta diagnóstico de histórico DANA anterior al régimen; conjunta sí lo rechaza y no aplica importe')

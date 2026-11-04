@@ -193,7 +193,7 @@ export function componerDeduccionesValencianas2025(
     )
     exigir(
       esLista(a.solicitudes) &&
-        a.solicitudes.length > 0 &&
+        (a.solicitudes.length > 0 || (a.cuota?.arrastres.length ?? 0) > 0) &&
         ids(a.solicitudes.map((p) => p.codigo)),
       "Una sola solicitud consolidada por código; no se repiten topes/tramos"
     )
@@ -477,6 +477,12 @@ export function componerDeduccionesValencianas2025(
             dinero(v.pendiente) &&
             new Decimal(v.pendiente).decimalPlaces() <= 2,
           "Arrastre duplicado, ajeno o fuera de plazo"
+        )
+        exigir(
+          (v.codigo !== c("dana_aportaciones_fondos_propios_entidades") &&
+            v.codigo !== c("dana_danos_materiales_vivienda_habitual")) ||
+            v.origen === 2024,
+          "Origen anterior al régimen DANA"
         )
         clavesHistoricas.add(key)
       }

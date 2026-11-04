@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict'
+import { aplicarCuotaConjuntaValenciana2025 as aplicar } from '/home/elies/Repos/IRoboPF/lib/dominio/irpf/deducciones/valenciana-2025/index'
+const codigo='valenciana_autoconsumo_renovables', corriente=JSON.stringify([codigo,2025,'A'])
+const hechos:any={ejercicio:2025,territorio:'comunitat-valenciana',modalidad:'individual',devengo:'2025-12-31',contribuyente:'A',bases:{liquidableGeneral:10000,liquidableAhorro:0,imponibleGeneral:10000,imponibleAhorro:0},cantidades:[{id:'pago',euros:100}],solicitudes:[{codigo,eleccion:'aplicar',unidades:[{id:'u',titulares:['A'],fecha:'2025-06-01',numeros:{gasto:100,ayudas:0,reembolsos:0,fraccionPagadaVivienda:1},textos:{vivienda:'habitual'}}],referencias:[{unidad:'u',sujetos:['A'],bienes:['casa'],eventos:['instalacion'],cantidades:['pago']}]}],ordenBase30:[],consignaciones:[],cuota:{referencia:'exp',disponible:20,arrastres:[{id:'h2021',codigo,origen:2021,pendiente:30,contribuyente:'A',soporte:'deduccion generada por insuficiencia de cuota en 2021'}]}}
+const resultado=aplicar({hechos,ordenConsumo:[corriente,'h2021'],criterioOrden:'eleccion_experta'})
+const ordenConforme=aplicar({hechos,ordenConsumo:['h2021',corriente],criterioOrden:'eleccion_experta'})
+console.log(JSON.stringify({resultado,ordenConforme},null,2))
+// AEAT 2025, autoconsumo, Reglas de aplicación: históricos antes del corriente.
+// Política usada para z por el candidato: rechazar orden contrario, sin totales aplicados.
+assert.equal(resultado.estado,'no_soportado','P1: se acepta orden prohibido para autoconsumo; reduce saldo futuro de 40 a 20 y aumenta caducidad de 10 a 30')

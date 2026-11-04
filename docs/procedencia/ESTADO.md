@@ -20,9 +20,19 @@ detectó tres defectos P2 y una reserva perdida; corregidos con regresiones, pas
 las 106 comprobaciones repetidas. La composición individual de límites y elecciones
 está integrada. Su revisión detectó C01: una aportación DANA de 2024 generaba de
 nuevo deducción en 2025. Corregido en la guardia común, pasan 180 pruebas focales,
-los quince grupos independientes repetidos, tipos y lint. Cuota y arrastres
-permanecen separados, sin aplicación conjunta automática. El punto 4 espera
-el cierre de integración y su publicación.
+los quince grupos independientes repetidos, tipos y lint. La nueva API parcial
+de cuota compartida está integrada: consume una única cuota y distingue saldos
+futuros, pérdidas y caducidades. Su revisión detectó prioridad omitida en
+autoconsumo y un diagnóstico DANA anterior al régimen. Ambos se corrigieron
+con dos regresiones rojas previas; pasan 23 grupos permanentes, 263 escenarios
+independientes repetidos y los dos repros originales. La aplicación sigue siendo
+individual y requiere orden experto explícito, sin consignación anual automática.
+La integración pasa los 30 comandos del workflow en entorno limpio, con 1.545
+ejecuciones Vitest y 227 métodos Python ejecutados, además de siete omisiones
+explícitas de originales privados. Inventario, tipos y lint pasan; quedan los
+18 avisos anteriores. [CI previo a publicar la cuota](revisiones/cuota-valenciana-ci-20261104/CI.md).
+La aceptación fiscal completa de las fichas sigue separada de esta entrega de
+producto. El CI remoto de la publicación queda pendiente de comprobación.
 
 A2025 conserva 1.477 cotejos documentales y las 72 diferencias anteriores en
 cuatro territorios, doce con distinto céntimo. La revisión es favorable acotada;
@@ -53,7 +63,11 @@ explícitamente). Tipos, lint e inventario pasan; se conservan 18 avisos previos
 Las 510 fuentes fijadas permanecen intactas. El resultado y las limitaciones de
 la reproducción manual están en la
 [validación previa a publicación](revisiones/integracion-producto-20261104/CI.md).
-El CI remoto del nuevo commit se comprobará después del push.
+Publicado en `f4ffa938e2bc994b0fab8c222f2b3157896612f1`, rama
+`procedencia-documental`. Sus trabajos remotos `checks` y `corpus` pasan en la
+[ejecución 41914153071](https://github.com/eliesgalvira/IRoboPF/actions/runs/41914153071).
+Retiradas once carpetas integradas, con sus 196 archivos preservados por hash.
+Medición posterior: 96,61 GB de IRoboPF y 318,67 GB libres; no se crearon worktrees.
 
 La instrucción de las 21:50 añade una condición previa a cada push: repetir los
 pasos del workflow y verificar los generados en el mismo entorno. Los cambios

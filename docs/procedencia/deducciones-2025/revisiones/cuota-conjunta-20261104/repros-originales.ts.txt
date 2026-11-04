@@ -1,0 +1,58 @@
+import assert from 'node:assert/strict'
+import { aplicarCuotaConjuntaValenciana2025 as aplicar, componerDeduccionesValencianas2025 as componer, evaluarDeduccionValenciana2025 as evaluar } from '/home/elies/Repos/IRoboPF/lib/dominio/irpf/deducciones/valenciana-2025/index'
+import { casos } from '/home/elies/Repos/IRoboPF/tests/cuota-conjunta-valenciana.casos'
+const c = (s:string) => 'valenciana_'+s
+const o=c('autoconsumo_renovables'), z=c('inversion_entidades_nuevas_reciente_creacion'), d=c('dana_aportaciones_fondos_propios_entidades'), v=c('dana_danos_materiales_vivienda_habitual')
+const saldo=(codigo=o, origen=2024, pendiente=1.11, id='h')=>({codigo,origen,pendiente,id,contribuyente:'revisor',soporte:'expediente original'})
+function entrada(saldos=[saldo()], cuota=1) {
+ return {criterioOrden:'eleccion_experta',ordenConsumo:saldos.map(s=>s.id),hechos:{ejercicio:2025,territorio:'comunitat-valenciana',modalidad:'individual',devengo:'2025-12-31',contribuyente:'revisor',bases:{liquidableGeneral:10000,liquidableAhorro:0,imponibleGeneral:10000,imponibleAhorro:0},cantidades:[],solicitudes:[],ordenBase30:[],consignaciones:[],cuota:{referencia:'revision',disponible:cuota,arrastres:saldos}}}
+}
+const run=(a:any)=>aplicar(a)
+const cents=(n:number)=>Math.round(n*100)
+function rechaza(a:any) {const r=run(a);assert.equal(r.estado,'no_soportado',JSON.stringify(r));assert.deepEqual(r.movimientos,[]);assert.equal('totalAplicado' in r,false);assert.equal('cuotaRestante' in r,false)}
+let n=0
+// Oráculo entero independiente: no usa Decimal ni funciones de cálculo del autor.
+for(let i=0;i<240;i++) {
+ const amounts=[(i*29)%10001,(i*47)%7001,(i*71)%9001], quota=(i*113)%18001
+ const a=entrada([saldo(o,2021,amounts[0]/100,'ultimo'),saldo(z,2023,amounts[1]/100,'z'),saldo(d,2024,amounts[2]/100,'d')],quota/100)
+ if(i%2)a.ordenConsumo.reverse()
+ const before=JSON.stringify(a), r=run(a)
+ assert.equal(r.estado,'calculo_parcial',JSON.stringify(r));let rem=quota, total=0
+ for(const m of r.movimientos) {
+  const expected=amounts[['ultimo','z','d'].indexOf(m.id)], used=Math.min(rem,expected); rem-=used;total+=used
+  assert.equal(cents(m.aplicado),used);assert.equal(cents(m.deduccionDisponible),expected)
+  assert.equal(cents(m.pendiente),m.id==='ultimo'?0:expected-used)
+  assert.equal(cents(m.caducadoAlCierre),m.id==='ultimo'?expected-used:0)
+  assert.equal(m.perdidoPorCuota,0)
+  assert.equal(cents(m.deduccionDisponible),cents(m.aplicado)+cents(m.pendiente)+cents(m.caducadoAlCierre)+cents(m.perdidoPorCuota))
+ }
+ assert.equal(cents(r.totalAplicado!),total);assert.equal(cents(r.cuotaRestante!),rem);assert.equal(total+rem,quota)
+ assert.equal(JSON.stringify(a),before); n++
+}
+for(const [code,last,old] of [[o,2021,2020],[z,2022,2021],[d,2024,2023],[v,2024,2023]] as const) {
+ const r=run(entrada([saldo(code,last,3.33)],0));assert.equal(r.estado,'calculo_parcial');assert.equal(r.movimientos[0].aplicado,0)
+ assert.equal(r.movimientos[0].ultimoEjercicio,last+([o,v].includes(code)?4:3));rechaza(entrada([saldo(code,old)]));n++
+}
+for(const value of [-1,0.001,NaN,Infinity,Number.MAX_SAFE_INTEGER,'1',null]) {const a:any=entrada();a.hechos.cuota.disponible=value;rechaza(a);a.hechos.cuota.disponible=1;a.hechos.cuota.arrastres[0].pendiente=value;rechaza(a);n++}
+for(const change of [
+ (a:any)=>a.ordenConsumo=[],(a:any)=>a.ordenConsumo=['h','h'],(a:any)=>a.criterioOrden='fifo',
+ (a:any)=>a.hechos.cuota.arrastres.push(saldo(o,2024,1,'otro')),
+ (a:any)=>a.hechos.cuota.arrastres.push(saldo(z,2023,1,'h')),
+ (a:any)=>a.hechos.cuota.arrastres[0].contribuyente='otro',
+ (a:any)=>a.hechos.cuota.arrastres[0].codigo=c('inventado'),
+ (a:any)=>a.hechos.consignaciones=[{codigo:o,contribuyente:'revisor'}],
+ (a:any)=>delete a.hechos.cuota,(a:any)=>a.hechos.modalidad='conjunta',
+ (a:any)=>a.hechos.cuota.arrastres[0].soporte=' ',
+]) {const a=entrada();change(a);rechaza(a);n++}
+// Efecto público de composición vacía: valida contexto/plazo, no aplica cuota.
+let comp=componer(entrada().hechos as any);assert.equal(comp.estado,'calculo_parcial');assert.equal(comp.totalParcialAntesCuota,0);assert.deepEqual(comp.resultados,[]);assert.equal(comp.cuotaSinAplicar?.disponible,1)
+const empty=entrada([]);assert.equal(componer(empty.hechos as any).estado,'no_soportado')
+const bad=entrada();bad.hechos.bases.liquidableGeneral=-1;assert.equal(componer(bad.hechos as any).estado,'no_soportado')
+// Límite heredado: composición por sí sola no acredita año inicial DANA.
+const early=entrada([saldo(d,2023)]);comp=componer(early.hechos as any);assert.equal(comp.estado,'calculo_parcial');assert.equal(comp.totalParcialAntesCuota,0);rechaza(early)
+console.log('LIMITE_COMPOSICION_DANA2023',JSON.stringify(comp))
+// C01 a nivel evaluador: pago 2024 no se puede regenerar como deducción 2025.
+const hechos:any={...entrada().hechos.bases,codigo:d,ejercicio:2025,territorio:'comunitat-valenciana',modalidad:'individual',devengo:'2025-12-31',contribuyente:'revisor',declarantes:['revisor'],unidades:[{id:'aporte',titulares:['revisor'],fecha:'2024-12-01',numeros:{inversionDesembolsada:1000},textos:{}}]}
+assert.equal(evaluar(hechos).estado,'excluida');n++
+for(const [nombre,prueba] of Object.entries(casos)) {prueba();console.log('AUTOR_OK',nombre)}
+console.log('OK independientes',n,'; grupos autor',Object.keys(casos).length,'; barrel real importado y ejecutado')

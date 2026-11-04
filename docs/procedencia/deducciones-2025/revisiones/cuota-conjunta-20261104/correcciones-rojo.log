@@ -1,0 +1,62 @@
+PASS base30 excesiva permanece separada y reserva de censo conservada
+PASS generacion renovable no arrastra exceso de inversion y consume cuota comun
+FAIL autoconsumo prioriza historicos y conserva el saldo corriente AssertionError [ERR_ASSERTION]: {"estado":"calculo_parcial","aceptacionFiscal":"pendiente","composicion":{"estado":"calculo_parcial","aceptacionFiscal":"pendiente","resultados":[{"codigo":"valenciana_autoconsumo_renovables","eleccion":"aplicar","resultado":{"estado":"calculo_parcial","importe":40,"motivo":"Cuantía generada; acreditaciones externas pendientes: Instalaciones en Comunitat, registros/certificación energética y finalidades legales; excluidas obligatorias por CTE | 8.800 por vivienda/ejercicio; copropiedad coeficiente; no obligatorias CTE; requisitos técnicos registros, localización CV, justificantes y patrimonio. Arrastre 4años por insuficiencia de cuota, no por cualquier exceso de base. | No se exige titularidad del inmueble. Instalación compartida: coeficiente de participación de la vivienda. Justificantes de gasto y pago; leasing solo coste de adquisición, sin intereses, seguros ni mantenimiento, y ejercicio de opción de compra.. No es cuota aplicada ni liquidación; insuficiencia de cuota y arrastres requieren el módulo cuota.","aceptacionFiscal":"pendiente"}}],"incidencias":[],"limiteBase30":3000,"totalParcialAntesCuota":40,"cuotaSinAplicar":{"referencia":"cuota-A-2025-v1","disponible":20,"arrastres":[{"id":"hist","codigo":"valenciana_autoconsumo_renovables","origen":2021,"pendiente":30,"contribuyente":"A","soporte":"declaracion-origen-y-saldo"}]}},"incidencias":[],"movimientos":[{"id":"[\"valenciana_autoconsumo_renovables\",2025,\"A\"]","codigo":"valenciana_autoconsumo_renovables","contribuyente":"A","origen":2025,"soporte":"Cuantía generada; acreditaciones externas pendientes: Instalaciones en Comunitat, registros/certificación energética y finalidades legales; excluidas obligatorias por CTE | 8.800 por vivienda/ejercicio; copropiedad coeficiente; no obligatorias CTE; requisitos técnicos registros, localización CV, justificantes y patrimonio. Arrastre 4años por insuficiencia de cuota, no por cualquier exceso de base. | No se exige titularidad del inmueble. Instalación compartida: coeficiente de participación de la vivienda. Justificantes de gasto y pago; leasing solo coste de adquisición, sin intereses, seguros ni mantenimiento, y ejercicio de opción de compra.. No es cuota aplicada ni liquidación; insuficiencia de cuota y arrastres requieren el módulo cuota.","clase":"generado_2025","deduccionDisponible":40,"aplicado":20,"pendiente":20,"perdidoPorCuota":0,"caducadoAlCierre":0,"ultimoEjercicio":2029},{"id":"hist","codigo":"valenciana_autoconsumo_renovables","contribuyente":"A","origen":2021,"soporte":"declaracion-origen-y-saldo","clase":"historico","deduccionDisponible":30,"aplicado":0,"pendiente":0,"perdidoPorCuota":0,"caducadoAlCierre":30,"ultimoEjercicio":2025}],"referenciaCuota":"cuota-A-2025-v1","totalAplicado":20,"cuotaRestante":0,"reserva":"Aplicación parcial a una cuota externa declarada, sin liquidación ni aceptación fiscal. Orden elegido expresamente por el experto, sin prioridad legal inferida ni optimización automática. Derechos históricos, identidad real, exhaustividad de saldos y acreditaciones pendientes. Simulación sin persistencia: registrar los movimientos una sola vez en el expediente."}
++ actual - expected
+
++ 'calculo_parcial'
+- 'no_soportado'
+
+    at rechaza (/home/elies/Repos/IRoboPF/tests/cuota-conjunta-valenciana.casos.ts:106:10)
+    at autoconsumo prioriza historicos y conserva el saldo corriente (/home/elies/Repos/IRoboPF/tests/cuota-conjunta-valenciana.casos.ts:252:5)
+    at /home/elies/Repos/IRoboPF/[eval]:1:135
+    at moduleEvaluation (native:1:11)
+    at moduleEvaluation (native:1:11)
+    at loadAndEvaluateModule (native:2)
+    at processTicksAndRejections (native:7:39) {
+  generatedMessage: false,
+  actual: 'calculo_parcial',
+  expected: 'no_soportado',
+  operator: 'strictEqual',
+  code: 'ERR_ASSERTION'
+}
+PASS z historicos preceden a generacion conforme al manual AEAT
+PASS API publica ausente es rojo significativo
+PASS cuota cero pierde dos deducciones sin arrastre
+PASS dos codigos no reutilizan cuota y orden experto cambia el reparto
+PASS cuota exacta y excedente
+PASS centimos sin residuo binario
+PASS ultimo ano utilizable caduca al cierre sin rejuvenecer
+PASS antiguedades y eleccion explicita sin FIFO implicito
+PASS cuatro y tres anos fronteras
+PASS saldo DANA2024 sin generar hecho2025
+FAIL composicion y cuota rechazan historicos DANA anteriores al regimen AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
++ actual - expected
+
++ 'calculo_parcial'
+- 'no_soportado'
+
+    at composicion y cuota rechazan historicos DANA anteriores al regimen (/home/elies/Repos/IRoboPF/tests/cuota-conjunta-valenciana.casos.ts:413:14)
+    at /home/elies/Repos/IRoboPF/[eval]:1:135
+    at moduleEvaluation (native:1:11)
+    at moduleEvaluation (native:1:11)
+    at loadAndEvaluateModule (native:2)
+    at processTicksAndRejections (native:7:39) {
+  generatedMessage: true,
+  actual: 'calculo_parcial',
+  expected: 'no_soportado',
+  operator: 'strictEqual',
+  code: 'ERR_ASSERTION'
+}
+PASS C01 no regenera aportacion 2024
+PASS consolidacion por codigo origen titular y duplicados
+PASS orden exhaustivo sin doble uso ni saldos ajenos
+PASS colision id generado e historico
+PASS no soportado no saneado por cuota0 ni orden
+PASS omisiones no consumen pero preservan resultados
+PASS reservas y motivos conservados
+PASS importe invalido y datos runtime no generan cero sustitutorio
+PASS no mutacion ni referencias de saldo compartidas
+{
+  grupos: 23,
+  fallos: 2,
+}

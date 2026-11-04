@@ -43,4 +43,7 @@ Los cambios de importes cuentan con revisiones independientes enlazadas en la
 [fórmulas valencianas](../../deducciones-2025/revisiones/formulas-producto-20261104/CORRECCIONES.md)
 y [composición valenciana](../../deducciones-2025/revisiones/composicion-producto-20261104/CORRECCIONES.md).
 La conexión histórica tiene su [dictamen de API](../../simuladores/revision-historico-api/INTEGRACION.md).
-El CI remoto del commit publicado se comprueba después del push.
+Publicado en `f4ffa938e2bc994b0fab8c222f2b3157896612f1`. Los trabajos remotos
+`checks` y `corpus` pasan en la
+[ejecución 41914153071](https://github.com/eliesgalvira/IRoboPF/actions/runs/41914153071),
+comprobada después del push.

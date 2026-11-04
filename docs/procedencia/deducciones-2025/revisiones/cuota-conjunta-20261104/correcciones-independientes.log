@@ -1,0 +1,22 @@
+47 | // Efecto público de composición vacía: valida contexto/plazo, no aplica cuota.
+48 | let comp=componer(entrada().hechos as any);assert.equal(comp.estado,'calculo_parcial');assert.equal(comp.totalParcialAntesCuota,0);assert.deepEqual(comp.resultados,[]);assert.equal(comp.cuotaSinAplicar?.disponible,1)
+49 | const empty=entrada([]);assert.equal(componer(empty.hechos as any).estado,'no_soportado')
+50 | const bad=entrada();bad.hechos.bases.liquidableGeneral=-1;assert.equal(componer(bad.hechos as any).estado,'no_soportado')
+51 | // Límite heredado: composición por sí sola no acredita año inicial DANA.
+52 | const early=entrada([saldo(d,2023)]);comp=componer(early.hechos as any);assert.equal(comp.estado,'calculo_parcial');assert.equal(comp.totalParcialAntesCuota,0);rechaza(early)
+                                                                                    ^
+AssertionError: Expected values to be strictly equal:
++ actual - expected
+
++ 'no_soportado'
+- 'calculo_parcial'
+
+ generatedMessage: true,
+     actual: "no_soportado",
+   expected: "calculo_parcial",
+   operator: "strictEqual",
+       code: "ERR_ASSERTION"
+
+      at /home/elies/Backups/IRoboPF/producto-valenciana-revision-cuota-conjunta-20261104/repros.ts:52:80
+
+Bun v1.3.13 (Linux x64)
