@@ -60,8 +60,15 @@ API: 224 casillas iguales, cero diferencias y 14 ausencias en 17 filas, que
 representan nueve entradas distintas. Excluye siete capturas de 2018–2024.
 Las 17 filas permanecen incompletas por la comprobación de hechos fiscales;
 no equivalen a 17 comparaciones plenamente aceptadas. Sus 22 archivos y parche
-están recibidos y verificados; el nuevo código y su vínculo requieren revisión
-independiente. Los recibos fijan base, inventario de fuentes y entorno del
+están recibidos y verificados. La revisión independiente reproduce los importes
+y encuentra tres defectos P2: registros personales malformados invisibles,
+lanzador omitido de la identidad y separación de rutas eludible por enlace
+simbólico. El candidato corregido del orquestador pasa 14 métodos portables,
+22 privados y seis del contraste adaptado; mantiene 224 coincidencias y las
+17 filas incompletas. Falta el contraste acotado de las tres correcciones.
+El trabajo posterior es demostrar la equivalencia de configuración de las
+simulaciones; no acreditar hechos reales de personas ficticias. Los recibos
+fijan base, inventario de fuentes y entorno del
 candidato, sin atribuirlo al commit limpio anterior. Siguen pendientes el
 adaptador de 2017 y la recuperación ejecutable de PADRE; los intentos fallidos
 no prueban la indisponibilidad de todas sus versiones. Los originales y los
