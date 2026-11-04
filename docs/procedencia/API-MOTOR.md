@@ -127,3 +127,20 @@ if (Result.isFailure(rechazado)) console.log(rechazado.failure.motivo)
 La UI presenta las cantidades y el signo del diferencial recibidos; no integra tarifas ni vuelve a aplicar artículo 20, mínimos o DA61. Los ejemplos no sustituyen los certificados efectivos del usuario. Las siete referencias Open conservan sus cantidades originales; el nuevo código ha pasado la revisión independiente y su contraste de precisión, documentados en el [cierre técnico](reforma-motor/bloque-e/CIERRE.md); no hereda certificación histórica.
 
 La salida efectiva incluye, además de `_tag`, `perfil`, `ejercicio`, `alcance`, `aceptacionFiscal` y `rastro`, estos textos EUR: `rendimientoNetoReducido`, `baseImponibleGeneral`, `baseLiquidableGeneral`, `baseLiquidableAhorro`, `reduccionArt20`, `cuotaLiquidaLegal` (antes de DA61), `deduccionTrabajo`, `cuotaPosterior` (después de DA61), `retenciones`, `pagosFraccionados`, `cuotaDiferencial` y `cuotaDiferencialPresentada`. Las bases con signo se conservan aunque el gravamen use su parte positiva. `cuotaDiferencialPresentada` es la presentación final; el resto puede tener más de dos decimales cuando la política no cuantiza esa etapa. No convertir esos textos a `number` para recalcular la declaración.
+
+## Proyección de componentes anuales para contraste C
+
+`liquidarIrpfAnualExplicito` devuelve además `componentesCuota`, con `unidad:
+"EUR"` y seis textos decimales sin redondeo adicional: `gravamenEstatal` (0528),
+`gravamenAutonomico` (0529), `gravamenMinimoEstatal` (0530),
+`gravamenMinimoAutonomico` (0531), `cuotaEstatal` (0532) y `cuotaAutonomica`
+(0533). Son los valores ya calculados por `componerLiquidacionAnual`: gravámenes
+sobre base general, gravámenes del mínimo y cuotas generales tras mínimo,
+respectivamente. No incluyen DA61 ni retenciones. No se reconstruyen desde el
+rastro ni se introduce una fórmula de cuota.
+
+En empleo Madrid 2025 se mantiene la cuantización Open ya vigente; en los otros
+perfiles admitidos se conserva su precisión existente. La proyección no amplía
+admisión fiscal, familiar o territorial. Con los ocho escalares previos permite
+cotejar catorce casillas; una omisión oficial permanece ausencia. La coincidencia
+monetaria no acredita todos los hechos de la entrada ni aceptación fiscal.
