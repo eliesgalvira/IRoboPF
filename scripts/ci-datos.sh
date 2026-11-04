@@ -19,3 +19,10 @@ python_test -m unittest discover -s tools/procedencia/datos/lotes/ipc-ss -p 'tes
 python_test docs/procedencia/datos-2012-2026/revisiones/ipc-ss-enlaces/test_discriminantes.py -v
 python_test tests/datos-ipc-ss.test.py -v
 timeout -k 30s 2m bun docs/procedencia/datos-2012-2026/revisiones/ipc-ss-enlaces/verificar_motor.mjs
+
+# Escalas/mínimos: fixtures y contrato de reservas, sin CAS privado ni censo global.
+python_test tests/datos-escalas-minimos-reanudacion-test.py -v
+python_test tests/datos-escalas-minimos-2012-2018-test.py -v
+python_test tests/datos-escalas-minimos-2019-2026.py -v
+python_test tests/datos-escalas-minimos-enlaces-test.py -v
+python_test tests/datos-escalas-minimos-resultados-test.py -v
