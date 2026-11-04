@@ -458,3 +458,21 @@ composición y exigió corregir la pérdida de precisión antes de aprobarla.
 nuevo requiere acreditación documental propia. La extensión familiar fuera
 de Madrid 2025 no se da por hecha para cerrar el hito del rediseño.
 [Cierre y límites](reforma-motor/bloque-e/CIERRE.md).
+
+## Aceptación del transporte oficial antes de ampliar C (4 de noviembre)
+
+El comparador distingue cobertura completa dentro de su perfil escalar,
+cobertura incompleta y discrepancia. No basta con que no haya diferencias.
+Antes de aceptar una captura exige SES del ejercicio y titular esperados,
+integridad de los artefactos y casillas obligatorias del PDF concordantes.
+Reutilizar una captura fijada exige repetir esas comprobaciones; no afirma
+que el servidor continúe en la misma versión. Una petición nueva es explícita.
+
+**Objeción:** estas comprobaciones y la identidad del código invalidan más
+reutilizaciones y encarecen el transporte remoto. **Respuesta:** una salida
+verde sin cobertura o sin evidencia íntegra no sirve como oráculo. Las
+escrituras interrumpidas conservan su sufijo antes de recuperar el journal;
+la corrupción intermedia se rechaza. **Coste:** la ampliación espera al
+contraste independiente de las cinco correcciones y al piloto. La conexión
+con el motor vigente y los seis componentes de cuota no proyectados siguen
+siendo trabajo distinto; las 2.020 entradas preparadas no son ejecuciones.
