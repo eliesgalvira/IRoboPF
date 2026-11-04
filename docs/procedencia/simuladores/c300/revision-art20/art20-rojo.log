@@ -1,0 +1,307 @@
+$ timeout -k 30s 20m vitest run "tests/art20-open-c300.test.ts" "--maxWorkers=1"
+
+ RUN  v4.1.5 /home/elies/Repos/IRoboPF
+
+ ❯ tests/art20-open-c300.test.ts (20 tests | 8 failed) 81ms
+   × C300 artículo 20 y propagación exacta: 'c300-016' 9ms
+   × C300 artículo 20 y propagación exacta: 'c300-017' 5ms
+   × C300 artículo 20 y propagación exacta: 'c300-047' 4ms
+   × C300 artículo 20 y propagación exacta: 'c300-057' 3ms
+   × empleo histórico 2018 conserva la reducción decimal 9ms
+   × empleo histórico 2019 conserva la reducción decimal 7ms
+   × empleo histórico 2023 conserva la reducción decimal 5ms
+   × empleo histórico 2024 conserva la reducción decimal 6ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 8 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/art20-open-c300.test.ts > C300 artículo 20 y propagación exacta: 'c300-016'
+ FAIL  tests/art20-open-c300.test.ts > C300 artículo 20 y propagación exacta: 'c300-017'
+ FAIL  tests/art20-open-c300.test.ts > C300 artículo 20 y propagación exacta: 'c300-047'
+ FAIL  tests/art20-open-c300.test.ts > C300 artículo 20 y propagación exacta: 'c300-057'
+AssertionError: 0023: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/art20-open-c300.test.ts:31:63
+     29|     if (expected !== null) {
+     30|       expect(actual[box], box).toBeDefined()
+     31|       expect.soft(new Decimal(actual[box]).eq(expected), box).toBe(tru…
+       |                                                               ^
+     32|     }
+     33|   }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/32]⎯
+
+ FAIL  tests/art20-open-c300.test.ts > C300 artículo 20 y propagación exacta: 'c300-016'
+ FAIL  tests/art20-open-c300.test.ts > C300 artículo 20 y propagación exacta: 'c300-017'
+ FAIL  tests/art20-open-c300.test.ts > C300 artículo 20 y propagación exacta: 'c300-047'
+ FAIL  tests/art20-open-c300.test.ts > C300 artículo 20 y propagación exacta: 'c300-057'
+AssertionError: 0025: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/art20-open-c300.test.ts:31:63
+     29|     if (expected !== null) {
+     30|       expect(actual[box], box).toBeDefined()
+     31|       expect.soft(new Decimal(actual[box]).eq(expected), box).toBe(tru…
+       |                                                               ^
+     32|     }
+     33|   }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/32]⎯
+
+ FAIL  tests/art20-open-c300.test.ts > C300 artículo 20 y propagación exacta: 'c300-016'
+ FAIL  tests/art20-open-c300.test.ts > C300 artículo 20 y propagación exacta: 'c300-017'
+ FAIL  tests/art20-open-c300.test.ts > C300 artículo 20 y propagación exacta: 'c300-047'
+ FAIL  tests/art20-open-c300.test.ts > C300 artículo 20 y propagación exacta: 'c300-057'
+AssertionError: 0500: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/art20-open-c300.test.ts:31:63
+     29|     if (expected !== null) {
+     30|       expect(actual[box], box).toBeDefined()
+     31|       expect.soft(new Decimal(actual[box]).eq(expected), box).toBe(tru…
+       |                                                               ^
+     32|     }
+     33|   }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/32]⎯
+
+ FAIL  tests/art20-open-c300.test.ts > C300 artículo 20 y propagación exacta: 'c300-016'
+ FAIL  tests/art20-open-c300.test.ts > C300 artículo 20 y propagación exacta: 'c300-017'
+ FAIL  tests/art20-open-c300.test.ts > C300 artículo 20 y propagación exacta: 'c300-047'
+ FAIL  tests/art20-open-c300.test.ts > C300 artículo 20 y propagación exacta: 'c300-057'
+AssertionError: 0505: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/art20-open-c300.test.ts:31:63
+     29|     if (expected !== null) {
+     30|       expect(actual[box], box).toBeDefined()
+     31|       expect.soft(new Decimal(actual[box]).eq(expected), box).toBe(tru…
+       |                                                               ^
+     32|     }
+     33|   }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/32]⎯
+
+ FAIL  tests/art20-open-c300.test.ts > C300 artículo 20 y propagación exacta: 'c300-016'
+ FAIL  tests/art20-open-c300.test.ts > C300 artículo 20 y propagación exacta: 'c300-017'
+AssertionError: 0528: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/art20-open-c300.test.ts:31:63
+     29|     if (expected !== null) {
+     30|       expect(actual[box], box).toBeDefined()
+     31|       expect.soft(new Decimal(actual[box]).eq(expected), box).toBe(tru…
+       |                                                               ^
+     32|     }
+     33|   }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/32]⎯
+
+ FAIL  tests/art20-open-c300.test.ts > C300 artículo 20 y propagación exacta: 'c300-016'
+ FAIL  tests/art20-open-c300.test.ts > C300 artículo 20 y propagación exacta: 'c300-017'
+AssertionError: 0529: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/art20-open-c300.test.ts:31:63
+     29|     if (expected !== null) {
+     30|       expect(actual[box], box).toBeDefined()
+     31|       expect.soft(new Decimal(actual[box]).eq(expected), box).toBe(tru…
+       |                                                               ^
+     32|     }
+     33|   }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/32]⎯
+
+ FAIL  tests/art20-open-c300.test.ts > C300 artículo 20 y propagación exacta: 'c300-016'
+ FAIL  tests/art20-open-c300.test.ts > C300 artículo 20 y propagación exacta: 'c300-017'
+AssertionError: 0532: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/art20-open-c300.test.ts:31:63
+     29|     if (expected !== null) {
+     30|       expect(actual[box], box).toBeDefined()
+     31|       expect.soft(new Decimal(actual[box]).eq(expected), box).toBe(tru…
+       |                                                               ^
+     32|     }
+     33|   }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/32]⎯
+
+ FAIL  tests/art20-open-c300.test.ts > C300 artículo 20 y propagación exacta: 'c300-016'
+AssertionError: 0533: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/art20-open-c300.test.ts:31:63
+     29|     if (expected !== null) {
+     30|       expect(actual[box], box).toBeDefined()
+     31|       expect.soft(new Decimal(actual[box]).eq(expected), box).toBe(tru…
+       |                                                               ^
+     32|     }
+     33|   }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/32]⎯
+
+ FAIL  tests/art20-open-c300.test.ts > C300 artículo 20 y propagación exacta: 'c300-016'
+AssertionError: 0595: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/art20-open-c300.test.ts:31:63
+     29|     if (expected !== null) {
+     30|       expect(actual[box], box).toBeDefined()
+     31|       expect.soft(new Decimal(actual[box]).eq(expected), box).toBe(tru…
+       |                                                               ^
+     32|     }
+     33|   }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/32]⎯
+
+ FAIL  tests/art20-open-c300.test.ts > C300 artículo 20 y propagación exacta: 'c300-016'
+AssertionError: 0610: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/art20-open-c300.test.ts:31:63
+     29|     if (expected !== null) {
+     30|       expect(actual[box], box).toBeDefined()
+     31|       expect.soft(new Decimal(actual[box]).eq(expected), box).toBe(tru…
+       |                                                               ^
+     32|     }
+     33|   }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/32]⎯
+
+ FAIL  tests/art20-open-c300.test.ts > C300 artículo 20 y propagación exacta: 'c300-016'
+AssertionError: 0670: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/art20-open-c300.test.ts:31:63
+     29|     if (expected !== null) {
+     30|       expect(actual[box], box).toBeDefined()
+     31|       expect.soft(new Decimal(actual[box]).eq(expected), box).toBe(tru…
+       |                                                               ^
+     32|     }
+     33|   }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/32]⎯
+
+ FAIL  tests/art20-open-c300.test.ts > C300 artículo 20 y propagación exacta: 'c300-017'
+AssertionError: 0414: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/art20-open-c300.test.ts:31:63
+     29|     if (expected !== null) {
+     30|       expect(actual[box], box).toBeDefined()
+     31|       expect.soft(new Decimal(actual[box]).eq(expected), box).toBe(tru…
+       |                                                               ^
+     32|     }
+     33|   }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/32]⎯
+
+ FAIL  tests/art20-open-c300.test.ts > C300 artículo 20 y propagación exacta: 'c300-017'
+AssertionError: 0531: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/art20-open-c300.test.ts:31:63
+     29|     if (expected !== null) {
+     30|       expect(actual[box], box).toBeDefined()
+     31|       expect.soft(new Decimal(actual[box]).eq(expected), box).toBe(tru…
+       |                                                               ^
+     32|     }
+     33|   }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/32]⎯
+
+ FAIL  tests/art20-open-c300.test.ts > empleo histórico 2018 conserva la reducción decimal
+ FAIL  tests/art20-open-c300.test.ts > empleo histórico 2019 conserva la reducción decimal
+ FAIL  tests/art20-open-c300.test.ts > empleo histórico 2023 conserva la reducción decimal
+ FAIL  tests/art20-open-c300.test.ts > empleo histórico 2024 conserva la reducción decimal
+Error: Expected "ninguna", got "solo-da61-si-procede"
+  at ["deducciones"]
+ ❯ node_modules/effect/src/SchemaParser.ts:407:19
+ ❯ node_modules/effect/src/internal/effect.ts:1854:21
+ ❯ body node_modules/effect/src/Function.ts:284:17
+ ❯ exitMapError node_modules/effect/src/internal/effect.ts:1718:53
+ ❯ body node_modules/effect/src/Function.ts:284:17
+ ❯ mapErrorEager node_modules/effect/src/SchemaParser.ts:405:13
+ ❯ tests/art20-open-c300.test.ts:69:69
+     67| ] as const)("empleo histórico %i conserva la reducción decimal", (ejer…
+     68|   const original = oficiales.cases.find((r) => r.id === "c300-016")!.e…
+     69|   const entrada = Schema.decodeUnknownSync(CasoFiscalAnualExplicito)({
+       |                                                                     ^
+     70|     ...original,
+     71|     ejercicio,
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/32]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  8 failed | 12 passed (20)
+   Start at  22:41:52
+   Duration  1.20s (transform 569ms, setup 0ms, import 921ms, tests 81ms, environment 0ms)
+
+error: script "test" exited with code 1

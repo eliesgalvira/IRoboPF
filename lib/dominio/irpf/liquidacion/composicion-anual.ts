@@ -30,7 +30,10 @@ import type { SituacionFamiliarIndividual } from "../caso-fiscal-anual"
 import type { ResultadoNoSoportado } from "./liquidar-irpf-anual"
 import { calcularDeduccionTrabajo } from "../trabajo-anual/calcular"
 
-export type PoliticaAnual = "decimal-hasta-salida" | "open-empleo-madrid-2025"
+export type PoliticaAnual =
+  | "decimal-hasta-salida"
+  | "open-empleo-madrid-2025"
+  | "open-cuotas-empleo-andalucia-2025"
 /** Contrato interno: bases ya integradas en EUR Decimal; jamás reconstruye cotizaciones. */
 export interface EntradaComposicionAnual {
   readonly ambito: Pick<
@@ -68,7 +71,7 @@ export const cuantizarAnual = (
   importe: Decimal,
   politica: PoliticaAnual
 ): Decimal =>
-  politica === "open-empleo-madrid-2025"
+  politica !== "decimal-hasta-salida"
     ? importe.toDecimalPlaces(2, Decimal.ROUND_HALF_UP)
     : importe
 
@@ -92,6 +95,19 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
       return yield* Effect.fail(
         errorDerechosMinimos({
           motivo: "Política Open limitada a empleo efectivo Madrid 2025",
+        })
+      )
+    if (
+      entrada.politica === "open-cuotas-empleo-andalucia-2025" &&
+      (caso.anio !== 2025 ||
+        caso.comunidadAutonoma !== "andalucia" ||
+        caso.derechosMinimos !== undefined ||
+        entrada.cotizaciones.naturaleza !== "efectivas")
+    )
+      return yield* Effect.fail(
+        errorDerechosMinimos({
+          motivo:
+            "Política de cuotas Open limitada a empleo efectivo Andalucía 2025 sin derechos familiares",
         })
       )
     if (
@@ -348,7 +364,13 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
       })
       if (resultado.estado === "no-soportado")
         return yield* Effect.fail(errorDerechosMinimos(resultado))
-      deduccionTrabajo = cuantizar(new A(resultado.importeAplicable))
+      // La captura andaluza sólo acredita gravámenes; no discrimina DA61.
+      deduccionTrabajo = cuantizarAnual(
+        new A(resultado.importeAplicable),
+        entrada.politica === "open-empleo-madrid-2025"
+          ? entrada.politica
+          : "decimal-hasta-salida"
+      )
     }
     const cuotaPosterior = cuotaLiquida.minus(deduccionTrabajo)
     return {

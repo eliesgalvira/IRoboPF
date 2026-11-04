@@ -1,0 +1,89 @@
+"""Ejecuta los run del YAML, sin heredar PATH ni variables del orquestador.
+
+No emula Ubuntu ni las acciones de instalación: proporciona las mismas versiones
+de runtimes. El guardia del checkout usa sólo las rutas versionadas, sin copiar
+el repositorio ni las cachés locales excluidas por checkout.
+"""
+import hashlib
+import json
+from pathlib import Path
+import re
+import shutil
+import subprocess
+import time
+
+ROOT = Path('/home/elies/Repos/IRoboPF')
+OUT = Path('/home/elies/Backups/IRoboPF/producto-c300-publicacion-20261104/workflow')
+WORKFLOW = ROOT / '.github/workflows/checks.yml'
+BASE = '/run/current-system/sw/bin'
+PYTHON = '/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/bin'
+BUN = '/nix/store/g7skjk9lrdnshaxd7px62bchq6yg0bbh-bun-1.3.13/bin'
+NODE = '/nix/store/v6wsd9nyglmwh32yn7w8z11dq9cksg4m-nodejs-24.20.0/bin'
+ENV = {
+    'HOME': '/home/elies', 'USER': 'elies', 'LOGNAME': 'elies',
+    'LANG': 'C.UTF-8', 'LC_ALL': 'C.UTF-8', 'CI': 'true',
+    'UV_CACHE_DIR': '/home/elies/.cache/uv',
+    'UV_PROJECT_ENVIRONMENT': '/home/elies/.cache/irobopf-corpus/.venv',
+    'PYTHONDONTWRITEBYTECODE': '1',
+    'SSL_CERT_FILE': '/etc/ssl/certs/ca-certificates.crt',
+}
+
+def run(command, env, cwd=ROOT):
+    print(json.dumps({'command': command, 'cwd': str(cwd), 'path': env['PATH']}, ensure_ascii=False), flush=True)
+    start = time.monotonic()
+    completed = subprocess.run(
+        ['timeout', '-k', '30s', '15m', 'bash', '--noprofile', '--norc', '-euo', 'pipefail', '-c', command],
+        env=env, cwd=cwd, check=False,
+    )
+    entry = {'command': command, 'exit': completed.returncode, 'seconds': round(time.monotonic()-start, 3)}
+    results.append(entry)
+    (OUT / 'workflow-limpio-resultados.json').write_text(json.dumps({'workflowSha256': frozen, 'results': results}, indent=2)+'\n')
+    if completed.returncode:
+        raise SystemExit(completed.returncode)
+
+raw = WORKFLOW.read_bytes()
+frozen = hashlib.sha256(raw).hexdigest()
+results = []
+fixture = OUT / 'checkout-solo-rutas'
+fixture.mkdir(exist_ok=False)
+paths = subprocess.run(['timeout', '-k', '30s', '1m', 'jj', 'file', 'list'], cwd=ROOT, check=True, capture_output=True, text=True).stdout.splitlines()
+for name in paths:
+    p = Path(name)
+    if p.is_absolute() or '..' in p.parts:
+        raise ValueError(name)
+    target = fixture / p
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.touch()
+shutil.copyfile(ROOT / 'scripts/ci-no-cache.py', fixture / 'scripts/ci-no-cache.py')
+(OUT / 'checkout-rutas.json').write_text(json.dumps(paths, indent=2)+'\n')
+
+job = None
+env = None
+commands = 0
+for line in raw.decode().splitlines():
+    found = re.fullmatch(r'  (checks|corpus):', line)
+    if found:
+        job = found.group(1)
+        env = {**ENV, 'PATH': PYTHON + ':' + BASE}
+        if shutil.which('bun', path=env['PATH']) is not None:
+            raise RuntimeError('Bun ya visible antes de setup-bun')
+        print('JOB '+job, flush=True)
+    if job is None:
+        continue
+    if 'uses: actions/setup-node@v4' in line:
+        env['PATH'] = NODE + ':' + env['PATH']
+    if 'uses: oven-sh/setup-bun@v2' in line:
+        env['PATH'] = BUN + ':' + env['PATH']
+    match = re.fullmatch(r'(?:      - |        )run: (.+)', line)
+    if match:
+        command = match.group(1)
+        if command in ('|', '>') or command.startswith('${{'):
+            raise RuntimeError('Paso no soportado por esta reproducción: '+command)
+        cwd = fixture if command == 'timeout -k 30s 1m python3 scripts/ci-no-cache.py' else ROOT
+        run(command, env, cwd)
+        commands += 1
+if commands != 30:
+    raise RuntimeError(f'Revisar recuento de comandos antes de aceptar: {commands}')
+if WORKFLOW.read_bytes() != raw:
+    raise RuntimeError('El workflow cambió durante la comprobación')
+print(json.dumps({'status':'passed','commands':commands,'workflowSha256':frozen}), flush=True)

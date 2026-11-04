@@ -1,0 +1,44 @@
+import {plugin} from 'bun';
+import {readFileSync as read,writeFileSync as write} from 'node:fs';
+import {createHash} from 'node:crypto';
+const root='/home/elies/Repos/IRoboPF/';
+const author='/home/elies/Backups/IRoboPF/producto-c300-art20-investigacion-20261104/';
+const edits=JSON.parse(read(author+'transformaciones.json','utf8'));
+const proposed=process.argv.includes('--propuesta');
+for(const e of edits) if(createHash('sha256').update(read(root+e.path)).digest('hex')!==e.sha256)throw Error('Base cambió');
+if(proposed)plugin({name:'revision-independiente',setup(b){b.onLoad({filter:/(reduccion-rendimientos-trabajo|conexion)\.ts$/},({path})=>{const e=edits.find(e=>root+e.path===path);return e?{contents:e.after,loader:'ts'}:undefined;});}});
+const {Effect}=await import(root+'node_modules/effect/dist/index.js');
+const {default:Decimal}=await import(root+'node_modules/decimal.js/decimal.mjs');
+const D=Decimal.clone({precision:80});
+const {liquidarIrpfAnualExplicito:api}=await import(root+'lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts');
+const rows=JSON.parse(read('/home/elies/Backups/IRoboPF/producto-c300-revision-20261104/comparacion/comparison.json','utf8')).results;
+if(rows.length!==218)throw Error('Corte no es 218');
+const originals=JSON.parse(read(root+'docs/procedencia/implementaciones/redondeo-salarial-open/oficial.json','utf8'));
+if(originals.length!==7)throw Error('No siete originales');
+const map={'0023':'reduccionArt20','0025':'rendimientoNetoReducido','0414':'deduccionTrabajo','0500':'baseImponibleGeneral','0505':'baseLiquidableGeneral','0528':'gravamenEstatal','0529':'gravamenAutonomico','0530':'gravamenMinimoEstatal','0531':'gravamenMinimoAutonomico','0532':'cuotaEstatal','0533':'cuotaAutonomica','0595':'cuotaPosterior','0610':'cuotaDiferencial','0670':'cuotaDiferencialPresentada'};
+function run(input){return Effect.runSync(api(input));}
+function check(row,original=false){const r=run(row.entrada),flat={...r,...r.componentesCuota},diffs=[];let present=0,absent=0;
+for(const [box,key]of Object.entries(map)){const v=original?row.casillas[box]:row.boxes[box].official;if(v===null){absent++;continue;}present++;if(typeof v!=='string'||typeof flat[key]!=='string'||!new D(v).eq(new D(flat[key])))diffs.push({box,expected:v,actual:flat[key]});}
+return {id:row.id,present,absent,diffs,art20:r.reduccionArt20,resultado:r.cuotaDiferencialPresentada};}
+const cut=rows.map(r=>check(r));const anchors=originals.map(r=>check(r,true));
+const template=structuredClone(originals[0].entrada);
+function input(bruto,ss='0',n=1){const c=structuredClone(template);const r=structuredClone(c.trabajo.rendimientos[0]);r.integro=bruto;r.cotizaciones.seguridadSocial=ss;r.cotizaciones.derechosPasivos='0';r.cotizaciones.colegiosHuerfanos='0';for(const k of ['sindicato','colegio','defensa'])r[k].importe='0';c.trabajo.rendimientos=Array.from({length:n},(_,i)=>({...structuredClone(r),id:'r'+i}));c.retenciones=[];return c;}
+const synth=[];
+function sample(id,c){const r=run(c);const lines=r.rastro.pasos.flatMap(p=>p.lineasCalculo??[]);const art=lines.find(l=>l.origen?.siteId==='anual.explicito.trabajo.art20');
+if(art&&!new D(art.origen.decimal).eq(r.reduccionArt20))throw Error('Rastro art20 incoherente');
+if(!new D(r.cuotaPosterior).minus(r.retenciones).minus(r.pagosFraccionados).eq(r.cuotaDiferencial))throw Error('Saldo incoherente');
+const compact={...r};delete compact.rastro;synth.push({id,result:compact,art20Trace:art??null});}
+for(const v of ['0','0.01','1999.99','2000','2000.01','14851.99','14852','14852.01','17673.51','17673.52','17673.53','19747.49','19747.50','19747.51'])sample('umbral-'+v,input(v));
+sample('perdida',input('0','100'));
+const retained=input('15876.02');retained.retenciones[0]={operacionId:'r',procedencia:'prueba',ejercicio:2025,importe:'123.45',efectiva:true};sample('retencion',retained);
+for(const n of [1,100])for(const net of ['15876.02','17673.52','19747.49']){const b=new D('900000000000');const ss=b.minus(new D(net).div(n)).toString();if((ss.split('.')[1]?.length??0)>2)continue;sample('extremo-'+n+'-'+net,input(b.toString(),ss,n));}
+// Máximo acumulado admitido; neto agregado exacto 15876.02, 17673.52 o 19747.49.
+for(const net of ['15876.02','17673.52','19747.49']){const c=input('900000000000','900000000000',100);c.trabajo.rendimientos[0].cotizaciones.seguridadSocial=new D('900000000000').minus(net).toString();sample('cancelacion-100-'+net,c);}
+for(const year of [2018,2019,2020,2021,2022,2023,2024]){const c=input('15876.02','1000');c.ejercicio=year;c.devengo=year+'-12-31';c.trabajo.ejercicio=year;c.conciliacion.ejercicio=year;c.deducciones='ninguna';sample('historico-'+year,c);}
+for(const region of ['andalucia','catalunya']){const c=input('15876.02');c.comunidadAutonoma=region;sample(region,c);}
+for(const clase of ['pension','empleo-estatutario']){const c=input('15876.02');c.trabajo.rendimientos[0].clase=clase;sample(clase,c);}
+// Se extrae sólo el objeto fixture ya publicado; no se ejecuta Vitest ni se altera la raíz.
+const tests=read(root+'tests/conexion-anual.test.ts','utf8');const fixture=tests.split('function casoBase(): CasoActividad2025 {')[1].split('\n}\nfunction ingreso')[0];const activity=Function(fixture)();const c=structuredClone(template);delete c.trabajo;delete c.conciliacion;delete c.retenciones;c.perfil='solo-actividad-eds';c.actividad=activity;sample('actividad-vacia',c);
+const out={mode:proposed?'propuesta':'base',cut:{cases:cut.length,present:cut.reduce((s,x)=>s+x.present,0),absent:cut.reduce((s,x)=>s+x.absent,0),diffs:cut.filter(x=>x.diffs.length)},anchors,synthetic:synth};
+write(import.meta.dir+'/'+(proposed?'propuesta':'base')+'.json',JSON.stringify(out,null,2)+'\n');
+console.log(JSON.stringify({mode:out.mode,cut:out.cut,anchors:anchors.map(x=>({id:x.id,diffs:x.diffs,art20:x.art20})),synthetic:synth.length}));

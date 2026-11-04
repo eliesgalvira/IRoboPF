@@ -1,0 +1,42 @@
+import sys, os, json, hashlib, datetime
+from pathlib import Path
+sys.path.insert(0,'/home/elies/Repos/IRoboPF/tools/procedencia/simuladores')
+import c300
+from storage import canonical,digest,latest_states,read_ref
+ROOT=Path('/home/elies/Repos/IRoboPF')
+OUT=Path('/home/elies/Backups/IRoboPF/producto-c300-revision-20261104')
+SRC=Path(os.environ['C_RUN_DIR'])
+def save(name,value): (OUT/name).write_bytes(canonical(value))
+files=['tools/procedencia/simuladores/c300.py','tools/procedencia/simuladores/c300_evidence.py','tests/simuladores-c300-test.py','docs/procedencia/simuladores/C300.md']
+save('hashes-antes.json',{p:digest((ROOT/p).read_bytes()) for p in files})
+cut={}
+for name in ['journal.jsonl','results.jsonl']:
+    with (SRC/name).open('rb') as f:
+        size=os.fstat(f.fileno()).st_size
+        raw=f.read(size)
+    raw=raw[:raw.rfind(b'\n')+1]
+    (OUT/name).write_bytes(raw)
+    cut[name]=dict(source=str(SRC/name),bytes=len(raw),sha256=digest(raw),lines=raw.count(b'\n'))
+for p in SRC.glob('capture-code-*.json'): (OUT/p.name).write_bytes(p.read_bytes())
+raw=(SRC/'cases.json').read_bytes(); (OUT/'cases.json').write_bytes(raw)
+cases=json.loads(raw)
+c300.validate_cases(cases)
+assert canonical(c300.matrix())==raw
+c300.run.OUT=OUT
+c300.run.BASE=Path(os.environ['C_TEMPLATE_DIR'])
+records=[json.loads(l) for l in (OUT/'journal.jsonl').read_bytes().splitlines()]
+states=latest_states(records)
+selected=c300.historical_receipts(cases)
+cut.update(utc=datetime.datetime.now(datetime.timezone.utc).isoformat(),matrixSha256=digest(raw),cases=len(cases),uniqueInputs=len({digest(canonical(c['entrada'])) for c in cases}),uniqueIds=len({c['job']['id'] for c in cases}),twoPayers=sum(len(c['entrada']['trabajo']['rendimientos'])==2 for c in cases),selected=len(selected),ids=list(selected),originalKeys={k:v['key'] for k,v in selected.items()},latestStates={s:sum(r['status']==s for r in states.values()) for s in ('started','done','error')},allCodeRefsVerified=True)
+save('corte.json',cut)
+checks={}
+for id,r in selected.items():
+    case=next(c for c in cases if c['job']['id']==id)
+    checked=c300.validate(r['result'],case)
+    checks[id]=dict(ses=r['result']['ses'],pdf=r['result']['pdf'],absentInputs=checked['absentInputs'],unreviewedKeys=checked['binding']['unreviewedKeys'],fields=r['result']['fields'],pdfStates={k:v['state'] for k,v in checked['evidence']['checks'].items()})
+save('evidencia-verificada.json',checks)
+print(json.dumps({k:v for k,v in cut.items() if k not in ('ids','originalKeys')},indent=2),flush=True)
+# Una sola llamada al operador real para todos los recibos de este corte.
+exit_code=c300.compare(cases,OUT/'comparacion')
+save('comparador-salida.json',{'exit':exit_code})
+save('hashes-despues.json',{p:digest((ROOT/p).read_bytes()) for p in files})

@@ -1,0 +1,50 @@
+import { expect, it } from '/home/elies/Repos/IRoboPF/node_modules/vitest/dist/index.js'
+import Decimal from '/home/elies/Repos/IRoboPF/node_modules/decimal.js/decimal.mjs'
+import { Effect, Schema } from '/home/elies/Repos/IRoboPF/node_modules/effect/src/index.ts'
+import { liquidarIrpfAnualExplicito } from '/home/elies/Repos/IRoboPF/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts'
+import { CasoFiscalAnualExplicito } from '/home/elies/Repos/IRoboPF/lib/dominio/irpf/trabajo-anual/conexion-contrato.ts'
+import { cuantizarAnual, componerLiquidacionAnual } from '/home/elies/Repos/IRoboPF/lib/dominio/irpf/liquidacion/composicion-anual.ts'
+import entrada from './entrada-literal.ts'
+import original from '/home/elies/Backups/IRoboPF/producto-c300-20261104/variante-andalucia-comparacion.json'
+import { MINIMOS_ESTATALES_2025 } from '/home/elies/Repos/IRoboPF/lib/dominio/normativa/datos/minimos-autonomicos-2025.ts'
+const run = (e: unknown) => Effect.runSync(liquidarIrpfAnualExplicito(Schema.decodeUnknownSync(CasoFiscalAnualExplicito)(e)))
+it('entrada literal idéntica al recibo original; gastos consumidos una vez', () => {
+  expect(entrada).toEqual(original.entrada)
+  const r=run(entrada)
+  expect(r.rendimientoNetoReducido).toBe('20446.72')
+  expect(r.retenciones).toBe('3100.03')
+})
+it.each([['1.004999','1'],['1.005','1.01'],['1.005001','1.01'],['-1.005','-1.01']])('frontera half-up %s', (raw,want) => {
+  expect(cuantizarAnual(new Decimal(raw),'open-cuotas-empleo-andalucia-2025').toFixed()).toBe(want)
+  expect(cuantizarAnual(new Decimal(raw),'decimal-hasta-salida').toFixed()).toBe(raw)
+})
+it('retenciones efectivas cambian sólo diferencial, incluso a devolver',()=>{
+  const a=run(entrada), b=run({...entrada,retenciones:[{...entrada.retenciones[0],importe:'4000.03'}]})
+  expect(b.componentesCuota).toEqual(a.componentesCuota)
+  expect(b.cuotaPosterior).toBe(a.cuotaPosterior)
+  expect(b.cuotaDiferencial).toBe('-798.96')
+})
+it('estatutario comparte selección; mezcla empleo/pensión se rechaza',()=>{
+  const w=entrada.trabajo.rendimientos[0]
+  const s=run({...entrada,trabajo:{...entrada.trabajo,rendimientos:[{...w,clase:'empleo-estatutario'}]}})
+  expect(s.cuotaDiferencial).toBe('101.04')
+  expect(()=>run({...entrada,trabajo:{...entrada.trabajo,rendimientos:[w,{...w,id:'b',clase:'pension'}]}})).toThrow()
+})
+const composition = {
+  ambito:{anio:2025,comunidadAutonoma:'andalucia',situacionFamiliar:{tipo:'individual',edad:40,discapacidad:{_tag:'SinDiscapacidad'},descendientes:[],ascendientes:[]}},
+  cotizaciones:{naturaleza:'efectivas',trabajador:new Decimal('1630.02')},
+  precision:80,politica:'open-cuotas-empleo-andalucia-2025',baseGeneral:new Decimal('20446.72'),baseAhorro:new Decimal(0),rentasAntesReducciones:new Decimal('20446.72'),minimosEstatales:MINIMOS_ESTATALES_2025,deduccionesAutonomicasCentimos:0
+} as const
+it.each([
+  {...composition,ambito:{...composition.ambito,anio:2024}},
+  {...composition,ambito:{...composition.ambito,comunidadAutonoma:'madrid'}},
+  {...composition,cotizaciones:{...composition.cotizaciones,naturaleza:'estimadas-perfil-uniforme'}},
+  {...composition,ambito:{...composition.ambito,derechosMinimos:{}}},
+])('composición rechaza política Andalucía fuera de ámbito %#', (e)=>{
+  expect(()=>Effect.runSync(componerLiquidacionAnual(e as never))).toThrow()
+})
+it.each(['0','1000','5550','5790'])('mínimos limitados a base sin cuota negativa: %s',base=>{
+  const r=Effect.runSync(componerLiquidacionAnual({...composition,baseGeneral:new Decimal(base)} as never))
+  expect(r.cuotaLiquida.gte(0)).toBe(true)
+  if(new Decimal(base).lte(5550)) expect(r.cuotaLiquida.isZero()).toBe(true)
+})

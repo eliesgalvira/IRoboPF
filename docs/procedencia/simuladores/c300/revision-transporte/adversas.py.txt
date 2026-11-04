@@ -1,0 +1,71 @@
+import sys,json,copy,zlib,unittest,tempfile
+from pathlib import Path
+from unittest.mock import patch
+sys.path.insert(0,'/home/elies/Repos/IRoboPF/tools/procedencia/simuladores')
+import c300,contract,c300_evidence,compare_engine,storage
+OUT=Path('/home/elies/Backups/IRoboPF/producto-c300-revision-20261104')
+class Adversas(unittest.TestCase):
+ def test_exact_cent_and_decimal_representation(self):
+  for a,b,want in [('1.0','1.00','coincide'),('1.00','1.01','difiere'),(None,'0.00','oficial-ausente')]:
+   self.assertEqual(compare_engine.compare_engine({'fields':{'RESULTADO':a}},{'monetario':{'cuotaDiferencialPresentada':b}})['0670']['status'],want)
+ def test_all_pdf_occurrences_and_absence(self):
+  values={k:'0.00' for k in contract.MAP.values()}
+  text='Ejercicio 2025\n'+'\n'.join('0,00 '+b for b in contract.MAP)
+  for box in contract.MAP:
+   with self.subTest(box=box),self.assertRaises(ValueError):c300_evidence.pdf_checks(text+'\n0,01 '+box,values,2025)
+  for box in c300_evidence.REQUIRED_PDF:
+   with self.subTest(missing=box),self.assertRaises(ValueError):c300_evidence.pdf_checks(text.replace('0,00 '+box,''),values,2025)
+  for year in ('2024','2026'):
+   with self.assertRaises(ValueError): c300_evidence.pdf_checks(text.replace('2025',year),values,2025)
+  values['RESULTADO']=None
+  self.assertEqual(c300_evidence.pdf_checks(text,values,2025)['0670']['state'],'ses-ausente')
+ def test_cut_real_ses_adversarial(self):
+  row=next(json.loads(l) for l in (OUT/'journal.jsonl').read_text().splitlines() if json.loads(l)['key'] in set(json.loads((OUT/'corte.json').read_bytes())['originalKeys'].values()) and json.loads(l)['status']=='done')['result']
+  raw=storage.read_ref(row['ses']);text=contract.decode(raw)
+  self.assertEqual(contract.parse(raw,2025)['metadata']['year'],2025)
+  line=next(l for l in text.splitlines() if l.strip().startswith('RESULTADO~'))
+  titular=next(l for l in text.splitlines() if l.strip().startswith('TITULAR~'))
+  for bad in [text.replace('EjModelo="2025"','EjModelo="2024"'),text.replace('[IRPF2025]','[IRPF2024]'),text.replace(titular,titular.replace('DECLARANTE','CONYUGE')),text.replace(line,line+'\n'+line),text.replace(line,line.replace('~1~','~9~'))]:
+   with self.assertRaises(ValueError):contract.parse(zlib.compress(bad.encode('latin1')),2025)
+ def test_facts_and_payer_split_matrix(self):
+  cases=c300.matrix();self.assertEqual([c['job']['id'] for c in cases],[f'c300-{i:03}' for i in range(1,301)])
+  self.assertEqual(sum(len(c['entrada']['trabajo']['rendimientos'])==2 for c in cases),21)
+  for c in cases:
+   for r in c['entrada']['trabajo']['rendimientos']:
+    for k in ['sindicato','colegio','defensa']:self.assertEqual(r[k]['satisfecho'],'si')
+    self.assertEqual(r['colegio']['obligatorio'],'si');self.assertEqual(r['colegio']['finesEsenciales'],'si');self.assertEqual(r['defensa']['litigioDirectoPagador'],'si')
+   c300.validate_cases([c])
+  for name in ['gross','ss','retention']:
+   from decimal import Decimal
+   c=cases[2];total=round(Decimal(c['job'][name])*100)
+   rs=c['entrada']['trabajo']['rendimientos']
+   amounts=[r['integro'] if name=='gross' else r['cotizaciones']['seguridadSocial'] for r in rs] if name!='retention' else [r['importe'] for r in c['entrada']['retenciones']]
+   self.assertEqual([int(Decimal(v)*100) for v in amounts],[total//2,total-total//2])
+ def test_historical_latest_error_and_integrity(self):
+  cases=json.loads((OUT/'cases.json').read_bytes())
+  records=[json.loads(l) for l in (OUT/'journal.jsonl').read_bytes().splitlines()]
+  done=next(r for r in records if r['status']=='done' and r['key'] in set(json.loads((OUT/'corte.json').read_bytes())['originalKeys'].values()))
+  # Se usa un único recibo real, sin recaptura ni nuevas escrituras CAS.
+  with patch.object(c300.run,'OUT',OUT),patch.object(c300,'read_jsonl',return_value=[done,dict(done,status='error')]):
+   self.assertEqual(c300.historical_receipts(cases),{})
+  with patch.object(c300.run,'OUT',OUT),patch.object(c300,'read_jsonl',return_value=[done]),patch.object(c300,'validate',return_value={}):
+   selected=c300.historical_receipts(cases)
+   self.assertEqual(selected[done['job']['id']]['identity'],done['identity'])
+   self.assertEqual(selected[done['job']['id']]['key'],done['key'])
+  bad=copy.deepcopy(done);bad['identity']['code']['c300.py']='0'*64;bad['key']=storage.digest(storage.canonical(bad['identity']))
+  with patch.object(c300.run,'OUT',OUT),patch.object(c300,'read_jsonl',return_value=[bad]),self.assertRaisesRegex(ValueError,'no conservado'):
+   c300.historical_receipts(cases)
+ def test_compare_selection_repairs_tail_p2(self):
+  private=OUT/'repro-tail';private.mkdir(exist_ok=True)
+  journal=private/'journal.jsonl';journal.write_bytes(b'{"incomplete":')
+  before=journal.read_bytes()
+  with patch.object(c300.run,'OUT',private):self.assertEqual(c300.historical_receipts([]),{})
+  self.assertNotEqual(journal.read_bytes(),before)
+  recovered=json.loads(journal.read_bytes())
+  self.assertEqual(recovered['status'],'recovered-tail')
+  self.assertEqual(storage.read_ref(recovered['artifact']),before)
+ def test_index_cannot_lie_about_official_amount(self):
+  row=copy.deepcopy(next(json.loads(l) for l in (OUT/'journal.jsonl').read_bytes().splitlines() if json.loads(l)['status']=='done')['result'])
+  row['fields']['RESULTADO']='999999.99'
+  with self.assertRaisesRegex(ValueError,'Índice'):c300_evidence.validate_result(row,c300.run.OFFICIAL)
+if __name__=='__main__':unittest.main(verbosity=2)

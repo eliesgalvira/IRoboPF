@@ -1,0 +1,30 @@
+test_all_pdf_occurrences_and_absence (__main__.Adversas.test_all_pdf_occurrences_and_absence) ... ok
+test_cut_real_ses_adversarial (__main__.Adversas.test_cut_real_ses_adversarial) ... ERROR
+test_exact_cent_and_decimal_representation (__main__.Adversas.test_exact_cent_and_decimal_representation) ... ok
+test_facts_and_payer_split_matrix (__main__.Adversas.test_facts_and_payer_split_matrix) ... ok
+test_historical_latest_error_and_integrity (__main__.Adversas.test_historical_latest_error_and_integrity) ... ERROR
+test_index_cannot_lie_about_official_amount (__main__.Adversas.test_index_cannot_lie_about_official_amount) ... ok
+
+======================================================================
+ERROR: test_cut_real_ses_adversarial (__main__.Adversas.test_cut_real_ses_adversarial)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Backups/IRoboPF/producto-c300-revision-20261104/adversas.py", line 23, in test_cut_real_ses_adversarial
+    row=json.loads((OUT/'journal.jsonl').read_text().splitlines()[1])['result']
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+KeyError: 'result'
+
+======================================================================
+ERROR: test_historical_latest_error_and_integrity (__main__.Adversas.test_historical_latest_error_and_integrity)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Backups/IRoboPF/producto-c300-revision-20261104/adversas.py", line 52, in test_historical_latest_error_and_integrity
+    selected=c300.historical_receipts(cases)
+  File "/home/elies/Repos/IRoboPF/tools/procedencia/simuladores/c300.py", line 148, in historical_receipts
+    raise ValueError('Código original del recibo histórico no conservado')
+ValueError: Código original del recibo histórico no conservado
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.093s
+
+FAILED (errors=2)

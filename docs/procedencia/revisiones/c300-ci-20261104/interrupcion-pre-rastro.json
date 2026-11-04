@@ -1,0 +1,7 @@
+{
+  "motivo": "Se corrige la descripción pública del rastro de Andalucía tras revisión; el primer CI se interrumpe voluntariamente con SIGTERM, sin fallo de producto observado, antes de modificar las fuentes. Se repetirá completo.",
+  "ciInterrumpido": {"salida": 143, "directorio": "workflow-pre-rastro", "paso": "nix develop path:tools/procedencia --command bash scripts/ci-datos.sh"},
+  "reubicacionesDentroDeEntrega": {"workflow": "workflow-pre-rastro", "comparacion-final": "comparacion-pre-rastro"},
+  "cotejoPublicoAnterior": {"desde": "/home/elies/Repos/IRoboPF/docs/procedencia/simuladores/c300/cotejo-final", "a": "/home/elies/Backups/IRoboPF/producto-c300-publicacion-20261104/cotejo-publico-pre-rastro"},
+  "originalesOficiales": "Sin cambios; permanecen en CAS"
+}

@@ -1,0 +1,9 @@
+"""Reproduce únicamente el cotejo offline del corte ya fijado, sin red/CAS nuevos."""
+import sys,os,json
+from pathlib import Path
+sys.path.insert(0,'/home/elies/Repos/IRoboPF/tools/procedencia/simuladores')
+import c300
+OUT=Path('/home/elies/Backups/IRoboPF/producto-c300-revision-20261104')
+c300.run.OUT=OUT
+c300.run.BASE=Path(os.environ['C_TEMPLATE_DIR'])
+raise SystemExit(c300.compare(json.loads((OUT/'cases.json').read_bytes()),OUT/'repro-salida'))

@@ -1,0 +1,105 @@
+{
+  "schema": "revision-independiente-art20-v1",
+  "private": true,
+  "decision": "P2 bloqueo monetario en extremos aceptados; compatibilidad 218 y 7 anclajes confirmada",
+  "comparison": "Decimal.eq(texto esperado, texto API), sin Number ni toFixed",
+  "validation": {
+    "cut": 218,
+    "present": 2603,
+    "absent": 449,
+    "base_discrepant_cases": 4,
+    "proposal_discrepant_cases": 0,
+    "original_anchors": 7,
+    "synthetic_per_version": 34,
+    "heavy_suites": 0,
+    "post_identity": true,
+    "final_c300_validated": false
+  },
+  "references_read_only": [
+    {
+      "path": "/home/elies/Repos/IRoboPF/lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts",
+      "sha256": "71165de6c9520090e3f15a50e28b809f32e0a4ed99cb2c3866e01103efb0e696",
+      "bytes": 6411
+    },
+    {
+      "path": "/home/elies/Repos/IRoboPF/lib/dominio/irpf/trabajo-anual/conexion.ts",
+      "sha256": "ce8cb6dfeb87cebe04449203770577517406da7b8e83bb60a0edc4f9e5f2e1e3",
+      "bytes": 17247
+    },
+    {
+      "path": "/home/elies/Repos/IRoboPF/docs/procedencia/implementaciones/redondeo-salarial-open/oficial.json",
+      "sha256": "9c5d5bbf04b73a4e21db609a8269b35b41d989bd38cb1e56edcc9ddf2703528d",
+      "bytes": 18906
+    },
+    {
+      "path": "/home/elies/Backups/IRoboPF/producto-c300-art20-investigacion-20261104/transformaciones.json",
+      "sha256": "fca68e9d6a2cf959f0ed791fde5b7011b8737a8832c6c3b13bae4ad2bf3d4b16",
+      "bytes": 51048
+    },
+    {
+      "path": "/home/elies/Backups/IRoboPF/producto-c300-art20-investigacion-20261104/propuesta.patch",
+      "sha256": "9a930a7c560f582e4e3ca250e29ec4ac98ff3523c8543518408dffceb04cec18",
+      "bytes": 4564
+    },
+    {
+      "path": "/home/elies/Backups/IRoboPF/producto-c300-revision-20261104/comparacion/comparison.json",
+      "sha256": "7b194192e3d02a221dd85b4622a1363bf7010dbee847ec604eab7e3c240a1404",
+      "bytes": 938036
+    },
+    {
+      "path": "/home/elies/Backups/IRoboPF/producto-c300-revision-20261104/corte.json",
+      "sha256": "9f8d54a5c59ca4fa6e1458633f95030c548bcf6e2366836ece7366e4273ac8e8",
+      "bytes": 20127
+    }
+  ],
+  "files": {
+    "INFORME.md": {
+      "bytes": 7730,
+      "sha256": "df3e2af90f2d23422ba15a112ce58b975884fbf16077e4ae7a0ade998eca7b0d"
+    },
+    "adversas.json": {
+      "bytes": 5891,
+      "sha256": "b316fa37da3995847dedb6de840ad1e72e55040f2235c1c8d4112cd8028c371a"
+    },
+    "base.json": {
+      "bytes": 80760,
+      "sha256": "699fe1ccd83049133bb893b8b66d21bf243ac2e1f3af57aa33d396726aa64404"
+    },
+    "base.log": {
+      "bytes": 2353,
+      "sha256": "d7a539342721330c758cfb6ac33739c71b4010cc4c333c3569937852cba48371"
+    },
+    "discriminantes.json": {
+      "bytes": 2787,
+      "sha256": "8b574e6b902a5f4b5bad93d3276da214ae29b9fe32e6a4bee11108e738859ad6"
+    },
+    "discriminantes.mjs": {
+      "bytes": 1967,
+      "sha256": "d4401a65821765b9705e85a64a3b05b161913a59e3ac97803b3236d56a89917a"
+    },
+    "extremo.json": {
+      "bytes": 279,
+      "sha256": "21dfbc942bee854f8facc9471423c9b165a096674c2ea01b341e556e57bb35f7"
+    },
+    "identidad.json": {
+      "bytes": 3149,
+      "sha256": "06bcfd746dcdb958cfb0e3e56e1f53d9b65e00723c09aa24d1ea292ae2fe5785"
+    },
+    "propuesta.json": {
+      "bytes": 77108,
+      "sha256": "ee860683f84934fd75d9e47c14611ea8bb6ce5c001956c3d0dac49397b5c5ed5"
+    },
+    "propuesta.log": {
+      "bytes": 465,
+      "sha256": "6e2b257227c28d9ee075377360e23059d382af0b0114b68b4022af97704dc243"
+    },
+    "pruebas.mjs": {
+      "bytes": 5844,
+      "sha256": "f98199800ef0901a0fa790eabea9f06b75be377218bd028b9072df0e2aca0dea"
+    },
+    "repro-extremo.mjs": {
+      "bytes": 2064,
+      "sha256": "262803f63aae25785e91f23b5fdd9f88a161dcdf6d8e3a59f821cd0996bb5a35"
+    }
+  }
+}

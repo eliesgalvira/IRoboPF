@@ -1,0 +1,524 @@
+JOB checks
+{"command": "timeout -k 30s 1m python3 scripts/ci-no-cache.py", "cwd": "/home/elies/Backups/IRoboPF/producto-c300-publicacion-20261104/workflow/checkout-solo-rutas", "path": "/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/bin:/run/current-system/sw/bin"}
+{"command": "echo \"Corpus completo CAS omitido explícitamente; se ejecutan fixtures y contratos reproducibles. Véase docs/procedencia/CI.md\"", "cwd": "/home/elies/Repos/IRoboPF", "path": "/nix/store/g7skjk9lrdnshaxd7px62bchq6yg0bbh-bun-1.3.13/bin:/nix/store/v6wsd9nyglmwh32yn7w8z11dq9cksg4m-nodejs-24.20.0/bin:/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/bin:/run/current-system/sw/bin"}
+Corpus completo CAS omitido explícitamente; se ejecutan fixtures y contratos reproducibles. Véase docs/procedencia/CI.md
+{"command": "timeout -k 30s 12m bun install --frozen-lockfile", "cwd": "/home/elies/Repos/IRoboPF", "path": "/nix/store/g7skjk9lrdnshaxd7px62bchq6yg0bbh-bun-1.3.13/bin:/nix/store/v6wsd9nyglmwh32yn7w8z11dq9cksg4m-nodejs-24.20.0/bin:/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/bin:/run/current-system/sw/bin"}
+bun install v1.3.13 (bf2e2cec)
+
+$ timeout -k 30s 2m effect-language-service patch
+[23:26:18.685] INFO (#1): /home/elies/Repos/IRoboPF/node_modules/typescript/lib/typescript.js is already patched with version 0.85.1, skipped.
+[23:26:18.713] INFO (#1): /home/elies/Repos/IRoboPF/node_modules/typescript/lib/_tsc.js is already patched with version 0.85.1, skipped.
+[23:26:18.714] INFO (#1): If your project uses incremental builds, delete the .tsbuildinfo files and perform a full build.
+
+Checked 804 installs across 878 packages (no changes) [350.00ms]
+{"command": "timeout -k 30s 12m bun run test:lint", "cwd": "/home/elies/Repos/IRoboPF", "path": "/nix/store/g7skjk9lrdnshaxd7px62bchq6yg0bbh-bun-1.3.13/bin:/nix/store/v6wsd9nyglmwh32yn7w8z11dq9cksg4m-nodejs-24.20.0/bin:/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/bin:/run/current-system/sw/bin"}
+$ timeout -k 30s 12m bun scripts/test-lint.mjs
+16 reglas a error; ambos plugins cargan y rechazan el fixture.
+{"command": "timeout -k 30s 12m bun run lint", "cwd": "/home/elies/Repos/IRoboPF", "path": "/nix/store/g7skjk9lrdnshaxd7px62bchq6yg0bbh-bun-1.3.13/bin:/nix/store/v6wsd9nyglmwh32yn7w8z11dq9cksg4m-nodejs-24.20.0/bin:/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/bin:/run/current-system/sw/bin"}
+$ timeout -k 30s 12m bun scripts/run-lint.mjs
+$ timeout -k 30s 12m oxlint --disable-nested-config
+Found 0 warnings and 0 errors.
+Finished in 1.1s on 639 files with 16 rules using 12 threads.
+$ timeout -k 30s 12m eslint .
+
+/home/elies/Repos/IRoboPF/docs/procedencia/correcciones/cierre-r66/vitest.config.mjs
+  1:1  warning  Assign object to a variable before exporting as module default  import/no-anonymous-default-export
+
+/home/elies/Repos/IRoboPF/docs/procedencia/editorial/flujo-escalas-r23-sol/resolver-datos.mjs
+  6:7  warning  'root' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/home/elies/Repos/IRoboPF/docs/procedencia/editorial/flujo-rentas-actividad-r23-sol/terminales.mjs
+  12:27  warning  'expr' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  17:10  warning  't' is assigned a value but never used     @typescript-eslint/no-unused-vars
+
+/home/elies/Repos/IRoboPF/docs/procedencia/editorial/flujo-rentas-r21-sol/construir.mjs
+  4:8  warning  'zlib' is defined but never used  @typescript-eslint/no-unused-vars
+
+/home/elies/Repos/IRoboPF/docs/procedencia/implementaciones/cas-local-r27-sol/historicos.mjs
+  6:3  warning  'readdirSync' is defined but never used  @typescript-eslint/no-unused-vars
+
+/home/elies/Repos/IRoboPF/docs/procedencia/revisiones/flujo-escalas-r40-sol/revisar.mjs
+  107:18  warning  'delta' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/home/elies/Repos/IRoboPF/docs/procedencia/revisiones/fronteras-escalas-r42-sol/replica.mjs
+  109:18  warning  'delta' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/home/elies/Repos/IRoboPF/docs/procedencia/revisiones/redondeo-salarial-open/rutas.ts
+  1:9  warning  'readFileSync' is defined but never used  @typescript-eslint/no-unused-vars
+
+/home/elies/Repos/IRoboPF/scripts/procedencia/causal-escalas-r60-bloqueo-ensayo.mjs
+  71:11  warning  'perfil' is assigned a value but never used        @typescript-eslint/no-unused-vars
+  71:19  warning  'trabajo' is assigned a value but never used       @typescript-eslint/no-unused-vars
+  71:28  warning  'conciliacion' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  71:42  warning  'retenciones' is assigned a value but never used   @typescript-eslint/no-unused-vars
+
+/home/elies/Repos/IRoboPF/scripts/procedencia/composicion-r43.ts
+  9:7  warning  'money' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-admision-r35-fronteras.mjs
+  35:9  warning  'each' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-componer.mjs
+  221:126  warning  'body' is defined but never used  @typescript-eslint/no-unused-vars
+
+/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-escalas-r36-consumidor.mjs
+  31:22  warning  '_id' is defined but never used  @typescript-eslint/no-unused-vars
+
+/home/elies/Repos/IRoboPF/scripts/procedencia/flujo-escalas-r36.mjs
+  192:11  warning  'ast' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+✖ 18 problems (0 errors, 18 warnings)
+
+{"command": "timeout -k 30s 12m bun run typecheck", "cwd": "/home/elies/Repos/IRoboPF", "path": "/nix/store/g7skjk9lrdnshaxd7px62bchq6yg0bbh-bun-1.3.13/bin:/nix/store/v6wsd9nyglmwh32yn7w8z11dq9cksg4m-nodejs-24.20.0/bin:/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/bin:/run/current-system/sw/bin"}
+$ timeout -k 30s 8m sh -c 'tsc --noEmit && tsc --noEmit -p tools/oxlint/tsconfig.json'
+{"command": "timeout -k 30s 12m bun run test:ci", "cwd": "/home/elies/Repos/IRoboPF", "path": "/nix/store/g7skjk9lrdnshaxd7px62bchq6yg0bbh-bun-1.3.13/bin:/nix/store/v6wsd9nyglmwh32yn7w8z11dq9cksg4m-nodejs-24.20.0/bin:/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/bin:/run/current-system/sw/bin"}
+$ timeout -k 30s 12m vitest run tests/fronteras-arquitectura.test.ts tests/dinero.test.ts --maxWorkers=1
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.5 [39m[90m/home/elies/Repos/IRoboPF[39m
+
+ [32m✓[39m tests/dinero.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+ [32m✓[39m tests/fronteras-arquitectura.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 4[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m2 passed[39m[22m[90m (2)[39m
+[2m      Tests [22m [1m[32m9 passed[39m[22m[90m (9)[39m
+[2m   Start at [22m 23:26:43
+[2m   Duration [22m 549ms[2m (transform 36ms, setup 0ms, import 324ms, tests 13ms, environment 0ms)[22m
+
+{"command": "timeout -k 30s 12m bun run test tests/puertos-composicion-r47.test.ts tests/puertos-r52.test.ts --maxWorkers=1", "cwd": "/home/elies/Repos/IRoboPF", "path": "/nix/store/g7skjk9lrdnshaxd7px62bchq6yg0bbh-bun-1.3.13/bin:/nix/store/v6wsd9nyglmwh32yn7w8z11dq9cksg4m-nodejs-24.20.0/bin:/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/bin:/run/current-system/sw/bin"}
+$ timeout -k 30s 20m vitest run "tests/puertos-composicion-r47.test.ts" "tests/puertos-r52.test.ts" "--maxWorkers=1"
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.5 [39m[90m/home/elies/Repos/IRoboPF[39m
+
+ [32m✓[39m tests/puertos-composicion-r47.test.ts [2m([22m[2m3 tests[22m[2m)[22m[33m 7390[2mms[22m[39m
+   [33m[2m✓[22m[39m el contrato actual rechaza omisiones y mutaciones de cada fuente, llamada y argumento [33m 7311[2mms[22m[39m
+ [32m✓[39m tests/puertos-r52.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 20[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m2 passed[39m[22m[90m (2)[39m
+[2m      Tests [22m [1m[32m7 passed[39m[22m[90m (7)[39m
+[2m   Start at [22m 23:26:43
+[2m   Duration [22m 9.48s[2m (transform 770ms, setup 0ms, import 1.85s, tests 7.41s, environment 0ms)[22m
+
+{"command": "timeout -k 30s 12m bun run test tests/cotizaciones-perfil-uniforme.test.ts tests/*-procedencia.test.ts --exclude tests/evidencia-contenido-procedencia.test.ts --maxWorkers=1", "cwd": "/home/elies/Repos/IRoboPF", "path": "/nix/store/g7skjk9lrdnshaxd7px62bchq6yg0bbh-bun-1.3.13/bin:/nix/store/v6wsd9nyglmwh32yn7w8z11dq9cksg4m-nodejs-24.20.0/bin:/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/bin:/run/current-system/sw/bin"}
+$ timeout -k 30s 20m vitest run tests/cotizaciones-perfil-uniforme.test.ts tests/contenido-integridad-procedencia.test.ts tests/cotizaciones-anual-procedencia.test.ts tests/evidencia-contenido-procedencia.test.ts tests/flujo-procedencia.test.ts tests/ganancias-patrimoniales-procedencia.test.ts tests/ipc-escenarios-procedencia.test.ts tests/minimos-procedencia.test.ts tests/otras-rentas-trabajo-procedencia.test.ts tests/rastro-anual-procedencia.test.ts tests/reduccion-trabajo-procedencia.test.ts tests/retenciones-coherencia-procedencia.test.ts tests/retenciones-entradas-procedencia.test.ts --exclude tests/evidencia-contenido-procedencia.test.ts "--maxWorkers=1"
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.5 [39m[90m/home/elies/Repos/IRoboPF[39m
+
+ [32m✓[39m tests/flujo-procedencia.test.ts [2m([22m[2m25 tests[22m[2m)[22m[33m 6612[2mms[22m[39m
+     [33m[2m✓[22m[39m schema y determinismo conservan el candidato pendiente [33m 1243[2mms[22m[39m
+     [33m[2m✓[22m[39m recorre los 65 sitios con identidad separada y 19 etapas [33m 447[2mms[22m[39m
+     [33m[2m✓[22m[39m rechaza eliminación, control convertido en valor, conversión y cambio de lado/año por reconstrucción [33m 3384[2mms[22m[39m
+     [33m[2m✓[22m[39m resuelve el parámetro de presentación desde su llamada anual única [33m 434[2mms[22m[39m
+   [33m[2m✓[22m[39m R30: los contratos enlazan el retorno monetario concreto y conservan las divisiones [33m 792[2mms[22m[39m
+ [32m✓[39m tests/otras-rentas-trabajo-procedencia.test.ts [2m([22m[2m25 tests[22m[2m)[22m[32m 48[2mms[22m[39m
+ [32m✓[39m tests/retenciones-coherencia-procedencia.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 41[2mms[22m[39m
+ [32m✓[39m tests/ipc-escenarios-procedencia.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 30[2mms[22m[39m
+ [32m✓[39m tests/rastro-anual-procedencia.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 25[2mms[22m[39m
+ [32m✓[39m tests/cotizaciones-anual-procedencia.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 19[2mms[22m[39m
+ [32m✓[39m tests/contenido-integridad-procedencia.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+ [32m✓[39m tests/ganancias-patrimoniales-procedencia.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+ [32m✓[39m tests/cotizaciones-perfil-uniforme.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m tests/retenciones-entradas-procedencia.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m tests/reduccion-trabajo-procedencia.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m tests/minimos-procedencia.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m12 passed[39m[22m[90m (12)[39m
+[2m      Tests [22m [1m[32m107 passed[39m[22m[90m (107)[39m
+[2m   Start at [22m 23:26:53
+[2m   Duration [22m 12.25s[2m (transform 828ms, setup 0ms, import 4.21s, tests 6.82s, environment 1ms)[22m
+
+{"command": "timeout -k 30s 12m bun run test tests/retenciones-versionadas.test.ts tests/trabajo-anual-contratos.test.ts tests/actividades-economicas-2025.test.ts tests/deducciones-contratos.test.ts tests/deducciones-ambito.test.ts tests/deducciones-conjunta-identidad.test.ts tests/calculo-salario-neto-irpf.test.ts --maxWorkers=1", "cwd": "/home/elies/Repos/IRoboPF", "path": "/nix/store/g7skjk9lrdnshaxd7px62bchq6yg0bbh-bun-1.3.13/bin:/nix/store/v6wsd9nyglmwh32yn7w8z11dq9cksg4m-nodejs-24.20.0/bin:/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/bin:/run/current-system/sw/bin"}
+$ timeout -k 30s 20m vitest run tests/retenciones-versionadas.test.ts tests/trabajo-anual-contratos.test.ts "tests/actividades-economicas-2025.test.ts" tests/deducciones-contratos.test.ts tests/deducciones-ambito.test.ts tests/deducciones-conjunta-identidad.test.ts tests/calculo-salario-neto-irpf.test.ts "--maxWorkers=1"
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.5 [39m[90m/home/elies/Repos/IRoboPF[39m
+
+ [32m✓[39m tests/actividades-economicas-2025.test.ts [2m([22m[2m59 tests[22m[2m)[22m[32m 47[2mms[22m[39m
+ [32m✓[39m tests/deducciones-conjunta-identidad.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 37[2mms[22m[39m
+ [32m✓[39m tests/retenciones-versionadas.test.ts [2m([22m[2m63 tests[22m[2m)[22m[32m 32[2mms[22m[39m
+ [32m✓[39m tests/calculo-salario-neto-irpf.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 17[2mms[22m[39m
+ [32m✓[39m tests/trabajo-anual-contratos.test.ts [2m([22m[2m36 tests[22m[2m)[22m[32m 15[2mms[22m[39m
+ [32m✓[39m tests/deducciones-ambito.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+ [32m✓[39m tests/deducciones-contratos.test.ts [2m([22m[2m24 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m7 passed[39m[22m[90m (7)[39m
+[2m      Tests [22m [1m[32m204 passed[39m[22m[90m (204)[39m
+[2m   Start at [22m 23:27:06
+[2m   Duration [22m 3.16s[2m (transform 729ms, setup 0ms, import 2.26s, tests 171ms, environment 1ms)[22m
+
+{"command": "timeout -k 30s 12m bun run test tests/composicion-anual-unica.test.ts tests/composicion-anual-revision.test.ts tests/composicion-precision.test.ts tests/composicion-precision-contraste.test.ts tests/anual-salarial-completo.test.ts tests/anual-historico-explicito.test.ts tests/conexion-anual.test.ts tests/retirada-rutas.test.ts tests/motor-unico-revision.test.ts tests/minimos-derechos.test.ts tests/retenciones-derechos.test.ts tests/liquidacion-irpf-anual.test.ts tests/correcciones-x-solidaridad.test.ts --maxWorkers=1", "cwd": "/home/elies/Repos/IRoboPF", "path": "/nix/store/g7skjk9lrdnshaxd7px62bchq6yg0bbh-bun-1.3.13/bin:/nix/store/v6wsd9nyglmwh32yn7w8z11dq9cksg4m-nodejs-24.20.0/bin:/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/bin:/run/current-system/sw/bin"}
+$ timeout -k 30s 20m vitest run tests/composicion-anual-unica.test.ts tests/composicion-anual-revision.test.ts tests/composicion-precision.test.ts tests/composicion-precision-contraste.test.ts tests/anual-salarial-completo.test.ts tests/anual-historico-explicito.test.ts tests/conexion-anual.test.ts tests/retirada-rutas.test.ts tests/motor-unico-revision.test.ts tests/minimos-derechos.test.ts tests/retenciones-derechos.test.ts tests/liquidacion-irpf-anual.test.ts tests/correcciones-x-solidaridad.test.ts "--maxWorkers=1"
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.5 [39m[90m/home/elies/Repos/IRoboPF[39m
+
+ [32m✓[39m tests/liquidacion-irpf-anual.test.ts [2m([22m[2m56 tests[22m[2m)[22m[32m 126[2mms[22m[39m
+ [32m✓[39m tests/anual-salarial-completo.test.ts [2m([22m[2m64 tests[22m[2m)[22m[32m 117[2mms[22m[39m
+ [32m✓[39m tests/anual-historico-explicito.test.ts [2m([22m[2m17 tests[22m[2m)[22m[32m 62[2mms[22m[39m
+ [32m✓[39m tests/conexion-anual.test.ts [2m([22m[2m29 tests[22m[2m)[22m[32m 55[2mms[22m[39m
+ [32m✓[39m tests/motor-unico-revision.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 50[2mms[22m[39m
+ [32m✓[39m tests/minimos-derechos.test.ts [2m([22m[2m28 tests[22m[2m)[22m[32m 47[2mms[22m[39m
+ [32m✓[39m tests/composicion-anual-revision.test.ts [2m([22m[2m26 tests[22m[2m)[22m[32m 41[2mms[22m[39m
+ [32m✓[39m tests/composicion-anual-unica.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 36[2mms[22m[39m
+ [32m✓[39m tests/retirada-rutas.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 19[2mms[22m[39m
+ [32m✓[39m tests/retenciones-derechos.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 16[2mms[22m[39m
+ [32m✓[39m tests/composicion-precision.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+ [32m✓[39m tests/composicion-precision-contraste.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m tests/correcciones-x-solidaridad.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 4[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m13 passed[39m[22m[90m (13)[39m
+[2m      Tests [22m [1m[32m244 passed[39m[22m[90m (244)[39m
+[2m   Start at [22m 23:27:09
+[2m   Duration [22m 6.03s[2m (transform 735ms, setup 0ms, import 4.09s, tests 590ms, environment 1ms)[22m
+
+{"command": "timeout -k 30s 12m bun run inventario:verificar", "cwd": "/home/elies/Repos/IRoboPF", "path": "/nix/store/g7skjk9lrdnshaxd7px62bchq6yg0bbh-bun-1.3.13/bin:/nix/store/v6wsd9nyglmwh32yn7w8z11dq9cksg4m-nodejs-24.20.0/bin:/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/bin:/run/current-system/sw/bin"}
+$ timeout -k 30s 12m bun scripts/procedencia/inventario-artefacto.mjs check
+{"mode":"check","counts":{"filesTs":130,"filesPython":1,"syntactic":29423,"effective":18007,"selected":12484,"pendingUnits":35724,"catalog":351,"audited":0}}
+{"command": "timeout -k 30s 12m bun run test tests/minimos-derechos-anuales.test.ts tests/territorios-2026.test.ts tests/comunidades-autonomas.test.ts tests/deducciones-pendientes.test.ts tests/deducciones-valencianas-datos-producto.test.ts tests/deducciones-valencianas-evaluacion.test.ts tests/deducciones-valencianas-correcciones.test.ts tests/deducciones-valencianas-composicion.test.ts tests/deducciones-valencianas-ejercicio.test.ts tests/deducciones-valencianas-cuota-conjunta.test.ts tests/escalas-publicadas.test.ts tests/escalas-publicadas-2025.test.ts tests/escalas-madrid-historicas.test.ts --maxWorkers=1", "cwd": "/home/elies/Repos/IRoboPF", "path": "/nix/store/g7skjk9lrdnshaxd7px62bchq6yg0bbh-bun-1.3.13/bin:/nix/store/v6wsd9nyglmwh32yn7w8z11dq9cksg4m-nodejs-24.20.0/bin:/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/bin:/run/current-system/sw/bin"}
+$ timeout -k 30s 20m vitest run tests/minimos-derechos-anuales.test.ts "tests/territorios-2026.test.ts" tests/comunidades-autonomas.test.ts tests/deducciones-pendientes.test.ts tests/deducciones-valencianas-datos-producto.test.ts tests/deducciones-valencianas-evaluacion.test.ts tests/deducciones-valencianas-correcciones.test.ts tests/deducciones-valencianas-composicion.test.ts tests/deducciones-valencianas-ejercicio.test.ts tests/deducciones-valencianas-cuota-conjunta.test.ts tests/escalas-publicadas.test.ts "tests/escalas-publicadas-2025.test.ts" tests/escalas-madrid-historicas.test.ts "--maxWorkers=1"
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.5 [39m[90m/home/elies/Repos/IRoboPF[39m
+
+ [32m✓[39m tests/minimos-derechos-anuales.test.ts [2m([22m[2m299 tests[22m[2m)[22m[33m 855[2mms[22m[39m
+ [32m✓[39m tests/territorios-2026.test.ts [2m([22m[2m189 tests[22m[2m)[22m[32m 90[2mms[22m[39m
+ [32m✓[39m tests/escalas-madrid-historicas.test.ts [2m([22m[2m47 tests[22m[2m)[22m[32m 71[2mms[22m[39m
+ [32m✓[39m tests/deducciones-valencianas-evaluacion.test.ts [2m([22m[2m114 tests[22m[2m)[22m[32m 39[2mms[22m[39m
+ [32m✓[39m tests/deducciones-valencianas-cuota-conjunta.test.ts [2m([22m[2m23 tests[22m[2m)[22m[32m 31[2mms[22m[39m
+ [32m✓[39m tests/deducciones-valencianas-composicion.test.ts [2m([22m[2m20 tests[22m[2m)[22m[32m 30[2mms[22m[39m
+ [32m✓[39m tests/comunidades-autonomas.test.ts [2m([22m[2m23 tests[22m[2m)[22m[32m 20[2mms[22m[39m
+ [32m✓[39m tests/escalas-publicadas-2025.test.ts [2m([22m[2m76 tests[22m[2m)[22m[32m 15[2mms[22m[39m
+ [32m✓[39m tests/deducciones-valencianas-correcciones.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+ [32m✓[39m tests/deducciones-valencianas-ejercicio.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+ [32m✓[39m tests/deducciones-pendientes.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+ [32m✓[39m tests/escalas-publicadas.test.ts [2m([22m[2m24 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+ [32m✓[39m tests/deducciones-valencianas-datos-producto.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m13 passed[39m[22m[90m (13)[39m
+[2m      Tests [22m [1m[32m851 passed[39m[22m[90m (851)[39m
+[2m   Start at [22m 23:27:27
+[2m   Duration [22m 6.07s[2m (transform 742ms, setup 0ms, import 3.52s, tests 1.21s, environment 1ms)[22m
+
+{"command": "timeout -k 30s 12m bun run test:inventario", "cwd": "/home/elies/Repos/IRoboPF", "path": "/nix/store/g7skjk9lrdnshaxd7px62bchq6yg0bbh-bun-1.3.13/bin:/nix/store/v6wsd9nyglmwh32yn7w8z11dq9cksg4m-nodejs-24.20.0/bin:/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/bin:/run/current-system/sw/bin"}
+$ timeout -k 30s 12m vitest run --config scripts/procedencia/inventario-vitest.mjs --maxWorkers=1
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.5 [39m[90m/home/elies/Repos/IRoboPF[39m
+
+ [32m✓[39m tests/procedencia-inventario.test.mjs [2m([22m[2m18 tests[22m[2m)[22m[33m 51860[2mms[22m[39m
+     [33m[2m✓[22m[39m la API reconstruye valores nuevos aunque el llamador haya importado una dependencia [33m 22604[2mms[22m[39m
+     [33m[2m✓[22m[39m rechaza un valor adulterado aunque todos sus hashes hayan sido recalculados [33m 27015[2mms[22m[39m
+     [33m[2m✓[22m[39m verifica hashes de páginas, cobertura representativa y selección territorial real [33m 1459[2mms[22m[39m
+     [33m[2m✓[22m[39m resuelve el alias importado real de mínimos 2024 a su definición 2025 [33m 534[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m18 passed[39m[22m[90m (18)[39m
+[2m   Start at [22m 23:27:33
+[2m   Duration [22m 52.50s[2m (transform 143ms, setup 0ms, import 531ms, tests 51.86s, environment 0ms)[22m
+
+{"command": "timeout -k 30s 12m bun run test --config scripts/procedencia/contenido-vitest.mjs", "cwd": "/home/elies/Repos/IRoboPF", "path": "/nix/store/g7skjk9lrdnshaxd7px62bchq6yg0bbh-bun-1.3.13/bin:/nix/store/v6wsd9nyglmwh32yn7w8z11dq9cksg4m-nodejs-24.20.0/bin:/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/bin:/run/current-system/sw/bin"}
+$ timeout -k 30s 20m vitest run --config scripts/procedencia/contenido-vitest.mjs
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.5 [39m[90m/home/elies/Repos/IRoboPF[39m
+
+ [32m✓[39m tests/procedencia-contenido.test.tsx [2m([22m[2m13 tests[22m[2m)[22m[32m 25[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m13 passed[39m[22m[90m (13)[39m
+[2m   Start at [22m 23:28:26
+[2m   Duration [22m 728ms[2m (transform 182ms, setup 0ms, import 594ms, tests 25ms, environment 0ms)[22m
+
+{"command": "timeout -k 30s 12m bun scripts/procedencia/contenido-verificar.mjs --fixture", "cwd": "/home/elies/Repos/IRoboPF", "path": "/nix/store/g7skjk9lrdnshaxd7px62bchq6yg0bbh-bun-1.3.13/bin:/nix/store/v6wsd9nyglmwh32yn7w8z11dq9cksg4m-nodejs-24.20.0/bin:/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/bin:/run/current-system/sw/bin"}
+{"modo":"fixture-sintetica","integridad":"comprobada","aceptacionFiscal":"pendiente","cantidad":1}
+{"command": "timeout -k 30s 12m bun scripts/procedencia/rastro-verificar.mjs --fixture", "cwd": "/home/elies/Repos/IRoboPF", "path": "/nix/store/g7skjk9lrdnshaxd7px62bchq6yg0bbh-bun-1.3.13/bin:/nix/store/v6wsd9nyglmwh32yn7w8z11dq9cksg4m-nodejs-24.20.0/bin:/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/bin:/run/current-system/sw/bin"}
+{"puntos":1,"snapshot":"54758dfc9470ea8424ee7dd2c88a96d749899f73418027c94d9630c585b2f8f8","aceptacionFiscal":"pendiente"}
+JOB corpus
+{"command": "timeout -k 30s 1m python3 scripts/ci-no-cache.py", "cwd": "/home/elies/Backups/IRoboPF/producto-c300-publicacion-20261104/workflow/checkout-solo-rutas", "path": "/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/bin:/run/current-system/sw/bin"}
+{"command": "echo \"Corpus completo CAS omitido explícitamente; se ejecutan fixtures y contratos reproducibles. Véase docs/procedencia/CI.md\"", "cwd": "/home/elies/Repos/IRoboPF", "path": "/nix/store/g7skjk9lrdnshaxd7px62bchq6yg0bbh-bun-1.3.13/bin:/nix/store/v6wsd9nyglmwh32yn7w8z11dq9cksg4m-nodejs-24.20.0/bin:/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/bin:/run/current-system/sw/bin"}
+Corpus completo CAS omitido explícitamente; se ejecutan fixtures y contratos reproducibles. Véase docs/procedencia/CI.md
+{"command": "timeout -k 30s 12m bun install --frozen-lockfile", "cwd": "/home/elies/Repos/IRoboPF", "path": "/nix/store/g7skjk9lrdnshaxd7px62bchq6yg0bbh-bun-1.3.13/bin:/nix/store/v6wsd9nyglmwh32yn7w8z11dq9cksg4m-nodejs-24.20.0/bin:/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/bin:/run/current-system/sw/bin"}
+bun install v1.3.13 (bf2e2cec)
+
+$ timeout -k 30s 2m effect-language-service patch
+[23:28:28.330] INFO (#1): /home/elies/Repos/IRoboPF/node_modules/typescript/lib/typescript.js is already patched with version 0.85.1, skipped.
+[23:28:28.360] INFO (#1): /home/elies/Repos/IRoboPF/node_modules/typescript/lib/_tsc.js is already patched with version 0.85.1, skipped.
+[23:28:28.361] INFO (#1): If your project uses incremental builds, delete the .tsbuildinfo files and perform a full build.
+
+Checked 804 installs across 878 packages (no changes) [354.00ms]
+{"command": "timeout -k 30s 12m bash tools/procedencia/run.sh tests/procedencia-corpus_test.py", "cwd": "/home/elies/Repos/IRoboPF", "path": "/nix/store/g7skjk9lrdnshaxd7px62bchq6yg0bbh-bun-1.3.13/bin:/nix/store/v6wsd9nyglmwh32yn7w8z11dq9cksg4m-nodejs-24.20.0/bin:/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/bin:/run/current-system/sw/bin"}
+.........................
+----------------------------------------------------------------------
+Ran 25 tests in 0.434s
+
+OK
+{"command": "timeout -k 30s 12m bash tools/procedencia/run.sh tests/procedencia-enlaces_test.py", "cwd": "/home/elies/Repos/IRoboPF", "path": "/nix/store/g7skjk9lrdnshaxd7px62bchq6yg0bbh-bun-1.3.13/bin:/nix/store/v6wsd9nyglmwh32yn7w8z11dq9cksg4m-nodejs-24.20.0/bin:/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/bin:/run/current-system/sw/bin"}
+........................
+----------------------------------------------------------------------
+Ran 24 tests in 1.624s
+
+OK
+{"command": "timeout -k 30s 12m bash tools/procedencia/run.sh tests/procedencia-preservacion_test.py", "cwd": "/home/elies/Repos/IRoboPF", "path": "/nix/store/g7skjk9lrdnshaxd7px62bchq6yg0bbh-bun-1.3.13/bin:/nix/store/v6wsd9nyglmwh32yn7w8z11dq9cksg4m-nodejs-24.20.0/bin:/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/bin:/run/current-system/sw/bin"}
+...................
+----------------------------------------------------------------------
+Ran 19 tests in 0.255s
+
+OK
+{"command": "timeout -k 30s 12m bash scripts/procedencia/deducciones-2025/verificar.sh --lotes docs/procedencia/deducciones-2025/lotes --modo completo", "cwd": "/home/elies/Repos/IRoboPF", "path": "/nix/store/g7skjk9lrdnshaxd7px62bchq6yg0bbh-bun-1.3.13/bin:/nix/store/v6wsd9nyglmwh32yn7w8z11dq9cksg4m-nodejs-24.20.0/bin:/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/bin:/run/current-system/sw/bin"}
+{"estadoRevision": "candidato", "recibidas": 351, "pendientes": [], "integridadBytes": "no_comprobada", "vigenciaJuridica": "requiere_revision_independiente"}
+{"command": "timeout -k 30s 12m bun scripts/procedencia/verificar-enlaces.mjs --fixture", "cwd": "/home/elies/Repos/IRoboPF", "path": "/nix/store/g7skjk9lrdnshaxd7px62bchq6yg0bbh-bun-1.3.13/bin:/nix/store/v6wsd9nyglmwh32yn7w8z11dq9cksg4m-nodejs-24.20.0/bin:/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/bin:/run/current-system/sw/bin"}
+........................
+----------------------------------------------------------------------
+Ran 24 tests in 1.613s
+
+OK
+Fixture Madrid: comprobada; corpus completo CAS: omitido explícitamente
+{"command": "timeout -k 30s 12m bun run test tests/evidencia-contenido-procedencia.test.ts --maxWorkers=1", "cwd": "/home/elies/Repos/IRoboPF", "path": "/nix/store/g7skjk9lrdnshaxd7px62bchq6yg0bbh-bun-1.3.13/bin:/nix/store/v6wsd9nyglmwh32yn7w8z11dq9cksg4m-nodejs-24.20.0/bin:/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/bin:/run/current-system/sw/bin"}
+$ timeout -k 30s 20m vitest run tests/evidencia-contenido-procedencia.test.ts "--maxWorkers=1"
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.5 [39m[90m/home/elies/Repos/IRoboPF[39m
+
+ [32m✓[39m tests/evidencia-contenido-procedencia.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 68[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m3 passed[39m[22m[90m (3)[39m
+[2m   Start at [22m 23:28:52
+[2m   Duration [22m 791ms[2m (transform 202ms, setup 0ms, import 608ms, tests 68ms, environment 0ms)[22m
+
+{"command": "timeout -k 30s 12m bun run test tests/publicacion-evidencia.test.ts --maxWorkers=1", "cwd": "/home/elies/Repos/IRoboPF", "path": "/nix/store/g7skjk9lrdnshaxd7px62bchq6yg0bbh-bun-1.3.13/bin:/nix/store/v6wsd9nyglmwh32yn7w8z11dq9cksg4m-nodejs-24.20.0/bin:/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/bin:/run/current-system/sw/bin"}
+$ timeout -k 30s 20m vitest run tests/publicacion-evidencia.test.ts "--maxWorkers=1"
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.5 [39m[90m/home/elies/Repos/IRoboPF[39m
+
+ [32m✓[39m tests/publicacion-evidencia.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 24[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m   Start at [22m 23:28:53
+[2m   Duration [22m 741ms[2m (transform 204ms, setup 0ms, import 609ms, tests 24ms, environment 0ms)[22m
+
+{"command": "timeout -k 30s 12m bun tests/cas-local-r27.mjs", "cwd": "/home/elies/Repos/IRoboPF", "path": "/nix/store/g7skjk9lrdnshaxd7px62bchq6yg0bbh-bun-1.3.13/bin:/nix/store/v6wsd9nyglmwh32yn7w8z11dq9cksg4m-nodejs-24.20.0/bin:/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/bin:/run/current-system/sw/bin"}
+{"success":true,"fixture":"sintetico-no-oficial","scratch":"/tmp/procedencia-ci-gtpwm2","controles":"bytes, HTTP, allowlist, configuración ausente/relativa, escritura imposible, ausencia, truncado, mutación persistente, recuperación, symlink, ancestro, descriptores hostiles"}
+{"command": "timeout -k 30s 12m nix develop path:tools/procedencia --command bash scripts/ci-datos.sh", "cwd": "/home/elies/Repos/IRoboPF", "path": "/nix/store/g7skjk9lrdnshaxd7px62bchq6yg0bbh-bun-1.3.13/bin:/nix/store/v6wsd9nyglmwh32yn7w8z11dq9cksg4m-nodejs-24.20.0/bin:/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/bin:/run/current-system/sw/bin"}
+test_both_external_signs (test_flujo.Contract.test_both_external_signs) ... ok
+test_cell_mutations (test_flujo.Contract.test_cell_mutations) ... ok
+test_coherent_units_still_need_original_header (test_flujo.Contract.test_coherent_units_still_need_original_header) ... ok
+test_contained_signs_keep_their_value (test_flujo.Contract.test_contained_signs_keep_their_value) ... ok
+test_coverage_and_duplicates (test_flujo.Contract.test_coverage_and_duplicates) ... ok
+test_document_page_and_header_mutations (test_flujo.Contract.test_document_page_and_header_mutations) ... ok
+test_empty_and_explicit_absence (test_flujo.Contract.test_empty_and_explicit_absence) ... ok
+test_expression (test_flujo.Contract.test_expression) ... ok
+test_external_sign_geometry_across_font_sizes_and_vertical_offsets (test_flujo.Contract.test_external_sign_geometry_across_font_sizes_and_vertical_offsets) ... ok
+test_independent_decimal (test_flujo.Contract.test_independent_decimal) ... ok
+test_independent_obligations_and_units (test_flujo.Contract.test_independent_obligations_and_units) ... ok
+test_ine_pointer_indices (test_flujo.Contract.test_ine_pointer_indices) ... ok
+test_json_pointer_selects_second_repeated_value (test_flujo.Contract.test_json_pointer_selects_second_repeated_value) ... ok
+test_json_positions_are_structural (test_flujo.Contract.test_json_positions_are_structural) ... ok
+test_match_and_motor_change (test_flujo.Contract.test_match_and_motor_change) ... ok
+test_missing_and_mismatched_semantics_never_match (test_flujo.Contract.test_missing_and_mismatched_semantics_never_match) ... ok
+test_missing_source_unit_never_matches (test_flujo.Contract.test_missing_source_unit_never_matches) ... ok
+test_operation_units_require_compatible_operands (test_flujo.Contract.test_operation_units_require_compatible_operands) ... ok
+test_original_absent_corrupt_and_artifact (test_flujo.Contract.test_original_absent_corrupt_and_artifact) ... ok
+test_semantic_source_hash_and_operations (test_flujo.Contract.test_semantic_source_hash_and_operations) ... ok
+test_signs_in_separate_rows_or_distant_columns_do_not_change_cell (test_flujo.Contract.test_signs_in_separate_rows_or_distant_columns_do_not_change_cell) ... ok
+test_foreign_column_and_false_adjacency (test_geometria_identidad.ContextTests.test_foreign_column_and_false_adjacency) ... ok
+test_identity_subset (test_geometria_identidad.ContextTests.test_identity_subset) ... ok
+test_legitimate_column_and_padded_selector (test_geometria_identidad.ContextTests.test_legitimate_column_and_padded_selector) ... ok
+test_header_vocabulary_not_extended_by_registry (test_obligaciones_lotes.Lots.test_header_vocabulary_not_extended_by_registry) ... ok
+test_missing_unit_proof_remains_unverified (test_obligaciones_lotes.Lots.test_missing_unit_proof_remains_unverified) ... ok
+test_pilot_pin_preserved (test_obligaciones_lotes.Lots.test_pilot_pin_preserved) ... ok
+test_rehashed_artifacts_and_wrong_code_preimage (test_obligaciones_lotes.Lots.test_rehashed_artifacts_and_wrong_code_preimage) ... ok
+test_schema_and_semantics_guards (test_obligaciones_lotes.Lots.test_schema_and_semantics_guards) ... ok
+test_selection_and_schema_adversaries (test_obligaciones_lotes.Lots.test_selection_and_schema_adversaries) ... ok
+test_two_non_pilot_cli_and_manifest_replay (test_obligaciones_lotes.Lots.test_two_non_pilot_cli_and_manifest_replay) ... ok
+test_exact_variants_no_general_cleanup (test_unidades_enlaces.Units.test_exact_variants_no_general_cleanup) ... ok
+test_explicit_runtime_is_inherited_by_nested_bun (test_unidades_enlaces.Units.test_explicit_runtime_is_inherited_by_nested_bun) ... ok
+test_foreign_column_and_case_rejected (test_unidades_enlaces.Units.test_foreign_column_and_case_rejected) ... ok
+test_header_unit_cannot_be_invented_by_rehashing_registry (test_unidades_enlaces.Units.test_header_unit_cannot_be_invented_by_rehashing_registry) ... ok
+test_independent_census_scope_cannot_be_redeclared (test_unidades_enlaces.Units.test_independent_census_scope_cannot_be_redeclared) ... ok
+test_real_cli_rate_conversion_and_replay (test_unidades_enlaces.Units.test_real_cli_rate_conversion_and_replay) ... ok
+test_rehashed_registry_transplants_preimage_and_units (test_unidades_enlaces.Units.test_rehashed_registry_transplants_preimage_and_units) ... ok
+test_retired_preimage_cannot_become_live_evidence (test_unidades_enlaces.Units.test_retired_preimage_cannot_become_live_evidence) ... ok
+test_same_header_in_foreign_column_is_not_evidence (test_unidades_enlaces.Units.test_same_header_in_foreign_column_is_not_evidence) ... ok
+
+----------------------------------------------------------------------
+Ran 40 tests in 224.857s
+
+OK
+test_async_helper_is_not_identity (__main__.Review.test_async_helper_is_not_identity) ... ok
+test_divergent_helper_rejected (__main__.Review.test_divergent_helper_rejected) ... ok
+test_external_pin_survives_consistent_forgery (__main__.Review.test_external_pin_survives_consistent_forgery) ... ok
+test_padded_foreign_header_rejected (__main__.Review.test_padded_foreign_header_rejected) ... ok
+test_same_value_other_property_and_utf16 (__main__.Review.test_same_value_other_property_and_utf16) ... ok
+test_unknown_dimensions_remain_candidate (__main__.Review.test_unknown_dimensions_remain_candidate) ... ok
+test_wrong_scale_is_not_match (__main__.Review.test_wrong_scale_is_not_match) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 44.446s
+
+OK
+test_cargos_require_worker_literal (test_contexto.ContextTest.test_cargos_require_worker_literal) ... ok
+test_document_title_year_ignores_previous_budget_in_preamble (test_contexto.ContextTest.test_document_title_year_ignores_previous_budget_in_preamble) ... ok
+test_forged_period_literal_rejected (test_contexto.ContextTest.test_forged_period_literal_rejected) ... ok
+test_missing_context_does_not_inherit_labels (test_contexto.ContextTest.test_missing_context_does_not_inherit_labels) ... ok
+test_open_period_does_not_acquire_december_end (test_contexto.ContextTest.test_open_period_does_not_acquire_december_end) ... ok
+test_other_table_period_cannot_be_transplanted (test_contexto.ContextTest.test_other_table_period_cannot_be_transplanted) ... ok
+test_positive_partial_period_preserved (test_contexto.ContextTest.test_positive_partial_period_preserved) ... ok
+test_rate_year_and_period_are_separate_evidence (test_contexto.ContextTest.test_rate_year_and_period_are_separate_evidence) ... ok
+test_relabelled_column_year_unit_and_group_rejected (test_contexto.ContextTest.test_relabelled_column_year_unit_and_group_rejected) ... ok
+test_2018_cap_not_average_clamp (test_enlaces.SemanticsTest.test_2018_cap_not_average_clamp) ... ok
+test_comma_before_and (test_enlaces.SemanticsTest.test_comma_before_and) ... ok
+test_dimensions_are_explicit (test_enlaces.SemanticsTest.test_dimensions_are_explicit) ... ok
+test_duplicate_selector_refused (test_enlaces.SemanticsTest.test_duplicate_selector_refused) ... ok
+test_no_unlabelled_numeric_coincidence (test_enlaces.SemanticsTest.test_no_unlabelled_numeric_coincidence) ... ok
+test_percent_per_hundred_disability_is_not_rate (test_enlaces.SemanticsTest.test_percent_per_hundred_disability_is_not_rate) ... ok
+test_ast_binding_must_identify_the_verified_module (test_orden_anual.OfficialOrderTest.test_ast_binding_must_identify_the_verified_module) ... skipped 'requiere dos originales oficiales y censo previo, explícitos'
+test_census_reuse_checks_only_consumed_modules (test_orden_anual.OfficialOrderTest.test_census_reuse_checks_only_consumed_modules) ... skipped 'requiere dos originales oficiales y censo previo, explícitos'
+test_every_changed_dimension_and_selector_is_rejected (test_orden_anual.OfficialOrderTest.test_every_changed_dimension_and_selector_is_rejected) ... skipped 'requiere dos originales oficiales y censo previo, explícitos'
+test_numeric_disagreement_preserved (test_orden_anual.OfficialOrderTest.test_numeric_disagreement_preserved) ... skipped 'requiere dos originales oficiales y censo previo, explícitos'
+test_other_original_cannot_supply_this_order (test_orden_anual.OfficialOrderTest.test_other_original_cannot_supply_this_order) ... skipped 'requiere dos originales oficiales y censo previo, explícitos'
+test_physical_replay_independent_of_registry_seal (test_orden_anual.OfficialOrderTest.test_physical_replay_independent_of_registry_seal) ... skipped 'requiere dos originales oficiales y censo previo, explícitos'
+test_real_coverage_and_reserves (test_orden_anual.OfficialOrderTest.test_real_coverage_and_reserves) ... skipped 'requiere dos originales oficiales y censo previo, explícitos'
+
+----------------------------------------------------------------------
+Ran 22 tests in 0.092s
+
+OK (skipped=7)
+test_comparacion_sin_vigencia_es_solo_aritmetica (__main__.Controles.test_comparacion_sin_vigencia_es_solo_aritmetica) ... ok
+test_fuente_ausente (__main__.Controles.test_fuente_ausente) ... ok
+test_indice_y_mes_no_son_tasa_diciembre (__main__.Controles.test_indice_y_mes_no_son_tasa_diciembre) ... ok
+test_anio_no_puede_reetiquetarse_sin_evidencia (__main__.Discriminantes.test_anio_no_puede_reetiquetarse_sin_evidencia) ... ok
+test_columna_y_periodo_no_pueden_reetiquetarse (__main__.Discriminantes.test_columna_y_periodo_no_pueden_reetiquetarse) ... ok
+test_segundo_cargo_debe_ser_trabajador (__main__.Discriminantes.test_segundo_cargo_debe_ser_trabajador) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.023s
+
+OK
+test_actual_engine_percent_conversion (__main__.ExtractionTests.test_actual_engine_percent_conversion) ... ok
+test_incorrect_binding (__main__.ExtractionTests.test_incorrect_binding) ... ok
+test_omission_duplicate (__main__.ExtractionTests.test_omission_duplicate) ... ok
+test_sign_and_percent (__main__.ExtractionTests.test_sign_and_percent) ... ok
+test_unit_scale_measure_month (__main__.ExtractionTests.test_unit_scale_measure_month) ... ok
+test_worker_employer_scope (__main__.ExtractionTests.test_worker_employer_scope) ... ok
+test_wrong_year_absence_and_ambiguous_sign (__main__.ExtractionTests.test_wrong_year_absence_and_ambiguous_sign) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.001s
+
+OK
+{"paresIpc":196,"identidad":1,"escenarioExplicito":1,"ausenciaObservacion2026":1,"bases2018":5,"alcance":"aritmética y clasificación; vigencia legal revisada separadamente"}
+test_batch_executes_real_resolver_and_rejects_async_and_transplant (__main__.CacheGeometry.test_batch_executes_real_resolver_and_rejects_async_and_transplant) ... ok
+test_manual_selector_rejects_income_threshold_and_nonannual (__main__.CacheGeometry.test_manual_selector_rejects_income_threshold_and_nonannual) ... ok
+test_manual_selector_uses_subject_and_annual_phrase (__main__.CacheGeometry.test_manual_selector_uses_subject_and_annual_phrase) ... ok
+test_reconciliation_keeps_changed_dimensions (__main__.CacheGeometry.test_reconciliation_keeps_changed_dimensions) ... ok
+test_reconciliation_never_matches_equal_numbers (__main__.CacheGeometry.test_reconciliation_never_matches_equal_numbers) ... ok
+test_reconciliation_rejects_duplicate_denominator (__main__.CacheGeometry.test_reconciliation_rejects_duplicate_denominator) ... ok
+test_same_header_does_not_prove_another_column (__main__.CacheGeometry.test_same_header_does_not_prove_another_column) ... ok
+test_simulation_is_separate_from_missing_official_selector (__main__.CacheGeometry.test_simulation_is_separate_from_missing_official_selector) ... ok
+test_unit_cache_checks_neighbour_columns (__main__.CacheGeometry.test_unit_cache_checks_neighbour_columns) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 1.725s
+
+OK
+test_binding_mutation_rejected (__main__.BatchTests.test_binding_mutation_rejected) ... ok
+test_failed_table_retains_all_obligations (__main__.BatchTests.test_failed_table_retains_all_obligations) ... ok
+test_lowercase_and_broken_grouping_stay_errors (__main__.BatchTests.test_lowercase_and_broken_grouping_stay_errors) ... ok
+test_negative_exact_and_mutation_difference (__main__.BatchTests.test_negative_exact_and_mutation_difference) ... ok
+test_omission_rejected (__main__.BatchTests.test_omission_rejected) ... ok
+test_printed_absence_is_not_zero (__main__.BatchTests.test_printed_absence_is_not_zero) ... ok
+test_supplement_requires_intact_inventory_and_all_exports (__main__.BatchTests.test_supplement_requires_intact_inventory_and_all_exports) ... ok
+test_unit_not_inferred_from_equality (__main__.BatchTests.test_unit_not_inferred_from_equality) ... ok
+test_year_and_territory_rejected (__main__.BatchTests.test_year_and_territory_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.051s
+
+OK
+test_binding_not_value (__main__.Contract.test_binding_not_value) ... ok
+test_decimal (__main__.Contract.test_decimal) ... ok
+test_empty_and_absent (__main__.Contract.test_empty_and_absent) ... ok
+test_header_geometry_and_percent_suffix (__main__.Contract.test_header_geometry_and_percent_suffix) ... ok
+test_omission (__main__.Contract.test_omission) ... ok
+test_signs (__main__.Contract.test_signs) ... ok
+test_territory (__main__.Contract.test_territory) ... ok
+test_unequal_rows_reject_whole_table (__main__.Contract.test_unequal_rows_reject_whole_table) ... ok
+test_unit_mutation (__main__.Contract.test_unit_mutation) ... ok
+test_unit_required (__main__.Contract.test_unit_required) ... ok
+test_year (__main__.Contract.test_year) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 0.054s
+
+OK
+test_alias_uses_final_reference_and_territory (__main__.Correspondence.test_alias_uses_final_reference_and_territory) ... ok
+test_boundaries_stay_literal (__main__.Correspondence.test_boundaries_stay_literal) ... ok
+test_duplicate_occurrences_rejected (__main__.Correspondence.test_duplicate_occurrences_rejected) ... ok
+test_final_override_cannot_inherit_base_default (__main__.Correspondence.test_final_override_cannot_inherit_base_default) ... ok
+test_omission_transplant_year_territory_and_unit (__main__.Correspondence.test_omission_transplant_year_territory_and_unit) ... ok
+test_scope_heading_can_precede_table_on_previous_page (__main__.Correspondence.test_scope_heading_can_precede_table_on_previous_page) ... ok
+test_selector_gap_is_not_external_absence (__main__.Correspondence.test_selector_gap_is_not_external_absence) ... ok
+test_statutory_subjects_thresholds_and_ordinals (__main__.Correspondence.test_statutory_subjects_thresholds_and_ordinals) ... ok
+test_truncated_table_has_no_partial_results (__main__.Correspondence.test_truncated_table_has_no_partial_results) ... ok
+test_units_pending_do_not_become_matches (__main__.Correspondence.test_units_pending_do_not_become_matches) ... ok
+test_wrong_header_preimage_rejects_entire_table (__main__.Correspondence.test_wrong_header_preimage_rejects_entire_table) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 0.039s
+
+OK
+test_cola_incluye_match_y_rechazo_completo (__main__.Resultados.test_cola_incluye_match_y_rechazo_completo) ... ok
+test_match_conserva_reservas_hasta_balance (__main__.Resultados.test_match_conserva_reservas_hasta_balance) ... ok
+test_simulada_y_sin_selector_no_se_acreditan (__main__.Resultados.test_simulada_y_sin_selector_no_se_acreditan) ... ok
+test_summarize_no_conserva_razon_del_lote_no_verificable (__main__.Resultados.test_summarize_no_conserva_razon_del_lote_no_verificable) ... ok
+test_union_corrige_razon_sin_perder_reserva_anterior (__main__.Resultados.test_union_corrige_razon_sin_perder_reserva_anterior) ... ok
+test_union_prevalece_diferencia_y_recalcula_disponibilidad (__main__.Resultados.test_union_prevalece_diferencia_y_recalcula_disponibilidad) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.006s
+
+OK
+1 {'match': 1}
+{"command": "timeout -k 30s 12m nix develop path:tools/procedencia --command bash scripts/ci-simuladores.sh", "cwd": "/home/elies/Repos/IRoboPF", "path": "/nix/store/g7skjk9lrdnshaxd7px62bchq6yg0bbh-bun-1.3.13/bin:/nix/store/v6wsd9nyglmwh32yn7w8z11dq9cksg4m-nodejs-24.20.0/bin:/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/bin:/run/current-system/sw/bin"}
+test_absence_is_not_money_and_cent_is_difference (__main__.Portable.test_absence_is_not_money_and_cent_is_difference) ... ok
+test_all_personal_keys_require_one_complete_record (__main__.Portable.test_all_personal_keys_require_one_complete_record) ... ok
+test_binding_discriminants_and_pending_facts (__main__.Portable.test_binding_discriminants_and_pending_facts) ... ok
+test_cas_corruption_and_journal_last_state (__main__.Portable.test_cas_corruption_and_journal_last_state) ... ok
+test_configured_directories_are_disjoint (__main__.Portable.test_configured_directories_are_disjoint) ... ok
+test_external_config_and_missing_tool (__main__.Portable.test_external_config_and_missing_tool) ... ok
+test_external_config_resolves_links_and_dotdot (__main__.Portable.test_external_config_resolves_links_and_dotdot) ... ok
+test_launcher_change_invalidates_loaded_and_restarted_identity (__main__.Portable.test_launcher_change_invalidates_loaded_and_restarted_identity) ... ok
+test_parser_scope_types_and_duplicates (__main__.Portable.test_parser_scope_types_and_duplicates) ... ok
+test_personal_scope_ends_at_shallower_record (__main__.Portable.test_personal_scope_ends_at_shallower_record) ... ok
+test_real_operator_and_rejection (__main__.Portable.test_real_operator_and_rejection) ... ok
+test_reference_binding_preserves_all_expenses (__main__.Portable.test_reference_binding_preserves_all_expenses) ... ok
+test_seed_serial_limit (__main__.Portable.test_seed_serial_limit) ... ok
+test_synthetic_transport_validation_and_resume (__main__.Portable.test_synthetic_transport_validation_and_resume) ... GENERATED 2020
+DONE verified synthetic 1.00
+SKIP historical-fixed synthetic N000088955
+DONE verified synthetic 1.00
+ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 3.961s
+
+OK
+.......
+----------------------------------------------------------------------
+Ran 7 tests in 0.122s
+
+OK
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.5 [39m[90m/home/elies/Repos/IRoboPF[39m
+
+ [32m✓[39m tests/art20-open-c300.test.ts [2m([22m[2m22 tests[22m[2m)[22m[32m 65[2mms[22m[39m
+ [32m✓[39m tests/redondeo-salarial-open.test.ts [2m([22m[2m15 tests[22m[2m)[22m[32m 58[2mms[22m[39m
+ [32m✓[39m tests/conexion-anual.test.ts [2m([22m[2m29 tests[22m[2m)[22m[32m 56[2mms[22m[39m
+ [32m✓[39m tests/composicion-anual-revision.test.ts [2m([22m[2m26 tests[22m[2m)[22m[32m 43[2mms[22m[39m
+ [32m✓[39m tests/composicion-anual-unica.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 36[2mms[22m[39m
+ [32m✓[39m tests/andalucia-open-c300.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 30[2mms[22m[39m
+ [32m✓[39m tests/simuladores-proyeccion.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 27[2mms[22m[39m
+ [32m✓[39m tests/composicion-precision.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+ [32m✓[39m tests/composicion-precision-contraste.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m9 passed[39m[22m[90m (9)[39m
+[2m      Tests [22m [1m[32m116 passed[39m[22m[90m (116)[39m
+[2m   Start at [22m 23:33:39
+[2m   Duration [22m 4.29s[2m (transform 615ms, setup 0ms, import 3.03s, tests 331ms, environment 1ms)[22m
+
+{"status": "passed", "commands": 30, "workflowSha256": "998df3c7776f9c30c2f1061a5d648c0bfb06d3dad7c1b2b7323d2da386f5cdff"}

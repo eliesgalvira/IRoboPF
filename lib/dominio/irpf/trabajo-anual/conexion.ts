@@ -68,6 +68,7 @@ export const liquidarIrpfAnualExplicito = Effect.fn("Liquidacion.explicita")(
         )
       )
     let redondeoSalarialOpen = false
+    let redondeoCuotasAndaluciaOpen = false
     const cuantizarEtapa = (importe: Decimal) =>
       cuantizarAnual(
         importe,
@@ -110,6 +111,12 @@ export const liquidarIrpfAnualExplicito = Effect.fn("Liquidacion.explicita")(
       // Observado en Open 2025; no extrapolar a pensión ni actividad.
       redondeoSalarialOpen =
         empleo && caso.ejercicio === 2025 && caso.comunidadAutonoma === "madrid"
+      // Evidencia independiente de cuotas; no habilita compatibilidad art20 ni DA61.
+      redondeoCuotasAndaluciaOpen =
+        empleo &&
+        caso.ejercicio === 2025 &&
+        caso.comunidadAutonoma === "andalucia" &&
+        caso.derechosMinimos === undefined
       const trabajo = adaptarTrabajoAnual(caso.trabajo)
       if (trabajo.estado === "no-soportado")
         return yield* Effect.fail(rechazar(trabajo.motivo))
@@ -128,6 +135,12 @@ export const liquidarIrpfAnualExplicito = Effect.fn("Liquidacion.explicita")(
           anio: caso.ejercicio,
           rendimientoPrevioNeto: new D(trabajo.argumentoArt20),
           otrasRentasNoExentas: new D(0),
+          compatibilidadOpen2025: redondeoSalarialOpen
+            ? {
+                integro: new D(trabajo.gastos.integro),
+                gastosAE: new D(trabajo.gastos.gastosAE),
+              }
+            : undefined,
         })
       )
       reduccionArt20 = cuantizarEtapa(reduccionArt20)
@@ -194,7 +207,7 @@ export const liquidarIrpfAnualExplicito = Effect.fn("Liquidacion.explicita")(
             unidad: "EUR",
             etiqueta: "Reducción artículo 20",
             formula: redondeoSalarialOpen
-              ? "céntimos half-up de min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0), observado en Open 2025"
+              ? "compatibilidad numérica Open 2025 en el núcleo compartido para íntegro y gastos a–e entre 0 y 1.000.000 EUR; fuera, Decimal; min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0)"
               : "min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0)",
           }),
         ],
@@ -265,7 +278,9 @@ export const liquidarIrpfAnualExplicito = Effect.fn("Liquidacion.explicita")(
       precision: 80,
       politica: redondeoSalarialOpen
         ? "open-empleo-madrid-2025"
-        : "decimal-hasta-salida",
+        : redondeoCuotasAndaluciaOpen
+          ? "open-cuotas-empleo-andalucia-2025"
+          : "decimal-hasta-salida",
       baseGeneral: base,
       baseAhorro: new D(0),
       rentasAntesReducciones: neto.plus(reduccionArt20),
@@ -294,8 +309,10 @@ export const liquidarIrpfAnualExplicito = Effect.fn("Liquidacion.explicita")(
       _tag: "PasoExplicacion",
       titulo: "Bases, cuotas y pagos anuales",
       descripcion: redondeoSalarialOpen
-        ? "Empleo Madrid 2025: artículo 20, cada gravamen y DA61 a céntimos half-up antes de restar, según siete casos de Open 1.19. Evidencia observada, sin aceptación fiscal automática ni cobertura universal."
-        : "Sin ahorro, reducciones de base ni otras deducciones. Artículo 80 sin importe al excluir rentas extranjeras. Cuota líquida legal conservada antes de DA61. Precisión decimal hasta salida; presentación final half-up a céntimos, pendiente de aceptación fiscal.",
+        ? "Empleo Madrid 2025: artículo 20 con compatibilidad numérica observada y acotada por operandos; gravámenes y DA61 a céntimos half-up antes de restar. Evidencias Open 1.19 y C300, sin aceptación fiscal automática ni cobertura universal."
+        : redondeoCuotasAndaluciaOpen
+          ? "Empleo Andalucía 2025 sin derechos familiares: gravámenes a céntimos half-up antes de restar mínimos y sumar cuotas. Artículo 20 y DA61 conservan precisión decimal. Evidencia C300 de una entrada; aceptación fiscal pendiente."
+          : "Sin ahorro, reducciones de base ni otras deducciones. Artículo 80 sin importe al excluir rentas extranjeras. Cuota líquida legal conservada antes de DA61. Precisión decimal hasta salida; presentación final half-up a céntimos, pendiente de aceptación fiscal.",
       fuentes: [
         {
           titulo: "Alcance y evidencia de la conexión anual",

@@ -1,0 +1,59 @@
+import sys,json,re,zlib,base64,hashlib,subprocess
+from pathlib import Path
+from decimal import Decimal
+R=Path('/home/elies/Repos/IRoboPF')
+O=Path(__file__).parent
+sys.path.insert(0,str(R/'tools/procedencia/simuladores'))
+from contract import parse,MAP
+from c300_evidence import pdf_checks
+J=json.loads(Path('/home/elies/Backups/IRoboPF/producto-c300-20261104/variante-andalucia-comparacion.json').read_text())
+T=(R/'tests/andalucia-open-c300.test.ts').read_text()
+B=re.findall(r'"([A-Za-z0-9+/=]{1000,})"',T)
+assert len(B)==2
+ses=base64.b64decode(B[0]); pdf=zlib.decompress(base64.b64decode(B[1]))
+for key,data in [('ses',ses),('pdf',pdf)]:
+    assert data==Path(J[key]['path']).read_bytes()
+    assert len(data)==J[key]['bytes']
+    assert hashlib.sha256(data).hexdigest()==J[key]['sha256']
+p=parse(ses,2025); f=p['fields']; text=zlib.decompress(ses).decode('latin1')
+assert p['metadata']['rules']=='N000088955' and p['metadata']['model']=='0.12'
+for marker in ['CAD_D~1~ANDALUCIA','EDADD~1~40','DPFNAC_D~1~01/01/1985','INDV~1~true','CAC_D~1~01']:
+    assert marker in text
+expected={'IDII':'25000.17','GSS':'1630.02','GCS':'123.45','GCC':'499.99','GDJ':'299.99','IDRE':'3100.03'}
+e=J['entrada']; w=e['trabajo']['rendimientos'][0]
+fromEntry={'IDII':w['integro'],'GSS':w['cotizaciones']['seguridadSocial'],'GCS':w['sindicato']['importe'],'GCC':w['colegio']['importe'],'GDJ':w['defensa']['importe'],'IDRE':e['retenciones'][0]['importe']}
+assert expected==fromEntry
+for k,v in expected.items(): assert Decimal(f[k])==Decimal(v),(k,v,f[k])
+assert Decimal(f['IDICLDED2'])==Decimal(w['integro'])
+assert Decimal(f['GSSCLDED2'])==Decimal(w['cotizaciones']['seguridadSocial'])
+net=Decimal(w['integro'])-sum((Decimal(expected[k]) for k in ['GSS','GCS','GCC','GDJ']),Decimal(0))-Decimal(2000)
+assert net==Decimal(f['TPTOTAL'])==Decimal('20446.72')
+pdftext=subprocess.check_output(['/nix/store/zb9gb02yaca41fsjpbp89r6676dcvc2g-poppler-utils-26.06.0/bin/pdftotext','-layout','-','-'],input=pdf,timeout=30).decode()
+c=pdf_checks(pdftext,f,2025)
+assert sum(v['state']=='coincide' for v in c.values())==12
+assert [k for k,v in c.items() if v['state']=='ses-ausente']==['0023','0414']
+for box,key in MAP.items(): assert J['boxes'][box]['official']==f.get(key)
+entry=T.split('const entrada = ',1)[1].split('\nit(',1)[0].strip()
+(O/'entrada-literal.ts').write_text('export default '+entry+'\n')
+(O/'evidencia.json').write_text(json.dumps({'metadata':p['metadata'],'originalesCAS':True,'gastosEntradaSES':expected,'neto':str(net),'checks':c,'pdfTextSha256':hashlib.sha256(pdftext.encode()).hexdigest(),'noNetwork':True},indent=2)+'\n')
+print('CAS/test idénticos; entrada/SES conciliados; PDF/SES 12 presentes y 2 ausencias.')
+import os
+os.environ['C_PDFTOTEXT']='/nix/store/zb9gb02yaca41fsjpbp89r6676dcvc2g-poppler-utils-26.06.0/bin/pdftotext'
+from c300_evidence import validate_result
+from storage import read_ref,canonical,digest
+from binding import personal
+b=Path('/home/elies/Backups/IRoboPF/producto-c300-20261104')
+rows=[json.loads(x) for x in (b/'variants-results.jsonl').read_text().splitlines()]
+row,=[x for x in rows if x['id']==J['id']]
+assert row['identity']['case']['entrada']==J['entrada']
+assert digest(canonical(row['identity']))==row['key']
+for k in ['ses','pdf']: assert row['result'][k]==J[k]
+v=validate_result(row['result'],row['identity']['official'])
+pers=personal(ses)
+assert pers==row['validation']['personal']
+assert pers['CAC_D']==pers['ZCCAD']=='01'
+external=read_ref(row['identity']['code']['externalScript'])
+assert external==(b/'variants.py').read_bytes()
+assert v==row['validation']['evidence']
+(O/'indice.json').write_text(json.dumps({'id':row['id'],'key':row['key'],'utc':row['result']['utc'],'official':row['identity']['official'],'personal':pers,'externalScript':row['identity']['code']['externalScript'],'validatedIndexAndCAS':True},indent=2)+'\n')
+print('Índice, identidad canónica, bootstrap 1.19, resumen y transporte privado CAS verificados.')

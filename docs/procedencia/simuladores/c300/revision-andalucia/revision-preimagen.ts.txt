@@ -1,0 +1,19 @@
+import { plugin } from 'bun'
+import { readFileSync, writeFileSync } from 'node:fs'
+const root='/home/elies/Repos/IRoboPF/'
+const before='/home/elies/Backups/IRoboPF/producto-c300-andalucia-correccion-20261104/preimagenes/'
+plugin({name:'preimagenes-solo-lectura',setup(build){
+  build.onLoad({filter:/\/(trabajo-anual\/conexion|liquidacion\/composicion-anual)\.ts$/},args=>({contents:readFileSync(before+args.path.slice(root.length),'utf8'),loader:'ts',resolveDir:args.path.slice(0,args.path.lastIndexOf('/'))}))
+}})
+const {Effect,Schema}=await import('/home/elies/Repos/IRoboPF/node_modules/effect/src/index.ts')
+const {liquidarIrpfAnualExplicito}=await import('/home/elies/Repos/IRoboPF/lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts')
+const {CasoFiscalAnualExplicito}=await import('/home/elies/Repos/IRoboPF/lib/dominio/irpf/trabajo-anual/conexion-contrato.ts')
+const {default:Decimal}=await import('/home/elies/Repos/IRoboPF/node_modules/decimal.js/decimal.mjs')
+const original=JSON.parse(readFileSync('/home/elies/Backups/IRoboPF/producto-c300-20261104/variante-andalucia-comparacion.json','utf8'))
+const r=Effect.runSync(liquidarIrpfAnualExplicito(Schema.decodeUnknownSync(CasoFiscalAnualExplicito)(original.entrada)))
+const actual={'0023':r.reduccionArt20,'0025':r.rendimientoNetoReducido,'0500':r.baseImponibleGeneral,'0505':r.baseLiquidableGeneral,'0528':r.componentesCuota.gravamenEstatal,'0529':r.componentesCuota.gravamenAutonomico,'0530':r.componentesCuota.gravamenMinimoEstatal,'0531':r.componentesCuota.gravamenMinimoAutonomico,'0532':r.componentesCuota.cuotaEstatal,'0533':r.componentesCuota.cuotaAutonomica,'0414':r.deduccionTrabajo,'0595':r.cuotaPosterior,'0610':r.cuotaDiferencial,'0670':r.cuotaDiferencialPresentada}
+const boxes=Object.fromEntries(Object.entries(actual).map(([box,value])=>[box,{actual:value,official:original.boxes[box].official,state:original.boxes[box].official===null?'ausente':new Decimal(value).eq(original.boxes[box].official)?'coincide':'difiere'}]))
+const different=Object.values(boxes).filter(x=>x.state==='difiere').length
+if(different!==7 || r.cuotaDiferencialPresentada!=='101.03') throw Error('La preimagen no reproduce siete discrepancias')
+writeFileSync('/home/elies/Backups/IRoboPF/producto-c300-andalucia-revision-20261104/preimagen.json',JSON.stringify({different,boxes},null,2)+'\n')
+console.log('Preimágenes cargadas en memoria: siete diferencias, final 101.03; sin mutar root.')

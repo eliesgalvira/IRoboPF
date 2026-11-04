@@ -1,0 +1,87 @@
+test_absent_zero_requires_ui_observation_without_zero_conversion (journal_regressions.MatrixTests.test_absent_zero_requires_ui_observation_without_zero_conversion) ... ok
+test_closed_snapshot_does_not_hide_corrupt_complete_records (journal_regressions.MatrixTests.test_closed_snapshot_does_not_hide_corrupt_complete_records) ... 
+  test_closed_snapshot_does_not_hide_corrupt_complete_records (journal_regressions.MatrixTests.test_closed_snapshot_does_not_hide_corrupt_complete_records) (content=b'{broken}\n') ... ERROR
+  test_closed_snapshot_does_not_hide_corrupt_complete_records (journal_regressions.MatrixTests.test_closed_snapshot_does_not_hide_corrupt_complete_records) (content=b'42\n') ... ERROR
+test_closed_snapshot_does_not_hide_corrupt_complete_records (journal_regressions.MatrixTests.test_closed_snapshot_does_not_hide_corrupt_complete_records) ... ERROR
+test_compare_selection_never_repairs_a_live_journal (journal_regressions.MatrixTests.test_compare_selection_never_repairs_a_live_journal) ... 
+  test_compare_selection_never_repairs_a_live_journal (journal_regressions.MatrixTests.test_compare_selection_never_repairs_a_live_journal) (tail=b'{"incomplete":') ... FAIL
+  test_compare_selection_never_repairs_a_live_journal (journal_regressions.MatrixTests.test_compare_selection_never_repairs_a_live_journal) (tail=b'{"status":"done"}') ... ERROR
+  test_compare_selection_never_repairs_a_live_journal (journal_regressions.MatrixTests.test_compare_selection_never_repairs_a_live_journal) (tail=b'') ... FAIL
+test_deterministic_distinct_complete_inputs (journal_regressions.MatrixTests.test_deterministic_distinct_complete_inputs) ... ok
+test_duplicate_and_contradictory_inputs_rejected (journal_regressions.MatrixTests.test_duplicate_and_contradictory_inputs_rejected) ... ok
+test_pdf_zero_with_ses_absent_is_not_equality (journal_regressions.MatrixTests.test_pdf_zero_with_ses_absent_is_not_equality) ... ok
+test_two_payers_preserve_expenses_and_totals (journal_regressions.MatrixTests.test_two_payers_preserve_expenses_and_totals) ... ok
+
+======================================================================
+ERROR: test_closed_snapshot_does_not_hide_corrupt_complete_records (journal_regressions.MatrixTests.test_closed_snapshot_does_not_hide_corrupt_complete_records) (content=b'{broken}\n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Backups/IRoboPF/producto-c300-correcciones-20261104/propuesta/tests/simuladores-c300-test.py", line 36, in test_closed_snapshot_does_not_hide_corrupt_complete_records
+    read_jsonl(journal, closed_snapshot=True)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: read_jsonl() got an unexpected keyword argument 'closed_snapshot'
+
+======================================================================
+ERROR: test_closed_snapshot_does_not_hide_corrupt_complete_records (journal_regressions.MatrixTests.test_closed_snapshot_does_not_hide_corrupt_complete_records) (content=b'42\n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Backups/IRoboPF/producto-c300-correcciones-20261104/propuesta/tests/simuladores-c300-test.py", line 36, in test_closed_snapshot_does_not_hide_corrupt_complete_records
+    read_jsonl(journal, closed_snapshot=True)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: read_jsonl() got an unexpected keyword argument 'closed_snapshot'
+
+======================================================================
+ERROR: test_closed_snapshot_does_not_hide_corrupt_complete_records (journal_regressions.MatrixTests.test_closed_snapshot_does_not_hide_corrupt_complete_records)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Backups/IRoboPF/producto-c300-correcciones-20261104/propuesta/tests/simuladores-c300-test.py", line 39, in test_closed_snapshot_does_not_hide_corrupt_complete_records
+    self.assertEqual(read_jsonl(journal, closed_snapshot=True), [dict(ok=1)])
+                     ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: read_jsonl() got an unexpected keyword argument 'closed_snapshot'
+
+======================================================================
+ERROR: test_compare_selection_never_repairs_a_live_journal (journal_regressions.MatrixTests.test_compare_selection_never_repairs_a_live_journal) (tail=b'{"status":"done"}')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Backups/IRoboPF/producto-c300-correcciones-20261104/propuesta/tests/simuladores-c300-test.py", line 26, in test_compare_selection_never_repairs_a_live_journal
+    self.assertEqual(c300.historical_receipts([]), {})
+                     ~~~~~~~~~~~~~~~~~~~~~~~~^^^^
+  File "/home/elies/Repos/IRoboPF/tools/procedencia/simuladores/c300.py", line 134, in historical_receipts
+    states = latest_states(records)
+  File "/home/elies/Repos/IRoboPF/tools/procedencia/simuladores/storage.py", line 110, in latest_states
+    raise ValueError('Estado o identidad del journal inválidos')
+ValueError: Estado o identidad del journal inválidos
+
+======================================================================
+FAIL: test_compare_selection_never_repairs_a_live_journal (journal_regressions.MatrixTests.test_compare_selection_never_repairs_a_live_journal) (tail=b'{"incomplete":')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Backups/IRoboPF/producto-c300-correcciones-20261104/propuesta/tests/simuladores-c300-test.py", line 27, in test_compare_selection_never_repairs_a_live_journal
+    self.assertEqual(journal.read_bytes(), before)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: b'{"k[89 chars]}\n{"artifact":{"bytes":14,"path":"/tmp/tmp_0e[205 chars]"}\n' != b'{"k[89 chars]}\n{"incomplete":'
+
+======================================================================
+FAIL: test_compare_selection_never_repairs_a_live_journal (journal_regressions.MatrixTests.test_compare_selection_never_repairs_a_live_journal) (tail=b'')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/elies/Backups/IRoboPF/producto-c300-correcciones-20261104/propuesta/tests/simuladores-c300-test.py", line 28, in test_compare_selection_never_repairs_a_live_journal
+    self.assertEqual(sorted(p.name for p in Path(tmp).iterdir()), ['journal.jsonl'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['interrupted-records', 'journal.jsonl'] != ['journal.jsonl']
+
+First differing element 0:
+'interrupted-records'
+'journal.jsonl'
+
+First list contains 1 additional elements.
+First extra element 1:
+'journal.jsonl'
+
+- ['interrupted-records', 'journal.jsonl']
++ ['journal.jsonl']
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.162s
+
+FAILED (failures=2, errors=4)

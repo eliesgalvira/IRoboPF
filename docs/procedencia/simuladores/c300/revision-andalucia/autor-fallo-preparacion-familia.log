@@ -1,0 +1,26 @@
+$ timeout -k 30s 20m vitest run "tests/andalucia-open-c300.test.ts" "tests/art20-open-c300.test.ts" tests/simuladores-proyeccion.test.ts tests/redondeo-salarial-open.test.ts tests/composicion-anual-unica.test.ts tests/minimos-derechos-anuales.test.ts
+
+ RUN  v4.1.5 /home/elies/Repos/IRoboPF
+
+ ❯ tests/andalucia-open-c300.test.ts (6 tests | 1 failed) 28ms
+   × Andalucía con derechos familiares conserva la política decimal previa 3ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/andalucia-open-c300.test.ts > Andalucía con derechos familiares conserva la política decimal previa
+{
+  _tag: 'ResultadoNoSoportado',
+  motivo: 'La renta propia declarada no concilia con el neto del perfil anual antes de reducciones y compensaciones',
+  fuenteReconocida: 'docs/procedencia/API-MOTOR.md',
+  rastro: { titulo: 'Composición anual', pasos: [] },
+  stacks: []
+}
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 5 passed (6)
+      Tests  1 failed | 352 passed (353)
+   Start at  23:14:06
+   Duration  4.07s (transform 594ms, setup 0ms, import 2.35s, tests 1.09s, environment 1ms)
+
+error: script "test" exited with code 1

@@ -602,3 +602,35 @@ normas de vigencia; 2022 permanece igual. **Objeción:** el manual de 2020 muest
 normativo que ya tenía la tabla genérica, documentar la discrepancia y corregir
 sólo el uso de cuotas fijas revisadas. **Coste:** no extender la conclusión a
 fallecimientos ni confundir los 40 céntimos corregidos con verificación Open.
+
+## Compatibilidad monetaria observada en C300
+
+La política de empleo Madrid 2025 reproduce el recorrido binario del artículo 20
+que discrimina las cuatro diferencias encontradas, conservando la fórmula común.
+**Objeción:** una coincidencia experimental no demuestra el código interno de
+Open ni autoriza extender una regla de redondeo a todos los ejercicios.
+**Respuesta:** limitar el selector, conservar la ruta Decimal predeterminada y
+los originales, y documentar el carácter empírico. La revisión detectó pérdida
+de precisión con acumulados enormes: la compatibilidad se limita a operandos
+finitos de 0 a 1.000.000 EUR, sin rechazar rentas superiores ni alterar un límite
+fiscal. Esa cota coincide con la admitida por el transporte de la campaña.
+**Coste:** otros territorios y años requieren sus propias observaciones; las
+650 ausencias de C300 no se convierten en coincidencias. Las 300 entradas
+representan variaciones salariales de Madrid, no 300 perfiles territoriales o
+familiares. La discrepancia adicional andaluza se conserva y corrige aparte.
+
+La comparación lee un corte cerrado del journal sin repararlo. **Objeción:**
+puede omitir el último registro sin salto de línea aunque su JSON ya sea válido.
+**Respuesta:** ese registro todavía no tiene cierre durable; sólo una operación
+bajo bloqueo puede repararlo. **Coste:** el corte puede contener un caso menos
+que una lectura posterior, pero no interfiere con capturas activas.
+
+La captura adicional de Andalucía conserva siete diferencias anteriores, incluido
+un céntimo final. Se cuantizan sus gravámenes mediante la composición común.
+**Objeción:** usar el selector de Madrid extendería también la compatibilidad
+binaria del artículo 20 y la cuantización de DA61 sin evidencia nueva.
+**Respuesta:** una política separada de gravámenes para empleo efectivo andaluz
+2025 sin derechos familiares declarados; no cambia las otras etapas ni perfiles.
+**Coste:** la observación acredita una entrada, no todas las rentas o familias.
+Las once extensiones todavía no capturadas siguen pendientes y no incrementan
+la cobertura. La corrección de importes recibe su revisión independiente.

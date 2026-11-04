@@ -1,0 +1,59 @@
+"""Corte final del padre: 300 entradas, originales revalidados y API real."""
+from collections import Counter
+from datetime import datetime, timezone
+import hashlib
+import json
+import os
+from pathlib import Path
+import sys
+
+ROOT = Path('/home/elies/Repos/IRoboPF')
+OUT = Path('/home/elies/Backups/IRoboPF/producto-c300-publicacion-20261104/comparacion-final')
+sys.path.insert(0, str(ROOT / 'tools/procedencia/simuladores'))
+import c300
+from storage import canonical, digest
+
+OUT.mkdir(exist_ok=False)
+c300.run.OUT = Path(os.environ['C_RUN_DIR'])
+c300.run.STORE = Path(os.environ['C_CAS_DIR'])
+c300.run.BASE = Path(os.environ['C_TEMPLATE_DIR'])
+raw = (c300.run.OUT / 'cases.json').read_bytes()
+cases = json.loads(raw)
+assert raw == canonical(c300.matrix())
+assert len(cases) == 300
+journal = c300.run.OUT / 'journal.jsonl'
+before = journal.read_bytes()
+selected = c300.historical_receipts(cases)
+assert set(selected) == {c['job']['id'] for c in cases}
+assert len({digest(canonical(c['entrada'])) for c in cases}) == 300
+case_by_id = {c['job']['id']: c for c in cases}
+cut = dict(utc=datetime.now(timezone.utc).isoformat(), cases=300,
+           matrixSha256=digest(raw), journal=dict(path=str(journal), bytes=len(before), sha256=digest(before)),
+           originalKeys={key: value['key'] for key, value in selected.items()},
+           captureCodeIdentities=sorted({digest(canonical(r['identity']['code'])) for r in selected.values()}),
+           groups=dict(Counter(c['group'] for c in cases)),
+           twoPayers=sum(len(c['entrada']['trabajo']['rendimientos']) == 2 for c in cases))
+(OUT / 'corte.json').write_bytes(canonical(cut))
+(OUT / 'cases.json').write_bytes(raw)
+code = c300.compare(cases, OUT)
+assert journal.read_bytes() == before, 'La comparación modificó el journal'
+report = json.loads((OUT / 'comparison.json').read_bytes())
+assert len(report['results']) == 300
+assert {r['id'] for r in report['results']} == set(selected)
+for row in report['results']:
+    assert row['entrada'] == case_by_id[row['id']]['entrada']
+    assert row['originalCaptureKey'] == selected[row['id']]['key']
+    if 'boxes' in row:
+        for box in row['boxes'].values():
+            assert box['status'] in ('coincide', 'difiere', 'oficial-ausente', 'motor-no-proyectado')
+boxes = Counter(box['status'] for row in report['results'] for box in row.get('boxes', {}).values())
+summary = dict(cases=300, inputsDistinct=300, states=report['counts'], boxes=dict(boxes),
+               totalBoxes=sum(boxes.values()), comparatorExit=code, journalIntact=True,
+               motorSourcesSha256=report['motor'],
+               scope='Madrid 2025, edad 40, empleo individual; hechos sintéticos y reservas conservados')
+(OUT / 'resumen.json').write_text(json.dumps(summary, ensure_ascii=False, indent=2) + '\n')
+print(json.dumps(summary, ensure_ascii=False), flush=True)
+assert report['counts'] == {'contrato-no-soportado': 0, 'discrepante': 0, 'coincidencia-condicionada': 300}
+assert boxes['difiere'] == boxes['motor-no-proyectado'] == 0
+assert sum(boxes.values()) == 4200
+assert code == 2, 'La salida conserva las reservas, no declara aceptación fiscal universal'

@@ -1,0 +1,41 @@
+$ timeout -k 30s 20m vitest run "tests/art20-open-c300.test.ts" tests/redondeo-salarial-open.test.ts "--maxWorkers=1"
+
+ RUN  v4.1.5 /home/elies/Repos/IRoboPF
+
+ ❯ tests/art20-open-c300.test.ts (22 tests | 4 failed) 95ms
+   × empleo histórico 2018 conserva la reducción decimal 9ms
+   × empleo histórico 2019 conserva la reducción decimal 7ms
+   × empleo histórico 2023 conserva la reducción decimal 6ms
+   × empleo histórico 2024 conserva la reducción decimal 8ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/art20-open-c300.test.ts > empleo histórico 2018 conserva la reducción decimal
+ FAIL  tests/art20-open-c300.test.ts > empleo histórico 2019 conserva la reducción decimal
+ FAIL  tests/art20-open-c300.test.ts > empleo histórico 2023 conserva la reducción decimal
+ FAIL  tests/art20-open-c300.test.ts > empleo histórico 2024 conserva la reducción decimal
+Error: Expected "ninguna", got "solo-da61-si-procede"
+  at ["deducciones"]
+ ❯ node_modules/effect/src/SchemaParser.ts:407:19
+ ❯ node_modules/effect/src/internal/effect.ts:1854:21
+ ❯ body node_modules/effect/src/Function.ts:284:17
+ ❯ exitMapError node_modules/effect/src/internal/effect.ts:1718:53
+ ❯ body node_modules/effect/src/Function.ts:284:17
+ ❯ mapErrorEager node_modules/effect/src/SchemaParser.ts:405:13
+ ❯ tests/art20-open-c300.test.ts:118:71
+    116|   (ejercicio, esperado) => {
+    117|     const original = oficiales.cases.find((r) => r.id === "c300-016")!…
+    118|     const entrada = Schema.decodeUnknownSync(CasoFiscalAnualExplicito)…
+       |                                                                       ^
+    119|       ...original,
+    120|       ejercicio,
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  4 failed | 33 passed (37)
+   Start at  22:42:29
+   Duration  1.61s (transform 588ms, setup 0ms, import 1.21s, tests 150ms, environment 0ms)
+
+error: script "test" exited with code 1

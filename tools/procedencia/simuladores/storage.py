@@ -66,11 +66,20 @@ def append_jsonl(path, record):
         os.close(directory)
 
 
-def read_jsonl(path, repair_tail=False):
+def read_jsonl(path, repair_tail=False, closed_snapshot=False):
+    if repair_tail and closed_snapshot:
+        raise ValueError('Un corte de lectura no puede reparar el journal')
     path = Path(path)
     if not path.exists():
         return []
-    raw = path.read_bytes()
+    if closed_snapshot:
+        # Longitud fijada al abrir: no incluye escrituras posteriores ni el
+        # último registro sin salto de línea, aunque ya sea JSON válido.
+        with path.open('rb') as stream:
+            raw = stream.read(os.fstat(stream.fileno()).st_size)
+        raw = raw[:raw.rfind(b'\n') + 1]
+    else:
+        raw = path.read_bytes()
     records, offset = [], 0
     for index, line in enumerate(raw.splitlines(keepends=True)):
         try:

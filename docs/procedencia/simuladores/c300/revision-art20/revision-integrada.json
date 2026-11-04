@@ -1,0 +1,1619 @@
+{
+  "mode": "integrado-corregido",
+  "cut": {
+    "cases": 218,
+    "present": 2603,
+    "absent": 449,
+    "diffs": []
+  },
+  "anchors": [
+    {
+      "id": "art20",
+      "present": 13,
+      "absent": 1,
+      "diffs": [],
+      "art20": "0.01",
+      "resultado": "2289.89"
+    },
+    {
+      "id": "componentes",
+      "present": 12,
+      "absent": 2,
+      "diffs": [],
+      "art20": "0",
+      "resultado": "2575.26"
+    },
+    {
+      "id": "gravamen",
+      "present": 13,
+      "absent": 1,
+      "diffs": [],
+      "art20": "2364.34",
+      "resultado": "1283.56"
+    },
+    {
+      "id": "da61",
+      "present": 14,
+      "absent": 0,
+      "diffs": [],
+      "art20": "5292.27",
+      "resultado": "-721.23"
+    },
+    {
+      "id": "posterior",
+      "present": 14,
+      "absent": 0,
+      "diffs": [],
+      "art20": "5291.34",
+      "resultado": "-720.85"
+    },
+    {
+      "id": "ingresar-dos-pagadores-limites-anuales",
+      "present": 12,
+      "absent": 2,
+      "diffs": [],
+      "art20": "0",
+      "resultado": "1333.92"
+    },
+    {
+      "id": "devolver-da61-ss-efectiva",
+      "present": 14,
+      "absent": 0,
+      "diffs": [],
+      "art20": "4284.98",
+      "resultado": "-321.18"
+    }
+  ],
+  "synthetic": [
+    {
+      "id": "umbral-0",
+      "result": {
+        "_tag": "LiquidacionIrpfAnualExplicitaCalculada",
+        "perfil": "solo-trabajo",
+        "ejercicio": 2025,
+        "alcance": "individual-comun-2025-hechos-explicitos",
+        "rendimientoNetoReducido": "0",
+        "baseImponibleGeneral": "0",
+        "baseLiquidableGeneral": "0",
+        "baseLiquidableAhorro": "0",
+        "reduccionArt20": "0",
+        "componentesCuota": {
+          "unidad": "EUR",
+          "gravamenEstatal": "0",
+          "gravamenMinimoEstatal": "0",
+          "gravamenAutonomico": "0",
+          "gravamenMinimoAutonomico": "0",
+          "cuotaEstatal": "0",
+          "cuotaAutonomica": "0"
+        },
+        "cuotaLiquidaLegal": "0",
+        "deduccionTrabajo": "0",
+        "cuotaPosterior": "0",
+        "retenciones": "0",
+        "pagosFraccionados": "0",
+        "cuotaDiferencial": "0",
+        "cuotaDiferencialPresentada": "0.00",
+        "aceptacionFiscal": "pendiente"
+      },
+      "art20Trace": {
+        "etiqueta": "Reducción artículo 20",
+        "formula": "compatibilidad numérica Open 2025 en el núcleo compartido para íntegro y gastos a–e entre 0 y 1.000.000 EUR; fuera, Decimal; min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0)",
+        "resultado": "0.00 euros",
+        "origen": {
+          "siteId": "anual.explicito.trabajo.art20",
+          "instanceId": "anual.explicito.trabajo.art20.0",
+          "decimal": "0",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "pendiente",
+          "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.trabajo.art20/77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.trabajo.art20@77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9"
+        }
+      }
+    },
+    {
+      "id": "umbral-0.01",
+      "result": {
+        "_tag": "LiquidacionIrpfAnualExplicitaCalculada",
+        "perfil": "solo-trabajo",
+        "ejercicio": 2025,
+        "alcance": "individual-comun-2025-hechos-explicitos",
+        "rendimientoNetoReducido": "0",
+        "baseImponibleGeneral": "0",
+        "baseLiquidableGeneral": "0",
+        "baseLiquidableAhorro": "0",
+        "reduccionArt20": "0",
+        "componentesCuota": {
+          "unidad": "EUR",
+          "gravamenEstatal": "0",
+          "gravamenMinimoEstatal": "0",
+          "gravamenAutonomico": "0",
+          "gravamenMinimoAutonomico": "0",
+          "cuotaEstatal": "0",
+          "cuotaAutonomica": "0"
+        },
+        "cuotaLiquidaLegal": "0",
+        "deduccionTrabajo": "0",
+        "cuotaPosterior": "0",
+        "retenciones": "0",
+        "pagosFraccionados": "0",
+        "cuotaDiferencial": "0",
+        "cuotaDiferencialPresentada": "0.00",
+        "aceptacionFiscal": "pendiente"
+      },
+      "art20Trace": {
+        "etiqueta": "Reducción artículo 20",
+        "formula": "compatibilidad numérica Open 2025 en el núcleo compartido para íntegro y gastos a–e entre 0 y 1.000.000 EUR; fuera, Decimal; min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0)",
+        "resultado": "0.00 euros",
+        "origen": {
+          "siteId": "anual.explicito.trabajo.art20",
+          "instanceId": "anual.explicito.trabajo.art20.0",
+          "decimal": "0",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "pendiente",
+          "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.trabajo.art20/77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.trabajo.art20@77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9"
+        }
+      }
+    },
+    {
+      "id": "umbral-1999.99",
+      "result": {
+        "_tag": "LiquidacionIrpfAnualExplicitaCalculada",
+        "perfil": "solo-trabajo",
+        "ejercicio": 2025,
+        "alcance": "individual-comun-2025-hechos-explicitos",
+        "rendimientoNetoReducido": "0",
+        "baseImponibleGeneral": "0",
+        "baseLiquidableGeneral": "0",
+        "baseLiquidableAhorro": "0",
+        "reduccionArt20": "0",
+        "componentesCuota": {
+          "unidad": "EUR",
+          "gravamenEstatal": "0",
+          "gravamenMinimoEstatal": "0",
+          "gravamenAutonomico": "0",
+          "gravamenMinimoAutonomico": "0",
+          "cuotaEstatal": "0",
+          "cuotaAutonomica": "0"
+        },
+        "cuotaLiquidaLegal": "0",
+        "deduccionTrabajo": "0",
+        "cuotaPosterior": "0",
+        "retenciones": "0",
+        "pagosFraccionados": "0",
+        "cuotaDiferencial": "0",
+        "cuotaDiferencialPresentada": "0.00",
+        "aceptacionFiscal": "pendiente"
+      },
+      "art20Trace": {
+        "etiqueta": "Reducción artículo 20",
+        "formula": "compatibilidad numérica Open 2025 en el núcleo compartido para íntegro y gastos a–e entre 0 y 1.000.000 EUR; fuera, Decimal; min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0)",
+        "resultado": "0.00 euros",
+        "origen": {
+          "siteId": "anual.explicito.trabajo.art20",
+          "instanceId": "anual.explicito.trabajo.art20.0",
+          "decimal": "0",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "pendiente",
+          "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.trabajo.art20/77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.trabajo.art20@77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9"
+        }
+      }
+    },
+    {
+      "id": "umbral-2000",
+      "result": {
+        "_tag": "LiquidacionIrpfAnualExplicitaCalculada",
+        "perfil": "solo-trabajo",
+        "ejercicio": 2025,
+        "alcance": "individual-comun-2025-hechos-explicitos",
+        "rendimientoNetoReducido": "0",
+        "baseImponibleGeneral": "0",
+        "baseLiquidableGeneral": "0",
+        "baseLiquidableAhorro": "0",
+        "reduccionArt20": "0",
+        "componentesCuota": {
+          "unidad": "EUR",
+          "gravamenEstatal": "0",
+          "gravamenMinimoEstatal": "0",
+          "gravamenAutonomico": "0",
+          "gravamenMinimoAutonomico": "0",
+          "cuotaEstatal": "0",
+          "cuotaAutonomica": "0"
+        },
+        "cuotaLiquidaLegal": "0",
+        "deduccionTrabajo": "0",
+        "cuotaPosterior": "0",
+        "retenciones": "0",
+        "pagosFraccionados": "0",
+        "cuotaDiferencial": "0",
+        "cuotaDiferencialPresentada": "0.00",
+        "aceptacionFiscal": "pendiente"
+      },
+      "art20Trace": {
+        "etiqueta": "Reducción artículo 20",
+        "formula": "compatibilidad numérica Open 2025 en el núcleo compartido para íntegro y gastos a–e entre 0 y 1.000.000 EUR; fuera, Decimal; min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0)",
+        "resultado": "0.00 euros",
+        "origen": {
+          "siteId": "anual.explicito.trabajo.art20",
+          "instanceId": "anual.explicito.trabajo.art20.0",
+          "decimal": "0",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "pendiente",
+          "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.trabajo.art20/77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.trabajo.art20@77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9"
+        }
+      }
+    },
+    {
+      "id": "umbral-2000.01",
+      "result": {
+        "_tag": "LiquidacionIrpfAnualExplicitaCalculada",
+        "perfil": "solo-trabajo",
+        "ejercicio": 2025,
+        "alcance": "individual-comun-2025-hechos-explicitos",
+        "rendimientoNetoReducido": "0",
+        "baseImponibleGeneral": "0",
+        "baseLiquidableGeneral": "0",
+        "baseLiquidableAhorro": "0",
+        "reduccionArt20": "0.01",
+        "componentesCuota": {
+          "unidad": "EUR",
+          "gravamenEstatal": "0",
+          "gravamenMinimoEstatal": "0",
+          "gravamenAutonomico": "0",
+          "gravamenMinimoAutonomico": "0",
+          "cuotaEstatal": "0",
+          "cuotaAutonomica": "0"
+        },
+        "cuotaLiquidaLegal": "0",
+        "deduccionTrabajo": "0",
+        "cuotaPosterior": "0",
+        "retenciones": "0",
+        "pagosFraccionados": "0",
+        "cuotaDiferencial": "0",
+        "cuotaDiferencialPresentada": "0.00",
+        "aceptacionFiscal": "pendiente"
+      },
+      "art20Trace": {
+        "etiqueta": "Reducción artículo 20",
+        "formula": "compatibilidad numérica Open 2025 en el núcleo compartido para íntegro y gastos a–e entre 0 y 1.000.000 EUR; fuera, Decimal; min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0)",
+        "resultado": "0.01 euros",
+        "origen": {
+          "siteId": "anual.explicito.trabajo.art20",
+          "instanceId": "anual.explicito.trabajo.art20.0",
+          "decimal": "0.01",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "pendiente",
+          "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.trabajo.art20/77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.trabajo.art20@77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9"
+        }
+      }
+    },
+    {
+      "id": "umbral-14851.99",
+      "result": {
+        "_tag": "LiquidacionIrpfAnualExplicitaCalculada",
+        "perfil": "solo-trabajo",
+        "ejercicio": 2025,
+        "alcance": "individual-comun-2025-hechos-explicitos",
+        "rendimientoNetoReducido": "5549.99",
+        "baseImponibleGeneral": "5549.99",
+        "baseLiquidableGeneral": "5549.99",
+        "baseLiquidableAhorro": "0",
+        "reduccionArt20": "7302",
+        "componentesCuota": {
+          "unidad": "EUR",
+          "gravamenEstatal": "527.25",
+          "gravamenMinimoEstatal": "527.25",
+          "gravamenAutonomico": "471.75",
+          "gravamenMinimoAutonomico": "471.75",
+          "cuotaEstatal": "0",
+          "cuotaAutonomica": "0"
+        },
+        "cuotaLiquidaLegal": "0",
+        "deduccionTrabajo": "0",
+        "cuotaPosterior": "0",
+        "retenciones": "0",
+        "pagosFraccionados": "0",
+        "cuotaDiferencial": "0",
+        "cuotaDiferencialPresentada": "0.00",
+        "aceptacionFiscal": "pendiente"
+      },
+      "art20Trace": {
+        "etiqueta": "Reducción artículo 20",
+        "formula": "compatibilidad numérica Open 2025 en el núcleo compartido para íntegro y gastos a–e entre 0 y 1.000.000 EUR; fuera, Decimal; min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0)",
+        "resultado": "7302.00 euros",
+        "origen": {
+          "siteId": "anual.explicito.trabajo.art20",
+          "instanceId": "anual.explicito.trabajo.art20.0",
+          "decimal": "7302",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "pendiente",
+          "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.trabajo.art20/77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.trabajo.art20@77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9"
+        }
+      }
+    },
+    {
+      "id": "umbral-14852",
+      "result": {
+        "_tag": "LiquidacionIrpfAnualExplicitaCalculada",
+        "perfil": "solo-trabajo",
+        "ejercicio": 2025,
+        "alcance": "individual-comun-2025-hechos-explicitos",
+        "rendimientoNetoReducido": "5550",
+        "baseImponibleGeneral": "5550",
+        "baseLiquidableGeneral": "5550",
+        "baseLiquidableAhorro": "0",
+        "reduccionArt20": "7302",
+        "componentesCuota": {
+          "unidad": "EUR",
+          "gravamenEstatal": "527.25",
+          "gravamenMinimoEstatal": "527.25",
+          "gravamenAutonomico": "471.75",
+          "gravamenMinimoAutonomico": "471.75",
+          "cuotaEstatal": "0",
+          "cuotaAutonomica": "0"
+        },
+        "cuotaLiquidaLegal": "0",
+        "deduccionTrabajo": "0",
+        "cuotaPosterior": "0",
+        "retenciones": "0",
+        "pagosFraccionados": "0",
+        "cuotaDiferencial": "0",
+        "cuotaDiferencialPresentada": "0.00",
+        "aceptacionFiscal": "pendiente"
+      },
+      "art20Trace": {
+        "etiqueta": "Reducción artículo 20",
+        "formula": "compatibilidad numérica Open 2025 en el núcleo compartido para íntegro y gastos a–e entre 0 y 1.000.000 EUR; fuera, Decimal; min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0)",
+        "resultado": "7302.00 euros",
+        "origen": {
+          "siteId": "anual.explicito.trabajo.art20",
+          "instanceId": "anual.explicito.trabajo.art20.0",
+          "decimal": "7302",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "pendiente",
+          "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.trabajo.art20/77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.trabajo.art20@77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9"
+        }
+      }
+    },
+    {
+      "id": "umbral-14852.01",
+      "result": {
+        "_tag": "LiquidacionIrpfAnualExplicitaCalculada",
+        "perfil": "solo-trabajo",
+        "ejercicio": 2025,
+        "alcance": "individual-comun-2025-hechos-explicitos",
+        "rendimientoNetoReducido": "5550.03",
+        "baseImponibleGeneral": "5550.03",
+        "baseLiquidableGeneral": "5550.03",
+        "baseLiquidableAhorro": "0",
+        "reduccionArt20": "7301.98",
+        "componentesCuota": {
+          "unidad": "EUR",
+          "gravamenEstatal": "527.25",
+          "gravamenMinimoEstatal": "527.25",
+          "gravamenAutonomico": "471.75",
+          "gravamenMinimoAutonomico": "471.75",
+          "cuotaEstatal": "0",
+          "cuotaAutonomica": "0"
+        },
+        "cuotaLiquidaLegal": "0",
+        "deduccionTrabajo": "0",
+        "cuotaPosterior": "0",
+        "retenciones": "0",
+        "pagosFraccionados": "0",
+        "cuotaDiferencial": "0",
+        "cuotaDiferencialPresentada": "0.00",
+        "aceptacionFiscal": "pendiente"
+      },
+      "art20Trace": {
+        "etiqueta": "Reducción artículo 20",
+        "formula": "compatibilidad numérica Open 2025 en el núcleo compartido para íntegro y gastos a–e entre 0 y 1.000.000 EUR; fuera, Decimal; min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0)",
+        "resultado": "7301.98 euros",
+        "origen": {
+          "siteId": "anual.explicito.trabajo.art20",
+          "instanceId": "anual.explicito.trabajo.art20.0",
+          "decimal": "7301.98",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "pendiente",
+          "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.trabajo.art20/77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.trabajo.art20@77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9"
+        }
+      }
+    },
+    {
+      "id": "umbral-17673.51",
+      "result": {
+        "_tag": "LiquidacionIrpfAnualExplicitaCalculada",
+        "perfil": "solo-trabajo",
+        "ejercicio": 2025,
+        "alcance": "individual-comun-2025-hechos-explicitos",
+        "rendimientoNetoReducido": "13309.15",
+        "baseImponibleGeneral": "13309.15",
+        "baseLiquidableGeneral": "13309.15",
+        "baseLiquidableAhorro": "0",
+        "reduccionArt20": "2364.36",
+        "componentesCuota": {
+          "unidad": "EUR",
+          "gravamenEstatal": "1285.85",
+          "gravamenMinimoEstatal": "527.25",
+          "gravamenAutonomico": "1131.28",
+          "gravamenMinimoAutonomico": "506.32",
+          "cuotaEstatal": "758.6",
+          "cuotaAutonomica": "624.96"
+        },
+        "cuotaLiquidaLegal": "1383.56",
+        "deduccionTrabajo": "120.5",
+        "cuotaPosterior": "1263.06",
+        "retenciones": "0",
+        "pagosFraccionados": "0",
+        "cuotaDiferencial": "1263.06",
+        "cuotaDiferencialPresentada": "1263.06",
+        "aceptacionFiscal": "pendiente"
+      },
+      "art20Trace": {
+        "etiqueta": "Reducción artículo 20",
+        "formula": "compatibilidad numérica Open 2025 en el núcleo compartido para íntegro y gastos a–e entre 0 y 1.000.000 EUR; fuera, Decimal; min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0)",
+        "resultado": "2364.36 euros",
+        "origen": {
+          "siteId": "anual.explicito.trabajo.art20",
+          "instanceId": "anual.explicito.trabajo.art20.0",
+          "decimal": "2364.36",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "pendiente",
+          "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.trabajo.art20/77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.trabajo.art20@77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9"
+        }
+      }
+    },
+    {
+      "id": "umbral-17673.52",
+      "result": {
+        "_tag": "LiquidacionIrpfAnualExplicitaCalculada",
+        "perfil": "solo-trabajo",
+        "ejercicio": 2025,
+        "alcance": "individual-comun-2025-hechos-explicitos",
+        "rendimientoNetoReducido": "13309.18",
+        "baseImponibleGeneral": "13309.18",
+        "baseLiquidableGeneral": "13309.18",
+        "baseLiquidableAhorro": "0",
+        "reduccionArt20": "2364.34",
+        "componentesCuota": {
+          "unidad": "EUR",
+          "gravamenEstatal": "1285.85",
+          "gravamenMinimoEstatal": "527.25",
+          "gravamenAutonomico": "1131.28",
+          "gravamenMinimoAutonomico": "506.32",
+          "cuotaEstatal": "758.6",
+          "cuotaAutonomica": "624.96"
+        },
+        "cuotaLiquidaLegal": "1383.56",
+        "deduccionTrabajo": "120.5",
+        "cuotaPosterior": "1263.06",
+        "retenciones": "0",
+        "pagosFraccionados": "0",
+        "cuotaDiferencial": "1263.06",
+        "cuotaDiferencialPresentada": "1263.06",
+        "aceptacionFiscal": "pendiente"
+      },
+      "art20Trace": {
+        "etiqueta": "Reducción artículo 20",
+        "formula": "compatibilidad numérica Open 2025 en el núcleo compartido para íntegro y gastos a–e entre 0 y 1.000.000 EUR; fuera, Decimal; min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0)",
+        "resultado": "2364.34 euros",
+        "origen": {
+          "siteId": "anual.explicito.trabajo.art20",
+          "instanceId": "anual.explicito.trabajo.art20.0",
+          "decimal": "2364.34",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "pendiente",
+          "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.trabajo.art20/77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.trabajo.art20@77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9"
+        }
+      }
+    },
+    {
+      "id": "umbral-17673.53",
+      "result": {
+        "_tag": "LiquidacionIrpfAnualExplicitaCalculada",
+        "perfil": "solo-trabajo",
+        "ejercicio": 2025,
+        "alcance": "individual-comun-2025-hechos-explicitos",
+        "rendimientoNetoReducido": "13309.2",
+        "baseImponibleGeneral": "13309.2",
+        "baseLiquidableGeneral": "13309.2",
+        "baseLiquidableAhorro": "0",
+        "reduccionArt20": "2364.33",
+        "componentesCuota": {
+          "unidad": "EUR",
+          "gravamenEstatal": "1285.85",
+          "gravamenMinimoEstatal": "527.25",
+          "gravamenAutonomico": "1131.28",
+          "gravamenMinimoAutonomico": "506.32",
+          "cuotaEstatal": "758.6",
+          "cuotaAutonomica": "624.96"
+        },
+        "cuotaLiquidaLegal": "1383.56",
+        "deduccionTrabajo": "120.49",
+        "cuotaPosterior": "1263.07",
+        "retenciones": "0",
+        "pagosFraccionados": "0",
+        "cuotaDiferencial": "1263.07",
+        "cuotaDiferencialPresentada": "1263.07",
+        "aceptacionFiscal": "pendiente"
+      },
+      "art20Trace": {
+        "etiqueta": "Reducción artículo 20",
+        "formula": "compatibilidad numérica Open 2025 en el núcleo compartido para íntegro y gastos a–e entre 0 y 1.000.000 EUR; fuera, Decimal; min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0)",
+        "resultado": "2364.33 euros",
+        "origen": {
+          "siteId": "anual.explicito.trabajo.art20",
+          "instanceId": "anual.explicito.trabajo.art20.0",
+          "decimal": "2364.33",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "pendiente",
+          "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.trabajo.art20/77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.trabajo.art20@77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9"
+        }
+      }
+    },
+    {
+      "id": "umbral-19747.49",
+      "result": {
+        "_tag": "LiquidacionIrpfAnualExplicitaCalculada",
+        "perfil": "solo-trabajo",
+        "ejercicio": 2025,
+        "alcance": "individual-comun-2025-hechos-explicitos",
+        "rendimientoNetoReducido": "17747.48",
+        "baseImponibleGeneral": "17747.48",
+        "baseLiquidableGeneral": "17747.48",
+        "baseLiquidableAhorro": "0",
+        "reduccionArt20": "0.01",
+        "componentesCuota": {
+          "unidad": "EUR",
+          "gravamenEstatal": "1818.45",
+          "gravamenMinimoEstatal": "527.25",
+          "gravamenAutonomico": "1605.01",
+          "gravamenMinimoAutonomico": "506.32",
+          "cuotaEstatal": "1291.2",
+          "cuotaAutonomica": "1098.69"
+        },
+        "cuotaLiquidaLegal": "2389.89",
+        "deduccionTrabajo": "0",
+        "cuotaPosterior": "2389.89",
+        "retenciones": "0",
+        "pagosFraccionados": "0",
+        "cuotaDiferencial": "2389.89",
+        "cuotaDiferencialPresentada": "2389.89",
+        "aceptacionFiscal": "pendiente"
+      },
+      "art20Trace": {
+        "etiqueta": "Reducción artículo 20",
+        "formula": "compatibilidad numérica Open 2025 en el núcleo compartido para íntegro y gastos a–e entre 0 y 1.000.000 EUR; fuera, Decimal; min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0)",
+        "resultado": "0.01 euros",
+        "origen": {
+          "siteId": "anual.explicito.trabajo.art20",
+          "instanceId": "anual.explicito.trabajo.art20.0",
+          "decimal": "0.01",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "pendiente",
+          "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.trabajo.art20/77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.trabajo.art20@77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9"
+        }
+      }
+    },
+    {
+      "id": "umbral-19747.50",
+      "result": {
+        "_tag": "LiquidacionIrpfAnualExplicitaCalculada",
+        "perfil": "solo-trabajo",
+        "ejercicio": 2025,
+        "alcance": "individual-comun-2025-hechos-explicitos",
+        "rendimientoNetoReducido": "17747.5",
+        "baseImponibleGeneral": "17747.5",
+        "baseLiquidableGeneral": "17747.5",
+        "baseLiquidableAhorro": "0",
+        "reduccionArt20": "0",
+        "componentesCuota": {
+          "unidad": "EUR",
+          "gravamenEstatal": "1818.45",
+          "gravamenMinimoEstatal": "527.25",
+          "gravamenAutonomico": "1605.01",
+          "gravamenMinimoAutonomico": "506.32",
+          "cuotaEstatal": "1291.2",
+          "cuotaAutonomica": "1098.69"
+        },
+        "cuotaLiquidaLegal": "2389.89",
+        "deduccionTrabajo": "0",
+        "cuotaPosterior": "2389.89",
+        "retenciones": "0",
+        "pagosFraccionados": "0",
+        "cuotaDiferencial": "2389.89",
+        "cuotaDiferencialPresentada": "2389.89",
+        "aceptacionFiscal": "pendiente"
+      },
+      "art20Trace": {
+        "etiqueta": "Reducción artículo 20",
+        "formula": "compatibilidad numérica Open 2025 en el núcleo compartido para íntegro y gastos a–e entre 0 y 1.000.000 EUR; fuera, Decimal; min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0)",
+        "resultado": "0.00 euros",
+        "origen": {
+          "siteId": "anual.explicito.trabajo.art20",
+          "instanceId": "anual.explicito.trabajo.art20.0",
+          "decimal": "0",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "pendiente",
+          "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.trabajo.art20/77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.trabajo.art20@77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9"
+        }
+      }
+    },
+    {
+      "id": "umbral-19747.51",
+      "result": {
+        "_tag": "LiquidacionIrpfAnualExplicitaCalculada",
+        "perfil": "solo-trabajo",
+        "ejercicio": 2025,
+        "alcance": "individual-comun-2025-hechos-explicitos",
+        "rendimientoNetoReducido": "17747.51",
+        "baseImponibleGeneral": "17747.51",
+        "baseLiquidableGeneral": "17747.51",
+        "baseLiquidableAhorro": "0",
+        "reduccionArt20": "0",
+        "componentesCuota": {
+          "unidad": "EUR",
+          "gravamenEstatal": "1818.45",
+          "gravamenMinimoEstatal": "527.25",
+          "gravamenAutonomico": "1605.02",
+          "gravamenMinimoAutonomico": "506.32",
+          "cuotaEstatal": "1291.2",
+          "cuotaAutonomica": "1098.7"
+        },
+        "cuotaLiquidaLegal": "2389.9",
+        "deduccionTrabajo": "0",
+        "cuotaPosterior": "2389.9",
+        "retenciones": "0",
+        "pagosFraccionados": "0",
+        "cuotaDiferencial": "2389.9",
+        "cuotaDiferencialPresentada": "2389.90",
+        "aceptacionFiscal": "pendiente"
+      },
+      "art20Trace": {
+        "etiqueta": "Reducción artículo 20",
+        "formula": "compatibilidad numérica Open 2025 en el núcleo compartido para íntegro y gastos a–e entre 0 y 1.000.000 EUR; fuera, Decimal; min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0)",
+        "resultado": "0.00 euros",
+        "origen": {
+          "siteId": "anual.explicito.trabajo.art20",
+          "instanceId": "anual.explicito.trabajo.art20.0",
+          "decimal": "0",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "pendiente",
+          "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.trabajo.art20/77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.trabajo.art20@77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9"
+        }
+      }
+    },
+    {
+      "id": "perdida",
+      "result": {
+        "_tag": "LiquidacionIrpfAnualExplicitaCalculada",
+        "perfil": "solo-trabajo",
+        "ejercicio": 2025,
+        "alcance": "individual-comun-2025-hechos-explicitos",
+        "rendimientoNetoReducido": "-100",
+        "baseImponibleGeneral": "-100",
+        "baseLiquidableGeneral": "-100",
+        "baseLiquidableAhorro": "0",
+        "reduccionArt20": "0",
+        "componentesCuota": {
+          "unidad": "EUR",
+          "gravamenEstatal": "0",
+          "gravamenMinimoEstatal": "0",
+          "gravamenAutonomico": "0",
+          "gravamenMinimoAutonomico": "0",
+          "cuotaEstatal": "0",
+          "cuotaAutonomica": "0"
+        },
+        "cuotaLiquidaLegal": "0",
+        "deduccionTrabajo": "0",
+        "cuotaPosterior": "0",
+        "retenciones": "0",
+        "pagosFraccionados": "0",
+        "cuotaDiferencial": "0",
+        "cuotaDiferencialPresentada": "0.00",
+        "aceptacionFiscal": "pendiente"
+      },
+      "art20Trace": {
+        "etiqueta": "Reducción artículo 20",
+        "formula": "compatibilidad numérica Open 2025 en el núcleo compartido para íntegro y gastos a–e entre 0 y 1.000.000 EUR; fuera, Decimal; min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0)",
+        "resultado": "0.00 euros",
+        "origen": {
+          "siteId": "anual.explicito.trabajo.art20",
+          "instanceId": "anual.explicito.trabajo.art20.0",
+          "decimal": "0",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "pendiente",
+          "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.trabajo.art20/77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.trabajo.art20@77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9"
+        }
+      }
+    },
+    {
+      "id": "retencion",
+      "result": {
+        "_tag": "LiquidacionIrpfAnualExplicitaCalculada",
+        "perfil": "solo-trabajo",
+        "ejercicio": 2025,
+        "alcance": "individual-comun-2025-hechos-explicitos",
+        "rendimientoNetoReducido": "8366.06",
+        "baseImponibleGeneral": "8366.06",
+        "baseLiquidableGeneral": "8366.06",
+        "baseLiquidableAhorro": "0",
+        "reduccionArt20": "5509.96",
+        "componentesCuota": {
+          "unidad": "EUR",
+          "gravamenEstatal": "794.78",
+          "gravamenMinimoEstatal": "527.25",
+          "gravamenAutonomico": "711.12",
+          "gravamenMinimoAutonomico": "506.32",
+          "cuotaEstatal": "267.53",
+          "cuotaAutonomica": "204.8"
+        },
+        "cuotaLiquidaLegal": "472.33",
+        "deduccionTrabajo": "340",
+        "cuotaPosterior": "132.33",
+        "retenciones": "123.45",
+        "pagosFraccionados": "0",
+        "cuotaDiferencial": "8.88",
+        "cuotaDiferencialPresentada": "8.88",
+        "aceptacionFiscal": "pendiente"
+      },
+      "art20Trace": {
+        "etiqueta": "Reducción artículo 20",
+        "formula": "compatibilidad numérica Open 2025 en el núcleo compartido para íntegro y gastos a–e entre 0 y 1.000.000 EUR; fuera, Decimal; min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0)",
+        "resultado": "5509.96 euros",
+        "origen": {
+          "siteId": "anual.explicito.trabajo.art20",
+          "instanceId": "anual.explicito.trabajo.art20.0",
+          "decimal": "5509.96",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "pendiente",
+          "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.trabajo.art20/77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.trabajo.art20@77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9"
+        }
+      }
+    },
+    {
+      "id": "extremo-1-15876.02",
+      "result": {
+        "_tag": "LiquidacionIrpfAnualExplicitaCalculada",
+        "perfil": "solo-trabajo",
+        "ejercicio": 2025,
+        "alcance": "individual-comun-2025-hechos-explicitos",
+        "rendimientoNetoReducido": "8366.05",
+        "baseImponibleGeneral": "8366.05",
+        "baseLiquidableGeneral": "8366.05",
+        "baseLiquidableAhorro": "0",
+        "reduccionArt20": "5509.97",
+        "componentesCuota": {
+          "unidad": "EUR",
+          "gravamenEstatal": "794.77",
+          "gravamenMinimoEstatal": "527.25",
+          "gravamenAutonomico": "711.11",
+          "gravamenMinimoAutonomico": "506.32",
+          "cuotaEstatal": "267.52",
+          "cuotaAutonomica": "204.79"
+        },
+        "cuotaLiquidaLegal": "472.31",
+        "deduccionTrabajo": "0",
+        "cuotaPosterior": "472.31",
+        "retenciones": "0",
+        "pagosFraccionados": "0",
+        "cuotaDiferencial": "472.31",
+        "cuotaDiferencialPresentada": "472.31",
+        "aceptacionFiscal": "pendiente"
+      },
+      "art20Trace": {
+        "etiqueta": "Reducción artículo 20",
+        "formula": "compatibilidad numérica Open 2025 en el núcleo compartido para íntegro y gastos a–e entre 0 y 1.000.000 EUR; fuera, Decimal; min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0)",
+        "resultado": "5509.97 euros",
+        "origen": {
+          "siteId": "anual.explicito.trabajo.art20",
+          "instanceId": "anual.explicito.trabajo.art20.0",
+          "decimal": "5509.97",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "pendiente",
+          "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.trabajo.art20/77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.trabajo.art20@77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9"
+        }
+      }
+    },
+    {
+      "id": "extremo-1-17673.52",
+      "result": {
+        "_tag": "LiquidacionIrpfAnualExplicitaCalculada",
+        "perfil": "solo-trabajo",
+        "ejercicio": 2025,
+        "alcance": "individual-comun-2025-hechos-explicitos",
+        "rendimientoNetoReducido": "13309.18",
+        "baseImponibleGeneral": "13309.18",
+        "baseLiquidableGeneral": "13309.18",
+        "baseLiquidableAhorro": "0",
+        "reduccionArt20": "2364.34",
+        "componentesCuota": {
+          "unidad": "EUR",
+          "gravamenEstatal": "1285.85",
+          "gravamenMinimoEstatal": "527.25",
+          "gravamenAutonomico": "1131.28",
+          "gravamenMinimoAutonomico": "506.32",
+          "cuotaEstatal": "758.6",
+          "cuotaAutonomica": "624.96"
+        },
+        "cuotaLiquidaLegal": "1383.56",
+        "deduccionTrabajo": "0",
+        "cuotaPosterior": "1383.56",
+        "retenciones": "0",
+        "pagosFraccionados": "0",
+        "cuotaDiferencial": "1383.56",
+        "cuotaDiferencialPresentada": "1383.56",
+        "aceptacionFiscal": "pendiente"
+      },
+      "art20Trace": {
+        "etiqueta": "Reducción artículo 20",
+        "formula": "compatibilidad numérica Open 2025 en el núcleo compartido para íntegro y gastos a–e entre 0 y 1.000.000 EUR; fuera, Decimal; min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0)",
+        "resultado": "2364.34 euros",
+        "origen": {
+          "siteId": "anual.explicito.trabajo.art20",
+          "instanceId": "anual.explicito.trabajo.art20.0",
+          "decimal": "2364.34",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "pendiente",
+          "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.trabajo.art20/77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.trabajo.art20@77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9"
+        }
+      }
+    },
+    {
+      "id": "extremo-1-19747.49",
+      "result": {
+        "_tag": "LiquidacionIrpfAnualExplicitaCalculada",
+        "perfil": "solo-trabajo",
+        "ejercicio": 2025,
+        "alcance": "individual-comun-2025-hechos-explicitos",
+        "rendimientoNetoReducido": "17747.48",
+        "baseImponibleGeneral": "17747.48",
+        "baseLiquidableGeneral": "17747.48",
+        "baseLiquidableAhorro": "0",
+        "reduccionArt20": "0.01",
+        "componentesCuota": {
+          "unidad": "EUR",
+          "gravamenEstatal": "1818.45",
+          "gravamenMinimoEstatal": "527.25",
+          "gravamenAutonomico": "1605.01",
+          "gravamenMinimoAutonomico": "506.32",
+          "cuotaEstatal": "1291.2",
+          "cuotaAutonomica": "1098.69"
+        },
+        "cuotaLiquidaLegal": "2389.89",
+        "deduccionTrabajo": "0",
+        "cuotaPosterior": "2389.89",
+        "retenciones": "0",
+        "pagosFraccionados": "0",
+        "cuotaDiferencial": "2389.89",
+        "cuotaDiferencialPresentada": "2389.89",
+        "aceptacionFiscal": "pendiente"
+      },
+      "art20Trace": {
+        "etiqueta": "Reducción artículo 20",
+        "formula": "compatibilidad numérica Open 2025 en el núcleo compartido para íntegro y gastos a–e entre 0 y 1.000.000 EUR; fuera, Decimal; min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0)",
+        "resultado": "0.01 euros",
+        "origen": {
+          "siteId": "anual.explicito.trabajo.art20",
+          "instanceId": "anual.explicito.trabajo.art20.0",
+          "decimal": "0.01",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "pendiente",
+          "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.trabajo.art20/77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.trabajo.art20@77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9"
+        }
+      }
+    },
+    {
+      "id": "cancelacion-100-15876.02",
+      "result": {
+        "_tag": "LiquidacionIrpfAnualExplicitaCalculada",
+        "perfil": "solo-trabajo",
+        "ejercicio": 2025,
+        "alcance": "individual-comun-2025-hechos-explicitos",
+        "rendimientoNetoReducido": "8366.05",
+        "baseImponibleGeneral": "8366.05",
+        "baseLiquidableGeneral": "8366.05",
+        "baseLiquidableAhorro": "0",
+        "reduccionArt20": "5509.97",
+        "componentesCuota": {
+          "unidad": "EUR",
+          "gravamenEstatal": "794.77",
+          "gravamenMinimoEstatal": "527.25",
+          "gravamenAutonomico": "711.11",
+          "gravamenMinimoAutonomico": "506.32",
+          "cuotaEstatal": "267.52",
+          "cuotaAutonomica": "204.79"
+        },
+        "cuotaLiquidaLegal": "472.31",
+        "deduccionTrabajo": "0",
+        "cuotaPosterior": "472.31",
+        "retenciones": "0",
+        "pagosFraccionados": "0",
+        "cuotaDiferencial": "472.31",
+        "cuotaDiferencialPresentada": "472.31",
+        "aceptacionFiscal": "pendiente"
+      },
+      "art20Trace": {
+        "etiqueta": "Reducción artículo 20",
+        "formula": "compatibilidad numérica Open 2025 en el núcleo compartido para íntegro y gastos a–e entre 0 y 1.000.000 EUR; fuera, Decimal; min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0)",
+        "resultado": "5509.97 euros",
+        "origen": {
+          "siteId": "anual.explicito.trabajo.art20",
+          "instanceId": "anual.explicito.trabajo.art20.0",
+          "decimal": "5509.97",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "pendiente",
+          "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.trabajo.art20/77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.trabajo.art20@77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9"
+        }
+      }
+    },
+    {
+      "id": "cancelacion-100-17673.52",
+      "result": {
+        "_tag": "LiquidacionIrpfAnualExplicitaCalculada",
+        "perfil": "solo-trabajo",
+        "ejercicio": 2025,
+        "alcance": "individual-comun-2025-hechos-explicitos",
+        "rendimientoNetoReducido": "13309.18",
+        "baseImponibleGeneral": "13309.18",
+        "baseLiquidableGeneral": "13309.18",
+        "baseLiquidableAhorro": "0",
+        "reduccionArt20": "2364.34",
+        "componentesCuota": {
+          "unidad": "EUR",
+          "gravamenEstatal": "1285.85",
+          "gravamenMinimoEstatal": "527.25",
+          "gravamenAutonomico": "1131.28",
+          "gravamenMinimoAutonomico": "506.32",
+          "cuotaEstatal": "758.6",
+          "cuotaAutonomica": "624.96"
+        },
+        "cuotaLiquidaLegal": "1383.56",
+        "deduccionTrabajo": "0",
+        "cuotaPosterior": "1383.56",
+        "retenciones": "0",
+        "pagosFraccionados": "0",
+        "cuotaDiferencial": "1383.56",
+        "cuotaDiferencialPresentada": "1383.56",
+        "aceptacionFiscal": "pendiente"
+      },
+      "art20Trace": {
+        "etiqueta": "Reducción artículo 20",
+        "formula": "compatibilidad numérica Open 2025 en el núcleo compartido para íntegro y gastos a–e entre 0 y 1.000.000 EUR; fuera, Decimal; min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0)",
+        "resultado": "2364.34 euros",
+        "origen": {
+          "siteId": "anual.explicito.trabajo.art20",
+          "instanceId": "anual.explicito.trabajo.art20.0",
+          "decimal": "2364.34",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "pendiente",
+          "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.trabajo.art20/77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.trabajo.art20@77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9"
+        }
+      }
+    },
+    {
+      "id": "cancelacion-100-19747.49",
+      "result": {
+        "_tag": "LiquidacionIrpfAnualExplicitaCalculada",
+        "perfil": "solo-trabajo",
+        "ejercicio": 2025,
+        "alcance": "individual-comun-2025-hechos-explicitos",
+        "rendimientoNetoReducido": "17747.48",
+        "baseImponibleGeneral": "17747.48",
+        "baseLiquidableGeneral": "17747.48",
+        "baseLiquidableAhorro": "0",
+        "reduccionArt20": "0.01",
+        "componentesCuota": {
+          "unidad": "EUR",
+          "gravamenEstatal": "1818.45",
+          "gravamenMinimoEstatal": "527.25",
+          "gravamenAutonomico": "1605.01",
+          "gravamenMinimoAutonomico": "506.32",
+          "cuotaEstatal": "1291.2",
+          "cuotaAutonomica": "1098.69"
+        },
+        "cuotaLiquidaLegal": "2389.89",
+        "deduccionTrabajo": "0",
+        "cuotaPosterior": "2389.89",
+        "retenciones": "0",
+        "pagosFraccionados": "0",
+        "cuotaDiferencial": "2389.89",
+        "cuotaDiferencialPresentada": "2389.89",
+        "aceptacionFiscal": "pendiente"
+      },
+      "art20Trace": {
+        "etiqueta": "Reducción artículo 20",
+        "formula": "compatibilidad numérica Open 2025 en el núcleo compartido para íntegro y gastos a–e entre 0 y 1.000.000 EUR; fuera, Decimal; min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0)",
+        "resultado": "0.01 euros",
+        "origen": {
+          "siteId": "anual.explicito.trabajo.art20",
+          "instanceId": "anual.explicito.trabajo.art20.0",
+          "decimal": "0.01",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "pendiente",
+          "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.trabajo.art20/77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.trabajo.art20@77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9"
+        }
+      }
+    },
+    {
+      "id": "historico-2018",
+      "result": {
+        "_tag": "LiquidacionIrpfAnualExplicitaCalculada",
+        "perfil": "solo-trabajo",
+        "ejercicio": 2018,
+        "alcance": "individual-madrid-2018-a-2024-hechos-explicitos",
+        "rendimientoNetoReducido": "11414.285",
+        "baseImponibleGeneral": "11414.285",
+        "baseLiquidableGeneral": "11414.285",
+        "baseLiquidableAhorro": "0",
+        "reduccionArt20": "1461.735",
+        "componentesCuota": {
+          "unidad": "EUR",
+          "gravamenEstatal": "1084.357075",
+          "gravamenMinimoEstatal": "527.25",
+          "gravamenAutonomico": "1027.28565",
+          "gravamenMinimoAutonomico": "499.5",
+          "cuotaEstatal": "557.107075",
+          "cuotaAutonomica": "527.78565"
+        },
+        "cuotaLiquidaLegal": "1084.892725",
+        "deduccionTrabajo": "0",
+        "cuotaPosterior": "1084.892725",
+        "retenciones": "0",
+        "pagosFraccionados": "0",
+        "cuotaDiferencial": "1084.892725",
+        "cuotaDiferencialPresentada": "1084.89",
+        "aceptacionFiscal": "pendiente"
+      },
+      "art20Trace": {
+        "etiqueta": "Reducción artículo 20",
+        "formula": "min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0)",
+        "resultado": "1461.74 euros",
+        "origen": {
+          "siteId": "anual.explicito.trabajo.art20",
+          "instanceId": "anual.explicito.trabajo.art20.0",
+          "decimal": "1461.735",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "pendiente",
+          "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.trabajo.art20/77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.trabajo.art20@77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9"
+        }
+      }
+    },
+    {
+      "id": "historico-2019",
+      "result": {
+        "_tag": "LiquidacionIrpfAnualExplicitaCalculada",
+        "perfil": "solo-trabajo",
+        "ejercicio": 2019,
+        "alcance": "individual-madrid-2018-a-2024-hechos-explicitos",
+        "rendimientoNetoReducido": "9952.55",
+        "baseImponibleGeneral": "9952.55",
+        "baseLiquidableGeneral": "9952.55",
+        "baseLiquidableAhorro": "0",
+        "reduccionArt20": "2923.47",
+        "componentesCuota": {
+          "unidad": "EUR",
+          "gravamenEstatal": "945.49225",
+          "gravamenMinimoEstatal": "527.25",
+          "gravamenAutonomico": "895.7295",
+          "gravamenMinimoAutonomico": "499.5",
+          "cuotaEstatal": "418.24225",
+          "cuotaAutonomica": "396.2295"
+        },
+        "cuotaLiquidaLegal": "814.47175",
+        "deduccionTrabajo": "0",
+        "cuotaPosterior": "814.47175",
+        "retenciones": "0",
+        "pagosFraccionados": "0",
+        "cuotaDiferencial": "814.47175",
+        "cuotaDiferencialPresentada": "814.47",
+        "aceptacionFiscal": "pendiente"
+      },
+      "art20Trace": {
+        "etiqueta": "Reducción artículo 20",
+        "formula": "min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0)",
+        "resultado": "2923.47 euros",
+        "origen": {
+          "siteId": "anual.explicito.trabajo.art20",
+          "instanceId": "anual.explicito.trabajo.art20.0",
+          "decimal": "2923.47",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "pendiente",
+          "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.trabajo.art20/77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.trabajo.art20@77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9"
+        }
+      }
+    },
+    {
+      "id": "historico-2020",
+      "result": {
+        "_tag": "LiquidacionIrpfAnualExplicitaCalculada",
+        "perfil": "solo-trabajo",
+        "ejercicio": 2020,
+        "alcance": "individual-madrid-2018-a-2024-hechos-explicitos",
+        "rendimientoNetoReducido": "9952.55",
+        "baseImponibleGeneral": "9952.55",
+        "baseLiquidableGeneral": "9952.55",
+        "baseLiquidableAhorro": "0",
+        "reduccionArt20": "2923.47",
+        "componentesCuota": {
+          "unidad": "EUR",
+          "gravamenEstatal": "945.49225",
+          "gravamenMinimoEstatal": "527.25",
+          "gravamenAutonomico": "895.7295",
+          "gravamenMinimoAutonomico": "499.5",
+          "cuotaEstatal": "418.24225",
+          "cuotaAutonomica": "396.2295"
+        },
+        "cuotaLiquidaLegal": "814.47175",
+        "deduccionTrabajo": "0",
+        "cuotaPosterior": "814.47175",
+        "retenciones": "0",
+        "pagosFraccionados": "0",
+        "cuotaDiferencial": "814.47175",
+        "cuotaDiferencialPresentada": "814.47",
+        "aceptacionFiscal": "pendiente"
+      },
+      "art20Trace": {
+        "etiqueta": "Reducción artículo 20",
+        "formula": "min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0)",
+        "resultado": "2923.47 euros",
+        "origen": {
+          "siteId": "anual.explicito.trabajo.art20",
+          "instanceId": "anual.explicito.trabajo.art20.0",
+          "decimal": "2923.47",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "pendiente",
+          "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.trabajo.art20/77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.trabajo.art20@77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9"
+        }
+      }
+    },
+    {
+      "id": "historico-2021",
+      "result": {
+        "_tag": "LiquidacionIrpfAnualExplicitaCalculada",
+        "perfil": "solo-trabajo",
+        "ejercicio": 2021,
+        "alcance": "individual-madrid-2018-a-2024-hechos-explicitos",
+        "rendimientoNetoReducido": "9952.55",
+        "baseImponibleGeneral": "9952.55",
+        "baseLiquidableGeneral": "9952.55",
+        "baseLiquidableAhorro": "0",
+        "reduccionArt20": "2923.47",
+        "componentesCuota": {
+          "unidad": "EUR",
+          "gravamenEstatal": "945.49225",
+          "gravamenMinimoEstatal": "527.25",
+          "gravamenAutonomico": "895.7295",
+          "gravamenMinimoAutonomico": "499.5",
+          "cuotaEstatal": "418.24225",
+          "cuotaAutonomica": "396.2295"
+        },
+        "cuotaLiquidaLegal": "814.47175",
+        "deduccionTrabajo": "0",
+        "cuotaPosterior": "814.47175",
+        "retenciones": "0",
+        "pagosFraccionados": "0",
+        "cuotaDiferencial": "814.47175",
+        "cuotaDiferencialPresentada": "814.47",
+        "aceptacionFiscal": "pendiente"
+      },
+      "art20Trace": {
+        "etiqueta": "Reducción artículo 20",
+        "formula": "min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0)",
+        "resultado": "2923.47 euros",
+        "origen": {
+          "siteId": "anual.explicito.trabajo.art20",
+          "instanceId": "anual.explicito.trabajo.art20.0",
+          "decimal": "2923.47",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "pendiente",
+          "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.trabajo.art20/77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.trabajo.art20@77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9"
+        }
+      }
+    },
+    {
+      "id": "historico-2022",
+      "result": {
+        "_tag": "LiquidacionIrpfAnualExplicitaCalculada",
+        "perfil": "solo-trabajo",
+        "ejercicio": 2022,
+        "alcance": "individual-madrid-2018-a-2024-hechos-explicitos",
+        "rendimientoNetoReducido": "9952.55",
+        "baseImponibleGeneral": "9952.55",
+        "baseLiquidableGeneral": "9952.55",
+        "baseLiquidableAhorro": "0",
+        "reduccionArt20": "2923.47",
+        "componentesCuota": {
+          "unidad": "EUR",
+          "gravamenEstatal": "945.49225",
+          "gravamenMinimoEstatal": "527.25",
+          "gravamenAutonomico": "845.96675",
+          "gravamenMinimoAutonomico": "491.09175",
+          "cuotaEstatal": "418.24225",
+          "cuotaAutonomica": "354.875"
+        },
+        "cuotaLiquidaLegal": "773.11725",
+        "deduccionTrabajo": "0",
+        "cuotaPosterior": "773.11725",
+        "retenciones": "0",
+        "pagosFraccionados": "0",
+        "cuotaDiferencial": "773.11725",
+        "cuotaDiferencialPresentada": "773.12",
+        "aceptacionFiscal": "pendiente"
+      },
+      "art20Trace": {
+        "etiqueta": "Reducción artículo 20",
+        "formula": "min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0)",
+        "resultado": "2923.47 euros",
+        "origen": {
+          "siteId": "anual.explicito.trabajo.art20",
+          "instanceId": "anual.explicito.trabajo.art20.0",
+          "decimal": "2923.47",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "pendiente",
+          "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.trabajo.art20/77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.trabajo.art20@77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9"
+        }
+      }
+    },
+    {
+      "id": "historico-2023",
+      "result": {
+        "_tag": "LiquidacionIrpfAnualExplicitaCalculada",
+        "perfil": "solo-trabajo",
+        "ejercicio": 2023,
+        "alcance": "individual-madrid-2018-a-2024-hechos-explicitos",
+        "rendimientoNetoReducido": "7322.5328",
+        "baseImponibleGeneral": "7322.5328",
+        "baseLiquidableGeneral": "7322.5328",
+        "baseLiquidableAhorro": "0",
+        "reduccionArt20": "5553.4872",
+        "componentesCuota": {
+          "unidad": "EUR",
+          "gravamenEstatal": "695.640616",
+          "gravamenMinimoEstatal": "527.25",
+          "gravamenAutonomico": "622.415288",
+          "gravamenMinimoAutonomico": "506.31525",
+          "cuotaEstatal": "168.390616",
+          "cuotaAutonomica": "116.100038"
+        },
+        "cuotaLiquidaLegal": "284.490654",
+        "deduccionTrabajo": "0",
+        "cuotaPosterior": "284.490654",
+        "retenciones": "0",
+        "pagosFraccionados": "0",
+        "cuotaDiferencial": "284.490654",
+        "cuotaDiferencialPresentada": "284.49",
+        "aceptacionFiscal": "pendiente"
+      },
+      "art20Trace": {
+        "etiqueta": "Reducción artículo 20",
+        "formula": "min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0)",
+        "resultado": "5553.49 euros",
+        "origen": {
+          "siteId": "anual.explicito.trabajo.art20",
+          "instanceId": "anual.explicito.trabajo.art20.0",
+          "decimal": "5553.4872",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "pendiente",
+          "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.trabajo.art20/77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.trabajo.art20@77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9"
+        }
+      }
+    },
+    {
+      "id": "historico-2024",
+      "result": {
+        "_tag": "LiquidacionIrpfAnualExplicitaCalculada",
+        "perfil": "solo-trabajo",
+        "ejercicio": 2024,
+        "alcance": "individual-madrid-2018-a-2024-hechos-explicitos",
+        "rendimientoNetoReducido": "5616.055",
+        "baseImponibleGeneral": "5616.055",
+        "baseLiquidableGeneral": "5616.055",
+        "baseLiquidableAhorro": "0",
+        "reduccionArt20": "7259.965",
+        "componentesCuota": {
+          "unidad": "EUR",
+          "gravamenEstatal": "533.525225",
+          "gravamenMinimoEstatal": "527.25",
+          "gravamenAutonomico": "477.364675",
+          "gravamenMinimoAutonomico": "477.364675",
+          "cuotaEstatal": "6.275225",
+          "cuotaAutonomica": "0"
+        },
+        "cuotaLiquidaLegal": "6.275225",
+        "deduccionTrabajo": "0",
+        "cuotaPosterior": "6.275225",
+        "retenciones": "0",
+        "pagosFraccionados": "0",
+        "cuotaDiferencial": "6.275225",
+        "cuotaDiferencialPresentada": "6.28",
+        "aceptacionFiscal": "pendiente"
+      },
+      "art20Trace": {
+        "etiqueta": "Reducción artículo 20",
+        "formula": "min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0)",
+        "resultado": "7259.97 euros",
+        "origen": {
+          "siteId": "anual.explicito.trabajo.art20",
+          "instanceId": "anual.explicito.trabajo.art20.0",
+          "decimal": "7259.965",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "pendiente",
+          "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.trabajo.art20/77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.trabajo.art20@77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9"
+        }
+      }
+    },
+    {
+      "id": "andalucia",
+      "result": {
+        "_tag": "LiquidacionIrpfAnualExplicitaCalculada",
+        "perfil": "solo-trabajo",
+        "ejercicio": 2025,
+        "alcance": "individual-comun-2025-hechos-explicitos",
+        "rendimientoNetoReducido": "8366.055",
+        "baseImponibleGeneral": "8366.055",
+        "baseLiquidableGeneral": "8366.055",
+        "baseLiquidableAhorro": "0",
+        "reduccionArt20": "5509.965",
+        "componentesCuota": {
+          "unidad": "EUR",
+          "gravamenEstatal": "794.775225",
+          "gravamenMinimoEstatal": "527.25",
+          "gravamenAutonomico": "794.775225",
+          "gravamenMinimoAutonomico": "550.05",
+          "cuotaEstatal": "267.525225",
+          "cuotaAutonomica": "244.725225"
+        },
+        "cuotaLiquidaLegal": "512.25045",
+        "deduccionTrabajo": "340",
+        "cuotaPosterior": "172.25045",
+        "retenciones": "0",
+        "pagosFraccionados": "0",
+        "cuotaDiferencial": "172.25045",
+        "cuotaDiferencialPresentada": "172.25",
+        "aceptacionFiscal": "pendiente"
+      },
+      "art20Trace": {
+        "etiqueta": "Reducción artículo 20",
+        "formula": "min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0)",
+        "resultado": "5509.97 euros",
+        "origen": {
+          "siteId": "anual.explicito.trabajo.art20",
+          "instanceId": "anual.explicito.trabajo.art20.0",
+          "decimal": "5509.965",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "pendiente",
+          "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.trabajo.art20/77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.trabajo.art20@77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9"
+        }
+      }
+    },
+    {
+      "id": "catalunya",
+      "result": {
+        "_tag": "LiquidacionIrpfAnualExplicitaCalculada",
+        "perfil": "solo-trabajo",
+        "ejercicio": 2025,
+        "alcance": "individual-comun-2025-hechos-explicitos",
+        "rendimientoNetoReducido": "8366.055",
+        "baseImponibleGeneral": "8366.055",
+        "baseLiquidableGeneral": "8366.055",
+        "baseLiquidableAhorro": "0",
+        "reduccionArt20": "5509.965",
+        "componentesCuota": {
+          "unidad": "EUR",
+          "gravamenEstatal": "794.775225",
+          "gravamenMinimoEstatal": "527.25",
+          "gravamenAutonomico": "794.775225",
+          "gravamenMinimoAutonomico": "527.25",
+          "cuotaEstatal": "267.525225",
+          "cuotaAutonomica": "267.525225"
+        },
+        "cuotaLiquidaLegal": "535.05045",
+        "deduccionTrabajo": "340",
+        "cuotaPosterior": "195.05045",
+        "retenciones": "0",
+        "pagosFraccionados": "0",
+        "cuotaDiferencial": "195.05045",
+        "cuotaDiferencialPresentada": "195.05",
+        "aceptacionFiscal": "pendiente"
+      },
+      "art20Trace": {
+        "etiqueta": "Reducción artículo 20",
+        "formula": "min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0)",
+        "resultado": "5509.97 euros",
+        "origen": {
+          "siteId": "anual.explicito.trabajo.art20",
+          "instanceId": "anual.explicito.trabajo.art20.0",
+          "decimal": "5509.965",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "pendiente",
+          "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.trabajo.art20/77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.trabajo.art20@77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9"
+        }
+      }
+    },
+    {
+      "id": "pension",
+      "result": {
+        "_tag": "LiquidacionIrpfAnualExplicitaCalculada",
+        "perfil": "solo-trabajo",
+        "ejercicio": 2025,
+        "alcance": "individual-comun-2025-hechos-explicitos",
+        "rendimientoNetoReducido": "8366.055",
+        "baseImponibleGeneral": "8366.055",
+        "baseLiquidableGeneral": "8366.055",
+        "baseLiquidableAhorro": "0",
+        "reduccionArt20": "5509.965",
+        "componentesCuota": {
+          "unidad": "EUR",
+          "gravamenEstatal": "794.775225",
+          "gravamenMinimoEstatal": "527.25",
+          "gravamenAutonomico": "711.114675",
+          "gravamenMinimoAutonomico": "506.31525",
+          "cuotaEstatal": "267.525225",
+          "cuotaAutonomica": "204.799425"
+        },
+        "cuotaLiquidaLegal": "472.32465",
+        "deduccionTrabajo": "0",
+        "cuotaPosterior": "472.32465",
+        "retenciones": "0",
+        "pagosFraccionados": "0",
+        "cuotaDiferencial": "472.32465",
+        "cuotaDiferencialPresentada": "472.32",
+        "aceptacionFiscal": "pendiente"
+      },
+      "art20Trace": {
+        "etiqueta": "Reducción artículo 20",
+        "formula": "min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0)",
+        "resultado": "5509.97 euros",
+        "origen": {
+          "siteId": "anual.explicito.trabajo.art20",
+          "instanceId": "anual.explicito.trabajo.art20.0",
+          "decimal": "5509.965",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "pendiente",
+          "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.trabajo.art20/77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.trabajo.art20@77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9"
+        }
+      }
+    },
+    {
+      "id": "empleo-estatutario",
+      "result": {
+        "_tag": "LiquidacionIrpfAnualExplicitaCalculada",
+        "perfil": "solo-trabajo",
+        "ejercicio": 2025,
+        "alcance": "individual-comun-2025-hechos-explicitos",
+        "rendimientoNetoReducido": "8366.06",
+        "baseImponibleGeneral": "8366.06",
+        "baseLiquidableGeneral": "8366.06",
+        "baseLiquidableAhorro": "0",
+        "reduccionArt20": "5509.96",
+        "componentesCuota": {
+          "unidad": "EUR",
+          "gravamenEstatal": "794.78",
+          "gravamenMinimoEstatal": "527.25",
+          "gravamenAutonomico": "711.12",
+          "gravamenMinimoAutonomico": "506.32",
+          "cuotaEstatal": "267.53",
+          "cuotaAutonomica": "204.8"
+        },
+        "cuotaLiquidaLegal": "472.33",
+        "deduccionTrabajo": "340",
+        "cuotaPosterior": "132.33",
+        "retenciones": "0",
+        "pagosFraccionados": "0",
+        "cuotaDiferencial": "132.33",
+        "cuotaDiferencialPresentada": "132.33",
+        "aceptacionFiscal": "pendiente"
+      },
+      "art20Trace": {
+        "etiqueta": "Reducción artículo 20",
+        "formula": "compatibilidad numérica Open 2025 en el núcleo compartido para íntegro y gastos a–e entre 0 y 1.000.000 EUR; fuera, Decimal; min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0)",
+        "resultado": "5509.96 euros",
+        "origen": {
+          "siteId": "anual.explicito.trabajo.art20",
+          "instanceId": "anual.explicito.trabajo.art20.0",
+          "decimal": "5509.96",
+          "unidad": "EUR"
+        },
+        "procedencia": {
+          "estado": "pendiente",
+          "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.trabajo.art20/77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.trabajo.art20@77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9"
+        }
+      }
+    },
+    {
+      "id": "actividad-vacia",
+      "result": {
+        "_tag": "LiquidacionIrpfAnualExplicitaCalculada",
+        "perfil": "solo-actividad-eds",
+        "ejercicio": 2025,
+        "alcance": "individual-comun-2025-hechos-explicitos",
+        "rendimientoNetoReducido": "0",
+        "baseImponibleGeneral": "0",
+        "baseLiquidableGeneral": "0",
+        "baseLiquidableAhorro": "0",
+        "reduccionArt20": "0",
+        "componentesCuota": {
+          "unidad": "EUR",
+          "gravamenEstatal": "0",
+          "gravamenMinimoEstatal": "0",
+          "gravamenAutonomico": "0",
+          "gravamenMinimoAutonomico": "0",
+          "cuotaEstatal": "0",
+          "cuotaAutonomica": "0"
+        },
+        "cuotaLiquidaLegal": "0",
+        "deduccionTrabajo": "0",
+        "cuotaPosterior": "0",
+        "retenciones": "0",
+        "pagosFraccionados": "0",
+        "cuotaDiferencial": "0",
+        "cuotaDiferencialPresentada": "0.00",
+        "aceptacionFiscal": "pendiente"
+      },
+      "art20Trace": null
+    }
+  ]
+}

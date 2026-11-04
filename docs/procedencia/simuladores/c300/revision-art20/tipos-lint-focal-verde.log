@@ -1,0 +1,2 @@
+$ timeout -k 30s 8m sh -c 'tsc --noEmit && tsc --noEmit -p tools/oxlint/tsconfig.json'
+$ timeout -k 30s 12m oxlint --disable-nested-config "tests/art20-open-c300.test.ts" lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts lib/dominio/irpf/trabajo-anual/conexion.ts

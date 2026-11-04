@@ -1,0 +1,108 @@
+--- a/lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts
++++ b/lib/dominio/irpf/reducciones/reduccion-rendimientos-trabajo.ts
+@@ -32,12 +32,18 @@
+   fechaFallecimiento,
+   rendimientoPrevioNeto,
+   otrasRentasNoExentas,
++  compatibilidadOpen2025,
+ }: {
+   readonly anio: AnioFiscal
+   readonly fechaFallecimiento?: Date | undefined
+   readonly rendimientoPrevioNeto: Decimal
+   /** Suma algebraica de rentas distintas del trabajo, antes de reducciones y compensaciones. */
+   readonly otrasRentasNoExentas: Decimal
++  /** Compatibilidad observada, exclusivamente empleo Madrid 2025; no regla legal. */
++  readonly compatibilidadOpen2025?: {
++    readonly integro: Decimal
++    readonly gastosAE: Decimal
++  } | undefined
+ }): Decimal =>
+   Match.value(anio).pipe(
+     Match.when(
+@@ -60,7 +66,16 @@
+       () => reduccionTrabajo2019A2022(rendimientoPrevioNeto)
+     ),
+     Match.when(2023, () => reduccionTrabajo2023(rendimientoPrevioNeto)),
+-    Match.orElse(() => reduccionTrabajoDesde2024(rendimientoPrevioNeto))
++    Match.orElse(() => {
++      const open = anio === 2025 ? compatibilidadOpen2025 : undefined
++      const previo = open === undefined
++        ? rendimientoPrevioNeto
++        : crearImporteMonetario(open.integro.toNumber() - open.gastosAE.toNumber())
++      const reduccion = reduccionTrabajoDesde2024(previo, open !== undefined)
++      return open === undefined
++        ? reduccion
++        : crearImporteMonetario(Math.round(reduccion.toNumber() * 100) / 100)
++    })
+   )
+ 
+ const reduccionTrabajoHasta2014 = (rendimientoPrevioNeto: Decimal): Decimal =>
+@@ -186,7 +201,21 @@
+     Match.orElse(() => IMPORTE_CERO)
+   )
+ 
+-const reduccionTrabajoDesde2024 = (rendimientoPrevioNeto: Decimal): Decimal =>
++// Una sola fórmula por tramo: la política cambia las operaciones, no los coeficientes.
++const restarArt20 = (a: Decimal, b: Decimal, open: boolean): Decimal =>
++  open ? crearImporteMonetario(a.toNumber() - b.toNumber()) : a.minus(b)
++const multiplicarArt20 = (a: Decimal, b: Decimal, open: boolean): Decimal =>
++  open ? crearImporteMonetario(a.toNumber() * b.toNumber()) : a.mul(b)
++const reduccionTramoArt20 = (
++  base: string, coeficiente: string, previo: Decimal, umbral: string, open: boolean
++): Decimal => restarArt20(
++  crearImporteMonetario(base),
++  multiplicarArt20(crearImporteMonetario(coeficiente),
++    restarArt20(previo, crearImporteMonetario(umbral), open), open), open
++)
++const reduccionTrabajoDesde2024 = (
++  rendimientoPrevioNeto: Decimal, open = false
++): Decimal =>
+   Match.value(rendimientoPrevioNeto).pipe(
+     Match.when(
+       (rendimientoPrevioNeto) => rendimientoPrevioNeto.lte(14852),
+@@ -195,18 +224,12 @@
+     Match.when(
+       (rendimientoPrevioNeto) => rendimientoPrevioNeto.lte("17673.52"),
+       () =>
+-        crearImporteMonetario(7302).minus(
+-          crearImporteMonetario("1.75").mul(rendimientoPrevioNeto.minus(14852))
+-        )
++        reduccionTramoArt20("7302", "1.75", rendimientoPrevioNeto, "14852", open)
+     ),
+     Match.when(
+       (rendimientoPrevioNeto) => rendimientoPrevioNeto.lt("19747.50"),
+       () =>
+-        crearImporteMonetario("2364.34").minus(
+-          crearImporteMonetario("1.14").mul(
+-            rendimientoPrevioNeto.minus("17673.52")
+-          )
+-        )
+-    ),
+-    Match.orElse(() => IMPORTE_CERO)
+-  )
++        reduccionTramoArt20("2364.34", "1.14", rendimientoPrevioNeto, "17673.52", open)
++    ),
++    Match.orElse(() => IMPORTE_CERO)
++  )
+--- a/lib/dominio/irpf/trabajo-anual/conexion.ts
++++ b/lib/dominio/irpf/trabajo-anual/conexion.ts
+@@ -128,6 +128,10 @@
+           anio: caso.ejercicio,
+           rendimientoPrevioNeto: new D(trabajo.argumentoArt20),
+           otrasRentasNoExentas: new D(0),
++          compatibilidadOpen2025: redondeoSalarialOpen ? {
++            integro: new D(trabajo.gastos.integro),
++            gastosAE: new D(trabajo.gastos.gastosAE),
++          } : undefined,
+         })
+       )
+       reduccionArt20 = cuantizarEtapa(reduccionArt20)
+@@ -194,7 +198,7 @@
+             unidad: "EUR",
+             etiqueta: "Reducción artículo 20",
+             formula: redondeoSalarialOpen
+-              ? "céntimos half-up de min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0), observado en Open 2025"
++              ? "compatibilidad numérica Open 2025 en el núcleo compartido; min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0)"
+               : "min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0)",
+           }),
+         ],

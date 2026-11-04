@@ -1,0 +1,75 @@
+--- a/tools/procedencia/simuladores/storage.py
++++ b/tools/procedencia/simuladores/storage.py
+@@ -66,11 +66,20 @@
+         os.close(directory)
+ 
+ 
+-def read_jsonl(path, repair_tail=False):
++def read_jsonl(path, repair_tail=False, closed_snapshot=False):
++    if repair_tail and closed_snapshot:
++        raise ValueError('Un corte de lectura no puede reparar el journal')
+     path = Path(path)
+     if not path.exists():
+         return []
+-    raw = path.read_bytes()
++    if closed_snapshot:
++        # Longitud fijada al abrir: no incluye escrituras posteriores ni el
++        # último registro sin salto de línea, aunque ya sea JSON válido.
++        with path.open('rb') as stream:
++            raw = stream.read(os.fstat(stream.fileno()).st_size)
++        raw = raw[:raw.rfind(b'\n') + 1]
++    else:
++        raw = path.read_bytes()
+     records, offset = [], 0
+     for index, line in enumerate(raw.splitlines(keepends=True)):
+         try:
+--- a/tools/procedencia/simuladores/c300.py
++++ b/tools/procedencia/simuladores/c300.py
+@@ -130,7 +130,7 @@
+         refs = json.loads(path.read_bytes())
+         hashes = {name: digest(read_ref(ref)) for name, ref in refs.items()}
+         proofs.add(digest(canonical(hashes)))
+-    records = read_jsonl(run.OUT / 'journal.jsonl', repair_tail=True)
++    records = read_jsonl(run.OUT / 'journal.jsonl', closed_snapshot=True)
+     states = latest_states(records)
+     by_id = {c['job']['id']: c for c in cases}
+     selected = {}
+--- a/tests/simuladores-c300-test.py
++++ b/tests/simuladores-c300-test.py
+@@ -11,10 +11,35 @@
+ from c300_evidence import pdf_checks
+ from contract import MAP
+ from evidence import REQUIRED_PDF
+-from storage import canonical, digest
++from storage import canonical, digest, read_jsonl
+ 
+ 
+ class MatrixTests(unittest.TestCase):
++    def test_compare_selection_never_repairs_a_live_journal(self):
++        with tempfile.TemporaryDirectory() as tmp, patch.object(c300.run, 'OUT', Path(tmp)):
++            journal = Path(tmp) / 'journal.jsonl'
++            started = canonical(dict(status='started', key='a' * 64)) + b'\n'
++            for tail in (b'{"incomplete":', b'{"status":"done"}', b''):
++                with self.subTest(tail=tail):
++                    before = started + tail
++                    journal.write_bytes(before)
++                    self.assertEqual(c300.historical_receipts([]), {})
++                    self.assertEqual(journal.read_bytes(), before)
++                    self.assertEqual(sorted(p.name for p in Path(tmp).iterdir()), ['journal.jsonl'])
++
++    def test_closed_snapshot_does_not_hide_corrupt_complete_records(self):
++        with tempfile.TemporaryDirectory() as tmp:
++            journal = Path(tmp) / 'journal.jsonl'
++            for content in (b'{broken}\n', b'42\n'):
++                journal.write_bytes(content)
++                with self.subTest(content=content), self.assertRaises(ValueError):
++                    read_jsonl(journal, closed_snapshot=True)
++                self.assertEqual(journal.read_bytes(), content)
++            journal.write_bytes(b'{"ok":1}\n{"incomplete":')
++            self.assertEqual(read_jsonl(journal, closed_snapshot=True), [dict(ok=1)])
++            with self.assertRaisesRegex(ValueError, 'no puede reparar'):
++                read_jsonl(journal, repair_tail=True, closed_snapshot=True)
++
+     def test_pdf_zero_with_ses_absent_is_not_equality(self):
+         text = 'Ejercicio 2025\n' + '\n'.join('0,00 ' + box for box in REQUIRED_PDF)
+         values = {key: None for key in MAP.values()}

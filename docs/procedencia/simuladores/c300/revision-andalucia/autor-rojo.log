@@ -1,0 +1,156 @@
+$ timeout -k 30s 20m vitest run "tests/andalucia-open-c300.test.ts" "tests/art20-open-c300.test.ts" tests/simuladores-proyeccion.test.ts tests/redondeo-salarial-open.test.ts
+
+ RUN  v4.1.5 /home/elies/Repos/IRoboPF
+
+ ❯ tests/andalucia-open-c300.test.ts (1 test | 1 failed) 20ms
+   × Andalucía 2025: captura íntegra SES/PDF, doce casillas exactas y dos ausencias 19ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/andalucia-open-c300.test.ts > Andalucía 2025: captura íntegra SES/PDF, doce casillas exactas y dos ausencias
+AssertionError: 0528: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/andalucia-open-c300.test.ts:108:65
+    106|     expect(records).toHaveLength(1)
+    107|     const expected = records[0]![1]!
+    108|     expect.soft(new Decimal(actual[i]!).eq(expected), boxes[i]).toBe(t…
+       |                                                                 ^
+    109|     presentes++
+    110|   })
+ ❯ tests/andalucia-open-c300.test.ts:103:8
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/7]⎯
+
+ FAIL  tests/andalucia-open-c300.test.ts > Andalucía 2025: captura íntegra SES/PDF, doce casillas exactas y dos ausencias
+AssertionError: 0529: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/andalucia-open-c300.test.ts:108:65
+    106|     expect(records).toHaveLength(1)
+    107|     const expected = records[0]![1]!
+    108|     expect.soft(new Decimal(actual[i]!).eq(expected), boxes[i]).toBe(t…
+       |                                                                 ^
+    109|     presentes++
+    110|   })
+ ❯ tests/andalucia-open-c300.test.ts:103:8
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/7]⎯
+
+ FAIL  tests/andalucia-open-c300.test.ts > Andalucía 2025: captura íntegra SES/PDF, doce casillas exactas y dos ausencias
+AssertionError: 0532: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/andalucia-open-c300.test.ts:108:65
+    106|     expect(records).toHaveLength(1)
+    107|     const expected = records[0]![1]!
+    108|     expect.soft(new Decimal(actual[i]!).eq(expected), boxes[i]).toBe(t…
+       |                                                                 ^
+    109|     presentes++
+    110|   })
+ ❯ tests/andalucia-open-c300.test.ts:103:8
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/7]⎯
+
+ FAIL  tests/andalucia-open-c300.test.ts > Andalucía 2025: captura íntegra SES/PDF, doce casillas exactas y dos ausencias
+AssertionError: 0533: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/andalucia-open-c300.test.ts:108:65
+    106|     expect(records).toHaveLength(1)
+    107|     const expected = records[0]![1]!
+    108|     expect.soft(new Decimal(actual[i]!).eq(expected), boxes[i]).toBe(t…
+       |                                                                 ^
+    109|     presentes++
+    110|   })
+ ❯ tests/andalucia-open-c300.test.ts:103:8
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/7]⎯
+
+ FAIL  tests/andalucia-open-c300.test.ts > Andalucía 2025: captura íntegra SES/PDF, doce casillas exactas y dos ausencias
+AssertionError: 0595: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/andalucia-open-c300.test.ts:108:65
+    106|     expect(records).toHaveLength(1)
+    107|     const expected = records[0]![1]!
+    108|     expect.soft(new Decimal(actual[i]!).eq(expected), boxes[i]).toBe(t…
+       |                                                                 ^
+    109|     presentes++
+    110|   })
+ ❯ tests/andalucia-open-c300.test.ts:103:8
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/7]⎯
+
+ FAIL  tests/andalucia-open-c300.test.ts > Andalucía 2025: captura íntegra SES/PDF, doce casillas exactas y dos ausencias
+AssertionError: 0610: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/andalucia-open-c300.test.ts:108:65
+    106|     expect(records).toHaveLength(1)
+    107|     const expected = records[0]![1]!
+    108|     expect.soft(new Decimal(actual[i]!).eq(expected), boxes[i]).toBe(t…
+       |                                                                 ^
+    109|     presentes++
+    110|   })
+ ❯ tests/andalucia-open-c300.test.ts:103:8
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/7]⎯
+
+ FAIL  tests/andalucia-open-c300.test.ts > Andalucía 2025: captura íntegra SES/PDF, doce casillas exactas y dos ausencias
+AssertionError: 0670: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/andalucia-open-c300.test.ts:108:65
+    106|     expect(records).toHaveLength(1)
+    107|     const expected = records[0]![1]!
+    108|     expect.soft(new Decimal(actual[i]!).eq(expected), boxes[i]).toBe(t…
+       |                                                                 ^
+    109|     presentes++
+    110|   })
+ ❯ tests/andalucia-open-c300.test.ts:103:8
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/7]⎯
+
+
+ Test Files  1 failed | 3 passed (4)
+      Tests  1 failed | 44 passed (45)
+   Start at  23:12:00
+   Duration  2.33s (transform 571ms, setup 0ms, import 1.74s, tests 165ms, environment 0ms)
+
+error: script "test" exited with code 1
