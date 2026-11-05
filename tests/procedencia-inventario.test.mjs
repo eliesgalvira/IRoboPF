@@ -11,7 +11,6 @@ import {
   readFileSync,
 } from "node:fs"
 import { resolve, dirname } from "node:path"
-import { gzipSync } from "node:zlib"
 import ts from "typescript"
 import Decimal from "decimal.js"
 import { extractTs, hash } from "../scripts/procedencia/inventario-ast.mjs"
@@ -22,10 +21,7 @@ import {
   sourcePaths,
   validate,
 } from "../scripts/procedencia/inventario.mjs"
-import {
-  compareFiles,
-  readArtifact,
-} from "../scripts/procedencia/inventario-artefacto.mjs"
+import { readArtifact, compareFiles } from "../scripts/procedencia/inventario-artefacto.mjs"
 
 describe("inventario sintáctico y efectivo", () => {
   it("el grafo de imports namespace es independiente del directorio del checkout", () => {
@@ -144,10 +140,12 @@ if (again.counts.effective !== result.counts.effective) throw new Error("Conteo 
 console.log("5551");
 `
       )
-      const result = spawnSync("timeout", ["-k", "5s", "55s", "bun", "cache.mjs"], {
+      // Genera el corpus completo dos veces. El runner de CI necesita más
+      // margen que la máquina local; el árbol sigue limitado a cuatro minutos.
+      const result = spawnSync("timeout", ["-k", "10s", "240s", "bun", "--smol", "cache.mjs"], {
         cwd: root,
         encoding: "utf8",
-        timeout: 60000,
+        timeout: 255000,
         maxBuffer: 1024 * 1024,
       })
       expect(result.status, JSON.stringify({ status: result.status, signal: result.signal, error: result.error?.message, stderr: result.stderr })).toBe(0)
@@ -155,10 +153,10 @@ console.log("5551");
     } finally {
       rmSync(root, { recursive: true, force: true })
     }
-  }, 60000)
+  }, 300000)
   it("rechaza un valor adulterado aunque todos sus hashes hayan sido recalculados", () => {
     const command = ["scripts/procedencia/inventario-artefacto.mjs", "check"]
-    const options = { encoding: "utf8", timeout: 60000, maxBuffer: 1024 * 1024 }
+    const options = { encoding: "utf8", timeout: 135000, maxBuffer: 1024 * 1024 }
     const scratch = resolve(".cache/procedencia/inventario-pruebas")
     mkdirSync(scratch, { recursive: true })
     const temporary = mkdtempSync(resolve(scratch, "alterado-"))
@@ -174,41 +172,65 @@ console.log("5551");
         resolve(temporary, "node_modules"),
         "dir"
       )
-      const baseline = spawnSync("bun", [command[0], "write"], {
+      const baseline = spawnSync("timeout", ["-k", "10s", "120s", "bun", "--smol", command[0], "write"], {
         ...options,
         cwd: temporary,
       })
       expect(baseline.status, baseline.stderr).toBe(0)
-      const { files, manifest } = readArtifact(temporary)
-      // Misma generación en otra raíz: ninguna identidad depende del checkout.
-      expect(() => compareFiles(readArtifact().files, files)).not.toThrow()
-      const page = manifest.pages[0]
-      const items = JSON.parse(files.get(page.file))
-      items[0].value = "987654321"
-      const changed = JSON.stringify(items) + "\n"
-      files.set(page.file, changed)
-      page.sha256 = hash(changed)
-      const summary = structuredClone(manifest)
-      delete summary.artifact
-      files.set("inventario.json", JSON.stringify(summary) + "\n")
-      const raw = gzipSync(Buffer.from(JSON.stringify([...files])))
-      manifest.artifact.sha256 = hash(raw)
-      manifest.artifact.size = raw.length
-      const folder = resolve(temporary, "docs/procedencia")
-      mkdirSync(folder, { recursive: true })
-      writeFileSync(resolve(folder, manifest.artifact.file), raw)
+      // El proceso de preparación termina antes de regenerar. Así sus mapas
+      // descomprimidos no conviven con el checker TypeScript del generador.
       writeFileSync(
-        resolve(folder, "inventario.json"),
-        JSON.stringify(manifest)
+        resolve(temporary, "adulterar.mjs"),
+        `
+import { writeFileSync } from "node:fs";
+import { resolve } from "node:path";
+import { gzipSync } from "node:zlib";
+import { readArtifact, compareFiles } from "./scripts/procedencia/inventario-artefacto.mjs";
+import { hash } from "./scripts/procedencia/inventario-ast.mjs";
+import { gc } from "bun";
+function adulterar() {
+const { files, manifest } = readArtifact();
+// Misma generación en otra raíz: ninguna identidad depende del checkout.
+compareFiles(readArtifact(${JSON.stringify(process.cwd())}).files, files);
+gc(true);
+const page = manifest.pages[0];
+const items = JSON.parse(files.get(page.file));
+items[0].value = "987654321";
+const changed = JSON.stringify(items) + "\\n";
+files.set(page.file, changed);
+page.sha256 = hash(changed);
+const summary = structuredClone(manifest);
+delete summary.artifact;
+files.set("inventario.json", JSON.stringify(summary) + "\\n");
+const decoded = Buffer.from(JSON.stringify([...files]));
+gc(true);
+const raw = gzipSync(decoded);
+manifest.artifact.sha256 = hash(raw);
+manifest.artifact.size = raw.length;
+const folder = resolve("docs/procedencia");
+writeFileSync(resolve(folder, manifest.artifact.file), raw);
+writeFileSync(resolve(folder, "inventario.json"), JSON.stringify(manifest));
+}
+adulterar();
+gc(true);
+readArtifact();
+console.log("adulterado-con-hashes-validos");
+`
       )
-      expect(() => readArtifact(temporary)).not.toThrow()
-      const result = spawnSync("bun", [...command, temporary], options)
+      const altered = spawnSync("timeout", ["-k", "10s", "30s", "bun", "--smol", "adulterar.mjs"], {
+        ...options,
+        cwd: temporary,
+        timeout: 45000,
+      })
+      expect(altered.status, altered.stderr).toBe(0)
+      expect(altered.stdout.trim()).toBe("adulterado-con-hashes-validos")
+      const result = spawnSync("timeout", ["-k", "10s", "120s", "bun", "--smol", ...command, temporary], options)
       expect(result.status).toBe(1)
       expect(result.stderr).toContain("Diferencia respecto a fuentes actuales")
     } finally {
       rmSync(temporary, { recursive: true, force: true })
     }
-  }, 60000)
+  }, 300000)
   it("no reutiliza una identidad para otro número al insertar un elemento", () => {
     const anterior = extractTs("fixture.ts", "const valores = [10, 20]")
     const posterior = extractTs("fixture.ts", "const valores = [5, 10, 20]")
@@ -342,9 +364,9 @@ console.log("5551");
   })
   it("analiza Python sin ejecutar pandas ni generar Excel", () => {
     const result = spawnSync(
-      "python3",
-      ["scripts/procedencia/inventario-python.py", "Calculo_Salario_IRPF.py"],
-      { encoding: "utf8", maxBuffer: 8 * 1024 * 1024 }
+      "timeout",
+      ["-k", "10s", "20s", "python3", "scripts/procedencia/inventario-python.py", "Calculo_Salario_IRPF.py"],
+      { encoding: "utf8", timeout: 35000, maxBuffer: 8 * 1024 * 1024 }
     )
     expect(result.status).toBe(0)
     const data = JSON.parse(result.stdout)

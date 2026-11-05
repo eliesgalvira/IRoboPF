@@ -9,7 +9,6 @@ import { resolve, relative } from "node:path"
 import { pathToFileURL, fileURLToPath } from "node:url"
 import { spawnSync } from "node:child_process"
 import { baseItem, extractTs, hash, idFor } from "./inventario-ast.mjs"
-import { bindingGraph } from "./inventario-bindings.mjs"
 import Decimal from "decimal.js"
 import { Predicate } from "effect"
 
@@ -229,11 +228,12 @@ export async function generate(
   output = `${root}/.cache/procedencia/inventario`
 ) {
   const child = spawnSync(
-    "bun",
-    [fileURLToPath(import.meta.url), resolve(root), resolve(output)],
+    "timeout",
+    ["-k", "10s", "120s", "bun", "--smol", fileURLToPath(import.meta.url), resolve(root), resolve(output)],
     {
       cwd: root,
       encoding: "utf8",
+      timeout: 135000,
       maxBuffer: 4 * 1024 * 1024,
     }
   )
@@ -260,9 +260,34 @@ async function generateInProcess(root, output) {
     throw new Error(`El destino debe estar vacío: ${output}`)
   mkdirSync(output, { recursive: true })
   const paths = sourcePaths(root)
-  const extracted = paths.map((p) =>
-    extractTs(relative(root, p), readFileSync(p, "utf8"))
-  )
+  // El checker no debe convivir con las decenas de miles de ocurrencias y sus
+  // páginas serializadas. El proceso aislado libera toda su memoria al salir.
+  const bindings = spawnSync("timeout", [
+    "-k", "10s", "120s", "bun", "--smol",
+    fileURLToPath(new URL("./inventario-bindings.mjs", import.meta.url)),
+    resolve(root), resolve(output, "inventario-bindings.json"),
+  ], {
+    cwd: root,
+    input: JSON.stringify(paths),
+    encoding: "utf8",
+    timeout: 135000,
+    maxBuffer: 4 * 1024 * 1024,
+  })
+  if (bindings.status !== 0)
+    throw new Error("Falló grafo aislado: " + JSON.stringify({
+      status: bindings.status, signal: bindings.signal,
+      error: bindings.error?.message, stderr: bindings.stderr,
+    }))
+  const bindingInputs = new Set(JSON.parse(bindings.stdout))
+  const { gc } = await import("bun")
+  const extracted = []
+  for (const path of paths) {
+    extracted.push(extractTs(relative(root, path), readFileSync(path, "utf8")))
+    // Los AST son temporales. Liberarlos por lotes evita que se acumulen
+    // mientras siguen vivas las ocurrencias que sí hay que conservar.
+    if (extracted.length % 16 === 0) gc(true)
+  }
+  gc(true)
   const items = extracted.flatMap((source) => source.items)
   const gaps = [],
     modules = [],
@@ -517,10 +542,9 @@ async function generateInProcess(root, output) {
     pythonPath,
   ])
   items.sort((a, b) => a.id.localeCompare(b.id, "en"))
+  gc(true)
   const write = (name, value) =>
     writeFileSync(`${output}/${name}`, JSON.stringify(value) + "\n")
-  const bindingInputs = new Set()
-  write("inventario-bindings.json", bindingGraph(root, paths, bindingInputs))
   const pages = [],
     index = []
   for (let start = 0; start < items.length; start += 200) {
