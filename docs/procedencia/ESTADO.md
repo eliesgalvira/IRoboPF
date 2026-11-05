@@ -1,5 +1,13 @@
 # Estado de la auditoría documental
 
+## Corrección del CI y continuación de producto, 5 de noviembre
+
+El corte territorial se publicó en `3bcec2b08cb1cc21292ca41851d73df4f3c28f19`. Su trabajo remoto `corpus` pasó, pero `checks` agotó dos límites de tiempo del inventario. La reproducción local posterior detectó además un pico de memoria. Este corte separa las etapas del generador y acota las copias temporales de sus pruebas; conserva byte a byte los 686 archivos de datos del artefacto. La reproducción completa y sus mediciones figuran en [TIEMPOS-INVENTARIO.md](revisiones/territorial-historico-ci-20261105/TIEMPOS-INVENTARIO.md); el resultado remoto se comprueba después de publicar esta corrección.
+
+ELA y donativos tienen primera revisión independiente favorable dentro de sus alcances parciales. La implementación de maternidad ha terminado sus controles de autor. Su fusión y las nuevas interacciones se preparan fuera de la raíz; maternidad sigue pendiente de su primera revisión monetaria y ninguno de los tres productores se atribuye aún a esta publicación. El punto 4 continúa abierto.
+
+La campaña conserva 848 capturas: 661 de 2018; 61 de cada año 2019, 2020 y 2021; dos de 2022 y una de cada año 2023 y 2024. El reintento único de 2020 resolvió seed50; 2022-b01 se detuvo por presión de memoria, con seed1 fallido y seed2 cerrado. Se conservaron el error y todas las evidencias anteriores. El navegador y su bloqueo quedaron libres. El siguiente trabajo histórico útil es cotejar un bloque ya capturado, sin atribuir coincidencia a las 841 capturas adicionales a los siete pilotos. La captura permanece detenida durante la reparación del CI.
+
 ## Preparación de integración anual, 5 de noviembre
 
 Última publicación confirmada: `b9122c2bf61310922e856117ed4490136a628d03`, con `checks` y `corpus` verdes en la [ejecución 41965248547](https://github.com/eliesgalvira/IRoboPF/actions/runs/41965248547). Este corte incorpora las conexiones territoriales y el ajuste histórico descritos a continuación. Pasan los 31 comandos del workflow en entorno limpio; la publicación y comprobación remota se registran después de ese control local.

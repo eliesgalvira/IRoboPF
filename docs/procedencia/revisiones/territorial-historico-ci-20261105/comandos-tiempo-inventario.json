@@ -1,0 +1,214 @@
+{
+  "workflowSha256": "e993fe50f4e71e6030aaad7f91c8205fc39ea052a6911f46cc6149c64aeba3c9",
+  "results": [
+    {
+      "command": "timeout -k 30s 1m python3 scripts/ci-no-cache.py",
+      "exit": 0,
+      "seconds": 0.056
+    },
+    {
+      "command": "echo \"Corpus completo CAS omitido explícitamente; se ejecutan fixtures y contratos reproducibles. Véase docs/procedencia/CI.md\"",
+      "exit": 0,
+      "seconds": 0.004
+    },
+    {
+      "command": "timeout -k 30s 12m bun install --frozen-lockfile",
+      "exit": 0,
+      "seconds": 0.49
+    },
+    {
+      "command": "timeout -k 30s 12m bun run test:lint",
+      "exit": 0,
+      "seconds": 0.249
+    },
+    {
+      "command": "timeout -k 30s 12m bun run lint",
+      "exit": 0,
+      "seconds": 22.005
+    },
+    {
+      "command": "timeout -k 30s 12m bun run typecheck",
+      "exit": 0,
+      "seconds": 8.466
+    },
+    {
+      "command": "timeout -k 30s 12m bun run test:ci",
+      "exit": 0,
+      "seconds": 0.989
+    },
+    {
+      "command": "timeout -k 30s 12m bun run test tests/puertos-composicion-r47.test.ts tests/puertos-r52.test.ts --maxWorkers=1",
+      "exit": 0,
+      "seconds": 14.371
+    },
+    {
+      "command": "timeout -k 30s 12m bun run test tests/cotizaciones-perfil-uniforme.test.ts tests/*-procedencia.test.ts --exclude tests/evidencia-contenido-procedencia.test.ts --maxWorkers=1",
+      "exit": 0,
+      "seconds": 18.589
+    },
+    {
+      "command": "timeout -k 30s 12m bun run test tests/retenciones-versionadas.test.ts tests/trabajo-anual-contratos.test.ts tests/actividades-economicas-2025.test.ts tests/deducciones-contratos.test.ts tests/deducciones-ambito.test.ts tests/deducciones-conjunta-identidad.test.ts tests/calculo-salario-neto-irpf.test.ts --maxWorkers=1",
+      "exit": 0,
+      "seconds": 4.76
+    },
+    {
+      "command": "timeout -k 30s 12m bun run test tests/composicion-anual-unica.test.ts tests/composicion-anual-revision.test.ts tests/composicion-precision.test.ts tests/composicion-precision-contraste.test.ts tests/anual-salarial-completo.test.ts tests/anual-historico-explicito.test.ts tests/conexion-anual.test.ts tests/redondeo-salarial-open.test.ts tests/art20-open-c300.test.ts tests/andalucia-open-c300.test.ts tests/c300-variantes-cuotas.test.ts tests/c300-variantes-revision.test.ts tests/retirada-rutas.test.ts tests/motor-unico-revision.test.ts tests/minimos-derechos.test.ts tests/retenciones-derechos.test.ts tests/liquidacion-irpf-anual.test.ts tests/correcciones-x-solidaridad.test.ts tests/historico-open-ambito.test.ts tests/historico-open-redondeo.test.ts tests/revision-historico-cuotas.test.ts --maxWorkers=1",
+      "exit": 0,
+      "seconds": 15.178
+    },
+    {
+      "command": "timeout -k 30s 12m bun run inventario:verificar",
+      "exit": 0,
+      "seconds": 28.371
+    },
+    {
+      "command": "timeout -k 30s 12m bun run test tests/minimos-derechos-anuales.test.ts tests/territorios-2026.test.ts tests/comunidades-autonomas.test.ts tests/deducciones-pendientes.test.ts tests/deducciones-valencianas-datos-producto.test.ts tests/deducciones-valencianas-evaluacion.test.ts tests/deducciones-valencianas-correcciones.test.ts tests/deducciones-valencianas-composicion.test.ts tests/deducciones-valencianas-ejercicio.test.ts tests/deducciones-valencianas-cuota-conjunta.test.ts tests/deducciones-valencianas-anual.test.ts tests/deducciones-territoriales-anual.test.ts tests/deducciones-ampliacion-a-anual.test.ts tests/deducciones-a40-censos-anuales.test.ts tests/b-ampliado-adaptador-anual-2025.test.ts tests/b-conexion-completa-2025.test.ts tests/b37-anual-revision.test.ts tests/aragon-dos-codigos-2025.test.ts tests/revision-aragon-independiente.test.ts tests/deducciones-territoriales-anual-revision.test.ts tests/deducciones-territoriales-api-revision.test.ts tests/deducciones-territoriales-titulares.test.ts tests/deducciones-territoriales-vinculos-contraste.test.ts tests/deducciones-catalunya-hechos-2025.test.ts tests/deducciones-territorial-f-2025.test.ts tests/deducciones-asturias-cantabria-hechos-2025.test.ts tests/deducciones-revision-b-independiente.test.ts tests/deducciones-asturias-cantabria-ampliacion-2025.test.ts tests/deducciones-ampliacion-b-conserva-integrado.test.ts tests/deducciones-ampliacion-b-revision.test.ts tests/deducciones-canarias-balears-hechos-2025.test.ts tests/revision-c-hechos-20261105.test.ts tests/producto-lote-d-hechos.test.ts tests/producto-lote-d-revision-monetaria.test.ts tests/galicia-rioja-hechos-2025.test.ts tests/revision-e-hechos.test.ts tests/deducciones-lote-a-ampliacion-2025.test.ts tests/deducciones-lote-a-ampliacion-revision.test.ts tests/galicia-rioja-ampliacion-2025.test.ts tests/galicia-rioja-ampliacion-revision.test.ts tests/deducciones-d51-correccion.test.ts tests/discriminantes-d51.test.ts tests/producto-lote-d-ampliacion.test.ts tests/deducciones-canarias-balears-ampliacion.test.ts tests/revision-c36-independiente.test.ts tests/escalas-publicadas.test.ts tests/escalas-publicadas-2025.test.ts tests/escalas-madrid-historicas.test.ts tests/d51-conexion-anual.test.ts tests/revision-d51/revision-adversa.test.ts tests/e38-conexion-anual.test.ts tests/e38-revision-anual-independiente.test.ts tests/c36-conexion-anual.test.ts tests/c36-fronteras-anual.test.ts tests/c36-magnitudes-anuales.test.ts tests/deducciones-f-ampliacion-2025.test.ts tests/deducciones-f-conexion-anual-2025.test.ts tests/deducciones-f-recarga-2025.test.ts tests/deducciones-f-recarga-agua-ampliada-2025.test.ts tests/c36-fracciones-api-regresion.test.ts tests/c36-revision-anual-independiente.test.ts tests/revision-f-monetaria.test.ts tests/aragon-conexion-anual-2025.test.ts tests/cf-contraste-normativo.test.ts tests/f-fechas-edades-regresion.test.ts tests/revision-aragon-conexion-anual.test.ts tests/f-n1-n4-independiente.test.ts --maxWorkers=1",
+      "exit": 0,
+      "seconds": 35.361
+    },
+    {
+      "command": "timeout -k 30s 12m bun run test:inventario",
+      "exit": 0,
+      "seconds": 122.493
+    },
+    {
+      "command": "timeout -k 30s 12m bun run test --config scripts/procedencia/contenido-vitest.mjs",
+      "exit": 0,
+      "seconds": 1.295
+    },
+    {
+      "command": "timeout -k 30s 12m bun scripts/procedencia/contenido-verificar.mjs --fixture",
+      "exit": 0,
+      "seconds": 0.384
+    },
+    {
+      "command": "timeout -k 30s 12m bun scripts/procedencia/rastro-verificar.mjs --fixture",
+      "exit": 0,
+      "seconds": 0.37
+    },
+    {
+      "command": "timeout -k 30s 1m python3 scripts/ci-no-cache.py",
+      "exit": 0,
+      "seconds": 0.059
+    },
+    {
+      "command": "echo \"Corpus completo CAS omitido explícitamente; se ejecutan fixtures y contratos reproducibles. Véase docs/procedencia/CI.md\"",
+      "exit": 0,
+      "seconds": 0.006
+    },
+    {
+      "command": "timeout -k 30s 12m bun install --frozen-lockfile",
+      "exit": 0,
+      "seconds": 0.42
+    },
+    {
+      "command": "timeout -k 30s 12m bash tools/procedencia/run.sh tests/procedencia-corpus_test.py",
+      "exit": 0,
+      "seconds": 1.894
+    },
+    {
+      "command": "timeout -k 30s 12m bash tools/procedencia/run.sh tests/procedencia-enlaces_test.py",
+      "exit": 0,
+      "seconds": 2.889
+    },
+    {
+      "command": "timeout -k 30s 12m bash tools/procedencia/run.sh tests/procedencia-preservacion_test.py",
+      "exit": 0,
+      "seconds": 0.76
+    },
+    {
+      "command": "timeout -k 30s 1m python3 tests/procedencia-deducciones-registro_test.py",
+      "exit": 0,
+      "seconds": 0.825
+    },
+    {
+      "command": "timeout -k 30s 12m bash scripts/procedencia/deducciones-2025/verificar.sh --lotes docs/procedencia/deducciones-2025/lotes --modo completo",
+      "exit": 0,
+      "seconds": 16.975
+    },
+    {
+      "command": "timeout -k 30s 12m bun scripts/procedencia/verificar-enlaces.mjs --fixture",
+      "exit": 0,
+      "seconds": 3.186
+    },
+    {
+      "command": "timeout -k 30s 12m bun run test tests/evidencia-contenido-procedencia.test.ts --maxWorkers=1",
+      "exit": 0,
+      "seconds": 1.295
+    },
+    {
+      "command": "timeout -k 30s 12m bun run test tests/publicacion-evidencia.test.ts --maxWorkers=1",
+      "exit": 0,
+      "seconds": 1.227
+    },
+    {
+      "command": "timeout -k 30s 12m bun tests/cas-local-r27.mjs",
+      "exit": 0,
+      "seconds": 0.63
+    },
+    {
+      "command": "timeout -k 30s 12m nix develop path:tools/procedencia --command bash scripts/ci-datos.sh",
+      "exit": 0,
+      "seconds": 491.257
+    },
+    {
+      "command": "timeout -k 30s 12m nix develop path:tools/procedencia --command bash scripts/ci-simuladores.sh",
+      "exit": 0,
+      "seconds": 16.95
+    }
+  ],
+  "cpus": [
+    0,
+    1
+  ],
+  "alcance": "Mismos comandos y entorno limpio; no emula Ubuntu ni acciones de instalación",
+  "preservacion": {
+    "base": "3bcec2b08cb1cc21292ca41851d73df4f3c28f19",
+    "archivosByteIdenticos": 686,
+    "unicoArchivoDistinto": "inventario.json",
+    "unicaDiferencia": "tres hashes de insumos del generador",
+    "insumosCambiados": [
+      "scripts/procedencia/inventario-bindings.mjs",
+      "scripts/procedencia/inventario-vitest.mjs",
+      "scripts/procedencia/inventario.mjs"
+    ],
+    "conteosIntactos": {
+      "filesTs": 223,
+      "filesPython": 1,
+      "syntactic": 66562,
+      "effective": 18007,
+      "selected": 12484,
+      "pendingUnits": 72863,
+      "catalog": 351,
+      "audited": 0
+    },
+    "artefactoAnteriorSHA256": "89fc84ed372f68f7c0ee521e466404bffd19d83d1099f917679845a35667875b",
+    "artefactoActualSHA256": "4dc81e2fcbeae58adc8da50ce0d2e8c0cfbad2c366251c9a1742d382b3a30b81"
+  },
+  "mediciones": {
+    "generar-lotes": {
+      "maxTreePssBytesSampled": 2134288384,
+      "maxAgentGroupBytesSampled": 5131460608,
+      "samples": 238,
+      "seconds": 30.61424940265715,
+      "treeLimitBytes": 3221225472,
+      "groupLimitBytes": 6442450944
+    },
+    "tests-artefacto-acotado": {
+      "maxTreePssBytesSampled": 2786659328,
+      "maxAgentGroupBytesSampled": 5731479552,
+      "samples": 515,
+      "seconds": 69.03603083314374,
+      "treeLimitBytes": 3221225472,
+      "groupLimitBytes": 6442450944
+    },
+    "workflow-final": {
+      "maxTreePssBytesSampled": 3102189568,
+      "maxAgentGroupBytesSampled": 6260744192,
+      "samples": 6252,
+      "seconds": 812.874213562347,
+      "treeLimitBytes": 3221225472,
+      "groupLimitBytes": 6442450944
+    }
+  }
+}

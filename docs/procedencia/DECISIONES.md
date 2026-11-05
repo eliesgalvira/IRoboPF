@@ -833,3 +833,7 @@ El acogimiento computa sólo los días anteriores a cumplir 18 años: el régime
 
 
 El primer CI del corte territorial detectó módulos nuevos sin hash fijado: el empaquetador sólo actualizaba claves existentes. Se añaden las 20 fuentes nuevas revisadas, sin relajar el rechazo por contenido distinto. Las 26 regresiones de flujo y los 31 pasos completos pasan después. La fijación identifica los bytes ejecutados; no equivale a acreditar jurídicamente sus fórmulas.
+
+### Presupuesto del generador y sus pruebas, 5 de noviembre
+
+El CI remoto del corte `3bcec2b0` agotó los límites de dos pruebas de inventario. La primera repetición local con dos CPU detectó además que el generador podía agotar el cgroup compartido de los agentes. Se separa el checker TypeScript de la extracción numérica, se reutilizan los hashes por fuente y se liberan los AST temporales por lotes. Las pruebas de corpus liberan sus copias descomprimidas entre etapas. Se acepta más trabajo de recolección para reducir el pico de memoria, manteniendo límites de tiempo y todas las aserciones. El cotejo conserva byte a byte los 686 archivos de datos: sólo cambian los hashes de tres insumos del resumen. Véanse las mediciones y la reproducción completa en [TIEMPOS-INVENTARIO.md](revisiones/territorial-historico-ci-20261105/TIEMPOS-INVENTARIO.md). El histórico permanece detenido durante esta reparación para respetar el presupuesto compartido.

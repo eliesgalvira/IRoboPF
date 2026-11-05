@@ -1,10 +1,19 @@
 import ts from "typescript"
 import { relative, resolve } from "node:path"
-import { readFileSync } from "node:fs"
+import { readFileSync, writeFileSync } from "node:fs"
+import { fileURLToPath } from "node:url"
 import { hash } from "./inventario-ast.mjs"
 
 /** Grafo estático de definiciones; no afirma que una rama sea alcanzable. */
 export function bindingGraph(root, paths, inputs = new Set()) {
+  // Una definición puede recibir miles de referencias. Sus bytes son los
+  // mismos durante esta generación; no releerlos y hashearlos por cada uso.
+  const sourceHashes = new Map()
+  function sourceHash(fileName) {
+    if (!sourceHashes.has(fileName))
+      sourceHashes.set(fileName, hash(readFileSync(fileName)))
+    return sourceHashes.get(fileName)
+  }
   const program = ts.createProgram(paths, {
     target: ts.ScriptTarget.ES2022,
     module: ts.ModuleKind.Preserve,
@@ -48,7 +57,7 @@ export function bindingGraph(root, paths, inputs = new Set()) {
                 file: relative(root, file.fileName),
                 start,
                 line: file.getLineAndCharacterOfPosition(start).line + 1,
-                sha256: hash(readFileSync(file.fileName)),
+                sha256: sourceHash(file.fileName),
               })
             }
           }
@@ -69,4 +78,15 @@ export function bindingGraph(root, paths, inputs = new Set()) {
     visit(sf)
   }
   return graph
+}
+
+// El programa y el checker de TypeScript sólo viven en este proceso. Su salida
+// es el mismo grafo; terminan antes de construir las ocurrencias del inventario.
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  const root = resolve(process.argv[2])
+  const output = resolve(process.argv[3])
+  const paths = JSON.parse(readFileSync(0, "utf8"))
+  const inputs = new Set()
+  writeFileSync(output, JSON.stringify(bindingGraph(root, paths, inputs)) + "\n")
+  process.stdout.write(JSON.stringify([...inputs]) + "\n")
 }
