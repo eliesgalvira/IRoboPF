@@ -1,3 +1,4 @@
+import { AuxiliaresAnualesF } from "./auxiliares-esquemas"
 import { Schema } from "effect"
 import { HechosTerritorialesF } from "../territorial-f-esquemas-2025"
 import { CODIGOS_TERRITORIAL_F_HECHOS_2025 } from "../territorial-f-2025"
@@ -46,6 +47,7 @@ const HistorialRecarga = Schema.Struct({
   })),
 })
 export const SolicitudAnualF2025 = Schema.Struct({
+  auxiliares: Schema.optionalKey(AuxiliaresAnualesF),
   lote: Schema.Literal("F-ampliado"),
   codigo: Schema.Literals([
     ...CODIGOS_FAMILIA_F,

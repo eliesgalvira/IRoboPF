@@ -289,3 +289,10 @@ La solicitud `maternidad2025` añade un libro mensual por hijo y beneficiaria pa
 La primera revisión monetaria independiente de maternidad y sus interacciones detectó R1 (colisión entre clases de identificador) y R2 (referencia documental). Las correcciones del integrador pasan 310 pruebas, incluidas las propias recibidas; dos hipótesis del revisor permanecen apartadas, sin dictamen monetario adverso confirmado. Los 31 pasos del CI global de la integración pasan en entorno limpio. No se declara cerrado el catálogo de deducciones. Véase el [informe de integración](productores-anuales-20261105/INTEGRACION.md).
 
 Los identificadores de pago y las referencias documentales se concilian por clase entre los libros. `operacionId` es una etiqueta local del libro de donativos; su coincidencia con una clave de pago o factura no elimina una deducción. Véanse la [revisión de maternidad](maternidad-guarderia-cyl-20261105/REVISION.md) y las [correcciones y reserva](maternidad-guarderia-cyl-20261105/CORRECCIONES-R1-R2.md).
+
+## Auxiliares exactos de Madrid y Murcia en la composición anual
+
+La ampliación `F-ampliado` conecta nacimiento/adopción de Madrid y guardería de Murcia con las dos API y el libro único de cuota. Ambas consumen el núcleo racional compartido con el auxiliar anterior. Los hechos anuales añaden filiación, unidad familiar, eventos y gastos identificados; no basta la elegibilidad declarada del auxiliar.
+
+Madrid admite eventos de 2025 en el perfil no conyugal acotado. El censo exige padres de primer grado por consanguinidad o adopción: la presencia de un abuelo en el grafo de mínimos no lo convierte en progenitor. Murcia concilia gasto propio por menor, ayudas, centro y período de primer ciclo. Los demás perfiles y la combinación pendiente con maternidad estatal siguen rechazados con motivo. Véanse [contratos, revisión y límites](deducciones-2025/f-auxiliares-exactos-20261105/INTEGRACION.md). F-REV-01 tiene contraste independiente favorable acotado y los 31 pasos del CI local de este corte pasan en entorno limpio.
+

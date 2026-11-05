@@ -1,3 +1,5 @@
+import { cuantiaNacimientoMadridExacta, cuantiaGuarderiaMurciaExacta } from "./auxiliares-cuantias-exactas-2025"
+import { racional } from "./anual-territorial-racional"
 import Decimal from "decimal.js"
 import { DateTime, Option, Result, Schema } from "effect"
 import {
@@ -301,12 +303,10 @@ export function evaluarNacimientoMadrid(
     contexto.modalidad === "individual"
       ? evento.progenitoresConvivientes.length
       : 1
+  const exacto = cuantiaNacimientoMadridExacta(evento.hijos.length, multiple === 2, divisor)
   return importe(
     "calculo_parcial",
-    new Decimal("721.70")
-      .times(evento.hijos.length)
-      .times(multiple)
-      .div(divisor),
+    new Decimal(exacto.numeradorEuros).div(exacto.divisor),
     "Historial y cuantía calculados; falta acreditar unidad familiar y modalidad histórica por período"
   )
 }
@@ -356,7 +356,8 @@ export function calcularGuarderiaMurciaParcial(
     )
     const divisor =
       contexto.modalidad === "individual" ? gasto.titulares.length : 1
-    total = total.plus(Decimal.min(1000, base.times("0.2")).div(divisor))
+    const exacto = cuantiaGuarderiaMurciaExacta(racional(base.toFixed()), 1)
+    total = total.plus(new Decimal(exacto.numeradorEuros).div(exacto.divisor).div(divisor))
   }
   return importe(
     "calculo_parcial",

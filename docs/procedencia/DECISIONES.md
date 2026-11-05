@@ -1,5 +1,34 @@
 # Decisiones de la auditoría documental
 
+## Discrepancias observadas antes de ampliar Open 2018 (5 de noviembre)
+
+El primer bloque de 60 entradas detecta nueve casos discrepantes. Se pausa la
+ampliación del cotejo para investigar sus dos primeras etapas divergentes:
+reducción transitoria por trabajo y gravamen estatal. El coste es retrasar la
+cobertura histórica mientras continúan las deducciones de 2025. La alternativa
+de extender un redondeo a partir de los ocho primeros casos queda refutada por
+otro original ya capturado, con bruto de 17.271,81 EUR. Se conservan los rojos y
+la observación adicional de bruto 13.696,88 EUR distingue las hipótesis restantes:
+Open publica base 6.900,85 EUR. Se prepara la corrección acotada a 2018; su
+validación de aplicación y revisión independiente siguen pendientes.
+No se cambia el helper monetario común ni se atribuye al servidor un algoritmo
+que sus salidas todavía no distinguen. [Evidencia y alcance](simuladores/historico/BLOQUE-2018-60.md).
+
+## Filiación de los auxiliares anuales de Madrid (5 de noviembre)
+
+La deducción de nacimiento exige progenitores, mientras que el grafo general de
+mínimos puede contener otros ascendientes. Se conserva ese grafo y se concilia
+el censo específico con grado y vínculo. Si el censo llama progenitor a un
+abuelo, se rechaza la contradicción; no se reconstruye silenciosamente una
+unidad familiar distinta. Un censo correcto de un solo padre mantiene su
+deducción íntegra aunque el grafo incluya además al abuelo.
+
+El coste es exigir un censo coherente y mantener fuera otros perfiles familiares
+sin hechos suficientes. Corregir automáticamente los datos podría cambiar el
+reparto sin conocimiento del declarante. La primera revisión reprodujo ese
+error monetario; por su gravedad, la corrección recibe un contraste independiente.
+Los importes esperados y los cuatro fallos originales permanecen conservados.
+
 ## Prioridad de producto y revisión proporcionada (4 de noviembre, noche)
 
 Por instrucción de Elies, se priorizan derechos familiares, comparación de unos
