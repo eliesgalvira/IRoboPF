@@ -9,7 +9,7 @@ export function baseEstatalMismaOperacion(libro: LibroDonativosEstatales2025, op
   if (o === undefined) throw new DonativoNoSoportado({ siguienteHecho: "censo68_3.operacionId:" + operacionId, motivo: "Donativo regional ausente del censo:identificar su elección o clasificación; no suponer base estatal cero" })
   if (o.entidadId !== entidadId || o.pago.id !== pago.id || o.pago.pagador !== pago.pagador || o.pago.fecha !== pago.fecha || o.pago.documento !== pago.documento || racional(o.pago.euros).numeradorEuros !== racional(pago.euros).numeradorEuros || racional(o.pago.euros).divisor !== racional(pago.euros).divisor)
     throw new DonativoNoSoportado({ siguienteHecho: "conciliacion_operacion_pago_entidad", motivo: "Identidad,fecha,importe,entidad o soporte contradictorios entre el libro estatal y regional" })
-  if (!libro.atribucionBaseRegionalCompleta && o.eleccion === "aplicar")
+  if (!libro.atribucionBaseRegionalCompleta && o.baseComputada68_3.numeradorEuros !== "0")
     throw new DonativoNoSoportado({ siguienteHecho: "atribucion_base_estatal_con_cuota_insuficiente", motivo: "Deducción estatal parcialmente aplicada:la atribución de base efectivamente deducida no se inventa mediante prorrata inversa" })
   return o.baseComputada68_3
 }

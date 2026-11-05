@@ -233,12 +233,16 @@ export function reparto(
 /** Las magnitudes derivadas no pasan por el parser de hechos de céntimos. */
 export function magnitudF(
   s: SolicitudF,
-  campo: Exclude<keyof MagnitudesInternasF, "contribuyente" | "basesEstatalesDonativos">,
+  campo: Exclude<keyof MagnitudesInternasF, "contribuyente" | "basesEstatalesDonativos" | "basesPersonas">,
   consignada: string | undefined,
   id = s.contexto.contribuyente
 ): Decimal {
   const m = magnitudesInternasF(s)
   if (m === undefined) return dinero(consignada, campo, true)
+  if (id !== m.contribuyente && (campo === "general" || campo === "ahorro")) {
+    const base = m.basesPersonas?.get(id)
+    if (base !== undefined) return new D(base[campo])
+  }
   if (id !== m.contribuyente)
     falta("productor_base_imponible_anual:" + id,
       "No se deriva la base imponible de otra persona de sus rentas ni de la base del titular")

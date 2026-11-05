@@ -16,6 +16,8 @@ import { producirNodosFiscalesB2025 } from "../deducciones/b-ampliado-anual-2025
 import { SolicitudDeduccionesTerritoriales2025 } from "../deducciones/anual-territorial"
 import { aplicarDeduccionesTerritoriales2025 } from "../deducciones/anual-territorial"
 import Decimal from "decimal.js"
+import { producirBasesFamiliares2025, type CensoBasesFamiliares2025 } from "../bases-familiares-2025/productor"
+import { aplicarDosDescendientesAnual2025 } from "../bases-familiares-2025/valencia"
 import { Effect, Schema, Result } from "effect"
 import {
   SolicitudDeduccionesValencianasAnual2025,
@@ -64,6 +66,7 @@ export type PoliticaAnual =
   | "open-etapas-empleo-madrid-2018"
 /** Contrato interno: bases ya integradas en EUR Decimal; jamás reconstruye cotizaciones. */
 export interface EntradaComposicionAnual {
+  readonly basesFamiliares2025?: CensoBasesFamiliares2025 | undefined
   readonly inmueblesP4a?: readonly ResultadoInmuebleP4a[] | undefined
   readonly ingresosIdentificados2025?: PreparacionIngresos2025 | undefined
   readonly rentaActividadAnualB?: Decimal | undefined
@@ -125,8 +128,12 @@ export const cuantizarAnual = (
 export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
   function* (entrada: EntradaComposicionAnual) {
     const ampliaF = entrada.deduccionesTerritoriales2025?.solicitudes.some((s) => s.lote === "F-ampliado") === true
-    const A = Decimal.clone({ precision: entrada.deduccionesTerritoriales2025?.viviendaDT182025 !== undefined || entrada.deduccionesTerritoriales2025?.solicitudes.some(s=>s.lote==="A-aragon-dos") === true || entrada.deduccionesTerritoriales2025?.vehiculoDA582025 !== undefined || ampliaF || usaPrecisionD51(entrada.deduccionesTerritoriales2025) || entrada.deduccionesTerritoriales2025?.donativosEstatales2025 !== undefined ? 80 : entrada.precision })
+    const A = Decimal.clone({ precision: entrada.deduccionesTerritoriales2025?.viviendaDT182025 !== undefined || entrada.basesFamiliares2025 !== undefined || entrada.deduccionesTerritoriales2025?.solicitudes.some(s=>s.lote==="A-aragon-dos") === true || entrada.deduccionesTerritoriales2025?.vehiculoDA582025 !== undefined || ampliaF || usaPrecisionD51(entrada.deduccionesTerritoriales2025) || entrada.deduccionesTerritoriales2025?.donativosEstatales2025 !== undefined ? 80 : entrada.precision })
     const caso = entrada.ambito
+    const libroBasesFamiliares2025 = entrada.basesFamiliares2025 === undefined ? undefined : yield* Effect.try({
+      try: () => producirBasesFamiliares2025(entrada.basesFamiliares2025!, caso, entrada.basesImponiblesE38 ?? { general: entrada.baseGeneral, ahorro: entrada.baseAhorro }),
+      catch: error => errorDerechosMinimos({ motivo: String(error) }),
+    })
     const baseLiquidableGeneral = A.max(0, entrada.baseGeneral)
     const baseLiquidableAhorro = new A(entrada.baseAhorro)
     const atribucionIngresos = entrada.ingresosIdentificados2025 === undefined
@@ -506,19 +513,13 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
               "No mezclar hechos valencianos con consignaciones o agregado externo",
           })
         )
-      if (
-        s.solicitudes.some(
-          (p) =>
-            p.eleccion === "aplicar" &&
-            p.codigo === "valenciana_dos_o_mas_descendientes"
-        )
-      )
-        return yield* Effect.fail(
-          errorDerechosMinimos({
-            motivo:
-              "Dos o más descendientes: falta representar y conciliar las bases imponibles de todas las personas de la unidad familiar; no se admite cuota externa",
-          })
-        )
+      const dosDescendientes = s.solicitudes.some(p => p.eleccion === "aplicar" && p.codigo === "valenciana_dos_o_mas_descendientes")
+      if (dosDescendientes) {
+        deduccionesValencianas2025 = yield* Effect.try({
+          try: () => aplicarDosDescendientesAnual2025(s, libroBasesFamiliares2025, derechosEstatales?.atribuciones ?? [], cuotaAutonomicaDisponible),
+          catch: error => errorDerechosMinimos({ motivo: String(error) }),
+        })
+      } else {
       const requierenMinimo = new Set([
         "valenciana_nacimiento_adopcion_guarda_acogimiento",
         "valenciana_nacimiento_adopcion_multiples",
@@ -696,6 +697,7 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
           },
         })
     }
+      }
     const nodosFiscalesB2025 = caso.anio === 2025 && caso.contribuyenteId !== undefined ? producirNodosFiscalesB2025(caso.contribuyenteId, baseLiquidableGeneral, cuotaEstatalDespuesMinimo, cuotaAutonomicaGeneralDespuesMinimo, entrada.origenBaseGeneralB) : undefined
     const solicitudMaternidad81 = entrada.maternidad2025
     const libroMaternidad81 = solicitudMaternidad81 === undefined ? undefined : yield* Effect.try({
@@ -726,6 +728,7 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
             caso,
             libroDT18,
             cuotasDT18,
+            libroBasesFamiliares2025,
             inmueblesP4a: entrada.inmueblesP4a,
             libroMaternidad81,
             vehiculoDA58,

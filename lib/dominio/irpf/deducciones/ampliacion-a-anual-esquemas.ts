@@ -1,3 +1,4 @@
+import { EconomiaPersonaFamiliar2025 } from "../bases-familiares-2025/productor"
 import { Schema } from "effect"
 import * as AND from "./lote-a-ampliacion-2025/andalucia"
 import * as ARA from "./lote-a-ampliacion-2025/aragon"
@@ -80,7 +81,26 @@ const AND10 = Schema.Struct({
   lote: Schema.Literal("A40"),
   codigo: AND.S10.fields.codigo,
   nacimiento: Texto,
-  hechos: AND.S10.fields.hechos,
+  hechos: Schema.Struct({
+    persona: Texto,
+    contribuyente: Texto,
+    nacimiento: Texto,
+    relacion: Schema.Literals(["conyuge", "pareja-inscrita"]),
+    registroRelacion: Texto,
+    administracionRegistro: Schema.Literals(["civil", "andalucia", "otra-administracion-publica"]),
+    desde: Texto,
+    hasta: Schema.optional(Texto),
+    grado: AND.S10.fields.hechos.fields.grado,
+    resolucion: Texto,
+    residenteComunTodo2025: Schema.Literal(true),
+    vivoTodo2025: Schema.Literal(true),
+    reconocimientoDesde: Texto,
+    reconocimientoHasta: Schema.optional(Texto),
+    incapacitacionJudicial: Schema.optional(Schema.Struct({ fecha: Texto, resolucion: Texto })),
+    declaracion: Schema.Struct({ ejercicio: Schema.Literal(2025), persona: Texto,
+      modalidad: Schema.Literals(["no-presenta", "individual", "conjunta"]), soporte: Texto }),
+    economia: EconomiaPersonaFamiliar2025,
+  }),
 })
 const AND11 = Schema.Struct({
   lote: Schema.Literal("A40"),

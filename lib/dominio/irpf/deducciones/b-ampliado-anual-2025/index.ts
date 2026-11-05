@@ -60,7 +60,6 @@ export function prepararBAmpliadoAnual(solicitudes:readonly SolicitudBAmpliadoAn
    if(h.codigo==="cantabria_donativos_fundaciones_fondo_cantabria_coopera_discapacidad") {
     const libro=m.donativosEstatales
      exigirB(libro!==undefined,"Falta productor motor:basesDonativosEstatales2025(68.3/68.5),art.2.4DL62/2008;censo completo y elección por operación")
-     exigirB(h.donaciones.length===1,"Primera conexión Cantabria:una donación regional,sin prioridad de múltiples donaciones")
     exigirB(libro.atribucionBaseRegionalCompleta,"Atribución regional de base estatal pendiente por insuficiencia de cuota;no se inventa base deducida proporcional")
     for(const donacion of h.donaciones){
      const registro=libro.operaciones.find(o=>o.operacionId===donacion.id)

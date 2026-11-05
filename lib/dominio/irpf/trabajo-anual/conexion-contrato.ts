@@ -3,6 +3,7 @@ import { HechosMaternidad2025 } from "../maternidad-2025/contrato"
 import { CasoInmobiliarioP4a } from "../inmobiliario-2025/contrato"
 import { SolicitudDeduccionesTerritoriales2025 } from "../deducciones/anual-territorial"
 import { Schema } from "effect"
+import { CensoBasesFamiliares2025 } from "../bases-familiares-2025/productor"
 import { SolicitudDeduccionesValencianasAnual2025 } from "../deducciones/valenciana-2025/anual"
 import {
   DerechosMinimosAnuales,
@@ -13,6 +14,7 @@ import { CasoActividad2025 } from "../actividades-economicas/contrato"
 
 const Procedencia = Schema.String.check(Schema.isPattern(/\S/))
 const Alcance = {
+  basesFamiliares2025: Schema.optional(CensoBasesFamiliares2025),
   maternidad2025: Schema.optional(HechosMaternidad2025),
   deduccionesTerritoriales2025: Schema.optional(
     SolicitudDeduccionesTerritoriales2025
@@ -57,6 +59,7 @@ const CasosTrabajoHistorico = (
 ).map((ejercicio) =>
   Schema.Struct({
     ...Alcance,
+    basesFamiliares2025: Schema.optional(Schema.Never),
     maternidad2025: Schema.optional(Schema.Never),
     contribuyenteId: Schema.optional(Schema.Never),
     deduccionesTerritoriales2025: Schema.optional(Schema.Never),

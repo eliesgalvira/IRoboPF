@@ -1,3 +1,4 @@
+import { hechosConyugeAndalucia2025 } from "./andalucia-conyuge-anual-2025"
 import { eleccionesTerritorialesB } from "./b-ampliado-anual-2025/conciliacion-lotes"
 import { Schema } from "effect"
 import type { MagnitudesTerritorialesAnuales } from "./anual-territorial"
@@ -176,8 +177,8 @@ export function evaluarAmpliacionAnualA2025(
     "A40: mínimos estatales por componentes no suministrados por composición anual"
   )
   const hechos = Schema.decodeUnknownSync(Schema.Json)(s.hechos)
-  conciliarMinimos(hechos, m)
-  if ("grado" in s.hechos)
+  if (s.codigo !== "andalucia_conyuge_pareja_discapacidad") conciliarMinimos(hechos, m)
+  if (s.codigo !== "andalucia_conyuge_pareja_discapacidad" && "grado" in s.hechos)
     gradoConciliado(s.hechos.grado, m.caso.situacionFamiliar.discapacidad._tag)
   // Elecciones derivadas de los códigos realmente solicitados y su objeto, nunca listas externas.
   const elecciones = solicitudes.flatMap((p) => {
@@ -342,9 +343,12 @@ export function evaluarAmpliacionAnualA2025(
       })
     }
     case "andalucia_conyuge_pareja_discapacidad": {
-      throw new RangeError(
-        "A40: cónyuge/pareja y su declaración propia no representados en la anual individual"
-      )
+      const imponibles = m.basesImponiblesE38
+      exigir(imponibles !== undefined, "Andalucía art17: faltan bases imponibles propias antes de reducciones de base")
+      return evaluarAmpliacionLoteA2025({ ...contexto, territorio: "andalucia", codigo: s.codigo,
+        imponibleGeneralCentimos: { euros: imponibles.general.toFixed() },
+        imponibleAhorroCentimos: { euros: imponibles.ahorro.toFixed() },
+        hechos: hechosConyugeAndalucia2025(s, m) })
     }
     case "andalucia_asistencia_personas_discapacidad": {
       return evaluarAmpliacionLoteA2025({

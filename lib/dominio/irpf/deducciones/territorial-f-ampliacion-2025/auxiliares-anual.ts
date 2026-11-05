@@ -1,3 +1,4 @@
+import { sumaBasesPersonas2025 } from "../../bases-familiares-2025/productor"
 import type { SolicitudAnualF2025 } from "./anual-esquemas"
 import type { MagnitudesTerritorialesAnuales } from "../anual-territorial"
 import { racional, sumar, restar, menor, type Racional } from "../anual-territorial-racional"
@@ -43,6 +44,15 @@ export function evaluarAuxiliaresAnualesF(s: SolicitudAnualF2025, m: MagnitudesT
   const base = sumar(racional(m.baseGeneral.toFixed()), racional(m.baseAhorro.toFixed()))
   let total = racional("0")
   if (s.codigo === "madrid_nacimiento_adopcion_hijos") {
+    const libro = m.libroBasesFamiliares2025
+    if (libro !== undefined) {
+      if (!mismos(h.miembrosUnidad, libro.miembrosUnidad)) falta("auxiliares.miembrosUnidad", "Unidad distinta de la derivada art82 por censo económico")
+      if ((h.estadoCivil === "casado") !== (libro.estadoCivil === "casado-no-separado"))
+        falta("auxiliares.estadoCivil", "Estado civil contradictorio; separación legal requiere acreditar su fecha")
+      const propia = libro.bases.get(propio)!
+      if (superior(sumar(racional(propia.general.toFixed()), racional(propia.ahorro.toFixed())), "30930")) excluir("baseImponible", "Base propia superior a30930 EUR")
+      if (sumaBasesPersonas2025(libro, libro.miembrosUnidad).gt(61860)) excluir("baseUnidadFamiliar", "Bases imponibles de la unidad superiores a61860 EUR")
+    } else {
     if (h.estadoCivil !== "no_casado")
       falta("productor_bases_unidad_conyugal", "Falta calcular la base del cónyuge; no se recibe una base externa")
     unicos(h.miembrosUnidad, "auxiliares.miembrosUnidad")
@@ -57,6 +67,7 @@ export function evaluarAuxiliaresAnualesF(s: SolicitudAnualF2025, m: MagnitudesT
     if (superior(base, "30930")) excluir("baseImponible", "Base propia superior a30930 EUR")
     // Bases gravables de los hijos cero por el perfil comprobado; familiar = propia.
     if (superior(base, "61860")) excluir("baseUnidadFamiliar", "Base familiar excedida")
+    }
     unicos(h.eventos.map((e) => e.id), "eventos.id")
     unicos(h.eventos.flatMap((e) => e.hijos), "eventos.hijos")
     if (h.centros.length > 0 || h.servicios.length > 0 || (s.hechos.pagos?.length ?? 0) > 0)

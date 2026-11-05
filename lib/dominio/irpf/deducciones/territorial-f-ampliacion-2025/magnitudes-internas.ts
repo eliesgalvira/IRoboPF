@@ -3,6 +3,7 @@ import type { SolicitudF } from "./esquemas"
 
 /** Canal interno por identidad de objeto; no forma parte de ningún Schema JSON. */
 export type MagnitudesInternasF = {
+  readonly basesPersonas?: ReadonlyMap<string, { readonly general: Decimal; readonly ahorro: Decimal }> | undefined
   readonly basesEstatalesDonativos?: ReadonlyMap<string, Decimal> | undefined
   readonly contribuyente: string
   readonly general: Decimal

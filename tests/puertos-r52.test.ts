@@ -8,6 +8,20 @@ import { CasoFiscalAnualExplicito } from "../lib/dominio/irpf/trabajo-anual/cone
 import { composeRentasR36 } from "../scripts/procedencia/flujo-rentas-r36.mjs"
 import { executeRentasFinite } from "../scripts/procedencia/flujo-rentas-r36-consumidor.mjs"
 const fragment = composeRentasR36()
+it("R52: el productor familiar nuevo conserva su contrato documental pendiente", () => {
+  for (const nombre of ["baseTrabajoMiembro2025", "CensoBasesFamiliares2025"]) {
+    const frontera = "boundary:" + nombre
+    expect(fragment.globalBindings.find((b) => b.name === frontera)).toMatchObject({
+      node: null,
+      external: true,
+    })
+    // Sin contrato externo no se fabrica un resultado ni se acredita el núcleo.
+    const expresion = fragment.program.find((n) => n.op === "global" && n.data.name === frontera)
+    expect(expresion).toBeDefined()
+    expect(() => executeRentasFinite(fragment, null, [], false, expresion!.id))
+      .toThrow("Frontera sin contrato " + frontera)
+  }
+})
 it("R52: conserva los decimales serializados del rastro de deducciones anuales", () => {
   const resultado = {
     estado: "calculo_parcial",

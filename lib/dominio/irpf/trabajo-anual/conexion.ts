@@ -1,3 +1,4 @@
+import { baseTrabajoMiembro2025 } from "../bases-familiares-2025/productor"
 import { admiteArgumentoOpen2018 } from "./politica-open-2018"
 import { MOTIVO_ELA81_PENDIENTE } from "../maternidad-2025/combinacion"
 import { prepararIngresosIdentificados2025, DecimalIngreso2025 } from "../ingresos-identificados-2025/productor"
@@ -193,7 +194,9 @@ const liquidarIrpfAnualExplicitoBase = Effect.fn("Liquidacion.explicita")(
         return yield* Effect.fail(rechazar("Open 2018: faltan testigos de transporte para operandos fuera de céntimos/0–1.000.000 EUR o gastos a–e fraccionarios; no se produce importe de compatibilidad"))
       trabajoIntegroTerritorial = new D(trabajo.gastos.integro)
       neto = new D(trabajo.rendimientoAntesArt20)
-      reduccionArt20 = D.min(
+      reduccionArt20 = caso.ejercicio === 2025
+        ? neto.minus(baseTrabajoMiembro2025(caso.trabajo, redondeoSalarialOpen, ingresoGeneral, trabajo).general)
+        : D.min(
         D.max(neto, 0),
         calcularReduccionTrabajoConOtrasRentas({
           anio: caso.ejercicio,
@@ -341,6 +344,7 @@ const liquidarIrpfAnualExplicitoBase = Effect.fn("Liquidacion.explicita")(
     const baseGeneral = ingreso === undefined ? neto : new DecimalIngreso2025(neto).plus(ingresoGeneral)
     const base = ingreso === undefined ? D.max(neto, 0) : DecimalIngreso2025.max(baseGeneral, 0)
     const composicion = yield* componerLiquidacionAnual({
+      basesFamiliares2025: caso.ejercicio === 2025 ? caso.basesFamiliares2025 : undefined,
       ingresosIdentificados2025: ingreso,
       maternidad2025: caso.maternidad2025,
       rentaActividadAnualB: caso.perfil === "solo-actividad-eds" ? neto : undefined,

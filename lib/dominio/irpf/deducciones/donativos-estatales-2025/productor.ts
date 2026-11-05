@@ -55,6 +55,7 @@ export type RegistroDonativo = {
   readonly pago: PagoDonativo2025; readonly certificado: CertificadoDonativo2025
   readonly eleccion: "aplicar" | "no_aplicar"; readonly porcentajeResto: "0.40" | "0.45"
   readonly baseComputada68_3: Racional; readonly generado: Racional
+  readonly baseTramo80: Racional; readonly baseResto: Racional
 }
 export type ParteCuotaDonativo = { readonly integra: Racional; readonly generada: Racional; readonly aplicada: Racional; readonly disponible: Racional }
 export type LibroDonativosEstatales2025 = {
@@ -65,9 +66,32 @@ export type LibroDonativosEstatales2025 = {
   readonly operaciones: readonly RegistroDonativo[]; readonly generado: Racional; readonly aplicado: Racional
   readonly estatal: ParteCuotaDonativo; readonly autonomica: ParteCuotaDonativo
   readonly atribucionBaseRegionalCompleta: boolean
+  readonly prioridad68_3: readonly string[]
+  readonly agrupaciones: readonly { readonly entidadNIF: string; readonly bruto2025: Racional; readonly operaciones: readonly string[]; readonly porcentajeResto: "0.40" | "0.45" }[]
   readonly citas: readonly string[]; readonly reservas: readonly string[]
 }
-/** Una operación seleccionada; ninguna cuota ni magnitud fiscal se lee del cliente. */
+function mismaEntidad(a: OperacionDonativo2025["entidad"], b: OperacionDonativo2025["entidad"]): boolean {
+  return a.id === b.id && a.nif === b.nif && a.clase === b.clase && a.registro === b.registro &&
+    a.utilidadPublica === b.utilidadPublica && a.regimen === b.regimen &&
+    a.referenciaRegimen === b.referenciaRegimen && a.referenciaOpcionRegimen === b.referenciaOpcionRegimen &&
+    a.regimenDesde === b.regimenDesde && a.regimenHasta === b.regimenHasta
+}
+/** Aplicación interna posterior a generación; no recibe hechos fiscales públicos. */
+export type AplicacionCuotasDonativos2025 = {
+  readonly estatal: ParteCuotaDonativo; readonly autonomica: ParteCuotaDonativo; readonly aplicado: Racional
+}
+export function aplicarGeneracionDonativos2025(generado: Racional, cuotaEstatal: Decimal, cuotaAutonomica: Decimal): AplicacionCuotasDonativos2025 {
+  exigir(BigInt(generado.numeradorEuros) >= 0n, "generacion_interna", "Generación no negativa requerida")
+  const mitad = multiplicarDonativo(generado, racional("0.50"))
+  function parte(cuota: Decimal): ParteCuotaDonativo {
+    exigir(cuota.isFinite() && cuota.gte(0), "cuota_interna", "Cuota interna no finita o negativa")
+    const integra = racional(cuota.toFixed()), aplicada = menor(integra, mitad)
+    return { integra, generada: mitad, aplicada, disponible: restar(integra, aplicada) }
+  }
+  const estatal = parte(cuotaEstatal), autonomica = parte(cuotaAutonomica)
+  return { estatal, autonomica, aplicado: sumar(estatal.aplicada, autonomica.aplicada) }
+}
+/** Escala única y prioridad elegida; ninguna cuota ni magnitud fiscal se lee del cliente. */
 export function producirDonativosEstatales2025(entrada: SolicitudDonativosEstatales2025, m: MagnitudesDonativos): LibroDonativosEstatales2025 {
   const dec = Schema.decodeUnknownResult(SolicitudDonativosEstatales2025)(entrada, { onExcessProperty: "error" })
   if (Result.isFailure(dec)) throw new DonativoNoSoportado({ siguienteHecho: String(dec.failure), motivo: "Hechos de donativos incompletos, categoría no representada o magnitudes fiscales externas" })
@@ -79,49 +103,79 @@ export function producirDonativosEstatales2025(entrada: SolicitudDonativosEstata
   exigir(s.contribuyente === m.contribuyente, "contribuyente", "Censo de otra persona")
   exigir(s.operaciones68_5.length === 0, "productor68_5", "Operaciones de patrimonio68.5 no representadas; no se suponen cero")
   exigir(s.operaciones68_3.length > 0 && s.operaciones68_3.length <= 100, "operaciones68_3", "Identificar al menos una operación y un censo acotado")
-  exigir(s.operaciones68_3.filter((o) => o.eleccion === "aplicar").length <= 1, "eleccion_una_operacion", "Múltiples operaciones seleccionadas requieren atribución de franquicia y prioridad no implementadas")
   for (const v of [m.baseLiquidableGeneral, m.baseLiquidableAhorro, m.cuotaEstatal, m.cuotaAutonomica])
     exigir(v.isFinite() && v.gte(0), "magnitudes_internas", "Magnitud interna no finita o negativa")
   const bl = racional(new D(m.baseLiquidableGeneral).plus(m.baseLiquidableAhorro).toFixed())
   const limite = multiplicarDonativo(bl, racional("0.10"))
-  const ids = new Set<string>(), pagos = new Set<string>(), certificados = new Set<string>(), documentos = new Set<string>(), entidades = new Set<string>()
-  const registros: RegistroDonativo[] = []
-  let base = racional("0"), generado = racional("0")
+  const ids = new Set<string>(), pagos = new Set<string>(), certificados = new Set<string>(), documentos = new Set<string>()
+  const historicas = new Set<string>()
+  const grupos = new Map<string, OperacionDonativo2025[]>()
+  const nifsPorId = new Map<string, string>()
+  const brutos = new Map<string, Racional>()
+  // Validar antes de generar: no se ignora un hecho contradictorio por no aplicarlo.
   for (const o of s.operaciones68_3) {
     for (const valor of [o.operacionId, o.entidad.id, o.entidad.registro, o.entidad.referenciaRegimen, o.entidad.referenciaOpcionRegimen]) texto(valor, "operacion_entidad.identidad_referencia")
     nif(o.entidad.nif)
     exigir(!ids.has(o.operacionId) && !pagos.has(o.pago.id) && !certificados.has(o.certificado.referencia) && !documentos.has(o.pago.documento), "duplicidad_operacion_pago_certificado", "Operación, pago o certificado repetidos")
-    exigir(!entidades.has(o.entidad.nif), "agregacion_entidad", "Más de una operación de la misma entidad requiere agregado, no otra franquicia250")
-    ids.add(o.operacionId); pagos.add(o.pago.id); certificados.add(o.certificado.referencia); documentos.add(o.pago.documento); entidades.add(o.entidad.nif)
+    ids.add(o.operacionId); pagos.add(o.pago.id); certificados.add(o.certificado.referencia); documentos.add(o.pago.documento)
     exigir(o.pago.operacionId === o.operacionId, "pago.operacionId", "Identificador de operación contradictorio")
     exigir(o.entidad.clase !== "asociacion_utilidad_publica" || o.entidad.utilidadPublica !== undefined, "entidad.utilidadPublica", "Resolución de utilidad pública ausente")
-    const bruto = comprobar(o.pago, o.certificado, o, m.contribuyente, s.nifContribuyente, 2025)
-    if (o.historial !== undefined)
-      for (const h of o.historial) comprobar(h.pago, h.certificado, o, m.contribuyente, s.nifContribuyente, h.ejercicio)
+    brutos.set(o.operacionId, comprobar(o.pago, o.certificado, o, m.contribuyente, s.nifContribuyente, 2025))
+    exigir(!nifsPorId.has(o.entidad.id) || nifsPorId.get(o.entidad.id) === o.entidad.nif, "entidad.id", "Identidad de entidad reutilizada con otro NIF")
+    nifsPorId.set(o.entidad.id, o.entidad.nif)
+    const grupo = grupos.get(o.entidad.nif) ?? []
+    const anterior = grupo[0]
+    exigir(anterior === undefined || (mismaEntidad(anterior.entidad, o.entidad) && anterior.incremento === o.incremento), "entidad_agrupada", "Mismo NIF con identidad, régimen o incremento contradictorios")
+    grupos.set(o.entidad.nif, [...grupo, o])
+  }
+  const seleccionadas = s.operaciones68_3.filter(o => o.eleccion === "aplicar")
+  const necesitaPrioridad = seleccionadas.length > 1 || [...grupos.values()].some(g => g.length > 1)
+  exigir(!necesitaPrioridad || s.prioridad68_3 !== undefined, "prioridad68_3", "Múltiples operaciones: prioridad explícita para límite y franquicia250 única")
+  const prioridad = s.prioridad68_3 ?? s.operaciones68_3.map(o => o.operacionId)
+  exigir(prioridad.length === ids.size && new Set(prioridad).size === ids.size && prioridad.every(id => ids.has(id)), "prioridad68_3", "Prioridad duplicada, incompleta o de otra operación")
+  const porcentajes = new Map<string, "0.40" | "0.45">()
+  const agrupaciones: LibroDonativosEstatales2025["agrupaciones"][number][] = []
+  for (const [entidadNIF, grupo] of grupos) {
+    const primero = grupo[0]!
+    const bruto = grupo.reduce((v, o) => sumar(v, brutos.get(o.operacionId)!), racional("0"))
+    const portadores = grupo.filter(o => o.historial !== undefined || o.historialExhaustivo !== undefined)
+    exigir(portadores.length <= 1, "historial_entidad_unico", "Historia exhaustiva se declara una vez por entidad; no duplicar aportaciones históricas")
+    const portador = portadores[0]
+    exigir((portador?.historial?.length ?? 0) <= 200, "historial_entidad_acotado", "Máximo200 aportaciones históricas por entidad")
+    let total2023 = racional("0"), total2024 = racional("0")
+    for (const h of portador?.historial ?? []) {
+      exigir(!ids.has(h.pago.operacionId) && !historicas.has(h.pago.operacionId) && !pagos.has(h.pago.id) && !certificados.has(h.certificado.referencia), "historial.identidades", "Pago, operación, documento o certificado repetidos entre períodos")
+      historicas.add(h.pago.operacionId); pagos.add(h.pago.id); certificados.add(h.certificado.referencia)
+      const valor = comprobar(h.pago, h.certificado, primero, m.contribuyente, s.nifContribuyente, h.ejercicio)
+      if (h.ejercicio === 2023) total2023 = sumar(total2023, valor)
+      else total2024 = sumar(total2024, valor)
+    }
     let porcentaje: "0.40" | "0.45" = "0.40"
-    if (o.incremento === "reiteracion_45") {
-      const historia = o.historial
-      exigir(o.historialExhaustivo !== undefined && historia !== undefined && historia.length === 2 && new Set(historia.map((h) => h.ejercicio)).size === 2, "historial2023_2024", "45% solicitado sin dos períodos completos2023/2024")
-      exigir(new Set([o.pago.id, ...historia.map((h) => h.pago.id)]).size === 3 && new Set([o.operacionId, ...historia.map((h) => h.pago.operacionId)]).size === 3, "historial.identidades", "Pago u operación repetidos entre períodos")
-      const importes = historia.map((h) => ({ anio: h.ejercicio, valor: comprobar(h.pago, h.certificado, o, m.contribuyente, s.nifContribuyente, h.ejercicio) })).sort((a, b) => a.anio - b.anio)
-      exigir(BigInt(importes[0]!.valor.numeradorEuros) > 0n && menor(importes[0]!.valor, importes[1]!.valor) === importes[0]!.valor && menor(importes[1]!.valor, bruto) === importes[1]!.valor, "historial_no_decreciente2023_2025", "Historial sin donativos positivos no decrecientes a la misma entidad")
+    if (primero.incremento === "reiteracion_45") {
+      exigir(portador?.historialExhaustivo !== undefined && BigInt(total2023.numeradorEuros) > 0n && BigInt(total2024.numeradorEuros) > 0n, "historial2023_2024", "45% solicitado sin dos períodos completos2023/2024 positivos")
+      exigir(menor(total2023, total2024) === total2023 && menor(total2024, bruto) === total2024, "historial_no_decreciente2023_2025", "Agregados por entidad no decrecientes requeridos")
       porcentaje = "0.45"
     }
-    const computada = o.eleccion === "aplicar" ? menor(bruto, limite) : racional("0")
-    const tramo = menor(computada, racional("250"))
-    const deduccion = sumar(multiplicarDonativo(tramo, racional("0.80")), multiplicarDonativo(restar(computada, tramo), racional(porcentaje)))
-    registros.push({ operacionId: o.operacionId, entidadId: o.entidad.id, entidadNIF: o.entidad.nif, claseEntidad: o.entidad.clase, pago: o.pago, certificado: o.certificado, eleccion: o.eleccion, porcentajeResto: porcentaje, baseComputada68_3: computada, generado: deduccion })
-    base = sumar(base, computada); generado = sumar(generado, deduccion)
+    porcentajes.set(entidadNIF, porcentaje)
+    agrupaciones.push({ entidadNIF, bruto2025: bruto, operaciones: grupo.map(o => o.operacionId), porcentajeResto: porcentaje })
   }
-  const mitad = multiplicarDonativo(generado, racional("0.50"))
-  function parte(cuota: Decimal): ParteCuotaDonativo {
-    const integra = racional(cuota.toFixed()), aplicada = menor(integra, mitad)
-    return { integra, generada: mitad, aplicada, disponible: restar(integra, aplicada) }
+  const entidadesElegidas = new Set(seleccionadas.map(o => o.entidad.nif))
+  exigir(entidadesElegidas.size <= 1 || seleccionadas.every(o => o.incremento === "general_40"), "atribucion_franquicia_tipos_mixtos", "Varias entidades con reiteración45: atribución de franquicia por entidad pendiente de criterio; no optimizar implícitamente")
+  const registros: RegistroDonativo[] = []
+  let base = racional("0"), generado = racional("0"), franquicia = racional("250")
+  for (const id of prioridad) {
+    const o = s.operaciones68_3.find(v => v.operacionId === id)!
+    const porcentaje = porcentajes.get(o.entidad.nif)!
+    const computada = o.eleccion === "aplicar" ? menor(brutos.get(id)!, restar(limite, base)) : racional("0")
+    const tramo = menor(computada, franquicia), resto = restar(computada, tramo)
+    const deduccion = sumar(multiplicarDonativo(tramo, racional("0.80")), multiplicarDonativo(resto, racional(porcentaje)))
+    registros.push({ operacionId: o.operacionId, entidadId: o.entidad.id, entidadNIF: o.entidad.nif, claseEntidad: o.entidad.clase, pago: o.pago, certificado: o.certificado, eleccion: o.eleccion, porcentajeResto: porcentaje, baseComputada68_3: computada, generado: deduccion, baseTramo80: tramo, baseResto: resto })
+    base = sumar(base, computada); generado = sumar(generado, deduccion); franquicia = restar(franquicia, tramo)
   }
-  const estatal = parte(m.cuotaEstatal), autonomica = parte(m.cuotaAutonomica)
-  const aplicado = sumar(estatal.aplicada, autonomica.aplicada)
+  const { estatal, autonomica, aplicado } = aplicarGeneracionDonativos2025(generado, m.cuotaEstatal, m.cuotaAutonomica)
   return { aceptacionFiscal: "pendiente", ejercicio: 2025, contribuyente: m.contribuyente, origen: "composicion-unica-anual:2025:" + m.contribuyente,
     baseLiquidable: bl, limiteBase: limite, base68_3: base, base68_5: racional("0"), operaciones: registros, generado, aplicado, estatal, autonomica,
+    prioridad68_3: prioridad, agrupaciones,
     atribucionBaseRegionalCompleta: restar(generado, aplicado).numeradorEuros === "0",
     citas: ["p2-aeat2025-tabla-80-40-45", "p2-aeat2025-limite10", "p2-lirpf-art67-77", "p2-ley49-entidad-certificado"],
     reservas: ["Hechos/documentos y censo declarados, no autenticados; sin especie, prioritarias,68.5 ni otras deducciones generales", "Insuficiencia de una parte de cuota no se transfiere a la otra ni se convierte en arrastre"] }

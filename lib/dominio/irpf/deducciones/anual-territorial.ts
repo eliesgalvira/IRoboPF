@@ -48,6 +48,7 @@ import type { LibroDonativosEstatales2025 } from "./donativos-estatales-2025/pro
 export interface MagnitudesTerritorialesAnuales {
   readonly libroDT18?: LibroDT182025 | undefined
   readonly cuotasDT18?: ReturnType<typeof aplicarCuotasDT18> | undefined
+  readonly libroBasesFamiliares2025?: import("../bases-familiares-2025/productor").LibroBasesFamiliares2025 | undefined
   readonly cuotaEstatal681?: Decimal | undefined
   readonly vehiculoDA58?: LibroVehiculoDA58 | undefined
   readonly inmueblesP4a?: readonly ResultadoInmuebleP4a[] | undefined
@@ -334,7 +335,7 @@ export function aplicarDeduccionesTerritoriales2025(
     "Hechos territoriales inválidos o magnitudes anuales externas"
   )
   if (decoded.success.donativosEstatales2025 !== undefined) {
-    const admitidos = new Set(["cantabria_donativos_fundaciones_fondo_cantabria_coopera_discapacidad", "murcia_donativos_patrimonio_cultural_actividades", "murcia_donativos_investigacion_biosanitaria", "madrid_condicion_familia_numerosa"])
+    const admitidos = new Set(["cantabria_donativos_fundaciones_fondo_cantabria_coopera_discapacidad", "murcia_donativos_patrimonio_cultural_actividades", "murcia_donativos_investigacion_biosanitaria", "madrid_condicion_familia_numerosa", "madrid_donativos_fundaciones_clubes_deportivos"])
     for (const solicitud of decoded.success.solicitudes) {
       const codigo = "codigo" in solicitud ? solicitud.codigo : solicitud.hechos.codigo
       exigir(codigo !== "madrid_familias_dos_descendientes_ingresos_reducidos", "Art14 Madrid:secuencia completa con deducciones generales y bases ajenas pendiente")
@@ -463,7 +464,7 @@ export function aplicarDeduccionesTerritoriales2025(
       }
       registrarBien(hechosConciliables)
     }
-    if(!inversionExt && s.lote !== "C36" && s.lote !== "B-ampliado" && s.lote !== "E38" && s.lote !== "F-ampliado" && s.lote !== "A-aragon-dos") conciliar(hechosConciliables, m)
+    if(!(s.lote === "A40" && s.codigo === "andalucia_conyuge_pareja_discapacidad") && !inversionExt && s.lote !== "C36" && s.lote !== "B-ampliado" && s.lote !== "E38" && s.lote !== "F-ampliado" && s.lote !== "A-aragon-dos") conciliar(hechosConciliables, m)
     restriccionesC36.push([])
     if (s.lote === "CLM" || s.lote === "CYL" || s.lote === "EXT") {
       function repartoExacto(x: Schema.Json): void {
