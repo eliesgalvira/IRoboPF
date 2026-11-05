@@ -238,7 +238,12 @@ export async function generate(
     }
   )
   if (child.status !== 0)
-    throw new Error(child.stderr || "Falló generación en proceso aislado")
+    throw new Error("Falló generación en proceso aislado: " + JSON.stringify({
+      status: child.status,
+      signal: child.signal,
+      error: child.error?.message,
+      stderr: child.stderr,
+    }))
   return JSON.parse(readFileSync(`${output}/inventario.json`, "utf8"))
 }
 

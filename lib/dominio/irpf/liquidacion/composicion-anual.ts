@@ -1,3 +1,5 @@
+import { usaPrecisionD51 } from "../deducciones/d51-anual"
+import { RechazoAragonAnual } from "../deducciones/aragon-dos-anual-error"
 import { esAmbitoCuotasTerritorialesOpen2025 } from "../cuotas/politica-cuotas-open-2025"
 import { producirNodosFiscalesB2025 } from "../deducciones/b-ampliado-anual-2025/productores"
 import { SolicitudDeduccionesTerritoriales2025 } from "../deducciones/anual-territorial"
@@ -47,6 +49,7 @@ export type PoliticaAnual =
   | "open-empleo-madrid-2025"
   | "open-cuotas-empleo-andalucia-2025"
   | "open-cuotas-empleo-territorios-2025"
+  | "open-cuotas-empleo-madrid-2018-2024"
 /** Contrato interno: bases ya integradas en EUR Decimal; jamás reconstruye cotizaciones. */
 export interface EntradaComposicionAnual {
   readonly rentaActividadAnualB?: Decimal | undefined
@@ -75,6 +78,7 @@ export interface EntradaComposicionAnual {
   }
   readonly precision: 20 | 80
   readonly politica: PoliticaAnual
+  readonly basesImponiblesE38?: { readonly general: Decimal; readonly ahorro: Decimal } | undefined
   readonly baseGeneral: Decimal
   readonly baseAhorro: Decimal
   readonly rentasAntesReducciones: Decimal
@@ -105,7 +109,8 @@ export const cuantizarAnual = (
 
 export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
   function* (entrada: EntradaComposicionAnual) {
-    const A = Decimal.clone({ precision: entrada.precision })
+    const ampliaF = entrada.deduccionesTerritoriales2025?.solicitudes.some((s) => s.lote === "F-ampliado") === true
+    const A = Decimal.clone({ precision: ampliaF || usaPrecisionD51(entrada.deduccionesTerritoriales2025) ? 80 : entrada.precision })
     const caso = entrada.ambito
     const baseLiquidableGeneral = A.max(0, entrada.baseGeneral)
     const baseLiquidableAhorro = new A(entrada.baseAhorro)
@@ -123,6 +128,32 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
       return yield* Effect.fail(
         errorDerechosMinimos({
           motivo: "Política Open limitada a empleo efectivo Madrid 2025",
+        })
+      )
+    if (
+      entrada.politica === "open-cuotas-empleo-madrid-2018-2024" &&
+      (caso.anio < 2018 ||
+        caso.anio > 2024 ||
+        caso.comunidadAutonoma !== "madrid" ||
+        caso.fechaFallecimiento !== undefined ||
+        caso.derechosMinimos !== undefined ||
+        caso.situacionFamiliar.edad < 18 ||
+        caso.situacionFamiliar.edad >= 65 ||
+        caso.situacionFamiliar.discapacidad._tag !== "SinDiscapacidad" ||
+        entrada.cotizaciones.naturaleza !== "efectivas" ||
+        entrada.rentasTrabajoAnuales === undefined ||
+        !entrada.rentasTrabajoAnuales.integroTrabajo.gt(0) ||
+        !entrada.rentasTrabajoAnuales.restoRentas.isZero() ||
+        !entrada.baseAhorro.isZero() ||
+        entrada.deduccionesAutonomicasCentimos !== 0 ||
+        entrada.deduccionesTerritoriales2025 !== undefined ||
+        entrada.deduccionesValencianas2025 !== undefined ||
+        entrada.serviciosLaborales !== undefined)
+    )
+      return yield* Effect.fail(
+        errorDerechosMinimos({
+          motivo:
+            "Política de cuotas Open limitada a empleo efectivo Madrid 2018–2024, edad 18–64, sin fallecimiento, familia, discapacidad, otras rentas ni deducciones",
         })
       )
     if (
@@ -616,6 +647,7 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
         try: () =>
           aplicarDeduccionesTerritoriales2025(solicitud, {
             caso,
+            basesImponiblesE38: entrada.basesImponiblesE38,
             baseGeneral: entrada.baseGeneral,
             baseAhorro: entrada.baseAhorro,
             minimoPersonalFamiliar: minimoPersonalYFamiliar,
@@ -636,15 +668,24 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
               derechosEstatales?.atribuciones.map((a) => a.sujetoId) ?? [],
             atribucionesMinimo: derechosEstatales?.atribuciones,
           }),
-        catch: (e) =>
-          errorDerechosMinimos({
-            motivo:
-              e instanceof RangeError
-                ? e.message
-                : "Hechos territoriales no componibles",
-          }),
+        catch: (e) => Schema.is(RechazoAragonAnual)(e)
+          ? {
+              ...errorDerechosMinimos({motivo:e.motivo}),
+              fuenteReconocida:"docs/procedencia/deducciones-2025/producto-aragon-conexion-anual/ALCANCE.md",
+              dependenciaAragon:e.dependencia,
+            }
+          : errorDerechosMinimos({
+              motivo:e instanceof RangeError ? e.message : "Hechos territoriales no componibles",
+            }),
       })
     }
+    if (deduccionesTerritoriales2025 !== undefined &&
+      "completoEnRamasSolicitadas" in deduccionesTerritoriales2025 &&
+      deduccionesTerritoriales2025.completoEnRamasSolicitadas === false)
+      return yield* Effect.fail({
+        ...errorDerechosMinimos({ motivo: "Deducciones F con condiciones pendientes; se conserva evaluación por rama y no se publica una cuota anual con deducciones desconocidas" }),
+        deduccionesTerritoriales2025,
+      })
     const deduccionesAutonomicasAplicadas =
       deduccionesTerritoriales2025 !== undefined
         ? new A(deduccionesTerritoriales2025.total.numeradorEuros).div(

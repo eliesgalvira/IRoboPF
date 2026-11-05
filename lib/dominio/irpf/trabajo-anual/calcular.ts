@@ -3,7 +3,7 @@ import { Result, Schema } from "effect"
 import { DeduccionTrabajo, GastosTrabajo } from "./contrato"
 import type { NoSoportado, ResultadoDeduccion } from "./contrato"
 
-const D = Decimal.clone({ precision: 60 })
+const D = Decimal.clone({ precision: 80 })
 const rechazo = (motivo: string): NoSoportado => ({
   estado: "no-soportado",
   motivo,

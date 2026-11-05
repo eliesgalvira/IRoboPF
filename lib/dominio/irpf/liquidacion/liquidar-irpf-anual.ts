@@ -1,3 +1,4 @@
+import type { DependenciaAragonAnual2025 } from "../deducciones/aragon-dos-anual-error"
 import { MINIMOS_ESTATALES_2026 } from "../../normativa/datos/minimos-estatales-2026"
 import { liquidarPagosAnuales } from "../cuotas/cuota-diferencial"
 import { pasosDeduccionesValencianasAnual } from "../deducciones/valenciana-2025/anual"
@@ -64,6 +65,10 @@ export interface ContextoLiquidacionIrpf {
 }
 
 export interface ResultadoNoSoportado {
+  readonly deduccionesTerritoriales2025?: ReturnType<
+    typeof import("../deducciones/anual-territorial").aplicarDeduccionesTerritoriales2025
+  > | undefined
+  readonly dependenciaAragon?: DependenciaAragonAnual2025 | undefined
   readonly _tag: "ResultadoNoSoportado"
   readonly motivo: string
   readonly fuenteReconocida: string
@@ -469,8 +474,13 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
       naturaleza: "estimadas-perfil-uniforme",
       trabajador: cotizacionesSociales.cotizacionTrabajador,
     },
-    precision: caso.derechosMinimos === undefined ? 20 : 80,
+    precision:
+      caso.derechosMinimos !== undefined ||
+      caso.deduccionesTerritoriales2025?.solicitudes.some((s) => s.lote === "E38" || s.lote === "F-ampliado" || s.lote === "C36") === true
+        ? 80
+        : 20,
     politica: "decimal-hasta-salida",
+    basesImponiblesE38: { general: baseImponibleGeneral, ahorro: baseLiquidableAhorro },
     baseGeneral: baseLiquidableGeneral,
     baseAhorro: baseLiquidableAhorro,
     rentasAntesReducciones:

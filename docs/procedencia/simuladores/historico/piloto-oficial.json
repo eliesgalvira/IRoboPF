@@ -1,0 +1,1308 @@
+{
+  "schema": "historico-open-piloto-v1",
+  "matrixSha256": "59d82988079fb1ffc9e4609cb56376c749586b2b02cdb319449087a132fcf2d2",
+  "cases": [
+    {
+      "year": 2018,
+      "input": {
+        "ejercicio": 2018,
+        "comunidadAutonoma": "madrid",
+        "edad": 33,
+        "modalidad": "individual",
+        "residenciaTodoElAnio": true,
+        "devengo": "2018-12-31",
+        "otrasRentas": "ninguna",
+        "familiaresConDerechoMinimo": "ninguno",
+        "discapacidad": "ninguna",
+        "reduccionesBase": "ninguna",
+        "saldosAnteriores": "ninguno",
+        "deducciones": "ninguna",
+        "rentasExtranjeras": "ninguna",
+        "especialidades": "ninguna",
+        "perfil": "solo-trabajo",
+        "conciliacion": {
+          "ejercicio": 2018,
+          "estado": "totales-anuales-sin-duplicados",
+          "procedencia": [
+            "sintetico:historico:8ce1316e2a290f3a530c139056d21b45fbdfe61ce9f137a29e4bc16a253cba0c"
+          ]
+        },
+        "trabajo": {
+          "ejercicio": 2018,
+          "territorio": "comun",
+          "reduccionesArt18": "ninguna",
+          "movilidad": "ninguna",
+          "discapacidadActiva": "ninguna",
+          "rendimientos": [
+            {
+              "id": "8ce1316e2a290f3a530c139056d21b45fbdfe61ce9f137a29e4bc16a253cba0c",
+              "clase": "empleo-laboral",
+              "integro": "15876.00",
+              "cotizaciones": {
+                "clase": "efectivas",
+                "seguridadSocial": "1000.00",
+                "derechosPasivos": "0",
+                "colegiosHuerfanos": "0"
+              },
+              "sindicato": {
+                "importe": "0",
+                "satisfecho": "si"
+              },
+              "colegio": {
+                "importe": "0",
+                "satisfecho": "si",
+                "obligatorio": "si",
+                "finesEsenciales": "si"
+              },
+              "defensa": {
+                "importe": "0",
+                "satisfecho": "si",
+                "litigioDirectoPagador": "si"
+              }
+            }
+          ]
+        },
+        "retenciones": [
+          {
+            "operacionId": "8ce1316e2a290f3a530c139056d21b45fbdfe61ce9f137a29e4bc16a253cba0c",
+            "procedencia": "sintetico:historico:8ce1316e2a290f3a530c139056d21b45fbdfe61ce9f137a29e4bc16a253cba0c",
+            "ejercicio": 2018,
+            "importe": "100.00",
+            "efectiva": true
+          }
+        ]
+      },
+      "expected": [
+        {
+          "box": "0025",
+          "scalar": "rendimientoNetoReducido",
+          "official": "11414.25",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0500",
+          "scalar": "baseLiquidableGeneral",
+          "official": "11414.25",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0505",
+          "scalar": "baseLiquidableGeneral",
+          "official": "11414.25",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0528",
+          "scalar": "gravamenEstatal",
+          "official": "1084.35",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0529",
+          "scalar": "gravamenAutonomico",
+          "official": "1027.28",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0530",
+          "scalar": "gravamenMinimoEstatal",
+          "official": "527.25",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0531",
+          "scalar": "gravamenMinimoAutonomico",
+          "official": "499.5",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0532",
+          "scalar": "cuotaEstatal",
+          "official": "557.1",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0533",
+          "scalar": "cuotaAutonomica",
+          "official": "527.78",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0595",
+          "scalar": "cuotaPosterior",
+          "official": "1084.88",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0610",
+          "scalar": "cuotaDiferencial",
+          "official": "984.88",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0670",
+          "scalar": "cuotaDiferencialPresentada",
+          "official": "984.88",
+          "status": "presente-acreditada"
+        }
+      ],
+      "reserved": [
+        {
+          "box": "0023",
+          "scalar": "reduccionArt20",
+          "official": "1461.75",
+          "status": "ausencia-o-mapeo-pendiente"
+        },
+        {
+          "box": "0414",
+          "scalar": "deduccionTrabajo",
+          "official": null,
+          "status": "ausencia-o-mapeo-pendiente"
+        }
+      ],
+      "source": {
+        "url": "https://www2.agenciatributaria.gob.es/wlpl/PARE-RW18/OPEN/index.zul?EJER=2018&TACCESO=COLAB",
+        "capturedAt": "2026-11-04T22:30:17Z",
+        "visibleVersion": "1.27",
+        "model": "0.20",
+        "rules": "N000068672",
+        "originals": {
+          "ses": {
+            "sha256": "a97cab32c73d56c05ca1b06b0259b008f5e9528ae0a422e010d93af0d90e04a9",
+            "bytes": 1614
+          },
+          "pdf": {
+            "sha256": "ffedd372048450a47a8749bf84fe2d1b3f4c10f2f5352fd62eeb2067c7dd3edd",
+            "bytes": 347256
+          },
+          "summary": {
+            "sha256": "a3f4506ffb25269f2d82ee5a2bac05d725578663d8b3b6709db312f9512fd5e2",
+            "bytes": 2791
+          },
+          "bootstrap": {
+            "sha256": "ad55a1be9dc738d33171ed8e5c799adf14d21a0e412c618a93865a3ea962d3f1",
+            "bytes": 96361
+          }
+        },
+        "captureReceiptSha256": "f07c502e53ce73de3660bcac10ce05f39f62034bf67b9964b1d20ba7d161154e"
+      },
+      "scope": "Madrid individual, empleo, sin familiares; hechos sintéticos y reservas del piloto, no acreditación fiscal universal"
+    },
+    {
+      "year": 2019,
+      "input": {
+        "ejercicio": 2019,
+        "comunidadAutonoma": "madrid",
+        "edad": 34,
+        "modalidad": "individual",
+        "residenciaTodoElAnio": true,
+        "devengo": "2019-12-31",
+        "otrasRentas": "ninguna",
+        "familiaresConDerechoMinimo": "ninguno",
+        "discapacidad": "ninguna",
+        "reduccionesBase": "ninguna",
+        "saldosAnteriores": "ninguno",
+        "deducciones": "ninguna",
+        "rentasExtranjeras": "ninguna",
+        "especialidades": "ninguna",
+        "perfil": "solo-trabajo",
+        "conciliacion": {
+          "ejercicio": 2019,
+          "estado": "totales-anuales-sin-duplicados",
+          "procedencia": [
+            "sintetico:historico:1845948208888f1f25c9bba88b8e0d0d28e24aa93190b0a5de4d094868118587"
+          ]
+        },
+        "trabajo": {
+          "ejercicio": 2019,
+          "territorio": "comun",
+          "reduccionesArt18": "ninguna",
+          "movilidad": "ninguna",
+          "discapacidadActiva": "ninguna",
+          "rendimientos": [
+            {
+              "id": "1845948208888f1f25c9bba88b8e0d0d28e24aa93190b0a5de4d094868118587",
+              "clase": "empleo-laboral",
+              "integro": "15876.00",
+              "cotizaciones": {
+                "clase": "efectivas",
+                "seguridadSocial": "1000.00",
+                "derechosPasivos": "0",
+                "colegiosHuerfanos": "0"
+              },
+              "sindicato": {
+                "importe": "0",
+                "satisfecho": "si"
+              },
+              "colegio": {
+                "importe": "0",
+                "satisfecho": "si",
+                "obligatorio": "si",
+                "finesEsenciales": "si"
+              },
+              "defensa": {
+                "importe": "0",
+                "satisfecho": "si",
+                "litigioDirectoPagador": "si"
+              }
+            }
+          ]
+        },
+        "retenciones": [
+          {
+            "operacionId": "1845948208888f1f25c9bba88b8e0d0d28e24aa93190b0a5de4d094868118587",
+            "procedencia": "sintetico:historico:1845948208888f1f25c9bba88b8e0d0d28e24aa93190b0a5de4d094868118587",
+            "ejercicio": 2019,
+            "importe": "100.00",
+            "efectiva": true
+          }
+        ]
+      },
+      "expected": [
+        {
+          "box": "0025",
+          "scalar": "rendimientoNetoReducido",
+          "official": "9952.5",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0500",
+          "scalar": "baseLiquidableGeneral",
+          "official": "9952.5",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0505",
+          "scalar": "baseLiquidableGeneral",
+          "official": "9952.5",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0528",
+          "scalar": "gravamenEstatal",
+          "official": "945.49",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0529",
+          "scalar": "gravamenAutonomico",
+          "official": "895.73",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0530",
+          "scalar": "gravamenMinimoEstatal",
+          "official": "527.25",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0531",
+          "scalar": "gravamenMinimoAutonomico",
+          "official": "499.5",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0532",
+          "scalar": "cuotaEstatal",
+          "official": "418.24",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0533",
+          "scalar": "cuotaAutonomica",
+          "official": "396.23",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0595",
+          "scalar": "cuotaPosterior",
+          "official": "814.47",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0610",
+          "scalar": "cuotaDiferencial",
+          "official": "714.47",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0670",
+          "scalar": "cuotaDiferencialPresentada",
+          "official": "714.47",
+          "status": "presente-acreditada"
+        }
+      ],
+      "reserved": [
+        {
+          "box": "0023",
+          "scalar": "reduccionArt20",
+          "official": "2923.5",
+          "status": "ausencia-o-mapeo-pendiente"
+        },
+        {
+          "box": "0414",
+          "scalar": "deduccionTrabajo",
+          "official": null,
+          "status": "ausencia-o-mapeo-pendiente"
+        }
+      ],
+      "source": {
+        "url": "https://www2.agenciatributaria.gob.es/wlpl/PARE-RW19/OPEN/index.zul?EJER=2019&TACCESO=COLAB",
+        "capturedAt": "2026-11-04T22:30:41Z",
+        "visibleVersion": "1.23",
+        "model": "0.17",
+        "rules": "N000068671",
+        "originals": {
+          "ses": {
+            "sha256": "861ce8feb7171e3128ae91dff8b5d8c3f9f76d2f581ecfa8843ceaf766de3120",
+            "bytes": 1687
+          },
+          "pdf": {
+            "sha256": "ac7452f48b9af7af36063fd2ad6b360ebe629b8a3a22617c5011e50ccfc8a0f9",
+            "bytes": 275501
+          },
+          "summary": {
+            "sha256": "156422eb20485b135e2cdcc920ac8a81d2e662ddf3f69c56e85b45d9fdc30eff",
+            "bytes": 2783
+          },
+          "bootstrap": {
+            "sha256": "c2a15b8f308abd5b00a539600c08d2e2940f89e677ac680fca39fe933a3bd677",
+            "bytes": 97812
+          }
+        },
+        "captureReceiptSha256": "e038c364d1b73ca8e0b4d490f2d3184012cb7ee7c75784863bff63d0ce489f82"
+      },
+      "scope": "Madrid individual, empleo, sin familiares; hechos sintéticos y reservas del piloto, no acreditación fiscal universal"
+    },
+    {
+      "year": 2020,
+      "input": {
+        "ejercicio": 2020,
+        "comunidadAutonoma": "madrid",
+        "edad": 35,
+        "modalidad": "individual",
+        "residenciaTodoElAnio": true,
+        "devengo": "2020-12-31",
+        "otrasRentas": "ninguna",
+        "familiaresConDerechoMinimo": "ninguno",
+        "discapacidad": "ninguna",
+        "reduccionesBase": "ninguna",
+        "saldosAnteriores": "ninguno",
+        "deducciones": "ninguna",
+        "rentasExtranjeras": "ninguna",
+        "especialidades": "ninguna",
+        "perfil": "solo-trabajo",
+        "conciliacion": {
+          "ejercicio": 2020,
+          "estado": "totales-anuales-sin-duplicados",
+          "procedencia": [
+            "sintetico:historico:450ee1491c915e4aaa1ed39dd21f97e393c4125ca1758faa6a161fef9c7c7f52"
+          ]
+        },
+        "trabajo": {
+          "ejercicio": 2020,
+          "territorio": "comun",
+          "reduccionesArt18": "ninguna",
+          "movilidad": "ninguna",
+          "discapacidadActiva": "ninguna",
+          "rendimientos": [
+            {
+              "id": "450ee1491c915e4aaa1ed39dd21f97e393c4125ca1758faa6a161fef9c7c7f52",
+              "clase": "empleo-laboral",
+              "integro": "15876.00",
+              "cotizaciones": {
+                "clase": "efectivas",
+                "seguridadSocial": "1000.00",
+                "derechosPasivos": "0",
+                "colegiosHuerfanos": "0"
+              },
+              "sindicato": {
+                "importe": "0",
+                "satisfecho": "si"
+              },
+              "colegio": {
+                "importe": "0",
+                "satisfecho": "si",
+                "obligatorio": "si",
+                "finesEsenciales": "si"
+              },
+              "defensa": {
+                "importe": "0",
+                "satisfecho": "si",
+                "litigioDirectoPagador": "si"
+              }
+            }
+          ]
+        },
+        "retenciones": [
+          {
+            "operacionId": "450ee1491c915e4aaa1ed39dd21f97e393c4125ca1758faa6a161fef9c7c7f52",
+            "procedencia": "sintetico:historico:450ee1491c915e4aaa1ed39dd21f97e393c4125ca1758faa6a161fef9c7c7f52",
+            "ejercicio": 2020,
+            "importe": "100.00",
+            "efectiva": true
+          }
+        ]
+      },
+      "expected": [
+        {
+          "box": "0025",
+          "scalar": "rendimientoNetoReducido",
+          "official": "9952.5",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0500",
+          "scalar": "baseLiquidableGeneral",
+          "official": "9952.5",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0505",
+          "scalar": "baseLiquidableGeneral",
+          "official": "9952.5",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0528",
+          "scalar": "gravamenEstatal",
+          "official": "945.49",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0529",
+          "scalar": "gravamenAutonomico",
+          "official": "895.73",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0530",
+          "scalar": "gravamenMinimoEstatal",
+          "official": "527.25",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0531",
+          "scalar": "gravamenMinimoAutonomico",
+          "official": "499.5",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0532",
+          "scalar": "cuotaEstatal",
+          "official": "418.24",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0533",
+          "scalar": "cuotaAutonomica",
+          "official": "396.23",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0595",
+          "scalar": "cuotaPosterior",
+          "official": "814.47",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0610",
+          "scalar": "cuotaDiferencial",
+          "official": "714.47",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0670",
+          "scalar": "cuotaDiferencialPresentada",
+          "official": "714.47",
+          "status": "presente-acreditada"
+        }
+      ],
+      "reserved": [
+        {
+          "box": "0023",
+          "scalar": "reduccionArt20",
+          "official": "2923.5",
+          "status": "ausencia-o-mapeo-pendiente"
+        },
+        {
+          "box": "0414",
+          "scalar": "deduccionTrabajo",
+          "official": null,
+          "status": "ausencia-o-mapeo-pendiente"
+        }
+      ],
+      "source": {
+        "url": "https://www2.agenciatributaria.gob.es/wlpl/PARE-RW20/OPEN/index.zul?EJER=2020&TACCESO=COLAB",
+        "capturedAt": "2026-11-04T22:31:05Z",
+        "visibleVersion": "1.42",
+        "model": "0.21",
+        "rules": "N000082550",
+        "originals": {
+          "ses": {
+            "sha256": "0d0de0bdb53b4fad44760a85c69f85ae834fcbc78c52b796f300a159e88b896f",
+            "bytes": 1762
+          },
+          "pdf": {
+            "sha256": "164202a89ddedf395dba7bf87ae4e29a800c82bdc221f96cd5c00baff197f392",
+            "bytes": 139611
+          },
+          "summary": {
+            "sha256": "fdd8afedfa0a2a4db3acb550f770ee6afc90ced62e6639a1cd2d8c204d194875",
+            "bytes": 3642
+          },
+          "bootstrap": {
+            "sha256": "37453e2b54b61f6129d29d485ffe675e64010fb366aa5b82b019fe5c47226496",
+            "bytes": 118401
+          }
+        },
+        "captureReceiptSha256": "2b8cc05a1626c88a0f076a6d936563b13307c93bd53551f7571645ebd1834e21"
+      },
+      "scope": "Madrid individual, empleo, sin familiares; hechos sintéticos y reservas del piloto, no acreditación fiscal universal"
+    },
+    {
+      "year": 2021,
+      "input": {
+        "ejercicio": 2021,
+        "comunidadAutonoma": "madrid",
+        "edad": 36,
+        "modalidad": "individual",
+        "residenciaTodoElAnio": true,
+        "devengo": "2021-12-31",
+        "otrasRentas": "ninguna",
+        "familiaresConDerechoMinimo": "ninguno",
+        "discapacidad": "ninguna",
+        "reduccionesBase": "ninguna",
+        "saldosAnteriores": "ninguno",
+        "deducciones": "ninguna",
+        "rentasExtranjeras": "ninguna",
+        "especialidades": "ninguna",
+        "perfil": "solo-trabajo",
+        "conciliacion": {
+          "ejercicio": 2021,
+          "estado": "totales-anuales-sin-duplicados",
+          "procedencia": [
+            "sintetico:historico:d280e12e059307430184515b17c065d527e9df5c2c8b548b7ab24b6e8a9921c7"
+          ]
+        },
+        "trabajo": {
+          "ejercicio": 2021,
+          "territorio": "comun",
+          "reduccionesArt18": "ninguna",
+          "movilidad": "ninguna",
+          "discapacidadActiva": "ninguna",
+          "rendimientos": [
+            {
+              "id": "d280e12e059307430184515b17c065d527e9df5c2c8b548b7ab24b6e8a9921c7",
+              "clase": "empleo-laboral",
+              "integro": "15876.00",
+              "cotizaciones": {
+                "clase": "efectivas",
+                "seguridadSocial": "1000.00",
+                "derechosPasivos": "0",
+                "colegiosHuerfanos": "0"
+              },
+              "sindicato": {
+                "importe": "0",
+                "satisfecho": "si"
+              },
+              "colegio": {
+                "importe": "0",
+                "satisfecho": "si",
+                "obligatorio": "si",
+                "finesEsenciales": "si"
+              },
+              "defensa": {
+                "importe": "0",
+                "satisfecho": "si",
+                "litigioDirectoPagador": "si"
+              }
+            }
+          ]
+        },
+        "retenciones": [
+          {
+            "operacionId": "d280e12e059307430184515b17c065d527e9df5c2c8b548b7ab24b6e8a9921c7",
+            "procedencia": "sintetico:historico:d280e12e059307430184515b17c065d527e9df5c2c8b548b7ab24b6e8a9921c7",
+            "ejercicio": 2021,
+            "importe": "100.00",
+            "efectiva": true
+          }
+        ]
+      },
+      "expected": [
+        {
+          "box": "0025",
+          "scalar": "rendimientoNetoReducido",
+          "official": "9952.5",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0500",
+          "scalar": "baseLiquidableGeneral",
+          "official": "9952.5",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0505",
+          "scalar": "baseLiquidableGeneral",
+          "official": "9952.5",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0528",
+          "scalar": "gravamenEstatal",
+          "official": "945.49",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0529",
+          "scalar": "gravamenAutonomico",
+          "official": "895.73",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0530",
+          "scalar": "gravamenMinimoEstatal",
+          "official": "527.25",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0531",
+          "scalar": "gravamenMinimoAutonomico",
+          "official": "499.5",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0532",
+          "scalar": "cuotaEstatal",
+          "official": "418.24",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0533",
+          "scalar": "cuotaAutonomica",
+          "official": "396.23",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0595",
+          "scalar": "cuotaPosterior",
+          "official": "814.47",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0610",
+          "scalar": "cuotaDiferencial",
+          "official": "714.47",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0670",
+          "scalar": "cuotaDiferencialPresentada",
+          "official": "714.47",
+          "status": "presente-acreditada"
+        }
+      ],
+      "reserved": [
+        {
+          "box": "0023",
+          "scalar": "reduccionArt20",
+          "official": "2923.5",
+          "status": "ausencia-o-mapeo-pendiente"
+        },
+        {
+          "box": "0414",
+          "scalar": "deduccionTrabajo",
+          "official": null,
+          "status": "ausencia-o-mapeo-pendiente"
+        }
+      ],
+      "source": {
+        "url": "https://www2.agenciatributaria.gob.es/wlpl/PARE-RW21/OPEN/index.zul?EJER=2021&TACCESO=COLAB",
+        "capturedAt": "2026-11-04T22:31:25Z",
+        "visibleVersion": "1.22",
+        "model": "0.06",
+        "rules": "N000082560",
+        "originals": {
+          "ses": {
+            "sha256": "06ec2be41fe32a7aeb70ee7a1a38ff3ae7f19c012688d1b65f426629c939ac94",
+            "bytes": 1728
+          },
+          "pdf": {
+            "sha256": "3491a4449138c022cca17998ec34e6a37d55d664328a443ad80460fa88d6d94b",
+            "bytes": 140862
+          },
+          "summary": {
+            "sha256": "f774a182c1aa0c64f1f74f3563c82ca0d50222a1067e29052daa449dcf5cc5e8",
+            "bytes": 3636
+          },
+          "bootstrap": {
+            "sha256": "b370c11966e86e84f1fe38e7a84a9378f2f99811dc2c3d99746b7cd213021569",
+            "bytes": 161207
+          }
+        },
+        "captureReceiptSha256": "57bcf28a37cbd06067c69f32a908b01e9e1bef213d4da04251dfc8032560888f"
+      },
+      "scope": "Madrid individual, empleo, sin familiares; hechos sintéticos y reservas del piloto, no acreditación fiscal universal"
+    },
+    {
+      "year": 2022,
+      "input": {
+        "ejercicio": 2022,
+        "comunidadAutonoma": "madrid",
+        "edad": 37,
+        "modalidad": "individual",
+        "residenciaTodoElAnio": true,
+        "devengo": "2022-12-31",
+        "otrasRentas": "ninguna",
+        "familiaresConDerechoMinimo": "ninguno",
+        "discapacidad": "ninguna",
+        "reduccionesBase": "ninguna",
+        "saldosAnteriores": "ninguno",
+        "deducciones": "ninguna",
+        "rentasExtranjeras": "ninguna",
+        "especialidades": "ninguna",
+        "perfil": "solo-trabajo",
+        "conciliacion": {
+          "ejercicio": 2022,
+          "estado": "totales-anuales-sin-duplicados",
+          "procedencia": [
+            "sintetico:historico:8037f62b396cde804a936ca9374aa06bb3b802e007f52a1416c6a4343198592c"
+          ]
+        },
+        "trabajo": {
+          "ejercicio": 2022,
+          "territorio": "comun",
+          "reduccionesArt18": "ninguna",
+          "movilidad": "ninguna",
+          "discapacidadActiva": "ninguna",
+          "rendimientos": [
+            {
+              "id": "8037f62b396cde804a936ca9374aa06bb3b802e007f52a1416c6a4343198592c",
+              "clase": "empleo-laboral",
+              "integro": "15876.00",
+              "cotizaciones": {
+                "clase": "efectivas",
+                "seguridadSocial": "1000.00",
+                "derechosPasivos": "0",
+                "colegiosHuerfanos": "0"
+              },
+              "sindicato": {
+                "importe": "0",
+                "satisfecho": "si"
+              },
+              "colegio": {
+                "importe": "0",
+                "satisfecho": "si",
+                "obligatorio": "si",
+                "finesEsenciales": "si"
+              },
+              "defensa": {
+                "importe": "0",
+                "satisfecho": "si",
+                "litigioDirectoPagador": "si"
+              }
+            }
+          ]
+        },
+        "retenciones": [
+          {
+            "operacionId": "8037f62b396cde804a936ca9374aa06bb3b802e007f52a1416c6a4343198592c",
+            "procedencia": "sintetico:historico:8037f62b396cde804a936ca9374aa06bb3b802e007f52a1416c6a4343198592c",
+            "ejercicio": 2022,
+            "importe": "100.00",
+            "efectiva": true
+          }
+        ]
+      },
+      "expected": [
+        {
+          "box": "0025",
+          "scalar": "rendimientoNetoReducido",
+          "official": "9952.5",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0500",
+          "scalar": "baseLiquidableGeneral",
+          "official": "9952.5",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0505",
+          "scalar": "baseLiquidableGeneral",
+          "official": "9952.5",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0528",
+          "scalar": "gravamenEstatal",
+          "official": "945.49",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0529",
+          "scalar": "gravamenAutonomico",
+          "official": "845.96",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0530",
+          "scalar": "gravamenMinimoEstatal",
+          "official": "527.25",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0531",
+          "scalar": "gravamenMinimoAutonomico",
+          "official": "491.09",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0532",
+          "scalar": "cuotaEstatal",
+          "official": "418.24",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0533",
+          "scalar": "cuotaAutonomica",
+          "official": "354.87",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0595",
+          "scalar": "cuotaPosterior",
+          "official": "773.11",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0610",
+          "scalar": "cuotaDiferencial",
+          "official": "673.11",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0670",
+          "scalar": "cuotaDiferencialPresentada",
+          "official": "673.11",
+          "status": "presente-acreditada"
+        }
+      ],
+      "reserved": [
+        {
+          "box": "0023",
+          "scalar": "reduccionArt20",
+          "official": "2923.5",
+          "status": "ausencia-o-mapeo-pendiente"
+        },
+        {
+          "box": "0414",
+          "scalar": "deduccionTrabajo",
+          "official": null,
+          "status": "ausencia-o-mapeo-pendiente"
+        }
+      ],
+      "source": {
+        "url": "https://www2.agenciatributaria.gob.es/wlpl/PARE-RW22/OPEN/index.zul?EJER=2022&TACCESO=COLAB",
+        "capturedAt": "2026-11-04T22:31:43Z",
+        "visibleVersion": "1.28",
+        "model": "0.12",
+        "rules": "N000087553",
+        "originals": {
+          "ses": {
+            "sha256": "9d9e13151202b76ba9e9838360b115955af7dfc594bfd78e2617028c5a6ebaad",
+            "bytes": 1710
+          },
+          "pdf": {
+            "sha256": "31d5e165aa7904b92368a7b92bf8a0d60b225842877fbda7c019ea721e70136a",
+            "bytes": 140976
+          },
+          "summary": {
+            "sha256": "96858b5e92948d8694373997a274a830bb12b19d4aef1aa1435ce4df78dce707",
+            "bytes": 3015
+          },
+          "bootstrap": {
+            "sha256": "b4c8538305170ee20d55922884a66da53f73ec2b5c517251bd2fe2f89eee8845",
+            "bytes": 133634
+          }
+        },
+        "captureReceiptSha256": "b74a01cc795f1a7a309396027e20dfdc756817ff96c3ac0cb7d32db77f1cecc8"
+      },
+      "scope": "Madrid individual, empleo, sin familiares; hechos sintéticos y reservas del piloto, no acreditación fiscal universal"
+    },
+    {
+      "year": 2023,
+      "input": {
+        "ejercicio": 2023,
+        "comunidadAutonoma": "madrid",
+        "edad": 38,
+        "modalidad": "individual",
+        "residenciaTodoElAnio": true,
+        "devengo": "2023-12-31",
+        "otrasRentas": "ninguna",
+        "familiaresConDerechoMinimo": "ninguno",
+        "discapacidad": "ninguna",
+        "reduccionesBase": "ninguna",
+        "saldosAnteriores": "ninguno",
+        "deducciones": "ninguna",
+        "rentasExtranjeras": "ninguna",
+        "especialidades": "ninguna",
+        "perfil": "solo-trabajo",
+        "conciliacion": {
+          "ejercicio": 2023,
+          "estado": "totales-anuales-sin-duplicados",
+          "procedencia": [
+            "sintetico:historico:86f6c579ceeb8d1ec924d600c99d854debbe6ade920fd69a1f471fb0a005bbad"
+          ]
+        },
+        "trabajo": {
+          "ejercicio": 2023,
+          "territorio": "comun",
+          "reduccionesArt18": "ninguna",
+          "movilidad": "ninguna",
+          "discapacidadActiva": "ninguna",
+          "rendimientos": [
+            {
+              "id": "86f6c579ceeb8d1ec924d600c99d854debbe6ade920fd69a1f471fb0a005bbad",
+              "clase": "empleo-laboral",
+              "integro": "15876.00",
+              "cotizaciones": {
+                "clase": "efectivas",
+                "seguridadSocial": "1000.00",
+                "derechosPasivos": "0",
+                "colegiosHuerfanos": "0"
+              },
+              "sindicato": {
+                "importe": "0",
+                "satisfecho": "si"
+              },
+              "colegio": {
+                "importe": "0",
+                "satisfecho": "si",
+                "obligatorio": "si",
+                "finesEsenciales": "si"
+              },
+              "defensa": {
+                "importe": "0",
+                "satisfecho": "si",
+                "litigioDirectoPagador": "si"
+              }
+            }
+          ]
+        },
+        "retenciones": [
+          {
+            "operacionId": "86f6c579ceeb8d1ec924d600c99d854debbe6ade920fd69a1f471fb0a005bbad",
+            "procedencia": "sintetico:historico:86f6c579ceeb8d1ec924d600c99d854debbe6ade920fd69a1f471fb0a005bbad",
+            "ejercicio": 2023,
+            "importe": "100.00",
+            "efectiva": true
+          }
+        ]
+      },
+      "expected": [
+        {
+          "box": "0025",
+          "scalar": "rendimientoNetoReducido",
+          "official": "7322.49",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0500",
+          "scalar": "baseLiquidableGeneral",
+          "official": "7322.49",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0505",
+          "scalar": "baseLiquidableGeneral",
+          "official": "7322.49",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0528",
+          "scalar": "gravamenEstatal",
+          "official": "695.64",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0529",
+          "scalar": "gravamenAutonomico",
+          "official": "622.41",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0530",
+          "scalar": "gravamenMinimoEstatal",
+          "official": "527.25",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0531",
+          "scalar": "gravamenMinimoAutonomico",
+          "official": "506.32",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0532",
+          "scalar": "cuotaEstatal",
+          "official": "168.39",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0533",
+          "scalar": "cuotaAutonomica",
+          "official": "116.09",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0595",
+          "scalar": "cuotaPosterior",
+          "official": "284.48",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0610",
+          "scalar": "cuotaDiferencial",
+          "official": "184.48",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0670",
+          "scalar": "cuotaDiferencialPresentada",
+          "official": "184.48",
+          "status": "presente-acreditada"
+        }
+      ],
+      "reserved": [
+        {
+          "box": "0023",
+          "scalar": "reduccionArt20",
+          "official": "5553.51",
+          "status": "ausencia-o-mapeo-pendiente"
+        },
+        {
+          "box": "0414",
+          "scalar": "deduccionTrabajo",
+          "official": null,
+          "status": "ausencia-o-mapeo-pendiente"
+        }
+      ],
+      "source": {
+        "url": "https://www2.agenciatributaria.gob.es/wlpl/PARE-RW23/OPEN/index.zul?EJER=2023&TACCESO=COLAB",
+        "capturedAt": "2026-11-04T22:32:01Z",
+        "visibleVersion": "1.32",
+        "model": "0.08",
+        "rules": "N000087552",
+        "originals": {
+          "ses": {
+            "sha256": "261df4e8ce6652f0282eab295a59e6bbfc4b4bbcb0fecae4e01e8da5b796f1d9",
+            "bytes": 1782
+          },
+          "pdf": {
+            "sha256": "c96ff0009cd7ff85d5dfdda44370dae4f125910c8db8512de5142b1c19a1fa64",
+            "bytes": 140605
+          },
+          "summary": {
+            "sha256": "f131847cab88d08f741423bdfa0e03b20398ac74e9124b0898e0f3eb39354111",
+            "bytes": 2933
+          },
+          "bootstrap": {
+            "sha256": "b0fc1107eddf98527c656519a1529ccaf5ffc869afb4b04828dac3f5539820c3",
+            "bytes": 135335
+          }
+        },
+        "captureReceiptSha256": "363b7d65036aef1c9ead63be0405a0bdad8c12c675878101b6d054bc2ab6328a"
+      },
+      "scope": "Madrid individual, empleo, sin familiares; hechos sintéticos y reservas del piloto, no acreditación fiscal universal"
+    },
+    {
+      "year": 2024,
+      "input": {
+        "ejercicio": 2024,
+        "comunidadAutonoma": "madrid",
+        "edad": 39,
+        "modalidad": "individual",
+        "residenciaTodoElAnio": true,
+        "devengo": "2024-12-31",
+        "otrasRentas": "ninguna",
+        "familiaresConDerechoMinimo": "ninguno",
+        "discapacidad": "ninguna",
+        "reduccionesBase": "ninguna",
+        "saldosAnteriores": "ninguno",
+        "deducciones": "ninguna",
+        "rentasExtranjeras": "ninguna",
+        "especialidades": "ninguna",
+        "perfil": "solo-trabajo",
+        "conciliacion": {
+          "ejercicio": 2024,
+          "estado": "totales-anuales-sin-duplicados",
+          "procedencia": [
+            "sintetico:historico:ecaf3760f8e896639f889f164823daa6dfcb36ced57590442b566a5a02255c43"
+          ]
+        },
+        "trabajo": {
+          "ejercicio": 2024,
+          "territorio": "comun",
+          "reduccionesArt18": "ninguna",
+          "movilidad": "ninguna",
+          "discapacidadActiva": "ninguna",
+          "rendimientos": [
+            {
+              "id": "ecaf3760f8e896639f889f164823daa6dfcb36ced57590442b566a5a02255c43",
+              "clase": "empleo-laboral",
+              "integro": "15876.00",
+              "cotizaciones": {
+                "clase": "efectivas",
+                "seguridadSocial": "1000.00",
+                "derechosPasivos": "0",
+                "colegiosHuerfanos": "0"
+              },
+              "sindicato": {
+                "importe": "0",
+                "satisfecho": "si"
+              },
+              "colegio": {
+                "importe": "0",
+                "satisfecho": "si",
+                "obligatorio": "si",
+                "finesEsenciales": "si"
+              },
+              "defensa": {
+                "importe": "0",
+                "satisfecho": "si",
+                "litigioDirectoPagador": "si"
+              }
+            }
+          ]
+        },
+        "retenciones": [
+          {
+            "operacionId": "ecaf3760f8e896639f889f164823daa6dfcb36ced57590442b566a5a02255c43",
+            "procedencia": "sintetico:historico:ecaf3760f8e896639f889f164823daa6dfcb36ced57590442b566a5a02255c43",
+            "ejercicio": 2024,
+            "importe": "100.00",
+            "efectiva": true
+          }
+        ]
+      },
+      "expected": [
+        {
+          "box": "0025",
+          "scalar": "rendimientoNetoReducido",
+          "official": "5616.0",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0500",
+          "scalar": "baseLiquidableGeneral",
+          "official": "5616.0",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0505",
+          "scalar": "baseLiquidableGeneral",
+          "official": "5616.0",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0528",
+          "scalar": "gravamenEstatal",
+          "official": "533.52",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0529",
+          "scalar": "gravamenAutonomico",
+          "official": "477.36",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0530",
+          "scalar": "gravamenMinimoEstatal",
+          "official": "527.25",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0531",
+          "scalar": "gravamenMinimoAutonomico",
+          "official": "477.36",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0532",
+          "scalar": "cuotaEstatal",
+          "official": "6.27",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0595",
+          "scalar": "cuotaPosterior",
+          "official": "6.27",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0610",
+          "scalar": "cuotaDiferencial",
+          "official": "-93.73",
+          "status": "presente-acreditada"
+        },
+        {
+          "box": "0670",
+          "scalar": "cuotaDiferencialPresentada",
+          "official": "-93.73",
+          "status": "presente-acreditada"
+        }
+      ],
+      "reserved": [
+        {
+          "box": "0023",
+          "scalar": "reduccionArt20",
+          "official": "7260.0",
+          "status": "ausencia-o-mapeo-pendiente"
+        },
+        {
+          "box": "0533",
+          "scalar": "cuotaAutonomica",
+          "official": null,
+          "status": "ausencia-o-mapeo-pendiente"
+        },
+        {
+          "box": "0414",
+          "scalar": "deduccionTrabajo",
+          "official": null,
+          "status": "ausencia-o-mapeo-pendiente"
+        }
+      ],
+      "source": {
+        "url": "https://www2.agenciatributaria.gob.es/wlpl/PARE-RW24/OPEN/index.zul?EJER=2024&TACCESO=COLAB",
+        "capturedAt": "2026-11-04T22:32:18Z",
+        "visibleVersion": "1.23",
+        "model": "0.09",
+        "rules": "N000086471",
+        "originals": {
+          "ses": {
+            "sha256": "1f28d33b9e0467ec62e5ebbf88cd18d88228f86032a5a0881a1f245382f23b03",
+            "bytes": 1757
+          },
+          "pdf": {
+            "sha256": "a69c6c02ac47d9d79c9b0c127e0d7e39102c76db03b1f55288c8f129a6692b4f",
+            "bytes": 139796
+          },
+          "summary": {
+            "sha256": "49b95add0e0de0046dd135241682cad0a2e50b5a04e086a7b2c1cbb31c6b6a9b",
+            "bytes": 2951
+          },
+          "bootstrap": {
+            "sha256": "aebb8570aa3811f7ed4122aaaaab93c85538aaa03c676ec06eac500ce2ece8d3",
+            "bytes": 138001
+          }
+        },
+        "captureReceiptSha256": "a6bd496c66103f8cf355e9dc6e1dcf1f325fd8a0321ea291a05e9c32e0e38f53"
+      },
+      "scope": "Madrid individual, empleo, sin familiares; hechos sintéticos y reservas del piloto, no acreditación fiscal universal"
+    }
+  ]
+}

@@ -1,0 +1,195 @@
+{
+  "version": 1,
+  "ejercicio": 2025,
+  "documentos": [
+    {
+      "id": "f-aeat2025-recarga-manual",
+      "tipo": "manual_administrativo",
+      "ejercicio": 2025,
+      "urlOficial": "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2025-deducciones-autonomicas/comunidad-autonoma-region-murcia/gastos-instalacion-infraestructuras-recarga-vehiculos-electricos.html",
+      "fechaRecuperacion": "2026-11-05T00:24:55.495366+00:00",
+      "estadoHTTP": 200,
+      "bytes": 14376,
+      "sha256": "544dbc11d8142ebdd32930300ddaf77f7a22dc8d8ba06d3c064ea44c7fa39924",
+      "sha512": "123176115657063900333468c2e1545350adf60e52749cdfc7fa8ed985a1c9275277b2ff1c3ef6ec4c23cb0b927e7eaf61ca973e3947aae4f04d91f4facf0f2f",
+      "mimeType": "text/html"
+    },
+    {
+      "id": "f-aeat2025-agua-manual",
+      "tipo": "manual_administrativo",
+      "ejercicio": 2025,
+      "urlOficial": "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2025-deducciones-autonomicas/comunidad-autonoma-region-murcia/inversiones-dispositivos-domesticos-ahorro-agua.html",
+      "fechaRecuperacion": "2026-11-05T00:39:28.365414+00:00",
+      "estadoHTTP": 200,
+      "bytes": 10423,
+      "sha256": "b9c600bfbaafbe3bc762b70709fc37808c7d9b5589f28299c7f70756303b506b",
+      "sha512": "544b41c634172e942b26cc558aca9404d59e74e563a0dc32155d42fc2931ac21b452d0e682eea7ec7440daad03c839f4f488d6d6e96109e77879a953c0704245",
+      "mimeType": "text/html"
+    }
+  ],
+  "criterios": [
+    {
+      "id": "f-aeat2025-recarga-cuantia",
+      "documentoId": "f-aeat2025-recarga-manual",
+      "resumen": "factor1",
+      "localizador": {
+        "tipo": "html",
+        "selector": "html",
+        "normalizacion": "html.parser.HTMLParser(convert_charrefs=True); handle_data en orden; unir con espacio; normalizar whitespace con split/join; UTF-8; posiciones en caracteres Python",
+        "inicio": 739,
+        "fin": 796
+      },
+      "sha256PasajeNormalizado": "81842fd73588865df71cd6c7d459e0620ff596275ebd9073e809435f9c27e284",
+      "textoLiteral": "El 100 por 100 de la base definida en el punto siguiente."
+    },
+    {
+      "id": "f-aeat2025-recarga-base-ayudas",
+      "documentoId": "f-aeat2025-recarga-manual",
+      "resumen": "base de pagos; minoración general de ayudas",
+      "localizador": {
+        "tipo": "html",
+        "selector": "html",
+        "normalizacion": "html.parser.HTMLParser(convert_charrefs=True); handle_data en orden; unir con espacio; normalizar whitespace con split/join; UTF-8; posiciones en caracteres Python",
+        "inicio": 832,
+        "fin": 1116
+      },
+      "sha256PasajeNormalizado": "28ce64e27355ac773d556a70b75bcaba2132b7385477e3df7c8b9a755ec6bb40"
+    },
+    {
+      "id": "f-aeat2025-recarga-ayudas-programa2",
+      "documentoId": "f-aeat2025-recarga-manual",
+      "resumen": "excepción de minoración Programa2; conservar frente a regla general",
+      "localizador": {
+        "tipo": "html",
+        "selector": "html",
+        "normalizacion": "html.parser.HTMLParser(convert_charrefs=True); handle_data en orden; unir con espacio; normalizar whitespace con split/join; UTF-8; posiciones en caracteres Python",
+        "inicio": 2046,
+        "fin": 2312
+      },
+      "sha256PasajeNormalizado": "ccfc55a63bfb8c2d516c75ee10f3461fc8c3b8cb298f6e4788b71b80defc0bf1"
+    },
+    {
+      "id": "f-aeat2025-recarga-limite",
+      "documentoId": "f-aeat2025-recarga-manual",
+      "resumen": "4000 por infraestructura y contribuyente; una infraestructura por periodo",
+      "localizador": {
+        "tipo": "html",
+        "selector": "html",
+        "normalizacion": "html.parser.HTMLParser(convert_charrefs=True); handle_data en orden; unir con espacio; normalizar whitespace con split/join; UTF-8; posiciones en caracteres Python",
+        "inicio": 2312,
+        "fin": 2524
+      },
+      "sha256PasajeNormalizado": "a4e4b90c5c4847ba3fa950370e148d02430c6eb2f230ee0ee31b812809de5731"
+    },
+    {
+      "id": "f-aeat2025-recarga-titularidad",
+      "documentoId": "f-aeat2025-recarga-manual",
+      "resumen": "finca propia/garaje comunitario; infraestructura propia; vehículo particular",
+      "localizador": {
+        "tipo": "html",
+        "selector": "html",
+        "normalizacion": "html.parser.HTMLParser(convert_charrefs=True); handle_data en orden; unir con espacio; normalizar whitespace con split/join; UTF-8; posiciones en caracteres Python",
+        "inicio": 2590,
+        "fin": 2977
+      },
+      "sha256PasajeNormalizado": "d4890591244c9e9e59662bd178bf2f2f5c5fd46afcc70c5dd17d6892be88b551"
+    },
+    {
+      "id": "f-aeat2025-recarga-reparto",
+      "documentoId": "f-aeat2025-recarga-manual",
+      "resumen": "gananciales mitad; otros casos pagos realizados",
+      "localizador": {
+        "tipo": "html",
+        "selector": "html",
+        "normalizacion": "html.parser.HTMLParser(convert_charrefs=True); handle_data en orden; unir con espacio; normalizar whitespace con split/join; UTF-8; posiciones en caracteres Python",
+        "inicio": 3375,
+        "fin": 3612
+      },
+      "sha256PasajeNormalizado": "7ecf46c58711a155757bb74559364189777d21896a93bca28a369de92c7be831"
+    },
+    {
+      "id": "f-aeat2025-recarga-fechas",
+      "documentoId": "f-aeat2025-recarga-manual",
+      "resumen": "finalización y factura en ejercicio de aplicación",
+      "localizador": {
+        "tipo": "html",
+        "selector": "html",
+        "normalizacion": "html.parser.HTMLParser(convert_charrefs=True); handle_data en orden; unir con espacio; normalizar whitespace con split/join; UTF-8; posiciones en caracteres Python",
+        "inicio": 3658,
+        "fin": 3830
+      },
+      "sha256PasajeNormalizado": "92c53a8a4fa1f5ca0bb898d15b3e1416b919b761396c99837781e45964df5a7b"
+    },
+    {
+      "id": "f-aeat2025-recarga-seguimiento",
+      "documentoId": "f-aeat2025-recarga-manual",
+      "resumen": "titularidad y funcionamiento2 años desde puesta en marcha; excepción fallecimiento",
+      "localizador": {
+        "tipo": "html",
+        "selector": "html",
+        "normalizacion": "html.parser.HTMLParser(convert_charrefs=True); handle_data en orden; unir con espacio; normalizar whitespace con split/join; UTF-8; posiciones en caracteres Python",
+        "inicio": 3090,
+        "fin": 3375
+      },
+      "sha256PasajeNormalizado": "4e9545834c33c8a16f24414f4e8018f98463f062da60d605d65b16b5c17258ae"
+    },
+    {
+      "id": "f-aeat2025-recarga-orden-arrastre",
+      "documentoId": "f-aeat2025-recarga-manual",
+      "resumen": "arrastre3; después no arrastrables y vehículos; antes renovables",
+      "localizador": {
+        "tipo": "html",
+        "selector": "html",
+        "normalizacion": "html.parser.HTMLParser(convert_charrefs=True); handle_data en orden; unir con espacio; normalizar whitespace con split/join; UTF-8; posiciones en caracteres Python",
+        "inicio": 3900,
+        "fin": 4666
+      },
+      "sha256PasajeNormalizado": "8d31c551c73b9813b798e3e59d080531b5c9204267e1bd309a100ff325449ad5"
+    },
+    {
+      "id": "f-aeat2025-agua-cuantia-base",
+      "documentoId": "f-aeat2025-agua-manual",
+      "resumen": "factor0,20; base máxima300 y máximo60 anual",
+      "localizador": {
+        "tipo": "html",
+        "selector": "html",
+        "normalizacion": "html.parser.HTMLParser(convert_charrefs=True); handle_data en orden; unir con espacio; normalizar whitespace con split/join; UTF-8; posiciones en caracteres Python",
+        "inicio": 709,
+        "fin": 1358
+      },
+      "sha256PasajeNormalizado": "618a7ed46d63247b4ab04587c764979bf67d2fc65530447fe3fc6e7f3fdd4e1c"
+    },
+    {
+      "id": "f-aeat2025-agua-habitualidad",
+      "documentoId": "f-aeat2025-agua-manual",
+      "resumen": "residencia continuada3 años con excepciones concretas de cambio necesario",
+      "localizador": {
+        "tipo": "html",
+        "selector": "html",
+        "normalizacion": "html.parser.HTMLParser(convert_charrefs=True); handle_data en orden; unir con espacio; normalizar whitespace con split/join; UTF-8; posiciones en caracteres Python",
+        "inicio": 1611,
+        "fin": 2092
+      },
+      "sha256PasajeNormalizado": "9214acf5876e3083bdbc168f38e9e90621937d365bc82ebbddbf7c4f2b490fa5"
+    },
+    {
+      "id": "f-aeat2025-agua-reconocimiento",
+      "documentoId": "f-aeat2025-agua-manual",
+      "resumen": "reconocimiento regional previo referido a la procedencia de aplicación",
+      "localizador": {
+        "tipo": "html",
+        "selector": "html",
+        "normalizacion": "html.parser.HTMLParser(convert_charrefs=True); handle_data en orden; unir con espacio; normalizar whitespace con split/join; UTF-8; posiciones en caracteres Python",
+        "inicio": 2092,
+        "fin": 2213
+      },
+      "sha256PasajeNormalizado": "837fb0ee61fd44bbc39ffbbf39145f7c4725a097799783e793e04c75e676f1bf"
+    }
+  ],
+  "decision": "Criterio operativo AEAT explícito; no enmienda tenor legal ni implica aceptación fiscal",
+  "reservas": {
+    "ayudasRecarga": "Conservar ambos incisos; rama monetaria sin ayudas; positivas sin conciliar no emiten importe",
+    "agua": "Cuatro.3=>Uno.5 permanece literal; habitualidad operativa según AEAT",
+    "viviendaJoven": "F-N02 final/final sin resolver"
+  }
+}

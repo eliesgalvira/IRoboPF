@@ -423,7 +423,7 @@ function aAnual(
     ids.some((id) => !c.declarantes.includes(id))
   )
     fallo("Magnitud anual ajena al concepto, ejercicio o declaración")
-  return decimal(m.valor, firmado)
+  return magnitudAnual(m.valor, firmado)
 }
 function aPagos(
   c: Contexto,
@@ -831,7 +831,8 @@ const APatrimonioCyl = Schema.Struct({
 /** cyl_recuperacion_patrimonio_historico_cultural_natural: subcálculo por hechos; véase matriz63. */
 export function patrimonioCyl(
   entrada: Schema.Json,
-  datos: Schema.Json
+  datos: Schema.Json,
+  registrarBaseD51?: (base: string) => void
 ): ResultadoHechos {
   return ejecutar(() => {
     const c = contexto(entrada)
@@ -852,10 +853,10 @@ export function patrimonioCyl(
         ? f.acto === "ambos"
         : f.categoria === "protegido" &&
           ["autorizacion", "ambos"].includes(f.acto)
+    const baseAplicada = acceso && renta(c, 18900, 31500, true) ? D.min(techo, aPagos(c,f.pagos)) : new D(0)
+    registrarBaseD51?.(baseAplicada.toFixed())
     return parcial(
-      acceso && renta(c, 18900, 31500, true)
-        ? D.min(techo, aPagos(c, f.pagos)).times("0.15")
-        : new D(0),
+      baseAplicada.times("0.15"),
       [
         "Categoría protegida cultural (el censo amplio no sustituye), obra y autorización; patrimonio natural autorizado/informado. Otras bases9a–f deben venir exhaustivas para no gastar dos veces el techo.",
         "Cuota autonómica disponible y composición anual pendientes; subcálculo sin aceptación fiscal.",
@@ -875,7 +876,8 @@ const ADonacionesPatrimonioCyl = Schema.Struct({
 /** cyl_donaciones_fundaciones_patrimonio: subcálculo por hechos; véase matriz63. */
 export function donacionesPatrimonioCyl(
   entrada: Schema.Json,
-  datos: Schema.Json
+  datos: Schema.Json,
+  registrarBaseD51?: (base: string) => void
 ): ResultadoHechos {
   return ejecutar(() => {
     const c = contexto(entrada)
@@ -887,10 +889,10 @@ export function donacionesPatrimonioCyl(
         .times("0.10")
         .minus(aAnual(c, f.otrasBases9af, "otras_bases_conjunto_9a_f"))
     )
+    const baseAplicada = renta(c, 18900, 31500, true) ? D.min(techo, aPagos(c,f.pagos)) : new D(0)
+    registrarBaseD51?.(baseAplicada.toFixed())
     return parcial(
-      renta(c, 18900, 31500, true)
-        ? D.min(techo, aPagos(c, f.pagos)).times("0.15")
-        : new D(0),
+      baseAplicada.times("0.15"),
       [
         "Destinatarios/fines9c/d/e diferenciados; estatutos y registro de9e no se sustituyen por régimen49/2002 de9c; certificar realidad del destino y base conjunta.",
         "Cuota autonómica disponible y composición anual pendientes; subcálculo sin aceptación fiscal.",
@@ -915,7 +917,8 @@ const ADonacionesIdiCyl = Schema.Struct({
 /** cyl_donaciones_idi: subcálculo por hechos; véase matriz63. */
 export function donacionesIdiCyl(
   entrada: Schema.Json,
-  datos: Schema.Json
+  datos: Schema.Json,
+  registrarBaseD51?: (base: string) => void
 ): ResultadoHechos {
   return ejecutar(() => {
     const c = contexto(entrada)
@@ -927,10 +930,10 @@ export function donacionesIdiCyl(
         .times("0.10")
         .minus(aAnual(c, f.otrasBases9af, "otras_bases_conjunto_9a_f"))
     )
+    const baseAplicada = f.proyecto === "cyl" ? D.min(techo, aPagos(c,f.pagos)) : new D(0)
+    registrarBaseD51?.(baseAplicada.toFixed())
     return parcial(
-      f.proyecto === "cyl"
-        ? D.min(techo, aPagos(c, f.pagos)).times("0.15")
-        : new D(0),
+      baseAplicada.times("0.15"),
       [
         "Beneficiarios legales/proyecto regional9f; exceptuada de renta pero incluida en límite de base común9a–f. Domicilio regional no salva un proyecto externo.",
         "Cuota autonómica disponible y composición anual pendientes; subcálculo sin aceptación fiscal.",

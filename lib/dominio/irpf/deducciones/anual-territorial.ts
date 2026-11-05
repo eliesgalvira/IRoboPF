@@ -1,3 +1,15 @@
+import { evaluarE38Anual, racionalE38, saldosE38Anuales } from "./galicia-rioja-ampliacion-2025/anual"
+import type { Resultado as ResultadoE38 } from "./galicia-rioja-ampliacion-2025/comun"
+import { validarConcurrenciaE38 } from "./galicia-rioja-ampliacion-2025/anual-incompatibilidades"
+import { crearSesionD51, validarSeleccionesD51 } from "./d51-anual"
+import { evaluarAnualF2025 } from "./territorial-f-ampliacion-2025/anual"
+import { consumirCuotaAnualF2025 } from "./territorial-f-ampliacion-2025/anual-cuota"
+import type { ResultadoF } from "./territorial-f-ampliacion-2025/comun"
+import { evaluarAnualC36, registrarMonetariosC36, prioridadC36, validarEleccionesC36 } from "./canarias-balears-hechos-2025/anual-adaptador"
+import { limitarCandidatosC36 } from "./canarias-balears-hechos-2025/anual-limites"
+import type { ResultadoAmpliacionC, LimiteComposicionC } from "./canarias-balears-hechos-2025/ampliacion-comun"
+import { evaluarAragonDosAnual2025 } from "./aragon-dos-anual"
+import type { ResultadoInversionAragonesa2025 } from "./aragon-dos-codigos-2025"
 import { prepararBAmpliadoAnual } from "./b-ampliado-anual-2025"
 import { conciliarPagosEntreLotesB } from "./b-ampliado-anual-2025/conciliacion-lotes"
 import type { NodosFiscalesB2025 } from "./b-ampliado-anual-2025/productores"
@@ -41,6 +53,8 @@ export interface MagnitudesTerritorialesAnuales {
   readonly componentesMinimoEstatal?:
     | { readonly contribuyente: Decimal; readonly descendientes: Decimal }
     | undefined
+  /** Base imponible con signo producida antes del límite de base liquidable. */
+  readonly basesImponiblesE38?: { readonly general: Decimal; readonly ahorro: Decimal } | undefined
   readonly baseGeneral: Decimal
   readonly baseAhorro: Decimal
   readonly minimoPersonalFamiliar: Decimal
@@ -59,6 +73,7 @@ export interface MagnitudesTerritorialesAnuales {
       }
     | undefined
 }
+type ResultadoSaldosE38 = { saldosE38?: ReturnType<typeof saldosE38Anuales> }
 const D = Decimal.clone({ precision: 200 })
 const esTexto = Schema.is(Schema.String)
 const esNumero = Schema.is(Schema.Number)
@@ -70,10 +85,13 @@ function exigir(b: boolean, m: string): asserts b {
 function normalizarExacto(
   r:
     | ResultadoAmpliacion
+    | ResultadoE38
     | ResultadoAmpliacionB
+    | ResultadoInversionAragonesa2025
     | ReturnType<typeof evaluarCatalunyaHechos2025>
     | ReturnType<typeof evaluarHechosB2025>
     | C.Resultado
+    | ResultadoAmpliacionC
     | CLM.ResultadoHechos
     | ReturnType<typeof evaluarHechosE2025>
     | ReturnType<typeof evaluarTerritorialF2025>
@@ -89,9 +107,13 @@ function normalizarExacto(
   if ("importeExacto" in r)
     return esTexto(r.importeExacto)
       ? racional(r.importeExacto)
-      : racional(r.importeExacto.numeradorEuros, r.importeExacto.divisor)
-  if ("exacto" in r)
+      : "numerador" in r.importeExacto
+        ? racional(r.importeExacto.numerador,r.importeExacto.denominador)
+        : racional(r.importeExacto.numeradorEuros, r.importeExacto.divisor)
+  if ("exacto" in r) {
+    if ("numeradorCentimos" in r.exacto) return racionalE38(r.exacto)
     return racional(r.exacto.numeradorEuros, String(r.exacto.divisor))
+  }
   throw new RangeError(
     "Evaluador sin salida exacta: no se consume presentación"
   )
@@ -321,6 +343,7 @@ export function aplicarDeduccionesTerritoriales2025(
     ...bases,
     minimoPersonalFamiliar: m.minimoPersonalFamiliar.toFixed(),
   }
+  const evaluacionesF: ResultadoF[] = []
   const evaluaciones: {
     resultado: Parameters<typeof normalizarExacto>[0]
     exacto: Racional
@@ -330,11 +353,18 @@ export function aplicarDeduccionesTerritoriales2025(
     evaluaciones.push({ resultado: r, exacto })
     return exacto
   }
+  const evaluacionesE38 = new Map<number,ResultadoE38>()
+  const restriccionesC36: (readonly LimiteComposicionC[])[] = []
+  const solicitudes = [...decoded.success.solicitudes].sort((a,b)=>prioridadC36(a)-prioridadC36(b))
+  const planC36 = solicitudes.filter(s=>s.lote === "C36")
+  validarEleccionesC36(planC36)
+  const bienesCanarios = new Map<string,string>()
   const vistos = new Set<string>()
   const hechos = new Set<string>()
-  const codigos = decoded.success.solicitudes.map((s) =>
+  const codigos = solicitudes.map((s) =>
     "codigo" in s ? s.codigo : s.hechos.codigo
   )
+  validarConcurrenciaE38(decoded.success.solicitudes.map(s=>({lote:s.lote,codigo:"codigo"in s?s.codigo:s.hechos.codigo,hechos:Schema.decodeUnknownSync(Schema.Json)(s.hechos)})))
   // Elecciones que afectan a la misma persona: conservador hasta disponer de un censo por persona.
   exigir(
     !(
@@ -343,12 +373,14 @@ export function aplicarDeduccionesTerritoriales2025(
     ),
     "Elecciones incompatibles CLM para el contribuyente"
   )
+  validarSeleccionesD51(codigos)
+  const sesionD51 = crearSesionD51(m)
   const subloteB = decoded.success.solicitudes.filter(s => s.lote === "B-ampliado")
   if (subloteB.length > 0) conciliarPagosEntreLotesB(decoded.success.solicitudes)
   // Preparación única conserva elecciones y pagos cruzados; el consumo sigue abajo en el libro común.
   const preparadoB = subloteB.length === 0 ? undefined : prepararBAmpliadoAnual(subloteB, m, decoded.success.solicitudes)
   exigir(preparadoB === undefined || preparadoB.estado === "generaciones_preparadas", preparadoB?.estado === "no_soportado" ? preparadoB.motivo : "Preparación B37 ausente")
-  const importes = decoded.success.solicitudes.map((s) => {
+  const importes = solicitudes.map((s,indice) => {
     const codigo = "codigo" in s ? s.codigo : s.hechos.codigo
     exigir(!vistos.has(codigo), "Código duplicado: " + codigo)
     vistos.add(codigo)
@@ -368,7 +400,21 @@ export function aplicarDeduccionesTerritoriales2025(
       "Deducción de otro territorio: " + codigo
     )
     const hechosConciliables = Schema.decodeUnknownSync(Schema.Json)(s.hechos)
-    if (s.lote !== "B-ampliado") conciliar(hechosConciliables, m)
+    if(c.comunidadAutonoma === "canarias"){
+      function registrarBien(x:Schema.Json):void {
+        if(esLista(x)){x.forEach(registrarBien);return}
+        if(!esObjeto(x))return
+        if(esTexto(x.catastro)){
+          const anterior=bienesCanarios.get(x.catastro)
+          exigir(anterior===undefined||anterior===codigo,"Concurrencia sobre el mismo bien canario: art18.2 requiere elección entre "+anterior+" y "+codigo)
+          bienesCanarios.set(x.catastro,codigo)
+        }
+        Object.values(x).forEach(registrarBien)
+      }
+      registrarBien(hechosConciliables)
+    }
+    if(s.lote !== "C36" && s.lote !== "B-ampliado" && s.lote !== "E38" && s.lote !== "F-ampliado" && s.lote !== "A-aragon-dos") conciliar(hechosConciliables, m)
+    restriccionesC36.push([])
     if (s.lote === "CLM" || s.lote === "CYL" || s.lote === "EXT") {
       function repartoExacto(x: Schema.Json): void {
         if (esLista(x)) {
@@ -566,9 +612,10 @@ export function aplicarDeduccionesTerritoriales2025(
         ("importe" in v ||
           "importeEUR" in v ||
           "importeCentimos" in v ||
-          "euros" in v)
+          "euros" in v ||
+          (s.lote === "D51" && "valor" in v))
       ) {
-        exigir(!hechos.has(v.id), "Hecho monetario duplicado: " + v.id)
+        exigir(!hechos.has(v.id) && (s.lote !== "F-ampliado" || !locales.has(v.id)), "Hecho monetario duplicado: " + v.id)
         locales.add(v.id)
         for (const campo of ["factura", "documento", "justificante"])
           if (esTexto(v[campo])) {
@@ -578,13 +625,37 @@ export function aplicarDeduccionesTerritoriales2025(
               "Documento monetario duplicado: " + referencia
             )
             locales.add(referencia)
+            if (planC36.length > 0) {
+              const comun = "documento-monetario:" + v[campo]
+              exigir(!hechos.has(comun), "Documento monetario reutilizado entre contratos: " + v[campo])
+              locales.add(comun)
+            }
           }
       }
       Object.values(v).forEach(pagos)
     }
-    pagos(hechosConciliables)
+    if(s.lote === "C36") registrarMonetariosC36(s,hechos)
+    else pagos(hechosConciliables)
     locales.forEach((id) => hechos.add(id))
     switch (s.lote) {
+      case "E38": {
+        const resultado = evaluarE38Anual(s,m)
+        evaluacionesE38.set(indice,resultado)
+        return normalizar(resultado)
+      }
+      case "D51": return normalizar(sesionD51.evaluar(s))
+      case "F-ampliado": {
+        const resultado = evaluarAnualF2025(s, m, decoded.success.solicitudes.filter((x) => x.lote === "F-ampliado"))
+        evaluacionesF.push(resultado)
+        return resultado
+      }
+      case "C36": {
+        const resultado = evaluarAnualC36(s,m,planC36)
+        if(resultado.estado === "calculo_parcial") restriccionesC36[restriccionesC36.length-1] = resultado.limitesComposicion
+        return normalizar(resultado)
+      }
+      case "A-aragon-dos":
+        return normalizar(evaluarAragonDosAnual2025(s, m, decoded.success.solicitudes))
       case "B-ampliado": {
         exigir(preparadoB?.estado === "generaciones_preparadas", "Preparación B37 ausente")
         const generacion = preparadoB.generaciones.find(g => g.codigo === codigo)
@@ -789,23 +860,47 @@ export function aplicarDeduccionesTerritoriales2025(
     }
     throw new RangeError("Código sin conexión anual")
   })
-  // Orden fiscal B de prioridad primera; la regla de consumo sigue siendo la única del libro.
-  // Conservar la correspondencia pública por código, incluso si cambia el orden de consumo.
-  const orden = importes.map((_, indice) => indice).sort((a, b) => {
-    const primera = (i: number) => preparadoB?.estado === "generaciones_preparadas" && preparadoB.generaciones.some(g => g.codigo === codigos[i] && g.estado === "generada" && g.regimenPosterior?.prioridadCuota === "primera")
-    return (primera(a) ? 0 : 1) - (primera(b) ? 0 : 1)
-  })
-  const libro = consumirCuota(racional(m.cuotaAutonomica.toFixed()), orden.map(i => importes[i]))
-  const consumo = { ...libro, aplicaciones: importes.map((_, indice) => libro.aplicaciones[orden.indexOf(indice)]) }
-  return {
+  function consumirExistente() {
+    const importesExactos = importes.map((x) => {
+      if ("estado" in x) throw new RangeError("Resultado F sin libro anual")
+      return x
+    })
+    // Orden fiscal B de prioridad primera; la regla de consumo sigue siendo la única del libro.
+    // Conservar la correspondencia pública por código, incluso si cambia el orden de consumo.
+    const orden = importesExactos.map((_, indice) => indice).sort((a, b) => {
+      const primera = (i: number) => preparadoB?.estado === "generaciones_preparadas" && preparadoB.generaciones.some(g => g.codigo === codigos[i] && g.estado === "generada" && g.regimenPosterior?.prioridadCuota === "primera")
+      return (primera(a) ? 0 : 1) - (primera(b) ? 0 : 1)
+    })
+    const limitesC36 = limitarCandidatosC36(importesExactos, restriccionesC36, racional(m.cuotaAutonomica.toFixed()))
+    const libro = consumirCuota(racional(m.cuotaAutonomica.toFixed()), orden.map(i => limitesC36.importes[i]))
+    const consumo = { ...libro, aplicaciones: importesExactos.map((_, indice) => libro.aplicaciones[orden.indexOf(indice)]) }
+    return { consumo, limitesC36 }
+  }
+  const { consumo, limitesC36 } = evaluacionesF.length === 0
+    ? consumirExistente()
+    : { consumo: consumirCuotaAnualF2025(racional(m.cuotaAutonomica.toFixed()), codigos, importes), limitesC36: undefined }
+  const ampliacion: ResultadoSaldosE38 = {}
+  if(evaluacionesE38.size>0){
+    const aplicacionesE38 = consumo.aplicaciones.map((aplicacion) => {
+      if (aplicacion.pendiente === undefined) throw new RangeError("Saldo E38 sin aplicación de cuota completa")
+      return { pendiente: aplicacion.pendiente }
+    })
+    ampliacion.saldosE38=saldosE38Anuales(codigos,evaluacionesE38,aplicacionesE38)
+  }
+  const salidaBase = {
     ...consumo,
+    ...ampliacion,
     codigos,
     evaluaciones,
+    evaluacionesF,
     estado: "condicionado" as const,
     aceptacionFiscal: "pendiente" as const,
     limitaciones: [
       "Sólo declaración individual ordinaria 2025; documentos y derechos externos declarados, sin certificación automática",
-      "No compone saldos históricos territoriales ni otras personas o pagadores no representados por el caso anual",
+      "No compone saldos históricos territoriales ni bases de otras personas no representadas por el caso anual; F ampliado conserva origen2025, saldo generado, plazo2026–2028 y seguimiento de recarga",
     ],
   }
+  const salida: typeof salidaBase & { limitesC36?: typeof limitesC36 } = salidaBase
+  if (planC36.length > 0 && limitesC36 !== undefined) salida.limitesC36 = limitesC36
+  return salida
 }

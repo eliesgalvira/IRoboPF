@@ -32,10 +32,13 @@ La deducción DA 61 sólo interviene desde 2025 con sus hechos/condiciones y eta
 La API efectiva no admite 2026; eso no impide reutilizar las escalas y mínimos
 2026 revisados en la API anual familiar.
 
-La comparación histórica conserva diferencias abiertas. La adquisición de capturas históricas no equivale a cotejos monetarios; el
-[estado por año](ESTADO-POR-ANIO.md) conserva el último corte documentado. Una hipótesis privada de redondeo sin
-pruebas/revisión no cierra esas diferencias. Resolverlas corresponde a C; no
-obliga a reabrir la revisión favorable de cuotas fijas históricas de A.
+La corrección histórica de C tiene revisión independiente favorable y resuelve
+las 83 casillas comparables de siete pilotos; mantiene catorce mapeos reservados
+y una ausencia. El cotejo ampliado de las capturas posteriores sigue pendiente.
+La adquisición de capturas históricas no equivale a cotejos monetarios; el
+[estado por año](ESTADO-POR-ANIO.md) conserva el último corte documentado. El
+[dictamen del ajuste](simuladores/historico/REVISION-CUOTAS.md) no sustituye ni
+reabre la revisión documental de cuotas fijas históricas de A.
 
 El inventario privado de esta investigación conserva matriz JSON/CSV, rutas,
 punteros, hashes, fuentes CAS y discriminantes preparados. No se publican sus

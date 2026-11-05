@@ -6,6 +6,7 @@ import type {
   ResultadoAmpliacionC,
 } from "./ampliacion-comun"
 import {
+  eurosAnualesC,
   accesoC,
   anualesC,
   aniversarioC,
@@ -504,7 +505,7 @@ export function evaluarEmergenciaAmpliacionC(
       base = base.sumar(noNegativoC(i.incluidaBaseLiquidable))
     }
     comprobar(
-      base.comparar(eurosC(m.baseLiquidableGeneral).maximo(ceroC())) <= 0n,
+      base.comparar(eurosAnualesC(m.baseLiquidableGeneral).maximo(ceroC())) <= 0n,
       "Ayudas integradas superan la base liquidable general anual"
     )
     return resultadoC(

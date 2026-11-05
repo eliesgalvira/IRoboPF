@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "base": "b9122c2b",
+  "fase": "autorvalidada; pendiente primera revisión independiente de la conexión anual",
+  "pruebasPreparadas": 50,
+  "pruebasEjecutadas": 50,
+  "ramas": [
+    {
+      "codigo": "aragon_inversion_entidades_nuevas_reciente_creacion",
+      "rama": "asignación estatal0 y sin exención38.2",
+      "estado": "conexion-preparada",
+      "calculo": "evaluador publicado sin cambios; transporte exacto y consumo común único",
+      "reservas": [
+        "censo68.1 exhaustivo aportado y elección sin deducción estatal",
+        "documentos/censos no autenticados",
+        "seguimiento futuro y demás reservas aisladas intactas"
+      ]
+    },
+    {
+      "codigo": "aragon_inversion_entidades_nuevas_reciente_creacion",
+      "rama": "asignación estatal positiva",
+      "estado": "rechazo-tipado",
+      "tipo": "ARAGON_68_1_ESTATAL_SIN_PRODUCTOR",
+      "pendiente": "productor estatal68.1 real, su composición y conciliación de asignaciones; no se omite la elección"
+    },
+    {
+      "codigo": "aragon_inversion_entidades_nuevas_reciente_creacion",
+      "rama": "exención38.2 con regional0 aislado",
+      "estado": "rechazo-tipado",
+      "tipo": "ARAGON_38_2_SIN_PRODUCTOR",
+      "pendiente": "productor de transmisión/ganancia y exención38.2 para anual"
+    },
+    {
+      "codigo": "aragon_inversion_entidades_nuevas_reciente_creacion",
+      "rama": "reinversión positiva/mixed no soportada aisladamente",
+      "estado": "rechazo-con-motivo-publicado",
+      "pendiente": "misma coordinación concreta de la revisión aislada, no se reinterpreta"
+    },
+    {
+      "codigo": "aragon_arrendamiento_vivienda_social_arrendador",
+      "rama": "hechos y petición válidos",
+      "estado": "rechazo-tipado-sin-importe",
+      "tipo": "ARAGON_SOCIAL_SIN_PRODUCTORES_ANUALES",
+      "preservado": [
+        "petición ligada a anual/titular/aportes",
+        "expresión3/10",
+        "ausencia de importe incluso con neto0"
+      ],
+      "pendiente": [
+        "productor neto reducido23.2/3",
+        "BLG derivada del Plan",
+        "cuota derivada con método contrastado"
+      ]
+    }
+  ],
+  "validacion": {
+    "regresionesPasadas": 552,
+    "todoPreexistentes": 2,
+    "tiposEstrictosEffect": "pasa; canario activo",
+    "oxlintAntislop": "pasa; canario activo",
+    "eslint": "pasa; canario activo",
+    "turno": "PESADO2 secuencial",
+    "informe": "INFORME-VALIDACION.md"
+  }
+}

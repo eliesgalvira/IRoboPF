@@ -6,6 +6,8 @@ import type {
   ResultadoAmpliacionC,
 } from "./ampliacion-comun"
 import {
+  noNegativoAnualC,
+  eurosAnualesC,
   accesoC,
   anualesC,
   aniversarioC,
@@ -97,7 +99,7 @@ export type ViviendaC = {
     fianza: string
     rentaMensual: string
     superficieUtil: string
-    rendimiento: "capital_inmobiliario" | "actividad"
+    rendimiento: "capital_inmobiliario" | "actividad" | "no_aplica_arrendatario"
     repercusionObras: string
     programa: "ordinario" | "alquiler_seguro"
     parientesGrado: number
@@ -164,7 +166,7 @@ export type SolicitudViviendaC = DeclaracionC & {
   viviendas: readonly ViviendaC[]
 }
 
-function arrendamientoC(h: DeclaracionC, v: ViviendaC): void {
+function arrendamientoC(h: DeclaracionC, v: ViviendaC, verificarRendimiento = true): void {
   texto(v.alquiler.arrendador)
   texto(v.alquiler.arrendatario)
   texto(v.alquiler.fianza)
@@ -176,7 +178,7 @@ function arrendamientoC(h: DeclaracionC, v: ViviendaC): void {
     "Contrato inferior a un año o posterior al devengo"
   )
   comprobar(
-    v.alquiler.rendimiento === "capital_inmobiliario",
+    !verificarRendimiento || v.alquiler.rendimiento === "capital_inmobiliario",
     "Arrendamiento como actividad excluido"
   )
 }
@@ -204,7 +206,7 @@ export function evaluarViviendaAmpliacionC(
     )
     unico(historico.viviendas.map((v) => v.catastro + "|" + v.persona))
     let total = ceroC()
-    const cuota = noNegativoC(m.cuotaIntegraAutonomica)
+    const cuota = noNegativoAnualC(m.cuotaIntegraAutonomica)
     const traza = [h.codigo, `Magnitudes anuales ${m.calculoId}`]
     const grupo = [
       "canarias_restauracion_bienes_interes_cultural",
@@ -512,8 +514,12 @@ export function evaluarViviendaAmpliacionC(
             base = base.sumar(gasto)
             break
           case "balears_arrendamiento_traslado_laboral":
+            comprobar(
+              v.derecho === "arrendatario" && v.alquiler.arrendatario === v.persona && v.alquiler.arrendador !== v.persona,
+              "Traslado requiere arrendatario contractual y arrendador distinto"
+            )
             accesoC(h, 33000, 52800)
-            arrendamientoC(h, v)
+            arrendamientoC(h, v, false)
             tipos(["alquiler"])
             comprobar(
               ["Mallorca", "Menorca", "Ibiza", "Formentera"].includes(
@@ -567,7 +573,7 @@ export function evaluarViviendaAmpliacionC(
             base = base.sumar(gasto)
             break
           case "balears_arrendamiento_vivienda_habitual": {
-            arrendamientoC(h, v)
+            arrendamientoC(h, v, false)
             tipos(["alquiler"])
             comprobar(
               hist !== undefined,
@@ -673,7 +679,7 @@ export function evaluarViviendaAmpliacionC(
           if (vs.length === 0) break
           const p = m.personas.find((v) => v.persona === persona)
           comprobar(p !== undefined, "Renta por persona ausente")
-          const r = eurosC(p.imponibleGeneral).sumar(eurosC(p.imponibleAhorro))
+          const r = eurosAnualesC(p.imponibleGeneral).sumar(eurosAnualesC(p.imponibleAhorro))
           comprobar(
             r.comparar(enteroC(46455)) < 0n,
             "Renta46455 excluida en art14"

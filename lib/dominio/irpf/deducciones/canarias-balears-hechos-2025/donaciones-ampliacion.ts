@@ -6,12 +6,14 @@ import type {
   ResultadoAmpliacionC,
 } from "./ampliacion-comun"
 import {
+  noNegativoAnualC,
   accesoC,
   anualesC,
   aniversarioC,
   ceroC,
   comprobar,
   enteroC,
+  eurosAnualesC,
   eurosC,
   evaluarC,
   gastosC,
@@ -122,7 +124,7 @@ export function evaluarDonacionesAmpliacionC(
         "Perceptor distinto de donatario"
       )
     })
-    const cuota = noNegativoC(m.cuotaIntegraAutonomica)
+    const cuota = noNegativoAnualC(m.cuotaIntegraAutonomica)
     let total = ceroC()
     const traza = [
       h.codigo,
@@ -299,8 +301,8 @@ export function evaluarDonacionesAmpliacionC(
             magnitud !== undefined,
             "Base liquidable por donante ausente"
           )
-          let disponible = eurosC(magnitud.liquidableGeneral)
-            .sumar(eurosC(magnitud.liquidableAhorro))
+          let disponible = eurosAnualesC(magnitud.liquidableGeneral)
+            .sumar(eurosAnualesC(magnitud.liquidableAhorro))
             .maximo(ceroC())
             .por(eurosC("0.10"))
           let inicial = enteroC(150)

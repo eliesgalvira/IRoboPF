@@ -1,10 +1,20 @@
+import { SolicitudD51 } from "./d51-anual-esquemas"
+import { SolicitudAnualC36 } from "./canarias-balears-hechos-2025/anual-esquemas"
+import { SolicitudAragonDosAnual2025 } from "./aragon-dos-anual-esquemas"
 import { SolicitudBAmpliadoAnual } from "./b-ampliado-anual-2025/esquemas"
 // Contratos de hechos: sin bases, cuotas ni contexto anual externo.
 import { Schema } from "effect"
+import { SolicitudE38Anual2025 } from "./galicia-rioja-ampliacion-2025/anual-esquemas"
+import { SolicitudAnualF2025 } from "./territorial-f-ampliacion-2025/anual-esquemas"
 import { SolicitudAmpliacionAnualA2025 } from "./ampliacion-a-anual-esquemas"
 export const SolicitudDeduccionesTerritoriales2025 = Schema.Struct({
   solicitudes: Schema.Array(
     Schema.Union([
+      SolicitudE38Anual2025,
+      SolicitudD51,
+      SolicitudAnualF2025,
+      SolicitudAnualC36,
+      SolicitudAragonDosAnual2025,
       SolicitudBAmpliadoAnual,
       SolicitudAmpliacionAnualA2025,
       Schema.Struct({

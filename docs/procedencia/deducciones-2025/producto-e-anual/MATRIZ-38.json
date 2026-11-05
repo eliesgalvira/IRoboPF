@@ -1,0 +1,1182 @@
+{
+  "version": 2,
+  "baseApiPublica": "corte-productivo-114-rutas-f848de692274",
+  "api": [
+    "liquidarIrpfAnual",
+    "liquidarIrpfAnualExplicito"
+  ],
+  "codigos": [
+    {
+      "codigo": "galicia_adecuacion_inmueble_vacio_arrendamiento",
+      "conexion": "generacion2025_y_cuota_compartida_candidato",
+      "productorFaltante": null,
+      "productoresMotor": [
+        "identidad_y_ambito",
+        "cuota_integra_autonomica_para_consumo_comun"
+      ],
+      "cuota": "consumirCuota una sola vez en dispatcher v4;no sumar presentaciones",
+      "arrastreCuotaNuevo": {
+        "origen": 2025,
+        "caduca": 2029,
+        "requiere": "continuidad arriendo/actividad;no histórico externo"
+      },
+      "alcance": "individual ordinario2025;acreditación externa pendiente;no total de conjunta",
+      "pruebas": "PESADO2 rebase:529 verdes y2 TODO B previos;28 nuevas,213 E38,92 v4,40 A40,100 B37,56 C2025. Sin cambio de38 oráculos. Validación focal de autor;revisión independiente pendiente.",
+      "limiteConcreto": "Solo primer arriendo2025,saldos de base generados por evaluador y cuota nueva4años;arriendos anteriores requieren productor histórico por inmueble/origen",
+      "citasRecepcion": {
+        "archivo": "../producto-e-ampliacion/citas.json",
+        "ids": [
+          "E-ampliacion-galicia_adecuacion_inmueble_vacio_arrendamiento-1",
+          "E-ampliacion-galicia_adecuacion_inmueble_vacio_arrendamiento-2",
+          "E-ampliacion-galicia_adecuacion_inmueble_vacio_arrendamiento-3",
+          "E-ampliacion-galicia_adecuacion_inmueble_vacio_arrendamiento-4",
+          "E-ampliacion-galicia_adecuacion_inmueble_vacio_arrendamiento-5",
+          "E-ampliacion-galicia_adecuacion_inmueble_vacio_arrendamiento-6",
+          "E-ampliacion-galicia_adecuacion_inmueble_vacio_arrendamiento-7",
+          "E-ampliacion-galicia_adecuacion_inmueble_vacio_arrendamiento-8",
+          "E-ampliacion-galicia_adecuacion_inmueble_vacio_arrendamiento-9",
+          "E-ampliacion-galicia_adecuacion_inmueble_vacio_arrendamiento-10",
+          "E-ampliacion-galicia_adecuacion_inmueble_vacio_arrendamiento-11",
+          "E-ampliacion-galicia_adecuacion_inmueble_vacio_arrendamiento-12",
+          "E-ampliacion-galicia_adecuacion_inmueble_vacio_arrendamiento-13",
+          "E-ampliacion-galicia_adecuacion_inmueble_vacio_arrendamiento-14",
+          "E-ampliacion-galicia_adecuacion_inmueble_vacio_arrendamiento-15"
+        ]
+      },
+      "oraculosCorregidos": "tests/galicia-rioja-ampliacion-2025.casos.ts y suites originales conservadas byte a byte"
+    },
+    {
+      "codigo": "galicia_aldeas_modelo",
+      "conexion": "generacion2025_y_cuota_compartida_candidato",
+      "productorFaltante": null,
+      "productoresMotor": [
+        "identidad_y_ambito",
+        "cuota_integra_autonomica_para_consumo_comun"
+      ],
+      "cuota": "consumirCuota una sola vez en dispatcher v4;no sumar presentaciones",
+      "arrastreCuotaNuevo": null,
+      "alcance": "individual ordinario2025;acreditación externa pendiente;no total de conjunta",
+      "pruebas": "PESADO2 rebase:529 verdes y2 TODO B previos;28 nuevas,213 E38,92 v4,40 A40,100 B37,56 C2025. Sin cambio de38 oráculos. Validación focal de autor;revisión independiente pendiente.",
+      "citasRecepcion": {
+        "archivo": "../producto-e-ampliacion/citas.json",
+        "ids": [
+          "E-ampliacion-galicia_aldeas_modelo-1",
+          "E-ampliacion-galicia_aldeas_modelo-2",
+          "E-ampliacion-galicia_aldeas_modelo-3",
+          "E-ampliacion-galicia_aldeas_modelo-4",
+          "E-ampliacion-galicia_aldeas_modelo-5",
+          "E-ampliacion-galicia_aldeas_modelo-6",
+          "E-ampliacion-galicia_aldeas_modelo-7",
+          "E-ampliacion-galicia_aldeas_modelo-8",
+          "E-ampliacion-galicia_aldeas_modelo-9",
+          "E-ampliacion-galicia_aldeas_modelo-10"
+        ]
+      },
+      "oraculosCorregidos": "tests/galicia-rioja-ampliacion-2025.casos.ts y suites originales conservadas byte a byte"
+    },
+    {
+      "codigo": "galicia_alquiler_vivienda_habitual",
+      "conexion": "generacion2025_y_cuota_compartida_candidato",
+      "productorFaltante": null,
+      "productoresMotor": [
+        "identidad_y_ambito",
+        "cuota_integra_autonomica_para_consumo_comun",
+        "baseImponibleTotal_desde_basesImponiblesE38",
+        "minimoPersonalFamiliar"
+      ],
+      "cuota": "consumirCuota una sola vez en dispatcher v4;no sumar presentaciones",
+      "arrastreCuotaNuevo": null,
+      "alcance": "individual ordinario2025;acreditación externa pendiente;no total de conjunta",
+      "pruebas": "PESADO2 rebase:529 verdes y2 TODO B previos;28 nuevas,213 E38,92 v4,40 A40,100 B37,56 C2025. Sin cambio de38 oráculos. Validación focal de autor;revisión independiente pendiente.",
+      "limiteConcreto": "Inventario económico de inversión vivienda2025 vacío y sin concurrencia de códigos incompatibles;con inversión falta productor de derecho a deducción. Pagos dentro del periodo ocupado;anticipados/diferidos no representados(E03).",
+      "citasRecepcion": {
+        "archivo": "../producto-e-ampliacion/citas.json",
+        "ids": [
+          "E-ampliacion-galicia_alquiler_vivienda_habitual-1",
+          "E-ampliacion-galicia_alquiler_vivienda_habitual-2",
+          "E-ampliacion-galicia_alquiler_vivienda_habitual-3",
+          "E-ampliacion-galicia_alquiler_vivienda_habitual-4",
+          "E-ampliacion-galicia_alquiler_vivienda_habitual-5",
+          "E-ampliacion-galicia_alquiler_vivienda_habitual-6",
+          "E-ampliacion-galicia_alquiler_vivienda_habitual-7",
+          "E-ampliacion-galicia_alquiler_vivienda_habitual-8",
+          "E-ampliacion-galicia_alquiler_vivienda_habitual-9"
+        ]
+      },
+      "oraculosCorregidos": "tests/galicia-rioja-ampliacion-2025.casos.ts y suites originales conservadas byte a byte"
+    },
+    {
+      "codigo": "galicia_arrendamiento_viviendas_vacias",
+      "conexion": "generacion2025_y_cuota_compartida_candidato",
+      "productorFaltante": null,
+      "productoresMotor": [
+        "identidad_y_ambito",
+        "cuota_integra_autonomica_para_consumo_comun"
+      ],
+      "cuota": "consumirCuota una sola vez en dispatcher v4;no sumar presentaciones",
+      "arrastreCuotaNuevo": {
+        "origen": 2025,
+        "caduca": 2029,
+        "requiere": "continuidad arriendo/actividad;no histórico externo"
+      },
+      "alcance": "individual ordinario2025;acreditación externa pendiente;no total de conjunta",
+      "pruebas": "PESADO2 rebase:529 verdes y2 TODO B previos;28 nuevas,213 E38,92 v4,40 A40,100 B37,56 C2025. Sin cambio de38 oráculos. Validación focal de autor;revisión independiente pendiente.",
+      "limiteConcreto": "Primer arriendo2025;contratos sucesivos y límites temporales de E38corregido;saldo de cuota nuevo4años,anteriores no representados",
+      "citasRecepcion": {
+        "archivo": "../producto-e-ampliacion/citas.json",
+        "ids": [
+          "E-ampliacion-galicia_arrendamiento_viviendas_vacias-1",
+          "E-ampliacion-galicia_arrendamiento_viviendas_vacias-2",
+          "E-ampliacion-galicia_arrendamiento_viviendas_vacias-3",
+          "E-ampliacion-galicia_arrendamiento_viviendas_vacias-4",
+          "E-ampliacion-galicia_arrendamiento_viviendas_vacias-5",
+          "E-ampliacion-galicia_arrendamiento_viviendas_vacias-6",
+          "E-ampliacion-galicia_arrendamiento_viviendas_vacias-7",
+          "E-ampliacion-galicia_arrendamiento_viviendas_vacias-8",
+          "E-ampliacion-galicia_arrendamiento_viviendas_vacias-9",
+          "E-ampliacion-galicia_arrendamiento_viviendas_vacias-10"
+        ]
+      },
+      "oraculosCorregidos": "tests/galicia-rioja-ampliacion-2025.casos.ts y suites originales conservadas byte a byte"
+    },
+    {
+      "codigo": "galicia_ayudas_deportistas_alto_nivel",
+      "conexion": "rechazo_sin_importe_productor_ausente",
+      "productorFaltante": "imputación de ayuda deportiva y tipos medios;el ingreso no está identificado en las rentas de APIv4",
+      "productoresMotor": [
+        "identidad_y_ambito",
+        "cuota_integra_autonomica_para_consumo_comun"
+      ],
+      "cuota": "consumirCuota una sola vez en dispatcher v4;no sumar presentaciones",
+      "arrastreCuotaNuevo": null,
+      "alcance": "individual ordinario2025;acreditación externa pendiente;no total de conjunta",
+      "pruebas": "PESADO2 rebase:529 verdes y2 TODO B previos;28 nuevas,213 E38,92 v4,40 A40,100 B37,56 C2025. Sin cambio de38 oráculos. Validación focal de autor;revisión independiente pendiente.",
+      "citasRecepcion": {
+        "archivo": "../producto-e-ampliacion/citas.json",
+        "ids": [
+          "E-ampliacion-galicia_ayudas_deportistas_alto_nivel-1",
+          "E-ampliacion-galicia_ayudas_deportistas_alto_nivel-2",
+          "E-ampliacion-galicia_ayudas_deportistas_alto_nivel-3",
+          "E-ampliacion-galicia_ayudas_deportistas_alto_nivel-4"
+        ]
+      },
+      "oraculosCorregidos": "tests/galicia-rioja-ampliacion-2025.casos.ts y suites originales conservadas byte a byte"
+    },
+    {
+      "codigo": "galicia_ayudas_ela_fenotipos",
+      "conexion": "rechazo_sin_importe_productor_ausente",
+      "productorFaltante": "imputación individual de ayudaELA a base liquidable y tipos medios del ejercicio",
+      "productoresMotor": [
+        "identidad_y_ambito",
+        "cuota_integra_autonomica_para_consumo_comun"
+      ],
+      "cuota": "consumirCuota una sola vez en dispatcher v4;no sumar presentaciones",
+      "arrastreCuotaNuevo": null,
+      "alcance": "individual ordinario2025;acreditación externa pendiente;no total de conjunta",
+      "pruebas": "PESADO2 rebase:529 verdes y2 TODO B previos;28 nuevas,213 E38,92 v4,40 A40,100 B37,56 C2025. Sin cambio de38 oráculos. Validación focal de autor;revisión independiente pendiente.",
+      "citasRecepcion": {
+        "archivo": "../producto-e-ampliacion/citas.json",
+        "ids": [
+          "E-ampliacion-galicia_ayudas_ela_fenotipos-1",
+          "E-ampliacion-galicia_ayudas_ela_fenotipos-2"
+        ]
+      },
+      "oraculosCorregidos": "tests/galicia-rioja-ampliacion-2025.casos.ts y suites originales conservadas byte a byte"
+    },
+    {
+      "codigo": "galicia_ayudas_incendios_peifoga_2025",
+      "conexion": "rechazo_sin_importe_productor_ausente",
+      "productorFaltante": "clasificación e imputación identificada de ayuda a base liquidable;tipos medios estatal/autonómico vinculados a esa imputación",
+      "productoresMotor": [
+        "identidad_y_ambito",
+        "cuota_integra_autonomica_para_consumo_comun"
+      ],
+      "cuota": "consumirCuota una sola vez en dispatcher v4;no sumar presentaciones",
+      "arrastreCuotaNuevo": null,
+      "alcance": "individual ordinario2025;acreditación externa pendiente;no total de conjunta",
+      "pruebas": "PESADO2 rebase:529 verdes y2 TODO B previos;28 nuevas,213 E38,92 v4,40 A40,100 B37,56 C2025. Sin cambio de38 oráculos. Validación focal de autor;revisión independiente pendiente.",
+      "citasRecepcion": {
+        "archivo": "../producto-e-ampliacion/citas.json",
+        "ids": [
+          "E-ampliacion-galicia_ayudas_incendios_peifoga_2025-1",
+          "E-ampliacion-galicia_ayudas_incendios_peifoga_2025-2",
+          "E-ampliacion-galicia_ayudas_incendios_peifoga_2025-3"
+        ]
+      },
+      "oraculosCorregidos": "tests/galicia-rioja-ampliacion-2025.casos.ts y suites originales conservadas byte a byte"
+    },
+    {
+      "codigo": "galicia_ayudas_talidomida",
+      "conexion": "rechazo_sin_importe_productor_ausente",
+      "productorFaltante": "imputación individual de ayuda por talidomida y tipos medios del ejercicio",
+      "productoresMotor": [
+        "identidad_y_ambito",
+        "cuota_integra_autonomica_para_consumo_comun"
+      ],
+      "cuota": "consumirCuota una sola vez en dispatcher v4;no sumar presentaciones",
+      "arrastreCuotaNuevo": null,
+      "alcance": "individual ordinario2025;acreditación externa pendiente;no total de conjunta",
+      "pruebas": "PESADO2 rebase:529 verdes y2 TODO B previos;28 nuevas,213 E38,92 v4,40 A40,100 B37,56 C2025. Sin cambio de38 oráculos. Validación focal de autor;revisión independiente pendiente.",
+      "citasRecepcion": {
+        "archivo": "../producto-e-ampliacion/citas.json",
+        "ids": [
+          "E-ampliacion-galicia_ayudas_talidomida-1",
+          "E-ampliacion-galicia_ayudas_talidomida-2"
+        ]
+      },
+      "oraculosCorregidos": "tests/galicia-rioja-ampliacion-2025.casos.ts y suites originales conservadas byte a byte"
+    },
+    {
+      "codigo": "galicia_climatizacion_agua_caliente_renovables",
+      "conexion": "generacion2025_y_cuota_compartida_candidato",
+      "productorFaltante": null,
+      "productoresMotor": [
+        "identidad_y_ambito",
+        "cuota_integra_autonomica_para_consumo_comun"
+      ],
+      "cuota": "consumirCuota una sola vez en dispatcher v4;no sumar presentaciones",
+      "arrastreCuotaNuevo": null,
+      "alcance": "individual ordinario2025;acreditación externa pendiente;no total de conjunta",
+      "pruebas": "PESADO2 rebase:529 verdes y2 TODO B previos;28 nuevas,213 E38,92 v4,40 A40,100 B37,56 C2025. Sin cambio de38 oráculos. Validación focal de autor;revisión independiente pendiente.",
+      "citasRecepcion": {
+        "archivo": "../producto-e-ampliacion/citas.json",
+        "ids": [
+          "E-ampliacion-galicia_climatizacion_agua_caliente_renovables-1",
+          "E-ampliacion-galicia_climatizacion_agua_caliente_renovables-2",
+          "E-ampliacion-galicia_climatizacion_agua_caliente_renovables-3",
+          "E-ampliacion-galicia_climatizacion_agua_caliente_renovables-4",
+          "E-ampliacion-galicia_climatizacion_agua_caliente_renovables-5",
+          "E-ampliacion-galicia_climatizacion_agua_caliente_renovables-6",
+          "E-ampliacion-galicia_climatizacion_agua_caliente_renovables-7",
+          "E-ampliacion-galicia_climatizacion_agua_caliente_renovables-8",
+          "E-ampliacion-galicia_climatizacion_agua_caliente_renovables-9",
+          "E-ampliacion-galicia_climatizacion_agua_caliente_renovables-10",
+          "E-ampliacion-galicia_climatizacion_agua_caliente_renovables-11",
+          "E-ampliacion-galicia_climatizacion_agua_caliente_renovables-12",
+          "E-ampliacion-galicia_climatizacion_agua_caliente_renovables-13",
+          "E-ampliacion-galicia_climatizacion_agua_caliente_renovables-14"
+        ]
+      },
+      "oraculosCorregidos": "tests/galicia-rioja-ampliacion-2025.casos.ts y suites originales conservadas byte a byte"
+    },
+    {
+      "codigo": "galicia_cuidado_hijos_menores",
+      "conexion": "generacion2025_y_cuota_compartida_candidato",
+      "productorFaltante": null,
+      "productoresMotor": [
+        "identidad_y_ambito",
+        "cuota_integra_autonomica_para_consumo_comun",
+        "baseImponibleTotal_desde_basesImponiblesE38",
+        "minimoPersonalFamiliar",
+        "derechosMinimos_y_atribuciones_efectivas"
+      ],
+      "cuota": "consumirCuota una sola vez en dispatcher v4;no sumar presentaciones",
+      "arrastreCuotaNuevo": null,
+      "alcance": "individual ordinario2025;acreditación externa pendiente;no total de conjunta",
+      "pruebas": "PESADO2 rebase:529 verdes y2 TODO B previos;28 nuevas,213 E38,92 v4,40 A40,100 B37,56 C2025. Sin cambio de38 oráculos. Validación focal de autor;revisión independiente pendiente.",
+      "citasRecepcion": {
+        "archivo": "../producto-e-ampliacion/citas.json",
+        "ids": [
+          "E-ampliacion-galicia_cuidado_hijos_menores-1",
+          "E-ampliacion-galicia_cuidado_hijos_menores-2",
+          "E-ampliacion-galicia_cuidado_hijos_menores-3",
+          "E-ampliacion-galicia_cuidado_hijos_menores-4",
+          "E-ampliacion-galicia_cuidado_hijos_menores-5",
+          "E-ampliacion-galicia_cuidado_hijos_menores-6",
+          "E-ampliacion-galicia_cuidado_hijos_menores-7"
+        ]
+      },
+      "oraculosCorregidos": "tests/galicia-rioja-ampliacion-2025.casos.ts y suites originales conservadas byte a byte",
+      "limiteTitulares": "Ámbito conservador: titularesDeduccion exactos a mínimo anual efectivo. Derechos particulares diferentes requieren productor del derecho de cotitular,sin importe en ese caso."
+    },
+    {
+      "codigo": "galicia_familia_numerosa",
+      "conexion": "generacion2025_y_cuota_compartida_candidato",
+      "productorFaltante": null,
+      "productoresMotor": [
+        "identidad_y_ambito",
+        "cuota_integra_autonomica_para_consumo_comun",
+        "derechosMinimos_y_atribuciones_efectivas"
+      ],
+      "cuota": "consumirCuota una sola vez en dispatcher v4;no sumar presentaciones",
+      "arrastreCuotaNuevo": null,
+      "alcance": "individual ordinario2025;acreditación externa pendiente;no total de conjunta",
+      "pruebas": "PESADO2 rebase:529 verdes y2 TODO B previos;28 nuevas,213 E38,92 v4,40 A40,100 B37,56 C2025. Sin cambio de38 oráculos. Validación focal de autor;revisión independiente pendiente.",
+      "citasRecepcion": {
+        "archivo": "../producto-e-ampliacion/citas.json",
+        "ids": [
+          "E-ampliacion-galicia_familia_numerosa-1",
+          "E-ampliacion-galicia_familia_numerosa-2",
+          "E-ampliacion-galicia_familia_numerosa-3",
+          "E-ampliacion-galicia_familia_numerosa-4",
+          "E-ampliacion-galicia_familia_numerosa-5",
+          "E-ampliacion-galicia_familia_numerosa-6",
+          "E-ampliacion-galicia_familia_numerosa-7",
+          "E-ampliacion-galicia_familia_numerosa-8"
+        ]
+      },
+      "oraculosCorregidos": "tests/galicia-rioja-ampliacion-2025.casos.ts y suites originales conservadas byte a byte",
+      "limiteTitulares": "Censo de hijos con mínimo y titulares parentales representados completos;otros derechos particulares requieren ampliación concreta."
+    },
+    {
+      "codigo": "galicia_inversion_empresas_agrarias",
+      "conexion": "generacion2025_y_cuota_compartida_candidato",
+      "productorFaltante": null,
+      "productoresMotor": [
+        "identidad_y_ambito",
+        "cuota_integra_autonomica_para_consumo_comun"
+      ],
+      "cuota": "consumirCuota una sola vez en dispatcher v4;no sumar presentaciones",
+      "arrastreCuotaNuevo": null,
+      "alcance": "individual ordinario2025;acreditación externa pendiente;no total de conjunta",
+      "pruebas": "PESADO2 rebase:529 verdes y2 TODO B previos;28 nuevas,213 E38,92 v4,40 A40,100 B37,56 C2025. Sin cambio de38 oráculos. Validación focal de autor;revisión independiente pendiente.",
+      "citasRecepcion": {
+        "archivo": "../producto-e-ampliacion/citas.json",
+        "ids": [
+          "E-ampliacion-galicia_inversion_empresas_agrarias-1",
+          "E-ampliacion-galicia_inversion_empresas_agrarias-2",
+          "E-ampliacion-galicia_inversion_empresas_agrarias-3",
+          "E-ampliacion-galicia_inversion_empresas_agrarias-4",
+          "E-ampliacion-galicia_inversion_empresas_agrarias-5",
+          "E-ampliacion-galicia_inversion_empresas_agrarias-6",
+          "E-ampliacion-galicia_inversion_empresas_agrarias-7",
+          "E-ampliacion-galicia_inversion_empresas_agrarias-8",
+          "E-ampliacion-galicia_inversion_empresas_agrarias-9",
+          "E-ampliacion-galicia_inversion_empresas_agrarias-10",
+          "E-ampliacion-galicia_inversion_empresas_agrarias-11",
+          "E-ampliacion-galicia_inversion_empresas_agrarias-12",
+          "E-ampliacion-galicia_inversion_empresas_agrarias-13"
+        ]
+      },
+      "oraculosCorregidos": "tests/galicia-rioja-ampliacion-2025.casos.ts y suites originales conservadas byte a byte"
+    },
+    {
+      "codigo": "galicia_inversion_entidades_nuevas_financiacion",
+      "conexion": "generacion2025_y_cuota_compartida_candidato",
+      "productorFaltante": null,
+      "productoresMotor": [
+        "identidad_y_ambito",
+        "cuota_integra_autonomica_para_consumo_comun"
+      ],
+      "cuota": "consumirCuota una sola vez en dispatcher v4;no sumar presentaciones",
+      "arrastreCuotaNuevo": null,
+      "alcance": "individual ordinario2025;acreditación externa pendiente;no total de conjunta",
+      "pruebas": "PESADO2 rebase:529 verdes y2 TODO B previos;28 nuevas,213 E38,92 v4,40 A40,100 B37,56 C2025. Sin cambio de38 oráculos. Validación focal de autor;revisión independiente pendiente.",
+      "citasRecepcion": {
+        "archivo": "../producto-e-ampliacion/citas.json",
+        "ids": [
+          "E-ampliacion-galicia_inversion_entidades_nuevas_financiacion-1",
+          "E-ampliacion-galicia_inversion_entidades_nuevas_financiacion-2",
+          "E-ampliacion-galicia_inversion_entidades_nuevas_financiacion-3",
+          "E-ampliacion-galicia_inversion_entidades_nuevas_financiacion-4",
+          "E-ampliacion-galicia_inversion_entidades_nuevas_financiacion-5",
+          "E-ampliacion-galicia_inversion_entidades_nuevas_financiacion-6",
+          "E-ampliacion-galicia_inversion_entidades_nuevas_financiacion-7",
+          "E-ampliacion-galicia_inversion_entidades_nuevas_financiacion-8",
+          "E-ampliacion-galicia_inversion_entidades_nuevas_financiacion-9",
+          "E-ampliacion-galicia_inversion_entidades_nuevas_financiacion-10",
+          "E-ampliacion-galicia_inversion_entidades_nuevas_financiacion-11",
+          "E-ampliacion-galicia_inversion_entidades_nuevas_financiacion-12",
+          "E-ampliacion-galicia_inversion_entidades_nuevas_financiacion-13",
+          "E-ampliacion-galicia_inversion_entidades_nuevas_financiacion-14",
+          "E-ampliacion-galicia_inversion_entidades_nuevas_financiacion-15",
+          "E-ampliacion-galicia_inversion_entidades_nuevas_financiacion-16",
+          "E-ampliacion-galicia_inversion_entidades_nuevas_financiacion-17",
+          "E-ampliacion-galicia_inversion_entidades_nuevas_financiacion-18",
+          "E-ampliacion-galicia_inversion_entidades_nuevas_financiacion-19",
+          "E-ampliacion-galicia_inversion_entidades_nuevas_financiacion-20"
+        ]
+      },
+      "oraculosCorregidos": "tests/galicia-rioja-ampliacion-2025.casos.ts y suites originales conservadas byte a byte"
+    },
+    {
+      "codigo": "galicia_inversion_entidades_nuevas_reciente_creacion",
+      "conexion": "generacion2025_y_cuota_compartida_candidato",
+      "productorFaltante": null,
+      "productoresMotor": [
+        "identidad_y_ambito",
+        "cuota_integra_autonomica_para_consumo_comun"
+      ],
+      "cuota": "consumirCuota una sola vez en dispatcher v4;no sumar presentaciones",
+      "arrastreCuotaNuevo": null,
+      "alcance": "individual ordinario2025;acreditación externa pendiente;no total de conjunta",
+      "pruebas": "PESADO2 rebase:529 verdes y2 TODO B previos;28 nuevas,213 E38,92 v4,40 A40,100 B37,56 C2025. Sin cambio de38 oráculos. Validación focal de autor;revisión independiente pendiente.",
+      "citasRecepcion": {
+        "archivo": "../producto-e-ampliacion/citas.json",
+        "ids": [
+          "E-ampliacion-galicia_inversion_entidades_nuevas_reciente_creacion-1",
+          "E-ampliacion-galicia_inversion_entidades_nuevas_reciente_creacion-2",
+          "E-ampliacion-galicia_inversion_entidades_nuevas_reciente_creacion-3",
+          "E-ampliacion-galicia_inversion_entidades_nuevas_reciente_creacion-4",
+          "E-ampliacion-galicia_inversion_entidades_nuevas_reciente_creacion-5",
+          "E-ampliacion-galicia_inversion_entidades_nuevas_reciente_creacion-6",
+          "E-ampliacion-galicia_inversion_entidades_nuevas_reciente_creacion-7",
+          "E-ampliacion-galicia_inversion_entidades_nuevas_reciente_creacion-8",
+          "E-ampliacion-galicia_inversion_entidades_nuevas_reciente_creacion-9",
+          "E-ampliacion-galicia_inversion_entidades_nuevas_reciente_creacion-10",
+          "E-ampliacion-galicia_inversion_entidades_nuevas_reciente_creacion-11",
+          "E-ampliacion-galicia_inversion_entidades_nuevas_reciente_creacion-12",
+          "E-ampliacion-galicia_inversion_entidades_nuevas_reciente_creacion-13",
+          "E-ampliacion-galicia_inversion_entidades_nuevas_reciente_creacion-14",
+          "E-ampliacion-galicia_inversion_entidades_nuevas_reciente_creacion-15"
+        ]
+      },
+      "oraculosCorregidos": "tests/galicia-rioja-ampliacion-2025.casos.ts y suites originales conservadas byte a byte"
+    },
+    {
+      "codigo": "galicia_inversion_mab",
+      "conexion": "generacion2025_y_cuota_compartida_candidato",
+      "productorFaltante": null,
+      "productoresMotor": [
+        "identidad_y_ambito",
+        "cuota_integra_autonomica_para_consumo_comun"
+      ],
+      "cuota": "consumirCuota una sola vez en dispatcher v4;no sumar presentaciones",
+      "arrastreCuotaNuevo": null,
+      "alcance": "individual ordinario2025;acreditación externa pendiente;no total de conjunta",
+      "pruebas": "PESADO2 rebase:529 verdes y2 TODO B previos;28 nuevas,213 E38,92 v4,40 A40,100 B37,56 C2025. Sin cambio de38 oráculos. Validación focal de autor;revisión independiente pendiente.",
+      "limiteConcreto": "Instantáneas de participación propia coherentes según recepción;porcentajes variables sin historial rechazados sin importe",
+      "citasRecepcion": {
+        "archivo": "../producto-e-ampliacion/citas.json",
+        "ids": [
+          "E-ampliacion-galicia_inversion_mab-1",
+          "E-ampliacion-galicia_inversion_mab-2",
+          "E-ampliacion-galicia_inversion_mab-3",
+          "E-ampliacion-galicia_inversion_mab-4",
+          "E-ampliacion-galicia_inversion_mab-5",
+          "E-ampliacion-galicia_inversion_mab-6",
+          "E-ampliacion-galicia_inversion_mab-7",
+          "E-ampliacion-galicia_inversion_mab-8",
+          "E-ampliacion-galicia_inversion_mab-9",
+          "E-ampliacion-galicia_inversion_mab-10",
+          "E-ampliacion-galicia_inversion_mab-11"
+        ]
+      },
+      "oraculosCorregidos": "tests/galicia-rioja-ampliacion-2025.casos.ts y suites originales conservadas byte a byte"
+    },
+    {
+      "codigo": "galicia_libros_texto_material_escolar",
+      "conexion": "rechazo_sin_importe_productor_ausente",
+      "productorFaltante": "renta2024 por miembro derivada de declaraciones previas;el motor APIv4 solo representa2025",
+      "productoresMotor": [
+        "identidad_y_ambito",
+        "cuota_integra_autonomica_para_consumo_comun"
+      ],
+      "cuota": "consumirCuota una sola vez en dispatcher v4;no sumar presentaciones",
+      "arrastreCuotaNuevo": null,
+      "alcance": "individual ordinario2025;acreditación externa pendiente;no total de conjunta",
+      "pruebas": "PESADO2 rebase:529 verdes y2 TODO B previos;28 nuevas,213 E38,92 v4,40 A40,100 B37,56 C2025. Sin cambio de38 oráculos. Validación focal de autor;revisión independiente pendiente.",
+      "citasRecepcion": {
+        "archivo": "../producto-e-ampliacion/citas.json",
+        "ids": [
+          "E-ampliacion-galicia_libros_texto_material_escolar-1",
+          "E-ampliacion-galicia_libros_texto_material_escolar-2",
+          "E-ampliacion-galicia_libros_texto_material_escolar-3",
+          "E-ampliacion-galicia_libros_texto_material_escolar-4",
+          "E-ampliacion-galicia_libros_texto_material_escolar-5",
+          "E-ampliacion-galicia_libros_texto_material_escolar-6",
+          "E-ampliacion-galicia_libros_texto_material_escolar-7",
+          "E-ampliacion-galicia_libros_texto_material_escolar-8",
+          "E-ampliacion-galicia_libros_texto_material_escolar-9"
+        ]
+      },
+      "oraculosCorregidos": "tests/galicia-rioja-ampliacion-2025.casos.ts y suites originales conservadas byte a byte"
+    },
+    {
+      "codigo": "galicia_nacimiento_adopcion_hijos",
+      "conexion": "generacion2025_y_cuota_compartida_candidato",
+      "productorFaltante": null,
+      "productoresMotor": [
+        "identidad_y_ambito",
+        "cuota_integra_autonomica_para_consumo_comun",
+        "baseImponibleTotal_desde_basesImponiblesE38",
+        "minimoPersonalFamiliar",
+        "derechosMinimos_y_atribuciones_efectivas",
+        "ordinal_parental_derivado_de_censo_fisico_completo"
+      ],
+      "cuota": "consumirCuota una sola vez en dispatcher v4;no sumar presentaciones",
+      "arrastreCuotaNuevo": null,
+      "alcance": "individual ordinario2025;acreditación externa pendiente;no total de conjunta",
+      "pruebas": "PESADO2 rebase:529 verdes y2 TODO B previos;28 nuevas,213 E38,92 v4,40 A40,100 B37,56 C2025. Sin cambio de38 oráculos. Validación focal de autor;revisión independiente pendiente.",
+      "limiteConcreto": "Requiere censo físico completo por progenitor;no acepta orden fiscal externo. Hijo y fechas conciliados con derechos anuales. Sin censo o evento anterior al vínculo,no hay importe.",
+      "citasRecepcion": {
+        "archivo": "../producto-e-ampliacion/citas.json",
+        "ids": [
+          "E-ampliacion-galicia_nacimiento_adopcion_hijos-1",
+          "E-ampliacion-galicia_nacimiento_adopcion_hijos-2",
+          "E-ampliacion-galicia_nacimiento_adopcion_hijos-3",
+          "E-ampliacion-galicia_nacimiento_adopcion_hijos-4",
+          "E-ampliacion-galicia_nacimiento_adopcion_hijos-5",
+          "E-ampliacion-galicia_nacimiento_adopcion_hijos-6",
+          "E-ampliacion-galicia_nacimiento_adopcion_hijos-7",
+          "E-ampliacion-galicia_nacimiento_adopcion_hijos-8",
+          "E-ampliacion-galicia_nacimiento_adopcion_hijos-9",
+          "E-ampliacion-galicia_nacimiento_adopcion_hijos-10"
+        ]
+      },
+      "oraculosCorregidos": "tests/galicia-rioja-ampliacion-2025.casos.ts y suites originales conservadas byte a byte"
+    },
+    {
+      "codigo": "galicia_obras_eficiencia_energetica",
+      "conexion": "generacion2025_y_cuota_compartida_candidato",
+      "productorFaltante": null,
+      "productoresMotor": [
+        "identidad_y_ambito",
+        "cuota_integra_autonomica_para_consumo_comun"
+      ],
+      "cuota": "consumirCuota una sola vez en dispatcher v4;no sumar presentaciones",
+      "arrastreCuotaNuevo": null,
+      "alcance": "individual ordinario2025;acreditación externa pendiente;no total de conjunta",
+      "pruebas": "PESADO2 rebase:529 verdes y2 TODO B previos;28 nuevas,213 E38,92 v4,40 A40,100 B37,56 C2025. Sin cambio de38 oráculos. Validación focal de autor;revisión independiente pendiente.",
+      "citasRecepcion": {
+        "archivo": "../producto-e-ampliacion/citas.json",
+        "ids": [
+          "E-ampliacion-galicia_obras_eficiencia_energetica-1",
+          "E-ampliacion-galicia_obras_eficiencia_energetica-2",
+          "E-ampliacion-galicia_obras_eficiencia_energetica-3",
+          "E-ampliacion-galicia_obras_eficiencia_energetica-4",
+          "E-ampliacion-galicia_obras_eficiencia_energetica-5",
+          "E-ampliacion-galicia_obras_eficiencia_energetica-6",
+          "E-ampliacion-galicia_obras_eficiencia_energetica-7",
+          "E-ampliacion-galicia_obras_eficiencia_energetica-8",
+          "E-ampliacion-galicia_obras_eficiencia_energetica-9",
+          "E-ampliacion-galicia_obras_eficiencia_energetica-10",
+          "E-ampliacion-galicia_obras_eficiencia_energetica-11",
+          "E-ampliacion-galicia_obras_eficiencia_energetica-12",
+          "E-ampliacion-galicia_obras_eficiencia_energetica-13",
+          "E-ampliacion-galicia_obras_eficiencia_energetica-14",
+          "E-ampliacion-galicia_obras_eficiencia_energetica-15",
+          "E-ampliacion-galicia_obras_eficiencia_energetica-16"
+        ]
+      },
+      "oraculosCorregidos": "tests/galicia-rioja-ampliacion-2025.casos.ts y suites originales conservadas byte a byte"
+    },
+    {
+      "codigo": "galicia_rehabilitacion_centros_historicos",
+      "conexion": "generacion2025_y_cuota_compartida_candidato",
+      "productorFaltante": null,
+      "productoresMotor": [
+        "identidad_y_ambito",
+        "cuota_integra_autonomica_para_consumo_comun"
+      ],
+      "cuota": "consumirCuota una sola vez en dispatcher v4;no sumar presentaciones",
+      "arrastreCuotaNuevo": null,
+      "alcance": "individual ordinario2025;acreditación externa pendiente;no total de conjunta",
+      "pruebas": "PESADO2 rebase:529 verdes y2 TODO B previos;28 nuevas,213 E38,92 v4,40 A40,100 B37,56 C2025. Sin cambio de38 oráculos. Validación focal de autor;revisión independiente pendiente.",
+      "citasRecepcion": {
+        "archivo": "../producto-e-ampliacion/citas.json",
+        "ids": [
+          "E-ampliacion-galicia_rehabilitacion_centros_historicos-1",
+          "E-ampliacion-galicia_rehabilitacion_centros_historicos-2",
+          "E-ampliacion-galicia_rehabilitacion_centros_historicos-3",
+          "E-ampliacion-galicia_rehabilitacion_centros_historicos-4",
+          "E-ampliacion-galicia_rehabilitacion_centros_historicos-5",
+          "E-ampliacion-galicia_rehabilitacion_centros_historicos-6"
+        ]
+      },
+      "oraculosCorregidos": "tests/galicia-rioja-ampliacion-2025.casos.ts y suites originales conservadas byte a byte"
+    },
+    {
+      "codigo": "rioja_adecuacion_vivienda_discapacidad",
+      "conexion": "rechazo_sin_importe_productor_ausente",
+      "productorFaltante": "patrimonio ajustado y reserva de base conjunta rehabilitación/adecuación9040",
+      "productoresMotor": [
+        "identidad_y_ambito",
+        "cuota_integra_autonomica_para_consumo_comun"
+      ],
+      "cuota": "consumirCuota una sola vez en dispatcher v4;no sumar presentaciones",
+      "arrastreCuotaNuevo": null,
+      "alcance": "individual ordinario2025;acreditación externa pendiente;no total de conjunta",
+      "pruebas": "PESADO2 rebase:529 verdes y2 TODO B previos;28 nuevas,213 E38,92 v4,40 A40,100 B37,56 C2025. Sin cambio de38 oráculos. Validación focal de autor;revisión independiente pendiente.",
+      "citasRecepcion": {
+        "archivo": "../producto-e-ampliacion/citas.json",
+        "ids": [
+          "E-ampliacion-rioja_adecuacion_vivienda_discapacidad-1",
+          "E-ampliacion-rioja_adecuacion_vivienda_discapacidad-2",
+          "E-ampliacion-rioja_adecuacion_vivienda_discapacidad-3",
+          "E-ampliacion-rioja_adecuacion_vivienda_discapacidad-4",
+          "E-ampliacion-rioja_adecuacion_vivienda_discapacidad-5",
+          "E-ampliacion-rioja_adecuacion_vivienda_discapacidad-6",
+          "E-ampliacion-rioja_adecuacion_vivienda_discapacidad-7",
+          "E-ampliacion-rioja_adecuacion_vivienda_discapacidad-8",
+          "E-ampliacion-rioja_adecuacion_vivienda_discapacidad-9"
+        ]
+      },
+      "oraculosCorregidos": "tests/galicia-rioja-ampliacion-2025.casos.ts y suites originales conservadas byte a byte"
+    },
+    {
+      "codigo": "rioja_adquisicion_construccion_vivienda_jovenes",
+      "conexion": "rechazo_sin_importe_productor_ausente",
+      "productorFaltante": "patrimonio ajustado y base estatalDT18 sin adecuación/reserva regional9040",
+      "productoresMotor": [
+        "identidad_y_ambito",
+        "cuota_integra_autonomica_para_consumo_comun"
+      ],
+      "cuota": "consumirCuota una sola vez en dispatcher v4;no sumar presentaciones",
+      "arrastreCuotaNuevo": null,
+      "alcance": "individual ordinario2025;acreditación externa pendiente;no total de conjunta",
+      "pruebas": "PESADO2 rebase:529 verdes y2 TODO B previos;28 nuevas,213 E38,92 v4,40 A40,100 B37,56 C2025. Sin cambio de38 oráculos. Validación focal de autor;revisión independiente pendiente.",
+      "citasRecepcion": {
+        "archivo": "../producto-e-ampliacion/citas.json",
+        "ids": [
+          "E-ampliacion-rioja_adquisicion_construccion_vivienda_jovenes-1",
+          "E-ampliacion-rioja_adquisicion_construccion_vivienda_jovenes-2",
+          "E-ampliacion-rioja_adquisicion_construccion_vivienda_jovenes-3",
+          "E-ampliacion-rioja_adquisicion_construccion_vivienda_jovenes-4",
+          "E-ampliacion-rioja_adquisicion_construccion_vivienda_jovenes-5",
+          "E-ampliacion-rioja_adquisicion_construccion_vivienda_jovenes-6",
+          "E-ampliacion-rioja_adquisicion_construccion_vivienda_jovenes-7",
+          "E-ampliacion-rioja_adquisicion_construccion_vivienda_jovenes-8"
+        ]
+      },
+      "oraculosCorregidos": "tests/galicia-rioja-ampliacion-2025.casos.ts y suites originales conservadas byte a byte"
+    },
+    {
+      "codigo": "rioja_arrendamiento_menores_36",
+      "conexion": "generacion2025_y_cuota_compartida_candidato",
+      "productorFaltante": null,
+      "productoresMotor": [
+        "identidad_y_ambito",
+        "cuota_integra_autonomica_para_consumo_comun",
+        "baseLiquidableGeneral",
+        "baseLiquidableAhorro"
+      ],
+      "cuota": "consumirCuota una sola vez en dispatcher v4;no sumar presentaciones",
+      "arrastreCuotaNuevo": null,
+      "alcance": "individual ordinario2025;acreditación externa pendiente;no total de conjunta",
+      "pruebas": "PESADO2 rebase:529 verdes y2 TODO B previos;28 nuevas,213 E38,92 v4,40 A40,100 B37,56 C2025. Sin cambio de38 oráculos. Validación focal de autor;revisión independiente pendiente.",
+      "limiteConcreto": "Inventario económico de inversión vivienda2025 vacío y sin concurrencia de códigos incompatibles;con inversión falta productor de derecho a deducción. Pagos dentro del periodo ocupado;anticipados/diferidos no representados(E03).",
+      "citasRecepcion": {
+        "archivo": "../producto-e-ampliacion/citas.json",
+        "ids": [
+          "E-ampliacion-rioja_arrendamiento_menores_36-1",
+          "E-ampliacion-rioja_arrendamiento_menores_36-2",
+          "E-ampliacion-rioja_arrendamiento_menores_36-3",
+          "E-ampliacion-rioja_arrendamiento_menores_36-4",
+          "E-ampliacion-rioja_arrendamiento_menores_36-5",
+          "E-ampliacion-rioja_arrendamiento_menores_36-6",
+          "E-ampliacion-rioja_arrendamiento_menores_36-7",
+          "E-ampliacion-rioja_arrendamiento_menores_36-8",
+          "E-ampliacion-rioja_arrendamiento_menores_36-9",
+          "E-ampliacion-rioja_arrendamiento_menores_36-10",
+          "E-ampliacion-rioja_arrendamiento_menores_36-11",
+          "E-ampliacion-rioja_arrendamiento_menores_36-12"
+        ]
+      },
+      "oraculosCorregidos": "tests/galicia-rioja-ampliacion-2025.casos.ts y suites originales conservadas byte a byte"
+    },
+    {
+      "codigo": "rioja_cantidades_patrimonio_historico",
+      "conexion": "generacion2025_y_cuota_compartida_candidato",
+      "productorFaltante": null,
+      "productoresMotor": [
+        "identidad_y_ambito",
+        "cuota_integra_autonomica_para_consumo_comun"
+      ],
+      "cuota": "consumirCuota una sola vez en dispatcher v4;no sumar presentaciones",
+      "arrastreCuotaNuevo": null,
+      "alcance": "individual ordinario2025;acreditación externa pendiente;no total de conjunta",
+      "pruebas": "PESADO2 rebase:529 verdes y2 TODO B previos;28 nuevas,213 E38,92 v4,40 A40,100 B37,56 C2025. Sin cambio de38 oráculos. Validación focal de autor;revisión independiente pendiente.",
+      "citasRecepcion": {
+        "archivo": "../producto-e-ampliacion/citas.json",
+        "ids": [
+          "E-ampliacion-rioja_cantidades_patrimonio_historico-1",
+          "E-ampliacion-rioja_cantidades_patrimonio_historico-2",
+          "E-ampliacion-rioja_cantidades_patrimonio_historico-3",
+          "E-ampliacion-rioja_cantidades_patrimonio_historico-4",
+          "E-ampliacion-rioja_cantidades_patrimonio_historico-5",
+          "E-ampliacion-rioja_cantidades_patrimonio_historico-6",
+          "E-ampliacion-rioja_cantidades_patrimonio_historico-7"
+        ]
+      },
+      "oraculosCorregidos": "tests/galicia-rioja-ampliacion-2025.casos.ts y suites originales conservadas byte a byte"
+    },
+    {
+      "codigo": "rioja_donaciones_fomento_mecenazgo",
+      "conexion": "generacion2025_y_cuota_compartida_candidato",
+      "productorFaltante": null,
+      "productoresMotor": [
+        "identidad_y_ambito",
+        "cuota_integra_autonomica_para_consumo_comun",
+        "cuotaIntegraAutonomica_para_tope30porciento",
+        "mecenazgoConsumidoDeclaracion_reserva_codigo_unico_individual"
+      ],
+      "cuota": "consumirCuota una sola vez en dispatcher v4;no sumar presentaciones",
+      "arrastreCuotaNuevo": null,
+      "alcance": "individual ordinario2025;acreditación externa pendiente;no total de conjunta",
+      "pruebas": "PESADO2 rebase:529 verdes y2 TODO B previos;28 nuevas,213 E38,92 v4,40 A40,100 B37,56 C2025. Sin cambio de38 oráculos. Validación focal de autor;revisión independiente pendiente.",
+      "limiteConcreto": "Modalidades con hechos de valoración representados;sin valor contable falta productorIP;usufructo otros/depósito necesitan ITP/interés legal o valoraciónArt18 derivables",
+      "citasRecepcion": {
+        "archivo": "../producto-e-ampliacion/citas.json",
+        "ids": [
+          "E-ampliacion-rioja_donaciones_fomento_mecenazgo-1",
+          "E-ampliacion-rioja_donaciones_fomento_mecenazgo-2",
+          "E-ampliacion-rioja_donaciones_fomento_mecenazgo-3",
+          "E-ampliacion-rioja_donaciones_fomento_mecenazgo-4",
+          "E-ampliacion-rioja_donaciones_fomento_mecenazgo-5",
+          "E-ampliacion-rioja_donaciones_fomento_mecenazgo-6",
+          "E-ampliacion-rioja_donaciones_fomento_mecenazgo-7",
+          "E-ampliacion-rioja_donaciones_fomento_mecenazgo-8",
+          "E-ampliacion-rioja_donaciones_fomento_mecenazgo-9",
+          "E-ampliacion-rioja_donaciones_fomento_mecenazgo-10",
+          "E-ampliacion-rioja_donaciones_fomento_mecenazgo-11",
+          "E-ampliacion-rioja_donaciones_fomento_mecenazgo-12",
+          "E-ampliacion-rioja_donaciones_fomento_mecenazgo-13",
+          "E-ampliacion-rioja_donaciones_fomento_mecenazgo-14",
+          "E-ampliacion-rioja_donaciones_fomento_mecenazgo-15",
+          "E-ampliacion-rioja_donaciones_fomento_mecenazgo-16",
+          "E-ampliacion-rioja_donaciones_fomento_mecenazgo-17",
+          "E-ampliacion-rioja_donaciones_fomento_mecenazgo-18",
+          "E-ampliacion-rioja_donaciones_fomento_mecenazgo-19",
+          "E-ampliacion-rioja_donaciones_fomento_mecenazgo-20",
+          "E-ampliacion-rioja_donaciones_fomento_mecenazgo-21",
+          "E-ampliacion-rioja_donaciones_fomento_mecenazgo-22",
+          "E-ampliacion-rioja_donaciones_fomento_mecenazgo-23",
+          "E-ampliacion-rioja_donaciones_fomento_mecenazgo-24",
+          "E-ampliacion-rioja_donaciones_fomento_mecenazgo-25",
+          "E-ampliacion-rioja_donaciones_fomento_mecenazgo-26",
+          "E-ampliacion-rioja_donaciones_fomento_mecenazgo-27",
+          "E-ampliacion-rioja_donaciones_fomento_mecenazgo-28",
+          "E-ampliacion-rioja_donaciones_fomento_mecenazgo-29",
+          "E-ampliacion-rem-rioja_donaciones_fomento_mecenazgo-rem-mecenazgo-60",
+          "E-ampliacion-rem-rioja_donaciones_fomento_mecenazgo-rem-mecenazgo-61",
+          "E-ampliacion-rem-rioja_donaciones_fomento_mecenazgo-rem-mecenazgo-62",
+          "E-ampliacion-rem-rioja_donaciones_fomento_mecenazgo-rem-mecenazgo-63",
+          "E-ampliacion-rem-rioja_donaciones_fomento_mecenazgo-rem-mecenazgo-64",
+          "E-ampliacion-rem-rioja_donaciones_fomento_mecenazgo-rem-mecenazgo-65",
+          "E-ampliacion-rem-rioja_donaciones_fomento_mecenazgo-rem-mecenazgo-66",
+          "E-ampliacion-rem-rioja_donaciones_fomento_mecenazgo-rem-mecenazgo-67",
+          "E-ampliacion-rem-rioja_donaciones_fomento_mecenazgo-rem-mecenazgo-68",
+          "E-ampliacion-rem-rioja_donaciones_fomento_mecenazgo-rem-mecenazgo-69",
+          "E-ampliacion-rem-rioja_donaciones_fomento_mecenazgo-rem-mecenazgo-70",
+          "E-ampliacion-rem-rioja_donaciones_fomento_mecenazgo-rem-mecenazgo-71",
+          "E-ampliacion-rem-rioja_donaciones_fomento_mecenazgo-rem-mecenazgo-72",
+          "E-ampliacion-rem-rioja_donaciones_fomento_mecenazgo-rem-mecenazgo-73",
+          "E-ampliacion-rem-rioja_donaciones_fomento_mecenazgo-rem-mecenazgo-74",
+          "E-ampliacion-rem-rioja_donaciones_fomento_mecenazgo-rem-valoracion-261",
+          "E-ampliacion-rem-rioja_donaciones_fomento_mecenazgo-rem-valoracion-262",
+          "E-ampliacion-rem-rioja_donaciones_fomento_mecenazgo-rem-valoracion-263",
+          "E-ampliacion-rem-rioja_donaciones_fomento_mecenazgo-rem-valoracion-264"
+        ]
+      },
+      "oraculosCorregidos": "tests/galicia-rioja-ampliacion-2025.casos.ts y suites originales conservadas byte a byte"
+    },
+    {
+      "codigo": "rioja_escuelas_infantiles_pequenos_municipios",
+      "conexion": "generacion2025_y_cuota_compartida_candidato",
+      "productorFaltante": null,
+      "productoresMotor": [
+        "identidad_y_ambito",
+        "cuota_integra_autonomica_para_consumo_comun",
+        "baseLiquidableGeneral",
+        "baseLiquidableAhorro",
+        "derechosMinimos_y_atribuciones_efectivas"
+      ],
+      "cuota": "consumirCuota una sola vez en dispatcher v4;no sumar presentaciones",
+      "arrastreCuotaNuevo": null,
+      "alcance": "individual ordinario2025;acreditación externa pendiente;no total de conjunta",
+      "pruebas": "PESADO2 rebase:529 verdes y2 TODO B previos;28 nuevas,213 E38,92 v4,40 A40,100 B37,56 C2025. Sin cambio de38 oráculos. Validación focal de autor;revisión independiente pendiente.",
+      "citasRecepcion": {
+        "archivo": "../producto-e-ampliacion/citas.json",
+        "ids": [
+          "E-ampliacion-rioja_escuelas_infantiles_pequenos_municipios-1",
+          "E-ampliacion-rioja_escuelas_infantiles_pequenos_municipios-2",
+          "E-ampliacion-rioja_escuelas_infantiles_pequenos_municipios-3",
+          "E-ampliacion-rioja_escuelas_infantiles_pequenos_municipios-4",
+          "E-ampliacion-rioja_escuelas_infantiles_pequenos_municipios-5",
+          "E-ampliacion-rioja_escuelas_infantiles_pequenos_municipios-6",
+          "E-ampliacion-rioja_escuelas_infantiles_pequenos_municipios-7"
+        ]
+      },
+      "oraculosCorregidos": "tests/galicia-rioja-ampliacion-2025.casos.ts y suites originales conservadas byte a byte",
+      "limiteTitulares": "Ámbito conservador: titularesDeduccion exactos a mínimo anual efectivo. Derechos particulares diferentes requieren productor del derecho de cotitular,sin importe en ese caso."
+    },
+    {
+      "codigo": "rioja_fijacion_poblacion_ocupada_medio_rural",
+      "conexion": "generacion2025_y_cuota_compartida_candidato",
+      "productorFaltante": null,
+      "productoresMotor": [
+        "identidad_y_ambito",
+        "cuota_integra_autonomica_para_consumo_comun"
+      ],
+      "cuota": "consumirCuota una sola vez en dispatcher v4;no sumar presentaciones",
+      "arrastreCuotaNuevo": {
+        "origen": 2025,
+        "caduca": 2028,
+        "requiere": "continuidad arriendo/actividad;no histórico externo"
+      },
+      "alcance": "individual ordinario2025;acreditación externa pendiente;no total de conjunta",
+      "pruebas": "PESADO2 rebase:529 verdes y2 TODO B previos;28 nuevas,213 E38,92 v4,40 A40,100 B37,56 C2025. Sin cambio de38 oráculos. Validación focal de autor;revisión independiente pendiente.",
+      "limiteConcreto": "Generación del ejercicio,aplicación última;arrastre de cuota nuevo3años,ningún saldo histórico consignado",
+      "citasRecepcion": {
+        "archivo": "../producto-e-ampliacion/citas.json",
+        "ids": [
+          "E-ampliacion-rioja_fijacion_poblacion_ocupada_medio_rural-1",
+          "E-ampliacion-rioja_fijacion_poblacion_ocupada_medio_rural-2",
+          "E-ampliacion-rioja_fijacion_poblacion_ocupada_medio_rural-3",
+          "E-ampliacion-rioja_fijacion_poblacion_ocupada_medio_rural-4",
+          "E-ampliacion-rioja_fijacion_poblacion_ocupada_medio_rural-5",
+          "E-ampliacion-rioja_fijacion_poblacion_ocupada_medio_rural-6"
+        ]
+      },
+      "oraculosCorregidos": "tests/galicia-rioja-ampliacion-2025.casos.ts y suites originales conservadas byte a byte"
+    },
+    {
+      "codigo": "rioja_hijo_0_3_escolarizado",
+      "conexion": "generacion2025_y_cuota_compartida_candidato",
+      "productorFaltante": null,
+      "productoresMotor": [
+        "identidad_y_ambito",
+        "cuota_integra_autonomica_para_consumo_comun",
+        "baseLiquidableGeneral",
+        "baseLiquidableAhorro",
+        "derechosMinimos_y_atribuciones_efectivas"
+      ],
+      "cuota": "consumirCuota una sola vez en dispatcher v4;no sumar presentaciones",
+      "arrastreCuotaNuevo": null,
+      "alcance": "individual ordinario2025;acreditación externa pendiente;no total de conjunta",
+      "pruebas": "PESADO2 rebase:529 verdes y2 TODO B previos;28 nuevas,213 E38,92 v4,40 A40,100 B37,56 C2025. Sin cambio de38 oráculos. Validación focal de autor;revisión independiente pendiente.",
+      "citasRecepcion": {
+        "archivo": "../producto-e-ampliacion/citas.json",
+        "ids": [
+          "E-ampliacion-rioja_hijo_0_3_escolarizado-1",
+          "E-ampliacion-rioja_hijo_0_3_escolarizado-2",
+          "E-ampliacion-rioja_hijo_0_3_escolarizado-3",
+          "E-ampliacion-rioja_hijo_0_3_escolarizado-4",
+          "E-ampliacion-rioja_hijo_0_3_escolarizado-5",
+          "E-ampliacion-rioja_hijo_0_3_escolarizado-6"
+        ]
+      },
+      "oraculosCorregidos": "tests/galicia-rioja-ampliacion-2025.casos.ts y suites originales conservadas byte a byte",
+      "limiteTitulares": "Ámbito conservador: titularesDeduccion exactos a mínimo anual efectivo. Derechos particulares diferentes requieren productor del derecho de cotitular,sin importe en ese caso."
+    },
+    {
+      "codigo": "rioja_hijo_0_3_pequenos_municipios",
+      "conexion": "generacion2025_y_cuota_compartida_candidato",
+      "productorFaltante": null,
+      "productoresMotor": [
+        "identidad_y_ambito",
+        "cuota_integra_autonomica_para_consumo_comun",
+        "derechosMinimos_y_atribuciones_efectivas"
+      ],
+      "cuota": "consumirCuota una sola vez en dispatcher v4;no sumar presentaciones",
+      "arrastreCuotaNuevo": null,
+      "alcance": "individual ordinario2025;acreditación externa pendiente;no total de conjunta",
+      "pruebas": "PESADO2 rebase:529 verdes y2 TODO B previos;28 nuevas,213 E38,92 v4,40 A40,100 B37,56 C2025. Sin cambio de38 oráculos. Validación focal de autor;revisión independiente pendiente.",
+      "citasRecepcion": {
+        "archivo": "../producto-e-ampliacion/citas.json",
+        "ids": [
+          "E-ampliacion-rioja_hijo_0_3_pequenos_municipios-1",
+          "E-ampliacion-rioja_hijo_0_3_pequenos_municipios-2",
+          "E-ampliacion-rioja_hijo_0_3_pequenos_municipios-3",
+          "E-ampliacion-rioja_hijo_0_3_pequenos_municipios-4",
+          "E-ampliacion-rioja_hijo_0_3_pequenos_municipios-5"
+        ]
+      },
+      "oraculosCorregidos": "tests/galicia-rioja-ampliacion-2025.casos.ts y suites originales conservadas byte a byte"
+    },
+    {
+      "codigo": "rioja_internet_jovenes_emancipados",
+      "conexion": "generacion2025_y_cuota_compartida_candidato",
+      "productorFaltante": null,
+      "productoresMotor": [
+        "identidad_y_ambito",
+        "cuota_integra_autonomica_para_consumo_comun",
+        "baseLiquidableGeneral",
+        "baseLiquidableAhorro"
+      ],
+      "cuota": "consumirCuota una sola vez en dispatcher v4;no sumar presentaciones",
+      "arrastreCuotaNuevo": null,
+      "alcance": "individual ordinario2025;acreditación externa pendiente;no total de conjunta",
+      "pruebas": "PESADO2 rebase:529 verdes y2 TODO B previos;28 nuevas,213 E38,92 v4,40 A40,100 B37,56 C2025. Sin cambio de38 oráculos. Validación focal de autor;revisión independiente pendiente.",
+      "citasRecepcion": {
+        "archivo": "../producto-e-ampliacion/citas.json",
+        "ids": [
+          "E-ampliacion-rioja_internet_jovenes_emancipados-1",
+          "E-ampliacion-rioja_internet_jovenes_emancipados-2",
+          "E-ampliacion-rioja_internet_jovenes_emancipados-3",
+          "E-ampliacion-rioja_internet_jovenes_emancipados-4",
+          "E-ampliacion-rioja_internet_jovenes_emancipados-5",
+          "E-ampliacion-rioja_internet_jovenes_emancipados-6",
+          "E-ampliacion-rioja_internet_jovenes_emancipados-7",
+          "E-ampliacion-rioja_internet_jovenes_emancipados-8",
+          "E-ampliacion-rioja_internet_jovenes_emancipados-9",
+          "E-ampliacion-rioja_internet_jovenes_emancipados-10",
+          "E-ampliacion-rioja_internet_jovenes_emancipados-11",
+          "E-ampliacion-rioja_internet_jovenes_emancipados-12",
+          "E-ampliacion-rioja_internet_jovenes_emancipados-13"
+        ]
+      },
+      "oraculosCorregidos": "tests/galicia-rioja-ampliacion-2025.casos.ts y suites originales conservadas byte a byte"
+    },
+    {
+      "codigo": "rioja_inversion_vivienda_jovenes_menores_36",
+      "conexion": "rechazo_sin_importe_productor_ausente",
+      "productorFaltante": "comparación patrimonial ajustada y base de viviendas anteriores/reinversión",
+      "productoresMotor": [
+        "identidad_y_ambito",
+        "cuota_integra_autonomica_para_consumo_comun"
+      ],
+      "cuota": "consumirCuota una sola vez en dispatcher v4;no sumar presentaciones",
+      "arrastreCuotaNuevo": null,
+      "alcance": "individual ordinario2025;acreditación externa pendiente;no total de conjunta",
+      "pruebas": "PESADO2 rebase:529 verdes y2 TODO B previos;28 nuevas,213 E38,92 v4,40 A40,100 B37,56 C2025. Sin cambio de38 oráculos. Validación focal de autor;revisión independiente pendiente.",
+      "citasRecepcion": {
+        "archivo": "../producto-e-ampliacion/citas.json",
+        "ids": [
+          "E-ampliacion-rioja_inversion_vivienda_jovenes_menores_36-1",
+          "E-ampliacion-rioja_inversion_vivienda_jovenes_menores_36-2",
+          "E-ampliacion-rioja_inversion_vivienda_jovenes_menores_36-3",
+          "E-ampliacion-rioja_inversion_vivienda_jovenes_menores_36-4",
+          "E-ampliacion-rioja_inversion_vivienda_jovenes_menores_36-5",
+          "E-ampliacion-rioja_inversion_vivienda_jovenes_menores_36-6",
+          "E-ampliacion-rioja_inversion_vivienda_jovenes_menores_36-7",
+          "E-ampliacion-rioja_inversion_vivienda_jovenes_menores_36-8",
+          "E-ampliacion-rioja_inversion_vivienda_jovenes_menores_36-9",
+          "E-ampliacion-rioja_inversion_vivienda_jovenes_menores_36-10",
+          "E-ampliacion-rioja_inversion_vivienda_jovenes_menores_36-11"
+        ]
+      },
+      "oraculosCorregidos": "tests/galicia-rioja-ampliacion-2025.casos.ts y suites originales conservadas byte a byte"
+    },
+    {
+      "codigo": "rioja_luz_gas_jovenes_emancipados",
+      "conexion": "generacion2025_y_cuota_compartida_candidato",
+      "productorFaltante": null,
+      "productoresMotor": [
+        "identidad_y_ambito",
+        "cuota_integra_autonomica_para_consumo_comun",
+        "baseLiquidableGeneral",
+        "baseLiquidableAhorro"
+      ],
+      "cuota": "consumirCuota una sola vez en dispatcher v4;no sumar presentaciones",
+      "arrastreCuotaNuevo": null,
+      "alcance": "individual ordinario2025;acreditación externa pendiente;no total de conjunta",
+      "pruebas": "PESADO2 rebase:529 verdes y2 TODO B previos;28 nuevas,213 E38,92 v4,40 A40,100 B37,56 C2025. Sin cambio de38 oráculos. Validación focal de autor;revisión independiente pendiente.",
+      "citasRecepcion": {
+        "archivo": "../producto-e-ampliacion/citas.json",
+        "ids": [
+          "E-ampliacion-rioja_luz_gas_jovenes_emancipados-1",
+          "E-ampliacion-rioja_luz_gas_jovenes_emancipados-2",
+          "E-ampliacion-rioja_luz_gas_jovenes_emancipados-3",
+          "E-ampliacion-rioja_luz_gas_jovenes_emancipados-4",
+          "E-ampliacion-rioja_luz_gas_jovenes_emancipados-5",
+          "E-ampliacion-rioja_luz_gas_jovenes_emancipados-6",
+          "E-ampliacion-rioja_luz_gas_jovenes_emancipados-7",
+          "E-ampliacion-rioja_luz_gas_jovenes_emancipados-8",
+          "E-ampliacion-rioja_luz_gas_jovenes_emancipados-9",
+          "E-ampliacion-rioja_luz_gas_jovenes_emancipados-10",
+          "E-ampliacion-rioja_luz_gas_jovenes_emancipados-11",
+          "E-ampliacion-rioja_luz_gas_jovenes_emancipados-12",
+          "E-ampliacion-rioja_luz_gas_jovenes_emancipados-13",
+          "E-ampliacion-rioja_luz_gas_jovenes_emancipados-14"
+        ]
+      },
+      "oraculosCorregidos": "tests/galicia-rioja-ampliacion-2025.casos.ts y suites originales conservadas byte a byte"
+    },
+    {
+      "codigo": "rioja_menor_acogimiento_guarda_adopcion",
+      "conexion": "generacion2025_y_cuota_compartida_candidato",
+      "productorFaltante": null,
+      "productoresMotor": [
+        "identidad_y_ambito",
+        "cuota_integra_autonomica_para_consumo_comun",
+        "derechosMinimos_y_atribuciones_efectivas"
+      ],
+      "cuota": "consumirCuota una sola vez en dispatcher v4;no sumar presentaciones",
+      "arrastreCuotaNuevo": null,
+      "alcance": "individual ordinario2025;acreditación externa pendiente;no total de conjunta",
+      "pruebas": "PESADO2 rebase:529 verdes y2 TODO B previos;28 nuevas,213 E38,92 v4,40 A40,100 B37,56 C2025. Sin cambio de38 oráculos. Validación focal de autor;revisión independiente pendiente.",
+      "citasRecepcion": {
+        "archivo": "../producto-e-ampliacion/citas.json",
+        "ids": [
+          "E-ampliacion-rioja_menor_acogimiento_guarda_adopcion-1",
+          "E-ampliacion-rioja_menor_acogimiento_guarda_adopcion-2",
+          "E-ampliacion-rioja_menor_acogimiento_guarda_adopcion-3",
+          "E-ampliacion-rioja_menor_acogimiento_guarda_adopcion-4",
+          "E-ampliacion-rioja_menor_acogimiento_guarda_adopcion-5"
+        ]
+      },
+      "oraculosCorregidos": "tests/galicia-rioja-ampliacion-2025.casos.ts y suites originales conservadas byte a byte"
+    },
+    {
+      "codigo": "rioja_nacimiento_adopcion_hijos",
+      "conexion": "generacion2025_y_cuota_compartida_candidato",
+      "productorFaltante": null,
+      "productoresMotor": [
+        "identidad_y_ambito",
+        "cuota_integra_autonomica_para_consumo_comun",
+        "derechosMinimos_y_atribuciones_efectivas",
+        "ordinal_parental_derivado_de_censo_fisico_completo"
+      ],
+      "cuota": "consumirCuota una sola vez en dispatcher v4;no sumar presentaciones",
+      "arrastreCuotaNuevo": null,
+      "alcance": "individual ordinario2025;acreditación externa pendiente;no total de conjunta",
+      "pruebas": "PESADO2 rebase:529 verdes y2 TODO B previos;28 nuevas,213 E38,92 v4,40 A40,100 B37,56 C2025. Sin cambio de38 oráculos. Validación focal de autor;revisión independiente pendiente.",
+      "limiteConcreto": "Requiere censo físico completo por progenitor;no acepta orden fiscal externo. Hijo y fechas conciliados con derechos anuales. Sin censo o evento anterior al vínculo,no hay importe.",
+      "citasRecepcion": {
+        "archivo": "../producto-e-ampliacion/citas.json",
+        "ids": [
+          "E-ampliacion-rioja_nacimiento_adopcion_hijos-1",
+          "E-ampliacion-rioja_nacimiento_adopcion_hijos-2",
+          "E-ampliacion-rioja_nacimiento_adopcion_hijos-3",
+          "E-ampliacion-rioja_nacimiento_adopcion_hijos-4",
+          "E-ampliacion-rioja_nacimiento_adopcion_hijos-5",
+          "E-ampliacion-rioja_nacimiento_adopcion_hijos-6",
+          "E-ampliacion-rioja_nacimiento_adopcion_hijos-7"
+        ]
+      },
+      "oraculosCorregidos": "tests/galicia-rioja-ampliacion-2025.casos.ts y suites originales conservadas byte a byte"
+    },
+    {
+      "codigo": "rioja_obras_rehabilitacion_vivienda_habitual",
+      "conexion": "rechazo_sin_importe_productor_ausente",
+      "productorFaltante": "patrimonio ajustado y base regional compartida rehabilitación/adecuación9040",
+      "productoresMotor": [
+        "identidad_y_ambito",
+        "cuota_integra_autonomica_para_consumo_comun"
+      ],
+      "cuota": "consumirCuota una sola vez en dispatcher v4;no sumar presentaciones",
+      "arrastreCuotaNuevo": null,
+      "alcance": "individual ordinario2025;acreditación externa pendiente;no total de conjunta",
+      "pruebas": "PESADO2 rebase:529 verdes y2 TODO B previos;28 nuevas,213 E38,92 v4,40 A40,100 B37,56 C2025. Sin cambio de38 oráculos. Validación focal de autor;revisión independiente pendiente.",
+      "citasRecepcion": {
+        "archivo": "../producto-e-ampliacion/citas.json",
+        "ids": [
+          "E-ampliacion-rioja_obras_rehabilitacion_vivienda_habitual-1",
+          "E-ampliacion-rioja_obras_rehabilitacion_vivienda_habitual-2",
+          "E-ampliacion-rioja_obras_rehabilitacion_vivienda_habitual-3",
+          "E-ampliacion-rioja_obras_rehabilitacion_vivienda_habitual-4",
+          "E-ampliacion-rioja_obras_rehabilitacion_vivienda_habitual-5",
+          "E-ampliacion-rioja_obras_rehabilitacion_vivienda_habitual-6",
+          "E-ampliacion-rioja_obras_rehabilitacion_vivienda_habitual-7",
+          "E-ampliacion-rioja_obras_rehabilitacion_vivienda_habitual-8",
+          "E-ampliacion-rioja_obras_rehabilitacion_vivienda_habitual-9"
+        ]
+      },
+      "oraculosCorregidos": "tests/galicia-rioja-ampliacion-2025.casos.ts y suites originales conservadas byte a byte"
+    },
+    {
+      "codigo": "rioja_paliar_subida_intereses_hipotecarios",
+      "conexion": "generacion2025_y_cuota_compartida_candidato",
+      "productorFaltante": null,
+      "productoresMotor": [
+        "identidad_y_ambito",
+        "cuota_integra_autonomica_para_consumo_comun"
+      ],
+      "cuota": "consumirCuota una sola vez en dispatcher v4;no sumar presentaciones",
+      "arrastreCuotaNuevo": null,
+      "alcance": "individual ordinario2025;acreditación externa pendiente;no total de conjunta",
+      "pruebas": "PESADO2 rebase:529 verdes y2 TODO B previos;28 nuevas,213 E38,92 v4,40 A40,100 B37,56 C2025. Sin cambio de38 oráculos. Validación focal de autor;revisión independiente pendiente.",
+      "citasRecepcion": {
+        "archivo": "../producto-e-ampliacion/citas.json",
+        "ids": [
+          "E-ampliacion-rioja_paliar_subida_intereses_hipotecarios-1",
+          "E-ampliacion-rioja_paliar_subida_intereses_hipotecarios-2",
+          "E-ampliacion-rioja_paliar_subida_intereses_hipotecarios-3",
+          "E-ampliacion-rioja_paliar_subida_intereses_hipotecarios-4",
+          "E-ampliacion-rioja_paliar_subida_intereses_hipotecarios-5"
+        ]
+      },
+      "oraculosCorregidos": "tests/galicia-rioja-ampliacion-2025.casos.ts y suites originales conservadas byte a byte"
+    },
+    {
+      "codigo": "rioja_segunda_vivienda_medio_rural",
+      "conexion": "rechazo_sin_importe_productor_ausente",
+      "productorFaltante": "patrimonio ajustado,base estatalDT18 y reserva regional adquisición/segunda vivienda",
+      "productoresMotor": [
+        "identidad_y_ambito",
+        "cuota_integra_autonomica_para_consumo_comun"
+      ],
+      "cuota": "consumirCuota una sola vez en dispatcher v4;no sumar presentaciones",
+      "arrastreCuotaNuevo": null,
+      "alcance": "individual ordinario2025;acreditación externa pendiente;no total de conjunta",
+      "pruebas": "PESADO2 rebase:529 verdes y2 TODO B previos;28 nuevas,213 E38,92 v4,40 A40,100 B37,56 C2025. Sin cambio de38 oráculos. Validación focal de autor;revisión independiente pendiente.",
+      "citasRecepcion": {
+        "archivo": "../producto-e-ampliacion/citas.json",
+        "ids": [
+          "E-ampliacion-rioja_segunda_vivienda_medio_rural-1",
+          "E-ampliacion-rioja_segunda_vivienda_medio_rural-2",
+          "E-ampliacion-rioja_segunda_vivienda_medio_rural-3",
+          "E-ampliacion-rioja_segunda_vivienda_medio_rural-4",
+          "E-ampliacion-rioja_segunda_vivienda_medio_rural-5",
+          "E-ampliacion-rioja_segunda_vivienda_medio_rural-6"
+        ]
+      },
+      "oraculosCorregidos": "tests/galicia-rioja-ampliacion-2025.casos.ts y suites originales conservadas byte a byte"
+    },
+    {
+      "codigo": "rioja_vehiculos_electricos_nuevos",
+      "conexion": "generacion2025_y_cuota_compartida_candidato",
+      "productorFaltante": null,
+      "productoresMotor": [
+        "identidad_y_ambito",
+        "cuota_integra_autonomica_para_consumo_comun",
+        "cuotaElectricoConsumidaDeclaracion_reserva_codigo_unico_individual"
+      ],
+      "cuota": "consumirCuota una sola vez en dispatcher v4;no sumar presentaciones",
+      "arrastreCuotaNuevo": null,
+      "alcance": "individual ordinario2025;acreditación externa pendiente;no total de conjunta",
+      "pruebas": "PESADO2 rebase:529 verdes y2 TODO B previos;28 nuevas,213 E38,92 v4,40 A40,100 B37,56 C2025. Sin cambio de38 oráculos. Validación focal de autor;revisión independiente pendiente.",
+      "limiteConcreto": "M1,L3e,L5e,L6e,L7e suspendidos2025;N1,L1e,L2e,bici según recepción corregida. Pagador propio representado;tercero/cotitular requiere atribución de adquisición ausente.",
+      "citasRecepcion": {
+        "archivo": "../producto-e-ampliacion/citas.json",
+        "ids": [
+          "E-ampliacion-rioja_vehiculos_electricos_nuevos-1",
+          "E-ampliacion-rioja_vehiculos_electricos_nuevos-2",
+          "E-ampliacion-rioja_vehiculos_electricos_nuevos-3",
+          "E-ampliacion-rioja_vehiculos_electricos_nuevos-4",
+          "E-ampliacion-rioja_vehiculos_electricos_nuevos-5",
+          "E-ampliacion-rioja_vehiculos_electricos_nuevos-6",
+          "E-ampliacion-rioja_vehiculos_electricos_nuevos-7",
+          "E-ampliacion-rioja_vehiculos_electricos_nuevos-8",
+          "E-ampliacion-rioja_vehiculos_electricos_nuevos-9",
+          "E-ampliacion-rioja_vehiculos_electricos_nuevos-10",
+          "E-ampliacion-rioja_vehiculos_electricos_nuevos-11",
+          "E-ampliacion-rioja_vehiculos_electricos_nuevos-12",
+          "E-ampliacion-rioja_vehiculos_electricos_nuevos-13",
+          "E-ampliacion-rioja_vehiculos_electricos_nuevos-14",
+          "E-ampliacion-rioja_vehiculos_electricos_nuevos-15",
+          "E-ampliacion-rioja_vehiculos_electricos_nuevos-16",
+          "E-ampliacion-rioja_vehiculos_electricos_nuevos-17",
+          "E-ampliacion-rioja_vehiculos_electricos_nuevos-18",
+          "E-ampliacion-rioja_vehiculos_electricos_nuevos-19",
+          "E-ampliacion-rioja_vehiculos_electricos_nuevos-20",
+          "E-ampliacion-rioja_vehiculos_electricos_nuevos-21",
+          "E-ampliacion-rioja_vehiculos_electricos_nuevos-22",
+          "E-ampliacion-rioja_vehiculos_electricos_nuevos-23"
+        ]
+      },
+      "oraculosCorregidos": "tests/galicia-rioja-ampliacion-2025.casos.ts y suites originales conservadas byte a byte"
+    },
+    {
+      "codigo": "rioja_vivienda_habitual_pequenos_municipios",
+      "conexion": "rechazo_sin_importe_productor_ausente",
+      "productorFaltante": "patrimonio inicial/final ajustado y reserva de base9040/452 por declaración",
+      "productoresMotor": [
+        "identidad_y_ambito",
+        "cuota_integra_autonomica_para_consumo_comun"
+      ],
+      "cuota": "consumirCuota una sola vez en dispatcher v4;no sumar presentaciones",
+      "arrastreCuotaNuevo": null,
+      "alcance": "individual ordinario2025;acreditación externa pendiente;no total de conjunta",
+      "pruebas": "PESADO2 rebase:529 verdes y2 TODO B previos;28 nuevas,213 E38,92 v4,40 A40,100 B37,56 C2025. Sin cambio de38 oráculos. Validación focal de autor;revisión independiente pendiente.",
+      "citasRecepcion": {
+        "archivo": "../producto-e-ampliacion/citas.json",
+        "ids": [
+          "E-ampliacion-rioja_vivienda_habitual_pequenos_municipios-1",
+          "E-ampliacion-rioja_vivienda_habitual_pequenos_municipios-2",
+          "E-ampliacion-rioja_vivienda_habitual_pequenos_municipios-3",
+          "E-ampliacion-rioja_vivienda_habitual_pequenos_municipios-4",
+          "E-ampliacion-rioja_vivienda_habitual_pequenos_municipios-5",
+          "E-ampliacion-rioja_vivienda_habitual_pequenos_municipios-6"
+        ]
+      },
+      "oraculosCorregidos": "tests/galicia-rioja-ampliacion-2025.casos.ts y suites originales conservadas byte a byte"
+    }
+  ],
+  "contratoMagnitudes": "CONTRATO-MAGNITUDES.md",
+  "validacion": "REBASE-P2.md",
+  "baseApiAnterior": "eb4670cf",
+  "baseParchePadre": "f848de69227445de23681a787659e7053d39251ea361c3db828906e56ae8ca99"
+}

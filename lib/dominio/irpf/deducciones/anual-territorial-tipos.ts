@@ -1,3 +1,8 @@
+import type { SolicitudE38Anual2025 } from "./galicia-rioja-ampliacion-2025/anual-esquemas"
+import type { SolicitudD51 } from "./d51-anual-esquemas"
+import type { SolicitudAnualF2025 } from "./territorial-f-ampliacion-2025/anual-esquemas"
+import type { SolicitudAnualC36 } from "./canarias-balears-hechos-2025/anual-esquemas"
+import type { SolicitudAragonDosAnual2025 } from "./aragon-dos-anual-esquemas"
 import type { SolicitudBAmpliadoAnual } from "./b-ampliado-anual-2025"
 import type { SolicitudAmpliacionAnualA2025 } from "./ampliacion-a-anual-esquemas"
 import type { SolicitudCatalunyaHechos2025 } from "./catalunya-hechos-2025"
@@ -10,6 +15,11 @@ import type { HechosE2025 } from "./galicia-rioja-hechos-2025"
 import type { HechosTerritorialesF } from "./territorial-f-esquemas-2025"
 type Quitar<T, K extends PropertyKey> = T extends unknown ? Omit<T, K> : never
 export type HechosAnualesTerritoriales =
+  | SolicitudE38Anual2025
+  | SolicitudD51
+  | SolicitudAnualF2025
+  | SolicitudAnualC36
+  | SolicitudAragonDosAnual2025
   | SolicitudBAmpliadoAnual
   | SolicitudAmpliacionAnualA2025
   | {
