@@ -3,19 +3,14 @@
   "ejercicio": 2025,
   "estado": "candidato",
   "punto4Cerrado": false,
-  "balance": {
-    "codigos": 63,
-    "reglasParcialesPreparadas": 12,
-    "sinEvaluadorPorHechos": 51
-  },
   "deducciones": [
     {
       "codigo": "clm_familia_monoparental",
       "comunidad": "castilla-la-mancha",
-      "estado": "sin_evaluador_por_hechos",
-      "funcion": null,
-      "modulo": null,
-      "siguienteRama": "Representar y evaluar los hechos propios de esta regla: 200; BIG+BIA <=27.000/36.000; totalidad del mínimo y sin alimentos, convivencia/dependencia exclusiva, hijos menores o mayores con apoyo civil; incompatible 9 quáter.",
+      "estado": "subcalculo_parcial_candidato_132_tests_tipos_lint_conformes",
+      "funcion": "familiaMonoparental",
+      "modulo": "lib/dominio/irpf/deducciones/castilla-la-mancha-hechos-2025.ts",
+      "siguienteRama": "Emancipación, dependencia exclusiva y mínimo material; rama de viudedad con exclusión penal y composición anual.",
       "reglaRevisada": "200; BIG+BIA <=27.000/36.000; totalidad del mínimo y sin alimentos, convivencia/dependencia exclusiva, hijos menores o mayores con apoyo civil; incompatible 9 quáter.",
       "revision": {
         "archivo": "docs/procedencia/deducciones-2025/revisiones/d-clm-remisiones/dictamenes.json",
@@ -214,15 +209,42 @@
       "reservasNormativas": [],
       "aceptacionFiscal": "pendiente",
       "conexionAnual": false,
-      "articuloJuridico": "Artículo 2 bis. Deducción por familia monoparental."
+      "articuloJuridico": "Artículo 2 bis. Deducción por familia monoparental.",
+      "contratoHechos": {
+        "estadoCivil": "=separado|sin_vinculo|casado|viudo",
+        "hijos": [
+          {
+            "id": "s",
+            "nacimiento": "s",
+            "apoyoCivil": "=ninguno|guarda|curatela|defensor|voluntario",
+            "convivencia": "=exclusiva|compartida|ninguna",
+            "titularesMinimo": "ss",
+            "alimentos": "s"
+          }
+        ],
+        "eleccion": "=familia|alquiler_monoparental",
+        "exhaustividad": "=completa"
+      },
+      "magnitudesAnualesRequeridas": [
+        "base_estatal_misma_inversion",
+        "base_historica_vivienda:<id>",
+        "deducciones_cuenta_anteriores:<cuenta>",
+        "base_historica_vivienda:<id>",
+        "base_historica_vivienda:<id>"
+      ],
+      "pruebasNuevas": {
+        "archivo": "tests/producto-lote-d-ampliacion.test.ts",
+        "fixture": "tests/fixtures/deducciones-d-ampliacion-2025.json",
+        "estado": "ejecutadas_en_suite_focal_132_conformes"
+      }
     },
     {
       "codigo": "clm_libros_idiomas_otros_gastos_educacion",
       "comunidad": "castilla-la-mancha",
-      "estado": "sin_evaluador_por_hechos",
-      "funcion": null,
-      "modulo": null,
-      "siguienteRama": "Representar y evaluar los hechos propios de esta regla: 100% libros y 15% cuatro actividades; límites individuales 100/75/50 hasta 6.500/10.000/12.500 y conjuntos 200/100/75 hasta 12.000/20.000/25.000, tras restar mínimo. Numerosa 150/300 hasta 30.000/40.000; límite global por hijos y después becas, justificantes y derecho al mínimo.",
+      "estado": "subcalculo_parcial_candidato_132_tests_tipos_lint_conformes",
+      "funcion": "gastosEducacion",
+      "modulo": "lib/dominio/irpf/deducciones/castilla-la-mancha-hechos-2025.ts",
+      "siguienteRama": "Etapas de libros y cuatro clases de actividad (internet solo alta/primer mes sin cambio ni actividad); mínimo de hijos; becas tras límite global.",
       "reglaRevisada": "100% libros y 15% cuatro actividades; límites individuales 100/75/50 hasta 6.500/10.000/12.500 y conjuntos 200/100/75 hasta 12.000/20.000/25.000, tras restar mínimo. Numerosa 150/300 hasta 30.000/40.000; límite global por hijos y después becas, justificantes y derecho al mínimo.",
       "revision": {
         "archivo": "docs/procedencia/deducciones-2025/revisiones/d-clm-remisiones/dictamenes.json",
@@ -507,15 +529,37 @@
       "reservasNormativas": [],
       "aceptacionFiscal": "pendiente",
       "conexionAnual": false,
-      "articuloJuridico": "Artículo 3. Deducciones por gastos en la adquisición de libros de texto, por la enseñanza de idiomas y otros gastos relacionados con la educación."
+      "articuloJuridico": "Artículo 3. Deducciones por gastos en la adquisición de libros de texto, por la enseñanza de idiomas y otros gastos relacionados con la educación.",
+      "contratoHechos": {
+        "familia": "=ordinaria|numerosa",
+        "hijos": [
+          {
+            "id": "s",
+            "titularesMinimo": "ss"
+          }
+        ],
+        "libros": "p",
+        "actividades": "p",
+        "becas": "s",
+        "baseMenosMinimo": "a",
+        "exhaustividad": "=completa"
+      },
+      "magnitudesAnualesRequeridas": [
+        "base_imponible_menos_minimo_personal_familiar"
+      ],
+      "pruebasNuevas": {
+        "archivo": "tests/producto-lote-d-ampliacion.test.ts",
+        "fixture": "tests/fixtures/deducciones-d-ampliacion-2025.json",
+        "estado": "ejecutadas_en_suite_focal_132_conformes"
+      }
     },
     {
       "codigo": "clm_gastos_guarderia",
       "comunidad": "castilla-la-mancha",
-      "estado": "sin_evaluador_por_hechos",
-      "funcion": null,
-      "modulo": null,
-      "siguienteRama": "Representar y evaluar los hechos propios de esta regla: 30%, 500 por hijo, 250 año de cumplir tres; meses completos, centro autorizado, gastos pagados, mínimo, BIG+BIA <=27.000/36.000; becas minoran por hijo y gasto en especie exento excluido; reparto entre titulares.",
+      "estado": "subcalculo_parcial_candidato_132_tests_tipos_lint_conformes",
+      "funcion": "guarderia",
+      "modulo": "lib/dominio/irpf/deducciones/castilla-la-mancha-hechos-2025.ts",
+      "siguienteRama": "Centro autorizado, imputación de cada pago a meses completos y mínimo; ramas de fallecimiento y uso del límite por cónyuge fallecido.",
       "reglaRevisada": "30%, 500 por hijo, 250 año de cumplir tres; meses completos, centro autorizado, gastos pagados, mínimo, BIG+BIA <=27.000/36.000; becas minoran por hijo y gasto en especie exento excluido; reparto entre titulares.",
       "revision": {
         "archivo": "docs/procedencia/deducciones-2025/revisiones/d-clm-remisiones/dictamenes.json",
@@ -719,7 +763,33 @@
       "reservasNormativas": [],
       "aceptacionFiscal": "pendiente",
       "conexionAnual": false,
-      "articuloJuridico": "Artículo 3 bis. Deducción por gastos de guardería."
+      "articuloJuridico": "Artículo 3 bis. Deducción por gastos de guardería.",
+      "contratoHechos": {
+        "hijos": [
+          {
+            "id": "s",
+            "nacimiento": "s",
+            "titularesMinimo": "ss",
+            "mesesCompletos": "n",
+            "pagos": "p",
+            "becas": "s",
+            "gastoExentoEspecie": "s"
+          }
+        ],
+        "exhaustividad": "=completa"
+      },
+      "magnitudesAnualesRequeridas": [
+        "base_estatal_misma_inversion",
+        "base_historica_vivienda:<id>",
+        "deducciones_cuenta_anteriores:<cuenta>",
+        "base_historica_vivienda:<id>",
+        "base_historica_vivienda:<id>"
+      ],
+      "pruebasNuevas": {
+        "archivo": "tests/producto-lote-d-ampliacion.test.ts",
+        "fixture": "tests/fixtures/deducciones-d-ampliacion-2025.json",
+        "estado": "ejecutadas_en_suite_focal_132_conformes"
+      }
     },
     {
       "codigo": "clm_cuidado_ascendientes_mayores_75",
@@ -902,10 +972,10 @@
     {
       "codigo": "clm_acogimiento_familiar_no_remunerado_menores",
       "comunidad": "castilla-la-mancha",
-      "estado": "sin_evaluador_por_hechos",
-      "funcion": null,
-      "modulo": null,
-      "siguienteRama": "Representar y evaluar los hechos propios de esta regla: 500 primero, 600 sucesivos, >183 días, acuerdo administrativo/judicial, certificado de acogimiento y no ayuda JCCM; renta <=12.500/25.000; reparto individual en matrimonio/unión de hecho; excluir adoptados del cómputo.",
+      "estado": "subcalculo_parcial_candidato_132_tests_tipos_lint_conformes",
+      "funcion": "acogimientoMenores",
+      "modulo": "lib/dominio/irpf/deducciones/castilla-la-mancha-hechos-2025.ts",
+      "siguienteRama": "Cronología completa del ordinal; acuerdo de acogimiento/guarda preadoptiva y certificado de ausencia de ayuda; matrimonio/unión de hecho para reparto.",
       "reglaRevisada": "500 primero, 600 sucesivos, >183 días, acuerdo administrativo/judicial, certificado de acogimiento y no ayuda JCCM; renta <=12.500/25.000; reparto individual en matrimonio/unión de hecho; excluir adoptados del cómputo.",
       "revision": {
         "archivo": "docs/procedencia/deducciones-2025/revisiones/d-clm-remisiones/dictamenes.json",
@@ -1012,15 +1082,43 @@
       "reservasNormativas": [],
       "aceptacionFiscal": "pendiente",
       "conexionAnual": false,
-      "articuloJuridico": "Artículo 7. Deducción por acogimiento familiar no remunerado de menores."
+      "articuloJuridico": "Artículo 7. Deducción por acogimiento familiar no remunerado de menores.",
+      "contratoHechos": {
+        "personas": [
+          {
+            "id": "s",
+            "nacimiento": "s",
+            "inicio": "s",
+            "fin": "s",
+            "orden": "n",
+            "contraprestacion": "s",
+            "ayudaJccm": "s",
+            "adopcion": "=no|si",
+            "titulares": "ss"
+          }
+        ],
+        "exhaustividad": "=completa"
+      },
+      "magnitudesAnualesRequeridas": [
+        "base_estatal_misma_inversion",
+        "base_historica_vivienda:<id>",
+        "deducciones_cuenta_anteriores:<cuenta>",
+        "base_historica_vivienda:<id>",
+        "base_historica_vivienda:<id>"
+      ],
+      "pruebasNuevas": {
+        "archivo": "tests/producto-lote-d-ampliacion.test.ts",
+        "fixture": "tests/fixtures/deducciones-d-ampliacion-2025.json",
+        "estado": "ejecutadas_en_suite_focal_132_conformes"
+      }
     },
     {
       "codigo": "clm_acogimiento_no_remunerado_mayores_65_discapacidad",
       "comunidad": "castilla-la-mancha",
-      "estado": "sin_evaluador_por_hechos",
-      "funcion": null,
-      "modulo": null,
-      "siguienteRama": "Representar y evaluar los hechos propios de esta regla: 600 por >65 o discapacidad >=33%, sin contraprestación >183 días; renta <=12.500/25.000; certificado de ausencia de ayudas a ambos; parentesco hasta cuarto excluido en mayores; reparto igual individual.",
+      "estado": "subcalculo_parcial_candidato_132_tests_tipos_lint_conformes",
+      "funcion": "acogimientoMayores",
+      "modulo": "lib/dominio/irpf/deducciones/castilla-la-mancha-hechos-2025.ts",
+      "siguienteRama": "Parentesco y certificados de ausencia de ayuda de acogedor/acogido; alcance concreto de reparto entre titulares.",
       "reglaRevisada": "600 por >65 o discapacidad >=33%, sin contraprestación >183 días; renta <=12.500/25.000; certificado de ausencia de ayudas a ambos; parentesco hasta cuarto excluido en mayores; reparto igual individual.",
       "revision": {
         "archivo": "docs/procedencia/deducciones-2025/revisiones/d-clm-remisiones/dictamenes.json",
@@ -1145,15 +1243,43 @@
       "reservasNormativas": [],
       "aceptacionFiscal": "pendiente",
       "conexionAnual": false,
-      "articuloJuridico": "Artículo 8. Deducción por acogimiento no remunerado de mayores de 65 años o discapacitados."
+      "articuloJuridico": "Artículo 8. Deducción por acogimiento no remunerado de mayores de 65 años o discapacitados.",
+      "contratoHechos": {
+        "personas": [
+          {
+            "id": "s",
+            "nacimiento": "s",
+            "grado": "n",
+            "inicio": "s",
+            "fin": "s",
+            "parentesco": "n",
+            "contraprestacion": "s",
+            "ayudas": "s",
+            "titulares": "ss"
+          }
+        ],
+        "exhaustividad": "=completa"
+      },
+      "magnitudesAnualesRequeridas": [
+        "base_estatal_misma_inversion",
+        "base_historica_vivienda:<id>",
+        "deducciones_cuenta_anteriores:<cuenta>",
+        "base_historica_vivienda:<id>",
+        "base_historica_vivienda:<id>"
+      ],
+      "pruebasNuevas": {
+        "archivo": "tests/producto-lote-d-ampliacion.test.ts",
+        "fixture": "tests/fixtures/deducciones-d-ampliacion-2025.json",
+        "estado": "ejecutadas_en_suite_focal_132_conformes"
+      }
     },
     {
       "codigo": "clm_arrendamiento_menores_36",
       "comunidad": "castilla-la-mancha",
-      "estado": "sin_evaluador_por_hechos",
-      "funcion": null,
-      "modulo": null,
-      "siguienteRama": "Representar y evaluar los hechos propios de esta regla: Edad <36; 15%/500 por reforma con efectos 2025; rural 20%/612: <=2.500 o hasta 10.000 con distancia >30 km de municipio >50.000; renta menos mínimo <=12.500/25.000, vivienda CLM habitual y NIF arrendador.",
+      "estado": "subcalculo_parcial_candidato_132_tests_tipos_lint_conformes",
+      "funcion": "alquilerJoven",
+      "modulo": "lib/dominio/irpf/deducciones/castilla-la-mancha-hechos-2025.ts",
+      "siguienteRama": "Vivienda habitual CLM y NIF arrendador; titularidad con renta/territorio elegible (no excluir titulares por analogía con art.13.4); concurrencia de varios contratos/techos anuales y requisitos propios de la variante. La deducción joven no importa prorrateo diario de9bis/9ter/9quater/9quinquies.",
       "reglaRevisada": "Edad <36; 15%/500 por reforma con efectos 2025; rural 20%/612: <=2.500 o hasta 10.000 con distancia >30 km de municipio >50.000; renta menos mínimo <=12.500/25.000, vivienda CLM habitual y NIF arrendador.",
       "revision": {
         "archivo": "docs/procedencia/deducciones-2025/revisiones/d-clm-remisiones/dictamenes.json",
@@ -1332,15 +1458,35 @@
       "reservasNormativas": [],
       "aceptacionFiscal": "pendiente",
       "conexionAnual": false,
-      "articuloJuridico": "Artículo 9. Deducción por arrendamiento de vivienda habitual por menores de 36 años."
+      "articuloJuridico": "Artículo 9. Deducción por arrendamiento de vivienda habitual por menores de 36 años.",
+      "contratoHechos": {
+        "inicio": "s",
+        "fin": "s",
+        "titularesConDerecho": "ss",
+        "pagos": "p",
+        "minimoDescendientes": "a",
+        "eleccion": "=esta|otra_incompatible",
+        "nacimiento": "s",
+        "poblacionPadronVigente": "n",
+        "distanciaMunicipio50000": "s",
+        "exhaustividad": "=completa"
+      },
+      "magnitudesAnualesRequeridas": [
+        "minimo_descendientes"
+      ],
+      "pruebasNuevas": {
+        "archivo": "tests/producto-lote-d-ampliacion.test.ts",
+        "fixture": "tests/fixtures/deducciones-d-ampliacion-2025.json",
+        "estado": "ejecutadas_en_suite_focal_132_conformes"
+      }
     },
     {
       "codigo": "clm_arrendamiento_dacion_pago",
       "comunidad": "castilla-la-mancha",
-      "estado": "sin_evaluador_por_hechos",
-      "funcion": null,
-      "modulo": null,
-      "siguienteRama": "Representar y evaluar los hechos propios de esta regla: 15%/500; dación vinculada al contrato cancela toda deuda hipotecaria; vivienda habitual CLM, NIF y renta menos mínimo <=12.500/25.000; límite por días y titulares; incompatibilidad otros alquileres.",
+      "estado": "subcalculo_parcial_candidato_132_tests_tipos_lint_conformes",
+      "funcion": "alquilerDacion",
+      "modulo": "lib/dominio/irpf/deducciones/castilla-la-mancha-hechos-2025.ts",
+      "siguienteRama": "Vivienda habitual CLM y NIF arrendador; titularidad con renta/territorio elegible (no excluir titulares por analogía con art.13.4); concurrencia de varios contratos/techos anuales y requisitos propios de la variante.",
       "reglaRevisada": "15%/500; dación vinculada al contrato cancela toda deuda hipotecaria; vivienda habitual CLM, NIF y renta menos mínimo <=12.500/25.000; límite por días y titulares; incompatibilidad otros alquileres.",
       "revision": {
         "archivo": "docs/procedencia/deducciones-2025/revisiones/d-clm-remisiones/dictamenes.json",
@@ -1491,15 +1637,35 @@
       "reservasNormativas": [],
       "aceptacionFiscal": "pendiente",
       "conexionAnual": false,
-      "articuloJuridico": "Artículo 9 bis. Deducción por arrendamiento de vivienda habitual vinculado a determinadas operaciones de dación en pago."
+      "articuloJuridico": "Artículo 9 bis. Deducción por arrendamiento de vivienda habitual vinculado a determinadas operaciones de dación en pago.",
+      "contratoHechos": {
+        "inicio": "s",
+        "fin": "s",
+        "titularesConDerecho": "ss",
+        "pagos": "p",
+        "minimoDescendientes": "a",
+        "eleccion": "=esta|otra_incompatible",
+        "deudaAntes": "s",
+        "deudaCancelada": "s",
+        "deudaDespues": "s",
+        "exhaustividad": "=completa"
+      },
+      "magnitudesAnualesRequeridas": [
+        "minimo_descendientes"
+      ],
+      "pruebasNuevas": {
+        "archivo": "tests/producto-lote-d-ampliacion.test.ts",
+        "fixture": "tests/fixtures/deducciones-d-ampliacion-2025.json",
+        "estado": "ejecutadas_en_suite_focal_132_conformes"
+      }
     },
     {
       "codigo": "clm_arrendamiento_familias_numerosas",
       "comunidad": "castilla-la-mancha",
-      "estado": "sin_evaluador_por_hechos",
-      "funcion": null,
-      "modulo": null,
-      "siguienteRama": "Representar y evaluar los hechos propios de esta regla: 15%/500; título al devengo; vivienda habitual CLM, NIF y renta menos mínimo <=12.500/25.000; límite por días y titulares; incompatible artículo 2 y otros alquileres.",
+      "estado": "subcalculo_parcial_candidato_132_tests_tipos_lint_conformes",
+      "funcion": "alquilerNumerosa",
+      "modulo": "lib/dominio/irpf/deducciones/castilla-la-mancha-hechos-2025.ts",
+      "siguienteRama": "Vivienda habitual CLM y NIF arrendador; titularidad con renta/territorio elegible (no excluir titulares por analogía con art.13.4); concurrencia de varios contratos/techos anuales y requisitos propios de la variante.",
       "reglaRevisada": "15%/500; título al devengo; vivienda habitual CLM, NIF y renta menos mínimo <=12.500/25.000; límite por días y titulares; incompatible artículo 2 y otros alquileres.",
       "revision": {
         "archivo": "docs/procedencia/deducciones-2025/revisiones/d-clm-remisiones/dictamenes.json",
@@ -1699,15 +1865,34 @@
       "reservasNormativas": [],
       "aceptacionFiscal": "pendiente",
       "conexionAnual": false,
-      "articuloJuridico": "Artículo 9 ter. Deducción por arrendamiento de vivienda habitual por familias numerosas."
+      "articuloJuridico": "Artículo 9 ter. Deducción por arrendamiento de vivienda habitual por familias numerosas.",
+      "contratoHechos": {
+        "inicio": "s",
+        "fin": "s",
+        "titularesConDerecho": "ss",
+        "pagos": "p",
+        "minimoDescendientes": "a",
+        "eleccion": "=esta|otra_incompatible",
+        "tituloInicio": "s",
+        "tituloFin": "s",
+        "exhaustividad": "=completa"
+      },
+      "magnitudesAnualesRequeridas": [
+        "minimo_descendientes"
+      ],
+      "pruebasNuevas": {
+        "archivo": "tests/producto-lote-d-ampliacion.test.ts",
+        "fixture": "tests/fixtures/deducciones-d-ampliacion-2025.json",
+        "estado": "ejecutadas_en_suite_focal_132_conformes"
+      }
     },
     {
       "codigo": "clm_arrendamiento_familias_monoparentales",
       "comunidad": "castilla-la-mancha",
-      "estado": "sin_evaluador_por_hechos",
-      "funcion": null,
-      "modulo": null,
-      "siguienteRama": "Representar y evaluar los hechos propios de esta regla: 15%/500; concepto completo 2 bis, NIF, vivienda habitual CLM y renta menos mínimo <=12.500/25.000; límite por días y titulares; incompatible 2 bis y otros alquileres.",
+      "estado": "subcalculo_parcial_candidato_132_tests_tipos_lint_conformes",
+      "funcion": "alquilerMonoparental",
+      "modulo": "lib/dominio/irpf/deducciones/castilla-la-mancha-hechos-2025.ts",
+      "siguienteRama": "Vivienda habitual CLM y NIF arrendador; titularidad con renta/territorio elegible (no excluir titulares por analogía con art.13.4); concurrencia de varios contratos/techos anuales y requisitos propios de la variante.",
       "reglaRevisada": "15%/500; concepto completo 2 bis, NIF, vivienda habitual CLM y renta menos mínimo <=12.500/25.000; límite por días y titulares; incompatible 2 bis y otros alquileres.",
       "revision": {
         "archivo": "docs/procedencia/deducciones-2025/revisiones/d-clm-remisiones/dictamenes.json",
@@ -1902,15 +2087,35 @@
       "reservasNormativas": [],
       "aceptacionFiscal": "pendiente",
       "conexionAnual": false,
-      "articuloJuridico": "Artículo 9 quáter. Deducción por arrendamiento de vivienda habitual por familias monoparentales."
+      "articuloJuridico": "Artículo 9 quáter. Deducción por arrendamiento de vivienda habitual por familias monoparentales.",
+      "contratoHechos": {
+        "inicio": "s",
+        "fin": "s",
+        "titularesConDerecho": "ss",
+        "pagos": "p",
+        "minimoDescendientes": "a",
+        "eleccion": "=esta|otra_incompatible",
+        "estadoCivil": "=separado|sin_vinculo",
+        "hijosMinimoExclusivo": "ss",
+        "alimentos": "s",
+        "exhaustividad": "=completa"
+      },
+      "magnitudesAnualesRequeridas": [
+        "minimo_descendientes"
+      ],
+      "pruebasNuevas": {
+        "archivo": "tests/producto-lote-d-ampliacion.test.ts",
+        "fixture": "tests/fixtures/deducciones-d-ampliacion-2025.json",
+        "estado": "ejecutadas_en_suite_focal_132_conformes"
+      }
     },
     {
       "codigo": "clm_arrendamiento_personas_discapacidad",
       "comunidad": "castilla-la-mancha",
-      "estado": "sin_evaluador_por_hechos",
-      "funcion": null,
-      "modulo": null,
-      "siguienteRama": "Representar y evaluar los hechos propios de esta regla: 15%/500; grado >=65% y mínimo propio; NIF, vivienda habitual CLM y renta menos mínimo <=12.500/25.000; límite por días/titulares; incompatible artículo 4 y otros alquileres.",
+      "estado": "subcalculo_parcial_candidato_132_tests_tipos_lint_conformes",
+      "funcion": "alquilerDiscapacidad",
+      "modulo": "lib/dominio/irpf/deducciones/castilla-la-mancha-hechos-2025.ts",
+      "siguienteRama": "Vivienda habitual CLM y NIF arrendador; titularidad con renta/territorio elegible (no excluir titulares por analogía con art.13.4); concurrencia de varios contratos/techos anuales y requisitos propios de la variante.",
       "reglaRevisada": "15%/500; grado >=65% y mínimo propio; NIF, vivienda habitual CLM y renta menos mínimo <=12.500/25.000; límite por días/titulares; incompatible artículo 4 y otros alquileres.",
       "revision": {
         "archivo": "docs/procedencia/deducciones-2025/revisiones/d-clm-remisiones/dictamenes.json",
@@ -2103,15 +2308,33 @@
       "reservasNormativas": [],
       "aceptacionFiscal": "pendiente",
       "conexionAnual": false,
-      "articuloJuridico": "Artículo 9 quinquies. Deducción por arrendamiento de vivienda habitual por personas con discapacidad."
+      "articuloJuridico": "Artículo 9 quinquies. Deducción por arrendamiento de vivienda habitual por personas con discapacidad.",
+      "contratoHechos": {
+        "inicio": "s",
+        "fin": "s",
+        "titularesConDerecho": "ss",
+        "pagos": "p",
+        "minimoDescendientes": "a",
+        "eleccion": "=esta|otra_incompatible",
+        "grado": "n",
+        "exhaustividad": "=completa"
+      },
+      "magnitudesAnualesRequeridas": [
+        "minimo_descendientes"
+      ],
+      "pruebasNuevas": {
+        "archivo": "tests/producto-lote-d-ampliacion.test.ts",
+        "fixture": "tests/fixtures/deducciones-d-ampliacion-2025.json",
+        "estado": "ejecutadas_en_suite_focal_132_conformes"
+      }
     },
     {
       "codigo": "clm_donaciones_cooperacion_lucha_pobreza_discapacidad",
       "comunidad": "castilla-la-mancha",
-      "estado": "sin_evaluador_por_hechos",
-      "funcion": null,
-      "modulo": null,
-      "siguienteRama": "Representar y evaluar los hechos propios de esta regla: 15% de donación dineraria, base <=10% base liquidable; entidad 49/2002 artículos 2-3 con fines y registro CLM; certificado; fundación con cuentas al Protectorado y depósito ordenado.",
+      "estado": "subcalculo_parcial_candidato_132_tests_tipos_lint_conformes",
+      "funcion": "donacionesCooperacion",
+      "modulo": "lib/dominio/irpf/deducciones/castilla-la-mancha-hechos-2025.ts",
+      "siguienteRama": "Entidad arts.2–3 Ley49/2002 con fin específico/registro CLM; fundación con cuentas depositadas por orden del Protectorado. Certificación no se infiere de referencia.",
       "reglaRevisada": "15% de donación dineraria, base <=10% base liquidable; entidad 49/2002 artículos 2-3 con fines y registro CLM; certificado; fundación con cuentas al Protectorado y depósito ordenado.",
       "revision": {
         "archivo": "docs/procedencia/deducciones-2025/revisiones/d-clm-remisiones/dictamenes.json",
@@ -2256,15 +2479,30 @@
       "reservasNormativas": [],
       "aceptacionFiscal": "pendiente",
       "conexionAnual": false,
-      "articuloJuridico": "Artículo 10. Deducción por cantidades donadas para la cooperación internacional al desarrollo y a las entidades para la lucha contra la pobreza, la exclusión social y la ayuda a personas con discapacidad."
+      "articuloJuridico": "Artículo 10. Deducción por cantidades donadas para la cooperación internacional al desarrollo y a las entidades para la lucha contra la pobreza, la exclusión social y la ayuda a personas con discapacidad.",
+      "contratoHechos": {
+        "pagos": "p",
+        "baseLiquidable": "a",
+        "tipoEntidad": "=entidad49_2002|fundacion",
+        "fin": "=cooperacion|pobreza|exclusion|discapacidad",
+        "exhaustividad": "=completa"
+      },
+      "magnitudesAnualesRequeridas": [
+        "base_liquidable_total"
+      ],
+      "pruebasNuevas": {
+        "archivo": "tests/producto-lote-d-ampliacion.test.ts",
+        "fixture": "tests/fixtures/deducciones-d-ampliacion-2025.json",
+        "estado": "ejecutadas_en_suite_focal_132_conformes"
+      }
     },
     {
       "codigo": "clm_donaciones_idi_innovacion_empresarial",
       "comunidad": "castilla-la-mancha",
-      "estado": "sin_evaluador_por_hechos",
-      "funcion": null,
-      "modulo": null,
-      "siguienteRama": "Representar y evaluar los hechos propios de esta regla: 15% de donación dineraria, deducción <=10% cuota autonómica; JCCM/organismo dependiente de fines I+D+i o entidad privada 49/2002 con fines y registro CLM; certificado.",
+      "estado": "subcalculo_parcial_candidato_132_tests_tipos_lint_conformes",
+      "funcion": "donacionesIdi",
+      "modulo": "lib/dominio/irpf/deducciones/castilla-la-mancha-hechos-2025.ts",
+      "siguienteRama": "Finalidad I+D+i del organismo o entidad privada; registro CLM y régimen49/2002 solo de privada; certificado particular.",
       "reglaRevisada": "15% de donación dineraria, deducción <=10% cuota autonómica; JCCM/organismo dependiente de fines I+D+i o entidad privada 49/2002 con fines y registro CLM; certificado.",
       "revision": {
         "archivo": "docs/procedencia/deducciones-2025/revisiones/d-clm-remisiones/dictamenes.json",
@@ -2412,15 +2650,29 @@
       "reservasNormativas": [],
       "aceptacionFiscal": "pendiente",
       "conexionAnual": false,
-      "articuloJuridico": "Artículo 11. Deducción por donaciones con finalidad en investigación y desarrollo científico e innovación empresarial."
+      "articuloJuridico": "Artículo 11. Deducción por donaciones con finalidad en investigación y desarrollo científico e innovación empresarial.",
+      "contratoHechos": {
+        "pagos": "p",
+        "cuotaAutonomica": "a",
+        "destinatario": "=jccm|organismo_investigacion|privada49_2002",
+        "exhaustividad": "=completa"
+      },
+      "magnitudesAnualesRequeridas": [
+        "cuota_integra_autonomica"
+      ],
+      "pruebasNuevas": {
+        "archivo": "tests/producto-lote-d-ampliacion.test.ts",
+        "fixture": "tests/fixtures/deducciones-d-ampliacion-2025.json",
+        "estado": "ejecutadas_en_suite_focal_132_conformes"
+      }
     },
     {
       "codigo": "clm_donaciones_bienes_culturales_mecenazgo",
       "comunidad": "castilla-la-mancha",
-      "estado": "sin_evaluador_por_hechos",
-      "funcion": null,
-      "modulo": null,
-      "siguienteRama": "Representar y evaluar los hechos propios de esta regla: 15% bienes donados, conservación/restauración o fines culturales; suma de bases <=10% BL. Inventario para bienes/obras, entidades legales y Plan para fines culturales; crédito fiscal incompatible. Reforma de mecenazgo desde 16-4-2025 conservada.",
+      "estado": "subcalculo_parcial_candidato_132_tests_tipos_lint_conformes",
+      "funcion": "mecenazgoCultural",
+      "modulo": "lib/dominio/irpf/deducciones/castilla-la-mancha-hechos-2025.ts",
+      "siguienteRama": "Valoración legal del bien (no cuota fiscal), inventario para bienes/obras; destinatario y Plan de Mecenazgo para fines culturales; aplicar versión anterior/posterior al 16-4 por operación, sin reconocimiento por referencia.",
       "reglaRevisada": "15% bienes donados, conservación/restauración o fines culturales; suma de bases <=10% BL. Inventario para bienes/obras, entidades legales y Plan para fines culturales; crédito fiscal incompatible. Reforma de mecenazgo desde 16-4-2025 conservada.",
       "revision": {
         "archivo": "docs/procedencia/deducciones-2025/revisiones/d-clm-remisiones/dictamenes.json",
@@ -2666,15 +2918,36 @@
       "reservasNormativas": [],
       "aceptacionFiscal": "pendiente",
       "conexionAnual": false,
-      "articuloJuridico": "Artículo 11 bis. Deducciones por donaciones de bienes culturales y contribuciones a favor de la conservación, reparación y restauración de bienes pertenecientes al patrimonio cultural de Castilla-La Mancha, y para fines culturales, incluidos en el plan de mecenazgo cultural de Castilla-La Mancha."
+      "articuloJuridico": "Artículo 11 bis. Deducciones por donaciones de bienes culturales y contribuciones a favor de la conservación, reparación y restauración de bienes pertenecientes al patrimonio cultural de Castilla-La Mancha, y para fines culturales, incluidos en el plan de mecenazgo cultural de Castilla-La Mancha.",
+      "contratoHechos": {
+        "operaciones": [
+          {
+            "id": "s",
+            "fecha": "s",
+            "modalidad": "=bien|conservacion|fines_culturales",
+            "valor": "s",
+            "creditoFiscal": "=no|si"
+          }
+        ],
+        "baseLiquidable": "a",
+        "exhaustividad": "=completa"
+      },
+      "magnitudesAnualesRequeridas": [
+        "base_liquidable_total"
+      ],
+      "pruebasNuevas": {
+        "archivo": "tests/producto-lote-d-ampliacion.test.ts",
+        "fixture": "tests/fixtures/deducciones-d-ampliacion-2025.json",
+        "estado": "ejecutadas_en_suite_focal_132_conformes"
+      }
     },
     {
       "codigo": "clm_intereses_primera_vivienda_menores_40",
       "comunidad": "castilla-la-mancha",
-      "estado": "sin_evaluador_por_hechos",
-      "funcion": null,
-      "modulo": null,
-      "siguienteRama": "Representar y evaluar los hechos propios de esta regla: Intereses efectivamente pagados en préstamo variable para primera vivienda, edad <40; límites 150 con BIG+BIA <=12.500/25.000, 100 hasta 27.000/36.000; concepto estatal congelado a 31-12-2012.",
+      "estado": "subcalculo_parcial_candidato_132_tests_tipos_lint_conformes",
+      "funcion": "interesesPrimeraVivienda",
+      "modulo": "lib/dominio/irpf/deducciones/castilla-la-mancha-hechos-2025.ts",
+      "siguienteRama": "Primera vivienda habitual y préstamo con destino de adquisición conforme a conceptos estatales2012; historia de titularidad y concurrencia reservada solo12/12ter.",
       "reglaRevisada": "Intereses efectivamente pagados en préstamo variable para primera vivienda, edad <40; límites 150 con BIG+BIA <=12.500/25.000, 100 hasta 27.000/36.000; concepto estatal congelado a 31-12-2012.",
       "revision": {
         "archivo": "docs/procedencia/deducciones-2025/revisiones/d-clm-remisiones/dictamenes.json",
@@ -2961,15 +3234,35 @@
       ],
       "aceptacionFiscal": "pendiente",
       "conexionAnual": false,
-      "articuloJuridico": "Artículo 12. Deducción por los gastos en intereses por la financiación ajena de la adquisición de primera vivienda habitual por menores de 40 años."
+      "articuloJuridico": "Artículo 12. Deducción por los gastos en intereses por la financiación ajena de la adquisición de primera vivienda habitual por menores de 40 años.",
+      "contratoHechos": {
+        "nacimiento": "s",
+        "tipoPrestamo": "=variable|fijo",
+        "pagosIntereses": "p",
+        "maximaPropiedadAnterior": "s",
+        "concurrencia12ter": "=no|si",
+        "exhaustividad": "=completa"
+      },
+      "magnitudesAnualesRequeridas": [
+        "base_estatal_misma_inversion",
+        "base_historica_vivienda:<id>",
+        "deducciones_cuenta_anteriores:<cuenta>",
+        "base_historica_vivienda:<id>",
+        "base_historica_vivienda:<id>"
+      ],
+      "pruebasNuevas": {
+        "archivo": "tests/producto-lote-d-ampliacion.test.ts",
+        "fixture": "tests/fixtures/deducciones-d-ampliacion-2025.json",
+        "estado": "ejecutadas_en_suite_focal_132_conformes"
+      }
     },
     {
       "codigo": "clm_residencia_zonas_rurales",
       "comunidad": "castilla-la-mancha",
-      "estado": "sin_evaluador_por_hechos",
-      "funcion": null,
-      "modulo": null,
-      "siguienteRama": "Representar y evaluar los hechos propios de esta regla: Cuota autonómica: intensa 20/15%, extrema 25/20%, riesgo 15/10% para <2.000/2.000 a 4.999. Intermedias agrícolas del acuerdo: 25 municipios, 15%, condiciones DA6. Estancia efectiva, clasificación y padrón anual con salvaguarda 2021.",
+      "estado": "subcalculo_parcial_candidato_132_tests_tipos_lint_conformes",
+      "funcion": "residenciaRural",
+      "modulo": "lib/dominio/irpf/deducciones/castilla-la-mancha-hechos-2025.ts",
+      "siguienteRama": "Clasificación Decreto108/2021, estancia efectiva y salvaguarda del padrón2021; intermedias solo25 municipios/DA6, sin extender a adquisición o traslado.",
       "reglaRevisada": "Cuota autonómica: intensa 20/15%, extrema 25/20%, riesgo 15/10% para <2.000/2.000 a 4.999. Intermedias agrícolas del acuerdo: 25 municipios, 15%, condiciones DA6. Estancia efectiva, clasificación y padrón anual con salvaguarda 2021.",
       "revision": {
         "archivo": "docs/procedencia/deducciones-2025/revisiones/d-clm-remisiones/dictamenes.json",
@@ -3203,15 +3496,41 @@
       "reservasNormativas": [],
       "aceptacionFiscal": "pendiente",
       "conexionAnual": false,
-      "articuloJuridico": "Artículo 12 bis. Deducción por residencia habitual en zonas rurales."
+      "articuloJuridico": "Artículo 12 bis. Deducción por residencia habitual en zonas rurales.",
+      "contratoHechos": {
+        "categoria": "=intensa|extrema|riesgo|intermedia_agricola",
+        "poblacionAnual": "n",
+        "poblacion2021": "n",
+        "municipioIntermedio": "s",
+        "perdida2016_2021": "s",
+        "cuotaAutonomica": "a",
+        "exhaustividad": "=completa",
+        "zonaSanitariaPadron": "s",
+        "zonaSanitariaAtencion": "s",
+        "escolares": [
+          {
+            "id": "s",
+            "localidadReferencia": "s",
+            "localidadCentro": "s"
+          }
+        ]
+      },
+      "magnitudesAnualesRequeridas": [
+        "cuota_integra_autonomica"
+      ],
+      "pruebasNuevas": {
+        "archivo": "tests/producto-lote-d-ampliacion.test.ts",
+        "fixture": "tests/fixtures/deducciones-d-ampliacion-2025.json",
+        "estado": "ejecutadas_en_suite_focal_132_conformes"
+      }
     },
     {
       "codigo": "clm_adquisicion_rehabilitacion_vivienda_zonas_rurales",
       "comunidad": "castilla-la-mancha",
-      "estado": "sin_evaluador_por_hechos",
-      "funcion": null,
-      "modulo": null,
-      "siguienteRama": "Representar y evaluar los hechos propios de esta regla: 15%; base anual 12.000 y total 180.000 o coste menor menos ayudas JCCM; intensa/extrema y municipio <5.000 con salvaguarda 2021; desde 1-1-2021. Pleno dominio, habitualidad, patrimonio, inversiones previas/reinversión y definición estructural de rehabilitación del 12 ter.",
+      "estado": "subcalculo_parcial_candidato_132_tests_tipos_lint_conformes",
+      "funcion": "viviendaRural",
+      "modulo": "lib/dominio/irpf/deducciones/castilla-la-mancha-hechos-2025.ts",
+      "siguienteRama": "Salvaguarda municipal2021, pleno dominio/habitualidad, rehabilitación estructural, patrimonio, inversiones previas y ganancia exenta reinvertida; historial total por vivienda.",
       "reglaRevisada": "15%; base anual 12.000 y total 180.000 o coste menor menos ayudas JCCM; intensa/extrema y municipio <5.000 con salvaguarda 2021; desde 1-1-2021. Pleno dominio, habitualidad, patrimonio, inversiones previas/reinversión y definición estructural de rehabilitación del 12 ter.",
       "revision": {
         "archivo": "docs/procedencia/deducciones-2025/revisiones/d-clm-remisiones/dictamenes.json",
@@ -3489,15 +3808,40 @@
       ],
       "aceptacionFiscal": "pendiente",
       "conexionAnual": false,
-      "articuloJuridico": "Artículo 12 ter. Deducción por adquisición o rehabilitación de la vivienda habitual en zonas rurales."
+      "articuloJuridico": "Artículo 12 ter. Deducción por adquisición o rehabilitación de la vivienda habitual en zonas rurales.",
+      "contratoHechos": {
+        "fechaOperacion": "s",
+        "categoria": "=intensa|extrema|riesgo|intermedia",
+        "poblacionFiscal": "n",
+        "pagos": "p",
+        "coste": "s",
+        "ayudaJccm": "s",
+        "baseConsumidaAnterior": "a",
+        "porcentajePropiedad": "s",
+        "concurrencia12": "=no|si",
+        "exhaustividad": "=completa",
+        "vivienda": "s"
+      },
+      "magnitudesAnualesRequeridas": [
+        "base_estatal_misma_inversion",
+        "base_historica_vivienda:<id>",
+        "deducciones_cuenta_anteriores:<cuenta>",
+        "base_historica_vivienda:<id>",
+        "base_historica_vivienda:<id>"
+      ],
+      "pruebasNuevas": {
+        "archivo": "tests/producto-lote-d-ampliacion.test.ts",
+        "fixture": "tests/fixtures/deducciones-d-ampliacion-2025.json",
+        "estado": "ejecutadas_en_suite_focal_132_conformes"
+      }
     },
     {
       "codigo": "clm_traslado_vivienda_habitual",
       "comunidad": "castilla-la-mancha",
-      "estado": "sin_evaluador_por_hechos",
-      "funcion": null,
-      "modulo": null,
-      "siguienteRama": "Representar y evaluar los hechos propios de esta regla: 500 año del traslado laboral y siguiente, por contribuyente, limitada a cuota de trabajo/actividad; intensa/extrema sin umbral municipal <5.000; BL inicial <22.946/31.485; permanecer año y tres siguientes, regularización con excepción por fallecimiento.",
+      "estado": "subcalculo_parcial_candidato_132_tests_tipos_lint_conformes",
+      "funcion": "trasladoLaboral",
+      "modulo": "lib/dominio/irpf/deducciones/castilla-la-mancha-hechos-2025.ts",
+      "siguienteRama": "Residencia y motivo laboral efectivos; permanencia año inicial y tres siguientes, excepciones/regularización, importe por contribuyente de conjunta.",
       "reglaRevisada": "500 año del traslado laboral y siguiente, por contribuyente, limitada a cuota de trabajo/actividad; intensa/extrema sin umbral municipal <5.000; BL inicial <22.946/31.485; permanecer año y tres siguientes, regularización con excepción por fallecimiento.",
       "revision": {
         "archivo": "docs/procedencia/deducciones-2025/revisiones/d-clm-remisiones/dictamenes.json",
@@ -3715,15 +4059,32 @@
       "reservasNormativas": [],
       "aceptacionFiscal": "pendiente",
       "conexionAnual": false,
-      "articuloJuridico": "Artículo 12 quater. Deducción por traslado de vivienda habitual."
+      "articuloJuridico": "Artículo 12 quater. Deducción por traslado de vivienda habitual.",
+      "contratoHechos": {
+        "fechaTraslado": "s",
+        "categoria": "=intensa|extrema|riesgo|intermedia",
+        "causa": "=trabajo|actividad|otra",
+        "baseLiquidableInicial": "a",
+        "cuotaTrabajoActividad": "a",
+        "exhaustividad": "=completa"
+      },
+      "magnitudesAnualesRequeridas": [
+        "base_liquidable_inicio_periodo",
+        "cuota_autonomica_trabajo_actividad"
+      ],
+      "pruebasNuevas": {
+        "archivo": "tests/producto-lote-d-ampliacion.test.ts",
+        "fixture": "tests/fixtures/deducciones-d-ampliacion-2025.json",
+        "estado": "ejecutadas_en_suite_focal_132_conformes"
+      }
     },
     {
       "codigo": "clm_inversion_acciones_participaciones_mercantiles",
       "comunidad": "castilla-la-mancha",
-      "estado": "sin_evaluador_por_hechos",
-      "funcion": null,
-      "modulo": null,
-      "siguienteRama": "Representar y evaluar los hechos propios de esta regla: 20%/4.000; formas societarias enumeradas, máximo familiar 40% todos los días; mantenimiento tres años, sin dirección ejecutiva; actividad no patrimonial, domicilio social/fiscal CLM; escritura; empleo 24 meses y ampliación en entidad de últimos tres años con incremento posterior; incompatible mismas inversiones con 12 septies.",
+      "estado": "subcalculo_parcial_candidato_132_tests_tipos_lint_conformes",
+      "funcion": "inversionMercantil",
+      "modulo": "lib/dominio/irpf/deducciones/castilla-la-mancha-hechos-2025.ts",
+      "siguienteRama": "Formas societarias legales, actividad no patrimonial; constitución/ampliación, empleo24meses e incremento de plantilla; tres años inversión y sin funciones ejecutivas.",
       "reglaRevisada": "20%/4.000; formas societarias enumeradas, máximo familiar 40% todos los días; mantenimiento tres años, sin dirección ejecutiva; actividad no patrimonial, domicilio social/fiscal CLM; escritura; empleo 24 meses y ampliación en entidad de últimos tres años con incremento posterior; incompatible mismas inversiones con 12 septies.",
       "revision": {
         "archivo": "docs/procedencia/deducciones-2025/revisiones/d-clm-remisiones/dictamenes.json",
@@ -3898,15 +4259,37 @@
       "reservasNormativas": [],
       "aceptacionFiscal": "pendiente",
       "conexionAnual": false,
-      "articuloJuridico": "Artículo 12 sexies. Deducción por inversión en la adquisición de acciones y participaciones sociales como consecuencia de acuerdos de constitución de sociedades o ampliación de capital en las sociedades mercantiles."
+      "articuloJuridico": "Artículo 12 sexies. Deducción por inversión en la adquisición de acciones y participaciones sociales como consecuencia de acuerdos de constitución de sociedades o ampliación de capital en las sociedades mercantiles.",
+      "contratoHechos": {
+        "pagos": "p",
+        "participacionFamiliarMaxima": "s",
+        "domicilioSocial": "=clm|fuera",
+        "domicilioFiscal": "=clm|fuera",
+        "direccionEjecutiva": "=no|si",
+        "otraDeduccionMismaInversion": "=no|si",
+        "fechaEscritura": "s",
+        "exhaustividad": "=completa"
+      },
+      "magnitudesAnualesRequeridas": [
+        "base_estatal_misma_inversion",
+        "base_historica_vivienda:<id>",
+        "deducciones_cuenta_anteriores:<cuenta>",
+        "base_historica_vivienda:<id>",
+        "base_historica_vivienda:<id>"
+      ],
+      "pruebasNuevas": {
+        "archivo": "tests/producto-lote-d-ampliacion.test.ts",
+        "fixture": "tests/fixtures/deducciones-d-ampliacion-2025.json",
+        "estado": "ejecutadas_en_suite_focal_132_conformes"
+      }
     },
     {
       "codigo": "clm_inversion_economia_social",
       "comunidad": "castilla-la-mancha",
-      "estado": "sin_evaluador_por_hechos",
-      "funcion": null,
-      "modulo": null,
-      "siguienteRama": "Representar y evaluar los hechos propios de esta regla: 20%/4.000; familia hasta tercero <=40%; entidad artículo 5 Ley 5/2011 en versión 2025, domicilio social/fiscal CLM y persona a jornada completa RGSS; escritura; cinco años aportación y requisitos de entidad; incompatible mismas inversiones 12 sexies.",
+      "estado": "subcalculo_parcial_candidato_132_tests_tipos_lint_conformes",
+      "funcion": "inversionEconomiaSocial",
+      "modulo": "lib/dominio/irpf/deducciones/castilla-la-mancha-hechos-2025.ts",
+      "siguienteRama": "Entidad art.5 Ley5/2011 versión2025; empleo completo RGSS, aportación y requisitos cinco años; parentesco hasta tercero.",
       "reglaRevisada": "20%/4.000; familia hasta tercero <=40%; entidad artículo 5 Ley 5/2011 en versión 2025, domicilio social/fiscal CLM y persona a jornada completa RGSS; escritura; cinco años aportación y requisitos de entidad; incompatible mismas inversiones 12 sexies.",
       "revision": {
         "archivo": "docs/procedencia/deducciones-2025/revisiones/d-clm-remisiones/dictamenes.json",
@@ -4030,15 +4413,36 @@
       "reservasNormativas": [],
       "aceptacionFiscal": "pendiente",
       "conexionAnual": false,
-      "articuloJuridico": "Artículo 12 septies. Deducción por inversión en entidades de la economía social."
+      "articuloJuridico": "Artículo 12 septies. Deducción por inversión en entidades de la economía social.",
+      "contratoHechos": {
+        "pagos": "p",
+        "participacionFamiliarMaxima": "s",
+        "domicilioSocial": "=clm|fuera",
+        "domicilioFiscal": "=clm|fuera",
+        "otraDeduccionMismaInversion": "=no|si",
+        "fechaEscritura": "s",
+        "exhaustividad": "=completa"
+      },
+      "magnitudesAnualesRequeridas": [
+        "base_estatal_misma_inversion",
+        "base_historica_vivienda:<id>",
+        "deducciones_cuenta_anteriores:<cuenta>",
+        "base_historica_vivienda:<id>",
+        "base_historica_vivienda:<id>"
+      ],
+      "pruebasNuevas": {
+        "archivo": "tests/producto-lote-d-ampliacion.test.ts",
+        "fixture": "tests/fixtures/deducciones-d-ampliacion-2025.json",
+        "estado": "ejecutadas_en_suite_focal_132_conformes"
+      }
     },
     {
       "codigo": "clm_ahorro_inversion_primera_vivienda",
       "comunidad": "castilla-la-mancha",
-      "estado": "sin_evaluador_por_hechos",
-      "funcion": null,
-      "modulo": null,
-      "siguienteRama": "Representar y evaluar los hechos propios de esta regla: 15%, 750 anual y 3.000 total; aportaciones hasta ejercicio de cumplir 36; primera vivienda CLM en seis años, pleno dominio, cuenta separada única, incremento saldo, reposición antes del devengo, muerte y no doble deducción; BIG+BIA <=27.000/36.000. Identificar cuenta, apertura e incremento en autoliquidación.",
+      "estado": "subcalculo_parcial_candidato_132_tests_tipos_lint_conformes",
+      "funcion": "cuentaVivienda",
+      "modulo": "lib/dominio/irpf/deducciones/castilla-la-mancha-hechos-2025.ts",
+      "siguienteRama": "Cuenta separada única e incremento nuevo (reposición de retiradas no vuelve a deducir), destino primera vivienda CLM en6años, historia de propiedad, muerte y regularización.",
       "reglaRevisada": "15%, 750 anual y 3.000 total; aportaciones hasta ejercicio de cumplir 36; primera vivienda CLM en seis años, pleno dominio, cuenta separada única, incremento saldo, reposición antes del devengo, muerte y no doble deducción; BIG+BIA <=27.000/36.000. Identificar cuenta, apertura e incremento en autoliquidación.",
       "revision": {
         "archivo": "docs/procedencia/deducciones-2025/revisiones/d-clm-remisiones/dictamenes.json",
@@ -4154,15 +4558,37 @@
       "reservasNormativas": [],
       "aceptacionFiscal": "pendiente",
       "conexionAnual": false,
-      "articuloJuridico": "Artículo 12 octies"
+      "articuloJuridico": "Artículo 12 octies",
+      "contratoHechos": {
+        "nacimiento": "s",
+        "cuenta": "s",
+        "fechaApertura": "s",
+        "saldoInicio": "s",
+        "saldoFin": "s",
+        "deducidoAnterior": "a",
+        "cuentasAbiertas": "n",
+        "exhaustividad": "=completa"
+      },
+      "magnitudesAnualesRequeridas": [
+        "base_estatal_misma_inversion",
+        "base_historica_vivienda:<id>",
+        "deducciones_cuenta_anteriores:<cuenta>",
+        "base_historica_vivienda:<id>",
+        "base_historica_vivienda:<id>"
+      ],
+      "pruebasNuevas": {
+        "archivo": "tests/producto-lote-d-ampliacion.test.ts",
+        "fixture": "tests/fixtures/deducciones-d-ampliacion-2025.json",
+        "estado": "ejecutadas_en_suite_focal_132_conformes"
+      }
     },
     {
       "codigo": "clm_controles_veterinarios_perros_asistencia",
       "comunidad": "castilla-la-mancha",
-      "estado": "sin_evaluador_por_hechos",
-      "funcion": null,
-      "modulo": null,
-      "siguienteRama": "Representar y evaluar los hechos propios de esta regla: 30%, 100 anual por contribuyente, durante tenencia; tratamientos obligatorios pagados, factura veterinaria autorizada, vínculo reconocido por CLM u otra comunidad, sin subvención pública/privada y BIG+BIA <=27.000/36.000; clases legales 2.h/4 y exclusiones.",
+      "estado": "subcalculo_parcial_candidato_132_tests_tipos_lint_conformes",
+      "funcion": "perrosAsistencia",
+      "modulo": "lib/dominio/irpf/deducciones/castilla-la-mancha-hechos-2025.ts",
+      "siguienteRama": "Tratamientos obligatorios, veterinario autorizado, factura y reconocimiento material del vínculo/clase legal; exclusiones de Ley5/2018.",
       "reglaRevisada": "30%, 100 anual por contribuyente, durante tenencia; tratamientos obligatorios pagados, factura veterinaria autorizada, vínculo reconocido por CLM u otra comunidad, sin subvención pública/privada y BIG+BIA <=27.000/36.000; clases legales 2.h/4 y exclusiones.",
       "revision": {
         "archivo": "docs/procedencia/deducciones-2025/revisiones/d-clm-remisiones/dictamenes.json",
@@ -4290,7 +4716,28 @@
       "reservasNormativas": [],
       "aceptacionFiscal": "pendiente",
       "conexionAnual": false,
-      "articuloJuridico": "Artículo 12 nonies"
+      "articuloJuridico": "Artículo 12 nonies",
+      "contratoHechos": {
+        "pagos": "p",
+        "inicioTenencia": "s",
+        "finTenencia": "s",
+        "subvenciones": "s",
+        "clase": "=guia|servicio|senal|aviso|tea",
+        "vinculacion": "=clm|otra_comunidad",
+        "exhaustividad": "=completa"
+      },
+      "magnitudesAnualesRequeridas": [
+        "base_estatal_misma_inversion",
+        "base_historica_vivienda:<id>",
+        "deducciones_cuenta_anteriores:<cuenta>",
+        "base_historica_vivienda:<id>",
+        "base_historica_vivienda:<id>"
+      ],
+      "pruebasNuevas": {
+        "archivo": "tests/producto-lote-d-ampliacion.test.ts",
+        "fixture": "tests/fixtures/deducciones-d-ampliacion-2025.json",
+        "estado": "ejecutadas_en_suite_focal_132_conformes"
+      }
     },
     {
       "codigo": "clm_nacimiento_adopcion_hijos",
@@ -4456,10 +4903,10 @@
     {
       "codigo": "clm_familia_numerosa",
       "comunidad": "castilla-la-mancha",
-      "estado": "sin_evaluador_por_hechos",
-      "funcion": null,
-      "modulo": null,
-      "siguienteRama": "Representar y evaluar los hechos propios de esta regla: 200/400 general/especial, 300/900 con discapacidad >=65% de cónyuge/descendiente y mínimo; título al devengo, renta <=27.000/36.000 y reparto artículo 13.4; incompatible 9 ter.",
+      "estado": "subcalculo_parcial_candidato_132_tests_tipos_lint_conformes",
+      "funcion": "familiaNumerosaAmpliada",
+      "modulo": "lib/dominio/irpf/deducciones/castilla-la-mancha-hechos-2025.ts",
+      "siguienteRama": "Vínculo cónyuge/descendiente y mínimo de discapacidad; título material y composición del art. 13.4.",
       "reglaRevisada": "200/400 general/especial, 300/900 con discapacidad >=65% de cónyuge/descendiente y mínimo; título al devengo, renta <=27.000/36.000 y reparto artículo 13.4; incompatible 9 ter.",
       "revision": {
         "archivo": "docs/procedencia/deducciones-2025/revisiones/d-clm-remisiones/dictamenes.json",
@@ -4683,7 +5130,28 @@
       "reservasNormativas": [],
       "aceptacionFiscal": "pendiente",
       "conexionAnual": false,
-      "articuloJuridico": "Artículo 2. Deducción por familia numerosa."
+      "articuloJuridico": "Artículo 2. Deducción por familia numerosa.",
+      "contratoHechos": {
+        "categoria": "=general|especial",
+        "inicioTitulo": "s",
+        "finTitulo": "s",
+        "discapacitados65": "ss",
+        "titulares": "ss",
+        "eleccion": "=familia|alquiler_numerosa",
+        "exhaustividad": "=completa"
+      },
+      "magnitudesAnualesRequeridas": [
+        "base_estatal_misma_inversion",
+        "base_historica_vivienda:<id>",
+        "deducciones_cuenta_anteriores:<cuenta>",
+        "base_historica_vivienda:<id>",
+        "base_historica_vivienda:<id>"
+      ],
+      "pruebasNuevas": {
+        "archivo": "tests/producto-lote-d-ampliacion.test.ts",
+        "fixture": "tests/fixtures/deducciones-d-ampliacion-2025.json",
+        "estado": "ejecutadas_en_suite_focal_132_conformes"
+      }
     },
     {
       "codigo": "clm_discapacidad_contribuyente",
@@ -4866,10 +5334,10 @@
     {
       "codigo": "clm_discapacidad_ascendientes_descendientes",
       "comunidad": "castilla-la-mancha",
-      "estado": "sin_evaluador_por_hechos",
-      "funcion": null,
-      "modulo": null,
-      "siguienteRama": "Representar y evaluar los hechos propios de esta regla: 300 por persona >=65% con mínimo, renta <=27.000/36.000, reparto 13.4, convivencia/rentas y declaración del familiar según mínimos; incompatibles 4/6 para misma persona.",
+      "estado": "subcalculo_parcial_candidato_132_tests_tipos_lint_conformes",
+      "funcion": "discapacidadFamiliares",
+      "modulo": "lib/dominio/irpf/deducciones/castilla-la-mancha-hechos-2025.ts",
+      "siguienteRama": "Mínimo por persona: parentesco, convivencia, rentas y declaración; acreditar grado y opción por persona.",
       "reglaRevisada": "300 por persona >=65% con mínimo, renta <=27.000/36.000, reparto 13.4, convivencia/rentas y declaración del familiar según mínimos; incompatibles 4/6 para misma persona.",
       "revision": {
         "archivo": "docs/procedencia/deducciones-2025/revisiones/d-clm-remisiones/dictamenes.json",
@@ -5039,7 +5507,31 @@
       "reservasNormativas": [],
       "aceptacionFiscal": "pendiente",
       "conexionAnual": false,
-      "articuloJuridico": "Artículo 5. Deducción por discapacidad de ascendientes o descendientes."
+      "articuloJuridico": "Artículo 5. Deducción por discapacidad de ascendientes o descendientes.",
+      "contratoHechos": {
+        "personas": [
+          {
+            "id": "s",
+            "vinculo": "=ascendiente|descendiente",
+            "grado": "n",
+            "titularesMinimo": "ss",
+            "eleccion": "=discapacidad_familiar|discapacidad_propia|cuidado75"
+          }
+        ],
+        "exhaustividad": "=completa"
+      },
+      "magnitudesAnualesRequeridas": [
+        "base_estatal_misma_inversion",
+        "base_historica_vivienda:<id>",
+        "deducciones_cuenta_anteriores:<cuenta>",
+        "base_historica_vivienda:<id>",
+        "base_historica_vivienda:<id>"
+      ],
+      "pruebasNuevas": {
+        "archivo": "tests/producto-lote-d-ampliacion.test.ts",
+        "fixture": "tests/fixtures/deducciones-d-ampliacion-2025.json",
+        "estado": "ejecutadas_en_suite_focal_132_conformes"
+      }
     },
     {
       "codigo": "clm_mayores_75",
@@ -5223,10 +5715,10 @@
     {
       "codigo": "cyl_partos_adopciones_multiples",
       "comunidad": "castilla-y-leon",
-      "estado": "sin_evaluador_por_hechos",
-      "funcion": null,
-      "modulo": null,
-      "siguienteRama": "Representar y evaluar los hechos propios de esta regla: 50% para dos; 100% desde tres; adicional 901 los dos años siguientes. Mínimo, convivencia, reparto y ayudas por hecho causante.",
+      "estado": "subcalculo_parcial_candidato_132_tests_tipos_lint_conformes",
+      "funcion": "multiplesCyl",
+      "modulo": "lib/dominio/irpf/deducciones/castilla-y-leon-hechos-2025.ts",
+      "siguienteRama": "Historial de convivencia y Bono por hijo; nacimientos independientes dentro de12meses, reagrupación y años siguientes; no duplicar901 en agrupación nueva.",
       "reglaRevisada": "50% para dos; 100% desde tres; adicional 901 los dos años siguientes. Mínimo, convivencia, reparto y ayudas por hecho causante.",
       "revision": {
         "archivo": "docs/procedencia/deducciones-2025/revisiones/d-cyl-remisiones/dictamenes.json",
@@ -5276,7 +5768,36 @@
       "reservasNormativas": [],
       "aceptacionFiscal": "pendiente",
       "conexionAnual": false,
-      "articuloJuridico": "Artículo 4. Deducciones por nacimiento o adopción."
+      "articuloJuridico": "Artículo 4. Deducciones por nacimiento o adopción.",
+      "contratoHechos": {
+        "hijos": [
+          {
+            "id": "s",
+            "fecha": "s",
+            "orden": "n",
+            "grado": "n",
+            "poblacion": "n",
+            "titularesMinimo": "ss",
+            "ayudaAnalogica": "=no|concedida"
+          }
+        ],
+        "fechaPrimero": "s",
+        "fechaUltimo": "s",
+        "titulares": "ss",
+        "exhaustividad": "=completa"
+      },
+      "magnitudesAnualesRequeridas": [
+        "base_estatal_misma_inversion",
+        "base_historica_vivienda:<id>",
+        "deducciones_cuenta_anteriores:<cuenta>",
+        "base_historica_vivienda:<id>",
+        "base_historica_vivienda:<id>"
+      ],
+      "pruebasNuevas": {
+        "archivo": "tests/producto-lote-d-ampliacion.test.ts",
+        "fixture": "tests/fixtures/deducciones-d-ampliacion-2025.json",
+        "estado": "ejecutadas_en_suite_focal_132_conformes"
+      }
     },
     {
       "codigo": "cyl_gastos_adopcion",
@@ -5339,10 +5860,10 @@
     {
       "codigo": "cyl_cuidado_hijos_menores",
       "comunidad": "castilla-y-leon",
-      "estado": "sin_evaluador_por_hechos",
-      "funcion": null,
-      "modulo": null,
-      "siguienteRama": "Representar y evaluar los hechos propios de esta regla: Opciones excluyentes 30%/322 o 100%/1.320; meses completos, registro, menor de 4 y actividad/alta de progenitores con mínimo. Renta y gasto efectivo.",
+      "estado": "subcalculo_parcial_candidato_132_tests_tipos_lint_conformes",
+      "funcion": "cuidadoMenoresCyl",
+      "modulo": "lib/dominio/irpf/deducciones/castilla-y-leon-hechos-2025.ts",
+      "siguienteRama": "Centro regional registrado u hogar de alta, meses completos y gastos tipificados/NIF. Con titulares distintos se requieren pagos por hijo. Si hay progenitor externo y ayudas o incremento estatal, el contrato rechaza calcular hasta representar ayudas/estatal y deducciones nominales de ambos; no los distribuye por analogía. Cuota y composición anual pendientes.",
       "reglaRevisada": "Opciones excluyentes 30%/322 o 100%/1.320; meses completos, registro, menor de 4 y actividad/alta de progenitores con mínimo. Renta y gasto efectivo.",
       "revision": {
         "archivo": "docs/procedencia/deducciones-2025/revisiones/d-cyl-remisiones/dictamenes.json",
@@ -5394,7 +5915,37 @@
       "reservasNormativas": [],
       "aceptacionFiscal": "pendiente",
       "conexionAnual": false,
-      "articuloJuridico": "Artículo 5. Deducciones por cuidado de hijos menores."
+      "articuloJuridico": "Artículo 5. Deducciones por cuidado de hijos menores.",
+      "contratoHechos": {
+        "opcion": "=hogar|centro",
+        "hijos": [
+          {
+            "id": "s",
+            "nacimiento": "s",
+            "titularesMinimo": "ss"
+          }
+        ],
+        "mesesCompletos": "n",
+        "pagos": "p",
+        "ayudas": "s",
+        "incrementoEstatalMaternidad": "a",
+        "progenitoresActividad": "ss",
+        "progenitoresAlta": "ss",
+        "exhaustividad": "=completa"
+      },
+      "magnitudesAnualesRequeridas": [
+        "incremento_estatal_maternidad"
+      ],
+      "pruebasNuevas": {
+        "archivo": "tests/producto-lote-d-ampliacion.test.ts",
+        "fixture": "tests/fixtures/deducciones-d-ampliacion-2025.json",
+        "estado": "ejecutadas_en_suite_focal_132_conformes"
+      },
+      "magnitudesAnualesPendientesPorRama": [
+        "incremento_estatal_maternidad_otro_progenitor",
+        "ayudas_por_progenitor_y_hecho_causante",
+        "deducciones_nominales_autonomicas_de_ambos_progenitores"
+      ]
     },
     {
       "codigo": "cyl_cuotas_seguridad_social_empleados_hogar",
@@ -5507,10 +6058,10 @@
     {
       "codigo": "cyl_vivienda_jovenes_medio_rural",
       "comunidad": "castilla-y-leon",
-      "estado": "sin_evaluador_por_hechos",
-      "funcion": null,
-      "modulo": null,
-      "siguienteRama": "Representar y evaluar los hechos propios de esta regla: 15%, base 10.000; menor de 36, primera, habitual, nueva/rehabilitada, territorio y valor estricto. Derechos anteriores conservan requisitos de origen.",
+      "estado": "subcalculo_parcial_candidato_132_tests_tipos_lint_conformes",
+      "funcion": "viviendaJovenRuralCyl",
+      "modulo": "lib/dominio/irpf/deducciones/castilla-y-leon-hechos-2025.ts",
+      "siguienteRama": "Primera/nueva/habitual, población en adquisición/primer pago y lista negativa anual; rehabilitación IVA y patrimonio; régimen de origen pre2023 pendiente.",
       "reglaRevisada": "15%, base 10.000; menor de 36, primera, habitual, nueva/rehabilitada, territorio y valor estricto. Derechos anteriores conservan requisitos de origen.",
       "revision": {
         "archivo": "docs/procedencia/deducciones-2025/revisiones/d-cyl-remisiones/dictamenes.json",
@@ -5564,15 +6115,38 @@
       "reservasNormativas": [],
       "aceptacionFiscal": "pendiente",
       "conexionAnual": false,
-      "articuloJuridico": "Artículo 7. Deducciones en materia de vivienda."
+      "articuloJuridico": "Artículo 7. Deducciones en materia de vivienda.",
+      "contratoHechos": {
+        "nacimiento": "s",
+        "fechaAdquisicion": "s",
+        "valorFiscal": "s",
+        "poblacion": "n",
+        "distanciaCapital": "s",
+        "pagos": "p",
+        "maximaPropiedadAnterior": "s",
+        "tipo": "=nueva|rehabilitada|usada",
+        "exhaustividad": "=completa"
+      },
+      "magnitudesAnualesRequeridas": [
+        "base_estatal_misma_inversion",
+        "base_historica_vivienda:<id>",
+        "deducciones_cuenta_anteriores:<cuenta>",
+        "base_historica_vivienda:<id>",
+        "base_historica_vivienda:<id>"
+      ],
+      "pruebasNuevas": {
+        "archivo": "tests/producto-lote-d-ampliacion.test.ts",
+        "fixture": "tests/fixtures/deducciones-d-ampliacion-2025.json",
+        "estado": "ejecutadas_en_suite_focal_132_conformes"
+      }
     },
     {
       "codigo": "cyl_rehabilitacion_subvencionada_eficiencia_sostenibilidad_discapacidad",
       "comunidad": "castilla-y-leon",
-      "estado": "sin_evaluador_por_hechos",
-      "funcion": null,
-      "modulo": null,
-      "siguienteRama": "Representar y evaluar los hechos propios de esta regla: 15%, base 20.000; actuaciones enumeradas, vivienda habitual y subvención; ejercicio de cobro y transferencia. Sin edad/primera vivienda ni umbrales IVA de 7.6.",
+      "estado": "subcalculo_parcial_candidato_132_tests_tipos_lint_conformes",
+      "funcion": "rehabilitacionSubvencionadaCyl",
+      "modulo": "lib/dominio/irpf/deducciones/castilla-y-leon-hechos-2025.ts",
+      "siguienteRama": "Actuación enumerada y vivienda habitual; programa/subvención particular; reserva exclusivamente autonómica conservada. Gasto de años anteriores realmente satisfecho se computa en el ejercicio de cobro2025, sin importar edad/primera vivienda o umbrales7.6. Relacionar todos los pagos con la actuación subvencionada y evitar doble deducción histórica.",
       "reglaRevisada": "15%, base 20.000; actuaciones enumeradas, vivienda habitual y subvención; ejercicio de cobro y transferencia. Sin edad/primera vivienda ni umbrales IVA de 7.6.",
       "revision": {
         "archivo": "docs/procedencia/deducciones-2025/revisiones/d-cyl-remisiones/dictamenes.json",
@@ -5629,15 +6203,36 @@
       ],
       "aceptacionFiscal": "pendiente",
       "conexionAnual": false,
-      "articuloJuridico": "Artículo 7. Deducciones en materia de vivienda."
+      "articuloJuridico": "Artículo 7. Deducciones en materia de vivienda.",
+      "contratoHechos": {
+        "pagos": "p",
+        "fechaCobroSubvencion": "s",
+        "programa": "=estatal|autonomico",
+        "actuacion": "=eficiencia|sostenibilidad|discapacidad",
+        "medioPago": "=transferencia|otro",
+        "exhaustividad": "=completa"
+      },
+      "magnitudesAnualesRequeridas": [
+        "base_estatal_misma_inversion",
+        "base_historica_vivienda:<id>",
+        "deducciones_cuenta_anteriores:<cuenta>",
+        "base_historica_vivienda:<id>",
+        "base_historica_vivienda:<id>"
+      ],
+      "pruebasNuevas": {
+        "archivo": "tests/producto-lote-d-ampliacion.test.ts",
+        "fixture": "tests/fixtures/deducciones-d-ampliacion-2025.json",
+        "estado": "ejecutadas_en_suite_focal_132_conformes"
+      },
+      "discriminanteP2": "Pago20000 en2024, subvención cobrada en2025 y transferencia: subcálculo3000, no cero."
     },
     {
       "codigo": "cyl_rehabilitacion_viviendas_medio_rural_alquiler",
       "comunidad": "castilla-y-leon",
-      "estado": "sin_evaluador_por_hechos",
-      "funcion": null,
-      "modulo": null,
-      "siguienteRama": "Representar y evaluar los hechos propios de esta regla: 15%, base 20.000; solo remisión 7.1.c, rehabilitación IVA; cinco años, no familiares hasta tercero, renta mensual ≤300 y depósito. Oferta sin ocupación para vacancia.",
+      "estado": "subcalculo_parcial_candidato_132_tests_tipos_lint_conformes",
+      "funcion": "rehabilitacionAlquilerCyl",
+      "modulo": "lib/dominio/irpf/deducciones/castilla-y-leon-hechos-2025.ts",
+      "siguienteRama": "Solo remisión territorial7.1.c; rehabilitación IVA, depósito, cinco años y oferta en vacancia. Sin edad/primera vivienda ni valor150000; condiciones materiales de arrendamiento por vivienda.",
       "reglaRevisada": "15%, base 20.000; solo remisión 7.1.c, rehabilitación IVA; cinco años, no familiares hasta tercero, renta mensual ≤300 y depósito. Oferta sin ocupación para vacancia.",
       "revision": {
         "archivo": "docs/procedencia/deducciones-2025/revisiones/d-cyl-remisiones/dictamenes.json",
@@ -5690,15 +6285,36 @@
       "reservasNormativas": [],
       "aceptacionFiscal": "pendiente",
       "conexionAnual": false,
-      "articuloJuridico": "Artículo 7. Deducciones en materia de vivienda."
+      "articuloJuridico": "Artículo 7. Deducciones en materia de vivienda.",
+      "contratoHechos": {
+        "pagos": "p",
+        "poblacion": "n",
+        "distanciaCapital": "s",
+        "rentaMensual": "s",
+        "parentescoArrendatario": "n",
+        "diasOfertada": "n",
+        "exhaustividad": "=completa"
+      },
+      "magnitudesAnualesRequeridas": [
+        "base_estatal_misma_inversion",
+        "base_historica_vivienda:<id>",
+        "deducciones_cuenta_anteriores:<cuenta>",
+        "base_historica_vivienda:<id>",
+        "base_historica_vivienda:<id>"
+      ],
+      "pruebasNuevas": {
+        "archivo": "tests/producto-lote-d-ampliacion.test.ts",
+        "fixture": "tests/fixtures/deducciones-d-ampliacion-2025.json",
+        "estado": "ejecutadas_en_suite_focal_132_conformes"
+      }
     },
     {
       "codigo": "cyl_fomento_emprendimiento",
       "comunidad": "castilla-y-leon",
-      "estado": "sin_evaluador_por_hechos",
-      "funcion": null,
-      "modulo": null,
-      "siguienteRama": "Representar y evaluar los hechos propios de esta regla: 20%, máximo 10.000; 0,5–45%, tres años, proyecto y empleo. Inversión indirecta: objeto exclusivo, seis meses y domicilio receptor.",
+      "estado": "subcalculo_parcial_candidato_132_tests_tipos_lint_conformes",
+      "funcion": "emprendimientoCyl",
+      "modulo": "lib/dominio/irpf/deducciones/castilla-y-leon-hechos-2025.ts",
+      "siguienteRama": "Proyecto/empleo y tres años; indirecta con objeto exclusivo, inversión de receptora y plazos; porcentajes y patrimonio del grupo familiar, no certificado genérico.",
       "reglaRevisada": "20%, máximo 10.000; 0,5–45%, tres años, proyecto y empleo. Inversión indirecta: objeto exclusivo, seis meses y domicilio receptor.",
       "revision": {
         "archivo": "docs/procedencia/deducciones-2025/revisiones/d-cyl-remisiones/dictamenes.json",
@@ -5766,15 +6382,36 @@
       ],
       "aceptacionFiscal": "pendiente",
       "conexionAnual": false,
-      "articuloJuridico": "Artículo 8. Deducción para el fomento de emprendimiento."
+      "articuloJuridico": "Artículo 8. Deducción para el fomento de emprendimiento.",
+      "contratoHechos": {
+        "pagos": "p",
+        "via": "=directa|indirecta",
+        "participacion": "s",
+        "sede": "=cyl|externa",
+        "proyecto": "=cyl|fuera",
+        "mesesReinversion": "n",
+        "exhaustividad": "=completa"
+      },
+      "magnitudesAnualesRequeridas": [
+        "base_estatal_misma_inversion",
+        "base_historica_vivienda:<id>",
+        "deducciones_cuenta_anteriores:<cuenta>",
+        "base_historica_vivienda:<id>",
+        "base_historica_vivienda:<id>"
+      ],
+      "pruebasNuevas": {
+        "archivo": "tests/producto-lote-d-ampliacion.test.ts",
+        "fixture": "tests/fixtures/deducciones-d-ampliacion-2025.json",
+        "estado": "ejecutadas_en_suite_focal_132_conformes"
+      }
     },
     {
       "codigo": "cyl_recuperacion_patrimonio_historico_cultural_natural",
       "comunidad": "castilla-y-leon",
-      "estado": "sin_evaluador_por_hechos",
-      "funcion": null,
-      "modulo": null,
-      "siguienteRama": "Representar y evaluar los hechos propios de esta regla: 15%, renta y base conjunta de 9.a–f. En cultural se exige categoría protegida y autorización; el Censo amplio no sustituye la categoría.",
+      "estado": "subcalculo_parcial_candidato_132_tests_tipos_lint_conformes",
+      "funcion": "patrimonioCyl",
+      "modulo": "lib/dominio/irpf/deducciones/castilla-y-leon-hechos-2025.ts",
+      "siguienteRama": "Categoría protegida cultural (el censo amplio no sustituye), obra y autorización; patrimonio natural autorizado/informado. Otras bases9a–f deben venir exhaustivas para no gastar dos veces el techo.",
       "reglaRevisada": "15%, renta y base conjunta de 9.a–f. En cultural se exige categoría protegida y autorización; el Censo amplio no sustituye la categoría.",
       "revision": {
         "archivo": "docs/procedencia/deducciones-2025/revisiones/d-cyl-remisiones/dictamenes.json",
@@ -5828,15 +6465,33 @@
       ],
       "aceptacionFiscal": "pendiente",
       "conexionAnual": false,
-      "articuloJuridico": "Artículo 9. Deducciones para la recuperación del patrimonio cultural y natural, por donaciones a fundaciones y para el fomento de la investigación, el desarrollo y la innovación y para el fomento de la movilidad sostenible."
+      "articuloJuridico": "Artículo 9. Deducciones para la recuperación del patrimonio cultural y natural, por donaciones a fundaciones y para el fomento de la investigación, el desarrollo y la innovación y para el fomento de la movilidad sostenible.",
+      "contratoHechos": {
+        "pagos": "p",
+        "baseLiquidable": "a",
+        "otrasBases9af": "a",
+        "rama": "=cultural|natural",
+        "acto": "=autorizacion|informe|ambos|ninguno",
+        "categoria": "=protegido|censo_solo",
+        "exhaustividad": "=completa"
+      },
+      "magnitudesAnualesRequeridas": [
+        "base_liquidable_total",
+        "otras_bases_conjunto_9a_f"
+      ],
+      "pruebasNuevas": {
+        "archivo": "tests/producto-lote-d-ampliacion.test.ts",
+        "fixture": "tests/fixtures/deducciones-d-ampliacion-2025.json",
+        "estado": "ejecutadas_en_suite_focal_132_conformes"
+      }
     },
     {
       "codigo": "cyl_donaciones_fundaciones_patrimonio",
       "comunidad": "castilla-y-leon",
-      "estado": "sin_evaluador_por_hechos",
-      "funcion": null,
-      "modulo": null,
-      "siguienteRama": "Representar y evaluar los hechos propios de esta regla: 15%, renta y límite conjunto 10% de base liquidable; destinatarios y fines de c/d/e diferenciados, certificación y estatutos/registro de e.",
+      "estado": "subcalculo_parcial_candidato_132_tests_tipos_lint_conformes",
+      "funcion": "donacionesPatrimonioCyl",
+      "modulo": "lib/dominio/irpf/deducciones/castilla-y-leon-hechos-2025.ts",
+      "siguienteRama": "Destinatarios/fines9c/d/e diferenciados; estatutos y registro de9e no se sustituyen por régimen49/2002 de9c; certificar realidad del destino y base conjunta.",
       "reglaRevisada": "15%, renta y límite conjunto 10% de base liquidable; destinatarios y fines de c/d/e diferenciados, certificación y estatutos/registro de e.",
       "revision": {
         "archivo": "docs/procedencia/deducciones-2025/revisiones/d-cyl-remisiones/dictamenes.json",
@@ -5886,15 +6541,31 @@
       "reservasNormativas": [],
       "aceptacionFiscal": "pendiente",
       "conexionAnual": false,
-      "articuloJuridico": "Artículo 9. Deducciones para la recuperación del patrimonio cultural y natural, por donaciones a fundaciones y para el fomento de la investigación, el desarrollo y la innovación y para el fomento de la movilidad sostenible."
+      "articuloJuridico": "Artículo 9. Deducciones para la recuperación del patrimonio cultural y natural, por donaciones a fundaciones y para el fomento de la investigación, el desarrollo y la innovación y para el fomento de la movilidad sostenible.",
+      "contratoHechos": {
+        "pagos": "p",
+        "baseLiquidable": "a",
+        "otrasBases9af": "a",
+        "destino": "=patrimonio|catedral|fundacion",
+        "exhaustividad": "=completa"
+      },
+      "magnitudesAnualesRequeridas": [
+        "base_liquidable_total",
+        "otras_bases_conjunto_9a_f"
+      ],
+      "pruebasNuevas": {
+        "archivo": "tests/producto-lote-d-ampliacion.test.ts",
+        "fixture": "tests/fixtures/deducciones-d-ampliacion-2025.json",
+        "estado": "ejecutadas_en_suite_focal_132_conformes"
+      }
     },
     {
       "codigo": "cyl_donaciones_idi",
       "comunidad": "castilla-y-leon",
-      "estado": "sin_evaluador_por_hechos",
-      "funcion": null,
-      "modulo": null,
-      "siguienteRama": "Representar y evaluar los hechos propios de esta regla: 15%; beneficiarios y proyectos regionales de 9.f. Exceptuado de renta, incluido en base conjunta 10%.",
+      "estado": "subcalculo_parcial_candidato_132_tests_tipos_lint_conformes",
+      "funcion": "donacionesIdiCyl",
+      "modulo": "lib/dominio/irpf/deducciones/castilla-y-leon-hechos-2025.ts",
+      "siguienteRama": "Beneficiarios legales/proyecto regional9f; exceptuada de renta pero incluida en límite de base común9a–f. Domicilio regional no salva un proyecto externo.",
       "reglaRevisada": "15%; beneficiarios y proyectos regionales de 9.f. Exceptuado de renta, incluido en base conjunta 10%.",
       "revision": {
         "archivo": "docs/procedencia/deducciones-2025/revisiones/d-cyl-remisiones/dictamenes.json",
@@ -5939,15 +6610,32 @@
       "reservasNormativas": [],
       "aceptacionFiscal": "pendiente",
       "conexionAnual": false,
-      "articuloJuridico": "Artículo 9. Deducciones para la recuperación del patrimonio cultural y natural, por donaciones a fundaciones y para el fomento de la investigación, el desarrollo y la innovación y para el fomento de la movilidad sostenible."
+      "articuloJuridico": "Artículo 9. Deducciones para la recuperación del patrimonio cultural y natural, por donaciones a fundaciones y para el fomento de la investigación, el desarrollo y la innovación y para el fomento de la movilidad sostenible.",
+      "contratoHechos": {
+        "pagos": "p",
+        "baseLiquidable": "a",
+        "otrasBases9af": "a",
+        "proyecto": "=cyl|fuera",
+        "destinatario": "=universidad_publica|fundacion_publica|otro_legal",
+        "exhaustividad": "=completa"
+      },
+      "magnitudesAnualesRequeridas": [
+        "base_liquidable_total",
+        "otras_bases_conjunto_9a_f"
+      ],
+      "pruebasNuevas": {
+        "archivo": "tests/producto-lote-d-ampliacion.test.ts",
+        "fixture": "tests/fixtures/deducciones-d-ampliacion-2025.json",
+        "estado": "ejecutadas_en_suite_focal_132_conformes"
+      }
     },
     {
       "codigo": "cyl_movilidad_sostenible",
       "comunidad": "castilla-y-leon",
-      "estado": "sin_evaluador_por_hechos",
-      "funcion": null,
-      "modulo": null,
-      "siguienteRama": "Representar y evaluar los hechos propios de esta regla: 15%; vehículo nuevo, >40 km WLTP si híbrido, precio ≤40.000, no actividad, matriculación y cuatro años. Máximo 4.000 por vehículo repartido, minorado por estatal del mismo vehículo.",
+      "estado": "subcalculo_parcial_candidato_132_tests_tipos_lint_conformes",
+      "funcion": "movilidadCyl",
+      "modulo": "lib/dominio/irpf/deducciones/castilla-y-leon-hechos-2025.ts",
+      "siguienteRama": "Vehículo turismo nuevo, facturas a nombre de adquirentes, WLTP y cuatro años; deducción estatal del mismo vehículo incluso otro ejercicio y su atribución, no de otro vehículo.",
       "reglaRevisada": "15%; vehículo nuevo, >40 km WLTP si híbrido, precio ≤40.000, no actividad, matriculación y cuatro años. Máximo 4.000 por vehículo repartido, minorado por estatal del mismo vehículo.",
       "revision": {
         "archivo": "docs/procedencia/deducciones-2025/revisiones/d-cyl-remisiones/dictamenes.json",
@@ -5997,15 +6685,40 @@
       "reservasNormativas": [],
       "aceptacionFiscal": "pendiente",
       "conexionAnual": false,
-      "articuloJuridico": "Artículo 9. Deducciones para la recuperación del patrimonio cultural y natural, por donaciones a fundaciones y para el fomento de la investigación, el desarrollo y la innovación y para el fomento de la movilidad sostenible."
+      "articuloJuridico": "Artículo 9. Deducciones para la recuperación del patrimonio cultural y natural, por donaciones a fundaciones y para el fomento de la investigación, el desarrollo y la innovación y para el fomento de la movilidad sostenible.",
+      "contratoHechos": {
+        "vehiculos": [
+          {
+            "id": "s",
+            "tipo": "=electrico|autonomia_extendida|hibrido",
+            "wltp": "s",
+            "precio": "s",
+            "fechaMatricula": "s",
+            "afectacion": "=no|si",
+            "adquirentes": "ss",
+            "pagos": "p",
+            "deduccionEstatal": "a"
+          }
+        ],
+        "exhaustividad": "=completa"
+      },
+      "magnitudesAnualesRequeridas": [
+        "deduccion_estatal_mismo_vehiculo_para_declaracion:<id>"
+      ],
+      "pruebasNuevas": {
+        "archivo": "tests/producto-lote-d-ampliacion.test.ts",
+        "fixture": "tests/fixtures/deducciones-d-ampliacion-2025.json",
+        "estado": "ejecutadas_en_suite_focal_132_conformes"
+      },
+      "guardasP2": "Pagadores dentro de adquirentes; suma de pagos del año no superior al precio; techo repartido y deducción estatal propia identificada por vehículo."
     },
     {
       "codigo": "cyl_vivienda_nueva_construccion",
       "comunidad": "castilla-y-leon",
-      "estado": "sin_evaluador_por_hechos",
-      "funcion": null,
-      "modulo": null,
-      "siguienteRama": "Representar y evaluar los hechos propios de esta regla: DT5 TR2008 preservada: 7,5%, base 9.040, primera/nueva/habitual, visado en ventana 2011–2012 y cinco ejercicios desde primer pago.",
+      "estado": "subcalculo_parcial_candidato_132_tests_tipos_lint_conformes",
+      "funcion": "viviendaNuevaCyl",
+      "modulo": "lib/dominio/irpf/deducciones/castilla-y-leon-hechos-2025.ts",
+      "siguienteRama": "DT5 TR2008: primera, nueva y habitual; visado en ventana legal y cinco ejercicios desde primer pago; patrimonio y remisión histórica2012, sin ampliar a rehabilitación.",
       "reglaRevisada": "DT5 TR2008 preservada: 7,5%, base 9.040, primera/nueva/habitual, visado en ventana 2011–2012 y cinco ejercicios desde primer pago.",
       "revision": {
         "archivo": "docs/procedencia/deducciones-2025/revisiones/d-cyl-remisiones/dictamenes.json",
@@ -6031,7 +6744,26 @@
       "reservasNormativas": [],
       "aceptacionFiscal": "pendiente",
       "conexionAnual": false,
-      "articuloJuridico": "Disposición transitoria quinta del texto refundido aprobado por Decreto Legislativo 1/2008"
+      "articuloJuridico": "Disposición transitoria quinta del texto refundido aprobado por Decreto Legislativo 1/2008",
+      "contratoHechos": {
+        "pagos": "p",
+        "fechaVisado": "s",
+        "fechaPrimerPago": "s",
+        "tipo": "=nueva|rehabilitacion|ampliacion",
+        "exhaustividad": "=completa"
+      },
+      "magnitudesAnualesRequeridas": [
+        "base_estatal_misma_inversion",
+        "base_historica_vivienda:<id>",
+        "deducciones_cuenta_anteriores:<cuenta>",
+        "base_historica_vivienda:<id>",
+        "base_historica_vivienda:<id>"
+      ],
+      "pruebasNuevas": {
+        "archivo": "tests/producto-lote-d-ampliacion.test.ts",
+        "fixture": "tests/fixtures/deducciones-d-ampliacion-2025.json",
+        "estado": "ejecutadas_en_suite_focal_132_conformes"
+      }
     },
     {
       "codigo": "cyl_familia_numerosa",
@@ -6096,10 +6828,10 @@
     {
       "codigo": "cyl_nacimiento_adopcion_hijos",
       "comunidad": "castilla-y-leon",
-      "estado": "sin_evaluador_por_hechos",
-      "funcion": null,
-      "modulo": null,
-      "siguienteRama": "Representar y evaluar los hechos propios de esta regla: 1.010/1.475/2.351 o rural 1.420/2.070/3.300; duplicación discapacidad33, mínimo, orden, residencia, ayudas por hijo y reconocimiento tardío antes de cinco.",
+      "estado": "subcalculo_parcial_candidato_132_tests_tipos_lint_conformes",
+      "funcion": "nacimientoCyl",
+      "modulo": "lib/dominio/irpf/deducciones/castilla-y-leon-hechos-2025.ts",
+      "siguienteRama": "Mínimo, orden de hijos y población al momento legal; reconocimiento tardío discapacidad antes de5años y ayudas por hijo; saldos2022 no confundidos con nuevos arrastres.",
       "reglaRevisada": "1.010/1.475/2.351 o rural 1.420/2.070/3.300; duplicación discapacidad33, mínimo, orden, residencia, ayudas por hijo y reconocimiento tardío antes de cinco.",
       "revision": {
         "archivo": "docs/procedencia/deducciones-2025/revisiones/d-cyl-remisiones/dictamenes.json",
@@ -6156,15 +6888,41 @@
       "reservasNormativas": [],
       "aceptacionFiscal": "pendiente",
       "conexionAnual": false,
-      "articuloJuridico": "Artículo 4. Deducciones por nacimiento o adopción."
+      "articuloJuridico": "Artículo 4. Deducciones por nacimiento o adopción.",
+      "contratoHechos": {
+        "hijos": [
+          {
+            "id": "s",
+            "fecha": "s",
+            "orden": "n",
+            "grado": "n",
+            "poblacion": "n",
+            "titularesMinimo": "ss",
+            "ayudaAnalogica": "=no|concedida"
+          }
+        ],
+        "exhaustividad": "=completa"
+      },
+      "magnitudesAnualesRequeridas": [
+        "base_estatal_misma_inversion",
+        "base_historica_vivienda:<id>",
+        "deducciones_cuenta_anteriores:<cuenta>",
+        "base_historica_vivienda:<id>",
+        "base_historica_vivienda:<id>"
+      ],
+      "pruebasNuevas": {
+        "archivo": "tests/producto-lote-d-ampliacion.test.ts",
+        "fixture": "tests/fixtures/deducciones-d-ampliacion-2025.json",
+        "estado": "ejecutadas_en_suite_focal_132_conformes"
+      }
     },
     {
       "codigo": "cyl_arrendamiento_vivienda_jovenes",
       "comunidad": "castilla-y-leon",
-      "estado": "sin_evaluador_por_hechos",
-      "funcion": null,
-      "modulo": null,
-      "siguienteRama": "Representar y evaluar los hechos propios de esta regla: 20%/459 o rural 25%/612; menor de36, renta, titularidad de contrato y límite por alquiler menos ayudas. Atribuir ayudas a mensualidades correspondientes.",
+      "estado": "subcalculo_parcial_candidato_132_tests_tipos_lint_conformes",
+      "funcion": "alquilerJovenCyl",
+      "modulo": "lib/dominio/irpf/deducciones/castilla-y-leon-hechos-2025.ts",
+      "siguienteRama": "Titularidad contrato/habitualidad y territorio del año; ayudas atribuidas a mensualidades del año, no a la fecha de cobro; no trasladar límites de vivienda en propiedad.",
       "reglaRevisada": "20%/459 o rural 25%/612; menor de36, renta, titularidad de contrato y límite por alquiler menos ayudas. Atribuir ayudas a mensualidades correspondientes.",
       "revision": {
         "archivo": "docs/procedencia/deducciones-2025/revisiones/d-cyl-remisiones/dictamenes.json",
@@ -6212,7 +6970,32 @@
       "reservasNormativas": [],
       "aceptacionFiscal": "pendiente",
       "conexionAnual": false,
-      "articuloJuridico": "Artículo 7. Deducciones en materia de vivienda."
+      "articuloJuridico": "Artículo 7. Deducciones en materia de vivienda.",
+      "contratoHechos": {
+        "nacimiento": "s",
+        "contratos": [
+          {
+            "id": "s",
+            "poblacion": "n",
+            "distanciaCapital": "s",
+            "pagos": "p",
+            "ayudasMensualidades2025": "s"
+          }
+        ],
+        "exhaustividad": "=completa"
+      },
+      "magnitudesAnualesRequeridas": [
+        "base_estatal_misma_inversion",
+        "base_historica_vivienda:<id>",
+        "deducciones_cuenta_anteriores:<cuenta>",
+        "base_historica_vivienda:<id>",
+        "base_historica_vivienda:<id>"
+      ],
+      "pruebasNuevas": {
+        "archivo": "tests/producto-lote-d-ampliacion.test.ts",
+        "fixture": "tests/fixtures/deducciones-d-ampliacion-2025.json",
+        "estado": "ejecutadas_en_suite_focal_132_conformes"
+      }
     },
     {
       "codigo": "extremadura_partos_multiples",
@@ -6255,10 +7038,10 @@
     {
       "codigo": "extremadura_acogimiento_menores",
       "comunidad": "extremadura",
-      "estado": "sin_evaluador_por_hechos",
-      "funcion": null,
-      "modulo": null,
-      "siguienteRama": "Representar y evaluar los hechos propios de esta regla: 250 desde 183 días y 125 desde 91 a 182. Acogimiento legal y transitorio anterior, reparto de matrimonio/pareja, sin límite propio de renta.",
+      "estado": "subcalculo_parcial_candidato_132_tests_tipos_lint_conformes",
+      "funcion": "acogimientoMenoresExt",
+      "modulo": "lib/dominio/irpf/deducciones/extremadura-hechos-2025.ts",
+      "siguienteRama": "Régimen legal y transición del acogimiento; reparto individual solo matrimonio/pareja para la misma persona, no cualquier lista. Sin límite propio de renta.",
       "reglaRevisada": "250 desde 183 días y 125 desde 91 a 182. Acogimiento legal y transitorio anterior, reparto de matrimonio/pareja, sin límite propio de renta.",
       "revision": {
         "archivo": "docs/procedencia/deducciones-2025/revisiones/d-extremadura-remisiones/dictamenes.json",
@@ -6282,15 +7065,40 @@
       "reservasNormativas": [],
       "aceptacionFiscal": "pendiente",
       "conexionAnual": false,
-      "articuloJuridico": "Artículo 4. Deducción autonómica por acogimiento de menores."
+      "articuloJuridico": "Artículo 4. Deducción autonómica por acogimiento de menores.",
+      "contratoHechos": {
+        "personas": [
+          {
+            "id": "s",
+            "nacimiento": "s",
+            "inicio": "s",
+            "fin": "s",
+            "regimen": "=permanente|preadoptivo_transitorio|temporal_legal",
+            "titulares": "ss"
+          }
+        ],
+        "exhaustividad": "=completa"
+      },
+      "magnitudesAnualesRequeridas": [
+        "base_estatal_misma_inversion",
+        "base_historica_vivienda:<id>",
+        "deducciones_cuenta_anteriores:<cuenta>",
+        "base_historica_vivienda:<id>",
+        "base_historica_vivienda:<id>"
+      ],
+      "pruebasNuevas": {
+        "archivo": "tests/producto-lote-d-ampliacion.test.ts",
+        "fixture": "tests/fixtures/deducciones-d-ampliacion-2025.json",
+        "estado": "ejecutadas_en_suite_focal_132_conformes"
+      }
     },
     {
       "codigo": "extremadura_cuidado_hijos_hasta_14",
       "comunidad": "extremadura",
-      "estado": "sin_evaluador_por_hechos",
-      "funcion": null,
-      "modulo": null,
-      "siguienteRama": "Representar y evaluar los hechos propios de esta regla: 10%, tope 400 por convivencia según manual; trabajo simultáneo y altas, edad hasta 14, empleado de alta o centro autorizado con factura y mínimo. Bases 28.000/45.000 y excepción rural. Reparto según pagos y derecho.",
+      "estado": "subcalculo_parcial_candidato_132_tests_tipos_lint_conformes",
+      "funcion": "cuidadoHasta14Ext",
+      "modulo": "lib/dominio/irpf/deducciones/extremadura-hechos-2025.ts",
+      "siguienteRama": "Unidad de convivencia completa, simultaneidad de actividad/alta durante pagos, mínimo, centro/factura/empleado; hijos de edades distintas requieren asignación por hijo y meses14.",
       "reglaRevisada": "10%, tope 400 por convivencia según manual; trabajo simultáneo y altas, edad hasta 14, empleado de alta o centro autorizado con factura y mínimo. Bases 28.000/45.000 y excepción rural. Reparto según pagos y derecho.",
       "revision": {
         "archivo": "docs/procedencia/deducciones-2025/revisiones/d-extremadura-remisiones/dictamenes.json",
@@ -6320,15 +7128,49 @@
       "reservasNormativas": [],
       "aceptacionFiscal": "pendiente",
       "conexionAnual": false,
-      "articuloJuridico": "Artículo 6. Deducción autonómica por cuidado de hijos menores de hasta 14 años inclusive."
+      "articuloJuridico": "Artículo 6. Deducción autonómica por cuidado de hijos menores de hasta 14 años inclusive.",
+      "contratoHechos": {
+        "regimen": {
+          "poblacion": "n",
+          "familia": "=ordinaria|numerosa|dos_hijos",
+          "hijosExclusivos": "ss",
+          "estadoCivil": "=casado|separado|sin_vinculo",
+          "alimentos": "s"
+        },
+        "hijos": [
+          {
+            "id": "s",
+            "nacimiento": "s",
+            "titularesMinimo": "ss"
+          }
+        ],
+        "pagosUnidad": "p",
+        "ayudas": "s",
+        "modalidadServicio": "=empleado_alta|centro_autorizado",
+        "progenitoresActividad": "ss",
+        "progenitoresAlta": "ss",
+        "exhaustividad": "=completa"
+      },
+      "magnitudesAnualesRequeridas": [
+        "base_estatal_misma_inversion",
+        "base_historica_vivienda:<id>",
+        "deducciones_cuenta_anteriores:<cuenta>",
+        "base_historica_vivienda:<id>",
+        "base_historica_vivienda:<id>"
+      ],
+      "pruebasNuevas": {
+        "archivo": "tests/producto-lote-d-ampliacion.test.ts",
+        "fixture": "tests/fixtures/deducciones-d-ampliacion-2025.json",
+        "estado": "ejecutadas_en_suite_focal_132_conformes"
+      }
     },
     {
       "codigo": "extremadura_contribuyentes_viudos",
       "comunidad": "extremadura",
-      "estado": "sin_evaluador_por_hechos",
-      "funcion": null,
-      "modulo": null,
-      "siguienteRama": "Representar y evaluar los hechos propios de esta regla: 100 o 200 con descendiente que genera mínimo y no percibe renta alguna. Bases 19.000/24.000 y 12 bis, exclusión por condena e incompatibilidad personal artículo 2.",
+      "estado": "subcalculo_parcial_candidato_132_tests_tipos_lint_conformes",
+      "funcion": "viudedadExt",
+      "modulo": "lib/dominio/irpf/deducciones/extremadura-hechos-2025.ts",
+      "siguienteRama": "Viudedad efectiva, condena por violencia contra fallecido, mínimo/ausencia de toda renta y título familiar de12bis; elección por persona, compatible con trabajo de otro declarante.",
       "reglaRevisada": "100 o 200 con descendiente que genera mínimo y no percibe renta alguna. Bases 19.000/24.000 y 12 bis, exclusión por condena e incompatibilidad personal artículo 2.",
       "revision": {
         "archivo": "docs/procedencia/deducciones-2025/revisiones/d-extremadura-remisiones/dictamenes.json",
@@ -6358,15 +7200,47 @@
       "reservasNormativas": [],
       "aceptacionFiscal": "pendiente",
       "conexionAnual": false,
-      "articuloJuridico": "Artículo 7. Deducción autonómica para los contribuyentes viudos."
+      "articuloJuridico": "Artículo 7. Deducción autonómica para los contribuyentes viudos.",
+      "contratoHechos": {
+        "regimen": {
+          "poblacion": "n",
+          "familia": "=ordinaria|numerosa|dos_hijos",
+          "hijosExclusivos": "ss",
+          "estadoCivil": "=casado|separado|sin_vinculo",
+          "alimentos": "s"
+        },
+        "estadoCivil": "=viudo|otro",
+        "condenaFirme": "=no|si",
+        "eleccion": "=viudedad|trabajo",
+        "descendientes": [
+          {
+            "id": "s",
+            "rentasTotales": "s",
+            "titularesMinimo": "ss"
+          }
+        ],
+        "exhaustividad": "=completa"
+      },
+      "magnitudesAnualesRequeridas": [
+        "base_estatal_misma_inversion",
+        "base_historica_vivienda:<id>",
+        "deducciones_cuenta_anteriores:<cuenta>",
+        "base_historica_vivienda:<id>",
+        "base_historica_vivienda:<id>"
+      ],
+      "pruebasNuevas": {
+        "archivo": "tests/producto-lote-d-ampliacion.test.ts",
+        "fixture": "tests/fixtures/deducciones-d-ampliacion-2025.json",
+        "estado": "ejecutadas_en_suite_focal_132_conformes"
+      }
     },
     {
       "codigo": "extremadura_vivienda_jovenes_victimas_terrorismo",
       "comunidad": "extremadura",
-      "estado": "sin_evaluador_por_hechos",
-      "funcion": null,
-      "modulo": null,
-      "siguienteRama": "Representar y evaluar los hechos propios de esta regla: 3%/5% rural, base 9.040 sin intereses; primera vivienda nueva y protección salvo rural, edad menor de 36 salvo víctima/sucesores, bases 19.000/24.000 y 12 bis. Conceptos/patrimonio estatales 2012; incompatible 11 bis.",
+      "estado": "subcalculo_parcial_candidato_132_tests_tipos_lint_conformes",
+      "funcion": "viviendaJovenExt",
+      "modulo": "lib/dominio/irpf/deducciones/extremadura-hechos-2025.ts",
+      "siguienteRama": "Primera/nueva/habitual y protección salvo rural, víctimas/sucesores legales; patrimonio y conceptos2012 sin antigüedad pre2013; base sin intereses, no ocultar reinversión/historia.",
       "reglaRevisada": "3%/5% rural, base 9.040 sin intereses; primera vivienda nueva y protección salvo rural, edad menor de 36 salvo víctima/sucesores, bases 19.000/24.000 y 12 bis. Conceptos/patrimonio estatales 2012; incompatible 11 bis.",
       "revision": {
         "archivo": "docs/procedencia/deducciones-2025/revisiones/d-extremadura-remisiones/dictamenes.json",
@@ -6400,15 +7274,44 @@
       "reservasNormativas": [],
       "aceptacionFiscal": "pendiente",
       "conexionAnual": false,
-      "articuloJuridico": "Artículo 8. Deducción autonómica por adquisición de vivienda para jóvenes y para víctimas del terrorismo con residencia en la Comunidad Autónoma de Extremadura."
+      "articuloJuridico": "Artículo 8. Deducción autonómica por adquisición de vivienda para jóvenes y para víctimas del terrorismo con residencia en la Comunidad Autónoma de Extremadura.",
+      "contratoHechos": {
+        "regimen": {
+          "poblacion": "n",
+          "familia": "=ordinaria|numerosa|dos_hijos",
+          "hijosExclusivos": "ss",
+          "estadoCivil": "=casado|separado|sin_vinculo",
+          "alimentos": "s"
+        },
+        "nacimiento": "s",
+        "via": "=joven|victima|sucesor",
+        "poblacionVivienda": "n",
+        "pagosSinIntereses": "p",
+        "maximaPropiedadAnterior": "s",
+        "tipo": "=nueva_protegida|nueva_libre|usada",
+        "eleccion": "=esta|rural11bis",
+        "exhaustividad": "=completa"
+      },
+      "magnitudesAnualesRequeridas": [
+        "base_estatal_misma_inversion",
+        "base_historica_vivienda:<id>",
+        "deducciones_cuenta_anteriores:<cuenta>",
+        "base_historica_vivienda:<id>",
+        "base_historica_vivienda:<id>"
+      ],
+      "pruebasNuevas": {
+        "archivo": "tests/producto-lote-d-ampliacion.test.ts",
+        "fixture": "tests/fixtures/deducciones-d-ampliacion-2025.json",
+        "estado": "ejecutadas_en_suite_focal_132_conformes"
+      }
     },
     {
       "codigo": "extremadura_arrendadores_viviendas_vacias",
       "comunidad": "extremadura",
-      "estado": "sin_evaluador_por_hechos",
-      "funcion": null,
-      "modulo": null,
-      "siguienteRama": "Representar y evaluar los hechos propios de esta regla: 100% rendimiento neto reducido declarado hasta 1.200 personal; un año vacía con imputación, destino habitual y contrato tres años; hasta tres viviendas sin garajes/trasteros. Capital inmobiliario y regularización de requisitos/comprobación.",
+      "estado": "subcalculo_parcial_candidato_132_tests_tipos_lint_conformes",
+      "funcion": "arrendadoresVaciasExt",
+      "modulo": "lib/dominio/irpf/deducciones/extremadura-hechos-2025.ts",
+      "siguienteRama": "Un año desocupada con imputación de renta, capital inmobiliario (no actividad), contrato al menos3años y comprobación/regularización; garajes/trasteros no son otras viviendas. Aniversario contractual iniciado29feb: representar aniversario civil pactado.",
       "reglaRevisada": "100% rendimiento neto reducido declarado hasta 1.200 personal; un año vacía con imputación, destino habitual y contrato tres años; hasta tres viviendas sin garajes/trasteros. Capital inmobiliario y regularización de requisitos/comprobación.",
       "revision": {
         "archivo": "docs/procedencia/deducciones-2025/revisiones/d-extremadura-remisiones/dictamenes.json",
@@ -6433,16 +7336,37 @@
       "reservasNormativas": [],
       "aceptacionFiscal": "pendiente",
       "conexionAnual": false,
-      "articuloJuridico": "Artículo 9 bis. Deducción autonómica para arrendadores de viviendas vacías."
+      "articuloJuridico": "Artículo 9 bis. Deducción autonómica para arrendadores de viviendas vacías.",
+      "contratoHechos": {
+        "viviendas": [
+          {
+            "id": "s",
+            "diasVaciaAntes": "n",
+            "inicioContrato": "s",
+            "finContrato": "s",
+            "rendimientoNetoReducido": "a",
+            "destino": "=habitual|otro"
+          }
+        ],
+        "exhaustividad": "=completa"
+      },
+      "magnitudesAnualesRequeridas": [
+        "rendimiento_neto_reducido_vivienda:<id>"
+      ],
+      "pruebasNuevas": {
+        "archivo": "tests/producto-lote-d-ampliacion.test.ts",
+        "fixture": "tests/fixtures/deducciones-d-ampliacion-2025.json",
+        "estado": "ejecutadas_en_suite_focal_132_conformes"
+      }
     },
     {
       "codigo": "extremadura_rehabilitacion_viviendas_zonas_rurales_alquiler",
       "comunidad": "extremadura",
-      "estado": "sin_evaluador_por_hechos",
-      "funcion": null,
-      "modulo": null,
-      "siguienteRama": "Representar y evaluar los hechos propios de esta regla: 15%; 9.040 anual por declaración, 180.000 por contribuyente/vivienda o coste menor, sin ayuda reconocida. Rehabilitación IVA, sin actividad 27, alquiler cinco años y exclusión parientes tercero; vacancia proporcional y oferta acreditada/precio INE. Censo 9 quater solo aquí.",
-      "reglaRevisada": "15%; 9.040 anual por declaración, 180.000 por contribuyente/vivienda o coste menor, sin ayuda reconocida. Rehabilitación IVA, sin actividad 27, alquiler cinco años y exclusión parientes tercero; vacancia proporcional y oferta acreditada/precio INE. Censo 9 quater solo aquí.",
+      "estado": "corregida_y_validada_144_tests_tipos_lint",
+      "funcion": "rehabilitacionAlquilerExt",
+      "modulo": "lib/dominio/irpf/deducciones/extremadura-hechos-2025.ts",
+      "siguienteRama": "Rehabilitación IVA y territorio/censo solo9ter, cinco años, oferta/vacancia por causa ajena y precioINE; base histórica por vivienda/titular, reparto distinto de coste acreditable y efectos de subvención posterior. Separar ayuda atribuible al titular, imputación anual y ajustes de base histórica; hasta entonces una ayuda positiva produce no_soportado sin importe.",
+      "reglaRevisada": "15%; base anual máxima 9.040 por declaración y máxima total 180.000 por contribuyente y vivienda, limitada al coste atribuido. Las ayudas minoran la base, no excluyen toda la deducción. El contrato actual rechaza ayuda positiva porque no representa su atribución e imputación temporal.",
       "revision": {
         "archivo": "docs/procedencia/deducciones-2025/revisiones/d-extremadura-remisiones/dictamenes.json",
         "puntero": "/dictamenes/9"
@@ -6468,7 +7392,32 @@
       "reservasNormativas": [],
       "aceptacionFiscal": "pendiente",
       "conexionAnual": false,
-      "articuloJuridico": "Artículo 9 ter. Deducción autonómica por inversiones en la rehabilitación de viviendas en zonas rurales para ser destinadas a su alquiler."
+      "articuloJuridico": "Artículo 9 ter. Deducción autonómica por inversiones en la rehabilitación de viviendas en zonas rurales para ser destinadas a su alquiler.",
+      "contratoHechos": {
+        "pagos": "p",
+        "costeRehabilitacion": "s",
+        "baseHistorica": "a",
+        "porcentajePropiedad": "s",
+        "ayudaReconocida": "s",
+        "diasRequisitos": "n",
+        "parentesco": "n",
+        "actividadEconomica": "=no|si",
+        "ubicacion": "=municipio_menor3000|nucleo_censo9quater|fuera",
+        "exhaustividad": "=completa",
+        "vivienda": "s"
+      },
+      "magnitudesAnualesRequeridas": [
+        "base_estatal_misma_inversion",
+        "base_historica_vivienda:<id>",
+        "deducciones_cuenta_anteriores:<cuenta>",
+        "base_historica_vivienda:<id>",
+        "base_historica_vivienda:<id>"
+      ],
+      "pruebasNuevas": {
+        "archivo": "tests/producto-lote-d-ampliacion.test.ts",
+        "fixture": "tests/fixtures/deducciones-d-ampliacion-2025.json",
+        "estado": "ejecutadas_en_suite_focal_132_conformes"
+      }
     },
     {
       "codigo": "extremadura_material_escolar",
@@ -6512,10 +7461,10 @@
     {
       "codigo": "extremadura_inversion_acciones_participaciones_mercantiles",
       "comunidad": "extremadura",
-      "estado": "sin_evaluador_por_hechos",
-      "funcion": null,
-      "modulo": null,
-      "siguienteRama": "Representar y evaluar los hechos propios de esta regla: 20% hasta 4.000; sociedades enumeradas, domicilio social/fiscal, escritura, grupo familiar hasta 40%, tres años sin dirección; actividad no patrimonial con excepciones IP, empleo específico de constitución/ampliación. No duplicar base estatal.",
+      "estado": "subcalculo_parcial_candidato_132_tests_tipos_lint_conformes",
+      "funcion": "inversionMercantilExt",
+      "modulo": "lib/dominio/irpf/deducciones/extremadura-hechos-2025.ts",
+      "siguienteRama": "Formas societarias, actividad no patrimonial/excepcionesIP, empleo diferenciado en constitución/ampliación, escritura, grupo familiar y tres años. Base estatal identificada por inversión, sin duplicarla.",
       "reglaRevisada": "20% hasta 4.000; sociedades enumeradas, domicilio social/fiscal, escritura, grupo familiar hasta 40%, tres años sin dirección; actividad no patrimonial con excepciones IP, empleo específico de constitución/ampliación. No duplicar base estatal.",
       "revision": {
         "archivo": "docs/procedencia/deducciones-2025/revisiones/d-extremadura-remisiones/dictamenes.json",
@@ -6541,16 +7490,38 @@
       "reservasNormativas": [],
       "aceptacionFiscal": "pendiente",
       "conexionAnual": false,
-      "articuloJuridico": "Artículo 11. Deducción autonómica por inversión en la adquisición de acciones y participaciones sociales como consecuencia de acuerdos de constitución de sociedades o ampliación de capital en las sociedades mercantiles."
+      "articuloJuridico": "Artículo 11. Deducción autonómica por inversión en la adquisición de acciones y participaciones sociales como consecuencia de acuerdos de constitución de sociedades o ampliación de capital en las sociedades mercantiles.",
+      "contratoHechos": {
+        "pagos": "p",
+        "participacionFamiliarMaxima": "s",
+        "domicilioSocial": "=extremadura|fuera",
+        "domicilioFiscal": "=extremadura|fuera",
+        "direccionEjecutiva": "=no|si",
+        "baseEstatalMismaInversion": "a",
+        "fechaEscritura": "s",
+        "exhaustividad": "=completa"
+      },
+      "magnitudesAnualesRequeridas": [
+        "base_estatal_misma_inversion",
+        "base_historica_vivienda:<id>",
+        "deducciones_cuenta_anteriores:<cuenta>",
+        "base_historica_vivienda:<id>",
+        "base_historica_vivienda:<id>"
+      ],
+      "pruebasNuevas": {
+        "archivo": "tests/producto-lote-d-ampliacion.test.ts",
+        "fixture": "tests/fixtures/deducciones-d-ampliacion-2025.json",
+        "estado": "ejecutadas_en_suite_focal_132_conformes"
+      }
     },
     {
       "codigo": "extremadura_vivienda_zonas_rurales",
       "comunidad": "extremadura",
-      "estado": "sin_evaluador_por_hechos",
-      "funcion": null,
-      "modulo": null,
-      "siguienteRama": "Representar y evaluar los hechos propios de esta regla: 10%, 9.040 anual y 180.000/coste minorado por ayudas Junta, habitualidad/patrimonio propios, inversiones previas y solo ganancia exenta reinvertida. Sin renta propia; incompatible 8/11 quater. Reserva parcial de adquisición/rehabilitación enero–21 marzo 2022.",
-      "reglaRevisada": "10%, 9.040 anual y 180.000/coste minorado por ayudas Junta, habitualidad/patrimonio propios, inversiones previas y solo ganancia exenta reinvertida. Sin renta propia; incompatible 8/11 quater. Reserva parcial de adquisición/rehabilitación enero–21 marzo 2022.",
+      "estado": "corregida_y_validada_144_tests_tipos_lint",
+      "funcion": "viviendaRuralExt",
+      "modulo": "lib/dominio/irpf/deducciones/extremadura-hechos-2025.ts",
+      "siguienteRama": "Pleno dominio/habitualidad, rehabilitación estructural y patrimonio; inversiones previas y solo ganancia exenta reinvertida; máximo total por vivienda según propiedad, sin límite propio de renta. Separar ayuda total y ayuda anual atribuida al titular; se rechaza ayuda positiva sin calcular un importe hasta representarlo.",
+      "reglaRevisada": "10%, 9.040 anual y 180.000/coste minorado por ayudas Junta, habitualidad/patrimonio propios, inversiones previas y solo ganancia exenta reinvertida. Sin renta propia; incompatible 8/11 quater. Reserva parcial de adquisición/rehabilitación enero–21 marzo 2022. La ayuda debe minorar también la base anual que corresponda; el techo total no sustituye esa minoración.",
       "revision": {
         "archivo": "docs/procedencia/deducciones-2025/revisiones/d-extremadura-remisiones/dictamenes.json",
         "puntero": "/dictamenes/12"
@@ -6580,15 +7551,39 @@
       ],
       "aceptacionFiscal": "pendiente",
       "conexionAnual": false,
-      "articuloJuridico": "Artículo 11 bis. Deducción por adquisición o rehabilitación de la vivienda habitual en zonas rurales."
+      "articuloJuridico": "Artículo 11 bis. Deducción por adquisición o rehabilitación de la vivienda habitual en zonas rurales.",
+      "contratoHechos": {
+        "fechaOperacion": "s",
+        "poblacion": "n",
+        "porcentajePropiedad": "s",
+        "coste": "s",
+        "ayudasJunta": "s",
+        "baseHistorica": "a",
+        "pagos": "p",
+        "eleccion": "=rural|art8|intereses11quater",
+        "exhaustividad": "=completa",
+        "vivienda": "s"
+      },
+      "magnitudesAnualesRequeridas": [
+        "base_estatal_misma_inversion",
+        "base_historica_vivienda:<id>",
+        "deducciones_cuenta_anteriores:<cuenta>",
+        "base_historica_vivienda:<id>",
+        "base_historica_vivienda:<id>"
+      ],
+      "pruebasNuevas": {
+        "archivo": "tests/producto-lote-d-ampliacion.test.ts",
+        "fixture": "tests/fixtures/deducciones-d-ampliacion-2025.json",
+        "estado": "ejecutadas_en_suite_focal_132_conformes"
+      }
     },
     {
       "codigo": "extremadura_residencia_municipios_menos_3000",
       "comunidad": "extremadura",
-      "estado": "sin_evaluador_por_hechos",
-      "funcion": null,
-      "modulo": null,
-      "siguienteRama": "Representar y evaluar los hechos propios de esta regla: 15% cuota atribuible al residente efectivo; bases 28.000/45.000 sin excepción familiar 12 bis en 2025. Conjunta por bases liquidables según manual. Municipios/ELM, sin censo.",
+      "estado": "subcalculo_parcial_candidato_132_tests_tipos_lint_conformes",
+      "funcion": "residenciaRuralExt",
+      "modulo": "lib/dominio/irpf/deducciones/extremadura-hechos-2025.ts",
+      "siguienteRama": "Residencia efectiva municipio/ELM, no censo9quater; sin excepción familiar12bis; bases liquidables individuales de todos los declarantes y su trazabilidad anual.",
       "reglaRevisada": "15% cuota atribuible al residente efectivo; bases 28.000/45.000 sin excepción familiar 12 bis en 2025. Conjunta por bases liquidables según manual. Municipios/ELM, sin censo.",
       "revision": {
         "archivo": "docs/procedencia/deducciones-2025/revisiones/d-extremadura-remisiones/dictamenes.json",
@@ -6612,15 +7607,35 @@
       "reservasNormativas": [],
       "aceptacionFiscal": "pendiente",
       "conexionAnual": false,
-      "articuloJuridico": "Artículo 11 ter. Deducción en la cuota íntegra autonómica para los contribuyentes con residencia habitual en municipios y entidades locales menores de Extremadura con población inferior a 3.000 habitantes."
+      "articuloJuridico": "Artículo 11 ter. Deducción en la cuota íntegra autonómica para los contribuyentes con residencia habitual en municipios y entidades locales menores de Extremadura con población inferior a 3.000 habitantes.",
+      "contratoHechos": {
+        "residentes": [
+          {
+            "id": "s",
+            "poblacion": "n",
+            "baseLiquidableIndividual": "a"
+          }
+        ],
+        "cuotaAutonomica": "a",
+        "exhaustividad": "=completa"
+      },
+      "magnitudesAnualesRequeridas": [
+        "cuota_integra_autonomica",
+        "bases_liquidables_individuales_declarantes"
+      ],
+      "pruebasNuevas": {
+        "archivo": "tests/producto-lote-d-ampliacion.test.ts",
+        "fixture": "tests/fixtures/deducciones-d-ampliacion-2025.json",
+        "estado": "ejecutadas_en_suite_focal_132_conformes"
+      }
     },
     {
       "codigo": "extremadura_intereses_vivienda_jovenes",
       "comunidad": "extremadura",
-      "estado": "sin_evaluador_por_hechos",
-      "funcion": null,
-      "modulo": null,
-      "siguienteRama": "Representar y evaluar los hechos propios de esta regla: 25% intereses hipotecarios, base 1.000 y deducción máxima 250; menor de 36 y primera vivienda. Bases 28.000/45.000 sin excepción rural familiar; adquisición/patrimonio 2012. Compatible 8 e incompatible 11 bis.",
+      "estado": "subcalculo_parcial_candidato_132_tests_tipos_lint_conformes",
+      "funcion": "interesesJovenExt",
+      "modulo": "lib/dominio/irpf/deducciones/extremadura-hechos-2025.ts",
+      "siguienteRama": "Intereses hipotecarios efectivos para primera vivienda/habitualidad; patrimonio2012, compatible8 e incompatible11bis, sin excepción rural familiar12bis.",
       "reglaRevisada": "25% intereses hipotecarios, base 1.000 y deducción máxima 250; menor de 36 y primera vivienda. Bases 28.000/45.000 sin excepción rural familiar; adquisición/patrimonio 2012. Compatible 8 e incompatible 11 bis.",
       "revision": {
         "archivo": "docs/procedencia/deducciones-2025/revisiones/d-extremadura-remisiones/dictamenes.json",
@@ -6645,15 +7660,34 @@
       "reservasNormativas": [],
       "aceptacionFiscal": "pendiente",
       "conexionAnual": false,
-      "articuloJuridico": "Artículo 11 quater"
+      "articuloJuridico": "Artículo 11 quater",
+      "contratoHechos": {
+        "nacimiento": "s",
+        "pagosIntereses": "p",
+        "maximaPropiedadAnterior": "s",
+        "eleccion": "=intereses|rural11bis",
+        "exhaustividad": "=completa"
+      },
+      "magnitudesAnualesRequeridas": [
+        "base_estatal_misma_inversion",
+        "base_historica_vivienda:<id>",
+        "deducciones_cuenta_anteriores:<cuenta>",
+        "base_historica_vivienda:<id>",
+        "base_historica_vivienda:<id>"
+      ],
+      "pruebasNuevas": {
+        "archivo": "tests/producto-lote-d-ampliacion.test.ts",
+        "fixture": "tests/fixtures/deducciones-d-ampliacion-2025.json",
+        "estado": "ejecutadas_en_suite_focal_132_conformes"
+      }
     },
     {
       "codigo": "extremadura_donaciones_entidades_culturales_deportistas",
       "comunidad": "extremadura",
-      "estado": "sin_evaluador_por_hechos",
-      "funcion": null,
-      "modulo": null,
-      "siguienteRama": "Representar y evaluar los hechos propios de esta regla: 20% dinero, máximo conjunto 500; escrito irrevocable, actividad/domicilio legal, deportista profesional por cuenta propia 21.2 y exclusiones de vínculos/capital. Comunicación 11 quinquies.6 solo entidades culturales; excepción informativa 24.2 según manual.",
+      "estado": "subcalculo_parcial_candidato_132_tests_tipos_lint_conformes",
+      "funcion": "donativosExt",
+      "modulo": "lib/dominio/irpf/deducciones/extremadura-hechos-2025.ts",
+      "siguienteRama": "Actividades culturales legales/desarrollo territorial y relación socio/grupo; deportista profesional por cuenta propia21.2; escrito, comunicación solo cultura con excepción24.2 y sin reconocimiento por referencia.",
       "reglaRevisada": "20% dinero, máximo conjunto 500; escrito irrevocable, actividad/domicilio legal, deportista profesional por cuenta propia 21.2 y exclusiones de vínculos/capital. Comunicación 11 quinquies.6 solo entidades culturales; excepción informativa 24.2 según manual.",
       "revision": {
         "archivo": "docs/procedencia/deducciones-2025/revisiones/d-extremadura-remisiones/dictamenes.json",
@@ -6677,15 +7711,42 @@
       "reservasNormativas": [],
       "aceptacionFiscal": "pendiente",
       "conexionAnual": false,
-      "articuloJuridico": "Artículo 11 quinquies"
+      "articuloJuridico": "Artículo 11 quinquies",
+      "contratoHechos": {
+        "donaciones": [
+          {
+            "id": "s",
+            "fecha": "s",
+            "importe": "s",
+            "destino": "=cultura|deportista",
+            "domicilio": "=extremadura|fuera",
+            "parentesco": "=ninguno|conyuge|pareja|ascendiente|descendiente",
+            "participacionFamiliar": "s",
+            "irrevocabilidad": "=irrevocable|revocable"
+          }
+        ],
+        "exhaustividad": "=completa"
+      },
+      "magnitudesAnualesRequeridas": [
+        "base_estatal_misma_inversion",
+        "base_historica_vivienda:<id>",
+        "deducciones_cuenta_anteriores:<cuenta>",
+        "base_historica_vivienda:<id>",
+        "base_historica_vivienda:<id>"
+      ],
+      "pruebasNuevas": {
+        "archivo": "tests/producto-lote-d-ampliacion.test.ts",
+        "fixture": "tests/fixtures/deducciones-d-ampliacion-2025.json",
+        "estado": "ejecutadas_en_suite_focal_132_conformes"
+      }
     },
     {
       "codigo": "extremadura_traslado_residencia_habitual",
       "comunidad": "extremadura",
-      "estado": "sin_evaluador_por_hechos",
-      "funcion": null,
-      "modulo": null,
-      "siguienteRama": "Representar y evaluar los hechos propios de esta regla: Traslado fiscal desde 2025, tres años de permanencia y beneficio del año y dos siguientes al 50%/75% según edad al devengo. Conjunta de comunidades distintas: se traslada mayor base liquidable. Regularización y excepciones justificadas del manual.",
+      "estado": "subcalculo_parcial_candidato_132_tests_tipos_lint_conformes",
+      "funcion": "trasladoExt",
+      "modulo": "lib/dominio/irpf/deducciones/extremadura-hechos-2025.ts",
+      "siguienteRama": "Traslado fiscalart72 de comunidades distintas, residente de mayor base en conjunta y permanencia3años; empates requieren individualización, regularización/excepciones; no calcula ejercicios2026/27.",
       "reglaRevisada": "Traslado fiscal desde 2025, tres años de permanencia y beneficio del año y dos siguientes al 50%/75% según edad al devengo. Conjunta de comunidades distintas: se traslada mayor base liquidable. Regularización y excepciones justificadas del manual.",
       "revision": {
         "archivo": "docs/procedencia/deducciones-2025/revisiones/d-extremadura-remisiones/dictamenes.json",
@@ -6711,15 +7772,37 @@
       "reservasNormativas": [],
       "aceptacionFiscal": "pendiente",
       "conexionAnual": false,
-      "articuloJuridico": "Artículo 11 sexies"
+      "articuloJuridico": "Artículo 11 sexies",
+      "contratoHechos": {
+        "fechaTraslado": "s",
+        "nacimiento": "s",
+        "personaTrasladada": "s",
+        "basesIndividuales": [
+          {
+            "id": "s",
+            "base": "a"
+          }
+        ],
+        "cuotaAutonomica": "a",
+        "exhaustividad": "=completa"
+      },
+      "magnitudesAnualesRequeridas": [
+        "cuota_integra_autonomica",
+        "bases_liquidables_individuales_declarantes"
+      ],
+      "pruebasNuevas": {
+        "archivo": "tests/producto-lote-d-ampliacion.test.ts",
+        "fixture": "tests/fixtures/deducciones-d-ampliacion-2025.json",
+        "estado": "ejecutadas_en_suite_focal_132_conformes"
+      }
     },
     {
       "codigo": "extremadura_ayudas_subvenciones_ela",
       "comunidad": "extremadura",
-      "estado": "sin_evaluador_por_hechos",
-      "funcion": null,
-      "modulo": null,
-      "siguienteRama": "Representar y evaluar los hechos propios de esta regla: Ayuda autonómica ELA integrada en base general, tipos medios estatal/autonómico sobre cuantía en base liquidable; distinguir concesión, cobro, integración y reducciones. Suelo de cuota 12.",
+      "estado": "subcalculo_parcial_candidato_132_tests_tipos_lint_conformes",
+      "funcion": "subvencionesElaExt",
+      "modulo": "lib/dominio/irpf/deducciones/extremadura-hechos-2025.ts",
+      "siguienteRama": "Ayuda pública autonómica ELA e imputación del cobro, integración y reducciones anuales; suelo del art.12 tras concurrencias se aplica en anual, no sumar esta fórmula dos veces.",
       "reglaRevisada": "Ayuda autonómica ELA integrada en base general, tipos medios estatal/autonómico sobre cuantía en base liquidable; distinguir concesión, cobro, integración y reducciones. Suelo de cuota 12.",
       "revision": {
         "archivo": "docs/procedencia/deducciones-2025/revisiones/d-extremadura-remisiones/dictamenes.json",
@@ -6741,7 +7824,29 @@
       "reservasNormativas": [],
       "aceptacionFiscal": "pendiente",
       "conexionAnual": false,
-      "articuloJuridico": "Artículo 11 septies"
+      "articuloJuridico": "Artículo 11 septies",
+      "contratoHechos": {
+        "concedida": "s",
+        "cobrada": "s",
+        "integradaBaseGeneral": "a",
+        "integradaBaseLiquidable": "a",
+        "tipoMedioEstatal": "a",
+        "tipoMedioAutonomico": "a",
+        "cuotaAutonomica": "a",
+        "exhaustividad": "=completa"
+      },
+      "magnitudesAnualesRequeridas": [
+        "ayuda_ela_integrada_base_general",
+        "ayuda_ela_integrada_base_liquidable",
+        "tipo_medio_estatal",
+        "tipo_medio_autonomico",
+        "cuota_integra_autonomica"
+      ],
+      "pruebasNuevas": {
+        "archivo": "tests/producto-lote-d-ampliacion.test.ts",
+        "fixture": "tests/fixtures/deducciones-d-ampliacion-2025.json",
+        "estado": "ejecutadas_en_suite_focal_132_conformes"
+      }
     },
     {
       "codigo": "extremadura_enfermos_ela_familiares",
@@ -6810,10 +7915,10 @@
     {
       "codigo": "extremadura_cuidado_familiares_discapacidad",
       "comunidad": "extremadura",
-      "estado": "sin_evaluador_por_hechos",
-      "funcion": null,
-      "modulo": null,
-      "siguienteRama": "Representar y evaluar los hechos propios de esta regla: 150 o 220 sustitutivos por dependencia reconocida sin cobrar; convivencia media anual ininterrumpida, grado 65% o supuesto judicial legal, renta familiar incluidas exentas hasta 16.800 y sin obligación de Patrimonio. Bases 19.000/24.000 y 12 bis, prelación y reparto.",
+      "estado": "subcalculo_parcial_candidato_132_tests_tipos_lint_conformes",
+      "funcion": "cuidadoDiscapacidadExt",
+      "modulo": "lib/dominio/irpf/deducciones/extremadura-hechos-2025.ts",
+      "siguienteRama": "Parentesco de grado más cercano, convivencia continua y facultad del certificador; obligaciónIP por cuota/activos, no presentación voluntaria. Titulares elegibles excluyen de renta los ajenos y no simples convivientes.",
       "reglaRevisada": "150 o 220 sustitutivos por dependencia reconocida sin cobrar; convivencia media anual ininterrumpida, grado 65% o supuesto judicial legal, renta familiar incluidas exentas hasta 16.800 y sin obligación de Patrimonio. Bases 19.000/24.000 y 12 bis, prelación y reparto.",
       "revision": {
         "archivo": "docs/procedencia/deducciones-2025/revisiones/d-extremadura-remisiones/dictamenes.json",
@@ -6847,15 +7952,51 @@
       "reservasNormativas": [],
       "aceptacionFiscal": "pendiente",
       "conexionAnual": false,
-      "articuloJuridico": "Artículo 5. Deducción autonómica por cuidado de familiares con discapacidad."
+      "articuloJuridico": "Artículo 5. Deducción autonómica por cuidado de familiares con discapacidad.",
+      "contratoHechos": {
+        "regimen": {
+          "poblacion": "n",
+          "familia": "=ordinaria|numerosa|dos_hijos",
+          "hijosExclusivos": "ss",
+          "estadoCivil": "=casado|separado|sin_vinculo",
+          "alimentos": "s"
+        },
+        "personas": [
+          {
+            "id": "s",
+            "grado": "n",
+            "resolucion": "=ninguna|curatela_representativa|incapacidad_judicial",
+            "inicioConvivencia": "s",
+            "finConvivencia": "s",
+            "rentasIncluidasExentas": "s",
+            "obligacionPatrimonio": "=no|si",
+            "dependenciaReconocida": "s",
+            "dependenciaCobrada": "s",
+            "titularesMismoGradoElegibles": "ss"
+          }
+        ],
+        "exhaustividad": "=completa"
+      },
+      "magnitudesAnualesRequeridas": [
+        "base_estatal_misma_inversion",
+        "base_historica_vivienda:<id>",
+        "deducciones_cuenta_anteriores:<cuenta>",
+        "base_historica_vivienda:<id>",
+        "base_historica_vivienda:<id>"
+      ],
+      "pruebasNuevas": {
+        "archivo": "tests/producto-lote-d-ampliacion.test.ts",
+        "fixture": "tests/fixtures/deducciones-d-ampliacion-2025.json",
+        "estado": "ejecutadas_en_suite_focal_132_conformes"
+      }
     },
     {
       "codigo": "extremadura_arrendamiento_vivienda_habitual",
       "comunidad": "extremadura",
-      "estado": "sin_evaluador_por_hechos",
-      "funcion": null,
-      "modulo": null,
-      "siguienteRama": "Representar y evaluar los hechos propios de esta regla: 30%, tope 1.000/1.500 rural; edad/familia/discapacidad alternativas, ocupación y contrato, ITP pagado o exención y obligación formal según manual. Sin inversión ni otra vivienda próxima en unidad familiar 82. Bases 28.000/45.000 y 12 bis; reparto del límite.",
+      "estado": "subcalculo_parcial_candidato_132_tests_tipos_lint_conformes",
+      "funcion": "alquilerExt",
+      "modulo": "lib/dominio/irpf/deducciones/extremadura-hechos-2025.ts",
+      "siguienteRama": "Unidad familiar82 y todas sus propiedades/usos, titularidad de contrato, ocupación/habitualidad y alternativa familiar legal; edad en conjunta de cónyuge/padre/madre; composición de varios contratos con techos prorrateados.",
       "reglaRevisada": "30%, tope 1.000/1.500 rural; edad/familia/discapacidad alternativas, ocupación y contrato, ITP pagado o exención y obligación formal según manual. Sin inversión ni otra vivienda próxima en unidad familiar 82. Bases 28.000/45.000 y 12 bis; reparto del límite.",
       "revision": {
         "archivo": "docs/procedencia/deducciones-2025/revisiones/d-extremadura-remisiones/dictamenes.json",
@@ -6888,7 +8029,76 @@
       "reservasNormativas": [],
       "aceptacionFiscal": "pendiente",
       "conexionAnual": false,
-      "articuloJuridico": "Artículo 9. Deducción autonómica por arrendamiento de vivienda habitual."
+      "articuloJuridico": "Artículo 9. Deducción autonómica por arrendamiento de vivienda habitual.",
+      "contratoHechos": {
+        "regimen": {
+          "poblacion": "n",
+          "familia": "=ordinaria|numerosa|dos_hijos",
+          "hijosExclusivos": "ss",
+          "estadoCivil": "=casado|separado|sin_vinculo",
+          "alimentos": "s"
+        },
+        "nacimiento": "s",
+        "grado": "n",
+        "resolucion": "=ninguna|curatela_representativa|incapacidad_judicial",
+        "itp": "=pagado|exento_presentado|pendiente",
+        "derechoInversionVivienda": "=no|si",
+        "distanciasOtrasViviendasUnidad": "ss",
+        "contratos": [
+          {
+            "id": "s",
+            "poblacion": "n",
+            "titulares": "ss",
+            "pagos": "p"
+          }
+        ],
+        "exhaustividad": "=completa"
+      },
+      "magnitudesAnualesRequeridas": [
+        "base_estatal_misma_inversion",
+        "base_historica_vivienda:<id>",
+        "deducciones_cuenta_anteriores:<cuenta>",
+        "base_historica_vivienda:<id>",
+        "base_historica_vivienda:<id>"
+      ],
+      "pruebasNuevas": {
+        "archivo": "tests/producto-lote-d-ampliacion.test.ts",
+        "fixture": "tests/fixtures/deducciones-d-ampliacion-2025.json",
+        "estado": "ejecutadas_en_suite_focal_132_conformes"
+      }
     }
-  ]
+  ],
+  "ampliacion20261105": {
+    "basePublicada": "bc351098249470ecddd55049113063429c1a7af8",
+    "reutilizadosSinCambios": 12,
+    "nuevosSubcalculosParciales": 51,
+    "automaticos": 0,
+    "conectadosAnual": 0,
+    "estadoValidacion": "Autor:132pruebas,tiposEffect,Oxlint16reglas1hilo,ESLint conformes; revisión independiente pendiente",
+    "noCierraSubramas": true,
+    "oraculos51ConservadosPorHash": true
+  },
+  "balanceAnteriorConservado": {
+    "codigos": 63,
+    "reglasParcialesPreparadas": 12,
+    "sinEvaluadorPorHechos": 51
+  },
+  "balance": {
+    "codigos": 63,
+    "reglasParcialesReutilizadas": 12,
+    "subcalculosParcialesNuevos": 51,
+    "automaticas": 0,
+    "conectadasAnual": 0,
+    "pendientesPorRama": true
+  },
+  "correccionRevision20261105": {
+    "estado": "corregida_y_validada_144_tests_tipos_lint",
+    "hallazgos": [
+      "H1",
+      "H2",
+      "H3"
+    ],
+    "oraculosAutor": "51 originales conservados; nuevas pruebas aparte",
+    "prefijos": "Rebasados a API v4 vigente, conservados íntegros"
+  }
 }

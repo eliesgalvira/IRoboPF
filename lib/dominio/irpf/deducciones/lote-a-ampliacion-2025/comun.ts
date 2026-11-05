@@ -5,6 +5,7 @@ export const D = Decimal.clone({
   precision: 80,
   rounding: Decimal.ROUND_HALF_UP,
 })
+const DA = Decimal.clone({ precision: 200, rounding: Decimal.ROUND_HALF_UP })
 export const Texto = Schema.String.check(Schema.isMinLength(1))
 export const Entero = Schema.Number.check(
   Schema.isInt(),
@@ -22,19 +23,29 @@ export const Grado = Schema.Number.check(
   Schema.isGreaterThanOrEqualTo(0),
   Schema.isLessThanOrEqualTo(100)
 )
+export const EurosAnuales = Schema.Struct({
+  euros: Schema.String.check(Schema.isPattern(/^-?\d{1,18}(\.\d{1,80})?$/)),
+})
+export const MagnitudBaseAnual = Schema.Union([BaseCentimos, EurosAnuales])
+export const MagnitudAnual = Schema.Union([
+  Centimos,
+  Schema.Struct({
+    euros: Schema.String.check(Schema.isPattern(/^\d{1,18}(\.\d{1,80})?$/)),
+  }),
+])
 export const Contexto = {
   ejercicio: Schema.Literal(2025),
   modalidad: Schema.Literal("individual"),
   devengo: Schema.Literal("2025-12-31"),
   contribuyente: Texto,
   nacimiento: Texto,
-  imponibleGeneralCentimos: BaseCentimos,
-  imponibleAhorroCentimos: BaseCentimos,
-  liquidableGeneralCentimos: Centimos,
-  liquidableAhorroCentimos: Centimos,
-  minimoContribuyenteCentimos: Centimos,
-  minimoDescendientesCentimos: Centimos,
-  minimoPersonalFamiliarCentimos: Centimos,
+  imponibleGeneralCentimos: MagnitudBaseAnual,
+  imponibleAhorroCentimos: MagnitudBaseAnual,
+  liquidableGeneralCentimos: MagnitudAnual,
+  liquidableAhorroCentimos: MagnitudAnual,
+  minimoContribuyenteCentimos: MagnitudAnual,
+  minimoDescendientesCentimos: MagnitudAnual,
+  minimoPersonalFamiliarCentimos: MagnitudAnual,
   elecciones: Schema.Array(Schema.Struct({ codigo: Texto, objeto: Texto })),
 }
 export const Ambito = Schema.Struct(Contexto)
@@ -145,8 +156,8 @@ export function titulares(ids: readonly string[], titular: string): Decimal {
   )
   return new D(1).div(ids.length)
 }
-export function eur(c: number): Decimal {
-  return new D(c).div(100)
+export function eur(c: number | typeof EurosAnuales.Type): Decimal {
+  return Schema.is(Schema.Number)(c) ? new D(c).div(100) : new DA(c.euros)
 }
 export function renta(h: Ambito): Decimal {
   return eur(h.imponibleGeneralCentimos).plus(eur(h.imponibleAhorroCentimos))

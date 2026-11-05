@@ -2,26 +2,17 @@
 
 ## Prioridad de producto: 4 de noviembre, noche
 
-Último corte publicado: `bc351098249470ecddd55049113063429c1a7af8`, con ambos
-trabajos correctos en el [CI 41938522416](https://github.com/eliesgalvira/IRoboPF/actions/runs/41938522416).
-El punto 4 sigue abierto: 106 códigos de 351 tienen evaluación específica parcial
-por hechos; sólo la cuota valenciana está conectada a la composición anual
-publicada. El candidato privado conecta las 55 altas territoriales y pasa 607
-pruebas; está en revisión independiente. Las ampliaciones restantes se preparan
-y validan por lotes, sin contarlas aún como capacidad publicada. Las reservas
-por subrama y la aceptación fiscal general permanecen explícitas.
+Base del corte: `3dcd12606d0c0d280f276585a04918181d7093bf`, con los dos trabajos remotos de CI en verde. Este corte incorpora los cambios revisados descritos a continuación. Conserva el inventario reproducible entre directorios y sus entradas declaradas; antes de cada push se reproducen los 31 pasos del workflow con PATH limpio y versiones fijadas.
 
-C2025 conserva su cierre de 301 entradas, 3.562 casillas iguales, 652 ausencias
-y cero diferencias, limitado a 300 casos de empleo Madrid y uno de Andalucía.
-El piloto histórico compara siete entradas: 41 casillas coinciden, 42 difieren,
-14 tienen mapeo pendiente y una está ausente. El resultado final difiere un
-céntimo en 2018–2021. Hay 181 capturas de 2018; las 180 posteriores al piloto
-están pendientes de cotejo con la API. No se suman capturas a comparaciones.
+El punto 4 sigue abierto. El corte añade las ampliaciones aisladas revisadas de Galicia/La Rioja (38 códigos), CLM/Castilla y León/Extremadura (51) y Canarias/Baleares (36): 308 de 351 códigos tienen evaluación específica parcial en esas colecciones; se añade el cálculo parcial de inversión aragonesa y un contrato de arrendamiento social todavía sin productor anual. Ese recuento no declara completas todas sus ramas. Las 55 altas territoriales iniciales conservan su conexión anual; se integran ahora A40H12 y B37 con sus revisiones y límites. A40 admite 38 ramas parciales; B37 rechaza expresamente las magnitudes aún no producidas. Galicia/La Rioja está validando su conexión anual; D51 tiene preparada su conexión anual de 51 rutas, con once códigos que conservan algún productor pendiente; Canarias/Baleares la prepara. Madrid/Murcia ampliado y la conexión anual de los dos códigos aragoneses continúan pendientes. No se transforman las reservas de hechos externos en derechos acreditados.
 
-Retiradas las 19 entregas del último corte tras preservar sus contenidos únicos
-por hash; los originales oficiales permanecen en CAS externo. IRoboPF ocupa
-98,12 GB y quedan 317,18 GB libres en la medición del 5/11 a las 00:14 UTC.
-No se repiten auditorías jurídicas favorables sin cambio material.
+C301 conserva 3.562 casillas iguales, 652 ausencias y cero diferencias. Las nueve variantes adicionales alcanzan 108 coincidencias, 18 ausencias y cero diferencias. La revisión independiente documental es favorable acotada; sus 15 pruebas preparadas fueron ejecutadas por el integrador. Se añadieron dos repros del guardia interno y se corrigieron: 168 pruebas focales verdes. Cuatro entradas familiares se corrigen en archivos derivados cuya proyección oficial permanece igual; los originales incoherentes siguen rechazados. Las cinco capturas territoriales no prueban por sí solas el desempate de medio céntimo. Véase [cierre de las variantes](simuladores/c300/VALIDACION-VARIANTES-20261105.md).
+
+La integración conjunta privada pasa 1.061 pruebas y conserva dos TODO de productores ausentes, con tipos y antislop correctos. Los 31 pasos del CI local pasan en un entorno limpio; véase el [registro del corte](revisiones/producto-anual-ci-20261105/CI.md). La comprobación remota corresponde al push de este corte. Los recuentos de suites solapadas no se suman como casos únicos.
+
+El piloto histórico cotejó siete entradas: 41 coincidencias condicionadas, 42 diferencias, 14 mapeos pendientes y una ausencia. El resultado final difiere un céntimo en 2018–2021. El último corte recibido, b07, contiene 421 capturas de 2018 y 427 en total; las 420 incorporaciones posteriores al piloto siguen sin cotejo API. La adquisición continúa secuencialmente, separada de la comparación monetaria.
+
+Tras retirar las dos entregas A ya publicadas, preservando sus parches y originales únicos, el conjunto IRoboPF ocupa 97,5 GB y quedan 316,4 GB libres (5/11, corte de limpieza). Se incluyen conservadoramente todos los worktrees de T3. Ninguna entrega contiene dependencias o cachés locales nuevas.
 
 El orden vigente es: (1) derechos familiares por año y comunidad mediante la API
 única, para el rediseño del viernes 6 a las 20:00; (2) unos 300 casos variados

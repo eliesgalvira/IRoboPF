@@ -8,6 +8,8 @@ from pathlib import Path
 
 from jsonschema import Draft202012Validator
 
+MAX_ARTIFACT_BYTES = 256 * 1024 * 1024
+
 
 def verify(root):
     folder = root / 'docs/procedencia'
@@ -19,8 +21,8 @@ def verify(root):
     if hashlib.sha256(raw).hexdigest() != manifest['artifact']['sha256']:
         raise ValueError('Hash de artefacto incorrecto')
     with gzip.GzipFile(fileobj=io.BytesIO(raw)) as stream:
-        decoded = stream.read(128 * 1024 * 1024 + 1)
-    if len(decoded) > 128 * 1024 * 1024:
+        decoded = stream.read(MAX_ARTIFACT_BYTES + 1)
+    if len(decoded) > MAX_ARTIFACT_BYTES:
         raise ValueError('Artefacto descomprimido demasiado grande')
     files = dict(json.loads(decoded))
     count = 0

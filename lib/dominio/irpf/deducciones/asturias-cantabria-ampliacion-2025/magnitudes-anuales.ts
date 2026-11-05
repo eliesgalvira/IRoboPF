@@ -2,6 +2,7 @@ import { Schema } from "effect"
 import { HechoInvalido } from "../asturias-cantabria-hechos-2025/comun"
 import {
   r,
+  magnitudAnualR,
   Racional,
   total,
   exigir,
@@ -118,8 +119,8 @@ export function resolverDependenciaAnualB(
     )
     const valores = cuotas.map((c) =>
       f.clase === "residencia_rural_cuota"
-        ? r(c.valor).times(r("0.20")).min(r("500"))
-        : r(c.valor).min(r("500"))
+        ? magnitudAnualR(c.valor).times(r("0.20")).min(r("500"))
+        : magnitudAnualR(c.valor).min(r("500"))
     )
     return resultado(
       total(valores),

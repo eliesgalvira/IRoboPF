@@ -1,8 +1,12 @@
+import { SolicitudBAmpliadoAnual } from "./b-ampliado-anual-2025/esquemas"
 // Contratos de hechos: sin bases, cuotas ni contexto anual externo.
 import { Schema } from "effect"
+import { SolicitudAmpliacionAnualA2025 } from "./ampliacion-a-anual-esquemas"
 export const SolicitudDeduccionesTerritoriales2025 = Schema.Struct({
   solicitudes: Schema.Array(
     Schema.Union([
+      SolicitudBAmpliadoAnual,
+      SolicitudAmpliacionAnualA2025,
       Schema.Struct({
         lote: Schema.Literal("A"),
         hechos: Schema.Union([

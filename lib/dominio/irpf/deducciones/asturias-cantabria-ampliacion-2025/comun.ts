@@ -28,7 +28,7 @@ export {
   protegido,
   diasPosibles,
 }
-const DecimalLocal = D.clone({ precision: 200 })
+const DecimalLocal = D.clone({ precision: 600 })
 /** Fracciones enteras normalizadas. Cada operación acota operandos antes de multiplicar,
  * para no aceptar un redondeo silencioso al exceder la precisión local. */
 export class Racional {
@@ -36,7 +36,7 @@ export class Racional {
   readonly d: Decimal
   constructor(n: string, d = "1") {
     exigir(
-      /^-?\d{1,170}$/.test(n) && /^\d{1,170}$/.test(d),
+      /^-?\d{1,500}$/.test(n) && /^\d{1,500}$/.test(d),
       "Operandos racionales fuera de presupuesto exacto"
     )
     const a = new DecimalLocal(n),
@@ -55,7 +55,7 @@ export class Racional {
     this.n = a.div(x)
     this.d = b.div(x)
     exigir(
-      this.n.abs().toFixed().length <= 80 && this.d.toFixed().length <= 80,
+      this.n.abs().toFixed().length <= 240 && this.d.toFixed().length <= 240,
       "Racional excede presupuesto de precisión; no redondear"
     )
   }
@@ -101,6 +101,16 @@ export function r(s: string): Racional {
   )
   const [i, f = ""] = s.split(".")
   return new Racional(i + f.padEnd(2, "0"), "100")
+}
+/** Magnitud interna del motor: hasta80 decimales, independiente del dinero pagado.
+ * Los operandos normalizados admiten240 dígitos; productos480 y suma481 <600.
+ * No hay redondeo para encajar el presupuesto. */
+export function magnitudAnualR(s: string, admiteNegativo = false): Racional {
+  exigir(/^-?\d{1,18}(\.\d{1,80})?$/.test(s), "Magnitud anual fuera del contrato18+80")
+  const [i, f = ""] = s.split(".")
+  const x = new Racional(i + f, "1" + "0".repeat(f.length))
+  exigir(admiteNegativo || x.cmp(r("0")) >= 0, "Magnitud anual negativa")
+  return x
 }
 export function cuenta(n: number): Racional {
   exigir(Number.isSafeInteger(n) && n >= 0 && n <= 10000, "Contador inválido")
@@ -153,7 +163,7 @@ export function incompatibles(
   )
 }
 export function base(m: MarcoB): Racional {
-  return r(m.baseGeneral).plus(r(m.baseAhorro))
+  return magnitudAnualR(m.baseGeneral, true).plus(magnitudAnualR(m.baseAhorro, true))
 }
 export function limiteBase(
   m: MarcoB,

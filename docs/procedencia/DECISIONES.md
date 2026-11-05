@@ -763,3 +763,56 @@ Cuatro pruebas recibidas de la revisión API usaban el alias privado `@/lib/`. E
 El primer CI remoto de eb4670cf detectó cuatro símbolos namespace con rutas absolutas en inventario-bindings.json; los 31 pasos locales habían pasado en el mismo directorio. Se fija la identidad de módulos por ruta relativa de su declaración y hash, sin alterar importes. La prueba nueva reproduce el fallo entre dos directorios; además, el control del artefacto coteja todos sus archivos con una regeneración desde otra raíz. Node y Python quedan fijados a las versiones de la reproducción local (24.20.0 y 3.13.15); antes el workflow seleccionaba parches flotantes distintos. Bun conserva 1.3.13 y el entorno Nix del corpus mantiene su lock.
 
 El cotejo completo entre raíces detectó también que el grafo leía `lib/procedencia/rastro-reforma.ts` sin incluirlo en las entradas de generación. Se fijan por hash los archivos locales que carga el comprobador TypeScript, incluidos sus imports transitivos. Esto conserva esas dependencias y permite reconstruir el mismo grafo; no amplía el ámbito de parámetros fiscales ni inventaría los números de la infraestructura documental.
+
+
+## Deducciones 2025: correcciones y conexión anual por ramas (5 de noviembre)
+
+Las ampliaciones territoriales se integran con sus correcciones revisadas y se
+conectan después a una sola liquidación anual. El cálculo aislado de una fórmula
+no prueba que la API disponga de los hechos, sujetos o magnitudes necesarios.
+Se conserva por código la diferencia entre fórmula parcial y rama conectada.
+La objeción es presentar una cobertura aparente de 351 deducciones mientras
+faltan casos aplicables: ninguna cuenta de códigos se declara cierre fiscal.
+
+En Galicia y La Rioja se corrige la suspensión de categorías de vehículos en
+2025, la atribución económica de pagos y el intervalo de alquiler habitual.
+El oráculo M1 previo estaba mal: se conserva y se rectifica de 150 a cero por la
+suspensión normativa; los otros 37 esperados monetarios se mantienen. El defecto
+P1 recibe contraste independiente. Un pago de tercero sin atribución representada
+se rechaza sin importe; no se afirma que todo pago ajeno excluya la deducción.
+
+En Extremadura el máximo personal de rehabilitación para alquiler se aplica
+tras atribuir el coste; no se divide otra vez por copropietarios. Dos ramas con
+ayudas positivas quedan rechazadas porque el total recibido no permite conciliar
+imputación temporal y bases históricas. La alternativa de restarlo de varias
+magnitudes podría descontar la ayuda dos veces. Se acepta dejar esas ramas fuera
+hasta representar la cronología y la participación individual.
+
+En Canarias y Baleares se exige el parentesco y mínimo que corresponde al sujeto
+para estudios y libros. La adaptación de vivienda por discapacidad propia o
+conyugal conserva su máximo sin dividirlo por propietarios. Para un ascendiente
+o descendiente falta el censo específico de contribuyentes con derecho y grado:
+se rechaza esa rama, con motivo explícito, sin convertir la falta de modelo en
+un importe cero ni en una exclusión legal. La futura conexión anual conserva
+estas restricciones y no acepta como propios mínimos o cuotas aportados desde
+fuera de la composición.
+
+La validación de entradas anuales también concilia los titulares monetarios de
+celiaquía con el mínimo del mismo sujeto y evita omitir convivientes familiares
+ya conocidos en los eventos aragoneses. El coste de rechazar información
+contradictoria es exigir una entrada completa, en vez de elegir el reparto más
+favorable de dos censos incompatibles.
+
+
+### Cuantización territorial y evidencia limitada de Open 2025
+
+Se aplica la cuantización por gravamen sólo a los cinco territorios y al perfil laboral observado, preservando la ruta familiar y el histórico. Las capturas disponibles no discriminan un empate exacto de medio céntimo; no se anuncia una prueba universal del desempate HALF_UP. El criterio del experto impide convertir coincidencias puntuales en una certificación de toda la política del simulador.
+
+Una instrucción contradictoria dejó sin ejecutar los tests TypeScript preparados por el revisor de C2025. El padre los ejecutó, añadió dos rojos del guardia y los corrigió; distingue su ejecución del dictamen independiente original. Un defecto interno menor, sin importe público erróneo acreditado, no recibe un segundo contraste según la regla de revisiones vigente.
+
+B37 deriva tipos generales y cuotas de la liquidación común; no acepta magnitudes fiscales calculadas por el cliente. El consumo se ordena donde existe prioridad normativa y se hace una sola vez. ELA, bases estatales de donativos, cuota general mixta y renta de un período familiar cambiado requieren productores específicos aún ausentes: se rechazan esas ramas con motivo en vez de fabricar una base o cuota cero.
+
+
+### Tamaño acotado del inventario ampliado
+
+El CI local del corte detectó un artefacto de 154.522.282 bytes descomprimidos frente al límite previo de 128 MiB. El productor permitía publicarlo aunque el lector lo rechazase. Se fija un techo de 256 MiB tanto al escribir como en los lectores JavaScript y Python. La comprobación de hashes, nombres y reconstrucción permanece activa; no se elimina el límite de descompresión. Se conserva el intento fallido y se repiten los pasos completos del workflow con PATH limpio antes de publicar.

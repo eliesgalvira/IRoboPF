@@ -4,8 +4,8 @@ import {
   D,
   Texto,
   Entero,
-  Centimos,
-  BaseCentimos,
+  MagnitudBaseAnual,
+  MagnitudAnual,
   Grado,
   Contexto,
   Pago,
@@ -28,7 +28,7 @@ import {
 } from "./comun"
 import { Vivienda, baseVivienda } from "./vivienda"
 import { Inversion, sociedad, ampliacionTresAnios } from "./inversion"
-const S0 = Schema.Struct({
+export const S0 = Schema.Struct({
   ...Contexto,
   territorio: Schema.Literal("andalucia"),
   codigo: Schema.Literal("andalucia_gastos_educativos"),
@@ -50,7 +50,7 @@ const S0 = Schema.Struct({
     ),
   }),
 })
-const S1 = Schema.Struct({
+export const S1 = Schema.Struct({
   ...Contexto,
   territorio: Schema.Literal("andalucia"),
   codigo: Schema.Literal("andalucia_defensa_juridica_laboral"),
@@ -69,7 +69,7 @@ const S1 = Schema.Struct({
     ),
   }),
 })
-const S2 = Schema.Struct({
+export const S2 = Schema.Struct({
   ...Contexto,
   territorio: Schema.Literal("andalucia"),
   codigo: Schema.Literal("andalucia_donativos_finalidad_ecologica"),
@@ -95,7 +95,7 @@ const S2 = Schema.Struct({
     ),
   }),
 })
-const S3 = Schema.Struct({
+export const S3 = Schema.Struct({
   ...Contexto,
   territorio: Schema.Literal("andalucia"),
   codigo: Schema.Literal("andalucia_ejercicio_fisico_deporte"),
@@ -124,7 +124,7 @@ const S3 = Schema.Struct({
     ),
   }),
 })
-const S4 = Schema.Struct({
+export const S4 = Schema.Struct({
   ...Contexto,
   territorio: Schema.Literal("andalucia"),
   codigo: Schema.Literal(
@@ -157,7 +157,7 @@ const S4 = Schema.Struct({
     ),
   }),
 })
-const S5 = Schema.Struct({
+export const S5 = Schema.Struct({
   ...Contexto,
   territorio: Schema.Literal("andalucia"),
   codigo: Schema.Literal("andalucia_enfermedad_celiaca"),
@@ -182,7 +182,7 @@ const S5 = Schema.Struct({
     ),
   }),
 })
-const S6 = Schema.Struct({
+export const S6 = Schema.Struct({
   ...Contexto,
   territorio: Schema.Literal("andalucia"),
   codigo: Schema.Literal("andalucia_adopcion_internacional"),
@@ -194,20 +194,23 @@ const S6 = Schema.Struct({
         normaConvenio: Texto,
         asiento: Texto,
         titulares: Schema.Array(
-          Schema.Struct({ id: Texto, imponibleTotalCentimos: BaseCentimos })
+          Schema.Struct({
+            id: Texto,
+            imponibleTotalCentimos: MagnitudBaseAnual,
+          })
         ),
       })
     ),
   }),
 })
-const S7 = Schema.Struct({
+export const S7 = Schema.Struct({
   ...Contexto,
   territorio: Schema.Literal("andalucia"),
   codigo: Schema.Literal("andalucia_familia_numerosa"),
   hechos: Schema.Struct({
     familia: FamiliaNumerosa,
     rentasTitulares: Schema.Array(
-      Schema.Struct({ id: Texto, imponibleTotalCentimos: BaseCentimos })
+      Schema.Struct({ id: Texto, imponibleTotalCentimos: MagnitudBaseAnual })
     ),
     posicion: Schema.Literals([
       "ascendiente",
@@ -216,7 +219,7 @@ const S7 = Schema.Struct({
     ]),
   }),
 })
-const S8 = Schema.Struct({
+export const S8 = Schema.Struct({
   ...Contexto,
   territorio: Schema.Literal("andalucia"),
   codigo: Schema.Literal(
@@ -238,7 +241,7 @@ const S8 = Schema.Struct({
     tituloEstadoCivil: Texto,
   }),
 })
-const S9 = Schema.Struct({
+export const S9 = Schema.Struct({
   ...Contexto,
   territorio: Schema.Literal("andalucia"),
   codigo: Schema.Literal("andalucia_contribuyente_discapacidad"),
@@ -255,7 +258,7 @@ const S9 = Schema.Struct({
     ]),
   }),
 })
-const S10 = Schema.Struct({
+export const S10 = Schema.Struct({
   ...Contexto,
   territorio: Schema.Literal("andalucia"),
   codigo: Schema.Literal("andalucia_conyuge_pareja_discapacidad"),
@@ -269,7 +272,7 @@ const S10 = Schema.Struct({
     deduccionPropiaArt16: Schema.Literals(["no-aplicada", "aplicada"]),
   }),
 })
-const S11 = Schema.Struct({
+export const S11 = Schema.Struct({
   ...Contexto,
   territorio: Schema.Literal("andalucia"),
   codigo: Schema.Literal("andalucia_asistencia_personas_discapacidad"),
@@ -287,7 +290,7 @@ const S11 = Schema.Struct({
     ),
   }),
 })
-const S12 = Schema.Struct({
+export const S12 = Schema.Struct({
   ...Contexto,
   territorio: Schema.Literal("andalucia"),
   codigo: Schema.Literal("andalucia_ayuda_domestica"),
@@ -303,15 +306,15 @@ const S12 = Schema.Struct({
     ]),
     registroPareja: Schema.String,
     nacimientoPareja: Schema.String,
-    trabajoTitularCentimos: Centimos,
-    trabajoParejaCentimos: Centimos,
+    trabajoTitularCentimos: MagnitudAnual,
+    trabajoParejaCentimos: MagnitudAnual,
     hijos: Schema.Array(Minimo),
     empleado: Texto,
     cuotas: Schema.Array(Pago),
     eleccionBeneficiario: Texto,
   }),
 })
-const S13 = Schema.Struct({
+export const S13 = Schema.Struct({
   ...Contexto,
   territorio: Schema.Literal("andalucia"),
   codigo: Schema.Literal("andalucia_alquiler_vivienda_habitual"),
@@ -332,7 +335,7 @@ const S13 = Schema.Struct({
     pagos: Schema.Array(Pago),
   }),
 })
-const S14 = Schema.Struct({
+export const S14 = Schema.Struct({
   ...Contexto,
   territorio: Schema.Literal("andalucia"),
   codigo: Schema.Literal(
@@ -343,7 +346,7 @@ const S14 = Schema.Struct({
     calificacionProtegida: Schema.String,
   }),
 })
-const S15 = Schema.Struct({
+export const S15 = Schema.Struct({
   ...Contexto,
   territorio: Schema.Literal("andalucia"),
   codigo: Schema.Literal(
@@ -736,8 +739,8 @@ export function calcularAndalucia(h: HechosAndalucia): Decimal {
       if (!mayores) {
         exigir(
           f.hijos.length > 0 &&
-            f.trabajoTitularCentimos > 0 &&
-            (!pareja || f.trabajoParejaCentimos > 0),
+            eur(f.trabajoTitularCentimos).gt(0) &&
+            (!pareja || eur(f.trabajoParejaCentimos).gt(0)),
           "Vía hijos requiere mínimo y rendimientos laborales/actividad de ambos miembros"
         )
         for (const m of f.hijos) minimo(m, h, "descendiente")

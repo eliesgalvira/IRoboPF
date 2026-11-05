@@ -1,0 +1,1558 @@
+[
+  {
+    "codigo": "clm_familia_monoparental",
+    "funcion": "familiaMonoparental",
+    "territorio": "castilla-la-mancha",
+    "datos": {
+      "estadoCivil": "sin_vinculo",
+      "hijos": [
+        {
+          "id": "h",
+          "nacimiento": "2010-01-01",
+          "apoyoCivil": "ninguno",
+          "convivencia": "exclusiva",
+          "titularesMinimo": [
+            "a"
+          ],
+          "alimentos": "0"
+        }
+      ],
+      "eleccion": "familia",
+      "exhaustividad": "completa"
+    },
+    "numerador": "200",
+    "denominador": "1"
+  },
+  {
+    "codigo": "clm_familia_numerosa",
+    "funcion": "familiaNumerosaAmpliada",
+    "territorio": "castilla-la-mancha",
+    "datos": {
+      "categoria": "especial",
+      "inicioTitulo": "2024-01-01",
+      "finTitulo": "2026-01-01",
+      "discapacitados65": [
+        "h"
+      ],
+      "titulares": [
+        "a",
+        "b"
+      ],
+      "eleccion": "familia",
+      "exhaustividad": "completa"
+    },
+    "numerador": "450",
+    "denominador": "1"
+  },
+  {
+    "codigo": "clm_discapacidad_ascendientes_descendientes",
+    "funcion": "discapacidadFamiliares",
+    "territorio": "castilla-la-mancha",
+    "datos": {
+      "personas": [
+        {
+          "id": "h",
+          "vinculo": "descendiente",
+          "grado": 65,
+          "titularesMinimo": [
+            "a",
+            "b"
+          ],
+          "eleccion": "discapacidad_familiar"
+        }
+      ],
+      "exhaustividad": "completa"
+    },
+    "numerador": "150",
+    "denominador": "1"
+  },
+  {
+    "codigo": "clm_libros_idiomas_otros_gastos_educacion",
+    "funcion": "gastosEducacion",
+    "territorio": "castilla-la-mancha",
+    "datos": {
+      "familia": "ordinaria",
+      "hijos": [
+        {
+          "id": "h",
+          "titularesMinimo": [
+            "a"
+          ]
+        }
+      ],
+      "libros": [
+        {
+          "id": "p",
+          "fecha": "2025-06-01",
+          "pagador": "a",
+          "importe": "100"
+        }
+      ],
+      "actividades": [
+        {
+          "id": "act",
+          "fecha": "2025-06-01",
+          "pagador": "a",
+          "importe": "200"
+        }
+      ],
+      "becas": "10",
+      "baseMenosMinimo": {
+        "ejercicio": 2025,
+        "declarantes": [
+          "a"
+        ],
+        "concepto": "base_imponible_menos_minimo_personal_familiar",
+        "valor": "6500"
+      },
+      "exhaustividad": "completa"
+    },
+    "numerador": "90",
+    "denominador": "1"
+  },
+  {
+    "codigo": "clm_gastos_guarderia",
+    "funcion": "guarderia",
+    "territorio": "castilla-la-mancha",
+    "datos": {
+      "hijos": [
+        {
+          "id": "h",
+          "nacimiento": "2022-05-01",
+          "titularesMinimo": [
+            "a",
+            "b"
+          ],
+          "mesesCompletos": 10,
+          "pagos": [
+            {
+              "id": "p",
+              "fecha": "2025-06-01",
+              "pagador": "a",
+              "importe": "1000"
+            }
+          ],
+          "becas": "100",
+          "gastoExentoEspecie": "0"
+        }
+      ],
+      "exhaustividad": "completa"
+    },
+    "numerador": "125",
+    "denominador": "1"
+  },
+  {
+    "codigo": "clm_acogimiento_familiar_no_remunerado_menores",
+    "funcion": "acogimientoMenores",
+    "territorio": "castilla-la-mancha",
+    "datos": {
+      "personas": [
+        {
+          "id": "h",
+          "nacimiento": "2015-01-01",
+          "inicio": "2025-01-01",
+          "fin": "2025-12-31",
+          "orden": 1,
+          "contraprestacion": "0",
+          "ayudaJccm": "0",
+          "adopcion": "no",
+          "titulares": [
+            "a",
+            "b"
+          ]
+        }
+      ],
+      "exhaustividad": "completa"
+    },
+    "numerador": "250",
+    "denominador": "1"
+  },
+  {
+    "codigo": "clm_acogimiento_no_remunerado_mayores_65_discapacidad",
+    "funcion": "acogimientoMayores",
+    "territorio": "castilla-la-mancha",
+    "datos": {
+      "personas": [
+        {
+          "id": "mayor",
+          "nacimiento": "1950-01-01",
+          "grado": 0,
+          "inicio": "2025-01-01",
+          "fin": "2025-12-31",
+          "parentesco": 0,
+          "contraprestacion": "0",
+          "ayudas": "0",
+          "titulares": [
+            "a",
+            "b"
+          ]
+        }
+      ],
+      "exhaustividad": "completa"
+    },
+    "numerador": "300",
+    "denominador": "1"
+  },
+  {
+    "codigo": "clm_arrendamiento_menores_36",
+    "funcion": "alquilerJoven",
+    "territorio": "castilla-la-mancha",
+    "datos": {
+      "inicio": "2025-01-01",
+      "fin": "2025-12-31",
+      "titularesConDerecho": [
+        "a",
+        "b"
+      ],
+      "pagos": [
+        {
+          "id": "p",
+          "fecha": "2025-06-01",
+          "pagador": "a",
+          "importe": "6000"
+        }
+      ],
+      "minimoDescendientes": {
+        "ejercicio": 2025,
+        "declarantes": [
+          "a"
+        ],
+        "concepto": "minimo_descendientes",
+        "valor": "0"
+      },
+      "eleccion": "esta",
+      "nacimiento": "1990-01-01",
+      "poblacionPadronVigente": 2500,
+      "distanciaMunicipio50000": "0",
+      "exhaustividad": "completa"
+    },
+    "numerador": "306",
+    "denominador": "1"
+  },
+  {
+    "codigo": "clm_arrendamiento_dacion_pago",
+    "funcion": "alquilerDacion",
+    "territorio": "castilla-la-mancha",
+    "datos": {
+      "inicio": "2025-01-01",
+      "fin": "2025-12-31",
+      "titularesConDerecho": [
+        "a",
+        "b"
+      ],
+      "pagos": [
+        {
+          "id": "p",
+          "fecha": "2025-06-01",
+          "pagador": "a",
+          "importe": "6000"
+        }
+      ],
+      "minimoDescendientes": {
+        "ejercicio": 2025,
+        "declarantes": [
+          "a"
+        ],
+        "concepto": "minimo_descendientes",
+        "valor": "0"
+      },
+      "eleccion": "esta",
+      "deudaAntes": "100000",
+      "deudaCancelada": "100000",
+      "deudaDespues": "0",
+      "exhaustividad": "completa"
+    },
+    "numerador": "250",
+    "denominador": "1"
+  },
+  {
+    "codigo": "clm_arrendamiento_familias_numerosas",
+    "funcion": "alquilerNumerosa",
+    "territorio": "castilla-la-mancha",
+    "datos": {
+      "inicio": "2025-01-01",
+      "fin": "2025-12-31",
+      "titularesConDerecho": [
+        "a",
+        "b"
+      ],
+      "pagos": [
+        {
+          "id": "p",
+          "fecha": "2025-06-01",
+          "pagador": "a",
+          "importe": "6000"
+        }
+      ],
+      "minimoDescendientes": {
+        "ejercicio": 2025,
+        "declarantes": [
+          "a"
+        ],
+        "concepto": "minimo_descendientes",
+        "valor": "0"
+      },
+      "eleccion": "esta",
+      "tituloInicio": "2024-01-01",
+      "tituloFin": "2026-01-01",
+      "exhaustividad": "completa"
+    },
+    "numerador": "250",
+    "denominador": "1"
+  },
+  {
+    "codigo": "clm_arrendamiento_familias_monoparentales",
+    "funcion": "alquilerMonoparental",
+    "territorio": "castilla-la-mancha",
+    "datos": {
+      "inicio": "2025-01-01",
+      "fin": "2025-12-31",
+      "titularesConDerecho": [
+        "a",
+        "b"
+      ],
+      "pagos": [
+        {
+          "id": "p",
+          "fecha": "2025-06-01",
+          "pagador": "a",
+          "importe": "6000"
+        }
+      ],
+      "minimoDescendientes": {
+        "ejercicio": 2025,
+        "declarantes": [
+          "a"
+        ],
+        "concepto": "minimo_descendientes",
+        "valor": "0"
+      },
+      "eleccion": "esta",
+      "estadoCivil": "sin_vinculo",
+      "hijosMinimoExclusivo": [
+        "h"
+      ],
+      "alimentos": "0",
+      "exhaustividad": "completa"
+    },
+    "numerador": "250",
+    "denominador": "1"
+  },
+  {
+    "codigo": "clm_arrendamiento_personas_discapacidad",
+    "funcion": "alquilerDiscapacidad",
+    "territorio": "castilla-la-mancha",
+    "datos": {
+      "inicio": "2025-01-01",
+      "fin": "2025-12-31",
+      "titularesConDerecho": [
+        "a",
+        "b"
+      ],
+      "pagos": [
+        {
+          "id": "p",
+          "fecha": "2025-06-01",
+          "pagador": "a",
+          "importe": "6000"
+        }
+      ],
+      "minimoDescendientes": {
+        "ejercicio": 2025,
+        "declarantes": [
+          "a"
+        ],
+        "concepto": "minimo_descendientes",
+        "valor": "0"
+      },
+      "eleccion": "esta",
+      "grado": 65,
+      "exhaustividad": "completa"
+    },
+    "numerador": "250",
+    "denominador": "1"
+  },
+  {
+    "codigo": "clm_donaciones_cooperacion_lucha_pobreza_discapacidad",
+    "funcion": "donacionesCooperacion",
+    "territorio": "castilla-la-mancha",
+    "datos": {
+      "pagos": [
+        {
+          "id": "p",
+          "fecha": "2025-06-01",
+          "pagador": "a",
+          "importe": "1000"
+        }
+      ],
+      "baseLiquidable": {
+        "ejercicio": 2025,
+        "declarantes": [
+          "a"
+        ],
+        "concepto": "base_liquidable_total",
+        "valor": "10000"
+      },
+      "tipoEntidad": "fundacion",
+      "fin": "pobreza",
+      "exhaustividad": "completa"
+    },
+    "numerador": "150",
+    "denominador": "1"
+  },
+  {
+    "codigo": "clm_donaciones_idi_innovacion_empresarial",
+    "funcion": "donacionesIdi",
+    "territorio": "castilla-la-mancha",
+    "datos": {
+      "pagos": [
+        {
+          "id": "p",
+          "fecha": "2025-06-01",
+          "pagador": "a",
+          "importe": "1000"
+        }
+      ],
+      "cuotaAutonomica": {
+        "ejercicio": 2025,
+        "declarantes": [
+          "a"
+        ],
+        "concepto": "cuota_integra_autonomica",
+        "valor": "500"
+      },
+      "destinatario": "jccm",
+      "exhaustividad": "completa"
+    },
+    "numerador": "50",
+    "denominador": "1"
+  },
+  {
+    "codigo": "clm_donaciones_bienes_culturales_mecenazgo",
+    "funcion": "mecenazgoCultural",
+    "territorio": "castilla-la-mancha",
+    "datos": {
+      "operaciones": [
+        {
+          "id": "don",
+          "fecha": "2025-05-01",
+          "modalidad": "bien",
+          "valor": "2000",
+          "creditoFiscal": "no"
+        }
+      ],
+      "baseLiquidable": {
+        "ejercicio": 2025,
+        "declarantes": [
+          "a"
+        ],
+        "concepto": "base_liquidable_total",
+        "valor": "10000"
+      },
+      "exhaustividad": "completa"
+    },
+    "numerador": "150",
+    "denominador": "1"
+  },
+  {
+    "codigo": "clm_intereses_primera_vivienda_menores_40",
+    "funcion": "interesesPrimeraVivienda",
+    "territorio": "castilla-la-mancha",
+    "datos": {
+      "nacimiento": "1990-01-01",
+      "tipoPrestamo": "variable",
+      "pagosIntereses": [
+        {
+          "id": "p",
+          "fecha": "2025-06-01",
+          "pagador": "a",
+          "importe": "500"
+        }
+      ],
+      "maximaPropiedadAnterior": "0",
+      "concurrencia12ter": "no",
+      "exhaustividad": "completa"
+    },
+    "numerador": "150",
+    "denominador": "1"
+  },
+  {
+    "codigo": "clm_residencia_zonas_rurales",
+    "funcion": "residenciaRural",
+    "territorio": "castilla-la-mancha",
+    "datos": {
+      "categoria": "extrema",
+      "poblacionAnual": 1999,
+      "poblacion2021": 1999,
+      "municipioIntermedio": "02015",
+      "perdida2016_2021": "1",
+      "cuotaAutonomica": {
+        "ejercicio": 2025,
+        "declarantes": [
+          "a"
+        ],
+        "concepto": "cuota_integra_autonomica",
+        "valor": "1000"
+      },
+      "zonaSanitariaPadron": "zona",
+      "zonaSanitariaAtencion": "zona",
+      "escolares": [],
+      "exhaustividad": "completa"
+    },
+    "numerador": "250",
+    "denominador": "1"
+  },
+  {
+    "codigo": "clm_adquisicion_rehabilitacion_vivienda_zonas_rurales",
+    "funcion": "viviendaRural",
+    "territorio": "castilla-la-mancha",
+    "datos": {
+      "fechaOperacion": "2021-01-01",
+      "categoria": "intensa",
+      "poblacionFiscal": 4999,
+      "pagos": [
+        {
+          "id": "p",
+          "fecha": "2025-06-01",
+          "pagador": "a",
+          "importe": "10000"
+        }
+      ],
+      "coste": "200000",
+      "ayudaJccm": "0",
+      "baseConsumidaAnterior": {
+        "ejercicio": 2025,
+        "declarantes": [
+          "a"
+        ],
+        "concepto": "base_historica_vivienda:v",
+        "valor": "0"
+      },
+      "porcentajePropiedad": "50",
+      "concurrencia12": "no",
+      "vivienda": "v",
+      "exhaustividad": "completa"
+    },
+    "numerador": "1500",
+    "denominador": "1"
+  },
+  {
+    "codigo": "clm_traslado_vivienda_habitual",
+    "funcion": "trasladoLaboral",
+    "territorio": "castilla-la-mancha",
+    "datos": {
+      "fechaTraslado": "2024-01-01",
+      "categoria": "intensa",
+      "causa": "trabajo",
+      "baseLiquidableInicial": {
+        "ejercicio": 2025,
+        "declarantes": [
+          "a"
+        ],
+        "concepto": "base_liquidable_inicio_periodo",
+        "valor": "22945"
+      },
+      "cuotaTrabajoActividad": {
+        "ejercicio": 2025,
+        "declarantes": [
+          "a"
+        ],
+        "concepto": "cuota_autonomica_trabajo_actividad",
+        "valor": "400"
+      },
+      "exhaustividad": "completa"
+    },
+    "numerador": "400",
+    "denominador": "1"
+  },
+  {
+    "codigo": "clm_inversion_acciones_participaciones_mercantiles",
+    "funcion": "inversionMercantil",
+    "territorio": "castilla-la-mancha",
+    "datos": {
+      "pagos": [
+        {
+          "id": "p",
+          "fecha": "2025-06-01",
+          "pagador": "a",
+          "importe": "10000"
+        }
+      ],
+      "participacionFamiliarMaxima": "40",
+      "domicilioSocial": "clm",
+      "domicilioFiscal": "clm",
+      "otraDeduccionMismaInversion": "no",
+      "fechaEscritura": "2025-01-01",
+      "direccionEjecutiva": "no",
+      "exhaustividad": "completa"
+    },
+    "numerador": "2000",
+    "denominador": "1"
+  },
+  {
+    "codigo": "clm_inversion_economia_social",
+    "funcion": "inversionEconomiaSocial",
+    "territorio": "castilla-la-mancha",
+    "datos": {
+      "pagos": [
+        {
+          "id": "p",
+          "fecha": "2025-06-01",
+          "pagador": "a",
+          "importe": "10000"
+        }
+      ],
+      "participacionFamiliarMaxima": "40",
+      "domicilioSocial": "clm",
+      "domicilioFiscal": "clm",
+      "otraDeduccionMismaInversion": "no",
+      "fechaEscritura": "2025-01-01",
+      "exhaustividad": "completa"
+    },
+    "numerador": "2000",
+    "denominador": "1"
+  },
+  {
+    "codigo": "clm_ahorro_inversion_primera_vivienda",
+    "funcion": "cuentaVivienda",
+    "territorio": "castilla-la-mancha",
+    "datos": {
+      "nacimiento": "1989-01-01",
+      "cuenta": "cuenta",
+      "fechaApertura": "2025-01-01",
+      "saldoInicio": "1000",
+      "saldoFin": "6000",
+      "deducidoAnterior": {
+        "ejercicio": 2025,
+        "declarantes": [
+          "a"
+        ],
+        "concepto": "deducciones_cuenta_anteriores:cuenta",
+        "valor": "0"
+      },
+      "cuentasAbiertas": 1,
+      "exhaustividad": "completa"
+    },
+    "numerador": "750",
+    "denominador": "1"
+  },
+  {
+    "codigo": "clm_controles_veterinarios_perros_asistencia",
+    "funcion": "perrosAsistencia",
+    "territorio": "castilla-la-mancha",
+    "datos": {
+      "pagos": [
+        {
+          "id": "p",
+          "fecha": "2025-06-01",
+          "pagador": "a",
+          "importe": "400"
+        }
+      ],
+      "inicioTenencia": "2024-01-01",
+      "finTenencia": "2026-01-01",
+      "subvenciones": "0",
+      "clase": "guia",
+      "vinculacion": "otra_comunidad",
+      "exhaustividad": "completa"
+    },
+    "numerador": "100",
+    "denominador": "1"
+  },
+  {
+    "codigo": "cyl_nacimiento_adopcion_hijos",
+    "funcion": "nacimientoCyl",
+    "territorio": "castilla-y-leon",
+    "datos": {
+      "hijos": [
+        {
+          "id": "h",
+          "fecha": "2025-06-01",
+          "orden": 1,
+          "grado": 0,
+          "poblacion": 6000,
+          "titularesMinimo": [
+            "a",
+            "b"
+          ],
+          "ayudaAnalogica": "no"
+        }
+      ],
+      "exhaustividad": "completa"
+    },
+    "numerador": "505",
+    "denominador": "1"
+  },
+  {
+    "codigo": "cyl_partos_adopciones_multiples",
+    "funcion": "multiplesCyl",
+    "territorio": "castilla-y-leon",
+    "datos": {
+      "hijos": [
+        {
+          "id": "h",
+          "fecha": "2025-06-01",
+          "orden": 1,
+          "grado": 0,
+          "poblacion": 6000,
+          "titularesMinimo": [
+            "a",
+            "b"
+          ],
+          "ayudaAnalogica": "no"
+        },
+        {
+          "id": "h2",
+          "fecha": "2025-06-01",
+          "orden": 2,
+          "grado": 0,
+          "poblacion": 6000,
+          "titularesMinimo": [
+            "a",
+            "b"
+          ],
+          "ayudaAnalogica": "no"
+        }
+      ],
+      "fechaPrimero": "2025-06-01",
+      "fechaUltimo": "2025-06-01",
+      "titulares": [
+        "a",
+        "b"
+      ],
+      "exhaustividad": "completa"
+    },
+    "numerador": "2485",
+    "denominador": "4"
+  },
+  {
+    "codigo": "cyl_cuidado_hijos_menores",
+    "funcion": "cuidadoMenoresCyl",
+    "territorio": "castilla-y-leon",
+    "datos": {
+      "opcion": "centro",
+      "hijos": [
+        {
+          "id": "h",
+          "nacimiento": "2022-01-01",
+          "titularesMinimo": [
+            "a"
+          ]
+        }
+      ],
+      "mesesCompletos": 10,
+      "pagos": [
+        {
+          "id": "p",
+          "fecha": "2025-06-01",
+          "pagador": "a",
+          "importe": "1200"
+        }
+      ],
+      "ayudas": "0",
+      "incrementoEstatalMaternidad": {
+        "ejercicio": 2025,
+        "declarantes": [
+          "a"
+        ],
+        "concepto": "incremento_estatal_maternidad",
+        "valor": "1000"
+      },
+      "progenitoresActividad": [
+        "a"
+      ],
+      "progenitoresAlta": [
+        "a"
+      ],
+      "exhaustividad": "completa"
+    },
+    "numerador": "200",
+    "denominador": "1"
+  },
+  {
+    "codigo": "cyl_vivienda_jovenes_medio_rural",
+    "funcion": "viviendaJovenRuralCyl",
+    "territorio": "castilla-y-leon",
+    "datos": {
+      "nacimiento": "1990-01-01",
+      "fechaAdquisicion": "2023-01-01",
+      "valorFiscal": "149999",
+      "poblacion": 10000,
+      "distanciaCapital": "30",
+      "pagos": [
+        {
+          "id": "p",
+          "fecha": "2025-06-01",
+          "pagador": "a",
+          "importe": "10000"
+        }
+      ],
+      "maximaPropiedadAnterior": "0",
+      "tipo": "nueva",
+      "exhaustividad": "completa"
+    },
+    "numerador": "1500",
+    "denominador": "1"
+  },
+  {
+    "codigo": "cyl_rehabilitacion_subvencionada_eficiencia_sostenibilidad_discapacidad",
+    "funcion": "rehabilitacionSubvencionadaCyl",
+    "territorio": "castilla-y-leon",
+    "datos": {
+      "pagos": [
+        {
+          "id": "p",
+          "fecha": "2025-06-01",
+          "pagador": "a",
+          "importe": "20000"
+        }
+      ],
+      "fechaCobroSubvencion": "2025-01-01",
+      "programa": "estatal",
+      "actuacion": "eficiencia",
+      "medioPago": "transferencia",
+      "exhaustividad": "completa"
+    },
+    "numerador": "3000",
+    "denominador": "1"
+  },
+  {
+    "codigo": "cyl_rehabilitacion_viviendas_medio_rural_alquiler",
+    "funcion": "rehabilitacionAlquilerCyl",
+    "territorio": "castilla-y-leon",
+    "datos": {
+      "pagos": [
+        {
+          "id": "p",
+          "fecha": "2025-06-01",
+          "pagador": "a",
+          "importe": "20000"
+        }
+      ],
+      "poblacion": 3000,
+      "distanciaCapital": "29.99",
+      "rentaMensual": "300",
+      "parentescoArrendatario": 0,
+      "diasOfertada": 365,
+      "exhaustividad": "completa"
+    },
+    "numerador": "3000",
+    "denominador": "1"
+  },
+  {
+    "codigo": "cyl_fomento_emprendimiento",
+    "funcion": "emprendimientoCyl",
+    "territorio": "castilla-y-leon",
+    "datos": {
+      "pagos": [
+        {
+          "id": "p",
+          "fecha": "2025-06-01",
+          "pagador": "a",
+          "importe": "60000"
+        }
+      ],
+      "via": "directa",
+      "participacion": "0.5",
+      "sede": "cyl",
+      "proyecto": "cyl",
+      "mesesReinversion": 0,
+      "exhaustividad": "completa"
+    },
+    "numerador": "10000",
+    "denominador": "1"
+  },
+  {
+    "codigo": "cyl_recuperacion_patrimonio_historico_cultural_natural",
+    "funcion": "patrimonioCyl",
+    "territorio": "castilla-y-leon",
+    "datos": {
+      "pagos": [
+        {
+          "id": "p",
+          "fecha": "2025-06-01",
+          "pagador": "a",
+          "importe": "1000"
+        }
+      ],
+      "baseLiquidable": {
+        "ejercicio": 2025,
+        "declarantes": [
+          "a"
+        ],
+        "concepto": "base_liquidable_total",
+        "valor": "10000"
+      },
+      "otrasBases9af": {
+        "ejercicio": 2025,
+        "declarantes": [
+          "a"
+        ],
+        "concepto": "otras_bases_conjunto_9a_f",
+        "valor": "500"
+      },
+      "rama": "natural",
+      "acto": "ambos",
+      "categoria": "protegido",
+      "exhaustividad": "completa"
+    },
+    "numerador": "75",
+    "denominador": "1"
+  },
+  {
+    "codigo": "cyl_donaciones_fundaciones_patrimonio",
+    "funcion": "donacionesPatrimonioCyl",
+    "territorio": "castilla-y-leon",
+    "datos": {
+      "pagos": [
+        {
+          "id": "p",
+          "fecha": "2025-06-01",
+          "pagador": "a",
+          "importe": "1000"
+        }
+      ],
+      "baseLiquidable": {
+        "ejercicio": 2025,
+        "declarantes": [
+          "a"
+        ],
+        "concepto": "base_liquidable_total",
+        "valor": "10000"
+      },
+      "otrasBases9af": {
+        "ejercicio": 2025,
+        "declarantes": [
+          "a"
+        ],
+        "concepto": "otras_bases_conjunto_9a_f",
+        "valor": "500"
+      },
+      "destino": "fundacion",
+      "exhaustividad": "completa"
+    },
+    "numerador": "75",
+    "denominador": "1"
+  },
+  {
+    "codigo": "cyl_donaciones_idi",
+    "funcion": "donacionesIdiCyl",
+    "territorio": "castilla-y-leon",
+    "datos": {
+      "pagos": [
+        {
+          "id": "p",
+          "fecha": "2025-06-01",
+          "pagador": "a",
+          "importe": "1000"
+        }
+      ],
+      "baseLiquidable": {
+        "ejercicio": 2025,
+        "declarantes": [
+          "a"
+        ],
+        "concepto": "base_liquidable_total",
+        "valor": "10000"
+      },
+      "otrasBases9af": {
+        "ejercicio": 2025,
+        "declarantes": [
+          "a"
+        ],
+        "concepto": "otras_bases_conjunto_9a_f",
+        "valor": "500"
+      },
+      "proyecto": "cyl",
+      "destinatario": "universidad_publica",
+      "exhaustividad": "completa"
+    },
+    "numerador": "75",
+    "denominador": "1"
+  },
+  {
+    "codigo": "cyl_movilidad_sostenible",
+    "funcion": "movilidadCyl",
+    "territorio": "castilla-y-leon",
+    "datos": {
+      "vehiculos": [
+        {
+          "id": "v",
+          "tipo": "hibrido",
+          "wltp": "40.01",
+          "precio": "40000",
+          "fechaMatricula": "2025-01-01",
+          "afectacion": "no",
+          "adquirentes": [
+            "a",
+            "b"
+          ],
+          "pagos": [
+            {
+              "id": "p",
+              "fecha": "2025-06-01",
+              "pagador": "a",
+              "importe": "20000"
+            }
+          ],
+          "deduccionEstatal": {
+            "ejercicio": 2025,
+            "declarantes": [
+              "a"
+            ],
+            "concepto": "deduccion_estatal_mismo_vehiculo_para_declaracion:v",
+            "valor": "1500"
+          }
+        }
+      ],
+      "exhaustividad": "completa"
+    },
+    "numerador": "500",
+    "denominador": "1"
+  },
+  {
+    "codigo": "cyl_vivienda_nueva_construccion",
+    "funcion": "viviendaNuevaCyl",
+    "territorio": "castilla-y-leon",
+    "datos": {
+      "pagos": [
+        {
+          "id": "p",
+          "fecha": "2025-06-01",
+          "pagador": "a",
+          "importe": "9040"
+        }
+      ],
+      "fechaVisado": "2011-09-01",
+      "fechaPrimerPago": "2021-01-01",
+      "tipo": "nueva",
+      "exhaustividad": "completa"
+    },
+    "numerador": "678",
+    "denominador": "1"
+  },
+  {
+    "codigo": "cyl_arrendamiento_vivienda_jovenes",
+    "funcion": "alquilerJovenCyl",
+    "territorio": "castilla-y-leon",
+    "datos": {
+      "nacimiento": "1990-01-01",
+      "contratos": [
+        {
+          "id": "v",
+          "poblacion": 3000,
+          "distanciaCapital": "20",
+          "pagos": [
+            {
+              "id": "p",
+              "fecha": "2025-06-01",
+              "pagador": "a",
+              "importe": "2000"
+            }
+          ],
+          "ayudasMensualidades2025": "1000"
+        }
+      ],
+      "exhaustividad": "completa"
+    },
+    "numerador": "500",
+    "denominador": "1"
+  },
+  {
+    "codigo": "extremadura_acogimiento_menores",
+    "funcion": "acogimientoMenoresExt",
+    "territorio": "extremadura",
+    "datos": {
+      "personas": [
+        {
+          "id": "h",
+          "nacimiento": "2010-01-01",
+          "inicio": "2025-01-01",
+          "fin": "2025-12-31",
+          "regimen": "permanente",
+          "titulares": [
+            "a",
+            "b"
+          ]
+        }
+      ],
+      "exhaustividad": "completa"
+    },
+    "numerador": "125",
+    "denominador": "1"
+  },
+  {
+    "codigo": "extremadura_contribuyentes_viudos",
+    "funcion": "viudedadExt",
+    "territorio": "extremadura",
+    "datos": {
+      "regimen": {
+        "poblacion": 10000,
+        "familia": "ordinaria",
+        "hijosExclusivos": [],
+        "estadoCivil": "casado",
+        "alimentos": "0"
+      },
+      "estadoCivil": "viudo",
+      "condenaFirme": "no",
+      "eleccion": "viudedad",
+      "descendientes": [
+        {
+          "id": "h",
+          "rentasTotales": "0",
+          "titularesMinimo": [
+            "a"
+          ]
+        }
+      ],
+      "exhaustividad": "completa"
+    },
+    "numerador": "200",
+    "denominador": "1"
+  },
+  {
+    "codigo": "extremadura_cuidado_familiares_discapacidad",
+    "funcion": "cuidadoDiscapacidadExt",
+    "territorio": "extremadura",
+    "datos": {
+      "regimen": {
+        "poblacion": 10000,
+        "familia": "ordinaria",
+        "hijosExclusivos": [],
+        "estadoCivil": "casado",
+        "alimentos": "0"
+      },
+      "personas": [
+        {
+          "id": "madre",
+          "grado": 65,
+          "resolucion": "ninguna",
+          "inicioConvivencia": "2025-01-01",
+          "finConvivencia": "2025-12-31",
+          "rentasIncluidasExentas": "16800",
+          "obligacionPatrimonio": "no",
+          "dependenciaReconocida": "1000",
+          "dependenciaCobrada": "0",
+          "titularesMismoGradoElegibles": [
+            "a",
+            "b"
+          ]
+        }
+      ],
+      "exhaustividad": "completa"
+    },
+    "numerador": "110",
+    "denominador": "1"
+  },
+  {
+    "codigo": "extremadura_cuidado_hijos_hasta_14",
+    "funcion": "cuidadoHasta14Ext",
+    "territorio": "extremadura",
+    "datos": {
+      "regimen": {
+        "poblacion": 10000,
+        "familia": "ordinaria",
+        "hijosExclusivos": [],
+        "estadoCivil": "casado",
+        "alimentos": "0"
+      },
+      "hijos": [
+        {
+          "id": "h",
+          "nacimiento": "2011-01-01",
+          "titularesMinimo": [
+            "a",
+            "b"
+          ]
+        }
+      ],
+      "pagosUnidad": [
+        {
+          "id": "p",
+          "fecha": "2025-06-01",
+          "pagador": "a",
+          "importe": "3000"
+        },
+        {
+          "id": "p2",
+          "fecha": "2025-06-01",
+          "pagador": "b",
+          "importe": "1000"
+        }
+      ],
+      "ayudas": "0",
+      "modalidadServicio": "centro_autorizado",
+      "progenitoresActividad": [
+        "a",
+        "b"
+      ],
+      "progenitoresAlta": [
+        "a",
+        "b"
+      ],
+      "exhaustividad": "completa"
+    },
+    "numerador": "300",
+    "denominador": "1"
+  },
+  {
+    "codigo": "extremadura_vivienda_jovenes_victimas_terrorismo",
+    "funcion": "viviendaJovenExt",
+    "territorio": "extremadura",
+    "datos": {
+      "regimen": {
+        "poblacion": 10000,
+        "familia": "ordinaria",
+        "hijosExclusivos": [],
+        "estadoCivil": "casado",
+        "alimentos": "0"
+      },
+      "nacimiento": "1990-01-01",
+      "via": "joven",
+      "poblacionVivienda": 2999,
+      "pagosSinIntereses": [
+        {
+          "id": "p",
+          "fecha": "2025-06-01",
+          "pagador": "a",
+          "importe": "9040"
+        }
+      ],
+      "maximaPropiedadAnterior": "0",
+      "tipo": "nueva_libre",
+      "eleccion": "esta",
+      "exhaustividad": "completa"
+    },
+    "numerador": "452",
+    "denominador": "1"
+  },
+  {
+    "codigo": "extremadura_arrendamiento_vivienda_habitual",
+    "funcion": "alquilerExt",
+    "territorio": "extremadura",
+    "datos": {
+      "regimen": {
+        "poblacion": 10000,
+        "familia": "ordinaria",
+        "hijosExclusivos": [],
+        "estadoCivil": "casado",
+        "alimentos": "0"
+      },
+      "nacimiento": "1990-01-01",
+      "grado": 0,
+      "resolucion": "ninguna",
+      "itp": "exento_presentado",
+      "derechoInversionVivienda": "no",
+      "distanciasOtrasViviendasUnidad": [
+        "75"
+      ],
+      "contratos": [
+        {
+          "id": "v",
+          "poblacion": 2999,
+          "titulares": [
+            "a",
+            "b"
+          ],
+          "pagos": [
+            {
+              "id": "p",
+              "fecha": "2025-06-01",
+              "pagador": "a",
+              "importe": "6000"
+            }
+          ]
+        }
+      ],
+      "exhaustividad": "completa"
+    },
+    "numerador": "750",
+    "denominador": "1"
+  },
+  {
+    "codigo": "extremadura_arrendadores_viviendas_vacias",
+    "funcion": "arrendadoresVaciasExt",
+    "territorio": "extremadura",
+    "datos": {
+      "viviendas": [
+        {
+          "id": "v",
+          "diasVaciaAntes": 365,
+          "inicioContrato": "2025-01-01",
+          "finContrato": "2028-01-01",
+          "rendimientoNetoReducido": {
+            "ejercicio": 2025,
+            "declarantes": [
+              "a"
+            ],
+            "concepto": "rendimiento_neto_reducido_vivienda:v",
+            "valor": "1500"
+          },
+          "destino": "habitual"
+        }
+      ],
+      "exhaustividad": "completa"
+    },
+    "numerador": "1200",
+    "denominador": "1"
+  },
+  {
+    "codigo": "extremadura_rehabilitacion_viviendas_zonas_rurales_alquiler",
+    "funcion": "rehabilitacionAlquilerExt",
+    "territorio": "extremadura",
+    "datos": {
+      "pagos": [
+        {
+          "id": "p",
+          "fecha": "2025-06-01",
+          "pagador": "a",
+          "importe": "9040"
+        }
+      ],
+      "costeRehabilitacion": "200000",
+      "baseHistorica": {
+        "ejercicio": 2025,
+        "declarantes": [
+          "a"
+        ],
+        "concepto": "base_historica_vivienda:v",
+        "valor": "0"
+      },
+      "porcentajePropiedad": "50",
+      "ayudaReconocida": "0",
+      "diasRequisitos": 365,
+      "parentesco": 0,
+      "actividadEconomica": "no",
+      "ubicacion": "nucleo_censo9quater",
+      "vivienda": "v",
+      "exhaustividad": "completa"
+    },
+    "numerador": "1356",
+    "denominador": "1"
+  },
+  {
+    "codigo": "extremadura_inversion_acciones_participaciones_mercantiles",
+    "funcion": "inversionMercantilExt",
+    "territorio": "extremadura",
+    "datos": {
+      "pagos": [
+        {
+          "id": "p",
+          "fecha": "2025-06-01",
+          "pagador": "a",
+          "importe": "10000"
+        }
+      ],
+      "participacionFamiliarMaxima": "40",
+      "domicilioSocial": "extremadura",
+      "domicilioFiscal": "extremadura",
+      "direccionEjecutiva": "no",
+      "baseEstatalMismaInversion": {
+        "ejercicio": 2025,
+        "declarantes": [
+          "a"
+        ],
+        "concepto": "base_estatal_misma_inversion",
+        "valor": "2000"
+      },
+      "fechaEscritura": "2025-01-01",
+      "exhaustividad": "completa"
+    },
+    "numerador": "1600",
+    "denominador": "1"
+  },
+  {
+    "codigo": "extremadura_vivienda_zonas_rurales",
+    "funcion": "viviendaRuralExt",
+    "territorio": "extremadura",
+    "datos": {
+      "fechaOperacion": "2022-03-22",
+      "poblacion": 2999,
+      "porcentajePropiedad": "50",
+      "coste": "200000",
+      "ayudasJunta": "0",
+      "baseHistorica": {
+        "ejercicio": 2025,
+        "declarantes": [
+          "a"
+        ],
+        "concepto": "base_historica_vivienda:v",
+        "valor": "0"
+      },
+      "pagos": [
+        {
+          "id": "p",
+          "fecha": "2025-06-01",
+          "pagador": "a",
+          "importe": "9040"
+        }
+      ],
+      "eleccion": "rural",
+      "vivienda": "v",
+      "exhaustividad": "completa"
+    },
+    "numerador": "904",
+    "denominador": "1"
+  },
+  {
+    "codigo": "extremadura_residencia_municipios_menos_3000",
+    "funcion": "residenciaRuralExt",
+    "territorio": "extremadura",
+    "datos": {
+      "residentes": [
+        {
+          "id": "a",
+          "poblacion": 2999,
+          "baseLiquidableIndividual": {
+            "ejercicio": 2025,
+            "declarantes": [
+              "a"
+            ],
+            "concepto": "base_liquidable_individual:a",
+            "valor": "10000"
+          }
+        }
+      ],
+      "cuotaAutonomica": {
+        "ejercicio": 2025,
+        "declarantes": [
+          "a"
+        ],
+        "concepto": "cuota_integra_autonomica",
+        "valor": "1000"
+      },
+      "exhaustividad": "completa"
+    },
+    "numerador": "150",
+    "denominador": "1"
+  },
+  {
+    "codigo": "extremadura_intereses_vivienda_jovenes",
+    "funcion": "interesesJovenExt",
+    "territorio": "extremadura",
+    "datos": {
+      "nacimiento": "1990-01-01",
+      "pagosIntereses": [
+        {
+          "id": "p",
+          "fecha": "2025-06-01",
+          "pagador": "a",
+          "importe": "1200"
+        }
+      ],
+      "maximaPropiedadAnterior": "0",
+      "eleccion": "intereses",
+      "exhaustividad": "completa"
+    },
+    "numerador": "250",
+    "denominador": "1"
+  },
+  {
+    "codigo": "extremadura_donaciones_entidades_culturales_deportistas",
+    "funcion": "donativosExt",
+    "territorio": "extremadura",
+    "datos": {
+      "donaciones": [
+        {
+          "id": "d",
+          "fecha": "2025-01-01",
+          "importe": "3000",
+          "destino": "deportista",
+          "domicilio": "extremadura",
+          "parentesco": "ninguno",
+          "participacionFamiliar": "0",
+          "irrevocabilidad": "irrevocable"
+        }
+      ],
+      "exhaustividad": "completa"
+    },
+    "numerador": "500",
+    "denominador": "1"
+  },
+  {
+    "codigo": "extremadura_traslado_residencia_habitual",
+    "funcion": "trasladoExt",
+    "territorio": "extremadura",
+    "datos": {
+      "fechaTraslado": "2025-01-01",
+      "nacimiento": "1990-01-01",
+      "personaTrasladada": "a",
+      "basesIndividuales": [
+        {
+          "id": "a",
+          "base": {
+            "ejercicio": 2025,
+            "declarantes": [
+              "a"
+            ],
+            "concepto": "base_liquidable_individual:a",
+            "valor": "10000"
+          }
+        }
+      ],
+      "cuotaAutonomica": {
+        "ejercicio": 2025,
+        "declarantes": [
+          "a"
+        ],
+        "concepto": "cuota_integra_autonomica",
+        "valor": "1000"
+      },
+      "exhaustividad": "completa"
+    },
+    "numerador": "750",
+    "denominador": "1"
+  },
+  {
+    "codigo": "extremadura_ayudas_subvenciones_ela",
+    "funcion": "subvencionesElaExt",
+    "territorio": "extremadura",
+    "datos": {
+      "concedida": "2000",
+      "cobrada": "2000",
+      "integradaBaseGeneral": {
+        "ejercicio": 2025,
+        "declarantes": [
+          "a"
+        ],
+        "concepto": "ayuda_ela_integrada_base_general",
+        "valor": "2000"
+      },
+      "integradaBaseLiquidable": {
+        "ejercicio": 2025,
+        "declarantes": [
+          "a"
+        ],
+        "concepto": "ayuda_ela_integrada_base_liquidable",
+        "valor": "1500"
+      },
+      "tipoMedioEstatal": {
+        "ejercicio": 2025,
+        "declarantes": [
+          "a"
+        ],
+        "concepto": "tipo_medio_estatal",
+        "valor": "10"
+      },
+      "tipoMedioAutonomico": {
+        "ejercicio": 2025,
+        "declarantes": [
+          "a"
+        ],
+        "concepto": "tipo_medio_autonomico",
+        "valor": "8"
+      },
+      "cuotaAutonomica": {
+        "ejercicio": 2025,
+        "declarantes": [
+          "a"
+        ],
+        "concepto": "cuota_integra_autonomica",
+        "valor": "1000"
+      },
+      "exhaustividad": "completa"
+    },
+    "numerador": "270",
+    "denominador": "1"
+  }
+]
