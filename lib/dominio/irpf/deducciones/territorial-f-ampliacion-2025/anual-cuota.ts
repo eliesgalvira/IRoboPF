@@ -40,8 +40,7 @@ function generar(x: Importe, cuotaIntegra: Racional, disponible: Racional): Raci
     const bruto = multiplicar(cuotaIntegra, racional(d.factor))
     return d.topeEUR === undefined ? bruto : menor(bruto, racional(d.topeEUR))
   }
-  // La composición anual actual no admite deducciones estatales sobre la cuota autonómica.
-  // Si esa capacidad cambia, este productor debe ampliarse antes de habilitarla.
+  // El adaptador exige secuencia completa:con nuevo productor estatal esta rama art14 sigue rechazada.
   if (d?.magnitud === "cuota_tras_resto_deducciones" && x.codigo === "madrid_familias_dos_descendientes_ingresos_reducidos")
     return multiplicar(disponible, racional(d.factor))
   if (x.estado === "calculo_parcial" && x.importeAntesPresentacionEUR !== undefined)
@@ -49,7 +48,7 @@ function generar(x: Importe, cuotaIntegra: Racional, disponible: Racional): Raci
   return undefined
 }
 /** Una cuota y un libro. Ningún rechazo se convierte en importe generado cero. */
-export function consumirCuotaAnualF2025(cuota: Racional, codigos: readonly string[], importes: readonly Importe[]) {
+export function consumirCuotaAnualF2025(cuota: Racional, codigos: readonly string[], importes: readonly Importe[], cuotaIntegra = cuota) {
   if (codigos.length !== importes.length) throw new RangeError("Libro territorial incompleto")
   if (BigInt(cuota.numeradorEuros) < 0n) throw new RangeError("Cuota anual negativa")
   let disponible = cuota, total = racional("0")
@@ -60,7 +59,7 @@ export function consumirCuotaAnualF2025(cuota: Racional, codigos: readonly strin
   for (const { x, codigo } of orden) {
     const resultado = "estado" in x ? x : undefined
     const generado = anteriorPendiente !== undefined && resultado?.dependenciaAnual?.magnitud === "cuota_tras_resto_deducciones"
-      ? undefined : generar(x, cuota, disponible)
+      ? undefined : generar(x, cuotaIntegra, disponible)
     const aplicacion: Aplicacion = { codigo, estado: "pendiente_hechos" }
     if (resultado !== undefined) aplicacion.resultado = resultado
     if (generado === undefined) {

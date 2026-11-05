@@ -1,7 +1,10 @@
+import type Decimal from "decimal.js"
+import { DonativoNoSoportado, eurosDonativos } from "../donativos-estatales-2025/productor"
+import { baseEstatalMismaOperacion } from "../donativos-estatales-2025/regionales"
 import { Result, Schema } from "effect"
 import type { MagnitudesTerritorialesAnuales } from "../anual-territorial"
 import { CODIGOS_TERRITORIAL_F_HECHOS_2025 } from "../territorial-f-2025"
-import type { SolicitudF } from "./esquemas"
+import type { SolicitudF, PagoF } from "./esquemas"
 import { SolicitudAnualF2025 } from "./anual-esquemas"
 import { evaluarAmpliacionFDerivada2025 } from "./index"
 import { CITAS_F } from "./citas"
@@ -153,6 +156,10 @@ export function evaluarAnualF2025(
       falta("perfil_anual", "Sólo 2025 individual ordinaria sin fallecimiento")
     if (c.comunidadAutonoma !== (s.codigo.startsWith("madrid_") ? "madrid" : "murcia"))
       falta("territorio", "Código de otro territorio")
+    if (m.donativosEstatales !== undefined && (s.codigo.includes("donativo") || s.codigo.includes("donaciones")) && s.codigo !== "murcia_donativos_patrimonio_cultural_actividades" && s.codigo !== "murcia_donativos_investigacion_biosanitaria")
+      falta("conexion_donativo_regional_no_acotada:" + s.codigo, "Este productor sólo conecta donativos dinerarios Murcia y Cantabria;no habilita especie ni los demás donativos F")
+    if (m.donativosEstatales !== undefined && s.codigo === "madrid_familias_dos_descendientes_ingresos_reducidos")
+      falta("secuencia_completa_art14_con_generales", "Art14 con deducciones generales:productor de bases ajenas y secuencia completa no soportados; no se usa cero estatal")
     conciliarPersonas(s, m)
     conciliarPrevios(s, m)
     const anteriores = s.hechos.hechosPrevios
@@ -185,6 +192,9 @@ export function evaluarAnualF2025(
       if (h.operaciones.length > 0)
         falta("productor_saldo_origen:" + h.operaciones[0]!.ejercicioOrigen, "Reconstruir la generación y aplicaciones de cada año; no se recibe un importe de saldo ni se presume consumido")
     }
+    if (m.donativosEstatales !== undefined && (s.codigo === "murcia_donativos_patrimonio_cultural_actividades" || s.codigo === "murcia_donativos_investigacion_biosanitaria") && s.hechos.pagos?.length !== 1)
+      falta("donativo_regional_unico", "Primera conexión Murcia:un pago por donativo regional;sin prioridades entre múltiples operaciones")
+    const basesEstatalesDonativos = new Map<string, Decimal>()
     const hechos: ConstruccionF<SolicitudF["hechos"]> = {
       ...s.hechos,
         elecciones: [
@@ -202,10 +212,28 @@ export function evaluarAnualF2025(
       hechos.liquidableGeneralEUR = m.basesLiquidables.general.toFixed()
       hechos.liquidableAhorroEUR = m.basesLiquidables.ahorro.toFixed()
     }
-    // La composición actual no admite deducciones estatales sobre donativos.
-    // Ausencia estructural del mismo anual, no saldo histórico supuesto.
-    if (s.hechos.pagos !== undefined)
-      hechos.pagos = s.hechos.pagos.map((p) => ({ ...p, computoBaseEstatalEUR: "0" }))
+    if (s.hechos.pagos !== undefined) {
+      const nuevos: PagoF[] = []
+      for (const pago of s.hechos.pagos) {
+        if (pago.concepto !== "donativo_dinerario") { nuevos.push(pago); continue }
+        if (s.codigo !== "murcia_donativos_patrimonio_cultural_actividades" && s.codigo !== "murcia_donativos_investigacion_biosanitaria") { nuevos.push(pago); continue }
+        const libro = m.donativosEstatales
+        if (libro === undefined) falta("censo_estatal_68_3_68_5", "Donativo Murcia requiere elección y productor estatal real, no computoBaseEstatalEUR cero supuesto")
+        const entidadRegional = s.hechos.entidades?.find(e => e.id === pago.objetoId)
+        const forma = texto(entidadRegional?.forma, "entidad.forma")
+        if (!["entidad49_2002", "entidad49_2002_biosanitaria", "fundacion", "asociacion_utilidad_publica"].includes(forma))
+          falta("clase_entidad_estatal_regional", "Entidad pública u otra clase regional no representada por esta primera rama estatal de fundación/asociación")
+        const registroEstatal = libro.operaciones.find(o => o.operacionId === pago.operacionId)
+        if (registroEstatal !== undefined && (forma === "fundacion" || forma === "asociacion_utilidad_publica") && forma !== registroEstatal.claseEntidad)
+          falta("clase_entidad_estatal_regional", "Clases de entidad contradictorias en la misma operación")
+        const baseEstatal = baseEstatalMismaOperacion(libro, texto(pago.operacionId, "pago.operacionId"), texto(pago.objetoId, "pago.objetoId"), {
+          id: texto(pago.id, "pago.id"), pagador: texto(pago.pagador, "pago.pagador"), fecha: texto(pago.fecha, "pago.fecha"), euros: texto(pago.importeEUR, "pago.importeEUR"), documento: texto(pago.soportePago, "pago.soportePago"),
+        })
+        basesEstatalesDonativos.set(texto(pago.id, "pago.id"), eurosDonativos(baseEstatal))
+        nuevos.push(pago)
+      }
+      hechos.pagos = nuevos
+    }
     if (anteriores !== undefined)
       hechos.hechosPrevios = { ...anteriores, baseGeneralEUR: m.baseGeneral.toFixed(), baseAhorroEUR: m.baseAhorro.toFixed() }
     const solicitud: SolicitudF = {
@@ -214,6 +242,7 @@ export function evaluarAnualF2025(
       hechos,
     }
     const r = evaluarAmpliacionFDerivada2025(solicitud, {
+      basesEstatalesDonativos,
       contribuyente, general: m.baseGeneral, ahorro: m.baseAhorro,
       liquidableGeneral: m.basesLiquidables?.general, liquidableAhorro: m.basesLiquidables?.ahorro,
       minimoPersonalFamiliar: m.minimoPersonalFamiliar,
@@ -234,6 +263,7 @@ export function evaluarAnualF2025(
       }
     return resultado
   } catch (e) {
+    if (Schema.is(DonativoNoSoportado)(e)) return { codigo: s.codigo, estado: "no_soportado", motivo: e.motivo, siguienteHecho: e.siguienteHecho, citas: ["p2-murcia-misma-operacion"], reservas: [], rastro: [] }
     if (!Schema.is(CausaF)(e)) throw e
     return { codigo: s.codigo, estado: e.estado, motivo: e.message, siguienteHecho: e.campo,
       citas: CITAS_F.find((x) => x.codigo === s.codigo)?.citas ?? [], reservas: [], rastro: [] }

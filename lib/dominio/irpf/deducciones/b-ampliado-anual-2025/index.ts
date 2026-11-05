@@ -1,3 +1,6 @@
+import { conciliarAyudasELAIntegradas2025 } from "./ela"
+import { DonativoNoSoportado, eurosDonativos } from "../donativos-estatales-2025/productor"
+import { baseEstatalMismaOperacion } from "../donativos-estatales-2025/regionales"
 import type { HechosAnualesTerritoriales } from "../anual-territorial-tipos"
 import { eleccionesTerritorialesB } from "./conciliacion-lotes"
 import { Schema,Result } from "effect"
@@ -50,22 +53,41 @@ export function prepararBAmpliadoAnual(solicitudes:readonly SolicitudBAmpliadoAn
    locales.forEach(id=>ids.add(id));docsLocales.forEach(id=>documentos.add(id))
    const nodos=m.nodosFiscalesB2025
    if(nodos!==undefined)exigirB(nodos.ejercicio===2025&&nodos.contribuyente===contribuyente&&nodos.liquidacion.trim()!=="","Nodos fiscales B de otra persona/ejercicio o sin origen")
-   if(codigo==="asturias_ayudas_ela"){
-    exigirB(nodos?.tiposMediosGenerales!==undefined,"Falta productor motor:tiposMediosGenerales2025 art.63.2/74.2 y ayudaELAIntegrada2025")
-    throw new RechazoBAnual({motivo:"Falta ayudaELAIntegrada2025 por ayudaId/base imponible/base liquidable;tipos generales producidos no acreditan imputación de la ayuda"})
+   if(h.codigo==="asturias_ayudas_ela"){
+    hechos=Schema.decodeUnknownSync(Schema.Json)(conciliarAyudasELAIntegradas2025(h,m.libroIngresosIdentificados2025,nodos))
    }
    if(codigo==="cantabria_traslado_residencia_motivos_laborales_despoblamiento")exigirB(nodos?.cuotaTrabajoActividad!==undefined,"Falta cuotaAutonomicaTrabajoActividad2025:base general mixta o procedencia no representada,art.2.11.3DL62/2008")
-   if(codigo==="cantabria_donativos_fundaciones_fondo_cantabria_coopera_discapacidad")throw new RechazoBAnual({motivo:"Falta productor motor:basesDonativosEstatales2025(68.3/68.5),art.2.4DL62/2008;la base liquidable está disponible pero no se suponen ceros estatales"})
+   if(h.codigo==="cantabria_donativos_fundaciones_fondo_cantabria_coopera_discapacidad") {
+    const libro=m.donativosEstatales
+     exigirB(libro!==undefined,"Falta productor motor:basesDonativosEstatales2025(68.3/68.5),art.2.4DL62/2008;censo completo y elección por operación")
+     exigirB(h.donaciones.length===1,"Primera conexión Cantabria:una donación regional,sin prioridad de múltiples donaciones")
+    exigirB(libro.atribucionBaseRegionalCompleta,"Atribución regional de base estatal pendiente por insuficiencia de cuota;no se inventa base deducida proporcional")
+    for(const donacion of h.donaciones){
+     const registro=libro.operaciones.find(o=>o.operacionId===donacion.id)
+     exigirB(registro!==undefined,"Completar censo estatal para la operación regional")
+     exigirB((donacion.entidad.clase==="fundacion"&&registro.claseEntidad==="fundacion")||(donacion.entidad.clase==="asociacion_discapacidad"&&registro.claseEntidad==="asociacion_utilidad_publica"),"Clase de entidad contradictoria o FondoCantabria no representado por esta primera rama Ley49")
+     for(const pago of donacion.pagos)baseEstatalMismaOperacion(libro,donacion.id,donacion.entidad.id,pago)
+    }
+    exigirB(esObjetoB(hechos),"Hechos donativo no estructurados")
+     const registroHechos=Schema.decodeUnknownSync(Schema.Record(Schema.String,Schema.Json))(hechos)
+     hechos={...registroHechos,baseLiquidable:eurosDonativos(libro.baseLiquidable).toFixed(),baseEstatal68_3:eurosDonativos(libro.base68_3).toFixed(),baseEstatal68_5:eurosDonativos(libro.base68_5).toFixed()}
+   }
    const evaluables=Schema.decodeUnknownResult(HechosBParaEvaluacionAnual)(hechos,{onExcessProperty:"error"})
    exigirB(Result.isSuccess(evaluables),"Hechos conciliados incompatibles con contrato recibido")
    const marco={ejercicio:2025 as const,territorio:c.comunidadAutonoma,modalidad:"individual" as const,contribuyente:contribuyente,declarantes:[contribuyente],baseGeneral:observadas.baseGeneral,baseAhorro:observadas.baseAhorro,exhaustividad:"completa" as const}
    let evaluacion=evaluarAmpliacionB2025(marco,evaluables.success)
    if(evaluacion.estado==="dependencia_anual"){
     const rural=evaluacion.formula.clase==="residencia_rural_cuota"
-    exigirB(rural||evaluacion.formula.clase==="traslado_rural_trabajo","Dependencia anual B sin productor tipado")
-    const valor=rural?observadas.cuotaAutonomica:nodos?.cuotaTrabajoActividad?.importe
-    exigirB(valor!==undefined,"Falta componente de cuota de trabajo/actividad del motor")
-    evaluacion=resolverDependenciaAnualB(marco,evaluacion.formula,[{ejercicio:2025,contribuyente:contribuyente,liquidacion:nodos?.liquidacion??`motor-anual:2025:${contribuyente}`,concepto:rural?"cuota_integra_autonomica_2025":"cuota_integra_autonomica_2025_trabajo_actividad",valor}])
+    if(evaluacion.formula.clase==="ela_tipos_medios"){
+     const tipos=nodos?.tiposMediosGenerales
+     exigirB(tipos!==undefined&&nodos!==undefined,"Faltan tipos generales calculados en la misma liquidación ELA")
+     evaluacion=resolverDependenciaAnualB(marco,evaluacion.formula,[{ejercicio:2025,contribuyente,liquidacion:nodos.liquidacion,concepto:"tipo_medio_estatal_2025",valor:tipos.estatal},{ejercicio:2025,contribuyente,liquidacion:nodos.liquidacion,concepto:"tipo_medio_autonomico_2025",valor:tipos.autonomico}])
+    }else{
+     exigirB(rural||evaluacion.formula.clase==="traslado_rural_trabajo","Dependencia anual B sin productor tipado")
+     const valor=rural?observadas.cuotaAutonomica:nodos?.cuotaTrabajoActividad?.importe
+     exigirB(valor!==undefined,"Falta componente de cuota de trabajo/actividad del motor")
+     evaluacion=resolverDependenciaAnualB(marco,evaluacion.formula,[{ejercicio:2025,contribuyente:contribuyente,liquidacion:nodos?.liquidacion??`motor-anual:2025:${contribuyente}`,concepto:rural?"cuota_integra_autonomica_2025":"cuota_integra_autonomica_2025_trabajo_actividad",valor}])
+    }
    }
    if(evaluacion.estado==="excluida"){generaciones.push({codigo,estado:"excluida",motivo:evaluacion.motivo,rastro:evaluacion.rastro,pagos});continue}
    if(evaluacion.estado==="no_soportado"){
@@ -74,11 +96,12 @@ export function prepararBAmpliadoAnual(solicitudes:readonly SolicitudBAmpliadoAn
    exigirB(evaluacion.estado==="calculo_parcial","Evaluación sin generación exacta")
    const generado=racional(evaluacion.importeExacto.numeradorEuros,evaluacion.importeExacto.divisor)
    exigirB(!generado.numeradorEuros.startsWith("-"),"Generación negativa")
-   const base={codigo,estado:"generada" as const,generado,reservas:evaluacion.pendientes,evaluacion,pagos}
+   const base={codigo,estado:"generada" as const,generado,reservas:codigo==="asturias_ayudas_ela"?[...evaluacion.pendientes,...(m.libroIngresosIdentificados2025?.reservas??[])]:evaluacion.pendientes,evaluacion,pagos}
    generaciones.push(evaluacion.regimenPosterior===undefined?base:{...base,regimenPosterior:evaluacion.regimenPosterior})
   }
   return {estado:"generaciones_preparadas",generaciones,magnitudes:observadas,aplicacionCuota:"libro_comun_pendiente",aceptacionFiscal:"pendiente"}
  }catch(e){
+  if(Schema.is(DonativoNoSoportado)(e))return {estado:"no_soportado",motivo:e.siguienteHecho+":"+e.motivo}
   if(Schema.is(RechazoBAnual)(e))return observadas===undefined?{estado:"no_soportado",motivo:e.motivo}:{estado:"no_soportado",motivo:e.motivo,magnitudes:observadas}
   throw e
  }

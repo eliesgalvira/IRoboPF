@@ -50,6 +50,7 @@ export const Persona = Schema.Struct({
   convivencia: Schema.optionalKey(Schema.Array(Periodo)),
 })
 export const Pago = Schema.Struct({
+  operacionId: T,
   atribucion: T,
   id: T,
   fecha: T,

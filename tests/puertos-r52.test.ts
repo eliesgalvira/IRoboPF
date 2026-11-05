@@ -239,3 +239,38 @@ it("R52 mantiene el esquema territorial como contrato externo pendiente", () => 
   expect(fragment.completeRuleAcceptance).toBe(false)
   expect(fragment.wiringAllowed).toBe(false)
 })
+
+type CasoDependenciaIngresoR52 = {
+  readonly ingresosIdentificados2025?: Schema.Json | undefined
+}
+
+it("R52 no acredita ELA ni artículo 81 al incorporar sus dependencias anuales", () => {
+  for (const symbol of [
+    "prepararIngresosIdentificados2025",
+    "CensoIngresosIdentificados2025",
+    "HechosMaternidad2025",
+    "aplicarArt81AlDiferencial",
+  ]) {
+    const name = "boundary:" + symbol
+    expect(fragment.boundaries.find((b) => b.name === name)).toMatchObject({
+      owner: "productores-anuales-2025",
+      status: "requires-external-contract",
+      admissionAvailable: false,
+    })
+    expect(fragment.globalBindings.find((b) => b.name === name)).toMatchObject({
+      node: null,
+      external: true,
+    })
+  }
+  const binding = fragment.annualBindings.find((b) => b.name === "preparacionIngreso")
+  if (binding === undefined) throw Error("Preparación anual ausente")
+  const evaluate = (caso: CasoDependenciaIngresoR52) => executeRentasFinite(
+    fragment, null, [], false, binding.node, [["caso", caso]]
+  ).result
+  expect(evaluate({})).toBeUndefined()
+  expect(() => evaluate({ ingresosIdentificados2025: {} })).toThrow(
+    "Frontera sin contrato boundary:prepararIngresosIdentificados2025"
+  )
+  expect(fragment.completeRuleAcceptance).toBe(false)
+  expect(fragment.wiringAllowed).toBe(false)
+})

@@ -1,0 +1,260 @@
+{
+  "workflowSha256": "063ec3c0bfc6f76b228e2c1e6c28e13c56672100a3160cdc6f7cb57090149647",
+  "results": [
+    {
+      "command": "timeout -k 30s 1m python3 scripts/ci-no-cache.py",
+      "exit": 0,
+      "seconds": 0.06
+    },
+    {
+      "command": "echo \"Corpus completo CAS omitido explícitamente; se ejecutan fixtures y contratos reproducibles. Véase docs/procedencia/CI.md\"",
+      "exit": 0,
+      "seconds": 0.005
+    },
+    {
+      "command": "timeout -k 30s 12m bun install --frozen-lockfile",
+      "exit": 0,
+      "seconds": 0.496
+    },
+    {
+      "command": "timeout -k 30s 12m bun run test:lint",
+      "exit": 0,
+      "seconds": 0.259
+    },
+    {
+      "command": "timeout -k 30s 12m bun run lint",
+      "exit": 0,
+      "seconds": 22.335
+    },
+    {
+      "command": "timeout -k 30s 12m bun run typecheck",
+      "exit": 0,
+      "seconds": 8.031
+    },
+    {
+      "command": "timeout -k 30s 12m bun run test:ci",
+      "exit": 0,
+      "seconds": 1.028
+    },
+    {
+      "command": "timeout -k 30s 12m bun run test tests/puertos-composicion-r47.test.ts tests/puertos-r52.test.ts --maxWorkers=1",
+      "exit": 0,
+      "seconds": 16.308
+    },
+    {
+      "command": "timeout -k 30s 12m bun run test tests/cotizaciones-perfil-uniforme.test.ts tests/*-procedencia.test.ts --exclude tests/evidencia-contenido-procedencia.test.ts --maxWorkers=1",
+      "exit": 0,
+      "seconds": 20.881
+    },
+    {
+      "command": "timeout -k 30s 12m bun run test tests/retenciones-versionadas.test.ts tests/trabajo-anual-contratos.test.ts tests/actividades-economicas-2025.test.ts tests/deducciones-contratos.test.ts tests/deducciones-ambito.test.ts tests/deducciones-conjunta-identidad.test.ts tests/calculo-salario-neto-irpf.test.ts --maxWorkers=1",
+      "exit": 0,
+      "seconds": 4.856
+    },
+    {
+      "command": "timeout -k 30s 12m bun run test tests/composicion-anual-unica.test.ts tests/composicion-anual-revision.test.ts tests/composicion-precision.test.ts tests/composicion-precision-contraste.test.ts tests/anual-salarial-completo.test.ts tests/anual-historico-explicito.test.ts tests/conexion-anual.test.ts tests/redondeo-salarial-open.test.ts tests/art20-open-c300.test.ts tests/andalucia-open-c300.test.ts tests/c300-variantes-cuotas.test.ts tests/c300-variantes-revision.test.ts tests/retirada-rutas.test.ts tests/motor-unico-revision.test.ts tests/minimos-derechos.test.ts tests/retenciones-derechos.test.ts tests/liquidacion-irpf-anual.test.ts tests/correcciones-x-solidaridad.test.ts tests/historico-open-ambito.test.ts tests/historico-open-redondeo.test.ts tests/revision-historico-cuotas.test.ts --maxWorkers=1",
+      "exit": 0,
+      "seconds": 15.897
+    },
+    {
+      "command": "timeout -k 30s 12m bun run inventario:verificar",
+      "exit": 0,
+      "seconds": 28.872
+    },
+    {
+      "command": "timeout -k 30s 12m bun run test tests/minimos-derechos-anuales.test.ts tests/territorios-2026.test.ts tests/comunidades-autonomas.test.ts tests/deducciones-pendientes.test.ts tests/deducciones-valencianas-datos-producto.test.ts tests/deducciones-valencianas-evaluacion.test.ts tests/deducciones-valencianas-correcciones.test.ts tests/deducciones-valencianas-composicion.test.ts tests/deducciones-valencianas-ejercicio.test.ts tests/deducciones-valencianas-cuota-conjunta.test.ts tests/deducciones-valencianas-anual.test.ts tests/deducciones-territoriales-anual.test.ts tests/deducciones-ampliacion-a-anual.test.ts tests/deducciones-a40-censos-anuales.test.ts tests/b-ampliado-adaptador-anual-2025.test.ts tests/b-conexion-completa-2025.test.ts tests/b37-anual-revision.test.ts tests/aragon-dos-codigos-2025.test.ts tests/revision-aragon-independiente.test.ts tests/deducciones-territoriales-anual-revision.test.ts tests/deducciones-territoriales-api-revision.test.ts tests/deducciones-territoriales-titulares.test.ts tests/deducciones-territoriales-vinculos-contraste.test.ts tests/deducciones-catalunya-hechos-2025.test.ts tests/deducciones-territorial-f-2025.test.ts tests/deducciones-asturias-cantabria-hechos-2025.test.ts tests/deducciones-revision-b-independiente.test.ts tests/deducciones-asturias-cantabria-ampliacion-2025.test.ts tests/deducciones-ampliacion-b-conserva-integrado.test.ts tests/deducciones-ampliacion-b-revision.test.ts tests/deducciones-canarias-balears-hechos-2025.test.ts tests/revision-c-hechos-20261105.test.ts tests/producto-lote-d-hechos.test.ts tests/producto-lote-d-revision-monetaria.test.ts tests/galicia-rioja-hechos-2025.test.ts tests/revision-e-hechos.test.ts tests/deducciones-lote-a-ampliacion-2025.test.ts tests/deducciones-lote-a-ampliacion-revision.test.ts tests/galicia-rioja-ampliacion-2025.test.ts tests/galicia-rioja-ampliacion-revision.test.ts tests/deducciones-d51-correccion.test.ts tests/discriminantes-d51.test.ts tests/producto-lote-d-ampliacion.test.ts tests/deducciones-canarias-balears-ampliacion.test.ts tests/revision-c36-independiente.test.ts tests/escalas-publicadas.test.ts tests/escalas-publicadas-2025.test.ts tests/escalas-madrid-historicas.test.ts tests/d51-conexion-anual.test.ts tests/revision-d51/revision-adversa.test.ts tests/e38-conexion-anual.test.ts tests/e38-revision-anual-independiente.test.ts tests/c36-conexion-anual.test.ts tests/c36-fronteras-anual.test.ts tests/c36-magnitudes-anuales.test.ts tests/deducciones-f-ampliacion-2025.test.ts tests/deducciones-f-conexion-anual-2025.test.ts tests/deducciones-f-recarga-2025.test.ts tests/deducciones-f-recarga-agua-ampliada-2025.test.ts tests/c36-fracciones-api-regresion.test.ts tests/c36-revision-anual-independiente.test.ts tests/revision-f-monetaria.test.ts tests/aragon-conexion-anual-2025.test.ts tests/cf-contraste-normativo.test.ts tests/f-fechas-edades-regresion.test.ts tests/revision-aragon-conexion-anual.test.ts tests/f-n1-n4-independiente.test.ts tests/ela-ingreso-2025.test.ts tests/ela-ingreso-art20-da61-2025.test.ts tests/ela-ingreso-fronteras-2025.test.ts tests/ela-precision-presupuesto-2025.test.ts tests/ela-rebase-ecdf-2025.test.ts tests/revision-ela-integracion.test.ts tests/donativos-estatales-anual-2025.test.ts tests/donativos-p2-independiente.test.ts tests/maternidad-ela-alcance.test.ts tests/maternidad-guarderia-api.test.ts tests/maternidad-guarderia.test.ts tests/productores-anuales-combinacion.test.ts tests/maternidad-revision-independiente.test.ts --maxWorkers=1",
+      "exit": 0,
+      "seconds": 45.198
+    },
+    {
+      "command": "timeout -k 30s 12m bun run test:inventario",
+      "exit": 0,
+      "seconds": 128.019
+    },
+    {
+      "command": "timeout -k 30s 12m bun run test --config scripts/procedencia/contenido-vitest.mjs",
+      "exit": 0,
+      "seconds": 1.204
+    },
+    {
+      "command": "timeout -k 30s 12m bun scripts/procedencia/contenido-verificar.mjs --fixture",
+      "exit": 0,
+      "seconds": 0.368
+    },
+    {
+      "command": "timeout -k 30s 12m bun scripts/procedencia/rastro-verificar.mjs --fixture",
+      "exit": 0,
+      "seconds": 0.358
+    },
+    {
+      "command": "timeout -k 30s 1m python3 scripts/ci-no-cache.py",
+      "exit": 0,
+      "seconds": 0.056
+    },
+    {
+      "command": "echo \"Corpus completo CAS omitido explícitamente; se ejecutan fixtures y contratos reproducibles. Véase docs/procedencia/CI.md\"",
+      "exit": 0,
+      "seconds": 0.004
+    },
+    {
+      "command": "timeout -k 30s 12m bun install --frozen-lockfile",
+      "exit": 0,
+      "seconds": 0.38
+    },
+    {
+      "command": "timeout -k 30s 12m bash tools/procedencia/run.sh tests/procedencia-corpus_test.py",
+      "exit": 0,
+      "seconds": 1.701
+    },
+    {
+      "command": "timeout -k 30s 12m bash tools/procedencia/run.sh tests/procedencia-enlaces_test.py",
+      "exit": 0,
+      "seconds": 2.949
+    },
+    {
+      "command": "timeout -k 30s 12m bash tools/procedencia/run.sh tests/procedencia-preservacion_test.py",
+      "exit": 0,
+      "seconds": 0.766
+    },
+    {
+      "command": "timeout -k 30s 1m python3 tests/procedencia-deducciones-registro_test.py",
+      "exit": 0,
+      "seconds": 0.812
+    },
+    {
+      "command": "timeout -k 30s 12m bash scripts/procedencia/deducciones-2025/verificar.sh --lotes docs/procedencia/deducciones-2025/lotes --modo completo",
+      "exit": 0,
+      "seconds": 16.963
+    },
+    {
+      "command": "timeout -k 30s 12m bun scripts/procedencia/verificar-enlaces.mjs --fixture",
+      "exit": 0,
+      "seconds": 3.298
+    },
+    {
+      "command": "timeout -k 30s 12m bun run test tests/evidencia-contenido-procedencia.test.ts --maxWorkers=1",
+      "exit": 0,
+      "seconds": 1.282
+    },
+    {
+      "command": "timeout -k 30s 12m bun run test tests/publicacion-evidencia.test.ts --maxWorkers=1",
+      "exit": 0,
+      "seconds": 1.22
+    },
+    {
+      "command": "timeout -k 30s 12m bun tests/cas-local-r27.mjs",
+      "exit": 0,
+      "seconds": 0.592
+    },
+    {
+      "command": "timeout -k 30s 12m nix develop path:tools/procedencia --command bash scripts/ci-datos.sh",
+      "exit": 0,
+      "seconds": 503.759
+    },
+    {
+      "command": "timeout -k 30s 12m nix develop path:tools/procedencia --command bash scripts/ci-simuladores.sh",
+      "exit": 0,
+      "seconds": 17.007
+    }
+  ],
+  "cpus": [
+    0,
+    1
+  ],
+  "alcance": "mismos comandos y PATH limpio; sin emulación de Ubuntu ni acciones de instalación",
+  "medicion": {
+    "command": [
+      "taskset",
+      "-c",
+      "0,1",
+      "python3",
+      "/home/elies/Backups/IRoboPF/producto-productores-anuales-integracion-20261105/reproducir-workflow-4.py"
+    ],
+    "exit": 0,
+    "guard": null,
+    "maxTreePssBytesSampled": 3171948544,
+    "maxAgentGroupBytesSampled": 4656115712,
+    "samples": 6446,
+    "seconds": 846.1352594927885,
+    "treeLimitBytes": 3221225472,
+    "groupLimitBytes": 6442450944
+  },
+  "logSHA256": "76106dc7efbd7694decc57ac88de876e7475e182dee7114ab0a4c189c62f8ba4",
+  "inventarioSHA256": "ec4c0e37a7f1294c752021c92f2392e6666c181046b9d945de3e90a176584c6d",
+  "fuentesComprobadas": {
+    ".github/workflows/checks.yml": "063ec3c0bfc6f76b228e2c1e6c28e13c56672100a3160cdc6f7cb57090149647",
+    "docs/procedencia/API-MOTOR.md": "ecf002caefff0375f5ed09532b0faa02f7533f19c413a91a2810e2f43e53ff49",
+    "docs/procedencia/DECISIONES.md": "a6fb2008bcebfc55f6c6ffdbf4e294c85f6b8b039d92fc445777255c089f2aa1",
+    "docs/procedencia/ESTADO-POR-ANIO.md": "de9f75874c05188ef3f691676535bd2d2f84c85b78b4193b43fb8f5676fc395f",
+    "docs/procedencia/ESTADO.md": "45d771f271409b52b96c3969eb0d1b5f4ed2bacd04733d52a919cdf22159e13b",
+    "docs/procedencia/deducciones-2025/ela-ingreso-20261105/CONTRATO.md": "c4350d0b640f1bb81f63b3788784cbe21fda6df4647e9f8f08ca5af52165a921",
+    "docs/procedencia/deducciones-2025/ela-ingreso-20261105/FUENTES-REVISION.json": "055d93fbd8d34125e07916fe0b6e0eb6b714c56e8cf15024a2eb5fff5d50c08c",
+    "docs/procedencia/deducciones-2025/ela-ingreso-20261105/INFORME.md": "e76d607bc00f43d79a5366623ca45e300befaa9fb91d5545a56b180ba547a4dc",
+    "docs/procedencia/deducciones-2025/ela-ingreso-20261105/PRECISION.md": "0c3d8f21b1d14fb4ccbe95d390c7387780d131ac31040ee39742945669b49876",
+    "docs/procedencia/deducciones-2025/ela-ingreso-20261105/REVISION.md": "dd415dfcb94dd224ae685c7660846f68c1a6bc375ab6895d172824c79bbe936c",
+    "docs/procedencia/deducciones-2025/ela-ingreso-20261105/fuentes-primarias.json": "41e590cd400368dc4647dd113da463aeeccdaa80a3f0aa1c65928cdc71b89027",
+    "docs/procedencia/deducciones-2025/ela-ingreso-20261105/oraculos-p1.json": "4fd8f134b5d159bf30e0ed4458ca84d7e487e958b30c0b56056896fa684ff413",
+    "docs/procedencia/deducciones-2025/producto-donativos-estatales-20261105/ALCANCE.md": "0fc7d1c8b8f677102bd01c0aff4131664bd20b9af8b7259e2da05b99a79e6b43",
+    "docs/procedencia/deducciones-2025/producto-donativos-estatales-20261105/REVISION.md": "7a8ec5e0847e2cc03bb7676feac505e839470ee63e2ec8d3a0147bd839847921",
+    "docs/procedencia/deducciones-2025/producto-donativos-estatales-20261105/fuentes.json": "a1ea61df8a946c39293411698f34205b5c0484dcc1c305886eccd1d31178bb0b",
+    "docs/procedencia/deducciones-2025/producto-donativos-estatales-20261105/ramas.json": "fadfac9b7994fc0918c71a4b11b7d142a9e49d575365a5de46a38662447e5b1f",
+    "docs/procedencia/inventario-datos.json.gz": "ec4c0e37a7f1294c752021c92f2392e6666c181046b9d945de3e90a176584c6d",
+    "docs/procedencia/inventario.json": "15657fd14e2157bfea05bcbc0fa11df1397344c010f41be7382b45b0046d7c43",
+    "docs/procedencia/maternidad-guarderia-cyl-20261105/ALCANCE.md": "939b61568a4833ece424535869c9d0e4752a8bf95ec06099b6a7254277e1b347",
+    "docs/procedencia/maternidad-guarderia-cyl-20261105/CORRECCIONES-R1-R2.md": "7e7ed051029ecd0e07f8a659d65687a7fc1dbd925270459acb66561ec0d04c85",
+    "docs/procedencia/maternidad-guarderia-cyl-20261105/FUENTES-REVISION.json": "b34869773036b4a0d01e8b1c4ed295f5da0b9143bbd88b27f9c268cff0c9c95a",
+    "docs/procedencia/maternidad-guarderia-cyl-20261105/FUENTES.md": "bbfb9c1b589c295eee8d2c83afe3c0b321104d8906c6178b7dfb49cae02ea9f4",
+    "docs/procedencia/maternidad-guarderia-cyl-20261105/RAMAS.json": "46e6840a4ac8dba286b6394736e4187edbc355b130357df412ce1a594bf0ddca",
+    "docs/procedencia/maternidad-guarderia-cyl-20261105/REVISION.md": "e5b4d7d81355aaf36a4eac893080f3715de7c90b1980995883fa12d6187760b0",
+    "docs/procedencia/maternidad-guarderia-cyl-20261105/SOLAPES.md": "c2468ad592322750126fae592a10c233ee28a35a7be54992cb0e2c7cc7e2c67d",
+    "docs/procedencia/maternidad-guarderia-cyl-20261105/VALIDACION-AUTOR.md": "b21eced30ebd42bec7bd09676b7b3d9146c6625558a89be51bf584c47720ea68",
+    "docs/procedencia/productores-anuales-20261105/INTEGRACION.md": "3b3c57227071093d2759919a754f8f8644feb0604f97c4659f990c6b43306a08",
+    "lib/dominio/irpf/caso-fiscal-anual.ts": "b9d5b1b135230accaad4bedff32c5a0191c1ef990c320c11721e106e118d1ba8",
+    "lib/dominio/irpf/deducciones/anual-territorial-esquemas.ts": "ef2e039098c6b617cf389b51f461b0d10697ae8f8763a3331f29247a071faa58",
+    "lib/dominio/irpf/deducciones/anual-territorial-tipos.ts": "5d1336715ace77e87ed6ca6a33e56c6f6c9c1b0939a441b7b238e9a6782d9040",
+    "lib/dominio/irpf/deducciones/anual-territorial.ts": "1886f551fefdb8d3adbe14ffd8bdb6e3bd79e3de843a2d3e1ce136f5ebd01de4",
+    "lib/dominio/irpf/deducciones/b-ampliado-anual-2025/ela.ts": "aab76e0e57466afd750c6869729a9aba758c00d044129a395e402a717fd09e0b",
+    "lib/dominio/irpf/deducciones/b-ampliado-anual-2025/index.ts": "4c9f07d4e2ecaa64261bd9c8abef33c4f3c4fa91ac69679220b49cb41a25c254",
+    "lib/dominio/irpf/deducciones/donativos-estatales-2025/esquemas.ts": "11c056cd44b205baefaf1c66815a189d6c0d01b8f665f73e44617e638982ce0d",
+    "lib/dominio/irpf/deducciones/donativos-estatales-2025/productor.ts": "a6ac0dafa0c1ea3cc52a14cb0e2cb2550726da50dcb7bdcb88b24e9e132f48ef",
+    "lib/dominio/irpf/deducciones/donativos-estatales-2025/regionales.ts": "5a03697f0fed3b74a5d0c720e3329ce507e84a3957bd697627ef73766f883813",
+    "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/anual-cuota.ts": "c84eb7c2d8d520cbf2f28758f9716fdeaa4cabfbbfda99a6a903735a9a471515",
+    "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/anual.ts": "e600131f69db653d508e15a6f995f1328a2192b652b1001d94155a9690b66963",
+    "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/comun.ts": "f968468b17289231bdb9c05d2539f5a9bc7503ac5c93d57a29bd6d1c8184dc52",
+    "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/esquemas.ts": "fe58c135c664d7a0ba3e611b8e005746646a8acea23f22de8f80ca18685d71e0",
+    "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/inversiones.ts": "3ebd5d3226656ba7ed959173efabd97203e87ea1afec6cafb72ee72fc6b0c597",
+    "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/magnitudes-internas.ts": "c86f530b8cf8285a8c8796e436f98f407fa218aa3d93194c5a3f85fa552dffe5",
+    "lib/dominio/irpf/ingresos-identificados-2025/alcance-canonico.ts": "16613755402a84b176e95fa123936d1a4bf2f022c6b9bc45bdf4a2480e4fe9ab",
+    "lib/dominio/irpf/ingresos-identificados-2025/contrato.ts": "c9df0cf33fd68872d14e1819a3fcefcb52680443ab769cf5c88be5ed2d7da144",
+    "lib/dominio/irpf/ingresos-identificados-2025/productor.ts": "659d8391f52f6e039c7548d947d5056ccb9663fc8c8a0efbf952a7d77d66ea47",
+    "lib/dominio/irpf/liquidacion/composicion-anual.ts": "8fac3cb6e52352926f9d19ff5b8b4ac713070cb6258addc43d92eaf8968ac45d",
+    "lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts": "8224e6367c8f5d968f7b5aac71e7dd0099df116ac8aa52ca698d08f656805f24",
+    "lib/dominio/irpf/maternidad-2025/combinacion.ts": "982d0386154a103c8eb29edd96c8e58ef212c0eb1b18ea04d021ebe509e2b821",
+    "lib/dominio/irpf/maternidad-2025/contrato.ts": "7f5d4d69a0a1957477224e5a81be321a432f2c8a3d0839a062296883fcc60bc0",
+    "lib/dominio/irpf/maternidad-2025/cyl.ts": "7bb60df2b7fb943a277978dc6942ecd0df350a27a22be8ed71f788769c595f49",
+    "lib/dominio/irpf/maternidad-2025/producir.ts": "8b872efbc7e393f4bec721c38272e89e1cda303721f1959c24ceb2800d7ed665",
+    "lib/dominio/irpf/maternidad-2025/rastro.ts": "20590a5a688cf3254a0743b5cc731243379e0eb17a111ae3979554514440d6e3",
+    "lib/dominio/irpf/trabajo-anual/conexion-contrato.ts": "8377a1ab6aadb7fe4b6430bef936533432fe626e513ba4b24e3d6c4c38cba903",
+    "lib/dominio/irpf/trabajo-anual/conexion.ts": "9abda9c25c656c9b461642026e57fa6c86dd9651c1e574ef0fb9da08b88bd77f",
+    "scripts/procedencia/flujo-rentas-r36.mjs": "1b9c5c36cf7384f7fd6baed21e9b68f60c19584eee881441b47f4350625b030c",
+    "scripts/procedencia/fuentes-actuales.json": "f0dfca114b20ea8262d9e18f02fe8f8a8b5ecf51673f91cd810955cb0e1c916d",
+    "tests/donativos-estatales-anual-2025.test.ts": "0c8030ae3a49575a3062deaec0b84c33cd72479dac44fed2718fc7cbef7c36ec",
+    "tests/donativos-p2-independiente.test.ts": "7de6baeb154816026f10bd6d85ec4b18949bf17e3d70cd37061f61fc22c0f456",
+    "tests/ela-ingreso-2025-fixtures.ts": "f09b66ad04f81d99b434e0044d9e88aa0d3fb408f595e5ea3d4e45d57f3d8f5b",
+    "tests/ela-ingreso-2025.test.ts": "3acedb249356c9e55aa2b872c15f71df6878e52051f3fd3700c2af2b2508f9e4",
+    "tests/ela-ingreso-art20-da61-2025.test.ts": "4bb55733a461e0e9220aad14f6575470b347c82b3eded438d40004775a170336",
+    "tests/ela-ingreso-fronteras-2025.test.ts": "375597f47b4ae10aecf8ce88c53a1f24b3455f05051e48a8f756907d0c4dd124",
+    "tests/ela-precision-presupuesto-2025.test.ts": "365528e56c8afb8fc9fef7e387d90260f5f98df1c418eeca1f75a0a28e156d5a",
+    "tests/ela-rebase-ecdf-2025.test.ts": "4988eac89e2bce97bbcb4034f8c4db9f3bd6983034c56dd2f2507c66d4d6d212",
+    "tests/fixtures/maternidad-guarderia-oraculos.json": "1eef68a73af4664229b8bf1d0e3db06bcecbd3dd739f3258257c552427359056",
+    "tests/maternidad-ela-alcance.test.ts": "34da3be82037413b615b3348548bfcc76c558fd6481874ca7a62fac421006252",
+    "tests/maternidad-guarderia-api.test.ts": "a32fb5c8b23177be134f21c12a336b454d27b65905f23c94cdc41bcb944d98f9",
+    "tests/maternidad-guarderia-fixtures.ts": "bf4d3c78731bb9f0d2c1ca08de8c6159cb07085f5a63894e8ad96fb85f9a29c0",
+    "tests/maternidad-guarderia.test.ts": "24a2eee210738896488aa561a1cf5e1beb7e37d01a8cd48fe4e134e350c8c1e8",
+    "tests/maternidad-revision-independiente.test.ts": "c1e1d67592d776c2ef20b250cb4fd071b0d02f5a30e43614f3cf3a8df1ecad6b",
+    "tests/productores-anuales-combinacion.test.ts": "aa1b1529c681946b439ce07ad57ad78dba676bb7bae9a9e261a11f8b9ca82f35",
+    "tests/productores-anuales-fixtures.ts": "ab59b144a021270ef8810eb79b7ae56b1dea5128ef8ec3631c258cac5934fe9e",
+    "tests/puertos-r52.test.ts": "0a68717f9948cd0fc15eec584361e18ca841ed5f2b580443bd987cf28c39d533",
+    "tests/revision-ela-integracion.test.ts": "3f5edb81ad657002015b367df670475688b1a6ed63a3e51e160f347acbe6c39c"
+  }
+}

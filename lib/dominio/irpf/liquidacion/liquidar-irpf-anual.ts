@@ -1,4 +1,10 @@
+import { MOTIVO_ELA81_PENDIENTE } from "../maternidad-2025/combinacion"
 import type { DependenciaAragonAnual2025 } from "../deducciones/aragon-dos-anual-error"
+import { prepararIngresosIdentificados2025, DecimalIngreso2025, type LibroIngresosIdentificados2025 } from "../ingresos-identificados-2025/productor"
+import { motivoFueraAlcanceIngresosCanonico } from "../ingresos-identificados-2025/alcance-canonico"
+import type { NodosFiscalesB2025 } from "../deducciones/b-ampliado-anual-2025/productores"
+import { aplicarArt81AlDiferencial, type LibroMaternidad81 } from "../maternidad-2025/producir"
+import { pasosMaternidad81, formulaAjuste81 } from "../maternidad-2025/rastro"
 import { MINIMOS_ESTATALES_2026 } from "../../normativa/datos/minimos-estatales-2026"
 import { liquidarPagosAnuales } from "../cuotas/cuota-diferencial"
 import { pasosDeduccionesValencianasAnual } from "../deducciones/valenciana-2025/anual"
@@ -76,6 +82,9 @@ export interface ResultadoNoSoportado {
 }
 
 export interface LiquidacionIrpfAnualCalculada {
+  readonly libroIngresosIdentificados2025?: LibroIngresosIdentificados2025 | undefined
+  readonly nodosFiscalesB2025?: NodosFiscalesB2025 | undefined
+  readonly maternidad2025?: LibroMaternidad81 | undefined
   readonly _tag: "LiquidacionIrpfAnualCalculada"
   readonly perfil: "renta-individual-general"
   readonly anio: CasoFiscalAnual["anio"]
@@ -150,6 +159,8 @@ const construirLiquidarIrpfAnual = (
     caso: CasoFiscalAnual,
     contexto: ContextoLiquidacionIrpf
   ) {
+    if (caso.maternidad2025 !== undefined && caso.ingresosIdentificados2025 !== undefined)
+      return yield* Effect.fail(errorDerechosMinimos({ motivo: MOTIVO_ELA81_PENDIENTE }))
     if (contexto.modo !== "canonico")
       return yield* Effect.fail(
         errorDerechosMinimos({
@@ -333,6 +344,14 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
   dependencias: DependenciasLiquidacionIrpfAnual,
   contexto: ContextoLiquidacionIrpf
 ) {
+  const preparacionIngreso = caso.ingresosIdentificados2025 === undefined ? undefined : prepararIngresosIdentificados2025(caso.ingresosIdentificados2025, { anio: caso.anio, comunidadAutonoma: caso.comunidadAutonoma, contribuyenteId: caso.contribuyenteId, fallecimiento: caso.fechaFallecimiento !== undefined })
+  if (preparacionIngreso?.estado === "no_soportado") return yield* Effect.fail(errorDerechosMinimos(preparacionIngreso))
+  const ingreso = preparacionIngreso?.preparacion
+  if (ingreso !== undefined) {
+    const motivo = motivoFueraAlcanceIngresosCanonico(caso)
+    if (motivo !== undefined) return yield* Effect.fail(errorDerechosMinimos({ motivo }))
+  }
+  const ingresoGeneral = ingreso?.totalGeneral ?? new DecimalIngreso2025("0")
   const inicioLiquidacionSimple = tiempoAuditoriaMs()
   const liquidarCentimos = eurosACentimos
 
@@ -405,17 +424,19 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
   const otrasRentasNoExentas = rendimientoCapitalInmobiliario.rendimientoNeto
     .plus(gananciasPatrimoniales.gananciaSujetaGeneral)
     .plus(gananciasPatrimoniales.gananciaSujetaAhorro)
-  const reduccionRendimientosTrabajo = medirAuditoriaSync(
+  const otrasRentasArt20 = ingreso === undefined ? otrasRentasNoExentas : new DecimalIngreso2025(otrasRentasNoExentas).plus(ingresoGeneral)
+  const reduccionTeoricaTrabajo = medirAuditoriaSync(
     "liquidacion.reduccionRendimientosTrabajo",
     () =>
       calcularReduccionTrabajoConOtrasRentas({
         anio: caso.anio,
         fechaFallecimiento: caso.fechaFallecimiento,
         rendimientoPrevioNeto: rendimientoTrabajo.rendimientoPrevioNeto,
-        otrasRentasNoExentas,
+        otrasRentasNoExentas: otrasRentasArt20,
       })
   )
-  const baseImponibleGeneral = medirAuditoriaSync(
+  const reduccionRendimientosTrabajo = ingreso === undefined ? reduccionTeoricaTrabajo : DecimalIngreso2025.min(DecimalIngreso2025.max("0", rendimientoTrabajo.rendimientoNeto), reduccionTeoricaTrabajo)
+  const baseGeneralSinIngreso = medirAuditoriaSync(
     "liquidacion.baseImponibleGeneral",
     () =>
       calcularBaseImponibleGeneral({
@@ -426,6 +447,7 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
         rendimientoTrabajo,
       })
   )
+  const baseImponibleGeneral = ingreso === undefined ? baseGeneralSinIngreso : new DecimalIngreso2025(baseGeneralSinIngreso).plus(ingresoGeneral)
   const baseLiquidableGeneral = baseImponibleGeneral
   const baseLiquidableAhorro = medirAuditoriaSync(
     "liquidacion.baseImponibleAhorro",
@@ -435,6 +457,8 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
       })
   )
   const {
+    libroIngresosIdentificados2025,
+    nodosFiscalesB2025,
     parametrosComunidad,
     escalaPublicadaAutonomica,
     usaEscalaAutonomicaReal,
@@ -460,22 +484,26 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
     cuotaAutonomicaGeneralDespuesMinimo,
     cuotaAhorroDespuesMinimo,
     deduccionesAutonomicasAplicadas,
+    deduccionesGeneralesDonativosAplicadas,
     deduccionesTerritoriales2025,
     deduccionesValencianas2025,
     cuotaLiquida,
+    libroMaternidad81,
   } = yield* componerLiquidacionAnual({
     ambito: caso,
-    origenBaseGeneralB: caso.rendimientos.trabajo.length > 0 && (caso.rendimientos.capitalInmobiliario?.length ?? 0) === 0 ? "solo-trabajo" : undefined,
+    maternidad2025: caso.maternidad2025,
+    ingresosIdentificados2025: ingreso,
+    origenBaseGeneralB: ingreso === undefined && caso.rendimientos.trabajo.length > 0 && (caso.rendimientos.capitalInmobiliario?.length ?? 0) === 0 ? "solo-trabajo" : undefined,
     rentasTrabajoAnuales: {
       integroTrabajo: rendimientoTrabajo.rendimientoIntegro,
-      restoRentas: otrasRentasNoExentas,
+      restoRentas: otrasRentasArt20,
     },
     cotizaciones: {
       naturaleza: "estimadas-perfil-uniforme",
       trabajador: cotizacionesSociales.cotizacionTrabajador,
     },
     precision:
-      caso.derechosMinimos !== undefined ||
+      ingreso !== undefined || caso.derechosMinimos !== undefined ||
       caso.deduccionesTerritoriales2025?.solicitudes.some((s) => s.lote === "E38" || s.lote === "F-ampliado" || s.lote === "C36") === true
         ? 80
         : 20,
@@ -484,7 +512,7 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
     baseGeneral: baseLiquidableGeneral,
     baseAhorro: baseLiquidableAhorro,
     rentasAntesReducciones:
-      rendimientoTrabajo.rendimientoNeto.plus(otrasRentasNoExentas),
+      ingreso === undefined ? rendimientoTrabajo.rendimientoNeto.plus(otrasRentasNoExentas) : new DecimalIngreso2025(rendimientoTrabajo.rendimientoNeto).plus(otrasRentasArt20),
     minimosEstatales,
     deduccionesValencianas2025: caso.deduccionesValencianas2025,
     deduccionesTerritoriales2025: caso.deduccionesTerritoriales2025,
@@ -574,11 +602,13 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
     retencionTrabajoAeat?.importeRetencionAnualCentimos ?? 0
   const pagosACuentaAplicadosCentimos =
     caso.pagosACuentaCentimos + retencionTrabajoAeatCentimos
-  const cuotaDiferencialCentimos = liquidarPagosAnuales(
+  const cuotaDiferencialCentimos = aplicarArt81AlDiferencial(liquidarPagosAnuales(
     new Decimal(importesLiquidacion.cuotaLiquidaCentimos),
     new Decimal(caso.retencionesSoportadasCentimos),
     new Decimal(pagosACuentaAplicadosCentimos)
-  ).toNumber()
+  ).div(100), libroMaternidad81).times(100).toDecimalPlaces(0, Decimal.ROUND_HALF_UP).toNumber()
+  if (libroMaternidad81 !== undefined && !Number.isSafeInteger(cuotaDiferencialCentimos))
+    return yield* Effect.fail(errorDerechosMinimos({motivo:"Art81: resultado fuera del transporte seguro en céntimos de la API clásica"}))
   registrarTiempoAgregadoAuditoria(
     "liquidacion.cuotaDiferencial",
     tiempoAuditoriaMs() - inicioCuotaDiferencial
@@ -587,6 +617,9 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
   const inicioSalida = tiempoAuditoriaMs()
   const resultado = {
     _tag: "LiquidacionIrpfAnualCalculada",
+    libroIngresosIdentificados2025,
+    nodosFiscalesB2025,
+    maternidad2025: libroMaternidad81,
     perfil: "renta-individual-general",
     anio: caso.anio,
     rendimientoIntegroTrabajoCentimos:
@@ -645,6 +678,7 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
         perfilCalculo: contexto.modo,
       },
       pasos: [
+        ...pasosMaternidad81(libroMaternidad81),
         ...pasosDeduccionesValencianasAnual(deduccionesValencianas2025),
         {
           _tag: "PasoExplicacion",
@@ -697,7 +731,7 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
               importe: reduccionRendimientosTrabajo,
               unidad: "EUR",
               etiqueta: "Reducción por rendimientos del trabajo",
-              formula: `Reducción estatal; otras rentas netas no exentas antes de compensaciones: ${euros(otrasRentasNoExentas)}`,
+              formula: `Reducción estatal; otras rentas netas no exentas antes de compensaciones: ${euros(otrasRentasArt20)}`,
             }),
           ],
           fuentes: [
@@ -1187,7 +1221,7 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
               importe: cuotaLiquida,
               unidad: "EUR",
               etiqueta: "Cuota líquida",
-              formula: `max(0, ${euros(cuotaGeneralDespuesMinimo)} + ${euros(cuotaAhorroDespuesMinimo)} - ${euros(deduccionesAutonomicasAplicadas)})`,
+              formula: deduccionesGeneralesDonativosAplicadas.isZero() ? `max(0, ${euros(cuotaGeneralDespuesMinimo)} + ${euros(cuotaAhorroDespuesMinimo)} - ${euros(deduccionesAutonomicasAplicadas)})` : `Cuotas íntegras menos donativos generales aplicados ${euros(deduccionesGeneralesDonativosAplicadas)} y autonómicas ${euros(deduccionesAutonomicasAplicadas)};una sola composición`,
             }),
             crearLineaCalculo({
               siteId: "anual.deducciones.autonomicas",
@@ -1224,7 +1258,7 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
               importe: centimosAEuros(cuotaDiferencialCentimos),
               unidad: "EUR",
               etiqueta: "Cuota diferencial",
-              formula: `${euros(cuotaLiquida)} - ${euros(centimosAEuros(caso.retencionesSoportadasCentimos))} - ${euros(centimosAEuros(pagosACuentaAplicadosCentimos))}`,
+              formula: `${euros(cuotaLiquida)} - ${euros(centimosAEuros(caso.retencionesSoportadasCentimos))} - ${euros(centimosAEuros(pagosACuentaAplicadosCentimos))}` + formulaAjuste81(libroMaternidad81),
             }),
           ],
           fuentes: [],

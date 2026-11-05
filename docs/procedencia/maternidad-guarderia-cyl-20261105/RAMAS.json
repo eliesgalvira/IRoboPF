@@ -1,0 +1,50 @@
+{
+  "ejercicio": 2025,
+  "estado": "implementado_candidato_ligero_no_ejecutado",
+  "noCierreUniversal": true,
+  "aceptacionFiscal": "pendiente",
+  "ramas": [
+    {
+      "codigo": "art81_1",
+      "rama": "madre_biologica_residente_individual_alta_nacimiento_minimo_conciliado",
+      "salida": "calendario por niño y100 por mes elegible",
+      "citas": [
+        "L81",
+        "M81",
+        "R60"
+      ],
+      "pendiente": "otras beneficiarias, adopción/acogimiento, custodia especial/cambio familiar, prestación al nacimiento, alta posterior, historia complemento2022"
+    },
+    {
+      "codigo": "art81_2",
+      "rama": "custodia_autorizada_y_facturas_nominales",
+      "salida": "min(1000*mesesCompletos/12,gastoAnualNeto), racional",
+      "citas": [
+        "L81",
+        "R60",
+        "G81",
+        "A81"
+      ],
+      "pendiente": "cambios de centro en mes; segundo ciclo no ordinario septiembre2025; enseñanza42.3b, reembolso y otras especies; ayudas compartidas, períodos fuera2025 e imputación temporal no modelada"
+    },
+    {
+      "codigo": "art81_4",
+      "rama": "anticipos140_efectivos2025_por_hijo_beneficiaria",
+      "salida": "anticipo separado, suma en ajuste diferencial",
+      "citas": [
+        "L81",
+        "R60"
+      ],
+      "pendiente": "cobros de otro ejercicio/beneficiaria y regularización integral/intereses"
+    },
+    {
+      "codigo": "cyl_cuidado_hijos_menores",
+      "rama": "CYL81_centro_un_nino_un_titular",
+      "salida": "cuidadoMenoresCyl recibe incremento nominal producido sin duplicar fórmula ni cuota",
+      "citas": [
+        "CYL5"
+      ],
+      "pendiente": "hogar; varios niños o titulares y techo agregado; pagos de terceros; especie y atribución regional; incremento periódico no transportable exactamente por evaluador previo; saldos2022. Vía D51 anterior intacta"
+    }
+  ]
+}

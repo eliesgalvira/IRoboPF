@@ -1,0 +1,136 @@
+{
+  "version": 1,
+  "ejercicio": 2025,
+  "naturaleza": "Supuestos aritméticos derivados de fuentes2025; no salida del motor ni aceptación fiscal",
+  "fuentes": "fuentes-primarias.json; escalas estatales/autonómicas y mínimos; art20; art14quaterdecies",
+  "casos": [
+    {
+      "id": "ELA20000-cuota-estatal",
+      "expresionIndependiente": "1182.75+(20000-12450)*0.12-5550*0.095",
+      "esperado": {
+        "numeradorEuros": "3123",
+        "divisor": "2"
+      }
+    },
+    {
+      "id": "ELA20000-cuota-asturias",
+      "expresionIndependiente": "1751.36+(20000-17707.20)*0.14-6105*0.09",
+      "esperado": {
+        "numeradorEuros": "761451",
+        "divisor": "500"
+      }
+    },
+    {
+      "id": "ELA20000-tipo-estatal",
+      "expresionIndependiente": "floor(1561.5*10000/20000)/100",
+      "esperado": {
+        "numeradorEuros": "39",
+        "divisor": "5"
+      }
+    },
+    {
+      "id": "ELA20000-tipo-asturias",
+      "expresionIndependiente": "floor(1522.902*10000/20000)/100",
+      "esperado": {
+        "numeradorEuros": "761",
+        "divisor": "100"
+      }
+    },
+    {
+      "id": "ELA20000-generacion",
+      "expresionIndependiente": "20000*(7.80+7.61)/100",
+      "esperado": {
+        "numeradorEuros": "3082",
+        "divisor": "1"
+      }
+    },
+    {
+      "id": "ELA20000-aplicacion",
+      "expresionIndependiente": "min(3082,1522.902)",
+      "esperado": {
+        "numeradorEuros": "761451",
+        "divisor": "500"
+      }
+    },
+    {
+      "id": "ELA20000-pendiente",
+      "expresionIndependiente": "3082-1522.902",
+      "esperado": {
+        "numeradorEuros": "779549",
+        "divisor": "500"
+      }
+    },
+    {
+      "id": "ELA20000-cuota-liquida",
+      "expresionIndependiente": "1561.5+1522.902-min(3082,1522.902)",
+      "esperado": {
+        "numeradorEuros": "3123",
+        "divisor": "2"
+      }
+    },
+    {
+      "id": "trabajo33000-ayuda4000-BLG",
+      "expresionIndependiente": "33000-2000+4000",
+      "esperado": {
+        "numeradorEuros": "35000",
+        "divisor": "1"
+      }
+    },
+    {
+      "id": "BLG35000-cuota-estatal",
+      "expresionIndependiente": "2112.75+14800*0.15-527.25",
+      "esperado": {
+        "numeradorEuros": "7611",
+        "divisor": "2"
+      }
+    },
+    {
+      "id": "BLG35000-cuota-asturias",
+      "expresionIndependiente": "3893.36+1992.8*0.192-549.45",
+      "esperado": {
+        "numeradorEuros": "9316319",
+        "divisor": "2500"
+      }
+    },
+    {
+      "id": "BLG35000-generacion",
+      "expresionIndependiente": "4000*(10.87+10.64)/100",
+      "esperado": {
+        "numeradorEuros": "4302",
+        "divisor": "5"
+      }
+    },
+    {
+      "id": "BLG35000-cuota-liquida",
+      "expresionIndependiente": "3805.5+3726.5276-860.4",
+      "esperado": {
+        "numeradorEuros": "16679069",
+        "divisor": "2500"
+      }
+    },
+    {
+      "id": "art20-otras6500-base",
+      "expresionIndependiente": "14000-2000-7302+6500",
+      "esperado": {
+        "numeradorEuros": "11198",
+        "divisor": "1"
+      }
+    },
+    {
+      "id": "art20-otras6500_01-base",
+      "expresionIndependiente": "14000-2000+6500.01",
+      "esperado": {
+        "numeradorEuros": "1850001",
+        "divisor": "100"
+      }
+    },
+    {
+      "id": "B720-aislado-conservado",
+      "expresionIndependiente": "4000*(10+8)/100",
+      "esperado": {
+        "numeradorEuros": "720",
+        "divisor": "1"
+      }
+    }
+  ]
+}

@@ -67,6 +67,14 @@ const declaredSitesR36 = [
 ]
 export const sitesR36 = [...declaredSitesR36]
 const territorialSchemaName = "SolicitudDeduccionesTerritoriales2025"
+// Productores nuevos pendientes de contrato en el intérprete documental.
+// La frontera se reconoce por módulo y export, nunca sólo por un nombre local.
+const producerBoundaries = new Map([
+  ["lib/dominio/irpf/ingresos-identificados-2025/productor.ts:prepararIngresosIdentificados2025", "prepararIngresosIdentificados2025"],
+  ["lib/dominio/irpf/ingresos-identificados-2025/contrato.ts:CensoIngresosIdentificados2025", "CensoIngresosIdentificados2025"],
+  ["lib/dominio/irpf/maternidad-2025/contrato.ts:HechosMaternidad2025", "HechosMaternidad2025"],
+  ["lib/dominio/irpf/maternidad-2025/producir.ts:aplicarArt81AlDiferencial", "aplicarArt81AlDiferencial"],
+])
 const externalNames = [
   // Núcleo anual nuevo fuera del intérprete histórico: contrato externo pendiente.
   "componerLiquidacionAnual",
@@ -81,6 +89,7 @@ const externalNames = [
   "calcularCuotaPorEscala",
   "enlazarRastroAnualActual",
   "medirAuditoriaSync",
+  ...producerBoundaries.values(),
 ]
 export function composeRentasR36(root = process.cwd()) {
   const sources = [],
@@ -131,7 +140,8 @@ export function composeRentasR36(root = process.cwd()) {
     return ast
   }
   function resolve(file, name) {
-    if (externalNames.includes(name) && name !== territorialSchemaName)
+    if (externalNames.includes(name) && name !== territorialSchemaName &&
+        ![...producerBoundaries.values()].includes(name))
       return "boundary:" + name
     load(file)
     const id = file + ":" + name
@@ -154,6 +164,8 @@ export function composeRentasR36(root = process.cwd()) {
         path.posix.join(path.posix.dirname(file), imp.spec)
       ) + ".ts"
     load(target)
+    const producer = producerBoundaries.get(target + ":" + imp.name)
+    if (producer !== undefined) return "boundary:" + producer
     return resolve(target, imp.name)
   }
   const ref = (n) => ({
@@ -434,6 +446,9 @@ export function composeRentasR36(root = process.cwd()) {
   load(annual)
   const annualBindings = []
   for (const name of [
+    "preparacionIngreso",
+    "ingreso",
+    "ingresoGeneral",
     "rendimientoIntegroTrabajo",
     "cotizacionesSociales",
     "rendimientoTrabajo",
@@ -441,6 +456,8 @@ export function composeRentasR36(root = process.cwd()) {
     "rendimientoCapitalInmobiliario",
     "gananciasPatrimoniales",
     "otrasRentasNoExentas",
+    "otrasRentasArt20",
+    "reduccionTeoricaTrabajo",
     "reduccionRendimientosTrabajo",
   ]) {
     const matches = walk(asts.get(annual)).filter(
@@ -730,7 +747,9 @@ export function composeRentasR36(root = process.cwd()) {
   const boundaries = externalNames.map((name) => ({
     name: "boundary:" + name,
     owner:
-      name === territorialSchemaName
+      [...producerBoundaries.values()].includes(name)
+        ? "productores-anuales-2025"
+        : name === territorialSchemaName
         ? "schema-territorial"
         : name.includes("Cotizacion") || name.includes("cotizacion")
         ? "SS"

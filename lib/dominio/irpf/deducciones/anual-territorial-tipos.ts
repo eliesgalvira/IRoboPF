@@ -1,3 +1,4 @@
+import type { SolicitudCuidadoCyl81 } from "../maternidad-2025/contrato"
 import type { SolicitudE38Anual2025 } from "./galicia-rioja-ampliacion-2025/anual-esquemas"
 import type { SolicitudD51 } from "./d51-anual-esquemas"
 import type { SolicitudAnualF2025 } from "./territorial-f-ampliacion-2025/anual-esquemas"
@@ -15,6 +16,7 @@ import type { HechosE2025 } from "./galicia-rioja-hechos-2025"
 import type { HechosTerritorialesF } from "./territorial-f-esquemas-2025"
 type Quitar<T, K extends PropertyKey> = T extends unknown ? Omit<T, K> : never
 export type HechosAnualesTerritoriales =
+  | SolicitudCuidadoCyl81
   | SolicitudE38Anual2025
   | SolicitudD51
   | SolicitudAnualF2025

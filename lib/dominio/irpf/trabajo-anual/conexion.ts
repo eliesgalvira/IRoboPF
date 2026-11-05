@@ -1,3 +1,7 @@
+import { MOTIVO_ELA81_PENDIENTE } from "../maternidad-2025/combinacion"
+import { prepararIngresosIdentificados2025, DecimalIngreso2025 } from "../ingresos-identificados-2025/productor"
+import { aplicarArt81AlDiferencial } from "../maternidad-2025/producir"
+import { pasosMaternidad81, formulaAjuste81 } from "../maternidad-2025/rastro"
 import { esAmbitoCuotasTerritorialesOpen2025 } from "../cuotas/politica-cuotas-open-2025"
 import { pasosDeduccionesValencianasAnual } from "../deducciones/valenciana-2025/anual"
 import { liquidarPagosAnuales } from "../cuotas/cuota-diferencial"
@@ -40,6 +44,13 @@ export const liquidarIrpfAnualExplicito = Effect.fn("Liquidacion.explicita")(
         )
       )
     const caso = decoded.success
+    if (caso.maternidad2025 !== undefined && "ingresosIdentificados2025" in caso && caso.ingresosIdentificados2025 !== undefined)
+      return yield* Effect.fail(rechazar(MOTIVO_ELA81_PENDIENTE))
+    const censoIngreso = "ingresosIdentificados2025" in caso ? caso.ingresosIdentificados2025 : undefined
+    const preparacionIngreso = censoIngreso === undefined ? undefined : prepararIngresosIdentificados2025(censoIngreso, { anio: caso.ejercicio, comunidadAutonoma: caso.comunidadAutonoma, contribuyenteId: caso.contribuyenteId, fallecimiento: false })
+    if (preparacionIngreso?.estado === "no_soportado") return yield* Effect.fail(rechazar(preparacionIngreso.motivo))
+    const ingreso = preparacionIngreso?.preparacion
+    const ingresoGeneral = ingreso?.totalGeneral ?? new DecimalIngreso2025("0")
     const solicitudTerritorial =
       "deduccionesTerritoriales2025" in caso
         ? caso.deduccionesTerritoriales2025
@@ -75,7 +86,7 @@ export const liquidarIrpfAnualExplicito = Effect.fn("Liquidacion.explicita")(
       )
     if (
       caso.devengo !== `${caso.ejercicio}-12-31` ||
-      (caso.perfil === "solo-trabajo" &&
+      (caso.perfil !== "solo-actividad-eds" &&
         (caso.conciliacion.ejercicio !== caso.ejercicio ||
           caso.retenciones.some((r) => r.ejercicio !== caso.ejercicio)))
     )
@@ -121,7 +132,7 @@ export const liquidarIrpfAnualExplicito = Effect.fn("Liquidacion.explicita")(
       brutoServicios = new D(0)
     let retenciones = new D(0),
       pagos = new D(0)
-    if (caso.perfil === "solo-trabajo") {
+    if (caso.perfil !== "solo-actividad-eds") {
       if (
         caso.trabajo.ejercicio !== caso.ejercicio ||
         caso.trabajo.discapacidadActiva !== "ninguna"
@@ -178,7 +189,7 @@ export const liquidarIrpfAnualExplicito = Effect.fn("Liquidacion.explicita")(
         calcularReduccionTrabajoConOtrasRentas({
           anio: caso.ejercicio,
           rendimientoPrevioNeto: new D(trabajo.argumentoArt20),
-          otrasRentasNoExentas: new D(0),
+          otrasRentasNoExentas: ingresoGeneral,
           compatibilidadOpen2025: redondeoSalarialOpen
             ? {
                 integro: new D(trabajo.gastos.integro),
@@ -191,7 +202,7 @@ export const liquidarIrpfAnualExplicito = Effect.fn("Liquidacion.explicita")(
       neto = neto.minus(reduccionArt20)
       if (empleo) brutoServicios = new D(trabajo.gastos.integro)
       redondeoCuotasTerritorialesOpen =
-        empleo &&
+        ingreso === undefined && empleo &&
         brutoServicios.gt(0) &&
         esAmbitoCuotasTerritorialesOpen2025({
           anio: caso.ejercicio,
@@ -259,8 +270,8 @@ export const liquidarIrpfAnualExplicito = Effect.fn("Liquidacion.explicita")(
             unidad: "EUR",
             etiqueta: "Reducción artículo 20",
             formula: redondeoSalarialOpen
-              ? "compatibilidad numérica Open 2025 en el núcleo compartido para íntegro y gastos a–e entre 0 y 1.000.000 EUR; fuera, Decimal; min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0)"
-              : "min(saldo positivo art19, reducción sobre neto sin f; otras rentas = 0)",
+              ? "compatibilidad numérica Open 2025 en el núcleo compartido para íntegro y gastos a–e entre 0 y 1.000.000 EUR; fuera, Decimal; min(saldo positivo art19, reducción sobre neto sin f; otras rentas = cobros identificados (cero sólo en perfil sin ellas))"
+              : "min(saldo positivo art19, reducción sobre neto sin f; otras rentas = cobros identificados (cero sólo en perfil sin ellas))",
           }),
         ],
       })
@@ -311,17 +322,21 @@ export const liquidarIrpfAnualExplicito = Effect.fn("Liquidacion.explicita")(
         ),
       })
     }
-    // Sin otras rentas, reducciones de base ni saldos anteriores: BIG = BLG con signo.
-    const base = D.max(neto, 0)
+    // P1 incorpora el ingreso antes de las escalas; sin reducciones/compensaciones
+    // de base, su cobro íntegro se atribuye a BIG y BLG. No altera el neto laboral.
+    const baseGeneral = ingreso === undefined ? neto : new DecimalIngreso2025(neto).plus(ingresoGeneral)
+    const base = ingreso === undefined ? D.max(neto, 0) : DecimalIngreso2025.max(baseGeneral, 0)
     const composicion = yield* componerLiquidacionAnual({
+      ingresosIdentificados2025: ingreso,
+      maternidad2025: caso.maternidad2025,
       rentaActividadAnualB: caso.perfil === "solo-actividad-eds" ? neto : undefined,
-      origenBaseGeneralB: caso.perfil === "solo-actividad-eds" ? "solo-actividad" : "solo-trabajo",
+      origenBaseGeneralB: ingreso !== undefined ? undefined : caso.perfil === "solo-actividad-eds" ? "solo-actividad" : "solo-trabajo",
       rentasTrabajoAnuales:
         trabajoIntegroTerritorial === undefined
           ? undefined
           : {
               integroTrabajo: trabajoIntegroTerritorial,
-              restoRentas: new D(0),
+              restoRentas: ingresoGeneral,
             },
       ambito: {
         contribuyenteId:
@@ -348,10 +363,10 @@ export const liquidarIrpfAnualExplicito = Effect.fn("Liquidacion.explicita")(
             : redondeoCuotasHistoricasOpen
               ? "open-cuotas-empleo-madrid-2018-2024"
               : "decimal-hasta-salida",
-      basesImponiblesE38: { general: neto, ahorro: new D(0) },
+      basesImponiblesE38: { general: baseGeneral, ahorro: new D(0) },
       baseGeneral: base,
       baseAhorro: new D(0),
-      rentasAntesReducciones: neto.plus(reduccionArt20),
+      rentasAntesReducciones: ingreso === undefined ? neto.plus(reduccionArt20) : new DecimalIngreso2025(baseGeneral).plus(reduccionArt20),
       // Las tablas estatales 2018–2024 del motor remiten a estas mismas cuantías.
       // Se conserva esa selección histórica; no constituye una nueva acreditación.
       minimosEstatales: MINIMOS_ESTATALES_2025,
@@ -360,7 +375,7 @@ export const liquidarIrpfAnualExplicito = Effect.fn("Liquidacion.explicita")(
       deduccionesTerritoriales2025: solicitudTerritorial,
       serviciosLaborales:
         caso.ejercicio === 2025 && brutoServicios.gt(0)
-          ? { bruto: brutoServicios }
+          ? ingreso === undefined ? { bruto: brutoServicios } : { bruto: brutoServicios, netoReducido: neto, otrasRentas: ingresoGeneral }
           : undefined,
     })
     const {
@@ -379,7 +394,8 @@ export const liquidarIrpfAnualExplicito = Effect.fn("Liquidacion.explicita")(
         composicion.deduccionesValencianas2025
       )
     )
-    const diferencial = liquidarPagosAnuales(posterior, retenciones, pagos)
+    const diferencial = aplicarArt81AlDiferencial(liquidarPagosAnuales(posterior, retenciones, pagos), composicion.libroMaternidad81)
+    pasos.push(...pasosMaternidad81(composicion.libroMaternidad81))
     pasos.push({
       _tag: "PasoExplicacion",
       titulo: "Bases, cuotas y pagos anuales",
@@ -406,15 +422,15 @@ export const liquidarIrpfAnualExplicito = Effect.fn("Liquidacion.explicita")(
         crearLineaCalculo({
           siteId: "anual.explicito.big",
           instancia: 0,
-          importe: neto,
+          importe: baseGeneral,
           unidad: "EUR",
           etiqueta: "Base imponible general",
-          formula: "rendimiento neto reducido con signo",
+          formula: "rendimiento neto reducido más ganancias no transmisión cobradas e identificadas",
         }),
         crearLineaCalculo({
           siteId: "anual.explicito.blg",
           instancia: 0,
-          importe: neto,
+          importe: baseGeneral,
           unidad: "EUR",
           etiqueta: "Base liquidable general",
           formula: "BIG sin reducciones de base ni compensaciones anteriores",
@@ -450,7 +466,9 @@ export const liquidarIrpfAnualExplicito = Effect.fn("Liquidacion.explicita")(
           unidad: "EUR",
           etiqueta: "Cuota líquida legal",
           formula:
-            solicitudValenciana === undefined
+            composicion.deduccionesGeneralesDonativosAplicadas.gt(0)
+              ? "cuotas estatal/autonómica menos donativos generales aplicados a cada parte y autonómicas;una sola composición"
+              : solicitudValenciana === undefined
               ? "cuota estatal + autonómica; sin otras deducciones"
               : "cuota estatal + autonómica - deducciones valencianas aplicadas a cuota común",
         }),
@@ -496,7 +514,7 @@ export const liquidarIrpfAnualExplicito = Effect.fn("Liquidacion.explicita")(
           importe: diferencial,
           unidad: "EUR",
           etiqueta: "Cuota diferencial",
-          formula: "cuota posterior − retenciones − pagos fraccionados",
+          formula: "cuota posterior − retenciones − pagos fraccionados" + formulaAjuste81(composicion.libroMaternidad81),
         }),
       ],
     })
@@ -509,8 +527,10 @@ export const liquidarIrpfAnualExplicito = Effect.fn("Liquidacion.explicita")(
           ? ("individual-comun-2025-hechos-explicitos" as const)
           : ("individual-madrid-2018-a-2024-hechos-explicitos" as const),
       rendimientoNetoReducido: neto.toFixed(),
-      baseImponibleGeneral: neto.toFixed(),
-      baseLiquidableGeneral: neto.toFixed(),
+      libroIngresosIdentificados2025: composicion.libroIngresosIdentificados2025,
+      nodosFiscalesB2025: composicion.nodosFiscalesB2025,
+      baseImponibleGeneral: baseGeneral.toFixed(),
+      baseLiquidableGeneral: baseGeneral.toFixed(),
       baseLiquidableAhorro: "0",
       reduccionArt20: reduccionArt20.toFixed(),
       componentesCuota: {
@@ -524,6 +544,7 @@ export const liquidarIrpfAnualExplicito = Effect.fn("Liquidacion.explicita")(
       },
       deduccionesValencianas2025: composicion.deduccionesValencianas2025,
       deduccionesTerritoriales2025: composicion.deduccionesTerritoriales2025,
+      maternidad2025: composicion.libroMaternidad81,
       cuotaLiquidaLegal: liquida.toFixed(),
       deduccionTrabajo: deduccion.toFixed(),
       cuotaPosterior: posterior.toFixed(),
