@@ -1,0 +1,15 @@
+import Decimal from 'decimal.js'
+export function fixture(n=2,adopt=false) {
+ const ids=Array.from({length:n},(_,i)=>`s-${i+2}`)
+ const descendientes=ids.map(sujetoId=>({sujetoId,fechaNacimiento:'2025-02-01',edadDevengo:0,vivoAlDevengo:true,rentasNoExentasCentimos:0,declaracion:{modalidad:'no-presenta'},discapacidad:{_tag:'SinDiscapacidad'},titulares:[{titularId:'s-1',grado:1,vinculo:adopt?{clase:'adopcion',fechaInicioIncremento:'2025-02-01',fechaConstitucionVinculo:'2025-02-01',fundamento:'inscripcion-registro-civil',historialCompleto:true}:{clase:'consanguinidad'},relacion:'convivencia',custodia:'exclusiva',alimentosJudiciales:false,aplicaEspecialidadAlimentos:false,residenteIrpf:true,rentasNoExentasCentimos:2000012}],titularesCompletos:true}))
+ const derechos={ejercicio:2025,territorio:'illes-balears',regimen:'comun',modalidad:'individual',devengo:'2025-12-31',contribuyenteId:'s-1',edadContribuyenteDevengo:40,discapacidadContribuyente:{_tag:'SinDiscapacidad'},ascendientes:'ninguno',fallecimientosEnElEjercicio:'ninguno',descendientesCompletos:true,conciliacionRentasContribuyente:{perfil:'caso-anual-parcial',otrasRentasOGastosNoRepresentados:'ninguno'},descendientes}
+ const s={lote:'C36',codigo:adopt?'balears_adopcion':'balears_nacimiento',hechos:{contribuyente:{nacimientoContribuyente:'1985-01-01',naturalezaDiscapacidad:'fisica_sensorial',resolucionDiscapacidad:'',familia:{categoria:'ordinaria',titulo:'',titulares:['s-1'],descendientes:ids,desde:'2025-01-01',hasta:'2025-12-31'},residenciaFiscal2024:'illes-balears',documentoResidencia2024:'RES',altasRETA:[],alteracionFamilia:'',otrosConvivientes:[]},personas:ids.map(id=>{const persona={id,convivencia:[{desde:'2025-02-01',hasta:'2025-12-31'}],expediente:'RC-'+id};if(adopt)persona.inscripcionCivil='2025-02-02';return persona}),cuotasHogar:[],ayudasNacimiento:[],censoDescendientes:ids,censoPersonas:'completo_segun_nucleo_v4',exhaustividad:'completa'}}
+ if(adopt)s.hechos.filiacionAdopcion={hijo:ids[0],fechaConstitucion:'2025-02-01',documento:'FILIACION',censo:'completo_al_constituirse',progenitoresPrevios:['s-8'],conyugesOParejas:['s-9']}
+ else {
+  s.hechos.registroCobrosNacimiento={consulta:'LIBRO',censo:'completo',cobros:[]}
+  if(n>1)s.hechos.registroPartoMultiple={documento:'CERTIFICADO',nacidos:ids.map((persona,i)=>({persona,fechaNacimiento:'2025-02-01',secuenciaParto:i+1}))}
+ }
+ const caso={anio:2025,comunidadAutonoma:'illes-balears',contribuyenteId:'s-1',situacionFamiliar:{tipo:'individual',edad:40,discapacidad:{_tag:'SinDiscapacidad'},descendientes:[],ascendientes:[]},derechosMinimos:derechos}
+ const m={caso,baseGeneral:new Decimal(20000.12),baseAhorro:new Decimal(0),basesLiquidables:{general:new Decimal(20000.12),ahorro:new Decimal(0)},minimoPersonalFamiliar:new Decimal(5550),cuotaAutonomica:new Decimal(10000),sujetosConMinimo:ids,atribucionesMinimo:ids.map(sujetoId=>({sujetoId,titulares:['s-1']})),rentasTrabajoAnuales:{integroTrabajo:new Decimal(30000),restoRentas:new Decimal(0)}}
+ return {s,m,derechos}
+}

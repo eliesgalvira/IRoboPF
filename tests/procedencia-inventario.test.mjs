@@ -182,16 +182,19 @@ console.log("5551");
       writeFileSync(
         resolve(temporary, "adulterar.mjs"),
         `
-import { writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { gzipSync } from "node:zlib";
-import { readArtifact, compareFiles } from "./scripts/procedencia/inventario-artefacto.mjs";
+import { readArtifact } from "./scripts/procedencia/inventario-artefacto.mjs";
 import { hash } from "./scripts/procedencia/inventario-ast.mjs";
 import { gc } from "bun";
 function adulterar() {
 const { files, manifest } = readArtifact();
-// Misma generación en otra raíz: ninguna identidad depende del checkout.
-compareFiles(readArtifact(${JSON.stringify(process.cwd())}).files, files);
+// La reconstrucción en otra raíz conserva exactamente el archivo comprimido.
+// Evita descomprimir un segundo corpus completo sólo para compararlo.
+const original = readFileSync(${JSON.stringify(resolve("docs/procedencia/inventario-datos.json.gz"))});
+const rebuilt = readFileSync("docs/procedencia/inventario-datos.json.gz");
+if (!original.equals(rebuilt)) throw new Error("Artefacto distinto en otra raíz");
 gc(true);
 const page = manifest.pages[0];
 const items = JSON.parse(files.get(page.file));

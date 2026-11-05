@@ -97,3 +97,6 @@ aritmético IPC/SS. No necesita los originales privados ni regenera el censo
 real de los lotes. El contraejemplo canario `tests/datos-escalas-minimos-canarias.mjs`
 permanece rojo y separado del CI ordinario hasta integrar su corrección financiera
 acotada; no se cuenta como un pase ni como un defecto resuelto.
+
+
+Desde el corte de registros, ayudas e inversión del 5/11, la configuración general recoge `tests/**/*.test.{ts,mjs}`. Antes excluía cinco archivos `.mjs` aunque estuvieran nombrados en el paso territorial. Su exclusión quedó reproducida con salida 1 y «No test files found»; tras el ajuste pasan sus 237 pruebas y las nuevas revisiones portadas. El paso territorial nombra expresamente las nuevas pruebas. La repetición completa se efectúa en entorno limpio antes de publicar.

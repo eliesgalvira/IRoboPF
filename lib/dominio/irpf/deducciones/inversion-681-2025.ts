@@ -1,6 +1,6 @@
 import { Schema } from "effect"
 import { Centimos, Texto, euros, exigir, ref, unicos, D } from "./aragon-dos-codigos-2025/comun"
-import type { SolicitudInversionAragonesa2025 } from "./aragon-dos-codigos-2025"
+import type { Cartera681 } from "./inversion-681-comun-2025"
 
 const Cuenta = Schema.Struct({id:Texto,titular:Texto,saldoCentimos:Centimos,referencia:Texto})
 /** Perfil patrimonial exhaustivo deliberadamente pequeño: cuentas y suscripciones nuevas, sin deuda ni otros bienes. */
@@ -24,7 +24,7 @@ export interface GeneracionEstatal681 {
  readonly reservas:readonly string[]
 }
 /** Sólo se llama tras validar íntegramente la cartera68.1 con el evaluador común publicado. No recibe bases ni deducciones del cliente. */
-export function producirEstatal681(h:SolicitudInversionAragonesa2025, hechos:HechosEstatales681|undefined):GeneracionEstatal681 {
+export function producirEstatal681<H extends Cartera681>(h:H, hechos:HechosEstatales681|undefined):GeneracionEstatal681 {
  exigir(hechos!==undefined,"68.1 positiva: faltan hechos patrimoniales70 y titularidades documentales")
  const p=Schema.decodeUnknownSync(HechosEstatales681)(hechos,{onExcessProperty:"error"})
  ref(p.censo);ref(p.referenciaOrigenFondos);exigir(p.contribuyente===h.contribuyente,"68.1: patrimonio de otro contribuyente")

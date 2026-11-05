@@ -1,3 +1,6 @@
+import { evaluarVaciaExt2025 } from "../inmobiliario-2025/consumidor-ext"
+import { evaluarInversionExt2025 } from "./extremadura-inversion-anual-2025"
+import type { GeneracionEstatal681 } from "./inversion-681-2025"
 import type { SolicitudDeduccionesTerritoriales2025 as SolicitudComun } from "./anual-territorial-esquemas"
 import { ingresoRegionalELA2025 } from "../ingresos-identificados-2025/regiones"
 // Archivo aditivo D; los productores reciben exclusivamente resultados internos de la composición.
@@ -81,7 +84,7 @@ export function crearSesionD51(m:MagnitudesTerritorialesAnuales) {
   if(esTexto(x.id)&&esLista(x.titularesMismoGradoElegibles)){minimo(x.id);const p=persona(x.id);exigir(p.titulares.every(t=>t.grado===p.titulares[0].grado),"D51: prelación familiar de grados distintos no modelada")}
   for(const [k,v] of Object.entries(x))recorrer(v,k)
  }
- function evaluar(entrada:SolicitudD51):CLM.ResultadoHechos {
+ function evaluar(entrada:SolicitudD51):CLM.ResultadoHechos & { readonly estatal681?:GeneracionEstatal681 } {
   const decoded=Schema.decodeUnknownResult(SolicitudD51)(entrada,{onExcessProperty:"error"})
   exigir(Result.isSuccess(decoded),"D51: contrato inválido o magnitudes fiscales externas")
   const s=decoded.success
@@ -90,6 +93,7 @@ export function crearSesionD51(m:MagnitudesTerritorialesAnuales) {
   exigir(m.caso.anio===2025&&m.caso.situacionFamiliar.tipo==="individual"&&m.caso.fechaFallecimiento===undefined,"D51: solo2025 individual ordinaria")
   const territorio=s.codigo.startsWith("clm_")?"castilla-la-mancha":s.codigo.startsWith("cyl_")?"castilla-y-leon":"extremadura"
   exigir(territorio===m.caso.comunidadAutonoma,"D51: deducción de otro territorio")
+  if(s.codigo==="extremadura_inversion_acciones_participaciones_mercantiles" && "perfil" in s.hechos)return evaluarInversionExt2025(s.hechos,m)
   const dinero=new Set<string>()
   function validarPagos(x:Schema.Json):void {
    if(esLista(x)){x.forEach(validarPagos);return}
@@ -186,9 +190,11 @@ case "extremadura_acogimiento_menores":return EXT.acogimientoMenoresExt(marco,({
 case "extremadura_cuidado_hijos_hasta_14":return EXT.cuidadoHasta14Ext(marco,({...s.hechos, regimen: ({...s.hechos.regimen}), hijos: s.hechos.hijos.map(elemento=>({...elemento}))}))
 case "extremadura_contribuyentes_viudos":return EXT.viudedadExt(marco,({...s.hechos, regimen: ({...s.hechos.regimen}), descendientes: s.hechos.descendientes.map(elemento=>({...elemento, rentasTotales: faltaFiscal("rentasTotales",elemento)}))}))
 case "extremadura_vivienda_jovenes_victimas_terrorismo":return EXT.viviendaJovenExt(marco,({...s.hechos, regimen: ({...s.hechos.regimen})}))
-case "extremadura_arrendadores_viviendas_vacias":return EXT.arrendadoresVaciasExt(marco,({...s.hechos, viviendas: s.hechos.viviendas.map(elemento=>({...elemento, rendimientoNetoReducido: magnitud("rendimientoNetoReducido","extremadura_arrendadores_viviendas_vacias",elemento)}))}))
+case "extremadura_arrendadores_viviendas_vacias":return evaluarVaciaExt2025(s,m)
 case "extremadura_rehabilitacion_viviendas_zonas_rurales_alquiler":return EXT.rehabilitacionAlquilerExt(marco,({...s.hechos, baseHistorica: magnitud("baseHistorica","extremadura_rehabilitacion_viviendas_zonas_rurales_alquiler",s.hechos)}))
-case "extremadura_inversion_acciones_participaciones_mercantiles":return EXT.inversionMercantilExt(marco,({...s.hechos, baseEstatalMismaInversion: magnitud("baseEstatalMismaInversion","extremadura_inversion_acciones_participaciones_mercantiles",s.hechos)}))
+case "extremadura_inversion_acciones_participaciones_mercantiles":
+ if("perfil" in s.hechos)throw new RangeError("EXT inversión: perfil no evaluado")
+ return EXT.inversionMercantilExt(marco,({...s.hechos, baseEstatalMismaInversion: magnitud("baseEstatalMismaInversion","extremadura_inversion_acciones_participaciones_mercantiles",s.hechos)}))
 case "extremadura_vivienda_zonas_rurales":return EXT.viviendaRuralExt(marco,({...s.hechos, baseHistorica: magnitud("baseHistorica","extremadura_vivienda_zonas_rurales",s.hechos)}))
 case "extremadura_residencia_municipios_menos_3000":return EXT.residenciaRuralExt(marco,({...s.hechos, residentes: s.hechos.residentes.map(elemento=>({...elemento, baseLiquidableIndividual: magnitud("baseLiquidableIndividual","extremadura_residencia_municipios_menos_3000",elemento)})), cuotaAutonomica: magnitud("cuotaAutonomica","extremadura_residencia_municipios_menos_3000",s.hechos)}))
 case "extremadura_intereses_vivienda_jovenes":return EXT.interesesJovenExt(marco,({...s.hechos}))

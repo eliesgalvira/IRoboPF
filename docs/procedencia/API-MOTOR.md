@@ -240,7 +240,7 @@ Ambas ampliaciones conservan las dos API, magnitudes internas de hasta 80 decima
 
 ## Dos contratos aragoneses adicionales
 
-El módulo `aragon-dos-codigos-2025` incorpora el cálculo parcial de inversión en entidades nuevas, con asignación estatal/autonómica y rechazo de reinversión positiva no coordinada. El contrato de arrendamiento social expresa la petición de cuota atribuida y su fracción 3/10; no recibe una cuota externa ni produce una deducción cuando falta el productor anual. Su [revisión independiente](deducciones-2025/producto-aragon-dos-codigos/REVISION.md) es favorable dentro del alcance declarado. `lote: "A-aragon-dos"` conecta ambas API: inversión con elección estatal cero explícita y censo completo entra en el único libro de cuota; estatal positiva y reinversión conservan rechazos tipados. Social devuelve dependencia 3/10 sin importe mientras falta su productor. La [revisión de la conexión anual](deducciones-2025/producto-aragon-conexion-anual/REVISION-INDEPENDIENTE.md) es favorable acotada; no completa el punto 4.
+El módulo `aragon-dos-codigos-2025` incorpora el cálculo parcial de inversión en entidades nuevas, con asignación estatal/autonómica y rechazo de reinversión positiva no coordinada. El contrato de arrendamiento social expresa la petición de cuota atribuida y su fracción 3/10; no recibe una cuota externa ni produce una deducción cuando falta el productor anual. Su [revisión independiente](deducciones-2025/producto-aragon-dos-codigos/REVISION.md) es favorable dentro del alcance declarado. `lote: "A-aragon-dos"` conecta ambas API: inversión con elección estatal cero explícita y censo completo entra en el único libro de cuota; la elección estatal positiva dispone del productor68.1 descrito más adelante y la reinversión conserva su rechazo tipado. Social devuelve dependencia 3/10 sin importe mientras falta su productor. La [revisión de la conexión anual](deducciones-2025/producto-aragon-conexion-anual/REVISION-INDEPENDIENTE.md) es favorable acotada; no completa el punto 4.
 
 
 ## Ampliación E38 en la ruta anual
@@ -345,3 +345,34 @@ El productor común valida entidad/grupo, fondos, forma, mercado, actividad, par
 La asignación monetaria estatal es una elección sobre pagos reales: estatal+Aragón+sin deducción debe coincidir con cada desembolso. Base estatal máxima100000, porcentaje50%; el importe sólo consume cuota estatal. La base regional conserva el exceso sobre100000 y excluye la asignación estatal, independientemente de la cuota estatal disponible. Se preservan20%/4000 regionales y la rama estatal0 ya publicada. El libro `deduccionesTerritoriales2025.estatal681` expone generación y consumo racional único para ambas API; cuota líquida y diferencial descuentan sólo lo aplicado. El pendiente es información de cuota, sin derecho a arrastre.
 
 Sin hechos adicionales se mantiene el rechazo tipado estatal positivo, ahora con petición concreta. Reinversión38.2 y vivienda social3/10 siguen rechazadas. Combinaciones con donativos mantienen su alcance previo; no se habilitan interacciones nuevas. Véase [entrega y límites](deducciones-2025/producto-681-aragon/ALCANCE.md).
+
+
+## Nacimiento múltiple y adopción balear2025
+
+En `lote: "C36"`, `registroPartoMultiple` incorpora la secuencia física documentada de un mismo parto y `filiacionAdopcion` identifica la adopción única admitida. Se concilian evento, fecha, personas, progenitores, inscripción y derechos al mínimo ya producidos por la anual. El orden no se infiere del identificador ni de la posición del array. El reparto de nacimiento usa los progenitores y conserva la prioridad de aplicación sobre la cuota común.
+
+Ambas API admiten los perfiles del [contrato registral balear](deducciones-2025/baleares-registro-familiar-20261105/CONTRATO.md). Continúan fuera anticipos, regularización, abono administrativo de insuficiencia, segundo adoptante y las historias registrales no representadas. Las referencias documentales declaran hechos externos; el motor no autentica certificados.
+
+## Inversión extremeña2025 con elección estatal68.1
+
+`lote: "D51"`, código `extremadura_inversion_acciones_participaciones_mercantiles`, conecta una constitución ordinaria2025 con el productor estatal común68.1 y el libro autonómico. El desembolso se reparte expresamente entre estatal y Extremadura; las cantidades usadas en una base no vuelven a utilizarse en la otra, aunque falte cuota para aplicar toda la deducción. Ambas API calculan y consumen una sola cuota de cada componente.
+
+El contrato concilia capital notarial, aportaciones y participación propia/familiar por fracciones exactas, inscripción, actividad, contabilidad, empleo y alta en Seguridad Social. La constitución SA exige capital mínimo60.000EUR y la SL1EUR. El pago bancario es una restricción documental del perfil. Se conserva la emisión posterior de certificados del ejercicio2025 y se identifican las obligaciones futuras de tenencia y empleo sin darlas por cumplidas.
+
+Perfil individual ordinario de una inversión, sin grupo, reinversión, transmisión, primas ni las restantes combinaciones excluidas. No se reciben bases ni cuotas fiscales calculadas por el usuario. La envoltura aragonesa conserva sus propias condiciones. Véase [contrato extremeño](ext-inversion-20261105/CONTRATO.md).
+
+
+## Cuotas de empleados de hogar en Canarias2025
+
+`lote: "C36"`, código `canarias_cuotas_seguridad_social_empleados_hogar`, añade `registroHogar`: contratos, altas, cuotas, pagos, ayudas, vivienda y régimen matrimonial documentado para todo el ejercicio. El productor concilia identidades y fechas, deriva la atribución íntegra o por mitades en gananciales y entrega la base al consumidor común del20%, con límite agregado500EUR y cuota disponible una sola vez.
+
+El acceso utiliza edad, discapacidad o mínimo de descendientes y trabajo propio ya representados por la anual. El perfil exige empleador propio; no infiere separación de bienes de la tributación individual. NIF/NIE, pagador, TGSS, recibos, periodos y ayudas deben ser coherentes. Los perfiles del cónyuge empleador, cambios civiles intranuales y cuotas de asistencia siguen rechazados con causa concreta. Véase [contrato de hogar](deducciones-2025/canarias-hogar-atribucion-20261105/CONTRATO.md).
+
+
+## Ayuda identificada de talidomida y vivienda vacía extremeña
+
+La ayuda pública RD 574/2023 admite expediente propio único y cobro íntegro único en 2025, conciliado con la resolución de la Dirección General del Imserso. Se integra en la base general aunque no se solicite la deducción gallega. La solicitud territorial referencia `ingresoId`; no aporta una base fiscal ni una deducción calculada. Las otras ayudas y las concurrencias no representadas conservan sus rechazos.
+
+El perfil `solo-inmobiliario-p4a` incorpora Extremadura con una vivienda en pleno dominio y `vaciaExt2025`: hechos catastrales, observaciones de vacío de 2024 y ocupación de 2025 conciliados. La imputación de 2024 verifica la condición histórica, sin entrar en ingresos de 2025. Ambas API consumen el mismo productor de RNR y el mismo libro de cuota. El corte se limita a firma e inicio 1/1/2025, ocupación observada hasta devengo y pacto hasta al menos 1/1/2028; otros supuestos jurídicamente posibles aún no están conectados.
+
+[Contrato, fuentes y límites de estas dos ampliaciones](registros-ayudas-inversion-20261105/INTEGRACION.md).

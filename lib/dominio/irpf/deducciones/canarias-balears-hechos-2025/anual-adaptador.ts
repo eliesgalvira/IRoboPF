@@ -1,3 +1,4 @@
+import { producirCuotasHogarC36 } from "./anual-hogar"
 import { conciliarInmuebleP4a, evaluarPrimerAlquiler2025 } from "../../inmobiliario-2025/consumidores"
 import { Schema } from "effect"
 import type { MagnitudesTerritorialesAnuales } from "../anual-territorial"
@@ -455,13 +456,20 @@ function evaluarFamiliaAnualC36(
     f = s.hechos.contribuyente,
     censo = censoC36(m)
   conciliarNacimientoPropioC36(m, f.nacimientoContribuyente)
-  if (
-    s.codigo === "canarias_cuotas_seguridad_social_empleados_hogar" ||
-    s.hechos.cuotasHogar.length > 0
+  comprobar(
+    s.hechos.filiacionAdopcion === undefined || s.codigo === "balears_adopcion",
+    "C36: filiación de adopción ajena a la solicitud"
   )
-    throw new RangeError(
-      "C36 cuotas de hogar/asistencia: falta productor de régimen matrimonial y atribución legal de cuotas; individual no significa separación de bienes y no se presupone un cónyuge ausente"
-    )
+  comprobar(
+    s.hechos.registroPartoMultiple === undefined || s.codigo === "balears_nacimiento",
+    "C36: registro de parto ajeno a la solicitud"
+  )
+  comprobar(s.hechos.cuotasHogar.length === 0,
+    "C36 hogar: cuotas legadas sin hechos primarios; use registroHogar")
+  const hogar = s.codigo === "canarias_cuotas_seguridad_social_empleados_hogar"
+  comprobar(hogar || s.hechos.registroHogar === undefined,
+    "C36 asistencia: falta productor de ayuda efectiva de terceros y separación de supuestos/renta art16quater; cuotas no habilitadas")
+  const cuotasHogar = hogar ? producirCuotasHogarC36(s.hechos.registroHogar, m) : []
   unico(s.hechos.censoDescendientes)
   comprobar(
     s.hechos.censoDescendientes.length === censo.length &&
@@ -499,8 +507,51 @@ function evaluarFamiliaAnualC36(
         "C36: fechas de adopción incompatibles con núcleo v4"
       )
     }
-    throw new RangeError(
-      "C36 adopción: núcleo v4 acredita vínculo y fechas, pero falta productor de exclusión de hijo del cónyuge/pareja y libro de anticipos; no se presupone su ausencia"
+    const filiacion = necesarioC36(
+      s.hechos.filiacionAdopcion,
+      "C36 adopción: falta productor de exclusión documentada de hijo del cónyuge/pareja"
+    )
+    // Perfil deliberadamente único: no ordenar adopciones históricas por DOB,
+    // ni inferir el derecho autonómico de un segundo adoptante del mínimo.
+    comprobar(
+      censo.length === 1 && s.hechos.personas.length === 1,
+      "C36 adopción: sólo hijo único; orden de otros hijos fuera de alcance"
+    )
+    const p = s.hechos.personas[0]
+    const d = familiarC36(m, p.id)
+    const v = d.titulares.find((t) => t.titularId === id)?.vinculo
+    comprobar(
+      progenitoresC36(d).length === 1 &&
+        minimoC36(m, p.id).titulares.length === 1,
+      "C36 adopción: segundo adoptante/derecho ajeno fuera de alcance"
+    )
+    fecha(filiacion.fechaConstitucion)
+    comprobar(
+      filiacion.documento.trim() !== "" &&
+        filiacion.hijo === p.id && v?.clase === "adopcion" &&
+        filiacion.fechaConstitucion === v.fechaConstitucionVinculo &&
+        filiacion.fechaConstitucion.startsWith("2025-"),
+      "C36 adopción: filiación ajena o constitución fuera de 2025"
+    )
+    unico(filiacion.progenitoresPrevios)
+    unico(filiacion.conyugesOParejas)
+    comprobar(
+      [...filiacion.progenitoresPrevios, ...filiacion.conyugesOParejas]
+        .every((p) => p.trim() !== "" && p !== id && p !== d.sujetoId),
+      "C36 adopción: identidad imposible en filiación/pareja"
+    )
+    comprobar(
+      p.progenitorPrevio === undefined ||
+        filiacion.progenitoresPrevios.includes(p.progenitorPrevio),
+      "C36 adopción: progenitor previo contradictorio con registro"
+    )
+    comprobar(
+      !filiacion.progenitoresPrevios.some((p) => filiacion.conyugesOParejas.includes(p)),
+      "C36 adopción: hijo del cónyuge/pareja excluido"
+    )
+    comprobar(
+      s.hechos.registroCobrosNacimiento === undefined,
+      "C36 adopción: no se importa un libro de anticipos de nacimiento"
     )
   }
   if (f.familia.categoria !== "ordinaria") {
@@ -584,9 +635,40 @@ function evaluarFamiliaAnualC36(
       "C36: censo para orden de nacimiento incompleto"
     )
     const fechas = hijos.map((id) => familiarC36(m, id).fechaNacimiento)
-    comprobar(
-      new Set(fechas).size === fechas.length,
-      "C36: nacimiento múltiple sin productor de orden registral"
+    if (new Set(fechas).size !== fechas.length) {
+      const registro = necesarioC36(
+        s.hechos.registroPartoMultiple,
+        "C36: nacimiento múltiple sin productor de orden registral"
+      )
+      comprobar(registro.documento.trim() !== "", "C36: falta soporte de parto múltiple")
+      unico(registro.nacidos.map((p) => p.persona))
+      const multiples = hijos.filter((p) => fechas.filter((f) => f === familiarC36(m, p).fechaNacimiento).length > 1)
+      comprobar(
+        registro.nacidos.length === multiples.length &&
+          multiples.every((p) => registro.nacidos.some((n) => n.persona === p)),
+        "C36: registro de parto múltiple incompleto o ajeno"
+      )
+      registro.nacidos.forEach((n) => {
+        const d = familiarC36(m, n.persona)
+        comprobar(
+          n.fechaNacimiento === d.fechaNacimiento &&
+            n.fechaNacimiento.startsWith("2025-") &&
+            d.titulares.find((t) => t.titularId === id)?.vinculo.clase === "consanguinidad" &&
+            Number.isSafeInteger(n.secuenciaParto) && n.secuenciaParto > 0,
+          "C36: secuencia de parto incompatible con núcleo v4"
+        )
+      })
+      for (const f of new Set(registro.nacidos.map((n) => n.fechaNacimiento))) {
+        const secuencias = registro.nacidos.filter((n) => n.fechaNacimiento === f)
+          .map((n) => n.secuenciaParto).sort((a, b) => a - b)
+        comprobar(
+          secuencias.every((n, i) => n === i + 1),
+          "C36: secuencia de parto duplicada o incompleta"
+        )
+      }
+    } else comprobar(
+      s.hechos.registroPartoMultiple === undefined,
+      "C36: registro de parto múltiple sin empate de nacimientos"
     )
   }
   const sinMinimo =
@@ -732,26 +814,12 @@ function evaluarFamiliaAnualC36(
   const ordenHijos = personas
     .filter((p) => m.sujetosConMinimo.includes(p.id))
     .slice()
-    .sort((x, y) => x.nacimiento.localeCompare(y.nacimiento))
+    .sort((x, y) => x.nacimiento.localeCompare(y.nacimiento) ||
+      (s.codigo === "balears_nacimiento"
+        ? (s.hechos.registroPartoMultiple?.nacidos.find((n) => n.persona === x.id)?.secuenciaParto ?? 0) -
+          (s.hechos.registroPartoMultiple?.nacidos.find((n) => n.persona === y.id)?.secuenciaParto ?? 0)
+        : 0))
     .map((p) => p.id)
-  const cuotasHogar = s.hechos.cuotasHogar.map((c) => {
-    c.pagos.forEach((p) => conciliarPagoC36(m, p))
-    return {
-      ...c,
-      empleador: id,
-      regimen: "separacion" as const,
-      conyuge: "",
-      necesidadAsistencia: c.asistencia.map((p) => {
-        comprobar(
-          a.minimos.some(
-            (v) => v.beneficiario === p && v.tipo === "asistencia"
-          ),
-          "C36: asistencia sin mínimo anual"
-        )
-        return minimoC36(m, p)
-      }),
-    }
-  })
   const otros = personas
     .filter((p) => !p.progenitores.includes(id))
     .map((p) => ({
