@@ -107,6 +107,7 @@ function normalizarExacto(
     | C.Resultado
     | ResultadoAmpliacionC
     | CLM.ResultadoHechos
+    | EXT.ResultadoHechos
     | ReturnType<typeof evaluarHechosE2025>
     | ReturnType<typeof evaluarTerritorialF2025>
 ): Racional {

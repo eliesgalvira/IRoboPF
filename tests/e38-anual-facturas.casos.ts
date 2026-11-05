@@ -9,5 +9,5 @@ export function solicitudE38(h:HechosAmpliacionE2025,nacimiento="1990-01-01"):So
   if(!objeto(v))return v
   return Object.fromEntries(Object.entries(v).filter(([k])=>!CAMPOS_FISCALES_EXCLUIDOS_E38.some(c=>c===k)).map(([k,v])=>[k,proyectar(v)]))
  }
- return Schema.decodeUnknownSync(SolicitudE38Anual2025)({lote:"E38",nacimientoContribuyente:nacimiento,exhaustividad:"expediente_comun_completo_todos_pagadores",inversionesViviendaEjercicio:[],hechos:proyectar(Schema.decodeUnknownSync(Schema.Json)(h))},{onExcessProperty:"error"})
+ return Schema.decodeUnknownSync(SolicitudE38Anual2025)({lote:"E38",nacimientoContribuyente:nacimiento,exhaustividad:"expediente_comun_completo_todos_pagadores",inversionesViviendaEjercicio:[],hechos:(h.codigo==="galicia_ayudas_incendios_peifoga_2025"||h.codigo==="galicia_ayudas_deportistas_alto_nivel")?{codigo:h.codigo,ingresoId:h.ayudas[0]?.id??"SIN-EXPEDIENTE"}:proyectar(Schema.decodeUnknownSync(Schema.Json)(h))},{onExcessProperty:"error"})
 }

@@ -929,3 +929,14 @@ Se integran conjuntamente cinco ampliaciones que ya tienen primera revisión mon
 Los hallazgos P2 de inversión extremeña y del mensaje de talidomida se corrigen con sus reproducciones preservadas y pruebas del integrador; no se encarga un nuevo contraste para esos arreglos pequeños. El capital mínimo societario se valida antes de calcular y la reserva informativa de incendios deja de aparecer en otras ayudas. Se mantienen los oráculos monetarios originales.
 
 Se corrige un vacío del CI: nombrar archivos `.mjs` en la orden no bastaba cuando `include` sólo aceptaba `.test.ts`. Se prueba primero la ausencia de recogida y se habilitan ambas extensiones. Se acepta ampliar la ejecución ordinaria para que las revisiones portadas queden protegidas por CI; no se reclasifican los pases privados previos como pases del workflow. Los 31 pasos se reproducen sobre el conjunto final con PATH limpio antes del push.
+
+
+## Prorrata exacta y vigencia documental, 5 de noviembre
+
+La prorrata extremeña por365 se transporta como fracción cuando no tiene expansión decimal finita. Se conservan las cadenas finitas del contrato de subcálculo existente; las periódicas usan numerador/divisor, ya admitidos por el consumo anual. Así se evita presentar una aproximación a80cifras como exactitud racional, sin rechazar un cálculo normativamente representable ni cambiar los esperados del revisor.
+
+Las URLs BOE con una fecha solicitada inexistente no prueban esa vigencia. La documentación deportiva conserva los originales devueltos en2026, los aparta del corte2025 y utiliza el selector real24/12/2025 acreditado en el HTML. No se infiere vigencia del nombre del archivo ni del parámetro enviado.
+
+Se agrupan tres ampliaciones ya revisadas para ejecutar una sola vez el CI completo sobre la composición final. Los P2 pequeños se corrigen por el integrador sin otro contraste delegado, conforme a la pauta de revisión del propietario. Una guardia global de6GiB detuvo tipos durante dos validaciones simultáneas; se mantienen los límites y los controles pesados pasan a ejecución secuencial hasta terminar el corte.
+
+La validación global de este corte exigió adaptar los helpers de pruebas al importe racional y actualizar nueve huellas técnicas, incorporando tres fuentes nuevas. Se conservan los fallos y los oráculos; el segundo CI reproduce los 31 pasos en entorno limpio y pasa. Las huellas identifican los bytes integrados, sin acreditar por sí mismas una regla fiscal.

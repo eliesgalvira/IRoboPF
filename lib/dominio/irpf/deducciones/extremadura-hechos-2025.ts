@@ -1,4 +1,5 @@
 import Decimal from "decimal.js"
+import { racional, type Racional } from "./anual-territorial-racional"
 import { DateTime, Option, Result, Schema } from "effect"
 import type { ResultadoDeduccion } from "@/lib/dominio/irpf/deducciones/contratos-2025"
 
@@ -8,7 +9,7 @@ export type ResultadoHechos =
   | { readonly estado: "no_soportado"; readonly motivo: string }
   | {
       readonly estado: "calculo_parcial"
-      readonly importeExacto: string
+      readonly importeExacto: string | Racional
       readonly pendientes: readonly string[]
       readonly magnitudesAnualesPendientes: readonly [
         "cuota_integra_autonomica_disponible_2025",
@@ -100,11 +101,18 @@ function repartoSoloIndividual(
 }
 function parcial(
   importe: Decimal,
-  pendientes: readonly string[]
+  pendientes: readonly string[],
+  divisor = 1
 ): ResultadoHechos {
+  const fraccion = racional(importe.toFixed(), String(divisor))
+  let denominador = BigInt(fraccion.divisor)
+  while (denominador % 2n === 0n) denominador /= 2n
+  while (denominador % 5n === 0n) denominador /= 5n
+  // Conserva las cadenas finitas de la API previa. Los periódicos viajan
+  // como fracción normativa, nunca como un decimal redondeado «exacto».
   return {
     estado: "calculo_parcial",
-    importeExacto: importe.toFixed(),
+    importeExacto: denominador === 1n ? importe.div(divisor).toFixed() : fraccion,
     pendientes,
     magnitudesAnualesPendientes: ["cuota_integra_autonomica_disponible_2025"],
     aceptacionFiscal: "pendiente",
@@ -124,7 +132,9 @@ export function presentar(resultado: ResultadoHechos): ResultadoDeduccion {
   if (resultado.estado === "no_soportado") return resultado
   return {
     estado: "calculo_parcial",
-    importe: new D(resultado.importeExacto)
+    importe: (Schema.is(Schema.String)(resultado.importeExacto)
+      ? new D(resultado.importeExacto)
+      : new D(resultado.importeExacto.numeradorEuros).div(resultado.importeExacto.divisor))
       .toDecimalPlaces(2, D.ROUND_HALF_UP)
       .toNumber(),
     motivo: resultado.pendientes.join("; "),
@@ -955,12 +965,13 @@ export function rehabilitacionAlquilerExt(
       f.actividadEconomica === "no" &&
         f.ubicacion !== "fuera" &&
         (parentesco === 0 || parentesco > 3)
-        ? base.times("0.15").times(dias).div(365)
+        ? base.times("0.15").times(dias)
         : new D(0),
       [
         "Rehabilitación IVA y territorio/censo solo9ter, cinco años, oferta/vacancia por causa ajena y precioINE; base histórica por vivienda/titular, reparto distinto de coste acreditable y efectos de subvención posterior.",
         "Cuota autonómica disponible y composición anual pendientes; subcálculo sin aceptación fiscal.",
-      ]
+      ],
+      365
     )
   })
 }

@@ -1,3 +1,4 @@
+import { producirHistoriaBasesD51 } from "./historia-bases-d51"
 import { evaluarVaciaExt2025 } from "../inmobiliario-2025/consumidor-ext"
 import { evaluarInversionExt2025 } from "./extremadura-inversion-anual-2025"
 import type { GeneracionEstatal681 } from "./inversion-681-2025"
@@ -84,7 +85,7 @@ export function crearSesionD51(m:MagnitudesTerritorialesAnuales) {
   if(esTexto(x.id)&&esLista(x.titularesMismoGradoElegibles)){minimo(x.id);const p=persona(x.id);exigir(p.titulares.every(t=>t.grado===p.titulares[0].grado),"D51: prelación familiar de grados distintos no modelada")}
   for(const [k,v] of Object.entries(x))recorrer(v,k)
  }
- function evaluar(entrada:SolicitudD51):CLM.ResultadoHechos & { readonly estatal681?:GeneracionEstatal681 } {
+ function evaluar(entrada:SolicitudD51):(CLM.ResultadoHechos | EXT.ResultadoHechos) & { readonly estatal681?:GeneracionEstatal681 } {
   const decoded=Schema.decodeUnknownResult(SolicitudD51)(entrada,{onExcessProperty:"error"})
   exigir(Result.isSuccess(decoded),"D51: contrato inválido o magnitudes fiscales externas")
   const s=decoded.success
@@ -165,11 +166,20 @@ case "clm_donaciones_idi_innovacion_empresarial":return CLM.donacionesIdi(marco,
 case "clm_donaciones_bienes_culturales_mecenazgo":return CLM.mecenazgoCultural(marco,({...s.hechos, operaciones: s.hechos.operaciones.map(elemento=>({...elemento})), baseLiquidable: magnitud("baseLiquidable","clm_donaciones_bienes_culturales_mecenazgo",s.hechos)}))
 case "clm_intereses_primera_vivienda_menores_40":return CLM.interesesPrimeraVivienda(marco,({...s.hechos}))
 case "clm_residencia_zonas_rurales":return CLM.residenciaRural(marco,({...s.hechos, cuotaAutonomica: magnitud("cuotaAutonomica","clm_residencia_zonas_rurales",s.hechos), escolares: s.hechos.escolares.map(elemento=>({...elemento}))}))
-case "clm_adquisicion_rehabilitacion_vivienda_zonas_rurales":return CLM.viviendaRural(marco,({...s.hechos, baseConsumidaAnterior: magnitud("baseConsumidaAnterior","clm_adquisicion_rehabilitacion_vivienda_zonas_rurales",s.hechos)}))
+case "clm_adquisicion_rehabilitacion_vivienda_zonas_rurales": {
+ const h=producirHistoriaBasesD51(s.historiaBases,{codigo:s.codigo,titular:propio,objeto:s.hechos.vivienda,fechaOperacion:s.hechos.fechaOperacion,pagos:s.hechos.pagos,costePropio:euros(s.hechos.coste).times(euros(s.hechos.porcentajePropiedad)).div(100).toFixed()})
+ const r=CLM.viviendaRural(marco,{...s.hechos,baseConsumidaAnterior:h.magnitud})
+ return r.estado==="calculo_parcial"?{...r,pendientes:[...h.fundamentos,...r.pendientes]}:r
+}
 case "clm_traslado_vivienda_habitual":return CLM.trasladoLaboral(marco,({...s.hechos, baseLiquidableInicial: magnitud("baseLiquidableInicial","clm_traslado_vivienda_habitual",s.hechos), cuotaTrabajoActividad: magnitud("cuotaTrabajoActividad","clm_traslado_vivienda_habitual",s.hechos)}))
 case "clm_inversion_acciones_participaciones_mercantiles":return CLM.inversionMercantil(marco,({...s.hechos}))
 case "clm_inversion_economia_social":return CLM.inversionEconomiaSocial(marco,({...s.hechos}))
-case "clm_ahorro_inversion_primera_vivienda":return CLM.cuentaVivienda(marco,({...s.hechos, deducidoAnterior: magnitud("deducidoAnterior","clm_ahorro_inversion_primera_vivienda",s.hechos)}))
+case "clm_ahorro_inversion_primera_vivienda": {
+ const h=producirHistoriaBasesD51(s.historiaBases,{codigo:s.codigo,titular:propio,objeto:s.hechos.cuenta,fechaOperacion:s.hechos.fechaApertura,pagos:[],costePropio:"0"})
+ exigir(euros(s.hechos.saldoInicio).eq(h.saldoInicioCuenta)&&euros(s.hechos.saldoFin).eq(h.saldoFinCuenta),"HistoriaD51: saldos de cuenta no concilian con movimientos")
+ const r=CLM.cuentaVivienda(marco,{...s.hechos,saldoInicio:h.saldoInicioCuenta,saldoFin:h.saldoFinCuenta,deducidoAnterior:h.magnitud})
+ return r.estado==="calculo_parcial"?{...r,pendientes:[...h.fundamentos,...r.pendientes]}:r
+}
 case "clm_controles_veterinarios_perros_asistencia":return CLM.perrosAsistencia(marco,({...s.hechos}))
 case "clm_familia_numerosa":return CLM.familiaNumerosaAmpliada(marco,({...s.hechos}))
 case "clm_discapacidad_ascendientes_descendientes":return CLM.discapacidadFamiliares(marco,({...s.hechos, personas: s.hechos.personas.map(elemento=>({...elemento}))}))
@@ -191,11 +201,19 @@ case "extremadura_cuidado_hijos_hasta_14":return EXT.cuidadoHasta14Ext(marco,({.
 case "extremadura_contribuyentes_viudos":return EXT.viudedadExt(marco,({...s.hechos, regimen: ({...s.hechos.regimen}), descendientes: s.hechos.descendientes.map(elemento=>({...elemento, rentasTotales: faltaFiscal("rentasTotales",elemento)}))}))
 case "extremadura_vivienda_jovenes_victimas_terrorismo":return EXT.viviendaJovenExt(marco,({...s.hechos, regimen: ({...s.hechos.regimen})}))
 case "extremadura_arrendadores_viviendas_vacias":return evaluarVaciaExt2025(s,m)
-case "extremadura_rehabilitacion_viviendas_zonas_rurales_alquiler":return EXT.rehabilitacionAlquilerExt(marco,({...s.hechos, baseHistorica: magnitud("baseHistorica","extremadura_rehabilitacion_viviendas_zonas_rurales_alquiler",s.hechos)}))
+case "extremadura_rehabilitacion_viviendas_zonas_rurales_alquiler": {
+ const h=producirHistoriaBasesD51(s.historiaBases,{codigo:s.codigo,titular:propio,objeto:s.hechos.vivienda,fechaOperacion:s.historiaBases?.objetos.find(o=>o.id===s.hechos.vivienda)?.primeraOperacion??"",pagos:s.hechos.pagos,costePropio:euros(s.hechos.costeRehabilitacion).times(euros(s.hechos.porcentajePropiedad)).div(100).toFixed()})
+ const r=EXT.rehabilitacionAlquilerExt(marco,{...s.hechos,baseHistorica:h.magnitud})
+ return r.estado==="calculo_parcial"?{...r,pendientes:[...h.fundamentos,...r.pendientes]}:r
+}
 case "extremadura_inversion_acciones_participaciones_mercantiles":
  if("perfil" in s.hechos)throw new RangeError("EXT inversión: perfil no evaluado")
  return EXT.inversionMercantilExt(marco,({...s.hechos, baseEstatalMismaInversion: magnitud("baseEstatalMismaInversion","extremadura_inversion_acciones_participaciones_mercantiles",s.hechos)}))
-case "extremadura_vivienda_zonas_rurales":return EXT.viviendaRuralExt(marco,({...s.hechos, baseHistorica: magnitud("baseHistorica","extremadura_vivienda_zonas_rurales",s.hechos)}))
+case "extremadura_vivienda_zonas_rurales": {
+ const h=producirHistoriaBasesD51(s.historiaBases,{codigo:s.codigo,titular:propio,objeto:s.hechos.vivienda,fechaOperacion:s.hechos.fechaOperacion,pagos:s.hechos.pagos,costePropio:euros(s.hechos.coste).times(euros(s.hechos.porcentajePropiedad)).div(100).toFixed()})
+ const r=EXT.viviendaRuralExt(marco,{...s.hechos,baseHistorica:h.magnitud})
+ return r.estado==="calculo_parcial"?{...r,pendientes:[...h.fundamentos,...r.pendientes]}:r
+}
 case "extremadura_residencia_municipios_menos_3000":return EXT.residenciaRuralExt(marco,({...s.hechos, residentes: s.hechos.residentes.map(elemento=>({...elemento, baseLiquidableIndividual: magnitud("baseLiquidableIndividual","extremadura_residencia_municipios_menos_3000",elemento)})), cuotaAutonomica: magnitud("cuotaAutonomica","extremadura_residencia_municipios_menos_3000",s.hechos)}))
 case "extremadura_intereses_vivienda_jovenes":return EXT.interesesJovenExt(marco,({...s.hechos}))
 case "extremadura_donaciones_entidades_culturales_deportistas":return EXT.donativosExt(marco,({...s.hechos, donaciones: s.hechos.donaciones.map(elemento=>({...elemento}))}))

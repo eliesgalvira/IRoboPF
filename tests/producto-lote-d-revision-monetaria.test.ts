@@ -3,7 +3,7 @@ import * as clm from "../lib/dominio/irpf/deducciones/castilla-la-mancha-hechos-
 import * as cyl from "../lib/dominio/irpf/deducciones/castilla-y-leon-hechos-2025"
 import * as ext from "../lib/dominio/irpf/deducciones/extremadura-hechos-2025"
 
-function comprobar(resultado: clm.ResultadoHechos, esperado: string): void {
+function comprobar(resultado: clm.ResultadoHechos | ext.ResultadoHechos, esperado: string): void {
   expect(resultado.estado).toBe("calculo_parcial")
   if (resultado.estado !== "calculo_parcial") throw new Error(resultado.motivo)
   expect(resultado.importeExacto).toBe(esperado)

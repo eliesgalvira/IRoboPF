@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest"
 import Decimal from "decimal.js"
+import { Schema } from "effect"
 import * as clm from "../lib/dominio/irpf/deducciones/castilla-la-mancha-hechos-2025"
 import * as cyl from "../lib/dominio/irpf/deducciones/castilla-y-leon-hechos-2025"
 import * as ext from "../lib/dominio/irpf/deducciones/extremadura-hechos-2025"
@@ -19,7 +20,7 @@ const cm = contexto("castilla-la-mancha")
 const cy = contexto("castilla-y-leon")
 const ex = contexto("extremadura")
 const conjunta = { modalidad: "conjunta", declarantes: ["a", "b"] }
-function importe(r: clm.ResultadoHechos): string {
+function importe(r: clm.ResultadoHechos | ext.ResultadoHechos): string {
   expect(r.estado).toBe("calculo_parcial")
   if (r.estado !== "calculo_parcial") throw new Error(r.motivo)
   expect(r.aceptacionFiscal).toBe("pendiente")
@@ -27,6 +28,8 @@ function importe(r: clm.ResultadoHechos): string {
   expect(r.magnitudesAnualesPendientes).toEqual([
     "cuota_integra_autonomica_disponible_2025",
   ])
+  if (!Schema.is(Schema.String)(r.importeExacto))
+    throw new Error("Este oráculo requiere un decimal finito exacto")
   return r.importeExacto
 }
 const discapacidad = {
