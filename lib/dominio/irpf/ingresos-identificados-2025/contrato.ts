@@ -1,4 +1,5 @@
 import { Schema } from "effect"
+import { AyudaVI100BReparacion2025 } from "./incendios-contrato"
 import { Euros } from "../trabajo-anual/contrato"
 
 const Identidad = Schema.String.check(Schema.isPattern(/^\S(?:.*\S)?$/), Schema.isMaxLength(200))
@@ -9,7 +10,33 @@ export const CensoIngresosIdentificados2025 = Schema.Struct({
   contribuyenteId: Identidad,
   ambito: Schema.Literal("ayudas-publicas-no-transmision"),
   exhaustividad: Schema.Literal("completa"),
-  ayudas: Schema.Array(Schema.Union([
+  ayudas: Schema.Array(Schema.Union([AyudaVI100BReparacion2025,
+Schema.Struct({
+    ayudaId: Identidad,
+    beneficiario: Identidad,
+    programa: Schema.Literal("galicia-deportistas-resultados-2025"),
+    administracion: Schema.Literals(["xunta_galicia", "sector_publico_autonomico_galicia"]),
+    // Hechos de la concesión, no una clasificación fiscal elegida por el cliente.
+    convocatoria: Schema.Struct({ referencia: Identidad, emisor: Identidad, fecha: Fecha }),
+    objeto: Schema.Literal("ayuda_dineraria_desarrollo_deportivo"),
+    finalidad: Schema.Literals(["resultados_deportivos", "formacion_tecnificacion"]),
+    relacionLaboral: Schema.Literals(["ninguna", "existente"]),
+    contraprestacionServicios: Schema.Literals(["ninguna", "existente"]),
+    ordenacionPorCuentaPropia: Schema.Literals(["ninguna", "existente"]),
+    becaEstudios: Schema.Literals(["no", "si"]),
+    otrasExenciones: Schema.Literals(["ninguna", "requiere_estudio"]),
+    reconocimientoGallego: Schema.Struct({
+      titular: Identidad, condicion: Schema.Literal("deportista_alto_nivel"),
+      referencia: Identidad, emisor: Schema.Literal("Secretaría Xeral para o Deporte"),
+      fecha: Fecha, vigenteHasta: Fecha,
+    }),
+    resolucion: Schema.Struct({ referencia: Identidad, organismo: Identidad, fecha: Fecha, importeConcedido: Euros }),
+    cobros: Schema.Array(Schema.Struct({
+      cobroId: Identidad, beneficiario: Identidad,
+      ordenante: Schema.Literals(["xunta_galicia", "sector_publico_autonomico_galicia"]),
+      fecha: Fecha, euros: Euros, justificante: Identidad,
+    })).check(Schema.isMinLength(1), Schema.isMaxLength(100)),
+  }),
 Schema.Struct({
     ayudaId: Identidad,
     beneficiario: Identidad,

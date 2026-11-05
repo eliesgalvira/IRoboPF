@@ -21,8 +21,7 @@ const faltantes:Readonly<Partial<Record<SolicitudE38Anual2025["hechos"]["codigo"
  rioja_adquisicion_construccion_vivienda_jovenes:"patrimonio ajustado y base estatalDT18 sin adecuación/reserva regional9040",
  rioja_segunda_vivienda_medio_rural:"patrimonio ajustado,base estatalDT18 y reserva regional adquisición/segunda vivienda",
  rioja_adecuacion_vivienda_discapacidad:"patrimonio ajustado y reserva de base conjunta rehabilitación/adecuación9040",
- galicia_ayudas_incendios_peifoga_2025:"clasificación e imputación identificada de ayuda a base liquidable;tipos medios estatal/autonómico vinculados a esa imputación",
- galicia_ayudas_deportistas_alto_nivel:"imputación de ayuda deportiva y tipos medios;el ingreso no está identificado en las rentas de APIv4",
+ galicia_ayudas_incendios_peifoga_2025:"VI100B reparación clasifica no integración DA5.3; otros daños/destrucción/personales/actividad requieren productores específicos antes de importe en BLG",
  galicia_libros_texto_material_escolar:"renta2024 por miembro derivada de declaraciones previas;el motor APIv4 solo representa2025",
 }
 export const PRODUCTORES_PENDIENTES_E38 = faltantes
@@ -32,6 +31,11 @@ export function evaluarE38Anual(s:SolicitudE38Anual2025,m:MagnitudesTerritoriale
 }
 function evaluarE38ConProductores(s:SolicitudE38Anual2025,m:MagnitudesTerritorialesAnuales):Resultado{
  const h=s.hechos
+ if(h.codigo==="galicia_ayudas_incendios_peifoga_2025"){
+  const x=m.libroIngresosIdentificados2025?.ayudasNoIntegradas.find(a=>a.ayudaId===h.ingresoId)
+  exige(x!==undefined && x.beneficiario===m.caso.contribuyenteId,"Incendios: falta expediente clasificado propio; otros perfiles requieren productor específico")
+  throw new RangeError("VI100B reparación: no integración DA5.3; no hay ayuda en BLG para deducir, sin importe sustitutorio")
+ }
  exige(faltantes[h.codigo]===undefined,`${h.codigo}: productor anual no representado en APIv4: ${faltantes[h.codigo]??""}`)
  exige(s.patrimonioP5a===undefined||["rioja_vivienda_habitual_pequenos_municipios","rioja_inversion_vivienda_jovenes_menores_36"].includes(h.codigo),"P5a no es un productor para otras comunidades/códigos")
  const titularAnual=m.caso.contribuyenteId
@@ -74,6 +78,14 @@ function evaluarE38ConProductores(s:SolicitudE38Anual2025,m:MagnitudesTerritoria
    emitir("baseConsumidaViviendaMunicipios",cero,"anual.reservaP5a.unicaSolicitudDeclaracion")
    const r=viviendaRioja(c,{...h,otrasModalidadesElegidas:[],viviendas:[{...v,...p.historia,pagos:p.pagos}]},p.financiacionAdquisicion)
    return r.estado!=="calculo_parcial"?r:{...r,rastro:[...p.rastro,...r.rastro]}
+  }
+  case "galicia_ayudas_deportistas_alto_nivel": {
+   const {ingreso:x,tipos}=ingresoRegionalIdentificado2025(m,h.ingresoId,"galicia-deportistas-resultados-2025")
+   exige(new D(x.integradoBaseGeneral).eq(x.resolucion.importeConcedido),"Galicia: saldo pendiente de cobro no representado")
+   const hechos=x.hechosDeportivos
+   exige(hechos?.programa==="galicia-deportistas-resultados-2025"&&x.fiscalidadDeportiva?.exento==="0","Deportista sin hechos y clasificación derivados del libro común")
+   const doc={referencia:x.resolucion.referencia,emisor:x.resolucion.organismo,fecha:x.resolucion.fecha}
+   return ayudas(c,{codigo:h.codigo,ayudas:[{id:x.ayudaId,beneficiario:x.beneficiario,pagador:hechos.administracion==="xunta_galicia"?"administracion_gallega":"sector_publico_autonomico",resolucion:doc,fechaCobro:x.cobros[x.cobros.length-1]!.fecha,ejercicioImputacion:2025,concedido:x.resolucion.importeConcedido,concepto:"actividad_deportiva",partes:[{id:x.ayudaId+":integrada",clasificacion:"integrada",importe:x.integradoBaseGeneral,declaracionIntegracion:doc,nodoImputacionAnual:x.nodoFiscalOrigen,baseLiquidableAtribuida:x.integradoBaseLiquidable}],deportistaAltoNivel:hechos.reconocimientoGallego,actividadDeportiva:"sin_rendimiento_economico",diagnostico:null}],tiposMedios:(["estatal","autonomico"] as const).map(ambito=>{const t=racional(tipos[ambito]);return {ambito,ejercicio:2025,declarantes:[id],numeradorPorcentaje:t.numeradorEuros,denominador:t.divisor,nodoDerivacion:x.nodoFiscalOrigen+":tipo:"+ambito}})})
   }
   case "galicia_ayudas_talidomida": {
    const {ingreso:x,tipos}=ingresoRegionalIdentificado2025(m,h.ingresoId,"talidomida-rd574-2023-cobro2025")

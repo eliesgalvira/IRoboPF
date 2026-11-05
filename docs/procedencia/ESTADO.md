@@ -1,5 +1,14 @@
 # Estado de la auditoría documental
 
+## Ayudas gallegas e historia CLM/Extremadura · integración del 5 de noviembre
+
+Publicación anterior confirmada: `eeecc27c8a8f13832a9ab5ecf1615d2ccfde83c9`, con los dos trabajos del [CI remoto 42068717863](https://github.com/eliesgalvira/IRoboPF/actions/runs/42068717863) correctos. Se retiraron diecisiete entregas tras preservar 1.353 archivos en un archivo compacto cotejado. Última medición posterior: 99,66 GB en las cuatro raíces y 314,01 GB libres.
+
+Este corte conecta VI100B, ayudas deportivas gallegas e historia de cuatro bases territoriales. Las revisiones están terminadas; se corrigen los P2 de autopago/plazo, selección temporal de fuentes y racional periódico. Pasan 573 pruebas conjuntas y los tipos globales. [Alcance y pruebas](galicia-historia-20261105/INTEGRACION.md). Los 31 pasos del CI local completo pasan, incluidos inventario y generados. La publicación y comprobación remota son posteriores a este registro.
+
+Baleares emergencia V2 pasa la validación de autor (162 pruebas, tipos y linters); su primera revisión independiente está en curso. Rioja cuatro rutas está rebasado sobre este corte; hipoteca madrileña y bases familiares Madrid/Valencia tienen candidatos privados preparados, todavía sin validación ni revisión nueva. El punto 4 sigue abierto. El histórico conserva 911 capturas; el primer PDF/SES de Aragón 2025 está leído sin discrepancias internas, pero no se selecciona fórmula con un único caso.
+
+
 ## Registros familiares, ayudas e inversión · 5 de noviembre, 17:15 CET
 
 El corte incorpora las ramas revisadas de nacimiento/adopción balear, hogar canario, inversión extremeña, talidomida gallega y vivienda vacía extremeña. Pasan las 844 pruebas focales conjuntas y los 31 comandos del CI completo en entorno limpio, incluido el inventario. La comprobación remota corresponde a su publicación posterior. [Alcance, fuentes y revisiones](registros-ayudas-inversion-20261105/INTEGRACION.md). El punto 4 sigue abierto: entre otras ramas, quedan incendios gallegos, ayudas deportivas y atribución de cuota del arrendamiento social aragonés.

@@ -1,0 +1,255 @@
+[
+  {
+    "id": "clm_adquisicion_rehabilitacion_vivienda_zonas_rurales",
+    "codigo": "clm_adquisicion_rehabilitacion_vivienda_zonas_rurales",
+    "territorio": "castilla-la-mancha",
+    "solicitud": {
+      "lote": "D51",
+      "codigo": "clm_adquisicion_rehabilitacion_vivienda_zonas_rurales",
+      "historiaBases": {
+        "version": "historia-bases-d51-v1",
+        "titular": "s-1",
+        "objeto": "vivienda-1",
+        "censo": "completo-desde-primera-operacion",
+        "financiacion": "sin-financiacion",
+        "objetos": [
+          {
+            "id": "vivienda-1",
+            "clase": "vivienda",
+            "primeraOperacion": "2025-01-02",
+            "documento": {
+              "referencia": "titulo",
+              "emisor": "emisor-documental",
+              "fecha": "2025-01-02"
+            }
+          }
+        ],
+        "operaciones": [
+          {
+            "id": "p-1",
+            "objeto": "vivienda-1",
+            "titular": "s-1",
+            "fecha": "2025-01-02",
+            "orden": 1,
+            "clase": "adquisicion",
+            "importe": "15000",
+            "documento": {
+              "referencia": "pago-1",
+              "emisor": "emisor-documental",
+              "fecha": "2025-01-02"
+            }
+          }
+        ],
+        "aplicaciones": [],
+        "transmisiones": []
+      },
+      "hechos": {
+        "fechaOperacion": "2025-01-02",
+        "categoria": "intensa",
+        "poblacionFiscal": 1000,
+        "pagos": [
+          {
+            "id": "p-1",
+            "importe": "15000",
+            "pagador": "s-1",
+            "fecha": "2025-01-02"
+          }
+        ],
+        "coste": "200000",
+        "ayudaJccm": "0",
+        "porcentajePropiedad": "100",
+        "concurrencia12": "no",
+        "exhaustividad": "completa",
+        "vivienda": "vivienda-1"
+      }
+    },
+    "generado": "1800"
+  },
+  {
+    "id": "clm_ahorro_inversion_primera_vivienda",
+    "codigo": "clm_ahorro_inversion_primera_vivienda",
+    "territorio": "castilla-la-mancha",
+    "solicitud": {
+      "lote": "D51",
+      "codigo": "clm_ahorro_inversion_primera_vivienda",
+      "historiaBases": {
+        "version": "historia-bases-d51-v1",
+        "titular": "s-1",
+        "objeto": "cuenta-1",
+        "censo": "completo-desde-primera-operacion",
+        "financiacion": "sin-financiacion",
+        "objetos": [
+          {
+            "id": "cuenta-1",
+            "clase": "cuenta",
+            "primeraOperacion": "2025-01-02",
+            "documento": {
+              "referencia": "titulo",
+              "emisor": "emisor-documental",
+              "fecha": "2025-01-02"
+            }
+          }
+        ],
+        "operaciones": [
+          {
+            "id": "p-1",
+            "objeto": "cuenta-1",
+            "titular": "s-1",
+            "fecha": "2025-01-02",
+            "orden": 1,
+            "clase": "deposito",
+            "importe": "1000",
+            "documento": {
+              "referencia": "pago-1",
+              "emisor": "emisor-documental",
+              "fecha": "2025-01-02"
+            }
+          }
+        ],
+        "aplicaciones": [],
+        "transmisiones": []
+      },
+      "hechos": {
+        "nacimiento": "1995-01-01",
+        "cuenta": "cuenta-1",
+        "fechaApertura": "2025-01-02",
+        "saldoInicio": "0",
+        "saldoFin": "1000",
+        "cuentasAbiertas": 1,
+        "exhaustividad": "completa"
+      }
+    },
+    "generado": "150"
+  },
+  {
+    "id": "extremadura_rehabilitacion_viviendas_zonas_rurales_alquiler",
+    "codigo": "extremadura_rehabilitacion_viviendas_zonas_rurales_alquiler",
+    "territorio": "extremadura",
+    "solicitud": {
+      "lote": "D51",
+      "codigo": "extremadura_rehabilitacion_viviendas_zonas_rurales_alquiler",
+      "historiaBases": {
+        "version": "historia-bases-d51-v1",
+        "titular": "s-1",
+        "objeto": "vivienda-1",
+        "censo": "completo-desde-primera-operacion",
+        "financiacion": "sin-financiacion",
+        "objetos": [
+          {
+            "id": "vivienda-1",
+            "clase": "vivienda",
+            "primeraOperacion": "2025-01-02",
+            "documento": {
+              "referencia": "titulo",
+              "emisor": "emisor-documental",
+              "fecha": "2025-01-02"
+            }
+          }
+        ],
+        "operaciones": [
+          {
+            "id": "p-1",
+            "objeto": "vivienda-1",
+            "titular": "s-1",
+            "fecha": "2025-01-02",
+            "orden": 1,
+            "clase": "rehabilitacion",
+            "importe": "15000",
+            "documento": {
+              "referencia": "pago-1",
+              "emisor": "emisor-documental",
+              "fecha": "2025-01-02"
+            }
+          }
+        ],
+        "aplicaciones": [],
+        "transmisiones": []
+      },
+      "hechos": {
+        "pagos": [
+          {
+            "id": "p-1",
+            "importe": "15000",
+            "pagador": "s-1",
+            "fecha": "2025-01-02"
+          }
+        ],
+        "costeRehabilitacion": "200000",
+        "porcentajePropiedad": "100",
+        "ayudaReconocida": "0",
+        "diasRequisitos": 365,
+        "parentesco": 0,
+        "actividadEconomica": "no",
+        "ubicacion": "municipio_menor3000",
+        "exhaustividad": "completa",
+        "vivienda": "vivienda-1"
+      }
+    },
+    "generado": "1356"
+  },
+  {
+    "id": "extremadura_vivienda_zonas_rurales",
+    "codigo": "extremadura_vivienda_zonas_rurales",
+    "territorio": "extremadura",
+    "solicitud": {
+      "lote": "D51",
+      "codigo": "extremadura_vivienda_zonas_rurales",
+      "historiaBases": {
+        "version": "historia-bases-d51-v1",
+        "titular": "s-1",
+        "objeto": "vivienda-1",
+        "censo": "completo-desde-primera-operacion",
+        "financiacion": "sin-financiacion",
+        "objetos": [
+          {
+            "id": "vivienda-1",
+            "clase": "vivienda",
+            "primeraOperacion": "2025-01-02",
+            "documento": {
+              "referencia": "titulo",
+              "emisor": "emisor-documental",
+              "fecha": "2025-01-02"
+            }
+          }
+        ],
+        "operaciones": [
+          {
+            "id": "p-1",
+            "objeto": "vivienda-1",
+            "titular": "s-1",
+            "fecha": "2025-01-02",
+            "orden": 1,
+            "clase": "adquisicion",
+            "importe": "15000",
+            "documento": {
+              "referencia": "pago-1",
+              "emisor": "emisor-documental",
+              "fecha": "2025-01-02"
+            }
+          }
+        ],
+        "aplicaciones": [],
+        "transmisiones": []
+      },
+      "hechos": {
+        "fechaOperacion": "2025-01-02",
+        "poblacion": 1000,
+        "porcentajePropiedad": "100",
+        "coste": "200000",
+        "ayudasJunta": "0",
+        "pagos": [
+          {
+            "id": "p-1",
+            "importe": "15000",
+            "pagador": "s-1",
+            "fecha": "2025-01-02"
+          }
+        ],
+        "eleccion": "rural",
+        "exhaustividad": "completa",
+        "vivienda": "vivienda-1"
+      }
+    },
+    "generado": "904"
+  }
+]

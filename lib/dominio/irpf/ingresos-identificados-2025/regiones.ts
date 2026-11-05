@@ -10,7 +10,7 @@ export function ingresoRegionalELA2025(m: MagnitudesTerritorialesAnuales, ingres
   return { ingreso, tipos }
 }
 /** Concilia exclusivamente un asiento producido por la anual y sus tipos comunes. */
-export function ingresoRegionalIdentificado2025(m: MagnitudesTerritorialesAnuales, ingresoId: string, programa: "galicia-bs215a-2025" | "extremadura-ela-2025" | "talidomida-rd574-2023-cobro2025") {
+export function ingresoRegionalIdentificado2025(m: MagnitudesTerritorialesAnuales, ingresoId: string, programa: "galicia-bs215a-2025" | "extremadura-ela-2025" | "talidomida-rd574-2023-cobro2025" | "galicia-deportistas-resultados-2025") {
   const libro = m.libroIngresosIdentificados2025, nodos = m.nodosFiscalesB2025
   exigir(libro !== undefined && nodos?.tiposMediosGenerales !== undefined, "Ingreso regional requiere libro integrado y tipos medios después del mínimo")
   exigir(libro.ejercicio === 2025 && libro.contribuyente === m.caso.contribuyenteId && libro.contribuyente === nodos.contribuyente && libro.liquidacion === nodos.liquidacion, "Ingreso regional: identidad/ejercicio/liquidación no conciliados")

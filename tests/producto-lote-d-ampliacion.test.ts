@@ -20,7 +20,7 @@ if (Result.isFailure(leidos)) throw new Error("Fixtures de prueba inválidas")
 const casos = leidos.success
 const funciones = new Map<
   string,
-  (contexto: Schema.Json, datos: Schema.Json) => cm.ResultadoHechos
+  (contexto: Schema.Json, datos: Schema.Json) => cm.ResultadoHechos | ex.ResultadoHechos
 >([
   ["familiaMonoparental", cm.familiaMonoparental],
   ["familiaNumerosaAmpliada", cm.familiaNumerosaAmpliada],
@@ -108,19 +108,24 @@ function racional(texto: string): readonly [bigint, bigint] {
   const [entero, decimales = ""] = texto.split(".")
   return [BigInt(entero + decimales), 10n ** BigInt(decimales.length)]
 }
-function comprobar(r: cm.ResultadoHechos, n: string, d = "1") {
+function comprobar(r: cm.ResultadoHechos | ex.ResultadoHechos, n: string, d = "1") {
   expect(r.estado).toBe("calculo_parcial")
   if (r.estado !== "calculo_parcial") throw new Error(r.motivo)
-  const [observado, escala] = racional(r.importeExacto),
+  const [observado, escala] = Schema.is(Schema.String)(r.importeExacto)
+      ? racional(r.importeExacto)
+      : [BigInt(r.importeExacto.numeradorEuros), BigInt(r.importeExacto.divisor)],
     esperado = BigInt(n),
     denominador = BigInt(d)
   const error = observado * denominador - esperado * escala
+  if (!Schema.is(Schema.String)(r.importeExacto)) expect(error).toBe(0n)
   // Oráculo racional BigInt independiente de Decimal, tolera solo la división periódica a80dígitos.
   expect(
     (error < 0n ? -error : error) * 10n ** 60n <= escala * denominador
   ).toBe(true)
   const centimos = (esperado * 200n + denominador) / (denominador * 2n)
-  const presentado = cm.presentar(r)
+  const presentado = Schema.is(Schema.String)(r.importeExacto)
+    ? cm.presentar({ ...r, importeExacto: r.importeExacto })
+    : ex.presentar(r)
   if (!("importe" in presentado))
     throw new Error("Presentación perdió importe parcial")
   const [pn, pd] = racional(String(presentado.importe))

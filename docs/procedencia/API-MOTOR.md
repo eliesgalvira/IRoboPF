@@ -376,3 +376,12 @@ La ayuda pública RD 574/2023 admite expediente propio único y cobro íntegro �
 El perfil `solo-inmobiliario-p4a` incorpora Extremadura con una vivienda en pleno dominio y `vaciaExt2025`: hechos catastrales, observaciones de vacío de 2024 y ocupación de 2025 conciliados. La imputación de 2024 verifica la condición histórica, sin entrar en ingresos de 2025. Ambas API consumen el mismo productor de RNR y el mismo libro de cuota. El corte se limita a firma e inicio 1/1/2025, ocupación observada hasta devengo y pacto hasta al menos 1/1/2028; otros supuestos jurídicamente posibles aún no están conectados.
 
 [Contrato, fuentes y límites de estas dos ampliaciones](registros-ayudas-inversion-20261105/INTEGRACION.md).
+
+
+## Ayudas gallegas e historia de bases de 2025
+
+`ingresosIdentificados2025` incorpora los perfiles identificados de reparación VI100B y de ayudas gallegas por resultados deportivos. El primero conserva la ayuda no integrada en el libro y no habilita una deducción positiva; el segundo deriva su integración general y enlaza el selector E38 por `ingresoId`. Identidad, finalidad, reconocimiento, resolución y cobros se concilian antes de calcular. La renta se integra aunque no se solicite la deducción.
+
+Las cuatro rutas D51 de vivienda rural CLM, cuenta ahorro vivienda CLM, rehabilitación rural para alquiler EXT y vivienda rural EXT admiten `historiaBases` documentada. El productor deriva la magnitud de los hechos completos; ausencia de historia y aplicaciones previas positivas aún no reconstruidas se rechazan. La prorrata extremeña conserva exactamente el divisor365. Su subcálculo devuelve cadena decimal si es finita o `{ numeradorEuros, divisor }` si es periódica; ambas API anuales conservan el racional del libro de cuota.
+
+[Alcances, fuentes, revisiones y validación](galicia-historia-20261105/INTEGRACION.md).
