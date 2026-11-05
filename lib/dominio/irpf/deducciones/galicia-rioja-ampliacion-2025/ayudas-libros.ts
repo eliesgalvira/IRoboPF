@@ -244,7 +244,9 @@ export function ayudas(c: Contexto, h: Ayudas): Resultado {
       ],
       [
         "Tipos medios y porciones de base liquidable tienen nodos de derivación anual;no se fabrican con renta marginal",
-        "La cadenaRDL10/2026 y convalidación está contrastada;los documentos del caso y su clasificación siguen pendientes de acreditación",
+        h.codigo === "galicia_ayudas_incendios_peifoga_2025"
+          ? "La cadenaRDL10/2026 y convalidación está contrastada;los documentos del caso y su clasificación siguen pendientes de acreditación"
+          : "Los documentos de esta ayuda y su clasificación siguen pendientes de acreditación",
       ]
     )
   })

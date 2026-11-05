@@ -1,3 +1,4 @@
+import { validarVaciaExt2025 } from "./vacia-ext"
 import { dia } from "./calendario"
 import { validarPrimerAlquiler2025 } from "./primer-alquiler"
 import { Effect, Result, Schema } from "effect"
@@ -13,6 +14,7 @@ const menor = (a: ExactoP4a, b: ExactoP4a) => a.n * b.d <= b.n * a.d ? a : b
 const dinero = (s: string) => { const [a = "0", b = ""] = s.split("."); return q(BigInt(a + b.padEnd(2, "0")), 100n) }
 const total = (xs: readonly ExactoP4a[]) => xs.reduce(sumar, q(0n))
 export interface ResultadoInmuebleP4a {
+  readonly comprobacionVacia2024?: { readonly dias: number; readonly imputacion: ExactoP4a }
   readonly inmueble: InmuebleP4a
   readonly categoria: "capital_inmobiliario"
   readonly integro: ExactoP4a
@@ -29,11 +31,18 @@ export interface ResultadoInmuebleP4a {
   readonly seguimiento: readonly string[]
   readonly regimen: "DT38-60" | "art23-50"
 }
+interface HistoricoVaciaExtP4a {
+  comprobacionVacia2024?: NonNullable<ResultadoInmuebleP4a["comprobacionVacia2024"]>
+}
 const producirInmueble = Effect.fn("P4a.inmueble")(function* (v: InmuebleP4a) {
   const fallo = (codigo: RechazoP4a["codigo"], motivo: string) => new RechazoP4a({ codigo, motivo: v.id + ": " + motivo })
   const c = v.contrato, a = v.adquisicion
   if (v.titulares.length !== 1 || v.titulares[0] !== v.titular || c.arrendador !== v.titular || c.arrendatario === v.titular)
     return yield* fallo("identidad", "título pleno exclusivo y contrato incompatibles")
+  const comprobacionVacia2024 = v.vaciaExt2025 === undefined ? undefined : yield* Effect.try({
+    try: () => validarVaciaExt2025(v),
+    catch: e => fallo("historia", e instanceof RangeError ? e.message : "EXT: hechos incompletos"),
+  })
   const primer = v.primerAlquiler2025
   const temporal = primer === undefined ? undefined : yield* Effect.try({
     try: () => validarPrimerAlquiler2025(v),
@@ -91,22 +100,29 @@ const producirInmueble = Effect.fn("P4a.inmueble")(function* (v: InmuebleP4a) {
   const neto = restar(restar(restar(integro, gastosLimitados), otrosGastos), amortizacion)
   if (primer !== undefined && (neto.n < 0n || restar(limitables, gastosLimitados).n > 0n))
     return yield* fallo("gasto", "P4b: pérdidas o exceso de gastos con arrastre requieren productor posterior")
+  if (comprobacionVacia2024 !== undefined && (neto.n <= 0n || restar(limitables, gastosLimitados).n > 0n))
+    return yield* fallo("gasto", "EXT: requiere RNR positivo sin exceso pendiente")
   const regimen = c.firma < "2023-05-26" ? "DT38-60" : "art23-50"
   const reduccion = neto.n > 0n ? por(neto, regimen === "DT38-60" ? 60n : 50n, 100n) : q(0n)
-  return { imputacion, diasAlquilados, diasImputados, seguimiento: temporal?.seguimiento ?? [], inmueble: v, categoria: "capital_inmobiliario", integro, gastosLimitados, excesoNoAplicado: restar(limitables, gastosLimitados), otrosGastos, amortizacion, neto, reduccion, netoReducido: restar(neto, reduccion), regimen } satisfies ResultadoInmuebleP4a
+  const historico: HistoricoVaciaExtP4a = {}
+  if (comprobacionVacia2024 !== undefined) historico.comprobacionVacia2024 = comprobacionVacia2024
+  return { ...historico, imputacion, diasAlquilados, diasImputados, seguimiento: temporal?.seguimiento ?? (comprobacionVacia2024 === undefined ? [] : ["EXT: duración y vivienda habitual futuras pendientes; conservar justificantes durante prescripción; regularización/reintegro no producidos"]), inmueble: v, categoria: "capital_inmobiliario", integro, gastosLimitados, excesoNoAplicado: restar(limitables, gastosLimitados), otrosGastos, amortizacion, neto, reduccion, netoReducido: restar(neto, reduccion), regimen } satisfies ResultadoInmuebleP4a
 })
 
 export const producirInmueblesP4a = Effect.fn("P4a.producir")(function* (entrada: CasoInmobiliarioP4a | Schema.Json) {
   const decoded = Schema.decodeUnknownResult(CasoInmobiliarioP4a)(entrada, { onExcessProperty: "error" })
   if (Result.isFailure(decoded)) return yield* new RechazoP4a({ codigo: "entrada", motivo: "Perfil P4a fuera del esquema cerrado: " + String(decoded.failure) })
   const caso = decoded.success
+  const esExt = caso.comunidadAutonoma === "extremadura"
+  if (esExt ? (caso.inmuebles.length !== 1 || caso.inmuebles[0]?.vaciaExt2025 === undefined || caso.inmuebles.some(v => v.primerAlquiler2025 !== undefined)) : caso.inmuebles.some(v => v.vaciaExt2025 !== undefined))
+    return yield* new RechazoP4a({ codigo: "entrada", motivo: "EXT: una vivienda exclusiva con hechos vaciaExt2025; sin mezcla P4b ni otros territorios" })
   const esPrimerAlquiler = caso.inmuebles.some(v => v.primerAlquiler2025 !== undefined)
   if (esPrimerAlquiler && (caso.inmuebles.length !== 1 || caso.inmuebles[0]?.primerAlquiler2025 === undefined))
     return yield* new RechazoP4a({ codigo: "entrada", motivo: "P4b limitado a una vivienda y sin mezcla con P4a" })
-  const codigoAdmitido = caso.comunidadAutonoma === "canarias"
+  const codigoAdmitido = esExt ? "extremadura_arrendadores_viviendas_vacias" : caso.comunidadAutonoma === "canarias"
     ? (esPrimerAlquiler ? "canarias_puesta_viviendas_mercado_arrendamiento" : "canarias_adecuacion_inmueble_arrendamiento")
     : (esPrimerAlquiler ? "balears_arrendador_vivienda_permanente_otros_gastos" : "balears_mejora_sostenibilidad_vivienda")
-  if (caso.deduccionesTerritoriales2025 !== undefined && caso.deduccionesTerritoriales2025.solicitudes.some(s => s.lote !== "C36" || s.codigo !== codigoAdmitido))
+  if (caso.deduccionesTerritoriales2025 !== undefined && caso.deduccionesTerritoriales2025.solicitudes.some(s => s.lote !== (esExt ? "D51" : "C36") || s.codigo !== codigoAdmitido))
     return yield* new RechazoP4a({ codigo: "entrada", motivo: "Perfil inmobiliario conecta exclusivamente su consumidor regional; combinaciones pendientes" })
   const ids = caso.inmuebles.map(v => v.id), catastros = caso.inmuebles.map(v => v.catastro)
   const documentos = caso.inmuebles.flatMap(v => v.exigibilidades.map(x => x.documento))

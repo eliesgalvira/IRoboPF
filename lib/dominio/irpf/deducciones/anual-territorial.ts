@@ -406,6 +406,11 @@ export function aplicarDeduccionesTerritoriales2025(
     exigir(solicitudes.length === 1, "P5a combinación no representada: reserva única por declaración; pendiente partición, también con productor inmobiliario P4a")
     exigir(m.libroIngresosIdentificados2025 === undefined && m.libroMaternidad81 === undefined && m.donativosEstatales === undefined && decoded.success.donativosEstatales2025 === undefined, "P5a combinación con productores ELA/donativos/art81 no representada; pendiente conciliación conjunta")
   }
+  const inversionExt = solicitudes.some(s=>s.lote==="D51" && s.codigo==="extremadura_inversion_acciones_participaciones_mercantiles" && "perfil" in s.hechos)
+  if(inversionExt){
+    exigir(solicitudes.length===1,"EXT inversión: perfil exclusivo, combinación de deducciones no representada")
+    exigir(m.vehiculoDA58===undefined && m.libroMaternidad81===undefined && m.libroIngresosIdentificados2025===undefined && m.inmueblesP4a===undefined && m.donativosEstatales===undefined && decoded.success.donativosEstatales2025===undefined && decoded.success.vehiculoDA582025===undefined,"EXT inversión: combinación con otros productores no representada")
+  }
   validarSeleccionesD51(codigos)
   const sesionD51 = crearSesionD51(m)
   const subloteB = decoded.success.solicitudes.filter(s => s.lote === "B-ampliado")
@@ -446,7 +451,7 @@ export function aplicarDeduccionesTerritoriales2025(
       }
       registrarBien(hechosConciliables)
     }
-    if(s.lote !== "C36" && s.lote !== "B-ampliado" && s.lote !== "E38" && s.lote !== "F-ampliado" && s.lote !== "A-aragon-dos") conciliar(hechosConciliables, m)
+    if(!inversionExt && s.lote !== "C36" && s.lote !== "B-ampliado" && s.lote !== "E38" && s.lote !== "F-ampliado" && s.lote !== "A-aragon-dos") conciliar(hechosConciliables, m)
     restriccionesC36.push([])
     if (s.lote === "CLM" || s.lote === "CYL" || s.lote === "EXT") {
       function repartoExacto(x: Schema.Json): void {
@@ -679,7 +684,14 @@ export function aplicarDeduccionesTerritoriales2025(
         evaluacionesE38.set(indice,resultado)
         return normalizar(resultado)
       }
-      case "D51": return normalizar(sesionD51.evaluar(s))
+      case "D51": {
+        const r=sesionD51.evaluar(s)
+        if(r.estatal681!==undefined){
+          exigir(generacionesEstatales681.length===0,"Productor68.1 duplicado")
+          generacionesEstatales681.push(r.estatal681)
+        }
+        return normalizar(r)
+      }
       case "F-ampliado": {
         const resultado = evaluarAnualF2025(s, m, decoded.success.solicitudes.filter((x) => x.lote === "F-ampliado"))
         evaluacionesF.push(resultado)

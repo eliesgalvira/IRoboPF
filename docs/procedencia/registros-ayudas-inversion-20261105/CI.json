@@ -1,0 +1,822 @@
+{
+  "workflowSha256": "a00953f6503887ca9d1e71275a9a83d748a53f4598b76d5b74ba70c3ab0eeb76",
+  "results": [
+    {
+      "command": "timeout -k 30s 1m python3 scripts/ci-no-cache.py",
+      "exit": 0,
+      "seconds": 0.077
+    },
+    {
+      "command": "echo \"Corpus completo CAS omitido explícitamente; se ejecutan fixtures y contratos reproducibles. Véase docs/procedencia/CI.md\"",
+      "exit": 0,
+      "seconds": 0.005
+    },
+    {
+      "command": "timeout -k 30s 12m bun install --frozen-lockfile",
+      "exit": 0,
+      "seconds": 0.49
+    },
+    {
+      "command": "timeout -k 30s 12m bun run test:lint",
+      "exit": 0,
+      "seconds": 0.294
+    },
+    {
+      "command": "timeout -k 30s 12m bun run lint",
+      "exit": 0,
+      "seconds": 26.71
+    },
+    {
+      "command": "timeout -k 30s 12m bun run typecheck",
+      "exit": 0,
+      "seconds": 8.812
+    },
+    {
+      "command": "timeout -k 30s 12m bun run test:ci",
+      "exit": 0,
+      "seconds": 1.069
+    },
+    {
+      "command": "timeout -k 30s 12m bun run test tests/puertos-composicion-r47.test.ts tests/puertos-r52.test.ts --maxWorkers=1",
+      "exit": 0,
+      "seconds": 18.253
+    },
+    {
+      "command": "timeout -k 30s 12m bun run test tests/cotizaciones-perfil-uniforme.test.ts tests/*-procedencia.test.ts --exclude tests/evidencia-contenido-procedencia.test.ts --maxWorkers=1",
+      "exit": 0,
+      "seconds": 23.327
+    },
+    {
+      "command": "timeout -k 30s 12m bun run test tests/retenciones-versionadas.test.ts tests/trabajo-anual-contratos.test.ts tests/actividades-economicas-2025.test.ts tests/deducciones-contratos.test.ts tests/deducciones-ambito.test.ts tests/deducciones-conjunta-identidad.test.ts tests/calculo-salario-neto-irpf.test.ts --maxWorkers=1",
+      "exit": 0,
+      "seconds": 5.568
+    },
+    {
+      "command": "timeout -k 30s 12m bun run test tests/composicion-anual-unica.test.ts tests/composicion-anual-revision.test.ts tests/composicion-precision.test.ts tests/composicion-precision-contraste.test.ts tests/anual-salarial-completo.test.ts tests/anual-historico-explicito.test.ts tests/conexion-anual.test.ts tests/redondeo-salarial-open.test.ts tests/art20-open-c300.test.ts tests/andalucia-open-c300.test.ts tests/c300-variantes-cuotas.test.ts tests/c300-variantes-revision.test.ts tests/retirada-rutas.test.ts tests/motor-unico-revision.test.ts tests/minimos-derechos.test.ts tests/retenciones-derechos.test.ts tests/liquidacion-irpf-anual.test.ts tests/correcciones-x-solidaridad.test.ts tests/historico-open-ambito.test.ts tests/historico-open-redondeo.test.ts tests/revision-historico-cuotas.test.ts tests/open-2018-etapas.test.ts tests/open-2018-guardas.test.ts tests/revision-independiente-2018.test.ts --maxWorkers=1",
+      "exit": 0,
+      "seconds": 21.025
+    },
+    {
+      "command": "timeout -k 30s 12m bun run inventario:verificar",
+      "exit": 0,
+      "seconds": 34.602
+    },
+    {
+      "command": "timeout -k 30s 12m bun run test tests/minimos-derechos-anuales.test.ts tests/territorios-2026.test.ts tests/comunidades-autonomas.test.ts tests/deducciones-pendientes.test.ts tests/deducciones-valencianas-datos-producto.test.ts tests/deducciones-valencianas-evaluacion.test.ts tests/deducciones-valencianas-correcciones.test.ts tests/deducciones-valencianas-composicion.test.ts tests/deducciones-valencianas-ejercicio.test.ts tests/deducciones-valencianas-cuota-conjunta.test.ts tests/deducciones-valencianas-anual.test.ts tests/deducciones-territoriales-anual.test.ts tests/deducciones-ampliacion-a-anual.test.ts tests/deducciones-a40-censos-anuales.test.ts tests/b-ampliado-adaptador-anual-2025.test.ts tests/b-conexion-completa-2025.test.ts tests/b37-anual-revision.test.ts tests/aragon-dos-codigos-2025.test.ts tests/revision-aragon-independiente.test.ts tests/deducciones-territoriales-anual-revision.test.ts tests/deducciones-territoriales-api-revision.test.ts tests/deducciones-territoriales-titulares.test.ts tests/deducciones-territoriales-vinculos-contraste.test.ts tests/deducciones-catalunya-hechos-2025.test.ts tests/deducciones-territorial-f-2025.test.ts tests/deducciones-asturias-cantabria-hechos-2025.test.ts tests/deducciones-revision-b-independiente.test.ts tests/deducciones-asturias-cantabria-ampliacion-2025.test.ts tests/deducciones-ampliacion-b-conserva-integrado.test.ts tests/deducciones-ampliacion-b-revision.test.ts tests/deducciones-canarias-balears-hechos-2025.test.ts tests/revision-c-hechos-20261105.test.ts tests/producto-lote-d-hechos.test.ts tests/producto-lote-d-revision-monetaria.test.ts tests/galicia-rioja-hechos-2025.test.ts tests/revision-e-hechos.test.ts tests/deducciones-lote-a-ampliacion-2025.test.ts tests/deducciones-lote-a-ampliacion-revision.test.ts tests/galicia-rioja-ampliacion-2025.test.ts tests/galicia-rioja-ampliacion-revision.test.ts tests/deducciones-d51-correccion.test.ts tests/discriminantes-d51.test.ts tests/producto-lote-d-ampliacion.test.ts tests/deducciones-canarias-balears-ampliacion.test.ts tests/revision-c36-independiente.test.ts tests/escalas-publicadas.test.ts tests/escalas-publicadas-2025.test.ts tests/escalas-madrid-historicas.test.ts tests/d51-conexion-anual.test.ts tests/revision-d51/revision-adversa.test.ts tests/e38-conexion-anual.test.ts tests/e38-revision-anual-independiente.test.ts tests/c36-conexion-anual.test.ts tests/c36-fronteras-anual.test.ts tests/c36-magnitudes-anuales.test.ts tests/deducciones-f-ampliacion-2025.test.ts tests/deducciones-f-conexion-anual-2025.test.ts tests/deducciones-f-recarga-2025.test.ts tests/deducciones-f-recarga-agua-ampliada-2025.test.ts tests/c36-fracciones-api-regresion.test.ts tests/c36-revision-anual-independiente.test.ts tests/revision-f-monetaria.test.ts tests/aragon-conexion-anual-2025.test.ts tests/cf-contraste-normativo.test.ts tests/f-fechas-edades-regresion.test.ts tests/revision-aragon-conexion-anual.test.ts tests/f-n1-n4-independiente.test.ts tests/ela-ingreso-2025.test.ts tests/ela-ingreso-art20-da61-2025.test.ts tests/ela-ingreso-fronteras-2025.test.ts tests/ela-precision-presupuesto-2025.test.ts tests/ela-rebase-ecdf-2025.test.ts tests/revision-ela-integracion.test.ts tests/donativos-estatales-anual-2025.test.ts tests/donativos-p2-independiente.test.ts tests/maternidad-ela-alcance.test.ts tests/maternidad-guarderia-api.test.ts tests/maternidad-guarderia.test.ts tests/productores-anuales-combinacion.test.ts tests/maternidad-revision-independiente.test.ts tests/f-auxiliares-exactos.test.ts tests/f-auxiliares-revision.test.ts tests/f-auxiliares-filiacion.test.ts tests/f-auxiliares-contraste.test.ts tests/deducciones-procedencia-2025-f.test.ts tests/inmobiliario-p4a.test.ts tests/inmobiliario-p4a-correcciones.test.ts tests/inmobiliario-p4a-contraste.test.ts tests/patrimonio-p5a.test.ts tests/revision-p5a-independiente.test.ts tests/p5a-contraste-residencia.test.mjs tests/contraste-certificado-681.test.mjs tests/ela-regiones-2025.test.ts tests/ela-regiones-oraculos-2025.test.ts tests/ela-regiones-revision.test.mjs tests/inmobiliario-p4b-revision.test.mjs tests/inmobiliario-p4b.test.ts tests/inversion-681-aragon-2025.test.ts tests/inversion-681-revision-independiente-2025.test.ts tests/precision-preparacion-monetaria.test.ts tests/revision-da58/independiente.test.mjs tests/vehiculo-da58-2025.test.ts tests/baleares-registro-familiar-2025.test.ts tests/canarias-hogar-atribucion-2025.test.ts tests/canarias-hogar-revision-independiente-2025.test.mjs tests/ext-inversion-conexion-anual-2025.test.ts tests/ext-inversion-revision-monetaria-independiente.test.mjs tests/ext-vacia-revision-independiente.test.mjs tests/ext-vacia.test.ts tests/galicia-ayudas-clasificacion-2025.test.ts tests/revision-balears-registro-2025/revision.test.mjs tests/revision-galicia-talidomida-2025/revision.test.mjs --maxWorkers=1",
+      "exit": 0,
+      "seconds": 80.389
+    },
+    {
+      "command": "timeout -k 30s 12m bun run test:inventario",
+      "exit": 0,
+      "seconds": 151.285
+    },
+    {
+      "command": "timeout -k 30s 12m bun run test --config scripts/procedencia/contenido-vitest.mjs",
+      "exit": 0,
+      "seconds": 1.736
+    },
+    {
+      "command": "timeout -k 30s 12m bun scripts/procedencia/contenido-verificar.mjs --fixture",
+      "exit": 0,
+      "seconds": 0.493
+    },
+    {
+      "command": "timeout -k 30s 12m bun scripts/procedencia/rastro-verificar.mjs --fixture",
+      "exit": 0,
+      "seconds": 0.404
+    },
+    {
+      "command": "timeout -k 30s 1m python3 scripts/ci-no-cache.py",
+      "exit": 0,
+      "seconds": 0.175
+    },
+    {
+      "command": "echo \"Corpus completo CAS omitido explícitamente; se ejecutan fixtures y contratos reproducibles. Véase docs/procedencia/CI.md\"",
+      "exit": 0,
+      "seconds": 0.005
+    },
+    {
+      "command": "timeout -k 30s 12m bun install --frozen-lockfile",
+      "exit": 0,
+      "seconds": 0.518
+    },
+    {
+      "command": "timeout -k 30s 12m bash tools/procedencia/run.sh tests/procedencia-corpus_test.py",
+      "exit": 0,
+      "seconds": 1.906
+    },
+    {
+      "command": "timeout -k 30s 12m bash tools/procedencia/run.sh tests/procedencia-enlaces_test.py",
+      "exit": 0,
+      "seconds": 3.214
+    },
+    {
+      "command": "timeout -k 30s 12m bash tools/procedencia/run.sh tests/procedencia-preservacion_test.py",
+      "exit": 0,
+      "seconds": 0.803
+    },
+    {
+      "command": "timeout -k 30s 1m python3 tests/procedencia-deducciones-registro_test.py",
+      "exit": 0,
+      "seconds": 0.864
+    },
+    {
+      "command": "timeout -k 30s 12m bash scripts/procedencia/deducciones-2025/verificar.sh --lotes docs/procedencia/deducciones-2025/lotes --modo completo",
+      "exit": 0,
+      "seconds": 18.743
+    },
+    {
+      "command": "timeout -k 30s 12m bun scripts/procedencia/verificar-enlaces.mjs --fixture",
+      "exit": 0,
+      "seconds": 3.569
+    },
+    {
+      "command": "timeout -k 30s 12m bun run test tests/evidencia-contenido-procedencia.test.ts --maxWorkers=1",
+      "exit": 0,
+      "seconds": 1.411
+    },
+    {
+      "command": "timeout -k 30s 12m bun run test tests/publicacion-evidencia.test.ts --maxWorkers=1",
+      "exit": 0,
+      "seconds": 1.366
+    },
+    {
+      "command": "timeout -k 30s 12m bun tests/cas-local-r27.mjs",
+      "exit": 0,
+      "seconds": 0.677
+    },
+    {
+      "command": "timeout -k 30s 12m nix develop path:tools/procedencia --command bash scripts/ci-datos.sh",
+      "exit": 0,
+      "seconds": 588.977
+    },
+    {
+      "command": "timeout -k 30s 12m nix develop path:tools/procedencia --command bash scripts/ci-simuladores.sh",
+      "exit": 0,
+      "seconds": 19.897
+    }
+  ],
+  "medicion": {
+    "command": [
+      "timeout",
+      "-k",
+      "30s",
+      "43m",
+      "/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/bin/python3",
+      "-B",
+      "/home/elies/Backups/IRoboPF/producto-corte-registros-ayudas-inversion-20261105/reproducir-workflow-3.py"
+    ],
+    "exit": 0,
+    "guard": null,
+    "maxTreePssBytesSampled": 2957493248,
+    "maxAgentGroupBytesSampled": 5928361984,
+    "samples": 6258,
+    "seconds": 1019.1136355120689,
+    "treeLimitBytes": 3221225472,
+    "groupLimitBytes": 6442450944
+  },
+  "logSHA256": "ce752b15c990bad98e0856febc9c090bf6cb459893c0a2e4b01cc5db24d2ae76",
+  "entradasCI_SHA256": "f6c7fcca1eca97a585bb6dabc29266695c46fa963b1f0cbaea8c100bff0a7d73",
+  "fuentesComprobadas": {
+    ".github/workflows/checks.yml": "a00953f6503887ca9d1e71275a9a83d748a53f4598b76d5b74ba70c3ab0eeb76",
+    "docs/procedencia/API-MOTOR.md": "1687f150b6629f10b0dc22a78a87be18506daed292286ab2302f8658db48e709",
+    "docs/procedencia/CI.md": "45aeec516b84b82f4004748ed428c8fc4b9582f69dc586d4cec12675beabe8da",
+    "docs/procedencia/DECISIONES.md": "59f822e31a9dccb6565a1611855a13aa0dc5f3b8546c64e056c407cef24078ab",
+    "docs/procedencia/ESTADO-POR-ANIO.md": "f8d0bba9f58901c516fa6d84291535407354d90354f7a3cad094406dd3af6df1",
+    "docs/procedencia/ESTADO.md": "557e4da502a21285405e5e7a8e118210742cd1affb31849007e9e4d54c9b9d79",
+    "docs/procedencia/deducciones-2025/baleares-registro-familiar-20261105/CONTRATO.md": "584bc7a5ed2a140da2ea740c88575b6e5c07343b2b1db568ea97b08925762799",
+    "docs/procedencia/deducciones-2025/canarias-hogar-atribucion-20261105/CONTRATO.md": "836e85e03073d643124f12b092bbd88a40ef835c016885a97fce404df27c7756",
+    "docs/procedencia/ext-inversion-20261105/CONTRATO.md": "de12ab72af1bd8ec271b87d96367a95301157761e24f474193478b5101a3fc81",
+    "docs/procedencia/inventario-datos.json.gz": "47bfbce2f8cc54b33e961f7aaa7dbf308a9b6005164d5f98d6274d87de2c8019",
+    "docs/procedencia/inventario.json": "822850ee0df07354e66c592ab81f3b16f19c7c04cb166a576dfd11b014e09d7b",
+    "docs/procedencia/registros-ayudas-inversion-20261105/FUENTES.json": "8dbd59088b7912c866999066bc7b5a6b8b1450bcd540b9b1f0696f8f6ba801b1",
+    "docs/procedencia/registros-ayudas-inversion-20261105/INTEGRACION.md": "5616ff1c6caa4a7f542fe1e01076ec38a28a3c04ffacfd79ef2d20fe176f500c",
+    "lib/dominio/irpf/deducciones/anual-territorial.ts": "43561a29dd4b976c97679239ff2f518dcc2d7f4a24685d6ca4bb8a5e4827aea5",
+    "lib/dominio/irpf/deducciones/aragon-dos-codigos-2025/inversion.ts": "dae67706c8c9a7c8fd4651555a2d83c34dbcf2e5c49a24806363af5b9d810edc",
+    "lib/dominio/irpf/deducciones/canarias-balears-hechos-2025/anual-adaptador.ts": "10f3b2ca082a4cc96cdca90f8b809ab6057403cbcc9a14cebf793372707868cb",
+    "lib/dominio/irpf/deducciones/canarias-balears-hechos-2025/anual-esquemas.ts": "c8b4050b768c413e2634dbfa5257ac8d375cd6214cca0be4ab3a5d0aa9ea81d7",
+    "lib/dominio/irpf/deducciones/canarias-balears-hechos-2025/anual-hogar.ts": "bfff7bc79c7d17b479aa63edd4aacfb745aaf0382f99c5ca1f431c104190871f",
+    "lib/dominio/irpf/deducciones/d51-anual-esquemas.ts": "a8c8a738649f9e1dfcc8ba4a53611e739436e226eddd98e136b0861f7b4b5346",
+    "lib/dominio/irpf/deducciones/d51-anual.ts": "99f1f287d5ca8c6c3e76e32a6728e7808f1ea2429e8f9c37b4c2d0a3fec7b18a",
+    "lib/dominio/irpf/deducciones/extremadura-inversion-anual-2025.ts": "cd725994a983c78fd8203aba3b2d2df84d3c003373b7f5a967e4b119b9a54463",
+    "lib/dominio/irpf/deducciones/extremadura-inversion-contrato-2025.ts": "0cd9efcbb53196af9c8aadcfcd9bdee3d44f380c2bfe623e63faebcf9d32348f",
+    "lib/dominio/irpf/deducciones/galicia-rioja-ampliacion-2025/anual-esquemas.ts": "327067b10da964fb5837da3a2b860d39f1b6ecc770d3b1833df67c6f69620c03",
+    "lib/dominio/irpf/deducciones/galicia-rioja-ampliacion-2025/anual.ts": "b0a9df642ff2c5ca8f7b981bcb6e1e774ab139bbe9484f3be6d3a5972ae7ea5f",
+    "lib/dominio/irpf/deducciones/galicia-rioja-ampliacion-2025/ayudas-libros.ts": "37410bd89cef761f31970d043c119b3533c96d69c449896b4dcae96d0ca221b6",
+    "lib/dominio/irpf/deducciones/inversion-681-2025.ts": "4e2150181fe6314ac9747910a8e4cba89b3f72e811ac9e93a1576f1bfc10576e",
+    "lib/dominio/irpf/deducciones/inversion-681-comun-2025.ts": "4408fc67ab5a9f573b3e3793ea73459078bfef6284afcfcdec969e693192606b",
+    "lib/dominio/irpf/ingresos-identificados-2025/contrato.ts": "51279c7755ac5ff38cb6523739914e8ca00173b34ab272947a7440b9fa0f3ca9",
+    "lib/dominio/irpf/ingresos-identificados-2025/productor.ts": "1b2ed73e7fde5bd4b1804e3a9098bff0a65de5d39ab225b6eddfb6bf215402f8",
+    "lib/dominio/irpf/ingresos-identificados-2025/regiones.ts": "0f130e66aff8411f8b5f40a66855fb985fe30264678effc8b0afcf151372ac92",
+    "lib/dominio/irpf/inmobiliario-2025/consumidor-ext.ts": "bd81d10982cfc15e63f51621011433a0be072025f0b7dbaa554d2ca995d29c96",
+    "lib/dominio/irpf/inmobiliario-2025/contrato.ts": "69ba41b7f9fdb3ca887dd8b32da0254dd61ab9b192ba0bcf921067ba818bedbb",
+    "lib/dominio/irpf/inmobiliario-2025/productor.ts": "d8f614648712ca2511a385db75033e65cd53302a0de7f1aaa8a03750e5bfc65a",
+    "lib/dominio/irpf/inmobiliario-2025/vacia-ext.ts": "9a0691d3ab36b6cf9de4bb756ff0960408601870b2d5576c46c6c4eb7e1f237d",
+    "scripts/procedencia/fuentes-actuales.json": "e683719a9e2a8230c6ee92cde98109af8eb34b0df31a458797f2d16e81000f3d",
+    "tests/baleares-registro-familiar-2025.test.ts": "2619a2b9589242eea71ba119ab47d5c3d1467ede2a6d24e9c150af36fe828e96",
+    "tests/canarias-hogar-atribucion-2025.test.ts": "6c2c0038bd9716602082ba8b3135ae3dd55ed124c60ba7ac79d95017cf98ac74",
+    "tests/canarias-hogar-revision-independiente-2025.test.mjs": "0dd3c7fd045a2db59ac4519008f3518923c63901de6c013d9ca311d182669060",
+    "tests/e38-conexion-anual.test.ts": "d422e517cc04b3707bf236d7f17e1003ad4ded1bbab81d18fcfc566c2cabea80",
+    "tests/e38-revision-anual-independiente.test.ts": "a1fd4fcfe646750c0e45eec4e361068a53bf85e79eeb4dff4c4ab2ad0dc180ed",
+    "tests/ext-inversion-conexion-anual-2025.test.ts": "bb2c2666ece613794e299d75340706e39fbd6dd8a3d5ee05eb9e7322ee60df86",
+    "tests/ext-inversion-revision-monetaria-independiente.test.mjs": "2355a88d770cd960f00e9f477ff5022a07dab5b68fb1cbf59cfab2c0315555b0",
+    "tests/ext-vacia-oraculos.json": "1b4f452939390885a72dd5a6580e215baa67265a060d7773fcbe44b28ac8a4bc",
+    "tests/ext-vacia-revision-independiente.test.mjs": "3f65b0edf214234b1a395e1ab1a911e2a488422626acac6c9af79ea7dd29f448",
+    "tests/ext-vacia-revision-oraculos.json": "0a56ddd084a41307b3edc181a1ae407b0ebe5380521dc685d6fd043058e24e94",
+    "tests/ext-vacia.fixtures.ts": "26feb6237adf0e91a5a268927ffc18d33faf65680d90f25fb1713a2aacad63e7",
+    "tests/ext-vacia.test.ts": "a9f877eed6de97b2f335269bc8365197c5c9bf9b508fdb46328c41c3a61a1a23",
+    "tests/fixtures/ext-inversion-2025.json": "42236cb26ebd08e87d040740d19f4d603108c34391e75a40aa6c36f1486b7182",
+    "tests/fixtures/ext-inversion-oraculos-2025.json": "356cd4e8e5c1e9f277eefce9593f931ae1d808ba4905f954a24fc6687d304371",
+    "tests/galicia-ayudas-clasificacion-2025.test.ts": "41644b0bf9c44ef798851c0908e562a0fbf3c5d870cc468ef6e402e2cdbe969f",
+    "tests/revision-balears-registro-2025/api-fixture.mjs": "351ecb597e98b9a793c393762e0926364d48a58a6228d69649f9041a2a5a4ccd",
+    "tests/revision-balears-registro-2025/fixture.mjs": "15d16320e85d89c12661a472d4bf7efc797555e5eeac9d32304a97467b285030",
+    "tests/revision-balears-registro-2025/revision.test.mjs": "0f3203ac69ddac0535399eb43896763dd91eea12f4d2efd02cc0a4f8e993dcf3",
+    "tests/revision-d51/ausentes.json": "e66ae5f0a4d7aedca44e5f432698735dcc859eb395080acb2fd4b8273e844e34",
+    "tests/revision-galicia-talidomida-2025/oraculo-mixto.json": "f8f32b7a82317492281158344fd336316ae9e8ca2879c678d4e99d7834ab32a1",
+    "tests/revision-galicia-talidomida-2025/oraculos-independientes.json": "dccc2af76be9d398a1865ee4f19d0b1e12c5b36aec9427f907ff252f2b02bc57",
+    "tests/revision-galicia-talidomida-2025/revision.test.mjs": "e763fcba89163af0133142e0ec79a8943b770a5aa4bb6551f234566b92520725",
+    "vitest.config.ts": "6e927a127ff0b4b6a8765ea71e78616de38c2fc18db8d0d1185fddd46d02b9f1",
+    "tests/procedencia-inventario.test.mjs": "afe135bc2a634cd03f7e6d840fd39ad7bd914535f3c826fd8592e5a87eafc427"
+  },
+  "focal": {
+    "numTotalTests": 844,
+    "numPassedTests": 844,
+    "numFailedTests": 0,
+    "numTodoTests": 0,
+    "success": true
+  },
+  "primerIntento": {
+    "workflowSha256": "a00953f6503887ca9d1e71275a9a83d748a53f4598b76d5b74ba70c3ab0eeb76",
+    "results": [
+      {
+        "command": "timeout -k 30s 1m python3 scripts/ci-no-cache.py",
+        "exit": 0,
+        "seconds": 0.062
+      },
+      {
+        "command": "echo \"Corpus completo CAS omitido explícitamente; se ejecutan fixtures y contratos reproducibles. Véase docs/procedencia/CI.md\"",
+        "exit": 0,
+        "seconds": 0.005
+      },
+      {
+        "command": "timeout -k 30s 12m bun install --frozen-lockfile",
+        "exit": 0,
+        "seconds": 0.673
+      },
+      {
+        "command": "timeout -k 30s 12m bun run test:lint",
+        "exit": 0,
+        "seconds": 0.298
+      },
+      {
+        "command": "timeout -k 30s 12m bun run lint",
+        "exit": 0,
+        "seconds": 26.916
+      },
+      {
+        "command": "timeout -k 30s 12m bun run typecheck",
+        "exit": 0,
+        "seconds": 61.429
+      },
+      {
+        "command": "timeout -k 30s 12m bun run test:ci",
+        "exit": 0,
+        "seconds": 1.121
+      },
+      {
+        "command": "timeout -k 30s 12m bun run test tests/puertos-composicion-r47.test.ts tests/puertos-r52.test.ts --maxWorkers=1",
+        "exit": 0,
+        "seconds": 19.014
+      },
+      {
+        "command": "timeout -k 30s 12m bun run test tests/cotizaciones-perfil-uniforme.test.ts tests/*-procedencia.test.ts --exclude tests/evidencia-contenido-procedencia.test.ts --maxWorkers=1",
+        "exit": 0,
+        "seconds": 23.666
+      },
+      {
+        "command": "timeout -k 30s 12m bun run test tests/retenciones-versionadas.test.ts tests/trabajo-anual-contratos.test.ts tests/actividades-economicas-2025.test.ts tests/deducciones-contratos.test.ts tests/deducciones-ambito.test.ts tests/deducciones-conjunta-identidad.test.ts tests/calculo-salario-neto-irpf.test.ts --maxWorkers=1",
+        "exit": 0,
+        "seconds": 5.478
+      },
+      {
+        "command": "timeout -k 30s 12m bun run test tests/composicion-anual-unica.test.ts tests/composicion-anual-revision.test.ts tests/composicion-precision.test.ts tests/composicion-precision-contraste.test.ts tests/anual-salarial-completo.test.ts tests/anual-historico-explicito.test.ts tests/conexion-anual.test.ts tests/redondeo-salarial-open.test.ts tests/art20-open-c300.test.ts tests/andalucia-open-c300.test.ts tests/c300-variantes-cuotas.test.ts tests/c300-variantes-revision.test.ts tests/retirada-rutas.test.ts tests/motor-unico-revision.test.ts tests/minimos-derechos.test.ts tests/retenciones-derechos.test.ts tests/liquidacion-irpf-anual.test.ts tests/correcciones-x-solidaridad.test.ts tests/historico-open-ambito.test.ts tests/historico-open-redondeo.test.ts tests/revision-historico-cuotas.test.ts tests/open-2018-etapas.test.ts tests/open-2018-guardas.test.ts tests/revision-independiente-2018.test.ts --maxWorkers=1",
+        "exit": 0,
+        "seconds": 21.206
+      },
+      {
+        "command": "timeout -k 30s 12m bun run inventario:verificar",
+        "exit": 0,
+        "seconds": 34.322
+      },
+      {
+        "command": "timeout -k 30s 12m bun run test tests/minimos-derechos-anuales.test.ts tests/territorios-2026.test.ts tests/comunidades-autonomas.test.ts tests/deducciones-pendientes.test.ts tests/deducciones-valencianas-datos-producto.test.ts tests/deducciones-valencianas-evaluacion.test.ts tests/deducciones-valencianas-correcciones.test.ts tests/deducciones-valencianas-composicion.test.ts tests/deducciones-valencianas-ejercicio.test.ts tests/deducciones-valencianas-cuota-conjunta.test.ts tests/deducciones-valencianas-anual.test.ts tests/deducciones-territoriales-anual.test.ts tests/deducciones-ampliacion-a-anual.test.ts tests/deducciones-a40-censos-anuales.test.ts tests/b-ampliado-adaptador-anual-2025.test.ts tests/b-conexion-completa-2025.test.ts tests/b37-anual-revision.test.ts tests/aragon-dos-codigos-2025.test.ts tests/revision-aragon-independiente.test.ts tests/deducciones-territoriales-anual-revision.test.ts tests/deducciones-territoriales-api-revision.test.ts tests/deducciones-territoriales-titulares.test.ts tests/deducciones-territoriales-vinculos-contraste.test.ts tests/deducciones-catalunya-hechos-2025.test.ts tests/deducciones-territorial-f-2025.test.ts tests/deducciones-asturias-cantabria-hechos-2025.test.ts tests/deducciones-revision-b-independiente.test.ts tests/deducciones-asturias-cantabria-ampliacion-2025.test.ts tests/deducciones-ampliacion-b-conserva-integrado.test.ts tests/deducciones-ampliacion-b-revision.test.ts tests/deducciones-canarias-balears-hechos-2025.test.ts tests/revision-c-hechos-20261105.test.ts tests/producto-lote-d-hechos.test.ts tests/producto-lote-d-revision-monetaria.test.ts tests/galicia-rioja-hechos-2025.test.ts tests/revision-e-hechos.test.ts tests/deducciones-lote-a-ampliacion-2025.test.ts tests/deducciones-lote-a-ampliacion-revision.test.ts tests/galicia-rioja-ampliacion-2025.test.ts tests/galicia-rioja-ampliacion-revision.test.ts tests/deducciones-d51-correccion.test.ts tests/discriminantes-d51.test.ts tests/producto-lote-d-ampliacion.test.ts tests/deducciones-canarias-balears-ampliacion.test.ts tests/revision-c36-independiente.test.ts tests/escalas-publicadas.test.ts tests/escalas-publicadas-2025.test.ts tests/escalas-madrid-historicas.test.ts tests/d51-conexion-anual.test.ts tests/revision-d51/revision-adversa.test.ts tests/e38-conexion-anual.test.ts tests/e38-revision-anual-independiente.test.ts tests/c36-conexion-anual.test.ts tests/c36-fronteras-anual.test.ts tests/c36-magnitudes-anuales.test.ts tests/deducciones-f-ampliacion-2025.test.ts tests/deducciones-f-conexion-anual-2025.test.ts tests/deducciones-f-recarga-2025.test.ts tests/deducciones-f-recarga-agua-ampliada-2025.test.ts tests/c36-fracciones-api-regresion.test.ts tests/c36-revision-anual-independiente.test.ts tests/revision-f-monetaria.test.ts tests/aragon-conexion-anual-2025.test.ts tests/cf-contraste-normativo.test.ts tests/f-fechas-edades-regresion.test.ts tests/revision-aragon-conexion-anual.test.ts tests/f-n1-n4-independiente.test.ts tests/ela-ingreso-2025.test.ts tests/ela-ingreso-art20-da61-2025.test.ts tests/ela-ingreso-fronteras-2025.test.ts tests/ela-precision-presupuesto-2025.test.ts tests/ela-rebase-ecdf-2025.test.ts tests/revision-ela-integracion.test.ts tests/donativos-estatales-anual-2025.test.ts tests/donativos-p2-independiente.test.ts tests/maternidad-ela-alcance.test.ts tests/maternidad-guarderia-api.test.ts tests/maternidad-guarderia.test.ts tests/productores-anuales-combinacion.test.ts tests/maternidad-revision-independiente.test.ts tests/f-auxiliares-exactos.test.ts tests/f-auxiliares-revision.test.ts tests/f-auxiliares-filiacion.test.ts tests/f-auxiliares-contraste.test.ts tests/deducciones-procedencia-2025-f.test.ts tests/inmobiliario-p4a.test.ts tests/inmobiliario-p4a-correcciones.test.ts tests/inmobiliario-p4a-contraste.test.ts tests/patrimonio-p5a.test.ts tests/revision-p5a-independiente.test.ts tests/p5a-contraste-residencia.test.mjs tests/contraste-certificado-681.test.mjs tests/ela-regiones-2025.test.ts tests/ela-regiones-oraculos-2025.test.ts tests/ela-regiones-revision.test.mjs tests/inmobiliario-p4b-revision.test.mjs tests/inmobiliario-p4b.test.ts tests/inversion-681-aragon-2025.test.ts tests/inversion-681-revision-independiente-2025.test.ts tests/precision-preparacion-monetaria.test.ts tests/revision-da58/independiente.test.mjs tests/vehiculo-da58-2025.test.ts tests/baleares-registro-familiar-2025.test.ts tests/canarias-hogar-atribucion-2025.test.ts tests/canarias-hogar-revision-independiente-2025.test.mjs tests/ext-inversion-conexion-anual-2025.test.ts tests/ext-inversion-revision-monetaria-independiente.test.mjs tests/ext-vacia-revision-independiente.test.mjs tests/ext-vacia.test.ts tests/galicia-ayudas-clasificacion-2025.test.ts tests/revision-balears-registro-2025/revision.test.mjs tests/revision-galicia-talidomida-2025/revision.test.mjs --maxWorkers=1",
+        "exit": 1,
+        "seconds": 80.911
+      }
+    ]
+  },
+  "segundoIntentoMedicion": {
+    "command": [
+      "timeout",
+      "-k",
+      "30s",
+      "43m",
+      "/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/bin/python3",
+      "-B",
+      "/home/elies/Backups/IRoboPF/producto-corte-registros-ayudas-inversion-20261105/reproducir-workflow-2.py"
+    ],
+    "exit": -15,
+    "guard": {
+      "signal": null,
+      "tree": 3224430592,
+      "group": 3496910848,
+      "seconds": 341.93867409508675,
+      "processes": [
+        {
+          "pid": 4026338,
+          "pss": 1153024,
+          "command": "timeout -k 10s 30s bun --smol adulterar.mjs "
+        },
+        {
+          "pid": 4026339,
+          "pss": 2596736000,
+          "command": "bun --smol adulterar.mjs "
+        },
+        {
+          "pid": 4025902,
+          "pss": 468058112,
+          "command": "/nix/store/z5piarlh57mjwr4c9w318ay97sxr6c9m-nodejs-slim-24.20.0/bin/node --experimental-import-meta-resolve --require /home/elies/Repos/IRoboPF/node_modules/vitest/suppress-warnings.cjs --conditions node --conditions development --max-old-space-size=768 /home/elies/Repos/IRoboPF/node_modules/vitest/dist/workers/forks.js "
+        },
+        {
+          "pid": 4023729,
+          "pss": 1081344,
+          "command": "timeout -k 30s 43m /nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/bin/python3 -B /home/elies/Backups/IRoboPF/producto-corte-registros-ayudas-inversion-20261105/reproducir-workflow-2.py "
+        },
+        {
+          "pid": 4023730,
+          "pss": 18077696,
+          "command": "/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/bin/python3 -B /home/elies/Backups/IRoboPF/producto-corte-registros-ayudas-inversion-20261105/reproducir-workflow-2.py "
+        },
+        {
+          "pid": 4025875,
+          "pss": 1134592,
+          "command": "timeout -k 30s 15m bash --noprofile --norc -euo pipefail -c timeout -k 30s 12m bun run test:inventario "
+        },
+        {
+          "pid": 4025876,
+          "pss": 1110016,
+          "command": "timeout -k 30s 12m bun run test:inventario "
+        },
+        {
+          "pid": 4025877,
+          "pss": 4163584,
+          "command": "bun run test:inventario "
+        },
+        {
+          "pid": 4025878,
+          "pss": 1173504,
+          "command": "timeout -k 30s 12m vitest run --config scripts/procedencia/inventario-vitest.mjs --maxWorkers=1 "
+        },
+        {
+          "pid": 4025879,
+          "pss": 131742720,
+          "command": "node /home/elies/Repos/IRoboPF/node_modules/.bin/vitest run --config scripts/procedencia/inventario-vitest.mjs --maxWorkers=1 "
+        }
+      ]
+    },
+    "maxTreePssBytesSampled": 3224430592,
+    "maxAgentGroupBytesSampled": 4830117888,
+    "samples": 2099,
+    "seconds": 344.06036353111267,
+    "treeLimitBytes": 3221225472,
+    "groupLimitBytes": 6442450944
+  },
+  "correccionMemoriaInventario": {
+    "pre": "330a70c4f48ab3fe424d36897027f8108605660852518e74446965e62c75c036",
+    "post": "afe135bc2a634cd03f7e6d840fd39ad7bd914535f3c826fd8592e5a87eafc427",
+    "razon": "Comparar bytes comprimidos idénticos evita mantener dos corpus descomprimidos; se mantiene adulteración con hashes recalculados y rechazo por regeneración.",
+    "guardia": {
+      "command": [
+        "timeout",
+        "-k",
+        "30s",
+        "43m",
+        "/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/bin/python3",
+        "-B",
+        "/home/elies/Backups/IRoboPF/producto-corte-registros-ayudas-inversion-20261105/reproducir-workflow-2.py"
+      ],
+      "exit": -15,
+      "guard": {
+        "signal": null,
+        "tree": 3224430592,
+        "group": 3496910848,
+        "seconds": 341.93867409508675,
+        "processes": [
+          {
+            "pid": 4026338,
+            "pss": 1153024,
+            "command": "timeout -k 10s 30s bun --smol adulterar.mjs "
+          },
+          {
+            "pid": 4026339,
+            "pss": 2596736000,
+            "command": "bun --smol adulterar.mjs "
+          },
+          {
+            "pid": 4025902,
+            "pss": 468058112,
+            "command": "/nix/store/z5piarlh57mjwr4c9w318ay97sxr6c9m-nodejs-slim-24.20.0/bin/node --experimental-import-meta-resolve --require /home/elies/Repos/IRoboPF/node_modules/vitest/suppress-warnings.cjs --conditions node --conditions development --max-old-space-size=768 /home/elies/Repos/IRoboPF/node_modules/vitest/dist/workers/forks.js "
+          },
+          {
+            "pid": 4023729,
+            "pss": 1081344,
+            "command": "timeout -k 30s 43m /nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/bin/python3 -B /home/elies/Backups/IRoboPF/producto-corte-registros-ayudas-inversion-20261105/reproducir-workflow-2.py "
+          },
+          {
+            "pid": 4023730,
+            "pss": 18077696,
+            "command": "/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/bin/python3 -B /home/elies/Backups/IRoboPF/producto-corte-registros-ayudas-inversion-20261105/reproducir-workflow-2.py "
+          },
+          {
+            "pid": 4025875,
+            "pss": 1134592,
+            "command": "timeout -k 30s 15m bash --noprofile --norc -euo pipefail -c timeout -k 30s 12m bun run test:inventario "
+          },
+          {
+            "pid": 4025876,
+            "pss": 1110016,
+            "command": "timeout -k 30s 12m bun run test:inventario "
+          },
+          {
+            "pid": 4025877,
+            "pss": 4163584,
+            "command": "bun run test:inventario "
+          },
+          {
+            "pid": 4025878,
+            "pss": 1173504,
+            "command": "timeout -k 30s 12m vitest run --config scripts/procedencia/inventario-vitest.mjs --maxWorkers=1 "
+          },
+          {
+            "pid": 4025879,
+            "pss": 131742720,
+            "command": "node /home/elies/Repos/IRoboPF/node_modules/.bin/vitest run --config scripts/procedencia/inventario-vitest.mjs --maxWorkers=1 "
+          }
+        ]
+      },
+      "maxTreePssBytesSampled": 3224430592,
+      "maxAgentGroupBytesSampled": 4830117888,
+      "samples": 2099,
+      "seconds": 344.06036353111267,
+      "treeLimitBytes": 3221225472,
+      "groupLimitBytes": 6442450944
+    }
+  },
+  "correccionD51": {
+    "cambios": [
+      {
+        "codigo": "extremadura_arrendadores_viviendas_vacias",
+        "antes": "rendimientoNetoReducido",
+        "despues": "EXT: requiere productor exclusivo de una vivienda"
+      },
+      {
+        "codigo": "extremadura_ayudas_subvenciones_ela",
+        "antes": "ELA regional requiere libro integrado y tipos medios",
+        "despues": "Ingreso regional requiere libro integrado y tipos medios después del mínimo"
+      }
+    ],
+    "importesModificados": false,
+    "entradasModificadas": false,
+    "produccionModificada": false,
+    "preSHA256": "90c09782c0de9606fdc488d6463694401f722d9667d2b274e075e98a8552977a",
+    "postSHA256": "e66ae5f0a4d7aedca44e5f432698735dcc859eb395080acb2fd4b8273e844e34"
+  },
+  "inventario": [
+    {
+      "command": [
+        "timeout",
+        "-k",
+        "30s",
+        "12m",
+        "bash",
+        "-c",
+        "source /home/elies/Backups/IRoboPF/limpieza-recursos-20261103/env-pruebas.sh; export NODE_OPTIONS=--max-old-space-size=1792; bun run inventario:generar"
+      ],
+      "exit": -15,
+      "guard": {
+        "signal": null,
+        "tree": 2244057088,
+        "group": 6451236864,
+        "seconds": 31.11962288385257,
+        "processes": [
+          {
+            "pid": 4020209,
+            "pss": 1264640,
+            "command": "timeout -k 30s 12m bash -c source /home/elies/Backups/IRoboPF/limpieza-recursos-20261103/env-pruebas.sh; export NODE_OPTIONS=--max-old-space-size=1792; bun run inventario:generar "
+          },
+          {
+            "pid": 4020210,
+            "pss": 3507200,
+            "command": "bun run inventario:generar "
+          },
+          {
+            "pid": 4020211,
+            "pss": 1267712,
+            "command": "timeout -k 30s 12m bun scripts/procedencia/inventario-artefacto.mjs write "
+          },
+          {
+            "pid": 4020212,
+            "pss": 100755456,
+            "command": "bun scripts/procedencia/inventario-artefacto.mjs write "
+          },
+          {
+            "pid": 4020219,
+            "pss": 1254400,
+            "command": "timeout -k 10s 120s bun --smol /home/elies/Repos/IRoboPF/scripts/procedencia/inventario.mjs /home/elies/Repos/IRoboPF /home/elies/Repos/IRoboPF/.cache/procedencia/inventario-integracion/generacion-sxOyXx "
+          },
+          {
+            "pid": 4020220,
+            "pss": 2136007680,
+            "command": "bun --smol /home/elies/Repos/IRoboPF/scripts/procedencia/inventario.mjs /home/elies/Repos/IRoboPF /home/elies/Repos/IRoboPF/.cache/procedencia/inventario-integracion/generacion-sxOyXx "
+          }
+        ]
+      },
+      "maxTreePssBytesSampled": 2244057088,
+      "maxAgentGroupBytesSampled": 6451236864,
+      "samples": 186,
+      "seconds": 33.228655426763,
+      "treeLimitBytes": 3221225472,
+      "groupLimitBytes": 6442450944
+    },
+    {
+      "command": [
+        "timeout",
+        "-k",
+        "30s",
+        "12m",
+        "bash",
+        "-c",
+        "source /home/elies/Backups/IRoboPF/limpieza-recursos-20261103/env-pruebas.sh; export NODE_OPTIONS=--max-old-space-size=1792; bun run inventario:generar"
+      ],
+      "exit": 0,
+      "guard": null,
+      "maxTreePssBytesSampled": 2381336576,
+      "maxAgentGroupBytesSampled": 3607306240,
+      "samples": 222,
+      "seconds": 37.533806421794,
+      "treeLimitBytes": 3221225472,
+      "groupLimitBytes": 6442450944
+    }
+  ],
+  "memoriaEntrePasos": [
+    {
+      "paso": 1,
+      "antes": 983408640,
+      "despues": 983670784,
+      "fileAntes": 391278592,
+      "reclamacion": null,
+      "limitesModificados": false
+    },
+    {
+      "paso": 2,
+      "antes": 1042710528,
+      "despues": 1042710528,
+      "fileAntes": 391278592,
+      "reclamacion": null,
+      "limitesModificados": false
+    },
+    {
+      "paso": 3,
+      "antes": 1045635072,
+      "despues": 1045897216,
+      "fileAntes": 391278592,
+      "reclamacion": null,
+      "limitesModificados": false
+    },
+    {
+      "paso": 4,
+      "antes": 1038704640,
+      "despues": 1038704640,
+      "fileAntes": 391278592,
+      "reclamacion": null,
+      "limitesModificados": false
+    },
+    {
+      "paso": 5,
+      "antes": 1054425088,
+      "despues": 1054425088,
+      "fileAntes": 391278592,
+      "reclamacion": null,
+      "limitesModificados": false
+    },
+    {
+      "paso": 6,
+      "antes": 1097662464,
+      "despues": 1097662464,
+      "fileAntes": 487038976,
+      "reclamacion": null,
+      "limitesModificados": false
+    },
+    {
+      "paso": 7,
+      "antes": 1144029184,
+      "despues": 1144029184,
+      "fileAntes": 525099008,
+      "reclamacion": null,
+      "limitesModificados": false
+    },
+    {
+      "paso": 8,
+      "antes": 1136754688,
+      "despues": 1136721920,
+      "fileAntes": 525107200,
+      "reclamacion": null,
+      "limitesModificados": false
+    },
+    {
+      "paso": 9,
+      "antes": 1145999360,
+      "despues": 1145999360,
+      "fileAntes": 539459584,
+      "reclamacion": null,
+      "limitesModificados": false
+    },
+    {
+      "paso": 10,
+      "antes": 1140056064,
+      "despues": 1140056064,
+      "fileAntes": 528674816,
+      "reclamacion": null,
+      "limitesModificados": false
+    },
+    {
+      "paso": 11,
+      "antes": 1208487936,
+      "despues": 1208487936,
+      "fileAntes": 540368896,
+      "reclamacion": null,
+      "limitesModificados": false
+    },
+    {
+      "paso": 12,
+      "antes": 1208582144,
+      "despues": 1208582144,
+      "fileAntes": 554721280,
+      "reclamacion": null,
+      "limitesModificados": false
+    },
+    {
+      "paso": 13,
+      "antes": 1952116736,
+      "despues": 1952116736,
+      "fileAntes": 1258151936,
+      "reclamacion": null,
+      "limitesModificados": false
+    },
+    {
+      "paso": 14,
+      "antes": 2039070720,
+      "despues": 2039070720,
+      "fileAntes": 1322704896,
+      "reclamacion": null,
+      "limitesModificados": false
+    },
+    {
+      "paso": 15,
+      "antes": 2935422976,
+      "despues": 628609024,
+      "fileAntes": 1332752384,
+      "reclamacion": "2G swappiness=0; reclamación parcial EAGAIN",
+      "limitesModificados": false
+    },
+    {
+      "paso": 16,
+      "antes": 774914048,
+      "despues": 774914048,
+      "fileAntes": 176844800,
+      "reclamacion": null,
+      "limitesModificados": false
+    },
+    {
+      "paso": 17,
+      "antes": 828563456,
+      "despues": 828563456,
+      "fileAntes": 229195776,
+      "reclamacion": null,
+      "limitesModificados": false
+    },
+    {
+      "paso": 18,
+      "antes": 829419520,
+      "despues": 829419520,
+      "fileAntes": 229994496,
+      "reclamacion": null,
+      "limitesModificados": false
+    },
+    {
+      "paso": 19,
+      "antes": 842063872,
+      "despues": 842063872,
+      "fileAntes": 241922048,
+      "reclamacion": null,
+      "limitesModificados": false
+    },
+    {
+      "paso": 20,
+      "antes": 842354688,
+      "despues": 842354688,
+      "fileAntes": 241930240,
+      "reclamacion": null,
+      "limitesModificados": false
+    },
+    {
+      "paso": 21,
+      "antes": 872685568,
+      "despues": 872685568,
+      "fileAntes": 271130624,
+      "reclamacion": null,
+      "limitesModificados": false
+    },
+    {
+      "paso": 22,
+      "antes": 1064865792,
+      "despues": 1064865792,
+      "fileAntes": 463187968,
+      "reclamacion": null,
+      "limitesModificados": false
+    },
+    {
+      "paso": 23,
+      "antes": 1068023808,
+      "despues": 1068023808,
+      "fileAntes": 465477632,
+      "reclamacion": null,
+      "limitesModificados": false
+    },
+    {
+      "paso": 24,
+      "antes": 1067372544,
+      "despues": 1067372544,
+      "fileAntes": 465530880,
+      "reclamacion": null,
+      "limitesModificados": false
+    },
+    {
+      "paso": 25,
+      "antes": 1122381824,
+      "despues": 1122381824,
+      "fileAntes": 521699328,
+      "reclamacion": null,
+      "limitesModificados": false
+    },
+    {
+      "paso": 26,
+      "antes": 1074655232,
+      "despues": 1074655232,
+      "fileAntes": 535187456,
+      "reclamacion": null,
+      "limitesModificados": false
+    },
+    {
+      "paso": 27,
+      "antes": 1073999872,
+      "despues": 1073999872,
+      "fileAntes": 535347200,
+      "reclamacion": null,
+      "limitesModificados": false
+    },
+    {
+      "paso": 28,
+      "antes": 1079238656,
+      "despues": 1079238656,
+      "fileAntes": 537247744,
+      "reclamacion": null,
+      "limitesModificados": false
+    },
+    {
+      "paso": 29,
+      "antes": 1147842560,
+      "despues": 1147842560,
+      "fileAntes": 554008576,
+      "reclamacion": null,
+      "limitesModificados": false
+    },
+    {
+      "paso": 30,
+      "antes": 1157111808,
+      "despues": 1157111808,
+      "fileAntes": 565071872,
+      "reclamacion": null,
+      "limitesModificados": false
+    },
+    {
+      "paso": 31,
+      "antes": 2375766016,
+      "despues": 575492096,
+      "fileAntes": 1413763072,
+      "reclamacion": "2G swappiness=0; reclamación parcial EAGAIN",
+      "limitesModificados": false
+    }
+  ]
+}

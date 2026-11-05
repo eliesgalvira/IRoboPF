@@ -7,6 +7,7 @@ import {
   AltaAutonomoCHechos,
   DestinoPlazaCHechos,
 } from "./anual-esquemas-base"
+import { RegistroHogarC36 } from "./anual-hogar"
 const Texto = Schema.String.check(Schema.isMinLength(1))
 const Numero = Schema.Number.check(Schema.isFinite())
 const Intervalo = Schema.Struct({ desde: Texto, hasta: Texto })
@@ -180,6 +181,7 @@ export const FamiliaC36 = Schema.Struct({
     contribuyente: MarcoFamilia,
     personas: Schema.Array(Persona),
     cuotasHogar: Schema.Array(Hogar),
+    registroHogar: Schema.optional(RegistroHogarC36),
     ayudasNacimiento: Schema.Array(PagoCHechos),
     registroCobrosNacimiento: Schema.optional(
       Schema.Struct({
@@ -194,6 +196,27 @@ export const FamiliaC36 = Schema.Struct({
             importe: Texto,
           })
         ),
+      })
+    ),
+    // Hechos registrales; no se admite un orden fiscal suministrado.
+    registroPartoMultiple: Schema.optional(
+      Schema.Struct({
+        documento: Texto,
+        nacidos: Schema.Array(Schema.Struct({
+          persona: Texto,
+          fechaNacimiento: Texto,
+          secuenciaParto: Numero,
+        })),
+      })
+    ),
+    filiacionAdopcion: Schema.optional(
+      Schema.Struct({
+        hijo: Texto,
+        fechaConstitucion: Texto,
+        documento: Texto,
+        censo: Schema.Literal("completo_al_constituirse"),
+        progenitoresPrevios: Schema.Array(Texto),
+        conyugesOParejas: Schema.Array(Texto),
       })
     ),
     censoDescendientes: Schema.Array(Texto),

@@ -1,5 +1,15 @@
 # Estado de la auditoría documental
 
+## Registros familiares, ayudas e inversión · 5 de noviembre, 17:15 CET
+
+El corte incorpora las ramas revisadas de nacimiento/adopción balear, hogar canario, inversión extremeña, talidomida gallega y vivienda vacía extremeña. Pasan las 844 pruebas focales conjuntas y los 31 comandos del CI completo en entorno limpio, incluido el inventario. La comprobación remota corresponde a su publicación posterior. [Alcance, fuentes y revisiones](registros-ayudas-inversion-20261105/INTEGRACION.md). El punto 4 sigue abierto: entre otras ramas, quedan incendios gallegos, ayudas deportivas y atribución de cuota del arrendamiento social aragonés.
+
+El corte anterior está publicado en `64c4f1504d35af1a6cfda197be2c56c3adef0664`, con ambos trabajos del [CI remoto](https://github.com/eliesgalvira/IRoboPF/actions/runs/42047049052) correctos. Se retiraron quince entregas integradas tras preservar sus 1.412 archivos en un archivo compacto verificado. La última medición de las cuatro raíces es 98,49 GB, por debajo de 150 GB.
+
+Se corrige la exclusión de cinco archivos `.mjs` que figuraban en el workflow: la configuración sólo recogía `.test.ts`. El rojo de recogida y la ejecución posterior de sus 237 pruebas se conservan. Las validaciones privadas anteriores siguen siendo válidas en su alcance; no se les atribuye ejecución por el CI público anterior.
+
+El histórico tiene 911 capturas disponibles: 2018, 661; 2019–2022, 61 por año; 2023 y 2024, tres por año. La tentativa de 2024 seed3 falló antes de escribir importes; falta el DOM del fallo para atribuir la causa. No se reintenta durante el CI. Capturas, comparaciones y acreditación documental siguen separadas en [el estado anual](ESTADO-POR-ANIO.md).
+
 ## Primer alquiler, ayudas ELA, vehículo y artículo 68.1 · 5 de noviembre
 
 El corte conecta primer alquiler de Canarias/Baleares, ayudas ELA de Galicia/Extremadura, vehículo eléctrico DA58 con movilidad de Castilla y León e inversión estatal 68.1 con Aragón. Cada rama conserva sus contratos y rechazos concretos. Las deducciones de 2025 siguen abiertas; nacimiento múltiple y adopción balear tienen una preparación posterior todavía sin validación ni revisión.

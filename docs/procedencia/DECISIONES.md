@@ -920,3 +920,12 @@ El certificado del artículo 68.1 debe acreditar el ejercicio de adquisición, s
 La minoración del máximo de movilidad sostenible de Castilla y León utiliza la generación estatal del mismo vehículo; la cuota estatal insuficiente no crea un máximo regional adicional. Esta interpretación normativa está motivada en la revisión DA58 y conserva su reserva documental específica.
 
 Las 60 comparaciones corregidas de 2018 se publican como recuento revisado, sin sumar los testigos ni transformar capturas no cotejadas en coincidencias. El histórico2019–2022 está preparado para continuar después del CI exclusivo. F y la acreditación histórica completa de A permanecen aplazados por prioridad de producto.
+
+
+## Ampliaciones por hechos y recogida de pruebas, 5 de noviembre
+
+Se integran conjuntamente cinco ampliaciones que ya tienen primera revisión monetaria independiente. Los límites de pago único, una sola vivienda o cronología completa se documentan como límites técnicos, sin convertirlos en requisitos fiscales universales. La imputación inmobiliaria de 2024 permanece separada de la renta de 2025. La futura autenticación documental y el seguimiento posterior no se sustituyen por un booleano de aceptación fiscal.
+
+Los hallazgos P2 de inversión extremeña y del mensaje de talidomida se corrigen con sus reproducciones preservadas y pruebas del integrador; no se encarga un nuevo contraste para esos arreglos pequeños. El capital mínimo societario se valida antes de calcular y la reserva informativa de incendios deja de aparecer en otras ayudas. Se mantienen los oráculos monetarios originales.
+
+Se corrige un vacío del CI: nombrar archivos `.mjs` en la orden no bastaba cuando `include` sólo aceptaba `.test.ts`. Se prueba primero la ausencia de recogida y se habilitan ambas extensiones. Se acepta ampliar la ejecución ordinaria para que las revisiones portadas queden protegidas por CI; no se reclasifican los pases privados previos como pases del workflow. Los 31 pasos se reproducen sobre el conjunto final con PATH limpio antes del push.

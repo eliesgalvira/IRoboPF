@@ -13,6 +13,33 @@ export const CensoIngresosIdentificados2025 = Schema.Struct({
 Schema.Struct({
     ayudaId: Identidad,
     beneficiario: Identidad,
+    programa: Schema.Literal("talidomida-rd574-2023-cobro2025"),
+    administracion: Schema.Literal("imserso"),
+    clasificacionFiscal: Schema.Literal("ganancia-patrimonial-no-transmision-no-exenta"),
+    expediente: Schema.Struct({
+      referencia: Identidad,
+      objeto: Schema.Literal("ayuda-publica-RD574_2023-talidomida-1950_1985"),
+      titular: Identidad,
+      cobrosPrevios: Schema.Literal("ninguno"),
+    }),
+    resolucion: Schema.Struct({
+      referencia: Identidad,
+      organismo: Schema.Literal("Dirección General del Imserso"),
+      fecha: Schema.String.check(Schema.isPattern(/^202[345]-\d{2}-\d{2}$/)),
+      importeConcedido: Euros,
+    }),
+    cobros: Schema.Array(Schema.Struct({
+      cobroId: Identidad,
+      beneficiario: Identidad,
+      ordenante: Schema.Literal("imserso"),
+      fecha: Fecha,
+      euros: Euros,
+      justificante: Identidad,
+    })).check(Schema.isMinLength(1), Schema.isMaxLength(1)),
+  }),
+Schema.Struct({
+    ayudaId: Identidad,
+    beneficiario: Identidad,
     programa: Schema.Literal("asturias-ela-2025"),
     administracion: Schema.Literal("principado_asturias"),
     enfermedad: Schema.Literal("ELA"),

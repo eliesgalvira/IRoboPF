@@ -6,7 +6,7 @@ export default defineConfig({
     hookTimeout: 30_000,
     teardownTimeout: 10_000,
     maxWorkers: 1,
-    include: ["tests/**/*.test.ts"],
+    include: ["tests/**/*.test.{ts,mjs}"],
     exclude: ["tests/corpus-local/**"],
   },
 })

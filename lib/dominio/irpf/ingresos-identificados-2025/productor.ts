@@ -65,11 +65,12 @@ export function prepararIngresosIdentificados2025(
     ayudas.add(a.ayudaId); resoluciones.add(a.resolucion.referencia)
     if (a.beneficiario !== censo.contribuyenteId || a.cobros.some(c => c.beneficiario !== a.beneficiario))
       return { estado: "no_soportado", motivo: "Beneficiario del ingreso/cobro distinto del contribuyente" }
-    const region = a.programa === "asturias-ela-2025" ? "asturias" : a.programa === "galicia-bs215a-2025" ? "galicia" : "extremadura"
+    const talidomida = a.programa === "talidomida-rd574-2023-cobro2025"
+    const region = talidomida ? "galicia" : a.programa === "asturias-ela-2025" ? "asturias" : a.programa === "galicia-bs215a-2025" ? "galicia" : "extremadura"
     if (region !== ambito.comunidadAutonoma)
       return { estado: "no_soportado", motivo: "Programa regional distinto del territorio de residencia" }
-    const inicio = region === "asturias" ? "2025-06-27" : region === "galicia" ? "2025-07-15" : "2025-01-01"
-    if (region !== "asturias" && (censo.ayudas.length !== 1 ||
+    const inicio = talidomida ? "2023-07-06" : region === "asturias" ? "2025-06-27" : region === "galicia" ? "2025-07-15" : "2025-01-01"
+    if (!talidomida && region !== "asturias" && (censo.ayudas.length !== 1 ||
       (region === "galicia" ? new DecimalIngreso2025(a.resolucion.importeConcedido).gt("12000") : !new DecimalIngreso2025(a.resolucion.importeConcedido).eq("2000"))))
       return { estado: "no_soportado", motivo: "Extensión regional: un expediente2025; Galicia máximo12000, Extremadura cuantía fija2000" }
     if (!fecha(a.resolucion.fecha) || a.resolucion.fecha < inicio)
@@ -87,7 +88,9 @@ export function prepararIngresosIdentificados2025(
     }
     if (cobrado.gt(a.resolucion.importeConcedido))
       return { estado: "no_soportado", motivo: "Cobros superiores a la resolución; falta conciliación del expediente" }
-    if (region === "galicia" && !cobrado.eq(a.resolucion.importeConcedido))
+    if (talidomida && (censo.ayudas.length !== 1 || a.expediente.titular !== censo.contribuyenteId || !cobrado.eq(a.resolucion.importeConcedido)))
+      return { estado: "no_soportado", motivo: "Talidomida RD574/2023: un expediente propio sin cobros previos y pago único íntegro2025; parcialidad/historia requiere conciliación adicional" }
+    if (!talidomida && region === "galicia" && !cobrado.eq(a.resolucion.importeConcedido))
       return { estado: "no_soportado", motivo: "Galicia: el evaluador clasifica toda la concesión; cobro parcial requiere libro de saldo pendiente no representado" }
     total = total.plus(cobrado)
     preparadas.push({ hechos: a, cobrado: cobrado.toFixed() })
@@ -115,7 +118,7 @@ export function atribuirIngresosIdentificados2025(
   return { estado: "integrado", libro: {
     ejercicio: 2025, contribuyente, liquidacion, ingresos,
     totalIntegradoGeneral: racional(preparacion.totalGeneral.toFixed()),
-    reservas: ["Resoluciones, diagnóstico, justificantes de cobro y exhaustividad declarados; no se certifica su autenticidad ni aceptación fiscal", "Sólo Asturias ELA2025, Galicia BS215A2025 y Extremadura ELA convocatoria2025; excluidas prestaciones SAAD, estatales y convocatorias2026"],
+    reservas: ["Resoluciones, diagnóstico, justificantes de cobro y exhaustividad declarados; no se certifica su autenticidad ni aceptación fiscal", "Sólo Asturias ELA2025, Galicia BS215A2025 y Extremadura ELA convocatoria2025; también RD574/2023 Imserso con pago único íntegro2025 en Galicia; excluidas prestaciones SAAD, otras estatales y convocatorias2026"],
     aceptacionFiscal: "pendiente",
   } }
 }
