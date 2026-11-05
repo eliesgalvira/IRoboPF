@@ -54,8 +54,8 @@ export function prepararIngresosIdentificados2025(
   const decoded = Schema.decodeUnknownResult(CensoIngresosIdentificados2025)(entrada, { onExcessProperty: "error" })
   if (Result.isFailure(decoded)) return { estado: "no_soportado", motivo: "Censo P1 cerrado: programa/clasificación, cobros2025 y hechos primarios; no bases, compensaciones ni cuotas externas" }
   const censo = decoded.success
-  if (ambito.anio !== 2025 || ambito.comunidadAutonoma !== "asturias" || ambito.fallecimiento || censo.contribuyenteId !== ambito.contribuyenteId)
-    return { estado: "no_soportado", motivo: "Ingreso P1: Asturias2025 individual ordinario con identidad anual propia" }
+  if (ambito.anio !== 2025 || !["asturias", "galicia", "extremadura"].includes(ambito.comunidadAutonoma) || ambito.fallecimiento || censo.contribuyenteId !== ambito.contribuyenteId)
+    return { estado: "no_soportado", motivo: "Ingreso identificado: territorio soportado2025 individual ordinario con identidad anual propia" }
   const ayudas = new Set<string>(), resoluciones = new Set<string>(), cobros = new Set<string>(), justificantes = new Set<string>()
   const preparadas: { readonly hechos: Ayuda; readonly cobrado: string }[] = []
   let total = new DecimalIngreso2025("0")
@@ -65,8 +65,15 @@ export function prepararIngresosIdentificados2025(
     ayudas.add(a.ayudaId); resoluciones.add(a.resolucion.referencia)
     if (a.beneficiario !== censo.contribuyenteId || a.cobros.some(c => c.beneficiario !== a.beneficiario))
       return { estado: "no_soportado", motivo: "Beneficiario del ingreso/cobro distinto del contribuyente" }
-    if (!fecha(a.resolucion.fecha) || a.resolucion.fecha < "2025-06-27")
-      return { estado: "no_soportado", motivo: "Resolución fuera del programa Asturias ELA convocado en junio2025 o fecha civil inválida" }
+    const region = a.programa === "asturias-ela-2025" ? "asturias" : a.programa === "galicia-bs215a-2025" ? "galicia" : "extremadura"
+    if (region !== ambito.comunidadAutonoma)
+      return { estado: "no_soportado", motivo: "Programa regional distinto del territorio de residencia" }
+    const inicio = region === "asturias" ? "2025-06-27" : region === "galicia" ? "2025-07-15" : "2025-01-01"
+    if (region !== "asturias" && (censo.ayudas.length !== 1 ||
+      (region === "galicia" ? new DecimalIngreso2025(a.resolucion.importeConcedido).gt("12000") : !new DecimalIngreso2025(a.resolucion.importeConcedido).eq("2000"))))
+      return { estado: "no_soportado", motivo: "Extensión regional: un expediente2025; Galicia máximo12000, Extremadura cuantía fija2000" }
+    if (!fecha(a.resolucion.fecha) || a.resolucion.fecha < inicio)
+      return { estado: "no_soportado", motivo: "Resolución fuera de la convocatoria regional2025 o fecha civil inválida" }
     let cobrado = new DecimalIngreso2025("0")
     for (const c of a.cobros) {
       if (cobros.has(c.cobroId) || justificantes.has(c.justificante))
@@ -80,6 +87,8 @@ export function prepararIngresosIdentificados2025(
     }
     if (cobrado.gt(a.resolucion.importeConcedido))
       return { estado: "no_soportado", motivo: "Cobros superiores a la resolución; falta conciliación del expediente" }
+    if (region === "galicia" && !cobrado.eq(a.resolucion.importeConcedido))
+      return { estado: "no_soportado", motivo: "Galicia: el evaluador clasifica toda la concesión; cobro parcial requiere libro de saldo pendiente no representado" }
     total = total.plus(cobrado)
     preparadas.push({ hechos: a, cobrado: cobrado.toFixed() })
   }
@@ -106,7 +115,7 @@ export function atribuirIngresosIdentificados2025(
   return { estado: "integrado", libro: {
     ejercicio: 2025, contribuyente, liquidacion, ingresos,
     totalIntegradoGeneral: racional(preparacion.totalGeneral.toFixed()),
-    reservas: ["Resoluciones, diagnóstico, justificantes de cobro y exhaustividad declarados; no se certifica su autenticidad ni aceptación fiscal", "Sólo programa Asturias ELA2025; otras regiones/programas precisan su clasificación y regla propias"],
+    reservas: ["Resoluciones, diagnóstico, justificantes de cobro y exhaustividad declarados; no se certifica su autenticidad ni aceptación fiscal", "Sólo Asturias ELA2025, Galicia BS215A2025 y Extremadura ELA convocatoria2025; excluidas prestaciones SAAD, estatales y convocatorias2026"],
     aceptacionFiscal: "pendiente",
   } }
 }

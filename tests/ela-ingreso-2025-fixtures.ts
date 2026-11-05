@@ -3,7 +3,10 @@ import type { CasoFiscalAnual } from "../lib/dominio/irpf/caso-fiscal-anual"
 import type { CasoFiscalAnualExplicito } from "../lib/dominio/irpf/trabajo-anual/conexion-contrato"
 import type { SolicitudDeduccionesTerritoriales2025 } from "../lib/dominio/irpf/deducciones/anual-territorial"
 
-export function censoELA(euros = "20000"): CensoIngresosIdentificados2025 {
+type CensoAsturias = Omit<CensoIngresosIdentificados2025, "ayudas"> & {
+  readonly ayudas: readonly Extract<CensoIngresosIdentificados2025["ayudas"][number], { readonly programa: "asturias-ela-2025" }>[]
+}
+export function censoELA(euros = "20000"): CensoAsturias {
   return {
     ejercicio: 2025, contribuyenteId: "A", ambito: "ayudas-publicas-no-transmision", exhaustividad: "completa",
     ayudas: [{

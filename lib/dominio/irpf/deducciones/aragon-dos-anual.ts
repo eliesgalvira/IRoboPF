@@ -1,3 +1,4 @@
+import { producirEstatal681, type GeneracionEstatal681 } from "./inversion-681-2025"
 import { Schema } from "effect"
 import type { MagnitudesTerritorialesAnuales } from "./anual-territorial"
 import type { SolicitudDeduccionesTerritoriales2025 } from "./anual-territorial-esquemas"
@@ -6,12 +7,12 @@ import { exigir, ref } from "./aragon-dos-codigos-2025/comun"
 import { SolicitudAragonDosAnual2025 } from "./aragon-dos-anual-esquemas"
 import { RechazoAragonAnual } from "./aragon-dos-anual-error"
 
-/** Ni fórmulas, ni cuotas nuevas: concilia el contrato publicado con el caso y las elecciones de la anual. */
+/** Una sola validación común de la cartera y generación estatal interna; las cuotas se consumen en el libro anual. */
 export function evaluarAragonDosAnual2025(
  entrada: SolicitudAragonDosAnual2025,
  m: MagnitudesTerritorialesAnuales,
  solicitudes: SolicitudDeduccionesTerritoriales2025["solicitudes"]
-): Extract<ResultadoInversionAragonesa2025,{estado:"calculo_parcial"}> {
+): Extract<ResultadoInversionAragonesa2025,{estado:"calculo_parcial"}> & { readonly estatal681?: GeneracionEstatal681 } {
  const s=Schema.decodeUnknownSync(SolicitudAragonDosAnual2025)(entrada,{onExcessProperty:"error"})
  const c=m.caso
  exigir(c.anio===2025 && c.comunidadAutonoma==="aragon" && c.situacionFamiliar.tipo==="individual" && c.fechaFallecimiento===undefined,"Aragón anual:2025 individual ordinario sin fallecimiento")
@@ -39,16 +40,17 @@ export function evaluarAragonDosAnual2025(
   }
  }
  exigir(elecciones.length===0,"Aragón anual: inversión/censo68.1 compartido con elección MAB/economía social; resolver partición de la misma operación, no duplicar pago ni base")
- const r=evaluarInversionAragonesa2025({...contexto,codigo:s.codigo,...s.hechos,elecciones})
+ const hechosComunes={censoInversionesEstatales2025:s.hechos.censoInversionesEstatales2025,inversiones:s.hechos.inversiones,reinversion:s.hechos.reinversion}
+ const r=evaluarInversionAragonesa2025({...contexto,codigo:s.codigo,...hechosComunes,elecciones})
  exigir(r.estado==="calculo_parcial",r.estado==="no_soportado"?r.motivo:"Evaluación de inversión ausente")
- if(s.hechos.inversiones.some(i=>i.asignacion.estatalCentimos>0))
-  throw new RechazoAragonAnual({motivo:"La asignación estatal68.1 elegida es positiva y no hay productor anual que liquide esa deducción. No se devuelve una anual omitiéndola ni se convierte en cero.",dependencia:{
-   tipo:"ARAGON_68_1_ESTATAL_SIN_PRODUCTOR",codigo:s.codigo,baseEstatalElegidaEuros:r.baseEstatalAsignadaEuros,inversiones:s.hechos.inversiones.map(i=>i.id),
-  }})
  if(s.hechos.reinversion.tipo!=="sin-exencion38.2")
   throw new RechazoAragonAnual({motivo:"La exención38.2 elegida requiere productor de transmisión/ganancia/reinversión anual; el cero regional aislado no acredita su liquidación.",dependencia:{
    tipo:"ARAGON_38_2_SIN_PRODUCTOR",codigo:s.codigo,inversiones:s.hechos.inversiones.map(i=>i.id),
   }})
- // Asignación estatal expresamente cero: conserva íntegro el censo, exceso, elecciones y reservas del evaluador revisado.
- return r
+ const positiva=s.hechos.inversiones.some(i=>i.asignacion.estatalCentimos>0)
+ if(positiva && s.hechos.estatal681===undefined)
+  throw new RechazoAragonAnual({motivo:"Asignación estatal positiva: aportar hechos patrimoniales70 y titularidades para el productor68.1 acotado.",dependencia:{tipo:"ARAGON_68_1_ESTATAL_SIN_PRODUCTOR",codigo:s.codigo,baseEstatalElegidaEuros:r.baseEstatalAsignadaEuros,inversiones:s.hechos.inversiones.map(i=>i.id)}})
+ if(!positiva)return r // Conserva estatal0 y sus oráculos publicados.
+ const estatal681=producirEstatal681({...contexto,codigo:s.codigo,...s.hechos,elecciones},s.hechos.estatal681)
+ return {...r,estatal681}
 }

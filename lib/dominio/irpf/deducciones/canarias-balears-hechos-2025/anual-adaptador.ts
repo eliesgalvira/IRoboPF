@@ -1,4 +1,4 @@
-import { conciliarInmuebleP4a } from "../../inmobiliario-2025/consumidores"
+import { conciliarInmuebleP4a, evaluarPrimerAlquiler2025 } from "../../inmobiliario-2025/consumidores"
 import { Schema } from "effect"
 import type { MagnitudesTerritorialesAnuales } from "../anual-territorial"
 import { fecha, unico } from "./comun"
@@ -207,14 +207,10 @@ export function evaluarAnualC36(
       throw new RangeError(
         "C36 art14: falta productor de pagos históricos, inversiones anteriores deducidas y ganancia exenta reinvertida; no se presupone cero"
       )
-    if (s.codigo === "canarias_puesta_viviendas_mercado_arrendamiento")
-      throw new RangeError(
-        "C36 art16: falta productor de imputación2024 y libro completo de aplicaciones previas por inmueble"
-      )
-    if (s.codigo === "balears_arrendador_vivienda_permanente_otros_gastos")
-      throw new RangeError(
-        "C36 art4quater.2: falta productor de primera aplicación y rendimientos por catastro"
-      )
+    if (s.codigo === "canarias_puesta_viviendas_mercado_arrendamiento" || s.codigo === "balears_arrendador_vivienda_permanente_otros_gastos") {
+      s.hechos.viviendas.forEach(v => v.gastos.forEach(p => conciliarPagoC36(m, p)))
+      return evaluarPrimerAlquiler2025(s, m)
+    }
     if (s.codigo === "balears_arrendamiento_vivienda_habitual")
       throw new RangeError(
         "C36 art3bis: falta productor anual de derechos a deducciones de inversión en vivienda; ausencia de solicitud no prueba ausencia de derecho"

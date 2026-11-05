@@ -195,3 +195,8 @@ it("DA61 conserva magnitudes calculadas de80decimales y rechaza81",()=>{
  expect(Result.isSuccess(Schema.decodeUnknownResult(DeduccionTrabajo)(c))).toBe(true)
  expect(Result.isFailure(Schema.decodeUnknownResult(DeduccionTrabajo)({...c,cuotaTrasArt80:cuota+"1"}))).toBe(true)
 })
+
+it("ELA regional rechaza concedida/cobrada externas sin expediente integrado",()=>{
+ const entrada={lote:"D51",codigo:"extremadura_ayudas_subvenciones_ela",hechos:{concedida:"2000",cobrada:"2000",exhaustividad:"completa"}}
+ expect(Result.isFailure(Schema.decodeUnknownResult(SolicitudD51)(entrada,{onExcessProperty:"error"}))).toBe(true)
+})

@@ -901,3 +901,22 @@ La reserva de financiación de 32.2 se representa como rechazo del perfil financ
 Para Open 2018 se admite únicamente la política monetaria que explica los testigos conservados dentro de la cota técnica y gastos enteros documentados. La extensión de gastos1000 a otros enteros es una inferencia técnica declarada, no una observación oficial adicional. La API canónica y los demás ejercicios conservan sus operaciones. Se mantienen las reservas0023/0414 y las ausencias oficiales; ningún resultado nuevo sustituye los journals previos.
 
 Se integran las dos modificaciones disjuntas en el mismo corte para reproducir una sola vez todos los comandos del workflow sobre el conjunto final. Cada cambio monetario tiene su revisión independiente. No se atribuye la ejecución de pruebas a la acreditación documental de hechos externos.
+
+## Recuento corregido de 2018 y separación de recursos, 5 de noviembre
+
+Se conserva el resultado rojo del primer bloque y se vuelve a ejecutar el motor publicado sobre las mismas 60 entradas oficiales. La revisión independiente del nuevo recuento confirma 717 coincidencias condicionadas, cero diferencias, tres ausencias y 120 reservas. No se suman ambas ejecuciones, los pilotos ni los 28 testigos como nueva cobertura. [Resultado y límites](simuladores/historico/RECOMPARACION-2018-60.md).
+
+Tras las paradas de las guardias de memoria se separan las capturas del inventario y del corpus. Las guardias mantienen sus umbrales. La reanudación local completa los 31 comandos y el CI remoto de `218c23d6` termina correctamente; sólo entonces se retiran las entregas integradas, conservadas en un archivo verificado. Los siguientes productores de deducciones requieren su primera revisión monetaria antes de publicarse.
+
+
+## Corte de deducciones y preparación monetaria, 5 de noviembre
+
+Se integran P4b, ELA regional, DA58 y 68.1 sobre una composición anual común, conservando los límites de cada contrato. DA58 y 68.1 no se convierten en una combinación nueva: las guardias territoriales y de productores continúan rechazando las mezclas no modeladas. Sus importes aplicados se restan una sola vez en sus perfiles respectivos.
+
+El hallazgo de ELA mostró una pérdida de un céntimo al configurar Decimal global a seis cifras. La preparación monetaria pasa a un clon privado de 80 cifras, manteniendo el redondeo explícito sólo en las fronteras ya definidas. Es una corrección de aislamiento numérico, no una interpretación nueva de la norma de cotización. La primera revisión monetaria y la reproducción adversa se conservan; el P2 no requiere un segundo contraste conforme a la pauta de revisión de Elies.
+
+El certificado del artículo 68.1 debe acreditar el ejercicio de adquisición, sin exigir que se expida dentro de ese mismo año. Se retira la guardia que rechazaba 2026/2027 para adquisiciones2025; siguen vigentes los controles civiles y de identidad. Al tratarse de un rechazo de importe legítimo calificado como grave, su corrección recibe contraste independiente antes de publicación.
+
+La minoración del máximo de movilidad sostenible de Castilla y León utiliza la generación estatal del mismo vehículo; la cuota estatal insuficiente no crea un máximo regional adicional. Esta interpretación normativa está motivada en la revisión DA58 y conserva su reserva documental específica.
+
+Las 60 comparaciones corregidas de 2018 se publican como recuento revisado, sin sumar los testigos ni transformar capturas no cotejadas en coincidencias. El histórico2019–2022 está preparado para continuar después del CI exclusivo. F y la acreditación histórica completa de A permanecen aplazados por prioridad de producto.

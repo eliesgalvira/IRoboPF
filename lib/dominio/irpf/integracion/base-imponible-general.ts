@@ -1,4 +1,4 @@
-import Decimal from "decimal.js"
+import { DecimalMonetario as Decimal } from "../../dinero/decimal-monetario"
 
 import type { RendimientoNetoCapitalInmobiliario } from "../rendimientos/rendimientos-capital-inmobiliario"
 import type { RendimientoNetoTrabajo } from "../rendimientos/rendimientos-trabajo"
@@ -16,7 +16,7 @@ export const calcularBaseImponibleGeneral = ({
 }): Decimal =>
   Decimal.max(
     0,
-    rendimientoTrabajo.rendimientoNeto.minus(reduccionRendimientosTrabajo ?? 0)
+    new Decimal(rendimientoTrabajo.rendimientoNeto).minus(reduccionRendimientosTrabajo ?? 0)
   )
     .plus(rendimientoCapitalInmobiliario?.rendimientoNeto ?? 0)
     .plus(gananciaPatrimonialGeneral ?? 0)

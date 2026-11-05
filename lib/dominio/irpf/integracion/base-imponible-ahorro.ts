@@ -1,4 +1,4 @@
-import Decimal from "decimal.js"
+import { DecimalMonetario as Decimal } from "../../dinero/decimal-monetario"
 
 import type { GananciasPatrimonialesCalculadas } from "../rendimientos/ganancias-perdidas-patrimoniales"
 

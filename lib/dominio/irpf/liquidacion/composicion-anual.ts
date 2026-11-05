@@ -1,3 +1,4 @@
+import { producirVehiculoDA58 } from "../vehiculo-da58-2025/productor"
 import type { ResultadoInmuebleP4a } from "../inmobiliario-2025/productor"
 import { admiteOperandoOpen2018 } from "../trabajo-anual/politica-open-2018"
 import type { HechosMaternidad2025 } from "../maternidad-2025/contrato"
@@ -121,7 +122,7 @@ export const cuantizarAnual = (
 export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
   function* (entrada: EntradaComposicionAnual) {
     const ampliaF = entrada.deduccionesTerritoriales2025?.solicitudes.some((s) => s.lote === "F-ampliado") === true
-    const A = Decimal.clone({ precision: ampliaF || usaPrecisionD51(entrada.deduccionesTerritoriales2025) || entrada.deduccionesTerritoriales2025?.donativosEstatales2025 !== undefined ? 80 : entrada.precision })
+    const A = Decimal.clone({ precision: entrada.deduccionesTerritoriales2025?.solicitudes.some(s=>s.lote==="A-aragon-dos") === true || entrada.deduccionesTerritoriales2025?.vehiculoDA582025 !== undefined || ampliaF || usaPrecisionD51(entrada.deduccionesTerritoriales2025) || entrada.deduccionesTerritoriales2025?.donativosEstatales2025 !== undefined ? 80 : entrada.precision })
     const caso = entrada.ambito
     const baseLiquidableGeneral = A.max(0, entrada.baseGeneral)
     const baseLiquidableAhorro = new A(entrada.baseAhorro)
@@ -425,6 +426,16 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
     const cuotaAutonomicaDisponible = cuotaAutonomicaGeneralDespuesMinimo.plus(
       ahorroConMinimos.autonomico.despuesMinimo
     )
+    const hechosDA58 = entrada.deduccionesTerritoriales2025?.vehiculoDA582025
+    if (hechosDA58 !== undefined && (caso.anio !== 2025 || caso.fechaFallecimiento !== undefined || caso.contribuyenteId === undefined ||
+      !["madrid", "castilla-y-leon"].includes(caso.comunidadAutonoma) || entrada.maternidad2025 !== undefined || entrada.ingresosIdentificados2025 !== undefined || entrada.inmueblesP4a !== undefined ||
+      entrada.deduccionesTerritoriales2025?.donativosEstatales2025 !== undefined ||
+      entrada.deduccionesTerritoriales2025?.solicitudes.some(s=>s.lote!=="D51"||s.codigo!=="cyl_movilidad_sostenible") === true))
+      return yield* Effect.fail(errorDerechosMinimos({motivo:"DA58: primer perfil Madrid/CyL 2025 individual ordinaria, sólo movilidad CyL; otros productores/combinaciones pendientes"}))
+    const vehiculoDA58 = hechosDA58 === undefined ? undefined : yield* Effect.try({
+      try: () => producirVehiculoDA58(hechosDA58, caso.contribuyenteId!, cuotaEstatalDespuesMinimo.plus(ahorroConMinimos.estatal.despuesMinimo)),
+      catch: error => errorDerechosMinimos({motivo: String(error)}),
+    })
     let libroDonativos: LibroDonativosEstatales2025 | undefined
     const donativos = entrada.deduccionesTerritoriales2025?.donativosEstatales2025
     if (donativos !== undefined) {
@@ -700,6 +711,7 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
             caso,
             inmueblesP4a: entrada.inmueblesP4a,
             libroMaternidad81,
+            vehiculoDA58,
             basesImponiblesE38: entrada.basesImponiblesE38,
             libroIngresosIdentificados2025,
             baseGeneral: entrada.baseGeneral,
@@ -713,6 +725,7 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
               contribuyente: minimoContribuyente,
               descendientes: minimoDescendientes,
             },
+            cuotaEstatal681: cuotaEstatalDespuesMinimo.plus(ahorroConMinimos.estatal.despuesMinimo),
             cuotaAutonomica: cuotaAutonomicaDisponible,
             cuotaAutonomicaResidual,
             donativosEstatales: libroDonativos,
@@ -757,12 +770,16 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
                 )
               )
             : deduccionesAutonomicasDeclaradas
+    const deduccionEstatal681=deduccionesTerritoriales2025?.estatal681?.consumo.total
+    const aplicada681=deduccionEstatal681===undefined ? new A(0) : new A(deduccionEstatal681.numeradorEuros).div(deduccionEstatal681.divisor)
     const cuotaLiquida = A.max(
       0,
       cuotaGeneralDespuesMinimo
         .plus(cuotaAhorroDespuesMinimo)
         .minus(deduccionesAutonomicasAplicadas)
         .minus(deduccionesGeneralesDonativosAplicadas)
+        .minus(vehiculoDA58?.aplicada ?? 0)
+        .minus(aplicada681)
     )
     if (
       entrada.serviciosLaborales !== undefined &&

@@ -4,8 +4,30 @@ import { SolicitudDeduccionesTerritoriales2025 } from "../deducciones/anual-terr
 const Texto = Schema.String.check(Schema.isPattern(/\S/))
 const Fecha = Schema.String.check(Schema.isPattern(/^\d{4}-\d{2}-\d{2}$/))
 const Dinero = Schema.String.check(Schema.isPattern(/^\d{1,13}(?:\.\d{1,2})?$/))
+const PrimerAlquiler2025 = Schema.Struct({
+  tituloOneroso: Texto,
+  construccionTerminada: Fecha,
+  documentoConstruccion: Texto,
+  historiaInmueble: Schema.Array(Schema.Struct({ desde: Fecha, hasta: Fecha, propietario: Texto, documento: Texto, uso: Schema.Literals(["sin-alquiler", "alquiler"]) })),
+  historiaPersonal: Schema.Struct({ persona: Texto, nacimiento: Fecha, hasta: Fecha, documento: Texto,
+    cobertura: Schema.Literal("todos-los-inmuebles-y-medidas-desde-nacimiento"),
+    alquileresAnteriores: Schema.Array(Schema.Struct({ inmueble: Texto, desde: Fecha, hasta: Fecha, documento: Texto })),
+    aplicacionesAnteriores: Schema.Array(Schema.Struct({ inmueble: Texto, ejercicio: Schema.Number, codigo: Texto, documento: Texto })),
+  }),
+  censoDerechos: Schema.Struct({ documento: Texto, cobertura: Schema.Literal("mundial-completo-a-devengo"), inmuebles: Schema.Array(Texto) }),
+  vinculo: Schema.Struct({ documento: Texto, conyuge: Schema.Boolean, parejaEquiparada: Schema.Boolean, consanguinidad: Schema.Number, afinidad: Schema.Number }),
+  catastroImputacion: Schema.Struct({ municipio: Texto, notificacion: Fecha, documento: Texto,
+    procedimiento: Schema.Literals(["colectivo-general", "otro"]), entradaVigor: Fecha }),
+  fianza: Schema.Struct({ ente: Texto, resguardo: Texto, fecha: Fecha }),
+  superficieUtil: Dinero,
+  documentoSuperficie: Texto,
+  rentaMensual: Schema.Array(Schema.Struct({ concepto: Texto, importe: Dinero })),
+  programa: Schema.Literal("ordinario"),
+  observacion: Schema.Struct({ hasta: Schema.Literal("2025-12-31"), arrendatario: Texto, documento: Texto, incidencias: Schema.Literal("ninguna") }),
+})
 const Periodo = { desde: Fecha, hasta: Fecha }
 export const InmuebleP4a = Schema.Struct({
+  primerAlquiler2025: Schema.optional(PrimerAlquiler2025),
   id: Texto,
   catastro: Texto,
   ubicacion: Schema.Literals(["canarias", "illes-balears", "resto-espana"]),
@@ -16,7 +38,7 @@ export const InmuebleP4a = Schema.Struct({
   titulares: Schema.Array(Texto),
   adquisicion: Schema.Struct({ fecha: Fecha, escritura: Texto, precio: Dinero, gastosTributos: Dinero, sueloPrecio: Dinero, sueloGastosTributos: Dinero }),
   catastro2025: Schema.Struct({ documento: Texto, suelo: Dinero, construccion: Dinero }),
-  usosDesdeAdquisicion: Schema.Array(Schema.Struct({ ...Periodo, uso: Schema.Literals(["personal", "alquiler-vivienda"]) })),
+  usosDesdeAdquisicion: Schema.Array(Schema.Struct({ ...Periodo, uso: Schema.Literals(["personal", "a-disposicion", "alquiler-vivienda"]) })),
   contrato: Schema.Struct({
     id: Texto, documento: Texto, firma: Fecha, ...Periodo,
     arrendador: Texto, arrendatario: Texto,
@@ -32,6 +54,7 @@ export const InmuebleP4a = Schema.Struct({
   gastos: Schema.Array(Schema.Struct({
     id: Texto, factura: Texto, lineaFactura: Texto, totalFactura: Dinero,
     fechaOperacion: Fecha, fechaFactura: Fecha, fechaPago: Fecha, importe: Dinero,
+    periodoDevengo: Schema.optional(Schema.Struct(Periodo)),
     puestaEnServicio: Schema.optional(Fecha),
     prestadorNif: Texto,
     clase: Schema.Literals(["intereses", "reparacion", "tributo", "comunidad", "seguro", "servicios", "defensa", "suministro", "mejora", "principal-prestamo", "sancion"]),

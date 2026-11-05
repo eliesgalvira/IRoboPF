@@ -1,4 +1,5 @@
 import type { SolicitudDeduccionesTerritoriales2025 as SolicitudComun } from "./anual-territorial-esquemas"
+import { ingresoRegionalELA2025 } from "../ingresos-identificados-2025/regiones"
 // Archivo aditivo D; los productores reciben exclusivamente resultados internos de la composición.
 import Decimal from "decimal.js"
 import { Schema, Result } from "effect"
@@ -26,6 +27,12 @@ export function crearSesionD51(m:MagnitudesTerritorialesAnuales) {
  function magnitud(campo:string,codigo:string,datos:Schema.JsonObject) {
   let concepto:string,valor:Decimal
   switch(campo){
+   case "deduccionEstatal": {
+    const libro=m.vehiculoDA58
+    exigir(libro!==undefined,"D51: DA58 requiere hechos de adquisición y libro interno; anticipos/historia no producidos no equivalen a cero")
+    exigir(texto(datos.id)===libro.vehiculoId&&libro.contribuyente===propio,"D51: DA58 de otro vehículo/persona")
+    concepto="deduccion_estatal_mismo_vehiculo_para_declaracion:"+libro.vehiculoId;valor=new A(libro.generada);break
+   }
    case "baseLiquidable":concepto="base_liquidable_total";valor=liquidable();break
    case "baseMenosMinimo":concepto="base_imponible_menos_minimo_personal_familiar";valor=new A(m.baseGeneral).plus(m.baseAhorro).minus(m.minimoPersonalFamiliar);break
    case "minimoDescendientes":concepto="minimo_descendientes";exigir(m.componentesMinimoEstatal!==undefined,"D51: productor interno componentesMinimoEstatal no disponible");valor=new A(m.componentesMinimoEstatal.descendientes);break
@@ -92,6 +99,15 @@ export function crearSesionD51(m:MagnitudesTerritorialesAnuales) {
   }
   validarPagos(s.hechos)
   recorrer(s.hechos)
+  if(s.codigo==="cyl_movilidad_sostenible"){
+   const libro=m.vehiculoDA58
+   exigir(libro!==undefined,"D51: deduccionEstatal requiere productor DA58 por hechos; no suponer cero")
+   const v=libro.hechos.vehiculo
+   exigir(s.hechos.vehiculos.length===1,"D51: primer perfil movilidad un único vehículo")
+   const r=s.hechos.vehiculos[0]
+   exigir(r!==undefined&&r.id===v.id&&r.tipo==="electrico"&&euros(r.wltp).eq(v.autonomiaWLTP)&&euros(r.precio).eq(libro.valor)&&r.fechaMatricula===v.primeraMatriculacion&&r.afectacion==="no"&&conjunto(r.adquirentes,[propio]),"D51: vehículo/precio/clasificación/titular no conciliados con DA58")
+   exigir(r.pagos.length===v.pagos.length&&r.pagos.every(p=>v.pagos.some(q=>q.id===p.id&&q.fecha===p.fecha&&q.pagador===p.pagador&&euros(q.importe).eq(p.importe))),"D51: pagos regionales no coinciden con libro DA58")
+  }
   if("personaTrasladada" in s.hechos)exigir(s.hechos.personaTrasladada===propio,"D51: persona trasladada no representada en anual individual")
   if(s.codigo==="extremadura_rehabilitacion_viviendas_zonas_rurales_alquiler")exigir(euros(s.hechos.ayudaReconocida).eq(0),"D51 H2: ayuda reconocida positiva sin cronología/atribución fiscal; no calcular cero")
   if(s.codigo==="extremadura_vivienda_zonas_rurales")exigir(euros(s.hechos.ayudasJunta).eq(0),"D51 H3: ayudas Junta sin cronología/atribución fiscal; no calcular cero")
@@ -178,7 +194,13 @@ case "extremadura_residencia_municipios_menos_3000":return EXT.residenciaRuralEx
 case "extremadura_intereses_vivienda_jovenes":return EXT.interesesJovenExt(marco,({...s.hechos}))
 case "extremadura_donaciones_entidades_culturales_deportistas":return EXT.donativosExt(marco,({...s.hechos, donaciones: s.hechos.donaciones.map(elemento=>({...elemento}))}))
 case "extremadura_traslado_residencia_habitual":return EXT.trasladoExt(marco,({...s.hechos, basesIndividuales: s.hechos.basesIndividuales.map(elemento=>({...elemento, base: magnitud("base","extremadura_traslado_residencia_habitual",elemento)})), cuotaAutonomica: magnitud("cuotaAutonomica","extremadura_traslado_residencia_habitual",s.hechos)}))
-case "extremadura_ayudas_subvenciones_ela":return EXT.subvencionesElaExt(marco,({...s.hechos, integradaBaseGeneral: magnitud("integradaBaseGeneral","extremadura_ayudas_subvenciones_ela",s.hechos), integradaBaseLiquidable: magnitud("integradaBaseLiquidable","extremadura_ayudas_subvenciones_ela",s.hechos), tipoMedioEstatal: magnitud("tipoMedioEstatal","extremadura_ayudas_subvenciones_ela",s.hechos), tipoMedioAutonomico: magnitud("tipoMedioAutonomico","extremadura_ayudas_subvenciones_ela",s.hechos), cuotaAutonomica: magnitud("cuotaAutonomica","extremadura_ayudas_subvenciones_ela",s.hechos)}))
+case "extremadura_ayudas_subvenciones_ela": {
+ const {ingreso:x,tipos}=ingresoRegionalELA2025(m,s.hechos.ingresoId,s.hechos.diagnostico,"extremadura-ela-2025")
+ const anual=(concepto:string,valor:string)=>({ejercicio:2025,declarantes:[propio],concepto,valor})
+ return EXT.subvencionesElaExt(marco,{concedida:x.resolucion.importeConcedido,cobrada:x.integradoBaseGeneral,exhaustividad:s.hechos.exhaustividad,
+ integradaBaseGeneral:anual("ayuda_ela_integrada_base_general",x.integradoBaseGeneral),integradaBaseLiquidable:anual("ayuda_ela_integrada_base_liquidable",x.integradoBaseLiquidable),
+ tipoMedioEstatal:anual("tipo_medio_estatal",tipos.estatal),tipoMedioAutonomico:anual("tipo_medio_autonomico",tipos.autonomico),cuotaAutonomica:magnitud("cuotaAutonomica",s.codigo,s.hechos)})
+}
 case "extremadura_cuidado_familiares_discapacidad":return EXT.cuidadoDiscapacidadExt(marco,({...s.hechos, regimen: ({...s.hechos.regimen}), personas: s.hechos.personas.map(elemento=>({...elemento, rentasIncluidasExentas: faltaFiscal("rentasIncluidasExentas",elemento), obligacionPatrimonio: faltaFiscal("obligacionPatrimonio",elemento)}))}))
 case "extremadura_arrendamiento_vivienda_habitual":return EXT.alquilerExt(marco,({...s.hechos, regimen: ({...s.hechos.regimen}), contratos: s.hechos.contratos.map(elemento=>({...elemento}))}))
   }

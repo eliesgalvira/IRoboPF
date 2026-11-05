@@ -1,5 +1,7 @@
 import Decimal from "decimal.js"
 import { producirPatrimonioP5a } from "../../patrimonio-p5a/productor"
+import { ingresoRegionalELA2025 } from "../../ingresos-identificados-2025/regiones"
+import { ayudas } from "./ayudas-libros"
 import type { MagnitudesTerritorialesAnuales } from "../anual-territorial"
 import { racional, type Racional } from "../anual-territorial-racional"
 import { evaluarAmpliacionE2025 } from "./index"
@@ -21,7 +23,6 @@ const faltantes:Readonly<Partial<Record<SolicitudE38Anual2025["hechos"]["codigo"
  rioja_adecuacion_vivienda_discapacidad:"patrimonio ajustado y reserva de base conjunta rehabilitación/adecuación9040",
  galicia_ayudas_incendios_peifoga_2025:"clasificación e imputación identificada de ayuda a base liquidable;tipos medios estatal/autonómico vinculados a esa imputación",
  galicia_ayudas_deportistas_alto_nivel:"imputación de ayuda deportiva y tipos medios;el ingreso no está identificado en las rentas de APIv4",
- galicia_ayudas_ela_fenotipos:"imputación individual de ayudaELA a base liquidable y tipos medios del ejercicio",
  galicia_ayudas_talidomida:"imputación individual de ayuda por talidomida y tipos medios del ejercicio",
  galicia_libros_texto_material_escolar:"renta2024 por miembro derivada de declaraciones previas;el motor APIv4 solo representa2025",
 }
@@ -74,6 +75,12 @@ function evaluarE38ConProductores(s:SolicitudE38Anual2025,m:MagnitudesTerritoria
    emitir("baseConsumidaViviendaMunicipios",cero,"anual.reservaP5a.unicaSolicitudDeclaracion")
    const r=viviendaRioja(c,{...h,otrasModalidadesElegidas:[],viviendas:[{...v,...p.historia,pagos:p.pagos}]},p.financiacionAdquisicion)
    return r.estado!=="calculo_parcial"?r:{...r,rastro:[...p.rastro,...r.rastro]}
+  }
+  case "galicia_ayudas_ela_fenotipos": {
+   const {ingreso:x,tipos}=ingresoRegionalELA2025(m,h.ingresoId,h.diagnostico,"galicia-bs215a-2025")
+   exige(new D(x.integradoBaseGeneral).eq(x.resolucion.importeConcedido),"Galicia: saldo pendiente de cobro no representado")
+   const doc={referencia:x.resolucion.referencia,emisor:x.resolucion.organismo,fecha:x.resolucion.fecha}
+   return ayudas(c,{codigo:h.codigo,ayudas:[{id:x.ayudaId,beneficiario:x.beneficiario,pagador:"administracion_gallega",resolucion:doc,fechaCobro:x.cobros[x.cobros.length-1]!.fecha,ejercicioImputacion:2025,concedido:x.resolucion.importeConcedido,concepto:"ELA_fenotipo",partes:[{id:x.ayudaId+":integrada",clasificacion:"integrada",importe:x.integradoBaseGeneral,declaracionIntegracion:doc,nodoImputacionAnual:x.nodoFiscalOrigen,baseLiquidableAtribuida:x.integradoBaseLiquidable}],deportistaAltoNivel:null,actividadDeportiva:"sin_rendimiento_economico",diagnostico:h.diagnostico}],tiposMedios:(["estatal","autonomico"] as const).map(ambito=>{const t=racional(tipos[ambito]);return {ambito,ejercicio:2025,declarantes:[id],numeradorPorcentaje:t.numeradorEuros,denominador:t.divisor,nodoDerivacion:x.nodoFiscalOrigen+":tipo:"+ambito}})})
   }
   case "galicia_nacimiento_adopcion_hijos":case "rioja_nacimiento_adopcion_hijos":{
    const censos=s.censoHijosPorProgenitor

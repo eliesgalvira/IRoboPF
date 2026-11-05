@@ -1,3 +1,5 @@
+import type { GeneracionEstatal681 } from "./inversion-681-2025"
+import type { LibroVehiculoDA58 } from "../vehiculo-da58-2025/productor"
 import type { LibroMaternidad81 } from "../maternidad-2025/producir"
 import { evaluarCuidadoCyl81, operaciones81 } from "../maternidad-2025/cyl"
 import type { ResultadoInmuebleP4a } from "../inmobiliario-2025/productor"
@@ -40,6 +42,8 @@ import {
 export { SolicitudDeduccionesTerritoriales2025 }
 import type { LibroDonativosEstatales2025 } from "./donativos-estatales-2025/productor"
 export interface MagnitudesTerritorialesAnuales {
+  readonly cuotaEstatal681?: Decimal | undefined
+  readonly vehiculoDA58?: LibroVehiculoDA58 | undefined
   readonly inmueblesP4a?: readonly ResultadoInmuebleP4a[] | undefined
   readonly libroIngresosIdentificados2025?: LibroIngresosIdentificados2025 | undefined
   readonly donativosEstatales?: LibroDonativosEstatales2025 | undefined
@@ -330,6 +334,10 @@ export function aplicarDeduccionesTerritoriales2025(
       exigir(admitidos.has(codigo), "Interacción regional con donativos estatales no acotada:" + codigo)
     }
   }
+  if (decoded.success.vehiculoDA582025 !== undefined) {
+    exigir(m.vehiculoDA58 !== undefined, "DA58: faltan productor y cuota estatal internos; no omitir ni suponer cero")
+    exigir(m.vehiculoDA58.contribuyente === decoded.success.vehiculoDA582025.contribuyente && m.vehiculoDA58.vehiculoId === decoded.success.vehiculoDA582025.vehiculo.id, "DA58: libro de otra identidad/vehículo")
+  }
   const c = m.caso
   exigir(
     c.anio === 2025 &&
@@ -361,6 +369,7 @@ export function aplicarDeduccionesTerritoriales2025(
     ...bases,
     minimoPersonalFamiliar: m.minimoPersonalFamiliar.toFixed(),
   }
+  const generacionesEstatales681: GeneracionEstatal681[] = []
   const evaluacionesF: ResultadoF[] = []
   const evaluaciones: {
     resultado: Parameters<typeof normalizarExacto>[0]
@@ -681,8 +690,14 @@ export function aplicarDeduccionesTerritoriales2025(
         if(resultado.estado === "calculo_parcial") restriccionesC36[restriccionesC36.length-1] = resultado.limitesComposicion
         return normalizar(resultado)
       }
-      case "A-aragon-dos":
-        return normalizar(evaluarAragonDosAnual2025(s, m, decoded.success.solicitudes))
+      case "A-aragon-dos": {
+        const r=evaluarAragonDosAnual2025(s,m,decoded.success.solicitudes)
+        if(r.estatal681!==undefined){
+          exigir(generacionesEstatales681.length===0,"Productor68.1 duplicado")
+          generacionesEstatales681.push(r.estatal681)
+        }
+        return normalizar(r)
+      }
       case "B-ampliado": {
         exigir(preparadoB?.estado === "generaciones_preparadas", "Preparación B37 ausente")
         const generacion = preparadoB.generaciones.find(g => g.codigo === codigo)
@@ -914,7 +929,14 @@ export function aplicarDeduccionesTerritoriales2025(
     })
     ampliacion.saldosE38=saldosE38Anuales(codigos,evaluacionesE38,aplicacionesE38)
   }
+  const generacionEstatal681=generacionesEstatales681[0]
+  const estatal681 = generacionEstatal681 === undefined ? undefined : (() => {
+    exigir(m.cuotaEstatal681!==undefined,"68.1: falta cuota estatal producida por la anual")
+    exigir(m.donativosEstatales===undefined,"68.1: combinación con donativos no representada")
+    return {generacion:generacionEstatal681,consumo:consumirCuota(racional(m.cuotaEstatal681.toFixed()),[racional(generacionEstatal681.importeExactoEuros)])}
+  })()
   const salidaBase = {
+    estatal681,
     ...consumo,
     ...ampliacion,
     codigos,
@@ -927,8 +949,9 @@ export function aplicarDeduccionesTerritoriales2025(
       "No compone saldos históricos territoriales ni bases de otras personas no representadas por el caso anual; F ampliado conserva origen2025, saldo generado, plazo2026–2028 y seguimiento de recarga",
     ],
   }
-  const salida: typeof salidaBase & { limitesC36?: typeof limitesC36 } = salidaBase
+  const salida: typeof salidaBase & { limitesC36?: typeof limitesC36; vehiculoDA582025?: LibroVehiculoDA58 } = salidaBase
   if (planC36.length > 0 && limitesC36 !== undefined) salida.limitesC36 = limitesC36
+  if (m.vehiculoDA58 !== undefined) salida.vehiculoDA582025 = m.vehiculoDA58
   if (m.donativosEstatales === undefined) return salida
   return { ...salida, donativosEstatales2025: m.donativosEstatales }
 }
