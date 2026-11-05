@@ -1,3 +1,4 @@
+import type { CasoFiscalAnualExplicito } from "../lib/dominio/irpf/trabajo-anual/conexion-contrato"
 // Las pruebas son entradas Effect y proporcionan explícitamente el layer real.
 // @effect-diagnostics effect/strictEffectProvide:off
 import { Effect, Result } from "effect"
@@ -434,8 +435,8 @@ it("adaptador salarial real propaga rechazo temporal con perfil explícito", () 
 })
 it("ruta explícita rechazada no devuelve estos sitios", () => {
   const r = Effect.runSync(
-    // @ts-expect-error entrada JS deliberadamente incompleta para comprobar el decode de la API.
-    Effect.result(liquidarIrpfAnualExplicito({ ejercicio: 2025 }))
+    // SAFETY: entrada salarial JS deliberadamente incompleta para comprobar el decode real de la API.
+    Effect.result(liquidarIrpfAnualExplicito({ ejercicio: 2025 } as CasoFiscalAnualExplicito))
   )
   expect(Result.isFailure(r)).toBe(true)
   if (Result.isFailure(r)) expect(lineIds(r.failure.rastro)).toEqual([])

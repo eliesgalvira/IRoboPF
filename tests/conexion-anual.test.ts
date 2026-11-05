@@ -1,3 +1,4 @@
+import type { CasoFiscalAnualExplicito } from "../lib/dominio/irpf/trabajo-anual/conexion-contrato"
 import { expect, it } from "vitest"
 import { Effect } from "effect"
 import { liquidarIrpfAnualExplicito } from "../lib/dominio/irpf/liquidacion/liquidar-irpf-anual"
@@ -407,9 +408,11 @@ it("pérdida EDS llega con signo a BIG y BLG", () => {
 
 /** Simula consumidores JavaScript para probar la frontera runtime, incluso entradas inválidas. */
 interface CasoAnualJavaScript { readonly ejercicio: number }
+const liquidarEntradaSalarial = (entrada: CasoFiscalAnualExplicito) =>
+  liquidarIrpfAnualExplicito(entrada)
 function liquidarEntradaJavaScript<Entrada extends CasoAnualJavaScript>(entrada: Entrada) {
-  // @ts-expect-error El ensayo omite deliberadamente la garantía estática del contrato.
-  return liquidarIrpfAnualExplicito(entrada)
+  // @ts-expect-error El ensayo salarial omite deliberadamente la garantía estática para probar el decode real.
+  return liquidarEntradaSalarial(entrada)
 }
 
 it.each([

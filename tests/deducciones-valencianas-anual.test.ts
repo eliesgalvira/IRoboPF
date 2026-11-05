@@ -1,3 +1,5 @@
+import type { CasoFiscalAnual } from "../lib/dominio/irpf/caso-fiscal-anual"
+import type { CasoFiscalAnualExplicito } from "../lib/dominio/irpf/trabajo-anual/conexion-contrato"
 import { expect, it } from "vitest"
 import Decimal from "decimal.js"
 import { Effect, Result } from "effect"
@@ -126,11 +128,11 @@ it("el núcleo compartido conserva 80 cifras y el contrato aislado exige céntim
 it("R1: conserva la cuota decimal y el importe previo por la API pública", () => {
   // SAFETY: Casos sintéticos independientes conservados; la API pública valida sus datos.
   const hechos = Effect.runSync(
-    liquidarIrpfAnual(hechosRevision as never, { modo: "canonico" })
+    liquidarIrpfAnual(hechosRevision as CasoFiscalAnual, { modo: "canonico" })
   )
   // SAFETY: La preimagen del revisor contiene el agregado externo del mismo caso.
   const agregado = Effect.runSync(
-    liquidarIrpfAnual(agregadoRevision as never, { modo: "canonico" })
+    liquidarIrpfAnual(agregadoRevision as CasoFiscalAnual, { modo: "canonico" })
   )
   expect(agregado.cuotaLiquidaCentimos).toBe(10242)
   expect(hechos.cuotaLiquidaCentimos).toBe(agregado.cuotaLiquidaCentimos)
@@ -150,7 +152,7 @@ it.each(["edad", "grado", "ambiguedad"])(
       )
     // SAFETY: Contradicciones deliberadas sobre la identidad del caso sintético independiente.
     const r = Effect.runSync(
-      Effect.result(liquidarIrpfAnual(a as never, { modo: "canonico" }))
+      Effect.result(liquidarIrpfAnual(a as CasoFiscalAnual, { modo: "canonico" }))
     )
     expect(Result.isFailure(r)).toBe(true)
   }
@@ -159,7 +161,7 @@ it("admite el gasto con edad y grado coherentes aunque su id no sea el del sujet
   const a = structuredClone(deporteRevision)
   a.deduccionesValencianas2025.solicitudes[0].unidades[0].numeros.edad = 30
   // SAFETY: Entrada sintética por la API pública, con id de unidad distinto del sujeto.
-  const r = Effect.runSync(liquidarIrpfAnual(a as never, { modo: "canonico" }))
+  const r = Effect.runSync(liquidarIrpfAnual(a as CasoFiscalAnual, { modo: "canonico" }))
   expect(r.deduccionesValencianas2025?.totalAplicado).toBe("30")
 })
 it.each(["perdida", "pendiente", "caducado"])(
@@ -420,7 +422,7 @@ it("la entrada efectiva usa hechos y cuota común con retenciones únicas", () =
     deduccionesValencianas2025: s,
   }
   // SAFETY: Entrada JavaScript deliberada; la API valida en ejecución y la prueba comprueba aceptación o rechazo.
-  const r = Effect.runSync(liquidarIrpfAnualExplicito(a as never))
+  const r = Effect.runSync(liquidarIrpfAnualExplicito(a as CasoFiscalAnualExplicito))
   expect(r.deduccionesValencianas2025?.totalAplicado).toBe("500")
   expect(
     new Decimal(r.cuotaLiquidaLegal)
@@ -438,7 +440,7 @@ it("la entrada efectiva usa hechos y cuota común con retenciones únicas", () =
     Result.isFailure(
       Effect.runSync(
         // SAFETY: Entrada JavaScript deliberada; la API valida en ejecución y la prueba comprueba aceptación o rechazo.
-        Effect.result(liquidarIrpfAnualExplicito(incorrecta as never))
+        Effect.result(liquidarIrpfAnualExplicito(incorrecta as CasoFiscalAnualExplicito))
       )
     )
   ).toBe(true)
@@ -462,7 +464,7 @@ it("la entrada técnica conserva pagos, salida sin hechos y rechaza agregado inc
   }
   const sin = Effect.runSync(
     // SAFETY: Entrada JavaScript deliberada; la API valida en ejecución y la prueba comprueba aceptación o rechazo.
-    liquidarIrpfAnual(a as never, { modo: "canonico" })
+    liquidarIrpfAnual(a as CasoFiscalAnual, { modo: "canonico" })
   )
   expect(sin.deduccionesValencianas2025).toBeUndefined()
   const s = solicitud()
@@ -471,7 +473,7 @@ it("la entrada técnica conserva pagos, salida sin hechos y rechaza agregado inc
   const b = { ...a, contribuyenteId: "A", deduccionesValencianas2025: s }
   const con = Effect.runSync(
     // SAFETY: Entrada JavaScript deliberada; la API valida en ejecución y la prueba comprueba aceptación o rechazo.
-    liquidarIrpfAnual(b as never, { modo: "canonico" })
+    liquidarIrpfAnual(b as CasoFiscalAnual, { modo: "canonico" })
   )
   expect(con.deduccionesAutonomicasCentimos).toBeGreaterThan(0)
   expect(sin.cuotaDiferencialCentimos - con.cuotaDiferencialCentimos).toBe(
@@ -483,7 +485,7 @@ it("la entrada técnica conserva pagos, salida sin hechos y rechaza agregado inc
         Effect.result(
           liquidarIrpfAnual(
             // SAFETY: Entrada JavaScript deliberada; la API valida en ejecución y la prueba comprueba aceptación o rechazo.
-            { ...b, deduccionAutonomicaAgregadaCentimos: 0 } as never,
+            { ...b, deduccionAutonomicaAgregadaCentimos: 0 } as CasoFiscalAnual,
             { modo: "canonico" }
           )
         )
@@ -570,14 +572,14 @@ it("la entrada efectiva exige declarar sus arrastres sin habilitar saldos de bas
   }
   // SAFETY: Entrada JavaScript deliberada; el esquema público comprueba todo el expediente.
   expect(
-    Effect.runSync(liquidarIrpfAnualExplicito(a as never))
+    Effect.runSync(liquidarIrpfAnualExplicito(a as CasoFiscalAnualExplicito))
       .deduccionesValencianas2025?.totalAplicado
   ).toBe("5")
   Object.assign(a, { saldosAnteriores: "ninguno" })
   // SAFETY: Contradicción deliberada para comprobar el rechazo recuperable de la API pública.
   expect(
     Result.isFailure(
-      Effect.runSync(Effect.result(liquidarIrpfAnualExplicito(a as never)))
+      Effect.runSync(Effect.result(liquidarIrpfAnualExplicito(a as CasoFiscalAnualExplicito)))
     )
   ).toBe(true)
 })

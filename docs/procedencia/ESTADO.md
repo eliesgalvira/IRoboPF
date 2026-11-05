@@ -1,5 +1,13 @@
 # Estado de la auditoría documental
 
+## Auxiliares de Madrid y Murcia publicados, 5 de noviembre
+
+Publicado `ff92d0da162e7732102d754304502c398cfaa018`, con los 31 pasos locales y los trabajos remotos `checks` y `corpus` correctos: [ejecución 42000794755](https://github.com/eliesgalvira/IRoboPF/actions/runs/42000794755). Conecta nacimiento/adopción de Madrid y guardería de Murcia en las dos API, dentro de sus perfiles acotados. La primera revisión detectó la confusión entre padre y abuelo; la corrección recibió contraste favorable y conserva sus reproducciones originales. [Integración, fuentes y límites](deducciones-2025/f-auxiliares-exactos-20261105/INTEGRACION.md).
+
+Se retiraron cuatro recepciones integradas, conservando sus 241 archivos en archivos compactos verificados de 0,38 MB. Sin worktrees asociados. Medición posterior: 98,18 GB en las cuatro raíces de IRoboPF, incluyendo conservadoramente todas las worktrees de T3; 314,99 GB libres.
+
+Alquileres identificados de Canarias y Baleares tiene validación de autor: 895 pruebas y dos omisiones previas, tipos y linters correctos. Su primera revisión detectó una elusión de conciliación (1.164,51 EUR aplicados frente a los 500 EUR del caso conciliado), dos rechazos indebidos por fechas y partidas de factura, y la ubicación territorial ausente. Las correcciones pasan 925 pruebas del integrador, tipos y linters; el contraste de los defectos graves es favorable acotado (22 adaptadas, 50 adversas propias y 132 regresiones). La integración conserva ubicación independiente, fechas separadas y conciliación por línea de factura. Los 31 pasos completos del CI local de P4a pasan en entorno limpio, incluido el inventario regenerado; la comprobación remota corresponde al push posterior. Patrimonio para vivienda riojana tiene arnés preparado y fuentes históricas corregidas, aún sin validación pesada. La corrección de etapas de 2018 conserva 28 identidades oficiales, pasa 72 focales y 473 regresiones de autor y está en primera revisión independiente; no amplía las coincidencias de la campaña. El punto 4 sigue abierto.
+
 ## Corte publicado y discrepancias de 2018, 5 de noviembre
 
 Los productores ELA, donativos y maternidad del apartado siguiente están publicados en `47dec72e5d3be146d0994c5aee88e2f2188a6e73`. Los 31 pasos locales del workflow y los dos trabajos remotos pasan: [ejecución 41990755521](https://github.com/eliesgalvira/IRoboPF/actions/runs/41990755521). Se han retirado siete recepciones ya integradas, conservando sus 697 archivos en archivos compactos verificados. Las cuatro raíces de IRoboPF ocupaban 99,22 GB tras esa retirada; quedaban 312,50 GB libres.

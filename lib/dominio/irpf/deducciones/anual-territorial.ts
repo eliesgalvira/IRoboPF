@@ -1,5 +1,6 @@
 import type { LibroMaternidad81 } from "../maternidad-2025/producir"
 import { evaluarCuidadoCyl81, operaciones81 } from "../maternidad-2025/cyl"
+import type { ResultadoInmuebleP4a } from "../inmobiliario-2025/productor"
 import { evaluarE38Anual, racionalE38, saldosE38Anuales } from "./galicia-rioja-ampliacion-2025/anual"
 import type { Resultado as ResultadoE38 } from "./galicia-rioja-ampliacion-2025/comun"
 import { validarConcurrenciaE38 } from "./galicia-rioja-ampliacion-2025/anual-incompatibilidades"
@@ -39,6 +40,7 @@ import {
 export { SolicitudDeduccionesTerritoriales2025 }
 import type { LibroDonativosEstatales2025 } from "./donativos-estatales-2025/productor"
 export interface MagnitudesTerritorialesAnuales {
+  readonly inmueblesP4a?: readonly ResultadoInmuebleP4a[] | undefined
   readonly libroIngresosIdentificados2025?: LibroIngresosIdentificados2025 | undefined
   readonly donativosEstatales?: LibroDonativosEstatales2025 | undefined
   readonly cuotaAutonomicaResidual?: Decimal | undefined
@@ -652,7 +654,7 @@ export function aplicarDeduccionesTerritoriales2025(
       }
       Object.values(v).forEach(pagos)
     }
-    if(s.lote === "C36") registrarMonetariosC36(s,hechos)
+    if(s.lote === "C36") registrarMonetariosC36(s,hechos,m)
     else pagos(hechosConciliables)
     locales.forEach((id) => hechos.add(id))
     switch (s.lote) {

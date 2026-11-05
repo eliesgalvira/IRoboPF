@@ -1,0 +1,317 @@
+--- /dev/null
++++ b/contraste.test.ts
+@@ -0,0 +1,29 @@
++import {it,expect} from '@effect/vitest'
++import {Effect} from 'effect'
++import {liquidarIrpfAnual,liquidarIrpfAnualExplicito} from '../lib/dominio/irpf/liquidacion/liquidar-irpf-anual'
++import {casoP4a,solicitudP4a} from './inmobiliario-p4a.fixtures'
++const apis=[(c:any)=>liquidarIrpfAnual(c,{modo:'canonico'}),(c:any)=>liquidarIrpfAnualExplicito(c)]
++function regional(b=true):any{const c=structuredClone(casoP4a());c.comunidadAutonoma=b?'illes-balears':'canarias';const v=c.inmuebles[0];v.ubicacion=c.comunidadAutonoma;v.exigibilidades[0].importe='36000';if(b){v.gastos[0].clase='mejora';v.gastos[0].puestaEnServicio='2025-06-01'}c.deduccionesTerritoriales2025={solicitudes:[solicitudP4a(b)]};return c}
++const deduction=(r:any)=>{const t=r.composicion.deduccionesTerritoriales2025.total;return Number(t.numeradorEuros)/Number(t.divisor)}
++function second(c:any){const v=structuredClone(c.inmuebles[0]);v.id='V2';v.catastro='RC2';v.contrato.id='C2';v.contrato.documento='CONTRATO2';v.exigibilidades[0].id='R2';v.exigibilidades[0].documento='EX2';v.gastos[0].id='P2';c.inmuebles.push(v);return v}
++for(const [i,api]of apis.entries()){
++ for(const [name,change,want]of [
++ ['habitual real',(c:any)=>c.deduccionesTerritoriales2025.solicitudes[0].hechos.viviendas[0].uso='habitual_propia','historia regional'],
++ ['ubicacion canaria',(c:any)=>c.inmuebles[0].ubicacion='canarias','situado en Illes Balears'],
++ ['ubicacion peninsular',(c:any)=>c.inmuebles[0].ubicacion='resto-espana','situado en Illes Balears'],
++ ['pago no factura',(c:any)=>c.inmuebles[0].gastos[0].fechaPago='2025-07-01','pago regional no conciliado'],
++ ['importe regional documento',(c:any)=>{c.inmuebles[0].gastos[0].importe='600'},'pago regional no conciliado'],
++ ['pago en otra vivienda',(c:any)=>{const v=second(c);v.gastos=[];const r=structuredClone(c.deduccionesTerritoriales2025.solicitudes[0].hechos.viviendas[0]);r.id='V2';r.catastro='RC2';r.historiaContratos[0].id='C2';c.deduccionesTerritoriales2025.solicitudes[0].hechos.viviendas=[r]},'pago regional no conciliado'],
++ ['solicitud repetida',(c:any)=>{const s=structuredClone(c.deduccionesTerritoriales2025.solicitudes[0]);c.deduccionesTerritoriales2025.solicitudes.push(s)},''],
++ ['pago repetido',(c:any)=>{const v=c.deduccionesTerritoriales2025.solicitudes[0].hechos.viviendas[0];v.gastos.push(structuredClone(v.gastos[0]))},''],
++ ['linea otro inmueble',(c:any)=>{second(c)},'partida ya incluida'],
++ ['total otro inmueble',(c:any)=>{const v=second(c);v.gastos[0].lineaFactura='2';v.gastos[0].totalFactura='2000'},'Factura incoherente'],
++ ['fecha factura otro inmueble',(c:any)=>{const v=second(c);v.gastos[0].lineaFactura='2';v.gastos[0].fechaFactura='2025-07-01'},'Factura incoherente'],
++ ['suma otro inmueble',(c:any)=>{const v=second(c);v.gastos[0].lineaFactura='2'},'exceden el importe'],
++ ['ID otra linea',(c:any)=>{const v=second(c);v.gastos[0].lineaFactura='2';v.gastos[0].id='P1'},'Identidad'],
++ ] as const){it.effect(`adverso ${name} API${i}`,()=>Effect.gen(function*(){const c=regional();change(c);const x:any=yield* Effect.result(api(c));console.log('ADVERSO',name,i,JSON.stringify(x));expect(x._tag).toBe('Failure');expect(x.failure._tag).not.toBe('RechazoP4aEntrada');if(name==='solicitud repetida')expect(x.failure._tag).toBe('ResultadoNoSoportado');if(want)expect(JSON.stringify(x.failure)).toContain(want);if(['habitual real','ubicacion canaria','ubicacion peninsular','pago no factura','importe regional documento','pago en otra vivienda'].includes(name))expect(x.failure._tag).toBe('ResultadoNoSoportado')}))}
++ for(const field of ['fechaOperacion','fechaFactura','fechaPago'])for(const fecha of ['2024-12-31','2026-01-01','2025-02-29'])it.effect(`fecha ${field} ${fecha} API${i}`,()=>Effect.gen(function*(){const c=regional();c.inmuebles[0].gastos[0][field]=fecha;const x:any=yield* Effect.result(api(c));expect(x._tag).toBe('Failure');expect(x.failure._tag).toBe('RechazoP4a');expect(x.failure.codigo).toBe('gasto')}))
++ it.effect(`fechas independientes y lineas exactas API${i}`,()=>Effect.gen(function*(){const c=regional(),v=c.inmuebles[0],g=v.gastos[0];g.fechaOperacion='2025-04-01';g.puestaEnServicio='2025-05-01';g.fechaFactura='2025-06-01';g.fechaPago='2025-07-01';g.importe='600.01';v.gastos.push({...g,id:'P2',lineaFactura:'2',importe:'399.99'});const w=c.deduccionesTerritoriales2025.solicitudes[0].hechos.viviendas[0],p=w.gastos[0];p.fecha='2025-07-01';p.importe='600.01';w.gastos.push({...p,id:'P2',importe:'399.99'});const r:any=yield* api(c);expect(deduction(r)).toBe(500);expect(r.inmuebles[0].amortizacion.n*365n).toBe(883350n*r.inmuebles[0].amortizacion.d);expect(r.composicion.cuotaLiquida.eq(r.composicion.cuotaEstatalDespuesMinimo.plus(r.composicion.cuotaAutonomicaGeneralDespuesMinimo).minus(r.composicion.deduccionesAutonomicasAplicadas))).toBe(true)}))
++ it.effect(`clave factura sin colision por concatenacion API${i}`,()=>Effect.gen(function*(){const c:any=structuredClone(casoP4a()),v=c.inmuebles[0],g=v.gastos[0];g.prestadorNif='AB';g.factura='C';v.gastos.push({...g,id:'P2',prestadorNif:'A',factura:'BC'});const r:any=yield* api(c);expect(r.netoReducido.n).toBe(3800n*r.netoReducido.d)}))
++ it.effect(`dos inmuebles dos lineas un documento API${i}`,()=>Effect.gen(function*(){const c=regional(false),v=c.inmuebles[0],g=v.gastos[0];v.exigibilidades[0].importe='18000';g.importe='600';const w=second(c);w.gastos[0].lineaFactura='2';w.gastos[0].importe='400';const s=c.deduccionesTerritoriales2025.solicitudes[0],a=s.hechos.viviendas[0],b=structuredClone(a);a.gastos[0].importe='600';b.id='V2';b.catastro='RC2';b.historiaContratos[0].id='C2';b.gastos[0].id='P2';b.gastos[0].importe='400';s.hechos.viviendas.push(b);const r:any=yield* api(c);expect(deduction(r)).toBe(100);expect(r.netoReducido.n).toBe(15100n*r.netoReducido.d)}))
++}
+--- /dev/null
++++ b/revision-adaptada.test.ts
+@@ -0,0 +1,95 @@
++import { describe,it,expect } from "@effect/vitest"
++import { Effect } from "effect"
++import { producirInmueblesP4a } from "../lib/dominio/irpf/inmobiliario-2025/productor"
++import { liquidarIrpfAnual,liquidarIrpfAnualExplicito } from "../lib/dominio/irpf/liquidacion/liquidar-irpf-anual"
++import { casoP4a,solicitudP4a } from "./inmobiliario-p4a.fixtures"
++const apis=[(c:any)=>liquidarIrpfAnual(c,{modo:"canonico"}),(c:any)=>liquidarIrpfAnualExplicito(c)]
++const eur=(x:any)=>Number(x.n)/Number(x.d)
++function regional(b:boolean){
++ const c=casoP4a(); c.comunidadAutonoma=b?"illes-balears":"canarias"; c.inmuebles[0]!.ubicacion=c.comunidadAutonoma
++ c.inmuebles[0]!.exigibilidades[0]!.importe="36000"
++ if(b) c.inmuebles[0]!.gastos=c.inmuebles[0]!.gastos.map(g=>({...g,clase:"mejora",puestaEnServicio:"2025-06-01"}))
++ c.deduccionesTerritoriales2025={solicitudes:[solicitudP4a(b)]}
++ return c
++}
++const deduction=(r:any)=>{const t=r.composicion.deduccionesTerritoriales2025.total;return Number(t.numeradorEuros)/Number(t.divisor)}
++describe("REV-P4A oráculos independientes",()=>{
++ for(const b of [false,true]) for(const [i,api] of apis.entries()){
++  it.effect(`positivo región ${b} API ${i}`,()=>Effect.gen(function*(){
++   const c=regional(b),r:any=yield* api(c)
++   // 36000-1000-2400=32600; o mejora: 36000-(2400+1000*.03*214/365).
++   const net=b?33600-6420/365:32600
++   expect(eur(r.netoAntesReducciones)).toBeCloseTo(net,9)
++   expect(eur(r.netoReducido)).toBeCloseTo(net/2,9)
++   expect(deduction(r)).toBe(b?500:100)
++   expect(r.composicion.cuotaLiquida.eq(r.composicion.cuotaEstatalDespuesMinimo.plus(r.composicion.cuotaAutonomicaGeneralDespuesMinimo).minus(r.composicion.deduccionesAutonomicasAplicadas))).toBe(true)
++  }))
++  it.effect(`cuota y base límite región ${b} API ${i}`,()=>Effect.gen(function*(){
++   const c=regional(b);c.inmuebles[0]!.exigibilidades[0]!.importe="1000"
++   const r:any=yield* api(c);expect(r.composicion.deduccionesAutonomicasAplicadas.isZero()).toBe(true)
++   expect(r.composicion.cuotaLiquida.isZero()).toBe(true)
++  }))
++ }
++ for(const [i,api] of apis.entries()){
++  it.effect(`ROJO R1 cambio categoría habitual propia evade conciliación API ${i}`,()=>Effect.gen(function*(){
++   const c=regional(true),s:any=c.deduccionesTerritoriales2025!.solicitudes[0],v=s.hechos.viviendas[0]
++   v.uso="habitual_propia";v.id="FANTASMA";v.catastro="OTRA-RC";v.gastos[0].id="P-FANTASMA";v.gastos[0].factura="F-FANTASMA";v.gastos[0].importe="10000";v.alquiler.arrendatario="s-1"
++   // Perfil exclusivo: esta vivienda y este pago no existen en el censo productor.
++   const x:any=yield* Effect.result(api(c));console.log("R1",i,JSON.stringify(x._tag==='Success'?{tag:x._tag,deduccion:deduction(x.success)}:x))
++   expect(x._tag).toBe("Failure")
++  }))
++  it.effect(`ROJO R2 mejora disponible antes de factura API ${i}`,()=>Effect.gen(function*(){
++   const c=regional(true);c.inmuebles[0]!.gastos[0]!.puestaEnServicio="2025-05-01"
++   // La factura/pago es de junio, obra utilizable mayo: 245 días amortizables.
++   const r:any=yield* api(c)
++   expect(eur(r.inmuebles[0].amortizacion)).toBeCloseTo(2400+7350/365,9)
++   expect(deduction(r)).toBe(500)
++  }))
++  it.effect(`ROJO R3 dos partidas distintas en una factura API ${i}`,()=>Effect.gen(function*(){
++   const c=casoP4a(),v=c.inmuebles[0]!,g=v.gastos[0]!
++   v.gastos=[{...g,importe:"600"},{...g,id:"P2",lineaFactura:"2",importe:"400",clase:"servicios"}]
++   // Una factura: reparación600 + gestión400, no doble cómputo.
++   const r:any=yield* api(c);expect(eur(r.netoReducido)).toBe(4300)
++  }))
++ }
++ it.effect("límite por inmueble y reducción sólo sobre positivos",()=>Effect.gen(function*(){
++  const c=casoP4a(),v=c.inmuebles[0]!,w=structuredClone(v)
++  v.exigibilidades[0]!.importe="2000";v.gastos[0]!.importe="5000";v.gastos[0]!.totalFactura="5000"
++  w.id="V2";w.catastro="RC2";w.contrato.id="C2";w.contrato.documento="CONTRATO2";w.exigibilidades[0]!.id="R2";w.exigibilidades[0]!.documento="EXIGIBLE2";w.gastos=[]
++  c.inmuebles.push(w);const r=yield* producirInmueblesP4a(c)
++  expect(eur(r.inmuebles[0]!.excesoNoAplicado)).toBe(3000)
++  expect(eur(r.inmuebles[0]!.netoReducido)).toBe(-2400)
++  expect(eur(r.inmuebles[1]!.netoReducido)).toBe(4800)
++  expect(eur(r.netoReducido)).toBeCloseTo(2400,9)
++ }))
++ for(const [rent,want] of [["1200",0],["1200.01",0.005],["1199.99",-0.01]] as const){
++  it.effect("frontera neto "+rent,()=>Effect.gen(function*(){
++   const c=casoP4a(),v=c.inmuebles[0]!;v.adquisicion.precio="40000";v.adquisicion.sueloPrecio="0";v.catastro2025.construccion="10000";v.gastos=[];v.exigibilidades[0]!.importe=rent
++   const r=yield* producirInmueblesP4a(c);expect(eur(r.netoReducido)).toBeCloseTo(want,10)
++  }))
++ }
++ for(const [rent,eligible] of [["68430",true],["68430.02",false]] as const){
++  it.effect("umbral balear33000 "+rent,()=>Effect.gen(function*(){
++   const c=regional(true);c.inmuebles[0]!.exigibilidades[0]!.importe=rent
++   const g=c.inmuebles[0]!.gastos[0]!;g.fechaOperacion="2025-01-01";g.fechaFactura="2025-01-01";g.fechaPago="2025-01-01";g.puestaEnServicio="2025-01-01"
++   const s:any=c.deduccionesTerritoriales2025!.solicitudes[0];s.hechos.viviendas[0].gastos[0].fecha="2025-01-01"
++   const x:any=yield* Effect.result(apis[0]!(c))
++   if(eligible){expect(x._tag).toBe("Success");expect(x.success.baseImponibleGeneral.toFixed()).toBe("33000");expect(deduction(x.success)).toBe(500)}
++   else {expect(x._tag).toBe("Failure");expect(x.failure._tag).toBe("ResultadoNoSoportado")}
++
++  }))
++ }
++ it.effect("100 inmuebles identidad separada",()=>Effect.gen(function*(){
++  const c=casoP4a(),v=c.inmuebles[0]!
++  c.inmuebles=Array.from({length:100},(_,i)=>({...structuredClone(v),id:`V${i}`,catastro:`RC${i}`,contrato:{...v.contrato,id:`C${i}`},exigibilidades:v.exigibilidades.map(x=>({...x,id:`R${i}`,documento:`EX${i}`})),gastos:v.gastos.map(x=>({...x,id:`P${i}`,factura:`F${i}`}))}))
++  const r=yield* producirInmueblesP4a(c);expect(r.inmuebles.length).toBe(100)
++  expect(r.netoReducido.n).toBe(430000n*r.netoReducido.d)
++ }))
++ it.effect("cierre ambas API ante magnitudes y categorías externas",()=>Effect.gen(function*(){
++  const c=casoP4a()
++  for(const bad of [{...c,neto:"0"},{...c,baseImponibleGeneral:"0"},{...c,otrasRentas:"trabajo"},{...c,inmuebles:c.inmuebles.map(v=>({...v,categoria:"capital_inmobiliario"}))},{...c,inmuebles:c.inmuebles.map(v=>({...v,personalJornadaCompleta:"uno"}))}]){
++   for(const api of apis){const r:any=yield* Effect.result(api(bad));expect(r._tag).toBe("Failure");expect(r.failure._tag).toBe("RechazoP4a")}
++  }
++ }))
++
++})
+--- /dev/null
++++ b/overlay.mjs
+@@ -0,0 +1,15 @@
++import fs from 'node:fs'
++import path from 'node:path'
++import {fileURLToPath} from 'node:url'
++export const dest=path.dirname(fileURLToPath(import.meta.url)),root='/home/elies/Repos/IRoboPF'
++const before=process.env.CONTRASTE_MODO==='antes'
++export const source=dest+'/../producto-p4a-'+(before?'revision':'correccion')+'-20261105'
++const entries=JSON.parse(fs.readFileSync(source+'/entradas.json','utf8'))
++const map=new Map(entries.map(e=>[e.ruta,source+'/files/'+e.ruta]))
++map.set('tests/contraste.test.ts',dest+'/contraste.test.ts')
++map.set('tests/revision-adaptada.test.ts',dest+'/revision-adaptada.test.ts')
++map.set('tests/revision-original.test.ts',dest+'/../producto-p4a-correccion-20261105/revision-recibida/revision-p4a.test.ts')
++for(const [k,v]of map)map.set(k,path.resolve(v))
++export const physical=f=>map.get(path.relative(root,f))??f
++export const logical=f=>{for(const [k,v]of map)if(v===f)return root+'/'+k;return f}
++export function overlay(){return {name:'contraste-virtual',enforce:'pre',async resolveId(id,importer){if(id.startsWith('\0'))return null;const clean=id.split(/[?#]/)[0].replace(/^\/@fs\//,'/'),parent=importer?logical(importer.split('?')[0]):root+'/entry.ts';const base=clean.startsWith('@/')?root+clean.slice(1):clean.startsWith('/')?logical(clean):clean.startsWith('.')?path.resolve(path.dirname(parent),clean):null;if(base?.startsWith(root+'/'))for(const p of [base,base+'.ts',base+'.tsx',base+'.json',base+'/index.ts'])if(physical(p)!==p)return physical(p);if(importer&&logical(importer)!==importer||clean.startsWith('@/'))return this.resolve(base??id,parent,{skipSelf:true});return null},load(id){const l=logical(id.split(/[?#]/)[0]),p=physical(l);if(p!==l)return fs.readFileSync(p,'utf8')}}}
+--- /dev/null
++++ b/vitest.config.mjs
+@@ -0,0 +1,4 @@
++import {root,dest,source,physical,overlay}from './overlay.mjs'
++const mode=process.env.CONTRASTE_MODO
++const selective=['c36-conexion-anual','c36-fracciones-api-regresion','c36-revision-anual-independiente','ela-precision-presupuesto-2025','productores-anuales-combinacion','inmobiliario-p4a','inmobiliario-p4a-correcciones']
++export default{root,cacheDir:'/home/elies/.cache/irobopf-contraste/vite',plugins:[overlay()],server:{fs:{allow:[root,dest,source,dest+'/../producto-p4a-correccion-20261105']}},test:{include:(mode==='antes'?['revision-original']:mode==='adaptada'?['revision-adaptada']:mode==='adversos'?['contraste']:selective).map(f=>physical(root+'/tests/'+f+'.test.ts')),maxWorkers:1,fileParallelism:false,testTimeout:30000,hookTimeout:30000,teardownTimeout:10000,reporters:['default']}}
+--- /dev/null
++++ b/ejecutar.py
+@@ -0,0 +1,67 @@
++"""PREPARADO; exige turno explícito. No espera un turno ni reintenta."""
++from pathlib import Path
++import fcntl, json, os, signal, subprocess, sys, time
++D=Path(__file__).resolve().parent
++R=Path('/home/elies/Repos/IRoboPF')
++PY='/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/bin/python3'
++NODE='/nix/store/v6wsd9nyglmwh32yn7w8z11dq9cksg4m-nodejs-24.20.0/bin/node'
++GROUP=Path('/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/app.slice/app-t3code.slice/app-t3code-agents.slice')
++assert os.environ.get('P4A_TURNO_PESADO_ASIGNADO') == '1', 'El padre debe asignar turno después de CI F'
++assert len(sys.argv)==2
++label=os.environ.get('P4A_RESULTADOS', 'resultados')
++assert label.isidentifier(), 'Directorio de resultados simple obligatorio'
++OUT=D/label; OUT.mkdir(exist_ok=True)
++lock=(OUT/'turno.lock').open('w'); fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
++assert GROUP.joinpath('memory.current').is_file(), 'No existe el grupo esperado; abortar'
++assert int(GROUP.joinpath('memory.current').read_text()) < 6*1024**3, 'Grupo ya fuera de presupuesto; no esperar'
++env=os.environ.copy();env.update({'NODE_OPTIONS':'--max-old-space-size=1792','UV_CACHE_DIR':'/home/elies/.cache/uv','BUN_RUNTIME_TRANSPILER_CACHE_PATH':'0','DATOS_RUNTIME_ROOT':str(R),'PATH':'/nix/store/v6wsd9nyglmwh32yn7w8z11dq9cksg4m-nodejs-24.20.0/bin:/nix/store/g7skjk9lrdnshaxd7px62bchq6yg0bbh-bun-1.3.13/bin:/run/current-system/sw/bin'})
++child=None
++stopped=None
++def terminate(signum=None, frame=None):
++    global stopped
++    stopped='signal:'+str(signum)
++    if child is not None:
++        try: os.killpg(child.pid,signal.SIGKILL)
++        except ProcessLookupError: pass
++signal.signal(signal.SIGTERM,terminate);signal.signal(signal.SIGINT,terminate)
++def tree_rss(pid):
++    parents={}; rss={}
++    for entry in Path('/proc').iterdir():
++        if not entry.name.isdecimal(): continue
++        try:
++            fields=(entry/'stat').read_text().rsplit(')',1)[1].split()
++            parents[int(entry.name)]=int(fields[1]);rss[int(entry.name)]=int(fields[21])*os.sysconf('SC_PAGE_SIZE')
++        except (OSError,ValueError,IndexError): pass
++    pids={pid}
++    while True:
++        bigger=pids|{p for p,parent in parents.items() if parent in pids}
++        if bigger==pids: break
++        pids=bigger
++    return sum(rss.get(p,0) for p in pids)
++# Sequential by construction: only one child tree. Memory sampling is a guard,
++# never polling the parent's slot or CI. Abort immediately on any limit.
++def run(label,args,extra=None,expected=0,markers=()):
++    global child, stopped
++    assert not (OUT/(label+'.log')).exists(), 'Preservar logs previos; no sobrescribir'
++    assert not stopped
++    assert int(GROUP.joinpath('memory.current').read_text()) < 6*1024**3
++    command=['timeout','-k','30s','15m',*args]
++    started=time.monotonic(); peak_tree=peak_group=0; guard=None
++    with (OUT/(label+'.log')).open('w') as log:
++        child=subprocess.Popen(command,cwd=R,env={**env,**(extra or {})},stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
++        while child.poll() is None:
++            tree=tree_rss(child.pid);group=int(GROUP.joinpath('memory.current').read_text())
++            peak_tree=max(peak_tree,tree);peak_group=max(peak_group,group)
++            if tree >= 3*1024**3 or group >= 6*1024**3 or time.monotonic()-started>930:
++                guard={'treeRss':tree,'group':group};terminate();break
++            time.sleep(.1)
++        code=child.wait();child=None
++    output=(OUT/(label+'.log')).read_text()
++    ok=not guard and not stopped and code==expected and all(s in output for s in markers)
++    result={'command':command,'exit':code,'expected':expected,'markers':list(markers),'ok':ok,'guard':guard,'maxTreeRssBytesSampled':peak_tree,'maxGroupBytesSampled':peak_group,'seconds':time.monotonic()-started,'heapMiB':1792,'workers':1}
++    (OUT/(label+'.json')).write_text(json.dumps(result,indent=2)+'\n')
++    print(json.dumps({'step':label,**result}),flush=True)
++    if not ok: raise SystemExit(1)
++mode=sys.argv[1]
++vitest=[NODE,str(R/'node_modules/vitest/vitest.mjs'),'run','--config',str(D/'vitest.config.mjs'),'--maxWorkers=1']
++run(mode,vitest,{'CONTRASTE_MODO':mode},expected=1 if mode=='antes' else 0,markers=('6 failed | 16 passed (22)',) if mode=='antes' else ())
+--- /dev/null
++++ b/comprobar-fuentes.py
+@@ -0,0 +1,25 @@
++from pathlib import Path
++import json,re,hashlib,html
++D=Path(__file__).resolve().parent;C=D.parent/'producto-p4a-correccion-20261105'
++new=json.loads((C/'fuentes-2025.json').read_text());old=json.loads((C/'fuentes.json').read_text())+[json.loads((C/'revision-recibida/fuentes-nuevas.json').read_text())] # flatten below
++if isinstance(old[-1],list): old=old[:-1]+old[-1]
++def read(s):
++ b=Path(s['cas']).read_bytes();assert hashlib.sha256(b).hexdigest()==s['sha256'];return b.decode()
++def section(s,a):
++ t=read(s);start=t.index('id="'+a+'"');t=t[start:];end=t.find('<p class="bloque">',t.index('</h5>'));t=t[:end] if end>=0 else t
++ paras=re.findall(r'<p class="parrafo[^" ]*"[^>]*>(.*?)</p>',t,re.S)
++ assert paras,(s['id'],a)
++ return ' '.join(' '.join(html.unescape(re.sub('<[^>]*>',' ',p)).split()) for p in paras)
++out=[]
++for s in new:
++ read(s)
++ if 'versionSolicitada' in s:
++  selected=re.search(r'<a class="version-selected"[^>]*>.*?</a>',read(s),re.S).group()
++  assert s['versionSolicitada'] in selected and s['rotuloSeleccionado'] in selected
++for s,oid,arts in [(new[4],'BOE-LIRPF-2025',['a14','a22','a23','a27']),(new[5],'BOE-RIRPF-2025',['a13','a14']),(new[6],None,['a6','a11','a13'])]:
++ original=next(x for x in old if x.get('id')==oid) if oid else old[-1]
++ for a in arts:
++  t,u=section(original,a),section(s,a);out.append({'fuente':s['id'],'articulo':a,'igual':t==u,'recibidoSHA':hashlib.sha256(t.encode()).hexdigest(),'correctoSHA':hashlib.sha256(u.encode()).hexdigest()})
++assert sum(x['igual'] for x in out)==8 and next(x for x in out if x['articulo']=='a23')['igual']==False
++(D/'comparacion-independiente.json').write_text(json.dumps(out,indent=2))
++print(json.dumps(out,indent=2))
+--- /dev/null
++++ b/verificar-candidato.py
+@@ -0,0 +1,61 @@
++"""Sólo stdlib: integridad CAS, preimágenes, parche y transportes léxicos."""
++from pathlib import Path
++import hashlib, json, re, os
++D = Path('/home/elies/Backups/IRoboPF/producto-p4a-correccion-20261105')
++R = Path('/home/elies/Repos/IRoboPF')
++def digest(p): return hashlib.sha256(p.read_bytes()).hexdigest()
++entries = json.loads((D/'entradas.json').read_text())
++assert len(entries) == 13
++images = {e['ruta']: D/'files'/e['ruta'] for e in entries}
++for e in entries:
++    rel = e['ruta']
++    assert not Path(rel).is_absolute() and '..' not in Path(rel).parts
++    assert digest(images[rel]) == e['post_sha256']
++    if e['pre_sha256']:
++        assert digest(D/'preimagenes'/rel) == digest(R/rel) == e['pre_sha256']
++    else: assert not (R/rel).exists(), 'Nueva ruta ya existe: '+rel
++for rel, expected in json.loads((D/'raiz-sha256.json').read_text()).items():
++    assert digest(R/rel) == expected, 'Deriva en raíz compartida: '+rel
++# Apply unified transport in memory, matching full context; never write root.
++lines = (D/'autonomo.patch').read_text().splitlines(keepends=True)
++i = 0; patched = []
++while i < len(lines):
++    assert lines[i].startswith('--- ')
++    old = lines[i][4:].strip(); new = lines[i+1][4:].strip(); rel = new.removeprefix('b/'); i += 2
++    pre = [] if old == '/dev/null' else (D/'preimagenes'/rel).read_text().splitlines(keepends=True)
++    result = []; cursor = 0
++    while i < len(lines) and lines[i].startswith('@@'):
++        h = re.match(r'@@ -(\d+)(?:,(\d+))? \+(\d+)(?:,(\d+))? @@', lines[i]); assert h
++        start = int(h[1]) - (0 if h[2] == '0' else 1)
++        assert start >= cursor
++        result.extend(pre[cursor:start]); cursor = start; i += 1
++        old_count = new_count = 0
++        while i < len(lines) and not lines[i].startswith(('@@','--- ')):
++            line = lines[i]; tag = line[0]; value = line[1:]; i += 1
++            if tag == '\\': raise AssertionError('No-newline transport needs explicit handling')
++            assert tag in ' +-'
++            if tag in ' -': assert pre[cursor] == value; cursor += 1; old_count += 1
++            if tag in ' +': result.append(value); new_count += 1
++        assert old_count == int(h[2] or 1) and new_count == int(h[4] or 1)
++    result.extend(pre[cursor:]); assert ''.join(result).encode() == images[rel].read_bytes(), rel
++    patched.append(rel)
++assert set(patched) == set(images) and len(patched) == 13
++# Lexical transport check, not TS/Vite execution or fiscal validation.
++imports = []; failures = []
++for rel, source in images.items():
++    for _, spec in re.findall(r'(?:from\s+|import\s*\()([\'\"])(.*?)\1', source.read_text()):
++        if spec.startswith(('.', '@/')):
++            base = R/spec[2:] if spec.startswith('@/') else (R/rel).parent/spec
++            base = Path(os.path.normpath(base)); candidates = [base,Path(str(base)+'.ts'),Path(str(base)+'.tsx'),Path(str(base)+'.json'),base/'index.ts',base/'index.tsx']
++            found = next((x for x in candidates if str(x.relative_to(R)) in images or x.is_file()), None)
++            if found is None: failures.append([rel,spec])
++            else: imports.append({'from':rel,'specifier':spec,'logical':str(found.relative_to(R)),'source':'postimagen' if str(found.relative_to(R)) in images else 'raíz','sha256':digest(images.get(str(found.relative_to(R)),found))})
++        else:
++            pkg = '/'.join(spec.split('/')[:2]) if spec.startswith('@') else spec.split('/')[0]
++            assert (R/'node_modules'/pkg/'package.json').is_file(), spec
++            imports.append({'from':rel,'specifier':spec,'package':pkg,'source':'dependencia raíz compartida'})
++assert not failures, failures
++for name, expected in json.loads((D/'artefactos-sha256.json').read_text()).items(): assert digest(D/name) == expected, name
++out = {'estado':'ESTÁTICO_OK','postimagenes':13,'preimagenes':6,'transportesParche':13,'importsDirectos':imports,'puertos':'0a68717f9948cd0fc15eec584361e18ca841ed5f2b580443bd987cf28c39d533','limitacion':'Este control sólo comprueba transporte estático; la validación ejecutada se registra por separado en EVIDENCIA-CORRECCION.json.'}
++(Path('/home/elies/Backups/IRoboPF/producto-p4a-contraste-20261105')/'integridad-candidato.json').write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n')
++print(json.dumps({k:v for k,v in out.items() if k!='importsDirectos'},ensure_ascii=False))

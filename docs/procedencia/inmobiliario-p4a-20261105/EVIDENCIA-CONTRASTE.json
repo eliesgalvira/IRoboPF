@@ -1,0 +1,117 @@
+{
+  "dictamen": "FAVORABLE_ACOTADO",
+  "PESADO1": "LIBERADO",
+  "resultados": {
+    "reintento/antes.json": {
+      "command": [
+        "timeout",
+        "-k",
+        "30s",
+        "15m",
+        "/nix/store/v6wsd9nyglmwh32yn7w8z11dq9cksg4m-nodejs-24.20.0/bin/node",
+        "/home/elies/Repos/IRoboPF/node_modules/vitest/vitest.mjs",
+        "run",
+        "--config",
+        "/home/elies/Backups/IRoboPF/producto-p4a-contraste-20261105/vitest.config.mjs",
+        "--maxWorkers=1"
+      ],
+      "exit": 1,
+      "expected": 1,
+      "markers": [
+        "6 failed | 16 passed (22)"
+      ],
+      "ok": true,
+      "guard": null,
+      "maxTreeRssBytesSampled": 538206208,
+      "maxGroupBytesSampled": 5699014656,
+      "seconds": 2.5511335590854287,
+      "heapMiB": 1792,
+      "workers": 1
+    },
+    "resultados/adaptada.json": {
+      "command": [
+        "timeout",
+        "-k",
+        "30s",
+        "15m",
+        "/nix/store/v6wsd9nyglmwh32yn7w8z11dq9cksg4m-nodejs-24.20.0/bin/node",
+        "/home/elies/Repos/IRoboPF/node_modules/vitest/vitest.mjs",
+        "run",
+        "--config",
+        "/home/elies/Backups/IRoboPF/producto-p4a-contraste-20261105/vitest.config.mjs",
+        "--maxWorkers=1"
+      ],
+      "exit": 0,
+      "expected": 0,
+      "markers": [],
+      "ok": true,
+      "guard": null,
+      "maxTreeRssBytesSampled": 530423808,
+      "maxGroupBytesSampled": 5705957376,
+      "seconds": 2.3192677218466997,
+      "heapMiB": 1792,
+      "workers": 1
+    },
+    "finales/adversos.json": {
+      "command": [
+        "timeout",
+        "-k",
+        "30s",
+        "15m",
+        "/nix/store/v6wsd9nyglmwh32yn7w8z11dq9cksg4m-nodejs-24.20.0/bin/node",
+        "/home/elies/Repos/IRoboPF/node_modules/vitest/vitest.mjs",
+        "run",
+        "--config",
+        "/home/elies/Backups/IRoboPF/producto-p4a-contraste-20261105/vitest.config.mjs",
+        "--maxWorkers=1"
+      ],
+      "exit": 0,
+      "expected": 0,
+      "markers": [],
+      "ok": true,
+      "guard": null,
+      "maxTreeRssBytesSampled": 550805504,
+      "maxGroupBytesSampled": 5735145472,
+      "seconds": 2.334585210774094,
+      "heapMiB": 1792,
+      "workers": 1
+    },
+    "resultados/regresion.json": {
+      "command": [
+        "timeout",
+        "-k",
+        "30s",
+        "15m",
+        "/nix/store/v6wsd9nyglmwh32yn7w8z11dq9cksg4m-nodejs-24.20.0/bin/node",
+        "/home/elies/Repos/IRoboPF/node_modules/vitest/vitest.mjs",
+        "run",
+        "--config",
+        "/home/elies/Backups/IRoboPF/producto-p4a-contraste-20261105/vitest.config.mjs",
+        "--maxWorkers=1"
+      ],
+      "exit": 0,
+      "expected": 0,
+      "markers": [],
+      "ok": true,
+      "guard": null,
+      "maxTreeRssBytesSampled": 571645952,
+      "maxGroupBytesSampled": 5784084480,
+      "seconds": 5.9872437212616205,
+      "heapMiB": 1792,
+      "workers": 1
+    }
+  },
+  "maxTreeRssBytesSampled": 571645952,
+  "maxGroupBytesSampled": 5784084480,
+  "sinGuardias": true,
+  "conteos": {
+    "precorreccion": {
+      "green": 16,
+      "red": 6
+    },
+    "adaptada": 22,
+    "adversosFinales": 50,
+    "regresionSelectiva": 132
+  },
+  "sinCambiosRaizORecepciones": true
+}

@@ -1,3 +1,4 @@
+import type { CasoFiscalAnualExplicito } from "../lib/dominio/irpf/trabajo-anual/conexion-contrato"
 import Decimal from "decimal.js"
 import { Effect } from "effect"
 import { expect, test } from "vitest"
@@ -19,7 +20,7 @@ test("API real explícita independiente: pensión y empleo, salida y rechazo", (
       // SAFETY: el fixture usa los literales y campos del contrato; no sustituye la validación de la API.
       const result = Effect.runSync(
         liquidarIrpfAnualExplicito(
-          input as Parameters<typeof liquidarIrpfAnualExplicito>[0]
+          input as CasoFiscalAnualExplicito
         )
       )
       const actual = executeCausalEscalas(g, input, {

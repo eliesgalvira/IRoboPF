@@ -1,3 +1,4 @@
+import { conciliarInmuebleP4a } from "../../inmobiliario-2025/consumidores"
 import { Schema } from "effect"
 import type { MagnitudesTerritorialesAnuales } from "../anual-territorial"
 import { fecha, unico } from "./comun"
@@ -46,7 +47,8 @@ const esTexto = Schema.is(Schema.String)
 /** Sólo documentos monetarios: un título familiar común no es un gasto reutilizado. */
 export function registrarMonetariosC36(
   s: SolicitudAnualC36,
-  vistos: Set<string>
+  vistos: Set<string>,
+  m?: MagnitudesTerritorialesAnuales,
 ): void {
   const locales = new Set<string>()
   function alta(id: string) {
@@ -64,7 +66,11 @@ export function registrarMonetariosC36(
     if (!esObjeto(x)) return
     if (esTexto(x.id) && esTexto(x.importe)) {
       alta(x.id)
-      if (esTexto(x.factura)) alta("documento-monetario:" + x.factura)
+      if (esTexto(x.factura)) {
+        const partida = m?.inmueblesP4a?.flatMap(r => r.inmueble.gastos)
+          .find(g => g.id === x.id && g.factura === x.factura && g.prestadorNif === x.perceptor)
+        alta("documento-monetario:" + (partida === undefined ? x.factura : [partida.prestadorNif, partida.factura, partida.lineaFactura].map(valor => `${valor.length}:${valor}`).join("")))
+      }
     }
     if (esTexto(x.aportacion) && esTexto(x.id) && esTexto(x.escritura)) {
       alta(x.id)
@@ -209,10 +215,6 @@ export function evaluarAnualC36(
       throw new RangeError(
         "C36 art4quater.2: falta productor de primera aplicación y rendimientos por catastro"
       )
-    if (s.codigo === "canarias_adecuacion_inmueble_arrendamiento")
-      throw new RangeError(
-        "C36 art15ter: falta productor de rendimientos y titularidad fiscal por catastro; no se acepta una clasificación tributaria del cliente"
-      )
     if (s.codigo === "balears_arrendamiento_vivienda_habitual")
       throw new RangeError(
         "C36 art3bis: falta productor anual de derechos a deducciones de inversión en vivienda; ausencia de solicitud no prueba ausencia de derecho"
@@ -226,11 +228,11 @@ export function evaluarAnualC36(
           ).acreedor.trim() !== "",
           "C36: acreedor de dación no identificado"
         )
-      comprobar(
-        v.uso === "habitual_propia" ||
-          s.codigo !== "balears_mejora_sostenibilidad_vivienda",
-        "C36 sostenibilidad arrendada: falta productor por catastro de rendimiento, fianza y repercusión"
-      )
+      const requiereP4a = s.codigo === "canarias_adecuacion_inmueble_arrendamiento" ||
+        (s.codigo === "balears_mejora_sostenibilidad_vivienda" && (m.inmueblesP4a !== undefined || v.uso !== "habitual_propia"))
+      const producidoP4a = requiereP4a ? conciliarInmuebleP4a(m, v) : undefined
+      if (s.codigo === "balears_mejora_sostenibilidad_vivienda" && producidoP4a !== undefined)
+        comprobar(producidoP4a.inmueble.ubicacion === "illes-balears", "P4a: la inversión balear requiere inmueble situado en Illes Balears")
       comprobar(
         v.ocupacionIlegal?.situacion !== "suspension_vulnerabilidad" ||
           s.codigo !==
@@ -330,7 +332,7 @@ export function evaluarAnualC36(
           fianza: alquiler?.fianza ?? "",
           rentaMensual: alquiler?.rentaMensual ?? "",
           superficieUtil: alquiler?.superficieUtil ?? "",
-          rendimiento: "no_aplica_arrendatario",
+          rendimiento: producidoP4a?.categoria ?? "no_aplica_arrendatario",
           repercusionObras: alquiler?.repercusionObras ?? "",
           programa: alquiler?.programa ?? "ordinario",
           parientesGrado: alquiler?.parientesGrado ?? 0,
