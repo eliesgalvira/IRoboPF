@@ -968,3 +968,12 @@ Los donativos se agregan por entidad y consumen una vez la base común y el tram
 El intérprete documental R36 reconoce como fronteras pendientes las dos exportaciones nuevas que no interpreta. No intenta evaluar parámetros por defecto fuera de su ámbito ni acredita el cuerpo fiscal por añadir una frontera. La prueba R52 exige que la ejecución sin contrato siga rechazada. La prueba valenciana que esperaba el motivo anterior pasa a exigir el censo económico completo; su entrada, rechazo y todos los esperados monetarios se conservan. Los fallos locales quedan registrados antes de publicación.
 
 Se incorporan estos cambios ya revisados en un mismo corte y se reproducen los 31 comandos del workflow con entorno limpio, generados e inventario. El CI remoto debe terminar correctamente antes de retirar las entregas. El detalle y los límites constan en [la integración](familia-donativos-andalucia-20261105/INTEGRACION.md); el punto 4 sigue abierto.
+
+
+## Cuatro productores y correcciones acotadas · 6 de noviembre
+
+Se admite el pago propio de adquisición canaria posterior a la escritura dentro de 2025 sin exigir igualdad diaria. Se mantienen el censo, la conciliación bancaria, la atribución íntegra del precio y las reservas de anticipos/financiación. Los errores patrimoniales de dominio conservan una causa concreta en la API; no se abre la aceptación de datos bancarios contradictorios.
+
+Las referencias documentales de certificados catalanes son locales a su emisor. La unicidad se aplica al par NIF/referencia, y los identificadores económicos siguen siendo únicos en todo el libro. La rectificación temporal conserva los HTML recibidos con actualizaciones de 2026 y aporta los bloques BOE seleccionados por su versión real, sin cambiar umbrales ni oráculos.
+
+Las primeras revisiones de las cuatro ramas están terminadas. Los arreglos pequeños se prueban por el integrador sin encargar otro contraste, conforme al criterio de gravedad del propietario. La reproducción roja y las 123 pruebas verdes permanecen separadas de los 1.479 controles anteriores de autor y de las observaciones independientes. No se suma evidencia solapada ni se transforma un rechazo en un importe cero.

@@ -49,6 +49,7 @@ export interface MagnitudesTerritorialesAnuales {
   readonly libroDT18?: LibroDT182025 | undefined
   readonly cuotasDT18?: ReturnType<typeof aplicarCuotasDT18> | undefined
   readonly libroBasesFamiliares2025?: import("../bases-familiares-2025/productor").LibroBasesFamiliares2025 | undefined
+  readonly pagadoresCatalunya2025?: import("./catalunya-pagadores-2025/productor").LibroPagadoresCatalunya2025 | undefined
   readonly cuotaEstatal681?: Decimal | undefined
   readonly vehiculoDA58?: LibroVehiculoDA58 | undefined
   readonly inmueblesP4a?: readonly ResultadoInmuebleP4a[] | undefined
@@ -408,6 +409,10 @@ export function aplicarDeduccionesTerritoriales2025(
     ),
     "Elecciones incompatibles CLM para el contribuyente"
   )
+  if (solicitudes.some(s => s.lote === "C36" && s.codigo === "canarias_inversion_vivienda_habitual")) {
+    exigir(solicitudes.length === 1, "C36 art14 historia compleja: concurrencia requiere conciliar todos los pagos e inversiones con el censo patrimonial único")
+    exigir(m.libroDT18 === undefined && m.cuotasDT18 === undefined && decoded.success.viviendaDT182025 === undefined && m.libroIngresosIdentificados2025 === undefined && m.libroMaternidad81 === undefined && m.donativosEstatales === undefined && decoded.success.donativosEstatales2025 === undefined && m.vehiculoDA58 === undefined && decoded.success.vehiculoDA582025 === undefined && m.inmueblesP4a === undefined, "C36 art14 historia compleja: productores concurrentes sin censo conjunto representado")
+  }
   validarCensosViviendaRioja(decoded.success)
   if(decoded.success.viviendaDT182025!==undefined){
     exigir(m.libroDT18!==undefined&&m.cuotasDT18!==undefined&&m.cuotaAutonomicaResidual!==undefined,"DT18: falta libro y consumo producidos una vez por composición anual")

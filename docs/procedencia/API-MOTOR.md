@@ -441,3 +441,45 @@ Las dos API derivan el incremento de coste desde el contrato y los recibos del p
 El perfil representa amortización francesa con TIN dividido entre doce, cuota e interés mensual en céntimos, revisión en enero o en enero y julio, y doce recibos pagados con fondos propios. Exige un único propietario y prestatario, préstamo de adquisición anterior a 2025 y vivienda todavía habitual. Los índices admiten signo y hasta seis decimales; el TIN resultante no puede ser negativo. Las condiciones regionales de acceso, incompatibilidad, renta y cuota siguen aplicándose después de producir los intereses.
 
 Otras fechas de revisión, titularidades compartidas, novaciones, amortización extraordinaria, cancelación, carencia, mora, tipos mixtos, suelos, techos y coberturas mantienen rechazos concretos. El contrato tampoco reconstruye por sí solo las bases fiscales de familiares ajenos ni autentica documentos. Estas restricciones describen la cobertura del productor, no todos los requisitos legales de la deducción.
+
+## Vivienda canaria, alquiler balear, libros gallegos y pagadores catalanes
+
+La adquisición canaria C36 recibe `hechos.historiaAdquisicion`: escritura,
+identificación del inmueble, ocupación, cuentas, movimientos y censo vital de
+inversiones y ayudas. El primer perfil representa adquisición íntegramente
+pagada con fondos propios en 2025, sin préstamo, anticipos ni ayudas. El pago
+puede ser posterior al día de adquisición dentro del ejercicio; debe conciliar
+fecha, importe, documento y destinatario con el movimiento bancario. La condición
+patrimonial se obtiene del censo completo y los límites siguen en el consumidor
+C36 común. Las contradicciones bancarias conservan su causa en el rechazo.
+
+El alquiler balear C36 recibe `hechos.censoViviendaInversion` y la localización
+material del inmueble, además del contrato, ocupación y pagos. El primer perfil
+es individual, de 18 a 35 años, sin derechos reales ni operaciones de inversión
+en el censo completo. Se concilia todo el plan de solicitudes: no solicitar una
+deducción de inversión no prueba que falte el derecho. Isla, catastro y arrendador
+se verifican contra sus hechos propios; la residencia fiscal no los sustituye.
+La fianza documental, el cobro directo al arrendador y la ausencia de otros
+colectivos son límites técnicos del perfil, no requisitos legales universales.
+
+Los libros escolares gallegos E38 reciben `historiaLibros2024` junto a los hechos
+familiares y las compras de 2025. La composición familiar estable y las economías
+de 2024 permiten producir las bases de los declarantes con el motor común; no se
+acepta `renta2024` calculada por el cliente. Una pensión declarada debe concordar
+con la economía de esa persona antes de afectar al reparto. Un censo expreso sin
+ingresos permite producir cero; un no declarante con trabajo positivo conserva
+el rechazo `Libros.imputaciones` hasta resolver el criterio del certificado.
+Las pensiones exentas y las historias familiares cambiantes siguen fuera del
+productor representado.
+
+La pluralidad de pagadores de Catalunya usa el perfil efectivo
+`trabajo-pagadores-catalunya-2025` en ambas API. Recibe certificados, NIF, salarios
+y retenciones identificados, junto a censos de otras causas de obligación; el
+motor agrupa por pagador y reutiliza sus bases y cuotas. La referencia de un
+certificado es local a su NIF emisor. Este perfil no estima cotizaciones ni
+admite pensiones, otras rentas o causas distintas de obligación como si fueran
+salarios ordinarios. [Contrato, alcance y fuentes temporales](deducciones-2025/catalunya-pagadores-20261105/ALCANCE.md).
+
+Estas conexiones conservan la composición común, la cuota disponible y los
+rechazos tipados. No acreditan por sí mismas autenticidad documental ni completan
+todas las ramas de los cuatro códigos.

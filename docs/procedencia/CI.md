@@ -57,6 +57,13 @@ anteriores siguen conservadas en Git. Los ensayos ordinarios fijan fuentes por
 SHA-256 en `scripts/procedencia/fuentes-actuales.json`: cambiar una fuente exige
 revisar su contrato explícitamente, sin consultar objetos Git históricos.
 
+El corte de alquiler balear, vivienda canaria, libros gallegos y pagadores
+catalanes actualiza catorce huellas revisadas y añade cinco módulos. El productor
+`producirPagadoresCatalunya2025` queda como frontera externa pendiente de R52:
+sus pruebas de producto no certifican el intérprete documental histórico. Un
+control exige que la evaluación documental rechace esa frontera y conserve
+cerradas las puertas de acreditación.
+
 `UV_PROJECT_ENVIRONMENT`, `UV_CACHE_DIR` y `TMPDIR` pueden apuntar a rutas privadas
 fuera del repositorio. No se necesita `.venv` dentro del checkout.
 

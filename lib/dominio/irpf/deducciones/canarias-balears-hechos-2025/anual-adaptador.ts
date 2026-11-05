@@ -1,3 +1,5 @@
+import { producirHistoriaAdquisicionCanarias2025 } from "./anual-vivienda-historia"
+import { comprobarAusenciaInversionAlquilerC36 } from "./anual-alquiler-derechos"
 import { ingresoRegionalIdentificado2025 } from "../../ingresos-identificados-2025/regiones"
 import { producirCuotasHogarC36 } from "./anual-hogar"
 import { conciliarInmuebleP4a, evaluarPrimerAlquiler2025 } from "../../inmobiliario-2025/consumidores"
@@ -90,7 +92,13 @@ export function registrarMonetariosC36(
       alta("documento-monetario:" + x.documentoValoracion)
     Object.values(x).forEach(recorrer)
   }
-  recorrer(Schema.decodeUnknownSync(Schema.Json)(s.hechos))
+  if (Schema.is(ViviendaC36)(s) && s.codigo === "canarias_inversion_vivienda_habitual") {
+    // El libro patrimonial referencia el mismo pago; no es otra aplicación.
+    // El productor concilia ID, importe, fecha y factura antes de calcular.
+    const { historiaAdquisicion, ...hechos } = s.hechos
+    void historiaAdquisicion
+    recorrer(Schema.decodeUnknownSync(Schema.Json)(hechos))
+  } else recorrer(Schema.decodeUnknownSync(Schema.Json)(s.hechos))
   locales.forEach((id) => vistos.add(id))
 }
 export function prioridadC36(s: {
@@ -207,18 +215,16 @@ export function evaluarAnualC36(
   }
   if (Schema.is(ViviendaC36)(s)) {
     conciliarNacimientoPropioC36(m, s.hechos.nacimientoContribuyente)
-    if (s.codigo === "canarias_inversion_vivienda_habitual")
-      throw new RangeError(
-        "C36 art14: falta productor de pagos históricos, inversiones anteriores deducidas y ganancia exenta reinvertida; no se presupone cero"
-      )
+    const historiaInversion = s.codigo === "canarias_inversion_vivienda_habitual"
+      ? producirHistoriaAdquisicionCanarias2025(s, m)
+      : undefined
+    comprobar(s.hechos.historiaAdquisicion === undefined || historiaInversion !== undefined, "C36: historia de adquisición ajena al código")
     if (s.codigo === "canarias_puesta_viviendas_mercado_arrendamiento" || s.codigo === "balears_arrendador_vivienda_permanente_otros_gastos") {
       s.hechos.viviendas.forEach(v => v.gastos.forEach(p => conciliarPagoC36(m, p)))
       return evaluarPrimerAlquiler2025(s, m)
     }
     if (s.codigo === "balears_arrendamiento_vivienda_habitual")
-      throw new RangeError(
-        "C36 art3bis: falta productor anual de derechos a deducciones de inversión en vivienda; ausencia de solicitud no prueba ausencia de derecho"
-      )
+      comprobarAusenciaInversionAlquilerC36(s, m, plan)
     const viviendas = s.hechos.viviendas.map((v): ViviendaC => {
       if (s.codigo === "canarias_arrendamiento_dacion_pago")
         comprobar(
@@ -297,7 +303,7 @@ export function evaluarAnualC36(
           resolucion: "",
         },
         persona: id,
-        territorio: h.territorio,
+        territorio: historiaInversion?.ubicacion ?? h.territorio,
         nacimientoContribuyente: s.hechos.nacimientoContribuyente,
         habitualDesde: v.habitualDesde ?? "",
         adquisicion: v.adquisicion ?? "",
@@ -370,9 +376,16 @@ export function evaluarAnualC36(
       }
     })
     return evaluarViviendaAmpliacionC(
-      { ...h, codigo: s.codigo, viviendas },
+      { ...h, codigo: s.codigo, viviendas: historiaInversion?.cumplePatrimonio === false ? [] : viviendas },
       a,
-      { calculoId: a.calculoId, ejercicio: 2025, viviendas: [] }
+      historiaInversion?.historico ?? { calculoId: a.calculoId, ejercicio: 2025, viviendas:
+        s.codigo === "balears_arrendamiento_vivienda_habitual"
+          ? viviendas.map(v => ({ catastro: v.catastro, persona: id,
+            // Estos campos no los consume art3bis. Ausencia probada arriba.
+            pagadoHasta2024: "0", inversionesAnterioresDeducidas: "0",
+            gananciaExentaReinvertida: "0", saldoDudosoCobroDeducible2025: "0",
+            deduccionesInversionConDerecho: [],
+          })) : [] }
     )
   }
   if (Schema.is(FamiliaC36)(s)) return evaluarFamiliaAnualC36(s, m)

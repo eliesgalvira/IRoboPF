@@ -67,6 +67,7 @@ export type PoliticaAnual =
 /** Contrato interno: bases ya integradas en EUR Decimal; jamás reconstruye cotizaciones. */
 export interface EntradaComposicionAnual {
   readonly basesFamiliares2025?: CensoBasesFamiliares2025 | undefined
+  readonly pagadoresCatalunya2025?: import("../deducciones/catalunya-pagadores-2025/productor").LibroPagadoresCatalunya2025 | undefined
   readonly inmueblesP4a?: readonly ResultadoInmuebleP4a[] | undefined
   readonly ingresosIdentificados2025?: PreparacionIngresos2025 | undefined
   readonly rentaActividadAnualB?: Decimal | undefined
@@ -750,6 +751,7 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
             cuotaAutonomicaResidual,
             donativosEstatales: libroDonativos,
             nodosFiscalesB2025,
+            pagadoresCatalunya2025: entrada.pagadoresCatalunya2025,
             rentasTrabajoAnuales: entrada.rentasTrabajoAnuales,
             rentaNoExentaAntesReduccionesB: entrada.rentasAntesReducciones,
             rentaActividadAnualB: entrada.rentaActividadAnualB,

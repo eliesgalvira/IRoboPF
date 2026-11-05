@@ -1,3 +1,4 @@
+import { Schema } from "effect"
 import {
   cero,
   conciliar,
@@ -255,7 +256,7 @@ export type Libros = {
   readonly codigo: "galicia_libros_texto_material_escolar"
   readonly miembros2024: readonly {
     readonly persona: Persona
-    readonly renta2024: string
+    readonly renta2024: string | import("./comun").R
     readonly pensionIncapacidad:
       | "ninguna"
       | "total"
@@ -311,7 +312,7 @@ export function libros(c: Contexto, h: Libros): Resultado {
           ),
         "Miembro2024 o pensión desconocidos"
       )
-      renta = mas(renta, euros(m.renta2024, true))
+      renta = mas(renta, Schema.is(Schema.String)(m.renta2024) ? euros(m.renta2024, true) : m.renta2024)
       peso +=
         m.persona.discapacidad >= 33 || m.pensionIncapacidad !== "ninguna"
           ? 2
@@ -351,6 +352,7 @@ export function libros(c: Contexto, h: Libros): Resultado {
           "ejercicio",
           "satisfecho"
         )
+        if (a.pago.pagador !== c.titular) continue
         if (a.facturaFecha < "2025-07-01" || a.facturaFecha > "2025-12-31")
           continue
         if (a.categoria === "texto") textoBase = mas(textoBase, base)
@@ -381,9 +383,9 @@ export function libros(c: Contexto, h: Libros): Resultado {
         x.nivel !== "otro" &&
         x.centro === "fondos_publicos" &&
         x.ayudasCurso.length === 0
-          ? producto(
-              min(euros("105"), por(base, 15, 100)),
-              reparto(x.titularesDeduccion, c)
+          ? min(
+              producto(euros("105"), reparto(x.titularesDeduccion, c)),
+              por(base, 15, 100)
             )
           : cero
       total = mas(total, v)

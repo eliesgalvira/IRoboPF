@@ -1,4 +1,5 @@
 import { EconomiaPersonaFamiliar2025 } from "../bases-familiares-2025/productor"
+import { HechosPagadoresCatalunya2025 } from "./catalunya-pagadores-2025/contrato"
 import { Schema } from "effect"
 import * as AND from "./lote-a-ampliacion-2025/andalucia"
 import * as ARA from "./lote-a-ampliacion-2025/aragon"
@@ -307,10 +308,7 @@ const CAT6 = Schema.Struct({
   lote: Schema.Literal("A40"),
   codigo: CAT.S6.fields.codigo,
   nacimiento: Texto,
-  hechos: Schema.Struct({
-    altaAutonomo2025: CAT.S6.fields.hechos.fields.altaAutonomo2025,
-    otrasCausasObligacion: CAT.S6.fields.hechos.fields.otrasCausasObligacion,
-  }),
+  hechos: HechosPagadoresCatalunya2025,
 })
 export const SolicitudAmpliacionAnualA2025 = Schema.Union([
   AND0,

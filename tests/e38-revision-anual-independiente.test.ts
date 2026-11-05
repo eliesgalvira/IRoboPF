@@ -36,8 +36,8 @@ for(const campo of ['baseImponibleTotal','magnitudesMotor','magnitudes','context
  for(const e of ambas({solicitudes:[{...n1,hechos:h}]}))expect(Effect.runSync(Effect.flip(e))._tag).toBe('ResultadoNoSoportado');
 })
 for(const nacimientoContribuyente of ['1991-01-01','2025-02-30','2026-01-01'])it('fecha propia inconsistente ambas API '+nacimientoContribuyente,()=>{for(const e of ambas({solicitudes:[{...n1,nacimientoContribuyente}]}))expect(Effect.runSync(Effect.flip(e))._tag).toBe('ResultadoNoSoportado')})
-it('dos productores pendientes tras conectar las cuatro rutas riojanas: ambos canales rechazan e identifican código sin magnitudes inyectadas',()=>{
- const pendientes=casos.filter(c=>c.hechos.codigo in PRODUCTORES_PENDIENTES_E38);expect(pendientes.map(c=>c.hechos.codigo).sort()).toEqual(["galicia_ayudas_incendios_peifoga_2025", "galicia_libros_texto_material_escolar"]);
+it('productor pendiente tras conectar las cuatro rutas riojanas: ambos canales rechazan e identifican código sin magnitudes inyectadas',()=>{
+ const pendientes=casos.filter(c=>c.hechos.codigo in PRODUCTORES_PENDIENTES_E38);expect(pendientes.map(c=>c.hechos.codigo).sort()).toEqual(["galicia_ayudas_incendios_peifoga_2025"]);
  for(const c of pendientes){const s={solicitudes:[solicitudE38(c.hechos)]};const a=liquidarIrpfAnual({...canonico(c.contexto.territorio),deduccionesTerritoriales2025:s},{modo:'canonico'});const b=liquidarIrpfAnualExplicito({...efectivo(s),comunidadAutonoma:c.contexto.territorio});
  for(const e of [Effect.as(a,undefined),Effect.as(b,undefined)]){const err=Effect.runSync(Effect.flip(e));expect(err._tag).toBe('ResultadoNoSoportado');expect(JSON.stringify(err)).toContain(c.hechos.codigo)} }
 })
