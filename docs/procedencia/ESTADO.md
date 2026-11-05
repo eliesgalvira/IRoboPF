@@ -1,5 +1,25 @@
 # Estado de la auditoría documental
 
+## Preparación de integración anual, 5 de noviembre
+
+Última publicación confirmada: `b9122c2bf61310922e856117ed4490136a628d03`, con `checks` y `corpus` verdes en la [ejecución 41965248547](https://github.com/eliesgalvira/IRoboPF/actions/runs/41965248547). Este corte incorpora las conexiones territoriales y el ajuste histórico descritos a continuación. Pasan los 31 comandos del workflow en entorno limpio; la publicación y comprobación remota se registran después de ese control local.
+
+E38 conecta 27 códigos con ramas parciales y conserva once rechazos por productor ausente; su revisión anual pasa 572 pruebas únicas. D51 conecta 51 contratos, con once códigos que mantienen alguna rama pendiente; la revisión anual pasa 219 pruebas. La corrección de cuantización histórica recibe dictamen favorable acotado y pasa 342 pruebas en la revisión: resuelve las 83 casillas comparables de los siete pilotos, con catorce mapeos pendientes y una ausencia. Son cifras de revisiones distintas y solapadas; no se suman.
+
+C36 H1/H2 y F R1–R3 superan el contraste independiente con sus esperados intactos. La primera lectura normativa restante de F documenta 41 ramas y detecta N1–N4: adulto con acogimiento de menores, constitución societaria futura, adquisición anterior al incentivo y edad exigida de nuevo en anualidades posteriores. El padre reproduce ocho rojos y corrige tres módulos. Pasan los 23 discriminantes originales y quince fronteras nuevas; el contraste independiente acotado es favorable: 63 pruebas (38 recibidas y 25 propias), con ocho rojos confirmados en las preimágenes. Tipos y linters focales pasan. Los informes anteriores conservan sus rojos y salvedades.
+
+Aragón2 recibe revisión favorable acotada: 65 pruebas propias, 50 focales y 393 regresiones, con dos TODO previos. Su conexión se fusiona conservando los conciliadores E/D/C/F, el censo A40 y el único consumo de cuota. Estatal positiva, reinversión y cuota social sin productor mantienen rechazos tipados. El parche combinado pasa 1.342 pruebas en 42 archivos, tipos/Effect y ambos linters sin diagnósticos. Se incorporan además las 25 pruebas independientes de N1–N4, ejecutadas por el revisor. Pasan los 31 pasos del workflow con entorno limpio, incluido el inventario regenerado. Véase el [registro del CI](revisiones/territorial-historico-ci-20261105/CI.md).
+
+Se preparan por separado los ingresos identificados ELA de Asturias, los donativos estatales dinerarios y maternidad/guardería con consumo en Castilla y León. Esas implementaciones no se atribuyen todavía al candidato combinado.
+
+
+Corte de campaña histórico b11: 661 capturas de 2018 y 667 en total, sin atribuir cotejo a las 660 adicionales al piloto. 2019-b01 ha terminado: 61 capturas cerradas del año, 727 en total. Ese bloque añadió 59 capturas nuevas, reutilizó un original previo y validó un SKIP. 2020-b01 ha cerrado 60 capturas del año y eleva el total a 786; seed50 conserva un fallo UI pendiente. Se autoriza un único reintento y el primer bloque de 2021, sin atribuirles aún resultados. Las 779 capturas adicionales a los siete pilotos siguen sin cotejo ampliado. La campaña completa requiere 14.140 comparaciones. C301 y las nueve variantes de 2025 conservan sus coincidencias, ausencias y límites publicados. Véase el [estado por año](ESTADO-POR-ANIO.md).
+
+Se retiraron seis entregas ya integradas y publicadas de Aragón, A40 y B37, preservando parches, manifiestos y evidencia única en archivos compactos externos. Medición del 5/11 a las 04:42 UTC: 97,70 GB para IRoboPF y 316,08 GB libres, incluyendo conservadoramente todas las worktrees de T3. No se crearon worktrees ni dependencias dentro de las entregas. Siguen el máximo de dos suites pesadas y cinco subagentes.
+
+El punto 4 sigue abierto. Las reservas sobre hechos, productores fiscales e históricos no se convierten en ceros ni se cuentan como cierres de códigos. El orden de producto y el aplazamiento de F completo y A histórico se mantienen.
+
+
 ## Prioridad de producto: 4 de noviembre, noche
 
 Base del corte: `3dcd12606d0c0d280f276585a04918181d7093bf`, con los dos trabajos remotos de CI en verde. Este corte incorpora los cambios revisados descritos a continuación. Conserva el inventario reproducible entre directorios y sus entradas declaradas; antes de cada push se reproducen los 31 pasos del workflow con PATH limpio y versiones fijadas.

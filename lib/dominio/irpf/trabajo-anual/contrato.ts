@@ -7,9 +7,9 @@ export const Euros = Schema.String.check(
 export const Renta = Schema.String.check(
   Schema.isPattern(/^-?(0|[1-9][0-9]{0,11})(\.[0-9]{1,2})?$/)
 )
-/** Magnitudes calculadas: no se redondean a céntimos entre etapas. */
+/** Magnitudes calculadas internas: hasta80decimales, sin céntimos entre etapas. */
 const MagnitudCalculada = Schema.String.check(
-  Schema.isPattern(/^(0|[1-9][0-9]{0,15})(\.[0-9]{1,60})?$/)
+  Schema.isPattern(/^(0|[1-9][0-9]{0,15})(\.[0-9]{1,80})?$/)
 )
 /** Suma de hasta 100 rendimientos de 12 enteros y dos decimales cada uno. */
 const BrutoServiciosAcumulado = Schema.String.check(

@@ -1,0 +1,96 @@
+[
+  {
+    "id": "N1-anual-consumo",
+    "casos": 3,
+    "nacimientos": [
+      "1990-01-01",
+      "2007-07-03",
+      "2007-07-04"
+    ],
+    "importeEUR": [
+      "0",
+      "0",
+      "618.6"
+    ]
+  },
+  {
+    "id": "N1-validacion-intervalos",
+    "casos": 6,
+    "edades": [
+      "35",
+      "18",
+      "10"
+    ],
+    "expectativa": "no_soportado sin importe: fecha inexistente o periodos solapados, incluso adulto excluido"
+  },
+  {
+    "id": "N2-ampliacion",
+    "casos": 6,
+    "territorios": [
+      "madrid",
+      "murcia"
+    ],
+    "creacion": [
+      "2022-06-01",
+      "2022-05-31",
+      "2025-06-02"
+    ],
+    "fechaInversion": "2025-06-01",
+    "expectativa": [
+      "400/200",
+      "excluida",
+      "excluida"
+    ]
+  },
+  {
+    "id": "N4-anual-consumo",
+    "casos": 2,
+    "nacimientos": [
+      "1990-12-31",
+      "1989-12-31"
+    ],
+    "compra": "2024-01-01",
+    "expectativa": [
+      "1000",
+      "excluida sin importe; consumo cero"
+    ]
+  },
+  {
+    "id": "N3-tope-anualidad",
+    "casos": 2,
+    "precio": [
+      "100000",
+      "200000"
+    ],
+    "expectativa": [
+      "1000",
+      "1546.5"
+    ]
+  },
+  {
+    "id": "N4-frontera-traslado",
+    "casos": 1,
+    "expectativa": "35 en2025 excluida; no hereda corte2024 de compra"
+  },
+  {
+    "id": "N2-anual-consumo",
+    "casos": 4,
+    "territorios": [
+      "madrid",
+      "murcia"
+    ],
+    "creacion": [
+      "2025-06-01",
+      "2025-06-02"
+    ],
+    "expectativa": [
+      "400/200",
+      "excluida; consumo cero"
+    ]
+  },
+  {
+    "id": "N3-anual-consumo",
+    "casos": 1,
+    "expectativa": "compra2023 despoblacion excluida; consumo cero"
+  }
+]

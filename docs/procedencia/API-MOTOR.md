@@ -57,12 +57,17 @@ El mismo contrato admite además un perfil histórico de empleo: Madrid 2018–2
 individual, edad de 18 a 64 años, sin familiares, discapacidad, deducciones ni
 otras especialidades, con devengo el 31 de diciembre del ejercicio. Aportes,
 retenciones y conciliación deben declarar ese mismo año. Selecciona el artículo
-20 y los parámetros anuales reales mediante la composición común; conserva
-`decimal-hasta-salida` y excluye DA61. Su alcance de salida es
+20 y los parámetros anuales reales mediante la composición común. Los cuatro
+gravámenes se cuantizan a céntimos antes de restar mínimos; el artículo 20
+conserva su precisión histórica y DA61 no aplica. Su alcance de salida es
 `individual-madrid-2018-a-2024-hechos-explicitos`. La
 [revisión de la conexión](simuladores/revision-historico-api/INFORME.md)
-comprueba admisión, rechazo y conservación de 2025; aún no acredita coincidencia
-contra Open histórico. El perfil histórico no admite pensiones ni actividad.
+comprueba admisión, rechazo y conservación de 2025. La
+[revisión de cuotas históricas](simuladores/historico/REVISION-CUOTAS.md)
+corrobora las 83 casillas comparables de siete pilotos, con catorce mapeos
+reservados y una ausencia; la campaña ampliada sigue pendiente. El perfil
+histórico no admite pensiones ni actividad. Esta evidencia no acredita un
+redondeo fiscal universal ni habilita el ámbito excluido.
 Madrid 2018–2021 y 2023–2024 consume las cuotas fijas publicadas en devengos
 ordinarios sin fallecimiento. La [integración revisada de esas series](datos-2012-2026/producto-series-historicas/INTEGRACION.md)
 corrige 40 diferencias de céntimo reproducidas y conserva 2022 y las referencias
@@ -215,7 +220,7 @@ añaden 55 códigos parciales revisados. Sus contratos aislados conservan las re
 
 ## Conexión territorial anual 2025 (parcial y revisada)
 
-Las dos entradas anuales admiten `deduccionesTerritoriales2025`, una unión cerrada de hechos de las 55 altas territoriales iniciales y las ampliaciones A40 y B37 descritas abajo. La efectiva requiere el discriminante `territoriales-por-hechos-y-da61`. La composición deriva magnitudes y consume cuota autonómica una sola vez desde salidas exactas; conserva el resultado condicionado y sus reservas. No se permiten bases o cuotas externas ni mezcla con consignaciones o la solicitud valenciana anterior.
+Las dos entradas anuales admiten `deduccionesTerritoriales2025`, una unión cerrada de hechos de las 55 altas territoriales iniciales y las ampliaciones A40, B37, E38, D51, C36, F y Aragón2 descritas abajo. La efectiva requiere el discriminante `territoriales-por-hechos-y-da61`. La composición deriva magnitudes y consume cuota autonómica una sola vez desde salidas exactas; conserva el resultado condicionado y sus reservas. No se permiten bases o cuotas externas ni mezcla con consignaciones o la solicitud valenciana anterior.
 
 La edad y discapacidad declaradas deben coincidir con el caso anual. Los familiares y el conjunto completo de titulares se vinculan a la atribución efectiva calculada para cada sujeto; la presencia en el censo no basta. Los eventos de nacimiento o adopción se contrastan con los vínculos y fechas ya conocidos. La conexión rechaza el reparto adoptivo mixto mientras no distinga los titulares de esa deducción de los del mínimo. En Extremadura, los ingresos para trabajo dependiente proceden del cálculo anual; los duplicados introducidos en los hechos no sustituyen esos ingresos.
 
@@ -235,4 +240,31 @@ Ambas ampliaciones conservan las dos API, magnitudes internas de hasta 80 decima
 
 ## Dos contratos aragoneses adicionales
 
-El módulo `aragon-dos-codigos-2025` incorpora el cálculo parcial de inversión en entidades nuevas, con asignación estatal/autonómica y rechazo de reinversión positiva no coordinada. El contrato de arrendamiento social expresa la petición de cuota atribuida y su fracción 3/10; no recibe una cuota externa ni produce una deducción cuando falta el productor anual. Su [revisión independiente](deducciones-2025/producto-aragon-dos-codigos/REVISION.md) es favorable dentro del alcance declarado. Estos dos contratos aún no forman parte del dispatcher anual y no completan el punto 4.
+El módulo `aragon-dos-codigos-2025` incorpora el cálculo parcial de inversión en entidades nuevas, con asignación estatal/autonómica y rechazo de reinversión positiva no coordinada. El contrato de arrendamiento social expresa la petición de cuota atribuida y su fracción 3/10; no recibe una cuota externa ni produce una deducción cuando falta el productor anual. Su [revisión independiente](deducciones-2025/producto-aragon-dos-codigos/REVISION.md) es favorable dentro del alcance declarado. `lote: "A-aragon-dos"` conecta ambas API: inversión con elección estatal cero explícita y censo completo entra en el único libro de cuota; estatal positiva y reinversión conservan rechazos tipados. Social devuelve dependencia 3/10 sin importe mientras falta su productor. La [revisión de la conexión anual](deducciones-2025/producto-aragon-conexion-anual/REVISION-INDEPENDIENTE.md) es favorable acotada; no completa el punto 4.
+
+
+## Ampliación E38 en la ruta anual
+
+`lote: "E38"` añade los contratos de Galicia y La Rioja a las dos API y al mismo libro de cuota. Veintisiete códigos admiten ramas parciales; once rechazan con el productor ausente identificado. La entrada recibe hechos, fechas, identidades y pagos. Las bases imponibles general y del ahorro proceden de sus nodos anuales antes de limitar las bases liquidables, y la composición aporta el mínimo efectivo, el censo y la cuota. No se reciben esas magnitudes calculadas por el cliente.
+
+El canal interno conserva hasta 80 cifras y céntimos racionales, con conversión única a euros al dispatcher. Las ayudas sin imputación o tipos medios, los libros sin renta familiar de 2024 y las ramas riojanas sin comparación patrimonial o bases históricas continúan rechazadas. Se conservan las suspensiones de 2025 y las restricciones de titularidad, alquiler, mecenazgo y arrastres. Véanse el [contrato de magnitudes](deducciones-2025/producto-e-anual/CONTRATO-MAGNITUDES.md), la [matriz de ramas](deducciones-2025/producto-e-anual/MATRIZ-38.json) y la [revisión independiente](deducciones-2025/producto-e-anual/REVISION.md).
+
+
+## Ampliación D51 en la ruta anual
+
+`lote: "D51"` conecta los contratos de Castilla-La Mancha, Castilla y León y Extremadura con las dos API. Sus 51 códigos tienen despacho específico; once conservan alguna rama rechazada por productor ausente, según la [matriz](deducciones-2025/conexion-d51/matriz-51.json). Bases imponibles, bases liquidables, mínimo y cuota se derivan de la composición. Los límites de base compartida de Castilla y León se consumen en la sesión del sublote y después se aplica el único libro de cuota, manteniendo las prioridades B.
+
+No se aceptan bases, cuotas ni deducciones estatales calculadas por el cliente. Las ramas de historial de vivienda, maternidad estatal, movilidad estatal, renta exenta familiar, rentas inmobiliarias e imputación de ayudas sin productor se rechazan con causa identificada. Se mantienen las condiciones de identidad, censo, reparto y fechas, y las correcciones H1–H3. La precisión local de trabajo-anual/calcular.ts pasa de 60 a 80 para gastos, artículo 80bis y DA61; los importes aportados conservan su formato previo. El contrato interno DA61 admite hasta 80 decimales calculados y rechaza 81. Véanse el [informe de conexión](deducciones-2025/conexion-d51/INFORME.md) y la [revisión independiente](deducciones-2025/conexion-d51/REVISION.md).
+
+
+## Ampliación C36: candidato de conexión anual
+
+`lote: "C36"` lleva 36 contratos de Canarias y Baleares al mismo dispatcher. Veintiocho códigos tienen alguna rama conectada y ocho conservan rechazo por productor ausente. El cálculo usa bases, mínimos y cuotas internos, con precisión de 80 cifras. Antes del consumo común aplica los límites por código y el presupuesto canario compartido del 15%; conserva prioridad de nacimiento/adopción balear e incompatibilidades por sujeto y bien. Los pagos repetidos y los datos familiares contradictorios se rechazan.
+
+Los históricos, las imputaciones inmobiliarias, las cuotas de otros miembros, la regularización de anticipos y las ayudas sin integración fiscal representada no se sustituyen por cero. La validación del autor pasa 402 pruebas; la primera revisión independiente anual detectó H1/H2, corregidos con sus tres rojos y dos rojos nuevos de API. El contraste C36 H1/H2 es favorable acotado, con sus pruebas y esperados intactos. La integración conjunta con Aragón pasa 1.342 pruebas, tipos/Effect y ambos linters. Véanse las [correcciones](deducciones-2025/c36-conexion-anual-20261105/CORRECCIONES-REVISION.md). Véanse el [contrato](deducciones-2025/c36-conexion-anual-20261105/CONTRATO.md) y el [informe de conexión](deducciones-2025/c36-conexion-anual-20261105/INFORME.md).
+
+## Ampliación F: candidato de conexión anual de Madrid y Murcia
+
+`lote: "F-ampliado"` incorpora las ramas preparadas de Madrid y Murcia, con hechos cerrados, magnitudes anuales internas y un libro de aplicación único. El combinado contiene 36 ramas numéricas, cinco fórmulas condicionadas y diez contratos reutilizados. La recarga sin ayudas mantiene el 100% de base y un máximo de 4.000 EUR; el ahorro de agua mantiene el 20%, base máxima de 300 EUR y límite de 60 EUR dentro de sus condiciones documentadas.
+
+El libro murciano aplica primero las deducciones sin arrastre, después vehículos, recarga y renovables. Los saldos nacidos en 2025 conservan titular, objeto, plazo y obligaciones posteriores. Un importe pendiente impide declarar completa la cuota posterior. Las bases ajenas, consumos históricos y ayudas sin conciliación siguen rechazados. Las dos API no aceptan cuotas, tipos ni asignaciones estatales calculadas por el cliente. La validación del autor pasa 182 pruebas F y 572 regresiones, con dos pendientes preexistentes; la primera revisión monetaria detectó R1–R3, corregidos por el integrador con sus 22 expectativas conservadas. El contraste R1–R3 es favorable acotado. La primera lectura normativa de las 41 ramas detectó N1–N4; el padre corrigió edad de acogimiento, cronología societaria, inicio de incentivos de vivienda y edad del ejercicio de adquisición. La fusión con Aragón pasa 1.342 pruebas, tipos/Effect y ambos linters. El contraste de las cuatro reparaciones graves es favorable acotado: 63 pruebas, incluidos 25 discriminantes propios; véanse las [correcciones N1–N4](deducciones-2025/producto-f-ampliacion-20261105/CORRECCIONES-N1-N4.md). Véanse las [correcciones](deducciones-2025/producto-f-ampliacion-20261105/CORRECCIONES-REVISION.md). Véanse el [contrato](deducciones-2025/producto-f-ampliacion-20261105/CONTRATO.md) y la [conexión anual](deducciones-2025/producto-f-ampliacion-20261105/CONEXION-ANUAL.md).

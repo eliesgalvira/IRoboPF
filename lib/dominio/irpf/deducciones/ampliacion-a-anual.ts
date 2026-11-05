@@ -181,6 +181,8 @@ export function evaluarAmpliacionAnualA2025(
     gradoConciliado(s.hechos.grado, m.caso.situacionFamiliar.discapacidad._tag)
   // Elecciones derivadas de los códigos realmente solicitados y su objeto, nunca listas externas.
   const elecciones = solicitudes.flatMap((p) => {
+    // Aragón2 concilia operaciones por pago/justificante y entidad+escritura: no convierte toda la entidad en una elección de la misma inversión.
+    if (p.lote === "A-aragon-dos") return []
     const codigo = "codigo" in p ? p.codigo : p.hechos.codigo
     const identificados = objetos(
       Schema.decodeUnknownSync(Schema.Json)(p.hechos)

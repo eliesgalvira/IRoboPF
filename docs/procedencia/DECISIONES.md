@@ -816,3 +816,20 @@ B37 deriva tipos generales y cuotas de la liquidación común; no acepta magnitu
 ### Tamaño acotado del inventario ampliado
 
 El CI local del corte detectó un artefacto de 154.522.282 bytes descomprimidos frente al límite previo de 128 MiB. El productor permitía publicarlo aunque el lector lo rechazase. Se fija un techo de 256 MiB tanto al escribir como en los lectores JavaScript y Python. La comprobación de hashes, nombres y reconstrucción permanece activa; no se elimina el límite de descompresión. Se conserva el intento fallido y se repiten los pasos completos del workflow con PATH limpio antes de publicar.
+
+
+### Fusión de conexiones territoriales y comparación histórica, 5 de noviembre
+
+Las conexiones E38, D51, C36 y F modifican los mismos puntos de la API. Se fusionan sobre la publicación b9122c2b, conservando preimágenes, cambios de cada autor y resoluciones de conflicto. Se mantienen los conciliadores propios, la precisión necesaria para cada lote y la única aplicación de cuota. Los límites C36 se calculan antes de consumirla; los saldos E38 se obtienen después; el libro F se selecciona sólo dentro de su territorio. La validación conjunta no se sustituye por la suma de pruebas de autores.
+
+La cuantización histórica se limita al perfil de empleo efectivo de Madrid 2018–2024 revisado. Resuelve las 83 casillas comparables de los siete pilotos y conserva catorce mapeos pendientes y una ausencia. Las capturas adicionales siguen separadas hasta cotejarlas: una captura no demuestra coincidencia monetaria. Tras 661 capturas de 2018, se adelanta un bloque de 2019 para obtener diversidad por año mientras continúa la adquisición secuencial.
+
+Se priorizan tres magnitudes ausentes que sirven a deducciones concretas: ingreso identificado de ayudas ELA, deducción estatal por donativos dinerarios y calendario estatal de maternidad/guardería. La primera no puede resolverse etiquetando una renta agregada; la segunda debe descontarse realmente en la secuencia de cuota; la tercera necesita hechos mensuales y no se deriva del mínimo familiar. La implementación inicial se acota por perfil y conserva rechazos precisos fuera de él. No equivale a cerrar todas las ramas de los códigos receptores.
+
+
+### Edad durante el acogimiento y cronología de incentivos
+
+El acogimiento computa sólo los días anteriores a cumplir 18 años: el régimen exige más de 183 días y se extingue al alcanzar la mayoría. Esta es una inferencia jurídica operativa, contrastada de forma independiente; no una consulta vinculante específica. Exigir minoría al 31 de diciembre añadiría una restricción no formulada y excluiría periodos superiores a 183 días. En despoblación se conserva la edad del ejercicio de adquisición, sin volver a exigirla en las nueve anualidades posteriores. Las compras anteriores al inicio del incentivo y la constitución societaria posterior a la inversión se rechazan. Se conservan los ocho fallos previos y el alcance parcial de las 41 ramas; las correcciones no autentican los hechos declarados.
+
+
+El primer CI del corte territorial detectó módulos nuevos sin hash fijado: el empaquetador sólo actualizaba claves existentes. Se añaden las 20 fuentes nuevas revisadas, sin relajar el rechazo por contenido distinto. Las 26 regresiones de flujo y los 31 pasos completos pasan después. La fijación identifica los bytes ejecutados; no equivale a acreditar jurídicamente sus fórmulas.

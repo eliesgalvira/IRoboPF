@@ -374,7 +374,7 @@ function aAnual(
     ids.some((id) => !c.declarantes.includes(id))
   )
     fallo("Magnitud anual ajena al concepto, ejercicio o declaración")
-  return decimal(m.valor, firmado)
+  return magnitudAnual(m.valor, firmado)
 }
 function aPagos(
   c: Contexto,
@@ -861,8 +861,8 @@ export function alquilerJoven(
 
     aDias(f.inicio, f.fin)
     const parte = proporcion(c, f.titularesConDerecho)
-    const base = decimal(c.baseGeneral, true)
-      .plus(decimal(c.baseAhorro, true))
+    const base = magnitudAnual(c.baseGeneral, true)
+      .plus(magnitudAnual(c.baseAhorro, true))
       .minus(aAnual(c, f.minimoDescendientes, "minimo_descendientes"))
     const acceso =
       base.lte(c.modalidad === "individual" ? 12500 : 25000) &&
@@ -911,8 +911,8 @@ export function alquilerDacion(
 
     const dias = aDias(f.inicio, f.fin),
       parte = proporcion(c, f.titularesConDerecho)
-    const base = decimal(c.baseGeneral, true)
-      .plus(decimal(c.baseAhorro, true))
+    const base = magnitudAnual(c.baseGeneral, true)
+      .plus(magnitudAnual(c.baseAhorro, true))
       .minus(aAnual(c, f.minimoDescendientes, "minimo_descendientes"))
     const acceso =
       base.lte(c.modalidad === "individual" ? 12500 : 25000) &&
@@ -960,8 +960,8 @@ export function alquilerNumerosa(
 
     const dias = aDias(f.inicio, f.fin),
       parte = proporcion(c, f.titularesConDerecho)
-    const base = decimal(c.baseGeneral, true)
-      .plus(decimal(c.baseAhorro, true))
+    const base = magnitudAnual(c.baseGeneral, true)
+      .plus(magnitudAnual(c.baseAhorro, true))
       .minus(aAnual(c, f.minimoDescendientes, "minimo_descendientes"))
     const acceso =
       base.lte(c.modalidad === "individual" ? 12500 : 25000) &&
@@ -1007,8 +1007,8 @@ export function alquilerMonoparental(
 
     const dias = aDias(f.inicio, f.fin),
       parte = proporcion(c, f.titularesConDerecho)
-    const base = decimal(c.baseGeneral, true)
-      .plus(decimal(c.baseAhorro, true))
+    const base = magnitudAnual(c.baseGeneral, true)
+      .plus(magnitudAnual(c.baseAhorro, true))
       .minus(aAnual(c, f.minimoDescendientes, "minimo_descendientes"))
     const acceso =
       base.lte(c.modalidad === "individual" ? 12500 : 25000) &&
@@ -1053,8 +1053,8 @@ export function alquilerDiscapacidad(
 
     const dias = aDias(f.inicio, f.fin),
       parte = proporcion(c, f.titularesConDerecho)
-    const base = decimal(c.baseGeneral, true)
-      .plus(decimal(c.baseAhorro, true))
+    const base = magnitudAnual(c.baseGeneral, true)
+      .plus(magnitudAnual(c.baseAhorro, true))
       .minus(aAnual(c, f.minimoDescendientes, "minimo_descendientes"))
     const acceso =
       base.lte(c.modalidad === "individual" ? 12500 : 25000) &&

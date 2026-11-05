@@ -1,5 +1,5 @@
 import type { Marco, Pago, Territorio } from "./comun"
-import { dinero, positivo, marco, pagos, fecha, texto, unico } from "./comun"
+import { dinero, positivo, marco, pagos, fecha, texto, unico, magnitudAnual } from "./comun"
 
 /** Fracción racional: ni días/365 ni los repartos se redondean antes de cuota. */
 export class RacionalC {
@@ -47,6 +47,17 @@ export const enteroC = (n: number): RacionalC => {
 export function eurosC(s: string): RacionalC {
   return new RacionalC(BigInt(dinero(s).times(100).toFixed(0)), 100n)
 }
+/** Transporte exacto de magnitudes del motor; los pagos conservan el parser de céntimos. */
+export function eurosAnualesC(s: string): RacionalC {
+  magnitudAnual(s)
+  const [entera, fraccion = ""] = s.split(".")
+  return new RacionalC(BigInt(entera + fraccion), 10n ** BigInt(fraccion.length))
+}
+export function noNegativoAnualC(s: string): RacionalC {
+  const valor = eurosAnualesC(s)
+  comprobar(valor.n >= 0n, "Magnitud anual negativa")
+  return valor
+}
 export function noNegativoC(s: string): RacionalC {
   positivo(s)
   return eurosC(s)
@@ -81,7 +92,7 @@ export type MagnitudesAnualesC = {
     imponibleAhorro: string
     liquidableGeneral: string
     liquidableAhorro: string
-    rendimientosTrabajoActividad: string
+    rendimientosTrabajoActividad?: string | undefined
   }[]
   minimos: readonly {
     beneficiario: string
@@ -143,19 +154,19 @@ export function anualesC(h: DeclaracionC, m: MagnitudesAnualesC): void {
       m.personas.every((p) => h.declarantes.includes(p.persona)),
     "Magnitudes sin todos los contribuyentes identificados"
   )
-  positivo(m.cuotaIntegraAutonomica)
-  dinero(m.baseLiquidableGeneral)
-  dinero(m.baseLiquidableAhorro)
+  noNegativoAnualC(m.cuotaIntegraAutonomica)
+  eurosAnualesC(m.baseLiquidableGeneral)
+  eurosAnualesC(m.baseLiquidableAhorro)
   m.personas.forEach((p) => {
-    dinero(p.imponibleGeneral)
-    dinero(p.imponibleAhorro)
-    dinero(p.liquidableGeneral)
-    dinero(p.liquidableAhorro)
-    dinero(p.rendimientosTrabajoActividad)
+    eurosAnualesC(p.imponibleGeneral)
+    eurosAnualesC(p.imponibleAhorro)
+    eurosAnualesC(p.liquidableGeneral)
+    eurosAnualesC(p.liquidableAhorro)
+    if(p.rendimientosTrabajoActividad !== undefined) eurosAnualesC(p.rendimientosTrabajoActividad)
   })
   const base = m.personas.reduce(
     (s, p) =>
-      s.sumar(eurosC(p.imponibleGeneral)).sumar(eurosC(p.imponibleAhorro)),
+      s.sumar(eurosAnualesC(p.imponibleGeneral)).sumar(eurosAnualesC(p.imponibleAhorro)),
     ceroC()
   )
   comprobar(
@@ -164,12 +175,12 @@ export function anualesC(h: DeclaracionC, m: MagnitudesAnualesC): void {
   )
   const liquidable = m.personas.reduce(
     (s, p) =>
-      s.sumar(eurosC(p.liquidableGeneral)).sumar(eurosC(p.liquidableAhorro)),
+      s.sumar(eurosAnualesC(p.liquidableGeneral)).sumar(eurosAnualesC(p.liquidableAhorro)),
     ceroC()
   )
   comprobar(
     liquidable.comparar(
-      eurosC(m.baseLiquidableGeneral).sumar(eurosC(m.baseLiquidableAhorro))
+      eurosAnualesC(m.baseLiquidableGeneral).sumar(eurosAnualesC(m.baseLiquidableAhorro))
     ) === 0n,
     "Atribución de base liquidable no concuerda con declaración"
   )
@@ -241,7 +252,7 @@ export function resultadoC(
   }
 }
 export function rentaC(h: DeclaracionC): RacionalC {
-  return eurosC(h.baseGeneral).sumar(eurosC(h.baseAhorro))
+  return eurosAnualesC(h.baseGeneral).sumar(eurosAnualesC(h.baseAhorro))
 }
 export function accesoC(
   h: DeclaracionC,

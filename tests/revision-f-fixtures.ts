@@ -1,0 +1,130 @@
+import type { SolicitudAnualF2025 as Solicitud } from "../lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/anual-esquemas";
+const vivienda = {
+  id: "v",
+  territorio: "murcia",
+  adquisicion: "2020-01-01",
+  porcentajePropiedad: "100",
+  titulares: ["s-1"],
+  ocupacionDesde: "2020-01-01",
+  permanenciaHasta: "2025-12-31",
+  reconocimientoAhorroAgua: "resolucion_region",
+  fechaReconocimientoAhorroAgua: "2025-01-01",
+  reconocimientoAhorroAguaTitular: "s-1",
+  reconocimientoAhorroAguaVivienda: "v",
+  organoReconocimientoAhorroAgua: "administracion_regional_murcia",
+  ahorroAguaDispositivo: "dispositivo_art4_identificado",
+};
+const pago = (
+  id: string,
+  concepto: string,
+  importeEUR: string,
+  objetoId: string,
+) => ({
+  id,
+  fecha: "2025-06-01",
+  importeEUR,
+  ayudasEUR: "0",
+  concepto,
+  objetoId,
+  pagador: "s-1",
+  factura: "factura-" + id,
+  soportePago: "soporte-" + id,
+});
+export const agua = (): Solicitud => ({
+  lote: "F-ampliado",
+  codigo: "murcia_dispositivos_ahorro_agua",
+  hechos: {
+    viviendas: [vivienda],
+    pagos: [pago("p-agua", "dispositivo_ahorro_agua", "300", "v")],
+  },
+});
+export const recarga = (): Solicitud => ({
+  lote: "F-ampliado",
+  codigo: "murcia_recarga_vehiculos_electricos",
+  historialRecarga: {
+    periodos: [2022, 2023, 2024],
+    contribuyente: "s-1",
+    referencia: "censo_documentado",
+    infraestructuras: [],
+  },
+  hechos: {
+    viviendas: [vivienda],
+    instalaciones: [
+      {
+        id: "inst",
+        viviendaId: "v",
+        vehiculoId: "vehiculo_uso_particular",
+        tipoCoste: "programa2_rd266_2021",
+        puestaMarcha: "2025-06-01",
+        finalizacion: "2025-06-01",
+        facturaFecha: "2025-06-01",
+        uso: "particular",
+        titulares: ["s-1"],
+        regimenPago: "propio",
+        propiedadHastaDevengo: "2025-12-31",
+        funcionamientoHastaDevengo: "2025-12-31",
+        referenciaPropiedadInstalacion: "titulo",
+        referenciaMantenimientoDosAnios: "seguimiento2",
+      },
+    ],
+    pagos: [pago("p-recarga", "infraestructura_recarga", "1000", "inst")],
+  },
+});
+export const efectivo = () =>
+  ({
+    ejercicio: 2025,
+    comunidadAutonoma: "murcia",
+    contribuyenteId: "s-1",
+    edad: 40,
+    modalidad: "individual",
+    residenciaTodoElAnio: true,
+    devengo: "2025-12-31",
+    otrasRentas: "ninguna",
+    familiaresConDerechoMinimo: "ninguno",
+    discapacidad: "ninguna",
+    reduccionesBase: "ninguna",
+    saldosAnteriores: "ninguno",
+    deducciones: "territoriales-por-hechos-y-da61",
+    deduccionesTerritoriales2025: { solicitudes: [agua()] },
+    rentasExtranjeras: "ninguna",
+    especialidades: "ninguna",
+    perfil: "solo-trabajo",
+    conciliacion: {
+      ejercicio: 2025,
+      estado: "totales-anuales-sin-duplicados",
+      procedencia: ["certificado"],
+    },
+    retenciones: [],
+    trabajo: {
+      ejercicio: 2025,
+      territorio: "comun",
+      reduccionesArt18: "ninguna",
+      movilidad: "ninguna",
+      discapacidadActiva: "ninguna",
+      rendimientos: [
+        {
+          id: "r",
+          clase: "empleo-laboral",
+          integro: "30000",
+          cotizaciones: {
+            clase: "efectivas",
+            seguridadSocial: "0",
+            derechosPasivos: "0",
+            colegiosHuerfanos: "0",
+          },
+          sindicato: { importe: "0", satisfecho: "no" },
+          colegio: {
+            importe: "0",
+            satisfecho: "no",
+            obligatorio: "no",
+            finesEsenciales: "no",
+          },
+          defensa: {
+            importe: "0",
+            satisfecho: "no",
+            litigioDirectoPagador: "no",
+          },
+        },
+      ],
+    },
+  }) as const;

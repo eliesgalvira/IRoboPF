@@ -1,0 +1,47 @@
+# E38: conexión anual candidata sobre APIv4
+
+Esta entrega conecta las27 ramas viables de E38 corregido y conserva los11 rechazos concretos sin productor anual. Está rebasada sobre el corte productivo del padre de114 rutas,parche f848de69227445de23681a787659e7053d39251ea361c3db828906e56ae8ca99. La raíz contiene A40H12,B37 anual,políticas C2025 y las ampliaciones aisladas E38/D51/C36/Aragón. Se partió de sus preimágenes actuales;no se sustituyen por los cinco archivos centrales del candidato v4 anterior.
+
+Estado: validación focal del autor en PESADO2,529 verdes y2 TODO preexistentes B,tipos estrictos/Effect y ambos linters sin errores,con canarios activos. Las501 regresiones comunes y2 TODO coinciden exactamente entre raíz sin overlay y rebase. Se mantienen los38 oráculos corregidos y E01/E02/E03. La primera revisión independiente de esta conexión anual está pendiente sobre este rebase. Véase [rebaseP2](REBASE-P2.md);[validaciónP1](VALIDACION-P1.md) es el histórico del candidato anterior333.
+
+## Entrada y autoridad de las magnitudes
+
+La variante nueva de `solicitudes` usa `lote: "E38"`. Incluye nacimiento propio, declaración explícita de expediente común completo de todos los pagadores, inventario económico de inversión en vivienda2025 y hechos específicos. Los esquemas son Struct/Union/Array concretos, derivados de los tipos de la recepción, sin Record abierto para los hechos ni coerciones. `onExcessProperty:error` rechaza contexto, bases, cuota, tipos medios, partes de base liquidable y bases/saldos históricos calculados por el llamador.
+
+El motor transporta las bases imponibles ya calculadas por cada API, separadas de las liquidables, junto con mínimo personal/familiar y cuota íntegra autonómica desde la composición. La API canónica entrega su baseImponibleGeneral y base de ahorro; la explícita entrega su neto fiscal con signo antes del límite de liquidable cero. Si falta el canal se rechaza,sin inferir base imponible a partir de liquidable. No se añade ninguna fórmula anual ni de cuota. Para las ramas individuales con un código único de vehículo/mecenazgo, los consumos previos de ese mismo cupo nacen de la ausencia de solicitudes previas, no de un importe externo. Las elecciones se contrastan contra los códigos realmente solicitados; no se admite una lista fiscal externa que oculte concurrencias.
+
+Se añade a Contexto de E38 un canal interno nominal de magnitudes en céntimos racionales, separado de la moneda de los hechos. La moneda factual conserva hasta dos decimales; las magnitudes del motor transportan todos los dígitos producidos por la composición, incluidos80 de precisión, sin pasarlos por presentación a céntimos. La normalización del dispatcher convierte céntimos racionales a euros racionales. Una única llamada a `consumirCuota` aplica el agregado en el libro actual,conservando preparación,elecciones,pagos y prioridades B37; ninguna API suma presentaciones de cada deducción.
+
+El canal interno no es parte de la solicitud pública. El helper parcial anterior conserva sus llamadas y oráculos; esta extensión no convierte las antiguas magnitudes declaradas del helper en una entrada anual admitida.
+
+## Qué queda conectado
+
+La [matriz38](MATRIZ-38.json) separa27 códigos con generación del ejercicio y aplicación contra cuota común de11 códigos rechazados por un productor concreto que APIv4 no representa:
+
+- Seis viviendas riojanas: comparación patrimonial ajustada, inversión anterior/reinversión o bases estatales/regionales compartidas según modalidad. No se inventan patrimonio ni base estatalDT18 a cero.
+- Cuatro ayudas gallegas: falta enlace identificado de la ayuda con su imputación en las rentas/base liquidable del caso y tipos medios pertinentes. No se aceptan importes fiscales o tipos calculados por el llamador. La cadena RDL10/2026 y convalidación sigue resuelta; el motivo no es falta de texto histórico ni exención universal.
+- Libros gallegos: falta productor de rentas familiares2024 desde declaraciones anteriores. La base/renta2025 no sustituye esa magnitud.
+
+Dentro de los27 hay límites concretos. Adecuación de inmueble vacío solo inicia aquí con primer arriendo2025; contratos anteriores necesitan productor de base histórica por inmueble/origen. Viviendas vacías con primer arriendo anterior requieren productor de cuota arrastrada. Mecenazgo admite valoraciones representadas; sin valor contable falta productorIP, y otras modalidades requieren ITP/interés legal o valoraciónArt18 de depósito. La financiación, el empleo y las permanencias siguen sujetos a las condiciones y reservas de E38 corregido. Se rechazan con motivo, sin importe, las ramas no representadas.
+
+La generación2025 se distingue del saldo histórico. El resultado anual conserva saldos nuevos de base del evaluador de adecuación y genera remanentes de cuota2025: cuatro años en las dos ramas gallegas de vacío y tres en actividad agraria riojana. Esta última se exige en último lugar. No se reciben saldos fiscales históricos para simular cálculo; su aplicación en ejercicios posteriores necesita el productor correspondiente.
+
+## Identidades, pagos y periodos
+
+El titular se toma del caso anual. El nacimiento propio se concilia con su edad anual; los grados usados por Contexto se derivan de la clase anual de discapacidad. Hijos, nacimiento, discapacidad, convivencia y titulares del mínimo se cotejan con los derechos anuales y sus atribuciones efectivas. Una referencia documental no crea un mínimo; adopción exige vínculo y fecha anual representados. El ordinal filial lo deriva el adaptador de un censo físico completo por progenitor, con fechas de vínculo, prioridad registral entre hermanos de la misma fecha y soporte. No se admite ordenPorProgenitor calculado fiscalmente. El censo debe incluir los hijos anuales conocidos; autenticidad y exhaustividad histórica permanecen pendientes de acreditación. Los titulares de cuidados deben coincidir con los del mínimo representado; familias numerosas usan el censo parental anual completo. Otros ámbitos de derecho particular se rechazan de forma concreta. El calendario mensual no permite inventar titulares diferentes del reparto anual conocido.
+
+Los titulares de inversiones ajenos a la declaración individual se rechazan. En la adquisición de vehículo,el pagador debe ser el titular: una adquisición pagada por cotitular/tercero necesita un ámbito de atribución no representado aquí; no se habilita añadiendo personas a la anual. Los controles económicos corregidos E02 permanecen en todas las ramas: pertenecer a personas del contexto no habilita un pago de tercero; este necesita atribución en el ámbito específico. E03 conserva pagos de alquiler dentro de ocupación, incluido el último día, sin exigir ocupación al31/12. Anticipados/diferidos fuera del intervalo siguen sin periodo representado y se rechazan, no se borran ni se convierten en cero.
+
+El dispatcher existente mantiene duplicados de código y de pago/documento entre solicitudes. Las nuevas incompatibilidades contrastan la solicitud completa, incluida familia numerosa frente a dos hijos, renovables frente a eficiencia y concurrencias de vivienda. Misma entidad/fecha en códigos de inversión incompatibles o mismo inmueble sin partición de proyecto se rechaza de forma conservadora hasta representar la separación económica; no se certifica una exclusión tributaria universal.
+
+Los resultados siguen condicionados y con acreditación externa pendiente. La integración es individual ordinaria2025, sin fallecimiento, como APIv4. No habilita conjunta, otras personas no representadas ni cuotas o importes fiscales decididos externamente.
+
+## Entrega y validación focal
+
+La entrega es autónoma respecto de carpetas de candidatos A/B y del candidato E333. E38 corregido ya está integrado en raíz y se resuelve desde allí;no se vuelve a copiar ni a publicar. Se entregan cuatro módulos anuales propios,la extensión interna de comun.ts,dos archivos de pruebas,seis deltas centrales incrementales y documentación. Las siete preimágenes de archivos existentes están preservadas. No se copia repositorio,dependencias,entornos ni cachés.
+
+Los arneses privados superponen sólo estas piezas sobre las dependencias fijadas de raíz. El resultado es529 pruebas verdes:28 nuevas,213 E38,92 v4,40 A40/censos,100 B37 y56 variantes C2025. B conserva2 TODO previos,sin contarlos como verdes. Tipos estrictos/Effect y linters focales pasan con canarios. Se preserva el candidato anterior con sus333 evidencias. No se ejecutó inventario ni CI global;PESADO1 del padre conserva esa tarea. PESADO2 queda liberado al cierre,sin procesos propios pendientes.
+
+`effect-solutions list/show` se intentaron y el ejecutable no está instalado. Antes de escribir los esquemas se leyeron SCHEMA.md, las definiciones/ejemplos de Struct/Union/Tuple de la fuente Effect local y la guía de errores, además de los patrones públicos del repositorio. No se instaló nada ni se cambió el entorno. Los recibos y scripts dependientes de manifiestos son privados; no se publican como scripts de documentación del repositorio.
+
+Las diez ramas previas de E,ya publicadas y resueltas desde raíz,conservan su limitación:una relación de pagos propios no es un expediente común exhaustivo. Esta conexión no las promociona ni altera sus reglas de atribución. El nuevo discriminante E38 exige expediente_comun_completo_todos_pagadores para el ámbito económico específico;la autenticidad y exhaustividad no se certifican automáticamente.

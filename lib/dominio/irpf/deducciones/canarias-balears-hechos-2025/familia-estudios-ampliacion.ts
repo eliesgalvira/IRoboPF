@@ -7,6 +7,8 @@ import type {
   ResultadoAmpliacionC,
 } from "./ampliacion-comun"
 import {
+  noNegativoAnualC,
+  eurosAnualesC,
   accesoC,
   anualesC,
   ceroC,
@@ -265,7 +267,7 @@ export function evaluarFamiliaEstudiosAmpliacionC(
     ])
     let total = ceroC()
     const traza = [h.codigo, `Magnitudes anuales ${m.calculoId}`]
-    const cuota = noNegativoC(m.cuotaIntegraAutonomica)
+    const cuota = noNegativoAnualC(m.cuotaIntegraAutonomica)
     if (h.codigo === "balears_gastos_ela") {
       accesoC(h, 52800, 84480)
       for (const u of h.personas) {
@@ -392,13 +394,14 @@ export function evaluarFamiliaEstudiosAmpliacionC(
         case "canarias_cuotas_seguridad_social_empleados_hogar": {
           const a = edad(c.nacimiento, h.devengo)
           const activo =
-            eurosC(rend.rendimientosTrabajoActividad).n > 0n &&
+            rend.rendimientosTrabajoActividad !== undefined && eurosAnualesC(rend.rendimientosTrabajoActividad).n > 0n &&
             us.some((u) => u.minimo.relacion === "descendiente")
           const mayor =
             a >= 75 ||
             (a > 65 &&
               c.discapacidad >=
                 (c.naturalezaDiscapacidad === "psiquica" ? 33 : 65))
+          comprobar(mayor || rend.rendimientosTrabajoActividad !== undefined, "Falta productor anual de rendimientos de trabajo/actividad para cuotas de hogar")
           comprobar(
             activo || mayor,
             "Empleador sin descendientes/rendimientos o edad/discapacidad habilitante"
@@ -463,8 +466,8 @@ export function evaluarFamiliaEstudiosAmpliacionC(
             }
             if (!can)
               comprobar(fuera, "Estudios baleares deben cursarse fuera de isla")
-            const baseL = eurosC(rend.liquidableGeneral).sumar(
-              eurosC(rend.liquidableAhorro)
+            const baseL = eurosAnualesC(rend.liquidableGeneral).sumar(
+              eurosAnualesC(rend.liquidableAhorro)
             )
             const fijo = can
               ? fuera

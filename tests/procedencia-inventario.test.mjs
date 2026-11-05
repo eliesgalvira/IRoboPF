@@ -8,6 +8,7 @@ import {
   rmSync,
   copyFileSync,
   symlinkSync,
+  readFileSync,
 } from "node:fs"
 import { resolve, dirname } from "node:path"
 import { gzipSync } from "node:zlib"
@@ -88,7 +89,10 @@ describe("inventario sintáctico y efectivo", () => {
     mkdirSync(scratch, { recursive: true })
     const root = mkdtempSync(resolve(scratch, "cache-"))
     try {
-      for (const { file } of readArtifact().manifest.generationInputs) {
+      // Esta prueba necesita la lista de insumos, no retener el artefacto completo
+      // mientras otros dos procesos comprueban la regeneración de esos insumos.
+      const manifest = JSON.parse(readFileSync("docs/procedencia/inventario.json", "utf8"))
+      for (const { file } of manifest.generationInputs) {
         const target = resolve(root, file)
         mkdirSync(dirname(target), { recursive: true })
         copyFileSync(resolve(file), target)
@@ -110,7 +114,11 @@ const old = readFileSync(file, "utf8");
 if (!old.includes('"5550"')) throw new Error("Literal de fixture ausente");
 writeFileSync(file, old.replace('"5550"', '"5551"'));
 const result = await generate(process.cwd(), process.cwd() + "/generated");
-const items = result.pages.flatMap(page => JSON.parse(readFileSync("generated/" + page.file, "utf8")));
+const items = [];
+for (const page of result.pages) {
+ const rows = JSON.parse(readFileSync("generated/" + page.file, "utf8"));
+ items.push(...rows.filter(item => item.layer === "effective" && (item.symbol === "MINIMOS_ESTATALES_2024" || item.source.file.endsWith("/cuotas/escalas-publicadas.ts"))));
+}
 const item = items.find(item => item.layer === "effective" && item.symbol === "MINIMOS_ESTATALES_2024" && item.path === '["contribuyente","general"]');
 if (item?.value !== "5551") throw new Error("Valor cacheado: " + item?.value);
 const scales = items.filter(item => item.layer === "effective" && item.source.file.endsWith("/cuotas/escalas-publicadas.ts"));
@@ -136,13 +144,13 @@ if (again.counts.effective !== result.counts.effective) throw new Error("Conteo 
 console.log("5551");
 `
       )
-      const result = spawnSync("bun", ["cache.mjs"], {
+      const result = spawnSync("timeout", ["-k", "5s", "55s", "bun", "cache.mjs"], {
         cwd: root,
         encoding: "utf8",
         timeout: 60000,
         maxBuffer: 1024 * 1024,
       })
-      expect(result.status, result.stderr).toBe(0)
+      expect(result.status, JSON.stringify({ status: result.status, signal: result.signal, error: result.error?.message, stderr: result.stderr })).toBe(0)
       expect(result.stdout.trim()).toBe("5551")
     } finally {
       rmSync(root, { recursive: true, force: true })
@@ -155,7 +163,8 @@ console.log("5551");
     mkdirSync(scratch, { recursive: true })
     const temporary = mkdtempSync(resolve(scratch, "alterado-"))
     try {
-      for (const { file } of readArtifact().manifest.generationInputs) {
+      const manifestInputs = JSON.parse(readFileSync("docs/procedencia/inventario.json", "utf8"))
+      for (const { file } of manifestInputs.generationInputs) {
         const target = resolve(temporary, file)
         mkdirSync(dirname(target), { recursive: true })
         copyFileSync(resolve(file), target)

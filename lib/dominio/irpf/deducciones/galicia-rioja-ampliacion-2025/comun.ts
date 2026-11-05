@@ -199,6 +199,15 @@ export type MagnitudAnual = {
   readonly declarantes: readonly string[]
   readonly nodoDerivacion: string
 }
+/** Canal interno del motor anual: céntimos racionales sin convertir a la moneda
+ * de hechos (dos decimales). No forma parte de SolicitudE38Anual2025. */
+export type MagnitudMotor = {
+ readonly clave: ClaveAnual
+ readonly exacto: Exacto
+ readonly ejercicio: 2025
+ readonly declarantes: readonly string[]
+ readonly nodoDerivacion: string
+}
 /** Contrato de resultados anuales derivables, no de deducciones consignadas. */
 export type Contexto = {
   readonly ejercicio: 2025
@@ -208,6 +217,7 @@ export type Contexto = {
   readonly declarantes: readonly string[]
   readonly personas: readonly Persona[]
   readonly magnitudes: readonly MagnitudAnual[]
+  readonly magnitudesMotor?: readonly MagnitudMotor[]
   readonly expediente: "completo_todos_pagadores"
   readonly creditoMecenazgoRioja: "no_aplicado" | "aplicado"
 }
@@ -242,6 +252,10 @@ export function contexto(
     )
   exige(ids(c.magnitudes.map((m) => m.clave)), "Magnitud anual duplicada")
   for (const m of c.magnitudes) magnitud(c, m.clave)
+  if (c.magnitudesMotor !== undefined) {
+    exige(c.magnitudes.length===0 && ids(c.magnitudesMotor.map(m=>m.clave)),"No mezclar magnitudes del motor y externas o duplicadas")
+    for (const m of c.magnitudesMotor) magnitud(c,m.clave)
+  }
   exige(
     ["no_aplicado", "aplicado"].includes(c.creditoMecenazgoRioja),
     "Crédito fiscal desconocido"
@@ -253,29 +267,16 @@ export function contexto(
     )
 }
 export function magnitud(c: Contexto, k: ClaveAnual): R {
-  const m = c.magnitudes.find((x) => x.clave === k)
-  exige(m !== undefined, `Falta magnitud anual derivable: ${k}`)
-  exige(
-    m.ejercicio === 2025 &&
-      texto(m.nodoDerivacion) &&
-      ids(m.declarantes) &&
-      m.declarantes.length === c.declarantes.length &&
-      m.declarantes.every((t) => c.declarantes.includes(t)),
-    `Magnitud ${k} de otro ámbito`
-  )
-  const valor = euros(m.euros, true)
-  if (
-    k.startsWith("cuota") ||
-    k.includes("Consumid") ||
-    k === "mecenazgoConsumidoDeclaracion" ||
-    k === "minimoPersonalFamiliar" ||
-    k === "baseEstatalViviendaSinAdecuacion"
-  )
-    exige(
-      compara(valor, cero) >= 0,
-      `Magnitud anual ${k} no puede ser negativa`
-    )
-  return valor
+ const m = c.magnitudesMotor===undefined?c.magnitudes.find(x=>x.clave===k):c.magnitudesMotor.find(x=>x.clave===k)
+ exige(m!==undefined,`Falta magnitud anual derivable: ${k}`)
+ exige(m.ejercicio===2025 && texto(m.nodoDerivacion) && ids(m.declarantes) && m.declarantes.length===c.declarantes.length && m.declarantes.every(t=>c.declarantes.includes(t)),`Magnitud ${k} de otro ámbito`)
+ let valor:R
+ if ("exacto" in m) {
+   exige(/^-?\d+$/.test(m.exacto.numeradorCentimos)&&/^[1-9]\d*$/.test(m.exacto.denominador),"Racional interno de magnitud inválido")
+   valor=r(BigInt(m.exacto.numeradorCentimos),BigInt(m.exacto.denominador))
+ } else valor=euros(m.euros,true)
+ if(k.startsWith("cuota")||k.includes("Consumid")||k==="mecenazgoConsumidoDeclaracion"||k==="minimoPersonalFamiliar"||k==="baseEstatalViviendaSinAdecuacion")exige(compara(valor,cero)>=0,`Magnitud anual ${k} no puede ser negativa`)
+ return valor
 }
 export function propia(c: Contexto): Persona {
   const p = c.personas.find((p) => p.id === c.titular)

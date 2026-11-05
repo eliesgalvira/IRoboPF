@@ -390,7 +390,7 @@ function aAnual(
     ids.some((id) => !c.declarantes.includes(id))
   )
     fallo("Magnitud anual ajena al concepto, ejercicio o declaración")
-  return decimal(m.valor, firmado)
+  return magnitudAnual(m.valor, firmado)
 }
 function aPagos(
   c: Contexto,

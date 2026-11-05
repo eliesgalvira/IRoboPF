@@ -1,0 +1,216 @@
+{
+  "fase": "PESADO1 validación de autor terminada;revisión independiente anual pendiente",
+  "base": "b9122c2bf61310922e856117ed4490136a628d03",
+  "recurso": "Un proceso pesado cada vez;Vitest maxWorkers1/fileParallelismfalse;tipos heap3072MiB;timeout-k30s en todas las órdenes y sus hijos",
+  "pruebas": {
+    "candidato": {
+      "suites": 6,
+      "pasadas": 199
+    },
+    "regresionesA40H12B37Territoriales": {
+      "suites": 7,
+      "pasadas": 181,
+      "todoPreexistentes": 2
+    },
+    "C2025": {
+      "suites": 2,
+      "pasadas": 22
+    },
+    "totalPasadas": 402,
+    "todoConservados": 2,
+    "fallosFinales": 0
+  },
+  "oraculos": {
+    "vectoresRecibidos": 36,
+    "esperadosModificados": false,
+    "literalesTestsAutorPreviosConservados": true,
+    "comprobante": "validacion-pesado1/ORACULOS-CONSERVADOS.json"
+  },
+  "rojoTransportePre": {
+    "pasadas": 1,
+    "fallidasEsperadas": 8,
+    "posterior": "Las9 pruebas intactas pasan en candidato",
+    "log": "validacion-pesado1/01-transporte-pre.log"
+  },
+  "rojosAutorCorregidos": [
+    {
+      "tipo": "tipos",
+      "cantidad": 2,
+      "diagnosticos": [
+        "TS2367 rama hogar ya excluida",
+        "Effect17 condición opcional no booleana"
+      ],
+      "log": "validacion-pesado1/05-tipos-inicial.log"
+    },
+    {
+      "tipo": "anti-slop",
+      "cantidad": 1,
+      "diagnosticos": [
+        "spread condicional con objeto vacío"
+      ],
+      "log": "validacion-pesado1/07-oxlint-inicial.log"
+    },
+    {
+      "tipo": "ESLint",
+      "cantidad": 1,
+      "diagnosticos": [
+        "aviso importación sin uso"
+      ],
+      "log": "validacion-pesado1/09-eslint-inicial.log"
+    },
+    {
+      "tipo": "fronteras nativas",
+      "cantidad": 3,
+      "diagnosticos": [
+        "territorio",
+        "edad contribuyente",
+        "discapacidad contribuyente"
+      ],
+      "log": "validacion-pesado1/12-fronteras-rojo.log",
+      "fix": "censo v4 debe pertenecer al mismo ámbito del caso anual"
+    }
+  ],
+  "tiposFinales": {
+    "TypeScript": "5.9.3",
+    "strict": true,
+    "exactOptionalPropertyTypes": true,
+    "incremental": false,
+    "archivosEntrada": 24,
+    "fuentesPrograma": 608,
+    "diagnosticos": 0,
+    "effect": "Configuración íntegra de raíz;canario detecta TS2322 y effect(returnEffectInGen)",
+    "log": "validacion-pesado1/16-tipos-final.log"
+  },
+  "lintersFinales": {
+    "archivosTSConDelta": 18,
+    "oxlintAntislop": {
+      "exitCode": 0,
+      "diagnosticos": 0,
+      "reglas": 16,
+      "threads": 1,
+      "canario": "Cinco diagnósticos esperados en fuente privada no entregable"
+    },
+    "ESLint": {
+      "exitCode": 0,
+      "diagnosticosCodigo": 0,
+      "canario": "no-explicit-any y unused detectados",
+      "mensajesEntornoConservados": "React detect/pages de Next no encuentran la app en cwd privado;sin diagnósticos sobre código"
+    }
+  },
+  "conservado": [
+    "R1 estudios/descendiente e hijo en libros",
+    "R2 base15000 propia/cónyuge sin reparto por propiedad;ancestro/descendiente sin censo específico rechazado",
+    "A40/H12",
+    "B37 y orden prioritario/correspondencia",
+    "C2025",
+    "cuota global única",
+    "composición central idéntica a b912",
+    "magnitudAnual pública80 sin restaurar común viejo",
+    "ocho productores ausentes siguen rechazados"
+  ],
+  "pendiente": [
+    "revisión independiente anual C36",
+    "productores y subramas concretos de matriz36",
+    "cotejo particular de hechos/documentos sin certificación automática"
+  ],
+  "cierresCodigo": 0,
+  "E38Incluido": false,
+  "inventarioOCIGlobal": false,
+  "logsSHA": [
+    {
+      "ruta": "validacion-pesado1/01-transporte-pre.log",
+      "sha256": "2823803d0f49af9a87ed17e1557fe2ff1f6ad70745fc7cd72f0166ca99b4d13c",
+      "bytes": 5798
+    },
+    {
+      "ruta": "validacion-pesado1/02-candidato-inicial.log",
+      "sha256": "0846ecd678f75f2d2482f61b7dbb099200b45eea971a507e7509f9e2958a10f6",
+      "bytes": 269
+    },
+    {
+      "ruta": "validacion-pesado1/03-regresiones.log",
+      "sha256": "bff0f7407008b56b3dcc3582ab9d3e3dec148e02800b255bf321667d613bd58d",
+      "bytes": 222
+    },
+    {
+      "ruta": "validacion-pesado1/04-tipos-canario.log",
+      "sha256": "8f1d1415364a7f6b982628aa5994453fb089f06c8e05c9cd38342c4a69878ade",
+      "bytes": 3296
+    },
+    {
+      "ruta": "validacion-pesado1/05-tipos-inicial.log",
+      "sha256": "9b3735b42a170c5571ba4128e286584ae10df97846327f52adfaf3e1369496e6",
+      "bytes": 4046
+    },
+    {
+      "ruta": "validacion-pesado1/06-oxlint-canario.log",
+      "sha256": "c649192f74818a668dfa07291a44c557bae64b4a70856e8651d9084be4aae766",
+      "bytes": 1554
+    },
+    {
+      "ruta": "validacion-pesado1/07-oxlint-inicial.log",
+      "sha256": "19e4348c1a6ce471a893a9f176a196b3c68efd7fbebcf3042a724543536e7977",
+      "bytes": 3244
+    },
+    {
+      "ruta": "validacion-pesado1/08-eslint-canario.log",
+      "sha256": "c501a15369dbc45ea5b069c463ee8f6435e3b13a1daedd5e57eb57cb3dba232e",
+      "bytes": 1407
+    },
+    {
+      "ruta": "validacion-pesado1/09-eslint-inicial.log",
+      "sha256": "b8f362814ff20017c5db3756b69364a92b19d68ecfef5d206b9e49c640db6150",
+      "bytes": 3753
+    },
+    {
+      "ruta": "validacion-pesado1/10-formato.log",
+      "sha256": "c091f1aa30c58eeac4eb81fcdfd47a584a38f653084706ad168c81c5758f29ea",
+      "bytes": 1025
+    },
+    {
+      "ruta": "validacion-pesado1/11-tipos-final.log",
+      "sha256": "8c3a722d2fa9bbbd0fb44ee24db5fc97c63fd29d7baa147110c4961ec9cc578e",
+      "bytes": 2550
+    },
+    {
+      "ruta": "validacion-pesado1/12-fronteras-rojo.log",
+      "sha256": "8895a09c06dd4add1d95dc74d6036554bfd19edd65a4cb91170cd61ce7049242",
+      "bytes": 1624
+    },
+    {
+      "ruta": "validacion-pesado1/13-formato-fronteras.log",
+      "sha256": "cbc498a653136eec63ef16f178aeeec9c36731271b1ef730721a9fee0a96dba9",
+      "bytes": 275
+    },
+    {
+      "ruta": "validacion-pesado1/14-candidato-final.log",
+      "sha256": "325b2842e8dbf1386052c631c09f6d8aac3dacd8a658868863c39a5917928e80",
+      "bytes": 269
+    },
+    {
+      "ruta": "validacion-pesado1/15-regresiones-final.log",
+      "sha256": "b6b80210bd624cb58bde5dfad7174c9712c6837a9aedc357f770e95a675f305f",
+      "bytes": 222
+    },
+    {
+      "ruta": "validacion-pesado1/16-tipos-final.log",
+      "sha256": "17ec6073b2c17efaf1b98850da01b944c429fe97dafbe52f00fa66b1a6361561",
+      "bytes": 2550
+    },
+    {
+      "ruta": "validacion-pesado1/17-oxlint-final.log",
+      "sha256": "b8307f3b44416101dc5740f69a6fd50a8b4daae012442090061e292baa1d9fd0",
+      "bytes": 3101
+    },
+    {
+      "ruta": "validacion-pesado1/18-eslint-final.log",
+      "sha256": "872692834b4ef3ef6621931a1d164ca9a7310d50ccfce0971c7d0824d460b671",
+      "bytes": 3574
+    },
+    {
+      "ruta": "validacion-pesado1/19-c2025.log",
+      "sha256": "4be99e6fbf80462fc7eb9565a3fa1b70ac87a87a0e057fd4c5e6c662ba590b03",
+      "bytes": 210
+    }
+  ]
+}
