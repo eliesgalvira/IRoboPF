@@ -66,9 +66,9 @@ function contexto(v: Schema.Json): Contexto {
     ids.length !== 1
   )
     fallo("Individual con varios declarantes")
-  decimal(c.baseGeneral, true)
-  decimal(c.baseAhorro, true)
-  decimal(c.minimoPersonalFamiliar)
+  magnitudAnual(c.baseGeneral, true)
+  magnitudAnual(c.baseAhorro, true)
+  magnitudAnual(c.minimoPersonalFamiliar)
   return c
 }
 function renta(
@@ -77,9 +77,9 @@ function renta(
   conjunta: number,
   minimo = false
 ): boolean {
-  return decimal(c.baseGeneral, true)
-    .plus(decimal(c.baseAhorro, true))
-    .minus(minimo ? decimal(c.minimoPersonalFamiliar) : 0)
+  return magnitudAnual(c.baseGeneral, true)
+    .plus(magnitudAnual(c.baseAhorro, true))
+    .minus(minimo ? magnitudAnual(c.minimoPersonalFamiliar) : 0)
     .lte(c.modalidad === "individual" ? individual : conjunta)
 }
 function proporcion(c: Contexto, titulares: readonly string[]): Decimal {
@@ -307,7 +307,7 @@ function decodificar<A>(esquema: Schema.Codec<A>, datos: Schema.Json): A {
   return resultado.success
 }
 
-const Trabajo = Schema.Struct({
+export const Trabajo = Schema.Struct({
   exhaustividad: Schema.String,
   personas: Schema.Array(
     Schema.Struct({
@@ -318,7 +318,7 @@ const Trabajo = Schema.Struct({
     })
   ),
 })
-const Partos = Schema.Struct({
+export const Partos = Schema.Struct({
   exhaustividad: Schema.String,
   regimenRenta: Schema.String,
   partos: Schema.Array(
@@ -330,7 +330,7 @@ const Partos = Schema.Struct({
     })
   ),
 })
-const Escolar = Schema.Struct({
+export const Escolar = Schema.Struct({
   exhaustividad: Schema.String,
   regimenRenta: Schema.String,
   descendientes: Schema.Array(
@@ -341,7 +341,7 @@ const Escolar = Schema.Struct({
     })
   ),
 })
-const Ela = Schema.Struct({
+export const Ela = Schema.Struct({
   exhaustividad: Schema.String,
   personas: Schema.Array(
     Schema.Struct({
@@ -352,3 +352,11 @@ const Ela = Schema.Struct({
     })
   ),
 })
+
+function magnitudAnual(s: string, firmado = false): Decimal {
+  if (!/^-?(0|[1-9]\d{0,13})(\.\d{1,80})?$/.test(s))
+    fallo("Magnitud anual decimal inválida")
+  const d = new D(s)
+  if (!firmado && d.isNegative()) fallo("Magnitud anual negativa")
+  return d
+}

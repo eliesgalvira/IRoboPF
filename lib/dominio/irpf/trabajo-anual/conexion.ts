@@ -39,6 +39,17 @@ export const liquidarIrpfAnualExplicito = Effect.fn("Liquidacion.explicita")(
         )
       )
     const caso = decoded.success
+    const solicitudTerritorial =
+      "deduccionesTerritoriales2025" in caso
+        ? caso.deduccionesTerritoriales2025
+        : undefined
+    if (
+      (caso.deducciones === "territoriales-por-hechos-y-da61") !==
+      (solicitudTerritorial !== undefined)
+    )
+      return yield* Effect.fail(
+        rechazar("Discriminante territorial incompatible con hechos")
+      )
     const solicitudValenciana =
       "deduccionesValencianas2025" in caso
         ? caso.deduccionesValencianas2025
@@ -100,6 +111,7 @@ export const liquidarIrpfAnualExplicito = Effect.fn("Liquidacion.explicita")(
           : "decimal-hasta-salida"
       )
     const pasos: RastroCalculo["pasos"][number][] = []
+    let trabajoIntegroTerritorial: Decimal | undefined
     let cotizacionEfectiva = new D(0)
     let neto = new D(0),
       reduccionArt20 = new D(0),
@@ -151,6 +163,7 @@ export const liquidarIrpfAnualExplicito = Effect.fn("Liquidacion.explicita")(
             .plus(r.cotizaciones.colegiosHuerfanos),
         new D(0)
       )
+      trabajoIntegroTerritorial = new D(trabajo.gastos.integro)
       neto = new D(trabajo.rendimientoAntesArt20)
       reduccionArt20 = D.min(
         D.max(neto, 0),
@@ -285,6 +298,13 @@ export const liquidarIrpfAnualExplicito = Effect.fn("Liquidacion.explicita")(
     // Sin otras rentas, reducciones de base ni saldos anteriores: BIG = BLG con signo.
     const base = D.max(neto, 0)
     const composicion = yield* componerLiquidacionAnual({
+      rentasTrabajoAnuales:
+        trabajoIntegroTerritorial === undefined
+          ? undefined
+          : {
+              integroTrabajo: trabajoIntegroTerritorial,
+              restoRentas: new D(0),
+            },
       ambito: {
         contribuyenteId:
           "contribuyenteId" in caso ? caso.contribuyenteId : undefined,
@@ -314,6 +334,7 @@ export const liquidarIrpfAnualExplicito = Effect.fn("Liquidacion.explicita")(
       minimosEstatales: MINIMOS_ESTATALES_2025,
       deduccionesAutonomicasCentimos: 0,
       deduccionesValencianas2025: solicitudValenciana,
+      deduccionesTerritoriales2025: solicitudTerritorial,
       serviciosLaborales:
         caso.ejercicio === 2025 && brutoServicios.gt(0)
           ? { bruto: brutoServicios }
@@ -469,6 +490,7 @@ export const liquidarIrpfAnualExplicito = Effect.fn("Liquidacion.explicita")(
         cuotaAutonomica: cuotaAutonomica.toFixed(),
       },
       deduccionesValencianas2025: composicion.deduccionesValencianas2025,
+      deduccionesTerritoriales2025: composicion.deduccionesTerritoriales2025,
       cuotaLiquidaLegal: liquida.toFixed(),
       deduccionTrabajo: deduccion.toFixed(),
       cuotaPosterior: posterior.toFixed(),

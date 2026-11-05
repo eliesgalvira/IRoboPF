@@ -2,7 +2,7 @@ import Decimal from "decimal.js"
 
 // La precisión y el redondeo no modifican la configuración del resto del motor.
 export const D = Decimal.clone({
-  precision: 60,
+  precision: 200,
   rounding: Decimal.ROUND_HALF_UP,
 })
 export type Territorio = "canarias" | "illes-balears"
@@ -107,11 +107,11 @@ export function marco(h: Marco, territorio: Territorio): void {
     h.exhaustividad === "declaracion_completa",
     "Falta exhaustividad de hechos y pagos"
   )
-  dinero(h.baseGeneral)
-  dinero(h.baseAhorro)
+  magnitudAnual(h.baseGeneral)
+  magnitudAnual(h.baseAhorro)
 }
 export function renta(h: Marco): Decimal {
-  return dinero(h.baseGeneral).plus(dinero(h.baseAhorro))
+  return magnitudAnual(h.baseGeneral).plus(magnitudAnual(h.baseAhorro))
 }
 export function limiteRenta(h: Marco, limite: Decimal.Value): void {
   exigir(renta(h).lte(limite), "Renta supera el límite de esta rama")
@@ -262,4 +262,9 @@ export function descendiente(h: Marco, u: Descendiente): void {
   )
   texto(u.minimo.expediente)
   reparto(h, u.titulares)
+}
+
+export function magnitudAnual(s: string): Decimal {
+  exigir(/^-?\d{1,18}(\.\d{1,80})?$/.test(s), "Magnitud anual inválida")
+  return new D(s)
 }

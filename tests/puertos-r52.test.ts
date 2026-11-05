@@ -222,3 +222,20 @@ it("R52 declara pendiente la composición anual nueva; no hereda aceptación his
   expect(fragment.completeRuleAcceptance).toBe(false)
   expect(fragment.wiringAllowed).toBe(false)
 })
+
+it("R52 mantiene el esquema territorial como contrato externo pendiente", () => {
+  const name = "boundary:SolicitudDeduccionesTerritoriales2025"
+  const boundary = fragment.boundaries.find((b) => b.name === name)
+  expect(boundary).toMatchObject({
+    owner: "schema-territorial",
+    status: "requires-external-contract",
+    admissionAvailable: false,
+  })
+  expect(boundary?.calls.length).toBeGreaterThan(0)
+  expect(fragment.globalBindings.find((b) => b.name === name)).toMatchObject({
+    node: null,
+    external: true,
+  })
+  expect(fragment.completeRuleAcceptance).toBe(false)
+  expect(fragment.wiringAllowed).toBe(false)
+})

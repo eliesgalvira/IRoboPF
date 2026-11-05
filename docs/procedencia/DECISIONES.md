@@ -724,3 +724,38 @@ ampliaciones privadas. Capacidad parcial por hechos y composición anual son
 estados separados. El workflow completo pasa los 31 comandos en entorno limpio, con 2.073
 ejecuciones Vitest y 247 métodos Python descubiertos (siete omitidos). Se publica
 este avance y se continúa con las ramas restantes y su conexión anual.
+
+Publicado en `bc351098` y comprobado el CI remoto verde antes de retirar las
+19 entregas integradas. Los originales únicos se preservan por hash y manifiesto.
+La ampliación aragonesa recibe un contraste acotado adicional porque AAR-01 fue
+P1; los tres arreglos ordinarios conservan su revisión y sus regresiones, sin
+otra ronda completa. Las capturas históricas llegan a 181 en 2018; se prioriza
+compararlas con una versión fijada antes de seguir acumulando nuevas capturas.
+
+
+### Conexión anual y ampliaciones, 5/11 a las 01:50 CET
+
+La revisión de la conexión territorial detectó H1–H3 graves: identidad propia contradictoria, ingresos de Extremadura duplicados y mínimos sin atribución al sujeto. La corrección deriva ingresos del anual y exige la identidad y el derecho correspondientes; pasa 591 pruebas focales, tipos y lints. Se pide un único contraste acotado de estos P1 antes de publicar. Los dos hallazgos ordinarios de precisión y lint se corrigen con regresiones, sin otra ronda específica.
+
+La ampliación A corregida se integra en 17 rutas nuevas: 40 códigos, con 233 pruebas. La unión comprobada alcanza 146 códigos con cálculo parcial, sin contar dos candidatos aragoneses todavía privados. No se confunde esta ampliación con conexión anual o cierre de todas sus ramas.
+
+Se reanuda un bloque de 60 capturas históricas en el tercer turno ligero. La preferencia por compararlas sigue vigente, pero la comparación consume un turno pesado que ahora necesitan la revisión API y las validaciones de deducciones. La captura usa un navegador y conserva su límite temporal y de memoria; no cuenta como verificación monetaria. Al cierre del bloque se vuelve a decidir con los turnos disponibles.
+
+
+El contraste P1 residual distingue titular censado de titular con derecho. Se mantiene una única fuente: las atribuciones que ya calcula el productor común de mínimos. Las listas recibidas deben coincidir completamente con ellas; ni añadir un inelegible ni omitir un titular efectivo puede alterar el reparto. La tercera revisión se limita a este error monetario grave (784 frente a 392 euros), según la excepción acordada; no se repiten H1/H2 ni los arreglos de estilo.
+
+### Vínculos y ampliaciones, 5/11 a las 02:35 CET
+
+Se conserva el contraste adicional para los defectos P1 que alteraban 784/392 euros. La nueva corrección concilia los hechos con vínculos y fechas ya representados, sin duplicar el productor de mínimos. El reparto mixto adoptivo/biológico exige un contrato específico; se rechaza con causa, sin convertirlo en una exclusión fiscal. Los controles válidos conservan sus importes.
+
+La revisión de E exige rectificar un esperado normativo: M1 está suspendido en 2025 y no genera los 150 euros del candidato original. Se conserva ese original y se documenta el cambio a cero. Los restantes 37 oráculos permanecen iguales. Los pagos de terceros sin atribución se rechazan en las ramas afectadas; una ocupación habitual anterior al cierre del año no se convierte automáticamente en cero.
+
+B37 se integra con su revisión favorable acotada y 96 pruebas. La revisión de D51 usa lectura de fuentes y controles racionales ligeros mientras los dos turnos pesados validan la API; no se presentará como ejecución TypeScript. Se reservan los próximos turnos para los discriminantes que procedan.
+
+### Compatibilidad del intérprete histórico en el CI de integración
+
+El esquema de solicitudes territoriales nuevo queda fuera de la gramática del intérprete R36. Se registra como dependencia externa sin admisión y sin habilitar el ensamblado. La frontera sólo reconoce la importación concreta desde el contrato de la API efectiva; no sustituye una declaración local del mismo nombre. Se conserva el rechazo de imports namespace fuera de gramática. Las seis pruebas R52 pasan, incluida la nueva regresión que exige conservar pendientes sus puertas de aceptación. No se modifican fórmulas fiscales ni se atribuye acreditación histórica al esquema nuevo.
+
+La integración API55 también requiere resolver imports relativos de directorio en el lector AST de R30. Se conserva la prioridad del archivo `.ts` y se usa `index.ts` cuando no existe aquel; la carga sigue exigiendo el hash fijado. No se cambia ninguna fórmula ni se concede aceptación documental. El caso real de Catalunya y los 26 controles de flujo pasan.
+
+Cuatro pruebas recibidas de la revisión API usaban el alias privado `@/lib/`. En la integración se adapta exclusivamente ese prefijo a `../lib/`, conservando cuerpos y expectativas; sus 75 controles pasan con Vitest público. Se conserva la preimagen de los cuatro archivos y el registro SHA de la adaptación.

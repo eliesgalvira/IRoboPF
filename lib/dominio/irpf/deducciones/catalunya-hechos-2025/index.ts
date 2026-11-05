@@ -107,7 +107,10 @@ export const SolicitudCatalunyaHechos2025 = Schema.Union([
       "cataluna_donativos_idi",
       "cataluna_donaciones_medio_ambiente_patrimonio_natural",
     ]),
-    cuotaIntegraAutonomicaCentimos: Centimos,
+    cuotaIntegraAutonomicaCentimos: Schema.optional(Centimos),
+    cuotaIntegraAutonomicaEuros: Schema.optional(
+      Schema.String.check(Schema.isPattern(/^\d+(\.\d{1,80})?$/))
+    ),
     donativos: Schema.Array(Donativo),
   }),
   Schema.Struct({
@@ -239,7 +242,15 @@ export function evaluarCatalunyaHechos2025(
     const titular = texto(h.contribuyente)
     let importe = new D(0)
     if ("donativos" in h) {
-      const cuota = dinero(h.cuotaIntegraAutonomicaCentimos)
+      if (
+        (h.cuotaIntegraAutonomicaCentimos === undefined) ===
+        (h.cuotaIntegraAutonomicaEuros === undefined)
+      )
+        fallo("Se exige una sola representación de cuota")
+      const cuota =
+        h.cuotaIntegraAutonomicaEuros === undefined
+          ? dinero(h.cuotaIntegraAutonomicaCentimos!)
+          : new D(h.cuotaIntegraAutonomicaEuros)
       const investigacion = codigo === "cataluna_donativos_idi"
       const ambiente =
         codigo === "cataluna_donaciones_medio_ambiente_patrimonio_natural"

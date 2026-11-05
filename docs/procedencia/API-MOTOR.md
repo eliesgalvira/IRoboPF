@@ -211,9 +211,12 @@ pendientes, y no cierra las 351 fichas.
 <!-- valenciana-anual-2025:end -->
 
 Los [evaluadores territoriales por hechos de 2025](deducciones-2025/producto-territorial-20261105/INTEGRACION.md)
-añaden 55 códigos parciales revisados. Sus contratos aislados conservan las
-reservas y el importe anterior a cuota. Aún no forman parte de la solicitud
-anual común: no se deben sumar sus importes presentados ni introducir sus
-bases o cuotas como agregados externos. El registro de cobertura distingue
-estas altas de las deducciones valencianas que ya consume la ruta anual.
+añaden 55 códigos parciales revisados. Sus contratos aislados conservan las reservas y el importe anterior a cuota.
 
+## Conexión territorial anual 2025 (parcial, contraste pendiente)
+
+Las dos entradas anuales admiten `deduccionesTerritoriales2025`, una unión cerrada de hechos de las 55 altas territoriales. La efectiva requiere el discriminante `territoriales-por-hechos-y-da61`. La composición deriva magnitudes y consume cuota autonómica una sola vez desde salidas exactas; conserva el resultado condicionado y sus reservas. No se permiten bases o cuotas externas ni mezcla con consignaciones o la solicitud valenciana anterior.
+
+La edad y discapacidad declaradas deben coincidir con el caso anual. Los familiares y el conjunto completo de titulares se vinculan a la atribución efectiva calculada para cada sujeto; la presencia en el censo no basta. Los eventos de nacimiento o adopción se contrastan con los vínculos y fechas ya conocidos. La conexión rechaza el reparto adoptivo mixto mientras no distinga los titulares de esa deducción de los del mínimo. En Extremadura, los ingresos para trabajo dependiente proceden del cálculo anual; los duplicados introducidos en los hechos no sustituyen esos ingresos.
+
+El [contrato y sus límites](deducciones-2025/conexion-anual-territorial-20261105/CONTRATO.md) delimita las ramas admitidas. La revisión detectó H1–H5; la corrección y el contraste favorable acotado conservan 75 pruebas permanentes. No actualiza las matrices auditadas ni acredita todas las ramas.

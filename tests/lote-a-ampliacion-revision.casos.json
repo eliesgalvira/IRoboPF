@@ -1,0 +1,2704 @@
+[
+  {
+    "id": "ayuda-tras-tope-libros_texto_material_escolar",
+    "entrada": {
+      "ejercicio": 2025,
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "nacimiento": "1995-01-01",
+      "imponibleGeneralCentimos": 1000000,
+      "imponibleAhorroCentimos": 0,
+      "liquidableGeneralCentimos": 1000000,
+      "liquidableAhorroCentimos": 0,
+      "minimoContribuyenteCentimos": 555000,
+      "minimoDescendientesCentimos": 240000,
+      "minimoPersonalFamiliarCentimos": 795000,
+      "elecciones": [],
+      "territorio": "aragon",
+      "codigo": "aragon_libros_texto_material_escolar",
+      "hechos": {
+        "familia": {
+          "categoria": "ninguna",
+          "desde": "2025-01-01",
+          "hasta": "2025-12-31",
+          "referencia": "",
+          "titulares": []
+        },
+        "fiscalidad": {
+          "rango": "ordinario",
+          "isdtMilesimas": 100000,
+          "referenciaClasificacion": "",
+          "residenciaDesde": "2020-01-01",
+          "padron2025": "padron",
+          "mantenimiento": "pendiente-cuatro-anios",
+          "referenciaSeguimiento": "seguimiento"
+        },
+        "descendientes": [
+          {
+            "minimo": {
+              "persona": "h",
+              "nacimiento": "2020-01-01",
+              "clase": "descendiente",
+              "titulares": [
+                "t"
+              ],
+              "referenciaDerechos": "derechos-sinteticos",
+              "diasConvivencia": 365,
+              "discapacidad": 65,
+              "asistencia": "sin-incremento"
+            },
+            "ayudasAtribuidasCentimos": 731,
+            "referenciaAyudas": "certificado-ayudas",
+            "etapa": "primaria",
+            "materia": "libros-curriculares",
+            "proveedor": "centro-educativo",
+            "referenciaProveedor": "centro",
+            "pagos": [
+              {
+                "id": "p",
+                "fecha": "2025-06-01",
+                "pagador": "t",
+                "importeCentimos": 123456,
+                "medio": "transferencia",
+                "justificante": "recibo-sintetico",
+                "regimen": "personal",
+                "conyuges": []
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "esperado": {
+      "estado": "calculo_parcial",
+      "importePresentadoCentimos": 3019
+    },
+    "fuentes": [
+      "CA-aragon-259",
+      "CA-aragon-381",
+      "CA-aragon-404"
+    ],
+    "razon": "Gasto 1234,56 satura el tope individual; restar ayuda 7,31 después del tope."
+  },
+  {
+    "id": "ayuda-agota-libros_texto_material_escolar",
+    "entrada": {
+      "ejercicio": 2025,
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "nacimiento": "1995-01-01",
+      "imponibleGeneralCentimos": 1000000,
+      "imponibleAhorroCentimos": 0,
+      "liquidableGeneralCentimos": 1000000,
+      "liquidableAhorroCentimos": 0,
+      "minimoContribuyenteCentimos": 555000,
+      "minimoDescendientesCentimos": 240000,
+      "minimoPersonalFamiliarCentimos": 795000,
+      "elecciones": [],
+      "territorio": "aragon",
+      "codigo": "aragon_libros_texto_material_escolar",
+      "hechos": {
+        "familia": {
+          "categoria": "ninguna",
+          "desde": "2025-01-01",
+          "hasta": "2025-12-31",
+          "referencia": "",
+          "titulares": []
+        },
+        "fiscalidad": {
+          "rango": "ordinario",
+          "isdtMilesimas": 100000,
+          "referenciaClasificacion": "",
+          "residenciaDesde": "2020-01-01",
+          "padron2025": "padron",
+          "mantenimiento": "pendiente-cuatro-anios",
+          "referenciaSeguimiento": "seguimiento"
+        },
+        "descendientes": [
+          {
+            "minimo": {
+              "persona": "h",
+              "nacimiento": "2020-01-01",
+              "clase": "descendiente",
+              "titulares": [
+                "t"
+              ],
+              "referenciaDerechos": "derechos-sinteticos",
+              "diasConvivencia": 365,
+              "discapacidad": 65,
+              "asistencia": "sin-incremento"
+            },
+            "ayudasAtribuidasCentimos": 9000,
+            "referenciaAyudas": "certificado-ayudas",
+            "etapa": "primaria",
+            "materia": "libros-curriculares",
+            "proveedor": "centro-educativo",
+            "referenciaProveedor": "centro",
+            "pagos": [
+              {
+                "id": "p",
+                "fecha": "2025-06-01",
+                "pagador": "t",
+                "importeCentimos": 123456,
+                "medio": "transferencia",
+                "justificante": "recibo-sintetico",
+                "regimen": "personal",
+                "conyuges": []
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "esperado": {
+      "estado": "calculo_parcial",
+      "importePresentadoCentimos": 0
+    },
+    "fuentes": [
+      "CA-aragon-259",
+      "CA-aragon-381",
+      "CA-aragon-404"
+    ],
+    "razon": "La ayuda supera la deducción limitada: cero, sin cantidad negativa."
+  },
+  {
+    "id": "ayuda-tras-tope-clases_apoyo_refuerzo",
+    "entrada": {
+      "ejercicio": 2025,
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "nacimiento": "1995-01-01",
+      "imponibleGeneralCentimos": 1000000,
+      "imponibleAhorroCentimos": 0,
+      "liquidableGeneralCentimos": 1000000,
+      "liquidableAhorroCentimos": 0,
+      "minimoContribuyenteCentimos": 555000,
+      "minimoDescendientesCentimos": 240000,
+      "minimoPersonalFamiliarCentimos": 795000,
+      "elecciones": [],
+      "territorio": "aragon",
+      "codigo": "aragon_clases_apoyo_refuerzo",
+      "hechos": {
+        "familia": {
+          "categoria": "ninguna",
+          "desde": "2025-01-01",
+          "hasta": "2025-12-31",
+          "referencia": "",
+          "titulares": []
+        },
+        "fiscalidad": {
+          "rango": "ordinario",
+          "isdtMilesimas": 100000,
+          "referenciaClasificacion": "",
+          "residenciaDesde": "2020-01-01",
+          "padron2025": "padron",
+          "mantenimiento": "pendiente-cuatro-anios",
+          "referenciaSeguimiento": "seguimiento"
+        },
+        "descendientes": [
+          {
+            "minimo": {
+              "persona": "h",
+              "nacimiento": "2020-01-01",
+              "clase": "descendiente",
+              "titulares": [
+                "t"
+              ],
+              "referenciaDerechos": "derechos-sinteticos",
+              "diasConvivencia": 365,
+              "discapacidad": 65,
+              "asistencia": "sin-incremento"
+            },
+            "ayudasAtribuidasCentimos": 731,
+            "referenciaAyudas": "certificado-ayudas",
+            "etapa": "primaria",
+            "materia": "extraescolar-curricular",
+            "proveedor": "centro-educativo",
+            "referenciaProveedor": "centro",
+            "pagos": [
+              {
+                "id": "p",
+                "fecha": "2025-06-01",
+                "pagador": "t",
+                "importeCentimos": 123456,
+                "medio": "transferencia",
+                "justificante": "recibo-sintetico",
+                "regimen": "personal",
+                "conyuges": []
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "esperado": {
+      "estado": "calculo_parcial",
+      "importePresentadoCentimos": 7269
+    },
+    "fuentes": [
+      "CA-aragon-259",
+      "CA-aragon-381",
+      "CA-aragon-404"
+    ],
+    "razon": "Gasto 1234,56 satura el tope individual; restar ayuda 7,31 después del tope."
+  },
+  {
+    "id": "ayuda-agota-clases_apoyo_refuerzo",
+    "entrada": {
+      "ejercicio": 2025,
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "nacimiento": "1995-01-01",
+      "imponibleGeneralCentimos": 1000000,
+      "imponibleAhorroCentimos": 0,
+      "liquidableGeneralCentimos": 1000000,
+      "liquidableAhorroCentimos": 0,
+      "minimoContribuyenteCentimos": 555000,
+      "minimoDescendientesCentimos": 240000,
+      "minimoPersonalFamiliarCentimos": 795000,
+      "elecciones": [],
+      "territorio": "aragon",
+      "codigo": "aragon_clases_apoyo_refuerzo",
+      "hechos": {
+        "familia": {
+          "categoria": "ninguna",
+          "desde": "2025-01-01",
+          "hasta": "2025-12-31",
+          "referencia": "",
+          "titulares": []
+        },
+        "fiscalidad": {
+          "rango": "ordinario",
+          "isdtMilesimas": 100000,
+          "referenciaClasificacion": "",
+          "residenciaDesde": "2020-01-01",
+          "padron2025": "padron",
+          "mantenimiento": "pendiente-cuatro-anios",
+          "referenciaSeguimiento": "seguimiento"
+        },
+        "descendientes": [
+          {
+            "minimo": {
+              "persona": "h",
+              "nacimiento": "2020-01-01",
+              "clase": "descendiente",
+              "titulares": [
+                "t"
+              ],
+              "referenciaDerechos": "derechos-sinteticos",
+              "diasConvivencia": 365,
+              "discapacidad": 65,
+              "asistencia": "sin-incremento"
+            },
+            "ayudasAtribuidasCentimos": 9000,
+            "referenciaAyudas": "certificado-ayudas",
+            "etapa": "primaria",
+            "materia": "extraescolar-curricular",
+            "proveedor": "centro-educativo",
+            "referenciaProveedor": "centro",
+            "pagos": [
+              {
+                "id": "p",
+                "fecha": "2025-06-01",
+                "pagador": "t",
+                "importeCentimos": 123456,
+                "medio": "transferencia",
+                "justificante": "recibo-sintetico",
+                "regimen": "personal",
+                "conyuges": []
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "esperado": {
+      "estado": "calculo_parcial",
+      "importePresentadoCentimos": 0
+    },
+    "fuentes": [
+      "CA-aragon-259",
+      "CA-aragon-381",
+      "CA-aragon-404"
+    ],
+    "razon": "La ayuda supera la deducción limitada: cero, sin cantidad negativa."
+  },
+  {
+    "id": "ayuda-tras-tope-formacion_autonomia_menores_discapacidad",
+    "entrada": {
+      "ejercicio": 2025,
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "nacimiento": "1995-01-01",
+      "imponibleGeneralCentimos": 1000000,
+      "imponibleAhorroCentimos": 0,
+      "liquidableGeneralCentimos": 1000000,
+      "liquidableAhorroCentimos": 0,
+      "minimoContribuyenteCentimos": 555000,
+      "minimoDescendientesCentimos": 240000,
+      "minimoPersonalFamiliarCentimos": 795000,
+      "elecciones": [],
+      "territorio": "aragon",
+      "codigo": "aragon_formacion_autonomia_menores_discapacidad",
+      "hechos": {
+        "familia": {
+          "categoria": "ninguna",
+          "desde": "2025-01-01",
+          "hasta": "2025-12-31",
+          "referencia": "",
+          "titulares": []
+        },
+        "fiscalidad": {
+          "rango": "ordinario",
+          "isdtMilesimas": 100000,
+          "referenciaClasificacion": "",
+          "residenciaDesde": "2020-01-01",
+          "padron2025": "padron",
+          "mantenimiento": "pendiente-cuatro-anios",
+          "referenciaSeguimiento": "seguimiento"
+        },
+        "descendientes": [
+          {
+            "minimo": {
+              "persona": "h",
+              "nacimiento": "2020-01-01",
+              "clase": "descendiente",
+              "titulares": [
+                "t"
+              ],
+              "referenciaDerechos": "derechos-sinteticos",
+              "diasConvivencia": 365,
+              "discapacidad": 65,
+              "asistencia": "sin-incremento"
+            },
+            "ayudasAtribuidasCentimos": 731,
+            "referenciaAyudas": "certificado-ayudas",
+            "etapa": "primaria",
+            "materia": "autonomia-vida-independiente",
+            "proveedor": "centro-educativo",
+            "referenciaProveedor": "centro",
+            "pagos": [
+              {
+                "id": "p",
+                "fecha": "2025-06-01",
+                "pagador": "t",
+                "importeCentimos": 123456,
+                "medio": "transferencia",
+                "justificante": "recibo-sintetico",
+                "regimen": "personal",
+                "conyuges": []
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "esperado": {
+      "estado": "calculo_parcial",
+      "importePresentadoCentimos": 7269
+    },
+    "fuentes": [
+      "CA-aragon-259",
+      "CA-aragon-381",
+      "CA-aragon-404"
+    ],
+    "razon": "Gasto 1234,56 satura el tope individual; restar ayuda 7,31 después del tope."
+  },
+  {
+    "id": "ayuda-agota-formacion_autonomia_menores_discapacidad",
+    "entrada": {
+      "ejercicio": 2025,
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "nacimiento": "1995-01-01",
+      "imponibleGeneralCentimos": 1000000,
+      "imponibleAhorroCentimos": 0,
+      "liquidableGeneralCentimos": 1000000,
+      "liquidableAhorroCentimos": 0,
+      "minimoContribuyenteCentimos": 555000,
+      "minimoDescendientesCentimos": 240000,
+      "minimoPersonalFamiliarCentimos": 795000,
+      "elecciones": [],
+      "territorio": "aragon",
+      "codigo": "aragon_formacion_autonomia_menores_discapacidad",
+      "hechos": {
+        "familia": {
+          "categoria": "ninguna",
+          "desde": "2025-01-01",
+          "hasta": "2025-12-31",
+          "referencia": "",
+          "titulares": []
+        },
+        "fiscalidad": {
+          "rango": "ordinario",
+          "isdtMilesimas": 100000,
+          "referenciaClasificacion": "",
+          "residenciaDesde": "2020-01-01",
+          "padron2025": "padron",
+          "mantenimiento": "pendiente-cuatro-anios",
+          "referenciaSeguimiento": "seguimiento"
+        },
+        "descendientes": [
+          {
+            "minimo": {
+              "persona": "h",
+              "nacimiento": "2020-01-01",
+              "clase": "descendiente",
+              "titulares": [
+                "t"
+              ],
+              "referenciaDerechos": "derechos-sinteticos",
+              "diasConvivencia": 365,
+              "discapacidad": 65,
+              "asistencia": "sin-incremento"
+            },
+            "ayudasAtribuidasCentimos": 9000,
+            "referenciaAyudas": "certificado-ayudas",
+            "etapa": "primaria",
+            "materia": "autonomia-vida-independiente",
+            "proveedor": "centro-educativo",
+            "referenciaProveedor": "centro",
+            "pagos": [
+              {
+                "id": "p",
+                "fecha": "2025-06-01",
+                "pagador": "t",
+                "importeCentimos": 123456,
+                "medio": "transferencia",
+                "justificante": "recibo-sintetico",
+                "regimen": "personal",
+                "conyuges": []
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "esperado": {
+      "estado": "calculo_parcial",
+      "importePresentadoCentimos": 0
+    },
+    "fuentes": [
+      "CA-aragon-259",
+      "CA-aragon-381",
+      "CA-aragon-404"
+    ],
+    "razon": "La ayuda supera la deducción limitada: cero, sin cantidad negativa."
+  },
+  {
+    "id": "rojo-capital-andalucia_inversion_acciones_participaciones_mercantiles",
+    "entrada": {
+      "ejercicio": 2025,
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "nacimiento": "1995-01-01",
+      "imponibleGeneralCentimos": 1000000,
+      "imponibleAhorroCentimos": 0,
+      "liquidableGeneralCentimos": 1000000,
+      "liquidableAhorroCentimos": 0,
+      "minimoContribuyenteCentimos": 555000,
+      "minimoDescendientesCentimos": 240000,
+      "minimoPersonalFamiliarCentimos": 795000,
+      "elecciones": [],
+      "territorio": "andalucia",
+      "codigo": "andalucia_inversion_acciones_participaciones_mercantiles",
+      "hechos": {
+        "inversiones": [
+          {
+            "pago": {
+              "id": "p",
+              "fecha": "2025-06-01",
+              "pagador": "t",
+              "importeCentimos": 123456,
+              "medio": "transferencia",
+              "justificante": "recibo-sintetico",
+              "regimen": "personal",
+              "conyuges": []
+            },
+            "entidad": "entidad",
+            "forma": "SL",
+            "operacion": "constitucion",
+            "constitucion": "2025-01-01",
+            "escritura": "escritura",
+            "domicilioSocial": "andalucia",
+            "domicilioFiscal": "andalucia",
+            "actividad": "economica",
+            "memoriaActividad": "memoria",
+            "capitalPropioMaxPuntosBasicos": 5000,
+            "capitalFamiliarMaxPuntosBasicos": 3500,
+            "votosFamiliarMaxPuntosBasicos": 3500,
+            "referenciaCensoFamiliarTercerGrado": "censo",
+            "referenciaRegistroParticipaciones": "registro",
+            "funcion": "sin-funciones",
+            "empleadosJornadaCompleta": 1,
+            "referenciaContratosAlta": "alta",
+            "facturacionAnualCentimos": 100000000,
+            "plantillaMediaAntesCentesimas": 0,
+            "mercado": "sin-cotizacion",
+            "universidadCentro": "",
+            "mantenimientoHastaDevengo": "sin-transmision-ni-incumplimiento",
+            "referenciaSeguimiento": "registro",
+            "obligacionMantenimientoFuturo": "seguimiento-no-certificacion-futura",
+            "economiaSocialLey5": ""
+          }
+        ]
+      }
+    },
+    "esperado": {
+      "estado": "no_soportado"
+    },
+    "fuentes": [
+      "CA-andalucia-218",
+      "CA-catalunya-2025-184",
+      "CA-aragon-347"
+    ],
+    "razon": "La participación propia 50% ya supera por sí sola el máximo familiar 40%/35%/40%; el agregado familiar 35% contradice ese hecho. No generar importe."
+  },
+  {
+    "id": "rojo-capital-cataluna_angel_inversor",
+    "entrada": {
+      "ejercicio": 2025,
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "nacimiento": "1995-01-01",
+      "imponibleGeneralCentimos": 1000000,
+      "imponibleAhorroCentimos": 0,
+      "liquidableGeneralCentimos": 1000000,
+      "liquidableAhorroCentimos": 0,
+      "minimoContribuyenteCentimos": 555000,
+      "minimoDescendientesCentimos": 240000,
+      "minimoPersonalFamiliarCentimos": 795000,
+      "elecciones": [],
+      "territorio": "catalunya",
+      "codigo": "cataluna_angel_inversor",
+      "hechos": {
+        "inversiones": [
+          {
+            "pago": {
+              "id": "p",
+              "fecha": "2025-06-01",
+              "pagador": "t",
+              "importeCentimos": 123456,
+              "medio": "transferencia",
+              "justificante": "recibo-sintetico",
+              "regimen": "personal",
+              "conyuges": []
+            },
+            "entidad": "entidad",
+            "forma": "SL",
+            "operacion": "constitucion",
+            "constitucion": "2025-01-01",
+            "escritura": "escritura",
+            "domicilioSocial": "catalunya",
+            "domicilioFiscal": "catalunya",
+            "actividad": "economica",
+            "memoriaActividad": "memoria",
+            "capitalPropioMaxPuntosBasicos": 5000,
+            "capitalFamiliarMaxPuntosBasicos": 3500,
+            "votosFamiliarMaxPuntosBasicos": 3500,
+            "referenciaCensoFamiliarTercerGrado": "censo",
+            "referenciaRegistroParticipaciones": "registro",
+            "funcion": "sin-funciones",
+            "empleadosJornadaCompleta": 1,
+            "referenciaContratosAlta": "alta",
+            "facturacionAnualCentimos": 100000000,
+            "plantillaMediaAntesCentesimas": 0,
+            "mercado": "sin-cotizacion",
+            "universidadCentro": "",
+            "mantenimientoHastaDevengo": "sin-transmision-ni-incumplimiento",
+            "referenciaSeguimiento": "registro",
+            "obligacionMantenimientoFuturo": "seguimiento-no-certificacion-futura",
+            "economiaSocialLey5": ""
+          }
+        ]
+      }
+    },
+    "esperado": {
+      "estado": "no_soportado"
+    },
+    "fuentes": [
+      "CA-andalucia-218",
+      "CA-catalunya-2025-184",
+      "CA-aragon-347"
+    ],
+    "razon": "La participación propia 50% ya supera por sí sola el máximo familiar 40%/35%/40%; el agregado familiar 35% contradice ese hecho. No generar importe."
+  },
+  {
+    "id": "rojo-capital-aragon_inversion_economia_social",
+    "entrada": {
+      "ejercicio": 2025,
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "nacimiento": "1995-01-01",
+      "imponibleGeneralCentimos": 1000000,
+      "imponibleAhorroCentimos": 0,
+      "liquidableGeneralCentimos": 1000000,
+      "liquidableAhorroCentimos": 0,
+      "minimoContribuyenteCentimos": 555000,
+      "minimoDescendientesCentimos": 240000,
+      "minimoPersonalFamiliarCentimos": 795000,
+      "elecciones": [],
+      "territorio": "aragon",
+      "codigo": "aragon_inversion_economia_social",
+      "hechos": {
+        "inversiones": [
+          {
+            "pago": {
+              "id": "p",
+              "fecha": "2025-06-01",
+              "pagador": "t",
+              "importeCentimos": 123456,
+              "medio": "transferencia",
+              "justificante": "recibo-sintetico",
+              "regimen": "personal",
+              "conyuges": []
+            },
+            "entidad": "entidad",
+            "forma": "SL",
+            "operacion": "aportacion-social",
+            "constitucion": "2025-01-01",
+            "escritura": "escritura",
+            "domicilioSocial": "aragon",
+            "domicilioFiscal": "aragon",
+            "actividad": "economica",
+            "memoriaActividad": "memoria",
+            "capitalPropioMaxPuntosBasicos": 5000,
+            "capitalFamiliarMaxPuntosBasicos": 3500,
+            "votosFamiliarMaxPuntosBasicos": 3500,
+            "referenciaCensoFamiliarTercerGrado": "censo",
+            "referenciaRegistroParticipaciones": "registro",
+            "funcion": "sin-funciones",
+            "empleadosJornadaCompleta": 1,
+            "referenciaContratosAlta": "alta",
+            "facturacionAnualCentimos": 100000000,
+            "plantillaMediaAntesCentesimas": 0,
+            "mercado": "sin-cotizacion",
+            "universidadCentro": "",
+            "mantenimientoHastaDevengo": "sin-transmision-ni-incumplimiento",
+            "referenciaSeguimiento": "registro",
+            "obligacionMantenimientoFuturo": "seguimiento-no-certificacion-futura",
+            "economiaSocialLey5": "calificacion-ley5"
+          }
+        ]
+      }
+    },
+    "esperado": {
+      "estado": "no_soportado"
+    },
+    "fuentes": [
+      "CA-andalucia-218",
+      "CA-catalunya-2025-184",
+      "CA-aragon-347"
+    ],
+    "razon": "La participación propia 50% ya supera por sí sola el máximo familiar 40%/35%/40%; el agregado familiar 35% contradice ese hecho. No generar importe."
+  },
+  {
+    "id": "fraccion-centimo-andalucia_inversion_acciones_participaciones_mercantiles",
+    "entrada": {
+      "ejercicio": 2025,
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "nacimiento": "1995-01-01",
+      "imponibleGeneralCentimos": 1000000,
+      "imponibleAhorroCentimos": 0,
+      "liquidableGeneralCentimos": 1000000,
+      "liquidableAhorroCentimos": 0,
+      "minimoContribuyenteCentimos": 555000,
+      "minimoDescendientesCentimos": 240000,
+      "minimoPersonalFamiliarCentimos": 795000,
+      "elecciones": [],
+      "territorio": "andalucia",
+      "codigo": "andalucia_inversion_acciones_participaciones_mercantiles",
+      "hechos": {
+        "inversiones": [
+          {
+            "pago": {
+              "id": "p",
+              "fecha": "2025-06-01",
+              "pagador": "t",
+              "importeCentimos": 123456,
+              "medio": "transferencia",
+              "justificante": "recibo-sintetico",
+              "regimen": "personal",
+              "conyuges": []
+            },
+            "entidad": "entidad",
+            "forma": "SL",
+            "operacion": "constitucion",
+            "constitucion": "2025-01-01",
+            "escritura": "escritura",
+            "domicilioSocial": "andalucia",
+            "domicilioFiscal": "andalucia",
+            "actividad": "economica",
+            "memoriaActividad": "memoria",
+            "capitalPropioMaxPuntosBasicos": 1000,
+            "capitalFamiliarMaxPuntosBasicos": 3500,
+            "votosFamiliarMaxPuntosBasicos": 3500,
+            "referenciaCensoFamiliarTercerGrado": "censo",
+            "referenciaRegistroParticipaciones": "registro",
+            "funcion": "sin-funciones",
+            "empleadosJornadaCompleta": 1,
+            "referenciaContratosAlta": "alta",
+            "facturacionAnualCentimos": 100000000,
+            "plantillaMediaAntesCentesimas": 0,
+            "mercado": "sin-cotizacion",
+            "universidadCentro": "",
+            "mantenimientoHastaDevengo": "sin-transmision-ni-incumplimiento",
+            "referenciaSeguimiento": "registro",
+            "obligacionMantenimientoFuturo": "seguimiento-no-certificacion-futura",
+            "economiaSocialLey5": ""
+          }
+        ]
+      }
+    },
+    "esperado": {
+      "estado": "calculo_parcial",
+      "importePresentadoCentimos": 24691
+    },
+    "fuentes": [
+      "CA-andalucia-215",
+      "CA-catalunya-2025-182",
+      "CA-aragon-193"
+    ],
+    "razon": "Inversión 1234,56; porcentaje legal 20%; presentación medio céntimo hacia arriba, sin tocar precisión global."
+  },
+  {
+    "id": "fraccion-centimo-cataluna_angel_inversor",
+    "entrada": {
+      "ejercicio": 2025,
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "nacimiento": "1995-01-01",
+      "imponibleGeneralCentimos": 1000000,
+      "imponibleAhorroCentimos": 0,
+      "liquidableGeneralCentimos": 1000000,
+      "liquidableAhorroCentimos": 0,
+      "minimoContribuyenteCentimos": 555000,
+      "minimoDescendientesCentimos": 240000,
+      "minimoPersonalFamiliarCentimos": 795000,
+      "elecciones": [],
+      "territorio": "catalunya",
+      "codigo": "cataluna_angel_inversor",
+      "hechos": {
+        "inversiones": [
+          {
+            "pago": {
+              "id": "p",
+              "fecha": "2025-06-01",
+              "pagador": "t",
+              "importeCentimos": 123456,
+              "medio": "transferencia",
+              "justificante": "recibo-sintetico",
+              "regimen": "personal",
+              "conyuges": []
+            },
+            "entidad": "entidad",
+            "forma": "SL",
+            "operacion": "constitucion",
+            "constitucion": "2025-01-01",
+            "escritura": "escritura",
+            "domicilioSocial": "catalunya",
+            "domicilioFiscal": "catalunya",
+            "actividad": "economica",
+            "memoriaActividad": "memoria",
+            "capitalPropioMaxPuntosBasicos": 1000,
+            "capitalFamiliarMaxPuntosBasicos": 3500,
+            "votosFamiliarMaxPuntosBasicos": 3500,
+            "referenciaCensoFamiliarTercerGrado": "censo",
+            "referenciaRegistroParticipaciones": "registro",
+            "funcion": "sin-funciones",
+            "empleadosJornadaCompleta": 1,
+            "referenciaContratosAlta": "alta",
+            "facturacionAnualCentimos": 100000000,
+            "plantillaMediaAntesCentesimas": 0,
+            "mercado": "sin-cotizacion",
+            "universidadCentro": "",
+            "mantenimientoHastaDevengo": "sin-transmision-ni-incumplimiento",
+            "referenciaSeguimiento": "registro",
+            "obligacionMantenimientoFuturo": "seguimiento-no-certificacion-futura",
+            "economiaSocialLey5": ""
+          }
+        ]
+      }
+    },
+    "esperado": {
+      "estado": "calculo_parcial",
+      "importePresentadoCentimos": 49382
+    },
+    "fuentes": [
+      "CA-andalucia-215",
+      "CA-catalunya-2025-182",
+      "CA-aragon-193"
+    ],
+    "razon": "Inversión 1234,56; porcentaje legal 40%; presentación medio céntimo hacia arriba, sin tocar precisión global."
+  },
+  {
+    "id": "fraccion-centimo-aragon_inversion_economia_social",
+    "entrada": {
+      "ejercicio": 2025,
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "nacimiento": "1995-01-01",
+      "imponibleGeneralCentimos": 1000000,
+      "imponibleAhorroCentimos": 0,
+      "liquidableGeneralCentimos": 1000000,
+      "liquidableAhorroCentimos": 0,
+      "minimoContribuyenteCentimos": 555000,
+      "minimoDescendientesCentimos": 240000,
+      "minimoPersonalFamiliarCentimos": 795000,
+      "elecciones": [],
+      "territorio": "aragon",
+      "codigo": "aragon_inversion_economia_social",
+      "hechos": {
+        "inversiones": [
+          {
+            "pago": {
+              "id": "p",
+              "fecha": "2025-06-01",
+              "pagador": "t",
+              "importeCentimos": 123456,
+              "medio": "transferencia",
+              "justificante": "recibo-sintetico",
+              "regimen": "personal",
+              "conyuges": []
+            },
+            "entidad": "entidad",
+            "forma": "SL",
+            "operacion": "aportacion-social",
+            "constitucion": "2025-01-01",
+            "escritura": "escritura",
+            "domicilioSocial": "aragon",
+            "domicilioFiscal": "aragon",
+            "actividad": "economica",
+            "memoriaActividad": "memoria",
+            "capitalPropioMaxPuntosBasicos": 1000,
+            "capitalFamiliarMaxPuntosBasicos": 3500,
+            "votosFamiliarMaxPuntosBasicos": 3500,
+            "referenciaCensoFamiliarTercerGrado": "censo",
+            "referenciaRegistroParticipaciones": "registro",
+            "funcion": "sin-funciones",
+            "empleadosJornadaCompleta": 1,
+            "referenciaContratosAlta": "alta",
+            "facturacionAnualCentimos": 100000000,
+            "plantillaMediaAntesCentesimas": 0,
+            "mercado": "sin-cotizacion",
+            "universidadCentro": "",
+            "mantenimientoHastaDevengo": "sin-transmision-ni-incumplimiento",
+            "referenciaSeguimiento": "registro",
+            "obligacionMantenimientoFuturo": "seguimiento-no-certificacion-futura",
+            "economiaSocialLey5": "calificacion-ley5"
+          }
+        ]
+      }
+    },
+    "esperado": {
+      "estado": "calculo_parcial",
+      "importePresentadoCentimos": 24691
+    },
+    "fuentes": [
+      "CA-andalucia-215",
+      "CA-catalunya-2025-182",
+      "CA-aragon-193"
+    ],
+    "razon": "Inversión 1234,56; porcentaje legal 20%; presentación medio céntimo hacia arriba, sin tocar precisión global."
+  },
+  {
+    "id": "fraccion-centimo-aragon_inversion_acciones_mab",
+    "entrada": {
+      "ejercicio": 2025,
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "nacimiento": "1995-01-01",
+      "imponibleGeneralCentimos": 1000000,
+      "imponibleAhorroCentimos": 0,
+      "liquidableGeneralCentimos": 1000000,
+      "liquidableAhorroCentimos": 0,
+      "minimoContribuyenteCentimos": 555000,
+      "minimoDescendientesCentimos": 240000,
+      "minimoPersonalFamiliarCentimos": 795000,
+      "elecciones": [],
+      "territorio": "aragon",
+      "codigo": "aragon_inversion_acciones_mab",
+      "hechos": {
+        "inversiones": [
+          {
+            "pago": {
+              "id": "p",
+              "fecha": "2025-06-01",
+              "pagador": "t",
+              "importeCentimos": 123456,
+              "medio": "transferencia",
+              "justificante": "recibo-sintetico",
+              "regimen": "personal",
+              "conyuges": []
+            },
+            "entidad": "entidad",
+            "forma": "SL",
+            "operacion": "ampliacion",
+            "constitucion": "2025-01-01",
+            "escritura": "escritura",
+            "domicilioSocial": "aragon",
+            "domicilioFiscal": "aragon",
+            "actividad": "economica",
+            "memoriaActividad": "memoria",
+            "capitalPropioMaxPuntosBasicos": 1000,
+            "capitalFamiliarMaxPuntosBasicos": 3500,
+            "votosFamiliarMaxPuntosBasicos": 3500,
+            "referenciaCensoFamiliarTercerGrado": "censo",
+            "referenciaRegistroParticipaciones": "registro",
+            "funcion": "sin-funciones",
+            "empleadosJornadaCompleta": 1,
+            "referenciaContratosAlta": "alta",
+            "facturacionAnualCentimos": 100000000,
+            "plantillaMediaAntesCentesimas": 0,
+            "mercado": "MAB-expansion",
+            "universidadCentro": "",
+            "mantenimientoHastaDevengo": "sin-transmision-ni-incumplimiento",
+            "referenciaSeguimiento": "registro",
+            "obligacionMantenimientoFuturo": "seguimiento-no-certificacion-futura",
+            "economiaSocialLey5": ""
+          }
+        ]
+      }
+    },
+    "esperado": {
+      "estado": "calculo_parcial",
+      "importePresentadoCentimos": 24691
+    },
+    "fuentes": [
+      "CA-andalucia-215",
+      "CA-catalunya-2025-182",
+      "CA-aragon-193"
+    ],
+    "razon": "Inversión 1234,56; porcentaje legal 20%; presentación medio céntimo hacia arriba, sin tocar precisión global."
+  },
+  {
+    "id": "guarderia-ahorro-400000",
+    "entrada": {
+      "ejercicio": 2025,
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "nacimiento": "1995-01-01",
+      "imponibleGeneralCentimos": 1000000,
+      "imponibleAhorroCentimos": 400000,
+      "liquidableGeneralCentimos": 1000000,
+      "liquidableAhorroCentimos": 0,
+      "minimoContribuyenteCentimos": 555000,
+      "minimoDescendientesCentimos": 240000,
+      "minimoPersonalFamiliarCentimos": 795000,
+      "elecciones": [],
+      "territorio": "aragon",
+      "codigo": "aragon_guarderia_menores_3",
+      "hechos": {
+        "fiscalidad": {
+          "rango": "ordinario",
+          "isdtMilesimas": 100000,
+          "referenciaClasificacion": "",
+          "residenciaDesde": "2020-01-01",
+          "padron2025": "padron",
+          "mantenimiento": "pendiente-cuatro-anios",
+          "referenciaSeguimiento": "seguimiento"
+        },
+        "hijos": [
+          {
+            "minimo": {
+              "persona": "h",
+              "nacimiento": "2023-01-01",
+              "clase": "descendiente",
+              "titulares": [
+                "t"
+              ],
+              "referenciaDerechos": "derechos-sinteticos",
+              "diasConvivencia": 365,
+              "discapacidad": 0,
+              "asistencia": "sin-incremento"
+            },
+            "centroAutorizadoEducacion": "autorizacion-educacion",
+            "pagosConsolidados": [
+              {
+                "pago": {
+                  "id": "p",
+                  "fecha": "2025-06-01",
+                  "pagador": "t",
+                  "importeCentimos": 123456,
+                  "medio": "transferencia",
+                  "justificante": "recibo-sintetico",
+                  "regimen": "personal",
+                  "conyuges": []
+                },
+                "servicioDesde": "2025-01-01",
+                "servicioHasta": "2025-05-31"
+              }
+            ],
+            "convivientes": [
+              "t",
+              "otro"
+            ]
+          }
+        ]
+      }
+    },
+    "esperado": {
+      "estado": "calculo_parcial",
+      "importePresentadoCentimos": 9259
+    },
+    "fuentes": [
+      "CA-BOA-L14-2014-real-art110-17"
+    ],
+    "razon": "1234,56 de gasto consolidado produce185,184; dos convivientes =>92,592. BI ahorro4000 inclusive;4000,01 excluye."
+  },
+  {
+    "id": "guarderia-ahorro-400001",
+    "entrada": {
+      "ejercicio": 2025,
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "nacimiento": "1995-01-01",
+      "imponibleGeneralCentimos": 1000000,
+      "imponibleAhorroCentimos": 400001,
+      "liquidableGeneralCentimos": 1000000,
+      "liquidableAhorroCentimos": 0,
+      "minimoContribuyenteCentimos": 555000,
+      "minimoDescendientesCentimos": 240000,
+      "minimoPersonalFamiliarCentimos": 795000,
+      "elecciones": [],
+      "territorio": "aragon",
+      "codigo": "aragon_guarderia_menores_3",
+      "hechos": {
+        "fiscalidad": {
+          "rango": "ordinario",
+          "isdtMilesimas": 100000,
+          "referenciaClasificacion": "",
+          "residenciaDesde": "2020-01-01",
+          "padron2025": "padron",
+          "mantenimiento": "pendiente-cuatro-anios",
+          "referenciaSeguimiento": "seguimiento"
+        },
+        "hijos": [
+          {
+            "minimo": {
+              "persona": "h",
+              "nacimiento": "2023-01-01",
+              "clase": "descendiente",
+              "titulares": [
+                "t"
+              ],
+              "referenciaDerechos": "derechos-sinteticos",
+              "diasConvivencia": 365,
+              "discapacidad": 0,
+              "asistencia": "sin-incremento"
+            },
+            "centroAutorizadoEducacion": "autorizacion-educacion",
+            "pagosConsolidados": [
+              {
+                "pago": {
+                  "id": "p",
+                  "fecha": "2025-06-01",
+                  "pagador": "t",
+                  "importeCentimos": 123456,
+                  "medio": "transferencia",
+                  "justificante": "recibo-sintetico",
+                  "regimen": "personal",
+                  "conyuges": []
+                },
+                "servicioDesde": "2025-01-01",
+                "servicioHasta": "2025-05-31"
+              }
+            ],
+            "convivientes": [
+              "t",
+              "otro"
+            ]
+          }
+        ]
+      }
+    },
+    "esperado": {
+      "estado": "no_soportado"
+    },
+    "fuentes": [
+      "CA-BOA-L14-2014-real-art110-17"
+    ],
+    "razon": "1234,56 de gasto consolidado produce185,184; dos convivientes =>92,592. BI ahorro4000 inclusive;4000,01 excluye."
+  },
+  {
+    "id": "guarderia-tope-previo-reparto-2022-06-01",
+    "entrada": {
+      "ejercicio": 2025,
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "nacimiento": "1995-01-01",
+      "imponibleGeneralCentimos": 1000000,
+      "imponibleAhorroCentimos": 0,
+      "liquidableGeneralCentimos": 1000000,
+      "liquidableAhorroCentimos": 0,
+      "minimoContribuyenteCentimos": 555000,
+      "minimoDescendientesCentimos": 240000,
+      "minimoPersonalFamiliarCentimos": 795000,
+      "elecciones": [],
+      "territorio": "aragon",
+      "codigo": "aragon_guarderia_menores_3",
+      "hechos": {
+        "fiscalidad": {
+          "rango": "ordinario",
+          "isdtMilesimas": 100000,
+          "referenciaClasificacion": "",
+          "residenciaDesde": "2020-01-01",
+          "padron2025": "padron",
+          "mantenimiento": "pendiente-cuatro-anios",
+          "referenciaSeguimiento": "seguimiento"
+        },
+        "hijos": [
+          {
+            "minimo": {
+              "persona": "h",
+              "nacimiento": "2022-06-01",
+              "clase": "descendiente",
+              "titulares": [
+                "t"
+              ],
+              "referenciaDerechos": "derechos-sinteticos",
+              "diasConvivencia": 365,
+              "discapacidad": 0,
+              "asistencia": "sin-incremento"
+            },
+            "centroAutorizadoEducacion": "autorizacion-educacion",
+            "pagosConsolidados": [
+              {
+                "pago": {
+                  "id": "p",
+                  "fecha": "2025-06-01",
+                  "pagador": "t",
+                  "importeCentimos": 900000,
+                  "medio": "transferencia",
+                  "justificante": "recibo-sintetico",
+                  "regimen": "personal",
+                  "conyuges": []
+                },
+                "servicioDesde": "2025-01-01",
+                "servicioHasta": "2025-05-31"
+              }
+            ],
+            "convivientes": [
+              "t",
+              "otro"
+            ]
+          }
+        ]
+      }
+    },
+    "esperado": {
+      "estado": "calculo_parcial",
+      "importePresentadoCentimos": 6250
+    },
+    "fuentes": [
+      "CA-BOA-L14-2014-real-art110-17"
+    ],
+    "razon": "El servicio termina31/5, antes del cumpleaños; 9000 satura125 o250 por hijo y luego mitades."
+  },
+  {
+    "id": "guarderia-tope-previo-reparto-2023-06-01",
+    "entrada": {
+      "ejercicio": 2025,
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "nacimiento": "1995-01-01",
+      "imponibleGeneralCentimos": 1000000,
+      "imponibleAhorroCentimos": 0,
+      "liquidableGeneralCentimos": 1000000,
+      "liquidableAhorroCentimos": 0,
+      "minimoContribuyenteCentimos": 555000,
+      "minimoDescendientesCentimos": 240000,
+      "minimoPersonalFamiliarCentimos": 795000,
+      "elecciones": [],
+      "territorio": "aragon",
+      "codigo": "aragon_guarderia_menores_3",
+      "hechos": {
+        "fiscalidad": {
+          "rango": "ordinario",
+          "isdtMilesimas": 100000,
+          "referenciaClasificacion": "",
+          "residenciaDesde": "2020-01-01",
+          "padron2025": "padron",
+          "mantenimiento": "pendiente-cuatro-anios",
+          "referenciaSeguimiento": "seguimiento"
+        },
+        "hijos": [
+          {
+            "minimo": {
+              "persona": "h",
+              "nacimiento": "2023-06-01",
+              "clase": "descendiente",
+              "titulares": [
+                "t"
+              ],
+              "referenciaDerechos": "derechos-sinteticos",
+              "diasConvivencia": 365,
+              "discapacidad": 0,
+              "asistencia": "sin-incremento"
+            },
+            "centroAutorizadoEducacion": "autorizacion-educacion",
+            "pagosConsolidados": [
+              {
+                "pago": {
+                  "id": "p",
+                  "fecha": "2025-06-01",
+                  "pagador": "t",
+                  "importeCentimos": 900000,
+                  "medio": "transferencia",
+                  "justificante": "recibo-sintetico",
+                  "regimen": "personal",
+                  "conyuges": []
+                },
+                "servicioDesde": "2025-01-01",
+                "servicioHasta": "2025-05-31"
+              }
+            ],
+            "convivientes": [
+              "t",
+              "otro"
+            ]
+          }
+        ]
+      }
+    },
+    "esperado": {
+      "estado": "calculo_parcial",
+      "importePresentadoCentimos": 12500
+    },
+    "fuentes": [
+      "CA-BOA-L14-2014-real-art110-17"
+    ],
+    "razon": "El servicio termina31/5, antes del cumpleaños; 9000 satura125 o250 por hijo y luego mitades."
+  },
+  {
+    "id": "alquiler-tope-personal-ordinaria",
+    "entrada": {
+      "ejercicio": 2025,
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "nacimiento": "1995-01-01",
+      "imponibleGeneralCentimos": 1000000,
+      "imponibleAhorroCentimos": 0,
+      "liquidableGeneralCentimos": 1000000,
+      "liquidableAhorroCentimos": 0,
+      "minimoContribuyenteCentimos": 555000,
+      "minimoDescendientesCentimos": 240000,
+      "minimoPersonalFamiliarCentimos": 795000,
+      "elecciones": [],
+      "territorio": "catalunya",
+      "codigo": "cataluna_alquiler_vivienda_habitual",
+      "hechos": {
+        "vivienda": "v",
+        "contrato": "contrato",
+        "arrendadorFiscal": "arrendador-sintetico",
+        "habitualidad": "expediente",
+        "diasParo": 0,
+        "grado": 0,
+        "resolucionDiscapacidad": "",
+        "estadoCivil": "otro",
+        "tituloViudedad": "",
+        "familia": "ordinaria",
+        "tituloFamilia": "titulo",
+        "declarantesConDerecho": [
+          "t"
+        ],
+        "pagosConsolidados": [
+          {
+            "id": "p",
+            "fecha": "2025-06-01",
+            "pagador": "t",
+            "importeCentimos": 900000,
+            "medio": "transferencia",
+            "justificante": "recibo-sintetico",
+            "regimen": "personal",
+            "conyuges": []
+          }
+        ]
+      }
+    },
+    "esperado": {
+      "estado": "calculo_parcial",
+      "importePresentadoCentimos": 50000
+    },
+    "fuentes": [
+      "CA-catalunya-2025-137",
+      "CA-catalunya-2025-144"
+    ],
+    "razon": "Un declarante: gasto9000, deducción900 con tope personal500 ordinario/1000 familia."
+  },
+  {
+    "id": "alquiler-tope-personal-numerosa",
+    "entrada": {
+      "ejercicio": 2025,
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "nacimiento": "1995-01-01",
+      "imponibleGeneralCentimos": 1000000,
+      "imponibleAhorroCentimos": 0,
+      "liquidableGeneralCentimos": 1000000,
+      "liquidableAhorroCentimos": 0,
+      "minimoContribuyenteCentimos": 555000,
+      "minimoDescendientesCentimos": 240000,
+      "minimoPersonalFamiliarCentimos": 795000,
+      "elecciones": [],
+      "territorio": "catalunya",
+      "codigo": "cataluna_alquiler_vivienda_habitual",
+      "hechos": {
+        "vivienda": "v",
+        "contrato": "contrato",
+        "arrendadorFiscal": "arrendador-sintetico",
+        "habitualidad": "expediente",
+        "diasParo": 0,
+        "grado": 0,
+        "resolucionDiscapacidad": "",
+        "estadoCivil": "otro",
+        "tituloViudedad": "",
+        "familia": "numerosa",
+        "tituloFamilia": "titulo",
+        "declarantesConDerecho": [
+          "t"
+        ],
+        "pagosConsolidados": [
+          {
+            "id": "p",
+            "fecha": "2025-06-01",
+            "pagador": "t",
+            "importeCentimos": 900000,
+            "medio": "transferencia",
+            "justificante": "recibo-sintetico",
+            "regimen": "personal",
+            "conyuges": []
+          }
+        ]
+      }
+    },
+    "esperado": {
+      "estado": "calculo_parcial",
+      "importePresentadoCentimos": 90000
+    },
+    "fuentes": [
+      "CA-catalunya-2025-137",
+      "CA-catalunya-2025-144"
+    ],
+    "razon": "Un declarante: gasto9000, deducción900 con tope personal500 ordinario/1000 familia."
+  },
+  {
+    "id": "alquiler-tres-declarantes",
+    "entrada": {
+      "ejercicio": 2025,
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "nacimiento": "1995-01-01",
+      "imponibleGeneralCentimos": 1000000,
+      "imponibleAhorroCentimos": 0,
+      "liquidableGeneralCentimos": 1000000,
+      "liquidableAhorroCentimos": 0,
+      "minimoContribuyenteCentimos": 555000,
+      "minimoDescendientesCentimos": 240000,
+      "minimoPersonalFamiliarCentimos": 795000,
+      "elecciones": [],
+      "territorio": "catalunya",
+      "codigo": "cataluna_alquiler_vivienda_habitual",
+      "hechos": {
+        "vivienda": "v",
+        "contrato": "contrato",
+        "arrendadorFiscal": "arrendador-sintetico",
+        "habitualidad": "expediente",
+        "diasParo": 0,
+        "grado": 0,
+        "resolucionDiscapacidad": "",
+        "estadoCivil": "otro",
+        "tituloViudedad": "",
+        "familia": "ordinaria",
+        "tituloFamilia": "",
+        "declarantesConDerecho": [
+          "t",
+          "otro",
+          "tercero"
+        ],
+        "pagosConsolidados": [
+          {
+            "id": "p",
+            "fecha": "2025-06-01",
+            "pagador": "t",
+            "importeCentimos": 900000,
+            "medio": "transferencia",
+            "justificante": "recibo-sintetico",
+            "regimen": "personal",
+            "conyuges": []
+          }
+        ]
+      }
+    },
+    "esperado": {
+      "estado": "calculo_parcial",
+      "importePresentadoCentimos": 30000
+    },
+    "fuentes": [
+      "CA-catalunya-2025-147"
+    ],
+    "razon": "Deducción común900, reparto legal igual entre tres:300, aunque el pago consolidado esté a cargo de t."
+  },
+  {
+    "id": "rojo-hijo-propio-tramo",
+    "entrada": {
+      "ejercicio": 2025,
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "nacimiento": "1980-01-01",
+      "imponibleGeneralCentimos": 1000000,
+      "imponibleAhorroCentimos": 0,
+      "liquidableGeneralCentimos": 1000000,
+      "liquidableAhorroCentimos": 0,
+      "minimoContribuyenteCentimos": 555000,
+      "minimoDescendientesCentimos": 240000,
+      "minimoPersonalFamiliarCentimos": 795000,
+      "elecciones": [],
+      "territorio": "catalunya",
+      "codigo": "cataluna_tramo_autonomico_inversion_vivienda_habitual",
+      "hechos": {
+        "vivienda": {
+          "id": "v",
+          "adquisicion": "2010-01-01",
+          "terminacionObras": "2010-01-01",
+          "ocupacion": "2010-01-01",
+          "residenciaDesde": "2010-01-01",
+          "situacion": "residencia-continuada",
+          "referenciaOcupacion": "padron",
+          "referenciaMantenimiento": "seguimiento",
+          "operacion": "adquisicion",
+          "anterior": "primera-vivienda",
+          "inversionAcumuladaAntes2025Centimos": 0,
+          "baseDeducidaViviendasAnterioresCentimos": 0,
+          "gananciaExentaReinversionCentimos": 0,
+          "incrementoPatrimonialComputableCentimos": 1000000,
+          "referenciaPatrimonio": "balance",
+          "pagosCapitalYGastos": [
+            {
+              "id": "p",
+              "fecha": "2025-06-01",
+              "pagador": "t",
+              "importeCentimos": 1000000,
+              "medio": "transferencia",
+              "justificante": "recibo-sintetico",
+              "regimen": "personal",
+              "conyuges": []
+            }
+          ],
+          "pagosIntereses": [],
+          "coberturasInteresesPercibidasCentimos": 0,
+          "rehabilitacion": {
+            "via": "no-aplica",
+            "inicio": "2025-01-01",
+            "resolucionPlan": "",
+            "costeGlobalCentimos": 0,
+            "valorSinSueloCentimos": 0,
+            "referenciaValoracion": "",
+            "fechaValoracion": "2025-01-01",
+            "naturalezaValor": "mercado-inicio",
+            "memoriaEstructurasFachadasCubiertas": ""
+          },
+          "transitorio": {
+            "primeraInversion": "2010-01-01",
+            "deduccionAntes2013": "practicada",
+            "referencia": "expediente-DT18",
+            "finObras": "2010-01-01",
+            "resolucionAdecuacionDiscapacidad": ""
+          }
+        },
+        "diasParo": 0,
+        "grado": 0,
+        "resolucionDiscapacidad": "",
+        "hijosUnidadFamiliar": [
+          "t"
+        ],
+        "referenciaUnidad": "unidad"
+      }
+    },
+    "esperado": {
+      "estado": "no_soportado"
+    },
+    "fuentes": [
+      "CA-catalunya-2025-235"
+    ],
+    "razon": "Contribuyente sin paro/discapacidad y mayor32: no puede constituir su propio hijo para subir7,5% a9%."
+  },
+  {
+    "id": "rojo-hijo-y-ascendiente",
+    "entrada": {
+      "ejercicio": 2025,
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "nacimiento": "1995-01-01",
+      "imponibleGeneralCentimos": 1000000,
+      "imponibleAhorroCentimos": 0,
+      "liquidableGeneralCentimos": 1000000,
+      "liquidableAhorroCentimos": 0,
+      "minimoContribuyenteCentimos": 555000,
+      "minimoDescendientesCentimos": 240000,
+      "minimoPersonalFamiliarCentimos": 795000,
+      "elecciones": [],
+      "territorio": "andalucia",
+      "codigo": "andalucia_familia_monoparental_ascendientes_mayores_75",
+      "hechos": {
+        "estadoCivil": "sin-vinculo-matrimonial",
+        "hijos": [
+          {
+            "persona": "a",
+            "nacimiento": "1940-01-01",
+            "convivencia": "padron",
+            "independenciaConsentida": "no",
+            "grado": 33,
+            "curatelaJudicial": "resolucion"
+          }
+        ],
+        "ascendientes": [
+          {
+            "persona": "a",
+            "nacimiento": "1940-01-01",
+            "clase": "ascendiente",
+            "titulares": [
+              "t"
+            ],
+            "referenciaDerechos": "derechos-sinteticos",
+            "diasConvivencia": 365,
+            "discapacidad": 0,
+            "asistencia": "sin-incremento"
+          }
+        ],
+        "tituloEstadoCivil": "registro"
+      }
+    },
+    "esperado": {
+      "estado": "no_soportado"
+    },
+    "fuentes": [
+      "CA-andalucia-163",
+      "CA-andalucia-164",
+      "CA-andalucia-165"
+    ],
+    "razon": "La misma persona figura como hijo y ascendiente; no puede generar100 básicos más100 de ascendiente."
+  },
+  {
+    "id": "rojo-primera-inversion-no-construccion",
+    "entrada": {
+      "ejercicio": 2025,
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "nacimiento": "1980-01-01",
+      "imponibleGeneralCentimos": 1000000,
+      "imponibleAhorroCentimos": 0,
+      "liquidableGeneralCentimos": 1000000,
+      "liquidableAhorroCentimos": 0,
+      "minimoContribuyenteCentimos": 555000,
+      "minimoDescendientesCentimos": 240000,
+      "minimoPersonalFamiliarCentimos": 795000,
+      "elecciones": [],
+      "territorio": "catalunya",
+      "codigo": "cataluna_tramo_autonomico_inversion_vivienda_habitual",
+      "hechos": {
+        "vivienda": {
+          "id": "v",
+          "adquisicion": "2012-01-01",
+          "terminacionObras": "2012-01-01",
+          "ocupacion": "2012-01-01",
+          "residenciaDesde": "2012-01-01",
+          "situacion": "residencia-continuada",
+          "referenciaOcupacion": "padron",
+          "referenciaMantenimiento": "seguimiento",
+          "operacion": "adquisicion",
+          "anterior": "primera-vivienda",
+          "inversionAcumuladaAntes2025Centimos": 0,
+          "baseDeducidaViviendasAnterioresCentimos": 0,
+          "gananciaExentaReinversionCentimos": 0,
+          "incrementoPatrimonialComputableCentimos": 1000000,
+          "referenciaPatrimonio": "balance",
+          "pagosCapitalYGastos": [
+            {
+              "id": "p",
+              "fecha": "2025-06-01",
+              "pagador": "t",
+              "importeCentimos": 1000000,
+              "medio": "transferencia",
+              "justificante": "recibo-sintetico",
+              "regimen": "personal",
+              "conyuges": []
+            }
+          ],
+          "pagosIntereses": [],
+          "coberturasInteresesPercibidasCentimos": 0,
+          "rehabilitacion": {
+            "via": "no-aplica",
+            "inicio": "2025-01-01",
+            "resolucionPlan": "",
+            "costeGlobalCentimos": 0,
+            "valorSinSueloCentimos": 0,
+            "referenciaValoracion": "",
+            "fechaValoracion": "2025-01-01",
+            "naturalezaValor": "mercado-inicio",
+            "memoriaEstructurasFachadasCubiertas": ""
+          },
+          "transitorio": {
+            "primeraInversion": "2010-01-01",
+            "deduccionAntes2013": "practicada",
+            "referencia": "expediente-DT18",
+            "finObras": "2012-01-01",
+            "resolucionAdecuacionDiscapacidad": "",
+            "primeraInversionNaturaleza": "anticipo-vivienda-terminada",
+            "referenciaPrimeraInversion": "contrato-anticipo-vivienda-terminada"
+          }
+        },
+        "diasParo": 200,
+        "grado": 0,
+        "resolucionDiscapacidad": "",
+        "hijosUnidadFamiliar": [],
+        "referenciaUnidad": "unidad"
+      }
+    },
+    "esperado": {
+      "estado": "calculo_parcial",
+      "importePresentadoCentimos": 67800
+    },
+    "fuentes": [
+      "CA-catalunya-2025-231",
+      "CA-catalunya-2025-229"
+    ],
+    "razon": "Compra2012, anticipo2010 de vivienda terminada, sin construcción. El anticipo no es adquisición anterior30/7/2011 ni pago para construcción. Base9040 al7,5%=678; no9%=813,60. Si falta calificar el anticipo, rechazar esta rama en vez de presumir construcción."
+  },
+  {
+    "id": "rojo-beneficiario-en-censo-aragon_nacimiento_adopcion_hijo_discapacidad_33",
+    "entrada": {
+      "ejercicio": 2025,
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "nacimiento": "1995-01-01",
+      "imponibleGeneralCentimos": 1000000,
+      "imponibleAhorroCentimos": 0,
+      "liquidableGeneralCentimos": 1000000,
+      "liquidableAhorroCentimos": 0,
+      "minimoContribuyenteCentimos": 555000,
+      "minimoDescendientesCentimos": 240000,
+      "minimoPersonalFamiliarCentimos": 795000,
+      "elecciones": [],
+      "territorio": "aragon",
+      "codigo": "aragon_nacimiento_adopcion_hijo_discapacidad_33",
+      "hechos": {
+        "eventos": [
+          {
+            "persona": "h",
+            "nacimiento": "2025-01-01",
+            "fecha": "2025-01-01",
+            "clase": "nacimiento",
+            "resolucion": "registro",
+            "convivientes": [
+              "t",
+              "h"
+            ],
+            "orden": 3,
+            "grado": 33,
+            "resolucionDiscapacidad": "resolucion",
+            "normaConvenio": "convenio-internacional",
+            "residencia2024Poblacion": 5000,
+            "residencia2025Poblacion": 5000,
+            "padron2024": "padron",
+            "padron2025": "padron"
+          }
+        ],
+        "fiscalidad": {
+          "rango": "ordinario",
+          "isdtMilesimas": 100000,
+          "referenciaClasificacion": "",
+          "residenciaDesde": "2020-01-01",
+          "padron2025": "padron",
+          "mantenimiento": "pendiente-cuatro-anios",
+          "referenciaSeguimiento": "seguimiento"
+        }
+      }
+    },
+    "esperado": {
+      "estado": "no_soportado"
+    },
+    "fuentes": [
+      "CA-aragon-109",
+      "CA-aragon-120",
+      "CA-aragon-122",
+      "CA-aragon-133",
+      "CA-aragon-136"
+    ],
+    "razon": "Un hijo no puede ser contribuyente con derecho a deducción por su propio nacimiento/adopción; excluir o rechazar censo, no dividir por él."
+  },
+  {
+    "id": "rojo-beneficiario-en-censo-aragon_adopcion_internacional",
+    "entrada": {
+      "ejercicio": 2025,
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "nacimiento": "1995-01-01",
+      "imponibleGeneralCentimos": 1000000,
+      "imponibleAhorroCentimos": 0,
+      "liquidableGeneralCentimos": 1000000,
+      "liquidableAhorroCentimos": 0,
+      "minimoContribuyenteCentimos": 555000,
+      "minimoDescendientesCentimos": 240000,
+      "minimoPersonalFamiliarCentimos": 795000,
+      "elecciones": [],
+      "territorio": "aragon",
+      "codigo": "aragon_adopcion_internacional",
+      "hechos": {
+        "eventos": [
+          {
+            "persona": "h",
+            "nacimiento": "2025-01-01",
+            "fecha": "2025-01-01",
+            "clase": "adopcion",
+            "resolucion": "registro",
+            "convivientes": [
+              "t",
+              "h"
+            ],
+            "orden": 3,
+            "grado": 33,
+            "resolucionDiscapacidad": "resolucion",
+            "normaConvenio": "convenio-internacional",
+            "residencia2024Poblacion": 5000,
+            "residencia2025Poblacion": 5000,
+            "padron2024": "padron",
+            "padron2025": "padron"
+          }
+        ],
+        "fiscalidad": {
+          "rango": "ordinario",
+          "isdtMilesimas": 100000,
+          "referenciaClasificacion": "",
+          "residenciaDesde": "2020-01-01",
+          "padron2025": "padron",
+          "mantenimiento": "pendiente-cuatro-anios",
+          "referenciaSeguimiento": "seguimiento"
+        }
+      }
+    },
+    "esperado": {
+      "estado": "no_soportado"
+    },
+    "fuentes": [
+      "CA-aragon-109",
+      "CA-aragon-120",
+      "CA-aragon-122",
+      "CA-aragon-133",
+      "CA-aragon-136"
+    ],
+    "razon": "Un hijo no puede ser contribuyente con derecho a deducción por su propio nacimiento/adopción; excluir o rechazar censo, no dividir por él."
+  },
+  {
+    "id": "rojo-beneficiario-en-censo-aragon_nacimiento_adopcion_tercer_hijo_sucesivos",
+    "entrada": {
+      "ejercicio": 2025,
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "nacimiento": "1995-01-01",
+      "imponibleGeneralCentimos": 1000000,
+      "imponibleAhorroCentimos": 0,
+      "liquidableGeneralCentimos": 1000000,
+      "liquidableAhorroCentimos": 0,
+      "minimoContribuyenteCentimos": 555000,
+      "minimoDescendientesCentimos": 240000,
+      "minimoPersonalFamiliarCentimos": 795000,
+      "elecciones": [],
+      "territorio": "aragon",
+      "codigo": "aragon_nacimiento_adopcion_tercer_hijo_sucesivos",
+      "hechos": {
+        "eventos": [
+          {
+            "persona": "h",
+            "nacimiento": "2025-01-01",
+            "fecha": "2025-01-01",
+            "clase": "nacimiento",
+            "resolucion": "registro",
+            "convivientes": [
+              "t",
+              "h"
+            ],
+            "orden": 3,
+            "grado": 33,
+            "resolucionDiscapacidad": "resolucion",
+            "normaConvenio": "convenio-internacional",
+            "residencia2024Poblacion": 5000,
+            "residencia2025Poblacion": 5000,
+            "padron2024": "padron",
+            "padron2025": "padron"
+          }
+        ],
+        "fiscalidad": {
+          "rango": "ordinario",
+          "isdtMilesimas": 100000,
+          "referenciaClasificacion": "",
+          "residenciaDesde": "2020-01-01",
+          "padron2025": "padron",
+          "mantenimiento": "pendiente-cuatro-anios",
+          "referenciaSeguimiento": "seguimiento"
+        }
+      }
+    },
+    "esperado": {
+      "estado": "no_soportado"
+    },
+    "fuentes": [
+      "CA-aragon-109",
+      "CA-aragon-120",
+      "CA-aragon-122",
+      "CA-aragon-133",
+      "CA-aragon-136"
+    ],
+    "razon": "Un hijo no puede ser contribuyente con derecho a deducción por su propio nacimiento/adopción; excluir o rechazar censo, no dividir por él."
+  },
+  {
+    "id": "AAR01-sin-naturaleza-no-infiere-construccion",
+    "entrada": {
+      "ejercicio": 2025,
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "nacimiento": "1980-01-01",
+      "imponibleGeneralCentimos": 1000000,
+      "imponibleAhorroCentimos": 0,
+      "liquidableGeneralCentimos": 1000000,
+      "liquidableAhorroCentimos": 0,
+      "minimoContribuyenteCentimos": 555000,
+      "minimoDescendientesCentimos": 240000,
+      "minimoPersonalFamiliarCentimos": 795000,
+      "elecciones": [],
+      "territorio": "catalunya",
+      "codigo": "cataluna_tramo_autonomico_inversion_vivienda_habitual",
+      "hechos": {
+        "vivienda": {
+          "id": "v",
+          "adquisicion": "2012-01-01",
+          "terminacionObras": "2012-01-01",
+          "ocupacion": "2012-01-01",
+          "residenciaDesde": "2012-01-01",
+          "situacion": "residencia-continuada",
+          "referenciaOcupacion": "padron",
+          "referenciaMantenimiento": "seguimiento",
+          "operacion": "adquisicion",
+          "anterior": "primera-vivienda",
+          "inversionAcumuladaAntes2025Centimos": 0,
+          "baseDeducidaViviendasAnterioresCentimos": 0,
+          "gananciaExentaReinversionCentimos": 0,
+          "incrementoPatrimonialComputableCentimos": 1000000,
+          "referenciaPatrimonio": "balance",
+          "pagosCapitalYGastos": [
+            {
+              "id": "p",
+              "fecha": "2025-06-01",
+              "pagador": "t",
+              "importeCentimos": 1000000,
+              "medio": "transferencia",
+              "justificante": "recibo-sintetico",
+              "regimen": "personal",
+              "conyuges": []
+            }
+          ],
+          "pagosIntereses": [],
+          "coberturasInteresesPercibidasCentimos": 0,
+          "rehabilitacion": {
+            "via": "no-aplica",
+            "inicio": "2025-01-01",
+            "resolucionPlan": "",
+            "costeGlobalCentimos": 0,
+            "valorSinSueloCentimos": 0,
+            "referenciaValoracion": "",
+            "fechaValoracion": "2025-01-01",
+            "naturalezaValor": "mercado-inicio",
+            "memoriaEstructurasFachadasCubiertas": ""
+          },
+          "transitorio": {
+            "primeraInversion": "2010-01-01",
+            "deduccionAntes2013": "practicada",
+            "referencia": "expediente-DT18",
+            "finObras": "2012-01-01",
+            "resolucionAdecuacionDiscapacidad": ""
+          }
+        },
+        "diasParo": 200,
+        "grado": 0,
+        "resolucionDiscapacidad": "",
+        "hijosUnidadFamiliar": [],
+        "referenciaUnidad": "unidad"
+      }
+    },
+    "esperado": {
+      "estado": "no_soportado"
+    }
+  },
+  {
+    "id": "AAR01-construccion-anterior-permite-nueve",
+    "entrada": {
+      "ejercicio": 2025,
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "nacimiento": "1980-01-01",
+      "imponibleGeneralCentimos": 1000000,
+      "imponibleAhorroCentimos": 0,
+      "liquidableGeneralCentimos": 1000000,
+      "liquidableAhorroCentimos": 0,
+      "minimoContribuyenteCentimos": 555000,
+      "minimoDescendientesCentimos": 240000,
+      "minimoPersonalFamiliarCentimos": 795000,
+      "elecciones": [],
+      "territorio": "catalunya",
+      "codigo": "cataluna_tramo_autonomico_inversion_vivienda_habitual",
+      "hechos": {
+        "vivienda": {
+          "id": "v",
+          "adquisicion": "2012-01-01",
+          "terminacionObras": "2012-01-01",
+          "ocupacion": "2012-01-01",
+          "residenciaDesde": "2012-01-01",
+          "situacion": "residencia-continuada",
+          "referenciaOcupacion": "padron",
+          "referenciaMantenimiento": "seguimiento",
+          "operacion": "adquisicion",
+          "anterior": "primera-vivienda",
+          "inversionAcumuladaAntes2025Centimos": 0,
+          "baseDeducidaViviendasAnterioresCentimos": 0,
+          "gananciaExentaReinversionCentimos": 0,
+          "incrementoPatrimonialComputableCentimos": 1000000,
+          "referenciaPatrimonio": "balance",
+          "pagosCapitalYGastos": [
+            {
+              "id": "p",
+              "fecha": "2025-06-01",
+              "pagador": "t",
+              "importeCentimos": 1000000,
+              "medio": "transferencia",
+              "justificante": "recibo-sintetico",
+              "regimen": "personal",
+              "conyuges": []
+            }
+          ],
+          "pagosIntereses": [],
+          "coberturasInteresesPercibidasCentimos": 0,
+          "rehabilitacion": {
+            "via": "no-aplica",
+            "inicio": "2025-01-01",
+            "resolucionPlan": "",
+            "costeGlobalCentimos": 0,
+            "valorSinSueloCentimos": 0,
+            "referenciaValoracion": "",
+            "fechaValoracion": "2025-01-01",
+            "naturalezaValor": "mercado-inicio",
+            "memoriaEstructurasFachadasCubiertas": ""
+          },
+          "transitorio": {
+            "primeraInversion": "2010-01-01",
+            "deduccionAntes2013": "practicada",
+            "referencia": "expediente-DT18",
+            "finObras": "2012-01-01",
+            "resolucionAdecuacionDiscapacidad": "",
+            "primeraInversionNaturaleza": "construccion",
+            "referenciaPrimeraInversion": "certificado-pagos-construccion"
+          }
+        },
+        "diasParo": 200,
+        "grado": 0,
+        "resolucionDiscapacidad": "",
+        "hijosUnidadFamiliar": [],
+        "referenciaUnidad": "unidad"
+      }
+    },
+    "esperado": {
+      "estado": "calculo_parcial",
+      "importePresentadoCentimos": 81360
+    }
+  },
+  {
+    "id": "AAR01-adquisicion-dia-anterior-permite-nueve",
+    "entrada": {
+      "ejercicio": 2025,
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "nacimiento": "1980-01-01",
+      "imponibleGeneralCentimos": 1000000,
+      "imponibleAhorroCentimos": 0,
+      "liquidableGeneralCentimos": 1000000,
+      "liquidableAhorroCentimos": 0,
+      "minimoContribuyenteCentimos": 555000,
+      "minimoDescendientesCentimos": 240000,
+      "minimoPersonalFamiliarCentimos": 795000,
+      "elecciones": [],
+      "territorio": "catalunya",
+      "codigo": "cataluna_tramo_autonomico_inversion_vivienda_habitual",
+      "hechos": {
+        "vivienda": {
+          "id": "v",
+          "adquisicion": "2011-07-29",
+          "terminacionObras": "2011-07-29",
+          "ocupacion": "2011-07-29",
+          "residenciaDesde": "2011-07-29",
+          "situacion": "residencia-continuada",
+          "referenciaOcupacion": "padron",
+          "referenciaMantenimiento": "seguimiento",
+          "operacion": "adquisicion",
+          "anterior": "primera-vivienda",
+          "inversionAcumuladaAntes2025Centimos": 0,
+          "baseDeducidaViviendasAnterioresCentimos": 0,
+          "gananciaExentaReinversionCentimos": 0,
+          "incrementoPatrimonialComputableCentimos": 1000000,
+          "referenciaPatrimonio": "balance",
+          "pagosCapitalYGastos": [
+            {
+              "id": "p",
+              "fecha": "2025-06-01",
+              "pagador": "t",
+              "importeCentimos": 1000000,
+              "medio": "transferencia",
+              "justificante": "recibo-sintetico",
+              "regimen": "personal",
+              "conyuges": []
+            }
+          ],
+          "pagosIntereses": [],
+          "coberturasInteresesPercibidasCentimos": 0,
+          "rehabilitacion": {
+            "via": "no-aplica",
+            "inicio": "2025-01-01",
+            "resolucionPlan": "",
+            "costeGlobalCentimos": 0,
+            "valorSinSueloCentimos": 0,
+            "referenciaValoracion": "",
+            "fechaValoracion": "2025-01-01",
+            "naturalezaValor": "mercado-inicio",
+            "memoriaEstructurasFachadasCubiertas": ""
+          },
+          "transitorio": {
+            "primeraInversion": "2011-07-29",
+            "deduccionAntes2013": "practicada",
+            "referencia": "expediente-DT18",
+            "finObras": "2011-07-29",
+            "resolucionAdecuacionDiscapacidad": ""
+          }
+        },
+        "diasParo": 200,
+        "grado": 0,
+        "resolucionDiscapacidad": "",
+        "hijosUnidadFamiliar": [],
+        "referenciaUnidad": "unidad"
+      }
+    },
+    "esperado": {
+      "estado": "calculo_parcial",
+      "importePresentadoCentimos": 81360
+    }
+  },
+  {
+    "id": "AAR01-adquisicion-dia-corte-general",
+    "entrada": {
+      "ejercicio": 2025,
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "nacimiento": "1980-01-01",
+      "imponibleGeneralCentimos": 1000000,
+      "imponibleAhorroCentimos": 0,
+      "liquidableGeneralCentimos": 1000000,
+      "liquidableAhorroCentimos": 0,
+      "minimoContribuyenteCentimos": 555000,
+      "minimoDescendientesCentimos": 240000,
+      "minimoPersonalFamiliarCentimos": 795000,
+      "elecciones": [],
+      "territorio": "catalunya",
+      "codigo": "cataluna_tramo_autonomico_inversion_vivienda_habitual",
+      "hechos": {
+        "vivienda": {
+          "id": "v",
+          "adquisicion": "2011-07-30",
+          "terminacionObras": "2011-07-30",
+          "ocupacion": "2011-07-30",
+          "residenciaDesde": "2011-07-30",
+          "situacion": "residencia-continuada",
+          "referenciaOcupacion": "padron",
+          "referenciaMantenimiento": "seguimiento",
+          "operacion": "adquisicion",
+          "anterior": "primera-vivienda",
+          "inversionAcumuladaAntes2025Centimos": 0,
+          "baseDeducidaViviendasAnterioresCentimos": 0,
+          "gananciaExentaReinversionCentimos": 0,
+          "incrementoPatrimonialComputableCentimos": 1000000,
+          "referenciaPatrimonio": "balance",
+          "pagosCapitalYGastos": [
+            {
+              "id": "p",
+              "fecha": "2025-06-01",
+              "pagador": "t",
+              "importeCentimos": 1000000,
+              "medio": "transferencia",
+              "justificante": "recibo-sintetico",
+              "regimen": "personal",
+              "conyuges": []
+            }
+          ],
+          "pagosIntereses": [],
+          "coberturasInteresesPercibidasCentimos": 0,
+          "rehabilitacion": {
+            "via": "no-aplica",
+            "inicio": "2025-01-01",
+            "resolucionPlan": "",
+            "costeGlobalCentimos": 0,
+            "valorSinSueloCentimos": 0,
+            "referenciaValoracion": "",
+            "fechaValoracion": "2025-01-01",
+            "naturalezaValor": "mercado-inicio",
+            "memoriaEstructurasFachadasCubiertas": ""
+          },
+          "transitorio": {
+            "primeraInversion": "2011-07-30",
+            "deduccionAntes2013": "practicada",
+            "referencia": "expediente-DT18",
+            "finObras": "2011-07-30",
+            "resolucionAdecuacionDiscapacidad": ""
+          }
+        },
+        "diasParo": 200,
+        "grado": 0,
+        "resolucionDiscapacidad": "",
+        "hijosUnidadFamiliar": [],
+        "referenciaUnidad": "unidad"
+      }
+    },
+    "esperado": {
+      "estado": "calculo_parcial",
+      "importePresentadoCentimos": 67800
+    }
+  },
+  {
+    "id": "AAR01-construccion-dia-corte-general",
+    "entrada": {
+      "ejercicio": 2025,
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "nacimiento": "1980-01-01",
+      "imponibleGeneralCentimos": 1000000,
+      "imponibleAhorroCentimos": 0,
+      "liquidableGeneralCentimos": 1000000,
+      "liquidableAhorroCentimos": 0,
+      "minimoContribuyenteCentimos": 555000,
+      "minimoDescendientesCentimos": 240000,
+      "minimoPersonalFamiliarCentimos": 795000,
+      "elecciones": [],
+      "territorio": "catalunya",
+      "codigo": "cataluna_tramo_autonomico_inversion_vivienda_habitual",
+      "hechos": {
+        "vivienda": {
+          "id": "v",
+          "adquisicion": "2012-01-01",
+          "terminacionObras": "2012-01-01",
+          "ocupacion": "2012-01-01",
+          "residenciaDesde": "2012-01-01",
+          "situacion": "residencia-continuada",
+          "referenciaOcupacion": "padron",
+          "referenciaMantenimiento": "seguimiento",
+          "operacion": "adquisicion",
+          "anterior": "primera-vivienda",
+          "inversionAcumuladaAntes2025Centimos": 0,
+          "baseDeducidaViviendasAnterioresCentimos": 0,
+          "gananciaExentaReinversionCentimos": 0,
+          "incrementoPatrimonialComputableCentimos": 1000000,
+          "referenciaPatrimonio": "balance",
+          "pagosCapitalYGastos": [
+            {
+              "id": "p",
+              "fecha": "2025-06-01",
+              "pagador": "t",
+              "importeCentimos": 1000000,
+              "medio": "transferencia",
+              "justificante": "recibo-sintetico",
+              "regimen": "personal",
+              "conyuges": []
+            }
+          ],
+          "pagosIntereses": [],
+          "coberturasInteresesPercibidasCentimos": 0,
+          "rehabilitacion": {
+            "via": "no-aplica",
+            "inicio": "2025-01-01",
+            "resolucionPlan": "",
+            "costeGlobalCentimos": 0,
+            "valorSinSueloCentimos": 0,
+            "referenciaValoracion": "",
+            "fechaValoracion": "2025-01-01",
+            "naturalezaValor": "mercado-inicio",
+            "memoriaEstructurasFachadasCubiertas": ""
+          },
+          "transitorio": {
+            "primeraInversion": "2011-07-30",
+            "deduccionAntes2013": "practicada",
+            "referencia": "expediente-DT18",
+            "finObras": "2012-01-01",
+            "resolucionAdecuacionDiscapacidad": "",
+            "primeraInversionNaturaleza": "construccion",
+            "referenciaPrimeraInversion": "certificado"
+          }
+        },
+        "diasParo": 200,
+        "grado": 0,
+        "resolucionDiscapacidad": "",
+        "hijosUnidadFamiliar": [],
+        "referenciaUnidad": "unidad"
+      }
+    },
+    "esperado": {
+      "estado": "calculo_parcial",
+      "importePresentadoCentimos": 67800
+    }
+  },
+  {
+    "id": "AAR01-construccion-posterior-a-compra-rechazada",
+    "entrada": {
+      "ejercicio": 2025,
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "nacimiento": "1980-01-01",
+      "imponibleGeneralCentimos": 1000000,
+      "imponibleAhorroCentimos": 0,
+      "liquidableGeneralCentimos": 1000000,
+      "liquidableAhorroCentimos": 0,
+      "minimoContribuyenteCentimos": 555000,
+      "minimoDescendientesCentimos": 240000,
+      "minimoPersonalFamiliarCentimos": 795000,
+      "elecciones": [],
+      "territorio": "catalunya",
+      "codigo": "cataluna_tramo_autonomico_inversion_vivienda_habitual",
+      "hechos": {
+        "vivienda": {
+          "id": "v",
+          "adquisicion": "2012-01-01",
+          "terminacionObras": "2012-01-01",
+          "ocupacion": "2012-01-01",
+          "residenciaDesde": "2012-01-01",
+          "situacion": "residencia-continuada",
+          "referenciaOcupacion": "padron",
+          "referenciaMantenimiento": "seguimiento",
+          "operacion": "adquisicion",
+          "anterior": "primera-vivienda",
+          "inversionAcumuladaAntes2025Centimos": 0,
+          "baseDeducidaViviendasAnterioresCentimos": 0,
+          "gananciaExentaReinversionCentimos": 0,
+          "incrementoPatrimonialComputableCentimos": 1000000,
+          "referenciaPatrimonio": "balance",
+          "pagosCapitalYGastos": [
+            {
+              "id": "p",
+              "fecha": "2025-06-01",
+              "pagador": "t",
+              "importeCentimos": 1000000,
+              "medio": "transferencia",
+              "justificante": "recibo-sintetico",
+              "regimen": "personal",
+              "conyuges": []
+            }
+          ],
+          "pagosIntereses": [],
+          "coberturasInteresesPercibidasCentimos": 0,
+          "rehabilitacion": {
+            "via": "no-aplica",
+            "inicio": "2025-01-01",
+            "resolucionPlan": "",
+            "costeGlobalCentimos": 0,
+            "valorSinSueloCentimos": 0,
+            "referenciaValoracion": "",
+            "fechaValoracion": "2025-01-01",
+            "naturalezaValor": "mercado-inicio",
+            "memoriaEstructurasFachadasCubiertas": ""
+          },
+          "transitorio": {
+            "primeraInversion": "2012-02-01",
+            "deduccionAntes2013": "practicada",
+            "referencia": "expediente-DT18",
+            "finObras": "2012-01-01",
+            "resolucionAdecuacionDiscapacidad": "",
+            "primeraInversionNaturaleza": "construccion",
+            "referenciaPrimeraInversion": "certificado"
+          }
+        },
+        "diasParo": 200,
+        "grado": 0,
+        "resolucionDiscapacidad": "",
+        "hijosUnidadFamiliar": [],
+        "referenciaUnidad": "unidad"
+      }
+    },
+    "esperado": {
+      "estado": "no_soportado"
+    }
+  },
+  {
+    "id": "AAR01-naturaleza-adquisicion-fechas-incompatibles",
+    "entrada": {
+      "ejercicio": 2025,
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "nacimiento": "1980-01-01",
+      "imponibleGeneralCentimos": 1000000,
+      "imponibleAhorroCentimos": 0,
+      "liquidableGeneralCentimos": 1000000,
+      "liquidableAhorroCentimos": 0,
+      "minimoContribuyenteCentimos": 555000,
+      "minimoDescendientesCentimos": 240000,
+      "minimoPersonalFamiliarCentimos": 795000,
+      "elecciones": [],
+      "territorio": "catalunya",
+      "codigo": "cataluna_tramo_autonomico_inversion_vivienda_habitual",
+      "hechos": {
+        "vivienda": {
+          "id": "v",
+          "adquisicion": "2012-01-01",
+          "terminacionObras": "2012-01-01",
+          "ocupacion": "2012-01-01",
+          "residenciaDesde": "2012-01-01",
+          "situacion": "residencia-continuada",
+          "referenciaOcupacion": "padron",
+          "referenciaMantenimiento": "seguimiento",
+          "operacion": "adquisicion",
+          "anterior": "primera-vivienda",
+          "inversionAcumuladaAntes2025Centimos": 0,
+          "baseDeducidaViviendasAnterioresCentimos": 0,
+          "gananciaExentaReinversionCentimos": 0,
+          "incrementoPatrimonialComputableCentimos": 1000000,
+          "referenciaPatrimonio": "balance",
+          "pagosCapitalYGastos": [
+            {
+              "id": "p",
+              "fecha": "2025-06-01",
+              "pagador": "t",
+              "importeCentimos": 1000000,
+              "medio": "transferencia",
+              "justificante": "recibo-sintetico",
+              "regimen": "personal",
+              "conyuges": []
+            }
+          ],
+          "pagosIntereses": [],
+          "coberturasInteresesPercibidasCentimos": 0,
+          "rehabilitacion": {
+            "via": "no-aplica",
+            "inicio": "2025-01-01",
+            "resolucionPlan": "",
+            "costeGlobalCentimos": 0,
+            "valorSinSueloCentimos": 0,
+            "referenciaValoracion": "",
+            "fechaValoracion": "2025-01-01",
+            "naturalezaValor": "mercado-inicio",
+            "memoriaEstructurasFachadasCubiertas": ""
+          },
+          "transitorio": {
+            "primeraInversion": "2010-01-01",
+            "deduccionAntes2013": "practicada",
+            "referencia": "expediente-DT18",
+            "finObras": "2012-01-01",
+            "resolucionAdecuacionDiscapacidad": "",
+            "primeraInversionNaturaleza": "adquisicion",
+            "referenciaPrimeraInversion": "certificado"
+          }
+        },
+        "diasParo": 200,
+        "grado": 0,
+        "resolucionDiscapacidad": "",
+        "hijosUnidadFamiliar": [],
+        "referenciaUnidad": "unidad"
+      }
+    },
+    "esperado": {
+      "estado": "no_soportado"
+    }
+  },
+  {
+    "id": "AAR02-porcentaje-familiar-superior-cien",
+    "entrada": {
+      "ejercicio": 2025,
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "nacimiento": "1995-01-01",
+      "imponibleGeneralCentimos": 1000000,
+      "imponibleAhorroCentimos": 0,
+      "liquidableGeneralCentimos": 1000000,
+      "liquidableAhorroCentimos": 0,
+      "minimoContribuyenteCentimos": 555000,
+      "minimoDescendientesCentimos": 240000,
+      "minimoPersonalFamiliarCentimos": 795000,
+      "elecciones": [],
+      "territorio": "andalucia",
+      "codigo": "andalucia_inversion_acciones_participaciones_mercantiles",
+      "hechos": {
+        "inversiones": [
+          {
+            "pago": {
+              "id": "p",
+              "fecha": "2025-06-01",
+              "pagador": "t",
+              "importeCentimos": 123456,
+              "medio": "transferencia",
+              "justificante": "recibo-sintetico",
+              "regimen": "personal",
+              "conyuges": []
+            },
+            "entidad": "entidad",
+            "forma": "SL",
+            "operacion": "constitucion",
+            "constitucion": "2025-01-01",
+            "escritura": "escritura",
+            "domicilioSocial": "andalucia",
+            "domicilioFiscal": "andalucia",
+            "actividad": "economica",
+            "memoriaActividad": "memoria",
+            "capitalPropioMaxPuntosBasicos": 5000,
+            "capitalFamiliarMaxPuntosBasicos": 10001,
+            "votosFamiliarMaxPuntosBasicos": 3500,
+            "referenciaCensoFamiliarTercerGrado": "censo",
+            "referenciaRegistroParticipaciones": "registro",
+            "funcion": "sin-funciones",
+            "empleadosJornadaCompleta": 1,
+            "referenciaContratosAlta": "alta",
+            "facturacionAnualCentimos": 100000000,
+            "plantillaMediaAntesCentesimas": 0,
+            "mercado": "sin-cotizacion",
+            "universidadCentro": "",
+            "mantenimientoHastaDevengo": "sin-transmision-ni-incumplimiento",
+            "referenciaSeguimiento": "registro",
+            "obligacionMantenimientoFuturo": "seguimiento-no-certificacion-futura",
+            "economiaSocialLey5": ""
+          }
+        ]
+      }
+    },
+    "esperado": {
+      "estado": "no_soportado"
+    }
+  },
+  {
+    "id": "AAR04-primer-segundo-hijo-en-sus-titulares",
+    "entrada": {
+      "ejercicio": 2025,
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "nacimiento": "1995-01-01",
+      "imponibleGeneralCentimos": 1000000,
+      "imponibleAhorroCentimos": 0,
+      "liquidableGeneralCentimos": 1000000,
+      "liquidableAhorroCentimos": 0,
+      "minimoContribuyenteCentimos": 555000,
+      "minimoDescendientesCentimos": 240000,
+      "minimoPersonalFamiliarCentimos": 795000,
+      "elecciones": [],
+      "territorio": "aragon",
+      "codigo": "aragon_primer_segundo_hijo_poblaciones_menos_10000",
+      "hechos": {
+        "eventos": [
+          {
+            "persona": "h",
+            "nacimiento": "2025-01-01",
+            "fecha": "2025-01-01",
+            "clase": "nacimiento",
+            "resolucion": "registro",
+            "convivientes": [
+              "t",
+              "h"
+            ],
+            "orden": 1,
+            "grado": 33,
+            "resolucionDiscapacidad": "resolucion",
+            "normaConvenio": "convenio-internacional",
+            "residencia2024Poblacion": 5000,
+            "residencia2025Poblacion": 5000,
+            "padron2024": "padron",
+            "padron2025": "padron"
+          }
+        ],
+        "fiscalidad": {
+          "rango": "ordinario",
+          "isdtMilesimas": 100000,
+          "referenciaClasificacion": "",
+          "residenciaDesde": "2020-01-01",
+          "padron2025": "padron",
+          "mantenimiento": "pendiente-cuatro-anios",
+          "referenciaSeguimiento": "seguimiento"
+        }
+      }
+    },
+    "esperado": {
+      "estado": "no_soportado"
+    }
+  },
+  {
+    "id": "AAR04-primer-hijo-un-titular-correcto",
+    "entrada": {
+      "ejercicio": 2025,
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "nacimiento": "1995-01-01",
+      "imponibleGeneralCentimos": 1000000,
+      "imponibleAhorroCentimos": 0,
+      "liquidableGeneralCentimos": 1000000,
+      "liquidableAhorroCentimos": 0,
+      "minimoContribuyenteCentimos": 555000,
+      "minimoDescendientesCentimos": 240000,
+      "minimoPersonalFamiliarCentimos": 795000,
+      "elecciones": [],
+      "territorio": "aragon",
+      "codigo": "aragon_primer_segundo_hijo_poblaciones_menos_10000",
+      "hechos": {
+        "eventos": [
+          {
+            "persona": "h",
+            "nacimiento": "2025-01-01",
+            "fecha": "2025-01-01",
+            "clase": "nacimiento",
+            "resolucion": "registro",
+            "convivientes": [
+              "t"
+            ],
+            "orden": 1,
+            "grado": 33,
+            "resolucionDiscapacidad": "resolucion",
+            "normaConvenio": "convenio-internacional",
+            "residencia2024Poblacion": 5000,
+            "residencia2025Poblacion": 5000,
+            "padron2024": "padron",
+            "padron2025": "padron"
+          }
+        ],
+        "fiscalidad": {
+          "rango": "ordinario",
+          "isdtMilesimas": 100000,
+          "referenciaClasificacion": "",
+          "residenciaDesde": "2020-01-01",
+          "padron2025": "padron",
+          "mantenimiento": "pendiente-cuatro-anios",
+          "referenciaSeguimiento": "seguimiento"
+        }
+      }
+    },
+    "esperado": {
+      "estado": "calculo_parcial",
+      "importePresentadoCentimos": 20000
+    }
+  },
+  {
+    "id": "S01-fechas-invertidas-sin-naturaleza",
+    "entrada": {
+      "ejercicio": 2025,
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "nacimiento": "1980-01-01",
+      "imponibleGeneralCentimos": 1000000,
+      "imponibleAhorroCentimos": 0,
+      "liquidableGeneralCentimos": 1000000,
+      "liquidableAhorroCentimos": 0,
+      "minimoContribuyenteCentimos": 555000,
+      "minimoDescendientesCentimos": 240000,
+      "minimoPersonalFamiliarCentimos": 795000,
+      "elecciones": [],
+      "territorio": "catalunya",
+      "codigo": "cataluna_tramo_autonomico_inversion_vivienda_habitual",
+      "hechos": {
+        "vivienda": {
+          "id": "v",
+          "adquisicion": "2010-01-01",
+          "terminacionObras": "2010-01-01",
+          "ocupacion": "2010-01-01",
+          "residenciaDesde": "2010-01-01",
+          "situacion": "residencia-continuada",
+          "referenciaOcupacion": "padron",
+          "referenciaMantenimiento": "seguimiento",
+          "operacion": "adquisicion",
+          "anterior": "primera-vivienda",
+          "inversionAcumuladaAntes2025Centimos": 0,
+          "baseDeducidaViviendasAnterioresCentimos": 0,
+          "gananciaExentaReinversionCentimos": 0,
+          "incrementoPatrimonialComputableCentimos": 1000000,
+          "referenciaPatrimonio": "balance",
+          "pagosCapitalYGastos": [
+            {
+              "id": "p",
+              "fecha": "2025-06-01",
+              "pagador": "t",
+              "importeCentimos": 1000000,
+              "medio": "transferencia",
+              "justificante": "recibo-sintetico",
+              "regimen": "personal",
+              "conyuges": []
+            }
+          ],
+          "pagosIntereses": [],
+          "coberturasInteresesPercibidasCentimos": 0,
+          "rehabilitacion": {
+            "via": "no-aplica",
+            "inicio": "2025-01-01",
+            "resolucionPlan": "",
+            "costeGlobalCentimos": 0,
+            "valorSinSueloCentimos": 0,
+            "referenciaValoracion": "",
+            "fechaValoracion": "2025-01-01",
+            "naturalezaValor": "mercado-inicio",
+            "memoriaEstructurasFachadasCubiertas": ""
+          },
+          "transitorio": {
+            "primeraInversion": "2012-01-01",
+            "deduccionAntes2013": "practicada",
+            "referencia": "expediente-DT18",
+            "finObras": "2010-01-01",
+            "resolucionAdecuacionDiscapacidad": ""
+          }
+        },
+        "diasParo": 200,
+        "grado": 0,
+        "resolucionDiscapacidad": "",
+        "hijosUnidadFamiliar": [],
+        "referenciaUnidad": "unidad"
+      }
+    },
+    "esperado": {
+      "estado": "no_soportado"
+    },
+    "fuentes": [
+      "CA-catalunya-2025-231",
+      "CA-catalunya-2025-229"
+    ],
+    "razon": "Sonda no ejecutada: primera inversión2012 posterior a adquisición2010 sin naturaleza; verificar si la conciliación prometida abarca estos dos hechos explícitos."
+  }
+]

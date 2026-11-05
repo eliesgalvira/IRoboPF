@@ -68,7 +68,7 @@ export function edad(nacimiento: string): number {
   return 2025 - Number(nacimiento.slice(0, 4))
 }
 export function base(m: MarcoB): Decimal {
-  return dinero(m.baseGeneral).plus(dinero(m.baseAhorro))
+  return magnitudAnual(m.baseGeneral).plus(magnitudAnual(m.baseAhorro))
 }
 export function marco(m: MarcoB, territorio: MarcoB["territorio"]): void {
   exigir(
@@ -236,4 +236,9 @@ export function diasPosibles(
   const a = DateTime.makeUnsafe(`${desde}T00:00:00Z`),
     b = DateTime.makeUnsafe(`${hasta}T00:00:00Z`)
   return (DateTime.toEpochMillis(b) - DateTime.toEpochMillis(a)) / 86400000 + 1
+}
+
+export function magnitudAnual(s: string): Decimal {
+  exigir(/^-?\d{1,18}(\.\d{1,80})?$/.test(s), "Magnitud anual inválida")
+  return new D(s)
 }

@@ -1,3 +1,5 @@
+import { SolicitudDeduccionesTerritoriales2025 } from "../deducciones/anual-territorial"
+import { aplicarDeduccionesTerritoriales2025 } from "../deducciones/anual-territorial"
 import Decimal from "decimal.js"
 import { Effect, Schema, Result } from "effect"
 import {
@@ -44,6 +46,15 @@ export type PoliticaAnual =
   | "open-cuotas-empleo-andalucia-2025"
 /** Contrato interno: bases ya integradas en EUR Decimal; jamás reconstruye cotizaciones. */
 export interface EntradaComposicionAnual {
+  readonly rentasTrabajoAnuales?:
+    | {
+        readonly integroTrabajo: Decimal
+        readonly restoRentas: Decimal
+      }
+    | undefined
+  readonly deduccionesTerritoriales2025?:
+    | SolicitudDeduccionesTerritoriales2025
+    | undefined
   readonly ambito: Pick<
     CasoFiscalAnual,
     | "contribuyenteId"
@@ -564,17 +575,58 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
           },
         })
     }
+    let deduccionesTerritoriales2025:
+      | ReturnType<typeof aplicarDeduccionesTerritoriales2025>
+      | undefined
+    if (entrada.deduccionesTerritoriales2025 !== undefined) {
+      if (
+        entrada.deduccionesValencianas2025 !== undefined ||
+        entrada.deduccionesAutonomicasCentimos !== 0
+      )
+        return yield* Effect.fail(
+          errorDerechosMinimos({
+            motivo:
+              "No mezclar hechos territoriales con otra fuente de deducciones autonómicas",
+          })
+        )
+      const solicitud = entrada.deduccionesTerritoriales2025
+      deduccionesTerritoriales2025 = yield* Effect.try({
+        try: () =>
+          aplicarDeduccionesTerritoriales2025(solicitud, {
+            caso,
+            baseGeneral: entrada.baseGeneral,
+            baseAhorro: entrada.baseAhorro,
+            minimoPersonalFamiliar: minimoPersonalYFamiliar,
+            cuotaAutonomica: cuotaAutonomicaDisponible,
+            rentasTrabajoAnuales: entrada.rentasTrabajoAnuales,
+            sujetosConMinimo:
+              derechosEstatales?.atribuciones.map((a) => a.sujetoId) ?? [],
+            atribucionesMinimo: derechosEstatales?.atribuciones,
+          }),
+        catch: (e) =>
+          errorDerechosMinimos({
+            motivo:
+              e instanceof RangeError
+                ? e.message
+                : "Hechos territoriales no componibles",
+          }),
+      })
+    }
     const deduccionesAutonomicasAplicadas =
-      deduccionesValencianas2025 !== undefined
-        ? new A(deduccionesValencianas2025.totalAplicado!)
-        : usaEscalaAutonomicaReal
-          ? A.min(
-              deduccionesAutonomicasDeclaradas,
-              cuotaAutonomicaGeneralDespuesMinimo.plus(
-                ahorroConMinimos.autonomico.despuesMinimo
+      deduccionesTerritoriales2025 !== undefined
+        ? new A(deduccionesTerritoriales2025.total.numeradorEuros).div(
+            deduccionesTerritoriales2025.total.divisor
+          )
+        : deduccionesValencianas2025 !== undefined
+          ? new A(deduccionesValencianas2025.totalAplicado!)
+          : usaEscalaAutonomicaReal
+            ? A.min(
+                deduccionesAutonomicasDeclaradas,
+                cuotaAutonomicaGeneralDespuesMinimo.plus(
+                  ahorroConMinimos.autonomico.despuesMinimo
+                )
               )
-            )
-          : deduccionesAutonomicasDeclaradas
+            : deduccionesAutonomicasDeclaradas
     const cuotaLiquida = A.max(
       0,
       cuotaGeneralDespuesMinimo
@@ -622,6 +674,7 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
     }
     const cuotaPosterior = cuotaLiquida.minus(deduccionTrabajo)
     return {
+      deduccionesTerritoriales2025,
       deduccionesValencianas2025,
       cuotaAutonomicaDisponible,
       cotizaciones: entrada.cotizaciones,

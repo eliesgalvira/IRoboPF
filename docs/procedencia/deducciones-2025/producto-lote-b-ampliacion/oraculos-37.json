@@ -1,0 +1,340 @@
+{
+  "version": 1,
+  "ejercicio": 2025,
+  "naturaleza": "Oráculos aritméticos independientes preparados desde artículos y discriminantes ya auditados;no ejecutan TypeScript ni acreditan hechos",
+  "casos": [
+    {
+      "codigo": "asturias_adopcion_internacional",
+      "articulo": "9",
+      "fuente": "revisiones/b-condiciones/decisiones.json#asturias_adopcion_internacional",
+      "expresionIndependiente": "1500",
+      "numeradorEsperado": "1500",
+      "divisorEsperado": "1",
+      "otrosHechos": "Hechos del caso propio en test,con límites de rama declarados en matriz"
+    },
+    {
+      "codigo": "asturias_partos_multiples_adopciones_misma_fecha",
+      "articulo": "10",
+      "fuente": "revisiones/b-condiciones/decisiones.json#asturias_partos_multiples_adopciones_misma_fecha",
+      "expresionIndependiente": "1000*2",
+      "numeradorEsperado": "2000",
+      "divisorEsperado": "1",
+      "otrosHechos": "Hechos del caso propio en test,con límites de rama declarados en matriz"
+    },
+    {
+      "codigo": "asturias_familias_numerosas",
+      "articulo": "11",
+      "fuente": "revisiones/b-condiciones/decisiones.json#asturias_familias_numerosas",
+      "expresionIndependiente": "1000",
+      "numeradorEsperado": "1000",
+      "divisorEsperado": "1",
+      "otrosHechos": "Hechos del caso propio en test,con límites de rama declarados en matriz"
+    },
+    {
+      "codigo": "asturias_familias_monoparentales",
+      "articulo": "12",
+      "fuente": "revisiones/b-condiciones/decisiones.json#asturias_familias_monoparentales",
+      "expresionIndependiente": "500",
+      "numeradorEsperado": "500",
+      "divisorEsperado": "1",
+      "otrosHechos": "Hechos del caso propio en test,con límites de rama declarados en matriz"
+    },
+    {
+      "codigo": "asturias_centros_cero_tres",
+      "articulo": "14 bis",
+      "fuente": "revisiones/b-condiciones/decisiones.json#asturias_centros_cero_tres",
+      "expresionIndependiente": "max(0,min(4000*15/100,500)-200)",
+      "numeradorEsperado": "300",
+      "divisorEsperado": "1",
+      "otrosHechos": "Hechos del caso propio en test,con límites de rama declarados en matriz"
+    },
+    {
+      "codigo": "asturias_libros_texto_material_escolar",
+      "articulo": "14 ter",
+      "fuente": "revisiones/b-condiciones/decisiones.json#asturias_libros_texto_material_escolar",
+      "expresionIndependiente": "min(80,50)",
+      "numeradorEsperado": "50",
+      "divisorEsperado": "1",
+      "otrosHechos": "Hechos del caso propio en test,con límites de rama declarados en matriz"
+    },
+    {
+      "codigo": "asturias_cuidado_descendientes_hasta_25",
+      "articulo": "14 duodecies",
+      "fuente": "revisiones/b-condiciones/decisiones.json#asturias_cuidado_descendientes_hasta_25",
+      "expresionIndependiente": "600",
+      "numeradorEsperado": "600",
+      "divisorEsperado": "1",
+      "otrosHechos": "Hechos del caso propio en test,con límites de rama declarados en matriz"
+    },
+    {
+      "codigo": "asturias_descendiente_fallecimiento_progenitor_accidente_laboral",
+      "articulo": "14 septendecies",
+      "fuente": "revisiones/b-condiciones/decisiones.json#asturias_descendiente_fallecimiento_progenitor_accidente_laboral",
+      "expresionIndependiente": "1000",
+      "numeradorEsperado": "1000",
+      "divisorEsperado": "1",
+      "otrosHechos": "Hechos del caso propio en test,con límites de rama declarados en matriz"
+    },
+    {
+      "codigo": "asturias_enfermedad_celiaca",
+      "articulo": "14 novodecies",
+      "fuente": "revisiones/b-condiciones/decisiones.json#asturias_enfermedad_celiaca",
+      "expresionIndependiente": "100",
+      "numeradorEsperado": "100",
+      "divisorEsperado": "1",
+      "otrosHechos": "Hechos del caso propio en test,con límites de rama declarados en matriz"
+    },
+    {
+      "codigo": "cantabria_cuidado_familiares",
+      "articulo": "2.2",
+      "fuente": "revisiones/b-condiciones/decisiones.json#cantabria_cuidado_familiares",
+      "expresionIndependiente": "100",
+      "numeradorEsperado": "100",
+      "divisorEsperado": "1",
+      "otrosHechos": "Hechos del caso propio en test,con límites de rama declarados en matriz"
+    },
+    {
+      "codigo": "cantabria_acogimiento_familiar_menores",
+      "articulo": "2.5",
+      "fuente": "revisiones/b-condiciones/decisiones.json#cantabria_acogimiento_familiar_menores",
+      "expresionIndependiente": "min(240*1,1200)",
+      "numeradorEsperado": "240",
+      "divisorEsperado": "1",
+      "otrosHechos": "Hechos del caso propio en test,con límites de rama declarados en matriz"
+    },
+    {
+      "codigo": "cantabria_gastos_guarderia",
+      "articulo": "2.8",
+      "fuente": "revisiones/b-condiciones/decisiones.json#cantabria_gastos_guarderia",
+      "expresionIndependiente": "min(4000*15/100,300)",
+      "numeradorEsperado": "300",
+      "divisorEsperado": "1",
+      "otrosHechos": "Hechos del caso propio en test,con límites de rama declarados en matriz"
+    },
+    {
+      "codigo": "cantabria_guarderia_municipios_riesgo_despoblamiento",
+      "articulo": "2.11.2",
+      "fuente": "revisiones/b-condiciones/decisiones.json#cantabria_guarderia_municipios_riesgo_despoblamiento",
+      "expresionIndependiente": "min(4000*30/100,600)",
+      "numeradorEsperado": "600",
+      "divisorEsperado": "1",
+      "otrosHechos": "Hechos del caso propio en test,con límites de rama declarados en matriz"
+    },
+    {
+      "codigo": "asturias_vivienda_discapacidad",
+      "articulo": "4",
+      "fuente": "revisiones/b-condiciones/decisiones.json#asturias_vivienda_discapacidad",
+      "expresionIndependiente": "15000*3/100",
+      "numeradorEsperado": "450",
+      "divisorEsperado": "1",
+      "otrosHechos": "Hechos del caso propio en test,con límites de rama declarados en matriz"
+    },
+    {
+      "codigo": "asturias_arrendamiento_vivienda_habitual",
+      "articulo": "7",
+      "fuente": "revisiones/b-condiciones/decisiones.json#asturias_arrendamiento_vivienda_habitual",
+      "expresionIndependiente": "min(6000*30/100,1500)",
+      "numeradorEsperado": "1500",
+      "divisorEsperado": "1",
+      "otrosHechos": "Hechos del caso propio en test,con límites de rama declarados en matriz"
+    },
+    {
+      "codigo": "asturias_vivienda_determinados_colectivos",
+      "articulo": "14 decies",
+      "fuente": "revisiones/b-condiciones/decisiones.json#asturias_vivienda_determinados_colectivos",
+      "expresionIndependiente": "min(20000,10000)*10/100",
+      "numeradorEsperado": "1000",
+      "divisorEsperado": "1",
+      "otrosHechos": "Hechos del caso propio en test,con límites de rama declarados en matriz"
+    },
+    {
+      "codigo": "asturias_gastos_arrendamiento_viviendas",
+      "articulo": "14 quindecies",
+      "fuente": "revisiones/b-condiciones/decisiones.json#asturias_gastos_arrendamiento_viviendas",
+      "expresionIndependiente": "min(800,500)",
+      "numeradorEsperado": "500",
+      "divisorEsperado": "1",
+      "otrosHechos": "Hechos del caso propio en test,con límites de rama declarados en matriz"
+    },
+    {
+      "codigo": "cantabria_arrendamiento_municipios_riesgo_despoblamiento",
+      "articulo": "2.11.1",
+      "fuente": "revisiones/b-condiciones/decisiones.json#cantabria_arrendamiento_municipios_riesgo_despoblamiento",
+      "expresionIndependiente": "min(6000*20/100,600)",
+      "numeradorEsperado": "600",
+      "divisorEsperado": "1",
+      "otrosHechos": "Hechos del caso propio en test,con límites de rama declarados en matriz"
+    },
+    {
+      "codigo": "cantabria_obras_mejora",
+      "articulo": "2.3",
+      "fuente": "revisiones/b-condiciones/decisiones.json#cantabria_obras_mejora",
+      "expresionIndependiente": "min(10000*15/100,1000)",
+      "numeradorEsperado": "1000",
+      "divisorEsperado": "1",
+      "otrosHechos": "Hechos del caso propio en test,con límites de rama declarados en matriz"
+    },
+    {
+      "codigo": "cantabria_arrendamiento_viviendas_vacias",
+      "articulo": "2.17",
+      "fuente": "revisiones/b-condiciones/decisiones.json#cantabria_arrendamiento_viviendas_vacias",
+      "expresionIndependiente": "500*50/100",
+      "numeradorEsperado": "250",
+      "divisorEsperado": "1",
+      "otrosHechos": "Hechos del caso propio en test,con límites de rama declarados en matriz"
+    },
+    {
+      "codigo": "asturias_segundo_sucesivos_hijos_concejos_despoblamiento",
+      "articulo": "14 quáter",
+      "fuente": "revisiones/b-condiciones/decisiones.json#asturias_segundo_sucesivos_hijos_concejos_despoblamiento",
+      "expresionIndependiente": "300",
+      "numeradorEsperado": "300",
+      "divisorEsperado": "1",
+      "otrosHechos": "Hechos del caso propio en test,con límites de rama declarados en matriz"
+    },
+    {
+      "codigo": "asturias_autonomos_concejos_despoblamiento",
+      "articulo": "14 quinquies",
+      "fuente": "revisiones/b-condiciones/decisiones.json#asturias_autonomos_concejos_despoblamiento",
+      "expresionIndependiente": "1000",
+      "numeradorEsperado": "1000",
+      "divisorEsperado": "1",
+      "otrosHechos": "Hechos del caso propio en test,con límites de rama declarados en matriz"
+    },
+    {
+      "codigo": "asturias_transporte_publico_despoblamiento",
+      "articulo": "14 sexies",
+      "fuente": "revisiones/b-condiciones/decisiones.json#asturias_transporte_publico_despoblamiento",
+      "expresionIndependiente": "min(200,100)+min(4000*10/100,300)",
+      "numeradorEsperado": "400",
+      "divisorEsperado": "1",
+      "otrosHechos": "Hechos del caso propio en test,con límites de rama declarados en matriz"
+    },
+    {
+      "codigo": "asturias_formacion_trabajos_cualificados_idi",
+      "articulo": "14 septies",
+      "fuente": "revisiones/b-condiciones/decisiones.json#asturias_formacion_trabajos_cualificados_idi",
+      "expresionIndependiente": "min(3000,2000)",
+      "numeradorEsperado": "2000",
+      "divisorEsperado": "1",
+      "otrosHechos": "Hechos del caso propio en test,con límites de rama declarados en matriz"
+    },
+    {
+      "codigo": "asturias_traslado_domicilio_fiscal_motivos_laborales",
+      "articulo": "14 octies",
+      "fuente": "revisiones/b-condiciones/decisiones.json#asturias_traslado_domicilio_fiscal_motivos_laborales",
+      "expresionIndependiente": "min(4000*15/100,1000)",
+      "numeradorEsperado": "600",
+      "divisorEsperado": "1",
+      "otrosHechos": "Hechos del caso propio en test,con límites de rama declarados en matriz"
+    },
+    {
+      "codigo": "asturias_vehiculos_electricos",
+      "articulo": "14 undecies",
+      "fuente": "revisiones/b-condiciones/decisiones.json#asturias_vehiculos_electricos",
+      "expresionIndependiente": "min(max(30000-5000,0),50000)*15/100",
+      "numeradorEsperado": "3750",
+      "divisorEsperado": "1",
+      "otrosHechos": "Hechos del caso propio en test,con límites de rama declarados en matriz"
+    },
+    {
+      "codigo": "asturias_emancipacion_jovenes_hasta_35",
+      "articulo": "14 terdecies",
+      "fuente": "revisiones/b-condiciones/decisiones.json#asturias_emancipacion_jovenes_hasta_35",
+      "expresionIndependiente": "min(1500,1000)",
+      "numeradorEsperado": "1000",
+      "divisorEsperado": "1",
+      "otrosHechos": "Hechos del caso propio en test,con límites de rama declarados en matriz"
+    },
+    {
+      "codigo": "asturias_ayudas_ela",
+      "articulo": "14 quaterdecies",
+      "fuente": "revisiones/b-condiciones/decisiones.json#asturias_ayudas_ela",
+      "expresionIndependiente": "4000*(10+8)/100",
+      "numeradorEsperado": "720",
+      "divisorEsperado": "1",
+      "otrosHechos": "Hechos del caso propio en test,con límites de rama declarados en matriz"
+    },
+    {
+      "codigo": "cantabria_traslado_residencia_motivos_laborales_despoblamiento",
+      "articulo": "2.11.3",
+      "fuente": "revisiones/b-condiciones/decisiones.json#cantabria_traslado_residencia_motivos_laborales_despoblamiento",
+      "expresionIndependiente": "min(500,240)",
+      "numeradorEsperado": "240",
+      "divisorEsperado": "1",
+      "otrosHechos": "Hechos del caso propio en test,con límites de rama declarados en matriz"
+    },
+    {
+      "codigo": "cantabria_residencia_municipio_riesgo_despoblamiento",
+      "articulo": "2.11.5",
+      "fuente": "revisiones/b-condiciones/decisiones.json#cantabria_residencia_municipio_riesgo_despoblamiento",
+      "expresionIndependiente": "min(1000*20/100,500)",
+      "numeradorEsperado": "200",
+      "divisorEsperado": "1",
+      "otrosHechos": "Hechos del caso propio en test,con límites de rama declarados en matriz"
+    },
+    {
+      "codigo": "cantabria_ayuda_domestica",
+      "articulo": "2.14",
+      "fuente": "revisiones/b-condiciones/decisiones.json#cantabria_ayuda_domestica",
+      "expresionIndependiente": "min(2000*20/100,300)",
+      "numeradorEsperado": "300",
+      "divisorEsperado": "1",
+      "otrosHechos": "Hechos del caso propio en test,con límites de rama declarados en matriz"
+    },
+    {
+      "codigo": "cantabria_desplazamiento_permanencia_nuevos_residentes",
+      "articulo": "2.16",
+      "fuente": "revisiones/b-condiciones/decisiones.json#cantabria_desplazamiento_permanencia_nuevos_residentes",
+      "expresionIndependiente": "min(4000*25/100,1500)",
+      "numeradorEsperado": "1000",
+      "divisorEsperado": "1",
+      "otrosHechos": "Hechos del caso propio en test,con límites de rama declarados en matriz"
+    },
+    {
+      "codigo": "asturias_inversion_entidades_nuevas_reciente_creacion",
+      "articulo": "14 octodecies",
+      "fuente": "revisiones/b-condiciones/decisiones.json#asturias_inversion_entidades_nuevas_reciente_creacion",
+      "expresionIndependiente": "min(20000*30/100,6000)",
+      "numeradorEsperado": "6000",
+      "divisorEsperado": "1",
+      "otrosHechos": "Hechos del caso propio en test,con límites de rama declarados en matriz"
+    },
+    {
+      "codigo": "cantabria_inversion_entidades_nuevas_reciente_creacion",
+      "articulo": "2.6",
+      "fuente": "revisiones/b-condiciones/decisiones.json#cantabria_inversion_entidades_nuevas_reciente_creacion",
+      "expresionIndependiente": "min(20000*15/100,1000)",
+      "numeradorEsperado": "1000",
+      "divisorEsperado": "1",
+      "otrosHechos": "Hechos del caso propio en test,con límites de rama declarados en matriz"
+    },
+    {
+      "codigo": "cantabria_donativos_fundaciones_fondo_cantabria_coopera_discapacidad",
+      "articulo": "2.4",
+      "fuente": "revisiones/b-condiciones/decisiones.json#cantabria_donativos_fundaciones_fondo_cantabria_coopera_discapacidad",
+      "expresionIndependiente": "min(1500,max(20000*10/100-1000,0))*15/100",
+      "numeradorEsperado": "150",
+      "divisorEsperado": "1",
+      "otrosHechos": "Hechos del caso propio en test,con límites de rama declarados en matriz"
+    },
+    {
+      "codigo": "cantabria_inversiones_donaciones_economia_social",
+      "articulo": "2.12",
+      "fuente": "revisiones/b-condiciones/decisiones.json#cantabria_inversiones_donaciones_economia_social",
+      "expresionIndependiente": "min(10000*50/100,3000)",
+      "numeradorEsperado": "3000",
+      "divisorEsperado": "1",
+      "otrosHechos": "Hechos del caso propio en test,con límites de rama declarados en matriz"
+    },
+    {
+      "codigo": "cantabria_inversiones_nuevos_contribuyentes_extranjero",
+      "articulo": "2.15",
+      "fuente": "revisiones/b-condiciones/decisiones.json#cantabria_inversiones_nuevos_contribuyentes_extranjero",
+      "expresionIndependiente": "100000*20/100",
+      "numeradorEsperado": "20000",
+      "divisorEsperado": "1",
+      "otrosHechos": "Hechos del caso propio en test,con límites de rama declarados en matriz"
+    }
+  ]
+}

@@ -1,0 +1,693 @@
+{
+  "version": 2,
+  "ejercicio": 2025,
+  "cobertura": {
+    "total": 48,
+    "previosPorHechos": 9,
+    "reutilizarExistentes": 2,
+    "nuevosCalculosDirectosPreparados": 34,
+    "nuevasDependenciasAnualesPreparadas": 3,
+    "sinRamaNuevaEntreLos37": 0
+  },
+  "deducciones": [
+    {
+      "codigo": "asturias_acogimiento_no_remunerado_mayores_65",
+      "articulo": "3",
+      "evidenciaReutilizada": "revisiones/b-condiciones/decisiones.json#asturias_acogimiento_no_remunerado_mayores_65",
+      "regla": "Acogimiento sin contraprestación, exclusiones de ayuda/parentesco, renta y certificado; reparto igual.",
+      "discriminanteAuditado": "184 días, acogido no pariente, dos titulares elegibles: 250 cada uno; 183 días no basta.",
+      "aceptacionFiscal": "pendiente",
+      "estado": "calculo_parcial_nuevo",
+      "entrada": "HechosB + MarcoB",
+      "pendiente": "Devengo ordinario e intervalo temporal comprobado; convivencia individual por titular y resolución no certificadas.",
+      "rutaPrevia": "lib/dominio/irpf/deducciones/asturias-cantabria-hechos-2025/index.ts"
+    },
+    {
+      "codigo": "asturias_vivienda_discapacidad",
+      "articulo": "4",
+      "evidenciaReutilizada": "revisiones/b-condiciones/decisiones.json#asturias_vivienda_discapacidad",
+      "regla": "Vivienda y accesibilidad acreditada al 65%; renta del familiar incluye exentas y prioridad de grado.",
+      "discriminanteAuditado": "Ascendiente con 35.000 de renta puede cumplir; 35.000,01 no. Base 15.000 produce 450, antes del reparto.",
+      "aceptacionFiscal": "pendiente",
+      "estado": "calculo_por_hechos_preparado",
+      "contrato": "HechosAmpliacionB + MarcoB",
+      "ruta": "lib/dominio/irpf/deducciones/asturias-cantabria-ampliacion-2025/index.ts",
+      "pendientesConcretos": [
+        "Una vivienda y un beneficiario por expediente;componer solicitudes propias/familiares sin acumulación y titulares de igual grado cercano."
+      ],
+      "validacion": "Correcto en validación focal de autor;rama candidata pendiente de revisión,aceptación fiscal pendiente"
+    },
+    {
+      "codigo": "asturias_vivienda_protegida",
+      "articulo": "6",
+      "evidenciaReutilizada": "revisiones/b-condiciones/decisiones.json#asturias_vivienda_protegida",
+      "regla": "Gasto efectivo, topes sucesivos y arrastre tres años; reparto del máximo por cotitulares.",
+      "discriminanteAuditado": "Compra con gasto 3.000: no genera 5.000; segundo año gasto 1.500, tope 1.000.",
+      "aceptacionFiscal": "pendiente",
+      "estado": "calculo_parcial_nuevo",
+      "entrada": "HechosB + MarcoB",
+      "pendiente": "Sólo generación corriente; falta aplicación de cuota y gestión histórica de arrastre tres años.",
+      "rutaPrevia": "lib/dominio/irpf/deducciones/asturias-cantabria-hechos-2025/index.ts"
+    },
+    {
+      "codigo": "asturias_arrendamiento_vivienda_habitual",
+      "articulo": "7",
+      "evidenciaReutilizada": "revisiones/b-condiciones/decisiones.json#asturias_arrendamiento_vivienda_habitual",
+      "regla": "Renta, edades, monoparentalidad íntegra y categorías territoriales de 2025.",
+      "discriminanteAuditado": "Base individual 35.000 y alquiler 6.000 en concejo en crisis: 1.500; a 35.000,01 no cumple.",
+      "aceptacionFiscal": "pendiente",
+      "estado": "calculo_por_hechos_preparado",
+      "contrato": "HechosAmpliacionB + MarcoB",
+      "ruta": "lib/dominio/irpf/deducciones/asturias-cantabria-ampliacion-2025/index.ts",
+      "pendientesConcretos": [],
+      "validacion": "Correcto en validación focal de autor;rama candidata pendiente de revisión,aceptación fiscal pendiente"
+    },
+    {
+      "codigo": "asturias_adopcion_internacional",
+      "articulo": "9",
+      "evidenciaReutilizada": "revisiones/b-condiciones/decisiones.json#asturias_adopcion_internacional",
+      "regla": "Definición internacional, convivencia y fecha de inscripción/resolución, reparto.",
+      "discriminanteAuditado": "Adopción extranjera en 2024 inscrita en España en 2025: ejercicio de deducción 2025, dos declarantes 750 cada uno.",
+      "aceptacionFiscal": "pendiente",
+      "estado": "calculo_por_hechos_preparado",
+      "contrato": "HechosAmpliacionB + MarcoB",
+      "ruta": "lib/dominio/irpf/deducciones/asturias-cantabria-ampliacion-2025/index.ts",
+      "pendientesConcretos": [],
+      "validacion": "Correcto en validación focal de autor;rama candidata pendiente de revisión,aceptación fiscal pendiente"
+    },
+    {
+      "codigo": "asturias_partos_multiples_adopciones_misma_fecha",
+      "articulo": "10",
+      "evidenciaReutilizada": "revisiones/b-condiciones/decisiones.json#asturias_partos_multiples_adopciones_misma_fecha",
+      "regla": "Misma fecha de adopción o parto múltiple, convivencia al devengo y reparto.",
+      "discriminanteAuditado": "Dos adopciones en fechas diferentes no son adopciones múltiples en la misma fecha; gemelos elegibles, 1.000 por progenitor individual.",
+      "aceptacionFiscal": "pendiente",
+      "estado": "calculo_por_hechos_preparado",
+      "contrato": "HechosAmpliacionB + MarcoB",
+      "ruta": "lib/dominio/irpf/deducciones/asturias-cantabria-ampliacion-2025/index.ts",
+      "pendientesConcretos": [],
+      "validacion": "Correcto en validación focal de autor;rama candidata pendiente de revisión,aceptación fiscal pendiente"
+    },
+    {
+      "codigo": "asturias_familias_numerosas",
+      "articulo": "11",
+      "evidenciaReutilizada": "revisiones/b-condiciones/decisiones.json#asturias_familias_numerosas",
+      "regla": "Título, convivencia, categoría y equiparación específica de dos hijos.",
+      "discriminanteAuditado": "Familia de dos hijos sin título, BI individual 35.000: puede acogerse a equiparación general; a 35.000,01 no.",
+      "aceptacionFiscal": "pendiente",
+      "estado": "calculo_por_hechos_preparado",
+      "contrato": "HechosAmpliacionB + MarcoB",
+      "ruta": "lib/dominio/irpf/deducciones/asturias-cantabria-ampliacion-2025/index.ts",
+      "pendientesConcretos": [],
+      "validacion": "Correcto en validación focal de autor;rama candidata pendiente de revisión,aceptación fiscal pendiente"
+    },
+    {
+      "codigo": "asturias_familias_monoparentales",
+      "articulo": "12",
+      "evidenciaReutilizada": "revisiones/b-condiciones/decisiones.json#asturias_familias_monoparentales",
+      "regla": "No convivencia ajena, ascendientes con mínimo, alimentos exentos y exclusión de custodia compartida.",
+      "discriminanteAuditado": "BI 44.000 y alimentos exentos 1.500: se supera 45.000 aunque BI sola no lo haga.",
+      "aceptacionFiscal": "pendiente",
+      "estado": "calculo_por_hechos_preparado",
+      "contrato": "HechosAmpliacionB + MarcoB",
+      "ruta": "lib/dominio/irpf/deducciones/asturias-cantabria-ampliacion-2025/index.ts",
+      "pendientesConcretos": [],
+      "validacion": "Correcto en validación focal de autor;rama candidata pendiente de revisión,aceptación fiscal pendiente",
+      "alcanceRama": "Un único progenitor declarante;individual o conjunta monoparental,convivientes exhaustivos."
+    },
+    {
+      "codigo": "asturias_acogimiento_familiar_menores",
+      "articulo": "13",
+      "evidenciaReutilizada": "revisiones/b-condiciones/decisiones.json#asturias_acogimiento_familiar_menores",
+      "regla": "Excluye acogimiento preadoptivo y distingue días y reparto.",
+      "discriminanteAuditado": "90 días no basta; 91 días genera 250 antes de reparto; 183 días genera 500.",
+      "aceptacionFiscal": "pendiente",
+      "estado": "calculo_parcial_nuevo",
+      "entrada": "HechosB + MarcoB",
+      "pendiente": "Devengo ordinario y días acotados por intervalo; convivencia por titular y autenticidad documental no certificadas.",
+      "rutaPrevia": "lib/dominio/irpf/deducciones/asturias-cantabria-hechos-2025/index.ts"
+    },
+    {
+      "codigo": "asturias_certificacion_gestion_forestal_sostenible",
+      "articulo": "14",
+      "evidenciaReutilizada": "revisiones/b-condiciones/decisiones.json#asturias_certificacion_gestion_forestal_sostenible",
+      "regla": "Monte asturiano, certificación y base neta de subvención, año de obtención.",
+      "discriminanteAuditado": "Coste 2.000 y ayuda 500: base 1.500 y deducción 450; no deducir en un año previo sin certificación.",
+      "aceptacionFiscal": "pendiente",
+      "estado": "calculo_parcial_nuevo",
+      "entrada": "HechosB + MarcoB",
+      "pendiente": "Individual: máximo personal1000 después del reparto; una certificación/monte. Agregación entre montes y composición conjunta pendientes.",
+      "rutaPrevia": "lib/dominio/irpf/deducciones/asturias-cantabria-hechos-2025/index.ts"
+    },
+    {
+      "codigo": "asturias_centros_cero_tres",
+      "articulo": "14 bis",
+      "evidenciaReutilizada": "revisiones/b-condiciones/decisiones.json#asturias_centros_cero_tres",
+      "regla": "Ayuda minora deducción, meses al cumplir tres, incompatibilidad y residencia territorial.",
+      "discriminanteAuditado": "Gasto general 4.000 y ayuda asturiana 200: min(600,500)-200=300; no aplicar 15% a gasto neto.",
+      "aceptacionFiscal": "pendiente",
+      "estado": "calculo_por_hechos_preparado",
+      "contrato": "HechosAmpliacionB + MarcoB",
+      "ruta": "lib/dominio/irpf/deducciones/asturias-cantabria-ampliacion-2025/index.ts",
+      "pendientesConcretos": [
+        "Cumpleaños en día distinto de1:concretar criterio de meses que cumplen requisitos;no suministrar contador elegido por consumidor."
+      ],
+      "validacion": "Correcto en validación focal de autor;rama candidata pendiente de revisión,aceptación fiscal pendiente"
+    },
+    {
+      "codigo": "asturias_libros_texto_material_escolar",
+      "articulo": "14 ter",
+      "evidenciaReutilizada": "revisiones/b-condiciones/decisiones.json#asturias_libros_texto_material_escolar",
+      "regla": "Distingue modalidad, tramos, título, gasto pagado y ayudas.",
+      "discriminanteAuditado": "BI individual 6.500 con gasto 80, sin beca: máximo 50; 6.500,01 reduce el máximo a 37,50.",
+      "aceptacionFiscal": "pendiente",
+      "estado": "calculo_por_hechos_preparado",
+      "contrato": "HechosAmpliacionB + MarcoB",
+      "ruta": "lib/dominio/irpf/deducciones/asturias-cantabria-ampliacion-2025/index.ts",
+      "pendientesConcretos": [],
+      "validacion": "Correcto en validación focal de autor;rama candidata pendiente de revisión,aceptación fiscal pendiente"
+    },
+    {
+      "codigo": "asturias_segundo_sucesivos_hijos_concejos_despoblamiento",
+      "articulo": "14 quáter",
+      "evidenciaReutilizada": "revisiones/b-condiciones/decisiones.json#asturias_segundo_sucesivos_hijos_concejos_despoblamiento",
+      "regla": "Segundo y sucesivos, convivencia, devengo y renta; concejos de riesgo/crisis.",
+      "discriminanteAuditado": "Primer hijo no genera esta deducción; segundo elegible con dos progenitores individuales: 150 cada uno.",
+      "aceptacionFiscal": "pendiente",
+      "estado": "calculo_por_hechos_preparado",
+      "contrato": "HechosAmpliacionB + MarcoB",
+      "ruta": "lib/dominio/irpf/deducciones/asturias-cantabria-ampliacion-2025/index.ts",
+      "pendientesConcretos": [],
+      "validacion": "Correcto en validación focal de autor;rama candidata pendiente de revisión,aceptación fiscal pendiente"
+    },
+    {
+      "codigo": "asturias_autonomos_concejos_despoblamiento",
+      "articulo": "14 quinquies",
+      "evidenciaReutilizada": "revisiones/b-condiciones/decisiones.json#asturias_autonomos_concejos_despoblamiento",
+      "regla": "Inicio, exclusión de colaboradores/socios, alta un año y no reinicio en seis meses.",
+      "discriminanteAuditado": "Socio de SL con alta RETA no pasa por sí solo; profesional que cesó misma actividad hace cinco meses queda excluido.",
+      "aceptacionFiscal": "pendiente",
+      "estado": "calculo_por_hechos_preparado",
+      "contrato": "HechosAmpliacionB + MarcoB",
+      "ruta": "lib/dominio/irpf/deducciones/asturias-cantabria-ampliacion-2025/index.ts",
+      "pendientesConcretos": [
+        "Mantener alta un año salvo fallecimiento;calcular condición futura desde alta exacta."
+      ],
+      "validacion": "Correcto en validación focal de autor;rama candidata pendiente de revisión,aceptación fiscal pendiente"
+    },
+    {
+      "codigo": "asturias_transporte_publico_despoblamiento",
+      "articulo": "14 sexies",
+      "evidenciaReutilizada": "revisiones/b-condiciones/decisiones.json#asturias_transporte_publico_despoblamiento",
+      "regla": "Abonos nominativos, mínimo por descendiente, gasto y reparto; ayudas no son base indistinta.",
+      "discriminanteAuditado": "Descendiente estudiante con declaración de renta 1.800,01 pierde el mínimo: no genera el adicional de transporte.",
+      "aceptacionFiscal": "pendiente",
+      "estado": "calculo_por_hechos_preparado",
+      "contrato": "HechosAmpliacionB + MarcoB",
+      "ruta": "lib/dominio/irpf/deducciones/asturias-cantabria-ampliacion-2025/index.ts",
+      "pendientesConcretos": [],
+      "validacion": "Correcto en validación focal de autor;rama candidata pendiente de revisión,aceptación fiscal pendiente"
+    },
+    {
+      "codigo": "asturias_formacion_trabajos_cualificados_idi",
+      "articulo": "14 septies",
+      "evidenciaReutilizada": "revisiones/b-condiciones/decisiones.json#asturias_formacion_trabajos_cualificados_idi",
+      "regla": "Cadena de apartados 2020/2021/2022, actividades completas e informe de software, incompatibilidad.",
+      "discriminanteAuditado": "Grupo 1 haciendo software rutinario no basta; software avanzado requiere informe favorable. Alta autónoma once meses sin fallecimiento no cumple.",
+      "aceptacionFiscal": "pendiente",
+      "estado": "calculo_por_hechos_preparado",
+      "contrato": "HechosAmpliacionB + MarcoB",
+      "ruta": "lib/dominio/irpf/deducciones/asturias-cantabria-ampliacion-2025/index.ts",
+      "pendientesConcretos": [
+        "Residencia tres años y alta propia un año;actividad cualificada requiere memoria y condiciones de alternativa concreta,con documentos y cifras."
+      ],
+      "validacion": "Correcto en validación focal de autor;rama candidata pendiente de revisión,aceptación fiscal pendiente"
+    },
+    {
+      "codigo": "asturias_traslado_domicilio_fiscal_motivos_laborales",
+      "articulo": "14 octies",
+      "evidenciaReutilizada": "revisiones/b-condiciones/decisiones.json#asturias_traslado_domicilio_fiscal_motivos_laborales",
+      "regla": "Traslado laboral, cuatro años previos, permanencia y gastos, remisión íntegra a trabajos cualificados.",
+      "discriminanteAuditado": "Residencia asturiana en cualquiera de los cuatro años previos impide la deducción; 10.000 de gasto ordinario topa en 1.000.",
+      "aceptacionFiscal": "pendiente",
+      "estado": "calculo_por_hechos_preparado",
+      "contrato": "HechosAmpliacionB + MarcoB",
+      "ruta": "lib/dominio/irpf/deducciones/asturias-cantabria-ampliacion-2025/index.ts",
+      "pendientesConcretos": [
+        "Mantener residencia tres años adicionales al traslado;en trabajos cualificados no combinar formación."
+      ],
+      "validacion": "Correcto en validación focal de autor;rama candidata pendiente de revisión,aceptación fiscal pendiente"
+    },
+    {
+      "codigo": "asturias_vivienda_determinados_colectivos",
+      "articulo": "14 decies",
+      "evidenciaReutilizada": "revisiones/b-condiciones/decisiones.json#asturias_vivienda_determinados_colectivos",
+      "regla": "Riesgo/crisis frente a resto, valor, edad, renta, mantenimiento, base compartida.",
+      "discriminanteAuditado": "Vivienda fuera de riesgo de valor 250.000 puede cumplir; 250.000,01 queda fuera del supuesto joven del apartado 2.",
+      "aceptacionFiscal": "pendiente",
+      "estado": "calculo_por_hechos_preparado",
+      "contrato": "HechosAmpliacionB + MarcoB",
+      "ruta": "lib/dominio/irpf/deducciones/asturias-cantabria-ampliacion-2025/index.ts",
+      "pendientesConcretos": [
+        "Permanencia tres años si rural;colectivo personal único debe separarse por contribuyente en conjunta mixta."
+      ],
+      "validacion": "Correcto en validación focal de autor;rama candidata pendiente de revisión,aceptación fiscal pendiente"
+    },
+    {
+      "codigo": "asturias_vehiculos_electricos",
+      "articulo": "14 undecies",
+      "evidenciaReutilizada": "revisiones/b-condiciones/decisiones.json#asturias_vehiculos_electricos",
+      "regla": "Cadena 2025 y categorías MOVES; ayuda reduce base y no constituye requisito de concesión.",
+      "discriminanteAuditado": "Compra 30.000 y ayuda 5.000: base 25.000 y 3.750; afectación económica excluye aunque sea vehículo eléctrico.",
+      "aceptacionFiscal": "pendiente",
+      "estado": "calculo_por_hechos_preparado",
+      "contrato": "HechosAmpliacionB + MarcoB",
+      "ruta": "lib/dominio/irpf/deducciones/asturias-cantabria-ampliacion-2025/index.ts",
+      "pendientesConcretos": [],
+      "validacion": "Correcto en validación focal de autor;rama candidata pendiente de revisión,aceptación fiscal pendiente"
+    },
+    {
+      "codigo": "asturias_cuidado_descendientes_hasta_25",
+      "articulo": "14 duodecies",
+      "evidenciaReutilizada": "revisiones/b-condiciones/decisiones.json#asturias_cuidado_descendientes_hasta_25",
+      "regla": "Ampliación hasta 26, prorrata mensual y mínimo restante; incompatibilidad cero-tres.",
+      "discriminanteAuditado": "Descendiente de 25 sin discapacidad no se excluye por edad; a 26 procede prorrata de meses, no 600 completos por defecto.",
+      "aceptacionFiscal": "pendiente",
+      "estado": "calculo_por_hechos_preparado",
+      "contrato": "HechosAmpliacionB + MarcoB",
+      "ruta": "lib/dominio/irpf/deducciones/asturias-cantabria-ampliacion-2025/index.ts",
+      "pendientesConcretos": [
+        "Año26 sin discapacidad,con cumpleaños en día distinto de1:criterio de mes partido;resto de edades y discapacidad representados."
+      ],
+      "validacion": "Correcto en validación focal de autor;rama candidata pendiente de revisión,aceptación fiscal pendiente"
+    },
+    {
+      "codigo": "asturias_emancipacion_jovenes_hasta_35",
+      "articulo": "14 terdecies",
+      "evidenciaReutilizada": "revisiones/b-condiciones/decisiones.json#asturias_emancipacion_jovenes_hasta_35",
+      "regla": "Primera emancipación, una vez, renta y retorno antes de tres años.",
+      "discriminanteAuditado": "Segundo abandono del domicilio familiar no genera otro derecho; retorno a los dos años hace perderlo.",
+      "aceptacionFiscal": "pendiente",
+      "estado": "calculo_por_hechos_preparado",
+      "contrato": "HechosAmpliacionB + MarcoB",
+      "ruta": "lib/dominio/irpf/deducciones/asturias-cantabria-ampliacion-2025/index.ts",
+      "pendientesConcretos": [
+        "No retornar a hogar familiar antes de tres años;historia de primera emancipación exhaustiva."
+      ],
+      "validacion": "Correcto en validación focal de autor;rama candidata pendiente de revisión,aceptación fiscal pendiente"
+    },
+    {
+      "codigo": "asturias_ayudas_ela",
+      "articulo": "14 quaterdecies",
+      "evidenciaReutilizada": "revisiones/b-condiciones/decisiones.json#asturias_ayudas_ela",
+      "regla": "Ayuda ELA integrada y neutralización mediante tipos medios, no porcentaje fijo genérico.",
+      "discriminanteAuditado": "Ayuda exenta no integrada no genera deducción; una ayuda integrada exige conocer tipos medios y base liquidable efectiva.",
+      "aceptacionFiscal": "pendiente",
+      "estado": "dependencia_anual_preparada",
+      "conexionCuota": "Identificar subvención integrada en base general, cuantía integrada en base liquidable y tipos medios enlazados a la liquidación común; no duplicar cuota.",
+      "contrato": "HechosAmpliacionB + MarcoB",
+      "ruta": "lib/dominio/irpf/deducciones/asturias-cantabria-ampliacion-2025/index.ts",
+      "pendientesConcretos": [
+        "Tipos medios estatal/autonómico2025 de misma liquidación;conjunta requiere separar magnitudes por persona."
+      ],
+      "validacion": "Correcto en validación focal de autor;rama candidata pendiente de revisión,aceptación fiscal pendiente"
+    },
+    {
+      "codigo": "asturias_gastos_arrendamiento_viviendas",
+      "articulo": "14 quindecies",
+      "evidenciaReutilizada": "revisiones/b-condiciones/decisiones.json#asturias_gastos_arrendamiento_viviendas",
+      "regla": "Gastos tipificados, límite y precio sostenible; norma y criterio del manual se distinguen.",
+      "discriminanteAuditado": "Gasto de reparación antes del contrato puede vincularse al alquiler posterior; la ruta única debe contrastar precio con referencia mensual SERPAVI según manual, no solo una casilla.",
+      "aceptacionFiscal": "pendiente",
+      "estado": "calculo_por_hechos_preparado",
+      "contrato": "HechosAmpliacionB + MarcoB",
+      "ruta": "lib/dominio/irpf/deducciones/asturias-cantabria-ampliacion-2025/index.ts",
+      "pendientesConcretos": [
+        "Celda SERPAVI o precio autonómico identificados por vivienda/municipio/2025;no se inventa referencia ni se da por acreditada por su nombre."
+      ],
+      "validacion": "Correcto en validación focal de autor;rama candidata pendiente de revisión,aceptación fiscal pendiente"
+    },
+    {
+      "codigo": "asturias_gastos_vitales_hasta_35",
+      "articulo": "14 sexdecies",
+      "evidenciaReutilizada": "revisiones/b-condiciones/decisiones.json#asturias_gastos_vitales_hasta_35",
+      "regla": "Solapamiento legal 26–30/30–35 no resuelto oficialmente; resto de condiciones legibles.",
+      "discriminanteAuditado": "Edad 30 y gasto 1.400 admite topes legales superpuestos 1.500/1.000; no fijar 1.000 por una mera lectura del manual.",
+      "aceptacionFiscal": "pendiente",
+      "estado": "calculo_parcial_nuevo",
+      "entrada": "HechosB + MarcoB",
+      "pendiente": "Individual; R30 exactamente30. Composición conjunta pendiente.",
+      "rutaPrevia": "lib/dominio/irpf/deducciones/asturias-cantabria-hechos-2025/index.ts"
+    },
+    {
+      "codigo": "asturias_descendiente_fallecimiento_progenitor_accidente_laboral",
+      "articulo": "14 septendecies",
+      "evidenciaReutilizada": "revisiones/b-condiciones/decisiones.json#asturias_descendiente_fallecimiento_progenitor_accidente_laboral",
+      "regla": "Mínimo, progenitor fallecido en accidente laboral y fin del derecho.",
+      "discriminanteAuditado": "Hijo que declara rentas 1.800,01 no genera mínimo; no incluir hijo de otra unión sin vínculo con el progenitor difunto.",
+      "aceptacionFiscal": "pendiente",
+      "estado": "calculo_por_hechos_preparado",
+      "contrato": "HechosAmpliacionB + MarcoB",
+      "ruta": "lib/dominio/irpf/deducciones/asturias-cantabria-ampliacion-2025/index.ts",
+      "pendientesConcretos": [],
+      "validacion": "Correcto en validación focal de autor;rama candidata pendiente de revisión,aceptación fiscal pendiente"
+    },
+    {
+      "codigo": "asturias_inversion_entidades_nuevas_reciente_creacion",
+      "articulo": "14 octodecies",
+      "evidenciaReutilizada": "revisiones/b-condiciones/decisiones.json#asturias_inversion_entidades_nuevas_reciente_creacion",
+      "regla": "Tercer grado, 40%, mantenimiento, actividad y PYME agregada.",
+      "discriminanteAuditado": "Sociedad receptora con 20 empleados, controlada por grupo de 300: no basta su plantilla aislada; validar vinculadas/asociadas.",
+      "aceptacionFiscal": "pendiente",
+      "estado": "calculo_por_hechos_preparado",
+      "contrato": "HechosAmpliacionB + MarcoB",
+      "ruta": "lib/dominio/irpf/deducciones/asturias-cantabria-ampliacion-2025/index.ts",
+      "pendientesConcretos": [
+        "Mantenimiento participación tres años;ampliación:incremento plantilla dos ejercicios posteriores y otros24meses;sin inventar cifras futuras."
+      ],
+      "validacion": "Correcto en validación focal de autor;rama candidata pendiente de revisión,aceptación fiscal pendiente"
+    },
+    {
+      "codigo": "asturias_enfermedad_celiaca",
+      "articulo": "14 novodecies",
+      "evidenciaReutilizada": "revisiones/b-condiciones/decisiones.json#asturias_enfermedad_celiaca",
+      "regla": "Diagnóstico, cónyuge solo conjunta, mínimos y reparto; fuente vigente al devengo 2025.",
+      "discriminanteAuditado": "Cónyuge celíaco en individual no suma otro miembro por esa vía; ascendiente sin derecho al mínimo no genera los 100.",
+      "aceptacionFiscal": "pendiente",
+      "estado": "calculo_por_hechos_preparado",
+      "contrato": "HechosAmpliacionB + MarcoB",
+      "ruta": "lib/dominio/irpf/deducciones/asturias-cantabria-ampliacion-2025/index.ts",
+      "pendientesConcretos": [],
+      "validacion": "Correcto en validación focal de autor;rama candidata pendiente de revisión,aceptación fiscal pendiente"
+    },
+    {
+      "codigo": "cantabria_arrendamiento_jovenes_mayores_discapacidad",
+      "articulo": "2.1",
+      "evidenciaReutilizada": "revisiones/b-condiciones/decisiones.json#cantabria_arrendamiento_jovenes_mayores_discapacidad",
+      "regla": "Edad/discapacidad, alquiler mayor del 10% de renta, modalidad y pagos bancarios.",
+      "discriminanteAuditado": "Renta 20.000 y alquiler 2.000 no supera 10%; 2.000,01 sí. Sin modalidad/hechos, API actual debe lanzar RangeError.",
+      "aceptacionFiscal": "pendiente",
+      "estado": "reutilizar_existente",
+      "entrada": "HechosDeduccionAuxiliar",
+      "ruta": "lib/dominio/irpf/deducciones/hechos-auxiliar-2025.ts",
+      "pendiente": "Reutilizar contrato existente sin copiar fórmula; adaptar su elegibilidad externa y precisión Number al componer API nueva.",
+      "rutaPrevia": "lib/dominio/irpf/deducciones/hechos-auxiliar-2025.ts"
+    },
+    {
+      "codigo": "cantabria_cuidado_familiares",
+      "articulo": "2.2",
+      "evidenciaReutilizada": "revisiones/b-condiciones/decisiones.json#cantabria_cuidado_familiares",
+      "regla": "Ascendiente mayor de setenta, convivencia, renta y compatibilidad de discapacidad.",
+      "discriminanteAuditado": "Ascendiente de 70 exactos sin discapacidad no cumple; menor de tres no exige 183 días; renta 6.000 no está excluida.",
+      "aceptacionFiscal": "pendiente",
+      "estado": "calculo_por_hechos_preparado",
+      "contrato": "HechosAmpliacionB + MarcoB",
+      "ruta": "lib/dominio/irpf/deducciones/asturias-cantabria-ampliacion-2025/index.ts",
+      "pendientesConcretos": [
+        "IPREM anual2025 debe identificarse por su magnitud normativa;no es renta ni base liquidable."
+      ],
+      "validacion": "Correcto en validación focal de autor;rama candidata pendiente de revisión,aceptación fiscal pendiente"
+    },
+    {
+      "codigo": "cantabria_obras_mejora",
+      "articulo": "2.3",
+      "evidenciaReutilizada": "revisiones/b-condiciones/decisiones.json#cantabria_obras_mejora",
+      "regla": "Obra elegible, pago bancario, exclusiones, discapacidad por contribuyente y arrastre.",
+      "discriminanteAuditado": "Dos contribuyentes discapacitados en conjunta: límite 2.500; piscina privada no es obra elegible.",
+      "aceptacionFiscal": "pendiente",
+      "estado": "calculo_por_hechos_preparado",
+      "contrato": "HechosAmpliacionB + MarcoB",
+      "ruta": "lib/dominio/irpf/deducciones/asturias-cantabria-ampliacion-2025/index.ts",
+      "pendientesConcretos": [
+        "Exceso del máximo anual:saldo de origen2025 y pagos individualizados para arrastre de dos ejercicios;aplicación común sin duplicar cuota."
+      ],
+      "validacion": "Correcto en validación focal de autor;rama candidata pendiente de revisión,aceptación fiscal pendiente"
+    },
+    {
+      "codigo": "cantabria_donativos_fundaciones_fondo_cantabria_coopera_discapacidad",
+      "articulo": "2.4",
+      "evidenciaReutilizada": "revisiones/b-condiciones/decisiones.json#cantabria_donativos_fundaciones_fondo_cantabria_coopera_discapacidad",
+      "regla": "Entidad y régimen, porcentaje y base compartida con 68.3/68.5.",
+      "discriminanteAuditado": "Base liquidable 30.000, base estatal 2.500 y donativo regional 1.000: solo quedan 500 de base regional bajo el límite conjunto.",
+      "aceptacionFiscal": "pendiente",
+      "estado": "calculo_por_hechos_preparado",
+      "contrato": "HechosAmpliacionB + MarcoB",
+      "ruta": "lib/dominio/irpf/deducciones/asturias-cantabria-ampliacion-2025/index.ts",
+      "pendientesConcretos": [
+        "Base liquidable y bases68.3/68.5 identificadas;para asociación,art.3 Ley49/2002 sobre actividades ajenas,destinatarios y remuneración;fundación con fin análogo no tipificado requiere correspondencia concreta."
+      ],
+      "validacion": "Correcto en validación focal de autor;rama candidata pendiente de revisión,aceptación fiscal pendiente"
+    },
+    {
+      "codigo": "cantabria_acogimiento_familiar_menores",
+      "articulo": "2.5",
+      "evidenciaReutilizada": "revisiones/b-condiciones/decisiones.json#cantabria_acogimiento_familiar_menores",
+      "regla": "Selección pública, sin parentesco/adopción, simultaneidad y exacogidos con mínimo.",
+      "discriminanteAuditado": "Cinco acogidos simultáneos topan 1.200; cinco sucesivos no acreditan simultaneidad; adopción en el ejercicio excluye.",
+      "aceptacionFiscal": "pendiente",
+      "estado": "calculo_por_hechos_preparado",
+      "contrato": "HechosAmpliacionB + MarcoB",
+      "ruta": "lib/dominio/irpf/deducciones/asturias-cantabria-ampliacion-2025/index.ts",
+      "pendientesConcretos": [],
+      "validacion": "Correcto en validación focal de autor;rama candidata pendiente de revisión,aceptación fiscal pendiente"
+    },
+    {
+      "codigo": "cantabria_inversion_entidades_nuevas_reciente_creacion",
+      "articulo": "2.6",
+      "evidenciaReutilizada": "revisiones/b-condiciones/decisiones.json#cantabria_inversion_entidades_nuevas_reciente_creacion",
+      "regla": "Tercer grado, agregación PYME, plantilla residente, dirección/empleo, escritura y permanencia.",
+      "discriminanteAuditado": "Participación familiar 40% no excluye por porcentaje; una relación laboral con la receptora sí, aun con solo 1% de participación.",
+      "aceptacionFiscal": "pendiente",
+      "estado": "calculo_por_hechos_preparado",
+      "contrato": "HechosAmpliacionB + MarcoB",
+      "ruta": "lib/dominio/irpf/deducciones/asturias-cantabria-ampliacion-2025/index.ts",
+      "pendientesConcretos": [
+        "Mantenimiento tres años de participación,domicilio,actividad y restricciones;ampliación con incremento y mantenimiento posteriores."
+      ],
+      "validacion": "Correcto en validación focal de autor;rama candidata pendiente de revisión,aceptación fiscal pendiente"
+    },
+    {
+      "codigo": "cantabria_gastos_enfermedad",
+      "articulo": "2.7",
+      "evidenciaReutilizada": "revisiones/b-condiciones/decisiones.json#cantabria_gastos_enfermedad",
+      "regla": "Gasto sanitario no cubierto, familiares con mínimo, renta estricta, pago y discapacidad.",
+      "discriminanteAuditado": "Base liquidable minorada 22.946 en individual no es inferior al umbral y excluye; efectivo tampoco da derecho.",
+      "aceptacionFiscal": "pendiente",
+      "estado": "calculo_parcial_nuevo",
+      "entrada": "HechosB + MarcoB",
+      "pendiente": "Derechos al mínimo y profesión sanitaria no certificados; falta enlace a liquidación de base minorada.",
+      "rutaPrevia": "lib/dominio/irpf/deducciones/asturias-cantabria-hechos-2025/index.ts"
+    },
+    {
+      "codigo": "cantabria_gastos_guarderia",
+      "articulo": "2.8",
+      "evidenciaReutilizada": "revisiones/b-condiciones/decisiones.json#cantabria_gastos_guarderia",
+      "regla": "Gasto justificado por progenitor, tope compartido por hijo y pago bancario.",
+      "discriminanteAuditado": "Gasto 1.000 y 3.000 por dos progenitores: reparto del tope según gasto 75/225, no 150/150 automáticamente.",
+      "aceptacionFiscal": "pendiente",
+      "estado": "calculo_por_hechos_preparado",
+      "contrato": "HechosAmpliacionB + MarcoB",
+      "ruta": "lib/dominio/irpf/deducciones/asturias-cantabria-ampliacion-2025/index.ts",
+      "pendientesConcretos": [],
+      "validacion": "Correcto en validación focal de autor;rama candidata pendiente de revisión,aceptación fiscal pendiente"
+    },
+    {
+      "codigo": "cantabria_familias_monoparentales",
+      "articulo": "2.9",
+      "evidenciaReutilizada": "revisiones/b-condiciones/decisiones.json#cantabria_familias_monoparentales",
+      "regla": "BC01 incorporada: el criterio del manual incluye curatela representativa; la asistencial no basta. Se conserva el antecedente anterior al3/9/2021 para patria potestad transitoria.",
+      "discriminanteAuditado": "Con convivencia y base minorada20000, curatela representativa genera200; asistencial excluida. El diagnóstico de la antigua ficha queda en el campo histórico.",
+      "aceptacionFiscal": "pendiente",
+      "estado": "calculo_parcial_nuevo",
+      "entrada": "HechosB + MarcoB",
+      "pendiente": "Individual; BC01 con antecedente temporal de patria transitoria y resolución representativa según manual; continuidad/autenticidad no certificadas; conjunta pendiente.",
+      "diagnosticoHistoricoCorregido": {
+        "regla": "Falta curatela representativa en beneficiarios descritos; el manual de su propia sección sí la incluye.",
+        "discriminanteAuditado": "Progenitor sin vínculo matrimonial, hijo de 28 con curatela representativa ejercida por aquel, convivencia y BL minorada 20.000: manual permite 200, lista de ficha solo contempla incapacitación/patria potestad.",
+        "cierre": "revisiones/cinco-rectificaciones/INFORME.md"
+      },
+      "rutaPrevia": "lib/dominio/irpf/deducciones/asturias-cantabria-hechos-2025/index.ts"
+    },
+    {
+      "codigo": "cantabria_nacimiento_adopcion_hijos",
+      "articulo": "2.10",
+      "evidenciaReutilizada": "revisiones/b-condiciones/decisiones.json#cantabria_nacimiento_adopcion_hijos",
+      "regla": "Desde nacimiento/adopción 2024, tres ejercicios y reparto por mitad.",
+      "discriminanteAuditado": "Hijo nacido 2023 no entra por esta redacción; nacido 2024 sí en 2025. Sin titulares/hechos, API actual rechaza unidades=1.",
+      "aceptacionFiscal": "pendiente",
+      "estado": "reutilizar_existente",
+      "entrada": "HechosDeduccionAuxiliar",
+      "ruta": "lib/dominio/irpf/deducciones/hechos-auxiliar-2025.ts",
+      "pendiente": "Reutilizar contrato existente sin copiar fórmula; adaptar su elegibilidad externa y precisión Number al componer API nueva.",
+      "rutaPrevia": "lib/dominio/irpf/deducciones/hechos-auxiliar-2025.ts"
+    },
+    {
+      "codigo": "cantabria_arrendamiento_municipios_riesgo_despoblamiento",
+      "articulo": "2.11.1",
+      "evidenciaReutilizada": "revisiones/b-condiciones/decisiones.json#cantabria_arrendamiento_municipios_riesgo_despoblamiento",
+      "regla": "Reglas comunes 11.1, municipio, incompatibilidad, factura/recibo y no efectivo.",
+      "discriminanteAuditado": "Alquiler elegible 7.000 individual topa 600; conjunta topa 1.200; no acumular con alquiler general para el mismo supuesto.",
+      "aceptacionFiscal": "pendiente",
+      "estado": "calculo_por_hechos_preparado",
+      "contrato": "HechosAmpliacionB + MarcoB",
+      "ruta": "lib/dominio/irpf/deducciones/asturias-cantabria-ampliacion-2025/index.ts",
+      "pendientesConcretos": [],
+      "validacion": "Correcto en validación focal de autor;rama candidata pendiente de revisión,aceptación fiscal pendiente"
+    },
+    {
+      "codigo": "cantabria_guarderia_municipios_riesgo_despoblamiento",
+      "articulo": "2.11.2",
+      "evidenciaReutilizada": "revisiones/b-condiciones/decisiones.json#cantabria_guarderia_municipios_riesgo_despoblamiento",
+      "regla": "Reglas comunes, guardería, menor de tres, municipio e incompatibilidad.",
+      "discriminanteAuditado": "Gasto 2.500 por hijo: 750 nominales y tope 600; pago en efectivo no genera base aunque el municipio sea elegible.",
+      "aceptacionFiscal": "pendiente",
+      "estado": "calculo_por_hechos_preparado",
+      "contrato": "HechosAmpliacionB + MarcoB",
+      "ruta": "lib/dominio/irpf/deducciones/asturias-cantabria-ampliacion-2025/index.ts",
+      "pendientesConcretos": [],
+      "validacion": "Correcto en validación focal de autor;rama candidata pendiente de revisión,aceptación fiscal pendiente"
+    },
+    {
+      "codigo": "cantabria_traslado_residencia_motivos_laborales_despoblamiento",
+      "articulo": "2.11.3",
+      "evidenciaReutilizada": "revisiones/b-condiciones/decisiones.json#cantabria_traslado_residencia_motivos_laborales_despoblamiento",
+      "regla": "Motivo laboral, ejercicio siguiente, cuota atribuible y permanencia tres siguientes.",
+      "discriminanteAuditado": "Traslado laboral en 2025 permite 2025/2026, condicionado a residencia 2025–2028; no crea 500 si la cuota atribuible es cero.",
+      "aceptacionFiscal": "pendiente",
+      "estado": "dependencia_anual_preparada",
+      "contrato": "HechosAmpliacionB + MarcoB",
+      "ruta": "lib/dominio/irpf/deducciones/asturias-cantabria-ampliacion-2025/index.ts",
+      "pendientesConcretos": [
+        "Cuota íntegra autonómica atribuible a trabajo/actividad por persona;permanencia año de traslado y tres siguientes."
+      ],
+      "validacion": "Correcto en validación focal de autor;rama candidata pendiente de revisión,aceptación fiscal pendiente"
+    },
+    {
+      "codigo": "cantabria_traslado_estudios_despoblamiento",
+      "articulo": "2.11.4",
+      "evidenciaReutilizada": "revisiones/b-condiciones/decisiones.json#cantabria_traslado_estudios_despoblamiento",
+      "regla": "BC02 incorporada: renta del hijo estrictamente inferior a8000 según ley; discrepancia del manual ya registrada, sin sustituir el límite normativo.",
+      "discriminanteAuditado": "Renta7999,99 admite la rama;8000y8000,01 excluyen. El manual dice no superior: discrepancia conservada, sin ampliar el derecho.",
+      "aceptacionFiscal": "pendiente",
+      "estado": "calculo_parcial_nuevo",
+      "entrada": "HechosB + MarcoB",
+      "pendiente": "BC02 <8000, identidad distinta de ambos progenitores y curso con intersección2025; residencia/documentos no certificados.",
+      "diagnosticoHistoricoCorregido": {
+        "regla": "Ficha correcta con renta estrictamente inferior a 8.000; registro de manual omite discrepancia real de su página 226.",
+        "discriminanteAuditado": "Hijo de 24 con renta exacta 8.000: ley excluye, manual dice no superior y lo permite literalmente. Conservar ley estricta y anotar discrepancia, sin corregirla por manual.",
+        "cierre": "revisiones/cinco-rectificaciones/INFORME.md"
+      },
+      "rutaPrevia": "lib/dominio/irpf/deducciones/asturias-cantabria-hechos-2025/index.ts"
+    },
+    {
+      "codigo": "cantabria_residencia_municipio_riesgo_despoblamiento",
+      "articulo": "2.11.5",
+      "evidenciaReutilizada": "revisiones/b-condiciones/decisiones.json#cantabria_residencia_municipio_riesgo_despoblamiento",
+      "regla": "Menor de 40 y todo el año, cuota autonómica y pluralidad en conjunta.",
+      "discriminanteAuditado": "Cumplir 40 al devengo no es menor de 40; residencia solo desde julio no cumple todo el año; cuota 1.000 genera 200.",
+      "aceptacionFiscal": "pendiente",
+      "estado": "dependencia_anual_preparada",
+      "contrato": "HechosAmpliacionB + MarcoB",
+      "ruta": "lib/dominio/irpf/deducciones/asturias-cantabria-ampliacion-2025/index.ts",
+      "pendientesConcretos": [
+        "Cuota íntegra autonómica por persona,distinta de cuota disponible después de deducciones."
+      ],
+      "validacion": "Correcto en validación focal de autor;rama candidata pendiente de revisión,aceptación fiscal pendiente"
+    },
+    {
+      "codigo": "cantabria_inversiones_donaciones_economia_social",
+      "articulo": "2.12",
+      "evidenciaReutilizada": "revisiones/b-condiciones/decisiones.json#cantabria_inversiones_donaciones_economia_social",
+      "regla": "Entidad social, tres años requisitos/cinco inversión, pago, escritura y límites incompatibles.",
+      "discriminanteAuditado": "Inversión vendida a los cuatro años incumple los cinco aunque entidad mantenga empleo tres; base no se deduce por dos modalidades.",
+      "aceptacionFiscal": "pendiente",
+      "estado": "calculo_por_hechos_preparado",
+      "contrato": "HechosAmpliacionB + MarcoB",
+      "ruta": "lib/dominio/irpf/deducciones/asturias-cantabria-ampliacion-2025/index.ts",
+      "pendientesConcretos": [
+        "Registro,domicilios y media anual empleo durante tres años;aportación patrimonial cinco;no duplicar modalidades."
+      ],
+      "validacion": "Correcto en validación focal de autor;rama candidata pendiente de revisión,aceptación fiscal pendiente"
+    },
+    {
+      "codigo": "cantabria_gastos_educacion",
+      "articulo": "2.13",
+      "evidenciaReutilizada": "revisiones/b-condiciones/decisiones.json#cantabria_gastos_educacion",
+      "regla": "Educación obligatoria, libros/idiomas y base, tope familiar y pago.",
+      "discriminanteAuditado": "Libros 180 e idiomas 400: 180+60=240 nominal, tope familiar 200; en individuales repartir límite conforme a regla legal.",
+      "aceptacionFiscal": "pendiente",
+      "estado": "calculo_parcial_nuevo",
+      "entrada": "HechosB + MarcoB",
+      "pendiente": "Sólo conjunta; falta gasto familiar exhaustivo de ambos progenitores en individual.",
+      "rutaPrevia": "lib/dominio/irpf/deducciones/asturias-cantabria-hechos-2025/index.ts"
+    },
+    {
+      "codigo": "cantabria_ayuda_domestica",
+      "articulo": "2.14",
+      "evidenciaReutilizada": "revisiones/b-condiciones/decisiones.json#cantabria_ayuda_domestica",
+      "regla": "Titular/empleador, una persona, supuesto familiar o 75 años, parejas inscritas.",
+      "discriminanteAuditado": "Pareja inscrita elegible no se convierte en unidad familiar estatal; contribuyente de 74 sin hijos no cumple solo por edad.",
+      "aceptacionFiscal": "pendiente",
+      "estado": "calculo_por_hechos_preparado",
+      "contrato": "HechosAmpliacionB + MarcoB",
+      "ruta": "lib/dominio/irpf/deducciones/asturias-cantabria-ampliacion-2025/index.ts",
+      "pendientesConcretos": [],
+      "validacion": "Correcto en validación focal de autor;rama candidata pendiente de revisión,aceptación fiscal pendiente"
+    },
+    {
+      "codigo": "cantabria_inversiones_nuevos_contribuyentes_extranjero",
+      "articulo": "2.15",
+      "evidenciaReutilizada": "revisiones/b-condiciones/decisiones.json#cantabria_inversiones_nuevos_contribuyentes_extranjero",
+      "regla": "Inmuebles no vivienda, valores, segundo grado, residencia y mantenimiento/reinversión.",
+      "discriminanteAuditado": "40% agregado no excluye; 40,01% sí; reinversión total a dos meses no conserva el plazo de un mes. Contrastar además precisiones del manual sobre afectación.",
+      "aceptacionFiscal": "pendiente",
+      "estado": "calculo_por_hechos_preparado",
+      "contrato": "HechosAmpliacionB + MarcoB",
+      "ruta": "lib/dominio/irpf/deducciones/asturias-cantabria-ampliacion-2025/index.ts",
+      "pendientesConcretos": [
+        "Mantener inversión y residencia seis años;reinversión total en un mes si transmisión;arrastre cinco ejercicios;condiciones de activos y vínculos segundo grado."
+      ],
+      "validacion": "Correcto en validación focal de autor;rama candidata pendiente de revisión,aceptación fiscal pendiente"
+    },
+    {
+      "codigo": "cantabria_desplazamiento_permanencia_nuevos_residentes",
+      "articulo": "2.16",
+      "evidenciaReutilizada": "revisiones/b-condiciones/decisiones.json#cantabria_desplazamiento_permanencia_nuevos_residentes",
+      "regla": "Cuatro años previos, tres posteriores, conceptos, prioridad y arrastre cuatro años.",
+      "discriminanteAuditado": "Contratar electricidad puede generar gasto; consumo eléctrico no. Traslado laboral con gasto 8.000 topa 1.500 por contribuyente.",
+      "aceptacionFiscal": "pendiente",
+      "estado": "calculo_por_hechos_preparado",
+      "contrato": "HechosAmpliacionB + MarcoB",
+      "ruta": "lib/dominio/irpf/deducciones/asturias-cantabria-ampliacion-2025/index.ts",
+      "pendientesConcretos": [
+        "Permanencia tres años adicionales,prioridad sobre cuota y arrastre cuatro años."
+      ],
+      "validacion": "Correcto en validación focal de autor;rama candidata pendiente de revisión,aceptación fiscal pendiente"
+    },
+    {
+      "codigo": "cantabria_arrendamiento_viviendas_vacias",
+      "articulo": "2.17",
+      "evidenciaReutilizada": "revisiones/b-condiciones/decisiones.json#cantabria_arrendamiento_viviendas_vacias",
+      "regla": "Año previo vacío, parentesco, tres años efectivos, seis meses, renta y cartera máxima.",
+      "discriminanteAuditado": "Titular de cuatro viviendas no deduce aunque alquile una; tres viviendas no excluyen; renta mensual 1.000 exactos cumple el límite.",
+      "aceptacionFiscal": "pendiente",
+      "estado": "calculo_por_hechos_preparado",
+      "contrato": "HechosAmpliacionB + MarcoB",
+      "ruta": "lib/dominio/irpf/deducciones/asturias-cantabria-ampliacion-2025/index.ts",
+      "pendientesConcretos": [
+        "Duración efectiva tres años;si interrupción,sustitución antes de seis meses y suma efectiva suficiente;seguimiento de hechos aún futuros."
+      ],
+      "validacion": "Correcto en validación focal de autor;rama candidata pendiente de revisión,aceptación fiscal pendiente"
+    }
+  ],
+  "validacionAmpliacion": "Validación de autor bajo PESADO2:81 pruebas,tipos estrictos/Effect y linters focales correctos;sin certificación fiscal ni revisión independiente.",
+  "validacionAutor": {
+    "vitest": 81,
+    "tiposEffect": "correcto_focal",
+    "oxlintAntiSlop": "correcto_focal",
+    "eslint": "correcto_focal",
+    "oraculosOriginales": 37,
+    "oraculosSHA256": "a3533e782200bc0eea658cd434d46b51339d45dd4c7af1740b9da07de14b9afb",
+    "revisionIndependiente": "pendiente"
+  }
+}

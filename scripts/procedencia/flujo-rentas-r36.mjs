@@ -66,10 +66,12 @@ const declaredSitesR36 = [
   "anual.explicito.actividad.etapa",
 ]
 export const sitesR36 = [...declaredSitesR36]
+const territorialSchemaName = "SolicitudDeduccionesTerritoriales2025"
 const externalNames = [
   // Núcleo anual nuevo fuera del intérprete histórico: contrato externo pendiente.
   "componerLiquidacionAnual",
   "rastroTrasReforma",
+  territorialSchemaName,
   "calcularDesgloseCotizacionesPerfilUniforme",
   "calcularDesgloseCotizacionesSocialesLegacy",
   "calcularCotizacionesSocialesLegacy",
@@ -129,12 +131,21 @@ export function composeRentasR36(root = process.cwd()) {
     return ast
   }
   function resolve(file, name) {
-    if (externalNames.includes(name)) return "boundary:" + name
+    if (externalNames.includes(name) && name !== territorialSchemaName)
+      return "boundary:" + name
     load(file)
     const id = file + ":" + name
     if (declarations.has(id)) return id
     const imp = imports.get(id)
     if (!imp) throw Error("Global no resuelto " + id)
+    // Este esquema pertenece a la API nueva. Sólo su importación concreta crea
+    // la frontera pendiente; una declaración local homónima no la sustituye.
+    if (
+      file === "lib/dominio/irpf/trabajo-anual/conexion-contrato.ts" &&
+      imp.spec === "../deducciones/anual-territorial" &&
+      imp.name === territorialSchemaName
+    )
+      return "boundary:" + territorialSchemaName
     if (imp.spec === "effect") return name
     if (imp.spec === "decimal.js") return "Decimal"
     if (!imp.spec.startsWith(".")) throw Error("Import opaco " + imp.spec)
@@ -719,7 +730,9 @@ export function composeRentasR36(root = process.cwd()) {
   const boundaries = externalNames.map((name) => ({
     name: "boundary:" + name,
     owner:
-      name.includes("Cotizacion") || name.includes("cotizacion")
+      name === territorialSchemaName
+        ? "schema-territorial"
+        : name.includes("Cotizacion") || name.includes("cotizacion")
         ? "SS"
         : name === "enlazarRastroAnualActual"
           ? "trace-enrichment"

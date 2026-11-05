@@ -1,0 +1,1023 @@
+{
+  "version": 1,
+  "ejercicio": 2025,
+  "nuevosParciales": 40,
+  "reutilizados": 7,
+  "pendientes": 2,
+  "noEsCierreIntegral": true,
+  "deducciones": [
+    {
+      "codigo": "andalucia_gastos_educativos",
+      "estado": "parcial-nuevo",
+      "parametrosRevisados": "15%; 150 por descendiente; BI 80000/100000",
+      "hechosDocumentados": "Pago efectivo individual; gananciales por mitades; mínimo descendiente; escolar según proporción horaria, extraescolar academias o IAE; art60.",
+      "alcance": "Evaluador aislado, individual ordinario2025, antes de cuota y sin certificar documentos.",
+      "archivo": "lib/dominio/irpf/deducciones/lote-a-ampliacion-2025/andalucia.ts",
+      "ramasPendientes": [],
+      "citas": [
+        "CA-andalucia-175",
+        "CA-andalucia-176",
+        "CA-andalucia-179",
+        "CA-andalucia-180"
+      ],
+      "oraculo": "Gasto1000=>150; BI80000 admite y80000,01 excluye individual; asignatura integrada solo parte proporcional.",
+      "evidencia": "../correcciones/a/reglas-para-calculo.json",
+      "revisionConservada": "../revisiones/a-ampliado/decisiones.json",
+      "fronterasPruebas": "tests/lote-a-ampliacion.fronteras.json",
+      "validacion": "196 pruebas focales correctas; tipos estrictos/Effect, Oxlint/antislop y ESLint focales correctos. Sigue cálculo parcial aislado, sin conexión de cuota anual."
+    },
+    {
+      "codigo": "andalucia_defensa_juridica_laboral",
+      "estado": "parcial-nuevo",
+      "parametrosRevisados": "100%; tope200 individual/conjunta; sin renta especial",
+      "hechosDocumentados": "Solo despido/extinción/reclamación judicial laboral; factura y art60.",
+      "alcance": "Evaluador aislado, individual ordinario2025, antes de cuota y sin certificar documentos.",
+      "archivo": "lib/dominio/irpf/deducciones/lote-a-ampliacion-2025/andalucia.ts",
+      "ramasPendientes": [],
+      "citas": [
+        "CA-andalucia-231",
+        "CA-andalucia-232"
+      ],
+      "oraculo": "Gasto199=>199;201=>200; asesoramiento extrajudicial aislado no basta.",
+      "evidencia": "../correcciones/a/reglas-para-calculo.json",
+      "revisionConservada": "../revisiones/a-ampliado/decisiones.json",
+      "fronterasPruebas": "tests/lote-a-ampliacion.fronteras.json",
+      "validacion": "196 pruebas focales correctas; tipos estrictos/Effect, Oxlint/antislop y ESLint focales correctos. Sigue cálculo parcial aislado, sin conexión de cuota anual."
+    },
+    {
+      "codigo": "andalucia_donativos_finalidad_ecologica",
+      "estado": "parcial-nuevo",
+      "parametrosRevisados": "10%; tope150; sin renta especial",
+      "hechosDocumentados": "Entidades públicas ambientales andaluzas o entidades Ley49/2002 fin exclusivo y registro andaluz; certificado art24.",
+      "alcance": "Evaluador aislado, individual ordinario2025, antes de cuota y sin certificar documentos.",
+      "archivo": "lib/dominio/irpf/deducciones/lote-a-ampliacion-2025/andalucia.ts",
+      "ramasPendientes": [],
+      "citas": [
+        "CA-BOJA-dd45dbc7f39c-309",
+        "CA-BOJA-dd45dbc7f39c-311",
+        "CA-BOJA-dd45dbc7f39c-312",
+        "CA-BOJA-dd45dbc7f39c-313"
+      ],
+      "oraculo": "Donativo1500=>150;1600=>150; finalidad principal no exclusiva en entidad privada no basta.",
+      "evidencia": "../correcciones/a/reglas-para-calculo.json",
+      "revisionConservada": "../revisiones/a-ampliado/decisiones.json",
+      "fronterasPruebas": "tests/lote-a-ampliacion.fronteras.json",
+      "validacion": "196 pruebas focales correctas; tipos estrictos/Effect, Oxlint/antislop y ESLint focales correctos. Sigue cálculo parcial aislado, sin conexión de cuota anual."
+    },
+    {
+      "codigo": "andalucia_ejercicio_fisico_deporte",
+      "estado": "parcial-nuevo",
+      "parametrosRevisados": "15%; tope100 por contribuyente",
+      "hechosDocumentados": "Cuotas entidades enumeradas; beneficiario propio/cónyuge/pareja inscrita/mínimos; reparto por pago, art60; efectos2025 DF18.b.",
+      "alcance": "Evaluador aislado, individual ordinario2025, antes de cuota y sin certificar documentos.",
+      "archivo": "lib/dominio/irpf/deducciones/lote-a-ampliacion-2025/andalucia.ts",
+      "ramasPendientes": [],
+      "citas": [
+        "CA-andalucia-242",
+        "CA-andalucia-243",
+        "CA-andalucia-245",
+        "CA-andalucia-248"
+      ],
+      "oraculo": "Cuota1000=>100; dos pagadores300 cada uno=>45 cada uno, sin duplicar pago.",
+      "evidencia": "../correcciones/a/reglas-para-calculo.json",
+      "revisionConservada": "../revisiones/a-ampliado/decisiones.json",
+      "fronterasPruebas": "tests/lote-a-ampliacion.fronteras.json",
+      "validacion": "196 pruebas focales correctas; tipos estrictos/Effect, Oxlint/antislop y ESLint focales correctos. Sigue cálculo parcial aislado, sin conexión de cuota anual."
+    },
+    {
+      "codigo": "andalucia_gastos_veterinarios_animales_compania_perros_asistencia",
+      "estado": "parcial-nuevo",
+      "parametrosRevisados": "30%; tope100; BI80000/100000",
+      "hechosDocumentados": "Adquisición desde1/1/2025; un año general, tres adopción, toda tenencia asistencia; tratamientos obligatorios y esterilización preceptiva; adquisición legal arts55-58 Ley7/2023.",
+      "alcance": "Evaluador aislado, individual ordinario2025, antes de cuota y sin certificar documentos.",
+      "archivo": "lib/dominio/irpf/deducciones/lote-a-ampliacion-2025/andalucia.ts",
+      "ramasPendientes": [
+        "Extremo exacto del aniversario de adquisición/adopción: precisar ventana; en2025 no afecta a compañía adquirida desde1/1/2025."
+      ],
+      "citas": [
+        "CA-andalucia-252",
+        "CA-andalucia-253",
+        "CA-andalucia-265",
+        "CA-andalucia-268"
+      ],
+      "oraculo": "Compra31/12/2024 excluida; asistencia adquirida antes no excluida; gasto500=>100; no todo tratamiento veterinario.",
+      "evidencia": "../correcciones/a/reglas-para-calculo.json",
+      "revisionConservada": "../revisiones/a-ampliado/decisiones.json",
+      "fronterasPruebas": "tests/lote-a-ampliacion.fronteras.json",
+      "validacion": "196 pruebas focales correctas; tipos estrictos/Effect, Oxlint/antislop y ESLint focales correctos. Sigue cálculo parcial aislado, sin conexión de cuota anual."
+    },
+    {
+      "codigo": "andalucia_enfermedad_celiaca",
+      "estado": "parcial-nuevo",
+      "parametrosRevisados": "100 por miembro; sin renta especial",
+      "hechosDocumentados": "Núcleo incluye mínimos; dos titulares=>50 cada uno; informe oficial de profesional SNS o aseguradora; efectos2025.",
+      "alcance": "Evaluador aislado, individual ordinario2025, antes de cuota y sin certificar documentos.",
+      "archivo": "lib/dominio/irpf/deducciones/lote-a-ampliacion-2025/andalucia.ts",
+      "ramasPendientes": [],
+      "citas": [
+        "CA-andalucia-274",
+        "CA-andalucia-275",
+        "CA-andalucia-276",
+        "CA-andalucia-277"
+      ],
+      "oraculo": "Una persona con tres titulares=>100/3 antes de redondeos; ningún contador prueba diagnóstico.",
+      "evidencia": "../correcciones/a/reglas-para-calculo.json",
+      "revisionConservada": "../revisiones/a-ampliado/decisiones.json",
+      "fronterasPruebas": "tests/lote-a-ampliacion.fronteras.json",
+      "validacion": "196 pruebas focales correctas; tipos estrictos/Effect, Oxlint/antislop y ESLint focales correctos. Sigue cálculo parcial aislado, sin conexión de cuota anual."
+    },
+    {
+      "codigo": "andalucia_inversion_vivienda_habitual_protegida_jovenes",
+      "estado": "parcial-nuevo",
+      "parametrosRevisados": "6%; base9040=>542,40; BI25000/30000",
+      "hechosDocumentados": "VPO o menor35; conjunta al menos cónyuge/progenitor; vivienda histórica2012, patrimonio, reinversión y rehabilitación25%.",
+      "alcance": "Evaluador aislado, individual ordinario2025, antes de cuota y sin certificar documentos.",
+      "archivo": "lib/dominio/irpf/deducciones/lote-a-ampliacion-2025/andalucia.ts",
+      "ramasPendientes": [
+        "Construcción con prórrogas/pagos a promotor, ocupación futura, divorcio/hijos y cambios necesarios: modelar el supuesto histórico concreto; la rama ordinaria se calcula.",
+        "Una vivienda por solicitud/código; resolver inversiones simultáneas antes de consumir de nuevo el límite anual."
+      ],
+      "citas": [
+        "CA-andalucia-113",
+        "CA-andalucia-115",
+        "CA-andalucia-117",
+        "CA-andalucia-119",
+        "CA-andalucia-122"
+      ],
+      "oraculo": "35 años sin VPO no habilita; VPO sí; gasto10000=>542,40 antes de otras restricciones.",
+      "evidencia": "../correcciones/a/reglas-para-calculo.json",
+      "revisionConservada": "../revisiones/a-ampliado/decisiones.json",
+      "fronterasPruebas": "tests/lote-a-ampliacion.fronteras.json",
+      "validacion": "196 pruebas focales correctas; tipos estrictos/Effect, Oxlint/antislop y ESLint focales correctos. Sigue cálculo parcial aislado, sin conexión de cuota anual."
+    },
+    {
+      "codigo": "andalucia_alquiler_vivienda_habitual",
+      "estado": "parcial-nuevo",
+      "parametrosRevisados": "15%;1200/1500; BI25000/30000",
+      "hechosDocumentados": "Menor35 o mayor65 o víctima habilitante; discapacidad vía propia; NIF arrendador; conjunta habilitación de cónyuge/progenitor; por pago.",
+      "alcance": "Evaluador aislado, individual ordinario2025, antes de cuota y sin certificar documentos.",
+      "archivo": "lib/dominio/irpf/deducciones/lote-a-ampliacion-2025/andalucia.ts",
+      "ramasPendientes": [],
+      "citas": [
+        "CA-andalucia-128",
+        "CA-andalucia-129",
+        "CA-andalucia-131",
+        "CA-andalucia-133",
+        "CA-andalucia-135"
+      ],
+      "oraculo": "35 años sin otra habilitación excluye;65 exactos sin otra excluye;8000=>1200;10000 discapacidad=>1500; Ley8 también efectos2025.",
+      "evidencia": "../correcciones/a/reglas-para-calculo.json",
+      "revisionConservada": "../revisiones/a-ampliado/decisiones.json",
+      "fronterasPruebas": "tests/lote-a-ampliacion.fronteras.json",
+      "validacion": "196 pruebas focales correctas; tipos estrictos/Effect, Oxlint/antislop y ESLint focales correctos. Sigue cálculo parcial aislado, sin conexión de cuota anual."
+    },
+    {
+      "codigo": "andalucia_nacimiento_adopcion_acogimiento_menores",
+      "estado": "reutilizado-sin-cambios",
+      "parametrosRevisados": "200/400 despoblación; incremento200 por cada múltiple; sin límite BI desde2025",
+      "hechosDocumentados": "Dos titulares mitades; acogimiento90 días sin ayuda andaluza; no duplicar acogimiento preadoptivo/adopción; incompatibilidades art12/14.",
+      "alcance": "Se conserva implementación y revisión existente, incluidas sus reservas.",
+      "archivo": "lib/dominio/irpf/deducciones/contratos-2025.ts#evaluarNacimientoAndaluz",
+      "ramasPendientes": [],
+      "citas": [
+        "CA-andalucia-144",
+        "CA-andalucia-145",
+        "CA-andalucia-146"
+      ],
+      "oraculo": "89 días acogimiento no basta,90 sí; gemelos general=>800 total antes reparto; BI90000 no excluye por sí.",
+      "evidencia": "../correcciones/a/reglas-para-calculo.json",
+      "revisionConservada": "../revisiones/a-ampliado/decisiones.json"
+    },
+    {
+      "codigo": "andalucia_adopcion_internacional",
+      "estado": "parcial-nuevo",
+      "parametrosRevisados": "600 por inscrito; BI80000/100000",
+      "hechosDocumentados": "Internacional según normas/convenios; año inscripción Registro Civil; dos con derecho300; uno fuera de renta otro600.",
+      "alcance": "Evaluador aislado, individual ordinario2025, antes de cuota y sin certificar documentos.",
+      "archivo": "lib/dominio/irpf/deducciones/lote-a-ampliacion-2025/andalucia.ts",
+      "ramasPendientes": [],
+      "citas": [
+        "CA-andalucia-157",
+        "CA-andalucia-158",
+        "CA-andalucia-160"
+      ],
+      "oraculo": "Inscripción2026 no corresponde2025 aunque resolución2025; BI80000 exactos no excede.",
+      "evidencia": "../correcciones/a/reglas-para-calculo.json",
+      "revisionConservada": "../revisiones/a-ampliado/decisiones.json",
+      "fronterasPruebas": "tests/lote-a-ampliacion.fronteras.json",
+      "validacion": "196 pruebas focales correctas; tipos estrictos/Effect, Oxlint/antislop y ESLint focales correctos. Sigue cálculo parcial aislado, sin conexión de cuota anual."
+    },
+    {
+      "codigo": "andalucia_familia_monoparental_ascendientes_mayores_75",
+      "estado": "parcial-nuevo",
+      "parametrosRevisados": "100 más100 por ascendiente; BI80000/100000",
+      "hechosDocumentados": "Definición monoparental completa art13; incremento según mínimos/convivencia y reparto estatal, no reparto de los100 básicos.",
+      "alcance": "Evaluador aislado, individual ordinario2025, antes de cuota y sin certificar documentos.",
+      "archivo": "lib/dominio/irpf/deducciones/lote-a-ampliacion-2025/andalucia.ts",
+      "ramasPendientes": [],
+      "citas": [
+        "CA-andalucia-163",
+        "CA-andalucia-164",
+        "CA-andalucia-165",
+        "CA-BOJA-dd45dbc7f39c-201",
+        "CA-BOJA-dd45dbc7f39c-203"
+      ],
+      "oraculo": "Ascendiente75 exactos no genera incremento por mayor75; dos titulares de incremento100=>50 cada uno si procede mínimo.",
+      "evidencia": "../correcciones/a/reglas-para-calculo.json",
+      "revisionConservada": "../revisiones/a-ampliado/decisiones.json",
+      "fronterasPruebas": "tests/lote-a-ampliacion.fronteras.json",
+      "validacion": "196 pruebas focales correctas; tipos estrictos/Effect, Oxlint/antislop y ESLint focales correctos. Sigue cálculo parcial aislado, sin conexión de cuota anual."
+    },
+    {
+      "codigo": "andalucia_familia_numerosa",
+      "estado": "parcial-nuevo",
+      "parametrosRevisados": "200/400; BI25000/30000",
+      "hechosDocumentados": "Ascendientes y hermanos huérfanos Ley40/2003; título/devengo; reparto titulares; incompatibilidad con art11.",
+      "alcance": "Evaluador aislado, individual ordinario2025, antes de cuota y sin certificar documentos.",
+      "archivo": "lib/dominio/irpf/deducciones/lote-a-ampliacion-2025/andalucia.ts",
+      "ramasPendientes": [],
+      "citas": [
+        "CA-andalucia-169",
+        "CA-andalucia-170",
+        "CA-andalucia-171",
+        "CA-andalucia-172"
+      ],
+      "oraculo": "Dos titulares individuales general=>100 cada uno; un titular fuera de renta no cuenta en reparto.",
+      "evidencia": "../correcciones/a/reglas-para-calculo.json",
+      "revisionConservada": "../revisiones/a-ampliado/decisiones.json",
+      "fronterasPruebas": "tests/lote-a-ampliacion.fronteras.json",
+      "validacion": "196 pruebas focales correctas; tipos estrictos/Effect, Oxlint/antislop y ESLint focales correctos. Sigue cálculo parcial aislado, sin conexión de cuota anual."
+    },
+    {
+      "codigo": "andalucia_contribuyente_discapacidad",
+      "estado": "parcial-nuevo",
+      "parametrosRevisados": "150; discapacidad33%; BI25000/30000",
+      "hechosDocumentados": "Calificación art3/DA2 y acreditación; conjunta no duplica con asistencia respecto mismo hijo.",
+      "alcance": "Evaluador aislado, individual ordinario2025, antes de cuota y sin certificar documentos.",
+      "archivo": "lib/dominio/irpf/deducciones/lote-a-ampliacion-2025/andalucia.ts",
+      "ramasPendientes": [],
+      "citas": [
+        "CA-andalucia-187",
+        "CA-andalucia-188",
+        "CA-BOJA-dd45dbc7f39c-198",
+        "CA-BOJA-dd45dbc7f39c-199"
+      ],
+      "oraculo": "33% habilita,32% no; BI25000 exactos admite,25000,01 individual excluye.",
+      "evidencia": "../correcciones/a/reglas-para-calculo.json",
+      "revisionConservada": "../revisiones/a-ampliado/decisiones.json",
+      "fronterasPruebas": "tests/lote-a-ampliacion.fronteras.json",
+      "validacion": "196 pruebas focales correctas; tipos estrictos/Effect, Oxlint/antislop y ESLint focales correctos. Sigue cálculo parcial aislado, sin conexión de cuota anual."
+    },
+    {
+      "codigo": "andalucia_conyuge_pareja_discapacidad",
+      "estado": "parcial-nuevo",
+      "parametrosRevisados": "100;65%; BI25000/30000",
+      "hechosDocumentados": "Pareja registrada; cónyuge/pareja no declarante individual; incompatibilidad con deducción propia art16.",
+      "alcance": "Evaluador aislado, individual ordinario2025, antes de cuota y sin certificar documentos.",
+      "archivo": "lib/dominio/irpf/deducciones/lote-a-ampliacion-2025/andalucia.ts",
+      "ramasPendientes": [],
+      "citas": [
+        "CA-andalucia-191",
+        "CA-andalucia-192",
+        "CA-andalucia-193"
+      ],
+      "oraculo": "65% cumple; pareja que presenta individual excluye; no trasladar el umbral33% propio.",
+      "evidencia": "../correcciones/a/reglas-para-calculo.json",
+      "revisionConservada": "../revisiones/a-ampliado/decisiones.json",
+      "fronterasPruebas": "tests/lote-a-ampliacion.fronteras.json",
+      "validacion": "196 pruebas focales correctas; tipos estrictos/Effect, Oxlint/antislop y ESLint focales correctos. Sigue cálculo parcial aislado, sin conexión de cuota anual."
+    },
+    {
+      "codigo": "andalucia_asistencia_personas_discapacidad",
+      "estado": "parcial-nuevo",
+      "parametrosRevisados": "100 por mínimo más20% SS; tope500 para asistencia; BI80000/100000",
+      "hechosDocumentados": "Parte100 reparto estatal; adicional necesita terceros y mínimo asistencia; empleador TGSS Andalucía; mismo empleado incompatible art19.",
+      "alcance": "Evaluador aislado, individual ordinario2025, antes de cuota y sin certificar documentos.",
+      "archivo": "lib/dominio/irpf/deducciones/lote-a-ampliacion-2025/andalucia.ts",
+      "ramasPendientes": [],
+      "citas": [
+        "CA-andalucia-196",
+        "CA-andalucia-198",
+        "CA-andalucia-199",
+        "CA-andalucia-200"
+      ],
+      "oraculo": "SS3000=>500 adicional; dos titulares de mínimo100=>50 cada uno; no repartir automáticamente500.",
+      "evidencia": "../correcciones/a/reglas-para-calculo.json",
+      "revisionConservada": "../revisiones/a-ampliado/decisiones.json",
+      "fronterasPruebas": "tests/lote-a-ampliacion.fronteras.json",
+      "validacion": "196 pruebas focales correctas; tipos estrictos/Effect, Oxlint/antislop y ESLint focales correctos. Sigue cálculo parcial aislado, sin conexión de cuota anual."
+    },
+    {
+      "codigo": "andalucia_ayuda_domestica",
+      "estado": "parcial-nuevo",
+      "parametrosRevisados": "20% SS; tope500; sin renta especial",
+      "hechosDocumentados": "Hogar habitual TGSS Andalucía; hijos con mínimo y trabajo/actividad ambos miembros o75 años; elección cónyuge/pareja; mismo empleado incompatible18.3.",
+      "alcance": "Evaluador aislado, individual ordinario2025, antes de cuota y sin certificar documentos.",
+      "archivo": "lib/dominio/irpf/deducciones/lote-a-ampliacion-2025/andalucia.ts",
+      "ramasPendientes": [],
+      "citas": [
+        "CA-andalucia-203",
+        "CA-andalucia-205",
+        "CA-andalucia-206",
+        "CA-andalucia-208",
+        "CA-andalucia-209"
+      ],
+      "oraculo": "SS2500=>500;74 sin hijos no habilita;75 sí; no duplicar mismo pago entre cónyuges.",
+      "evidencia": "../correcciones/a/reglas-para-calculo.json",
+      "revisionConservada": "../revisiones/a-ampliado/decisiones.json",
+      "fronterasPruebas": "tests/lote-a-ampliacion.fronteras.json",
+      "validacion": "196 pruebas focales correctas; tipos estrictos/Effect, Oxlint/antislop y ESLint focales correctos. Sigue cálculo parcial aislado, sin conexión de cuota anual."
+    },
+    {
+      "codigo": "andalucia_inversion_acciones_participaciones_mercantiles",
+      "estado": "parcial-nuevo",
+      "parametrosRevisados": "20%/4000;50%/12000 universidades",
+      "hechosDocumentados": "Participación familiar<=40% todos los días; tres años; sin funciones ni empleo; escritura; domicilio; empleo y aumento plantilla24 meses.",
+      "alcance": "Evaluador aislado, individual ordinario2025, antes de cuota y sin certificar documentos.",
+      "archivo": "lib/dominio/irpf/deducciones/lote-a-ampliacion-2025/andalucia.ts",
+      "ramasPendientes": [
+        "Cartera mixta general/universidad: resolver concurrencia de topes4000/12000.",
+        "Seguimiento futuro3años y empleo/ampliación de plantilla24meses y dos ejercicios posteriores; no se certifican hechos futuros."
+      ],
+      "citas": [
+        "CA-andalucia-215",
+        "CA-andalucia-218",
+        "CA-andalucia-225",
+        "CA-andalucia-226",
+        "CA-andalucia-228"
+      ],
+      "oraculo": "40% exacto no excede,40,01% excluye; inversión20000 general=>4000; régimen universidad=>10000.",
+      "evidencia": "../correcciones/a/reglas-para-calculo.json",
+      "revisionConservada": "../revisiones/a-ampliado/decisiones.json",
+      "fronterasPruebas": "tests/lote-a-ampliacion.fronteras.json",
+      "validacion": "196 pruebas focales correctas; tipos estrictos/Effect, Oxlint/antislop y ESLint focales correctos. Sigue cálculo parcial aislado, sin conexión de cuota anual."
+    },
+    {
+      "codigo": "aragon_nacimiento_adopcion_hijo_discapacidad_33",
+      "estado": "parcial-nuevo",
+      "parametrosRevisados": "200/240 diferenciada; sin renta especial",
+      "hechosDocumentados": "33% reconocido a devengo; convivencia reparto; incompatible110-16 mismo hijo; arts160-1/2.",
+      "alcance": "Evaluador aislado, individual ordinario2025, antes de cuota y sin certificar documentos.",
+      "archivo": "lib/dominio/irpf/deducciones/lote-a-ampliacion-2025/aragon.ts",
+      "ramasPendientes": [],
+      "citas": [
+        "CA-aragon-120",
+        "CA-aragon-121",
+        "CA-aragon-122",
+        "CA-aragon-1366"
+      ],
+      "oraculo": "32% no,33% sí; dos convivientes régimen general100 cada uno; no sumar200+240.",
+      "evidencia": "../correcciones/a/reglas-para-calculo.json",
+      "revisionConservada": "../revisiones/a-ampliado/decisiones.json",
+      "fronterasPruebas": "tests/lote-a-ampliacion.fronteras.json",
+      "validacion": "196 pruebas focales correctas; tipos estrictos/Effect, Oxlint/antislop y ESLint focales correctos. Sigue cálculo parcial aislado, sin conexión de cuota anual."
+    },
+    {
+      "codigo": "aragon_adopcion_internacional",
+      "estado": "parcial-nuevo",
+      "parametrosRevisados": "600/720 diferenciada",
+      "hechosDocumentados": "Resolución judicial en ejercicio; tratados; convivencia reparto; compatible110-2/3/16;160-1/2.",
+      "alcance": "Evaluador aislado, individual ordinario2025, antes de cuota y sin certificar documentos.",
+      "archivo": "lib/dominio/irpf/deducciones/lote-a-ampliacion-2025/aragon.ts",
+      "ramasPendientes": [],
+      "citas": [
+        "CA-aragon-133",
+        "CA-aragon-134",
+        "CA-aragon-136",
+        "CA-aragon-1368"
+      ],
+      "oraculo": "Resolución2026 excluye2025 aunque gasto2025; dos convivientes general300 cada uno.",
+      "evidencia": "../correcciones/a/reglas-para-calculo.json",
+      "revisionConservada": "../revisiones/a-ampliado/decisiones.json",
+      "fronterasPruebas": "tests/lote-a-ampliacion.fronteras.json",
+      "validacion": "196 pruebas focales correctas; tipos estrictos/Effect, Oxlint/antislop y ESLint focales correctos. Sigue cálculo parcial aislado, sin conexión de cuota anual."
+    },
+    {
+      "codigo": "aragon_donaciones_ecologicas_idi",
+      "estado": "parcial-nuevo",
+      "parametrosRevisados": "20%;10% cuota íntegra autonómica",
+      "hechosDocumentados": "Dinero puro/simple; entidades públicas o Ley49/2002 arts2/3 fin exclusivo/principal, registro; condiciones comunes DA2.",
+      "alcance": "Evaluador aislado, individual ordinario2025, antes de cuota y sin certificar documentos.",
+      "archivo": "lib/dominio/irpf/deducciones/lote-a-ampliacion-2025/aragon.ts",
+      "ramasPendientes": [],
+      "citas": [
+        "CA-aragon-167",
+        "CA-aragon-168",
+        "CA-aragon-169",
+        "RA-COMUN-aragon-0"
+      ],
+      "oraculo": "Donativo1000 y cuota1000=>100; bien en especie no cubierto por donación dineraria.",
+      "evidencia": "../correcciones/a/reglas-para-calculo.json",
+      "revisionConservada": "../revisiones/a-ampliado/decisiones.json",
+      "fronterasPruebas": "tests/lote-a-ampliacion.fronteras.json",
+      "validacion": "196 pruebas focales correctas; tipos estrictos/Effect, Oxlint/antislop y ESLint focales correctos. Sigue cálculo parcial aislado, sin conexión de cuota anual."
+    },
+    {
+      "codigo": "aragon_vivienda_victimas_terrorismo",
+      "estado": "parcial-nuevo",
+      "parametrosRevisados": "3%; base9040=>271,20",
+      "hechosDocumentados": "Nueva protegida primera vivienda Aragón; víctima o sustitutos por orden; remisión2012 y patrimonio.",
+      "alcance": "Evaluador aislado, individual ordinario2025, antes de cuota y sin certificar documentos.",
+      "archivo": "lib/dominio/irpf/deducciones/lote-a-ampliacion-2025/aragon.ts",
+      "ramasPendientes": [
+        "Construcción con prórrogas/pagos a promotor, ocupación futura, divorcio/hijos y cambios necesarios: modelar el supuesto histórico concreto; la rama ordinaria se calcula.",
+        "Una vivienda por solicitud/código; resolver inversiones simultáneas antes de consumir de nuevo el límite anual."
+      ],
+      "citas": [
+        "CA-aragon-180",
+        "CA-aragon-181",
+        "CA-aragon-182"
+      ],
+      "oraculo": "Gasto10000=>271,20; segunda vivienda o libre excluida aunque víctima.",
+      "evidencia": "../correcciones/a/reglas-para-calculo.json",
+      "revisionConservada": "../revisiones/a-ampliado/decisiones.json",
+      "fronterasPruebas": "tests/lote-a-ampliacion.fronteras.json",
+      "validacion": "196 pruebas focales correctas; tipos estrictos/Effect, Oxlint/antislop y ESLint focales correctos. Sigue cálculo parcial aislado, sin conexión de cuota anual."
+    },
+    {
+      "codigo": "aragon_inversion_acciones_mab",
+      "estado": "parcial-nuevo",
+      "parametrosRevisados": "20%;10000",
+      "hechosDocumentados": "Suscripción ampliación MAB expansión; participación<=10%; dos años; domicilio Aragón; no patrimonial; incompatibilidades110-9/19.",
+      "alcance": "Evaluador aislado, individual ordinario2025, antes de cuota y sin certificar documentos.",
+      "archivo": "lib/dominio/irpf/deducciones/lote-a-ampliacion-2025/aragon.ts",
+      "ramasPendientes": [],
+      "citas": [
+        "CA-aragon-193",
+        "CA-aragon-195",
+        "CA-aragon-196",
+        "CA-aragon-197",
+        "CA-aragon-198"
+      ],
+      "oraculo": "Inversión60000=>10000;10% admitido,10,01% excluye; venta antes dos años requiere regularización.",
+      "evidencia": "../correcciones/a/reglas-para-calculo.json",
+      "revisionConservada": "../revisiones/a-ampliado/decisiones.json",
+      "fronterasPruebas": "tests/lote-a-ampliacion.fronteras.json",
+      "validacion": "196 pruebas focales correctas; tipos estrictos/Effect, Oxlint/antislop y ESLint focales correctos. Sigue cálculo parcial aislado, sin conexión de cuota anual."
+    },
+    {
+      "codigo": "aragon_inversion_entidades_nuevas_reciente_creacion",
+      "estado": "pendiente",
+      "parametrosRevisados": "20%;4000 sobre exceso de base máxima estatal",
+      "hechosDocumentados": "Art68.1 LIRPF vigente2025; reinversión38.2 solo exceso; domicilio Aragón, sin dirección/empleo; RIRPF59.",
+      "alcance": "Trabajo concreto pendiente: trasladar al esquema las condiciones vigentes2025 de68.1 LIRPF (edad de entidad, fondos propios, participación familiar y excepciones, mantenimiento y certificado), base máxima estatal y exceso por38.2. No se sustituye por un booleano art68Cumple. La aritmética histórica existente no se declara errónea ni inexistente.",
+      "archivo": null,
+      "ramasPendientes": [],
+      "citas": [
+        "CA-aragon-206",
+        "CA-aragon-207",
+        "CA-aragon-208"
+      ],
+      "oraculo": "Inversión100000 que solo alcanza base estatal no genera exceso autonómico; exceso20000=>4000.",
+      "evidencia": "../correcciones/a/reglas-para-calculo.json",
+      "revisionConservada": "../revisiones/a-ampliado/decisiones.json"
+    },
+    {
+      "codigo": "aragon_vivienda_nucleos_rurales",
+      "estado": "parcial-nuevo",
+      "parametrosRevisados": "5%/7,5% diferenciada; base histórica9040",
+      "hechosDocumentados": "Menor36; primera vivienda; municipios<3000 o entidades diferenciadas; desde2012; BI minorada21000/35000; patrimonio2012.",
+      "alcance": "Evaluador aislado, individual ordinario2025, antes de cuota y sin certificar documentos.",
+      "archivo": "lib/dominio/irpf/deducciones/lote-a-ampliacion-2025/aragon.ts",
+      "ramasPendientes": [
+        "Construcción con prórrogas/pagos a promotor, ocupación futura, divorcio/hijos y cambios necesarios: modelar el supuesto histórico concreto; la rama ordinaria se calcula.",
+        "Una vivienda por solicitud/código; resolver inversiones simultáneas antes de consumir de nuevo el límite anual."
+      ],
+      "citas": [
+        "CA-aragon-224",
+        "CA-aragon-225",
+        "CA-aragon-227",
+        "CA-aragon-229",
+        "CA-aragon-230",
+        "CA-aragon-1372"
+      ],
+      "oraculo": "36 años excluye; general9040=>452; diferenciada=>678;3000 no es inferior3000.",
+      "evidencia": "../correcciones/a/reglas-para-calculo.json",
+      "revisionConservada": "../revisiones/a-ampliado/decisiones.json",
+      "fronterasPruebas": "tests/lote-a-ampliacion.fronteras.json",
+      "validacion": "196 pruebas focales correctas; tipos estrictos/Effect, Oxlint/antislop y ESLint focales correctos. Sigue cálculo parcial aislado, sin conexión de cuota anual."
+    },
+    {
+      "codigo": "aragon_libros_texto_material_escolar",
+      "estado": "parcial-nuevo",
+      "parametrosRevisados": "100%; tablas50/37,50/25 individual,100/50/37,50 conjunta; FN75/150; diferenciada+20%",
+      "hechosDocumentados": "Ayudas se restan tras tope por descendiente; BI12500/25000 o FN30000/40000; pago bancario DA2 y consorcio mitades.",
+      "alcance": "Evaluador aislado, individual ordinario2025, antes de cuota y sin certificar documentos.",
+      "archivo": "lib/dominio/irpf/deducciones/lote-a-ampliacion-2025/aragon.ts",
+      "ramasPendientes": [],
+      "citas": [
+        "CA-aragon-255",
+        "CA-aragon-259",
+        "CA-aragon-265",
+        "CA-aragon-1375"
+      ],
+      "oraculo": "Gasto200,tope50,ayuda20=>30;ayuda60=>0;BI6500 tope50 y6500,01 tope37,50 individual.",
+      "evidencia": "../correcciones/a/reglas-para-calculo.json",
+      "revisionConservada": "../revisiones/a-ampliado/decisiones.json",
+      "fronterasPruebas": "tests/lote-a-ampliacion.fronteras.json",
+      "validacion": "196 pruebas focales correctas; tipos estrictos/Effect, Oxlint/antislop y ESLint focales correctos. Sigue cálculo parcial aislado, sin conexión de cuota anual."
+    },
+    {
+      "codigo": "aragon_arrendamiento_dacion_pago",
+      "estado": "parcial-nuevo",
+      "parametrosRevisados": "10%; base4800=>480; BI15000/25000",
+      "hechosDocumentados": "Operación121-10, dación totalidad deuda y alquiler opción compra; depósito fianza en plazo; vivienda2012.",
+      "alcance": "Evaluador aislado, individual ordinario2025, antes de cuota y sin certificar documentos.",
+      "archivo": "lib/dominio/irpf/deducciones/lote-a-ampliacion-2025/aragon.ts",
+      "ramasPendientes": [
+        "El plazo legal de depósito se recibe individualizado con referencia al expediente y Ley10/1992; no se autentica ni se recalcula un calendario administrativo general.",
+        "Construcción con prórrogas/pagos a promotor, ocupación futura, divorcio/hijos y cambios necesarios: modelar el supuesto histórico concreto; la rama ordinaria se calcula.",
+        "Una vivienda por solicitud/código; resolver inversiones simultáneas antes de consumir de nuevo el límite anual."
+      ],
+      "citas": [
+        "CA-aragon-273",
+        "CA-aragon-274",
+        "CA-aragon-275",
+        "CA-aragon-276"
+      ],
+      "oraculo": "Alquiler6000=>480; fianza fuera plazo no cumple aunque importe coincida.",
+      "evidencia": "../correcciones/a/reglas-para-calculo.json",
+      "revisionConservada": "../revisiones/a-ampliado/decisiones.json",
+      "fronterasPruebas": "tests/lote-a-ampliacion.fronteras.json",
+      "validacion": "196 pruebas focales correctas; tipos estrictos/Effect, Oxlint/antislop y ESLint focales correctos. Sigue cálculo parcial aislado, sin conexión de cuota anual."
+    },
+    {
+      "codigo": "aragon_arrendamiento_vivienda_social_arrendador",
+      "estado": "pendiente",
+      "parametrosRevisados": "30% de cuota autonómica imputable",
+      "hechosDocumentados": "Plan vivienda social; base liquidable derivada de rendimiento neto reducido art23.2/3 LIRPF; no30% del alquiler bruto.",
+      "alcance": "Falta contrato de atribución de cuota autonómica desde la base liquidable derivada del rendimiento neto reducido23.2/3 de cada vivienda del Plan. No aplicar30% al alquiler bruto ni duplicar escalas/liquidación; el productor anual debe aportar esa atribución con su procedencia.",
+      "archivo": null,
+      "ramasPendientes": [],
+      "citas": [
+        "CA-aragon-286",
+        "CA-aragon-287",
+        "CA-aragon-291"
+      ],
+      "oraculo": "Cuota atribuible1000=>300; renta bruta1000 no es esa cuota; pendiente método atribución exacto.",
+      "evidencia": "../correcciones/a/reglas-para-calculo.json",
+      "revisionConservada": "../revisiones/a-ampliado/decisiones.json"
+    },
+    {
+      "codigo": "aragon_primer_segundo_hijo_poblaciones_menos_10000",
+      "estado": "parcial-nuevo",
+      "parametrosRevisados": "100/150;200/300 si BI23000/35000",
+      "hechosDocumentados": "Residencia contribuyente año del nacimiento y anterior, no solo población del municipio; convivencia reparto; incompatibilidad110-3.",
+      "alcance": "Evaluador aislado, individual ordinario2025, antes de cuota y sin certificar documentos.",
+      "archivo": "lib/dominio/irpf/deducciones/lote-a-ampliacion-2025/aragon.ts",
+      "ramasPendientes": [],
+      "citas": [
+        "CA-aragon-314",
+        "CA-aragon-315",
+        "CA-aragon-318",
+        "CA-aragon-319"
+      ],
+      "oraculo": "Traslado a municipio pequeño solo2025 no satisface residencia2024; exactamente10000 no es inferior.",
+      "evidencia": "../correcciones/a/reglas-para-calculo.json",
+      "revisionConservada": "../revisiones/a-ampliado/decisiones.json",
+      "fronterasPruebas": "tests/lote-a-ampliacion.fronteras.json",
+      "validacion": "196 pruebas focales correctas; tipos estrictos/Effect, Oxlint/antislop y ESLint focales correctos. Sigue cálculo parcial aislado, sin conexión de cuota anual."
+    },
+    {
+      "codigo": "aragon_inversion_economia_social",
+      "estado": "parcial-nuevo",
+      "parametrosRevisados": "20%;4000 individual/conjunta",
+      "hechosDocumentados": "Ley5/2011; familiar<=40%; domicilio/empleado jornada completa cinco años; aportación cinco años; escritura; regularización; incompatibilidades.",
+      "alcance": "Evaluador aislado, individual ordinario2025, antes de cuota y sin certificar documentos.",
+      "archivo": "lib/dominio/irpf/deducciones/lote-a-ampliacion-2025/aragon.ts",
+      "ramasPendientes": [],
+      "citas": [
+        "CA-aragon-347",
+        "CA-aragon-349",
+        "CA-aragon-351",
+        "CA-aragon-353",
+        "CA-aragon-354",
+        "CA-aragon-356"
+      ],
+      "oraculo": "Inversión25000=>4000; dos contribuyentes conjunta siguen límite4000; salida año4 requiere analizar regularización.",
+      "evidencia": "../correcciones/a/reglas-para-calculo.json",
+      "revisionConservada": "../revisiones/a-ampliado/decisiones.json",
+      "fronterasPruebas": "tests/lote-a-ampliacion.fronteras.json",
+      "validacion": "196 pruebas focales correctas; tipos estrictos/Effect, Oxlint/antislop y ESLint focales correctos. Sigue cálculo parcial aislado, sin conexión de cuota anual."
+    },
+    {
+      "codigo": "aragon_clases_apoyo_refuerzo",
+      "estado": "parcial-nuevo",
+      "parametrosRevisados": "25%; topes100/80/50 individual,200/100/80 conjunta; FN300",
+      "hechosDocumentados": "Ayudas después tope; materias/centros/particular IAE; mínimo; pago bancario y consorcio; art64.2 Ley17/2023.",
+      "alcance": "Evaluador aislado, individual ordinario2025, antes de cuota y sin certificar documentos.",
+      "archivo": "lib/dominio/irpf/deducciones/lote-a-ampliacion-2025/aragon.ts",
+      "ramasPendientes": [],
+      "citas": [
+        "CA-aragon-378",
+        "CA-aragon-381",
+        "CA-aragon-384"
+      ],
+      "oraculo": "800,tope100,ayuda20=>80; ayuda120=>0; BI6500=>100 y6500,01=>80 antes ayudas.",
+      "evidencia": "../correcciones/a/reglas-para-calculo.json",
+      "revisionConservada": "../revisiones/a-ampliado/decisiones.json",
+      "fronterasPruebas": "tests/lote-a-ampliacion.fronteras.json",
+      "validacion": "196 pruebas focales correctas; tipos estrictos/Effect, Oxlint/antislop y ESLint focales correctos. Sigue cálculo parcial aislado, sin conexión de cuota anual."
+    },
+    {
+      "codigo": "aragon_formacion_autonomia_menores_discapacidad",
+      "estado": "parcial-nuevo",
+      "parametrosRevisados": "25%; mismos tramos apoyo; FN300",
+      "hechosDocumentados": "Menor18,discapacidad>=65 y mínimo; ayudas después tope; consorcio, justificante,pago bancario; art64.12 Ley17/2023.",
+      "alcance": "Evaluador aislado, individual ordinario2025, antes de cuota y sin certificar documentos.",
+      "archivo": "lib/dominio/irpf/deducciones/lote-a-ampliacion-2025/aragon.ts",
+      "ramasPendientes": [],
+      "citas": [
+        "CA-aragon-401",
+        "CA-aragon-404",
+        "CA-aragon-407"
+      ],
+      "oraculo": "800,tope100,ayuda20=>80;18 años excluye;64% excluye; no aplicar incremento rural inexistente.",
+      "evidencia": "../correcciones/a/reglas-para-calculo.json",
+      "revisionConservada": "../revisiones/a-ampliado/decisiones.json",
+      "fronterasPruebas": "tests/lote-a-ampliacion.fronteras.json",
+      "validacion": "196 pruebas focales correctas; tipos estrictos/Effect, Oxlint/antislop y ESLint focales correctos. Sigue cálculo parcial aislado, sin conexión de cuota anual."
+    },
+    {
+      "codigo": "aragon_residencia_determinados_municipios",
+      "estado": "parcial-nuevo",
+      "parametrosRevisados": "600 por titular; BL<35000/50000; BI ahorro<=4000",
+      "hechosDocumentados": "Norma cuantía160-2.8, no solo160-1; RangoX y valorISDT<100; año devengo y cuatro siguientes.",
+      "alcance": "Evaluador aislado, individual ordinario2025, antes de cuota y sin certificar documentos.",
+      "archivo": "lib/dominio/irpf/deducciones/lote-a-ampliacion-2025/aragon.ts",
+      "ramasPendientes": [],
+      "citas": [
+        "CA-aragon-1378",
+        "CA-aragon-1379",
+        "CA-RA-BOA-L13-2023-preciso-160-1-2",
+        "CA-RA-BOA-L13-2023-preciso-160-1-3"
+      ],
+      "oraculo": "BL35000 individual excluye,34999,99 admite;BIahorro4000 admite; dos titulares conjunta1200.",
+      "evidencia": "../correcciones/a/reglas-para-calculo.json",
+      "revisionConservada": "../revisiones/a-ampliado/decisiones.json",
+      "fronterasPruebas": "tests/lote-a-ampliacion.fronteras.json",
+      "validacion": "196 pruebas focales correctas; tipos estrictos/Effect, Oxlint/antislop y ESLint focales correctos. Sigue cálculo parcial aislado, sin conexión de cuota anual."
+    },
+    {
+      "codigo": "aragon_nacimiento_adopcion_tercer_hijo_sucesivos",
+      "estado": "parcial-nuevo",
+      "parametrosRevisados": "500/600; diferenciada600/720; BI minorada21000/35000",
+      "hechosDocumentados": "Solo año evento; tercero o sucesivo; convivencia reparto; 160-1 y160-2.1.",
+      "alcance": "Evaluador aislado, individual ordinario2025, antes de cuota y sin certificar documentos.",
+      "archivo": "lib/dominio/irpf/deducciones/lote-a-ampliacion-2025/aragon.ts",
+      "ramasPendientes": [],
+      "citas": [
+        "CA-aragon-106",
+        "CA-aragon-107",
+        "CA-aragon-109",
+        "CA-aragon-1364"
+      ],
+      "oraculo": "Dos titulares general base reducida300 cada uno; no acumular500+600;21000 exacto admite incremento.",
+      "evidencia": "../correcciones/a/reglas-para-calculo.json",
+      "revisionConservada": "../revisiones/a-ampliado/decisiones.json",
+      "fronterasPruebas": "tests/lote-a-ampliacion.fronteras.json",
+      "validacion": "196 pruebas focales correctas; tipos estrictos/Effect, Oxlint/antislop y ESLint focales correctos. Sigue cálculo parcial aislado, sin conexión de cuota anual."
+    },
+    {
+      "codigo": "aragon_cuidado_personas_dependientes",
+      "estado": "parcial-nuevo",
+      "parametrosRevisados": "150/300 diferenciada; BI minorada21000/35000",
+      "hechosDocumentados": "Mitad período convivencia; ascendiente>75 o ascendiente/descendiente>=65%; rentas dependiente<=8000; regla grado cercano con renta<=8000 cede al siguiente.",
+      "alcance": "Evaluador aislado, individual ordinario2025, antes de cuota y sin certificar documentos.",
+      "archivo": "lib/dominio/irpf/deducciones/lote-a-ampliacion-2025/aragon.ts",
+      "ramasPendientes": [
+        "Varios dependientes con distintos censos: resolver cuantía única por declarante sin multiplicar150.",
+        "Censo del grado más próximo con rentas mixtas: concretar cesión al grado siguiente."
+      ],
+      "citas": [
+        "CA-aragon-152",
+        "CA-aragon-153",
+        "CA-aragon-154",
+        "CA-aragon-156",
+        "CA-aragon-1370"
+      ],
+      "oraculo": "Renta dependiente8000 sí,8000,01 no; revisar inversión del sentido del requisito en ficha de parentesco.",
+      "evidencia": "../correcciones/a/reglas-para-calculo.json",
+      "revisionConservada": "../revisiones/a-ampliado/decisiones.json",
+      "fronterasPruebas": "tests/lote-a-ampliacion.fronteras.json",
+      "validacion": "196 pruebas focales correctas; tipos estrictos/Effect, Oxlint/antislop y ESLint focales correctos. Sigue cálculo parcial aislado, sin conexión de cuota anual."
+    },
+    {
+      "codigo": "aragon_mayores_70",
+      "estado": "parcial-nuevo",
+      "parametrosRevisados": "75; BI23000/35000",
+      "hechosDocumentados": ">=70; rendimientos en base general no exclusivamente capital; no convertir sin prueba en condición exclusivamente trabajo/actividad.",
+      "alcance": "Evaluador aislado, individual ordinario2025, antes de cuota y sin certificar documentos.",
+      "archivo": "lib/dominio/irpf/deducciones/lote-a-ampliacion-2025/aragon.ts",
+      "ramasPendientes": [],
+      "citas": [
+        "CA-aragon-297",
+        "CA-aragon-298",
+        "CA-aragon-299",
+        "CA-AEAT-79-1"
+      ],
+      "oraculo": "69 no,70 sí; BI23000,01 individual no; imputación renta junto capital exige interpretación manual específica.",
+      "evidencia": "../correcciones/a/reglas-para-calculo.json",
+      "revisionConservada": "../revisiones/a-ampliado/decisiones.json",
+      "fronterasPruebas": "tests/lote-a-ampliacion.fronteras.json",
+      "validacion": "196 pruebas focales correctas; tipos estrictos/Effect, Oxlint/antislop y ESLint focales correctos. Sigue cálculo parcial aislado, sin conexión de cuota anual."
+    },
+    {
+      "codigo": "aragon_guarderia_menores_3",
+      "estado": "parcial-nuevo",
+      "parametrosRevisados": "15%;250/125; diferenciada300/150; BL<35000/50000; ahorro<=4000",
+      "hechosDocumentados": "Mínimo descendientes; centro autorizado Educación; reparto convivientes;125 año cumple3;160-1/2.",
+      "alcance": "Evaluador aislado, individual ordinario2025, antes de cuota y sin certificar documentos.",
+      "archivo": "lib/dominio/irpf/deducciones/lote-a-ampliacion-2025/aragon.ts",
+      "ramasPendientes": [
+        "Facturas de servicio que atraviesan el tercer cumpleaños: aportar desglose del servicio anterior; no se usa fecha de pago como sustituto del servicio."
+      ],
+      "citas": [
+        "CA-aragon-327",
+        "CA-aragon-329",
+        "CA-aragon-330",
+        "CA-aragon-331",
+        "CA-aragon-332",
+        "CA-aragon-1377"
+      ],
+      "oraculo": "Dos titulares hijo menor3,gasto2000=>125 cada uno general; BL35000 individual excluye.",
+      "evidencia": "../correcciones/a/reglas-para-calculo.json",
+      "revisionConservada": "../revisiones/a-ampliado/decisiones.json",
+      "fronterasPruebas": "tests/lote-a-ampliacion.fronteras.json",
+      "validacion": "196 pruebas focales correctas; tipos estrictos/Effect, Oxlint/antislop y ESLint focales correctos. Sigue cálculo parcial aislado, sin conexión de cuota anual."
+    },
+    {
+      "codigo": "cataluna_donativos_lengua_catalana_occitana",
+      "estado": "reutilizado-sin-cambios",
+      "parametrosRevisados": "15%;10% cuota íntegra autonómica",
+      "hechosDocumentados": "Destinatarios612-6/censo; comunicación ATC primeros20 días y modelo orden; sin renta especial ni prorrateo específico.",
+      "alcance": "Se conserva implementación y revisión existente, incluidas sus reservas.",
+      "archivo": "lib/dominio/irpf/deducciones/catalunya-hechos-2025/index.ts#evaluarCatalunyaHechos2025",
+      "ramasPendientes": [],
+      "citas": [
+        "CA-catalunya-2025-167",
+        "CA-catalunya-2025-168",
+        "CA-catalunya-2025-169"
+      ],
+      "oraculo": "Donativo1000,cuota1000=>100; entidad no censada cuando exigible excluye; comunicación día20/21 exige precisar plazo.",
+      "evidencia": "../correcciones/a/reglas-para-calculo.json",
+      "revisionConservada": "../revisiones/a-ampliado/decisiones.json"
+    },
+    {
+      "codigo": "cataluna_donativos_idi",
+      "estado": "reutilizado-sin-cambios",
+      "parametrosRevisados": "30%;10% cuota autonómica; combinado estatal<=100% donativo",
+      "hechosDocumentados": "Destinatarios612-7; justificante y ATC primeros20 días; sin renta especial.",
+      "alcance": "Se conserva implementación y revisión existente, incluidas sus reservas.",
+      "archivo": "lib/dominio/irpf/deducciones/catalunya-hechos-2025/index.ts#evaluarCatalunyaHechos2025",
+      "ramasPendientes": [],
+      "citas": [
+        "CA-catalunya-2025-172",
+        "CA-catalunya-2025-173",
+        "CA-catalunya-2025-174"
+      ],
+      "oraculo": "Donativo100,estatal80,cuota1000=>autonómica20, no30; cuota100=>máximo10.",
+      "evidencia": "../correcciones/a/reglas-para-calculo.json",
+      "revisionConservada": "../revisiones/a-ampliado/decisiones.json"
+    },
+    {
+      "codigo": "cataluna_donaciones_medio_ambiente_patrimonio_natural",
+      "estado": "reutilizado-sin-cambios",
+      "parametrosRevisados": "15%;5% cuota autonómica",
+      "hechosDocumentados": "Fundación/asociación censo ambiental; comunicación ATC primeros20 días y modelo; sin renta especial.",
+      "alcance": "Se conserva implementación y revisión existente, incluidas sus reservas.",
+      "archivo": "lib/dominio/irpf/deducciones/catalunya-hechos-2025/index.ts#evaluarCatalunyaHechos2025",
+      "ramasPendientes": [],
+      "citas": [
+        "CA-catalunya-2025-177",
+        "CA-catalunya-2025-178",
+        "CA-catalunya-2025-179"
+      ],
+      "oraculo": "Donativo1000,cuota1000=>50; entidad ambiental sin censo no habilita por mera finalidad.",
+      "evidencia": "../correcciones/a/reglas-para-calculo.json",
+      "revisionConservada": "../revisiones/a-ampliado/decisiones.json"
+    },
+    {
+      "codigo": "cataluna_angel_inversor",
+      "estado": "parcial-nuevo",
+      "parametrosRevisados": "40%/12000;50%/12000 universidad; conjunta límite por contribuyente",
+      "hechosDocumentados": "Participación familiar35%; tres años participación,domicilio,actividad y empleo; facturación<=1M no solo ampliaciones; sin dirección/empleo; escritura.",
+      "alcance": "Evaluador aislado, individual ordinario2025, antes de cuota y sin certificar documentos.",
+      "archivo": "lib/dominio/irpf/deducciones/lote-a-ampliacion-2025/catalunya.ts",
+      "ramasPendientes": [],
+      "citas": [
+        "CA-catalunya-2025-182",
+        "CA-catalunya-2025-184",
+        "CA-catalunya-2025-190",
+        "CA-catalunya-2025-191",
+        "CA-catalunya-2025-195",
+        "CA-catalunya-2025-197"
+      ],
+      "oraculo": "Inversión40000=>12000 general;35% exacto sí,35,01% no; constitución facturación1.000.001 también excluye.",
+      "evidencia": "../correcciones/a/reglas-para-calculo.json",
+      "revisionConservada": "../revisiones/a-ampliado/decisiones.json",
+      "fronterasPruebas": "tests/lote-a-ampliacion.fronteras.json",
+      "validacion": "196 pruebas focales correctas; tipos estrictos/Effect, Oxlint/antislop y ESLint focales correctos. Sigue cálculo parcial aislado, sin conexión de cuota anual."
+    },
+    {
+      "codigo": "cataluna_tramo_autonomico_inversion_vivienda_habitual",
+      "estado": "parcial-nuevo",
+      "parametrosRevisados": "7,5%;15% adecuación;9% especial",
+      "hechosDocumentados": "DT18 estatal y redacción2012; adquisición/construcción antes30/7/2011;<=32,paro183,>=65% o hijo;BI menos mínimo<=30000 individual también conjunta.",
+      "alcance": "Evaluador aislado, individual ordinario2025, antes de cuota y sin certificar documentos.",
+      "archivo": "lib/dominio/irpf/deducciones/lote-a-ampliacion-2025/catalunya.ts",
+      "ramasPendientes": [
+        "Construcción con prórrogas/pagos a promotor, ocupación futura, divorcio/hijos y cambios necesarios: modelar el supuesto histórico concreto; la rama ordinaria se calcula.",
+        "Una vivienda por solicitud/código; resolver inversiones simultáneas antes de consumir de nuevo el límite anual."
+      ],
+      "citas": [
+        "CA-catalunya-2025-228",
+        "CA-catalunya-2025-229",
+        "CA-catalunya-2025-230",
+        "CA-catalunya-2025-231",
+        "CA-catalunya-2025-236"
+      ],
+      "oraculo": "Adquirida30/7/2011 no entra9%;29/7 sí si demás; base9040=>678 general/813,60 especial; adecuación base12080 histórica.",
+      "evidencia": "../correcciones/a/reglas-para-calculo.json",
+      "revisionConservada": "../revisiones/a-ampliado/decisiones.json",
+      "fronterasPruebas": "tests/lote-a-ampliacion.fronteras.json",
+      "validacion": "196 pruebas focales correctas; tipos estrictos/Effect, Oxlint/antislop y ESLint focales correctos. Sigue cálculo parcial aislado, sin conexión de cuota anual."
+    },
+    {
+      "codigo": "cataluna_nacimiento_adopcion_acogimiento",
+      "estado": "reutilizado-sin-cambios",
+      "parametrosRevisados": "150 individual;300 conjunta/monoparental",
+      "hechosDocumentados": "Acogimiento Ley14/2010; no acumular adopción y acogimiento; efectos1/1/2025 art3.2DL5.",
+      "alcance": "Se conserva implementación y revisión existente, incluidas sus reservas.",
+      "archivo": "lib/dominio/irpf/deducciones/catalunya-hechos-2025/index.ts#evaluarCatalunyaHechos2025",
+      "ramasPendientes": [],
+      "citas": [
+        "CA-catalunya-2025-122",
+        "CA-catalunya-2025-123",
+        "CA-catalunya-2025-124"
+      ],
+      "oraculo": "Adopción más acogimiento mismo supuesto no autoriza600; familia monoparental300 incluso individual.",
+      "evidencia": "../correcciones/a/reglas-para-calculo.json",
+      "revisionConservada": "../revisiones/a-ampliado/decisiones.json"
+    },
+    {
+      "codigo": "cataluna_alquiler_vivienda_habitual",
+      "estado": "parcial-nuevo",
+      "parametrosRevisados": "10%;500/1000; BI menos mínimo30000/45000",
+      "hechosDocumentados": "Edad<=35,paro183,discapacidad65 o viudo>=65; FN/monoparental vía propia; vivienda máximo1000 y división declarantes; NIF; Ley8/2025DF3.",
+      "alcance": "Evaluador aislado, individual ordinario2025, antes de cuota y sin certificar documentos.",
+      "archivo": "lib/dominio/irpf/deducciones/lote-a-ampliacion-2025/catalunya.ts",
+      "ramasPendientes": [],
+      "citas": [
+        "CA-catalunya-2025-137",
+        "CA-catalunya-2025-139",
+        "CA-catalunya-2025-144",
+        "CA-catalunya-2025-147",
+        "CA-catalunya-2025-149"
+      ],
+      "oraculo": "Edad36 sin otra condición excluye;35 sí; dos titulares gasto total12000=>500 cada uno; BI30000,01 individual excluye.",
+      "evidencia": "../correcciones/a/reglas-para-calculo.json",
+      "revisionConservada": "../revisiones/a-ampliado/decisiones.json",
+      "fronterasPruebas": "tests/lote-a-ampliacion.fronteras.json",
+      "validacion": "196 pruebas focales correctas; tipos estrictos/Effect, Oxlint/antislop y ESLint focales correctos. Sigue cálculo parcial aislado, sin conexión de cuota anual."
+    },
+    {
+      "codigo": "cataluna_obligacion_declarar_mas_de_un_pagador",
+      "estado": "parcial-nuevo",
+      "parametrosRevisados": "max(cuota autonómica-estatal,0)",
+      "hechosDocumentados": "Obligación causada por varios pagadores art96; excluye incluso quien pueda acogerse art89.A RIRPF.",
+      "alcance": "Evaluador aislado, individual ordinario2025, antes de cuota y sin certificar documentos.",
+      "archivo": "lib/dominio/irpf/deducciones/lote-a-ampliacion-2025/catalunya.ts",
+      "ramasPendientes": [
+        "Prestaciones pasivas: trasladar condiciones específicas de89.A para decidir si puede acogerse, aunque no optó.",
+        "Otras rentas/RETA/otras causas de obligación: resolver causalidad exclusiva de pluralidad en96."
+      ],
+      "citas": [
+        "CA-catalunya-2025-200",
+        "CA-catalunya-2025-201",
+        "CA-AEAT-325-4",
+        "CA-AEAT-325-5",
+        "CA-AEAT-325-6",
+        "CA-AEAT-325-8"
+      ],
+      "oraculo": "Cuotas1000/900=>100 solo si habilita; pensionista elegible89.A excluido aunque no optara.",
+      "evidencia": "../correcciones/a/reglas-para-calculo.json",
+      "revisionConservada": "../revisiones/a-ampliado/decisiones.json",
+      "fronterasPruebas": "tests/lote-a-ampliacion.fronteras.json",
+      "validacion": "196 pruebas focales correctas; tipos estrictos/Effect, Oxlint/antislop y ESLint focales correctos. Sigue cálculo parcial aislado, sin conexión de cuota anual."
+    },
+    {
+      "codigo": "cataluna_viudedad_2023_2024_2025",
+      "estado": "reutilizado-sin-cambios",
+      "parametrosRevisados": "150/300; año viudedad y dos siguientes",
+      "hechosDocumentados": "Mantener mínimos descendientes para300; no multiplicar300 por número hijos;sin renta especial.",
+      "alcance": "Se conserva implementación y revisión existente, incluidas sus reservas.",
+      "archivo": "lib/dominio/irpf/deducciones/catalunya-hechos-2025/index.ts#evaluarCatalunyaHechos2025",
+      "ramasPendientes": [],
+      "citas": [
+        "CA-catalunya-2025-133",
+        "CA-catalunya-2025-134",
+        "CA-catalunya-original-612-2-7-0"
+      ],
+      "oraculo": "Viudedad2022 excluye2025;2023 sí; dos descendientes=>300,no600.",
+      "evidencia": "../correcciones/a/reglas-para-calculo.json",
+      "revisionConservada": "../revisiones/a-ampliado/decisiones.json"
+    },
+    {
+      "codigo": "cataluna_rehabilitacion_vivienda_habitual",
+      "estado": "parcial-nuevo",
+      "parametrosRevisados": "1,5%;base9040=>135,60",
+      "hechosDocumentados": "Habitual y rehabilitación remisión estatal histórica; compatible tramo transitorio cuando proceda;sin renta especial.",
+      "alcance": "Evaluador aislado, individual ordinario2025, antes de cuota y sin certificar documentos.",
+      "archivo": "lib/dominio/irpf/deducciones/lote-a-ampliacion-2025/catalunya.ts",
+      "ramasPendientes": [
+        "Construcción con prórrogas/pagos a promotor, ocupación futura, divorcio/hijos y cambios necesarios: modelar el supuesto histórico concreto; la rama ordinaria se calcula.",
+        "Una vivienda por solicitud/código; resolver inversiones simultáneas antes de consumir de nuevo el límite anual."
+      ],
+      "citas": [
+        "CA-catalunya-2025-159",
+        "CA-catalunya-2025-160"
+      ],
+      "oraculo": "Gasto10000=>135,60; reforma cosmética no basta; concepto depende redacción2012 y plazo ocupación.",
+      "evidencia": "../correcciones/a/reglas-para-calculo.json",
+      "revisionConservada": "../revisiones/a-ampliado/decisiones.json",
+      "fronterasPruebas": "tests/lote-a-ampliacion.fronteras.json",
+      "validacion": "196 pruebas focales correctas; tipos estrictos/Effect, Oxlint/antislop y ESLint focales correctos. Sigue cálculo parcial aislado, sin conexión de cuota anual."
+    },
+    {
+      "codigo": "cataluna_intereses_prestamos_master_doctorado",
+      "estado": "reutilizado-sin-cambios",
+      "parametrosRevisados": "100% intereses sin tope propio",
+      "hechosDocumentados": "Préstamo AGAUR para máster/doctorado; pagado ejercicio; justificación suficiente612-5.2;sin renta/modalidad diferencial.",
+      "alcance": "Se conserva implementación y revisión existente, incluidas sus reservas.",
+      "archivo": "lib/dominio/irpf/deducciones/catalunya-hechos-2025/index.ts#evaluarCatalunyaHechos2025",
+      "ramasPendientes": [],
+      "citas": [
+        "CA-catalunya-2025-163",
+        "CA-catalunya-2025-164",
+        "CA-catalunya-original-612-5-8-0"
+      ],
+      "oraculo": "Interés100=>100;principal1000 no deducible; préstamo banco sin canalAGAUR no habilita.",
+      "evidencia": "../correcciones/a/reglas-para-calculo.json",
+      "revisionConservada": "../revisiones/a-ampliado/decisiones.json"
+    },
+    {
+      "codigo": "cataluna_alquiler_victimas_violencia_machista",
+      "estado": "parcial-nuevo",
+      "parametrosRevisados": "20%/1000;25%/1200;BI menos mínimo<=30000",
+      "hechosDocumentados": "Tres ejercicios consecutivos; prueba Ley5/2008; incremento65% o hijo menor; art612-11 no contiene límite por vivienda del612-3.",
+      "alcance": "Evaluador aislado, individual ordinario2025, antes de cuota y sin certificar documentos.",
+      "archivo": "lib/dominio/irpf/deducciones/lote-a-ampliacion-2025/catalunya.ts",
+      "ramasPendientes": [],
+      "citas": [
+        "CA-catalunya-2025-204",
+        "CA-catalunya-2025-205",
+        "CA-catalunya-2025-206",
+        "CA-catalunya-2025-207"
+      ],
+      "oraculo": "Dos víctimas no relacionadas y contratos elegibles en una vivienda: no importar automáticamente límite común1000; pago6000=>1000/1200.",
+      "evidencia": "../correcciones/a/reglas-para-calculo.json",
+      "revisionConservada": "../revisiones/a-ampliado/decisiones.json",
+      "fronterasPruebas": "tests/lote-a-ampliacion.fronteras.json",
+      "validacion": "196 pruebas focales correctas; tipos estrictos/Effect, Oxlint/antislop y ESLint focales correctos. Sigue cálculo parcial aislado, sin conexión de cuota anual."
+    },
+    {
+      "codigo": "cataluna_inversion_cooperativas_agrarias_vivienda",
+      "estado": "parcial-nuevo",
+      "parametrosRevisados": "20%;3000; arrastre insuficiencia sin plazo fijado aquí",
+      "hechosDocumentados": "Voto<=25%; no socio temporal; registro y certificado; no vivienda turística; cinco años incluidas condiciones; excepciones reinversión/transmisión.",
+      "alcance": "Evaluador aislado, individual ordinario2025, antes de cuota y sin certificar documentos.",
+      "archivo": "lib/dominio/irpf/deducciones/lote-a-ampliacion-2025/catalunya.ts",
+      "ramasPendientes": [
+        "Reinversión parcial: se requiere concretar excepción; se admite reinversión completa y transmisión estatutaria.",
+        "Seguimiento cinco años; arrastre por cuota insuficiente corresponde a composición, sin inventar caducidad."
+      ],
+      "citas": [
+        "CA-catalunya-2025-212",
+        "CA-catalunya-2025-215",
+        "CA-catalunya-2025-216",
+        "CA-catalunya-2025-219",
+        "CA-catalunya-2025-221"
+      ],
+      "oraculo": "Aportación20000=>3000;voto25% sí,25,01% no; reinversión válida no debe regularizar automáticamente.",
+      "evidencia": "../correcciones/a/reglas-para-calculo.json",
+      "revisionConservada": "../revisiones/a-ampliado/decisiones.json",
+      "fronterasPruebas": "tests/lote-a-ampliacion.fronteras.json",
+      "validacion": "196 pruebas focales correctas; tipos estrictos/Effect, Oxlint/antislop y ESLint focales correctos. Sigue cálculo parcial aislado, sin conexión de cuota anual."
+    }
+  ],
+  "revisionIntegracion": {
+    "hallazgos": [
+      "AAR-01",
+      "AAR-02",
+      "AAR-03",
+      "AAR-04"
+    ],
+    "correccion": "Preparada y validada por integrador; P1 AAR-01 pendiente de contraste acotado",
+    "tests": 232,
+    "tipos": "conforme",
+    "oxlint": "conforme",
+    "eslint": "conforme",
+    "sinCambiosExpectativasAutor": true
+  }
+}
