@@ -1,3 +1,4 @@
+import type { SolicitudDeduccionesTerritoriales2025 } from "./deducciones/anual-territorial"
 import type { SolicitudDeduccionesValencianasAnual2025 } from "./deducciones/valenciana-2025/anual"
 import type { AnioFiscal } from "../normativa/anio-fiscal"
 import type { DerechosMinimosAnuales } from "./minimos/derechos-contrato"
@@ -103,6 +104,9 @@ export interface DeduccionAutonomicaCatalogadaAplicada {
 }
 
 export interface CasoFiscalAnual {
+  readonly deduccionesTerritoriales2025?:
+    | SolicitudDeduccionesTerritoriales2025
+    | undefined
   /** Hechos completos de reparto; obligatorios cuando existen familiares. */
   readonly derechosMinimos?: DerechosMinimosAnuales | undefined
   readonly contribuyenteId?: string | undefined

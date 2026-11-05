@@ -5,6 +5,7 @@ import {
   base,
   diasPosibles,
   dinero,
+  magnitudAnual,
   documento,
   edad,
   entero,
@@ -497,7 +498,7 @@ export function evaluarHechosB2025(m: MarcoB, h: HechosB): ResultadoB {
         )
       }
       case "cantabria_gastos_enfermedad": {
-        const b = dinero(h.baseLiquidableMenosMinimo)
+        const b = magnitudAnual(h.baseLiquidableMenosMinimo)
         if (b.gte(m.modalidad === "individual" ? "22946" : "31485"))
           return rechazo(
             "excluida",
@@ -563,7 +564,7 @@ export function evaluarHechosB2025(m: MarcoB, h: HechosB): ResultadoB {
       }
       case "cantabria_familias_monoparentales": {
         if (
-          dinero(h.baseLiquidableMenosMinimo).gte("31485") ||
+          magnitudAnual(h.baseLiquidableMenosMinimo).gte("31485") ||
           h.estadoCivil === "otro"
         )
           return rechazo(

@@ -28,15 +28,6 @@ function opcion(v: string, opciones: string): string {
   if (!opciones.split(" ").includes(s)) return fallo("Rama desconocida: " + s)
   return s
 }
-function decimal(v: string, firmado = false): Decimal {
-  if (!/^-?(0|[1-9]\d{0,13})(\.\d{1,8})?$/.test(v))
-    return fallo(
-      "Magnitud decimal: cadena finita, hasta 14 enteros y 8 decimales"
-    )
-  const d = new D(v)
-  if (!firmado && d.isNegative()) return fallo("Magnitud negativa")
-  return d
-}
 function entero(v: number, max: number): number {
   if (!Number.isInteger(v) || v < 0 || v > max)
     return fallo("Entero fuera de rango")
@@ -76,9 +67,9 @@ function contexto(v: Schema.Json): Contexto {
     ids.length !== 1
   )
     fallo("Individual con varios declarantes")
-  decimal(c.baseGeneral, true)
-  decimal(c.baseAhorro, true)
-  decimal(c.minimoPersonalFamiliar)
+  magnitudAnual(c.baseGeneral, true)
+  magnitudAnual(c.baseAhorro, true)
+  magnitudAnual(c.minimoPersonalFamiliar)
   return c
 }
 function renta(
@@ -87,9 +78,9 @@ function renta(
   conjunta: number,
   minimo = false
 ): boolean {
-  return decimal(c.baseGeneral, true)
-    .plus(decimal(c.baseAhorro, true))
-    .minus(minimo ? decimal(c.minimoPersonalFamiliar) : 0)
+  return magnitudAnual(c.baseGeneral, true)
+    .plus(magnitudAnual(c.baseAhorro, true))
+    .minus(minimo ? magnitudAnual(c.minimoPersonalFamiliar) : 0)
     .lte(c.modalidad === "individual" ? individual : conjunta)
 }
 function proporcion(c: Contexto, titulares: readonly string[]): Decimal {
@@ -296,20 +287,20 @@ function decodificar<A>(esquema: Schema.Codec<A>, datos: Schema.Json): A {
   return resultado.success
 }
 
-const Discapacidad = Schema.Struct({
+export const Discapacidad = Schema.Struct({
   persona: Schema.String,
   nacimiento: Schema.String,
   grado: Schema.Number,
   elecciones: Schema.Array(Schema.String),
 })
-const Mayor = Schema.Struct({
+export const Mayor = Schema.Struct({
   persona: Schema.String,
   nacimiento: Schema.String,
   grado: Schema.Number,
   diasCentro: Schema.Number,
   diasConvalecenciaSescam: Schema.Number,
 })
-const Nacimientos = Schema.Struct({
+export const Nacimientos = Schema.Struct({
   exhaustividad: Schema.String,
   eventos: Schema.Array(
     Schema.Struct({
@@ -321,7 +312,7 @@ const Nacimientos = Schema.Struct({
     })
   ),
 })
-const Cuidado = Schema.Struct({
+export const Cuidado = Schema.Struct({
   exhaustividad: Schema.String,
   ascendientes: Schema.Array(
     Schema.Struct({
@@ -334,3 +325,11 @@ const Cuidado = Schema.Struct({
     })
   ),
 })
+
+function magnitudAnual(s: string, firmado = false): Decimal {
+  if (!/^-?(0|[1-9]\d{0,13})(\.\d{1,80})?$/.test(s))
+    fallo("Magnitud anual decimal inválida")
+  const d = new D(s)
+  if (!firmado && d.isNegative()) fallo("Magnitud anual negativa")
+  return d
+}

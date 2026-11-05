@@ -76,9 +76,9 @@ function contexto(v: Schema.Json): Contexto {
     ids.length !== 1
   )
     fallo("Individual con varios declarantes")
-  decimal(c.baseGeneral, true)
-  decimal(c.baseAhorro, true)
-  decimal(c.minimoPersonalFamiliar)
+  magnitudAnual(c.baseGeneral, true)
+  magnitudAnual(c.baseAhorro, true)
+  magnitudAnual(c.minimoPersonalFamiliar)
   return c
 }
 function renta(
@@ -87,9 +87,9 @@ function renta(
   conjunta: number,
   minimo = false
 ): boolean {
-  return decimal(c.baseGeneral, true)
-    .plus(decimal(c.baseAhorro, true))
-    .minus(minimo ? decimal(c.minimoPersonalFamiliar) : 0)
+  return magnitudAnual(c.baseGeneral, true)
+    .plus(magnitudAnual(c.baseAhorro, true))
+    .minus(minimo ? magnitudAnual(c.minimoPersonalFamiliar) : 0)
     .lte(c.modalidad === "individual" ? individual : conjunta)
 }
 function proporcion(c: Contexto, titulares: readonly string[]): Decimal {
@@ -339,13 +339,13 @@ function decodificar<A>(esquema: Schema.Codec<A>, datos: Schema.Json): A {
   return resultado.success
 }
 
-const Discapacidad = Schema.Struct({
+export const Discapacidad = Schema.Struct({
   persona: Schema.String,
   nacimiento: Schema.String,
   grado: Schema.Number,
   residencia: Schema.String,
 })
-const Adopciones = Schema.Struct({
+export const Adopciones = Schema.Struct({
   exhaustividad: Schema.String,
   adopciones: Schema.Array(
     Schema.Struct({
@@ -358,7 +358,7 @@ const Adopciones = Schema.Struct({
     })
   ),
 })
-const Cuotas = Schema.Struct({
+export const Cuotas = Schema.Struct({
   exhaustividad: Schema.String,
   hijo: Schema.String,
   hijoNacimiento: Schema.String,
@@ -376,7 +376,7 @@ const Cuotas = Schema.Struct({
     })
   ),
 })
-const Familia = Schema.Struct({
+export const Familia = Schema.Struct({
   tituloInicio: Schema.String,
   tituloFin: Schema.String,
   descendientes: Schema.Array(Schema.String),
@@ -385,3 +385,11 @@ const Familia = Schema.Struct({
   residenciaConyuge: Schema.String,
   conyuge: Schema.NullOr(Schema.String),
 })
+
+function magnitudAnual(s: string, firmado = false): Decimal {
+  if (!/^-?(0|[1-9]\d{0,13})(\.\d{1,80})?$/.test(s))
+    fallo("Magnitud anual decimal inválida")
+  const d = new D(s)
+  if (!firmado && d.isNegative()) fallo("Magnitud anual negativa")
+  return d
+}

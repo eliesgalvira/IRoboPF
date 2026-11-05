@@ -2,24 +2,26 @@
 
 ## Prioridad de producto: 4 de noviembre, noche
 
-Actualización posterior a C2025: publicado `10ea938a5ef941a07d940d959e5b0a507bf10b80`;
-CI remoto en [ejecución 41926599696](https://github.com/eliesgalvira/IRoboPF/actions/runs/41926599696),
-ambos trabajos correctos. Retiradas las ocho entregas de C300 tras preservar
-sus archivos únicos por hash; los originales oficiales permanecen en CAS externo.
-El piloto histórico compara siete entradas nuevas y conserva siete SKIP: 41
-casillas coinciden, 42 difieren, 14 tienen mapeo pendiente y una está ausente.
-El resultado final difiere un céntimo en 2018–2021. Se inicia el primer bloque
-de capturas pendientes de 2018, separado de la corrección y de nuevos cotejos.
+Último corte publicado: `bc351098249470ecddd55049113063429c1a7af8`, con ambos
+trabajos correctos en el [CI 41938522416](https://github.com/eliesgalvira/IRoboPF/actions/runs/41938522416).
+El punto 4 sigue abierto: 106 códigos de 351 tienen evaluación específica parcial
+por hechos; sólo la cuota valenciana está conectada a la composición anual
+publicada. El candidato privado conecta las 55 altas territoriales y pasa 607
+pruebas; está en revisión independiente. Las ampliaciones restantes se preparan
+y validan por lotes, sin contarlas aún como capacidad publicada. Las reservas
+por subrama y la aceptación fiscal general permanecen explícitas.
 
-El punto 4 sigue abierto. El balance estático del censo identifica 51 códigos con
-evaluación específica por hechos de alcance acotado (40 valencianos y 11 ajenos).
-Los otros 300 conservan catálogo, consignación y, en algunos casos, aritmética
-auxiliar genérica; eso no acredita una evaluación completa de sus hechos fiscales.
-La liquidación anual todavía sólo consume deducciones agregadas externas. Se
-trabaja en conectar la cuota valenciana revisada con la única composición anual,
-en conciliar las 351 fichas con sus revisiones vigentes y en los evaluadores del
-lote Andalucía/Aragón/Catalunya. Estos avances no cierran por sí solos las 351 ni
-reabren F general. No se repiten auditorías jurídicas favorables sin cambio material.
+C2025 conserva su cierre de 301 entradas, 3.562 casillas iguales, 652 ausencias
+y cero diferencias, limitado a 300 casos de empleo Madrid y uno de Andalucía.
+El piloto histórico compara siete entradas: 41 casillas coinciden, 42 difieren,
+14 tienen mapeo pendiente y una está ausente. El resultado final difiere un
+céntimo en 2018–2021. Hay 181 capturas de 2018; las 180 posteriores al piloto
+están pendientes de cotejo con la API. No se suman capturas a comparaciones.
+
+Retiradas las 19 entregas del último corte tras preservar sus contenidos únicos
+por hash; los originales oficiales permanecen en CAS externo. IRoboPF ocupa
+98,12 GB y quedan 317,18 GB libres en la medición del 5/11 a las 00:14 UTC.
+No se repiten auditorías jurídicas favorables sin cambio material.
 
 El orden vigente es: (1) derechos familiares por año y comunidad mediante la API
 única, para el rediseño del viernes 6 a las 20:00; (2) unos 300 casos variados
@@ -470,7 +472,10 @@ CLM/CyL/Extremadura: corregidos los dos repartos en conjunta; 78 pruebas,
 tipos y lints conformes. Galicia/La Rioja: 79 pruebas de autor y 30 independientes,
 sin bloqueos demostrados. Los seis lotes pasan el CI conjunto: 31 comandos del workflow en entorno limpio,
 2.073 ejecuciones Vitest y 247 métodos Python descubiertos (siete omitidos),
-en 483,116 s. Los 529 archivos fijados permanecen idénticos. Publicación en curso.
+en 483,116 s. Los 529 archivos fijados permanecen idénticos. Publicado en
+`bc351098249470ecddd55049113063429c1a7af8`; ambos trabajos del
+[CI remoto 41938522416](https://github.com/eliesgalvira/IRoboPF/actions/runs/41938522416)
+pasan.
 Añaden 55 códigos con evaluadores
 parciales a los 51 anteriores: 106 de 351, sin afirmar cierre de todas sus ramas.
 [Unión exacta y alcance](deducciones-2025/producto-territorial-20261105/INTEGRACION.md).
@@ -478,18 +483,44 @@ La conexión anual de esas 55 altas sigue pendiente.
 
 La ampliación de Andalucía/Aragón/Catalunya añade 40 candidatos: sus 196 pruebas,
 tipos y lints pasan. La revisión independiente detectó cuatro hallazgos y nueve
-rojos, separados de este corte publicado; corrección en preparación. Asturias/Cantabria,
-Madrid/Murcia y Galicia/La Rioja preparan sus códigos restantes en fase ligera.
+rojos, separados de este corte publicado. El candidato corregido pasa 232 pruebas,
+tipos y lints; el contraste dinámico del defecto grave AAR-01 es favorable en
+su alcance. El nuevo S01 (P2) de fechas invertidas se corrige con su expectativa
+intacta; pasan 233 regresiones, tipos y lints. Está pendiente de integración.
+Madrid/Murcia entrega 34 ramas numéricas y siete fórmulas condicionadas, con 95
+pruebas verdes; falta su revisión monetaria independiente. Galicia/La Rioja
+valida 38 evaluadores parciales con 184 pruebas, tipos y lint verdes; queda su revisión independiente.
+Asturias/Cantabria, Canarias/Baleares y CLM/CyL/Extremadura amplían las ramas restantes.
 El punto 4 continúa abierto.
 
-Histórico b02: 60 capturas nuevas, 61 SKIP, sin errores, 19 min 9,95 s.
-2018 alcanza 121/2.020 capturas; el conjunto, 127/14.140. Las 120 incorporaciones
+Histórico b03: 60 capturas nuevas, 121 SKIP, sin errores, 18 min 53,99 s.
+2018 alcanza 181/2.020 capturas; el conjunto, 187/14.140. Las 180 incorporaciones
 posteriores al piloto aún no se han comparado con la API. PSS máximo muestreado
-del árbol: 739,66 MiB. b03 tiene asignados los siguientes 60 pendientes de 2018
-como tarea ligera, con un navegador secuencial y cero motor/inventario o suites.
-La comparación de las nuevas capturas sigue pendiente; se mantienen dos turnos
-pesados como máximo para producto.
+del árbol: 768 MiB. El bloque b04 está en curso como tercera tarea ligera; la comparación espera un turno pesado. Capturas y cotejos siguen siendo estados separados.
 
 Limpieza posterior a cdb82540: seis entregas retiradas,32.337 rutas de archivo
 preservadas por hash y manifiesto asociado al commit. No hubo worktrees nuevos.
 Medición de cuatro raíces:98,04GB; libres317,59GB, por debajo del límite150GB.
+
+Limpieza posterior a `bc351098`: 19 entregas retiradas, 16.551 registros
+preservados y 322 contenidos únicos en CAS con manifiesto asociado al commit.
+Medición del 5/11 a las 00:14 UTC: 98,12 GB en las cuatro raíces y 317,18 GB
+libres. No se crearon worktrees.
+
+
+Corte de trabajo del 5/11, 01:50 CET: integradas 17 rutas nuevas de la ampliación A; 233 pruebas focales y revisión monetaria favorable con S01 corregido. La unión de capacidades en la copia de trabajo es 146/351, todavía sin publicar. La conexión anual de las 55 altas anteriores tiene H1–H5 corregidos y 591 pruebas verdes; H1–H3 reciben contraste independiente. Asturias/Cantabria amplía 37 códigos con 81 pruebas verdes; Galicia/La Rioja, 38 con 184. CLM/CyL/Extremadura valida sus 51 subcálculos en PESADO2. El CI completo y la publicación de este corte aún no se han ejecutado.
+
+
+La primera revisión de las correcciones API confirma H1/H2, pero reproduce H3 residual: un titular censado para el mismo sujeto sin derecho reduce 784 a 392 euros. La segunda corrección consume el conjunto completo de titulares de las atribuciones del productor de mínimos. Pasan 596 regresiones y las 22 pruebas independientes recibidas; tipos y lints verdes. Se conserva el rojo y se contrasta de forma acotada antes de integrar. CLM/CyL/Extremadura termina su ampliación con 132 pruebas y 51 oráculos intactos; B/E pasan a revisión monetaria independiente.
+
+### Corte de trabajo del 5/11, 02:35 CET
+
+A40 y B37 están integrados en el árbol: 183 de 351 códigos tienen algún evaluador parcial. B conserva 81 pruebas de autor y 15 independientes, todas correctas desde raíz. Este corte aún no se ha publicado y no implica conexión anual de las ampliaciones.
+
+La conexión de las 55 altas anteriores pasa 607 regresiones, tipos y linters. Tras corregir los titulares efectivos, otro contraste detectó una adopción incompatible con el vínculo conocido. La versión corregida concilia vínculos, fechas y hechos familiares; su contraste P1 está en curso. La conexión de A40 se ha rebasado sobre esa versión y está en validación.
+
+La revisión B/E no encontró bloqueos en B y detectó tres errores en E. E corregido pasa 213 pruebas, tipos y linters; se conserva el original del oráculo M1 y se rectifica de 150 a 0 euros por la suspensión legal. El contraste P1 sigue pendiente. C36 termina validación con 133 pruebas; D51, con 132, está en revisión documental y aritmética independiente. F combinado y los dos códigos aragoneses esperan validación.
+
+Histórico b05 cerrado: 301 capturas de 2018 y 307 en total. Las 300 incorporaciones posteriores al piloto aún no están cotejadas con la API. Se retoman las once variantes territoriales y familiares de Open 2025 antes de ocupar de nuevo el navegador con b06.
+
+La conexión anual v4 recibe contraste favorable acotado: 34 pruebas propias y 41 recibidas, 75 correctas, con reproducción del P1 anterior en ambas API. Se integran sus 25 rutas y las 34 pruebas propias en la raíz. Las primeras 55 altas territoriales se conectan a las dos API; A40 y B37 conservan por ahora su evaluación aislada. Se inicia el CI completo de este corte.

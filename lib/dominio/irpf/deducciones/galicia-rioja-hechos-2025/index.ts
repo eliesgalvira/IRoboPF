@@ -420,8 +420,8 @@ function evaluar(h: HechosE2025): ResultadoE2025 {
       if (
         !persona(h.persona) ||
         h.persona.id !== id ||
-        !dinero(h.baseImponible) ||
-        !dinero(h.minimoPersonalFamiliar) ||
+        !magnitudAnual(h.baseImponible) ||
+        !magnitudAnual(h.minimoPersonalFamiliar) ||
         !texto(h.necesidadTerceros) ||
         !["domicilio", "publica", "concertada"].includes(h.residencia)
       )
@@ -665,7 +665,7 @@ function evaluar(h: HechosE2025): ResultadoE2025 {
       break
     }
     case "galicia_donaciones_idi": {
-      if (!dinero(h.cuotaIntegraAutonomica))
+      if (!magnitudAnual(h.cuotaIntegraAutonomica))
         return fallo("Falta cuota íntegra autonómica como magnitud de límite")
       for (const d of h.donaciones) {
         if (
@@ -723,4 +723,8 @@ function evaluar(h: HechosE2025): ResultadoE2025 {
     pendientes,
     cuota: "pendiente_aplicacion_compartida",
   }
+}
+
+function magnitudAnual(s: string): boolean {
+  return /^\d+(\.\d{1,80})?$/.test(s)
 }

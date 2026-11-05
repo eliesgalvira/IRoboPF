@@ -1,3 +1,4 @@
+import { SolicitudDeduccionesTerritoriales2025 } from "../deducciones/anual-territorial"
 import { Schema } from "effect"
 import { SolicitudDeduccionesValencianasAnual2025 } from "../deducciones/valenciana-2025/anual"
 import {
@@ -9,6 +10,9 @@ import { CasoActividad2025 } from "../actividades-economicas/contrato"
 
 const Procedencia = Schema.String.check(Schema.isPattern(/\S/))
 const Alcance = {
+  deduccionesTerritoriales2025: Schema.optional(
+    SolicitudDeduccionesTerritoriales2025
+  ),
   contribuyenteId: Schema.optional(Schema.String),
   deduccionesValencianas2025: Schema.optional(
     SolicitudDeduccionesValencianasAnual2025
@@ -35,6 +39,7 @@ const Alcance = {
   deducciones: Schema.Literals([
     "solo-da61-si-procede",
     "valencianas-por-hechos-y-da61",
+    "territoriales-por-hechos-y-da61",
   ]),
   rentasExtranjeras: Schema.Literal("ninguna"),
   especialidades: Schema.Literal("ninguna"),
@@ -49,6 +54,7 @@ const CasosTrabajoHistorico = (
   Schema.Struct({
     ...Alcance,
     contribuyenteId: Schema.optional(Schema.Never),
+    deduccionesTerritoriales2025: Schema.optional(Schema.Never),
     deduccionesValencianas2025: Schema.optional(Schema.Never),
     ejercicio: Schema.Literal(ejercicio),
     comunidadAutonoma: Schema.Literal("madrid"),

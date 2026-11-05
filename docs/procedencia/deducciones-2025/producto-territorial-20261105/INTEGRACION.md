@@ -22,3 +22,17 @@ Los diez archivos de prueba añadidos forman parte del mismo paso del workflow
 que comprueba deducciones. Antes de publicar se regeneran ambos inventarios y
 se reproducen los 31 comandos del workflow con PATH limpio, runtimes fijados y
 los mismos comandos Nix. El cierre de ejecución figura en ESTADO.md.
+
+## Ampliación A del 5/11
+
+Se integran otros 40 evaluadores parciales: 16 de Andalucía, 17 de Aragón y siete de Catalunya. La unión sin duplicados alcanza 146 de 351 códigos con algún evaluador específico; 205 siguen sin él en este corte. Estos números no representan cierre de todas las ramas ni conexión anual de las 40 altas.
+
+La revisión independiente reprodujo cuatro defectos y el integrador los corrigió. El contraste del defecto grave AAR-01 es favorable; el nuevo S01 de fechas invertidas se corrigió conservando su expectativa. Pasan 233 pruebas, tipos estrictos y ambos linters. El [informe de integración](../producto-lote-a-ampliacion/REVISION-INTEGRACION.md) y la matriz49 conservan el alcance y las dos reglas aragonesas todavía pendientes en este corte. Los oráculos monetarios del autor permanecen intactos.
+
+## Ampliación B integrada en el árbol de trabajo
+
+37 códigos adicionales de Asturias y Cantabria: 34 cálculos directos y tres resolutores de magnitudes anuales. Revisión monetaria independiente sin bloqueos en el alcance, 81 pruebas de autor y 15 independientes. La conexión anual de estas 37 ramas sigue pendiente; se mantienen limitaciones por rama. El corte acumulado del árbol alcanza 183/351 códigos con algún evaluador parcial; no es cierre integral. Pendiente CI y publicación de este corte.
+
+## Conexión anual de las primeras 55 altas
+
+El adaptador revisado usa los rendimientos, bases, mínimos y cuota de la composición común. Las dos API reciben hechos territoriales cerrados y conservan un único libro de aplicación. Los 55 contratos anteriores tienen conexión anual dentro de los límites de [su contrato](../conexion-anual-territorial-20261105/CONTRATO.md); las 77 altas A40 y B37 siguen pendientes de esa conexión. El contraste de los vínculos es favorable con 75 pruebas permanentes. El total de códigos con algún evaluador parcial es 183; el punto 4 permanece abierto.

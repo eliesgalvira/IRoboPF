@@ -96,6 +96,11 @@ export interface LiquidacionIrpfAnualCalculada {
   readonly cuotaIntegraAhorroCentimos: number
   readonly cuotaMinimoPersonalCentimos: number
   readonly cuotaMinimoPersonalAhorroCentimos: number
+  readonly deduccionesTerritoriales2025?:
+    | ReturnType<
+        typeof import("../deducciones/anual-territorial").aplicarDeduccionesTerritoriales2025
+      >
+    | undefined
   readonly deduccionesValencianas2025?:
     | ResultadoCuotaConjuntaValenciana2025<string>
     | undefined
@@ -153,7 +158,8 @@ const construirLiquidarIrpfAnual = (
         })
       )
     if (
-      caso.deduccionesValencianas2025 !== undefined &&
+      (caso.deduccionesValencianas2025 !== undefined ||
+        caso.deduccionesTerritoriales2025 !== undefined) &&
       (caso.deduccionAutonomicaAgregadaCentimos !== undefined ||
         caso.deducciones.length > 0)
     )
@@ -449,10 +455,15 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
     cuotaAutonomicaGeneralDespuesMinimo,
     cuotaAhorroDespuesMinimo,
     deduccionesAutonomicasAplicadas,
+    deduccionesTerritoriales2025,
     deduccionesValencianas2025,
     cuotaLiquida,
   } = yield* componerLiquidacionAnual({
     ambito: caso,
+    rentasTrabajoAnuales: {
+      integroTrabajo: rendimientoTrabajo.rendimientoIntegro,
+      restoRentas: otrasRentasNoExentas,
+    },
     cotizaciones: {
       naturaleza: "estimadas-perfil-uniforme",
       trabajador: cotizacionesSociales.cotizacionTrabajador,
@@ -465,6 +476,7 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
       rendimientoTrabajo.rendimientoNeto.plus(otrasRentasNoExentas),
     minimosEstatales,
     deduccionesValencianas2025: caso.deduccionesValencianas2025,
+    deduccionesTerritoriales2025: caso.deduccionesTerritoriales2025,
     deduccionesAutonomicasCentimos: sumarDeduccionesAutonomicasCentimos(caso),
   })
   const importesLiquidacion = medirAuditoriaSync(
@@ -606,6 +618,7 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
       importesLiquidacion.cuotaMinimoPersonalCentimos,
     cuotaMinimoPersonalAhorroCentimos:
       importesLiquidacion.cuotaMinimoPersonalAhorroCentimos,
+    deduccionesTerritoriales2025,
     deduccionesValencianas2025,
     deduccionesAutonomicasCentimos:
       importesLiquidacion.deduccionesAutonomicasAplicadasCentimos,

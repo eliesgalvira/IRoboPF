@@ -32,6 +32,7 @@ export type ResultadoTerritorialF2025 = ResultadoDeduccion & {
   readonly rastro: readonly string[]
   readonly reservas: readonly string[]
   readonly siguienteHecho?: string
+  readonly importeExactoEuros?: string
   readonly importeCentimos?: string
 }
 class FaltaHecho extends Schema.TaggedErrorClass<FaltaHecho>()("FaltaHecho", {
@@ -223,6 +224,7 @@ function resultado(
   return {
     codigo,
     estado: "calculo_parcial",
+    importeExactoEuros: valor.toFixed(),
     importe: d.toNumber(),
     importeCentimos: d.times(100).toFixed(0),
     motivo,
@@ -456,8 +458,8 @@ function evaluarDecodificada(
       )
     if (h.unidad !== undefined && h.unidad !== "EUR")
       falta("unidad", "Importes de esta entrada en EUR, no en céntimos")
-    const general = euros(h.baseGeneralEUR, "baseGeneralEUR", true)
-    const ahorro = euros(h.baseAhorroEUR, "baseAhorroEUR", true)
+    const general = anual(h.baseGeneralEUR)
+    const ahorro = anual(h.baseAhorroEUR)
     const base = general.plus(ahorro)
     rastro.push(
       `Bases declaradas general ${general.toFixed(2)} + ahorro ${ahorro.toFixed(2)} = ${base.toFixed(2)} EUR`
@@ -740,4 +742,10 @@ export function evaluarLoteTerritorialF2025(
       }
     return evaluarDecodificada(decoded)
   })
+}
+
+function anual(v: string | undefined): Decimal {
+  if (v === undefined || !/^-?\d+(\.\d{1,80})?$/.test(v))
+    falta("bases", "Magnitud anual inválida")
+  return new Decimal(v)
 }

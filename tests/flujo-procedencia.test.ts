@@ -486,6 +486,26 @@ it("R30: el acumulador convertido discrimina un mutante de escala monetaria", ()
   expect(f(input, mutated(money).centimosAEuros).toFixed()).not.toBe("5.79")
 })
 
+it("resuelve la llamada territorial a su index.ts fijado por contenido", () => {
+  const file = "lib/dominio/irpf/deducciones/anual-territorial.ts"
+  const call = sourceNode(
+    file,
+    (n): n is CallExpression =>
+      ts.isCallExpression(n) &&
+      ts.isIdentifier(n.expression) &&
+      n.expression.text === "evaluarCatalunyaHechos2025"
+  )
+  const sources = new Sources()
+  const declaration = sources.declaration(call.expression)
+  expect(declaration?.getSourceFile().fileName).toBe(
+    "lib/dominio/irpf/deducciones/catalunya-hechos-2025/index.ts"
+  )
+  expect(declaration && ts.isFunctionDeclaration(declaration)).toBe(true)
+  expect(declaration?.name?.getText()).toBe("evaluarCatalunyaHechos2025")
+  if (declaration === undefined) throw Error("Falta declaración concreta")
+  expect(() => sources.exact(sources.ref(declaration))).not.toThrow()
+})
+
 it("R30: los contratos enlazan el retorno monetario concreto y conservan las divisiones", () => {
   const r = composeR30()
   expect(r.sites).toHaveLength(17)
