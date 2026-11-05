@@ -1,0 +1,413 @@
+{
+  "id": "pension-sin-ingresos-contradictoria",
+  "solicitud": {
+    "lote": "E38",
+    "nacimientoContribuyente": "1984-03-12",
+    "exhaustividad": "expediente_comun_completo_todos_pagadores",
+    "inversionesViviendaEjercicio": [],
+    "historiaLibros2024": {
+      "ejercicio": 2024,
+      "desde": "2024-01-01",
+      "hasta": "2025-12-31",
+      "composicion": "progenitores-convivientes",
+      "censo": "completo-sin-cambios-filiacion-convivencia-estado-civil-discapacidad",
+      "soporte": {
+        "referencia": "REV-documento",
+        "emisor": "administracion",
+        "fecha": "2026-02-10"
+      },
+      "personas": [
+        {
+          "id": "s-1",
+          "nacimiento": "1984-03-12",
+          "relacion": "progenitor",
+          "residencia": "comun-todo-2024",
+          "declaracion2024": "individual",
+          "soporte": {
+            "referencia": "REV-documento",
+            "emisor": "administracion",
+            "fecha": "2026-02-10"
+          },
+          "economia": {
+            "perfil": "trabajo",
+            "trabajo": {
+              "ejercicio": 2024,
+              "territorio": "comun",
+              "reduccionesArt18": "ninguna",
+              "movilidad": "ninguna",
+              "discapacidadActiva": "ninguna",
+              "rendimientos": [
+                {
+                  "id": "REV-empleo",
+                  "clase": "empleo-laboral",
+                  "integro": "110000",
+                  "cotizaciones": {
+                    "clase": "efectivas",
+                    "seguridadSocial": "0",
+                    "derechosPasivos": "0",
+                    "colegiosHuerfanos": "0"
+                  },
+                  "sindicato": {
+                    "importe": "0",
+                    "satisfecho": "no"
+                  },
+                  "colegio": {
+                    "importe": "0",
+                    "satisfecho": "no",
+                    "obligatorio": "no",
+                    "finesEsenciales": "no"
+                  },
+                  "defensa": {
+                    "importe": "0",
+                    "satisfecho": "no",
+                    "litigioDirectoPagador": "no"
+                  }
+                }
+              ]
+            },
+            "censo": "completo-sin-otras-rentas-exentas-reducciones-base-ni-saldos",
+            "certificadoImputaciones": {
+              "referencia": "REV-documento",
+              "emisor": "administracion",
+              "fecha": "2026-02-10"
+            }
+          }
+        },
+        {
+          "id": "s-2",
+          "nacimiento": "1981-09-23",
+          "relacion": "progenitor",
+          "residencia": "comun-todo-2024",
+          "declaracion2024": "no-presentada",
+          "soporte": {
+            "referencia": "REV-documento",
+            "emisor": "administracion",
+            "fecha": "2026-02-10"
+          },
+          "economia": {
+            "perfil": "sin-ingresos",
+            "certificadoImputaciones": {
+              "referencia": "REV-documento",
+              "emisor": "administracion",
+              "fecha": "2026-02-10"
+            },
+            "censo": "completo-sin-rentas-ni-exentas"
+          }
+        },
+        {
+          "id": "s-3",
+          "nacimiento": "2014-05-09",
+          "relacion": "hijo-soltero-no-emancipado",
+          "residencia": "comun-todo-2024",
+          "declaracion2024": "no-presentada",
+          "soporte": {
+            "referencia": "REV-documento",
+            "emisor": "administracion",
+            "fecha": "2026-02-10"
+          },
+          "economia": {
+            "perfil": "sin-ingresos",
+            "certificadoImputaciones": {
+              "referencia": "REV-documento",
+              "emisor": "administracion",
+              "fecha": "2026-02-10"
+            },
+            "censo": "completo-sin-rentas-ni-exentas"
+          }
+        }
+      ]
+    },
+    "hechos": {
+      "codigo": "galicia_libros_texto_material_escolar",
+      "miembros2024": [
+        {
+          "persona": {
+            "id": "s-1",
+            "nacimiento": "1984-03-12",
+            "discapacidad": 0
+          },
+          "pensionIncapacidad": "ninguna"
+        },
+        {
+          "persona": {
+            "id": "s-2",
+            "nacimiento": "1981-09-23",
+            "discapacidad": 0
+          },
+          "pensionIncapacidad": "total"
+        },
+        {
+          "persona": {
+            "id": "s-3",
+            "nacimiento": "2014-05-09",
+            "discapacidad": 0
+          },
+          "pensionIncapacidad": "ninguna"
+        }
+      ],
+      "descendientes": [
+        {
+          "persona": {
+            "id": "s-3",
+            "nacimiento": "2014-05-09",
+            "discapacidad": 0
+          },
+          "progenitores": [
+            "s-1",
+            "s-2"
+          ],
+          "titularesMinimo": [
+            "s-1",
+            "s-2"
+          ],
+          "titularesDeduccion": [
+            "s-1",
+            "s-2"
+          ],
+          "nivel": "primaria",
+          "centro": "fondos_publicos",
+          "curso": "2025-2026",
+          "ayudasCurso": [],
+          "compras": [
+            {
+              "categoria": "texto",
+              "facturaFecha": "2025-09-02",
+              "pago": {
+                "id": "REV-pago",
+                "pagador": "s-1",
+                "receptor": "REV-tienda",
+                "fecha": "2025-09-03",
+                "importe": "100",
+                "factura": "REV-factura",
+                "concepto": "libros",
+                "medio": "efectivo",
+                "subvencion": "0",
+                "especieExenta": "0"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "input": {
+    "canon": {
+      "anio": 2025,
+      "comunidadAutonoma": "galicia",
+      "contribuyenteId": "s-1",
+      "derechosMinimos": {
+        "ejercicio": 2025,
+        "territorio": "galicia",
+        "regimen": "comun",
+        "modalidad": "individual",
+        "devengo": "2025-12-31",
+        "contribuyenteId": "s-1",
+        "edadContribuyenteDevengo": 41,
+        "discapacidadContribuyente": {
+          "_tag": "SinDiscapacidad"
+        },
+        "ascendientes": "ninguno",
+        "fallecimientosEnElEjercicio": "ninguno",
+        "descendientesCompletos": true,
+        "descendientes": [
+          {
+            "sujetoId": "s-3",
+            "fechaNacimiento": "2014-05-09",
+            "edadDevengo": 11,
+            "vivoAlDevengo": true,
+            "rentasNoExentasCentimos": 0,
+            "declaracion": {
+              "modalidad": "no-presenta"
+            },
+            "discapacidad": {
+              "_tag": "SinDiscapacidad"
+            },
+            "titularesCompletos": true,
+            "titulares": [
+              {
+                "titularId": "s-1",
+                "grado": 1,
+                "vinculo": {
+                  "clase": "consanguinidad"
+                },
+                "relacion": "convivencia",
+                "custodia": "compartida",
+                "alimentosJudiciales": false,
+                "aplicaEspecialidadAlimentos": false,
+                "residenteIrpf": true,
+                "rentasNoExentasCentimos": 3073200
+              },
+              {
+                "titularId": "s-2",
+                "grado": 1,
+                "vinculo": {
+                  "clase": "consanguinidad"
+                },
+                "relacion": "convivencia",
+                "custodia": "compartida",
+                "alimentosJudiciales": false,
+                "aplicaEspecialidadAlimentos": false,
+                "residenteIrpf": true,
+                "rentasNoExentasCentimos": 3000000
+              }
+            ]
+          }
+        ],
+        "conciliacionRentasContribuyente": {
+          "perfil": "caso-anual-parcial",
+          "otrasRentasOGastosNoRepresentados": "ninguno"
+        }
+      },
+      "situacionFamiliar": {
+        "tipo": "individual",
+        "edad": 41,
+        "discapacidad": {
+          "_tag": "SinDiscapacidad"
+        },
+        "descendientes": [],
+        "ascendientes": []
+      },
+      "rendimientos": {
+        "trabajo": [
+          {
+            "importeIntegroCentimos": 3500000
+          }
+        ]
+      },
+      "reducciones": [],
+      "deducciones": [],
+      "retencionesSoportadasCentimos": 0,
+      "pagosACuentaCentimos": 0
+    },
+    "explicito": {
+      "ejercicio": 2025,
+      "comunidadAutonoma": "galicia",
+      "contribuyenteId": "s-1",
+      "edad": 41,
+      "modalidad": "individual",
+      "residenciaTodoElAnio": true,
+      "devengo": "2025-12-31",
+      "otrasRentas": "ninguna",
+      "familiaresConDerechoMinimo": "segun-derechos",
+      "derechosMinimos": {
+        "ejercicio": 2025,
+        "territorio": "galicia",
+        "regimen": "comun",
+        "modalidad": "individual",
+        "devengo": "2025-12-31",
+        "contribuyenteId": "s-1",
+        "edadContribuyenteDevengo": 41,
+        "discapacidadContribuyente": {
+          "_tag": "SinDiscapacidad"
+        },
+        "ascendientes": "ninguno",
+        "fallecimientosEnElEjercicio": "ninguno",
+        "descendientesCompletos": true,
+        "descendientes": [
+          {
+            "sujetoId": "s-3",
+            "fechaNacimiento": "2014-05-09",
+            "edadDevengo": 11,
+            "vivoAlDevengo": true,
+            "rentasNoExentasCentimos": 0,
+            "declaracion": {
+              "modalidad": "no-presenta"
+            },
+            "discapacidad": {
+              "_tag": "SinDiscapacidad"
+            },
+            "titularesCompletos": true,
+            "titulares": [
+              {
+                "titularId": "s-1",
+                "grado": 1,
+                "vinculo": {
+                  "clase": "consanguinidad"
+                },
+                "relacion": "convivencia",
+                "custodia": "compartida",
+                "alimentosJudiciales": false,
+                "aplicaEspecialidadAlimentos": false,
+                "residenteIrpf": true,
+                "rentasNoExentasCentimos": 3073200
+              },
+              {
+                "titularId": "s-2",
+                "grado": 1,
+                "vinculo": {
+                  "clase": "consanguinidad"
+                },
+                "relacion": "convivencia",
+                "custodia": "compartida",
+                "alimentosJudiciales": false,
+                "aplicaEspecialidadAlimentos": false,
+                "residenteIrpf": true,
+                "rentasNoExentasCentimos": 3000000
+              }
+            ]
+          }
+        ],
+        "conciliacionRentasContribuyente": {
+          "perfil": "caso-anual-parcial",
+          "otrasRentasOGastosNoRepresentados": "ninguno"
+        }
+      },
+      "discapacidad": "ninguna",
+      "reduccionesBase": "ninguna",
+      "saldosAnteriores": "ninguno",
+      "deducciones": "territoriales-por-hechos-y-da61",
+      "rentasExtranjeras": "ninguna",
+      "especialidades": "ninguna",
+      "perfil": "solo-trabajo",
+      "trabajo": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna",
+        "rendimientos": [
+          {
+            "id": "REV-empleo",
+            "clase": "empleo-laboral",
+            "integro": "35000",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "2268",
+              "derechosPasivos": "0",
+              "colegiosHuerfanos": "0"
+            },
+            "sindicato": {
+              "importe": "0",
+              "satisfecho": "no"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "no",
+              "obligatorio": "no",
+              "finesEsenciales": "no"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "no",
+              "litigioDirectoPagador": "no"
+            }
+          }
+        ]
+      },
+      "conciliacion": {
+        "ejercicio": 2025,
+        "estado": "totales-anuales-sin-duplicados",
+        "procedencia": [
+          "REV-certificado"
+        ]
+      },
+      "retenciones": []
+    }
+  },
+  "expected": {
+    "kind": "reject",
+    "generated": "15",
+    "reason": "Libros|pensi|contradic|renta|Hechos territoriales inválidos|Entrada incompleta"
+  },
+  "gate": null
+}

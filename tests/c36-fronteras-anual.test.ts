@@ -21,7 +21,7 @@ it.each([
       { solicitudes: [vivienda(codigo)] },
       marco(codigo.startsWith("canarias_") ? "canarias" : "illes-balears")
     )
-  ).toThrow(/falta productor/)
+  ).toThrow(codigo === "balears_arrendamiento_vivienda_habitual" ? /falta censo material/ : /falta productor/)
 })
 
 it("hogar no infiere separación de bienes de una declaración individual", () => {

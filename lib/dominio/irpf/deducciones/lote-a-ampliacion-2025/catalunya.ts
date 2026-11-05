@@ -6,6 +6,7 @@ import {
   Texto,
   Entero,
   Centimos,
+  MagnitudAnual,
   Grado,
   Contexto,
   Pago,
@@ -151,13 +152,13 @@ export const S6 = Schema.Struct({
   territorio: Schema.Literal("catalunya"),
   codigo: Schema.Literal("cataluna_obligacion_declarar_mas_de_un_pagador"),
   hechos: Schema.Struct({
-    cuotaIntegraAutonomicaCentimos: Centimos,
-    cuotaIntegraEstatalCentimos: Centimos,
+    cuotaIntegraAutonomicaCentimos: MagnitudAnual,
+    cuotaIntegraEstatalCentimos: MagnitudAnual,
     pagadores: Schema.Array(
       Schema.Struct({
         id: Texto,
         clase: Schema.Literals(["empleo", "estatutario", "prestacion-pasiva"]),
-        integroCentimos: Centimos,
+        integroCentimos: MagnitudAnual,
         certificado: Texto,
       })
     ),

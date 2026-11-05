@@ -2,7 +2,8 @@ import { igualViviendaDT18 } from "../../vivienda-dt18-2025/productor"
 import Decimal from "decimal.js"
 import { producirPatrimonioP5a, producirSegundaRiojaAnterior } from "../../patrimonio-p5a/productor"
 import { ingresoRegionalELA2025, ingresoRegionalIdentificado2025 } from "../../ingresos-identificados-2025/regiones"
-import { ayudas } from "./ayudas-libros"
+import { producirRentaLibros2024 } from "./libros-historia"
+import { ayudas, libros } from "./ayudas-libros"
 import type { MagnitudesTerritorialesAnuales } from "../anual-territorial"
 import { racional, type Racional } from "../anual-territorial-racional"
 import { evaluarAmpliacionE2025 } from "./index"
@@ -19,7 +20,6 @@ function centimosMotor(v:Decimal):R{
 }
 const faltantes:Readonly<Partial<Record<SolicitudE38Anual2025["hechos"]["codigo"],string>>>= {
  galicia_ayudas_incendios_peifoga_2025:"VI100B reparación clasifica no integración DA5.3; otros daños/destrucción/personales/actividad requieren productores específicos antes de importe en BLG",
- galicia_libros_texto_material_escolar:"renta2024 por miembro derivada de declaraciones previas;el motor APIv4 solo representa2025",
 }
 export const PRODUCTORES_PENDIENTES_E38 = faltantes
 export function evaluarE38Anual(s:SolicitudE38Anual2025,m:MagnitudesTerritorialesAnuales):Resultado{
@@ -41,7 +41,8 @@ function evaluarE38ConProductores(s:SolicitudE38Anual2025,m:MagnitudesTerritoria
  const id=titularAnual
  exige(ids(s.inversionesViviendaEjercicio.map(i=>i.id)),"Inventario económico de vivienda duplicado")
  for(const i of s.inversionesViviendaEjercicio)exige(i.titular===id&&fecha(i.fecha)&&i.fecha>="2025-01-01"&&i.fecha<="2025-12-31"&&/^\d+(\.\d{1,2})?$/.test(i.importe)&&i.documento.trim().length>0,"Inventario de vivienda ajeno/inválido")
- conciliarFamiliaE38(h,m,s.nacimientoContribuyente)
+ conciliarFamiliaE38(h.codigo === "galicia_libros_texto_material_escolar" ? {...h,miembros2024:[]} : h,m,s.nacimientoContribuyente)
+ exige(s.historiaLibros2024 === undefined || h.codigo === "galicia_libros_texto_material_escolar", "Libros.historia: historia ajena a esta deducción")
  const magnitudes:MagnitudMotor[]=[]
  function emitir(clave:ClaveAnual,valor:Decimal|R,nodo:string):void{
   // El canal nominal distingue valores Decimal del motor de racionales internos.
@@ -63,6 +64,27 @@ function evaluarE38ConProductores(s:SolicitudE38Anual2025,m:MagnitudesTerritoria
  const grado=tag==="Discapacidad65OMas"?65:tag==="Discapacidad33a64"?33:0
  const c:Contexto={ejercicio:2025,territorio:m.caso.comunidadAutonoma==="galicia"?"galicia":"la-rioja",titular:id,modalidad:"individual",declarantes:[id],personas:[{id,nacimiento:s.nacimientoContribuyente,discapacidad:grado},...(m.caso.derechosMinimos?.descendientes??[]).map(f=>({id:f.sujetoId,nacimiento:f.fechaNacimiento,discapacidad:f.discapacidad._tag==="Discapacidad65OMas"?65:f.discapacidad._tag==="Discapacidad33a64"?33:0}))],magnitudes:[],magnitudesMotor:magnitudes,expediente:"completo_todos_pagadores",creditoMecenazgoRioja:"no_aplicado"}
  switch(h.codigo){
+  case "galicia_libros_texto_material_escolar": {
+   const historia = s.historiaLibros2024
+   const miembros2024 = producirRentaLibros2024(historia, [...h.miembros2024], id, s.nacimientoContribuyente)
+   exige(historia !== undefined, "Libros.historia: ausente")
+   for (const miembro of miembros2024) {
+    if (miembro.persona.id === id) exige(miembro.persona.nacimiento === s.nacimientoContribuyente && miembro.persona.discapacidad === grado, "Libros.identidad: discapacidad propia contradictoria")
+    const hijo = h.descendientes.find(x => x.persona.id === miembro.persona.id)
+    if (hijo !== undefined) exige(hijo.persona.nacimiento === miembro.persona.nacimiento && hijo.persona.discapacidad === miembro.persona.discapacidad, "Libros.identidad: discapacidad/fecha del hijo contradictoria")
+   }
+   const padres = historia.personas.filter(p => p.relacion === "progenitor").map(p => p.id)
+   for (const x of h.descendientes) {
+    exige(x.curso === "2025-2026", "Libros.curso: se requiere curso2025–2026")
+    exige(historia.personas.some(p => p.id === x.persona.id && p.relacion === "hijo-soltero-no-emancipado" && p.nacimiento === x.persona.nacimiento), "Libros.filiacion: falta hijo en historia estable")
+    exige(x.progenitores.length === padres.length && padres.every(p => x.progenitores.includes(p)), "Libros.filiacion: progenitores no conciliados con historia")
+   }
+   // Art4 Orden26/03/2026: límite por período. Sin criterio de asignación
+   // entre hijos al desbordarlo, este perfil admite material de un solo hijo.
+   exige(h.descendientes.filter(x => x.compras.some(a => !["texto", "electronica", "uniforme", "otro"].includes(a.categoria))).length <= 1, "Libros.material: reparto del límite anual entre varios hijos requiere perfil de asignación")
+   return libros(c, {...h, miembros2024})
+  }
+
   case "rioja_obras_rehabilitacion_vivienda_habitual":
   case "rioja_adquisicion_construccion_vivienda_jovenes":
   case "rioja_adecuacion_vivienda_discapacidad":{
@@ -175,7 +197,7 @@ function evaluarE38ConProductores(s:SolicitudE38Anual2025,m:MagnitudesTerritoria
   case "rioja_hijo_0_3_pequenos_municipios":case "rioja_menor_acogimiento_guarda_adopcion":case "rioja_fijacion_poblacion_ocupada_medio_rural":
   case "rioja_internet_jovenes_emancipados":case "rioja_luz_gas_jovenes_emancipados":case "galicia_rehabilitacion_centros_historicos":
   case "rioja_cantidades_patrimonio_historico":return evaluarAmpliacionE2025(c,h)
-  default:throw new RangeError(`${h.codigo}: no hay productor anual para esta rama;sin importe`)
+  default:throw new RangeError(`${s.hechos.codigo}: no hay productor anual para esta rama;sin importe`)
  }
 }
 export function racionalE38(v:{readonly numeradorCentimos:string;readonly denominador:string}):Racional{return racional(v.numeradorCentimos,String(BigInt(v.denominador)*100n))}

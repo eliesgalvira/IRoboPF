@@ -1,3 +1,4 @@
+import { HistoriaAdquisicionCanarias2025 } from "./anual-vivienda-historia"
 import { Schema } from "effect"
 import {
   PagoCHechos,
@@ -150,14 +151,46 @@ export const DonacionesC36 = Schema.Struct({
     exhaustividad: Schema.Literal("completa"),
   }),
 })
+// Censo material de vivienda, no una declaración del resultado fiscal.
+export const CensoViviendaInversionC36 = Schema.Struct({
+  persona: Texto,
+  desde: Texto,
+  hasta: Texto,
+  cobertura: Schema.Literal("vivienda_titulos_operaciones_completo"),
+  soporte: Texto,
+  altasRETA: Schema.Array(Intervalo),
+  titulos: Schema.Array(Schema.Struct({
+    id: Texto, catastro: Texto, documento: Texto,
+    derecho: Schema.Literals(["propiedad", "usufructo", "uso", "arrendatario"]),
+    desde: Texto, hasta: Texto,
+  })),
+  // Incluye operaciones propias, comunes y por terceros: adquisición,
+  // construcción, cuentas vivienda, préstamos, rehabilitación, adecuación,
+  // sostenibilidad/energía, aportaciones y operaciones con efectos pendientes.
+  // No se transportan bases, cuotas ni saldos calculados.
+  operaciones: Schema.Array(Schema.Struct({
+    id: Texto, catastro: Texto, documento: Texto, fecha: Texto,
+    clase: Schema.Literals(["adquisicion", "construccion", "cuenta_vivienda",
+      "financiacion", "rehabilitacion", "adecuacion", "sostenibilidad",
+      "energia", "aportacion", "otra"]),
+  })),
+})
 export const ViviendaC36 = Schema.Struct({
   lote: Schema.Literal("C36"),
   codigo: Schema.Literals(CODIGOS_VIVIENDA),
   hechos: Schema.Struct({
+    historiaAdquisicion: Schema.optional(HistoriaAdquisicionCanarias2025),
     nacimientoContribuyente: Texto,
+    censoViviendaInversion: Schema.optional(CensoViviendaInversionC36),
     viviendas: Schema.Array(
       Schema.Struct({
         ...ViviendaCHechos.fields,
+        localizacion: Schema.optional(Schema.Struct({
+          territorio: Schema.Literals(["illes-balears", "otro"]),
+          isla: Texto,
+          catastro: Texto,
+          documento: Texto,
+        })),
         uso: Schema.Literals(["habitual_propia", "arrendada"]),
         propietarios: Schema.optional(
           Schema.Array(

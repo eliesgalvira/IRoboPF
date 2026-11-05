@@ -1,5 +1,13 @@
 # Estado de la auditoría documental
 
+## Cuatro productores territoriales · 6 de noviembre
+
+El corte anterior `009331687c5e75b9d1d62f6485a771d455d52023` está publicado con ambos trabajos del [CI remoto](https://github.com/eliesgalvira/IRoboPF/actions/runs/42123969749) correctos. Se retiraron doce carpetas publicadas después de preservar y cotejar sus originales; la medición anterior a las tres últimas retiradas fue de 98,99 GB para IRoboPF y 313,15 GB libres.
+
+Canarias, Baleares, Galicia y Catalunya tienen sus primeras revisiones terminadas. Baleares y Galicia reciben dictámenes favorables acotados. El integrador corrige los rechazos de pago canario posterior a la compra y de certificados catalanes con igual referencia local entre NIF distintos, además de conservar causas bancarias y rectificar las versiones documentales. Los doce fallos focales originales están preservados; las 123 pruebas finales y los linters pasan. [Alcance, revisiones y control de publicación](cuatro-ramas-20261106/INTEGRACION.md). Se exige el CI completo con generados antes de publicar; no se declara cerrado el punto 4.
+
+El último corte histórico cerrado conserva 912 recibos: la corrección del selector permitió capturar 2024 seed3. Las capturas adicionales no amplían las coincidencias publicadas sin comparación. Ascendientes, Aragón social y familiar extremeño tienen una fusión privada de 31 rutas pendiente de ejecución; la rama estatal transitoria de vivienda murciana está en preparación.
+
 ## Bases familiares, donativos y cónyuge andaluz · 5 de noviembre
 
 La publicación anterior `213b8c2ab7e06e28b0ae86ce445676a6534a880f` tiene ambos trabajos del [CI remoto](https://github.com/eliesgalvira/IRoboPF/actions/runs/42109553113) correctos. Se retiraron diecisiete carpetas integradas después de conservar y cotejar sus originales y manifiestos. La medición posterior registra 98,97 GB en las cuatro raíces y 313,29 GB libres.

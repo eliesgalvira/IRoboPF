@@ -1433,12 +1433,22 @@ const rastroResultadoNoSoportado = ({
   ],
 })
 
+import { liquidarIrpfAnualExplicito as liquidarPagadoresEfectivo } from "../trabajo-anual/conexion"
+import type { CasoPagadoresCatalunya2025 } from "../trabajo-anual/conexion-contrato"
 export { liquidarIrpfAnualExplicito } from "../trabajo-anual/conexion"
+const liquidarPagadoresCatalunya = (caso: CasoPagadoresCatalunya2025) =>
+  liquidarPagadoresEfectivo(caso)
 
 /** Entrada P4a por la API canónica con perfil explícito; conserva el servicio histórico. */
 export function liquidarIrpfAnual(caso: CasoInmobiliarioP4a, contexto: ContextoLiquidacionIrpf): ReturnType<typeof liquidarInmobiliarioP4a>
+export function liquidarIrpfAnual(caso: CasoPagadoresCatalunya2025, contexto: ContextoLiquidacionIrpf): ReturnType<typeof liquidarPagadoresCatalunya>
 export function liquidarIrpfAnual(caso: CasoFiscalAnual, contexto: ContextoLiquidacionIrpf): ReturnType<typeof liquidarIrpfAnualBase>
-export function liquidarIrpfAnual(caso: CasoInmobiliarioP4a | CasoFiscalAnual, contexto: ContextoLiquidacionIrpf) {
+export function liquidarIrpfAnual(caso: CasoInmobiliarioP4a | CasoFiscalAnual | CasoPagadoresCatalunya2025, contexto: ContextoLiquidacionIrpf) {
+  if ("perfil" in caso && caso.perfil === "trabajo-pagadores-catalunya-2025") {
+    if (contexto.modo !== "canonico")
+      return Effect.fail({ _tag: "ResultadoNoSoportado" as const, motivo: "Catalunya pagadores: modo no canónico", fuenteReconocida: "docs/procedencia/deducciones-2025/catalunya-pagadores-20261105/ALCANCE.md", rastro: { titulo: "Alcance pagadores", pasos: [] } })
+    return liquidarPagadoresEfectivo(caso)
+  }
   return "perfil" in caso && caso.perfil === "solo-inmobiliario-p4a"
     ? liquidarInmobiliarioP4a(caso)
     : "anio" in caso ? liquidarIrpfAnualBase(caso, contexto) : liquidarInmobiliarioP4a(caso)

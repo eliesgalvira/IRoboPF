@@ -94,9 +94,7 @@ const CasosTrabajoHistorico = (
     ),
   })
 )
-export const CasoFiscalAnualExplicitoBase = Schema.Union([
-  ...CasosTrabajoHistorico,
-  Schema.Struct({
+const CasoTrabajo2025 = Schema.Struct({
     ...Alcance,
     perfil: Schema.Literal("solo-trabajo"),
     trabajo: GastosTrabajo,
@@ -122,7 +120,25 @@ export const CasoFiscalAnualExplicitoBase = Schema.Union([
         efectiva: Schema.Literal(true),
       })
     ),
-  }),
+  })
+export const CasoPagadoresCatalunya2025 = Schema.Struct({
+  ...CasoTrabajo2025.fields,
+  perfil: Schema.Literal("trabajo-pagadores-catalunya-2025"),
+  comunidadAutonoma: Schema.Literal("catalunya"),
+  contribuyenteId: Procedencia,
+  familiaresConDerechoMinimo: Schema.Literal("ninguno"),
+  derechosMinimos: Schema.optional(Schema.Never),
+  maternidad2025: Schema.optional(Schema.Never),
+  deduccionesValencianas2025: Schema.optional(Schema.Never),
+  deducciones: Schema.Literal("territoriales-por-hechos-y-da61"),
+  saldosAnteriores: Schema.Literal("ninguno"),
+  deduccionesTerritoriales2025: SolicitudDeduccionesTerritoriales2025,
+})
+export type CasoPagadoresCatalunya2025 = typeof CasoPagadoresCatalunya2025.Type
+export const CasoFiscalAnualExplicitoBase = Schema.Union([
+  ...CasosTrabajoHistorico,
+  CasoTrabajo2025,
+  CasoPagadoresCatalunya2025,
   Schema.Struct({
     ...Alcance,
     otrasRentas: Schema.Literal("solo-ingresos-identificados"),

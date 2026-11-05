@@ -18,7 +18,7 @@ export const analitico: CasoFiscalAnual = {
   retencionesSoportadasCentimos: 0,
   pagosACuentaCentimos: 0,
 }
-export const efectivo: Extract<CasoFiscalAnualExplicito, { readonly ejercicio: 2025 }> = {
+export const efectivo: Extract<CasoFiscalAnualExplicito, { readonly ejercicio: 2025; readonly perfil: "solo-trabajo" }> = {
   ejercicio: 2025,
   comunidadAutonoma: "madrid",
   edad: 40,

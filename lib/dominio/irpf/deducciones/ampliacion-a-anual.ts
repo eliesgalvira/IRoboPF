@@ -658,9 +658,21 @@ export function evaluarAmpliacionAnualA2025(
       })
     }
     case "cataluna_obligacion_declarar_mas_de_un_pagador": {
-      throw new RangeError(
-        "A40: pluralidad de pagadores requiere identidad e importes anuales por pagador; el caso actual sólo ofrece totales y no acepta un censo monetario externo"
-      )
+      const libro = m.pagadoresCatalunya2025
+      exigir(libro !== undefined && libro.titular === contribuyente && libro.referenciaCenso === s.hechos.referenciaCenso,
+        "A40: pagadores requieren el perfil efectivo conciliado Catalunya2025; no aceptar totales/certificación fiscal externos")
+      exigir(m.rentasTrabajoAnuales !== undefined && m.rentasTrabajoAnuales.integroTrabajo.eq(libro.integro) && m.rentasTrabajoAnuales.restoRentas.isZero(),
+        "A40: pagadores con otras rentas o íntegro anual contradictorio")
+      exigir(m.cuotaEstatal681 !== undefined, "A40: cuota estatal íntegra interna ausente")
+      return evaluarAmpliacionLoteA2025({
+        ...contexto, territorio: "catalunya", codigo: s.codigo,
+        hechos: {
+          cuotaIntegraAutonomicaCentimos: { euros: m.cuotaAutonomica.toFixed() },
+          cuotaIntegraEstatalCentimos: { euros: m.cuotaEstatal681.toFixed() },
+          pagadores: libro.pagadores,
+          otrasRentasCentimos: 0, altaAutonomo2025: "no", otrasCausasObligacion: [],
+        },
+      })
     }
   }
 }

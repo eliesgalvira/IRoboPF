@@ -1,6 +1,7 @@
 // Derivado de tipos de E38 corregido; guías Effect4 SCHEMA.md/Schema.ts consultadas.
 // Importes fiscales y magnitudes anuales excluidos, onExcessProperty:error en dispatcher.
 import { Schema } from "effect"
+import { HistoriaLibros2024 } from "./libros-historia"
 import { PatrimonioP5a, PatrimonioRiojaAnterior } from "../../patrimonio-p5a/contrato"
 const E_Persona = Schema.Struct({id: Schema.String, nacimiento: Schema.String, discapacidad: Schema.Number.check(Schema.isFinite())})
 const E_Hijo = Schema.Struct({persona: E_Persona, titularesMinimo: Schema.Array(Schema.String), convivientes: Schema.Array(Schema.String)})
@@ -51,6 +52,7 @@ const E_Patrimonio = Schema.Struct({codigo: Schema.Literal("rioja_cantidades_pat
 export const E_HechosAmpliacionE2025 = Schema.Union([E_Nacimiento, E_FamiliaNumerosa, E_Cuidados, E_Mensual, E_AcogidaRioja, E_ActividadRural, E_Alquiler, E_Suministros, E_Inversion, E_Mab, E_Instalacion, E_Historico, E_Eficiencia, E_Aldea, E_ViviendasVacias, E_Adecuacion, E_ViviendaH, E_Intereses, E_AyudaIncendios, E_AyudaDeportista, E_AyudaTalidomida, E_AyudaELA, E_Libros, E_Electrico, E_Mecenazgo, E_Patrimonio])
 export const SolicitudE38Anual2025 = Schema.Struct({
  lote: Schema.Literal("E38"),
+ historiaLibros2024: Schema.optionalKey(HistoriaLibros2024),
  nacimientoContribuyente: Schema.String,
  patrimonioP5a: Schema.optionalKey(PatrimonioP5a),
  patrimonioRiojaAnterior: Schema.optionalKey(PatrimonioRiojaAnterior),

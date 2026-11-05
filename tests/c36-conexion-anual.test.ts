@@ -223,7 +223,7 @@ describe("C36: API única, sin magnitudes del cliente", () => {
       : "illes-balears"
     expect(() =>
       aplicar({ solicitudes: [viv(codigo)] }, m(territorio))
-    ).toThrow(/falta productor/)
+    ).toThrow(codigo === "balears_arrendamiento_vivienda_habitual" ? /falta censo material/ : /falta productor/)
   })
   it("R2: discapacidad propia no divide15000 por copropietarios", () => {
     const s = viv("canarias_adecuacion_vivienda_discapacidad")

@@ -1,4 +1,6 @@
 import { baseTrabajoMiembro2025 } from "../bases-familiares-2025/productor"
+import { producirPagadoresCatalunya2025 } from "../deducciones/catalunya-pagadores-2025/productor"
+import type { LibroPagadoresCatalunya2025 } from "../deducciones/catalunya-pagadores-2025/productor"
 import { admiteArgumentoOpen2018 } from "./politica-open-2018"
 import { MOTIVO_ELA81_PENDIENTE } from "../maternidad-2025/combinacion"
 import { prepararIngresosIdentificados2025, DecimalIngreso2025 } from "../ingresos-identificados-2025/productor"
@@ -132,6 +134,7 @@ const liquidarIrpfAnualExplicitoBase = Effect.fn("Liquidacion.explicita")(
           : "decimal-hasta-salida"
       )
     const pasos: RastroCalculo["pasos"][number][] = []
+    let pagadoresCatalunya2025: LibroPagadoresCatalunya2025 | undefined
     let trabajoIntegroTerritorial: Decimal | undefined
     let cotizacionEfectiva = new D(0)
     let neto = new D(0),
@@ -193,6 +196,16 @@ const liquidarIrpfAnualExplicitoBase = Effect.fn("Liquidacion.explicita")(
       if (etapasOpen2018 && !admiteArgumentoOpen2018(new D(trabajo.gastos.integro), new D(trabajo.gastos.gastosAE)))
         return yield* Effect.fail(rechazar("Open 2018: faltan testigos de transporte para operandos fuera de céntimos/0–1.000.000 EUR o gastos a–e fraccionarios; no se produce importe de compatibilidad"))
       trabajoIntegroTerritorial = new D(trabajo.gastos.integro)
+      if (caso.perfil === "trabajo-pagadores-catalunya-2025") {
+        const solicitudes = solicitudTerritorial?.solicitudes
+        const s = solicitudes?.[0]
+        if (solicitudes?.length !== 1 || s?.lote !== "A40" || s.codigo !== "cataluna_obligacion_declarar_mas_de_un_pagador" || solicitudTerritorial?.donativosEstatales2025 !== undefined || solicitudTerritorial?.vehiculoDA582025 !== undefined)
+          return yield* Effect.fail(rechazar("Catalunya pagadores: sólo solicitud A40 propia; otros productores/deducciones no coordinados"))
+        pagadoresCatalunya2025 = yield* Effect.try({
+          try: () => producirPagadoresCatalunya2025(s.hechos, caso.trabajo, caso.retenciones, caso.contribuyenteId, new D(trabajo.gastos.integro)),
+          catch: (cause) => rechazar(cause instanceof Error ? cause.message : "Catalunya pagadores: hechos no conciliados"),
+        })
+      }
       neto = new D(trabajo.rendimientoAntesArt20)
       reduccionArt20 = caso.ejercicio === 2025
         ? neto.minus(baseTrabajoMiembro2025(caso.trabajo, redondeoSalarialOpen, ingresoGeneral, trabajo).general)
@@ -383,6 +396,7 @@ const liquidarIrpfAnualExplicitoBase = Effect.fn("Liquidacion.explicita")(
             : redondeoCuotasHistoricasOpen
               ? "open-cuotas-empleo-madrid-2018-2024"
               : "decimal-hasta-salida",
+      pagadoresCatalunya2025,
       basesImponiblesE38: { general: baseGeneral, ahorro: new D(0) },
       baseGeneral: base,
       baseAhorro: new D(0),
@@ -551,6 +565,7 @@ const liquidarIrpfAnualExplicitoBase = Effect.fn("Liquidacion.explicita")(
           ? ("individual-comun-2025-hechos-explicitos" as const)
           : ("individual-madrid-2018-a-2024-hechos-explicitos" as const),
       rendimientoNetoReducido: neto.toFixed(),
+      libroPagadoresCatalunya2025: pagadoresCatalunya2025,
       libroIngresosIdentificados2025: composicion.libroIngresosIdentificados2025,
       nodosFiscalesB2025: composicion.nodosFiscalesB2025,
       baseImponibleGeneral: baseGeneral.toFixed(),
