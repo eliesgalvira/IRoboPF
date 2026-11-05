@@ -391,6 +391,12 @@ export function aplicarDeduccionesTerritoriales2025(
     ),
     "Elecciones incompatibles CLM para el contribuyente"
   )
+  // Reserva de base P5a por declaración: no admite particiones ni concurrencias nuevas.
+  const codigosP5a = ["rioja_vivienda_habitual_pequenos_municipios", "rioja_inversion_vivienda_jovenes_menores_36"]
+  if (codigos.some(c => codigosP5a.includes(c))) {
+    exigir(solicitudes.length === 1, "P5a combinación no representada: reserva única por declaración; pendiente partición, también con productor inmobiliario P4a")
+    exigir(m.libroIngresosIdentificados2025 === undefined && m.libroMaternidad81 === undefined && m.donativosEstatales === undefined && decoded.success.donativosEstatales2025 === undefined, "P5a combinación con productores ELA/donativos/art81 no representada; pendiente conciliación conjunta")
+  }
   validarSeleccionesD51(codigos)
   const sesionD51 = crearSesionD51(m)
   const subloteB = decoded.success.solicitudes.filter(s => s.lote === "B-ampliado")

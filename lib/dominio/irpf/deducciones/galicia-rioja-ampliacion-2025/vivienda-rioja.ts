@@ -91,6 +91,11 @@ function habitual(x: ViviendaRioja): boolean {
   const ocupacion =
     x.primeraOcupacion <= moverMes(referencia, 12) ||
     x.excepcionOcupacion !== null
+  // La ocupación puede preceder a la compra, pero una residencia ya abandonada
+  // no corresponde a esa adquisición. Una excepción de plazo no crea ocupación.
+  const residenciaVinculada =
+    x.operacion !== "adquisicion" ||
+    (fecha(i.residencia.hasta) && i.residencia.hasta >= i.adquisicion)
   const permanencia =
     x.excepcionPermanencia !== null ||
     cubre(i.residencia, x.primeraOcupacion, moverMes(x.primeraOcupacion, 36))
@@ -98,9 +103,18 @@ function habitual(x: ViviendaRioja): boolean {
     x.operacion !== "construccion" ||
     x.finConstruccion <= moverMes(x.fechaInicioInversion, 48) ||
     x.ampliacionPlazoConstruccion !== null
-  return i.uso === "habitual" && ocupacion && permanencia && construccion
+  return i.uso === "habitual" && residenciaVinculada && ocupacion && permanencia && construccion
 }
-export function viviendaRioja(c: Contexto, h: ViviendaH): Resultado {
+/** Financiación producida por el libro P5a; no es una entrada de la API anual. */
+type FinanciacionAdquisicion = {
+  readonly inmueble: string
+  readonly dispuesto: ReturnType<typeof euros>
+}
+export function viviendaRioja(
+  c: Contexto,
+  h: ViviendaH,
+  financiacionAdquisicion?: FinanciacionAdquisicion
+): Resultado {
   return proteger(() => {
     contexto(c, "la-rioja")
     exige(
@@ -115,6 +129,13 @@ export function viviendaRioja(c: Contexto, h: ViviendaH): Resultado {
       adq = h.codigo === "rioja_adquisicion_construccion_vivienda_jovenes",
       pequena = h.codigo === "rioja_vivienda_habitual_pequenos_municipios",
       joven = h.codigo === "rioja_inversion_vivienda_jovenes_menores_36"
+    if (financiacionAdquisicion !== undefined)
+      exige(
+        (pequena || joven) && h.viviendas.length === 1 &&
+          h.viviendas[0]?.inmueble.id === financiacionAdquisicion.inmueble &&
+          compara(financiacionAdquisicion.dispuesto, cero) >= 0,
+        "Financiación P5a ajena al perfil de adquisición"
+      )
     if (segunda)
       exige(
         h.viviendas.length <= 1,
@@ -153,8 +174,13 @@ export function viviendaRioja(c: Contexto, h: ViviendaH): Resultado {
         compara(euros(x.coberturaIntereses), interesesComunes) <= 0,
         "Cobertura superior a intereses del expediente común"
       )
+      const financiado = financiacionAdquisicion?.dispuesto ?? cero
+      exige(
+        compara(financiado, pagos(x.pagos, ["adquisicion"], true, "ejercicio", "satisfecho")) <= 0,
+        "Financiación P5a superior al precio satisfecho"
+      )
       const bruto = producto(
-        pagos(
+        menos(pagos(
           x.pagos,
           [
             "adquisicion",
@@ -169,6 +195,7 @@ export function viviendaRioja(c: Contexto, h: ViviendaH): Resultado {
           "ejercicio",
           "satisfecho"
         ),
+        financiado),
         fr
       )
       const neto = max(
@@ -185,16 +212,19 @@ export function viviendaRioja(c: Contexto, h: ViviendaH): Resultado {
       )
       let base = max(cero, menos(neto, pendientePrev))
       const capital = producto(
-        pagos(
+        menos(pagos(
           x.pagos,
           ["adquisicion", "rehabilitacion", "adecuacion", "amortizacion"],
           true,
           "ejercicio",
           "satisfecho"
         ),
+        financiado),
         fr
       )
       capitalTotal = mas(capitalTotal, capital)
+      if (financiacionAdquisicion !== undefined)
+        tr.push(paso(i.id, "Financiación de adquisición restada una sola vez; pagos documentados íntegros", financiado, capital))
       const modalidadAdmitida = adq
         ? ["adquisicion", "construccion"].includes(x.operacion)
         : reha
@@ -338,7 +368,7 @@ export function viviendaRioja(c: Contexto, h: ViviendaH): Resultado {
       ],
       [
         "Las magnitudes de base consumida deben proceder de composición anual única; no sumar llamadas que reutilicen el mismo saldo de base",
-        "Permanencia/ocupación y excepciones deben acreditarse; los documentos no certifican derechos",
+        "Ocupación/permanencia futuras son expectativas sujetas a cumplimiento y regularización, no hechos acreditados; las excepciones deben acreditarse y los documentos no certifican derechos",
       ]
     )
   })

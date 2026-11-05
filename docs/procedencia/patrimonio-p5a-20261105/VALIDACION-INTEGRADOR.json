@@ -1,0 +1,140 @@
+{
+  "estado": "134 focales y1562 \u00fanicos+2 omitidos;tipos/Effect,lints correctos",
+  "previa": "129originales verdes despu\u00e9sP1,antesacotar32.2",
+  "parche": "8934148f18b0ac5eb03839ba3d134bf76e0bf7da4a8efbc76d3be57ab925af70",
+  "pasos": {
+    "resultados-correccion-residencia-1/focal": {
+      "command": [
+        "timeout",
+        "-k",
+        "30s",
+        "15m",
+        "/nix/store/v6wsd9nyglmwh32yn7w8z11dq9cksg4m-nodejs-24.20.0/bin/node",
+        "/home/elies/Repos/IRoboPF/node_modules/vitest/vitest.mjs",
+        "run",
+        "--config",
+        "/home/elies/Backups/IRoboPF/producto-p5a-integracion-20261105/vitest.config.mjs",
+        "--maxWorkers=1"
+      ],
+      "exit": 0,
+      "expected": 0,
+      "markers": [],
+      "ok": true,
+      "guard": null,
+      "maxTreeRssBytesSampled": 663318528,
+      "maxGroupBytesSampled": 5244448768,
+      "seconds": 4.220464257057756,
+      "heapMiB": 1792,
+      "workers": 1
+    },
+    "resultados-alcance322-1/focal": {
+      "command": [
+        "timeout",
+        "-k",
+        "30s",
+        "15m",
+        "/nix/store/v6wsd9nyglmwh32yn7w8z11dq9cksg4m-nodejs-24.20.0/bin/node",
+        "/home/elies/Repos/IRoboPF/node_modules/vitest/vitest.mjs",
+        "run",
+        "--config",
+        "/home/elies/Backups/IRoboPF/producto-p5a-integracion-20261105/vitest.config.mjs",
+        "--maxWorkers=1"
+      ],
+      "exit": 0,
+      "expected": 0,
+      "markers": [],
+      "ok": true,
+      "guard": null,
+      "maxTreeRssBytesSampled": 657862656,
+      "maxGroupBytesSampled": 5207007232,
+      "seconds": 4.18802327895537,
+      "heapMiB": 1792,
+      "workers": 1
+    },
+    "resultados-alcance322-tipos-1/tipos": {
+      "command": [
+        "timeout",
+        "-k",
+        "30s",
+        "15m",
+        "/nix/store/v6wsd9nyglmwh32yn7w8z11dq9cksg4m-nodejs-24.20.0/bin/node",
+        "/home/elies/Backups/IRoboPF/producto-p5a-integracion-20261105/tipos.mjs"
+      ],
+      "exit": 0,
+      "expected": 0,
+      "markers": [],
+      "ok": true,
+      "guard": null,
+      "maxTreeRssBytesSampled": 1664516096,
+      "maxGroupBytesSampled": 3568893952,
+      "seconds": 45.256969664245844,
+      "heapMiB": 1792,
+      "workers": 1
+    },
+    "resultados-alcance322-lints-1/eslint": {
+      "command": [
+        "timeout",
+        "-k",
+        "30s",
+        "15m",
+        "/nix/store/v6wsd9nyglmwh32yn7w8z11dq9cksg4m-nodejs-24.20.0/bin/node",
+        "/home/elies/Backups/IRoboPF/producto-p5a-integracion-20261105/eslint.mjs"
+      ],
+      "exit": 0,
+      "expected": 0,
+      "markers": [],
+      "ok": true,
+      "guard": null,
+      "maxTreeRssBytesSampled": 466735104,
+      "maxGroupBytesSampled": 2502782976,
+      "seconds": 2.906360485125333,
+      "heapMiB": 1792,
+      "workers": 1
+    },
+    "resultados-alcance322-lints-1/oxlint": {
+      "command": [
+        "timeout",
+        "-k",
+        "30s",
+        "15m",
+        "/nix/store/v6wsd9nyglmwh32yn7w8z11dq9cksg4m-nodejs-24.20.0/bin/node",
+        "/home/elies/Backups/IRoboPF/producto-p5a-integracion-20261105/oxlint.mjs"
+      ],
+      "exit": 0,
+      "expected": 0,
+      "markers": [],
+      "ok": true,
+      "guard": null,
+      "maxTreeRssBytesSampled": 221016064,
+      "maxGroupBytesSampled": 2163286016,
+      "seconds": 0.494684805162251,
+      "heapMiB": 1792,
+      "workers": 1
+    },
+    "resultados-alcance322-regresiones-1/regresiones": {
+      "command": [
+        "timeout",
+        "-k",
+        "30s",
+        "15m",
+        "/nix/store/v6wsd9nyglmwh32yn7w8z11dq9cksg4m-nodejs-24.20.0/bin/node",
+        "/home/elies/Repos/IRoboPF/node_modules/vitest/vitest.mjs",
+        "run",
+        "--config",
+        "/home/elies/Backups/IRoboPF/producto-p5a-integracion-20261105/vitest.config.mjs",
+        "--maxWorkers=1"
+      ],
+      "exit": 0,
+      "expected": 0,
+      "markers": [],
+      "ok": true,
+      "guard": null,
+      "maxTreeRssBytesSampled": 1029226496,
+      "maxGroupBytesSampled": 3142377472,
+      "seconds": 50.35492546111345,
+      "heapMiB": 1792,
+      "workers": 1
+    }
+  },
+  "canarios": "Previos verdes;arn\u00e9s no alterado salvo selecci\u00f3n de regresiones;no repetidos sin causa"
+}

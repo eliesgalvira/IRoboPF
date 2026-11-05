@@ -314,3 +314,17 @@ Los rechazos de entrada, identidad, historia, fechas, gastos o duplicados usan `
 Ejemplos comprobados en `tests/inmobiliario-p4a.test.ts` y `tests/inmobiliario-p4a-correcciones.test.ts`: dos API con cuota única, mejora disponible antes de factura/pago, facturas con varias partidas e inmueble fuera del territorio de la deducción. Los importes de sus fixtures son sintéticos y no amplían los cotejos con Open.
 
 Las fechas y líneas no acreditan por sí solas los plazos formales de expedición ni el ámbito mensual de una factura recapitulativa. [Integración y evidencia](inmobiliario-p4a-20261105/INTEGRACION.md).
+
+## Patrimonio y vivienda habitual riojana de 2025
+
+Las solicitudes `E38` de `rioja_vivienda_habitual_pequenos_municipios` y `rioja_inversion_vivienda_jovenes_menores_36` usan el inventario opcional `patrimonioP5a`, obligatorio al seleccionar esas ramas. Su contrato está en `lib/dominio/irpf/patrimonio-p5a/contrato.ts`. El consumidor deriva las magnitudes patrimoniales del censo, las cuentas, los movimientos, la adquisición y su historia; la entrada no admite un incremento fiscal calculado por el cliente.
+
+El perfil inicial exige adquisición plena individual de 2025, una vivienda y cuentas en euros. La rama de pequeños municipios sólo admite precio directo sin préstamo. La rama de jóvenes admite además un préstamo nuevo y exclusivo identificado, con disposición y amortización conciliadas. Los perfiles fuera de alcance se rechazan con `ResultadoNoSoportado`, sin importe sustitutorio. El resto de condiciones territoriales se evalúa dentro del mismo libro de cuota usado por ambas API.
+
+Una residencia abandonada antes de la compra no puede reutilizarse para conceder la deducción. Se conserva ocupación previa que continúa. La permanencia futura es una expectativa condicionada al cumplimiento posterior. Véanse [alcance, evidencias y reservas](patrimonio-p5a-20261105/INTEGRACION.md).
+
+## Etapas monetarias observadas en Open Madrid 2018
+
+La entrada efectiva de empleo de Madrid de 2018 selecciona internamente `open-etapas-empleo-madrid-2018`, dentro del perfil histórico individual admitido. La API canónica conserva su aritmética Decimal. No se introduce un selector externo que habilite por sí solo nuevos territorios, familias, pensiones o actividades.
+
+El perfil de compatibilidad exige importes acumulados a céntimos, no negativos y hasta un millón de euros; los gastos a–e deben ser enteros. Son límites técnicos del contraste disponible, no umbrales fiscales. Fuera de ese perfil se devuelve `ResultadoNoSoportado`. La política conserva las fórmulas comunes y cambia únicamente las operaciones y cuantizaciones documentadas para 2018. Véanse [evidencia observada, generalizaciones y límites](simuladores/historico/CORRECCION-ETAPAS-2018.md).

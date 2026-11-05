@@ -33,6 +33,7 @@ export const calcularReduccionTrabajoConOtrasRentas = ({
   rendimientoPrevioNeto,
   otrasRentasNoExentas,
   compatibilidadOpen2025,
+  compatibilidadOpen2018,
 }: {
   readonly anio: AnioFiscal
   readonly fechaFallecimiento?: Date | undefined
@@ -41,6 +42,8 @@ export const calcularReduccionTrabajoConOtrasRentas = ({
   readonly otrasRentasNoExentas: Decimal
   /** Compatibilidad observada, exclusivamente empleo Madrid 2025; no regla legal.
    * Sólo operandos de 0 a 1.000.000 EUR; fuera se conserva la ruta decimal. */
+  /** Política interna, habilitada sólo por la conexión explícita acotada. */
+  readonly compatibilidadOpen2018?: { readonly integro: Decimal; readonly gastosAE: Decimal } | undefined
   readonly compatibilidadOpen2025?:
     | {
         readonly integro: Decimal
@@ -62,7 +65,7 @@ export const calcularReduccionTrabajoConOtrasRentas = ({
       () => reduccionTrabajo2015A2017(rendimientoPrevioNeto)
     ),
     Match.when(2018, () =>
-      reduccionTrabajo2018({ fechaFallecimiento, rendimientoPrevioNeto })
+      reduccionTrabajo2018({ fechaFallecimiento, rendimientoPrevioNeto, compatibilidadOpen2018 })
     ),
     Match.when(
       (anio) => anio <= 2022,
@@ -111,7 +114,7 @@ const reduccionTrabajoHasta2014 = (rendimientoPrevioNeto: Decimal): Decimal =>
     Match.orElse(() => crearImporteMonetario(2652))
   )
 
-const reduccionTrabajo2015A2017 = (rendimientoPrevioNeto: Decimal): Decimal =>
+const reduccionTrabajo2015A2017 = (rendimientoPrevioNeto: Decimal, open = false): Decimal =>
   Match.value(rendimientoPrevioNeto).pipe(
     Match.when(
       (rendimientoPrevioNeto) => rendimientoPrevioNeto.lte(11250),
@@ -120,16 +123,12 @@ const reduccionTrabajo2015A2017 = (rendimientoPrevioNeto: Decimal): Decimal =>
     Match.when(
       (rendimientoPrevioNeto) => rendimientoPrevioNeto.lte(14450),
       () =>
-        crearImporteMonetario(3700).minus(
-          crearImporteMonetario("1.15625").mul(
-            rendimientoPrevioNeto.minus(11250)
-          )
-        )
+        reduccionTramoArt20("3700", "1.15625", rendimientoPrevioNeto, "11250", open)
     ),
     Match.orElse(() => IMPORTE_CERO)
   )
 
-const reduccionTrabajo2019A2022 = (rendimientoPrevioNeto: Decimal): Decimal =>
+const reduccionTrabajo2019A2022 = (rendimientoPrevioNeto: Decimal, open = false): Decimal =>
   Match.value(rendimientoPrevioNeto).pipe(
     Match.when(
       (rendimientoPrevioNeto) => rendimientoPrevioNeto.lte(13115),
@@ -140,9 +139,7 @@ const reduccionTrabajo2019A2022 = (rendimientoPrevioNeto: Decimal): Decimal =>
       () =>
         maximo(
           IMPORTE_CERO,
-          crearImporteMonetario(5565).minus(
-            crearImporteMonetario("1.5").mul(rendimientoPrevioNeto.minus(13115))
-          )
+          reduccionTramoArt20("5565", "1.5", rendimientoPrevioNeto, "13115", open)
         )
     ),
     Match.orElse(() => IMPORTE_CERO)
@@ -175,12 +172,20 @@ const fallecidoAntesDeFechaCivil = ({
 const reduccionTrabajo2018 = ({
   fechaFallecimiento,
   rendimientoPrevioNeto,
+  compatibilidadOpen2018,
 }: {
   readonly fechaFallecimiento?: Date | undefined
   readonly rendimientoPrevioNeto: Decimal
+  readonly compatibilidadOpen2018?: { readonly integro: Decimal; readonly gastosAE: Decimal } | undefined
 }): Decimal => {
-  const reduccionAnterior = reduccionTrabajo2015A2017(rendimientoPrevioNeto)
-  const reduccionNueva = reduccionTrabajo2019A2022(rendimientoPrevioNeto)
+  const open = fechaFallecimiento === undefined && compatibilidadOpen2018 !== undefined
+  // La conexión valida céntimos, transporte decimal corto y cota antes de activar.
+  const previo = open
+    ? restarArt20(compatibilidadOpen2018.integro, compatibilidadOpen2018.gastosAE, true)
+    : rendimientoPrevioNeto
+  const q = (v: Decimal) => open ? v.toDecimalPlaces(2, Decimal.ROUND_HALF_UP) : v
+  const reduccionAnterior = q(reduccionTrabajo2015A2017(previo, open))
+  const reduccionNueva = q(reduccionTrabajo2019A2022(previo, open))
 
   return Match.value(
     fallecidoAntesDeFechaCivil({
@@ -190,9 +195,9 @@ const reduccionTrabajo2018 = ({
   ).pipe(
     Match.when(true, () => reduccionAnterior),
     Match.orElse(() =>
-      reduccionAnterior.plus(
+      q(reduccionAnterior.plus(
         maximo(IMPORTE_CERO, reduccionNueva.minus(reduccionAnterior)).div(2)
-      )
+      ))
     )
   )
 }

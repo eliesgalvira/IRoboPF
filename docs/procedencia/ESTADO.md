@@ -1,5 +1,15 @@
 # Estado de la auditoría documental
 
+## Integración de patrimonio riojano y etapas de Open 2018, 5 de noviembre
+
+P4a está publicado en `9bac679032fd9cbfc492fc150acfea0c0fcdb9a2`, con los trabajos remotos correctos en la [ejecución 42016528631](https://github.com/eliesgalvira/IRoboPF/actions/runs/42016528631). Se retiraron sus seis recepciones tras conservarlas en un archivo verificado. La última medida de las cuatro raíces fue 98,32 GB, con 314,74 GB libres.
+
+El nuevo corte conecta patrimonio por hechos para dos deducciones riojanas de vivienda de 2025. Corrige la residencia abandonada detectada en revisión y restringe 32.2 a precio directo sin préstamo por la reserva documental de financiación. El contraste del P1 es favorable dentro de ese alcance; las 1.562 pruebas del integrador incluyen 134 focales y no se suman a las 369 del contraste. [Alcance y reservas](patrimonio-p5a-20261105/INTEGRACION.md). Las deducciones de 2025 siguen abiertas; P4b y ELA Galicia/Extremadura quedan como siguientes candidatos.
+
+La corrección de etapas de 2018 conserva 28 identidades oficiales, tiene revisión monetaria favorable acotada y completa los controles de integración sobre P4a. [Evidencia y límites](simuladores/historico/CORRECCION-ETAPAS-2018.md). No se amplía a otros años ni al cálculo canónico. La repetición de las 60 comparaciones se realizará después de publicar; las 29 diferencias del resultado previo permanecen conservadas.
+
+El histórico tiene 909 recibos revalidados: 2022 cerró hasta la semilla 60 y alcanza 61; 2023 tiene tres. La captura de 2023 y el primer intento de CI se detuvieron por sus guardias de memoria, conservando dos capturas nuevas y la tercera tentativa interrumpida. El CI se reanuda sin navegador concurrente; inventario y corpus se separan de futuras capturas. La carrera al medir temporales CAS se corrigió con cinco pruebas, manteniendo las guardias. Capturas no cotejadas, ausencias y mapeos reservados no se cuentan como coincidencias. Los 31 comandos del CI local de esta integración pasan con PATH limpio y las versiones fijadas; incluye inventario y comandos Nix. La comprobación remota corresponde al push posterior.
+
 ## Auxiliares de Madrid y Murcia publicados, 5 de noviembre
 
 Publicado `ff92d0da162e7732102d754304502c398cfaa018`, con los 31 pasos locales y los trabajos remotos `checks` y `corpus` correctos: [ejecución 42000794755](https://github.com/eliesgalvira/IRoboPF/actions/runs/42000794755). Conecta nacimiento/adopción de Madrid y guardería de Murcia en las dos API, dentro de sus perfiles acotados. La primera revisión detectó la confusión entre padre y abuelo; la corrección recibió contraste favorable y conserva sus reproducciones originales. [Integración, fuentes y límites](deducciones-2025/f-auxiliares-exactos-20261105/INTEGRACION.md).

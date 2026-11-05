@@ -1,6 +1,7 @@
 // Derivado de tipos de E38 corregido; guías Effect4 SCHEMA.md/Schema.ts consultadas.
 // Importes fiscales y magnitudes anuales excluidos, onExcessProperty:error en dispatcher.
 import { Schema } from "effect"
+import { PatrimonioP5a } from "../../patrimonio-p5a/contrato"
 const E_Persona = Schema.Struct({id: Schema.String, nacimiento: Schema.String, discapacidad: Schema.Number.check(Schema.isFinite())})
 const E_Hijo = Schema.Struct({persona: E_Persona, titularesMinimo: Schema.Array(Schema.String), convivientes: Schema.Array(Schema.String)})
 const E_Documento = Schema.Struct({referencia: Schema.String, fecha: Schema.String, emisor: Schema.String})
@@ -49,6 +50,7 @@ export const E_HechosAmpliacionE2025 = Schema.Union([E_Nacimiento, E_FamiliaNume
 export const SolicitudE38Anual2025 = Schema.Struct({
  lote: Schema.Literal("E38"),
  nacimientoContribuyente: Schema.String,
+ patrimonioP5a: Schema.optionalKey(PatrimonioP5a),
  censoHijosPorProgenitor: Schema.optionalKey(Schema.Array(Schema.Struct({progenitor:Schema.String,exhaustividad:Schema.Literal("completo"),hijos:Schema.Array(Schema.Struct({id:Schema.String,nacimiento:Schema.String,fechaVinculo:Schema.String,prioridadRegistro:Schema.Number.check(Schema.isInt(),Schema.isGreaterThanOrEqualTo(1)),soporte:E_Documento}))}))),
  exhaustividad: Schema.Literal("expediente_comun_completo_todos_pagadores"),
  inversionesViviendaEjercicio: Schema.Array(Schema.Struct({id:Schema.String,titular:Schema.String,fecha:Schema.String,importe:Schema.String,documento:Schema.String})),
