@@ -34,7 +34,7 @@ const Alcance = {
   otrasRentas: Schema.Literal("ninguna"),
   familiaresConDerechoMinimo: Schema.Literals(["ninguno", "segun-derechos"]),
   derechosMinimos: Schema.optional(DerechosMinimosAnuales),
-  discapacidad: Schema.Literal("ninguna"),
+  discapacidad: Schema.Literals(["ninguna","33-a-64","65-o-mas"]),
   reduccionesBase: Schema.Literal("ninguna"),
   saldosAnteriores: Schema.Literals([
     "ninguno",

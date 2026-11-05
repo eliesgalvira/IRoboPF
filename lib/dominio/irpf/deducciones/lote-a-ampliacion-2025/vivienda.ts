@@ -153,9 +153,10 @@ export function rehabilitacion(v: Vivienda): void {
 }
 export function baseVivienda(
   v: Vivienda,
-  h: Ambito,
+  h: Pick<Ambito,"contribuyente">,
   bancario: boolean,
-  adecuacion = false
+  adecuacion = false,
+  inversionSinFinanciacion?: Decimal
 ): Decimal {
   habitual(v)
   ref(v.referenciaPatrimonio)
@@ -175,7 +176,7 @@ export function baseVivienda(
     )
   )
   exigir(
-    eur(v.incrementoPatrimonialComputableCentimos).gte(capital),
+    eur(v.incrementoPatrimonialComputableCentimos).gte(inversionSinFinanciacion ?? capital),
     "Incremento patrimonial computable no cubre inversión sin financiación/intereses"
   )
   const obstaculo = eur(v.baseDeducidaViviendasAnterioresCentimos).plus(

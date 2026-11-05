@@ -207,7 +207,7 @@ export function numerosa(f: FamiliaNumerosa, h: Ambito): boolean {
 /** Reparto sólo para gastos con regla expresa de gananciales/consorcio. */
 export function pagado(
   p: Pago,
-  h: Ambito,
+  h: Pick<Ambito,"contribuyente">,
   bancario = false,
   consorcio = false
 ): Decimal {
@@ -238,7 +238,7 @@ export function pagado(
 }
 export function pagos(
   ps: readonly Pago[],
-  h: Ambito,
+  h: Pick<Ambito,"contribuyente">,
   bancario = false,
   consorcio = false
 ): Decimal {

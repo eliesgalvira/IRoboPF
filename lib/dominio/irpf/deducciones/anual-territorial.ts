@@ -1,3 +1,7 @@
+import { validarCensosViviendaRioja } from "../vivienda-dt18-2025/productor"
+import { HechosDT182025 } from "../vivienda-dt18-2025/contrato"
+import type { LibroDT182025 } from "../vivienda-dt18-2025/productor"
+import type { aplicarCuotasDT18 } from "../vivienda-dt18-2025/cuota"
 import type { GeneracionEstatal681 } from "./inversion-681-2025"
 import type { LibroVehiculoDA58 } from "../vehiculo-da58-2025/productor"
 import type { LibroMaternidad81 } from "../maternidad-2025/producir"
@@ -42,6 +46,8 @@ import {
 export { SolicitudDeduccionesTerritoriales2025 }
 import type { LibroDonativosEstatales2025 } from "./donativos-estatales-2025/productor"
 export interface MagnitudesTerritorialesAnuales {
+  readonly libroDT18?: LibroDT182025 | undefined
+  readonly cuotasDT18?: ReturnType<typeof aplicarCuotasDT18> | undefined
   readonly cuotaEstatal681?: Decimal | undefined
   readonly vehiculoDA58?: LibroVehiculoDA58 | undefined
   readonly inmueblesP4a?: readonly ResultadoInmuebleP4a[] | undefined
@@ -401,8 +407,13 @@ export function aplicarDeduccionesTerritoriales2025(
     ),
     "Elecciones incompatibles CLM para el contribuyente"
   )
+  validarCensosViviendaRioja(decoded.success)
+  if(decoded.success.viviendaDT182025!==undefined){
+    exigir(m.libroDT18!==undefined&&m.cuotasDT18!==undefined&&m.cuotaAutonomicaResidual!==undefined,"DT18: falta libro y consumo producidos una vez por composición anual")
+    exigir(Schema.toEquivalence(HechosDT182025)(m.libroDT18.hechos,decoded.success.viviendaDT182025),"DT18: libro ajeno a los hechos de esta declaración")
+  }else exigir(m.libroDT18===undefined&&m.cuotasDT18===undefined,"DT18: libro sin hechos históricos")
   // Reserva de base P5a por declaración: no admite particiones ni concurrencias nuevas.
-  const codigosP5a = ["rioja_vivienda_habitual_pequenos_municipios", "rioja_inversion_vivienda_jovenes_menores_36"]
+  const codigosP5a = ["rioja_vivienda_habitual_pequenos_municipios", "rioja_inversion_vivienda_jovenes_menores_36", "rioja_segunda_vivienda_medio_rural"]
   if (codigos.some(c => codigosP5a.includes(c))) {
     exigir(solicitudes.length === 1, "P5a combinación no representada: reserva única por declaración; pendiente partición, también con productor inmobiliario P4a")
     exigir(m.libroIngresosIdentificados2025 === undefined && m.libroMaternidad81 === undefined && m.donativosEstatales === undefined && decoded.success.donativosEstatales2025 === undefined, "P5a combinación con productores ELA/donativos/art81 no representada; pendiente conciliación conjunta")
@@ -949,6 +960,7 @@ export function aplicarDeduccionesTerritoriales2025(
     return {generacion:generacionEstatal681,consumo:consumirCuota(racional(m.cuotaEstatal681.toFixed()),[racional(generacionEstatal681.importeExactoEuros)])}
   })()
   const salidaBase = {
+    viviendaDT182025: m.libroDT18===undefined ? undefined : {...m.libroDT18.publico,cuotas:m.cuotasDT18},
     estatal681,
     ...consumo,
     ...ampliacion,

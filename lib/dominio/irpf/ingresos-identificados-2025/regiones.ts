@@ -10,7 +10,7 @@ export function ingresoRegionalELA2025(m: MagnitudesTerritorialesAnuales, ingres
   return { ingreso, tipos }
 }
 /** Concilia exclusivamente un asiento producido por la anual y sus tipos comunes. */
-export function ingresoRegionalIdentificado2025(m: MagnitudesTerritorialesAnuales, ingresoId: string, programa: "galicia-bs215a-2025" | "extremadura-ela-2025" | "talidomida-rd574-2023-cobro2025" | "galicia-deportistas-resultados-2025") {
+export function ingresoRegionalIdentificado2025(m: MagnitudesTerritorialesAnuales, ingresoId: string, programa: "galicia-bs215a-2025" | "extremadura-ela-2025" | "talidomida-rd574-2023-cobro2025" | "galicia-deportistas-resultados-2025" | "balears-d33-2018-art3_2e-cobro2025") {
   const libro = m.libroIngresosIdentificados2025, nodos = m.nodosFiscalesB2025
   exigir(libro !== undefined && nodos?.tiposMediosGenerales !== undefined, "Ingreso regional requiere libro integrado y tipos medios después del mínimo")
   exigir(libro.ejercicio === 2025 && libro.contribuyente === m.caso.contribuyenteId && libro.contribuyente === nodos.contribuyente && libro.liquidacion === nodos.liquidacion, "Ingreso regional: identidad/ejercicio/liquidación no conciliados")
@@ -18,6 +18,6 @@ export function ingresoRegionalIdentificado2025(m: MagnitudesTerritorialesAnuale
   exigir(libro.ingresos.length === 1, "Extensión regional: un expediente exhaustivo, sin mezclar otros ingresos identificados")
   const ingreso = libro.ingresos[0]
   exigir(ingreso !== undefined && ingreso.ayudaId === ingresoId && ingreso.programa === programa && ingreso.beneficiario === libro.contribuyente, "Ingreso regional: expediente/beneficiario/programa ajeno")
-  exigir(new D(ingreso.integradoBaseGeneral).eq(ingreso.integradoBaseLiquidable) && new D(ingreso.integradoBaseGeneral).eq(new D(ingreso.cobrado.numeradorEuros).div(ingreso.cobrado.divisor)), "ELA regional: cobro/BIG/BLG sin conciliación exacta")
+  exigir(new D(ingreso.integradoBaseGeneral).eq(ingreso.integradoBaseLiquidable) && (ingreso.programa === "balears-d33-2018-art3_2e-cobro2025" ? new D(ingreso.integradoBaseGeneral).gte(0) && new D(ingreso.integradoBaseGeneral).lte(new D(ingreso.cobrado.numeradorEuros).div(ingreso.cobrado.divisor)) : new D(ingreso.integradoBaseGeneral).eq(new D(ingreso.cobrado.numeradorEuros).div(ingreso.cobrado.divisor))), "ELA regional: cobro/BIG/BLG sin conciliación exacta")
   return { ingreso, tipos: nodos.tiposMediosGenerales }
 }

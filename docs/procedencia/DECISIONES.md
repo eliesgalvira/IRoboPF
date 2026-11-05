@@ -940,3 +940,20 @@ Las URLs BOE con una fecha solicitada inexistente no prueban esa vigencia. La do
 Se agrupan tres ampliaciones ya revisadas para ejecutar una sola vez el CI completo sobre la composición final. Los P2 pequeños se corrigen por el integrador sin otro contraste delegado, conforme a la pauta de revisión del propietario. Una guardia global de6GiB detuvo tipos durante dos validaciones simultáneas; se mantienen los límites y los controles pesados pasan a ejecución secuencial hasta terminar el corte.
 
 La validación global de este corte exigió adaptar los helpers de pruebas al importe racional y actualizar nueve huellas técnicas, incorporando tres fuentes nuevas. Se conservan los fallos y los oráculos; el segundo CI reproduce los 31 pasos en entorno limpio y pasa. Las huellas identifican los bytes integrados, sin acreditar por sí mismas una regla fiscal.
+
+## Condición patrimonial conjunta y revisión monetaria de vivienda
+
+La condición patrimonial de DT18 se deriva una vez del censo económico completo y se consume también en las deducciones riojanas. Comparar el mismo incremento con cada proyecto aisladamente permitía conceder una deducción cuando la inversión total no cumplía la condición. El consumidor conserva sus validaciones y deja una traza de la anulación conjunta. La corrección no cambia los porcentajes, las reservas ni el orden de elección de las solicitudes válidas.
+
+La primera revisión y el contraste del arreglo grave se mantienen separados. Los casos adicionales que escribe el propio implementador siguen siendo validación de autor. Las discrepancias del arnés se conservan con su causa y no se presentan como errores del producto; tampoco se cambian oráculos para hacer pasar una ejecución.
+
+Las validaciones pesadas continúan en secuencia bajo la guardia global de 6 GiB. La lectura normativa y la preparación de adaptadores avanzan en paralelo, sin ejecutar los candidatos. Esto consume menos memoria a costa de retrasar parte de las ejecuciones; evita repetir las paradas observadas al validar simultáneamente. El CI completo se ejecutará una sola vez sobre cada corte final aceptado, con los mismos comandos y entorno declarados por el workflow.
+
+La conciliación estática de pendientes contra e47 y los seis candidatos separa códigos sin ninguna rama anual positiva de subramas no representadas. Los antiguos recuentos de fichas pendientes no describen por sí solos la capacidad actual. Se prioriza la deducción catalana por pluralidad de pagadores como siguiente productor concreto, con identidad de pagadores y causa de obligación derivadas de hechos. La autenticidad externa de un expediente permanece separada del cálculo.
+
+
+## Integración de vivienda: identidad AST y expectativas anteriores
+
+El extractor R30 debe conservar la declaración ya resuelta en su ámbito léxico. Dos auxiliares locales con el mismo nombre no son una declaración ambigua si sus nodos AST son distintos. La cola usa esos nodos e identifica sus posiciones; se conserva el control estricto de las declaraciones de módulo. El rojo previo, las 27 regresiones y la revisión estática independiente quedan fijados por hash. No se promueve aceptación documental.
+
+La prueba hipotecaria anterior describía una dependencia pendiente. Al incorporar el productor, una entrada sin el contrato requerido recibe un rechazo concreto. Se actualiza sólo esa expectativa, conservando la entrada original y todos los oráculos monetarios. Los dos fallos locales se corrigen antes de publicar y el tercer pase reproduce de nuevo los 31 comandos completos; ningún fallo se traslada deliberadamente al CI remoto.

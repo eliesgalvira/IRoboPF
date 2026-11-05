@@ -16,7 +16,7 @@ import {
   verifyCandidate,
 } from "../scripts/procedencia/flujo-componer.mjs"
 import { closure, validate } from "../scripts/procedencia/flujo-contrato.mjs"
-import { composeR30 } from "../scripts/procedencia/flujo-retenciones-ss.mjs"
+import { composeR30, contractsR30 } from "../scripts/procedencia/flujo-retenciones-ss.mjs"
 const require = createRequire(new URL("../package.json", import.meta.url))
 const Decimal = require("decimal.js").Decimal
 function loader(mutationFile = "", before = "", after = "") {
@@ -504,6 +504,28 @@ it("resuelve la llamada territorial a su index.ts fijado por contenido", () => {
   expect(declaration?.name?.getText()).toBe("evaluarCatalunyaHechos2025")
   if (declaration === undefined) throw Error("Falta declaración concreta")
   expect(() => sources.exact(sources.ref(declaration))).not.toThrow()
+})
+
+it("R30: conserva dos auxiliares homónimos y la declaración exacta de cada llamada", () => {
+  const contracts = contractsR30()
+  const file = "lib/dominio/irpf/patrimonio-p5a/productor.ts"
+  const local = contracts.filter((c) =>
+    c.declaration.file === file && c.declaration.text.startsWith("function no(")
+  )
+  expect(local).toHaveLength(2)
+  expect(new Set(local.map((c) => c.id)).size).toBe(2)
+  const sources = new Sources()
+  for (const contract of local) {
+    const callers = contracts.flatMap((c) => c.calls).filter((call) =>
+      call.callee?.file === file && call.callee.start === contract.declaration.start
+    )
+    expect(callers.length).toBeGreaterThan(0)
+    for (const call of callers) {
+      const node = sources.exact(call.call)
+      if (!ts.isCallExpression(node)) throw Error("Llamada no concreta")
+      expect(sources.declaration(node.expression)).toBe(sources.exact(contract.declaration))
+    }
+  }
 })
 
 it("R30: los contratos enlazan el retorno monetario concreto y conservan las divisiones", () => {

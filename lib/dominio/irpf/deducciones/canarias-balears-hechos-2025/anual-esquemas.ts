@@ -265,15 +265,7 @@ export const EmergenciaC36 = Schema.Struct({
     "balears_subvenciones_zona_emergencia_proteccion_civil"
   ),
   hechos: Schema.Struct({
-    ayudas: Schema.Array(
-      Schema.Struct({
-        id: Texto,
-        concedente: Schema.Literal("comunidad_illes_balears"),
-        acuerdoConsejoMinistros: Texto,
-        resolucion: Texto,
-        importeRecibido: Texto,
-      })
-    ),
+    ingresoId: Texto,
     exhaustividad: Schema.Literal("completa"),
   }),
 })
