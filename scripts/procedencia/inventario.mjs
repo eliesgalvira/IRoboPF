@@ -514,7 +514,8 @@ async function generateInProcess(root, output) {
   items.sort((a, b) => a.id.localeCompare(b.id, "en"))
   const write = (name, value) =>
     writeFileSync(`${output}/${name}`, JSON.stringify(value) + "\n")
-  write("inventario-bindings.json", bindingGraph(root, paths))
+  const bindingInputs = new Set()
+  write("inventario-bindings.json", bindingGraph(root, paths, bindingInputs))
   const pages = [],
     index = []
   for (let start = 0; start < items.length; start += 200) {
@@ -540,8 +541,9 @@ async function generateInProcess(root, output) {
       "Ocurrencias versionadas por fuente y valor efectivo; no IDs permanentes de conceptos fiscales",
     dimensionStatus:
       "Inferencia técnica por nombre/ruta; no aceptación de unidades ni vigencia",
-    generationInputs: [
+    generationInputs: [...new Set([
       ...paths.map((p) => relative(root, p)),
+      ...bindingInputs,
       pythonPath,
       "package.json",
       "bun.lock",
@@ -549,7 +551,7 @@ async function generateInProcess(root, output) {
       ...filesUnder(`${root}/scripts/procedencia`)
         .filter((p) => /inventario.*\.(mjs|py)$/.test(p))
         .map((p) => relative(root, p)),
-    ]
+    ])]
       .sort()
       .map((file) => ({
         file,
