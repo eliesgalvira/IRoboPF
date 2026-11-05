@@ -1,3 +1,4 @@
+import type { ResultadoInmuebleP4a } from "../inmobiliario-2025/productor"
 import type { HechosMaternidad2025 } from "../maternidad-2025/contrato"
 import { producirMaternidad81 } from "../maternidad-2025/producir"
 import { motivoPagoReutilizado81 } from "../maternidad-2025/combinacion"
@@ -57,6 +58,7 @@ export type PoliticaAnual =
   | "open-cuotas-empleo-madrid-2018-2024"
 /** Contrato interno: bases ya integradas en EUR Decimal; jamás reconstruye cotizaciones. */
 export interface EntradaComposicionAnual {
+  readonly inmueblesP4a?: readonly ResultadoInmuebleP4a[] | undefined
   readonly ingresosIdentificados2025?: PreparacionIngresos2025 | undefined
   readonly rentaActividadAnualB?: Decimal | undefined
   readonly origenBaseGeneralB?: "solo-trabajo" | "solo-actividad" | undefined
@@ -684,6 +686,7 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
         try: () =>
           aplicarDeduccionesTerritoriales2025(solicitud, {
             caso,
+            inmueblesP4a: entrada.inmueblesP4a,
             libroMaternidad81,
             basesImponiblesE38: entrada.basesImponiblesE38,
             libroIngresosIdentificados2025,

@@ -1,3 +1,5 @@
+import { liquidarInmobiliarioP4a } from "../inmobiliario-2025/anual"
+import type { CasoInmobiliarioP4a } from "../inmobiliario-2025/contrato"
 import { MOTIVO_ELA81_PENDIENTE } from "../maternidad-2025/combinacion"
 import type { DependenciaAragonAnual2025 } from "../deducciones/aragon-dos-anual-error"
 import { prepararIngresosIdentificados2025, DecimalIngreso2025, type LibroIngresosIdentificados2025 } from "../ingresos-identificados-2025/productor"
@@ -314,7 +316,7 @@ const liquidarIrpfAnualDesdeServicio = Effect.fn(
   return yield* liquidacion.liquidar(caso, contexto)
 })
 
-export const liquidarIrpfAnual = (
+const liquidarIrpfAnualBase = (
   caso: CasoFiscalAnual,
   contexto: ContextoLiquidacionIrpf
 ): Effect.Effect<LiquidacionIrpfAnualCalculada, LiquidarIrpfAnualError> =>
@@ -1430,3 +1432,12 @@ const rastroResultadoNoSoportado = ({
 })
 
 export { liquidarIrpfAnualExplicito } from "../trabajo-anual/conexion"
+
+/** Entrada P4a por la API canónica con perfil explícito; conserva el servicio histórico. */
+export function liquidarIrpfAnual(caso: CasoInmobiliarioP4a, contexto: ContextoLiquidacionIrpf): ReturnType<typeof liquidarInmobiliarioP4a>
+export function liquidarIrpfAnual(caso: CasoFiscalAnual, contexto: ContextoLiquidacionIrpf): ReturnType<typeof liquidarIrpfAnualBase>
+export function liquidarIrpfAnual(caso: CasoInmobiliarioP4a | CasoFiscalAnual, contexto: ContextoLiquidacionIrpf) {
+  return "perfil" in caso && caso.perfil === "solo-inmobiliario-p4a"
+    ? liquidarInmobiliarioP4a(caso)
+    : "anio" in caso ? liquidarIrpfAnualBase(caso, contexto) : liquidarInmobiliarioP4a(caso)
+}

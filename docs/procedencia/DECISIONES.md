@@ -876,3 +876,19 @@ Los productores ELA, donativos y artículo 81 se integran en la misma composici�
 La siguiente ampliación prioriza alquileres identificados y fórmulas auxiliares ya publicadas antes de abrir todo el historial patrimonial. El candidato riojano limita la primera conexión a adquisiciones sin deducciones anteriores ni reinversión. Las tres ampliaciones requieren controles de autor y primera revisión monetaria antes de integrarse; no se cuentan como códigos cerrados.
 
 El extractor documental R36 debe seguir las dependencias reales de las fórmulas anuales después de incorporar ELA. Se añaden los bindings locales y se reconocen los productores nuevos por módulo y export como fronteras pendientes, sin sustituirlas por funciones ficticias ni otorgar admisión. La prueba conserva el rechazo sin contrato. El primer CI local que encontró la incompatibilidad queda registrado; no se publica hasta repetirlo entero.
+
+
+## Alquileres 2025: hechos temporales, ubicación y factura
+
+El perfil P4a incorpora ubicación física independiente de la residencia fiscal. La conciliación regional es obligatoria cuando existe productor P4a; cambiar la categoría de uso no puede eludirla. Se distinguen operación, factura, pago y puesta en servicio porque una mejora puede utilizarse antes de facturarse. Cada partida declara emisor, factura, línea y total, de modo que varias líneas legítimas puedan coexistir sin repetir el gasto.
+
+Este contrato inicial representa sólo operaciones, facturas y pagos íntegros de 2025, propiedad plena individual y alquiler durante todo el año. La alternativa de inferir pagos parciales, devengos de otros años o historia ausente daría importes sin hechos suficientes. Es una restricción de cobertura explícita; no se presenta como regla fiscal general ni como cierre de las deducciones regionales. Los documentos y sus fechas son hechos declarados, sin autenticación ni comprobación universal de plazos de facturación.
+
+La versión BOE se verifica en el cuerpo recibido, no sólo en el parámetro de la URL. Las tres peticiones antiguas con fecha inexistente devolvieron texto de 2026. Se preservan sus hashes, pero el cálculo de 2025 cita las versiones seleccionadas correctas y la norma de efectos aplicable. El cambio de 2026 en el artículo 23 no se proyecta a 2025. Véase [integración y controles](inmobiliario-p4a-20261105/INTEGRACION.md).
+
+
+### P4a: contrato público tipado y límite del extractor histórico (5/11)
+
+El despachador inmobiliario exige sobrecargas que preserven los resultados salariales. El ajuste final de tipos genera JavaScript idéntico; las pruebas salariales identifican su contrato sin cambiar entradas ni importes esperados. Se conserva el fallo previo del CI local y se repiten sus31comandos antes del push.
+
+La ampliación de controles reproduce dos incidencias previas en R32/R43 y descubre que R60 no interpreta el nuevo despachador. Se mantienen las pruebas y sus rojos, sin acreditar esos grafos. Conforme a la prioridad de producto, este límite de acreditación no bloquea el perfil monetario revisado si el CI vigente pasa. La limitación y la reproducción sobre ff92d0da constan en [la validación de integración](inmobiliario-p4a-20261105/VALIDACION-INTEGRACION.md). No se afirma que toda la batería histórica esté verde.

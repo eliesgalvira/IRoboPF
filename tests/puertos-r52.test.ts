@@ -274,3 +274,26 @@ it("R52 no acredita ELA ni artículo 81 al incorporar sus dependencias anuales",
   expect(fragment.completeRuleAcceptance).toBe(false)
   expect(fragment.wiringAllowed).toBe(false)
 })
+
+it("R52 conserva el despachador y rechaza P4a sin contrato documental", () => {
+  const name = "boundary:liquidarInmobiliarioP4a"
+  expect(fragment.boundaries.find((b) => b.name === name)).toMatchObject({
+    owner: "productores-anuales-2025",
+    status: "requires-external-contract",
+    admissionAvailable: false,
+  })
+  expect(fragment.globalBindings.find((b) => b.name === name)).toMatchObject({
+    node: null,
+    external: true,
+  })
+  const root = "lib/dominio/irpf/trabajo-anual/conexion.ts:liquidarIrpfAnualExplicito"
+  expect(fragment.roots).toHaveProperty("liquidarIrpfAnualExplicito", root)
+  expect(() => executeRentasFinite(fragment, root, [
+    { perfil: "solo-inmobiliario-p4a" },
+  ])).toThrow("Frontera sin contrato " + name)
+  expect(fragment.globalBindings.find((b) =>
+    b.name === "lib/dominio/irpf/trabajo-anual/conexion.ts:liquidarIrpfAnualExplicitoBase"
+  )?.external).toBe(false)
+  expect(fragment.completeRuleAcceptance).toBe(false)
+  expect(fragment.wiringAllowed).toBe(false)
+})

@@ -1,5 +1,6 @@
 import { CensoIngresosIdentificados2025 } from "../ingresos-identificados-2025/contrato"
 import { HechosMaternidad2025 } from "../maternidad-2025/contrato"
+import { CasoInmobiliarioP4a } from "../inmobiliario-2025/contrato"
 import { SolicitudDeduccionesTerritoriales2025 } from "../deducciones/anual-territorial"
 import { Schema } from "effect"
 import { SolicitudDeduccionesValencianasAnual2025 } from "../deducciones/valenciana-2025/anual"
@@ -90,7 +91,7 @@ const CasosTrabajoHistorico = (
     ),
   })
 )
-export const CasoFiscalAnualExplicito = Schema.Union([
+export const CasoFiscalAnualExplicitoBase = Schema.Union([
   ...CasosTrabajoHistorico,
   Schema.Struct({
     ...Alcance,
@@ -154,4 +155,8 @@ export const CasoFiscalAnualExplicito = Schema.Union([
     actividad: CasoActividad2025,
   }),
 ])
+export type CasoFiscalAnualExplicitoBase = typeof CasoFiscalAnualExplicitoBase.Type
+export const CasoFiscalAnualExplicito = CasoFiscalAnualExplicitoBase
+export const CasoFiscalAnualConInmobiliarioP4a = Schema.Union([CasoFiscalAnualExplicitoBase, CasoInmobiliarioP4a])
+export type CasoFiscalAnualConInmobiliarioP4a = typeof CasoFiscalAnualConInmobiliarioP4a.Type
 export type CasoFiscalAnualExplicito = typeof CasoFiscalAnualExplicito.Type

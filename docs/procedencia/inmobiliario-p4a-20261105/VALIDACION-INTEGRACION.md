@@ -1,0 +1,14 @@
+# Validación de la integración P4a
+
+El primer intento de CI local detectó incompatibilidades de TypeScript al añadir el perfil inmobiliario a las API. Se corrigió la sobrecarga de la API explícita para devolver un `Effect` de la unión de resultados y errores. Las pruebas salariales identifican ahora su contrato concreto; conservan entradas y expectativas. El JavaScript generado de la función productiva es idéntico antes y después de este ajuste de tipos. El chequeo global de tipos estrictos y Effect pasa.
+
+Las 107 pruebas P4a pasan: autor, reparaciones y 50 casos independientes trasladados al repositorio. La ejecución ampliada de diez archivos obtiene 330 pruebas correctas, seis fallidas y una suite que no llega a iniciar. No se presenta esa ejecución como verde.
+
+Dos incidencias se reproducen con las fuentes y pruebas de `ff92d0da` cargadas mediante una superposición selectiva: el extractor SS usado por `composicion-r43` no resuelve `calcularDesgloseCotizacionesSocialesLegacy`; una prueba R32 aún espera el rechazo territorial de 2026 anterior a su incorporación. Los archivos leídos directamente por el extractor SS coinciden con ese commit. Esa comprobación de base tiene 138 casos correctos, uno fallido y una suite sin iniciar.
+
+Las otras cinco pruebas corresponden al extractor AST R60. Primero rechazaron la huella anterior de `conexion.ts`, que se actualizó tras el ajuste de tipos. Después fallaron porque el extractor busca el inicializador de la antigua variable exportada y no entiende el nuevo despachador con sobrecargas. Esta limitación de extracción queda abierta: no acredita el perfil inmobiliario ni modifica importes del motor. No se cambian las expectativas ni se desactiva ninguna prueba. Estos cuatro archivos no forman parte de los comandos del workflow vigente; su modernización pertenece al trabajo de acreditación pendiente.
+
+La decisión de publicar el perfil tras su revisión monetaria y el CI vigente conserva esos fallos documentados, conforme a la prioridad de producto. No equivale a afirmar que toda la batería histórica o la acreditación AST pasan. Los logs, preimágenes y la reproducción de la base quedan en el manifiesto privado de esta entrega. El resultado de los 31 comandos del workflow se recoge separadamente en `CI.md` y `CI.json` cuando finalice.
+
+
+El segundo intento del workflow descubrió un bloqueo adicional en R52: el extractor de rentas suponía que la API explícita era una variable Effect.fn. Se conserva el despachador real con su selección por perfil y se extrae separadamente el generador salarial. El productor P4a queda como frontera externa pendiente, reconocida por módulo y export. Las ocho pruebas R52 pasan, incluida la nueva que comprueba el rechazo de P4a sin contrato documental. Este arreglo no cambia el extractor R60 de escalas ni acredita sus grafos.

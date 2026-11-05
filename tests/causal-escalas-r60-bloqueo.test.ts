@@ -1,3 +1,4 @@
+import type { CasoFiscalAnualExplicito } from "../lib/dominio/irpf/trabajo-anual/conexion-contrato"
 import { test, expect } from "vitest";
 import { actividad } from "../scripts/procedencia/causal-escalas-r60-bloqueo-ensayo.mjs";
 import { composeCausalEscalas } from "../scripts/procedencia/causal-escalas-r60-contratos.mjs";
@@ -9,7 +10,7 @@ test("actividad admitida real alcanza aporte excluido: bloqueo local explícito"
   // SAFETY: fixture estructural de la prueba pública previa, que vuelve a pasar por su schema real.
   const real = Effect.runSync(
     liquidarIrpfAnualExplicito(
-      input as Parameters<typeof liquidarIrpfAnualExplicito>[0],
+      input as CasoFiscalAnualExplicito,
     ),
   );
   expect(

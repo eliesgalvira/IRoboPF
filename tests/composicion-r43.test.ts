@@ -1,3 +1,4 @@
+import type { CasoFiscalAnualExplicito } from "../lib/dominio/irpf/trabajo-anual/conexion-contrato"
 import { expect, it } from "vitest"
 import {
   createComposition,
@@ -231,7 +232,7 @@ it("explícito trabajo: conecta cuotas y mínimos sin oráculo en producción", 
   // SAFETY: the fixture is checked by the real schema in the oracle and candidate.
   const expected = Effect.runSync(
     liquidarIrpfAnualExplicito(
-      input as Parameters<typeof liquidarIrpfAnualExplicito>[0]
+      input as CasoFiscalAnualExplicito
     )
   )
   const actual = composed.explicit(input)
@@ -335,7 +336,7 @@ it("actividad anual EDS usa aporte y conserva pagos separados", () => {
   // SAFETY: intentional JS fixture is decoded by both implementations before arithmetic.
   const expected = Effect.runSync(
     liquidarIrpfAnualExplicito(
-      input as Parameters<typeof liquidarIrpfAnualExplicito>[0]
+      input as CasoFiscalAnualExplicito
     )
   )
   const actual = composed.explicit(input)

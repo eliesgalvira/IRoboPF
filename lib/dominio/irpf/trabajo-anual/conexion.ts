@@ -2,6 +2,8 @@ import { MOTIVO_ELA81_PENDIENTE } from "../maternidad-2025/combinacion"
 import { prepararIngresosIdentificados2025, DecimalIngreso2025 } from "../ingresos-identificados-2025/productor"
 import { aplicarArt81AlDiferencial } from "../maternidad-2025/producir"
 import { pasosMaternidad81, formulaAjuste81 } from "../maternidad-2025/rastro"
+import { liquidarInmobiliarioP4a } from "../inmobiliario-2025/anual"
+import type { CasoInmobiliarioP4a } from "../inmobiliario-2025/contrato"
 import { esAmbitoCuotasTerritorialesOpen2025 } from "../cuotas/politica-cuotas-open-2025"
 import { pasosDeduccionesValencianasAnual } from "../deducciones/valenciana-2025/anual"
 import { liquidarPagosAnuales } from "../cuotas/cuota-diferencial"
@@ -11,7 +13,7 @@ import {
 } from "../liquidacion/composicion-anual"
 import Decimal from "decimal.js"
 import { Effect, Result, Schema } from "effect"
-import { CasoFiscalAnualExplicito } from "./conexion-contrato"
+import { CasoFiscalAnualExplicitoBase as CasoFiscalAnualExplicito } from "./conexion-contrato"
 import { adaptarTrabajoAnual } from "./adaptador"
 import { adaptarActividadGeneral } from "../actividades-economicas/adaptador"
 import { calcularReduccionTrabajoConOtrasRentas } from "../reducciones/reduccion-rendimientos-trabajo"
@@ -31,7 +33,7 @@ const rechazar = (motivo: string): ResultadoNoSoportado => ({
 })
 
 /** Liquidación condicionada a los hechos declarados, sin aceptación fiscal automática. */
-export const liquidarIrpfAnualExplicito = Effect.fn("Liquidacion.explicita")(
+const liquidarIrpfAnualExplicitoBase = Effect.fn("Liquidacion.explicita")(
   function* (entrada: CasoFiscalAnualExplicito) {
     const decoded = Schema.decodeUnknownResult(CasoFiscalAnualExplicito)(
       entrada,
@@ -565,3 +567,13 @@ export const liquidarIrpfAnualExplicito = Effect.fn("Liquidacion.explicita")(
     }
   }
 )
+
+export function liquidarIrpfAnualExplicito(caso: CasoInmobiliarioP4a): ReturnType<typeof liquidarInmobiliarioP4a>
+export function liquidarIrpfAnualExplicito(caso: CasoFiscalAnualExplicito): ReturnType<typeof liquidarIrpfAnualExplicitoBase>
+export function liquidarIrpfAnualExplicito(caso: CasoInmobiliarioP4a | CasoFiscalAnualExplicito): Effect.Effect<
+  Effect.Success<ReturnType<typeof liquidarInmobiliarioP4a> | ReturnType<typeof liquidarIrpfAnualExplicitoBase>>,
+  Effect.Error<ReturnType<typeof liquidarInmobiliarioP4a> | ReturnType<typeof liquidarIrpfAnualExplicitoBase>>
+>
+export function liquidarIrpfAnualExplicito(caso: CasoInmobiliarioP4a | CasoFiscalAnualExplicito) {
+  return caso.perfil === "solo-inmobiliario-p4a" ? liquidarInmobiliarioP4a(caso) : liquidarIrpfAnualExplicitoBase(caso)
+}

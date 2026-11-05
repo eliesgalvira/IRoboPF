@@ -74,6 +74,8 @@ const producerBoundaries = new Map([
   ["lib/dominio/irpf/ingresos-identificados-2025/contrato.ts:CensoIngresosIdentificados2025", "CensoIngresosIdentificados2025"],
   ["lib/dominio/irpf/maternidad-2025/contrato.ts:HechosMaternidad2025", "HechosMaternidad2025"],
   ["lib/dominio/irpf/maternidad-2025/producir.ts:aplicarArt81AlDiferencial", "aplicarArt81AlDiferencial"],
+  ["lib/dominio/irpf/inmobiliario-2025/anual.ts:liquidarInmobiliarioP4a", "liquidarInmobiliarioP4a"],
+  ["lib/dominio/irpf/inmobiliario-2025/contrato.ts:CasoInmobiliarioP4a", "CasoInmobiliarioP4a"],
 ])
 const externalNames = [
   // Núcleo anual nuevo fuera del intérprete histórico: contrato externo pendiente.
@@ -558,8 +560,21 @@ export function composeRentasR36(root = process.cwd()) {
     const d = declarations.get(name)
     if (!d) throw Error("Declaración no encontrada " + name)
     let n = d.initializer ?? d
-    if (name === roots.liquidarIrpfAnualExplicito)
-      n = walk(n).find(ts.isFunctionExpression)
+    if (name === roots.liquidarIrpfAnualExplicito ||
+        name === explicit + ":liquidarIrpfAnualExplicitoBase") {
+      // La API ahora despacha por perfil. Conservar su cuerpo real; sólo la
+      // implementación salarial usa el generador de Effect.fn. No sustituir
+      // el despachador por esa rama ni acreditar el productor inmobiliario.
+      if (ts.isFunctionDeclaration(n)) {
+        if (!n.body) throw Error("Implementación explícita sin cuerpo")
+      } else {
+        if (!ts.isCallExpression(n) || !ts.isCallExpression(n.expression) ||
+            n.expression.expression.getText() !== "Effect.fn" ||
+            n.arguments.length !== 1 || !ts.isFunctionExpression(n.arguments[0]))
+          throw Error("Forma de Effect.fn explícita fuera del contrato")
+        n = n.arguments[0]
+      }
+    }
     globalBindings.push({
       name,
       node: lower(n),
