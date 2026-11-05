@@ -21,10 +21,12 @@ export const calcularCuotaPorEscala = ({
   tramos,
   escalasPublicadas,
   aritmetica = Decimal,
+  representacion = "decimal",
 }: {
   readonly base: Decimal
   readonly tramos: TramosIrpf
   readonly escalasPublicadas?: ReadonlyArray<EscalaPublicada> | undefined
+  readonly representacion?: "decimal" | "binary64-corto" | undefined
   readonly aritmetica?: Decimal.Constructor
 }): Decimal =>
   EffectArray.reduce(
@@ -33,9 +35,12 @@ export const calcularCuotaPorEscala = ({
       tramos,
       escalasPublicadas,
       aritmetica,
+      representacion,
     }),
     new aritmetica(0),
-    (total, tramo) => total.plus(tramo.cuota)
+    (total, tramo) => representacion === "binary64-corto"
+      ? new aritmetica(String(total.toNumber() + tramo.cuota.toNumber()))
+      : total.plus(tramo.cuota)
   )
 
 export const calcularDesgloseCuotaPorEscala = ({
@@ -43,13 +48,23 @@ export const calcularDesgloseCuotaPorEscala = ({
   tramos,
   escalasPublicadas,
   aritmetica: A = Decimal,
+  representacion = "decimal",
 }: {
   readonly base: Decimal
   readonly tramos: TramosIrpf
   readonly escalasPublicadas?: ReadonlyArray<EscalaPublicada> | undefined
+  readonly representacion?: "decimal" | "binary64-corto" | undefined
   readonly aritmetica?: Decimal.Constructor
 }): ReadonlyArray<TramoCuotaCalculado> => {
   const base = new A(baseEntrada)
+  // Cada operación conserva su recorrido binary64; String transporta el decimal
+  // corto, sin toFixed(2), Math.round ni redondeo de la fracción binaria exacta.
+  const restar = (a: Decimal, b: Decimal.Value) => representacion === "binary64-corto"
+    ? new A(String(a.toNumber() - new A(b).toNumber())) : a.minus(b)
+  const multiplicar = (a: Decimal, b: Decimal.Value) => representacion === "binary64-corto"
+    ? new A(String(a.toNumber() * new A(b).toNumber())) : a.mul(b)
+  const sumar = (a: Decimal, b: Decimal) => representacion === "binary64-corto"
+    ? new A(String(a.toNumber() + b.toNumber())) : a.plus(b)
   return escalasPublicadas !== undefined
     ? EffectArray.flatMap(escalasPublicadas, (filas) =>
         Option.match(
@@ -75,12 +90,10 @@ export const calcularDesgloseCuotaPorEscala = ({
                     onSome: (otra) => new A(otra.baseInferior),
                   }
                 ),
-                baseAplicada: base.minus(fila.baseInferior),
+                baseAplicada: restar(base, fila.baseInferior),
                 tipo: new A(fila.tipo),
                 cuotaFija: new A(fila.cuota),
-                cuota: new A(fila.cuota).plus(
-                  base.minus(fila.baseInferior).mul(fila.tipo)
-                ),
+                cuota: sumar(new A(fila.cuota), multiplicar(restar(base, fila.baseInferior), fila.tipo)),
               },
             ],
           }
@@ -100,15 +113,15 @@ export const calcularDesgloseCuotaPorEscala = ({
                 tramos: EffectArray.empty<TramoCuotaGeneralCalculado>(),
               },
               (estado, [limite, tipo]) => {
-                const baseRestante = A.max(0, base.minus(estado.limiteAnterior))
-                const anchoTramo = new A(limite).minus(estado.limiteAnterior)
+                const baseRestante = A.max(0, restar(base, estado.limiteAnterior))
+                const anchoTramo = restar(new A(limite), estado.limiteAnterior)
                 const importeEnTramo = A.min(baseRestante, anchoTramo)
                 const tramo = {
                   limiteInferior: estado.limiteAnterior,
                   limiteSuperior: new A(limite),
                   baseAplicada: importeEnTramo,
                   tipo: new A(tipo),
-                  cuota: importeEnTramo.mul(tipo),
+                  cuota: multiplicar(importeEnTramo, tipo),
                 }
 
                 return {

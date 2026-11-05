@@ -54,13 +54,13 @@ for(const field of ['edad17','edad65','pension','actividad','familia','ahorro','
  // @ts-expect-error Deliberately malformed runtime input.
  expect(Result.isFailure(Effect.runSync(Effect.result(publicApi(bad))))).toBe(true)
 })
-it('art20 histórico y base mantienen fracción de céntimo',()=>{
+it('art20 explícito 2018 cuantiza ramas y mezcla',()=>{
  const raw=structuredClone(fixture.cases[0]!.input)
  raw.trabajo.rendimientos[0]!.integro='15876.01'
  const i=Schema.decodeUnknownSync(CasoFiscalAnualExplicito)(raw)
  const a=Effect.runSync(publicApi(i))
- expect(a.reduccionArt20).toBe('1461.7425')
- expect(a.baseLiquidableGeneral).toBe('11414.2675')
+ expect(a.reduccionArt20).toBe('1461.74')
+ expect(a.baseLiquidableGeneral).toBe('11414.27')
  expect(a.deduccionTrabajo).toBe('0')
 })
 import {liquidarIrpfAnual} from '../lib/dominio/irpf/liquidacion/liquidar-irpf-anual'

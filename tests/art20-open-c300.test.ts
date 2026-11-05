@@ -109,12 +109,12 @@ it.each(["pension", "otra-comunidad"] as const)(
 )
 
 it.each([
-  [2018, "711.735"],
+  [2018, "711.74"],
   [2019, "1423.47"],
   [2023, "4413.4872"],
   [2024, "5509.965"],
 ] as const)(
-  "empleo histórico %i conserva la reducción decimal",
+  "empleo histórico %i conserva su política por ejercicio",
   (ejercicio, esperado) => {
     const original = oficiales.cases.find((r) => r.id === "c300-016")!.entrada
     const entrada = Schema.decodeUnknownSync(CasoFiscalAnualExplicito)({

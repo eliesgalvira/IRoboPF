@@ -892,3 +892,12 @@ La versión BOE se verifica en el cuerpo recibido, no sólo en el parámetro de 
 El despachador inmobiliario exige sobrecargas que preserven los resultados salariales. El ajuste final de tipos genera JavaScript idéntico; las pruebas salariales identifican su contrato sin cambiar entradas ni importes esperados. Se conserva el fallo previo del CI local y se repiten sus31comandos antes del push.
 
 La ampliación de controles reproduce dos incidencias previas en R32/R43 y descubre que R60 no interpreta el nuevo despachador. Se mantienen las pruebas y sus rojos, sin acreditar esos grafos. Conforme a la prioridad de producto, este límite de acreditación no bloquea el perfil monetario revisado si el CI vigente pasa. La limitación y la reproducción sobre ff92d0da constan en [la validación de integración](inmobiliario-p4a-20261105/VALIDACION-INTEGRACION.md). No se afirma que toda la batería histórica esté verde.
+
+
+## P5a y compatibilidad observada de 2018, 5 de noviembre
+
+La reserva de financiación de 32.2 se representa como rechazo del perfil financiado en la API, sin deducción cero ni importe supuesto. El pago directo y 32.11 financiada conservan sus ramas respaldadas. Se descarta trasladar la enumeración financiera de otro apartado por semejanza. Los tests de 32.2 cambian explícitamente de entrada y los anteriores se conservan como evidencia condicionada. El P1 de residencia se corrigió antes de ese cambio de alcance y recibió contraste independiente.
+
+Para Open 2018 se admite únicamente la política monetaria que explica los testigos conservados dentro de la cota técnica y gastos enteros documentados. La extensión de gastos1000 a otros enteros es una inferencia técnica declarada, no una observación oficial adicional. La API canónica y los demás ejercicios conservan sus operaciones. Se mantienen las reservas0023/0414 y las ausencias oficiales; ningún resultado nuevo sustituye los journals previos.
+
+Se integran las dos modificaciones disjuntas en el mismo corte para reproducir una sola vez todos los comandos del workflow sobre el conjunto final. Cada cambio monetario tiene su revisión independiente. No se atribuye la ejecución de pruebas a la acreditación documental de hechos externos.

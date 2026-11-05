@@ -1,7 +1,9 @@
 import Decimal from "decimal.js"
+import { producirPatrimonioP5a } from "../../patrimonio-p5a/productor"
 import type { MagnitudesTerritorialesAnuales } from "../anual-territorial"
 import { racional, type Racional } from "../anual-territorial-racional"
 import { evaluarAmpliacionE2025 } from "./index"
+import { viviendaRioja } from "./vivienda-rioja"
 import { conciliarFamiliaE38 } from "./anual-conciliacion"
 import type { SolicitudE38Anual2025 } from "./anual-esquemas"
 import { exige, r, serial, cero, fecha, ids, documento } from "./comun"
@@ -13,8 +15,6 @@ function centimosMotor(v:Decimal):R{
  const [entera,fraccion=""]=s.split(".");return r(BigInt(entera+fraccion)*100n,10n**BigInt(fraccion.length))
 }
 const faltantes:Readonly<Partial<Record<SolicitudE38Anual2025["hechos"]["codigo"],string>>>= {
- rioja_vivienda_habitual_pequenos_municipios:"patrimonio inicial/final ajustado y reserva de base9040/452 por declaración",
- rioja_inversion_vivienda_jovenes_menores_36:"comparación patrimonial ajustada y base de viviendas anteriores/reinversión",
  rioja_obras_rehabilitacion_vivienda_habitual:"patrimonio ajustado y base regional compartida rehabilitación/adecuación9040",
  rioja_adquisicion_construccion_vivienda_jovenes:"patrimonio ajustado y base estatalDT18 sin adecuación/reserva regional9040",
  rioja_segunda_vivienda_medio_rural:"patrimonio ajustado,base estatalDT18 y reserva regional adquisición/segunda vivienda",
@@ -33,6 +33,7 @@ export function evaluarE38Anual(s:SolicitudE38Anual2025,m:MagnitudesTerritoriale
 function evaluarE38ConProductores(s:SolicitudE38Anual2025,m:MagnitudesTerritorialesAnuales):Resultado{
  const h=s.hechos
  exige(faltantes[h.codigo]===undefined,`${h.codigo}: productor anual no representado en APIv4: ${faltantes[h.codigo]??""}`)
+ exige(s.patrimonioP5a===undefined||["rioja_vivienda_habitual_pequenos_municipios","rioja_inversion_vivienda_jovenes_menores_36"].includes(h.codigo),"P5a no es un productor para otras comunidades/códigos")
  const titularAnual=m.caso.contribuyenteId
  exige(titularAnual!==undefined&&["galicia","la-rioja"].includes(m.caso.comunidadAutonoma),"Titular o territorio anual E38 no representado")
  const id=titularAnual
@@ -60,6 +61,20 @@ function evaluarE38ConProductores(s:SolicitudE38Anual2025,m:MagnitudesTerritoria
  const grado=tag==="Discapacidad65OMas"?65:tag==="Discapacidad33a64"?33:0
  const c:Contexto={ejercicio:2025,territorio:m.caso.comunidadAutonoma==="galicia"?"galicia":"la-rioja",titular:id,modalidad:"individual",declarantes:[id],personas:[{id,nacimiento:s.nacimientoContribuyente,discapacidad:grado},...(m.caso.derechosMinimos?.descendientes??[]).map(f=>({id:f.sujetoId,nacimiento:f.fechaNacimiento,discapacidad:f.discapacidad._tag==="Discapacidad65OMas"?65:f.discapacidad._tag==="Discapacidad33a64"?33:0}))],magnitudes:[],magnitudesMotor:magnitudes,expediente:"completo_todos_pagadores",creditoMecenazgoRioja:"no_aplicado"}
  switch(h.codigo){
+  case "rioja_vivienda_habitual_pequenos_municipios":case "rioja_inversion_vivienda_jovenes_menores_36":{
+   exige(m.caso.comunidadAutonoma==="la-rioja"&&m.caso.fechaFallecimiento===undefined,"P5a sólo La Rioja2025 sin devengo anticipado representado")
+   exige(s.patrimonioP5a!==undefined&&h.viviendas.length===1,"P5a requiere inventario patrimonial y una inversión identificada; perfil no representado")
+   const v=h.viviendas[0];exige(v!==undefined,"P5a vivienda ausente")
+   exige(h.codigo!=="rioja_vivienda_habitual_pequenos_municipios"||s.patrimonioP5a.prestamo===null,"P5a 32.2: financiación no representada; pendiente criterio sobre amortización, intereses y gastos, sin inferir ausencia de derecho")
+   const p=producirPatrimonioP5a(s.patrimonioP5a,id,s.nacimientoContribuyente,v)
+   const movimientos=s.patrimonioP5a.movimientos.filter(x=>["precio","amortizacion","intereses","gastos_financiacion"].includes(x.clase))
+   exige(s.inversionesViviendaEjercicio.length===movimientos.length&&s.inversionesViviendaEjercicio.every(i=>movimientos.some(x=>x.id===i.id&&x.fecha===i.fecha&&x.importe===i.importe&&x.documento.referencia===i.documento)),"P5a inventario anual de inversiones no concilia con pagos exactos")
+   emitir("patrimonioInicialAjustado",p.inicial,"P5a.cuentas.inicio")
+   emitir("patrimonioFinalAjustado",p.final,"P5a.activos-menos-deudas-variacion-ISD")
+   emitir("baseConsumidaViviendaMunicipios",cero,"anual.reservaP5a.unicaSolicitudDeclaracion")
+   const r=viviendaRioja(c,{...h,otrasModalidadesElegidas:[],viviendas:[{...v,...p.historia,pagos:p.pagos}]},p.financiacionAdquisicion)
+   return r.estado!=="calculo_parcial"?r:{...r,rastro:[...p.rastro,...r.rastro]}
+  }
   case "galicia_nacimiento_adopcion_hijos":case "rioja_nacimiento_adopcion_hijos":{
    const censos=s.censoHijosPorProgenitor
    exige(censos!==undefined&&ids(censos.map(p=>p.progenitor)),`${h.codigo}: falta censo físico completo de hijos por progenitor para derivar ordinal,sin número fiscal externo`)

@@ -1,4 +1,5 @@
 import type { ResultadoInmuebleP4a } from "../inmobiliario-2025/productor"
+import { admiteOperandoOpen2018 } from "../trabajo-anual/politica-open-2018"
 import type { HechosMaternidad2025 } from "../maternidad-2025/contrato"
 import { producirMaternidad81 } from "../maternidad-2025/producir"
 import { motivoPagoReutilizado81 } from "../maternidad-2025/combinacion"
@@ -56,6 +57,7 @@ export type PoliticaAnual =
   | "open-cuotas-empleo-andalucia-2025"
   | "open-cuotas-empleo-territorios-2025"
   | "open-cuotas-empleo-madrid-2018-2024"
+  | "open-etapas-empleo-madrid-2018"
 /** Contrato interno: bases ya integradas en EUR Decimal; jamás reconstruye cotizaciones. */
 export interface EntradaComposicionAnual {
   readonly inmueblesP4a?: readonly ResultadoInmuebleP4a[] | undefined
@@ -132,6 +134,7 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
     const minimosEstatales = entrada.minimosEstatales
     const cuantizar = (importe: Decimal) =>
       cuantizarAnual(importe, entrada.politica)
+    const estatalOpen2018 = entrada.politica === "open-etapas-empleo-madrid-2018"
     const gravar = (args: Parameters<typeof calcularCuotaPorEscala>[0]) =>
       cuantizar(calcularCuotaPorEscala({ ...args, aritmetica: A }))
     if (
@@ -146,7 +149,7 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
         })
       )
     if (
-      entrada.politica === "open-cuotas-empleo-madrid-2018-2024" &&
+      (entrada.politica === "open-cuotas-empleo-madrid-2018-2024" || estatalOpen2018) &&
       (caso.anio < 2018 ||
         caso.anio > 2024 ||
         caso.comunidadAutonoma !== "madrid" ||
@@ -171,6 +174,11 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
             "Política de cuotas Open limitada a empleo efectivo Madrid 2018–2024, edad 18–64, sin fallecimiento, familia, discapacidad, otras rentas ni deducciones",
         })
       )
+    if (estatalOpen2018 && (caso.anio !== 2018 ||
+      !admiteOperandoOpen2018(baseLiquidableGeneral) ||
+      !admiteOperandoOpen2018(entrada.rentasTrabajoAnuales!.integroTrabajo) ||
+      entrada.origenBaseGeneralB !== "solo-trabajo"))
+      return yield* Effect.fail(errorDerechosMinimos({ motivo: "Etapas Open 2018: empleo explícito, base y bruto a céntimos hasta 1.000.000 EUR; otras fracciones/transporte pendientes de evidencia" }))
     if (
       entrada.politica === "open-cuotas-empleo-andalucia-2025" &&
       (caso.anio !== 2025 ||
@@ -270,6 +278,7 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
       base: baseLiquidableGeneral,
       tramos: tramosIrpfEstatalGeneral,
       escalasPublicadas: escalasPublicadasEstatales,
+      representacion: estatalOpen2018 ? "binary64-corto" : "decimal",
     })
     const cuotaIntegraGeneralAutonomica = usaEscalaAutonomicaReal
       ? gravar({
@@ -291,6 +300,7 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
       base: baseLiquidableGeneral,
       tramos: tramosIrpfEstatalGeneral,
       escalasPublicadas: escalasPublicadasEstatales,
+      representacion: estatalOpen2018 ? "binary64-corto" : "decimal",
     })
     const desgloseCuotaIntegraGeneralAutonomica = usaEscalaAutonomicaReal
       ? calcularDesgloseCuotaPorEscala({
@@ -355,6 +365,7 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
       base: A.min(minimoPersonalYFamiliar, baseLiquidableGeneral),
       tramos: tramosIrpfEstatalGeneral,
       escalasPublicadas: escalasPublicadasEstatales,
+      representacion: estatalOpen2018 ? "binary64-corto" : "decimal",
     })
     const cuotaMinimoPersonalAutonomica = usaEscalaAutonomicaReal
       ? gravar({
@@ -382,6 +393,7 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
       base: A.min(minimoPersonalYFamiliar, baseLiquidableGeneral),
       tramos: tramosIrpfEstatalGeneral,
       escalasPublicadas: escalasPublicadasEstatales,
+      representacion: estatalOpen2018 ? "binary64-corto" : "decimal",
     })
     const desgloseCuotaMinimoPersonalAutonomica = usaEscalaAutonomicaReal
       ? calcularDesgloseCuotaPorEscala({

@@ -1,3 +1,4 @@
+import { admiteArgumentoOpen2018 } from "./politica-open-2018"
 import { MOTIVO_ELA81_PENDIENTE } from "../maternidad-2025/combinacion"
 import { prepararIngresosIdentificados2025, DecimalIngreso2025 } from "../ingresos-identificados-2025/productor"
 import { aplicarArt81AlDiferencial } from "../maternidad-2025/producir"
@@ -115,6 +116,7 @@ const liquidarIrpfAnualExplicitoBase = Effect.fn("Liquidacion.explicita")(
           "Discapacidad del contribuyente incompatible con la ausencia declarada en el perfil efectivo"
         )
       )
+    let etapasOpen2018 = false
     let redondeoSalarialOpen = false
     let redondeoCuotasAndaluciaOpen = false
     let redondeoCuotasTerritorialesOpen = false
@@ -169,7 +171,7 @@ const liquidarIrpfAnualExplicitoBase = Effect.fn("Liquidacion.explicita")(
         caso.comunidadAutonoma === "andalucia" &&
         caso.derechosMinimos === undefined
       // Siete pilotos Open: cuantizar gravámenes antes de restar mínimos.
-      // No activa la compatibilidad salarial de 2025 ni altera art. 20 histórico.
+      // No activa la compatibilidad salarial de 2025; art20 2018 tiene política separada.
       redondeoCuotasHistoricasOpen = empleo && caso.ejercicio >= 2018 &&
         caso.ejercicio <= 2024 && caso.comunidadAutonoma === "madrid" &&
         caso.derechosMinimos === undefined
@@ -184,6 +186,9 @@ const liquidarIrpfAnualExplicitoBase = Effect.fn("Liquidacion.explicita")(
             .plus(r.cotizaciones.colegiosHuerfanos),
         new D(0)
       )
+      etapasOpen2018 = redondeoCuotasHistoricasOpen && caso.ejercicio === 2018
+      if (etapasOpen2018 && !admiteArgumentoOpen2018(new D(trabajo.gastos.integro), new D(trabajo.gastos.gastosAE)))
+        return yield* Effect.fail(rechazar("Open 2018: faltan testigos de transporte para operandos fuera de céntimos/0–1.000.000 EUR o gastos a–e fraccionarios; no se produce importe de compatibilidad"))
       trabajoIntegroTerritorial = new D(trabajo.gastos.integro)
       neto = new D(trabajo.rendimientoAntesArt20)
       reduccionArt20 = D.min(
@@ -192,6 +197,9 @@ const liquidarIrpfAnualExplicitoBase = Effect.fn("Liquidacion.explicita")(
           anio: caso.ejercicio,
           rendimientoPrevioNeto: new D(trabajo.argumentoArt20),
           otrasRentasNoExentas: ingresoGeneral,
+          compatibilidadOpen2018: etapasOpen2018
+            ? { integro: new D(trabajo.gastos.integro), gastosAE: new D(trabajo.gastos.gastosAE) }
+            : undefined,
           compatibilidadOpen2025: redondeoSalarialOpen
             ? {
                 integro: new D(trabajo.gastos.integro),
@@ -273,6 +281,8 @@ const liquidarIrpfAnualExplicitoBase = Effect.fn("Liquidacion.explicita")(
             etiqueta: "Reducción artículo 20",
             formula: redondeoSalarialOpen
               ? "compatibilidad numérica Open 2025 en el núcleo compartido para íntegro y gastos a–e entre 0 y 1.000.000 EUR; fuera, Decimal; min(saldo positivo art19, reducción sobre neto sin f; otras rentas = cobros identificados (cero sólo en perfil sin ellas))"
+              : etapasOpen2018
+                ? "Open 2018 acotado: ramas art20 binary64/decimal corto/HALF_UP; mezcla Decimal y HALF_UP; límite saldo positivo art19"
               : "min(saldo positivo art19, reducción sobre neto sin f; otras rentas = cobros identificados (cero sólo en perfil sin ellas))",
           }),
         ],
@@ -362,6 +372,8 @@ const liquidarIrpfAnualExplicitoBase = Effect.fn("Liquidacion.explicita")(
           ? "open-cuotas-empleo-andalucia-2025"
           : redondeoCuotasTerritorialesOpen
             ? "open-cuotas-empleo-territorios-2025"
+            : etapasOpen2018
+              ? "open-etapas-empleo-madrid-2018"
             : redondeoCuotasHistoricasOpen
               ? "open-cuotas-empleo-madrid-2018-2024"
               : "decimal-hasta-salida",
@@ -410,6 +422,8 @@ const liquidarIrpfAnualExplicitoBase = Effect.fn("Liquidacion.explicita")(
               ? "Empleo Andalucía 2025 sin derechos familiares: gravámenes a céntimos half-up antes de restar mínimos y sumar cuotas. Artículo 20 y DA61 conservan precisión decimal. Evidencia C300 de una entrada; aceptación fiscal pendiente."
               : redondeoCuotasTerritorialesOpen
                 ? `Empleo ${caso.comunidadAutonoma} 2025 sin derechos familiares: cuatro gravámenes a céntimos half-up antes de restar mínimos y sumar cuotas. Artículo 20 y DA61 conservan precisión decimal. Cinco capturas C300; sin aceptación fiscal automática.`
+                : etapasOpen2018
+                  ? "Compatibilidad observada Open Madrid 2018: ramas art20 binary64 cuantizadas, mezcla Decimal cuantizada; estatal binary64/decimal corto/HALF_UP por gravamen antes del mínimo; autonómica Decimal con base corregida. Alcance condicionado; 0023/0414 reservadas."
                 : redondeoCuotasHistoricasOpen
                   ? `Empleo Madrid ${caso.ejercicio} sin derechos familiares: cuatro gravámenes a céntimos half-up antes de restar mínimos. Artículo 20 conserva su fórmula y precisión histórica; no aplica DA61. Evidencia de un piloto por ejercicio; aceptación fiscal pendiente.`
                   : "Sin ahorro, reducciones de base ni otras deducciones. Artículo 80 sin importe al excluir rentas extranjeras. Cuota líquida legal conservada antes de DA61. Precisión decimal hasta salida; presentación final half-up a céntimos, pendiente de aceptación fiscal.",

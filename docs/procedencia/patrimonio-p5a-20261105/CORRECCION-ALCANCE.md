@@ -1,0 +1,13 @@
+# Corrección del P1 y alcance público de P5a
+
+El candidato conserva las cuatro aserciones rojas de residencia, reproducidas en `resultados-rojo-residencia-1`. La primera corrección pasó las 129 pruebas originales completas en `resultados-correccion-residencia-1`, antes de acotar el perfil financiado de 32.2. Ningún esperado fue modificado para reparar ese P1.
+
+Para una adquisición, la residencia debe llegar al menos hasta la adquisición correspondiente. Se admite que empiece antes de comprar y continúe. Una residencia terminada antes de adquirir no se convierte en habitual mediante un documento genérico de excepción. Se conservan las reglas existentes de otras operaciones; el cambio no pretende certificar todos los supuestos de habitualidad. La salida explica que una permanencia futura es una expectativa sujeta a cumplimiento y regularización.
+
+La investigación primaria adicional no encontró un criterio inequívoco para amortización, intereses y costes de financiación en 32.2. La API anual rechaza esa combinación con `ResultadoNoSoportado`, sin convertirla en un importe cero ni afirmar que no exista derecho. El perfil habilitado de 32.2 paga directamente el precio sin préstamo. 32.11 mantiene la financiación y los oráculos recibidos. El consumidor aislado sigue siendo un cálculo parcial: su aritmética financiera de 32.2 no equivale a una conclusión fiscal acreditada y no se habilita por la API anual.
+
+Los tests de 32.2 se adaptaron explícitamente a nuevas entradas sin préstamo: precio 10.000 en los del autor y 12.000 en los del revisor, con cuentas, movimientos, censo y pagos conciliados. El esperado 452 corresponde al límite de esa operación nueva. No sustituye el resultado legal desconocido de las anteriores operaciones financiadas. Los originales íntegros, sus esperados y su validación tras corregir P1 están en `antes-acotar-322` y las entregas recibidas. Las pruebas adaptadas del revisor no se presentan como un nuevo dictamen suyo. Los ocho oráculos recibidos permanecen congelados como evidencia histórica condicionada.
+
+Hay una prueba nueva que exige rechazo concreto de 32.2 financiada en el adaptador y ambas API, dos que conservan ocupación previa continuada y dos que impiden revivir una residencia abandonada mediante una excepción documental. El conjunto focal acotado pasa 134 casos. Tipos, lints y regresiones del corte final se registran separadamente.
+
+El contraste independiente del P1 terminó favorable: 369 comprobaciones únicas, incluidas 22 propias, sin bloqueo nuevo. La integración conserva las entradas y los rojos anteriores. La publicación exige además reproducir todos los comandos del workflow localmente.
