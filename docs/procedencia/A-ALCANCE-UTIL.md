@@ -16,7 +16,7 @@ P1; las rutas explícitas documentadas aquí no dependen de aceptarlo.
 | Familia y escalas 2026 | [Dictamen E+B](reforma-motor/bloque-e/revision-familia-2026/INFORME.md), [B2026](reforma-motor/bloque-e/B2026.md) | Derechos y exclusiones del contrato; corte normativo 4/11/2026; sin Open 2026 |
 | Madrid 2018–2024, estatal, mínimo propio, arts. 19 y 20 | [Series](datos-2012-2026/producto-series-historicas/INTEGRACION.md) y [dictamen](datos-2012-2026/revision-series-historicas/DICTAMEN.md) | Empleo Madrid, de 18 a 64 años, a 31 de diciembre y sin derechos familiares; no equivalencia Open |
 | Retenciones/pagos/cotización efectiva | [API](API-MOTOR.md) | Importes recibidos y conciliados por ejercicio; no tarifas ni autenticación del certificado |
-| SS estimada 2025–2026 | [Órdenes anuales](datos-2012-2026/lotes/ipc-ss/ORDENES-ANUALES.md) | 32 coincidencias condicionados; seis pendientes AT/EP y FOGASA; no cuota TGSS |
+| SS estimada 2025–2026 | [Órdenes anuales](datos-2012-2026/lotes/ipc-ss/ORDENES-ANUALES.md) | 32 coincidencias condicionadas; seis pendientes AT/EP y FOGASA; no cuota TGSS |
 
 El gasto general se aplica una vez: el menor de 2.000 EUR y el saldo positivo tras los gastos a–e.
 Colegio obligatorio/fines esenciales tiene tope de 500 EUR, defensa por litigio con
@@ -34,7 +34,10 @@ La API efectiva no admite 2026; eso no impide reutilizar las escalas y mínimos
 
 La corrección histórica de C tiene revisión independiente favorable y resuelve
 las 83 casillas comparables de siete pilotos; mantiene catorce mapeos reservados
-y una ausencia. El cotejo ampliado de las capturas posteriores sigue pendiente.
+y una ausencia. El primer [bloque ampliado de 2018](simuladores/historico/BLOQUE-2018-60.md)
+compara 60 entradas y encuentra nueve casos discrepantes: ocho en las bases y
+uno con un céntimo de diferencia final. Su investigación sigue abierta; no
+invalida por sí sola la correspondencia documental de los parámetros.
 La adquisición de capturas históricas no equivale a cotejos monetarios; el
 [estado por año](ESTADO-POR-ANIO.md) conserva el último corte documentado. El
 [dictamen del ajuste](simuladores/historico/REVISION-CUOTAS.md) no sustituye ni

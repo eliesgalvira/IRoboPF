@@ -510,6 +510,18 @@ it("R30: los contratos enlazan el retorno monetario concreto y conservan las div
   const r = composeR30()
   expect(r.sites).toHaveLength(17)
   expect(r.untouchedSites).toHaveLength(48)
+  for (const name of [
+    "evaluarAuxiliaresAnualesF",
+    "cuantiaNacimientoMadridExacta",
+    "cuantiaGuarderiaMurciaExacta",
+  ]) {
+    const contract = r.contracts.find((c) => c.id.endsWith(`:${name}`))
+    expect(contract, name).toBeDefined()
+    expect(contract?.closed).toBe(false)
+    expect(contract?.review).toBe("pending-independent")
+  }
+  expect(r.completeRuleAcceptance).toBe(false)
+  expect(r.wiringAllowed).toBe(false)
   const output = r.sites.find((s) => s.siteId === "anual.retencion.base")
   expect(output?.producer?.producer.text).toBe("aCentimos(baseRetencion)")
   expect(

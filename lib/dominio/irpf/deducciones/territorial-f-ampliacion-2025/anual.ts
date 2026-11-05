@@ -1,6 +1,7 @@
 import type Decimal from "decimal.js"
 import { DonativoNoSoportado, eurosDonativos } from "../donativos-estatales-2025/productor"
 import { baseEstatalMismaOperacion } from "../donativos-estatales-2025/regionales"
+import { evaluarAuxiliaresAnualesF } from "./auxiliares-anual"
 import { Result, Schema } from "effect"
 import type { MagnitudesTerritorialesAnuales } from "../anual-territorial"
 import { CODIGOS_TERRITORIAL_F_HECHOS_2025 } from "../territorial-f-2025"
@@ -166,7 +167,7 @@ export function evaluarAnualF2025(
     if (anteriores?.historia?.some((h) => h.ejercicio === undefined || h.ejercicio >= 2025 || h.ejercicio < 2022) === true)
       falta("historia.ejercicio", "Historia sólo de periodos2022–2024; 2025 se deriva del mismo anual")
     if (s.codigo === "madrid_nacimiento_adopcion_hijos" || s.codigo === "murcia_gastos_guarderia")
-      falta("productor_exacto_auxiliar:" + s.codigo, "Evaluador reutilizado conserva su alcance parcial; falta salida exacta y conciliación del historial/centros para esta conexión anual, sin duplicar su fórmula ni afirmar elegibilidad global")
+      return evaluarAuxiliaresAnualesF(s, m)
     if (CODIGOS_TERRITORIAL_F_HECHOS_2025.some((x) => x === s.codigo)) {
       const R = D.clone({ precision: 40 })
       if (!new R(m.baseGeneral).plus(m.baseAhorro).eq(new D(m.baseGeneral).plus(m.baseAhorro)))

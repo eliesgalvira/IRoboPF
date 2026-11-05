@@ -1,5 +1,13 @@
 # Estado de la auditoría documental
 
+## Corte publicado y discrepancias de 2018, 5 de noviembre
+
+Los productores ELA, donativos y maternidad del apartado siguiente están publicados en `47dec72e5d3be146d0994c5aee88e2f2188a6e73`. Los 31 pasos locales del workflow y los dos trabajos remotos pasan: [ejecución 41990755521](https://github.com/eliesgalvira/IRoboPF/actions/runs/41990755521). Se han retirado siete recepciones ya integradas, conservando sus 697 archivos en archivos compactos verificados. Las cuatro raíces de IRoboPF ocupaban 99,22 GB tras esa retirada; quedaban 312,50 GB libres.
+
+El primer bloque ampliado de 2018 compara 60 entradas con ese motor: 688 coincidencias condicionadas, 29 diferencias en nueve casos, tres ausencias oficiales y 120 mapeos reservados. Ocho casos difieren en las bases por fracciones de céntimo; otro arrastra un céntimo desde el gravamen estatal hasta el resultado final. Se investigan antes de ampliar el lote. Las 848 capturas se conservan: una captura disponible no implica comparación terminada. [Resultados y alcance del bloque](simuladores/historico/BLOQUE-2018-60.md).
+
+La primera revisión de los auxiliares de Madrid y Murcia detectó F-REV-01: un abuelo podía recibir la deducción de nacimiento o reducir indebidamente la del padre. La corrección de filiación pasa 672 regresiones, tipos y linters; el contraste independiente del error grave es favorable, con 185 pruebas y catorce adversas nuevas. Los 31 pasos completos del CI local pasan en entorno limpio; la comprobación remota corresponde al push posterior. Véase [integración y alcance](deducciones-2025/f-auxiliares-exactos-20261105/INTEGRACION.md). Los candidatos de alquileres identificados y patrimonio para vivienda riojana esperan validación pesada y revisión. El punto 4, deducciones de 2025, sigue abierto.
+
 ## Productores ELA, donativos y maternidad, 5 de noviembre
 
 La corrección del inventario está publicada en `7cab893b012b6b83e0a05ffabd90c9dd40690a00`, con ambos trabajos remotos verdes en la [ejecución 41983334173](https://github.com/eliesgalvira/IRoboPF/actions/runs/41983334173). Se retiraron seis entregas territoriales ya publicadas, preservando 604 archivos únicos y sus manifiestos en archivos compactos. Medición tras la retirada: 98,06 GB de IRoboPF y 315,47 GB libres.
