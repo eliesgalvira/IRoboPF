@@ -33,6 +33,7 @@ const Operacion = Schema.Struct({
 export const SolicitudDonativosEstatales2025 = Schema.Struct({
   ejercicio: Schema.Literal(2025), contribuyente: Texto, nifContribuyente: Texto,
   exhaustividad: Schema.Literal("completo_68_3_y_68_5"), referenciaCenso: Texto,
+  prioridad68_3: Schema.optionalKey(Schema.Array(Texto)),
   operaciones68_3: Schema.Array(Operacion),
   operaciones68_5: Schema.Array(Schema.Struct({ operacionId: Texto, documento: Texto })),
 })

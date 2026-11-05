@@ -11,6 +11,10 @@ import { evaluarAmpliacionFDerivada2025 } from "./index"
 import { CITAS_F } from "./citas"
 import { CausaF, D, edad, dinero, decimal, falta, fecha, texto, unicos, type ResultadoF, type ConstruccionF } from "./comun"
 
+const codigosBasesFamiliares = new Set([
+  "madrid_gastos_educativos", "madrid_cuidado_hijos_mayores_dependientes_discapacidad",
+  "madrid_condicion_familia_numerosa", "madrid_familias_dos_descendientes_ingresos_reducidos",
+])
 function mismos(a: readonly string[], b: readonly string[]): boolean {
   return a.length === b.length && new Set(a).size === a.length && a.every((id) => b.includes(id))
 }
@@ -83,7 +87,7 @@ function conciliarPersonas(s: SolicitudAnualF2025, m: MagnitudesTerritorialesAnu
     if (d !== undefined && fecha(p.fecha, "pago.fecha") < d.fechaNacimiento)
       falta("pago.fecha", "Pago del beneficiario anterior a su nacimiento")
   }
-  for (const id of s.hechos.miembrosUnidad ?? [])
+  for (const id of m.libroBasesFamiliares2025 === undefined || !codigosBasesFamiliares.has(s.codigo) ? s.hechos.miembrosUnidad ?? [] : [])
     if (id !== propio && !ds.some((d) => d.sujetoId === id))
       falta("identidad_miembro_unidad:" + id, "Miembro de unidad no identificado en el caso anual")
 }
@@ -157,8 +161,8 @@ export function evaluarAnualF2025(
       falta("perfil_anual", "Sólo 2025 individual ordinaria sin fallecimiento")
     if (c.comunidadAutonoma !== (s.codigo.startsWith("madrid_") ? "madrid" : "murcia"))
       falta("territorio", "Código de otro territorio")
-    if (m.donativosEstatales !== undefined && (s.codigo.includes("donativo") || s.codigo.includes("donaciones")) && s.codigo !== "murcia_donativos_patrimonio_cultural_actividades" && s.codigo !== "murcia_donativos_investigacion_biosanitaria")
-      falta("conexion_donativo_regional_no_acotada:" + s.codigo, "Este productor sólo conecta donativos dinerarios Murcia y Cantabria;no habilita especie ni los demás donativos F")
+    if (m.donativosEstatales !== undefined && (s.codigo.includes("donativo") || s.codigo.includes("donaciones")) && s.codigo !== "murcia_donativos_patrimonio_cultural_actividades" && s.codigo !== "murcia_donativos_investigacion_biosanitaria" && s.codigo !== "madrid_donativos_fundaciones_clubes_deportivos")
+      falta("conexion_donativo_regional_no_acotada:" + s.codigo, "Concurrencia de donativo F fuera de Murcia dinerario/Madrid art9; no habilitar especie ni otras ramas por analogía")
     if (m.donativosEstatales !== undefined && s.codigo === "madrid_familias_dos_descendientes_ingresos_reducidos")
       falta("secuencia_completa_art14_con_generales", "Art14 con deducciones generales:productor de bases ajenas y secuencia completa no soportados; no se usa cero estatal")
     conciliarPersonas(s, m)
@@ -193,8 +197,6 @@ export function evaluarAnualF2025(
       if (h.operaciones.length > 0)
         falta("productor_saldo_origen:" + h.operaciones[0]!.ejercicioOrigen, "Reconstruir la generación y aplicaciones de cada año; no se recibe un importe de saldo ni se presume consumido")
     }
-    if (m.donativosEstatales !== undefined && (s.codigo === "murcia_donativos_patrimonio_cultural_actividades" || s.codigo === "murcia_donativos_investigacion_biosanitaria") && s.hechos.pagos?.length !== 1)
-      falta("donativo_regional_unico", "Primera conexión Murcia:un pago por donativo regional;sin prioridades entre múltiples operaciones")
     const basesEstatalesDonativos = new Map<string, Decimal>()
     const hechos: ConstruccionF<SolicitudF["hechos"]> = {
       ...s.hechos,
@@ -208,6 +210,27 @@ export function evaluarAnualF2025(
         ],
       bases: [{ id: contribuyente, generalEUR: m.baseGeneral.toFixed(), ahorroEUR: m.baseAhorro.toFixed() }],
       minimoPersonalFamiliarEUR: m.minimoPersonalFamiliar.toFixed(),
+    }
+    const libro = codigosBasesFamiliares.has(s.codigo) ? m.libroBasesFamiliares2025 : undefined
+    if (libro !== undefined) {
+      if (s.hechos.miembrosUnidad !== undefined && !mismos(s.hechos.miembrosUnidad, libro.miembrosUnidad))
+        falta("miembrosUnidad", "Censo de unidad distinto de art82 derivado por identidad/ejercicio/filiación")
+      hechos.miembrosUnidad = [...libro.miembrosUnidad]
+      hechos.bases = libro.miembrosUnidad.map(id => {
+        const b = libro.bases.get(id)
+        if (b === undefined) falta("economia2025:" + id, "Faltan hechos económicos censados de un miembro legal")
+        return { id, generalEUR: b.general.toFixed(), ahorroEUR: b.ahorro.toFixed() }
+      })
+      if (s.codigo === "madrid_familias_dos_descendientes_ingresos_reducidos") {
+        if (!mismos((s.hechos.personas ?? []).map(p => p.id!), m.sujetosConMinimo))
+          falta("personas.minimo_completo", "Art14 exige todos los descendientes con mínimo anual, sin omisiones selectivas")
+        const esperados = [...new Set((s.hechos.personas ?? []).flatMap(p => [p.id!, ...(p.titularesMinimo ?? [])]))]
+        hechos.basesOtrosTitulares = esperados.map(id => {
+          const b = libro.bases.get(id)
+          if (b === undefined) falta("economia2025:" + id, "Faltan hechos económicos de titular/descendiente del mínimo")
+          return { id, generalEUR: b.general.toFixed(), ahorroEUR: b.ahorro.toFixed() }
+        })
+      }
     }
     if (m.basesLiquidables !== undefined) {
       hechos.liquidableGeneralEUR = m.basesLiquidables.general.toFixed()
@@ -244,7 +267,8 @@ export function evaluarAnualF2025(
     }
     const r = evaluarAmpliacionFDerivada2025(solicitud, {
       basesEstatalesDonativos,
-      contribuyente, general: m.baseGeneral, ahorro: m.baseAhorro,
+      basesPersonas: libro?.bases,
+      contribuyente, general: libro?.bases.get(contribuyente)?.general ?? m.baseGeneral, ahorro: libro?.bases.get(contribuyente)?.ahorro ?? m.baseAhorro,
       liquidableGeneral: m.basesLiquidables?.general, liquidableAhorro: m.basesLiquidables?.ahorro,
       minimoPersonalFamiliar: m.minimoPersonalFamiliar,
     })

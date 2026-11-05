@@ -957,3 +957,14 @@ La conciliación estática de pendientes contra e47 y los seis candidatos separa
 El extractor R30 debe conservar la declaración ya resuelta en su ámbito léxico. Dos auxiliares locales con el mismo nombre no son una declaración ambigua si sus nodos AST son distintos. La cola usa esos nodos e identifica sus posiciones; se conserva el control estricto de las declaraciones de módulo. El rojo previo, las 27 regresiones y la revisión estática independiente quedan fijados por hash. No se promueve aceptación documental.
 
 La prueba hipotecaria anterior describía una dependencia pendiente. Al incorporar el productor, una entrada sin el contrato requerido recibe un rechazo concreto. Se actualiza sólo esa expectativa, conservando la entrada original y todos los oráculos monetarios. Los dos fallos locales se corrigen antes de publicar y el tercer pase reproduce de nuevo los 31 comandos completos; ningún fallo se traslada deliberadamente al CI remoto.
+
+
+## Libro familiar, donativos múltiples y cónyuge andaluz
+
+Se deriva la economía familiar desde hechos y se conserva una sola composición anual. El libro de Madrid y Valencia limita su perfil a economía ordinaria: la discapacidad activa de otra persona requiere periodos conciliados con sus mínimos y permanece rechazada. El productor civil andaluz tiene su propio alcance revisado y no se cierra por esa reserva del libro. No se impone una igualdad legal universal entre el grado durante el trabajo y el grado al devengo. El hallazgo grave H2 y su corrección reciben contraste independiente; los importes positivos ordinarios permanecen iguales.
+
+Los donativos se agregan por entidad y consumen una vez la base común y el tramo inicial estatal. Se conserva la prioridad explícita y se rechazan las combinaciones cuya atribución regional no está representada. La diferencia heredada entre políticas monetarias de Madrid se documenta, sin cambiar resultados para fingir equivalencia entre API.
+
+El intérprete documental R36 reconoce como fronteras pendientes las dos exportaciones nuevas que no interpreta. No intenta evaluar parámetros por defecto fuera de su ámbito ni acredita el cuerpo fiscal por añadir una frontera. La prueba R52 exige que la ejecución sin contrato siga rechazada. La prueba valenciana que esperaba el motivo anterior pasa a exigir el censo económico completo; su entrada, rechazo y todos los esperados monetarios se conservan. Los fallos locales quedan registrados antes de publicación.
+
+Se incorporan estos cambios ya revisados en un mismo corte y se reproducen los 31 comandos del workflow con entorno limpio, generados e inventario. El CI remoto debe terminar correctamente antes de retirar las entregas. El detalle y los límites constan en [la integración](familia-donativos-andalucia-20261105/INTEGRACION.md); el punto 4 sigue abierto.

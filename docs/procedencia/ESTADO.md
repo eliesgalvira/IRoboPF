@@ -1,5 +1,13 @@
 # Estado de la auditoría documental
 
+## Bases familiares, donativos y cónyuge andaluz · 5 de noviembre
+
+La publicación anterior `213b8c2ab7e06e28b0ae86ce445676a6534a880f` tiene ambos trabajos del [CI remoto](https://github.com/eliesgalvira/IRoboPF/actions/runs/42109553113) correctos. Se retiraron diecisiete carpetas integradas después de conservar y cotejar sus originales y manifiestos. La medición posterior registra 98,97 GB en las cuatro raíces y 313,29 GB libres.
+
+La primera revisión familiar concluyó con aceptación acotada: 33 pruebas y 20 oráculos racionales; conserva una diferencia de política monetaria de Madrid anterior al cálculo familiar. Donativos tiene primera revisión favorable acotada: 182 comprobaciones de importes y rechazos, con dos comparaciones de igualdad exacta de Madrid conservadas como rojas por esa misma distinción de políticas. No se cambian importes ni expectativas para ocultarlas.
+
+La fusión de familia, donativos y la nueva rama andaluza supera 552 pruebas en 19 archivos. Tipos globales, comprobación Effect y ambos linters pasan. La primera revisión monetaria de Andalucía terminó: la rama del artículo 17 es favorable dentro de su alcance. Detectó H2 en la ampliación del libro familiar; la corrección mantiene el rechazo de discapacidad activa ajena hasta representar sus periodos. Pasan 205 pruebas focales, tipos y ambos linters tras el cambio. El contraste grave H2 es favorable acotado: 43 controles finales, con los ocho fallos originales e importes reproducidos en la preimagen. La publicación de este corte exige inventario y generados actuales y reproducción limpia de los 31 pasos del workflow. El punto 4 continúa abierto y las 911 capturas históricas conservan su estado anterior.
+
 ## Vivienda riojana, hipoteca madrileña y ayuda balear · 5 de noviembre
 
 La publicación `e47b8e0e86b19dc638658a92ec3a4de3ed47be93` tiene los dos trabajos del [CI remoto 42090293509](https://github.com/eliesgalvira/IRoboPF/actions/runs/42090293509) correctos. Se retiraron once entregas de Galicia e historia territorial después de conservar y cotejar sus originales, manifiestos y resultados en un archivo compacto. La medición posterior fue de 98,78 GB en las cuatro raíces y 313,70 GB libres.

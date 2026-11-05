@@ -493,6 +493,7 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
     dt18Aplicada,
     libroMaternidad81,
   } = yield* componerLiquidacionAnual({
+    basesFamiliares2025: caso.basesFamiliares2025,
     ambito: caso,
     maternidad2025: caso.maternidad2025,
     ingresosIdentificados2025: ingreso,

@@ -529,7 +529,9 @@ it("dos descendientes sin bases familiares representadas se rechaza con motivo a
   const r = Effect.runSync(Effect.result(componerLiquidacionAnual(a)))
   expect(Result.isFailure(r)).toBe(true)
   if (Result.isFailure(r))
-    expect(r.failure.motivo).toContain("bases imponibles de todas las personas")
+    expect(r.failure.motivo).toContain(
+      "falta censo económico completo2025 por persona, filiación y convivencia"
+    )
 })
 
 it("elegibilidad externa no crea derechos familiares ni abre ascendientes", () => {

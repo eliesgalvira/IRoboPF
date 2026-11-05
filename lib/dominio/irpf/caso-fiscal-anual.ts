@@ -106,6 +106,7 @@ export interface DeduccionAutonomicaCatalogadaAplicada {
 }
 
 export interface CasoFiscalAnual {
+  readonly basesFamiliares2025?: import("./bases-familiares-2025/productor").CensoBasesFamiliares2025 | undefined
   readonly ingresosIdentificados2025?: CensoIngresosIdentificados2025 | undefined
   readonly maternidad2025?: HechosMaternidad2025 | undefined
   readonly deduccionesTerritoriales2025?:
