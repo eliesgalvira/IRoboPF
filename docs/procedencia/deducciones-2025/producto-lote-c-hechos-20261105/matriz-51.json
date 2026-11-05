@@ -2,9 +2,11 @@
   "version": 1,
   "ejercicio": 2025,
   "recuento": {
-    "implementadoParcial": 10,
-    "reutilizado": 5,
-    "pendienteFormula": 36
+    "implementadoParcialIntegrado": 10,
+    "reutilizadoContratoExistente": 5,
+    "ampliadoParcialValidadoAutor": 36,
+    "pendienteFormulaSinRamaNueva": 0,
+    "codigosCerrados": 0
   },
   "prioridadEvidencia": "cinco-rectificaciones prevalece sobre registros históricos; CAMP-02 30% incrementa renta",
   "deducciones": [
@@ -24,8 +26,14 @@
         "cuota íntegra",
         "certificado e irrevocabilidad"
       ],
-      "estado": "pendiente_rama_concreta",
-      "siguienteRama": "Implementar fórmula 10%; menor entre 150 y 10% cuota; entidad y certificado art.5 con entidad donataria y registros; finalidad exclusiva; importe dinerario; cuota íntegra; certificado e irrevocabilidad"
+      "estado": "ampliado_parcial_validado_autor",
+      "siguienteRama": "Concurrencias por beneficiario y aplicación única de cuota en composición anual",
+      "cierreCodigo": false,
+      "estadoAnteriorAmpliacion": "pendiente_rama_concreta",
+      "evaluador": "lib/dominio/irpf/deducciones/canarias-balears-hechos-2025/donaciones-ampliacion.ts#evaluarDonacionesAmpliacionC",
+      "alcance": "Dinerarias; entidades y finalidad ambiental exclusiva;10%,150,10% cuota",
+      "validacionAmpliacion": "Suite de autor:83 pruebas nuevas y50 integradas;tipos estrictos/Effect,Oxlint16reglas yESLint correctos. No acredita todas las subramas ni revisión independiente.",
+      "puertoAnual": "MagnitudesAnualesC"
     },
     {
       "codigo": "canarias_donaciones_patrimonio_historico",
@@ -43,8 +51,14 @@
         "donación destinada a conservación o rehabilitación",
         "cuota y certificado"
       ],
-      "estado": "pendiente_rama_concreta",
-      "siguienteRama": "Implementar fórmula 20%; menor entre 150 y 10% cuota; bien protegido y donatario habilitado con bien, protección e inscripción; destinatario habilitado; donación destinada a conservación o rehabilitación; cuota y certificado"
+      "estado": "ampliado_parcial_validado_autor",
+      "siguienteRama": "Cotejo particular de categoría patrimonial, protección y destino, sin equiparar inscripción declarada a autenticidad",
+      "cierreCodigo": false,
+      "estadoAnteriorAmpliacion": "pendiente_rama_concreta",
+      "evaluador": "lib/dominio/irpf/deducciones/canarias-balears-hechos-2025/donaciones-ampliacion.ts#evaluarDonacionesAmpliacionC",
+      "alcance": "Dinerarias; bien protegido e institución habilitada;20%,150,10% cuota",
+      "validacionAmpliacion": "Suite de autor:83 pruebas nuevas y50 integradas;tipos estrictos/Effect,Oxlint16reglas yESLint correctos. No acredita todas las subramas ni revisión independiente.",
+      "puertoAnual": "MagnitudesAnualesC"
     },
     {
       "codigo": "canarias_donaciones_fines_culturales_deportivos_investigacion_docencia",
@@ -71,8 +85,14 @@
         "bases separadas por destino",
         "certificaciones del artículo 5"
       ],
-      "estado": "pendiente_rama_concreta",
-      "siguienteRama": "Implementar fórmula 15%, 5% cuota; bases 50.000/3.000 según destinatario; art.5 con destinatario y tipo de proyecto; fondos propios de empresa; aportación dineraria o capital tecnológico; bases separadas por destino; certificaciones del artículo 5"
+      "estado": "ampliado_parcial_validado_autor",
+      "siguienteRama": "Otros centros superiores artísticos y detalle de titularidad de proyectos; controlar concurrencias con3/4ter por beneficiario",
+      "cierreCodigo": false,
+      "estadoAnteriorAmpliacion": "pendiente_rama_concreta",
+      "evaluador": "lib/dominio/irpf/deducciones/canarias-balears-hechos-2025/donaciones-ampliacion.ts#evaluarDonacionesAmpliacionC",
+      "alcance": "Apartados a-f separados; fondos<300000; bases50000/3000;15%,5% cuota",
+      "validacionAmpliacion": "Suite de autor:83 pruebas nuevas y50 integradas;tipos estrictos/Effect,Oxlint16reglas yESLint correctos. No acredita todas las subramas ni revisión independiente.",
+      "puertoAnual": "MagnitudesAnualesC"
     },
     {
       "codigo": "canarias_donaciones_entidades_sin_animo_lucro",
@@ -90,8 +110,14 @@
         "base liquidable",
         "otras deducciones al mismo beneficiario"
       ],
-      "estado": "pendiente_rama_concreta",
-      "siguienteRama": "Implementar fórmula 20% primeros 150; resto 15 o 17,5%; base máxima 10% liquidable con beneficiario Ley 49/2002; aportaciones del ejercicio y de los dos anteriores por la misma entidad; base liquidable; otras deducciones al mismo beneficiario"
+      "estado": "ampliado_parcial_validado_autor",
+      "siguienteRama": "Bases Ley49 de donaciones no dinerarias/usufructos; histórico completo y composición de aplicaciones por beneficiario",
+      "cierreCodigo": false,
+      "estadoAnteriorAmpliacion": "pendiente_rama_concreta",
+      "evaluador": "lib/dominio/irpf/deducciones/canarias-balears-hechos-2025/donaciones-ampliacion.ts#evaluarDonacionesAmpliacionC",
+      "alcance": "Dinerarias Ley49;150 inicial único;20/15/17.5%;10% de liquidable personal; orden experto",
+      "validacionAmpliacion": "Suite de autor:83 pruebas nuevas y50 integradas;tipos estrictos/Effect,Oxlint16reglas yESLint correctos. No acredita todas las subramas ni revisión independiente.",
+      "puertoAnual": "MagnitudesAnualesC"
     },
     {
       "codigo": "canarias_restauracion_bienes_interes_cultural",
@@ -107,8 +133,14 @@
         "autorización de obras",
         "gasto satisfecho y cuota"
       ],
-      "estado": "pendiente_rama_concreta",
-      "siguienteRama": "Implementar fórmula 10%; 10% cuota; restauración de bien protegido con propietario; bien inmueble y protección; autorización de obras; gasto satisfecho y cuota"
+      "estado": "ampliado_parcial_validado_autor",
+      "siguienteRama": "Composición con14/14bis sobre mismas cantidades; amortizaciones y causas particulares fuera de rama actual",
+      "cierreCodigo": false,
+      "estadoAnteriorAmpliacion": "pendiente_rama_concreta",
+      "evaluador": "lib/dominio/irpf/deducciones/canarias-balears-hechos-2025/vivienda-ampliacion.ts#evaluarViviendaAmpliacionC",
+      "alcance": "Propietario, bien protegido, obras autorizadas;10%, límite10% cuota y grupo15%",
+      "validacionAmpliacion": "Suite de autor:83 pruebas nuevas y50 integradas;tipos estrictos/Effect,Oxlint16reglas yESLint correctos. No acredita todas las subramas ni revisión independiente.",
+      "puertoAnual": "MagnitudesAnualesC; HistoricoViviendasC"
     },
     {
       "codigo": "canarias_estudios_educacion_superior",
@@ -138,8 +170,14 @@
         "fecha de inicio",
         "titulares y liquidable"
       ],
-      "estado": "pendiente_rama_concreta",
-      "siguienteRama": "Implementar fórmula 1.800 fuera isla, 1.920 liquidable inferior a 37.062; 900 misma isla con traslado; 40% cuota con descendiente y edad, dependencia, renta; isla y municipio de residencia y estudio; traslado y alojamiento; curso o créditos; oferta pública presencial; fecha de inicio; titulares y liquidable"
+      "estado": "ampliado_parcial_validado_autor",
+      "siguienteRama": "Tutela/acogimiento asimilado y preferencia de parentesco cuando no se haya resuelto en los mínimos anuales; validar municipios/centros",
+      "cierreCodigo": false,
+      "estadoAnteriorAmpliacion": "pendiente_rama_concreta",
+      "evaluador": "lib/dominio/irpf/deducciones/canarias-balears-hechos-2025/familia-estudios-ampliacion.ts#evaluarFamiliaEstudiosAmpliacionC",
+      "alcance": "Fuera isla1920/1800 según liquidable personal37062;misma isla900;cuota40%;créditos/renta",
+      "validacionAmpliacion": "Suite de autor:83 pruebas nuevas y50 integradas;tipos estrictos/Effect,Oxlint16reglas yESLint correctos. No acredita todas las subramas ni revisión independiente.",
+      "puertoAnual": "MagnitudesAnualesC"
     },
     {
       "codigo": "canarias_estudios_no_superiores",
@@ -162,7 +200,9 @@
       "estado": "implementado_parcial",
       "evaluador": "evaluarEstudiosNoSuperiores",
       "alcance": "Individual; convivencia continua; mismos titulares; tope agregado133+66",
-      "siguienteRama": "Titulares heterogéneos por descendiente; conjunta y preferencia de parentesco"
+      "siguienteRama": "Titulares heterogéneos por descendiente; conjunta y preferencia de parentesco",
+      "cierreCodigo": false,
+      "ampliacionActual": "Ruta integrada reutilizada sin cambios de fórmula; reservas y subramas anteriores conservadas"
     },
     {
       "codigo": "canarias_traslado_residencia_otra_isla_trabajo",
@@ -189,7 +229,9 @@
       "estado": "implementado_parcial",
       "evaluador": "evaluarTraslado",
       "alcance": "Segunda anualidad 2024 y primera2025; modalidad y renta origen; cuota identificada",
-      "siguienteRama": "Composición conjunta por persona; regularización e intereses ante incumplimiento posterior"
+      "siguienteRama": "Composición conjunta por persona; regularización e intereses ante incumplimiento posterior",
+      "cierreCodigo": false,
+      "ampliacionActual": "Ruta integrada reutilizada sin cambios de fórmula; reservas y subramas anteriores conservadas"
     },
     {
       "codigo": "canarias_inversion_entidades_nuevas_reciente_creacion",
@@ -217,8 +259,14 @@
         "plantilla y variación",
         "formalización y permanencia"
       ],
-      "estado": "pendiente_rama_concreta",
-      "siguienteRama": "Implementar fórmula 20%/4.000; 30%/6.000 universidades y supuestos laborales/cooperativos; participación hasta 40%; tres años con inversor y familia hasta tercer grado; participación y votos; clase de sociedad, domicilio y actividad; constitución o ampliación, fechas; plantilla y variación; formalización y permanencia"
+      "estado": "ampliado_parcial_validado_autor",
+      "siguienteRama": "Inversiones ordinarias y especiales mezcladas por persona; controles futuros de empleo, participación y permanencia; consecuencias e intereses de incumplimiento",
+      "cierreCodigo": false,
+      "estadoAnteriorAmpliacion": "pendiente_rama_concreta",
+      "evaluador": "lib/dominio/irpf/deducciones/canarias-balears-hechos-2025/inversion-trabajo-ampliacion.ts#evaluarInversionAmpliacionC",
+      "alcance": "20/4000 o30/6000;SA/SL/laborales/cooperativas;grupo familiar40%;constitución/ampliación",
+      "validacionAmpliacion": "Suite de autor:83 pruebas nuevas y50 integradas;tipos estrictos/Effect,Oxlint16reglas yESLint correctos. No acredita todas las subramas ni revisión independiente.",
+      "puertoAnual": "MagnitudesAnualesC; HistoricoInversionC"
     },
     {
       "codigo": "canarias_acogimiento_menores",
@@ -234,8 +282,14 @@
         "adopción en el mismo ejercicio",
         "titulares y modalidad de declaración"
       ],
-      "estado": "pendiente_rama_concreta",
-      "siguienteRama": "Implementar fórmula 330 por menor, días de convivencia y reparto; adopción en ejercicio excluye con menor y modalidad de acogimiento; días reales de convivencia; adopción en el mismo ejercicio; titulares y modalidad de declaración"
+      "estado": "ampliado_parcial_validado_autor",
+      "siguienteRama": "Control del título de acogimiento y convivencia en el día de alcanzar mayoría de edad; representación de sucesiones de títulos durante el año",
+      "cierreCodigo": false,
+      "estadoAnteriorAmpliacion": "pendiente_rama_concreta",
+      "evaluador": "lib/dominio/irpf/deducciones/canarias-balears-hechos-2025/familia-estudios-ampliacion.ts#evaluarFamiliaEstudiosAmpliacionC",
+      "alcance": "330 × días de convivencia/período fiscal × reparto de titulares;sin mínimo estatal inventado",
+      "validacionAmpliacion": "Suite de autor:83 pruebas nuevas y50 integradas;tipos estrictos/Effect,Oxlint16reglas yESLint correctos. No acredita todas las subramas ni revisión independiente.",
+      "puertoAnual": "MagnitudesAnualesC"
     },
     {
       "codigo": "canarias_familias_monoparentales",
@@ -257,8 +311,14 @@
         "otros convivientes y mínimo por ascendientes",
         "fecha de alteración familiar"
       ],
-      "estado": "pendiente_rama_concreta",
-      "siguienteRama": "Implementar fórmula 133 únicos; convivencia y descendientes definidos; 183 días ante alteración; renta con composición familiar y convivencia por días; edades, discapacidad y rentas de descendientes; otros convivientes y mínimo por ascendientes; fecha de alteración familiar"
+      "estado": "ampliado_parcial_validado_autor",
+      "siguienteRama": "Descendientes asimilados por tutela/acogimiento; intervalos completos de composición familiar y preferencia de ascendientes no resuelta por anual",
+      "cierreCodigo": false,
+      "estadoAnteriorAmpliacion": "pendiente_rama_concreta",
+      "evaluador": "lib/dominio/irpf/deducciones/canarias-balears-hechos-2025/familia-estudios-ampliacion.ts#evaluarFamiliaEstudiosAmpliacionC",
+      "alcance": "133;hijos identificados,discapacidad/renta8000;alteración183días;otros convivientes",
+      "validacionAmpliacion": "Suite de autor:83 pruebas nuevas y50 integradas;tipos estrictos/Effect,Oxlint16reglas yESLint correctos. No acredita todas las subramas ni revisión independiente.",
+      "puertoAnual": "MagnitudesAnualesC"
     },
     {
       "codigo": "canarias_custodia_guarderias",
@@ -282,7 +342,9 @@
       "estado": "implementado_parcial",
       "evaluador": "evaluarGuarderia",
       "alcance": "Individual; menores de3 todo2025, convivencia continua",
-      "siguienteRama": "Meses elegibles en año de cumplir3; nacimiento/convivencia parcial; conjunta"
+      "siguienteRama": "Meses elegibles en año de cumplir3; nacimiento/convivencia parcial; conjunta",
+      "cierreCodigo": false,
+      "ampliacionActual": "Ruta integrada reutilizada sin cambios de fórmula; reservas y subramas anteriores conservadas"
     },
     {
       "codigo": "canarias_inversion_vivienda_habitual",
@@ -303,8 +365,14 @@
         "financiación",
         "edad y bases"
       ],
-      "estado": "pendiente_rama_concreta",
-      "siguienteRama": "Implementar fórmula 5/3,5%, menores40 5,5/4%; base6.000; renta fronteras; art68.1 versión2012 con fecha y coste de adquisición o rehabilitación; vivienda y ocupación; inversiones previas deducidas; ganancia exenta reinvertida; financiación; edad y bases"
+      "estado": "ampliado_parcial_validado_autor",
+      "siguienteRama": "Adquisición pendiente de ocupación, construcción y causas justificadas art68.1-2012; desglose financiación y adaptación de patrimonio del anual",
+      "cierreCodigo": false,
+      "estadoAnteriorAmpliacion": "pendiente_rama_concreta",
+      "evaluador": "lib/dominio/irpf/deducciones/canarias-balears-hechos-2025/vivienda-ampliacion.ts#evaluarViviendaAmpliacionC",
+      "alcance": "Base6000 tras inversión anterior/reinversión;5/3.5/5.5/4%;renta<26035/<46455",
+      "validacionAmpliacion": "Suite de autor:83 pruebas nuevas y50 integradas;tipos estrictos/Effect,Oxlint16reglas yESLint correctos. No acredita todas las subramas ni revisión independiente.",
+      "puertoAnual": "MagnitudesAnualesC; HistoricoViviendasC"
     },
     {
       "codigo": "canarias_rehabilitacion_energetica_vivienda",
@@ -332,8 +400,14 @@
         "cuota de propiedad",
         "facturas y otros beneficios sobre el gasto"
       ],
-      "estado": "pendiente_rama_concreta",
-      "siguienteRama": "Implementar fórmula 12%; base7.000, 10% cuota; certificados antes/después y pago no efectivo con propiedad y habitualidad; tipo de obra y elementos excluidos; certificado energético anterior y posterior, registro; pago bancario; ayudas; cuota de propiedad; facturas y otros beneficios sobre el gasto"
+      "estado": "ampliado_parcial_validado_autor",
+      "siguienteRama": "Copropiedad y comunidad de propietarios con certificación individual del gasto y reparto específico; causas de habitualidad",
+      "cierreCodigo": false,
+      "estadoAnteriorAmpliacion": "pendiente_rama_concreta",
+      "evaluador": "lib/dominio/irpf/deducciones/canarias-balears-hechos-2025/vivienda-ampliacion.ts#evaluarViviendaAmpliacionC",
+      "alcance": "Titular único;vivienda habitual;energía/agua;pago bancario;12%,base7000,cuota10%,grupo15%",
+      "validacionAmpliacion": "Suite de autor:83 pruebas nuevas y50 integradas;tipos estrictos/Effect,Oxlint16reglas yESLint correctos. No acredita todas las subramas ni revisión independiente.",
+      "puertoAnual": "MagnitudesAnualesC; HistoricoViviendasC"
     },
     {
       "codigo": "canarias_adecuacion_vivienda_discapacidad",
@@ -355,8 +429,14 @@
         "necesidad de accesibilidad acreditada",
         "obras, coste y titulares"
       ],
-      "estado": "pendiente_rama_concreta",
-      "siguienteRama": "Implementar fórmula 14%,18% mayor65; discapacidad65; base15.000; familiar renta35.735 con persona con discapacidad, grado y edad; convivencia y parentesco; renta individual de familiar; necesidad de accesibilidad acreditada; obras, coste y titulares"
+      "estado": "ampliado_parcial_validado_autor",
+      "siguienteRama": "Varias personas/viviendas por contribuyente y bases compartidas; grados de parentesco distintos y concurrencias dentro del grupo15%",
+      "cierreCodigo": false,
+      "estadoAnteriorAmpliacion": "pendiente_rama_concreta",
+      "evaluador": "lib/dominio/irpf/deducciones/canarias-balears-hechos-2025/vivienda-ampliacion.ts#evaluarViviendaAmpliacionC",
+      "alcance": "Discapacidad65;edad>65 para18% o14%;base15000 repartida;renta familiar<=35735",
+      "validacionAmpliacion": "Suite de autor:83 pruebas nuevas y50 integradas;tipos estrictos/Effect,Oxlint16reglas yESLint correctos. No acredita todas las subramas ni revisión independiente.",
+      "puertoAnual": "MagnitudesAnualesC; HistoricoViviendasC"
     },
     {
       "codigo": "canarias_arrendamiento_dacion_pago",
@@ -370,8 +450,14 @@
         "alquiler pagado",
         "bases y modalidad"
       ],
-      "estado": "pendiente_rama_concreta",
-      "siguienteRama": "Implementar fórmula 25%,1.200; renta46.455 +15.315 conjunta; operación art35bis con operación de dación en pago del artículo 35 bis; arrendatario y vivienda; alquiler pagado; bases y modalidad"
+      "estado": "ampliado_parcial_validado_autor",
+      "siguienteRama": "Resto de condiciones materiales del art35bis de la operación; habitualidad todavía no consolidada y causas justificadas",
+      "cierreCodigo": false,
+      "estadoAnteriorAmpliacion": "pendiente_rama_concreta",
+      "evaluador": "lib/dominio/irpf/deducciones/canarias-balears-hechos-2025/vivienda-ampliacion.ts#evaluarViviendaAmpliacionC",
+      "alcance": "Dación identificada con escritura,acreedor,deuda extinguida y fecha;25%,1200;renta46455/61770",
+      "validacionAmpliacion": "Suite de autor:83 pruebas nuevas y50 integradas;tipos estrictos/Effect,Oxlint16reglas yESLint correctos. No acredita todas las subramas ni revisión independiente.",
+      "puertoAnual": "MagnitudesAnualesC; HistoricoViviendasC"
     },
     {
       "codigo": "canarias_adecuacion_inmueble_arrendamiento",
@@ -391,8 +477,14 @@
         "gastos por concepto, factura y NIF del proveedor",
         "primas ya deducidas"
       ],
-      "estado": "pendiente_rama_concreta",
-      "siguienteRama": "Implementar fórmula 10%,150 por inmueble; reparto según propiedad; factura y LAU; no duplicar primas con inmueble destinado a vivienda LAU; propietario o usufructuario y porcentaje; gastos por concepto, factura y NIF del proveedor; primas ya deducidas"
+      "estado": "ampliado_parcial_validado_autor",
+      "siguienteRama": "Copropiedad con gastos exclusivamente propios; múltiple título sobre mismo catastro en conjunta; concurrencia15quater y NIF/importe anual de proveedor",
+      "cierreCodigo": false,
+      "estadoAnteriorAmpliacion": "pendiente_rama_concreta",
+      "evaluador": "lib/dominio/irpf/deducciones/canarias-balears-hechos-2025/vivienda-ampliacion.ts#evaluarViviendaAmpliacionC",
+      "alcance": "10%,150 por inmueble;propiedad/usufructo;gastos comunes por título proporcional",
+      "validacionAmpliacion": "Suite de autor:83 pruebas nuevas y50 integradas;tipos estrictos/Effect,Oxlint16reglas yESLint correctos. No acredita todas las subramas ni revisión independiente.",
+      "puertoAnual": "MagnitudesAnualesC; HistoricoViviendasC"
     },
     {
       "codigo": "canarias_primas_seguro_impago_arrendamientos",
@@ -417,7 +509,9 @@
       "estado": "implementado_parcial",
       "evaluador": "evaluarSegurosImpago",
       "alcance": "Individual; varias viviendas;75% agregado hasta150; alquiler<=800",
-      "siguienteRama": "Concurrencias por inmueble/pago con15ter; conjunta; aniversario29febrero"
+      "siguienteRama": "Concurrencias por inmueble/pago con15ter; conjunta; aniversario29febrero",
+      "cierreCodigo": false,
+      "ampliacionActual": "Ruta integrada reutilizada sin cambios de fórmula; reservas y subramas anteriores conservadas"
     },
     {
       "codigo": "canarias_puesta_viviendas_mercado_arrendamiento",
@@ -440,8 +534,14 @@
         "parentesco",
         "actividad económica y número de inmuebles"
       ],
-      "estado": "pendiente_rama_concreta",
-      "siguienteRama": "Implementar fórmula 1.000 inmueble, una vez, hasta cinco; porcentaje propiedad; tres años efectivos y sustitución seis meses con inmueble, propiedad o usufructo y porcentaje; imputación de renta del año anterior o fecha de adquisición; arrendamientos y vacancias por fechas; parentesco; actividad económica y número de inmuebles"
+      "estado": "ampliado_parcial_validado_autor",
+      "siguienteRama": "Sustitución de contratos/vacancias en6meses, duración efectiva3años y regularización; catastro compartido por dos contribuyentes en conjunta",
+      "cierreCodigo": false,
+      "estadoAnteriorAmpliacion": "pendiente_rama_concreta",
+      "evaluador": "lib/dominio/irpf/deducciones/canarias-balears-hechos-2025/vivienda-ampliacion.ts#evaluarViviendaAmpliacionC",
+      "alcance": "1000 por inmueble hasta5;imputación2024 o adquisición y alquiler6meses;sin aplicación previa",
+      "validacionAmpliacion": "Suite de autor:83 pruebas nuevas y50 integradas;tipos estrictos/Effect,Oxlint16reglas yESLint correctos. No acredita todas las subramas ni revisión independiente.",
+      "puertoAnual": "MagnitudesAnualesC; HistoricoViviendasC"
     },
     {
       "codigo": "canarias_familiares_dependientes_discapacidad",
@@ -462,8 +562,14 @@
         "empleado, cuotas efectivas y empleador",
         "régimen matrimonial"
       ],
-      "estado": "pendiente_rama_concreta",
-      "siguienteRama": "Implementar fórmula 600 persona discapacidad65 con mínimo; renta46.455/61.770; asistencia20% cuotas hasta500 con ascendientes o descendientes por persona; mínimo por discapacidad y asistencia; grado; renta; titulares y parentesco; empleado, cuotas efectivas y empleador; régimen matrimonial"
+      "estado": "ampliado_parcial_validado_autor",
+      "siguienteRama": "Preferencia de grado y mínimos concurrentes no resueltos en anual; cuotas asignadas a varios familiares y concurrencia16quinquies",
+      "cierreCodigo": false,
+      "estadoAnteriorAmpliacion": "pendiente_rama_concreta",
+      "evaluador": "lib/dominio/irpf/deducciones/canarias-balears-hechos-2025/familia-estudios-ampliacion.ts#evaluarFamiliaEstudiosAmpliacionC",
+      "alcance": "600 por mínimo discapacidad65;asistencia20% cuotas hasta500;gananciales50/50",
+      "validacionAmpliacion": "Suite de autor:83 pruebas nuevas y50 integradas;tipos estrictos/Effect,Oxlint16reglas yESLint correctos. No acredita todas las subramas ni revisión independiente.",
+      "puertoAnual": "MagnitudesAnualesC"
     },
     {
       "codigo": "canarias_cuotas_seguridad_social_empleados_hogar",
@@ -484,8 +590,14 @@
         "descendientes con mínimo y rendimientos del empleador o edad y discapacidad habilitantes",
         "empleado y cuotas efectivamente satisfechas"
       ],
-      "estado": "pendiente_rama_concreta",
-      "siguienteRama": "Implementar fórmula 20%,500 anuales; empleador, descendientes con rentas de trabajo/actividad o edades/grados tasados con empleador y régimen matrimonial; vivienda habitual; descendientes con mínimo y rendimientos del empleador o edad y discapacidad habilitantes; empleado y cuotas efectivamente satisfechas"
+      "estado": "ampliado_parcial_validado_autor",
+      "siguienteRama": "Concurrencia de las mismas cuotas con16quater y situaciones matrimoniales que cambian durante2025",
+      "cierreCodigo": false,
+      "estadoAnteriorAmpliacion": "pendiente_rama_concreta",
+      "evaluador": "lib/dominio/irpf/deducciones/canarias-balears-hechos-2025/familia-estudios-ampliacion.ts#evaluarFamiliaEstudiosAmpliacionC",
+      "alcance": "20%,500 agregado;empleador;descendiente/rendimientos o edad75 o>65 con grado;gananciales",
+      "validacionAmpliacion": "Suite de autor:83 pruebas nuevas y50 integradas;tipos estrictos/Effect,Oxlint16reglas yESLint correctos. No acredita todas las subramas ni revisión independiente.",
+      "puertoAnual": "MagnitudesAnualesC"
     },
     {
       "codigo": "canarias_nacimiento_adopcion_hijos",
@@ -515,7 +627,9 @@
       "estado": "reutilizado_contrato_existente",
       "evaluador": "lib/dominio/irpf/deducciones/hechos-auxiliar-2025.ts#evaluarHechosAuxiliar2025",
       "alcance": "Contrato existente parcial por hechos; conserva elegibilidad externa y límites de su revisión previa",
-      "siguienteRama": "Conectar contrato existente por código en composición del padre, conservando reservas; sustituir elegibilidad externa por requisitos particulares cuando se amplíe admisión"
+      "siguienteRama": "Conectar contrato existente por código en composición del padre, conservando reservas; sustituir elegibilidad externa por requisitos particulares cuando se amplíe admisión",
+      "cierreCodigo": false,
+      "ampliacionActual": "Ruta integrada reutilizada sin cambios de fórmula; reservas y subramas anteriores conservadas"
     },
     {
       "codigo": "canarias_discapacidad_mayores_65",
@@ -534,7 +648,9 @@
       "estado": "reutilizado_contrato_existente",
       "evaluador": "lib/dominio/irpf/deducciones/hechos-auxiliar-2025.ts#evaluarHechosAuxiliar2025",
       "alcance": "Contrato existente parcial por hechos; conserva elegibilidad externa y límites de su revisión previa",
-      "siguienteRama": "Conectar contrato existente por código en composición del padre, conservando reservas; sustituir elegibilidad externa por requisitos particulares cuando se amplíe admisión"
+      "siguienteRama": "Conectar contrato existente por código en composición del padre, conservando reservas; sustituir elegibilidad externa por requisitos particulares cuando se amplíe admisión",
+      "cierreCodigo": false,
+      "ampliacionActual": "Ruta integrada reutilizada sin cambios de fórmula; reservas y subramas anteriores conservadas"
     },
     {
       "codigo": "canarias_familia_numerosa",
@@ -555,7 +671,9 @@
       "estado": "reutilizado_contrato_existente",
       "evaluador": "lib/dominio/irpf/deducciones/hechos-auxiliar-2025.ts#evaluarHechosAuxiliar2025",
       "alcance": "Contrato existente parcial por hechos; conserva elegibilidad externa y límites de su revisión previa",
-      "siguienteRama": "Conectar contrato existente por código en composición del padre, conservando reservas; sustituir elegibilidad externa por requisitos particulares cuando se amplíe admisión"
+      "siguienteRama": "Conectar contrato existente por código en composición del padre, conservando reservas; sustituir elegibilidad externa por requisitos particulares cuando se amplíe admisión",
+      "cierreCodigo": false,
+      "ampliacionActual": "Ruta integrada reutilizada sin cambios de fórmula; reservas y subramas anteriores conservadas"
     },
     {
       "codigo": "canarias_alquiler_vivienda_habitual",
@@ -576,8 +694,14 @@
         "renta del alquiler, subvención y bases",
         "identificación del arrendador e inmueble"
       ],
-      "estado": "pendiente_rama_concreta",
-      "siguienteRama": "Implementar fórmula 24%,740;760 menor40 o al menos75; alquiler supera10% renta ajustada; renta con arrendatario; edad al devengo; habitualidad; renta del alquiler, subvención y bases; identificación del arrendador e inmueble"
+      "estado": "ampliado_parcial_validado_autor",
+      "siguienteRama": "Alquiler compartido entre contribuyentes y atribución de subvenciones en el contraste del10%; cambios de vivienda y edades diferentes durante declaración",
+      "cierreCodigo": false,
+      "estadoAnteriorAmpliacion": "pendiente_rama_concreta",
+      "evaluador": "lib/dominio/irpf/deducciones/canarias-balears-hechos-2025/vivienda-ampliacion.ts#evaluarViviendaAmpliacionC",
+      "alcance": "24%,740/760 por edad<40 o>=75;habitualidad>1año;supera10% renta ajustada",
+      "validacionAmpliacion": "Suite de autor:83 pruebas nuevas y50 integradas;tipos estrictos/Effect,Oxlint16reglas yESLint correctos. No acredita todas las subramas ni revisión independiente.",
+      "puertoAnual": "MagnitudesAnualesC; HistoricoViviendasC"
     },
     {
       "codigo": "canarias_gasto_enfermedad",
@@ -605,7 +729,9 @@
       "estado": "implementado_parcial",
       "evaluador": "evaluarEnfermedad",
       "alcance": "Individual, servicios sanitarios admitidos; neto y límite150/500/600",
-      "siguienteRama": "Conjunta700 sin incremento100; aparatos con proveedor no sanitario y desglose anual por NIF"
+      "siguienteRama": "Conjunta700 sin incremento100; aparatos con proveedor no sanitario y desglose anual por NIF",
+      "cierreCodigo": false,
+      "ampliacionActual": "Ruta integrada reutilizada sin cambios de fórmula; reservas y subramas anteriores conservadas"
     },
     {
       "codigo": "canarias_contribuyentes_desempleados",
@@ -624,7 +750,9 @@
       "estado": "reutilizado_contrato_existente",
       "evaluador": "lib/dominio/irpf/deducciones/hechos-auxiliar-2025.ts#evaluarHechosAuxiliar2025",
       "alcance": "Contrato existente parcial por hechos; conserva elegibilidad externa y límites de su revisión previa",
-      "siguienteRama": "Conectar contrato existente por código en composición del padre, conservando reservas; sustituir elegibilidad externa por requisitos particulares cuando se amplíe admisión"
+      "siguienteRama": "Conectar contrato existente por código en composición del padre, conservando reservas; sustituir elegibilidad externa por requisitos particulares cuando se amplíe admisión",
+      "cierreCodigo": false,
+      "ampliacionActual": "Ruta integrada reutilizada sin cambios de fórmula; reservas y subramas anteriores conservadas"
     },
     {
       "codigo": "balears_mejora_sostenibilidad_vivienda",
@@ -649,8 +777,14 @@
         "arrendamiento, fianza, capital inmobiliario y no repercusión",
         "bases"
       ],
-      "estado": "pendiente_rama_concreta",
-      "siguienteRama": "Implementar fórmula 50%,base10.000; mejora un nivel; renta33.000/52.800; arrendador fianza y no repercutir con vivienda y uso habitual por propietario o inquilino; inversión admisible; certificados registrados antes y después, mejora de nivel; arrendamiento, fianza, capital inmobiliario y no repercusión; bases"
+      "estado": "ampliado_parcial_validado_autor",
+      "siguienteRama": "Inversiones comunitarias y usos mixtos de una vivienda; asegurar por anual habitualidad y atribución en casos no cubiertos",
+      "cierreCodigo": false,
+      "estadoAnteriorAmpliacion": "pendiente_rama_concreta",
+      "evaluador": "lib/dominio/irpf/deducciones/canarias-balears-hechos-2025/vivienda-ampliacion.ts#evaluarViviendaAmpliacionC",
+      "alcance": "50%,base10000;al menos un nivel energético;arrendador con fianza y sin repercusión",
+      "validacionAmpliacion": "Suite de autor:83 pruebas nuevas y50 integradas;tipos estrictos/Effect,Oxlint16reglas yESLint correctos. No acredita todas las subramas ni revisión independiente.",
+      "puertoAnual": "MagnitudesAnualesC; HistoricoViviendasC"
     },
     {
       "codigo": "balears_subvenciones_zona_emergencia_proteccion_civil",
@@ -665,8 +799,14 @@
         "integración en base general y liquidable",
         "tipo medio autonómico"
       ],
-      "estado": "pendiente_rama_concreta",
-      "siguienteRama": "Implementar fórmula Tipo medio por subvención integrada en liquidable; ayuda autonómica por emergencia declarada con ayuda autonómica; emergencia declarada por Consejo de Ministros; integración en base general y liquidable; tipo medio autonómico"
+      "estado": "ampliado_parcial_validado_autor",
+      "siguienteRama": "Conectar derivación del tipo medio y parte integrada en anual; fuentes fiscales concretas del tipo y redondeo legal; sin porcentaje externo",
+      "cierreCodigo": false,
+      "estadoAnteriorAmpliacion": "pendiente_rama_concreta",
+      "evaluador": "lib/dominio/irpf/deducciones/canarias-balears-hechos-2025/inversion-trabajo-ampliacion.ts#evaluarEmergenciaAmpliacionC",
+      "alcance": "Ayuda autonómica/emergencia identificadas;fracción del tipo medio legal por integración liquidable",
+      "validacionAmpliacion": "Suite de autor:83 pruebas nuevas y50 integradas;tipos estrictos/Effect,Oxlint16reglas yESLint correctos. No acredita todas las subramas ni revisión independiente.",
+      "puertoAnual": "MagnitudesAnualesC; MagnitudesEmergenciaC"
     },
     {
       "codigo": "balears_idiomas_extraescolares",
@@ -686,7 +826,9 @@
       "estado": "implementado_parcial",
       "evaluador": "evaluarIdiomas",
       "alcance": "Individual;15% y110 por hijo; convivencia continua; reparto",
-      "siguienteRama": "Conjunta; convivencia parcial y ramas de mínimos sin resolución identificada"
+      "siguienteRama": "Conjunta; convivencia parcial y ramas de mínimos sin resolución identificada",
+      "cierreCodigo": false,
+      "ampliacionActual": "Ruta integrada reutilizada sin cambios de fórmula; reservas y subramas anteriores conservadas"
     },
     {
       "codigo": "balears_estudios_superiores_fuera_isla",
@@ -707,8 +849,14 @@
         "renta del descendiente",
         "cuota autonómica, bases y titulares"
       ],
-      "estado": "pendiente_rama_concreta",
-      "siguienteRama": "Implementar fórmula 1.800 descendiente,50% cuota;30 créditos/curso; renta y descendiente8.000 con descendiente con mínimo y dependencia; isla y estudios superiores; curso o créditos; renta del descendiente; cuota autonómica, bases y titulares"
+      "estado": "ampliado_parcial_validado_autor",
+      "siguienteRama": "Dependencia económica/centros y preferencia de titulares no resueltas por mínimos anuales; composición de varias solicitudes del mismo código",
+      "cierreCodigo": false,
+      "estadoAnteriorAmpliacion": "pendiente_rama_concreta",
+      "evaluador": "lib/dominio/irpf/deducciones/canarias-balears-hechos-2025/familia-estudios-ampliacion.ts#evaluarFamiliaEstudiosAmpliacionC",
+      "alcance": "1800 descendiente;30créditos/curso;fuera isla;renta8000;límite50% cuota",
+      "validacionAmpliacion": "Suite de autor:83 pruebas nuevas y50 integradas;tipos estrictos/Effect,Oxlint16reglas yESLint correctos. No acredita todas las subramas ni revisión independiente.",
+      "puertoAnual": "MagnitudesAnualesC"
     },
     {
       "codigo": "balears_arrendador_vivienda_permanente_primas_seguro",
@@ -729,7 +877,9 @@
       "estado": "implementado_parcial",
       "evaluador": "evaluarSegurosImpago",
       "alcance": "Individual;75% agregado hasta440; renta<=52800",
-      "siguienteRama": "Conjunta renta84480, concurrencias y aniversario29febrero"
+      "siguienteRama": "Conjunta renta84480, concurrencias y aniversario29febrero",
+      "cierreCodigo": false,
+      "ampliacionActual": "Ruta integrada reutilizada sin cambios de fórmula; reservas y subramas anteriores conservadas"
     },
     {
       "codigo": "balears_arrendador_vivienda_permanente_otros_gastos",
@@ -753,8 +903,14 @@
         "Alquiler Seguro",
         "bases y primera aplicación"
       ],
-      "estado": "pendiente_rama_concreta",
-      "siguienteRama": "Implementar fórmula 50%,1.500 o1.800 Alquiler Seguro; dos ejercicios sin alquilar; renta<=15/m2 con vivienda, dos ejercicios previos sin alquiler; renta por metro cuadrado útil; fecha y tipo de gasto; contrato, fianza y rendimiento; Alquiler Seguro; bases y primera aplicación"
+      "estado": "ampliado_parcial_validado_autor",
+      "siguienteRama": "Programas ordinario y Alquiler Seguro mezclados; varias titularidades sobre mismo inmueble; ampliación temporal de programas y evidencias particulares",
+      "cierreCodigo": false,
+      "estadoAnteriorAmpliacion": "pendiente_rama_concreta",
+      "evaluador": "lib/dominio/irpf/deducciones/canarias-balears-hechos-2025/vivienda-ampliacion.ts#evaluarViviendaAmpliacionC",
+      "alcance": "50%;máximo1500/1800;dos años sin alquiler;renta<=15/m² útil;primera aplicación",
+      "validacionAmpliacion": "Suite de autor:83 pruebas nuevas y50 integradas;tipos estrictos/Effect,Oxlint16reglas yESLint correctos. No acredita todas las subramas ni revisión independiente.",
+      "puertoAnual": "MagnitudesAnualesC; HistoricoViviendasC"
     },
     {
       "codigo": "balears_arrendamiento_traslado_laboral",
@@ -776,8 +932,14 @@
         "vivienda ocupada, alquiler, fianza y arrendador",
         "titulares, bases y modalidad"
       ],
-      "estado": "pendiente_rama_concreta",
-      "siguienteRama": "Implementar fórmula 15%,440 por contribuyente; temporal hasta tres años, misma relación laboral y otra isla con isla de origen y destino; traslado temporal y fechas; misma relación laboral; vivienda ocupada, alquiler, fianza y arrendador; titulares, bases y modalidad"
+      "estado": "ampliado_parcial_validado_autor",
+      "siguienteRama": "Contratos sucesivos y cómputo acumulado del traslado temporal; cambios de isla dentro del período y excepciones de ocupación",
+      "cierreCodigo": false,
+      "estadoAnteriorAmpliacion": "pendiente_rama_concreta",
+      "evaluador": "lib/dominio/irpf/deducciones/canarias-balears-hechos-2025/vivienda-ampliacion.ts#evaluarViviendaAmpliacionC",
+      "alcance": "15%,440 por contribuyente;otra isla;misma relación laboral;contrato<=3años",
+      "validacionAmpliacion": "Suite de autor:83 pruebas nuevas y50 integradas;tipos estrictos/Effect,Oxlint16reglas yESLint correctos. No acredita todas las subramas ni revisión independiente.",
+      "puertoAnual": "MagnitudesAnualesC; HistoricoViviendasC"
     },
     {
       "codigo": "balears_vivienda_ocupada_ilegalmente_suspension_lanzamiento",
@@ -800,8 +962,14 @@
         "gastos admitidos",
         "fecha de fallecimiento y bases"
       ],
-      "estado": "pendiente_rama_concreta",
-      "siguienteRama": "Implementar fórmula 40%,500; propiedad, ocupación o suspensión con dudoso cobro; renta33.000/52.800 con propiedad y situación de ocupación; resolución de suspensión y vulnerabilidad; saldo de dudoso cobro en el ejercicio; gastos admitidos; fecha de fallecimiento y bases"
+      "estado": "ampliado_parcial_validado_autor",
+      "siguienteRama": "Cuotas hipotecarias no incluidas en esta rama; suspensión de varios inmuebles y cálculo estatal del saldo dudoso por el anual",
+      "cierreCodigo": false,
+      "estadoAnteriorAmpliacion": "pendiente_rama_concreta",
+      "evaluador": "lib/dominio/irpf/deducciones/canarias-balears-hechos-2025/vivienda-ampliacion.ts#evaluarViviendaAmpliacionC",
+      "alcance": "Desde25julio;40%,500;propietario;ocupación o suspensión con saldo dudoso anual",
+      "validacionAmpliacion": "Suite de autor:83 pruebas nuevas y50 integradas;tipos estrictos/Effect,Oxlint16reglas yESLint correctos. No acredita todas las subramas ni revisión independiente.",
+      "puertoAnual": "MagnitudesAnualesC; HistoricoViviendasC"
     },
     {
       "codigo": "balears_donaciones_investigacion_desarrollo_innovacion",
@@ -821,8 +989,14 @@
         "donación dineraria y certificado",
         "cuota íntegra"
       ],
-      "estado": "pendiente_rama_concreta",
-      "siguienteRama": "Implementar fórmula 25%,15% cuota; entidades tasadas, certificado y resolución cuando proceda con beneficiario y finalidad investigadora; registro y resolución si procede; donación dineraria y certificado; cuota íntegra"
+      "estado": "ampliado_parcial_validado_autor",
+      "siguienteRama": "Vinculación material del proyecto y beneficiarios parcialmente exentos; composición de cuota y solicitudes al mismo beneficiario",
+      "cierreCodigo": false,
+      "estadoAnteriorAmpliacion": "pendiente_rama_concreta",
+      "evaluador": "lib/dominio/irpf/deducciones/canarias-balears-hechos-2025/donaciones-ampliacion.ts#evaluarDonacionesAmpliacionC",
+      "alcance": "25%,15% cuota;beneficiarios tasados;registro/resolución cuando corresponde",
+      "validacionAmpliacion": "Suite de autor:83 pruebas nuevas y50 integradas;tipos estrictos/Effect,Oxlint16reglas yESLint correctos. No acredita todas las subramas ni revisión independiente.",
+      "puertoAnual": "MagnitudesAnualesC"
     },
     {
       "codigo": "balears_mecenazgo_cultural_cientifico_tecnologico",
@@ -841,8 +1015,14 @@
         "valoración, días, ejercicios aplicados",
         "documentación y bases"
       ],
-      "estado": "pendiente_rama_concreta",
-      "siguienteRama": "Implementar fórmula 15%,660; especial público25%,1.200 sin renta; comodato días y máximo tres ejercicios con beneficiario habilitado y proyecto; carácter propio de administración o ente instrumental; donación, comodato o convenio; valoración, días, ejercicios aplicados; documentación y bases"
+      "estado": "ampliado_parcial_validado_autor",
+      "siguienteRama": "Mezclas público/general y comodatos múltiples con distintos días; beneficiarios personas físicas y valoración no comprendida en contrato actual",
+      "cierreCodigo": false,
+      "estadoAnteriorAmpliacion": "pendiente_rama_concreta",
+      "evaluador": "lib/dominio/irpf/deducciones/canarias-balears-hechos-2025/donaciones-ampliacion.ts#evaluarDonacionesAmpliacionC",
+      "alcance": "General15%/660 con renta;público25%/1200 sin renta;dinero/bien/convenio/comodato4% por días",
+      "validacionAmpliacion": "Suite de autor:83 pruebas nuevas y50 integradas;tipos estrictos/Effect,Oxlint16reglas yESLint correctos. No acredita todas las subramas ni revisión independiente.",
+      "puertoAnual": "MagnitudesAnualesC"
     },
     {
       "codigo": "balears_mecenazgo_deportivo",
@@ -859,8 +1039,14 @@
         "días y ejercicios",
         "documentos y bases"
       ],
-      "estado": "pendiente_rama_concreta",
-      "siguienteRama": "Implementar fórmula 15%,660; renta33.000/52.800; cesión días y hasta tres ejercicios; Ley6/2015 con beneficiario habilitado y proyecto deportivo; donación, comodato o convenio; valoración y valor catastral; días y ejercicios; documentos y bases"
+      "estado": "ampliado_parcial_validado_autor",
+      "siguienteRama": "Comodatos múltiples o modalidades mixtas; beneficiarios personas físicas; valoración y domicilio material del proyecto",
+      "cierreCodigo": false,
+      "estadoAnteriorAmpliacion": "pendiente_rama_concreta",
+      "evaluador": "lib/dominio/irpf/deducciones/canarias-balears-hechos-2025/donaciones-ampliacion.ts#evaluarDonacionesAmpliacionC",
+      "alcance": "15%/660;renta33000/52800;donación/bien/convenio/comodato4% por días;hasta3ejercicios",
+      "validacionAmpliacion": "Suite de autor:83 pruebas nuevas y50 integradas;tipos estrictos/Effect,Oxlint16reglas yESLint correctos. No acredita todas las subramas ni revisión independiente.",
+      "puertoAnual": "MagnitudesAnualesC"
     },
     {
       "codigo": "balears_fomento_lengua_catalana",
@@ -881,8 +1067,14 @@
         "cuota",
         "aplicación del artículo 5 bis"
       ],
-      "estado": "pendiente_rama_concreta",
-      "siguienteRama": "Implementar fórmula 15%,10% cuota; certificado, resolución tasada e incompatibilidad5bis con beneficiario de fomento del catalán, registro y resolución cuando proceda; donación dineraria y certificado; cuota; aplicación del artículo 5 bis"
+      "estado": "ampliado_parcial_validado_autor",
+      "siguienteRama": "Composición de incompatibilidad5bis a nivel de declaración, además de las cantidades/beneficiarios enumerados en solicitud",
+      "cierreCodigo": false,
+      "estadoAnteriorAmpliacion": "pendiente_rama_concreta",
+      "evaluador": "lib/dominio/irpf/deducciones/canarias-balears-hechos-2025/donaciones-ampliacion.ts#evaluarDonacionesAmpliacionC",
+      "alcance": "Dinerarias15%,10% cuota;beneficiarios/registro/resolución;incompatible5bis",
+      "validacionAmpliacion": "Suite de autor:83 pruebas nuevas y50 integradas;tipos estrictos/Effect,Oxlint16reglas yESLint correctos. No acredita todas las subramas ni revisión independiente.",
+      "puertoAnual": "MagnitudesAnualesC"
     },
     {
       "codigo": "balears_entidades_tercer_sector",
@@ -898,7 +1090,9 @@
       "estado": "implementado_parcial",
       "evaluador": "evaluarTercerSector",
       "alcance": "Individual;25% sobre base máxima agregada165",
-      "siguienteRama": "Conjunta por donante y cotejo de inscripción/régimen fiscal particular"
+      "siguienteRama": "Conjunta por donante y cotejo de inscripción/régimen fiscal particular",
+      "cierreCodigo": false,
+      "ampliacionActual": "Ruta integrada reutilizada sin cambios de fórmula; reservas y subramas anteriores conservadas"
     },
     {
       "codigo": "balears_declarantes_discapacidad_o_descendientes_discapacidad",
@@ -921,7 +1115,9 @@
       "estado": "implementado_parcial",
       "evaluador": "evaluarDiscapacidad",
       "alcance": "Individual;88/165 por contribuyente o descendiente identificado; sin prorratear descendiente",
-      "siguienteRama": "Composición de unidad familiar y conjunta; mínimos por hechos materiales sin resolución"
+      "siguienteRama": "Composición de unidad familiar y conjunta; mínimos por hechos materiales sin resolución",
+      "cierreCodigo": false,
+      "ampliacionActual": "Ruta integrada reutilizada sin cambios de fórmula; reservas y subramas anteriores conservadas"
     },
     {
       "codigo": "balears_conciliacion_menores_6",
@@ -962,7 +1158,9 @@
           "balears_conciliacion_menores_6-ley-10"
         ],
         "reserva": "El artículo6bis.4 formula el prorrateo de forma general; el manual concreta el máximo. La divergencia textual se conserva."
-      }
+      },
+      "cierreCodigo": false,
+      "ampliacionActual": "Ruta integrada reutilizada sin cambios de fórmula; reservas y subramas anteriores conservadas"
     },
     {
       "codigo": "balears_adopcion",
@@ -995,8 +1193,14 @@
         "bases y familia",
         "ayudas públicas, abonos y cuota"
       ],
-      "estado": "pendiente_rama_concreta",
-      "siguienteRama": "Implementar fórmula 800/1.000/1.200/1.400; mínimo, reparto, inscripción civil; renta; exclusión hijo pareja con adopción y fecha de inscripción; hijo del cónyuge o pareja; hijos preexistentes y mínimos por contribuyente; titulares y modalidad; bases y familia; ayudas públicas, abonos y cuota"
+      "estado": "ampliado_parcial_validado_autor",
+      "siguienteRama": "Conectar prioridad,abono por insuficiencia,anticipos y regularización; hijos con mínimos/órdenes diferentes de cada adoptante",
+      "cierreCodigo": false,
+      "estadoAnteriorAmpliacion": "pendiente_rama_concreta",
+      "evaluador": "lib/dominio/irpf/deducciones/canarias-balears-hechos-2025/familia-estudios-ampliacion.ts#evaluarFamiliaEstudiosAmpliacionC",
+      "alcance": "800/1000/1200/1400;orden por hijos identificados;inscripción2025;no hijo de pareja;reparto",
+      "validacionAmpliacion": "Suite de autor:83 pruebas nuevas y50 integradas;tipos estrictos/Effect,Oxlint16reglas yESLint correctos. No acredita todas las subramas ni revisión independiente.",
+      "puertoAnual": "MagnitudesAnualesC"
     },
     {
       "codigo": "balears_gastos_ela",
@@ -1015,8 +1219,14 @@
         "seguros excluidos",
         "bases y cuidados compatibles"
       ],
-      "estado": "pendiente_rama_concreta",
-      "siguienteRama": "Implementar fórmula 100%,3.500; renta52.800/84.480; factura, familiar con mínimo; excluye seguros con persona afectada por ELA y mínimo por parentesco; gastos causados por la enfermedad y factura; seguros excluidos; bases y cuidados compatibles"
+      "estado": "ampliado_parcial_validado_autor",
+      "siguienteRama": "Varios contribuyentes con gasto sobre misma factura y coexistencia con6quinquies; soporte causal material",
+      "cierreCodigo": false,
+      "estadoAnteriorAmpliacion": "pendiente_rama_concreta",
+      "evaluador": "lib/dominio/irpf/deducciones/canarias-balears-hechos-2025/familia-estudios-ampliacion.ts#evaluarFamiliaEstudiosAmpliacionC",
+      "alcance": "100% causal;máximo3500 agregado;contribuyente o familiar con mínimo;sin primas",
+      "validacionAmpliacion": "Suite de autor:83 pruebas nuevas y50 integradas;tipos estrictos/Effect,Oxlint16reglas yESLint correctos. No acredita todas las subramas ni revisión independiente.",
+      "puertoAnual": "MagnitudesAnualesC"
     },
     {
       "codigo": "balears_inversion_entidades_nuevas_reciente_creacion",
@@ -1049,8 +1259,14 @@
         "sello innovador",
         "escritura y mantenimiento durante cuatro años"
       ],
-      "estado": "pendiente_rama_concreta",
-      "siguienteRama": "Implementar fórmula 30%,6.000; especial50%,12.000; participación hasta40%; cuatro años con inversor y familia; sociedad, actividad, domicilio y fechas; capital, participación y votos; empleo y plantilla; cifra de negocios; sello innovador; escritura y mantenimiento durante cuatro años"
+      "estado": "ampliado_parcial_validado_autor",
+      "siguienteRama": "Mezcla general/especial; mantenimiento4años y pérdida del beneficio; histórico completo y remanentes con varios acuerdos de la misma entidad",
+      "cierreCodigo": false,
+      "estadoAnteriorAmpliacion": "pendiente_rama_concreta",
+      "evaluador": "lib/dominio/irpf/deducciones/canarias-balears-hechos-2025/inversion-trabajo-ampliacion.ts#evaluarInversionAmpliacionC",
+      "alcance": "30/6000 o50/12000;40% grupo;SA/SL/laborales/coops;histórico de dos anualidades;remanente",
+      "validacionAmpliacion": "Suite de autor:83 pruebas nuevas y50 integradas;tipos estrictos/Effect,Oxlint16reglas yESLint correctos. No acredita todas las subramas ni revisión independiente.",
+      "puertoAnual": "MagnitudesAnualesC; HistoricoInversionC"
     },
     {
       "codigo": "balears_fomento_autoocupacion",
@@ -1067,8 +1283,14 @@
         "permanencia en censo durante un año",
         "contribuyentes de la unidad y bases"
       ],
-      "estado": "pendiente_rama_concreta",
-      "siguienteRama": "Implementar fórmula 1.000 primera alta censo, un año, actividad principalmente Balears; renta33.000/52.800 con primera alta censal y fecha; territorio de actividad; permanencia en censo durante un año; contribuyentes de la unidad y bases"
+      "estado": "ampliado_parcial_validado_autor",
+      "siguienteRama": "Revisar operacionalización de principalmente mediante mayoría de volumen, sin cerrar otras pruebas legales; control futuro de permanencia",
+      "cierreCodigo": false,
+      "estadoAnteriorAmpliacion": "pendiente_rama_concreta",
+      "evaluador": "lib/dominio/irpf/deducciones/canarias-balears-hechos-2025/inversion-trabajo-ampliacion.ts#evaluarAutoocupacionAmpliacionC",
+      "alcance": "1000 por contribuyente;primera alta2025;permanencia1año;actividad territorial",
+      "validacionAmpliacion": "Suite de autor:83 pruebas nuevas y50 integradas;tipos estrictos/Effect,Oxlint16reglas yESLint correctos. No acredita todas las subramas ni revisión independiente.",
+      "puertoAnual": "MagnitudesAnualesC"
     },
     {
       "codigo": "balears_plazas_dificil_cobertura",
@@ -1088,8 +1310,14 @@
         "vivienda habitual y gastos hipotecarios de intereses, alquiler o transporte",
         "bases y modalidad"
       ],
-      "estado": "pendiente_rama_concreta",
-      "siguienteRama": "Implementar fórmula 40%;topes2.000/1.000 según renta; PN/GC Mallorca-30%,Formentera+30%; más mitad año con destino y días por isla; cuerpo y complemento de difícil cobertura; vivienda habitual y gastos hipotecarios de intereses, alquiler o transporte; bases y modalidad"
+      "estado": "ampliado_parcial_validado_autor",
+      "siguienteRama": "Confirmar criterio de ponderación en traslados mixtos y períodos no completos; habitualidad/intereses y destino de cada gasto",
+      "cierreCodigo": false,
+      "estadoAnteriorAmpliacion": "pendiente_rama_concreta",
+      "evaluador": "lib/dominio/irpf/deducciones/canarias-balears-hechos-2025/inversion-trabajo-ampliacion.ts#evaluarPlazasAmpliacionC",
+      "alcance": "40%;2000/1000 por renta;destino>medio período;PN/GC Mallorca0.7/Formentera1.3;varias islas",
+      "validacionAmpliacion": "Suite de autor:83 pruebas nuevas y50 integradas;tipos estrictos/Effect,Oxlint16reglas yESLint correctos. No acredita todas las subramas ni revisión independiente.",
+      "puertoAnual": "MagnitudesAnualesC"
     },
     {
       "codigo": "balears_arrendamiento_vivienda_habitual",
@@ -1111,8 +1339,14 @@
         "deducciones de inversión",
         "bases y fallecimiento"
       ],
-      "estado": "pendiente_rama_concreta",
-      "siguienteRama": "Implementar fórmula 15%,530;20%,650 colectivo; renta33.000/52.800 ampliable; un año,70km y otra vivienda con arrendatario y colectivo; edad, actividad o RETA por días; contrato y ocupación; derechos sobre otras viviendas, distancia e isla durante al menos medio período; deducciones de inversión; bases y fallecimiento"
+      "estado": "ampliado_parcial_validado_autor",
+      "siguienteRama": "Numerosas especiales con devengo anterior25julio y versión de renta; varias viviendas habituales por persona; derechos de inversión determinados por anual",
+      "cierreCodigo": false,
+      "estadoAnteriorAmpliacion": "pendiente_rama_concreta",
+      "evaluador": "lib/dominio/irpf/deducciones/canarias-balears-hechos-2025/vivienda-ampliacion.ts#evaluarViviendaAmpliacionC",
+      "alcance": "15/530 o20/650;edad/colectivo;RETA real desde25julio;otras viviendas por unión de días y70km",
+      "validacionAmpliacion": "Suite de autor:83 pruebas nuevas y50 integradas;tipos estrictos/Effect,Oxlint16reglas yESLint correctos. No acredita todas las subramas ni revisión independiente.",
+      "puertoAnual": "MagnitudesAnualesC; HistoricoViviendasC"
     },
     {
       "codigo": "balears_libros_texto",
@@ -1132,8 +1366,14 @@
         "colectivo reforzado y días de RETA",
         "bases y fallecimiento"
       ],
-      "estado": "pendiente_rama_concreta",
-      "siguienteRama": "Implementar fórmula 100%,220 hijo;350 colectivo; renta ampliable y reparto; facturas con hijo, estudios y mínimo; gasto de libros y factura; padres convivientes y modalidad; colectivo reforzado y días de RETA; bases y fallecimiento"
+      "estado": "ampliado_parcial_validado_autor",
+      "siguienteRama": "Numerosas especiales con devengo anterior25julio y versión de renta; convivencia parcial y preferencia de titulares no resuelta por anual",
+      "cierreCodigo": false,
+      "estadoAnteriorAmpliacion": "pendiente_rama_concreta",
+      "evaluador": "lib/dominio/irpf/deducciones/canarias-balears-hechos-2025/familia-estudios-ampliacion.ts#evaluarFamiliaEstudiosAmpliacionC",
+      "alcance": "100% propio;220/350 por hijo como máximo repartido;común atribuido una vez;RETA real desde25julio",
+      "validacionAmpliacion": "Suite de autor:83 pruebas nuevas y50 integradas;tipos estrictos/Effect,Oxlint16reglas yESLint correctos. No acredita todas las subramas ni revisión independiente.",
+      "puertoAnual": "MagnitudesAnualesC"
     },
     {
       "codigo": "balears_nacimiento",
@@ -1169,8 +1409,14 @@
         "modalidad, bases, familia y fecha de fallecimiento",
         "cuota, ayudas y anticipos"
       ],
-      "estado": "pendiente_rama_concreta",
-      "siguienteRama": "Implementar fórmula 800/1.000/1.200/1.400;50% sobre renta; residencia año anterior; reparto incluso solo uno elegible con nacimiento; residencia fiscal del ejercicio anterior; hijos y mínimos por progenitor; titulares aunque solo uno elegible; modalidad, bases, familia y fecha de fallecimiento; cuota, ayudas y anticipos"
+      "estado": "ampliado_parcial_validado_autor",
+      "siguienteRama": "Conectar prioridad,anticipos,abono por insuficiencia y regularización; orden por nacimiento múltiple y hechos registrales/hijos previos diferentes",
+      "cierreCodigo": false,
+      "estadoAnteriorAmpliacion": "pendiente_rama_concreta",
+      "evaluador": "lib/dominio/irpf/deducciones/canarias-balears-hechos-2025/familia-estudios-ampliacion.ts#evaluarFamiliaEstudiosAmpliacionC",
+      "alcance": "800/1000/1200/1400;residencia2024;reducción50% por renta;desde25julio dos progenitores aunque uno sin derecho",
+      "validacionAmpliacion": "Suite de autor:83 pruebas nuevas y50 integradas;tipos estrictos/Effect,Oxlint16reglas yESLint correctos. No acredita todas las subramas ni revisión independiente.",
+      "puertoAnual": "MagnitudesAnualesC"
     },
     {
       "codigo": "balears_gastos_mayores_65_discapacidad",
@@ -1199,7 +1445,29 @@
       "estado": "reutilizado_contrato_existente",
       "evaluador": "lib/dominio/irpf/deducciones/hechos-auxiliar-2025.ts#evaluarHechosAuxiliar2025",
       "alcance": "Contrato existente parcial por hechos; conserva elegibilidad externa y límites de su revisión previa",
-      "siguienteRama": "Conectar contrato existente por código en composición del padre, conservando reservas; sustituir elegibilidad externa por requisitos particulares cuando se amplíe admisión"
+      "siguienteRama": "Conectar contrato existente por código en composición del padre, conservando reservas; sustituir elegibilidad externa por requisitos particulares cuando se amplíe admisión",
+      "cierreCodigo": false,
+      "ampliacionActual": "Ruta integrada reutilizada sin cambios de fórmula; reservas y subramas anteriores conservadas"
     }
-  ]
+  ],
+  "recuentoAmpliacion": {
+    "codigos": 51,
+    "rutasIntegradasSinDuplicar": 15,
+    "codigosConFormulaNuevaCandidata": 36,
+    "codigosCerradosPorEstaEntrega": 0
+  },
+  "faseAmpliacion": "autor_validado_pendiente_revision_y_conexion_anual",
+  "baseIntegracionDeclarada": "bc351098249470ecddd55049113063429c1a7af8",
+  "recuentoAntesAmpliacion": {
+    "implementadoParcial": 10,
+    "reutilizado": 5,
+    "pendienteFormula": 36
+  },
+  "recuentoAntesValidacionAutor": {
+    "implementadoParcialIntegrado": 10,
+    "reutilizadoContratoExistente": 5,
+    "ampliadoParcialPendienteValidacion": 36,
+    "pendienteFormulaSinRamaNueva": 0,
+    "codigosCerrados": 0
+  }
 }

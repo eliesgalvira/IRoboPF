@@ -1,5 +1,6 @@
 import {
   r,
+  magnitudAnualR,
   cuenta,
   total,
   exigir,
@@ -111,7 +112,7 @@ export function monoAst(m: MarcoB, f: MonoparentalAst): boolean {
   )
   if (
     !limiteBase(m, "45000", "45000") ||
-    r(f.rentaPeriodo).plus(r(f.alimentosExentos)).cmp(r("45000")) > 0
+    magnitudAnualR(f.rentaPeriodo, true).plus(r(f.alimentosExentos)).cmp(r("45000")) > 0
   )
     return false
   if (f.cambioSituacion !== null)

@@ -1,5 +1,6 @@
 import {
   r,
+  magnitudAnualR,
   total,
   lista,
   exigir,
@@ -794,8 +795,8 @@ export function evaluarTrabajo(m: MarcoB, h: HechosTrabajo) {
           "Ayuda de otro beneficiario"
         )
         const concedido = r(a.importeConcedido),
-          general = r(a.integradoBaseGeneral),
-          bl = r(a.integradoBaseLiquidable)
+          general = magnitudAnualR(a.integradoBaseGeneral),
+          bl = magnitudAnualR(a.integradoBaseLiquidable)
         exigir(
           general.cmp(concedido) <= 0 && bl.cmp(general) <= 0,
           "Importes integrados contradictorios"
@@ -939,8 +940,8 @@ export function evaluarTrabajo(m: MarcoB, h: HechosTrabajo) {
       const mayores = h.empleadores.some((p) => edad(p.nacimiento) >= 75),
         laboral = h.empleadores.every(
           (p) =>
-            r(p.rendimientosTrabajo)
-              .plus(r(p.rendimientosActividad))
+            magnitudAnualR(p.rendimientosTrabajo)
+              .plus(magnitudAnualR(p.rendimientosActividad, true))
               .cmp(r("0")) > 0
         )
       if (!mayores && !(hijos.length > 0 && laboral))

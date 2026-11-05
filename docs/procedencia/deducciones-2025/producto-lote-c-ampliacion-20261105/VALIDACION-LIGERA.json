@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "fase": "ligera",
+  "estado": "candidato_pendiente_turno_pesado",
+  "cobertura": {
+    "matriz": 51,
+    "rutasPreviasSinDuplicar": 15,
+    "formulasNuevasCandidatas": 36,
+    "cierresCertificados": 0
+  },
+  "testsVitestPreparados": 76,
+  "testsVitestEjecutados": 0,
+  "controlesPython": {
+    "importsOverlayResueltos": 43,
+    "balanceLexico": "correcto, no parser TS",
+    "formatosMonetariosLiterales": "correctos",
+    "matrizYConservacionDe15Rutas": "correctas",
+    "vectoresNormativosPreparados": 36,
+    "fraccionesIndependientesComprobadas": 4
+  },
+  "pendiente": [
+    "Vitest focal maxWorkers1",
+    "Tipos con diagnósticos Effect de raíz",
+    "Oxlint/anti-slop",
+    "ESLint",
+    "Revisión e integración de puertos anuales"
+  ],
+  "noEjecutado": [
+    "Bun",
+    "Vitest",
+    "tsc",
+    "lint",
+    "inventario",
+    "CI global"
+  ],
+  "modulosIntegradosConservadosSha256": {
+    "reutilizados.ts": "3d3b43bf134092fff47b8ede2254d5c058d1696fad793f2f2a59257ea023fce1",
+    "balears.ts": "637e0d0d93ab23a530acecb9198a9230defb3b793f2cdb62597aaaa608cbb070",
+    "canarias.ts": "6c79ee4317ea8b2a8314c037fbf005597c5031ec4fe5090a4e59904cb19f0e12",
+    "comun.ts": "8a74dc5e5d305f1d35a476644507fc65c15cadcc148c26f344b185f6cd384d32",
+    "seguros.ts": "60ff3a5a066426950c7ff1ba2371a05339f1165d332324bdf7696dbc2e4e5b94"
+  },
+  "nota": "Python no ejecutó el TypeScript; preparar una fórmula o una prueba no acredita cálculo fiscal ni cierre del código"
+}

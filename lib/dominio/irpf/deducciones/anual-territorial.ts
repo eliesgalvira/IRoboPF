@@ -1,3 +1,9 @@
+import { prepararBAmpliadoAnual } from "./b-ampliado-anual-2025"
+import { conciliarPagosEntreLotesB } from "./b-ampliado-anual-2025/conciliacion-lotes"
+import type { NodosFiscalesB2025 } from "./b-ampliado-anual-2025/productores"
+import type { ResultadoAmpliacion as ResultadoAmpliacionB } from "./asturias-cantabria-ampliacion-2025"
+import { evaluarAmpliacionAnualA2025 } from "./ampliacion-a-anual"
+import type { ResultadoAmpliacion } from "./lote-a-ampliacion-2025"
 import Decimal from "decimal.js"
 import { Schema, Result } from "effect"
 import type { CasoFiscalAnual } from "../caso-fiscal-anual"
@@ -17,6 +23,9 @@ import {
 } from "./anual-territorial-racional"
 export { SolicitudDeduccionesTerritoriales2025 }
 export interface MagnitudesTerritorialesAnuales {
+  readonly rentaNoExentaAntesReduccionesB?: Decimal | undefined
+  readonly rentaActividadAnualB?: Decimal | undefined
+  readonly nodosFiscalesB2025?: NodosFiscalesB2025 | undefined
   readonly caso: Pick<
     CasoFiscalAnual,
     | "anio"
@@ -26,6 +35,12 @@ export interface MagnitudesTerritorialesAnuales {
     | "derechosMinimos"
     | "fechaFallecimiento"
   >
+  readonly basesLiquidables?:
+    | { readonly general: Decimal; readonly ahorro: Decimal }
+    | undefined
+  readonly componentesMinimoEstatal?:
+    | { readonly contribuyente: Decimal; readonly descendientes: Decimal }
+    | undefined
   readonly baseGeneral: Decimal
   readonly baseAhorro: Decimal
   readonly minimoPersonalFamiliar: Decimal
@@ -54,6 +69,8 @@ function exigir(b: boolean, m: string): asserts b {
 }
 function normalizarExacto(
   r:
+    | ResultadoAmpliacion
+    | ResultadoAmpliacionB
     | ReturnType<typeof evaluarCatalunyaHechos2025>
     | ReturnType<typeof evaluarHechosB2025>
     | C.Resultado
@@ -326,6 +343,11 @@ export function aplicarDeduccionesTerritoriales2025(
     ),
     "Elecciones incompatibles CLM para el contribuyente"
   )
+  const subloteB = decoded.success.solicitudes.filter(s => s.lote === "B-ampliado")
+  if (subloteB.length > 0) conciliarPagosEntreLotesB(decoded.success.solicitudes)
+  // Preparación única conserva elecciones y pagos cruzados; el consumo sigue abajo en el libro común.
+  const preparadoB = subloteB.length === 0 ? undefined : prepararBAmpliadoAnual(subloteB, m, decoded.success.solicitudes)
+  exigir(preparadoB === undefined || preparadoB.estado === "generaciones_preparadas", preparadoB?.estado === "no_soportado" ? preparadoB.motivo : "Preparación B37 ausente")
   const importes = decoded.success.solicitudes.map((s) => {
     const codigo = "codigo" in s ? s.codigo : s.hechos.codigo
     exigir(!vistos.has(codigo), "Código duplicado: " + codigo)
@@ -346,7 +368,7 @@ export function aplicarDeduccionesTerritoriales2025(
       "Deducción de otro territorio: " + codigo
     )
     const hechosConciliables = Schema.decodeUnknownSync(Schema.Json)(s.hechos)
-    conciliar(hechosConciliables, m)
+    if (s.lote !== "B-ampliado") conciliar(hechosConciliables, m)
     if (s.lote === "CLM" || s.lote === "CYL" || s.lote === "EXT") {
       function repartoExacto(x: Schema.Json): void {
         if (esLista(x)) {
@@ -468,6 +490,68 @@ export function aplicarDeduccionesTerritoriales2025(
       s.codigo === "cyl_cuotas_seguridad_social_empleados_hogar"
     )
       derecho(s.hechos.hijo)
+    // Inicio de conciliación de eventos A40 mediante el conciliador v4 recibido.
+    if (s.lote === "A40") {
+      if (
+        s.codigo === "aragon_nacimiento_adopcion_hijo_discapacidad_33" ||
+        s.codigo === "aragon_adopcion_internacional" ||
+        s.codigo === "aragon_nacimiento_adopcion_tercer_hijo_sucesivos" ||
+        s.codigo === "aragon_primer_segundo_hijo_poblaciones_menos_10000"
+      ) {
+        for (const e of s.hechos.eventos) {
+          conciliarEventoFamiliar(m, e.persona, e.clase, e.fecha)
+          if (e.clase === "adopcion") {
+            const familiar = m.caso.derechosMinimos?.descendientes.find(
+              (d) => d.sujetoId === e.persona
+            )
+            exigir(
+              e.convivientes.every(
+                (id) =>
+                  familiar?.titulares.find((t) => t.titularId === id)?.vinculo
+                    .clase === "adopcion"
+              ),
+              "Reparto mixto de adopción A40 pendiente de contrato específico: " +
+                e.persona
+            )
+          }
+        }
+      }
+      if (s.codigo === "andalucia_adopcion_internacional") {
+        for (const a of s.hechos.adopciones) {
+          const familiar = m.caso.derechosMinimos?.descendientes.find(
+            (d) => d.sujetoId === a.persona
+          )
+          const vinculo = familiar?.titulares.find(
+            (t) => t.titularId === contribuyente
+          )?.vinculo
+          exigir(
+            vinculo?.clase === "adopcion",
+            "Vínculo anual incompatible con la adopción A40: " + a.persona
+          )
+          exigir(
+            vinculo.fechaConstitucionVinculo !== undefined,
+            "A40: fecha de constitución adoptiva no representada en derechosMinimos"
+          )
+          conciliarEventoFamiliar(
+            m,
+            a.persona,
+            "adopcion",
+            vinculo.fechaConstitucionVinculo,
+            a.inscripcionCivil
+          )
+          exigir(
+            a.titulares.every(
+              (id) =>
+                familiar?.titulares.find((t) => t.titularId === id)?.vinculo
+                  .clase === "adopcion"
+            ),
+            "Reparto mixto de adopción A40 pendiente de contrato específico: " +
+              a.persona
+          )
+        }
+      }
+    }
+    // Fin de conciliación de eventos A40.
     // Una misma factura/pago no puede financiar dos solicitudes. Los evaluadores controlan repetición interna.
     const locales = new Set<string>()
     function pagos(x: Schema.Json): void {
@@ -501,6 +585,16 @@ export function aplicarDeduccionesTerritoriales2025(
     pagos(hechosConciliables)
     locales.forEach((id) => hechos.add(id))
     switch (s.lote) {
+      case "B-ampliado": {
+        exigir(preparadoB?.estado === "generaciones_preparadas", "Preparación B37 ausente")
+        const generacion = preparadoB.generaciones.find(g => g.codigo === codigo)
+        exigir(generacion !== undefined, "Generación B37 sin correspondencia única")
+        return generacion.estado === "generada" ? normalizar(generacion.evaluacion) : normalizar({ estado: "excluida", motivo: generacion.motivo, rastro: generacion.rastro })
+      }
+      case "A40":
+        return normalizar(
+          evaluarAmpliacionAnualA2025(s, m, decoded.success.solicitudes)
+        )
       case "A": {
         const solicitud = {
           ejercicio: 2025 as const,
@@ -695,7 +789,14 @@ export function aplicarDeduccionesTerritoriales2025(
     }
     throw new RangeError("Código sin conexión anual")
   })
-  const consumo = consumirCuota(racional(m.cuotaAutonomica.toFixed()), importes)
+  // Orden fiscal B de prioridad primera; la regla de consumo sigue siendo la única del libro.
+  // Conservar la correspondencia pública por código, incluso si cambia el orden de consumo.
+  const orden = importes.map((_, indice) => indice).sort((a, b) => {
+    const primera = (i: number) => preparadoB?.estado === "generaciones_preparadas" && preparadoB.generaciones.some(g => g.codigo === codigos[i] && g.estado === "generada" && g.regimenPosterior?.prioridadCuota === "primera")
+    return (primera(a) ? 0 : 1) - (primera(b) ? 0 : 1)
+  })
+  const libro = consumirCuota(racional(m.cuotaAutonomica.toFixed()), orden.map(i => importes[i]))
+  const consumo = { ...libro, aplicaciones: importes.map((_, indice) => libro.aplicaciones[orden.indexOf(indice)]) }
   return {
     ...consumo,
     codigos,

@@ -230,7 +230,7 @@ it("pensión andaluza conserva cuotas decimales; no es la captura de empleo", ()
   expect(r.cuotaDiferencial).toBe("101.0344")
 })
 
-it.each(["murcia", "catalunya"])(
+it.each(["murcia"])(
   "%s: no extrapola cuotas desde Andalucía",
   (comunidadAutonoma) => {
     const caso = Schema.decodeUnknownSync(CasoFiscalAnualExplicito)({

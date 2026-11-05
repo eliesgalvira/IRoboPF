@@ -1,3 +1,4 @@
+import { esAmbitoCuotasTerritorialesOpen2025 } from "../cuotas/politica-cuotas-open-2025"
 import { pasosDeduccionesValencianasAnual } from "../deducciones/valenciana-2025/anual"
 import { liquidarPagosAnuales } from "../cuotas/cuota-diferencial"
 import {
@@ -103,6 +104,7 @@ export const liquidarIrpfAnualExplicito = Effect.fn("Liquidacion.explicita")(
       )
     let redondeoSalarialOpen = false
     let redondeoCuotasAndaluciaOpen = false
+    let redondeoCuotasTerritorialesOpen = false
     const cuantizarEtapa = (importe: Decimal) =>
       cuantizarAnual(
         importe,
@@ -182,6 +184,14 @@ export const liquidarIrpfAnualExplicito = Effect.fn("Liquidacion.explicita")(
       reduccionArt20 = cuantizarEtapa(reduccionArt20)
       neto = neto.minus(reduccionArt20)
       if (empleo) brutoServicios = new D(trabajo.gastos.integro)
+      redondeoCuotasTerritorialesOpen =
+        empleo &&
+        brutoServicios.gt(0) &&
+        esAmbitoCuotasTerritorialesOpen2025({
+          anio: caso.ejercicio,
+          comunidadAutonoma: caso.comunidadAutonoma,
+          derechosMinimos: caso.derechosMinimos,
+        })
       if (
         new Set(caso.retenciones.map((r) => r.operacionId)).size !==
         caso.retenciones.length
@@ -298,6 +308,8 @@ export const liquidarIrpfAnualExplicito = Effect.fn("Liquidacion.explicita")(
     // Sin otras rentas, reducciones de base ni saldos anteriores: BIG = BLG con signo.
     const base = D.max(neto, 0)
     const composicion = yield* componerLiquidacionAnual({
+      rentaActividadAnualB: caso.perfil === "solo-actividad-eds" ? neto : undefined,
+      origenBaseGeneralB: caso.perfil === "solo-actividad-eds" ? "solo-actividad" : "solo-trabajo",
       rentasTrabajoAnuales:
         trabajoIntegroTerritorial === undefined
           ? undefined
@@ -325,7 +337,9 @@ export const liquidarIrpfAnualExplicito = Effect.fn("Liquidacion.explicita")(
         ? "open-empleo-madrid-2025"
         : redondeoCuotasAndaluciaOpen
           ? "open-cuotas-empleo-andalucia-2025"
-          : "decimal-hasta-salida",
+          : redondeoCuotasTerritorialesOpen
+            ? "open-cuotas-empleo-territorios-2025"
+            : "decimal-hasta-salida",
       baseGeneral: base,
       baseAhorro: new D(0),
       rentasAntesReducciones: neto.plus(reduccionArt20),
@@ -367,7 +381,9 @@ export const liquidarIrpfAnualExplicito = Effect.fn("Liquidacion.explicita")(
             ? "Empleo Madrid 2025: artículo 20 con compatibilidad numérica observada y acotada por operandos; gravámenes y DA61 a céntimos half-up antes de restar. Evidencias Open 1.19 y C300, sin aceptación fiscal automática ni cobertura universal."
             : redondeoCuotasAndaluciaOpen
               ? "Empleo Andalucía 2025 sin derechos familiares: gravámenes a céntimos half-up antes de restar mínimos y sumar cuotas. Artículo 20 y DA61 conservan precisión decimal. Evidencia C300 de una entrada; aceptación fiscal pendiente."
-              : "Sin ahorro, reducciones de base ni otras deducciones. Artículo 80 sin importe al excluir rentas extranjeras. Cuota líquida legal conservada antes de DA61. Precisión decimal hasta salida; presentación final half-up a céntimos, pendiente de aceptación fiscal.",
+              : redondeoCuotasTerritorialesOpen
+                ? `Empleo ${caso.comunidadAutonoma} 2025 sin derechos familiares: cuatro gravámenes a céntimos half-up antes de restar mínimos y sumar cuotas. Artículo 20 y DA61 conservan precisión decimal. Cinco capturas C300; sin aceptación fiscal automática.`
+                : "Sin ahorro, reducciones de base ni otras deducciones. Artículo 80 sin importe al excluir rentas extranjeras. Cuota líquida legal conservada antes de DA61. Precisión decimal hasta salida; presentación final half-up a céntimos, pendiente de aceptación fiscal.",
       fuentes: [
         {
           titulo: "Alcance y evidencia de la conexión anual",
@@ -400,7 +416,9 @@ export const liquidarIrpfAnualExplicito = Effect.fn("Liquidacion.explicita")(
           etiqueta: "Cuota estatal",
           formula: redondeoSalarialOpen
             ? `gravámenes a céntimos Open: ${gravamenEstatal.toFixed(2)} − ${gravamenMinimoEstatal.toFixed(2)}`
-            : "escala(base positiva) − escala(mínimo limitado a base)",
+            : redondeoCuotasTerritorialesOpen
+              ? `gravámenes a céntimos Open 2025: ${gravamenEstatal.toFixed(2)} − ${gravamenMinimoEstatal.toFixed(2)}`
+              : "escala(base positiva) − escala(mínimo limitado a base)",
         }),
         crearLineaCalculo({
           siteId: "anual.explicito.cuota.autonomica",
@@ -410,7 +428,9 @@ export const liquidarIrpfAnualExplicito = Effect.fn("Liquidacion.explicita")(
           etiqueta: "Cuota autonómica",
           formula: redondeoSalarialOpen
             ? `gravámenes a céntimos Open Madrid: ${gravamenAutonomico.toFixed(2)} − ${gravamenMinimoAutonomico.toFixed(2)}`
-            : "escala autonómica(base) − escala(mínimo limitado a base)",
+            : redondeoCuotasTerritorialesOpen
+              ? `gravámenes a céntimos Open 2025 ${caso.comunidadAutonoma}: ${gravamenAutonomico.toFixed(2)} − ${gravamenMinimoAutonomico.toFixed(2)}`
+              : "escala autonómica(base) − escala(mínimo limitado a base)",
         }),
         crearLineaCalculo({
           siteId: "anual.explicito.cuota.liquida-legal",

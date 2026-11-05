@@ -6,6 +6,8 @@ import {
   Entero,
   Centimos,
   BaseCentimos,
+  MagnitudBaseAnual,
+  MagnitudAnual,
   Grado,
   Contexto,
   Pago,
@@ -31,7 +33,7 @@ import {
 } from "./comun"
 import { Vivienda, habitual, baseVivienda } from "./vivienda"
 import { Inversion, sociedad } from "./inversion"
-const S0 = Schema.Struct({
+export const S0 = Schema.Struct({
   ...Contexto,
   territorio: Schema.Literal("aragon"),
   codigo: Schema.Literal("aragon_nacimiento_adopcion_hijo_discapacidad_33"),
@@ -57,7 +59,7 @@ const S0 = Schema.Struct({
     fiscalidad: Fiscalidad,
   }),
 })
-const S1 = Schema.Struct({
+export const S1 = Schema.Struct({
   ...Contexto,
   territorio: Schema.Literal("aragon"),
   codigo: Schema.Literal("aragon_adopcion_internacional"),
@@ -83,7 +85,7 @@ const S1 = Schema.Struct({
     fiscalidad: Fiscalidad,
   }),
 })
-const S2 = Schema.Struct({
+export const S2 = Schema.Struct({
   ...Contexto,
   territorio: Schema.Literal("aragon"),
   codigo: Schema.Literal("aragon_nacimiento_adopcion_tercer_hijo_sucesivos"),
@@ -109,7 +111,7 @@ const S2 = Schema.Struct({
     fiscalidad: Fiscalidad,
   }),
 })
-const S3 = Schema.Struct({
+export const S3 = Schema.Struct({
   ...Contexto,
   territorio: Schema.Literal("aragon"),
   codigo: Schema.Literal("aragon_primer_segundo_hijo_poblaciones_menos_10000"),
@@ -135,7 +137,7 @@ const S3 = Schema.Struct({
     fiscalidad: Fiscalidad,
   }),
 })
-const S4 = Schema.Struct({
+export const S4 = Schema.Struct({
   ...Contexto,
   territorio: Schema.Literal("aragon"),
   codigo: Schema.Literal("aragon_libros_texto_material_escolar"),
@@ -166,7 +168,7 @@ const S4 = Schema.Struct({
     ),
   }),
 })
-const S5 = Schema.Struct({
+export const S5 = Schema.Struct({
   ...Contexto,
   territorio: Schema.Literal("aragon"),
   codigo: Schema.Literal("aragon_clases_apoyo_refuerzo"),
@@ -197,7 +199,7 @@ const S5 = Schema.Struct({
     ),
   }),
 })
-const S6 = Schema.Struct({
+export const S6 = Schema.Struct({
   ...Contexto,
   territorio: Schema.Literal("aragon"),
   codigo: Schema.Literal("aragon_formacion_autonomia_menores_discapacidad"),
@@ -228,7 +230,7 @@ const S6 = Schema.Struct({
     ),
   }),
 })
-const S7 = Schema.Struct({
+export const S7 = Schema.Struct({
   ...Contexto,
   territorio: Schema.Literal("aragon"),
   codigo: Schema.Literal("aragon_guarderia_menores_3"),
@@ -250,24 +252,24 @@ const S7 = Schema.Struct({
     ),
   }),
 })
-const S8 = Schema.Struct({
+export const S8 = Schema.Struct({
   ...Contexto,
   territorio: Schema.Literal("aragon"),
   codigo: Schema.Literal("aragon_mayores_70"),
   hechos: Schema.Struct({
-    rendimientosTrabajoCentimos: BaseCentimos,
-    rendimientosActividadCentimos: BaseCentimos,
-    gananciasNoTransmisionCentimos: Centimos,
+    rendimientosTrabajoCentimos: MagnitudBaseAnual,
+    rendimientosActividadCentimos: MagnitudBaseAnual,
+    gananciasNoTransmisionCentimos: MagnitudAnual,
     otrosNoCapital: Schema.String,
   }),
 })
-const S9 = Schema.Struct({
+export const S9 = Schema.Struct({
   ...Contexto,
   territorio: Schema.Literal("aragon"),
   codigo: Schema.Literal("aragon_residencia_determinados_municipios"),
   hechos: Schema.Struct({ fiscalidad: Fiscalidad }),
 })
-const S10 = Schema.Struct({
+export const S10 = Schema.Struct({
   ...Contexto,
   territorio: Schema.Literal("aragon"),
   codigo: Schema.Literal("aragon_cuidado_personas_dependientes"),
@@ -294,12 +296,12 @@ const S10 = Schema.Struct({
     ),
   }),
 })
-const S11 = Schema.Struct({
+export const S11 = Schema.Struct({
   ...Contexto,
   territorio: Schema.Literal("aragon"),
   codigo: Schema.Literal("aragon_donaciones_ecologicas_idi"),
   hechos: Schema.Struct({
-    cuotaIntegraAutonomicaCentimos: Centimos,
+    cuotaIntegraAutonomicaCentimos: MagnitudAnual,
     donaciones: Schema.Array(
       Schema.Struct({
         pago: Pago,
@@ -317,7 +319,7 @@ const S11 = Schema.Struct({
     ),
   }),
 })
-const S12 = Schema.Struct({
+export const S12 = Schema.Struct({
   ...Contexto,
   territorio: Schema.Literal("aragon"),
   codigo: Schema.Literal("aragon_vivienda_nucleos_rurales"),
@@ -334,7 +336,7 @@ const S12 = Schema.Struct({
     referenciaEntidad: Schema.String,
   }),
 })
-const S13 = Schema.Struct({
+export const S13 = Schema.Struct({
   ...Contexto,
   territorio: Schema.Literal("aragon"),
   codigo: Schema.Literal("aragon_vivienda_victimas_terrorismo"),
@@ -353,7 +355,7 @@ const S13 = Schema.Struct({
     convivenciaVictima: Schema.String,
   }),
 })
-const S14 = Schema.Struct({
+export const S14 = Schema.Struct({
   ...Contexto,
   territorio: Schema.Literal("aragon"),
   codigo: Schema.Literal("aragon_arrendamiento_dacion_pago"),
@@ -371,13 +373,13 @@ const S14 = Schema.Struct({
     pagosAlquiler: Schema.Array(Pago),
   }),
 })
-const S15 = Schema.Struct({
+export const S15 = Schema.Struct({
   ...Contexto,
   territorio: Schema.Literal("aragon"),
   codigo: Schema.Literal("aragon_inversion_acciones_mab"),
   hechos: Schema.Struct({ inversiones: Schema.Array(Inversion) }),
 })
-const S16 = Schema.Struct({
+export const S16 = Schema.Struct({
   ...Contexto,
   territorio: Schema.Literal("aragon"),
   codigo: Schema.Literal("aragon_inversion_economia_social"),
@@ -665,8 +667,8 @@ export function calcularAragon(h: HechosAragon): Decimal {
       limiteRenta(h, 23000)
       exigir(edad(h.nacimiento) >= 70, "Contribuyente menor70")
       exigir(
-        f.rendimientosTrabajoCentimos !== 0 ||
-          f.rendimientosActividadCentimos !== 0,
+        !eur(f.rendimientosTrabajoCentimos).isZero() ||
+          !eur(f.rendimientosActividadCentimos).isZero(),
         "Sólo capital/ganancias no transmisión: sección propia del manual exige trabajo o actividad; otra categoría necesita calificación concreta"
       )
       return new D(75)

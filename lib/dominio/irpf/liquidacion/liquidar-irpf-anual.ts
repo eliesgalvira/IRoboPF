@@ -460,6 +460,7 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
     cuotaLiquida,
   } = yield* componerLiquidacionAnual({
     ambito: caso,
+    origenBaseGeneralB: caso.rendimientos.trabajo.length > 0 && (caso.rendimientos.capitalInmobiliario?.length ?? 0) === 0 ? "solo-trabajo" : undefined,
     rentasTrabajoAnuales: {
       integroTrabajo: rendimientoTrabajo.rendimientoIntegro,
       restoRentas: otrasRentasNoExentas,

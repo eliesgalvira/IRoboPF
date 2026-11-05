@@ -15,7 +15,8 @@ import { generate } from "./inventario.mjs"
 import { hash } from "./inventario-ast.mjs"
 
 const archiveName = "inventario-datos.json.gz"
-const maxBytes = 128 * 1024 * 1024
+// El inventario ampliado ocupa 148 MiB; productor y lectores conservan un límite fijo.
+const maxBytes = 256 * 1024 * 1024
 
 export function readArtifact(root = process.cwd()) {
   const folder = resolve(root, "docs/procedencia")
@@ -95,7 +96,10 @@ export async function buildArtifact(
     if (mode === "check") {
       compareFiles(files, readArtifact(artifactRoot).files)
     } else {
-      const raw = gzipSync(Buffer.from(JSON.stringify([...files])), {
+      const decoded = Buffer.from(JSON.stringify([...files]))
+      if (decoded.length > maxBytes)
+        throw new Error("Artefacto descomprimido excede el límite de 256 MiB")
+      const raw = gzipSync(decoded, {
         level: 9,
       })
       const folder = resolve(root, "docs/procedencia")

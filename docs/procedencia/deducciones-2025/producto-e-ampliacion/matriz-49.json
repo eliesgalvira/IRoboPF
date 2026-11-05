@@ -1,0 +1,1261 @@
+{
+  "version": 1,
+  "ejercicio": 2025,
+  "registros": [
+    {
+      "codigo": "galicia_familias_dos_hijos",
+      "estado": "raiz_revisada_alcance_inicial",
+      "archivo": "lib/dominio/irpf/deducciones/galicia-rioja-hechos-2025/index.ts",
+      "alcance": "Individual, exactamente dos descendientes y titulares simétricos; familia numerosa se rechaza. Identidades canónicas, descendientes posteriores al solicitante y sin titularidad del propio mínimo.",
+      "limitacionPagadores": "La primera API rechaza pagos ajenos y no resuelve expedientes comunes de A+B;no usar pago propio como prueba de gasto común exhaustivo. Celiaquía no tiene base de pagos.",
+      "citasPropias": [
+        "E-ampliacion-galicia_familias_dos_hijos-1",
+        "E-ampliacion-galicia_familias_dos_hijos-2",
+        "E-ampliacion-galicia_familias_dos_hijos-3",
+        "E-ampliacion-galicia_familias_dos_hijos-4",
+        "E-ampliacion-galicia_familias_dos_hijos-5",
+        "E-ampliacion-galicia_familias_dos_hijos-6",
+        "E-ampliacion-galicia_familias_dos_hijos-7",
+        "E-ampliacion-galicia_familias_dos_hijos-8",
+        "E-ampliacion-galicia_familias_dos_hijos-9"
+      ],
+      "decisionAuditada": {
+        "archivo": "docs/procedencia/deducciones-2025/revisiones/e-remisiones/decisiones.json",
+        "id": "galicia_familias_dos_hijos"
+      }
+    },
+    {
+      "codigo": "galicia_acogimiento_menores",
+      "estado": "raiz_revisada_alcance_inicial",
+      "archivo": "lib/dominio/irpf/deducciones/galicia-rioja-hechos-2025/index.ts",
+      "alcance": "Individual; menores que siguen menores31/12, acogedores único/matrimonio/pareja ley2/2006; futuro cumplimiento18 requiere calendario específico.",
+      "limitacionPagadores": "La primera API rechaza pagos ajenos y no resuelve expedientes comunes de A+B;no usar pago propio como prueba de gasto común exhaustivo. Celiaquía no tiene base de pagos.",
+      "citasPropias": [
+        "E-ampliacion-galicia_acogimiento_menores-1",
+        "E-ampliacion-galicia_acogimiento_menores-2",
+        "E-ampliacion-galicia_acogimiento_menores-3",
+        "E-ampliacion-galicia_acogimiento_menores-4"
+      ],
+      "decisionAuditada": {
+        "archivo": "docs/procedencia/deducciones-2025/revisiones/e-remisiones/decisiones.json",
+        "id": "galicia_acogimiento_menores"
+      }
+    },
+    {
+      "codigo": "galicia_cuidado_hijos_menores",
+      "estado": "calculo_parcial_validado_autor",
+      "archivo": "lib/dominio/irpf/deducciones/galicia-rioja-ampliacion-2025/familia.ts",
+      "funcion": "cuidados",
+      "condicionNormativaYMagnitudConcreta": "Edad<=3,ambos progenitores activos/SS y cuidadorSS;máximo400/600 compartido. Titulares diferentes entre hermanos requieren composición explícita del mismo máximo.",
+      "magnitudesAnualesDerivables": [
+        "baseImponibleTotal",
+        "minimoPersonalFamiliar"
+      ],
+      "citasPropias": [
+        "E-ampliacion-galicia_cuidado_hijos_menores-1",
+        "E-ampliacion-galicia_cuidado_hijos_menores-2",
+        "E-ampliacion-galicia_cuidado_hijos_menores-3",
+        "E-ampliacion-galicia_cuidado_hijos_menores-4",
+        "E-ampliacion-galicia_cuidado_hijos_menores-5",
+        "E-ampliacion-galicia_cuidado_hijos_menores-6",
+        "E-ampliacion-galicia_cuidado_hijos_menores-7"
+      ],
+      "decisionAuditada": {
+        "archivo": "docs/procedencia/deducciones-2025/revisiones/e-remisiones/decisiones.json",
+        "id": "galicia_cuidado_hijos_menores"
+      },
+      "validacion": "VALIDACION-P2.md:positivo,identidad/ámbito y racional exacto por código;sin revisión independiente nueva"
+    },
+    {
+      "codigo": "galicia_discapacidad_mayor_65_ayuda_terceras_personas",
+      "estado": "raiz_revisada_alcance_inicial",
+      "archivo": "lib/dominio/irpf/deducciones/galicia-rioja-hechos-2025/index.ts",
+      "alcance": "Individual, BI menos mínimos<=22000; necesidad documentada y residencia clasificada.",
+      "limitacionPagadores": "La primera API rechaza pagos ajenos y no resuelve expedientes comunes de A+B;no usar pago propio como prueba de gasto común exhaustivo. Celiaquía no tiene base de pagos.",
+      "citasPropias": [
+        "E-ampliacion-galicia_discapacidad_mayor_65_ayuda_terceras_personas-1",
+        "E-ampliacion-galicia_discapacidad_mayor_65_ayuda_terceras_personas-2",
+        "E-ampliacion-galicia_discapacidad_mayor_65_ayuda_terceras_personas-3",
+        "E-ampliacion-galicia_discapacidad_mayor_65_ayuda_terceras_personas-4",
+        "E-ampliacion-galicia_discapacidad_mayor_65_ayuda_terceras_personas-5"
+      ],
+      "decisionAuditada": {
+        "archivo": "docs/procedencia/deducciones-2025/revisiones/e-remisiones/decisiones.json",
+        "id": "galicia_discapacidad_mayor_65_ayuda_terceras_personas"
+      }
+    },
+    {
+      "codigo": "galicia_nuevas_tecnologias_hogares",
+      "estado": "raiz_revisada_alcance_inicial",
+      "archivo": "lib/dominio/irpf/deducciones/galicia-rioja-hechos-2025/index.ts",
+      "alcance": "Individual, historia de contratos declarada exhaustiva; equipos excluidos; máximo100 común.",
+      "limitacionPagadores": "La primera API rechaza pagos ajenos y no resuelve expedientes comunes de A+B;no usar pago propio como prueba de gasto común exhaustivo. Celiaquía no tiene base de pagos.",
+      "citasPropias": [
+        "E-ampliacion-galicia_nuevas_tecnologias_hogares-1",
+        "E-ampliacion-galicia_nuevas_tecnologias_hogares-2",
+        "E-ampliacion-galicia_nuevas_tecnologias_hogares-3",
+        "E-ampliacion-galicia_nuevas_tecnologias_hogares-4",
+        "E-ampliacion-galicia_nuevas_tecnologias_hogares-5",
+        "E-ampliacion-galicia_nuevas_tecnologias_hogares-6"
+      ],
+      "decisionAuditada": {
+        "archivo": "docs/procedencia/deducciones-2025/revisiones/e-remisiones/decisiones.json",
+        "id": "galicia_nuevas_tecnologias_hogares"
+      }
+    },
+    {
+      "codigo": "galicia_inversion_entidades_nuevas_reciente_creacion",
+      "estado": "calculo_parcial_validado_autor",
+      "archivo": "lib/dominio/irpf/deducciones/galicia-rioja-ampliacion-2025/inversion.ts",
+      "funcion": "inversion",
+      "condicionNormativaYMagnitudConcreta": "Participación familiar1–40% y excepción dos socios;domicilios/actividad,plantilla antes/después,escritura,mantenimiento;capital/préstamo/garantía y30/45%. Seguimientos futuros por3/5/10años no se certifican. Incremento15% modelado en capital, no extendido por analogía a préstamos/garantías. Participación propia y familiar explícitas y conciliadas;sin participación propia el préstamo no hereda automáticamente el límite de capital familiar.",
+      "magnitudesAnualesDerivables": [],
+      "citasPropias": [
+        "E-ampliacion-galicia_inversion_entidades_nuevas_reciente_creacion-1",
+        "E-ampliacion-galicia_inversion_entidades_nuevas_reciente_creacion-2",
+        "E-ampliacion-galicia_inversion_entidades_nuevas_reciente_creacion-3",
+        "E-ampliacion-galicia_inversion_entidades_nuevas_reciente_creacion-4",
+        "E-ampliacion-galicia_inversion_entidades_nuevas_reciente_creacion-5",
+        "E-ampliacion-galicia_inversion_entidades_nuevas_reciente_creacion-6",
+        "E-ampliacion-galicia_inversion_entidades_nuevas_reciente_creacion-7",
+        "E-ampliacion-galicia_inversion_entidades_nuevas_reciente_creacion-8",
+        "E-ampliacion-galicia_inversion_entidades_nuevas_reciente_creacion-9",
+        "E-ampliacion-galicia_inversion_entidades_nuevas_reciente_creacion-10",
+        "E-ampliacion-galicia_inversion_entidades_nuevas_reciente_creacion-11",
+        "E-ampliacion-galicia_inversion_entidades_nuevas_reciente_creacion-12",
+        "E-ampliacion-galicia_inversion_entidades_nuevas_reciente_creacion-13",
+        "E-ampliacion-galicia_inversion_entidades_nuevas_reciente_creacion-14",
+        "E-ampliacion-galicia_inversion_entidades_nuevas_reciente_creacion-15"
+      ],
+      "decisionAuditada": {
+        "archivo": "docs/procedencia/deducciones-2025/revisiones/e-remisiones/decisiones.json",
+        "id": "galicia_inversion_entidades_nuevas_reciente_creacion"
+      },
+      "validacion": "VALIDACION-P2.md:positivo,identidad/ámbito y racional exacto por código;sin revisión independiente nueva"
+    },
+    {
+      "codigo": "galicia_inversion_entidades_nuevas_financiacion",
+      "estado": "calculo_parcial_validado_autor",
+      "archivo": "lib/dominio/irpf/deducciones/galicia-rioja-ampliacion-2025/inversion.ts",
+      "funcion": "inversion",
+      "condicionNormativaYMagnitudConcreta": "Participación familiar1–40% y excepción dos socios;domicilios/actividad,plantilla antes/después,escritura,mantenimiento;capital/préstamo/garantía y30/45%. Seguimientos futuros por3/5/10años no se certifican. Incremento15% modelado en capital, no extendido por analogía a préstamos/garantías. Participación propia y familiar explícitas y conciliadas;sin participación propia el préstamo no hereda automáticamente el límite de capital familiar.",
+      "magnitudesAnualesDerivables": [],
+      "citasPropias": [
+        "E-ampliacion-galicia_inversion_entidades_nuevas_financiacion-1",
+        "E-ampliacion-galicia_inversion_entidades_nuevas_financiacion-2",
+        "E-ampliacion-galicia_inversion_entidades_nuevas_financiacion-3",
+        "E-ampliacion-galicia_inversion_entidades_nuevas_financiacion-4",
+        "E-ampliacion-galicia_inversion_entidades_nuevas_financiacion-5",
+        "E-ampliacion-galicia_inversion_entidades_nuevas_financiacion-6",
+        "E-ampliacion-galicia_inversion_entidades_nuevas_financiacion-7",
+        "E-ampliacion-galicia_inversion_entidades_nuevas_financiacion-8",
+        "E-ampliacion-galicia_inversion_entidades_nuevas_financiacion-9",
+        "E-ampliacion-galicia_inversion_entidades_nuevas_financiacion-10",
+        "E-ampliacion-galicia_inversion_entidades_nuevas_financiacion-11",
+        "E-ampliacion-galicia_inversion_entidades_nuevas_financiacion-12",
+        "E-ampliacion-galicia_inversion_entidades_nuevas_financiacion-13",
+        "E-ampliacion-galicia_inversion_entidades_nuevas_financiacion-14",
+        "E-ampliacion-galicia_inversion_entidades_nuevas_financiacion-15",
+        "E-ampliacion-galicia_inversion_entidades_nuevas_financiacion-16",
+        "E-ampliacion-galicia_inversion_entidades_nuevas_financiacion-17",
+        "E-ampliacion-galicia_inversion_entidades_nuevas_financiacion-18",
+        "E-ampliacion-galicia_inversion_entidades_nuevas_financiacion-19",
+        "E-ampliacion-galicia_inversion_entidades_nuevas_financiacion-20"
+      ],
+      "decisionAuditada": {
+        "archivo": "docs/procedencia/deducciones-2025/revisiones/e-remisiones/decisiones.json",
+        "id": "galicia_inversion_entidades_nuevas_financiacion"
+      },
+      "validacion": "VALIDACION-P2.md:positivo,identidad/ámbito y racional exacto por código;sin revisión independiente nueva"
+    },
+    {
+      "codigo": "galicia_inversion_mab",
+      "estado": "calculo_parcial_validado_autor",
+      "archivo": "lib/dominio/irpf/deducciones/galicia-rioja-ampliacion-2025/inversion.ts",
+      "funcion": "mab",
+      "condicionNormativaYMagnitudConcreta": "Ampliación por segmento de expansión,participación<=10%,domicilios/actividad,escritura,mantenimiento3años. Cohortes2022–2025:15%,máximo4000 antes de dividir4años. Instantáneas por emisor/fecha coherentes;porcentajes variables entre operaciones requieren historial temporal aún no modelado,se rechazan sin importe.",
+      "magnitudesAnualesDerivables": [],
+      "citasPropias": [
+        "E-ampliacion-galicia_inversion_mab-1",
+        "E-ampliacion-galicia_inversion_mab-2",
+        "E-ampliacion-galicia_inversion_mab-3",
+        "E-ampliacion-galicia_inversion_mab-4",
+        "E-ampliacion-galicia_inversion_mab-5",
+        "E-ampliacion-galicia_inversion_mab-6",
+        "E-ampliacion-galicia_inversion_mab-7",
+        "E-ampliacion-galicia_inversion_mab-8",
+        "E-ampliacion-galicia_inversion_mab-9",
+        "E-ampliacion-galicia_inversion_mab-10",
+        "E-ampliacion-galicia_inversion_mab-11"
+      ],
+      "decisionAuditada": {
+        "archivo": "docs/procedencia/deducciones-2025/revisiones/e-remisiones/decisiones.json",
+        "id": "galicia_inversion_mab"
+      },
+      "validacion": "VALIDACION-P2.md:positivo,identidad/ámbito y racional exacto por código;sin revisión independiente nueva"
+    },
+    {
+      "codigo": "galicia_donaciones_idi",
+      "estado": "raiz_revisada_alcance_inicial",
+      "archivo": "lib/dominio/irpf/deducciones/galicia-rioja-hechos-2025/index.ts",
+      "alcance": "Individual, centros universitarios o promovidos/participados Galicia; entidades ley49/2002 y condición2.83 siguiente rama.",
+      "limitacionPagadores": "La primera API rechaza pagos ajenos y no resuelve expedientes comunes de A+B;no usar pago propio como prueba de gasto común exhaustivo. Celiaquía no tiene base de pagos.",
+      "citasPropias": [
+        "E-ampliacion-galicia_donaciones_idi-1",
+        "E-ampliacion-galicia_donaciones_idi-2",
+        "E-ampliacion-galicia_donaciones_idi-3"
+      ],
+      "decisionAuditada": {
+        "archivo": "docs/procedencia/deducciones-2025/revisiones/e-remisiones/decisiones.json",
+        "id": "galicia_donaciones_idi"
+      }
+    },
+    {
+      "codigo": "galicia_climatizacion_agua_caliente_renovables",
+      "estado": "calculo_parcial_validado_autor",
+      "archivo": "lib/dominio/irpf/deducciones/galicia-rioja-ampliacion-2025/vivienda-galicia.ts",
+      "funcion": "renovables",
+      "condicionNormativaYMagnitudConcreta": "Energía renovable,habitual,instalador/OVI y documentación antes del plazo;horizontal nueva/sustitución. Participación en coste antes del máximo personal280;no efectivo.",
+      "magnitudesAnualesDerivables": [],
+      "citasPropias": [
+        "E-ampliacion-galicia_climatizacion_agua_caliente_renovables-1",
+        "E-ampliacion-galicia_climatizacion_agua_caliente_renovables-2",
+        "E-ampliacion-galicia_climatizacion_agua_caliente_renovables-3",
+        "E-ampliacion-galicia_climatizacion_agua_caliente_renovables-4",
+        "E-ampliacion-galicia_climatizacion_agua_caliente_renovables-5",
+        "E-ampliacion-galicia_climatizacion_agua_caliente_renovables-6",
+        "E-ampliacion-galicia_climatizacion_agua_caliente_renovables-7",
+        "E-ampliacion-galicia_climatizacion_agua_caliente_renovables-8",
+        "E-ampliacion-galicia_climatizacion_agua_caliente_renovables-9",
+        "E-ampliacion-galicia_climatizacion_agua_caliente_renovables-10",
+        "E-ampliacion-galicia_climatizacion_agua_caliente_renovables-11",
+        "E-ampliacion-galicia_climatizacion_agua_caliente_renovables-12",
+        "E-ampliacion-galicia_climatizacion_agua_caliente_renovables-13",
+        "E-ampliacion-galicia_climatizacion_agua_caliente_renovables-14"
+      ],
+      "decisionAuditada": {
+        "archivo": "docs/procedencia/deducciones-2025/revisiones/e-remisiones/decisiones.json",
+        "id": "galicia_climatizacion_agua_caliente_renovables"
+      },
+      "validacion": "VALIDACION-P2.md:positivo,identidad/ámbito y racional exacto por código;sin revisión independiente nueva"
+    },
+    {
+      "codigo": "galicia_rehabilitacion_centros_historicos",
+      "estado": "calculo_parcial_validado_autor",
+      "archivo": "lib/dominio/irpf/deducciones/galicia-rioja-ampliacion-2025/vivienda-galicia.ts",
+      "funcion": "historicos",
+      "condicionNormativaYMagnitudConcreta": "Tabla auditada centro/ayuntamiento/instrumento/fecha y certificado de pertenencia al perímetro;rehabilitación>25% sin suelo,permisos y pagos. No sustituir perímetro por nombre municipal.",
+      "magnitudesAnualesDerivables": [],
+      "citasPropias": [
+        "E-ampliacion-galicia_rehabilitacion_centros_historicos-1",
+        "E-ampliacion-galicia_rehabilitacion_centros_historicos-2",
+        "E-ampliacion-galicia_rehabilitacion_centros_historicos-3",
+        "E-ampliacion-galicia_rehabilitacion_centros_historicos-4",
+        "E-ampliacion-galicia_rehabilitacion_centros_historicos-5",
+        "E-ampliacion-galicia_rehabilitacion_centros_historicos-6"
+      ],
+      "decisionAuditada": {
+        "archivo": "docs/procedencia/deducciones-2025/revisiones/e-remisiones/decisiones.json",
+        "id": "galicia_rehabilitacion_centros_historicos"
+      },
+      "validacion": "VALIDACION-P2.md:positivo,identidad/ámbito y racional exacto por código;sin revisión independiente nueva"
+    },
+    {
+      "codigo": "galicia_inversion_empresas_agrarias",
+      "estado": "calculo_parcial_validado_autor",
+      "archivo": "lib/dominio/irpf/deducciones/galicia-rioja-ampliacion-2025/inversion.ts",
+      "funcion": "inversion",
+      "condicionNormativaYMagnitudConcreta": "SOFOR/gestión conjunta/agraria exclusiva/recuperación,registro,capital/reservas/préstamos/garantías/cuentas;valoración no dineraria,escritura,5años,amortización20%,funciones10años e incompatibilidad.",
+      "magnitudesAnualesDerivables": [],
+      "citasPropias": [
+        "E-ampliacion-galicia_inversion_empresas_agrarias-1",
+        "E-ampliacion-galicia_inversion_empresas_agrarias-2",
+        "E-ampliacion-galicia_inversion_empresas_agrarias-3",
+        "E-ampliacion-galicia_inversion_empresas_agrarias-4",
+        "E-ampliacion-galicia_inversion_empresas_agrarias-5",
+        "E-ampliacion-galicia_inversion_empresas_agrarias-6",
+        "E-ampliacion-galicia_inversion_empresas_agrarias-7",
+        "E-ampliacion-galicia_inversion_empresas_agrarias-8",
+        "E-ampliacion-galicia_inversion_empresas_agrarias-9",
+        "E-ampliacion-galicia_inversion_empresas_agrarias-10",
+        "E-ampliacion-galicia_inversion_empresas_agrarias-11",
+        "E-ampliacion-galicia_inversion_empresas_agrarias-12",
+        "E-ampliacion-galicia_inversion_empresas_agrarias-13"
+      ],
+      "decisionAuditada": {
+        "archivo": "docs/procedencia/deducciones-2025/revisiones/e-remisiones/decisiones.json",
+        "id": "galicia_inversion_empresas_agrarias"
+      },
+      "validacion": "VALIDACION-P2.md:positivo,identidad/ámbito y racional exacto por código;sin revisión independiente nueva"
+    },
+    {
+      "codigo": "galicia_ayudas_incendios_peifoga_2025",
+      "estado": "calculo_parcial_validado_autor",
+      "archivo": "lib/dominio/irpf/deducciones/galicia-rioja-ampliacion-2025/ayudas-libros.ts",
+      "funcion": "ayudas",
+      "condicionNormativaYMagnitudConcreta": "Clasificación exhaustiva de cada resolución:concedido/exento/no integración/integrado y porción imputada a BL2025. RDL10/2026,convalidación y acuerdo estatal recuperados:solo siniestros23/6–25/8. Deportista:resolución alto nivel y sin actividad económica;ELA/fenotipos/talidomida:concepto particular.",
+      "magnitudesAnualesDerivables": [
+        "tipoMedioEstatal2025",
+        "tipoMedioAutonomico2025",
+        "porcionAyudaEnBaseLiquidable2025"
+      ],
+      "citasPropias": [
+        "E-ampliacion-galicia_ayudas_incendios_peifoga_2025-1",
+        "E-ampliacion-galicia_ayudas_incendios_peifoga_2025-2",
+        "E-ampliacion-galicia_ayudas_incendios_peifoga_2025-3"
+      ],
+      "decisionAuditada": {
+        "archivo": "docs/procedencia/deducciones-2025/revisiones/e-remisiones/decisiones.json",
+        "id": "galicia_ayudas_incendios_peifoga_2025"
+      },
+      "validacion": "VALIDACION-P2.md:positivo,identidad/ámbito y racional exacto por código;sin revisión independiente nueva"
+    },
+    {
+      "codigo": "galicia_obras_eficiencia_energetica",
+      "estado": "calculo_parcial_validado_autor",
+      "archivo": "lib/dominio/irpf/deducciones/galicia-rioja-ampliacion-2025/vivienda-galicia.ts",
+      "funcion": "eficiencia",
+      "condicionNormativaYMagnitudConcreta": "Final2025,salto en dos escalas,registro/informe/plazo,pagos no efectivo históricos. Base9000 personal después de atribuir gasto;certificado150 con participación y techo único;elección incompatible renovables.",
+      "magnitudesAnualesDerivables": [],
+      "citasPropias": [
+        "E-ampliacion-galicia_obras_eficiencia_energetica-1",
+        "E-ampliacion-galicia_obras_eficiencia_energetica-2",
+        "E-ampliacion-galicia_obras_eficiencia_energetica-3",
+        "E-ampliacion-galicia_obras_eficiencia_energetica-4",
+        "E-ampliacion-galicia_obras_eficiencia_energetica-5",
+        "E-ampliacion-galicia_obras_eficiencia_energetica-6",
+        "E-ampliacion-galicia_obras_eficiencia_energetica-7",
+        "E-ampliacion-galicia_obras_eficiencia_energetica-8",
+        "E-ampliacion-galicia_obras_eficiencia_energetica-9",
+        "E-ampliacion-galicia_obras_eficiencia_energetica-10",
+        "E-ampliacion-galicia_obras_eficiencia_energetica-11",
+        "E-ampliacion-galicia_obras_eficiencia_energetica-12",
+        "E-ampliacion-galicia_obras_eficiencia_energetica-13",
+        "E-ampliacion-galicia_obras_eficiencia_energetica-14",
+        "E-ampliacion-galicia_obras_eficiencia_energetica-15",
+        "E-ampliacion-galicia_obras_eficiencia_energetica-16"
+      ],
+      "decisionAuditada": {
+        "archivo": "docs/procedencia/deducciones-2025/revisiones/e-remisiones/decisiones.json",
+        "id": "galicia_obras_eficiencia_energetica"
+      },
+      "validacion": "VALIDACION-P2.md:positivo,identidad/ámbito y racional exacto por código;sin revisión independiente nueva"
+    },
+    {
+      "codigo": "galicia_ayudas_deportistas_alto_nivel",
+      "estado": "calculo_parcial_validado_autor",
+      "archivo": "lib/dominio/irpf/deducciones/galicia-rioja-ampliacion-2025/ayudas-libros.ts",
+      "funcion": "ayudas",
+      "condicionNormativaYMagnitudConcreta": "Clasificación exhaustiva de cada resolución:concedido/exento/no integración/integrado y porción imputada a BL2025. RDL10/2026,convalidación y acuerdo estatal recuperados:solo siniestros23/6–25/8. Deportista:resolución alto nivel y sin actividad económica;ELA/fenotipos/talidomida:concepto particular.",
+      "magnitudesAnualesDerivables": [
+        "tipoMedioEstatal2025",
+        "tipoMedioAutonomico2025",
+        "porcionAyudaEnBaseLiquidable2025"
+      ],
+      "citasPropias": [
+        "E-ampliacion-galicia_ayudas_deportistas_alto_nivel-1",
+        "E-ampliacion-galicia_ayudas_deportistas_alto_nivel-2",
+        "E-ampliacion-galicia_ayudas_deportistas_alto_nivel-3",
+        "E-ampliacion-galicia_ayudas_deportistas_alto_nivel-4"
+      ],
+      "decisionAuditada": {
+        "archivo": "docs/procedencia/deducciones-2025/revisiones/e-remisiones/decisiones.json",
+        "id": "galicia_ayudas_deportistas_alto_nivel"
+      },
+      "validacion": "VALIDACION-P2.md:positivo,identidad/ámbito y racional exacto por código;sin revisión independiente nueva"
+    },
+    {
+      "codigo": "galicia_aldeas_modelo",
+      "estado": "calculo_parcial_validado_autor",
+      "archivo": "lib/dominio/irpf/deducciones/galicia-rioja-ampliacion-2025/vivienda-galicia.ts",
+      "funcion": "aldeas",
+      "condicionNormativaYMagnitudConcreta": "Declaración/perímetro,adquisición o rehabilitación>25%,residencia habitual/esporádica y financiación neta de cobertura;topes9000/4500 e incompatibilidades13/18.",
+      "magnitudesAnualesDerivables": [],
+      "citasPropias": [
+        "E-ampliacion-galicia_aldeas_modelo-1",
+        "E-ampliacion-galicia_aldeas_modelo-2",
+        "E-ampliacion-galicia_aldeas_modelo-3",
+        "E-ampliacion-galicia_aldeas_modelo-4",
+        "E-ampliacion-galicia_aldeas_modelo-5",
+        "E-ampliacion-galicia_aldeas_modelo-6",
+        "E-ampliacion-galicia_aldeas_modelo-7",
+        "E-ampliacion-galicia_aldeas_modelo-8",
+        "E-ampliacion-galicia_aldeas_modelo-9",
+        "E-ampliacion-galicia_aldeas_modelo-10"
+      ],
+      "decisionAuditada": {
+        "archivo": "docs/procedencia/deducciones-2025/revisiones/e-remisiones/decisiones.json",
+        "id": "galicia_aldeas_modelo"
+      },
+      "validacion": "VALIDACION-P2.md:positivo,identidad/ámbito y racional exacto por código;sin revisión independiente nueva"
+    },
+    {
+      "codigo": "galicia_inversion_proyectos_especial_interes",
+      "estado": "raiz_revisada_alcance_inicial",
+      "archivo": "lib/dominio/irpf/deducciones/galicia-rioja-hechos-2025/index.ts",
+      "alcance": "Individual, constitución/ampliación2025, historia de base por entidad; conflictos se rechazan. Base consumida anterior entre0 y10000; sin doble constitución.",
+      "limitacionPagadores": "La primera API rechaza pagos ajenos y no resuelve expedientes comunes de A+B;no usar pago propio como prueba de gasto común exhaustivo. Celiaquía no tiene base de pagos.",
+      "citasPropias": [
+        "E-ampliacion-galicia_inversion_proyectos_especial_interes-1",
+        "E-ampliacion-galicia_inversion_proyectos_especial_interes-2",
+        "E-ampliacion-galicia_inversion_proyectos_especial_interes-3"
+      ],
+      "decisionAuditada": {
+        "archivo": "docs/procedencia/deducciones-2025/revisiones/e-remisiones/decisiones.json",
+        "id": "galicia_inversion_proyectos_especial_interes"
+      }
+    },
+    {
+      "codigo": "galicia_adecuacion_inmueble_vacio_arrendamiento",
+      "estado": "calculo_parcial_validado_autor",
+      "archivo": "lib/dominio/irpf/deducciones/galicia-rioja-ampliacion-2025/vivienda-galicia.ts",
+      "funcion": "adecuacion",
+      "condicionNormativaYMagnitudConcreta": "Vacío1año,obra<=2años/arriendo<=6meses,valor<=250000,LAU2,parientes y3viviendas. Base9000 total/3000anual por inmueble,6000concurrentes,orden experto;saldo histórico conserva origen/caducidad2/4años. Generación de remanente de cuota4años pendiente aplicación anual, distinto del saldo de base.",
+      "magnitudesAnualesDerivables": [],
+      "citasPropias": [
+        "E-ampliacion-galicia_adecuacion_inmueble_vacio_arrendamiento-1",
+        "E-ampliacion-galicia_adecuacion_inmueble_vacio_arrendamiento-2",
+        "E-ampliacion-galicia_adecuacion_inmueble_vacio_arrendamiento-3",
+        "E-ampliacion-galicia_adecuacion_inmueble_vacio_arrendamiento-4",
+        "E-ampliacion-galicia_adecuacion_inmueble_vacio_arrendamiento-5",
+        "E-ampliacion-galicia_adecuacion_inmueble_vacio_arrendamiento-6",
+        "E-ampliacion-galicia_adecuacion_inmueble_vacio_arrendamiento-7",
+        "E-ampliacion-galicia_adecuacion_inmueble_vacio_arrendamiento-8",
+        "E-ampliacion-galicia_adecuacion_inmueble_vacio_arrendamiento-9",
+        "E-ampliacion-galicia_adecuacion_inmueble_vacio_arrendamiento-10",
+        "E-ampliacion-galicia_adecuacion_inmueble_vacio_arrendamiento-11",
+        "E-ampliacion-galicia_adecuacion_inmueble_vacio_arrendamiento-12",
+        "E-ampliacion-galicia_adecuacion_inmueble_vacio_arrendamiento-13",
+        "E-ampliacion-galicia_adecuacion_inmueble_vacio_arrendamiento-14",
+        "E-ampliacion-galicia_adecuacion_inmueble_vacio_arrendamiento-15"
+      ],
+      "decisionAuditada": {
+        "archivo": "docs/procedencia/deducciones-2025/revisiones/e-remisiones/decisiones.json",
+        "id": "galicia_adecuacion_inmueble_vacio_arrendamiento"
+      },
+      "validacion": "VALIDACION-P2.md:positivo,identidad/ámbito y racional exacto por código;sin revisión independiente nueva"
+    },
+    {
+      "codigo": "galicia_arrendamiento_viviendas_vacias",
+      "estado": "calculo_parcial_validado_autor",
+      "archivo": "lib/dominio/irpf/deducciones/galicia-rioja-ampliacion-2025/vivienda-galicia.ts",
+      "funcion": "vacias",
+      "condicionNormativaYMagnitudConcreta": "Vacío1año,primer arriendo,LAU2,renta<=700,no parentesco hasta3,participación y máximo3viviendas. Cadena de contratos3años/intervalo<=6meses y eventual remanente de cuota4años requieren seguimiento anual concreto. Cadenas explícitas de arriendos soportadas:vacíos<=6meses y duración acumulada>=3años;hasta contractual es exclusivo.",
+      "magnitudesAnualesDerivables": [],
+      "citasPropias": [
+        "E-ampliacion-galicia_arrendamiento_viviendas_vacias-1",
+        "E-ampliacion-galicia_arrendamiento_viviendas_vacias-2",
+        "E-ampliacion-galicia_arrendamiento_viviendas_vacias-3",
+        "E-ampliacion-galicia_arrendamiento_viviendas_vacias-4",
+        "E-ampliacion-galicia_arrendamiento_viviendas_vacias-5",
+        "E-ampliacion-galicia_arrendamiento_viviendas_vacias-6",
+        "E-ampliacion-galicia_arrendamiento_viviendas_vacias-7",
+        "E-ampliacion-galicia_arrendamiento_viviendas_vacias-8",
+        "E-ampliacion-galicia_arrendamiento_viviendas_vacias-9",
+        "E-ampliacion-galicia_arrendamiento_viviendas_vacias-10"
+      ],
+      "decisionAuditada": {
+        "archivo": "docs/procedencia/deducciones-2025/revisiones/e-remisiones/decisiones.json",
+        "id": "galicia_arrendamiento_viviendas_vacias"
+      },
+      "validacion": "VALIDACION-P2.md:positivo,identidad/ámbito y racional exacto por código;sin revisión independiente nueva"
+    },
+    {
+      "codigo": "galicia_ayudas_ela_fenotipos",
+      "estado": "calculo_parcial_validado_autor",
+      "archivo": "lib/dominio/irpf/deducciones/galicia-rioja-ampliacion-2025/ayudas-libros.ts",
+      "funcion": "ayudas",
+      "condicionNormativaYMagnitudConcreta": "Clasificación exhaustiva de cada resolución:concedido/exento/no integración/integrado y porción imputada a BL2025. RDL10/2026,convalidación y acuerdo estatal recuperados:solo siniestros23/6–25/8. Deportista:resolución alto nivel y sin actividad económica;ELA/fenotipos/talidomida:concepto particular.",
+      "magnitudesAnualesDerivables": [
+        "tipoMedioEstatal2025",
+        "tipoMedioAutonomico2025",
+        "porcionAyudaEnBaseLiquidable2025"
+      ],
+      "citasPropias": [
+        "E-ampliacion-galicia_ayudas_ela_fenotipos-1",
+        "E-ampliacion-galicia_ayudas_ela_fenotipos-2"
+      ],
+      "decisionAuditada": {
+        "archivo": "docs/procedencia/deducciones-2025/revisiones/e-remisiones/decisiones.json",
+        "id": "galicia_ayudas_ela_fenotipos"
+      },
+      "validacion": "VALIDACION-P2.md:positivo,identidad/ámbito y racional exacto por código;sin revisión independiente nueva"
+    },
+    {
+      "codigo": "galicia_libros_texto_material_escolar",
+      "estado": "calculo_parcial_validado_autor",
+      "archivo": "lib/dominio/irpf/deducciones/galicia-rioja-ampliacion-2025/ayudas-libros.ts",
+      "funcion": "libros",
+      "condicionNormativaYMagnitudConcreta": "Renta2024 familiar ponderada33%/pensión<=30000pc,descendiente/centro/curso,ayudas incompatibles y pagador sin mínimo. Facturas1/7–31/12,efectivo2025;material300 incluido deporte150,cuota105/hijo;reparto de derechos particulares.",
+      "magnitudesAnualesDerivables": [
+        "rentaFamilia2024PorMiembro"
+      ],
+      "citasPropias": [
+        "E-ampliacion-galicia_libros_texto_material_escolar-1",
+        "E-ampliacion-galicia_libros_texto_material_escolar-2",
+        "E-ampliacion-galicia_libros_texto_material_escolar-3",
+        "E-ampliacion-galicia_libros_texto_material_escolar-4",
+        "E-ampliacion-galicia_libros_texto_material_escolar-5",
+        "E-ampliacion-galicia_libros_texto_material_escolar-6",
+        "E-ampliacion-galicia_libros_texto_material_escolar-7",
+        "E-ampliacion-galicia_libros_texto_material_escolar-8",
+        "E-ampliacion-galicia_libros_texto_material_escolar-9"
+      ],
+      "decisionAuditada": {
+        "archivo": "docs/procedencia/deducciones-2025/revisiones/e-remisiones/decisiones.json",
+        "id": "galicia_libros_texto_material_escolar"
+      },
+      "validacion": "VALIDACION-P2.md:positivo,identidad/ámbito y racional exacto por código;sin revisión independiente nueva"
+    },
+    {
+      "codigo": "galicia_ayudas_talidomida",
+      "estado": "calculo_parcial_validado_autor",
+      "archivo": "lib/dominio/irpf/deducciones/galicia-rioja-ampliacion-2025/ayudas-libros.ts",
+      "funcion": "ayudas",
+      "condicionNormativaYMagnitudConcreta": "Clasificación exhaustiva de cada resolución:concedido/exento/no integración/integrado y porción imputada a BL2025. RDL10/2026,convalidación y acuerdo estatal recuperados:solo siniestros23/6–25/8. Deportista:resolución alto nivel y sin actividad económica;ELA/fenotipos/talidomida:concepto particular.",
+      "magnitudesAnualesDerivables": [
+        "tipoMedioEstatal2025",
+        "tipoMedioAutonomico2025",
+        "porcionAyudaEnBaseLiquidable2025"
+      ],
+      "citasPropias": [
+        "E-ampliacion-galicia_ayudas_talidomida-1",
+        "E-ampliacion-galicia_ayudas_talidomida-2"
+      ],
+      "decisionAuditada": {
+        "archivo": "docs/procedencia/deducciones-2025/revisiones/e-remisiones/decisiones.json",
+        "id": "galicia_ayudas_talidomida"
+      },
+      "validacion": "VALIDACION-P2.md:positivo,identidad/ámbito y racional exacto por código;sin revisión independiente nueva"
+    },
+    {
+      "codigo": "galicia_nacimiento_adopcion_hijos",
+      "estado": "calculo_parcial_validado_autor",
+      "archivo": "lib/dominio/irpf/deducciones/galicia-rioja-ampliacion-2025/familia.ts",
+      "funcion": "nacimiento",
+      "condicionNormativaYMagnitudConcreta": "Convivencia/ordinal por progenitor;cohortes2023–2025,BI-mínimos22000/31000,múltiples,33%,municipio<5000/fusión. Acreditar municipio y convivencia a devengo.",
+      "magnitudesAnualesDerivables": [
+        "baseImponibleTotal",
+        "minimoPersonalFamiliar"
+      ],
+      "citasPropias": [
+        "E-ampliacion-galicia_nacimiento_adopcion_hijos-1",
+        "E-ampliacion-galicia_nacimiento_adopcion_hijos-2",
+        "E-ampliacion-galicia_nacimiento_adopcion_hijos-3",
+        "E-ampliacion-galicia_nacimiento_adopcion_hijos-4",
+        "E-ampliacion-galicia_nacimiento_adopcion_hijos-5",
+        "E-ampliacion-galicia_nacimiento_adopcion_hijos-6",
+        "E-ampliacion-galicia_nacimiento_adopcion_hijos-7",
+        "E-ampliacion-galicia_nacimiento_adopcion_hijos-8",
+        "E-ampliacion-galicia_nacimiento_adopcion_hijos-9",
+        "E-ampliacion-galicia_nacimiento_adopcion_hijos-10"
+      ],
+      "decisionAuditada": {
+        "archivo": "docs/procedencia/deducciones-2025/revisiones/e-remisiones/decisiones.json",
+        "id": "galicia_nacimiento_adopcion_hijos"
+      },
+      "validacion": "VALIDACION-P2.md:positivo,identidad/ámbito y racional exacto por código;sin revisión independiente nueva"
+    },
+    {
+      "codigo": "galicia_familia_numerosa",
+      "estado": "calculo_parcial_validado_autor",
+      "archivo": "lib/dominio/irpf/deducciones/galicia-rioja-ampliacion-2025/familia.ts",
+      "funcion": "numerosa",
+      "condicionNormativaYMagnitudConcreta": "Título vigente/categoría y descendientes;65%,reparto e incompatibilidad con dos hijos. Vigencia de derechos al mínimo pendiente de prueba particular.",
+      "magnitudesAnualesDerivables": [],
+      "citasPropias": [
+        "E-ampliacion-galicia_familia_numerosa-1",
+        "E-ampliacion-galicia_familia_numerosa-2",
+        "E-ampliacion-galicia_familia_numerosa-3",
+        "E-ampliacion-galicia_familia_numerosa-4",
+        "E-ampliacion-galicia_familia_numerosa-5",
+        "E-ampliacion-galicia_familia_numerosa-6",
+        "E-ampliacion-galicia_familia_numerosa-7",
+        "E-ampliacion-galicia_familia_numerosa-8"
+      ],
+      "decisionAuditada": {
+        "archivo": "docs/procedencia/deducciones-2025/revisiones/e-remisiones/decisiones.json",
+        "id": "galicia_familia_numerosa"
+      },
+      "validacion": "VALIDACION-P2.md:positivo,identidad/ámbito y racional exacto por código;sin revisión independiente nueva"
+    },
+    {
+      "codigo": "galicia_alquiler_vivienda_habitual",
+      "estado": "calculo_parcial_corregido_validado",
+      "archivo": "lib/dominio/irpf/deducciones/galicia-rioja-ampliacion-2025/alquiler-suministros.ts",
+      "funcion": "alquiler",
+      "condicionNormativaYMagnitudConcreta": "Edad<=35,contrato>1/1/2003,fianza/denuncia,habitual,BI<=22000,hijos menores y discapacidad33%;máximo por contrato y reparto. Pagadores vinculados al ámbito económico; ocupación habitual durante el pago, sin exigir residencia31/12. Pagos diferidos fuera de ocupación requieren periodo arrendado explícito.",
+      "magnitudesAnualesDerivables": [
+        "baseImponibleTotal"
+      ],
+      "citasPropias": [
+        "E-ampliacion-galicia_alquiler_vivienda_habitual-1",
+        "E-ampliacion-galicia_alquiler_vivienda_habitual-2",
+        "E-ampliacion-galicia_alquiler_vivienda_habitual-3",
+        "E-ampliacion-galicia_alquiler_vivienda_habitual-4",
+        "E-ampliacion-galicia_alquiler_vivienda_habitual-5",
+        "E-ampliacion-galicia_alquiler_vivienda_habitual-6",
+        "E-ampliacion-galicia_alquiler_vivienda_habitual-7",
+        "E-ampliacion-galicia_alquiler_vivienda_habitual-8",
+        "E-ampliacion-galicia_alquiler_vivienda_habitual-9"
+      ],
+      "decisionAuditada": {
+        "archivo": "docs/procedencia/deducciones-2025/revisiones/e-remisiones/decisiones.json",
+        "id": "galicia_alquiler_vivienda_habitual"
+      },
+      "validacion": "CORRECCIONES-REVISION.md:213pruebas, tipos y lints correctos; contraste P1 pendiente."
+    },
+    {
+      "codigo": "rioja_vivienda_habitual_pequenos_municipios",
+      "estado": "calculo_parcial_validado_autor",
+      "archivo": "lib/dominio/irpf/deducciones/galicia-rioja-ampliacion-2025/vivienda-rioja.ts",
+      "funcion": "viviendaRioja",
+      "condicionNormativaYMagnitudConcreta": "AnexoI,inversión desde2017,conceptos históricos,ocupación/permanencia y patrimonio. Base9040/452 por declaración:saldo compartido necesario.",
+      "magnitudesAnualesDerivables": [
+        "patrimonioInicialAjustado",
+        "patrimonioFinalAjustado",
+        "baseConsumidaViviendaMunicipios"
+      ],
+      "citasPropias": [
+        "E-ampliacion-rioja_vivienda_habitual_pequenos_municipios-1",
+        "E-ampliacion-rioja_vivienda_habitual_pequenos_municipios-2",
+        "E-ampliacion-rioja_vivienda_habitual_pequenos_municipios-3",
+        "E-ampliacion-rioja_vivienda_habitual_pequenos_municipios-4",
+        "E-ampliacion-rioja_vivienda_habitual_pequenos_municipios-5",
+        "E-ampliacion-rioja_vivienda_habitual_pequenos_municipios-6"
+      ],
+      "decisionAuditada": {
+        "archivo": "docs/procedencia/deducciones-2025/revisiones/e-remisiones/decisiones.json",
+        "id": "rioja_vivienda_habitual_pequenos_municipios"
+      },
+      "validacion": "VALIDACION-P2.md:positivo,identidad/ámbito y racional exacto por código;sin revisión independiente nueva"
+    },
+    {
+      "codigo": "rioja_escuelas_infantiles_pequenos_municipios",
+      "estado": "calculo_parcial_validado_autor",
+      "archivo": "lib/dominio/irpf/deducciones/galicia-rioja-ampliacion-2025/familia.ts",
+      "funcion": "cuidados",
+      "condicionNormativaYMagnitudConcreta": "Traslado2025 a anexoI,residencia,trabajo fuera del hogar,media jornada o cuidadorSS,menor y mínimo;gasto común neto y600/hijo.",
+      "magnitudesAnualesDerivables": [
+        "baseLiquidableGeneral",
+        "baseLiquidableAhorro"
+      ],
+      "citasPropias": [
+        "E-ampliacion-rioja_escuelas_infantiles_pequenos_municipios-1",
+        "E-ampliacion-rioja_escuelas_infantiles_pequenos_municipios-2",
+        "E-ampliacion-rioja_escuelas_infantiles_pequenos_municipios-3",
+        "E-ampliacion-rioja_escuelas_infantiles_pequenos_municipios-4",
+        "E-ampliacion-rioja_escuelas_infantiles_pequenos_municipios-5",
+        "E-ampliacion-rioja_escuelas_infantiles_pequenos_municipios-6",
+        "E-ampliacion-rioja_escuelas_infantiles_pequenos_municipios-7"
+      ],
+      "decisionAuditada": {
+        "archivo": "docs/procedencia/deducciones-2025/revisiones/e-remisiones/decisiones.json",
+        "id": "rioja_escuelas_infantiles_pequenos_municipios"
+      },
+      "validacion": "VALIDACION-P2.md:positivo,identidad/ámbito y racional exacto por código;sin revisión independiente nueva"
+    },
+    {
+      "codigo": "rioja_menor_acogimiento_guarda_adopcion",
+      "estado": "calculo_parcial_validado_autor",
+      "archivo": "lib/dominio/irpf/deducciones/galicia-rioja-ampliacion-2025/familia.ts",
+      "funcion": "acogida",
+      "condicionNormativaYMagnitudConcreta": "Periodos no solapados,90 estricto/183 inclusivo y adopción excluida. Menor que cumple18 y agregación de acogimientos individuales<=90 que juntos>90 requieren rama concreta adicional;se rechazan sin importe.",
+      "magnitudesAnualesDerivables": [],
+      "citasPropias": [
+        "E-ampliacion-rioja_menor_acogimiento_guarda_adopcion-1",
+        "E-ampliacion-rioja_menor_acogimiento_guarda_adopcion-2",
+        "E-ampliacion-rioja_menor_acogimiento_guarda_adopcion-3",
+        "E-ampliacion-rioja_menor_acogimiento_guarda_adopcion-4",
+        "E-ampliacion-rioja_menor_acogimiento_guarda_adopcion-5"
+      ],
+      "decisionAuditada": {
+        "archivo": "docs/procedencia/deducciones-2025/revisiones/e-remisiones/decisiones.json",
+        "id": "rioja_menor_acogimiento_guarda_adopcion"
+      },
+      "validacion": "VALIDACION-P2.md:positivo,identidad/ámbito y racional exacto por código;sin revisión independiente nueva"
+    },
+    {
+      "codigo": "rioja_hijo_0_3_pequenos_municipios",
+      "estado": "calculo_parcial_validado_autor",
+      "archivo": "lib/dominio/irpf/deducciones/galicia-rioja-ampliacion-2025/familia.ts",
+      "funcion": "mensual",
+      "condicionNormativaYMagnitudConcreta": "Doce cierres mensuales con anexoI,edad0–3,mínimo mensual;mantener36meses o excepción documentada y regularización.",
+      "magnitudesAnualesDerivables": [],
+      "citasPropias": [
+        "E-ampliacion-rioja_hijo_0_3_pequenos_municipios-1",
+        "E-ampliacion-rioja_hijo_0_3_pequenos_municipios-2",
+        "E-ampliacion-rioja_hijo_0_3_pequenos_municipios-3",
+        "E-ampliacion-rioja_hijo_0_3_pequenos_municipios-4",
+        "E-ampliacion-rioja_hijo_0_3_pequenos_municipios-5"
+      ],
+      "decisionAuditada": {
+        "archivo": "docs/procedencia/deducciones-2025/revisiones/e-remisiones/decisiones.json",
+        "id": "rioja_hijo_0_3_pequenos_municipios"
+      },
+      "validacion": "VALIDACION-P2.md:positivo,identidad/ámbito y racional exacto por código;sin revisión independiente nueva"
+    },
+    {
+      "codigo": "rioja_hijo_0_3_escolarizado",
+      "estado": "calculo_parcial_validado_autor",
+      "archivo": "lib/dominio/irpf/deducciones/galicia-rioja-ampliacion-2025/familia.ts",
+      "funcion": "cuidados",
+      "condicionNormativaYMagnitudConcreta": "Centro riojano,hijo0–3,convivencia/mínimo,gasto no subvencionado/especie;20% y600/hijo repartido.",
+      "magnitudesAnualesDerivables": [
+        "baseLiquidableGeneral",
+        "baseLiquidableAhorro"
+      ],
+      "citasPropias": [
+        "E-ampliacion-rioja_hijo_0_3_escolarizado-1",
+        "E-ampliacion-rioja_hijo_0_3_escolarizado-2",
+        "E-ampliacion-rioja_hijo_0_3_escolarizado-3",
+        "E-ampliacion-rioja_hijo_0_3_escolarizado-4",
+        "E-ampliacion-rioja_hijo_0_3_escolarizado-5",
+        "E-ampliacion-rioja_hijo_0_3_escolarizado-6"
+      ],
+      "decisionAuditada": {
+        "archivo": "docs/procedencia/deducciones-2025/revisiones/e-remisiones/decisiones.json",
+        "id": "rioja_hijo_0_3_escolarizado"
+      },
+      "validacion": "VALIDACION-P2.md:positivo,identidad/ámbito y racional exacto por código;sin revisión independiente nueva"
+    },
+    {
+      "codigo": "rioja_vehiculos_electricos_nuevos",
+      "estado": "calculo_parcial_corregido_validado",
+      "archivo": "lib/dominio/irpf/deducciones/galicia-rioja-ampliacion-2025/rioja-otros.ts",
+      "funcion": "electrico",
+      "condicionNormativaYMagnitudConcreta": "Una elección por contribuyente,homologación/categoría,motor/uso,nuevo,precio<=50000,registro2025;litio/3kWh/70km oUNE15194. Máximo300/225 por declaración con saldo anual. Precio conciliado con pagos y saldo de precio financiado documentado;no usar solo caja del préstamo como adquisición. DA3: en2025 sólo categorías N1,L1e,L2e y bicicleta; M1,L3e,L5e,L6e,L7e suspendidas durante vigencia DA58 estatal.",
+      "magnitudesAnualesDerivables": [
+        "cuotaElectricoConsumidaDeclaracion"
+      ],
+      "citasPropias": [
+        "E-ampliacion-rioja_vehiculos_electricos_nuevos-1",
+        "E-ampliacion-rioja_vehiculos_electricos_nuevos-2",
+        "E-ampliacion-rioja_vehiculos_electricos_nuevos-3",
+        "E-ampliacion-rioja_vehiculos_electricos_nuevos-4",
+        "E-ampliacion-rioja_vehiculos_electricos_nuevos-5",
+        "E-ampliacion-rioja_vehiculos_electricos_nuevos-6",
+        "E-ampliacion-rioja_vehiculos_electricos_nuevos-7",
+        "E-ampliacion-rioja_vehiculos_electricos_nuevos-8",
+        "E-ampliacion-rioja_vehiculos_electricos_nuevos-9",
+        "E-ampliacion-rioja_vehiculos_electricos_nuevos-10",
+        "E-ampliacion-rioja_vehiculos_electricos_nuevos-11",
+        "E-ampliacion-rioja_vehiculos_electricos_nuevos-12",
+        "E-ampliacion-rioja_vehiculos_electricos_nuevos-13",
+        "E-ampliacion-rioja_vehiculos_electricos_nuevos-14",
+        "E-ampliacion-rioja_vehiculos_electricos_nuevos-15",
+        "E-ampliacion-rioja_vehiculos_electricos_nuevos-16",
+        "E-ampliacion-rioja_vehiculos_electricos_nuevos-17",
+        "E-ampliacion-rioja_vehiculos_electricos_nuevos-18",
+        "E-ampliacion-rioja_vehiculos_electricos_nuevos-19",
+        "E-ampliacion-rioja_vehiculos_electricos_nuevos-20",
+        "E-ampliacion-rioja_vehiculos_electricos_nuevos-21",
+        "E-ampliacion-rioja_vehiculos_electricos_nuevos-22",
+        "E-ampliacion-rioja_vehiculos_electricos_nuevos-23"
+      ],
+      "decisionAuditada": {
+        "archivo": "docs/procedencia/deducciones-2025/revisiones/e-remisiones/decisiones.json",
+        "id": "rioja_vehiculos_electricos_nuevos"
+      },
+      "validacion": "CORRECCIONES-REVISION.md:213pruebas, tipos y lints correctos; contraste P1 pendiente."
+    },
+    {
+      "codigo": "rioja_fijacion_poblacion_ocupada_medio_rural",
+      "estado": "calculo_parcial_validado_autor",
+      "archivo": "lib/dominio/irpf/deducciones/galicia-rioja-ampliacion-2025/familia.ts",
+      "funcion": "actividad",
+      "condicionNormativaYMagnitudConcreta": "Alta agraria propia2023–2025,exclusiones colaborador/socio/ceses previos24meses;permanencia12/24/36meses. Aplicación última y crédito de cuota3años aún requieren compositor anual, sin cuota externa fingida.",
+      "magnitudesAnualesDerivables": [],
+      "citasPropias": [
+        "E-ampliacion-rioja_fijacion_poblacion_ocupada_medio_rural-1",
+        "E-ampliacion-rioja_fijacion_poblacion_ocupada_medio_rural-2",
+        "E-ampliacion-rioja_fijacion_poblacion_ocupada_medio_rural-3",
+        "E-ampliacion-rioja_fijacion_poblacion_ocupada_medio_rural-4",
+        "E-ampliacion-rioja_fijacion_poblacion_ocupada_medio_rural-5",
+        "E-ampliacion-rioja_fijacion_poblacion_ocupada_medio_rural-6"
+      ],
+      "decisionAuditada": {
+        "archivo": "docs/procedencia/deducciones-2025/revisiones/e-remisiones/decisiones.json",
+        "id": "rioja_fijacion_poblacion_ocupada_medio_rural"
+      },
+      "validacion": "VALIDACION-P2.md:positivo,identidad/ámbito y racional exacto por código;sin revisión independiente nueva"
+    },
+    {
+      "codigo": "rioja_internet_jovenes_emancipados",
+      "estado": "calculo_parcial_validado_autor",
+      "archivo": "lib/dominio/irpf/deducciones/galicia-rioja-ampliacion-2025/alquiler-suministros.ts",
+      "funcion": "suministros",
+      "condicionNormativaYMagnitudConcreta": "Edad<36,alta2025 con6meses/vigencia31/12,vivienda histórica,titulares sin actividad y uso único por vivienda/titular;anexoI/monoparentalidad,expediente de todos pagadores. Acreditar historia de usos y permanencia.",
+      "magnitudesAnualesDerivables": [
+        "baseLiquidableGeneral",
+        "baseLiquidableAhorro"
+      ],
+      "citasPropias": [
+        "E-ampliacion-rioja_internet_jovenes_emancipados-1",
+        "E-ampliacion-rioja_internet_jovenes_emancipados-2",
+        "E-ampliacion-rioja_internet_jovenes_emancipados-3",
+        "E-ampliacion-rioja_internet_jovenes_emancipados-4",
+        "E-ampliacion-rioja_internet_jovenes_emancipados-5",
+        "E-ampliacion-rioja_internet_jovenes_emancipados-6",
+        "E-ampliacion-rioja_internet_jovenes_emancipados-7",
+        "E-ampliacion-rioja_internet_jovenes_emancipados-8",
+        "E-ampliacion-rioja_internet_jovenes_emancipados-9",
+        "E-ampliacion-rioja_internet_jovenes_emancipados-10",
+        "E-ampliacion-rioja_internet_jovenes_emancipados-11",
+        "E-ampliacion-rioja_internet_jovenes_emancipados-12",
+        "E-ampliacion-rioja_internet_jovenes_emancipados-13"
+      ],
+      "decisionAuditada": {
+        "archivo": "docs/procedencia/deducciones-2025/revisiones/e-remisiones/decisiones.json",
+        "id": "rioja_internet_jovenes_emancipados"
+      },
+      "validacion": "VALIDACION-P2.md:positivo,identidad/ámbito y racional exacto por código;sin revisión independiente nueva"
+    },
+    {
+      "codigo": "rioja_luz_gas_jovenes_emancipados",
+      "estado": "calculo_parcial_validado_autor",
+      "archivo": "lib/dominio/irpf/deducciones/galicia-rioja-ampliacion-2025/alquiler-suministros.ts",
+      "funcion": "suministros",
+      "condicionNormativaYMagnitudConcreta": "Edad<36,alta2025 con6meses/vigencia31/12,vivienda histórica,titulares sin actividad y uso único por vivienda/titular;anexoI/monoparentalidad,expediente de todos pagadores. Acreditar historia de usos y permanencia.",
+      "magnitudesAnualesDerivables": [
+        "baseLiquidableGeneral",
+        "baseLiquidableAhorro"
+      ],
+      "citasPropias": [
+        "E-ampliacion-rioja_luz_gas_jovenes_emancipados-1",
+        "E-ampliacion-rioja_luz_gas_jovenes_emancipados-2",
+        "E-ampliacion-rioja_luz_gas_jovenes_emancipados-3",
+        "E-ampliacion-rioja_luz_gas_jovenes_emancipados-4",
+        "E-ampliacion-rioja_luz_gas_jovenes_emancipados-5",
+        "E-ampliacion-rioja_luz_gas_jovenes_emancipados-6",
+        "E-ampliacion-rioja_luz_gas_jovenes_emancipados-7",
+        "E-ampliacion-rioja_luz_gas_jovenes_emancipados-8",
+        "E-ampliacion-rioja_luz_gas_jovenes_emancipados-9",
+        "E-ampliacion-rioja_luz_gas_jovenes_emancipados-10",
+        "E-ampliacion-rioja_luz_gas_jovenes_emancipados-11",
+        "E-ampliacion-rioja_luz_gas_jovenes_emancipados-12",
+        "E-ampliacion-rioja_luz_gas_jovenes_emancipados-13",
+        "E-ampliacion-rioja_luz_gas_jovenes_emancipados-14"
+      ],
+      "decisionAuditada": {
+        "archivo": "docs/procedencia/deducciones-2025/revisiones/e-remisiones/decisiones.json",
+        "id": "rioja_luz_gas_jovenes_emancipados"
+      },
+      "validacion": "VALIDACION-P2.md:positivo,identidad/ámbito y racional exacto por código;sin revisión independiente nueva"
+    },
+    {
+      "codigo": "rioja_inversion_vivienda_jovenes_menores_36",
+      "estado": "calculo_parcial_validado_autor",
+      "archivo": "lib/dominio/irpf/deducciones/galicia-rioja-ampliacion-2025/vivienda-rioja.ts",
+      "funcion": "viviendaRioja",
+      "condicionNormativaYMagnitudConcreta": "Edad<36,inversión desde2013,habitual/remisiones,patrimonio y resta de vivienda anterior/reinversión;15% base9000. Resolver incompatibilidad DT1a/b.",
+      "magnitudesAnualesDerivables": [
+        "baseLiquidableGeneral",
+        "baseLiquidableAhorro",
+        "patrimonioInicialAjustado",
+        "patrimonioFinalAjustado"
+      ],
+      "citasPropias": [
+        "E-ampliacion-rioja_inversion_vivienda_jovenes_menores_36-1",
+        "E-ampliacion-rioja_inversion_vivienda_jovenes_menores_36-2",
+        "E-ampliacion-rioja_inversion_vivienda_jovenes_menores_36-3",
+        "E-ampliacion-rioja_inversion_vivienda_jovenes_menores_36-4",
+        "E-ampliacion-rioja_inversion_vivienda_jovenes_menores_36-5",
+        "E-ampliacion-rioja_inversion_vivienda_jovenes_menores_36-6",
+        "E-ampliacion-rioja_inversion_vivienda_jovenes_menores_36-7",
+        "E-ampliacion-rioja_inversion_vivienda_jovenes_menores_36-8",
+        "E-ampliacion-rioja_inversion_vivienda_jovenes_menores_36-9",
+        "E-ampliacion-rioja_inversion_vivienda_jovenes_menores_36-10",
+        "E-ampliacion-rioja_inversion_vivienda_jovenes_menores_36-11"
+      ],
+      "decisionAuditada": {
+        "archivo": "docs/procedencia/deducciones-2025/revisiones/e-remisiones/decisiones.json",
+        "id": "rioja_inversion_vivienda_jovenes_menores_36"
+      },
+      "validacion": "VALIDACION-P2.md:positivo,identidad/ámbito y racional exacto por código;sin revisión independiente nueva"
+    },
+    {
+      "codigo": "rioja_bicicletas_pedaleo_no_asistido",
+      "estado": "raiz_revisada_alcance_inicial",
+      "archivo": "lib/dominio/irpf/deducciones/galicia-rioja-hechos-2025/index.ts",
+      "alcance": "Individual; inventario familiar completo máximo dos elegibles; pagos por solicitante y gananciales identificado; más de dos requiere elección.",
+      "limitacionPagadores": "La primera API rechaza pagos ajenos y no resuelve expedientes comunes de A+B;no usar pago propio como prueba de gasto común exhaustivo. Celiaquía no tiene base de pagos.",
+      "citasPropias": [
+        "E-ampliacion-rioja_bicicletas_pedaleo_no_asistido-1",
+        "E-ampliacion-rioja_bicicletas_pedaleo_no_asistido-2",
+        "E-ampliacion-rioja_bicicletas_pedaleo_no_asistido-3"
+      ],
+      "decisionAuditada": {
+        "archivo": "docs/procedencia/deducciones-2025/revisiones/e-remisiones/decisiones.json",
+        "id": "rioja_bicicletas_pedaleo_no_asistido"
+      }
+    },
+    {
+      "codigo": "rioja_obras_rehabilitacion_vivienda_habitual",
+      "estado": "calculo_parcial_validado_autor",
+      "archivo": "lib/dominio/irpf/deducciones/galicia-rioja-ampliacion-2025/vivienda-rioja.ts",
+      "funcion": "viviendaRioja",
+      "condicionNormativaYMagnitudConcreta": "Primer pagoobra<2013/fin<2017 y requisitosDT18 pertinentes;informe accesibilidad en adecuación. Base9040 conjunta reha/adecuación,ocupación/permanencia/patrimonio;comprar antes2013 no habilita obra2025.",
+      "magnitudesAnualesDerivables": [
+        "baseLiquidableGeneral",
+        "baseLiquidableAhorro",
+        "patrimonioInicialAjustado",
+        "patrimonioFinalAjustado",
+        "baseConsumidaRehabilitacionAdecuacion"
+      ],
+      "citasPropias": [
+        "E-ampliacion-rioja_obras_rehabilitacion_vivienda_habitual-1",
+        "E-ampliacion-rioja_obras_rehabilitacion_vivienda_habitual-2",
+        "E-ampliacion-rioja_obras_rehabilitacion_vivienda_habitual-3",
+        "E-ampliacion-rioja_obras_rehabilitacion_vivienda_habitual-4",
+        "E-ampliacion-rioja_obras_rehabilitacion_vivienda_habitual-5",
+        "E-ampliacion-rioja_obras_rehabilitacion_vivienda_habitual-6",
+        "E-ampliacion-rioja_obras_rehabilitacion_vivienda_habitual-7",
+        "E-ampliacion-rioja_obras_rehabilitacion_vivienda_habitual-8",
+        "E-ampliacion-rioja_obras_rehabilitacion_vivienda_habitual-9"
+      ],
+      "decisionAuditada": {
+        "archivo": "docs/procedencia/deducciones-2025/revisiones/e-remisiones/decisiones.json",
+        "id": "rioja_obras_rehabilitacion_vivienda_habitual"
+      },
+      "validacion": "VALIDACION-P2.md:positivo,identidad/ámbito y racional exacto por código;sin revisión independiente nueva"
+    },
+    {
+      "codigo": "rioja_adquisicion_construccion_vivienda_jovenes",
+      "estado": "calculo_parcial_validado_autor",
+      "archivo": "lib/dominio/irpf/deducciones/galicia-rioja-ampliacion-2025/vivienda-rioja.ts",
+      "funcion": "viviendaRioja",
+      "condicionNormativaYMagnitudConcreta": "Adquisición/inversión<2013,DT18 y plazos históricos;segunda exigeanexoII distinto habitual,una vivienda y8%/450.76 anual. Base9040 menos estatal sin adecuación y consumo de la otra modalidad.",
+      "magnitudesAnualesDerivables": [
+        "baseLiquidableGeneral",
+        "baseLiquidableAhorro",
+        "patrimonioInicialAjustado",
+        "patrimonioFinalAjustado",
+        "baseEstatalViviendaSinAdecuacion",
+        "baseConsumidaAdquisicionSegunda"
+      ],
+      "citasPropias": [
+        "E-ampliacion-rioja_adquisicion_construccion_vivienda_jovenes-1",
+        "E-ampliacion-rioja_adquisicion_construccion_vivienda_jovenes-2",
+        "E-ampliacion-rioja_adquisicion_construccion_vivienda_jovenes-3",
+        "E-ampliacion-rioja_adquisicion_construccion_vivienda_jovenes-4",
+        "E-ampliacion-rioja_adquisicion_construccion_vivienda_jovenes-5",
+        "E-ampliacion-rioja_adquisicion_construccion_vivienda_jovenes-6",
+        "E-ampliacion-rioja_adquisicion_construccion_vivienda_jovenes-7",
+        "E-ampliacion-rioja_adquisicion_construccion_vivienda_jovenes-8"
+      ],
+      "decisionAuditada": {
+        "archivo": "docs/procedencia/deducciones-2025/revisiones/e-remisiones/decisiones.json",
+        "id": "rioja_adquisicion_construccion_vivienda_jovenes"
+      },
+      "validacion": "VALIDACION-P2.md:positivo,identidad/ámbito y racional exacto por código;sin revisión independiente nueva"
+    },
+    {
+      "codigo": "rioja_segunda_vivienda_medio_rural",
+      "estado": "calculo_parcial_validado_autor",
+      "archivo": "lib/dominio/irpf/deducciones/galicia-rioja-ampliacion-2025/vivienda-rioja.ts",
+      "funcion": "viviendaRioja",
+      "condicionNormativaYMagnitudConcreta": "Adquisición/inversión<2013,DT18 y plazos históricos;segunda exigeanexoII distinto habitual,una vivienda y8%/450.76 anual. Base9040 menos estatal sin adecuación y consumo de la otra modalidad.",
+      "magnitudesAnualesDerivables": [
+        "baseLiquidableGeneral",
+        "baseLiquidableAhorro",
+        "patrimonioInicialAjustado",
+        "patrimonioFinalAjustado",
+        "baseEstatalViviendaSinAdecuacion",
+        "baseConsumidaAdquisicionSegunda"
+      ],
+      "citasPropias": [
+        "E-ampliacion-rioja_segunda_vivienda_medio_rural-1",
+        "E-ampliacion-rioja_segunda_vivienda_medio_rural-2",
+        "E-ampliacion-rioja_segunda_vivienda_medio_rural-3",
+        "E-ampliacion-rioja_segunda_vivienda_medio_rural-4",
+        "E-ampliacion-rioja_segunda_vivienda_medio_rural-5",
+        "E-ampliacion-rioja_segunda_vivienda_medio_rural-6"
+      ],
+      "decisionAuditada": {
+        "archivo": "docs/procedencia/deducciones-2025/revisiones/e-remisiones/decisiones.json",
+        "id": "rioja_segunda_vivienda_medio_rural"
+      },
+      "validacion": "VALIDACION-P2.md:positivo,identidad/ámbito y racional exacto por código;sin revisión independiente nueva"
+    },
+    {
+      "codigo": "rioja_adecuacion_vivienda_discapacidad",
+      "estado": "calculo_parcial_validado_autor",
+      "archivo": "lib/dominio/irpf/deducciones/galicia-rioja-ampliacion-2025/vivienda-rioja.ts",
+      "funcion": "viviendaRioja",
+      "condicionNormativaYMagnitudConcreta": "Primer pagoobra<2013/fin<2017 y requisitosDT18 pertinentes;informe accesibilidad en adecuación. Base9040 conjunta reha/adecuación,ocupación/permanencia/patrimonio;comprar antes2013 no habilita obra2025.",
+      "magnitudesAnualesDerivables": [
+        "baseLiquidableGeneral",
+        "baseLiquidableAhorro",
+        "patrimonioInicialAjustado",
+        "patrimonioFinalAjustado",
+        "baseConsumidaRehabilitacionAdecuacion"
+      ],
+      "citasPropias": [
+        "E-ampliacion-rioja_adecuacion_vivienda_discapacidad-1",
+        "E-ampliacion-rioja_adecuacion_vivienda_discapacidad-2",
+        "E-ampliacion-rioja_adecuacion_vivienda_discapacidad-3",
+        "E-ampliacion-rioja_adecuacion_vivienda_discapacidad-4",
+        "E-ampliacion-rioja_adecuacion_vivienda_discapacidad-5",
+        "E-ampliacion-rioja_adecuacion_vivienda_discapacidad-6",
+        "E-ampliacion-rioja_adecuacion_vivienda_discapacidad-7",
+        "E-ampliacion-rioja_adecuacion_vivienda_discapacidad-8",
+        "E-ampliacion-rioja_adecuacion_vivienda_discapacidad-9"
+      ],
+      "decisionAuditada": {
+        "archivo": "docs/procedencia/deducciones-2025/revisiones/e-remisiones/decisiones.json",
+        "id": "rioja_adecuacion_vivienda_discapacidad"
+      },
+      "validacion": "VALIDACION-P2.md:positivo,identidad/ámbito y racional exacto por código;sin revisión independiente nueva"
+    },
+    {
+      "codigo": "rioja_donaciones_fomento_mecenazgo",
+      "estado": "calculo_parcial_validado_autor",
+      "archivo": "lib/dominio/irpf/deducciones/galicia-rioja-ampliacion-2025/rioja-otros.ts",
+      "funcion": "mecenazgo",
+      "condicionNormativaYMagnitudConcreta": "Modalidadesa/b incompatiblesd/e,destinatarios/fondos<300000,autor/heredero/aceptación,valorArt18/mercado,certificado/comunicación.500 conjuntoa+b,500d,500e,total<=30%cuota. Depósito cultural exigevaloración particular del órgano competente.",
+      "magnitudesAnualesDerivables": [
+        "cuotaIntegraAutonomica",
+        "mecenazgoConsumidoDeclaracion"
+      ],
+      "citasPropias": [
+        "E-ampliacion-rioja_donaciones_fomento_mecenazgo-1",
+        "E-ampliacion-rioja_donaciones_fomento_mecenazgo-2",
+        "E-ampliacion-rioja_donaciones_fomento_mecenazgo-3",
+        "E-ampliacion-rioja_donaciones_fomento_mecenazgo-4",
+        "E-ampliacion-rioja_donaciones_fomento_mecenazgo-5",
+        "E-ampliacion-rioja_donaciones_fomento_mecenazgo-6",
+        "E-ampliacion-rioja_donaciones_fomento_mecenazgo-7",
+        "E-ampliacion-rioja_donaciones_fomento_mecenazgo-8",
+        "E-ampliacion-rioja_donaciones_fomento_mecenazgo-9",
+        "E-ampliacion-rioja_donaciones_fomento_mecenazgo-10",
+        "E-ampliacion-rioja_donaciones_fomento_mecenazgo-11",
+        "E-ampliacion-rioja_donaciones_fomento_mecenazgo-12",
+        "E-ampliacion-rioja_donaciones_fomento_mecenazgo-13",
+        "E-ampliacion-rioja_donaciones_fomento_mecenazgo-14",
+        "E-ampliacion-rioja_donaciones_fomento_mecenazgo-15",
+        "E-ampliacion-rioja_donaciones_fomento_mecenazgo-16",
+        "E-ampliacion-rioja_donaciones_fomento_mecenazgo-17",
+        "E-ampliacion-rioja_donaciones_fomento_mecenazgo-18",
+        "E-ampliacion-rioja_donaciones_fomento_mecenazgo-19",
+        "E-ampliacion-rioja_donaciones_fomento_mecenazgo-20",
+        "E-ampliacion-rioja_donaciones_fomento_mecenazgo-21",
+        "E-ampliacion-rioja_donaciones_fomento_mecenazgo-22",
+        "E-ampliacion-rioja_donaciones_fomento_mecenazgo-23",
+        "E-ampliacion-rioja_donaciones_fomento_mecenazgo-24",
+        "E-ampliacion-rioja_donaciones_fomento_mecenazgo-25",
+        "E-ampliacion-rioja_donaciones_fomento_mecenazgo-26",
+        "E-ampliacion-rioja_donaciones_fomento_mecenazgo-27",
+        "E-ampliacion-rioja_donaciones_fomento_mecenazgo-28",
+        "E-ampliacion-rioja_donaciones_fomento_mecenazgo-29",
+        "E-ampliacion-rem-rioja_donaciones_fomento_mecenazgo-rem-mecenazgo-60",
+        "E-ampliacion-rem-rioja_donaciones_fomento_mecenazgo-rem-mecenazgo-61",
+        "E-ampliacion-rem-rioja_donaciones_fomento_mecenazgo-rem-mecenazgo-62",
+        "E-ampliacion-rem-rioja_donaciones_fomento_mecenazgo-rem-mecenazgo-63",
+        "E-ampliacion-rem-rioja_donaciones_fomento_mecenazgo-rem-mecenazgo-64",
+        "E-ampliacion-rem-rioja_donaciones_fomento_mecenazgo-rem-mecenazgo-65",
+        "E-ampliacion-rem-rioja_donaciones_fomento_mecenazgo-rem-mecenazgo-66",
+        "E-ampliacion-rem-rioja_donaciones_fomento_mecenazgo-rem-mecenazgo-67",
+        "E-ampliacion-rem-rioja_donaciones_fomento_mecenazgo-rem-mecenazgo-68",
+        "E-ampliacion-rem-rioja_donaciones_fomento_mecenazgo-rem-mecenazgo-69",
+        "E-ampliacion-rem-rioja_donaciones_fomento_mecenazgo-rem-mecenazgo-70",
+        "E-ampliacion-rem-rioja_donaciones_fomento_mecenazgo-rem-mecenazgo-71",
+        "E-ampliacion-rem-rioja_donaciones_fomento_mecenazgo-rem-mecenazgo-72",
+        "E-ampliacion-rem-rioja_donaciones_fomento_mecenazgo-rem-mecenazgo-73",
+        "E-ampliacion-rem-rioja_donaciones_fomento_mecenazgo-rem-mecenazgo-74",
+        "E-ampliacion-rem-rioja_donaciones_fomento_mecenazgo-rem-valoracion-261",
+        "E-ampliacion-rem-rioja_donaciones_fomento_mecenazgo-rem-valoracion-262",
+        "E-ampliacion-rem-rioja_donaciones_fomento_mecenazgo-rem-valoracion-263",
+        "E-ampliacion-rem-rioja_donaciones_fomento_mecenazgo-rem-valoracion-264"
+      ],
+      "decisionAuditada": {
+        "archivo": "docs/procedencia/deducciones-2025/revisiones/e-remisiones/decisiones.json",
+        "id": "rioja_donaciones_fomento_mecenazgo"
+      },
+      "validacion": "VALIDACION-P2.md:positivo,identidad/ámbito y racional exacto por código;sin revisión independiente nueva"
+    },
+    {
+      "codigo": "rioja_cantidades_patrimonio_historico",
+      "estado": "calculo_parcial_validado_autor",
+      "archivo": "lib/dominio/irpf/deducciones/galicia-rioja-ampliacion-2025/rioja-otros.ts",
+      "funcion": "patrimonio",
+      "condicionNormativaYMagnitudConcreta": "Titular propiedad/usufructo,registro patrimonial,no empresarial,15%máximo500 personal. En esta rama los pagos se atribuyen al titular pagador;cuota líquida no negativa queda al compositor, sin aplicar30% del apartado14.",
+      "magnitudesAnualesDerivables": [],
+      "citasPropias": [
+        "E-ampliacion-rioja_cantidades_patrimonio_historico-1",
+        "E-ampliacion-rioja_cantidades_patrimonio_historico-2",
+        "E-ampliacion-rioja_cantidades_patrimonio_historico-3",
+        "E-ampliacion-rioja_cantidades_patrimonio_historico-4",
+        "E-ampliacion-rioja_cantidades_patrimonio_historico-5",
+        "E-ampliacion-rioja_cantidades_patrimonio_historico-6",
+        "E-ampliacion-rioja_cantidades_patrimonio_historico-7"
+      ],
+      "decisionAuditada": {
+        "archivo": "docs/procedencia/deducciones-2025/revisiones/e-remisiones/decisiones.json",
+        "id": "rioja_cantidades_patrimonio_historico"
+      },
+      "validacion": "VALIDACION-P2.md:positivo,identidad/ámbito y racional exacto por código;sin revisión independiente nueva"
+    },
+    {
+      "codigo": "rioja_ejercicio_fisico_deporte",
+      "estado": "raiz_revisada_alcance_inicial",
+      "archivo": "lib/dominio/irpf/deducciones/galicia-rioja-hechos-2025/index.ts",
+      "alcance": "Individual y único beneficiario exhaustivo; varios titulares reparten base y límite; varios beneficiarios requieren composición. Inventario explícito de un beneficiario; se rechaza autoidentidad de cónyuge o mínimo ajeno.",
+      "limitacionPagadores": "La primera API rechaza pagos ajenos y no resuelve expedientes comunes de A+B;no usar pago propio como prueba de gasto común exhaustivo. Celiaquía no tiene base de pagos.",
+      "citasPropias": [
+        "E-ampliacion-rioja_ejercicio_fisico_deporte-1",
+        "E-ampliacion-rioja_ejercicio_fisico_deporte-2",
+        "E-ampliacion-rioja_ejercicio_fisico_deporte-3",
+        "E-ampliacion-rioja_ejercicio_fisico_deporte-4",
+        "E-ampliacion-rioja_ejercicio_fisico_deporte-5",
+        "E-ampliacion-rioja_ejercicio_fisico_deporte-6",
+        "E-ampliacion-rioja_ejercicio_fisico_deporte-7",
+        "E-ampliacion-rioja_ejercicio_fisico_deporte-8",
+        "E-ampliacion-rioja_ejercicio_fisico_deporte-9",
+        "E-ampliacion-rioja_ejercicio_fisico_deporte-10"
+      ],
+      "decisionAuditada": {
+        "archivo": "docs/procedencia/deducciones-2025/revisiones/e-remisiones/decisiones.json",
+        "id": "rioja_ejercicio_fisico_deporte"
+      }
+    },
+    {
+      "codigo": "rioja_enfermos_ela",
+      "estado": "raiz_revisada_alcance_inicial",
+      "archivo": "lib/dominio/irpf/deducciones/galicia-rioja-hechos-2025/index.ts",
+      "alcance": "Individual y único beneficiario exhaustivo; diagnóstico y factura ordinaria; varios beneficiarios requieren composición. Inventario explícito de un beneficiario; se rechaza autoidentidad de cónyuge o mínimo ajeno.",
+      "limitacionPagadores": "La primera API rechaza pagos ajenos y no resuelve expedientes comunes de A+B;no usar pago propio como prueba de gasto común exhaustivo. Celiaquía no tiene base de pagos.",
+      "citasPropias": [
+        "E-ampliacion-rioja_enfermos_ela-1",
+        "E-ampliacion-rioja_enfermos_ela-2",
+        "E-ampliacion-rioja_enfermos_ela-3",
+        "E-ampliacion-rioja_enfermos_ela-4",
+        "E-ampliacion-rioja_enfermos_ela-5",
+        "E-ampliacion-rioja_enfermos_ela-6",
+        "E-ampliacion-rioja_enfermos_ela-7",
+        "E-ampliacion-rioja_enfermos_ela-8"
+      ],
+      "decisionAuditada": {
+        "archivo": "docs/procedencia/deducciones-2025/revisiones/e-remisiones/decisiones.json",
+        "id": "rioja_enfermos_ela"
+      }
+    },
+    {
+      "codigo": "rioja_cuotas_organizaciones_profesionales_agrarias",
+      "estado": "raiz_revisada_alcance_inicial",
+      "archivo": "lib/dominio/irpf/deducciones/galicia-rioja-hechos-2025/index.ts",
+      "alcance": "Individual; pagos por solicitante, organización ley19/1977 y certificado anual; conjunta siguiente rama.",
+      "limitacionPagadores": "La primera API rechaza pagos ajenos y no resuelve expedientes comunes de A+B;no usar pago propio como prueba de gasto común exhaustivo. Celiaquía no tiene base de pagos.",
+      "citasPropias": [
+        "E-ampliacion-rioja_cuotas_organizaciones_profesionales_agrarias-1",
+        "E-ampliacion-rioja_cuotas_organizaciones_profesionales_agrarias-2",
+        "E-ampliacion-rioja_cuotas_organizaciones_profesionales_agrarias-3",
+        "E-ampliacion-rioja_cuotas_organizaciones_profesionales_agrarias-4"
+      ],
+      "decisionAuditada": {
+        "archivo": "docs/procedencia/deducciones-2025/revisiones/e-remisiones/decisiones.json",
+        "id": "rioja_cuotas_organizaciones_profesionales_agrarias"
+      }
+    },
+    {
+      "codigo": "rioja_paliar_subida_intereses_hipotecarios",
+      "estado": "calculo_parcial_validado_autor",
+      "archivo": "lib/dominio/irpf/deducciones/galicia-rioja-ampliacion-2025/vivienda-rioja.ts",
+      "funcion": "intereses",
+      "condicionNormativaYMagnitudConcreta": "Adquisición/rehabilitación/adecuación desde2013 y residencia por mayor número de días;intereses netos de cobertura,base5000 por vivienda. Incompatible32.2,32.11 y estatalDT18;atribución por propiedad explícita del expediente común.",
+      "magnitudesAnualesDerivables": [],
+      "citasPropias": [
+        "E-ampliacion-rioja_paliar_subida_intereses_hipotecarios-1",
+        "E-ampliacion-rioja_paliar_subida_intereses_hipotecarios-2",
+        "E-ampliacion-rioja_paliar_subida_intereses_hipotecarios-3",
+        "E-ampliacion-rioja_paliar_subida_intereses_hipotecarios-4",
+        "E-ampliacion-rioja_paliar_subida_intereses_hipotecarios-5"
+      ],
+      "decisionAuditada": {
+        "archivo": "docs/procedencia/deducciones-2025/revisiones/e-remisiones/decisiones.json",
+        "id": "rioja_paliar_subida_intereses_hipotecarios"
+      },
+      "validacion": "VALIDACION-P2.md:positivo,identidad/ámbito y racional exacto por código;sin revisión independiente nueva"
+    },
+    {
+      "codigo": "rioja_nacimiento_adopcion_hijos",
+      "estado": "calculo_parcial_validado_autor",
+      "archivo": "lib/dominio/irpf/deducciones/galicia-rioja-ampliacion-2025/familia.ts",
+      "funcion": "nacimiento",
+      "condicionNormativaYMagnitudConcreta": "Ordinal propio de cada progenitor y convivencia;sumar atribuciones para conjunta sin duplicar evento/múltiples.",
+      "magnitudesAnualesDerivables": [],
+      "citasPropias": [
+        "E-ampliacion-rioja_nacimiento_adopcion_hijos-1",
+        "E-ampliacion-rioja_nacimiento_adopcion_hijos-2",
+        "E-ampliacion-rioja_nacimiento_adopcion_hijos-3",
+        "E-ampliacion-rioja_nacimiento_adopcion_hijos-4",
+        "E-ampliacion-rioja_nacimiento_adopcion_hijos-5",
+        "E-ampliacion-rioja_nacimiento_adopcion_hijos-6",
+        "E-ampliacion-rioja_nacimiento_adopcion_hijos-7"
+      ],
+      "decisionAuditada": {
+        "archivo": "docs/procedencia/deducciones-2025/revisiones/e-remisiones/decisiones.json",
+        "id": "rioja_nacimiento_adopcion_hijos"
+      },
+      "validacion": "VALIDACION-P2.md:positivo,identidad/ámbito y racional exacto por código;sin revisión independiente nueva"
+    },
+    {
+      "codigo": "rioja_arrendamiento_menores_36",
+      "estado": "calculo_parcial_corregido_validado",
+      "archivo": "lib/dominio/irpf/deducciones/galicia-rioja-ampliacion-2025/alquiler-suministros.ts",
+      "funcion": "alquiler",
+      "condicionNormativaYMagnitudConcreta": "Edad<36,uso habitual,modeloITP,gananciales/no inversión,anexoI;10/20%,máximo300/400 por contrato. Pagadores vinculados al ámbito económico; ocupación habitual durante el pago, sin exigir residencia31/12. Pagos diferidos fuera de ocupación requieren periodo arrendado explícito.",
+      "magnitudesAnualesDerivables": [
+        "baseLiquidableGeneral",
+        "baseLiquidableAhorro"
+      ],
+      "citasPropias": [
+        "E-ampliacion-rioja_arrendamiento_menores_36-1",
+        "E-ampliacion-rioja_arrendamiento_menores_36-2",
+        "E-ampliacion-rioja_arrendamiento_menores_36-3",
+        "E-ampliacion-rioja_arrendamiento_menores_36-4",
+        "E-ampliacion-rioja_arrendamiento_menores_36-5",
+        "E-ampliacion-rioja_arrendamiento_menores_36-6",
+        "E-ampliacion-rioja_arrendamiento_menores_36-7",
+        "E-ampliacion-rioja_arrendamiento_menores_36-8",
+        "E-ampliacion-rioja_arrendamiento_menores_36-9",
+        "E-ampliacion-rioja_arrendamiento_menores_36-10",
+        "E-ampliacion-rioja_arrendamiento_menores_36-11",
+        "E-ampliacion-rioja_arrendamiento_menores_36-12"
+      ],
+      "decisionAuditada": {
+        "archivo": "docs/procedencia/deducciones-2025/revisiones/e-remisiones/decisiones.json",
+        "id": "rioja_arrendamiento_menores_36"
+      },
+      "validacion": "CORRECCIONES-REVISION.md:213pruebas, tipos y lints correctos; contraste P1 pendiente."
+    },
+    {
+      "codigo": "rioja_enfermedad_celiaca",
+      "estado": "raiz_reutilizable",
+      "archivo": "lib/dominio/irpf/deducciones/contratos-2025.ts",
+      "alcance": "Reutilizar evaluarCeliaquiaRioja sin duplicar fórmula; salida histórica parcial redondeada, por contribuyente.",
+      "limitacionPagadores": "La primera API rechaza pagos ajenos y no resuelve expedientes comunes de A+B;no usar pago propio como prueba de gasto común exhaustivo. Celiaquía no tiene base de pagos.",
+      "citasPropias": [
+        "E-ampliacion-rioja_enfermedad_celiaca-1",
+        "E-ampliacion-rioja_enfermedad_celiaca-2",
+        "E-ampliacion-rioja_enfermedad_celiaca-3",
+        "E-ampliacion-rioja_enfermedad_celiaca-4",
+        "E-ampliacion-rioja_enfermedad_celiaca-5"
+      ],
+      "decisionAuditada": {
+        "archivo": "docs/procedencia/deducciones-2025/revisiones/e-remisiones/decisiones.json",
+        "id": "rioja_enfermedad_celiaca"
+      }
+    }
+  ],
+  "tablasDerivadas": [
+    {
+      "archivo": "docs/procedencia/deducciones-2025/correcciones/e-remisiones/anexos-rioja-2025.json",
+      "sha256": "ff69bd81a85cf47a725e5c2d24e85750de649e964bf04fe8d327510933fd3543"
+    },
+    {
+      "archivo": "docs/procedencia/deducciones-2025/correcciones/e-remisiones/centros-historicos.json",
+      "sha256": "ff97ce2814cb1c1710e054cbb446c42ed65c0d3c1856df6397944401d8fe848a"
+    }
+  ]
+}

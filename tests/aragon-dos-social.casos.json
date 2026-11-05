@@ -1,0 +1,1100 @@
+[
+  {
+    "nombre": "Se solicita atribución para neto reducido4.000, nunca30% del bruto",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "aragon",
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "casoAnual": "anual-sintetico",
+      "codigo": "aragon_arrendamiento_vivienda_social_arrendador",
+      "viviendas": [
+        {
+          "id": "v1",
+          "titular": "t",
+          "participacionPuntosBasicos": 5000,
+          "tituloTenencia": "titulo",
+          "gestor": {
+            "clase": "entidad-gestora-Plan",
+            "entidad": "gestor",
+            "habilitacionPlan": "resolucion-plan"
+          },
+          "cesion": {
+            "desde": "2024-01-01",
+            "hasta": "2026-12-31",
+            "actaPuestaDisposicion": "acta"
+          },
+          "rendimientos": [
+            {
+              "id": "r1",
+              "desde": "2025-01-01",
+              "hasta": "2025-12-31",
+              "contribuyente": "t",
+              "procedencia": {
+                "tipo": "productor-rendimientos-inmobiliarios",
+                "calculo": "inmobiliario-1",
+                "referencia": "expediente"
+              },
+              "netoAntesReduccionesEuros": "10000",
+              "reduccionArt23_2Euros": "6000",
+              "reduccionArt23_3Euros": "0",
+              "netoReducidoEuros": "4000",
+              "referenciaCalificacionReducciones": "calificacion23"
+            }
+          ]
+        }
+      ]
+    },
+    "neto": "4000"
+  },
+  {
+    "nombre": "Titular50% ya individualizado no se divide otra vez",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "aragon",
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "casoAnual": "anual-sintetico",
+      "codigo": "aragon_arrendamiento_vivienda_social_arrendador",
+      "viviendas": [
+        {
+          "id": "v1",
+          "titular": "t",
+          "participacionPuntosBasicos": 2500,
+          "tituloTenencia": "titulo",
+          "gestor": {
+            "clase": "entidad-gestora-Plan",
+            "entidad": "gestor",
+            "habilitacionPlan": "resolucion-plan"
+          },
+          "cesion": {
+            "desde": "2024-01-01",
+            "hasta": "2026-12-31",
+            "actaPuestaDisposicion": "acta"
+          },
+          "rendimientos": [
+            {
+              "id": "r1",
+              "desde": "2025-01-01",
+              "hasta": "2025-12-31",
+              "contribuyente": "t",
+              "procedencia": {
+                "tipo": "productor-rendimientos-inmobiliarios",
+                "calculo": "inmobiliario-1",
+                "referencia": "expediente"
+              },
+              "netoAntesReduccionesEuros": "10000",
+              "reduccionArt23_2Euros": "6000",
+              "reduccionArt23_3Euros": "0",
+              "netoReducidoEuros": "4000",
+              "referenciaCalificacionReducciones": "calificacion23"
+            }
+          ]
+        }
+      ]
+    },
+    "neto": "4000"
+  },
+  {
+    "nombre": "Cero de rendimiento no finge deducción cero",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "aragon",
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "casoAnual": "anual-sintetico",
+      "codigo": "aragon_arrendamiento_vivienda_social_arrendador",
+      "viviendas": [
+        {
+          "id": "v1",
+          "titular": "t",
+          "participacionPuntosBasicos": 5000,
+          "tituloTenencia": "titulo",
+          "gestor": {
+            "clase": "entidad-gestora-Plan",
+            "entidad": "gestor",
+            "habilitacionPlan": "resolucion-plan"
+          },
+          "cesion": {
+            "desde": "2024-01-01",
+            "hasta": "2026-12-31",
+            "actaPuestaDisposicion": "acta"
+          },
+          "rendimientos": [
+            {
+              "id": "r1",
+              "desde": "2025-01-01",
+              "hasta": "2025-12-31",
+              "contribuyente": "t",
+              "procedencia": {
+                "tipo": "productor-rendimientos-inmobiliarios",
+                "calculo": "inmobiliario-1",
+                "referencia": "expediente"
+              },
+              "netoAntesReduccionesEuros": "0",
+              "reduccionArt23_2Euros": "0",
+              "reduccionArt23_3Euros": "0",
+              "netoReducidoEuros": "0",
+              "referenciaCalificacionReducciones": "calificacion23"
+            }
+          ]
+        }
+      ]
+    },
+    "neto": "0"
+  },
+  {
+    "nombre": "Neto negativo conserva dependencia anual",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "aragon",
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "casoAnual": "anual-sintetico",
+      "codigo": "aragon_arrendamiento_vivienda_social_arrendador",
+      "viviendas": [
+        {
+          "id": "v1",
+          "titular": "t",
+          "participacionPuntosBasicos": 5000,
+          "tituloTenencia": "titulo",
+          "gestor": {
+            "clase": "entidad-gestora-Plan",
+            "entidad": "gestor",
+            "habilitacionPlan": "resolucion-plan"
+          },
+          "cesion": {
+            "desde": "2024-01-01",
+            "hasta": "2026-12-31",
+            "actaPuestaDisposicion": "acta"
+          },
+          "rendimientos": [
+            {
+              "id": "r1",
+              "desde": "2025-01-01",
+              "hasta": "2025-12-31",
+              "contribuyente": "t",
+              "procedencia": {
+                "tipo": "productor-rendimientos-inmobiliarios",
+                "calculo": "inmobiliario-1",
+                "referencia": "expediente"
+              },
+              "netoAntesReduccionesEuros": "-100",
+              "reduccionArt23_2Euros": "0",
+              "reduccionArt23_3Euros": "0",
+              "netoReducidoEuros": "-100",
+              "referenciaCalificacionReducciones": "calificacion23"
+            }
+          ]
+        }
+      ]
+    },
+    "neto": "-100"
+  },
+  {
+    "nombre": "30% irregular se recibe del productor y se concilia",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "aragon",
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "casoAnual": "anual-sintetico",
+      "codigo": "aragon_arrendamiento_vivienda_social_arrendador",
+      "viviendas": [
+        {
+          "id": "v1",
+          "titular": "t",
+          "participacionPuntosBasicos": 5000,
+          "tituloTenencia": "titulo",
+          "gestor": {
+            "clase": "entidad-gestora-Plan",
+            "entidad": "gestor",
+            "habilitacionPlan": "resolucion-plan"
+          },
+          "cesion": {
+            "desde": "2024-01-01",
+            "hasta": "2026-12-31",
+            "actaPuestaDisposicion": "acta"
+          },
+          "rendimientos": [
+            {
+              "id": "r1",
+              "desde": "2025-01-01",
+              "hasta": "2025-12-31",
+              "contribuyente": "t",
+              "procedencia": {
+                "tipo": "productor-rendimientos-inmobiliarios",
+                "calculo": "inmobiliario-1",
+                "referencia": "expediente"
+              },
+              "netoAntesReduccionesEuros": "10000",
+              "reduccionArt23_2Euros": "0",
+              "reduccionArt23_3Euros": "3000",
+              "netoReducidoEuros": "7000",
+              "referenciaCalificacionReducciones": "calificacion23"
+            }
+          ]
+        }
+      ]
+    },
+    "neto": "7000"
+  },
+  {
+    "nombre": "Rendimiento reducido discordante rechaza",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "aragon",
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "casoAnual": "anual-sintetico",
+      "codigo": "aragon_arrendamiento_vivienda_social_arrendador",
+      "viviendas": [
+        {
+          "id": "v1",
+          "titular": "t",
+          "participacionPuntosBasicos": 5000,
+          "tituloTenencia": "titulo",
+          "gestor": {
+            "clase": "entidad-gestora-Plan",
+            "entidad": "gestor",
+            "habilitacionPlan": "resolucion-plan"
+          },
+          "cesion": {
+            "desde": "2024-01-01",
+            "hasta": "2026-12-31",
+            "actaPuestaDisposicion": "acta"
+          },
+          "rendimientos": [
+            {
+              "id": "r1",
+              "desde": "2025-01-01",
+              "hasta": "2025-12-31",
+              "contribuyente": "t",
+              "procedencia": {
+                "tipo": "productor-rendimientos-inmobiliarios",
+                "calculo": "inmobiliario-1",
+                "referencia": "expediente"
+              },
+              "netoAntesReduccionesEuros": "10000",
+              "reduccionArt23_2Euros": "6000",
+              "reduccionArt23_3Euros": "0",
+              "netoReducidoEuros": "5000",
+              "referenciaCalificacionReducciones": "calificacion23"
+            }
+          ]
+        }
+      ]
+    },
+    "neto": null
+  },
+  {
+    "nombre": "Reducciones por encima del neto rechazan",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "aragon",
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "casoAnual": "anual-sintetico",
+      "codigo": "aragon_arrendamiento_vivienda_social_arrendador",
+      "viviendas": [
+        {
+          "id": "v1",
+          "titular": "t",
+          "participacionPuntosBasicos": 5000,
+          "tituloTenencia": "titulo",
+          "gestor": {
+            "clase": "entidad-gestora-Plan",
+            "entidad": "gestor",
+            "habilitacionPlan": "resolucion-plan"
+          },
+          "cesion": {
+            "desde": "2024-01-01",
+            "hasta": "2026-12-31",
+            "actaPuestaDisposicion": "acta"
+          },
+          "rendimientos": [
+            {
+              "id": "r1",
+              "desde": "2025-01-01",
+              "hasta": "2025-12-31",
+              "contribuyente": "t",
+              "procedencia": {
+                "tipo": "productor-rendimientos-inmobiliarios",
+                "calculo": "inmobiliario-1",
+                "referencia": "expediente"
+              },
+              "netoAntesReduccionesEuros": "10000",
+              "reduccionArt23_2Euros": "10001",
+              "reduccionArt23_3Euros": "0",
+              "netoReducidoEuros": "4000",
+              "referenciaCalificacionReducciones": "calificacion23"
+            }
+          ]
+        }
+      ]
+    },
+    "neto": null
+  },
+  {
+    "nombre": "Rendimiento de otro titular rechaza",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "aragon",
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "casoAnual": "anual-sintetico",
+      "codigo": "aragon_arrendamiento_vivienda_social_arrendador",
+      "viviendas": [
+        {
+          "id": "v1",
+          "titular": "t",
+          "participacionPuntosBasicos": 5000,
+          "tituloTenencia": "titulo",
+          "gestor": {
+            "clase": "entidad-gestora-Plan",
+            "entidad": "gestor",
+            "habilitacionPlan": "resolucion-plan"
+          },
+          "cesion": {
+            "desde": "2024-01-01",
+            "hasta": "2026-12-31",
+            "actaPuestaDisposicion": "acta"
+          },
+          "rendimientos": [
+            {
+              "id": "r1",
+              "desde": "2025-01-01",
+              "hasta": "2025-12-31",
+              "contribuyente": "otro",
+              "procedencia": {
+                "tipo": "productor-rendimientos-inmobiliarios",
+                "calculo": "inmobiliario-1",
+                "referencia": "expediente"
+              },
+              "netoAntesReduccionesEuros": "10000",
+              "reduccionArt23_2Euros": "6000",
+              "reduccionArt23_3Euros": "0",
+              "netoReducidoEuros": "4000",
+              "referenciaCalificacionReducciones": "calificacion23"
+            }
+          ]
+        }
+      ]
+    },
+    "neto": null
+  },
+  {
+    "nombre": "Vivienda de otro titular rechaza",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "aragon",
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "casoAnual": "anual-sintetico",
+      "codigo": "aragon_arrendamiento_vivienda_social_arrendador",
+      "viviendas": [
+        {
+          "id": "v1",
+          "titular": "otro",
+          "participacionPuntosBasicos": 5000,
+          "tituloTenencia": "titulo",
+          "gestor": {
+            "clase": "entidad-gestora-Plan",
+            "entidad": "gestor",
+            "habilitacionPlan": "resolucion-plan"
+          },
+          "cesion": {
+            "desde": "2024-01-01",
+            "hasta": "2026-12-31",
+            "actaPuestaDisposicion": "acta"
+          },
+          "rendimientos": [
+            {
+              "id": "r1",
+              "desde": "2025-01-01",
+              "hasta": "2025-12-31",
+              "contribuyente": "t",
+              "procedencia": {
+                "tipo": "productor-rendimientos-inmobiliarios",
+                "calculo": "inmobiliario-1",
+                "referencia": "expediente"
+              },
+              "netoAntesReduccionesEuros": "10000",
+              "reduccionArt23_2Euros": "6000",
+              "reduccionArt23_3Euros": "0",
+              "netoReducidoEuros": "4000",
+              "referenciaCalificacionReducciones": "calificacion23"
+            }
+          ]
+        }
+      ]
+    },
+    "neto": null
+  },
+  {
+    "nombre": "Participación nula rechaza",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "aragon",
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "casoAnual": "anual-sintetico",
+      "codigo": "aragon_arrendamiento_vivienda_social_arrendador",
+      "viviendas": [
+        {
+          "id": "v1",
+          "titular": "t",
+          "participacionPuntosBasicos": 0,
+          "tituloTenencia": "titulo",
+          "gestor": {
+            "clase": "entidad-gestora-Plan",
+            "entidad": "gestor",
+            "habilitacionPlan": "resolucion-plan"
+          },
+          "cesion": {
+            "desde": "2024-01-01",
+            "hasta": "2026-12-31",
+            "actaPuestaDisposicion": "acta"
+          },
+          "rendimientos": [
+            {
+              "id": "r1",
+              "desde": "2025-01-01",
+              "hasta": "2025-12-31",
+              "contribuyente": "t",
+              "procedencia": {
+                "tipo": "productor-rendimientos-inmobiliarios",
+                "calculo": "inmobiliario-1",
+                "referencia": "expediente"
+              },
+              "netoAntesReduccionesEuros": "10000",
+              "reduccionArt23_2Euros": "6000",
+              "reduccionArt23_3Euros": "0",
+              "netoReducidoEuros": "4000",
+              "referenciaCalificacionReducciones": "calificacion23"
+            }
+          ]
+        }
+      ]
+    },
+    "neto": null
+  },
+  {
+    "nombre": "Participación superior100% rechaza",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "aragon",
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "casoAnual": "anual-sintetico",
+      "codigo": "aragon_arrendamiento_vivienda_social_arrendador",
+      "viviendas": [
+        {
+          "id": "v1",
+          "titular": "t",
+          "participacionPuntosBasicos": 10001,
+          "tituloTenencia": "titulo",
+          "gestor": {
+            "clase": "entidad-gestora-Plan",
+            "entidad": "gestor",
+            "habilitacionPlan": "resolucion-plan"
+          },
+          "cesion": {
+            "desde": "2024-01-01",
+            "hasta": "2026-12-31",
+            "actaPuestaDisposicion": "acta"
+          },
+          "rendimientos": [
+            {
+              "id": "r1",
+              "desde": "2025-01-01",
+              "hasta": "2025-12-31",
+              "contribuyente": "t",
+              "procedencia": {
+                "tipo": "productor-rendimientos-inmobiliarios",
+                "calculo": "inmobiliario-1",
+                "referencia": "expediente"
+              },
+              "netoAntesReduccionesEuros": "10000",
+              "reduccionArt23_2Euros": "6000",
+              "reduccionArt23_3Euros": "0",
+              "netoReducidoEuros": "4000",
+              "referenciaCalificacionReducciones": "calificacion23"
+            }
+          ]
+        }
+      ]
+    },
+    "neto": null
+  },
+  {
+    "nombre": "Período ajeno al Plan rechaza",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "aragon",
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "casoAnual": "anual-sintetico",
+      "codigo": "aragon_arrendamiento_vivienda_social_arrendador",
+      "viviendas": [
+        {
+          "id": "v1",
+          "titular": "t",
+          "participacionPuntosBasicos": 5000,
+          "tituloTenencia": "titulo",
+          "gestor": {
+            "clase": "entidad-gestora-Plan",
+            "entidad": "gestor",
+            "habilitacionPlan": "resolucion-plan"
+          },
+          "cesion": {
+            "desde": "2025-02-01",
+            "hasta": "2026-12-31",
+            "actaPuestaDisposicion": "acta"
+          },
+          "rendimientos": [
+            {
+              "id": "r1",
+              "desde": "2025-01-01",
+              "hasta": "2025-12-31",
+              "contribuyente": "t",
+              "procedencia": {
+                "tipo": "productor-rendimientos-inmobiliarios",
+                "calculo": "inmobiliario-1",
+                "referencia": "expediente"
+              },
+              "netoAntesReduccionesEuros": "10000",
+              "reduccionArt23_2Euros": "6000",
+              "reduccionArt23_3Euros": "0",
+              "netoReducidoEuros": "4000",
+              "referenciaCalificacionReducciones": "calificacion23"
+            }
+          ]
+        }
+      ]
+    },
+    "neto": null
+  },
+  {
+    "nombre": "Entidad sin habilitación Plan rechaza",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "aragon",
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "casoAnual": "anual-sintetico",
+      "codigo": "aragon_arrendamiento_vivienda_social_arrendador",
+      "viviendas": [
+        {
+          "id": "v1",
+          "titular": "t",
+          "participacionPuntosBasicos": 5000,
+          "tituloTenencia": "titulo",
+          "gestor": {
+            "clase": "entidad-gestora-Plan",
+            "entidad": "gestor",
+            "habilitacionPlan": ""
+          },
+          "cesion": {
+            "desde": "2024-01-01",
+            "hasta": "2026-12-31",
+            "actaPuestaDisposicion": "acta"
+          },
+          "rendimientos": [
+            {
+              "id": "r1",
+              "desde": "2025-01-01",
+              "hasta": "2025-12-31",
+              "contribuyente": "t",
+              "procedencia": {
+                "tipo": "productor-rendimientos-inmobiliarios",
+                "calculo": "inmobiliario-1",
+                "referencia": "expediente"
+              },
+              "netoAntesReduccionesEuros": "10000",
+              "reduccionArt23_2Euros": "6000",
+              "reduccionArt23_3Euros": "0",
+              "netoReducidoEuros": "4000",
+              "referenciaCalificacionReducciones": "calificacion23"
+            }
+          ]
+        }
+      ]
+    },
+    "neto": null
+  },
+  {
+    "nombre": "Sin rendimiento explícito ni siquiera cero rechaza",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "aragon",
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "casoAnual": "anual-sintetico",
+      "codigo": "aragon_arrendamiento_vivienda_social_arrendador",
+      "viviendas": [
+        {
+          "id": "v1",
+          "titular": "t",
+          "participacionPuntosBasicos": 5000,
+          "tituloTenencia": "titulo",
+          "gestor": {
+            "clase": "entidad-gestora-Plan",
+            "entidad": "gestor",
+            "habilitacionPlan": "resolucion-plan"
+          },
+          "cesion": {
+            "desde": "2024-01-01",
+            "hasta": "2026-12-31",
+            "actaPuestaDisposicion": "acta"
+          },
+          "rendimientos": []
+        }
+      ]
+    },
+    "neto": null
+  },
+  {
+    "nombre": "Viviendas vacías no generan cuota ficticia",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "aragon",
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "casoAnual": "anual-sintetico",
+      "codigo": "aragon_arrendamiento_vivienda_social_arrendador",
+      "viviendas": []
+    },
+    "neto": null
+  },
+  {
+    "nombre": "Deducción externa no admitida",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "aragon",
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "casoAnual": "anual-sintetico",
+      "codigo": "aragon_arrendamiento_vivienda_social_arrendador",
+      "viviendas": [
+        {
+          "id": "v1",
+          "titular": "t",
+          "participacionPuntosBasicos": 5000,
+          "tituloTenencia": "titulo",
+          "gestor": {
+            "clase": "entidad-gestora-Plan",
+            "entidad": "gestor",
+            "habilitacionPlan": "resolucion-plan"
+          },
+          "cesion": {
+            "desde": "2024-01-01",
+            "hasta": "2026-12-31",
+            "actaPuestaDisposicion": "acta"
+          },
+          "rendimientos": [
+            {
+              "id": "r1",
+              "desde": "2025-01-01",
+              "hasta": "2025-12-31",
+              "contribuyente": "t",
+              "procedencia": {
+                "tipo": "productor-rendimientos-inmobiliarios",
+                "calculo": "inmobiliario-1",
+                "referencia": "expediente"
+              },
+              "netoAntesReduccionesEuros": "10000",
+              "reduccionArt23_2Euros": "6000",
+              "reduccionArt23_3Euros": "0",
+              "netoReducidoEuros": "4000",
+              "referenciaCalificacionReducciones": "calificacion23"
+            }
+          ]
+        }
+      ],
+      "deduccionCentimos": 30000
+    },
+    "neto": null
+  },
+  {
+    "nombre": "Cuota externa sin origen no admitida",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "aragon",
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "casoAnual": "anual-sintetico",
+      "codigo": "aragon_arrendamiento_vivienda_social_arrendador",
+      "viviendas": [
+        {
+          "id": "v1",
+          "titular": "t",
+          "participacionPuntosBasicos": 5000,
+          "tituloTenencia": "titulo",
+          "gestor": {
+            "clase": "entidad-gestora-Plan",
+            "entidad": "gestor",
+            "habilitacionPlan": "resolucion-plan"
+          },
+          "cesion": {
+            "desde": "2024-01-01",
+            "hasta": "2026-12-31",
+            "actaPuestaDisposicion": "acta"
+          },
+          "rendimientos": [
+            {
+              "id": "r1",
+              "desde": "2025-01-01",
+              "hasta": "2025-12-31",
+              "contribuyente": "t",
+              "procedencia": {
+                "tipo": "productor-rendimientos-inmobiliarios",
+                "calculo": "inmobiliario-1",
+                "referencia": "expediente"
+              },
+              "netoAntesReduccionesEuros": "10000",
+              "reduccionArt23_2Euros": "6000",
+              "reduccionArt23_3Euros": "0",
+              "netoReducidoEuros": "4000",
+              "referenciaCalificacionReducciones": "calificacion23"
+            }
+          ]
+        }
+      ],
+      "cuotaAtribuibleEuros": "1000"
+    },
+    "neto": null
+  },
+  {
+    "nombre": "No admite selector de tipo medio inventado",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "aragon",
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "casoAnual": "anual-sintetico",
+      "codigo": "aragon_arrendamiento_vivienda_social_arrendador",
+      "viviendas": [
+        {
+          "id": "v1",
+          "titular": "t",
+          "participacionPuntosBasicos": 5000,
+          "tituloTenencia": "titulo",
+          "gestor": {
+            "clase": "entidad-gestora-Plan",
+            "entidad": "gestor",
+            "habilitacionPlan": "resolucion-plan"
+          },
+          "cesion": {
+            "desde": "2024-01-01",
+            "hasta": "2026-12-31",
+            "actaPuestaDisposicion": "acta"
+          },
+          "rendimientos": [
+            {
+              "id": "r1",
+              "desde": "2025-01-01",
+              "hasta": "2025-12-31",
+              "contribuyente": "t",
+              "procedencia": {
+                "tipo": "productor-rendimientos-inmobiliarios",
+                "calculo": "inmobiliario-1",
+                "referencia": "expediente"
+              },
+              "netoAntesReduccionesEuros": "10000",
+              "reduccionArt23_2Euros": "6000",
+              "reduccionArt23_3Euros": "0",
+              "netoReducidoEuros": "4000",
+              "referenciaCalificacionReducciones": "calificacion23"
+            }
+          ]
+        }
+      ],
+      "metodo": "tipo-medio"
+    },
+    "neto": null
+  },
+  {
+    "nombre": "Fecha civil inválida rechaza",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "aragon",
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "casoAnual": "anual-sintetico",
+      "codigo": "aragon_arrendamiento_vivienda_social_arrendador",
+      "viviendas": [
+        {
+          "id": "v1",
+          "titular": "t",
+          "participacionPuntosBasicos": 5000,
+          "tituloTenencia": "titulo",
+          "gestor": {
+            "clase": "entidad-gestora-Plan",
+            "entidad": "gestor",
+            "habilitacionPlan": "resolucion-plan"
+          },
+          "cesion": {
+            "desde": "2024-01-01",
+            "hasta": "2026-12-31",
+            "actaPuestaDisposicion": "acta"
+          },
+          "rendimientos": [
+            {
+              "id": "r1",
+              "desde": "2025-02-29",
+              "hasta": "2025-12-31",
+              "contribuyente": "t",
+              "procedencia": {
+                "tipo": "productor-rendimientos-inmobiliarios",
+                "calculo": "inmobiliario-1",
+                "referencia": "expediente"
+              },
+              "netoAntesReduccionesEuros": "10000",
+              "reduccionArt23_2Euros": "6000",
+              "reduccionArt23_3Euros": "0",
+              "netoReducidoEuros": "4000",
+              "referenciaCalificacionReducciones": "calificacion23"
+            }
+          ]
+        }
+      ]
+    },
+    "neto": null
+  },
+  {
+    "nombre": "No cumple genérico",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "aragon",
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "casoAnual": "anual-sintetico",
+      "codigo": "aragon_arrendamiento_vivienda_social_arrendador",
+      "viviendas": [
+        {
+          "id": "v1",
+          "titular": "t",
+          "participacionPuntosBasicos": 5000,
+          "tituloTenencia": "titulo",
+          "gestor": {
+            "clase": "entidad-gestora-Plan",
+            "entidad": "gestor",
+            "habilitacionPlan": "resolucion-plan"
+          },
+          "cesion": {
+            "desde": "2024-01-01",
+            "hasta": "2026-12-31",
+            "actaPuestaDisposicion": "acta"
+          },
+          "rendimientos": [
+            {
+              "id": "r1",
+              "desde": "2025-01-01",
+              "hasta": "2025-12-31",
+              "contribuyente": "t",
+              "procedencia": {
+                "tipo": "productor-rendimientos-inmobiliarios",
+                "calculo": "inmobiliario-1",
+                "referencia": "expediente"
+              },
+              "netoAntesReduccionesEuros": "10000",
+              "reduccionArt23_2Euros": "6000",
+              "reduccionArt23_3Euros": "0",
+              "netoReducidoEuros": "4000",
+              "referenciaCalificacionReducciones": "calificacion23"
+            }
+          ]
+        }
+      ],
+      "cumple": true
+    },
+    "neto": null
+  },
+  {
+    "nombre": "Dos viviendas agregan netos individualizados sin cuota todavía",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "aragon",
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "casoAnual": "anual-sintetico",
+      "codigo": "aragon_arrendamiento_vivienda_social_arrendador",
+      "viviendas": [
+        {
+          "id": "v1",
+          "titular": "t",
+          "participacionPuntosBasicos": 5000,
+          "tituloTenencia": "titulo",
+          "gestor": {
+            "clase": "entidad-gestora-Plan",
+            "entidad": "gestor",
+            "habilitacionPlan": "resolucion-plan"
+          },
+          "cesion": {
+            "desde": "2024-01-01",
+            "hasta": "2026-12-31",
+            "actaPuestaDisposicion": "acta"
+          },
+          "rendimientos": [
+            {
+              "id": "r1",
+              "desde": "2025-01-01",
+              "hasta": "2025-12-31",
+              "contribuyente": "t",
+              "procedencia": {
+                "tipo": "productor-rendimientos-inmobiliarios",
+                "calculo": "inmobiliario-1",
+                "referencia": "expediente"
+              },
+              "netoAntesReduccionesEuros": "10000",
+              "reduccionArt23_2Euros": "6000",
+              "reduccionArt23_3Euros": "0",
+              "netoReducidoEuros": "4000",
+              "referenciaCalificacionReducciones": "calificacion23"
+            }
+          ]
+        },
+        {
+          "id": "v2",
+          "titular": "t",
+          "participacionPuntosBasicos": 5000,
+          "tituloTenencia": "titulo",
+          "gestor": {
+            "clase": "entidad-gestora-Plan",
+            "entidad": "gestor",
+            "habilitacionPlan": "resolucion-plan"
+          },
+          "cesion": {
+            "desde": "2024-01-01",
+            "hasta": "2026-12-31",
+            "actaPuestaDisposicion": "acta"
+          },
+          "rendimientos": [
+            {
+              "id": "r2",
+              "desde": "2025-01-01",
+              "hasta": "2025-12-31",
+              "contribuyente": "t",
+              "procedencia": {
+                "tipo": "productor-rendimientos-inmobiliarios",
+                "calculo": "inmobiliario-1",
+                "referencia": "expediente"
+              },
+              "netoAntesReduccionesEuros": "10000",
+              "reduccionArt23_2Euros": "6000",
+              "reduccionArt23_3Euros": "0",
+              "netoReducidoEuros": "4000",
+              "referenciaCalificacionReducciones": "calificacion23"
+            }
+          ]
+        }
+      ]
+    },
+    "neto": "8000"
+  },
+  {
+    "nombre": "Identidad rendimiento repetida entre viviendas rechaza",
+    "entrada": {
+      "ejercicio": 2025,
+      "territorio": "aragon",
+      "modalidad": "individual",
+      "devengo": "2025-12-31",
+      "contribuyente": "t",
+      "casoAnual": "anual-sintetico",
+      "codigo": "aragon_arrendamiento_vivienda_social_arrendador",
+      "viviendas": [
+        {
+          "id": "v1",
+          "titular": "t",
+          "participacionPuntosBasicos": 5000,
+          "tituloTenencia": "titulo",
+          "gestor": {
+            "clase": "entidad-gestora-Plan",
+            "entidad": "gestor",
+            "habilitacionPlan": "resolucion-plan"
+          },
+          "cesion": {
+            "desde": "2024-01-01",
+            "hasta": "2026-12-31",
+            "actaPuestaDisposicion": "acta"
+          },
+          "rendimientos": [
+            {
+              "id": "r1",
+              "desde": "2025-01-01",
+              "hasta": "2025-12-31",
+              "contribuyente": "t",
+              "procedencia": {
+                "tipo": "productor-rendimientos-inmobiliarios",
+                "calculo": "inmobiliario-1",
+                "referencia": "expediente"
+              },
+              "netoAntesReduccionesEuros": "10000",
+              "reduccionArt23_2Euros": "6000",
+              "reduccionArt23_3Euros": "0",
+              "netoReducidoEuros": "4000",
+              "referenciaCalificacionReducciones": "calificacion23"
+            }
+          ]
+        },
+        {
+          "id": "v2",
+          "titular": "t",
+          "participacionPuntosBasicos": 5000,
+          "tituloTenencia": "titulo",
+          "gestor": {
+            "clase": "entidad-gestora-Plan",
+            "entidad": "gestor",
+            "habilitacionPlan": "resolucion-plan"
+          },
+          "cesion": {
+            "desde": "2024-01-01",
+            "hasta": "2026-12-31",
+            "actaPuestaDisposicion": "acta"
+          },
+          "rendimientos": [
+            {
+              "id": "r1",
+              "desde": "2025-01-01",
+              "hasta": "2025-12-31",
+              "contribuyente": "t",
+              "procedencia": {
+                "tipo": "productor-rendimientos-inmobiliarios",
+                "calculo": "inmobiliario-1",
+                "referencia": "expediente"
+              },
+              "netoAntesReduccionesEuros": "10000",
+              "reduccionArt23_2Euros": "6000",
+              "reduccionArt23_3Euros": "0",
+              "netoReducidoEuros": "4000",
+              "referenciaCalificacionReducciones": "calificacion23"
+            }
+          ]
+        }
+      ]
+    },
+    "neto": null
+  }
+]

@@ -1,5 +1,6 @@
 import {
   r,
+  magnitudAnualR,
   total,
   lista,
   exigir,
@@ -507,10 +508,10 @@ export function evaluarInversion(m: MarcoB, h: HechosInversion) {
     case "cantabria_donativos_fundaciones_fondo_cantabria_coopera_discapacidad": {
       lista(h.donaciones)
       lista(h.donaciones.flatMap((d) => d.pagos))
-      let disponible = r(h.baseLiquidable)
+      let disponible = magnitudAnualR(h.baseLiquidable)
           .times(r("0.10"))
-          .minus(r(h.baseEstatal68_3))
-          .minus(r(h.baseEstatal68_5))
+          .minus(magnitudAnualR(h.baseEstatal68_3))
+          .minus(magnitudAnualR(h.baseEstatal68_5))
           .max(r("0")),
         sum = r("0")
       const pendientes: string[] = []

@@ -1,3 +1,5 @@
+import { esAmbitoCuotasTerritorialesOpen2025 } from "../cuotas/politica-cuotas-open-2025"
+import { producirNodosFiscalesB2025 } from "../deducciones/b-ampliado-anual-2025/productores"
 import { SolicitudDeduccionesTerritoriales2025 } from "../deducciones/anual-territorial"
 import { aplicarDeduccionesTerritoriales2025 } from "../deducciones/anual-territorial"
 import Decimal from "decimal.js"
@@ -44,8 +46,11 @@ export type PoliticaAnual =
   | "decimal-hasta-salida"
   | "open-empleo-madrid-2025"
   | "open-cuotas-empleo-andalucia-2025"
+  | "open-cuotas-empleo-territorios-2025"
 /** Contrato interno: bases ya integradas en EUR Decimal; jamás reconstruye cotizaciones. */
 export interface EntradaComposicionAnual {
+  readonly rentaActividadAnualB?: Decimal | undefined
+  readonly origenBaseGeneralB?: "solo-trabajo" | "solo-actividad" | undefined
   readonly rentasTrabajoAnuales?:
     | {
         readonly integroTrabajo: Decimal
@@ -131,6 +136,23 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
         errorDerechosMinimos({
           motivo:
             "Política de cuotas Open limitada a empleo efectivo Andalucía 2025 sin derechos familiares",
+        })
+      )
+    if (
+      entrada.politica === "open-cuotas-empleo-territorios-2025" &&
+      (!esAmbitoCuotasTerritorialesOpen2025(caso) ||
+        entrada.cotizaciones.naturaleza !== "efectivas" ||
+        entrada.rentasTrabajoAnuales === undefined ||
+        entrada.serviciosLaborales === undefined ||
+        !entrada.serviciosLaborales.bruto.gt(0) ||
+        !entrada.serviciosLaborales.bruto.eq(
+          entrada.rentasTrabajoAnuales.integroTrabajo
+        ))
+    )
+      return yield* Effect.fail(
+        errorDerechosMinimos({
+          motivo:
+            "Política de cuotas territoriales Open limitada a empleo efectivo de los cinco territorios observados en 2025, sin derechos familiares",
         })
       )
     if (
@@ -597,8 +619,19 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
             baseGeneral: entrada.baseGeneral,
             baseAhorro: entrada.baseAhorro,
             minimoPersonalFamiliar: minimoPersonalYFamiliar,
+            basesLiquidables: {
+              general: baseLiquidableGeneral,
+              ahorro: baseLiquidableAhorro,
+            },
+            componentesMinimoEstatal: {
+              contribuyente: minimoContribuyente,
+              descendientes: minimoDescendientes,
+            },
             cuotaAutonomica: cuotaAutonomicaDisponible,
+            nodosFiscalesB2025: caso.anio === 2025 && caso.contribuyenteId !== undefined ? producirNodosFiscalesB2025(caso.contribuyenteId, baseLiquidableGeneral, cuotaEstatalDespuesMinimo, cuotaAutonomicaGeneralDespuesMinimo, entrada.origenBaseGeneralB) : undefined,
             rentasTrabajoAnuales: entrada.rentasTrabajoAnuales,
+            rentaNoExentaAntesReduccionesB: entrada.rentasAntesReducciones,
+            rentaActividadAnualB: entrada.rentaActividadAnualB,
             sujetosConMinimo:
               derechosEstatales?.atribuciones.map((a) => a.sujetoId) ?? [],
             atribucionesMinimo: derechosEstatales?.atribuciones,

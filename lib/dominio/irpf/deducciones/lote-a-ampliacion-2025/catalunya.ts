@@ -22,13 +22,13 @@ import {
 } from "./comun"
 import { Vivienda, baseVivienda, transitorio } from "./vivienda"
 import { Inversion, sociedad, ampliacionTresAnios } from "./inversion"
-const S0 = Schema.Struct({
+export const S0 = Schema.Struct({
   ...Contexto,
   territorio: Schema.Literal("catalunya"),
   codigo: Schema.Literal("cataluna_rehabilitacion_vivienda_habitual"),
   hechos: Schema.Struct({ vivienda: Vivienda }),
 })
-const S1 = Schema.Struct({
+export const S1 = Schema.Struct({
   ...Contexto,
   territorio: Schema.Literal("catalunya"),
   codigo: Schema.Literal(
@@ -43,13 +43,13 @@ const S1 = Schema.Struct({
     referenciaUnidad: Texto,
   }),
 })
-const S2 = Schema.Struct({
+export const S2 = Schema.Struct({
   ...Contexto,
   territorio: Schema.Literal("catalunya"),
   codigo: Schema.Literal("cataluna_angel_inversor"),
   hechos: Schema.Struct({ inversiones: Schema.Array(Inversion) }),
 })
-const S3 = Schema.Struct({
+export const S3 = Schema.Struct({
   ...Contexto,
   territorio: Schema.Literal("catalunya"),
   codigo: Schema.Literal("cataluna_alquiler_vivienda_habitual"),
@@ -69,7 +69,7 @@ const S3 = Schema.Struct({
     pagosConsolidados: Schema.Array(Pago),
   }),
 })
-const S4 = Schema.Struct({
+export const S4 = Schema.Struct({
   ...Contexto,
   territorio: Schema.Literal("catalunya"),
   codigo: Schema.Literal("cataluna_alquiler_victimas_violencia_machista"),
@@ -93,7 +93,7 @@ const S4 = Schema.Struct({
     pagos: Schema.Array(Pago),
   }),
 })
-const S5 = Schema.Struct({
+export const S5 = Schema.Struct({
   ...Contexto,
   territorio: Schema.Literal("catalunya"),
   codigo: Schema.Literal("cataluna_inversion_cooperativas_agrarias_vivienda"),
@@ -146,7 +146,7 @@ const S5 = Schema.Struct({
     ),
   }),
 })
-const S6 = Schema.Struct({
+export const S6 = Schema.Struct({
   ...Contexto,
   territorio: Schema.Literal("catalunya"),
   codigo: Schema.Literal("cataluna_obligacion_declarar_mas_de_un_pagador"),
