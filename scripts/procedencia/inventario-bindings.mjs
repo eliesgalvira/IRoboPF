@@ -4,7 +4,7 @@ import { readFileSync } from "node:fs"
 import { hash } from "./inventario-ast.mjs"
 
 /** Grafo estático de definiciones; no afirma que una rama sea alcanzable. */
-export function bindingGraph(root, paths) {
+export function bindingGraph(root, paths, inputs = new Set()) {
   const program = ts.createProgram(paths, {
     target: ts.ScriptTarget.ES2022,
     module: ts.ModuleKind.Preserve,
@@ -13,6 +13,12 @@ export function bindingGraph(root, paths) {
     noEmit: true,
   })
   const checker = program.getTypeChecker()
+  // El checker también lee imports fuera del ámbito numérico inventariado.
+  // Deben viajar con la generación aunque no produzcan ocurrencias fiscales.
+  for (const file of program.getSourceFiles()) {
+    if (resolve(file.fileName).startsWith(`${root}/lib/`))
+      inputs.add(relative(root, file.fileName))
+  }
   const graph = []
   for (const path of paths) {
     const sf = program.getSourceFile(path)
@@ -34,7 +40,11 @@ export function bindingGraph(root, paths) {
               const start = declaration.getStart(file)
               const key = `${relative(root, file.fileName)}:${start}`
               dependencies.set(key, {
-                symbol: symbol.name,
+                // El símbolo del módulo contiene una ruta absoluta en TypeScript.
+                // La declaración y su hash fijan su identidad dentro del proyecto.
+                symbol: ts.isSourceFile(declaration)
+                  ? JSON.stringify(relative(root, file.fileName))
+                  : symbol.name,
                 file: relative(root, file.fileName),
                 start,
                 line: file.getLineAndCharacterOfPosition(start).line + 1,

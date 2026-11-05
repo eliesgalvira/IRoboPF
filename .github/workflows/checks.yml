@@ -17,13 +17,13 @@ jobs:
         run: timeout -k 30s 1m python3 scripts/ci-no-cache.py
       - uses: actions/setup-node@v4
         with:
-          node-version: '24'
+          node-version: '24.20.0'
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: '1.3.13'
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.13'
+          python-version: '3.13.15'
       - run: echo "Corpus completo CAS omitido explícitamente; se ejecutan fixtures y contratos reproducibles. Véase docs/procedencia/CI.md"
       - id: dependencies
         run: timeout -k 30s 12m bun install --frozen-lockfile
@@ -63,13 +63,13 @@ jobs:
       - uses: cachix/install-nix-action@d9186cbdca7adedf113a159fa91f725a27866771 # v31
       - uses: actions/setup-node@v4
         with:
-          node-version: '24'
+          node-version: '24.20.0'
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: '1.3.13'
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.13'
+          python-version: '3.13.15'
       - run: echo "Corpus completo CAS omitido explícitamente; se ejecutan fixtures y contratos reproducibles. Véase docs/procedencia/CI.md"
       - run: timeout -k 30s 12m bun install --frozen-lockfile
       - run: timeout -k 30s 12m bash tools/procedencia/run.sh tests/procedencia-corpus_test.py

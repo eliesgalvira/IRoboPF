@@ -14,6 +14,7 @@ import { gzipSync } from "node:zlib"
 import ts from "typescript"
 import Decimal from "decimal.js"
 import { extractTs, hash } from "../scripts/procedencia/inventario-ast.mjs"
+import { bindingGraph } from "../scripts/procedencia/inventario-bindings.mjs"
 import {
   dimensions,
   flatten,
@@ -26,6 +27,38 @@ import {
 } from "../scripts/procedencia/inventario-artefacto.mjs"
 
 describe("inventario sintáctico y efectivo", () => {
+  it("el grafo de imports namespace es independiente del directorio del checkout", () => {
+    const scratch = resolve(".cache/procedencia/inventario-pruebas")
+    mkdirSync(scratch, { recursive: true })
+    const first = mkdtempSync(resolve(scratch, "origen-"))
+    const second = mkdtempSync(resolve(scratch, "destino-"))
+    try {
+      const graphs = [first, second].map((root) => {
+        mkdirSync(resolve(root, "lib"))
+        mkdirSync(resolve(root, "lib/procedencia"))
+        writeFileSync(resolve(root, "lib/procedencia/auxiliar.ts"), "export const version = 1\n")
+        writeFileSync(resolve(root, "lib/datos.ts"), "export const tasa = 0.15\nexport { version } from './procedencia/auxiliar'\n")
+        writeFileSync(resolve(root, "lib/uso.ts"), 'import * as datos from "./datos"\nexport const cuota = datos.tasa\n')
+        const inputs = new Set()
+        const graph = bindingGraph(root, sourcePaths(root), inputs)
+        expect([...inputs].sort()).toEqual([
+          "lib/datos.ts", "lib/procedencia/auxiliar.ts", "lib/uso.ts",
+        ])
+        expect(graph.some((row) => row.file.startsWith("lib/procedencia/"))).toBe(false)
+        return graph
+      })
+      expect(graphs[0]).toEqual(graphs[1])
+      const dependencies = graphs[0].find((row) => row.symbol === "cuota").dependencies
+      expect(dependencies).toEqual(expect.arrayContaining([
+        expect.objectContaining({ symbol: '"lib/datos.ts"', file: "lib/datos.ts", start: 0 }),
+        expect.objectContaining({ symbol: "tasa", file: "lib/datos.ts", start: 13 }),
+      ]))
+      expect(JSON.stringify(graphs)).not.toContain(scratch)
+    } finally {
+      rmSync(first, { recursive: true, force: true })
+      rmSync(second, { recursive: true, force: true })
+    }
+  })
   it("fija el ámbito técnico por archivo y export, sin aceptar nombres ajenos", () => {
     const file = "lib/dominio/irpf/cuotas/escalas-publicadas.ts"
     expect(dimensions("MADRID_2025", ["1", "cuota"], file)).toMatchObject({
@@ -138,6 +171,8 @@ console.log("5551");
       })
       expect(baseline.status, baseline.stderr).toBe(0)
       const { files, manifest } = readArtifact(temporary)
+      // Misma generación en otra raíz: ninguna identidad depende del checkout.
+      expect(() => compareFiles(readArtifact().files, files)).not.toThrow()
       const page = manifest.pages[0]
       const items = JSON.parse(files.get(page.file))
       items[0].value = "987654321"
