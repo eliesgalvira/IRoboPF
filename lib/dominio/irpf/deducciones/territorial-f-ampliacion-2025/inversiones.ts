@@ -10,6 +10,7 @@ import {
   edad,
   dinero,
   magnitudF,
+  baseEstatalDonativoF,
   decimal,
   unicos,
   pagos,
@@ -212,10 +213,7 @@ export function inversionesF(s: SolicitudF): ResultadoF {
               "destino"
             )
           const bruto = dinero(p.importeEUR, "importeDonativoEUR")
-          const estatal = dinero(
-            p.computoBaseEstatalEUR,
-            "computoBaseEstatalEUR"
-          )
+          const estatal = baseEstatalDonativoF(s, p)
           if (estatal.gt(bruto))
             falta(
               "computoBaseEstatalEUR",

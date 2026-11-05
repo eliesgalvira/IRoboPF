@@ -233,7 +233,7 @@ export function reparto(
 /** Las magnitudes derivadas no pasan por el parser de hechos de céntimos. */
 export function magnitudF(
   s: SolicitudF,
-  campo: Exclude<keyof MagnitudesInternasF, "contribuyente">,
+  campo: Exclude<keyof MagnitudesInternasF, "contribuyente" | "basesEstatalesDonativos">,
   consignada: string | undefined,
   id = s.contexto.contribuyente
 ): Decimal {
@@ -249,6 +249,13 @@ export function magnitudF(
 export function exigirProductoresBasesF(s: SolicitudF, personas: readonly string[]): void {
   if (magnitudesInternasF(s) !== undefined)
     for (const id of personas) magnitudF(s, "general", undefined, id)
+}
+export function baseEstatalDonativoF(s: SolicitudF, p: PagoF): Decimal {
+  const m = magnitudesInternasF(s)
+  if (m === undefined) return dinero(p.computoBaseEstatalEUR, "computoBaseEstatalEUR")
+  const valor = m.basesEstatalesDonativos?.get(texto(p.id, "pago.id"))
+  if (valor === undefined) falta("productor_base_estatal_misma_operacion", "Base estatal de esta operación no producida;no se supone cero")
+  return new D(valor)
 }
 export function base(s: SolicitudF): Decimal {
   const bs = requerido(s.hechos.bases, "bases")

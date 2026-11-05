@@ -1,3 +1,5 @@
+import type { CensoIngresosIdentificados2025 } from "./ingresos-identificados-2025/contrato"
+import type { HechosMaternidad2025 } from "./maternidad-2025/contrato"
 import type { SolicitudDeduccionesTerritoriales2025 } from "./deducciones/anual-territorial"
 import type { SolicitudDeduccionesValencianasAnual2025 } from "./deducciones/valenciana-2025/anual"
 import type { AnioFiscal } from "../normativa/anio-fiscal"
@@ -104,6 +106,8 @@ export interface DeduccionAutonomicaCatalogadaAplicada {
 }
 
 export interface CasoFiscalAnual {
+  readonly ingresosIdentificados2025?: CensoIngresosIdentificados2025 | undefined
+  readonly maternidad2025?: HechosMaternidad2025 | undefined
   readonly deduccionesTerritoriales2025?:
     | SolicitudDeduccionesTerritoriales2025
     | undefined

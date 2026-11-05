@@ -1,3 +1,5 @@
+import type { LibroMaternidad81 } from "../maternidad-2025/producir"
+import { evaluarCuidadoCyl81, operaciones81 } from "../maternidad-2025/cyl"
 import { evaluarE38Anual, racionalE38, saldosE38Anuales } from "./galicia-rioja-ampliacion-2025/anual"
 import type { Resultado as ResultadoE38 } from "./galicia-rioja-ampliacion-2025/comun"
 import { validarConcurrenciaE38 } from "./galicia-rioja-ampliacion-2025/anual-incompatibilidades"
@@ -12,6 +14,7 @@ import { evaluarAragonDosAnual2025 } from "./aragon-dos-anual"
 import type { ResultadoInversionAragonesa2025 } from "./aragon-dos-codigos-2025"
 import { prepararBAmpliadoAnual } from "./b-ampliado-anual-2025"
 import { conciliarPagosEntreLotesB } from "./b-ampliado-anual-2025/conciliacion-lotes"
+import type { LibroIngresosIdentificados2025 } from "../ingresos-identificados-2025/productor"
 import type { NodosFiscalesB2025 } from "./b-ampliado-anual-2025/productores"
 import type { ResultadoAmpliacion as ResultadoAmpliacionB } from "./asturias-cantabria-ampliacion-2025"
 import { evaluarAmpliacionAnualA2025 } from "./ampliacion-a-anual"
@@ -34,7 +37,12 @@ import {
   type Racional,
 } from "./anual-territorial-racional"
 export { SolicitudDeduccionesTerritoriales2025 }
+import type { LibroDonativosEstatales2025 } from "./donativos-estatales-2025/productor"
 export interface MagnitudesTerritorialesAnuales {
+  readonly libroIngresosIdentificados2025?: LibroIngresosIdentificados2025 | undefined
+  readonly donativosEstatales?: LibroDonativosEstatales2025 | undefined
+  readonly cuotaAutonomicaResidual?: Decimal | undefined
+  readonly libroMaternidad81?: LibroMaternidad81 | undefined
   readonly rentaNoExentaAntesReduccionesB?: Decimal | undefined
   readonly rentaActividadAnualB?: Decimal | undefined
   readonly nodosFiscalesB2025?: NodosFiscalesB2025 | undefined
@@ -312,6 +320,14 @@ export function aplicarDeduccionesTerritoriales2025(
     Result.isSuccess(decoded),
     "Hechos territoriales inválidos o magnitudes anuales externas"
   )
+  if (decoded.success.donativosEstatales2025 !== undefined) {
+    const admitidos = new Set(["cantabria_donativos_fundaciones_fondo_cantabria_coopera_discapacidad", "murcia_donativos_patrimonio_cultural_actividades", "murcia_donativos_investigacion_biosanitaria", "madrid_condicion_familia_numerosa"])
+    for (const solicitud of decoded.success.solicitudes) {
+      const codigo = "codigo" in solicitud ? solicitud.codigo : solicitud.hechos.codigo
+      exigir(codigo !== "madrid_familias_dos_descendientes_ingresos_reducidos", "Art14 Madrid:secuencia completa con deducciones generales y bases ajenas pendiente")
+      exigir(admitidos.has(codigo), "Interacción regional con donativos estatales no acotada:" + codigo)
+    }
+  }
   const c = m.caso
   exigir(
     c.anio === 2025 &&
@@ -616,9 +632,11 @@ export function aplicarDeduccionesTerritoriales2025(
           (s.lote === "D51" && "valor" in v))
       ) {
         exigir(!hechos.has(v.id) && (s.lote !== "F-ampliado" || !locales.has(v.id)), "Hecho monetario duplicado: " + v.id)
+        exigir(!operaciones81(m.libroMaternidad81).includes(v.id), "Pago art81 repetido en otro consumidor regional: "+v.id)
         locales.add(v.id)
         for (const campo of ["factura", "documento", "justificante"])
           if (esTexto(v[campo])) {
+            exigir(!operaciones81(m.libroMaternidad81).some(id=>id===v[campo]), "Documento art81 reutilizado en otro consumidor regional")
             const referencia = campo + ":" + v[campo]
             exigir(
               !hechos.has(referencia),
@@ -638,6 +656,7 @@ export function aplicarDeduccionesTerritoriales2025(
     else pagos(hechosConciliables)
     locales.forEach((id) => hechos.add(id))
     switch (s.lote) {
+      case "CYL81": return normalizar(evaluarCuidadoCyl81(s,m))
       case "E38": {
         const resultado = evaluarE38Anual(s,m)
         evaluacionesE38.set(indice,resultado)
@@ -872,13 +891,13 @@ export function aplicarDeduccionesTerritoriales2025(
       return (primera(a) ? 0 : 1) - (primera(b) ? 0 : 1)
     })
     const limitesC36 = limitarCandidatosC36(importesExactos, restriccionesC36, racional(m.cuotaAutonomica.toFixed()))
-    const libro = consumirCuota(racional(m.cuotaAutonomica.toFixed()), orden.map(i => limitesC36.importes[i]))
+    const libro = consumirCuota(racional((m.cuotaAutonomicaResidual ?? m.cuotaAutonomica).toFixed()), orden.map(i => limitesC36.importes[i]))
     const consumo = { ...libro, aplicaciones: importesExactos.map((_, indice) => libro.aplicaciones[orden.indexOf(indice)]) }
     return { consumo, limitesC36 }
   }
   const { consumo, limitesC36 } = evaluacionesF.length === 0
     ? consumirExistente()
-    : { consumo: consumirCuotaAnualF2025(racional(m.cuotaAutonomica.toFixed()), codigos, importes), limitesC36: undefined }
+    : { consumo: consumirCuotaAnualF2025(racional((m.cuotaAutonomicaResidual ?? m.cuotaAutonomica).toFixed()), codigos, importes, racional(m.cuotaAutonomica.toFixed())), limitesC36: undefined }
   const ampliacion: ResultadoSaldosE38 = {}
   if(evaluacionesE38.size>0){
     const aplicacionesE38 = consumo.aplicaciones.map((aplicacion) => {
@@ -902,5 +921,6 @@ export function aplicarDeduccionesTerritoriales2025(
   }
   const salida: typeof salidaBase & { limitesC36?: typeof limitesC36 } = salidaBase
   if (planC36.length > 0 && limitesC36 !== undefined) salida.limitesC36 = limitesC36
-  return salida
+  if (m.donativosEstatales === undefined) return salida
+  return { ...salida, donativosEstatales2025: m.donativosEstatales }
 }

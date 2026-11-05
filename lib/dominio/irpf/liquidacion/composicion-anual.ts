@@ -1,5 +1,10 @@
+import type { HechosMaternidad2025 } from "../maternidad-2025/contrato"
+import { producirMaternidad81 } from "../maternidad-2025/producir"
+import { motivoPagoReutilizado81 } from "../maternidad-2025/combinacion"
 import { usaPrecisionD51 } from "../deducciones/d51-anual"
 import { RechazoAragonAnual } from "../deducciones/aragon-dos-anual-error"
+import { atribuirIngresosIdentificados2025, type PreparacionIngresos2025 } from "../ingresos-identificados-2025/productor"
+import { producirDonativosEstatales2025, DonativoNoSoportado, eurosDonativos, type LibroDonativosEstatales2025 } from "../deducciones/donativos-estatales-2025/productor"
 import { esAmbitoCuotasTerritorialesOpen2025 } from "../cuotas/politica-cuotas-open-2025"
 import { producirNodosFiscalesB2025 } from "../deducciones/b-ampliado-anual-2025/productores"
 import { SolicitudDeduccionesTerritoriales2025 } from "../deducciones/anual-territorial"
@@ -52,6 +57,7 @@ export type PoliticaAnual =
   | "open-cuotas-empleo-madrid-2018-2024"
 /** Contrato interno: bases ya integradas en EUR Decimal; jamás reconstruye cotizaciones. */
 export interface EntradaComposicionAnual {
+  readonly ingresosIdentificados2025?: PreparacionIngresos2025 | undefined
   readonly rentaActividadAnualB?: Decimal | undefined
   readonly origenBaseGeneralB?: "solo-trabajo" | "solo-actividad" | undefined
   readonly rentasTrabajoAnuales?:
@@ -63,6 +69,7 @@ export interface EntradaComposicionAnual {
   readonly deduccionesTerritoriales2025?:
     | SolicitudDeduccionesTerritoriales2025
     | undefined
+  readonly maternidad2025?: HechosMaternidad2025 | undefined
   readonly ambito: Pick<
     CasoFiscalAnual,
     | "contribuyenteId"
@@ -87,7 +94,7 @@ export interface EntradaComposicionAnual {
   readonly deduccionesValencianas2025?:
     | SolicitudDeduccionesValencianasAnual2025
     | undefined
-  readonly serviciosLaborales?: { readonly bruto: Decimal } | undefined
+  readonly serviciosLaborales?: { readonly bruto: Decimal; readonly netoReducido?: Decimal | undefined; readonly otrasRentas?: Decimal | undefined } | undefined
 }
 const errorDerechosMinimos = ({
   motivo,
@@ -110,10 +117,16 @@ export const cuantizarAnual = (
 export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
   function* (entrada: EntradaComposicionAnual) {
     const ampliaF = entrada.deduccionesTerritoriales2025?.solicitudes.some((s) => s.lote === "F-ampliado") === true
-    const A = Decimal.clone({ precision: ampliaF || usaPrecisionD51(entrada.deduccionesTerritoriales2025) ? 80 : entrada.precision })
+    const A = Decimal.clone({ precision: ampliaF || usaPrecisionD51(entrada.deduccionesTerritoriales2025) || entrada.deduccionesTerritoriales2025?.donativosEstatales2025 !== undefined ? 80 : entrada.precision })
     const caso = entrada.ambito
     const baseLiquidableGeneral = A.max(0, entrada.baseGeneral)
     const baseLiquidableAhorro = new A(entrada.baseAhorro)
+    const atribucionIngresos = entrada.ingresosIdentificados2025 === undefined
+      ? undefined
+      : atribuirIngresosIdentificados2025(entrada.ingresosIdentificados2025, entrada.baseGeneral, baseLiquidableGeneral)
+    if (atribucionIngresos?.estado === "no_soportado")
+      return yield* Effect.fail(errorDerechosMinimos(atribucionIngresos))
+    const libroIngresosIdentificados2025 = atribucionIngresos?.libro
     const minimosEstatales = entrada.minimosEstatales
     const cuantizar = (importe: Decimal) =>
       cuantizarAnual(importe, entrada.politica)
@@ -398,6 +411,21 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
     const cuotaAutonomicaDisponible = cuotaAutonomicaGeneralDespuesMinimo.plus(
       ahorroConMinimos.autonomico.despuesMinimo
     )
+    let libroDonativos: LibroDonativosEstatales2025 | undefined
+    const donativos = entrada.deduccionesTerritoriales2025?.donativosEstatales2025
+    if (donativos !== undefined) {
+      if (!["cantabria", "murcia", "madrid"].includes(caso.comunidadAutonoma))
+        return yield* Effect.fail(errorDerechosMinimos({ motivo: "Primera conexión donativos acotada a Cantabria/Murcia y comprobación de topes íntegros Madrid;otras interacciones territoriales pendientes" }))
+      if (caso.anio !== 2025 || caso.situacionFamiliar.tipo !== "individual" || caso.fechaFallecimiento !== undefined || caso.contribuyenteId === undefined)
+        return yield* Effect.fail(errorDerechosMinimos({ motivo: "Donativos estatales:2025 individual ordinaria con identidad" }))
+      libroDonativos = yield* Effect.try({
+        try: () => producirDonativosEstatales2025(donativos, { contribuyente: caso.contribuyenteId!, baseLiquidableGeneral, baseLiquidableAhorro,
+          cuotaEstatal: cuotaEstatalDespuesMinimo.plus(ahorroConMinimos.estatal.despuesMinimo), cuotaAutonomica: cuotaAutonomicaDisponible }),
+        catch: (e) => errorDerechosMinimos({ motivo: Schema.is(DonativoNoSoportado)(e) ? e.siguienteHecho + ":" + e.motivo : "Productor donativos no componible" }),
+      })
+    }
+    const deduccionesGeneralesDonativosAplicadas = libroDonativos === undefined ? new A(0) : new A(eurosDonativos(libroDonativos.aplicado))
+    const cuotaAutonomicaResidual = libroDonativos === undefined ? cuotaAutonomicaDisponible : new A(eurosDonativos(libroDonativos.autonomica.disponible))
     let deduccionesValencianas2025:
       | ResultadoCuotaConjuntaValenciana2025<string>
       | undefined
@@ -628,6 +656,15 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
           },
         })
     }
+    const nodosFiscalesB2025 = caso.anio === 2025 && caso.contribuyenteId !== undefined ? producirNodosFiscalesB2025(caso.contribuyenteId, baseLiquidableGeneral, cuotaEstatalDespuesMinimo, cuotaAutonomicaGeneralDespuesMinimo, entrada.origenBaseGeneralB) : undefined
+    const solicitudMaternidad81 = entrada.maternidad2025
+    const libroMaternidad81 = solicitudMaternidad81 === undefined ? undefined : yield* Effect.try({
+      try: () => producirMaternidad81(solicitudMaternidad81, caso, derechosEstatales?.atribuciones.map(a=>a.sujetoId)??[]),
+      catch: (error) => errorDerechosMinimos({motivo: String(error)}),
+    })
+    const cruceMonetario81 = motivoPagoReutilizado81(libroMaternidad81, libroDonativos)
+    if (cruceMonetario81 !== undefined)
+      return yield* Effect.fail(errorDerechosMinimos({ motivo: cruceMonetario81 }))
     let deduccionesTerritoriales2025:
       | ReturnType<typeof aplicarDeduccionesTerritoriales2025>
       | undefined
@@ -647,7 +684,9 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
         try: () =>
           aplicarDeduccionesTerritoriales2025(solicitud, {
             caso,
+            libroMaternidad81,
             basesImponiblesE38: entrada.basesImponiblesE38,
+            libroIngresosIdentificados2025,
             baseGeneral: entrada.baseGeneral,
             baseAhorro: entrada.baseAhorro,
             minimoPersonalFamiliar: minimoPersonalYFamiliar,
@@ -660,7 +699,9 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
               descendientes: minimoDescendientes,
             },
             cuotaAutonomica: cuotaAutonomicaDisponible,
-            nodosFiscalesB2025: caso.anio === 2025 && caso.contribuyenteId !== undefined ? producirNodosFiscalesB2025(caso.contribuyenteId, baseLiquidableGeneral, cuotaEstatalDespuesMinimo, cuotaAutonomicaGeneralDespuesMinimo, entrada.origenBaseGeneralB) : undefined,
+            cuotaAutonomicaResidual,
+            donativosEstatales: libroDonativos,
+            nodosFiscalesB2025,
             rentasTrabajoAnuales: entrada.rentasTrabajoAnuales,
             rentaNoExentaAntesReduccionesB: entrada.rentasAntesReducciones,
             rentaActividadAnualB: entrada.rentaActividadAnualB,
@@ -706,6 +747,7 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
       cuotaGeneralDespuesMinimo
         .plus(cuotaAhorroDespuesMinimo)
         .minus(deduccionesAutonomicasAplicadas)
+        .minus(deduccionesGeneralesDonativosAplicadas)
     )
     if (
       entrada.serviciosLaborales !== undefined &&
@@ -727,8 +769,8 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
         ambito: "comun-individual",
         ejercicio: 2025,
         brutoServicios: entrada.serviciosLaborales.bruto.toFixed(),
-        otrasRentasNoExentas: "0",
-        netoReducidoServicios: baseLiquidableGeneral.toFixed(),
+        otrasRentasNoExentas: entrada.serviciosLaborales.otrasRentas?.toFixed() ?? "0",
+        netoReducidoServicios: entrada.serviciosLaborales.netoReducido?.toFixed() ?? baseLiquidableGeneral.toFixed(),
         baseLiquidableGeneral: baseLiquidableGeneral.toFixed(),
         cuotaIntegraGeneral: cuotaLiquida.toFixed(),
         cuotaLiquidaTotal: cuotaLiquida.toFixed(),
@@ -748,6 +790,10 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
     }
     const cuotaPosterior = cuotaLiquida.minus(deduccionTrabajo)
     return {
+      libroIngresosIdentificados2025,
+      nodosFiscalesB2025,
+      deduccionesGeneralesDonativosAplicadas,
+      libroMaternidad81,
       deduccionesTerritoriales2025,
       deduccionesValencianas2025,
       cuotaAutonomicaDisponible,

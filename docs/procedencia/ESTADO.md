@@ -1,5 +1,15 @@
 # Estado de la auditoría documental
 
+## Productores ELA, donativos y maternidad, 5 de noviembre
+
+La corrección del inventario está publicada en `7cab893b012b6b83e0a05ffabd90c9dd40690a00`, con ambos trabajos remotos verdes en la [ejecución 41983334173](https://github.com/eliesgalvira/IRoboPF/actions/runs/41983334173). Se retiraron seis entregas territoriales ya publicadas, preservando 604 archivos únicos y sus manifiestos en archivos compactos. Medición tras la retirada: 98,06 GB de IRoboPF y 315,47 GB libres.
+
+Se integran los productores revisados de ingresos ELA de Asturias, donativos estatales dinerarios y maternidad/guardería, con consumidor de Castilla y León. Las dos API conservan cuota única, prioridades y precisión interna. ELA y donativos tienen revisión favorable acotada; la revisión de maternidad detectó un rechazo indebido por confundir clases de identificadores y una cita incorrecta. Ambos están corregidos. El cierre focal pasa 310 pruebas en 13 archivos, tipos estrictos/Effect y linters; dos hipótesis sin fundamento suficiente quedan apartadas. Los 694 controles previos se conservan sin sumarlos como ejecuciones nuevas. Véase [integración y límites](productores-anuales-20261105/INTEGRACION.md). Inventario regenerado y 31 pasos completos del workflow correctos en entorno limpio; véase [CI del corte](productores-anuales-20261105/CI.md). La comprobación remota corresponde al push posterior.
+
+ELA+artículo 81 y Castilla y León+donativos conservan rechazos expresos. La identidad documental declarada no autentica los hechos externos. Las deducciones de 2025 siguen abiertas: alquileres identificados, dos auxiliares territoriales y patrimonio para vivienda riojana tienen candidatos privados todavía sin validación pesada ni revisión monetaria. Se reservan los recursos para terminar primero el CI de esta integración.
+
+El histórico conserva 848 capturas y siete pilotos cotejados; las otras 841 no se cuentan como coincidencias. El preflight de las primeras 61 capturas de 2018 valida evidencias y entradas sin ejecutar el motor. La comparación ampliada se ejecutará con la raíz estable después de esta integración. El error de seed1 de 2022 y la guardia de presión de memoria permanecen conservados, sin reintento automático.
+
 ## Corrección del CI y continuación de producto, 5 de noviembre
 
 El corte territorial se publicó en `3bcec2b08cb1cc21292ca41851d73df4f3c28f19`. Su trabajo remoto `corpus` pasó, pero `checks` agotó dos límites de tiempo del inventario. La reproducción local posterior detectó además un pico de memoria. Este corte separa las etapas del generador y acota las copias temporales de sus pruebas; conserva byte a byte los 686 archivos de datos del artefacto. La reproducción completa y sus mediciones figuran en [TIEMPOS-INVENTARIO.md](revisiones/territorial-historico-ci-20261105/TIEMPOS-INVENTARIO.md); el resultado remoto se comprueba después de publicar esta corrección.

@@ -1,3 +1,5 @@
+import { CensoIngresosIdentificados2025 } from "../ingresos-identificados-2025/contrato"
+import { HechosMaternidad2025 } from "../maternidad-2025/contrato"
 import { SolicitudDeduccionesTerritoriales2025 } from "../deducciones/anual-territorial"
 import { Schema } from "effect"
 import { SolicitudDeduccionesValencianasAnual2025 } from "../deducciones/valenciana-2025/anual"
@@ -10,6 +12,7 @@ import { CasoActividad2025 } from "../actividades-economicas/contrato"
 
 const Procedencia = Schema.String.check(Schema.isPattern(/\S/))
 const Alcance = {
+  maternidad2025: Schema.optional(HechosMaternidad2025),
   deduccionesTerritoriales2025: Schema.optional(
     SolicitudDeduccionesTerritoriales2025
   ),
@@ -53,6 +56,7 @@ const CasosTrabajoHistorico = (
 ).map((ejercicio) =>
   Schema.Struct({
     ...Alcance,
+    maternidad2025: Schema.optional(Schema.Never),
     contribuyenteId: Schema.optional(Schema.Never),
     deduccionesTerritoriales2025: Schema.optional(Schema.Never),
     deduccionesValencianas2025: Schema.optional(Schema.Never),
@@ -91,6 +95,35 @@ export const CasoFiscalAnualExplicito = Schema.Union([
   Schema.Struct({
     ...Alcance,
     perfil: Schema.Literal("solo-trabajo"),
+    trabajo: GastosTrabajo,
+    conciliacion: Schema.Struct({
+      contribuyenteId: Schema.optional(Schema.String),
+      deduccionesValencianas2025: Schema.optional(
+        SolicitudDeduccionesValencianasAnual2025
+      ),
+      ejercicio: Schema.Literal(2025),
+      estado: Schema.Literal("totales-anuales-sin-duplicados"),
+      procedencia: Schema.Array(Procedencia).check(Schema.isMinLength(1)),
+    }),
+    retenciones: Schema.Array(
+      Schema.Struct({
+        operacionId: Procedencia,
+        procedencia: Procedencia,
+        contribuyenteId: Schema.optional(Schema.String),
+        deduccionesValencianas2025: Schema.optional(
+          SolicitudDeduccionesValencianasAnual2025
+        ),
+        ejercicio: Schema.Literal(2025),
+        importe: Euros,
+        efectiva: Schema.Literal(true),
+      })
+    ),
+  }),
+  Schema.Struct({
+    ...Alcance,
+    otrasRentas: Schema.Literal("solo-ingresos-identificados"),
+    ingresosIdentificados2025: CensoIngresosIdentificados2025,
+    perfil: Schema.Literal("trabajo-y-ayudas-ela"),
     trabajo: GastosTrabajo,
     conciliacion: Schema.Struct({
       contribuyenteId: Schema.optional(Schema.String),

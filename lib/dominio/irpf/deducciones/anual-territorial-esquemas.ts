@@ -1,3 +1,4 @@
+import { SolicitudCuidadoCyl81 } from "../maternidad-2025/contrato"
 import { SolicitudD51 } from "./d51-anual-esquemas"
 import { SolicitudAnualC36 } from "./canarias-balears-hechos-2025/anual-esquemas"
 import { SolicitudAragonDosAnual2025 } from "./aragon-dos-anual-esquemas"
@@ -7,9 +8,12 @@ import { Schema } from "effect"
 import { SolicitudE38Anual2025 } from "./galicia-rioja-ampliacion-2025/anual-esquemas"
 import { SolicitudAnualF2025 } from "./territorial-f-ampliacion-2025/anual-esquemas"
 import { SolicitudAmpliacionAnualA2025 } from "./ampliacion-a-anual-esquemas"
+import { SolicitudDonativosEstatales2025 } from "./donativos-estatales-2025/esquemas"
 export const SolicitudDeduccionesTerritoriales2025 = Schema.Struct({
+  donativosEstatales2025: Schema.optionalKey(SolicitudDonativosEstatales2025),
   solicitudes: Schema.Array(
     Schema.Union([
+      SolicitudCuidadoCyl81,
       SolicitudE38Anual2025,
       SolicitudD51,
       SolicitudAnualF2025,
