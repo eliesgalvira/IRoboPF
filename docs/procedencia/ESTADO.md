@@ -1,5 +1,27 @@
 # Estado de la auditoría documental
 
+## Primer alquiler, ayudas ELA, vehículo y artículo 68.1 · 5 de noviembre
+
+El corte conecta primer alquiler de Canarias/Baleares, ayudas ELA de Galicia/Extremadura, vehículo eléctrico DA58 con movilidad de Castilla y León e inversión estatal 68.1 con Aragón. Cada rama conserva sus contratos y rechazos concretos. Las deducciones de 2025 siguen abiertas; nacimiento múltiple y adopción balear tienen una preparación posterior todavía sin validación ni revisión.
+
+P4b tiene primera revisión, 80 focales y 492 pruebas aprobadas en sus regresiones; dos suites antiguas no recogen por una frontera retirada, conservadas como fallo. ELA tiene primera revisión y corrección de dependencia de Decimal global: 306 focales incluidas en 1.166 pruebas aprobadas, con la misma reserva de colección r43. Tipos y ambos linters pasan en ambos candidatos. No se suman las ejecuciones superpuestas.
+
+DA58 tiene 407 pruebas de autor y dictamen favorable de 50 independientes más 162 regresiones focales. El artículo 68.1 tiene 297 pruebas del integrador; la revisión inicial detectó el rechazo indebido de certificados posteriores al ejercicio y la corrección conserva la acreditación de 2025 y sus identidades. El contraste grave del certificado es favorable, con 236 pruebas que incluyen 17 adversas nuevas; el CI completo del corte se registra antes de publicar.
+
+La preparación monetaria utiliza un contexto Decimal propio de 80 cifras para que la configuración global de un consumidor no trunque cotizaciones, rendimientos o bases antes de la composición común. Esto no introduce una regla de redondeo de cotizaciones ni altera las etapas observadas de Open 2018. El inventario y las huellas técnicas se regeneran con las fuentes integradas, sin promover aceptación documental.
+
+Alcances: [P4b](inmobiliario-p4b-20261105/INTEGRACION.md), [ELA regional](ela-regiones-20261105/INTEGRACION.md), [DA58](deducciones-2025/vehiculo-da58-20261105/ALCANCE.md) y [68.1](deducciones-2025/producto-681-aragon/ALCANCE.md). Los apartados posteriores documentan el estado de cada corte anterior.
+
+## Cotejo corregido de 2018 y publicación comprobada, 5 de noviembre
+
+Publicado `218c23d6c7831350b3592e5335dde4445352a281`: patrimonio riojano P5a y etapas monetarias acotadas de Open 2018. Los 31 comandos locales y ambos trabajos del [CI remoto](https://github.com/eliesgalvira/IRoboPF/actions/runs/42026731157) pasan.
+
+La [repetición de las 60 entradas de 2018](simuladores/historico/RECOMPARACION-2018-60.md) termina con 717 coincidencias condicionadas, cero diferencias, tres ausencias y 120 mapeos reservados. Su [revisión independiente](simuladores/historico/REVISION-RECUENTO-2018-60.md) confirma identidades, recibos y conservación del rojo anterior. Los 28 testigos y el piloto no se suman como casos nuevos. Quedan 909 capturas disponibles; las no cotejadas no se cuentan como coincidencias.
+
+Se retiraron siete entregas integradas y un árbol temporal vacío, tras conservar y cotejar sus 579 archivos en un archivo compacto. Medición posterior: 98,32 GB en las cuatro raíces y 314,68 GB libres. El punto 4 sigue abierto: primer alquiler de Canarias/Baleares, ELA regional y vehículo eléctrico son los siguientes candidatos, todavía sin publicación.
+
+Los apartados siguientes conservan los cortes anteriores y sus pendientes de entonces.
+
 ## Integración de patrimonio riojano y etapas de Open 2018, 5 de noviembre
 
 P4a está publicado en `9bac679032fd9cbfc492fc150acfea0c0fcdb9a2`, con los trabajos remotos correctos en la [ejecución 42016528631](https://github.com/eliesgalvira/IRoboPF/actions/runs/42016528631). Se retiraron sus seis recepciones tras conservarlas en un archivo verificado. La última medida de las cuatro raíces fue 98,32 GB, con 314,74 GB libres.

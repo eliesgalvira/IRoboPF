@@ -1,4 +1,4 @@
-import Decimal from "decimal.js"
+import { DecimalMonetario as Decimal } from "../../dinero/decimal-monetario"
 import { Array as EffectArray } from "effect"
 
 import { calcularDesgloseCotizacionesPerfilUniforme } from "../../laboral/cotizaciones-perfil-uniforme"
@@ -23,17 +23,18 @@ export const calcularRendimientoNetoTrabajo = ({
   readonly rendimientoIntegro: Decimal
   readonly cotizacionTrabajador?: Decimal
 }): RendimientoNetoTrabajo => {
+  const integro = new Decimal(rendimientoIntegro)
   const cotizacionAplicada =
     cotizacionTrabajador ??
     calcularDesgloseCotizacionesPerfilUniforme({
       anio,
-      salarioBrutoAnual: rendimientoIntegro,
+      salarioBrutoAnual: integro,
     }).cotizacionTrabajador
-  const rendimientoPrevioNeto = rendimientoIntegro.minus(cotizacionAplicada)
+  const rendimientoPrevioNeto = integro.minus(cotizacionAplicada)
   const gastosDeducibles = GASTOS_FIJOS_IRPF_LEGACY[anio]
 
   return {
-    rendimientoIntegro,
+    rendimientoIntegro: integro,
     cotizacionTrabajador: cotizacionAplicada,
     rendimientoPrevioNeto,
     gastosDeducibles,

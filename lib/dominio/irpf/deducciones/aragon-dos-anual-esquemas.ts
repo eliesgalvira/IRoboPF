@@ -1,3 +1,4 @@
+import { HechosEstatales681 } from "./inversion-681-2025"
 import { Schema } from "effect"
 import { SolicitudInversionAragonesa2025, SolicitudArrendadorSocial2025 } from "./aragon-dos-codigos-2025"
 
@@ -9,6 +10,7 @@ export const InversionAragonesaAnual2025 = Schema.Struct({
   censoInversionesEstatales2025: SolicitudInversionAragonesa2025.fields.censoInversionesEstatales2025,
   inversiones: SolicitudInversionAragonesa2025.fields.inversiones,
   reinversion: SolicitudInversionAragonesa2025.fields.reinversion,
+  estatal681: Schema.optionalKey(HechosEstatales681),
  }),
 })
 export const ArrendadorSocialAnual2025 = Schema.Struct({

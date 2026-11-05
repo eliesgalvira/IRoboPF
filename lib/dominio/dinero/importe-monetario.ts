@@ -1,11 +1,12 @@
-import Decimal from "decimal.js"
+import { DecimalMonetario as Decimal } from "./decimal-monetario"
+import type DecimalEntrada from "decimal.js"
 import { Context, Effect, Layer } from "effect"
 
 import { redondearHalfUp, truncarDecimal } from "./redondeo"
 
 export type ImporteMonetario = Decimal
 
-export const crearImporteMonetario = (valor: Decimal.Value): ImporteMonetario =>
+export const crearImporteMonetario = (valor: DecimalEntrada.Value): ImporteMonetario =>
   new Decimal(valor)
 
 // Constantes Decimal compartidas para evitar mezclar literales `number` en
@@ -18,7 +19,7 @@ export const centimosAEuros = (centimos: number): ImporteMonetario =>
 
 export const redondearImporteLiquidado = (
   euros: ImporteMonetario
-): ImporteMonetario => redondearHalfUp(euros, 2)
+): ImporteMonetario => redondearHalfUp(new Decimal(euros), 2)
 
 export const eurosACentimos = (euros: ImporteMonetario): number =>
   redondearImporteLiquidado(euros).mul(100).toNumber()

@@ -12,7 +12,13 @@ const decimal = (x: ExactoP4a) => new D(x.n.toString()).div(x.d.toString())
 export const liquidarInmobiliarioP4a = Effect.fn("P4a.liquidar")(function* (entrada: CasoInmobiliarioP4a) {
   const producido = yield* producirInmueblesP4a(entrada)
   const { caso, inmuebles } = producido
-  const cero = new D(0), netoReducido = decimal(producido.netoReducido)
+  // Sumar en racional antes de la única conversión: dos cocientes redondeados
+  // separadamente pueden alterar la octogésima cifra de la base compuesta.
+  const conImputacion = (r: ExactoP4a) => decimal({
+    n: r.n * producido.imputacion.d + producido.imputacion.n * r.d,
+    d: r.d * producido.imputacion.d,
+  })
+  const cero = new D(0), netoReducido = conImputacion(producido.netoReducido), rentaAntes = conImputacion(producido.neto)
   const composicion = yield* componerLiquidacionAnual({
     inmueblesP4a: inmuebles,
     ambito: {
@@ -25,8 +31,8 @@ export const liquidarInmobiliarioP4a = Effect.fn("P4a.liquidar")(function* (entr
     baseGeneral: D.max(0, netoReducido),
     basesImponiblesE38: { general: netoReducido, ahorro: cero },
     baseAhorro: cero,
-    rentasAntesReducciones: decimal(producido.neto),
-    rentasTrabajoAnuales: { integroTrabajo: cero, restoRentas: decimal(producido.neto) },
+    rentasAntesReducciones: rentaAntes,
+    rentasTrabajoAnuales: { integroTrabajo: cero, restoRentas: rentaAntes },
     minimosEstatales: MINIMOS_ESTATALES_2025,
     deduccionesAutonomicasCentimos: 0,
     deduccionesTerritoriales2025: caso.deduccionesTerritoriales2025,
@@ -39,6 +45,8 @@ export const liquidarInmobiliarioP4a = Effect.fn("P4a.liquidar")(function* (entr
     contribuyenteId: caso.contribuyenteId,
     ejercicio: 2025 as const,
     inmuebles,
+    imputacion: producido.imputacion,
+    seguimiento: inmuebles.flatMap(x => x.seguimiento),
     netoAntesReducciones: producido.neto,
     netoReducido: producido.netoReducido,
     reduccionArt20: cero,

@@ -1,3 +1,5 @@
+import { dia } from "./calendario"
+import { validarPrimerAlquiler2025 } from "./primer-alquiler"
 import { Effect, Result, Schema } from "effect"
 import { CasoInmobiliarioP4a, RechazoP4a, type InmuebleP4a } from "./contrato"
 
@@ -10,17 +12,6 @@ const por = (a: ExactoP4a, n: bigint, d = 1n) => q(a.n * n, a.d * d)
 const menor = (a: ExactoP4a, b: ExactoP4a) => a.n * b.d <= b.n * a.d ? a : b
 const dinero = (s: string) => { const [a = "0", b = ""] = s.split("."); return q(BigInt(a + b.padEnd(2, "0")), 100n) }
 const total = (xs: readonly ExactoP4a[]) => xs.reduce(sumar, q(0n))
-/** Calendario gregoriano puro: no consulta reloj ni Date global. */
-function dia(s: string): number {
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(s)) return NaN
-  const y = Number(s.slice(0, 4)), m = Number(s.slice(5, 7)), d = Number(s.slice(8, 10))
-  const bisiesto = y % 4 === 0 && (y % 100 !== 0 || y % 400 === 0)
-  const meses = [31, bisiesto ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-  const limite = meses[m - 1]
-  if (y < 1 || limite === undefined || d < 1 || d > limite) return NaN
-  const previo = y - 1
-  return 365 * previo + Math.floor(previo / 4) - Math.floor(previo / 100) + Math.floor(previo / 400) + meses.slice(0, m - 1).reduce((a, b) => a + b, 0) + d
-}
 export interface ResultadoInmuebleP4a {
   readonly inmueble: InmuebleP4a
   readonly categoria: "capital_inmobiliario"
@@ -32,6 +23,10 @@ export interface ResultadoInmuebleP4a {
   readonly neto: ExactoP4a
   readonly reduccion: ExactoP4a
   readonly netoReducido: ExactoP4a
+  readonly imputacion: ExactoP4a
+  readonly diasAlquilados: number
+  readonly diasImputados: number
+  readonly seguimiento: readonly string[]
   readonly regimen: "DT38-60" | "art23-50"
 }
 const producirInmueble = Effect.fn("P4a.inmueble")(function* (v: InmuebleP4a) {
@@ -39,6 +34,12 @@ const producirInmueble = Effect.fn("P4a.inmueble")(function* (v: InmuebleP4a) {
   const c = v.contrato, a = v.adquisicion
   if (v.titulares.length !== 1 || v.titulares[0] !== v.titular || c.arrendador !== v.titular || c.arrendatario === v.titular)
     return yield* fallo("identidad", "título pleno exclusivo y contrato incompatibles")
+  const primer = v.primerAlquiler2025
+  const temporal = primer === undefined ? undefined : yield* Effect.try({
+    try: () => validarPrimerAlquiler2025(v),
+    catch: e => fallo("historia", e instanceof RangeError ? e.message : "Hechos P4b incompletos"),
+  })
+  if (primer === undefined) {
   if (![a.fecha, c.firma, c.desde, c.hasta].every(s => Number.isFinite(dia(s))) || a.fecha > "2025-01-01" || c.firma > c.desde || c.desde !== "2025-01-01" || c.hasta < "2025-12-31")
     return yield* fallo("contrato", "requiere adquisición anterior a2025 y contrato único vigente todo2025")
   let siguiente = dia(a.fecha)
@@ -51,6 +52,10 @@ const producirInmueble = Effect.fn("P4a.inmueble")(function* (v: InmuebleP4a) {
   }
   if (siguiente !== dia("2026-01-01") || !v.usosDesdeAdquisicion.some(u => u.uso === "alquiler-vivienda"))
     return yield* fallo("dias", "falta uso exhaustivo hasta devengo")
+  }
+  const diasAlquilados = temporal?.diasAlquilados ?? 365
+  const diasImputados = temporal?.diasImputados ?? 0
+  const imputacion = por(sumar(dinero(v.catastro2025.suelo), dinero(v.catastro2025.construccion)), BigInt(diasImputados) * BigInt(temporal?.tipoMilesimas ?? 0), 365000n)
   if (dinero(c.repercusionObras).n !== 0n)
     return yield* fallo("contrato", "repercusión de obras requiere conciliación adicional de ingresos")
   const fechas = [...v.exigibilidades.map(x => x.fecha), ...v.gastos.flatMap(x => [x.fechaOperacion, x.fechaFactura, x.fechaPago])]
@@ -70,7 +75,7 @@ const producirInmueble = Effect.fn("P4a.inmueble")(function* (v: InmuebleP4a) {
       return yield* fallo("gasto", "mejora sin puesta en servicio dentro de2025")
   }
   const eventos = mejoras.map(g => ({ dia: dia(g.puestaEnServicio ?? ""), coste: dinero(g.importe) })).sort((x, y) => x.dia - y.dia)
-  let costeVigente = coste, inicio = dia("2025-01-01"), amortizacion = q(0n)
+  let costeVigente = coste, inicio = dia(temporal === undefined ? "2025-01-01" : c.desde), amortizacion = q(0n)
   const tramo = (fin: number) => {
     const catastro = dinero(v.catastro2025.construccion)
     const base = costeVigente.n * catastro.d >= catastro.n * costeVigente.d ? costeVigente : catastro
@@ -84,18 +89,25 @@ const producirInmueble = Effect.fn("P4a.inmueble")(function* (v: InmuebleP4a) {
   tramo(dia("2026-01-01"))
   amortizacion = menor(costeVigente, amortizacion)
   const neto = restar(restar(restar(integro, gastosLimitados), otrosGastos), amortizacion)
+  if (primer !== undefined && (neto.n < 0n || restar(limitables, gastosLimitados).n > 0n))
+    return yield* fallo("gasto", "P4b: pérdidas o exceso de gastos con arrastre requieren productor posterior")
   const regimen = c.firma < "2023-05-26" ? "DT38-60" : "art23-50"
   const reduccion = neto.n > 0n ? por(neto, regimen === "DT38-60" ? 60n : 50n, 100n) : q(0n)
-  return { inmueble: v, categoria: "capital_inmobiliario", integro, gastosLimitados, excesoNoAplicado: restar(limitables, gastosLimitados), otrosGastos, amortizacion, neto, reduccion, netoReducido: restar(neto, reduccion), regimen } satisfies ResultadoInmuebleP4a
+  return { imputacion, diasAlquilados, diasImputados, seguimiento: temporal?.seguimiento ?? [], inmueble: v, categoria: "capital_inmobiliario", integro, gastosLimitados, excesoNoAplicado: restar(limitables, gastosLimitados), otrosGastos, amortizacion, neto, reduccion, netoReducido: restar(neto, reduccion), regimen } satisfies ResultadoInmuebleP4a
 })
 
 export const producirInmueblesP4a = Effect.fn("P4a.producir")(function* (entrada: CasoInmobiliarioP4a | Schema.Json) {
   const decoded = Schema.decodeUnknownResult(CasoInmobiliarioP4a)(entrada, { onExcessProperty: "error" })
   if (Result.isFailure(decoded)) return yield* new RechazoP4a({ codigo: "entrada", motivo: "Perfil P4a fuera del esquema cerrado: " + String(decoded.failure) })
   const caso = decoded.success
-  const codigoAdmitido = caso.comunidadAutonoma === "canarias" ? "canarias_adecuacion_inmueble_arrendamiento" : "balears_mejora_sostenibilidad_vivienda"
+  const esPrimerAlquiler = caso.inmuebles.some(v => v.primerAlquiler2025 !== undefined)
+  if (esPrimerAlquiler && (caso.inmuebles.length !== 1 || caso.inmuebles[0]?.primerAlquiler2025 === undefined))
+    return yield* new RechazoP4a({ codigo: "entrada", motivo: "P4b limitado a una vivienda y sin mezcla con P4a" })
+  const codigoAdmitido = caso.comunidadAutonoma === "canarias"
+    ? (esPrimerAlquiler ? "canarias_puesta_viviendas_mercado_arrendamiento" : "canarias_adecuacion_inmueble_arrendamiento")
+    : (esPrimerAlquiler ? "balears_arrendador_vivienda_permanente_otros_gastos" : "balears_mejora_sostenibilidad_vivienda")
   if (caso.deduccionesTerritoriales2025 !== undefined && caso.deduccionesTerritoriales2025.solicitudes.some(s => s.lote !== "C36" || s.codigo !== codigoAdmitido))
-    return yield* new RechazoP4a({ codigo: "entrada", motivo: "P4a conecta exclusivamente su consumidor regional; combinaciones pendientes" })
+    return yield* new RechazoP4a({ codigo: "entrada", motivo: "Perfil inmobiliario conecta exclusivamente su consumidor regional; combinaciones pendientes" })
   const ids = caso.inmuebles.map(v => v.id), catastros = caso.inmuebles.map(v => v.catastro)
   const documentos = caso.inmuebles.flatMap(v => v.exigibilidades.map(x => x.documento))
   const operaciones = [...caso.inmuebles.flatMap(v => [...v.exigibilidades.map(x => x.id), ...v.gastos.map(x => x.id)]), ...caso.retenciones.map(x => x.id)]
@@ -120,6 +132,10 @@ export const producirInmueblesP4a = Effect.fn("P4a.producir")(function* (entrada
     return yield* new RechazoP4a({ codigo: "identidad", motivo: "Titular distinto del contribuyente" })
   if (caso.retenciones.some(x => !Number.isFinite(dia(x.fecha)) || x.fecha < "2025-01-01" || x.fecha > "2025-12-31"))
     return yield* new RechazoP4a({ codigo: "entrada", motivo: "Retención fuera del ejercicio" })
+  if (caso.inmuebles.some(v => {
+    const nacimiento = v.primerAlquiler2025?.historiaPersonal.nacimiento
+    return nacimiento !== undefined && 2025 - Number(nacimiento.slice(0, 4)) !== caso.edad
+  })) return yield* new RechazoP4a({ codigo: "identidad", motivo: "P4b: nacimiento histórico incompatible con edad al devengo" })
   const inmuebles = yield* Effect.forEach(caso.inmuebles, producirInmueble, { concurrency: 1 })
-  return { caso, inmuebles, neto: total(inmuebles.map(x => x.neto)), netoReducido: total(inmuebles.map(x => x.netoReducido)) }
+  return { caso, inmuebles, imputacion: total(inmuebles.map(x => x.imputacion)), neto: total(inmuebles.map(x => x.neto)), netoReducido: total(inmuebles.map(x => x.netoReducido)) }
 })

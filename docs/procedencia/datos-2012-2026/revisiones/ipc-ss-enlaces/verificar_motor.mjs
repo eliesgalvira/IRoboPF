@@ -17,10 +17,34 @@ assert.throws(() => factor({anioBase:2025,anioReferencia:2026}))
 const scenario = factor({anioBase:2025,anioReferencia:2026,escenario:'legacy-diciembre-2026-3pct'})
 assert.equal(scenario.factor.toString(), '1.03')
 assert.equal(scenario.procedencia.estado, 'incluye-escenario')
-for (const s of ['30000','45014.40','45100','45644.40','60000']) {
-  const salary = new Decimal(s)
-  const expected = Decimal.min(salary, new Decimal('3751.20').mul(12)).mul(7)
-    .plus(Decimal.min(salary,new Decimal('3803.70').mul(12)).mul(5)).div(12)
-  assert.equal(cuotas({anio:2018,salarioBrutoAnual:salary}).baseOrdinaria.toString(),expected.toString())
+// Oráculo racional independiente: topes mensuales en céntimos, siete y cinco
+// meses; sólo la representación final usa las 80 cifras del contrato monetario.
+// No se reutiliza Decimal para calcular el esperado ni se redondea a céntimos.
+function racional80(numerador, divisor) {
+  const cifrasEnteras = (numerador / divisor).toString().length
+  const decimales = 80 - cifrasEnteras
+  const escala = 10n ** BigInt(decimales)
+  const redondeado = (2n * numerador * escala + divisor) / (2n * divisor)
+  const entero = redondeado / escala
+  const fraccion = (redondeado % escala).toString().padStart(decimales, '0').replace(/0+$/, '')
+  return entero.toString() + (fraccion ? '.' + fraccion : '')
 }
-console.log(JSON.stringify({paresIpc:count,identidad:1,escenarioExplicito:1,ausenciaObservacion2026:1,bases2018:5,alcance:'aritmética y clasificación; vigencia legal revisada separadamente'}))
+const configuracion = { precision: Decimal.precision, rounding: Decimal.rounding }
+try {
+  for (const precision of [20, 6, 120]) {
+    Decimal.set({ precision, rounding: Decimal.ROUND_DOWN })
+    for (const s of ['30000','45014.40','45100','45644.40','60000']) {
+      const [entero, fraccion = ''] = s.split('.')
+      const centimos = BigInt(entero) * 100n + BigInt(fraccion.padEnd(2, '0'))
+      const primerTope = 375120n * 12n
+      const segundoTope = 380370n * 12n
+      const numerador = (centimos < primerTope ? centimos : primerTope) * 7n
+        + (centimos < segundoTope ? centimos : segundoTope) * 5n
+      const expected = racional80(numerador, 1200n)
+      assert.equal(cuotas({anio:2018,salarioBrutoAnual:new Decimal(s)}).baseOrdinaria.toString(), expected)
+    }
+  }
+} finally {
+  Decimal.set(configuracion)
+}
+console.log(JSON.stringify({paresIpc:count,identidad:1,escenarioExplicito:1,ausenciaObservacion2026:1,bases2018:5,configuracionesDecimal:3,alcance:'aritmética y clasificación; vigencia legal revisada separadamente'}))

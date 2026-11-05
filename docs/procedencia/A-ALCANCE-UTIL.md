@@ -35,9 +35,11 @@ La API efectiva no admite 2026; eso no impide reutilizar las escalas y mínimos
 La corrección histórica de C tiene revisión independiente favorable y resuelve
 las 83 casillas comparables de siete pilotos; mantiene catorce mapeos reservados
 y una ausencia. El primer [bloque ampliado de 2018](simuladores/historico/BLOQUE-2018-60.md)
-compara 60 entradas y encuentra nueve casos discrepantes: ocho en las bases y
-uno con un céntimo de diferencia final. Su investigación sigue abierta; no
-invalida por sí sola la correspondencia documental de los parámetros.
+conserva el rojo de nueve casos discrepantes. Tras publicar la corrección
+acotada en `218c23d6`, la [nueva comparación](simuladores/historico/RECOMPARACION-2018-60.md)
+de esas mismas 60 entradas obtiene 717 coincidencias condicionadas, ninguna
+diferencia, tres ausencias y 120 reservas, con revisión independiente del
+recuento. No amplía por sí sola la acreditación documental de los parámetros.
 La adquisición de capturas históricas no equivale a cotejos monetarios; el
 [estado por año](ESTADO-POR-ANIO.md) conserva el último corte documentado. El
 [dictamen del ajuste](simuladores/historico/REVISION-CUOTAS.md) no sustituye ni

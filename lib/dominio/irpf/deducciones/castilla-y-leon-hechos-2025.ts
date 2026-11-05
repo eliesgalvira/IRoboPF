@@ -429,14 +429,15 @@ function aPagos(
   c: Contexto,
   registros: readonly APago[],
   propios = true,
-  porCobroSubvencion = false
+  porCobroSubvencion = false,
+  leerImporte = decimal
 ): Decimal {
   unicos(registros.map((p) => texto(p.id)))
   let suma = new D(0)
   for (const p of registros) {
     const dia = fecha(p.fecha),
       quien = texto(p.pagador),
-      importe = decimal(p.importe)
+      importe = leerImporte(p.importe)
     if (
       (porCobroSubvencion || dia >= "2025-01-01") &&
       dia <= "2025-12-31" &&
@@ -972,8 +973,8 @@ export function movilidadCyl(
     unicos(f.vehiculos.flatMap((v) => v.pagos.map((p) => p.id)))
     let total = new D(0)
     for (const v of f.vehiculos) {
-      const precio = decimal(v.precio),
-        wltp = decimal(v.wltp),
+      const precio = magnitudAnual(v.precio),
+        wltp = magnitudAnual(v.wltp),
         matricula = fecha(v.fechaMatricula),
         parte = proporcion(c, v.adquirentes)
       const estatal = aAnual(
@@ -984,9 +985,9 @@ export function movilidadCyl(
         techo = D.max(0, new D(4000).times(parte).minus(estatal))
       if (v.pagos.some((p) => !v.adquirentes.includes(texto(p.pagador))))
         fallo("Pago de vehículo por persona ajena a adquirentes")
-      if (aPagos(c, v.pagos, false).gt(precio))
+      if (aPagos(c, v.pagos, false, false, magnitudAnual).gt(precio))
         fallo("Pagos de adquisición superiores al precio del vehículo")
-      const base = aPagos(c, v.pagos)
+      const base = aPagos(c, v.pagos, true, false, magnitudAnual)
       if (
         precio.lte(40000) &&
         v.afectacion === "no" &&

@@ -1,0 +1,57 @@
+# Primera revisión independiente monetaria/documental P4b
+
+2026-11-05. Publicado comunicado: 218c23d6c7831350b3592e5335dde4445352a281. No se comprobó por VCS, expresamente prohibido. Candidato congelado: /home/elies/Backups/IRoboPF/producto-p4b-validacion-20261105. Raíz sólo lectura, sin aplicación, instalación, worktree, subdelegación ni publicación. No se tocaron reservas CLAUDE/historiale16.
+
+## Dictamen
+
+No encuentro un error fiscal de importe demostrado para los hechos coherentes del corte. No impongo bloqueo por los perfiles deliberadamente excluidos. Queda una reserva de conciliación temporal de mejoras, con rojo propio reproducible y sensibilidad monetaria cuantificada; no la presento como error fiscal probado: la semántica de fechaOperacion no establece inequívocamente que sea la fecha de terminación física de la mejora. El padre debe resolver esa semántica antes de considerar cerrada la validación documental. Esta revisión no cierra fiscalmente el ejercicio, no sustituye CI ni autoriza publicación.
+
+Resultado final real: 38 pruebas, 35 aprobadas y 3 fallidas, salida1, guard=null. Dos fallos corresponden a una misma hipótesis documental en ambas API. El tercero es un error de expectativa de la revisión sobre cuota disponible, no del candidato. Se conservan íntegros, sin cambiar expectativas para obtener verde. No declarar 38/38 ni sumar las ejecuciones inicial y final.
+
+## R1 — P2, reserva documental de mejora con impacto potencial, no bloqueo fiscal acreditado
+
+Ubicación: post/lib/dominio/irpf/inmobiliario-2025/primer-alquiler.ts:65–68; productor.ts:70–89. El validador exige operación dentro del periodo de devengo arrendado y servicio posterior al inicio del alquiler, pero no concilia servicio con operación/devengo de la mejora. El productor amortiza desde puestaEnServicio literalmente.
+
+Reproducción: fixture propio compra1abril, alquiler1octubre, mejora3200, periodoDevengo1–30noviembre, fechaOperacion15noviembre, factura16noviembre, pago1diciembre, puestaEnServicio1octubre. Ambas API resuelven y publican cuota. Las pruebas `ROJO: .../API 0/1` esperaban rechazo; fallan porque resuelven. El test de cuantificación mantiene regional canaria1000, de modo que el efecto alcanza también cuota efectiva.
+
+Si operación15noviembre representa la realización/adquisición efectiva de esa mejora, amortizarla desde octubre anticipa45días: amortización publicada360732/365 frente a356412/365 con servicio15noviembre; exceso4320/365 =11,835616438356… euros; BIG por defecto2160/365 =5,917808219178…; cuota por defecto6264/3650 =1,716164383561… euros en ambas API. Cuotas observadas2360,329890410958… y2362,046054794520… . Es sensibilidad calculada, no dos deudas fiscales simultáneamente válidas.
+
+Límite de la conclusión: fechaOperacion podría representar otro hito contractual/contable posterior a la utilización física. La norma exige depreciación efectiva y mejoras efectuadas, pero no impone por sí sola el orden universal servicio>=fechaOperacion. Sin significado inequívoco de ese campo no demuestro que el dato publicado sea fiscalmente falso; por eso este rojo exploratorio no bloquea. No confundirlo con una aserción positiva de elegibilidad indebida acreditada.
+
+Fix sugerido: precisar el significado de fechaOperacion/periodoDevengo para mejoras; si identifica ejecución/adquisición física, rechazar servicio anterior, con motivo de historia documental. Si admite hitos posteriores, exigir fecha/documento de terminación o entrega efectiva y conciliarlo con puestaEnServicio, o excluir expresamente esas cronologías del corte. No inferir automáticamente la fecha correcta de factura o pago, ni mover el inicio de amortización para hacer verde el test. Las expectativas exploratorias quedan intactas y requieren adjudicación semántica explícita.
+
+Fuente: [AEAT amortización2025](https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2025/c04-rendimientos-capital-inmobiliario/gastos-deducibles/cantidades-destinadas-amortizacion.html), arts23.1b LIRPF y14 RIRPF: efectividad, coste de mejoras efectuadas y periodo de arrendamiento. El positivo separado de servicio1diciembre acredita amortización354876/365, sin deducir la mejora como gasto corriente.
+
+## R2 — error de expectativa de esta revisión, no defecto del producto
+
+`Baleares base no minorada por gasto estatal 4000` esperaba1500 efectivos. Con esa renta y gasto la cuota autonómica disponible es1468,614863013698… y la aplicación correcta es ese importe menor. La deducción teórica sigue min(4000×50%,1500)=1500. La prueba mezcló teórica y efectiva. Se conserva el fallo original en revision2.log y el código intacto; no se rebaja ni aumenta renta para lograr verde. Los positivos independientes con gasto3200 confirman1500 efectivos en ambas API; gasto1000 confirma500 y gasto3000 confirma1500. Este fallo no debe atribuirse al candidato.
+
+## Contraste de fuentes y vigencias
+
+Los originales descargados se conservan fuera de esta entrega en CAS /home/elies/Backups/IRoboPF/fuentes-cas-p4b-revision-20261105, nombrados por SHA256. FUENTES-CONSULTADAS.json registra URL, redirección, SHA consultado, SHA anterior de autor y tamaño. Doce originales, sin depender de recortes de buscador. No copio originales legales a la entrega.
+
+- Canarias: [art16 versión4febrero2025](https://www.boe.es/buscar/act.php?id=BOC-j-2009-90008&p=20250204&tn=1#a16), modificación [DL1/2025 art1.2](https://www.boe.es/buscar/doc.php?id=BOE-A-2025-7592), efectos1enero2024, contrastada con [AEAT2025](https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2025-deducciones-autonomicas/comunidad-autonoma-canarias/puesta-viviendas-mercado-arrendamiento-viviendas-habituales.html). El corte compra2025 no necesita imputación personal del comprador todo2024; acredita inmueble no alquilado y plazo6meses. Una vivienda plena exclusiva produce teórico1000, sin prorrata por meses. Se exige pacto3años y seguimiento efectivo futuro; no se publica permanencia ya cumplida. Censo de una vivienda mundial basta para máximo5 en este corte. Se excluyen cónyuge/pareja/grados1–3.
+- Baleares: [art4quater versión24julio2025](https://www.boe.es/buscar/act.php?id=BOE-A-2014-6925&p=20250724&tn=1#a4-13), [Ley7/2024 DF11.1 yDF16](https://www.boe.es/buscar/doc.php?id=BOE-A-2025-720), efectos13diciembre2024, y [AEAT2025](https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2025-deducciones-autonomicas/comunidad-autonoma-illes-balears/arrendamiento-bienes-inmuebles-otros-gastos.html). Coinciden50%, tope1500 individual agregado, BIG+BIA<=52800, IBAVI, mismo inquilino mínimo1año, dos ejercicios previos sin alquiler y renta completa<=15/m². El historial desde construcción2001 cubre2023/24 sin presumirlos por fecha de compra. El ancla `#a4-12` del registro del autor no identifica art4quater en esta respuesta HTML; el contenido sí está presente en `#a4-13`. Es una mejora de localizador, no de importe.
+- Imputación: [AEAT2025](https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2025/c10-regimenes-especiales-imputacion-atribucion-rentas/regimen-imputacion-rentas-inmobiliarias/determinacion-importe-renta-imputable.html) confirma1,1% para colectivo general con vigor desde2012; otro procedimiento2%; base catastral total y días a disposición/365, sin gastos ni reducción. Se retuvieron LIRPF versionadas25julio y24diciembre2025 y las normas puente del autor. BOE marca RDL2/2026 como derogado: no se usa aisladamente como fundamento vigente; la conclusión operativa aquí se apoya en manual AEAT explícito de2025. No se extrapolan versiones2026 a otros conceptos del ejercicio.
+
+## Comprobaciones propias y revisión estática
+
+Fixture independiente por referencia a datos públicos P4a, sin importar tests del autor ni copiar lib/tests completos. Se fijan hechos propios: compra1abril, primer contrato1octubre–30septiembre2028, construcción2001, precio160000, gastos10000, suelo40000+2500, catastro30000+90000, mensualidad14000, gasto3200. Oráculo Python Fraction y fechas stdlib:183días imputados,92alquilados; coste construcción127500; íntegro42000; amortización351900/365; imputación241560/365; neto13810100/365; RNR6905050/365; BIG7146610/365. Ambas API dan exactamente el cociente a precisión80. La prueba con Decimal global7 conserva la base.
+
+Los rechazos propios, en ambas API, cubren alquiler del vendedor en2001, otro derecho mundial, aplicación previa, pareja, carencia mensual, línea de factura duplicada, periodo mixto, exceso renta balear, ente de fianza balear incorrecto, programaCAIB y exceso6meses. Todas esas adversas rechazan. Se comprobaron cuota insuficiente cero, imputación2%, gasto regional ausente con censo completo cero y mejora desde servicio posterior. No encontré perfil excluido de esas adversas con elegibilidad fiscal regional publicada.
+
+La lectura de pre/post y delta comprueba además identidad de titular/título/catastro/contrato, factura por emisor+número+línea, conciliación de pago/importe/categoría, cobertura cronológica desde construcción y desde nacimiento, límites de reparación/intereses y pérdidas/arrastres rechazados, y adición racional única RNR+imputación antes de convertir a80cifras. Las preimágenes coinciden con raíz y el parche se reconstruye literalmente en memoria. Los documentos primarios son identificadores aportados; no se han autenticado escrituras o facturas reales, ni se presume que un identificador no vacío pruebe el contenido del original.
+
+No se exigen tenencia antigua, CAIB1800, Extremadura, copropiedad/usufructo, otros derechos ni mezclas; tampoco se pretende aceptar alquiler previo legalmente posible en otros perfiles. Sus rechazos conservadores son alcance documentado, no errores de cálculo. La permanencia/reintegro futuro permanece bajo reserva.
+
+## Evidencia heredada preservada
+
+Autor:42focales incluidos en454recogidas aprobadas, tipos ylinters correctos. r43/r45 fallan recogida con `Global sin frontera: calcularDesgloseCotizacionesSocialesLegacy`, reproducido sin overlay. Salida1, sin atribuir esas suites al candidato ni contarlas como aprobadas. No se relanzaron, ni se repitieron canarios, CIglobal o inventario. Mis35aprobadas no se suman a454 como si fueran una sola ejecución.
+
+## Recursos y transporte
+
+Dos ejecuciones secuenciales de una única suite propia;1worker, taskset0,1, heap1792, timeout hijo15m y exterior45m. Supervisor autónomo idéntico salvo OUT, límites3GiB árbol/6GiB grupo intactos. Máximo revisión2:516717568bytesPSS árbol,3573125120grupo, guard=null, salida1. Controles propios de normal, nieto con sesión separada ySIGTERM comprueban subreaper/recogida y salidas0/125, sin ignorar guardia. Logs ymediciones conservados. PESADO1 liberado, sin más suites.
+
+Effect-solutions list/show testing basics error-handling consultados por dist/cli.js con BunNix; binario genérico rechazado por Nix y ruta inicial inexistente, luego resuelto sin instalar. Fuente local de testsEffectv4 consultada antes de escribir. UV_CACHE_DIR fijado; Vite en caché externa. No hay node_modules, venv, copia completa ni originalesCAS en entrega.
+
+La entrega contiene parche de artefactos de revisión más manifiestoSHA; no cambia producción. Sólo el padre decide integración y retiro tras publicación comprobada en procedencia-documental, conserva originales únicos y ejecuta los controles de proyecto exigidos. No retirar esta recepción desde este revisor.
