@@ -1,3 +1,4 @@
+import { ContratoHipotecaMadrid } from "./hipoteca-esquemas"
 import { Schema } from "effect"
 import {
   ContextoTerritorialF,
@@ -255,6 +256,7 @@ const Instalacion = Schema.Struct({
   ),
 })
 const Prestamo = Schema.Struct({
+  contratoMadrid: Schema.optionalKey(ContratoHipotecaMadrid),
   id: T,
   tipo: T,
   fecha: T,

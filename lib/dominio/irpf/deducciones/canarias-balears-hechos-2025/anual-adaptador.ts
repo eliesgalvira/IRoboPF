@@ -1,3 +1,4 @@
+import { ingresoRegionalIdentificado2025 } from "../../ingresos-identificados-2025/regiones"
 import { producirCuotasHogarC36 } from "./anual-hogar"
 import { conciliarInmuebleP4a, evaluarPrimerAlquiler2025 } from "../../inmobiliario-2025/consumidores"
 import { Schema } from "effect"
@@ -18,6 +19,7 @@ import {
   evaluarInversionAmpliacionC,
   evaluarAutoocupacionAmpliacionC,
   evaluarPlazasAmpliacionC,
+  evaluarEmergenciaAmpliacionC,
 } from "./inversion-trabajo-ampliacion"
 import {
   DonacionesC36,
@@ -26,6 +28,7 @@ import {
   InversionC36,
   AutoocupacionC36,
   PlazasC36,
+  EmergenciaC36,
   type SolicitudAnualC36,
   type EstudioC36,
 } from "./anual-esquemas"
@@ -434,9 +437,19 @@ export function evaluarAnualC36(
       a
     )
   }
-  throw new RangeError(
-    "C36 emergencia: falta productor anual de integración identificada de ayuda en BIG/BLG y del tipo medio legal; no se usa una cuota ni un tipo del cliente"
-  )
+  if (Schema.is(EmergenciaC36)(s)) {
+    const { ingreso, tipos } = ingresoRegionalIdentificado2025(m, s.hechos.ingresoId, "balears-d33-2018-art3_2e-cobro2025")
+    const totalTipo = eurosC(tipos.estatal).sumar(eurosC(tipos.autonomico))
+    return evaluarEmergenciaAmpliacionC({ ...h, codigo: s.codigo, ayudas: [{
+      id: ingreso.ayudaId, persona: id, concedente: "comunidad_illes_balears",
+      acuerdoConsejoMinistros: "Consejo de Ministros 2018-10-19", resolucion: ingreso.resolucion.referencia,
+      importeRecibido: ingreso.cobros[0]!.euros,
+    }] }, a, { calculoId: a.calculoId, ejercicio: 2025,
+      tipoMedioGravamen: { numerador: totalTipo.n.toString(), denominador: (totalTipo.d * 100n).toString() },
+      ayudasIntegradas: [{ ayudaId: ingreso.ayudaId, persona: id, incluidaBaseImponibleGeneral: ingreso.integradoBaseGeneral, incluidaBaseLiquidable: ingreso.integradoBaseLiquidable }],
+    })
+  }
+  throw new RangeError("C36: solicitud no representada")
 }
 function gradoPropio(m: MagnitudesTerritorialesAnuales): number {
   return m.caso.situacionFamiliar.discapacidad._tag === "Discapacidad65OMas"

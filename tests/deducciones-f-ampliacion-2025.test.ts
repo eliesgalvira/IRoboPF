@@ -1194,7 +1194,7 @@ describe("F ampliación: oráculos preparados por código, sin cuota alternativa
     expect(r.dependenciaAnual).toBeUndefined()
     expect(r.importe).toBeUndefined()
   })
-  it("incremento financiación conserva contrafactual y25%, no recibe deducción externa", () => {
+  it("incremento financiación sin contrato no sustituye el contrafactual por un importe externo", () => {
     const r = evaluar(
       solicitud("madrid_incremento_costes_financiacion_vivienda", {
         viviendas: [
@@ -1208,11 +1208,9 @@ describe("F ampliación: oráculos preparados por código, sin cuota alternativa
         pagos: [pago("intereses_hipoteca", "100", "hip")],
       })
     )
-    expect(r.dependenciaAnual).toMatchObject({
-      magnitud: "intereses_contractuales_euribor_2022",
-      factor: "0.25",
-      topeEUR: "300",
-    })
+    expect(r.estado).toBe("no_soportado")
+    expect(r.siguienteHecho).toBe("contratoMadrid: calendario contractual y saldo documentado")
+    expect(r.dependenciaAnual).toBeUndefined()
     expect(r.importe).toBeUndefined()
   })
   it("transitorio no infiere acceso desde gasto2025", () => {

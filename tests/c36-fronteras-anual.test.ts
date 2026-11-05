@@ -92,15 +92,7 @@ it("emergencias no convierte ayuda recibida en importe integrado ni tipo legal",
             lote: "C36",
             codigo: "balears_subvenciones_zona_emergencia_proteccion_civil",
             hechos: {
-              ayudas: [
-                {
-                  id: "ayuda-1",
-                  concedente: "comunidad_illes_balears",
-                  acuerdoConsejoMinistros: "acuerdo-1",
-                  resolucion: "resolucion-1",
-                  importeRecibido: "1000",
-                },
-              ],
+              ingresoId: "ayuda-1",
               exhaustividad: "completa",
             },
           },
@@ -108,7 +100,7 @@ it("emergencias no convierte ayuda recibida en importe integrado ni tipo legal",
       },
       marco("illes-balears")
     )
-  ).toThrow(/falta productor anual de integración/)
+  ).toThrow(/requiere libro integrado y tipos medios/)
 })
 
 it("base liquidable ausente no se sustituye por cero", () => {

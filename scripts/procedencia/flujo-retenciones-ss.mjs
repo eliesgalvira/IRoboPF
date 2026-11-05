@@ -15,15 +15,21 @@ function functionBody(d){let n=ts.isVariableDeclaration(d)?d.initializer:d;if(n&
 /** Inventario de contratos concretos: los callbacks y servicios conservan sus cuerpos;
  * ninguna llamada se convierte en terminal por tener contrato editorial. */
 export function contractsR30(sources=new Sources()){
- const queue=[[annual,'pasoRetencionTrabajoAeat'],[annual,'liquidarTrabajoIndividualSimple'],[annual,'construirLiquidarIrpfAnual'],[retention,'calcularRetencionTrabajoAeatImpl'],[uniform,'calcularDesgloseCotizacionesPerfilUniforme']]
+ const queue=[[annual,'pasoRetencionTrabajoAeat'],[annual,'liquidarTrabajoIndividualSimple'],[annual,'construirLiquidarIrpfAnual'],[retention,'calcularRetencionTrabajoAeatImpl'],[uniform,'calcularDesgloseCotizacionesPerfilUniforme']].map(([file,name])=>declaration(sources,file,name))
  const contracts=[],seen=new Set()
- while(queue.length){const [file,name]=queue.shift(),key=file+':'+name;if(seen.has(key))continue;seen.add(key)
-  const d=declaration(sources,file,name),fn=functionBody(d);if(!fn?.body)throw Error('Sin cuerpo concreto: '+key)
+ while(queue.length){
+  // Conservar el nodo resuelto en su ámbito; el nombre solo no distingue
+  // auxiliares locales homónimos dentro de un mismo archivo.
+  const d=queue.shift(),file=d.getSourceFile().fileName,name=d.name.getText()
+  const topLevel=ts.isFunctionDeclaration(d)?ts.isSourceFile(d.parent):ts.isSourceFile(d.parent.parent.parent)
+  const key=file+':'+(topLevel?'':d.getStart()+':')+name
+  if(seen.has(key))continue;seen.add(key)
+  const fn=functionBody(d);if(!fn?.body)throw Error('Sin cuerpo concreto: '+key)
   const body=fn.body
   const calls=nodes(body,ts.isCallExpression).map(call=>{
    const callee=ts.isIdentifier(call.expression)?sources.declaration(call.expression):null
    const concrete=callee&&functionBody(callee)
-   if(concrete?.body&&/^lib\/dominio\/(irpf|laboral|dinero|normativa)\//.test(callee.getSourceFile().fileName))queue.push([callee.getSourceFile().fileName,callee.name.getText()])
+   if(concrete?.body&&/^lib\/dominio\/(irpf|laboral|dinero|normativa)\//.test(callee.getSourceFile().fileName))queue.push(callee)
    return {call:sources.ref(call),callee:callee?sources.ref(callee):null,arguments:call.arguments.map((arg,index)=>({index,argument:sources.ref(arg),formal:concrete?.parameters[index]?sources.ref(concrete.parameters[index]):null})),conditions:guards(call,sources),resolution:concrete?.body?'concrete-function':'requires-operation-or-callback-contract'}
   })
   const returns=nodes(body,ts.isReturnStatement).filter(n=>{let p=n.parent;while(p&&p!==fn){if(ts.isFunctionLike(p))return false;p=p.parent}return p===fn}).map(n=>({source:sources.ref(n),value:n.expression?sources.ref(n.expression):null,conditions:guards(n,sources),properties:n.expression&&ts.isObjectLiteralExpression(n.expression)?n.expression.properties.map(p=>({property:p.name?.getText()??null,producer:sources.ref(ts.isPropertyAssignment(p)?p.initializer:p)})):[]}))

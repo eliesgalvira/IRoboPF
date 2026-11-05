@@ -1,3 +1,6 @@
+import { producirDT182025, validarCensosViviendaRioja } from "../vivienda-dt18-2025/productor"
+import { aplicarCuotasDT18 } from "../vivienda-dt18-2025/cuota"
+import { racional } from "../deducciones/anual-territorial-racional"
 import { producirVehiculoDA58 } from "../vehiculo-da58-2025/productor"
 import type { ResultadoInmuebleP4a } from "../inmobiliario-2025/productor"
 import { admiteOperandoOpen2018 } from "../trabajo-anual/politica-open-2018"
@@ -122,7 +125,7 @@ export const cuantizarAnual = (
 export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
   function* (entrada: EntradaComposicionAnual) {
     const ampliaF = entrada.deduccionesTerritoriales2025?.solicitudes.some((s) => s.lote === "F-ampliado") === true
-    const A = Decimal.clone({ precision: entrada.deduccionesTerritoriales2025?.solicitudes.some(s=>s.lote==="A-aragon-dos") === true || entrada.deduccionesTerritoriales2025?.vehiculoDA582025 !== undefined || ampliaF || usaPrecisionD51(entrada.deduccionesTerritoriales2025) || entrada.deduccionesTerritoriales2025?.donativosEstatales2025 !== undefined ? 80 : entrada.precision })
+    const A = Decimal.clone({ precision: entrada.deduccionesTerritoriales2025?.viviendaDT182025 !== undefined || entrada.deduccionesTerritoriales2025?.solicitudes.some(s=>s.lote==="A-aragon-dos") === true || entrada.deduccionesTerritoriales2025?.vehiculoDA582025 !== undefined || ampliaF || usaPrecisionD51(entrada.deduccionesTerritoriales2025) || entrada.deduccionesTerritoriales2025?.donativosEstatales2025 !== undefined ? 80 : entrada.precision })
     const caso = entrada.ambito
     const baseLiquidableGeneral = A.max(0, entrada.baseGeneral)
     const baseLiquidableAhorro = new A(entrada.baseAhorro)
@@ -426,6 +429,18 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
     const cuotaAutonomicaDisponible = cuotaAutonomicaGeneralDespuesMinimo.plus(
       ahorroConMinimos.autonomico.despuesMinimo
     )
+    const solicitudDT18 = entrada.deduccionesTerritoriales2025?.viviendaDT182025
+    const libroDT18 = solicitudDT18 === undefined ? undefined : yield* Effect.try({
+      try: () => {
+        const s=Schema.decodeUnknownSync(SolicitudDeduccionesTerritoriales2025)(entrada.deduccionesTerritoriales2025,{onExcessProperty:"error"})
+        validarCensosViviendaRioja(s)
+        if(s.viviendaDT182025===undefined)throw new RangeError("DT18: hechos ausentes")
+        if(entrada.maternidad2025!==undefined||entrada.ingresosIdentificados2025!==undefined||entrada.inmueblesP4a!==undefined||s.donativosEstatales2025!==undefined||s.vehiculoDA582025!==undefined||entrada.deduccionesValencianas2025!==undefined||entrada.deduccionesAutonomicasCentimos!==0)throw new RangeError("DT18: combinación con otros productores requiere coordinación explícita")
+        return producirDT182025(s.viviendaDT182025,caso,s.solicitudes)
+      },
+      catch: e=>errorDerechosMinimos({motivo:e instanceof Error?e.message:"DT18: hechos históricos no componibles"}),
+    })
+    const cuotasDT18=libroDT18===undefined?undefined:aplicarCuotasDT18(libroDT18,racional(cuotaEstatalDespuesMinimo.plus(ahorroConMinimos.estatal.despuesMinimo).toFixed()),racional(cuotaAutonomicaDisponible.toFixed()))
     const hechosDA58 = entrada.deduccionesTerritoriales2025?.vehiculoDA582025
     if (hechosDA58 !== undefined && (caso.anio !== 2025 || caso.fechaFallecimiento !== undefined || caso.contribuyenteId === undefined ||
       !["madrid", "castilla-y-leon"].includes(caso.comunidadAutonoma) || entrada.maternidad2025 !== undefined || entrada.ingresosIdentificados2025 !== undefined || entrada.inmueblesP4a !== undefined ||
@@ -450,7 +465,7 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
       })
     }
     const deduccionesGeneralesDonativosAplicadas = libroDonativos === undefined ? new A(0) : new A(eurosDonativos(libroDonativos.aplicado))
-    const cuotaAutonomicaResidual = libroDonativos === undefined ? cuotaAutonomicaDisponible : new A(eurosDonativos(libroDonativos.autonomica.disponible))
+    const cuotaAutonomicaResidual = cuotasDT18!==undefined ? new A(cuotasDT18.autonomica.disponible.numeradorEuros).div(cuotasDT18.autonomica.disponible.divisor) : libroDonativos === undefined ? cuotaAutonomicaDisponible : new A(eurosDonativos(libroDonativos.autonomica.disponible))
     let deduccionesValencianas2025:
       | ResultadoCuotaConjuntaValenciana2025<string>
       | undefined
@@ -709,6 +724,8 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
         try: () =>
           aplicarDeduccionesTerritoriales2025(solicitud, {
             caso,
+            libroDT18,
+            cuotasDT18,
             inmueblesP4a: entrada.inmueblesP4a,
             libroMaternidad81,
             vehiculoDA58,
@@ -772,6 +789,7 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
             : deduccionesAutonomicasDeclaradas
     const deduccionEstatal681=deduccionesTerritoriales2025?.estatal681?.consumo.total
     const aplicada681=deduccionEstatal681===undefined ? new A(0) : new A(deduccionEstatal681.numeradorEuros).div(deduccionEstatal681.divisor)
+    const dt18Aplicada=cuotasDT18===undefined?new A(0):new A(cuotasDT18.estatal.total.numeradorEuros).div(cuotasDT18.estatal.total.divisor).plus(new A(cuotasDT18.autonomica.total.numeradorEuros).div(cuotasDT18.autonomica.total.divisor))
     const cuotaLiquida = A.max(
       0,
       cuotaGeneralDespuesMinimo
@@ -780,6 +798,7 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
         .minus(deduccionesGeneralesDonativosAplicadas)
         .minus(vehiculoDA58?.aplicada ?? 0)
         .minus(aplicada681)
+        .minus(dt18Aplicada)
     )
     if (
       entrada.serviciosLaborales !== undefined &&
@@ -857,6 +876,7 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
       cuotaAhorroDespuesMinimo,
       deduccionesAutonomicasAplicadas,
       cuotaLiquida,
+      dt18Aplicada,
       cuotaIntegraGeneralEstatal,
       cuotaIntegraGeneralAutonomica,
       cuotaMinimoPersonalEstatal,

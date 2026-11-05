@@ -385,3 +385,39 @@ El perfil `solo-inmobiliario-p4a` incorpora Extremadura con una vivienda en plen
 Las cuatro rutas D51 de vivienda rural CLM, cuenta ahorro vivienda CLM, rehabilitación rural para alquiler EXT y vivienda rural EXT admiten `historiaBases` documentada. El productor deriva la magnitud de los hechos completos; ausencia de historia y aplicaciones previas positivas aún no reconstruidas se rechazan. La prorrata extremeña conserva exactamente el divisor365. Su subcálculo devuelve cadena decimal si es finita o `{ numeradorEuros, divisor }` si es periódica; ambas API anuales conservan el racional del libro de cuota.
 
 [Alcances, fuentes, revisiones y validación](galicia-historia-20261105/INTEGRACION.md).
+
+
+## Ayudas de emergencia de Baleares
+
+El perfil de vivienda habitual del artículo 3.2.e del Decreto 33/2018 incorpora la
+reforma de la Ley 17/2019: el daño peritado limita la ayuda, pero el coste efectivo
+de reparación determina el exceso que se integra en la base general según la
+DA 5.3 de la LIRPF. No se confunden ambas magnitudes.
+
+Se admite un pago íntegro en 2025 de una concesión posterior al 13 de abril de
+2019, con solicitud dentro del período representado y reclamaciones de pago que
+conservan el derecho. El perfil exige reparación completa terminada en 2025,
+propiedad y uso propios, sin concurrencia de ayudas, litigio, intereses ni costas.
+Las exclusiones temporales conservadoras se explican en la documentación del
+perfil; no declaran por sí mismas la prescripción de otros expedientes.
+
+La solicitud territorial identifica la ayuda mediante `ingresoId`. El productor
+común deriva su integración y la deducción consume los tipos de la liquidación
+anual y su cuota restante. Ambas API usan esa ruta. Las referencias documentales
+no acreditan la autenticidad de un expediente externo.
+
+## Vivienda riojana anterior a 2013 y DT18
+
+Las dos API anuales conectan cuatro ramas de vivienda riojana de 2025 mediante los productores de hechos: segunda vivienda rural anterior a 2013, adquisición habitual de jóvenes, rehabilitación y adecuación de la vivienda habitual por discapacidad propia. La solicitud de segunda vivienda aporta `patrimonioRiojaAnterior`; las tres ramas habituales aportan el libro común `viviendaDT182025`. Los censos de segunda residencia e inversión habitual no se pueden mezclar en este perfil.
+
+El libro DT18 reconstruye la primera vivienda, los proyectos, los desembolsos originales, la aplicación histórica, los préstamos y los pagos del ejercicio. Comprueba conjuntamente el incremento patrimonial y separa capital e intereses. Las cuotas estatal y autonómica se limitan por separado antes de consumir la cuota regional residual. Las reservas de 9.040 y 12.080 euros se conservan como magnitudes distintas; rehabilitación y adecuación comparten además la reserva regional de 9.040 euros. Un incumplimiento patrimonial conjunto anula las deducciones correspondientes aunque cada proyecto aislado parezca cumplirlo.
+
+El contrato representa plena titularidad individual, historia ordinaria completa y préstamos originales sin refinanciación ni nuevas disposiciones. Los pagos de la segunda vivienda son hechos conciliados; su contrato no contiene un cuadro que certifique un sistema francés. Se mantienen los rechazos concretos para construcción, ampliación, reinversión, cotitularidad y otras historias no representadas. La discapacidad propia nueva de la entrada efectiva se limita al perfil de pensión; no habilita discapacidad en empleo activo. Las referencias identifican los documentos declarados y no autentican por sí solas sus contenidos.
+
+## Incremento hipotecario madrileño de 2025
+
+Las dos API derivan el incremento de coste desde el contrato y los recibos del préstamo. El núcleo financiero reconstruye las trayectorias real y contrafactual, concilia las mensualidades y entrega el importe al consumidor regional común. El cliente no aporta una diferencia de intereses, una base fiscal ni una deducción calculadas.
+
+El perfil representa amortización francesa con TIN dividido entre doce, cuota e interés mensual en céntimos, revisión en enero o en enero y julio, y doce recibos pagados con fondos propios. Exige un único propietario y prestatario, préstamo de adquisición anterior a 2025 y vivienda todavía habitual. Los índices admiten signo y hasta seis decimales; el TIN resultante no puede ser negativo. Las condiciones regionales de acceso, incompatibilidad, renta y cuota siguen aplicándose después de producir los intereses.
+
+Otras fechas de revisión, titularidades compartidas, novaciones, amortización extraordinaria, cancelación, carencia, mora, tipos mixtos, suelos, techos y coberturas mantienen rechazos concretos. El contrato tampoco reconstruye por sí solo las bases fiscales de familiares ajenos ni autentica documentos. Estas restricciones describen la cobertura del productor, no todos los requisitos legales de la deducción.

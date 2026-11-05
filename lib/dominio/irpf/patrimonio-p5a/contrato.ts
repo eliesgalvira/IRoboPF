@@ -15,3 +15,19 @@ export const PatrimonioP5a = Schema.Struct({
  ejercicios:Schema.Array(Schema.Struct({anio:Schema.Number,documento:Documento,eventos:Schema.Array(Schema.Struct({tipo:Schema.Literals(["inversion_vivienda","reinversion"]),inmueble:Schema.String,documento:Documento}))}))}),
 })
 export type PatrimonioP5a = typeof PatrimonioP5a.Type
+
+/** Sólo préstamo original aplicado íntegramente a segunda residencia adquirida antes de2013.
+ * No saldo fiscal: reconstrucción bancaria del principal desde la disposición original.
+ */
+export const PatrimonioRiojaAnterior = Schema.Struct({
+ ...PatrimonioP5a.fields,
+ financiacionAnterior: Schema.Struct({
+  exhaustividad: Schema.Literal("trayectoria_completa_sin_refinanciacion_ni_disposiciones_adicionales"),
+  pagoPrecio: Schema.Struct({fecha:Schema.String,importe:Schema.String,receptor:Schema.String,documento:Documento}),
+  disposicion: Corte,
+  amortizaciones: Schema.Array(Schema.Struct({id:Schema.String,fecha:Schema.String,importe:Schema.String,documento:Documento})),
+  principalInicio: Corte,
+  usoDesdeAdquisicion: Schema.Literal("segunda_residencia_sin_uso_habitual"),
+ }),
+})
+export type PatrimonioRiojaAnterior = typeof PatrimonioRiojaAnterior.Type

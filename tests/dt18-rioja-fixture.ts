@@ -1,0 +1,53 @@
+import Decimal from "decimal.js"
+import {Effect,Schema} from "effect"
+import {SolicitudDeduccionesTerritoriales2025} from "../lib/dominio/irpf/deducciones/anual-territorial-esquemas"
+import type {CasoFiscalAnual} from "../lib/dominio/irpf/caso-fiscal-anual"
+import {liquidarIrpfAnual,liquidarIrpfAnualExplicito} from "../lib/dominio/irpf/liquidacion/liquidar-irpf-anual"
+function canonico(comunidad:CasoFiscalAnual["comunidadAutonoma"]="la-rioja"):CasoFiscalAnual{return{anio:2025,comunidadAutonoma:comunidad,contribuyenteId:"A",situacionFamiliar:{tipo:"individual",edad:35,discapacidad:{_tag:"SinDiscapacidad"},descendientes:[],ascendientes:[]},rendimientos:{trabajo:[{importeIntegroCentimos:10000000}]},reducciones:[],deducciones:[],retencionesSoportadasCentimos:0,pagosACuentaCentimos:0}}
+function efectivo(s:SolicitudDeduccionesTerritoriales2025){return{ejercicio:2025,comunidadAutonoma:"la-rioja",contribuyenteId:"A",edad:35,modalidad:"individual",residenciaTodoElAnio:true,devengo:"2025-12-31",otrasRentas:"ninguna",familiaresConDerechoMinimo:"ninguno",discapacidad:"ninguna",reduccionesBase:"ninguna",saldosAnteriores:"ninguno",deducciones:"territoriales-por-hechos-y-da61",deduccionesTerritoriales2025:s,rentasExtranjeras:"ninguna",especialidades:"ninguna",perfil:"solo-trabajo",conciliacion:{ejercicio:2025,estado:"totales-anuales-sin-duplicados",procedencia:["certificado"]},trabajo:{ejercicio:2025,territorio:"comun",reduccionesArt18:"ninguna",movilidad:"ninguna",discapacidadActiva:"ninguna",rendimientos:[{id:"R",clase:"empleo-laboral",integro:"100000",cotizaciones:{clase:"efectivas",seguridadSocial:"0",derechosPasivos:"0",colegiosHuerfanos:"0"},sindicato:{importe:"0",satisfecho:"no"},colegio:{importe:"0",satisfecho:"no",obligatorio:"no",finesEsenciales:"no"},defensa:{importe:"0",satisfecho:"no",litigioDirectoPagador:"no"}}]},retenciones:[]} as const}
+
+const doc=(referencia:string,fecha="2025-12-31")=>({referencia,fecha,emisor:"Órgano/entidad documental"})
+const corte=(importe:string,fecha="2025-12-31")=>({importe,documento:doc("saldo-"+fecha,fecha)})
+export type Operacion="adquisicion"|"rehabilitacion"|"adecuacion"
+const codigos={adquisicion:"rioja_adquisicion_construccion_vivienda_jovenes",rehabilitacion:"rioja_obras_rehabilitacion_vivienda_habitual",adecuacion:"rioja_adecuacion_vivienda_discapacidad"} as const
+export function fixture(operaciones:readonly Operacion[]=["rehabilitacion"],ejercicioDelDerecho:"ejercer_integramente"="ejercer_integramente"){
+ const inmueble={id:"V",territorio:"la-rioja",titulares:[{titular:"A",numerador:1,denominador:1}],uso:"habitual",residencia:{desde:"2010-02-01",hasta:"2025-12-31"},adquisicion:"2010-02-01",precioAdquisicion:"10000",valorMercadoInicio:"10000",valorSuelo:"2000",catastralSuelo:"2000",catastralConstruccion:"8000"}
+ const proyectos=([...new Set<Operacion>(["adquisicion",...operaciones])]).map(operacion=>{
+  const inicio=operacion==="adquisicion"?"2010-02-01":"2012-01-01",fin=operacion==="adquisicion"?inicio:"2012-12-31",anio=Number(inicio.slice(0,4)),declaracion=doc("declaracion-"+operacion,`${anio+1}-06-01`)
+  const pagado=operaciones.includes(operacion)
+  const pagos=pagado?[{id:operacion+"-A",pagador:"A",receptor:"BAN-"+operacion,fecha:"2025-12-01",importe:"3000",factura:operacion+"-A",concepto:"amortizacion",medio:"transferencia",subvencion:"0",especieExenta:"0"},{id:operacion+"-I",pagador:"A",receptor:"BAN-"+operacion,fecha:"2025-12-01",importe:"50",factura:operacion+"-I",concepto:"intereses",medio:"transferencia",subvencion:"0",especieExenta:"0"}]:[]
+  const vivienda={inmueble,municipio:"Ábalos",municipioHabitual:"Ábalos",operacion,fechaInicioInversion:inicio,finConstruccion:fin,primeraOcupacion:"2010-02-01",excepcionOcupacion:null,excepcionPermanencia:null,ampliacionPlazoConstruccion:null,obra:operacion==="rehabilitacion"?{inicio,fin,costeGlobal:"8000",objeto:"estructuras_fachadas_cubiertas",permisos:doc("permiso",inicio),pagos:[]}:null,pagos,coberturaIntereses:"0",deduccionPre2013:declaracion,ejercicioDeduccionAnterior:anio,excepcion6812:null,primerPagoObra:inicio,informeDiscapacidad:operacion==="adecuacion"?doc("informe-necesidad",fin):null}
+  const principal=operacion==="adquisicion"?"9000":"6000",cierre=operacion==="adquisicion"?"6000":"3000"
+  return {id:operacion,operacion,vivienda,fechaInicio:inicio,terminacion:fin,coste:operacion==="adquisicion"?"10000":"8000",certificadoFin:doc("fin-"+operacion,fin),calificacionAdecuacion:operacion==="adecuacion"?{necesidad:"accesibilidad_y_comunicacion_sensorial_necesarias",informe:vivienda.informeDiscapacidad}:null,pagosOriginales:[{id:"original-"+operacion,fecha:inicio,importe:operacion==="adquisicion"?"10000":"8000",pagador:"A",receptor:operacion==="adquisicion"?"VEN":"OBRA",documento:doc("pago-original-"+operacion,inicio)}],aplicacionAnterior:{ejercicio:anio,proyecto:operacion,naturaleza:"deduccion_efectivamente_practicada",declaracionPresentada:declaracion},prestamo:pagado?{id:"L-"+operacion,acreedor:"BAN-"+operacion,fecha:inicio,contrato:doc("L-"+operacion,inicio),exhaustividad:"original_exclusivo_sin_refinanciacion_ni_disposiciones_adicionales",disposicion:corte(principal,inicio),amortizacionesAnteriores:[],principalInicio:corte(principal,"2025-01-01"),principalFinal:corte(cierre),pagos2025:pagos.map(x=>x.id)}:null}
+ })
+ const pagos=proyectos.flatMap(x=>x.vivienda.pagos)
+ const movimientos=[{id:"ING",cuenta:"CTA",fecha:"2025-01-02",importe:"50000",sentido:"entrada",clase:"ingreso",documento:doc("ING","2025-01-02")},...pagos.map(x=>({id:x.id,cuenta:"CTA",fecha:x.fecha,importe:x.importe,sentido:"salida",clase:x.concepto,documento:doc(x.factura,x.fecha)})),{id:"CON",cuenta:"CTA",fecha:"2025-12-15",importe:String(50000-3050*operaciones.length),sentido:"salida",clase:"consumo",documento:doc("CON","2025-12-15")}]
+ const solicitud={viviendaDT182025:{ejercicio:2025,persona:"A",nacimiento:"1990-01-01",ejercicioDelDerecho,exhaustividad:"primera_unica_vivienda_sin_transmisiones_reinversiones_ni_otras_inversiones",censo:[{id:"CTA",tipo:"cuenta_euros"},{id:"V",tipo:"vivienda"},...proyectos.filter(p=>p.prestamo!==null).map(p=>({id:p.prestamo!.id,tipo:"prestamo"}))].map(c=>({...c,titular:"A",participacion:[1,1],inicio:"presente",cierre:"presente",documento:doc("censo-"+c.id)})),cuentas:[{id:"CTA",inicio:corte("2000","2025-01-01"),cierre:corte("2000")}],movimientos,adquisicion:{inmueble:"V",fecha:"2010-02-01",vendedor:"VEN",precio:"10000",escritura:doc("ES","2010-02-01"),valorCierre:corte(String(10000+8000*proyectos.filter(p=>p.operacion!=="adquisicion").length+1000))},historia:{desde:"1990-01-01",hasta:"2025-12-31",documento:doc("historia"),derechos:[{inmueble:"V",titular:"A",adquisicion:"2010-02-01",transmision:null,titulo:doc("ES","2010-02-01")}],anticipos:[],ejercicios:Array.from({length:35},(_,i)=>({anio:1990+i,documento:doc("fiscal-"+i),eventos:proyectos.filter(p=>p.aplicacionAnterior.ejercicio===1990+i).map(p=>({tipo:"inversion_vivienda",inmueble:"V",documento:p.aplicacionAnterior.declaracionPresentada}))}))},proyectos},solicitudes:operaciones.map(operacion=>{const p=proyectos.find(p=>p.operacion===operacion)!;return {lote:"E38",nacimientoContribuyente:"1990-01-01",exhaustividad:"expediente_comun_completo_todos_pagadores",inversionesViviendaEjercicio:p.vivienda.pagos.map(x=>({id:x.id,titular:x.pagador,fecha:x.fecha,importe:x.importe,documento:x.factura})),hechos:{codigo:codigos[operacion],viviendas:[p.vivienda]}}})}
+ return Schema.decodeUnknownSync(SolicitudDeduccionesTerritoriales2025)(solicitud,{onExcessProperty:"error"})
+}
+export function ambas(s:SolicitudDeduccionesTerritoriales2025,discapacidad=false){
+ const c=canonico();
+ const canon=discapacidad?{...c,situacionFamiliar:{...c.situacionFamiliar,discapacidad:{_tag:"Discapacidad33a64" as const,necesitaAyudaOMovilidadReducida:false}}}:c
+ const e=efectivo(s)
+ const explicito=discapacidad?{...e,discapacidad:"33-a-64" as const,trabajo:{...e.trabajo,rendimientos:e.trabajo.rendimientos.map(r=>({...r,clase:"pension" as const}))}}:e
+ return [Effect.map(liquidarIrpfAnual({...canon,deduccionesTerritoriales2025:s},{modo:"canonico"}),x=>({deduccionesTerritoriales2025:x.deduccionesTerritoriales2025,cuotaLiquidaEuros:new Decimal(x.cuotaLiquidaCentimos).div(100).toFixed(),rastro:x.rastro})),Effect.map(liquidarIrpfAnualExplicito(explicito),x=>({deduccionesTerritoriales2025:x.deduccionesTerritoriales2025,cuotaLiquidaEuros:x.cuotaLiquidaLegal,rastro:x.rastro}))]
+}
+export const territoriales=(s:SolicitudDeduccionesTerritoriales2025,discapacidad=false)=>ambas(s,discapacidad).map(e=>Effect.map(e,x=>x.deduccionesTerritoriales2025))
+
+export function anualSinDeducciones(discapacidad=false){const c=canonico();return Effect.map(liquidarIrpfAnual(discapacidad?{...c,situacionFamiliar:{...c.situacionFamiliar,discapacidad:{_tag:"Discapacidad33a64",necesitaAyudaOMovilidadReducida:false}}}:c,{modo:"canonico"}),x=>new Decimal(x.cuotaLiquidaCentimos).div(100))}
+
+/** Control por API: misma historia/empleo, sin desembolsos corrientes, no una base fiscal elegida. */
+export function controlesSinPagos(s:SolicitudDeduccionesTerritoriales2025,discapacidad=false){
+ const control=structuredClone(s),h=control.viviendaDT182025
+ if(h!==undefined){
+  Object.assign(h,{movimientos:h.movimientos.filter(m=>!["amortizacion","intereses","gastos_financiacion"].includes(m.clase))})
+  Object.assign(h.movimientos.find(m=>m.clase==="consumo")!,{importe:"50000"})
+  for(const p of h.proyectos){Object.assign(p.vivienda,{pagos:[]});if(p.prestamo!==null){Object.assign(p.prestamo,{pagos2025:[]});Object.assign(p.prestamo.principalFinal,{importe:p.prestamo.principalInicio.importe})}}
+  for(const solicitud of control.solicitudes){if(solicitud.lote!=="E38"||!("viviendas"in solicitud.hechos))throw new Error("control");for(const v of solicitud.hechos.viviendas)if("pagos"in v)Object.assign(v,{pagos:[]});Object.assign(solicitud,{inversionesViviendaEjercicio:[]})}
+ }else{
+  const solicitud=control.solicitudes[0];if(solicitud?.lote!=="E38"||solicitud.patrimonioRiojaAnterior===undefined||!("viviendas"in solicitud.hechos))throw new Error("control segunda")
+  const p=solicitud.patrimonioRiojaAnterior;Object.assign(p,{movimientos:p.movimientos.filter(m=>!["amortizacion","intereses","gastos_financiacion"].includes(m.clase))});Object.assign(p.movimientos.find(m=>m.clase==="consumo")!,{importe:"20000"});Object.assign(p.prestamo!.principalCierre,{importe:p.financiacionAnterior.principalInicio.importe})
+  for(const v of solicitud.hechos.viviendas)if("pagos"in v)Object.assign(v,{pagos:[]});Object.assign(solicitud,{inversionesViviendaEjercicio:[]})
+ }
+ return ambas(control,discapacidad).map(e=>Effect.map(e,x=>new Decimal(x.cuotaLiquidaEuros)))
+}

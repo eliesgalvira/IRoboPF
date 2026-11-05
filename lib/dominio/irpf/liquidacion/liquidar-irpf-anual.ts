@@ -490,6 +490,7 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
     deduccionesTerritoriales2025,
     deduccionesValencianas2025,
     cuotaLiquida,
+    dt18Aplicada,
     libroMaternidad81,
   } = yield* componerLiquidacionAnual({
     ambito: caso,
@@ -1223,7 +1224,7 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
               importe: cuotaLiquida,
               unidad: "EUR",
               etiqueta: "Cuota líquida",
-              formula: deduccionesGeneralesDonativosAplicadas.isZero() ? `max(0, ${euros(cuotaGeneralDespuesMinimo)} + ${euros(cuotaAhorroDespuesMinimo)} - ${euros(deduccionesAutonomicasAplicadas)})` : `Cuotas íntegras menos donativos generales aplicados ${euros(deduccionesGeneralesDonativosAplicadas)} y autonómicas ${euros(deduccionesAutonomicasAplicadas)};una sola composición`,
+              formula: dt18Aplicada.gt(0) ? `Cuotas íntegras menos DT18 aplicado ${euros(dt18Aplicada)} en sus tramos estatal y autonómico limitados separadamente; autonómicas adicionales ${euros(deduccionesAutonomicasAplicadas)} sobre residual; una sola composición` : deduccionesGeneralesDonativosAplicadas.isZero() ? `max(0, ${euros(cuotaGeneralDespuesMinimo)} + ${euros(cuotaAhorroDespuesMinimo)} - ${euros(deduccionesAutonomicasAplicadas)})` : `Cuotas íntegras menos donativos generales aplicados ${euros(deduccionesGeneralesDonativosAplicadas)} y autonómicas ${euros(deduccionesAutonomicasAplicadas)};una sola composición`,
             }),
             crearLineaCalculo({
               siteId: "anual.deducciones.autonomicas",

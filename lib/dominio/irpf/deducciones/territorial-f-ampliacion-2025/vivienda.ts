@@ -1,3 +1,4 @@
+import { hipotecaMadrid } from "./hipoteca-madrid"
 import { racional, menor } from "../anual-territorial-racional"
 import { aguaF, recargaF } from "./recarga-agua"
 import type { SolicitudF, ViviendaF } from "./esquemas"
@@ -655,18 +656,7 @@ export function viviendaF(s: SolicitudF): ResultadoF {
         "adquisicion/precio",
         "Compra no anterior a2025 o precio sin gastos>390000"
       )
-    return dependencia(
-      s,
-      {
-        magnitud: "intereses_contractuales_euribor_2022",
-        factor: "0.25",
-        topeEUR: "300",
-        operacion:
-          "min(300,0.25 × max(0, interesesPagados - interesesCalculadosMismasCondicionesEuriborDic2022))",
-      },
-      "Falta trayectoria contractual para contrafactual de intereses, no un importe de deducción externo",
-      sumaPagos(ps)
-    )
+    return hipotecaMadrid(s, v, ps)
   }
   if (c === "murcia_dispositivos_ahorro_agua") return aguaF(s, v)
   if (

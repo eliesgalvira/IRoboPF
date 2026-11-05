@@ -65,6 +65,8 @@ const liquidarIrpfAnualExplicitoBase = Effect.fn("Liquidacion.explicita")(
       return yield* Effect.fail(
         rechazar("Discriminante territorial incompatible con hechos")
       )
+    if(caso.discapacidad!=="ninguna"&&(caso.ejercicio!==2025||solicitudTerritorial?.viviendaDT182025===undefined||caso.derechosMinimos!==undefined||caso.perfil!=="solo-trabajo"||caso.trabajo.rendimientos.some(r=>r.clase!=="pension")))
+      return yield* Effect.fail(rechazar("Discapacidad efectiva nueva limitada a pensión con DT18 propio y sin derechos familiares; empleo/discapacidad activa requiere su productor"))
     const solicitudValenciana =
       "deduccionesValencianas2025" in caso
         ? caso.deduccionesValencianas2025
@@ -359,7 +361,7 @@ const liquidarIrpfAnualExplicitoBase = Effect.fn("Liquidacion.explicita")(
         situacionFamiliar: {
           tipo: "individual",
           edad: caso.edad,
-          discapacidad: { _tag: "SinDiscapacidad" },
+          discapacidad: caso.discapacidad==="33-a-64" ? { _tag:"Discapacidad33a64",necesitaAyudaOMovilidadReducida:false } : caso.discapacidad==="65-o-mas" ? {_tag:"Discapacidad65OMas"} : { _tag: "SinDiscapacidad" },
           descendientes: [],
           ascendientes: [],
         },
@@ -482,7 +484,9 @@ const liquidarIrpfAnualExplicitoBase = Effect.fn("Liquidacion.explicita")(
           unidad: "EUR",
           etiqueta: "Cuota líquida legal",
           formula:
-            composicion.deduccionesGeneralesDonativosAplicadas.gt(0)
+            composicion.dt18Aplicada.gt(0)
+              ? "cuotas estatal y autonómica menos DT18 limitado por separado a cada cuota; después deducciones regionales sobre cuota autonómica restante, sin doble consumo"
+              : composicion.deduccionesGeneralesDonativosAplicadas.gt(0)
               ? "cuotas estatal/autonómica menos donativos generales aplicados a cada parte y autonómicas;una sola composición"
               : solicitudValenciana === undefined
               ? "cuota estatal + autonómica; sin otras deducciones"

@@ -7,6 +7,7 @@ import type {
 } from "./ampliacion-comun"
 import {
   eurosAnualesC,
+  noNegativoAnualC,
   accesoC,
   anualesC,
   aniversarioC,
@@ -494,15 +495,15 @@ export function evaluarEmergenciaAmpliacionC(
       )
       comprobar(i !== undefined, "Ayuda sin integración anual identificada")
       comprobar(
-        noNegativoC(i.incluidaBaseLiquidable).comparar(
-          noNegativoC(i.incluidaBaseImponibleGeneral)
+        noNegativoAnualC(i.incluidaBaseLiquidable).comparar(
+          noNegativoAnualC(i.incluidaBaseImponibleGeneral)
         ) <= 0n &&
-          noNegativoC(i.incluidaBaseImponibleGeneral).comparar(
-            noNegativoC(a.importeRecibido)
+          noNegativoAnualC(i.incluidaBaseImponibleGeneral).comparar(
+            noNegativoAnualC(a.importeRecibido)
           ) <= 0n,
         "Integración fiscal superior a ayuda"
       )
-      base = base.sumar(noNegativoC(i.incluidaBaseLiquidable))
+      base = base.sumar(noNegativoAnualC(i.incluidaBaseLiquidable))
     }
     comprobar(
       base.comparar(eurosAnualesC(m.baseLiquidableGeneral).maximo(ceroC())) <= 0n,
