@@ -1,3 +1,4 @@
+import { prepararAscendientesValencianos2025 } from "../minimos/ascendientes-valencia-2025"
 import { producirDT182025, validarCensosViviendaRioja } from "../vivienda-dt18-2025/productor"
 import { aplicarCuotasDT18 } from "../vivienda-dt18-2025/cuota"
 import { racional } from "../deducciones/anual-territorial-racional"
@@ -68,6 +69,7 @@ export type PoliticaAnual =
 export interface EntradaComposicionAnual {
   readonly basesFamiliares2025?: CensoBasesFamiliares2025 | undefined
   readonly pagadoresCatalunya2025?: import("../deducciones/catalunya-pagadores-2025/productor").LibroPagadoresCatalunya2025 | undefined
+  readonly aragonSocialMixto2025?: true | undefined
   readonly inmueblesP4a?: readonly ResultadoInmuebleP4a[] | undefined
   readonly ingresosIdentificados2025?: PreparacionIngresos2025 | undefined
   readonly rentaActividadAnualB?: Decimal | undefined
@@ -128,6 +130,12 @@ export const cuantizarAnual = (
 
 export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
   function* (entrada: EntradaComposicionAnual) {
+    if (entrada.aragonSocialMixto2025 === true && (entrada.ambito.anio !== 2025 || entrada.ambito.comunidadAutonoma !== "aragon" ||
+      entrada.politica !== "open-cuotas-empleo-territorios-2025" || entrada.cotizaciones.naturaleza !== "efectivas" ||
+      entrada.ambito.derechosMinimos !== undefined || entrada.ambito.fechaFallecimiento !== undefined ||
+      entrada.ambito.situacionFamiliar.edad < 18 || entrada.ambito.situacionFamiliar.edad >= 65 ||
+      entrada.ambito.situacionFamiliar.discapacidad._tag !== "SinDiscapacidad" || entrada.inmueblesP4a?.length !== 1 || !entrada.baseAhorro.isZero()))
+      return yield* Effect.fail(errorDerechosMinimos({motivo:"Política monetaria social limitada a productor mixto Aragón 2025 ordinario, edad18–64, inmueble único y ahorro0"}))
     const ampliaF = entrada.deduccionesTerritoriales2025?.solicitudes.some((s) => s.lote === "F-ampliado") === true
     const A = Decimal.clone({ precision: entrada.deduccionesTerritoriales2025?.viviendaDT182025 !== undefined || entrada.basesFamiliares2025 !== undefined || entrada.deduccionesTerritoriales2025?.solicitudes.some(s=>s.lote==="A-aragon-dos") === true || entrada.deduccionesTerritoriales2025?.vehiculoDA582025 !== undefined || ampliaF || usaPrecisionD51(entrada.deduccionesTerritoriales2025) || entrada.deduccionesTerritoriales2025?.donativosEstatales2025 !== undefined ? 80 : entrada.precision })
     const caso = entrada.ambito
@@ -206,6 +214,7 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
       )
     if (
       entrada.politica === "open-cuotas-empleo-territorios-2025" &&
+      entrada.aragonSocialMixto2025 !== true &&
       (!esAmbitoCuotasTerritorialesOpen2025(caso) ||
         entrada.cotizaciones.naturaleza !== "efectivas" ||
         entrada.rentasTrabajoAnuales === undefined ||
@@ -488,7 +497,10 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
               "Solicitud anual valenciana incompleta o con bases/cuota externas",
           })
         )
-      const s = decoded.success
+      const s = yield* Effect.try({
+        try: () => prepararAscendientesValencianos2025(decoded.success, caso.derechosMinimos),
+        catch: e => errorDerechosMinimos({ motivo: e instanceof RangeError ? e.message : "Ascendientes valencianos no conciliados" }),
+      })
       if (
         caso.anio !== 2025 ||
         caso.comunidadAutonoma !== "comunitat-valenciana" ||
@@ -536,7 +548,6 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
       ])
       for (const p of s.solicitudes.filter((p) => p.eleccion === "aplicar")) {
         if (
-          p.codigo === "valenciana_ascendientes_mayores_discapacidad" ||
           (p.codigo === "valenciana_empleados_hogar_cuidado_personas" &&
             p.unidades.some((u) => u.textos.grupo === "ascendientes"))
         )
@@ -570,6 +581,7 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
       // Una unidad puede ser un gasto: su id no identifica a la persona.
       for (const p of s.solicitudes.filter((p) => p.eleccion === "aplicar"))
         for (const u of p.unidades) {
+          if (p.codigo === "valenciana_ascendientes_mayores_discapacidad") continue
           const propias = [
             "valenciana_primera_vivienda_menores_35",
             "valenciana_discapacidad_65",
@@ -731,6 +743,7 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
             cuotasDT18,
             libroBasesFamiliares2025,
             inmueblesP4a: entrada.inmueblesP4a,
+            aragonSocialMixto2025: entrada.aragonSocialMixto2025,
             libroMaternidad81,
             vehiculoDA58,
             basesImponiblesE38: entrada.basesImponiblesE38,

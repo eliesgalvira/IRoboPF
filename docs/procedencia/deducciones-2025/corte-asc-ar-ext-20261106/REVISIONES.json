@@ -1,0 +1,97 @@
+{
+  "estado": "REVISIONES_Y_CI_LOCAL_TERMINADOS_PENDIENTE_PUBLICACION",
+  "basePublicada": "451c687e0c202fd12331a3874e66e63993b377de",
+  "sinCertificacionUniversal": true,
+  "autorFusion": {
+    "casosUnicosCubiertos": 2012,
+    "esUnaEjecucionUnica": false
+  },
+  "autorCorreccionM1M2": {
+    "rojasPre": 27,
+    "verdesPre": 9,
+    "verdesPostConRegresiones": 347,
+    "tiposStrictEffect": 0,
+    "lintersFocales": 0
+  },
+  "revisiones": [
+    {
+      "id": "ASC-primera",
+      "dictamen": "desfavorable por H1; H2/H3 reservas no resueltas",
+      "documentoSha256": "6a5c5de761d49d72d95b7c0d0a6bafe093cbd988a115f8fd04b23b8024839046",
+      "observacionesDistintas": 404,
+      "repeticionesH1": 6
+    },
+    {
+      "id": "ASC-H1-contraste",
+      "dictamen": "favorable acotado",
+      "documentoSha256": "541a2e8776316bc9f9c90af3791d5ba55358439ce2335653da687ec783e69f34",
+      "originalesRojosPre": 6,
+      "propiasVerdesPost": 132
+    },
+    {
+      "id": "AR-primera",
+      "dictamen": "desfavorable por M1/M2",
+      "documentoSha256": "c4c371b2e5e58b5d2a9bfb71c2fd342b416a13d5f1aa0a7973e20a0eccfba620",
+      "verdes": 540,
+      "rojas": 4,
+      "rojasIncluyenO1Diagnostica": true
+    },
+    {
+      "id": "AR-M1-M2-contraste",
+      "dictamen": "favorable acotado",
+      "documentoSha256": "2fd7d05f58b452bf0ee7d669accbbd5d1e26efd718d26b626e472f0f0836630d",
+      "manifestSha256": "7ebcc73c5a693d12e054295bd79d44a6a6db49815f4a9b79060bcdfa92998674",
+      "pre": {
+        "verdes": 31,
+        "rojas": 40
+      },
+      "post": {
+        "verdes": 71,
+        "rojas": 0
+      },
+      "regresionesP4bVerdes": 80
+    },
+    {
+      "id": "EXT-primera",
+      "dictamen": "desfavorable por exigibilidad; otras cuatro observaciones reservadas o con error de adaptador",
+      "documentoSha256": "bbde8cb68f2fa88afe11ffd90be071c5e8fa1ae8a5c23f6df198b4a37e42979e",
+      "casos": 46,
+      "invocaciones": 92,
+      "verdes": 86,
+      "rojas": 6,
+      "rojasHallazgoMonetario": 2
+    },
+    {
+      "id": "EXT-exigibilidad-contraste",
+      "dictamen": "favorable acotado",
+      "manifestSha256": "f5d26c5d3e5e1ceecc1f099e2954e2c8876e91d9330b4694af3ed98cdaddc365",
+      "documentoSha256": "0721b569e096be8d2d09dd69b2069335914ed0344d0428c9599afda2823eb6e0",
+      "pre": {
+        "verdes": 20,
+        "rojas": 10
+      },
+      "post": {
+        "verdes": 30,
+        "rojas": 0
+      },
+      "casosUnicos": 30,
+      "invocacionesAPI": 28,
+      "equivalenciasOriginales": 2,
+      "supervivientes": 0
+    }
+  ],
+  "CI": {
+    "documento": "CI.json",
+    "sha256": "397a666036bd7f056f9ee8a1aea3781fbc236a6d1bbe59d0acbba998f1622a59",
+    "comandosCorrectos": 31
+  },
+  "autorCorreccionEXT": {
+    "preRojas": 14,
+    "preVerdes": 9,
+    "postConRegresiones": 252,
+    "focalesFinalesRepetidas": 23,
+    "tiposStrictEffect": 0,
+    "lintersFocales": 0,
+    "manifiestoSha256": "c224753bd7b2bec2e3bac5c44ad139f250bc3fa536fe5e41b83515e9ca187cba"
+  }
+}

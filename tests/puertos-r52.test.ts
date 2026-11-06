@@ -8,6 +8,25 @@ import { CasoFiscalAnualExplicito } from "../lib/dominio/irpf/trabajo-anual/cone
 import { composeRentasR36 } from "../scripts/procedencia/flujo-rentas-r36.mjs"
 import { executeRentasFinite } from "../scripts/procedencia/flujo-rentas-r36-consumidor.mjs"
 const fragment = composeRentasR36()
+it("R52 mantiene Aragón mixto fuera de la aceptación documental heredada", () => {
+  const name = "boundary:liquidarAragonSocialMixto2025"
+  expect(fragment.boundaries.find(b => b.name === name)).toMatchObject({
+    owner: "productores-anuales-2025",
+    status: "requires-external-contract",
+    admissionAvailable: false,
+  })
+  expect(fragment.globalBindings.find(b => b.name === name)).toMatchObject({ node: null, external: true })
+  const expression = fragment.program.find(n => n.op === "global" && n.data.name === name)
+  expect(expression).toBeDefined()
+  if (expression === undefined) throw Error("Frontera aragonesa ausente")
+  expect(() => executeRentasFinite(fragment, null, [], false, expression.id))
+    .toThrow("Frontera sin contrato " + name)
+  const root = "lib/dominio/irpf/trabajo-anual/conexion.ts:liquidarIrpfAnualExplicito"
+  expect(() => executeRentasFinite(fragment, root, [{ perfil: "aragon-social-mixto-2025" }]))
+    .toThrow("Frontera sin contrato boundary:liquidarAragonSocialMixto2025")
+  expect(fragment.completeRuleAcceptance).toBe(false)
+  expect(fragment.wiringAllowed).toBe(false)
+})
 it("R52 mantiene el productor de pagadores catalanes sin acreditación documental heredada", () => {
   const name = "boundary:producirPagadoresCatalunya2025"
   expect(fragment.boundaries.find((b) => b.name === name)).toMatchObject({

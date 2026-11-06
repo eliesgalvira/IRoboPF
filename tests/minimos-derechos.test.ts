@@ -325,12 +325,12 @@ it("rechaza falta de hechos, incompatibilidad anual y fechas especiales", () => 
   const caso = anual(hechos())
   const r = Effect.runSync(
     Effect.result(
-      // @ts-expect-error frontera antigua sin hechos suficientes: ninguna sobrecarga admite descendientes parciales.
       liquidarIrpfAnual(
         {
           ...caso,
           situacionFamiliar: {
             ...caso.situacionFamiliar,
+            // @ts-expect-error frontera antigua sin hechos suficientes: ninguna sobrecarga admite descendientes parciales.
             descendientes: [{ edad: 8, discapacidad: sinDiscapacidad }],
           },
         },

@@ -1,3 +1,4 @@
+import { CasoAragonSocialMixto2025 } from "../aragon-social-mixto-2025/contrato"
 import { CensoIngresosIdentificados2025 } from "../ingresos-identificados-2025/contrato"
 import { HechosMaternidad2025 } from "../maternidad-2025/contrato"
 import { CasoInmobiliarioP4a } from "../inmobiliario-2025/contrato"
@@ -176,6 +177,6 @@ export const CasoFiscalAnualExplicitoBase = Schema.Union([
 ])
 export type CasoFiscalAnualExplicitoBase = typeof CasoFiscalAnualExplicitoBase.Type
 export const CasoFiscalAnualExplicito = CasoFiscalAnualExplicitoBase
-export const CasoFiscalAnualConInmobiliarioP4a = Schema.Union([CasoFiscalAnualExplicitoBase, CasoInmobiliarioP4a])
+export const CasoFiscalAnualConInmobiliarioP4a = Schema.Union([CasoFiscalAnualExplicitoBase, CasoInmobiliarioP4a, CasoAragonSocialMixto2025])
 export type CasoFiscalAnualConInmobiliarioP4a = typeof CasoFiscalAnualConInmobiliarioP4a.Type
 export type CasoFiscalAnualExplicito = typeof CasoFiscalAnualExplicito.Type

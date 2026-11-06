@@ -1,3 +1,5 @@
+import { liquidarAragonSocialMixto2025 } from "../aragon-social-mixto-2025/anual"
+import type { CasoAragonSocialMixto2025 } from "../aragon-social-mixto-2025/contrato"
 import { liquidarInmobiliarioP4a } from "../inmobiliario-2025/anual"
 import type { CasoInmobiliarioP4a } from "../inmobiliario-2025/contrato"
 import { MOTIVO_ELA81_PENDIENTE } from "../maternidad-2025/combinacion"
@@ -1440,15 +1442,17 @@ const liquidarPagadoresCatalunya = (caso: CasoPagadoresCatalunya2025) =>
   liquidarPagadoresEfectivo(caso)
 
 /** Entrada P4a por la API canónica con perfil explícito; conserva el servicio histórico. */
+export function liquidarIrpfAnual(caso: CasoAragonSocialMixto2025, contexto: ContextoLiquidacionIrpf): ReturnType<typeof liquidarAragonSocialMixto2025>
 export function liquidarIrpfAnual(caso: CasoInmobiliarioP4a, contexto: ContextoLiquidacionIrpf): ReturnType<typeof liquidarInmobiliarioP4a>
 export function liquidarIrpfAnual(caso: CasoPagadoresCatalunya2025, contexto: ContextoLiquidacionIrpf): ReturnType<typeof liquidarPagadoresCatalunya>
 export function liquidarIrpfAnual(caso: CasoFiscalAnual, contexto: ContextoLiquidacionIrpf): ReturnType<typeof liquidarIrpfAnualBase>
-export function liquidarIrpfAnual(caso: CasoInmobiliarioP4a | CasoFiscalAnual | CasoPagadoresCatalunya2025, contexto: ContextoLiquidacionIrpf) {
+export function liquidarIrpfAnual(caso: CasoAragonSocialMixto2025 | CasoInmobiliarioP4a | CasoFiscalAnual | CasoPagadoresCatalunya2025, contexto: ContextoLiquidacionIrpf) {
   if ("perfil" in caso && caso.perfil === "trabajo-pagadores-catalunya-2025") {
     if (contexto.modo !== "canonico")
       return Effect.fail({ _tag: "ResultadoNoSoportado" as const, motivo: "Catalunya pagadores: modo no canónico", fuenteReconocida: "docs/procedencia/deducciones-2025/catalunya-pagadores-20261105/ALCANCE.md", rastro: { titulo: "Alcance pagadores", pasos: [] } })
     return liquidarPagadoresEfectivo(caso)
   }
+  if ("perfil" in caso && caso.perfil === "aragon-social-mixto-2025") return liquidarAragonSocialMixto2025(caso)
   return "perfil" in caso && caso.perfil === "solo-inmobiliario-p4a"
     ? liquidarInmobiliarioP4a(caso)
     : "anio" in caso ? liquidarIrpfAnualBase(caso, contexto) : liquidarInmobiliarioP4a(caso)

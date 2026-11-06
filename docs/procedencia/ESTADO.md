@@ -1,5 +1,26 @@
 # Estado de la auditoría documental
 
+## Ascendientes, Aragón social y familiar extremeño · 6 de noviembre
+
+Última publicación confirmada: `451c687e0c202fd12331a3874e66e63993b377de`,
+con ambos trabajos del [CI remoto](https://github.com/eliesgalvira/IRoboPF/actions/runs/42134446640) correctos.
+La fusión siguiente conecta ascendientes de Madrid, CLM y Valencia, el perfil
+mixto aragonés y el familiar extremeño de renta exenta. Las primeras revisiones
+están terminadas. ASC-H1 y AR-M1/M2 están corregidos y sus contrastes graves
+son favorables acotados. EXT exigibilidad tiene la corrección y el contraste grave
+favorables: los dos originales de 150 euros se reproducen en la preimagen;
+pasan 30 pruebas propias sobre la corrección. Los 31 pasos del CI local pasan,
+con generados actuales y entorno limpio. Publicación y CI remoto pendientes de
+confirmación; el resultado anterior permanece identificado por su commit.
+[Alcance, hallazgos y reservas](deducciones-2025/corte-asc-ar-ext-20261106/INTEGRACION.md).
+
+El punto 4 sigue abierto. La unión de vivienda murciana y bases familiares de
+Madrid permanece privada, sin atribuirle validación ni revisión. El corte
+histórico cerrado tiene 969 recibos: 661 de 2018, 61 por año en 2019–2022 y
+2024, y tres de 2023. Capturar no amplía la comparación monetaria publicada.
+Las 58 entradas siguientes de 2023 tienen preparación offline verificada.
+
+
 ## Cuatro productores territoriales · 6 de noviembre
 
 El corte anterior `009331687c5e75b9d1d62f6485a771d455d52023` está publicado con ambos trabajos del [CI remoto](https://github.com/eliesgalvira/IRoboPF/actions/runs/42123969749) correctos. Se retiraron doce carpetas publicadas después de preservar y cotejar sus originales; la medición anterior a las tres últimas retiradas fue de 98,99 GB para IRoboPF y 313,15 GB libres.

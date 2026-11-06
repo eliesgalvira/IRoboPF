@@ -1,3 +1,4 @@
+import { evaluarFamiliarExentoExt2025 } from "./ext-familiar-anual-2025"
 import { producirHistoriaBasesD51 } from "./historia-bases-d51"
 import { evaluarVaciaExt2025 } from "../inmobiliario-2025/consumidor-ext"
 import { evaluarInversionExt2025 } from "./extremadura-inversion-anual-2025"
@@ -95,6 +96,7 @@ export function crearSesionD51(m:MagnitudesTerritorialesAnuales) {
   const territorio=s.codigo.startsWith("clm_")?"castilla-la-mancha":s.codigo.startsWith("cyl_")?"castilla-y-leon":"extremadura"
   exigir(territorio===m.caso.comunidadAutonoma,"D51: deducción de otro territorio")
   if(s.codigo==="extremadura_inversion_acciones_participaciones_mercantiles" && "perfil" in s.hechos)return evaluarInversionExt2025(s.hechos,m)
+  if(s.codigo==="extremadura_cuidado_familiares_discapacidad" && "perfil" in s.hechos)return evaluarFamiliarExentoExt2025(s.hechos,m)
   const dinero=new Set<string>()
   function validarPagos(x:Schema.Json):void {
    if(esLista(x)){x.forEach(validarPagos);return}
@@ -225,7 +227,9 @@ case "extremadura_ayudas_subvenciones_ela": {
  integradaBaseGeneral:anual("ayuda_ela_integrada_base_general",x.integradoBaseGeneral),integradaBaseLiquidable:anual("ayuda_ela_integrada_base_liquidable",x.integradoBaseLiquidable),
  tipoMedioEstatal:anual("tipo_medio_estatal",tipos.estatal),tipoMedioAutonomico:anual("tipo_medio_autonomico",tipos.autonomico),cuotaAutonomica:magnitud("cuotaAutonomica",s.codigo,s.hechos)})
 }
-case "extremadura_cuidado_familiares_discapacidad":return EXT.cuidadoDiscapacidadExt(marco,({...s.hechos, regimen: ({...s.hechos.regimen}), personas: s.hechos.personas.map(elemento=>({...elemento, rentasIncluidasExentas: faltaFiscal("rentasIncluidasExentas",elemento), obligacionPatrimonio: faltaFiscal("obligacionPatrimonio",elemento)}))}))
+case "extremadura_cuidado_familiares_discapacidad":
+ if("perfil" in s.hechos)throw new RangeError("EXT familiar: perfil no evaluado")
+ return EXT.cuidadoDiscapacidadExt(marco,({...s.hechos, regimen: ({...s.hechos.regimen}), personas: s.hechos.personas.map(elemento=>({...elemento, rentasIncluidasExentas: faltaFiscal("rentasIncluidasExentas",elemento), obligacionPatrimonio: faltaFiscal("obligacionPatrimonio",elemento)}))}))
 case "extremadura_arrendamiento_vivienda_habitual":return EXT.alquilerExt(marco,({...s.hechos, regimen: ({...s.hechos.regimen}), contratos: s.hechos.contratos.map(elemento=>({...elemento}))}))
   }
  }

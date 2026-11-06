@@ -1,5 +1,10 @@
 # CI reproducible
 
+El corte de ascendientes, Aragón social y familiar extremeño del 6 de noviembre
+supera los 31 comandos locales con PATH limpio, inventario y generados actuales.
+[Resultado y límites](deducciones-2025/corte-asc-ar-ext-20261106/CI.json).
+La verificación remota corresponde al push posterior.
+
 Antes de cada push se ejecutan los pasos vigentes de `.github/workflows`, con
 sus comandos, versiones y flake Nix, incluida la comprobación del inventario
 generado. Una ejecución con variables adicionales de desarrollo no demuestra

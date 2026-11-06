@@ -1,6 +1,8 @@
 import { baseTrabajoMiembro2025 } from "../bases-familiares-2025/productor"
 import { producirPagadoresCatalunya2025 } from "../deducciones/catalunya-pagadores-2025/productor"
 import type { LibroPagadoresCatalunya2025 } from "../deducciones/catalunya-pagadores-2025/productor"
+import { liquidarAragonSocialMixto2025 } from "../aragon-social-mixto-2025/anual"
+import type { CasoAragonSocialMixto2025 } from "../aragon-social-mixto-2025/contrato"
 import { admiteArgumentoOpen2018 } from "./politica-open-2018"
 import { MOTIVO_ELA81_PENDIENTE } from "../maternidad-2025/combinacion"
 import { prepararIngresosIdentificados2025, DecimalIngreso2025 } from "../ingresos-identificados-2025/productor"
@@ -605,12 +607,14 @@ const liquidarIrpfAnualExplicitoBase = Effect.fn("Liquidacion.explicita")(
   }
 )
 
+export function liquidarIrpfAnualExplicito(caso: CasoAragonSocialMixto2025): ReturnType<typeof liquidarAragonSocialMixto2025>
 export function liquidarIrpfAnualExplicito(caso: CasoInmobiliarioP4a): ReturnType<typeof liquidarInmobiliarioP4a>
 export function liquidarIrpfAnualExplicito(caso: CasoFiscalAnualExplicito): ReturnType<typeof liquidarIrpfAnualExplicitoBase>
-export function liquidarIrpfAnualExplicito(caso: CasoInmobiliarioP4a | CasoFiscalAnualExplicito): Effect.Effect<
-  Effect.Success<ReturnType<typeof liquidarInmobiliarioP4a> | ReturnType<typeof liquidarIrpfAnualExplicitoBase>>,
-  Effect.Error<ReturnType<typeof liquidarInmobiliarioP4a> | ReturnType<typeof liquidarIrpfAnualExplicitoBase>>
+export function liquidarIrpfAnualExplicito(caso: CasoAragonSocialMixto2025 | CasoInmobiliarioP4a | CasoFiscalAnualExplicito): Effect.Effect<
+  Effect.Success<ReturnType<typeof liquidarAragonSocialMixto2025> | ReturnType<typeof liquidarInmobiliarioP4a> | ReturnType<typeof liquidarIrpfAnualExplicitoBase>>,
+  Effect.Error<ReturnType<typeof liquidarAragonSocialMixto2025> | ReturnType<typeof liquidarInmobiliarioP4a> | ReturnType<typeof liquidarIrpfAnualExplicitoBase>>
 >
-export function liquidarIrpfAnualExplicito(caso: CasoInmobiliarioP4a | CasoFiscalAnualExplicito) {
+export function liquidarIrpfAnualExplicito(caso: CasoAragonSocialMixto2025 | CasoInmobiliarioP4a | CasoFiscalAnualExplicito) {
+  if(caso.perfil === "aragon-social-mixto-2025") return liquidarAragonSocialMixto2025(caso)
   return caso.perfil === "solo-inmobiliario-p4a" ? liquidarInmobiliarioP4a(caso) : liquidarIrpfAnualExplicitoBase(caso)
 }

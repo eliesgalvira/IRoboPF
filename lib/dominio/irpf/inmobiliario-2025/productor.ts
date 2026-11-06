@@ -70,6 +70,13 @@ const producirInmueble = Effect.fn("P4a.inmueble")(function* (v: InmuebleP4a) {
   const fechas = [...v.exigibilidades.map(x => x.fecha), ...v.gastos.flatMap(x => [x.fechaOperacion, x.fechaFactura, x.fechaPago])]
   if (fechas.some(fecha => !Number.isFinite(dia(fecha)) || fecha < "2025-01-01" || fecha > "2025-12-31"))
     return yield* fallo("gasto", "P4a requiere exigibilidad, operación, factura y pago dentro de2025")
+  // El período declarado también limita la imputación: las fechas de factura y pago
+  // no justifican deducir íntegro un gasto de otro ejercicio o de varios ejercicios.
+  for (const gasto of v.gastos) {
+    const periodo = gasto.periodoDevengo
+    if (periodo !== undefined && (!Number.isFinite(dia(periodo.desde)) || !Number.isFinite(dia(periodo.hasta)) || periodo.desde > periodo.hasta || periodo.desde < "2025-01-01" || periodo.hasta > "2025-12-31"))
+      return yield* fallo("gasto", "período de devengo inválido o fuera de2025; requiere atribución específica antes de deducir")
+  }
   const integro = total(v.exigibilidades.map(x => dinero(x.importe)))
   const limitables = total(v.gastos.filter(x => x.clase === "intereses" || x.clase === "reparacion").map(x => dinero(x.importe)))
   const gastosLimitados = menor(integro, limitables)
@@ -124,6 +131,12 @@ export const producirInmueblesP4a = Effect.fn("P4a.producir")(function* (entrada
     : (esPrimerAlquiler ? "balears_arrendador_vivienda_permanente_otros_gastos" : "balears_mejora_sostenibilidad_vivienda")
   if (caso.deduccionesTerritoriales2025 !== undefined && caso.deduccionesTerritoriales2025.solicitudes.some(s => s.lote !== (esExt ? "D51" : "C36") || s.codigo !== codigoAdmitido))
     return yield* new RechazoP4a({ codigo: "entrada", motivo: "Perfil inmobiliario conecta exclusivamente su consumidor regional; combinaciones pendientes" })
+  const censo = yield* producirCensoInmuebles2025(caso)
+  return { ...censo, caso }
+})
+
+/** Núcleo inmobiliario compartido. La conexión valida su perfil antes de invocarlo. */
+export const producirCensoInmuebles2025 = Effect.fn("Inmuebles.censo2025")(function* (caso: Pick<CasoInmobiliarioP4a, "inmuebles" | "retenciones" | "contribuyenteId" | "edad">) {
   const ids = caso.inmuebles.map(v => v.id), catastros = caso.inmuebles.map(v => v.catastro)
   const documentos = caso.inmuebles.flatMap(v => v.exigibilidades.map(x => x.documento))
   const operaciones = [...caso.inmuebles.flatMap(v => [...v.exigibilidades.map(x => x.id), ...v.gastos.map(x => x.id)]), ...caso.retenciones.map(x => x.id)]

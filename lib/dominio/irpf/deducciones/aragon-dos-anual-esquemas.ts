@@ -16,7 +16,20 @@ export const InversionAragonesaAnual2025 = Schema.Struct({
 export const ArrendadorSocialAnual2025 = Schema.Struct({
  lote: Schema.Literal("A-aragon-dos"),
  codigo: SolicitudArrendadorSocial2025.fields.codigo,
- hechos: Schema.Struct({ viviendas: SolicitudArrendadorSocial2025.fields.viviendas }),
+ hechos: Schema.Union([
+  Schema.Struct({ viviendas: SolicitudArrendadorSocial2025.fields.viviendas }),
+  Schema.Struct({ viviendasPlan: Schema.Array(Schema.Struct({
+   inmueble: Schema.String.check(Schema.isPattern(/\S/)),
+   titular: Schema.String.check(Schema.isPattern(/\S/)),
+   titulo: Schema.String.check(Schema.isPattern(/\S/)),
+   gestor: Schema.Struct({ entidad: Schema.String.check(Schema.isPattern(/\S/)),
+    clase: Schema.Literals(["Gobierno-Aragon", "entidad-gestora-Plan"]),
+    habilitacion: Schema.String.check(Schema.isPattern(/\S/)),
+    mandatoPorCuentaPropietario: Schema.String.check(Schema.isPattern(/\S/)) }),
+   acta: Schema.String.check(Schema.isPattern(/\S/)),
+   desde: Schema.String.check(Schema.isPattern(/^\d{4}-\d{2}-\d{2}$/)), hasta: Schema.String.check(Schema.isPattern(/^\d{4}-\d{2}-\d{2}$/)),
+  })).check(Schema.isMinLength(1), Schema.isMaxLength(1)) }),
+ ]),
 })
 export const SolicitudAragonDosAnual2025 = Schema.Union([InversionAragonesaAnual2025, ArrendadorSocialAnual2025])
 export type SolicitudAragonDosAnual2025 = typeof SolicitudAragonDosAnual2025.Type
