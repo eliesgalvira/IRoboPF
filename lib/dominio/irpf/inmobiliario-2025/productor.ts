@@ -1,3 +1,4 @@
+import { validarCambioHabitualBalears2025 } from "./cambio-habitual-balears"
 import { validarVaciaExt2025 } from "./vacia-ext"
 import { dia } from "./calendario"
 import { validarPrimerAlquiler2025 } from "./primer-alquiler"
@@ -44,11 +45,15 @@ const producirInmueble = Effect.fn("P4a.inmueble")(function* (v: InmuebleP4a) {
     catch: e => fallo("historia", e instanceof RangeError ? e.message : "EXT: hechos incompletos"),
   })
   const primer = v.primerAlquiler2025
-  const temporal = primer === undefined ? undefined : yield* Effect.try({
+  const cambio = v.cambioHabitualBalears2025 === undefined ? undefined : yield* Effect.try({
+    try: () => validarCambioHabitualBalears2025(v),
+    catch: e => fallo("historia", e instanceof RangeError ? e.message : "T06_P4A_ERROR_NO_DOMINIO"),
+  })
+  const temporal = primer === undefined ? cambio : yield* Effect.try({
     try: () => validarPrimerAlquiler2025(v),
     catch: e => fallo("historia", e instanceof RangeError ? e.message : "Hechos P4b incompletos"),
   })
-  if (primer === undefined) {
+  if (primer === undefined && cambio === undefined) {
   if (![a.fecha, c.firma, c.desde, c.hasta].every(s => Number.isFinite(dia(s))) || a.fecha > "2025-01-01" || c.firma > c.desde || c.desde !== "2025-01-01" || c.hasta < "2025-12-31")
     return yield* fallo("contrato", "requiere adquisición anterior a2025 y contrato único vigente todo2025")
   let siguiente = dia(a.fecha)
@@ -105,7 +110,7 @@ const producirInmueble = Effect.fn("P4a.inmueble")(function* (v: InmuebleP4a) {
   tramo(dia("2026-01-01"))
   amortizacion = menor(costeVigente, amortizacion)
   const neto = restar(restar(restar(integro, gastosLimitados), otrosGastos), amortizacion)
-  if (primer !== undefined && (neto.n < 0n || restar(limitables, gastosLimitados).n > 0n))
+  if ((primer !== undefined || cambio !== undefined) && (neto.n < 0n || restar(limitables, gastosLimitados).n > 0n))
     return yield* fallo("gasto", "P4b: pérdidas o exceso de gastos con arrastre requieren productor posterior")
   if (comprobacionVacia2024 !== undefined && (neto.n <= 0n || restar(limitables, gastosLimitados).n > 0n))
     return yield* fallo("gasto", "EXT: requiere RNR positivo sin exceso pendiente")
@@ -129,8 +134,18 @@ export const producirInmueblesP4a = Effect.fn("P4a.producir")(function* (entrada
   const codigoAdmitido = esExt ? "extremadura_arrendadores_viviendas_vacias" : caso.comunidadAutonoma === "canarias"
     ? (esPrimerAlquiler ? "canarias_puesta_viviendas_mercado_arrendamiento" : "canarias_adecuacion_inmueble_arrendamiento")
     : (esPrimerAlquiler ? "balears_arrendador_vivienda_permanente_otros_gastos" : "balears_mejora_sostenibilidad_vivienda")
-  if (caso.deduccionesTerritoriales2025 !== undefined && caso.deduccionesTerritoriales2025.solicitudes.some(s => s.lote !== (esExt ? "D51" : "C36") || s.codigo !== codigoAdmitido))
+  const esCambio = caso.inmuebles.some(v => v.cambioHabitualBalears2025 !== undefined)
+  if (esCambio && (caso.comunidadAutonoma !== "illes-balears" || caso.inmuebles.length !== 1 ||
+    caso.inmuebles[0]?.cambioHabitualBalears2025 === undefined || esPrimerAlquiler ||
+    caso.deduccionesTerritoriales2025?.solicitudes.length !== 1))
+    return yield* new RechazoP4a({ codigo: "entrada", motivo: "T06_P4A_AMBITO: una vivienda y solicitud de alquiler balear" })
+  if (caso.deduccionesTerritoriales2025 !== undefined && caso.deduccionesTerritoriales2025.solicitudes.some(s => s.lote !== (esExt ? "D51" : "C36") || s.codigo !== (esCambio ? "balears_arrendamiento_vivienda_habitual" : codigoAdmitido)))
     return yield* new RechazoP4a({ codigo: "entrada", motivo: "Perfil inmobiliario conecta exclusivamente su consumidor regional; combinaciones pendientes" })
+  if (esCambio) {
+    const h = caso.inmuebles[0]?.cambioHabitualBalears2025
+    if (h === undefined || h.persona !== caso.contribuyenteId || 2025 - Number(h.nacimiento.slice(0, 4)) !== caso.edad)
+      return yield* new RechazoP4a({ codigo: "identidad", motivo: "T06_P4A_SUJETO: cambio habitual ajeno" })
+  }
   const censo = yield* producirCensoInmuebles2025(caso)
   return { ...censo, caso }
 })

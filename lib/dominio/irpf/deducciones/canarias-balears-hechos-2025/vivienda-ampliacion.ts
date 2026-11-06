@@ -581,8 +581,7 @@ export function evaluarViviendaAmpliacionC(
             )
             comprobar(
               v.alquiler.arrendatario === persona &&
-                v.derecho === "arrendatario" &&
-                hist.deduccionesInversionConDerecho.length === 0,
+                v.derecho === "arrendatario",
               "Arrendatario o incompatibilidad de inversión incumplidos"
             )
             const c = v.colectivo,
@@ -662,6 +661,11 @@ export function evaluarViviendaAmpliacionC(
               vs.length === 1,
               "Varias viviendas habituales: agregar gasto antes de máximo por persona"
             )
+            if (hist.deduccionesInversionConDerecho.length > 0) {
+              traza.push("T06_ART3BIS1C_EXCLUIDO: derecho material a inversión en el mismo período")
+              importe = ceroC()
+              break
+            }
             importe = gasto
               .por(eurosC(reforzado ? "0.20" : "0.15"))
               .minimo(enteroC(reforzado ? 650 : 530))

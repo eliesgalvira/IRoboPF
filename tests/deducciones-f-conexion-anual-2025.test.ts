@@ -79,20 +79,19 @@ describe("F anual: una cuota y reservas por rama", () => {
     const r = aplicar({ solicitudes: [recarga()] }, m("0"))
     expect(r.aplicaciones[0]).toMatchObject({ generado: racional("1000"), aplicado: racional("0"), pendiente: racional("1000") })
   })
-  it("historia ausente no se transforma en historia vacía ni en deducción cero", () => {
+  it("el incentivo nuevo de2025 no exige un historial anterior sin vigencia", () => {
     const { historialRecarga: historia, ...sinHistoria } = recarga()
     expect(historia).toBeDefined()
     const r = aplicar({ solicitudes: [sinHistoria, agua()] }, m())
-    expect(r).toMatchObject({ completoEnRamasSolicitadas: false })
-    const pendiente = r.aplicaciones.find((x) => "codigo" in x && x.codigo === recarga().codigo)
-    expect(pendiente).toMatchObject({ estado: "pendiente_hechos", resultado: { siguienteHecho: "historialRecarga.2022_2024" } })
-    expect(pendiente).not.toHaveProperty("generado")
-    expect(r.total).toEqual(racional("60")) // Subtotal conocido; ambas API rechazan liquidación completa.
+    expect(r).toMatchObject({ completoEnRamasSolicitadas: true })
+    const aplicacion = r.aplicaciones.find((x) => "codigo" in x && x.codigo === recarga().codigo)
+    expect(aplicacion).toMatchObject({ generado: racional("1000"), aplicado: racional("40"), pendiente: racional("960") })
+    expect(r.total).toEqual(racional("100"))
   })
-  it("historia positiva exige reconstrucción del origen y conserva el ejercicio", () => {
+  it("una historia positiva anterior a la vigencia no habilita un saldo", () => {
     const s = recarga()
     const r = evaluarAnualF2025({ ...s, historialRecarga: { periodos: [2022, 2023, 2024], contribuyente: "s-1", referencia: "historia", infraestructuras: [{ objetoId: "antigua", ejercicioOrigen: 2024, referencia: "facturas2024" }] } }, m())
-    expect(r.siguienteHecho).toBe("productor_saldo_recarga_origen:2024"); expect(r.importe).toBeUndefined()
+    expect(r.siguienteHecho).toBe("historialRecarga.sin_vigencia_anterior_2025"); expect(r.importe).toBeUndefined()
   })
   it("ayudas ambiguas siguen concretamente pendientes junto a una rama calculable", () => {
     const s = recarga()
@@ -238,9 +237,10 @@ describe("F conectado a las dos API públicas", () => {
     comprobarLibroRecargaAnual(r.deduccionesTerritoriales2025)
   })
   it("una rama desconocida no publica cuota como si su deducción fuese cero", () => {
-    const { historialRecarga: historia, ...sinHistoria } = recarga()
-    expect(historia).toBeDefined()
-    const r = Effect.runSync(Effect.result(liquidarIrpfAnualExplicito({ ...efectivo(), deduccionesTerritoriales2025: { solicitudes: [agua(), sinHistoria] } })))
+    const solicitud = recarga()
+    const historia = { periodos: [2022, 2023, 2024] as const, contribuyente: "s-1", referencia: "incompatible",
+      infraestructuras: [{ objetoId: "inst-anterior", ejercicioOrigen: 2024 as const, referencia: "origen2024" }] }
+    const r = Effect.runSync(Effect.result(liquidarIrpfAnualExplicito({ ...efectivo(), deduccionesTerritoriales2025: { solicitudes: [agua(), { ...solicitud, historialRecarga: historia }] } })))
     expect(Result.isFailure(r)).toBe(true)
     if (Result.isFailure(r)) expect(r.failure).toMatchObject({ _tag: "ResultadoNoSoportado", deduccionesTerritoriales2025: { total: racional("60"), completoEnRamasSolicitadas: false } })
   })

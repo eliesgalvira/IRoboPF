@@ -155,3 +155,151 @@ it("H2 limita el libro familiar y conserva el núcleo económico usado por Andal
  c.personas[2]!.economia={perfil:"solo-trabajo",censoRentasCompleto:true,otrasRentas:"ninguna",reduccionesBase:"ninguna",saldosAnteriores:"ninguno",trabajo:{...trabajo,discapacidadActiva:"ninguna",rendimientos:trabajo.rendimientos.map(r=>({...r,integro:"9250"}))}}
  expect(producir(c,{...ambito,comunidadAutonoma:"madrid",derechosMinimos:d}, {general:new D("20444.8"),ahorro:new D(0)}).bases.get("s-3")!.rentaAntesReducciones!.toFixed()).toBe("7250")
 })
+
+// T07: los H2 anteriores se conservan sin modificar; nuevo calendario suficiente.
+import { type CalendarioTrabajo2025, calcularGastosTrabajoCalendario2025 } from "../lib/dominio/irpf/trabajo-anual/calendario-2025"
+function importeT07(valor: string | undefined): string {
+ if(valor === undefined) throw Error("T07 importe calculado ausente")
+ return valor
+}
+function calendarioT07(parcial = false, grado = 65, ayuda = false, ultimoIngreso = "1000"): Mutable<CalendarioTrabajo2025> {
+ return { sujetoId:"s-2",rendimientoId:"pagador-a",empleador:"empleador-unico",soporteRelacionLaboral:"contrato-ordinario",fechaCorteDocumental:"2026-11-06",censoCompleto:true,imputacion:"servicios-ordinarios-2025-sin-atrasos",
+ certificados:[{id:"cert-1",sujetoId:"s-2",organismo:"organo-competente-ccaa",emision:"2026-02-01",efectosDesde:parcial?"2025-10-20":"2025-01-01",efectosHasta:"2025-12-31",grado,ayudaOMovilidadReducida:ayuda,soporte:"resolucion-con-efectos-expresos"}],
+ tramos:parcial ? [
+ {id:"nomina-a",desde:"2025-01-01",hasta:"2025-10-19",soporte:"nominas-a",actividad:"servicios-efectivos",integro:new D(17000).minus(ultimoIngreso).toFixed(),seguridadSocial:"0",derechosPasivos:"0",colegiosHuerfanos:"0"},
+ {id:"nomina-b",desde:"2025-10-20",hasta:"2025-12-31",soporte:"nominas-b",actividad:"servicios-efectivos",integro:ultimoIngreso,seguridadSocial:"0",derechosPasivos:"0",colegiosHuerfanos:"0"},
+ ] : [{id:"nomina-anual",desde:"2025-01-01",hasta:"2025-12-31",soporte:"nominas",actividad:"servicios-efectivos",integro:"17000",seguridadSocial:"0",derechosPasivos:"0",colegiosHuerfanos:"0"}] }
+}
+function trabajoT07(parcial = false, grado: "33-a-64" | "65-o-mas" = "65-o-mas", ayuda = false) {
+ if(efectivo.perfil !== "solo-trabajo") throw Error("fixture laboral")
+ return {...efectivo.trabajo,discapacidadActiva:{grado,ayudaOMovilidadReducida:ayuda?"si":"no",acreditadaDuranteTodoElTrabajo:parcial?"no":"si"} as const,
+ rendimientos:efectivo.trabajo.rendimientos.map(r=>({...r,integro:"17000",cotizaciones:{...r.cotizaciones,seguridadSocial:"0"}}))}
+}
+function casosT07(territorio: "madrid" | "comunitat-valenciana", parcial = false) {
+ const c=censo(), d=familia(territorio)
+ const renta=parcial?1440000:725000
+ for(const s of d.descendientes) for(const t of s.titulares) if(t.titularId === "s-2") t.rentasNoExentasCentimos=renta
+ c.personas[1]!.economia={perfil:"solo-trabajo",censoRentasCompleto:true,otrasRentas:"ninguna",reduccionesBase:"ninguna",saldosAnteriores:"ninguno",trabajo:trabajoT07(parcial),calendarioTrabajo2025:calendarioT07(parcial)}
+ const a={...analitico,comunidadAutonoma:territorio,contribuyenteId:"s-1",derechosMinimos:d,basesFamiliares2025:c} as const
+ const e={...efectivo,comunidadAutonoma:territorio,contribuyenteId:"s-1",derechosMinimos:d,basesFamiliares2025:c,familiaresConDerechoMinimo:"segun-derechos"} as const
+ return {a,e,c,d}
+}
+it.each([
+ [false,33,false,"3500","11500","7957"],
+ [false,65,false,"7750","7250","3707"],
+ [false,33,true,"7750","7250","3707"],
+ [true,65,false,"600","14400","10857"],
+] as const)("T07 oráculo independiente art19/20 parcial=%s grado=%s ayuda=%s",(parcial,grado,ayuda,gasto,renta,base)=>{
+ const t=trabajoT07(parcial,grado>=65?"65-o-mas":"33-a-64",ayuda), cal=calendarioT07(parcial,grado,ayuda)
+ const g=calcularGastosTrabajoCalendario2025(t,cal)
+ expect(g.discapacidadAplicada).toBe(gasto);expect(g.netoArt19).toBe(renta)
+ // El núcleo anual existente aplica art20 una sola vez, previo17000 =>3543.
+ const c=censo();c.personas[1]!.economia={perfil:"solo-trabajo",censoRentasCompleto:true,otrasRentas:"ninguna",reduccionesBase:"ninguna",saldosAnteriores:"ninguno",trabajo:t,calendarioTrabajo2025:cal}
+ expect(producir(c,ambito,propia).bases.get("s-2")!.general.toFixed()).toBe(base)
+})
+it("T07 73d con ingresos suficientes conserva7750 íntegros; emisión posterior no mueve efectos",()=>{
+ const g=calcularGastosTrabajoCalendario2025(trabajoT07(true),calendarioT07(true,65,false,"9000"))
+ expect(g.discapacidadAplicada).toBe("7750");expect(g.netoArt19).toBe("7250")
+})
+for(const territorio of ["madrid","comunitat-valenciana"] as const) {
+ it(`T07 ${territorio}: ambas API calculan y conservan cuota propia sin solicitud regional`,()=>{
+  const {a,e}=casosT07(territorio)
+  const ra=Effect.runSync(liquidarIrpfAnual(a,{modo:"canonico"})), re=Effect.runSync(liquidarIrpfAnualExplicito(e))
+  const {basesFamiliares2025: libroA,...aa}=a
+  const {basesFamiliares2025: libroE,...ee}=e
+  expect(libroA).toBe(libroE)
+  expect(ra.cuotaLiquidaCentimos).toBe(Effect.runSync(liquidarIrpfAnual(aa,{modo:"canonico"})).cuotaLiquidaCentimos)
+  expect(re.cuotaLiquidaLegal).toBe(Effect.runSync(liquidarIrpfAnualExplicito(ee)).cuotaLiquidaLegal)
+  expect(re.baseLiquidableGeneral).toBe("26056")
+ })
+ it(`T07 ${territorio}: ambas API usan calendario en consumidor regional`,()=>{
+  const {a,e}=casosT07(territorio)
+  if(territorio === "comunitat-valenciana") {
+   const ra=Effect.runSync(liquidarIrpfAnual({...a,deduccionesValencianas2025:solicitud()},{modo:"canonico"}))
+   const re=Effect.runSync(liquidarIrpfAnualExplicito({...e,deducciones:"valencianas-por-hechos-y-da61",deduccionesValencianas2025:solicitud()}))
+   expect(new D(importeT07(ra.deduccionesValencianas2025!.totalAplicado)).gt(0)).toBe(true)
+   expect(new D(importeT07(re.deduccionesValencianas2025!.totalAplicado)).gt(0)).toBe(true)
+   const p=casosT07(territorio,true)
+   expect(Effect.runSync(liquidarIrpfAnual({...p.a,deduccionesValencianas2025:solicitud()},{modo:"canonico"})).deduccionesValencianas2025!.totalAplicado).toBe("0")
+   expect(Effect.runSync(liquidarIrpfAnualExplicito({...p.e,deducciones:"valencianas-por-hechos-y-da61",deduccionesValencianas2025:solicitud()})).deduccionesValencianas2025!.totalAplicado).toBe("0")
+  } else {
+   const f={solicitudes:[{lote:"F-ampliado",codigo:"madrid_condicion_familia_numerosa",hechos:{titulo:{categoria:"general",referencia:"titulo",efectos:"2025-01-01",titulares:["s-1"]}}}]} as const
+   const antes=Effect.runSync(liquidarIrpfAnual(a,{modo:"canonico"})),despues=Effect.runSync(liquidarIrpfAnual({...a,deduccionesTerritoriales2025:f},{modo:"canonico"}))
+   expect(despues.cuotaLiquidaCentimos).toBeLessThan(antes.cuotaLiquidaCentimos)
+   const re=Effect.runSync(liquidarIrpfAnualExplicito({...e,deducciones:"territoriales-por-hechos-y-da61",deduccionesTerritoriales2025:f}))
+   expect(new D(re.cuotaLiquidaLegal).lt(Effect.runSync(liquidarIrpfAnualExplicito(e)).cuotaLiquidaLegal)).toBe(true)
+  }
+ })
+ for(const causa of ["identidad","laguna","solape","renta-ajena","duplicado","emision","censo"] as const) {
+  it(`T07 ${territorio} ambas API rechazan ${causa}`,()=>{
+   const {a,e,c}=casosT07(territorio,true)
+   const ec=c.personas[1]!.economia
+   if(ec.perfil !== "solo-trabajo" || ec.calendarioTrabajo2025 === undefined) throw Error("fixture calendario")
+   const cal=ec.calendarioTrabajo2025
+   if(causa === "identidad") ec.calendarioTrabajo2025={...cal,sujetoId:"s-99",certificados:cal.certificados.map(s=>({...s,sujetoId:"s-99"}))}
+   if(causa === "laguna") ec.calendarioTrabajo2025={...cal,tramos:cal.tramos.map((s,i)=>i===1?{...s,desde:"2025-10-21"}:s)}
+   if(causa === "solape") ec.calendarioTrabajo2025={...cal,tramos:cal.tramos.map((s,i)=>i===1?{...s,desde:"2025-10-19"}:s)}
+   if(causa === "renta-ajena") ec.calendarioTrabajo2025={...cal,tramos:cal.tramos.map((s,i)=>i===1?{...s,integro:"1000.01"}:s)}
+   if(causa === "duplicado") ec.calendarioTrabajo2025={...cal,tramos:cal.tramos.map((s,i)=>i===1?{...s,id:cal.tramos[0]!.id}:s)}
+   if(causa === "emision") ec.calendarioTrabajo2025={...cal,certificados:cal.certificados.map(s=>({...s,emision:"2026-11-07"}))}
+   if(causa === "censo") ec.calendarioTrabajo2025={...cal,tramos:cal.tramos.map((s,i)=>i===1?{...s,hasta:"2026-01-01"}:s)}
+   const motivo={identidad:"identidad calendario",laguna:"laguna/solape",solape:"laguna/solape","renta-ajena":"ingresos/cotizaciones",duplicado:"ingreso/tramo duplicado",emision:"identidad/emisión",censo:"laguna/solape"}[causa]
+   const resultadoCanonico=Effect.runSync(Effect.result(liquidarIrpfAnual(a,{modo:"canonico"})))
+   const resultadoExplicito=Effect.runSync(Effect.result(liquidarIrpfAnualExplicito(e)))
+   expect(resultadoCanonico).toMatchObject({_tag:"Failure",failure:{motivo:expect.stringContaining(motivo)}})
+   expect(resultadoExplicito).toMatchObject({_tag:"Failure",failure:{motivo:expect.stringContaining(motivo)}})
+  })
+ }
+}
+it.each([["26293","100"],["26293.01","0"]])("T07 frontera familiar valenciana un céntimo %s",(propiaBase,aplicada)=>{
+ const {c,d}=casosT07("comunitat-valenciana")
+ const libro=producir(c,{...ambito,derechosMinimos:d},{general:new D(propiaBase),ahorro:new D(0)})
+ expect(aplicar(solicitud(),libro,ats,new D(1000)).totalAplicado).toBe(aplicada)
+})
+it("T07 calendario concilia discapacidad al devengo y renta de mínimos; no basta igualdad anual",()=>{
+ const {c,d,trabajo}=familiarConTrabajoActivo("madrid",sinDiscapacidad)
+ const cal=calendarioT07();cal.sujetoId="s-3";cal.certificados[0]!.sujetoId="s-3"
+ c.personas[2]!.economia={perfil:"solo-trabajo",censoRentasCompleto:true,otrasRentas:"ninguna",reduccionesBase:"ninguna",saldosAnteriores:"ninguno",trabajo,calendarioTrabajo2025:cal}
+ expect(()=>producir(c,{...ambito,comunidadAutonoma:"madrid",derechosMinimos:d},propia)).toThrow(/devengo contradice mínimos/)
+ d.descendientes[0]!.discapacidad={_tag:"Discapacidad65OMas"}
+ expect(producir(c,{...ambito,comunidadAutonoma:"madrid",derechosMinimos:d},propia).bases.get("s-3")!.general.toFixed()).toBe("3707")
+ d.descendientes[0]!.rentasNoExentasCentimos=725001
+ expect(()=>producir(c,{...ambito,comunidadAutonoma:"madrid",derechosMinimos:d},propia)).toThrow(/renta económica/)
+})
+for(const territorio of ["madrid","comunitat-valenciana"] as const) for(const centimo of [0,1]) {
+ it(`T07 frontera ${territorio} ambas API céntimo=${centimo}`,()=>{
+  const {a,e,c,d}=casosT07(territorio)
+  const ec=c.personas[1]!.economia
+  if(ec.perfil !== "solo-trabajo" || ec.calendarioTrabajo2025 === undefined) throw Error("fixture calendario")
+  if(territorio === "madrid") {
+   c.estadoCivil="casado-no-separado";c.conyuge="s-2"
+   const ingreso=new D("107414").plus(new D(centimo).div(100)).toFixed()
+   ec.trabajo.rendimientos[0]!.integro=ingreso
+   ec.calendarioTrabajo2025={...ec.calendarioTrabajo2025,tramos:ec.calendarioTrabajo2025.tramos.map((s,i)=>i===0?{...s,integro:ingreso}:s)}
+  } else {
+   ec.trabajo=trabajoT07(true)
+   ec.calendarioTrabajo2025=calendarioT07(true,65,false,new D(7913).minus(new D(centimo).div(100)).toFixed())
+  }
+  for(const s of d.descendientes) for(const t of s.titulares) if(t.titularId === "s-2") t.rentasNoExentasCentimos=(territorio === "madrid" ? 9766400 : 748700)+centimo
+  const aa=a,ee=e
+  if(territorio === "comunitat-valenciana") {
+   const ra=Effect.runSync(liquidarIrpfAnual({...aa,deduccionesValencianas2025:solicitud()},{modo:"canonico"}))
+   const re=Effect.runSync(liquidarIrpfAnualExplicito({...ee,deducciones:"valencianas-por-hechos-y-da61",deduccionesValencianas2025:solicitud()}))
+   expect(new D(importeT07(ra.deduccionesValencianas2025!.totalAplicado)).gt(0)).toBe(centimo===0)
+   expect(new D(importeT07(re.deduccionesValencianas2025!.totalAplicado)).gt(0)).toBe(centimo===0)
+  } else {
+   const f={solicitudes:[{lote:"F-ampliado",codigo:"madrid_condicion_familia_numerosa",hechos:{titulo:{categoria:"general",referencia:"titulo",efectos:"2025-01-01",titulares:["s-1"]}}}]} as const
+   const antes=Effect.runSync(liquidarIrpfAnual(aa,{modo:"canonico"})),despues=Effect.runSync(liquidarIrpfAnual({...aa,deduccionesTerritoriales2025:f},{modo:"canonico"}))
+   const pre=Effect.runSync(liquidarIrpfAnualExplicito(ee)),post=Effect.runSync(liquidarIrpfAnualExplicito({...ee,deducciones:"territoriales-por-hechos-y-da61",deduccionesTerritoriales2025:f}))
+   expect(despues.cuotaLiquidaCentimos<antes.cuotaLiquidaCentimos).toBe(centimo===0)
+   expect(new D(post.cuotaLiquidaLegal).lt(pre.cuotaLiquidaLegal)).toBe(centimo===0)
+  }
+ })
+}
+it("T07 rechaza certificados solapados y empleo+pensión expresamente",()=>{
+ const cal=calendarioT07(),t=trabajoT07()
+ cal.certificados.push({...cal.certificados[0]!,id:"cert-2",grado:33})
+ expect(()=>calcularGastosTrabajoCalendario2025(t,cal)).toThrow(/solapados/)
+ const pension={...t,rendimientos:[...t.rendimientos,{...t.rendimientos[0]!,id:"pension",clase:"pension" as const}]}
+ expect(()=>calcularGastosTrabajoCalendario2025(pension,calendarioT07())).toThrow(/empleo ordinario/)
+})

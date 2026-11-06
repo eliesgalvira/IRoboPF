@@ -156,7 +156,8 @@ export function baseVivienda(
   h: Pick<Ambito,"contribuyente">,
   bancario: boolean,
   adecuacion = false,
-  inversionSinFinanciacion?: Decimal
+  inversionSinFinanciacion?: Decimal,
+  limitarCapitalPorPatrimonio = false
 ): Decimal {
   habitual(v)
   ref(v.referenciaPatrimonio)
@@ -176,9 +177,13 @@ export function baseVivienda(
     )
   )
   exigir(
-    eur(v.incrementoPatrimonialComputableCentimos).gte(inversionSinFinanciacion ?? capital),
+    limitarCapitalPorPatrimonio || eur(v.incrementoPatrimonialComputableCentimos).gte(inversionSinFinanciacion ?? capital),
     "Incremento patrimonial computable no cubre inversión sin financiación/intereses"
   )
+  // Art70: capital efectivo limitado por aumento neto; intereses separados.
+  // La rama nueva sólo permite amortización e intereses, sin gastos mixtos.
+  const capitalComputable = limitarCapitalPorPatrimonio
+    ? D.min(capital, D.max(0, eur(v.incrementoPatrimonialComputableCentimos))) : capital
   const obstaculo = eur(v.baseDeducidaViviendasAnterioresCentimos).plus(
     eur(v.gananciaExentaReinversionCentimos)
   )
@@ -193,7 +198,7 @@ export function baseVivienda(
   )
   return D.min(
     adecuacion ? 12080 : 9040,
-    D.max(0, capital.plus(intereses).minus(pendiente))
+    D.max(0, capitalComputable.plus(intereses).minus(pendiente))
   )
 }
 export function transitorio(v: Vivienda): void {

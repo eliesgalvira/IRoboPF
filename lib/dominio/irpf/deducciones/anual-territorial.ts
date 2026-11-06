@@ -1,3 +1,4 @@
+import { liquidarAnticipoNacimientoC36, aplicarAnticipoAlLibroC36, type LibroAnticipoNacimientoC36 } from "./canarias-balears-hechos-2025/anual-nacimiento-anticipo"
 import { producirAscendientes2025 } from "../minimos/ascendientes-2025"
 import { validarCensosViviendaRioja } from "../vivienda-dt18-2025/productor"
 import { HechosDT18Territoriales2025 } from "../vivienda-dt18-2025/contrato"
@@ -393,6 +394,7 @@ export function aplicarDeduccionesTerritoriales2025(
     return exacto
   }
   const evaluacionesE38 = new Map<number,ResultadoE38>()
+  let nacimientoBalear2025: LibroAnticipoNacimientoC36 | undefined
   const restriccionesC36: (readonly LimiteComposicionC[])[] = []
   const solicitudes = [...decoded.success.solicitudes].sort((a,b)=>prioridadC36(a)-prioridadC36(b))
   const planC36 = solicitudes.filter(s=>s.lote === "C36")
@@ -742,7 +744,13 @@ export function aplicarDeduccionesTerritoriales2025(
       case "C36": {
         const resultado = evaluarAnualC36(s,m,planC36)
         if(resultado.estado === "calculo_parcial") restriccionesC36[restriccionesC36.length-1] = resultado.limitesComposicion
-        return normalizar(resultado)
+        const bruto = normalizar(resultado)
+        if (s.codigo !== "balears_nacimiento") return bruto
+        exigir(s.hechos.registroCobrosNacimiento?.cobros.length === 0 || solicitudes.every(p => p.lote === "C36"),
+          "C36 nacimiento: anticipo con otros contratos territoriales fuera de perfil")
+        const ajuste = liquidarAnticipoNacimientoC36(s, m, bruto, planC36)
+        nacimientoBalear2025 = ajuste.libro
+        return ajuste.importe
       }
       case "A-aragon-dos": {
         const r=evaluarAragonDosAnual2025(s,m,decoded.success.solicitudes)
@@ -970,7 +978,7 @@ export function aplicarDeduccionesTerritoriales2025(
     const limitesC36 = limitarCandidatosC36(importesExactos, restriccionesC36, racional(m.cuotaAutonomica.toFixed()))
     const libro = consumirCuota(racional((m.cuotaAutonomicaResidual ?? m.cuotaAutonomica).toFixed()), orden.map(i => limitesC36.importes[i]))
     const consumo = { ...libro, aplicaciones: importesExactos.map((_, indice) => libro.aplicaciones[orden.indexOf(indice)]) }
-    return { consumo, limitesC36 }
+    return { consumo: aplicarAnticipoAlLibroC36(consumo, codigos, nacimientoBalear2025), limitesC36 }
   }
   const { consumo, limitesC36 } = evaluacionesF.length === 0
     ? consumirExistente()
@@ -990,6 +998,7 @@ export function aplicarDeduccionesTerritoriales2025(
     return {generacion:generacionEstatal681,consumo:consumirCuota(racional(m.cuotaEstatal681.toFixed()),[racional(generacionEstatal681.importeExactoEuros)])}
   })()
   const salidaBase = {
+    nacimientoBalear2025,
     viviendaDT182025: m.libroDT18===undefined ? undefined : {...m.libroDT18.publico,cuotas:m.cuotasDT18},
     estatal681,
     ...consumo,

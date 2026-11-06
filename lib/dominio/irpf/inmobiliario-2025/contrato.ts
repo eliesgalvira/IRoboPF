@@ -46,6 +46,12 @@ const Periodo = { desde: Fecha, hasta: Fecha }
 export const InmuebleP4a = Schema.Struct({
   vaciaExt2025: Schema.optional(VaciaExt2025),
   primerAlquiler2025: Schema.optional(PrimerAlquiler2025),
+  cambioHabitualBalears2025: Schema.optional(Schema.Struct({
+    persona: Texto, nacimiento: Fecha,
+    residencia: Schema.Struct({ ...Periodo, documento: Texto }),
+    nuevaHabitual: Schema.Struct({ catastro: Texto, desde: Fecha, documento: Texto }),
+    localizacion: Schema.Struct({ isla: Texto, documento: Texto }),
+  })),
   id: Texto,
   catastro: Texto,
   ubicacion: Schema.Literals(["canarias", "illes-balears", "extremadura", "aragon", "resto-espana"]),

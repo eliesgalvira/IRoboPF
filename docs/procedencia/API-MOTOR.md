@@ -63,7 +63,7 @@ El perfil excluye fallecimiento, conjunta, mezcla simultánea de censos de ascen
 
 `basesFamiliares2025` recibe hechos de las personas, vínculos y rentas, y produce las bases de los familiares necesarios para las deducciones. No recibe bases fiscales calculadas por el cliente ni suma esas rentas a la declaración individual del contribuyente. Distingue la unidad familiar del artículo 82 de los titulares con derecho al mínimo. La ausencia de rentas requiere un censo expreso.
 
-El libro conecta las ramas representadas de Madrid y la deducción valenciana por dos o más descendientes. Admite empleo sin gasto por discapacidad activa, pensión ordinaria homogénea y ausencia expresa de rentas; las otras clases, mezclas, saldos y situaciones no representadas conservan rechazo concreto. El libro rechaza la discapacidad activa ajena hasta representar y conciliar sus periodos con los hechos de mínimos. No supone que el grado deba coincidir siempre durante el trabajo y al devengo, ni sustituye la rama pendiente por una renta cero. El núcleo laboral existente calcula los gastos y la reducción de trabajo. Los derechos al mínimo se concilian con sus hechos; el libro económico no los concede por sí solo.
+El libro conecta las ramas representadas de Madrid y la deducción valenciana por dos o más descendientes. Admite empleo sin gasto por discapacidad activa, pensión ordinaria homogénea y ausencia expresa de rentas; las otras clases, mezclas, saldos y situaciones no representadas conservan rechazo concreto. En Madrid y Comunitat Valenciana, la economía de empleo ajena admite `calendarioTrabajo2025`: identidad, empleador, certificados con emisión y efectos, corte documental y tramos completos de ingresos y cotizaciones. El incremento por discapacidad activa conserva su cuantía anual de 3.500 o 7.750 euros y se limita por los rendimientos asociados; no se prorratea esa cuantía por días. La discapacidad durante el trabajo se distingue de la situación al devengo para los mínimos. La ausencia de calendario suficiente mantiene el rechazo H2, sin producir una renta cero. Quedan fuera del nuevo perfil las mezclas de empleo y pensión, otras rentas, atrasos, gastos sin atribución y cambios entre categorías de incremento; Andalucía conserva su cobertura anterior. El núcleo laboral existente calcula los gastos y la reducción de trabajo. Los derechos al mínimo se concilian con sus hechos; el libro económico no los concede por sí solo.
 
 En `deduccionesTerritoriales2025.donativosEstatales2025`, varias operaciones se concilian por entidad y NIF. `prioridad68_3` expresa el orden completo de las operaciones cuando el contrato lo requiere. El límite conjunto de base y el primer tramo de 250 euros se consumen una sola vez; generación, aplicación y remanentes se conservan separados. Las dos mitades de cuota no se transfieren entre sí.
 
@@ -390,7 +390,7 @@ Sin hechos adicionales se mantiene el rechazo tipado estatal positivo, ahora con
 
 En `lote: "C36"`, `registroPartoMultiple` incorpora la secuencia física documentada de un mismo parto y `filiacionAdopcion` identifica la adopción única admitida. Se concilian evento, fecha, personas, progenitores, inscripción y derechos al mínimo ya producidos por la anual. El orden no se infiere del identificador ni de la posición del array. El reparto de nacimiento usa los progenitores y conserva la prioridad de aplicación sobre la cuota común.
 
-Ambas API admiten los perfiles del [contrato registral balear](deducciones-2025/baleares-registro-familiar-20261105/CONTRATO.md). Continúan fuera anticipos, regularización, abono administrativo de insuficiencia, segundo adoptante y las historias registrales no representadas. Las referencias documentales declaran hechos externos; el motor no autentica certificados.
+Ambas API admiten los perfiles del [contrato registral balear](deducciones-2025/baleares-registro-familiar-20261105/CONTRATO.md). El nacimiento único ordinario admite un anticipo nominal conciliado mediante `registroCobrosNacimiento.resoluciones` y `cobros`, con beneficiario, hijo, resolución ATIB, justificante y fechas coherentes. En el perfil de cuota suficiente y anticipo no superior al derecho, el libro reserva el derecho bruto una vez y resta el anticipo de la minoración. Admite concurrencia acotada con una donación cultural pública de la CAIB, cuyo soporte se declara en `mecenazgoConcurrente`; el anticipo no libera cuota para esa otra deducción. Continúan fuera los excesos, la insuficiencia de cuota y su abono administrativo, la regularización, otros anticipos, segundo adoptante y las historias registrales no representadas. Las referencias documentales declaran hechos externos; el motor no autentica certificados.
 
 ## Inversión extremeña2025 con elección estatal68.1
 
@@ -480,6 +480,19 @@ deducción de inversión no prueba que falte el derecho. Isla, catastro y arrend
 se verifican contra sus hechos propios; la residencia fiscal no los sustituye.
 La fianza documental, el cobro directo al arrendador y la ausencia de otros
 colectivos son límites técnicos del perfil, no requisitos legales universales.
+
+La ampliación recibe `hechos.derechoInversionAlquiler` para determinar el derecho
+material de inversión estatal DT18, separado de `ejercicioDelDerecho` y de la
+cuota disponible. Una elección `no_aplicar` o una cuota nula no elimina la
+incompatibilidad con el alquiler. Esta entrada sólo determina la incompatibilidad;
+no concede una deducción estatal por elegir `aplicar`. El perfil representa una
+vivienda propia adquirida antes de 2013, habitual hasta junio de 2025 y arrendada
+desde julio, y otra vivienda ocupada entonces como arrendatario. El productor
+inmobiliario común integra sus rendimientos; los censos concilian títulos,
+ocupación, préstamo, pagos e historia fiscal. No se suponen dos viviendas
+habituales simultáneas. También se representa el uso gratuito temporal extinguido
+antes de 2025. Las restantes historias y concurrencias conservan sus rechazos.
+
 
 Los libros escolares gallegos E38 reciben `historiaLibros2024` junto a los hechos
 familiares y las compras de 2025. La composición familiar estable y las economías
@@ -577,3 +590,14 @@ modalidad individual. La historia intermedia excedida permanece bloqueada por
 criterio pendiente. Los eventos de 2025 conservan su recorrido anterior.
 
 [Alcances, revisiones y reservas](corte-valencia-murcia81-20261106/INTEGRACION.md).
+
+
+## Vigencia de recarga y vehículos eléctricos de Murcia
+
+Los códigos de recarga y vehículos eléctricos de `F-ampliado` se introducen con
+efectos desde 2025. Sus contratos no exigen un historial de 2022–2024; el formato
+vacío anterior sigue admitido y las operaciones positivas anteriores a la
+vigencia se rechazan. El libro conserva el importe generado, su aplicación única
+y el saldo de 2025 para los ejercicios siguientes dentro del alcance existente.
+Esta ampliación no cambia el contrato histórico de instalaciones de energías
+renovables ni resuelve las reservas normativas de las otras ramas.
