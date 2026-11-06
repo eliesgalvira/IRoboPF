@@ -1,5 +1,36 @@
 # Decisiones de la auditoría documental
 
+## Coherencia de hechos en ASC, Aragón y Extremadura (6 de noviembre)
+
+Se rechazan las contradicciones de residencia del mismo titular, el devengo
+inmobiliario declarado fuera de 2025, la identidad coincidente del gestor en
+el perfil aragonés acotado y la exigibilidad de pensión fuera de sus efectos.
+No se reconstruye una historia distinta ni se devuelve cero como sustituto
+de hechos incompatibles. El coste es mantener fuera perfiles que podrían
+ser jurídicamente válidos con un productor temporal o documental más amplio.
+Las restricciones técnicas quedan explícitas en la API; no se convierten en
+prohibiciones legales universales. Cada hallazgo con efecto monetario recibe
+un contraste independiente tras corregirse; los originales rojos se conservan.
+
+Las objeciones sobre vivienda extremeña omitida y sobre API con cotizaciones
+distintas se documentan sin tratarlas como otro defecto fiscal demostrado.
+El censo exhaustivo con ausencia de inmuebles expresa el hecho declarado,
+pero no lo autentica. Exigir hoy un segundo campo de ausencia no resolvería
+por sí mismo esa autenticidad y alteraría el contrato sin evidencia adicional.
+Se conserva esta reserva junto con los dos rojos del adaptador, sin cambiar
+expectativas ni atribuir equivalencia entre economías distintas.
+
+
+## Frontera documental del perfil mixto aragonés (6 de noviembre)
+
+La liquidación de producto y el intérprete documental histórico tienen distinto
+alcance. El nuevo productor aragonés usa racionales BigInt fuera de la gramática
+finita de R52. Se fija su importación por módulo y símbolo como contrato externo
+pendiente, con prueba de rechazo y puertas de acreditación falsas. Ampliar la
+gramática sólo para hacer pasar CI arriesgaría atribuir semántica sin demostrarla.
+El coste es mantener pendiente esa acreditación; las pruebas monetarias y los
+originales oficiales conservan por separado su alcance observado.
+
 ## Discrepancias observadas antes de ampliar Open 2018 (5 de noviembre)
 
 El primer bloque de 60 entradas detecta nueve casos discrepantes. Se pausa la

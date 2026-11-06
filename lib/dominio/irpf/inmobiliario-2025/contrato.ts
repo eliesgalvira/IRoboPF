@@ -48,7 +48,7 @@ export const InmuebleP4a = Schema.Struct({
   primerAlquiler2025: Schema.optional(PrimerAlquiler2025),
   id: Texto,
   catastro: Texto,
-  ubicacion: Schema.Literals(["canarias", "illes-balears", "extremadura", "resto-espana"]),
+  ubicacion: Schema.Literals(["canarias", "illes-balears", "extremadura", "aragon", "resto-espana"]),
   titular: Texto,
   titulo: Texto,
   derecho: Schema.Literal("propiedad"),

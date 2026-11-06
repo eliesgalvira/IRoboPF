@@ -35,19 +35,29 @@ Este recorrido parcial conserva la selección normativa existente por ejercicio 
 
 ## Derechos familiares
 
-`minimos/derechos-contrato.ts` exporta `DerechosMinimosAnuales`, `DescendienteDerechos`, `TitularDescendiente`, `DiscapacidadDerechos` y `DerechosMinimosNoSoportados`. El contrato general admite hechos de 2012–2026, 17 territorios reales comunes, modalidad individual y cierre a 31 de diciembre del mismo ejercicio, sin ascendientes ni fallecimientos. `DerechosMinimos2025` queda como esquema/tipo obsoleto restringido a Madrid 2025; delega en la misma validación y cálculo. Los territorios forales o desconocidos se rechazan explícitamente antes de indexar tablas.
+`minimos/derechos-contrato.ts` exporta `DerechosMinimosAnuales`, `DescendienteDerechos`, `TitularDescendiente`, `DiscapacidadDerechos` y `DerechosMinimosNoSoportados`. El perfil de descendientes admite hechos de 2012–2026, 17 territorios reales comunes, modalidad individual y cierre a 31 de diciembre del mismo ejercicio, sin fallecimientos. La rama de ascendientes se limita a 2025 en Madrid, Castilla-La Mancha y Comunitat Valenciana, con el censo adicional descrito a continuación. `DerechosMinimos2025` queda como esquema/tipo obsoleto restringido a Madrid 2025; delega en la misma validación y cálculo. Los territorios forales o desconocidos se rechazan explícitamente antes de indexar tablas.
 
 La API anual familiar calcula 2012–2026 con los parámetros estatales/autonómicos existentes de cada ejercicio. Las cuantías estatales anteriores a 2015 son distintas: dos hijos compartidos producen 1.938 EUR para cada padre en 2012–2014 y 2.550 desde 2015. Antes de 2015 se exige convivencia declarada (incluida su asimilación legal por internamiento dependiente); la mera dependencia económica no concede mínimo. Desde 2015 se asimila dependencia, salvo especialidad de alimentos. La custodia compartida permite reparto entre titulares con derecho; la exclusiva no reparte por sí sola a un pagador judicial sin custodia. No se admiten porcentajes libres.
 
 2026 conecta el contrato familiar con `MINIMOS_ESTATALES_2026` (arts.57–61 sin reforma de cuantías en la fuente BOE de 4/11/2026) y con mínimos y escalas autonómicos B2026. Se admiten los 17 territorios comunes por la API canónica anual; las cuotas fijas oficiales se consumen en la composición común. La entrada efectiva familiar conserva 2025; deducciones autonómicas 2026 soportadas: ninguna. El conjunto E+B cuenta con [revisión independiente favorable acotada](reforma-motor/bloque-e/revision-familia-2026/INFORME.md); su alcance parcial no equivale a una declaración completa.
 
-`minimos/derechos.ts` exporta `validarDerechosMinimos`, `calcularDerechosMinimos`, `validarRentasAnualesDerechos` y `hayAlimentosPropiosSinMinimo`. `calcularDerechosMinimos(hechos, minimos, aritmetica?)` recibe los hechos completos y los parámetros seleccionados, y devuelve euros `Decimal` para contribuyente, descendientes, discapacidad, total y atribuciones por sujeto, orden, titulares y divisor. El tercer argumento opcional es un constructor `Decimal`; por defecto crea un constructor local de 80 cifras. La composición pasa su constructor local para que el reparto y la suma respeten la precisión elegida (80 con derechos). No es por sí mismo una declaración. La ruta anual selecciona separadamente parámetros estatales y autonómicos.
+`minimos/derechos.ts` exporta `validarDerechosMinimos`, `calcularDerechosMinimos`, `validarRentasAnualesDerechos` y `hayAlimentosPropiosSinMinimo`. `calcularDerechosMinimos(hechos, minimos, aritmetica?)` recibe los hechos completos y los parámetros seleccionados, y devuelve euros `Decimal` para contribuyente, descendientes, ascendientes, discapacidad, total y atribuciones por sujeto, orden, titulares y divisor. El tercer argumento opcional es un constructor `Decimal`; por defecto crea un constructor local de 80 cifras. La composición pasa su constructor local para que el reparto y la suma respeten la precisión elegida (80 con derechos). No es por sí mismo una declaración. La ruta anual selecciona separadamente parámetros estatales y autonómicos.
 
 Los hechos incluyen identificadores locales anónimos, nacimiento y edad al devengo, rentas no exentas, declaración propia, discapacidad y censo completo de titulares con grado, vínculo, convivencia/dependencia, custodia, residencia, rentas y alimentos. La conexión anual exige además conciliación de rentas del contribuyente antes de reducciones. Desde 2015, dos titulares del mismo grado con derecho al primer descendiente reciben 1.200 euros estatales cada uno; no 2.400 cada uno. Tres reciben 800. La discapacidad del descendiente comparte el divisor y exige elegibilidad.
 
-Se cubren límites de 8.000 y 1.800 euros, edad de 25 años con excepción por discapacidad, incremento de menores de tres años y vínculos asimilados soportados, así como concurrencia de grados acotada. Se rechazan, con motivo, fechas incoherentes, hechos incompletos, porcentajes manuales, ascendientes, fallecimientos, especialidades propias de alimentos pendientes, ciertos grafos y empates de orden, mayoría de edad en vínculos asimilados y concurrencia no soportada. Los tests `minimos-derechos.test.ts` contienen ejemplos completos. La matriz de cobertura y ejemplos están en [familia anual](reforma-motor/bloque-e/FAMILIA-ANUAL.md).
+Se cubren límites de 8.000 y 1.800 euros, edad de 25 años con excepción por discapacidad, incremento de menores de tres años y vínculos asimilados soportados, así como concurrencia de grados acotada. Se rechazan, con motivo, fechas incoherentes, hechos incompletos, porcentajes manuales, ascendientes fuera de la rama acotada de 2025, fallecimientos, especialidades propias de alimentos pendientes, ciertos grafos y empates de orden, mayoría de edad en vínculos asimilados y concurrencia no soportada. Los tests `minimos-derechos.test.ts` contienen ejemplos completos. La matriz de cobertura y ejemplos están en [familia anual](reforma-motor/bloque-e/FAMILIA-ANUAL.md).
 
 El mínimo del contribuyente y la cuantía de discapacidad se calculan mediante las mismas piezas monetarias que usa la ruta sin familiares. Las piezas monetarias no deciden elegibilidad familiar. No existen `FamiliarFiscal`, `obtenerMinimoDescendientes`, `obtenerMinimoAscendientes` ni los acumuladores de discapacidad de familiares basados solo en edad/discapacidad.
+
+## Ascendientes de 2025: mínimos y deducciones territoriales
+
+En Madrid, Castilla-La Mancha y Comunitat Valenciana, `derechosMinimos.ascendientes` admite el censo `AscendienteAnual2025[]`, con `ascendientesCompletos: true`. La ausencia mantiene el contrato anterior. Ambas API exigen identificación, fecha de nacimiento, discapacidad, situación al devengo, declaración y economía completa del ascendiente; cada titular aporta grado, vínculo, residencia, economía y períodos de convivencia o internamiento. No se reciben cuotas, bases ni divisores elegidos por el cliente.
+
+`producirAscendientes2025` deriva la renta y los titulares con derecho. Un mismo titular debe conservar su economía, residencia IRPF y modalidad de declaración entre relaciones; una contradicción devuelve `ResultadoNoSoportado` antes de publicar cuota. Grado, convivencia, vínculo y soporte pueden variar por relación. Las pruebas `ascendientes-conciliacion-titular.test.ts` conservan los seis casos originales del defecto H1 y los controles coherentes.
+
+El libro alimenta los mínimos estatal y autonómico en la composición común. También alimenta `madrid_cuidado_ascendientes` por `F-ampliado`, `clm_cuidado_ascendientes_mayores_75` por la solicitud CLM y `valenciana_ascendientes_mayores_discapacidad` por el contrato valenciano. La deducción territorial se consume una vez en el libro de cuota. Sus censos y referencias deben conciliar con los hechos anuales; los divisores del mínimo y de cada deducción no se presumen iguales.
+
+El perfil excluye fallecimiento, conjunta, mezcla simultánea de censos de ascendientes y descendientes y las clases económicas o grafos no representados. Esos rechazos expresan límites de cobertura. La revisión de ascendientes y el contraste H1 son acotados; siguen documentadas H2 —componentes económicos distintos con el mismo neto— y H3 —situación de devengo regional contradictoria—, sin daño monetario independiente aislado en esa revisión. Los ejemplos completos están en `ascendientes-tres-territorios-2025.test.ts`; no se habilitan puertas fiscales.
 
 ## Bases familiares y donativos múltiples de 2025
 
@@ -260,8 +270,14 @@ Ambas ampliaciones conservan las dos API, magnitudes internas de hasta 80 decima
 
 ## Dos contratos aragoneses adicionales
 
-El módulo `aragon-dos-codigos-2025` incorpora el cálculo parcial de inversión en entidades nuevas, con asignación estatal/autonómica y rechazo de reinversión positiva no coordinada. El contrato de arrendamiento social expresa la petición de cuota atribuida y su fracción 3/10; no recibe una cuota externa ni produce una deducción cuando falta el productor anual. Su [revisión independiente](deducciones-2025/producto-aragon-dos-codigos/REVISION.md) es favorable dentro del alcance declarado. `lote: "A-aragon-dos"` conecta ambas API: inversión con elección estatal cero explícita y censo completo entra en el único libro de cuota; la elección estatal positiva dispone del productor68.1 descrito más adelante y la reinversión conserva su rechazo tipado. Social devuelve dependencia 3/10 sin importe mientras falta su productor. La [revisión de la conexión anual](deducciones-2025/producto-aragon-conexion-anual/REVISION-INDEPENDIENTE.md) es favorable acotada; no completa el punto 4.
+El módulo `aragon-dos-codigos-2025` incorpora el cálculo parcial de inversión en entidades nuevas, con asignación estatal/autonómica y rechazo de reinversión positiva no coordinada. El contrato de arrendamiento social expresa la petición de cuota atribuida y su fracción 3/10; no recibe una cuota externa ni produce una deducción cuando falta el productor anual. Su [revisión independiente](deducciones-2025/producto-aragon-dos-codigos/REVISION.md) es favorable dentro del alcance declarado. `lote: "A-aragon-dos"` conecta ambas API: inversión con elección estatal cero explícita y censo completo entra en el único libro de cuota; la elección estatal positiva dispone del productor68.1 descrito más adelante y la reinversión conserva su rechazo tipado. La solicitud social fuera del perfil `aragon-social-mixto-2025` conserva la dependencia 3/10 sin importe; el perfil mixto acotado descrito a continuación dispone de productor anual. La [revisión de la conexión anual](deducciones-2025/producto-aragon-conexion-anual/REVISION-INDEPENDIENTE.md) es favorable acotada; no completa el punto 4.
 
+
+## Arrendamiento social aragonés y trabajo en 2025
+
+Las dos funciones anuales admiten `CasoAragonSocialMixto2025`, discriminado por `perfil: "aragon-social-mixto-2025"`. Es una entrada individual de Aragón 2025, edad de 18 a 64 años, sin familiares ni discapacidad, con trabajo o pensión ordinarios y un único inmueble identificado. Declara censo inmobiliario completo, titularidad, arrendamiento, gastos, trabajo, retenciones y solicitud territorial por hechos; no recibe rendimiento neto ni cuota atribuida del cliente.
+
+El productor inmobiliario común y la composición anual calculan la renta mixta. La atribución de cuota de la deducción social usa el criterio operativo contrastado en cuatro observaciones oficiales, incluida la frontera de un céntimo; ese cotejo no autentica el acceso administrativo al programa. El resto de perfiles mantiene su rechazo concreto. La conexión no amplía otras deducciones combinadas, cotitularidad, períodos parciales ni derechos familiares. Los casos y límites ejecutables están en `aragon-social-mixto.test.ts` y `aragon-social-mixto.fixtures.ts`. El gestor debe tener identidad distinta del propietario y del arrendatario en este perfil de roles separados; esa validación no acredita por sí sola la habilitación administrativa. El productor inmobiliario compartido rechaza un período de gasto declarado inválido, invertido o con algún extremo fuera de 2025, antes de sumar su importe. Los gastos con atribución entre ejercicios requieren una rama específica; no se deducen íntegros por tener factura y pago en 2025. `aragon-m1-m2.test.ts` conserva las tres entradas originales de la revisión y los controles de devengo válidos.
 
 ## Ampliación E38 en la ruta anual
 
@@ -333,7 +349,7 @@ Los rechazos de entrada, identidad, historia, fechas, gastos o duplicados usan `
 
 Ejemplos comprobados en `tests/inmobiliario-p4a.test.ts` y `tests/inmobiliario-p4a-correcciones.test.ts`: dos API con cuota única, mejora disponible antes de factura/pago, facturas con varias partidas e inmueble fuera del territorio de la deducción. Los importes de sus fixtures son sintéticos y no amplían los cotejos con Open.
 
-Las fechas y líneas no acreditan por sí solas los plazos formales de expedición ni el ámbito mensual de una factura recapitulativa. [Integración y evidencia](inmobiliario-p4a-20261105/INTEGRACION.md).
+El período de devengo, cuando se declara, debe contener fechas civiles válidas, estar ordenado y quedar íntegro en 2025. La ausencia del campo opcional mantiene el contrato anterior; no demuestra un devengo que no se haya declarado. El perfil P4b mantiene sus controles adicionales sobre el período exclusivamente arrendado. Las fechas y líneas no acreditan por sí solas los plazos formales de expedición ni el ámbito mensual de una factura recapitulativa. [Integración y evidencia](inmobiliario-p4a-20261105/INTEGRACION.md).
 
 ## Patrimonio y vivienda habitual riojana de 2025
 
@@ -483,3 +499,22 @@ salarios ordinarios. [Contrato, alcance y fuentes temporales](deducciones-2025/c
 Estas conexiones conservan la composición común, la cuota disponible y los
 rechazos tipados. No acreditan por sí mismas autenticidad documental ni completan
 todas las ramas de los cuatro códigos.
+
+## Familiar con renta exenta en Extremadura 2025
+
+La solicitud `D51`, código `extremadura_cuidado_familiares_discapacidad`, incorpora `hechos.perfil: "familiar-pension-exenta-2025"`. Recibe la ausencia expresa de rentas o la pensión pública de incapacidad representada, sus resoluciones y cobros, un censo patrimonial acotado de cuentas, vivienda y deudas y los parientes lineales vivos de primer grado. No recibe una renta fiscal ni una respuesta de obligación de Patrimonio calculada externamente.
+
+El productor concilia cobros y movimientos bancarios y deriva las magnitudes que consume el evaluador territorial existente. El reparto se obtiene del censo; la deducción pasa al consumo común de cuota una vez. La rama mantiene residencia estable, discapacidad durante el período representado, municipios de al menos 3.000 habitantes y las demás restricciones expresas del contrato. No habilita un simulador general de Patrimonio ni presupone derecho al mínimo familiar. Las demás rentas, patrimonios, grados y situaciones no representados conservan rechazo.
+
+El libro común `basesFamiliares2025` de Madrid y Valencia no queda habilitado en Extremadura por esta conexión. Las pruebas de rechazo de esa combinación no acreditan una conciliación positiva entre ambos libros. `ext-familiar-pension-exenta-2025.test.ts` conserva los ejemplos y límites del productor acotado.
+
+El cobro y su exigibilidad deben estar dentro de 2025 y del período de efectos
+declarado, con extremos inclusivos. Una exigibilidad anterior al inicio o posterior
+al final se rechaza antes de calcular la deducción. La cronología de resolución
+y efectos sigue acotada por el contrato; no se presenta como exclusión legal
+general de pensiones retroactivas.
+
+La omisión de `vivienda` sólo representa ausencia dentro del censo mundial
+completo declarado, con `otrasClases.inmuebles: "ninguno"`. No representa una
+vivienda desconocida ni autentica la exhaustividad de los hechos aportados.
+El consumidor no recibe una respuesta externa sobre obligación de Patrimonio.

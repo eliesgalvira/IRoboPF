@@ -1,3 +1,4 @@
+import { evaluarSocialMixtoAnual2025, type ResultadoSocialMixto2025 } from "../aragon-social-mixto-2025/atribucion"
 import { producirEstatal681, type GeneracionEstatal681 } from "./inversion-681-2025"
 import { Schema } from "effect"
 import type { MagnitudesTerritorialesAnuales } from "./anual-territorial"
@@ -12,7 +13,7 @@ export function evaluarAragonDosAnual2025(
  entrada: SolicitudAragonDosAnual2025,
  m: MagnitudesTerritorialesAnuales,
  solicitudes: SolicitudDeduccionesTerritoriales2025["solicitudes"]
-): Extract<ResultadoInversionAragonesa2025,{estado:"calculo_parcial"}> & { readonly estatal681?: GeneracionEstatal681 } {
+): (Extract<ResultadoInversionAragonesa2025,{estado:"calculo_parcial"}> | ResultadoSocialMixto2025) & { readonly estatal681?: GeneracionEstatal681 } {
  const s=Schema.decodeUnknownSync(SolicitudAragonDosAnual2025)(entrada,{onExcessProperty:"error"})
  const c=m.caso
  exigir(c.anio===2025 && c.comunidadAutonoma==="aragon" && c.situacionFamiliar.tipo==="individual" && c.fechaFallecimiento===undefined,"Aragón anual:2025 individual ordinario sin fallecimiento")
@@ -21,6 +22,7 @@ export function evaluarAragonDosAnual2025(
  const contexto={ejercicio:2025 as const,territorio:"aragon" as const,modalidad:"individual" as const,devengo:"2025-12-31" as const,
   contribuyente,casoAnual:"anual:2025:aragon:"+contribuyente}
  if(s.codigo==="aragon_arrendamiento_vivienda_social_arrendador"){
+  if ("viviendasPlan" in s.hechos) return evaluarSocialMixtoAnual2025(s.hechos.viviendasPlan, m, solicitudes)
   const r=prepararArrendadorSocial2025({...contexto,codigo:s.codigo,...s.hechos})
   exigir(r.estado==="requiere_atribucion_anual",r.estado==="no_soportado"?r.motivo:"Preparación social ausente")
   throw new RechazoAragonAnual({motivo:"El productor inmobiliario anual disponible es simplificado: faltan neto reducido23.2/3, BLG derivada y atribución oficial de cuota al Plan. Se conserva petición3/10, sin importe.",dependencia:{

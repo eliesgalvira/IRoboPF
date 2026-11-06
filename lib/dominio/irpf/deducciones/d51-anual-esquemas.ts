@@ -1,9 +1,11 @@
+import { HechosFamiliarExentoExt2025 } from "./ext-familiar-contrato-2025"
 import { HistoriaBasesD51 } from "./historia-bases-d51"
 import { Schema } from "effect"
 import { HechosInversionExt2025 } from "./extremadura-inversion-contrato-2025"
 /** Frontera pública D51: hechos económicos/personales, nunca magnitudes fiscales del llamador. */
 const PagoD51=Schema.Struct({id:Schema.String,fecha:Schema.String,pagador:Schema.String,importe:Schema.String})
 export const SolicitudD51=Schema.Union([
+Schema.Struct({lote:Schema.Literal("D51"),codigo:Schema.Literal("extremadura_cuidado_familiares_discapacidad"),hechos:HechosFamiliarExentoExt2025}),
 Schema.Struct({lote:Schema.Literal("D51"),codigo:Schema.Literal("extremadura_inversion_acciones_participaciones_mercantiles"),hechos:HechosInversionExt2025}),
 Schema.Struct({lote:Schema.Literal("D51"),codigo:Schema.Literal("clm_familia_monoparental"),hechos:Schema.Struct({estadoCivil: Schema.Literals(["separado", "sin_vinculo", "casado", "viudo"]), hijos: Schema.Array(Schema.Struct({id: Schema.String, nacimiento: Schema.String, apoyoCivil: Schema.Literals(["ninguno", "guarda", "curatela", "defensor", "voluntario"]), convivencia: Schema.Literals(["exclusiva", "compartida", "ninguna"]), titularesMinimo: Schema.Array(Schema.String), alimentos: Schema.String})), eleccion: Schema.Literals(["familia", "alquiler_monoparental"]), exhaustividad: Schema.Literals(["completa"])})}),
 Schema.Struct({lote:Schema.Literal("D51"),codigo:Schema.Literal("clm_libros_idiomas_otros_gastos_educacion"),hechos:Schema.Struct({familia: Schema.Literals(["ordinaria", "numerosa"]), hijos: Schema.Array(Schema.Struct({id: Schema.String, titularesMinimo: Schema.Array(Schema.String)})), libros: Schema.Array(PagoD51), actividades: Schema.Array(PagoD51), becas: Schema.String, exhaustividad: Schema.Literals(["completa"])})}),

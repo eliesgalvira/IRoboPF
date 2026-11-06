@@ -1,3 +1,4 @@
+import { AscendienteAnual2025 } from "./ascendientes-2025"
 import { Schema } from "effect"
 
 const Entero = Schema.Number.check(
@@ -124,7 +125,8 @@ export const DerechosMinimosAnuales = Schema.Struct({
   contribuyenteId: Id,
   edadContribuyenteDevengo: Entero.check(Schema.isGreaterThanOrEqualTo(18)),
   discapacidadContribuyente: DiscapacidadDerechos,
-  ascendientes: Schema.Literal("ninguno"),
+  ascendientesCompletos: Schema.optional(Schema.Literal(true)),
+  ascendientes: Schema.Union([Schema.Literal("ninguno"), Schema.Array(AscendienteAnual2025).check(Schema.isMaxLength(100))]),
   fallecimientosEnElEjercicio: Schema.Literal("ninguno"),
   descendientesCompletos: Schema.Literal(true),
   /** Solo la conexión anual exige esta declaración; no acredita hechos externos. */

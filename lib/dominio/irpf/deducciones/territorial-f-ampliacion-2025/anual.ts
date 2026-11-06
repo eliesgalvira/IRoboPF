@@ -1,3 +1,4 @@
+import { producirAscendientes2025 } from "../../minimos/ascendientes-2025"
 import type Decimal from "decimal.js"
 import { DonativoNoSoportado, eurosDonativos } from "../donativos-estatales-2025/productor"
 import { baseEstatalMismaOperacion } from "../donativos-estatales-2025/regionales"
@@ -165,6 +166,30 @@ export function evaluarAnualF2025(
       falta("conexion_donativo_regional_no_acotada:" + s.codigo, "Concurrencia de donativo F fuera de Murcia dinerario/Madrid art9; no habilitar especie ni otras ramas por analogía")
     if (m.donativosEstatales !== undefined && s.codigo === "madrid_familias_dos_descendientes_ingresos_reducidos")
       falta("secuencia_completa_art14_con_generales", "Art14 con deducciones generales:productor de bases ajenas y secuencia completa no soportados; no se usa cero estatal")
+    if (s.codigo === "madrid_cuidado_ascendientes") {
+      const derechos = c.derechosMinimos
+      if (derechos === undefined || derechos.ascendientes === "ninguno") falta("censo_ascendientes", "Falta censo anual de ascendientes")
+      const libro = producirAscendientes2025(derechos.ascendientes, contribuyente, c.comunidadAutonoma)
+      const ps = s.hechos.personas ?? []
+      if (ps.length !== libro.length || new Set(ps.map(p => p.id)).size !== ps.length || libro.some(a => !ps.some(p => p.id === a.sujetoId))) falta("censo_ascendientes", "Lista regional no coincide con censo anual")
+      for (const p of ps) {
+        const a = libro.find(a => a.sujetoId === p.id)!
+        if (p.rentasNoExentasEUR !== undefined || p.rentasDeclaracionEUR !== undefined || p.titularesMinimo !== undefined || p.titularesDeduccion !== undefined) falta("magnitud_externa", "Madrid: rentas y titulares con derecho se producen en el anual")
+        if ((p.nacimiento !== undefined && p.nacimiento !== a.fechaNacimiento) || (p.relacion !== undefined && p.relacion !== "ascendiente") || (p.discapacidadPorcentaje !== undefined && !decimal(p.discapacidadPorcentaje, "grado").eq(a.gradoDiscapacidad))) falta("identidad", "Madrid: hechos regionales contradictorios")
+      }
+      return evaluarAmpliacionFDerivada2025({ tipo: "territorial_f_ampliacion_2025", codigo: s.codigo,
+        contexto: { ejercicio: 2025, territorio: c.comunidadAutonoma, contribuyente, modalidad: "individual", declarantes: [contribuyente] },
+        hechos: { personas: libro.filter(a => a.titularesMinimo.includes(contribuyente)).map(a => ({
+          id: a.sujetoId, relacion: "ascendiente", nacimiento: a.fechaNacimiento,
+          situacionDevengo: "vivo", alimentos64175: "no", certificadoParentesco: a.titulares.find(t => t.titularId === contribuyente)!.soporte,
+          rentasNoExentasEUR: a.renta.toFixed(), declaracionTipo: a.declaracion === "no-presenta" ? "no_presentada" : "individual",
+          rentasDeclaracionEUR: a.declaracion === "no-presenta" ? "0" : a.renta.toFixed(),
+          discapacidadPorcentaje: String(a.gradoDiscapacidad), certificadoDiscapacidad: a.soporteDiscapacidad,
+          convivencia: a.titulares.filter(t => t.titularId === contribuyente).flatMap(t => [...t.convivencia, ...t.internamientoEspecializado]),
+          titularesMinimo: a.titularesMinimo, titularesDeduccion: a.titularesMinimo, gradoMasCercanoConPrioridad: [],
+        })) },
+      }, { contribuyente, general: m.baseGeneral, ahorro: m.baseAhorro, minimoPersonalFamiliar: m.minimoPersonalFamiliar })
+    }
     conciliarPersonas(s, m)
     conciliarPrevios(s, m)
     const anteriores = s.hechos.hechosPrevios

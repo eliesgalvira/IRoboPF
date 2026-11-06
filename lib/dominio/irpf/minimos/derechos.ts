@@ -1,3 +1,4 @@
+import { producirAscendientes2025 } from "./ascendientes-2025"
 import Decimal from "decimal.js"
 import { Effect, Schema } from "effect"
 import type { MinimosPersonalesFamiliaresIrpf } from "../../normativa/datos/minimos-autonomicos-2025"
@@ -208,6 +209,22 @@ export const validarDerechosMinimos = Effect.fn("Minimos.validarDerechos")(
           "Más de dos grados o rentas mixtas dentro del grado próximo: concurrencia pendiente de soporte"
         )
     }
+    if (caso.ascendientes !== "ninguno") {
+      if (caso.ascendientesCompletos !== true)
+        return yield* rechazar("Falta declaración de censo completo de ascendientes")
+      if (caso.ascendientes.some(a => Number(a.fechaNacimiento.slice(0,4)) >= caso.ejercicio - caso.edadContribuyenteDevengo))
+        return yield* rechazar("Ascendiente nacido en año igual o posterior al contribuyente: filiación no soportada")
+      if (caso.ascendientes.length > 0 && caso.descendientes.length > 0)
+        return yield* rechazar("Concurrencia de ambos censos generacionales pendiente de conciliación económica completa")
+      if (caso.ejercicio !== 2025 || !["madrid", "castilla-la-mancha", "comunitat-valenciana"].includes(caso.territorio))
+        return yield* rechazar("Ascendientes limitados al productor ordinario2025 Madrid/CLM/Valencia")
+      const libro = yield* Effect.try({
+        try: () => producirAscendientes2025(caso.ascendientes === "ninguno" ? [] : caso.ascendientes, caso.contribuyenteId, caso.territorio),
+        catch: (e) => new DerechosMinimosNoSoportados({ motivo: e instanceof RangeError ? e.message : "Censo de ascendientes inválido" }),
+      })
+      if (libro.some(a => sujetos.has(a.sujetoId) || a.titulares.some(t => sujetos.has(t.titularId))))
+        return yield* rechazar("Identidad repetida entre ascendientes, descendientes y titulares")
+    }
     return caso
   }
 )
@@ -222,6 +239,14 @@ export const validarRentasAnualesDerechos = Effect.fn(
     )
   if (!rentaNoExenta.isFinite())
     return yield* rechazar("La renta calculada del contribuyente no es finita")
+  if (caso.ascendientes !== "ninguno") {
+    const libro = producirAscendientes2025(caso.ascendientes, caso.contribuyenteId, caso.territorio)
+    for (const a of libro) {
+      const t = a.titularesCalculados.find(t => t.titularId === caso.contribuyenteId)
+      if (t === undefined || !t.renta.eq(rentaNoExenta))
+        return yield* rechazar("Economía propia del censo de ascendientes no concilia con el neto anual antes de reducciones")
+    }
+  }
   const centimosDelPerfil = rentaNoExenta
     .times(100)
     .toDecimalPlaces(0, Decimal.ROUND_HALF_UP)
@@ -316,6 +341,19 @@ export const calcularDerechosMinimos = Effect.fn("Minimos.calcularDerechos")(
         }
       }
     )
+    let ascendientes = new A(0)
+    const libroAscendientes = caso.ascendientes === "ninguno" ? [] : producirAscendientes2025(caso.ascendientes, caso.contribuyenteId, caso.territorio)
+    for (const a of libroAscendientes) {
+      if (!a.titularesMinimo.includes(caso.contribuyenteId)) continue
+      const divisor = a.titularesMinimo.length
+      const minimo = new A(minimos.ascendientes.mayor65OConDiscapacidad)
+        .plus(a.edadDevengo > 75 ? minimos.ascendientes.adicionalMayor75 : 0).div(divisor)
+      const discapacidad = new A(obtenerMinimoPorDiscapacidad(a.discapacidad, minimos.discapacidad.ascendiente)).div(divisor)
+      ascendientes = ascendientes.plus(minimo)
+      discapacidadFamiliares = discapacidadFamiliares.plus(discapacidad)
+      atribuciones.push({ sujetoId: a.sujetoId, orden: 0, titulares: a.titularesMinimo,
+        divisor, incremento: false, minimo, discapacidad })
+    }
     const contribuyente = obtenerMinimoContribuyente({
       anio: caso.ejercicio,
       edad: caso.edadContribuyenteDevengo,
@@ -334,11 +372,12 @@ export const calcularDerechosMinimos = Effect.fn("Minimos.calcularDerechos")(
     return {
       contribuyente,
       descendientes,
-      ascendientes: new A(0),
+      ascendientes,
       discapacidadContribuyente,
       discapacidadFamiliares,
       total: new A(contribuyente)
         .plus(descendientes)
+        .plus(ascendientes)
         .plus(discapacidadContribuyente)
         .plus(discapacidadFamiliares),
       atribuciones,

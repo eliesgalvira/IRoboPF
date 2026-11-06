@@ -534,7 +534,7 @@ it("dos descendientes sin bases familiares representadas se rechaza con motivo a
     )
 })
 
-it("elegibilidad externa no crea derechos familiares ni abre ascendientes", () => {
+it("elegibilidad externa no sustituye el mínimo ni el censo de ascendientes", () => {
   for (const codigo of [
     "valenciana_material_escolar",
     "valenciana_ascendientes_mayores_discapacidad",
@@ -543,8 +543,11 @@ it("elegibilidad externa no crea derechos familiares ni abre ascendientes", () =
     a.deduccionesValencianas2025.solicitudes[0].codigo = codigo
     const r = Effect.runSync(Effect.result(componerLiquidacionAnual(a)))
     expect(Result.isFailure(r)).toBe(true)
-    if (Result.isFailure(r))
-      expect(r.failure.motivo).toMatch(/mínimo|Ascendientes/)
+    if (Result.isFailure(r)) {
+      if (codigo === "valenciana_ascendientes_mayores_discapacidad")
+        expect(r.failure.motivo).toBe("Valencia: falta censo anual de ascendientes")
+      else expect(r.failure.motivo).toMatch(/mínimo/)
+    }
   }
 })
 

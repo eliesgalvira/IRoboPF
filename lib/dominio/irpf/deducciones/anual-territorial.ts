@@ -1,3 +1,4 @@
+import { producirAscendientes2025 } from "../minimos/ascendientes-2025"
 import { validarCensosViviendaRioja } from "../vivienda-dt18-2025/productor"
 import { HechosDT182025 } from "../vivienda-dt18-2025/contrato"
 import type { LibroDT182025 } from "../vivienda-dt18-2025/productor"
@@ -50,6 +51,7 @@ export interface MagnitudesTerritorialesAnuales {
   readonly cuotasDT18?: ReturnType<typeof aplicarCuotasDT18> | undefined
   readonly libroBasesFamiliares2025?: import("../bases-familiares-2025/productor").LibroBasesFamiliares2025 | undefined
   readonly pagadoresCatalunya2025?: import("./catalunya-pagadores-2025/productor").LibroPagadoresCatalunya2025 | undefined
+  readonly aragonSocialMixto2025?: true | undefined
   readonly cuotaEstatal681?: Decimal | undefined
   readonly vehiculoDA58?: LibroVehiculoDA58 | undefined
   readonly inmueblesP4a?: readonly ResultadoInmuebleP4a[] | undefined
@@ -67,6 +69,7 @@ export interface MagnitudesTerritorialesAnuales {
     | "contribuyenteId"
     | "situacionFamiliar"
     | "derechosMinimos"
+    | "basesFamiliares2025"
     | "fechaFallecimiento"
   >
   readonly basesLiquidables?:
@@ -109,6 +112,7 @@ function normalizarExacto(
     | ResultadoAmpliacion
     | ResultadoE38
     | ResultadoAmpliacionB
+    | import("../aragon-social-mixto-2025/atribucion").ResultadoSocialMixto2025
     | ResultadoInversionAragonesa2025
     | ReturnType<typeof evaluarCatalunyaHechos2025>
     | ReturnType<typeof evaluarHechosB2025>
@@ -175,9 +179,9 @@ function conciliar(
       : undefined
   if (id !== undefined && (nacimiento !== undefined || grado !== undefined)) {
     const propia = id === m.caso.contribuyenteId
-    const familiar = m.caso.derechosMinimos?.descendientes.find(
-      (d) => d.sujetoId === id
-    )
+    const derechos = m.caso.derechosMinimos
+    const familiar = derechos?.descendientes.find(d => d.sujetoId === id) ??
+      (derechos !== undefined && derechos.ascendientes !== "ninguno" ? producirAscendientes2025(derechos.ascendientes, derechos.contribuyenteId, derechos.territorio).find(a => a.sujetoId === id) : undefined)
     exigir(
       propia || familiar !== undefined,
       "Persona sin identidad anual conciliada: " + id
@@ -221,7 +225,7 @@ function conciliar(
           id === m.caso.contribuyenteId ||
             m.caso.derechosMinimos?.descendientes.some((d) =>
               d.titulares.some((t) => t.titularId === id)
-            ) === true,
+            ) === true || (m.caso.derechosMinimos !== undefined && m.caso.derechosMinimos.ascendientes !== "ninguno" && m.caso.derechosMinimos.ascendientes.some(a => a.titulares.some(t => t.titularId === id))),
           "Titular de mínimo no conciliado: " + id
         )
     if (k === "titularesMinimo" && esLista(v) && v.length > 0) {
@@ -424,6 +428,11 @@ export function aplicarDeduccionesTerritoriales2025(
     exigir(solicitudes.length === 1, "P5a combinación no representada: reserva única por declaración; pendiente partición, también con productor inmobiliario P4a")
     exigir(m.libroIngresosIdentificados2025 === undefined && m.libroMaternidad81 === undefined && m.donativosEstatales === undefined && decoded.success.donativosEstatales2025 === undefined, "P5a combinación con productores ELA/donativos/art81 no representada; pendiente conciliación conjunta")
   }
+  const familiarExentoExt = solicitudes.some(s=>s.lote==="D51" && s.codigo==="extremadura_cuidado_familiares_discapacidad" && "perfil" in s.hechos)
+  if(familiarExentoExt){
+    exigir(solicitudes.length===1,"EXT familiar: combinación de solicitudes pendiente de conciliación entre censos")
+    exigir(m.vehiculoDA58===undefined && m.libroMaternidad81===undefined && m.libroIngresosIdentificados2025===undefined && m.inmueblesP4a===undefined && m.donativosEstatales===undefined && decoded.success.donativosEstatales2025===undefined && decoded.success.vehiculoDA582025===undefined,"EXT familiar: combinación con otros productores fuera de cobertura")
+  }
   const inversionExt = solicitudes.some(s=>s.lote==="D51" && s.codigo==="extremadura_inversion_acciones_participaciones_mercantiles" && "perfil" in s.hechos)
   if(inversionExt){
     exigir(solicitudes.length===1,"EXT inversión: perfil exclusivo, combinación de deducciones no representada")
@@ -469,8 +478,20 @@ export function aplicarDeduccionesTerritoriales2025(
       }
       registrarBien(hechosConciliables)
     }
-    if(!(s.lote === "A40" && s.codigo === "andalucia_conyuge_pareja_discapacidad") && !inversionExt && s.lote !== "C36" && s.lote !== "B-ampliado" && s.lote !== "E38" && s.lote !== "F-ampliado" && s.lote !== "A-aragon-dos") conciliar(hechosConciliables, m)
+    if(!(s.lote === "CLM" && s.codigo === "clm_cuidado_ascendientes_mayores_75") && !(s.lote === "A40" && s.codigo === "andalucia_conyuge_pareja_discapacidad") && !familiarExentoExt && !inversionExt && s.lote !== "C36" && s.lote !== "B-ampliado" && s.lote !== "E38" && s.lote !== "F-ampliado" && s.lote !== "A-aragon-dos") conciliar(hechosConciliables, m)
     restriccionesC36.push([])
+    if (s.lote === "CLM" && s.codigo === "clm_cuidado_ascendientes_mayores_75") {
+      const derechos = m.caso.derechosMinimos
+      exigir(derechos !== undefined && derechos.ascendientes !== "ninguno", "CLM: falta censo anual de ascendientes")
+      const libro = producirAscendientes2025(derechos.ascendientes, derechos.contribuyenteId, derechos.territorio)
+      exigir(s.hechos.ascendientes.length === libro.length && libro.every(a => s.hechos.ascendientes.some(h => h.id === a.sujetoId)), "CLM: censo regional incompleto o ajeno")
+      for (const h of s.hechos.ascendientes) {
+        const a = libro.find(a => a.sujetoId === h.id)
+        exigir(a !== undefined, "CLM: ascendiente ajeno")
+        exigir(h.titularesMinimo.length === a.titularesMinimo.length && new Set(h.titularesMinimo).size === h.titularesMinimo.length && h.titularesMinimo.every(id => a.titularesMinimo.includes(id)), "CLM: titulares de mínimo no conciliados")
+        exigir(h.grado === a.gradoDiscapacidad && h.nacimiento === a.fechaNacimiento, "CLM: nacimiento/discapacidad contradictorios")
+      }
+    }
     if (s.lote === "CLM" || s.lote === "CYL" || s.lote === "EXT") {
       function repartoExacto(x: Schema.Json): void {
         if (esLista(x)) {
@@ -847,7 +868,7 @@ export function aplicarDeduccionesTerritoriales2025(
           case "clm_nacimiento_adopcion_hijos":
             return normalizar(CLM.nacimientoAdopcion(marco, s.hechos))
           case "clm_cuidado_ascendientes_mayores_75":
-            return normalizar(CLM.cuidadoAscendientes75(marco, s.hechos))
+            return normalizar(CLM.cuidadoAscendientes75(marco, { ...s.hechos, ascendientes: s.hechos.ascendientes.filter(a => m.sujetosConMinimo.includes(a.id)) }))
         }
       case "CYL":
         switch (s.codigo) {
