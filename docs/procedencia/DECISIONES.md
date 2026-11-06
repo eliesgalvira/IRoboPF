@@ -1055,3 +1055,43 @@ turno pesado por las paradas de memoria observadas.
 ### Fusión de concurrencias y continuidad madrileña · 6/11/2026
 
 Valencia, Murcia81 y la historia madrileña T04 se preparan en un solo corte de integración. Sus autores y revisores trabajan sobre entradas congeladas. Hay un único solape, en auxiliares-anual.ts: la fusión conserva la conexión murciana y aplica las operaciones exactas de Madrid; su reversión recupera los bytes murcianos. El primer intento de patch falló en el contexto del import y queda conservado. No se aplicará T04 antes de su primera revisión. Agrupar estas conexiones ahorra regeneraciones y pasadas completas del CI, a cambio de exigir regresiones conjuntas después de la fusión. Las preparaciones T05/T06/T07 y el hallazgo privado T08 no se incorporan a ese corte sin sus validaciones y revisiones.
+
+### Validaciones secuenciales tras las guardias de memoria · 6/11/2026
+
+Los autores T05 y T07 alcanzaron la guardia de 6 GiB del grupo. Sus resultados
+quedan incompletos y sus plazos cerrados. Se comprueba la terminación de los
+procesos antes de recuperar la caché de archivos retenida entre ejecuciones.
+No se cambian los límites del grupo, del árbol ni las protecciones del sistema.
+
+Las siguientes tareas pesadas se ejecutan de una en una, con entrada por debajo
+de 2 GiB en el grupo. Esto reduce el paralelismo, pero deja margen para el
+compilador y evita depender de que la protección mate una prueba. Para los dos
+autores interrumpidos se preparan cierres separados de quince minutos que
+ejecutan sólo los controles pendientes. Los resultados válidos se reutilizan
+con su identidad y alcance; no se suman repeticiones ni se convierte un canario
+negativo en validación del producto. Una guardia nueva vuelve a detener el cierre.
+
+
+## Publicación conjunta y reanudación tras cuota · 11/11/2026
+
+Agrupamos anticipos y alquiler baleares, calendario familiar e incentivos murcianos en un corte. Cada cambio conserva su revisión monetaria; la fusión añade las suites al workflow y debe superar los 31 pasos exactos en un entorno limpio. Esto retrasa la publicación individual de los cambios ya revisados, pero permite comprobar juntos los dos adaptadores compartidos y evita repetir el CI integral por cada incorporación. Ningún candidato pendiente se da por publicado.
+
+La cuota interrumpió el cierre del dictamen de anticipos después de completar sus controles. Se revisan esas evidencias sin relanzar pruebas ni reiniciar su reloj. Los errores previos del supervisor y sus pruebas causales quedan preservados: refrescar la lista de procesos después de recoger la salida evita una falsa fuga y mantiene la detección de descendientes realmente vivos.
+
+
+## Preparación de los siguientes cambios · 11/11/2026
+
+La siguiente preparación se limita a parches, pre/postimágenes de los archivos
+modificados, fuentes normativas y pruebas. Se reutilizará la supervisión común
+para validar sobre la integración, después de publicar el corte actual. No se
+crean nuevos arneses ni selecciones de cientos de dependencias para cada cambio.
+Esto reduce la preparación repetida y los conflictos de recepción, manteniendo
+las pruebas del cambio, una revisión independiente por cambio monetario y el CI
+exacto antes de publicar.
+
+Los siguientes huecos seleccionados son el segundo progenitor con pagos propios
+separados en guardería murciana, la anualidad de vivienda madrileña comprada en
+2023–2024 y la conciliación del alquiler gallego con inversiones. La condición
+material de inversión riojana se estudia por separado. Estos trabajos no forman
+parte del corte de Baleares y calendario ni acreditan el cierre universal del
+punto 4. Las ramas todavía no representadas siguen identificadas por causa.

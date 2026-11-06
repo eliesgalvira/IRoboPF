@@ -1,3 +1,4 @@
+import { conciliarAnticipoNacimientoC36 } from "./anual-nacimiento-anticipo"
 import { producirHistoriaAdquisicionCanarias2025 } from "./anual-vivienda-historia"
 import { comprobarAusenciaInversionAlquilerC36 } from "./anual-alquiler-derechos"
 import { ingresoRegionalIdentificado2025 } from "../../ingresos-identificados-2025/regiones"
@@ -97,6 +98,12 @@ export function registrarMonetariosC36(
     // El productor concilia ID, importe, fecha y factura antes de calcular.
     const { historiaAdquisicion, ...hechos } = s.hechos
     void historiaAdquisicion
+    recorrer(Schema.decodeUnknownSync(Schema.Json)(hechos))
+  } else if (Schema.is(ViviendaC36)(s) && s.codigo === "balears_arrendamiento_vivienda_habitual") {
+    // El censo DT18 referencia los pagos y movimientos de la misma persona.
+    // Conciliación integral y anti-duplicación en alquiler-dt18-balears.ts.
+    const { derechoInversionAlquiler, ...hechos } = s.hechos
+    void derechoInversionAlquiler
     recorrer(Schema.decodeUnknownSync(Schema.Json)(hechos))
   } else recorrer(Schema.decodeUnknownSync(Schema.Json)(s.hechos))
   locales.forEach((id) => vistos.add(id))
@@ -215,6 +222,8 @@ export function evaluarAnualC36(
   }
   if (Schema.is(ViviendaC36)(s)) {
     conciliarNacimientoPropioC36(m, s.hechos.nacimientoContribuyente)
+    comprobar(s.codigo === "balears_arrendamiento_vivienda_habitual" || s.hechos.derechoInversionAlquiler === undefined,
+      "T06_CODIGO_AJENO: hechos de derecho sólo para alquiler balear")
     const historiaInversion = s.codigo === "canarias_inversion_vivienda_habitual"
       ? producirHistoriaAdquisicionCanarias2025(s, m)
       : undefined
@@ -223,8 +232,8 @@ export function evaluarAnualC36(
       s.hechos.viviendas.forEach(v => v.gastos.forEach(p => conciliarPagoC36(m, p)))
       return evaluarPrimerAlquiler2025(s, m)
     }
-    if (s.codigo === "balears_arrendamiento_vivienda_habitual")
-      comprobarAusenciaInversionAlquilerC36(s, m, plan)
+    const derechoAlquiler = s.codigo === "balears_arrendamiento_vivienda_habitual"
+      ? comprobarAusenciaInversionAlquilerC36(s, m, plan) : undefined
     const viviendas = s.hechos.viviendas.map((v): ViviendaC => {
       if (s.codigo === "canarias_arrendamiento_dacion_pago")
         comprobar(
@@ -375,18 +384,27 @@ export function evaluarAnualC36(
         },
       }
     })
-    return evaluarViviendaAmpliacionC(
+    const resultadoVivienda = evaluarViviendaAmpliacionC(
       { ...h, codigo: s.codigo, viviendas: historiaInversion?.cumplePatrimonio === false ? [] : viviendas },
       a,
       historiaInversion?.historico ?? { calculoId: a.calculoId, ejercicio: 2025, viviendas:
         s.codigo === "balears_arrendamiento_vivienda_habitual"
           ? viviendas.map(v => ({ catastro: v.catastro, persona: id,
-            // Estos campos no los consume art3bis. Ausencia probada arriba.
+            // Magnitudes ajenas a art3bis; el derecho se deriva de hechos arriba.
             pagadoHasta2024: "0", inversionesAnterioresDeducidas: "0",
             gananciaExentaReinvertida: "0", saldoDudosoCobroDeducible2025: "0",
-            deduccionesInversionConDerecho: [],
+            deduccionesInversionConDerecho: derechoAlquiler?.conDerecho === true ? ["estatal_DT18_adquisicion"] : [],
           })) : [] }
     )
+    if (derechoAlquiler !== undefined && resultadoVivienda.estado === "calculo_parcial") {
+      const b = derechoAlquiler.baseDerecho
+      const rastro = [...resultadoVivienda.rastro,
+        "T06_ART3BIS1B_EXCEPCION_RENTA_P4A: título propio con rendimientos integrados; no hay dos habituales simultáneas",
+        `T06_DT18_PRODUCTOR baseCentimos=${b.n}/${b.d}; derecho=${derechoAlquiler.conDerecho}; eleccion=${derechoAlquiler.eleccion}`,
+        derechoAlquiler.conDerecho ? "T06_ART3BIS1C_EXCLUIDO: derecho material DT18, independiente de elección y cuota" : "T06_ART3BIS1C_SIN_DERECHO: base material nula por hechos, sin usar elección ni cuota"]
+      return { ...resultadoVivienda, rastro }
+    }
+    return resultadoVivienda
   }
   if (Schema.is(FamiliaC36)(s)) return evaluarFamiliaAnualC36(s, m)
   if (Schema.is(InversionC36)(s)) {
@@ -631,23 +649,7 @@ function evaluarFamiliaAnualC36(
       "C36: faltan convivientes/descendientes para monoparentalidad"
     )
   if (s.codigo === "balears_nacimiento") {
-    const registro = necesarioC36(
-      s.hechos.registroCobrosNacimiento,
-      "C36 nacimiento: falta registro exhaustivo de cobros anticipados; no se presume saldo cero"
-    )
-    unico(registro.cobros.map((p) => p.id))
-    registro.cobros.forEach((p) => {
-      fecha(p.fecha)
-      comprobar(
-        p.beneficiario === id,
-        "C36 nacimiento: anticipo de otro beneficiario"
-      )
-      eurosC(p.importe)
-    })
-    comprobar(
-      registro.cobros.length === 0,
-      "C36 nacimiento: existen anticipos; falta productor anual de regularización art6ter.6, no se compensa un importe declarado"
-    )
+    conciliarAnticipoNacimientoC36(s, m)
     comprobar(
       f.documentoResidencia2024.trim() !== "",
       "C36: residencia fiscal anterior sin soporte particular"

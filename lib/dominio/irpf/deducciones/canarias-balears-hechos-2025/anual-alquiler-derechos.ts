@@ -1,18 +1,19 @@
 import { Schema } from "effect"
+import { conciliarDerechoAlquilerBalears2025 } from "./alquiler-dt18-balears"
 import { ViviendaC36, type SolicitudAnualC36 } from "./anual-esquemas"
 import type { MagnitudesTerritorialesAnuales } from "../anual-territorial"
 import { comprobar } from "./ampliacion-comun"
 import { necesarioC36, sujetoC36, censoC36 } from "./anual-productores"
 import { edad, fecha, unico } from "./comun"
 
-/** Prueba suficiente de ausencia; los censos no vacíos de inversión se mantienen
- * no inferidos. No se equipara rechazo a existencia de derecho ni a cuota cero.
+/** Clasifica adquisición DT18 con cambio habitual conciliado, además del uso
+ * gratuito extinguido sin pagos. Demás historias se rechazan sin inferir cuota.
  * El censo es de hechos de vivienda, independiente de las elecciones fiscales. */
 export function comprobarAusenciaInversionAlquilerC36(
   s: typeof ViviendaC36.Type,
   m: MagnitudesTerritorialesAnuales,
   plan: readonly SolicitudAnualC36[],
-): void {
+): ReturnType<typeof conciliarDerechoAlquilerBalears2025> | undefined {
   const id = sujetoC36(m)
   const c = necesarioC36(s.hechos.censoViviendaInversion,
     "C36 art3bis: falta censo material completo de vivienda e inversiones")
@@ -26,21 +27,67 @@ export function comprobarAusenciaInversionAlquilerC36(
   comprobar(c.soporte.trim() !== "", "C36 art3bis: soporte del censo vacío")
   fecha(c.desde); fecha(c.hasta)
   unico(c.titulos.map(t => t.id)); unico(c.operaciones.map(o => o.id))
+  const material = s.hechos.derechoInversionAlquiler === undefined ? undefined :
+    conciliarDerechoAlquilerBalears2025(s, m, plan)
+  comprobar(material !== undefined || m.inmueblesP4a?.some(x => x.inmueble.cambioHabitualBalears2025 !== undefined) !== true,
+    "T06_HISTORIA: transición inmobiliaria sin historia material de inversión")
+  if (material === undefined) {
   c.titulos.forEach(t => {
     fecha(t.desde); fecha(t.hasta)
     comprobar(t.desde >= c.desde && t.desde <= t.hasta && t.hasta <= c.hasta,
       "C36 art3bis: título fuera del censo")
-    comprobar(t.derecho === "arrendatario",
-      "C36 art3bis: títulos reales requieren productor de derechos; no se infiere ausencia")
+    comprobar(t.documento.trim() !== "" && t.catastro.trim() !== "",
+      "C36 art3bis: identidad documental del título vacía")
+    if (t.derecho === "arrendatario") {
+      comprobar(t.usoGratuitoExtinguido === undefined,
+        "C36 art3bis: historia de uso contradice título arrendaticio")
+      return
+    }
+    const h = necesarioC36(t.usoGratuitoExtinguido,
+      "C36 art3bis: título real sin historia civil; derecho de inversión no inferido")
+    fecha(h.constitucion); fecha(h.vencimiento)
+    comprobar(t.derecho === "uso" && t.desde === h.constitucion &&
+      t.hasta === h.vencimiento && h.constitucion >= "2014-01-01" &&
+      h.vencimiento < "2025-01-01",
+      "C36 art3bis: sólo uso temporal pos2013 extinguido antes de2025; otros títulos requieren productor")
+    comprobar(h.titular === id && h.constituyente !== id && h.constituyente.trim() !== "" &&
+      h.documentoVencimiento.trim() !== "" && h.localizacion.catastro === t.catastro &&
+      h.localizacion.territorio.trim() !== "" && h.localizacion.documento.trim() !== "",
+      "C36 art3bis: identidad o localización de uso contradictoria")
+    comprobar(h.pagos.length === 0,
+      "C36 art3bis: pagos del uso requieren historia material de inversión")
+    comprobar(c.operaciones.filter(o => o.catastro === t.catastro).length === 1 &&
+      c.operaciones.some(o => o.catastro === t.catastro &&
+        o.clase === "constitucion_uso_gratuito" && o.fecha === t.desde &&
+        o.documento === t.documento),
+      "C36 art3bis: constitución gratuita omitida, duplicada o inversión adicional")
   })
   comprobar(c.altasRETA.length === 0,
     "C36 art3bis: colectivo RETA requiere conciliación específica")
-  comprobar(c.operaciones.length === 0,
-    "C36 art3bis: inversión presente, derecho no inferido aunque se elija no aplicar")
+  unico(c.titulos.map(t => `${t.catastro}:${t.derecho}:${t.desde}:${t.hasta}`))
+  for (const o of c.operaciones) {
+    fecha(o.fecha)
+    comprobar(o.fecha >= c.desde && o.fecha <= c.hasta && o.documento.trim() !== "",
+      "C36 art3bis: operación fuera de censo o sin documento")
+    comprobar(o.clase === "constitucion_uso_gratuito" &&
+      c.titulos.filter(t => t.catastro === o.catastro).length === 1 &&
+      c.titulos.some(t => t.catastro === o.catastro && t.derecho === "uso" &&
+        t.usoGratuitoExtinguido !== undefined && t.desde === o.fecha && t.documento === o.documento),
+      "C36 art3bis: inversión presente, derecho no inferido aunque se elija no aplicar")
+  }
+  // Art3bis1b: ningún derecho real admitido alcanza2025. No se usa distancia,
+  // territorio ni la elección fiscal para presumir la ausencia de inversión.
+  // Art3bis1c: sólo constituciones gratuitas sin pagos; no adquisición en pleno
+  // dominio ni obras, financiación, anticipos o efectos pendientes en el censo.
   comprobar(m.libroDT18 === undefined && m.inmueblesP4a === undefined,
     "C36 art3bis: censo contradice otros productores de vivienda")
+  }
+  comprobar(c.altasRETA.length === 0,
+    "C36 art3bis: colectivo RETA requiere conciliación específica")
   comprobar(s.hechos.viviendas.length === 1, "C36 art3bis: una vivienda habitual")
   const v = s.hechos.viviendas[0]
+  comprobar(c.titulos.every(t => t.derecho === "arrendatario" || t.catastro !== v.catastro),
+    "C36 art3bis: historia real sobre inmueble alquilado requiere conciliación específica")
   const alquiler = necesarioC36(v.alquiler, "C36 art3bis: contrato ausente")
   const localizacion = necesarioC36(v.localizacion,
     "C36 art3bis: falta localización del inmueble independiente de la residencia fiscal")
@@ -88,4 +135,5 @@ export function comprobarAusenciaInversionAlquilerC36(
         "C36 art3bis: censo vacío de inversión contradice hechos de otra solicitud de vivienda")
     }
   }
+  return material
 }

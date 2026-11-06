@@ -35,8 +35,8 @@ export const HechosAnualesF = Schema.Struct({
   hechosPrevios: Schema.optionalKey(PreviosAnuales),
 })
 
-/** Censo histórico de instalaciones, no importes de deducción ni cuotas consignadas.
- * Una infraestructura histórica requiere reconstruir su año de origen antes de aplicarla. */
+/** Formato anterior conservado por compatibilidad. La deducción nace en2025:
+ * no se exige este censo ni se admiten saldos de recarga de2022–2024. */
 const HistorialRecarga = Schema.Struct({
   periodos: Schema.Tuple([Schema.Literal(2022), Schema.Literal(2023), Schema.Literal(2024)]),
   contribuyente: Schema.String,

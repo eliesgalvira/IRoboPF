@@ -23,6 +23,11 @@ export type ResultadoGastos =
       readonly aceptacionFiscal: "pendiente"
     }
 
+/** Cuantía anual legal, compartida con el calendario; no depende de días. */
+export function importeDiscapacidadActiva(grado: "33-a-64" | "65-o-mas", ayuda: boolean): number {
+  return grado === "65-o-mas" || ayuda ? 7750 : 3500
+}
+
 export function calcularGastosTrabajo(caso: GastosTrabajo): ResultadoGastos {
   const decoded = Schema.decodeUnknownResult(GastosTrabajo)(caso, {
     onExcessProperty: "error",
@@ -99,10 +104,7 @@ export function calcularGastosTrabajo(caso: GastosTrabajo): ResultadoGastos {
   const incremento =
     c.discapacidadActiva === "ninguna"
       ? 0
-      : c.discapacidadActiva.grado === "65-o-mas" ||
-          c.discapacidadActiva.ayudaOMovilidadReducida === "si"
-        ? 7750
-        : 3500
+      : importeDiscapacidadActiva(c.discapacidadActiva.grado, c.discapacidadActiva.ayudaOMovilidadReducida === "si")
   const discapacidad = D.min(incremento, D.max(0, previo.minus(generales)))
   return {
     estado: "calculado",

@@ -1,4 +1,5 @@
 import { Schema } from "effect"
+import type { HechosDerechoDT18Balears2025 } from "./balears-contrato"
 import { E_ViviendaRioja } from "../deducciones/galicia-rioja-ampliacion-2025/anual-esquemas"
 import { D as baseViviendaDecimal } from "../deducciones/lote-a-ampliacion-2025/comun"
 import { ajustarPatrimonioP5a, conciliarCuentasP5a } from "../patrimonio-p5a/productor"
@@ -11,7 +12,7 @@ import type { HechosDT182025, HechosDT18Murcia2025 } from "./contrato"
 import type { MagnitudesTerritorialesAnuales } from "../deducciones/anual-territorial"
 import type { SolicitudDeduccionesTerritoriales2025 } from "../deducciones/anual-territorial-esquemas"
 export const igualViviendaDT18=Schema.toEquivalence(E_ViviendaRioja)
-const InmuebleComun=Schema.Struct({...E_ViviendaRioja.fields.inmueble.fields,territorio:Schema.Literals(["galicia","la-rioja","murcia"])})
+const InmuebleComun=Schema.Struct({...E_ViviendaRioja.fields.inmueble.fields,territorio:Schema.Literals(["galicia","la-rioja","murcia","illes-balears"])})
 const igualInmueble=Schema.toEquivalence(InmuebleComun)
 const igualViviendaComun=Schema.toEquivalence(Schema.Struct({...E_ViviendaRioja.fields,inmueble:InmuebleComun}))
 const igualDocumento=Schema.toEquivalence(E_ViviendaRioja.fields.deduccionPre2013)
@@ -20,16 +21,17 @@ const codigoPorOperacion={adquisicion:CODIGOS_DT18_RIOJA[1],rehabilitacion:CODIG
 function textoEuros(a:R):string{const n=BigInt(centimos(a));return String(n/100n)+"."+String(n%100n).padStart(2,"0")}
 function igual(a:R,b:R,m:string){exige(compara(a,b)===0,"DT18: "+m)}
 function centimos(a:R):number{exige(a.d===1n&&a.n>=0n&&a.n<=BigInt(Number.MAX_SAFE_INTEGER),"DT18: importe fuera del transporte entero seguro de fórmula revisada");return Number(a.n)}
-type ViviendaDT18 = HechosDT182025["proyectos"][number]["vivienda"] | HechosDT18Murcia2025["proyectos"][number]["vivienda"]
-type HechosComunes<V extends ViviendaDT18> = Omit<HechosDT182025,"proyectos"> & {
+type ViviendaDT18 = HechosDT182025["proyectos"][number]["vivienda"] | HechosDT18Murcia2025["proyectos"][number]["vivienda"] | HechosDerechoDT18Balears2025["proyectos"][number]["vivienda"]
+type HechosComunes<V extends ViviendaDT18> = Omit<HechosDT182025,"proyectos"|"ejercicioDelDerecho"> & {
+ readonly ejercicioDelDerecho: "ejercer_integramente" | "aplicar" | "no_aplicar"
  readonly proyectos: readonly (Omit<HechosDT182025["proyectos"][number],"vivienda"> & {readonly vivienda:V})[]
 }
 /** Núcleo estatal único; las reservas E38 sólo existen para Rioja. */
-function producirDT18Comun<V extends ViviendaDT18>(h:HechosComunes<V>,caso:MagnitudesTerritorialesAnuales["caso"],solicitudes:SolicitudDeduccionesTerritoriales2025["solicitudes"],territorio:"la-rioja"|"murcia") {
- exige(caso.anio===2025&&caso.comunidadAutonoma===territorio&&caso.fechaFallecimiento===undefined&&caso.situacionFamiliar.tipo==="individual"&&caso.contribuyenteId===h.persona&&edad(h.nacimiento)===caso.situacionFamiliar.edad,"DT18: ámbito individual Rioja2025/identidad/edad")
+function producirDT18Comun<V extends ViviendaDT18>(h:HechosComunes<V>,caso:MagnitudesTerritorialesAnuales["caso"],solicitudes:SolicitudDeduccionesTerritoriales2025["solicitudes"],territorio:"la-rioja"|"murcia"|"illes-balears") {
+ exige(caso.anio===2025&&caso.comunidadAutonoma===territorio&&caso.fechaFallecimiento===undefined&&caso.situacionFamiliar.tipo==="individual"&&caso.contribuyenteId===h.persona&&edad(h.nacimiento)===caso.situacionFamiliar.edad,"DT18: ámbito individual2025/territorio/identidad/edad")
  exige(h.exhaustividad==="primera_unica_vivienda_sin_transmisiones_reinversiones_ni_otras_inversiones","DT18: faltan antecedentes patrimoniales exhaustivos")
  exige(ids(h.proyectos.map(p=>p.id))&&ids(h.proyectos.map(p=>p.operacion))&&h.proyectos.some(p=>p.operacion==="adquisicion"),"DT18: primera adquisición y proyectos únicos requeridos; construcción/ampliación requieren productor específico")
- exige(h.ejercicioDelDerecho==="ejercer_integramente","DT18: ejercicio parcial o no ejercicio requiere política de aplicación separada, no acredita ausencia de derecho")
+ exige(territorio==="illes-balears" || h.ejercicioDelDerecho==="ejercer_integramente","DT18: ejercicio parcial o no ejercicio requiere política de aplicación separada, no acredita ausencia de derecho")
  const a=h.adquisicion,hist=h.historia
  exige(fecha(a.fecha)&&a.fecha>=h.nacimiento&&a.fecha<"2013-01-01","DT18.1a: primera adquisición anterior2013")
  documento(a.escritura);documento(a.valorCierre.documento)
@@ -64,7 +66,7 @@ function producirDT18Comun<V extends ViviendaDT18>(h:HechosComunes<V>,caso:Magni
   exige(v.operacion===p.operacion&&v.inmueble.id===a.inmueble&&igualInmueble(v.inmueble,referencia)&&v.inmueble.adquisicion===a.fecha&&v.inmueble.territorio===territorio&&v.inmueble.uso==="habitual"&&v.inmueble.titulares.length===1&&v.inmueble.titulares[0]?.titular===h.persona&&v.inmueble.titulares[0]?.numerador===1&&v.inmueble.titulares[0]?.denominador===1,"DT18: inmueble/titular/uso contradictorio entre proyectos")
   igual(euros(v.inmueble.precioAdquisicion),euros(a.precio),"precio de inmueble contradictorio")
   exige(v.excepcionOcupacion===null&&v.excepcionPermanencia===null&&v.ampliacionPlazoConstruccion===null&&v.excepcion6812===null&&v.coberturaIntereses==="0","DT18: excepciones, coberturas y ampliaciones requieren productor específico; no inferir excepción de documento")
-  exige(fecha(v.primeraOcupacion)&&v.primeraOcupacion>=a.fecha&&v.primeraOcupacion<=moverMes(a.fecha,12)&&v.inmueble.residencia.desde<=v.primeraOcupacion&&fecha(v.inmueble.residencia.desde)&&fecha(v.inmueble.residencia.hasta)&&v.inmueble.residencia.hasta>="2025-12-31"&&moverMes(v.primeraOcupacion,36)<="2025-12-31","DT18: ocupación/permanencia efectiva ordinaria no acreditada")
+  exige(fecha(v.primeraOcupacion)&&v.primeraOcupacion>=a.fecha&&v.primeraOcupacion<=moverMes(a.fecha,12)&&v.inmueble.residencia.desde<=v.primeraOcupacion&&fecha(v.inmueble.residencia.desde)&&fecha(v.inmueble.residencia.hasta)&&(territorio==="illes-balears" ? v.inmueble.residencia.hasta>="2025-01-01"&&v.inmueble.residencia.hasta<"2025-12-31"&&moverMes(v.primeraOcupacion,36)<=v.inmueble.residencia.hasta : v.inmueble.residencia.hasta>="2025-12-31"&&moverMes(v.primeraOcupacion,36)<="2025-12-31"),"DT18: ocupación/permanencia efectiva ordinaria no acreditada")
   exige(fecha(p.fechaInicio)&&fecha(p.terminacion)&&p.fechaInicio>=a.fecha&&p.fechaInicio<=p.terminacion&&p.fechaInicio<"2013-01-01"&&p.terminacion<"2017-01-01"&&v.fechaInicioInversion===p.fechaInicio&&v.finConstruccion===p.terminacion,"DT18: inicio/fin históricos contradictorios")
   documento(p.certificadoFin);exige(p.certificadoFin.fecha>=p.terminacion,"DT18: certificado fin anterior a terminación")
   exige(ids(p.pagosOriginales.map(x=>x.id))&&ids(p.pagosOriginales.map(x=>x.documento.referencia))&&p.pagosOriginales.length>0,"DT18: faltan pagos originales completos")
@@ -96,6 +98,7 @@ function producirDT18Comun<V extends ViviendaDT18>(h:HechosComunes<V>,caso:Magni
    for(const x of v.pagos){const m=movimientosPagados.find(m=>m.id===x.id);exige(m!==undefined&&m.fecha===x.fecha&&m.importe===x.importe&&m.documento.referencia===x.factura&&x.pagador===h.persona&&x.receptor===l.acreedor&&x.medio!=="efectivo"&&x.subvencion==="0"&&x.especieExenta==="0"&&x.concepto===(m.clase==="gastos_financiacion"?"gastos":m.clase),"DT18: pago2025 ajeno/duplicado/no vinculado a concepto, banco y documento")}
    igual(menos(principal,suma(v.pagos.filter(x=>x.concepto==="amortizacion").map(x=>euros(x.importe)))),euros(l.principalFinal.importe),"principal cierre no concilia")
   }
+  if(territorio==="illes-balears")exige(v.pagos.every(x=>fecha(x.fecha)&&x.fecha>="2025-01-01"&&x.fecha<=v.inmueble.residencia.hasta),"T06_DT18_PAGO_FUERA_HABITUAL: pago posterior al cambio o fuera2025")
   const numero=(v:R)=>centimos(v)
   const pago=(x:typeof v.pagos[number])=>({id:x.id,fecha:x.fecha,pagador:x.pagador,importeCentimos:numero(euros(x.importe)),medio:"transferencia" as const,justificante:x.factura,regimen:"personal" as const,conyuges:[]})
   const nacional:Vivienda={id:a.inmueble,adquisicion:a.fecha,terminacionObras:p.terminacion,ocupacion:v.primeraOcupacion,residenciaDesde:v.inmueble.residencia.desde,situacion:"residencia-continuada",referenciaOcupacion:a.escritura.referencia,referenciaMantenimiento:hist.documento.referencia,operacion:p.operacion==="adecuacion"?"adecuacion-discapacidad":p.operacion,anterior:"primera-vivienda",inversionAcumuladaAntes2025Centimos:numero(menos(coste,deudaInicio)),baseDeducidaViviendasAnterioresCentimos:0,gananciaExentaReinversionCentimos:0,incrementoPatrimonialComputableCentimos:numero(max(cero,menos(patrimonio.final,patrimonio.inicial))),referenciaPatrimonio:hist.documento.referencia,pagosCapitalYGastos:v.pagos.filter(x=>x.concepto!=="intereses").map(pago),pagosIntereses:v.pagos.filter(x=>x.concepto==="intereses").map(pago),coberturasInteresesPercibidasCentimos:0,rehabilitacion:{via:p.operacion==="rehabilitacion"?"reconstruccion-estructural":"no-aplica",inicio:p.fechaInicio,resolucionPlan:"",costeGlobalCentimos:numero(euros(p.coste)),valorSinSueloCentimos:numero(menos(euros(a.fecha>=moverMes(p.fechaInicio,-24)?v.inmueble.precioAdquisicion:v.inmueble.valorMercadoInicio),euros(v.inmueble.valorSuelo))),referenciaValoracion:p.certificadoFin.referencia,fechaValoracion:p.fechaInicio,naturalezaValor:a.fecha>=moverMes(p.fechaInicio,-24)?"adquisicion-dos-anios":"mercado-inicio",memoriaEstructurasFachadasCubiertas:p.certificadoFin.referencia},transitorio:{primeraInversion:primero.fecha,deduccionAntes2013:"practicada",referencia:aplicacion.declaracionPresentada.referencia,finObras:p.terminacion,resolucionAdecuacionDiscapacidad:v.informeDiscapacidad?.referencia??""}}
@@ -103,7 +106,9 @@ function producirDT18Comun<V extends ViviendaDT18>(h:HechosComunes<V>,caso:Magni
   const ambito={ejercicio:2025 as const,modalidad:"individual" as const,devengo:"2025-12-31" as const,contribuyente:h.persona}
   // La fórmula revisada produce una sola vez la base; el censo acredita ceros de otras viviendas.
   if(p.operacion==="rehabilitacion")exige(v.inmueble.valorSuelo!=="0","DT18: suelo explícito requerido en este perfil; proporción catastral requiere transporte adicional")
-  const base=cumplePatrimonio?euros(baseVivienda(nacional,ambito,true,p.operacion==="adecuacion",new (baseViviendaDecimal)(textoEuros(suma(v.pagos.filter(x=>x.concepto==="amortizacion").map(x=>euros(x.importe)))))).toFixed()):cero
+  const capitalSinFinanciacion = new (baseViviendaDecimal)(textoEuros(suma(v.pagos.filter(x=>x.concepto==="amortizacion").map(x=>euros(x.importe)))))
+  const base = cumplePatrimonio || territorio === "illes-balears"
+    ? euros(baseVivienda(nacional, ambito, true, p.operacion === "adecuacion", capitalSinFinanciacion, territorio === "illes-balears").toFixed()) : cero
   return {id:p.id,operacion:p.operacion,vivienda:v,base}
  })
  const baseDerechoSinAdecuacion=min(euros("9040"),suma(proyectos.filter(p=>p.operacion!=="adecuacion").map(p=>p.base)))
@@ -112,7 +117,7 @@ function producirDT18Comun<V extends ViviendaDT18>(h:HechosComunes<V>,caso:Magni
  const baseEstatalAdecuacion=baseDerechoAdecuacion
  const generada=mas(por(baseEstatalSinAdecuacion,75,1000),por(baseEstatalAdecuacion,10,100))
  let reservaRehabilitacionAdecuacion=cero,reservaAdquisicionSegunda=cero
- const reservas=(territorio==="murcia"?[]:solicitudes).map(s=>{
+ const reservas=(territorio!=="la-rioja"?[]:solicitudes).map(s=>{
   exige(s.lote==="E38"&&CODIGOS_DT18_RIOJA.some(c=>c===s.hechos.codigo),"DT18: otros consumidores requieren coordinación por valor explícita")
   const regional=s.hechos
   exige(regional.codigo==="rioja_obras_rehabilitacion_vivienda_habitual"||regional.codigo==="rioja_adquisicion_construccion_vivienda_jovenes"||regional.codigo==="rioja_adecuacion_vivienda_discapacidad","DT18: código regional no representado")
@@ -124,7 +129,7 @@ function producirDT18Comun<V extends ViviendaDT18>(h:HechosComunes<V>,caso:Magni
   else reservaRehabilitacionAdecuacion=min(euros("9040"),mas(reservaRehabilitacionAdecuacion,p.base))
   return {codigo,proyecto:p.id,previaRehabilitacionAdecuacion,previaAdquisicionSegunda}
  })
- exige((territorio==="murcia"||reservas.length>0)&&ids(reservas.map(r=>r.codigo)),"DT18: solicitudes regionales ausentes/repetidas")
+ exige((territorio!=="la-rioja"||reservas.length>0)&&ids(reservas.map(r=>r.codigo)),"DT18: solicitudes regionales ausentes/repetidas")
  return {hechos:h,persona:h.persona,nacimiento:h.nacimiento,proyectos,patrimonio,capital,cumplePatrimonio,baseDerechoSinAdecuacion,baseDerechoAdecuacion,baseEstatalSinAdecuacion,baseEstatalAdecuacion,generadaEstatal:generada,generadaAutonomica:generada,reservas,historiaDerivada:{inversionAnteriorDeducida:"0",gananciaExentaReinversion:"0",inversionNuevaAcumuladaAntes2025:textoEuros(menos(coste,deudaInicio))},publico:{reservaRegionalFinal:{adquisicionSegunda:serial(reservaAdquisicionSegunda),rehabilitacionAdecuacion:serial(reservaRehabilitacionAdecuacion)},patrimonio:{inicial:serial(patrimonio.inicial),final:serial(patrimonio.final),incremento:serial(menos(patrimonio.final,patrimonio.inicial)),capital:serial(capital),isdExcluido:serial(isd),variacionExcluida:serial(patrimonio.variacion)},proyectos:proyectos.map(p=>({id:p.id,operacion:p.operacion,gasto2025:serial(suma(p.vivienda.pagos.map(x=>euros(x.importe)))),baseDerecho:serial(p.base)})),cumpleCondicionPatrimonial:cumplePatrimonio,derecho:"acceso_historico_DT18_reconstruido" as const,ejercicioDelDerecho:h.ejercicioDelDerecho,baseDerechoSinAdecuacion:serial(baseDerechoSinAdecuacion),baseDerechoAdecuacion:serial(baseDerechoAdecuacion),baseEstatalSinAdecuacion:serial(baseEstatalSinAdecuacion),baseEstatalAdecuacion:serial(baseEstatalAdecuacion),reservas:reservas.map(x=>({...x,previaRehabilitacionAdecuacion:serial(x.previaRehabilitacionAdecuacion),previaAdquisicionSegunda:serial(x.previaAdquisicionSegunda)}))}}
 }
 export function producirDT182025(h:HechosDT182025,caso:MagnitudesTerritorialesAnuales["caso"],solicitudes:SolicitudDeduccionesTerritoriales2025["solicitudes"]){
@@ -143,4 +148,23 @@ export function validarCensosViviendaRioja(s:SolicitudDeduccionesTerritoriales20
  const segunda=s.solicitudes.some(x=>x.lote==="E38"&&(x.hechos.codigo==="rioja_segunda_vivienda_medio_rural"||x.patrimonioRiojaAnterior!==undefined))
  const habitual=s.viviendaDT182025!==undefined||s.solicitudes.some(x=>x.lote==="E38"&&CODIGOS_DT18_RIOJA.some(c=>c===x.hechos.codigo))
  if(segunda&&habitual)throw new RangeError("RIOJA_CENSOS_UNICOS_INCOMPATIBLES: segunda residencia y vivienda habitual DT18 requieren censo conjunto no representado; no sumar patrimonio ni reutilizar base9040")
+}
+
+/** Determina derecho material, sin consumir cuota ni ejercer deducción estatal.
+ * La elección se conserva pero no participa en baseDerecho. Sólo adquisición.
+ * Calendario y renta del resto del año se concilian en el consumidor balear. */
+export function determinarDerechoDT18Balears2025(h:HechosDerechoDT18Balears2025, caso:MagnitudesTerritorialesAnuales["caso"]){
+ exige(h.proyectos.length===1&&h.proyectos[0]?.operacion==="adquisicion","T06_DT18_ADQUISICION_UNICA: otras modalidades necesitan historia propia")
+ try {
+  exige(h.proyectos.every(p=>p.vivienda.pagos.every(x=>x.concepto==="amortizacion"||x.concepto==="intereses")),"T06_DT18_PAGOS_MODALIDAD: sólo capital e intereses")
+  const r=producirDT18Comun<HechosDerechoDT18Balears2025["proyectos"][number]["vivienda"]>(h,caso,[],"illes-balears")
+  return {baseDerecho:r.baseDerechoSinAdecuacion,conDerecho:compara(r.baseDerechoSinAdecuacion,cero)>0,
+    eleccion:h.ejercicioDelDerecho,cumplePatrimonio:r.cumplePatrimonio,patrimonio:r.patrimonio,capital:r.capital}
+ } catch(error) {
+  // Sólo causas de dominio reconocidas. Un TypeError/import no se promueve a
+  // historia fiscal desconocida ni a un derecho negativo calculado.
+  if(error instanceof Error && !(error instanceof TypeError) && /^(DT18|P5a|T06_DT18)/.test(error.message))
+   throw new RangeError("T06_DT18_HISTORIA: "+error.message)
+  throw error
+ }
 }

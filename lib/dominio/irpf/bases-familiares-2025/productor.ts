@@ -1,4 +1,5 @@
 import Decimal from "decimal.js"
+import { CalendarioTrabajo2025, discapacidadDevengoCalendario } from "../trabajo-anual/calendario-2025"
 import { Schema, Result, DateTime, Option } from "effect"
 import { GastosTrabajo } from "../trabajo-anual/contrato"
 import { adaptarTrabajoAnual } from "../trabajo-anual/adaptador"
@@ -13,7 +14,8 @@ export const EconomiaPersonaFamiliar2025 = Schema.Union([
       Schema.Struct({ perfil: Schema.Literal("sin-rentas"), censoRentasCompleto: Schema.Literal(true) }),
       Schema.Struct({ perfil: Schema.Literal("solo-trabajo"), censoRentasCompleto: Schema.Literal(true),
         otrasRentas: Schema.Literal("ninguna"), reduccionesBase: Schema.Literal("ninguna"),
-        saldosAnteriores: Schema.Literal("ninguno"), trabajo: GastosTrabajo }),
+        saldosAnteriores: Schema.Literal("ninguno"), trabajo: GastosTrabajo,
+        calendarioTrabajo2025: Schema.optional(CalendarioTrabajo2025) }),
     ])
 /** Hechos económicos completos; no admite base, saldo, cuota ni declaración anidada. */
 export const CensoBasesFamiliares2025 = Schema.Struct({
@@ -84,7 +86,7 @@ export function producirEconomiaAjena2025(e: typeof EconomiaPersonaFamiliar2025.
   exigir(hechos.perfil !== "declarante-en-composicion", "economía ajena requiere rentas expresas")
   return hechos.perfil === "sin-rentas"
     ? { general: new D(0), ahorro: new D(0), rentaAntesReducciones: new D(0) }
-    : baseTrabajoMiembro2025(hechos.trabajo, madrid)
+    : baseTrabajoMiembro2025(hechos.trabajo, madrid, new D(0), adaptarTrabajoAnual(hechos.trabajo, hechos.calendarioTrabajo2025))
 }
 /** No llama a ninguna liquidación ni agrega rentas ajenas al declarante. */
 export function producirBasesFamiliares2025(
@@ -137,10 +139,18 @@ export function producirBasesFamiliares2025(
       bases.set(p.id, { general: new D(propia.general), ahorro: new D(propia.ahorro) })
     } else {
       exigir(e.perfil !== "declarante-en-composicion", "segundo declarante en composición:" + p.id)
-      // El libro no representa aún los periodos de discapacidad laboral y al
-      // devengo. No basta con comparar grados ni con hacer coincidir las rentas.
-      // El consumidor civil andaluz valida sus propios hechos fuera del libro.
-      exigir(e.perfil !== "solo-trabajo" || e.trabajo.discapacidadActiva === "ninguna", "discapacidad activa ajena: faltan periodos conciliados con mínimos:" + p.id)
+      // Los hechos H2 sin calendario siguen insuficientes. Andalucía conserva
+      // su cobertura previa; este primer calendario se abre sólo Madrid/Valencia.
+      exigir(e.perfil !== "solo-trabajo" || e.trabajo.discapacidadActiva === "ninguna" || e.calendarioTrabajo2025 !== undefined, "discapacidad activa ajena: faltan periodos conciliados con mínimos:" + p.id)
+      if (e.perfil === "solo-trabajo" && e.calendarioTrabajo2025 !== undefined) {
+        exigir(caso.comunidadAutonoma !== "andalucia", "calendario laboral ajeno: consumidor andaluz fuera de este corte")
+        exigir(e.calendarioTrabajo2025.sujetoId === p.id, "identidad calendario contradice persona:" + p.id)
+        const d = ds.find(d => d.sujetoId === p.id)
+        if (d !== undefined) {
+          const grado = discapacidadDevengoCalendario(e.calendarioTrabajo2025)
+          exigir(grado._tag === d.discapacidad._tag && (grado._tag !== "Discapacidad33a64" || (d.discapacidad._tag === "Discapacidad33a64" && grado.necesitaAyudaOMovilidadReducida === d.discapacidad.necesitaAyudaOMovilidadReducida)), "discapacidad al devengo contradice mínimos:" + p.id)
+        }
+      }
       bases.set(p.id, producirEconomiaAjena2025(e, caso.comunidadAutonoma === "madrid"))
       const renta = e.perfil === "sin-rentas" ? new D(0) : bases.get(p.id)!.rentaAntesReducciones!
       const d = ds.find(d => d.sujetoId === p.id)

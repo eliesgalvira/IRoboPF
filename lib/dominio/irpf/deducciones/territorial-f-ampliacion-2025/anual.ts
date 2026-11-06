@@ -218,16 +218,31 @@ export function evaluarAnualF2025(
     }
     if (s.codigo === "murcia_recarga_vehiculos_electricos") {
       const h = s.historialRecarga
-      if (h === undefined) falta("historialRecarga.2022_2024", "Censo de infraestructuras de origen2022–2024 y su soporte para determinar prelación; no se presume historial vacío")
-      texto(h.referencia, "historialRecarga.referencia")
-      if (h.contribuyente !== contribuyente) falta("historialRecarga.contribuyente", "Historia de otro titular")
-      unicos(h.infraestructuras.map((i) => i.objetoId), "historialRecarga.objetoId")
-      if (h.infraestructuras.length > 0)
-        falta("productor_saldo_recarga_origen:" + h.infraestructuras[0]!.ejercicioOrigen, "Reconstruir gastos, condiciones y aplicaciones del periodo de origen; no se admite saldo ni consumo calculado externamente")
+      // Ley 3/2025, art.55.Ocho: primera generación desde 2025.
+      // El censo vacío anterior se acepta por compatibilidad, sin exigirlo.
+      if (h !== undefined) {
+        texto(h.referencia, "historialRecarga.referencia")
+        if (h.contribuyente !== contribuyente) falta("historialRecarga.contribuyente", "Historia de otro titular")
+        unicos(h.infraestructuras.map((i) => i.objetoId), "historialRecarga.objetoId")
+        if (h.infraestructuras.length > 0)
+          falta("historialRecarga.sin_vigencia_anterior_2025", "La deducción se introduce con efectos desde 2025; no existen saldos de este incentivo de origen2022–2024")
+      }
     }
-    if (s.codigo === "murcia_vehiculos_electricos" || s.codigo === "murcia_instalaciones_recursos_energeticos_renovables") {
+    if (s.codigo === "murcia_vehiculos_electricos" && s.historialSaldosIncentivoMurcia !== undefined) {
       const h = s.historialSaldosIncentivoMurcia
-      const periodos = s.codigo === "murcia_vehiculos_electricos" ? [2022, 2023, 2024] : [2023, 2024]
+      // Ley 3/2025, art.55.Siete: no hay generación de este incentivo antes de2025.
+      if (h.codigo !== s.codigo || h.contribuyente !== contribuyente)
+        falta("historialSaldosIncentivoMurcia:" + s.codigo, "Identificar titular e incentivo del censo anterior")
+      texto(h.referencia, "historialSaldosIncentivoMurcia.referencia")
+      const periodos = [2022, 2023, 2024]
+      if (h.periodos.length !== periodos.length || new Set(h.periodos).size !== h.periodos.length || h.periodos.some((a) => !periodos.includes(a)))
+        falta("historialSaldosIncentivoMurcia.periodos", "Censo anterior de compatibilidad:2022–2024")
+      if (h.operaciones.length > 0)
+        falta("historialSaldosIncentivoMurcia.sin_vigencia_anterior_2025", "La deducción se introduce con efectos desde 2025; no existen saldos de vehículos de origen2022–2024")
+    }
+    if (s.codigo === "murcia_instalaciones_recursos_energeticos_renovables") {
+      const h = s.historialSaldosIncentivoMurcia
+      const periodos = [2023, 2024]
       if (h === undefined || h.codigo !== s.codigo || h.contribuyente !== contribuyente)
         falta("historialSaldosIncentivoMurcia:" + s.codigo, "Identificar titular, incentivo y censo de operaciones de los periodos de arrastre")
       texto(h.referencia, "historialSaldosIncentivoMurcia.referencia")

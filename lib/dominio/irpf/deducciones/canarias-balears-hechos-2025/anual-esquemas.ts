@@ -1,3 +1,4 @@
+import { HechosDerechoDT18Balears2025 } from "../../vivienda-dt18-2025/balears-contrato"
 import { HistoriaAdquisicionCanarias2025 } from "./anual-vivienda-historia"
 import { Schema } from "effect"
 import {
@@ -163,6 +164,15 @@ export const CensoViviendaInversionC36 = Schema.Struct({
     id: Texto, catastro: Texto, documento: Texto,
     derecho: Schema.Literals(["propiedad", "usufructo", "uso", "arrendatario"]),
     desde: Texto, hasta: Texto,
+    // Hechos civiles, no un certificado de resultado fiscal. Primera rama:
+    // uso gratuito temporal extinguido por vencimiento antes del ejercicio.
+    usoGratuitoExtinguido: Schema.optional(Schema.Struct({
+      titular: Texto, constituyente: Texto,
+      constitucion: Texto, vencimiento: Texto, documentoVencimiento: Texto,
+      localizacion: Schema.Struct({ catastro: Texto, territorio: Texto, documento: Texto }),
+      destino: Schema.Literal("uso_personal_sin_cesion"),
+      pagos: Schema.Array(PagoCHechos),
+    })),
   })),
   // Incluye operaciones propias, comunes y por terceros: adquisición,
   // construcción, cuentas vivienda, préstamos, rehabilitación, adecuación,
@@ -172,7 +182,7 @@ export const CensoViviendaInversionC36 = Schema.Struct({
     id: Texto, catastro: Texto, documento: Texto, fecha: Texto,
     clase: Schema.Literals(["adquisicion", "construccion", "cuenta_vivienda",
       "financiacion", "rehabilitacion", "adecuacion", "sostenibilidad",
-      "energia", "aportacion", "otra"]),
+      "energia", "aportacion", "otra", "constitucion_uso_gratuito"]),
   })),
 })
 export const ViviendaC36 = Schema.Struct({
@@ -182,6 +192,7 @@ export const ViviendaC36 = Schema.Struct({
     historiaAdquisicion: Schema.optional(HistoriaAdquisicionCanarias2025),
     nacimientoContribuyente: Texto,
     censoViviendaInversion: Schema.optional(CensoViviendaInversionC36),
+    derechoInversionAlquiler: Schema.optional(HechosDerechoDT18Balears2025),
     viviendas: Schema.Array(
       Schema.Struct({
         ...ViviendaCHechos.fields,
@@ -220,12 +231,34 @@ export const FamiliaC36 = Schema.Struct({
       Schema.Struct({
         consulta: Texto,
         censo: Schema.Literal("completo"),
+        mecenazgoConcurrente: Schema.optional(Schema.Struct({
+          donacion: Texto,
+          beneficiarioNif: Texto,
+          administracion: Schema.Literal("comunidad_illes_balears"),
+          proyecto: Texto,
+          declaracionProyecto: Texto,
+          documentoTitularidad: Texto,
+        })),
+        // Resolución administrativa nominal: no una cuota o saldo del cliente.
+        resoluciones: Schema.optional(Schema.Array(Schema.Struct({
+          id: Texto,
+          fecha: Texto,
+          beneficiario: Texto,
+          hijo: Texto,
+          fechaNacimiento: Texto,
+          importeConcedido: Texto,
+          modelo: Schema.Literal("IB50"),
+          organismo: Schema.Literal("ATIB"),
+          incidencias: Schema.Literal("sin_modificaciones_ni_reintegros"),
+        }))),
         cobros: Schema.Array(
           Schema.Struct({
             id: Texto,
             fecha: Texto,
             beneficiario: Texto,
             resolucion: Texto,
+            justificante: Schema.optional(Texto),
+            ordenante: Schema.optional(Schema.Literal("ATIB")),
             importe: Texto,
           })
         ),

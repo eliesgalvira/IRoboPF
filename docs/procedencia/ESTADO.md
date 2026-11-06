@@ -1,5 +1,67 @@
 # Estado de la auditoría documental
 
+## Reanudación del 11 de noviembre
+
+El [corte de anticipos y alquiler baleares, calendario familiar e incentivos
+murcianos](corte-balears-calendario-20261111/INTEGRACION.md) está integrado en
+raíz sobre `646daac4f94d8de4af88da66c0e72d14efdee772`, con 30 postimágenes
+verificadas y cuatro primeras revisiones favorables acotadas.
+
+Anticipos conserva 745 pruebas y 300 oráculos incluidos en ese total.
+Alquiler pasa 110 casos propios del revisor, 21 oráculos racionales y 267
+regresiones; su autor acredita por separado 115 casos y 1.027 regresiones.
+Calendario familiar conserva 30 pruebas propias y 59 corroboradas; vigencia
+de incentivos Murcia, 32. No se suman repeticiones ni suites compartidas como
+cobertura nueva. Los alcances y exclusiones se conservan en la API y el informe.
+
+La unión está pendiente del CI completo y de publicación. Se ejecutarán los
+31 comandos exactos del workflow en entorno limpio, incluidos Nix, inventario
+y generados, antes de publicar sólo en `procedencia-documental`. Hay un único
+turno pesado, cachés externas y límites de memoria y tiempo sin cambios.
+Los terminales anteriores se preservan; no se atribuye verde a sus salidas
+incompletas. El punto 4 y la campaña histórica siguen abiertos.
+
+## Publicación familiar y cotejos históricos · 6 de noviembre
+
+Última publicación confirmada: `646daac4f94d8de4af88da66c0e72d14efdee772`.
+Los 31 comandos locales y los dos trabajos del
+[CI remoto](https://github.com/eliesgalvira/IRoboPF/actions/runs/42182011394)
+han terminado correctamente. Incluye Madrid artículo 14 con donativos, la
+política acotada de Open 2019, Valencia con deporte, Murcia guardería con
+artículo 81 y continuidad de nacimiento/adopción de Madrid de 2023–2024.
+Sus alcances y exclusiones se conservan; el punto 4 sigue abierto.
+
+El nuevo [cotejo de 2020–2024](simuladores/historico/BLOQUES-2020-2024-60-20261106.md)
+ha comparado 60 entradas por año. La revisión independiente confirma los
+recuentos: 269 casos sin diferencias en casillas comparables, condicionados al
+escenario sintético, y 31 discrepantes. Se conservan 58 ausencias y 600 mapeos
+reservados. No hubo capturas nuevas ni cambios monetarios. El diagnóstico
+distingue diferencias de base y diferencias que se propagan a la cuota; las
+hipótesis pendientes necesitan testigos discriminantes antes de cambiar código.
+
+Anticipos y derecho al alquiler baleares, calendario de discapacidad familiar
+y vigencia de los incentivos murcianos permanecen privados. Anticipos supera
+562 pruebas de autor; su primera revisión independiente está en ejecución.
+El calendario completa las diez comprobaciones pendientes sobre la imagen
+final: 59 focales, tipos, lints y seis canarios lógicos; conserva por valor
+381 regresiones anteriores sin sumar repeticiones. Su primera revisión está
+en preparación. Murcia supera 361 pruebas de autor y una revisión independiente
+favorable de 32 pruebas, incluidas ambas API. El alquiler balear está en rebase
+antes de validar su autor. La unión provisional no presenta solapes entre los
+otros tres cambios; todavía no está aplicada ni tiene CI integral.
+
+Las guardias y salidas incompletas anteriores se conservan como tales. Los
+cierres pendientes se ejecutaron con nuevos presupuestos acotados, tras
+recuperar recursos y asignar exclusividad; no se reiniciaron los plazos
+terminales. Los trabajos pesados siguen de uno en uno, con entrada del grupo
+por debajo de 2 GiB y los límites existentes sin cambios. Doce observaciones
+discriminantes de 2020–2024 están preparadas, aún sin capturas oficiales.
+
+Se retiraron ocho entregas ya publicadas de Madrid artículo 14 y Open 2019,
+después de cotejar los 1.507 archivos de su archivo compacto. El conjunto IRoboPF
+ocupaba 105,03 GB y quedaban 310,17 GB libres en esa medición. Los estados
+siguientes se conservan como historia de recepción e integración.
+
 ## Madrid artículo 14 y Open 2019 · integración del 6 de noviembre
 
 Última publicación confirmada: `92fac180b33ddde586fd0a4af97aa92bca12a8e6`,
@@ -710,3 +772,5 @@ La revisión B/E no encontró bloqueos en B y detectó tres errores en E. E corr
 Histórico b05 cerrado: 301 capturas de 2018 y 307 en total. Las 300 incorporaciones posteriores al piloto aún no están cotejadas con la API. Se retoman las once variantes territoriales y familiares de Open 2025 antes de ocupar de nuevo el navegador con b06.
 
 La conexión anual v4 recibe contraste favorable acotado: 34 pruebas propias y 41 recibidas, 75 correctas, con reproducción del P1 anterior en ambas API. Se integran sus 25 rutas y las 34 pruebas propias en la raíz. Las primeras 55 altas territoriales se conectan a las dos API; A40 y B37 conservan por ahora su evaluación aislada. Se inicia el CI completo de este corte.
+
+El corte conjunto de Baleares, calendario familiar e incentivos Murcia supera los 31 comandos locales exactos del CI, con generados actuales; publicación y CI remoto pendientes. Véase [validación local](corte-balears-calendario-20261111/VALIDACION.json).

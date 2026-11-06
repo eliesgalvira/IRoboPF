@@ -1,9 +1,10 @@
+import { type CalendarioTrabajo2025, calcularGastosTrabajoCalendario2025 } from "./calendario-2025"
 import { calcularGastosTrabajo } from "./calcular"
 import type { GastosTrabajo } from "./contrato"
 
 /** Solo aporta art19; el padre debe aplicar art20 una vez y después integrar las bases. */
-export function adaptarTrabajoAnual(caso: GastosTrabajo) {
-  const gastos = calcularGastosTrabajo(caso)
+export function adaptarTrabajoAnual(caso: GastosTrabajo, calendario?: CalendarioTrabajo2025) {
+  const gastos = calendario === undefined ? calcularGastosTrabajo(caso) : calcularGastosTrabajoCalendario2025(caso, calendario)
   if (gastos.estado === "no-soportado") return gastos
   return {
     estado: "aporte-disponible" as const,
