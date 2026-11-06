@@ -1,3 +1,4 @@
+import {HechosDT182025} from "../lib/dominio/irpf/vivienda-dt18-2025/contrato"
 import Decimal from "decimal.js"
 import {Effect,Schema} from "effect"
 import {SolicitudDeduccionesTerritoriales2025} from "../lib/dominio/irpf/deducciones/anual-territorial-esquemas"
@@ -23,7 +24,9 @@ export function fixture(operaciones:readonly Operacion[]=["rehabilitacion"],ejer
  const pagos=proyectos.flatMap(x=>x.vivienda.pagos)
  const movimientos=[{id:"ING",cuenta:"CTA",fecha:"2025-01-02",importe:"50000",sentido:"entrada",clase:"ingreso",documento:doc("ING","2025-01-02")},...pagos.map(x=>({id:x.id,cuenta:"CTA",fecha:x.fecha,importe:x.importe,sentido:"salida",clase:x.concepto,documento:doc(x.factura,x.fecha)})),{id:"CON",cuenta:"CTA",fecha:"2025-12-15",importe:String(50000-3050*operaciones.length),sentido:"salida",clase:"consumo",documento:doc("CON","2025-12-15")}]
  const solicitud={viviendaDT182025:{ejercicio:2025,persona:"A",nacimiento:"1990-01-01",ejercicioDelDerecho,exhaustividad:"primera_unica_vivienda_sin_transmisiones_reinversiones_ni_otras_inversiones",censo:[{id:"CTA",tipo:"cuenta_euros"},{id:"V",tipo:"vivienda"},...proyectos.filter(p=>p.prestamo!==null).map(p=>({id:p.prestamo!.id,tipo:"prestamo"}))].map(c=>({...c,titular:"A",participacion:[1,1],inicio:"presente",cierre:"presente",documento:doc("censo-"+c.id)})),cuentas:[{id:"CTA",inicio:corte("2000","2025-01-01"),cierre:corte("2000")}],movimientos,adquisicion:{inmueble:"V",fecha:"2010-02-01",vendedor:"VEN",precio:"10000",escritura:doc("ES","2010-02-01"),valorCierre:corte(String(10000+8000*proyectos.filter(p=>p.operacion!=="adquisicion").length+1000))},historia:{desde:"1990-01-01",hasta:"2025-12-31",documento:doc("historia"),derechos:[{inmueble:"V",titular:"A",adquisicion:"2010-02-01",transmision:null,titulo:doc("ES","2010-02-01")}],anticipos:[],ejercicios:Array.from({length:35},(_,i)=>({anio:1990+i,documento:doc("fiscal-"+i),eventos:proyectos.filter(p=>p.aplicacionAnterior.ejercicio===1990+i).map(p=>({tipo:"inversion_vivienda",inmueble:"V",documento:p.aplicacionAnterior.declaracionPresentada}))}))},proyectos},solicitudes:operaciones.map(operacion=>{const p=proyectos.find(p=>p.operacion===operacion)!;return {lote:"E38",nacimientoContribuyente:"1990-01-01",exhaustividad:"expediente_comun_completo_todos_pagadores",inversionesViviendaEjercicio:p.vivienda.pagos.map(x=>({id:x.id,titular:x.pagador,fecha:x.fecha,importe:x.importe,documento:x.factura})),hechos:{codigo:codigos[operacion],viviendas:[p.vivienda]}}})}
- return Schema.decodeUnknownSync(SolicitudDeduccionesTerritoriales2025)(solicitud,{onExcessProperty:"error"})
+ const decoded=Schema.decodeUnknownSync(SolicitudDeduccionesTerritoriales2025)(solicitud,{onExcessProperty:"error"})
+ // La fixture de regresión sigue siendo exclusivamente Rioja; no ensanchar su tipo a Murcia.
+ return {...decoded,viviendaDT182025:Schema.decodeUnknownSync(HechosDT182025)(decoded.viviendaDT182025,{onExcessProperty:"error"})}
 }
 export function ambas(s:SolicitudDeduccionesTerritoriales2025,discapacidad=false){
  const c=canonico();

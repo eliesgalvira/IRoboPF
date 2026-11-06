@@ -1,5 +1,10 @@
 # CI reproducible
 
+El corte Murcia/Madrid/Andalucía del 6 de noviembre supera los 31 comandos
+locales exactos, con entorno limpio y generados actuales.
+[Resultado y límites](deducciones-2025/corte-murcia-madrid-andalucia-20261106/CI.json).
+La comprobación remota corresponde a la publicación posterior.
+
 El corte de ascendientes, Aragón social y familiar extremeño del 6 de noviembre
 supera los 31 comandos locales con PATH limpio, inventario y generados actuales.
 [Resultado y límites](deducciones-2025/corte-asc-ar-ext-20261106/CI.json).

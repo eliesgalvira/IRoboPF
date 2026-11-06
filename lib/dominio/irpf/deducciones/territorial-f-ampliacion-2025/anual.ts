@@ -1,4 +1,5 @@
 import { producirAscendientes2025 } from "../../minimos/ascendientes-2025"
+import { evaluarMurciaDT18Estatal2025 } from "./murcia-dt18"
 import type Decimal from "decimal.js"
 import { DonativoNoSoportado, eurosDonativos } from "../donativos-estatales-2025/productor"
 import { baseEstatalMismaOperacion } from "../donativos-estatales-2025/regionales"
@@ -13,6 +14,7 @@ import { CITAS_F } from "./citas"
 import { CausaF, D, edad, dinero, decimal, falta, fecha, texto, unicos, type ResultadoF, type ConstruccionF } from "./comun"
 
 const codigosBasesFamiliares = new Set([
+  "madrid_incremento_costes_financiacion_vivienda", "madrid_vivienda_nacimiento_adopcion_hijos",
   "madrid_gastos_educativos", "madrid_cuidado_hijos_mayores_dependientes_discapacidad",
   "madrid_condicion_familia_numerosa", "madrid_familias_dos_descendientes_ingresos_reducidos",
 ])
@@ -190,6 +192,8 @@ export function evaluarAnualF2025(
         })) },
       }, { contribuyente, general: m.baseGeneral, ahorro: m.baseAhorro, minimoPersonalFamiliar: m.minimoPersonalFamiliar })
     }
+    if(s.codigo==="murcia_regimen_transitorio_inversion_vivienda_habitual"&&s.hechos.ramaTransitoria==="estatal_pre2013")
+      return evaluarMurciaDT18Estatal2025(s,m)
     conciliarPersonas(s, m)
     conciliarPrevios(s, m)
     const anteriores = s.hechos.hechosPrevios
@@ -237,6 +241,23 @@ export function evaluarAnualF2025(
       minimoPersonalFamiliarEUR: m.minimoPersonalFamiliar.toFixed(),
     }
     const libro = codigosBasesFamiliares.has(s.codigo) ? m.libroBasesFamiliares2025 : undefined
+    if (libro !== undefined && (s.codigo === "madrid_incremento_costes_financiacion_vivienda" || s.codigo === "madrid_vivienda_nacimiento_adopcion_hijos")) {
+      // Art18.2 usa BIG+BIA de art82, no titulares del mínimo ni prestatarios.
+      const propia = libro.bases.get(contribuyente)
+      if (libro.ejercicio !== c.anio || libro.contribuyente !== contribuyente || propia === undefined ||
+          !propia.general.eq(m.baseGeneral) || !propia.ahorro.eq(m.baseAhorro))
+        falta("libroBasesFamiliares2025", "Libro de otro ejercicio/identidad o bases propias no conciliadas con la composición anual")
+      if (s.codigo === "madrid_vivienda_nacimiento_adopcion_hijos") {
+        const vs = s.hechos.viviendas ?? []
+        if (vs.length !== 1) falta("viviendas", "Una adquisición identificada")
+        const v = vs[0]!
+        // El libro2025 no acredita el límite del año de acceso2023/2024.
+        if (fecha(v.adquisicion, "vivienda.adquisicion").slice(0, 4) !== "2025")
+          falta("bases_familiares_ejercicio_adquisicion", "Adquisición anterior: reconstruir art18.2 del año de acceso; no sustituirlo por bases2025")
+        if (!mismos(v.titulares ?? [], [contribuyente]) || !dinero(v.porcentajePropiedad, "porcentajePropiedad").eq(100))
+          falta("vivienda.titulares", "Conexión familiar acotada a propietario único; no abre cotitularidad")
+      }
+    }
     if (libro !== undefined) {
       if (s.hechos.miembrosUnidad !== undefined && !mismos(s.hechos.miembrosUnidad, libro.miembrosUnidad))
         falta("miembrosUnidad", "Censo de unidad distinto de art82 derivado por identidad/ejercicio/filiación")

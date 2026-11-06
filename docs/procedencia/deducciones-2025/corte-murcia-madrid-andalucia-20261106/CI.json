@@ -1,0 +1,67 @@
+{
+  "estado": "CI_LOCAL_COMPLETO_CORRECTO_PENDIENTE_PUBLICACION_Y_CI_REMOTO",
+  "fechaUTC": "2026-11-06T03:37:25.426775+00:00",
+  "basePublicada": "10de842d1ba5078ba06f0f49836deed9aeb052be",
+  "workflowSha256": "4953a8d97b7d79d25b462f5a8e5834101e26ab4d77c4c34c90c6bdc47b76b0f4",
+  "comandos": 31,
+  "todosExit0": true,
+  "resultadosSha256": "63d1e96b62cd354726803e152b542a16561b4d736abe94e74892c8c635a4ee21",
+  "logSha256": "f9d9d25625c3bcb5a33ddb1b30094c384c934a10da03f1d02a247445472d7de4",
+  "supervisionSha256": "f019e5fd9d823b46123ff7095c25c24b992bf81095d96ad82b1917ba8b4b285c",
+  "runtimes": {
+    "node": "24.20.0",
+    "python": "3.13.15",
+    "bun": "1.3.13"
+  },
+  "entorno": "PATH limpio progresivo y comandos Nix exactos; no emula Ubuntu ni las acciones de instalación",
+  "corpus": "Fixtures y contratos reproducibles, no ejecución íntegra del CAS externo",
+  "memoria": {
+    "arbolMaximoPSS": 3121614848,
+    "grupoMaximoBytes": 5074456576,
+    "guardiaActivada": false,
+    "supervivientes": 0
+  },
+  "segundos": 1240.9000833211467,
+  "resumenesVitestPorEjecucionNoSumables": [
+    "Test Files  2 passed (2)",
+    "Tests  9 passed (9)",
+    "Test Files  2 passed (2)",
+    "Tests  14 passed (14)",
+    "Test Files  12 passed (12)",
+    "Tests  109 passed (109)",
+    "Test Files  7 passed (7)",
+    "Tests  204 passed (204)",
+    "Test Files  24 passed (24)",
+    "Tests  599 passed (599)",
+    "Test Files  147 passed (147)",
+    "Tests  6400 passed | 2 skipped | 2 todo (6404)",
+    "Test Files  1 passed (1)",
+    "Tests  19 passed (19)",
+    "Test Files  1 passed (1)",
+    "Tests  13 passed (13)",
+    "Test Files  1 passed (1)",
+    "Tests  3 passed (3)",
+    "Test Files  1 passed (1)",
+    "Tests  1 passed (1)",
+    "Test Files  9 passed (9)",
+    "Tests  115 passed (115)"
+  ],
+  "generados": {
+    "primeraTentativa": "Detenida por guardia de grupo6GiB, cleanup verificado; conservada",
+    "reclamacionCacheSha256": "b07ac0e100516d58053f77d23c62ae47dfe6b6962ebebf9095581f5870ad6488",
+    "segundaTentativa": {
+      "command": [
+        "timeout",
+        "-k",
+        "30s",
+        "12m",
+        "/nix/store/g7skjk9lrdnshaxd7px62bchq6yg0bbh-bun-1.3.13/bin/bun",
+        "run",
+        "inventario:generar"
+      ],
+      "exit": 0,
+      "seconds": 41.679257061332464
+    },
+    "supervisionSha256": "a1cae12b14e1039970758a6477133b66c50a8ced396947f65cc3ba59bff38667"
+  }
+}

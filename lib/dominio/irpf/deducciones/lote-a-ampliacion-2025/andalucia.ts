@@ -197,6 +197,7 @@ export const S6 = Schema.Struct({
           Schema.Struct({
             id: Texto,
             imponibleTotalCentimos: MagnitudBaseAnual,
+            residenteAndalucia: Schema.optional(Schema.Boolean),
           })
         ),
       })
@@ -210,7 +211,7 @@ export const S7 = Schema.Struct({
   hechos: Schema.Struct({
     familia: FamiliaNumerosa,
     rentasTitulares: Schema.Array(
-      Schema.Struct({ id: Texto, imponibleTotalCentimos: MagnitudBaseAnual })
+      Schema.Struct({ id: Texto, imponibleTotalCentimos: MagnitudBaseAnual, residenteAndalucia: Schema.optional(Schema.Boolean) })
     ),
     posicion: Schema.Literals([
       "ascendiente",
@@ -558,12 +559,12 @@ export function calcularAndalucia(h: HechosAndalucia): Decimal {
         unicos(a.titulares.map((t) => t.id))
         const propio = a.titulares.find((t) => t.id === h.contribuyente)
         exigir(
-          propio !== undefined &&
+          propio !== undefined && propio.residenteAndalucia !== false &&
             eur(propio.imponibleTotalCentimos).eq(renta(h)),
           "Censo adoptantes no concilia con bases propias"
         )
         const conDerecho = a.titulares.filter((t) =>
-          eur(t.imponibleTotalCentimos).lte(80000)
+          t.residenteAndalucia !== false && eur(t.imponibleTotalCentimos).lte(80000)
         )
         exigir(
           a.titulares.length <= 2,
@@ -572,7 +573,7 @@ export function calcularAndalucia(h: HechosAndalucia): Decimal {
         exigir(
           !h.elecciones.some(
             (e) =>
-              e.codigo === "andalucia_nacimiento_adopcion_acogimiento_menores"
+              e.codigo === "andalucia_nacimiento_adopcion_acogimiento_menores" && e.objeto === a.persona
           ),
           "Resolver elección adopción internacional/nacimiento art11"
         )
@@ -601,11 +602,11 @@ export function calcularAndalucia(h: HechosAndalucia): Decimal {
       )
       const propio = f.rentasTitulares.find((t) => t.id === h.contribuyente)
       exigir(
-        propio !== undefined && eur(propio.imponibleTotalCentimos).eq(renta(h)),
+        propio !== undefined && propio.residenteAndalucia !== false && eur(propio.imponibleTotalCentimos).eq(renta(h)),
         "Renta propia no conciliada"
       )
       const elegibles = f.rentasTitulares.filter((t) =>
-        eur(t.imponibleTotalCentimos).lte(25000)
+        t.residenteAndalucia !== false && eur(t.imponibleTotalCentimos).lte(25000)
       )
       return new D(f.familia.categoria === "especial" ? 400 : 200).times(
         titulares(

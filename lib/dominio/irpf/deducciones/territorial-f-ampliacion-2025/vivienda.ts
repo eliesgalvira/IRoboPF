@@ -584,6 +584,9 @@ export function viviendaF(s: SolicitudF): ResultadoF {
         ["Mantener municipio año traslado+3; regularizar incumplimiento"]
       )
     }
+    incompatible(s, [c === "madrid_vivienda_municipios_despoblacion"
+      ? "madrid_vivienda_nacimiento_adopcion_hijos"
+      : "madrid_vivienda_municipios_despoblacion"], v.id)
     const inicioIncentivo = c === "madrid_vivienda_municipios_despoblacion"
       ? "2024-01-01"
       : "2023-01-01"

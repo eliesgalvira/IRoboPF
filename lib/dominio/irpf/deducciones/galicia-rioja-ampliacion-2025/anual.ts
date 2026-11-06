@@ -90,6 +90,7 @@ function evaluarE38ConProductores(s:SolicitudE38Anual2025,m:MagnitudesTerritoria
   case "rioja_adecuacion_vivienda_discapacidad":{
    const libro=m.libroDT18
    exige(libro!==undefined&&libro.persona===id&&libro.nacimiento===s.nacimientoContribuyente,"DT18: falta productor histórico por titular y operación; no aceptar deducción previa/base/cuota fiscal elegida")
+   exige(libro.territorio==="la-rioja","DT18: libro estatal de otra comunidad")
    const reserva=libro.reservas.find(x=>x.codigo===h.codigo)
    exige(reserva!==undefined,"DT18: solicitud sin reserva conjunta")
    const p=libro.proyectos.find(x=>x.id===reserva.proyecto)
