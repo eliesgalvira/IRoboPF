@@ -1,3 +1,4 @@
+import { titularesAndalucia2025 } from "./andalucia-titulares-anual-2025"
 import { hechosConyugeAndalucia2025 } from "./andalucia-conyuge-anual-2025"
 import { eleccionesTerritorialesB } from "./b-ampliado-anual-2025/conciliacion-lotes"
 import { Schema } from "effect"
@@ -8,7 +9,7 @@ import {
   evaluarAmpliacionLoteA2025,
   type ResultadoAmpliacion,
 } from "./lote-a-ampliacion-2025"
-import { eur, edad } from "./lote-a-ampliacion-2025/comun"
+import { edad } from "./lote-a-ampliacion-2025/comun"
 export type ContextoAmpliacionAnualA2025 = MagnitudesTerritorialesAnuales
 const esLista = Schema.is(Schema.Array(Schema.Json))
 const esObjeto = Schema.is(Schema.Record(Schema.String, Schema.Json))
@@ -275,56 +276,34 @@ export function evaluarAmpliacionAnualA2025(
       })
     }
     case "andalucia_adopcion_internacional": {
-      const adopciones = s.hechos.adopciones.map((a) => {
-        exigir(
-          a.titulares.length === 1 && a.titulares[0] === contribuyente,
-          "A40: otros adoptantes requieren sus bases anuales no representadas"
-        )
-        return {
-          ...a,
-          titulares: [
-            {
-              id: contribuyente,
-              imponibleTotalCentimos: {
-                euros: eur({ euros: m.baseGeneral.toFixed() })
-                  .plus(m.baseAhorro)
-                  .toFixed(),
-              },
-            },
-          ],
-        }
-      })
-      return evaluarAmpliacionLoteA2025({
-        ...contexto,
-        territorio: "andalucia",
-        codigo: s.codigo,
-        hechos: { ...s.hechos, adopciones },
-      })
+      const imponibles = m.basesImponiblesE38
+      exigir(imponibles !== undefined, "Andalucía art12: faltan bases imponibles propias antes de reducciones")
+      const adopciones = s.hechos.adopciones.map(a => ({ ...a,
+        titulares: titularesAndalucia2025(a.titulares, m, { adopcion: a.persona, inscripcion: a.inscripcionCivil }),
+      }))
+      return evaluarAmpliacionLoteA2025({ ...contexto, territorio: "andalucia", codigo: s.codigo,
+        imponibleGeneralCentimos: { euros: imponibles.general.toFixed() },
+        imponibleAhorroCentimos: { euros: imponibles.ahorro.toFixed() },
+        hechos: { ...s.hechos, adopciones } })
     }
     case "andalucia_familia_numerosa": {
-      exigir(
-        s.hechos.familia.titulares.length === 1 &&
-          s.hechos.familia.titulares[0] === contribuyente,
-        "A40: familia numerosa con otros titulares requiere sus bases anuales no representadas"
-      )
-      return evaluarAmpliacionLoteA2025({
-        ...contexto,
-        territorio: "andalucia",
-        codigo: s.codigo,
-        hechos: {
-          ...s.hechos,
-          rentasTitulares: [
-            {
-              id: contribuyente,
-              imponibleTotalCentimos: {
-                euros: eur({ euros: m.baseGeneral.toFixed() })
-                  .plus(m.baseAhorro)
-                  .toFixed(),
-              },
-            },
-          ],
-        },
-      })
+      const imponibles = m.basesImponiblesE38
+      exigir(imponibles !== undefined, "Andalucía art14: faltan bases imponibles propias antes de reducciones")
+      exigir(s.hechos.posicion === "ascendiente", "Andalucía art14: huérfanos requieren hechos personales no representados")
+      const ambito = s.hechos.ambitoTitulares
+      if (s.hechos.familia.titulares.length > 1 || ambito !== undefined) {
+        exigir(ambito !== undefined && ambito.censoCompleto && ambito.soporte.trim().length > 0 &&
+          ambito.referenciaTitulo === s.hechos.familia.referencia &&
+          new Set(ambito.ascendientes).size === ambito.ascendientes.length &&
+          ambito.ascendientes.length === s.hechos.familia.titulares.length &&
+          ambito.ascendientes.every(id => s.hechos.familia.titulares.includes(id)),
+          "Andalucía art14: falta censo completo de ascendientes del mismo título")
+      }
+      const rentasTitulares = titularesAndalucia2025(s.hechos.familia.titulares, m)
+      return evaluarAmpliacionLoteA2025({ ...contexto, territorio: "andalucia", codigo: s.codigo,
+        imponibleGeneralCentimos: { euros: imponibles.general.toFixed() },
+        imponibleAhorroCentimos: { euros: imponibles.ahorro.toFixed() },
+        hechos: { familia: s.hechos.familia, posicion: s.hechos.posicion, rentasTitulares } })
     }
     case "andalucia_familia_monoparental_ascendientes_mayores_75": {
       return evaluarAmpliacionLoteA2025({

@@ -26,3 +26,21 @@ export const HechosDT182025=Schema.Struct({
  })),
 })
 export type HechosDT182025=typeof HechosDT182025.Type
+
+/** Sólo adquisición ordinaria: DT primera.4 Murcia no acredita aplicación regional98–2000. */
+export const ViviendaDT18Murcia2025 = Schema.Struct({
+ ...E_ViviendaRioja.fields,
+ inmueble: Schema.Struct({...E_ViviendaRioja.fields.inmueble.fields, territorio: Schema.Literal("murcia")}),
+ operacion: Schema.Literal("adquisicion"),
+})
+const ProyectoMurcia = Schema.Struct({
+ ...HechosDT182025.fields.proyectos.schema.fields,
+ vivienda: ViviendaDT18Murcia2025,
+ operacion: Schema.Literal("adquisicion"),
+})
+export const HechosDT18Murcia2025 = Schema.Struct({
+ ...HechosDT182025.fields,
+ proyectos: Schema.Array(ProyectoMurcia),
+})
+export type HechosDT18Murcia2025 = typeof HechosDT18Murcia2025.Type
+export const HechosDT18Territoriales2025 = Schema.Union([HechosDT182025, HechosDT18Murcia2025])

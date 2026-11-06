@@ -1,5 +1,6 @@
 import { prepararAscendientesValencianos2025 } from "../minimos/ascendientes-valencia-2025"
-import { producirDT182025, validarCensosViviendaRioja } from "../vivienda-dt18-2025/productor"
+import { producirDT182025, producirDT18Murcia2025, validarCensosViviendaRioja } from "../vivienda-dt18-2025/productor"
+import { HechosDT182025, HechosDT18Murcia2025 } from "../vivienda-dt18-2025/contrato"
 import { aplicarCuotasDT18 } from "../vivienda-dt18-2025/cuota"
 import { racional } from "../deducciones/anual-territorial-racional"
 import { producirVehiculoDA58 } from "../vehiculo-da58-2025/productor"
@@ -140,7 +141,11 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
     const A = Decimal.clone({ precision: entrada.deduccionesTerritoriales2025?.viviendaDT182025 !== undefined || entrada.basesFamiliares2025 !== undefined || entrada.deduccionesTerritoriales2025?.solicitudes.some(s=>s.lote==="A-aragon-dos") === true || entrada.deduccionesTerritoriales2025?.vehiculoDA582025 !== undefined || ampliaF || usaPrecisionD51(entrada.deduccionesTerritoriales2025) || entrada.deduccionesTerritoriales2025?.donativosEstatales2025 !== undefined ? 80 : entrada.precision })
     const caso = entrada.ambito
     const libroBasesFamiliares2025 = entrada.basesFamiliares2025 === undefined ? undefined : yield* Effect.try({
-      try: () => producirBasesFamiliares2025(entrada.basesFamiliares2025!, caso, entrada.basesImponiblesE38 ?? { general: entrada.baseGeneral, ahorro: entrada.baseAhorro }),
+      try: () => {
+        if (caso.comunidadAutonoma === "andalucia" && entrada.basesImponiblesE38 === undefined)
+          throw new RangeError("Bases familiares Andalucía: faltan bases imponibles propias antes de reducciones")
+        return producirBasesFamiliares2025(entrada.basesFamiliares2025!, caso, entrada.basesImponiblesE38 ?? { general: entrada.baseGeneral, ahorro: entrada.baseAhorro })
+      },
       catch: error => errorDerechosMinimos({ motivo: String(error) }),
     })
     const baseLiquidableGeneral = A.max(0, entrada.baseGeneral)
@@ -453,7 +458,9 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
         validarCensosViviendaRioja(s)
         if(s.viviendaDT182025===undefined)throw new RangeError("DT18: hechos ausentes")
         if(entrada.maternidad2025!==undefined||entrada.ingresosIdentificados2025!==undefined||entrada.inmueblesP4a!==undefined||s.donativosEstatales2025!==undefined||s.vehiculoDA582025!==undefined||entrada.deduccionesValencianas2025!==undefined||entrada.deduccionesAutonomicasCentimos!==0)throw new RangeError("DT18: combinación con otros productores requiere coordinación explícita")
-        return producirDT182025(s.viviendaDT182025,caso,s.solicitudes)
+        return caso.comunidadAutonoma==="murcia"
+          ? producirDT18Murcia2025(Schema.decodeUnknownSync(HechosDT18Murcia2025)(s.viviendaDT182025,{onExcessProperty:"error"}),caso,s.solicitudes)
+          : producirDT182025(Schema.decodeUnknownSync(HechosDT182025)(s.viviendaDT182025,{onExcessProperty:"error"}),caso,s.solicitudes)
       },
       catch: e=>errorDerechosMinimos({motivo:e instanceof Error?e.message:"DT18: hechos históricos no componibles"}),
     })

@@ -1,5 +1,21 @@
 # Decisiones de la auditoría documental
 
+## Reparto familiar y vivienda acotada (6 de noviembre)
+
+La residencia y la base de cada titular deciden su derecho al reparto andaluz;
+el censo de progenitores por sí solo no basta. Se reutiliza el libro económico
+común y se mantiene la selección civil propia de cada deducción. El coste es
+rechazar historias y economías todavía no representadas, incluso si pudieran
+tener derecho legal con más hechos. No se convierten esos límites del producto
+en condiciones legales universales.
+
+La conexión murciana reutiliza DT18 y consume cuota una sola vez. Madrid conserva
+la fórmula hipotecaria. No se presume la base familiar del año de adquisición
+usando la de 2025. Cuando dos deducciones son incompatibles para la misma inversión,
+se rechaza la solicitud contradictoria; escoger automáticamente una alternativa
+ocultaría una elección fiscal. La corrección grave tiene contraste independiente.
+
+
 ## Coherencia de hechos en ASC, Aragón y Extremadura (6 de noviembre)
 
 Se rechazan las contradicciones de residencia del mismo titular, el devengo

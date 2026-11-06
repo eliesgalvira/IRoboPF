@@ -518,3 +518,28 @@ La omisión de `vivienda` sólo representa ausencia dentro del censo mundial
 completo declarado, con `otrasClases.inmuebles: "ninguno"`. No representa una
 vivienda desconocida ni autentica la exhaustividad de los hechos aportados.
 El consumidor no recibe una respuesta externa sobre obligación de Patrimonio.
+
+## Vivienda murciana y titulares familiares de Madrid y Andalucía
+
+`deduccionesTerritoriales2025.viviendaDT182025` admite el perfil murciano de
+adquisición ordinaria anterior a 2013. La solicitud `F-ampliado` con código
+`murcia_regimen_transitorio_inversion_vivienda_habitual` y
+`hechos.ramaTransitoria: "estatal_pre2013"` consume el libro común DT18. La
+evaluación F identifica su consumo compartido, sin deducirlo una segunda vez.
+La historia reconstruida y la comprobación patrimonial son obligatorias.
+
+`basesFamiliares2025` alimenta ahora `madrid_vivienda_nacimiento_adopcion_hijos`
+y `madrid_incremento_costes_financiacion_vivienda`. La composición deriva la base
+propia y el libro selecciona los miembros de la unidad; no se reciben bases ni
+cuotas de terceros calculadas por el cliente. La conexión de compra con libro
+familiar requiere adquisición en 2025. Las solicitudes de nacimiento/adopción
+y despoblación sobre la misma inversión se rechazan antes de devolver importe.
+
+En Andalucía, adopción internacional y familia numerosa usan la base propia
+anterior a reducciones y las economías representadas de los demás titulares.
+Se exige residencia autonómica explícita, filiación, fechas y título conciliados.
+Sólo los titulares con derecho integran el divisor. El perfil admite declaración
+individual, devengo ordinario, residencia estable y uno o dos titulares; no
+habilita conjunta ni historias familiares no representadas.
+
+[Alcance, revisión independiente y reservas](deducciones-2025/corte-murcia-madrid-andalucia-20261106/INTEGRACION.md).

@@ -78,7 +78,7 @@ export type Obra = {
   readonly permisos: Documento
   readonly pagos: readonly Pago[]
 }
-export function rehabilitacion(i: Inmueble, o: Obra): boolean {
+export function rehabilitacion(i: Omit<Inmueble, "territorio">, o: Obra): boolean {
   documento(o.permisos)
   exige(
     fecha(o.inicio) &&

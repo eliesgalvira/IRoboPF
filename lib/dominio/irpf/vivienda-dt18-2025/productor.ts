@@ -7,19 +7,26 @@ import type { Vivienda } from "../deducciones/lote-a-ampliacion-2025/vivienda"
 import { rehabilitacion } from "../deducciones/galicia-rioja-ampliacion-2025/vivienda-galicia"
 import { cero, euros, suma, mas, menos, min, max, compara, por, exige, ids, fecha, edad, moverMes, documento, serial } from "../deducciones/galicia-rioja-ampliacion-2025/comun"
 import type { R } from "../deducciones/galicia-rioja-ampliacion-2025/comun"
-import type { HechosDT182025 } from "./contrato"
+import type { HechosDT182025, HechosDT18Murcia2025 } from "./contrato"
 import type { MagnitudesTerritorialesAnuales } from "../deducciones/anual-territorial"
 import type { SolicitudDeduccionesTerritoriales2025 } from "../deducciones/anual-territorial-esquemas"
 export const igualViviendaDT18=Schema.toEquivalence(E_ViviendaRioja)
-const igualInmueble=Schema.toEquivalence(E_ViviendaRioja.fields.inmueble)
+const InmuebleComun=Schema.Struct({...E_ViviendaRioja.fields.inmueble.fields,territorio:Schema.Literals(["galicia","la-rioja","murcia"])})
+const igualInmueble=Schema.toEquivalence(InmuebleComun)
+const igualViviendaComun=Schema.toEquivalence(Schema.Struct({...E_ViviendaRioja.fields,inmueble:InmuebleComun}))
 const igualDocumento=Schema.toEquivalence(E_ViviendaRioja.fields.deduccionPre2013)
 export const CODIGOS_DT18_RIOJA=["rioja_obras_rehabilitacion_vivienda_habitual","rioja_adquisicion_construccion_vivienda_jovenes","rioja_adecuacion_vivienda_discapacidad"] as const
 const codigoPorOperacion={adquisicion:CODIGOS_DT18_RIOJA[1],rehabilitacion:CODIGOS_DT18_RIOJA[0],adecuacion:CODIGOS_DT18_RIOJA[2]} as const
 function textoEuros(a:R):string{const n=BigInt(centimos(a));return String(n/100n)+"."+String(n%100n).padStart(2,"0")}
 function igual(a:R,b:R,m:string){exige(compara(a,b)===0,"DT18: "+m)}
 function centimos(a:R):number{exige(a.d===1n&&a.n>=0n&&a.n<=BigInt(Number.MAX_SAFE_INTEGER),"DT18: importe fuera del transporte entero seguro de fórmula revisada");return Number(a.n)}
-export function producirDT182025(h:HechosDT182025,caso:MagnitudesTerritorialesAnuales["caso"],solicitudes:SolicitudDeduccionesTerritoriales2025["solicitudes"]){
- exige(caso.anio===2025&&caso.comunidadAutonoma==="la-rioja"&&caso.fechaFallecimiento===undefined&&caso.situacionFamiliar.tipo==="individual"&&caso.contribuyenteId===h.persona&&edad(h.nacimiento)===caso.situacionFamiliar.edad,"DT18: ámbito individual Rioja2025/identidad/edad")
+type ViviendaDT18 = HechosDT182025["proyectos"][number]["vivienda"] | HechosDT18Murcia2025["proyectos"][number]["vivienda"]
+type HechosComunes<V extends ViviendaDT18> = Omit<HechosDT182025,"proyectos"> & {
+ readonly proyectos: readonly (Omit<HechosDT182025["proyectos"][number],"vivienda"> & {readonly vivienda:V})[]
+}
+/** Núcleo estatal único; las reservas E38 sólo existen para Rioja. */
+function producirDT18Comun<V extends ViviendaDT18>(h:HechosComunes<V>,caso:MagnitudesTerritorialesAnuales["caso"],solicitudes:SolicitudDeduccionesTerritoriales2025["solicitudes"],territorio:"la-rioja"|"murcia") {
+ exige(caso.anio===2025&&caso.comunidadAutonoma===territorio&&caso.fechaFallecimiento===undefined&&caso.situacionFamiliar.tipo==="individual"&&caso.contribuyenteId===h.persona&&edad(h.nacimiento)===caso.situacionFamiliar.edad,"DT18: ámbito individual Rioja2025/identidad/edad")
  exige(h.exhaustividad==="primera_unica_vivienda_sin_transmisiones_reinversiones_ni_otras_inversiones","DT18: faltan antecedentes patrimoniales exhaustivos")
  exige(ids(h.proyectos.map(p=>p.id))&&ids(h.proyectos.map(p=>p.operacion))&&h.proyectos.some(p=>p.operacion==="adquisicion"),"DT18: primera adquisición y proyectos únicos requeridos; construcción/ampliación requieren productor específico")
  exige(h.ejercicioDelDerecho==="ejercer_integramente","DT18: ejercicio parcial o no ejercicio requiere política de aplicación separada, no acredita ausencia de derecho")
@@ -54,7 +61,7 @@ export function producirDT182025(h:HechosDT182025,caso:MagnitudesTerritorialesAn
  const referencia=h.proyectos[0]!.vivienda.inmueble
  const proyectos=h.proyectos.map(p=>{
   const v=p.vivienda,l=p.prestamo
-  exige(v.operacion===p.operacion&&v.inmueble.id===a.inmueble&&igualInmueble(v.inmueble,referencia)&&v.inmueble.adquisicion===a.fecha&&v.inmueble.territorio==="la-rioja"&&v.inmueble.uso==="habitual"&&v.inmueble.titulares.length===1&&v.inmueble.titulares[0]?.titular===h.persona&&v.inmueble.titulares[0]?.numerador===1&&v.inmueble.titulares[0]?.denominador===1,"DT18: inmueble/titular/uso contradictorio entre proyectos")
+  exige(v.operacion===p.operacion&&v.inmueble.id===a.inmueble&&igualInmueble(v.inmueble,referencia)&&v.inmueble.adquisicion===a.fecha&&v.inmueble.territorio===territorio&&v.inmueble.uso==="habitual"&&v.inmueble.titulares.length===1&&v.inmueble.titulares[0]?.titular===h.persona&&v.inmueble.titulares[0]?.numerador===1&&v.inmueble.titulares[0]?.denominador===1,"DT18: inmueble/titular/uso contradictorio entre proyectos")
   igual(euros(v.inmueble.precioAdquisicion),euros(a.precio),"precio de inmueble contradictorio")
   exige(v.excepcionOcupacion===null&&v.excepcionPermanencia===null&&v.ampliacionPlazoConstruccion===null&&v.excepcion6812===null&&v.coberturaIntereses==="0","DT18: excepciones, coberturas y ampliaciones requieren productor específico; no inferir excepción de documento")
   exige(fecha(v.primeraOcupacion)&&v.primeraOcupacion>=a.fecha&&v.primeraOcupacion<=moverMes(a.fecha,12)&&v.inmueble.residencia.desde<=v.primeraOcupacion&&fecha(v.inmueble.residencia.desde)&&fecha(v.inmueble.residencia.hasta)&&v.inmueble.residencia.hasta>="2025-12-31"&&moverMes(v.primeraOcupacion,36)<="2025-12-31","DT18: ocupación/permanencia efectiva ordinaria no acreditada")
@@ -105,22 +112,31 @@ export function producirDT182025(h:HechosDT182025,caso:MagnitudesTerritorialesAn
  const baseEstatalAdecuacion=baseDerechoAdecuacion
  const generada=mas(por(baseEstatalSinAdecuacion,75,1000),por(baseEstatalAdecuacion,10,100))
  let reservaRehabilitacionAdecuacion=cero,reservaAdquisicionSegunda=cero
- const reservas=solicitudes.map(s=>{
+ const reservas=(territorio==="murcia"?[]:solicitudes).map(s=>{
   exige(s.lote==="E38"&&CODIGOS_DT18_RIOJA.some(c=>c===s.hechos.codigo),"DT18: otros consumidores requieren coordinación por valor explícita")
   const regional=s.hechos
   exige(regional.codigo==="rioja_obras_rehabilitacion_vivienda_habitual"||regional.codigo==="rioja_adquisicion_construccion_vivienda_jovenes"||regional.codigo==="rioja_adecuacion_vivienda_discapacidad","DT18: código regional no representado")
   const codigo=regional.codigo
   const p=proyectos.find(p=>codigoPorOperacion[p.operacion]===codigo)
-  exige(p!==undefined&&regional.viviendas.length===1&&regional.viviendas[0]!==undefined&&igualViviendaDT18(regional.viviendas[0],p.vivienda),"DT18: solicitud regional no concilia exactamente con proyecto histórico")
+  exige(p!==undefined&&regional.viviendas.length===1&&regional.viviendas[0]!==undefined&&igualViviendaComun(regional.viviendas[0],p.vivienda),"DT18: solicitud regional no concilia exactamente con proyecto histórico")
   const previaRehabilitacionAdecuacion=reservaRehabilitacionAdecuacion,previaAdquisicionSegunda=reservaAdquisicionSegunda
   if(p.operacion==="adquisicion")reservaAdquisicionSegunda=mas(reservaAdquisicionSegunda,min(edad(h.nacimiento)<36?p.base:cero,menos(euros("9040"),baseEstatalSinAdecuacion)))
   else reservaRehabilitacionAdecuacion=min(euros("9040"),mas(reservaRehabilitacionAdecuacion,p.base))
   return {codigo,proyecto:p.id,previaRehabilitacionAdecuacion,previaAdquisicionSegunda}
  })
- exige(reservas.length>0&&ids(reservas.map(r=>r.codigo)),"DT18: solicitudes regionales ausentes/repetidas")
+ exige((territorio==="murcia"||reservas.length>0)&&ids(reservas.map(r=>r.codigo)),"DT18: solicitudes regionales ausentes/repetidas")
  return {hechos:h,persona:h.persona,nacimiento:h.nacimiento,proyectos,patrimonio,capital,cumplePatrimonio,baseDerechoSinAdecuacion,baseDerechoAdecuacion,baseEstatalSinAdecuacion,baseEstatalAdecuacion,generadaEstatal:generada,generadaAutonomica:generada,reservas,historiaDerivada:{inversionAnteriorDeducida:"0",gananciaExentaReinversion:"0",inversionNuevaAcumuladaAntes2025:textoEuros(menos(coste,deudaInicio))},publico:{reservaRegionalFinal:{adquisicionSegunda:serial(reservaAdquisicionSegunda),rehabilitacionAdecuacion:serial(reservaRehabilitacionAdecuacion)},patrimonio:{inicial:serial(patrimonio.inicial),final:serial(patrimonio.final),incremento:serial(menos(patrimonio.final,patrimonio.inicial)),capital:serial(capital),isdExcluido:serial(isd),variacionExcluida:serial(patrimonio.variacion)},proyectos:proyectos.map(p=>({id:p.id,operacion:p.operacion,gasto2025:serial(suma(p.vivienda.pagos.map(x=>euros(x.importe)))),baseDerecho:serial(p.base)})),cumpleCondicionPatrimonial:cumplePatrimonio,derecho:"acceso_historico_DT18_reconstruido" as const,ejercicioDelDerecho:h.ejercicioDelDerecho,baseDerechoSinAdecuacion:serial(baseDerechoSinAdecuacion),baseDerechoAdecuacion:serial(baseDerechoAdecuacion),baseEstatalSinAdecuacion:serial(baseEstatalSinAdecuacion),baseEstatalAdecuacion:serial(baseEstatalAdecuacion),reservas:reservas.map(x=>({...x,previaRehabilitacionAdecuacion:serial(x.previaRehabilitacionAdecuacion),previaAdquisicionSegunda:serial(x.previaAdquisicionSegunda)}))}}
 }
-export type LibroDT182025=ReturnType<typeof producirDT182025>
+export function producirDT182025(h:HechosDT182025,caso:MagnitudesTerritorialesAnuales["caso"],solicitudes:SolicitudDeduccionesTerritoriales2025["solicitudes"]){
+ return {...producirDT18Comun<HechosDT182025["proyectos"][number]["vivienda"]>(h,caso,solicitudes,"la-rioja"),hechos:h,territorio:"la-rioja" as const}
+}
+export const CODIGO_DT18_MURCIA="murcia_regimen_transitorio_inversion_vivienda_habitual" as const
+export function producirDT18Murcia2025(h:HechosDT18Murcia2025,caso:MagnitudesTerritorialesAnuales["caso"],solicitudes:SolicitudDeduccionesTerritoriales2025["solicitudes"]){
+ exige(h.proyectos.length===1&&h.proyectos[0]?.operacion==="adquisicion","DT18 Murcia: sólo primera adquisición ordinaria; obras, construcción y adecuación fuera del candidato")
+ exige(solicitudes.length===1&&solicitudes.every(s=>s.lote==="F-ampliado"&&s.codigo===CODIGO_DT18_MURCIA&&s.hechos.ramaTransitoria==="estatal_pre2013"),"DT18 Murcia: sólo DT primera.4; no equivale a98/99/00 ni Uno_vigente; concurrencias fuera del candidato")
+ return {...producirDT18Comun<HechosDT18Murcia2025["proyectos"][number]["vivienda"]>(h,caso,solicitudes,"murcia"),hechos:h,territorio:"murcia" as const}
+}
+export type LibroDT182025=ReturnType<typeof producirDT182025>|ReturnType<typeof producirDT18Murcia2025>
 
 /** Los dos censos únicos no constituyen un censo patrimonial conjunto. */
 export function validarCensosViviendaRioja(s:SolicitudDeduccionesTerritoriales2025):void{

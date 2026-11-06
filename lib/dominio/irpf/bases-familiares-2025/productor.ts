@@ -33,6 +33,14 @@ export const CensoBasesFamiliares2025 = Schema.Struct({
   personas: Schema.Array(Schema.Struct({
     id: Id, soporte: Texto, residenteComunTodo2025: Schema.Literal(true),
     vivoTodo2025: Schema.Literal(true),
+    // Residencia autonómica ordinaria acreditada; residencia común no basta.
+    declaracion2025: Schema.optional(Schema.Struct({
+      modalidad: Schema.Literals(["individual", "no-presenta", "conjunta"]), soporte: Texto,
+    })),
+    residenciaAutonomica2025: Schema.optional(Schema.Struct({
+      comunidad: Schema.Literals(["andalucia", "otra-comunidad-comun"]),
+      desde: Schema.Literal("2025-01-01"), hasta: Schema.Literal("2025-12-31"), soporte: Texto,
+    })),
     economia: EconomiaPersonaFamiliar2025,
   })).check(Schema.isMaxLength(100)),
 })
@@ -42,6 +50,7 @@ export type LibroBasesFamiliares2025 = {
   readonly referencia: string; readonly ejercicio: 2025; readonly contribuyente: string
   readonly estadoCivil: CensoBasesFamiliares2025["estadoCivil"]
   readonly conyuge?: string | undefined
+  readonly censo?: CensoBasesFamiliares2025 | undefined
   readonly miembrosUnidad: readonly string[]
   readonly bases: ReadonlyMap<string, BasePersona2025>
 }
@@ -86,7 +95,11 @@ export function producirBasesFamiliares2025(
   const r = Schema.decodeUnknownResult(CensoBasesFamiliares2025)(entrada, { onExcessProperty: "error" })
   exigir(Result.isSuccess(r), "censo incompleto o contiene magnitudes fiscales externas")
   const c = r.success
-  exigir(caso.anio === 2025 && caso.fechaFallecimiento === undefined && c.contribuyente === caso.contribuyenteId && ["madrid", "comunitat-valenciana"].includes(caso.comunidadAutonoma), "identidad/ejercicio/residencia/fallecimiento incompatible")
+  if (caso.comunidadAutonoma === "andalucia") {
+    const residencia = c.personas.find(p => p.id === c.contribuyente)?.residenciaAutonomica2025
+    exigir(residencia?.comunidad === "andalucia", "residencia andaluza propia no acreditada")
+  }
+  exigir(caso.anio === 2025 && caso.fechaFallecimiento === undefined && c.contribuyente === caso.contribuyenteId && ["madrid", "comunitat-valenciana", "andalucia"].includes(caso.comunidadAutonoma), "identidad/ejercicio/residencia/fallecimiento incompatible")
   unicos(c.personas.map(p => p.id), "personas"); unicos(c.hijos.map(h => h.id), "hijos")
   const personas = new Set(c.personas.map(p => p.id))
   exigir(personas.has(c.contribuyente), "falta persona declarante")
@@ -119,6 +132,7 @@ export function producirBasesFamiliares2025(
   for (const p of c.personas) {
     const e = p.economia
     if (p.id === c.contribuyente) {
+      exigir(p.declaracion2025 === undefined || p.declaracion2025.modalidad === "individual", "declaración propia contradice composición individual")
       exigir(e.perfil === "declarante-en-composicion", "declarante debe reutilizar su composición")
       bases.set(p.id, { general: new D(propia.general), ahorro: new D(propia.ahorro) })
     } else {
@@ -130,6 +144,8 @@ export function producirBasesFamiliares2025(
       bases.set(p.id, producirEconomiaAjena2025(e, caso.comunidadAutonoma === "madrid"))
       const renta = e.perfil === "sin-rentas" ? new D(0) : bases.get(p.id)!.rentaAntesReducciones!
       const d = ds.find(d => d.sujetoId === p.id)
+      if (d !== undefined && p.declaracion2025 !== undefined)
+        exigir(p.declaracion2025.modalidad === d.declaracion.modalidad, "declaración contradice mínimos:" + p.id)
       if (e.perfil === "sin-rentas" && d?.declaracion.modalidad === "individual") exigir(d.declaracion.rentasCentimos === 0, "ausencia de renta contradice declaración:" + p.id)
       exigir(d === undefined || renta.times(100).eq(d.rentasNoExentasCentimos), "renta económica contradice mínimos:" + p.id)
       for (const d of ds) for (const t of d.titulares.filter(t => t.titularId === p.id))
@@ -137,7 +153,7 @@ export function producirBasesFamiliares2025(
 
     }
   }
-  return { referencia: c.referencia, ejercicio: 2025, contribuyente: c.contribuyente, estadoCivil: c.estadoCivil, conyuge: c.conyuge, miembrosUnidad: miembros, bases }
+  return { referencia: c.referencia, ejercicio: 2025, contribuyente: c.contribuyente, estadoCivil: c.estadoCivil, conyuge: c.conyuge, miembrosUnidad: miembros, bases, censo: c }
 }
 export function sumaBasesPersonas2025(libro: LibroBasesFamiliares2025, ids: readonly string[]): Decimal {
   unicos(ids, "agregación")

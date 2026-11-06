@@ -38,6 +38,7 @@ const contexto = (
       ascendientes: [],
     },
   },
+  basesImponiblesE38: { general: new Decimal(10000), ahorro: new Decimal(0) },
   basesLiquidables: { general: new Decimal(10000), ahorro: new Decimal(0) },
   baseGeneral: new Decimal(10000),
   baseAhorro: new Decimal(0),

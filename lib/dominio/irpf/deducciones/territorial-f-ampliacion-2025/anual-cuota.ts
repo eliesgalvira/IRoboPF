@@ -7,6 +7,7 @@ type Importe = Racional | ResultadoF
 type Aplicacion = {
   codigo: string
   estado: "aplicada" | "excluida" | "pendiente_hechos" | "pendiente_cuota"
+  consumoCompartidoDT18?: ResultadoF["consumoCompartidoDT18"]
   generado?: Racional
   aplicado?: Racional
   pendiente?: Racional
@@ -58,6 +59,11 @@ export function consumirCuotaAnualF2025(cuota: Racional, codigos: readonly strin
     .sort((a, b) => prioridad(a.codigo) - prioridad(b.codigo) || a.codigo.localeCompare(b.codigo))
   for (const { x, codigo } of orden) {
     const resultado = "estado" in x ? x : undefined
+    if(resultado?.consumoCompartidoDT18!==undefined){
+      if(codigo!=="murcia_regimen_transitorio_inversion_vivienda_habitual")throw new RangeError("Consumo DT18 ajeno")
+      aplicaciones.push({codigo,estado:"aplicada",resultado,consumoCompartidoDT18:resultado.consumoCompartidoDT18})
+      continue // El total y la cuota residual ya excluyen este consumo en composición-anual.
+    }
     const generado = anteriorPendiente !== undefined && resultado?.dependenciaAnual?.magnitud === "cuota_tras_resto_deducciones"
       ? undefined : generar(x, cuotaIntegra, disponible)
     const aplicacion: Aplicacion = { codigo, estado: "pendiente_hechos" }

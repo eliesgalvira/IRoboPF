@@ -45,6 +45,11 @@ export type AplicacionAnualRecargaF = {
 }
 export type ConstruccionF<T> = { -readonly [P in keyof T]: T[P] }
 export type ResultadoF = {
+  readonly consumoCompartidoDT18?: {
+    readonly generado: Racional
+    readonly aplicado: Racional
+    readonly pendiente: Racional
+  }
   readonly importeExactoRacional?: Racional
   readonly aplicacionAnualSaldoMurcia?: {
     readonly ejercicioOrigen: 2025

@@ -64,6 +64,11 @@ const AND7 = Schema.Struct({
   hechos: Schema.Struct({
     familia: AND.S7.fields.hechos.fields.familia,
     posicion: AND.S7.fields.hechos.fields.posicion,
+    // Censo civil del título, separado de miembrosUnidad (art82).
+    ambitoTitulares: Schema.optional(Schema.Struct({
+      referenciaTitulo: Texto, censoCompleto: Schema.Literal(true),
+      ascendientes: Schema.Array(Texto), soporte: Texto,
+    })),
   }),
 })
 const AND8 = Schema.Struct({

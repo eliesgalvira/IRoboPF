@@ -1,5 +1,23 @@
 # Estado de la auditoría documental
 
+## Murcia, Madrid y Andalucía · integración del 6 de noviembre
+
+Última publicación confirmada: `10de842d1ba5078ba06f0f49836deed9aeb052be`,
+con ambos trabajos del [CI remoto](https://github.com/eliesgalvira/IRoboPF/actions/runs/42149520548) correctos.
+El corte actual conecta vivienda transitoria murciana, bases familiares de vivienda
+e hipoteca madrileñas y reparto entre titulares andaluces. Las primeras revisiones
+y el contraste grave de la incompatibilidad madrileña son favorables dentro del
+perfil declarado. Pasan los 31 pasos exactos del CI de integración, incluidos inventario y generados.
+La publicación y la comprobación remota son posteriores a este registro.
+[Alcance y reservas](deducciones-2025/corte-murcia-madrid-andalucia-20261106/INTEGRACION.md).
+
+El punto 4 continúa abierto. Hay 1.027 capturas históricas cerradas. El cotejo de
+60 entradas de 2019 conserva cinco discrepantes, sin tolerancia ni modificación
+de los esperados oficiales. El candidato de etapas de 2019 está en preparación
+de validación y no se integra en este corte. Los registros siguientes describen
+el estado de cada entrega en su fecha, no sustituyen este encabezamiento.
+
+
 ## Ascendientes, Aragón social y familiar extremeño · 6 de noviembre
 
 Última publicación confirmada: `451c687e0c202fd12331a3874e66e63993b377de`,
