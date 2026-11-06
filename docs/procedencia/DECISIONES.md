@@ -1024,3 +1024,34 @@ Se admite el pago propio de adquisición canaria posterior a la escritura dentro
 Las referencias documentales de certificados catalanes son locales a su emisor. La unicidad se aplica al par NIF/referencia, y los identificadores económicos siguen siendo únicos en todo el libro. La rectificación temporal conserva los HTML recibidos con actualizaciones de 2026 y aporta los bloques BOE seleccionados por su versión real, sin cambiar umbrales ni oráculos.
 
 Las primeras revisiones de las cuatro ramas están terminadas. Los arreglos pequeños se prueban por el integrador sin encargar otro contraste, conforme al criterio de gravedad del propietario. La reproducción roja y las 123 pruebas verdes permanecen separadas de los 1.479 controles anteriores de autor y de las observaciones independientes. No se suma evidencia solapada ni se transforma un rechazo en un importe cero.
+
+
+## 6 de noviembre: residual Madrid artículo 14 y etapas observadas de 2019
+
+Se recibe una primera revisión por cambio monetario. Madrid completa 191 pruebas propias y 300 regresiones sin diferencias monetarias detectadas. La política de 2019 completa sus originales, control de 60 y adversas sin un defecto monetario POST demostrado. Las correcciones R1 y 2019-EXP-01 sólo cambian explicaciones y sus pruebas: el padre conserva los rojos y resuelve ambos sin abrir otra revisión. El perfil y los esperados oficiales no se amplían.
+
+La conexión madrileña consume el residual del libro existente, sin otra cuota ni transferencias entre mitades. El oráculo inicial incorrecto del autor se conserva por valor en el respaldo; el test público usa exclusivamente la tabla final cotejada con las cuotas fijas legales. No se publica como referencia válida un esperado abandonado.
+
+Para 2019 se distingue compatibilidad observada de norma universal. Las cuatro capturas discriminan las hipótesis ensayadas, pero no identifican de forma única el algoritmo interno de AEAT. La guarda técnica no certifica todas sus entradas. Son 64 identidades únicas, con ausencias y reservas intactas; los resultados PRE y los originales permanecen conservados. La descripción de la API debe declarar la cuantización previa de la base.
+
+Las tres suites nuevas entran en pasos existentes del workflow, sin añadir comandos ni depender del PATH local. Se requiere inventario actual, reproducción completa de los 31 pasos y comprobación remota. Valencia, Murcia81 e historia madrileña permanecen fuera de esta publicación hasta sus propias validaciones y revisión. [Informe del corte](corte-madrid14-historico2019-20261106/INTEGRACION.md).
+
+El presupuesto acumulado de integración se agotó después de 29 pasos correctos,
+durante `ci-datos`. Se conserva ese resultado incompleto y no se publica. El
+siguiente corte dispondrá de una ejecución completa propia después de integrar
+los cambios aceptados; no se reinicia el plazo del intento anterior ni se suman
+pasadas parciales para declarar un CI completo. El coste total de `ci-datos`
+todavía no está medido. Sus regeneraciones independientes se mantienen: una
+caché que devolviese el mismo resultado no probaría la reconstrucción.
+
+La validación y la revisión de Valencia y Murcia81 están terminadas dentro de
+sus perfiles. Se prepara su unión antes de ejecutar otra vez los 31 pasos,
+manteniendo la historia madrileña separada hasta terminar sus controles. El
+coste de esta agrupación es retrasar la publicación de cada candidato por
+separado; permite verificar la composición final y evita repetir todo el CI
+por cada entrega. La preparación documental avanza en paralelo, con un único
+turno pesado por las paradas de memoria observadas.
+
+### Fusión de concurrencias y continuidad madrileña · 6/11/2026
+
+Valencia, Murcia81 y la historia madrileña T04 se preparan en un solo corte de integración. Sus autores y revisores trabajan sobre entradas congeladas. Hay un único solape, en auxiliares-anual.ts: la fusión conserva la conexión murciana y aplica las operaciones exactas de Madrid; su reversión recupera los bytes murcianos. El primer intento de patch falló en el contexto del import y queda conservado. No se aplicará T04 antes de su primera revisión. Agrupar estas conexiones ahorra regeneraciones y pasadas completas del CI, a cambio de exigir regresiones conjuntas después de la fusión. Las preparaciones T05/T06/T07 y el hallazgo privado T08 no se incorporan a ese corte sin sus validaciones y revisiones.

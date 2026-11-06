@@ -1,0 +1,157 @@
+NOTA DEL INTEGRADOR, 6 de noviembre de 2026
+Este documento conserva el diagnóstico anterior a la validación. Sus referencias
+a candidato privado o runtime pendiente describen aquella entrega. Autor y primera
+revisión posteriores están terminados; las correcciones explicativas y el estado
+actual constan en ../../corte-madrid14-historico2019-20261106/INTEGRACION.md
+(ruta desde docs/procedencia: corte-madrid14-historico2019-20261106/INTEGRACION.md).
+No se altera el diagnóstico ni sus esperados.
+
+2019: continuación del diagnóstico con cuatro discriminantes oficiales
+
+Conclusión y alcance
+Las nueve observaciones permiten preparar una política de compatibilidad acotada
+2019 para la misma API explícita: art20 con operaciones binary64, transporte por
+decimal corto y HALF_UP a céntimos antes de restar al neto19 Decimal; esa base
+se propaga a ambas escalas. Estatal: operaciones binary64 y suma en orden,
+decimal corto/HALF_UP por gravamen antes de restar mínimos. Madrid conserva
+tabla publicada, operaciones Decimal y HALF_UP, recibiendo la base corregida.
+Es un candidato privado sin ejecución runtime ni primera revisión independiente.
+No afirma que ese sea el algoritmo interno de AEAT ni una regla fiscal universal.
+
+La selección nueva sólo se activa en empleo Madrid individual2019 ya admitido,
+edad34, un rendimiento, cotizaciones efectivas1000 y gastos a–e1000. Todos los
+negativos siguen siendo declaraciones explícitas condicionadas. Los otros
+perfiles conservan su política previa: no se promete esta compatibilidad para
+ellos ni se rechazan por un cambio de edad/gastos. Dentro del escenario activado,
+bruto/base deben ser finitos, no negativos, a céntimos, <=1.000.000 EUR, con
+ida/vuelta por decimal corto sin pérdida; fuera de esa cota se rechaza antes de
+publicar importes. La cota numérica es una generalización técnica explícita,
+no un intervalo oficialmente certificado ni un umbral fiscal. No se generalizan
+otros gastos, edades, agregación de rendimientos o supuestos fiscales.
+
+Evidencia conservada
+Primera entrega intacta: historico-2019-diagnostico-cinco-20261106; sus siete
+archivos tienen los mismos SHA pre/post en PREIMAGENES.json. Se conserva allí la
+comparación roja17 de los cinco casos1,3,22,31,48 contra10de842d1ba5078ba06f0f49836deed9aeb052be.
+Las cuatro capturas nuevas son observaciones separadas de campaña1027, no nuevas
+filas del bloque60 ni sumandos del piloto2019. No se modifica la campaña.
+
+Se verificaron los19 archivos del manifiesto de captura recibido y los SHA/tamaños
+de sus recibos y referencias directas; se volvieron a leer PDF/SES de las nueve
+identidades, recibos originales y lotes de los cinco anteriores. PDF mediante
+pdftotext bajo timeout; SES mediante zlib/latin1 y Fraction. Se verifican importes
+PDF/SES y entrada consumida IDII/GSS/IDRE, DOB01/01/1985, Madrid y edad34.
+Reglas N000068671, modelo0.17, visible1.23. URL y UTC exactos, cabecera, caseHash,
+hashes/paths CAS y localizadores de página/línea están en la fixture selectiva.
+Los28 CAS nuevos ya habían sido auditados por el padre; aquí no se afirma una
+nueva auditoría global de CAS/estado. Ninguna lectura de red ni nueva captura.
+
+Para los cinco originales, input conserva el objeto entrada/entradaEfectiva real
+del motor anterior. Los cuatro nuevos NO tienen ejecución de motor: sus fixtures
+declaran explícitamente el mismo escenario sintético y los importes capturados,
+con procedencia propia. No se presentan esos negativos como datos acreditados
+por SES ni la reconstrucción como un input previamente ejecutado. Official conserva
+los literales PDF y SES, incluso diferencias de formato como26846.10/26846.1.
+0023/0414 siguen reservadas, sus valores presentes permanecen como observaciones
+sin mapeo promovido. Las ausencias continúan null, nunca cero.
+
+Discriminación causal: art20 y transporte
+En las seis entradas con reducción, P=bruto-1000, N19=bruto-3000 y
+R=5565-(3/2)*(P-13115); la única fórmula por rama sigue siendo la del núcleo.
+Los cuatro originales daban R exactas1236.885/1236.855/5171.685/4174.245 y bases
+12763.525/12763.575/6205.525/7867.925. Sus bases oficiales son respectivamente
+12763.52/12763.58/6205.52/7867.92. No decide el año2018: son observaciones2019.
+
+16999.03: R exacta1238.955, B exacta12760.075; HALF_EVEN de B daría12760.08.
+PDF/SES publican12760.07 en0025/0500/0505: refutan A/B del diagnóstico anterior,
+que atribuían todos los casos a redondear al par el neto exacto.
+Operar float(bruto)-float(1000) da15999.029999999999 y
+R binaria corta1238.9550000000017; Q_HALF_UP(R)=1238.96 y N19-Q(R)=12760.07.
+También discrimina el transporte: calcular P decimal y convertir después da
+15999.03 y R1238.954999999999; Q(R)=1238.95 y base12760.08, refutadas.
+Los otros cinco testigos con reducción no separaban esas dos rutas de transporte.
+
+16999.05: R exacta1238.925, B exacta12760.125; R binaria corta1238.925000000001,
+Q(R)=1238.93 y B propagada12760.12. Sobre B exacta, el estatal da1219.965;
+decimal corto/HALF_UP daría1219.97. Sobre B propagada, da1219.9644 y1219.96,
+que es el observado. Por tanto, dentro del recorrido de gravamen discriminado
+por los testigos sin reducción, NO basta cambiar la presentación de0025/0500/0505:
+debe cambiar la base que entra en las escalas. Las cuotas posteriores también
+confirman el arrastre: estatal692.71 + Madrid655.73 =1348.44; menos100=1248.44.
+
+El patrón N19 menos Q(Rbin) reproduce los seis netos con reducción y sus cuotas.
+No identifica de forma única dónde almacena/redondea el servidor R; una salida
+de neto construida con una transformación algebraicamente equivalente podría
+coincidir. Se elige esa representación operativa porque reutiliza el núcleo y
+las etapas, y queda explícitamente limitada, comprobable y sin tabla de casos.
+TPRRT no se utiliza como nuevo esperado acreditado ni para autorizar su mapeo0023.
+
+Discriminación causal: gravamen estatal antes del mínimo
+Caso31 ya tenía base exacta26846.30 y art20=0. La suma racional estatal es
+1182.75+930+996.945=621939/200=3109.695. Decimal HALF_UP/HALF_EVEN dan3109.70;
+oficial3109.69. Binary64 en el mismo recorrido produce3109.6949999999997, cuyo
+decimal corto cuantiza3109.69. HALF_DOWN o truncamiento también encajaban solos.
+
+29846.10: base26846.10; estatal exacto621933/200=3109.665. El binary64 acumulado
+se transporta como3109.665 y HALF_UP da3109.67, observado en0528. HALF_DOWN,
+HALF_EVEN y truncamiento decimal dan3109.66; HALF_UP de la fracción binaria
+exacta también3109.66. Esas alternativas quedan refutadas en conjunto con31.
+La cuota resultante oficial5007.70 menos100 es4907.70, sin cambio de base/art20.
+
+38116.90: base35116.90; estatal exacto870057/200=4350.285. Decimal corto4350.285
+con HALF_UP da4350.29, observado. La fracción binary64 exacta es inferior al
+empate y redondearía4350.28, igual que HALF_EVEN/HALF_DOWN decimal. Refuta
+de nuevo el redondeo de la fracción binaria exacta y confirma el transporte corto
+en una segunda magnitud. Resultado oficial7345.39.
+
+Los tres testigos estatales acotan el recorrido a los observados; no demuestran
+una política universal para cualquier base. Tampoco prueban el orden interno
+del servidor frente a otra implementación equivalente en esas tres salidas.
+El candidato reutiliza el recorrido existente de escalas, sin nueva fórmula ni
+tabla, y sólo selecciona representación binaria bajo la política nueva2019.
+
+Las17 diferencias originales se explican sin tolerancias
+1/3/22/48: art20 cuantizada cambia el neto/base publicados; tres casillas por
+identidad suman12. Las cuotas coincidentes de esos cuatro se conservan como
+controles internos: las bases exactas o corregidas caían en el mismo céntimo
+de cuota, por eso antes no distinguían presentación de cálculo.
+31:0528 pasa3109.70→3109.69;0532=0528-527.25 pasa2582.45→2582.44;
+Madrid0529=2924.81 y0533=2425.31 siguen iguales;0595 pasa5007.76→5007.75;
+0610/0670 pasan4907.76→4907.75. Son cinco rojos con un origen y sus arrastres.
+El candidato deja intactos esperados y comparador exacto; no añade epsilon.
+
+Parche privado y puertas pendientes
+Tres modificaciones productivas: conexión selecciona política2019/ámbito y pasa
+operandos a art20; núcleo añade activación2019 opcional sin alterar la fórmula
+general ni llamadas canónicas; composición admite el nombre2019 y selecciona
+binary64 sólo para gravámenes estatales/mínimos y sus desgloses. Madrid permanece
+Decimal. Un helper nuevo reutiliza únicamente la guarda técnica de operandos2018
+y añade gastos==1000; no importa la reducción/mezcla2018 ni la selecciona por año.
+Dos tests futuros nuevos y una fixture de nueve identidades, sin copiar suites.
+Las políticas2018/2020–2025/canónico siguen sus selecciones previas; faltan sus
+regresiones runtime para validar esta afirmación de alcance del diff.
+
+ORACULOS-NUEVE.json: Fraction comprueba108 casillas acreditadas con la política
+operativa propuesta, incluye predicciones alternativas y recorridos binarios.
+Eso es evidencia aritmética independiente del TS, NO ejecución/verde del candidato.
+No se corrieron Node/Bun/TS, API, motor, comparador, tipos, linters, canarios,
+suites, CI, inventario ni navegador. Todo script stdlib usó timeout -k5s60s;
+pdftotext -k5s20s. Dos primeras preparaciones fallaron por anclas textuales no
+únicas; se ajustaron sólo las anclas. Se conservan esos resultados en el
+manifiesto como fallos de preparación, sin tocar importes ni convertirlos a cero.
+
+Se consultó AGENTS.md y las fuentes locales de Effect Match.when y Effect.fail
+antes de preparar las ramas. effect-solutions no está en PATH: no se ejecutó
+mediante Bun/Node; se usó la alternativa de fuentes locales autorizada por el brief.
+Sólo se escribió en este destino. Sin VCS/worktree/push, red, transporte, estado,
+journals, límites/OOM/vigilante, borrados ni dependencias instaladas.
+La primera entrega permanece intacta. La entrega nueva es selectiva, sin copias
+completas de repo/lib/tests, entornos, node_modules o cachés.
+
+COMANDOS-FUTUROS.txt contiene las invocaciones completas y límites del supervisor
+existente para autor runtime con turno nuevo, primero rojo y luego candidato,
+regresiones/tipos/lint. Después exige primera revisión independiente2019. CI exacto
+local y remoto/publicación siguen siendo responsabilidad exclusiva del padre.
+No hace falta otra captura para preparar ESTA política acotada. Para ampliar
+gastos, edades, multiempleo u otro perfil, hacen falta originales propios que
+discriminen su transporte/etapas: no se deduce esa ampliación de estas nueve.

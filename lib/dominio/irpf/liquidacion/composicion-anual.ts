@@ -6,6 +6,7 @@ import { racional } from "../deducciones/anual-territorial-racional"
 import { producirVehiculoDA58 } from "../vehiculo-da58-2025/productor"
 import type { ResultadoInmuebleP4a } from "../inmobiliario-2025/productor"
 import { admiteOperandoOpen2018 } from "../trabajo-anual/politica-open-2018"
+import { admiteOperandoOpen2019 } from "../trabajo-anual/politica-open-2019"
 import type { HechosMaternidad2025 } from "../maternidad-2025/contrato"
 import { producirMaternidad81 } from "../maternidad-2025/producir"
 import { motivoPagoReutilizado81 } from "../maternidad-2025/combinacion"
@@ -19,7 +20,7 @@ import { SolicitudDeduccionesTerritoriales2025 } from "../deducciones/anual-terr
 import { aplicarDeduccionesTerritoriales2025 } from "../deducciones/anual-territorial"
 import Decimal from "decimal.js"
 import { producirBasesFamiliares2025, type CensoBasesFamiliares2025 } from "../bases-familiares-2025/productor"
-import { aplicarDosDescendientesAnual2025 } from "../bases-familiares-2025/valencia"
+import { aplicarDosDescendientesAnual2025, aplicarConcurrenciaDosDescendientesAnual2025 } from "../bases-familiares-2025/valencia"
 import { Effect, Schema, Result } from "effect"
 import {
   SolicitudDeduccionesValencianasAnual2025,
@@ -66,6 +67,7 @@ export type PoliticaAnual =
   | "open-cuotas-empleo-territorios-2025"
   | "open-cuotas-empleo-madrid-2018-2024"
   | "open-etapas-empleo-madrid-2018"
+  | "open-etapas-empleo-madrid-2019"
 /** Contrato interno: bases ya integradas en EUR Decimal; jamás reconstruye cotizaciones. */
 export interface EntradaComposicionAnual {
   readonly basesFamiliares2025?: CensoBasesFamiliares2025 | undefined
@@ -160,6 +162,7 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
     const cuantizar = (importe: Decimal) =>
       cuantizarAnual(importe, entrada.politica)
     const estatalOpen2018 = entrada.politica === "open-etapas-empleo-madrid-2018"
+    const estatalOpen2019 = entrada.politica === "open-etapas-empleo-madrid-2019"
     const gravar = (args: Parameters<typeof calcularCuotaPorEscala>[0]) =>
       cuantizar(calcularCuotaPorEscala({ ...args, aritmetica: A }))
     if (
@@ -174,7 +177,7 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
         })
       )
     if (
-      (entrada.politica === "open-cuotas-empleo-madrid-2018-2024" || estatalOpen2018) &&
+      (entrada.politica === "open-cuotas-empleo-madrid-2018-2024" || estatalOpen2018 || estatalOpen2019) &&
       (caso.anio < 2018 ||
         caso.anio > 2024 ||
         caso.comunidadAutonoma !== "madrid" ||
@@ -199,6 +202,15 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
             "Política de cuotas Open limitada a empleo efectivo Madrid 2018–2024, edad 18–64, sin fallecimiento, familia, discapacidad, otras rentas ni deducciones",
         })
       )
+    if (estatalOpen2019 && (caso.anio !== 2019 ||
+      caso.situacionFamiliar.edad !== 34 ||
+      caso.situacionFamiliar.descendientes.length !== 0 ||
+      caso.situacionFamiliar.ascendientes.length !== 0 ||
+      !entrada.cotizaciones.trabajador.eq(1000) ||
+      !admiteOperandoOpen2019(baseLiquidableGeneral) ||
+      !admiteOperandoOpen2019(entrada.rentasTrabajoAnuales!.integroTrabajo) ||
+      entrada.origenBaseGeneralB !== "solo-trabajo"))
+      return yield* Effect.fail(errorDerechosMinimos({ motivo: "Etapas Open 2019: Madrid empleo explícito edad34, cotizaciones1000, bruto/base a céntimos hasta 1.000.000 EUR; no se produce importe de esta política fuera del ámbito" }))
     if (estatalOpen2018 && (caso.anio !== 2018 ||
       !admiteOperandoOpen2018(baseLiquidableGeneral) ||
       !admiteOperandoOpen2018(entrada.rentasTrabajoAnuales!.integroTrabajo) ||
@@ -304,7 +316,7 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
       base: baseLiquidableGeneral,
       tramos: tramosIrpfEstatalGeneral,
       escalasPublicadas: escalasPublicadasEstatales,
-      representacion: estatalOpen2018 ? "binary64-corto" : "decimal",
+      representacion: estatalOpen2018 || estatalOpen2019 ? "binary64-corto" : "decimal",
     })
     const cuotaIntegraGeneralAutonomica = usaEscalaAutonomicaReal
       ? gravar({
@@ -326,7 +338,7 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
       base: baseLiquidableGeneral,
       tramos: tramosIrpfEstatalGeneral,
       escalasPublicadas: escalasPublicadasEstatales,
-      representacion: estatalOpen2018 ? "binary64-corto" : "decimal",
+      representacion: estatalOpen2018 || estatalOpen2019 ? "binary64-corto" : "decimal",
     })
     const desgloseCuotaIntegraGeneralAutonomica = usaEscalaAutonomicaReal
       ? calcularDesgloseCuotaPorEscala({
@@ -391,7 +403,7 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
       base: A.min(minimoPersonalYFamiliar, baseLiquidableGeneral),
       tramos: tramosIrpfEstatalGeneral,
       escalasPublicadas: escalasPublicadasEstatales,
-      representacion: estatalOpen2018 ? "binary64-corto" : "decimal",
+      representacion: estatalOpen2018 || estatalOpen2019 ? "binary64-corto" : "decimal",
     })
     const cuotaMinimoPersonalAutonomica = usaEscalaAutonomicaReal
       ? gravar({
@@ -419,7 +431,7 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
       base: A.min(minimoPersonalYFamiliar, baseLiquidableGeneral),
       tramos: tramosIrpfEstatalGeneral,
       escalasPublicadas: escalasPublicadasEstatales,
-      representacion: estatalOpen2018 ? "binary64-corto" : "decimal",
+      representacion: estatalOpen2018 || estatalOpen2019 ? "binary64-corto" : "decimal",
     })
     const desgloseCuotaMinimoPersonalAutonomica = usaEscalaAutonomicaReal
       ? calcularDesgloseCuotaPorEscala({
@@ -534,7 +546,7 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
           })
         )
       const dosDescendientes = s.solicitudes.some(p => p.eleccion === "aplicar" && p.codigo === "valenciana_dos_o_mas_descendientes")
-      if (dosDescendientes) {
+      if (dosDescendientes && s.solicitudes.length === 1) {
         deduccionesValencianas2025 = yield* Effect.try({
           try: () => aplicarDosDescendientesAnual2025(s, libroBasesFamiliares2025, derechosEstatales?.atribuciones ?? [], cuotaAutonomicaDisponible),
           catch: error => errorDerechosMinimos({ motivo: String(error) }),
@@ -686,8 +698,9 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
         )
       // La disponibilidad y todos sus movimientos conservan el decimal exacto.
       const disponible = cuotaAutonomicaDisponible.toString()
-      const { arrastres, ordenConsumo, criterioOrden, ...hechos } = s
-      deduccionesValencianas2025 = aplicarCuotaAnualValenciana2025({
+      const aplicarHechos = (solicitud: SolicitudDeduccionesValencianasAnual2025) => {
+      const { arrastres, ordenConsumo, criterioOrden, ...hechos } = solicitud
+      return aplicarCuotaAnualValenciana2025({
         hechos: {
           ...hechos,
           solicitudes: hechos.solicitudes.map(
@@ -706,6 +719,13 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
         ordenConsumo,
         criterioOrden,
       })
+      }
+      deduccionesValencianas2025 = dosDescendientes
+        ? yield* Effect.try({
+            try: () => aplicarConcurrenciaDosDescendientesAnual2025(s, libroBasesFamiliares2025, derechosEstatales?.atribuciones ?? [], cuotaAutonomicaDisponible, aplicarHechos),
+            catch: error => errorDerechosMinimos({ motivo: String(error) }),
+          })
+        : aplicarHechos(s)
       if (deduccionesValencianas2025.estado !== "calculo_parcial")
         return yield* Effect.fail({
           ...errorDerechosMinimos({

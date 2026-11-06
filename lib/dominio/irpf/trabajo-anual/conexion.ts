@@ -4,6 +4,7 @@ import type { LibroPagadoresCatalunya2025 } from "../deducciones/catalunya-pagad
 import { liquidarAragonSocialMixto2025 } from "../aragon-social-mixto-2025/anual"
 import type { CasoAragonSocialMixto2025 } from "../aragon-social-mixto-2025/contrato"
 import { admiteArgumentoOpen2018 } from "./politica-open-2018"
+import { admiteArgumentoOpen2019 } from "./politica-open-2019"
 import { MOTIVO_ELA81_PENDIENTE } from "../maternidad-2025/combinacion"
 import { prepararIngresosIdentificados2025, DecimalIngreso2025 } from "../ingresos-identificados-2025/productor"
 import { aplicarArt81AlDiferencial } from "../maternidad-2025/producir"
@@ -124,6 +125,7 @@ const liquidarIrpfAnualExplicitoBase = Effect.fn("Liquidacion.explicita")(
         )
       )
     let etapasOpen2018 = false
+    let etapasOpen2019 = false
     let redondeoSalarialOpen = false
     let redondeoCuotasAndaluciaOpen = false
     let redondeoCuotasTerritorialesOpen = false
@@ -195,6 +197,13 @@ const liquidarIrpfAnualExplicitoBase = Effect.fn("Liquidacion.explicita")(
         new D(0)
       )
       etapasOpen2018 = redondeoCuotasHistoricasOpen && caso.ejercicio === 2018
+      // Nueve observaciones 2019 propias; no extrapolar por compartir año/tabla.
+      // Otros perfiles conservan la política anterior, sin promesa de esta compatibilidad.
+      etapasOpen2019 = redondeoCuotasHistoricasOpen && caso.ejercicio === 2019 &&
+        caso.edad === 34 && caso.trabajo.rendimientos.length === 1 &&
+        cotizacionEfectiva.eq(1000) && new D(trabajo.gastos.gastosAE).eq(1000)
+      if (etapasOpen2019 && !admiteArgumentoOpen2019(new D(trabajo.gastos.integro), new D(trabajo.gastos.gastosAE)))
+        return yield* Effect.fail(rechazar("Open 2019: transporte limitado a bruto a céntimos entre 0 y 1.000.000 EUR y gastos a–e1000; sin importe fuera de evidencia/cota"))
       if (etapasOpen2018 && !admiteArgumentoOpen2018(new D(trabajo.gastos.integro), new D(trabajo.gastos.gastosAE)))
         return yield* Effect.fail(rechazar("Open 2018: faltan testigos de transporte para operandos fuera de céntimos/0–1.000.000 EUR o gastos a–e fraccionarios; no se produce importe de compatibilidad"))
       trabajoIntegroTerritorial = new D(trabajo.gastos.integro)
@@ -217,6 +226,9 @@ const liquidarIrpfAnualExplicitoBase = Effect.fn("Liquidacion.explicita")(
           anio: caso.ejercicio,
           rendimientoPrevioNeto: new D(trabajo.argumentoArt20),
           otrasRentasNoExentas: ingresoGeneral,
+          compatibilidadOpen2019: etapasOpen2019
+            ? { integro: new D(trabajo.gastos.integro), gastosAE: new D(trabajo.gastos.gastosAE) }
+            : undefined,
           compatibilidadOpen2018: etapasOpen2018
             ? { integro: new D(trabajo.gastos.integro), gastosAE: new D(trabajo.gastos.gastosAE) }
             : undefined,
@@ -303,6 +315,8 @@ const liquidarIrpfAnualExplicitoBase = Effect.fn("Liquidacion.explicita")(
               ? "compatibilidad numérica Open 2025 en el núcleo compartido para íntegro y gastos a–e entre 0 y 1.000.000 EUR; fuera, Decimal; min(saldo positivo art19, reducción sobre neto sin f; otras rentas = cobros identificados (cero sólo en perfil sin ellas))"
               : etapasOpen2018
                 ? "Open 2018 acotado: ramas art20 binary64/decimal corto/HALF_UP; mezcla Decimal y HALF_UP; límite saldo positivo art19"
+              : etapasOpen2019
+                ? "Open 2019 acotado: art20 binary64/decimal corto/HALF_UP antes de restar a art19 Decimal; base cuantizada propagada a ambas escalas"
               : "min(saldo positivo art19, reducción sobre neto sin f; otras rentas = cobros identificados (cero sólo en perfil sin ellas))",
           }),
         ],
@@ -393,6 +407,8 @@ const liquidarIrpfAnualExplicitoBase = Effect.fn("Liquidacion.explicita")(
           ? "open-cuotas-empleo-andalucia-2025"
           : redondeoCuotasTerritorialesOpen
             ? "open-cuotas-empleo-territorios-2025"
+            : etapasOpen2019
+              ? "open-etapas-empleo-madrid-2019"
             : etapasOpen2018
               ? "open-etapas-empleo-madrid-2018"
             : redondeoCuotasHistoricasOpen
@@ -446,9 +462,11 @@ const liquidarIrpfAnualExplicitoBase = Effect.fn("Liquidacion.explicita")(
                 ? `Empleo ${caso.comunidadAutonoma} 2025 sin derechos familiares: cuatro gravámenes a céntimos half-up antes de restar mínimos y sumar cuotas. Artículo 20 y DA61 conservan precisión decimal. Cinco capturas C300; sin aceptación fiscal automática.`
                 : etapasOpen2018
                   ? "Compatibilidad observada Open Madrid 2018: ramas art20 binary64 cuantizadas, mezcla Decimal cuantizada; estatal binary64/decimal corto/HALF_UP por gravamen antes del mínimo; autonómica Decimal con base corregida. Alcance condicionado; 0023/0414 reservadas."
-                : redondeoCuotasHistoricasOpen
-                  ? `Empleo Madrid ${caso.ejercicio} sin derechos familiares: cuatro gravámenes a céntimos half-up antes de restar mínimos. Artículo 20 conserva su fórmula y precisión histórica; no aplica DA61. Evidencia de un piloto por ejercicio; aceptación fiscal pendiente.`
-                  : "Sin ahorro, reducciones de base ni otras deducciones. Artículo 80 sin importe al excluir rentas extranjeras. Cuota líquida legal conservada antes de DA61. Precisión decimal hasta salida; presentación final half-up a céntimos, pendiente de aceptación fiscal.",
+                  : etapasOpen2019
+                    ? "Compatibilidad observada con Open Madrid 2019: reducción del artículo 20 redondeada a céntimos half-up antes de obtener la base; gravámenes estatales por la ruta binary64/decimal corto/HALF_UP y autonómicos Decimal sobre esa base. Hipótesis limitada a los casos contrastados; casillas 0023/0414 reservadas."
+                    : redondeoCuotasHistoricasOpen
+                      ? `Empleo Madrid ${caso.ejercicio} sin derechos familiares: cuatro gravámenes a céntimos half-up antes de restar mínimos. Artículo 20 conserva su fórmula y precisión histórica; no aplica DA61. Evidencia de un piloto por ejercicio; aceptación fiscal pendiente.`
+                      : "Bases, derechos y deducciones admitidos por el perfil anual. Artículo 80 sin importe al excluir rentas extranjeras. Cuota líquida legal conservada antes de DA61. Precisión decimal hasta salida; presentación final half-up a céntimos, pendiente de aceptación fiscal.",
       fuentes: [
         {
           titulo: "Alcance y evidencia de la conexión anual",
@@ -509,7 +527,7 @@ const liquidarIrpfAnualExplicitoBase = Effect.fn("Liquidacion.explicita")(
               : composicion.deduccionesGeneralesDonativosAplicadas.gt(0)
               ? "cuotas estatal/autonómica menos donativos generales aplicados a cada parte y autonómicas;una sola composición"
               : solicitudValenciana === undefined
-              ? "cuota estatal + autonómica; sin otras deducciones"
+              ? "cuota estatal + autonómica - deducciones aplicadas en la composición anual"
               : "cuota estatal + autonómica - deducciones valencianas aplicadas a cuota común",
         }),
         crearLineaCalculo({

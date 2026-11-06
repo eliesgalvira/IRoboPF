@@ -340,10 +340,9 @@ export function aplicarDeduccionesTerritoriales2025(
     "Hechos territoriales inválidos o magnitudes anuales externas"
   )
   if (decoded.success.donativosEstatales2025 !== undefined) {
-    const admitidos = new Set(["cantabria_donativos_fundaciones_fondo_cantabria_coopera_discapacidad", "murcia_donativos_patrimonio_cultural_actividades", "murcia_donativos_investigacion_biosanitaria", "madrid_condicion_familia_numerosa", "madrid_donativos_fundaciones_clubes_deportivos"])
+    const admitidos = new Set(["cantabria_donativos_fundaciones_fondo_cantabria_coopera_discapacidad", "murcia_donativos_patrimonio_cultural_actividades", "murcia_donativos_investigacion_biosanitaria", "madrid_condicion_familia_numerosa", "madrid_donativos_fundaciones_clubes_deportivos", "madrid_familias_dos_descendientes_ingresos_reducidos"])
     for (const solicitud of decoded.success.solicitudes) {
       const codigo = "codigo" in solicitud ? solicitud.codigo : solicitud.hechos.codigo
-      exigir(codigo !== "madrid_familias_dos_descendientes_ingresos_reducidos", "Art14 Madrid:secuencia completa con deducciones generales y bases ajenas pendiente")
       exigir(admitidos.has(codigo), "Interacción regional con donativos estatales no acotada:" + codigo)
     }
   }
@@ -676,6 +675,10 @@ export function aplicarDeduccionesTerritoriales2025(
     }
     // Fin de conciliación de eventos A40.
     // Una misma factura/pago no puede financiar dos solicitudes. Los evaluadores controlan repetición interna.
+    const murcia81 = s.lote === "F-ampliado" && s.codigo === "murcia_gastos_guarderia" && m.libroMaternidad81 !== undefined
+    if (murcia81) exigir(decoded.success.solicitudes.length === 1, "Murcia81: otras concurrencias requieren conciliación explícita")
+    // Sólo esta solicitud pasa después por conciliarMurcia81. El registro común
+    // mantiene la unicidad regional; la coincidencia estatal no es otro consumo regional.
     const locales = new Set<string>()
     function pagos(x: Schema.Json): void {
       if (esLista(x)) {
@@ -693,11 +696,11 @@ export function aplicarDeduccionesTerritoriales2025(
           (s.lote === "D51" && "valor" in v))
       ) {
         exigir(!hechos.has(v.id) && (s.lote !== "F-ampliado" || !locales.has(v.id)), "Hecho monetario duplicado: " + v.id)
-        exigir(!operaciones81(m.libroMaternidad81).includes(v.id), "Pago art81 repetido en otro consumidor regional: "+v.id)
+        exigir(murcia81 || !operaciones81(m.libroMaternidad81).includes(v.id), "Pago art81 repetido en otro consumidor regional: "+v.id)
         locales.add(v.id)
         for (const campo of ["factura", "documento", "justificante"])
           if (esTexto(v[campo])) {
-            exigir(!operaciones81(m.libroMaternidad81).some(id=>id===v[campo]), "Documento art81 reutilizado en otro consumidor regional")
+            exigir(murcia81 || !operaciones81(m.libroMaternidad81).some(id=>id===v[campo]), "Documento art81 reutilizado en otro consumidor regional")
             const referencia = campo + ":" + v[campo]
             exigir(
               !hechos.has(referencia),

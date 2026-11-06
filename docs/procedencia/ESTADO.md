@@ -1,5 +1,30 @@
 # Estado de la auditoría documental
 
+## Madrid artículo 14 y Open 2019 · integración del 6 de noviembre
+
+Última publicación confirmada: `92fac180b33ddde586fd0a4af97aa92bca12a8e6`,
+con los dos trabajos del [CI remoto](https://github.com/eliesgalvira/IRoboPF/actions/runs/42157768216) correctos.
+Este corte conecta el artículo 14 madrileño con donativos y la política acotada
+observada en Open Madrid 2019. Las dos revisiones independientes están terminadas;
+el integrador corrige sus objeciones explicativas, sin cambiar importes esperados.
+Pasan 111 pruebas focales. Un intento anterior completó 29 de los 31 pasos: el presupuesto
+acumulado se agotó durante `ci-datos` y `ci-simuladores` no llegó a ejecutarse.
+Las salidas parciales se conservan; este resultado no autoriza publicar.
+[Alcance, revisiones y reservas](corte-madrid14-historico2019-20261106/INTEGRACION.md).
+
+El punto 4 continúa abierto. Valencia con deporte, Murcia guardería con artículo
+81 y la continuidad madrileña de nacimiento/adopción de 2023–2024 tienen primeras
+revisiones favorables acotadas. La unión supera los 31 comandos exactos del CI local, incluidos inventario
+y generados; publicación y comprobación remota todavía pendientes. Madrid conserva 242 controles propios del
+revisor, 236 de una pasada y seis tras corregir la fixture, y 193 regresiones.
+[Alcance y evidencia del corte](corte-valencia-murcia81-20261106/INTEGRACION.md).
+Anticipos y alquiler baleares y el calendario de discapacidad familiar siguen
+privados, pendientes de validaciones y revisiones. El CI se ejecutó con un único turno pesado local; los trabajos siguientes
+continuaron su preparación sin ejecutar candidatos fiscales.
+La campaña histórica conserva 1.027 capturas y cuatro discriminantes separados de 2019.
+La revisión de 2019 ensaya 64 identidades distintas, con ausencias y reservas intactas;
+no acredita todo el año. Los registros siguientes conservan el estado de sus entregas.
+
 ## Murcia, Madrid y Andalucía · integración del 6 de noviembre
 
 Última publicación confirmada: `10de842d1ba5078ba06f0f49836deed9aeb052be`,

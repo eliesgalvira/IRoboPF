@@ -34,6 +34,7 @@ export const calcularReduccionTrabajoConOtrasRentas = ({
   otrasRentasNoExentas,
   compatibilidadOpen2025,
   compatibilidadOpen2018,
+  compatibilidadOpen2019,
 }: {
   readonly anio: AnioFiscal
   readonly fechaFallecimiento?: Date | undefined
@@ -42,6 +43,8 @@ export const calcularReduccionTrabajoConOtrasRentas = ({
   readonly otrasRentasNoExentas: Decimal
   /** Compatibilidad observada, exclusivamente empleo Madrid 2025; no regla legal.
    * Sólo operandos de 0 a 1.000.000 EUR; fuera se conserva la ruta decimal. */
+  /** Sólo conexión explícita Madrid2019 acotada; no activa otros años/canónico. */
+  readonly compatibilidadOpen2019?: { readonly integro: Decimal; readonly gastosAE: Decimal } | undefined
   /** Política interna, habilitada sólo por la conexión explícita acotada. */
   readonly compatibilidadOpen2018?: { readonly integro: Decimal; readonly gastosAE: Decimal } | undefined
   readonly compatibilidadOpen2025?:
@@ -67,6 +70,15 @@ export const calcularReduccionTrabajoConOtrasRentas = ({
     Match.when(2018, () =>
       reduccionTrabajo2018({ fechaFallecimiento, rendimientoPrevioNeto, compatibilidadOpen2018 })
     ),
+    Match.when(2019, () => {
+      const open = fechaFallecimiento === undefined && compatibilidadOpen2019 !== undefined
+      // La conexión valida ámbito, bruto/cota y gastos1000 antes de habilitar.
+      const previo = open
+        ? restarArt20(compatibilidadOpen2019.integro, compatibilidadOpen2019.gastosAE, true)
+        : rendimientoPrevioNeto
+      const reduccion = reduccionTrabajo2019A2022(previo, open)
+      return open ? reduccion.toDecimalPlaces(2, Decimal.ROUND_HALF_UP) : reduccion
+    }),
     Match.when(
       (anio) => anio <= 2022,
       () => reduccionTrabajo2019A2022(rendimientoPrevioNeto)
