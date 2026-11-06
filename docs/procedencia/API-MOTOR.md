@@ -69,6 +69,9 @@ En `deduccionesTerritoriales2025.donativosEstatales2025`, varias operaciones se 
 
 Las ramas de Cantabria, Murcia y Madrid mantienen sus respectivos límites y reglas de concurrencia. La atribución regional que depende de una base estatal con cuota insuficiente sigue rechazada donde no se ha fijado el criterio; tampoco se habilitan varias entidades con tipo incrementado, nuevas clases de entidad o donativos en especie. Los [ejemplos y condiciones del contrato](deducciones-2025/p5-multiples-e47-20261105/CONTRATO.md) delimitan el perfil.
 
+
+La solicitud `madrid_familias_dos_descendientes_ingresos_reducidos` admite el censo de donativos dentro del perfil representado. El artículo 14 usa el residual del mismo libro después de los donativos generales aplicados a la parte autonómica y del resto de deducciones regionales anteriores; consume ese residual una sola vez. Generación y aplicación permanecen separadas cuando una cuota se agota. El rastro explícito incluye las deducciones aplicadas, incluso si el donante no elige la deducción general. [Contrato, revisión y límites](corte-madrid14-historico2019-20261106/INTEGRACION.md).
+
 Las políticas monetarias de las API se conservan. En empleo de Madrid, la entrada efectiva cuantiza los gravámenes conforme a la política Open documentada; la canónica mantiene Decimal hasta la salida. Las revisiones de familia y donativos conservan sus diferencias de igualdad exacta anteriores a estas deducciones. No se declara equivalencia exacta de todas las cuotas entre políticas.
 
 ## Cónyuge o pareja con discapacidad en Andalucía
@@ -543,3 +546,34 @@ individual, devengo ordinario, residencia estable y uno o dos titulares; no
 habilita conjunta ni historias familiares no representadas.
 
 [Alcance, revisión independiente y reservas](deducciones-2025/corte-murcia-madrid-andalucia-20261106/INTEGRACION.md).
+
+
+## Compatibilidad observada con Open Madrid 2019
+
+La API explícita selecciona la política revisada para el perfil laboral individual de Madrid 2019, edad 34, un rendimiento, cotizaciones efectivas de 1.000 euros y gastos a–e de 1.000 euros. Cuantiza el artículo 20 antes de propagar la base; el recorrido estatal utiliza binary64 y decimal corto/HALF_UP, y el autonómico conserva Decimal. La selección no depende del identificador del caso. Otros perfiles y la API canónica conservan su ruta previa.
+
+El intervalo técnico admitido no equivale a cobertura oficial: la revisión ensaya 64 identidades diferentes. Permanecen las ausencias y los mapeos reservados 0023/0414; no hay tolerancia monetaria ni ceros sustitutorios. [Evidencia y restricciones completas](corte-madrid14-historico2019-20261106/INTEGRACION.md).
+
+## Concurrencias y continuidad familiar integradas el 6 de noviembre
+
+En la anual individual de 2025, el perfil valenciano de dos descendientes admite
+su concurrencia con deporte propio. La composición aplica deporte antes de
+calcular la deducción por descendientes sobre la cuota restante, con un único
+consumo. El orden de las solicitudes no altera esa prioridad; las demás familias
+y concurrencias conservan su alcance anterior.
+
+La solicitud `F-ampliado` de guardería murciana admite `maternidad2025` de la misma
+beneficiaria y pagadora representada. Se concilian menor, centro, autorizaciones,
+meses, facturas, pagos y ayudas. La deducción autonómica utiliza su cuota una vez;
+el artículo 81 mantiene su tratamiento en el diferencial. Otros progenitores,
+gananciales, historia y concurrencias no cubiertas siguen rechazados.
+
+La solicitud madrileña `madrid_nacimiento_adopcion_hijos` admite el campo opcional
+`historiaNacimientoMadrid`, definido en `madrid-historia-esquema.ts`. Para un evento
+de 2023 exige los hechos de 2023 y 2024; para uno de 2024, los de 2024. Las bases
+se derivan mediante los productores compartidos del ejercicio, sin aceptar bases
+o cuotas fiscales externas. El contrato exige un censo familiar estable y
+modalidad individual. La historia intermedia excedida permanece bloqueada por
+criterio pendiente. Los eventos de 2025 conservan su recorrido anterior.
+
+[Alcances, revisiones y reservas](corte-valencia-murcia81-20261106/INTEGRACION.md).

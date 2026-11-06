@@ -1,3 +1,4 @@
+import { HistoriaNacimientoMadrid } from "./madrid-historia-esquema"
 import { AuxiliaresAnualesF } from "./auxiliares-esquemas"
 import { Schema } from "effect"
 import { HechosTerritorialesF } from "../territorial-f-esquemas-2025"
@@ -47,6 +48,7 @@ const HistorialRecarga = Schema.Struct({
   })),
 })
 export const SolicitudAnualF2025 = Schema.Struct({
+  historiaNacimientoMadrid: Schema.optionalKey(HistoriaNacimientoMadrid),
   auxiliares: Schema.optionalKey(AuxiliaresAnualesF),
   lote: Schema.Literal("F-ampliado"),
   codigo: Schema.Literals([

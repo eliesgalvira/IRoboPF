@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest"
+import { afterEach, describe, it, expect } from "vitest"
 import { runInThisContext } from "node:vm"
 import { spawnSync } from "node:child_process"
 import {
@@ -22,6 +22,13 @@ import {
   validate,
 } from "../scripts/procedencia/inventario.mjs"
 import { readArtifact, compareFiles } from "../scripts/procedencia/inventario-artefacto.mjs"
+
+// Los checker de fixtures y los mapas descomprimidos dejan de ser necesarios al
+// terminar cada prueba. Recogerlos antes de lanzar el siguiente hijo evita que
+// su memoria pendiente conviva con otra generación completa del inventario.
+afterEach(() => {
+  globalThis.gc()
+})
 
 describe("inventario sintáctico y efectivo", () => {
   it("el grafo de imports namespace es independiente del directorio del checkout", () => {

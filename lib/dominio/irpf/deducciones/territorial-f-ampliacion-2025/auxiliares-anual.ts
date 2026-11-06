@@ -1,3 +1,5 @@
+import { comprobarHistoriaNacimientoMadrid } from "./madrid-historia"
+import { conciliarMurcia81 } from "./murcia81"
 import { sumaBasesPersonas2025 } from "../../bases-familiares-2025/productor"
 import type { SolicitudAnualF2025 } from "./anual-esquemas"
 import type { MagnitudesTerritorialesAnuales } from "../anual-territorial"
@@ -20,6 +22,8 @@ function mismos(a: readonly string[], b: readonly string[]): boolean {
 
 /** Perfil de conexión explícito. No recibe bases ajenas, saldos ni elegibilidad fiscal. */
 export function evaluarAuxiliaresAnualesF(s: SolicitudAnualF2025, m: MagnitudesTerritorialesAnuales): ResultadoF {
+  if (s.historiaNacimientoMadrid !== undefined && s.codigo !== "madrid_nacimiento_adopcion_hijos")
+    falta("historia.codigo", "Historia exclusiva de nacimiento/adopción; no vivienda ni otros territorios")
   const h = requerido(s.auxiliares, "auxiliares.censo_documental")
   texto(h.referenciaCenso, "auxiliares.referenciaCenso")
   if (s.hechos.hechosPrevios !== undefined)
@@ -68,6 +72,7 @@ export function evaluarAuxiliaresAnualesF(s: SolicitudAnualF2025, m: MagnitudesT
     // Bases gravables de los hijos cero por el perfil comprobado; familiar = propia.
     if (superior(base, "61860")) excluir("baseUnidadFamiliar", "Base familiar excedida")
     }
+    comprobarHistoriaNacimientoMadrid(s, m)
     unicos(h.eventos.map((e) => e.id), "eventos.id")
     unicos(h.eventos.flatMap((e) => e.hijos), "eventos.hijos")
     if (h.centros.length > 0 || h.servicios.length > 0 || (s.hechos.pagos?.length ?? 0) > 0)
@@ -76,7 +81,7 @@ export function evaluarAuxiliaresAnualesF(s: SolicitudAnualF2025, m: MagnitudesT
       texto(e.id, "evento.id"); texto(e.referencia, "evento.referencia")
       const f = fecha(e.fecha, "evento.fecha")
       if (e.tipo === "acogimiento") falta("evento.acogimiento", "Art.4 no incluye acogimiento; conservar su código específico y reservas")
-      if (f < "2025-01-01") falta("productor_historia_madrid:" + f.slice(0, 4), "Reconstruir bases y modalidad desde el evento; no se admiten bases históricas consignadas")
+      if (f < "2023-01-01") excluir("evento.fuera_ventana", "Evento fuera de las anualidades de 2025")
       if (f > "2025-12-31" || e.hijos.length === 0) falta("evento.fecha", "Evento vacío o posterior al devengo")
       for (const id of e.hijos) {
         const d = ds.find((x) => x.sujetoId === id)
@@ -87,12 +92,11 @@ export function evaluarAuxiliaresAnualesF(s: SolicitudAnualF2025, m: MagnitudesT
         if ((e.tipo === "nacimiento" && (d.fechaNacimiento !== f || v?.clase !== "consanguinidad")) ||
           (e.tipo === "adopcion" && (v?.clase !== "adopcion" || v.fechaConstitucionVinculo !== f || f < d.fechaNacimiento)))
           falta("evento.vinculo_fecha", "Fecha/vínculo contradice el anual")
-        total = sumar(total, cuantiaNacimientoMadridExacta(1, e.hijos.length > 1, p.convivientesDevengo.length))
+        total = sumar(total, cuantiaNacimientoMadridExacta(1, f >= "2025-01-01" && e.hijos.length > 1, p.convivientesDevengo.length))
       }
     }
   } else {
-    if (("libroMaternidad81" in m && m.libroMaternidad81 !== undefined) || "maternidad2025" in m.caso)
-      falta("conciliacion_art81_custodia_pagos", "Contrastar identidad de pagos, custodia y progenitores con P3 antes de combinar; sin segundo productor81")
+    if (m.libroMaternidad81 !== undefined || "maternidad2025" in m.caso) conciliarMurcia81(s, m)
     if (h.regimenPagos !== "separados") falta("pagos.regimen_gananciales", "Falta atribución de pagos comunes conciliada entre ambos progenitores")
     if (h.eventos.length > 0) falta("auxiliares.eventos", "Guardería no consume eventos de Madrid")
     if (superior(base, "30000")) excluir("baseImponible", "Base propia superior a30000 EUR")
@@ -133,11 +137,12 @@ export function evaluarAuxiliaresAnualesF(s: SolicitudAnualF2025, m: MagnitudesT
       if (BigInt(neto.numeradorEuros) < 0n) falta("pago.ayudasEUR", "Ayuda superior al gasto: requiere conciliación por menor")
       bases.set(id, sumar(bases.get(id) ?? racional("0"), neto))
     }
-    // Censo completo de pagos, régimen separado y sólo un pagador: tope1000 propio.
+    // Con libro81, la conciliación acredita además un único titular conviviente.
+    // La rama histórica sin81 conserva su contrato y sus reservas.
     for (const b of bases.values()) total = sumar(total, cuantiaGuarderiaMurciaExacta(b, 1))
   }
   return { codigo: s.codigo, estado: "calculo_parcial", importeExactoRacional: total,
     aceptacionFiscal: "pendiente", motivo: "Rama documental conciliada; pendiente primera revisión monetaria independiente",
     citas: CITAS_F.find((c) => c.codigo === s.codigo)?.citas ?? [], reservas: [],
-    rastro: ["Bases exactas del anual; hechos completos del perfil; salida racional hacia el libro único de cuota"] }
+    rastro: ["Bases exactas del anual; hechos completos del perfil; salida racional hacia el libro único de cuota", ...(s.codigo === "murcia_gastos_guarderia" && m.libroMaternidad81 !== undefined ? ["Murcia/art81: factura, pago propio, período, centro, conceptos y ayudas conciliados; titular conviviente único; vestuario sólo regional; incremento estatal conservado en diferencial"] : [])] }
 }

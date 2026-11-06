@@ -166,8 +166,18 @@ export function evaluarAnualF2025(
       falta("territorio", "Código de otro territorio")
     if (m.donativosEstatales !== undefined && (s.codigo.includes("donativo") || s.codigo.includes("donaciones")) && s.codigo !== "murcia_donativos_patrimonio_cultural_actividades" && s.codigo !== "murcia_donativos_investigacion_biosanitaria" && s.codigo !== "madrid_donativos_fundaciones_clubes_deportivos")
       falta("conexion_donativo_regional_no_acotada:" + s.codigo, "Concurrencia de donativo F fuera de Murcia dinerario/Madrid art9; no habilitar especie ni otras ramas por analogía")
-    if (m.donativosEstatales !== undefined && s.codigo === "madrid_familias_dos_descendientes_ingresos_reducidos")
-      falta("secuencia_completa_art14_con_generales", "Art14 con deducciones generales:productor de bases ajenas y secuencia completa no soportados; no se usa cero estatal")
+    if (m.donativosEstatales !== undefined && s.codigo === "madrid_familias_dos_descendientes_ingresos_reducidos") {
+      const libro = m.donativosEstatales
+      // Arts.67/77 LIRPF y art.14 Madrid: sólo la parte autonómica aplicada
+      // minora esta cuota. La estatal no se traslada ni se vuelve a consumir.
+      if (libro.ejercicio !== 2025 || libro.contribuyente !== contribuyente ||
+          libro.origen !== "composicion-unica-anual:2025:" + contribuyente ||
+          !eurosDonativos(libro.autonomica.integra).eq(m.cuotaAutonomica) ||
+          m.cuotaAutonomicaResidual === undefined ||
+          !eurosDonativos(libro.autonomica.disponible).eq(m.cuotaAutonomicaResidual) ||
+          !eurosDonativos(libro.autonomica.aplicada).plus(m.cuotaAutonomicaResidual).eq(m.cuotaAutonomica))
+        falta("libro_unico_art14_donativos", "Art14 requiere identidad, cuota íntegra y residual conciliadas con el mismo libro anual de donativos")
+    }
     if (s.codigo === "madrid_cuidado_ascendientes") {
       const derechos = c.derechosMinimos
       if (derechos === undefined || derechos.ascendientes === "ninguno") falta("censo_ascendientes", "Falta censo anual de ascendientes")

@@ -41,7 +41,8 @@ function generar(x: Importe, cuotaIntegra: Racional, disponible: Racional): Raci
     const bruto = multiplicar(cuotaIntegra, racional(d.factor))
     return d.topeEUR === undefined ? bruto : menor(bruto, racional(d.topeEUR))
   }
-  // El adaptador exige secuencia completa:con nuevo productor estatal esta rama art14 sigue rechazada.
+  // Art14: disponible ya descuenta la parte autonómica aplicada del libro general
+  // y el resto regional (prioridad1). Nuevos contribuyentes extranjeros va después.
   if (d?.magnitud === "cuota_tras_resto_deducciones" && x.codigo === "madrid_familias_dos_descendientes_ingresos_reducidos")
     return multiplicar(disponible, racional(d.factor))
   if (x.estado === "calculo_parcial" && x.importeAntesPresentacionEUR !== undefined)
