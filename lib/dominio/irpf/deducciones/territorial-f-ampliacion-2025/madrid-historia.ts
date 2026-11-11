@@ -80,7 +80,7 @@ export function comprobarHistoriaNacimientoMadrid(s: SolicitudAnualF2025, m: Mag
 }
 
 /** Productor económico por ejercicio, sin liquidaciones ni magnitudes externas. */
-export function producirBasesHistoriaNacimientoMadrid(p: HistoriaNacimientoMadrid["periodos"][number], propio: string): ReadonlyMap<string, Decimal> {
+export function producirBasesHistoriaNacimientoMadrid(p: Pick<HistoriaNacimientoMadrid["periodos"][number], "ejercicio" | "personas">, propio: string): ReadonlyMap<string, Decimal> {
   const campo = "historia:" + p.ejercicio
     const bases = new Map<string, Decimal>()
     for (const persona of p.personas) {

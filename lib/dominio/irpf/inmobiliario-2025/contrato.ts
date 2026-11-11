@@ -46,6 +46,11 @@ const Periodo = { desde: Fecha, hasta: Fecha }
 export const InmuebleP4a = Schema.Struct({
   vaciaExt2025: Schema.optional(VaciaExt2025),
   primerAlquiler2025: Schema.optional(PrimerAlquiler2025),
+  cambioHabitual2025: Schema.optionalKey(Schema.Struct({
+    persona: Texto, nacimiento: Fecha,
+    residencia: Schema.Struct({ ...Periodo, documento: Texto }),
+    nuevaHabitual: Schema.Struct({ contrato: Texto, desde: Fecha, documento: Texto }),
+  })),
   cambioHabitualBalears2025: Schema.optional(Schema.Struct({
     persona: Texto, nacimiento: Fecha,
     residencia: Schema.Struct({ ...Periodo, documento: Texto }),
@@ -54,7 +59,7 @@ export const InmuebleP4a = Schema.Struct({
   })),
   id: Texto,
   catastro: Texto,
-  ubicacion: Schema.Literals(["canarias", "illes-balears", "extremadura", "aragon", "resto-espana"]),
+  ubicacion: Schema.Literals(["canarias", "illes-balears", "extremadura", "aragon", "galicia", "resto-espana"]),
   titular: Texto,
   titulo: Texto,
   derecho: Schema.Literal("propiedad"),
@@ -101,7 +106,7 @@ export const CasoInmobiliarioP4a = Schema.Struct({
   ejercicio: Schema.Literal(2025),
   contribuyenteId: Texto,
   liquidacionId: Texto,
-  comunidadAutonoma: Schema.Literals(["canarias", "illes-balears", "extremadura"]),
+  comunidadAutonoma: Schema.Literals(["canarias", "illes-balears", "extremadura", "galicia"]),
   edad: Schema.Number.check(Schema.isInt(), Schema.isBetween({ minimum: 18, maximum: 64 })),
   otrasRentas: Schema.Literal("ninguna"),
   familiares: Schema.Literal("ninguno"),

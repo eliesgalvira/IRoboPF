@@ -1,3 +1,4 @@
+import { producirPagadoresMurcia2025 } from "./murcia-pagadores"
 import { comprobarHistoriaNacimientoMadrid } from "./madrid-historia"
 import { conciliarMurcia81 } from "./murcia81"
 import { sumaBasesPersonas2025 } from "../../bases-familiares-2025/productor"
@@ -24,6 +25,8 @@ function mismos(a: readonly string[], b: readonly string[]): boolean {
 export function evaluarAuxiliaresAnualesF(s: SolicitudAnualF2025, m: MagnitudesTerritorialesAnuales): ResultadoF {
   if (s.historiaNacimientoMadrid !== undefined && s.codigo !== "madrid_nacimiento_adopcion_hijos")
     falta("historia.codigo", "Historia exclusiva de nacimiento/adopción; no vivienda ni otros territorios")
+  if (s.auxiliares?.pagadoresMurcia !== undefined && s.codigo !== "murcia_gastos_guarderia")
+    falta("pagadoresMurcia.codigo", "Censo exclusivo de guardería murciana")
   const h = requerido(s.auxiliares, "auxiliares.censo_documental")
   texto(h.referenciaCenso, "auxiliares.referenciaCenso")
   if (s.hechos.hechosPrevios !== undefined)
@@ -100,6 +103,8 @@ export function evaluarAuxiliaresAnualesF(s: SolicitudAnualF2025, m: MagnitudesT
     if (h.regimenPagos !== "separados") falta("pagos.regimen_gananciales", "Falta atribución de pagos comunes conciliada entre ambos progenitores")
     if (h.eventos.length > 0) falta("auxiliares.eventos", "Guardería no consume eventos de Madrid")
     if (superior(base, "30000")) excluir("baseImponible", "Base propia superior a30000 EUR")
+    const nominales = h.pagadoresMurcia === undefined ? undefined : producirPagadoresMurcia2025(h.pagadoresMurcia, m)
+    const pagadoresConPago = new Map<string, Set<string>>()
     const pagos = s.hechos.pagos ?? []
     unicos(pagos.map((p) => texto(p.id, "pago.id")), "pagos.id")
     unicos(pagos.map((p) => texto(p.factura, "pago.factura")), "pagos.factura")
@@ -107,15 +112,17 @@ export function evaluarAuxiliaresAnualesF(s: SolicitudAnualF2025, m: MagnitudesT
     unicos(h.servicios.map((x) => x.pagoId), "servicios.pagoId")
     if (h.servicios.length !== pagos.length || h.servicios.some((x) => !pagos.some((p) => p.id === x.pagoId)))
       falta("servicios.pagos", "Censo de servicios y pagos no coincide")
-    const bases = new Map<string, Racional>()
+    const bases = new Map<string, Map<string, Racional>>()
     for (const p of pagos) {
       const id = texto(p.beneficiarioId, "pago.beneficiarioId")
       const d = ds.find((x) => x.sujetoId === id)
       const titulares = h.progenitores.find((x) => x.hijo === id)
       if (d === undefined || titulares === undefined || !m.sujetosConMinimo.includes(id) || !d.vivoAlDevengo || !titulares.convivientesDevengo.includes(propio))
         falta("guarderia.minimo_convivencia", "Falta mínimo y convivencia al devengo; fallecimiento requiere perfil específico")
-      if (p.pagador !== propio)
+      if (p.pagador !== propio && nominales === undefined)
         falta("productor_derecho_progenitor_externo:" + texto(p.pagador, "pago.pagador"), "Doble pago: calcular bases, residencia, mínimo y derecho del otro pagador antes de repartir tope")
+      if (nominales !== undefined && !nominales.has(texto(p.pagador, "pago.pagador")))
+        falta("pagadoresMurcia.pagador", "Pagador sin identidad y economía censadas")
       const c = h.centros.find((x) => x.id === p.objetoId)
       if (c === undefined) falta("guarderia.centro", "Centro no identificado")
       texto(c.autorizacion, "centro.autorizacion"); texto(c.inscripcion, "centro.inscripcion")
@@ -135,11 +142,30 @@ export function evaluarAuxiliaresAnualesF(s: SolicitudAnualF2025, m: MagnitudesT
       // Ayudas atribuidas al gasto y menor concretos; no se redistribuyen entre hijos.
       const neto = restar(importe, ayuda)
       if (BigInt(neto.numeradorEuros) < 0n) falta("pago.ayudasEUR", "Ayuda superior al gasto: requiere conciliación por menor")
-      bases.set(id, sumar(bases.get(id) ?? racional("0"), neto))
+      const porPersona = bases.get(id) ?? new Map<string, Racional>()
+      const pagador = texto(p.pagador, "pago.pagador")
+      if (BigInt(importe.numeradorEuros) > 0n) {
+        const pagadores = pagadoresConPago.get(id) ?? new Set<string>()
+        pagadores.add(pagador)
+        pagadoresConPago.set(id, pagadores)
+      }
+      porPersona.set(pagador, sumar(porPersona.get(pagador) ?? racional("0"), neto))
+      bases.set(id, porPersona)
     }
     // Con libro81, la conciliación acredita además un único titular conviviente.
     // La rama histórica sin81 conserva su contrato y sus reservas.
-    for (const b of bases.values()) total = sumar(total, cuantiaGuarderiaMurciaExacta(b, 1))
+    for (const [hijo, porPersona] of bases) {
+      // El gasto ajeno sólo clasifica derecho nominal; nunca se transfiere ni consume cuota.
+      // La ayuda minora la base individual, no el pago ni el derecho nominal.
+      const titulares = [...(pagadoresConPago.get(hijo) ?? [])].filter(id => nominales === undefined || nominales.get(id)!.includes(hijo))
+      const divisor = titulares.length
+      const propia = porPersona.get(propio) ?? racional("0")
+      if (BigInt(propia.numeradorEuros) > 0n) {
+        if (divisor < 1 || !titulares.includes(propio))
+          falta("pagadoresMurcia.minimo_propio", "Derecho propio no conciliado con el censo nominal")
+        total = sumar(total, cuantiaGuarderiaMurciaExacta(propia, divisor))
+      }
+    }
   }
   return { codigo: s.codigo, estado: "calculo_parcial", importeExactoRacional: total,
     aceptacionFiscal: "pendiente", motivo: "Rama documental conciliada; pendiente primera revisión monetaria independiente",

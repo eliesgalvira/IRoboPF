@@ -1,3 +1,4 @@
+import { comprobarHistoriaViviendaMadrid } from "./madrid-vivienda-historia"
 import { producirAscendientes2025 } from "../../minimos/ascendientes-2025"
 import { evaluarMurciaDT18Estatal2025 } from "./murcia-dt18"
 import type Decimal from "decimal.js"
@@ -164,6 +165,8 @@ export function evaluarAnualF2025(
       falta("perfil_anual", "Sólo 2025 individual ordinaria sin fallecimiento")
     if (c.comunidadAutonoma !== (s.codigo.startsWith("madrid_") ? "madrid" : "murcia"))
       falta("territorio", "Código de otro territorio")
+    if (s.historiaViviendaMadrid !== undefined && s.codigo !== "madrid_vivienda_nacimiento_adopcion_hijos")
+      falta("historiaViviendaMadrid.codigo", "Historia exclusiva de compra art13")
     if (m.donativosEstatales !== undefined && (s.codigo.includes("donativo") || s.codigo.includes("donaciones")) && s.codigo !== "murcia_donativos_patrimonio_cultural_actividades" && s.codigo !== "murcia_donativos_investigacion_biosanitaria" && s.codigo !== "madrid_donativos_fundaciones_clubes_deportivos")
       falta("conexion_donativo_regional_no_acotada:" + s.codigo, "Concurrencia de donativo F fuera de Murcia dinerario/Madrid art9; no habilitar especie ni otras ramas por analogía")
     if (m.donativosEstatales !== undefined && s.codigo === "madrid_familias_dos_descendientes_ingresos_reducidos") {
@@ -204,6 +207,9 @@ export function evaluarAnualF2025(
     }
     if(s.codigo==="murcia_regimen_transitorio_inversion_vivienda_habitual"&&s.hechos.ramaTransitoria==="estatal_pre2013")
       return evaluarMurciaDT18Estatal2025(s,m)
+    if (s.historiaNacimientoMadrid !== undefined && s.codigo === "madrid_vivienda_nacimiento_adopcion_hijos")
+      falta("historia.codigo", "Historia art4 no acredita compra art13")
+    if (s.codigo === "madrid_vivienda_nacimiento_adopcion_hijos") comprobarHistoriaViviendaMadrid(s, m)
     conciliarPersonas(s, m)
     conciliarPrevios(s, m)
     const anteriores = s.hechos.hechosPrevios
@@ -276,9 +282,7 @@ export function evaluarAnualF2025(
         const vs = s.hechos.viviendas ?? []
         if (vs.length !== 1) falta("viviendas", "Una adquisición identificada")
         const v = vs[0]!
-        // El libro2025 no acredita el límite del año de acceso2023/2024.
-        if (fecha(v.adquisicion, "vivienda.adquisicion").slice(0, 4) !== "2025")
-          falta("bases_familiares_ejercicio_adquisicion", "Adquisición anterior: reconstruir art18.2 del año de acceso; no sustituirlo por bases2025")
+        // Acceso histórico comprobado desde hechos art13 antes de adaptar magnitudes2025.
         if (!mismos(v.titulares ?? [], [contribuyente]) || !dinero(v.porcentajePropiedad, "porcentajePropiedad").eq(100))
           falta("vivienda.titulares", "Conexión familiar acotada a propietario único; no abre cotitularidad")
       }

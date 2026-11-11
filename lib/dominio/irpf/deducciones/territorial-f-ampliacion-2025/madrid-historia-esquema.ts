@@ -2,7 +2,7 @@ import { Schema } from "effect"
 import { GastosTrabajo } from "../../trabajo-anual/contrato"
 const Texto = Schema.String.check(Schema.isPattern(/\S/))
 const Id = Schema.String.check(Schema.isPattern(/^s-[0-9]{1,6}$/))
-const Economia = Schema.Union([
+export const EconomiaHistoriaMadrid = Schema.Union([
   Schema.Struct({ perfil: Schema.Literal("sin-rentas"), censoRentasCompleto: Schema.Literal(true) }),
   Schema.Struct({ perfil: Schema.Literal("solo-trabajo"), censoRentasCompleto: Schema.Literal(true),
     otrasRentas: Schema.Literal("ninguna"), reduccionesBase: Schema.Literal("ninguna"),
@@ -19,7 +19,7 @@ export const HistoriaNacimientoMadrid = Schema.Struct({
     personas: Schema.Array(Schema.Struct({ id: Id, soporte: Texto,
       residenteComunTodoEjercicio: Schema.Literal(true), vivoTodoEjercicio: Schema.Literal(true),
       residenciaAutonomica: Schema.Literals(["madrid", "otra-comunidad-comun"]),
-      economia: Economia,
+      economia: EconomiaHistoriaMadrid,
     })).check(Schema.isMaxLength(100)),
     hijos: Schema.Array(Schema.Struct({ id: Id, nacimiento: Texto,
       progenitores: Schema.Array(Id), convivientesDevengo: Schema.Array(Id),
