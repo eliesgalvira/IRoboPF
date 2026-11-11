@@ -189,7 +189,10 @@ function evaluarE38ConProductores(s:SolicitudE38Anual2025,m:MagnitudesTerritoria
   case "galicia_inversion_mab":return evaluarAmpliacionE2025(c,{...h,operaciones:h.operaciones.map(o=>({...o,otrasDeduccionesMismaInversion:[]}))})
   case "galicia_aldeas_modelo":return evaluarAmpliacionE2025(c,{...h,viviendas:h.viviendas.map(v=>({...v,otrasDeduccionesMismaInversion:[]}))})
   case "galicia_adecuacion_inmueble_vacio_arrendamiento":{
-   exige(h.viviendas.every(v=>v.alquiler.contrato>="2025-01-01"),`${h.codigo}: arriendo anterior2025 requiere productor de bases históricas por inmueble/origen,ausente en APIv4`)
+   // Art.2.Tres y DF3.1 Ley5/2024: incentivo vigente desde2025; art.2.Dos
+   // y DF3.2.a Ley5/2025: generación en el ejercicio del contrato desde2025.
+   // Los gastos previos no constituyen una base fiscal de origen anterior.
+   exige(h.viviendas.every(v=>v.alquiler.contrato>="2025-01-01"),`${h.codigo}: contrato anterior a 2025 fuera del perfil temporal; incentivo vigente desde 2025, sin base fiscal pendiente de origen anterior`)
    return evaluarAmpliacionE2025(c,{...h,viviendas:h.viviendas.map(v=>({...v,baseConsumidaAnterior:"0",basePendienteAnterior:[]}))})
   }
   case "galicia_arrendamiento_viviendas_vacias":

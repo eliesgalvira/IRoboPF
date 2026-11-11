@@ -1,0 +1,213 @@
+{
+  "lote": "D51",
+  "codigo": "clm_adquisicion_rehabilitacion_vivienda_zonas_rurales",
+  "historiaBases": {
+    "version": "historia-bases-d51-v1",
+    "titular": "s-1",
+    "objeto": "v",
+    "censo": "completo-desde-primera-operacion",
+    "financiacion": "sin-financiacion",
+    "objetos": [
+      {
+        "id": "v",
+        "clase": "vivienda",
+        "primeraOperacion": "2024-01-02",
+        "documento": {
+          "referencia": "escritura",
+          "emisor": "soporte-declarado",
+          "fecha": "2024-01-02"
+        }
+      }
+    ],
+    "operaciones": [
+      {
+        "id": "p24",
+        "objeto": "v",
+        "titular": "s-1",
+        "fecha": "2024-01-02",
+        "orden": 1,
+        "clase": "adquisicion",
+        "importe": "10000.01",
+        "documento": {
+          "referencia": "p24",
+          "emisor": "soporte-declarado",
+          "fecha": "2024-01-02"
+        }
+      },
+      {
+        "id": "p25",
+        "objeto": "v",
+        "titular": "s-1",
+        "fecha": "2025-01-02",
+        "orden": 1,
+        "clase": "adquisicion",
+        "importe": "4999.99",
+        "documento": {
+          "referencia": "p25",
+          "emisor": "soporte-declarado",
+          "fecha": "2025-01-02"
+        }
+      }
+    ],
+    "aplicaciones": [
+      {
+        "ejercicio": 2024,
+        "titular": "s-1",
+        "objeto": "v",
+        "estado": "aplicacion-no-reconstruida",
+        "documento": {
+          "referencia": "renta2024",
+          "emisor": "soporte-declarado",
+          "fecha": "2025-06-01"
+        }
+      }
+    ],
+    "transmisiones": []
+  },
+  "aplicacionViviendaCLM2024": {
+    "version": "clm-vivienda-aplicacion-2024-v1",
+    "titular": "s-1",
+    "vivienda": "v",
+    "ejercicio": 2024,
+    "aplicacion": "solicitada-en-autoliquidacion-original",
+    "documento": {
+      "referencia": "renta2024",
+      "emisor": "soporte-declarado",
+      "fecha": "2025-06-01"
+    },
+    "modalidad": "individual",
+    "residencia": "clm-todo-2024",
+    "vivoTodoEjercicio": true,
+    "edadDevengo": 30,
+    "otrasRentas": "ninguna-incluidas-exentas-extranjero-imputaciones",
+    "familiaresMinimo": "ninguno",
+    "discapacidad": "ninguna",
+    "reduccionesBase": "ninguna",
+    "saldosAnteriores": "ninguno",
+    "otrasDeducciones": "ninguna-estatal-autonomica-doble-imposicion",
+    "otrasViviendasDeducidas": "ninguna-desde-2021",
+    "transmisionesReinversiones": "ninguna",
+    "ayudas": "ninguna",
+    "financiacion": "sin-prestamos-creditos-intereses-ni-coberturas",
+    "trabajo": {
+      "ejercicio": 2024,
+      "territorio": "comun",
+      "reduccionesArt18": "ninguna",
+      "movilidad": "ninguna",
+      "discapacidadActiva": "ninguna",
+      "rendimientos": [
+        {
+          "id": "r",
+          "clase": "empleo-laboral",
+          "integro": "40000",
+          "cotizaciones": {
+            "clase": "efectivas",
+            "seguridadSocial": "0",
+            "derechosPasivos": "0",
+            "colegiosHuerfanos": "0"
+          },
+          "sindicato": {
+            "importe": "0",
+            "satisfecho": "no"
+          },
+          "colegio": {
+            "importe": "0",
+            "satisfecho": "no",
+            "obligatorio": "no",
+            "finesEsenciales": "no"
+          },
+          "defensa": {
+            "importe": "0",
+            "satisfecho": "no",
+            "litigioDirectoPagador": "no"
+          }
+        }
+      ]
+    },
+    "certificados": [
+      {
+        "rendimiento": "r",
+        "titular": "s-1",
+        "documento": {
+          "referencia": "cert2024",
+          "emisor": "soporte-declarado",
+          "fecha": "2025-06-01"
+        },
+        "integro": "40000",
+        "seguridadSocial": "0",
+        "derechosPasivos": "0",
+        "colegiosHuerfanos": "0"
+      }
+    ],
+    "compra": {
+      "fecha": "2024-01-02",
+      "escritura": {
+        "referencia": "escritura",
+        "emisor": "soporte-declarado",
+        "fecha": "2024-01-02"
+      },
+      "plenoDominioDesde": "2024-01-02",
+      "porcentaje": "100",
+      "coste": "15000",
+      "municipio": "02001",
+      "categoria": "extrema",
+      "poblacion2024": 1000,
+      "poblacion2025": 1001,
+      "soporteMunicipal2024": {
+        "referencia": "padron2024",
+        "emisor": "soporte-declarado",
+        "fecha": "2024-12-31"
+      },
+      "soporteMunicipal2025": {
+        "referencia": "padron2025",
+        "emisor": "soporte-declarado",
+        "fecha": "2025-12-31"
+      },
+      "ocupacionDesde": "2024-01-02",
+      "ocupacionHasta": "2025-12-31",
+      "soporteOcupacion": {
+        "referencia": "residencia",
+        "emisor": "soporte-declarado",
+        "fecha": "2025-12-31"
+      },
+      "permanencia": "sin-interrupciones-hasta-2025-obligacion-tres-anos-pendiente"
+    },
+    "patrimonio2024": {
+      "inicioSinRevalorizaciones": "0",
+      "finSinRevalorizaciones": "10000.01",
+      "documento": {
+        "referencia": "patr2024",
+        "emisor": "soporte-declarado",
+        "fecha": "2025-06-01"
+      }
+    },
+    "patrimonio2025": {
+      "inicioSinRevalorizaciones": "10000.01",
+      "finSinRevalorizaciones": "15000",
+      "documento": {
+        "referencia": "patr2025",
+        "emisor": "soporte-declarado",
+        "fecha": "2025-12-31"
+      }
+    }
+  },
+  "hechos": {
+    "fechaOperacion": "2024-01-02",
+    "categoria": "extrema",
+    "poblacionFiscal": 1001,
+    "pagos": [
+      {
+        "id": "p25",
+        "fecha": "2025-01-02",
+        "pagador": "s-1",
+        "importe": "4999.99"
+      }
+    ],
+    "coste": "15000",
+    "ayudaJccm": "0",
+    "porcentajePropiedad": "100",
+    "concurrencia12": "no",
+    "exhaustividad": "completa",
+    "vivienda": "v"
+  }
+}

@@ -1,3 +1,4 @@
+import { HistoriaRenovablesMurcia2024 } from "./murcia-renovables-historia-esquema"
 import { HistoriaViviendaMadrid } from "./madrid-vivienda-historia-esquema"
 import { HistoriaNacimientoMadrid } from "./madrid-historia-esquema"
 import { AuxiliaresAnualesF } from "./auxiliares-esquemas"
@@ -49,6 +50,7 @@ const HistorialRecarga = Schema.Struct({
   })),
 })
 export const SolicitudAnualF2025 = Schema.Struct({
+  historiaRenovablesMurcia2024: Schema.optionalKey(HistoriaRenovablesMurcia2024),
   historiaViviendaMadrid: Schema.optionalKey(HistoriaViviendaMadrid),
   historiaNacimientoMadrid: Schema.optionalKey(HistoriaNacimientoMadrid),
   auxiliares: Schema.optionalKey(AuxiliaresAnualesF),

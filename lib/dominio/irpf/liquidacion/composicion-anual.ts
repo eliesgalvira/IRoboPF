@@ -1,3 +1,4 @@
+import type { TrabajoActualCLM2025 } from "../patrimonio-historico-clm/actual"
 import { admiteArgumentoOpen2020A2022, esPerfilOpen2020A2022 } from "../trabajo-anual/politica-open-2020-2022"
 import { calcularReduccionTrabajoConOtrasRentas } from "../reducciones/reduccion-rendimientos-trabajo"
 import type { CasoFiscalAnualExplicitoBase } from "../trabajo-anual/conexion-contrato"
@@ -87,6 +88,7 @@ export interface EntradaComposicionAnual {
   readonly rentasTrabajoAnuales?:
     | {
         readonly integroTrabajo: Decimal
+        readonly hechosCLM2025?: TrabajoActualCLM2025 | undefined
         readonly restoRentas: Decimal
       }
     | undefined

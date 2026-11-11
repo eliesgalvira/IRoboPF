@@ -1,3 +1,4 @@
+import { producirAplicacionViviendaCLM2024 } from "./clm-vivienda-historia-positiva-2025"
 import { producirBaseInicialTrasladoCLM } from "./clm-traslado-historia-2025"
 import { evaluarFamiliarExentoExt2025 } from "./ext-familiar-anual-2025"
 import { producirHistoriaBasesD51 } from "./historia-bases-d51"
@@ -47,7 +48,7 @@ export function crearSesionD51(m:MagnitudesTerritorialesAnuales) {
    case "baseLiquidableInicial":
     exigir(texto(datos.fechaTraslado).startsWith("2025-"),"D51: base liquidable del año inicial2024 no modelada");concepto="base_liquidable_inicio_periodo";valor=liquidable();break
    case "cuotaTrabajoActividad": {
-    exigir(m.rentasTrabajoAnuales!==undefined&&m.rentasTrabajoAnuales.integroTrabajo.gt(0)&&m.rentasTrabajoAnuales.restoRentas.eq(0)&&m.baseAhorro.eq(0),"D51: cuota atribuible a trabajo/actividad no modelada para rentas mixtas o actividad aislada")
+    exigir(m.rentasTrabajoAnuales!==undefined&&m.rentasTrabajoAnuales.integroTrabajo.gt(0)&&m.rentasTrabajoAnuales.restoRentas.eq(0)&&m.baseAhorro.eq(0)&&m.libroIngresosIdentificados2025===undefined,"D51: cuota atribuible a trabajo/actividad no modelada para rentas mixtas o actividad aislada")
     const cuota=m.nodosFiscalesB2025?.cuotaTrabajoActividad
     exigir(m.nodosFiscalesB2025?.contribuyente===propio&&cuota?.origen==="solo-trabajo","D51: cuota de trabajo no derivada por composición; rentas mixtas o compensadas fuera del perfil")
     concepto="cuota_autonomica_trabajo_actividad";valor=new A(cuota.importe);break
@@ -173,7 +174,10 @@ case "clm_donaciones_bienes_culturales_mecenazgo":return CLM.mecenazgoCultural(m
 case "clm_intereses_primera_vivienda_menores_40":return CLM.interesesPrimeraVivienda(marco,({...s.hechos}))
 case "clm_residencia_zonas_rurales":return CLM.residenciaRural(marco,({...s.hechos, cuotaAutonomica: magnitud("cuotaAutonomica","clm_residencia_zonas_rurales",s.hechos), escolares: s.hechos.escolares.map(elemento=>({...elemento}))}))
 case "clm_adquisicion_rehabilitacion_vivienda_zonas_rurales": {
- const h=producirHistoriaBasesD51(s.historiaBases,{codigo:s.codigo,titular:propio,objeto:s.hechos.vivienda,fechaOperacion:s.hechos.fechaOperacion,pagos:s.hechos.pagos,costePropio:euros(s.hechos.coste).times(euros(s.hechos.porcentajePropiedad)).div(100).toFixed()})
+ if(s.aplicacionViviendaCLM2024!==undefined)exigir(m.rentasTrabajoAnuales?.hechosCLM2025!==undefined&&m.rentasTrabajoAnuales.restoRentas.eq(0)&&m.baseAhorro.eq(0)&&m.libroIngresosIdentificados2025===undefined,"Historia vivienda CLM: falta salario factual2025 o existen otras rentas")
+ if(s.aplicacionViviendaCLM2024!==undefined)exigir(m.caso.anio===2025&&m.caso.situacionFamiliar.tipo==="individual"&&m.caso.fechaFallecimiento===undefined,"Historia vivienda CLM: sólo individual ordinaria2025")
+ const contextoHistoria={codigo:s.codigo,titular:propio,objeto:s.hechos.vivienda,fechaOperacion:s.hechos.fechaOperacion,pagos:s.hechos.pagos,costePropio:euros(s.hechos.coste).times(euros(s.hechos.porcentajePropiedad)).div(100).toFixed()}
+ const h=s.aplicacionViviendaCLM2024===undefined?producirHistoriaBasesD51(s.historiaBases,contextoHistoria):producirAplicacionViviendaCLM2024(s.aplicacionViviendaCLM2024,s.historiaBases,contextoHistoria,s.hechos,m.caso.situacionFamiliar.edad,m.rentasTrabajoAnuales!.hechosCLM2025!)
  const r=CLM.viviendaRural(marco,{...s.hechos,baseConsumidaAnterior:h.magnitud})
  return r.estado==="calculo_parcial"?{...r,pendientes:[...h.fundamentos,...r.pendientes]}:r
 }
@@ -229,7 +233,8 @@ case "extremadura_inversion_acciones_participaciones_mercantiles":
  if("perfil" in s.hechos)throw new RangeError("EXT inversión: perfil no evaluado")
  return EXT.inversionMercantilExt(marco,({...s.hechos, baseEstatalMismaInversion: magnitud("baseEstatalMismaInversion","extremadura_inversion_acciones_participaciones_mercantiles",s.hechos)}))
 case "extremadura_vivienda_zonas_rurales": {
- const h=producirHistoriaBasesD51(s.historiaBases,{codigo:s.codigo,titular:propio,objeto:s.hechos.vivienda,fechaOperacion:s.hechos.fechaOperacion,pagos:s.hechos.pagos,costePropio:euros(s.hechos.coste).times(euros(s.hechos.porcentajePropiedad)).div(100).toFixed()})
+ const contextoHistoria={codigo:s.codigo,titular:propio,objeto:s.hechos.vivienda,fechaOperacion:s.hechos.fechaOperacion,pagos:s.hechos.pagos,costePropio:euros(s.hechos.coste).times(euros(s.hechos.porcentajePropiedad)).div(100).toFixed()}
+ const h=producirHistoriaBasesD51(s.historiaBases,contextoHistoria)
  const r=EXT.viviendaRuralExt(marco,{...s.hechos,baseHistorica:h.magnitud})
  return r.estado==="calculo_parcial"?{...r,pendientes:[...h.fundamentos,...r.pendientes]}:r
 }

@@ -1,3 +1,4 @@
+import type { LibroOrigenRenovablesMurcia2024 } from "./murcia-renovables-historia"
 import DecimalBase from "decimal.js"
 import { DateTime, Option, Schema } from "effect"
 import type { SolicitudF, PersonaF, ViviendaF, PagoF } from "./esquemas"
@@ -45,6 +46,8 @@ export type AplicacionAnualRecargaF = {
 }
 export type ConstruccionF<T> = { -readonly [P in keyof T]: T[P] }
 export type ResultadoF = {
+  readonly origenRenovablesMurcia2024?: LibroOrigenRenovablesMurcia2024
+
   readonly consumoCompartidoDT18?: {
     readonly generado: Racional
     readonly aplicado: Racional
