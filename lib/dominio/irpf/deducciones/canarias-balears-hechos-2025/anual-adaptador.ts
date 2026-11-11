@@ -306,6 +306,7 @@ export function evaluarAnualC36(
       // Las ramas sin productor se rechazan arriba, no reciben ceros fiscales.
       return {
         ...v,
+        gastos: historiaInversion?.gastosElegibles ?? v.gastos,
         porcentaje,
         ocupacionIlegal: v.ocupacionIlegal ?? {
           situacion: "ocupacion",
@@ -385,7 +386,7 @@ export function evaluarAnualC36(
       }
     })
     const resultadoVivienda = evaluarViviendaAmpliacionC(
-      { ...h, codigo: s.codigo, viviendas: historiaInversion?.cumplePatrimonio === false ? [] : viviendas },
+      { ...h, codigo: s.codigo, viviendas },
       a,
       historiaInversion?.historico ?? { calculoId: a.calculoId, ejercicio: 2025, viviendas:
         s.codigo === "balears_arrendamiento_vivienda_habitual"

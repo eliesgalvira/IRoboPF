@@ -35,9 +35,9 @@ it("cuotas asimétricas y80 cifras: sin trasvasar insuficiencia de un tramo al o
 it("capital3000, gasto3050, crecimiento3000 y deuda reconstruida separados",()=>{
  const l=libro(fixture());expect(l.capital).toEqual({n:300000n,d:1n});expect(l.cumplePatrimonio).toBe(true);expect(l.baseDerechoSinAdecuacion).toEqual({n:305000n,d:1n})
 })
-it("déficit patrimonial de un céntimo: no concede DT18 ni deducción regional",()=>{
+it("déficit patrimonial de un céntimo: DT18 parcial y deducción regional cero",()=>{
  const s=fixture(),h=s.viviendaDT182025!;Object.assign(h.movimientos.find(x=>x.id==="CON")!,{importe:"46950.01"});Object.assign(h.cuentas[0]!.cierre,{importe:"1999.99"})
- for(const e of territoriales(s)){const r=Effect.runSync(e);expect(r?.total).toEqual(racional("0"));expect(r?.viviendaDT182025?.cuotas?.estatal.total).toEqual(racional("0"))}
+ for(const e of territoriales(s)){const r=Effect.runSync(e);expect(r?.total).toEqual(racional("0"));expect(r?.viviendaDT182025?.cuotas?.estatal.total).toEqual(racional("228.74925"))}
 })
 it("variación valorativa de inmueble no sustituye ahorro",()=>{
  for(const importe of ["0","999999"]){const s=fixture();Object.assign(s.viviendaDT182025!.adquisicion.valorCierre,{importe});for(const e of territoriales(s))expect(Effect.runSync(e)?.total).toEqual(racional("152.5"))}
@@ -73,7 +73,7 @@ it("trayectoria anterior reconstruye principal; no aceptar corte aislado",()=>{
  Object.assign(l.disposicion,{importe:"7000"});Object.assign(l,{amortizacionesAnteriores:[{id:"H",fecha:"2014-01-01",importe:"1000",pagador:"A",receptor:l.acreedor,documento:{referencia:"H",fecha:"2014-01-01",emisor:"Banco"}}]})
  for(const e of territoriales(s))expect(Effect.runSync(e)?.total).toEqual(racional("152.5"))
 })
-it("ISD gastado no acredita ahorro para DT18",()=>{
+it("ISD sin cronología del derecho rechaza sin importe para DT18",()=>{
  const s=fixture();Object.assign(s.viviendaDT182025!.movimientos.find(x=>x.id==="ING")!,{clase:"herencia"})
- for(const e of territoriales(s)){const r=Effect.runSync(e);expect(r?.total).toEqual(racional("0"));expect(r?.viviendaDT182025?.cuotas?.estatal.total).toEqual(racional("0"))}
+ for(const e of territoriales(s))expect(Effect.runSync(Effect.flip(e))._tag).toBe("ResultadoNoSoportado")
 })

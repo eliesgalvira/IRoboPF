@@ -4,6 +4,7 @@ import type { CasoFiscalAnualExplicitoBase } from "../trabajo-anual/conexion-con
 import { prepararAscendientesValencianos2025 } from "../minimos/ascendientes-valencia-2025"
 import { producirDT182025, producirDT18Murcia2025, validarCensosViviendaRioja } from "../vivienda-dt18-2025/productor"
 import { HechosDT182025, HechosDT18Murcia2025 } from "../vivienda-dt18-2025/contrato"
+import { validarConcurrenciaDT18Donativos2025, donativosConcurrentes } from "../vivienda-dt18-2025/donativos"
 import { aplicarCuotasDT18 } from "../vivienda-dt18-2025/cuota"
 import { racional } from "../deducciones/anual-territorial-racional"
 import { producirVehiculoDA58 } from "../vehiculo-da58-2025/productor"
@@ -500,19 +501,26 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
     const cuotaAutonomicaDisponible = cuotaAutonomicaGeneralDespuesMinimo.plus(
       ahorroConMinimos.autonomico.despuesMinimo
     )
+    const seleccionDT18Donativos = entrada.deduccionesTerritoriales2025
+    if (seleccionDT18Donativos !== undefined) yield* Effect.try({
+      try: () => validarConcurrenciaDT18Donativos2025(seleccionDT18Donativos, caso.comunidadAutonoma),
+      catch: e => errorDerechosMinimos({ motivo: e instanceof Error ? e.message : "DT18/donativos: selección inválida" }),
+    })
     const solicitudDT18 = entrada.deduccionesTerritoriales2025?.viviendaDT182025
     const libroDT18 = solicitudDT18 === undefined ? undefined : yield* Effect.try({
       try: () => {
         const s=Schema.decodeUnknownSync(SolicitudDeduccionesTerritoriales2025)(entrada.deduccionesTerritoriales2025,{onExcessProperty:"error"})
         validarCensosViviendaRioja(s)
         if(s.viviendaDT182025===undefined)throw new RangeError("DT18: hechos ausentes")
-        if(entrada.maternidad2025!==undefined||entrada.ingresosIdentificados2025!==undefined||entrada.inmueblesP4a!==undefined||s.donativosEstatales2025!==undefined||s.vehiculoDA582025!==undefined||entrada.deduccionesValencianas2025!==undefined||entrada.deduccionesAutonomicasCentimos!==0)throw new RangeError("DT18: combinación con otros productores requiere coordinación explícita")
+        if(entrada.maternidad2025!==undefined||entrada.ingresosIdentificados2025!==undefined||entrada.inmueblesP4a!==undefined||s.vehiculoDA582025!==undefined||entrada.deduccionesValencianas2025!==undefined||entrada.deduccionesAutonomicasCentimos!==0)throw new RangeError("DT18: combinación con otros productores requiere coordinación explícita")
         return caso.comunidadAutonoma==="murcia"
           ? producirDT18Murcia2025(Schema.decodeUnknownSync(HechosDT18Murcia2025)(s.viviendaDT182025,{onExcessProperty:"error"}),caso,s.solicitudes)
           : producirDT182025(Schema.decodeUnknownSync(HechosDT182025)(s.viviendaDT182025,{onExcessProperty:"error"}),caso,s.solicitudes)
       },
       catch: e=>errorDerechosMinimos({motivo:e instanceof Error?e.message:"DT18: hechos históricos no componibles"}),
     })
+    if (libroDT18 !== undefined && donativosConcurrentes(entrada.deduccionesTerritoriales2025) && !libroDT18.cumplePatrimonio)
+      return yield* Effect.fail(errorDerechosMinimos({ motivo: "DT18/donativos: sólo patrimonio suficiente; base parcial pendiente de revisión del núcleo" }))
     const cuotasDT18=libroDT18===undefined?undefined:aplicarCuotasDT18(libroDT18,racional(cuotaEstatalDespuesMinimo.plus(ahorroConMinimos.estatal.despuesMinimo).toFixed()),racional(cuotaAutonomicaDisponible.toFixed()))
     const hechosDA58 = entrada.deduccionesTerritoriales2025?.vehiculoDA582025
     if (hechosDA58 !== undefined && (caso.anio !== 2025 || caso.fechaFallecimiento !== undefined || caso.contribuyenteId === undefined ||
@@ -533,12 +541,13 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
         return yield* Effect.fail(errorDerechosMinimos({ motivo: "Donativos estatales:2025 individual ordinaria con identidad" }))
       libroDonativos = yield* Effect.try({
         try: () => producirDonativosEstatales2025(donativos, { contribuyente: caso.contribuyenteId!, baseLiquidableGeneral, baseLiquidableAhorro,
-          cuotaEstatal: cuotaEstatalDespuesMinimo.plus(ahorroConMinimos.estatal.despuesMinimo), cuotaAutonomica: cuotaAutonomicaDisponible }),
+          cuotaEstatal: cuotasDT18 === undefined ? cuotaEstatalDespuesMinimo.plus(ahorroConMinimos.estatal.despuesMinimo) : eurosDonativos(cuotasDT18.estatal.disponible),
+          cuotaAutonomica: cuotasDT18 === undefined ? cuotaAutonomicaDisponible : eurosDonativos(cuotasDT18.autonomica.disponible) }),
         catch: (e) => errorDerechosMinimos({ motivo: Schema.is(DonativoNoSoportado)(e) ? e.siguienteHecho + ":" + e.motivo : "Productor donativos no componible" }),
       })
     }
     const deduccionesGeneralesDonativosAplicadas = libroDonativos === undefined ? new A(0) : new A(eurosDonativos(libroDonativos.aplicado))
-    const cuotaAutonomicaResidual = cuotasDT18!==undefined ? new A(cuotasDT18.autonomica.disponible.numeradorEuros).div(cuotasDT18.autonomica.disponible.divisor) : libroDonativos === undefined ? cuotaAutonomicaDisponible : new A(eurosDonativos(libroDonativos.autonomica.disponible))
+    const cuotaAutonomicaResidual = libroDonativos !== undefined ? new A(eurosDonativos(libroDonativos.autonomica.disponible)) : cuotasDT18 !== undefined ? new A(eurosDonativos(cuotasDT18.autonomica.disponible)) : cuotaAutonomicaDisponible
     let deduccionesValencianas2025:
       | ResultadoCuotaConjuntaValenciana2025<string>
       | undefined

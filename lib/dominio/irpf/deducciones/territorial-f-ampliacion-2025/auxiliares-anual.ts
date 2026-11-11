@@ -75,7 +75,7 @@ export function evaluarAuxiliaresAnualesF(s: SolicitudAnualF2025, m: MagnitudesT
     // Bases gravables de los hijos cero por el perfil comprobado; familiar = propia.
     if (superior(base, "61860")) excluir("baseUnidadFamiliar", "Base familiar excedida")
     }
-    comprobarHistoriaNacimientoMadrid(s, m)
+    const origenesValidos = comprobarHistoriaNacimientoMadrid(s, m)
     unicos(h.eventos.map((e) => e.id), "eventos.id")
     unicos(h.eventos.flatMap((e) => e.hijos), "eventos.hijos")
     if (h.centros.length > 0 || h.servicios.length > 0 || (s.hechos.pagos?.length ?? 0) > 0)
@@ -95,7 +95,9 @@ export function evaluarAuxiliaresAnualesF(s: SolicitudAnualF2025, m: MagnitudesT
         if ((e.tipo === "nacimiento" && (d.fechaNacimiento !== f || v?.clase !== "consanguinidad")) ||
           (e.tipo === "adopcion" && (v?.clase !== "adopcion" || v.fechaConstitucionVinculo !== f || f < d.fechaNacimiento)))
           falta("evento.vinculo_fecha", "Fecha/vínculo contradice el anual")
-        total = sumar(total, cuantiaNacimientoMadridExacta(1, f >= "2025-01-01" && e.hijos.length > 1, p.convivientesDevengo.length))
+        // Validar también los eventos sin derecho; sumar cada hijo una sola vez.
+        if (origenesValidos.has(Number(f.slice(0, 4))))
+          total = sumar(total, cuantiaNacimientoMadridExacta(1, f >= "2025-01-01" && e.hijos.length > 1, p.convivientesDevengo.length))
       }
     }
   } else {

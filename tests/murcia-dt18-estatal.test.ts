@@ -43,10 +43,10 @@ describe("Murcia DT primera.4 / perfil adquisición ordinaria",()=>{
    expect(r.cuota.eq(Effect.runSync(controles[i]!).cuota.minus("457.5"))).toBe(true)
   }
  })
- it("frontera art70: déficit de un céntimo excluye toda la base, incluidos intereses",()=>{
+ it("frontera art70: déficit de un céntimo limita capital y conserva intereses",()=>{
   const s=fixture(),h=s.viviendaDT182025!
   Object.assign(h.cuentas[0]!.cierre,{importe:"1999.99"});Object.assign(h.movimientos.find(x=>x.id==="CON")!,{importe:"46950.01"})
-  for(const e of ambas(s)){const r=Effect.runSync(e);expect(r.t?.viviendaDT182025?.cuotas?.autonomica.total).toEqual(racional("0"));expect(r.t?.viviendaDT182025?.baseDerechoSinAdecuacion).toEqual({numeradorCentimos:"0",denominador:"1"})}
+  for(const e of ambas(s)){const r=Effect.runSync(e);expect(r.t?.viviendaDT182025?.cuotas?.autonomica.total).toEqual(racional("228.74925"));expect(r.t?.viviendaDT182025?.baseDerechoSinAdecuacion).toEqual({numeradorCentimos:"304999",denominador:"1"})}
  })
  it("variación de valor no sustituye ni limita ahorro reconstruido",()=>{
   for(const importe of ["0","999999"]){const s=fixture();Object.assign(s.viviendaDT182025!.adquisicion.valorCierre,{importe});for(const e of ambas(s))expect(Effect.runSync(e).t?.viviendaDT182025?.cuotas?.autonomica.total).toEqual(racional("228.75"))}
@@ -57,9 +57,9 @@ describe("Murcia DT primera.4 / perfil adquisición ordinaria",()=>{
   Object.assign(h.movimientos.find(x=>x.clase==="amortizacion")!,{importe:"9000"});Object.assign(h.movimientos.find(x=>x.id==="CON")!,{importe:"40950"})
   for(const e of ambas(s)){const t=Effect.runSync(e).t!;expect(t.viviendaDT182025?.baseDerechoSinAdecuacion).toEqual({numeradorCentimos:"904000",denominador:"1"});expect(t.viviendaDT182025?.cuotas?.autonomica.total).toEqual(racional("678"));expect(t.total).toEqual(racional("0"))}
  })
- it("ISD gastado no sustituye ahorro propio",()=>{
+ it("ISD sin cronología del derecho rechaza sin importe",()=>{
   const s=fixture();Object.assign(s.viviendaDT182025!.movimientos.find(x=>x.id==="ING")!,{clase:"herencia"})
-  for(const e of ambas(s))expect(Effect.runSync(e).t?.viviendaDT182025?.cuotas?.autonomica.total).toEqual(racional("0"))
+  for(const e of ambas(s))expect(Effect.runSync(Effect.flip(e))._tag).toBe("ResultadoNoSoportado")
  })
  it("insuficiencia de cuota asimétrica y racional exacta",()=>{
   const s=fixture(),h=Schema.decodeUnknownSync(HechosDT18Murcia2025)(s.viviendaDT182025),l=producirDT18Murcia2025(h,canonico(),s.solicitudes)

@@ -499,7 +499,7 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
     ambito: caso,
     maternidad2025: caso.maternidad2025,
     ingresosIdentificados2025: ingreso,
-    origenBaseGeneralB: ingreso === undefined && caso.rendimientos.trabajo.length > 0 && (caso.rendimientos.capitalInmobiliario?.length ?? 0) === 0 ? "solo-trabajo" : undefined,
+    origenBaseGeneralB: ingreso === undefined && caso.rendimientos.trabajo.length > 0 && (caso.rendimientos.capitalInmobiliario?.length ?? 0) === 0 && (caso.rendimientos.gananciasPatrimoniales?.length ?? 0) === 0 ? "solo-trabajo" : undefined,
     rentasTrabajoAnuales: {
       integroTrabajo: rendimientoTrabajo.rendimientoIntegro,
       restoRentas: otrasRentasArt20,

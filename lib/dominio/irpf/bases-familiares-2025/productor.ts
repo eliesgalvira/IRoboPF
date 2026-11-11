@@ -1,4 +1,5 @@
 import Decimal from "decimal.js"
+import { conciliaRentaEnCentimos } from "../minimos/rentas-censadas"
 import { CalendarioTrabajo2025, discapacidadDevengoCalendario } from "../trabajo-anual/calendario-2025"
 import { Schema, Result, DateTime, Option } from "effect"
 import { GastosTrabajo } from "../trabajo-anual/contrato"
@@ -15,7 +16,13 @@ export const EconomiaPersonaFamiliar2025 = Schema.Union([
       Schema.Struct({ perfil: Schema.Literal("solo-trabajo"), censoRentasCompleto: Schema.Literal(true),
         otrasRentas: Schema.Literal("ninguna"), reduccionesBase: Schema.Literal("ninguna"),
         saldosAnteriores: Schema.Literal("ninguno"), trabajo: GastosTrabajo,
-        calendarioTrabajo2025: Schema.optional(CalendarioTrabajo2025) }),
+        calendarioTrabajo2025: Schema.optional(CalendarioTrabajo2025),
+        mezclaEmpleoPension2025: Schema.optional(Schema.Struct({
+          sujetoId: Id, empleoId: Texto, pensionId: Texto,
+          pagadorPension: Texto, soportePension: Texto,
+          prestacion: Schema.Literal("jubilacion-publica-ordinaria-no-exenta"),
+          imputacion: Schema.Literal("periodica-2025-sin-atrasos-ni-art18"),
+        })) }),
     ])
 /** Hechos económicos completos; no admite base, saldo, cuota ni declaración anidada. */
 export const CensoBasesFamiliares2025 = Schema.Struct({
@@ -64,11 +71,14 @@ function exigir(ok: boolean, motivo: string): asserts ok { if (!ok) throw new Ra
 function unicos(ids: readonly string[], campo: string): void { exigir(new Set(ids).size === ids.length, campo + " duplicado") }
 function mismos(a: readonly string[], b: readonly string[]): boolean { return a.length === b.length && a.every(id => b.includes(id)) }
 /** Núcleo individual sin escalas, mínimos, pagos ni deducciones; art19/art20 compartidos. */
-export function baseTrabajoMiembro2025(trabajo: GastosTrabajo, madrid: boolean, otrasRentas: Decimal = new D(0), aporte = adaptarTrabajoAnual(trabajo)): BasePersona2025 {
+export function baseTrabajoMiembro2025(trabajo: GastosTrabajo, madrid: boolean, otrasRentas: Decimal = new D(0), aporte = adaptarTrabajoAnual(trabajo), mezclaFamiliar2025 = false): BasePersona2025 {
   exigir(trabajo.ejercicio === 2025 && trabajo.territorio === "comun", "trabajo: faltan hechos ordinarios2025")
   const empleo = trabajo.rendimientos.every(r => ["empleo-laboral", "empleo-estatutario"].includes(r.clase))
   const pension = trabajo.rendimientos.every(r => r.clase === "pension")
-  exigir(trabajo.rendimientos.length > 0 && (empleo || pension), "trabajo: falta separación empleo/pensión/otras clases")
+  const mezcla = mezclaFamiliar2025 && trabajo.rendimientos.length === 2 &&
+    trabajo.rendimientos.filter(r => ["empleo-laboral", "empleo-estatutario"].includes(r.clase)).length === 1 &&
+    trabajo.rendimientos.filter(r => r.clase === "pension").length === 1
+  exigir(trabajo.rendimientos.length > 0 && (empleo || pension || mezcla), "trabajo: falta separación empleo/pensión/otras clases")
   exigir(aporte.estado !== "no-soportado", aporte.estado === "no-soportado" ? aporte.motivo : "trabajo no disponible")
   const neto = new D(aporte.rendimientoAntesArt20)
   let reduccion = D.min(D.max(0, neto), calcularReduccionTrabajoConOtrasRentas({
@@ -84,9 +94,16 @@ export function producirEconomiaAjena2025(e: typeof EconomiaPersonaFamiliar2025.
   exigir(Result.isSuccess(r), "economía incompleta o magnitudes fiscales externas")
   const hechos = r.success
   exigir(hechos.perfil !== "declarante-en-composicion", "economía ajena requiere rentas expresas")
-  return hechos.perfil === "sin-rentas"
-    ? { general: new D(0), ahorro: new D(0), rentaAntesReducciones: new D(0) }
-    : baseTrabajoMiembro2025(hechos.trabajo, madrid, new D(0), adaptarTrabajoAnual(hechos.trabajo, hechos.calendarioTrabajo2025))
+  if (hechos.perfil === "sin-rentas") return { general: new D(0), ahorro: new D(0), rentaAntesReducciones: new D(0) }
+  const mezcla = hechos.mezclaEmpleoPension2025
+  if (mezcla !== undefined) {
+    exigir(hechos.trabajo.rendimientos.every(r => new D(r.integro).gt(0)), "mezcla: empleo y prestación requieren ingresos positivos")
+    const c = hechos.calendarioTrabajo2025
+    exigir(c !== undefined, "mezcla empleo/pensión: falta calendario laboral identificado")
+    exigir(mezcla.sujetoId === c.sujetoId && mezcla.empleoId === c.rendimientoId && mezcla.empleoId !== mezcla.pensionId, "mezcla: identidad empleo/pensión contradictoria")
+    exigir(hechos.trabajo.rendimientos.length === 2 && hechos.trabajo.rendimientos.some(r => r.id === mezcla.empleoId && ["empleo-laboral", "empleo-estatutario"].includes(r.clase)) && hechos.trabajo.rendimientos.some(r => r.id === mezcla.pensionId && r.clase === "pension"), "mezcla: censo de rendimientos no concilia con prestación identificada")
+  }
+  return baseTrabajoMiembro2025(hechos.trabajo, madrid, new D(0), adaptarTrabajoAnual(hechos.trabajo, hechos.calendarioTrabajo2025, mezcla !== undefined), mezcla !== undefined)
 }
 /** No llama a ninguna liquidación ni agrega rentas ajenas al declarante. */
 export function producirBasesFamiliares2025(
@@ -139,6 +156,7 @@ export function producirBasesFamiliares2025(
       bases.set(p.id, { general: new D(propia.general), ahorro: new D(propia.ahorro) })
     } else {
       exigir(e.perfil !== "declarante-en-composicion", "segundo declarante en composición:" + p.id)
+      exigir(e.perfil !== "solo-trabajo" || e.mezclaEmpleoPension2025 === undefined || caso.comunidadAutonoma !== "andalucia", "mezcla familiar: consumidor andaluz fuera de este corte")
       // Los hechos H2 sin calendario siguen insuficientes. Andalucía conserva
       // su cobertura previa; este primer calendario se abre sólo Madrid/Valencia.
       exigir(e.perfil !== "solo-trabajo" || e.trabajo.discapacidadActiva === "ninguna" || e.calendarioTrabajo2025 !== undefined, "discapacidad activa ajena: faltan periodos conciliados con mínimos:" + p.id)
@@ -157,9 +175,13 @@ export function producirBasesFamiliares2025(
       if (d !== undefined && p.declaracion2025 !== undefined)
         exigir(p.declaracion2025.modalidad === d.declaracion.modalidad, "declaración contradice mínimos:" + p.id)
       if (e.perfil === "sin-rentas" && d?.declaracion.modalidad === "individual") exigir(d.declaracion.rentasCentimos === 0, "ausencia de renta contradice declaración:" + p.id)
-      exigir(d === undefined || renta.times(100).eq(d.rentasNoExentasCentimos), "renta económica contradice mínimos:" + p.id)
+      exigir(d === undefined || conciliaRentaEnCentimos(renta, d.rentasNoExentasCentimos), "renta económica contradice mínimos:" + p.id)
+      // Este censo contiene sólo trabajo completo o ausencia de rentas, sin
+      // otras rentas ni reducciones de base: se concilia también la declaración.
+      if (d?.declaracion.modalidad === "individual")
+        exigir(conciliaRentaEnCentimos(renta, d.declaracion.rentasCentimos, [1800]), "renta económica contradice declaración:" + p.id)
       for (const d of ds) for (const t of d.titulares.filter(t => t.titularId === p.id))
-        exigir(renta.times(100).eq(t.rentasNoExentasCentimos), "renta económica contradice titular:" + p.id)
+        exigir(conciliaRentaEnCentimos(renta, t.rentasNoExentasCentimos), "renta económica contradice titular:" + p.id)
 
     }
   }

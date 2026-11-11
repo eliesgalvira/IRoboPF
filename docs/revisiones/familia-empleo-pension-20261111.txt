@@ -1,0 +1,92 @@
+CIERRE DOCUMENTAL — MISMA PRIMERA REVISIÓN B03 GRANT0
+Dictamen monetario acotado: FAVORABLE CON RESERVAS para las postimágenes selectivas
+identificadas en evidencia-producto-869/MANIFIESTO.json, base declarada
+ d394b9822a43df9f68edcfb072b2624d6e7bbcc4.
+R1 queda SATISFECHA. Se cierra esta primera revisión, incluida su adición de precisión.
+No constituye aprobación de CI global, tipos/lints conjuntos ni publicación.
+No hay revisión nueva, rerun ni ejecución por este revisor.
+
+EVIDENCIA LEÍDA Y CONTRASTADA
+H=/home/elies/Backups/IRoboPF/producto-historico2023-2024-integracion-20261111
+- familia-precision-pre-01 y familia-precision-pre.json:24 controles,10 verdes y14
+  rojos. Los fallos son aceptaciones legítimas rechazadas por conciliación exacta;
+  incluye31/12 en Madrid/Valencia y fronteras representables. Acredita el defecto PRE.
+- familia-precision-post-01 y familia-precision-post.json:24/24 tras el fix.
+- familia-final-01 y FAMILIA-FINAL.json:236/236; contiene40 controles originales
+  vigentes más24 de precisión. La caracterización histórica PRE es otro control,
+  archivado, no una expectativa fiscal cambiada para pasar POST.
+- producto-conjunto-02/reporte.json:869/869; contiene los mismos40+24 controles
+  y las pruebas del autor. Focal final posterior a los retoques mecánicos.
+Comandos, resultados, entradas y supervisiones de esas cuatro fases leídos y
+hasheados. Todos los resultados de ejecución citados son evidencia del padre.
+
+DELTA EXACTO Y CONSERVACIÓN DE ORÁCULOS
+Las49 postimágenes selectivas satisfacen SHA256 y bytes del manifiesto posterior.
+Se reconstruyeron en memoria las4 postimágenes de correccion-familia desde sus
+preimágenes y correccion.patch, con contextos exactos y hashes pre/post.
+Cadena comprobada para B03: aplicación del candidato original -> correccion-familia
+-> lint-correccion-01 -> tipos-correccion-01 cuando corresponde -> captura final.
+La suite aditiva POST es idéntica byte a byte a mi entrega de24 controles.
+La suite original final difiere exclusivamente en: comentario SAFETY del cast
+adverso y retirada del diagnóstico R1 PRE, con referencia a su conservación.
+PRE completo idéntico a mi original en correccion-familia/pre; bloque retirado
+idéntico a R1-PRE-HISTORICO.txt. Mis artefactos originales y adición intactos según
+sus manifiestos. No se modificaron sus esperados normativos.
+Suite del autor: se retira import sin usar y se corrige tipo Mutable para distribuir
+uniones; el delta leído no cambia entradas fiscales, aserciones u oráculos numéricos.
+Sus fixtures JSON/Python conservan hashes originales en la captura final.
+Los cambios/fallos B04 declarados por el padre son ajenos al dictamen B03.
+
+RESOLUCIÓN DE R1
+El helper nuevo minimos/rentas-censadas.ts contiene únicamente la equivalencia de
+transporte: renta finita, céntimos enteros seguros, HALF_UP(100*renta) igual al hecho
+censado y coincidencia de <=umbral para cada umbral aplicable. Default8000.
+No modifica renta, base ni fuentes individuales. derechos.ts reutiliza el helper
+en el punto donde ya existía HALF_UP y guarda8000; conserva su validación previa.
+productor.ts aplica el helper separadamente a rentas del descendiente (8000), a
+cada titular ajeno (8000) y a declaración individual (1800), para el perfil completo
+sólo-trabajo/sin-rentas. Así se conservan conjuntamente8000 y1800 cuando procede.
+Sin declaración no introduce1800 como prohibición general.
+Renta/base internas siguen en Decimal: el helper sólo devuelve boolean; los cálculos
+Art19/Art20 y la inserción de bases no se sustituyen por céntimos proyectados.
+El caso31/12 transporta1800548, conserva18000+400/73 internamente y rechaza1800547.
+Las24 pruebas sin cambios observadas verdes comprueban aceptación/rechazo y guardas
+subcéntimo8000/1800, igualdad en umbral, lados representables y no declaración.
+Esto satisface la objeción de esta primera revisión; no se transforma el rechazo
+técnico de transporte que cambia clasificación en prohibición legal del perfil.
+
+ALCANCE MONETARIO QUE SE CIERRA
+Para un familiar2025 con un empleo y jubilación pública periódica no exenta,
+hechos/censo/calendario completos del corte B03: generalArt19 único sobre conjunto,
+incremento activo limitado a empleo y períodos coincidentes, gastos imputados,
+Art20 conjunto único, resumen/calendario conciliados y H2 protegido. Libro común
+Madrid/Valencia y ambas API: bases/ingresos propios intactos, umbrales y consumo
+único dentro de las combinaciones ensayadas; mezcla aislada de política Open.
+Los40 controles vigentes y24 adicionales satisfacen la evidencia requerida para
+esta revisión monetaria. R2 era observación de cobertura, no defecto demostrado;
+las aserciones añadidas de consumo único/cotizaciones/fronteras tienen evidencia.
+Las fuentes primarias y vigencia2025 ya contrastadas en INFORME.txt/fuentes.json
+se mantienen; este cierre no introduce interpretación fiscal o norma nueva.
+
+RESERVAS CONCRETAS
+1. Dictamen ligado al contenido de las postimágenes hasheadas y a las combinaciones
+   ensayadas; no exhaustividad de todos los consumidores madrileños/concurrencias,
+   prestaciones, gastos o economías excluidas del corte técnico B03.
+2. Capturas posteriores y cadena de parches/entradas aportan trazabilidad documental
+   selectiva. runtimeModulosAuditados=false está declarado: no es una auditoría de
+   módulos evaluados. No se exige aquí rehacerla ni se formula un bloqueo nuevo de
+   ceguera; los límites de atribución quedan expresamente consignados.
+3. Tipos/lints conjuntos y CI global siguen pendientes según la entrega del padre.
+   El focal869/869 no los sustituye, ni acredita workflow/Nix, inventario/generados,
+   remoto o publicación. Esas obligaciones siguen exclusivamente a cargo del padre.
+4. Si cambia después el código monetario, su precisión, los oráculos o la selección
+   de casos relevante, este dictamen no se transfiere automáticamente a esa variante.
+
+ENTREGA Y ACTIVIDAD
+CIERRE-B03-EVIDENCIA.json registra hashes de entradas,49 postimágenes, reconstrucción
+pre/post y resumen de reportes. CIERRE-B03.patch añade sólo este documento y esa
+evidencia al destino de revisión; no añade suite, dependencia ni cambio de producto.
+Manifiesto separado CIERRE-B03-MANIFIESTO.json; originales preservados.
+Sólo lectura y Python stdlib con timeout para composición textual/diff/hashes/JSON.
+Ningún runtime fiscal/JS/TS/Bun, suite, CI, inventario, instalación, publicación,
+VCS mutante, worktree, subagente o borrado. No se escribe código Effect en este cierre.

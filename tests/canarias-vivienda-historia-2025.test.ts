@@ -77,12 +77,12 @@ for (const api of ["uniforme", "explicita"] as const) {
     })
   }
 }
-it("incremento un céntimo insuficiente produce0 por condición, sin prorrata", () => {
+it("incremento parcial conserva el tope6000 cuando sigue superándolo", () => {
   const s = fixture(), h = s.hechos.historiaAdquisicion
   if (h === undefined) throw new RangeError("fixture sin historia")
   Object.assign(h.patrimonio, {movimientos: [...h.patrimonio.movimientos, {id: "consumo", cuenta: "CTA", fecha: "2025-12-31", importe: "0.01", sentido: "salida", clase: "consumo", documento: doc("consumo")}]})
   Object.assign(h.patrimonio.cuentas[0]?.cierre ?? {}, {importe: "1999.99"})
-  expect(aplicar({solicitudes: [s]}, marco()).total).toEqual(racional("0"))
+  expect(aplicar({solicitudes: [s]}, marco()).total).toEqual(racional("210"))
 })
 
 it("menor40: censo vital reconstruido, no edad aislada", () => {

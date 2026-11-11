@@ -41,3 +41,14 @@ Se verificaron antes/después1225 archivos de raíz/candidato, los hashes pre/po
 Entrega: `revision.patch` agrega sólo la prueba y este dictamen; `manifiesto.json` sella sus archivos y herramientas auxiliares. El parche normaliza los imports absolutos del ejecutor externo a imports relativos para su aplicación en raíz. No está aplicado.
 
 **PESADO1 LIBERADO.** No quedan hijos de pruebas activos.
+
+
+## Rectificación de alcance del 11 de noviembre de 2026
+
+El dictamen precedente se conserva como evidencia histórica. Su tratamiento de
+los ingresos por donación o herencia como una resta automática no acredita la
+cronología de adquisición del derecho. El productor actual rechaza esas entradas
+sin importe hasta representar esa cronología y su relación con el patrimonio
+inicial. No se afirma una exclusión legal general de esos ingresos. Para DT18,
+la insuficiencia patrimonial puede limitar la inversión computable sin anular los
+intereses y gastos de financiación; véase el contrato actual de API-MOTOR.md.

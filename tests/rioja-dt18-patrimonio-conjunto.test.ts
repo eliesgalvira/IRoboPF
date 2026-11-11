@@ -23,6 +23,12 @@ for (const orden of ["rehabilitacion-primero", "adecuacion-primero"] as const) {
         if (orden === "adecuacion-primero") {
           Object.assign(solicitud, { solicitudes: [...solicitud.solicitudes].reverse() })
         }
+        if (!frontera.cumple) {
+          const error = Effect.runSync(Effect.flip(ambas(solicitud, true)[api]!))
+          expect(error._tag).toBe("ResultadoNoSoportado")
+          expect("motivo" in error && error.motivo).toMatch(/atribución explícita de capital/)
+          return
+        }
         const liquidacion = Effect.runSync(ambas(solicitud, true)[api]!)
         const territoriales = liquidacion.deduccionesTerritoriales2025
         expect(territoriales).toBeDefined()

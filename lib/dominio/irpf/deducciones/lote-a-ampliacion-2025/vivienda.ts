@@ -180,10 +180,13 @@ export function baseVivienda(
     limitarCapitalPorPatrimonio || eur(v.incrementoPatrimonialComputableCentimos).gte(inversionSinFinanciacion ?? capital),
     "Incremento patrimonial computable no cubre inversión sin financiación/intereses"
   )
-  // Art70: capital efectivo limitado por aumento neto; intereses separados.
-  // La rama nueva sólo permite amortización e intereses, sin gastos mixtos.
+  // Art70: limitar inversión propia; añadir gastos de financiación e intereses.
+  // El productor separa el capital de los gastos documentados.
+  const inversion = inversionSinFinanciacion ?? capital
+  if (limitarCapitalPorPatrimonio)
+    exigir(inversion.gte(0) && inversion.lte(capital), "Capital sin financiación no concilia con pagos")
   const capitalComputable = limitarCapitalPorPatrimonio
-    ? D.min(capital, D.max(0, eur(v.incrementoPatrimonialComputableCentimos))) : capital
+    ? D.min(inversion, D.max(0, eur(v.incrementoPatrimonialComputableCentimos))).plus(capital.minus(inversion)) : capital
   const obstaculo = eur(v.baseDeducidaViviendasAnterioresCentimos).plus(
     eur(v.gananciaExentaReinversionCentimos)
   )

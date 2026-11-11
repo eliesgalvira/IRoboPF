@@ -64,7 +64,7 @@ function producir(p:PatrimonioP5a, persona:string, nacimiento:string, v:Omit<Viv
  const isd=mas(total("donacion"),total("herencia"))
  const {inicial,brutoFinal,variacion,final}=ajustarPatrimonioP5a(suma(p.cuentas.map(x=>euros(x.inicio.importe))),suma(p.cuentas.map(x=>euros(x.cierre.importe))),anterior===undefined?cero:precio,valorCierre,precio,anterior===undefined?cero:principalInicio,principal,isd)
  const inversion=mas(anterior===undefined?menos(precio,dispuesto):cero,amortizado)
- return {inicial,final,inversion,pagos,financiacionAdquisicion:{inmueble:a.inmueble,dispuesto:anterior===undefined?dispuesto:cero},rastro:[paso(a.inmueble,"P5a activo de cierre menos principal vivo",brutoFinal,principal),paso(a.inmueble,"P5a variación de valoración excluida (cierre menos precio)",valorCierre,variacion),paso(persona,"P5a incremento ISD monetario excluido",isd,final),paso(persona,"P5a incremento comparable e inversión propia sin intereses ni gastos de financiación",menos(final,inicial),inversion)],historia:{inversionAnteriorDeducida:"0",gananciaExentaReinversion:"0",inversionNuevaAcumuladaAntes2025:"0"},traza:{persona,inmueble:a.inmueble,patrimonioInicial:serial(inicial),patrimonioFinalBruto:serial(brutoFinal),variacionExcluida:serial(variacion),isdExcluido:serial(isd),principalVivo:serial(principal),incrementoComparable:serial(menos(final,inicial)),inversionSinFinanciacion:serial(inversion)}}
+ return {inicial,final,inversion,pagos,financiacionAdquisicion:{inmueble:a.inmueble,dispuesto:anterior===undefined?dispuesto:cero},rastro:[paso(a.inmueble,"P5a activo de cierre menos principal vivo",brutoFinal,principal),paso(a.inmueble,"P5a variación de valoración excluida (cierre menos precio)",valorCierre,variacion),paso(persona,"P5a perfil sin ingresos ISD: patrimonio final ajustado por valoración",isd,final),paso(persona,"P5a incremento comparable e inversión propia sin intereses ni gastos de financiación",menos(final,inicial),inversion)],historia:{inversionAnteriorDeducida:"0",gananciaExentaReinversion:"0",inversionNuevaAcumuladaAntes2025:"0"},traza:{persona,inmueble:a.inmueble,patrimonioInicial:serial(inicial),patrimonioFinalBruto:serial(brutoFinal),variacionExcluida:serial(variacion),isdExcluido:serial(isd),principalVivo:serial(principal),incrementoComparable:serial(menos(final,inicial)),inversionSinFinanciacion:serial(inversion)}}
 }
 
 /** Cuentas y flujos económicos compartidos; no recibe bases fiscales. */
@@ -80,6 +80,9 @@ export function ajustarPatrimonioP5a(cuentasInicio:ReturnType<typeof euros>,cuen
  const inicial=menos(mas(cuentasInicio,costeInicio),deudaInicio)
  const brutoFinal=menos(mas(cuentasFinal,valorFinal),deudaFinal)
  const variacion=menos(valorFinal,costeFinal)
- const final=menos(menos(brutoFinal,variacion),isd)
+ // La fecha bancaria no acredita cuándo se adquirió el derecho ni si ya
+ // integraba el patrimonio inicial. No restar ISD ni fabricar un cero fiscal.
+ exige(compara(isd,cero)===0,"P5a donación/herencia: falta cronología de adquisición del derecho y patrimonio inicial; no se calcula importe")
+ const final=menos(brutoFinal,variacion)
  return {inicial,brutoFinal,variacion,final}
 }
