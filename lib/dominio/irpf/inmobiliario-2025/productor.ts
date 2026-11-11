@@ -130,6 +130,15 @@ export const producirInmueblesP4a = Effect.fn("P4a.producir")(function* (entrada
   const decoded = Schema.decodeUnknownResult(CasoInmobiliarioP4a)(entrada, { onExcessProperty: "error" })
   if (Result.isFailure(decoded)) return yield* new RechazoP4a({ codigo: "entrada", motivo: "Perfil P4a fuera del esquema cerrado: " + String(decoded.failure) })
   const caso = decoded.success
+  const esRioja = caso.comunidadAutonoma === "la-rioja"
+  if (esRioja) {
+    const plan = caso.deduccionesTerritoriales2025?.solicitudes
+    if (caso.inmuebles.length !== 1 || caso.inmuebles.some(v => v.ubicacion !== "galicia" ||
+      v.primerAlquiler2025 !== undefined || v.vaciaExt2025 !== undefined || v.cambioHabitualBalears2025 !== undefined) ||
+      plan?.length !== 1 || plan[0]?.lote !== "E38" || plan[0]?.hechos.codigo !== "rioja_arrendamiento_menores_36" ||
+      (plan[0]?.historiaInversionAlquilerRioja === undefined && caso.deduccionesTerritoriales2025?.derechoInversionAlquilerRioja2025 === undefined))
+      return yield* new RechazoP4a({ codigo: "entrada", motivo: "Rioja: sólo alquiler propio e inversión única en Galicia con historia expresa" })
+  }
   const esGalicia = caso.comunidadAutonoma === "galicia"
   if (esGalicia) {
     const plan = caso.deduccionesTerritoriales2025?.solicitudes
@@ -137,7 +146,7 @@ export const producirInmueblesP4a = Effect.fn("P4a.producir")(function* (entrada
       v.primerAlquiler2025 !== undefined || v.vaciaExt2025 !== undefined || v.cambioHabitualBalears2025 !== undefined) ||
       plan?.length !== 1 || plan[0]?.lote !== "E38" || plan[0]?.hechos.codigo !== "galicia_alquiler_vivienda_habitual")
       return yield* new RechazoP4a({ codigo: "entrada", motivo: "Galicia: inmueble único y solicitud E38 de alquiler propio" })
-  } else if (caso.inmuebles.some(v => v.cambioHabitual2025 !== undefined))
+  } else if (!esRioja && caso.inmuebles.some(v => v.cambioHabitual2025 !== undefined))
     return yield* new RechazoP4a({ codigo: "entrada", motivo: "Cambio2025: consumidor territorial no representado" })
   const esExt = caso.comunidadAutonoma === "extremadura"
   if (esExt ? (caso.inmuebles.length !== 1 || caso.inmuebles[0]?.vaciaExt2025 === undefined || caso.inmuebles.some(v => v.primerAlquiler2025 !== undefined)) : caso.inmuebles.some(v => v.vaciaExt2025 !== undefined))
@@ -153,7 +162,7 @@ export const producirInmueblesP4a = Effect.fn("P4a.producir")(function* (entrada
     caso.inmuebles[0]?.cambioHabitualBalears2025 === undefined || esPrimerAlquiler ||
     caso.deduccionesTerritoriales2025?.solicitudes.length !== 1))
     return yield* new RechazoP4a({ codigo: "entrada", motivo: "T06_P4A_AMBITO: una vivienda y solicitud de alquiler balear" })
-  if (!esGalicia && caso.deduccionesTerritoriales2025 !== undefined && caso.deduccionesTerritoriales2025.solicitudes.some(s => s.lote !== (esExt ? "D51" : "C36") || s.codigo !== (esCambio ? "balears_arrendamiento_vivienda_habitual" : codigoAdmitido)))
+  if (!esGalicia && !esRioja && caso.deduccionesTerritoriales2025 !== undefined && caso.deduccionesTerritoriales2025.solicitudes.some(s => s.lote !== (esExt ? "D51" : "C36") || s.codigo !== (esCambio ? "balears_arrendamiento_vivienda_habitual" : codigoAdmitido)))
     return yield* new RechazoP4a({ codigo: "entrada", motivo: "Perfil inmobiliario conecta exclusivamente su consumidor regional; combinaciones pendientes" })
   if (esCambio) {
     const h = caso.inmuebles[0]?.cambioHabitualBalears2025

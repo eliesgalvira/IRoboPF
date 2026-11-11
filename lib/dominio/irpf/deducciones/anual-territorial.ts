@@ -419,6 +419,13 @@ export function aplicarDeduccionesTerritoriales2025(
     exigir(m.libroDT18 === undefined && m.cuotasDT18 === undefined && decoded.success.viviendaDT182025 === undefined && m.libroIngresosIdentificados2025 === undefined && m.libroMaternidad81 === undefined && m.donativosEstatales === undefined && decoded.success.donativosEstatales2025 === undefined && m.vehiculoDA58 === undefined && decoded.success.vehiculoDA582025 === undefined && m.inmueblesP4a === undefined, "C36 art14 historia compleja: productores concurrentes sin censo conjunto representado")
   }
   validarCensosViviendaRioja(decoded.success)
+  if (decoded.success.derechoInversionAlquilerRioja2025 !== undefined) {
+    exigir(decoded.success.solicitudes.length === 1 && decoded.success.solicitudes[0]?.lote === "E38" &&
+      decoded.success.solicitudes[0]?.hechos.codigo === "rioja_arrendamiento_menores_36" &&
+      decoded.success.viviendaDT182025 === undefined && m.libroDT18 === undefined && m.cuotasDT18 === undefined &&
+      decoded.success.donativosEstatales2025 === undefined && decoded.success.vehiculoDA582025 === undefined,
+      "RIOJA_DT18: sólo determinación de incompatibilidad de un alquiler, sin aplicación concurrente")
+  }
   if(decoded.success.viviendaDT182025!==undefined){
     exigir(m.libroDT18!==undefined&&m.cuotasDT18!==undefined&&m.cuotaAutonomicaResidual!==undefined,"DT18: falta libro y consumo producidos una vez por composición anual")
     exigir(Schema.toEquivalence(HechosDT18Territoriales2025)(m.libroDT18.hechos,decoded.success.viviendaDT182025),"DT18: libro ajeno a los hechos de esta declaración")
@@ -724,7 +731,7 @@ export function aplicarDeduccionesTerritoriales2025(
     switch (s.lote) {
       case "CYL81": return normalizar(evaluarCuidadoCyl81(s,m))
       case "E38": {
-        const resultado = evaluarE38Anual(s,m)
+        const resultado = evaluarE38Anual(s,m,decoded.success.derechoInversionAlquilerRioja2025)
         evaluacionesE38.set(indice,resultado)
         return normalizar(resultado)
       }

@@ -89,12 +89,15 @@ describe("revisión Murcia: derecho, base y aplicación diferenciados", () => {
       x.s.auxiliares.pagadoresMurcia.personas[1]!.residencia.comunidad = "otra-comunidad-comun"
       expect(Effect.runSync(ejecutar(api, x)).deduccionesTerritoriales2025!.total).toEqual(racional("1000"))
     })
-    for (const causa of ["ayuda-excesiva", "factura-duplicada", "sin-centro", "renta-incoherente", "gananciales", "sin-censo", "identidad-ajena", "base-externa"] as const)
+    for (const causa of ["ayuda-excesiva", "factura-contradictoria", "sin-centro", "renta-incoherente", "gananciales", "sin-censo", "identidad-ajena", "base-externa"] as const)
       it(`${api}: rechaza ${causa} en canal público`, () => {
         const x = preparar(api)
         switch (causa) {
           case "ayuda-excesiva": x.s.hechos.pagos[1]!.ayudasEUR = "1000.01"; break
-          case "factura-duplicada": x.s.hechos.pagos[1]!.factura = x.s.hechos.pagos[0]!.factura!; break
+          case "factura-contradictoria":
+            x.s.hechos.pagos[1]!.factura = x.s.hechos.pagos[0]!.factura!
+            x.s.hechos.pagos[1]!.concepto = "alimentacion"
+            break
           case "sin-centro": x.s.auxiliares.centros = []; break
           case "renta-incoherente": Object.assign(x.d.descendientes[0]!.titulares[1]!, { rentasNoExentasCentimos: 1 }); break
           case "gananciales": Object.assign(x.s.auxiliares, { regimenPagos: "gananciales" }); break

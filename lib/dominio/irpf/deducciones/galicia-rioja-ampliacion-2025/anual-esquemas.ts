@@ -53,6 +53,10 @@ export const E_HechosAmpliacionE2025 = Schema.Union([E_Nacimiento, E_FamiliaNume
 export const SolicitudE38Anual2025 = Schema.Struct({
  lote: Schema.Literal("E38"),
  historiaLibros2024: Schema.optionalKey(HistoriaLibros2024),
+ historiaInversionAlquilerRioja: Schema.optionalKey(Schema.Struct({
+  ejercicioDelDerecho: Schema.Literals(["aplicar", "no_aplicar"]),
+  historia: PatrimonioP5a.fields.historia,
+ })),
  nacimientoContribuyente: Schema.String,
  patrimonioP5a: Schema.optionalKey(PatrimonioP5a),
  patrimonioRiojaAnterior: Schema.optionalKey(PatrimonioRiojaAnterior),

@@ -79,12 +79,12 @@ describe("Murcia: derecho nominal, pagos separados y una sola cuota", () => {
           derechosMinimos: x.d, deduccionesTerritoriales2025: { solicitudes: [s] } }))
       expect(r.deduccionesTerritoriales2025?.total).toEqual(racional("20"))
     })
-    it(`${api}: censo ausente y factura repetida conservan rechazo público`, () => {
+    it(`${api}: censo ausente y factura contradictoria conservan rechazo público`, () => {
       const x = perfil("1000")
       const pagos = x.s.hechos.pagos
       for (const s of [
         sinCenso(x.s),
-        { ...x.s, hechos: { pagos: [pagos[0]!, { ...pagos[1]!, factura: pagos[0]!.factura! }] } },
+        { ...x.s, hechos: { pagos: [pagos[0]!, { ...pagos[1]!, factura: pagos[0]!.factura!, concepto: "matricula" }] } },
       ]) {
         const d = perfil("1000", "1000", "32000", api === "uniforme" ? 2605600 : 2800000).d
         const e = api === "uniforme"

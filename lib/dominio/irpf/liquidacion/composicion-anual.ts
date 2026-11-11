@@ -1,3 +1,6 @@
+import { admiteArgumentoOpen2020A2022, esPerfilOpen2020A2022 } from "../trabajo-anual/politica-open-2020-2022"
+import { calcularReduccionTrabajoConOtrasRentas } from "../reducciones/reduccion-rendimientos-trabajo"
+import type { CasoFiscalAnualExplicitoBase } from "../trabajo-anual/conexion-contrato"
 import { prepararAscendientesValencianos2025 } from "../minimos/ascendientes-valencia-2025"
 import { producirDT182025, producirDT18Murcia2025, validarCensosViviendaRioja } from "../vivienda-dt18-2025/productor"
 import { HechosDT182025, HechosDT18Murcia2025 } from "../vivienda-dt18-2025/contrato"
@@ -68,8 +71,11 @@ export type PoliticaAnual =
   | "open-cuotas-empleo-madrid-2018-2024"
   | "open-etapas-empleo-madrid-2018"
   | "open-etapas-empleo-madrid-2019"
+  | "open-etapas-empleo-madrid-2020-2022"
 /** Contrato interno: bases ya integradas en EUR Decimal; jamás reconstruye cotizaciones. */
 export interface EntradaComposicionAnual {
+  /** Sólo la conexión explícita aporta hechos completos; nunca la API canónica. */
+  readonly hechosOpen2020A2022?: CasoFiscalAnualExplicitoBase | undefined
   readonly basesFamiliares2025?: CensoBasesFamiliares2025 | undefined
   readonly pagadoresCatalunya2025?: import("../deducciones/catalunya-pagadores-2025/productor").LibroPagadoresCatalunya2025 | undefined
   readonly aragonSocialMixto2025?: true | undefined
@@ -163,6 +169,37 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
       cuantizarAnual(importe, entrada.politica)
     const estatalOpen2018 = entrada.politica === "open-etapas-empleo-madrid-2018"
     const estatalOpen2019 = entrada.politica === "open-etapas-empleo-madrid-2019"
+    const estatalOpen2020A2022 = entrada.politica === "open-etapas-empleo-madrid-2020-2022"
+    if (estatalOpen2020A2022) {
+      const hechos = entrada.hechosOpen2020A2022
+      const rentas = entrada.rentasTrabajoAnuales
+      if (hechos === undefined || !esPerfilOpen2020A2022(hechos) || hechos.perfil !== "solo-trabajo" ||
+        hechos.ejercicio !== caso.anio || hechos.edad !== caso.situacionFamiliar.edad ||
+        caso.situacionFamiliar.descendientes.length !== 0 || caso.situacionFamiliar.ascendientes.length !== 0 ||
+        entrada.precision !== 80 || entrada.origenBaseGeneralB !== "solo-trabajo" || entrada.rentaActividadAnualB !== undefined ||
+        !entrada.cotizaciones.trabajador.eq(1000) || rentas === undefined ||
+        !admiteArgumentoOpen2020A2022(rentas.integroTrabajo, entrada.cotizaciones.trabajador, caso.anio) ||
+        !hechos.trabajo.rendimientos.some(r => rentas.integroTrabajo.eq(r.integro)) ||
+        !entrada.rentasAntesReducciones.eq(new A(rentas.integroTrabajo).minus(3000)) ||
+        !admiteOperandoOpen2018(entrada.baseGeneral) || !entrada.baseGeneral.gt(0) ||
+        entrada.baseGeneral.gt(caso.anio === 2022 ? "55596.90" : "60000") || entrada.baseGeneral.gt(entrada.rentasAntesReducciones) ||
+        entrada.basesFamiliares2025 !== undefined || entrada.maternidad2025 !== undefined ||
+        entrada.ingresosIdentificados2025 !== undefined || entrada.inmueblesP4a !== undefined ||
+        entrada.basesImponiblesE38 !== undefined &&
+          (!entrada.basesImponiblesE38.general.eq(entrada.baseGeneral) || !entrada.basesImponiblesE38.ahorro.isZero()))
+        return yield* Effect.fail(errorDerechosMinimos({ motivo: "Etapas Open 2020–2022: hechos completos, edad de DOB1985, empleo laboral único Madrid, SS1000, gasto general2000, bruto a céntimos >8565 y <=63000 en 2020/21 o <=58596.90 en 2022, base positiva hasta60000 o55596.90 respectivamente y precisión80; fuera se rechaza esta política" }))
+      const reduccion = calcularReduccionTrabajoConOtrasRentas({
+        anio: caso.anio,
+        rendimientoPrevioNeto: new A(rentas.integroTrabajo).minus(1000),
+        otrasRentasNoExentas: new A(0),
+        compatibilidadOpen2020A2022: { integro: new A(rentas.integroTrabajo), gastosAE: new A(1000) },
+      })
+      const baseDerivada = new A(entrada.rentasAntesReducciones).minus(reduccion)
+      const minimoEsperado = obtenerMinimoContribuyente({ anio: caso.anio, edad: caso.situacionFamiliar.edad })
+      const minimoRecibido = obtenerMinimoContribuyente({ anio: caso.anio, edad: caso.situacionFamiliar.edad, minimos: entrada.minimosEstatales })
+      if (!entrada.baseGeneral.eq(baseDerivada) || !minimoRecibido.eq(minimoEsperado))
+        return yield* Effect.fail(errorDerechosMinimos({ motivo: "Etapas Open 2020–2022: base o mínimo estatal contradictorios con los hechos y el núcleo anual común" }))
+    }
     const gravar = (args: Parameters<typeof calcularCuotaPorEscala>[0]) =>
       cuantizar(calcularCuotaPorEscala({ ...args, aritmetica: A }))
     if (
@@ -177,7 +214,7 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
         })
       )
     if (
-      (entrada.politica === "open-cuotas-empleo-madrid-2018-2024" || estatalOpen2018 || estatalOpen2019) &&
+      (entrada.politica === "open-cuotas-empleo-madrid-2018-2024" || estatalOpen2018 || estatalOpen2019 || estatalOpen2020A2022) &&
       (caso.anio < 2018 ||
         caso.anio > 2024 ||
         caso.comunidadAutonoma !== "madrid" ||
@@ -316,7 +353,7 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
       base: baseLiquidableGeneral,
       tramos: tramosIrpfEstatalGeneral,
       escalasPublicadas: escalasPublicadasEstatales,
-      representacion: estatalOpen2018 || estatalOpen2019 ? "binary64-corto" : "decimal",
+      representacion: estatalOpen2018 || estatalOpen2019 || estatalOpen2020A2022 ? "binary64-corto" : "decimal",
     })
     const cuotaIntegraGeneralAutonomica = usaEscalaAutonomicaReal
       ? gravar({
@@ -338,7 +375,7 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
       base: baseLiquidableGeneral,
       tramos: tramosIrpfEstatalGeneral,
       escalasPublicadas: escalasPublicadasEstatales,
-      representacion: estatalOpen2018 || estatalOpen2019 ? "binary64-corto" : "decimal",
+      representacion: estatalOpen2018 || estatalOpen2019 || estatalOpen2020A2022 ? "binary64-corto" : "decimal",
     })
     const desgloseCuotaIntegraGeneralAutonomica = usaEscalaAutonomicaReal
       ? calcularDesgloseCuotaPorEscala({
@@ -403,7 +440,7 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
       base: A.min(minimoPersonalYFamiliar, baseLiquidableGeneral),
       tramos: tramosIrpfEstatalGeneral,
       escalasPublicadas: escalasPublicadasEstatales,
-      representacion: estatalOpen2018 || estatalOpen2019 ? "binary64-corto" : "decimal",
+      representacion: estatalOpen2018 || estatalOpen2019 || estatalOpen2020A2022 ? "binary64-corto" : "decimal",
     })
     const cuotaMinimoPersonalAutonomica = usaEscalaAutonomicaReal
       ? gravar({
@@ -431,7 +468,7 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
       base: A.min(minimoPersonalYFamiliar, baseLiquidableGeneral),
       tramos: tramosIrpfEstatalGeneral,
       escalasPublicadas: escalasPublicadasEstatales,
-      representacion: estatalOpen2018 || estatalOpen2019 ? "binary64-corto" : "decimal",
+      representacion: estatalOpen2018 || estatalOpen2019 || estatalOpen2020A2022 ? "binary64-corto" : "decimal",
     })
     const desgloseCuotaMinimoPersonalAutonomica = usaEscalaAutonomicaReal
       ? calcularDesgloseCuotaPorEscala({

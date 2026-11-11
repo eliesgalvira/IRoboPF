@@ -1,3 +1,5 @@
+import type { HechosDerechoDT18Rioja2025 } from "../../vivienda-dt18-2025/contrato"
+import { derechoInversionAlquilerRioja2025 } from "./alquiler-inversion-rioja"
 import { conciliarInversionAlquilerGalicia2025 } from "./alquiler-inversion-galicia"
 import { igualViviendaDT18 } from "../../vivienda-dt18-2025/productor"
 import Decimal from "decimal.js"
@@ -23,11 +25,11 @@ const faltantes:Readonly<Partial<Record<SolicitudE38Anual2025["hechos"]["codigo"
  galicia_ayudas_incendios_peifoga_2025:"VI100B reparación clasifica no integración DA5.3; otros daños/destrucción/personales/actividad requieren productores específicos antes de importe en BLG",
 }
 export const PRODUCTORES_PENDIENTES_E38 = faltantes
-export function evaluarE38Anual(s:SolicitudE38Anual2025,m:MagnitudesTerritorialesAnuales):Resultado{
- try {const r=evaluarE38ConProductores(s,m);if(r.estado!=="calculo_parcial")throw new RangeError(s.hechos.codigo+": "+r.motivos.join("; "));return r}
+export function evaluarE38Anual(s:SolicitudE38Anual2025,m:MagnitudesTerritorialesAnuales,derechoRioja?:HechosDerechoDT18Rioja2025):Resultado{
+ try {const r=evaluarE38ConProductores(s,m,derechoRioja);if(r.estado!=="calculo_parcial")throw new RangeError(s.hechos.codigo+": "+r.motivos.join("; "));return r}
  catch(cause){throw new RangeError(s.hechos.codigo+": "+(cause instanceof Error?cause.message:"hechos anuales E38 no representados"))}
 }
-function evaluarE38ConProductores(s:SolicitudE38Anual2025,m:MagnitudesTerritorialesAnuales):Resultado{
+function evaluarE38ConProductores(s:SolicitudE38Anual2025,m:MagnitudesTerritorialesAnuales,derechoRioja?:HechosDerechoDT18Rioja2025):Resultado{
  const h=s.hechos
  if(h.codigo==="galicia_ayudas_incendios_peifoga_2025"){
   const x=m.libroIngresosIdentificados2025?.ayudasNoIntegradas.find(a=>a.ayudaId===h.ingresoId)
@@ -43,6 +45,7 @@ function evaluarE38ConProductores(s:SolicitudE38Anual2025,m:MagnitudesTerritoria
  exige(ids(s.inversionesViviendaEjercicio.map(i=>i.id)),"Inventario económico de vivienda duplicado")
  for(const i of s.inversionesViviendaEjercicio)exige(i.titular===id&&fecha(i.fecha)&&i.fecha>="2025-01-01"&&i.fecha<="2025-12-31"&&/^\d+(\.\d{1,2})?$/.test(i.importe)&&i.documento.trim().length>0,"Inventario de vivienda ajeno/inválido")
  conciliarFamiliaE38(h.codigo === "galicia_libros_texto_material_escolar" ? {...h,miembros2024:[]} : h,m,s.nacimientoContribuyente)
+ exige(s.historiaInversionAlquilerRioja === undefined || h.codigo === "rioja_arrendamiento_menores_36", "Rioja: historia de inversión ajena al consumidor")
  exige(s.historiaLibros2024 === undefined || h.codigo === "galicia_libros_texto_material_escolar", "Libros.historia: historia ajena a esta deducción")
  const magnitudes:MagnitudMotor[]=[]
  function emitir(clave:ClaveAnual,valor:Decimal|R,nodo:string):void{
@@ -172,9 +175,13 @@ function evaluarE38ConProductores(s:SolicitudE38Anual2025,m:MagnitudesTerritoria
   case "galicia_alquiler_vivienda_habitual":
    conciliarInversionAlquilerGalicia2025(s,m)
    return evaluarAmpliacionE2025(c,{...h,codigo:"galicia_alquiler_vivienda_habitual"})
-  case "rioja_arrendamiento_menores_36":
-   exige(s.inversionesViviendaEjercicio.length===0,`${h.codigo}: hay inversión de vivienda,productor de derecho a inversión no representado para esta concurrencia`)
-   return evaluarAmpliacionE2025(c,{...h,derechoInversionVivienda:"sin_derecho"})
+  case "rioja_arrendamiento_menores_36": {
+   const material = derechoInversionAlquilerRioja2025(s,m,derechoRioja)
+   const evaluacion = evaluarAmpliacionE2025(c,{...h,derechoInversionVivienda:material.derecho})
+   return evaluacion.estado !== "calculo_parcial" ? evaluacion : {
+    ...evaluacion, rastro:[...evaluacion.rastro,paso("RIOJA_DERECHO_MATERIAL",material.regla,cero,cero)],
+   }
+  }
   case "galicia_climatizacion_agua_caliente_renovables":return evaluarAmpliacionE2025(c,{...h,eleccion:"renovables"})
   case "galicia_obras_eficiencia_energetica":return evaluarAmpliacionE2025(c,{...h,eleccion:"eficiencia"})
   case "galicia_inversion_entidades_nuevas_reciente_creacion":case "galicia_inversion_entidades_nuevas_financiacion":case "galicia_inversion_empresas_agrarias":
