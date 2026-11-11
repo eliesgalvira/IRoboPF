@@ -54,13 +54,27 @@ export function discapacidadDevengoCalendario(c: CalendarioTrabajo2025) {
  * Art20 sigue usando el previo anterior a TODOS los gastos de la letra f).
  */
 export function calcularGastosTrabajoCalendario2025(trabajo: GastosTrabajo, entrada: CalendarioTrabajo2025) {
+  return calcularCalendario(trabajo, entrada, false)
+}
+/** Entrada explícita familiar B03; la API anterior conserva su alcance. */
+export function calcularGastosTrabajoMixtoCalendario2025(trabajo: GastosTrabajo, entrada: CalendarioTrabajo2025) {
+  return calcularCalendario(trabajo, entrada, true)
+}
+function calcularCalendario(trabajo: GastosTrabajo, entrada: CalendarioTrabajo2025, mezcla: boolean) {
   const decoded = Schema.decodeUnknownResult(CalendarioTrabajo2025)(entrada, { onExcessProperty: "error" })
   exigir(Result.isSuccess(decoded), "hechos incompletos o magnitudes externas")
   const c = decoded.success
   const base = calcularGastosTrabajo({ ...trabajo, discapacidadActiva: "ninguna" })
   exigir(base.estado === "calculado", base.estado === "no-soportado" ? base.motivo : "art19 no disponible")
-  const r = trabajo.rendimientos[0]
-  exigir(trabajo.ejercicio === 2025 && trabajo.territorio === "comun" && trabajo.rendimientos.length === 1 && r !== undefined && ["empleo-laboral", "empleo-estatutario"].includes(r.clase), "solo empleo ordinario único; excluye empleo+pensión")
+  const empleos = trabajo.rendimientos.filter(r => ["empleo-laboral", "empleo-estatutario"].includes(r.clase))
+  const pensiones = trabajo.rendimientos.filter(r => r.clase === "pension")
+  const r = mezcla ? empleos[0] : trabajo.rendimientos[0]
+  if (mezcla) {
+    exigir(trabajo.rendimientos.length === 2 && empleos.length === 1 && pensiones.length === 1, "mezcla: un empleo y una pensión ordinarios")
+    const p = pensiones[0]!
+    exigir([p.cotizaciones.seguridadSocial, p.cotizaciones.derechosPasivos, p.cotizaciones.colegiosHuerfanos, p.sindicato.importe, p.colegio.importe, p.defensa.importe].every(x => new D(x).eq(0)), "pensión: gastos asociados fuera del primer perfil")
+  }
+  exigir(trabajo.ejercicio === 2025 && trabajo.territorio === "comun" && (mezcla || trabajo.rendimientos.length === 1) && r !== undefined && ["empleo-laboral", "empleo-estatutario"].includes(r.clase), "solo empleo ordinario único; excluye empleo+pensión")
   exigir(c.rendimientoId === r.id, "rendimiento/empleador sin correspondencia anual")
   // Estos gastos necesitan atribución exclusiva/proporcional documental propia.
   exigir([r.sindicato.importe, r.colegio.importe, r.defensa.importe].every(x => new D(x).eq(0)), "sindicato/colegio/defensa: atribución temporal fuera de perfil")

@@ -1,5 +1,6 @@
 import { producirAscendientes2025 } from "./ascendientes-2025"
 import Decimal from "decimal.js"
+import { conciliaRentaEnCentimos } from "./rentas-censadas"
 import { Effect, Schema } from "effect"
 import type { MinimosPersonalesFamiliaresIrpf } from "../../normativa/datos/minimos-autonomicos-2025"
 import {
@@ -247,15 +248,11 @@ export const validarRentasAnualesDerechos = Effect.fn(
         return yield* rechazar("Economía propia del censo de ascendientes no concilia con el neto anual antes de reducciones")
     }
   }
-  const centimosDelPerfil = rentaNoExenta
-    .times(100)
-    .toDecimalPlaces(0, Decimal.ROUND_HALF_UP)
   for (const d of caso.descendientes)
     for (const t of d.titulares) {
       if (t.titularId !== caso.contribuyenteId) continue
       if (
-        !centimosDelPerfil.eq(t.rentasNoExentasCentimos) ||
-        rentaNoExenta.lte(8000) !== t.rentasNoExentasCentimos <= 800000
+        !conciliaRentaEnCentimos(rentaNoExenta, t.rentasNoExentasCentimos)
       )
         return yield* rechazar(
           "La renta propia declarada no concilia con el neto del perfil anual antes de reducciones y compensaciones"

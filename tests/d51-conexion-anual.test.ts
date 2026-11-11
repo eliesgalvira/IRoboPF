@@ -1,3 +1,4 @@
+import { producirNodosFiscalesB2025 } from "../lib/dominio/irpf/deducciones/b-ampliado-anual-2025/productores"
 import { DeduccionTrabajo } from "../lib/dominio/irpf/trabajo-anual/contrato"
 import { describe, expect, it } from "vitest"
 import Decimal from "decimal.js"
@@ -145,7 +146,10 @@ describe("selecciones, reservas y personas: rechazo previo sin cuota ficticia",(
  it("no atribuye cuota de trabajo si hay rentas mixtas o base inicial2024",()=>{
   const hecho={fechaTraslado:"2025-01-01",categoria:"intensa",causa:"trabajo",exhaustividad:"completa"}
   const s=(h:Schema.Json)=>solicitud({solicitudes:[{lote:"D51",codigo:"clm_traslado_vivienda_habitual",hechos:h}]})
-  igual(aplicarDeduccionesTerritoriales2025(s(hecho),m()).total,500n)
+  const mmSalarial=m()
+  const conCuota={...mmSalarial,nodosFiscalesB2025:producirNodosFiscalesB2025("s-1",mmSalarial.baseGeneral,mmSalarial.cuotaAutonomica,mmSalarial.cuotaAutonomica,"solo-trabajo")}
+  igual(aplicarDeduccionesTerritoriales2025(s(hecho),conCuota).total,500n)
+  expect(()=>aplicarDeduccionesTerritoriales2025(s(hecho),m())).toThrow(/composición/)
   expect(()=>aplicarDeduccionesTerritoriales2025(s({...hecho,fechaTraslado:"2024-01-01"}),m())).toThrow(/inicial2024/)
   const mm=m();expect(()=>aplicarDeduccionesTerritoriales2025(s(hecho),{...mm,rentasTrabajoAnuales:{integroTrabajo:new D(10000),restoRentas:new D(1)}})).toThrow(/rentas mixtas/)
  })

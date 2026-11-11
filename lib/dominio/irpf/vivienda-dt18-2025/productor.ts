@@ -61,6 +61,8 @@ function producirDT18Comun<V extends ViviendaDT18>(h:HechosComunes<V>,caso:Magni
  const patrimonio=ajustarPatrimonioP5a(suma(h.cuentas.map(c=>euros(c.inicio.importe))),suma(h.cuentas.map(c=>euros(c.cierre.importe))),coste,euros(a.valorCierre.importe),coste,deudaInicio,deudaFinal,isd)
  const capital=suma(movimientosPagados.filter(m=>m.clase==="amortizacion").map(m=>euros(m.importe)))
  const cumplePatrimonio=compara(menos(patrimonio.final,patrimonio.inicial),capital)>=0
+ exige(cumplePatrimonio || compara(menos(patrimonio.final,patrimonio.inicial),cero)<=0 ||
+   h.proyectos.filter(p=>p.vivienda.pagos.some(x=>x.concepto==="amortizacion"&&compara(euros(x.importe),cero)>0)).length<=1,"DT18: incremento insuficiente entre varios proyectos requiere atribución explícita de capital; no se calcula importe")
  const referencia=h.proyectos[0]!.vivienda.inmueble
  const proyectos=h.proyectos.map(p=>{
   const v=p.vivienda,l=p.prestamo
@@ -108,8 +110,7 @@ function producirDT18Comun<V extends ViviendaDT18>(h:HechosComunes<V>,caso:Magni
   // La fórmula revisada produce una sola vez la base; el censo acredita ceros de otras viviendas.
   if(p.operacion==="rehabilitacion")exige(v.inmueble.valorSuelo!=="0","DT18: suelo explícito requerido en este perfil; proporción catastral requiere transporte adicional")
   const capitalSinFinanciacion = new (baseViviendaDecimal)(textoEuros(suma(v.pagos.filter(x=>x.concepto==="amortizacion").map(x=>euros(x.importe)))))
-  const base = cumplePatrimonio || cambioEnEjercicio
-    ? euros(baseVivienda(nacional, ambito, true, p.operacion === "adecuacion", capitalSinFinanciacion, cambioEnEjercicio).toFixed()) : cero
+  const base = euros(baseVivienda(nacional, ambito, true, p.operacion === "adecuacion", capitalSinFinanciacion, true).toFixed())
   return {id:p.id,operacion:p.operacion,vivienda:v,base}
  })
  const baseDerechoSinAdecuacion=min(euros("9040"),suma(proyectos.filter(p=>p.operacion!=="adecuacion").map(p=>p.base)))

@@ -1,5 +1,6 @@
 import { liquidarAnticipoNacimientoC36, aplicarAnticipoAlLibroC36, type LibroAnticipoNacimientoC36 } from "./canarias-balears-hechos-2025/anual-nacimiento-anticipo"
 import { producirAscendientes2025 } from "../minimos/ascendientes-2025"
+import { validarConcurrenciaDT18Donativos2025 } from "../vivienda-dt18-2025/donativos"
 import { validarCensosViviendaRioja } from "../vivienda-dt18-2025/productor"
 import { HechosDT18Territoriales2025 } from "../vivienda-dt18-2025/contrato"
 import type { LibroDT182025 } from "../vivienda-dt18-2025/productor"
@@ -340,11 +341,12 @@ export function aplicarDeduccionesTerritoriales2025(
     Result.isSuccess(decoded),
     "Hechos territoriales inválidos o magnitudes anuales externas"
   )
+  validarConcurrenciaDT18Donativos2025(decoded.success, m.caso.comunidadAutonoma)
   if (decoded.success.donativosEstatales2025 !== undefined) {
     const admitidos = new Set(["cantabria_donativos_fundaciones_fondo_cantabria_coopera_discapacidad", "murcia_donativos_patrimonio_cultural_actividades", "murcia_donativos_investigacion_biosanitaria", "madrid_condicion_familia_numerosa", "madrid_donativos_fundaciones_clubes_deportivos", "madrid_familias_dos_descendientes_ingresos_reducidos"])
     for (const solicitud of decoded.success.solicitudes) {
       const codigo = "codigo" in solicitud ? solicitud.codigo : solicitud.hechos.codigo
-      exigir(admitidos.has(codigo), "Interacción regional con donativos estatales no acotada:" + codigo)
+      exigir(admitidos.has(codigo) || (codigo === "murcia_regimen_transitorio_inversion_vivienda_habitual" && decoded.success.prioridadCuotasDT18Donativos2025 === "dt18_antes_donativos"), "Interacción regional con donativos estatales no acotada:" + codigo)
     }
   }
   if (decoded.success.vehiculoDA582025 !== undefined) {
@@ -428,6 +430,7 @@ export function aplicarDeduccionesTerritoriales2025(
   }
   if(decoded.success.viviendaDT182025!==undefined){
     exigir(m.libroDT18!==undefined&&m.cuotasDT18!==undefined&&m.cuotaAutonomicaResidual!==undefined,"DT18: falta libro y consumo producidos una vez por composición anual")
+    exigir(decoded.success.donativosEstatales2025 === undefined || m.libroDT18.cumplePatrimonio, "DT18/donativos: sólo patrimonio suficiente")
     exigir(Schema.toEquivalence(HechosDT18Territoriales2025)(m.libroDT18.hechos,decoded.success.viviendaDT182025),"DT18: libro ajeno a los hechos de esta declaración")
   }else exigir(m.libroDT18===undefined&&m.cuotasDT18===undefined,"DT18: libro sin hechos históricos")
   // Reserva de base P5a por declaración: no admite particiones ni concurrencias nuevas.
@@ -1006,6 +1009,7 @@ export function aplicarDeduccionesTerritoriales2025(
   })()
   const salidaBase = {
     nacimientoBalear2025,
+    prioridadCuotasDT18Donativos2025: decoded.success.prioridadCuotasDT18Donativos2025,
     viviendaDT182025: m.libroDT18===undefined ? undefined : {...m.libroDT18.publico,cuotas:m.cuotasDT18},
     estatal681,
     ...consumo,

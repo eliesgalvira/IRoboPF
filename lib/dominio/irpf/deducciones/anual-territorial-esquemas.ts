@@ -13,6 +13,7 @@ import { SolicitudAmpliacionAnualA2025 } from "./ampliacion-a-anual-esquemas"
 import { SolicitudDonativosEstatales2025 } from "./donativos-estatales-2025/esquemas"
 export const SolicitudDeduccionesTerritoriales2025 = Schema.Struct({
   viviendaDT182025: Schema.optionalKey(HechosDT18Territoriales2025),
+  prioridadCuotasDT18Donativos2025: Schema.optionalKey(Schema.Literal("dt18_antes_donativos")),
   derechoInversionAlquilerRioja2025: Schema.optionalKey(HechosDerechoDT18Rioja2025),
   vehiculoDA582025: Schema.optionalKey(HechosVehiculoDA58),
   donativosEstatales2025: Schema.optionalKey(SolicitudDonativosEstatales2025),

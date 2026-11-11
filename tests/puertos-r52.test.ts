@@ -24,6 +24,22 @@ it("R52 mantiene el calendario laboral nuevo fuera de la aceptación documental 
   expect(fragment.completeRuleAcceptance).toBe(false)
   expect(fragment.wiringAllowed).toBe(false)
 })
+it("R52 mantiene el calendario mixto familiar fuera de la aceptación documental heredada", () => {
+  const name = "boundary:calcularGastosTrabajoMixtoCalendario2025"
+  expect(fragment.boundaries.find(b => b.name === name)).toMatchObject({
+    owner: "productores-anuales-2025",
+    status: "requires-external-contract",
+    admissionAvailable: false,
+  })
+  expect(fragment.globalBindings.find(b => b.name === name)).toMatchObject({ node: null, external: true })
+  const expression = fragment.program.find(n => n.op === "global" && n.data.name === name)
+  expect(expression).toBeDefined()
+  if (expression === undefined) throw Error("Frontera del calendario mixto ausente")
+  expect(() => executeRentasFinite(fragment, null, [], false, expression.id))
+    .toThrow("Frontera sin contrato " + name)
+  expect(fragment.completeRuleAcceptance).toBe(false)
+  expect(fragment.wiringAllowed).toBe(false)
+})
 it("R52 mantiene Aragón mixto fuera de la aceptación documental heredada", () => {
   const name = "boundary:liquidarAragonSocialMixto2025"
   expect(fragment.boundaries.find(b => b.name === name)).toMatchObject({

@@ -1,3 +1,4 @@
+import { producirBaseInicialTrasladoCLM } from "./clm-traslado-historia-2025"
 import { evaluarFamiliarExentoExt2025 } from "./ext-familiar-anual-2025"
 import { producirHistoriaBasesD51 } from "./historia-bases-d51"
 import { evaluarVaciaExt2025 } from "../inmobiliario-2025/consumidor-ext"
@@ -45,9 +46,12 @@ export function crearSesionD51(m:MagnitudesTerritorialesAnuales) {
    case "otrasBases9af":concepto="otras_bases_conjunto_9a_f";valor=bases9af;break
    case "baseLiquidableInicial":
     exigir(texto(datos.fechaTraslado).startsWith("2025-"),"D51: base liquidable del año inicial2024 no modelada");concepto="base_liquidable_inicio_periodo";valor=liquidable();break
-   case "cuotaTrabajoActividad":
+   case "cuotaTrabajoActividad": {
     exigir(m.rentasTrabajoAnuales!==undefined&&m.rentasTrabajoAnuales.integroTrabajo.gt(0)&&m.rentasTrabajoAnuales.restoRentas.eq(0)&&m.baseAhorro.eq(0),"D51: cuota atribuible a trabajo/actividad no modelada para rentas mixtas o actividad aislada")
-    concepto="cuota_autonomica_trabajo_actividad";valor=new A(m.cuotaAutonomica);break
+    const cuota=m.nodosFiscalesB2025?.cuotaTrabajoActividad
+    exigir(m.nodosFiscalesB2025?.contribuyente===propio&&cuota?.origen==="solo-trabajo","D51: cuota de trabajo no derivada por composición; rentas mixtas o compensadas fuera del perfil")
+    concepto="cuota_autonomica_trabajo_actividad";valor=new A(cuota.importe);break
+   }
    case "baseLiquidableIndividual":case "base":
     exigir(texto(datos.id)===propio,"D51: bases liquidables de otra persona no modeladas");concepto="base_liquidable_individual:"+propio;valor=liquidable();break
    default:throw new RangeError("D51 "+codigo+": productor anual no modelado para "+campo+"; no aceptar importe fiscal externo ni suponer cero")
@@ -173,7 +177,20 @@ case "clm_adquisicion_rehabilitacion_vivienda_zonas_rurales": {
  const r=CLM.viviendaRural(marco,{...s.hechos,baseConsumidaAnterior:h.magnitud})
  return r.estado==="calculo_parcial"?{...r,pendientes:[...h.fundamentos,...r.pendientes]}:r
 }
-case "clm_traslado_vivienda_habitual":return CLM.trasladoLaboral(marco,({...s.hechos, baseLiquidableInicial: magnitud("baseLiquidableInicial","clm_traslado_vivienda_habitual",s.hechos), cuotaTrabajoActividad: magnitud("cuotaTrabajoActividad","clm_traslado_vivienda_habitual",s.hechos)}))
+case "clm_traslado_vivienda_habitual": {
+ const h=s.historiaTrasladoCLM
+ const inicial=h===undefined?magnitud("baseLiquidableInicial",s.codigo,s.hechos):{
+  ejercicio:2025,declarantes:[propio],concepto:"base_liquidable_inicio_periodo",
+  valor:producirBaseInicialTrasladoCLM(h,s.hechos,m),
+ }
+ const r=CLM.trasladoLaboral(marco,{...s.hechos,baseLiquidableInicial:inicial,cuotaTrabajoActividad:magnitud("cuotaTrabajoActividad",s.codigo,s.hechos)})
+ return h!==undefined&&r.estado==="calculo_parcial"?{...r,pendientes:[
+  "Origen2024 individual: BL derivada art19/art20="+inicial.valor+"; certificado nominal y gastos efectivos conciliados. No es saldo ni cuota histórica externa.",
+  "El pagador del certificado es un dato declarado; no se autentica ni se contrasta con una fuente independiente del empleador.",
+  "Permanencia acreditada hasta2025-12-31; obligación futura hasta2027-12-31 pendiente. Incumplimiento exige regularización e intereses; fallecimiento fuera del perfil.",
+  "Referencias declaradas de residencia/clasificación municipal requieren comprobación documental; aceptación fiscal pendiente.",
+ ]}:r
+}
 case "clm_inversion_acciones_participaciones_mercantiles":return CLM.inversionMercantil(marco,({...s.hechos}))
 case "clm_inversion_economia_social":return CLM.inversionEconomiaSocial(marco,({...s.hechos}))
 case "clm_ahorro_inversion_primera_vivienda": {

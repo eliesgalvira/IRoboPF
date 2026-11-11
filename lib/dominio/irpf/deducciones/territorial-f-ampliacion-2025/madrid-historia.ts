@@ -10,15 +10,20 @@ function mismos(a: readonly string[], b: readonly string[]): boolean {
   return a.length === b.length && a.every(id => b.includes(id))
 }
 /** Núcleo de hechos históricos. Art19 y art20 públicos por año; sin cuota ni deducciones. */
-export function comprobarHistoriaNacimientoMadrid(s: SolicitudAnualF2025, m: MagnitudesTerritorialesAnuales): void {
+export function comprobarHistoriaNacimientoMadrid(s: SolicitudAnualF2025, m: MagnitudesTerritorialesAnuales): ReadonlySet<number> {
   const aux = requerido(s.auxiliares, "auxiliares")
   const origenes = aux.eventos.map(e => Number(fecha(e.fecha, "evento.fecha").slice(0, 4)))
   if (origenes.some(y => y < 2023)) excluir("evento.fuera_ventana", "Evento anterior a los dos periodos siguientes aplicables en 2025")
   if (origenes.every(y => y >= 2025)) {
     if (s.historiaNacimientoMadrid !== undefined) falta("historia.sin_evento", "Historia sin evento histórico")
-    return
+    return new Set([2025])
   }
-  if (new Set(origenes).size > 1) falta("historia.origenes_distintos", "Perfil técnico inicial de un único ejercicio de origen; no excluir en bloque eventos de otros años")
+  const distintos = [...new Set(origenes)].sort()
+  // B02 sólo añade dos eventos ordinarios: uno en 2023 y otro en 2024.
+  const dosOrigenes = mismos(distintos.map(String), ["2023", "2024"]) &&
+    aux.eventos.length === 2 && aux.eventos.every(e => e.hijos.length === 1 && e.tipo !== "acogimiento")
+  if (distintos.length > 1 && !dosOrigenes)
+    falta("historia.origenes_distintos", "Fuera del corte: dos eventos ordinarios de 2023 y 2024 del mismo hogar")
   const historia = requerido(s.historiaNacimientoMadrid, "historiaNacimientoMadrid")
   const propio = texto(m.caso.contribuyenteId, "contribuyenteId")
   if (historia.contribuyente !== propio) falta("historia.identidad", "Declarante distinto")
@@ -28,6 +33,17 @@ export function comprobarHistoriaNacimientoMadrid(s: SolicitudAnualF2025, m: Mag
   if (!mismos(historia.periodos.map(p => String(p.ejercicio)), requeridos.map(String)))
     falta("historia.periodos", "Faltan hechos desde el evento hasta 2024 o hay ejercicios ajenos")
   const ds = requerido(m.caso.derechosMinimos, "derechosMinimos").descendientes
+  if (dosOrigenes) {
+    const familias = aux.eventos.map(e => {
+      const d = requerido(ds.find(d => d.sujetoId === e.hijos[0]), "historia.evento_hijo")
+      return d.titulares.filter(t => t.grado === 1 &&
+        (t.vinculo.clase === "consanguinidad" || t.vinculo.clase === "adopcion"))
+    })
+    if (!mismos(familias[0]!.map(t => t.titularId), familias[1]!.map(t => t.titularId)) ||
+        !mismos(familias[0]!.filter(t => t.relacion === "convivencia").map(t => t.titularId),
+          familias[1]!.filter(t => t.relacion === "convivencia").map(t => t.titularId)))
+      falta("historia.hogar", "Dos orígenes requieren los mismos progenitores y convivencia estable")
+  }
   // Primer perfil estable: el libro actual o el perfil monoparental sigue validando 2025.
   const actual = m.libroBasesFamiliares2025
   if (actual?.censo !== undefined && !mismos(actual.censo.hijos.map(h => h.id), ds.map(d => d.sujetoId)))
@@ -35,13 +51,19 @@ export function comprobarHistoriaNacimientoMadrid(s: SolicitudAnualF2025, m: Mag
   const conyuge = actual?.conyuge
   if (actual?.estadoCivil === "separado-legalmente") falta("historia.estado_civil", "Separación requiere historia civil específica")
   const miembrosActuales = actual?.miembrosUnidad ?? aux.miembrosUnidad
-  for (const p of historia.periodos) {
+  const limitesPorEjercicio = new Map<number, boolean>()
+  for (const p of [...historia.periodos].sort((a, b) => a.ejercicio - b.ejercicio)) {
     const campo = "historia:" + p.ejercicio
     if (p.estadoCivil !== aux.estadoCivil || p.conyuge !== conyuge || (p.estadoCivil === "casado") !== (p.conyuge !== undefined))
       falta(campo + ":estado_civil", "Perfil técnico estable: estado civil o cónyuge no conciliado")
     unicos(p.personas.map(x => x.id), campo + ":personas"); unicos(p.hijos.map(x => x.id), campo + ":hijos")
-    if (!mismos(p.hijos.map(x => x.id), ds.map(x => x.sujetoId)))
-      falta(campo + ":censo", "Perfil estable requiere el censo completo de hijos en cada ejercicio")
+    // El segundo hijo sólo entra desde su nacimiento o constitución de la adopción.
+    // Los demás hijos del hogar conservan el perfil estable anterior.
+    const posteriores = dosOrigenes ? aux.eventos.filter(e => Number(e.fecha.slice(0, 4)) > p.ejercicio)
+      .flatMap(e => e.hijos) : []
+    const hijosDelEjercicio = ds.filter(d => !posteriores.includes(d.sujetoId))
+    if (!mismos(p.hijos.map(x => x.id), hijosDelEjercicio.map(x => x.sujetoId)))
+      falta(campo + ":censo", "Censo anual incompleto o hijo anterior a su evento de filiación")
     const personas = new Set([propio, ...(conyuge === undefined ? [] : [conyuge])])
     const miembros = [propio, ...(conyuge === undefined ? [] : [conyuge])]
     for (const h of p.hijos) {
@@ -66,17 +88,26 @@ export function comprobarHistoriaNacimientoMadrid(s: SolicitudAnualF2025, m: Mag
       if (edad >= 18) falta(campo + ":unidad", "Perfil técnico inicial: sólo hijos menores sin emancipación ni apoyo judicial")
       if (h.convivientesDevengo.includes(propio) || (conyuge !== undefined && h.convivientesDevengo.includes(conyuge))) miembros.push(h.id)
     }
-    if (!mismos([...personas], p.personas.map(x => x.id)) || !mismos(miembros, miembrosActuales))
+    if (!mismos([...personas], p.personas.map(x => x.id)) || !mismos(miembros, miembrosActuales.filter(id => !posteriores.includes(id))))
       falta(campo + ":unidad", "Censo de personas o unidad art82 incompleto o cambiante")
     const bases = producirBasesHistoriaNacimientoMadrid(p, propio)
     const propia = bases.get(propio)!
     const familiar = miembros.reduce((a, id) => a.plus(bases.get(id)!), new D(0))
-    if (propia.gt("30930") || familiar.gt("61860")) {
-      if (!origenes.includes(p.ejercicio))
-        falta(campo + ":criterio_anualidad_intermedia", "Bases intermedias excedidas: continuidad o recuperación no acreditada en esta primera cobertura")
-      excluir(campo + ":bases_origen", "Bases derivadas en origen superiores al límite individual o familiar")
-    }
+    limitesPorEjercicio.set(p.ejercicio, !propia.gt("30930") && !familiar.gt("61860"))
   }
+  // Una economía por ejercicio, compartida por los orígenes; nunca una cuota histórica.
+  const validos = new Set<number>()
+  for (const origen of distintos) {
+    if (limitesPorEjercicio.get(origen) !== true) continue
+    for (let ejercicio = origen + 1; ejercicio <= 2024; ejercicio++) {
+      if (limitesPorEjercicio.get(ejercicio) !== true)
+        falta("historia:" + ejercicio + ":criterio_anualidad_intermedia", "Bases intermedias excedidas: continuidad o recuperación no acreditada en esta cobertura art4")
+    }
+    validos.add(origen)
+  }
+  if (validos.size === 0)
+    excluir("historia:" + distintos[0] + ":bases_origen", "Bases derivadas en todos los orígenes superiores al límite individual o familiar")
+  return validos
 }
 
 /** Productor económico por ejercicio, sin liquidaciones ni magnitudes externas. */
