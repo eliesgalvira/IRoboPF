@@ -1,0 +1,86 @@
+{
+  "estado": "CI_LOCAL_COMPLETO_CORRECTO_PENDIENTE_PUBLICACION_Y_CI_REMOTO",
+  "base": "56ffd1ad35aa40ba09dfa5f21772d4a9f7467a9c",
+  "revisiones": {
+    "Madrid": [
+      {
+        "artefacto": "DICTAMEN-FINAL.txt",
+        "sha256": "3d0ad5e1d6feb4e653b2cb10f86a07aabf9a39d8c9c5abfe95622ba584760974"
+      },
+      {
+        "artefacto": "MANIFIESTO-FINAL.json",
+        "sha256": "d0084acbe241827254728c9266e6c55800c9111528247ccdddfda846e298a780"
+      }
+    ],
+    "Galicia": [
+      {
+        "artefacto": "DICTAMEN-FINAL.txt",
+        "sha256": "ace4f45317a2b433d518ddad22c181ddfe40bcbb639e1d28396cc4729c32a90f"
+      },
+      {
+        "artefacto": "MANIFIESTO-FINAL.json",
+        "sha256": "6d4976786bc183fc4d3b120c0834c24fa1ead926f467db7bf97eb257676cb50a"
+      }
+    ],
+    "MurciaP1": [
+      {
+        "artefacto": "INFORME.txt",
+        "sha256": "e07ff308a5501c6dc6894ad23b9fba226af5df654161d0b646e88065ddab88f8"
+      },
+      {
+        "artefacto": "MANIFIESTO.json",
+        "sha256": "789b04ea25751ea35bf9f69928458c4dadbf6c3007f01489bde6ab6cedbd8595"
+      }
+    ]
+  },
+  "ejecuciones": {
+    "focalPadre": {
+      "suites": 6,
+      "tests": 279,
+      "antesDelDeltaTipos": true
+    },
+    "tiposStrictEffect": {
+      "exit": 0,
+      "logSHA256": "7f761a69646b81ac0e9071964477c1341793409bc911a0c4699c7c7d81903fb4"
+    },
+    "MurciaContraste": {
+      "PRE": "21/31; diez rojos del defecto",
+      "POST": "31/31",
+      "fueraDeAlcance": "sin mínimo ajeno probado internamente; perfil público incoherente rechazado"
+    },
+    "finalPadre": {
+      "suites": 7,
+      "tests": 310,
+      "tiposStrictEffectExit": 0,
+      "oxlintExit": 0,
+      "logSHA256": "71a09a18d8ebacd17d4fe83c8728e5068f45a8a9a7851a1e5081a458a7b3fd2b",
+      "supervisionSHA256": "de75878d25da911e269443ea9c43273b7109d292ab390e5ea971ced0002852f1",
+      "expectedMonetaryChanges": false
+    }
+  },
+  "reservas": [
+    "Interpretación de subvención íntegra como ayuda atribuida tras pago acreditado; sin consulta vinculante específica",
+    "Contratos técnicos acotados; no autenticación de certificados"
+  ],
+  "inventarioMemoria": {
+    "UTC": "2026-11-11T20:23:42.499280+00:00",
+    "testsPRE": 19,
+    "testsPOST": 19,
+    "maxTreePssPRE": 3173273600,
+    "maxTreePssPOST": 2869997568,
+    "secondsPRE": 184.78923625219613,
+    "secondsPOST": 183.86547415331006,
+    "guardiasModificadas": false,
+    "asercionesOriginalesConservadas": true,
+    "cambioFiscal": false,
+    "rootTestSha256": "5ab54c15659c3f5721e593538caedc519b447f556b5d2827974fa7092e909ff3",
+    "supervisionPRE": "a4275bd917fe7aecc62dd1a87ec2ac056cec18843cf03e55be17905691ba6e35",
+    "supervisionPOST": "a96f755710976a3e0d6cc046ad60cefc0411530d10d3d844c7eb7c8b43bf59ab"
+  },
+  "CI": {
+    "comandosCorrectos": 31,
+    "generadosActualizados": true,
+    "documento": "VALIDACION.json",
+    "sha256": "39cea46a0c0b142838ffabcbcb8a51858a301f3cbfe2ce20938e7b7cf5e1c3d0"
+  }
+}

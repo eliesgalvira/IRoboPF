@@ -1,6 +1,8 @@
 import { Schema } from "effect"
+import { PagadoresMurcia2025 } from "./murcia-pagadores"
 const Periodo = Schema.Struct({ desde: Schema.String, hasta: Schema.String })
 export const AuxiliaresAnualesF = Schema.Struct({
+  pagadoresMurcia: Schema.optionalKey(PagadoresMurcia2025),
   referenciaCenso: Schema.String,
   censo: Schema.Literal("completo_eventos_pagos_ayudas_todos_progenitores"),
   conservacionFacturas: Schema.Literal("plazo_prescripcion"),

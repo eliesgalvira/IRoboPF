@@ -547,8 +547,8 @@ La historia reconstruida y la comprobación patrimonial son obligatorias.
 `basesFamiliares2025` alimenta ahora `madrid_vivienda_nacimiento_adopcion_hijos`
 y `madrid_incremento_costes_financiacion_vivienda`. La composición deriva la base
 propia y el libro selecciona los miembros de la unidad; no se reciben bases ni
-cuotas de terceros calculadas por el cliente. La conexión de compra con libro
-familiar requiere adquisición en 2025. Las solicitudes de nacimiento/adopción
+cuotas de terceros calculadas por el cliente. La conexión inicial de compra con libro
+familiar admite adquisición en 2025; la historia de 2023–2024 se describe más abajo. Las solicitudes de nacimiento/adopción
 y despoblación sobre la misma inversión se rechazan antes de devolver importe.
 
 En Andalucía, adopción internacional y familia numerosa usan la base propia
@@ -601,3 +601,30 @@ vigencia se rechazan. El libro conserva el importe generado, su aplicación úni
 y el saldo de 2025 para los ejercicios siguientes dentro del alcance existente.
 Esta ampliación no cambia el contrato histórico de instalaciones de energías
 renovables ni resuelve las reservas normativas de las otras ramas.
+
+## Pagadores murcianos, vivienda histórica madrileña y alquiler gallego
+
+La solicitud `F-ampliado` de `murcia_gastos_guarderia` admite
+`auxiliares.pagadoresMurcia`, definido en `murcia-pagadores.ts`. El censo concilia
+personas, filiación, convivencia, residencia y economías con los derechos
+familiares. El divisor usa los titulares nominales con pago, mientras las ayudas
+minoran la base individual. El gasto ajeno no se transfiere al declarante.
+Con varios pagadores sigue rechazado el artículo 81 simultáneo; la rama
+publicada de una sola beneficiaria conserva su contrato.
+
+`madrid_vivienda_nacimiento_adopcion_hijos` incorpora `historiaViviendaMadrid`,
+definido en `madrid-vivienda-historia-esquema.ts`. Para una compra de 2023 recibe
+los períodos de 2023 y 2024; para una de 2024, el de 2024. Reconstruye las bases
+familiares del origen y de cada anualidad. Un exceso intermedio no extingue un
+origen válido. Esta regla del artículo 13 no amplía `historiaNacimientoMadrid`
+del artículo 4. La compra de 2025 conserva su recorrido sin historia previa.
+
+El perfil `solo-inmobiliario-p4a` puede conciliar el inventario de inversiones de
+`galicia_alquiler_vivienda_habitual` con un inmueble pleno. El contrato opcional
+`cambioHabitual2025` del inmueble representa el paso de uso habitual a alquiler
+con períodos continuos, sin días vacantes. Las rentas, amortización e intereses
+se producen antes de evaluar la deducción; el principal no se convierte en gasto.
+No se recibe una afirmación pública de derecho a inversión. La Rioja conserva
+su condición material y DT18 concurrente sigue fuera de este perfil.
+
+[Perfiles, revisión y restricciones](corte-murcia-madrid-galicia-20261111/INTEGRACION.md).

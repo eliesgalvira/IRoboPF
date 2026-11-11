@@ -1,3 +1,4 @@
+import { conciliarInversionAlquilerGalicia2025 } from "./alquiler-inversion-galicia"
 import { igualViviendaDT18 } from "../../vivienda-dt18-2025/productor"
 import Decimal from "decimal.js"
 import { producirPatrimonioP5a, producirSegundaRiojaAnterior } from "../../patrimonio-p5a/productor"
@@ -168,7 +169,10 @@ function evaluarE38ConProductores(s:SolicitudE38Anual2025,m:MagnitudesTerritoria
    return evaluarAmpliacionE2025(c,{...h,eventos:h.eventos.map(e=>({...e,hijos:e.hijos.map(x=>({...x,ordenPorProgenitor:e.progenitores.map(t=>{const p=censos.find(p=>p.progenitor===t);exige(p!==undefined,"Progenitor sin censo");const ordenados=[...p.hijos].sort((a,b)=>a.fechaVinculo.localeCompare(b.fechaVinculo)||a.prioridadRegistro-b.prioridadRegistro);const i=ordenados.findIndex(a=>a.id===x.persona.id);exige(i>=0&&ordenados[i].nacimiento===x.persona.nacimiento&&ordenados[i].fechaVinculo===e.fecha,"Evento no conciliado con censo de filiación");return {titular:t,orden:i+1}})}))}))})
   }
  case "galicia_familia_numerosa":return evaluarAmpliacionE2025(c,{...h,eleccion:"numerosa"})
-  case "galicia_alquiler_vivienda_habitual":case "rioja_arrendamiento_menores_36":
+  case "galicia_alquiler_vivienda_habitual":
+   conciliarInversionAlquilerGalicia2025(s,m)
+   return evaluarAmpliacionE2025(c,{...h,codigo:"galicia_alquiler_vivienda_habitual"})
+  case "rioja_arrendamiento_menores_36":
    exige(s.inversionesViviendaEjercicio.length===0,`${h.codigo}: hay inversión de vivienda,productor de derecho a inversión no representado para esta concurrencia`)
    return evaluarAmpliacionE2025(c,{...h,derechoInversionVivienda:"sin_derecho"})
   case "galicia_climatizacion_agua_caliente_renovables":return evaluarAmpliacionE2025(c,{...h,eleccion:"renovables"})

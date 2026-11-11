@@ -2,7 +2,9 @@
 
 Preparación del 6 de noviembre, retomada el 11 de noviembre de 2026 sobre
 `646daac4f94d8de4af88da66c0e72d14efdee772`. La fusión está aplicada en el checkout, con 30 postimágenes verificadas.
-Las cuatro primeras revisiones son favorables dentro de sus alcances. El CI conjunto y la publicación siguen pendientes.
+Las cuatro primeras revisiones son favorables dentro de sus alcances. El corte
+se publicó en `56ffd1ad` tras superar los 31 comandos locales; ambos trabajos del
+[CI remoto](https://github.com/eliesgalvira/IRoboPF/actions/runs/43088216838) pasan.
 
 ## Comportamiento representado
 
@@ -55,9 +57,9 @@ primera revisión independiente favorable acotada: 110 casos propios, 21 orácul
 
 Los dos archivos compartidos por anticipos y alquiler contienen cambios en
 secciones distintas: nacimiento y vivienda. La fusión conserva ambas ramas;
-sus regresiones deben pasar juntas antes de publicar. El workflow preparado
-incluye las nuevas suites y el CI debe reproducir sus 31 comandos en entorno
-limpio, con inventario regenerado. La publicación queda condicionada al resultado completo de esas comprobaciones.
+sus regresiones pasan juntas. El workflow incluye las nuevas suites y sus 31
+comandos se reprodujeron en entorno limpio, con inventario regenerado, antes
+de publicar.
 
 Las referencias documentales de las entradas son hechos declarados: el motor
 no autentica sus certificados. Las restricciones descritas delimitan cobertura
@@ -68,4 +70,5 @@ La revisión del alquiler distingue el transporte decimal de 80 cifras de una fr
 
 La primera ejecución del CI local detectó hashes de fuentes anteriores a este corte. Se actualizan sólo las 19 fuentes productivas recibidas y revisadas. El intérprete documental identifica el calendario nuevo como frontera pendiente y lo rechaza sin contrato externo; no hereda acreditación del motor anterior. El fallo y su prueba de regresión se conservan antes de repetir el workflow completo.
 
-La integración supera los 31 comandos locales exactos, incluidos inventario y generados. La publicación y la comprobación remota son posteriores a esta evidencia.
+La integración supera los 31 comandos locales exactos, incluidos inventario y
+generados. La comprobación remota posterior confirma ambos trabajos correctos.

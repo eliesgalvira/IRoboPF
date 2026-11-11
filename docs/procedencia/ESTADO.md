@@ -5,7 +5,9 @@
 El [corte de anticipos y alquiler baleares, calendario familiar e incentivos
 murcianos](corte-balears-calendario-20261111/INTEGRACION.md) está integrado en
 raíz sobre `646daac4f94d8de4af88da66c0e72d14efdee772`, con 30 postimágenes
-verificadas y cuatro primeras revisiones favorables acotadas.
+verificadas y cuatro primeras revisiones favorables acotadas. Se publicó en
+`56ffd1ad35aa40ba09dfa5f21772d4a9f7467a9c`; los dos trabajos del
+[CI remoto](https://github.com/eliesgalvira/IRoboPF/actions/runs/43088216838) pasan.
 
 Anticipos conserva 745 pruebas y 300 oráculos incluidos en ese total.
 Alquiler pasa 110 casos propios del revisor, 21 oráculos racionales y 267
@@ -14,12 +16,22 @@ Calendario familiar conserva 30 pruebas propias y 59 corroboradas; vigencia
 de incentivos Murcia, 32. No se suman repeticiones ni suites compartidas como
 cobertura nueva. Los alcances y exclusiones se conservan en la API y el informe.
 
-La unión está pendiente del CI completo y de publicación. Se ejecutarán los
-31 comandos exactos del workflow en entorno limpio, incluidos Nix, inventario
-y generados, antes de publicar sólo en `procedencia-documental`. Hay un único
+La unión superó los 31 comandos exactos del workflow en entorno limpio,
+incluidos Nix, inventario y generados, antes de publicar sólo en
+`procedencia-documental`. Hay un único
 turno pesado, cachés externas y límites de memoria y tiempo sin cambios.
 Los terminales anteriores se preservan; no se atribuye verde a sus salidas
 incompletas. El punto 4 y la campaña histórica siguen abiertos.
+
+El siguiente lote conecta guardería murciana con pagos separados de dos
+progenitores, la anualidad de vivienda madrileña adquirida en 2023–2024 y alquiler
+gallego con inversiones conciliadas. Sus 310 pruebas focales finales y los tipos pasan;
+los 31 comandos del CI local completo pasan con generados actuales; publicación
+y comprobación remota pendientes. El contraste murciano reproduce diez fallos PRE
+y pasa 31 pruebas POST. Las primeras revisiones de Madrid y Galicia concluyen
+con reservas de alcance.
+Se han retirado ocho entregas del corte publicado tras verificar su archivo
+compacto de 1.545 originales; no se han creado worktrees.
 
 ## Publicación familiar y cotejos históricos · 6 de noviembre
 
@@ -773,4 +785,9 @@ Histórico b05 cerrado: 301 capturas de 2018 y 307 en total. Las 300 incorporaci
 
 La conexión anual v4 recibe contraste favorable acotado: 34 pruebas propias y 41 recibidas, 75 correctas, con reproducción del P1 anterior en ambas API. Se integran sus 25 rutas y las 34 pruebas propias en la raíz. Las primeras 55 altas territoriales se conectan a las dos API; A40 y B37 conservan por ahora su evaluación aislada. Se inicia el CI completo de este corte.
 
-El corte conjunto de Baleares, calendario familiar e incentivos Murcia supera los 31 comandos locales exactos del CI, con generados actuales; publicación y CI remoto pendientes. Véase [validación local](corte-balears-calendario-20261111/VALIDACION.json).
+El corte conjunto de Baleares, calendario familiar e incentivos Murcia se publicó
+en `56ffd1ad` tras superar los 31 comandos locales exactos, con generados actuales.
+Ambos trabajos del [CI remoto 43088216838](https://github.com/eliesgalvira/IRoboPF/actions/runs/43088216838)
+pasan. Véase [validación local](corte-balears-calendario-20261111/VALIDACION.json).
+
+La [validación local del trío](corte-murcia-madrid-galicia-20261111/VALIDACION.json) conserva comandos, versiones, hashes, tiempos y supervisión.

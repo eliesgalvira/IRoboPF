@@ -45,16 +45,15 @@ export type ContratoAlquiler = {
   readonly pagos: readonly Pago[]
 }
 export type Alquiler = {
-  readonly codigo:
-    | "galicia_alquiler_vivienda_habitual"
-    | "rioja_arrendamiento_menores_36"
   readonly contratos: readonly ContratoAlquiler[]
   readonly hijosMenores: readonly {
     readonly id: string
     readonly nacimiento: string
   }[]
-  readonly derechoInversionVivienda: "sin_derecho" | "con_derecho"
-}
+} & (
+  | { readonly codigo: "galicia_alquiler_vivienda_habitual"; readonly derechoInversionVivienda?: "sin_derecho" | "con_derecho" }
+  | { readonly codigo: "rioja_arrendamiento_menores_36"; readonly derechoInversionVivienda: "sin_derecho" | "con_derecho" }
+)
 export function alquiler(c: Contexto, h: Alquiler): Resultado {
   return proteger(() => {
     const gal = h.codigo === "galicia_alquiler_vivienda_habitual"

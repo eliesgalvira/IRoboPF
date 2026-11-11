@@ -14,7 +14,6 @@ import { resolve, dirname } from "node:path"
 import ts from "typescript"
 import Decimal from "decimal.js"
 import { extractTs, hash } from "../scripts/procedencia/inventario-ast.mjs"
-import { bindingGraph } from "../scripts/procedencia/inventario-bindings.mjs"
 import {
   dimensions,
   flatten,
@@ -43,9 +42,22 @@ describe("inventario sintáctico y efectivo", () => {
         writeFileSync(resolve(root, "lib/procedencia/auxiliar.ts"), "export const version = 1\n")
         writeFileSync(resolve(root, "lib/datos.ts"), "export const tasa = 0.15\nexport { version } from './procedencia/auxiliar'\n")
         writeFileSync(resolve(root, "lib/uso.ts"), 'import * as datos from "./datos"\nexport const cuota = datos.tasa\n')
-        const inputs = new Set()
-        const graph = bindingGraph(root, sourcePaths(root), inputs)
-        expect([...inputs].sort()).toEqual([
+        // El checker de cada fixture termina antes de generar el corpus completo.
+        // Se conserva la misma API real y todas las aserciones sobre su grafo.
+        const output = resolve(root, "bindings.json")
+        const child = spawnSync("timeout", [
+          "-k", "5s", "10s", "bun", "--smol",
+          resolve("scripts/procedencia/inventario-bindings.mjs"), root, output,
+        ], {
+          input: JSON.stringify(sourcePaths(root)),
+          encoding: "utf8",
+          timeout: 16000,
+          maxBuffer: 1024 * 1024,
+        })
+        expect(child.status, child.stderr).toBe(0)
+        const inputs = JSON.parse(child.stdout)
+        const graph = JSON.parse(readFileSync(output, "utf8"))
+        expect(inputs.sort()).toEqual([
           "lib/datos.ts", "lib/procedencia/auxiliar.ts", "lib/uso.ts",
         ])
         expect(graph.some((row) => row.file.startsWith("lib/procedencia/"))).toBe(false)
@@ -62,7 +74,7 @@ describe("inventario sintáctico y efectivo", () => {
       rmSync(first, { recursive: true, force: true })
       rmSync(second, { recursive: true, force: true })
     }
-  })
+  }, 45000)
   it("fija el ámbito técnico por archivo y export, sin aceptar nombres ajenos", () => {
     const file = "lib/dominio/irpf/cuotas/escalas-publicadas.ts"
     expect(dimensions("MADRID_2025", ["1", "cuota"], file)).toMatchObject({

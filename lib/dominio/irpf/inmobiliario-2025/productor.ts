@@ -1,3 +1,4 @@
+import { validarCambioHabitual2025 } from "./cambio-habitual"
 import { validarCambioHabitualBalears2025 } from "./cambio-habitual-balears"
 import { validarVaciaExt2025 } from "./vacia-ext"
 import { dia } from "./calendario"
@@ -45,7 +46,11 @@ const producirInmueble = Effect.fn("P4a.inmueble")(function* (v: InmuebleP4a) {
     catch: e => fallo("historia", e instanceof RangeError ? e.message : "EXT: hechos incompletos"),
   })
   const primer = v.primerAlquiler2025
-  const cambio = v.cambioHabitualBalears2025 === undefined ? undefined : yield* Effect.try({
+  const cambioComun = v.cambioHabitual2025 === undefined ? undefined : yield* Effect.try({
+    try: () => validarCambioHabitual2025(v),
+    catch: e => fallo("historia", e instanceof RangeError ? e.message : "Cambio2025: hechos incompletos"),
+  })
+  const cambio = v.cambioHabitualBalears2025 === undefined ? cambioComun : yield* Effect.try({
     try: () => validarCambioHabitualBalears2025(v),
     catch: e => fallo("historia", e instanceof RangeError ? e.message : "T06_P4A_ERROR_NO_DOMINIO"),
   })
@@ -125,6 +130,15 @@ export const producirInmueblesP4a = Effect.fn("P4a.producir")(function* (entrada
   const decoded = Schema.decodeUnknownResult(CasoInmobiliarioP4a)(entrada, { onExcessProperty: "error" })
   if (Result.isFailure(decoded)) return yield* new RechazoP4a({ codigo: "entrada", motivo: "Perfil P4a fuera del esquema cerrado: " + String(decoded.failure) })
   const caso = decoded.success
+  const esGalicia = caso.comunidadAutonoma === "galicia"
+  if (esGalicia) {
+    const plan = caso.deduccionesTerritoriales2025?.solicitudes
+    if (caso.inmuebles.length !== 1 || caso.inmuebles.some(v => v.ubicacion !== "galicia" ||
+      v.primerAlquiler2025 !== undefined || v.vaciaExt2025 !== undefined || v.cambioHabitualBalears2025 !== undefined) ||
+      plan?.length !== 1 || plan[0]?.lote !== "E38" || plan[0]?.hechos.codigo !== "galicia_alquiler_vivienda_habitual")
+      return yield* new RechazoP4a({ codigo: "entrada", motivo: "Galicia: inmueble único y solicitud E38 de alquiler propio" })
+  } else if (caso.inmuebles.some(v => v.cambioHabitual2025 !== undefined))
+    return yield* new RechazoP4a({ codigo: "entrada", motivo: "Cambio2025: consumidor territorial no representado" })
   const esExt = caso.comunidadAutonoma === "extremadura"
   if (esExt ? (caso.inmuebles.length !== 1 || caso.inmuebles[0]?.vaciaExt2025 === undefined || caso.inmuebles.some(v => v.primerAlquiler2025 !== undefined)) : caso.inmuebles.some(v => v.vaciaExt2025 !== undefined))
     return yield* new RechazoP4a({ codigo: "entrada", motivo: "EXT: una vivienda exclusiva con hechos vaciaExt2025; sin mezcla P4b ni otros territorios" })
@@ -139,7 +153,7 @@ export const producirInmueblesP4a = Effect.fn("P4a.producir")(function* (entrada
     caso.inmuebles[0]?.cambioHabitualBalears2025 === undefined || esPrimerAlquiler ||
     caso.deduccionesTerritoriales2025?.solicitudes.length !== 1))
     return yield* new RechazoP4a({ codigo: "entrada", motivo: "T06_P4A_AMBITO: una vivienda y solicitud de alquiler balear" })
-  if (caso.deduccionesTerritoriales2025 !== undefined && caso.deduccionesTerritoriales2025.solicitudes.some(s => s.lote !== (esExt ? "D51" : "C36") || s.codigo !== (esCambio ? "balears_arrendamiento_vivienda_habitual" : codigoAdmitido)))
+  if (!esGalicia && caso.deduccionesTerritoriales2025 !== undefined && caso.deduccionesTerritoriales2025.solicitudes.some(s => s.lote !== (esExt ? "D51" : "C36") || s.codigo !== (esCambio ? "balears_arrendamiento_vivienda_habitual" : codigoAdmitido)))
     return yield* new RechazoP4a({ codigo: "entrada", motivo: "Perfil inmobiliario conecta exclusivamente su consumidor regional; combinaciones pendientes" })
   if (esCambio) {
     const h = caso.inmuebles[0]?.cambioHabitualBalears2025
@@ -152,6 +166,8 @@ export const producirInmueblesP4a = Effect.fn("P4a.producir")(function* (entrada
 
 /** Núcleo inmobiliario compartido. La conexión valida su perfil antes de invocarlo. */
 export const producirCensoInmuebles2025 = Effect.fn("Inmuebles.censo2025")(function* (caso: Pick<CasoInmobiliarioP4a, "inmuebles" | "retenciones" | "contribuyenteId" | "edad">) {
+  if (caso.inmuebles.some(v => v.cambioHabitual2025 !== undefined && v.ubicacion !== "galicia"))
+    return yield* new RechazoP4a({ codigo: "entrada", motivo: "Cambio2025: localización no representada" })
   const ids = caso.inmuebles.map(v => v.id), catastros = caso.inmuebles.map(v => v.catastro)
   const documentos = caso.inmuebles.flatMap(v => v.exigibilidades.map(x => x.documento))
   const operaciones = [...caso.inmuebles.flatMap(v => [...v.exigibilidades.map(x => x.id), ...v.gastos.map(x => x.id)]), ...caso.retenciones.map(x => x.id)]
