@@ -1,3 +1,4 @@
+import type { TrabajoActualCLM2025 } from "../patrimonio-historico-clm/actual"
 import { liquidarAnticipoNacimientoC36, aplicarAnticipoAlLibroC36, type LibroAnticipoNacimientoC36 } from "./canarias-balears-hechos-2025/anual-nacimiento-anticipo"
 import { producirAscendientes2025 } from "../minimos/ascendientes-2025"
 import { validarConcurrenciaDT18Donativos2025 } from "../vivienda-dt18-2025/donativos"
@@ -96,6 +97,7 @@ export interface MagnitudesTerritorialesAnuales {
   readonly rentasTrabajoAnuales?:
     | {
         readonly integroTrabajo: Decimal
+        readonly hechosCLM2025?: TrabajoActualCLM2025 | undefined
         readonly restoRentas: Decimal
       }
     | undefined
@@ -341,6 +343,28 @@ export function aplicarDeduccionesTerritoriales2025(
     Result.isSuccess(decoded),
     "Hechos territoriales inválidos o magnitudes anuales externas"
   )
+  const historiaRenovables = decoded.success.solicitudes.some(s => s.lote === "F-ampliado" && s.historiaRenovablesMurcia2024 !== undefined)
+  if (historiaRenovables) {
+    exigir(decoded.success.donativosEstatales2025 === undefined && decoded.success.vehiculoDA582025 === undefined &&
+      decoded.success.solicitudes.every(s => s.lote === "F-ampliado" &&
+        (s.codigo === "murcia_instalaciones_recursos_energeticos_renovables" || s.codigo === "murcia_dispositivos_ahorro_agua")),
+      "Renovables origen2024: primera concurrencia sólo agua2025 antes del saldo; sin otras ramas ni libros")
+    // La historia está fuera de hechos2025: conciliar sus referencias también,
+    // antes del recorrido por solicitudes para que ambos órdenes sean idénticos.
+    const origenes = decoded.success.solicitudes.flatMap(s =>
+      s.lote === "F-ampliado" && s.historiaRenovablesMurcia2024 !== undefined ? [s.historiaRenovablesMurcia2024] : [])
+    for (const h of origenes) {
+      const usados = new Set([h.factura.id, h.factura.soporte, h.instalacion.operacionId,
+        ...h.pagos.flatMap(p => [p.id, p.soporte]), ...h.ayudas.flatMap(a => [a.id, a.soporte])])
+      for (const s of decoded.success.solicitudes) {
+        if (s.lote !== "F-ampliado" || s.codigo !== "murcia_dispositivos_ahorro_agua") continue
+        for (const p of s.hechos.pagos ?? [])
+          exigir([p.id, p.factura, p.soportePago, p.operacionId].every(id => id === undefined || !usados.has(id)),
+            "Renovables2024: pago/documento/operación ya inventariado en otra solicitud2025")
+      }
+    }
+
+  }
   validarConcurrenciaDT18Donativos2025(decoded.success, m.caso.comunidadAutonoma)
   if (decoded.success.donativosEstatales2025 !== undefined) {
     const admitidos = new Set(["cantabria_donativos_fundaciones_fondo_cantabria_coopera_discapacidad", "murcia_donativos_patrimonio_cultural_actividades", "murcia_donativos_investigacion_biosanitaria", "madrid_condicion_familia_numerosa", "madrid_donativos_fundaciones_clubes_deportivos", "madrid_familias_dos_descendientes_ingresos_reducidos"])
@@ -1021,7 +1045,7 @@ export function aplicarDeduccionesTerritoriales2025(
     aceptacionFiscal: "pendiente" as const,
     limitaciones: [
       "Sólo declaración individual ordinaria 2025; documentos y derechos externos declarados, sin certificación automática",
-      "No compone saldos históricos territoriales ni bases de otras personas no representadas por el caso anual; F ampliado conserva origen2025, saldo generado, plazo2026–2028 y seguimiento de recarga",
+      "Sólo historia renovable Murcia2024 acotada y separada de generación2025; otros saldos históricos/bases ajenas no soportados. Recarga/vehículo sólo desde2025",
     ],
   }
   const salida: typeof salidaBase & { limitesC36?: typeof limitesC36; vehiculoDA582025?: LibroVehiculoDA58 } = salidaBase

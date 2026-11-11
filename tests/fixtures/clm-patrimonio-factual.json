@@ -1,0 +1,357 @@
+{
+  "version": "clm-patrimonio-factual-2024-2025-v1",
+  "titular": "s-1",
+  "exhaustividad": "todos-activos-derechos-deudas-cuentas-y-movimientos-2024-2025",
+  "adquisicion": {
+    "vivienda": "v",
+    "titular": "s-1",
+    "fecha": "2024-01-02",
+    "vendedor": "vendedor",
+    "precio": "15000",
+    "escritura": {
+      "referencia": "escritura",
+      "emisor": "soporte-declarado",
+      "fecha": "2024-01-02"
+    },
+    "dominio": "pleno-100-desde-compra",
+    "precioAplazado": {
+      "id": "d",
+      "acreedor": "vendedor",
+      "importeOriginal": "4999.99",
+      "vencimiento": "2025-01-02",
+      "contrato": {
+        "referencia": "aplazamiento",
+        "emisor": "soporte-declarado",
+        "fecha": "2024-01-02"
+      },
+      "intereses": "0",
+      "pagos": [
+        "p24",
+        "p25"
+      ]
+    },
+    "uso": "residencia-propia-sin-frutos-ni-rentas-2024-2025"
+  },
+  "cortes2024": {
+    "ejercicio": 2024,
+    "documentoCenso": {
+      "referencia": "inventario2024",
+      "emisor": "soporte-declarado",
+      "fecha": "2024-12-31"
+    },
+    "censo": [
+      {
+        "id": "b",
+        "titular": "s-1",
+        "tipo": "cuenta",
+        "inicio": "presente",
+        "cierre": "presente",
+        "documento": {
+          "referencia": "censo-b-2024",
+          "emisor": "soporte-declarado",
+          "fecha": "2024-12-31"
+        }
+      },
+      {
+        "id": "v",
+        "titular": "s-1",
+        "tipo": "vivienda",
+        "inicio": "ausente",
+        "cierre": "presente",
+        "documento": {
+          "referencia": "censo-v-2024",
+          "emisor": "soporte-declarado",
+          "fecha": "2024-12-31"
+        }
+      },
+      {
+        "id": "d",
+        "titular": "s-1",
+        "tipo": "precio-aplazado-vendedor",
+        "inicio": "ausente",
+        "cierre": "presente",
+        "documento": {
+          "referencia": "censo-d-2024",
+          "emisor": "soporte-declarado",
+          "fecha": "2024-12-31"
+        }
+      }
+    ],
+    "cuentas": [
+      {
+        "id": "b",
+        "titular": "s-1",
+        "entidad": "banco",
+        "inicio": {
+          "importe": "20000",
+          "documento": {
+            "referencia": "b-inicio2024",
+            "emisor": "soporte-declarado",
+            "fecha": "2024-01-01"
+          }
+        },
+        "cierre": {
+          "importe": "29999.99",
+          "documento": {
+            "referencia": "b-cierre2024",
+            "emisor": "soporte-declarado",
+            "fecha": "2024-12-31"
+          }
+        }
+      }
+    ],
+    "movimientos": [
+      {
+        "id": "sal2024",
+        "cuenta": "b",
+        "titular": "s-1",
+        "contraparte": "empleador",
+        "fecha": "2024-01-01",
+        "orden": 1,
+        "importe": "40000",
+        "clase": "salario",
+        "documento": {
+          "referencia": "abono2024",
+          "emisor": "soporte-declarado",
+          "fecha": "2024-01-01"
+        }
+      },
+      {
+        "id": "p24",
+        "cuenta": "b",
+        "titular": "s-1",
+        "contraparte": "vendedor",
+        "fecha": "2024-01-02",
+        "orden": 1,
+        "importe": "10000.01",
+        "clase": "precio",
+        "documento": {
+          "referencia": "p24",
+          "emisor": "soporte-declarado",
+          "fecha": "2024-01-02"
+        }
+      },
+      {
+        "id": "cons2024",
+        "cuenta": "b",
+        "titular": "s-1",
+        "contraparte": "comercio",
+        "fecha": "2024-12-30",
+        "orden": 1,
+        "importe": "20000",
+        "clase": "consumo",
+        "documento": {
+          "referencia": "consumo2024",
+          "emisor": "soporte-declarado",
+          "fecha": "2024-12-30"
+        }
+      }
+    ],
+    "salarios": [
+      {
+        "id": "cert2024",
+        "titular": "s-1",
+        "pagador": "empleador",
+        "rendimiento": "r",
+        "integro": "40000",
+        "cotizaciones": "0",
+        "retenciones": "0",
+        "documento": {
+          "referencia": "cert2024",
+          "emisor": "soporte-declarado",
+          "fecha": "2025-06-01"
+        },
+        "cobros": [
+          "sal2024"
+        ]
+      }
+    ],
+    "valorVivienda": {
+      "importe": "15000",
+      "documento": {
+        "referencia": "tasacion2024",
+        "emisor": "soporte-declarado",
+        "fecha": "2024-12-31"
+      }
+    },
+    "deudaVendedor": {
+      "inicio": {
+        "importe": "0",
+        "documento": {
+          "referencia": "d-inicio2024",
+          "emisor": "soporte-declarado",
+          "fecha": "2024-01-01"
+        }
+      },
+      "cierre": {
+        "importe": "4999.99",
+        "documento": {
+          "referencia": "d-cierre2024",
+          "emisor": "soporte-declarado",
+          "fecha": "2024-12-31"
+        }
+      }
+    }
+  },
+  "cortes2025": {
+    "ejercicio": 2025,
+    "documentoCenso": {
+      "referencia": "inventario2025",
+      "emisor": "soporte-declarado",
+      "fecha": "2025-12-31"
+    },
+    "censo": [
+      {
+        "id": "b",
+        "titular": "s-1",
+        "tipo": "cuenta",
+        "inicio": "presente",
+        "cierre": "presente",
+        "documento": {
+          "referencia": "censo-b-2025",
+          "emisor": "soporte-declarado",
+          "fecha": "2025-12-31"
+        }
+      },
+      {
+        "id": "v",
+        "titular": "s-1",
+        "tipo": "vivienda",
+        "inicio": "presente",
+        "cierre": "presente",
+        "documento": {
+          "referencia": "censo-v-2025",
+          "emisor": "soporte-declarado",
+          "fecha": "2025-12-31"
+        }
+      },
+      {
+        "id": "d",
+        "titular": "s-1",
+        "tipo": "precio-aplazado-vendedor",
+        "inicio": "presente",
+        "cierre": "ausente",
+        "documento": {
+          "referencia": "censo-d-2025",
+          "emisor": "soporte-declarado",
+          "fecha": "2025-12-31"
+        }
+      }
+    ],
+    "cuentas": [
+      {
+        "id": "b",
+        "titular": "s-1",
+        "entidad": "banco",
+        "inicio": {
+          "importe": "29999.99",
+          "documento": {
+            "referencia": "b-inicio2025",
+            "emisor": "soporte-declarado",
+            "fecha": "2025-01-01"
+          }
+        },
+        "cierre": {
+          "importe": "35000",
+          "documento": {
+            "referencia": "b-cierre2025",
+            "emisor": "soporte-declarado",
+            "fecha": "2025-12-31"
+          }
+        }
+      }
+    ],
+    "movimientos": [
+      {
+        "id": "sal2025",
+        "cuenta": "b",
+        "titular": "s-1",
+        "contraparte": "empleador",
+        "fecha": "2025-01-01",
+        "orden": 1,
+        "importe": "25000",
+        "clase": "salario",
+        "documento": {
+          "referencia": "abono2025",
+          "emisor": "soporte-declarado",
+          "fecha": "2025-01-01"
+        }
+      },
+      {
+        "id": "p25",
+        "cuenta": "b",
+        "titular": "s-1",
+        "contraparte": "vendedor",
+        "fecha": "2025-01-02",
+        "orden": 1,
+        "importe": "4999.99",
+        "clase": "precio",
+        "documento": {
+          "referencia": "p25",
+          "emisor": "soporte-declarado",
+          "fecha": "2025-01-02"
+        }
+      },
+      {
+        "id": "cons2025",
+        "cuenta": "b",
+        "titular": "s-1",
+        "contraparte": "comercio",
+        "fecha": "2025-12-30",
+        "orden": 1,
+        "importe": "15000",
+        "clase": "consumo",
+        "documento": {
+          "referencia": "consumo2025",
+          "emisor": "soporte-declarado",
+          "fecha": "2025-12-30"
+        }
+      }
+    ],
+    "salarios": [
+      {
+        "id": "cert2025",
+        "titular": "s-1",
+        "pagador": "empleador",
+        "rendimiento": "r",
+        "integro": "25000",
+        "cotizaciones": "0",
+        "retenciones": "0",
+        "documento": {
+          "referencia": "cert2025",
+          "emisor": "soporte-declarado",
+          "fecha": "2026-01-01"
+        },
+        "cobros": [
+          "sal2025"
+        ]
+      }
+    ],
+    "valorVivienda": {
+      "importe": "15000",
+      "documento": {
+        "referencia": "tasacion2025",
+        "emisor": "soporte-declarado",
+        "fecha": "2025-12-31"
+      }
+    },
+    "deudaVendedor": {
+      "inicio": {
+        "importe": "4999.99",
+        "documento": {
+          "referencia": "d-inicio2025",
+          "emisor": "soporte-declarado",
+          "fecha": "2025-01-01"
+        }
+      },
+      "cierre": {
+        "importe": "0",
+        "documento": {
+          "referencia": "d-cierre2025",
+          "emisor": "soporte-declarado",
+          "fecha": "2025-12-31"
+        }
+      }
+    }
+  }
+}

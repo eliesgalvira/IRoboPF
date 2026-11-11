@@ -13,8 +13,9 @@ type Aplicacion = {
   pendiente?: Racional
   resultado?: ResultadoF
   resolucionAnual?: { ejercicio: 2025; productor: string; operacion: string }
-  origen?: { ejercicio: 2025; objetoId?: string; objetosIds?: readonly string[]; contribuyente: string }
-  arrastre?: { primerEjercicio: 2026; ultimoEjercicio: 2027 | 2028 | 2030; saldo: Racional }
+  saldoHistoricoRenovablesMurcia?: { origen: NonNullable<ResultadoF["origenRenovablesMurcia2024"]>; aplicado2025: Racional; pendiente2025: Racional }
+  origen?: { ejercicio: 2024 | 2025; objetoId?: string; objetosIds?: readonly string[]; contribuyente: string }
+  arrastre?: { primerEjercicio: 2025 | 2026; ultimoEjercicio: 2026 | 2027 | 2028 | 2030; saldo: Racional }
   siguienteCondicion?: string
 }
 function multiplicar(a: Racional, b: Racional): Racional {
@@ -64,6 +65,32 @@ export function consumirCuotaAnualF2025(cuota: Racional, codigos: readonly strin
       if(codigo!=="murcia_regimen_transitorio_inversion_vivienda_habitual")throw new RangeError("Consumo DT18 ajeno")
       aplicaciones.push({codigo,estado:"aplicada",resultado,consumoCompartidoDT18:resultado.consumoCompartidoDT18})
       continue // El total y la cuota residual ya excluyen este consumo en composición-anual.
+    }
+    const historico = resultado?.origenRenovablesMurcia2024
+    if (historico !== undefined) {
+      if (codigo !== "murcia_instalaciones_recursos_energeticos_renovables" || resultado?.estado !== "calculo_parcial" ||
+          historico.ejercicio !== 2024 || historico.ultimoEjercicio !== 2026)
+        throw new RangeError("Libro de origen renovable ajeno o caducidad contradictoria")
+      const a: Aplicacion = { codigo, estado: "pendiente_cuota", resultado,
+        origen: { ejercicio: 2024, objetoId: historico.instalacionId, contribuyente: historico.contribuyente } }
+      if (anteriorPendiente !== undefined && BigInt(disponible.numeradorEuros) > 0n) {
+        a.siguienteCondicion = "Resolver importe y prelación de " + anteriorPendiente
+        aplicaciones.push(a)
+        continue
+      }
+      const aplicado = menor(disponible, historico.saldoPorInsuficiencia2024)
+      const pendiente = restar(historico.saldoPorInsuficiencia2024, aplicado)
+      disponible = restar(disponible, aplicado)
+      total = sumar(total, aplicado)
+      a.estado = "aplicada"
+      a.aplicado = aplicado
+      a.pendiente = pendiente
+      // Separado del campo generado2025: no rejuvenece el saldo ni lo vuelve a generar.
+      a.saldoHistoricoRenovablesMurcia = { origen: historico, aplicado2025: aplicado, pendiente2025: pendiente }
+      if (BigInt(pendiente.numeradorEuros) > 0n)
+        a.arrastre = { primerEjercicio: 2025, ultimoEjercicio: 2026, saldo: pendiente }
+      aplicaciones.push(a)
+      continue
     }
     const generado = anteriorPendiente !== undefined && resultado?.dependenciaAnual?.magnitud === "cuota_tras_resto_deducciones"
       ? undefined : generar(x, cuotaIntegra, disponible)

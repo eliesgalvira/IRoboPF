@@ -15,7 +15,7 @@ export const HistoriaBasesD51 = Schema.Struct({
   version: Schema.Literal("historia-bases-d51-v1"),
   titular: Texto, objeto: Texto,
   censo: Schema.Literal("completo-desde-primera-operacion"),
-  financiacion: Schema.Literal("sin-financiacion"),
+  financiacion: Schema.Literals(["sin-financiacion", "precio-aplazado-vendedor-sin-intereses"]),
   objetos: Schema.Array(Schema.Struct({
     id: Texto, clase: Schema.Literals(["vivienda", "cuenta"]),
     primeraOperacion: Texto, documento: Documento,
@@ -71,10 +71,22 @@ function documento(d: typeof Documento.Type): void {
  * inversión ni un importe autoliquidado por el cliente sustituyen a la base aplicada.
  */
 export function producirHistoriaBasesD51(entrada: HistoriaBasesD51 | undefined, c: ContextoHistoria): LibroHistoriaD51 {
+  return producirHistoria(entrada, c, false)
+}
+/** Entrada reservada al productor positivo CLM que reconstruye el pasivo vendedor.
+ * Las demás rutas conservan el rechazo de financiación. No sanea ni cambia etiquetas.
+ */
+export function producirHistoriaBasesD51PrecioAplazado(entrada: HistoriaBasesD51 | undefined, c: ContextoHistoria): LibroHistoriaD51 {
+  return producirHistoria(entrada, c, true)
+}
+function producirHistoria(entrada: HistoriaBasesD51 | undefined, c: ContextoHistoria, vendedor: boolean): LibroHistoriaD51 {
   exigir(entrada !== undefined, "falta censo histórico para baseConsumidaAnterior/baseHistorica/deducidoAnterior; no se presume cero")
   const decoded = Schema.decodeUnknownResult(HistoriaBasesD51)(entrada, { onExcessProperty: "error" })
   exigir(Result.isSuccess(decoded), "contrato cerrado inválido o magnitud fiscal externa")
   const h = decoded.success
+  exigir(vendedor ? c.codigo === "clm_adquisicion_rehabilitacion_vivienda_zonas_rurales" &&
+    h.financiacion === "precio-aplazado-vendedor-sin-intereses" : h.financiacion === "sin-financiacion",
+    "financiación exige productor factual de deuda vendedor")
   exigir(h.titular === c.titular && h.objeto === c.objeto, "titular/objeto de otra solicitud")
   fecha(c.fechaOperacion)
   const cuenta = c.codigo === "clm_ahorro_inversion_primera_vivienda"

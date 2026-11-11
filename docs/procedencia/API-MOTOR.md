@@ -638,3 +638,7 @@ El traslado de vivienda de Castilla-La Mancha de 2024 con primera aplicación en
 La inversión canaria de 2025 con préstamo original separa el precio financiado, el capital propio y los intereses o gastos documentados. El límite patrimonial sólo afecta al capital propio; los pagos conservan su identidad y la suma no depende de su orden. Otras disposiciones, refinanciación y titularidades no representadas mantienen sus rechazos.
 
 Murcia incorpora [DT18 con donativos ordinarios](murcia-dt18-donativos-20261111.md), con elección explícita de prioridad, pagos bancarios conciliados y consumo único de las dos partes de cuota. Esta concurrencia mantiene el alcance de patrimonio suficiente y ausencia de ingresos por donación o herencia.
+
+## Orígenes de 2024 en la anual de 2025
+
+El [corte de Murcia, CLM y Galicia](origenes-2024-anual-2025-20261112/INTEGRACION.md) conecta el saldo murciano de renovables y la primera aplicación positiva de vivienda rural CLM desde hechos nominales. Ambas API usan el mismo libro territorial; no reciben cuotas ni saldos históricos del cliente. CLM concilia salarios anuales con cuentas y deuda del vendedor; la canónica conserva la ausencia de cotización efectiva. La explicación gallega distingue gastos anteriores de origen fiscal y año de constitución del arrendamiento. Los demás perfiles, concurrencias e historias siguen sujetos a los rechazos documentados.

@@ -501,6 +501,12 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
     ingresosIdentificados2025: ingreso,
     origenBaseGeneralB: ingreso === undefined && caso.rendimientos.trabajo.length > 0 && (caso.rendimientos.capitalInmobiliario?.length ?? 0) === 0 && (caso.rendimientos.gananciasPatrimoniales?.length ?? 0) === 0 ? "solo-trabajo" : undefined,
     rentasTrabajoAnuales: {
+      hechosCLM2025: {
+        ejercicio: caso.anio, titular: caso.contribuyenteId, origen: "canonica",
+        rendimientos: caso.rendimientos.trabajo.map(r => ({ id: null, clase: "empleo-laboral",
+          integro: centimosAEuros(r.importeIntegroCentimos).toFixed(2), cotizaciones: null })),
+        retenciones: centimosAEuros(caso.retencionesSoportadasCentimos).toFixed(2),
+      },
       integroTrabajo: rendimientoTrabajo.rendimientoIntegro,
       restoRentas: otrasRentasArt20,
     },
@@ -510,7 +516,7 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
     },
     precision:
       ingreso !== undefined || caso.derechosMinimos !== undefined ||
-      caso.deduccionesTerritoriales2025?.solicitudes.some((s) => s.lote === "E38" || s.lote === "F-ampliado" || s.lote === "C36") === true
+      caso.deduccionesTerritoriales2025?.solicitudes.some((s) => s.lote === "E38" || s.lote === "F-ampliado" || s.lote === "C36" || (s.lote === "D51" && s.codigo === "clm_adquisicion_rehabilitacion_vivienda_zonas_rurales" && s.aplicacionViviendaCLM2024 !== undefined)) === true
         ? 80
         : 20,
     politica: "decimal-hasta-salida",

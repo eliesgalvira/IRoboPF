@@ -131,3 +131,80 @@ it("código desconocido se rechaza antes del cálculo,no genera impuesto cero",(
  const hechos={...n1.hechos};Object.assign(hechos,{codigo:"rioja_desconocido"})
  expect(()=>aplicarDeduccionesTerritoriales2025({solicitudes:[{...n1,hechos}]},magnitudes())).toThrow(/inválidos|externas/)
 })
+
+
+// B06: adecuación nace en2025; gastos anteriores no son saldo fiscal anterior.
+// Oráculo independiente preparado en la entrega privada (Fraction, sin ejecutar).
+describe("B06 adecuación: primer origen legal2025",()=>{
+ function solicitudAdecuacion(contrato="2025-04-01",pagoAnterior=false){
+  const c=casos.find(x=>x.hechos.codigo==="galicia_adecuacion_inmueble_vacio_arrendamiento")
+  if(c===undefined||c.hechos.codigo!=="galicia_adecuacion_inmueble_vacio_arrendamiento")throw new Error("fixture adecuación")
+  return solicitudE38({...c.hechos,viviendas:c.hechos.viviendas.map(v=>({...v,
+   alquiler:{...v.alquiler,contrato,duracion:{desde:contrato,hasta:"2028-04-01"}},
+   obra:{...v.obra,pagos:v.obra.pagos.map(p=>({...p,fecha:pagoAnterior?"2024-12-15":p.fecha}))},
+  }))})
+ }
+ function canales(s:SolicitudDeduccionesTerritoriales2025){
+  return [
+   Effect.map(liquidarIrpfAnual({...canonico("galicia"),deduccionesTerritoriales2025:s},{modo:"canonico"}),r=>r.deduccionesTerritoriales2025),
+   Effect.map(liquidarIrpfAnualExplicito({...efectivo(s),comunidadAutonoma:"galicia"}),r=>r.deduccionesTerritoriales2025),
+  ]
+ }
+ for(const contrato of ["2023-04-01","2024-12-31"]){
+  it("ambas API rechazan contrato previo al nacimiento: "+contrato,()=>{
+   const s={solicitudes:[solicitudAdecuacion(contrato)]}
+   for(const e of canales(s)){
+    const error=Effect.runSync(Effect.flip(e))
+    expect(error._tag).toBe("ResultadoNoSoportado")
+    expect(JSON.stringify(error)).toContain("incentivo vigente desde 2025")
+    expect(JSON.stringify(error)).not.toContain("requiere productor de bases históricas")
+   }
+  })
+ }
+ for(const pagoAnterior of [false,true]){
+  it("obra previa y pago previo="+pagoAnterior+": generación2025, sin base anterior",()=>{
+   const s={solicitudes:[solicitudAdecuacion("2025-04-01",pagoAnterior)]}
+   const r=aplicarDeduccionesTerritoriales2025(s,magnitudes("galicia"))
+   expect(r.aplicaciones[0].generado).toEqual(racional("75"))
+   expect(r.saldosE38).toEqual([])
+   for(const e of canales(s)){
+    const publico=Effect.runSync(e)
+    expect(publico?.aplicaciones[0].generado).toEqual(racional("75"))
+    expect(publico?.total).toEqual(racional("75"))
+   }
+  })
+ }
+ it("obra terminada en2024 y arrendamiento constituido en2025 genera en2025",()=>{
+  const s=solicitudAdecuacion("2025-04-01",true)
+  if(s.hechos.codigo!=="galicia_adecuacion_inmueble_vacio_arrendamiento")throw new Error("fixture")
+  const solicitud={...s,hechos:{...s.hechos,viviendas:s.hechos.viviendas.map(v=>({...v,
+   obra:{...v.obra,fin:"2024-12-20"},
+  }))}}
+  for(const e of canales({solicitudes:[solicitud]})){
+   const resultado=Effect.runSync(e)
+   expect(resultado?.aplicaciones[0].generado).toEqual(racional("75"))
+   expect(resultado?.total).toEqual(racional("75"))
+   expect(resultado?.saldosE38).toEqual([])
+  }
+ })
+ it("cuota escasa genera cuota pendiente2025 hasta2029, sin inventar base pendiente",()=>{
+  const s={solicitudes:[solicitudAdecuacion()]}
+  const r=aplicarDeduccionesTerritoriales2025(s,{...magnitudes("galicia"),cuotaAutonomica:new Decimal("20.079")})
+  expect(r.total).toEqual(racional("20.079"))
+  expect(r.aplicaciones[0].generado).toEqual(racional("75"))
+  expect(r.saldosE38).toHaveLength(1)
+  expect(r.saldosE38).toContainEqual(expect.objectContaining({tipo:"cuota",origen:2025,caduca:2029,importe:racional("54.921")}))
+ })
+ it("no admite base fiscal externa ni consumos anteriores por inmueble en ambas API",()=>{
+  const s=solicitudAdecuacion()
+  if(s.hechos.codigo!=="galicia_adecuacion_inmueble_vacio_arrendamiento")throw new Error("fixture")
+  for(const extra of [{baseConsumidaAnterior:"1000"},{basePendienteAnterior:[{origen:2024,caduca:2026,importe:"1000"}]}]){
+   const hechos={...s.hechos,viviendas:s.hechos.viviendas.map(v=>({...v,...extra}))}
+   for(const e of canales({solicitudes:[{...s,hechos}]}))expect(Effect.runSync(Effect.flip(e))._tag).toBe("ResultadoNoSoportado")
+  }
+ })
+ it("un código repetido no consume dos veces la cuota anual",()=>{
+  const s=solicitudAdecuacion()
+  expect(()=>aplicarDeduccionesTerritoriales2025({solicitudes:[s,s]},magnitudes("galicia"))).toThrow(/duplicado/)
+ })
+})

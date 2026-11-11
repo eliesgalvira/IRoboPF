@@ -1,3 +1,4 @@
+import { producirOrigenRenovablesMurcia2024 } from "./murcia-renovables-historia"
 import { comprobarHistoriaViviendaMadrid } from "./madrid-vivienda-historia"
 import { producirAscendientes2025 } from "../../minimos/ascendientes-2025"
 import { evaluarMurciaDT18Estatal2025 } from "./murcia-dt18"
@@ -161,6 +162,8 @@ export function evaluarAnualF2025(
   const s = dec.success
   try {
     const c = m.caso, contribuyente = texto(c.contribuyenteId, "caso.contribuyenteId")
+    if (s.historiaRenovablesMurcia2024 !== undefined && s.codigo !== "murcia_instalaciones_recursos_energeticos_renovables")
+      falta("renovables2024.codigo", "Historia exclusiva del incentivo renovable; no habilita vehículos ni recarga")
     if (c.anio !== 2025 || c.situacionFamiliar.tipo !== "individual" || c.fechaFallecimiento !== undefined)
       falta("perfil_anual", "Sólo 2025 individual ordinaria sin fallecimiento")
     if (c.comunidadAutonoma !== (s.codigo.startsWith("madrid_") ? "madrid" : "murcia"))
@@ -254,6 +257,7 @@ export function evaluarAnualF2025(
       texto(h.referencia, "historialSaldosIncentivoMurcia.referencia")
       if (h.periodos.length !== periodos.length || new Set(h.periodos).size !== h.periodos.length || h.periodos.some((a) => !periodos.includes(a)))
         falta("historialSaldosIncentivoMurcia.periodos", "Periodos previos exigidos: " + periodos.join(","))
+      if (s.historiaRenovablesMurcia2024 !== undefined) return producirOrigenRenovablesMurcia2024(s, m)
       if (h.operaciones.length > 0)
         falta("productor_saldo_origen:" + h.operaciones[0]!.ejercicioOrigen, "Reconstruir la generación y aplicaciones de cada año; no se recibe un importe de saldo ni se presume consumido")
     }

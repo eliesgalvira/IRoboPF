@@ -390,6 +390,13 @@ const liquidarIrpfAnualExplicitoBase = Effect.fn("Liquidacion.explicita")(
         trabajoIntegroTerritorial === undefined
           ? undefined
           : {
+              hechosCLM2025: caso.perfil === "solo-actividad-eds" ? undefined : {
+                ejercicio: caso.ejercicio, titular: caso.contribuyenteId, origen: "explicita",
+                rendimientos: caso.trabajo.rendimientos.map(r => ({ id: r.id, clase: r.clase,
+                  integro: r.integro, cotizaciones: r.cotizaciones.clase === "efectivas"
+                    ? new D(r.cotizaciones.seguridadSocial).plus(r.cotizaciones.derechosPasivos).plus(r.cotizaciones.colegiosHuerfanos).toFixed(2) : null })),
+                retenciones: retenciones.toFixed(2),
+              },
               integroTrabajo: trabajoIntegroTerritorial,
               restoRentas: ingresoGeneral,
             },
