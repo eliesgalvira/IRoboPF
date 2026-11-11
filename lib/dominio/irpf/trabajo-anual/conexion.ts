@@ -1,3 +1,4 @@
+import { esPerfilOpen2020A2022 } from "./politica-open-2020-2022"
 import { baseTrabajoMiembro2025 } from "../bases-familiares-2025/productor"
 import { producirPagadoresCatalunya2025 } from "../deducciones/catalunya-pagadores-2025/productor"
 import type { LibroPagadoresCatalunya2025 } from "../deducciones/catalunya-pagadores-2025/productor"
@@ -126,6 +127,7 @@ const liquidarIrpfAnualExplicitoBase = Effect.fn("Liquidacion.explicita")(
       )
     let etapasOpen2018 = false
     let etapasOpen2019 = false
+    let etapasOpen2020A2022 = false
     let redondeoSalarialOpen = false
     let redondeoCuotasAndaluciaOpen = false
     let redondeoCuotasTerritorialesOpen = false
@@ -196,6 +198,7 @@ const liquidarIrpfAnualExplicitoBase = Effect.fn("Liquidacion.explicita")(
             .plus(r.cotizaciones.colegiosHuerfanos),
         new D(0)
       )
+      etapasOpen2020A2022 = esPerfilOpen2020A2022(caso)
       etapasOpen2018 = redondeoCuotasHistoricasOpen && caso.ejercicio === 2018
       // Nueve observaciones 2019 propias; no extrapolar por compartir año/tabla.
       // Otros perfiles conservan la política anterior, sin promesa de esta compatibilidad.
@@ -226,6 +229,9 @@ const liquidarIrpfAnualExplicitoBase = Effect.fn("Liquidacion.explicita")(
           anio: caso.ejercicio,
           rendimientoPrevioNeto: new D(trabajo.argumentoArt20),
           otrasRentasNoExentas: ingresoGeneral,
+          compatibilidadOpen2020A2022: etapasOpen2020A2022
+            ? { integro: new D(trabajo.gastos.integro), gastosAE: new D(trabajo.gastos.gastosAE) }
+            : undefined,
           compatibilidadOpen2019: etapasOpen2019
             ? { integro: new D(trabajo.gastos.integro), gastosAE: new D(trabajo.gastos.gastosAE) }
             : undefined,
@@ -313,6 +319,8 @@ const liquidarIrpfAnualExplicitoBase = Effect.fn("Liquidacion.explicita")(
             etiqueta: "Reducción artículo 20",
             formula: redondeoSalarialOpen
               ? "compatibilidad numérica Open 2025 en el núcleo compartido para íntegro y gastos a–e entre 0 y 1.000.000 EUR; fuera, Decimal; min(saldo positivo art19, reducción sobre neto sin f; otras rentas = cobros identificados (cero sólo en perfil sin ellas))"
+              : etapasOpen2020A2022
+                ? "Open Madrid 2020–2022 acotado: art20 binary64/decimal corto/HALF_UP antes de restar a art19 Decimal; base a céntimos propagada a ambas escalas"
               : etapasOpen2018
                 ? "Open 2018 acotado: ramas art20 binary64/decimal corto/HALF_UP; mezcla Decimal y HALF_UP; límite saldo positivo art19"
               : etapasOpen2019
@@ -401,12 +409,15 @@ const liquidarIrpfAnualExplicitoBase = Effect.fn("Liquidacion.explicita")(
       },
       cotizaciones: { naturaleza: "efectivas", trabajador: cotizacionEfectiva },
       precision: 80,
+      hechosOpen2020A2022: etapasOpen2020A2022 ? caso : undefined,
       politica: redondeoSalarialOpen
         ? "open-empleo-madrid-2025"
         : redondeoCuotasAndaluciaOpen
           ? "open-cuotas-empleo-andalucia-2025"
           : redondeoCuotasTerritorialesOpen
             ? "open-cuotas-empleo-territorios-2025"
+            : etapasOpen2020A2022
+              ? "open-etapas-empleo-madrid-2020-2022"
             : etapasOpen2019
               ? "open-etapas-empleo-madrid-2019"
             : etapasOpen2018
@@ -460,6 +471,8 @@ const liquidarIrpfAnualExplicitoBase = Effect.fn("Liquidacion.explicita")(
               ? "Empleo Andalucía 2025 sin derechos familiares: gravámenes a céntimos half-up antes de restar mínimos y sumar cuotas. Artículo 20 y DA61 conservan precisión decimal. Evidencia C300 de una entrada; aceptación fiscal pendiente."
               : redondeoCuotasTerritorialesOpen
                 ? `Empleo ${caso.comunidadAutonoma} 2025 sin derechos familiares: cuatro gravámenes a céntimos half-up antes de restar mínimos y sumar cuotas. Artículo 20 y DA61 conservan precisión decimal. Cinco capturas C300; sin aceptación fiscal automática.`
+                : etapasOpen2020A2022
+                  ? "Política operativa revisable Open Madrid 2020–2022: empleo laboral único, edad35/36/37, SS1000 y gasto general2000; art20 binary64/decimal corto/HALF_UP antes de obtener la base Decimal; gravámenes estatales binary64/decimal corto/HALF_UP antes del mínimo, autonómicos Decimal sobre base corregida. Bruto a céntimos >8565 y <=63000 en 2020/21 o <=58596.90 en 2022, sin otras rentas, familia ni deducciones; 0023/0414 reservadas; sin atribuir algoritmo interno a AEAT."
                 : etapasOpen2018
                   ? "Compatibilidad observada Open Madrid 2018: ramas art20 binary64 cuantizadas, mezcla Decimal cuantizada; estatal binary64/decimal corto/HALF_UP por gravamen antes del mínimo; autonómica Decimal con base corregida. Alcance condicionado; 0023/0414 reservadas."
                   : etapasOpen2019

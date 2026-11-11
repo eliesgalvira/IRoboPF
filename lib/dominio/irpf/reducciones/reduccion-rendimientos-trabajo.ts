@@ -1,3 +1,4 @@
+import { admiteArgumentoOpen2020A2022 } from "../trabajo-anual/politica-open-2020-2022"
 import Decimal from "decimal.js"
 import { Match, Option } from "effect"
 
@@ -35,6 +36,7 @@ export const calcularReduccionTrabajoConOtrasRentas = ({
   compatibilidadOpen2025,
   compatibilidadOpen2018,
   compatibilidadOpen2019,
+  compatibilidadOpen2020A2022,
 }: {
   readonly anio: AnioFiscal
   readonly fechaFallecimiento?: Date | undefined
@@ -44,6 +46,8 @@ export const calcularReduccionTrabajoConOtrasRentas = ({
   /** Compatibilidad observada, exclusivamente empleo Madrid 2025; no regla legal.
    * Sólo operandos de 0 a 1.000.000 EUR; fuera se conserva la ruta decimal. */
   /** Sólo conexión explícita Madrid2019 acotada; no activa otros años/canónico. */
+  /** Sólo conexión explícita acotada 2020–2022; ausente en ruta canónica. */
+  readonly compatibilidadOpen2020A2022?: { readonly integro: Decimal; readonly gastosAE: Decimal } | undefined
   readonly compatibilidadOpen2019?: { readonly integro: Decimal; readonly gastosAE: Decimal } | undefined
   /** Política interna, habilitada sólo por la conexión explícita acotada. */
   readonly compatibilidadOpen2018?: { readonly integro: Decimal; readonly gastosAE: Decimal } | undefined
@@ -81,7 +85,16 @@ export const calcularReduccionTrabajoConOtrasRentas = ({
     }),
     Match.when(
       (anio) => anio <= 2022,
-      () => reduccionTrabajo2019A2022(rendimientoPrevioNeto)
+      () => {
+        const open = anio >= 2020 && fechaFallecimiento === undefined &&
+          otrasRentasNoExentas.isZero() && compatibilidadOpen2020A2022 !== undefined &&
+          admiteArgumentoOpen2020A2022(compatibilidadOpen2020A2022.integro, compatibilidadOpen2020A2022.gastosAE, anio)
+        const previo = open
+          ? restarArt20(compatibilidadOpen2020A2022.integro, compatibilidadOpen2020A2022.gastosAE, true)
+          : rendimientoPrevioNeto
+        const reduccion = reduccionTrabajo2019A2022(previo, open)
+        return open ? reduccion.toDecimalPlaces(2, Decimal.ROUND_HALF_UP) : reduccion
+      }
     ),
     Match.when(2023, () => reduccionTrabajo2023(rendimientoPrevioNeto)),
     Match.orElse(() => {

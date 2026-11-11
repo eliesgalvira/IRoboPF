@@ -39,8 +39,6 @@ export function producirPagadoresMurcia2025(entrada: typeof PagadoresMurcia2025.
   if (atribuciones === undefined) falta("pagadoresMurcia.minimo", "Faltan las atribuciones calculadas del mínimo")
   if (m.caso.anio !== 2025 || m.caso.comunidadAutonoma !== "murcia" || c.contribuyente !== propio)
     falta("pagadoresMurcia.identidad", "Identidad, ejercicio o territorio contradictorios")
-  if (m.libroMaternidad81 !== undefined || "maternidad2025" in m.caso)
-    falta("pagadoresMurcia.art81", "La conciliación por factura entre varios titulares y art81 requiere un productor específico")
   unicos(c.personas.map(p => p.id), "pagadoresMurcia.personas")
   unicos(c.hijos.map(h => h.id), "pagadoresMurcia.hijos")
   const mismos = (a: readonly string[], b: readonly string[]) => a.length === b.length && a.every(id => b.includes(id))

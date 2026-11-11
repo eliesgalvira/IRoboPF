@@ -130,6 +130,18 @@ const AND12 = Schema.Struct({
     empleado: AND.S12.fields.hechos.fields.empleado,
     cuotas: AND.S12.fields.hechos.fields.cuotas,
     eleccionBeneficiario: AND.S12.fields.hechos.fields.eleccionBeneficiario,
+    // Hechos civiles/económicos art19; no son el contrato de discapacidad art17.
+    parejaOrdinaria: Schema.optional(Schema.Struct({
+      contribuyente: Texto, persona: Texto,
+      administracionRegistro: Schema.Literals(["civil", "andalucia", "otra-administracion-publica"]),
+      desde: Texto, hasta: Schema.optional(Texto),
+      residenteComunTodo2025: Schema.Literal(true), vivoTodo2025: Schema.Literal(true),
+      declaracion: Schema.Struct({ persona: Texto, ejercicio: Schema.Literal(2025),
+        modalidad: Schema.Literals(["individual", "no-presenta", "conjunta"]), soporte: Texto }),
+      economia: EconomiaPersonaFamiliar2025,
+      eleccion: Schema.Struct({ titulares: Schema.Array(Texto), beneficiario: Texto,
+        otraPersonaNoAplica: Schema.Literal(true), soporte: Texto }),
+    })),
   }),
 })
 const AND13 = Schema.Struct({

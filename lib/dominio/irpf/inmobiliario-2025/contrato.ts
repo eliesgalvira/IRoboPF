@@ -106,7 +106,7 @@ export const CasoInmobiliarioP4a = Schema.Struct({
   ejercicio: Schema.Literal(2025),
   contribuyenteId: Texto,
   liquidacionId: Texto,
-  comunidadAutonoma: Schema.Literals(["canarias", "illes-balears", "extremadura", "galicia"]),
+  comunidadAutonoma: Schema.Literals(["canarias", "illes-balears", "extremadura", "galicia", "la-rioja"]),
   edad: Schema.Number.check(Schema.isInt(), Schema.isBetween({ minimum: 18, maximum: 64 })),
   otrasRentas: Schema.Literal("ninguna"),
   familiares: Schema.Literal("ninguno"),

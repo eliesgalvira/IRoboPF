@@ -1,4 +1,4 @@
-import { HechosDT18Territoriales2025 } from "../vivienda-dt18-2025/contrato"
+import { HechosDT18Territoriales2025, HechosDerechoDT18Rioja2025 } from "../vivienda-dt18-2025/contrato"
 import { HechosVehiculoDA58 } from "../vehiculo-da58-2025/productor"
 import { SolicitudCuidadoCyl81 } from "../maternidad-2025/contrato"
 import { SolicitudD51 } from "./d51-anual-esquemas"
@@ -13,6 +13,7 @@ import { SolicitudAmpliacionAnualA2025 } from "./ampliacion-a-anual-esquemas"
 import { SolicitudDonativosEstatales2025 } from "./donativos-estatales-2025/esquemas"
 export const SolicitudDeduccionesTerritoriales2025 = Schema.Struct({
   viviendaDT182025: Schema.optionalKey(HechosDT18Territoriales2025),
+  derechoInversionAlquilerRioja2025: Schema.optionalKey(HechosDerechoDT18Rioja2025),
   vehiculoDA582025: Schema.optionalKey(HechosVehiculoDA58),
   donativosEstatales2025: Schema.optionalKey(SolicitudDonativosEstatales2025),
   solicitudes: Schema.Array(

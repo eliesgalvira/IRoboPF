@@ -67,7 +67,14 @@ for(const variant of ['externo','gananciales','sinEtapa','sinMinimo','sinConvive
  const caso=variant==='art81'?{...casoBase,maternidad2025:undefined}:casoBase
  const mm=variant==='sinMinimo'?{...m,caso,sujetosConMinimo:[]}:{...m,caso}
  // SAFETY: prueba adversa interna: sólo vivoAlDevengo=false viola el literal del contrato para comprobar su rechazo; las demás magnitudes proceden de la fixture tipada.
- reject(ss,mm as ReturnType<typeof magnitudes>)
+ const magnitudesAdversas = mm as ReturnType<typeof magnitudes>
+ if (variant === 'art81') {
+  // Una propiedad opcional undefined no representa un libro ni una solicitud de maternidad.
+  const resultado = evaluar(ss, magnitudesAdversas)
+  expect(resultado).toEqual(evaluar(ss, m))
+  expect(resultado.estado).toBe('calculo_parcial')
+  rat(resultado.importeExactoRacional, 10001n, 500n)
+ } else reject(ss,magnitudesAdversas)
 })
 for(const api of ['uniforme','explicita'] as const)for(const t of ['madrid','murcia'] as const)it(`${api}/${t}: cuota se reduce una sola vez`,()=>{
  const s=solicitud(t,false,t==='murcia'?'333.33':'100.01'),d=derechos(t,false,api==='uniforme'?2605600:2800000)

@@ -99,7 +99,7 @@ export function evaluarAuxiliaresAnualesF(s: SolicitudAnualF2025, m: MagnitudesT
       }
     }
   } else {
-    if (m.libroMaternidad81 !== undefined || "maternidad2025" in m.caso) conciliarMurcia81(s, m)
+    if (m.libroMaternidad81 !== undefined || ("maternidad2025" in m.caso && m.caso.maternidad2025 !== undefined)) conciliarMurcia81(s, m)
     if (h.regimenPagos !== "separados") falta("pagos.regimen_gananciales", "Falta atribución de pagos comunes conciliada entre ambos progenitores")
     if (h.eventos.length > 0) falta("auxiliares.eventos", "Guardería no consume eventos de Madrid")
     if (superior(base, "30000")) excluir("baseImponible", "Base propia superior a30000 EUR")
@@ -107,11 +107,22 @@ export function evaluarAuxiliaresAnualesF(s: SolicitudAnualF2025, m: MagnitudesT
     const pagadoresConPago = new Map<string, Set<string>>()
     const pagos = s.hechos.pagos ?? []
     unicos(pagos.map((p) => texto(p.id, "pago.id")), "pagos.id")
-    unicos(pagos.map((p) => texto(p.factura, "pago.factura")), "pagos.factura")
+    // Varios pagos requieren censo nominal o conciliación con el libro81.
+    if (m.libroMaternidad81 === undefined && nominales === undefined)
+      unicos(pagos.map((p) => texto(p.factura, "pago.factura")), "pagos.factura")
     unicos(h.centros.map((c) => c.id), "centros.id")
     unicos(h.servicios.map((x) => x.pagoId), "servicios.pagoId")
     if (h.servicios.length !== pagos.length || h.servicios.some((x) => !pagos.some((p) => p.id === x.pagoId)))
       falta("servicios.pagos", "Censo de servicios y pagos no coincide")
+    for (const p of pagos) {
+      texto(p.factura, "pago.factura")
+      const primero = pagos.find(x => x.factura === p.factura)!
+      const servicio = h.servicios.find(x => x.pagoId === p.id)!
+      const inicial = h.servicios.find(x => x.pagoId === primero.id)!
+      if (p.beneficiarioId !== primero.beneficiarioId || p.objetoId !== primero.objetoId || p.concepto !== primero.concepto ||
+        servicio.periodo.desde !== inicial.periodo.desde || servicio.periodo.hasta !== inicial.periodo.hasta)
+        falta("pagos.factura", "Pagos de una factura con hijo, centro, concepto o período contradictorios")
+    }
     const bases = new Map<string, Map<string, Racional>>()
     for (const p of pagos) {
       const id = texto(p.beneficiarioId, "pago.beneficiarioId")
@@ -152,8 +163,7 @@ export function evaluarAuxiliaresAnualesF(s: SolicitudAnualF2025, m: MagnitudesT
       porPersona.set(pagador, sumar(porPersona.get(pagador) ?? racional("0"), neto))
       bases.set(id, porPersona)
     }
-    // Con libro81, la conciliación acredita además un único titular conviviente.
-    // La rama histórica sin81 conserva su contrato y sus reservas.
+    // El censo nominal calcula el derecho regional sin inferirlo del derecho81.
     for (const [hijo, porPersona] of bases) {
       // El gasto ajeno sólo clasifica derecho nominal; nunca se transfiere ni consume cuota.
       // La ayuda minora la base individual, no el pago ni el derecho nominal.
@@ -170,5 +180,5 @@ export function evaluarAuxiliaresAnualesF(s: SolicitudAnualF2025, m: MagnitudesT
   return { codigo: s.codigo, estado: "calculo_parcial", importeExactoRacional: total,
     aceptacionFiscal: "pendiente", motivo: "Rama documental conciliada; pendiente primera revisión monetaria independiente",
     citas: CITAS_F.find((c) => c.codigo === s.codigo)?.citas ?? [], reservas: [],
-    rastro: ["Bases exactas del anual; hechos completos del perfil; salida racional hacia el libro único de cuota", ...(s.codigo === "murcia_gastos_guarderia" && m.libroMaternidad81 !== undefined ? ["Murcia/art81: factura, pago propio, período, centro, conceptos y ayudas conciliados; titular conviviente único; vestuario sólo regional; incremento estatal conservado en diferencial"] : [])] }
+    rastro: ["Bases exactas del anual; hechos completos del perfil; salida racional hacia el libro único de cuota", ...(s.codigo === "murcia_gastos_guarderia" && m.libroMaternidad81 !== undefined ? ["Murcia/art81: factura, pagos nominales, período, centro, conceptos y ayudas por pagador conciliados; mínimo y derecho regional independientes; vestuario sólo regional; incremento estatal conservado en diferencial"] : [])] }
 }

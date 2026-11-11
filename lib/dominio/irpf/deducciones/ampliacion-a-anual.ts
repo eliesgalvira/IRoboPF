@@ -1,3 +1,4 @@
+import { hechosAyudaDomesticaAndalucia2025 } from "./andalucia-ayuda-domestica-anual-2025"
 import { titularesAndalucia2025 } from "./andalucia-titulares-anual-2025"
 import { hechosConyugeAndalucia2025 } from "./andalucia-conyuge-anual-2025"
 import { eleccionesTerritorialesB } from "./b-ampliado-anual-2025/conciliacion-lotes"
@@ -338,25 +339,9 @@ export function evaluarAmpliacionAnualA2025(
       })
     }
     case "andalucia_ayuda_domestica": {
-      exigir(
-        s.hechos.vinculoPareja === "sin-pareja" &&
-          s.hechos.personaPareja === "",
-        "A40: ayuda doméstica con pareja requiere ingresos y datos personales anuales de esa persona"
-      )
-      const rentas = m.rentasTrabajoAnuales
-      exigir(
-        rentas !== undefined,
-        "A40: ingresos propios de ayuda doméstica no derivables en este perfil"
-      )
       return evaluarAmpliacionLoteA2025({
-        ...contexto,
-        territorio: "andalucia",
-        codigo: s.codigo,
-        hechos: {
-          ...s.hechos,
-          trabajoTitularCentimos: { euros: rentas.integroTrabajo.toFixed() },
-          trabajoParejaCentimos: 0,
-        },
+        ...contexto, territorio: "andalucia", codigo: s.codigo,
+        hechos: hechosAyudaDomesticaAndalucia2025(s, m),
       })
     }
     case "andalucia_alquiler_vivienda_habitual": {

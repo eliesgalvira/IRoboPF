@@ -1,0 +1,1599 @@
+{
+  "method": "Independent stdlib Fraction; no engine or author expected values",
+  "profiles": {
+    "topes": [
+      {
+        "clase": "dental",
+        "gasto": 1000.0,
+        "ayudas": 0,
+        "reembolsos": 0
+      },
+      {
+        "clase": "mental",
+        "gasto": 1000.0,
+        "ayudas": 0,
+        "reembolsos": 0
+      },
+      {
+        "clase": "optica",
+        "gasto": 1000.0,
+        "ayudas": 0,
+        "reembolsos": 0
+      },
+      {
+        "clase": "cronica_rara",
+        "gasto": 1000.0,
+        "ayudas": 0,
+        "reembolsos": 0
+      },
+      {
+        "clase": "cerebral_alzheimer",
+        "gasto": 1000.0,
+        "ayudas": 0,
+        "reembolsos": 0
+      }
+    ],
+    "netos": [
+      {
+        "clase": "dental",
+        "gasto": 900.0,
+        "ayudas": 450,
+        "reembolsos": 100
+      },
+      {
+        "clase": "mental",
+        "gasto": 200.0,
+        "ayudas": 20,
+        "reembolsos": 30
+      },
+      {
+        "clase": "optica",
+        "gasto": 500.0,
+        "ayudas": 100,
+        "reembolsos": 100
+      },
+      {
+        "clase": "cronica_rara",
+        "gasto": 180.0,
+        "ayudas": 20,
+        "reembolsos": 10
+      },
+      {
+        "clase": "cerebral_alzheimer",
+        "gasto": 100.0,
+        "ayudas": 60,
+        "reembolsos": 30
+      }
+    ],
+    "subcentimo": [
+      {
+        "clase": "dental",
+        "gasto": 12.35,
+        "ayudas": 0,
+        "reembolsos": 0
+      }
+    ],
+    "reintegrado": [
+      {
+        "clase": "dental",
+        "gasto": 100.0,
+        "ayudas": 0,
+        "reembolsos": 100
+      }
+    ]
+  },
+  "cases": [
+    {
+      "profile": "topes",
+      "sport": false,
+      "first": "salud",
+      "quota": "0",
+      "movements": [
+        {
+          "code": "salud",
+          "generated": "600",
+          "applied": "0",
+          "lost": "600"
+        }
+      ],
+      "t": "0",
+      "total": "0",
+      "remaining": "0"
+    },
+    {
+      "profile": "topes",
+      "sport": false,
+      "first": "salud",
+      "quota": "0.009",
+      "movements": [
+        {
+          "code": "salud",
+          "generated": "600",
+          "applied": "0.009",
+          "lost": "599.991"
+        }
+      ],
+      "t": "0",
+      "total": "0.009",
+      "remaining": "0"
+    },
+    {
+      "profile": "topes",
+      "sport": false,
+      "first": "salud",
+      "quota": "20.079",
+      "movements": [
+        {
+          "code": "salud",
+          "generated": "600",
+          "applied": "20.079",
+          "lost": "579.921"
+        }
+      ],
+      "t": "0",
+      "total": "20.079",
+      "remaining": "0"
+    },
+    {
+      "profile": "topes",
+      "sport": false,
+      "first": "salud",
+      "quota": "150",
+      "movements": [
+        {
+          "code": "salud",
+          "generated": "600",
+          "applied": "150",
+          "lost": "450"
+        }
+      ],
+      "t": "0",
+      "total": "150",
+      "remaining": "0"
+    },
+    {
+      "profile": "topes",
+      "sport": false,
+      "first": "salud",
+      "quota": "630.01",
+      "movements": [
+        {
+          "code": "salud",
+          "generated": "600",
+          "applied": "600",
+          "lost": "0"
+        }
+      ],
+      "t": "3.001",
+      "total": "603.001",
+      "remaining": "27.009"
+    },
+    {
+      "profile": "topes",
+      "sport": false,
+      "first": "salud",
+      "quota": "1000",
+      "movements": [
+        {
+          "code": "salud",
+          "generated": "600",
+          "applied": "600",
+          "lost": "0"
+        }
+      ],
+      "t": "40",
+      "total": "640",
+      "remaining": "360"
+    },
+    {
+      "profile": "topes",
+      "sport": true,
+      "first": "salud",
+      "quota": "0",
+      "movements": [
+        {
+          "code": "salud",
+          "generated": "600",
+          "applied": "0",
+          "lost": "600"
+        },
+        {
+          "code": "deporte",
+          "generated": "30",
+          "applied": "0",
+          "lost": "30"
+        }
+      ],
+      "t": "0",
+      "total": "0",
+      "remaining": "0"
+    },
+    {
+      "profile": "topes",
+      "sport": true,
+      "first": "deporte",
+      "quota": "0",
+      "movements": [
+        {
+          "code": "deporte",
+          "generated": "30",
+          "applied": "0",
+          "lost": "30"
+        },
+        {
+          "code": "salud",
+          "generated": "600",
+          "applied": "0",
+          "lost": "600"
+        }
+      ],
+      "t": "0",
+      "total": "0",
+      "remaining": "0"
+    },
+    {
+      "profile": "topes",
+      "sport": true,
+      "first": "salud",
+      "quota": "0.009",
+      "movements": [
+        {
+          "code": "salud",
+          "generated": "600",
+          "applied": "0.009",
+          "lost": "599.991"
+        },
+        {
+          "code": "deporte",
+          "generated": "30",
+          "applied": "0",
+          "lost": "30"
+        }
+      ],
+      "t": "0",
+      "total": "0.009",
+      "remaining": "0"
+    },
+    {
+      "profile": "topes",
+      "sport": true,
+      "first": "deporte",
+      "quota": "0.009",
+      "movements": [
+        {
+          "code": "deporte",
+          "generated": "30",
+          "applied": "0.009",
+          "lost": "29.991"
+        },
+        {
+          "code": "salud",
+          "generated": "600",
+          "applied": "0",
+          "lost": "600"
+        }
+      ],
+      "t": "0",
+      "total": "0.009",
+      "remaining": "0"
+    },
+    {
+      "profile": "topes",
+      "sport": true,
+      "first": "salud",
+      "quota": "20.079",
+      "movements": [
+        {
+          "code": "salud",
+          "generated": "600",
+          "applied": "20.079",
+          "lost": "579.921"
+        },
+        {
+          "code": "deporte",
+          "generated": "30",
+          "applied": "0",
+          "lost": "30"
+        }
+      ],
+      "t": "0",
+      "total": "20.079",
+      "remaining": "0"
+    },
+    {
+      "profile": "topes",
+      "sport": true,
+      "first": "deporte",
+      "quota": "20.079",
+      "movements": [
+        {
+          "code": "deporte",
+          "generated": "30",
+          "applied": "20.079",
+          "lost": "9.921"
+        },
+        {
+          "code": "salud",
+          "generated": "600",
+          "applied": "0",
+          "lost": "600"
+        }
+      ],
+      "t": "0",
+      "total": "20.079",
+      "remaining": "0"
+    },
+    {
+      "profile": "topes",
+      "sport": true,
+      "first": "salud",
+      "quota": "150",
+      "movements": [
+        {
+          "code": "salud",
+          "generated": "600",
+          "applied": "150",
+          "lost": "450"
+        },
+        {
+          "code": "deporte",
+          "generated": "30",
+          "applied": "0",
+          "lost": "30"
+        }
+      ],
+      "t": "0",
+      "total": "150",
+      "remaining": "0"
+    },
+    {
+      "profile": "topes",
+      "sport": true,
+      "first": "deporte",
+      "quota": "150",
+      "movements": [
+        {
+          "code": "deporte",
+          "generated": "30",
+          "applied": "30",
+          "lost": "0"
+        },
+        {
+          "code": "salud",
+          "generated": "600",
+          "applied": "120",
+          "lost": "480"
+        }
+      ],
+      "t": "0",
+      "total": "150",
+      "remaining": "0"
+    },
+    {
+      "profile": "topes",
+      "sport": true,
+      "first": "salud",
+      "quota": "630.01",
+      "movements": [
+        {
+          "code": "salud",
+          "generated": "600",
+          "applied": "600",
+          "lost": "0"
+        },
+        {
+          "code": "deporte",
+          "generated": "30",
+          "applied": "30",
+          "lost": "0"
+        }
+      ],
+      "t": "0.001",
+      "total": "630.001",
+      "remaining": "0.009"
+    },
+    {
+      "profile": "topes",
+      "sport": true,
+      "first": "deporte",
+      "quota": "630.01",
+      "movements": [
+        {
+          "code": "deporte",
+          "generated": "30",
+          "applied": "30",
+          "lost": "0"
+        },
+        {
+          "code": "salud",
+          "generated": "600",
+          "applied": "600",
+          "lost": "0"
+        }
+      ],
+      "t": "0.001",
+      "total": "630.001",
+      "remaining": "0.009"
+    },
+    {
+      "profile": "topes",
+      "sport": true,
+      "first": "salud",
+      "quota": "1000",
+      "movements": [
+        {
+          "code": "salud",
+          "generated": "600",
+          "applied": "600",
+          "lost": "0"
+        },
+        {
+          "code": "deporte",
+          "generated": "30",
+          "applied": "30",
+          "lost": "0"
+        }
+      ],
+      "t": "37",
+      "total": "667",
+      "remaining": "333"
+    },
+    {
+      "profile": "topes",
+      "sport": true,
+      "first": "deporte",
+      "quota": "1000",
+      "movements": [
+        {
+          "code": "deporte",
+          "generated": "30",
+          "applied": "30",
+          "lost": "0"
+        },
+        {
+          "code": "salud",
+          "generated": "600",
+          "applied": "600",
+          "lost": "0"
+        }
+      ],
+      "t": "37",
+      "total": "667",
+      "remaining": "333"
+    },
+    {
+      "profile": "netos",
+      "sport": false,
+      "first": "salud",
+      "quota": "0",
+      "movements": [
+        {
+          "code": "salud",
+          "generated": "350",
+          "applied": "0",
+          "lost": "350"
+        }
+      ],
+      "t": "0",
+      "total": "0",
+      "remaining": "0"
+    },
+    {
+      "profile": "netos",
+      "sport": false,
+      "first": "salud",
+      "quota": "0.009",
+      "movements": [
+        {
+          "code": "salud",
+          "generated": "350",
+          "applied": "0.009",
+          "lost": "349.991"
+        }
+      ],
+      "t": "0",
+      "total": "0.009",
+      "remaining": "0"
+    },
+    {
+      "profile": "netos",
+      "sport": false,
+      "first": "salud",
+      "quota": "20.079",
+      "movements": [
+        {
+          "code": "salud",
+          "generated": "350",
+          "applied": "20.079",
+          "lost": "329.921"
+        }
+      ],
+      "t": "0",
+      "total": "20.079",
+      "remaining": "0"
+    },
+    {
+      "profile": "netos",
+      "sport": false,
+      "first": "salud",
+      "quota": "150",
+      "movements": [
+        {
+          "code": "salud",
+          "generated": "350",
+          "applied": "150",
+          "lost": "200"
+        }
+      ],
+      "t": "0",
+      "total": "150",
+      "remaining": "0"
+    },
+    {
+      "profile": "netos",
+      "sport": false,
+      "first": "salud",
+      "quota": "630.01",
+      "movements": [
+        {
+          "code": "salud",
+          "generated": "350",
+          "applied": "350",
+          "lost": "0"
+        }
+      ],
+      "t": "28.001",
+      "total": "378.001",
+      "remaining": "252.009"
+    },
+    {
+      "profile": "netos",
+      "sport": false,
+      "first": "salud",
+      "quota": "1000",
+      "movements": [
+        {
+          "code": "salud",
+          "generated": "350",
+          "applied": "350",
+          "lost": "0"
+        }
+      ],
+      "t": "65",
+      "total": "415",
+      "remaining": "585"
+    },
+    {
+      "profile": "netos",
+      "sport": true,
+      "first": "salud",
+      "quota": "0",
+      "movements": [
+        {
+          "code": "salud",
+          "generated": "350",
+          "applied": "0",
+          "lost": "350"
+        },
+        {
+          "code": "deporte",
+          "generated": "30",
+          "applied": "0",
+          "lost": "30"
+        }
+      ],
+      "t": "0",
+      "total": "0",
+      "remaining": "0"
+    },
+    {
+      "profile": "netos",
+      "sport": true,
+      "first": "deporte",
+      "quota": "0",
+      "movements": [
+        {
+          "code": "deporte",
+          "generated": "30",
+          "applied": "0",
+          "lost": "30"
+        },
+        {
+          "code": "salud",
+          "generated": "350",
+          "applied": "0",
+          "lost": "350"
+        }
+      ],
+      "t": "0",
+      "total": "0",
+      "remaining": "0"
+    },
+    {
+      "profile": "netos",
+      "sport": true,
+      "first": "salud",
+      "quota": "0.009",
+      "movements": [
+        {
+          "code": "salud",
+          "generated": "350",
+          "applied": "0.009",
+          "lost": "349.991"
+        },
+        {
+          "code": "deporte",
+          "generated": "30",
+          "applied": "0",
+          "lost": "30"
+        }
+      ],
+      "t": "0",
+      "total": "0.009",
+      "remaining": "0"
+    },
+    {
+      "profile": "netos",
+      "sport": true,
+      "first": "deporte",
+      "quota": "0.009",
+      "movements": [
+        {
+          "code": "deporte",
+          "generated": "30",
+          "applied": "0.009",
+          "lost": "29.991"
+        },
+        {
+          "code": "salud",
+          "generated": "350",
+          "applied": "0",
+          "lost": "350"
+        }
+      ],
+      "t": "0",
+      "total": "0.009",
+      "remaining": "0"
+    },
+    {
+      "profile": "netos",
+      "sport": true,
+      "first": "salud",
+      "quota": "20.079",
+      "movements": [
+        {
+          "code": "salud",
+          "generated": "350",
+          "applied": "20.079",
+          "lost": "329.921"
+        },
+        {
+          "code": "deporte",
+          "generated": "30",
+          "applied": "0",
+          "lost": "30"
+        }
+      ],
+      "t": "0",
+      "total": "20.079",
+      "remaining": "0"
+    },
+    {
+      "profile": "netos",
+      "sport": true,
+      "first": "deporte",
+      "quota": "20.079",
+      "movements": [
+        {
+          "code": "deporte",
+          "generated": "30",
+          "applied": "20.079",
+          "lost": "9.921"
+        },
+        {
+          "code": "salud",
+          "generated": "350",
+          "applied": "0",
+          "lost": "350"
+        }
+      ],
+      "t": "0",
+      "total": "20.079",
+      "remaining": "0"
+    },
+    {
+      "profile": "netos",
+      "sport": true,
+      "first": "salud",
+      "quota": "150",
+      "movements": [
+        {
+          "code": "salud",
+          "generated": "350",
+          "applied": "150",
+          "lost": "200"
+        },
+        {
+          "code": "deporte",
+          "generated": "30",
+          "applied": "0",
+          "lost": "30"
+        }
+      ],
+      "t": "0",
+      "total": "150",
+      "remaining": "0"
+    },
+    {
+      "profile": "netos",
+      "sport": true,
+      "first": "deporte",
+      "quota": "150",
+      "movements": [
+        {
+          "code": "deporte",
+          "generated": "30",
+          "applied": "30",
+          "lost": "0"
+        },
+        {
+          "code": "salud",
+          "generated": "350",
+          "applied": "120",
+          "lost": "230"
+        }
+      ],
+      "t": "0",
+      "total": "150",
+      "remaining": "0"
+    },
+    {
+      "profile": "netos",
+      "sport": true,
+      "first": "salud",
+      "quota": "630.01",
+      "movements": [
+        {
+          "code": "salud",
+          "generated": "350",
+          "applied": "350",
+          "lost": "0"
+        },
+        {
+          "code": "deporte",
+          "generated": "30",
+          "applied": "30",
+          "lost": "0"
+        }
+      ],
+      "t": "25.001",
+      "total": "405.001",
+      "remaining": "225.009"
+    },
+    {
+      "profile": "netos",
+      "sport": true,
+      "first": "deporte",
+      "quota": "630.01",
+      "movements": [
+        {
+          "code": "deporte",
+          "generated": "30",
+          "applied": "30",
+          "lost": "0"
+        },
+        {
+          "code": "salud",
+          "generated": "350",
+          "applied": "350",
+          "lost": "0"
+        }
+      ],
+      "t": "25.001",
+      "total": "405.001",
+      "remaining": "225.009"
+    },
+    {
+      "profile": "netos",
+      "sport": true,
+      "first": "salud",
+      "quota": "1000",
+      "movements": [
+        {
+          "code": "salud",
+          "generated": "350",
+          "applied": "350",
+          "lost": "0"
+        },
+        {
+          "code": "deporte",
+          "generated": "30",
+          "applied": "30",
+          "lost": "0"
+        }
+      ],
+      "t": "62",
+      "total": "442",
+      "remaining": "558"
+    },
+    {
+      "profile": "netos",
+      "sport": true,
+      "first": "deporte",
+      "quota": "1000",
+      "movements": [
+        {
+          "code": "deporte",
+          "generated": "30",
+          "applied": "30",
+          "lost": "0"
+        },
+        {
+          "code": "salud",
+          "generated": "350",
+          "applied": "350",
+          "lost": "0"
+        }
+      ],
+      "t": "62",
+      "total": "442",
+      "remaining": "558"
+    },
+    {
+      "profile": "subcentimo",
+      "sport": false,
+      "first": "salud",
+      "quota": "0",
+      "movements": [
+        {
+          "code": "salud",
+          "generated": "3.71",
+          "applied": "0",
+          "lost": "3.71"
+        }
+      ],
+      "t": "0",
+      "total": "0",
+      "remaining": "0"
+    },
+    {
+      "profile": "subcentimo",
+      "sport": false,
+      "first": "salud",
+      "quota": "0.009",
+      "movements": [
+        {
+          "code": "salud",
+          "generated": "3.71",
+          "applied": "0.009",
+          "lost": "3.701"
+        }
+      ],
+      "t": "0",
+      "total": "0.009",
+      "remaining": "0"
+    },
+    {
+      "profile": "subcentimo",
+      "sport": false,
+      "first": "salud",
+      "quota": "20.079",
+      "movements": [
+        {
+          "code": "salud",
+          "generated": "3.71",
+          "applied": "3.71",
+          "lost": "0"
+        }
+      ],
+      "t": "1.6369",
+      "total": "5.3469",
+      "remaining": "14.7321"
+    },
+    {
+      "profile": "subcentimo",
+      "sport": false,
+      "first": "salud",
+      "quota": "150",
+      "movements": [
+        {
+          "code": "salud",
+          "generated": "3.71",
+          "applied": "3.71",
+          "lost": "0"
+        }
+      ],
+      "t": "14.629",
+      "total": "18.339",
+      "remaining": "131.661"
+    },
+    {
+      "profile": "subcentimo",
+      "sport": false,
+      "first": "salud",
+      "quota": "630.01",
+      "movements": [
+        {
+          "code": "salud",
+          "generated": "3.71",
+          "applied": "3.71",
+          "lost": "0"
+        }
+      ],
+      "t": "62.63",
+      "total": "66.34",
+      "remaining": "563.67"
+    },
+    {
+      "profile": "subcentimo",
+      "sport": false,
+      "first": "salud",
+      "quota": "1000",
+      "movements": [
+        {
+          "code": "salud",
+          "generated": "3.71",
+          "applied": "3.71",
+          "lost": "0"
+        }
+      ],
+      "t": "99.629",
+      "total": "103.339",
+      "remaining": "896.661"
+    },
+    {
+      "profile": "subcentimo",
+      "sport": true,
+      "first": "salud",
+      "quota": "0",
+      "movements": [
+        {
+          "code": "salud",
+          "generated": "3.71",
+          "applied": "0",
+          "lost": "3.71"
+        },
+        {
+          "code": "deporte",
+          "generated": "30",
+          "applied": "0",
+          "lost": "30"
+        }
+      ],
+      "t": "0",
+      "total": "0",
+      "remaining": "0"
+    },
+    {
+      "profile": "subcentimo",
+      "sport": true,
+      "first": "deporte",
+      "quota": "0",
+      "movements": [
+        {
+          "code": "deporte",
+          "generated": "30",
+          "applied": "0",
+          "lost": "30"
+        },
+        {
+          "code": "salud",
+          "generated": "3.71",
+          "applied": "0",
+          "lost": "3.71"
+        }
+      ],
+      "t": "0",
+      "total": "0",
+      "remaining": "0"
+    },
+    {
+      "profile": "subcentimo",
+      "sport": true,
+      "first": "salud",
+      "quota": "0.009",
+      "movements": [
+        {
+          "code": "salud",
+          "generated": "3.71",
+          "applied": "0.009",
+          "lost": "3.701"
+        },
+        {
+          "code": "deporte",
+          "generated": "30",
+          "applied": "0",
+          "lost": "30"
+        }
+      ],
+      "t": "0",
+      "total": "0.009",
+      "remaining": "0"
+    },
+    {
+      "profile": "subcentimo",
+      "sport": true,
+      "first": "deporte",
+      "quota": "0.009",
+      "movements": [
+        {
+          "code": "deporte",
+          "generated": "30",
+          "applied": "0.009",
+          "lost": "29.991"
+        },
+        {
+          "code": "salud",
+          "generated": "3.71",
+          "applied": "0",
+          "lost": "3.71"
+        }
+      ],
+      "t": "0",
+      "total": "0.009",
+      "remaining": "0"
+    },
+    {
+      "profile": "subcentimo",
+      "sport": true,
+      "first": "salud",
+      "quota": "20.079",
+      "movements": [
+        {
+          "code": "salud",
+          "generated": "3.71",
+          "applied": "3.71",
+          "lost": "0"
+        },
+        {
+          "code": "deporte",
+          "generated": "30",
+          "applied": "16.369",
+          "lost": "13.631"
+        }
+      ],
+      "t": "0",
+      "total": "20.079",
+      "remaining": "0"
+    },
+    {
+      "profile": "subcentimo",
+      "sport": true,
+      "first": "deporte",
+      "quota": "20.079",
+      "movements": [
+        {
+          "code": "deporte",
+          "generated": "30",
+          "applied": "20.079",
+          "lost": "9.921"
+        },
+        {
+          "code": "salud",
+          "generated": "3.71",
+          "applied": "0",
+          "lost": "3.71"
+        }
+      ],
+      "t": "0",
+      "total": "20.079",
+      "remaining": "0"
+    },
+    {
+      "profile": "subcentimo",
+      "sport": true,
+      "first": "salud",
+      "quota": "150",
+      "movements": [
+        {
+          "code": "salud",
+          "generated": "3.71",
+          "applied": "3.71",
+          "lost": "0"
+        },
+        {
+          "code": "deporte",
+          "generated": "30",
+          "applied": "30",
+          "lost": "0"
+        }
+      ],
+      "t": "11.629",
+      "total": "45.339",
+      "remaining": "104.661"
+    },
+    {
+      "profile": "subcentimo",
+      "sport": true,
+      "first": "deporte",
+      "quota": "150",
+      "movements": [
+        {
+          "code": "deporte",
+          "generated": "30",
+          "applied": "30",
+          "lost": "0"
+        },
+        {
+          "code": "salud",
+          "generated": "3.71",
+          "applied": "3.71",
+          "lost": "0"
+        }
+      ],
+      "t": "11.629",
+      "total": "45.339",
+      "remaining": "104.661"
+    },
+    {
+      "profile": "subcentimo",
+      "sport": true,
+      "first": "salud",
+      "quota": "630.01",
+      "movements": [
+        {
+          "code": "salud",
+          "generated": "3.71",
+          "applied": "3.71",
+          "lost": "0"
+        },
+        {
+          "code": "deporte",
+          "generated": "30",
+          "applied": "30",
+          "lost": "0"
+        }
+      ],
+      "t": "59.63",
+      "total": "93.34",
+      "remaining": "536.67"
+    },
+    {
+      "profile": "subcentimo",
+      "sport": true,
+      "first": "deporte",
+      "quota": "630.01",
+      "movements": [
+        {
+          "code": "deporte",
+          "generated": "30",
+          "applied": "30",
+          "lost": "0"
+        },
+        {
+          "code": "salud",
+          "generated": "3.71",
+          "applied": "3.71",
+          "lost": "0"
+        }
+      ],
+      "t": "59.63",
+      "total": "93.34",
+      "remaining": "536.67"
+    },
+    {
+      "profile": "subcentimo",
+      "sport": true,
+      "first": "salud",
+      "quota": "1000",
+      "movements": [
+        {
+          "code": "salud",
+          "generated": "3.71",
+          "applied": "3.71",
+          "lost": "0"
+        },
+        {
+          "code": "deporte",
+          "generated": "30",
+          "applied": "30",
+          "lost": "0"
+        }
+      ],
+      "t": "96.629",
+      "total": "130.339",
+      "remaining": "869.661"
+    },
+    {
+      "profile": "subcentimo",
+      "sport": true,
+      "first": "deporte",
+      "quota": "1000",
+      "movements": [
+        {
+          "code": "deporte",
+          "generated": "30",
+          "applied": "30",
+          "lost": "0"
+        },
+        {
+          "code": "salud",
+          "generated": "3.71",
+          "applied": "3.71",
+          "lost": "0"
+        }
+      ],
+      "t": "96.629",
+      "total": "130.339",
+      "remaining": "869.661"
+    },
+    {
+      "profile": "reintegrado",
+      "sport": false,
+      "first": "salud",
+      "quota": "0",
+      "movements": [
+        {
+          "code": "salud",
+          "generated": "0",
+          "applied": "0",
+          "lost": "0"
+        }
+      ],
+      "t": "0",
+      "total": "0",
+      "remaining": "0"
+    },
+    {
+      "profile": "reintegrado",
+      "sport": false,
+      "first": "salud",
+      "quota": "0.009",
+      "movements": [
+        {
+          "code": "salud",
+          "generated": "0",
+          "applied": "0",
+          "lost": "0"
+        }
+      ],
+      "t": "0.0009",
+      "total": "0.0009",
+      "remaining": "0.0081"
+    },
+    {
+      "profile": "reintegrado",
+      "sport": false,
+      "first": "salud",
+      "quota": "20.079",
+      "movements": [
+        {
+          "code": "salud",
+          "generated": "0",
+          "applied": "0",
+          "lost": "0"
+        }
+      ],
+      "t": "2.0079",
+      "total": "2.0079",
+      "remaining": "18.0711"
+    },
+    {
+      "profile": "reintegrado",
+      "sport": false,
+      "first": "salud",
+      "quota": "150",
+      "movements": [
+        {
+          "code": "salud",
+          "generated": "0",
+          "applied": "0",
+          "lost": "0"
+        }
+      ],
+      "t": "15",
+      "total": "15",
+      "remaining": "135"
+    },
+    {
+      "profile": "reintegrado",
+      "sport": false,
+      "first": "salud",
+      "quota": "630.01",
+      "movements": [
+        {
+          "code": "salud",
+          "generated": "0",
+          "applied": "0",
+          "lost": "0"
+        }
+      ],
+      "t": "63.001",
+      "total": "63.001",
+      "remaining": "567.009"
+    },
+    {
+      "profile": "reintegrado",
+      "sport": false,
+      "first": "salud",
+      "quota": "1000",
+      "movements": [
+        {
+          "code": "salud",
+          "generated": "0",
+          "applied": "0",
+          "lost": "0"
+        }
+      ],
+      "t": "100",
+      "total": "100",
+      "remaining": "900"
+    },
+    {
+      "profile": "reintegrado",
+      "sport": true,
+      "first": "salud",
+      "quota": "0",
+      "movements": [
+        {
+          "code": "salud",
+          "generated": "0",
+          "applied": "0",
+          "lost": "0"
+        },
+        {
+          "code": "deporte",
+          "generated": "30",
+          "applied": "0",
+          "lost": "30"
+        }
+      ],
+      "t": "0",
+      "total": "0",
+      "remaining": "0"
+    },
+    {
+      "profile": "reintegrado",
+      "sport": true,
+      "first": "deporte",
+      "quota": "0",
+      "movements": [
+        {
+          "code": "deporte",
+          "generated": "30",
+          "applied": "0",
+          "lost": "30"
+        },
+        {
+          "code": "salud",
+          "generated": "0",
+          "applied": "0",
+          "lost": "0"
+        }
+      ],
+      "t": "0",
+      "total": "0",
+      "remaining": "0"
+    },
+    {
+      "profile": "reintegrado",
+      "sport": true,
+      "first": "salud",
+      "quota": "0.009",
+      "movements": [
+        {
+          "code": "salud",
+          "generated": "0",
+          "applied": "0",
+          "lost": "0"
+        },
+        {
+          "code": "deporte",
+          "generated": "30",
+          "applied": "0.009",
+          "lost": "29.991"
+        }
+      ],
+      "t": "0",
+      "total": "0.009",
+      "remaining": "0"
+    },
+    {
+      "profile": "reintegrado",
+      "sport": true,
+      "first": "deporte",
+      "quota": "0.009",
+      "movements": [
+        {
+          "code": "deporte",
+          "generated": "30",
+          "applied": "0.009",
+          "lost": "29.991"
+        },
+        {
+          "code": "salud",
+          "generated": "0",
+          "applied": "0",
+          "lost": "0"
+        }
+      ],
+      "t": "0",
+      "total": "0.009",
+      "remaining": "0"
+    },
+    {
+      "profile": "reintegrado",
+      "sport": true,
+      "first": "salud",
+      "quota": "20.079",
+      "movements": [
+        {
+          "code": "salud",
+          "generated": "0",
+          "applied": "0",
+          "lost": "0"
+        },
+        {
+          "code": "deporte",
+          "generated": "30",
+          "applied": "20.079",
+          "lost": "9.921"
+        }
+      ],
+      "t": "0",
+      "total": "20.079",
+      "remaining": "0"
+    },
+    {
+      "profile": "reintegrado",
+      "sport": true,
+      "first": "deporte",
+      "quota": "20.079",
+      "movements": [
+        {
+          "code": "deporte",
+          "generated": "30",
+          "applied": "20.079",
+          "lost": "9.921"
+        },
+        {
+          "code": "salud",
+          "generated": "0",
+          "applied": "0",
+          "lost": "0"
+        }
+      ],
+      "t": "0",
+      "total": "20.079",
+      "remaining": "0"
+    },
+    {
+      "profile": "reintegrado",
+      "sport": true,
+      "first": "salud",
+      "quota": "150",
+      "movements": [
+        {
+          "code": "salud",
+          "generated": "0",
+          "applied": "0",
+          "lost": "0"
+        },
+        {
+          "code": "deporte",
+          "generated": "30",
+          "applied": "30",
+          "lost": "0"
+        }
+      ],
+      "t": "12",
+      "total": "42",
+      "remaining": "108"
+    },
+    {
+      "profile": "reintegrado",
+      "sport": true,
+      "first": "deporte",
+      "quota": "150",
+      "movements": [
+        {
+          "code": "deporte",
+          "generated": "30",
+          "applied": "30",
+          "lost": "0"
+        },
+        {
+          "code": "salud",
+          "generated": "0",
+          "applied": "0",
+          "lost": "0"
+        }
+      ],
+      "t": "12",
+      "total": "42",
+      "remaining": "108"
+    },
+    {
+      "profile": "reintegrado",
+      "sport": true,
+      "first": "salud",
+      "quota": "630.01",
+      "movements": [
+        {
+          "code": "salud",
+          "generated": "0",
+          "applied": "0",
+          "lost": "0"
+        },
+        {
+          "code": "deporte",
+          "generated": "30",
+          "applied": "30",
+          "lost": "0"
+        }
+      ],
+      "t": "60.001",
+      "total": "90.001",
+      "remaining": "540.009"
+    },
+    {
+      "profile": "reintegrado",
+      "sport": true,
+      "first": "deporte",
+      "quota": "630.01",
+      "movements": [
+        {
+          "code": "deporte",
+          "generated": "30",
+          "applied": "30",
+          "lost": "0"
+        },
+        {
+          "code": "salud",
+          "generated": "0",
+          "applied": "0",
+          "lost": "0"
+        }
+      ],
+      "t": "60.001",
+      "total": "90.001",
+      "remaining": "540.009"
+    },
+    {
+      "profile": "reintegrado",
+      "sport": true,
+      "first": "salud",
+      "quota": "1000",
+      "movements": [
+        {
+          "code": "salud",
+          "generated": "0",
+          "applied": "0",
+          "lost": "0"
+        },
+        {
+          "code": "deporte",
+          "generated": "30",
+          "applied": "30",
+          "lost": "0"
+        }
+      ],
+      "t": "97",
+      "total": "127",
+      "remaining": "873"
+    },
+    {
+      "profile": "reintegrado",
+      "sport": true,
+      "first": "deporte",
+      "quota": "1000",
+      "movements": [
+        {
+          "code": "deporte",
+          "generated": "30",
+          "applied": "30",
+          "lost": "0"
+        },
+        {
+          "code": "salud",
+          "generated": "0",
+          "applied": "0",
+          "lost": "0"
+        }
+      ],
+      "t": "97",
+      "total": "127",
+      "remaining": "873"
+    }
+  ]
+}

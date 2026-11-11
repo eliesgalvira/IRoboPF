@@ -44,3 +44,21 @@ export const HechosDT18Murcia2025 = Schema.Struct({
 })
 export type HechosDT18Murcia2025 = typeof HechosDT18Murcia2025.Type
 export const HechosDT18Territoriales2025 = Schema.Union([HechosDT182025, HechosDT18Murcia2025])
+
+/** Derecho material DT18 estatal: residente Rioja y única vivienda en Galicia.
+ * Deriva el contrato común. No admite bases fiscales ni cuotas externas. */
+export const HechosDerechoDT18Rioja2025 = Schema.Struct({
+ ...HechosDT182025.fields,
+ alcance: Schema.Literal("solo_incompatibilidad_alquiler_rioja"),
+ ejercicioDelDerecho: Schema.Literals(["aplicar", "no_aplicar"]),
+ proyectos: Schema.Array(Schema.Struct({
+  ...HechosDT182025.fields.proyectos.schema.fields,
+  operacion: Schema.Literal("adquisicion"),
+  vivienda: Schema.Struct({
+   ...E_ViviendaRioja.fields,
+   operacion: Schema.Literal("adquisicion"),
+   inmueble: Schema.Struct({...E_ViviendaRioja.fields.inmueble.fields, territorio: Schema.Literal("galicia")}),
+  }),
+ })),
+})
+export type HechosDerechoDT18Rioja2025 = typeof HechosDerechoDT18Rioja2025.Type

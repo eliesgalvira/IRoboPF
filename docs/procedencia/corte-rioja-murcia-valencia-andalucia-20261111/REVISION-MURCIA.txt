@@ -1,0 +1,95 @@
+CIERRE DE ESTA MISMA PRIMERA REVISIÓN INDEPENDIENTE — 2026-11-11
+Dictamen monetario FAVORABLE ACOTADO al candidato Murcia/art81 integrado con las
+correcciones cotejadas. Sin findings monetarios bloqueantes pendientes en este
+alcance. Se cierra la revisión provisional anterior; no es una revisión nueva.
+
+EVIDENCIA ACEPTADA DEL PADRE, SIN EJECUCIÓN PROPIA DE PRODUCTO
+producto-rioja-murcia81-historico-20261111/murcia-02 conserva COMANDO.json,
+salida.log, RESULTADO.json y supervision.json: ocho archivos de prueba correctos,
+259 pruebas correctas y dos omisiones preexistentes, presentes también en murcia-01.
+Mi suite de26 y la suite del autor de28 están incluidas en ese conjunto, no se
+suman de nuevo. Resultado exit0, primary_exit0, cleanup verificado y sin procesos
+supervivientes. El comando usa raíz, PATH explícito Bun1.3.13/Node24.20.0,
+timeouts anidados, supervisor del padre y --maxWorkers=1. No atribuyo esa ejecución
+al revisor. En este cierre sólo se usó lectura y Python stdlib bajo timeout.
+
+IDENTIDAD Y CORRECCIONES COTEJADAS POR VALOR
+El registro INTEGRACION-ORIGINALES.json identifica la recepción exacta. Las fuentes
+murcia81.ts y murcia-pagadores.ts, la fixture numérica del autor y su suite previa
+murcia-dos-pagadores permanecen iguales al candidato post. La fixture y el oráculo portable
+permanecen byte a byte iguales a la entrega provisional. La suite tuvo después
+el ajuste de tipo descrito abajo, sin cambiar esperados. También
+siguen idénticos productor81, cuantía exacta y consumidor único de cuota.
+
+En auxiliares-anual.ts la única diferencia frente al candidato es sustituir
+"maternidad2025" in m.caso por m.caso.maternidad2025 !== undefined. Corrige un
+rechazo de caso sin81: clasica(undefined) conserva la propiedad opcional, pero
+carece de hechos81 y de libro81. El rechazo de diez vectores clásicos figura en
+murcia-01; pasan en murcia-02 sin cambiar sus esperados. No era una discrepancia
+monetaria aceptada ni un defecto grave que exija otro contraste independiente.
+La guardia conserva la conciliación cuando existen hechos definidos o libro81.
+Tras murcia-02, la adaptación de tipos añadió el estrechamiento:
+("maternidad2025" in m.caso && m.caso.maternidad2025 !== undefined).
+Se coteja frente a su preimagen en correcciones-tipos-01: mantiene exactamente la
+exclusión del undefined; el libro81 sigue siendo condición suficiente separada.
+
+La suite del autor sólo añade la llave de cierre ausente de function derechos;
+su error de parseo queda en murcia-01. El adversario anterior factura-duplicada
+pasa a factura-contradictoria: conserva factura común y añade concepto alimentacion
+frente a custodia. Es coherente con admitir pagos múltiples de una factura; sigue
+siendo adversario de contradicción y no altera un esperado monetario. Originales
+preservados en correcciones-murcia-01/pre. En el focal de tipos apareció p.id posiblemente undefined; el padre cambió en
+mi adversario p.id.endsWith("a") por p.id?.endsWith("a") === true. Mi generador
+produce siempre IDs definidos, así que el adversario y todos sus esperados siguen
+siendo los mismos. Se cotejó el cambio único frente al original. No se ha relajado
+la suite ni cambiado ningún oráculo numérico. MANIFIESTO-CIERRE.json fija los hashes revisados.
+
+CONCLUSIONES MONETARIAS Y PRECISIÓN
+La reproducción del padre satisface los vectores Fraction independientes de
+pagos/ayudas por factura y pagador, varios pagos propios de una misma factura,
+cruce de ayudas entre dos facturas conservando suma del mismo pagador, gasto
+empresarial separado y fronteras de céntimos. H1 (cruce de ayudas) queda cerrada
+para esos adversarios: rechaza la discrepancia en ambas API.
+
+P1 se conserva: 5000 propios +1000 ajenos, ayuda1000 al segundo => divisor nominal2
+y deducción del primero500. La ayuda reduce la base neta, no elimina el pago bruto
+y derecho nominal del divisor. Se conserva expresamente la reserva interpretativa
+del expediente2025: no es consulta vinculante sobre subvención íntegra ni cubre
+el pago efectuado exclusivamente por la Administración.
+
+H2 (cuota/región frente a diferencial81) queda cerrada para los perfiles probados.
+Hay una sola aplicación regional, sin trasladar gasto ajeno o empresarial. Maternidad
+e incremento quedan separados del consumo de cuota regional. La suite conserva
+igualdad racional EXACTA, sin tolerancia, para total/generado/aplicado regional,
+maternidad e incremento. Sólo la proyección del delta DIFERENCIAL entre salidas
+legales redondeadas admite hasta0.01 EUR frente a Fraction; no afirmo exactitud sin
+tolerancia de toda la salida. La cuota líquida con/sin81 se compara por igualdad.
+La regresión existente cubre cuota escasa17.03/pendiente482.97 y la del autor cuota
+agotada/retenciones; sus resultados son evidencia del padre. CAPI en enero no
+borra la región ni el incremento de febrero en el vector independiente.
+
+ALCANCE DEL CIERRE
+Individual2025, familia/residencia estables, pagos privativos, economía nominal
+representada y mínimo efectivo producido. Filiación, mínimo, beneficiaria81 y
+derecho regional no son intercambiables. No habilita gananciales, cambios de
+custodia/beneficiaria, adopción81 ni concurrencias no modeladas. El prorrateo afecta
+al tope nominal por hijo; no divide el gasto propio ni transfiere el ajeno. La
+inversión del orden de pagos/servicios se prueba; no prueba todas las permutaciones
+de deducciones ni establece una nueva prioridad legal. No exige otra suite ni un
+nuevo recontraste: son correcciones normales ya cubiertas por esta revisión.
+
+Revisado únicamente el párrafo Murcia y su recuento de INTEGRACION.md del corte
+rioja-murcia-valencia-andalucia-20261111: no señalo un dato incorrecto en ese alcance;
+la reserva P1 se mantiene explícita aquí y en la revisión provisional conservada.
+No emito dictamen sobre las otras comunidades ni sobre el histórico.
+
+El chequeo global tipos-01 terminó exit134 por heap agotado antes de diagnósticos;
+NO está verde. El focal-01 terminó exit2 con diagnósticos, incluido el acceso p.id de mi suite.
+No se toma un focal como sustituto del global. No declaro correcto el focal-02 ni
+un runtime posterior a los dos ajustes de tipos sin su evidencia terminada.
+Las26 pruebas y las259 se atribuyen a los bytes de murcia-02; los dos ajustes
+posteriores se aceptan aquí por cotejo estático de equivalencia en los perfiles
+probados, no por atribución ficticia de una nueva ejecución. Este dictamen monetario no acredita tipos globales, inventario,
+generados, todos los comandos workflow/Nix o CI remoto, y no autoriza publicación.
+Sólo el padre gestiona esos pasos y procedencia-documental. No se modificó producto,
+raíz, pruebas ni originales; cierre.patch añade únicamente este dictamen.

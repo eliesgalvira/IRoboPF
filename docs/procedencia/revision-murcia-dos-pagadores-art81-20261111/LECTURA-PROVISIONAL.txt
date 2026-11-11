@@ -1,0 +1,122 @@
+PRIMERA REVISIÓN INDEPENDIENTE NUEVA — fase ligera, 2026-11-11
+Estado: LECTURA PROVISIONAL. Runtime del autor y del padre pendientes.
+No es aprobación fiscal, resultado de Vitest ni autorización de publicación.
+
+Candidato leído: producto-murcia-dos-pagadores-art81-20261111, candidato.patch,
+INFORME.txt, MANIFIESTO.json y sus tres fuentes post de producto. El producto
+permanece intacto. Raíz sólo lectura; sin worktree, VCS mutante, subagentes,
+instalaciones, borrados, JS/TS/Bun/CI/inventario ni suite pesada.
+
+RESULTADO ESTÁTICO
+No identifico un defecto de producto confirmado en esta lectura. No hay defectos
+runtime confirmados porque no se ha ejecutado producto. Las objeciones siguientes
+son comprobaciones pendientes y límites, no acusaciones de cálculo incorrecto.
+
+1. Pagos y ayudas. murcia81.ts post:34-45 exige cada pago familiar del libro81
+por identidad y compara factura, niño, centro, concepto, pagador, fecha, importe
+y atribución privativa. :47-54 coteja ayudas por factura Y pagador; no basta la
+suma de la familia ni la suma anual del pagador. :58-61 sólo admite vestuario
+adicional con identidades disjuntas. El consumidor comprueba IDs/servicios únicos,
+coherencia de la factura entre pagos y ayuda no superior a cada pago. Repartir
+una ayuda entre pagos del mismo pagador sin cambiar su suma no altera base.
+Hipótesis H1 pendiente: cruce entre DOS facturas conservando el total de un mismo
+beneficiario. La lectura predice rechazo; no está reproducido. La suite propone
+enero100/febrero200 -> enero200/febrero100, con todos los netos positivos.
+
+2. Familia, mínimo y titularidad81 son magnitudes distintas. :23-30 no sustituye
+el mínimo por el mero censo. La beneficiaria81 debe estar en la atribución efectiva;
+producirPagadoresMurcia2025 deriva derecho regional por persona/niño usando renta,
+residencia y atribuciones, sin deducirlo del derecho81. El vector de padre con
+mínimo y residencia en otra comunidad mantiene parentesco y mínimo, pero no reduce
+el tope propio. No se aporta un mínimo ficticio por cliente. El contrato estable
+es deliberadamente estrecho: no demuestra soporte de todos los familiares con
+mínimo ni de adopción art81, movilidad, gananciales, custodia especial o cambio
+de beneficiaria. No he convertido tales exclusiones en cero fiscal ni en defectos.
+
+3. P1 preservado: en auxiliares-anual.ts post se registra pago bruto positivo y
+se filtran titulares nominales antes del divisor; las ayudas sólo reducen base
+neta individual. 5000 propios +1000 ajenos con ayuda1000 al segundo => divisor2,
+primer titular500. El oráculo propio lo distribuye entre dos facturas (2600+2400,
+400+600) y conserva exactamente 500. Se conserva la reserva interpretativa del
+expediente: pago acreditado al progenitor, no pago exclusivo de Administración;
+no se presenta una consulta vinculante específica ni certeza jurídica adicional.
+
+4. Fechas/conceptos/autorización: :37-45 exige autorización educativa coincidente,
+servicio igual al contrato mensual, asistencia->custodia y pago fechado idéntico;
+el consumidor exige primer ciclo certificado y pago/servicio dentro de2025. El
+productor81 valida vigencia de autorización. La fecha del pago no tiene por qué
+coincidir con el período de prestación: no propongo inventar esa obligación.
+La suite existente del autor ya contiene adversarios de fecha, concepto,
+autorización, omisión, duplicado, gananciales y cambio de convivencia; se reutiliza.
+
+5. Cuota y diferencial: el parche no modifica cuantía exacta, productor81,
+consumirCuotaAnualF2025 ni aplicarArt81AlDiferencial. Continúa el consumo único
+regional antes del ajuste estatal. En lectura no observo otro libro ni absorción
+de maternidad/incremento por cuota autonómica. Hipótesis H2 pendiente: conservar
+estas invariantes en ambas API con los nuevos hechos. Suite nueva exige una sola
+aplicación, generado/aplicado exactos y cuota líquida idéntica con/sin81; el delta
+diferencial se contrasta con Fraction con margen máximo de un céntimo por salidas
+legales redondeadas. Los importes regional/estatal no tienen tolerancia.
+No duplico cuota escasa17.03/pendiente482.97: ya existe en murcia-dos-pagadores y
+contraste-murcia-pago-subvencionado-20261111, este último también por ambas API.
+La suite del autor amplía cuota agotada con retenciones; sus evidencias faltan.
+
+ORÁCULO Y SUITE PROPIOS
+post/tests/oraculos/revision_murcia81_fraction.py usa sólo stdlib/Fraction,
+no importa fuentes, JSON ni esperados del autor. Es portable en raíz: escribe
+el JSON hermano en tests/fixtures. La copia inicial oraculo_independiente.py se
+preserva como original de preparación; la versión portable es la del parche.
+Diez vectores generados y aserciones internas ejecutados con Python3.13.15 y
+timeout; salida: vectores10, P1=500/1. Esto NO ejecuta lógica fiscal del producto.
+
+Una sola suite Vitest nueva, tests/revision-murcia81-independiente.test.ts:
+26 pruebas declaradas (13 por API), sin ejecución ni comprobación de tipos.
+Usa fixtures anteriores sólo para hechos/contratos, nunca para esperados.
+Cada perfil tiene dos facturas y tres pagos por factura (dos propios y uno ajeno).
+Vectores: P1 extendido; bases propias2499.99/2500/2500.01 con otro pagador nominal;
+neto familiar0.02 que limita incremento; ayudas totales; padre con mínimo pero
+sin derecho regional; CAPI sólo enero manteniendo febrero y región; contratación
+empresarial5000 con gasto familiar60 (región6, incremento60); ayudas nominales
+entre dos facturas. Hay orden inverso, con/sin81, cruce de ayudas entre facturas,
+traslado indebido de contratación empresarial y contradicciones de nacimiento,
+convivencia, concepto/período/factura entre pagos. Frontera2499.99 produce regional
+249999/500 (499.998) antes de presentación; no se redondea a500 en el esperado.
+El caso CAPI enero conserva maternidad1100, región500 e incremento250/3 en febrero.
+No se copian las suites del autor ni se cambian sus esperados.
+
+FUENTES Y EFFECT
+Se reutilizan los expedientes2025 ya sellados de art81/art60 y Murcia art1.Tres,
+con hashes en el manifiesto del autor, y la reserva P1 del corte murciano. Lectura
+primaria adicional del manual AEAT2025 Murcia:
+https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2025-deducciones-autonomicas/comunidad-autonoma-region-murcia/gastos-guarderia.html
+Confirma porcentaje, tope, mínimo, residencia familiar, pago propio, prorrateo del
+tope y minoración de ayudas por descendiente. Se abrió también BOE art81:
+https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764#a81
+Su consolidado muestra actualización2026: NO lo sustituyo por la fuente2025
+sellada ni deduzco hechos fiscales2025 nuevos de esa versión. No reabro reservas
+interpretativas ya documentadas ni afirmo que el manual resuelva expresamente P1.
+
+Por veto de runtime JS no se ejecutan effect-solutions list/show, tampoco el CLI
+compilado ofrecido. Se consultaron las guías locales ai-docs/src/01_effect/05_running/
+index.md y 09_testing/index.md (son índices escuetos) y Effect.ts sobre runSync,
+map y flip. No se introduce un patrón nuevo de servicios/layers. Los tests usan
+runSync/flip/map del código existente; los errores inesperados deben fallar.
+
+REPRODUCCIÓN PROPUESTA AL PADRE (NO EJECUTADA AQUÍ)
+Tras el CI que tiene exclusiva, cotejar hashes candidato/pre contra la revisión
+e integrar candidato y este parche de adiciones. Ejecutar con el supervisor del
+padre, el entorno Nix y los límites globales; no se entrega otro arnés. El comando
+normal de la suite, bajo ese supervisor, es:
+timeout -k 30s 20m bun run test tests/revision-murcia81-independiente.test.ts --maxWorkers=1
+Reutilizar sus focales del autor y las regresiones citadas sin duplicarlas ni
+exigir un nuevo recontraste independiente. Ante fallo, preservar entrada, error,
+archivo/test, hashes de producto y salida íntegra antes de clasificar defecto o
+problema de fixture/tipos. Revisar esta MISMA revisión con evidencia final del
+padre, incluidos generated/inventario/CI según sus reglas; no emitir dictamen
+runtime con el material actual. Ningún push/publicación autorizado por esta entrega.
+
+ENTREGA
+revision.patch añade sólo suite, fixture Fraction, oráculo portable y esta lectura.
+pre/ vacío significa ausencia explícita de esas rutas; post/ sólo contiene esas
+adiciones. MANIFIESTO.json registra pre/post, hashes de candidato, dependencias
+leídas y reconstrucción exacta del parche con stdlib, sin ejecutar producto.
