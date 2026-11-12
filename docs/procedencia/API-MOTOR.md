@@ -642,3 +642,30 @@ Murcia incorpora [DT18 con donativos ordinarios](murcia-dt18-donativos-20261111.
 ## Orígenes de 2024 en la anual de 2025
 
 El [corte de Murcia, CLM y Galicia](origenes-2024-anual-2025-20261112/INTEGRACION.md) conecta el saldo murciano de renovables y la primera aplicación positiva de vivienda rural CLM desde hechos nominales. Ambas API usan el mismo libro territorial; no reciben cuotas ni saldos históricos del cliente. CLM concilia salarios anuales con cuentas y deuda del vendedor; la canónica conserva la ausencia de cotización efectiva. La explicación gallega distingue gastos anteriores de origen fiscal y año de constitución del arrendamiento. Los demás perfiles, concurrencias e historias siguen sujetos a los rechazos documentados.
+
+
+## Guardería murciana con pagos gananciales y derecho de ambos progenitores
+
+La anual individual de 2025 admite el contrato nominal `auxiliares.ganancialesMurcia`
+para dos cónyuges residentes en Murcia, con régimen estable y derecho regional
+producido para ambos. Conserva un pago físico íntegro y calcula su atribución
+racional por mitad; el límite y la cuota se consumen una vez para cada declarante.
+Gasto común de 100,01 EUR genera 10,001 EUR por persona antes del consumo de cuota.
+Esta rama no abre ayudas, artículo 81 concurrente, un único elegible, conjunta
+ni cambios civiles. [Contrato y límites](deducciones-2025/murcia-gananciales-20261112/ALCANCE.md).
+
+## Compatibilidad observada con Open Madrid 2023–2024
+
+La conexión explícita selecciona etapas anuales distintas dentro del perfil
+laboral individual observado: edad 38 en 2023 o 39 en 2024, empleo único,
+cotizaciones de 1.000 EUR y retención de 100 EUR, sin otras rentas ni derechos
+familiares. En 2023 cuantiza el artículo 20 antes de propagar la base; en 2024
+reproduce además el argumento corto de la resta binary64 previo al artículo 20.
+El recorrido estatal cuantiza cada gravamen antes de restar mínimos; el
+autonómico conserva su cálculo decimal. La API canónica y los perfiles fuera
+del ámbito mantienen sus rutas previas.
+
+El intervalo admitido no acredita cada salario ni el algoritmo interno de AEAT.
+La evidencia comprende 61 identidades de 2023 y 63 de 2024, con 1.455 pares
+presentes; ausencias y reservas no se convierten en ceros.
+[Etapas, evidencia y restricciones](implementaciones/open-2023-2024/INFORME.md).

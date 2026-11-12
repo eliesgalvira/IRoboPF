@@ -1,3 +1,4 @@
+import { admiteArgumentoOpen2023A2024, type AlternativaOpen2023A2024 } from "../trabajo-anual/politica-open-2023-2024"
 import { admiteArgumentoOpen2020A2022 } from "../trabajo-anual/politica-open-2020-2022"
 import Decimal from "decimal.js"
 import { Match, Option } from "effect"
@@ -37,10 +38,12 @@ export const calcularReduccionTrabajoConOtrasRentas = ({
   compatibilidadOpen2018,
   compatibilidadOpen2019,
   compatibilidadOpen2020A2022,
+  compatibilidadOpen2023A2024,
 }: {
   readonly anio: AnioFiscal
   readonly fechaFallecimiento?: Date | undefined
   readonly rendimientoPrevioNeto: Decimal
+  readonly compatibilidadOpen2023A2024?: AlternativaOpen2023A2024 | undefined
   /** Suma algebraica de rentas distintas del trabajo, antes de reducciones y compensaciones. */
   readonly otrasRentasNoExentas: Decimal
   /** Compatibilidad observada, exclusivamente empleo Madrid 2025; no regla legal.
@@ -96,7 +99,19 @@ export const calcularReduccionTrabajoConOtrasRentas = ({
         return open ? reduccion.toDecimalPlaces(2, Decimal.ROUND_HALF_UP) : reduccion
       }
     ),
-    Match.when(2023, () => reduccionTrabajo2023(rendimientoPrevioNeto)),
+    Match.when(2023, () => {
+      const open = admiteAlternativa(compatibilidadOpen2023A2024, anio, fechaFallecimiento, otrasRentasNoExentas, rendimientoPrevioNeto)
+      const r = reduccionTrabajo2023(open ? crearImporteMonetario(rendimientoPrevioNeto) : rendimientoPrevioNeto)
+      return open ? r.toDecimalPlaces(2, Decimal.ROUND_HALF_UP) : r
+    }),
+    Match.when(2024, () => {
+      const open = admiteAlternativa(compatibilidadOpen2023A2024, anio, fechaFallecimiento, otrasRentasNoExentas, rendimientoPrevioNeto)
+      const previo = open && compatibilidadOpen2023A2024 !== undefined
+        ? restarArt20(compatibilidadOpen2023A2024.integro, compatibilidadOpen2023A2024.gastosAE, true)
+        : rendimientoPrevioNeto
+      const r = reduccionTrabajoDesde2024(previo, open)
+      return open ? r.toDecimalPlaces(2, Decimal.ROUND_HALF_UP) : r
+    }),
     Match.orElse(() => {
       // Cota técnica, no límite fiscal. Evita cancelar acumulados enormes en
       // binary64. Dentro de esta cota el error de resta es muy inferior a
@@ -302,3 +317,14 @@ const reduccionTrabajoDesde2024 = (
     ),
     Match.orElse(() => IMPORTE_CERO)
   )
+
+// El argumento exacto se enlaza a los operandos originales; en 2024 se vuelve
+// a restar en binary64 ANTES de entrar en los tramos del núcleo compartido.
+const admiteAlternativa = (
+  opcion: AlternativaOpen2023A2024 | undefined, anio: number,
+  fallecimiento: Date | undefined, otras: Decimal, previo: Decimal
+): boolean => opcion !== undefined && opcion.anio === anio &&
+  opcion.representacion === (anio === 2023 ? "racional-half-up" : "binary64-corto-half-up") &&
+  fallecimiento === undefined && otras.isZero() &&
+  admiteArgumentoOpen2023A2024(opcion.integro, opcion.gastosAE, anio) &&
+  previo.eq(crearImporteMonetario(opcion.integro).minus(opcion.gastosAE))
