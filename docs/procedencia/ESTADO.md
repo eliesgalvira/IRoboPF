@@ -1,5 +1,11 @@
 # Estado de la auditoría documental
 
+## Unión familiar de Madrid · 12 de noviembre
+
+La [compra compartida y las rentas familiares](familia-madrid-union-20261112/INTEGRACION.md) tienen revisión independiente y contraste favorable de H1/H2. Se concilian títulos inmobiliarios y cuentas exclusivas entre personas antes de devolver importes. El fallo TS17 de la condición opcional está reproducido y corregido. Pasan 1.012 pruebas focales en 25 archivos y los 31 comandos del CI local de la imagen corregida, con inventario regenerado. El CI anterior a las identidades se conserva separado y el intento de checkout incorrecto permanece invalidado. El alcance de los perfiles y la aceptación fiscal pendiente se conservan; R36 mantiene su limitación previa documentada.
+
+2018 está publicado en `c29176ae403e381934f9d11b8ad07aa776c589f0`, con [CI remoto correcto](https://github.com/eliesgalvira/IRoboPF/actions/runs/43295890413). Galicia y DA61 están publicados en `ffa634114b080772d65b3d825374b40a9ad16441`, con [CI remoto correcto](https://github.com/eliesgalvira/IRoboPF/actions/runs/43301855731). La comprobación remota de Madrid corresponde al commit publicado. Este corte termina el rescate de esos tres bloques.
+
 ## Galicia mixto y DA61 · 12 de noviembre
 
 El [perfil gallego de empleo y alquileres](galicia-mixto-20261112/INTEGRACION.md) conecta ambas API y corrige el límite proporcional común de DA61. La revisión inicial detectó dos admisiones temporales indebidas; su corrección tiene contraste independiente favorable, con 67 expedientes propios y 134 ejecuciones. Pasan las 143 pruebas focales del integrador y los 31 comandos del CI local, con inventario regenerado. El perfil conserva sus exclusiones y la aceptación fiscal pendiente. La unión familiar de Madrid queda fuera de este corte.

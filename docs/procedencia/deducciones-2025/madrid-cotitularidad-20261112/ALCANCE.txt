@@ -1,0 +1,55 @@
+Madrid · compra compartida por nacimiento/adopción · 12-11-2026
+
+Problema: el núcleo aislado ya calcula el coste por porcentaje de propiedad,
+pero la conexión anual exige un propietario único. El candidato admite una
+compra terminada de 2025 entre dos cónyuges en separación de bienes, con censo
+completo de propietarios y reparto de escritura/facturas conciliado.
+
+CTE 02-24/R, tercero, pp.5–6: cada adquirente calcula sobre su parte del precio;
+la anualidad es una décima del 10%, con tope individual de 1546,50. CTE 13-24/R,
+pp.4–5, aclara el censo art82 y que el límite no es una bolsa compartida entre
+ambos progenitores. Sus hechos describen pareja no conyugal: no se trasladan
+automáticamente esos dos miembros al matrimonio. Aquí se mantiene el libro
+conyugal existente y se computan todos sus miembros.
+
+El manual AEAT 2025 confirma gastos/tributos inherentes, exclusión de costes del
+préstamo, plazo de tres años desde el evento, ocupación, límite familiar y la
+incompatibilidad con adquisición por despoblación. No se cambia ninguna de
+esas reglas ni se habilita construcción mediante analogía con CTE 02-24/R.
+Las referencias exactas, originales íntegros, cabeceras, UTC y SHA se conservan
+en FUENTES.json y cas/. Son documentos públicos; las fixtures son sintéticas.
+
+Contrato nuevo: adquisicionCompartidaMadrid2025. Identifica contribuyente,
+vivienda, fecha, escritura, régimen y vigencia, y ambos titulares con porcentaje
+y precio/gastos/tributos atribuidos en los soportes. No admite cuota, base fiscal
+ni un booleano de derecho. Los tres importes de cada adquirente deben coincidir
+exactamente con el coste total y su porcentaje; las cuotas deben sumar 100.
+El libro familiar identifica al cónyuge; no se presupone que cualquier otro
+copropietario lo sea. La propiedad se acredita estable hasta devengo. Una venta
+durante 2025 contradice ese contrato y se rechaza antes de calcular.
+
+Los porcentajes y costes se concilian una vez. El núcleo sigue recibiendo el
+coste completo de la vivienda y el porcentaje propio, y consume la cuota anual
+común una sola vez. No hay una segunda deducción ni reparto del tope anual.
+Ejemplo de control: coste total110000, propiedad50% => base propia55000,
+anualidad550. Con25% =>275; con75% =>825. Tope1546,50 individual. La cuota
+residual puede limitar el importe aplicado, sin redondear la reserva racional.
+
+Límites técnicos explícitos: sólo ejercicio2025, individual, matrimonio actual
+sin separación y régimen de separación de bienes desde la adquisición; compra
+terminada en2025, dos propietarios, costes de cada clase proporcionales con
+transporte en céntimos. Una asignación documental que produzca fracción de
+céntimo no se redondea para fingir conciliación: queda fuera de este contrato.
+No se amplían gananciales, terceros, cuotas o costes desproporcionados, cambios
+de propiedad/régimen, historias2023/2024 compartidas, construcción o conjunta.
+Estas exclusiones son cobertura del producto, no prohibiciones fiscales.
+
+Sin contrato nuevo se conserva la ruta de propietario único. El contrato no se
+admite sobre otro código. Las condiciones históricas de la ruta previa quedan
+intactas. La primera revisión independiente y el CI completo son posteriores
+a la validación de autor. El candidato se prepara fuera del checkout congelado.
+
+Incidencia mecánica de preparación: el primer selector textual de anual.ts
+coincidía con dos líneas. La aserción paró antes de escribir anual.ts. Se conserva
+preparar-original.py; la corrección selecciona el guard concreto con && y
+verifica, sin sobreescribir, las dos postimágenes ya creadas.

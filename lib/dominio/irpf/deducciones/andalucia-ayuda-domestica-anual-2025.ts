@@ -45,7 +45,9 @@ export function hechosAyudaDomesticaAndalucia2025(s: Solicitud, m: MagnitudesTer
   const libro = m.libroBasesFamiliares2025
   if (libro !== undefined) {
     const personaCensada = libro.censo?.personas.find(persona => persona.id === p.persona)
-    exigir(personaCensada !== undefined && mismaEconomia(personaCensada.economia, e),
+    const economiaCensada = personaCensada === undefined ? undefined
+      : Schema.decodeUnknownResult(EconomiaPersonaFamiliar2025)(personaCensada.economia, { onExcessProperty: "error" })
+    exigir(personaCensada !== undefined && economiaCensada?._tag === "Success" && mismaEconomia(economiaCensada.success, e),
       "economía de pareja contradictoria o ausente en censo familiar")
     exigir(personaCensada.declaracion2025 === undefined ||
       personaCensada.declaracion2025.modalidad === p.declaracion.modalidad,

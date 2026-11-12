@@ -1,4 +1,6 @@
 import Decimal from "decimal.js"
+import { AlquilerViviendaFamilia2025, producirAlquilerFamiliar2025 } from "./alquiler-vivienda"
+import { InteresesBancariosFamilia2025, producirInteresesBancarios2025 } from "./intereses-bancarios"
 import { conciliaRentaEnCentimos } from "../minimos/rentas-censadas"
 import { CalendarioTrabajo2025, discapacidadDevengoCalendario } from "../trabajo-anual/calendario-2025"
 import { Schema, Result, DateTime, Option } from "effect"
@@ -9,21 +11,43 @@ import type { CasoFiscalAnual } from "../caso-fiscal-anual"
 const D = Decimal.clone({ precision: 80 })
 const Id = Schema.String.check(Schema.isPattern(/^s-[0-9]{1,6}$/))
 const Texto = Schema.String.check(Schema.isPattern(/\S/))
-/** Contrato económico compartido; la declaración no determina la renta. */
-export const EconomiaPersonaFamiliar2025 = Schema.Union([
-      Schema.Struct({ perfil: Schema.Literal("declarante-en-composicion") }),
-      Schema.Struct({ perfil: Schema.Literal("sin-rentas"), censoRentasCompleto: Schema.Literal(true) }),
-      Schema.Struct({ perfil: Schema.Literal("solo-trabajo"), censoRentasCompleto: Schema.Literal(true),
-        otrasRentas: Schema.Literal("ninguna"), reduccionesBase: Schema.Literal("ninguna"),
-        saldosAnteriores: Schema.Literal("ninguno"), trabajo: GastosTrabajo,
+const TrabajoFamiliar2025 = Schema.Struct({ trabajo: GastosTrabajo,
         calendarioTrabajo2025: Schema.optional(CalendarioTrabajo2025),
         mezclaEmpleoPension2025: Schema.optional(Schema.Struct({
           sujetoId: Id, empleoId: Texto, pensionId: Texto,
           pagadorPension: Texto, soportePension: Texto,
           prestacion: Schema.Literal("jubilacion-publica-ordinaria-no-exenta"),
           imputacion: Schema.Literal("periodica-2025-sin-atrasos-ni-art18"),
-        })) }),
+        })) })
+/** Contrato económico compartido; la declaración no determina la renta. */
+export const EconomiaPersonaFamiliar2025 = Schema.Union([
+      Schema.Struct({ perfil: Schema.Literal("declarante-en-composicion") }),
+      Schema.Struct({ perfil: Schema.Literal("sin-rentas"), censoRentasCompleto: Schema.Literal(true) }),
+      Schema.Struct({ perfil: Schema.Literal("solo-trabajo"), censoRentasCompleto: Schema.Literal(true),
+        otrasRentas: Schema.Literal("ninguna"), reduccionesBase: Schema.Literal("ninguna"),
+        saldosAnteriores: Schema.Literal("ninguno"), ...TrabajoFamiliar2025.fields }),
     ])
+/** Ampliación exclusiva del censo Madrid/Valencia; los demás consumidores
+ * conservan EconomiaPersonaFamiliar2025 y no admiten intereses por accidente. */
+export const EconomiaCensoFamiliar2025 = Schema.Union([
+  EconomiaPersonaFamiliar2025,
+  Schema.Struct({ perfil: Schema.Literal("solo-intereses-bancarios"),
+    censoRentasCompleto: Schema.Literal(true), otrasRentas: Schema.Literal("ninguna"),
+    reduccionesBase: Schema.Literal("ninguna"), saldosAnteriores: Schema.Literal("ninguno"),
+    interesesBancarios2025: InteresesBancariosFamilia2025 }),
+  Schema.Struct({ perfil: Schema.Literal("trabajo-e-intereses-bancarios"),
+    censoRentasCompleto: Schema.Literal(true), otrasRentas: Schema.Literal("ninguna"),
+    reduccionesBase: Schema.Literal("ninguna"), saldosAnteriores: Schema.Literal("ninguno"),
+    interesesBancarios2025: InteresesBancariosFamilia2025, ...TrabajoFamiliar2025.fields }),
+  Schema.Struct({ perfil: Schema.Literal("solo-alquiler-vivienda"),
+    censoRentasCompleto: Schema.Literal(true), otrasRentas: Schema.Literal("ninguna"),
+    reduccionesBase: Schema.Literal("ninguna"), saldosAnteriores: Schema.Literal("ninguno"),
+    alquilerVivienda2025: AlquilerViviendaFamilia2025 }),
+  Schema.Struct({ perfil: Schema.Literal("trabajo-y-alquiler-vivienda"),
+    censoRentasCompleto: Schema.Literal(true), otrasRentas: Schema.Literal("ninguna"),
+    reduccionesBase: Schema.Literal("ninguna"), saldosAnteriores: Schema.Literal("ninguno"),
+    alquilerVivienda2025: AlquilerViviendaFamilia2025, ...TrabajoFamiliar2025.fields }),
+])
 /** Hechos económicos completos; no admite base, saldo, cuota ni declaración anidada. */
 export const CensoBasesFamiliares2025 = Schema.Struct({
   referencia: Texto,
@@ -50,7 +74,7 @@ export const CensoBasesFamiliares2025 = Schema.Struct({
       comunidad: Schema.Literals(["andalucia", "otra-comunidad-comun"]),
       desde: Schema.Literal("2025-01-01"), hasta: Schema.Literal("2025-12-31"), soporte: Texto,
     })),
-    economia: EconomiaPersonaFamiliar2025,
+    economia: EconomiaCensoFamiliar2025,
   })).check(Schema.isMaxLength(100)),
 })
 export type CensoBasesFamiliares2025 = typeof CensoBasesFamiliares2025.Type
@@ -89,12 +113,20 @@ export function baseTrabajoMiembro2025(trabajo: GastosTrabajo, madrid: boolean, 
   return { general: neto.minus(reduccion), ahorro: new D(0), rentaAntesReducciones: neto }
 }
 /** Economía ajena ordinaria para consumidores civiles y art82, sin mínimos ni cuotas. */
-export function producirEconomiaAjena2025(e: typeof EconomiaPersonaFamiliar2025.Type, madrid: boolean): BasePersona2025 {
-  const r = Schema.decodeUnknownResult(EconomiaPersonaFamiliar2025)(e, { onExcessProperty: "error" })
+export function producirEconomiaAjena2025(e: typeof EconomiaCensoFamiliar2025.Type, madrid: boolean): BasePersona2025 {
+  const r = Schema.decodeUnknownResult(EconomiaCensoFamiliar2025)(e, { onExcessProperty: "error" })
   exigir(Result.isSuccess(r), "economía incompleta o magnitudes fiscales externas")
   const hechos = r.success
   exigir(hechos.perfil !== "declarante-en-composicion", "economía ajena requiere rentas expresas")
   if (hechos.perfil === "sin-rentas") return { general: new D(0), ahorro: new D(0), rentaAntesReducciones: new D(0) }
+  const ahorro = "interesesBancarios2025" in hechos
+    ? producirInteresesBancarios2025(hechos.interesesBancarios2025) : new D(0)
+  if (hechos.perfil === "solo-intereses-bancarios")
+    return { general: new D(0), ahorro, rentaAntesReducciones: ahorro }
+  const alquiler = "alquilerVivienda2025" in hechos
+    ? producirAlquilerFamiliar2025(hechos.alquilerVivienda2025) : { neto: new D(0), reducido: new D(0) }
+  if (hechos.perfil === "solo-alquiler-vivienda")
+    return { general: alquiler.reducido, ahorro, rentaAntesReducciones: alquiler.neto }
   const mezcla = hechos.mezclaEmpleoPension2025
   if (mezcla !== undefined) {
     exigir(hechos.trabajo.rendimientos.every(r => new D(r.integro).gt(0)), "mezcla: empleo y prestación requieren ingresos positivos")
@@ -103,7 +135,9 @@ export function producirEconomiaAjena2025(e: typeof EconomiaPersonaFamiliar2025.
     exigir(mezcla.sujetoId === c.sujetoId && mezcla.empleoId === c.rendimientoId && mezcla.empleoId !== mezcla.pensionId, "mezcla: identidad empleo/pensión contradictoria")
     exigir(hechos.trabajo.rendimientos.length === 2 && hechos.trabajo.rendimientos.some(r => r.id === mezcla.empleoId && ["empleo-laboral", "empleo-estatutario"].includes(r.clase)) && hechos.trabajo.rendimientos.some(r => r.id === mezcla.pensionId && r.clase === "pension"), "mezcla: censo de rendimientos no concilia con prestación identificada")
   }
-  return baseTrabajoMiembro2025(hechos.trabajo, madrid, new D(0), adaptarTrabajoAnual(hechos.trabajo, hechos.calendarioTrabajo2025, mezcla !== undefined), mezcla !== undefined)
+  const base = baseTrabajoMiembro2025(hechos.trabajo, madrid, ahorro.plus(alquiler.neto), adaptarTrabajoAnual(hechos.trabajo, hechos.calendarioTrabajo2025, mezcla !== undefined), mezcla !== undefined)
+  // La renta de mínimos precede al art20; la base general conserva su reducción.
+  return { general: base.general.plus(alquiler.reducido), ahorro, rentaAntesReducciones: base.rentaAntesReducciones!.plus(ahorro).plus(alquiler.neto) }
 }
 /** No llama a ninguna liquidación ni agrega rentas ajenas al declarante. */
 export function producirBasesFamiliares2025(
@@ -147,6 +181,14 @@ export function producirBasesFamiliares2025(
     exigir(mismos(h.progenitores, padres.map(t => t.titularId)), "falta filiación de primer grado completa:" + d.sujetoId)
     for (const t of padres) exigir(h.conviveCon.includes(t.titularId) === (t.relacion === "convivencia"), "convivencia contradictoria:" + d.sujetoId)
   }
+  const alquileres = c.personas.flatMap(p => "alquilerVivienda2025" in p.economia ? [p.economia.alquilerVivienda2025.inmueble] : [])
+  unicos(alquileres.map(v => v.id), "inmueble exclusivo entre familiares")
+  unicos(alquileres.map(v => v.catastro), "catastro exclusivo entre familiares")
+  const cuentas = c.personas.flatMap(p =>
+    "interesesBancarios2025" in p.economia ? p.economia.interesesBancarios2025.cuentas : []
+  )
+  unicos(cuentas.map(cuenta => JSON.stringify([cuenta.entidad, cuenta.id])), "cuenta exclusiva entre familiares")
+  unicos(cuentas.flatMap(cuenta => cuenta.liquidaciones.map(l => JSON.stringify([cuenta.entidad, l.id]))), "liquidación bancaria entre familiares")
   const bases = new Map<string, BasePersona2025>()
   for (const p of c.personas) {
     const e = p.economia
@@ -156,11 +198,11 @@ export function producirBasesFamiliares2025(
       bases.set(p.id, { general: new D(propia.general), ahorro: new D(propia.ahorro) })
     } else {
       exigir(e.perfil !== "declarante-en-composicion", "segundo declarante en composición:" + p.id)
-      exigir(e.perfil !== "solo-trabajo" || e.mezclaEmpleoPension2025 === undefined || caso.comunidadAutonoma !== "andalucia", "mezcla familiar: consumidor andaluz fuera de este corte")
+      exigir((e.perfil !== "solo-trabajo" && e.perfil !== "trabajo-e-intereses-bancarios" && e.perfil !== "trabajo-y-alquiler-vivienda") || e.mezclaEmpleoPension2025 === undefined || caso.comunidadAutonoma !== "andalucia", "mezcla familiar: consumidor andaluz fuera de este corte")
       // Los hechos H2 sin calendario siguen insuficientes. Andalucía conserva
       // su cobertura previa; este primer calendario se abre sólo Madrid/Valencia.
-      exigir(e.perfil !== "solo-trabajo" || e.trabajo.discapacidadActiva === "ninguna" || e.calendarioTrabajo2025 !== undefined, "discapacidad activa ajena: faltan periodos conciliados con mínimos:" + p.id)
-      if (e.perfil === "solo-trabajo" && e.calendarioTrabajo2025 !== undefined) {
+      exigir((e.perfil !== "solo-trabajo" && e.perfil !== "trabajo-e-intereses-bancarios" && e.perfil !== "trabajo-y-alquiler-vivienda") || e.trabajo.discapacidadActiva === "ninguna" || e.calendarioTrabajo2025 !== undefined, "discapacidad activa ajena: faltan periodos conciliados con mínimos:" + p.id)
+      if ((e.perfil === "solo-trabajo" || e.perfil === "trabajo-e-intereses-bancarios" || e.perfil === "trabajo-y-alquiler-vivienda") && e.calendarioTrabajo2025 !== undefined) {
         exigir(caso.comunidadAutonoma !== "andalucia", "calendario laboral ajeno: consumidor andaluz fuera de este corte")
         exigir(e.calendarioTrabajo2025.sujetoId === p.id, "identidad calendario contradice persona:" + p.id)
         const d = ds.find(d => d.sujetoId === p.id)
@@ -169,6 +211,19 @@ export function producirBasesFamiliares2025(
           exigir(grado._tag === d.discapacidad._tag && (grado._tag !== "Discapacidad33a64" || (d.discapacidad._tag === "Discapacidad33a64" && grado.necesitaAyudaOMovilidadReducida === d.discapacidad.necesitaAyudaOMovilidadReducida)), "discapacidad al devengo contradice mínimos:" + p.id)
         }
       }
+      if ("interesesBancarios2025" in e) {
+        exigir(caso.comunidadAutonoma !== "andalucia", "intereses familiares: consumidor andaluz fuera de este corte")
+        exigir(e.interesesBancarios2025.sujetoId === p.id, "titular de intereses contradice persona:" + p.id)
+      }
+      if ("alquilerVivienda2025" in e) {
+        const h = e.alquilerVivienda2025
+        exigir(caso.comunidadAutonoma !== "andalucia", "alquiler familiar: consumidor andaluz fuera de este corte")
+        exigir(h.sujetoId === p.id, "titular del alquiler contradice persona:" + p.id)
+        exigir(!personas.has(h.inmueble.contrato.arrendatario), "arrendatario pertenece al censo familiar:" + p.id)
+        const hijo = c.hijos.find(x => x.id === p.id)
+        exigir(hijo === undefined || hijo.nacimiento === h.nacimiento, "nacimiento del arrendador contradice filiación:" + p.id)
+        exigir(p.id !== c.conyuge || h.inmueble.regimenMatrimonial === "separacion-bienes", "estado civil del arrendador contradice censo:" + p.id)
+      }
       bases.set(p.id, producirEconomiaAjena2025(e, caso.comunidadAutonoma === "madrid"))
       const renta = e.perfil === "sin-rentas" ? new D(0) : bases.get(p.id)!.rentaAntesReducciones!
       const d = ds.find(d => d.sujetoId === p.id)
@@ -176,8 +231,8 @@ export function producirBasesFamiliares2025(
         exigir(p.declaracion2025.modalidad === d.declaracion.modalidad, "declaración contradice mínimos:" + p.id)
       if (e.perfil === "sin-rentas" && d?.declaracion.modalidad === "individual") exigir(d.declaracion.rentasCentimos === 0, "ausencia de renta contradice declaración:" + p.id)
       exigir(d === undefined || conciliaRentaEnCentimos(renta, d.rentasNoExentasCentimos), "renta económica contradice mínimos:" + p.id)
-      // Este censo contiene sólo trabajo completo o ausencia de rentas, sin
-      // otras rentas ni reducciones de base: se concilia también la declaración.
+      // Trabajo e intereses se concilian antes del art20 con los umbrales
+      // de mínimos y declaración; la base familiar se conserva por separado.
       if (d?.declaracion.modalidad === "individual")
         exigir(conciliaRentaEnCentimos(renta, d.declaracion.rentasCentimos, [1800]), "renta económica contradice declaración:" + p.id)
       for (const d of ds) for (const t of d.titulares.filter(t => t.titularId === p.id))
