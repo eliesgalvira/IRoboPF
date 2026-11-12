@@ -669,3 +669,30 @@ El intervalo admitido no acredita cada salario ni el algoritmo interno de AEAT.
 La evidencia comprende 61 identidades de 2023 y 63 de 2024, con 1.455 pares
 presentes; ausencias y reservas no se convierten en ceros.
 [Etapas, evidencia y restricciones](implementaciones/open-2023-2024/INFORME.md).
+
+## Galicia: empleo, vivienda cedida y alquiler propio en 2025
+
+Ambas API admiten `perfil: "galicia-trabajo-inmueble-2025"` para un empleo
+ordinario y una vivienda gallega cedida durante todo el año. El productor deriva
+el neto laboral, el artículo 20, la renta inmobiliaria y la base general desde
+hechos conciliados. La renta inmobiliaria anterior a su reducción determina la
+frontera de otras rentas de 6.500 euros. El alquiler propio consume la cuota
+autonómica común; las retenciones nominales se descuentan una sola vez al final.
+
+El contrato es individual, de 18 a 64 años, sin derechos familiares, ahorro ni
+otras rentas o deducciones. La vivienda cedida exige neto no negativo y el
+régimen de reducción del 50 %. Los perfiles excluidos devuelven un rechazo con
+motivo. La salida conserva `aceptacionFiscal: "pendiente"`; esta conexión no
+añade observaciones de Open. La [revisión y su contraste](galicia-mixto-20261112/REVISION.md)
+conservan el alcance y las reservas.
+
+El título del alquiler propio debe preceder o coincidir con su ocupación y pagos.
+Los justificantes de fianza o denuncia admiten fechas hasta el 30 de junio de
+2026 inclusive, dentro del plazo ordinario de Renta 2025. Una cronología ajena
+a ese contexto devuelve un rechazo; la falta de ambos justificantes conserva
+la deducción cero.
+
+El límite proporcional común de DA61 usa las cuotas íntegras después del mínimo
+personal, antes de las deducciones. Su aplicación sigue limitada por la cuota
+líquida disponible. La rectificación y sus efectos en los tres controles ELA
+quedan documentados junto al [contrato y las fuentes](galicia-mixto-20261112/INTEGRACION.md).

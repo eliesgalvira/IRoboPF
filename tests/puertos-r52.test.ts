@@ -8,6 +8,17 @@ import { CasoFiscalAnualExplicito } from "../lib/dominio/irpf/trabajo-anual/cone
 import { composeRentasR36 } from "../scripts/procedencia/flujo-rentas-r36.mjs"
 import { executeRentasFinite } from "../scripts/procedencia/flujo-rentas-r36-consumidor.mjs"
 const fragment = composeRentasR36()
+it("R52 conserva Galicia mixto como frontera documental pendiente", () => {
+  const name = "boundary:liquidarGaliciaMixto2025"
+  expect(fragment.boundaries.find(b => b.name === name)).toMatchObject({
+    owner: "productores-anuales-2025", status: "requires-external-contract", admissionAvailable: false,
+  })
+  const root = "lib/dominio/irpf/trabajo-anual/conexion.ts:liquidarIrpfAnualExplicito"
+  expect(() => executeRentasFinite(fragment, root, [{ perfil: "galicia-trabajo-inmueble-2025" }]))
+    .toThrow("Frontera sin contrato " + name)
+  expect(fragment.completeRuleAcceptance).toBe(false)
+  expect(fragment.wiringAllowed).toBe(false)
+})
 it("R52 mantiene el calendario laboral nuevo fuera de la aceptación documental heredada", () => {
   const name = "boundary:calcularGastosTrabajoCalendario2025"
   expect(fragment.boundaries.find(b => b.name === name)).toMatchObject({
