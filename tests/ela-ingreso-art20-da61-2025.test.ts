@@ -17,12 +17,12 @@ it("cobro4000 con concesión20000 conserva art20, DA61 y tipos del ingreso real 
   expect(r.nodosFiscalesB2025?.tiposMediosGenerales).toMatchObject({ estatal: "3.43", autonomico: "2.68", cuotaGeneralEstatalArt63_1: "299.06", cuotaGeneralAutonomicaArt74_1: "233.37" })
   expect(r.deduccionesTerritoriales2025?.aplicaciones[0].generado).toEqual(racional("244.4"))
   expect(r.deduccionTrabajo).toBe(sinDiferencia.deduccionTrabajo)
-  // DA61 legal340; límite299.06*4698/8698=35124597/217450, oráculo Fraction.
+  // DA61 legal340; límite532.43*4698/8698=125067807/434900, oráculo Fraction.
   // Compara contra esa fracción, tolerando sólo el transporte periódico60/80.
   const observado = racional(r.deduccionTrabajo)
-  const diferencia = BigInt(observado.numeradorEuros) * 217450n - 35124597n * BigInt(observado.divisor)
+  const diferencia = BigInt(observado.numeradorEuros) * 434900n - 125067807n * BigInt(observado.divisor)
   const errorAbsoluto = diferencia < 0n ? -diferencia : diferencia
-  expect(errorAbsoluto * 10n ** 55n <= 217450n * BigInt(observado.divisor)).toBe(true)
+  expect(errorAbsoluto * 10n ** 55n <= 434900n * BigInt(observado.divisor)).toBe(true)
 })
 it("concesión20000 y sólo6500.01 cobrados anula DA61 y artículo20 por renta real", () => {
   const c = censoELA("6500.01")

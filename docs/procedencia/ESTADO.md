@@ -1,5 +1,11 @@
 # Estado de la auditoría documental
 
+## Galicia mixto y DA61 · 12 de noviembre
+
+El [perfil gallego de empleo y alquileres](galicia-mixto-20261112/INTEGRACION.md) conecta ambas API y corrige el límite proporcional común de DA61. La revisión inicial detectó dos admisiones temporales indebidas; su corrección tiene contraste independiente favorable, con 67 expedientes propios y 134 ejecuciones. Pasan las 143 pruebas focales del integrador y los 31 comandos del CI local, con inventario regenerado. El perfil conserva sus exclusiones y la aceptación fiscal pendiente. La unión familiar de Madrid queda fuera de este corte.
+
+El corte previo de parciales de 2018 está publicado en `c29176ae403e381934f9d11b8ad07aa776c589f0`, con ambos trabajos del [CI remoto](https://github.com/eliesgalvira/IRoboPF/actions/runs/43295890413) correctos. No se amplía su campaña ni su alcance.
+
 ## Parciales de 2018 · 12 de noviembre
 
 El [ajuste acotado de 2018](simuladores/historico/PARCIALES-2018-20261112.md) tiene revisión independiente y los 31 comandos del CI local correctos. La reserva inicial de acceso a originales queda resuelta por la verificación de hashes y la relectura de los 661 pares PDF/SES y el discriminante separado. Se conservan las 45 ausencias, los 1.322 mapeos reservados de la campaña y su alcance. Sólo se rectifican dos filas sintéticas refutadas por el discriminante. La comprobación remota corresponde al commit publicado. Galicia/DA61 y la unión familiar de Madrid quedan fuera de este corte.

@@ -86,9 +86,9 @@ it.each(["6499.99", "6500", "6500.01"])("frontera propia art20 con %s", euros =>
 it("DA61: fracción construida con operaciones legales independientes, error menor1e-75", () => {
   const c = pagos()
   const r = Effect.runSync(liquidarIrpfAnualExplicito(casoEfectivoELA(c, solicitudELA(c), "14000", "empleo-laboral")))
-  // qE=(8698-5550)*.095=299.06; neto4698. Límite=qE*4698/8698.
-  const n = 29906n * 4698n, d = 100n * 8698n
-  expect(n * 217450n).toBe(35124597n * d)
+  // qE299.06+qA233.37=532.43 antes de deducciones; neto4698. DA61.1 usa ambas íntegras.
+  const n = 53243n * 4698n, d = 100n * 8698n
+  expect(n * 434900n).toBe(125067807n * d)
   const observado = racional(r.deduccionTrabajo)
   const error = BigInt(observado.numeradorEuros)*d - n*BigInt(observado.divisor)
   expect((error < 0n ? -error : error)*10n**75n < d*BigInt(observado.divisor)).toBe(true)

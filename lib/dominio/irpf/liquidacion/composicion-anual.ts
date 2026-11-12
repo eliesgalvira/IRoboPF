@@ -952,7 +952,9 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
         otrasRentasNoExentas: entrada.serviciosLaborales.otrasRentas?.toFixed() ?? "0",
         netoReducidoServicios: entrada.serviciosLaborales.netoReducido?.toFixed() ?? baseLiquidableGeneral.toFixed(),
         baseLiquidableGeneral: baseLiquidableGeneral.toFixed(),
-        cuotaIntegraGeneral: cuotaLiquida.toFixed(),
+        // DA61.1 limita sobre las íntegras después del mínimo, antes de deducciones;
+        // DA61.2 resta después del art80 y conserva por separado esa disponibilidad.
+        cuotaIntegraGeneral: cuotaGeneralDespuesMinimo.toFixed(),
         cuotaLiquidaTotal: cuotaLiquida.toFixed(),
         cuotaTrasArt80: cuotaLiquida.toFixed(),
         etapa: "despues-art80-sin-deduccion-trabajo",

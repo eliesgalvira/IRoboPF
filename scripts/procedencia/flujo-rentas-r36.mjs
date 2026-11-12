@@ -74,6 +74,8 @@ const producerBoundaries = new Map([
   ["lib/dominio/irpf/trabajo-anual/calendario-2025.ts:calcularGastosTrabajoMixtoCalendario2025", "calcularGastosTrabajoMixtoCalendario2025"],
   ["lib/dominio/irpf/aragon-social-mixto-2025/anual.ts:liquidarAragonSocialMixto2025", "liquidarAragonSocialMixto2025"],
   ["lib/dominio/irpf/aragon-social-mixto-2025/contrato.ts:CasoAragonSocialMixto2025", "CasoAragonSocialMixto2025"],
+  ["lib/dominio/irpf/galicia-mixto-2025/anual.ts:liquidarGaliciaMixto2025", "liquidarGaliciaMixto2025"],
+  ["lib/dominio/irpf/galicia-mixto-2025/contrato.ts:CasoGaliciaMixto2025", "CasoGaliciaMixto2025"],
   ["lib/dominio/irpf/deducciones/catalunya-pagadores-2025/productor.ts:producirPagadoresCatalunya2025", "producirPagadoresCatalunya2025"],
   ["lib/dominio/irpf/bases-familiares-2025/productor.ts:baseTrabajoMiembro2025", "baseTrabajoMiembro2025"],
   ["lib/dominio/irpf/bases-familiares-2025/productor.ts:CensoBasesFamiliares2025", "CensoBasesFamiliares2025"],
