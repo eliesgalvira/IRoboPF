@@ -1,0 +1,9 @@
+# Revisión del ajuste de parciales de 2018
+
+La revisión independiente del 12/11, con gpt-6.1-sol y esfuerzo high, no identifica defectos fiscales o aritméticos en el delta respecto a `7e5a34a7`. Comprueba las 661 identidades, las 18 diferencias PRE en seis casos, las dos filas sintéticas rectificadas y las otras 129 intactas. Su reconstrucción Python termina sin errores y conserva 45 ausencias y 1.322 mapeos reservados.
+
+El dictamen documental inicial es provisional por falta de acceso local a 690 referencias CAS. El integrador las obtiene del almacén externo en solo lectura, verifica hashes y tamaños y repite el comprobador independiente con las 690 referencias resueltas. También verifica los 3.309 objetos referenciados y relee los PDF y SES de las 661 entradas y el discriminante separado. Los 662 pares conservan los hechos salariales, ejercicio, versiones SES e importes transcritos. Son 7.899 pares comparables presentes y 45 ausencias, con 1.324 mapeos reservados contando el discriminante. Este último sigue fuera de la campaña. No son nuevas capturas ni nuevas coincidencias del motor. La ausencia de acceso que motivó la reserva queda resuelta por esta comprobación del integrador, sin reatribuirla al revisor.
+
+Pasan las 14 comprobaciones propias preparadas por el revisor, ejecutadas después por el integrador: seis discrepantes, discriminante, promedio Decimal, ruta canónica, fallecimientos, aislamiento de 2019 y exclusión por otras rentas. La revisión inicial no ejecutó el motor ni el CI. El CI de integración se registra por separado en el archivo de resultados.
+
+El alcance sigue siendo el perfil histórico acotado y sus guardas. No identifica de forma única el algoritmo interno de AEAT, no acredita 0023 ni 0414 y no certifica el ejercicio completo. No se modificaron esperados oficiales anteriores para obtener el resultado.

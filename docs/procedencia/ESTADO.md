@@ -1,5 +1,9 @@
 # Estado de la auditoría documental
 
+## Parciales de 2018 · 12 de noviembre
+
+El [ajuste acotado de 2018](simuladores/historico/PARCIALES-2018-20261112.md) tiene revisión independiente y los 31 comandos del CI local correctos. La reserva inicial de acceso a originales queda resuelta por la verificación de hashes y la relectura de los 661 pares PDF/SES y el discriminante separado. Se conservan las 45 ausencias, los 1.322 mapeos reservados de la campaña y su alcance. Sólo se rectifican dos filas sintéticas refutadas por el discriminante. La comprobación remota corresponde al commit publicado. Galicia/DA61 y la unión familiar de Madrid quedan fuera de este corte.
+
 ## Reanudación del 11 de noviembre
 
 El [corte de anticipos y alquiler baleares, calendario familiar e incentivos
