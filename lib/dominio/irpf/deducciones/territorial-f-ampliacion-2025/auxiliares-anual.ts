@@ -1,3 +1,4 @@
+import { conciliarGanancialesMurcia2025 } from "./murcia-gananciales"
 import { producirPagadoresMurcia2025 } from "./murcia-pagadores"
 import { comprobarHistoriaNacimientoMadrid } from "./madrid-historia"
 import { conciliarMurcia81 } from "./murcia81"
@@ -25,6 +26,8 @@ function mismos(a: readonly string[], b: readonly string[]): boolean {
 export function evaluarAuxiliaresAnualesF(s: SolicitudAnualF2025, m: MagnitudesTerritorialesAnuales): ResultadoF {
   if (s.historiaNacimientoMadrid !== undefined && s.codigo !== "madrid_nacimiento_adopcion_hijos")
     falta("historia.codigo", "Historia exclusiva de nacimiento/adopción; no vivienda ni otros territorios")
+  if (s.auxiliares?.ganancialesMurcia !== undefined && s.codigo !== "murcia_gastos_guarderia")
+    falta("ganancialesMurcia.codigo", "Hechos gananciales exclusivos de guardería murciana")
   if (s.auxiliares?.pagadoresMurcia !== undefined && s.codigo !== "murcia_gastos_guarderia")
     falta("pagadoresMurcia.codigo", "Censo exclusivo de guardería murciana")
   const h = requerido(s.auxiliares, "auxiliares.censo_documental")
@@ -102,10 +105,11 @@ export function evaluarAuxiliaresAnualesF(s: SolicitudAnualF2025, m: MagnitudesT
     }
   } else {
     if (m.libroMaternidad81 !== undefined || ("maternidad2025" in m.caso && m.caso.maternidad2025 !== undefined)) conciliarMurcia81(s, m)
-    if (h.regimenPagos !== "separados") falta("pagos.regimen_gananciales", "Falta atribución de pagos comunes conciliada entre ambos progenitores")
+    if (h.regimenPagos !== "separados" && h.ganancialesMurcia === undefined) falta("pagos.regimen_gananciales", "Falta atribución de pagos comunes conciliada entre ambos progenitores")
     if (h.eventos.length > 0) falta("auxiliares.eventos", "Guardería no consume eventos de Madrid")
     if (superior(base, "30000")) excluir("baseImponible", "Base propia superior a30000 EUR")
     const nominales = h.pagadoresMurcia === undefined ? undefined : producirPagadoresMurcia2025(h.pagadoresMurcia, m)
+    const conyuges = conciliarGanancialesMurcia2025(s, m, nominales)
     const pagadoresConPago = new Map<string, Set<string>>()
     const pagos = s.hechos.pagos ?? []
     unicos(pagos.map((p) => texto(p.id, "pago.id")), "pagos.id")
@@ -140,7 +144,8 @@ export function evaluarAuxiliaresAnualesF(s: SolicitudAnualF2025, m: MagnitudesT
       if (c === undefined) falta("guarderia.centro", "Centro no identificado")
       texto(c.autorizacion, "centro.autorizacion"); texto(c.inscripcion, "centro.inscripcion")
       texto(p.soportePago, "pago.soportePago")
-      if (p.atribucion !== "propia_separada") falta("pago.atribucion", "Acreditar gasto a cargo exclusivo del pagador; no inferirlo de la cuenta bancaria")
+      if (p.atribucion !== (conyuges === undefined ? "propia_separada" : "comun_ganancial"))
+        falta("pago.atribucion", "Atribución incompatible con el régimen documental del pago")
       const servicio = requerido(h.servicios.find((x) => x.pagoId === p.id), "servicio")
       const desde = fecha(servicio.periodo.desde, "servicio.desde"), hasta = fecha(servicio.periodo.hasta, "servicio.hasta")
       const pagoFecha = fecha(p.fecha, "pago.fecha")
@@ -157,12 +162,18 @@ export function evaluarAuxiliaresAnualesF(s: SolicitudAnualF2025, m: MagnitudesT
       if (BigInt(neto.numeradorEuros) < 0n) falta("pago.ayudasEUR", "Ayuda superior al gasto: requiere conciliación por menor")
       const porPersona = bases.get(id) ?? new Map<string, Racional>()
       const pagador = texto(p.pagador, "pago.pagador")
-      if (BigInt(importe.numeradorEuros) > 0n) {
-        const pagadores = pagadoresConPago.get(id) ?? new Set<string>()
-        pagadores.add(pagador)
-        pagadoresConPago.set(id, pagadores)
+      if (conyuges !== undefined && BigInt(ayuda.numeradorEuros) !== 0n)
+        falta("ganancialesMurcia.ayudas", "La primera rama común exige ausencia de ayudas; falta su atribución conciliada")
+      // Un pago físico íntegro; la atribución interna conserva incluso medio céntimo.
+      const atribuible = conyuges === undefined ? neto : racional(neto.numeradorEuros, String(BigInt(neto.divisor) * 2n))
+      for (const titular of conyuges ?? [pagador]) {
+        if (BigInt(importe.numeradorEuros) > 0n) {
+          const pagadores = pagadoresConPago.get(id) ?? new Set<string>()
+          pagadores.add(titular)
+          pagadoresConPago.set(id, pagadores)
+        }
+        porPersona.set(titular, sumar(porPersona.get(titular) ?? racional("0"), atribuible))
       }
-      porPersona.set(pagador, sumar(porPersona.get(pagador) ?? racional("0"), neto))
       bases.set(id, porPersona)
     }
     // El censo nominal calcula el derecho regional sin inferirlo del derecho81.
@@ -182,5 +193,5 @@ export function evaluarAuxiliaresAnualesF(s: SolicitudAnualF2025, m: MagnitudesT
   return { codigo: s.codigo, estado: "calculo_parcial", importeExactoRacional: total,
     aceptacionFiscal: "pendiente", motivo: "Rama documental conciliada; pendiente primera revisión monetaria independiente",
     citas: CITAS_F.find((c) => c.codigo === s.codigo)?.citas ?? [], reservas: [],
-    rastro: ["Bases exactas del anual; hechos completos del perfil; salida racional hacia el libro único de cuota", ...(s.codigo === "murcia_gastos_guarderia" && m.libroMaternidad81 !== undefined ? ["Murcia/art81: factura, pagos nominales, período, centro, conceptos y ayudas por pagador conciliados; mínimo y derecho regional independientes; vestuario sólo regional; incremento estatal conservado en diferencial"] : [])] }
+    rastro: ["Bases exactas del anual; hechos completos del perfil; salida racional hacia el libro único de cuota", ...(h.ganancialesMurcia === undefined ? [] : ["Murcia gananciales: dos cónyuges con derecho nominal, convivencia estable y pagos físicos únicos del fondo común; mitad racional propia y tope500 por hijo; sin ayudas ni concurrencia81"]), ...(s.codigo === "murcia_gastos_guarderia" && m.libroMaternidad81 !== undefined ? ["Murcia/art81: factura, pagos nominales, período, centro, conceptos y ayudas por pagador conciliados; mínimo y derecho regional independientes; vestuario sólo regional; incremento estatal conservado en diferencial"] : [])] }
 }
