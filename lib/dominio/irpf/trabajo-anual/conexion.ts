@@ -331,7 +331,7 @@ const liquidarIrpfAnualExplicitoBase = Effect.fn("Liquidacion.explicita")(
               : etapasOpen2020A2022
                 ? "Open Madrid 2020–2022 acotado: art20 binary64/decimal corto/HALF_UP antes de restar a art19 Decimal; base a céntimos propagada a ambas escalas"
               : etapasOpen2018
-                ? "Open 2018 acotado: ramas art20 binary64/decimal corto/HALF_UP; mezcla Decimal y HALF_UP; límite saldo positivo art19"
+                ? "Open 2018 acotado: ramas art20 binary64/decimal corto/HALF_UP; resta entre parciales binary64/decimal corto; promedio Decimal y HALF_UP; límite saldo positivo art19"
               : etapasOpen2019
                 ? "Open 2019 acotado: art20 binary64/decimal corto/HALF_UP antes de restar a art19 Decimal; base cuantizada propagada a ambas escalas"
               : "min(saldo positivo art19, reducción sobre neto sin f; otras rentas = cobros identificados (cero sólo en perfil sin ellas))",
@@ -495,7 +495,7 @@ const liquidarIrpfAnualExplicitoBase = Effect.fn("Liquidacion.explicita")(
                 : etapasOpen2020A2022
                   ? "Política operativa revisable Open Madrid 2020–2022: empleo laboral único, edad35/36/37, SS1000 y gasto general2000; art20 binary64/decimal corto/HALF_UP antes de obtener la base Decimal; gravámenes estatales binary64/decimal corto/HALF_UP antes del mínimo, autonómicos Decimal sobre base corregida. Bruto a céntimos >8565 y <=63000 en 2020/21 o <=58596.90 en 2022, sin otras rentas, familia ni deducciones; 0023/0414 reservadas; sin atribuir algoritmo interno a AEAT."
                 : etapasOpen2018
-                  ? "Compatibilidad observada Open Madrid 2018: ramas art20 binary64 cuantizadas, mezcla Decimal cuantizada; estatal binary64/decimal corto/HALF_UP por gravamen antes del mínimo; autonómica Decimal con base corregida. Alcance condicionado; 0023/0414 reservadas."
+                  ? "Compatibilidad observada Open Madrid 2018: ramas art20 binary64 cuantizadas, resta entre parciales binary64/decimal corto y promedio Decimal cuantizado; estatal binary64/decimal corto/HALF_UP por gravamen antes del mínimo; autonómica Decimal con base corregida. Alcance condicionado; 0023/0414 reservadas."
                   : etapasOpen2019
                     ? "Compatibilidad observada con Open Madrid 2019: reducción del artículo 20 redondeada a céntimos half-up antes de obtener la base; gravámenes estatales por la ruta binary64/decimal corto/HALF_UP y autonómicos Decimal sobre esa base. Hipótesis limitada a los casos contrastados; casillas 0023/0414 reservadas."
                     : redondeoCuotasHistoricasOpen

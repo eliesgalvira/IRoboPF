@@ -236,7 +236,7 @@ const reduccionTrabajo2018 = ({
     Match.when(true, () => reduccionAnterior),
     Match.orElse(() =>
       q(reduccionAnterior.plus(
-        maximo(IMPORTE_CERO, reduccionNueva.minus(reduccionAnterior)).div(2)
+        maximo(IMPORTE_CERO, restarArt20(reduccionNueva, reduccionAnterior, open)).div(2)
       ))
     )
   )

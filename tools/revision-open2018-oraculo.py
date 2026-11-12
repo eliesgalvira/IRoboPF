@@ -1,6 +1,8 @@
 """Oráculo stdlib independiente: valida resultados, no importa código del motor.
 float CPython IEEE754 binary64; str(float) decimal shortest. No emula SES.
-Decimal80 + HALF_UP sobre decimal corto. Cifras explícitas de las tablas.
+Decimal80 + HALF_UP sobre decimal corto.
+Actualización12/11: resta binaria entre parciales, contrastada con PDF/SES15449.99;
+los dos esperados sintéticos previos se preservan en la entrega del ajuste. Cifras explícitas de las tablas.
 Las entradas son discriminantes sintéticos, nunca nuevas referencias oficiales.
 """
 from decimal import Decimal as D, ROUND_HALF_UP, getcontext
@@ -12,7 +14,7 @@ def calc(g,e):
  n=float(g)-float(e)
  r1=3700. if n<=11250 else (3700.-1.15625*(n-11250) if n<=14450 else 0.)
  r2=5565. if n<=13115 else (max(0.,5565.-1.5*(n-13115)) if n<=16825 else 0.)
- a,b=q(str(r1)),q(str(r2));mixed=q(a+max(D(0),b-a)/2)
+ a,b=q(str(r1)),q(str(r2));mixed=q(a+max(D(0),D(str(float(b)-float(a))))/2)
  net=max(D(0),D(g)-D(e)-2000);red=min(net,mixed);base=net-red
  def state(v):
   total=0.;lo=0.
