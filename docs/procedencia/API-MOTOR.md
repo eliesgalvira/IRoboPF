@@ -696,3 +696,26 @@ El límite proporcional común de DA61 usa las cuotas íntegras después del mí
 personal, antes de las deducciones. Su aplicación sigue limitada por la cuota
 líquida disponible. La rectificación y sus efectos en los tres controles ELA
 quedan documentados junto al [contrato y las fuentes](galicia-mixto-20261112/INTEGRACION.md).
+
+## Compra compartida madrileña y rentas de otros familiares
+
+`adquisicionCompartidaMadrid2025` concilia la compra terminada de 2025 entre
+dos cónyuges en separación de bienes, sus porcentajes y los costes atribuidos
+en la escritura y soportes. La deducción de vivienda por nacimiento o adopción
+consume el porcentaje propio una vez y conserva el tope individual.
+
+El censo de bases familiares de Madrid y Comunitat Valenciana incorpora
+intereses bancarios ordinarios privativos y alquiler anual ordinario de una
+vivienda de propiedad exclusiva, con sus combinaciones laborales declaradas.
+Se derivan las bases del familiar desde hechos, sin mezclar su renta ni sus
+retenciones en la liquidación propia. No se combina un censo mundial de una
+sola propiedad exclusiva con una segunda compra compartida.
+
+La compra exclusiva también se concilia con los identificadores de los
+alquileres familiares. Las cuentas y liquidaciones de intereses se identifican
+por entidad e identificador en todo el censo. Los títulos exclusivos
+contradictorios se rechazan antes de producir una liquidación.
+
+Los [contratos, exclusiones y evidencia de integración](familia-madrid-union-20261112/INTEGRACION.md)
+mantienen las restricciones de año, titularidad, cronología, otras rentas y
+declaración individual. Las dos API reutilizan los productores comunes.

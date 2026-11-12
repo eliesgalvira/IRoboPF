@@ -1,8 +1,9 @@
 import Decimal from "decimal.js"
+import { comprobarTitularidadCompraMadrid } from "./madrid-cotitularidad"
 import type { SolicitudAnualF2025 } from "./anual-esquemas"
 import type { MagnitudesTerritorialesAnuales } from "../anual-territorial"
 import { producirBasesHistoriaNacimientoMadrid } from "./madrid-historia"
-import { falta, excluir, requerido, texto, fecha, dinero, unicos } from "./comun"
+import { falta, excluir, requerido, texto, fecha, unicos } from "./comun"
 const D = Decimal.clone({ precision: 80 })
 const mismos = (a: readonly string[], b: readonly string[]) => a.length === b.length && a.every(id => b.includes(id))
 /** Acceso art13 en origen y condiciones anuales. No saldo ni cuotas históricas. */
@@ -13,8 +14,7 @@ export function comprobarHistoriaViviendaMadrid(s: SolicitudAnualF2025, m: Magni
   const origen = Number(compra.slice(0, 4))
   if (origen < 2023 || origen > 2025) excluir("adquisicion", "Compra fuera de vigencia o posterior al ejercicio2025")
   const propio = texto(m.caso.contribuyenteId, "contribuyenteId")
-  if (!mismos(v.titulares ?? [], [propio]) || !dinero(v.porcentajePropiedad, "porcentajePropiedad").eq(100))
-    falta("vivienda.titulares", "Perfil de propietario único100%; no cotitularidad")
+  comprobarTitularidadCompraMadrid(s, m)
   if (origen === 2025) {
     if (s.historiaViviendaMadrid !== undefined) falta("historiaViviendaMadrid.sin_compra_anterior", "Compra2025 no consume historia2023/24")
     return

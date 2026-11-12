@@ -162,6 +162,8 @@ export function evaluarAnualF2025(
   const s = dec.success
   try {
     const c = m.caso, contribuyente = texto(c.contribuyenteId, "caso.contribuyenteId")
+    if (s.adquisicionCompartidaMadrid2025 !== undefined && s.codigo !== "madrid_vivienda_nacimiento_adopcion_hijos")
+      falta("adquisicionCompartidaMadrid2025.codigo", "Escritura compartida exclusiva de compra art13")
     if (s.historiaRenovablesMurcia2024 !== undefined && s.codigo !== "murcia_instalaciones_recursos_energeticos_renovables")
       falta("renovables2024.codigo", "Historia exclusiva del incentivo renovable; no habilita vehículos ni recarga")
     if (c.anio !== 2025 || c.situacionFamiliar.tipo !== "individual" || c.fechaFallecimiento !== undefined)
@@ -282,14 +284,7 @@ export function evaluarAnualF2025(
       if (libro.ejercicio !== c.anio || libro.contribuyente !== contribuyente || propia === undefined ||
           !propia.general.eq(m.baseGeneral) || !propia.ahorro.eq(m.baseAhorro))
         falta("libroBasesFamiliares2025", "Libro de otro ejercicio/identidad o bases propias no conciliadas con la composición anual")
-      if (s.codigo === "madrid_vivienda_nacimiento_adopcion_hijos") {
-        const vs = s.hechos.viviendas ?? []
-        if (vs.length !== 1) falta("viviendas", "Una adquisición identificada")
-        const v = vs[0]!
-        // Acceso histórico comprobado desde hechos art13 antes de adaptar magnitudes2025.
-        if (!mismos(v.titulares ?? [], [contribuyente]) || !dinero(v.porcentajePropiedad, "porcentajePropiedad").eq(100))
-          falta("vivienda.titulares", "Conexión familiar acotada a propietario único; no abre cotitularidad")
-      }
+      // La titularidad art13 ya se concilió antes de adaptar magnitudes anuales.
     }
     if (libro !== undefined) {
       if (s.hechos.miembrosUnidad !== undefined && !mismos(s.hechos.miembrosUnidad, libro.miembrosUnidad))

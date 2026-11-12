@@ -1,0 +1,37 @@
+Alquiler ordinario de otro miembro del censo familiar — candidato 2025
+
+Ámbito: Madrid y Comunitat Valenciana, ambas API anuales individuales. Reutiliza
+el productor inmobiliario existente y conserva por valor la entrega previa de
+intereses bancarios familiares. Este parche es autónomo sobre la raíz congelada:
+no apilarlo con el parche de intereses.
+
+Nuevo perfil: arrendador adulto, una vivienda en España de titularidad plena
+exclusiva, sin otros derechos inmobiliarios durante 2025. Alquiler permanente
+durante 365 días, contrato desde 26/05/2023 sin condiciones de reducciones
+incrementadas. Compraventa onerosa y usos completos, sin alquiler previo, sin pérdidas,
+arrastres ni mejoras; cálculo ordinario sin procedimiento o rectificación.
+Estas son restricciones de cobertura, no requisitos legales universales.
+
+Se admiten alquiler solo y alquiler con trabajo ordinario; el calendario laboral
+y la mezcla empleo/pensión conservan sus requisitos. La combinación de alquiler
+e intereses, cotitularidad/gananciales/usufructo, historia anterior de alquiler,
+imputación, actividad económica, rentas irregulares y retenciones inmobiliarias
+requieren conexión separada. Andalucía conserva su contrato anterior.
+
+Magnitudes: la base general suma el neto reducido inmobiliario; el límite de
+otras rentas del artículo20 y la renta de mínimos/declaración usan el neto antes
+de la reducción inmobiliaria. No se deduce principal de préstamo como gasto ni
+se mezclan rentas ajenas en la liquidación del contribuyente. Las fronteras
+8000/1800 se concilian mediante la política de precisión existente. Se preserva
+la fracción exacta hasta la representación decimal80; no se redondea a céntimos
+la base inmobiliaria antes de verificar límites familiares.
+
+El núcleo se extrae literalmente a censo.ts y sus hechos a hechos.ts para evitar
+un ciclo de imports con solicitudes territoriales. Los exports públicos previos
+siguen disponibles desde contrato.ts/productor.ts. No se cambia la aritmética
+ni las guardas de los consumidores inmobiliarios existentes.
+
+Validación: PRE/POST, oráculos Fraction y regresiones se registran por separado.
+El estado dinámico definitivo se indica en INFORME-AUTOR-FINAL.txt si existe.
+Pendientes revisión monetaria independiente, integración y CI exacto completo.
+No constituye cierre universal del punto4 ni aceptación fiscal de otros perfiles.

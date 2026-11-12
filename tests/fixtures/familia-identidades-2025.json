@@ -1,0 +1,2850 @@
+[
+  {
+    "id": "duplicado-cuenta-entre-personas",
+    "rama": "intereses",
+    "target": "apis",
+    "entrada": {
+      "region": "madrid",
+      "propio": "s-10",
+      "censo": {
+        "referencia": "censo-revisor",
+        "ejercicio": 2025,
+        "devengo": "2025-12-31",
+        "contribuyente": "s-10",
+        "estadoCivil": "casado-no-separado",
+        "conyuge": "s-20",
+        "censoCompleto": true,
+        "hijosCompletos": true,
+        "hijos": [
+          {
+            "id": "s-30",
+            "nacimiento": "2023-03-19",
+            "progenitores": [
+              "s-10",
+              "s-20"
+            ],
+            "conviveCon": [
+              "s-10",
+              "s-20"
+            ],
+            "independienteConConsentimiento": false,
+            "apoyoJudicial": "ninguno",
+            "soporte": "filiacion-sintetica"
+          }
+        ],
+        "personas": [
+          {
+            "id": "s-10",
+            "soporte": "censo-sintetico",
+            "residenteComunTodo2025": true,
+            "vivoTodo2025": true,
+            "economia": {
+              "perfil": "declarante-en-composicion"
+            }
+          },
+          {
+            "id": "s-20",
+            "soporte": "censo-sintetico",
+            "residenteComunTodo2025": true,
+            "vivoTodo2025": true,
+            "economia": {
+              "perfil": "solo-intereses-bancarios",
+              "censoRentasCompleto": true,
+              "otrasRentas": "ninguna",
+              "reduccionesBase": "ninguna",
+              "saldosAnteriores": "ninguno",
+              "interesesBancarios2025": {
+                "referencia": "certificado-sintetico",
+                "sujetoId": "s-20",
+                "ejercicio": 2025,
+                "censoCuentasCompleto": true,
+                "cuentas": [
+                  {
+                    "id": "cuenta-R",
+                    "titularId": "s-20",
+                    "entidad": "entidad-R",
+                    "soporteTitularidad": "titulo-sintetico",
+                    "titularidad": "privativa-exclusiva",
+                    "producto": "deposito-ordinario",
+                    "entidadResidenteEspana": true,
+                    "establecimientoEnEspana": true,
+                    "vinculacion": "no-vinculada",
+                    "litigio": "ninguno",
+                    "retribucion": "dineraria",
+                    "liquidacionesCompletas": true,
+                    "liquidaciones": [
+                      {
+                        "id": "liquidacion-R",
+                        "fechaExigibilidad": "2025-08-29",
+                        "fechaAbono": "2025-08-30",
+                        "soporte": "extracto-sintetico",
+                        "integroEUR": "2300",
+                        "retencionEUR": "0"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "id": "s-30",
+            "soporte": "censo-sintetico",
+            "residenteComunTodo2025": true,
+            "vivoTodo2025": true,
+            "economia": {
+              "perfil": "solo-intereses-bancarios",
+              "censoRentasCompleto": true,
+              "otrasRentas": "ninguna",
+              "reduccionesBase": "ninguna",
+              "saldosAnteriores": "ninguno",
+              "interesesBancarios2025": {
+                "referencia": "certificado-sintetico",
+                "sujetoId": "s-30",
+                "ejercicio": 2025,
+                "censoCuentasCompleto": true,
+                "cuentas": [
+                  {
+                    "id": "cuenta-R",
+                    "titularId": "s-30",
+                    "entidad": "entidad-R",
+                    "soporteTitularidad": "titulo-sintetico",
+                    "titularidad": "privativa-exclusiva",
+                    "producto": "deposito-ordinario",
+                    "entidadResidenteEspana": true,
+                    "establecimientoEnEspana": true,
+                    "vinculacion": "no-vinculada",
+                    "litigio": "ninguno",
+                    "retribucion": "dineraria",
+                    "liquidacionesCompletas": true,
+                    "liquidaciones": [
+                      {
+                        "id": "liquidacion-R",
+                        "fechaExigibilidad": "2025-08-29",
+                        "fechaAbono": "2025-08-30",
+                        "soporte": "extracto-sintetico",
+                        "integroEUR": "2300",
+                        "retencionEUR": "0"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "derechos": {
+        "ejercicio": 2025,
+        "territorio": "madrid",
+        "regimen": "comun",
+        "modalidad": "individual",
+        "devengo": "2025-12-31",
+        "contribuyenteId": "s-10",
+        "edadContribuyenteDevengo": 40,
+        "discapacidadContribuyente": {
+          "_tag": "SinDiscapacidad"
+        },
+        "ascendientes": "ninguno",
+        "fallecimientosEnElEjercicio": "ninguno",
+        "descendientesCompletos": true,
+        "conciliacionRentasContribuyente": {
+          "perfil": "caso-anual-parcial",
+          "otrasRentasOGastosNoRepresentados": "ninguno"
+        },
+        "descendientes": [
+          {
+            "sujetoId": "s-30",
+            "edadDevengo": 2,
+            "fechaNacimiento": "2023-03-19",
+            "vivoAlDevengo": true,
+            "rentasNoExentasCentimos": 230000,
+            "declaracion": {
+              "modalidad": "no-presenta"
+            },
+            "discapacidad": {
+              "_tag": "SinDiscapacidad"
+            },
+            "titularesCompletos": true,
+            "titulares": [
+              {
+                "titularId": "s-10",
+                "grado": 1,
+                "vinculo": {
+                  "clase": "consanguinidad"
+                },
+                "relacion": "convivencia",
+                "custodia": "compartida",
+                "alimentosJudiciales": false,
+                "aplicaEspecialidadAlimentos": false,
+                "residenteIrpf": true,
+                "rentasNoExentasCentimos": 2605600
+              },
+              {
+                "titularId": "s-20",
+                "grado": 1,
+                "vinculo": {
+                  "clase": "consanguinidad"
+                },
+                "relacion": "convivencia",
+                "custodia": "compartida",
+                "alimentosJudiciales": false,
+                "aplicaEspecialidadAlimentos": false,
+                "residenteIrpf": true,
+                "rentasNoExentasCentimos": 230000
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "esperado": {
+      "estado": "Failure"
+    }
+  },
+  {
+    "id": "duplicado-cuenta-valencia-perdida-deduccion",
+    "rama": "intereses",
+    "target": "apis",
+    "entrada": {
+      "region": "comunitat-valenciana",
+      "propio": "s-10",
+      "censo": {
+        "referencia": "censo-revisor",
+        "ejercicio": 2025,
+        "devengo": "2025-12-31",
+        "contribuyente": "s-10",
+        "estadoCivil": "casado-no-separado",
+        "conyuge": "s-20",
+        "censoCompleto": true,
+        "hijosCompletos": true,
+        "hijos": [
+          {
+            "id": "s-30",
+            "nacimiento": "2023-03-19",
+            "progenitores": [
+              "s-10",
+              "s-20"
+            ],
+            "conviveCon": [
+              "s-10",
+              "s-20"
+            ],
+            "independienteConConsentimiento": false,
+            "apoyoJudicial": "ninguno",
+            "soporte": "filiacion-sintetica"
+          },
+          {
+            "id": "s-31",
+            "nacimiento": "2023-03-19",
+            "progenitores": [
+              "s-10",
+              "s-20"
+            ],
+            "conviveCon": [
+              "s-10",
+              "s-20"
+            ],
+            "independienteConConsentimiento": false,
+            "apoyoJudicial": "ninguno",
+            "soporte": "filiacion-sintetica"
+          }
+        ],
+        "personas": [
+          {
+            "id": "s-10",
+            "soporte": "censo-sintetico",
+            "residenteComunTodo2025": true,
+            "vivoTodo2025": true,
+            "economia": {
+              "perfil": "declarante-en-composicion"
+            }
+          },
+          {
+            "id": "s-20",
+            "soporte": "censo-sintetico",
+            "residenteComunTodo2025": true,
+            "vivoTodo2025": true,
+            "economia": {
+              "perfil": "solo-intereses-bancarios",
+              "censoRentasCompleto": true,
+              "otrasRentas": "ninguna",
+              "reduccionesBase": "ninguna",
+              "saldosAnteriores": "ninguno",
+              "interesesBancarios2025": {
+                "referencia": "certificado-sintetico",
+                "sujetoId": "s-20",
+                "ejercicio": 2025,
+                "censoCuentasCompleto": true,
+                "cuentas": [
+                  {
+                    "id": "cuenta-R",
+                    "titularId": "s-20",
+                    "entidad": "entidad-R",
+                    "soporteTitularidad": "titulo-sintetico",
+                    "titularidad": "privativa-exclusiva",
+                    "producto": "deposito-ordinario",
+                    "entidadResidenteEspana": true,
+                    "establecimientoEnEspana": true,
+                    "vinculacion": "no-vinculada",
+                    "litigio": "ninguno",
+                    "retribucion": "dineraria",
+                    "liquidacionesCompletas": true,
+                    "liquidaciones": [
+                      {
+                        "id": "liquidacion-R",
+                        "fechaExigibilidad": "2025-08-29",
+                        "fechaAbono": "2025-08-30",
+                        "soporte": "extracto-sintetico",
+                        "integroEUR": "2300",
+                        "retencionEUR": "0"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "id": "s-30",
+            "soporte": "censo-sintetico",
+            "residenteComunTodo2025": true,
+            "vivoTodo2025": true,
+            "economia": {
+              "perfil": "solo-intereses-bancarios",
+              "censoRentasCompleto": true,
+              "otrasRentas": "ninguna",
+              "reduccionesBase": "ninguna",
+              "saldosAnteriores": "ninguno",
+              "interesesBancarios2025": {
+                "referencia": "certificado-sintetico",
+                "sujetoId": "s-30",
+                "ejercicio": 2025,
+                "censoCuentasCompleto": true,
+                "cuentas": [
+                  {
+                    "id": "cuenta-R",
+                    "titularId": "s-30",
+                    "entidad": "entidad-R",
+                    "soporteTitularidad": "titulo-sintetico",
+                    "titularidad": "privativa-exclusiva",
+                    "producto": "deposito-ordinario",
+                    "entidadResidenteEspana": true,
+                    "establecimientoEnEspana": true,
+                    "vinculacion": "no-vinculada",
+                    "litigio": "ninguno",
+                    "retribucion": "dineraria",
+                    "liquidacionesCompletas": true,
+                    "liquidaciones": [
+                      {
+                        "id": "liquidacion-R",
+                        "fechaExigibilidad": "2025-08-29",
+                        "fechaAbono": "2025-08-30",
+                        "soporte": "extracto-sintetico",
+                        "integroEUR": "2300",
+                        "retencionEUR": "0"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "id": "s-31",
+            "soporte": "censo-sintetico",
+            "residenteComunTodo2025": true,
+            "vivoTodo2025": true,
+            "economia": {
+              "perfil": "sin-rentas",
+              "censoRentasCompleto": true
+            }
+          }
+        ]
+      },
+      "derechos": {
+        "ejercicio": 2025,
+        "territorio": "comunitat-valenciana",
+        "regimen": "comun",
+        "modalidad": "individual",
+        "devengo": "2025-12-31",
+        "contribuyenteId": "s-10",
+        "edadContribuyenteDevengo": 40,
+        "discapacidadContribuyente": {
+          "_tag": "SinDiscapacidad"
+        },
+        "ascendientes": "ninguno",
+        "fallecimientosEnElEjercicio": "ninguno",
+        "descendientesCompletos": true,
+        "conciliacionRentasContribuyente": {
+          "perfil": "caso-anual-parcial",
+          "otrasRentasOGastosNoRepresentados": "ninguno"
+        },
+        "descendientes": [
+          {
+            "sujetoId": "s-30",
+            "edadDevengo": 2,
+            "fechaNacimiento": "2023-03-19",
+            "vivoAlDevengo": true,
+            "rentasNoExentasCentimos": 230000,
+            "declaracion": {
+              "modalidad": "no-presenta"
+            },
+            "discapacidad": {
+              "_tag": "SinDiscapacidad"
+            },
+            "titularesCompletos": true,
+            "titulares": [
+              {
+                "titularId": "s-10",
+                "grado": 1,
+                "vinculo": {
+                  "clase": "consanguinidad"
+                },
+                "relacion": "convivencia",
+                "custodia": "compartida",
+                "alimentosJudiciales": false,
+                "aplicaEspecialidadAlimentos": false,
+                "residenteIrpf": true,
+                "rentasNoExentasCentimos": 2605600
+              },
+              {
+                "titularId": "s-20",
+                "grado": 1,
+                "vinculo": {
+                  "clase": "consanguinidad"
+                },
+                "relacion": "convivencia",
+                "custodia": "compartida",
+                "alimentosJudiciales": false,
+                "aplicaEspecialidadAlimentos": false,
+                "residenteIrpf": true,
+                "rentasNoExentasCentimos": 230000
+              }
+            ]
+          },
+          {
+            "sujetoId": "s-31",
+            "edadDevengo": 2,
+            "fechaNacimiento": "2023-03-19",
+            "vivoAlDevengo": true,
+            "rentasNoExentasCentimos": 0,
+            "declaracion": {
+              "modalidad": "no-presenta"
+            },
+            "discapacidad": {
+              "_tag": "SinDiscapacidad"
+            },
+            "titularesCompletos": true,
+            "titulares": [
+              {
+                "titularId": "s-10",
+                "grado": 1,
+                "vinculo": {
+                  "clase": "consanguinidad"
+                },
+                "relacion": "convivencia",
+                "custodia": "compartida",
+                "alimentosJudiciales": false,
+                "aplicaEspecialidadAlimentos": false,
+                "residenteIrpf": true,
+                "rentasNoExentasCentimos": 2605600
+              },
+              {
+                "titularId": "s-20",
+                "grado": 1,
+                "vinculo": {
+                  "clase": "consanguinidad"
+                },
+                "relacion": "convivencia",
+                "custodia": "compartida",
+                "alimentosJudiciales": false,
+                "aplicaEspecialidadAlimentos": false,
+                "residenteIrpf": true,
+                "rentasNoExentasCentimos": 230000
+              }
+            ]
+          }
+        ]
+      },
+      "solicitudValencia": {
+        "ejercicio": 2025,
+        "territorio": "comunitat-valenciana",
+        "modalidad": "individual",
+        "devengo": "2025-12-31",
+        "contribuyente": "s-10",
+        "cantidades": [],
+        "solicitudes": [
+          {
+            "codigo": "valenciana_dos_o_mas_descendientes",
+            "eleccion": "aplicar",
+            "unidades": [
+              {
+                "id": "unidad-R",
+                "titulares": [
+                  "s-10"
+                ],
+                "fecha": "2025-12-31",
+                "numeros": {},
+                "textos": {}
+              }
+            ],
+            "referencias": [
+              {
+                "unidad": "unidad-R",
+                "sujetos": [
+                  "s-30",
+                  "s-31"
+                ],
+                "bienes": [],
+                "eventos": [],
+                "cantidades": []
+              }
+            ]
+          }
+        ],
+        "ordenBase30": [],
+        "consignaciones": [],
+        "arrastres": [],
+        "ordenConsumo": [
+          "[\"valenciana_dos_o_mas_descendientes\",2025,\"s-10\"]"
+        ],
+        "criterioOrden": "eleccion_experta"
+      }
+    },
+    "esperado": {
+      "estado": "Failure"
+    }
+  },
+  {
+    "id": "dos-cuentas-reales-valencia",
+    "rama": "intereses",
+    "target": "apis",
+    "entrada": {
+      "region": "comunitat-valenciana",
+      "propio": "s-10",
+      "censo": {
+        "referencia": "censo-revisor",
+        "ejercicio": 2025,
+        "devengo": "2025-12-31",
+        "contribuyente": "s-10",
+        "estadoCivil": "casado-no-separado",
+        "conyuge": "s-20",
+        "censoCompleto": true,
+        "hijosCompletos": true,
+        "hijos": [
+          {
+            "id": "s-30",
+            "nacimiento": "2023-03-19",
+            "progenitores": [
+              "s-10",
+              "s-20"
+            ],
+            "conviveCon": [
+              "s-10",
+              "s-20"
+            ],
+            "independienteConConsentimiento": false,
+            "apoyoJudicial": "ninguno",
+            "soporte": "filiacion-sintetica"
+          },
+          {
+            "id": "s-31",
+            "nacimiento": "2023-03-19",
+            "progenitores": [
+              "s-10",
+              "s-20"
+            ],
+            "conviveCon": [
+              "s-10",
+              "s-20"
+            ],
+            "independienteConConsentimiento": false,
+            "apoyoJudicial": "ninguno",
+            "soporte": "filiacion-sintetica"
+          }
+        ],
+        "personas": [
+          {
+            "id": "s-10",
+            "soporte": "censo-sintetico",
+            "residenteComunTodo2025": true,
+            "vivoTodo2025": true,
+            "economia": {
+              "perfil": "declarante-en-composicion"
+            }
+          },
+          {
+            "id": "s-20",
+            "soporte": "censo-sintetico",
+            "residenteComunTodo2025": true,
+            "vivoTodo2025": true,
+            "economia": {
+              "perfil": "solo-intereses-bancarios",
+              "censoRentasCompleto": true,
+              "otrasRentas": "ninguna",
+              "reduccionesBase": "ninguna",
+              "saldosAnteriores": "ninguno",
+              "interesesBancarios2025": {
+                "referencia": "certificado-sintetico",
+                "sujetoId": "s-20",
+                "ejercicio": 2025,
+                "censoCuentasCompleto": true,
+                "cuentas": [
+                  {
+                    "id": "cuenta-R",
+                    "titularId": "s-20",
+                    "entidad": "entidad-R",
+                    "soporteTitularidad": "titulo-sintetico",
+                    "titularidad": "privativa-exclusiva",
+                    "producto": "deposito-ordinario",
+                    "entidadResidenteEspana": true,
+                    "establecimientoEnEspana": true,
+                    "vinculacion": "no-vinculada",
+                    "litigio": "ninguno",
+                    "retribucion": "dineraria",
+                    "liquidacionesCompletas": true,
+                    "liquidaciones": [
+                      {
+                        "id": "liquidacion-R",
+                        "fechaExigibilidad": "2025-08-29",
+                        "fechaAbono": "2025-08-30",
+                        "soporte": "extracto-sintetico",
+                        "integroEUR": "2300",
+                        "retencionEUR": "0"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "id": "s-30",
+            "soporte": "censo-sintetico",
+            "residenteComunTodo2025": true,
+            "vivoTodo2025": true,
+            "economia": {
+              "perfil": "solo-intereses-bancarios",
+              "censoRentasCompleto": true,
+              "otrasRentas": "ninguna",
+              "reduccionesBase": "ninguna",
+              "saldosAnteriores": "ninguno",
+              "interesesBancarios2025": {
+                "referencia": "certificado-sintetico",
+                "sujetoId": "s-30",
+                "ejercicio": 2025,
+                "censoCuentasCompleto": true,
+                "cuentas": [
+                  {
+                    "id": "cuenta-distinta",
+                    "titularId": "s-30",
+                    "entidad": "entidad-R",
+                    "soporteTitularidad": "titulo-sintetico",
+                    "titularidad": "privativa-exclusiva",
+                    "producto": "deposito-ordinario",
+                    "entidadResidenteEspana": true,
+                    "establecimientoEnEspana": true,
+                    "vinculacion": "no-vinculada",
+                    "litigio": "ninguno",
+                    "retribucion": "dineraria",
+                    "liquidacionesCompletas": true,
+                    "liquidaciones": [
+                      {
+                        "id": "liquidacion-distinta",
+                        "fechaExigibilidad": "2025-08-29",
+                        "fechaAbono": "2025-08-30",
+                        "soporte": "extracto-sintetico",
+                        "integroEUR": "2300",
+                        "retencionEUR": "0"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "id": "s-31",
+            "soporte": "censo-sintetico",
+            "residenteComunTodo2025": true,
+            "vivoTodo2025": true,
+            "economia": {
+              "perfil": "sin-rentas",
+              "censoRentasCompleto": true
+            }
+          }
+        ]
+      },
+      "derechos": {
+        "ejercicio": 2025,
+        "territorio": "comunitat-valenciana",
+        "regimen": "comun",
+        "modalidad": "individual",
+        "devengo": "2025-12-31",
+        "contribuyenteId": "s-10",
+        "edadContribuyenteDevengo": 40,
+        "discapacidadContribuyente": {
+          "_tag": "SinDiscapacidad"
+        },
+        "ascendientes": "ninguno",
+        "fallecimientosEnElEjercicio": "ninguno",
+        "descendientesCompletos": true,
+        "conciliacionRentasContribuyente": {
+          "perfil": "caso-anual-parcial",
+          "otrasRentasOGastosNoRepresentados": "ninguno"
+        },
+        "descendientes": [
+          {
+            "sujetoId": "s-30",
+            "edadDevengo": 2,
+            "fechaNacimiento": "2023-03-19",
+            "vivoAlDevengo": true,
+            "rentasNoExentasCentimos": 230000,
+            "declaracion": {
+              "modalidad": "no-presenta"
+            },
+            "discapacidad": {
+              "_tag": "SinDiscapacidad"
+            },
+            "titularesCompletos": true,
+            "titulares": [
+              {
+                "titularId": "s-10",
+                "grado": 1,
+                "vinculo": {
+                  "clase": "consanguinidad"
+                },
+                "relacion": "convivencia",
+                "custodia": "compartida",
+                "alimentosJudiciales": false,
+                "aplicaEspecialidadAlimentos": false,
+                "residenteIrpf": true,
+                "rentasNoExentasCentimos": 2605600
+              },
+              {
+                "titularId": "s-20",
+                "grado": 1,
+                "vinculo": {
+                  "clase": "consanguinidad"
+                },
+                "relacion": "convivencia",
+                "custodia": "compartida",
+                "alimentosJudiciales": false,
+                "aplicaEspecialidadAlimentos": false,
+                "residenteIrpf": true,
+                "rentasNoExentasCentimos": 230000
+              }
+            ]
+          },
+          {
+            "sujetoId": "s-31",
+            "edadDevengo": 2,
+            "fechaNacimiento": "2023-03-19",
+            "vivoAlDevengo": true,
+            "rentasNoExentasCentimos": 0,
+            "declaracion": {
+              "modalidad": "no-presenta"
+            },
+            "discapacidad": {
+              "_tag": "SinDiscapacidad"
+            },
+            "titularesCompletos": true,
+            "titulares": [
+              {
+                "titularId": "s-10",
+                "grado": 1,
+                "vinculo": {
+                  "clase": "consanguinidad"
+                },
+                "relacion": "convivencia",
+                "custodia": "compartida",
+                "alimentosJudiciales": false,
+                "aplicaEspecialidadAlimentos": false,
+                "residenteIrpf": true,
+                "rentasNoExentasCentimos": 2605600
+              },
+              {
+                "titularId": "s-20",
+                "grado": 1,
+                "vinculo": {
+                  "clase": "consanguinidad"
+                },
+                "relacion": "convivencia",
+                "custodia": "compartida",
+                "alimentosJudiciales": false,
+                "aplicaEspecialidadAlimentos": false,
+                "residenteIrpf": true,
+                "rentasNoExentasCentimos": 230000
+              }
+            ]
+          }
+        ]
+      },
+      "solicitudValencia": {
+        "ejercicio": 2025,
+        "territorio": "comunitat-valenciana",
+        "modalidad": "individual",
+        "devengo": "2025-12-31",
+        "contribuyente": "s-10",
+        "cantidades": [],
+        "solicitudes": [
+          {
+            "codigo": "valenciana_dos_o_mas_descendientes",
+            "eleccion": "aplicar",
+            "unidades": [
+              {
+                "id": "unidad-R",
+                "titulares": [
+                  "s-10"
+                ],
+                "fecha": "2025-12-31",
+                "numeros": {},
+                "textos": {}
+              }
+            ],
+            "referencias": [
+              {
+                "unidad": "unidad-R",
+                "sujetos": [
+                  "s-30",
+                  "s-31"
+                ],
+                "bienes": [],
+                "eventos": [],
+                "cantidades": []
+              }
+            ]
+          }
+        ],
+        "ordenBase30": [],
+        "consignaciones": [],
+        "arrastres": [],
+        "ordenConsumo": [
+          "[\"valenciana_dos_o_mas_descendientes\",2025,\"s-10\"]"
+        ],
+        "criterioOrden": "eleccion_experta"
+      }
+    },
+    "esperado": {
+      "estado": "Success",
+      "deduccionValencia": "0"
+    }
+  },
+  {
+    "id": "cuentas-entidades-distintas",
+    "rama": "intereses",
+    "target": "apis",
+    "entrada": {
+      "region": "madrid",
+      "propio": "s-10",
+      "censo": {
+        "referencia": "censo-revisor",
+        "ejercicio": 2025,
+        "devengo": "2025-12-31",
+        "contribuyente": "s-10",
+        "estadoCivil": "casado-no-separado",
+        "conyuge": "s-20",
+        "censoCompleto": true,
+        "hijosCompletos": true,
+        "hijos": [
+          {
+            "id": "s-30",
+            "nacimiento": "2023-03-19",
+            "progenitores": [
+              "s-10",
+              "s-20"
+            ],
+            "conviveCon": [
+              "s-10",
+              "s-20"
+            ],
+            "independienteConConsentimiento": false,
+            "apoyoJudicial": "ninguno",
+            "soporte": "filiacion-sintetica"
+          }
+        ],
+        "personas": [
+          {
+            "id": "s-10",
+            "soporte": "censo-sintetico",
+            "residenteComunTodo2025": true,
+            "vivoTodo2025": true,
+            "economia": {
+              "perfil": "declarante-en-composicion"
+            }
+          },
+          {
+            "id": "s-20",
+            "soporte": "censo-sintetico",
+            "residenteComunTodo2025": true,
+            "vivoTodo2025": true,
+            "economia": {
+              "perfil": "solo-intereses-bancarios",
+              "censoRentasCompleto": true,
+              "otrasRentas": "ninguna",
+              "reduccionesBase": "ninguna",
+              "saldosAnteriores": "ninguno",
+              "interesesBancarios2025": {
+                "referencia": "certificado-sintetico",
+                "sujetoId": "s-20",
+                "ejercicio": 2025,
+                "censoCuentasCompleto": true,
+                "cuentas": [
+                  {
+                    "id": "cuenta-R",
+                    "titularId": "s-20",
+                    "entidad": "entidad-R",
+                    "soporteTitularidad": "titulo-sintetico",
+                    "titularidad": "privativa-exclusiva",
+                    "producto": "deposito-ordinario",
+                    "entidadResidenteEspana": true,
+                    "establecimientoEnEspana": true,
+                    "vinculacion": "no-vinculada",
+                    "litigio": "ninguno",
+                    "retribucion": "dineraria",
+                    "liquidacionesCompletas": true,
+                    "liquidaciones": [
+                      {
+                        "id": "liquidacion-R",
+                        "fechaExigibilidad": "2025-08-29",
+                        "fechaAbono": "2025-08-30",
+                        "soporte": "extracto-sintetico",
+                        "integroEUR": "2300",
+                        "retencionEUR": "0"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "id": "s-30",
+            "soporte": "censo-sintetico",
+            "residenteComunTodo2025": true,
+            "vivoTodo2025": true,
+            "economia": {
+              "perfil": "solo-intereses-bancarios",
+              "censoRentasCompleto": true,
+              "otrasRentas": "ninguna",
+              "reduccionesBase": "ninguna",
+              "saldosAnteriores": "ninguno",
+              "interesesBancarios2025": {
+                "referencia": "certificado-sintetico",
+                "sujetoId": "s-30",
+                "ejercicio": 2025,
+                "censoCuentasCompleto": true,
+                "cuentas": [
+                  {
+                    "id": "cuenta-R",
+                    "titularId": "s-30",
+                    "entidad": "otra-entidad",
+                    "soporteTitularidad": "titulo-sintetico",
+                    "titularidad": "privativa-exclusiva",
+                    "producto": "deposito-ordinario",
+                    "entidadResidenteEspana": true,
+                    "establecimientoEnEspana": true,
+                    "vinculacion": "no-vinculada",
+                    "litigio": "ninguno",
+                    "retribucion": "dineraria",
+                    "liquidacionesCompletas": true,
+                    "liquidaciones": [
+                      {
+                        "id": "liquidacion-R",
+                        "fechaExigibilidad": "2025-08-29",
+                        "fechaAbono": "2025-08-30",
+                        "soporte": "extracto-sintetico",
+                        "integroEUR": "2300",
+                        "retencionEUR": "0"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "derechos": {
+        "ejercicio": 2025,
+        "territorio": "madrid",
+        "regimen": "comun",
+        "modalidad": "individual",
+        "devengo": "2025-12-31",
+        "contribuyenteId": "s-10",
+        "edadContribuyenteDevengo": 40,
+        "discapacidadContribuyente": {
+          "_tag": "SinDiscapacidad"
+        },
+        "ascendientes": "ninguno",
+        "fallecimientosEnElEjercicio": "ninguno",
+        "descendientesCompletos": true,
+        "conciliacionRentasContribuyente": {
+          "perfil": "caso-anual-parcial",
+          "otrasRentasOGastosNoRepresentados": "ninguno"
+        },
+        "descendientes": [
+          {
+            "sujetoId": "s-30",
+            "edadDevengo": 2,
+            "fechaNacimiento": "2023-03-19",
+            "vivoAlDevengo": true,
+            "rentasNoExentasCentimos": 230000,
+            "declaracion": {
+              "modalidad": "no-presenta"
+            },
+            "discapacidad": {
+              "_tag": "SinDiscapacidad"
+            },
+            "titularesCompletos": true,
+            "titulares": [
+              {
+                "titularId": "s-10",
+                "grado": 1,
+                "vinculo": {
+                  "clase": "consanguinidad"
+                },
+                "relacion": "convivencia",
+                "custodia": "compartida",
+                "alimentosJudiciales": false,
+                "aplicaEspecialidadAlimentos": false,
+                "residenteIrpf": true,
+                "rentasNoExentasCentimos": 2605600
+              },
+              {
+                "titularId": "s-20",
+                "grado": 1,
+                "vinculo": {
+                  "clase": "consanguinidad"
+                },
+                "relacion": "convivencia",
+                "custodia": "compartida",
+                "alimentosJudiciales": false,
+                "aplicaEspecialidadAlimentos": false,
+                "residenteIrpf": true,
+                "rentasNoExentasCentimos": 230000
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "esperado": {
+      "estado": "Success"
+    }
+  },
+  {
+    "id": "union-alquiler-hijo-adulto-admisible",
+    "rama": "union",
+    "target": "apis",
+    "entrada": {
+      "region": "madrid",
+      "propio": "s-10",
+      "censo": {
+        "referencia": "censo-revisor",
+        "ejercicio": 2025,
+        "devengo": "2025-12-31",
+        "contribuyente": "s-10",
+        "estadoCivil": "casado-no-separado",
+        "conyuge": "s-20",
+        "censoCompleto": true,
+        "hijosCompletos": true,
+        "hijos": [
+          {
+            "id": "s-30",
+            "nacimiento": "2023-03-19",
+            "progenitores": [
+              "s-10",
+              "s-20"
+            ],
+            "conviveCon": [
+              "s-10",
+              "s-20"
+            ],
+            "independienteConConsentimiento": false,
+            "apoyoJudicial": "ninguno",
+            "soporte": "filiacion-sintetica"
+          },
+          {
+            "id": "s-31",
+            "nacimiento": "2006-02-01",
+            "progenitores": [
+              "s-10",
+              "s-20"
+            ],
+            "conviveCon": [
+              "s-10",
+              "s-20"
+            ],
+            "independienteConConsentimiento": false,
+            "apoyoJudicial": "ninguno",
+            "soporte": "filiacion-sintetica"
+          }
+        ],
+        "personas": [
+          {
+            "id": "s-10",
+            "soporte": "censo-sintetico",
+            "residenteComunTodo2025": true,
+            "vivoTodo2025": true,
+            "economia": {
+              "perfil": "declarante-en-composicion"
+            }
+          },
+          {
+            "id": "s-20",
+            "soporte": "censo-sintetico",
+            "residenteComunTodo2025": true,
+            "vivoTodo2025": true,
+            "economia": {
+              "perfil": "sin-rentas",
+              "censoRentasCompleto": true
+            }
+          },
+          {
+            "id": "s-30",
+            "soporte": "censo-sintetico",
+            "residenteComunTodo2025": true,
+            "vivoTodo2025": true,
+            "economia": {
+              "perfil": "sin-rentas",
+              "censoRentasCompleto": true
+            }
+          },
+          {
+            "id": "s-31",
+            "soporte": "censo-sintetico",
+            "residenteComunTodo2025": true,
+            "vivoTodo2025": true,
+            "economia": {
+              "perfil": "solo-alquiler-vivienda",
+              "censoRentasCompleto": true,
+              "otrasRentas": "ninguna",
+              "reduccionesBase": "ninguna",
+              "saldosAnteriores": "ninguno",
+              "alquilerVivienda2025": {
+                "referencia": "alquiler-sintetico",
+                "ejercicio": 2025,
+                "tituloAdquisicion": "compraventa-onerosa",
+                "sujetoId": "s-31",
+                "nacimiento": "2006-02-01",
+                "inmueble": {
+                  "id": "inmueble-R-s-31",
+                  "catastro": "catastro-sintetico-s-31",
+                  "ubicacion": "resto-espana",
+                  "titular": "s-31",
+                  "titulo": "titulo-sintetico",
+                  "derecho": "propiedad",
+                  "regimenMatrimonial": "separacion-bienes",
+                  "titulares": [
+                    "s-31"
+                  ],
+                  "adquisicion": {
+                    "fecha": "2020-02-01",
+                    "escritura": "escritura-sintetica",
+                    "precio": "100000",
+                    "gastosTributos": "3750",
+                    "sueloPrecio": "20000",
+                    "sueloGastosTributos": "3750"
+                  },
+                  "catastro2025": {
+                    "documento": "IBI-sintetico",
+                    "suelo": "25000",
+                    "construccion": "65000"
+                  },
+                  "usosDesdeAdquisicion": [
+                    {
+                      "desde": "2020-02-01",
+                      "hasta": "2024-12-31",
+                      "uso": "a-disposicion"
+                    },
+                    {
+                      "desde": "2025-01-01",
+                      "hasta": "2025-12-31",
+                      "uso": "alquiler-vivienda"
+                    }
+                  ],
+                  "contrato": {
+                    "id": "contrato-R-s-31",
+                    "documento": "contrato-sintetico",
+                    "firma": "2024-12-20",
+                    "desde": "2025-01-01",
+                    "hasta": "2025-12-31",
+                    "arrendador": "s-31",
+                    "arrendatario": "inquilino-sintetico",
+                    "destino": "vivienda-permanente-persona-fisica",
+                    "parentesco": "ninguno",
+                    "fianzaDepositada": "resguardo-sintetico",
+                    "zonaTensionada": false,
+                    "alquilerSocial": false,
+                    "rehabilitacionesTresAnios": "ninguna",
+                    "repercusionObras": "0"
+                  },
+                  "exigibilidades": [
+                    {
+                      "id": "renta-R",
+                      "documento": "cobro-sintetico",
+                      "fecha": "2025-12-01",
+                      "importe": "6154.02"
+                    }
+                  ],
+                  "gastos": [
+                    {
+                      "id": "gasto-0",
+                      "factura": "factura-0",
+                      "lineaFactura": "1",
+                      "totalFactura": "618.29",
+                      "fechaOperacion": "2025-06-10",
+                      "fechaFactura": "2025-06-11",
+                      "fechaPago": "2025-06-12",
+                      "importe": "618.29",
+                      "prestadorNif": "prestador-sintetico-0",
+                      "clase": "intereses"
+                    },
+                    {
+                      "id": "gasto-1",
+                      "factura": "factura-1",
+                      "lineaFactura": "1",
+                      "totalFactura": "326.11",
+                      "fechaOperacion": "2025-06-10",
+                      "fechaFactura": "2025-06-11",
+                      "fechaPago": "2025-06-12",
+                      "importe": "326.11",
+                      "prestadorNif": "prestador-sintetico-1",
+                      "clase": "reparacion"
+                    },
+                    {
+                      "id": "gasto-2",
+                      "factura": "factura-2",
+                      "lineaFactura": "1",
+                      "totalFactura": "217.45",
+                      "fechaOperacion": "2025-06-10",
+                      "fechaFactura": "2025-06-11",
+                      "fechaPago": "2025-06-12",
+                      "importe": "217.45",
+                      "prestadorNif": "prestador-sintetico-2",
+                      "clase": "tributo"
+                    },
+                    {
+                      "id": "gasto-3",
+                      "factura": "factura-3",
+                      "lineaFactura": "1",
+                      "totalFactura": "430.24",
+                      "fechaOperacion": "2025-06-10",
+                      "fechaFactura": "2025-06-11",
+                      "fechaPago": "2025-06-12",
+                      "importe": "430.24",
+                      "prestadorNif": "prestador-sintetico-3",
+                      "clase": "comunidad"
+                    },
+                    {
+                      "id": "gasto-4",
+                      "factura": "factura-4",
+                      "lineaFactura": "1",
+                      "totalFactura": "161.93",
+                      "fechaOperacion": "2025-06-10",
+                      "fechaFactura": "2025-06-11",
+                      "fechaPago": "2025-06-12",
+                      "importe": "161.93",
+                      "prestadorNif": "prestador-sintetico-4",
+                      "clase": "seguro"
+                    },
+                    {
+                      "id": "gasto-5",
+                      "factura": "factura-5",
+                      "lineaFactura": "1",
+                      "totalFactura": "7654.32",
+                      "fechaOperacion": "2025-06-10",
+                      "fechaFactura": "2025-06-11",
+                      "fechaPago": "2025-06-12",
+                      "importe": "7654.32",
+                      "prestadorNif": "prestador-sintetico-5",
+                      "clase": "principal-prestamo"
+                    }
+                  ],
+                  "censo": "contratos-ingresos-gastos-usos-y-titulares-completos",
+                  "serviciosHospedaje": "ninguno",
+                  "personalJornadaCompleta": "ninguno",
+                  "ayudas": "ninguna",
+                  "saldosPrevios": "ninguno",
+                  "insolvencia": "ninguna",
+                  "mobiliario": "ninguno",
+                  "mejorasAnteriores2025": "ninguna",
+                  "ingresosIrregulares": "ninguno"
+                },
+                "censoDerechos": {
+                  "documento": "censo-sintetico",
+                  "cobertura": "mundial-propiedad-usufructo-cualquier-porcentaje-todo-2025",
+                  "inmuebles": [
+                    "inmueble-R-s-31"
+                  ]
+                },
+                "contextoRendimientos": "calculo-ordinario-sin-procedimiento-ni-rectificacion",
+                "retenciones": "ninguna"
+              }
+            }
+          }
+        ]
+      },
+      "derechos": {
+        "ejercicio": 2025,
+        "territorio": "madrid",
+        "regimen": "comun",
+        "modalidad": "individual",
+        "devengo": "2025-12-31",
+        "contribuyenteId": "s-10",
+        "edadContribuyenteDevengo": 40,
+        "discapacidadContribuyente": {
+          "_tag": "SinDiscapacidad"
+        },
+        "ascendientes": "ninguno",
+        "fallecimientosEnElEjercicio": "ninguno",
+        "descendientesCompletos": true,
+        "conciliacionRentasContribuyente": {
+          "perfil": "caso-anual-parcial",
+          "otrasRentasOGastosNoRepresentados": "ninguno"
+        },
+        "descendientes": [
+          {
+            "sujetoId": "s-30",
+            "edadDevengo": 2,
+            "fechaNacimiento": "2023-03-19",
+            "vivoAlDevengo": true,
+            "rentasNoExentasCentimos": 0,
+            "declaracion": {
+              "modalidad": "no-presenta"
+            },
+            "discapacidad": {
+              "_tag": "SinDiscapacidad"
+            },
+            "titularesCompletos": true,
+            "titulares": [
+              {
+                "titularId": "s-10",
+                "grado": 1,
+                "vinculo": {
+                  "clase": "consanguinidad"
+                },
+                "relacion": "convivencia",
+                "custodia": "compartida",
+                "alimentosJudiciales": false,
+                "aplicaEspecialidadAlimentos": false,
+                "residenteIrpf": true,
+                "rentasNoExentasCentimos": 2605600
+              },
+              {
+                "titularId": "s-20",
+                "grado": 1,
+                "vinculo": {
+                  "clase": "consanguinidad"
+                },
+                "relacion": "convivencia",
+                "custodia": "compartida",
+                "alimentosJudiciales": false,
+                "aplicaEspecialidadAlimentos": false,
+                "residenteIrpf": true,
+                "rentasNoExentasCentimos": 0
+              }
+            ]
+          },
+          {
+            "sujetoId": "s-31",
+            "edadDevengo": 19,
+            "fechaNacimiento": "2006-02-01",
+            "vivoAlDevengo": true,
+            "rentasNoExentasCentimos": 200000,
+            "declaracion": {
+              "modalidad": "no-presenta"
+            },
+            "discapacidad": {
+              "_tag": "SinDiscapacidad"
+            },
+            "titularesCompletos": true,
+            "titulares": [
+              {
+                "titularId": "s-10",
+                "grado": 1,
+                "vinculo": {
+                  "clase": "consanguinidad"
+                },
+                "relacion": "convivencia",
+                "custodia": "compartida",
+                "alimentosJudiciales": false,
+                "aplicaEspecialidadAlimentos": false,
+                "residenteIrpf": true,
+                "rentasNoExentasCentimos": 2605600
+              },
+              {
+                "titularId": "s-20",
+                "grado": 1,
+                "vinculo": {
+                  "clase": "consanguinidad"
+                },
+                "relacion": "convivencia",
+                "custodia": "compartida",
+                "alimentosJudiciales": false,
+                "aplicaEspecialidadAlimentos": false,
+                "residenteIrpf": true,
+                "rentasNoExentasCentimos": 0
+              }
+            ]
+          }
+        ]
+      },
+      "solicitudMadrid": {
+        "lote": "F-ampliado",
+        "codigo": "madrid_vivienda_nacimiento_adopcion_hijos",
+        "hechos": {
+          "viviendas": [
+            {
+              "id": "compra-R",
+              "territorio": "madrid",
+              "adquisicion": "2025-07-17",
+              "precioEUR": "120000",
+              "gastosEUR": "3200",
+              "tributosEUR": "8800",
+              "ocupacionDesde": "2025-08-01",
+              "permanenciaHasta": "2025-12-31",
+              "titulares": [
+                "s-10",
+                "s-20"
+              ],
+              "porcentajePropiedad": "37.5"
+            }
+          ],
+          "personas": [
+            {
+              "id": "s-30",
+              "relacion": "hijo",
+              "nacimiento": "2023-03-19",
+              "certificadoParentesco": "filiacion-sintetica",
+              "situacionDevengo": "vivo",
+              "alimentos64175": "no",
+              "rentasNoExentasEUR": "0",
+              "declaracionTipo": "no_presentada",
+              "discapacidadPorcentaje": "0",
+              "convivencia": [
+                {
+                  "desde": "2025-01-01",
+                  "hasta": "2025-12-31"
+                }
+              ],
+              "gradoMasCercanoConPrioridad": [],
+              "titularesMinimo": [
+                "s-10",
+                "s-20"
+              ]
+            }
+          ]
+        },
+        "adquisicionCompartidaMadrid2025": {
+          "ejercicio": 2025,
+          "contribuyente": "s-10",
+          "viviendaId": "compra-R",
+          "adquisicion": "2025-07-17",
+          "modalidad": "compraventa-terminada",
+          "escritura": "escritura-sintetica",
+          "regimen": "separacion-bienes",
+          "soporteRegimen": "capitulaciones-sinteticas",
+          "regimenDesde": "2019-05-02",
+          "regimenHasta": "2025-12-31",
+          "titularesCompletos": true,
+          "titularidadHasta": "2025-12-31",
+          "titulares": [
+            {
+              "id": "s-10",
+              "porcentaje": "37.5",
+              "precioAdquiridoEUR": "45000",
+              "gastosAtribuidosEUR": "1200",
+              "tributosAtribuidosEUR": "3300",
+              "soporte": "soporte-s-10"
+            },
+            {
+              "id": "s-20",
+              "porcentaje": "62.5",
+              "precioAdquiridoEUR": "75000",
+              "gastosAtribuidosEUR": "2000",
+              "tributosAtribuidosEUR": "5500",
+              "soporte": "soporte-s-20"
+            }
+          ]
+        }
+      }
+    },
+    "esperado": {
+      "estado": "Success",
+      "deduccionMadrid": "495"
+    }
+  },
+  {
+    "id": "union-propiedades-exclusivas-distintas-0",
+    "rama": "union",
+    "target": "apis",
+    "entrada": {
+      "region": "madrid",
+      "propio": "s-10",
+      "censo": {
+        "referencia": "censo-revisor",
+        "ejercicio": 2025,
+        "devengo": "2025-12-31",
+        "contribuyente": "s-10",
+        "estadoCivil": "casado-no-separado",
+        "conyuge": "s-20",
+        "censoCompleto": true,
+        "hijosCompletos": true,
+        "hijos": [
+          {
+            "id": "s-30",
+            "nacimiento": "2023-03-19",
+            "progenitores": [
+              "s-10",
+              "s-20"
+            ],
+            "conviveCon": [
+              "s-10",
+              "s-20"
+            ],
+            "independienteConConsentimiento": false,
+            "apoyoJudicial": "ninguno",
+            "soporte": "filiacion-sintetica"
+          }
+        ],
+        "personas": [
+          {
+            "id": "s-10",
+            "soporte": "censo-sintetico",
+            "residenteComunTodo2025": true,
+            "vivoTodo2025": true,
+            "economia": {
+              "perfil": "declarante-en-composicion"
+            }
+          },
+          {
+            "id": "s-20",
+            "soporte": "censo-sintetico",
+            "residenteComunTodo2025": true,
+            "vivoTodo2025": true,
+            "economia": {
+              "perfil": "solo-alquiler-vivienda",
+              "censoRentasCompleto": true,
+              "otrasRentas": "ninguna",
+              "reduccionesBase": "ninguna",
+              "saldosAnteriores": "ninguno",
+              "alquilerVivienda2025": {
+                "referencia": "alquiler-sintetico",
+                "ejercicio": 2025,
+                "tituloAdquisicion": "compraventa-onerosa",
+                "sujetoId": "s-20",
+                "nacimiento": "1984-09-13",
+                "inmueble": {
+                  "id": "inmueble-R-s-20",
+                  "catastro": "catastro-sintetico-s-20",
+                  "ubicacion": "resto-espana",
+                  "titular": "s-20",
+                  "titulo": "titulo-sintetico",
+                  "derecho": "propiedad",
+                  "regimenMatrimonial": "separacion-bienes",
+                  "titulares": [
+                    "s-20"
+                  ],
+                  "adquisicion": {
+                    "fecha": "2020-02-01",
+                    "escritura": "escritura-sintetica",
+                    "precio": "100000",
+                    "gastosTributos": "3750",
+                    "sueloPrecio": "20000",
+                    "sueloGastosTributos": "3750"
+                  },
+                  "catastro2025": {
+                    "documento": "IBI-sintetico",
+                    "suelo": "25000",
+                    "construccion": "65000"
+                  },
+                  "usosDesdeAdquisicion": [
+                    {
+                      "desde": "2020-02-01",
+                      "hasta": "2024-12-31",
+                      "uso": "a-disposicion"
+                    },
+                    {
+                      "desde": "2025-01-01",
+                      "hasta": "2025-12-31",
+                      "uso": "alquiler-vivienda"
+                    }
+                  ],
+                  "contrato": {
+                    "id": "contrato-R-s-20",
+                    "documento": "contrato-sintetico",
+                    "firma": "2024-12-20",
+                    "desde": "2025-01-01",
+                    "hasta": "2025-12-31",
+                    "arrendador": "s-20",
+                    "arrendatario": "inquilino-sintetico",
+                    "destino": "vivienda-permanente-persona-fisica",
+                    "parentesco": "ninguno",
+                    "fianzaDepositada": "resguardo-sintetico",
+                    "zonaTensionada": false,
+                    "alquilerSocial": false,
+                    "rehabilitacionesTresAnios": "ninguna",
+                    "repercusionObras": "0"
+                  },
+                  "exigibilidades": [
+                    {
+                      "id": "renta-R",
+                      "documento": "cobro-sintetico",
+                      "fecha": "2025-12-01",
+                      "importe": "4154.02"
+                    }
+                  ],
+                  "gastos": [
+                    {
+                      "id": "gasto-0",
+                      "factura": "factura-0",
+                      "lineaFactura": "1",
+                      "totalFactura": "618.29",
+                      "fechaOperacion": "2025-06-10",
+                      "fechaFactura": "2025-06-11",
+                      "fechaPago": "2025-06-12",
+                      "importe": "618.29",
+                      "prestadorNif": "prestador-sintetico-0",
+                      "clase": "intereses"
+                    },
+                    {
+                      "id": "gasto-1",
+                      "factura": "factura-1",
+                      "lineaFactura": "1",
+                      "totalFactura": "326.11",
+                      "fechaOperacion": "2025-06-10",
+                      "fechaFactura": "2025-06-11",
+                      "fechaPago": "2025-06-12",
+                      "importe": "326.11",
+                      "prestadorNif": "prestador-sintetico-1",
+                      "clase": "reparacion"
+                    },
+                    {
+                      "id": "gasto-2",
+                      "factura": "factura-2",
+                      "lineaFactura": "1",
+                      "totalFactura": "217.45",
+                      "fechaOperacion": "2025-06-10",
+                      "fechaFactura": "2025-06-11",
+                      "fechaPago": "2025-06-12",
+                      "importe": "217.45",
+                      "prestadorNif": "prestador-sintetico-2",
+                      "clase": "tributo"
+                    },
+                    {
+                      "id": "gasto-3",
+                      "factura": "factura-3",
+                      "lineaFactura": "1",
+                      "totalFactura": "430.24",
+                      "fechaOperacion": "2025-06-10",
+                      "fechaFactura": "2025-06-11",
+                      "fechaPago": "2025-06-12",
+                      "importe": "430.24",
+                      "prestadorNif": "prestador-sintetico-3",
+                      "clase": "comunidad"
+                    },
+                    {
+                      "id": "gasto-4",
+                      "factura": "factura-4",
+                      "lineaFactura": "1",
+                      "totalFactura": "161.93",
+                      "fechaOperacion": "2025-06-10",
+                      "fechaFactura": "2025-06-11",
+                      "fechaPago": "2025-06-12",
+                      "importe": "161.93",
+                      "prestadorNif": "prestador-sintetico-4",
+                      "clase": "seguro"
+                    },
+                    {
+                      "id": "gasto-5",
+                      "factura": "factura-5",
+                      "lineaFactura": "1",
+                      "totalFactura": "7654.32",
+                      "fechaOperacion": "2025-06-10",
+                      "fechaFactura": "2025-06-11",
+                      "fechaPago": "2025-06-12",
+                      "importe": "7654.32",
+                      "prestadorNif": "prestador-sintetico-5",
+                      "clase": "principal-prestamo"
+                    }
+                  ],
+                  "censo": "contratos-ingresos-gastos-usos-y-titulares-completos",
+                  "serviciosHospedaje": "ninguno",
+                  "personalJornadaCompleta": "ninguno",
+                  "ayudas": "ninguna",
+                  "saldosPrevios": "ninguno",
+                  "insolvencia": "ninguna",
+                  "mobiliario": "ninguno",
+                  "mejorasAnteriores2025": "ninguna",
+                  "ingresosIrregulares": "ninguno"
+                },
+                "censoDerechos": {
+                  "documento": "censo-sintetico",
+                  "cobertura": "mundial-propiedad-usufructo-cualquier-porcentaje-todo-2025",
+                  "inmuebles": [
+                    "inmueble-R-s-20"
+                  ]
+                },
+                "contextoRendimientos": "calculo-ordinario-sin-procedimiento-ni-rectificacion",
+                "retenciones": "ninguna"
+              }
+            }
+          },
+          {
+            "id": "s-30",
+            "soporte": "censo-sintetico",
+            "residenteComunTodo2025": true,
+            "vivoTodo2025": true,
+            "economia": {
+              "perfil": "sin-rentas",
+              "censoRentasCompleto": true
+            }
+          }
+        ]
+      },
+      "derechos": {
+        "ejercicio": 2025,
+        "territorio": "madrid",
+        "regimen": "comun",
+        "modalidad": "individual",
+        "devengo": "2025-12-31",
+        "contribuyenteId": "s-10",
+        "edadContribuyenteDevengo": 40,
+        "discapacidadContribuyente": {
+          "_tag": "SinDiscapacidad"
+        },
+        "ascendientes": "ninguno",
+        "fallecimientosEnElEjercicio": "ninguno",
+        "descendientesCompletos": true,
+        "conciliacionRentasContribuyente": {
+          "perfil": "caso-anual-parcial",
+          "otrasRentasOGastosNoRepresentados": "ninguno"
+        },
+        "descendientes": [
+          {
+            "sujetoId": "s-30",
+            "edadDevengo": 2,
+            "fechaNacimiento": "2023-03-19",
+            "vivoAlDevengo": true,
+            "rentasNoExentasCentimos": 0,
+            "declaracion": {
+              "modalidad": "no-presenta"
+            },
+            "discapacidad": {
+              "_tag": "SinDiscapacidad"
+            },
+            "titularesCompletos": true,
+            "titulares": [
+              {
+                "titularId": "s-10",
+                "grado": 1,
+                "vinculo": {
+                  "clase": "consanguinidad"
+                },
+                "relacion": "convivencia",
+                "custodia": "compartida",
+                "alimentosJudiciales": false,
+                "aplicaEspecialidadAlimentos": false,
+                "residenteIrpf": true,
+                "rentasNoExentasCentimos": 2605600
+              },
+              {
+                "titularId": "s-20",
+                "grado": 1,
+                "vinculo": {
+                  "clase": "consanguinidad"
+                },
+                "relacion": "convivencia",
+                "custodia": "compartida",
+                "alimentosJudiciales": false,
+                "aplicaEspecialidadAlimentos": false,
+                "residenteIrpf": true,
+                "rentasNoExentasCentimos": 0
+              }
+            ]
+          }
+        ]
+      },
+      "solicitudMadrid": {
+        "lote": "F-ampliado",
+        "codigo": "madrid_vivienda_nacimiento_adopcion_hijos",
+        "hechos": {
+          "viviendas": [
+            {
+              "id": "compra-R",
+              "territorio": "madrid",
+              "adquisicion": "2025-07-17",
+              "precioEUR": "120000",
+              "gastosEUR": "3200",
+              "tributosEUR": "8800",
+              "ocupacionDesde": "2025-08-01",
+              "permanenciaHasta": "2025-12-31",
+              "titulares": [
+                "s-10"
+              ],
+              "porcentajePropiedad": "100"
+            }
+          ],
+          "personas": [
+            {
+              "id": "s-30",
+              "relacion": "hijo",
+              "nacimiento": "2023-03-19",
+              "certificadoParentesco": "filiacion-sintetica",
+              "situacionDevengo": "vivo",
+              "alimentos64175": "no",
+              "rentasNoExentasEUR": "0",
+              "declaracionTipo": "no_presentada",
+              "discapacidadPorcentaje": "0",
+              "convivencia": [
+                {
+                  "desde": "2025-01-01",
+                  "hasta": "2025-12-31"
+                }
+              ],
+              "gradoMasCercanoConPrioridad": [],
+              "titularesMinimo": [
+                "s-10",
+                "s-20"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "esperado": {
+      "estado": "Success",
+      "deduccionMadrid": "1320"
+    }
+  },
+  {
+    "id": "union-exclusiva-conflicto-0",
+    "rama": "union",
+    "target": "apis",
+    "entrada": {
+      "region": "madrid",
+      "propio": "s-10",
+      "censo": {
+        "referencia": "censo-revisor",
+        "ejercicio": 2025,
+        "devengo": "2025-12-31",
+        "contribuyente": "s-10",
+        "estadoCivil": "casado-no-separado",
+        "conyuge": "s-20",
+        "censoCompleto": true,
+        "hijosCompletos": true,
+        "hijos": [
+          {
+            "id": "s-30",
+            "nacimiento": "2023-03-19",
+            "progenitores": [
+              "s-10",
+              "s-20"
+            ],
+            "conviveCon": [
+              "s-10",
+              "s-20"
+            ],
+            "independienteConConsentimiento": false,
+            "apoyoJudicial": "ninguno",
+            "soporte": "filiacion-sintetica"
+          }
+        ],
+        "personas": [
+          {
+            "id": "s-10",
+            "soporte": "censo-sintetico",
+            "residenteComunTodo2025": true,
+            "vivoTodo2025": true,
+            "economia": {
+              "perfil": "declarante-en-composicion"
+            }
+          },
+          {
+            "id": "s-20",
+            "soporte": "censo-sintetico",
+            "residenteComunTodo2025": true,
+            "vivoTodo2025": true,
+            "economia": {
+              "perfil": "solo-alquiler-vivienda",
+              "censoRentasCompleto": true,
+              "otrasRentas": "ninguna",
+              "reduccionesBase": "ninguna",
+              "saldosAnteriores": "ninguno",
+              "alquilerVivienda2025": {
+                "referencia": "alquiler-sintetico",
+                "ejercicio": 2025,
+                "tituloAdquisicion": "compraventa-onerosa",
+                "sujetoId": "s-20",
+                "nacimiento": "1984-09-13",
+                "inmueble": {
+                  "id": "compra-R",
+                  "catastro": "catastro-sintetico-s-20",
+                  "ubicacion": "resto-espana",
+                  "titular": "s-20",
+                  "titulo": "titulo-sintetico",
+                  "derecho": "propiedad",
+                  "regimenMatrimonial": "separacion-bienes",
+                  "titulares": [
+                    "s-20"
+                  ],
+                  "adquisicion": {
+                    "fecha": "2020-02-01",
+                    "escritura": "escritura-sintetica",
+                    "precio": "100000",
+                    "gastosTributos": "3750",
+                    "sueloPrecio": "20000",
+                    "sueloGastosTributos": "3750"
+                  },
+                  "catastro2025": {
+                    "documento": "IBI-sintetico",
+                    "suelo": "25000",
+                    "construccion": "65000"
+                  },
+                  "usosDesdeAdquisicion": [
+                    {
+                      "desde": "2020-02-01",
+                      "hasta": "2024-12-31",
+                      "uso": "a-disposicion"
+                    },
+                    {
+                      "desde": "2025-01-01",
+                      "hasta": "2025-12-31",
+                      "uso": "alquiler-vivienda"
+                    }
+                  ],
+                  "contrato": {
+                    "id": "contrato-R-s-20",
+                    "documento": "contrato-sintetico",
+                    "firma": "2024-12-20",
+                    "desde": "2025-01-01",
+                    "hasta": "2025-12-31",
+                    "arrendador": "s-20",
+                    "arrendatario": "inquilino-sintetico",
+                    "destino": "vivienda-permanente-persona-fisica",
+                    "parentesco": "ninguno",
+                    "fianzaDepositada": "resguardo-sintetico",
+                    "zonaTensionada": false,
+                    "alquilerSocial": false,
+                    "rehabilitacionesTresAnios": "ninguna",
+                    "repercusionObras": "0"
+                  },
+                  "exigibilidades": [
+                    {
+                      "id": "renta-R",
+                      "documento": "cobro-sintetico",
+                      "fecha": "2025-12-01",
+                      "importe": "4154.02"
+                    }
+                  ],
+                  "gastos": [
+                    {
+                      "id": "gasto-0",
+                      "factura": "factura-0",
+                      "lineaFactura": "1",
+                      "totalFactura": "618.29",
+                      "fechaOperacion": "2025-06-10",
+                      "fechaFactura": "2025-06-11",
+                      "fechaPago": "2025-06-12",
+                      "importe": "618.29",
+                      "prestadorNif": "prestador-sintetico-0",
+                      "clase": "intereses"
+                    },
+                    {
+                      "id": "gasto-1",
+                      "factura": "factura-1",
+                      "lineaFactura": "1",
+                      "totalFactura": "326.11",
+                      "fechaOperacion": "2025-06-10",
+                      "fechaFactura": "2025-06-11",
+                      "fechaPago": "2025-06-12",
+                      "importe": "326.11",
+                      "prestadorNif": "prestador-sintetico-1",
+                      "clase": "reparacion"
+                    },
+                    {
+                      "id": "gasto-2",
+                      "factura": "factura-2",
+                      "lineaFactura": "1",
+                      "totalFactura": "217.45",
+                      "fechaOperacion": "2025-06-10",
+                      "fechaFactura": "2025-06-11",
+                      "fechaPago": "2025-06-12",
+                      "importe": "217.45",
+                      "prestadorNif": "prestador-sintetico-2",
+                      "clase": "tributo"
+                    },
+                    {
+                      "id": "gasto-3",
+                      "factura": "factura-3",
+                      "lineaFactura": "1",
+                      "totalFactura": "430.24",
+                      "fechaOperacion": "2025-06-10",
+                      "fechaFactura": "2025-06-11",
+                      "fechaPago": "2025-06-12",
+                      "importe": "430.24",
+                      "prestadorNif": "prestador-sintetico-3",
+                      "clase": "comunidad"
+                    },
+                    {
+                      "id": "gasto-4",
+                      "factura": "factura-4",
+                      "lineaFactura": "1",
+                      "totalFactura": "161.93",
+                      "fechaOperacion": "2025-06-10",
+                      "fechaFactura": "2025-06-11",
+                      "fechaPago": "2025-06-12",
+                      "importe": "161.93",
+                      "prestadorNif": "prestador-sintetico-4",
+                      "clase": "seguro"
+                    },
+                    {
+                      "id": "gasto-5",
+                      "factura": "factura-5",
+                      "lineaFactura": "1",
+                      "totalFactura": "7654.32",
+                      "fechaOperacion": "2025-06-10",
+                      "fechaFactura": "2025-06-11",
+                      "fechaPago": "2025-06-12",
+                      "importe": "7654.32",
+                      "prestadorNif": "prestador-sintetico-5",
+                      "clase": "principal-prestamo"
+                    }
+                  ],
+                  "censo": "contratos-ingresos-gastos-usos-y-titulares-completos",
+                  "serviciosHospedaje": "ninguno",
+                  "personalJornadaCompleta": "ninguno",
+                  "ayudas": "ninguna",
+                  "saldosPrevios": "ninguno",
+                  "insolvencia": "ninguna",
+                  "mobiliario": "ninguno",
+                  "mejorasAnteriores2025": "ninguna",
+                  "ingresosIrregulares": "ninguno"
+                },
+                "censoDerechos": {
+                  "documento": "censo-sintetico",
+                  "cobertura": "mundial-propiedad-usufructo-cualquier-porcentaje-todo-2025",
+                  "inmuebles": [
+                    "compra-R"
+                  ]
+                },
+                "contextoRendimientos": "calculo-ordinario-sin-procedimiento-ni-rectificacion",
+                "retenciones": "ninguna"
+              }
+            }
+          },
+          {
+            "id": "s-30",
+            "soporte": "censo-sintetico",
+            "residenteComunTodo2025": true,
+            "vivoTodo2025": true,
+            "economia": {
+              "perfil": "sin-rentas",
+              "censoRentasCompleto": true
+            }
+          }
+        ]
+      },
+      "derechos": {
+        "ejercicio": 2025,
+        "territorio": "madrid",
+        "regimen": "comun",
+        "modalidad": "individual",
+        "devengo": "2025-12-31",
+        "contribuyenteId": "s-10",
+        "edadContribuyenteDevengo": 40,
+        "discapacidadContribuyente": {
+          "_tag": "SinDiscapacidad"
+        },
+        "ascendientes": "ninguno",
+        "fallecimientosEnElEjercicio": "ninguno",
+        "descendientesCompletos": true,
+        "conciliacionRentasContribuyente": {
+          "perfil": "caso-anual-parcial",
+          "otrasRentasOGastosNoRepresentados": "ninguno"
+        },
+        "descendientes": [
+          {
+            "sujetoId": "s-30",
+            "edadDevengo": 2,
+            "fechaNacimiento": "2023-03-19",
+            "vivoAlDevengo": true,
+            "rentasNoExentasCentimos": 0,
+            "declaracion": {
+              "modalidad": "no-presenta"
+            },
+            "discapacidad": {
+              "_tag": "SinDiscapacidad"
+            },
+            "titularesCompletos": true,
+            "titulares": [
+              {
+                "titularId": "s-10",
+                "grado": 1,
+                "vinculo": {
+                  "clase": "consanguinidad"
+                },
+                "relacion": "convivencia",
+                "custodia": "compartida",
+                "alimentosJudiciales": false,
+                "aplicaEspecialidadAlimentos": false,
+                "residenteIrpf": true,
+                "rentasNoExentasCentimos": 2605600
+              },
+              {
+                "titularId": "s-20",
+                "grado": 1,
+                "vinculo": {
+                  "clase": "consanguinidad"
+                },
+                "relacion": "convivencia",
+                "custodia": "compartida",
+                "alimentosJudiciales": false,
+                "aplicaEspecialidadAlimentos": false,
+                "residenteIrpf": true,
+                "rentasNoExentasCentimos": 0
+              }
+            ]
+          }
+        ]
+      },
+      "solicitudMadrid": {
+        "lote": "F-ampliado",
+        "codigo": "madrid_vivienda_nacimiento_adopcion_hijos",
+        "hechos": {
+          "viviendas": [
+            {
+              "id": "compra-R",
+              "territorio": "madrid",
+              "adquisicion": "2025-07-17",
+              "precioEUR": "120000",
+              "gastosEUR": "3200",
+              "tributosEUR": "8800",
+              "ocupacionDesde": "2025-08-01",
+              "permanenciaHasta": "2025-12-31",
+              "titulares": [
+                "s-10"
+              ],
+              "porcentajePropiedad": "100"
+            }
+          ],
+          "personas": [
+            {
+              "id": "s-30",
+              "relacion": "hijo",
+              "nacimiento": "2023-03-19",
+              "certificadoParentesco": "filiacion-sintetica",
+              "situacionDevengo": "vivo",
+              "alimentos64175": "no",
+              "rentasNoExentasEUR": "0",
+              "declaracionTipo": "no_presentada",
+              "discapacidadPorcentaje": "0",
+              "convivencia": [
+                {
+                  "desde": "2025-01-01",
+                  "hasta": "2025-12-31"
+                }
+              ],
+              "gradoMasCercanoConPrioridad": [],
+              "titularesMinimo": [
+                "s-10",
+                "s-20"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "esperado": {
+      "estado": "Failure"
+    }
+  },
+  {
+    "id": "union-propiedades-exclusivas-distintas-2000",
+    "rama": "union",
+    "target": "apis",
+    "entrada": {
+      "region": "madrid",
+      "propio": "s-10",
+      "censo": {
+        "referencia": "censo-revisor",
+        "ejercicio": 2025,
+        "devengo": "2025-12-31",
+        "contribuyente": "s-10",
+        "estadoCivil": "casado-no-separado",
+        "conyuge": "s-20",
+        "censoCompleto": true,
+        "hijosCompletos": true,
+        "hijos": [
+          {
+            "id": "s-30",
+            "nacimiento": "2023-03-19",
+            "progenitores": [
+              "s-10",
+              "s-20"
+            ],
+            "conviveCon": [
+              "s-10",
+              "s-20"
+            ],
+            "independienteConConsentimiento": false,
+            "apoyoJudicial": "ninguno",
+            "soporte": "filiacion-sintetica"
+          }
+        ],
+        "personas": [
+          {
+            "id": "s-10",
+            "soporte": "censo-sintetico",
+            "residenteComunTodo2025": true,
+            "vivoTodo2025": true,
+            "economia": {
+              "perfil": "declarante-en-composicion"
+            }
+          },
+          {
+            "id": "s-20",
+            "soporte": "censo-sintetico",
+            "residenteComunTodo2025": true,
+            "vivoTodo2025": true,
+            "economia": {
+              "perfil": "solo-alquiler-vivienda",
+              "censoRentasCompleto": true,
+              "otrasRentas": "ninguna",
+              "reduccionesBase": "ninguna",
+              "saldosAnteriores": "ninguno",
+              "alquilerVivienda2025": {
+                "referencia": "alquiler-sintetico",
+                "ejercicio": 2025,
+                "tituloAdquisicion": "compraventa-onerosa",
+                "sujetoId": "s-20",
+                "nacimiento": "1984-09-13",
+                "inmueble": {
+                  "id": "inmueble-R-s-20",
+                  "catastro": "catastro-sintetico-s-20",
+                  "ubicacion": "resto-espana",
+                  "titular": "s-20",
+                  "titulo": "titulo-sintetico",
+                  "derecho": "propiedad",
+                  "regimenMatrimonial": "separacion-bienes",
+                  "titulares": [
+                    "s-20"
+                  ],
+                  "adquisicion": {
+                    "fecha": "2020-02-01",
+                    "escritura": "escritura-sintetica",
+                    "precio": "100000",
+                    "gastosTributos": "3750",
+                    "sueloPrecio": "20000",
+                    "sueloGastosTributos": "3750"
+                  },
+                  "catastro2025": {
+                    "documento": "IBI-sintetico",
+                    "suelo": "25000",
+                    "construccion": "65000"
+                  },
+                  "usosDesdeAdquisicion": [
+                    {
+                      "desde": "2020-02-01",
+                      "hasta": "2024-12-31",
+                      "uso": "a-disposicion"
+                    },
+                    {
+                      "desde": "2025-01-01",
+                      "hasta": "2025-12-31",
+                      "uso": "alquiler-vivienda"
+                    }
+                  ],
+                  "contrato": {
+                    "id": "contrato-R-s-20",
+                    "documento": "contrato-sintetico",
+                    "firma": "2024-12-20",
+                    "desde": "2025-01-01",
+                    "hasta": "2025-12-31",
+                    "arrendador": "s-20",
+                    "arrendatario": "inquilino-sintetico",
+                    "destino": "vivienda-permanente-persona-fisica",
+                    "parentesco": "ninguno",
+                    "fianzaDepositada": "resguardo-sintetico",
+                    "zonaTensionada": false,
+                    "alquilerSocial": false,
+                    "rehabilitacionesTresAnios": "ninguna",
+                    "repercusionObras": "0"
+                  },
+                  "exigibilidades": [
+                    {
+                      "id": "renta-R",
+                      "documento": "cobro-sintetico",
+                      "fecha": "2025-12-01",
+                      "importe": "6154.02"
+                    }
+                  ],
+                  "gastos": [
+                    {
+                      "id": "gasto-0",
+                      "factura": "factura-0",
+                      "lineaFactura": "1",
+                      "totalFactura": "618.29",
+                      "fechaOperacion": "2025-06-10",
+                      "fechaFactura": "2025-06-11",
+                      "fechaPago": "2025-06-12",
+                      "importe": "618.29",
+                      "prestadorNif": "prestador-sintetico-0",
+                      "clase": "intereses"
+                    },
+                    {
+                      "id": "gasto-1",
+                      "factura": "factura-1",
+                      "lineaFactura": "1",
+                      "totalFactura": "326.11",
+                      "fechaOperacion": "2025-06-10",
+                      "fechaFactura": "2025-06-11",
+                      "fechaPago": "2025-06-12",
+                      "importe": "326.11",
+                      "prestadorNif": "prestador-sintetico-1",
+                      "clase": "reparacion"
+                    },
+                    {
+                      "id": "gasto-2",
+                      "factura": "factura-2",
+                      "lineaFactura": "1",
+                      "totalFactura": "217.45",
+                      "fechaOperacion": "2025-06-10",
+                      "fechaFactura": "2025-06-11",
+                      "fechaPago": "2025-06-12",
+                      "importe": "217.45",
+                      "prestadorNif": "prestador-sintetico-2",
+                      "clase": "tributo"
+                    },
+                    {
+                      "id": "gasto-3",
+                      "factura": "factura-3",
+                      "lineaFactura": "1",
+                      "totalFactura": "430.24",
+                      "fechaOperacion": "2025-06-10",
+                      "fechaFactura": "2025-06-11",
+                      "fechaPago": "2025-06-12",
+                      "importe": "430.24",
+                      "prestadorNif": "prestador-sintetico-3",
+                      "clase": "comunidad"
+                    },
+                    {
+                      "id": "gasto-4",
+                      "factura": "factura-4",
+                      "lineaFactura": "1",
+                      "totalFactura": "161.93",
+                      "fechaOperacion": "2025-06-10",
+                      "fechaFactura": "2025-06-11",
+                      "fechaPago": "2025-06-12",
+                      "importe": "161.93",
+                      "prestadorNif": "prestador-sintetico-4",
+                      "clase": "seguro"
+                    },
+                    {
+                      "id": "gasto-5",
+                      "factura": "factura-5",
+                      "lineaFactura": "1",
+                      "totalFactura": "7654.32",
+                      "fechaOperacion": "2025-06-10",
+                      "fechaFactura": "2025-06-11",
+                      "fechaPago": "2025-06-12",
+                      "importe": "7654.32",
+                      "prestadorNif": "prestador-sintetico-5",
+                      "clase": "principal-prestamo"
+                    }
+                  ],
+                  "censo": "contratos-ingresos-gastos-usos-y-titulares-completos",
+                  "serviciosHospedaje": "ninguno",
+                  "personalJornadaCompleta": "ninguno",
+                  "ayudas": "ninguna",
+                  "saldosPrevios": "ninguno",
+                  "insolvencia": "ninguna",
+                  "mobiliario": "ninguno",
+                  "mejorasAnteriores2025": "ninguna",
+                  "ingresosIrregulares": "ninguno"
+                },
+                "censoDerechos": {
+                  "documento": "censo-sintetico",
+                  "cobertura": "mundial-propiedad-usufructo-cualquier-porcentaje-todo-2025",
+                  "inmuebles": [
+                    "inmueble-R-s-20"
+                  ]
+                },
+                "contextoRendimientos": "calculo-ordinario-sin-procedimiento-ni-rectificacion",
+                "retenciones": "ninguna"
+              }
+            }
+          },
+          {
+            "id": "s-30",
+            "soporte": "censo-sintetico",
+            "residenteComunTodo2025": true,
+            "vivoTodo2025": true,
+            "economia": {
+              "perfil": "sin-rentas",
+              "censoRentasCompleto": true
+            }
+          }
+        ]
+      },
+      "derechos": {
+        "ejercicio": 2025,
+        "territorio": "madrid",
+        "regimen": "comun",
+        "modalidad": "individual",
+        "devengo": "2025-12-31",
+        "contribuyenteId": "s-10",
+        "edadContribuyenteDevengo": 40,
+        "discapacidadContribuyente": {
+          "_tag": "SinDiscapacidad"
+        },
+        "ascendientes": "ninguno",
+        "fallecimientosEnElEjercicio": "ninguno",
+        "descendientesCompletos": true,
+        "conciliacionRentasContribuyente": {
+          "perfil": "caso-anual-parcial",
+          "otrasRentasOGastosNoRepresentados": "ninguno"
+        },
+        "descendientes": [
+          {
+            "sujetoId": "s-30",
+            "edadDevengo": 2,
+            "fechaNacimiento": "2023-03-19",
+            "vivoAlDevengo": true,
+            "rentasNoExentasCentimos": 0,
+            "declaracion": {
+              "modalidad": "no-presenta"
+            },
+            "discapacidad": {
+              "_tag": "SinDiscapacidad"
+            },
+            "titularesCompletos": true,
+            "titulares": [
+              {
+                "titularId": "s-10",
+                "grado": 1,
+                "vinculo": {
+                  "clase": "consanguinidad"
+                },
+                "relacion": "convivencia",
+                "custodia": "compartida",
+                "alimentosJudiciales": false,
+                "aplicaEspecialidadAlimentos": false,
+                "residenteIrpf": true,
+                "rentasNoExentasCentimos": 2605600
+              },
+              {
+                "titularId": "s-20",
+                "grado": 1,
+                "vinculo": {
+                  "clase": "consanguinidad"
+                },
+                "relacion": "convivencia",
+                "custodia": "compartida",
+                "alimentosJudiciales": false,
+                "aplicaEspecialidadAlimentos": false,
+                "residenteIrpf": true,
+                "rentasNoExentasCentimos": 200000
+              }
+            ]
+          }
+        ]
+      },
+      "solicitudMadrid": {
+        "lote": "F-ampliado",
+        "codigo": "madrid_vivienda_nacimiento_adopcion_hijos",
+        "hechos": {
+          "viviendas": [
+            {
+              "id": "compra-R",
+              "territorio": "madrid",
+              "adquisicion": "2025-07-17",
+              "precioEUR": "120000",
+              "gastosEUR": "3200",
+              "tributosEUR": "8800",
+              "ocupacionDesde": "2025-08-01",
+              "permanenciaHasta": "2025-12-31",
+              "titulares": [
+                "s-10"
+              ],
+              "porcentajePropiedad": "100"
+            }
+          ],
+          "personas": [
+            {
+              "id": "s-30",
+              "relacion": "hijo",
+              "nacimiento": "2023-03-19",
+              "certificadoParentesco": "filiacion-sintetica",
+              "situacionDevengo": "vivo",
+              "alimentos64175": "no",
+              "rentasNoExentasEUR": "0",
+              "declaracionTipo": "no_presentada",
+              "discapacidadPorcentaje": "0",
+              "convivencia": [
+                {
+                  "desde": "2025-01-01",
+                  "hasta": "2025-12-31"
+                }
+              ],
+              "gradoMasCercanoConPrioridad": [],
+              "titularesMinimo": [
+                "s-10",
+                "s-20"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "esperado": {
+      "estado": "Success",
+      "deduccionMadrid": "1320"
+    }
+  },
+  {
+    "id": "union-exclusiva-conflicto-2000",
+    "rama": "union",
+    "target": "apis",
+    "entrada": {
+      "region": "madrid",
+      "propio": "s-10",
+      "censo": {
+        "referencia": "censo-revisor",
+        "ejercicio": 2025,
+        "devengo": "2025-12-31",
+        "contribuyente": "s-10",
+        "estadoCivil": "casado-no-separado",
+        "conyuge": "s-20",
+        "censoCompleto": true,
+        "hijosCompletos": true,
+        "hijos": [
+          {
+            "id": "s-30",
+            "nacimiento": "2023-03-19",
+            "progenitores": [
+              "s-10",
+              "s-20"
+            ],
+            "conviveCon": [
+              "s-10",
+              "s-20"
+            ],
+            "independienteConConsentimiento": false,
+            "apoyoJudicial": "ninguno",
+            "soporte": "filiacion-sintetica"
+          }
+        ],
+        "personas": [
+          {
+            "id": "s-10",
+            "soporte": "censo-sintetico",
+            "residenteComunTodo2025": true,
+            "vivoTodo2025": true,
+            "economia": {
+              "perfil": "declarante-en-composicion"
+            }
+          },
+          {
+            "id": "s-20",
+            "soporte": "censo-sintetico",
+            "residenteComunTodo2025": true,
+            "vivoTodo2025": true,
+            "economia": {
+              "perfil": "solo-alquiler-vivienda",
+              "censoRentasCompleto": true,
+              "otrasRentas": "ninguna",
+              "reduccionesBase": "ninguna",
+              "saldosAnteriores": "ninguno",
+              "alquilerVivienda2025": {
+                "referencia": "alquiler-sintetico",
+                "ejercicio": 2025,
+                "tituloAdquisicion": "compraventa-onerosa",
+                "sujetoId": "s-20",
+                "nacimiento": "1984-09-13",
+                "inmueble": {
+                  "id": "compra-R",
+                  "catastro": "catastro-sintetico-s-20",
+                  "ubicacion": "resto-espana",
+                  "titular": "s-20",
+                  "titulo": "titulo-sintetico",
+                  "derecho": "propiedad",
+                  "regimenMatrimonial": "separacion-bienes",
+                  "titulares": [
+                    "s-20"
+                  ],
+                  "adquisicion": {
+                    "fecha": "2020-02-01",
+                    "escritura": "escritura-sintetica",
+                    "precio": "100000",
+                    "gastosTributos": "3750",
+                    "sueloPrecio": "20000",
+                    "sueloGastosTributos": "3750"
+                  },
+                  "catastro2025": {
+                    "documento": "IBI-sintetico",
+                    "suelo": "25000",
+                    "construccion": "65000"
+                  },
+                  "usosDesdeAdquisicion": [
+                    {
+                      "desde": "2020-02-01",
+                      "hasta": "2024-12-31",
+                      "uso": "a-disposicion"
+                    },
+                    {
+                      "desde": "2025-01-01",
+                      "hasta": "2025-12-31",
+                      "uso": "alquiler-vivienda"
+                    }
+                  ],
+                  "contrato": {
+                    "id": "contrato-R-s-20",
+                    "documento": "contrato-sintetico",
+                    "firma": "2024-12-20",
+                    "desde": "2025-01-01",
+                    "hasta": "2025-12-31",
+                    "arrendador": "s-20",
+                    "arrendatario": "inquilino-sintetico",
+                    "destino": "vivienda-permanente-persona-fisica",
+                    "parentesco": "ninguno",
+                    "fianzaDepositada": "resguardo-sintetico",
+                    "zonaTensionada": false,
+                    "alquilerSocial": false,
+                    "rehabilitacionesTresAnios": "ninguna",
+                    "repercusionObras": "0"
+                  },
+                  "exigibilidades": [
+                    {
+                      "id": "renta-R",
+                      "documento": "cobro-sintetico",
+                      "fecha": "2025-12-01",
+                      "importe": "6154.02"
+                    }
+                  ],
+                  "gastos": [
+                    {
+                      "id": "gasto-0",
+                      "factura": "factura-0",
+                      "lineaFactura": "1",
+                      "totalFactura": "618.29",
+                      "fechaOperacion": "2025-06-10",
+                      "fechaFactura": "2025-06-11",
+                      "fechaPago": "2025-06-12",
+                      "importe": "618.29",
+                      "prestadorNif": "prestador-sintetico-0",
+                      "clase": "intereses"
+                    },
+                    {
+                      "id": "gasto-1",
+                      "factura": "factura-1",
+                      "lineaFactura": "1",
+                      "totalFactura": "326.11",
+                      "fechaOperacion": "2025-06-10",
+                      "fechaFactura": "2025-06-11",
+                      "fechaPago": "2025-06-12",
+                      "importe": "326.11",
+                      "prestadorNif": "prestador-sintetico-1",
+                      "clase": "reparacion"
+                    },
+                    {
+                      "id": "gasto-2",
+                      "factura": "factura-2",
+                      "lineaFactura": "1",
+                      "totalFactura": "217.45",
+                      "fechaOperacion": "2025-06-10",
+                      "fechaFactura": "2025-06-11",
+                      "fechaPago": "2025-06-12",
+                      "importe": "217.45",
+                      "prestadorNif": "prestador-sintetico-2",
+                      "clase": "tributo"
+                    },
+                    {
+                      "id": "gasto-3",
+                      "factura": "factura-3",
+                      "lineaFactura": "1",
+                      "totalFactura": "430.24",
+                      "fechaOperacion": "2025-06-10",
+                      "fechaFactura": "2025-06-11",
+                      "fechaPago": "2025-06-12",
+                      "importe": "430.24",
+                      "prestadorNif": "prestador-sintetico-3",
+                      "clase": "comunidad"
+                    },
+                    {
+                      "id": "gasto-4",
+                      "factura": "factura-4",
+                      "lineaFactura": "1",
+                      "totalFactura": "161.93",
+                      "fechaOperacion": "2025-06-10",
+                      "fechaFactura": "2025-06-11",
+                      "fechaPago": "2025-06-12",
+                      "importe": "161.93",
+                      "prestadorNif": "prestador-sintetico-4",
+                      "clase": "seguro"
+                    },
+                    {
+                      "id": "gasto-5",
+                      "factura": "factura-5",
+                      "lineaFactura": "1",
+                      "totalFactura": "7654.32",
+                      "fechaOperacion": "2025-06-10",
+                      "fechaFactura": "2025-06-11",
+                      "fechaPago": "2025-06-12",
+                      "importe": "7654.32",
+                      "prestadorNif": "prestador-sintetico-5",
+                      "clase": "principal-prestamo"
+                    }
+                  ],
+                  "censo": "contratos-ingresos-gastos-usos-y-titulares-completos",
+                  "serviciosHospedaje": "ninguno",
+                  "personalJornadaCompleta": "ninguno",
+                  "ayudas": "ninguna",
+                  "saldosPrevios": "ninguno",
+                  "insolvencia": "ninguna",
+                  "mobiliario": "ninguno",
+                  "mejorasAnteriores2025": "ninguna",
+                  "ingresosIrregulares": "ninguno"
+                },
+                "censoDerechos": {
+                  "documento": "censo-sintetico",
+                  "cobertura": "mundial-propiedad-usufructo-cualquier-porcentaje-todo-2025",
+                  "inmuebles": [
+                    "compra-R"
+                  ]
+                },
+                "contextoRendimientos": "calculo-ordinario-sin-procedimiento-ni-rectificacion",
+                "retenciones": "ninguna"
+              }
+            }
+          },
+          {
+            "id": "s-30",
+            "soporte": "censo-sintetico",
+            "residenteComunTodo2025": true,
+            "vivoTodo2025": true,
+            "economia": {
+              "perfil": "sin-rentas",
+              "censoRentasCompleto": true
+            }
+          }
+        ]
+      },
+      "derechos": {
+        "ejercicio": 2025,
+        "territorio": "madrid",
+        "regimen": "comun",
+        "modalidad": "individual",
+        "devengo": "2025-12-31",
+        "contribuyenteId": "s-10",
+        "edadContribuyenteDevengo": 40,
+        "discapacidadContribuyente": {
+          "_tag": "SinDiscapacidad"
+        },
+        "ascendientes": "ninguno",
+        "fallecimientosEnElEjercicio": "ninguno",
+        "descendientesCompletos": true,
+        "conciliacionRentasContribuyente": {
+          "perfil": "caso-anual-parcial",
+          "otrasRentasOGastosNoRepresentados": "ninguno"
+        },
+        "descendientes": [
+          {
+            "sujetoId": "s-30",
+            "edadDevengo": 2,
+            "fechaNacimiento": "2023-03-19",
+            "vivoAlDevengo": true,
+            "rentasNoExentasCentimos": 0,
+            "declaracion": {
+              "modalidad": "no-presenta"
+            },
+            "discapacidad": {
+              "_tag": "SinDiscapacidad"
+            },
+            "titularesCompletos": true,
+            "titulares": [
+              {
+                "titularId": "s-10",
+                "grado": 1,
+                "vinculo": {
+                  "clase": "consanguinidad"
+                },
+                "relacion": "convivencia",
+                "custodia": "compartida",
+                "alimentosJudiciales": false,
+                "aplicaEspecialidadAlimentos": false,
+                "residenteIrpf": true,
+                "rentasNoExentasCentimos": 2605600
+              },
+              {
+                "titularId": "s-20",
+                "grado": 1,
+                "vinculo": {
+                  "clase": "consanguinidad"
+                },
+                "relacion": "convivencia",
+                "custodia": "compartida",
+                "alimentosJudiciales": false,
+                "aplicaEspecialidadAlimentos": false,
+                "residenteIrpf": true,
+                "rentasNoExentasCentimos": 200000
+              }
+            ]
+          }
+        ]
+      },
+      "solicitudMadrid": {
+        "lote": "F-ampliado",
+        "codigo": "madrid_vivienda_nacimiento_adopcion_hijos",
+        "hechos": {
+          "viviendas": [
+            {
+              "id": "compra-R",
+              "territorio": "madrid",
+              "adquisicion": "2025-07-17",
+              "precioEUR": "120000",
+              "gastosEUR": "3200",
+              "tributosEUR": "8800",
+              "ocupacionDesde": "2025-08-01",
+              "permanenciaHasta": "2025-12-31",
+              "titulares": [
+                "s-10"
+              ],
+              "porcentajePropiedad": "100"
+            }
+          ],
+          "personas": [
+            {
+              "id": "s-30",
+              "relacion": "hijo",
+              "nacimiento": "2023-03-19",
+              "certificadoParentesco": "filiacion-sintetica",
+              "situacionDevengo": "vivo",
+              "alimentos64175": "no",
+              "rentasNoExentasEUR": "0",
+              "declaracionTipo": "no_presentada",
+              "discapacidadPorcentaje": "0",
+              "convivencia": [
+                {
+                  "desde": "2025-01-01",
+                  "hasta": "2025-12-31"
+                }
+              ],
+              "gradoMasCercanoConPrioridad": [],
+              "titularesMinimo": [
+                "s-10",
+                "s-20"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "esperado": {
+      "estado": "Failure"
+    }
+  }
+]

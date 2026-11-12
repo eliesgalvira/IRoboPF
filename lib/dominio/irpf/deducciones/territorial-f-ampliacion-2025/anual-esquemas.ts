@@ -1,3 +1,4 @@
+import { AdquisicionCompartidaMadrid2025 } from "./madrid-cotitularidad-esquema"
 import { HistoriaRenovablesMurcia2024 } from "./murcia-renovables-historia-esquema"
 import { HistoriaViviendaMadrid } from "./madrid-vivienda-historia-esquema"
 import { HistoriaNacimientoMadrid } from "./madrid-historia-esquema"
@@ -50,6 +51,7 @@ const HistorialRecarga = Schema.Struct({
   })),
 })
 export const SolicitudAnualF2025 = Schema.Struct({
+  adquisicionCompartidaMadrid2025: Schema.optionalKey(AdquisicionCompartidaMadrid2025),
   historiaRenovablesMurcia2024: Schema.optionalKey(HistoriaRenovablesMurcia2024),
   historiaViviendaMadrid: Schema.optionalKey(HistoriaViviendaMadrid),
   historiaNacimientoMadrid: Schema.optionalKey(HistoriaNacimientoMadrid),
