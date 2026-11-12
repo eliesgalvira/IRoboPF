@@ -1,0 +1,90 @@
+{
+  "version": 1,
+  "documentos": [
+    {
+      "id": "aeat-jovenes2025",
+      "urlOficial": "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2025-deducciones-autonomicas/comunidad-autonoma-region-murcia/inversion-vivienda-habitual-jovenes-edad-anos.html",
+      "fechaRecuperacion": "2026-11-12T22:26:20.304295+00:00",
+      "sha256": "a3aa31895b31dd77e87333ff6101b481cd7528a1adba8f9b8dad1d4d1bda969f",
+      "sha512": "c3ef3ca2f82dea6f161151f6cf3757d0e66e50c600feb605d7706238a02ac32a50268e8d2a373246c10b3a2dd216efea6139b1d6d5b932ba1337bf1e5d25ab89",
+      "bytes": 15833,
+      "mimeType": "text/html"
+    },
+    {
+      "id": "atrm-guia-junio2026",
+      "urlOficial": "https://agenciatributaria.carm.es/documents/20632/814228/GUIA%2BBENEFICIOS%2BFISCALES%2BATRM.pdf/b8182dc3-3079-44b1-8a47-c15efb95a7c4",
+      "fechaRecuperacion": "2026-11-12T22:32:02.104388+00:00",
+      "mimeType": "application/pdf",
+      "bytes": 7850410,
+      "sha256": "908f498ba58e3ca40b9a00421e07a185e7659d47a1793a8e25c35227a71fa991",
+      "sha512": "e983f99f41913b387f27a873309f132512ecbcdca9714290cfb15fffbc883615a863220494b9d59eaf238f115cfd8304120602220393e5cbf344e7a448911b2a"
+    }
+  ],
+  "citas": [
+    {
+      "id": "fn02-aeat2025-final-final",
+      "documentoId": "aeat-jovenes2025",
+      "textoLiteral": "al finalizar el período de la imposición, exceda del valor que arrojase su comprobación al final del mismo",
+      "localizador": {
+        "tipo": "html",
+        "selector": "html",
+        "normalizacion": "html.parser.HTMLParser(convert_charrefs=True); handle_data en orden; unir con espacio y normalizar whitespace mediante split/join; posiciones en caracteres Python",
+        "inicio": 4016,
+        "fin": 4122
+      },
+      "sha256PasajeNormalizado": "fcc5168b0c728502601cab67e333fbbb05552ac9ed15455d28461ef0faad6fba"
+    },
+    {
+      "id": "fn02-atrm-no-vinculante",
+      "documentoId": "atrm-guia-junio2026",
+      "textoLiteral": "el contenido aquí manifestado no es vinculante",
+      "localizador": {
+        "tipo": "pdf",
+        "paginaFisica": 3,
+        "bbox": [
+          192.5509,
+          517.683924,
+          418.661183,
+          539.460737
+        ],
+        "extraccion": "pdftotext -f 3 -l 14 -bbox-layout; palabras XHTML en orden; localizar la secuencia literal y unir sus cajas"
+      },
+      "sha256PasajeNormalizado": "e60741dd84ce82c3991d877d8538c3b10d98f62cd87c789f5ec25c57c83d221d"
+    },
+    {
+      "id": "fn02-atrm-edicion",
+      "documentoId": "atrm-guia-junio2026",
+      "textoLiteral": "Actualizado a junio de 2026",
+      "localizador": {
+        "tipo": "pdf",
+        "paginaFisica": 3,
+        "bbox": [
+          307.6721,
+          606.7032,
+          418.6601,
+          617.7192
+        ],
+        "extraccion": "pdftotext -f 3 -l 14 -bbox-layout; palabras XHTML en orden; localizar la secuencia literal y unir sus cajas"
+      },
+      "sha256PasajeNormalizado": "d60c9b45c0bd4717e126c9b173545c586d5a433581c510f3b7923c5aa1a0a174"
+    },
+    {
+      "id": "fn02-atrm-aumento",
+      "documentoId": "atrm-guia-junio2026",
+      "textoLiteral": "el importe del patrimonio debe haber aumentado,",
+      "localizador": {
+        "tipo": "pdf",
+        "paginaFisica": 10,
+        "bbox": [
+          264.3073,
+          505.435983,
+          337.437108,
+          533.644564
+        ],
+        "extraccion": "pdftotext -f 3 -l 14 -bbox-layout; palabras XHTML en orden; localizar la secuencia literal y unir sus cajas"
+      },
+      "sha256PasajeNormalizado": "41d147e3c51a7dd673de919b02d9078d4e43fd0418c9396e1d24cc7c634b187f"
+    }
+  ],
+  "alcance": "Consulta de persistencia de F-N02; no corrige originales ni activa cálculo."
+}

@@ -120,6 +120,44 @@ class RegistroDeducciones(unittest.TestCase):
             for field in ["id", "documentoId", "localizador"]:
                 self.assertEqual(cita[field], original[field])
 
+    def test_inventario_reconcilia_el_corte308_con_el_censo(self):
+        inventario = leer(DOCS / "inventario-20261112/inventario.json")
+        censo = {r["codigo"]: r for r in leer(DOCS / "censo.json")["fichas"]}
+        cubiertos = set()
+        for fuente in inventario["fuentesCorteHistorico"]:
+            rows = leer(ROOT / fuente["archivo"])[fuente["coleccion"]]
+            self.assertEqual(len(rows), len({r["codigo"] for r in rows}))
+            for row in rows:
+                self.assertIn(row["codigo"], censo)
+                if fuente["seleccion"] == "todos" or row["capacidadCalculo"]["hechosEspecificosParciales"]:
+                    cubiertos.add(row["codigo"])
+        self.assertEqual(len(cubiertos), 308)
+        faltaban = inventario["faltabanEnCorte308"]
+        self.assertEqual(len(faltaban), 43)
+        self.assertEqual({r["codigo"] for r in faltaban}, set(censo) - cubiertos)
+        for comunidad in inventario["porComunidad"]:
+            nombre = comunidad["comunidad"]
+            self.assertEqual(comunidad["censo"], sum(r["comunidad"] == nombre for r in censo.values()))
+            self.assertEqual(comunidad["faltabanEnCorte308"], sum(r["comunidad"] == nombre for r in faltaban))
+        self.assertEqual({r["comunidad"] for r in inventario["porComunidad"]}, {r["comunidad"] for r in censo.values()})
+
+    def test_inventario_no_convierte_formula_pendiente_en_importe(self):
+        inventario = leer(DOCS / "inventario-20261112/inventario.json")
+        rows = inventario["faltabanEnCorte308"]
+        pendientes = [r["codigo"] for r in rows if r["estadoObservado"] == "formula_condicionada_sin_importe"]
+        self.assertEqual(pendientes, ["murcia_vivienda_jovenes_hasta_40"])
+        self.assertEqual(inventario["pendientesSinRamaMonetariaEntreLos43"], pendientes)
+        self.assertFalse(inventario["balance"]["punto4Cerrado"])
+        self.assertEqual(rows, sorted(rows, key=lambda r: (r["prioridadTematica"], r["comunidad"], r["codigo"])))
+        for row in rows:
+            self.assertFalse(row["aceptacionFiscalIntegral"])
+            for archivo in row["archivos"] + row["pruebas"]:
+                self.assertFalse(Path(archivo).is_absolute())
+                self.assertNotIn("..", Path(archivo).parts)
+                self.assertTrue((ROOT / archivo).is_file(), archivo)
+            if row["matrizPosterior"] is not None:
+                self.assertEqual(self.resolver(row["matrizPosterior"])["codigo"], row["codigo"])
+
 
 if __name__ == "__main__":
     unittest.main()
