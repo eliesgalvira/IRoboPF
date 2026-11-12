@@ -1,5 +1,15 @@
 # Estado de la auditoría documental
 
+## Inventario de deducciones de 2025 · 12 de noviembre
+
+El [inventario reconciliado](deducciones-2025/inventario-20261112/INVENTARIO.md)
+reproduce el corte histórico de 308 y sus 43 ausencias: Aragón 2, Madrid 21
+y Murcia 20. Todas tienen ya rutas específicas publicadas en `5b2a6105`.
+De esas 43, 42 tienen alguna rama monetaria y vivienda joven de Murcia
+conserva la fórmula sin importe por F-N02. No se cuentan altas nuevas ni
+se afirma generación monetaria de los 351 códigos: el corte de 308 también
+incluía dependencias. El punto 4 y las reservas de cada perfil siguen abiertos.
+
 ## Unión familiar de Madrid · 12 de noviembre
 
 La [compra compartida y las rentas familiares](familia-madrid-union-20261112/INTEGRACION.md) tienen revisión independiente y contraste favorable de H1/H2. Se concilian títulos inmobiliarios y cuentas exclusivas entre personas antes de devolver importes. El fallo TS17 de la condición opcional está reproducido y corregido. Pasan 1.012 pruebas focales en 25 archivos y los 31 comandos del CI local de la imagen corregida, con inventario regenerado. El CI anterior a las identidades se conserva separado y el intento de checkout incorrecto permanece invalidado. El alcance de los perfiles y la aceptación fiscal pendiente se conservan; R36 mantiene su limitación previa documentada.

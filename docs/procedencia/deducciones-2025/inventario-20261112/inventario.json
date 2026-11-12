@@ -1,0 +1,1364 @@
+{
+  "version": 1,
+  "ejercicio": 2025,
+  "fechaCorte": "2026-11-12",
+  "baseCommit": "5b2a610586f965de71db79bff65adeffb00b6230",
+  "criterio": "Reconcilia rutas específicas y fórmulas condicionadas publicadas, sin equipararlas a generación monetaria o cierre fiscal. El corte308 ya incluía dependencias sin importe.",
+  "balance": {
+    "censo": 351,
+    "corteHistorico": 308,
+    "faltabanEnCorteHistorico": 43,
+    "altasEspecificasPosteriores": 43,
+    "sinRutaEspecificaActual": 0,
+    "conRamaMonetariaEntreLos43": 42,
+    "formulaSinImporteEntreLos43": 1,
+    "codigosNuevosEnEstaEntrega": 0,
+    "punto4Cerrado": false
+  },
+  "priorizacion": "Orden temático solicitado: vivienda/alquiler, familia/discapacidad/cuidados, educación y otros. Es una prioridad de trabajo, no un ranking estadístico de contribuyentes de 2025.",
+  "fuentesCorteHistorico": [
+    {
+      "archivo": "docs/procedencia/deducciones-2025/cobertura-producto-20261104/registro-351.json",
+      "coleccion": "deducciones",
+      "seleccion": "capacidadCalculo.hechosEspecificosParciales=true",
+      "corte": "base51"
+    },
+    {
+      "archivo": "docs/procedencia/deducciones-2025/producto-territorial-20261105/cobertura.json",
+      "coleccion": "altas",
+      "seleccion": "todos",
+      "corte": "altas132"
+    },
+    {
+      "archivo": "docs/procedencia/deducciones-2025/producto-e-ampliacion/matriz-49.json",
+      "coleccion": "registros",
+      "seleccion": "todos",
+      "corte": "E38"
+    },
+    {
+      "archivo": "docs/procedencia/deducciones-2025/conexion-d51/matriz-51.json",
+      "coleccion": "codigos",
+      "seleccion": "todos",
+      "corte": "D51"
+    },
+    {
+      "archivo": "docs/procedencia/deducciones-2025/c36-conexion-anual-20261105/matriz-36.json",
+      "coleccion": "deducciones",
+      "seleccion": "todos",
+      "corte": "C36"
+    }
+  ],
+  "porComunidad": [
+    {
+      "comunidad": "andalucia",
+      "censo": 17,
+      "faltabanEnCorte308": 0,
+      "sinRutaEspecificaActual": 0,
+      "formulaSinImporteEntreLos43": 0
+    },
+    {
+      "comunidad": "aragon",
+      "censo": 19,
+      "faltabanEnCorte308": 2,
+      "sinRutaEspecificaActual": 0,
+      "formulaSinImporteEntreLos43": 0
+    },
+    {
+      "comunidad": "asturias",
+      "censo": 27,
+      "faltabanEnCorte308": 0,
+      "sinRutaEspecificaActual": 0,
+      "formulaSinImporteEntreLos43": 0
+    },
+    {
+      "comunidad": "canarias",
+      "censo": 27,
+      "faltabanEnCorte308": 0,
+      "sinRutaEspecificaActual": 0,
+      "formulaSinImporteEntreLos43": 0
+    },
+    {
+      "comunidad": "cantabria",
+      "censo": 21,
+      "faltabanEnCorte308": 0,
+      "sinRutaEspecificaActual": 0,
+      "formulaSinImporteEntreLos43": 0
+    },
+    {
+      "comunidad": "castilla-la-mancha",
+      "censo": 27,
+      "faltabanEnCorte308": 0,
+      "sinRutaEspecificaActual": 0,
+      "formulaSinImporteEntreLos43": 0
+    },
+    {
+      "comunidad": "castilla-y-leon",
+      "censo": 17,
+      "faltabanEnCorte308": 0,
+      "sinRutaEspecificaActual": 0,
+      "formulaSinImporteEntreLos43": 0
+    },
+    {
+      "comunidad": "catalunya",
+      "censo": 13,
+      "faltabanEnCorte308": 0,
+      "sinRutaEspecificaActual": 0,
+      "formulaSinImporteEntreLos43": 0
+    },
+    {
+      "comunidad": "comunitat-valenciana",
+      "censo": 40,
+      "faltabanEnCorte308": 0,
+      "sinRutaEspecificaActual": 0,
+      "formulaSinImporteEntreLos43": 0
+    },
+    {
+      "comunidad": "extremadura",
+      "censo": 19,
+      "faltabanEnCorte308": 0,
+      "sinRutaEspecificaActual": 0,
+      "formulaSinImporteEntreLos43": 0
+    },
+    {
+      "comunidad": "galicia",
+      "censo": 25,
+      "faltabanEnCorte308": 0,
+      "sinRutaEspecificaActual": 0,
+      "formulaSinImporteEntreLos43": 0
+    },
+    {
+      "comunidad": "illes-balears",
+      "censo": 24,
+      "faltabanEnCorte308": 0,
+      "sinRutaEspecificaActual": 0,
+      "formulaSinImporteEntreLos43": 0
+    },
+    {
+      "comunidad": "la-rioja",
+      "censo": 24,
+      "faltabanEnCorte308": 0,
+      "sinRutaEspecificaActual": 0,
+      "formulaSinImporteEntreLos43": 0
+    },
+    {
+      "comunidad": "madrid",
+      "censo": 23,
+      "faltabanEnCorte308": 21,
+      "sinRutaEspecificaActual": 0,
+      "formulaSinImporteEntreLos43": 0
+    },
+    {
+      "comunidad": "murcia",
+      "censo": 28,
+      "faltabanEnCorte308": 20,
+      "sinRutaEspecificaActual": 0,
+      "formulaSinImporteEntreLos43": 1
+    }
+  ],
+  "sinRutaEspecificaActual": [],
+  "pendientesSinRamaMonetariaEntreLos43": [
+    "murcia_vivienda_jovenes_hasta_40"
+  ],
+  "faltabanEnCorte308": [
+    {
+      "codigo": "aragon_arrendamiento_vivienda_social_arrendador",
+      "comunidad": "aragon",
+      "nombre": "Por arrendamiento de vivienda social (deducción del arrendador)",
+      "prioridadTematica": 1,
+      "tema": "vivienda_alquiler",
+      "matrizPosterior": null,
+      "commitDeReferencia": "10de842d1ba5078ba06f0f49836deed9aeb052be",
+      "estadoObservado": "calculo_parcial",
+      "archivos": [
+        "lib/dominio/irpf/aragon-social-mixto-2025/atribucion.ts"
+      ],
+      "pruebas": [
+        "tests/aragon-social-mixto.test.ts"
+      ],
+      "limite": "Perfil mixto acotado; el contrato antiguo de petición sigue sin emitir importe.",
+      "aceptacionFiscalIntegral": false,
+      "estadoContrastado": "numerica_anual_perfil_mixto",
+      "pruebaContrastada": {
+        "clase": "numerica_anual_perfil_mixto",
+        "prueba": "tests/aragon-social-mixto.test.ts",
+        "linea": 9,
+        "importeEURCaso": "60.13"
+      }
+    },
+    {
+      "codigo": "madrid_arrendamiento_vivienda_habitual",
+      "comunidad": "madrid",
+      "nombre": "Por arrendamiento de la vivienda habitual",
+      "prioridadTematica": 1,
+      "tema": "vivienda_alquiler",
+      "matrizPosterior": {
+        "archivo": "docs/procedencia/deducciones-2025/producto-f-ampliacion-20261105/matriz-51.json",
+        "puntero": "/deducciones/21"
+      },
+      "commitDeReferencia": "3bcec2b08cb1cc21292ca41851d73df4f3c28f19",
+      "estadoObservado": "calculo_parcial",
+      "archivos": [
+        "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/vivienda.ts"
+      ],
+      "pruebas": [
+        "tests/deducciones-f-ampliacion-2025.test.ts"
+      ],
+      "limite": "Sólo las ramas del contrato; no aceptación fiscal integral.",
+      "aceptacionFiscalIntegral": false,
+      "estadoContrastado": "numerica_aislada",
+      "pruebaContrastada": {
+        "clase": "numerica_aislada",
+        "prueba": "tests/deducciones-f-ampliacion-2025.test.ts",
+        "linea": 330,
+        "importeEURCaso": "1237.2"
+      }
+    },
+    {
+      "codigo": "madrid_arrendamiento_viviendas_vacias",
+      "comunidad": "madrid",
+      "nombre": "Por arrendamiento viviendas vacías",
+      "prioridadTematica": 1,
+      "tema": "vivienda_alquiler",
+      "matrizPosterior": {
+        "archivo": "docs/procedencia/deducciones-2025/producto-f-ampliacion-20261105/matriz-51.json",
+        "puntero": "/deducciones/5"
+      },
+      "commitDeReferencia": "3bcec2b08cb1cc21292ca41851d73df4f3c28f19",
+      "estadoObservado": "calculo_parcial",
+      "archivos": [
+        "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/vivienda.ts"
+      ],
+      "pruebas": [
+        "tests/deducciones-f-ampliacion-2025.test.ts"
+      ],
+      "limite": "Sólo las ramas del contrato; no aceptación fiscal integral.",
+      "aceptacionFiscalIntegral": false,
+      "estadoContrastado": "numerica_aislada",
+      "pruebaContrastada": {
+        "clase": "numerica_aislada",
+        "prueba": "tests/deducciones-f-ampliacion-2025.test.ts",
+        "linea": 292,
+        "importeEURCaso": "1000"
+      }
+    },
+    {
+      "codigo": "madrid_cambio_residencia_municipio_despoblacion",
+      "comunidad": "madrid",
+      "nombre": "Por cambio residencia municipio despoblación",
+      "prioridadTematica": 1,
+      "tema": "vivienda_alquiler",
+      "matrizPosterior": {
+        "archivo": "docs/procedencia/deducciones-2025/producto-f-ampliacion-20261105/matriz-51.json",
+        "puntero": "/deducciones/8"
+      },
+      "commitDeReferencia": "3bcec2b08cb1cc21292ca41851d73df4f3c28f19",
+      "estadoObservado": "calculo_parcial",
+      "archivos": [
+        "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/vivienda.ts"
+      ],
+      "pruebas": [
+        "tests/deducciones-f-ampliacion-2025.test.ts"
+      ],
+      "limite": "Sólo las ramas del contrato; no aceptación fiscal integral.",
+      "aceptacionFiscalIntegral": false,
+      "estadoContrastado": "numerica_aislada",
+      "pruebaContrastada": {
+        "clase": "numerica_aislada",
+        "prueba": "tests/deducciones-f-ampliacion-2025.test.ts",
+        "linea": 297,
+        "importeEURCaso": "1000"
+      }
+    },
+    {
+      "codigo": "madrid_gastos_arrendamiento_viviendas",
+      "comunidad": "madrid",
+      "nombre": "Por gastos arrendamiento viviendas",
+      "prioridadTematica": 1,
+      "tema": "vivienda_alquiler",
+      "matrizPosterior": {
+        "archivo": "docs/procedencia/deducciones-2025/producto-f-ampliacion-20261105/matriz-51.json",
+        "puntero": "/deducciones/4"
+      },
+      "commitDeReferencia": "3bcec2b08cb1cc21292ca41851d73df4f3c28f19",
+      "estadoObservado": "calculo_parcial",
+      "archivos": [
+        "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/vivienda.ts"
+      ],
+      "pruebas": [
+        "tests/deducciones-f-ampliacion-2025.test.ts"
+      ],
+      "limite": "Sólo las ramas del contrato; no aceptación fiscal integral.",
+      "aceptacionFiscalIntegral": false,
+      "estadoContrastado": "numerica_aislada",
+      "pruebaContrastada": {
+        "clase": "numerica_aislada",
+        "prueba": "tests/deducciones-f-ampliacion-2025.test.ts",
+        "linea": 283,
+        "importeEURCaso": "10"
+      }
+    },
+    {
+      "codigo": "madrid_incremento_costes_financiacion_vivienda",
+      "comunidad": "madrid",
+      "nombre": "Por incremento costes financiación vivienda",
+      "prioridadTematica": 1,
+      "tema": "vivienda_alquiler",
+      "matrizPosterior": {
+        "archivo": "docs/procedencia/deducciones-2025/producto-f-ampliacion-20261105/matriz-51.json",
+        "puntero": "/deducciones/7"
+      },
+      "commitDeReferencia": "3bcec2b08cb1cc21292ca41851d73df4f3c28f19",
+      "estadoObservado": "calculo_parcial",
+      "archivos": [
+        "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/hipoteca-madrid.ts"
+      ],
+      "pruebas": [
+        "tests/p7-madrid-hipoteca.test.ts"
+      ],
+      "limite": "Perfil hipotecario e historia contractual acotados.",
+      "aceptacionFiscalIntegral": false,
+      "estadoContrastado": "numerica_anual",
+      "pruebaContrastada": {
+        "clase": "numerica_anual",
+        "prueba": "tests/p7-madrid-hipoteca.test.ts",
+        "linea": 41,
+        "importeEURCaso": "35.96"
+      }
+    },
+    {
+      "codigo": "madrid_intereses_vivienda_jovenes_menores_30",
+      "comunidad": "madrid",
+      "nombre": "Por intereses vivienda jóvenes menores 30",
+      "prioridadTematica": 1,
+      "tema": "vivienda_alquiler",
+      "matrizPosterior": {
+        "archivo": "docs/procedencia/deducciones-2025/producto-f-ampliacion-20261105/matriz-51.json",
+        "puntero": "/deducciones/11"
+      },
+      "commitDeReferencia": "3bcec2b08cb1cc21292ca41851d73df4f3c28f19",
+      "estadoObservado": "calculo_parcial",
+      "archivos": [
+        "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/vivienda.ts"
+      ],
+      "pruebas": [
+        "tests/deducciones-f-ampliacion-2025.test.ts"
+      ],
+      "limite": "Sólo las ramas del contrato; no aceptación fiscal integral.",
+      "aceptacionFiscalIntegral": false,
+      "estadoContrastado": "numerica_aislada",
+      "pruebaContrastada": {
+        "clase": "numerica_aislada",
+        "prueba": "tests/deducciones-f-ampliacion-2025.test.ts",
+        "linea": 320,
+        "importeEURCaso": "25"
+      }
+    },
+    {
+      "codigo": "madrid_vivienda_municipios_despoblacion",
+      "comunidad": "madrid",
+      "nombre": "Por vivienda municipios despoblación",
+      "prioridadTematica": 1,
+      "tema": "vivienda_alquiler",
+      "matrizPosterior": {
+        "archivo": "docs/procedencia/deducciones-2025/producto-f-ampliacion-20261105/matriz-51.json",
+        "puntero": "/deducciones/9"
+      },
+      "commitDeReferencia": "3bcec2b08cb1cc21292ca41851d73df4f3c28f19",
+      "estadoObservado": "calculo_parcial",
+      "archivos": [
+        "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/vivienda.ts"
+      ],
+      "pruebas": [
+        "tests/deducciones-f-ampliacion-2025.test.ts"
+      ],
+      "limite": "Sólo las ramas del contrato; no aceptación fiscal integral.",
+      "aceptacionFiscalIntegral": false,
+      "estadoContrastado": "numerica_aislada",
+      "pruebaContrastada": {
+        "clase": "numerica_aislada",
+        "prueba": "tests/deducciones-f-ampliacion-2025.test.ts",
+        "linea": 307,
+        "importeEURCaso": "1000"
+      }
+    },
+    {
+      "codigo": "madrid_vivienda_nacimiento_adopcion_hijos",
+      "comunidad": "madrid",
+      "nombre": "Por vivienda nacimiento adopción hijos",
+      "prioridadTematica": 1,
+      "tema": "vivienda_alquiler",
+      "matrizPosterior": {
+        "archivo": "docs/procedencia/deducciones-2025/producto-f-ampliacion-20261105/matriz-51.json",
+        "puntero": "/deducciones/13"
+      },
+      "commitDeReferencia": "3bcec2b08cb1cc21292ca41851d73df4f3c28f19",
+      "estadoObservado": "calculo_parcial",
+      "archivos": [
+        "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/vivienda.ts"
+      ],
+      "pruebas": [
+        "tests/deducciones-f-ampliacion-2025.test.ts"
+      ],
+      "limite": "Sólo las ramas del contrato; no aceptación fiscal integral.",
+      "aceptacionFiscalIntegral": false,
+      "estadoContrastado": "numerica_aislada",
+      "pruebaContrastada": {
+        "clase": "numerica_aislada",
+        "prueba": "tests/deducciones-f-ampliacion-2025.test.ts",
+        "linea": 312,
+        "importeEURCaso": "1000"
+      }
+    },
+    {
+      "codigo": "murcia_arrendamiento_vivienda_habitual",
+      "comunidad": "murcia",
+      "nombre": "Por arrendamiento de vivienda habitual",
+      "prioridadTematica": 1,
+      "tema": "vivienda_alquiler",
+      "matrizPosterior": {
+        "archivo": "docs/procedencia/deducciones-2025/producto-f-ampliacion-20261105/matriz-51.json",
+        "puntero": "/deducciones/49"
+      },
+      "commitDeReferencia": "3bcec2b08cb1cc21292ca41851d73df4f3c28f19",
+      "estadoObservado": "calculo_parcial",
+      "archivos": [
+        "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/vivienda.ts"
+      ],
+      "pruebas": [
+        "tests/deducciones-f-ampliacion-2025.test.ts"
+      ],
+      "limite": "Sólo las ramas del contrato; no aceptación fiscal integral.",
+      "aceptacionFiscalIntegral": false,
+      "estadoContrastado": "numerica_aislada",
+      "pruebaContrastada": {
+        "clase": "numerica_aislada",
+        "prueba": "tests/deducciones-f-ampliacion-2025.test.ts",
+        "linea": 340,
+        "importeEURCaso": "200"
+      }
+    },
+    {
+      "codigo": "murcia_dispositivos_ahorro_agua",
+      "comunidad": "murcia",
+      "nombre": "Por dispositivos ahorro agua",
+      "prioridadTematica": 1,
+      "tema": "vivienda_alquiler",
+      "matrizPosterior": {
+        "archivo": "docs/procedencia/deducciones-2025/producto-f-ampliacion-20261105/matriz-51.json",
+        "puntero": "/deducciones/27"
+      },
+      "commitDeReferencia": "3bcec2b08cb1cc21292ca41851d73df4f3c28f19",
+      "estadoObservado": "calculo_parcial",
+      "archivos": [
+        "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/recarga-agua.ts"
+      ],
+      "pruebas": [
+        "tests/deducciones-f-ampliacion-2025.test.ts"
+      ],
+      "limite": "Sólo las ramas del contrato; no aceptación fiscal integral.",
+      "aceptacionFiscalIntegral": false,
+      "estadoContrastado": "numerica_aislada_y_anual",
+      "pruebaContrastada": {
+        "clase": "numerica_aislada_y_anual",
+        "prueba": "tests/deducciones-f-conexion-anual-2025.test.ts",
+        "linea": 65,
+        "importeEURCaso": "60"
+      }
+    },
+    {
+      "codigo": "murcia_instalaciones_recursos_energeticos_renovables",
+      "comunidad": "murcia",
+      "nombre": "Por instalaciones recursos energéticos renovables",
+      "prioridadTematica": 1,
+      "tema": "vivienda_alquiler",
+      "matrizPosterior": {
+        "archivo": "docs/procedencia/deducciones-2025/producto-f-ampliacion-20261105/matriz-51.json",
+        "puntero": "/deducciones/28"
+      },
+      "commitDeReferencia": "3bcec2b08cb1cc21292ca41851d73df4f3c28f19",
+      "estadoObservado": "calculo_parcial",
+      "archivos": [
+        "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/vivienda.ts"
+      ],
+      "pruebas": [
+        "tests/deducciones-f-ampliacion-2025.test.ts"
+      ],
+      "limite": "Sólo las ramas del contrato; no aceptación fiscal integral.",
+      "aceptacionFiscalIntegral": false,
+      "estadoContrastado": "numerica_aislada",
+      "pruebaContrastada": {
+        "clase": "numerica_aislada",
+        "prueba": "tests/deducciones-f-ampliacion-2025.test.ts",
+        "linea": 411,
+        "importeEURCaso": "50"
+      }
+    },
+    {
+      "codigo": "murcia_nueva_vivienda_o_ampliacion_familias_numerosas",
+      "comunidad": "murcia",
+      "nombre": "Por nueva vivienda o ampliación familias numerosas",
+      "prioridadTematica": 1,
+      "tema": "vivienda_alquiler",
+      "matrizPosterior": {
+        "archivo": "docs/procedencia/deducciones-2025/producto-f-ampliacion-20261105/matriz-51.json",
+        "puntero": "/deducciones/37"
+      },
+      "commitDeReferencia": "3bcec2b08cb1cc21292ca41851d73df4f3c28f19",
+      "estadoObservado": "calculo_parcial",
+      "archivos": [
+        "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/vivienda.ts"
+      ],
+      "pruebas": [
+        "tests/deducciones-f-ampliacion-2025.test.ts"
+      ],
+      "limite": "Sólo las ramas del contrato; no aceptación fiscal integral.",
+      "aceptacionFiscalIntegral": false,
+      "estadoContrastado": "numerica_aislada",
+      "pruebaContrastada": {
+        "clase": "numerica_aislada",
+        "prueba": "tests/deducciones-f-ampliacion-2025.test.ts",
+        "linea": 355,
+        "importeEURCaso": "100"
+      }
+    },
+    {
+      "codigo": "murcia_regimen_transitorio_inversion_vivienda_habitual",
+      "comunidad": "murcia",
+      "nombre": "Por régimen transitorio inversión vivienda habitual",
+      "prioridadTematica": 1,
+      "tema": "vivienda_alquiler",
+      "matrizPosterior": {
+        "archivo": "docs/procedencia/deducciones-2025/producto-f-ampliacion-20261105/matriz-51.json",
+        "puntero": "/deducciones/47"
+      },
+      "commitDeReferencia": "3bcec2b08cb1cc21292ca41851d73df4f3c28f19",
+      "estadoObservado": "calculo_parcial",
+      "archivos": [
+        "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/murcia-dt18.ts"
+      ],
+      "pruebas": [
+        "tests/murcia-dt18-estatal.test.ts"
+      ],
+      "limite": "Tiene rama estatal_pre2013; las otras ramas históricas mantienen sus reservas, incluida F-N02 en Uno_vigente.",
+      "aceptacionFiscalIntegral": false,
+      "estadoContrastado": "numerica_consumo_compartido_DT18",
+      "pruebaContrastada": {
+        "clase": "numerica_consumo_compartido_DT18",
+        "prueba": "tests/murcia-dt18-estatal.test.ts",
+        "linea": 33,
+        "importeEURCaso": "228.75"
+      }
+    },
+    {
+      "codigo": "murcia_vivienda_jovenes_hasta_40",
+      "comunidad": "murcia",
+      "nombre": "Por vivienda jóvenes hasta 40",
+      "prioridadTematica": 1,
+      "tema": "vivienda_alquiler",
+      "matrizPosterior": {
+        "archivo": "docs/procedencia/deducciones-2025/producto-f-ampliacion-20261105/matriz-51.json",
+        "puntero": "/deducciones/23"
+      },
+      "commitDeReferencia": "3bcec2b08cb1cc21292ca41851d73df4f3c28f19",
+      "estadoObservado": "formula_condicionada_sin_importe",
+      "archivos": [
+        "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/vivienda.ts"
+      ],
+      "pruebas": [
+        "tests/deducciones-f-recarga-agua-ampliada-2025.test.ts"
+      ],
+      "limite": "F-N02: comparación patrimonial final/final sin criterio aplicable a 2025 que permita emitir importe.",
+      "aceptacionFiscalIntegral": false,
+      "estadoContrastado": "formula_condicionada_sin_importe_FN02",
+      "pruebaContrastada": {
+        "clase": "formula_condicionada_sin_importe_FN02",
+        "prueba": "tests/deducciones-f-ampliacion-2025.test.ts",
+        "linea": 1166,
+        "importeEURCaso": null
+      }
+    },
+    {
+      "codigo": "madrid_acogimiento_familiar_menores",
+      "comunidad": "madrid",
+      "nombre": "Por acogimiento familiar menores",
+      "prioridadTematica": 2,
+      "tema": "familia_discapacidad_cuidados",
+      "matrizPosterior": {
+        "archivo": "docs/procedencia/deducciones-2025/producto-f-ampliacion-20261105/matriz-51.json",
+        "puntero": "/deducciones/1"
+      },
+      "commitDeReferencia": "3bcec2b08cb1cc21292ca41851d73df4f3c28f19",
+      "estadoObservado": "calculo_parcial",
+      "archivos": [
+        "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/familia.ts"
+      ],
+      "pruebas": [
+        "tests/deducciones-f-ampliacion-2025.test.ts"
+      ],
+      "limite": "Sólo las ramas del contrato; no aceptación fiscal integral.",
+      "aceptacionFiscalIntegral": false,
+      "estadoContrastado": "numerica_aislada",
+      "pruebaContrastada": {
+        "clase": "numerica_aislada",
+        "prueba": "tests/deducciones-f-ampliacion-2025.test.ts",
+        "linea": 207,
+        "importeEURCaso": "618.6"
+      }
+    },
+    {
+      "codigo": "madrid_acogimiento_mayores_65_discapacidad",
+      "comunidad": "madrid",
+      "nombre": "Por acogimiento mayores 65 discapacidad",
+      "prioridadTematica": 2,
+      "tema": "familia_discapacidad_cuidados",
+      "matrizPosterior": {
+        "archivo": "docs/procedencia/deducciones-2025/producto-f-ampliacion-20261105/matriz-51.json",
+        "puntero": "/deducciones/2"
+      },
+      "commitDeReferencia": "3bcec2b08cb1cc21292ca41851d73df4f3c28f19",
+      "estadoObservado": "calculo_parcial",
+      "archivos": [
+        "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/familia.ts"
+      ],
+      "pruebas": [
+        "tests/deducciones-f-ampliacion-2025.test.ts"
+      ],
+      "limite": "Sólo las ramas del contrato; no aceptación fiscal integral.",
+      "aceptacionFiscalIntegral": false,
+      "estadoContrastado": "numerica_aislada",
+      "pruebaContrastada": {
+        "clase": "numerica_aislada",
+        "prueba": "tests/deducciones-f-ampliacion-2025.test.ts",
+        "linea": 220,
+        "importeEURCaso": "1546.5"
+      }
+    },
+    {
+      "codigo": "madrid_condicion_familia_numerosa",
+      "comunidad": "madrid",
+      "nombre": "Por condición familia numerosa",
+      "prioridadTematica": 2,
+      "tema": "familia_discapacidad_cuidados",
+      "matrizPosterior": {
+        "archivo": "docs/procedencia/deducciones-2025/producto-f-ampliacion-20261105/matriz-51.json",
+        "puntero": "/deducciones/14"
+      },
+      "commitDeReferencia": "3bcec2b08cb1cc21292ca41851d73df4f3c28f19",
+      "estadoObservado": "formula_resuelta_en_cuota",
+      "archivos": [
+        "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/familia.ts",
+        "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/anual-cuota.ts"
+      ],
+      "pruebas": [
+        "tests/deducciones-f-conexion-anual-2025.test.ts"
+      ],
+      "limite": "La cuota íntegra procede de la composición anual.",
+      "aceptacionFiscalIntegral": false,
+      "estadoContrastado": "numerica_anual",
+      "pruebaContrastada": {
+        "clase": "numerica_anual",
+        "prueba": "tests/deducciones-f-conexion-anual-2025.test.ts",
+        "linea": 165,
+        "importeEURCaso": "10.0395"
+      }
+    },
+    {
+      "codigo": "madrid_cuidado_ascendientes",
+      "comunidad": "madrid",
+      "nombre": "Por cuidado ascendientes",
+      "prioridadTematica": 2,
+      "tema": "familia_discapacidad_cuidados",
+      "matrizPosterior": {
+        "archivo": "docs/procedencia/deducciones-2025/producto-f-ampliacion-20261105/matriz-51.json",
+        "puntero": "/deducciones/3"
+      },
+      "commitDeReferencia": "3bcec2b08cb1cc21292ca41851d73df4f3c28f19",
+      "estadoObservado": "calculo_parcial",
+      "archivos": [
+        "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/familia.ts"
+      ],
+      "pruebas": [
+        "tests/deducciones-f-ampliacion-2025.test.ts"
+      ],
+      "limite": "Sólo las ramas del contrato; no aceptación fiscal integral.",
+      "aceptacionFiscalIntegral": false,
+      "estadoContrastado": "numerica_aislada",
+      "pruebaContrastada": {
+        "clase": "numerica_aislada",
+        "prueba": "tests/deducciones-f-ampliacion-2025.test.ts",
+        "linea": 225,
+        "importeEURCaso": "515.5"
+      }
+    },
+    {
+      "codigo": "madrid_cuidado_hijos_mayores_dependientes_discapacidad",
+      "comunidad": "madrid",
+      "nombre": "Por cuidado hijos mayores dependientes discapacidad",
+      "prioridadTematica": 2,
+      "tema": "familia_discapacidad_cuidados",
+      "matrizPosterior": {
+        "archivo": "docs/procedencia/deducciones-2025/producto-f-ampliacion-20261105/matriz-51.json",
+        "puntero": "/deducciones/10"
+      },
+      "commitDeReferencia": "3bcec2b08cb1cc21292ca41851d73df4f3c28f19",
+      "estadoObservado": "calculo_parcial",
+      "archivos": [
+        "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/familia.ts"
+      ],
+      "pruebas": [
+        "tests/deducciones-f-ampliacion-2025.test.ts"
+      ],
+      "limite": "Sólo las ramas del contrato; no aceptación fiscal integral.",
+      "aceptacionFiscalIntegral": false,
+      "estadoContrastado": "numerica_aislada",
+      "pruebaContrastada": {
+        "clase": "numerica_aislada",
+        "prueba": "tests/deducciones-f-ampliacion-2025.test.ts",
+        "linea": 239,
+        "importeEURCaso": "25"
+      }
+    },
+    {
+      "codigo": "madrid_familias_dos_descendientes_ingresos_reducidos",
+      "comunidad": "madrid",
+      "nombre": "Por familias dos descendientes ingresos reducidos",
+      "prioridadTematica": 2,
+      "tema": "familia_discapacidad_cuidados",
+      "matrizPosterior": {
+        "archivo": "docs/procedencia/deducciones-2025/producto-f-ampliacion-20261105/matriz-51.json",
+        "puntero": "/deducciones/15"
+      },
+      "commitDeReferencia": "3bcec2b08cb1cc21292ca41851d73df4f3c28f19",
+      "estadoObservado": "formula_resuelta_en_cuota",
+      "archivos": [
+        "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/familia.ts",
+        "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/anual-cuota.ts"
+      ],
+      "pruebas": [
+        "tests/madrid-art14-donativos.test.ts"
+      ],
+      "limite": "Bases familiares derivadas y cuota residual común; no se admite un importe externo.",
+      "aceptacionFiscalIntegral": false,
+      "estadoContrastado": "numerica_anual",
+      "pruebaContrastada": {
+        "clase": "numerica_anual",
+        "prueba": "tests/madrid-art14-donativos.test.ts",
+        "linea": 36,
+        "importeEURCaso": "118.492"
+      }
+    },
+    {
+      "codigo": "murcia_acogimiento_mayores_65_discapacidad",
+      "comunidad": "murcia",
+      "nombre": "Por acogimiento mayores 65 discapacidad",
+      "prioridadTematica": 2,
+      "tema": "familia_discapacidad_cuidados",
+      "matrizPosterior": {
+        "archivo": "docs/procedencia/deducciones-2025/producto-f-ampliacion-20261105/matriz-51.json",
+        "puntero": "/deducciones/35"
+      },
+      "commitDeReferencia": "3bcec2b08cb1cc21292ca41851d73df4f3c28f19",
+      "estadoObservado": "calculo_parcial",
+      "archivos": [
+        "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/familia.ts"
+      ],
+      "pruebas": [
+        "tests/deducciones-f-ampliacion-2025.test.ts"
+      ],
+      "limite": "Sólo las ramas del contrato; no aceptación fiscal integral.",
+      "aceptacionFiscalIntegral": false,
+      "estadoContrastado": "numerica_aislada",
+      "pruebaContrastada": {
+        "clase": "numerica_aislada",
+        "prueba": "tests/deducciones-f-ampliacion-2025.test.ts",
+        "linea": 263,
+        "importeEURCaso": "600"
+      }
+    },
+    {
+      "codigo": "murcia_conciliacion",
+      "comunidad": "murcia",
+      "nombre": "Por conciliación",
+      "prioridadTematica": 2,
+      "tema": "familia_discapacidad_cuidados",
+      "matrizPosterior": {
+        "archivo": "docs/procedencia/deducciones-2025/producto-f-ampliacion-20261105/matriz-51.json",
+        "puntero": "/deducciones/34"
+      },
+      "commitDeReferencia": "3bcec2b08cb1cc21292ca41851d73df4f3c28f19",
+      "estadoObservado": "calculo_parcial",
+      "archivos": [
+        "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/familia.ts"
+      ],
+      "pruebas": [
+        "tests/deducciones-f-ampliacion-2025.test.ts"
+      ],
+      "limite": "Sólo las ramas del contrato; no aceptación fiscal integral.",
+      "aceptacionFiscalIntegral": false,
+      "estadoContrastado": "numerica_aislada",
+      "pruebaContrastada": {
+        "clase": "numerica_aislada",
+        "prueba": "tests/deducciones-f-ampliacion-2025.test.ts",
+        "linea": 254,
+        "importeEURCaso": "20"
+      }
+    },
+    {
+      "codigo": "murcia_familia_monoparental",
+      "comunidad": "murcia",
+      "nombre": "Por familia monoparental",
+      "prioridadTematica": 2,
+      "tema": "familia_discapacidad_cuidados",
+      "matrizPosterior": {
+        "archivo": "docs/procedencia/deducciones-2025/producto-f-ampliacion-20261105/matriz-51.json",
+        "puntero": "/deducciones/38"
+      },
+      "commitDeReferencia": "3bcec2b08cb1cc21292ca41851d73df4f3c28f19",
+      "estadoObservado": "calculo_parcial",
+      "archivos": [
+        "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/familia.ts"
+      ],
+      "pruebas": [
+        "tests/deducciones-f-ampliacion-2025.test.ts"
+      ],
+      "limite": "Sólo las ramas del contrato; no aceptación fiscal integral.",
+      "aceptacionFiscalIntegral": false,
+      "estadoContrastado": "numerica_aislada",
+      "pruebaContrastada": {
+        "clase": "numerica_aislada",
+        "prueba": "tests/deducciones-f-ampliacion-2025.test.ts",
+        "linea": 273,
+        "importeEURCaso": "303"
+      }
+    },
+    {
+      "codigo": "murcia_mujeres_trabajadoras",
+      "comunidad": "murcia",
+      "nombre": "Por mujeres trabajadoras",
+      "prioridadTematica": 2,
+      "tema": "familia_discapacidad_cuidados",
+      "matrizPosterior": {
+        "archivo": "docs/procedencia/deducciones-2025/producto-f-ampliacion-20261105/matriz-51.json",
+        "puntero": "/deducciones/36"
+      },
+      "commitDeReferencia": "3bcec2b08cb1cc21292ca41851d73df4f3c28f19",
+      "estadoObservado": "calculo_parcial",
+      "archivos": [
+        "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/familia.ts"
+      ],
+      "pruebas": [
+        "tests/deducciones-f-ampliacion-2025.test.ts"
+      ],
+      "limite": "Sólo las ramas del contrato; no aceptación fiscal integral.",
+      "aceptacionFiscalIntegral": false,
+      "estadoContrastado": "numerica_aislada",
+      "pruebaContrastada": {
+        "clase": "numerica_aislada",
+        "prueba": "tests/deducciones-f-ampliacion-2025.test.ts",
+        "linea": 268,
+        "importeEURCaso": "300"
+      }
+    },
+    {
+      "codigo": "madrid_gastos_educativos",
+      "comunidad": "madrid",
+      "nombre": "Por gastos educativos",
+      "prioridadTematica": 3,
+      "tema": "educacion_servicios",
+      "matrizPosterior": {
+        "archivo": "docs/procedencia/deducciones-2025/producto-f-ampliacion-20261105/matriz-51.json",
+        "puntero": "/deducciones/22"
+      },
+      "commitDeReferencia": "3bcec2b08cb1cc21292ca41851d73df4f3c28f19",
+      "estadoObservado": "calculo_parcial",
+      "archivos": [
+        "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/familia.ts"
+      ],
+      "pruebas": [
+        "tests/deducciones-f-ampliacion-2025.test.ts"
+      ],
+      "limite": "Sólo las ramas del contrato; no aceptación fiscal integral.",
+      "aceptacionFiscalIntegral": false,
+      "estadoContrastado": "numerica_aislada",
+      "pruebaContrastada": {
+        "clase": "numerica_aislada",
+        "prueba": "tests/deducciones-f-ampliacion-2025.test.ts",
+        "linea": 234,
+        "importeEURCaso": "30"
+      }
+    },
+    {
+      "codigo": "madrid_intereses_estudios_grado_master_doctorado",
+      "comunidad": "madrid",
+      "nombre": "Por intereses estudios grado máster doctorado",
+      "prioridadTematica": 3,
+      "tema": "educacion_servicios",
+      "matrizPosterior": {
+        "archivo": "docs/procedencia/deducciones-2025/producto-f-ampliacion-20261105/matriz-51.json",
+        "puntero": "/deducciones/12"
+      },
+      "commitDeReferencia": "3bcec2b08cb1cc21292ca41851d73df4f3c28f19",
+      "estadoObservado": "calculo_parcial",
+      "archivos": [
+        "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/vivienda.ts"
+      ],
+      "pruebas": [
+        "tests/deducciones-f-ampliacion-2025.test.ts"
+      ],
+      "limite": "Sólo las ramas del contrato; no aceptación fiscal integral.",
+      "aceptacionFiscalIntegral": false,
+      "estadoContrastado": "numerica_aislada",
+      "pruebaContrastada": {
+        "clase": "numerica_aislada",
+        "prueba": "tests/deducciones-f-ampliacion-2025.test.ts",
+        "linea": 187,
+        "importeEURCaso": "100"
+      }
+    },
+    {
+      "codigo": "murcia_acceso_internet",
+      "comunidad": "murcia",
+      "nombre": "Por acceso internet",
+      "prioridadTematica": 3,
+      "tema": "educacion_servicios",
+      "matrizPosterior": {
+        "archivo": "docs/procedencia/deducciones-2025/producto-f-ampliacion-20261105/matriz-51.json",
+        "puntero": "/deducciones/40"
+      },
+      "commitDeReferencia": "3bcec2b08cb1cc21292ca41851d73df4f3c28f19",
+      "estadoObservado": "calculo_parcial",
+      "archivos": [
+        "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/vivienda.ts"
+      ],
+      "pruebas": [
+        "tests/deducciones-f-ampliacion-2025.test.ts"
+      ],
+      "limite": "Sólo las ramas del contrato; no aceptación fiscal integral.",
+      "aceptacionFiscalIntegral": false,
+      "estadoContrastado": "numerica_aislada",
+      "pruebaContrastada": {
+        "clase": "numerica_aislada",
+        "prueba": "tests/deducciones-f-ampliacion-2025.test.ts",
+        "linea": 365,
+        "importeEURCaso": "30"
+      }
+    },
+    {
+      "codigo": "murcia_material_escolar_libros_texto",
+      "comunidad": "murcia",
+      "nombre": "Por material escolar libros texto",
+      "prioridadTematica": 3,
+      "tema": "educacion_servicios",
+      "matrizPosterior": {
+        "archivo": "docs/procedencia/deducciones-2025/producto-f-ampliacion-20261105/matriz-51.json",
+        "puntero": "/deducciones/31"
+      },
+      "commitDeReferencia": "3bcec2b08cb1cc21292ca41851d73df4f3c28f19",
+      "estadoObservado": "calculo_parcial",
+      "archivos": [
+        "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/familia.ts"
+      ],
+      "pruebas": [
+        "tests/deducciones-f-ampliacion-2025.test.ts"
+      ],
+      "limite": "Sólo las ramas del contrato; no aceptación fiscal integral.",
+      "aceptacionFiscalIntegral": false,
+      "estadoContrastado": "numerica_aislada",
+      "pruebaContrastada": {
+        "clase": "numerica_aislada",
+        "prueba": "tests/deducciones-f-ampliacion-2025.test.ts",
+        "linea": 249,
+        "importeEURCaso": "120"
+      }
+    },
+    {
+      "codigo": "aragon_inversion_entidades_nuevas_reciente_creacion",
+      "comunidad": "aragon",
+      "nombre": "Por inversión en la adquisición de acciones o participaciones sociales en entidades nuevas o de reciente creación",
+      "prioridadTematica": 4,
+      "tema": "otros",
+      "matrizPosterior": null,
+      "commitDeReferencia": "b9122c2bf61310922e856117ed4490136a628d03",
+      "estadoObservado": "calculo_parcial",
+      "archivos": [
+        "lib/dominio/irpf/deducciones/aragon-dos-codigos-2025/inversion.ts"
+      ],
+      "pruebas": [
+        "tests/aragon-dos-codigos-2025.test.ts"
+      ],
+      "limite": "Censo y asignación por desembolso; mantiene las ramas de reinversión no soportadas.",
+      "aceptacionFiscalIntegral": false,
+      "estadoContrastado": "numerica_anual",
+      "pruebaContrastada": {
+        "clase": "numerica_anual",
+        "prueba": "tests/aragon-conexion-anual-2025.test.ts",
+        "linea": 28,
+        "importeEURCaso": "2000"
+      }
+    },
+    {
+      "codigo": "madrid_autoempleo_jovenes_menores_35",
+      "comunidad": "madrid",
+      "nombre": "Por autoempleo jóvenes menores 35",
+      "prioridadTematica": 4,
+      "tema": "otros",
+      "matrizPosterior": {
+        "archivo": "docs/procedencia/deducciones-2025/producto-f-ampliacion-20261105/matriz-51.json",
+        "puntero": "/deducciones/17"
+      },
+      "commitDeReferencia": "3bcec2b08cb1cc21292ca41851d73df4f3c28f19",
+      "estadoObservado": "calculo_parcial",
+      "archivos": [
+        "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/inversiones.ts"
+      ],
+      "pruebas": [
+        "tests/deducciones-f-ampliacion-2025.test.ts"
+      ],
+      "limite": "Sólo las ramas del contrato; no aceptación fiscal integral.",
+      "aceptacionFiscalIntegral": false,
+      "estadoContrastado": "numerica_aislada",
+      "pruebaContrastada": {
+        "clase": "numerica_aislada",
+        "prueba": "tests/deducciones-f-ampliacion-2025.test.ts",
+        "linea": 496,
+        "importeEURCaso": "1031"
+      }
+    },
+    {
+      "codigo": "madrid_donativos_fundaciones_clubes_deportivos",
+      "comunidad": "madrid",
+      "nombre": "Por donativos fundaciones clubes deportivos",
+      "prioridadTematica": 4,
+      "tema": "otros",
+      "matrizPosterior": {
+        "archivo": "docs/procedencia/deducciones-2025/producto-f-ampliacion-20261105/matriz-51.json",
+        "puntero": "/deducciones/6"
+      },
+      "commitDeReferencia": "3bcec2b08cb1cc21292ca41851d73df4f3c28f19",
+      "estadoObservado": "calculo_parcial",
+      "archivos": [
+        "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/inversiones.ts"
+      ],
+      "pruebas": [
+        "tests/deducciones-f-ampliacion-2025.test.ts"
+      ],
+      "limite": "Sólo las ramas del contrato; no aceptación fiscal integral.",
+      "aceptacionFiscalIntegral": false,
+      "estadoContrastado": "numerica_aislada",
+      "pruebaContrastada": {
+        "clase": "numerica_aislada",
+        "prueba": "tests/deducciones-f-ampliacion-2025.test.ts",
+        "linea": 431,
+        "importeEURCaso": "75"
+      }
+    },
+    {
+      "codigo": "madrid_inversion_entidades_nuevas_reciente_creacion",
+      "comunidad": "madrid",
+      "nombre": "Por inversión entidades nuevas reciente creación",
+      "prioridadTematica": 4,
+      "tema": "otros",
+      "matrizPosterior": {
+        "archivo": "docs/procedencia/deducciones-2025/producto-f-ampliacion-20261105/matriz-51.json",
+        "puntero": "/deducciones/16"
+      },
+      "commitDeReferencia": "3bcec2b08cb1cc21292ca41851d73df4f3c28f19",
+      "estadoObservado": "calculo_parcial",
+      "archivos": [
+        "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/inversiones.ts"
+      ],
+      "pruebas": [
+        "tests/deducciones-f-ampliacion-2025.test.ts"
+      ],
+      "limite": "Sólo las ramas del contrato; no aceptación fiscal integral.",
+      "aceptacionFiscalIntegral": false,
+      "estadoContrastado": "numerica_aislada",
+      "pruebaContrastada": {
+        "clase": "numerica_aislada",
+        "prueba": "tests/deducciones-f-ampliacion-2025.test.ts",
+        "linea": 491,
+        "importeEURCaso": "400"
+      }
+    },
+    {
+      "codigo": "madrid_inversiones_mercado_alternativo_bursatil",
+      "comunidad": "madrid",
+      "nombre": "Por inversiones mercado alternativo bursátil",
+      "prioridadTematica": 4,
+      "tema": "otros",
+      "matrizPosterior": {
+        "archivo": "docs/procedencia/deducciones-2025/producto-f-ampliacion-20261105/matriz-51.json",
+        "puntero": "/deducciones/18"
+      },
+      "commitDeReferencia": "3bcec2b08cb1cc21292ca41851d73df4f3c28f19",
+      "estadoObservado": "calculo_parcial",
+      "archivos": [
+        "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/inversiones.ts"
+      ],
+      "pruebas": [
+        "tests/deducciones-f-ampliacion-2025.test.ts"
+      ],
+      "limite": "Sólo las ramas del contrato; no aceptación fiscal integral.",
+      "aceptacionFiscalIntegral": false,
+      "estadoContrastado": "numerica_aislada",
+      "pruebaContrastada": {
+        "clase": "numerica_aislada",
+        "prueba": "tests/deducciones-f-ampliacion-2025.test.ts",
+        "linea": 507,
+        "importeEURCaso": "200"
+      }
+    },
+    {
+      "codigo": "madrid_inversiones_nuevos_contribuyentes_extranjero",
+      "comunidad": "madrid",
+      "nombre": "Por inversiones nuevos contribuyentes extranjero",
+      "prioridadTematica": 4,
+      "tema": "otros",
+      "matrizPosterior": {
+        "archivo": "docs/procedencia/deducciones-2025/producto-f-ampliacion-20261105/matriz-51.json",
+        "puntero": "/deducciones/19"
+      },
+      "commitDeReferencia": "3bcec2b08cb1cc21292ca41851d73df4f3c28f19",
+      "estadoObservado": "calculo_parcial",
+      "archivos": [
+        "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/inversiones.ts"
+      ],
+      "pruebas": [
+        "tests/deducciones-f-ampliacion-2025.test.ts"
+      ],
+      "limite": "Sólo las ramas del contrato; no aceptación fiscal integral.",
+      "aceptacionFiscalIntegral": false,
+      "estadoContrastado": "numerica_aislada",
+      "pruebaContrastada": {
+        "clase": "numerica_aislada",
+        "prueba": "tests/deducciones-f-ampliacion-2025.test.ts",
+        "linea": 515,
+        "importeEURCaso": "200"
+      }
+    },
+    {
+      "codigo": "murcia_donaciones_bienes_patrimonio_cultural",
+      "comunidad": "murcia",
+      "nombre": "Por donaciones bienes patrimonio cultural",
+      "prioridadTematica": 4,
+      "tema": "otros",
+      "matrizPosterior": {
+        "archivo": "docs/procedencia/deducciones-2025/producto-f-ampliacion-20261105/matriz-51.json",
+        "puntero": "/deducciones/26"
+      },
+      "commitDeReferencia": "3bcec2b08cb1cc21292ca41851d73df4f3c28f19",
+      "estadoObservado": "calculo_parcial",
+      "archivos": [
+        "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/inversiones.ts"
+      ],
+      "pruebas": [
+        "tests/deducciones-f-ampliacion-2025.test.ts"
+      ],
+      "limite": "Sólo las ramas del contrato; no aceptación fiscal integral.",
+      "aceptacionFiscalIntegral": false,
+      "estadoContrastado": "numerica_aislada",
+      "pruebaContrastada": {
+        "clase": "numerica_aislada",
+        "prueba": "tests/deducciones-f-ampliacion-2025.test.ts",
+        "linea": 474,
+        "importeEURCaso": "75"
+      }
+    },
+    {
+      "codigo": "murcia_donativos_investigacion_biosanitaria",
+      "comunidad": "murcia",
+      "nombre": "Por donativos investigación biosanitaria",
+      "prioridadTematica": 4,
+      "tema": "otros",
+      "matrizPosterior": {
+        "archivo": "docs/procedencia/deducciones-2025/producto-f-ampliacion-20261105/matriz-51.json",
+        "puntero": "/deducciones/25"
+      },
+      "commitDeReferencia": "3bcec2b08cb1cc21292ca41851d73df4f3c28f19",
+      "estadoObservado": "calculo_parcial",
+      "archivos": [
+        "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/inversiones.ts"
+      ],
+      "pruebas": [
+        "tests/deducciones-f-ampliacion-2025.test.ts"
+      ],
+      "limite": "Sólo las ramas del contrato; no aceptación fiscal integral.",
+      "aceptacionFiscalIntegral": false,
+      "estadoContrastado": "numerica_aislada",
+      "pruebaContrastada": {
+        "clase": "numerica_aislada",
+        "prueba": "tests/deducciones-f-ampliacion-2025.test.ts",
+        "linea": 454,
+        "importeEURCaso": "400"
+      }
+    },
+    {
+      "codigo": "murcia_donativos_patrimonio_cultural_actividades",
+      "comunidad": "murcia",
+      "nombre": "Por donativos patrimonio cultural actividades",
+      "prioridadTematica": 4,
+      "tema": "otros",
+      "matrizPosterior": {
+        "archivo": "docs/procedencia/deducciones-2025/producto-f-ampliacion-20261105/matriz-51.json",
+        "puntero": "/deducciones/24"
+      },
+      "commitDeReferencia": "3bcec2b08cb1cc21292ca41851d73df4f3c28f19",
+      "estadoObservado": "calculo_parcial",
+      "archivos": [
+        "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/inversiones.ts"
+      ],
+      "pruebas": [
+        "tests/deducciones-f-ampliacion-2025.test.ts"
+      ],
+      "limite": "Sólo las ramas del contrato; no aceptación fiscal integral.",
+      "aceptacionFiscalIntegral": false,
+      "estadoContrastado": "numerica_aislada",
+      "pruebaContrastada": {
+        "clase": "numerica_aislada",
+        "prueba": "tests/deducciones-f-ampliacion-2025.test.ts",
+        "linea": 441,
+        "importeEURCaso": "400"
+      }
+    },
+    {
+      "codigo": "murcia_inversion_economia_social",
+      "comunidad": "murcia",
+      "nombre": "Por inversión economía social",
+      "prioridadTematica": 4,
+      "tema": "otros",
+      "matrizPosterior": {
+        "archivo": "docs/procedencia/deducciones-2025/producto-f-ampliacion-20261105/matriz-51.json",
+        "puntero": "/deducciones/46"
+      },
+      "commitDeReferencia": "3bcec2b08cb1cc21292ca41851d73df4f3c28f19",
+      "estadoObservado": "calculo_parcial",
+      "archivos": [
+        "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/inversiones.ts"
+      ],
+      "pruebas": [
+        "tests/deducciones-f-ampliacion-2025.test.ts"
+      ],
+      "limite": "Sólo las ramas del contrato; no aceptación fiscal integral.",
+      "aceptacionFiscalIntegral": false,
+      "estadoContrastado": "numerica_aislada",
+      "pruebaContrastada": {
+        "clase": "numerica_aislada",
+        "prueba": "tests/deducciones-f-ampliacion-2025.test.ts",
+        "linea": 541,
+        "importeEURCaso": "200"
+      }
+    },
+    {
+      "codigo": "murcia_inversion_entidades_nuevas_reciente_creacion",
+      "comunidad": "murcia",
+      "nombre": "Por inversión entidades nuevas reciente creación",
+      "prioridadTematica": 4,
+      "tema": "otros",
+      "matrizPosterior": {
+        "archivo": "docs/procedencia/deducciones-2025/producto-f-ampliacion-20261105/matriz-51.json",
+        "puntero": "/deducciones/29"
+      },
+      "commitDeReferencia": "3bcec2b08cb1cc21292ca41851d73df4f3c28f19",
+      "estadoObservado": "calculo_parcial",
+      "archivos": [
+        "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/inversiones.ts"
+      ],
+      "pruebas": [
+        "tests/deducciones-f-ampliacion-2025.test.ts"
+      ],
+      "limite": "Sólo las ramas del contrato; no aceptación fiscal integral.",
+      "aceptacionFiscalIntegral": false,
+      "estadoContrastado": "numerica_aislada",
+      "pruebaContrastada": {
+        "clase": "numerica_aislada",
+        "prueba": "tests/deducciones-f-ampliacion-2025.test.ts",
+        "linea": 528,
+        "importeEURCaso": "200"
+      }
+    },
+    {
+      "codigo": "murcia_inversion_mab",
+      "comunidad": "murcia",
+      "nombre": "Por inversión MAB",
+      "prioridadTematica": 4,
+      "tema": "otros",
+      "matrizPosterior": {
+        "archivo": "docs/procedencia/deducciones-2025/producto-f-ampliacion-20261105/matriz-51.json",
+        "puntero": "/deducciones/30"
+      },
+      "commitDeReferencia": "3bcec2b08cb1cc21292ca41851d73df4f3c28f19",
+      "estadoObservado": "calculo_parcial",
+      "archivos": [
+        "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/inversiones.ts"
+      ],
+      "pruebas": [
+        "tests/deducciones-f-ampliacion-2025.test.ts"
+      ],
+      "limite": "Sólo las ramas del contrato; no aceptación fiscal integral.",
+      "aceptacionFiscalIntegral": false,
+      "estadoContrastado": "numerica_aislada",
+      "pruebaContrastada": {
+        "clase": "numerica_aislada",
+        "prueba": "tests/deducciones-f-ampliacion-2025.test.ts",
+        "linea": 533,
+        "importeEURCaso": "200"
+      }
+    },
+    {
+      "codigo": "murcia_recarga_vehiculos_electricos",
+      "comunidad": "murcia",
+      "nombre": "Por recarga vehículos eléctricos",
+      "prioridadTematica": 4,
+      "tema": "otros",
+      "matrizPosterior": {
+        "archivo": "docs/procedencia/deducciones-2025/producto-f-ampliacion-20261105/matriz-51.json",
+        "puntero": "/deducciones/42"
+      },
+      "commitDeReferencia": "3bcec2b08cb1cc21292ca41851d73df4f3c28f19",
+      "estadoObservado": "calculo_parcial",
+      "archivos": [
+        "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/recarga-agua.ts"
+      ],
+      "pruebas": [
+        "tests/deducciones-f-ampliacion-2025.test.ts"
+      ],
+      "limite": "Sólo las ramas del contrato; no aceptación fiscal integral.",
+      "aceptacionFiscalIntegral": false,
+      "estadoContrastado": "numerica_aislada_y_anual",
+      "pruebaContrastada": {
+        "clase": "numerica_aislada_y_anual",
+        "prueba": "tests/deducciones-f-conexion-anual-2025.test.ts",
+        "linea": 65,
+        "importeEURCaso": "1000"
+      }
+    },
+    {
+      "codigo": "murcia_vehiculos_electricos",
+      "comunidad": "murcia",
+      "nombre": "Por vehículos eléctricos",
+      "prioridadTematica": 4,
+      "tema": "otros",
+      "matrizPosterior": {
+        "archivo": "docs/procedencia/deducciones-2025/producto-f-ampliacion-20261105/matriz-51.json",
+        "puntero": "/deducciones/41"
+      },
+      "commitDeReferencia": "3bcec2b08cb1cc21292ca41851d73df4f3c28f19",
+      "estadoObservado": "calculo_parcial",
+      "archivos": [
+        "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/vivienda.ts"
+      ],
+      "pruebas": [
+        "tests/deducciones-f-ampliacion-2025.test.ts"
+      ],
+      "limite": "Sólo las ramas del contrato; no aceptación fiscal integral.",
+      "aceptacionFiscalIntegral": false,
+      "estadoContrastado": "numerica_aislada",
+      "pruebaContrastada": {
+        "clase": "numerica_aislada",
+        "prueba": "tests/deducciones-f-ampliacion-2025.test.ts",
+        "linea": 383,
+        "importeEURCaso": "3000"
+      }
+    }
+  ]
+}
