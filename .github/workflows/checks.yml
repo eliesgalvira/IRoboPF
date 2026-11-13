@@ -34,7 +34,7 @@ jobs:
       - if: ${{ !cancelled() && steps.dependencies.outcome == 'success' }}
         run: timeout -k 30s 12m bun run test:ci
       - if: ${{ !cancelled() && steps.dependencies.outcome == 'success' }}
-        run: timeout -k 30s 12m bun run test tests/puertos-composicion-r47.test.ts tests/puertos-r52.test.ts --maxWorkers=1
+        run: timeout -k 30s 12m bun run test tests/puertos-composicion-r47.test.ts tests/puertos-r52.test.ts tests/admision-r36-try.test.mjs --maxWorkers=1
       - if: ${{ !cancelled() && steps.dependencies.outcome == 'success' }}
         run: timeout -k 30s 12m bun run test tests/cotizaciones-perfil-uniforme.test.ts tests/*-procedencia.test.ts --exclude tests/evidencia-contenido-procedencia.test.ts --maxWorkers=1
       - if: ${{ !cancelled() && steps.dependencies.outcome == 'success' }}

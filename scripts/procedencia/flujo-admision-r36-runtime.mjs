@@ -237,6 +237,7 @@ export function executeAdmissionGraph(fragment, entry, args, evidence = {}) {
       else if(n.op==='if')block(ev(n.condition,frame)?n.yes:n.no,frame)
       else if(n.op==='for'){let index=0;for(const value of ev(n.collection,frame)){const iteration={id:++serial,locals:new Map(frame.locals),iteration:{node:n.id,index:index++}};bind(n.binding,value,iteration);try{block(n.body,iteration)}catch(error){if(!(error instanceof Continued))throw error}}}
       else if(n.op==='continue')throw new Continued()
+      else if(n.op==='pending-control')throw new AdmissionPending('Semántica de TryStatement pendiente')
       else if(n.op==='throw')throw ev(n.value,frame)
       else throw Error('Sentencia desconocida '+n.op)
     }

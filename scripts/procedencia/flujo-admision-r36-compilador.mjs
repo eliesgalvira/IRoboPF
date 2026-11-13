@@ -119,6 +119,12 @@ export function compileAdmissionGraph(entries, boundaries = []) {
         const binding=pattern(m,n.initializer.declarations[0].name)
         result.push(make('for',{binding,collection:e(n.expression),body:block(m,ts.isBlock(n.statement)?n.statement.statements:[n.statement],new Set([...locals,...names(binding)]))}))
       } else if (ts.isContinueStatement(n)) result.push(make('continue',{}))
+      else if (ts.isTryStatement(n)) {
+        // No confundir throws fuente con las señales internas del intérprete.
+        // Esta frontera detiene el bloque antes de ejecutar try/catch/finally.
+        result.push(make('pending-control',{syntax:'TryStatement'}))
+        break
+      }
       else if (ts.isThrowStatement(n)) result.push(make('throw',{value:e(n.expression)}))
       else throw Error('Sentencia fuera del traductor: '+ts.SyntaxKind[n.kind])
     }
