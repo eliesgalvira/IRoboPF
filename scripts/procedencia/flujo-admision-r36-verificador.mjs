@@ -7,7 +7,7 @@ const ts=require('typescript')
 const siteIds=[...['base','exceso','empresarial-ordinaria','trabajador-ordinaria','mei-empresarial','mei-trabajador','solidaridad-empresarial','solidaridad-trabajador','empresarial-total','trabajador-total','coste-laboral'].map(s=>'anual.ss.'+s),...['base','cuota','tipo','anual'].map(s=>'anual.retencion.'+s),'anual.pagos.retenciones','anual.pagos.cuenta']
 const builtins=new Set(["undefined","Infinity","NaN","Number","String","Object","Array","Math","Map","Set","Date","Decimal","Match","Option","Effect","DateTime","Error","LiquidacionIrpfAnual","CompatibilidadSalarioLegacy","Schema","EffectArray","medirAuditoriaSync","registrarTiempoAgregadoAuditoria","tiempoAuditoriaMs","validarDerechosMinimos","validarRentasAnualesDerechos","hayAlimentosPropiosSinMinimo"])
 let schemaValidator
-const allowedOps=new Set(['literal','json','builtin','local','global','boundary','regex','get','array','object','spread','binary','unary','choose','template','lambda','yield','call','new','run','pipe','bind','return','evaluate','if','for','continue','throw'])
+const allowedOps=new Set(['literal','json','builtin','local','global','boundary','regex','get','array','object','spread','binary','unary','choose','template','lambda','yield','call','new','run','pipe','bind','return','evaluate','if','for','continue','throw','pending-control'])
 /** Capa estructural y causal separada de los pines; no otorga aceptación. */
 export function verifyCompleteAdmission(fragment, validateSchema) {
  if(!validateSchema){schemaValidator??=new Ajv({allErrors:true,strict:false}).compile(JSON.parse(readFileSync(new URL('../../schemas/procedencia/flujo/admision-r36.schema.json',import.meta.url))));validateSchema=schemaValidator}
@@ -17,10 +17,10 @@ export function verifyCompleteAdmission(fragment, validateSchema) {
   if(!sources.some(s=>s.path===a.path&&s.sha256===a.sha256)||a.path.startsWith('/')||a.path.split('/').includes('..'))throw Error('Ancla no vinculada a fuente')
   if(!documents.has(a.path)) {
    const text=readFileSync(new URL('../../'+a.path,import.meta.url),'utf8')
-   const sha256=createHash('sha256').update(text).digest('hex'),spans=new Set()
+   const sha256=createHash('sha256').update(text).digest('hex'),spans=new Set(),trySpans=new Set()
    const sf=ts.createSourceFile(a.path,text,ts.ScriptTarget.Latest,true)
-   function visit(n){spans.add(n.getStart(sf)+':'+n.end);ts.forEachChild(n,visit)}visit(sf)
-   documents.set(a.path,{text,sha256,spans})
+   function visit(n){const span=n.getStart(sf)+':'+n.end;spans.add(span);if(ts.isTryStatement(n))trySpans.add(span);ts.forEachChild(n,visit)}visit(sf)
+   documents.set(a.path,{text,sha256,spans,trySpans})
   }
   const doc=documents.get(a.path)
   if(doc.sha256!==a.sha256||a.start<0||a.end<=a.start||a.end>doc.text.length||!doc.spans.has(a.start+':'+a.end))throw Error('Ancla sin nodo exacto en fuente fijada')
@@ -37,6 +37,7 @@ export function verifyCompleteAdmission(fragment, validateSchema) {
    ids.set(value.id,value)
    const a=anchors.get(value.id)
    exactAnchor(a,graph.sources)
+   if(value.op==='pending-control'&&(value.syntax!=='TryStatement'||!documents.get(a.path).trySpans.has(a.start+':'+a.end)))throw Error('Frontera sin TryStatement exacto')
    if(a.start<0||a.end<=a.start||!graph.sources.some(s=>s.path===a.path&&s.sha256===a.sha256))throw Error('Ancla no vinculada')
    if(value.op==='global'&&!definitions.has(value.key))throw Error('Referencia global sin definición')
    if(value.op==='boundary'&&!contracts.has(value.name))throw Error('Frontera sin contrato')
@@ -62,6 +63,7 @@ export function verifyCompleteAdmission(fragment, validateSchema) {
   else if(['return','evaluate','throw'].includes(n.op))expression(n.value,scope)
   else if(n.op==='if'){expression(n.condition,scope);block(n.yes,scope,depth);block(n.no,scope,depth)}
   else if(n.op==='for'){expression(n.collection,scope);patternFallbacks(n.binding,scope);block(n.body,new Set([...scope,...boundNames(n.binding)]),depth+1)}
+  else if(n.op==='pending-control')continue
   else if(n.op!=='continue'||depth===0)throw Error('Sentencia fuera de bloque/recorrido')
  }}
  graph.definitions.forEach(d=>expression(d.value,new Set()));graph.roots.forEach(r=>expression(r.value,new Set()))

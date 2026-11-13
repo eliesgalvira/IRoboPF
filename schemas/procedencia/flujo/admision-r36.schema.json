@@ -1452,7 +1452,8 @@
             "if",
             "for",
             "continue",
-            "throw"
+            "throw",
+            "pending-control"
           ]
         }
       },
@@ -2492,6 +2493,35 @@
               "id",
               "op",
               "value"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "pending-control"
+              }
+            }
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "op": {
+                "const": "pending-control"
+              },
+              "syntax": {
+                "const": "TryStatement"
+              }
+            },
+            "required": [
+              "id",
+              "op",
+              "syntax"
             ],
             "additionalProperties": false
           }
