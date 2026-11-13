@@ -1,5 +1,7 @@
 # Estado de la auditoría documental
 
+Las [consultas para expertos fiscales](CONSULTAS-EXPERTOS.md) reúnen las discrepancias y dudas contrastadas al 13 de noviembre, con fuentes y comportamiento actual del código.
+
 ## Inventario de deducciones de 2025 · 12 de noviembre
 
 El [inventario reconciliado](deducciones-2025/inventario-20261112/INVENTARIO.md)
