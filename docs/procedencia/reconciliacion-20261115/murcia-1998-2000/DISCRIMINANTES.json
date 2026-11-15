@@ -1,0 +1,205 @@
+{
+  "status": "hipotesis_no_seleccionadas",
+  "officialCaptures": 0,
+  "fiscalRuntime": false,
+  "commonFacts": "Perfil individual, mayor de40; misma vivienda nueva con aplicación efectiva2000; patrimonio suficiente. Cada caso exige reconstruir hechos y magnitudes en UI, no inyectar bases derivadas.",
+  "caution": "Las magnitudes de esta tabla son discriminantes algebraicos, no entradas completas ejecutables. StateBase0 puede exigir elección no aplicar y no acredita ausencia de derecho.",
+  "cases": [
+    {
+      "id": "base-estatal-presente",
+      "input": {
+        "payments": "6000",
+        "stateBase": "6000",
+        "generalMinusMinimum": "20000",
+        "savings": "0"
+      },
+      "hypotheses": {
+        "rate": {
+          "numerator": "3",
+          "denominator": "100"
+        },
+        "direct": {
+          "numerator": "180",
+          "denominator": "1"
+        },
+        "remitted_base": {
+          "numerator": "456",
+          "denominator": "5"
+        },
+        "remitted_base_and_old_cap": {
+          "numerator": "456",
+          "denominator": "5"
+        }
+      }
+    },
+    {
+      "id": "base-estatal-cero",
+      "input": {
+        "payments": "6000",
+        "stateBase": "0",
+        "generalMinusMinimum": "20000",
+        "savings": "0"
+      },
+      "hypotheses": {
+        "rate": {
+          "numerator": "3",
+          "denominator": "100"
+        },
+        "direct": {
+          "numerator": "180",
+          "denominator": "1"
+        },
+        "remitted_base": {
+          "numerator": "180",
+          "denominator": "1"
+        },
+        "remitted_base_and_old_cap": {
+          "numerator": "180",
+          "denominator": "1"
+        }
+      }
+    },
+    {
+      "id": "limite-antiguo",
+      "input": {
+        "payments": "9040",
+        "stateBase": "0",
+        "generalMinusMinimum": "20000",
+        "savings": "0"
+      },
+      "hypotheses": {
+        "rate": {
+          "numerator": "3",
+          "denominator": "100"
+        },
+        "direct": {
+          "numerator": "1356",
+          "denominator": "5"
+        },
+        "remitted_base": {
+          "numerator": "1356",
+          "denominator": "5"
+        },
+        "remitted_base_and_old_cap": {
+          "numerator": "20500000",
+          "denominator": "83193"
+        }
+      }
+    },
+    {
+      "id": "maximo-base",
+      "input": {
+        "payments": "12000",
+        "stateBase": "0",
+        "generalMinusMinimum": "20000",
+        "savings": "0"
+      },
+      "hypotheses": {
+        "rate": {
+          "numerator": "3",
+          "denominator": "100"
+        },
+        "direct": {
+          "numerator": "360",
+          "denominator": "1"
+        },
+        "remitted_base": {
+          "numerator": "1356",
+          "denominator": "5"
+        },
+        "remitted_base_and_old_cap": {
+          "numerator": "20500000",
+          "denominator": "83193"
+        }
+      }
+    },
+    {
+      "id": "frontera-general-inferior",
+      "input": {
+        "payments": "6000",
+        "stateBase": "0",
+        "generalMinusMinimum": "24199.99",
+        "savings": "1800"
+      },
+      "hypotheses": {
+        "rate": {
+          "numerator": "3",
+          "denominator": "100"
+        },
+        "direct": {
+          "numerator": "180",
+          "denominator": "1"
+        },
+        "remitted_base": {
+          "numerator": "180",
+          "denominator": "1"
+        },
+        "remitted_base_and_old_cap": {
+          "numerator": "180",
+          "denominator": "1"
+        }
+      }
+    },
+    {
+      "id": "frontera-general-exacta",
+      "input": {
+        "payments": "6000",
+        "stateBase": "0",
+        "generalMinusMinimum": "24200",
+        "savings": "1800"
+      },
+      "hypotheses": {
+        "rate": {
+          "numerator": "1",
+          "denominator": "50"
+        },
+        "direct": {
+          "numerator": "120",
+          "denominator": "1"
+        },
+        "remitted_base": {
+          "numerator": "120",
+          "denominator": "1"
+        },
+        "remitted_base_and_old_cap": {
+          "numerator": "120",
+          "denominator": "1"
+        }
+      }
+    },
+    {
+      "id": "frontera-ahorro-superior",
+      "input": {
+        "payments": "6000",
+        "stateBase": "0",
+        "generalMinusMinimum": "24199.99",
+        "savings": "1800.01"
+      },
+      "hypotheses": {
+        "rate": {
+          "numerator": "1",
+          "denominator": "50"
+        },
+        "direct": {
+          "numerator": "120",
+          "denominator": "1"
+        },
+        "remitted_base": {
+          "numerator": "120",
+          "denominator": "1"
+        },
+        "remitted_base_and_old_cap": {
+          "numerator": "120",
+          "denominator": "1"
+        }
+      }
+    }
+  ],
+  "additionalAdverses": [
+    "sin aplicación efectiva1998_2000",
+    "vivienda distinta",
+    "segunda transmisión",
+    "patrimonio insuficiente",
+    "concurrencia FN compatible pendiente de composición"
+  ]
+}

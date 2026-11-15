@@ -1,0 +1,32 @@
+Murcia 2025 — alcance pendiente del régimen 1998–2000
+Fecha de investigación: 12/11/2026. Sólo documentación y controles stdlib.
+
+Conclusión operativa
+La rama tiene fundamento propio en DT primera.1 y no debe heredar F-N02 de jóvenes/Uno_vigente. La remisión a Ley9/1999, art1.Uno, contiene patrimonio FINAL frente a INICIAL. Sin embargo, aún no se habilita un importe: faltan el productor de aplicación histórica efectiva y el contraste de bases/límites frente a la simplificación de los manuales. No se ha ejecutado Open para esta rama, ni código fiscal, ni cambiado la raíz.
+
+Hechos acreditados y fuentes
+1. DT primera.1 exige aplicación efectiva de la deducción autonómica de 1998, 1999 o 2000, por la misma vivienda. Contiene 2% general y 3% si BIG−mínimo personal/familiar <24200 y ahorro <=1800. Remite al resto de requisitos de Ley9/1999 art1.Uno. DT primera.2 remite separadamente a jóvenes; DT primera.4 es el tramo estatal DT18. No se intercambian esos accesos.
+   https://www.boe.es/buscar/act.php?id=BOE-A-2011-10542&p=20250724&tn=1#dtunica-2
+2. La remisión original de Ley9/1999 recoge primera transmisión dentro de tres años desde obra nueva, residencia habitual de tres años y rehabilitación protegible. Incluye base máxima estatal menos base estatal utilizada; límites nominales de 41000/46000 pesetas; antecedentes de otras viviendas/reinversión; patrimonio final−inicial. La relevancia actual de los límites se ha de resolver explícitamente, sin omitirlos porque el manual abreviado no los mencione.
+   https://www.boe.es/buscar/doc.php?id=BOE-A-2000-6844
+3. Ley14/2012 DFprimera conserva esa remisión. Ley3/2025 art55.18 renumera DTúnica como DTprimera; no sustituye por sí sola la fórmula del apartado1. La denominación antigua del manual no altera la identificación del precepto.
+   https://www.boe.es/buscar/doc.php?id=BOE-A-2013-1927
+   https://www.boe.es/buscar/doc.php?id=BOE-A-2025-16147
+4. El manual AEAT2025 resume porcentajes y vivienda nueva y declara compatible el régimen transitorio con la deducción por vivienda de familias numerosas. La ayuda de cumplimentación añade independencia de la edad e incompatibilidad con el régimen general para la misma vivienda. Ambos omiten desarrollar el alcance de las bases/límites remitidos: eso no demuestra derogación ni habilita a elegir una fórmula.
+   https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2025-deducciones-autonomicas/comunidad-autonoma-region-murcia/regimen-transitorio-deduccion-inversion-vivienda-habitual.html
+   https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-ayuda-presentacion/irpf-2025/10-cumplimentacion-irpf-deducciones-autonomicas/10_13-region-murcia/10_13_1-inversion-vivienda-habitual-jovenes.html
+
+Mapa del código leído
+- territorial-f-ampliacion-2025/vivienda.ts devuelve dependencia historial_inversion_vivienda para 1998_2000; no calcula cuota. Su petición ya separa 2%/3% y no atribuye F-N02 a esta rama.
+- El mismo bloque llama incompatible(...familias_numerosas) antes de distinguir ramas. La restricción es más amplia que la compatibilidad que publica AEAT para el transitorio. Hallazgo estático de alcance; no es una doble deducción monetaria reproducida ni se corrige sin probar composición.
+- vivienda-dt18-2025/productor.ts admite Murcia exclusivamente estatal_pre2013 y una solicitud; no acredita 1998_2000. No basta cambiar un literal para habilitar la rama.
+
+Contrato factual propuesto, sin implementarlo
+Un solo titular individual2025; Murcia; una primera vivienda habitual adquirida nueva en 1998–2000; sin ventas, reinversiones, cambios de titular, ISD ni otras inversiones. Historia con escritura/obra nueva, primera transmisión y ocupación; declaración efectivamente presentada con aplicación autonómica identificada por ejercicio/persona/inmueble, no un derecho afirmado ni un resultado externo aceptado. Reconstrucción de préstamo original, amortizaciones y pagos2025, censo patrimonial inicial/final y conciliación bancaria. Bases2025 y mínimo proceden del motor común. La base estatal aplicada, si existe, debe proceder del libro DT18 común. Solicitar importe regional o porcentaje externo no sustituye estos productores.
+Fuera del primer perfil: rehabilitación, conjunta, varios titulares, excepciones de permanencia, refinanciaciones, viviendas previas y concurrencia FN. Son exclusiones de implementación propuestas, no prohibiciones legales universales.
+
+Próximo trabajo concreto
+Antes del candidato monetario, contrastar en Open2025 las hipótesis de DISCRIMINANTES.json. Conservar entrada UI efectiva, SES, PDF, versión, casillas de bases/mínimos, bases estatales y cuota regional, comparadas exactamente. Un resultado aislado no acredita por sí solo doctrina sobre la remisión. Si Open y lectura literal difieren, registrar discrepancia y localizar criterio oficial; no convertir una respuesta de UI en derogación normativa. Después: productor compartido, pruebas de ambas API y revisión independiente antes de publicar.
+
+
+Fuentes: FUENTES.json identifica los originales consultados por URL, fecha y SHA256. DISCRIMINANTES.json conserva hipótesis, no resultados fiscales aceptados.

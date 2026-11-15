@@ -196,7 +196,7 @@ function evaluarE38ConProductores(s:SolicitudE38Anual2025,m:MagnitudesTerritoria
    return evaluarAmpliacionE2025(c,{...h,viviendas:h.viviendas.map(v=>({...v,baseConsumidaAnterior:"0",basePendienteAnterior:[]}))})
   }
   case "galicia_arrendamiento_viviendas_vacias":
-   exige(h.historiaPrimerArriendo.every(v=>v.primerContrato>="2025-01-01"),`${h.codigo}: cuota histórica pendiente requiere productor de saldos por origen,no representado en APIv4`)
+   exige(h.historiaPrimerArriendo.every(v=>v.primerContrato>="2025-01-01"),`${h.codigo}: contrato anterior a 2025 fuera del perfil temporal; incentivo vigente desde 2025, sin cuota pendiente de origen anterior`)
    return evaluarAmpliacionE2025(c,h)
   case "rioja_paliar_subida_intereses_hipotecarios":return evaluarAmpliacionE2025(c,{...h,deduccionesElegidas:[]})
   case "rioja_donaciones_fomento_mecenazgo":return evaluarAmpliacionE2025(c,{...h,donaciones:h.donaciones.map(d=>{

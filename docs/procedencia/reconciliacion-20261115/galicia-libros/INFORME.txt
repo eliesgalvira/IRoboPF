@@ -1,0 +1,81 @@
+Galicia · libros y material escolar · no declarantes · 12-11-2026
+
+Resultado: A04 continúa pendiente de criterio. No hay fundamento suficiente en
+las siete fuentes examinadas para sustituir el rechazo actual por una fórmula
+bruta o neta. Esto describe el alcance de la búsqueda, no prueba que no exista
+una consulta administrativa adicional. No se modifica el producto.
+
+La ley y el manual desempeñan papeles distintos
+
+1. Ley 5/2025, art. 2.Cinco, introduce art. 5.Veinticinco.4 del TR gallego:
+   renta familiar del ejercicio anterior dividida por miembros computables,
+   umbral inclusivo de 30.000 y ponderación doble por discapacidad/pensión.
+   El texto de este apartado no especifica bruto/neto ni menciona el certificado.
+   DA quinta y DF tercera.2.d dan alcance al ejercicio 2025. No se toma como
+   fecha efectiva de esta deducción la entrada general 01-01-2026.
+   Original: https://www.boe.es/diario_boe/txt.php?id=BOE-A-2026-3385
+
+2. Manual AEAT 2025: para declarantes, BIG[435]+BIA[460]; para no declarantes,
+   ingresos según los datos del certificado de imputaciones. No especifica
+   una operación que convierta los importes del certificado en renta neta.
+   https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2025-deducciones-autonomicas/comunidad-autonoma-galicia/adquisicion-libros-texto-material-escolar.html
+
+3. Ayuda AEAT de cumplimentación repite esa distinción. Pide consignar por hijo
+   el gasto con derecho y el número de personas con derecho. Esta descripción
+   no demuestra que Open reconstruya la renta histórica de los no declarantes;
+   una salida calculada tras introducir gasto ya elegible no resolvería A04.
+   https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-ayuda-presentacion/irpf-2025/10-cumplimentacion-irpf-deducciones-autonomicas/10_11-galicia/10_11_24-adquisicion-libros-texto-material-escolar.html
+
+4. La ayuda AEAT del certificado explica que el negativo de Renta contiene
+   las imputaciones conocidas cuando no se presentó declaración ni existía
+   obligación según sus datos. No define el cálculo de esta deducción gallega.
+   Un certificado negativo no equivale a ausencia de ingresos.
+   https://sede.agenciatributaria.gob.es/Sede/ayuda/consultas-informaticas/certificados-tributarios-ayuda-tecnica/solicitud-certificado-tributario-irpf.html
+
+5. Resumen ATRIGA, p. 13 del PDF conservado: reproduce la renta per cápita,
+   sin resolver la transformación de las imputaciones. Se registra su cabecera
+   discordante de ejercicio, sin usarla para sustituir la vigencia normativa.
+   https://www.atriga.gal/documents/20632401/20633567/Resumen-medidas-ejercicio-2025-declarar-2026-gl-IRPF.pdf/3abd92d1-5db8-47cc-a06b-832093db2ed6
+
+6. Orden DOG 26-03-2026, publicada 27-03: regula bienes y límites de material
+   escolar; no contiene una regla de bruto/neto para rentas no declaradas.
+   https://www.xunta.gal/dog/Publicados/2026/20260327/AnuncioG0597-260326-0002_es.pdf
+
+Se conserva además la versión consolidada BOE de 02-03-2026 como control;
+no se utiliza su naturaleza informativa en sustitución del original.
+
+Caso discriminante concreto
+
+Dos progenitores y un hijo, divisor 3. El declarante tiene BIG 70.000 y BIA 0.
+El otro progenitor, no declarante, cobró 22.000 de un único pagador, cotizó
+1.000 y tiene 2.000 de gasto general. Sin otras rentas, el argumento art.20
+es 21.000: las hipótesis no dependen aquí de la reducción art.20.
+Renta íntegra: (70.000+22.000)/3 = 30.666,666…; no cumple el umbral.
+Renta neta: (70.000+19.000)/3 = 29.666,666…; sí lo cumple.
+Con libros elegibles de 300, el importe hipotético difiere entre 0 y 45.
+No se elige ninguna hipótesis. DISCRIMINANTES.json contiene nueve escenarios
+racionales, seis con clasificación diferente; incluye ambas fronteras exactas.
+La BIG indicada es una magnitud de contraste, nunca una entrada aceptada por API.
+
+Consulta concreta preparada, no enviada
+
+En art.5.Veinticinco.4, para un miembro que no presentó IRPF2024, ¿se suma el
+rendimiento íntegro comunicado en el certificado, se descuentan cotizaciones
+y gastos del art.19, o se reconstruye la base con art.20? Identificar fundamento,
+casillas/campos exactos y criterio para rentas exentas. El ejemplo anterior
+discrimina el derecho sin depender de redondeos ni falta de cuota.
+
+Límites operativos
+
+No probar Open dando por hecho el derecho de deducción. Una observación sólo
+sería discriminante si la interfaz reconstruye la renta anterior desde hechos
+brutos y permite acreditar qué transformación ejecuta. No se han realizado
+capturas, consultas externas nominativas ni envíos a terceros para esta tarea.
+
+Se mantiene Libros.imputaciones para rentas positivas de no declarantes. El
+perfil sin ingresos ya existente permanece separado. No se importan por
+analogía reglas de becas escolares ni de otro territorio. La consulta preparada
+no habilita importes, no cierra el código ni certifica las demás ramas E38.
+
+
+Fuentes: FUENTES.json identifica los originales consultados por URL, fecha y SHA256. DISCRIMINANTES.json conserva hipótesis, no resultados fiscales aceptados.

@@ -49,3 +49,15 @@ El corte del 11 de noviembre añade los [perfiles parciales de Rioja, Murcia, Va
 El corte de orígenes Murcia/Galicia/CLM está publicado en b9a76c7562473d89caf413ec7c8fd4481ad58a94 con los 31 comandos locales y [CI remoto verde](https://github.com/eliesgalvira/IRoboPF/actions/runs/43124502404). Las cinco capturas oficiales murcianas de 2024 acreditan exclusivamente su perfil de origen renovable y no se suman a las 1.027 capturas salariales de la campaña.
 
 El [ajuste de parciales de 2018](simuladores/historico/PARCIALES-2018-20261112.md) amplía el control a las 661 capturas existentes; conserva PRE/POST y no duplica los recuentos anteriores. La revisión independiente y la verificación posterior de originales quedaron completadas en `c29176ae`; se conservan sus límites, ausencias y reservas. La campaña no crece por repetir el cálculo.
+
+## Capturas adicionales conservadas del 12 de noviembre
+
+El [corte de campaña de 1.181 capturas](reconciliacion-20261115/CAPTURAS-1181.json)
+amplía el anterior de 1.027: 721 de 2018, 74 de 2019, 82 de 2020, 121 de 2021
+y 61 de cada año de 2022 a 2024. Quedan 12.959 de las 14.140 previstas.
+Los cuatro bloques adicionales suman 154 entradas: 1.827 coincidencias
+condicionadas, cero diferencias comparables, 21 ausencias y 308 reservas.
+Son cotejos de autor; no amplían automáticamente el alcance de las revisiones
+independientes publicadas. Los discriminantes externos y las repeticiones PRE/POST
+no se suman a estas capturas. Los fallos posteriores de 2019, 2020 y 2022 se
+conservan; el intento de 2022 no añadió capturas. No se ha reanudado la campaña.

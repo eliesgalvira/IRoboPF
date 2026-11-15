@@ -1,0 +1,423 @@
+{
+  "officialCaptures": 0,
+  "fiscalRuntime": false,
+  "purpose": "Entradas propuestas de simulación, no hechos reales ni recibos oficiales",
+  "inputOriginalSHA": "3a55198a7ac2ffff9f4f8b11f9cab79100ca42549cccfd669fc6aa7d478568bb",
+  "cases": [
+    {
+      "id": "base-estatal-presente",
+      "person": {
+        "birth": "1975-01-01",
+        "taxYear": 2025,
+        "territory": "murcia",
+        "filing": "individual",
+        "family": []
+      },
+      "employment": {
+        "gross": "28550.00",
+        "socialSecurity": "1000.00",
+        "ordinaryExpenseExpected": "2000.00",
+        "withholding": "0.00",
+        "payers": 1
+      },
+      "savings": {
+        "bankInterestGross": "0",
+        "expenses": "0.00",
+        "withholding": "0.00"
+      },
+      "housingPayment": "6000",
+      "stateBaseTarget": "6000",
+      "stateChoice": "aplicar",
+      "readOnlyChecks": {
+        "generalBase": "25550.00",
+        "personalFamilyMinimum": "5550.00",
+        "generalMinusMinimum": "20000",
+        "savingsBase": "0"
+      },
+      "status": "hechos_de_simulacion_preparados_sin_captura",
+      "annualDebt": {
+        "opening": "30000.00",
+        "principalPaid": "6000",
+        "closing": "24000.00",
+        "interest": "0.00"
+      },
+      "normativeHypotheses": {
+        "rate": {
+          "numerator": "3",
+          "denominator": "100"
+        },
+        "direct": {
+          "numerator": "180",
+          "denominator": "1"
+        },
+        "remitted_base": {
+          "numerator": "456",
+          "denominator": "5"
+        },
+        "remitted_base_and_old_cap": {
+          "numerator": "456",
+          "denominator": "5"
+        }
+      }
+    },
+    {
+      "id": "base-estatal-cero",
+      "person": {
+        "birth": "1975-01-01",
+        "taxYear": 2025,
+        "territory": "murcia",
+        "filing": "individual",
+        "family": []
+      },
+      "employment": {
+        "gross": "28550.00",
+        "socialSecurity": "1000.00",
+        "ordinaryExpenseExpected": "2000.00",
+        "withholding": "0.00",
+        "payers": 1
+      },
+      "savings": {
+        "bankInterestGross": "0",
+        "expenses": "0.00",
+        "withholding": "0.00"
+      },
+      "housingPayment": "6000",
+      "stateBaseTarget": "0",
+      "stateChoice": "no_aplicar_si_UI_lo_representa",
+      "readOnlyChecks": {
+        "generalBase": "25550.00",
+        "personalFamilyMinimum": "5550.00",
+        "generalMinusMinimum": "20000",
+        "savingsBase": "0"
+      },
+      "status": "hechos_de_simulacion_preparados_sin_captura",
+      "annualDebt": {
+        "opening": "30000.00",
+        "principalPaid": "6000",
+        "closing": "24000.00",
+        "interest": "0.00"
+      },
+      "normativeHypotheses": {
+        "rate": {
+          "numerator": "3",
+          "denominator": "100"
+        },
+        "direct": {
+          "numerator": "180",
+          "denominator": "1"
+        },
+        "remitted_base": {
+          "numerator": "180",
+          "denominator": "1"
+        },
+        "remitted_base_and_old_cap": {
+          "numerator": "180",
+          "denominator": "1"
+        }
+      }
+    },
+    {
+      "id": "limite-antiguo",
+      "person": {
+        "birth": "1975-01-01",
+        "taxYear": 2025,
+        "territory": "murcia",
+        "filing": "individual",
+        "family": []
+      },
+      "employment": {
+        "gross": "28550.00",
+        "socialSecurity": "1000.00",
+        "ordinaryExpenseExpected": "2000.00",
+        "withholding": "0.00",
+        "payers": 1
+      },
+      "savings": {
+        "bankInterestGross": "0",
+        "expenses": "0.00",
+        "withholding": "0.00"
+      },
+      "housingPayment": "9040",
+      "stateBaseTarget": "0",
+      "stateChoice": "no_aplicar_si_UI_lo_representa",
+      "readOnlyChecks": {
+        "generalBase": "25550.00",
+        "personalFamilyMinimum": "5550.00",
+        "generalMinusMinimum": "20000",
+        "savingsBase": "0"
+      },
+      "status": "hechos_de_simulacion_preparados_sin_captura",
+      "annualDebt": {
+        "opening": "30000.00",
+        "principalPaid": "9040",
+        "closing": "20960.00",
+        "interest": "0.00"
+      },
+      "normativeHypotheses": {
+        "rate": {
+          "numerator": "3",
+          "denominator": "100"
+        },
+        "direct": {
+          "numerator": "1356",
+          "denominator": "5"
+        },
+        "remitted_base": {
+          "numerator": "1356",
+          "denominator": "5"
+        },
+        "remitted_base_and_old_cap": {
+          "numerator": "20500000",
+          "denominator": "83193"
+        }
+      }
+    },
+    {
+      "id": "maximo-base",
+      "person": {
+        "birth": "1975-01-01",
+        "taxYear": 2025,
+        "territory": "murcia",
+        "filing": "individual",
+        "family": []
+      },
+      "employment": {
+        "gross": "28550.00",
+        "socialSecurity": "1000.00",
+        "ordinaryExpenseExpected": "2000.00",
+        "withholding": "0.00",
+        "payers": 1
+      },
+      "savings": {
+        "bankInterestGross": "0",
+        "expenses": "0.00",
+        "withholding": "0.00"
+      },
+      "housingPayment": "12000",
+      "stateBaseTarget": "0",
+      "stateChoice": "no_aplicar_si_UI_lo_representa",
+      "readOnlyChecks": {
+        "generalBase": "25550.00",
+        "personalFamilyMinimum": "5550.00",
+        "generalMinusMinimum": "20000",
+        "savingsBase": "0"
+      },
+      "status": "hechos_de_simulacion_preparados_sin_captura",
+      "annualDebt": {
+        "opening": "30000.00",
+        "principalPaid": "12000",
+        "closing": "18000.00",
+        "interest": "0.00"
+      },
+      "normativeHypotheses": {
+        "rate": {
+          "numerator": "3",
+          "denominator": "100"
+        },
+        "direct": {
+          "numerator": "360",
+          "denominator": "1"
+        },
+        "remitted_base": {
+          "numerator": "1356",
+          "denominator": "5"
+        },
+        "remitted_base_and_old_cap": {
+          "numerator": "20500000",
+          "denominator": "83193"
+        }
+      }
+    },
+    {
+      "id": "frontera-general-inferior",
+      "person": {
+        "birth": "1975-01-01",
+        "taxYear": 2025,
+        "territory": "murcia",
+        "filing": "individual",
+        "family": []
+      },
+      "employment": {
+        "gross": "32749.99",
+        "socialSecurity": "1000.00",
+        "ordinaryExpenseExpected": "2000.00",
+        "withholding": "0.00",
+        "payers": 1
+      },
+      "savings": {
+        "bankInterestGross": "1800",
+        "expenses": "0.00",
+        "withholding": "0.00"
+      },
+      "housingPayment": "6000",
+      "stateBaseTarget": "0",
+      "stateChoice": "no_aplicar_si_UI_lo_representa",
+      "readOnlyChecks": {
+        "generalBase": "29749.99",
+        "personalFamilyMinimum": "5550.00",
+        "generalMinusMinimum": "24199.99",
+        "savingsBase": "1800"
+      },
+      "status": "hechos_de_simulacion_preparados_sin_captura",
+      "annualDebt": {
+        "opening": "30000.00",
+        "principalPaid": "6000",
+        "closing": "24000.00",
+        "interest": "0.00"
+      },
+      "normativeHypotheses": {
+        "rate": {
+          "numerator": "3",
+          "denominator": "100"
+        },
+        "direct": {
+          "numerator": "180",
+          "denominator": "1"
+        },
+        "remitted_base": {
+          "numerator": "180",
+          "denominator": "1"
+        },
+        "remitted_base_and_old_cap": {
+          "numerator": "180",
+          "denominator": "1"
+        }
+      }
+    },
+    {
+      "id": "frontera-general-exacta",
+      "person": {
+        "birth": "1975-01-01",
+        "taxYear": 2025,
+        "territory": "murcia",
+        "filing": "individual",
+        "family": []
+      },
+      "employment": {
+        "gross": "32750.00",
+        "socialSecurity": "1000.00",
+        "ordinaryExpenseExpected": "2000.00",
+        "withholding": "0.00",
+        "payers": 1
+      },
+      "savings": {
+        "bankInterestGross": "1800",
+        "expenses": "0.00",
+        "withholding": "0.00"
+      },
+      "housingPayment": "6000",
+      "stateBaseTarget": "0",
+      "stateChoice": "no_aplicar_si_UI_lo_representa",
+      "readOnlyChecks": {
+        "generalBase": "29750.00",
+        "personalFamilyMinimum": "5550.00",
+        "generalMinusMinimum": "24200",
+        "savingsBase": "1800"
+      },
+      "status": "hechos_de_simulacion_preparados_sin_captura",
+      "annualDebt": {
+        "opening": "30000.00",
+        "principalPaid": "6000",
+        "closing": "24000.00",
+        "interest": "0.00"
+      },
+      "normativeHypotheses": {
+        "rate": {
+          "numerator": "1",
+          "denominator": "50"
+        },
+        "direct": {
+          "numerator": "120",
+          "denominator": "1"
+        },
+        "remitted_base": {
+          "numerator": "120",
+          "denominator": "1"
+        },
+        "remitted_base_and_old_cap": {
+          "numerator": "120",
+          "denominator": "1"
+        }
+      }
+    },
+    {
+      "id": "frontera-ahorro-superior",
+      "person": {
+        "birth": "1975-01-01",
+        "taxYear": 2025,
+        "territory": "murcia",
+        "filing": "individual",
+        "family": []
+      },
+      "employment": {
+        "gross": "32749.99",
+        "socialSecurity": "1000.00",
+        "ordinaryExpenseExpected": "2000.00",
+        "withholding": "0.00",
+        "payers": 1
+      },
+      "savings": {
+        "bankInterestGross": "1800.01",
+        "expenses": "0.00",
+        "withholding": "0.00"
+      },
+      "housingPayment": "6000",
+      "stateBaseTarget": "0",
+      "stateChoice": "no_aplicar_si_UI_lo_representa",
+      "readOnlyChecks": {
+        "generalBase": "29749.99",
+        "personalFamilyMinimum": "5550.00",
+        "generalMinusMinimum": "24199.99",
+        "savingsBase": "1800.01"
+      },
+      "status": "hechos_de_simulacion_preparados_sin_captura",
+      "annualDebt": {
+        "opening": "30000.00",
+        "principalPaid": "6000",
+        "closing": "24000.00",
+        "interest": "0.00"
+      },
+      "normativeHypotheses": {
+        "rate": {
+          "numerator": "1",
+          "denominator": "50"
+        },
+        "direct": {
+          "numerator": "120",
+          "denominator": "1"
+        },
+        "remitted_base": {
+          "numerator": "120",
+          "denominator": "1"
+        },
+        "remitted_base_and_old_cap": {
+          "numerator": "120",
+          "denominator": "1"
+        }
+      }
+    }
+  ],
+  "commonHistory": {
+    "acquisition": "2000-06-01",
+    "declarationOfNewWork": "2000-01-01",
+    "occupation": "2000-06-01",
+    "firstTransfer": true,
+    "cost": "200000.00",
+    "originalLoan": "200000.00",
+    "priorPrincipalPaid": "170000.00",
+    "priorRegionalApplication": {
+      "year": 2000,
+      "sameHome": true,
+      "status": "hipotesis_para_simulacion_no_documento_real"
+    },
+    "ownership": "exclusiva",
+    "residentThroughout2025": true,
+    "noPriorHomeOrReinvestmentOrISD": true
+  },
+  "unrepresentedFacts": [
+    "identidad catastral/municipio a introducir sólo por controles observados",
+    "censo y flujo bancario completo: no preparado para admisión de producto",
+    "documentos históricos efectivos: no fabricados",
+    "semántica de cantidad admisible y elección estatal: pendiente de inspección UI"
+  ]
+}
