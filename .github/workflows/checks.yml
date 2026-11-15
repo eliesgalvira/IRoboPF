@@ -73,6 +73,7 @@ jobs:
       - run: echo "Corpus completo CAS omitido explícitamente; se ejecutan fixtures y contratos reproducibles. Véase docs/procedencia/CI.md"
       - run: timeout -k 30s 12m bun install --frozen-lockfile
       - run: timeout -k 30s 12m bash tools/procedencia/run.sh tests/procedencia-corpus_test.py
+      - run: timeout -k 30s 5m nix develop path:tools/procedencia#publication --command python3 -B tests/publication_guard_test.py
       - run: timeout -k 30s 12m bash tools/procedencia/run.sh tests/procedencia-enlaces_test.py
       - run: timeout -k 30s 12m bash tools/procedencia/run.sh tests/procedencia-preservacion_test.py
       - run: timeout -k 30s 1m python3 tests/procedencia-deducciones-registro_test.py

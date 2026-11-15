@@ -4,6 +4,10 @@
   outputs = { self, nixpkgs }: let
     pkgs = import nixpkgs { system = "x86_64-linux"; };
   in {
+    devShells.x86_64-linux.publication = pkgs.mkShell {
+      packages = [ (pkgs.python313.withPackages (p: [ p.pillow ])) pkgs.git pkgs.poppler-utils pkgs.exiftool pkgs.tesseract ];
+      PUBLICATION_TEST_FONT = "${pkgs.dejavu_fonts}/share/fonts/truetype/DejaVuSans.ttf";
+    };
     devShells.x86_64-linux.default = pkgs.mkShell {
       packages = [ pkgs.python313 pkgs.uv pkgs.poppler-utils pkgs.jujutsu ];
       LD_LIBRARY_PATH = "${pkgs.stdenv.cc.cc.lib}/lib";
