@@ -1,0 +1,658 @@
+{
+  "readbacks": [
+    {
+      "key": "nif",
+      "requested": "90000000B",
+      "observed": "90000000B"
+    },
+    {
+      "key": "name",
+      "requested": "PRUEBA C OPEN",
+      "observed": "PRUEBA C OPEN"
+    },
+    {
+      "key": "birth",
+      "requested": "01/01/1985",
+      "observed": "01/01/1985"
+    },
+    {
+      "key": "region",
+      "options": [
+        " Borrar",
+        "ANDALUCIA",
+        "ARAGON",
+        "PRINCIPADO DE ASTURIAS",
+        "ILLES BALEARS",
+        "CANARIAS",
+        "CANTABRIA",
+        "CASTILLA-LA MANCHA",
+        "CASTILLA Y LEON",
+        "CATALUÑA",
+        "EXTREMADURA",
+        "GALICIA",
+        "MADRID",
+        "REGION DE MURCIA",
+        "LA RIOJA",
+        "COMUNITAT VALENCIANA",
+        "CIUDAD DE CEUTA",
+        "CIUDAD DE MELILLA",
+        "CONTRIBUYENTES NO RESIDENTES"
+      ],
+      "selected": "CATALUÑA",
+      "observed": "CATALUÑA"
+    },
+    {
+      "key": "child-name",
+      "requested": "PRUEBA HIJO",
+      "observed": "PRUEBA HIJO"
+    },
+    {
+      "key": "child-nif",
+      "requested": "90000002J",
+      "observed": "90000002J"
+    },
+    {
+      "key": "child-birth",
+      "requested": "01/01/2022",
+      "observed": "01/01/2022"
+    },
+    {
+      "key": "family-link",
+      "options": [
+        " Borrar",
+        "AHijos de ambos cónyuges",
+        "BHijos del primer declarante si no conviven con el otro progenitor",
+        "CHijos del cónyuge si no conviven con el otro progenitor",
+        "DHijos del primer declarante si también conviven con el otro progenitor: hijos de parejas de hecho, hijos del declarante con guarda y custodia compartida, hijos del declarante cuando haya fallecido el otro progenitor en el año",
+        "EHijos del cónyuge si también conviven con el otro progenitor: hijos del cónyuge con guarda y custodia compartida, hijos del cónyuge cuando haya fallecido el otro progenitor en el año"
+      ],
+      "selected": "BHijos del primer declarante si no conviven con el otro progenitor",
+      "observed": "B"
+    },
+    {
+      "key": "child-region",
+      "observed": "CATALUÑA"
+    },
+    {
+      "key": "child-income-over-8000",
+      "observed": false,
+      "exactIncomeEntered": false
+    },
+    {
+      "key": "IDII",
+      "requested": "45000.00",
+      "observed": "45.000,00"
+    },
+    {
+      "key": "GSS",
+      "requested": "2925.00",
+      "observed": "2.925,00"
+    },
+    {
+      "key": "IDRE",
+      "requested": "8500.00",
+      "observed": "8.500,00"
+    },
+    {
+      "key": "GCS",
+      "requested": "0.00",
+      "observed": ""
+    },
+    {
+      "key": "GCC",
+      "requested": "0.00",
+      "observed": ""
+    },
+    {
+      "key": "GDJ",
+      "requested": "0.00",
+      "observed": ""
+    },
+    {
+      "key": "IDICLDED2",
+      "requested": "45000.00",
+      "observed": "45.000,00"
+    },
+    {
+      "key": "GSSCLDED2",
+      "requested": "2925.00",
+      "observed": "2.925,00"
+    }
+  ],
+  "confirmations": [],
+  "familyControls": {
+    "schema": "open2025-family-controls-v1",
+    "rows": [
+      {
+        "kind": "checkbox",
+        "label": "Si el hijo, integrante de la unidad familiar, ha obtenido rentas en 2025 (cualquier importe), marque la casilla",
+        "unique": true,
+        "dom": {
+          "id": "i5tIfw-real",
+          "type": "checkbox",
+          "value": "on",
+          "checked": false,
+          "disabled": true,
+          "containerTitle": "Si el hijo, integrante de la unidad familiar, ha obtenido rentas en 2025 (cualquier importe), marque la casilla:",
+          "aria": [
+            {
+              "id": "i5tIfw-cnt",
+              "for": "i5tIfw-real",
+              "text": ""
+            }
+          ],
+          "rowLabel": "Si el hijo, integrante de la unidad familiar, ha obtenido rentas en 2025 (cualquier importe), marque la casilla"
+        }
+      },
+      {
+        "kind": "checkbox",
+        "label": "Marque la casilla si el hijo ha percibido rentas en cuantía superior a 8.000 euros",
+        "unique": true,
+        "dom": {
+          "id": "i5tIzw-real",
+          "type": "checkbox",
+          "value": "on",
+          "checked": false,
+          "disabled": true,
+          "containerTitle": "Marque la casilla si el hijo ha percibido rentas en cuantía superior a 8.000 euros:",
+          "aria": [
+            {
+              "id": "i5tIzw-cnt",
+              "for": "i5tIzw-real",
+              "text": ""
+            }
+          ],
+          "rowLabel": "Marque la casilla si el hijo ha percibido rentas en cuantía superior a 8.000 euros"
+        }
+      },
+      {
+        "kind": "checkbox",
+        "label": "Marque la casilla si el hijo presenta declaración individual con rentas superiores a 1.800 euros (*)",
+        "unique": true,
+        "dom": {
+          "id": "i5tIix-real",
+          "type": "checkbox",
+          "value": "on",
+          "checked": false,
+          "disabled": true,
+          "containerTitle": "Marque la casilla si el hijo presenta declaración individual con rentas superiores a 1.800 euros (*):",
+          "aria": [
+            {
+              "id": "i5tIix-cnt",
+              "for": "i5tIix-real",
+              "text": ""
+            }
+          ],
+          "rowLabel": "Marque la casilla si el hijo presenta declaración individual con rentas superiores a 1.800 euros (*)"
+        }
+      },
+      {
+        "kind": "checkbox",
+        "label": "Si hubiera fallecido el otro progenitor en 2025 (antes del 31-12), marque la casilla (sólo para hijos con rentas)",
+        "unique": true,
+        "dom": {
+          "id": "i5tI1y-real",
+          "type": "checkbox",
+          "value": "on",
+          "checked": false,
+          "disabled": true,
+          "containerTitle": "Si hubiera fallecido el otro progenitor en 2025 (antes del 31-12), marque la casilla (sólo para hijos con rentas):",
+          "aria": [
+            {
+              "id": "i5tI1y-cnt",
+              "for": "i5tI1y-real",
+              "text": ""
+            }
+          ],
+          "rowLabel": "Si hubiera fallecido el otro progenitor en 2025 (antes del 31-12), marque la casilla (sólo para hijos con rentas)"
+        }
+      },
+      {
+        "kind": "checkbox",
+        "label": "Si el otro progenitor ha fallecido en 2025 y la discapacidad del hijo ha sido reconocida con posterioridad al fallecimiento, marque la casilla",
+        "unique": true,
+        "dom": {
+          "id": "i5tIly-real",
+          "type": "checkbox",
+          "value": "on",
+          "checked": false,
+          "disabled": true,
+          "containerTitle": "Si hubiera fallecido el otro progenitor en 2025 (antes del 31-12), marque la casilla (sólo para hijos con rentas):",
+          "aria": [
+            {
+              "id": "i5tIly-cnt",
+              "for": "i5tIly-real",
+              "text": ""
+            }
+          ],
+          "rowLabel": "Si el otro progenitor ha fallecido en 2025 y la discapacidad del hijo ha sido reconocida con posterioridad al fallecimiento, marque la casilla"
+        }
+      },
+      {
+        "kind": "combobox",
+        "label": "Clave discapacidad",
+        "unique": true,
+        "dom": {
+          "id": "i5tI7t-real",
+          "type": "text",
+          "value": " ",
+          "checked": false,
+          "disabled": false,
+          "containerTitle": "Clave discapacidad",
+          "aria": [],
+          "rowLabel": ""
+        }
+      },
+      {
+        "kind": "combobox",
+        "label": "Otras situaciones",
+        "unique": true,
+        "dom": {
+          "id": "i5tIbt-real",
+          "type": "text",
+          "value": " ",
+          "checked": false,
+          "disabled": false,
+          "containerTitle": "Otras situaciones",
+          "aria": [],
+          "rowLabel": ""
+        }
+      },
+      {
+        "kind": "datebox",
+        "label": "En caso de adopción indique la fecha en que se ha producido:",
+        "unique": true,
+        "dom": {
+          "id": "i5tIru-real",
+          "type": "text",
+          "value": "",
+          "checked": false,
+          "disabled": false,
+          "containerTitle": "En caso de adopción indique la fecha en que se ha producido:",
+          "aria": [],
+          "rowLabel": ""
+        }
+      },
+      {
+        "kind": "datebox",
+        "label": "Si el hijo es adoptado y con anterioridad a la adopción ha convivido con el contribuyente en régimen de acogimiento permanente o preadoptivo o (guarda con fines de adopción) indique, además, la fecha del mismo:",
+        "unique": true,
+        "dom": {
+          "id": "i5tI5v-real",
+          "type": "text",
+          "value": "",
+          "checked": false,
+          "disabled": true,
+          "containerTitle": "Si el hijo es adoptado y con anterioridad a la adopción ha convivido con el contribuyente en régimen de acogimiento permanente o preadoptivo o (guarda con fines de adopción) indique, además, la fecha del mismo:",
+          "aria": [],
+          "rowLabel": ""
+        }
+      },
+      {
+        "kind": "datebox",
+        "label": "Si el hijo hubiera fallecido en 2025 (antes del 31 de Diciembre), indique la fecha de fallecimiento:",
+        "unique": true,
+        "dom": {
+          "id": "i5tIkv-real",
+          "type": "text",
+          "value": "",
+          "checked": false,
+          "disabled": false,
+          "containerTitle": "Si el hijo hubiera fallecido en 2025 (antes del 31 de Diciembre), indique la fecha de fallecimiento:",
+          "aria": [],
+          "rowLabel": ""
+        }
+      }
+    ],
+    "inventory": [
+      {
+        "title": "Nombre del hijo",
+        "value": "HIJO"
+      },
+      {
+        "title": "Nombre del hijo",
+        "value": ""
+      },
+      {
+        "title": "Nombre del descendiente",
+        "value": ""
+      },
+      {
+        "title": "Convivencia:",
+        "value": ""
+      }
+    ],
+    "personal": [
+      {
+        "title": "",
+        "parentTitle": "Castellano",
+        "value": "on",
+        "checked": true,
+        "type": "radio",
+        "disabled": false
+      },
+      {
+        "title": "",
+        "parentTitle": "Catalán",
+        "value": "on",
+        "checked": false,
+        "type": "radio",
+        "disabled": false
+      },
+      {
+        "title": "",
+        "parentTitle": "Gallego",
+        "value": "on",
+        "checked": false,
+        "type": "radio",
+        "disabled": false
+      },
+      {
+        "title": "",
+        "parentTitle": "Valenciano",
+        "value": "on",
+        "checked": false,
+        "type": "radio",
+        "disabled": false
+      },
+      {
+        "title": "",
+        "parentTitle": "Si desea que el programa solamente calcule la declaración individual del declarante, marque aquí",
+        "value": "on",
+        "checked": true,
+        "type": "checkbox",
+        "disabled": false
+      },
+      {
+        "title": "NIF:",
+        "parentTitle": "",
+        "value": "90000000B",
+        "checked": false,
+        "type": "text",
+        "disabled": false
+      },
+      {
+        "title": "Apellidos y nombre:",
+        "parentTitle": "",
+        "value": "PRUEBA C OPEN",
+        "checked": false,
+        "type": "text",
+        "disabled": false
+      },
+      {
+        "title": "",
+        "parentTitle": "Estado Civil (a 31/12/2025)",
+        "value": "SOLTERO/A",
+        "checked": false,
+        "type": "text",
+        "disabled": false
+      },
+      {
+        "title": "",
+        "parentTitle": "Fecha de nacimiento:",
+        "value": "01/01/1985",
+        "checked": false,
+        "type": "text",
+        "disabled": false
+      },
+      {
+        "title": "",
+        "parentTitle": "Hombre",
+        "value": "on",
+        "checked": true,
+        "type": "radio",
+        "disabled": false
+      },
+      {
+        "title": "",
+        "parentTitle": "Mujer",
+        "value": "on",
+        "checked": false,
+        "type": "radio",
+        "disabled": false
+      },
+      {
+        "title": "",
+        "parentTitle": "Clave de discapacidad",
+        "value": " ",
+        "checked": false,
+        "type": "text",
+        "disabled": false
+      },
+      {
+        "title": "",
+        "parentTitle": "Comunidad Autónoma",
+        "value": "CATALUÑA",
+        "checked": false,
+        "type": "text",
+        "disabled": false
+      },
+      {
+        "title": "",
+        "parentTitle": "Fecha de fallecimiento:",
+        "value": "",
+        "checked": false,
+        "type": "text",
+        "disabled": false
+      },
+      {
+        "title": "Nombre del hijo",
+        "parentTitle": "",
+        "value": "HIJO",
+        "checked": false,
+        "type": "text",
+        "disabled": false
+      },
+      {
+        "title": "NIF:",
+        "parentTitle": "",
+        "value": "90000002J",
+        "checked": false,
+        "type": "text",
+        "disabled": true
+      },
+      {
+        "title": "Fecha de   nacimiento:",
+        "parentTitle": "",
+        "value": "01/01/2022",
+        "checked": false,
+        "type": "text",
+        "disabled": true
+      },
+      {
+        "title": "Clave de  discapacidad:",
+        "parentTitle": "",
+        "value": "",
+        "checked": false,
+        "type": "text",
+        "disabled": true
+      },
+      {
+        "title": "",
+        "parentTitle": "Fallecido\nen 2025",
+        "value": "on",
+        "checked": false,
+        "type": "checkbox",
+        "disabled": true
+      },
+      {
+        "title": "",
+        "parentTitle": "",
+        "value": "",
+        "checked": false,
+        "type": "text",
+        "disabled": true
+      },
+      {
+        "title": "",
+        "parentTitle": "",
+        "value": "NO",
+        "checked": false,
+        "type": "text",
+        "disabled": true
+      },
+      {
+        "title": "Nombre del hijo",
+        "parentTitle": "",
+        "value": "",
+        "checked": false,
+        "type": "text",
+        "disabled": false
+      },
+      {
+        "title": "NIF:",
+        "parentTitle": "",
+        "value": "",
+        "checked": false,
+        "type": "text",
+        "disabled": true
+      },
+      {
+        "title": "Fecha de   nacimiento:",
+        "parentTitle": "",
+        "value": "",
+        "checked": false,
+        "type": "text",
+        "disabled": true
+      },
+      {
+        "title": "Clave de  discapacidad:",
+        "parentTitle": "",
+        "value": "",
+        "checked": false,
+        "type": "text",
+        "disabled": true
+      },
+      {
+        "title": "",
+        "parentTitle": "Fallecido\nen 2025",
+        "value": "on",
+        "checked": false,
+        "type": "checkbox",
+        "disabled": true
+      },
+      {
+        "title": "",
+        "parentTitle": "",
+        "value": "",
+        "checked": false,
+        "type": "text",
+        "disabled": true
+      },
+      {
+        "title": "",
+        "parentTitle": "",
+        "value": "",
+        "checked": false,
+        "type": "text",
+        "disabled": true
+      },
+      {
+        "title": "Nombre del descendiente",
+        "parentTitle": "",
+        "value": "",
+        "checked": false,
+        "type": "text",
+        "disabled": false
+      },
+      {
+        "title": "NIF:",
+        "parentTitle": "",
+        "value": "",
+        "checked": false,
+        "type": "text",
+        "disabled": true
+      },
+      {
+        "title": "Fecha de   nacimiento:",
+        "parentTitle": "",
+        "value": "",
+        "checked": false,
+        "type": "text",
+        "disabled": true
+      },
+      {
+        "title": "Clave de  discapacidad:",
+        "parentTitle": "",
+        "value": "",
+        "checked": false,
+        "type": "text",
+        "disabled": true
+      },
+      {
+        "title": "",
+        "parentTitle": "Fallecido\nen 2025",
+        "value": "on",
+        "checked": false,
+        "type": "checkbox",
+        "disabled": true
+      },
+      {
+        "title": "Volumen de rentas:",
+        "parentTitle": "",
+        "value": "",
+        "checked": false,
+        "type": "text",
+        "disabled": true
+      },
+      {
+        "title": "NIF:",
+        "parentTitle": "",
+        "value": "",
+        "checked": false,
+        "type": "text",
+        "disabled": false
+      },
+      {
+        "title": "Apellidos y nombre:",
+        "parentTitle": "",
+        "value": "",
+        "checked": false,
+        "type": "text",
+        "disabled": true
+      },
+      {
+        "title": "Fecha de   nacimiento:",
+        "parentTitle": "",
+        "value": "",
+        "checked": false,
+        "type": "text",
+        "disabled": true
+      },
+      {
+        "title": "Fallecido en 2025:",
+        "parentTitle": "",
+        "value": "",
+        "checked": false,
+        "type": "text",
+        "disabled": true
+      },
+      {
+        "title": "Vinculación:",
+        "parentTitle": "",
+        "value": "",
+        "checked": false,
+        "type": "text",
+        "disabled": true
+      },
+      {
+        "title": "Clave de  discapacidad:",
+        "parentTitle": "",
+        "value": "",
+        "checked": false,
+        "type": "text",
+        "disabled": true
+      },
+      {
+        "title": "Convivencia:",
+        "parentTitle": "",
+        "value": "",
+        "checked": false,
+        "type": "text",
+        "disabled": true
+      }
+    ],
+    "entradaSha256": "c113b9992fc85c2f83cb8288d4397b4e842d0032998af21fceb8efefd3f4c538",
+    "sesLatin1Sha256": "dbcc6c8bf805cd64e2f04f724d24c1deb214021a90653ff58b61f9c2affabe83"
+  }
+}

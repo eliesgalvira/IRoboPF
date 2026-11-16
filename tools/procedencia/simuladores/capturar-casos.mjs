@@ -20,7 +20,8 @@ import { pathToFileURL, fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
 import assert from 'node:assert/strict';
 import { Schema } from 'effect';
-import { validateFamilyCase, familySesReadback } from './familia-open.mjs';
+import { validateFamilyCase, validateSyntheticFamilyCase, familySesReadback } from './familia-open.mjs';
+import { validateAscendantCase } from './ascendientes-open.mjs';
 
 const self = fileURLToPath(import.meta.url);
 const root = fileURLToPath(new URL('../../../', import.meta.url));
@@ -83,7 +84,9 @@ export function sesReadback(decoded, c) {
   return { personal, amounts: observed };
 }
 
-export function validateCase(c) {
+// Ascendientes sólo para vinculación de las capturas existentes. El transporte
+// general no implementa su diálogo y conserva el rechazo por defecto.
+export function validateCase(c, { allowAscendants = false, allowSyntheticFamily = false } = {}) {
   const id = c?.id ?? c?.job?.id;
   ensure(string(id) && /^[a-zA-Z0-9][a-zA-Z0-9_-]{0,79}$/.test(id), 'ID de caso inválido');
   ensure(!(Object.hasOwn(c, 'entradaAPI') && Object.hasOwn(c, 'entrada')), 'Entrada ambigua');
@@ -110,15 +113,20 @@ export function validateCase(c) {
     ensure(r.colegio.obligatorio === 'si' && r.colegio.finesEsenciales === 'si' && r.defensa.litigioDirectoPagador === 'si', 'Gastos especiales no acreditados');
   }
   for (const r of e.retenciones) { ensure(r.ejercicio === 2025 && r.efectiva === true, 'Retención no efectiva'); totals.IDRE += cents(r.importe); }
-  const family = e.familiaresConDerechoMinimo === 'segun-derechos';
-  ensure(family || (e.familiaresConDerechoMinimo === 'ninguno' && e.derechosMinimos === undefined), 'Familia incoherente');
+  const asc = allowAscendants && Array.isArray(e.derechosMinimos?.ascendientes);
+  if (asc) validateAscendantCase(c);
+  const family = !asc && e.familiaresConDerechoMinimo === 'segun-derechos';
+  ensure(asc || family || (e.familiaresConDerechoMinimo === 'ninguno' && e.derechosMinimos === undefined), 'Familia incoherente');
   if (family) {
-    validateFamilyCase(c);
-    ensure(e.comunidadAutonoma === 'madrid', 'Familia fuera del corte observado');
+    if (allowSyntheticFamily) validateSyntheticFamilyCase(c);
+    else {
+      validateFamilyCase(c);
+      ensure(e.comunidadAutonoma === 'madrid', 'Familia fuera del corte observado');
+    }
   }
   const amounts = Object.fromEntries(Object.entries(totals).map(([k, n]) => [k, euros(n)]));
   Object.values(amounts).forEach(cents);
-  return { id: c.id ?? c.job.id, entry: e, family, amounts: { ...amounts, IDICLDED2: amounts.IDII, GSSCLDED2: amounts.GSS } };
+  return { id: c.id ?? c.job.id, entry: e, family, asc, amounts: { ...amounts, IDICLDED2: amounts.IDII, GSSCLDED2: amounts.GSS } };
 }
 
 function absoluteFile(key) {

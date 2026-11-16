@@ -67,8 +67,10 @@ export const hayAlimentosPropiosSinMinimo = (caso: DerechosMinimosAnuales) =>
   )
 
 /** Valida estructura y coherencia antes de cualquier operación monetaria. */
+export type AlcanceMinimos = "general" | "anual-trabajo-efectivo-2025"
+
 export const validarDerechosMinimos = Effect.fn("Minimos.validarDerechos")(
-  function* (entrada: DerechosMinimosAnuales) {
+  function* (entrada: DerechosMinimosAnuales, alcance: AlcanceMinimos = "general") {
     const caso = yield* Schema.decodeUnknownEffect(DerechosMinimosAnuales)(
       entrada,
       { onExcessProperty: "error" }
@@ -217,7 +219,16 @@ export const validarDerechosMinimos = Effect.fn("Minimos.validarDerechos")(
         return yield* rechazar("Ascendiente nacido en año igual o posterior al contribuyente: filiación no soportada")
       if (caso.ascendientes.length > 0 && caso.descendientes.length > 0)
         return yield* rechazar("Concurrencia de ambos censos generacionales pendiente de conciliación económica completa")
-      if (caso.ejercicio !== 2025 || !["madrid", "castilla-la-mancha", "comunitat-valenciana"].includes(caso.territorio))
+      const ampliacionOrdinaria = alcance === "anual-trabajo-efectivo-2025" &&
+        ["canarias", "aragon", "castilla-y-leon"].includes(caso.territorio) &&
+        caso.ascendientes.length === 1 && caso.ascendientes.every(a =>
+          a.gradoDiscapacidad === 0 && !a.ayudaOMovilidadReducida &&
+          a.economia.perfil === "sin-rentas" && a.declaracion === "no-presenta" &&
+          a.titulares.length === 1 && a.titulares.every(t =>
+            t.titularId === caso.contribuyenteId && t.grado === 1 &&
+            t.internamientoEspecializado.length === 0))
+      if (caso.ejercicio !== 2025 ||
+        (!["madrid", "castilla-la-mancha", "comunitat-valenciana"].includes(caso.territorio) && !ampliacionOrdinaria))
         return yield* rechazar("Ascendientes limitados al productor ordinario2025 Madrid/CLM/Valencia")
       const libro = yield* Effect.try({
         try: () => producirAscendientes2025(caso.ascendientes === "ninguno" ? [] : caso.ascendientes, caso.contribuyenteId, caso.territorio),
@@ -264,9 +275,10 @@ export const calcularDerechosMinimos = Effect.fn("Minimos.calcularDerechos")(
   function* (
     entrada: DerechosMinimosAnuales,
     minimos: MinimosPersonalesFamiliaresIrpf,
-    aritmetica: Decimal.Constructor = Decimal.clone({ precision: 80 })
+    aritmetica: Decimal.Constructor = Decimal.clone({ precision: 80 }),
+    alcance: AlcanceMinimos = "general"
   ) {
-    const caso = yield* validarDerechosMinimos(entrada)
+    const caso = yield* validarDerechosMinimos(entrada, alcance)
     const elegibles = caso.descendientes
       .map((d) => ({
         descendiente: d,

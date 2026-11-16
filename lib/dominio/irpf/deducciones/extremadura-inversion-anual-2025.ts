@@ -28,7 +28,7 @@ export function evaluarInversionExt2025(entrada:HechosInversionExt2025,m:Magnitu
  const capital=e.inversores.reduce((total,v)=>total+BigInt(v.importeCentimos),0n)
  exigir(capital>0n && capital===BigInt(e.capitalSocialCentimos),"EXT inversión: capital social y censo notarial de suscriptores contradictorios")
  // LSC4: la constitución ordinaria declarada debe respetar el mínimo de su forma.
- exigir(capital>=(r.forma==="SA"?6000000n:100n),"EXT inversión: capital mínimo de constitución SA60000/SL1 euros no alcanzado")
+ exigir(capital>=(r.forma==="SA"?6_000_000n:100n),"EXT inversión: capital mínimo de constitución SA60000/SL1 euros no alcanzado")
  const titular=e.inversores.find(v=>v.persona===propio)
  exigir(titular!==undefined && titular.importeCentimos===x.pago.importeCentimos,"EXT inversión: importe propio en escritura no coincide con pago")
  exigir(r.entidad===x.entidad && fecha(r.fecha)>=x.constitucion && r.fecha<="2025-12-31","EXT inversión: inscripción no conciliada antes del devengo")

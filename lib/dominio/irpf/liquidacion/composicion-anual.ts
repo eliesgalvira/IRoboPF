@@ -333,8 +333,21 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
           motivo: "Modalidad o listas familiares parciales no soportadas",
         })
       )
+    // Capacidad de la anual explícita ordinaria. Retenciones y la API de
+    // cotizaciones estimadas conservan el alcance general de mínimos.
+    const alcanceMinimos = caso.anio === 2025 &&
+      entrada.cotizaciones.naturaleza === "efectivas" &&
+      entrada.origenBaseGeneralB === "solo-trabajo" &&
+      entrada.politica === "decimal-hasta-salida" && entrada.baseAhorro.isZero() &&
+      entrada.deduccionesAutonomicasCentimos === 0 &&
+      entrada.deduccionesTerritoriales2025 === undefined &&
+      entrada.deduccionesValencianas2025 === undefined &&
+      entrada.maternidad2025 === undefined && entrada.ingresosIdentificados2025 === undefined &&
+      entrada.inmueblesP4a === undefined && entrada.aragonSocialMixto2025 === undefined &&
+      entrada.basesFamiliares2025 === undefined
+      ? "anual-trabajo-efectivo-2025" : "general"
     if (caso.derechosMinimos !== undefined) {
-      const derechos = yield* validarDerechosMinimos(caso.derechosMinimos).pipe(
+      const derechos = yield* validarDerechosMinimos(caso.derechosMinimos, alcanceMinimos).pipe(
         Effect.mapError(errorDerechosMinimos)
       )
       if (
@@ -435,7 +448,8 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
         : yield* calcularDerechosMinimos(
             caso.derechosMinimos,
             minimosEstatales,
-            A
+            A,
+            alcanceMinimos
           ).pipe(Effect.mapError(errorDerechosMinimos))
     const derechosAutonomicos =
       caso.derechosMinimos === undefined
@@ -443,7 +457,8 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
         : yield* calcularDerechosMinimos(
             caso.derechosMinimos,
             parametrosComunidad.minimosAutonomicos,
-            A
+            A,
+            alcanceMinimos
           ).pipe(Effect.mapError(errorDerechosMinimos))
     const minimoContribuyente =
       derechosEstatales?.contribuyente ??

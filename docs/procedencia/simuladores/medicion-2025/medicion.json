@@ -5,21 +5,21 @@
   "inventario": "no-realizado; no se invoca engine.mjs ni se certifican fuentes o dependencias",
   "integridad": "Iguales exige vinculo entrada/SES y resultado/PDF. Comparaciones sin vinculo son exploratorias",
   "medicion": {
-    "iguales": 31,
+    "iguales": 51,
     "N": 80,
-    "fraccion": "31/80",
-    "comparables": 32,
-    "igualesExploratorias": 31,
-    "fraccionExploratoria": "31/80",
+    "fraccion": "51/80",
+    "comparables": 54,
+    "igualesExploratorias": 51,
+    "fraccionExploratoria": "51/80",
     "manifiestoCompleto": true,
     "registrosRecibidos": 80,
     "duplicados": 0
   },
   "ponderacionExterna": {
     "estado": "incompleta",
-    "casosConPesoYResultado": 32,
-    "casosSinPesoOResultado": 48,
-    "sumaPesosComparables": "9836077.333150183154",
+    "casosConPesoYResultado": 54,
+    "casosSinPesoOResultado": 26,
+    "sumaPesosComparables": "16597998.057448107451",
     "discrepanciaPonderadaEUR": null,
     "discrepanciaAbsolutaPonderadaEUR": null
   },
@@ -30,6 +30,20 @@
       "pesoExterno": "329261.000000000000",
       "evidenciaVinculada": true,
       "impactoAbsolutoPonderadoEUR": "3292.61000000000000"
+    },
+    {
+      "id": "open2025-andalucia-11",
+      "discrepanciaEUR": "0.01",
+      "pesoExterno": "316738.071428571429",
+      "evidenciaVinculada": true,
+      "impactoAbsolutoPonderadoEUR": "3167.38071428571429"
+    },
+    {
+      "id": "open2025-canarias-02",
+      "discrepanciaEUR": "-0.01",
+      "pesoExterno": "276831.750000000000",
+      "evidenciaVinculada": true,
+      "impactoAbsolutoPonderadoEUR": "2768.31750000000000"
     }
   ],
   "limitePrioridad": "Peso externo por diferencia absoluta; proxy de diseño, no estimación de afectados. Rechazos sin importe no reciben un cero ni un impacto inventado",
@@ -481,12 +495,160 @@
     },
     {
       "id": "open2025-comunitat-valenciana-01",
-      "identidadSha256": "0a59dd8c4769452e7808b8d68a153bb1dc819ccfd076e38ecf1493bab1533cc7",
-      "estado": "rechazado",
+      "identidadSha256": "9b75339ff139ab8d8e2568c215ac4f286ea66154e355b11c3f815ace4e404292",
+      "estado": "igual-al-centimo",
       "integridadReferencias": {
-        "estado": "ausente"
+        "estado": "bytes-verificados",
+        "verificadas": 6
       },
-      "motivo": "referencias-no-verificadas"
+      "resultadoOpenEUR": "377.95",
+      "pesoExterno": "310301.888888888889",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "26050",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "26050",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "2224.2",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "377.95",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "377.95",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "2353.75",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "4577.95",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "2887.5",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "2990.25",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "663.3",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "636.5",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "26050",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "377.95",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "entrada-ses-y-resultado-pdf-vinculados",
+        "tipoVinculo": "proyeccion-de-predicados-sinteticos",
+        "sesSha256": "e0f4cfcfa4e6ee8587853fe3f661aff15340a15ac43317a0c563ce307624cf8c",
+        "pdfSha256": "02afe968790e6780b5ae8fb86dde34c8e02fc0f05e9e3db0bd16330a6f37ac37",
+        "readbacksSha256": "2dc7d76ced032fab9db88e0f30aab7eae0763824fa84719084b482bfeea0538f",
+        "evidenciaAscendientesSha256": {
+          "personal": "c1ebb3162dd3266e2a115cba633d0b6b0455ada88170d271e74db8ae0503a115",
+          "dialogo": "ae5c7b8ab48710fcf6f8835185e3175eabf60fb8d6641a0bdbb863ee7644c45e",
+          "reglaConvivencia": "515d4069867626ab0e6c12feb5c777ae9df7da697a33d6246777cd0a6e05fdae"
+        },
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "resultadoEUR": "377.95",
+        "declaracion": {
+          "modalidad": "individual",
+          "titular": "DECLARANTE",
+          "codigoTerritorial": "17"
+        },
+        "ascendientes": {
+          "estado": "proyeccion-sintetica-de-predicados",
+          "aptoParaBindingSintetico": true,
+          "countedAsMatch": false,
+          "origen": "sintetico",
+          "identidad": {
+            "territorio": "comunitat-valenciana",
+            "codigoTerritorial": "17",
+            "nifSintetico": "90000002J",
+            "nacimiento": "1955-01-01",
+            "vinculo": "D",
+            "registrosAscendientesActivos": 1,
+            "mesesDafas2Observado": "13",
+            "semanticaMesesDafas2": "no-inferida"
+          },
+          "equivalencias": [
+            "identidad-y-nacimiento-ses-ui",
+            "vinculo-D",
+            "un-registro-sin-descendientes-observados",
+            "convivencia-ui-al-menos-medio-periodo",
+            "inclusion-ui-renta-no-superior-8000",
+            "inclusion-ui-no-declaracion-con-renta-superior-1800",
+            "convivencia-vacia-regla-100R304"
+          ],
+          "controlesVaciosObservados": [
+            "discapacidad",
+            "fallecimiento",
+            "numero-descendientes-con-derecho"
+          ],
+          "hechosNoIntroducidosExactamente": [
+            "renta-exacta-cero",
+            "no-presentacion-absoluta-declaracion",
+            "convivencia-todo-el-anio",
+            "ausencia-discapacidad-hecho",
+            "grado-consanguinidad-y-residencia-efectivos",
+            "exhaustividad-fiscal",
+            "autenticidad-aeat"
+          ],
+          "limite": "Equivalencia de predicados para el mínimo ordinario del perfil sintético, sin otras deducciones. No acredita hechos externos ni autenticidad AEAT; MESESDAFAS2 no se interpreta.",
+          "minimos": {
+            "casillas": [
+              "0515",
+              "0516",
+              "0511",
+              "0512",
+              "0519",
+              "0520"
+            ],
+            "estado": "minimos-ses-pdf-coincidentes"
+          }
+        },
+        "limite": "Equivalencia de predicados para el mínimo ordinario del perfil sintético, sin otras deducciones. No acredita hechos externos ni autenticidad AEAT; MESESDAFAS2 no se interpreta."
+      },
+      "coincidenciaVerificada": true
     },
     {
       "id": "open2025-extremadura-01",
@@ -935,12 +1097,160 @@
     },
     {
       "id": "open2025-canarias-02",
-      "identidadSha256": "e10bd7845b3da42209b66fbb8d9174ce858509ce8b4ff1c3c529fed20cec98fa",
-      "estado": "rechazado",
+      "identidadSha256": "a0ea2c580862e6e61b162979060496b9ef00cdc5c15bdcc8f5b0257eca568936",
+      "estado": "discrepante",
       "integridadReferencias": {
-        "estado": "ausente"
+        "estado": "bytes-verificados",
+        "verificadas": 6
       },
-      "motivo": "referencias-no-verificadas"
+      "resultadoOpenEUR": "226.80",
+      "pesoExterno": "276831.750000000000",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "40075",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "40075",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "4231.665",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "226.79",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "226.79",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "4495.125",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "8726.79",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "4968.045",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "5264.625",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "736.38",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "769.5",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "40075",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "226.79",
+      "discrepanciaEUR": "-0.01",
+      "vinculacion": {
+        "estado": "entrada-ses-y-resultado-pdf-vinculados",
+        "tipoVinculo": "proyeccion-de-predicados-sinteticos",
+        "sesSha256": "c40053ceaf483e4693d0bb66e7328c1630a4264ca24eb6eab40ae69cd079fe3c",
+        "pdfSha256": "673220e0d9c46cb717ca5b9d360324828e76ecc8859beb08812c3e4fce475fc8",
+        "readbacksSha256": "fbd99dee818fdfddb2e4faa02bd37e30bdf301c4530f82e81e0cd44982441e0d",
+        "evidenciaAscendientesSha256": {
+          "personal": "254158db9197b758c6fc93932824b30ee0463b2be8ef6bf8189e6757156aefdc",
+          "dialogo": "6d684fe0f7b2bb315d111efcba066ea035eaf0ff6d190e1e95909d462fe63eed",
+          "reglaConvivencia": "515d4069867626ab0e6c12feb5c777ae9df7da697a33d6246777cd0a6e05fdae"
+        },
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "resultadoEUR": "226.80",
+        "declaracion": {
+          "modalidad": "individual",
+          "titular": "DECLARANTE",
+          "codigoTerritorial": "05"
+        },
+        "ascendientes": {
+          "estado": "proyeccion-sintetica-de-predicados",
+          "aptoParaBindingSintetico": true,
+          "countedAsMatch": false,
+          "origen": "sintetico",
+          "identidad": {
+            "territorio": "canarias",
+            "codigoTerritorial": "05",
+            "nifSintetico": "90000002J",
+            "nacimiento": "1948-12-31",
+            "vinculo": "D",
+            "registrosAscendientesActivos": 1,
+            "mesesDafas2Observado": "13",
+            "semanticaMesesDafas2": "no-inferida"
+          },
+          "equivalencias": [
+            "identidad-y-nacimiento-ses-ui",
+            "vinculo-D",
+            "un-registro-sin-descendientes-observados",
+            "convivencia-ui-al-menos-medio-periodo",
+            "inclusion-ui-renta-no-superior-8000",
+            "inclusion-ui-no-declaracion-con-renta-superior-1800",
+            "convivencia-vacia-regla-100R304"
+          ],
+          "controlesVaciosObservados": [
+            "discapacidad",
+            "fallecimiento",
+            "numero-descendientes-con-derecho"
+          ],
+          "hechosNoIntroducidosExactamente": [
+            "renta-exacta-cero",
+            "no-presentacion-absoluta-declaracion",
+            "convivencia-todo-el-anio",
+            "ausencia-discapacidad-hecho",
+            "grado-consanguinidad-y-residencia-efectivos",
+            "exhaustividad-fiscal",
+            "autenticidad-aeat"
+          ],
+          "limite": "Equivalencia de predicados para el mínimo ordinario del perfil sintético, sin otras deducciones. No acredita hechos externos ni autenticidad AEAT; MESESDAFAS2 no se interpreta.",
+          "minimos": {
+            "casillas": [
+              "0515",
+              "0516",
+              "0511",
+              "0512",
+              "0519",
+              "0520"
+            ],
+            "estado": "minimos-ses-pdf-coincidentes"
+          }
+        },
+        "limite": "Equivalencia de predicados para el mínimo ordinario del perfil sintético, sin otras deducciones. No acredita hechos externos ni autenticidad AEAT; MESESDAFAS2 no se interpreta."
+      },
+      "coincidenciaVerificada": false
     },
     {
       "id": "open2025-castilla-y-leon-02",
@@ -1389,12 +1699,160 @@
     },
     {
       "id": "open2025-aragon-03",
-      "identidadSha256": "8a95ad5c8bc90187ca65d75701cbc5544e3e8690cef56fa33cc1fba34e2e3f7e",
-      "estado": "rechazado",
+      "identidadSha256": "5839cf88a283a4965c1aeda120b0ef4b25e8ad352daa02d7cc4125ab2c44f70b",
+      "estado": "igual-al-centimo",
       "integridadReferencias": {
-        "estado": "ausente"
+        "estado": "bytes-verificados",
+        "verificadas": 6
       },
-      "motivo": "referencias-no-verificadas"
+      "resultadoOpenEUR": "370.04",
+      "pesoExterno": "267197.333333333333",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "54100",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "54100",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "7147.29",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "370.04",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "370.04",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "7222.75",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "14370.04",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "7783.79",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "7859.25",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "636.5",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "636.5",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "54100",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "370.04",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "entrada-ses-y-resultado-pdf-vinculados",
+        "tipoVinculo": "proyeccion-de-predicados-sinteticos",
+        "sesSha256": "c859e4ab5b9696c9fca70bc522fd42a8aa7537710ce1030af1ca9343908f45d0",
+        "pdfSha256": "5626391bb1f224b8cda1912c89e66aca72f1e91165b2c94468060ab4cb4422f3",
+        "readbacksSha256": "33b5ab7f276fd40acbda3e018adbcce10f792199e3623a94250824ce992e6374",
+        "evidenciaAscendientesSha256": {
+          "personal": "3e5f8d1c2367f5df0bc178d50a9d7a449a2152c71c43bade243b19701ae9f90c",
+          "dialogo": "b1da977354c6871713ff8c19279ed0aa256e62fd8e3d0d7c561a181eb94088b2",
+          "reglaConvivencia": "515d4069867626ab0e6c12feb5c777ae9df7da697a33d6246777cd0a6e05fdae"
+        },
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "resultadoEUR": "370.04",
+        "declaracion": {
+          "modalidad": "individual",
+          "titular": "DECLARANTE",
+          "codigoTerritorial": "02"
+        },
+        "ascendientes": {
+          "estado": "proyeccion-sintetica-de-predicados",
+          "aptoParaBindingSintetico": true,
+          "countedAsMatch": false,
+          "origen": "sintetico",
+          "identidad": {
+            "territorio": "aragon",
+            "codigoTerritorial": "02",
+            "nifSintetico": "90000002J",
+            "nacimiento": "1955-01-01",
+            "vinculo": "D",
+            "registrosAscendientesActivos": 1,
+            "mesesDafas2Observado": "13",
+            "semanticaMesesDafas2": "no-inferida"
+          },
+          "equivalencias": [
+            "identidad-y-nacimiento-ses-ui",
+            "vinculo-D",
+            "un-registro-sin-descendientes-observados",
+            "convivencia-ui-al-menos-medio-periodo",
+            "inclusion-ui-renta-no-superior-8000",
+            "inclusion-ui-no-declaracion-con-renta-superior-1800",
+            "convivencia-vacia-regla-100R304"
+          ],
+          "controlesVaciosObservados": [
+            "discapacidad",
+            "fallecimiento",
+            "numero-descendientes-con-derecho"
+          ],
+          "hechosNoIntroducidosExactamente": [
+            "renta-exacta-cero",
+            "no-presentacion-absoluta-declaracion",
+            "convivencia-todo-el-anio",
+            "ausencia-discapacidad-hecho",
+            "grado-consanguinidad-y-residencia-efectivos",
+            "exhaustividad-fiscal",
+            "autenticidad-aeat"
+          ],
+          "limite": "Equivalencia de predicados para el mínimo ordinario del perfil sintético, sin otras deducciones. No acredita hechos externos ni autenticidad AEAT; MESESDAFAS2 no se interpreta.",
+          "minimos": {
+            "casillas": [
+              "0515",
+              "0516",
+              "0511",
+              "0512",
+              "0519",
+              "0520"
+            ],
+            "estado": "minimos-ses-pdf-coincidentes"
+          }
+        },
+        "limite": "Equivalencia de predicados para el mínimo ordinario del perfil sintético, sin otras deducciones. No acredita hechos externos ni autenticidad AEAT; MESESDAFAS2 no se interpreta."
+      },
+      "coincidenciaVerificada": true
     },
     {
       "id": "open2025-canarias-03",
@@ -1607,12 +2065,190 @@
     },
     {
       "id": "open2025-catalunya-03",
-      "identidadSha256": "1acc8a12f9d8b1295fd543028e3d885a8c11f121eed9e1346c2c1650c43bfc31",
-      "estado": "rechazado",
+      "identidadSha256": "e8b270ae987e1be212994858fd44eb7300a00ceb8275743f38b257d51383abb6",
+      "estado": "igual-al-centimo",
       "integridadReferencias": {
-        "estado": "ausente"
+        "estado": "bytes-verificados",
+        "verificadas": 8
       },
-      "motivo": "referencias-no-verificadas"
+      "resultadoOpenEUR": "302.75",
+      "pesoExterno": "309104.142857142857",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "26050",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "26050",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "2267.75",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "302.75",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "302.75",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "2235",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "4502.75",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "3023",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "2990.25",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "755.25",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "755.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "26050",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "302.75",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "entrada-ses-y-resultado-pdf-vinculados",
+        "tipoVinculo": "proyeccion-de-predicados-sinteticos",
+        "evidenciaFamilia": {
+          "personal": {
+            "archivo": "oficiales/open2025-catalunya-03/personal-final.html",
+            "sha256": "6191f66034e9c487886902ba9986c9c2cd57926d052d4e6527403d843866092f"
+          },
+          "dialogo": {
+            "archivo": "oficiales/open2025-catalunya-03/familia-dialogo.html",
+            "sha256": "18668557f8f2306950f178f8558a0f5235a155929dc5433ca760dbc1ac937cfc"
+          },
+          "catalogos": [
+            {
+              "archivo": "oficiales/catalogos-familia/opciones-0.json",
+              "sha256": "8215e720ea75af37ef0fe4933097cce6a6ae62c48cc1380ce9ac2132bf3cfdfe"
+            },
+            {
+              "archivo": "oficiales/catalogos-familia/opciones-1.json",
+              "sha256": "3e9b8662b52cbee1927f269058fdb1df5884c66ee5aa5718b1582b60dcda3f54"
+            },
+            {
+              "archivo": "oficiales/catalogos-familia/opciones-2.json",
+              "sha256": "be5520e50daa759faa8c4195a603ad33daeb389f2ac043b39963abef025130f4"
+            }
+          ]
+        },
+        "declaracion": {
+          "modalidad": "individual",
+          "titular": "DECLARANTE",
+          "codigoTerritorial": "09"
+        },
+        "sesSha256": "a159c22be1bd6fa4a2f18b57579009708c5c6e0bbff771c1c932a6892c956c63",
+        "pdfSha256": "60265f4a64e68f6bb7672cd12b9c24be10a49dcc0ee841c1df3720ad82a09ee9",
+        "readbacksSha256": "3392438782d349338bf435eee530009f1abcd9cff3462a516dcdedd680e581f1",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "resultadoEUR": "302.75",
+        "familia": {
+          "estado": "proyeccion-sintetica-de-predicados",
+          "aptoParaBindingSintetico": true,
+          "countedAsMatch": false,
+          "origen": "sintetico",
+          "identidad": {
+            "fechaNacimiento": "01/01/2009",
+            "edad": 16,
+            "vinculo": "B",
+            "numeroTitularesObservado": 1,
+            "territorio": "catalunya"
+          },
+          "faltantes": [],
+          "rentaExactaIntroducidaEnOpen": false,
+          "limite": "Proyección sintética al mínimo ordinario, sin otras deducciones. B/D y opciones vacías observados; no acredita hechos jurídicos o vitales. Controles deshabilitados conservan sólo su estado UI. GUARD/GUAROD/RENTASHMEN/MATD/MATOD sin semántica inferida.",
+          "catalogo": {
+            "version": "0.12",
+            "reglas": "N000088955",
+            "sha256": [
+              "8215e720ea75af37ef0fe4933097cce6a6ae62c48cc1380ce9ac2132bf3cfdfe",
+              "3e9b8662b52cbee1927f269058fdb1df5884c66ee5aa5718b1582b60dcda3f54",
+              "be5520e50daa759faa8c4195a603ad33daeb389f2ac043b39963abef025130f4"
+            ],
+            "alcance": "Opciones globales; los valores de cada caso se comprueban en su propia captura"
+          },
+          "censo": {
+            "controlesPersonales": 41,
+            "descendientesActivos": 1,
+            "ascendientesActivos": 0
+          },
+          "monetarios": {
+            "controles": [
+              "IDII",
+              "GSS",
+              "IDRE",
+              "GCS",
+              "GCC",
+              "GDJ",
+              "IDICLDED2",
+              "GSSCLDED2"
+            ],
+            "estado": "ocho-readbacks-coincidentes"
+          },
+          "hechosNoIntroducidosExactamente": [
+            "renta-exacta-cero",
+            "no-presentacion-absoluta-declaracion",
+            "custodia-juridica",
+            "convivencia-efectiva",
+            "situacion-vital-otro-progenitor",
+            "autenticidad-aeat"
+          ],
+          "minimos": {
+            "casillas": [
+              "0513",
+              "0514",
+              "0511",
+              "0512",
+              "0519",
+              "0520"
+            ],
+            "estado": "minimos-ses-pdf-coincidentes"
+          }
+        }
+      },
+      "coincidenciaVerificada": true
     },
     {
       "id": "open2025-comunitat-valenciana-03",
@@ -1725,12 +2361,190 @@
     },
     {
       "id": "open2025-madrid-03",
-      "identidadSha256": "5a8adf39254baca7bd9b6b14d34abf9f0d7b932ac87b4cb25e252b71f6deddfd",
-      "estado": "rechazado",
+      "identidadSha256": "f7e2bc51824ef6c23bf239e693cba208ef62309a6ab256e0fd638cf5b418fdf5",
+      "estado": "igual-al-centimo",
       "integridadReferencias": {
-        "estado": "ausente"
+        "estado": "bytes-verificados",
+        "verificadas": 8
       },
-      "motivo": "referencias-no-verificadas"
+      "resultadoOpenEUR": "174.55",
+      "pesoExterno": "307110.076923076923",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "26050",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "26050",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "2025.55",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "174.55",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "174.55",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "2349",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "4374.55",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "2641.34",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "2990.25",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "615.79",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "641.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "26050",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "174.55",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "entrada-ses-y-resultado-pdf-vinculados",
+        "tipoVinculo": "proyeccion-de-predicados-sinteticos",
+        "evidenciaFamilia": {
+          "personal": {
+            "archivo": "oficiales/open2025-madrid-03/personal-final.html",
+            "sha256": "8def96b0208aa804d20e2781f9003aa3847a7f791933c77f538ba7b8aeec71e0"
+          },
+          "dialogo": {
+            "archivo": "oficiales/open2025-madrid-03/familia-dialogo.html",
+            "sha256": "de2f71ae61fc17a37b18bcedcc19ef8d010337de94ccb21d23ded37d531ecc8d"
+          },
+          "catalogos": [
+            {
+              "archivo": "oficiales/catalogos-familia/opciones-0.json",
+              "sha256": "8215e720ea75af37ef0fe4933097cce6a6ae62c48cc1380ce9ac2132bf3cfdfe"
+            },
+            {
+              "archivo": "oficiales/catalogos-familia/opciones-1.json",
+              "sha256": "3e9b8662b52cbee1927f269058fdb1df5884c66ee5aa5718b1582b60dcda3f54"
+            },
+            {
+              "archivo": "oficiales/catalogos-familia/opciones-2.json",
+              "sha256": "be5520e50daa759faa8c4195a603ad33daeb389f2ac043b39963abef025130f4"
+            }
+          ]
+        },
+        "declaracion": {
+          "modalidad": "individual",
+          "titular": "DECLARANTE",
+          "codigoTerritorial": "12"
+        },
+        "sesSha256": "1675327ef0097b95122d9fe130d41f09e39fb6885ca173cf61630ad88562117a",
+        "pdfSha256": "d72993db8f0af19a4da3772237c8cc8a8bb1cd1921ae325fe6094a61d28fba8c",
+        "readbacksSha256": "1f55e75a04a477acdc23807111205b2255d185d22633f13ecf21c2852e29f95d",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "resultadoEUR": "174.55",
+        "familia": {
+          "estado": "proyeccion-sintetica-de-predicados",
+          "aptoParaBindingSintetico": true,
+          "countedAsMatch": false,
+          "origen": "sintetico",
+          "identidad": {
+            "fechaNacimiento": "01/01/2015",
+            "edad": 10,
+            "vinculo": "D",
+            "numeroTitularesObservado": 2,
+            "territorio": "madrid"
+          },
+          "faltantes": [],
+          "rentaExactaIntroducidaEnOpen": false,
+          "limite": "Proyección sintética al mínimo ordinario, sin otras deducciones. B/D y opciones vacías observados; no acredita hechos jurídicos o vitales. Controles deshabilitados conservan sólo su estado UI. GUARD/GUAROD/RENTASHMEN/MATD/MATOD sin semántica inferida.",
+          "catalogo": {
+            "version": "0.12",
+            "reglas": "N000088955",
+            "sha256": [
+              "8215e720ea75af37ef0fe4933097cce6a6ae62c48cc1380ce9ac2132bf3cfdfe",
+              "3e9b8662b52cbee1927f269058fdb1df5884c66ee5aa5718b1582b60dcda3f54",
+              "be5520e50daa759faa8c4195a603ad33daeb389f2ac043b39963abef025130f4"
+            ],
+            "alcance": "Opciones globales; los valores de cada caso se comprueban en su propia captura"
+          },
+          "censo": {
+            "controlesPersonales": 41,
+            "descendientesActivos": 1,
+            "ascendientesActivos": 0
+          },
+          "monetarios": {
+            "controles": [
+              "IDII",
+              "GSS",
+              "IDRE",
+              "GCS",
+              "GCC",
+              "GDJ",
+              "IDICLDED2",
+              "GSSCLDED2"
+            ],
+            "estado": "ocho-readbacks-coincidentes"
+          },
+          "hechosNoIntroducidosExactamente": [
+            "renta-exacta-cero",
+            "no-presentacion-absoluta-declaracion",
+            "custodia-juridica",
+            "convivencia-efectiva",
+            "situacion-vital-otro-progenitor",
+            "autenticidad-aeat"
+          ],
+          "minimos": {
+            "casillas": [
+              "0513",
+              "0514",
+              "0511",
+              "0512",
+              "0519",
+              "0520"
+            ],
+            "estado": "minimos-ses-pdf-coincidentes"
+          }
+        }
+      },
+      "coincidenciaVerificada": true
     },
     {
       "id": "open2025-andalucia-04",
@@ -1843,12 +2657,160 @@
     },
     {
       "id": "open2025-castilla-y-leon-04",
-      "identidadSha256": "ee6ed9fabb2b5e7780786e4537e4c7f730562ff7e9704b779cc739999b143f85",
-      "estado": "rechazado",
+      "identidadSha256": "5369a44fafa6968f2f56e730826a46847d842b8e65b88a8ce2318266fe4be63f",
+      "estado": "igual-al-centimo",
       "integridadReferencias": {
-        "estado": "ausente"
+        "estado": "bytes-verificados",
+        "verificadas": 6
       },
-      "motivo": "referencias-no-verificadas"
+      "resultadoOpenEUR": "161.25",
+      "pesoExterno": "347558.250000000000",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "26050",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "26050",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "2140.5",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "161.25",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "161.25",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "2220.75",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "4361.25",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "2869.5",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "2990.25",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "729",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "769.5",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "26050",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "161.25",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "entrada-ses-y-resultado-pdf-vinculados",
+        "tipoVinculo": "proyeccion-de-predicados-sinteticos",
+        "sesSha256": "86eb21f39d705586b3c1d0d6361a2e177276bba288a2dad796ed5082ae833f4f",
+        "pdfSha256": "cdd8bafb9a75906d8d3b8eeb6415a2b2a142f9443894e193b203a0739c4f7356",
+        "readbacksSha256": "9cc8c6df024b7d3f347c3f1712c39e58b6f94c39be86235be73a5874c92fe5aa",
+        "evidenciaAscendientesSha256": {
+          "personal": "594ce6a49e0ff2dd281ed6802d2f43d50e5a7aa16403b96e878e383c05e9b71a",
+          "dialogo": "b07c05f3524ddac090218d6e5539bbd58cdef914e2f32e077a1a03c960ec6111",
+          "reglaConvivencia": "515d4069867626ab0e6c12feb5c777ae9df7da697a33d6246777cd0a6e05fdae"
+        },
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "resultadoEUR": "161.25",
+        "declaracion": {
+          "modalidad": "individual",
+          "titular": "DECLARANTE",
+          "codigoTerritorial": "08"
+        },
+        "ascendientes": {
+          "estado": "proyeccion-sintetica-de-predicados",
+          "aptoParaBindingSintetico": true,
+          "countedAsMatch": false,
+          "origen": "sintetico",
+          "identidad": {
+            "territorio": "castilla-y-leon",
+            "codigoTerritorial": "08",
+            "nifSintetico": "90000002J",
+            "nacimiento": "1948-12-31",
+            "vinculo": "D",
+            "registrosAscendientesActivos": 1,
+            "mesesDafas2Observado": "13",
+            "semanticaMesesDafas2": "no-inferida"
+          },
+          "equivalencias": [
+            "identidad-y-nacimiento-ses-ui",
+            "vinculo-D",
+            "un-registro-sin-descendientes-observados",
+            "convivencia-ui-al-menos-medio-periodo",
+            "inclusion-ui-renta-no-superior-8000",
+            "inclusion-ui-no-declaracion-con-renta-superior-1800",
+            "convivencia-vacia-regla-100R304"
+          ],
+          "controlesVaciosObservados": [
+            "discapacidad",
+            "fallecimiento",
+            "numero-descendientes-con-derecho"
+          ],
+          "hechosNoIntroducidosExactamente": [
+            "renta-exacta-cero",
+            "no-presentacion-absoluta-declaracion",
+            "convivencia-todo-el-anio",
+            "ausencia-discapacidad-hecho",
+            "grado-consanguinidad-y-residencia-efectivos",
+            "exhaustividad-fiscal",
+            "autenticidad-aeat"
+          ],
+          "limite": "Equivalencia de predicados para el mínimo ordinario del perfil sintético, sin otras deducciones. No acredita hechos externos ni autenticidad AEAT; MESESDAFAS2 no se interpreta.",
+          "minimos": {
+            "casillas": [
+              "0515",
+              "0516",
+              "0511",
+              "0512",
+              "0519",
+              "0520"
+            ],
+            "estado": "minimos-ses-pdf-coincidentes"
+          }
+        },
+        "limite": "Equivalencia de predicados para el mínimo ordinario del perfil sintético, sin otras deducciones. No acredita hechos externos ni autenticidad AEAT; MESESDAFAS2 no se interpreta."
+      },
+      "coincidenciaVerificada": true
     },
     {
       "id": "open2025-castilla-la-mancha-04",
@@ -1952,12 +2914,190 @@
     },
     {
       "id": "open2025-catalunya-04",
-      "identidadSha256": "8dd019461b6cfc7ccfdea26bf206fb01051cbe64c480405820877eb538e097ea",
-      "estado": "rechazado",
+      "identidadSha256": "14ab44a75bd6ea7437c1b0a0c0a254da47b4efc7b695b013a7578ee02926732e",
+      "estado": "igual-al-centimo",
       "integridadReferencias": {
-        "estado": "ausente"
+        "estado": "bytes-verificados",
+        "verificadas": 8
       },
-      "motivo": "referencias-no-verificadas"
+      "resultadoOpenEUR": "-11.75",
+      "pesoExterno": "309104.142857142857",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "54100",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "54100",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "7150.25",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "-11.75",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "-11.75",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "6838",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "13988.25",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "8171.5",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "7859.25",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "1021.25",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "1021.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "54100",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "-11.75",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "entrada-ses-y-resultado-pdf-vinculados",
+        "tipoVinculo": "proyeccion-de-predicados-sinteticos",
+        "evidenciaFamilia": {
+          "personal": {
+            "archivo": "oficiales/open2025-catalunya-04/personal-final.html",
+            "sha256": "355a677d0cd18bd90b1c4c21a836bf9529ea85e3a79cc078b534200d85d224f6"
+          },
+          "dialogo": {
+            "archivo": "oficiales/open2025-catalunya-04/familia-dialogo.html",
+            "sha256": "fd8147d0fbebf172a32319aa4a31132ed8ec280f33cc620fe708bf9a2bb833fd"
+          },
+          "catalogos": [
+            {
+              "archivo": "oficiales/catalogos-familia/opciones-0.json",
+              "sha256": "8215e720ea75af37ef0fe4933097cce6a6ae62c48cc1380ce9ac2132bf3cfdfe"
+            },
+            {
+              "archivo": "oficiales/catalogos-familia/opciones-1.json",
+              "sha256": "3e9b8662b52cbee1927f269058fdb1df5884c66ee5aa5718b1582b60dcda3f54"
+            },
+            {
+              "archivo": "oficiales/catalogos-familia/opciones-2.json",
+              "sha256": "be5520e50daa759faa8c4195a603ad33daeb389f2ac043b39963abef025130f4"
+            }
+          ]
+        },
+        "declaracion": {
+          "modalidad": "individual",
+          "titular": "DECLARANTE",
+          "codigoTerritorial": "09"
+        },
+        "sesSha256": "a16f8f351d34286189b561b96108efb53afa2930374524e4fcc293e78e09f9d9",
+        "pdfSha256": "847f1ffabf2e072b0de117be885351ee95acd3c33a5df4e8c49283a10c57a638",
+        "readbacksSha256": "ff634013e51d0ddbc788a966fc15104b0332c9b8740f37bc6c688eac5f201999",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "resultadoEUR": "-11.75",
+        "familia": {
+          "estado": "proyeccion-sintetica-de-predicados",
+          "aptoParaBindingSintetico": true,
+          "countedAsMatch": false,
+          "origen": "sintetico",
+          "identidad": {
+            "fechaNacimiento": "01/01/2023",
+            "edad": 2,
+            "vinculo": "B",
+            "numeroTitularesObservado": 1,
+            "territorio": "catalunya"
+          },
+          "faltantes": [],
+          "rentaExactaIntroducidaEnOpen": false,
+          "limite": "Proyección sintética al mínimo ordinario, sin otras deducciones. B/D y opciones vacías observados; no acredita hechos jurídicos o vitales. Controles deshabilitados conservan sólo su estado UI. GUARD/GUAROD/RENTASHMEN/MATD/MATOD sin semántica inferida.",
+          "catalogo": {
+            "version": "0.12",
+            "reglas": "N000088955",
+            "sha256": [
+              "8215e720ea75af37ef0fe4933097cce6a6ae62c48cc1380ce9ac2132bf3cfdfe",
+              "3e9b8662b52cbee1927f269058fdb1df5884c66ee5aa5718b1582b60dcda3f54",
+              "be5520e50daa759faa8c4195a603ad33daeb389f2ac043b39963abef025130f4"
+            ],
+            "alcance": "Opciones globales; los valores de cada caso se comprueban en su propia captura"
+          },
+          "censo": {
+            "controlesPersonales": 41,
+            "descendientesActivos": 1,
+            "ascendientesActivos": 0
+          },
+          "monetarios": {
+            "controles": [
+              "IDII",
+              "GSS",
+              "IDRE",
+              "GCS",
+              "GCC",
+              "GDJ",
+              "IDICLDED2",
+              "GSSCLDED2"
+            ],
+            "estado": "ocho-readbacks-coincidentes"
+          },
+          "hechosNoIntroducidosExactamente": [
+            "renta-exacta-cero",
+            "no-presentacion-absoluta-declaracion",
+            "custodia-juridica",
+            "convivencia-efectiva",
+            "situacion-vital-otro-progenitor",
+            "autenticidad-aeat"
+          ],
+          "minimos": {
+            "casillas": [
+              "0513",
+              "0514",
+              "0511",
+              "0512",
+              "0519",
+              "0520"
+            ],
+            "estado": "minimos-ses-pdf-coincidentes"
+          }
+        }
+      },
+      "coincidenciaVerificada": true
     },
     {
       "id": "open2025-comunitat-valenciana-04",
@@ -2061,12 +3201,190 @@
     },
     {
       "id": "open2025-galicia-04",
-      "identidadSha256": "25338b4a03307f78cb38f5219add27920c954d8dbe11b7e07c0c4a86314f547c",
-      "estado": "rechazado",
+      "identidadSha256": "553d2231f42889eb3d7b894c22917a51f3f4175157ad84ff0373fc4c9b10061d",
+      "estado": "igual-al-centimo",
       "integridadReferencias": {
-        "estado": "ausente"
+        "estado": "bytes-verificados",
+        "verificadas": 8
       },
-      "motivo": "referencias-no-verificadas"
+      "resultadoOpenEUR": "376.06",
+      "pesoExterno": "298765.800000000000",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "40075",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "40075",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "4366.68",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "376.055",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "376.06",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "4509.375",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "8876.055",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "5112.96",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "5264.625",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "746.28",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "755.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "40075",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "376.06",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "entrada-ses-y-resultado-pdf-vinculados",
+        "tipoVinculo": "proyeccion-de-predicados-sinteticos",
+        "evidenciaFamilia": {
+          "personal": {
+            "archivo": "oficiales/open2025-galicia-04/personal-final.html",
+            "sha256": "95ac7166a09b8f314bf256065d6915a3eec2efe0ce1ce218fb920f9c3822cc88"
+          },
+          "dialogo": {
+            "archivo": "oficiales/open2025-galicia-04/familia-dialogo.html",
+            "sha256": "bfd26ab7dc72ff8a72e7a3b03659e3bc3254b8f031574f603bf189e9069fe93b"
+          },
+          "catalogos": [
+            {
+              "archivo": "oficiales/catalogos-familia/opciones-0.json",
+              "sha256": "8215e720ea75af37ef0fe4933097cce6a6ae62c48cc1380ce9ac2132bf3cfdfe"
+            },
+            {
+              "archivo": "oficiales/catalogos-familia/opciones-1.json",
+              "sha256": "3e9b8662b52cbee1927f269058fdb1df5884c66ee5aa5718b1582b60dcda3f54"
+            },
+            {
+              "archivo": "oficiales/catalogos-familia/opciones-2.json",
+              "sha256": "be5520e50daa759faa8c4195a603ad33daeb389f2ac043b39963abef025130f4"
+            }
+          ]
+        },
+        "declaracion": {
+          "modalidad": "individual",
+          "titular": "DECLARANTE",
+          "codigoTerritorial": "11"
+        },
+        "sesSha256": "1df6c216c1bffe0a916978d9f01677da8064820550f916dbdd8b13ad8152b4d5",
+        "pdfSha256": "a324d49cf2675bc1ecb62cd53c7d7b8861bac101a4c65cc16ad9dd40412e58d8",
+        "readbacksSha256": "0d56123df06c1155454a96d6dd8711c4ef948912f9c6cde1cedfc7b57d3261f4",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "resultadoEUR": "376.06",
+        "familia": {
+          "estado": "proyeccion-sintetica-de-predicados",
+          "aptoParaBindingSintetico": true,
+          "countedAsMatch": false,
+          "origen": "sintetico",
+          "identidad": {
+            "fechaNacimiento": "01/01/2022",
+            "edad": 3,
+            "vinculo": "B",
+            "numeroTitularesObservado": 1,
+            "territorio": "galicia"
+          },
+          "faltantes": [],
+          "rentaExactaIntroducidaEnOpen": false,
+          "limite": "Proyección sintética al mínimo ordinario, sin otras deducciones. B/D y opciones vacías observados; no acredita hechos jurídicos o vitales. Controles deshabilitados conservan sólo su estado UI. GUARD/GUAROD/RENTASHMEN/MATD/MATOD sin semántica inferida.",
+          "catalogo": {
+            "version": "0.12",
+            "reglas": "N000088955",
+            "sha256": [
+              "8215e720ea75af37ef0fe4933097cce6a6ae62c48cc1380ce9ac2132bf3cfdfe",
+              "3e9b8662b52cbee1927f269058fdb1df5884c66ee5aa5718b1582b60dcda3f54",
+              "be5520e50daa759faa8c4195a603ad33daeb389f2ac043b39963abef025130f4"
+            ],
+            "alcance": "Opciones globales; los valores de cada caso se comprueban en su propia captura"
+          },
+          "censo": {
+            "controlesPersonales": 41,
+            "descendientesActivos": 1,
+            "ascendientesActivos": 0
+          },
+          "monetarios": {
+            "controles": [
+              "IDII",
+              "GSS",
+              "IDRE",
+              "GCS",
+              "GCC",
+              "GDJ",
+              "IDICLDED2",
+              "GSSCLDED2"
+            ],
+            "estado": "ocho-readbacks-coincidentes"
+          },
+          "hechosNoIntroducidosExactamente": [
+            "renta-exacta-cero",
+            "no-presentacion-absoluta-declaracion",
+            "custodia-juridica",
+            "convivencia-efectiva",
+            "situacion-vital-otro-progenitor",
+            "autenticidad-aeat"
+          ],
+          "minimos": {
+            "casillas": [
+              "0513",
+              "0514",
+              "0511",
+              "0512",
+              "0519",
+              "0520"
+            ],
+            "estado": "minimos-ses-pdf-coincidentes"
+          }
+        }
+      },
+      "coincidenciaVerificada": true
     },
     {
       "id": "open2025-madrid-04",
@@ -2179,12 +3497,190 @@
     },
     {
       "id": "open2025-catalunya-05",
-      "identidadSha256": "b67ca3bf2519d11d1dc6b02ea278ec623a5aa088099d6d29107f8320c0200320",
-      "estado": "rechazado",
+      "identidadSha256": "758dde1155b23bee45ece00e442a9cc4d1758e38896a9fcbc0b962dff53b1eea",
+      "estado": "igual-al-centimo",
       "integridadReferencias": {
-        "estado": "ausente"
+        "estado": "bytes-verificados",
+        "verificadas": 8
       },
-      "motivo": "referencias-no-verificadas"
+      "resultadoOpenEUR": "733.38",
+      "pesoExterno": "309104.142857142857",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "40075",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "40075",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "4724",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "733.375",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "733.38",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "4509.375",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "9233.375",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "5479.25",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "5264.625",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "755.25",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "755.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "40075",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "733.38",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "entrada-ses-y-resultado-pdf-vinculados",
+        "tipoVinculo": "proyeccion-de-predicados-sinteticos",
+        "evidenciaFamilia": {
+          "personal": {
+            "archivo": "oficiales/open2025-catalunya-05/personal-final.html",
+            "sha256": "8ba31ef25d9aed946d3111b1747b4db55bf093e5483105437743c987450ab25e"
+          },
+          "dialogo": {
+            "archivo": "oficiales/open2025-catalunya-05/familia-dialogo.html",
+            "sha256": "ced44a71b9a7a43845befbee87a867b024ff79c8aae8fac4a2074f04d3e62c72"
+          },
+          "catalogos": [
+            {
+              "archivo": "oficiales/catalogos-familia/opciones-0.json",
+              "sha256": "8215e720ea75af37ef0fe4933097cce6a6ae62c48cc1380ce9ac2132bf3cfdfe"
+            },
+            {
+              "archivo": "oficiales/catalogos-familia/opciones-1.json",
+              "sha256": "3e9b8662b52cbee1927f269058fdb1df5884c66ee5aa5718b1582b60dcda3f54"
+            },
+            {
+              "archivo": "oficiales/catalogos-familia/opciones-2.json",
+              "sha256": "be5520e50daa759faa8c4195a603ad33daeb389f2ac043b39963abef025130f4"
+            }
+          ]
+        },
+        "declaracion": {
+          "modalidad": "individual",
+          "titular": "DECLARANTE",
+          "codigoTerritorial": "09"
+        },
+        "sesSha256": "5d6c540e2e4521780b440c0a8b2993e532f4d1644468ef3b52ffc07a672a3cec",
+        "pdfSha256": "b137426f81448eaf76f28f3d1dd1d9a0e19f526b4df543f6d9139d09f01f5574",
+        "readbacksSha256": "6885a13c0d51b0581c3c7997e740e9c6c928cf60add4a7a907cd25c27a684898",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "resultadoEUR": "733.38",
+        "familia": {
+          "estado": "proyeccion-sintetica-de-predicados",
+          "aptoParaBindingSintetico": true,
+          "countedAsMatch": false,
+          "origen": "sintetico",
+          "identidad": {
+            "fechaNacimiento": "01/01/2009",
+            "edad": 16,
+            "vinculo": "B",
+            "numeroTitularesObservado": 1,
+            "territorio": "catalunya"
+          },
+          "faltantes": [],
+          "rentaExactaIntroducidaEnOpen": false,
+          "limite": "Proyección sintética al mínimo ordinario, sin otras deducciones. B/D y opciones vacías observados; no acredita hechos jurídicos o vitales. Controles deshabilitados conservan sólo su estado UI. GUARD/GUAROD/RENTASHMEN/MATD/MATOD sin semántica inferida.",
+          "catalogo": {
+            "version": "0.12",
+            "reglas": "N000088955",
+            "sha256": [
+              "8215e720ea75af37ef0fe4933097cce6a6ae62c48cc1380ce9ac2132bf3cfdfe",
+              "3e9b8662b52cbee1927f269058fdb1df5884c66ee5aa5718b1582b60dcda3f54",
+              "be5520e50daa759faa8c4195a603ad33daeb389f2ac043b39963abef025130f4"
+            ],
+            "alcance": "Opciones globales; los valores de cada caso se comprueban en su propia captura"
+          },
+          "censo": {
+            "controlesPersonales": 41,
+            "descendientesActivos": 1,
+            "ascendientesActivos": 0
+          },
+          "monetarios": {
+            "controles": [
+              "IDII",
+              "GSS",
+              "IDRE",
+              "GCS",
+              "GCC",
+              "GDJ",
+              "IDICLDED2",
+              "GSSCLDED2"
+            ],
+            "estado": "ocho-readbacks-coincidentes"
+          },
+          "hechosNoIntroducidosExactamente": [
+            "renta-exacta-cero",
+            "no-presentacion-absoluta-declaracion",
+            "custodia-juridica",
+            "convivencia-efectiva",
+            "situacion-vital-otro-progenitor",
+            "autenticidad-aeat"
+          ],
+          "minimos": {
+            "casillas": [
+              "0513",
+              "0514",
+              "0511",
+              "0512",
+              "0519",
+              "0520"
+            ],
+            "estado": "minimos-ses-pdf-coincidentes"
+          }
+        }
+      },
+      "coincidenciaVerificada": true
     },
     {
       "id": "open2025-comunitat-valenciana-05",
@@ -2297,12 +3793,190 @@
     },
     {
       "id": "open2025-madrid-05",
-      "identidadSha256": "8bd8ecca2e06fe71d029968e0322ab165d56580b11d3561e9e536902432ae82f",
-      "estado": "rechazado",
+      "identidadSha256": "10c1b219085ca1db7eca751ba9617763fb6adb2507b1d82d5900794f6eef41d3",
+      "estado": "igual-al-centimo",
       "integridadReferencias": {
-        "estado": "ausente"
+        "estado": "bytes-verificados",
+        "verificadas": 8
       },
-      "motivo": "referencias-no-verificadas"
+      "resultadoOpenEUR": "157.99",
+      "pesoExterno": "307110.076923076923",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "40075",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "40075",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "4034.61",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "157.99",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "157.99",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "4623.38",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "8657.99",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "4650.4",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "5264.63",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "615.79",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "641.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "40075",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "157.99",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "entrada-ses-y-resultado-pdf-vinculados",
+        "tipoVinculo": "proyeccion-de-predicados-sinteticos",
+        "evidenciaFamilia": {
+          "personal": {
+            "archivo": "oficiales/open2025-madrid-05/personal-final.html",
+            "sha256": "49b87cdcfa4c7a3315b7337b241316faad9f3c24abbd0c7eb09d3e68fb78e8f4"
+          },
+          "dialogo": {
+            "archivo": "oficiales/open2025-madrid-05/familia-dialogo.html",
+            "sha256": "9ff654b0e306fd1f4804050b4b2b7c021a4069c87a77b2529da570a349ee9bae"
+          },
+          "catalogos": [
+            {
+              "archivo": "oficiales/catalogos-familia/opciones-0.json",
+              "sha256": "8215e720ea75af37ef0fe4933097cce6a6ae62c48cc1380ce9ac2132bf3cfdfe"
+            },
+            {
+              "archivo": "oficiales/catalogos-familia/opciones-1.json",
+              "sha256": "3e9b8662b52cbee1927f269058fdb1df5884c66ee5aa5718b1582b60dcda3f54"
+            },
+            {
+              "archivo": "oficiales/catalogos-familia/opciones-2.json",
+              "sha256": "be5520e50daa759faa8c4195a603ad33daeb389f2ac043b39963abef025130f4"
+            }
+          ]
+        },
+        "declaracion": {
+          "modalidad": "individual",
+          "titular": "DECLARANTE",
+          "codigoTerritorial": "12"
+        },
+        "sesSha256": "2961e2cab26aed91fc1d16d7641ce37ba242bfeafbbd3dba90fbbfac49a57f09",
+        "pdfSha256": "c91a67b3573cb5ec188dcc430a632897adcd053fbfcd6ec94617540488b8e1ec",
+        "readbacksSha256": "896812e9af20191c9c34b105b4c94e4da9ee723c0ef6b8e53e0b9d5ce9acc2a7",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "resultadoEUR": "157.99",
+        "familia": {
+          "estado": "proyeccion-sintetica-de-predicados",
+          "aptoParaBindingSintetico": true,
+          "countedAsMatch": false,
+          "origen": "sintetico",
+          "identidad": {
+            "fechaNacimiento": "01/01/2015",
+            "edad": 10,
+            "vinculo": "D",
+            "numeroTitularesObservado": 2,
+            "territorio": "madrid"
+          },
+          "faltantes": [],
+          "rentaExactaIntroducidaEnOpen": false,
+          "limite": "Proyección sintética al mínimo ordinario, sin otras deducciones. B/D y opciones vacías observados; no acredita hechos jurídicos o vitales. Controles deshabilitados conservan sólo su estado UI. GUARD/GUAROD/RENTASHMEN/MATD/MATOD sin semántica inferida.",
+          "catalogo": {
+            "version": "0.12",
+            "reglas": "N000088955",
+            "sha256": [
+              "8215e720ea75af37ef0fe4933097cce6a6ae62c48cc1380ce9ac2132bf3cfdfe",
+              "3e9b8662b52cbee1927f269058fdb1df5884c66ee5aa5718b1582b60dcda3f54",
+              "be5520e50daa759faa8c4195a603ad33daeb389f2ac043b39963abef025130f4"
+            ],
+            "alcance": "Opciones globales; los valores de cada caso se comprueban en su propia captura"
+          },
+          "censo": {
+            "controlesPersonales": 41,
+            "descendientesActivos": 1,
+            "ascendientesActivos": 0
+          },
+          "monetarios": {
+            "controles": [
+              "IDII",
+              "GSS",
+              "IDRE",
+              "GCS",
+              "GCC",
+              "GDJ",
+              "IDICLDED2",
+              "GSSCLDED2"
+            ],
+            "estado": "ocho-readbacks-coincidentes"
+          },
+          "hechosNoIntroducidosExactamente": [
+            "renta-exacta-cero",
+            "no-presentacion-absoluta-declaracion",
+            "custodia-juridica",
+            "convivencia-efectiva",
+            "situacion-vital-otro-progenitor",
+            "autenticidad-aeat"
+          ],
+          "minimos": {
+            "casillas": [
+              "0513",
+              "0514",
+              "0511",
+              "0512",
+              "0519",
+              "0520"
+            ],
+            "estado": "minimos-ses-pdf-coincidentes"
+          }
+        }
+      },
+      "coincidenciaVerificada": true
     },
     {
       "id": "open2025-andalucia-06-v2",
@@ -2406,12 +4080,190 @@
     },
     {
       "id": "open2025-catalunya-06",
-      "identidadSha256": "73f3c35b5dbf1243eeee13b1c2bc9618caa115ace7d15f54113f02860a6d6084",
-      "estado": "rechazado",
+      "identidadSha256": "42b98827514ff8aa006b028e410e0881999238cc117c08abf707ed287c16aae5",
+      "estado": "igual-al-centimo",
       "integridadReferencias": {
-        "estado": "ausente"
+        "estado": "bytes-verificados",
+        "verificadas": 8
       },
-      "motivo": "referencias-no-verificadas"
+      "resultadoOpenEUR": "-229.25",
+      "pesoExterno": "309104.142857142857",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "26050",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "26050",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "2001.75",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "-229.25",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "-229.25",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "1969",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "3970.75",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "3023",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "2990.25",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "1021.25",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "1021.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "26050",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "-229.25",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "entrada-ses-y-resultado-pdf-vinculados",
+        "tipoVinculo": "proyeccion-de-predicados-sinteticos",
+        "evidenciaFamilia": {
+          "personal": {
+            "archivo": "oficiales/open2025-catalunya-06/personal-final.html",
+            "sha256": "a60581fddc64b9ba1f203445cc942a0c936090ae79abd7665470881ace92a79e"
+          },
+          "dialogo": {
+            "archivo": "oficiales/open2025-catalunya-06/familia-dialogo.html",
+            "sha256": "043d3072f1ff12a0cc842489b5cb2c1ddc45f6d49ac2ad34a572250ded224727"
+          },
+          "catalogos": [
+            {
+              "archivo": "oficiales/catalogos-familia/opciones-0.json",
+              "sha256": "8215e720ea75af37ef0fe4933097cce6a6ae62c48cc1380ce9ac2132bf3cfdfe"
+            },
+            {
+              "archivo": "oficiales/catalogos-familia/opciones-1.json",
+              "sha256": "3e9b8662b52cbee1927f269058fdb1df5884c66ee5aa5718b1582b60dcda3f54"
+            },
+            {
+              "archivo": "oficiales/catalogos-familia/opciones-2.json",
+              "sha256": "be5520e50daa759faa8c4195a603ad33daeb389f2ac043b39963abef025130f4"
+            }
+          ]
+        },
+        "declaracion": {
+          "modalidad": "individual",
+          "titular": "DECLARANTE",
+          "codigoTerritorial": "09"
+        },
+        "sesSha256": "aa415317a3b3acfc279f5809e84a98a5f3f610eebcc5e835e73cf463045c2537",
+        "pdfSha256": "66488a4581abd07953b4b4428e6f19b348fdbb8c3825086206dd8ebb4b959bb2",
+        "readbacksSha256": "a87fa48d66a61ad6fb56a999619b05636f92f63b8a31f85facd391f5d96ca6a8",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "resultadoEUR": "-229.25",
+        "familia": {
+          "estado": "proyeccion-sintetica-de-predicados",
+          "aptoParaBindingSintetico": true,
+          "countedAsMatch": false,
+          "origen": "sintetico",
+          "identidad": {
+            "fechaNacimiento": "01/01/2023",
+            "edad": 2,
+            "vinculo": "B",
+            "numeroTitularesObservado": 1,
+            "territorio": "catalunya"
+          },
+          "faltantes": [],
+          "rentaExactaIntroducidaEnOpen": false,
+          "limite": "Proyección sintética al mínimo ordinario, sin otras deducciones. B/D y opciones vacías observados; no acredita hechos jurídicos o vitales. Controles deshabilitados conservan sólo su estado UI. GUARD/GUAROD/RENTASHMEN/MATD/MATOD sin semántica inferida.",
+          "catalogo": {
+            "version": "0.12",
+            "reglas": "N000088955",
+            "sha256": [
+              "8215e720ea75af37ef0fe4933097cce6a6ae62c48cc1380ce9ac2132bf3cfdfe",
+              "3e9b8662b52cbee1927f269058fdb1df5884c66ee5aa5718b1582b60dcda3f54",
+              "be5520e50daa759faa8c4195a603ad33daeb389f2ac043b39963abef025130f4"
+            ],
+            "alcance": "Opciones globales; los valores de cada caso se comprueban en su propia captura"
+          },
+          "censo": {
+            "controlesPersonales": 41,
+            "descendientesActivos": 1,
+            "ascendientesActivos": 0
+          },
+          "monetarios": {
+            "controles": [
+              "IDII",
+              "GSS",
+              "IDRE",
+              "GCS",
+              "GCC",
+              "GDJ",
+              "IDICLDED2",
+              "GSSCLDED2"
+            ],
+            "estado": "ocho-readbacks-coincidentes"
+          },
+          "hechosNoIntroducidosExactamente": [
+            "renta-exacta-cero",
+            "no-presentacion-absoluta-declaracion",
+            "custodia-juridica",
+            "convivencia-efectiva",
+            "situacion-vital-otro-progenitor",
+            "autenticidad-aeat"
+          ],
+          "minimos": {
+            "casillas": [
+              "0513",
+              "0514",
+              "0511",
+              "0512",
+              "0519",
+              "0520"
+            ],
+            "estado": "minimos-ses-pdf-coincidentes"
+          }
+        }
+      },
+      "coincidenciaVerificada": true
     },
     {
       "id": "open2025-comunitat-valenciana-06-v2",
@@ -2515,12 +4367,190 @@
     },
     {
       "id": "open2025-madrid-06",
-      "identidadSha256": "f30e631379b2c225d86a00d465752157eee1a26511489c909f5d0feb282902a7",
-      "estado": "rechazado",
+      "identidadSha256": "1a5c800b8c61555256a088bd59835c88ce9b3e0cd2d9eed86661f8a5e04d89d2",
+      "estado": "igual-al-centimo",
       "integridadReferencias": {
-        "estado": "ausente"
+        "estado": "bytes-verificados",
+        "verificadas": 8
       },
-      "motivo": "referencias-no-verificadas"
+      "resultadoOpenEUR": "-530.51",
+      "pesoExterno": "307110.076923076923",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "54100",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "54100",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "6365.49",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "-530.51",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "-530.51",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "7104",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "13469.49",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "7090.75",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "7859.25",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "725.26",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "755.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "54100",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "-530.51",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "entrada-ses-y-resultado-pdf-vinculados",
+        "tipoVinculo": "proyeccion-de-predicados-sinteticos",
+        "evidenciaFamilia": {
+          "personal": {
+            "archivo": "oficiales/open2025-madrid-06/personal-final.html",
+            "sha256": "8033c69a028df0483b56e8b68bf88138e17ba8a238e503ce023deee0b284f911"
+          },
+          "dialogo": {
+            "archivo": "oficiales/open2025-madrid-06/familia-dialogo.html",
+            "sha256": "dccb04351d485fb973d71062e3b2a1756622123bf3bea08780a4637fa507dddf"
+          },
+          "catalogos": [
+            {
+              "archivo": "oficiales/catalogos-familia/opciones-0.json",
+              "sha256": "8215e720ea75af37ef0fe4933097cce6a6ae62c48cc1380ce9ac2132bf3cfdfe"
+            },
+            {
+              "archivo": "oficiales/catalogos-familia/opciones-1.json",
+              "sha256": "3e9b8662b52cbee1927f269058fdb1df5884c66ee5aa5718b1582b60dcda3f54"
+            },
+            {
+              "archivo": "oficiales/catalogos-familia/opciones-2.json",
+              "sha256": "be5520e50daa759faa8c4195a603ad33daeb389f2ac043b39963abef025130f4"
+            }
+          ]
+        },
+        "declaracion": {
+          "modalidad": "individual",
+          "titular": "DECLARANTE",
+          "codigoTerritorial": "12"
+        },
+        "sesSha256": "fd0c70e630ac9884789a0a5c83c610f5697cbdefd5ab0e113fe2cfdf21d49c05",
+        "pdfSha256": "18a39aae498ede4974344d14fd29093cf0251e3ee2281c287595231c002ebfbd",
+        "readbacksSha256": "02ce17cd54159b076d27eef09d8b45a9a4befbdc39a91f865bf8eb88a882f42f",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "resultadoEUR": "-530.51",
+        "familia": {
+          "estado": "proyeccion-sintetica-de-predicados",
+          "aptoParaBindingSintetico": true,
+          "countedAsMatch": false,
+          "origen": "sintetico",
+          "identidad": {
+            "fechaNacimiento": "01/01/2022",
+            "edad": 3,
+            "vinculo": "B",
+            "numeroTitularesObservado": 1,
+            "territorio": "madrid"
+          },
+          "faltantes": [],
+          "rentaExactaIntroducidaEnOpen": false,
+          "limite": "Proyección sintética al mínimo ordinario, sin otras deducciones. B/D y opciones vacías observados; no acredita hechos jurídicos o vitales. Controles deshabilitados conservan sólo su estado UI. GUARD/GUAROD/RENTASHMEN/MATD/MATOD sin semántica inferida.",
+          "catalogo": {
+            "version": "0.12",
+            "reglas": "N000088955",
+            "sha256": [
+              "8215e720ea75af37ef0fe4933097cce6a6ae62c48cc1380ce9ac2132bf3cfdfe",
+              "3e9b8662b52cbee1927f269058fdb1df5884c66ee5aa5718b1582b60dcda3f54",
+              "be5520e50daa759faa8c4195a603ad33daeb389f2ac043b39963abef025130f4"
+            ],
+            "alcance": "Opciones globales; los valores de cada caso se comprueban en su propia captura"
+          },
+          "censo": {
+            "controlesPersonales": 41,
+            "descendientesActivos": 1,
+            "ascendientesActivos": 0
+          },
+          "monetarios": {
+            "controles": [
+              "IDII",
+              "GSS",
+              "IDRE",
+              "GCS",
+              "GCC",
+              "GDJ",
+              "IDICLDED2",
+              "GSSCLDED2"
+            ],
+            "estado": "ocho-readbacks-coincidentes"
+          },
+          "hechosNoIntroducidosExactamente": [
+            "renta-exacta-cero",
+            "no-presentacion-absoluta-declaracion",
+            "custodia-juridica",
+            "convivencia-efectiva",
+            "situacion-vital-otro-progenitor",
+            "autenticidad-aeat"
+          ],
+          "minimos": {
+            "casillas": [
+              "0513",
+              "0514",
+              "0511",
+              "0512",
+              "0519",
+              "0520"
+            ],
+            "estado": "minimos-ses-pdf-coincidentes"
+          }
+        }
+      },
+      "coincidenciaVerificada": true
     },
     {
       "id": "open2025-andalucia-07",
@@ -2633,12 +4663,190 @@
     },
     {
       "id": "open2025-comunitat-valenciana-07",
-      "identidadSha256": "bdb137b85c6bbc6fdeffb581302f3ce6f3278897e3e23fc0a1ab8345b660638e",
-      "estado": "rechazado",
+      "identidadSha256": "5fe89e3a9528d5b3e736bbbbe1e047b1f3515bc96b0ab8e9bfbc032c50bd9ae1",
+      "estado": "igual-al-centimo",
       "integridadReferencias": {
-        "estado": "ausente"
+        "estado": "bytes-verificados",
+        "verificadas": 8
       },
-      "motivo": "referencias-no-verificadas"
+      "resultadoOpenEUR": "319.45",
+      "pesoExterno": "310301.888888888889",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "54100",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "54100",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "7215.45",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "319.45",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "319.45",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "7104",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "14319.45",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "8002.5",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "7859.25",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "787.05",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "755.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "54100",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "319.45",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "entrada-ses-y-resultado-pdf-vinculados",
+        "tipoVinculo": "proyeccion-de-predicados-sinteticos",
+        "evidenciaFamilia": {
+          "personal": {
+            "archivo": "oficiales/open2025-comunitat-valenciana-07/personal-final.html",
+            "sha256": "d2a0532fca08cbac260d73841ba5ba1d9d61dbc01a076b6ea0e092e307df7695"
+          },
+          "dialogo": {
+            "archivo": "oficiales/open2025-comunitat-valenciana-07/familia-dialogo.html",
+            "sha256": "bd9d2369151c807f347a62bb40e55f73ff6d0dafdfa9f4b9f2723399712a137a"
+          },
+          "catalogos": [
+            {
+              "archivo": "oficiales/catalogos-familia/opciones-0.json",
+              "sha256": "8215e720ea75af37ef0fe4933097cce6a6ae62c48cc1380ce9ac2132bf3cfdfe"
+            },
+            {
+              "archivo": "oficiales/catalogos-familia/opciones-1.json",
+              "sha256": "3e9b8662b52cbee1927f269058fdb1df5884c66ee5aa5718b1582b60dcda3f54"
+            },
+            {
+              "archivo": "oficiales/catalogos-familia/opciones-2.json",
+              "sha256": "be5520e50daa759faa8c4195a603ad33daeb389f2ac043b39963abef025130f4"
+            }
+          ]
+        },
+        "declaracion": {
+          "modalidad": "individual",
+          "titular": "DECLARANTE",
+          "codigoTerritorial": "17"
+        },
+        "sesSha256": "6b6cb49eb95fcccb50f09ec73bb8235688d45ddf4880f5e2621d71985d3ea68e",
+        "pdfSha256": "03c0a41b09a756990f837f2a4a332c0652fcd6029ee9d18d2572f9b2c3bc2816",
+        "readbacksSha256": "e6dc634480e660e9b8947934ed299f45b9cff16b59483ef60ef4b636c2fcb931",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "resultadoEUR": "319.45",
+        "familia": {
+          "estado": "proyeccion-sintetica-de-predicados",
+          "aptoParaBindingSintetico": true,
+          "countedAsMatch": false,
+          "origen": "sintetico",
+          "identidad": {
+            "fechaNacimiento": "01/01/2009",
+            "edad": 16,
+            "vinculo": "B",
+            "numeroTitularesObservado": 1,
+            "territorio": "comunitat-valenciana"
+          },
+          "faltantes": [],
+          "rentaExactaIntroducidaEnOpen": false,
+          "limite": "Proyección sintética al mínimo ordinario, sin otras deducciones. B/D y opciones vacías observados; no acredita hechos jurídicos o vitales. Controles deshabilitados conservan sólo su estado UI. GUARD/GUAROD/RENTASHMEN/MATD/MATOD sin semántica inferida.",
+          "catalogo": {
+            "version": "0.12",
+            "reglas": "N000088955",
+            "sha256": [
+              "8215e720ea75af37ef0fe4933097cce6a6ae62c48cc1380ce9ac2132bf3cfdfe",
+              "3e9b8662b52cbee1927f269058fdb1df5884c66ee5aa5718b1582b60dcda3f54",
+              "be5520e50daa759faa8c4195a603ad33daeb389f2ac043b39963abef025130f4"
+            ],
+            "alcance": "Opciones globales; los valores de cada caso se comprueban en su propia captura"
+          },
+          "censo": {
+            "controlesPersonales": 41,
+            "descendientesActivos": 1,
+            "ascendientesActivos": 0
+          },
+          "monetarios": {
+            "controles": [
+              "IDII",
+              "GSS",
+              "IDRE",
+              "GCS",
+              "GCC",
+              "GDJ",
+              "IDICLDED2",
+              "GSSCLDED2"
+            ],
+            "estado": "ocho-readbacks-coincidentes"
+          },
+          "hechosNoIntroducidosExactamente": [
+            "renta-exacta-cero",
+            "no-presentacion-absoluta-declaracion",
+            "custodia-juridica",
+            "convivencia-efectiva",
+            "situacion-vital-otro-progenitor",
+            "autenticidad-aeat"
+          ],
+          "minimos": {
+            "casillas": [
+              "0513",
+              "0514",
+              "0511",
+              "0512",
+              "0519",
+              "0520"
+            ],
+            "estado": "minimos-ses-pdf-coincidentes"
+          }
+        }
+      },
+      "coincidenciaVerificada": true
     },
     {
       "id": "open2025-madrid-07",
@@ -2751,12 +4959,190 @@
     },
     {
       "id": "open2025-catalunya-08",
-      "identidadSha256": "f3bd41d1129f9ba81ea457cd44f6a48e29b779ce968a71e7127bb0998c47131a",
-      "estado": "rechazado",
+      "identidadSha256": "2f37830a80b03182640f74086435f1823fabff3d658046c406747cd711f9fe5c",
+      "estado": "igual-al-centimo",
       "integridadReferencias": {
-        "estado": "ausente"
+        "estado": "bytes-verificados",
+        "verificadas": 8
       },
-      "motivo": "referencias-no-verificadas"
+      "resultadoOpenEUR": "748.25",
+      "pesoExterno": "309104.142857142857",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "54100",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "54100",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "7530.25",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "748.25",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "748.25",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "7218",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "14748.25",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "8171.5",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "7859.25",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "641.25",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "641.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "54100",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "748.25",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "entrada-ses-y-resultado-pdf-vinculados",
+        "tipoVinculo": "proyeccion-de-predicados-sinteticos",
+        "evidenciaFamilia": {
+          "personal": {
+            "archivo": "oficiales/open2025-catalunya-08/personal-final.html",
+            "sha256": "f4c924f5afaff1018bf8f9987fb016def472d4953ec554dfaa0dd45ced1716ad"
+          },
+          "dialogo": {
+            "archivo": "oficiales/open2025-catalunya-08/familia-dialogo.html",
+            "sha256": "f15eb12cc4cf65c202f92b974536340d82c08410d819123055d995e9e60ed6cb"
+          },
+          "catalogos": [
+            {
+              "archivo": "oficiales/catalogos-familia/opciones-0.json",
+              "sha256": "8215e720ea75af37ef0fe4933097cce6a6ae62c48cc1380ce9ac2132bf3cfdfe"
+            },
+            {
+              "archivo": "oficiales/catalogos-familia/opciones-1.json",
+              "sha256": "3e9b8662b52cbee1927f269058fdb1df5884c66ee5aa5718b1582b60dcda3f54"
+            },
+            {
+              "archivo": "oficiales/catalogos-familia/opciones-2.json",
+              "sha256": "be5520e50daa759faa8c4195a603ad33daeb389f2ac043b39963abef025130f4"
+            }
+          ]
+        },
+        "declaracion": {
+          "modalidad": "individual",
+          "titular": "DECLARANTE",
+          "codigoTerritorial": "09"
+        },
+        "sesSha256": "a70b1e027fc27617b3fc10adec238687262b79a70ddb4e1af09f4d8e0b0ae7f5",
+        "pdfSha256": "4203853b9b4b849908c584a04a315a042690fb31638b49aa5cf41fb1891512e3",
+        "readbacksSha256": "a207187494355077ac2e36cc1eedfbe013f7bd91f0bdcdbc467e1dca449a917f",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "resultadoEUR": "748.25",
+        "familia": {
+          "estado": "proyeccion-sintetica-de-predicados",
+          "aptoParaBindingSintetico": true,
+          "countedAsMatch": false,
+          "origen": "sintetico",
+          "identidad": {
+            "fechaNacimiento": "01/01/2015",
+            "edad": 10,
+            "vinculo": "D",
+            "numeroTitularesObservado": 2,
+            "territorio": "catalunya"
+          },
+          "faltantes": [],
+          "rentaExactaIntroducidaEnOpen": false,
+          "limite": "Proyección sintética al mínimo ordinario, sin otras deducciones. B/D y opciones vacías observados; no acredita hechos jurídicos o vitales. Controles deshabilitados conservan sólo su estado UI. GUARD/GUAROD/RENTASHMEN/MATD/MATOD sin semántica inferida.",
+          "catalogo": {
+            "version": "0.12",
+            "reglas": "N000088955",
+            "sha256": [
+              "8215e720ea75af37ef0fe4933097cce6a6ae62c48cc1380ce9ac2132bf3cfdfe",
+              "3e9b8662b52cbee1927f269058fdb1df5884c66ee5aa5718b1582b60dcda3f54",
+              "be5520e50daa759faa8c4195a603ad33daeb389f2ac043b39963abef025130f4"
+            ],
+            "alcance": "Opciones globales; los valores de cada caso se comprueban en su propia captura"
+          },
+          "censo": {
+            "controlesPersonales": 41,
+            "descendientesActivos": 1,
+            "ascendientesActivos": 0
+          },
+          "monetarios": {
+            "controles": [
+              "IDII",
+              "GSS",
+              "IDRE",
+              "GCS",
+              "GCC",
+              "GDJ",
+              "IDICLDED2",
+              "GSSCLDED2"
+            ],
+            "estado": "ocho-readbacks-coincidentes"
+          },
+          "hechosNoIntroducidosExactamente": [
+            "renta-exacta-cero",
+            "no-presentacion-absoluta-declaracion",
+            "custodia-juridica",
+            "convivencia-efectiva",
+            "situacion-vital-otro-progenitor",
+            "autenticidad-aeat"
+          ],
+          "minimos": {
+            "casillas": [
+              "0513",
+              "0514",
+              "0511",
+              "0512",
+              "0519",
+              "0520"
+            ],
+            "estado": "minimos-ses-pdf-coincidentes"
+          }
+        }
+      },
+      "coincidenciaVerificada": true
     },
     {
       "id": "open2025-comunitat-valenciana-08",
@@ -2860,12 +5246,190 @@
     },
     {
       "id": "open2025-madrid-08",
-      "identidadSha256": "c7dc46359d2bc011b14dd54815af129c5802f4fb2be9a5650a8a5d5c03fc52dc",
-      "estado": "rechazado",
+      "identidadSha256": "cd2b0d5ebcd4fea1172bca94fefbd1d778ecff266c147dcceca666c5be70c83b",
+      "estado": "igual-al-centimo",
       "integridadReferencias": {
-        "estado": "ausente"
+        "estado": "bytes-verificados",
+        "verificadas": 8
       },
-      "motivo": "referencias-no-verificadas"
+      "resultadoOpenEUR": "-586.92",
+      "pesoExterno": "307110.076923076923",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "40075",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "40075",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "3669.7",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "-586.92",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "-586.92",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "4243.38",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "7913.08",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "4650.4",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "5264.63",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "980.7",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "1021.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "40075",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "-586.92",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "entrada-ses-y-resultado-pdf-vinculados",
+        "tipoVinculo": "proyeccion-de-predicados-sinteticos",
+        "evidenciaFamilia": {
+          "personal": {
+            "archivo": "oficiales/open2025-madrid-08/personal-final.html",
+            "sha256": "a96892690c0141469c67de9658c91d4f8d62aaa1644bb464948c998c467af12c"
+          },
+          "dialogo": {
+            "archivo": "oficiales/open2025-madrid-08/familia-dialogo.html",
+            "sha256": "2df1490445ca1c7934975257db868936cacccdf519a3459c7560db346e30fd5b"
+          },
+          "catalogos": [
+            {
+              "archivo": "oficiales/catalogos-familia/opciones-0.json",
+              "sha256": "8215e720ea75af37ef0fe4933097cce6a6ae62c48cc1380ce9ac2132bf3cfdfe"
+            },
+            {
+              "archivo": "oficiales/catalogos-familia/opciones-1.json",
+              "sha256": "3e9b8662b52cbee1927f269058fdb1df5884c66ee5aa5718b1582b60dcda3f54"
+            },
+            {
+              "archivo": "oficiales/catalogos-familia/opciones-2.json",
+              "sha256": "be5520e50daa759faa8c4195a603ad33daeb389f2ac043b39963abef025130f4"
+            }
+          ]
+        },
+        "declaracion": {
+          "modalidad": "individual",
+          "titular": "DECLARANTE",
+          "codigoTerritorial": "12"
+        },
+        "sesSha256": "5eebaea5e1c27072674c0ddba5b07f6a563273fef996edb5dcc4fb772aaa0dbb",
+        "pdfSha256": "eb4279c60018b4a040937dcba0b7a8758728b55d0091ded594e92aa17b625e90",
+        "readbacksSha256": "697512005c28c2cd31d28f96e20b1614fe6b7eaaff25259a51070fc0561545dc",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "resultadoEUR": "-586.92",
+        "familia": {
+          "estado": "proyeccion-sintetica-de-predicados",
+          "aptoParaBindingSintetico": true,
+          "countedAsMatch": false,
+          "origen": "sintetico",
+          "identidad": {
+            "fechaNacimiento": "01/01/2023",
+            "edad": 2,
+            "vinculo": "B",
+            "numeroTitularesObservado": 1,
+            "territorio": "madrid"
+          },
+          "faltantes": [],
+          "rentaExactaIntroducidaEnOpen": false,
+          "limite": "Proyección sintética al mínimo ordinario, sin otras deducciones. B/D y opciones vacías observados; no acredita hechos jurídicos o vitales. Controles deshabilitados conservan sólo su estado UI. GUARD/GUAROD/RENTASHMEN/MATD/MATOD sin semántica inferida.",
+          "catalogo": {
+            "version": "0.12",
+            "reglas": "N000088955",
+            "sha256": [
+              "8215e720ea75af37ef0fe4933097cce6a6ae62c48cc1380ce9ac2132bf3cfdfe",
+              "3e9b8662b52cbee1927f269058fdb1df5884c66ee5aa5718b1582b60dcda3f54",
+              "be5520e50daa759faa8c4195a603ad33daeb389f2ac043b39963abef025130f4"
+            ],
+            "alcance": "Opciones globales; los valores de cada caso se comprueban en su propia captura"
+          },
+          "censo": {
+            "controlesPersonales": 41,
+            "descendientesActivos": 1,
+            "ascendientesActivos": 0
+          },
+          "monetarios": {
+            "controles": [
+              "IDII",
+              "GSS",
+              "IDRE",
+              "GCS",
+              "GCC",
+              "GDJ",
+              "IDICLDED2",
+              "GSSCLDED2"
+            ],
+            "estado": "ocho-readbacks-coincidentes"
+          },
+          "hechosNoIntroducidosExactamente": [
+            "renta-exacta-cero",
+            "no-presentacion-absoluta-declaracion",
+            "custodia-juridica",
+            "convivencia-efectiva",
+            "situacion-vital-otro-progenitor",
+            "autenticidad-aeat"
+          ],
+          "minimos": {
+            "casillas": [
+              "0513",
+              "0514",
+              "0511",
+              "0512",
+              "0519",
+              "0520"
+            ],
+            "estado": "minimos-ses-pdf-coincidentes"
+          }
+        }
+      },
+      "coincidenciaVerificada": true
     },
     {
       "id": "open2025-andalucia-09",
@@ -2969,12 +5533,190 @@
     },
     {
       "id": "open2025-catalunya-09",
-      "identidadSha256": "e7bfef218dcea43d9946ed91f0fd43e50c7c09e2e288804ac1ff69f353b279c2",
-      "estado": "rechazado",
+      "identidadSha256": "5a333a3b344c5384f7936409a78415e90b7332ff7e660e525617e11e4c124585",
+      "estado": "igual-al-centimo",
       "integridadReferencias": {
-        "estado": "ausente"
+        "estado": "bytes-verificados",
+        "verificadas": 8
       },
-      "motivo": "referencias-no-verificadas"
+      "resultadoOpenEUR": "302.75",
+      "pesoExterno": "309104.142857142857",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "26050",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "26050",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "2267.75",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "302.75",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "302.75",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "2235",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "4502.75",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "3023",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "2990.25",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "755.25",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "755.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "26050",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "302.75",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "entrada-ses-y-resultado-pdf-vinculados",
+        "tipoVinculo": "proyeccion-de-predicados-sinteticos",
+        "evidenciaFamilia": {
+          "personal": {
+            "archivo": "oficiales/open2025-catalunya-09/personal-final.html",
+            "sha256": "5b7c5117a84b53e16d2fb9e569c0017980ae6c37dc154c29044421bb089ad876"
+          },
+          "dialogo": {
+            "archivo": "oficiales/open2025-catalunya-09/familia-dialogo.html",
+            "sha256": "577ddab284875e68ee0181665af1a71a47f6cff616e7e2ba1059ad7981256c1e"
+          },
+          "catalogos": [
+            {
+              "archivo": "oficiales/catalogos-familia/opciones-0.json",
+              "sha256": "8215e720ea75af37ef0fe4933097cce6a6ae62c48cc1380ce9ac2132bf3cfdfe"
+            },
+            {
+              "archivo": "oficiales/catalogos-familia/opciones-1.json",
+              "sha256": "3e9b8662b52cbee1927f269058fdb1df5884c66ee5aa5718b1582b60dcda3f54"
+            },
+            {
+              "archivo": "oficiales/catalogos-familia/opciones-2.json",
+              "sha256": "be5520e50daa759faa8c4195a603ad33daeb389f2ac043b39963abef025130f4"
+            }
+          ]
+        },
+        "declaracion": {
+          "modalidad": "individual",
+          "titular": "DECLARANTE",
+          "codigoTerritorial": "09"
+        },
+        "sesSha256": "948cc63de8c7e818ffcfe8c52e710f3eb67d00e973275496f5bd45bede76cffa",
+        "pdfSha256": "18a8762104851fb76766241b547b20db65ed51c503e744de61115db4578a5775",
+        "readbacksSha256": "5001a75d2be5c154dddcf79dc3d83d1c6101e585ea937aca4a218ebbf0cc80f1",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "resultadoEUR": "302.75",
+        "familia": {
+          "estado": "proyeccion-sintetica-de-predicados",
+          "aptoParaBindingSintetico": true,
+          "countedAsMatch": false,
+          "origen": "sintetico",
+          "identidad": {
+            "fechaNacimiento": "01/01/2022",
+            "edad": 3,
+            "vinculo": "B",
+            "numeroTitularesObservado": 1,
+            "territorio": "catalunya"
+          },
+          "faltantes": [],
+          "rentaExactaIntroducidaEnOpen": false,
+          "limite": "Proyección sintética al mínimo ordinario, sin otras deducciones. B/D y opciones vacías observados; no acredita hechos jurídicos o vitales. Controles deshabilitados conservan sólo su estado UI. GUARD/GUAROD/RENTASHMEN/MATD/MATOD sin semántica inferida.",
+          "catalogo": {
+            "version": "0.12",
+            "reglas": "N000088955",
+            "sha256": [
+              "8215e720ea75af37ef0fe4933097cce6a6ae62c48cc1380ce9ac2132bf3cfdfe",
+              "3e9b8662b52cbee1927f269058fdb1df5884c66ee5aa5718b1582b60dcda3f54",
+              "be5520e50daa759faa8c4195a603ad33daeb389f2ac043b39963abef025130f4"
+            ],
+            "alcance": "Opciones globales; los valores de cada caso se comprueban en su propia captura"
+          },
+          "censo": {
+            "controlesPersonales": 41,
+            "descendientesActivos": 1,
+            "ascendientesActivos": 0
+          },
+          "monetarios": {
+            "controles": [
+              "IDII",
+              "GSS",
+              "IDRE",
+              "GCS",
+              "GCC",
+              "GDJ",
+              "IDICLDED2",
+              "GSSCLDED2"
+            ],
+            "estado": "ocho-readbacks-coincidentes"
+          },
+          "hechosNoIntroducidosExactamente": [
+            "renta-exacta-cero",
+            "no-presentacion-absoluta-declaracion",
+            "custodia-juridica",
+            "convivencia-efectiva",
+            "situacion-vital-otro-progenitor",
+            "autenticidad-aeat"
+          ],
+          "minimos": {
+            "casillas": [
+              "0513",
+              "0514",
+              "0511",
+              "0512",
+              "0519",
+              "0520"
+            ],
+            "estado": "minimos-ses-pdf-coincidentes"
+          }
+        }
+      },
+      "coincidenciaVerificada": true
     },
     {
       "id": "open2025-comunitat-valenciana-09",
@@ -3087,12 +5829,190 @@
     },
     {
       "id": "open2025-andalucia-10",
-      "identidadSha256": "5bebcf56481d5b0c97d5acb8878fb6e3128c443f93488b5fcacda0f20387db7e",
-      "estado": "rechazado",
+      "identidadSha256": "afb81eb9b6c0acb90a114fdf44f4763d6e257bd3e13eea8b65f0e6328a43a4b5",
+      "estado": "igual-al-centimo",
       "integridadReferencias": {
-        "estado": "ausente"
+        "estado": "bytes-verificados",
+        "verificadas": 8
       },
-      "motivo": "referencias-no-verificadas"
+      "resultadoOpenEUR": "196.00",
+      "pesoExterno": "316738.071428571429",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "26050",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "26050",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "2161",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "196",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "196.00",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "2235",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "4396",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "2949.5",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "2990.25",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "788.5",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "755.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "26050",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "196.00",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "entrada-ses-y-resultado-pdf-vinculados",
+        "tipoVinculo": "proyeccion-de-predicados-sinteticos",
+        "evidenciaFamilia": {
+          "personal": {
+            "archivo": "oficiales/open2025-andalucia-10/personal-final.html",
+            "sha256": "f1a4e2f7a12fa8c2d1937f49ad517eaad3840d6ffebbee35b75bb3d0e16b04f4"
+          },
+          "dialogo": {
+            "archivo": "oficiales/open2025-andalucia-10/familia-dialogo.html",
+            "sha256": "c665c1a0e1d6008f932db9eec352ae6c1e07a598ad5628ca0ae3748d7926158f"
+          },
+          "catalogos": [
+            {
+              "archivo": "oficiales/catalogos-familia/opciones-0.json",
+              "sha256": "8215e720ea75af37ef0fe4933097cce6a6ae62c48cc1380ce9ac2132bf3cfdfe"
+            },
+            {
+              "archivo": "oficiales/catalogos-familia/opciones-1.json",
+              "sha256": "3e9b8662b52cbee1927f269058fdb1df5884c66ee5aa5718b1582b60dcda3f54"
+            },
+            {
+              "archivo": "oficiales/catalogos-familia/opciones-2.json",
+              "sha256": "be5520e50daa759faa8c4195a603ad33daeb389f2ac043b39963abef025130f4"
+            }
+          ]
+        },
+        "declaracion": {
+          "modalidad": "individual",
+          "titular": "DECLARANTE",
+          "codigoTerritorial": "01"
+        },
+        "sesSha256": "a819272e472fbb0962ab6d8862ce635f323fa687279d3f52a1450302f033cc8f",
+        "pdfSha256": "74e24ee6c03d53aaebb362898db542e314f957b078b30f2d4bc6af4f1587a427",
+        "readbacksSha256": "a214e9c4d53eb19a07555ea8b57ffac4ba5af65e9eca531c8061e710722295f4",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "resultadoEUR": "196.00",
+        "familia": {
+          "estado": "proyeccion-sintetica-de-predicados",
+          "aptoParaBindingSintetico": true,
+          "countedAsMatch": false,
+          "origen": "sintetico",
+          "identidad": {
+            "fechaNacimiento": "01/01/2009",
+            "edad": 16,
+            "vinculo": "B",
+            "numeroTitularesObservado": 1,
+            "territorio": "andalucia"
+          },
+          "faltantes": [],
+          "rentaExactaIntroducidaEnOpen": false,
+          "limite": "Proyección sintética al mínimo ordinario, sin otras deducciones. B/D y opciones vacías observados; no acredita hechos jurídicos o vitales. Controles deshabilitados conservan sólo su estado UI. GUARD/GUAROD/RENTASHMEN/MATD/MATOD sin semántica inferida.",
+          "catalogo": {
+            "version": "0.12",
+            "reglas": "N000088955",
+            "sha256": [
+              "8215e720ea75af37ef0fe4933097cce6a6ae62c48cc1380ce9ac2132bf3cfdfe",
+              "3e9b8662b52cbee1927f269058fdb1df5884c66ee5aa5718b1582b60dcda3f54",
+              "be5520e50daa759faa8c4195a603ad33daeb389f2ac043b39963abef025130f4"
+            ],
+            "alcance": "Opciones globales; los valores de cada caso se comprueban en su propia captura"
+          },
+          "censo": {
+            "controlesPersonales": 41,
+            "descendientesActivos": 1,
+            "ascendientesActivos": 0
+          },
+          "monetarios": {
+            "controles": [
+              "IDII",
+              "GSS",
+              "IDRE",
+              "GCS",
+              "GCC",
+              "GDJ",
+              "IDICLDED2",
+              "GSSCLDED2"
+            ],
+            "estado": "ocho-readbacks-coincidentes"
+          },
+          "hechosNoIntroducidosExactamente": [
+            "renta-exacta-cero",
+            "no-presentacion-absoluta-declaracion",
+            "custodia-juridica",
+            "convivencia-efectiva",
+            "situacion-vital-otro-progenitor",
+            "autenticidad-aeat"
+          ],
+          "minimos": {
+            "casillas": [
+              "0513",
+              "0514",
+              "0511",
+              "0512",
+              "0519",
+              "0520"
+            ],
+            "estado": "minimos-ses-pdf-coincidentes"
+          }
+        }
+      },
+      "coincidenciaVerificada": true
     },
     {
       "id": "open2025-catalunya-10",
@@ -3205,12 +6125,190 @@
     },
     {
       "id": "open2025-andalucia-11",
-      "identidadSha256": "03ef5dd86da1964c1516faf27db090527fb9167fb30c7b4523a26b6bb1d7dc0d",
-      "estado": "rechazado",
+      "identidadSha256": "7bb063237025e2ab949956e57fca589aadfa6b62e03dbd6e3394182f4a8c32a0",
+      "estado": "discrepante",
       "integridadReferencias": {
-        "estado": "ausente"
+        "estado": "bytes-verificados",
+        "verificadas": 8
       },
-      "motivo": "referencias-no-verificadas"
+      "resultadoOpenEUR": "429.22",
+      "pesoExterno": "316738.071428571429",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "26050",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "26050",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "2280.225",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "429.225",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "429.23",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "2349",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "4629.225",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "2949.5",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "2990.25",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "669.275",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "641.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "26050",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "429.23",
+      "discrepanciaEUR": "0.01",
+      "vinculacion": {
+        "estado": "entrada-ses-y-resultado-pdf-vinculados",
+        "tipoVinculo": "proyeccion-de-predicados-sinteticos",
+        "evidenciaFamilia": {
+          "personal": {
+            "archivo": "oficiales/open2025-andalucia-11/personal-final.html",
+            "sha256": "cd2f101a1ee0531450787a079f7cd0c089a1ff2767006a009a4051ae3d8a2ba6"
+          },
+          "dialogo": {
+            "archivo": "oficiales/open2025-andalucia-11/familia-dialogo.html",
+            "sha256": "af0021da9daa6a5f551b8f97be8d16de70d5029d36bae37e5480a8d82d8c3cc5"
+          },
+          "catalogos": [
+            {
+              "archivo": "oficiales/catalogos-familia/opciones-0.json",
+              "sha256": "8215e720ea75af37ef0fe4933097cce6a6ae62c48cc1380ce9ac2132bf3cfdfe"
+            },
+            {
+              "archivo": "oficiales/catalogos-familia/opciones-1.json",
+              "sha256": "3e9b8662b52cbee1927f269058fdb1df5884c66ee5aa5718b1582b60dcda3f54"
+            },
+            {
+              "archivo": "oficiales/catalogos-familia/opciones-2.json",
+              "sha256": "be5520e50daa759faa8c4195a603ad33daeb389f2ac043b39963abef025130f4"
+            }
+          ]
+        },
+        "declaracion": {
+          "modalidad": "individual",
+          "titular": "DECLARANTE",
+          "codigoTerritorial": "01"
+        },
+        "sesSha256": "17334400894ea4edad939061242bd9b0c995e2b6204c26650092afa0cf59d276",
+        "pdfSha256": "fa89085834219f4280d025f33bddc3c1a5268edbce62445a392691995654888d",
+        "readbacksSha256": "c72fd51b80c7ccc0008ca93fc2a4cb3bf80925441e839abd6cb71dca6fc14469",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "resultadoEUR": "429.22",
+        "familia": {
+          "estado": "proyeccion-sintetica-de-predicados",
+          "aptoParaBindingSintetico": true,
+          "countedAsMatch": false,
+          "origen": "sintetico",
+          "identidad": {
+            "fechaNacimiento": "01/01/2015",
+            "edad": 10,
+            "vinculo": "D",
+            "numeroTitularesObservado": 2,
+            "territorio": "andalucia"
+          },
+          "faltantes": [],
+          "rentaExactaIntroducidaEnOpen": false,
+          "limite": "Proyección sintética al mínimo ordinario, sin otras deducciones. B/D y opciones vacías observados; no acredita hechos jurídicos o vitales. Controles deshabilitados conservan sólo su estado UI. GUARD/GUAROD/RENTASHMEN/MATD/MATOD sin semántica inferida.",
+          "catalogo": {
+            "version": "0.12",
+            "reglas": "N000088955",
+            "sha256": [
+              "8215e720ea75af37ef0fe4933097cce6a6ae62c48cc1380ce9ac2132bf3cfdfe",
+              "3e9b8662b52cbee1927f269058fdb1df5884c66ee5aa5718b1582b60dcda3f54",
+              "be5520e50daa759faa8c4195a603ad33daeb389f2ac043b39963abef025130f4"
+            ],
+            "alcance": "Opciones globales; los valores de cada caso se comprueban en su propia captura"
+          },
+          "censo": {
+            "controlesPersonales": 41,
+            "descendientesActivos": 1,
+            "ascendientesActivos": 0
+          },
+          "monetarios": {
+            "controles": [
+              "IDII",
+              "GSS",
+              "IDRE",
+              "GCS",
+              "GCC",
+              "GDJ",
+              "IDICLDED2",
+              "GSSCLDED2"
+            ],
+            "estado": "ocho-readbacks-coincidentes"
+          },
+          "hechosNoIntroducidosExactamente": [
+            "renta-exacta-cero",
+            "no-presentacion-absoluta-declaracion",
+            "custodia-juridica",
+            "convivencia-efectiva",
+            "situacion-vital-otro-progenitor",
+            "autenticidad-aeat"
+          ],
+          "minimos": {
+            "casillas": [
+              "0513",
+              "0514",
+              "0511",
+              "0512",
+              "0519",
+              "0520"
+            ],
+            "estado": "minimos-ses-pdf-coincidentes"
+          }
+        }
+      },
+      "coincidenciaVerificada": false
     },
     {
       "id": "open2025-catalunya-11",
@@ -3314,12 +6412,190 @@
     },
     {
       "id": "open2025-madrid-11",
-      "identidadSha256": "1faa86daf7e4e41e1eb52a3f669fd51c72b0c176b82b8dfa513b15d11986b7c7",
-      "estado": "rechazado",
+      "identidadSha256": "4fa7e507a4bea576011e2768641ab21d1a7b08655fc85acb16173e9f365f6811",
+      "estado": "igual-al-centimo",
       "integridadReferencias": {
-        "estado": "ausente"
+        "estado": "bytes-verificados",
+        "verificadas": 8
       },
-      "motivo": "referencias-no-verificadas"
+      "resultadoOpenEUR": "-1051.95",
+      "pesoExterno": "307110.076923076923",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "54100",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "54100",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "6110.05",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "-1051.95",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "-1051.95",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "6838",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "12948.05",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "7090.75",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "7859.25",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "980.7",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "1021.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "54100",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "-1051.95",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "entrada-ses-y-resultado-pdf-vinculados",
+        "tipoVinculo": "proyeccion-de-predicados-sinteticos",
+        "evidenciaFamilia": {
+          "personal": {
+            "archivo": "oficiales/open2025-madrid-11/personal-final.html",
+            "sha256": "ffb1a3e3a97964ba6175315a6f1ed4ffd7bf013a9a1e4b763080b70d935d3906"
+          },
+          "dialogo": {
+            "archivo": "oficiales/open2025-madrid-11/familia-dialogo.html",
+            "sha256": "07258a10496957716d50a79527f4356afb9f3b678ede27ace3a3e115733aa149"
+          },
+          "catalogos": [
+            {
+              "archivo": "oficiales/catalogos-familia/opciones-0.json",
+              "sha256": "8215e720ea75af37ef0fe4933097cce6a6ae62c48cc1380ce9ac2132bf3cfdfe"
+            },
+            {
+              "archivo": "oficiales/catalogos-familia/opciones-1.json",
+              "sha256": "3e9b8662b52cbee1927f269058fdb1df5884c66ee5aa5718b1582b60dcda3f54"
+            },
+            {
+              "archivo": "oficiales/catalogos-familia/opciones-2.json",
+              "sha256": "be5520e50daa759faa8c4195a603ad33daeb389f2ac043b39963abef025130f4"
+            }
+          ]
+        },
+        "declaracion": {
+          "modalidad": "individual",
+          "titular": "DECLARANTE",
+          "codigoTerritorial": "12"
+        },
+        "sesSha256": "2e05be8a0fc21cad12e11b28808d5276d4fe3b7aa751cb24359bcff134f18b76",
+        "pdfSha256": "9fae28361cd7ddd55ed737937a67da2d6415920f49dea938f8e10f9e6cc25412",
+        "readbacksSha256": "16d9885934ecd04096b91633dd44deefc76f5370ba41afe5aec90e8255a6fb49",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "resultadoEUR": "-1051.95",
+        "familia": {
+          "estado": "proyeccion-sintetica-de-predicados",
+          "aptoParaBindingSintetico": true,
+          "countedAsMatch": false,
+          "origen": "sintetico",
+          "identidad": {
+            "fechaNacimiento": "01/01/2023",
+            "edad": 2,
+            "vinculo": "B",
+            "numeroTitularesObservado": 1,
+            "territorio": "madrid"
+          },
+          "faltantes": [],
+          "rentaExactaIntroducidaEnOpen": false,
+          "limite": "Proyección sintética al mínimo ordinario, sin otras deducciones. B/D y opciones vacías observados; no acredita hechos jurídicos o vitales. Controles deshabilitados conservan sólo su estado UI. GUARD/GUAROD/RENTASHMEN/MATD/MATOD sin semántica inferida.",
+          "catalogo": {
+            "version": "0.12",
+            "reglas": "N000088955",
+            "sha256": [
+              "8215e720ea75af37ef0fe4933097cce6a6ae62c48cc1380ce9ac2132bf3cfdfe",
+              "3e9b8662b52cbee1927f269058fdb1df5884c66ee5aa5718b1582b60dcda3f54",
+              "be5520e50daa759faa8c4195a603ad33daeb389f2ac043b39963abef025130f4"
+            ],
+            "alcance": "Opciones globales; los valores de cada caso se comprueban en su propia captura"
+          },
+          "censo": {
+            "controlesPersonales": 41,
+            "descendientesActivos": 1,
+            "ascendientesActivos": 0
+          },
+          "monetarios": {
+            "controles": [
+              "IDII",
+              "GSS",
+              "IDRE",
+              "GCS",
+              "GCC",
+              "GDJ",
+              "IDICLDED2",
+              "GSSCLDED2"
+            ],
+            "estado": "ocho-readbacks-coincidentes"
+          },
+          "hechosNoIntroducidosExactamente": [
+            "renta-exacta-cero",
+            "no-presentacion-absoluta-declaracion",
+            "custodia-juridica",
+            "convivencia-efectiva",
+            "situacion-vital-otro-progenitor",
+            "autenticidad-aeat"
+          ],
+          "minimos": {
+            "casillas": [
+              "0513",
+              "0514",
+              "0511",
+              "0512",
+              "0519",
+              "0520"
+            ],
+            "estado": "minimos-ses-pdf-coincidentes"
+          }
+        }
+      },
+      "coincidenciaVerificada": true
     },
     {
       "id": "open2025-andalucia-12-v2",
@@ -3423,12 +6699,190 @@
     },
     {
       "id": "open2025-catalunya-12",
-      "identidadSha256": "741a2ce0142fe96c40b70b3474922db86886ed5a0756f97b95213385a08b97c5",
-      "estado": "rechazado",
+      "identidadSha256": "e0e2791c0b21df180bc37a9389c14398fbbf80e9e929a042872767f0004229f7",
+      "estado": "igual-al-centimo",
       "integridadReferencias": {
-        "estado": "ausente"
+        "estado": "bytes-verificados",
+        "verificadas": 8
       },
-      "motivo": "referencias-no-verificadas"
+      "resultadoOpenEUR": "733.38",
+      "pesoExterno": "309104.142857142857",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "40075",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "40075",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "4724",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "733.375",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "733.38",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "4509.375",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "9233.375",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "5479.25",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "5264.625",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "755.25",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "755.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "40075",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "733.38",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "entrada-ses-y-resultado-pdf-vinculados",
+        "tipoVinculo": "proyeccion-de-predicados-sinteticos",
+        "evidenciaFamilia": {
+          "personal": {
+            "archivo": "oficiales/open2025-catalunya-12/personal-final.html",
+            "sha256": "d478acb34aea1cc1e1a50ce2e92a1975370e1b28204ac098fc3fd857340163fe"
+          },
+          "dialogo": {
+            "archivo": "oficiales/open2025-catalunya-12/familia-dialogo.html",
+            "sha256": "3680eafac03dcf5104b34e3cf2b7f23a8c312654c91cc1ebf4f88ac8488bfac2"
+          },
+          "catalogos": [
+            {
+              "archivo": "oficiales/catalogos-familia/opciones-0.json",
+              "sha256": "8215e720ea75af37ef0fe4933097cce6a6ae62c48cc1380ce9ac2132bf3cfdfe"
+            },
+            {
+              "archivo": "oficiales/catalogos-familia/opciones-1.json",
+              "sha256": "3e9b8662b52cbee1927f269058fdb1df5884c66ee5aa5718b1582b60dcda3f54"
+            },
+            {
+              "archivo": "oficiales/catalogos-familia/opciones-2.json",
+              "sha256": "be5520e50daa759faa8c4195a603ad33daeb389f2ac043b39963abef025130f4"
+            }
+          ]
+        },
+        "declaracion": {
+          "modalidad": "individual",
+          "titular": "DECLARANTE",
+          "codigoTerritorial": "09"
+        },
+        "sesSha256": "0ad620eecd59413076aea1422ce9f4523f6d0f6fa6c5757c050a5846d011317e",
+        "pdfSha256": "2d7a79c9bbf125297610eec0d1a93a796432ed4a27b062e6211114b53048a7b2",
+        "readbacksSha256": "22589d641e1c95b638ab9e3fe1b5d94442649f9f10f896d1770148f525a4e747",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "resultadoEUR": "733.38",
+        "familia": {
+          "estado": "proyeccion-sintetica-de-predicados",
+          "aptoParaBindingSintetico": true,
+          "countedAsMatch": false,
+          "origen": "sintetico",
+          "identidad": {
+            "fechaNacimiento": "01/01/2022",
+            "edad": 3,
+            "vinculo": "B",
+            "numeroTitularesObservado": 1,
+            "territorio": "catalunya"
+          },
+          "faltantes": [],
+          "rentaExactaIntroducidaEnOpen": false,
+          "limite": "Proyección sintética al mínimo ordinario, sin otras deducciones. B/D y opciones vacías observados; no acredita hechos jurídicos o vitales. Controles deshabilitados conservan sólo su estado UI. GUARD/GUAROD/RENTASHMEN/MATD/MATOD sin semántica inferida.",
+          "catalogo": {
+            "version": "0.12",
+            "reglas": "N000088955",
+            "sha256": [
+              "8215e720ea75af37ef0fe4933097cce6a6ae62c48cc1380ce9ac2132bf3cfdfe",
+              "3e9b8662b52cbee1927f269058fdb1df5884c66ee5aa5718b1582b60dcda3f54",
+              "be5520e50daa759faa8c4195a603ad33daeb389f2ac043b39963abef025130f4"
+            ],
+            "alcance": "Opciones globales; los valores de cada caso se comprueban en su propia captura"
+          },
+          "censo": {
+            "controlesPersonales": 41,
+            "descendientesActivos": 1,
+            "ascendientesActivos": 0
+          },
+          "monetarios": {
+            "controles": [
+              "IDII",
+              "GSS",
+              "IDRE",
+              "GCS",
+              "GCC",
+              "GDJ",
+              "IDICLDED2",
+              "GSSCLDED2"
+            ],
+            "estado": "ocho-readbacks-coincidentes"
+          },
+          "hechosNoIntroducidosExactamente": [
+            "renta-exacta-cero",
+            "no-presentacion-absoluta-declaracion",
+            "custodia-juridica",
+            "convivencia-efectiva",
+            "situacion-vital-otro-progenitor",
+            "autenticidad-aeat"
+          ],
+          "minimos": {
+            "casillas": [
+              "0513",
+              "0514",
+              "0511",
+              "0512",
+              "0519",
+              "0520"
+            ],
+            "estado": "minimos-ses-pdf-coincidentes"
+          }
+        }
+      },
+      "coincidenciaVerificada": true
     },
     {
       "id": "open2025-madrid-12",
@@ -3541,12 +6995,190 @@
     },
     {
       "id": "open2025-catalunya-13-v2",
-      "identidadSha256": "a1fdd77c5d92a9bc7a93234b9fc5560ce3606b3b8a3637efb2b60d6089031021",
-      "estado": "rechazado",
+      "identidadSha256": "467234ae42075b90f4d02436207e36423c728f25c86b84b35e6399eefa037e28",
+      "estado": "igual-al-centimo",
       "integridadReferencias": {
-        "estado": "ausente"
+        "estado": "bytes-verificados",
+        "verificadas": 8
       },
-      "motivo": "referencias-no-verificadas"
+      "resultadoOpenEUR": "2301.50",
+      "pesoExterno": "309104.142857142857",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "37270",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "37270",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "4191.05",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "2301.5",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "2301.50",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "3990.45",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "8181.5",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "4946.3",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "4745.7",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "755.25",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "755.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "37270",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "2301.50",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "entrada-ses-y-resultado-pdf-vinculados",
+        "tipoVinculo": "proyeccion-de-predicados-sinteticos",
+        "evidenciaFamilia": {
+          "personal": {
+            "archivo": "oficiales/open2025-catalunya-13-v2/personal-final.html",
+            "sha256": "e67b69dbad7e4ab94fa513b062186e304e8192c150660097b8257e01505e0649"
+          },
+          "dialogo": {
+            "archivo": "oficiales/open2025-catalunya-13-v2/familia-dialogo.html",
+            "sha256": "fe70e75f15b76f1113e0713a0528a81d59e22d4d40ab542baf64f350204a0696"
+          },
+          "catalogos": [
+            {
+              "archivo": "oficiales/catalogos-familia/opciones-0.json",
+              "sha256": "8215e720ea75af37ef0fe4933097cce6a6ae62c48cc1380ce9ac2132bf3cfdfe"
+            },
+            {
+              "archivo": "oficiales/catalogos-familia/opciones-1.json",
+              "sha256": "3e9b8662b52cbee1927f269058fdb1df5884c66ee5aa5718b1582b60dcda3f54"
+            },
+            {
+              "archivo": "oficiales/catalogos-familia/opciones-2.json",
+              "sha256": "be5520e50daa759faa8c4195a603ad33daeb389f2ac043b39963abef025130f4"
+            }
+          ]
+        },
+        "declaracion": {
+          "modalidad": "individual",
+          "titular": "DECLARANTE",
+          "codigoTerritorial": "09"
+        },
+        "sesSha256": "5a5ff967b5a5623b9dae4d57b445c83dccd55e6cfa82b40877ce30a39d013a7c",
+        "pdfSha256": "7c01bcad949c0f123a787e550ae8914d825d09ee7ae2a0661333d77d023f15af",
+        "readbacksSha256": "adaa605085e460b89d05e248ac61e8d8461f0c77e008f8f4d9ad0231e8e8f2c4",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "resultadoEUR": "2301.50",
+        "familia": {
+          "estado": "proyeccion-sintetica-de-predicados",
+          "aptoParaBindingSintetico": true,
+          "countedAsMatch": false,
+          "origen": "sintetico",
+          "identidad": {
+            "fechaNacimiento": "01/01/2009",
+            "edad": 16,
+            "vinculo": "B",
+            "numeroTitularesObservado": 1,
+            "territorio": "catalunya"
+          },
+          "faltantes": [],
+          "rentaExactaIntroducidaEnOpen": false,
+          "limite": "Proyección sintética al mínimo ordinario, sin otras deducciones. B/D y opciones vacías observados; no acredita hechos jurídicos o vitales. Controles deshabilitados conservan sólo su estado UI. GUARD/GUAROD/RENTASHMEN/MATD/MATOD sin semántica inferida.",
+          "catalogo": {
+            "version": "0.12",
+            "reglas": "N000088955",
+            "sha256": [
+              "8215e720ea75af37ef0fe4933097cce6a6ae62c48cc1380ce9ac2132bf3cfdfe",
+              "3e9b8662b52cbee1927f269058fdb1df5884c66ee5aa5718b1582b60dcda3f54",
+              "be5520e50daa759faa8c4195a603ad33daeb389f2ac043b39963abef025130f4"
+            ],
+            "alcance": "Opciones globales; los valores de cada caso se comprueban en su propia captura"
+          },
+          "censo": {
+            "controlesPersonales": 41,
+            "descendientesActivos": 1,
+            "ascendientesActivos": 0
+          },
+          "monetarios": {
+            "controles": [
+              "IDII",
+              "GSS",
+              "IDRE",
+              "GCS",
+              "GCC",
+              "GDJ",
+              "IDICLDED2",
+              "GSSCLDED2"
+            ],
+            "estado": "ocho-readbacks-coincidentes"
+          },
+          "hechosNoIntroducidosExactamente": [
+            "renta-exacta-cero",
+            "no-presentacion-absoluta-declaracion",
+            "custodia-juridica",
+            "convivencia-efectiva",
+            "situacion-vital-otro-progenitor",
+            "autenticidad-aeat"
+          ],
+          "minimos": {
+            "casillas": [
+              "0513",
+              "0514",
+              "0511",
+              "0512",
+              "0519",
+              "0520"
+            ],
+            "estado": "minimos-ses-pdf-coincidentes"
+          }
+        }
+      },
+      "coincidenciaVerificada": true
     },
     {
       "id": "open2025-madrid-13",
@@ -3659,13 +7291,190 @@
     },
     {
       "id": "open2025-catalunya-14",
-      "identidadSha256": "0e06c088cb93d2a2c73cea1751159dcb418b6111c956f53485369a64e87a0edd",
-      "estado": "rechazado",
+      "identidadSha256": "e7b4c33608f228d8c1445d03b823eb90f0920afe0e1b495b9a2fe2ed538cf5ee",
+      "estado": "igual-al-centimo",
       "integridadReferencias": {
-        "estado": "ausente"
+        "estado": "bytes-verificados",
+        "verificadas": 8
       },
-      "motivo": "referencias-no-verificadas"
+      "resultadoOpenEUR": "961.38",
+      "pesoExterno": "309104.142857142857",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "40075",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "40075",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "4838",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "961.375",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "961.38",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "4623.375",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "9461.375",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "5479.25",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "5264.625",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "641.25",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "641.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "40075",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "961.38",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "entrada-ses-y-resultado-pdf-vinculados",
+        "tipoVinculo": "proyeccion-de-predicados-sinteticos",
+        "evidenciaFamilia": {
+          "personal": {
+            "archivo": "oficiales/open2025-catalunya-14/personal-final.html",
+            "sha256": "4ab6db3d1c2d2f558c759744a8f639b1f08d9c69d9b801aeb7e8b12b2df80b7d"
+          },
+          "dialogo": {
+            "archivo": "oficiales/open2025-catalunya-14/familia-dialogo.html",
+            "sha256": "317610352708ae0c5247a6ce37dc39677eecbee199bb6be581fda104f62ebe50"
+          },
+          "catalogos": [
+            {
+              "archivo": "oficiales/catalogos-familia/opciones-0.json",
+              "sha256": "8215e720ea75af37ef0fe4933097cce6a6ae62c48cc1380ce9ac2132bf3cfdfe"
+            },
+            {
+              "archivo": "oficiales/catalogos-familia/opciones-1.json",
+              "sha256": "3e9b8662b52cbee1927f269058fdb1df5884c66ee5aa5718b1582b60dcda3f54"
+            },
+            {
+              "archivo": "oficiales/catalogos-familia/opciones-2.json",
+              "sha256": "be5520e50daa759faa8c4195a603ad33daeb389f2ac043b39963abef025130f4"
+            }
+          ]
+        },
+        "declaracion": {
+          "modalidad": "individual",
+          "titular": "DECLARANTE",
+          "codigoTerritorial": "09"
+        },
+        "sesSha256": "21d5e5433390b46b3f217739eb1c14a906f8daf55b90c3e604fe153057594727",
+        "pdfSha256": "ad3b34ed08c56e4977979e0afd8fb14613ffdbdafe23e93c1ac2dae5719af7ba",
+        "readbacksSha256": "c058f7bcd23842d24fb10f876abeb9092a3e9000890b12a804d32cebf0b3b723",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "resultadoEUR": "961.38",
+        "familia": {
+          "estado": "proyeccion-sintetica-de-predicados",
+          "aptoParaBindingSintetico": true,
+          "countedAsMatch": false,
+          "origen": "sintetico",
+          "identidad": {
+            "fechaNacimiento": "01/01/2015",
+            "edad": 10,
+            "vinculo": "D",
+            "numeroTitularesObservado": 2,
+            "territorio": "catalunya"
+          },
+          "faltantes": [],
+          "rentaExactaIntroducidaEnOpen": false,
+          "limite": "Proyección sintética al mínimo ordinario, sin otras deducciones. B/D y opciones vacías observados; no acredita hechos jurídicos o vitales. Controles deshabilitados conservan sólo su estado UI. GUARD/GUAROD/RENTASHMEN/MATD/MATOD sin semántica inferida.",
+          "catalogo": {
+            "version": "0.12",
+            "reglas": "N000088955",
+            "sha256": [
+              "8215e720ea75af37ef0fe4933097cce6a6ae62c48cc1380ce9ac2132bf3cfdfe",
+              "3e9b8662b52cbee1927f269058fdb1df5884c66ee5aa5718b1582b60dcda3f54",
+              "be5520e50daa759faa8c4195a603ad33daeb389f2ac043b39963abef025130f4"
+            ],
+            "alcance": "Opciones globales; los valores de cada caso se comprueban en su propia captura"
+          },
+          "censo": {
+            "controlesPersonales": 41,
+            "descendientesActivos": 1,
+            "ascendientesActivos": 0
+          },
+          "monetarios": {
+            "controles": [
+              "IDII",
+              "GSS",
+              "IDRE",
+              "GCS",
+              "GCC",
+              "GDJ",
+              "IDICLDED2",
+              "GSSCLDED2"
+            ],
+            "estado": "ocho-readbacks-coincidentes"
+          },
+          "hechosNoIntroducidosExactamente": [
+            "renta-exacta-cero",
+            "no-presentacion-absoluta-declaracion",
+            "custodia-juridica",
+            "convivencia-efectiva",
+            "situacion-vital-otro-progenitor",
+            "autenticidad-aeat"
+          ],
+          "minimos": {
+            "casillas": [
+              "0513",
+              "0514",
+              "0511",
+              "0512",
+              "0519",
+              "0520"
+            ],
+            "estado": "minimos-ses-pdf-coincidentes"
+          }
+        }
+      },
+      "coincidenciaVerificada": true
     }
-  ],
-  "entradaSha256": "fccd4f600bbb069a45520972f394d9fa35e4849af54e2b217dfefda03b39f00c"
+  ]
 }
