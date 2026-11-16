@@ -341,7 +341,7 @@ const casos = [
     hechos: {
       viviendas: [vivienda("murcia")],
       nacimientoContribuyente: "2000-01-01",
-      contratos: [contrato()],
+      contratos: [{ ...contrato(), arrendador: "arrendador-sintetico" }],
       pagos: [pago("alquiler", "2000")],
       titulo,
       personas: [
@@ -700,6 +700,7 @@ describe("F ampliación: oráculos preparados por código, sin cuota alternativa
         contratos: [
           {
             ...contrato(),
+            arrendador: "arrendador-sintetico",
             titulares: ["a", "b"],
             regimenReparto: "cotitulares_gasto_comun",
           },

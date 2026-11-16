@@ -1,3 +1,4 @@
+import { CasoTrabajoAlquilerOrdinario2025 } from "../trabajo-alquiler-ordinario-2025/contrato"
 import { CasoConjunta2025 } from "../conjunta-2025/contrato"
 import { CasoAragonSocialMixto2025 } from "../aragon-social-mixto-2025/contrato"
 import { CensoIngresosIdentificados2025 } from "../ingresos-identificados-2025/contrato"
@@ -180,6 +181,6 @@ export type CasoFiscalAnualExplicitoBase = typeof CasoFiscalAnualExplicitoBase.T
 export const CasoFiscalAnualExplicito = CasoFiscalAnualExplicitoBase
 export const CasoFiscalAnualConConjunta2025 = Schema.Union([CasoFiscalAnualExplicitoBase, CasoConjunta2025])
 export type CasoFiscalAnualConConjunta2025 = typeof CasoFiscalAnualConConjunta2025.Type
-export const CasoFiscalAnualConInmobiliarioP4a = Schema.Union([CasoFiscalAnualExplicitoBase, CasoInmobiliarioP4a, CasoAragonSocialMixto2025])
+export const CasoFiscalAnualConInmobiliarioP4a = Schema.Union([CasoFiscalAnualExplicitoBase, CasoInmobiliarioP4a, CasoAragonSocialMixto2025, CasoTrabajoAlquilerOrdinario2025])
 export type CasoFiscalAnualConInmobiliarioP4a = typeof CasoFiscalAnualConInmobiliarioP4a.Type
 export type CasoFiscalAnualExplicito = typeof CasoFiscalAnualExplicito.Type

@@ -19,6 +19,26 @@ const caso = (extra = {}) => ({
 const medir = (...casos) => medirCasos({ casos })
 
 describe("medidor C2025 por API real", () => {
+  it("compara conjunta sin convertir sus referencias en vínculo Open", () => {
+    const archivo = new URL("../docs/procedencia/implementaciones/conjunta-ordinaria-2025/entradas-candidatas.json", import.meta.url)
+    const contenido = readFileSync(archivo), entrada = JSON.parse(contenido).casos[0].entradaCandidata
+    const r = medir(caso({ id: "conjunta-exploratoria", entradaAPI: entrada, resultadoOpenEUR: "-1368.73",
+      integridadReferencias: { referencias: [{ archivo: fileURLToPath(archivo), sha256: createHash("sha256").update(contenido).digest("hex") }] } }))
+    expect(r.medicion).toMatchObject({ N: 1, comparables: 1, igualesExploratorias: 0, iguales: 0 })
+    // El instrumento conserva el céntimo observado; no adapta Open al motor.
+    expect(r.resultados[0]).toMatchObject({ estado: "discrepante", resultadoOpenEUR: "-1368.73", discrepanciaEUR: "-0.01" })
+  })
+
+  it("proyecta Decimal mixto sin redondear la magnitud y exige vínculo independiente", () => {
+    const archivo = new URL("./fixtures/trabajo-alquiler-ordinario-2025.json", import.meta.url)
+    const contenido = readFileSync(archivo), entrada = JSON.parse(contenido)[0].entrada
+    const r = medir(caso({ id: "mixto-exploratorio", entradaAPI: entrada, resultadoOpenEUR: "1879.90",
+      componentesOpenEUR: { cuotaDiferencial: "1879.902" },
+      integridadReferencias: { referencias: [{ archivo: fileURLToPath(archivo), sha256: createHash("sha256").update(contenido).digest("hex") }] } }))
+    expect(r.medicion).toMatchObject({ N: 1, comparables: 1, igualesExploratorias: 1, iguales: 0 })
+    expect(r.resultados[0].componentes.cuotaDiferencial).toMatchObject({ estado: "coincide", motorEUR: "1879.902" })
+  })
+
   it("no cuenta como verificada una referencia que sólo acredita bytes", () => {
     const r = medir(caso())
     expect(r.medicion).toMatchObject({ iguales: 0, igualesExploratorias: 1, N: 1 })
@@ -101,6 +121,50 @@ describe("medidor C2025 por API real", () => {
   it("no pierde registros malformados sin identidad", () => {
     const r = medir(null, {}, caso())
     expect(r.medicion).toMatchObject({ igualesExploratorias: 1, N: 3 })
+  })
+
+  it("no convierte el identificador de una unidad conjunta en cobertura adicional", () => {
+    const document = JSON.parse(readFileSync(new URL(
+      "../docs/procedencia/implementaciones/conjunta-ordinaria-2025/entradas-candidatas.json", import.meta.url)))
+    const original = document.casos.find(c => c.id === "open2025-aragon-01").entradaCandidata
+    const copied = JSON.parse(JSON.stringify(original, (key, value) =>
+      key === "unidadId" ? "otra-etiqueta-del-mismo-hogar" : value))
+    const before = JSON.stringify(original)
+    const r = medir(caso({ id: "hogar-a", entradaAPI: original, resultadoOpenEUR: null }),
+      caso({ id: "hogar-b", entradaAPI: copied, resultadoOpenEUR: null }))
+    expect(r.resultados[1].duplicadoEntradaDe).toBe("hogar-a")
+    expect(r.medicion).toMatchObject({ N: 2, iguales: 0 })
+    expect(JSON.stringify(original)).toBe(before)
+    copied.economia.trabajo.rendimientos[0].integro = "47000.00"
+    const changed = medir(caso({ id: "hogar-a", entradaAPI: original, resultadoOpenEUR: null }),
+      caso({ id: "hogar-b", entradaAPI: copied, resultadoOpenEUR: null }))
+    expect(changed.resultados[1].duplicadoEntradaDe).toBeUndefined()
+  })
+
+  it("conserva las contradicciones entre unidades al deduplicar", () => {
+    const original = { perfil: "conjunta-trabajo-ordinario-2025", unidadId: "a", hijos: [{ unidadId: "a" }] }
+    const contradictory = { ...original, hijos: [{ unidadId: "b" }] }
+    const r = medir(caso({ id: "coherente", entradaAPI: original, resultadoOpenEUR: null }),
+      caso({ id: "contradictorio", entradaAPI: contradictory, resultadoOpenEUR: null }))
+    expect(r.resultados[1].duplicadoEntradaDe).toBeUndefined()
+    expect(r.medicion.iguales).toBe(0)
+  })
+
+  it("excluye la misma entrada también del numerador exploratorio", () => {
+    const r = medir(caso({ id: "original" }), caso({ id: "otra-etiqueta" }))
+    expect(r.resultados[1].duplicadoEntradaDe).toBe("original")
+    expect(r.medicion).toMatchObject({ N: 2, iguales: 0, igualesExploratorias: 1 })
+  })
+
+  it("no duplica un arrendador por renombrar la liquidación", () => {
+    const original = { perfil: "trabajo-alquiler-ordinario-2025", liquidacionId: "a", inmuebles: [{ id: "V", ingresos: "12000.00" }] }
+    const duplicate = { ...original, liquidacionId: "b" }
+    const different = { ...duplicate, inmuebles: [{ id: "V", ingresos: "14000.00" }] }
+    const r = medir(...[original, duplicate, different].map((entradaAPI, i) =>
+      caso({ id: `alquiler-${i}`, entradaAPI, resultadoOpenEUR: null })))
+    expect(r.resultados[1].duplicadoEntradaDe).toBe("alquiler-0")
+    expect(r.resultados[2].duplicadoEntradaDe).toBeUndefined()
+    expect(r.medicion).toMatchObject({ N: 3, iguales: 0 })
   })
 
   it("compara céntimos exactos y pondera sólo con pesos aportados", () => {

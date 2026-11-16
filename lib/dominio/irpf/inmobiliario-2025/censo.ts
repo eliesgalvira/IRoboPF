@@ -37,7 +37,7 @@ export interface ResultadoInmuebleP4a {
 interface HistoricoVaciaExtP4a {
   comprobacionVacia2024?: NonNullable<ResultadoInmuebleP4a["comprobacionVacia2024"]>
 }
-const producirInmueble = Effect.fn("P4a.inmueble")(function* (v: InmuebleP4a) {
+const producirInmueble = Effect.fn("P4a.inmueble")(function* (v: InmuebleP4a, continuidadDiciembre2024: boolean = false) {
   const fallo = (codigo: RechazoP4a["codigo"], motivo: string) => new RechazoP4a({ codigo, motivo: v.id + ": " + motivo })
   const c = v.contrato, a = v.adquisicion
   if (v.titulares.length !== 1 || v.titulares[0] !== v.titular || c.arrendador !== v.titular || c.arrendatario === v.titular)
@@ -59,7 +59,12 @@ const producirInmueble = Effect.fn("P4a.inmueble")(function* (v: InmuebleP4a) {
     try: () => validarPrimerAlquiler2025(v),
     catch: e => fallo("historia", e instanceof RangeError ? e.message : "Hechos P4b incompletos"),
   })
-  if (primer === undefined && cambio === undefined) {
+  if (continuidadDiciembre2024) {
+    const u=v.usosDesdeAdquisicion
+    if (primer!==undefined || cambio!==undefined || v.vaciaExt2025!==undefined || v.adquisicion.fecha!=="2020-01-01" || c.firma!=="2024-12-01" || c.desde!=="2024-12-01" || c.hasta<"2025-12-31" || !Number.isFinite(dia(c.hasta)) || u.length!==2 || u[0]?.desde!==v.adquisicion.fecha || u[0]?.hasta!=="2024-11-30" || u[0]?.uso!=="personal" || u[1]?.desde!=="2024-12-01" || u[1]?.hasta!=="2025-12-31" || u[1]?.uso!=="alquiler-vivienda" || v.gastos.some(g=>g.clase!=="reparacion"))
+      return yield* fallo("historia", "Continuidad acotada a adquisición2020, uso personal y alquiler diciembre2024, sin mejoras")
+  }
+  if (!continuidadDiciembre2024 && primer === undefined && cambio === undefined) {
   if (![a.fecha, c.firma, c.desde, c.hasta].every(s => Number.isFinite(dia(s))) || a.fecha > "2025-01-01" || c.firma > c.desde || c.desde !== "2025-01-01" || c.hasta < "2025-12-31")
     return yield* fallo("contrato", "requiere adquisición anterior a2025 y contrato único vigente todo2025")
   let siguiente = dia(a.fecha)
@@ -95,7 +100,7 @@ const producirInmueble = Effect.fn("P4a.inmueble")(function* (v: InmuebleP4a) {
   const coste = restar(sumar(dinero(a.precio), dinero(a.gastosTributos)), sumar(dinero(a.sueloPrecio), dinero(a.sueloGastosTributos)))
   if (coste.n <= 0n || dinero(a.sueloPrecio).n > dinero(a.precio).n || dinero(a.sueloGastosTributos).n > dinero(a.gastosTributos).n)
     return yield* fallo("gasto", "valor de suelo y coste de construcción incoherentes")
-  // Historial sin alquiler previo: no existe amortización consumida antes2025.
+  // Perfil original sin alquiler previo; continuidad2024 acredita límite no vinculante en su conexión.
   const mejoras = v.gastos.filter(x => x.clase === "mejora")
   for (const g of mejoras) {
     if (g.puestaEnServicio === undefined || !Number.isFinite(dia(g.puestaEnServicio)) || g.puestaEnServicio < "2025-01-01" || g.puestaEnServicio > "2025-12-31")
@@ -128,7 +133,7 @@ const producirInmueble = Effect.fn("P4a.inmueble")(function* (v: InmuebleP4a) {
 })
 
 /** Núcleo inmobiliario compartido. La conexión valida su perfil antes de invocarlo. */
-export const producirCensoInmuebles2025 = Effect.fn("Inmuebles.censo2025")(function* (caso: Pick<CasoInmobiliarioP4a, "inmuebles" | "retenciones" | "contribuyenteId" | "edad">) {
+export const producirCensoInmuebles2025 = Effect.fn("Inmuebles.censo2025")(function* (caso: Pick<CasoInmobiliarioP4a, "inmuebles" | "retenciones" | "contribuyenteId" | "edad">, opciones?: { readonly continuidadDiciembre2024: true }) {
   if (caso.inmuebles.some(v => v.cambioHabitual2025 !== undefined && v.ubicacion !== "galicia"))
     return yield* new RechazoP4a({ codigo: "entrada", motivo: "Cambio2025: localización no representada" })
   const ids = caso.inmuebles.map(v => v.id), catastros = caso.inmuebles.map(v => v.catastro)
@@ -159,6 +164,6 @@ export const producirCensoInmuebles2025 = Effect.fn("Inmuebles.censo2025")(funct
     const nacimiento = v.primerAlquiler2025?.historiaPersonal.nacimiento
     return nacimiento !== undefined && 2025 - Number(nacimiento.slice(0, 4)) !== caso.edad
   })) return yield* new RechazoP4a({ codigo: "identidad", motivo: "P4b: nacimiento histórico incompatible con edad al devengo" })
-  const inmuebles = yield* Effect.forEach(caso.inmuebles, producirInmueble, { concurrency: 1 })
+  const inmuebles = yield* Effect.forEach(caso.inmuebles, v => producirInmueble(v, opciones?.continuidadDiciembre2024 === true), { concurrency: 1 })
   return { caso, inmuebles, imputacion: total(inmuebles.map(x => x.imputacion)), neto: total(inmuebles.map(x => x.neto)), netoReducido: total(inmuebles.map(x => x.netoReducido)) }
 })

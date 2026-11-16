@@ -441,6 +441,31 @@ export function bancario(ps: readonly PagoF[]): void {
       "pago.medio"
     )
 }
+/** Habitualidad del arrendatario: no supone adquisición ni propiedad. */
+export function habitualArrendataria(
+  s: SolicitudF, v: ViviendaF, c: import("./esquemas").ContratoF
+): void {
+  if (texto(c.viviendaId, "contrato.viviendaId") !== v.id)
+    falta("contrato.viviendaId", "Contrato de otra vivienda")
+  if (!ids(c.titulares, "contrato.titulares").includes(s.contexto.contribuyente))
+    falta("contrato.titulares", "Arrendatario no identificado")
+  const arrendador = texto(c.arrendador, "contrato.arrendador")
+  if (ids(c.titulares, "contrato.titulares").includes(arrendador))
+    falta("contrato.arrendador", "Arrendador y arrendatario no pueden ser el mismo sujeto")
+  const desde = fecha(c.desde, "contrato.desde")
+  const hasta = fecha(c.hasta, "contrato.hasta")
+  const ocupacion = fecha(v.ocupacionDesde, "vivienda.ocupacionDesde")
+  const permanencia = fecha(v.permanenciaHasta, "vivienda.permanenciaHasta")
+  if (hasta < desde || ocupacion < desde || ocupacion > hasta || permanencia < ocupacion || permanencia > hasta)
+    falta("ocupacion/contrato", "Ocupación sin cobertura contractual")
+  if (ocupacion > "2025-12-31" || permanencia < "2025-12-31")
+    falta("habitualidad", "Falta ocupación efectiva al devengo")
+  const alquileres = pagos(s, ["alquiler"], texto(v.id, "vivienda.id"), ids(c.titulares, "contrato.titulares"))
+  if (alquileres.length === 0) falta("pagos", "Pendiente: pagos de este contrato")
+  for (const p of alquileres)
+    if (fecha(p.fecha, "pago.fecha") < ocupacion || fecha(p.fecha, "pago.fecha") > permanencia)
+      falta("pago.fecha", "Pago sin ocupación acreditada")
+}
 export function habitual(v: ViviendaF): void {
   const adquisicion = fecha(v.adquisicion, "vivienda.adquisicion")
   const ocupacion = fecha(v.ocupacionDesde, "vivienda.ocupacionDesde")

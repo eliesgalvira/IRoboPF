@@ -1,3 +1,4 @@
+import { derivarArrendamientoValenciano } from "./arrendamiento-factual"
 import Decimal from "decimal.js"
 import { Schema } from "effect"
 import type { ResultadoDeduccion } from "../contratos-2025"
@@ -175,6 +176,20 @@ function componer<Importe extends number | string>(
   const resultados: FilaComposicion[] = []
   const incidencias: string[] = []
   try {
+    a = { ...a, solicitudes: a.solicitudes.map(p => ({ ...p, unidades: p.unidades.map(u => {
+      if (p.codigo !== c("arrendamiento_cesion_uso_vivienda")) return u
+      if (u.arrendamientoFactual2025 === undefined && !cuotaAnualExacta) return u
+      const derivada = derivarArrendamientoValenciano(u)
+      const h = derivada.arrendamientoFactual2025!
+      const r = p.referencias.find(r => r.unidad === u.id)
+      exigir(r !== undefined && r.sujetos.length === 1 && r.sujetos[0] === h.titularId && h.titularId === a.contribuyente &&
+        r.bienes.length === 1 && r.bienes[0] === h.viviendaId && r.eventos.length === 1 && r.eventos[0] === h.contratoId,
+        "Referencias ajenas al expediente de alquiler")
+      exigir(r.cantidades.length === h.pagos.length && h.pagos.every(pago => r.cantidades.includes(pago.id) &&
+        a.cantidades.some(x => x.id === pago.id && new Decimal(pago.medio === "efectivo" ? 0 : pago.euros).minus(pago.medio === "efectivo" ? 0 : pago.servicios).minus(pago.medio === "efectivo" ? 0 : pago.ayudas).minus(pago.medio === "efectivo" ? 0 : pago.reembolsos).eq(x.euros))),
+        "Libro no concuerda con pagos factuales netos")
+      return derivada
+    }) })) }
     claves(a, [
       "ejercicio",
       "territorio",
@@ -274,7 +289,7 @@ function componer<Importe extends number | string>(
         "Referencias de unidades incompletas o duplicadas"
       )
       for (const u of p.unidades) {
-        claves(u, ["id", "titulares", "fecha", "numeros", "textos"])
+        claves(u, ["id", "titulares", "fecha", "numeros", "textos", "arrendamientoFactual2025"])
         exigir(
           !("cumple" in u.numeros) && !("cumple" in u.textos),
           "No se admite cumplimiento global"

@@ -1,3 +1,4 @@
+import { derivarArrendamientoValenciano } from "./arrendamiento-factual"
 import Decimal from "decimal.js"
 import {
   acceso,
@@ -148,6 +149,10 @@ export const gastos = {
     return integrada.times(n(u, "tipoMedioAutonomico")).div(100)
   },
   arrendamiento_cesion_uso_vivienda: (h, u) => {
+    if (u.arrendamientoFactual2025 !== undefined) {
+      u = derivarArrendamientoValenciano(u)
+      if (u.textos.derechoArrendamientoFactual === "no") return new Decimal(0)
+    }
     if (
       t(u, "contrato", ["alquiler", "cesion"]) === "cesion" &&
       h.devengo < "2025-12-30"

@@ -1,0 +1,786 @@
+[
+  {
+    "id": "open2025-castilla-la-mancha-01",
+    "entrada": {
+      "ejercicio": 2025,
+      "comunidadAutonoma": "castilla-la-mancha",
+      "edad": 40,
+      "modalidad": "individual",
+      "residenciaTodoElAnio": true,
+      "devengo": "2025-12-31",
+      "otrasRentas": "ninguna",
+      "familiaresConDerechoMinimo": "ninguno",
+      "discapacidad": "ninguna",
+      "reduccionesBase": "ninguna",
+      "saldosAnteriores": "ninguno",
+      "deducciones": "solo-da61-si-procede",
+      "rentasExtranjeras": "ninguna",
+      "especialidades": "ninguna",
+      "perfil": "solo-trabajo",
+      "conciliacion": {
+        "ejercicio": 2025,
+        "estado": "totales-anuales-sin-duplicados",
+        "procedencia": [
+          "sintetico:datos-fiscales-2025",
+          "sintetico:certificados-pagadores"
+        ]
+      },
+      "trabajo": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna",
+        "rendimientos": [
+          {
+            "id": "a",
+            "clase": "empleo-laboral",
+            "integro": "30000.00",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1950.00",
+              "derechosPasivos": "0",
+              "colegiosHuerfanos": "0"
+            },
+            "sindicato": {
+              "importe": "0",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ]
+      },
+      "retenciones": [
+        {
+          "operacionId": "ret-0",
+          "procedencia": "sintetico:certificado-0",
+          "ejercicio": 2025,
+          "importe": "4200.00",
+          "efectiva": true
+        }
+      ],
+      "contribuyenteId": "s-1"
+    }
+  },
+  {
+    "id": "open2025-murcia-02",
+    "entrada": {
+      "ejercicio": 2025,
+      "comunidadAutonoma": "murcia",
+      "edad": 40,
+      "modalidad": "individual",
+      "residenciaTodoElAnio": true,
+      "devengo": "2025-12-31",
+      "otrasRentas": "ninguna",
+      "familiaresConDerechoMinimo": "ninguno",
+      "discapacidad": "ninguna",
+      "reduccionesBase": "ninguna",
+      "saldosAnteriores": "ninguno",
+      "deducciones": "territoriales-por-hechos-y-da61",
+      "rentasExtranjeras": "ninguna",
+      "especialidades": "ninguna",
+      "perfil": "solo-trabajo",
+      "conciliacion": {
+        "ejercicio": 2025,
+        "estado": "totales-anuales-sin-duplicados",
+        "procedencia": [
+          "sintetico:datos-fiscales-2025",
+          "sintetico:certificados-pagadores"
+        ]
+      },
+      "trabajo": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna",
+        "rendimientos": [
+          {
+            "id": "a",
+            "clase": "empleo-laboral",
+            "integro": "30000.00",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1950.00",
+              "derechosPasivos": "0",
+              "colegiosHuerfanos": "0"
+            },
+            "sindicato": {
+              "importe": "0",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ]
+      },
+      "retenciones": [
+        {
+          "operacionId": "ret-0",
+          "procedencia": "sintetico:certificado-0",
+          "ejercicio": 2025,
+          "importe": "4200.00",
+          "efectiva": true
+        }
+      ],
+      "contribuyenteId": "s-1",
+      "deduccionesTerritoriales2025": {
+        "solicitudes": [
+          {
+            "lote": "F-ampliado",
+            "codigo": "murcia_arrendamiento_vivienda_habitual",
+            "hechos": {
+              "nacimientoContribuyente": "1985-01-01",
+              "miembrosUnidad": [
+                "s-1"
+              ],
+              "elecciones": [],
+              "viviendas": [
+                {
+                  "id": "V",
+                  "territorio": "murcia",
+                  "ocupacionDesde": "2024-12-01",
+                  "permanenciaHasta": "2025-12-31",
+                  "porcentajeOtraViviendaFamiliar": "0",
+                  "derechoInversionVivienda": "no"
+                }
+              ],
+              "contratos": [
+                {
+                  "id": "C",
+                  "viviendaId": "V",
+                  "desde": "2024-12-01",
+                  "hasta": "2028-12-01",
+                  "arrendador": "arrendador-ficticio",
+                  "titulares": [
+                    "s-1"
+                  ],
+                  "itpPresentado": "2024-12-02",
+                  "itpVence": "2024-12-31"
+                }
+              ],
+              "pagos": [
+                {
+                  "id": "ALQ1",
+                  "fecha": "2025-01-05",
+                  "importeEUR": "600.00",
+                  "ayudasEUR": "0",
+                  "concepto": "alquiler",
+                  "objetoId": "V",
+                  "pagador": "s-1",
+                  "beneficiarioId": "s-1",
+                  "medio": "transferencia",
+                  "factura": "sintetico:recibo-1",
+                  "soportePago": "sintetico:banco-1"
+                },
+                {
+                  "id": "ALQ2",
+                  "fecha": "2025-02-05",
+                  "importeEUR": "600.00",
+                  "ayudasEUR": "0",
+                  "concepto": "alquiler",
+                  "objetoId": "V",
+                  "pagador": "s-1",
+                  "beneficiarioId": "s-1",
+                  "medio": "transferencia",
+                  "factura": "sintetico:recibo-2",
+                  "soportePago": "sintetico:banco-2"
+                },
+                {
+                  "id": "ALQ3",
+                  "fecha": "2025-03-05",
+                  "importeEUR": "600.00",
+                  "ayudasEUR": "0",
+                  "concepto": "alquiler",
+                  "objetoId": "V",
+                  "pagador": "s-1",
+                  "beneficiarioId": "s-1",
+                  "medio": "transferencia",
+                  "factura": "sintetico:recibo-3",
+                  "soportePago": "sintetico:banco-3"
+                },
+                {
+                  "id": "ALQ4",
+                  "fecha": "2025-04-05",
+                  "importeEUR": "600.00",
+                  "ayudasEUR": "0",
+                  "concepto": "alquiler",
+                  "objetoId": "V",
+                  "pagador": "s-1",
+                  "beneficiarioId": "s-1",
+                  "medio": "transferencia",
+                  "factura": "sintetico:recibo-4",
+                  "soportePago": "sintetico:banco-4"
+                },
+                {
+                  "id": "ALQ5",
+                  "fecha": "2025-05-05",
+                  "importeEUR": "600.00",
+                  "ayudasEUR": "0",
+                  "concepto": "alquiler",
+                  "objetoId": "V",
+                  "pagador": "s-1",
+                  "beneficiarioId": "s-1",
+                  "medio": "transferencia",
+                  "factura": "sintetico:recibo-5",
+                  "soportePago": "sintetico:banco-5"
+                },
+                {
+                  "id": "ALQ6",
+                  "fecha": "2025-06-05",
+                  "importeEUR": "600.00",
+                  "ayudasEUR": "0",
+                  "concepto": "alquiler",
+                  "objetoId": "V",
+                  "pagador": "s-1",
+                  "beneficiarioId": "s-1",
+                  "medio": "transferencia",
+                  "factura": "sintetico:recibo-6",
+                  "soportePago": "sintetico:banco-6"
+                },
+                {
+                  "id": "ALQ7",
+                  "fecha": "2025-07-05",
+                  "importeEUR": "600.00",
+                  "ayudasEUR": "0",
+                  "concepto": "alquiler",
+                  "objetoId": "V",
+                  "pagador": "s-1",
+                  "beneficiarioId": "s-1",
+                  "medio": "transferencia",
+                  "factura": "sintetico:recibo-7",
+                  "soportePago": "sintetico:banco-7"
+                },
+                {
+                  "id": "ALQ8",
+                  "fecha": "2025-08-05",
+                  "importeEUR": "600.00",
+                  "ayudasEUR": "0",
+                  "concepto": "alquiler",
+                  "objetoId": "V",
+                  "pagador": "s-1",
+                  "beneficiarioId": "s-1",
+                  "medio": "transferencia",
+                  "factura": "sintetico:recibo-8",
+                  "soportePago": "sintetico:banco-8"
+                },
+                {
+                  "id": "ALQ9",
+                  "fecha": "2025-09-05",
+                  "importeEUR": "600.00",
+                  "ayudasEUR": "0",
+                  "concepto": "alquiler",
+                  "objetoId": "V",
+                  "pagador": "s-1",
+                  "beneficiarioId": "s-1",
+                  "medio": "transferencia",
+                  "factura": "sintetico:recibo-9",
+                  "soportePago": "sintetico:banco-9"
+                },
+                {
+                  "id": "ALQ10",
+                  "fecha": "2025-10-05",
+                  "importeEUR": "600.00",
+                  "ayudasEUR": "0",
+                  "concepto": "alquiler",
+                  "objetoId": "V",
+                  "pagador": "s-1",
+                  "beneficiarioId": "s-1",
+                  "medio": "transferencia",
+                  "factura": "sintetico:recibo-10",
+                  "soportePago": "sintetico:banco-10"
+                },
+                {
+                  "id": "ALQ11",
+                  "fecha": "2025-11-05",
+                  "importeEUR": "600.00",
+                  "ayudasEUR": "0",
+                  "concepto": "alquiler",
+                  "objetoId": "V",
+                  "pagador": "s-1",
+                  "beneficiarioId": "s-1",
+                  "medio": "transferencia",
+                  "factura": "sintetico:recibo-11",
+                  "soportePago": "sintetico:banco-11"
+                },
+                {
+                  "id": "ALQ12",
+                  "fecha": "2025-12-05",
+                  "importeEUR": "600.00",
+                  "ayudasEUR": "0",
+                  "concepto": "alquiler",
+                  "objetoId": "V",
+                  "pagador": "s-1",
+                  "beneficiarioId": "s-1",
+                  "medio": "transferencia",
+                  "factura": "sintetico:recibo-12",
+                  "soportePago": "sintetico:banco-12"
+                }
+              ],
+              "titulo": {
+                "categoria": "no_numerosa"
+              },
+              "personas": [
+                {
+                  "id": "s-1",
+                  "nacimiento": "1985-01-01",
+                  "relacion": "contribuyente",
+                  "discapacidadPorcentaje": "0"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "open2025-comunitat-valenciana-05",
+    "entrada": {
+      "ejercicio": 2025,
+      "comunidadAutonoma": "comunitat-valenciana",
+      "edad": 40,
+      "modalidad": "individual",
+      "residenciaTodoElAnio": true,
+      "devengo": "2025-12-31",
+      "otrasRentas": "ninguna",
+      "familiaresConDerechoMinimo": "ninguno",
+      "discapacidad": "ninguna",
+      "reduccionesBase": "ninguna",
+      "saldosAnteriores": "ninguno",
+      "deducciones": "valencianas-por-hechos-y-da61",
+      "rentasExtranjeras": "ninguna",
+      "especialidades": "ninguna",
+      "perfil": "solo-trabajo",
+      "conciliacion": {
+        "ejercicio": 2025,
+        "estado": "totales-anuales-sin-duplicados",
+        "procedencia": [
+          "sintetico:datos-fiscales-2025",
+          "sintetico:certificados-pagadores"
+        ]
+      },
+      "trabajo": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna",
+        "rendimientos": [
+          {
+            "id": "a",
+            "clase": "empleo-laboral",
+            "integro": "30000.00",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1950.00",
+              "derechosPasivos": "0",
+              "colegiosHuerfanos": "0"
+            },
+            "sindicato": {
+              "importe": "0",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ]
+      },
+      "retenciones": [
+        {
+          "operacionId": "ret-0",
+          "procedencia": "sintetico:certificado-0",
+          "ejercicio": 2025,
+          "importe": "4200.00",
+          "efectiva": true
+        }
+      ],
+      "contribuyenteId": "s-1",
+      "deduccionesValencianas2025": {
+        "ejercicio": 2025,
+        "territorio": "comunitat-valenciana",
+        "modalidad": "individual",
+        "devengo": "2025-12-31",
+        "contribuyente": "s-1",
+        "cantidades": [
+          {
+            "id": "ALQ1",
+            "euros": 600
+          },
+          {
+            "id": "ALQ2",
+            "euros": 600
+          },
+          {
+            "id": "ALQ3",
+            "euros": 600
+          },
+          {
+            "id": "ALQ4",
+            "euros": 600
+          },
+          {
+            "id": "ALQ5",
+            "euros": 600
+          },
+          {
+            "id": "ALQ6",
+            "euros": 600
+          },
+          {
+            "id": "ALQ7",
+            "euros": 600
+          },
+          {
+            "id": "ALQ8",
+            "euros": 600
+          },
+          {
+            "id": "ALQ9",
+            "euros": 600
+          },
+          {
+            "id": "ALQ10",
+            "euros": 600
+          },
+          {
+            "id": "ALQ11",
+            "euros": 600
+          },
+          {
+            "id": "ALQ12",
+            "euros": 600
+          }
+        ],
+        "solicitudes": [
+          {
+            "codigo": "valenciana_arrendamiento_cesion_uso_vivienda",
+            "eleccion": "aplicar",
+            "unidades": [
+              {
+                "id": "U",
+                "titulares": [
+                  "s-1"
+                ],
+                "fecha": "2025-12-31",
+                "numeros": {},
+                "textos": {
+                  "contrato": "alquiler"
+                },
+                "arrendamientoFactual2025": {
+                  "contratoId": "C",
+                  "viviendaId": "V",
+                  "arrendadorId": "arrendador-ficticio",
+                  "titularId": "s-1",
+                  "firma": "2024-12-01",
+                  "desde": "2024-12-01",
+                  "hasta": "2028-12-01",
+                  "ocupacionDesde": "2024-12-01",
+                  "ocupacionHasta": "2025-12-31",
+                  "nacimiento": "1985-01-01",
+                  "discapacidadPorcentaje": 0,
+                  "derechosOtrasViviendas": [],
+                  "derechoInversionVivienda": false,
+                  "pagos": [
+                    {
+                      "id": "ALQ1",
+                      "contratoId": "C",
+                      "viviendaId": "V",
+                      "pagadorId": "s-1",
+                      "fecha": "2025-01-05",
+                      "euros": 600,
+                      "servicios": 0,
+                      "ayudas": 0,
+                      "reembolsos": 0,
+                      "medio": "transferencia",
+                      "soporte": "sintetico:banco-1"
+                    },
+                    {
+                      "id": "ALQ2",
+                      "contratoId": "C",
+                      "viviendaId": "V",
+                      "pagadorId": "s-1",
+                      "fecha": "2025-02-05",
+                      "euros": 600,
+                      "servicios": 0,
+                      "ayudas": 0,
+                      "reembolsos": 0,
+                      "medio": "transferencia",
+                      "soporte": "sintetico:banco-2"
+                    },
+                    {
+                      "id": "ALQ3",
+                      "contratoId": "C",
+                      "viviendaId": "V",
+                      "pagadorId": "s-1",
+                      "fecha": "2025-03-05",
+                      "euros": 600,
+                      "servicios": 0,
+                      "ayudas": 0,
+                      "reembolsos": 0,
+                      "medio": "transferencia",
+                      "soporte": "sintetico:banco-3"
+                    },
+                    {
+                      "id": "ALQ4",
+                      "contratoId": "C",
+                      "viviendaId": "V",
+                      "pagadorId": "s-1",
+                      "fecha": "2025-04-05",
+                      "euros": 600,
+                      "servicios": 0,
+                      "ayudas": 0,
+                      "reembolsos": 0,
+                      "medio": "transferencia",
+                      "soporte": "sintetico:banco-4"
+                    },
+                    {
+                      "id": "ALQ5",
+                      "contratoId": "C",
+                      "viviendaId": "V",
+                      "pagadorId": "s-1",
+                      "fecha": "2025-05-05",
+                      "euros": 600,
+                      "servicios": 0,
+                      "ayudas": 0,
+                      "reembolsos": 0,
+                      "medio": "transferencia",
+                      "soporte": "sintetico:banco-5"
+                    },
+                    {
+                      "id": "ALQ6",
+                      "contratoId": "C",
+                      "viviendaId": "V",
+                      "pagadorId": "s-1",
+                      "fecha": "2025-06-05",
+                      "euros": 600,
+                      "servicios": 0,
+                      "ayudas": 0,
+                      "reembolsos": 0,
+                      "medio": "transferencia",
+                      "soporte": "sintetico:banco-6"
+                    },
+                    {
+                      "id": "ALQ7",
+                      "contratoId": "C",
+                      "viviendaId": "V",
+                      "pagadorId": "s-1",
+                      "fecha": "2025-07-05",
+                      "euros": 600,
+                      "servicios": 0,
+                      "ayudas": 0,
+                      "reembolsos": 0,
+                      "medio": "transferencia",
+                      "soporte": "sintetico:banco-7"
+                    },
+                    {
+                      "id": "ALQ8",
+                      "contratoId": "C",
+                      "viviendaId": "V",
+                      "pagadorId": "s-1",
+                      "fecha": "2025-08-05",
+                      "euros": 600,
+                      "servicios": 0,
+                      "ayudas": 0,
+                      "reembolsos": 0,
+                      "medio": "transferencia",
+                      "soporte": "sintetico:banco-8"
+                    },
+                    {
+                      "id": "ALQ9",
+                      "contratoId": "C",
+                      "viviendaId": "V",
+                      "pagadorId": "s-1",
+                      "fecha": "2025-09-05",
+                      "euros": 600,
+                      "servicios": 0,
+                      "ayudas": 0,
+                      "reembolsos": 0,
+                      "medio": "transferencia",
+                      "soporte": "sintetico:banco-9"
+                    },
+                    {
+                      "id": "ALQ10",
+                      "contratoId": "C",
+                      "viviendaId": "V",
+                      "pagadorId": "s-1",
+                      "fecha": "2025-10-05",
+                      "euros": 600,
+                      "servicios": 0,
+                      "ayudas": 0,
+                      "reembolsos": 0,
+                      "medio": "transferencia",
+                      "soporte": "sintetico:banco-10"
+                    },
+                    {
+                      "id": "ALQ11",
+                      "contratoId": "C",
+                      "viviendaId": "V",
+                      "pagadorId": "s-1",
+                      "fecha": "2025-11-05",
+                      "euros": 600,
+                      "servicios": 0,
+                      "ayudas": 0,
+                      "reembolsos": 0,
+                      "medio": "transferencia",
+                      "soporte": "sintetico:banco-11"
+                    },
+                    {
+                      "id": "ALQ12",
+                      "contratoId": "C",
+                      "viviendaId": "V",
+                      "pagadorId": "s-1",
+                      "fecha": "2025-12-05",
+                      "euros": 600,
+                      "servicios": 0,
+                      "ayudas": 0,
+                      "reembolsos": 0,
+                      "medio": "transferencia",
+                      "soporte": "sintetico:banco-12"
+                    }
+                  ]
+                }
+              }
+            ],
+            "referencias": [
+              {
+                "unidad": "U",
+                "sujetos": [
+                  "s-1"
+                ],
+                "bienes": [
+                  "V"
+                ],
+                "eventos": [
+                  "C"
+                ],
+                "cantidades": [
+                  "ALQ1",
+                  "ALQ2",
+                  "ALQ3",
+                  "ALQ4",
+                  "ALQ5",
+                  "ALQ6",
+                  "ALQ7",
+                  "ALQ8",
+                  "ALQ9",
+                  "ALQ10",
+                  "ALQ11",
+                  "ALQ12"
+                ]
+              }
+            ]
+          }
+        ],
+        "ordenBase30": [],
+        "consignaciones": [],
+        "arrastres": [],
+        "ordenConsumo": [
+          "[\"valenciana_arrendamiento_cesion_uso_vivienda\",2025,\"s-1\"]"
+        ],
+        "criterioOrden": "eleccion_experta"
+      }
+    }
+  },
+  {
+    "id": "open2025-catalunya-10",
+    "entrada": {
+      "ejercicio": 2025,
+      "comunidadAutonoma": "catalunya",
+      "edad": 40,
+      "modalidad": "individual",
+      "residenciaTodoElAnio": true,
+      "devengo": "2025-12-31",
+      "otrasRentas": "ninguna",
+      "familiaresConDerechoMinimo": "ninguno",
+      "discapacidad": "ninguna",
+      "reduccionesBase": "ninguna",
+      "saldosAnteriores": "ninguno",
+      "deducciones": "solo-da61-si-procede",
+      "rentasExtranjeras": "ninguna",
+      "especialidades": "ninguna",
+      "perfil": "solo-trabajo",
+      "conciliacion": {
+        "ejercicio": 2025,
+        "estado": "totales-anuales-sin-duplicados",
+        "procedencia": [
+          "sintetico:datos-fiscales-2025",
+          "sintetico:certificados-pagadores"
+        ]
+      },
+      "trabajo": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna",
+        "rendimientos": [
+          {
+            "id": "a",
+            "clase": "empleo-laboral",
+            "integro": "30000.00",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1950.00",
+              "derechosPasivos": "0",
+              "colegiosHuerfanos": "0"
+            },
+            "sindicato": {
+              "importe": "0",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ]
+      },
+      "retenciones": [
+        {
+          "operacionId": "ret-0",
+          "procedencia": "sintetico:certificado-0",
+          "ejercicio": 2025,
+          "importe": "4200.00",
+          "efectiva": true
+        }
+      ],
+      "contribuyenteId": "s-1"
+    }
+  }
+]

@@ -1,0 +1,281 @@
+{
+  "schema": "autoridad-conjunta-v2-v1",
+  "id": "open2025-aragon-02-v2",
+  "naturaleza": "contrato-ficticio-sintetico",
+  "origen": "diseno-v2-anterior-a-captura",
+  "preservaHogarLegacy": true,
+  "expedienteOriginalSha256": "65116b63a229c630acb23241f38ee7ed295cbd5f859c58df7582549acdc30823",
+  "fixtureCapturadoSha256": "a837e76f56f8a8782d830f3066c1533805f6f030d01831504c73b22955852c78",
+  "planCapturaSha256": "0e15bd3a78bfc034f81bd944112f049be0d925fab82990df274502856bccc0f6",
+  "disenoArchivo": "docs/procedencia/simuladores/medicion-2025/revision-unicidad-pendientes.json",
+  "disenoSha256": "4b2fa50f96c4a9e155341ecef8bbdfd42f4b0a9dec299d233ad34570e067de04",
+  "diseno": {
+    "ejercicio": 2025,
+    "comunidadAutonoma": "aragon",
+    "edad": 40,
+    "modalidad": "individual",
+    "residenciaTodoElAnio": true,
+    "devengo": "2025-12-31",
+    "otrasRentas": "ninguna",
+    "familiaresConDerechoMinimo": "segun-derechos",
+    "discapacidad": "ninguna",
+    "reduccionesBase": "ninguna",
+    "saldosAnteriores": "ninguno",
+    "deducciones": "solo-da61-si-procede",
+    "rentasExtranjeras": "ninguna",
+    "especialidades": "ninguna",
+    "perfil": "solo-trabajo",
+    "conciliacion": {
+      "ejercicio": 2025,
+      "estado": "totales-anuales-sin-duplicados",
+      "procedencia": [
+        "sintetico:datos-fiscales-2025",
+        "sintetico:certificados-pagadores"
+      ]
+    },
+    "trabajo": {
+      "ejercicio": 2025,
+      "territorio": "comun",
+      "reduccionesArt18": "ninguna",
+      "movilidad": "ninguna",
+      "discapacidadActiva": "ninguna",
+      "rendimientos": [
+        {
+          "id": "a",
+          "clase": "empleo-laboral",
+          "integro": "47000.00",
+          "cotizaciones": {
+            "clase": "efectivas",
+            "seguridadSocial": "3055.00",
+            "derechosPasivos": "0",
+            "colegiosHuerfanos": "0"
+          },
+          "sindicato": {
+            "importe": "0",
+            "satisfecho": "si"
+          },
+          "colegio": {
+            "importe": "0",
+            "satisfecho": "si",
+            "obligatorio": "si",
+            "finesEsenciales": "si"
+          },
+          "defensa": {
+            "importe": "0",
+            "satisfecho": "si",
+            "litigioDirectoPagador": "si"
+          }
+        }
+      ]
+    },
+    "retenciones": [
+      {
+        "operacionId": "ret-0",
+        "procedencia": "sintetico:certificado-0",
+        "ejercicio": 2025,
+        "importe": "6580.00",
+        "efectiva": true
+      }
+    ],
+    "derechosMinimos": {
+      "ascendientes": "ninguno",
+      "conciliacionRentasContribuyente": {
+        "otrasRentasOGastosNoRepresentados": "ninguno",
+        "perfil": "caso-anual-parcial"
+      },
+      "contribuyenteId": "s-1",
+      "descendientes": [
+        {
+          "declaracion": {
+            "modalidad": "no-presenta"
+          },
+          "discapacidad": {
+            "_tag": "SinDiscapacidad"
+          },
+          "edadDevengo": 2,
+          "fechaNacimiento": "2023-01-01",
+          "rentasNoExentasCentimos": 0,
+          "sujetoId": "s-3",
+          "titulares": [
+            {
+              "alimentosJudiciales": false,
+              "aplicaEspecialidadAlimentos": false,
+              "custodia": "exclusiva",
+              "grado": 1,
+              "relacion": "convivencia",
+              "rentasNoExentasCentimos": 4194500,
+              "residenteIrpf": true,
+              "titularId": "s-1",
+              "vinculo": {
+                "clase": "consanguinidad"
+              }
+            }
+          ],
+          "titularesCompletos": true,
+          "vivoAlDevengo": true
+        }
+      ],
+      "descendientesCompletos": true,
+      "devengo": "2025-12-31",
+      "discapacidadContribuyente": {
+        "_tag": "SinDiscapacidad"
+      },
+      "edadContribuyenteDevengo": 40,
+      "ejercicio": 2025,
+      "fallecimientosEnElEjercicio": "ninguno",
+      "modalidad": "individual",
+      "regimen": "comun",
+      "territorio": "aragon"
+    }
+  },
+  "entradaCandidata": {
+    "perfil": "conjunta-trabajo-ordinario-2025",
+    "modalidad": "conjunta",
+    "ejercicio": 2025,
+    "devengo": "2025-12-31",
+    "comunidadAutonoma": "aragon",
+    "unidadId": "open2025-aragon-02-v2",
+    "tipoUnidad": "matrimonial",
+    "declarante": {
+      "id": "s-1",
+      "fechaNacimiento": "1985-01-01",
+      "residenteIrpfTodo2025": true,
+      "vivoTodo2025": true,
+      "discapacidad": "ninguna",
+      "opcion": "conjunta",
+      "unidadId": "open2025-aragon-02-v2",
+      "declaracionSeparada": "ninguna",
+      "otraUnidad": false,
+      "estadoCivil": "casado-no-separado"
+    },
+    "conyuge": {
+      "id": "s-2",
+      "fechaNacimiento": "1985-01-01",
+      "residenteIrpfTodo2025": true,
+      "vivoTodo2025": true,
+      "discapacidad": "ninguna",
+      "opcion": "conjunta",
+      "unidadId": "open2025-aragon-02-v2",
+      "declaracionSeparada": "ninguna",
+      "otraUnidad": false,
+      "estadoCivil": "casado-no-separado"
+    },
+    "hijos": [
+      {
+        "id": "s-3",
+        "fechaNacimiento": "2023-01-01",
+        "residenteIrpfTodo2025": true,
+        "vivoTodo2025": true,
+        "discapacidad": "ninguna",
+        "opcion": "conjunta",
+        "unidadId": "open2025-aragon-02-v2",
+        "declaracionSeparada": "ninguna",
+        "otraUnidad": false,
+        "rentaNoExenta": "0.00",
+        "independienteConConsentimiento": false,
+        "apoyoJudicial": "ninguno",
+        "progenitoresTitulares": [
+          "s-1",
+          "s-2"
+        ],
+        "titularesCompletos": true,
+        "alimentosJudiciales": false,
+        "guardaCustodia": "ambos-conyuges-convivientes"
+      }
+    ],
+    "miembros": [
+      "s-1",
+      "s-2",
+      "s-3"
+    ],
+    "convivientesTodo2025": [
+      "s-1",
+      "s-2",
+      "s-3"
+    ],
+    "censoAlDevengoCompleto": true,
+    "opcionTodos": true,
+    "otrosHijosAscendientesConvivientes": "ninguno",
+    "otroProgenitorExterno": null,
+    "economia": {
+      "censoCompleto": true,
+      "perceptorId": "s-1",
+      "miembrosSinRentas": [
+        "s-2",
+        "s-3"
+      ],
+      "otrasRentasIncluidasExentas": "ninguna",
+      "actividadesAhorroInmueblesGanancias": "ninguno",
+      "reduccionesPersonalesSaldosAnteriores": "ninguno",
+      "deducciones": "solo-da61-si-procede",
+      "trabajo": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna",
+        "rendimientos": [
+          {
+            "id": "a",
+            "clase": "empleo-laboral",
+            "integro": "47000.00",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "3055.00",
+              "derechosPasivos": "0",
+              "colegiosHuerfanos": "0"
+            },
+            "sindicato": {
+              "importe": "0",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ]
+      },
+      "conciliacion": {
+        "ejercicio": 2025,
+        "estado": "totales-anuales-sin-duplicados",
+        "procedencia": [
+          "sintetico:datos-fiscales-2025",
+          "sintetico:certificados-pagadores"
+        ]
+      },
+      "retenciones": [
+        {
+          "operacionId": "ret-0",
+          "procedencia": "sintetico:certificado-0",
+          "ejercicio": 2025,
+          "importe": "6580.00",
+          "efectiva": true
+        }
+      ]
+    }
+  },
+  "conflicto": {
+    "campo": "hogar",
+    "original": {
+      "integro": "45000.00",
+      "seguridadSocial": "2925.00",
+      "retenciones": "8500.00",
+      "unidad": "open2025-aragon-02"
+    },
+    "autoridad": {
+      "integro": "47000.00",
+      "seguridadSocial": "3055.00",
+      "retenciones": "6580.00",
+      "unidad": "open2025-aragon-02-v2"
+    },
+    "resolucion": "El diseño v2 y la entrada candidata fijados antes de capturar gobiernan la comparación. El hogar heredado queda como antecedente contradictorio, sin alimentar el cálculo. No se modifica el recibo ni la captura."
+  }
+}

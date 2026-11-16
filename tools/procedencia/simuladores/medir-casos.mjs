@@ -9,15 +9,31 @@ import { createHash } from "node:crypto"
 import { dirname, resolve } from "node:path"
 import { Effect, Schema } from "effect"
 import { CasoFiscalAnualExplicito } from "../../../lib/dominio/irpf/trabajo-anual/conexion-contrato.ts"
+import { CasoConjunta2025 } from "../../../lib/dominio/irpf/conjunta-2025/contrato.ts"
+import { CasoTrabajoAlquilerOrdinario2025 } from "../../../lib/dominio/irpf/trabajo-alquiler-ordinario-2025/contrato.ts"
 import { liquidarIrpfAnualExplicito } from "../../../lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts"
 import { vincularOpen } from "./vincular-open.mjs"
 import { vincularDT18Open } from "./vincular-dt18-open.mjs"
+import { vincularConjuntaOpen } from "./vincular-conjunta-open.mjs"
 
 const hash = (bytes) => createHash("sha256").update(bytes).digest("hex")
 const objeto = Schema.is(Schema.Record(Schema.String, Schema.Unknown))
 const cadena = Schema.is(Schema.String)
+const CasoMedible2025 = Schema.Union([CasoFiscalAnualExplicito, CasoConjunta2025, CasoTrabajoAlquilerOrdinario2025])
 const canon = (v) => JSON.stringify(v, (_, x) => objeto(x)
   ? Object.fromEntries(Object.keys(x).sort().map((k) => [k, x[k]])) : x)
+// El nombre del expediente no convierte los mismos hechos en otro perfil.
+// Se preservan identidades personales, vínculos y cualquier contradicción de unidad.
+const identidadEconomica = (entrada) => {
+  if (entrada.perfil === "conjunta-trabajo-ordinario-2025") {
+    const unidad = entrada.unidadId
+    return canon(JSON.parse(JSON.stringify(entrada, (key, value) =>
+      key === "unidadId" && value === unidad ? "unidad-sintetica-normalizada" : value)))
+  }
+  if (entrada.perfil === "trabajo-alquiler-ordinario-2025")
+    return canon({ ...entrada, liquidacionId: "liquidacion-sintetica-normalizada" })
+  return canon(entrada)
+}
 // Aritmética decimal exacta del medidor, nunca fórmulas fiscales ni Number monetario.
 const decimal = (v) => {
   if (!cadena(v) || !/^-?\d{1,24}(?:\.\d{1,100})?$/.test(v))
@@ -49,6 +65,7 @@ const escalares = ["reduccionArt20", "rendimientoNetoReducido", "baseImponibleGe
   "cuotaDiferencialPresentada"]
 const vinculoVerificado = (v) => v?.estado === "entrada-ses-y-resultado-pdf-vinculados"
   || v?.estado === "transporte-dt18-ses-pdf-vinculado"
+  || v?.estado === "transporte-conjunta-ses-pdf-vinculado"
 
 function referencias(integridad, base) {
   const refs = integridad?.referencias
@@ -89,10 +106,10 @@ function medirCaso(caso, base) {
     let entrada
     try {
       if (caso.entradaAPI?.ejercicio !== 2025) throw new Error("ejercicio")
-      entrada = Schema.decodeUnknownSync(CasoFiscalAnualExplicito)(caso.entradaAPI, { onExcessProperty: "error" })
+      entrada = Schema.decodeUnknownSync(CasoMedible2025)(caso.entradaAPI, { onExcessProperty: "error" })
     } catch {
       salida.estado = "no-admitido"
-      salida.motivo = "entrada-fuera-de-CasoFiscalAnualExplicito-2025; contrato-ampliado-o-entrada-completa-requeridos"
+      salida.motivo = "entrada-fuera-de-contratos-medibles-2025; contrato-ampliado-o-entrada-completa-requeridos"
       return salida
     }
     let resultado
@@ -106,8 +123,13 @@ function medirCaso(caso, base) {
       salida.motivo = "API-no-soporta-caso"
       return salida
     }
-    const monetario = { ...Object.fromEntries(escalares.filter((k) => resultado[k] !== undefined)
-      .map((k) => [k, resultado[k]])), ...Object.fromEntries(Object.entries(resultado.componentesCuota ?? {})
+    // El productor mixto conserva Decimal en su API técnica. La medición consume
+    // su representación decimal exacta; no pasa por Number ni redondea componentes.
+    const serializado = resultado._tag === "LiquidacionTrabajoAlquilerOrdinario2025"
+      ? { ...resultado, baseImponibleGeneral: resultado.baseImponibleGeneral.toFixed(),
+        cuotaDiferencial: resultado.cuotaDiferencial.toFixed() } : resultado
+    const monetario = { ...Object.fromEntries(escalares.filter((k) => serializado[k] !== undefined)
+      .map((k) => [k, serializado[k]])), ...Object.fromEntries(Object.entries(serializado.componentesCuota ?? {})
       .filter(([k]) => k !== "unidad")) }
     const nombres = new Set([...Object.keys(monetario), ...Object.keys(caso.componentesOpenEUR ?? {})])
     salida.componentes = Object.fromEntries([...nombres].sort().map((k) => {
@@ -128,8 +150,9 @@ function medirCaso(caso, base) {
     salida.resultadoMotorEUR = texto([centimos(motor), 2])
     salida.discrepanciaEUR = texto([diferencia, 2])
     salida.pesoExterno = caso.pesoExterno ?? null
-    salida.vinculacion = caso.evidenciaOpen?.dt18
-      ? vincularDT18Open(caso, base) : vincularOpen(caso, base)
+    salida.vinculacion = caso.evidenciaOpen?.conjunta
+      ? vincularConjuntaOpen(caso, base) : caso.evidenciaOpen?.dt18
+        ? vincularDT18Open(caso, base) : vincularOpen(caso, base)
     salida.coincidenciaVerificada = diferencia === 0n && vinculoVerificado(salida.vinculacion)
     return salida
   } catch (error) {
@@ -176,7 +199,7 @@ export function medirCasos(documento, { base = process.cwd(), manifiesto } = {})
       return { id: caso.id, estado: "rechazado", motivo: "identidad-con-contenidos-conflictivos" }
     const resultado = medirCaso(caso, base)
     if (caso.entradaAPI) {
-      const identidad = hash(canon(caso.entradaAPI))
+      const identidad = hash(identidadEconomica(caso.entradaAPI))
       if (entradasVistas.has(identidad)) {
         resultado.duplicadoEntradaDe = entradasVistas.get(identidad)
         resultado.coincidenciaVerificada = false
@@ -196,7 +219,7 @@ export function medirCasos(documento, { base = process.cwd(), manifiesto } = {})
   }
   const N = resultados.length
   const igualesN = resultados.filter((r) => r.coincidenciaVerificada === true).length
-  const igualesExploratorias = resultados.filter((r) => r.estado === "igual-al-centimo").length
+  const igualesExploratorias = resultados.filter((r) => r.estado === "igual-al-centimo" && !r.duplicadoEntradaDe).length
   const completa = ponderados.length === N
   const prioridades = ponderados.filter(r => centimos(r.discrepanciaEUR) !== 0n && !r.duplicadoEntradaDe)
     .map(r => {
@@ -211,7 +234,7 @@ export function medirCasos(documento, { base = process.cwd(), manifiesto } = {})
   return {
     schema: "medicion-c2025-v1",
     alcance: "Resultado presentado por API explicita 2025; medicion condicionada de casos, sin certificado monetario universal",
-    contratoAPI: "CasoFiscalAnualExplicito; ampliaciones no admitidas se conservan en N",
+    contratoAPI: "CasoFiscalAnualExplicito, CasoConjunta2025 y CasoTrabajoAlquilerOrdinario2025; perfiles no admitidos se conservan en N",
     inventario: "no-realizado; no se invoca engine.mjs ni se certifican fuentes o dependencias",
     integridad: "Iguales exige vinculo entrada/SES y resultado/PDF. Comparaciones sin vinculo son exploratorias",
     medicion: { iguales: igualesN, N, fraccion: `${igualesN}/${N}`, comparables: comparables.length,

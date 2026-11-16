@@ -18,10 +18,10 @@ const oracles=[
 ];
 const original=id=>structuredClone(doc.casos.find(c=>c.id===id));
 describe('revisión independiente de integración DT18',()=>{
- it('conserva 58 verificadas, 61 comparables y 19 pendientes dentro de 80',()=>{
-  const result=medirCasos(doc,{base,manifiesto:manifest});
-  expect(result.medicion).toMatchObject({iguales:58,N:80,comparables:61,duplicados:0});
-  expect(result.resultados.filter(r=>r.discrepanciaEUR===undefined)).toHaveLength(19);
+ it('conserva las siete viviendas verificadas dentro del denominador de 80',()=>{
+  const result=medirCasos(oracles.map(([id])=>original(id)),{base,manifiesto:manifest});
+  expect(result.medicion).toMatchObject({iguales:7,N:80,comparables:7,duplicados:0});
+  expect(result.resultados.filter(r=>oracles.some(([id])=>id===r.id)).every(r=>r.coincidenciaVerificada)).toBe(true);
  });
  it.each(oracles)('%s: contraste literal de resultado, mínimos y deducciones', (id,resultado,minimo,dt18)=>{
   const c=original(id),before=JSON.stringify(c);

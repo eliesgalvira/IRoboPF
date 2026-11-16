@@ -45,9 +45,9 @@ ${p.otroTitularId ? '   NIFOP01~1~90000001N\n  [OTROSPROGENITORES]\n   NIFOP~1~9
 describe('familia Open: identidad referencial y observación parcial', () => {
   it('admite los 18 casos individuales del manifiesto, sin sustituir conjunta', () => {
     const family = matrix.filter(c => c.grupo === 'salario-hijos');
-    expect(family.filter(c => c.entradaAPI)).toHaveLength(18);
+    expect(family.filter(c => c.entradaAPI?.modalidad === 'individual')).toHaveLength(18);
     for (const c of family) {
-      if (c.entradaAPI) expect(validateFamilyCase(c).sujetoId).toBe('s-3');
+      if (c.entradaAPI?.modalidad === 'individual') expect(validateFamilyCase(c).sujetoId).toBe('s-3');
       else expect(() => validateFamilyCase(c)).toThrow();
     }
   });

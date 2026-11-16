@@ -26,6 +26,7 @@ import {
   sumaPagos,
   bancario,
   habitual,
+  habitualArrendataria,
   incompatible,
   falta,
   excluir,
@@ -389,18 +390,25 @@ export function viviendaF(s: SolicitudF): ResultadoF {
     c === "madrid_arrendamiento_vivienda_habitual" ||
     c === "murcia_arrendamiento_vivienda_habitual"
   ) {
-    habitual(v)
+    if (c.startsWith("madrid")) habitual(v)
     const cc = requerido(s.hechos.contratos, "contratos")
     if (cc.length !== 1) falta("contratos", "Un contrato de vivienda habitual")
     const contrato = requerido(cc[0], "contrato")
+    if (c.startsWith("murcia")) habitualArrendataria(s, v, contrato)
     reparto(s, contrato.titulares)
     const titulares = ids(contrato.titulares, "contrato.titulares")
-    const ps = pagos(
+    const todosPagos = pagos(
       s,
       ["alquiler"],
       texto(v.id, "vivienda.id"),
       c.startsWith("madrid") ? [s.contexto.contribuyente] : titulares
     )
+    const ps = c.startsWith("murcia") ? todosPagos.filter((p) => {
+      const medio = opcion(p.medio, ["efectivo", "transferencia", "tarjeta", "cheque_nominativo", "ingreso_cuenta"], "pago.medio")
+      if (medio === "efectivo") return false
+      texto(p.soportePago, "pago.soportePago")
+      return true
+    }) : todosPagos
     const neto = sumaPagos(ps, true)
     if (c.startsWith("murcia") && titulares.length > 1) {
       opcion(
@@ -416,7 +424,7 @@ export function viviendaF(s: SolicitudF): ResultadoF {
     const fin = fecha(contrato.hasta, "contrato.hasta")
     if (
       fin < inicio ||
-      ps.some(
+      todosPagos.some(
         (p) =>
           fecha(p.fecha, "pago.fecha") < inicio ||
           fecha(p.fecha, "pago.fecha") > fin
@@ -479,7 +487,8 @@ export function viviendaF(s: SolicitudF): ResultadoF {
         "otraVivienda",
         "Titularidad otra vivienda>50% de miembro familiar"
       )
-    opcion(v.derechoInversionVivienda, ["no"], "derechoInversionVivienda")
+    if (opcion(v.derechoInversionVivienda, ["si", "no"], "derechoInversionVivienda") === "si")
+      excluir("derechoInversionVivienda", "Derecho a inversión incompatible con alquiler")
     return salidaExactaF(s, sumarRepartoExactoF(s, racional("0"), D.min(300, neto.times("0.10")), contrato.titulares), [
       "Tope300 por contrato antes de reparto individual",
     ])

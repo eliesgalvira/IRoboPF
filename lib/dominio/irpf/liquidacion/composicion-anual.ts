@@ -701,6 +701,11 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
         "valenciana_fomento_formacion_musical",
       ])
       for (const p of s.solicitudes.filter((p) => p.eleccion === "aplicar")) {
+        if (p.unidades.some(u => {
+          const h = u.arrendamientoFactual2025
+          return h !== undefined && (2025 - Number(h.nacimiento.slice(0, 4)) !== caso.situacionFamiliar.edad ||
+            h.titularId !== s.contribuyente || h.discapacidadPorcentaje !== 0 || caso.situacionFamiliar.discapacidad._tag !== "SinDiscapacidad")
+        })) return yield* Effect.fail(errorDerechosMinimos({ motivo: "Identidad personal del alquiler contradictoria con el anual" }))
         if (
           (p.codigo === "valenciana_empleados_hogar_cuidado_personas" &&
             p.unidades.some((u) => u.textos.grupo === "ascendientes"))

@@ -46,7 +46,7 @@ describe("vinculo de entrada y resultado Open", () => {
   it("una misma entrada con dos nombres sólo suma una coincidencia verificada", () => {
     const a = caso(), b = { ...caso(), id: "otro-nombre" }
     const r = medirCasos([a, b])
-    expect(r.medicion).toMatchObject({ iguales: 1, igualesExploratorias: 2, N: 2 })
+    expect(r.medicion).toMatchObject({ iguales: 1, igualesExploratorias: 1, N: 2 })
     expect(r.resultados[1].duplicadoEntradaDe).toBe("componentes")
     a.resultadoOpenEUR = "2575.25"; a.pesoExterno = "1"
     const duplicado = { ...structuredClone(a), id: "duplicado" }

@@ -1,4 +1,5 @@
 import Decimal from "decimal.js"
+import { ArrendamientoFactual2025 } from "./arrendamiento-factual"
 import { DateTime, Option, Schema } from "effect"
 import type { ResultadoDeduccion } from "../contratos-2025"
 
@@ -9,6 +10,7 @@ const Numero = Schema.Number.check(
 const Texto = Schema.String.check(Schema.isMinLength(1))
 /** Datos escalares con nombres propios de cada fórmula; nunca un importe de deducción. */
 export const Unidad = Schema.Struct({
+  arrendamientoFactual2025: Schema.optional(ArrendamientoFactual2025),
   id: Texto,
   titulares: Schema.Array(Texto),
   fecha: Texto,
