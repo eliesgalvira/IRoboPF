@@ -24,7 +24,7 @@ export const obtenerMinimoPorDiscapacidad = (
   })
 
 export const obtenerMinimoDiscapacidadContribuyente = (
-  situacionFamiliar: SituacionFamiliarIndividual,
+  situacionFamiliar: Pick<SituacionFamiliarIndividual, "discapacidad">,
   minimos: MinimosPersonalesFamiliaresIrpf
 ): Decimal =>
   obtenerMinimoPorDiscapacidad(

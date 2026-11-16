@@ -43,7 +43,27 @@ export const HechosDT18Murcia2025 = Schema.Struct({
  proyectos: Schema.Array(ProyectoMurcia),
 })
 export type HechosDT18Murcia2025 = typeof HechosDT18Murcia2025.Type
-export const HechosDT18Territoriales2025 = Schema.Union([HechosDT182025, HechosDT18Murcia2025])
+/** Adquisición estatal ordinaria sin solicitud autonómica. Sin bases ni cuotas del cliente.
+ * Sólo territorios conectados con porcentaje autonómico general del 7,5%. */
+export const TerritorioDT18Estatal2025 = Schema.Literals([
+ "canarias", "extremadura", "comunitat-valenciana", "madrid", "andalucia",
+])
+export const ViviendaDT18Estatal2025 = Schema.Struct({
+ ...E_ViviendaRioja.fields,
+ inmueble: Schema.Struct({...E_ViviendaRioja.fields.inmueble.fields, territorio: TerritorioDT18Estatal2025}),
+ operacion: Schema.Literal("adquisicion"),
+})
+export const HechosDT18Estatal2025 = Schema.Struct({
+ ...HechosDT182025.fields,
+ alcance: Schema.Literal("adquisicion_estatal_ordinaria"),
+ proyectos: Schema.Array(Schema.Struct({
+  ...HechosDT182025.fields.proyectos.schema.fields,
+  vivienda: ViviendaDT18Estatal2025,
+  operacion: Schema.Literal("adquisicion"),
+ })),
+})
+export type HechosDT18Estatal2025 = typeof HechosDT18Estatal2025.Type
+export const HechosDT18Territoriales2025 = Schema.Union([HechosDT182025, HechosDT18Murcia2025, HechosDT18Estatal2025])
 
 /** Derecho material DT18 estatal: residente Rioja y única vivienda en Galicia.
  * Deriva el contrato común. No admite bases fiscales ni cuotas externas. */

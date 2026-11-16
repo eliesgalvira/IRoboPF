@@ -1,3 +1,6 @@
+import { MINIMOS_ESTATALES_2025 } from "../../normativa/datos/minimos-autonomicos-2025"
+import { prepararConjunta2025, reducirBaseConjunta2025 } from "../conjunta-2025/preparar"
+import type { CasoConjunta2025 } from "../conjunta-2025/contrato"
 import type { TrabajoActualCLM2025 } from "../patrimonio-historico-clm/actual"
 import { alternativaOpen2023A2024, esPerfilOpen2023A2024 } from "../trabajo-anual/politica-open-2023-2024"
 import { adaptarTrabajoAnual } from "../trabajo-anual/adaptador"
@@ -5,8 +8,8 @@ import { admiteArgumentoOpen2020A2022, esPerfilOpen2020A2022 } from "../trabajo-
 import { calcularReduccionTrabajoConOtrasRentas } from "../reducciones/reduccion-rendimientos-trabajo"
 import type { CasoFiscalAnualExplicitoBase } from "../trabajo-anual/conexion-contrato"
 import { prepararAscendientesValencianos2025 } from "../minimos/ascendientes-valencia-2025"
-import { producirDT182025, producirDT18Murcia2025, validarCensosViviendaRioja } from "../vivienda-dt18-2025/productor"
-import { HechosDT182025, HechosDT18Murcia2025 } from "../vivienda-dt18-2025/contrato"
+import { producirDT182025, producirDT18Murcia2025, producirDT18Estatal2025, validarCensosViviendaRioja } from "../vivienda-dt18-2025/productor"
+import { HechosDT182025, HechosDT18Murcia2025, HechosDT18Estatal2025 } from "../vivienda-dt18-2025/contrato"
 import { validarConcurrenciaDT18Donativos2025, donativosConcurrentes } from "../vivienda-dt18-2025/donativos"
 import { aplicarCuotasDT18 } from "../vivienda-dt18-2025/cuota"
 import { racional } from "../deducciones/anual-territorial-racional"
@@ -80,6 +83,7 @@ export type PoliticaAnual =
   | "open-etapas-empleo-madrid-2024"
 /** Contrato interno: bases ya integradas en EUR Decimal; jamás reconstruye cotizaciones. */
 export interface EntradaComposicionAnual {
+  readonly conjunta2025?: CasoConjunta2025 | undefined
   readonly hechosOpen2023A2024?: CasoFiscalAnualExplicitoBase | undefined
   /** Sólo la conexión explícita aporta hechos completos; nunca la API canónica. */
   readonly hechosOpen2020A2022?: CasoFiscalAnualExplicitoBase | undefined
@@ -101,7 +105,7 @@ export interface EntradaComposicionAnual {
     | SolicitudDeduccionesTerritoriales2025
     | undefined
   readonly maternidad2025?: HechosMaternidad2025 | undefined
-  readonly ambito: Pick<
+  readonly ambito: Omit<Pick<
     CasoFiscalAnual,
     | "contribuyenteId"
     | "anio"
@@ -109,7 +113,7 @@ export interface EntradaComposicionAnual {
     | "fechaFallecimiento"
     | "situacionFamiliar"
     | "derechosMinimos"
-  >
+  >, "situacionFamiliar"> & { readonly situacionFamiliar: Omit<SituacionFamiliarIndividual, "tipo"> & { readonly tipo: "individual" | "conjunta" } }
   readonly cotizaciones: {
     readonly naturaleza: "efectivas" | "estimadas-perfil-uniforme"
     readonly trabajador: Decimal
@@ -137,6 +141,10 @@ const errorDerechosMinimos = ({
   fuenteReconocida: "docs/procedencia/API-MOTOR.md",
   rastro: { titulo: "Composición anual", pasos: [] },
 })
+function ambitoIndividual(ambito: EntradaComposicionAnual["ambito"]) {
+  if (ambito.situacionFamiliar.tipo !== "individual") throw new RangeError("Productor exclusivamente individual")
+  return { ...ambito, situacionFamiliar: { ...ambito.situacionFamiliar, tipo: ambito.situacionFamiliar.tipo } }
+}
 export const cuantizarAnual = (
   importe: Decimal,
   politica: PoliticaAnual
@@ -164,15 +172,41 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
       },
       catch: error => errorDerechosMinimos({ motivo: String(error) }),
     })
-    const baseLiquidableGeneral = A.max(0, entrada.baseGeneral)
-    const baseLiquidableAhorro = new A(entrada.baseAhorro)
+    const hechosConjunta = entrada.conjunta2025
+    const conjunta = hechosConjunta === undefined ? undefined : yield* Effect.try({
+      try: () => prepararConjunta2025(hechosConjunta),
+      catch: error => errorDerechosMinimos({ motivo: String(error) }),
+    })
+    if ((caso.situacionFamiliar.tipo === "conjunta") !== (conjunta !== undefined))
+      return yield* Effect.fail(errorDerechosMinimos({ motivo: "Conjunta exige contrato completo propio" }))
+    if (conjunta !== undefined && (caso.anio !== 2025 || caso.comunidadAutonoma !== conjunta.caso.comunidadAutonoma ||
+      caso.contribuyenteId !== conjunta.caso.declarante.id || caso.situacionFamiliar.edad !== conjunta.edad ||
+      caso.fechaFallecimiento !== undefined || caso.derechosMinimos !== undefined ||
+      caso.situacionFamiliar.discapacidad._tag !== "SinDiscapacidad" || entrada.precision !== 80 ||
+      entrada.politica !== "decimal-hasta-salida" || entrada.cotizaciones.naturaleza !== "efectivas" ||
+      !entrada.cotizaciones.trabajador.eq(conjunta.cotizaciones) || !entrada.baseGeneral.eq(conjunta.base.general) ||
+      !entrada.baseAhorro.isZero() || !entrada.rentasAntesReducciones.eq(conjunta.base.rentaAntesReducciones!) ||
+      entrada.origenBaseGeneralB !== "solo-trabajo" || entrada.rentasTrabajoAnuales === undefined ||
+      !entrada.rentasTrabajoAnuales.integroTrabajo.eq(conjunta.bruto) || !entrada.rentasTrabajoAnuales.restoRentas.isZero() ||
+      entrada.rentaActividadAnualB !== undefined || entrada.basesFamiliares2025 !== undefined ||
+      entrada.basesImponiblesE38 !== undefined || entrada.deduccionesAutonomicasCentimos !== 0 ||
+      entrada.deduccionesTerritoriales2025 !== undefined || entrada.deduccionesValencianas2025 !== undefined ||
+      entrada.maternidad2025 !== undefined || entrada.ingresosIdentificados2025 !== undefined ||
+      entrada.inmueblesP4a !== undefined || entrada.aragonSocialMixto2025 !== undefined ||
+      entrada.pagadoresCatalunya2025 !== undefined || entrada.hechosOpen2020A2022 !== undefined || entrada.hechosOpen2023A2024 !== undefined ||
+      entrada.serviciosLaborales === undefined || !entrada.serviciosLaborales.bruto.eq(conjunta.bruto) ||
+      entrada.serviciosLaborales.netoReducido !== undefined || entrada.serviciosLaborales.otrasRentas !== undefined))
+      return yield* Effect.fail(errorDerechosMinimos({ motivo: "Composición conjunta fuera del corte ordinario o magnitudes contradictorias" }))
+    const reduccionConjunta = conjunta === undefined ? undefined : reducirBaseConjunta2025(conjunta.caso.tipoUnidad, entrada.baseGeneral, entrada.baseAhorro)
+    const baseLiquidableGeneral = reduccionConjunta?.general ?? A.max(0, entrada.baseGeneral)
+    const baseLiquidableAhorro = reduccionConjunta?.ahorro ?? new A(entrada.baseAhorro)
     const atribucionIngresos = entrada.ingresosIdentificados2025 === undefined
       ? undefined
       : atribuirIngresosIdentificados2025(entrada.ingresosIdentificados2025, entrada.baseGeneral, baseLiquidableGeneral)
     if (atribucionIngresos?.estado === "no_soportado")
       return yield* Effect.fail(errorDerechosMinimos(atribucionIngresos))
     const libroIngresosIdentificados2025 = atribucionIngresos?.libro
-    const minimosEstatales = entrada.minimosEstatales
+    const minimosEstatales = conjunta === undefined ? entrada.minimosEstatales : MINIMOS_ESTATALES_2025
     const cuantizar = (importe: Decimal) =>
       cuantizarAnual(importe, entrada.politica)
     const estatalOpen2018 = entrada.politica === "open-etapas-empleo-madrid-2018"
@@ -324,7 +358,7 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
         })
       )
     if (
-      caso.situacionFamiliar.tipo !== "individual" ||
+      (caso.situacionFamiliar.tipo !== "individual" && conjunta === undefined) ||
       caso.situacionFamiliar.descendientes.length !== 0 ||
       caso.situacionFamiliar.ascendientes.length !== 0
     )
@@ -468,7 +502,7 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
         minimos: minimosEstatales,
       })
     const minimoAscendientes = derechosEstatales?.ascendientes ?? new A(0)
-    const minimoDescendientes = derechosEstatales?.descendientes ?? new A(0)
+    const minimoDescendientes = conjunta === undefined ? derechosEstatales?.descendientes ?? new A(0) : new A(minimosEstatales.descendientes.primero).plus(minimosEstatales.descendientes.adicionalMenorTres)
     const minimoDiscapacidadContribuyente =
       derechosEstatales?.discapacidadContribuyente ??
       obtenerMinimoDiscapacidadContribuyente(
@@ -483,7 +517,7 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
       .plus(minimoDiscapacidadContribuyente)
       .plus(minimoDiscapacidadFamiliares)
     const minimoPersonalYFamiliarAutonomico =
-      derechosAutonomicos?.total ??
+      conjunta !== undefined ? new A(parametrosComunidad.minimosAutonomicos.contribuyente.general).plus(parametrosComunidad.minimosAutonomicos.descendientes.primero).plus(parametrosComunidad.minimosAutonomicos.descendientes.adicionalMenorTres) : derechosAutonomicos?.total ??
       calcularMinimoPersonalYFamiliar({
         aritmetica: A,
         situacionFamiliar: caso.situacionFamiliar,
@@ -567,8 +601,10 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
         if(s.viviendaDT182025===undefined)throw new RangeError("DT18: hechos ausentes")
         if(entrada.maternidad2025!==undefined||entrada.ingresosIdentificados2025!==undefined||entrada.inmueblesP4a!==undefined||s.vehiculoDA582025!==undefined||entrada.deduccionesValencianas2025!==undefined||entrada.deduccionesAutonomicasCentimos!==0)throw new RangeError("DT18: combinación con otros productores requiere coordinación explícita")
         return caso.comunidadAutonoma==="murcia"
-          ? producirDT18Murcia2025(Schema.decodeUnknownSync(HechosDT18Murcia2025)(s.viviendaDT182025,{onExcessProperty:"error"}),caso,s.solicitudes)
-          : producirDT182025(Schema.decodeUnknownSync(HechosDT182025)(s.viviendaDT182025,{onExcessProperty:"error"}),caso,s.solicitudes)
+          ? producirDT18Murcia2025(Schema.decodeUnknownSync(HechosDT18Murcia2025)(s.viviendaDT182025,{onExcessProperty:"error"}),ambitoIndividual(caso),s.solicitudes)
+          : caso.comunidadAutonoma==="la-rioja"
+            ? producirDT182025(Schema.decodeUnknownSync(HechosDT182025)(s.viviendaDT182025,{onExcessProperty:"error"}),ambitoIndividual(caso),s.solicitudes)
+            : producirDT18Estatal2025(Schema.decodeUnknownSync(HechosDT18Estatal2025)(s.viviendaDT182025,{onExcessProperty:"error"}),ambitoIndividual(caso),s.solicitudes)
       },
       catch: e=>errorDerechosMinimos({motivo:e instanceof Error?e.message:"DT18: hechos históricos no componibles"}),
     })
@@ -840,7 +876,7 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
     const nodosFiscalesB2025 = caso.anio === 2025 && caso.contribuyenteId !== undefined ? producirNodosFiscalesB2025(caso.contribuyenteId, baseLiquidableGeneral, cuotaEstatalDespuesMinimo, cuotaAutonomicaGeneralDespuesMinimo, entrada.origenBaseGeneralB) : undefined
     const solicitudMaternidad81 = entrada.maternidad2025
     const libroMaternidad81 = solicitudMaternidad81 === undefined ? undefined : yield* Effect.try({
-      try: () => producirMaternidad81(solicitudMaternidad81, caso, derechosEstatales?.atribuciones.map(a=>a.sujetoId)??[]),
+      try: () => producirMaternidad81(solicitudMaternidad81, ambitoIndividual(caso), derechosEstatales?.atribuciones.map(a=>a.sujetoId)??[]),
       catch: (error) => errorDerechosMinimos({motivo: String(error)}),
     })
     const cruceMonetario81 = motivoPagoReutilizado81(libroMaternidad81, libroDonativos)
@@ -864,7 +900,7 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
       deduccionesTerritoriales2025 = yield* Effect.try({
         try: () =>
           aplicarDeduccionesTerritoriales2025(solicitud, {
-            caso,
+            caso: ambitoIndividual(caso),
             libroDT18,
             cuotasDT18,
             libroBasesFamiliares2025,
@@ -961,7 +997,7 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
     ) {
       const resultado = calcularDeduccionTrabajo({
         regla: "da61",
-        ambito: "comun-individual",
+        ambito: conjunta === undefined ? "comun-individual" : "comun-conjunta-ordinaria-2025",
         ejercicio: 2025,
         brutoServicios: entrada.serviciosLaborales.bruto.toFixed(),
         otrasRentasNoExentas: entrada.serviciosLaborales.otrasRentas?.toFixed() ?? "0",
@@ -987,6 +1023,9 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
     }
     const cuotaPosterior = cuotaLiquida.minus(deduccionTrabajo)
     return {
+      reduccionConjunta,
+      baseLiquidableGeneral,
+      baseLiquidableAhorro,
       libroIngresosIdentificados2025,
       nodosFiscalesB2025,
       deduccionesGeneralesDonativosAplicadas,
@@ -1042,7 +1081,7 @@ const calcularMinimoPersonalYFamiliar = ({
   readonly aritmetica: Decimal.Constructor
   readonly anio: CasoFiscalAnual["anio"]
   readonly minimos: MinimosPersonalesFamiliaresIrpf
-  readonly situacionFamiliar: SituacionFamiliarIndividual
+  readonly situacionFamiliar: Pick<SituacionFamiliarIndividual, "edad" | "discapacidad">
 }): Decimal => {
   const minimoContribuyente = obtenerMinimoContribuyente({
     anio,

@@ -70,6 +70,8 @@ const territorialSchemaName = "SolicitudDeduccionesTerritoriales2025"
 // Productores nuevos pendientes de contrato en el intérprete documental.
 // La frontera se reconoce por módulo y export, nunca sólo por un nombre local.
 const producerBoundaries = new Map([
+  ["lib/dominio/irpf/conjunta-2025/anual.ts:liquidarConjunta2025", "liquidarConjunta2025"],
+  ["lib/dominio/irpf/conjunta-2025/contrato.ts:CasoConjunta2025", "CasoConjunta2025"],
   ["lib/dominio/irpf/trabajo-anual/calendario-2025.ts:calcularGastosTrabajoCalendario2025", "calcularGastosTrabajoCalendario2025"],
   ["lib/dominio/irpf/trabajo-anual/calendario-2025.ts:calcularGastosTrabajoMixtoCalendario2025", "calcularGastosTrabajoMixtoCalendario2025"],
   ["lib/dominio/irpf/aragon-social-mixto-2025/anual.ts:liquidarAragonSocialMixto2025", "liquidarAragonSocialMixto2025"],

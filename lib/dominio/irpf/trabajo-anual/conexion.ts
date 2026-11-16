@@ -1,3 +1,5 @@
+import { liquidarConjunta2025 } from "../conjunta-2025/anual"
+import type { CasoConjunta2025 } from "../conjunta-2025/contrato"
 import { liquidarGaliciaMixto2025 } from "../galicia-mixto-2025/anual"
 import type { CasoGaliciaMixto2025 } from "../galicia-mixto-2025/contrato"
 import { alternativaOpen2023A2024, esPerfilOpen2023A2024 } from "./politica-open-2023-2024"
@@ -661,15 +663,17 @@ const liquidarIrpfAnualExplicitoBase = Effect.fn("Liquidacion.explicita")(
   }
 )
 
+export function liquidarIrpfAnualExplicito(caso: CasoConjunta2025): ReturnType<typeof liquidarConjunta2025>
 export function liquidarIrpfAnualExplicito(caso: CasoGaliciaMixto2025): ReturnType<typeof liquidarGaliciaMixto2025>
 export function liquidarIrpfAnualExplicito(caso: CasoAragonSocialMixto2025): ReturnType<typeof liquidarAragonSocialMixto2025>
 export function liquidarIrpfAnualExplicito(caso: CasoInmobiliarioP4a): ReturnType<typeof liquidarInmobiliarioP4a>
 export function liquidarIrpfAnualExplicito(caso: CasoFiscalAnualExplicito): ReturnType<typeof liquidarIrpfAnualExplicitoBase>
-export function liquidarIrpfAnualExplicito(caso: CasoGaliciaMixto2025 | CasoAragonSocialMixto2025 | CasoInmobiliarioP4a | CasoFiscalAnualExplicito): Effect.Effect<
-  Effect.Success<ReturnType<typeof liquidarGaliciaMixto2025> | ReturnType<typeof liquidarAragonSocialMixto2025> | ReturnType<typeof liquidarInmobiliarioP4a> | ReturnType<typeof liquidarIrpfAnualExplicitoBase>>,
-  Effect.Error<ReturnType<typeof liquidarGaliciaMixto2025> | ReturnType<typeof liquidarAragonSocialMixto2025> | ReturnType<typeof liquidarInmobiliarioP4a> | ReturnType<typeof liquidarIrpfAnualExplicitoBase>>
+export function liquidarIrpfAnualExplicito(caso: CasoConjunta2025 | CasoGaliciaMixto2025 | CasoAragonSocialMixto2025 | CasoInmobiliarioP4a | CasoFiscalAnualExplicito): Effect.Effect<
+  Effect.Success<ReturnType<typeof liquidarConjunta2025> | ReturnType<typeof liquidarGaliciaMixto2025> | ReturnType<typeof liquidarAragonSocialMixto2025> | ReturnType<typeof liquidarInmobiliarioP4a> | ReturnType<typeof liquidarIrpfAnualExplicitoBase>>,
+  Effect.Error<ReturnType<typeof liquidarConjunta2025> | ReturnType<typeof liquidarGaliciaMixto2025> | ReturnType<typeof liquidarAragonSocialMixto2025> | ReturnType<typeof liquidarInmobiliarioP4a> | ReturnType<typeof liquidarIrpfAnualExplicitoBase>>
 >
-export function liquidarIrpfAnualExplicito(caso: CasoGaliciaMixto2025 | CasoAragonSocialMixto2025 | CasoInmobiliarioP4a | CasoFiscalAnualExplicito) {
+export function liquidarIrpfAnualExplicito(caso: CasoConjunta2025 | CasoGaliciaMixto2025 | CasoAragonSocialMixto2025 | CasoInmobiliarioP4a | CasoFiscalAnualExplicito) {
+  if (caso.perfil === "conjunta-trabajo-ordinario-2025") return liquidarConjunta2025(caso)
   if (caso.perfil === "galicia-trabajo-inmueble-2025") return liquidarGaliciaMixto2025(caso)
   if(caso.perfil === "aragon-social-mixto-2025") return liquidarAragonSocialMixto2025(caso)
   return caso.perfil === "solo-inmobiliario-p4a" ? liquidarInmobiliarioP4a(caso) : liquidarIrpfAnualExplicitoBase(caso)

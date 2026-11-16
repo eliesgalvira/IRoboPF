@@ -1,0 +1,884 @@
+{
+  "schema": "open2025-transporte-v2",
+  "dependencies": {
+    "dt18-ses.mjs": "565104cc5e628a5597c88314fa2669102cf791f7011665626ffa3ca730b406bc",
+    "controles-observados.json": "43617e55fd99cc15de69cfcb8396db9fe23e9acb1c0ba527d80d2bf73674aca0"
+  },
+  "id": "open2025-madrid-04",
+  "utc": "2026-11-16T21:33:40.513Z",
+  "state": "complete-status",
+  "transportComplete": true,
+  "dt18": {
+    "state": "complete-status",
+    "transportComplete": true,
+    "countedAsMatch": false,
+    "missing": [],
+    "fields": [
+      {
+        "key": "date",
+        "state": "readback-only",
+        "value": "01/02/2010",
+        "semanticAcceptanceVerified": false
+      },
+      {
+        "key": "loan",
+        "state": "readback-only",
+        "value": "00000000000000000000",
+        "semanticAcceptanceVerified": false
+      },
+      {
+        "key": "percent",
+        "state": "readback-only",
+        "value": "100.00",
+        "semanticAcceptanceVerified": false
+      },
+      {
+        "key": "payments",
+        "state": "readback-only",
+        "value": "3050.00"
+      }
+    ],
+    "uiControlsAccepted": true
+  },
+  "versions": {
+    "runtime": "v24.3.0",
+    "bun": "1.3.13",
+    "browser": "153.0.8010.36",
+    "playwrightSha256": "3d36e2132d3c8b62397d23f0bb4177336aaee503203ae2a2c90fbeb5bf3317dd",
+    "chromiumSha256": "0ebeb5370b2ad86f8645ea9aabfdbb6f35d47c2707cce7d8484597cf2c513f26"
+  },
+  "countedAsMatch": false,
+  "inputSha256": "7a8d5404f38681c3e6e51ff56f6d06a08d8ac3f15b8ac3553d65664ebce26793",
+  "caseSha256": "5c00431d9bbc575efb4ef90192a37c2f96b8cee484004f899a1928d251935e86",
+  "transportSha256": "a9240fb093ce3d81f11338958c7721f63d4287392c8502a6f0a980a39d13023a",
+  "matrixSha256": "9902a799962babb63d26bca90fc1061206bb717cceb70c85b8edb8d3be148f0e",
+  "templateSha256": null,
+  "bootstrap": {
+    "file": "bootstrap.html",
+    "sha256": "3a8f071a6a10793d9eb67c22fa34ba5add24604e4d5d1ceba22ed03f9f536063"
+  },
+  "ses": {
+    "file": "captura.ses",
+    "sha256": "b7b16d7faa039b3b5482762657f928fe9200ef642a91f6f9140fb3763c1ac61f"
+  },
+  "pdf": {
+    "file": "captura.pdf",
+    "sha256": "6c523adda6ec13ce53d723fcbce7c06eb01d9d1c7b8c2b1d00c68ae31007cda1"
+  },
+  "summary": {
+    "file": "resumen.txt",
+    "sha256": "82ee6ad755808b7796eff30d7d8e2419de890d9f36829bec4b4b256e026e343c"
+  },
+  "observed": {
+    "salary": {
+      "personal": {
+        "DPFNAC_D": "01/01/1985",
+        "CAD_D": "MADRID",
+        "CAC_D": "12",
+        "EDADD": "40",
+        "ZFNAC_D": "01/01/1985",
+        "ZCCAD": "12"
+      },
+      "amounts": {
+        "IDII": {
+          "value": "60000.0",
+          "absentZeroWithUiReadback": false
+        },
+        "GSS": {
+          "value": "3900.0",
+          "absentZeroWithUiReadback": false
+        },
+        "IDRE": {
+          "value": "14000.0",
+          "absentZeroWithUiReadback": false
+        },
+        "GCS": {
+          "value": null,
+          "absentZeroWithUiReadback": true
+        },
+        "GCC": {
+          "value": null,
+          "absentZeroWithUiReadback": true
+        },
+        "GDJ": {
+          "value": null,
+          "absentZeroWithUiReadback": true
+        },
+        "IDICLDED2": {
+          "value": "60000.0",
+          "absentZeroWithUiReadback": false
+        },
+        "GSSCLDED2": {
+          "value": "3900.0",
+          "absentZeroWithUiReadback": false
+        }
+      }
+    },
+    "housing": {
+      "schema": "dt18-ses-v2",
+      "housingVerified": true,
+      "externalHistoryVerified": false,
+      "negativeEvidence": "UI antes/después; sólo ausencias observadas en SES, sin inferir historia",
+      "records": [
+        {
+          "scope": 12,
+          "path": "DECLARACIONES/IRPF2025",
+          "key": "TPC1",
+          "type": "3",
+          "value": "100.0",
+          "flag": "255"
+        },
+        {
+          "scope": 12,
+          "path": "DECLARACIONES/IRPF2025",
+          "key": "VIVPORC",
+          "type": "1",
+          "value": "100.0",
+          "flag": null
+        },
+        {
+          "scope": 12,
+          "path": "DECLARACIONES/IRPF2025",
+          "key": "VIVNIPH",
+          "type": "1",
+          "value": "00000000000000000000",
+          "flag": null
+        },
+        {
+          "scope": 12,
+          "path": "DECLARACIONES/IRPF2025",
+          "key": "VNI1",
+          "type": "3",
+          "value": "00000000000000000000",
+          "flag": "255"
+        },
+        {
+          "scope": 12,
+          "path": "DECLARACIONES/IRPF2025",
+          "key": "VFA1",
+          "type": "3",
+          "value": "01/02/2010",
+          "flag": "255"
+        },
+        {
+          "scope": 12,
+          "path": "DECLARACIONES/IRPF2025",
+          "key": "BASE1",
+          "type": "1",
+          "value": "3050.0",
+          "flag": null
+        },
+        {
+          "scope": 12,
+          "path": "DECLARACIONES/IRPF2025",
+          "key": "VHADQ",
+          "type": "1",
+          "value": "3050.0",
+          "flag": null
+        },
+        {
+          "scope": 12,
+          "path": "DECLARACIONES/IRPF2025",
+          "key": "VIVFA",
+          "type": "1",
+          "value": "01/02/2010",
+          "flag": null
+        },
+        {
+          "scope": 13,
+          "path": "DECLARACIONES/IRPF2025/INMUEBLES",
+          "key": "VURBA",
+          "type": "1",
+          "value": "true",
+          "flag": null
+        },
+        {
+          "scope": 13,
+          "path": "DECLARACIONES/IRPF2025/INMUEBLES",
+          "key": "VUSOHAB",
+          "type": "1",
+          "value": "true",
+          "flag": null
+        },
+        {
+          "scope": 13,
+          "path": "DECLARACIONES/IRPF2025/INMUEBLES",
+          "key": "TIT_C",
+          "type": "1",
+          "value": "DECLARANTE",
+          "flag": null
+        },
+        {
+          "scope": 13,
+          "path": "DECLARACIONES/IRPF2025/INMUEBLES",
+          "key": "C_RNR",
+          "type": "2",
+          "value": "255",
+          "flag": null
+        },
+        {
+          "scope": 13,
+          "path": "DECLARACIONES/IRPF2025/INMUEBLES",
+          "key": "CLDLG",
+          "type": "1",
+          "value": "4",
+          "flag": null
+        },
+        {
+          "scope": 13,
+          "path": "DECLARACIONES/IRPF2025/INMUEBLES",
+          "key": "CL",
+          "type": "1",
+          "value": "4",
+          "flag": null
+        },
+        {
+          "scope": 13,
+          "path": "DECLARACIONES/IRPF2025/INMUEBLES",
+          "key": "C_DIASVH",
+          "type": "1",
+          "value": "365",
+          "flag": null
+        },
+        {
+          "scope": 13,
+          "path": "DECLARACIONES/IRPF2025/INMUEBLES",
+          "key": "USOHAB",
+          "type": "1",
+          "value": "true",
+          "flag": null
+        },
+        {
+          "scope": 13,
+          "path": "DECLARACIONES/IRPF2025/INMUEBLES",
+          "key": "CDIRECCIONDLG",
+          "type": "1",
+          "value": "CALLE PRUEBA SINTETICA 1",
+          "flag": null
+        },
+        {
+          "scope": 13,
+          "path": "DECLARACIONES/IRPF2025/INMUEBLES",
+          "key": "DIASHAB",
+          "type": "1",
+          "value": "365",
+          "flag": null
+        },
+        {
+          "scope": 13,
+          "path": "DECLARACIONES/IRPF2025/INMUEBLES",
+          "key": "ORDENINMUEBLE",
+          "type": "1",
+          "value": "1",
+          "flag": null
+        },
+        {
+          "scope": 13,
+          "path": "DECLARACIONES/IRPF2025/INMUEBLES",
+          "key": "V01VIRIRI",
+          "type": "2",
+          "value": "255",
+          "flag": null
+        },
+        {
+          "scope": 13,
+          "path": "DECLARACIONES/IRPF2025/INMUEBLES",
+          "key": "PCDLG",
+          "type": "1",
+          "value": "100.0",
+          "flag": null
+        },
+        {
+          "scope": 13,
+          "path": "DECLARACIONES/IRPF2025/INMUEBLES",
+          "key": "CURBA",
+          "type": "1",
+          "value": "true",
+          "flag": null
+        },
+        {
+          "scope": 13,
+          "path": "DECLARACIONES/IRPF2025/INMUEBLES",
+          "key": "CDIRECCION",
+          "type": "1",
+          "value": "CALLE PRUEBA SINTETICA 1",
+          "flag": null
+        },
+        {
+          "scope": 13,
+          "path": "DECLARACIONES/IRPF2025/INMUEBLES",
+          "key": "IND_C",
+          "type": "1",
+          "value": "2",
+          "flag": null
+        },
+        {
+          "scope": 13,
+          "path": "DECLARACIONES/IRPF2025/INMUEBLES",
+          "key": "PC",
+          "type": "1",
+          "value": "100.0",
+          "flag": null
+        }
+      ]
+    }
+  },
+  "readbacks": [
+    {
+      "key": "nif",
+      "requested": "90000000B",
+      "observed": "90000000B"
+    },
+    {
+      "key": "name",
+      "requested": "PRUEBA C OPEN",
+      "observed": "PRUEBA C OPEN"
+    },
+    {
+      "key": "birth",
+      "requested": "01/01/1985",
+      "observed": "01/01/1985"
+    },
+    {
+      "key": "region",
+      "options": [
+        " Borrar",
+        "ANDALUCIA",
+        "ARAGON",
+        "PRINCIPADO DE ASTURIAS",
+        "ILLES BALEARS",
+        "CANARIAS",
+        "CANTABRIA",
+        "CASTILLA-LA MANCHA",
+        "CASTILLA Y LEON",
+        "CATALUÑA",
+        "EXTREMADURA",
+        "GALICIA",
+        "MADRID",
+        "REGION DE MURCIA",
+        "LA RIOJA",
+        "COMUNITAT VALENCIANA",
+        "CIUDAD DE CEUTA",
+        "CIUDAD DE MELILLA",
+        "CONTRIBUYENTES NO RESIDENTES"
+      ],
+      "selected": "MADRID",
+      "observed": "MADRID"
+    },
+    {
+      "key": "IDII",
+      "requested": "60000.00",
+      "observed": "60.000,00"
+    },
+    {
+      "key": "GSS",
+      "requested": "3900.00",
+      "observed": "3.900,00"
+    },
+    {
+      "key": "IDRE",
+      "requested": "14000.00",
+      "observed": "14.000,00"
+    },
+    {
+      "key": "GCS",
+      "requested": "0.00",
+      "observed": ""
+    },
+    {
+      "key": "GCC",
+      "requested": "0.00",
+      "observed": ""
+    },
+    {
+      "key": "GDJ",
+      "requested": "0.00",
+      "observed": ""
+    },
+    {
+      "key": "IDICLDED2",
+      "requested": "60000.00",
+      "observed": "60.000,00"
+    },
+    {
+      "key": "GSSCLDED2",
+      "requested": "3900.00",
+      "observed": "3.900,00"
+    },
+    {
+      "key": "ficha-antes",
+      "observed": [
+        {
+          "title": "% propiedad:",
+          "type": "text",
+          "value": "",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "% usufructo:",
+          "type": "text",
+          "value": "",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "Urbana",
+          "type": "radio",
+          "value": "on",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "Rústica",
+          "type": "radio",
+          "value": "on",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "Situación (clave):",
+          "type": "text",
+          "value": " ",
+          "checked": false,
+          "disabled": false,
+          "readOnly": true
+        },
+        {
+          "title": "Referencia Catastral (*):",
+          "type": "text",
+          "value": "",
+          "checked": false,
+          "disabled": true,
+          "readOnly": false
+        },
+        {
+          "title": "Valor catastral total del inmueble:",
+          "type": "text",
+          "value": "",
+          "checked": false,
+          "disabled": true,
+          "readOnly": false
+        },
+        {
+          "title": "Dirección del inmueble:",
+          "type": "text",
+          "value": "",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "Para inmuebles en el extranjero seleccione el Código País:",
+          "type": "text",
+          "value": " ",
+          "checked": false,
+          "disabled": true,
+          "readOnly": true
+        },
+        {
+          "title": "1 Arrendamiento.",
+          "type": "checkbox",
+          "value": "on",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "2 Arrendamiento como inmueble accesorio.",
+          "type": "checkbox",
+          "value": "on",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "3 A disposición de sus titulares.",
+          "type": "checkbox",
+          "value": "on",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "4 Vivienda habitual en 2025.",
+          "type": "checkbox",
+          "value": "on",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "5 Vivienda en la que, en los casos de separación o divorcio, residen los hijos y/o el excónyuge.",
+          "type": "checkbox",
+          "value": "on",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "6 Inmueble afecto a actividades económicas.",
+          "type": "checkbox",
+          "value": "on",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        }
+      ]
+    },
+    {
+      "key": "housing-ownership",
+      "requested": "100.00",
+      "observed": "100,00"
+    },
+    {
+      "key": "housing-address",
+      "requested": "CALLE PRUEBA SINTETICA 1",
+      "observed": "CALLE PRUEBA SINTETICA 1"
+    },
+    {
+      "key": "housing-days",
+      "requested": "365",
+      "observed": "365"
+    },
+    {
+      "key": "ficha-despues",
+      "observed": [
+        {
+          "title": "% propiedad:",
+          "type": "text",
+          "value": "100,00",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "% usufructo:",
+          "type": "text",
+          "value": "",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "Urbana",
+          "type": "radio",
+          "value": "on",
+          "checked": true,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "Rústica",
+          "type": "radio",
+          "value": "on",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "Situación (clave):",
+          "type": "text",
+          "value": "4",
+          "checked": false,
+          "disabled": false,
+          "readOnly": true
+        },
+        {
+          "title": "Referencia Catastral (*):",
+          "type": "text",
+          "value": "",
+          "checked": false,
+          "disabled": true,
+          "readOnly": false
+        },
+        {
+          "title": "Valor catastral total del inmueble:",
+          "type": "text",
+          "value": "",
+          "checked": false,
+          "disabled": true,
+          "readOnly": false
+        },
+        {
+          "title": "Dirección del inmueble:",
+          "type": "text",
+          "value": "CALLE PRUEBA SINTETICA 1",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "Para inmuebles en el extranjero seleccione el Código País:",
+          "type": "text",
+          "value": " ",
+          "checked": false,
+          "disabled": true,
+          "readOnly": true
+        },
+        {
+          "title": "1 Arrendamiento.",
+          "type": "checkbox",
+          "value": "on",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "2 Arrendamiento como inmueble accesorio.",
+          "type": "checkbox",
+          "value": "on",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "3 A disposición de sus titulares.",
+          "type": "checkbox",
+          "value": "on",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "4 Vivienda habitual en 2025.",
+          "type": "checkbox",
+          "value": "on",
+          "checked": true,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "5 Vivienda en la que, en los casos de separación o divorcio, residen los hijos y/o el excónyuge.",
+          "type": "checkbox",
+          "value": "on",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "6 Inmueble afecto a actividades económicas.",
+          "type": "checkbox",
+          "value": "on",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        }
+      ]
+    },
+    {
+      "key": "dt18-negativos-antes",
+      "observed": [
+        {
+          "title": "a) Cantidades satisfechas en 2025 por la adquisición y/o construcción de la vivienda habitual, con derecho a la deducción:",
+          "type": "text",
+          "value": "",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "Fecha de adquisición de la vivienda habitual (salvo que se encuentre en la situación descrita en el párrafo siguiente):",
+          "type": "text",
+          "value": "",
+          "checked": false,
+          "disabled": true,
+          "readOnly": false
+        },
+        {
+          "title": "Si la adquisición de la vivienda es posterior a 2012 y antes de 2013 pagó cantidades para su construcción con derecho a la deducción, indique la fecha de la escritura de adquisición o de obra nueva:",
+          "type": "text",
+          "value": "",
+          "checked": false,
+          "disabled": true,
+          "readOnly": false
+        },
+        {
+          "title": "b) Cantidades satisfechas por la rehabilitación o ampliación de la vivienda habitual, con derecho a la deducción:",
+          "type": "text",
+          "value": "",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "Fecha de inicio de las obras de rehabilitación o ampliación:",
+          "type": "text",
+          "value": "",
+          "checked": false,
+          "disabled": true,
+          "readOnly": false
+        },
+        {
+          "title": "Fecha de terminación de las obras de rehabilitación o ampliación:",
+          "type": "text",
+          "value": "",
+          "checked": false,
+          "disabled": true,
+          "readOnly": false
+        },
+        {
+          "title": "Marque la casilla si en 2025 ha estado en paro 183 días o más:",
+          "type": "checkbox",
+          "value": "on",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "Marque la casilla si la fecha de adquisición de la vivienda habitual es posterior al 29 de julio de 2011 y los pagos para su construcción se iniciaron antes del 30 de julio de 2011:",
+          "type": "checkbox",
+          "value": "on",
+          "checked": false,
+          "disabled": true,
+          "readOnly": false
+        },
+        {
+          "title": "Si la cantidad reflejada en la casilla a) correspondiera, excepcionalmente, a la adquisición de más de una vivienda, indique el importe que corresponde a la adquirida antes de 30 de julio de 2011 o respecto a la que los pagos para su construcción se iniciaron antes de esa fecha:",
+          "type": "text",
+          "value": "",
+          "checked": false,
+          "disabled": true,
+          "readOnly": false
+        },
+        {
+          "title": "Nº de identificación del préstamo hipotecario (si sólo hay uno) (Vea la ayuda):",
+          "type": "text",
+          "value": "",
+          "checked": false,
+          "disabled": true,
+          "readOnly": false
+        },
+        {
+          "title": "Porcentaje total del préstamo que se destina a la adquisición de vivienda\t(Este porcentaje es informativo, no se utiliza para calcular la deducción):",
+          "type": "text",
+          "value": "",
+          "checked": false,
+          "disabled": true,
+          "readOnly": false
+        }
+      ],
+      "exactExternalFactsEntered": false
+    },
+    {
+      "key": "dt18-payments",
+      "requested": "3050.00",
+      "observed": "3.050,00"
+    },
+    {
+      "key": "dt18-date",
+      "requested": "01/02/2010",
+      "observed": "01/02/2010"
+    },
+    {
+      "key": "dt18-loan",
+      "requested": "00000000000000000000",
+      "observed": "00000000000000000000"
+    },
+    {
+      "key": "dt18-percent",
+      "requested": "100.00",
+      "observed": "100,00"
+    },
+    {
+      "key": "dt18-negativos-despues",
+      "observed": [
+        {
+          "title": "a) Cantidades satisfechas en 2025 por la adquisición y/o construcción de la vivienda habitual, con derecho a la deducción:",
+          "type": "text",
+          "value": "3.050,00",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "Fecha de adquisición de la vivienda habitual (salvo que se encuentre en la situación descrita en el párrafo siguiente):",
+          "type": "text",
+          "value": "01/02/2010",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "Si la adquisición de la vivienda es posterior a 2012 y antes de 2013 pagó cantidades para su construcción con derecho a la deducción, indique la fecha de la escritura de adquisición o de obra nueva:",
+          "type": "text",
+          "value": "",
+          "checked": false,
+          "disabled": true,
+          "readOnly": false
+        },
+        {
+          "title": "b) Cantidades satisfechas por la rehabilitación o ampliación de la vivienda habitual, con derecho a la deducción:",
+          "type": "text",
+          "value": "",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "Fecha de inicio de las obras de rehabilitación o ampliación:",
+          "type": "text",
+          "value": "",
+          "checked": false,
+          "disabled": true,
+          "readOnly": false
+        },
+        {
+          "title": "Fecha de terminación de las obras de rehabilitación o ampliación:",
+          "type": "text",
+          "value": "",
+          "checked": false,
+          "disabled": true,
+          "readOnly": false
+        },
+        {
+          "title": "Marque la casilla si en 2025 ha estado en paro 183 días o más:",
+          "type": "checkbox",
+          "value": "on",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "Marque la casilla si la fecha de adquisición de la vivienda habitual es posterior al 29 de julio de 2011 y los pagos para su construcción se iniciaron antes del 30 de julio de 2011:",
+          "type": "checkbox",
+          "value": "on",
+          "checked": false,
+          "disabled": true,
+          "readOnly": false
+        },
+        {
+          "title": "Si la cantidad reflejada en la casilla a) correspondiera, excepcionalmente, a la adquisición de más de una vivienda, indique el importe que corresponde a la adquirida antes de 30 de julio de 2011 o respecto a la que los pagos para su construcción se iniciaron antes de esa fecha:",
+          "type": "text",
+          "value": "",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "Nº de identificación del préstamo hipotecario (si sólo hay uno) (Vea la ayuda):",
+          "type": "text",
+          "value": "00000000000000000000",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "Porcentaje total del préstamo que se destina a la adquisición de vivienda\t(Este porcentaje es informativo, no se utiliza para calcular la deducción):",
+          "type": "text",
+          "value": "100,00",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        }
+      ],
+      "exactExternalFactsEntered": false
+    }
+  ],
+  "confirmations": [],
+  "limits": "Controles observados y SES; contrato histórico externo separado; no coincidencia ni admisión fiscal."
+}

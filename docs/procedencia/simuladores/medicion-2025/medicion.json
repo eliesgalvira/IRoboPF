@@ -5,21 +5,21 @@
   "inventario": "no-realizado; no se invoca engine.mjs ni se certifican fuentes o dependencias",
   "integridad": "Iguales exige vinculo entrada/SES y resultado/PDF. Comparaciones sin vinculo son exploratorias",
   "medicion": {
-    "iguales": 51,
+    "iguales": 58,
     "N": 80,
-    "fraccion": "51/80",
-    "comparables": 54,
-    "igualesExploratorias": 51,
-    "fraccionExploratoria": "51/80",
+    "fraccion": "58/80",
+    "comparables": 61,
+    "igualesExploratorias": 58,
+    "fraccionExploratoria": "58/80",
     "manifiestoCompleto": true,
     "registrosRecibidos": 80,
     "duplicados": 0
   },
   "ponderacionExterna": {
     "estado": "incompleta",
-    "casosConPesoYResultado": 54,
-    "casosSinPesoOResultado": 26,
-    "sumaPesosComparables": "16597998.057448107451",
+    "casosConPesoYResultado": 61,
+    "casosSinPesoOResultado": 19,
+    "sumaPesosComparables": "18709936.310500610504",
     "discrepanciaPonderadaEUR": null,
     "discrepanciaAbsolutaPonderadaEUR": null
   },
@@ -268,12 +268,208 @@
     },
     {
       "id": "open2025-canarias-01",
-      "identidadSha256": "9434d6a3d93355ee4b3faf2e7d4a21085510a065ae7fdcb7d954b09d007ca3b6",
-      "estado": "rechazado",
+      "identidadSha256": "267fe903cd4909904d66d7ec19439788bb2239c5cc35b3f17f3ef15ea7b048ba",
+      "estado": "igual-al-centimo",
       "integridadReferencias": {
-        "estado": "ausente"
+        "estado": "bytes-verificados",
+        "verificadas": 13
       },
-      "motivo": "referencias-no-verificadas"
+      "resultadoOpenEUR": "-67.37",
+      "pesoExterno": "276831.750000000000",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "54100",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "54100",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "7058.13",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "-67.37",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "-67.37",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "7332",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "13932.63",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "7562.67",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "7859.25",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "504.54",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "527.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "54100",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "-67.37",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "transporte-dt18-ses-pdf-vinculado",
+        "countedAsMatch": false,
+        "casillas": {
+          "0547": "228.75",
+          "0548": "228.75",
+          "0670": "-67.37",
+          "0511": "5550.00",
+          "0512": "5606.00",
+          "0519": "5550.00",
+          "0520": "5606.00"
+        },
+        "salario": {
+          "personal": {
+            "DPFNAC_D": "01/01/1985",
+            "CAD_D": "CANARIAS",
+            "CAC_D": "05",
+            "EDADD": "40",
+            "ZFNAC_D": "01/01/1985",
+            "ZCCAD": "05"
+          },
+          "amounts": {
+            "IDII": {
+              "value": "60000.0",
+              "absentZeroWithUiReadback": false
+            },
+            "GSS": {
+              "value": "3900.0",
+              "absentZeroWithUiReadback": false
+            },
+            "IDRE": {
+              "value": "14000.0",
+              "absentZeroWithUiReadback": false
+            },
+            "GCS": {
+              "value": null,
+              "absentZeroWithUiReadback": true
+            },
+            "GCC": {
+              "value": null,
+              "absentZeroWithUiReadback": true
+            },
+            "GDJ": {
+              "value": null,
+              "absentZeroWithUiReadback": true
+            },
+            "IDICLDED2": {
+              "value": "60000.0",
+              "absentZeroWithUiReadback": false
+            },
+            "GSSCLDED2": {
+              "value": "3900.0",
+              "absentZeroWithUiReadback": false
+            }
+          }
+        },
+        "contratoHistorico": "externofactual",
+        "limite": "Vincula entrada preparada y artefactos observados; no acredita historia, autenticidad AEAT ni calcula DT18. Oráculo fiscal separado.",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "referencias": {
+          "original": {
+            "archivo": "oficiales/open2025-canarias-01/caso.json",
+            "sha256": "8294b1e87d4ff4a015cbdc443eb163a343111225d1e1e27a2385e1cefa93808c"
+          },
+          "entrada": {
+            "archivo": "oficiales/open2025-canarias-01/entrada.json",
+            "sha256": "4ffa9a814f0fbb44ed49d8e74029beb578b5cb224957339b1cb58a453366e633"
+          },
+          "expediente": {
+            "archivo": "oficiales/open2025-canarias-01/expediente-sintetico.json",
+            "sha256": "bd1fa42d3422e1e67921de7f202a8012c8ca262b0f72056b3e9e77e9115770f7"
+          },
+          "recibo": {
+            "archivo": "oficiales/open2025-canarias-01/recibo.json",
+            "sha256": "56968fef5e6d1d8816a9f342ccf4265b1970b973d01afa5e3f0cb83c4750ba24"
+          },
+          "readbacks": {
+            "archivo": "oficiales/open2025-canarias-01/readbacks.json",
+            "sha256": "1ffb82a94ccfbdcf4189f78e45200fc6eb94d5366375bd2f598a0df53b399e16"
+          },
+          "inventarioAntes": {
+            "archivo": "oficiales/open2025-canarias-01/dt18-inventario-antes.json",
+            "sha256": "50403c63d0a649c66f1a059b9addde283bb4b2f0a7136b322b8c5954e688c5ad"
+          },
+          "inventarioDespues": {
+            "archivo": "oficiales/open2025-canarias-01/dt18-inventario-despues.json",
+            "sha256": "48504ab9cb92053cb97d6daf5f250a42bceec0881c3ee57f758fbd3c7a24693a"
+          },
+          "controles": {
+            "archivo": "oficiales/open2025-canarias-01/controles-observados.json",
+            "sha256": "43617e55fd99cc15de69cfcb8396db9fe23e9acb1c0ba527d80d2bf73674aca0"
+          },
+          "ficha": {
+            "archivo": "oficiales/open2025-canarias-01/ficha-reabierta.json",
+            "sha256": "e1b5afe77463c40d91fe647744604e9f1a1875e3c771b7a91846b0840ba0876d"
+          },
+          "censoAntes": {
+            "archivo": "oficiales/open2025-canarias-01/inmuebles-censo-antes.json",
+            "sha256": "c475377f5c367ae579b17241de9db71ffde2d5a71b536123ec00de6f7ef5446b"
+          },
+          "censoDespues": {
+            "archivo": "oficiales/open2025-canarias-01/inmuebles-censo-despues.json",
+            "sha256": "d56051f219c440e13bf03b495022b0d83fc978e9b829c21e215144f50c202794"
+          },
+          "pdf": {
+            "archivo": "oficiales/open2025-canarias-01/captura.pdf",
+            "sha256": "dbce3575c1725081a03b63b5ef8ac3e82be8425963a87bef3c05b317e95573bb"
+          },
+          "ses": {
+            "archivo": "oficiales/open2025-canarias-01/persistencia.txt",
+            "sha256": "479b63ada3fce7669212f11bd315c71183583f04645892914dacf4e375a1e640",
+            "formato": "ses-latin1-transcrito-utf8",
+            "contenidoLatin1Sha256": "5762038e80c288c9f652d230e5bbb4d660597b7a625e02908f8b839c04db8380",
+            "originalComprimidoSha256": "1adfd03108130277aa6a592cc644b176e017af13bac0c5807ed2e79efb5037fd"
+          }
+        },
+        "historiaVerificada": false,
+        "expedienteExternoSha256": "bd1fa42d3422e1e67921de7f202a8012c8ca262b0f72056b3e9e77e9115770f7"
+      },
+      "coincidenciaVerificada": true
     },
     {
       "id": "open2025-cantabria-01",
@@ -1472,12 +1668,208 @@
     },
     {
       "id": "open2025-extremadura-02",
-      "identidadSha256": "f06e325e90b137437ba5cc1a2653f341dae52f165741f592161ac7ae3d24f139",
-      "estado": "rechazado",
+      "identidadSha256": "d9a7ee5f3697e144facea4b7d05b4708fce53b483b6ff12a020826d9e8443efc",
+      "estado": "igual-al-centimo",
       "integridadReferencias": {
-        "estado": "ausente"
+        "estado": "bytes-verificados",
+        "verificadas": 13
       },
-      "motivo": "referencias-no-verificadas"
+      "resultadoOpenEUR": "735.50",
+      "pesoExterno": "283544.500000000000",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "54100",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "54100",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "7861",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "735.5",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "735.50",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "7332",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "14735.5",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "8305",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "7859.25",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "444",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "527.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "54100",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "735.50",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "transporte-dt18-ses-pdf-vinculado",
+        "countedAsMatch": false,
+        "casillas": {
+          "0547": "228.75",
+          "0548": "228.75",
+          "0670": "735.50",
+          "0511": "5550.00",
+          "0512": "5550.00",
+          "0519": "5550.00",
+          "0520": "5550.00"
+        },
+        "salario": {
+          "personal": {
+            "DPFNAC_D": "01/01/1985",
+            "CAD_D": "EXTREMADURA",
+            "CAC_D": "10",
+            "EDADD": "40",
+            "ZFNAC_D": "01/01/1985",
+            "ZCCAD": "10"
+          },
+          "amounts": {
+            "IDII": {
+              "value": "60000.0",
+              "absentZeroWithUiReadback": false
+            },
+            "GSS": {
+              "value": "3900.0",
+              "absentZeroWithUiReadback": false
+            },
+            "IDRE": {
+              "value": "14000.0",
+              "absentZeroWithUiReadback": false
+            },
+            "GCS": {
+              "value": null,
+              "absentZeroWithUiReadback": true
+            },
+            "GCC": {
+              "value": null,
+              "absentZeroWithUiReadback": true
+            },
+            "GDJ": {
+              "value": null,
+              "absentZeroWithUiReadback": true
+            },
+            "IDICLDED2": {
+              "value": "60000.0",
+              "absentZeroWithUiReadback": false
+            },
+            "GSSCLDED2": {
+              "value": "3900.0",
+              "absentZeroWithUiReadback": false
+            }
+          }
+        },
+        "contratoHistorico": "externofactual",
+        "limite": "Vincula entrada preparada y artefactos observados; no acredita historia, autenticidad AEAT ni calcula DT18. Oráculo fiscal separado.",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "referencias": {
+          "original": {
+            "archivo": "oficiales/open2025-extremadura-02/caso.json",
+            "sha256": "7ca28b024c2932e5be03b55265274999d5252eb9508ee6534f003e3c6494eb4f"
+          },
+          "entrada": {
+            "archivo": "oficiales/open2025-extremadura-02/entrada.json",
+            "sha256": "39bed45f6c9a677eb383c808f1e0b4c5318bd81e2dadb4f338642baacf02bacf"
+          },
+          "expediente": {
+            "archivo": "oficiales/open2025-extremadura-02/expediente-sintetico.json",
+            "sha256": "f48e6f006be26a9e4f90456390e55bd6912015c78785d658cd0a122c267c6500"
+          },
+          "recibo": {
+            "archivo": "oficiales/open2025-extremadura-02/recibo.json",
+            "sha256": "26b0ab86ec9aaa6e5e16bd4617865cea8c102ef012746ba617291869ba545095"
+          },
+          "readbacks": {
+            "archivo": "oficiales/open2025-extremadura-02/readbacks.json",
+            "sha256": "f658838fac2cf1f41a2f22b0a0102618ed270603b97c0bfd30184637d992b37c"
+          },
+          "inventarioAntes": {
+            "archivo": "oficiales/open2025-extremadura-02/dt18-inventario-antes.json",
+            "sha256": "50403c63d0a649c66f1a059b9addde283bb4b2f0a7136b322b8c5954e688c5ad"
+          },
+          "inventarioDespues": {
+            "archivo": "oficiales/open2025-extremadura-02/dt18-inventario-despues.json",
+            "sha256": "48504ab9cb92053cb97d6daf5f250a42bceec0881c3ee57f758fbd3c7a24693a"
+          },
+          "controles": {
+            "archivo": "oficiales/open2025-extremadura-02/controles-observados.json",
+            "sha256": "43617e55fd99cc15de69cfcb8396db9fe23e9acb1c0ba527d80d2bf73674aca0"
+          },
+          "ficha": {
+            "archivo": "oficiales/open2025-extremadura-02/ficha-reabierta.json",
+            "sha256": "e1b5afe77463c40d91fe647744604e9f1a1875e3c771b7a91846b0840ba0876d"
+          },
+          "censoAntes": {
+            "archivo": "oficiales/open2025-extremadura-02/inmuebles-censo-antes.json",
+            "sha256": "c475377f5c367ae579b17241de9db71ffde2d5a71b536123ec00de6f7ef5446b"
+          },
+          "censoDespues": {
+            "archivo": "oficiales/open2025-extremadura-02/inmuebles-censo-despues.json",
+            "sha256": "d56051f219c440e13bf03b495022b0d83fc978e9b829c21e215144f50c202794"
+          },
+          "pdf": {
+            "archivo": "oficiales/open2025-extremadura-02/captura.pdf",
+            "sha256": "616fb467a8211213a5d0ea5d49c366e2574e3586fa7fcc53b59709c8f4dc98e2"
+          },
+          "ses": {
+            "archivo": "oficiales/open2025-extremadura-02/persistencia.txt",
+            "sha256": "f63ac1a0ddf5711e6623a82c2e3e7784b1c566eaa396bed7adff081b0d5dd739",
+            "formato": "ses-latin1-transcrito-utf8",
+            "contenidoLatin1Sha256": "3f9e0e600b446ed51d9cd69c058258392315a6ea82dd2c3c93ed4d9f4a7e290b",
+            "originalComprimidoSha256": "73488c1a04ea1a94432417953b58f840fd64b8d58a4a14fa4ea5ecdb4af3f1f5"
+          }
+        },
+        "historiaVerificada": false,
+        "expedienteExternoSha256": "f48e6f006be26a9e4f90456390e55bd6912015c78785d658cd0a122c267c6500"
+      },
+      "coincidenciaVerificada": true
     },
     {
       "id": "open2025-galicia-02",
@@ -2252,12 +2644,208 @@
     },
     {
       "id": "open2025-comunitat-valenciana-03",
-      "identidadSha256": "8345f7ebebc352240a256fdaaa7a1931eb05d281fcc6d1a0d727ad2cd8f4309d",
-      "estado": "rechazado",
+      "identidadSha256": "b54f52fd83504b7679f18fac0a1b8ed247a27cb300b97ed90ec8534d0ed45d0e",
+      "estado": "igual-al-centimo",
       "integridadReferencias": {
-        "estado": "ausente"
+        "estado": "bytes-verificados",
+        "verificadas": 13
       },
-      "motivo": "referencias-no-verificadas"
+      "resultadoOpenEUR": "-114.95",
+      "pesoExterno": "310301.888888888889",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "54100",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "54100",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "7453.05",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "-114.95",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "-114.95",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "7332",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "13885.05",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "8002.5",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "7859.25",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "549.45",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "527.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "54100",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "-114.95",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "transporte-dt18-ses-pdf-vinculado",
+        "countedAsMatch": false,
+        "casillas": {
+          "0547": "450.00",
+          "0548": "450.00",
+          "0670": "-114.95",
+          "0511": "5550.00",
+          "0512": "6105.00",
+          "0519": "5550.00",
+          "0520": "6105.00"
+        },
+        "salario": {
+          "personal": {
+            "DPFNAC_D": "01/01/1985",
+            "CAD_D": "COMUNITAT VALENCIANA",
+            "CAC_D": "17",
+            "EDADD": "40",
+            "ZFNAC_D": "01/01/1985",
+            "ZCCAD": "17"
+          },
+          "amounts": {
+            "IDII": {
+              "value": "60000.0",
+              "absentZeroWithUiReadback": false
+            },
+            "GSS": {
+              "value": "3900.0",
+              "absentZeroWithUiReadback": false
+            },
+            "IDRE": {
+              "value": "14000.0",
+              "absentZeroWithUiReadback": false
+            },
+            "GCS": {
+              "value": null,
+              "absentZeroWithUiReadback": true
+            },
+            "GCC": {
+              "value": null,
+              "absentZeroWithUiReadback": true
+            },
+            "GDJ": {
+              "value": null,
+              "absentZeroWithUiReadback": true
+            },
+            "IDICLDED2": {
+              "value": "60000.0",
+              "absentZeroWithUiReadback": false
+            },
+            "GSSCLDED2": {
+              "value": "3900.0",
+              "absentZeroWithUiReadback": false
+            }
+          }
+        },
+        "contratoHistorico": "externofactual",
+        "limite": "Vincula entrada preparada y artefactos observados; no acredita historia, autenticidad AEAT ni calcula DT18. Oráculo fiscal separado.",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "referencias": {
+          "original": {
+            "archivo": "oficiales/open2025-comunitat-valenciana-03/caso.json",
+            "sha256": "50b21ad8854e5f71a16f7cc8c8e628f11209ea4345f5e4ee11352c1d97ebb411"
+          },
+          "entrada": {
+            "archivo": "oficiales/open2025-comunitat-valenciana-03/entrada.json",
+            "sha256": "d42f66068780a20c4259f62b9854ee8ea07c1c81120a6f7981d8e77da2003f1b"
+          },
+          "expediente": {
+            "archivo": "oficiales/open2025-comunitat-valenciana-03/expediente-sintetico.json",
+            "sha256": "ef148e8cc169f00e62bdc08d4fb6c7adcbf084cd36534a6c0b70db41def6ec55"
+          },
+          "recibo": {
+            "archivo": "oficiales/open2025-comunitat-valenciana-03/recibo.json",
+            "sha256": "5cfacc411d7c6f5448eabb332718ab1c47e97eb1dcfc7f3dfde5886fa571725a"
+          },
+          "readbacks": {
+            "archivo": "oficiales/open2025-comunitat-valenciana-03/readbacks.json",
+            "sha256": "857a79f06cb4db2a7a0fd9911763e102946f127a386cff2b42af26c4e7a8b3bb"
+          },
+          "inventarioAntes": {
+            "archivo": "oficiales/open2025-comunitat-valenciana-03/dt18-inventario-antes.json",
+            "sha256": "50403c63d0a649c66f1a059b9addde283bb4b2f0a7136b322b8c5954e688c5ad"
+          },
+          "inventarioDespues": {
+            "archivo": "oficiales/open2025-comunitat-valenciana-03/dt18-inventario-despues.json",
+            "sha256": "7b70bd0e3a11f515e042559cff82db0f26b15079f75ab58f6236fa2283104598"
+          },
+          "controles": {
+            "archivo": "oficiales/open2025-comunitat-valenciana-03/controles-observados.json",
+            "sha256": "43617e55fd99cc15de69cfcb8396db9fe23e9acb1c0ba527d80d2bf73674aca0"
+          },
+          "ficha": {
+            "archivo": "oficiales/open2025-comunitat-valenciana-03/ficha-reabierta.json",
+            "sha256": "e1b5afe77463c40d91fe647744604e9f1a1875e3c771b7a91846b0840ba0876d"
+          },
+          "censoAntes": {
+            "archivo": "oficiales/open2025-comunitat-valenciana-03/inmuebles-censo-antes.json",
+            "sha256": "c475377f5c367ae579b17241de9db71ffde2d5a71b536123ec00de6f7ef5446b"
+          },
+          "censoDespues": {
+            "archivo": "oficiales/open2025-comunitat-valenciana-03/inmuebles-censo-despues.json",
+            "sha256": "d56051f219c440e13bf03b495022b0d83fc978e9b829c21e215144f50c202794"
+          },
+          "pdf": {
+            "archivo": "oficiales/open2025-comunitat-valenciana-03/captura.pdf",
+            "sha256": "3a5d754437f7ab0bf6a5bc9136d16e5a5b9746af6eb23963878d7e3c6084a88e"
+          },
+          "ses": {
+            "archivo": "oficiales/open2025-comunitat-valenciana-03/persistencia.txt",
+            "sha256": "c56754fd45c08e5b9aae53aa9d344f2ebe30d49e292403dbcd6019529b638f4f",
+            "formato": "ses-latin1-transcrito-utf8",
+            "contenidoLatin1Sha256": "94e86c21b2ca92ba2c1f48d30ec059868472b1a2b43f41a01c31ca80baadee3d",
+            "originalComprimidoSha256": "f0865cbbc0bd93531d07ff6b31d86b7cfd23d5617a0d44b50e06f57336ce12be"
+          }
+        },
+        "historiaVerificada": false,
+        "expedienteExternoSha256": "ef148e8cc169f00e62bdc08d4fb6c7adcbf084cd36534a6c0b70db41def6ec55"
+      },
+      "coincidenciaVerificada": true
     },
     {
       "id": "open2025-galicia-03-v2",
@@ -3388,12 +3976,208 @@
     },
     {
       "id": "open2025-madrid-04",
-      "identidadSha256": "f1292abdad05f55ed53fcf4652552153db54e03401141d2cd238b64a99a50a5e",
-      "estado": "rechazado",
+      "identidadSha256": "6a33eca777722f435a8fac7cace18773a5881c1da6fa485b4bb3aad58e2f8777",
+      "estado": "igual-al-centimo",
       "integridadReferencias": {
-        "estado": "ausente"
+        "estado": "bytes-verificados",
+        "verificadas": 13
       },
-      "motivo": "referencias-no-verificadas"
+      "resultadoOpenEUR": "-541.07",
+      "pesoExterno": "307110.076923076923",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "54100",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "54100",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "6584.43",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "-541.07",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "-541.07",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "7332",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "13458.93",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "7090.75",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "7859.25",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "506.32",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "527.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "54100",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "-541.07",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "transporte-dt18-ses-pdf-vinculado",
+        "countedAsMatch": false,
+        "casillas": {
+          "0547": "228.75",
+          "0548": "228.75",
+          "0670": "-541.07",
+          "0511": "5550.00",
+          "0512": "5956.65",
+          "0519": "5550.00",
+          "0520": "5956.65"
+        },
+        "salario": {
+          "personal": {
+            "DPFNAC_D": "01/01/1985",
+            "CAD_D": "MADRID",
+            "CAC_D": "12",
+            "EDADD": "40",
+            "ZFNAC_D": "01/01/1985",
+            "ZCCAD": "12"
+          },
+          "amounts": {
+            "IDII": {
+              "value": "60000.0",
+              "absentZeroWithUiReadback": false
+            },
+            "GSS": {
+              "value": "3900.0",
+              "absentZeroWithUiReadback": false
+            },
+            "IDRE": {
+              "value": "14000.0",
+              "absentZeroWithUiReadback": false
+            },
+            "GCS": {
+              "value": null,
+              "absentZeroWithUiReadback": true
+            },
+            "GCC": {
+              "value": null,
+              "absentZeroWithUiReadback": true
+            },
+            "GDJ": {
+              "value": null,
+              "absentZeroWithUiReadback": true
+            },
+            "IDICLDED2": {
+              "value": "60000.0",
+              "absentZeroWithUiReadback": false
+            },
+            "GSSCLDED2": {
+              "value": "3900.0",
+              "absentZeroWithUiReadback": false
+            }
+          }
+        },
+        "contratoHistorico": "externofactual",
+        "limite": "Vincula entrada preparada y artefactos observados; no acredita historia, autenticidad AEAT ni calcula DT18. Oráculo fiscal separado.",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "referencias": {
+          "original": {
+            "archivo": "oficiales/open2025-madrid-04/caso.json",
+            "sha256": "5c00431d9bbc575efb4ef90192a37c2f96b8cee484004f899a1928d251935e86"
+          },
+          "entrada": {
+            "archivo": "oficiales/open2025-madrid-04/entrada.json",
+            "sha256": "7a8d5404f38681c3e6e51ff56f6d06a08d8ac3f15b8ac3553d65664ebce26793"
+          },
+          "expediente": {
+            "archivo": "oficiales/open2025-madrid-04/expediente-sintetico.json",
+            "sha256": "f8a61d895e0de412415aac60d766dc6c0ca4ef69d056f207c71358dab69f68a4"
+          },
+          "recibo": {
+            "archivo": "oficiales/open2025-madrid-04/recibo.json",
+            "sha256": "b105149719b96772fbf4e765dd3ae366bf37eb8ba5cb78bb54272f15e914b198"
+          },
+          "readbacks": {
+            "archivo": "oficiales/open2025-madrid-04/readbacks.json",
+            "sha256": "7d7a131aaadf17ea91aa7a56385a016a310807c6325ec87a34024fe7f698f93a"
+          },
+          "inventarioAntes": {
+            "archivo": "oficiales/open2025-madrid-04/dt18-inventario-antes.json",
+            "sha256": "50403c63d0a649c66f1a059b9addde283bb4b2f0a7136b322b8c5954e688c5ad"
+          },
+          "inventarioDespues": {
+            "archivo": "oficiales/open2025-madrid-04/dt18-inventario-despues.json",
+            "sha256": "48504ab9cb92053cb97d6daf5f250a42bceec0881c3ee57f758fbd3c7a24693a"
+          },
+          "controles": {
+            "archivo": "oficiales/open2025-madrid-04/controles-observados.json",
+            "sha256": "43617e55fd99cc15de69cfcb8396db9fe23e9acb1c0ba527d80d2bf73674aca0"
+          },
+          "ficha": {
+            "archivo": "oficiales/open2025-madrid-04/ficha-reabierta.json",
+            "sha256": "e1b5afe77463c40d91fe647744604e9f1a1875e3c771b7a91846b0840ba0876d"
+          },
+          "censoAntes": {
+            "archivo": "oficiales/open2025-madrid-04/inmuebles-censo-antes.json",
+            "sha256": "c475377f5c367ae579b17241de9db71ffde2d5a71b536123ec00de6f7ef5446b"
+          },
+          "censoDespues": {
+            "archivo": "oficiales/open2025-madrid-04/inmuebles-censo-despues.json",
+            "sha256": "d56051f219c440e13bf03b495022b0d83fc978e9b829c21e215144f50c202794"
+          },
+          "pdf": {
+            "archivo": "oficiales/open2025-madrid-04/captura.pdf",
+            "sha256": "6c523adda6ec13ce53d723fcbce7c06eb01d9d1c7b8c2b1d00c68ae31007cda1"
+          },
+          "ses": {
+            "archivo": "oficiales/open2025-madrid-04/persistencia.txt",
+            "sha256": "b18219f78c586e742889ce3b89e85c891b23e9ee4ffeb849b6d7c9ec29d62dcb",
+            "formato": "ses-latin1-transcrito-utf8",
+            "contenidoLatin1Sha256": "e2289c018e69f19bd36b819ae39aa50fdeb80575094e76a52aca2e86e6af9c2f",
+            "originalComprimidoSha256": "b7b16d7faa039b3b5482762657f928fe9200ef642a91f6f9140fb3763c1ac61f"
+          }
+        },
+        "historiaVerificada": false,
+        "expedienteExternoSha256": "f8a61d895e0de412415aac60d766dc6c0ca4ef69d056f207c71358dab69f68a4"
+      },
+      "coincidenciaVerificada": true
     },
     {
       "id": "open2025-andalucia-05-v2",
@@ -4554,12 +5338,208 @@
     },
     {
       "id": "open2025-andalucia-07",
-      "identidadSha256": "3f47c6e222aca3d48e9491076a5f536bfc2bbecf25393a49b588a16f4e2b69f1",
-      "estado": "rechazado",
+      "identidadSha256": "0843111ca13b140a11882e22b7ee1629f543bfdda2e677ecb74cf53e35c4b198",
+      "estado": "igual-al-centimo",
       "integridadReferencias": {
-        "estado": "ausente"
+        "estado": "bytes-verificados",
+        "verificadas": 13
       },
-      "motivo": "referencias-no-verificadas"
+      "resultadoOpenEUR": "-299.55",
+      "pesoExterno": "316738.071428571429",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "54100",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "54100",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "7268.45",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "-299.55",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "-299.55",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "7332",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "13700.45",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "7818.5",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "7859.25",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "550.05",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "527.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "54100",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "-299.55",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "transporte-dt18-ses-pdf-vinculado",
+        "countedAsMatch": false,
+        "casillas": {
+          "0547": "450.00",
+          "0548": "450.00",
+          "0670": "-299.55",
+          "0511": "5550.00",
+          "0512": "5790.00",
+          "0519": "5550.00",
+          "0520": "5790.00"
+        },
+        "salario": {
+          "personal": {
+            "DPFNAC_D": "01/01/1985",
+            "CAD_D": "ANDALUCIA",
+            "CAC_D": "01",
+            "EDADD": "40",
+            "ZFNAC_D": "01/01/1985",
+            "ZCCAD": "01"
+          },
+          "amounts": {
+            "IDII": {
+              "value": "60000.0",
+              "absentZeroWithUiReadback": false
+            },
+            "GSS": {
+              "value": "3900.0",
+              "absentZeroWithUiReadback": false
+            },
+            "IDRE": {
+              "value": "14000.0",
+              "absentZeroWithUiReadback": false
+            },
+            "GCS": {
+              "value": null,
+              "absentZeroWithUiReadback": true
+            },
+            "GCC": {
+              "value": null,
+              "absentZeroWithUiReadback": true
+            },
+            "GDJ": {
+              "value": null,
+              "absentZeroWithUiReadback": true
+            },
+            "IDICLDED2": {
+              "value": "60000.0",
+              "absentZeroWithUiReadback": false
+            },
+            "GSSCLDED2": {
+              "value": "3900.0",
+              "absentZeroWithUiReadback": false
+            }
+          }
+        },
+        "contratoHistorico": "externofactual",
+        "limite": "Vincula entrada preparada y artefactos observados; no acredita historia, autenticidad AEAT ni calcula DT18. Oráculo fiscal separado.",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "referencias": {
+          "original": {
+            "archivo": "oficiales/open2025-andalucia-07/caso.json",
+            "sha256": "413a2a0434e067a5db1329d7db6a99f6be935130577b0734bc470198e4d77b3f"
+          },
+          "entrada": {
+            "archivo": "oficiales/open2025-andalucia-07/entrada.json",
+            "sha256": "0dad3653b10694c093e704ae7f62cd6c9f87389699d51a77e74e298dad4cb6bc"
+          },
+          "expediente": {
+            "archivo": "oficiales/open2025-andalucia-07/expediente-sintetico.json",
+            "sha256": "0991ee4658cf5f773941ccce2b15c4057ca76de15c5424d3d8c2a68d04b7d0cf"
+          },
+          "recibo": {
+            "archivo": "oficiales/open2025-andalucia-07/recibo.json",
+            "sha256": "583ab09bad12458525d1f567d9e727c1a6b5b1a8f5452fb2b64dac80b8b865bb"
+          },
+          "readbacks": {
+            "archivo": "oficiales/open2025-andalucia-07/readbacks.json",
+            "sha256": "e7c1b0a61c7b4d9900e71a5074a88cd58aa7e2acf35e56c4aa2c4a71270610d2"
+          },
+          "inventarioAntes": {
+            "archivo": "oficiales/open2025-andalucia-07/dt18-inventario-antes.json",
+            "sha256": "50403c63d0a649c66f1a059b9addde283bb4b2f0a7136b322b8c5954e688c5ad"
+          },
+          "inventarioDespues": {
+            "archivo": "oficiales/open2025-andalucia-07/dt18-inventario-despues.json",
+            "sha256": "7b70bd0e3a11f515e042559cff82db0f26b15079f75ab58f6236fa2283104598"
+          },
+          "controles": {
+            "archivo": "oficiales/open2025-andalucia-07/controles-observados.json",
+            "sha256": "43617e55fd99cc15de69cfcb8396db9fe23e9acb1c0ba527d80d2bf73674aca0"
+          },
+          "ficha": {
+            "archivo": "oficiales/open2025-andalucia-07/ficha-reabierta.json",
+            "sha256": "e1b5afe77463c40d91fe647744604e9f1a1875e3c771b7a91846b0840ba0876d"
+          },
+          "censoAntes": {
+            "archivo": "oficiales/open2025-andalucia-07/inmuebles-censo-antes.json",
+            "sha256": "c475377f5c367ae579b17241de9db71ffde2d5a71b536123ec00de6f7ef5446b"
+          },
+          "censoDespues": {
+            "archivo": "oficiales/open2025-andalucia-07/inmuebles-censo-despues.json",
+            "sha256": "d56051f219c440e13bf03b495022b0d83fc978e9b829c21e215144f50c202794"
+          },
+          "pdf": {
+            "archivo": "oficiales/open2025-andalucia-07/captura.pdf",
+            "sha256": "def5b3d8ab94945b97966496f69707d1bd85758bd6868bf8b7f0e5617db9ce1e"
+          },
+          "ses": {
+            "archivo": "oficiales/open2025-andalucia-07/persistencia.txt",
+            "sha256": "3677edf44bae74675d32eba48e0e3a4a4722c15c181cb192cb5e2baaee135029",
+            "formato": "ses-latin1-transcrito-utf8",
+            "contenidoLatin1Sha256": "099af3feb72ae9c3c3510c04125d3afffb1319be72b2f5849a36b4e52b6b0098",
+            "originalComprimidoSha256": "53294d56794f9bb06ae71006f2e60e5ba2700805cd3aeaf81fa16402e6f2022b"
+          }
+        },
+        "historiaVerificada": false,
+        "expedienteExternoSha256": "0991ee4658cf5f773941ccce2b15c4057ca76de15c5424d3d8c2a68d04b7d0cf"
+      },
+      "coincidenciaVerificada": true
     },
     {
       "id": "open2025-catalunya-07",
@@ -5720,12 +6700,208 @@
     },
     {
       "id": "open2025-comunitat-valenciana-09",
-      "identidadSha256": "9a0324bcfe985b781dfb39b0b342564bac8d009d8d24f7b57395607b05f0cf7f",
-      "estado": "rechazado",
+      "identidadSha256": "8811e54f109da9035aa8d4be2d0c819b14c6d6cf6e46ad0861f4f4706927759e",
+      "estado": "igual-al-centimo",
       "integridadReferencias": {
-        "estado": "ausente"
+        "estado": "bytes-verificados",
+        "verificadas": 13
       },
-      "motivo": "referencias-no-verificadas"
+      "resultadoOpenEUR": "327.55",
+      "pesoExterno": "310301.888888888889",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "54100",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "54100",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "7453.05",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "327.55",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "327.55",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "7332",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "14327.55",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "8002.5",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "7859.25",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "549.45",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "527.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "54100",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "327.55",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "transporte-dt18-ses-pdf-vinculado",
+        "countedAsMatch": false,
+        "casillas": {
+          "0547": "228.75",
+          "0548": "228.75",
+          "0670": "327.55",
+          "0511": "5550.00",
+          "0512": "6105.00",
+          "0519": "5550.00",
+          "0520": "6105.00"
+        },
+        "salario": {
+          "personal": {
+            "DPFNAC_D": "01/01/1985",
+            "CAD_D": "COMUNITAT VALENCIANA",
+            "CAC_D": "17",
+            "EDADD": "40",
+            "ZFNAC_D": "01/01/1985",
+            "ZCCAD": "17"
+          },
+          "amounts": {
+            "IDII": {
+              "value": "60000.0",
+              "absentZeroWithUiReadback": false
+            },
+            "GSS": {
+              "value": "3900.0",
+              "absentZeroWithUiReadback": false
+            },
+            "IDRE": {
+              "value": "14000.0",
+              "absentZeroWithUiReadback": false
+            },
+            "GCS": {
+              "value": null,
+              "absentZeroWithUiReadback": true
+            },
+            "GCC": {
+              "value": null,
+              "absentZeroWithUiReadback": true
+            },
+            "GDJ": {
+              "value": null,
+              "absentZeroWithUiReadback": true
+            },
+            "IDICLDED2": {
+              "value": "60000.0",
+              "absentZeroWithUiReadback": false
+            },
+            "GSSCLDED2": {
+              "value": "3900.0",
+              "absentZeroWithUiReadback": false
+            }
+          }
+        },
+        "contratoHistorico": "externofactual",
+        "limite": "Vincula entrada preparada y artefactos observados; no acredita historia, autenticidad AEAT ni calcula DT18. Oráculo fiscal separado.",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "referencias": {
+          "original": {
+            "archivo": "oficiales/open2025-comunitat-valenciana-09/caso.json",
+            "sha256": "cd570358130d569356804eb20d932953f5bc19be788b28bdd8b63a1b229bd5da"
+          },
+          "entrada": {
+            "archivo": "oficiales/open2025-comunitat-valenciana-09/entrada.json",
+            "sha256": "62c0840b814581e5824e6393122a47ce0eac94fa6b54d28e647c167e225e5c22"
+          },
+          "expediente": {
+            "archivo": "oficiales/open2025-comunitat-valenciana-09/expediente-sintetico.json",
+            "sha256": "5b6ad5e3513e2fd6757417ce27889279e86be8fae20ff70f6151aea1e6286ec2"
+          },
+          "recibo": {
+            "archivo": "oficiales/open2025-comunitat-valenciana-09/recibo.json",
+            "sha256": "d2dd2ea9515701403f4d376e455c0bf9f47b6528a8a883a6bc1f6e42e23ec567"
+          },
+          "readbacks": {
+            "archivo": "oficiales/open2025-comunitat-valenciana-09/readbacks.json",
+            "sha256": "5b32562982d72cc8f6ccb4a96895ab0fec69ed5772a477036dbf84d7606852d9"
+          },
+          "inventarioAntes": {
+            "archivo": "oficiales/open2025-comunitat-valenciana-09/dt18-inventario-antes.json",
+            "sha256": "50403c63d0a649c66f1a059b9addde283bb4b2f0a7136b322b8c5954e688c5ad"
+          },
+          "inventarioDespues": {
+            "archivo": "oficiales/open2025-comunitat-valenciana-09/dt18-inventario-despues.json",
+            "sha256": "48504ab9cb92053cb97d6daf5f250a42bceec0881c3ee57f758fbd3c7a24693a"
+          },
+          "controles": {
+            "archivo": "oficiales/open2025-comunitat-valenciana-09/controles-observados.json",
+            "sha256": "43617e55fd99cc15de69cfcb8396db9fe23e9acb1c0ba527d80d2bf73674aca0"
+          },
+          "ficha": {
+            "archivo": "oficiales/open2025-comunitat-valenciana-09/ficha-reabierta.json",
+            "sha256": "e1b5afe77463c40d91fe647744604e9f1a1875e3c771b7a91846b0840ba0876d"
+          },
+          "censoAntes": {
+            "archivo": "oficiales/open2025-comunitat-valenciana-09/inmuebles-censo-antes.json",
+            "sha256": "c475377f5c367ae579b17241de9db71ffde2d5a71b536123ec00de6f7ef5446b"
+          },
+          "censoDespues": {
+            "archivo": "oficiales/open2025-comunitat-valenciana-09/inmuebles-censo-despues.json",
+            "sha256": "d56051f219c440e13bf03b495022b0d83fc978e9b829c21e215144f50c202794"
+          },
+          "pdf": {
+            "archivo": "oficiales/open2025-comunitat-valenciana-09/captura.pdf",
+            "sha256": "bc1dd4ff66dd497686a24068509b30d1990c36fb85ffe4889d263aa791e39a57"
+          },
+          "ses": {
+            "archivo": "oficiales/open2025-comunitat-valenciana-09/persistencia.txt",
+            "sha256": "a796f4e34fb239a0e87eff9e684322e3e9287e4d0cbaa32c1f2d8fdad892d712",
+            "formato": "ses-latin1-transcrito-utf8",
+            "contenidoLatin1Sha256": "20486ce7728613ee06f1f077df98293c1e0ddd9568c4b97d1da982acf4b0dd89",
+            "originalComprimidoSha256": "6cdc45b89a2b23399f728f864bc2ab76ed2d3d75949e31f45ae464ee377b5037"
+          }
+        },
+        "historiaVerificada": false,
+        "expedienteExternoSha256": "5b6ad5e3513e2fd6757417ce27889279e86be8fae20ff70f6151aea1e6286ec2"
+      },
+      "coincidenciaVerificada": true
     },
     {
       "id": "open2025-madrid-09",
@@ -6886,12 +8062,208 @@
     },
     {
       "id": "open2025-madrid-12",
-      "identidadSha256": "241bd94d1eae91ef305225d4e99b0715e85537e50f568a6e1cc76be2a904991d",
-      "estado": "rechazado",
+      "identidadSha256": "d42f139b1d7a501ef991b2e3e31be7e34c4845ddfb4d5a95fe69c82fd3d63e72",
+      "estado": "igual-al-centimo",
       "integridadReferencias": {
-        "estado": "ausente"
+        "estado": "bytes-verificados",
+        "verificadas": 13
       },
-      "motivo": "referencias-no-verificadas"
+      "resultadoOpenEUR": "-983.57",
+      "pesoExterno": "307110.076923076923",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "54100",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "54100",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "6584.43",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "-983.57",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "-983.57",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "7332",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "13016.43",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "7090.75",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "7859.25",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "506.32",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "527.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "54100",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "-983.57",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "transporte-dt18-ses-pdf-vinculado",
+        "countedAsMatch": false,
+        "casillas": {
+          "0547": "450.00",
+          "0548": "450.00",
+          "0670": "-983.57",
+          "0511": "5550.00",
+          "0512": "5956.65",
+          "0519": "5550.00",
+          "0520": "5956.65"
+        },
+        "salario": {
+          "personal": {
+            "DPFNAC_D": "01/01/1985",
+            "CAD_D": "MADRID",
+            "CAC_D": "12",
+            "EDADD": "40",
+            "ZFNAC_D": "01/01/1985",
+            "ZCCAD": "12"
+          },
+          "amounts": {
+            "IDII": {
+              "value": "60000.0",
+              "absentZeroWithUiReadback": false
+            },
+            "GSS": {
+              "value": "3900.0",
+              "absentZeroWithUiReadback": false
+            },
+            "IDRE": {
+              "value": "14000.0",
+              "absentZeroWithUiReadback": false
+            },
+            "GCS": {
+              "value": null,
+              "absentZeroWithUiReadback": true
+            },
+            "GCC": {
+              "value": null,
+              "absentZeroWithUiReadback": true
+            },
+            "GDJ": {
+              "value": null,
+              "absentZeroWithUiReadback": true
+            },
+            "IDICLDED2": {
+              "value": "60000.0",
+              "absentZeroWithUiReadback": false
+            },
+            "GSSCLDED2": {
+              "value": "3900.0",
+              "absentZeroWithUiReadback": false
+            }
+          }
+        },
+        "contratoHistorico": "externofactual",
+        "limite": "Vincula entrada preparada y artefactos observados; no acredita historia, autenticidad AEAT ni calcula DT18. Oráculo fiscal separado.",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "referencias": {
+          "original": {
+            "archivo": "oficiales/open2025-madrid-12/caso.json",
+            "sha256": "3d2cf1d3ea4d5fdd198a1297d2ee2cc3c996311144da4da9acb13ada20a5feba"
+          },
+          "entrada": {
+            "archivo": "oficiales/open2025-madrid-12/entrada.json",
+            "sha256": "6593c036490ef71d1e088c56c9df5c09027780c391dd5466f25a5512e35cc6d8"
+          },
+          "expediente": {
+            "archivo": "oficiales/open2025-madrid-12/expediente-sintetico.json",
+            "sha256": "2f92a7f47fb23c49a630947e0edcc01d256cdbaf10529ff678cab8a536680b70"
+          },
+          "recibo": {
+            "archivo": "oficiales/open2025-madrid-12/recibo.json",
+            "sha256": "4ac807f26483b348a59ed2e2238bd017e64f2c3f8d81632000bdf86d08532734"
+          },
+          "readbacks": {
+            "archivo": "oficiales/open2025-madrid-12/readbacks.json",
+            "sha256": "e6349b80be4376c8b8b9e81686b838ef32e7542c9d0be5f681c38fdd7f394377"
+          },
+          "inventarioAntes": {
+            "archivo": "oficiales/open2025-madrid-12/dt18-inventario-antes.json",
+            "sha256": "50403c63d0a649c66f1a059b9addde283bb4b2f0a7136b322b8c5954e688c5ad"
+          },
+          "inventarioDespues": {
+            "archivo": "oficiales/open2025-madrid-12/dt18-inventario-despues.json",
+            "sha256": "7b70bd0e3a11f515e042559cff82db0f26b15079f75ab58f6236fa2283104598"
+          },
+          "controles": {
+            "archivo": "oficiales/open2025-madrid-12/controles-observados.json",
+            "sha256": "43617e55fd99cc15de69cfcb8396db9fe23e9acb1c0ba527d80d2bf73674aca0"
+          },
+          "ficha": {
+            "archivo": "oficiales/open2025-madrid-12/ficha-reabierta.json",
+            "sha256": "e1b5afe77463c40d91fe647744604e9f1a1875e3c771b7a91846b0840ba0876d"
+          },
+          "censoAntes": {
+            "archivo": "oficiales/open2025-madrid-12/inmuebles-censo-antes.json",
+            "sha256": "c475377f5c367ae579b17241de9db71ffde2d5a71b536123ec00de6f7ef5446b"
+          },
+          "censoDespues": {
+            "archivo": "oficiales/open2025-madrid-12/inmuebles-censo-despues.json",
+            "sha256": "d56051f219c440e13bf03b495022b0d83fc978e9b829c21e215144f50c202794"
+          },
+          "pdf": {
+            "archivo": "oficiales/open2025-madrid-12/captura.pdf",
+            "sha256": "283121bd5c3e067facbd0c71bd29111dfeb96e12b95257b15737f4f5e79c9888"
+          },
+          "ses": {
+            "archivo": "oficiales/open2025-madrid-12/persistencia.txt",
+            "sha256": "184e8fd86d1fa926e28d4c201457854dfd672800f9d4cb042b862b1885fde7ab",
+            "formato": "ses-latin1-transcrito-utf8",
+            "contenidoLatin1Sha256": "684f41fad13e08046c2612a794ce8950ea493b9b0d388a2a03dab5f852022330",
+            "originalComprimidoSha256": "5ce6af65c6c8a783a5e7ac7097cef35c6773ffe224200daa33835fa9d8060f38"
+          }
+        },
+        "historiaVerificada": false,
+        "expedienteExternoSha256": "2f92a7f47fb23c49a630947e0edcc01d256cdbaf10529ff678cab8a536680b70"
+      },
+      "coincidenciaVerificada": true
     },
     {
       "id": "open2025-andalucia-13-v2",

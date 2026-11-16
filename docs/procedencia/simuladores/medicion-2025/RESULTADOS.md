@@ -1,10 +1,11 @@
 # Medición nacional 2025
 
-**51/80 objetivos cuadran al céntimo con evidencia vinculada.** Se han capturado
+**58/80 objetivos cuadran al céntimo con evidencia vinculada.** Se han capturado
 y comparado 32 perfiles salariales sin mínimos familiares, cuatro con
-ascendientes y 18 con descendientes. Coinciden 31 salarios, tres ascendientes
-y 17 familias. Los otros 26 objetivos siguen en N. El alcance de la proyección
-de hechos sintéticos está descrito en `ASCENDIENTES.md` y `FAMILIAS.md`.
+ascendientes, 18 con descendientes y siete viviendas con deducción transitoria.
+Coinciden 31 salarios, tres ascendientes, 17 familias y las siete viviendas.
+Los otros 19 objetivos siguen en N. El alcance de la proyección de hechos
+sintéticos está descrito en `ASCENDIENTES.md`, `FAMILIAS.md` y `DT18.md`.
 
 `observaciones.json` contiene las entradas del manifiesto y las referencias
 relativas a los documentos en `oficiales/`. `medicion.json` conserva la salida
@@ -42,7 +43,7 @@ No estima cuántos contribuyentes tienen este perfil concreto. Los pendientes
 no reciben un impacto monetario inventado: hacen falta sus capturas y una
 salida del motor antes de calcular la diferencia.
 
-Quedan diez perfiles conjuntos con hijos y dieciséis de vivienda.
+Quedan diez perfiles conjuntos con hijos y nueve de vivienda.
 La restricción territorial de las tres entradas ordinarias de ascendientes se
 ha ampliado sin modificar sus hechos. Diez conjuntas y las viviendas requieren completar su conexión o
 expediente; no se reemplazan por declaraciones individuales o salariales.
@@ -55,7 +56,7 @@ códigos incompatibles y duplicaba pesos de entradas repetidas. Se conservaron
 las reproducciones y se corrigieron los tres comportamientos. Los controles
 propios ahora rechazan esas alteraciones y mantienen los originales válidos.
 
-La comprobación exige las 54 vinculaciones SES/PDF, incluidas las proyecciones
+La comprobación exige las 61 vinculaciones SES/PDF, incluidas las proyecciones
 de predicados familiares identificados, y registra los tres céntimos pendientes.
 El verde técnico de esa comprobación no
 equivale a cerrar los 80 objetivos ni el ejercicio completo.

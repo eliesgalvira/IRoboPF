@@ -152,6 +152,8 @@ export function calcularDeduccionTrabajo(
       .div(100)
     fuente = "LIRPF art80bis histórico; Ley26/2009 art70; arts63.2 y74.2"
   } else {
+    if (c.ambito === "comun-conjunta-ordinaria-2025" && (new D(c.brutoServicios).lt(30000) || !new D(c.otrasRentasNoExentas).isZero()))
+      return rechazo("DA61 conjunta: sólo corte ordinario de perceptor único con bruto>=30000 y sin otras rentas")
     if (c.ejercicio !== 2025)
       return rechazo(
         "DA61 2026: vigencia y alcance pendientes de cierre en esta implementación"

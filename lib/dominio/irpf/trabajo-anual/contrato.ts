@@ -87,7 +87,7 @@ export const DeduccionTrabajo = Schema.Union([
   }),
   Schema.Struct({
     regla: Schema.Literal("da61"),
-    ambito: Schema.Literal("comun-individual"),
+    ambito: Schema.Literals(["comun-individual", "comun-conjunta-ordinaria-2025"]),
     ejercicio: Schema.Literals([2025, 2026]),
     brutoServicios: BrutoServiciosAcumulado,
     otrasRentasNoExentas: Renta,

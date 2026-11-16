@@ -370,11 +370,7 @@ export const calcularDerechosMinimos = Effect.fn("Minimos.calcularDerechos")(
     })
     const discapacidadContribuyente = obtenerMinimoDiscapacidadContribuyente(
       {
-        tipo: "individual",
-        edad: caso.edadContribuyenteDevengo,
         discapacidad: caso.discapacidadContribuyente,
-        descendientes: [],
-        ascendientes: [],
       },
       minimos
     )

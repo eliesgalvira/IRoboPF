@@ -8,11 +8,11 @@ import type { Vivienda } from "../deducciones/lote-a-ampliacion-2025/vivienda"
 import { rehabilitacion } from "../deducciones/galicia-rioja-ampliacion-2025/vivienda-galicia"
 import { cero, euros, suma, mas, menos, min, max, compara, por, exige, ids, fecha, edad, moverMes, documento, serial } from "../deducciones/galicia-rioja-ampliacion-2025/comun"
 import type { R } from "../deducciones/galicia-rioja-ampliacion-2025/comun"
-import type { HechosDT182025, HechosDT18Murcia2025, HechosDerechoDT18Rioja2025 } from "./contrato"
+import type { HechosDT182025, HechosDT18Murcia2025, HechosDT18Estatal2025, HechosDerechoDT18Rioja2025 } from "./contrato"
 import type { MagnitudesTerritorialesAnuales } from "../deducciones/anual-territorial"
 import type { SolicitudDeduccionesTerritoriales2025 } from "../deducciones/anual-territorial-esquemas"
 export const igualViviendaDT18=Schema.toEquivalence(E_ViviendaRioja)
-const InmuebleComun=Schema.Struct({...E_ViviendaRioja.fields.inmueble.fields,territorio:Schema.Literals(["galicia","la-rioja","murcia","illes-balears"])})
+const InmuebleComun=Schema.Struct({...E_ViviendaRioja.fields.inmueble.fields,territorio:Schema.Literals(["galicia","la-rioja","murcia","illes-balears","canarias","extremadura","comunitat-valenciana","madrid","andalucia"])})
 const igualInmueble=Schema.toEquivalence(InmuebleComun)
 const igualViviendaComun=Schema.toEquivalence(Schema.Struct({...E_ViviendaRioja.fields,inmueble:InmuebleComun}))
 const igualDocumento=Schema.toEquivalence(E_ViviendaRioja.fields.deduccionPre2013)
@@ -21,13 +21,13 @@ const codigoPorOperacion={adquisicion:CODIGOS_DT18_RIOJA[1],rehabilitacion:CODIG
 function textoEuros(a:R):string{const n=BigInt(centimos(a));return String(n/100n)+"."+String(n%100n).padStart(2,"0")}
 function igual(a:R,b:R,m:string){exige(compara(a,b)===0,"DT18: "+m)}
 function centimos(a:R):number{exige(a.d===1n&&a.n>=0n&&a.n<=BigInt(Number.MAX_SAFE_INTEGER),"DT18: importe fuera del transporte entero seguro de fórmula revisada");return Number(a.n)}
-type ViviendaDT18 = HechosDT182025["proyectos"][number]["vivienda"] | HechosDT18Murcia2025["proyectos"][number]["vivienda"] | HechosDerechoDT18Balears2025["proyectos"][number]["vivienda"]
+type ViviendaDT18 = HechosDT18Estatal2025["proyectos"][number]["vivienda"] | HechosDT182025["proyectos"][number]["vivienda"] | HechosDT18Murcia2025["proyectos"][number]["vivienda"] | HechosDerechoDT18Balears2025["proyectos"][number]["vivienda"]
 type HechosComunes<V extends ViviendaDT18> = Omit<HechosDT182025,"proyectos"|"ejercicioDelDerecho"> & {
  readonly ejercicioDelDerecho: "ejercer_integramente" | "aplicar" | "no_aplicar"
  readonly proyectos: readonly (Omit<HechosDT182025["proyectos"][number],"vivienda"> & {readonly vivienda:V})[]
 }
 /** Núcleo estatal único; las reservas E38 sólo existen para Rioja. */
-function producirDT18Comun<V extends ViviendaDT18>(h:HechosComunes<V>,caso:MagnitudesTerritorialesAnuales["caso"],solicitudes:SolicitudDeduccionesTerritoriales2025["solicitudes"],territorio:"la-rioja"|"murcia"|"illes-balears", soloDerechoRioja = false) {
+function producirDT18Comun<V extends ViviendaDT18>(h:HechosComunes<V>,caso:MagnitudesTerritorialesAnuales["caso"],solicitudes:SolicitudDeduccionesTerritoriales2025["solicitudes"],territorio:"la-rioja"|"murcia"|"illes-balears"|HechosDT18Estatal2025["proyectos"][number]["vivienda"]["inmueble"]["territorio"], soloDerechoRioja = false) {
  const cambioEnEjercicio = territorio === "illes-balears" || soloDerechoRioja
  exige(caso.anio===2025&&caso.comunidadAutonoma===territorio&&caso.fechaFallecimiento===undefined&&caso.situacionFamiliar.tipo==="individual"&&caso.contribuyenteId===h.persona&&edad(h.nacimiento)===caso.situacionFamiliar.edad,"DT18: ámbito individual2025/territorio/identidad/edad")
  exige(h.exhaustividad==="primera_unica_vivienda_sin_transmisiones_reinversiones_ni_otras_inversiones","DT18: faltan antecedentes patrimoniales exhaustivos")
@@ -43,7 +43,7 @@ function producirDT18Comun<V extends ViviendaDT18>(h:HechosComunes<V>,caso:Magni
  documento(derecho.titulo)
  const anioNacimiento=Number(h.nacimiento.slice(0,4))
  exige((soloDerechoRioja ? hist.ejercicios.length===1 : hist.ejercicios.length===2025-anioNacimiento)&&new Set(hist.ejercicios.map(e=>e.anio)).size===hist.ejercicios.length,"DT18: ejercicios vitales incompletos")
- for(const e of hist.ejercicios){documento(e.documento);exige(Number.isInteger(e.anio)&&e.anio>=anioNacimiento&&e.anio<2025&&e.documento.fecha>=`${e.anio}-12-31`,"DT18: ejercicio fiscal inválido");for(const evento of e.eventos){documento(evento.documento);exige(evento.tipo==="inversion_vivienda"&&evento.inmueble===a.inmueble,"DT18: reinversión/otra vivienda requiere productor específico")}}
+ for(const e of hist.ejercicios){documento(e.documento);exige(Number.isInteger(e.anio)&&e.anio>=anioNacimiento&&e.anio<2025&&e.documento.fecha>=`${e.anio}-12-31`,"DT18: ejercicio fiscal inválido");for(const evento of e.eventos){documento(evento.documento);exige(evento.tipo==="inversion_vivienda"&&evento.inmueble===a.inmueble,"DT18: reinversión/otra vivienda requiere productor específico");exige(e.anio>=Number(a.fecha.slice(0,4))&&evento.documento.fecha>=a.fecha,"DT18: inversión anterior a adquisición sin anticipo representado")}}
  conciliarCuentasP5a(h.cuentas,h.movimientos)
  const prestamos=h.proyectos.flatMap(p=>p.prestamo===null?[]:[p.prestamo])
  const censoEsperado=[...h.cuentas.map(x=>x.id),a.inmueble,...prestamos.map(x=>x.id)]
@@ -143,7 +143,17 @@ export function producirDT18Murcia2025(h:HechosDT18Murcia2025,caso:MagnitudesTer
  exige(solicitudes.length===1&&solicitudes.every(s=>s.lote==="F-ampliado"&&s.codigo===CODIGO_DT18_MURCIA&&s.hechos.ramaTransitoria==="estatal_pre2013"),"DT18 Murcia: sólo DT primera.4; no equivale a98/99/00 ni Uno_vigente; concurrencias fuera del candidato")
  return {...producirDT18Comun<HechosDT18Murcia2025["proyectos"][number]["vivienda"]>(h,caso,solicitudes,"murcia"),hechos:h,territorio:"murcia" as const}
 }
-export type LibroDT182025=ReturnType<typeof producirDT182025>|ReturnType<typeof producirDT18Murcia2025>
+/** La base, el patrimonio y las dos generaciones salen del mismo núcleo.
+ * Sin solicitudes concurrentes: no reutilizar el censo para otro incentivo. */
+export function producirDT18Estatal2025(h:HechosDT18Estatal2025,caso:MagnitudesTerritorialesAnuales["caso"],solicitudes:SolicitudDeduccionesTerritoriales2025["solicitudes"]){
+ exige(h.alcance==="adquisicion_estatal_ordinaria"&&h.proyectos.length===1&&h.proyectos[0]?.operacion==="adquisicion","DT18 estatal: sólo primera adquisición ordinaria")
+ exige(solicitudes.length===0,"DT18 estatal: concurrencia regional pendiente de coordinación patrimonial explícita")
+ const territorio=h.proyectos[0]!.vivienda.inmueble.territorio
+ exige(["canarias","extremadura","comunitat-valenciana","madrid","andalucia"].includes(territorio),"DT18 estatal: territorio fuera del contrato conectado")
+ exige(h.proyectos[0]!.vivienda.obra===null&&h.proyectos[0]!.vivienda.informeDiscapacidad===null,"DT18 estatal: obras/adecuación no representadas")
+ return {...producirDT18Comun(h,caso,solicitudes,territorio),hechos:h,territorio}
+}
+export type LibroDT182025=ReturnType<typeof producirDT182025>|ReturnType<typeof producirDT18Murcia2025>|ReturnType<typeof producirDT18Estatal2025>
 
 /** Los dos censos únicos no constituyen un censo patrimonial conjunto. */
 export function validarCensosViviendaRioja(s:SolicitudDeduccionesTerritoriales2025):void{

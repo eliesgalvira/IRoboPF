@@ -161,7 +161,7 @@ it("la API explícita concilia cotizaciones2025 por rendimiento", () => {
   if (e.perfil !== "solo-trabajo" || e.ejercicio !== 2025) throw new Error("Fixture debe ser trabajo2025")
   const error = Effect.runSync(Effect.flip(liquidarIrpfAnualExplicito({ ...e,
     trabajo: { ...e.trabajo, rendimientos: e.trabajo.rendimientos.map(r => ({ ...r,
-      cotizaciones: { clase: "efectivas", seguridadSocial: "1", derechosPasivos: "0", colegiosHuerfanos: "0" } })) } })))
+      cotizaciones: { clase: "efectivas" as const, seguridadSocial: "1", derechosPasivos: "0", colegiosHuerfanos: "0" } })) } })))
   expect(error._tag).toBe("ResultadoNoSoportado"); expect("importe" in error).toBe(false)
 })
 

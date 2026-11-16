@@ -11,6 +11,7 @@ import { Effect, Schema } from "effect"
 import { CasoFiscalAnualExplicito } from "../../../lib/dominio/irpf/trabajo-anual/conexion-contrato.ts"
 import { liquidarIrpfAnualExplicito } from "../../../lib/dominio/irpf/liquidacion/liquidar-irpf-anual.ts"
 import { vincularOpen } from "./vincular-open.mjs"
+import { vincularDT18Open } from "./vincular-dt18-open.mjs"
 
 const hash = (bytes) => createHash("sha256").update(bytes).digest("hex")
 const objeto = Schema.is(Schema.Record(Schema.String, Schema.Unknown))
@@ -46,6 +47,8 @@ const iguales = (a, b) => {
 const escalares = ["reduccionArt20", "rendimientoNetoReducido", "baseImponibleGeneral",
   "baseLiquidableGeneral", "deduccionTrabajo", "cuotaPosterior", "cuotaDiferencial",
   "cuotaDiferencialPresentada"]
+const vinculoVerificado = (v) => v?.estado === "entrada-ses-y-resultado-pdf-vinculados"
+  || v?.estado === "transporte-dt18-ses-pdf-vinculado"
 
 function referencias(integridad, base) {
   const refs = integridad?.referencias
@@ -125,8 +128,9 @@ function medirCaso(caso, base) {
     salida.resultadoMotorEUR = texto([centimos(motor), 2])
     salida.discrepanciaEUR = texto([diferencia, 2])
     salida.pesoExterno = caso.pesoExterno ?? null
-    salida.vinculacion = vincularOpen(caso, base)
-    salida.coincidenciaVerificada = diferencia === 0n && salida.vinculacion.estado === "entrada-ses-y-resultado-pdf-vinculados"
+    salida.vinculacion = caso.evidenciaOpen?.dt18
+      ? vincularDT18Open(caso, base) : vincularOpen(caso, base)
+    salida.coincidenciaVerificada = diferencia === 0n && vinculoVerificado(salida.vinculacion)
     return salida
   } catch (error) {
     // No emitir entradas, rutas ni mensajes de las dependencias.
@@ -199,7 +203,7 @@ export function medirCasos(documento, { base = process.cwd(), manifiesto } = {})
       const [p, s] = decimal(r.pesoExterno), d = centimos(r.discrepanciaEUR)
       return { id: r.id, discrepanciaEUR: r.discrepanciaEUR,
         pesoExterno: r.pesoExterno, impacto: [(d < 0n ? -d : d) * p, s + 2],
-        evidenciaVinculada: r.vinculacion?.estado === "entrada-ses-y-resultado-pdf-vinculados" }
+        evidenciaVinculada: vinculoVerificado(r.vinculacion) }
     }).sort((a, b) => {
       const d = sumar(a.impacto, [-b.impacto[0], b.impacto[1]])[0]
       return d > 0n ? -1 : d < 0n ? 1 : a.id.localeCompare(b.id)

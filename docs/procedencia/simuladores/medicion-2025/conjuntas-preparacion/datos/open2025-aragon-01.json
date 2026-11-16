@@ -1,0 +1,395 @@
+{
+  "schema": "expediente-hogar-conjunta-preparacion-v1",
+  "estado": "sintetico-preparado-sin-captura-ni-liquidacion",
+  "id": "open2025-aragon-01",
+  "ejercicio": 2025,
+  "grupo": "salario-hijos",
+  "incluidoEnN": true,
+  "territorio": "aragon",
+  "pesoExterno": "267197.333333333333",
+  "pesoTerritorialProxy": {
+    "N": 801592,
+    "n": 3,
+    "fraccion": "801592/3",
+    "uso": "proxy territorial; no estimacion de afectados ni incidencia conjunta por perfil"
+  },
+  "modalidadObjetivo": "conjunta",
+  "procedencia": {
+    "archivo": "docs/procedencia/simuladores/medicion-2025/casos.json",
+    "sha256": "dcd29e0ff88d453329b46a8998ad78ffa64f7081538e5ed87782a0a6eed3735f",
+    "selector": "casos[id=open2025-aragon-01]",
+    "hechosObjetivoOriginales": {
+      "modalidad": "conjunta",
+      "unidadFamiliar": "matrimonial",
+      "progenitor": "s-1",
+      "convivenciaMenores": "todo-2025",
+      "hijos": [
+        {
+          "declaracion": {
+            "modalidad": "no-presenta"
+          },
+          "discapacidad": {
+            "_tag": "SinDiscapacidad"
+          },
+          "edadDevengo": 2,
+          "fechaNacimiento": "2023-01-01",
+          "rentasNoExentasCentimos": 0,
+          "sujetoId": "s-3",
+          "titulares": [
+            {
+              "alimentosJudiciales": false,
+              "aplicaEspecialidadAlimentos": false,
+              "custodia": "compartida",
+              "grado": 1,
+              "relacion": "convivencia",
+              "rentasNoExentasCentimos": 4007500,
+              "residenteIrpf": true,
+              "titularId": "s-1",
+              "vinculo": {
+                "clase": "consanguinidad"
+              }
+            },
+            {
+              "alimentosJudiciales": false,
+              "aplicaEspecialidadAlimentos": false,
+              "custodia": "compartida",
+              "grado": 1,
+              "relacion": "convivencia",
+              "rentasNoExentasCentimos": 0,
+              "residenteIrpf": true,
+              "titularId": "s-2",
+              "vinculo": {
+                "clase": "consanguinidad"
+              }
+            }
+          ],
+          "titularesCompletos": true,
+          "vivoAlDevengo": true
+        }
+      ],
+      "otroProgenitor": "conyuge-conviviente",
+      "rentasOtrosMiembros": "ninguna",
+      "fuenteFamilia": "tests/fixtures/c300-variantes.json#extension-familia-1-renta-propia-v1",
+      "conyuge": {
+        "sujetoId": "s-2",
+        "fechaNacimiento": "1985-01-01",
+        "rentas": "ninguna",
+        "residenteIrpf": true,
+        "convivencia": "todo-2025"
+      }
+    },
+    "procedenciaEntradaOriginal": {
+      "plantilla": "docs/procedencia/implementaciones/redondeo-salarial-open/oficial.json#componentes",
+      "metodo": "adaptacion sintetica de estructura C300; importes y territorio de diseño, no captura reutilizada",
+      "familia": "tests/fixtures/c300-variantes.json#extension-familia-1-renta-propia-v1",
+      "conciliacion": "renta propia art19 = bruto - cotizaciones efectivas - 2000; sin otros gastos; bruto familiar >=30000, sin reduccion art20 en este diseño; otros titulares y menores conservados del fixture corregido",
+      "ajusteDiseno": "Objetivo conjunto matrimonial, cónyuge sin rentas. Referencia individual es sólo referencia salarial: no sustituye al objetivo."
+    }
+  },
+  "entradaAPI": null,
+  "motivoEntradaAPINull": "CasoFiscalAnualExplicito y DerechosMinimosAnuales sólo admiten individual; falta composición conjunta, agregación por miembro y reducción de base. No sustituir por la referencia individual.",
+  "hogar": {
+    "devengo": "2025-12-31",
+    "tipoUnidad": "matrimonial",
+    "miembros": [
+      "s-1",
+      "s-2",
+      "s-3"
+    ],
+    "personas": [
+      {
+        "sujetoId": "s-1",
+        "rol": "declarante",
+        "fechaNacimiento": "1985-01-01",
+        "edadDevengo": 40,
+        "sexoSintetico": "varon",
+        "identificadorCivilOpen": null,
+        "motivoIdentificadorNull": "Asignación de identificador exclusivamente sintético pendiente de confirmar formatos de captura; no usar identidad real.",
+        "vivoTodo2025": true,
+        "residenteIrpf": true,
+        "residenciaTodo2025": "aragon",
+        "discapacidad": {
+          "_tag": "SinDiscapacidad"
+        },
+        "estadoCivilAlDevengo": "casado-no-separado",
+        "declaracionObjetivo": {
+          "modalidad": "conjunta",
+          "unidadFamiliar": "open2025-aragon-01",
+          "presentaIndividual": false
+        },
+        "economia": {
+          "censoRentasCompleto": true,
+          "perfil": "solo-trabajo",
+          "trabajo": {
+            "ejercicio": 2025,
+            "territorio": "comun",
+            "reduccionesArt18": "ninguna",
+            "movilidad": "ninguna",
+            "discapacidadActiva": "ninguna",
+            "rendimientos": [
+              {
+                "id": "a",
+                "clase": "empleo-laboral",
+                "integro": "45000.00",
+                "cotizaciones": {
+                  "clase": "efectivas",
+                  "seguridadSocial": "2925.00",
+                  "derechosPasivos": "0",
+                  "colegiosHuerfanos": "0"
+                },
+                "sindicato": {
+                  "importe": "0",
+                  "satisfecho": "si"
+                },
+                "colegio": {
+                  "importe": "0",
+                  "satisfecho": "si",
+                  "obligatorio": "si",
+                  "finesEsenciales": "si"
+                },
+                "defensa": {
+                  "importe": "0",
+                  "satisfecho": "si",
+                  "litigioDirectoPagador": "si"
+                }
+              }
+            ]
+          },
+          "retenciones": [
+            {
+              "operacionId": "ret-0",
+              "procedencia": "sintetico:certificado-0",
+              "ejercicio": 2025,
+              "importe": "8500.00",
+              "efectiva": true
+            }
+          ],
+          "conciliacion": {
+            "ejercicio": 2025,
+            "estado": "totales-anuales-sin-duplicados",
+            "procedencia": [
+              "sintetico:datos-fiscales-2025",
+              "sintetico:certificados-pagadores"
+            ]
+          },
+          "otrasRentas": "ninguna",
+          "rentasExentasEUR": "0.00",
+          "rentasExtranjeras": "ninguna",
+          "reduccionesBasePersonales": "ninguna",
+          "saldosAnteriores": "ninguno"
+        }
+      },
+      {
+        "sujetoId": "s-2",
+        "rol": "conyuge",
+        "fechaNacimiento": "1985-01-01",
+        "edadDevengo": 40,
+        "sexoSintetico": "mujer",
+        "identificadorCivilOpen": null,
+        "motivoIdentificadorNull": "Asignación de identificador exclusivamente sintético pendiente de confirmar formatos de captura; no usar identidad real.",
+        "vivoTodo2025": true,
+        "residenteIrpf": true,
+        "residenciaTodo2025": "aragon",
+        "discapacidad": {
+          "_tag": "SinDiscapacidad"
+        },
+        "estadoCivilAlDevengo": "casado-no-separado",
+        "declaracionObjetivo": {
+          "modalidad": "conjunta",
+          "unidadFamiliar": "open2025-aragon-01",
+          "presentaIndividual": false
+        },
+        "economia": {
+          "censoRentasCompleto": true,
+          "perfil": "sin-rentas",
+          "rentasExentasEUR": "0.00",
+          "rentasNoExentasEUR": "0.00",
+          "retenciones": [],
+          "otrasRentas": "ninguna"
+        }
+      },
+      {
+        "sujetoId": "s-3",
+        "rol": "hijo",
+        "fechaNacimiento": "2023-01-01",
+        "edadDevengo": 2,
+        "sexoSintetico": "varon",
+        "identificadorCivilOpen": null,
+        "motivoIdentificadorNull": "Asignación de identificador exclusivamente sintético pendiente de confirmar formatos de captura; no usar identidad real.",
+        "vivoTodo2025": true,
+        "residenteIrpf": true,
+        "residenciaTodo2025": "aragon",
+        "discapacidad": {
+          "_tag": "SinDiscapacidad"
+        },
+        "estadoCivilAlDevengo": "soltero",
+        "declaracionObjetivo": {
+          "modalidad": "conjunta",
+          "unidadFamiliar": "open2025-aragon-01",
+          "presentaIndividual": false
+        },
+        "economia": {
+          "censoRentasCompleto": true,
+          "perfil": "sin-rentas",
+          "rentasExentasEUR": "0.00",
+          "rentasNoExentasEUR": "0.00",
+          "retenciones": [],
+          "otrasRentas": "ninguna"
+        },
+        "rentasNoExentasCentimosOriginal": 0,
+        "declaracionSeparadaOriginal": {
+          "modalidad": "no-presenta"
+        },
+        "independienteConConsentimiento": false,
+        "apoyoJudicial": "ninguno"
+      }
+    ],
+    "conyugeId": "s-2",
+    "convivenciaTodo2025": [
+      "s-1",
+      "s-2",
+      "s-3"
+    ],
+    "fallecimientos": "ninguno",
+    "otrosConvivientes": "ninguno",
+    "otrosHijosOAscendientes": "ninguno",
+    "nadieEnOtraUnidad": true,
+    "opcionConjuntaTodosMiembros": true,
+    "declaracionesIndividualesMiembros": "ninguna",
+    "hijos": [
+      {
+        "declaracion": {
+          "modalidad": "no-presenta"
+        },
+        "discapacidad": {
+          "_tag": "SinDiscapacidad"
+        },
+        "edadDevengo": 2,
+        "fechaNacimiento": "2023-01-01",
+        "rentasNoExentasCentimos": 0,
+        "sujetoId": "s-3",
+        "titulares": [
+          {
+            "alimentosJudiciales": false,
+            "aplicaEspecialidadAlimentos": false,
+            "custodia": "compartida",
+            "grado": 1,
+            "relacion": "convivencia",
+            "rentasNoExentasCentimos": 4007500,
+            "residenteIrpf": true,
+            "titularId": "s-1",
+            "vinculo": {
+              "clase": "consanguinidad"
+            }
+          },
+          {
+            "alimentosJudiciales": false,
+            "aplicaEspecialidadAlimentos": false,
+            "custodia": "compartida",
+            "grado": 1,
+            "relacion": "convivencia",
+            "rentasNoExentasCentimos": 0,
+            "residenteIrpf": true,
+            "titularId": "s-2",
+            "vinculo": {
+              "clase": "consanguinidad"
+            }
+          }
+        ],
+        "titularesCompletos": true,
+        "vivoAlDevengo": true
+      }
+    ],
+    "relaciones": [
+      {
+        "hijoId": "s-3",
+        "progenitorId": "s-1",
+        "vinculo": {
+          "clase": "consanguinidad"
+        },
+        "convivencia": "todo-2025",
+        "custodiaOriginal": "compartida",
+        "alimentosJudiciales": false,
+        "aplicaEspecialidadAlimentos": false
+      },
+      {
+        "hijoId": "s-3",
+        "progenitorId": "s-2",
+        "vinculo": {
+          "clase": "consanguinidad"
+        },
+        "convivencia": "todo-2025",
+        "custodiaOriginal": "compartida",
+        "alimentosJudiciales": false,
+        "aplicaEspecialidadAlimentos": false
+      }
+    ],
+    "otroProgenitor": {
+      "estado": "conyuge-conviviente",
+      "sujetoId": "s-2",
+      "perteneceUnidad": true,
+      "presentaIndividual": false
+    },
+    "alcanceEconomico": {
+      "rentasOtrosMiembros": "ninguna",
+      "capitalAhorroInmueblesActividadesGanancias": "ninguno",
+      "deduccionesSolicitadas": "solo-da61-si-procede",
+      "maternidadGuarderiaFamiliaNumerosaDeduccionesAdicionales": "no-solicitadas-en-este-corte"
+    }
+  },
+  "completadoSintetico": {
+    "metodo": "Hechos originales intactos; añadidos de diseño, no observaciones Open ni hechos reales.",
+    "camposAnadidos": [
+      "fecha de nacimiento declarante 1985-01-01 coherente con edad 40",
+      "sexo sintético para completar identidad sin inferir prestaciones",
+      "estado civil al 31/12: casado no separado o sin vínculo",
+      "residencia autonómica y vida todo el año de miembros",
+      "sin otros convivientes, hijos, ascendientes, rentas exentas ni discapacidad añadida",
+      "opción conjunta de todos, sin declaraciones individuales; hijo sin declaración separada",
+      "en monoparental, ausencia de otro titular del mínimo y de doble inclusión; opción individual del progenitor externo"
+    ],
+    "criterioDeclaracionHijo": "no-presenta original se conserva como ausencia de declaración separada; la participación objetivo es conjunta con la unidad, nunca individual.",
+    "criterioCustodia": "compartida original matrimonial expresa ambos titulares convivientes; no se interpreta como separación ni custodia alterna.",
+    "relacionConReferencia": "Sólo se extraen trabajo efectivo, retenciones, conciliación y alcance económico; sus derechos mínimos individuales no son los hechos objetivo."
+  },
+  "open": {
+    "estado": "pendiente-observacion",
+    "camposPendientes": [
+      {
+        "dato": "Identidad sintética de declarante, cónyuge e hijo; estado civil, residencia y fechas",
+        "observacion": null,
+        "motivo": "Confirmar controles, formatos aceptados y persistencia conjunta; IDs s-* son locales, no NIF de presentación."
+      },
+      {
+        "dato": "Unidad familiar y selección conjunta; participantes y ausencia de declaraciones individuales",
+        "observacion": null,
+        "motivo": "INDV=true y TITULAR=DECLARANTE sólo están acreditados en el transporte individual. No deducir el valor conjunto ni sus ámbitos."
+      },
+      {
+        "dato": "Filiación, convivencia, custodia y otro progenitor",
+        "observacion": null,
+        "motivo": "FNAC/NIF/VINCU y duplicados DP/diálogo se conocen para cortes individuales. B/D y VNUMMDES no acreditan codificación matrimonial. GUARD, GUAROD y RENTASHMEN carecen de semántica acreditada."
+      },
+      {
+        "dato": "Trabajo, cotizaciones efectivas y retenciones de cada miembro",
+        "observacion": null,
+        "motivo": "Confirmar atribución al miembro, campos salariales y persistencia conjunta sin duplicados; nunca estimar cotizaciones a partir del bruto."
+      },
+      {
+        "dato": "Reducción conjunta, mínimo estatal/autonómico y mínimo por descendiente menor de tres años",
+        "observacion": null,
+        "motivo": "Observar rótulo, casilla, importe y ámbito en persistencia y PDF; no inventar códigos ni resultados a partir de la norma."
+      },
+      {
+        "dato": "Bases, cuotas y resultado conjunto",
+        "observacion": null,
+        "motivo": "Vincular captura de entrada, SES original y PDF del mismo hogar; claves individuales BLGRAL/BLGGRAV/CDIF/RESULTADO no prueban su ámbito conjunto."
+      }
+    ],
+    "resultadoOpenEUR": null,
+    "componentesOpenEUR": null,
+    "referenciasCaptura": [],
+    "oraculo": null
+  },
+  "resultadoAPI": null
+}

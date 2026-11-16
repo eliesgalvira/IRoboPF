@@ -125,7 +125,7 @@ for (const api of ["canonica", "explicita"] as const) {
     const op = Effect.gen(function* () {
       if (api === "canonica") return yield* liquidarIrpfAnual(clasico(s,"castilla-la-mancha"),{modo:"canonico"})
       return yield* liquidarIrpfAnualExplicito({ ...e, trabajo: { ...e.trabajo, rendimientos: e.trabajo.rendimientos.map(r => ({ ...r,
-        cotizaciones: { clase:"efectivas", seguridadSocial:"1000", derechosPasivos:"0", colegiosHuerfanos:"0" } })) } })
+        cotizaciones: { clase:"efectivas" as const, seguridadSocial:"1000", derechosPasivos:"0", colegiosHuerfanos:"0" } })) } })
     })
     const r = Effect.runSync(op)
     igual(r.deduccionesTerritoriales2025?.aplicaciones[0]?.generado, "1499997/2000")
