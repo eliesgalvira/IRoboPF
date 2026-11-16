@@ -1,0 +1,3671 @@
+{
+  "schema": "medicion-c2025-v1",
+  "alcance": "Resultado presentado por API explicita 2025; medicion condicionada de casos, sin certificado monetario universal",
+  "contratoAPI": "CasoFiscalAnualExplicito; ampliaciones no admitidas se conservan en N",
+  "inventario": "no-realizado; no se invoca engine.mjs ni se certifican fuentes o dependencias",
+  "integridad": "Iguales exige vinculo entrada/SES y resultado/PDF. Comparaciones sin vinculo son exploratorias",
+  "medicion": {
+    "iguales": 31,
+    "N": 80,
+    "fraccion": "31/80",
+    "comparables": 32,
+    "igualesExploratorias": 31,
+    "fraccionExploratoria": "31/80",
+    "manifiestoCompleto": true,
+    "registrosRecibidos": 80,
+    "duplicados": 0
+  },
+  "ponderacionExterna": {
+    "estado": "incompleta",
+    "casosConPesoYResultado": 32,
+    "casosSinPesoOResultado": 48,
+    "sumaPesosComparables": "9836077.333150183154",
+    "discrepanciaPonderadaEUR": null,
+    "discrepanciaAbsolutaPonderadaEUR": null
+  },
+  "discrepanciasPorPrioridad": [
+    {
+      "id": "open2025-illes-balears-02",
+      "discrepanciaEUR": "-0.01",
+      "pesoExterno": "329261.000000000000",
+      "evidenciaVinculada": true,
+      "impactoAbsolutoPonderadoEUR": "3292.61000000000000"
+    }
+  ],
+  "limitePrioridad": "Peso externo por diferencia absoluta; proxy de diseño, no estimación de afectados. Rechazos sin importe no reciben un cero ni un impacto inventado",
+  "resultados": [
+    {
+      "id": "open2025-andalucia-01",
+      "identidadSha256": "f8d742f10bf9b908b27e7c9105f067cba3c286bd615f995e32ee03032fc0e1b9",
+      "estado": "igual-al-centimo",
+      "integridadReferencias": {
+        "estado": "bytes-verificados",
+        "verificadas": 2
+      },
+      "resultadoOpenEUR": "-600.00",
+      "pesoExterno": "316738.071428571429",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "5847",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "5847",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "5.42",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "-600",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "-600.00",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "28.22",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "33.64",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "555.47",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "555.47",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "550.05",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "527.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "7113",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "5847",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "-600.00",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "entrada-ses-y-resultado-pdf-vinculados",
+        "sesSha256": "81acd3d2c1512e609ec3bab68c30949537676b392bd120cf5a7663cdfb931db3",
+        "pdfSha256": "7f5e56c50137538efdac5974ebed94bfd0e4ae2bd8a3633cc298cddfc6659794",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "resultadoEUR": "-600.00",
+        "declaracion": {
+          "modalidad": "individual",
+          "titular": "DECLARANTE",
+          "codigoTerritorial": "01"
+        },
+        "territorio": "ANDALUCIA",
+        "limite": "Transporte salarial acotado; no certifica autenticidad criptografica AEAT ni otros hechos fiscales"
+      },
+      "coincidenciaVerificada": true
+    },
+    {
+      "id": "open2025-aragon-01",
+      "identidadSha256": "8970d11e4c95932ee6199b520fd14239b52265d927b75cfc178e0ff54b998d75",
+      "estado": "rechazado",
+      "integridadReferencias": {
+        "estado": "ausente"
+      },
+      "motivo": "referencias-no-verificadas"
+    },
+    {
+      "id": "open2025-asturias-01",
+      "identidadSha256": "d425796ba3d5ca6bed6bff736003593b33b0cac1a943798f6f25c8b088f5a6cb",
+      "estado": "igual-al-centimo",
+      "integridadReferencias": {
+        "estado": "bytes-verificados",
+        "verificadas": 2
+      },
+      "resultadoOpenEUR": "632.90",
+      "pesoExterno": "289724.000000000000",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "26050",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "26050",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "2369.902",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "632.902",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "632.90",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "2463",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "4832.902",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "2919.352",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "2990.25",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "549.45",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "527.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "26050",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "632.90",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "entrada-ses-y-resultado-pdf-vinculados",
+        "sesSha256": "d0c60277a81c41c03f964eaf00a2a441111353d6c22e5dd789e8c4a9a395db11",
+        "pdfSha256": "2c31f0f23f8da7d8b7233bdbc64518fd2c834d76f6f88df5172932d829fa8bdd",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "resultadoEUR": "632.90",
+        "declaracion": {
+          "modalidad": "individual",
+          "titular": "DECLARANTE",
+          "codigoTerritorial": "03"
+        },
+        "territorio": "PRINCIPADO DE ASTURIAS",
+        "limite": "Transporte salarial acotado; no certifica autenticidad criptografica AEAT ni otros hechos fiscales"
+      },
+      "coincidenciaVerificada": true
+    },
+    {
+      "id": "open2025-illes-balears-01",
+      "identidadSha256": "d726fc806fadb7373478d156579a8789317c37b133c538f5c0af859dbd6e71ee",
+      "estado": "rechazado",
+      "integridadReferencias": {
+        "estado": "ausente"
+      },
+      "motivo": "referencias-no-verificadas"
+    },
+    {
+      "id": "open2025-canarias-01",
+      "identidadSha256": "9434d6a3d93355ee4b3faf2e7d4a21085510a065ae7fdcb7d954b09d007ca3b6",
+      "estado": "rechazado",
+      "integridadReferencias": {
+        "estado": "ausente"
+      },
+      "motivo": "referencias-no-verificadas"
+    },
+    {
+      "id": "open2025-cantabria-01",
+      "identidadSha256": "2c28bf38d89b8364a0831831c0225fd6170d21daf6364772a856597c364c8dbd",
+      "estado": "igual-al-centimo",
+      "integridadReferencias": {
+        "estado": "bytes-verificados",
+        "verificadas": 2
+      },
+      "resultadoOpenEUR": "-600.00",
+      "pesoExterno": "330523.000000000000",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "5847",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "5847",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "25.245",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "-600",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "-600.00",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "28.215",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "53.46",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "496.995",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "555.465",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "471.75",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "527.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "7113",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "5847",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "-600.00",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "entrada-ses-y-resultado-pdf-vinculados",
+        "sesSha256": "4ea341b6c64ebc705ad5a862bd9e24377ae64115a6c8e5f8261fc020e8aae1ce",
+        "pdfSha256": "992287ec98d7e317bf1ecb1253ae3f35c9fe006a2fd9df79e5b4b1f1bbdc88b5",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "resultadoEUR": "-600.00",
+        "declaracion": {
+          "modalidad": "individual",
+          "titular": "DECLARANTE",
+          "codigoTerritorial": "06"
+        },
+        "territorio": "CANTABRIA",
+        "limite": "Transporte salarial acotado; no certifica autenticidad criptografica AEAT ni otros hechos fiscales"
+      },
+      "coincidenciaVerificada": true
+    },
+    {
+      "id": "open2025-castilla-y-leon-01",
+      "identidadSha256": "e4f3d9e13c075b23220ec6a05eb767ca680d38eebfe0ce575815f72a274594d1",
+      "estado": "rechazado",
+      "integridadReferencias": {
+        "estado": "ausente"
+      },
+      "motivo": "referencias-no-verificadas"
+    },
+    {
+      "id": "open2025-castilla-la-mancha-01",
+      "identidadSha256": "4d2edd798f4adba47e2821578b2ead01c595dfcc8499bee05fafa824d876ece8",
+      "estado": "rechazado",
+      "integridadReferencias": {
+        "estado": "ausente"
+      },
+      "motivo": "referencias-no-verificadas"
+    },
+    {
+      "id": "open2025-catalunya-01",
+      "identidadSha256": "b518f1c90cda51706b617a2cb35e5d077aad14c24310ca0b95404373113e071e",
+      "estado": "igual-al-centimo",
+      "integridadReferencias": {
+        "estado": "bytes-verificados",
+        "verificadas": 2
+      },
+      "resultadoOpenEUR": "1189.38",
+      "pesoExterno": "309104.142857142857",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "40075",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "40075",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "4952",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "1189.38",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "1189.38",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "4737.38",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "9689.38",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "5479.25",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "5264.63",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "527.25",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "527.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "40075",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "1189.38",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "entrada-ses-y-resultado-pdf-vinculados",
+        "sesSha256": "087be1a40a54154d8175e90d5593d8773a27afe09a2f17175831e1108ad8e643",
+        "pdfSha256": "9c40a62d3882627915bf0cf8ece1566732eaaae23699d01762c15e93e86c3bdc",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "resultadoEUR": "1189.38",
+        "declaracion": {
+          "modalidad": "individual",
+          "titular": "DECLARANTE",
+          "codigoTerritorial": "09"
+        },
+        "territorio": "CATALUÑA",
+        "limite": "Transporte salarial acotado; no certifica autenticidad criptografica AEAT ni otros hechos fiscales"
+      },
+      "coincidenciaVerificada": true
+    },
+    {
+      "id": "open2025-comunitat-valenciana-01",
+      "identidadSha256": "0a59dd8c4769452e7808b8d68a153bb1dc819ccfd076e38ecf1493bab1533cc7",
+      "estado": "rechazado",
+      "integridadReferencias": {
+        "estado": "ausente"
+      },
+      "motivo": "referencias-no-verificadas"
+    },
+    {
+      "id": "open2025-extremadura-01",
+      "identidadSha256": "e2fcab85be66ad22ee535ddc4d98b68bd4d0d9035e02ec0be42481978bf70fd9",
+      "estado": "igual-al-centimo",
+      "integridadReferencias": {
+        "estado": "bytes-verificados",
+        "verificadas": 2
+      },
+      "resultadoOpenEUR": "-600.00",
+      "pesoExterno": "283544.500000000000",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "5847",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "5847",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "23.76",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "-600",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "-600.00",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "28.215",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "51.975",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "467.76",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "555.465",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "444",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "527.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "7113",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "5847",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "-600.00",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "entrada-ses-y-resultado-pdf-vinculados",
+        "sesSha256": "7aa1a3a1e776b964b4ef153578aeffe65a306c97fab751523e298e64019b64ff",
+        "pdfSha256": "2ab9eabbb4c5db871cc726a4c9e814a6ecee49858c483a7242a6f701685d0807",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "resultadoEUR": "-600.00",
+        "declaracion": {
+          "modalidad": "individual",
+          "titular": "DECLARANTE",
+          "codigoTerritorial": "10"
+        },
+        "territorio": "EXTREMADURA",
+        "limite": "Transporte salarial acotado; no certifica autenticidad criptografica AEAT ni otros hechos fiscales"
+      },
+      "coincidenciaVerificada": true
+    },
+    {
+      "id": "open2025-galicia-01",
+      "identidadSha256": "10ea53acd07280ba9c4220a231a21aba9b90c54fd25623826ef3181d6853313d",
+      "estado": "rechazado",
+      "integridadReferencias": {
+        "estado": "ausente"
+      },
+      "motivo": "referencias-no-verificadas"
+    },
+    {
+      "id": "open2025-madrid-01",
+      "identidadSha256": "17004e689123cf3542e4cd3202db920f7f40741c6a11f903661792d068c49fbe",
+      "estado": "igual-al-centimo",
+      "integridadReferencias": {
+        "estado": "bytes-verificados",
+        "verificadas": 2
+      },
+      "resultadoOpenEUR": "398.02",
+      "pesoExterno": "307110.076923076923",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "26050",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "26050",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "2135.02",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "398.02",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "398.02",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "2463",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "4598.02",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "2641.34",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "2990.25",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "506.32",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "527.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "26050",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "398.02",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "entrada-ses-y-resultado-pdf-vinculados",
+        "sesSha256": "c3a2fb6320482f8f3f77d0990d5cc80ae30ea8c2c2b33683563f3e8f6d92d767",
+        "pdfSha256": "033459cb9cc7ee6b456b4bdf9182b9272f3f930329656c948854b34cf167f467",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "resultadoEUR": "398.02",
+        "declaracion": {
+          "modalidad": "individual",
+          "titular": "DECLARANTE",
+          "codigoTerritorial": "12"
+        },
+        "territorio": "MADRID",
+        "limite": "Transporte salarial acotado; no certifica autenticidad criptografica AEAT ni otros hechos fiscales"
+      },
+      "coincidenciaVerificada": true
+    },
+    {
+      "id": "open2025-murcia-01",
+      "identidadSha256": "ce03cbc70fe6e09afb2502432c1c1a21ea139fd0ec586987ea568427d806f249",
+      "estado": "rechazado",
+      "integridadReferencias": {
+        "estado": "ausente"
+      },
+      "motivo": "referencias-no-verificadas"
+    },
+    {
+      "id": "open2025-la-rioja-01",
+      "identidadSha256": "ff57a3ca9667b30fcb10a2ca4df28d12f907fde1386226814283a9332f9c1749",
+      "estado": "rechazado",
+      "integridadReferencias": {
+        "estado": "ausente"
+      },
+      "motivo": "referencias-no-verificadas"
+    },
+    {
+      "id": "open2025-andalucia-02",
+      "identidadSha256": "946f3d739400a6086a78cae11cc9293633a9a4bb56f6f11bbff516eea3ce63f4",
+      "estado": "igual-al-centimo",
+      "integridadReferencias": {
+        "estado": "bytes-verificados",
+        "verificadas": 2
+      },
+      "resultadoOpenEUR": "-600.00",
+      "pesoExterno": "316738.071428571429",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "5847",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "5847",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "5.42",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "-600",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "-600.00",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "28.22",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "33.64",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "555.47",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "555.47",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "550.05",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "527.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "7113",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "5847",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "-600.00",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "entrada-ses-y-resultado-pdf-vinculados",
+        "sesSha256": "5fbb4bf31ff770f7ee9e3b427e53d774969b3232625921208e8e36c91f46ee70",
+        "pdfSha256": "027a4c093ac3b32b41fb6b654f4d564fe4c4c7f13c0ddb4e896f8ceeff6ba8b8",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "resultadoEUR": "-600.00",
+        "declaracion": {
+          "modalidad": "individual",
+          "titular": "DECLARANTE",
+          "codigoTerritorial": "01"
+        },
+        "territorio": "ANDALUCIA",
+        "limite": "Transporte salarial acotado; no certifica autenticidad criptografica AEAT ni otros hechos fiscales"
+      },
+      "coincidenciaVerificada": true
+    },
+    {
+      "id": "open2025-aragon-02",
+      "identidadSha256": "aaa4990527efd6c0599934011d034779697512ed4fd4e5a59b76fe9ea9471a8f",
+      "estado": "rechazado",
+      "integridadReferencias": {
+        "estado": "ausente"
+      },
+      "motivo": "referencias-no-verificadas"
+    },
+    {
+      "id": "open2025-asturias-02",
+      "identidadSha256": "953f76474629f5f3fbe00039393e14b600f7c62595f69a40b952f8da739ae3fc",
+      "estado": "rechazado",
+      "integridadReferencias": {
+        "estado": "ausente"
+      },
+      "motivo": "referencias-no-verificadas"
+    },
+    {
+      "id": "open2025-illes-balears-02",
+      "identidadSha256": "1d8de5dda0239cbcff8ae4b6e52b7e0bb836609587f8fe113ab63617f1ae584e",
+      "estado": "discrepante",
+      "integridadReferencias": {
+        "estado": "bytes-verificados",
+        "verificadas": 2
+      },
+      "resultadoOpenEUR": "1011.01",
+      "pesoExterno": "329261.000000000000",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "40075",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "40075",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "4773.625",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "1011",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "1011.00",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "4737.375",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "9511",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "5273.125",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "5264.625",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "499.5",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "527.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "40075",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "1011.00",
+      "discrepanciaEUR": "-0.01",
+      "vinculacion": {
+        "estado": "entrada-ses-y-resultado-pdf-vinculados",
+        "sesSha256": "b7838e33b27908f091507585f4dab2fd10478517ffed2f32f762f80586c4331a",
+        "pdfSha256": "01c358bd2d8cd26db3c8e53fdbfe5bec3c0ac8eab227248ba09798b2e09894c2",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "resultadoEUR": "1011.01",
+        "declaracion": {
+          "modalidad": "individual",
+          "titular": "DECLARANTE",
+          "codigoTerritorial": "04"
+        },
+        "territorio": "ILLES BALEARS",
+        "limite": "Transporte salarial acotado; no certifica autenticidad criptografica AEAT ni otros hechos fiscales"
+      },
+      "coincidenciaVerificada": false
+    },
+    {
+      "id": "open2025-canarias-02",
+      "identidadSha256": "e10bd7845b3da42209b66fbb8d9174ce858509ce8b4ff1c3c529fed20cec98fa",
+      "estado": "rechazado",
+      "integridadReferencias": {
+        "estado": "ausente"
+      },
+      "motivo": "referencias-no-verificadas"
+    },
+    {
+      "id": "open2025-castilla-y-leon-02",
+      "identidadSha256": "5f7633a84f9df7aafd1f1c993769d7cbeec47d7e4c388cb6fecd30fa5380585f",
+      "estado": "igual-al-centimo",
+      "integridadReferencias": {
+        "estado": "bytes-verificados",
+        "verificadas": 2
+      },
+      "resultadoOpenEUR": "-600.00",
+      "pesoExterno": "347558.250000000000",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "5847",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "5847",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "26.73",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "-600",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "-600.00",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "28.215",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "54.945",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "526.23",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "555.465",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "499.5",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "527.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "7113",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "5847",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "-600.00",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "entrada-ses-y-resultado-pdf-vinculados",
+        "sesSha256": "5c1e8e558ba7e696482a80565b01b88ae09aed8dcf39d28fcd679386388646a9",
+        "pdfSha256": "bf1661dd8e8fcb7821a37d27f42d3646f95ba3ced159248c476fd8e3855b199d",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "resultadoEUR": "-600.00",
+        "declaracion": {
+          "modalidad": "individual",
+          "titular": "DECLARANTE",
+          "codigoTerritorial": "08"
+        },
+        "territorio": "CASTILLA Y LEON",
+        "limite": "Transporte salarial acotado; no certifica autenticidad criptografica AEAT ni otros hechos fiscales"
+      },
+      "coincidenciaVerificada": true
+    },
+    {
+      "id": "open2025-castilla-la-mancha-02",
+      "identidadSha256": "da4392f4cf58a476208c4340d02bc792c021dd5e9c1ef8d510a1c8616f3159ae",
+      "estado": "rechazado",
+      "integridadReferencias": {
+        "estado": "ausente"
+      },
+      "motivo": "referencias-no-verificadas"
+    },
+    {
+      "id": "open2025-catalunya-02",
+      "identidadSha256": "56eb6f762a0c7a67d1a48355233d002b15b3ae7c5076ec7a88f9cd4936d33df1",
+      "estado": "igual-al-centimo",
+      "integridadReferencias": {
+        "estado": "bytes-verificados",
+        "verificadas": 2
+      },
+      "resultadoOpenEUR": "758.75",
+      "pesoExterno": "309104.142857142857",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "26050",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "26050",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "2495.75",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "758.75",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "758.75",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "2463",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "4958.75",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "3023",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "2990.25",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "527.25",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "527.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "26050",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "758.75",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "entrada-ses-y-resultado-pdf-vinculados",
+        "sesSha256": "4dccb6fbedd558ee83948970e96b2cde6f2f364cf81686fb88668aae2e5badf0",
+        "pdfSha256": "eaae1b189ee8c041dd6e4f40dc226725e6ebe36af0f28d4cb54818a31f3eac84",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "resultadoEUR": "758.75",
+        "declaracion": {
+          "modalidad": "individual",
+          "titular": "DECLARANTE",
+          "codigoTerritorial": "09"
+        },
+        "territorio": "CATALUÑA",
+        "limite": "Transporte salarial acotado; no certifica autenticidad criptografica AEAT ni otros hechos fiscales"
+      },
+      "coincidenciaVerificada": true
+    },
+    {
+      "id": "open2025-comunitat-valenciana-02",
+      "identidadSha256": "dd0d0c8a96d49f60314ef5e5d6b13ca6ce728275dcae9cd9af89c282a7bf0b31",
+      "estado": "rechazado",
+      "integridadReferencias": {
+        "estado": "ausente"
+      },
+      "motivo": "referencias-no-verificadas"
+    },
+    {
+      "id": "open2025-extremadura-02",
+      "identidadSha256": "f06e325e90b137437ba5cc1a2653f341dae52f165741f592161ac7ae3d24f139",
+      "estado": "rechazado",
+      "integridadReferencias": {
+        "estado": "ausente"
+      },
+      "motivo": "referencias-no-verificadas"
+    },
+    {
+      "id": "open2025-galicia-02",
+      "identidadSha256": "806f11a30e193b0a486725a6ce3175a51a03bfeec734599188149884b201b7c9",
+      "estado": "igual-al-centimo",
+      "integridadReferencias": {
+        "estado": "bytes-verificados",
+        "verificadas": 2
+      },
+      "resultadoOpenEUR": "-600.00",
+      "pesoExterno": "298765.800000000000",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "5847",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "5847",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "5.22",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "-600",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "-600.00",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "28.22",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "33.44",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "526.23",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "555.47",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "521.01",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "527.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "7113",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "5847",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "-600.00",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "entrada-ses-y-resultado-pdf-vinculados",
+        "sesSha256": "8a9e5af58d1b463c69cbdb7f4fdcda0145b911ae3c31f695f9237aebc0c7b662",
+        "pdfSha256": "f14f604d74d2c20421712b90af191c0a9b6a8982da803a3c28c14229b0b845bd",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "resultadoEUR": "-600.00",
+        "declaracion": {
+          "modalidad": "individual",
+          "titular": "DECLARANTE",
+          "codigoTerritorial": "11"
+        },
+        "territorio": "GALICIA",
+        "limite": "Transporte salarial acotado; no certifica autenticidad criptografica AEAT ni otros hechos fiscales"
+      },
+      "coincidenciaVerificada": true
+    },
+    {
+      "id": "open2025-madrid-02",
+      "identidadSha256": "9764082e49774dd918b0609c14938fcf84b15013ec97b56406cf4cba0208aa10",
+      "estado": "rechazado",
+      "integridadReferencias": {
+        "estado": "ausente"
+      },
+      "motivo": "referencias-no-verificadas"
+    },
+    {
+      "id": "open2025-murcia-02",
+      "identidadSha256": "889ccdd9150df5eb350aceeb332f15216b59d915b3d75c18d2c42a25737026fa",
+      "estado": "rechazado",
+      "integridadReferencias": {
+        "estado": "ausente"
+      },
+      "motivo": "referencias-no-verificadas"
+    },
+    {
+      "id": "open2025-andalucia-03",
+      "identidadSha256": "178d18078a5812c8212a77e2bf86fa6311cd210267b63c06794d313ac7b441a3",
+      "estado": "igual-al-centimo",
+      "integridadReferencias": {
+        "estado": "bytes-verificados",
+        "verificadas": 2
+      },
+      "resultadoOpenEUR": "911.21",
+      "pesoExterno": "316738.071428571429",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "40075",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "40075",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "4673.83",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "911.21",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "911.21",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "4737.38",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "9411.21",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "5223.88",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "5264.63",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "550.05",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "527.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "40075",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "911.21",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "entrada-ses-y-resultado-pdf-vinculados",
+        "sesSha256": "590bed8c92802b93c13912ab3dcd8d5e3ed8d8a5bd8910d478f3304e0f5cc000",
+        "pdfSha256": "160f271b4c31704c56c61496040a54eff855718ad215d2ede84aeb20d68f35fa",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "resultadoEUR": "911.21",
+        "declaracion": {
+          "modalidad": "individual",
+          "titular": "DECLARANTE",
+          "codigoTerritorial": "01"
+        },
+        "territorio": "ANDALUCIA",
+        "limite": "Transporte salarial acotado; no certifica autenticidad criptografica AEAT ni otros hechos fiscales"
+      },
+      "coincidenciaVerificada": true
+    },
+    {
+      "id": "open2025-aragon-03",
+      "identidadSha256": "8a95ad5c8bc90187ca65d75701cbc5544e3e8690cef56fa33cc1fba34e2e3f7e",
+      "estado": "rechazado",
+      "integridadReferencias": {
+        "estado": "ausente"
+      },
+      "motivo": "referencias-no-verificadas"
+    },
+    {
+      "id": "open2025-canarias-03",
+      "identidadSha256": "edbbf0a43005440f93422689c0f9301f498bdcdb68b37fdc184fe1d3979a6018",
+      "estado": "igual-al-centimo",
+      "integridadReferencias": {
+        "estado": "bytes-verificados",
+        "verificadas": 2
+      },
+      "resultadoOpenEUR": "-600.00",
+      "pesoExterno": "276831.750000000000",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "5847",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "5847",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "21.69",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "-600",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "-600.00",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "28.22",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "49.91",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "526.23",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "555.47",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "504.54",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "527.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "7113",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "5847",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "-600.00",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "entrada-ses-y-resultado-pdf-vinculados",
+        "sesSha256": "c2f77ca9bb37f1438ed4d9b09163f0e7dd610692a0719dd497a80689076b1a8d",
+        "pdfSha256": "7d4f273650545f8d54546a483f2e17887788b7c9e2f3c42930ca5ff8b1797b4f",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "resultadoEUR": "-600.00",
+        "declaracion": {
+          "modalidad": "individual",
+          "titular": "DECLARANTE",
+          "codigoTerritorial": "05"
+        },
+        "territorio": "CANARIAS",
+        "limite": "Transporte salarial acotado; no certifica autenticidad criptografica AEAT ni otros hechos fiscales"
+      },
+      "coincidenciaVerificada": true
+    },
+    {
+      "id": "open2025-castilla-y-leon-03",
+      "identidadSha256": "7d224c991636c4ebbf3f18617bbcf7fba68f4437bee7c64d90d1a24c7a8002cf",
+      "estado": "rechazado",
+      "integridadReferencias": {
+        "estado": "ausente"
+      },
+      "motivo": "referencias-no-verificadas"
+    },
+    {
+      "id": "open2025-castilla-la-mancha-03",
+      "identidadSha256": "8be482fad78395a4498516d2f2a6d59985c465b41c4d4408456e33b1f6da3de6",
+      "estado": "igual-al-centimo",
+      "integridadReferencias": {
+        "estado": "bytes-verificados",
+        "verificadas": 2
+      },
+      "resultadoOpenEUR": "726.00",
+      "pesoExterno": "274736.250000000000",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "26050",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "26050",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "2463",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "726",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "726.00",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "2463",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "4926",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "2990.25",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "2990.25",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "527.25",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "527.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "26050",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "726.00",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "entrada-ses-y-resultado-pdf-vinculados",
+        "sesSha256": "90197a5fad64ec80d882c731bbe2cea091998ecbdfc521e5ebc119c0ad8ac6ea",
+        "pdfSha256": "5d8ac9b16b0b3af234a72d23e0d5558e323f5d75842095d7fab9ef0b495a9985",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "resultadoEUR": "726.00",
+        "declaracion": {
+          "modalidad": "individual",
+          "titular": "DECLARANTE",
+          "codigoTerritorial": "07"
+        },
+        "territorio": "CASTILLA-LA MANCHA",
+        "limite": "Transporte salarial acotado; no certifica autenticidad criptografica AEAT ni otros hechos fiscales"
+      },
+      "coincidenciaVerificada": true
+    },
+    {
+      "id": "open2025-catalunya-03",
+      "identidadSha256": "1acc8a12f9d8b1295fd543028e3d885a8c11f121eed9e1346c2c1650c43bfc31",
+      "estado": "rechazado",
+      "integridadReferencias": {
+        "estado": "ausente"
+      },
+      "motivo": "referencias-no-verificadas"
+    },
+    {
+      "id": "open2025-comunitat-valenciana-03",
+      "identidadSha256": "8345f7ebebc352240a256fdaaa7a1931eb05d281fcc6d1a0d727ad2cd8f4309d",
+      "estado": "rechazado",
+      "integridadReferencias": {
+        "estado": "ausente"
+      },
+      "motivo": "referencias-no-verificadas"
+    },
+    {
+      "id": "open2025-galicia-03-v2",
+      "identidadSha256": "94372c82196a7f13dc524b2e73c9b83464a5df2ce9686ba299f42835731b67de",
+      "estado": "igual-al-centimo",
+      "integridadReferencias": {
+        "estado": "bytes-verificados",
+        "verificadas": 2
+      },
+      "resultadoOpenEUR": "-1367.36",
+      "pesoExterno": "298765.800000000000",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "12275.125",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "12275.125",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "583.75",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "-1367.36",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "-1367.36",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "638.89",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "1222.64",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "1104.76",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "1166.14",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "521.01",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "527.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "3022.375",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "12275.125",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "-1367.36",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "entrada-ses-y-resultado-pdf-vinculados",
+        "sesSha256": "d3b40faa5efe05782015aacbaa9d280deabe0337544ce8ceb012f486896e81b3",
+        "pdfSha256": "ce5f91008b2c3cc218645f39c5c8ac41fe5205854313b4bb7a534cee122afdbc",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "resultadoEUR": "-1367.36",
+        "declaracion": {
+          "modalidad": "individual",
+          "titular": "DECLARANTE",
+          "codigoTerritorial": "11"
+        },
+        "territorio": "GALICIA",
+        "limite": "Transporte salarial acotado; no certifica autenticidad criptografica AEAT ni otros hechos fiscales"
+      },
+      "coincidenciaVerificada": true
+    },
+    {
+      "id": "open2025-madrid-03",
+      "identidadSha256": "5a8adf39254baca7bd9b6b14d34abf9f0d7b932ac87b4cb25e252b71f6deddfd",
+      "estado": "rechazado",
+      "integridadReferencias": {
+        "estado": "ausente"
+      },
+      "motivo": "referencias-no-verificadas"
+    },
+    {
+      "id": "open2025-andalucia-04",
+      "identidadSha256": "548d53f1a6eddaf316e58a8afc819ab48d0cb447e5923de031b5f5c17d0be71f",
+      "estado": "rechazado",
+      "integridadReferencias": {
+        "estado": "ausente"
+      },
+      "motivo": "referencias-no-verificadas"
+    },
+    {
+      "id": "open2025-canarias-04",
+      "identidadSha256": "e79e90e5090f355a8dc356a5b8c4f8aa0b1cb664a1b2e55f8f83667008a3d25b",
+      "estado": "igual-al-centimo",
+      "integridadReferencias": {
+        "estado": "bytes-verificados",
+        "verificadas": 2
+      },
+      "resultadoOpenEUR": "700.89",
+      "pesoExterno": "276831.750000000000",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "40075",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "40075",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "4463.51",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "700.89",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "700.89",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "4737.38",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "9200.89",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "4968.05",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "5264.63",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "504.54",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "527.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "40075",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "700.89",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "entrada-ses-y-resultado-pdf-vinculados",
+        "sesSha256": "ce71500045a3338843a6224920fb9dac928a6813ab10e35b5373a49aeb729592",
+        "pdfSha256": "7984e4853ee7050e3559782c0a9a156570a99823a077df3430cee0ba49f675ad",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "resultadoEUR": "700.89",
+        "declaracion": {
+          "modalidad": "individual",
+          "titular": "DECLARANTE",
+          "codigoTerritorial": "05"
+        },
+        "territorio": "CANARIAS",
+        "limite": "Transporte salarial acotado; no certifica autenticidad criptografica AEAT ni otros hechos fiscales"
+      },
+      "coincidenciaVerificada": true
+    },
+    {
+      "id": "open2025-castilla-y-leon-04",
+      "identidadSha256": "ee6ed9fabb2b5e7780786e4537e4c7f730562ff7e9704b779cc739999b143f85",
+      "estado": "rechazado",
+      "integridadReferencias": {
+        "estado": "ausente"
+      },
+      "motivo": "referencias-no-verificadas"
+    },
+    {
+      "id": "open2025-castilla-la-mancha-04",
+      "identidadSha256": "0de197df8587eb60a0ee6ff6d6f5e3c0dfcf0c92561d2f408eb968b6deaa9af1",
+      "estado": "igual-al-centimo",
+      "integridadReferencias": {
+        "estado": "bytes-verificados",
+        "verificadas": 2
+      },
+      "resultadoOpenEUR": "-600.00",
+      "pesoExterno": "274736.250000000000",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "5847",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "5847",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "28.215",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "-600",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "-600.00",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "28.215",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "56.43",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "555.465",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "555.465",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "527.25",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "527.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "7113",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "5847",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "-600.00",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "entrada-ses-y-resultado-pdf-vinculados",
+        "sesSha256": "3cd020e1857d02050c940b91ba45886a531ee885c2d1f149a1d12d1bf3412e38",
+        "pdfSha256": "c15285f7d90705cd4a2985b87da68cc5216756d0294933d1fe5edb6eba47efeb",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "resultadoEUR": "-600.00",
+        "declaracion": {
+          "modalidad": "individual",
+          "titular": "DECLARANTE",
+          "codigoTerritorial": "07"
+        },
+        "territorio": "CASTILLA-LA MANCHA",
+        "limite": "Transporte salarial acotado; no certifica autenticidad criptografica AEAT ni otros hechos fiscales"
+      },
+      "coincidenciaVerificada": true
+    },
+    {
+      "id": "open2025-catalunya-04",
+      "identidadSha256": "8dd019461b6cfc7ccfdea26bf206fb01051cbe64c480405820877eb538e097ea",
+      "estado": "rechazado",
+      "integridadReferencias": {
+        "estado": "ausente"
+      },
+      "motivo": "referencias-no-verificadas"
+    },
+    {
+      "id": "open2025-comunitat-valenciana-04",
+      "identidadSha256": "35498390ffe24609dd8a2b36443603e5bbfc1871d6a30c32f554091e5b55a1bb",
+      "estado": "igual-al-centimo",
+      "integridadReferencias": {
+        "estado": "bytes-verificados",
+        "verificadas": 2
+      },
+      "resultadoOpenEUR": "601.05",
+      "pesoExterno": "310301.888888888889",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "26050",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "26050",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "2338.05",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "601.05",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "601.05",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "2463",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "4801.05",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "2887.5",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "2990.25",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "549.45",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "527.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "26050",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "601.05",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "entrada-ses-y-resultado-pdf-vinculados",
+        "sesSha256": "fa1c2bf54c4724071e32a92c29a6d76cc71915ddf3c8a13bd102571c9fefbcd3",
+        "pdfSha256": "6f6c7a557641fed60cbae8eb46d695e0d324778dcc406b10facfb4bde6672123",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "resultadoEUR": "601.05",
+        "declaracion": {
+          "modalidad": "individual",
+          "titular": "DECLARANTE",
+          "codigoTerritorial": "17"
+        },
+        "territorio": "COMUNITAT VALENCIANA",
+        "limite": "Transporte salarial acotado; no certifica autenticidad criptografica AEAT ni otros hechos fiscales"
+      },
+      "coincidenciaVerificada": true
+    },
+    {
+      "id": "open2025-galicia-04",
+      "identidadSha256": "25338b4a03307f78cb38f5219add27920c954d8dbe11b7e07c0c4a86314f547c",
+      "estado": "rechazado",
+      "integridadReferencias": {
+        "estado": "ausente"
+      },
+      "motivo": "referencias-no-verificadas"
+    },
+    {
+      "id": "open2025-madrid-04",
+      "identidadSha256": "f1292abdad05f55ed53fcf4652552153db54e03401141d2cd238b64a99a50a5e",
+      "estado": "rechazado",
+      "integridadReferencias": {
+        "estado": "ausente"
+      },
+      "motivo": "referencias-no-verificadas"
+    },
+    {
+      "id": "open2025-andalucia-05-v2",
+      "identidadSha256": "441489a426f73687d71a5945ad5172bf31e9e11e4663c27641e1051fe28d9207",
+      "estado": "igual-al-centimo",
+      "integridadReferencias": {
+        "estado": "bytes-verificados",
+        "verificadas": 2
+      },
+      "resultadoOpenEUR": "-962.25",
+      "pesoExterno": "316738.071428571429",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "14505.3972",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "14505.3972",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "865.6",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "-962.25",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "-962.25",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "902.15",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "1767.75",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "1415.65",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "1429.4",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "550.05",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "527.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "1727.1028",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "14505.3972",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "-962.25",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "entrada-ses-y-resultado-pdf-vinculados",
+        "sesSha256": "b30c977667029a034e802572630a7aa49c48554a9e37a418d30ee398fd0460ab",
+        "pdfSha256": "c7db14d07c69c1f60fc4f8617654374df26c0bd59260c0723996e27840646829",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "resultadoEUR": "-962.25",
+        "declaracion": {
+          "modalidad": "individual",
+          "titular": "DECLARANTE",
+          "codigoTerritorial": "01"
+        },
+        "territorio": "ANDALUCIA",
+        "limite": "Transporte salarial acotado; no certifica autenticidad criptografica AEAT ni otros hechos fiscales"
+      },
+      "coincidenciaVerificada": true
+    },
+    {
+      "id": "open2025-catalunya-05",
+      "identidadSha256": "b67ca3bf2519d11d1dc6b02ea278ec623a5aa088099d6d29107f8320c0200320",
+      "estado": "rechazado",
+      "integridadReferencias": {
+        "estado": "ausente"
+      },
+      "motivo": "referencias-no-verificadas"
+    },
+    {
+      "id": "open2025-comunitat-valenciana-05",
+      "identidadSha256": "a5d340b12b719157dba1503f0b50d8fb2fa5b2f58cb731dcf57a9addafeefb29",
+      "estado": "rechazado",
+      "integridadReferencias": {
+        "estado": "ausente"
+      },
+      "motivo": "referencias-no-verificadas"
+    },
+    {
+      "id": "open2025-galicia-05",
+      "identidadSha256": "509fce673034186ae4f82cd7d5c02fee51dd39fc5aaef370e4d07e1bf65827c1",
+      "estado": "igual-al-centimo",
+      "integridadReferencias": {
+        "estado": "bytes-verificados",
+        "verificadas": 2
+      },
+      "resultadoOpenEUR": "829.33",
+      "pesoExterno": "298765.800000000000",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "40075",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "40075",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "4591.95",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "829.33",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "829.33",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "4737.38",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "9329.33",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "5112.96",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "5264.63",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "521.01",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "527.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "40075",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "829.33",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "entrada-ses-y-resultado-pdf-vinculados",
+        "sesSha256": "4d6b2b5d6de4d07680ed3a0306f1dc3a92054e204cbea7bf8684fa81337e11f3",
+        "pdfSha256": "971e91cc7e3476cb8db7cb8a67a641943f0c0c2bd3991a57bdb7c1de1f6d033f",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "resultadoEUR": "829.33",
+        "declaracion": {
+          "modalidad": "individual",
+          "titular": "DECLARANTE",
+          "codigoTerritorial": "11"
+        },
+        "territorio": "GALICIA",
+        "limite": "Transporte salarial acotado; no certifica autenticidad criptografica AEAT ni otros hechos fiscales"
+      },
+      "coincidenciaVerificada": true
+    },
+    {
+      "id": "open2025-madrid-05",
+      "identidadSha256": "8bd8ecca2e06fe71d029968e0322ab165d56580b11d3561e9e536902432ae82f",
+      "estado": "rechazado",
+      "integridadReferencias": {
+        "estado": "ausente"
+      },
+      "motivo": "referencias-no-verificadas"
+    },
+    {
+      "id": "open2025-andalucia-06-v2",
+      "identidadSha256": "56008c2c15c750f88278051cf8632328451e010be6fa3b54e9bb4d04f1681ad4",
+      "estado": "igual-al-centimo",
+      "integridadReferencias": {
+        "estado": "bytes-verificados",
+        "verificadas": 2
+      },
+      "resultadoOpenEUR": "-160.75",
+      "pesoExterno": "316738.071428571429",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "20440",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "20440",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "1577.75",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "-160.75",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "-160.75",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "1621.5",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "3199.25",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "2127.8",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "2148.75",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "550.05",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "527.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "20440",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "-160.75",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "entrada-ses-y-resultado-pdf-vinculados",
+        "sesSha256": "adec80eb74cf8bc412d835591d188c8801c7fa5c30ed88f1e2f2ae522d09b34f",
+        "pdfSha256": "de65412f8243058a99dbc1763115a277ace6a1b5743fc2de71d532a81640094a",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "resultadoEUR": "-160.75",
+        "declaracion": {
+          "modalidad": "individual",
+          "titular": "DECLARANTE",
+          "codigoTerritorial": "01"
+        },
+        "territorio": "ANDALUCIA",
+        "limite": "Transporte salarial acotado; no certifica autenticidad criptografica AEAT ni otros hechos fiscales"
+      },
+      "coincidenciaVerificada": true
+    },
+    {
+      "id": "open2025-catalunya-06",
+      "identidadSha256": "73f3c35b5dbf1243eeee13b1c2bc9618caa115ace7d15f54113f02860a6d6084",
+      "estado": "rechazado",
+      "integridadReferencias": {
+        "estado": "ausente"
+      },
+      "motivo": "referencias-no-verificadas"
+    },
+    {
+      "id": "open2025-comunitat-valenciana-06-v2",
+      "identidadSha256": "6ba76d54c75d58a01114197ecee4d56b04b713d857614f317b8ad6e9fbbb405b",
+      "estado": "igual-al-centimo",
+      "integridadReferencias": {
+        "estado": "bytes-verificados",
+        "verificadas": 2
+      },
+      "resultadoOpenEUR": "320.05",
+      "pesoExterno": "310301.888888888889",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "24180",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "24180",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "2057.55",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "320.05",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "320.05",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "2182.5",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "4240.05",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "2607",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "2709.75",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "549.45",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "527.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "24180",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "320.05",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "entrada-ses-y-resultado-pdf-vinculados",
+        "sesSha256": "5e92a2861219b071c7daacdf207b7c2ba42a7716918373b5064577d103b978ae",
+        "pdfSha256": "aabf8adf057ecefb34e9595ff15b0861553c84a1bd1886ddfddacdc97ff7cfbd",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "resultadoEUR": "320.05",
+        "declaracion": {
+          "modalidad": "individual",
+          "titular": "DECLARANTE",
+          "codigoTerritorial": "17"
+        },
+        "territorio": "COMUNITAT VALENCIANA",
+        "limite": "Transporte salarial acotado; no certifica autenticidad criptografica AEAT ni otros hechos fiscales"
+      },
+      "coincidenciaVerificada": true
+    },
+    {
+      "id": "open2025-madrid-06",
+      "identidadSha256": "f30e631379b2c225d86a00d465752157eee1a26511489c909f5d0feb282902a7",
+      "estado": "rechazado",
+      "integridadReferencias": {
+        "estado": "ausente"
+      },
+      "motivo": "referencias-no-verificadas"
+    },
+    {
+      "id": "open2025-andalucia-07",
+      "identidadSha256": "3f47c6e222aca3d48e9491076a5f536bfc2bbecf25393a49b588a16f4e2b69f1",
+      "estado": "rechazado",
+      "integridadReferencias": {
+        "estado": "ausente"
+      },
+      "motivo": "referencias-no-verificadas"
+    },
+    {
+      "id": "open2025-catalunya-07",
+      "identidadSha256": "9c5f7124f0461abb07748b3f332dfdcb45cb756671dce14994f1532c1e84858d",
+      "estado": "igual-al-centimo",
+      "integridadReferencias": {
+        "estado": "bytes-verificados",
+        "verificadas": 2
+      },
+      "resultadoOpenEUR": "-600.00",
+      "pesoExterno": "309104.142857142857",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "5847",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "5847",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "28.22",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "-600",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "-600.00",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "28.22",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "56.44",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "555.47",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "555.47",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "527.25",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "527.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "7113",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "5847",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "-600.00",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "entrada-ses-y-resultado-pdf-vinculados",
+        "sesSha256": "6abfec38c43647713071436ba27cb9424d47b33beb5a3d7bcf9153e1d40b0aec",
+        "pdfSha256": "6c55eaacd75df3071a3fbf2e8078c902f35157a8d491c304b345f28de7020605",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "resultadoEUR": "-600.00",
+        "declaracion": {
+          "modalidad": "individual",
+          "titular": "DECLARANTE",
+          "codigoTerritorial": "09"
+        },
+        "territorio": "CATALUÑA",
+        "limite": "Transporte salarial acotado; no certifica autenticidad criptografica AEAT ni otros hechos fiscales"
+      },
+      "coincidenciaVerificada": true
+    },
+    {
+      "id": "open2025-comunitat-valenciana-07",
+      "identidadSha256": "bdb137b85c6bbc6fdeffb581302f3ce6f3278897e3e23fc0a1ab8345b660638e",
+      "estado": "rechazado",
+      "integridadReferencias": {
+        "estado": "ausente"
+      },
+      "motivo": "referencias-no-verificadas"
+    },
+    {
+      "id": "open2025-madrid-07",
+      "identidadSha256": "86f521de4444e6ee63645807b7a1aeaf3272f0c1b93a012bc910bd296b72fb95",
+      "estado": "rechazado",
+      "integridadReferencias": {
+        "estado": "ausente"
+      },
+      "motivo": "referencias-no-verificadas"
+    },
+    {
+      "id": "open2025-andalucia-08-v2",
+      "identidadSha256": "db0d128fc729f830b7261bec572ecb76ea77e97ef4e168355d1a84e039df8232",
+      "estado": "igual-al-centimo",
+      "integridadReferencias": {
+        "estado": "bytes-verificados",
+        "verificadas": 2
+      },
+      "resultadoOpenEUR": "1364.95",
+      "pesoExterno": "316738.071428571429",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "30725",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "30725",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "3100.7",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "1364.95",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "1364.95",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "3164.25",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "6264.95",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "3650.75",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "3691.5",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "550.05",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "527.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "30725",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "1364.95",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "entrada-ses-y-resultado-pdf-vinculados",
+        "sesSha256": "8e90e7bbc741db5628157a04c4aeb2546a2d76ace91cdbabe02cfa5fa978311a",
+        "pdfSha256": "2a1c9b20657d6e3182e1b49270ad75b1cc91a9842fce59884b7ca23fc3b9f798",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "resultadoEUR": "1364.95",
+        "declaracion": {
+          "modalidad": "individual",
+          "titular": "DECLARANTE",
+          "codigoTerritorial": "01"
+        },
+        "territorio": "ANDALUCIA",
+        "limite": "Transporte salarial acotado; no certifica autenticidad criptografica AEAT ni otros hechos fiscales"
+      },
+      "coincidenciaVerificada": true
+    },
+    {
+      "id": "open2025-catalunya-08",
+      "identidadSha256": "f3bd41d1129f9ba81ea457cd44f6a48e29b779ce968a71e7127bb0998c47131a",
+      "estado": "rechazado",
+      "integridadReferencias": {
+        "estado": "ausente"
+      },
+      "motivo": "referencias-no-verificadas"
+    },
+    {
+      "id": "open2025-comunitat-valenciana-08",
+      "identidadSha256": "3855c568c643f0247dbfae51a9003b4147685d98f7aed95de999f7407e37f0dc",
+      "estado": "igual-al-centimo",
+      "integridadReferencias": {
+        "estado": "bytes-verificados",
+        "verificadas": 2
+      },
+      "resultadoOpenEUR": "-600.00",
+      "pesoExterno": "310301.888888888889",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "5847",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "5847",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "-600",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "-600.00",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "28.22",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "28.22",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "526.23",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "555.47",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "526.23",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "527.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "7113",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "5847",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "-600.00",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "entrada-ses-y-resultado-pdf-vinculados",
+        "sesSha256": "7eef7f853c4429c09f02d5f42ae5ab02b687a9b4853e2fd7bdb4b7c7d3cf4e39",
+        "pdfSha256": "0d20a3fd9d0587b7055a5fb14a34f24bce4dcb8ceb8687b56045e959c6099485",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "resultadoEUR": "-600.00",
+        "declaracion": {
+          "modalidad": "individual",
+          "titular": "DECLARANTE",
+          "codigoTerritorial": "17"
+        },
+        "territorio": "COMUNITAT VALENCIANA",
+        "limite": "Transporte salarial acotado; no certifica autenticidad criptografica AEAT ni otros hechos fiscales"
+      },
+      "coincidenciaVerificada": true
+    },
+    {
+      "id": "open2025-madrid-08",
+      "identidadSha256": "c7dc46359d2bc011b14dd54815af129c5802f4fb2be9a5650a8a5d5c03fc52dc",
+      "estado": "rechazado",
+      "integridadReferencias": {
+        "estado": "ausente"
+      },
+      "motivo": "referencias-no-verificadas"
+    },
+    {
+      "id": "open2025-andalucia-09",
+      "identidadSha256": "6c3998ee3be0a45ba2cc39f40edc1abfcd5406f001c7fa919d919352ae579889",
+      "estado": "igual-al-centimo",
+      "integridadReferencias": {
+        "estado": "bytes-verificados",
+        "verificadas": 2
+      },
+      "resultadoOpenEUR": "662.45",
+      "pesoExterno": "316738.071428571429",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "26050",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "26050",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "2399.45",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "662.45",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "662.45",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "2463",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "4862.45",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "2949.5",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "2990.25",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "550.05",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "527.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "26050",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "662.45",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "entrada-ses-y-resultado-pdf-vinculados",
+        "sesSha256": "53f981fa23d235bd10a357fc5f3a2b3239842db7f4cc3d7539366bf9a10f3538",
+        "pdfSha256": "ed1e4c9d8af8be4cc64d3344994c15153a343ca6a482bec2c7042c6baafba999",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "resultadoEUR": "662.45",
+        "declaracion": {
+          "modalidad": "individual",
+          "titular": "DECLARANTE",
+          "codigoTerritorial": "01"
+        },
+        "territorio": "ANDALUCIA",
+        "limite": "Transporte salarial acotado; no certifica autenticidad criptografica AEAT ni otros hechos fiscales"
+      },
+      "coincidenciaVerificada": true
+    },
+    {
+      "id": "open2025-catalunya-09",
+      "identidadSha256": "e7bfef218dcea43d9946ed91f0fd43e50c7c09e2e288804ac1ff69f353b279c2",
+      "estado": "rechazado",
+      "integridadReferencias": {
+        "estado": "ausente"
+      },
+      "motivo": "referencias-no-verificadas"
+    },
+    {
+      "id": "open2025-comunitat-valenciana-09",
+      "identidadSha256": "9a0324bcfe985b781dfb39b0b342564bac8d009d8d24f7b57395607b05f0cf7f",
+      "estado": "rechazado",
+      "integridadReferencias": {
+        "estado": "ausente"
+      },
+      "motivo": "referencias-no-verificadas"
+    },
+    {
+      "id": "open2025-madrid-09",
+      "identidadSha256": "3164b86814a6f93131ea82b5d1157784e8432ce2877ab4afd85ebbf3fc3bd3be",
+      "estado": "igual-al-centimo",
+      "integridadReferencias": {
+        "estado": "bytes-verificados",
+        "verificadas": 2
+      },
+      "resultadoOpenEUR": "-600.00",
+      "pesoExterno": "307110.076923076923",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "5847",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "5847",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "-600",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "-600.00",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "28.22",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "28.22",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "497",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "555.47",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "497",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "527.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "7113",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "5847",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "-600.00",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "entrada-ses-y-resultado-pdf-vinculados",
+        "sesSha256": "9ed80630fd151d7d0d88c1b4beae5d73b9a40afa91f461a40335e48c07cc5669",
+        "pdfSha256": "f2376c4557b0b4d13fdcd64ba5b574b234f3af2b72d5d6f377a9403b0f71a07a",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "resultadoEUR": "-600.00",
+        "declaracion": {
+          "modalidad": "individual",
+          "titular": "DECLARANTE",
+          "codigoTerritorial": "12"
+        },
+        "territorio": "MADRID",
+        "limite": "Transporte salarial acotado; no certifica autenticidad criptografica AEAT ni otros hechos fiscales"
+      },
+      "coincidenciaVerificada": true
+    },
+    {
+      "id": "open2025-andalucia-10",
+      "identidadSha256": "5bebcf56481d5b0c97d5acb8878fb6e3128c443f93488b5fcacda0f20387db7e",
+      "estado": "rechazado",
+      "integridadReferencias": {
+        "estado": "ausente"
+      },
+      "motivo": "referencias-no-verificadas"
+    },
+    {
+      "id": "open2025-catalunya-10",
+      "identidadSha256": "17354262aaf0ffc3b73d7ec21dccefe9347064ca1364015369b2554604f4a584",
+      "estado": "rechazado",
+      "integridadReferencias": {
+        "estado": "ausente"
+      },
+      "motivo": "referencias-no-verificadas"
+    },
+    {
+      "id": "open2025-madrid-10",
+      "identidadSha256": "b13bab7eadc4cfff03351cda9b7bba22352d569b617d01b38ecb55cb516faaea",
+      "estado": "igual-al-centimo",
+      "integridadReferencias": {
+        "estado": "bytes-verificados",
+        "verificadas": 2
+      },
+      "resultadoOpenEUR": "381.46",
+      "pesoExterno": "307110.076923076923",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "40075",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "40075",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "4144.08",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "381.46",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "381.46",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "4737.38",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "8881.46",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "4650.4",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "5264.63",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "506.32",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "527.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "40075",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "381.46",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "entrada-ses-y-resultado-pdf-vinculados",
+        "sesSha256": "3a2a89961c46f26f86369f79f4aed64be8458ee9ec737851f554cdcbdf720f08",
+        "pdfSha256": "3c035897863592504184e4e41b927e7b2d91c4e386b8e0872113946588a3cc0e",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "resultadoEUR": "381.46",
+        "declaracion": {
+          "modalidad": "individual",
+          "titular": "DECLARANTE",
+          "codigoTerritorial": "12"
+        },
+        "territorio": "MADRID",
+        "limite": "Transporte salarial acotado; no certifica autenticidad criptografica AEAT ni otros hechos fiscales"
+      },
+      "coincidenciaVerificada": true
+    },
+    {
+      "id": "open2025-andalucia-11",
+      "identidadSha256": "03ef5dd86da1964c1516faf27db090527fb9167fb30c7b4523a26b6bb1d7dc0d",
+      "estado": "rechazado",
+      "integridadReferencias": {
+        "estado": "ausente"
+      },
+      "motivo": "referencias-no-verificadas"
+    },
+    {
+      "id": "open2025-catalunya-11",
+      "identidadSha256": "63fde49f71bb760e305264be3e3d7a2503afa4e02c6f6344c8c2f786a9d2f102",
+      "estado": "igual-al-centimo",
+      "integridadReferencias": {
+        "estado": "bytes-verificados",
+        "verificadas": 2
+      },
+      "resultadoOpenEUR": "-600.00",
+      "pesoExterno": "309104.142857142857",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "5847",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "5847",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "28.22",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "-600",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "-600.00",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "28.22",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "56.44",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "555.47",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "555.47",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "527.25",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "527.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "7113",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "5847",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "-600.00",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "entrada-ses-y-resultado-pdf-vinculados",
+        "sesSha256": "4bad4484d47ee4d30a3377b355662c181ecfd95b4ca69c0f2404d048f4327081",
+        "pdfSha256": "7949ef277273758bec7221b0bec3633ff89b8690204004449645849254ca0876",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "resultadoEUR": "-600.00",
+        "declaracion": {
+          "modalidad": "individual",
+          "titular": "DECLARANTE",
+          "codigoTerritorial": "09"
+        },
+        "territorio": "CATALUÑA",
+        "limite": "Transporte salarial acotado; no certifica autenticidad criptografica AEAT ni otros hechos fiscales"
+      },
+      "coincidenciaVerificada": true
+    },
+    {
+      "id": "open2025-madrid-11",
+      "identidadSha256": "1faa86daf7e4e41e1eb52a3f669fd51c72b0c176b82b8dfa513b15d11986b7c7",
+      "estado": "rechazado",
+      "integridadReferencias": {
+        "estado": "ausente"
+      },
+      "motivo": "referencias-no-verificadas"
+    },
+    {
+      "id": "open2025-andalucia-12-v2",
+      "identidadSha256": "5cbfd5ec4a81c3ef6e6fe7510647290491733f7dfc044fdaa22b7086d3fc2b66",
+      "estado": "igual-al-centimo",
+      "integridadReferencias": {
+        "estado": "bytes-verificados",
+        "verificadas": 2
+      },
+      "resultadoOpenEUR": "2081.45",
+      "pesoExterno": "316738.071428571429",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "35400",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "35400",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "3808.95",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "2081.45",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "2081.45",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "3872.5",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "7681.45",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "4359",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "4399.75",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "550.05",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "527.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "35400",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "2081.45",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "entrada-ses-y-resultado-pdf-vinculados",
+        "sesSha256": "fd8f4514f555022d8d3ba8ee6a161a4cd9d3fff6bbb9aa3c8db094dc10381b24",
+        "pdfSha256": "dfe6f24b389b8cac80959b6cc9de57fc973029a7cf52e29b19271e786747fc72",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "resultadoEUR": "2081.45",
+        "declaracion": {
+          "modalidad": "individual",
+          "titular": "DECLARANTE",
+          "codigoTerritorial": "01"
+        },
+        "territorio": "ANDALUCIA",
+        "limite": "Transporte salarial acotado; no certifica autenticidad criptografica AEAT ni otros hechos fiscales"
+      },
+      "coincidenciaVerificada": true
+    },
+    {
+      "id": "open2025-catalunya-12",
+      "identidadSha256": "741a2ce0142fe96c40b70b3474922db86886ed5a0756f97b95213385a08b97c5",
+      "estado": "rechazado",
+      "integridadReferencias": {
+        "estado": "ausente"
+      },
+      "motivo": "referencias-no-verificadas"
+    },
+    {
+      "id": "open2025-madrid-12",
+      "identidadSha256": "241bd94d1eae91ef305225d4e99b0715e85537e50f568a6e1cc76be2a904991d",
+      "estado": "rechazado",
+      "integridadReferencias": {
+        "estado": "ausente"
+      },
+      "motivo": "referencias-no-verificadas"
+    },
+    {
+      "id": "open2025-andalucia-13-v2",
+      "identidadSha256": "bc704a190f14f3502c03d986f3d659e3954261f5998a0084199a4b471ee7a470",
+      "estado": "igual-al-centimo",
+      "integridadReferencias": {
+        "estado": "bytes-verificados",
+        "verificadas": 2
+      },
+      "resultadoOpenEUR": "4140.95",
+      "pesoExterno": "316738.071428571429",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "44750",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "44750",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "5538.7",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "4140.95",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "4140.95",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "5602.25",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "11140.95",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "6088.75",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "6129.5",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "550.05",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "527.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "44750",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "4140.95",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "entrada-ses-y-resultado-pdf-vinculados",
+        "sesSha256": "734c0ffb76e02107f944c5ccc2cc6d6133ea15e19da26441b639edb69d6b1705",
+        "pdfSha256": "ad153b705957a84e557bcfc8a6a04d1e1c7a60fac1f61eda9c48ff89dfaed148",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "resultadoEUR": "4140.95",
+        "declaracion": {
+          "modalidad": "individual",
+          "titular": "DECLARANTE",
+          "codigoTerritorial": "01"
+        },
+        "territorio": "ANDALUCIA",
+        "limite": "Transporte salarial acotado; no certifica autenticidad criptografica AEAT ni otros hechos fiscales"
+      },
+      "coincidenciaVerificada": true
+    },
+    {
+      "id": "open2025-catalunya-13-v2",
+      "identidadSha256": "a1fdd77c5d92a9bc7a93234b9fc5560ce3606b3b8a3637efb2b60d6089031021",
+      "estado": "rechazado",
+      "integridadReferencias": {
+        "estado": "ausente"
+      },
+      "motivo": "referencias-no-verificadas"
+    },
+    {
+      "id": "open2025-madrid-13",
+      "identidadSha256": "671c7601bbd9f3146d811d8c373313fc2c0dc14bc6da9ec07b0e9c8d54d67844",
+      "estado": "rechazado",
+      "integridadReferencias": {
+        "estado": "ausente"
+      },
+      "motivo": "referencias-no-verificadas"
+    },
+    {
+      "id": "open2025-andalucia-14-v2",
+      "identidadSha256": "833a159f5dc181eed1c57c966b54c77f1b421e1c47d50f9ee6a780e243d59033",
+      "estado": "igual-al-centimo",
+      "integridadReferencias": {
+        "estado": "bytes-verificados",
+        "verificadas": 2
+      },
+      "resultadoOpenEUR": "4552.85",
+      "pesoExterno": "316738.071428571429",
+      "componentes": {
+        "baseImponibleGeneral": {
+          "openEUR": null,
+          "motorEUR": "46620",
+          "estado": "open-ausente"
+        },
+        "baseLiquidableGeneral": {
+          "openEUR": null,
+          "motorEUR": "46620",
+          "estado": "open-ausente"
+        },
+        "cuotaAutonomica": {
+          "openEUR": null,
+          "motorEUR": "5884.65",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencial": {
+          "openEUR": null,
+          "motorEUR": "4552.85",
+          "estado": "open-ausente"
+        },
+        "cuotaDiferencialPresentada": {
+          "openEUR": null,
+          "motorEUR": "4552.85",
+          "estado": "open-ausente"
+        },
+        "cuotaEstatal": {
+          "openEUR": null,
+          "motorEUR": "5948.2",
+          "estado": "open-ausente"
+        },
+        "cuotaPosterior": {
+          "openEUR": null,
+          "motorEUR": "11832.85",
+          "estado": "open-ausente"
+        },
+        "deduccionTrabajo": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "gravamenAutonomico": {
+          "openEUR": null,
+          "motorEUR": "6434.7",
+          "estado": "open-ausente"
+        },
+        "gravamenEstatal": {
+          "openEUR": null,
+          "motorEUR": "6475.45",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoAutonomico": {
+          "openEUR": null,
+          "motorEUR": "550.05",
+          "estado": "open-ausente"
+        },
+        "gravamenMinimoEstatal": {
+          "openEUR": null,
+          "motorEUR": "527.25",
+          "estado": "open-ausente"
+        },
+        "reduccionArt20": {
+          "openEUR": null,
+          "motorEUR": "0",
+          "estado": "open-ausente"
+        },
+        "rendimientoNetoReducido": {
+          "openEUR": null,
+          "motorEUR": "46620",
+          "estado": "open-ausente"
+        }
+      },
+      "resultadoMotorEUR": "4552.85",
+      "discrepanciaEUR": "0.00",
+      "vinculacion": {
+        "estado": "entrada-ses-y-resultado-pdf-vinculados",
+        "sesSha256": "52d40705c27209e07452b868b61b626bd5039806b8a16cbf4edc11f9142047cd",
+        "pdfSha256": "196ad2e5e9a42725fea0098fd8f9c678fa5eec6f365c52efcf5311677ceaf903",
+        "lectorPdfSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c",
+        "resultadoEUR": "4552.85",
+        "declaracion": {
+          "modalidad": "individual",
+          "titular": "DECLARANTE",
+          "codigoTerritorial": "01"
+        },
+        "territorio": "ANDALUCIA",
+        "limite": "Transporte salarial acotado; no certifica autenticidad criptografica AEAT ni otros hechos fiscales"
+      },
+      "coincidenciaVerificada": true
+    },
+    {
+      "id": "open2025-catalunya-14",
+      "identidadSha256": "0e06c088cb93d2a2c73cea1751159dcb418b6111c956f53485369a64e87a0edd",
+      "estado": "rechazado",
+      "integridadReferencias": {
+        "estado": "ausente"
+      },
+      "motivo": "referencias-no-verificadas"
+    }
+  ],
+  "entradaSha256": "fccd4f600bbb069a45520972f394d9fa35e4849af54e2b217dfefda03b39f00c"
+}

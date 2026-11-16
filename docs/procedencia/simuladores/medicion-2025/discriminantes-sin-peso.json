@@ -1,0 +1,741 @@
+{
+  "NPrincipal": 80,
+  "motivo": "Fronteras conservadas fuera del diseño frecuente, antes de capturar familias",
+  "casos": [
+    {
+      "id": "discriminante-open2025-catalunya-03",
+      "ejercicio": 2025,
+      "grupo": "salario-hijos",
+      "incluidoEnN": false,
+      "territorio": "catalunya",
+      "pesoExterno": "0",
+      "pesoTerritorialProxy": {
+        "N": 4327458,
+        "n": 14,
+        "fraccion": "4327458/14",
+        "uso": "proxy territorial; no estimacion de afectados ni incidencia conjunta por perfil"
+      },
+      "procedenciaEntrada": {
+        "plantilla": "docs/procedencia/implementaciones/redondeo-salarial-open/oficial.json#componentes",
+        "metodo": "adaptacion sintetica de estructura C300; importes y territorio de diseño, no captura reutilizada",
+        "familia": "tests/fixtures/c300-variantes.json#extension-familia-3-renta-propia-v1",
+        "conciliacion": "renta propia art19 = bruto - cotizaciones efectivas - 2000; sin otros gastos; bruto familiar >=30000, sin reduccion art20 en este diseño; otros titulares y menores conservados del fixture corregido"
+      },
+      "estado": "entrada-documentada-pendiente-captura",
+      "entradaAPI": {
+        "ejercicio": 2025,
+        "comunidadAutonoma": "catalunya",
+        "edad": 40,
+        "modalidad": "individual",
+        "residenciaTodoElAnio": true,
+        "devengo": "2025-12-31",
+        "otrasRentas": "ninguna",
+        "familiaresConDerechoMinimo": "segun-derechos",
+        "discapacidad": "ninguna",
+        "reduccionesBase": "ninguna",
+        "saldosAnteriores": "ninguno",
+        "deducciones": "solo-da61-si-procede",
+        "rentasExtranjeras": "ninguna",
+        "especialidades": "ninguna",
+        "perfil": "solo-trabajo",
+        "conciliacion": {
+          "ejercicio": 2025,
+          "estado": "totales-anuales-sin-duplicados",
+          "procedencia": [
+            "sintetico:datos-fiscales-2025",
+            "sintetico:certificados-pagadores"
+          ]
+        },
+        "trabajo": {
+          "ejercicio": 2025,
+          "territorio": "comun",
+          "reduccionesArt18": "ninguna",
+          "movilidad": "ninguna",
+          "discapacidadActiva": "ninguna",
+          "rendimientos": [
+            {
+              "id": "a",
+              "clase": "empleo-laboral",
+              "integro": "30000.00",
+              "cotizaciones": {
+                "clase": "efectivas",
+                "seguridadSocial": "1950.00",
+                "derechosPasivos": "0",
+                "colegiosHuerfanos": "0"
+              },
+              "sindicato": {
+                "importe": "0",
+                "satisfecho": "si"
+              },
+              "colegio": {
+                "importe": "0",
+                "satisfecho": "si",
+                "obligatorio": "si",
+                "finesEsenciales": "si"
+              },
+              "defensa": {
+                "importe": "0",
+                "satisfecho": "si",
+                "litigioDirectoPagador": "si"
+              }
+            }
+          ]
+        },
+        "retenciones": [
+          {
+            "operacionId": "ret-0",
+            "procedencia": "sintetico:certificado-0",
+            "ejercicio": 2025,
+            "importe": "4200.00",
+            "efectiva": true
+          }
+        ],
+        "derechosMinimos": {
+          "ascendientes": "ninguno",
+          "conciliacionRentasContribuyente": {
+            "otrasRentasOGastosNoRepresentados": "ninguno",
+            "perfil": "caso-anual-parcial"
+          },
+          "contribuyenteId": "s-1",
+          "descendientes": [
+            {
+              "declaracion": {
+                "modalidad": "no-presenta"
+              },
+              "discapacidad": {
+                "_tag": "SinDiscapacidad"
+              },
+              "edadDevengo": 24,
+              "fechaNacimiento": "2001-01-01",
+              "rentasNoExentasCentimos": 799999,
+              "sujetoId": "s-3",
+              "titulares": [
+                {
+                  "alimentosJudiciales": false,
+                  "aplicaEspecialidadAlimentos": false,
+                  "custodia": "exclusiva",
+                  "grado": 1,
+                  "relacion": "convivencia",
+                  "rentasNoExentasCentimos": 2605000,
+                  "residenteIrpf": true,
+                  "titularId": "s-1",
+                  "vinculo": {
+                    "clase": "consanguinidad"
+                  }
+                }
+              ],
+              "titularesCompletos": true,
+              "vivoAlDevengo": true
+            }
+          ],
+          "descendientesCompletos": true,
+          "devengo": "2025-12-31",
+          "discapacidadContribuyente": {
+            "_tag": "SinDiscapacidad"
+          },
+          "edadContribuyenteDevengo": 40,
+          "ejercicio": 2025,
+          "fallecimientosEnElEjercicio": "ninguno",
+          "modalidad": "individual",
+          "regimen": "comun",
+          "territorio": "catalunya"
+        }
+      },
+      "resultadoOpenEUR": null,
+      "componentesOpenEUR": null,
+      "pendientes": [
+        "captura Open2025 e integridad de referencias de esa misma entrada",
+        "comparacion futura con API; no ejecutada"
+      ],
+      "modalidadObjetivo": "individual"
+    },
+    {
+      "id": "discriminante-open2025-catalunya-05",
+      "ejercicio": 2025,
+      "grupo": "salario-hijos",
+      "incluidoEnN": false,
+      "territorio": "catalunya",
+      "pesoExterno": "0",
+      "pesoTerritorialProxy": {
+        "N": 4327458,
+        "n": 14,
+        "fraccion": "4327458/14",
+        "uso": "proxy territorial; no estimacion de afectados ni incidencia conjunta por perfil"
+      },
+      "procedenciaEntrada": {
+        "plantilla": "docs/procedencia/implementaciones/redondeo-salarial-open/oficial.json#componentes",
+        "metodo": "adaptacion sintetica de estructura C300; importes y territorio de diseño, no captura reutilizada",
+        "familia": "tests/fixtures/c300-variantes.json#extension-familia-3-renta-propia-v1",
+        "conciliacion": "renta propia art19 = bruto - cotizaciones efectivas - 2000; sin otros gastos; bruto familiar >=30000, sin reduccion art20 en este diseño; otros titulares y menores conservados del fixture corregido"
+      },
+      "estado": "entrada-documentada-pendiente-captura",
+      "entradaAPI": {
+        "ejercicio": 2025,
+        "comunidadAutonoma": "catalunya",
+        "edad": 40,
+        "modalidad": "individual",
+        "residenciaTodoElAnio": true,
+        "devengo": "2025-12-31",
+        "otrasRentas": "ninguna",
+        "familiaresConDerechoMinimo": "segun-derechos",
+        "discapacidad": "ninguna",
+        "reduccionesBase": "ninguna",
+        "saldosAnteriores": "ninguno",
+        "deducciones": "solo-da61-si-procede",
+        "rentasExtranjeras": "ninguna",
+        "especialidades": "ninguna",
+        "perfil": "solo-trabajo",
+        "conciliacion": {
+          "ejercicio": 2025,
+          "estado": "totales-anuales-sin-duplicados",
+          "procedencia": [
+            "sintetico:datos-fiscales-2025",
+            "sintetico:certificados-pagadores"
+          ]
+        },
+        "trabajo": {
+          "ejercicio": 2025,
+          "territorio": "comun",
+          "reduccionesArt18": "ninguna",
+          "movilidad": "ninguna",
+          "discapacidadActiva": "ninguna",
+          "rendimientos": [
+            {
+              "id": "a",
+              "clase": "empleo-laboral",
+              "integro": "45000.00",
+              "cotizaciones": {
+                "clase": "efectivas",
+                "seguridadSocial": "2925.00",
+                "derechosPasivos": "0",
+                "colegiosHuerfanos": "0"
+              },
+              "sindicato": {
+                "importe": "0",
+                "satisfecho": "si"
+              },
+              "colegio": {
+                "importe": "0",
+                "satisfecho": "si",
+                "obligatorio": "si",
+                "finesEsenciales": "si"
+              },
+              "defensa": {
+                "importe": "0",
+                "satisfecho": "si",
+                "litigioDirectoPagador": "si"
+              }
+            }
+          ]
+        },
+        "retenciones": [
+          {
+            "operacionId": "ret-0",
+            "procedencia": "sintetico:certificado-0",
+            "ejercicio": 2025,
+            "importe": "8500.00",
+            "efectiva": true
+          }
+        ],
+        "derechosMinimos": {
+          "ascendientes": "ninguno",
+          "conciliacionRentasContribuyente": {
+            "otrasRentasOGastosNoRepresentados": "ninguno",
+            "perfil": "caso-anual-parcial"
+          },
+          "contribuyenteId": "s-1",
+          "descendientes": [
+            {
+              "declaracion": {
+                "modalidad": "no-presenta"
+              },
+              "discapacidad": {
+                "_tag": "SinDiscapacidad"
+              },
+              "edadDevengo": 24,
+              "fechaNacimiento": "2001-01-01",
+              "rentasNoExentasCentimos": 799999,
+              "sujetoId": "s-3",
+              "titulares": [
+                {
+                  "alimentosJudiciales": false,
+                  "aplicaEspecialidadAlimentos": false,
+                  "custodia": "exclusiva",
+                  "grado": 1,
+                  "relacion": "convivencia",
+                  "rentasNoExentasCentimos": 4007500,
+                  "residenteIrpf": true,
+                  "titularId": "s-1",
+                  "vinculo": {
+                    "clase": "consanguinidad"
+                  }
+                }
+              ],
+              "titularesCompletos": true,
+              "vivoAlDevengo": true
+            }
+          ],
+          "descendientesCompletos": true,
+          "devengo": "2025-12-31",
+          "discapacidadContribuyente": {
+            "_tag": "SinDiscapacidad"
+          },
+          "edadContribuyenteDevengo": 40,
+          "ejercicio": 2025,
+          "fallecimientosEnElEjercicio": "ninguno",
+          "modalidad": "individual",
+          "regimen": "comun",
+          "territorio": "catalunya"
+        }
+      },
+      "resultadoOpenEUR": null,
+      "componentesOpenEUR": null,
+      "pendientes": [
+        "captura Open2025 e integridad de referencias de esa misma entrada",
+        "comparacion futura con API; no ejecutada"
+      ],
+      "modalidadObjetivo": "individual"
+    },
+    {
+      "id": "discriminante-open2025-comunitat-valenciana-07",
+      "ejercicio": 2025,
+      "grupo": "salario-hijos",
+      "incluidoEnN": false,
+      "territorio": "comunitat-valenciana",
+      "pesoExterno": "0",
+      "pesoTerritorialProxy": {
+        "N": 2792717,
+        "n": 9,
+        "fraccion": "2792717/9",
+        "uso": "proxy territorial; no estimacion de afectados ni incidencia conjunta por perfil"
+      },
+      "procedenciaEntrada": {
+        "plantilla": "docs/procedencia/implementaciones/redondeo-salarial-open/oficial.json#componentes",
+        "metodo": "adaptacion sintetica de estructura C300; importes y territorio de diseño, no captura reutilizada",
+        "familia": "tests/fixtures/c300-variantes.json#extension-familia-3-renta-propia-v1",
+        "conciliacion": "renta propia art19 = bruto - cotizaciones efectivas - 2000; sin otros gastos; bruto familiar >=30000, sin reduccion art20 en este diseño; otros titulares y menores conservados del fixture corregido"
+      },
+      "estado": "entrada-documentada-pendiente-captura",
+      "entradaAPI": {
+        "ejercicio": 2025,
+        "comunidadAutonoma": "comunitat-valenciana",
+        "edad": 40,
+        "modalidad": "individual",
+        "residenciaTodoElAnio": true,
+        "devengo": "2025-12-31",
+        "otrasRentas": "ninguna",
+        "familiaresConDerechoMinimo": "segun-derechos",
+        "discapacidad": "ninguna",
+        "reduccionesBase": "ninguna",
+        "saldosAnteriores": "ninguno",
+        "deducciones": "solo-da61-si-procede",
+        "rentasExtranjeras": "ninguna",
+        "especialidades": "ninguna",
+        "perfil": "solo-trabajo",
+        "conciliacion": {
+          "ejercicio": 2025,
+          "estado": "totales-anuales-sin-duplicados",
+          "procedencia": [
+            "sintetico:datos-fiscales-2025",
+            "sintetico:certificados-pagadores"
+          ]
+        },
+        "trabajo": {
+          "ejercicio": 2025,
+          "territorio": "comun",
+          "reduccionesArt18": "ninguna",
+          "movilidad": "ninguna",
+          "discapacidadActiva": "ninguna",
+          "rendimientos": [
+            {
+              "id": "a",
+              "clase": "empleo-laboral",
+              "integro": "60000.00",
+              "cotizaciones": {
+                "clase": "efectivas",
+                "seguridadSocial": "3900.00",
+                "derechosPasivos": "0",
+                "colegiosHuerfanos": "0"
+              },
+              "sindicato": {
+                "importe": "0",
+                "satisfecho": "si"
+              },
+              "colegio": {
+                "importe": "0",
+                "satisfecho": "si",
+                "obligatorio": "si",
+                "finesEsenciales": "si"
+              },
+              "defensa": {
+                "importe": "0",
+                "satisfecho": "si",
+                "litigioDirectoPagador": "si"
+              }
+            }
+          ]
+        },
+        "retenciones": [
+          {
+            "operacionId": "ret-0",
+            "procedencia": "sintetico:certificado-0",
+            "ejercicio": 2025,
+            "importe": "14000.00",
+            "efectiva": true
+          }
+        ],
+        "derechosMinimos": {
+          "ascendientes": "ninguno",
+          "conciliacionRentasContribuyente": {
+            "otrasRentasOGastosNoRepresentados": "ninguno",
+            "perfil": "caso-anual-parcial"
+          },
+          "contribuyenteId": "s-1",
+          "descendientes": [
+            {
+              "declaracion": {
+                "modalidad": "no-presenta"
+              },
+              "discapacidad": {
+                "_tag": "SinDiscapacidad"
+              },
+              "edadDevengo": 24,
+              "fechaNacimiento": "2001-01-01",
+              "rentasNoExentasCentimos": 799999,
+              "sujetoId": "s-3",
+              "titulares": [
+                {
+                  "alimentosJudiciales": false,
+                  "aplicaEspecialidadAlimentos": false,
+                  "custodia": "exclusiva",
+                  "grado": 1,
+                  "relacion": "convivencia",
+                  "rentasNoExentasCentimos": 5410000,
+                  "residenteIrpf": true,
+                  "titularId": "s-1",
+                  "vinculo": {
+                    "clase": "consanguinidad"
+                  }
+                }
+              ],
+              "titularesCompletos": true,
+              "vivoAlDevengo": true
+            }
+          ],
+          "descendientesCompletos": true,
+          "devengo": "2025-12-31",
+          "discapacidadContribuyente": {
+            "_tag": "SinDiscapacidad"
+          },
+          "edadContribuyenteDevengo": 40,
+          "ejercicio": 2025,
+          "fallecimientosEnElEjercicio": "ninguno",
+          "modalidad": "individual",
+          "regimen": "comun",
+          "territorio": "comunitat-valenciana"
+        }
+      },
+      "resultadoOpenEUR": null,
+      "componentesOpenEUR": null,
+      "pendientes": [
+        "captura Open2025 e integridad de referencias de esa misma entrada",
+        "comparacion futura con API; no ejecutada"
+      ],
+      "modalidadObjetivo": "individual"
+    },
+    {
+      "id": "discriminante-open2025-andalucia-10",
+      "ejercicio": 2025,
+      "grupo": "salario-hijos",
+      "incluidoEnN": false,
+      "territorio": "andalucia",
+      "pesoExterno": "0",
+      "pesoTerritorialProxy": {
+        "N": 4434333,
+        "n": 14,
+        "fraccion": "4434333/14",
+        "uso": "proxy territorial; no estimacion de afectados ni incidencia conjunta por perfil"
+      },
+      "procedenciaEntrada": {
+        "plantilla": "docs/procedencia/implementaciones/redondeo-salarial-open/oficial.json#componentes",
+        "metodo": "adaptacion sintetica de estructura C300; importes y territorio de diseño, no captura reutilizada",
+        "familia": "tests/fixtures/c300-variantes.json#extension-familia-3-renta-propia-v1",
+        "conciliacion": "renta propia art19 = bruto - cotizaciones efectivas - 2000; sin otros gastos; bruto familiar >=30000, sin reduccion art20 en este diseño; otros titulares y menores conservados del fixture corregido"
+      },
+      "estado": "entrada-documentada-pendiente-captura",
+      "entradaAPI": {
+        "ejercicio": 2025,
+        "comunidadAutonoma": "andalucia",
+        "edad": 40,
+        "modalidad": "individual",
+        "residenciaTodoElAnio": true,
+        "devengo": "2025-12-31",
+        "otrasRentas": "ninguna",
+        "familiaresConDerechoMinimo": "segun-derechos",
+        "discapacidad": "ninguna",
+        "reduccionesBase": "ninguna",
+        "saldosAnteriores": "ninguno",
+        "deducciones": "solo-da61-si-procede",
+        "rentasExtranjeras": "ninguna",
+        "especialidades": "ninguna",
+        "perfil": "solo-trabajo",
+        "conciliacion": {
+          "ejercicio": 2025,
+          "estado": "totales-anuales-sin-duplicados",
+          "procedencia": [
+            "sintetico:datos-fiscales-2025",
+            "sintetico:certificados-pagadores"
+          ]
+        },
+        "trabajo": {
+          "ejercicio": 2025,
+          "territorio": "comun",
+          "reduccionesArt18": "ninguna",
+          "movilidad": "ninguna",
+          "discapacidadActiva": "ninguna",
+          "rendimientos": [
+            {
+              "id": "a",
+              "clase": "empleo-laboral",
+              "integro": "30000.00",
+              "cotizaciones": {
+                "clase": "efectivas",
+                "seguridadSocial": "1950.00",
+                "derechosPasivos": "0",
+                "colegiosHuerfanos": "0"
+              },
+              "sindicato": {
+                "importe": "0",
+                "satisfecho": "si"
+              },
+              "colegio": {
+                "importe": "0",
+                "satisfecho": "si",
+                "obligatorio": "si",
+                "finesEsenciales": "si"
+              },
+              "defensa": {
+                "importe": "0",
+                "satisfecho": "si",
+                "litigioDirectoPagador": "si"
+              }
+            }
+          ]
+        },
+        "retenciones": [
+          {
+            "operacionId": "ret-0",
+            "procedencia": "sintetico:certificado-0",
+            "ejercicio": 2025,
+            "importe": "4200.00",
+            "efectiva": true
+          }
+        ],
+        "derechosMinimos": {
+          "ascendientes": "ninguno",
+          "conciliacionRentasContribuyente": {
+            "otrasRentasOGastosNoRepresentados": "ninguno",
+            "perfil": "caso-anual-parcial"
+          },
+          "contribuyenteId": "s-1",
+          "descendientes": [
+            {
+              "declaracion": {
+                "modalidad": "no-presenta"
+              },
+              "discapacidad": {
+                "_tag": "SinDiscapacidad"
+              },
+              "edadDevengo": 24,
+              "fechaNacimiento": "2001-01-01",
+              "rentasNoExentasCentimos": 799999,
+              "sujetoId": "s-3",
+              "titulares": [
+                {
+                  "alimentosJudiciales": false,
+                  "aplicaEspecialidadAlimentos": false,
+                  "custodia": "exclusiva",
+                  "grado": 1,
+                  "relacion": "convivencia",
+                  "rentasNoExentasCentimos": 2605000,
+                  "residenteIrpf": true,
+                  "titularId": "s-1",
+                  "vinculo": {
+                    "clase": "consanguinidad"
+                  }
+                }
+              ],
+              "titularesCompletos": true,
+              "vivoAlDevengo": true
+            }
+          ],
+          "descendientesCompletos": true,
+          "devengo": "2025-12-31",
+          "discapacidadContribuyente": {
+            "_tag": "SinDiscapacidad"
+          },
+          "edadContribuyenteDevengo": 40,
+          "ejercicio": 2025,
+          "fallecimientosEnElEjercicio": "ninguno",
+          "modalidad": "individual",
+          "regimen": "comun",
+          "territorio": "andalucia"
+        }
+      },
+      "resultadoOpenEUR": null,
+      "componentesOpenEUR": null,
+      "pendientes": [
+        "captura Open2025 e integridad de referencias de esa misma entrada",
+        "comparacion futura con API; no ejecutada"
+      ],
+      "modalidadObjetivo": "individual"
+    },
+    {
+      "id": "discriminante-open2025-catalunya-13",
+      "ejercicio": 2025,
+      "grupo": "salario-hijos",
+      "incluidoEnN": false,
+      "territorio": "catalunya",
+      "pesoExterno": "0",
+      "pesoTerritorialProxy": {
+        "N": 4327458,
+        "n": 14,
+        "fraccion": "4327458/14",
+        "uso": "proxy territorial; no estimacion de afectados ni incidencia conjunta por perfil"
+      },
+      "procedenciaEntrada": {
+        "plantilla": "docs/procedencia/implementaciones/redondeo-salarial-open/oficial.json#componentes",
+        "metodo": "adaptacion sintetica de estructura C300; importes y territorio de diseño, no captura reutilizada",
+        "familia": "tests/fixtures/c300-variantes.json#extension-familia-3-renta-propia-v1",
+        "conciliacion": "renta propia art19 = bruto - cotizaciones efectivas - 2000; sin otros gastos; bruto familiar >=30000, sin reduccion art20 en este diseño; otros titulares y menores conservados del fixture corregido"
+      },
+      "estado": "entrada-documentada-pendiente-captura",
+      "entradaAPI": {
+        "ejercicio": 2025,
+        "comunidadAutonoma": "catalunya",
+        "edad": 40,
+        "modalidad": "individual",
+        "residenciaTodoElAnio": true,
+        "devengo": "2025-12-31",
+        "otrasRentas": "ninguna",
+        "familiaresConDerechoMinimo": "segun-derechos",
+        "discapacidad": "ninguna",
+        "reduccionesBase": "ninguna",
+        "saldosAnteriores": "ninguno",
+        "deducciones": "solo-da61-si-procede",
+        "rentasExtranjeras": "ninguna",
+        "especialidades": "ninguna",
+        "perfil": "solo-trabajo",
+        "conciliacion": {
+          "ejercicio": 2025,
+          "estado": "totales-anuales-sin-duplicados",
+          "procedencia": [
+            "sintetico:datos-fiscales-2025",
+            "sintetico:certificados-pagadores"
+          ]
+        },
+        "trabajo": {
+          "ejercicio": 2025,
+          "territorio": "comun",
+          "reduccionesArt18": "ninguna",
+          "movilidad": "ninguna",
+          "discapacidadActiva": "ninguna",
+          "rendimientos": [
+            {
+              "id": "a",
+              "clase": "empleo-laboral",
+              "integro": "45000.00",
+              "cotizaciones": {
+                "clase": "efectivas",
+                "seguridadSocial": "2925.00",
+                "derechosPasivos": "0",
+                "colegiosHuerfanos": "0"
+              },
+              "sindicato": {
+                "importe": "0",
+                "satisfecho": "si"
+              },
+              "colegio": {
+                "importe": "0",
+                "satisfecho": "si",
+                "obligatorio": "si",
+                "finesEsenciales": "si"
+              },
+              "defensa": {
+                "importe": "0",
+                "satisfecho": "si",
+                "litigioDirectoPagador": "si"
+              }
+            }
+          ]
+        },
+        "retenciones": [
+          {
+            "operacionId": "ret-0",
+            "procedencia": "sintetico:certificado-0",
+            "ejercicio": 2025,
+            "importe": "8500.00",
+            "efectiva": true
+          }
+        ],
+        "derechosMinimos": {
+          "ascendientes": "ninguno",
+          "conciliacionRentasContribuyente": {
+            "otrasRentasOGastosNoRepresentados": "ninguno",
+            "perfil": "caso-anual-parcial"
+          },
+          "contribuyenteId": "s-1",
+          "descendientes": [
+            {
+              "declaracion": {
+                "modalidad": "no-presenta"
+              },
+              "discapacidad": {
+                "_tag": "SinDiscapacidad"
+              },
+              "edadDevengo": 24,
+              "fechaNacimiento": "2001-01-01",
+              "rentasNoExentasCentimos": 799999,
+              "sujetoId": "s-3",
+              "titulares": [
+                {
+                  "alimentosJudiciales": false,
+                  "aplicaEspecialidadAlimentos": false,
+                  "custodia": "exclusiva",
+                  "grado": 1,
+                  "relacion": "convivencia",
+                  "rentasNoExentasCentimos": 4007500,
+                  "residenteIrpf": true,
+                  "titularId": "s-1",
+                  "vinculo": {
+                    "clase": "consanguinidad"
+                  }
+                }
+              ],
+              "titularesCompletos": true,
+              "vivoAlDevengo": true
+            }
+          ],
+          "descendientesCompletos": true,
+          "devengo": "2025-12-31",
+          "discapacidadContribuyente": {
+            "_tag": "SinDiscapacidad"
+          },
+          "edadContribuyenteDevengo": 40,
+          "ejercicio": 2025,
+          "fallecimientosEnElEjercicio": "ninguno",
+          "modalidad": "individual",
+          "regimen": "comun",
+          "territorio": "catalunya"
+        }
+      },
+      "resultadoOpenEUR": null,
+      "componentesOpenEUR": null,
+      "pendientes": [
+        "captura Open2025 e integridad de referencias de esa misma entrada",
+        "comparacion futura con API; no ejecutada"
+      ],
+      "modalidadObjetivo": "individual"
+    }
+  ]
+}

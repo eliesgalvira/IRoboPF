@@ -10,6 +10,7 @@
     };
     devShells.x86_64-linux.default = pkgs.mkShell {
       packages = [ pkgs.python313 pkgs.uv pkgs.poppler-utils pkgs.jujutsu ];
+      C_PDFTOTEXT = "${pkgs.poppler-utils}/bin/pdftotext";
       LD_LIBRARY_PATH = "${pkgs.stdenv.cc.cc.lib}/lib";
       UV_PYTHON_DOWNLOADS = "never";
     };

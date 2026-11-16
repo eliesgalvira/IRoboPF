@@ -84,3 +84,5 @@ jobs:
       - run: timeout -k 30s 12m bun tests/cas-local-r27.mjs
       - run: timeout -k 30s 12m nix develop path:tools/procedencia --command bash scripts/ci-datos.sh
       - run: timeout -k 30s 12m nix develop path:tools/procedencia --command bash scripts/ci-simuladores.sh
+      - run: timeout -k 30s 1m bun tools/procedencia/simuladores/capturar-casos.mjs --self-test
+      - run: timeout -k 30s 12m nix develop path:tools/procedencia --command bun run test tests/medir-casos.test.mjs tests/vincular-open.test.mjs tests/familia-open.test.mjs tests/medicion-muestra2025.test.mjs --maxWorkers=1

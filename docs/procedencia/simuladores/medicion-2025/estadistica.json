@@ -1,0 +1,223 @@
+{
+  "schema": "estadistica-diseño-open2025-v1",
+  "ejercicioObjetivo": 2025,
+  "ejercicioFuente": 2024,
+  "fechaConsulta": "2026-11-16",
+  "fuentesAEAT": {
+    "territorio": "https://sede.agenciatributaria.gob.es/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Estadisticas/Publicaciones/sites/irpf/2024/jrubik761f99dedc02a6bd64c84e572c313aa65a720d84.html",
+    "hijos": "https://sede.agenciatributaria.gob.es/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Estadisticas/Publicaciones/sites/irpf/2024/jrubik7445cd382152d799d93b05a0ed97133b688f01c9.html",
+    "vivienda": "https://sede.agenciatributaria.gob.es/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Estadisticas/Publicaciones/sites/irpf/2024/jrubik647b3971e9c3445ada0d2d92ccffc73f5282a50d.html"
+  },
+  "N": 80,
+  "cuotasGrupos": {
+    "salario-solo": 32,
+    "salario-hijos": 28,
+    "DT18": 8,
+    "alquiler": 8,
+    "salario-ascendiente": 4
+  },
+  "territorios": [
+    {
+      "slugAPI": "andalucia",
+      "n": 14,
+      "N": 4434333,
+      "pesoPorSlot": {
+        "numerador": 4434333,
+        "denominador": 14
+      }
+    },
+    {
+      "slugAPI": "aragon",
+      "n": 3,
+      "N": 801592,
+      "pesoPorSlot": {
+        "numerador": 801592,
+        "denominador": 3
+      }
+    },
+    {
+      "slugAPI": "asturias",
+      "n": 2,
+      "N": 579448,
+      "pesoPorSlot": {
+        "numerador": 579448,
+        "denominador": 2
+      }
+    },
+    {
+      "slugAPI": "illes-balears",
+      "n": 2,
+      "N": 658522,
+      "pesoPorSlot": {
+        "numerador": 658522,
+        "denominador": 2
+      }
+    },
+    {
+      "slugAPI": "canarias",
+      "n": 4,
+      "N": 1107327,
+      "pesoPorSlot": {
+        "numerador": 1107327,
+        "denominador": 4
+      }
+    },
+    {
+      "slugAPI": "cantabria",
+      "n": 1,
+      "N": 330523,
+      "pesoPorSlot": {
+        "numerador": 330523,
+        "denominador": 1
+      }
+    },
+    {
+      "slugAPI": "castilla-y-leon",
+      "n": 4,
+      "N": 1390233,
+      "pesoPorSlot": {
+        "numerador": 1390233,
+        "denominador": 4
+      }
+    },
+    {
+      "slugAPI": "castilla-la-mancha",
+      "n": 4,
+      "N": 1098945,
+      "pesoPorSlot": {
+        "numerador": 1098945,
+        "denominador": 4
+      }
+    },
+    {
+      "slugAPI": "catalunya",
+      "n": 14,
+      "N": 4327458,
+      "pesoPorSlot": {
+        "numerador": 4327458,
+        "denominador": 14
+      }
+    },
+    {
+      "slugAPI": "comunitat-valenciana",
+      "n": 9,
+      "N": 2792717,
+      "pesoPorSlot": {
+        "numerador": 2792717,
+        "denominador": 9
+      }
+    },
+    {
+      "slugAPI": "extremadura",
+      "n": 2,
+      "N": 567089,
+      "pesoPorSlot": {
+        "numerador": 567089,
+        "denominador": 2
+      }
+    },
+    {
+      "slugAPI": "galicia",
+      "n": 5,
+      "N": 1493829,
+      "pesoPorSlot": {
+        "numerador": 1493829,
+        "denominador": 5
+      }
+    },
+    {
+      "slugAPI": "madrid",
+      "n": 13,
+      "N": 3992431,
+      "pesoPorSlot": {
+        "numerador": 3992431,
+        "denominador": 13
+      }
+    },
+    {
+      "slugAPI": "murcia",
+      "n": 2,
+      "N": 782598,
+      "pesoPorSlot": {
+        "numerador": 782598,
+        "denominador": 2
+      }
+    },
+    {
+      "slugAPI": "la-rioja",
+      "n": 1,
+      "N": 193406,
+      "pesoPorSlot": {
+        "numerador": 193406,
+        "denominador": 1
+      }
+    }
+  ],
+  "mapeoSlugs": {
+    "balears": "illes-balears",
+    "castilla-leon": "castilla-y-leon"
+  },
+  "total15": 24550451,
+  "totalComun": 24628279,
+  "residuoNoRepresentado": 77828,
+  "forales": {
+    "paisVasco": "sin peso",
+    "navarra": "sin peso"
+  },
+  "ponderacion": {
+    "naturaleza": "proxy territorial N/n por slot, incluidos pendientes",
+    "sumaExacta": 24550451,
+    "denominadorReferencia": 24628279,
+    "calibracionConjuntaPorPerfil": false,
+    "incidenciaAfectados": null,
+    "advertencia": "cuotas de diseño no aleatorio; no estimador poblacional ni estadistica conjunta de perfiles; decimal por slot redondeado a 12 lugares, racional exacto prioritario"
+  },
+  "margenesDiseno": {
+    "hijos": {
+      "numeroDeclaraciones2024": 8678327,
+      "total": 24628279,
+      "fraccion": 0.35237244957311065,
+      "objetivoSobre80": 28
+    },
+    "DT18": {
+      "numeroPartida547": 2501524,
+      "total": 24628279,
+      "fraccion": 0.10157120601078135,
+      "objetivoSobre80": 8,
+      "nota": "partida547 como proxy marginal vivienda, no cruce con salarios/familia/territorio; no sumar parte estatal y autonomica"
+    }
+  },
+  "conjunta": {
+    "objetivo": 10,
+    "dentroDe": "28 salario-hijos",
+    "pendientes": 10,
+    "criterio": "cuota de diseño sin inferencia estadistica conjunta por perfil"
+  },
+  "estadoEntradas": {
+    "documentadas": 54,
+    "pendientesConjunta": 10,
+    "pendientesVivienda": 16,
+    "admisionRuntime": "no-comprobada"
+  },
+  "medicion": {
+    "estado": "no-ejecutada",
+    "N": 80,
+    "comparablesVerificados": 0,
+    "iguales": null,
+    "fraccionIguales": null,
+    "discrepanciaPonderadaEUR": null,
+    "nota": "ausencia de captura no equivale a discrepancia ni a cero; no se ejecuta medidor, API u Open"
+  },
+  "casosSha256": "868ff3ef00132c04ae939bd337dffe666ba8ce82b5eaa294c14a66559581414f",
+  "rarosSinPeso": [
+    "ejercicios-2012-2017",
+    "actividades-economicas",
+    "deducciones-raras",
+    "redondeo-SS"
+  ],
+  "privacidad": {
+    "tipo": "datos e identificadores sinteticos; referencias publicas relativas",
+    "externalPolicy": "pendiente puerta de publicacion con politica externa vigente; no se copia ni versiona la politica",
+    "publicacion": "no realizada"
+  }
+}
