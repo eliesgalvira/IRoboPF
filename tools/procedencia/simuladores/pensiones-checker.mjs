@@ -2,14 +2,14 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import {createHash} from 'node:crypto';
-import {deflateSync} from 'node:zlib';
+import {originalCompression} from './vincular-conjunta-open.mjs';
 import {parseSES} from './conjunta-ses.mjs';
 import {rawPdfRows} from './prospectivos-pdf-reader.mjs';
 import {validateBinding,validateReadbacks,bindingContracts} from './pensiones-binding.mjs';
 const prefix='docs/procedencia/simuladores/pensiones-prospectivas-2025';
-const manifestHash='418b0a8aab0ec6656ae2b7adf477903787018d5a9cec27b34c560a272300c807';
+const manifestHash='3647ff3745b3e8941871731e5dd4c913d3d25d38e61aa0f4d210a45e5abebab9';
 const hash=x=>createHash('sha256').update(x).digest('hex');
-export function checkPensions(root){
+export function checkPensions(root,compressor){
  const read=p=>fs.readFileSync(path.join(root,p));
  const mb=read(prefix+'/MANIFIESTO.json');assert.equal(hash(mb),manifestHash,'manifiesto-fijo');
  const m=JSON.parse(mb);assert.equal(m.metricChanged,false);assert.equal(m.casos.length,2);
@@ -26,7 +26,7 @@ export function checkPensions(root){
   const h=H.casos.find(h=>h.id===c.id),p=P.casos.find(p=>p.id===c.id),dir=c.folder+'/';
   assert.equal(p.openObserved,false);assert.equal(p.schemaAccepted,true);assert.equal(p.result.cuotaDiferencialPresentada,c.expected);
   const s=json(dir+'captura-ses.json'),pdf=get(dir+'captura.pdf'),r=json(dir+'recibo-original.json');
-  const raw=Buffer.from(s.contenido,'latin1'),ses=deflateSync(raw,{level:6});
+  const raw=Buffer.from(s.contenido,'latin1'),ses=originalCompression(raw,s.sesSHA256,compressor);
   assert.equal(hash(raw),s.latin1SHA256);assert.equal(raw.length,s.latin1Bytes);assert.equal(hash(ses),s.sesSHA256);assert.equal(ses.length,s.sesBytes);
   assert.equal(r.target,c.id);assert.equal(r.sesSha256,s.sesSHA256);assert.equal(r.pdfSha256,hash(pdf));assert.equal(r.countedAsMatch,false);
   const parsed=parseSES(s.contenido),pdfRows=rawPdfRows(pdf,{pages:3,positions:true});

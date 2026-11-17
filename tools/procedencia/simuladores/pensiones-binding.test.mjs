@@ -1,6 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
+import {spawnSync} from 'node:child_process';
 import {parseSES} from './conjunta-ses.mjs';
 import {rawPdfRows} from './prospectivos-pdf-reader.mjs';
 import {validateBinding,validateReadbacks,bindingContracts} from './pensiones-binding.mjs';
@@ -8,6 +9,25 @@ import {checkPensions} from './pensiones-checker.mjs';
 const prefix='docs/procedencia/simuladores/pensiones-prospectivas-2025';
 const json=p=>JSON.parse(fs.readFileSync(prefix+'/'+p));
 const H=json('hechos-previos.json');
+test('biblioteca nativa distinta reconstruye ambos originales con el compresor Nix',()=>{
+ assert.ok(process.env.C_SES_NODE);
+ const calls=[];
+ const r=checkPensions(process.cwd(),{
+  native:()=>Buffer.from('compresion-alternativa-sintetica'),
+  executable:process.env.C_SES_NODE,
+  execute:(exe,args,options)=>{calls.push(exe);return spawnSync(exe,args,{...options,env:{...process.env,PATH:''}});},
+ });
+ assert.deepEqual(calls,[process.env.C_SES_NODE,process.env.C_SES_NODE]);
+ assert.deepEqual(r.observations.map(o=>o.exact),[false,true]);
+});
+test('un compresor ausente o con bytes incorrectos no degrada la identidad',()=>{
+ for(const execute of [()=>({error:new Error('ausente'),status:null}),()=>({status:0,stdout:Buffer.from('incorrecto')})]){
+  assert.throws(()=>checkPensions(process.cwd(),{
+   native:()=>Buffer.from('compresion-alternativa-sintetica'),
+   executable:'compresor-sintetico',execute,
+  }),/open-ses-recompresion-no-exacta/);
+ }
+});
 test('dos observaciones conservan el céntimo discrepante y el contador original',()=>{
  const r=checkPensions(process.cwd());
  assert.deepEqual(r.observations.map(o=>[o.expected,o.observed,o.exact]),[['-323.72','-323.71',false],['465.24','465.24',true]]);
