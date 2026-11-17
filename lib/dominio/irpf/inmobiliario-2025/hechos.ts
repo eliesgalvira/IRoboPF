@@ -3,6 +3,16 @@ import { Schema } from "effect"
 const Texto = Schema.String.check(Schema.isPattern(/\S/))
 const Fecha = Schema.String.check(Schema.isPattern(/^\d{4}-\d{2}-\d{2}$/))
 const Dinero = Schema.String.check(Schema.isPattern(/^\d{1,13}(?:\.\d{1,2})?$/))
+// Compatibilidad: el formato anterior sigue significando suelo conocido.
+const DatosAdquisicion = { fecha: Fecha, escritura: Texto, precio: Dinero, gastosTributos: Dinero }
+const CosteSuelo = Schema.Union([
+  Schema.Struct({ estado: Schema.Literal("conocido"), precio: Dinero, gastosTributos: Dinero }),
+  Schema.Struct({ estado: Schema.Literal("desconocido") }),
+])
+const Adquisicion = Schema.Union([
+  Schema.Struct({ ...DatosAdquisicion, sueloPrecio: Dinero, sueloGastosTributos: Dinero, costeSuelo: Schema.optionalKey(Schema.Never) }),
+  Schema.Struct({ ...DatosAdquisicion, costeSuelo: CosteSuelo, sueloPrecio: Schema.optionalKey(Schema.Never), sueloGastosTributos: Schema.optionalKey(Schema.Never) }),
+])
 const PrimerAlquiler2025 = Schema.Struct({
   tituloOneroso: Texto,
   construccionTerminada: Fecha,
@@ -64,7 +74,7 @@ export const InmuebleP4a = Schema.Struct({
   derecho: Schema.Literal("propiedad"),
   regimenMatrimonial: Schema.Literals(["no-casado", "separacion-bienes"]),
   titulares: Schema.Array(Texto),
-  adquisicion: Schema.Struct({ fecha: Fecha, escritura: Texto, precio: Dinero, gastosTributos: Dinero, sueloPrecio: Dinero, sueloGastosTributos: Dinero }),
+  adquisicion: Adquisicion,
   catastro2025: Schema.Struct({ documento: Texto, suelo: Dinero, construccion: Dinero }),
   usosDesdeAdquisicion: Schema.Array(Schema.Struct({ ...Periodo, uso: Schema.Literals(["personal", "a-disposicion", "alquiler-vivienda"]) })),
   contrato: Schema.Struct({

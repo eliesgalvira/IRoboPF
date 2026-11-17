@@ -39,7 +39,11 @@ describe("P4a candidato: oráculos racionales sin usar fórmulas del productor",
   }
   it.effect("excluye suelo de precio y gastos de adquisición", () => Effect.gen(function* () {
     const c = casoP4a()
-    const r = yield* producirInmueblesP4a({ ...c, inmuebles: c.inmuebles.map(v => ({ ...v, adquisicion: { ...v.adquisicion, gastosTributos: "5000", sueloGastosTributos: "1000" } })) })
+    const inmuebles = c.inmuebles.map(v => {
+      if (v.adquisicion.costeSuelo !== undefined) throw new Error("La fixture requiere suelo conocido legado")
+      return { ...v, adquisicion: { ...v.adquisicion, gastosTributos: "5000", sueloGastosTributos: "1000" } }
+    })
+    const r = yield* producirInmueblesP4a({ ...c, inmuebles })
     exacto(r.netoReducido, 4240n)
   }))
   for (const [fecha, numerador] of [["2025-01-01", 886950n], ["2025-12-31", 876030n]] as const) {

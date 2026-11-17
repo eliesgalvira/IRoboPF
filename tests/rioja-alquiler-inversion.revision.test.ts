@@ -70,7 +70,10 @@ for (const api of apis) {
     ["declaración decisiva ajena", x => conHistoria(x, { ...x.derecho, historia: { ...x.derecho.historia, ejercicios: x.derecho.historia.ejercicios.map(e => ({ ...e, documento: { ...e.documento, referencia: "OTRA" } })) } })],
     ["banco inconciliable", x => conHistoria(x, { ...x.derecho, cuentas: x.derecho.cuentas.map(c => ({ ...c, cierre: { ...c.cierre, importe: "20001" } })) })],
     ["censo prestamo omitido", x => conHistoria(x, { ...x.derecho, censo: x.derecho.censo.filter(c => c.tipo !== "prestamo") })],
-    ["valor suelo contradictorio", x => ({ ...x.caso, inmuebles: [{ ...x.inmueble, adquisicion: { ...x.inmueble.adquisicion, sueloPrecio: "25000" } }] })],
+    ["valor suelo contradictorio", x => {
+      if (x.inmueble.adquisicion.costeSuelo !== undefined) throw new Error("La fixture requiere suelo conocido legado")
+      return { ...x.caso, inmuebles: [{ ...x.inmueble, adquisicion: { ...x.inmueble.adquisicion, sueloPrecio: "25000" } }] }
+    }],
     ["concurrencia DT18 no representada", x => ({ ...x.caso, deduccionesTerritoriales2025: { derechoInversionAlquilerRioja2025: x.derecho, solicitudes: [x.solicitud, x.solicitud] } })],
   ]
   for (const [nombre, transformar] of negativos) it(`${api}: ${nombre} rechaza y no publica cero`, () => {

@@ -1,3 +1,4 @@
+import { seleccionarPoliticaAlquilerOpen2025 } from "../trabajo-alquiler-ordinario-2025/seleccion-open"
 import { seleccionarCuantizacionFamilia2025, cuantizarGravamenFamilia2025 } from "../cuotas/politica-familia-open-2025"
 import { seleccionarCuantizacionConjunta, cuantizarComponenteConjunto } from "../conjunta-2025/politica-cuantizacion"
 import { MINIMOS_ESTATALES_2025 } from "../../normativa/datos/minimos-autonomicos-2025"
@@ -85,6 +86,7 @@ export type PoliticaAnual =
   | "open-etapas-empleo-madrid-2024"
 /** Contrato interno: bases ya integradas en EUR Decimal; jamás reconstruye cotizaciones. */
 export interface EntradaComposicionAnual {
+  readonly hechosAlquilerOpen2025?: import("../trabajo-alquiler-ordinario-2025/contrato").CasoTrabajoAlquilerOrdinario2025 | undefined
   /** Hechos de la conexión explícita; ausentes en la API canónica. */
   readonly hechosFamiliaOpen2025?: CasoFiscalAnualExplicitoBase | undefined
   readonly conjunta2025?: CasoConjunta2025 | undefined
@@ -277,8 +279,13 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
         entrada.basesImponiblesE38 !== undefined && (!entrada.basesImponiblesE38.general.eq(baseDerivada) || !entrada.basesImponiblesE38.ahorro.isZero()))
         return yield* Effect.fail(errorDerechosMinimos({ motivo: "Etapas Open2023/24: neto, base, gastos producidos o mínimo5550 contradictorios con el productor común" }))
     }
+    const politicaAlquilerOpen2025 = entrada.hechosAlquilerOpen2025 === undefined ? undefined : yield* seleccionarPoliticaAlquilerOpen2025(entrada).pipe(
+      Effect.mapError(error => errorDerechosMinimos({motivo:String(error.motivo)})),
+    )
     const gravar = (args: Parameters<typeof calcularCuotaPorEscala>[0]) =>
-      politicaCuantizacionConjunta === undefined
+      politicaAlquilerOpen2025 !== undefined
+        ? calcularCuotaPorEscala({ ...args, aritmetica: A }).toDecimalPlaces(2, Decimal.ROUND_HALF_UP)
+        : politicaCuantizacionConjunta === undefined
         ? politicaCuantizacionFamilia === undefined
           ? cuantizar(calcularCuotaPorEscala({ ...args, aritmetica: A }))
           : cuantizarGravamenFamilia2025(calcularCuotaPorEscala({ ...args, aritmetica: A }))
@@ -1050,6 +1057,7 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
     }
     const cuotaPosterior = cuotaLiquida.minus(deduccionTrabajo)
     return {
+      politicaAlquilerOpen2025,
       politicaCuantizacionFamilia,
       politicaCuantizacionConjunta: politicaCuantizacionConjunta?.nombre,
       reduccionConjunta,

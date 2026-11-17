@@ -1,3 +1,4 @@
+import { costeConstruccion2025 } from "./coste-construccion"
 import { validarCambioHabitual2025 } from "./cambio-habitual"
 import { validarCambioHabitualBalears2025 } from "./cambio-habitual-balears"
 import { validarVaciaExt2025 } from "./vacia-ext"
@@ -40,6 +41,8 @@ interface HistoricoVaciaExtP4a {
 const producirInmueble = Effect.fn("P4a.inmueble")(function* (v: InmuebleP4a, continuidadDiciembre2024: boolean = false) {
   const fallo = (codigo: RechazoP4a["codigo"], motivo: string) => new RechazoP4a({ codigo, motivo: v.id + ": " + motivo })
   const c = v.contrato, a = v.adquisicion
+  if (a.costeSuelo?.estado === "desconocido" && !continuidadDiciembre2024)
+    return yield* fallo("entrada", "Suelo desconocido limitado al perfil ordinario diciembre2024")
   if (v.titulares.length !== 1 || v.titulares[0] !== v.titular || c.arrendador !== v.titular || c.arrendatario === v.titular)
     return yield* fallo("identidad", "título pleno exclusivo y contrato incompatibles")
   const comprobacionVacia2024 = v.vaciaExt2025 === undefined ? undefined : yield* Effect.try({
@@ -97,9 +100,10 @@ const producirInmueble = Effect.fn("P4a.inmueble")(function* (v: InmuebleP4a, co
   const limitables = total(v.gastos.filter(x => x.clase === "intereses" || x.clase === "reparacion").map(x => dinero(x.importe)))
   const gastosLimitados = menor(integro, limitables)
   const otrosGastos = total(v.gastos.filter(x => ["tributo", "comunidad", "seguro", "servicios", "defensa", "suministro"].includes(x.clase)).map(x => dinero(x.importe)))
-  const coste = restar(sumar(dinero(a.precio), dinero(a.gastosTributos)), sumar(dinero(a.sueloPrecio), dinero(a.sueloGastosTributos)))
-  if (coste.n <= 0n || dinero(a.sueloPrecio).n > dinero(a.precio).n || dinero(a.sueloGastosTributos).n > dinero(a.gastosTributos).n)
-    return yield* fallo("gasto", "valor de suelo y coste de construcción incoherentes")
+  const coste = yield* Effect.try({
+    try: () => costeConstruccion2025(a, v.catastro2025),
+    catch: e => fallo("gasto", e instanceof RangeError ? e.message : "Coste de construcción incoherente"),
+  })
   // Perfil original sin alquiler previo; continuidad2024 acredita límite no vinculante en su conexión.
   const mejoras = v.gastos.filter(x => x.clase === "mejora")
   for (const g of mejoras) {

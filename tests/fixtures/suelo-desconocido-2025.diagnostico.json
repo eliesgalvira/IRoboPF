@@ -1,0 +1,99 @@
+{
+  "version": 2,
+  "estado": "observacion-condicionada-con-regresion-de-producto",
+  "casos": [
+    {
+      "id": "open2025-asturias-02-suelo-desconocido-v1",
+      "original": "open2025-asturias-02",
+      "estado": "observado-con-precondiciones-no-acreditadas",
+      "countedAsMatch": false,
+      "observacion": {
+        "ejercicio": 2025,
+        "amortizacion": "2499.90",
+        "netoReducido": "4250.05",
+        "baseGeneral": "30300.05",
+        "diferencial": "1865.42",
+        "sesSha256": "73882b9ed44b4af25b9e19beb8c353340d198b06d7ea01b116faec4a7ad85e0a",
+        "pdfSha256": "76f1b1658203d7f8713b629626f005718088f95934edf7b4a2dd2367cb93cd07"
+      },
+      "ejecucion": {
+        "api": "explicita",
+        "resultadoEsperado": "1865.42",
+        "prueba": "tests/trabajo-alquiler-politica-open-2025.test.ts"
+      },
+      "equivalenciaFiscalCompleta": false
+    },
+    {
+      "id": "open2025-andalucia-04-suelo-desconocido-v1",
+      "original": "open2025-andalucia-04",
+      "estado": "observado-con-precondiciones-no-acreditadas",
+      "countedAsMatch": false,
+      "observacion": {
+        "ejercicio": 2025,
+        "amortizacion": "2499.90",
+        "netoReducido": "4250.05",
+        "baseGeneral": "30300.05",
+        "diferencial": "1937.47",
+        "sesSha256": "21e8d9fb8122183ac33c637a848860a791dcbd898a09c3d2c06626f583902ec1",
+        "pdfSha256": "907be0de1c54ac2e118c9834f0e46fa7909dba57b5c169f16829039c1d468e72"
+      },
+      "ejecucion": {
+        "api": "explicita",
+        "resultadoEsperado": "1937.47",
+        "prueba": "tests/trabajo-alquiler-politica-open-2025.test.ts"
+      },
+      "equivalenciaFiscalCompleta": false
+    },
+    {
+      "id": "open2025-madrid-07-suelo-desconocido-v1",
+      "original": "open2025-madrid-07",
+      "estado": "observado-con-precondiciones-no-acreditadas",
+      "countedAsMatch": false,
+      "observacion": {
+        "ejercicio": 2025,
+        "amortizacion": "2499.90",
+        "netoReducido": "4250.05",
+        "baseGeneral": "30300.05",
+        "diferencial": "1579.53",
+        "sesSha256": "7c9a7b3775054f9ba1d5c232df1e9825a55e4c2915b3fed9dc2924ab6289e2ab",
+        "pdfSha256": "0473dedbaaf027eba62d830a5880166c5763d47f1f3e01686732ba9a77d0c21c"
+      },
+      "ejecucion": {
+        "api": "explicita",
+        "resultadoEsperado": "1579.53",
+        "prueba": "tests/trabajo-alquiler-politica-open-2025.test.ts"
+      },
+      "equivalenciaFiscalCompleta": false
+    },
+    {
+      "id": "open2025-madrid-13-v2-suelo-desconocido-v1",
+      "original": "open2025-madrid-13-v2",
+      "estado": "observado-con-precondiciones-no-acreditadas",
+      "countedAsMatch": false,
+      "observacion": {
+        "ejercicio": 2025,
+        "amortizacion": "2499.90",
+        "netoReducido": "4250.05",
+        "baseGeneral": "32170.05",
+        "diferencial": "1819.39",
+        "sesSha256": "0deb91c87857f01e200303fa93fd6166b25ffc59b4ca5aec263928306d28cf89",
+        "pdfSha256": "677f1797e35b01f89af671d39d72937735145f736b3050d0d8fd5bc18aa5a894"
+      },
+      "ejecucion": {
+        "api": "explicita",
+        "resultadoEsperado": "1819.39",
+        "prueba": "tests/trabajo-alquiler-politica-open-2025.test.ts"
+      },
+      "equivalenciaFiscalCompleta": false
+    }
+  ],
+  "metrica": "diagnósticos adicionales sin peso; muestra original de 80 intacta",
+  "referenciaOficialVinculada": false,
+  "advertencia": "SES/PDF y lecturas conciliados, con historia catastral 2024, usos anteriores y demás precondiciones sintéticas no acreditadas por esos originales. La coincidencia condicionada no cuenta en la muestra. El libro racional conserva amortización 2500; el operativo reproduce 2499.90. No identifica un algoritmo universal.",
+  "autoridadMuestra": {
+    "archivo": "docs/procedencia/simuladores/medicion-2025/casos.json",
+    "sha256": "42294af5094929e206e2869f187fe7895ff05212cb2773df9d9fb4da2ce8a2e3"
+  },
+  "procedencia": "docs/procedencia/simuladores/alquiler-suelo-desconocido-2025.md",
+  "origenesPublicados": false
+}

@@ -1462,6 +1462,8 @@ export function liquidarIrpfAnual(caso: CasoFiscalAnual, contexto: ContextoLiqui
 export function liquidarIrpfAnual(caso: CasoTrabajoAlquilerOrdinario2025 | CasoGaliciaMixto2025 | CasoAragonSocialMixto2025 | CasoInmobiliarioP4a | CasoFiscalAnual | CasoPagadoresCatalunya2025, contexto: ContextoLiquidacionIrpf) {
   if ("perfil" in caso && caso.perfil === "trabajo-alquiler-ordinario-2025") {
     if(contexto.modo!=="canonico") return Effect.fail(new RechazoP4a({codigo:"entrada",motivo:"Alquiler ordinario: sólo modo canónico efectivo"}))
+    // Salida y rastro del perfil proceden de anual.ts y su única composición.
+    // La entrada canónica conserva cotizaciones estimadas y no activa la política Open.
     return liquidarTrabajoAlquilerOrdinario2025(caso, "estimadas-perfil-uniforme")
   }
   if ("perfil" in caso && caso.perfil === "trabajo-pagadores-catalunya-2025") {
