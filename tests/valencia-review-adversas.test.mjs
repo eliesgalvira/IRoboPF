@@ -9,6 +9,7 @@ import {gunzipSync, gzipSync} from 'node:zlib';
 import {referenciaValencia, leerPaqueteValencia, reconstruirPaquete, cargarInquilinoValencia, originalCompression} from '../tools/procedencia/simuladores/valencia-public-loader.mjs';
 import {vincularValenciaOpen, stableValencia} from '../tools/procedencia/simuladores/vincular-valencia-open.mjs';
 import {proponerPublicacionValencia} from '../tools/procedencia/simuladores/proponer-valencia.mjs';
+import {preValencia} from './valencia-transaction-fixture.mjs';
 const ref=referenciaValencia();
 const tx=JSON.parse(readFileSync(new URL('../tools/procedencia/simuladores/valencia-transaction.json',import.meta.url)));
 const base=fileURLToPath(new URL('../docs/procedencia/simuladores/medicion-2025/',import.meta.url));
@@ -58,20 +59,8 @@ test('sin compresor fijado no se acepta ni siquiera una recompresión trivial',(
   assert.throws(()=>originalCompression(Buffer.from('sintetico'),'0'.repeat(64),ref.compressor),/inq-open-compressor/);
  }finally{if(previous===undefined)delete process.env.C_SES_NODE;else process.env.C_SES_NODE=previous;}
 });
-function preBytes(){
- const originals={};
- for(const name of Object.keys(tx.pins)){
-  let b=readFileSync(new URL('../'+name,import.meta.url));
-  if(name.endsWith('/casos.json')||name.endsWith('/observaciones.json')){
-   const d=JSON.parse(b);const slots=d.casos.flatMap((c,i)=>c.id===ref.id?[i]:[]);assert.equal(slots.length,1);
-   d.casos[slots[0]]=structuredClone(tx.pre);b=Buffer.from(JSON.stringify(d,null,2)+'\n');
-  }
-  assert.equal(sha(b),tx.pins[name],'reconstrucción PRE exacta obligatoria');originals[name]=b;
- }
- return originals;
-}
 test('CAS rechaza un cambio ajeno a Valencia y un único POST mezclado con PRE',()=>{
- const originals=preBytes(),names=Object.keys(tx.pins),docName=names.find(n=>n.endsWith('/casos.json'));
+ const originals=preValencia(tx),names=Object.keys(tx.pins),docName=names.find(n=>n.endsWith('/casos.json'));
  const d=JSON.parse(originals[docName]),other=d.casos.find(c=>c.id!==ref.id);assert.ok(other);other.pesoExterno='0';
  assert.throws(()=>proponerPublicacionValencia({...originals,[docName]:Buffer.from(JSON.stringify(d,null,2)+'\n')},{base}),/val-transaction-cas/);
  const proposal=proponerPublicacionValencia(originals,{base});

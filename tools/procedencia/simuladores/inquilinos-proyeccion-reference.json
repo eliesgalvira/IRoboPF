@@ -1,0 +1,1343 @@
+{
+  "schema": "inquilinos-proyeccion-v1",
+  "casos": [
+    {
+      "id": "open2025-castilla-la-mancha-01",
+      "slotSha256": "537e2ef903dc8890f54f442d98cc7fafa270fce98102f907a9343ad1d43a5f79",
+      "entradaSha256": "60424c7143b5950c16164503d67d2128000e38442d8d7ee55d193044b02909ff",
+      "housingSha256": "22b59ead2a18840ead5e484eebf9055b3a14407b767bfe02cbb2cce6d22267ab",
+      "motivos": [
+        "edad40-excluye-menores36",
+        "sin-familia-numerosa",
+        "sin-monoparentalidad",
+        "sin-discapacidad",
+        "sin-dacion"
+      ],
+      "fuentes": [
+        {
+          "path": "docs/procedencia/deducciones-2025/correcciones/d-clm-remisiones/citas.json",
+          "sha256": "52de62cbc1c8a5e868123990e12e563d6d4729b6219a85f9c6d7ce871a51412e",
+          "citas": [
+            "clm_arrendamiento_menores_36-L7",
+            "clm_arrendamiento_dacion_pago-L2",
+            "clm_arrendamiento_familias_numerosas-L1",
+            "clm_arrendamiento_familias_monoparentales-L1",
+            "clm_arrendamiento_personas_discapacidad-L1",
+            "clm_arrendamiento_menores_36-R24",
+            "clm_arrendamiento_menores_36-R25",
+            "clm_arrendamiento_menores_36-R26",
+            "clm_arrendamiento_menores_36-R27",
+            "clm_arrendamiento_menores_36-R28",
+            "clm_arrendamiento_menores_36-V2"
+          ]
+        }
+      ],
+      "casePre": {
+        "id": "open2025-castilla-la-mancha-01",
+        "ejercicio": 2025,
+        "grupo": "alquiler",
+        "incluidoEnN": true,
+        "territorio": "castilla-la-mancha",
+        "pesoExterno": "274736.250000000000",
+        "pesoTerritorialProxy": {
+          "N": 1098945,
+          "n": 4,
+          "fraccion": "1098945/4",
+          "uso": "proxy territorial; no estimacion de afectados ni incidencia conjunta por perfil"
+        },
+        "procedenciaEntrada": {
+          "plantilla": "docs/procedencia/implementaciones/redondeo-salarial-open/oficial.json#componentes",
+          "metodo": "adaptacion sintetica de estructura C300; importes y territorio de diseño, no captura reutilizada",
+          "vivienda": [
+            "lib/dominio/irpf/inmobiliario-2025/contrato.ts",
+            "tests/inmobiliario-p4a.fixtures.ts",
+            "tests/balears-alquiler-dt18.fixtures.ts"
+          ]
+        },
+        "estado": "entrada-documentada-pendiente-captura",
+        "entradaAPI": {
+          "ejercicio": 2025,
+          "comunidadAutonoma": "castilla-la-mancha",
+          "edad": 40,
+          "modalidad": "individual",
+          "residenciaTodoElAnio": true,
+          "devengo": "2025-12-31",
+          "otrasRentas": "ninguna",
+          "familiaresConDerechoMinimo": "ninguno",
+          "discapacidad": "ninguna",
+          "reduccionesBase": "ninguna",
+          "saldosAnteriores": "ninguno",
+          "deducciones": "solo-da61-si-procede",
+          "rentasExtranjeras": "ninguna",
+          "especialidades": "ninguna",
+          "perfil": "solo-trabajo",
+          "conciliacion": {
+            "ejercicio": 2025,
+            "estado": "totales-anuales-sin-duplicados",
+            "procedencia": [
+              "sintetico:datos-fiscales-2025",
+              "sintetico:certificados-pagadores"
+            ]
+          },
+          "trabajo": {
+            "ejercicio": 2025,
+            "territorio": "comun",
+            "reduccionesArt18": "ninguna",
+            "movilidad": "ninguna",
+            "discapacidadActiva": "ninguna",
+            "rendimientos": [
+              {
+                "id": "a",
+                "clase": "empleo-laboral",
+                "integro": "30000.00",
+                "cotizaciones": {
+                  "clase": "efectivas",
+                  "seguridadSocial": "1950.00",
+                  "derechosPasivos": "0",
+                  "colegiosHuerfanos": "0"
+                },
+                "sindicato": {
+                  "importe": "0",
+                  "satisfecho": "si"
+                },
+                "colegio": {
+                  "importe": "0",
+                  "satisfecho": "si",
+                  "obligatorio": "si",
+                  "finesEsenciales": "si"
+                },
+                "defensa": {
+                  "importe": "0",
+                  "satisfecho": "si",
+                  "litigioDirectoPagador": "si"
+                }
+              }
+            ]
+          },
+          "retenciones": [
+            {
+              "operacionId": "ret-0",
+              "procedencia": "sintetico:certificado-0",
+              "ejercicio": 2025,
+              "importe": "4200.00",
+              "efectiva": true
+            }
+          ],
+          "contribuyenteId": "s-1"
+        },
+        "resultadoOpenEUR": null,
+        "componentesOpenEUR": null,
+        "pendientes": [
+          "La API salarial no codifica la tenencia de la vivienda habitual. Los hechos de habitación quedan separados y son obligatorios para Open; no se considera transporte completo ni coincidencia verificada.",
+          "captura Open2025 y vinculación de los mismos hechos con SES/PDF pendientes",
+          "admisión por esquema y API pendiente de ejecución autorizada; no ejecutada en esta preparación"
+        ],
+        "entradaTrabajoIndividualReferencia": {
+          "ejercicio": 2025,
+          "comunidadAutonoma": "castilla-la-mancha",
+          "edad": 40,
+          "modalidad": "individual",
+          "residenciaTodoElAnio": true,
+          "devengo": "2025-12-31",
+          "otrasRentas": "ninguna",
+          "familiaresConDerechoMinimo": "ninguno",
+          "discapacidad": "ninguna",
+          "reduccionesBase": "ninguna",
+          "saldosAnteriores": "ninguno",
+          "deducciones": "solo-da61-si-procede",
+          "rentasExtranjeras": "ninguna",
+          "especialidades": "ninguna",
+          "perfil": "solo-trabajo",
+          "conciliacion": {
+            "ejercicio": 2025,
+            "estado": "totales-anuales-sin-duplicados",
+            "procedencia": [
+              "sintetico:datos-fiscales-2025",
+              "sintetico:certificados-pagadores"
+            ]
+          },
+          "trabajo": {
+            "ejercicio": 2025,
+            "territorio": "comun",
+            "reduccionesArt18": "ninguna",
+            "movilidad": "ninguna",
+            "discapacidadActiva": "ninguna",
+            "rendimientos": [
+              {
+                "id": "a",
+                "clase": "empleo-laboral",
+                "integro": "30000.00",
+                "cotizaciones": {
+                  "clase": "efectivas",
+                  "seguridadSocial": "1950.00",
+                  "derechosPasivos": "0",
+                  "colegiosHuerfanos": "0"
+                },
+                "sindicato": {
+                  "importe": "0",
+                  "satisfecho": "si"
+                },
+                "colegio": {
+                  "importe": "0",
+                  "satisfecho": "si",
+                  "obligatorio": "si",
+                  "finesEsenciales": "si"
+                },
+                "defensa": {
+                  "importe": "0",
+                  "satisfecho": "si",
+                  "litigioDirectoPagador": "si"
+                }
+              }
+            ]
+          },
+          "retenciones": [
+            {
+              "operacionId": "ret-0",
+              "procedencia": "sintetico:certificado-0",
+              "ejercicio": 2025,
+              "importe": "4200.00",
+              "efectiva": true
+            }
+          ]
+        },
+        "hechosObjetivo": {
+          "tipo": "asalariado-arrendatario",
+          "familia": "ninguna",
+          "contratoDesde": "2024-12-01",
+          "uso2025": "vivienda-permanente-todo-el-anio",
+          "importeAnualSinteticoObjetivoEUR": "7200.00",
+          "otrasActividades": "ninguna",
+          "alcance": "hechos objetivo; expediente de vivienda pendiente"
+        },
+        "preparacionVivienda": {
+          "naturaleza": "hechos íntegramente inventados; documentos sintéticos no emitidos",
+          "estado": "implementacion-propuesta-sin-ejecucion",
+          "obstaculos": [
+            "Admisión fiscal y pruebas de regresión pendientes; transporte de inquilino y SES/PDF no acreditados."
+          ],
+          "camposOpen": [
+            "situación vivienda habitual: arrendamiento, sin titularidad ni rentas inmobiliarias propias",
+            "contrato desde2024-12-01; único inquilino; arrendador e identificador de prueba pendiente de formato Open; doce pagos600 EUR =7200 EUR",
+            "residencia y territorio; renta habitual sin servicios, ayudas ni reembolsos",
+            "deducción autonómica sólo según expediente; no convertir pagos en gasto de trabajo"
+          ],
+          "fuentes": [
+            "lib/dominio/irpf/trabajo-anual/conexion-contrato.ts",
+            "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/anual-esquemas.ts",
+            "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/esquemas.ts",
+            "tests/deducciones-f-ampliacion-2025.test.ts",
+            "lib/dominio/irpf/deducciones/valenciana-2025/anual.ts",
+            "lib/dominio/irpf/deducciones/valenciana-2025/comun.ts",
+            "tests/deducciones-valencianas-evaluacion.test.ts"
+          ],
+          "hechosHabitacion": {
+            "persona": "s-1",
+            "nacimiento": "1985-01-01",
+            "estadoCivil": "sin_vinculo",
+            "inquilino": true,
+            "rentasInmobiliariasPropias": "ninguna",
+            "vivienda": "V",
+            "territorio": "castilla-la-mancha",
+            "contrato": "sintetico:contrato",
+            "firma": "2024-12-01",
+            "desde": "2024-12-01",
+            "hasta": "2028-12-01",
+            "ocupacionDesde": "2024-12-01",
+            "permanenciaHasta": "2028-12-01",
+            "naturalezaPermanencia": "compromiso de diseño; no observación futura",
+            "arrendador": "arrendador-ficticio",
+            "titulares": [
+              "s-1"
+            ],
+            "uso": "habitual-todo-2025",
+            "pagos": [
+              {
+                "id": "ALQ1",
+                "fecha": "2025-01-05",
+                "importeEUR": "600.00",
+                "ayudasEUR": "0",
+                "concepto": "alquiler",
+                "objetoId": "V",
+                "pagador": "s-1",
+                "beneficiarioId": "s-1",
+                "medio": "transferencia",
+                "factura": "sintetico:recibo-1",
+                "soportePago": "sintetico:banco-1"
+              },
+              {
+                "id": "ALQ2",
+                "fecha": "2025-02-05",
+                "importeEUR": "600.00",
+                "ayudasEUR": "0",
+                "concepto": "alquiler",
+                "objetoId": "V",
+                "pagador": "s-1",
+                "beneficiarioId": "s-1",
+                "medio": "transferencia",
+                "factura": "sintetico:recibo-2",
+                "soportePago": "sintetico:banco-2"
+              },
+              {
+                "id": "ALQ3",
+                "fecha": "2025-03-05",
+                "importeEUR": "600.00",
+                "ayudasEUR": "0",
+                "concepto": "alquiler",
+                "objetoId": "V",
+                "pagador": "s-1",
+                "beneficiarioId": "s-1",
+                "medio": "transferencia",
+                "factura": "sintetico:recibo-3",
+                "soportePago": "sintetico:banco-3"
+              },
+              {
+                "id": "ALQ4",
+                "fecha": "2025-04-05",
+                "importeEUR": "600.00",
+                "ayudasEUR": "0",
+                "concepto": "alquiler",
+                "objetoId": "V",
+                "pagador": "s-1",
+                "beneficiarioId": "s-1",
+                "medio": "transferencia",
+                "factura": "sintetico:recibo-4",
+                "soportePago": "sintetico:banco-4"
+              },
+              {
+                "id": "ALQ5",
+                "fecha": "2025-05-05",
+                "importeEUR": "600.00",
+                "ayudasEUR": "0",
+                "concepto": "alquiler",
+                "objetoId": "V",
+                "pagador": "s-1",
+                "beneficiarioId": "s-1",
+                "medio": "transferencia",
+                "factura": "sintetico:recibo-5",
+                "soportePago": "sintetico:banco-5"
+              },
+              {
+                "id": "ALQ6",
+                "fecha": "2025-06-05",
+                "importeEUR": "600.00",
+                "ayudasEUR": "0",
+                "concepto": "alquiler",
+                "objetoId": "V",
+                "pagador": "s-1",
+                "beneficiarioId": "s-1",
+                "medio": "transferencia",
+                "factura": "sintetico:recibo-6",
+                "soportePago": "sintetico:banco-6"
+              },
+              {
+                "id": "ALQ7",
+                "fecha": "2025-07-05",
+                "importeEUR": "600.00",
+                "ayudasEUR": "0",
+                "concepto": "alquiler",
+                "objetoId": "V",
+                "pagador": "s-1",
+                "beneficiarioId": "s-1",
+                "medio": "transferencia",
+                "factura": "sintetico:recibo-7",
+                "soportePago": "sintetico:banco-7"
+              },
+              {
+                "id": "ALQ8",
+                "fecha": "2025-08-05",
+                "importeEUR": "600.00",
+                "ayudasEUR": "0",
+                "concepto": "alquiler",
+                "objetoId": "V",
+                "pagador": "s-1",
+                "beneficiarioId": "s-1",
+                "medio": "transferencia",
+                "factura": "sintetico:recibo-8",
+                "soportePago": "sintetico:banco-8"
+              },
+              {
+                "id": "ALQ9",
+                "fecha": "2025-09-05",
+                "importeEUR": "600.00",
+                "ayudasEUR": "0",
+                "concepto": "alquiler",
+                "objetoId": "V",
+                "pagador": "s-1",
+                "beneficiarioId": "s-1",
+                "medio": "transferencia",
+                "factura": "sintetico:recibo-9",
+                "soportePago": "sintetico:banco-9"
+              },
+              {
+                "id": "ALQ10",
+                "fecha": "2025-10-05",
+                "importeEUR": "600.00",
+                "ayudasEUR": "0",
+                "concepto": "alquiler",
+                "objetoId": "V",
+                "pagador": "s-1",
+                "beneficiarioId": "s-1",
+                "medio": "transferencia",
+                "factura": "sintetico:recibo-10",
+                "soportePago": "sintetico:banco-10"
+              },
+              {
+                "id": "ALQ11",
+                "fecha": "2025-11-05",
+                "importeEUR": "600.00",
+                "ayudasEUR": "0",
+                "concepto": "alquiler",
+                "objetoId": "V",
+                "pagador": "s-1",
+                "beneficiarioId": "s-1",
+                "medio": "transferencia",
+                "factura": "sintetico:recibo-11",
+                "soportePago": "sintetico:banco-11"
+              },
+              {
+                "id": "ALQ12",
+                "fecha": "2025-12-05",
+                "importeEUR": "600.00",
+                "ayudasEUR": "0",
+                "concepto": "alquiler",
+                "objetoId": "V",
+                "pagador": "s-1",
+                "beneficiarioId": "s-1",
+                "medio": "transferencia",
+                "factura": "sintetico:recibo-12",
+                "soportePago": "sintetico:banco-12"
+              }
+            ],
+            "anualEUR": "7200.00",
+            "serviciosIncluidosEUR": "0",
+            "reembolsoEUR": "0",
+            "ayudasEUR": "0",
+            "derechosOtrasViviendas": [],
+            "derechoInversionVivienda": false,
+            "fianza": "sintetico:deposito-2024",
+            "itpPresentado": "2024-12-02",
+            "itpVence": "2024-12-31",
+            "familiaNumerosa": false,
+            "monoparental": false,
+            "discapacidadPorcentaje": 0,
+            "desempleoDias2025": 0,
+            "viudedad": false,
+            "violenciaGenero": false,
+            "dacionEnPago": false,
+            "trasladoPorTrabajo": false
+          },
+          "evaluacionRegional": "Sin solicitud regional: edad40, sin familia, discapacidad ni dación; no cumple rama menores36."
+        }
+      },
+      "fixture": {
+        "id": "open2025-castilla-la-mancha-01",
+        "entrada": {
+          "ejercicio": 2025,
+          "comunidadAutonoma": "castilla-la-mancha",
+          "edad": 40,
+          "modalidad": "individual",
+          "residenciaTodoElAnio": true,
+          "devengo": "2025-12-31",
+          "otrasRentas": "ninguna",
+          "familiaresConDerechoMinimo": "ninguno",
+          "discapacidad": "ninguna",
+          "reduccionesBase": "ninguna",
+          "saldosAnteriores": "ninguno",
+          "deducciones": "solo-da61-si-procede",
+          "rentasExtranjeras": "ninguna",
+          "especialidades": "ninguna",
+          "perfil": "solo-trabajo",
+          "conciliacion": {
+            "ejercicio": 2025,
+            "estado": "totales-anuales-sin-duplicados",
+            "procedencia": [
+              "sintetico:datos-fiscales-2025",
+              "sintetico:certificados-pagadores"
+            ]
+          },
+          "trabajo": {
+            "ejercicio": 2025,
+            "territorio": "comun",
+            "reduccionesArt18": "ninguna",
+            "movilidad": "ninguna",
+            "discapacidadActiva": "ninguna",
+            "rendimientos": [
+              {
+                "id": "a",
+                "clase": "empleo-laboral",
+                "integro": "30000.00",
+                "cotizaciones": {
+                  "clase": "efectivas",
+                  "seguridadSocial": "1950.00",
+                  "derechosPasivos": "0",
+                  "colegiosHuerfanos": "0"
+                },
+                "sindicato": {
+                  "importe": "0",
+                  "satisfecho": "si"
+                },
+                "colegio": {
+                  "importe": "0",
+                  "satisfecho": "si",
+                  "obligatorio": "si",
+                  "finesEsenciales": "si"
+                },
+                "defensa": {
+                  "importe": "0",
+                  "satisfecho": "si",
+                  "litigioDirectoPagador": "si"
+                }
+              }
+            ]
+          },
+          "retenciones": [
+            {
+              "operacionId": "ret-0",
+              "procedencia": "sintetico:certificado-0",
+              "ejercicio": 2025,
+              "importe": "4200.00",
+              "efectiva": true
+            }
+          ],
+          "contribuyenteId": "s-1"
+        }
+      },
+      "stable": {
+        "id": "open2025-castilla-la-mancha-01",
+        "pesoExterno": "274736.250000000000",
+        "pesoTerritorialProxy": {
+          "N": 1098945,
+          "n": 4,
+          "fraccion": "1098945/4",
+          "uso": "proxy territorial; no estimacion de afectados ni incidencia conjunta por perfil"
+        },
+        "incluidoEnN": true
+      },
+      "retained": [
+        "comunidadAutonoma",
+        "conciliacion",
+        "contribuyenteId",
+        "deducciones",
+        "devengo",
+        "discapacidad",
+        "edad",
+        "ejercicio",
+        "especialidades",
+        "familiaresConDerechoMinimo",
+        "modalidad",
+        "otrasRentas",
+        "perfil",
+        "reduccionesBase",
+        "rentasExtranjeras",
+        "residenciaTodoElAnio",
+        "retenciones",
+        "saldosAnteriores",
+        "trabajo"
+      ],
+      "omitted": [
+        "anualEUR",
+        "arrendador",
+        "ayudasEUR",
+        "contrato",
+        "dacionEnPago",
+        "derechoInversionVivienda",
+        "derechosOtrasViviendas",
+        "desde",
+        "desempleoDias2025",
+        "discapacidadPorcentaje",
+        "estadoCivil",
+        "familiaNumerosa",
+        "fianza",
+        "firma",
+        "hasta",
+        "inquilino",
+        "itpPresentado",
+        "itpVence",
+        "monoparental",
+        "nacimiento",
+        "naturalezaPermanencia",
+        "ocupacionDesde",
+        "pagos",
+        "permanenciaHasta",
+        "persona",
+        "reembolsoEUR",
+        "rentasInmobiliariasPropias",
+        "serviciosIncluidosEUR",
+        "territorio",
+        "titulares",
+        "trasladoPorTrabajo",
+        "uso",
+        "violenciaGenero",
+        "viudedad",
+        "vivienda"
+      ],
+      "region": "07"
+    },
+    {
+      "id": "open2025-catalunya-10",
+      "slotSha256": "dcb7e6218b022a10f70f341416f66f3cb62ca7428aba8001a7c76e83a9053a85",
+      "entradaSha256": "ab28342d7d417980096cef77f18ef0b90623fd608ba1cc51c85b1c7f8fcbe016",
+      "housingSha256": "4538299752189e4fbabff81f4e49542850e7bc2d754754dc2f72949f02d699fb",
+      "motivos": [
+        "edad40-excluye-hasta35",
+        "desempleo0-menor183",
+        "discapacidad0-menor65",
+        "sin-viudedad",
+        "sin-familia-numerosa-ni-monoparental"
+      ],
+      "fuentes": [
+        {
+          "path": "docs/procedencia/deducciones-2025/lotes/a/dictamenes.json",
+          "sha256": "12beab6a24b418426b22b2690d119859142145570fe99e817102404b86415d0f",
+          "citas": [
+            "CA-catalunya-2025-138",
+            "CA-catalunya-2025-139",
+            "CA-catalunya-2025-140",
+            "CA-catalunya-2025-141",
+            "CA-catalunya-2025-142",
+            "CA-catalunya-2025-144",
+            "CA-catalunya-2025-143",
+            "CA-DOGC-L8-2025-alt-disp-31-6"
+          ]
+        }
+      ],
+      "casePre": {
+        "id": "open2025-catalunya-10",
+        "ejercicio": 2025,
+        "grupo": "alquiler",
+        "incluidoEnN": true,
+        "territorio": "catalunya",
+        "pesoExterno": "309104.142857142857",
+        "pesoTerritorialProxy": {
+          "N": 4327458,
+          "n": 14,
+          "fraccion": "4327458/14",
+          "uso": "proxy territorial; no estimacion de afectados ni incidencia conjunta por perfil"
+        },
+        "procedenciaEntrada": {
+          "plantilla": "docs/procedencia/implementaciones/redondeo-salarial-open/oficial.json#componentes",
+          "metodo": "adaptacion sintetica de estructura C300; importes y territorio de diseño, no captura reutilizada",
+          "vivienda": [
+            "lib/dominio/irpf/inmobiliario-2025/contrato.ts",
+            "tests/inmobiliario-p4a.fixtures.ts",
+            "tests/balears-alquiler-dt18.fixtures.ts"
+          ]
+        },
+        "estado": "entrada-documentada-pendiente-captura",
+        "entradaAPI": {
+          "ejercicio": 2025,
+          "comunidadAutonoma": "catalunya",
+          "edad": 40,
+          "modalidad": "individual",
+          "residenciaTodoElAnio": true,
+          "devengo": "2025-12-31",
+          "otrasRentas": "ninguna",
+          "familiaresConDerechoMinimo": "ninguno",
+          "discapacidad": "ninguna",
+          "reduccionesBase": "ninguna",
+          "saldosAnteriores": "ninguno",
+          "deducciones": "solo-da61-si-procede",
+          "rentasExtranjeras": "ninguna",
+          "especialidades": "ninguna",
+          "perfil": "solo-trabajo",
+          "conciliacion": {
+            "ejercicio": 2025,
+            "estado": "totales-anuales-sin-duplicados",
+            "procedencia": [
+              "sintetico:datos-fiscales-2025",
+              "sintetico:certificados-pagadores"
+            ]
+          },
+          "trabajo": {
+            "ejercicio": 2025,
+            "territorio": "comun",
+            "reduccionesArt18": "ninguna",
+            "movilidad": "ninguna",
+            "discapacidadActiva": "ninguna",
+            "rendimientos": [
+              {
+                "id": "a",
+                "clase": "empleo-laboral",
+                "integro": "30000.00",
+                "cotizaciones": {
+                  "clase": "efectivas",
+                  "seguridadSocial": "1950.00",
+                  "derechosPasivos": "0",
+                  "colegiosHuerfanos": "0"
+                },
+                "sindicato": {
+                  "importe": "0",
+                  "satisfecho": "si"
+                },
+                "colegio": {
+                  "importe": "0",
+                  "satisfecho": "si",
+                  "obligatorio": "si",
+                  "finesEsenciales": "si"
+                },
+                "defensa": {
+                  "importe": "0",
+                  "satisfecho": "si",
+                  "litigioDirectoPagador": "si"
+                }
+              }
+            ]
+          },
+          "retenciones": [
+            {
+              "operacionId": "ret-0",
+              "procedencia": "sintetico:certificado-0",
+              "ejercicio": 2025,
+              "importe": "4200.00",
+              "efectiva": true
+            }
+          ],
+          "contribuyenteId": "s-1"
+        },
+        "resultadoOpenEUR": null,
+        "componentesOpenEUR": null,
+        "pendientes": [
+          "La API salarial no codifica la tenencia de la vivienda habitual. Los hechos de habitación quedan separados y son obligatorios para Open; no se considera transporte completo ni coincidencia verificada.",
+          "captura Open2025 y vinculación de los mismos hechos con SES/PDF pendientes",
+          "admisión por esquema y API pendiente de ejecución autorizada; no ejecutada en esta preparación"
+        ],
+        "entradaTrabajoIndividualReferencia": {
+          "ejercicio": 2025,
+          "comunidadAutonoma": "catalunya",
+          "edad": 40,
+          "modalidad": "individual",
+          "residenciaTodoElAnio": true,
+          "devengo": "2025-12-31",
+          "otrasRentas": "ninguna",
+          "familiaresConDerechoMinimo": "ninguno",
+          "discapacidad": "ninguna",
+          "reduccionesBase": "ninguna",
+          "saldosAnteriores": "ninguno",
+          "deducciones": "solo-da61-si-procede",
+          "rentasExtranjeras": "ninguna",
+          "especialidades": "ninguna",
+          "perfil": "solo-trabajo",
+          "conciliacion": {
+            "ejercicio": 2025,
+            "estado": "totales-anuales-sin-duplicados",
+            "procedencia": [
+              "sintetico:datos-fiscales-2025",
+              "sintetico:certificados-pagadores"
+            ]
+          },
+          "trabajo": {
+            "ejercicio": 2025,
+            "territorio": "comun",
+            "reduccionesArt18": "ninguna",
+            "movilidad": "ninguna",
+            "discapacidadActiva": "ninguna",
+            "rendimientos": [
+              {
+                "id": "a",
+                "clase": "empleo-laboral",
+                "integro": "30000.00",
+                "cotizaciones": {
+                  "clase": "efectivas",
+                  "seguridadSocial": "1950.00",
+                  "derechosPasivos": "0",
+                  "colegiosHuerfanos": "0"
+                },
+                "sindicato": {
+                  "importe": "0",
+                  "satisfecho": "si"
+                },
+                "colegio": {
+                  "importe": "0",
+                  "satisfecho": "si",
+                  "obligatorio": "si",
+                  "finesEsenciales": "si"
+                },
+                "defensa": {
+                  "importe": "0",
+                  "satisfecho": "si",
+                  "litigioDirectoPagador": "si"
+                }
+              }
+            ]
+          },
+          "retenciones": [
+            {
+              "operacionId": "ret-0",
+              "procedencia": "sintetico:certificado-0",
+              "ejercicio": 2025,
+              "importe": "4200.00",
+              "efectiva": true
+            }
+          ]
+        },
+        "hechosObjetivo": {
+          "tipo": "asalariado-arrendatario",
+          "familia": "ninguna",
+          "contratoDesde": "2024-12-01",
+          "uso2025": "vivienda-permanente-todo-el-anio",
+          "importeAnualSinteticoObjetivoEUR": "7200.00",
+          "otrasActividades": "ninguna",
+          "alcance": "hechos objetivo; expediente de vivienda pendiente"
+        },
+        "preparacionVivienda": {
+          "naturaleza": "hechos íntegramente inventados; documentos sintéticos no emitidos",
+          "estado": "implementacion-propuesta-sin-ejecucion",
+          "obstaculos": [
+            "Admisión fiscal y pruebas de regresión pendientes; transporte de inquilino y SES/PDF no acreditados."
+          ],
+          "camposOpen": [
+            "situación vivienda habitual: arrendamiento, sin titularidad ni rentas inmobiliarias propias",
+            "contrato desde2024-12-01; único inquilino; arrendador e identificador de prueba pendiente de formato Open; doce pagos600 EUR =7200 EUR",
+            "residencia y territorio; renta habitual sin servicios, ayudas ni reembolsos",
+            "deducción autonómica sólo según expediente; no convertir pagos en gasto de trabajo"
+          ],
+          "fuentes": [
+            "lib/dominio/irpf/trabajo-anual/conexion-contrato.ts",
+            "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/anual-esquemas.ts",
+            "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/esquemas.ts",
+            "tests/deducciones-f-ampliacion-2025.test.ts",
+            "lib/dominio/irpf/deducciones/valenciana-2025/anual.ts",
+            "lib/dominio/irpf/deducciones/valenciana-2025/comun.ts",
+            "tests/deducciones-valencianas-evaluacion.test.ts"
+          ],
+          "hechosHabitacion": {
+            "persona": "s-1",
+            "nacimiento": "1985-01-01",
+            "estadoCivil": "sin_vinculo",
+            "inquilino": true,
+            "rentasInmobiliariasPropias": "ninguna",
+            "vivienda": "V",
+            "territorio": "catalunya",
+            "contrato": "sintetico:contrato",
+            "firma": "2024-12-01",
+            "desde": "2024-12-01",
+            "hasta": "2028-12-01",
+            "ocupacionDesde": "2024-12-01",
+            "permanenciaHasta": "2028-12-01",
+            "naturalezaPermanencia": "compromiso de diseño; no observación futura",
+            "arrendador": "arrendador-ficticio",
+            "titulares": [
+              "s-1"
+            ],
+            "uso": "habitual-todo-2025",
+            "pagos": [
+              {
+                "id": "ALQ1",
+                "fecha": "2025-01-05",
+                "importeEUR": "600.00",
+                "ayudasEUR": "0",
+                "concepto": "alquiler",
+                "objetoId": "V",
+                "pagador": "s-1",
+                "beneficiarioId": "s-1",
+                "medio": "transferencia",
+                "factura": "sintetico:recibo-1",
+                "soportePago": "sintetico:banco-1"
+              },
+              {
+                "id": "ALQ2",
+                "fecha": "2025-02-05",
+                "importeEUR": "600.00",
+                "ayudasEUR": "0",
+                "concepto": "alquiler",
+                "objetoId": "V",
+                "pagador": "s-1",
+                "beneficiarioId": "s-1",
+                "medio": "transferencia",
+                "factura": "sintetico:recibo-2",
+                "soportePago": "sintetico:banco-2"
+              },
+              {
+                "id": "ALQ3",
+                "fecha": "2025-03-05",
+                "importeEUR": "600.00",
+                "ayudasEUR": "0",
+                "concepto": "alquiler",
+                "objetoId": "V",
+                "pagador": "s-1",
+                "beneficiarioId": "s-1",
+                "medio": "transferencia",
+                "factura": "sintetico:recibo-3",
+                "soportePago": "sintetico:banco-3"
+              },
+              {
+                "id": "ALQ4",
+                "fecha": "2025-04-05",
+                "importeEUR": "600.00",
+                "ayudasEUR": "0",
+                "concepto": "alquiler",
+                "objetoId": "V",
+                "pagador": "s-1",
+                "beneficiarioId": "s-1",
+                "medio": "transferencia",
+                "factura": "sintetico:recibo-4",
+                "soportePago": "sintetico:banco-4"
+              },
+              {
+                "id": "ALQ5",
+                "fecha": "2025-05-05",
+                "importeEUR": "600.00",
+                "ayudasEUR": "0",
+                "concepto": "alquiler",
+                "objetoId": "V",
+                "pagador": "s-1",
+                "beneficiarioId": "s-1",
+                "medio": "transferencia",
+                "factura": "sintetico:recibo-5",
+                "soportePago": "sintetico:banco-5"
+              },
+              {
+                "id": "ALQ6",
+                "fecha": "2025-06-05",
+                "importeEUR": "600.00",
+                "ayudasEUR": "0",
+                "concepto": "alquiler",
+                "objetoId": "V",
+                "pagador": "s-1",
+                "beneficiarioId": "s-1",
+                "medio": "transferencia",
+                "factura": "sintetico:recibo-6",
+                "soportePago": "sintetico:banco-6"
+              },
+              {
+                "id": "ALQ7",
+                "fecha": "2025-07-05",
+                "importeEUR": "600.00",
+                "ayudasEUR": "0",
+                "concepto": "alquiler",
+                "objetoId": "V",
+                "pagador": "s-1",
+                "beneficiarioId": "s-1",
+                "medio": "transferencia",
+                "factura": "sintetico:recibo-7",
+                "soportePago": "sintetico:banco-7"
+              },
+              {
+                "id": "ALQ8",
+                "fecha": "2025-08-05",
+                "importeEUR": "600.00",
+                "ayudasEUR": "0",
+                "concepto": "alquiler",
+                "objetoId": "V",
+                "pagador": "s-1",
+                "beneficiarioId": "s-1",
+                "medio": "transferencia",
+                "factura": "sintetico:recibo-8",
+                "soportePago": "sintetico:banco-8"
+              },
+              {
+                "id": "ALQ9",
+                "fecha": "2025-09-05",
+                "importeEUR": "600.00",
+                "ayudasEUR": "0",
+                "concepto": "alquiler",
+                "objetoId": "V",
+                "pagador": "s-1",
+                "beneficiarioId": "s-1",
+                "medio": "transferencia",
+                "factura": "sintetico:recibo-9",
+                "soportePago": "sintetico:banco-9"
+              },
+              {
+                "id": "ALQ10",
+                "fecha": "2025-10-05",
+                "importeEUR": "600.00",
+                "ayudasEUR": "0",
+                "concepto": "alquiler",
+                "objetoId": "V",
+                "pagador": "s-1",
+                "beneficiarioId": "s-1",
+                "medio": "transferencia",
+                "factura": "sintetico:recibo-10",
+                "soportePago": "sintetico:banco-10"
+              },
+              {
+                "id": "ALQ11",
+                "fecha": "2025-11-05",
+                "importeEUR": "600.00",
+                "ayudasEUR": "0",
+                "concepto": "alquiler",
+                "objetoId": "V",
+                "pagador": "s-1",
+                "beneficiarioId": "s-1",
+                "medio": "transferencia",
+                "factura": "sintetico:recibo-11",
+                "soportePago": "sintetico:banco-11"
+              },
+              {
+                "id": "ALQ12",
+                "fecha": "2025-12-05",
+                "importeEUR": "600.00",
+                "ayudasEUR": "0",
+                "concepto": "alquiler",
+                "objetoId": "V",
+                "pagador": "s-1",
+                "beneficiarioId": "s-1",
+                "medio": "transferencia",
+                "factura": "sintetico:recibo-12",
+                "soportePago": "sintetico:banco-12"
+              }
+            ],
+            "anualEUR": "7200.00",
+            "serviciosIncluidosEUR": "0",
+            "reembolsoEUR": "0",
+            "ayudasEUR": "0",
+            "derechosOtrasViviendas": [],
+            "derechoInversionVivienda": false,
+            "fianza": "sintetico:deposito-2024",
+            "itpPresentado": "2024-12-02",
+            "itpVence": "2024-12-31",
+            "familiaNumerosa": false,
+            "monoparental": false,
+            "discapacidadPorcentaje": 0,
+            "desempleoDias2025": 0,
+            "viudedad": false,
+            "violenciaGenero": false,
+            "dacionEnPago": false,
+            "trasladoPorTrabajo": false
+          },
+          "evaluacionRegional": "Sin solicitud regional: edad40, desempleo0, discapacidad0, sin viudedad ni familia numerosa/monoparental; no cumple alternativas de acceso."
+        }
+      },
+      "fixture": {
+        "id": "open2025-catalunya-10",
+        "entrada": {
+          "ejercicio": 2025,
+          "comunidadAutonoma": "catalunya",
+          "edad": 40,
+          "modalidad": "individual",
+          "residenciaTodoElAnio": true,
+          "devengo": "2025-12-31",
+          "otrasRentas": "ninguna",
+          "familiaresConDerechoMinimo": "ninguno",
+          "discapacidad": "ninguna",
+          "reduccionesBase": "ninguna",
+          "saldosAnteriores": "ninguno",
+          "deducciones": "solo-da61-si-procede",
+          "rentasExtranjeras": "ninguna",
+          "especialidades": "ninguna",
+          "perfil": "solo-trabajo",
+          "conciliacion": {
+            "ejercicio": 2025,
+            "estado": "totales-anuales-sin-duplicados",
+            "procedencia": [
+              "sintetico:datos-fiscales-2025",
+              "sintetico:certificados-pagadores"
+            ]
+          },
+          "trabajo": {
+            "ejercicio": 2025,
+            "territorio": "comun",
+            "reduccionesArt18": "ninguna",
+            "movilidad": "ninguna",
+            "discapacidadActiva": "ninguna",
+            "rendimientos": [
+              {
+                "id": "a",
+                "clase": "empleo-laboral",
+                "integro": "30000.00",
+                "cotizaciones": {
+                  "clase": "efectivas",
+                  "seguridadSocial": "1950.00",
+                  "derechosPasivos": "0",
+                  "colegiosHuerfanos": "0"
+                },
+                "sindicato": {
+                  "importe": "0",
+                  "satisfecho": "si"
+                },
+                "colegio": {
+                  "importe": "0",
+                  "satisfecho": "si",
+                  "obligatorio": "si",
+                  "finesEsenciales": "si"
+                },
+                "defensa": {
+                  "importe": "0",
+                  "satisfecho": "si",
+                  "litigioDirectoPagador": "si"
+                }
+              }
+            ]
+          },
+          "retenciones": [
+            {
+              "operacionId": "ret-0",
+              "procedencia": "sintetico:certificado-0",
+              "ejercicio": 2025,
+              "importe": "4200.00",
+              "efectiva": true
+            }
+          ],
+          "contribuyenteId": "s-1"
+        }
+      },
+      "stable": {
+        "id": "open2025-catalunya-10",
+        "pesoExterno": "309104.142857142857",
+        "pesoTerritorialProxy": {
+          "N": 4327458,
+          "n": 14,
+          "fraccion": "4327458/14",
+          "uso": "proxy territorial; no estimacion de afectados ni incidencia conjunta por perfil"
+        },
+        "incluidoEnN": true
+      },
+      "retained": [
+        "comunidadAutonoma",
+        "conciliacion",
+        "contribuyenteId",
+        "deducciones",
+        "devengo",
+        "discapacidad",
+        "edad",
+        "ejercicio",
+        "especialidades",
+        "familiaresConDerechoMinimo",
+        "modalidad",
+        "otrasRentas",
+        "perfil",
+        "reduccionesBase",
+        "rentasExtranjeras",
+        "residenciaTodoElAnio",
+        "retenciones",
+        "saldosAnteriores",
+        "trabajo"
+      ],
+      "omitted": [
+        "anualEUR",
+        "arrendador",
+        "ayudasEUR",
+        "contrato",
+        "dacionEnPago",
+        "derechoInversionVivienda",
+        "derechosOtrasViviendas",
+        "desde",
+        "desempleoDias2025",
+        "discapacidadPorcentaje",
+        "estadoCivil",
+        "familiaNumerosa",
+        "fianza",
+        "firma",
+        "hasta",
+        "inquilino",
+        "itpPresentado",
+        "itpVence",
+        "monoparental",
+        "nacimiento",
+        "naturalezaPermanencia",
+        "ocupacionDesde",
+        "pagos",
+        "permanenciaHasta",
+        "persona",
+        "reembolsoEUR",
+        "rentasInmobiliariasPropias",
+        "serviciosIncluidosEUR",
+        "territorio",
+        "titulares",
+        "trasladoPorTrabajo",
+        "uso",
+        "violenciaGenero",
+        "viudedad",
+        "vivienda"
+      ],
+      "region": "09"
+    }
+  ],
+  "files": [
+    {
+      "file": "normativa/3284105aac22f908d48c882bdc7fc24e37ae2c7bfdb54b4326a77afd82fc76b0",
+      "format": "utf8",
+      "sha256": "f57ac197d5b5ad774d976f541b6f523cdec91c97396e9b00d558cdf7aa3e7b8b",
+      "size": 280375
+    },
+    {
+      "file": "normativa/627a8b16e6015204dbbf4ac4e3c1302ca750f4dbcaacc00a01a5bd23cc02efd2",
+      "format": "utf8",
+      "sha256": "d7f053423fe5a822f39f03be318af8e5cfa6c2cd768ad3acf609b457be2db7d6",
+      "size": 1425056
+    },
+    {
+      "file": "normativa/bb8446891b9e1d78c56bebcd81ca37099804917a320cd14a2343f00c6e0ea7b5",
+      "format": "utf8",
+      "sha256": "bb8446891b9e1d78c56bebcd81ca37099804917a320cd14a2343f00c6e0ea7b5",
+      "size": 130927
+    },
+    {
+      "file": "normativa/citas.json",
+      "format": "utf8",
+      "sha256": "9d25b10c65d61d3612e1880d48420fde787791dc501ff606f59a9e237f6f40f9",
+      "size": 29683
+    },
+    {
+      "file": "normativa/eaa5eb98b2905536b743205fcf6b19cd6ab7cb9ffe5687aeb5ac80a9efe6c53b",
+      "format": "utf8",
+      "sha256": "ab42e004e0f20483a20bef386ec30700bf5125f98734cc8517d30eb1154ce5d6",
+      "size": 389896
+    },
+    {
+      "file": "normativa/estatal.json",
+      "format": "utf8",
+      "sha256": "c9fcb97871c4856155851d8d6356f1d4768180d6b087e982a130a18c0c370110",
+      "size": 10069
+    },
+    {
+      "file": "open2025-castilla-la-mancha-01/entrada-intacta.json",
+      "format": "utf8",
+      "sha256": "1d70e72f1c1e562c1e7fe812301943d30bba51ed19c5e098735853b66decd40f",
+      "size": 1737
+    },
+    {
+      "file": "open2025-castilla-la-mancha-01/expediente-externo-sintetico.json",
+      "format": "utf8",
+      "sha256": "c91cc2b9d047129f38dd50984df754b3df9f3339b082be3bd8e363e2cd0fb4f8",
+      "size": 6215
+    },
+    {
+      "file": "open2025-castilla-la-mancha-01/parcial-trabajo.pdf",
+      "format": "pdf-base64",
+      "sha256": "5bd95734768eb8642ea7eee530014b1a098843054c8bd2987baca7519176700c",
+      "size": 141071
+    },
+    {
+      "file": "open2025-castilla-la-mancha-01/parcial-trabajo.ses",
+      "decodedSha256": "2701672a42234bf8f911cbf2dc14c1c714ef1069da3636bb308f516ea6473ba7",
+      "format": "ses-latin1",
+      "sha256": "44280630a913950ee3ffd9d7cd451fb9715621434608c5e4c10846b045a005a8",
+      "size": 1905
+    },
+    {
+      "file": "open2025-castilla-la-mancha-01/readbacks.json",
+      "format": "utf8",
+      "sha256": "cb623324c9fc408eb731b48429478c267290100b060000a41f812890d87ba0e1",
+      "size": 2205
+    },
+    {
+      "file": "open2025-castilla-la-mancha-01/resumen-parcial.html",
+      "format": "utf8",
+      "sha256": "35a995d4ff60bbccae7c602552ddd0f5ecd648152b455a4652589fa84814039d",
+      "size": 97297
+    },
+    {
+      "file": "open2025-castilla-la-mancha-01/ses-observado.txt",
+      "format": "utf8",
+      "sha256": "72cc7f306b3ca5490a3eef817b707d939af299a7a5ac55877e134f4ab95acc12",
+      "size": 5431
+    },
+    {
+      "file": "open2025-castilla-la-mancha-01/ses-resultado-observado.json",
+      "format": "utf8",
+      "sha256": "cba0b42f278e72d1be00c2320858bbc77ee660c702f79d63c681673abca7d8f2",
+      "size": 287
+    },
+    {
+      "file": "open2025-catalunya-10/entrada-intacta.json",
+      "format": "utf8",
+      "sha256": "f04bb18330c9c6a7a5bb82171d6db81e5e9bb4fc4e15edfee61186944fd5b013",
+      "size": 1728
+    },
+    {
+      "file": "open2025-catalunya-10/expediente-externo-sintetico.json",
+      "format": "utf8",
+      "sha256": "171504e1d2aef1ca35b821602b4fdd5f997654d51e36e0845e35185b6540ace9",
+      "size": 6206
+    },
+    {
+      "file": "open2025-catalunya-10/parcial-trabajo.pdf",
+      "format": "pdf-base64",
+      "sha256": "d33179898a7fe914197d11fa97dd443e5b22bd333863f9ab59f5f7c149335eee",
+      "size": 141032
+    },
+    {
+      "file": "open2025-catalunya-10/parcial-trabajo.ses",
+      "decodedSha256": "13756363826c0958e41690939c738db51e686359169965754cf5edb06c16d52f",
+      "format": "ses-latin1",
+      "sha256": "129f283d8fe3c78ac8a88a8ec7fd8c60815d32f8f57e55e58e7234ce76fa6545",
+      "size": 1940
+    },
+    {
+      "file": "open2025-catalunya-10/readbacks.json",
+      "format": "utf8",
+      "sha256": "03a084f3437a1bbeaebc542fb50c0dfe057ad595e8d5beaf90ad3777d8cdfcf7",
+      "size": 2186
+    },
+    {
+      "file": "open2025-catalunya-10/resumen-parcial.html",
+      "format": "utf8",
+      "sha256": "e61894ee35f7ece486c979bf75b6a9e5bd4d1ae53fab4e645e8fb613a20b395c",
+      "size": 97297
+    },
+    {
+      "file": "open2025-catalunya-10/ses-observado.txt",
+      "format": "utf8",
+      "sha256": "b1de5202438ff6a3ee3909bb62eb2cd7fd409270b0698f0696a7fcd53f58df64",
+      "size": 5532
+    },
+    {
+      "file": "open2025-catalunya-10/ses-resultado-observado.json",
+      "format": "utf8",
+      "sha256": "9080123dd9ef161a8fe350ed0aa43cb9d94ddd051c3a4cad97ae60d0921d3240",
+      "size": 270
+    },
+    {
+      "file": "normativa/c52b4bbdbef9ff1419959c70c8bd7ed6270e570c74dde8d12accbed77ce9d928",
+      "format": "pdf-base64",
+      "sha256": "c0e91e88f0440e0797d0af79e365b6bf02aca1e4b0383342aa92bce5077fc2c7",
+      "size": 2342858
+    }
+  ],
+  "compressor": {
+    "version": "24.19.0",
+    "derivation": "viadyk3hg56ib6vky4cm3sb2y3n305aw-nodejs-24.19.0",
+    "executableSha256": "5665680b3dd68ebe81308cba2283249c204f8c0ab9ef4d3d4cc322b4d9c24ad4"
+  },
+  "estatal": [
+    "LIRPF-art19",
+    "LIRPF-DT15"
+  ],
+  "missing": [],
+  "citas": [
+    "clm_arrendamiento_menores_36-L7",
+    "clm_arrendamiento_menores_36-V2",
+    "clm_arrendamiento_menores_36-R24",
+    "clm_arrendamiento_menores_36-R25",
+    "clm_arrendamiento_menores_36-R26",
+    "clm_arrendamiento_menores_36-R27",
+    "clm_arrendamiento_menores_36-R28",
+    "clm_arrendamiento_dacion_pago-L2",
+    "clm_arrendamiento_familias_numerosas-L1",
+    "clm_arrendamiento_familias_monoparentales-L1",
+    "clm_arrendamiento_personas_discapacidad-L1",
+    "CA-catalunya-2025-138",
+    "CA-catalunya-2025-139",
+    "CA-catalunya-2025-140",
+    "CA-catalunya-2025-141",
+    "CA-catalunya-2025-142",
+    "CA-catalunya-2025-143",
+    "CA-catalunya-2025-144",
+    "CA-DOGC-L8-2025-alt-disp-31-6",
+    "CA-DOGC-L8-2025-alt-612-3-31-0",
+    "CA-DOGC-L8-2025-alt-612-3-31-1",
+    "CA-DOGC-L8-2025-alt-612-3-31-2",
+    "CA-DOGC-L8-2025-alt-612-3-31-3",
+    "CA-DOGC-L8-2025-alt-612-3-31-4",
+    "CA-DOGC-L8-2025-alt-612-3-31-5",
+    "CA-DOGC-L8-2025-alt-612-3-31-6",
+    "CA-DOGC-L8-2025-alt-612-3-31-7",
+    "CA-DOGC-L8-2025-alt-612-3-31-8",
+    "CA-DOGC-L8-2025-alt-612-3-31-9",
+    "CA-DOGC-L8-2025-alt-612-3-31-10",
+    "CA-DOGC-L8-2025-alt-612-3-31-11",
+    "CA-DOGC-L8-2025-alt-612-3-31-12",
+    "CA-DOGC-L8-2025-alt-612-3-31-13",
+    "CA-DOGC-L8-2025-alt-612-3-31-14",
+    "CA-DOGC-L8-2025-alt-612-3-32-15",
+    "CA-DOGC-L8-2025-alt-612-3-32-16"
+  ],
+  "package": {
+    "file": "docs/procedencia/simuladores/medicion-2025/proyeccion-inquilinos/originales.json",
+    "sha256": "41a157da1b0f0b55f6207eebd2fcf0f79bb3426d4f77647c5269684ac5a7909d",
+    "size": 6087125
+  }
+}

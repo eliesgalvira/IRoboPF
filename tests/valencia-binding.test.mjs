@@ -5,6 +5,7 @@ const isRecord=Schema.is(Schema.Record(Schema.String,Schema.Unknown)),isBoolean=
 import {rawPdfRows} from '../tools/procedencia/simuladores/conjunta-pdf.mjs';
 import {vincularValenciaOpen,stableValencia} from '../tools/procedencia/simuladores/vincular-valencia-open.mjs';
 import {proponerPublicacionValencia} from '../tools/procedencia/simuladores/proponer-valencia.mjs';
+import {preValencia} from './valencia-transaction-fixture.mjs';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {inflateSync} from 'node:zlib';
@@ -119,11 +120,7 @@ test('propuesta CAS rechaza bytes derivados y no escribe ni cambia los otros 79'
   const changed={...originals,[n]:Buffer.concat([originals[n],Buffer.from(' ')])};
   assert.throws(()=>proponerPublicacionValencia(changed,{base}));
  }
- const preBytes={...originals};
- for(const n of Object.keys(tx.pins).slice(0,2)){
-  const doc=JSON.parse(originals[n]);doc.casos[doc.casos.findIndex(c=>c.id===ref.id)]=structuredClone(tx.pre);
-  preBytes[n]=Buffer.from(JSON.stringify(doc,null,2)+'\n');
- }
+ const preBytes=preValencia(tx);
  const snapshot=Object.fromEntries(Object.entries(preBytes).map(([n,b])=>[n,Buffer.from(b)]));
  const proposal=proponerPublicacionValencia(preBytes,{base});
  assert.equal(proposal.estado,'propuesta-validada-sin-escrituras');assert.equal(proposal.countedAsMatch,false);

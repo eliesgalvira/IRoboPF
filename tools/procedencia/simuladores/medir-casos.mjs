@@ -20,6 +20,8 @@ import { vincularInquilinoOpen, inquilinoId } from "./vincular-inquilino-open.mj
 
 import { vincularValenciaOpen, valenciaId } from './vincular-valencia-open.mjs'
 
+import { idsProyeccion, admitirProyeccionMedida } from "./inquilinos-proyeccion.mjs"
+
 const hash = (bytes) => createHash("sha256").update(bytes).digest("hex")
 const objeto = Schema.is(Schema.Record(Schema.String, Schema.Unknown))
 const cadena = Schema.is(Schema.String)
@@ -67,7 +69,7 @@ const iguales = (a, b) => {
 const escalares = ["reduccionArt20", "rendimientoNetoReducido", "baseImponibleGeneral",
   "baseLiquidableGeneral", "deduccionTrabajo", "cuotaPosterior", "cuotaDiferencial",
   "cuotaDiferencialPresentada"]
-const vinculoVerificado = (v) => v?.estado === "transporte-valencia-ses-pdf-vinculado" || v?.estado === "transporte-inquilino-ses-pdf-vinculado"
+const vinculoVerificado = (v) => (v?.estado === "proyeccion-inquilino-ses-pdf-vinculada" && v.proyeccionFiscalVerificada === true && v.viviendaTransportada === false && v.transportComplete === false) || v?.estado === "transporte-valencia-ses-pdf-vinculado" || v?.estado === "transporte-inquilino-ses-pdf-vinculado"
   || v?.estado === "entrada-ses-y-resultado-pdf-vinculados"
   || v?.estado === "transporte-dt18-ses-pdf-vinculado"
   || v?.estado === "transporte-conjunta-ses-pdf-vinculado"
@@ -108,6 +110,12 @@ function medirCaso(caso, base) {
     if (caso.componentesOpenEUR !== undefined && !objeto(caso.componentesOpenEUR))
       throw new Error("componentes-no-son-objeto")
     for (const v of Object.values(caso.componentesOpenEUR ?? {})) if (v !== null) decimal(v)
+    const proyeccion = (idsProyeccion.includes(caso.id) || caso.evidenciaOpen?.proyeccionInquilino)
+      ? admitirProyeccionMedida(caso, base) : null
+    if (proyeccion && proyeccion.estado !== "proyeccion-inquilino-ses-pdf-vinculada") {
+      salida.motivo = "proyeccion-inquilino-no-verificada"
+      return salida
+    }
     let entrada
     try {
       if (caso.entradaAPI?.ejercicio !== 2025) throw new Error("ejercicio")
@@ -155,11 +163,12 @@ function medirCaso(caso, base) {
     salida.resultadoMotorEUR = texto([centimos(motor), 2])
     salida.discrepanciaEUR = texto([diferencia, 2])
     salida.pesoExterno = caso.pesoExterno ?? null
-    salida.vinculacion = (caso.id === valenciaId || caso.evidenciaOpen?.valencia)
+    salida.vinculacion = proyeccion ?? ((caso.id === valenciaId || caso.evidenciaOpen?.valencia)
       ? vincularValenciaOpen(caso, base) : (caso.id === inquilinoId || caso.evidenciaOpen?.inquilino)
       ? vincularInquilinoOpen(caso, base) : caso.evidenciaOpen?.conjunta
       ? vincularConjuntaOpen(caso, base) : caso.evidenciaOpen?.dt18
-        ? vincularDT18Open(caso, base) : vincularOpen(caso, base)
+        ? vincularDT18Open(caso, base) : Object.hasOwn(caso, "preparacionVivienda")
+          ? { estado: "hechos-vivienda-sin-vinculo-especifico" } : vincularOpen(caso, base))
     salida.coincidenciaVerificada = diferencia === 0n && vinculoVerificado(salida.vinculacion)
     return salida
   } catch (error) {
