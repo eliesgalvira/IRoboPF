@@ -5,7 +5,7 @@ import {readFileSync} from 'node:fs';
 import {fileURLToPath} from 'node:url';
 import {gzipSync, gunzipSync, deflateSync} from 'node:zlib';
 import {canonical, hash} from '../tools/procedencia/simuladores/conjunta-estricta.mjs';
-import {necessaryOpen, replayOpenBytes, vincularConjuntaOpen} from '../tools/procedencia/simuladores/vincular-conjunta-open.mjs';
+import {necessaryOpen, replayOpenBytes, vincularConjuntaOpen, originalCompression} from '../tools/procedencia/simuladores/vincular-conjunta-open.mjs';
 
 const bytes = Buffer.from('synthetic');
 const pin = file => ({file, bytes: bytes.length, sha256: hash(bytes)});
@@ -86,7 +86,7 @@ for(const pin of index.cases)test('replay y adversas '+pin.id,()=>{
     const r = JSON.parse(Buffer.from(p.receipt,'base64'));
     edit(p, ref);
     for (const f of r.files) if (Object.hasOwn(p.files,f.file)||f.file==='exportado.ses') {
-      const b = f.file==='exportado.ses'?deflateSync(Buffer.from(p.ses.utf8,'latin1'),{level:6}):Buffer.from(p.files[f.file],'base64'); Object.assign(f,{bytes:b.length,sha256:hash(b)});
+      const b = f.file==='exportado.ses'?originalCompression(Buffer.from(p.ses.utf8,'latin1'),p.ses.compressedSha256):Buffer.from(p.files[f.file],'base64'); Object.assign(f,{bytes:b.length,sha256:hash(b)});
     }
     p.receipt = Buffer.from(JSON.stringify(r)).toString('base64');
     ref.source.receiptSha256 = hash(Buffer.from(p.receipt,'base64'));

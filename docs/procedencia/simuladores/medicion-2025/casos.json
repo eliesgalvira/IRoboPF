@@ -7305,7 +7305,7 @@
           "tests/balears-alquiler-dt18.fixtures.ts"
         ]
       },
-      "estado": "entrada-documentada-pendiente-captura",
+      "estado": "transporte-inquilino-ses-pdf-vinculado",
       "entradaAPI": {
         "ejercicio": 2025,
         "comunidadAutonoma": "murcia",
@@ -7584,12 +7584,9 @@
           ]
         }
       },
-      "resultadoOpenEUR": null,
-      "componentesOpenEUR": null,
-      "pendientes": [
-        "captura Open2025 y vinculación de los mismos hechos con SES/PDF pendientes",
-        "admisión por esquema y API pendiente de ejecución autorizada; no ejecutada en esta preparación"
-      ],
+      "resultadoOpenEUR": "264.55",
+      "componentesOpenEUR": {},
+      "pendientes": [],
       "entradaTrabajoIndividualReferencia": {
         "ejercicio": 2025,
         "comunidadAutonoma": "murcia",
@@ -7886,6 +7883,21 @@
           "trasladoPorTrabajo": false
         },
         "evaluacionRegional": "Habitualidad arrendataria ligada al contrato; sin adquisición del contribuyente. Oráculo documental 300/1 antes de cuota, pendiente de ejecución y Open."
+      },
+      "evidenciaOpen": {
+        "inquilino": {
+          "schema": "inquilino-open-public-v1",
+          "archivo": "inquilinos-oficiales/inquilino-murcia-02.json.gz",
+          "sha256": "62e09d470add50692bc10bdbe44453c64c28895bb8821c96e1828c4077130fef"
+        }
+      },
+      "integridadReferencias": {
+        "referencias": [
+          {
+            "archivo": "inquilinos-oficiales/inquilino-murcia-02.json.gz",
+            "sha256": "62e09d470add50692bc10bdbe44453c64c28895bb8821c96e1828c4077130fef"
+          }
+        ]
       }
     },
     {
@@ -12359,7 +12371,7 @@
           "tests/balears-alquiler-dt18.fixtures.ts"
         ]
       },
-      "estado": "entrada-documentada-pendiente-captura",
+      "estado": "transporte-valencia-ses-pdf-vinculado",
       "entradaAPI": {
         "ejercicio": 2025,
         "comunidadAutonoma": "comunitat-valenciana",
@@ -12714,12 +12726,9 @@
           "criterioOrden": "eleccion_experta"
         }
       },
-      "resultadoOpenEUR": null,
-      "componentesOpenEUR": null,
-      "pendientes": [
-        "captura Open2025 y vinculación de los mismos hechos con SES/PDF pendientes",
-        "admisión por esquema y API pendiente de ejecución autorizada; no ejecutada en esta preparación"
-      ],
+      "resultadoOpenEUR": "-198.95",
+      "componentesOpenEUR": {},
+      "pendientes": [],
       "entradaTrabajoIndividualReferencia": {
         "ejercicio": 2025,
         "comunidadAutonoma": "comunitat-valenciana",
@@ -13016,6 +13025,21 @@
           "trasladoPorTrabajo": false
         },
         "evaluacionRegional": "Contrato, ocupación, derechos y pagos alimentan la fórmula general existente. Oráculo documental 800/1 antes de cuota, pendiente de ejecución y Open."
+      },
+      "evidenciaOpen": {
+        "valencia": {
+          "schema": "valencia-open-public-v1",
+          "archivo": "inquilinos-oficiales/inquilino-valencia-05.json",
+          "sha256": "933cfe3983aef6e885093a89d61ac47cf0ba5b00fde80a8c9b4faf8cb5e40bdb"
+        }
+      },
+      "integridadReferencias": {
+        "referencias": [
+          {
+            "archivo": "inquilinos-oficiales/inquilino-valencia-05.json",
+            "sha256": "5f1d157eaa2c12a185f0f43e240795d1b029d71b22c26ddc16918fe52e88b278"
+          }
+        ]
       }
     },
     {

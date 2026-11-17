@@ -1,0 +1,3665 @@
+{
+  "schema": "valencia-public-reference-v1",
+  "id": "open2025-comunitat-valenciana-05",
+  "casePre": {
+    "id": "open2025-comunitat-valenciana-05",
+    "ejercicio": 2025,
+    "grupo": "alquiler",
+    "incluidoEnN": true,
+    "territorio": "comunitat-valenciana",
+    "pesoExterno": "310301.888888888889",
+    "pesoTerritorialProxy": {
+      "N": 2792717,
+      "n": 9,
+      "fraccion": "2792717/9",
+      "uso": "proxy territorial; no estimacion de afectados ni incidencia conjunta por perfil"
+    },
+    "procedenciaEntrada": {
+      "plantilla": "docs/procedencia/implementaciones/redondeo-salarial-open/oficial.json#componentes",
+      "metodo": "adaptacion sintetica de estructura C300; importes y territorio de diseño, no captura reutilizada",
+      "vivienda": [
+        "lib/dominio/irpf/inmobiliario-2025/contrato.ts",
+        "tests/inmobiliario-p4a.fixtures.ts",
+        "tests/balears-alquiler-dt18.fixtures.ts"
+      ]
+    },
+    "estado": "entrada-documentada-pendiente-captura",
+    "entradaAPI": {
+      "ejercicio": 2025,
+      "comunidadAutonoma": "comunitat-valenciana",
+      "edad": 40,
+      "modalidad": "individual",
+      "residenciaTodoElAnio": true,
+      "devengo": "2025-12-31",
+      "otrasRentas": "ninguna",
+      "familiaresConDerechoMinimo": "ninguno",
+      "discapacidad": "ninguna",
+      "reduccionesBase": "ninguna",
+      "saldosAnteriores": "ninguno",
+      "deducciones": "valencianas-por-hechos-y-da61",
+      "rentasExtranjeras": "ninguna",
+      "especialidades": "ninguna",
+      "perfil": "solo-trabajo",
+      "conciliacion": {
+        "ejercicio": 2025,
+        "estado": "totales-anuales-sin-duplicados",
+        "procedencia": [
+          "sintetico:datos-fiscales-2025",
+          "sintetico:certificados-pagadores"
+        ]
+      },
+      "trabajo": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna",
+        "rendimientos": [
+          {
+            "id": "a",
+            "clase": "empleo-laboral",
+            "integro": "30000.00",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1950.00",
+              "derechosPasivos": "0",
+              "colegiosHuerfanos": "0"
+            },
+            "sindicato": {
+              "importe": "0",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ]
+      },
+      "retenciones": [
+        {
+          "operacionId": "ret-0",
+          "procedencia": "sintetico:certificado-0",
+          "ejercicio": 2025,
+          "importe": "4200.00",
+          "efectiva": true
+        }
+      ],
+      "contribuyenteId": "s-1",
+      "deduccionesValencianas2025": {
+        "ejercicio": 2025,
+        "territorio": "comunitat-valenciana",
+        "modalidad": "individual",
+        "devengo": "2025-12-31",
+        "contribuyente": "s-1",
+        "cantidades": [
+          {
+            "id": "ALQ1",
+            "euros": 600
+          },
+          {
+            "id": "ALQ2",
+            "euros": 600
+          },
+          {
+            "id": "ALQ3",
+            "euros": 600
+          },
+          {
+            "id": "ALQ4",
+            "euros": 600
+          },
+          {
+            "id": "ALQ5",
+            "euros": 600
+          },
+          {
+            "id": "ALQ6",
+            "euros": 600
+          },
+          {
+            "id": "ALQ7",
+            "euros": 600
+          },
+          {
+            "id": "ALQ8",
+            "euros": 600
+          },
+          {
+            "id": "ALQ9",
+            "euros": 600
+          },
+          {
+            "id": "ALQ10",
+            "euros": 600
+          },
+          {
+            "id": "ALQ11",
+            "euros": 600
+          },
+          {
+            "id": "ALQ12",
+            "euros": 600
+          }
+        ],
+        "solicitudes": [
+          {
+            "codigo": "valenciana_arrendamiento_cesion_uso_vivienda",
+            "eleccion": "aplicar",
+            "unidades": [
+              {
+                "id": "U",
+                "titulares": [
+                  "s-1"
+                ],
+                "fecha": "2025-12-31",
+                "numeros": {},
+                "textos": {
+                  "contrato": "alquiler"
+                },
+                "arrendamientoFactual2025": {
+                  "contratoId": "C",
+                  "viviendaId": "V",
+                  "arrendadorId": "arrendador-ficticio",
+                  "titularId": "s-1",
+                  "firma": "2024-12-01",
+                  "desde": "2024-12-01",
+                  "hasta": "2028-12-01",
+                  "ocupacionDesde": "2024-12-01",
+                  "ocupacionHasta": "2025-12-31",
+                  "nacimiento": "1985-01-01",
+                  "discapacidadPorcentaje": 0,
+                  "derechosOtrasViviendas": [],
+                  "derechoInversionVivienda": false,
+                  "pagos": [
+                    {
+                      "id": "ALQ1",
+                      "contratoId": "C",
+                      "viviendaId": "V",
+                      "pagadorId": "s-1",
+                      "fecha": "2025-01-05",
+                      "euros": 600,
+                      "servicios": 0,
+                      "ayudas": 0,
+                      "reembolsos": 0,
+                      "medio": "transferencia",
+                      "soporte": "sintetico:banco-1"
+                    },
+                    {
+                      "id": "ALQ2",
+                      "contratoId": "C",
+                      "viviendaId": "V",
+                      "pagadorId": "s-1",
+                      "fecha": "2025-02-05",
+                      "euros": 600,
+                      "servicios": 0,
+                      "ayudas": 0,
+                      "reembolsos": 0,
+                      "medio": "transferencia",
+                      "soporte": "sintetico:banco-2"
+                    },
+                    {
+                      "id": "ALQ3",
+                      "contratoId": "C",
+                      "viviendaId": "V",
+                      "pagadorId": "s-1",
+                      "fecha": "2025-03-05",
+                      "euros": 600,
+                      "servicios": 0,
+                      "ayudas": 0,
+                      "reembolsos": 0,
+                      "medio": "transferencia",
+                      "soporte": "sintetico:banco-3"
+                    },
+                    {
+                      "id": "ALQ4",
+                      "contratoId": "C",
+                      "viviendaId": "V",
+                      "pagadorId": "s-1",
+                      "fecha": "2025-04-05",
+                      "euros": 600,
+                      "servicios": 0,
+                      "ayudas": 0,
+                      "reembolsos": 0,
+                      "medio": "transferencia",
+                      "soporte": "sintetico:banco-4"
+                    },
+                    {
+                      "id": "ALQ5",
+                      "contratoId": "C",
+                      "viviendaId": "V",
+                      "pagadorId": "s-1",
+                      "fecha": "2025-05-05",
+                      "euros": 600,
+                      "servicios": 0,
+                      "ayudas": 0,
+                      "reembolsos": 0,
+                      "medio": "transferencia",
+                      "soporte": "sintetico:banco-5"
+                    },
+                    {
+                      "id": "ALQ6",
+                      "contratoId": "C",
+                      "viviendaId": "V",
+                      "pagadorId": "s-1",
+                      "fecha": "2025-06-05",
+                      "euros": 600,
+                      "servicios": 0,
+                      "ayudas": 0,
+                      "reembolsos": 0,
+                      "medio": "transferencia",
+                      "soporte": "sintetico:banco-6"
+                    },
+                    {
+                      "id": "ALQ7",
+                      "contratoId": "C",
+                      "viviendaId": "V",
+                      "pagadorId": "s-1",
+                      "fecha": "2025-07-05",
+                      "euros": 600,
+                      "servicios": 0,
+                      "ayudas": 0,
+                      "reembolsos": 0,
+                      "medio": "transferencia",
+                      "soporte": "sintetico:banco-7"
+                    },
+                    {
+                      "id": "ALQ8",
+                      "contratoId": "C",
+                      "viviendaId": "V",
+                      "pagadorId": "s-1",
+                      "fecha": "2025-08-05",
+                      "euros": 600,
+                      "servicios": 0,
+                      "ayudas": 0,
+                      "reembolsos": 0,
+                      "medio": "transferencia",
+                      "soporte": "sintetico:banco-8"
+                    },
+                    {
+                      "id": "ALQ9",
+                      "contratoId": "C",
+                      "viviendaId": "V",
+                      "pagadorId": "s-1",
+                      "fecha": "2025-09-05",
+                      "euros": 600,
+                      "servicios": 0,
+                      "ayudas": 0,
+                      "reembolsos": 0,
+                      "medio": "transferencia",
+                      "soporte": "sintetico:banco-9"
+                    },
+                    {
+                      "id": "ALQ10",
+                      "contratoId": "C",
+                      "viviendaId": "V",
+                      "pagadorId": "s-1",
+                      "fecha": "2025-10-05",
+                      "euros": 600,
+                      "servicios": 0,
+                      "ayudas": 0,
+                      "reembolsos": 0,
+                      "medio": "transferencia",
+                      "soporte": "sintetico:banco-10"
+                    },
+                    {
+                      "id": "ALQ11",
+                      "contratoId": "C",
+                      "viviendaId": "V",
+                      "pagadorId": "s-1",
+                      "fecha": "2025-11-05",
+                      "euros": 600,
+                      "servicios": 0,
+                      "ayudas": 0,
+                      "reembolsos": 0,
+                      "medio": "transferencia",
+                      "soporte": "sintetico:banco-11"
+                    },
+                    {
+                      "id": "ALQ12",
+                      "contratoId": "C",
+                      "viviendaId": "V",
+                      "pagadorId": "s-1",
+                      "fecha": "2025-12-05",
+                      "euros": 600,
+                      "servicios": 0,
+                      "ayudas": 0,
+                      "reembolsos": 0,
+                      "medio": "transferencia",
+                      "soporte": "sintetico:banco-12"
+                    }
+                  ]
+                }
+              }
+            ],
+            "referencias": [
+              {
+                "unidad": "U",
+                "sujetos": [
+                  "s-1"
+                ],
+                "bienes": [
+                  "V"
+                ],
+                "eventos": [
+                  "C"
+                ],
+                "cantidades": [
+                  "ALQ1",
+                  "ALQ2",
+                  "ALQ3",
+                  "ALQ4",
+                  "ALQ5",
+                  "ALQ6",
+                  "ALQ7",
+                  "ALQ8",
+                  "ALQ9",
+                  "ALQ10",
+                  "ALQ11",
+                  "ALQ12"
+                ]
+              }
+            ]
+          }
+        ],
+        "ordenBase30": [],
+        "consignaciones": [],
+        "arrastres": [],
+        "ordenConsumo": [
+          "[\"valenciana_arrendamiento_cesion_uso_vivienda\",2025,\"s-1\"]"
+        ],
+        "criterioOrden": "eleccion_experta"
+      }
+    },
+    "resultadoOpenEUR": null,
+    "componentesOpenEUR": null,
+    "pendientes": [
+      "captura Open2025 y vinculación de los mismos hechos con SES/PDF pendientes",
+      "admisión por esquema y API pendiente de ejecución autorizada; no ejecutada en esta preparación"
+    ],
+    "entradaTrabajoIndividualReferencia": {
+      "ejercicio": 2025,
+      "comunidadAutonoma": "comunitat-valenciana",
+      "edad": 40,
+      "modalidad": "individual",
+      "residenciaTodoElAnio": true,
+      "devengo": "2025-12-31",
+      "otrasRentas": "ninguna",
+      "familiaresConDerechoMinimo": "ninguno",
+      "discapacidad": "ninguna",
+      "reduccionesBase": "ninguna",
+      "saldosAnteriores": "ninguno",
+      "deducciones": "solo-da61-si-procede",
+      "rentasExtranjeras": "ninguna",
+      "especialidades": "ninguna",
+      "perfil": "solo-trabajo",
+      "conciliacion": {
+        "ejercicio": 2025,
+        "estado": "totales-anuales-sin-duplicados",
+        "procedencia": [
+          "sintetico:datos-fiscales-2025",
+          "sintetico:certificados-pagadores"
+        ]
+      },
+      "trabajo": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna",
+        "rendimientos": [
+          {
+            "id": "a",
+            "clase": "empleo-laboral",
+            "integro": "30000.00",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1950.00",
+              "derechosPasivos": "0",
+              "colegiosHuerfanos": "0"
+            },
+            "sindicato": {
+              "importe": "0",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ]
+      },
+      "retenciones": [
+        {
+          "operacionId": "ret-0",
+          "procedencia": "sintetico:certificado-0",
+          "ejercicio": 2025,
+          "importe": "4200.00",
+          "efectiva": true
+        }
+      ]
+    },
+    "hechosObjetivo": {
+      "tipo": "asalariado-arrendatario",
+      "familia": "ninguna",
+      "contratoDesde": "2024-12-01",
+      "uso2025": "vivienda-permanente-todo-el-anio",
+      "importeAnualSinteticoObjetivoEUR": "7200.00",
+      "otrasActividades": "ninguna",
+      "alcance": "hechos objetivo; expediente de vivienda pendiente"
+    },
+    "preparacionVivienda": {
+      "naturaleza": "hechos íntegramente inventados; documentos sintéticos no emitidos",
+      "estado": "implementacion-propuesta-sin-ejecucion",
+      "obstaculos": [
+        "Admisión fiscal y pruebas de regresión pendientes; transporte de inquilino y SES/PDF no acreditados."
+      ],
+      "camposOpen": [
+        "situación vivienda habitual: arrendamiento, sin titularidad ni rentas inmobiliarias propias",
+        "contrato desde2024-12-01; único inquilino; arrendador e identificador de prueba pendiente de formato Open; doce pagos600 EUR =7200 EUR",
+        "residencia y territorio; renta habitual sin servicios, ayudas ni reembolsos",
+        "deducción autonómica sólo según expediente; no convertir pagos en gasto de trabajo"
+      ],
+      "fuentes": [
+        "lib/dominio/irpf/trabajo-anual/conexion-contrato.ts",
+        "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/anual-esquemas.ts",
+        "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/esquemas.ts",
+        "tests/deducciones-f-ampliacion-2025.test.ts",
+        "lib/dominio/irpf/deducciones/valenciana-2025/anual.ts",
+        "lib/dominio/irpf/deducciones/valenciana-2025/comun.ts",
+        "tests/deducciones-valencianas-evaluacion.test.ts"
+      ],
+      "hechosHabitacion": {
+        "persona": "s-1",
+        "nacimiento": "1985-01-01",
+        "estadoCivil": "sin_vinculo",
+        "inquilino": true,
+        "rentasInmobiliariasPropias": "ninguna",
+        "vivienda": "V",
+        "territorio": "comunitat-valenciana",
+        "contrato": "sintetico:contrato",
+        "firma": "2024-12-01",
+        "desde": "2024-12-01",
+        "hasta": "2028-12-01",
+        "ocupacionDesde": "2024-12-01",
+        "permanenciaHasta": "2028-12-01",
+        "naturalezaPermanencia": "compromiso de diseño; no observación futura",
+        "arrendador": "arrendador-ficticio",
+        "titulares": [
+          "s-1"
+        ],
+        "uso": "habitual-todo-2025",
+        "pagos": [
+          {
+            "id": "ALQ1",
+            "fecha": "2025-01-05",
+            "importeEUR": "600.00",
+            "ayudasEUR": "0",
+            "concepto": "alquiler",
+            "objetoId": "V",
+            "pagador": "s-1",
+            "beneficiarioId": "s-1",
+            "medio": "transferencia",
+            "factura": "sintetico:recibo-1",
+            "soportePago": "sintetico:banco-1"
+          },
+          {
+            "id": "ALQ2",
+            "fecha": "2025-02-05",
+            "importeEUR": "600.00",
+            "ayudasEUR": "0",
+            "concepto": "alquiler",
+            "objetoId": "V",
+            "pagador": "s-1",
+            "beneficiarioId": "s-1",
+            "medio": "transferencia",
+            "factura": "sintetico:recibo-2",
+            "soportePago": "sintetico:banco-2"
+          },
+          {
+            "id": "ALQ3",
+            "fecha": "2025-03-05",
+            "importeEUR": "600.00",
+            "ayudasEUR": "0",
+            "concepto": "alquiler",
+            "objetoId": "V",
+            "pagador": "s-1",
+            "beneficiarioId": "s-1",
+            "medio": "transferencia",
+            "factura": "sintetico:recibo-3",
+            "soportePago": "sintetico:banco-3"
+          },
+          {
+            "id": "ALQ4",
+            "fecha": "2025-04-05",
+            "importeEUR": "600.00",
+            "ayudasEUR": "0",
+            "concepto": "alquiler",
+            "objetoId": "V",
+            "pagador": "s-1",
+            "beneficiarioId": "s-1",
+            "medio": "transferencia",
+            "factura": "sintetico:recibo-4",
+            "soportePago": "sintetico:banco-4"
+          },
+          {
+            "id": "ALQ5",
+            "fecha": "2025-05-05",
+            "importeEUR": "600.00",
+            "ayudasEUR": "0",
+            "concepto": "alquiler",
+            "objetoId": "V",
+            "pagador": "s-1",
+            "beneficiarioId": "s-1",
+            "medio": "transferencia",
+            "factura": "sintetico:recibo-5",
+            "soportePago": "sintetico:banco-5"
+          },
+          {
+            "id": "ALQ6",
+            "fecha": "2025-06-05",
+            "importeEUR": "600.00",
+            "ayudasEUR": "0",
+            "concepto": "alquiler",
+            "objetoId": "V",
+            "pagador": "s-1",
+            "beneficiarioId": "s-1",
+            "medio": "transferencia",
+            "factura": "sintetico:recibo-6",
+            "soportePago": "sintetico:banco-6"
+          },
+          {
+            "id": "ALQ7",
+            "fecha": "2025-07-05",
+            "importeEUR": "600.00",
+            "ayudasEUR": "0",
+            "concepto": "alquiler",
+            "objetoId": "V",
+            "pagador": "s-1",
+            "beneficiarioId": "s-1",
+            "medio": "transferencia",
+            "factura": "sintetico:recibo-7",
+            "soportePago": "sintetico:banco-7"
+          },
+          {
+            "id": "ALQ8",
+            "fecha": "2025-08-05",
+            "importeEUR": "600.00",
+            "ayudasEUR": "0",
+            "concepto": "alquiler",
+            "objetoId": "V",
+            "pagador": "s-1",
+            "beneficiarioId": "s-1",
+            "medio": "transferencia",
+            "factura": "sintetico:recibo-8",
+            "soportePago": "sintetico:banco-8"
+          },
+          {
+            "id": "ALQ9",
+            "fecha": "2025-09-05",
+            "importeEUR": "600.00",
+            "ayudasEUR": "0",
+            "concepto": "alquiler",
+            "objetoId": "V",
+            "pagador": "s-1",
+            "beneficiarioId": "s-1",
+            "medio": "transferencia",
+            "factura": "sintetico:recibo-9",
+            "soportePago": "sintetico:banco-9"
+          },
+          {
+            "id": "ALQ10",
+            "fecha": "2025-10-05",
+            "importeEUR": "600.00",
+            "ayudasEUR": "0",
+            "concepto": "alquiler",
+            "objetoId": "V",
+            "pagador": "s-1",
+            "beneficiarioId": "s-1",
+            "medio": "transferencia",
+            "factura": "sintetico:recibo-10",
+            "soportePago": "sintetico:banco-10"
+          },
+          {
+            "id": "ALQ11",
+            "fecha": "2025-11-05",
+            "importeEUR": "600.00",
+            "ayudasEUR": "0",
+            "concepto": "alquiler",
+            "objetoId": "V",
+            "pagador": "s-1",
+            "beneficiarioId": "s-1",
+            "medio": "transferencia",
+            "factura": "sintetico:recibo-11",
+            "soportePago": "sintetico:banco-11"
+          },
+          {
+            "id": "ALQ12",
+            "fecha": "2025-12-05",
+            "importeEUR": "600.00",
+            "ayudasEUR": "0",
+            "concepto": "alquiler",
+            "objetoId": "V",
+            "pagador": "s-1",
+            "beneficiarioId": "s-1",
+            "medio": "transferencia",
+            "factura": "sintetico:recibo-12",
+            "soportePago": "sintetico:banco-12"
+          }
+        ],
+        "anualEUR": "7200.00",
+        "serviciosIncluidosEUR": "0",
+        "reembolsoEUR": "0",
+        "ayudasEUR": "0",
+        "derechosOtrasViviendas": [],
+        "derechoInversionVivienda": false,
+        "fianza": "sintetico:deposito-2024",
+        "itpPresentado": "2024-12-02",
+        "itpVence": "2024-12-31",
+        "familiaNumerosa": false,
+        "monoparental": false,
+        "discapacidadPorcentaje": 0,
+        "desempleoDias2025": 0,
+        "viudedad": false,
+        "violenciaGenero": false,
+        "dacionEnPago": false,
+        "trasladoPorTrabajo": false
+      },
+      "evaluacionRegional": "Contrato, ocupación, derechos y pagos alimentan la fórmula general existente. Oráculo documental 800/1 antes de cuota, pendiente de ejecución y Open."
+    }
+  },
+  "stable": {
+    "id": "open2025-comunitat-valenciana-05",
+    "ejercicio": 2025,
+    "grupo": "alquiler",
+    "incluidoEnN": true,
+    "territorio": "comunitat-valenciana",
+    "pesoExterno": "310301.888888888889",
+    "pesoTerritorialProxy": {
+      "N": 2792717,
+      "n": 9,
+      "fraccion": "2792717/9",
+      "uso": "proxy territorial; no estimacion de afectados ni incidencia conjunta por perfil"
+    },
+    "procedenciaEntrada": {
+      "plantilla": "docs/procedencia/implementaciones/redondeo-salarial-open/oficial.json#componentes",
+      "metodo": "adaptacion sintetica de estructura C300; importes y territorio de diseño, no captura reutilizada",
+      "vivienda": [
+        "lib/dominio/irpf/inmobiliario-2025/contrato.ts",
+        "tests/inmobiliario-p4a.fixtures.ts",
+        "tests/balears-alquiler-dt18.fixtures.ts"
+      ]
+    },
+    "entradaAPI": {
+      "ejercicio": 2025,
+      "comunidadAutonoma": "comunitat-valenciana",
+      "edad": 40,
+      "modalidad": "individual",
+      "residenciaTodoElAnio": true,
+      "devengo": "2025-12-31",
+      "otrasRentas": "ninguna",
+      "familiaresConDerechoMinimo": "ninguno",
+      "discapacidad": "ninguna",
+      "reduccionesBase": "ninguna",
+      "saldosAnteriores": "ninguno",
+      "deducciones": "valencianas-por-hechos-y-da61",
+      "rentasExtranjeras": "ninguna",
+      "especialidades": "ninguna",
+      "perfil": "solo-trabajo",
+      "conciliacion": {
+        "ejercicio": 2025,
+        "estado": "totales-anuales-sin-duplicados",
+        "procedencia": [
+          "sintetico:datos-fiscales-2025",
+          "sintetico:certificados-pagadores"
+        ]
+      },
+      "trabajo": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna",
+        "rendimientos": [
+          {
+            "id": "a",
+            "clase": "empleo-laboral",
+            "integro": "30000.00",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1950.00",
+              "derechosPasivos": "0",
+              "colegiosHuerfanos": "0"
+            },
+            "sindicato": {
+              "importe": "0",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ]
+      },
+      "retenciones": [
+        {
+          "operacionId": "ret-0",
+          "procedencia": "sintetico:certificado-0",
+          "ejercicio": 2025,
+          "importe": "4200.00",
+          "efectiva": true
+        }
+      ],
+      "contribuyenteId": "s-1",
+      "deduccionesValencianas2025": {
+        "ejercicio": 2025,
+        "territorio": "comunitat-valenciana",
+        "modalidad": "individual",
+        "devengo": "2025-12-31",
+        "contribuyente": "s-1",
+        "cantidades": [
+          {
+            "id": "ALQ1",
+            "euros": 600
+          },
+          {
+            "id": "ALQ2",
+            "euros": 600
+          },
+          {
+            "id": "ALQ3",
+            "euros": 600
+          },
+          {
+            "id": "ALQ4",
+            "euros": 600
+          },
+          {
+            "id": "ALQ5",
+            "euros": 600
+          },
+          {
+            "id": "ALQ6",
+            "euros": 600
+          },
+          {
+            "id": "ALQ7",
+            "euros": 600
+          },
+          {
+            "id": "ALQ8",
+            "euros": 600
+          },
+          {
+            "id": "ALQ9",
+            "euros": 600
+          },
+          {
+            "id": "ALQ10",
+            "euros": 600
+          },
+          {
+            "id": "ALQ11",
+            "euros": 600
+          },
+          {
+            "id": "ALQ12",
+            "euros": 600
+          }
+        ],
+        "solicitudes": [
+          {
+            "codigo": "valenciana_arrendamiento_cesion_uso_vivienda",
+            "eleccion": "aplicar",
+            "unidades": [
+              {
+                "id": "U",
+                "titulares": [
+                  "s-1"
+                ],
+                "fecha": "2025-12-31",
+                "numeros": {},
+                "textos": {
+                  "contrato": "alquiler"
+                },
+                "arrendamientoFactual2025": {
+                  "contratoId": "C",
+                  "viviendaId": "V",
+                  "arrendadorId": "arrendador-ficticio",
+                  "titularId": "s-1",
+                  "firma": "2024-12-01",
+                  "desde": "2024-12-01",
+                  "hasta": "2028-12-01",
+                  "ocupacionDesde": "2024-12-01",
+                  "ocupacionHasta": "2025-12-31",
+                  "nacimiento": "1985-01-01",
+                  "discapacidadPorcentaje": 0,
+                  "derechosOtrasViviendas": [],
+                  "derechoInversionVivienda": false,
+                  "pagos": [
+                    {
+                      "id": "ALQ1",
+                      "contratoId": "C",
+                      "viviendaId": "V",
+                      "pagadorId": "s-1",
+                      "fecha": "2025-01-05",
+                      "euros": 600,
+                      "servicios": 0,
+                      "ayudas": 0,
+                      "reembolsos": 0,
+                      "medio": "transferencia",
+                      "soporte": "sintetico:banco-1"
+                    },
+                    {
+                      "id": "ALQ2",
+                      "contratoId": "C",
+                      "viviendaId": "V",
+                      "pagadorId": "s-1",
+                      "fecha": "2025-02-05",
+                      "euros": 600,
+                      "servicios": 0,
+                      "ayudas": 0,
+                      "reembolsos": 0,
+                      "medio": "transferencia",
+                      "soporte": "sintetico:banco-2"
+                    },
+                    {
+                      "id": "ALQ3",
+                      "contratoId": "C",
+                      "viviendaId": "V",
+                      "pagadorId": "s-1",
+                      "fecha": "2025-03-05",
+                      "euros": 600,
+                      "servicios": 0,
+                      "ayudas": 0,
+                      "reembolsos": 0,
+                      "medio": "transferencia",
+                      "soporte": "sintetico:banco-3"
+                    },
+                    {
+                      "id": "ALQ4",
+                      "contratoId": "C",
+                      "viviendaId": "V",
+                      "pagadorId": "s-1",
+                      "fecha": "2025-04-05",
+                      "euros": 600,
+                      "servicios": 0,
+                      "ayudas": 0,
+                      "reembolsos": 0,
+                      "medio": "transferencia",
+                      "soporte": "sintetico:banco-4"
+                    },
+                    {
+                      "id": "ALQ5",
+                      "contratoId": "C",
+                      "viviendaId": "V",
+                      "pagadorId": "s-1",
+                      "fecha": "2025-05-05",
+                      "euros": 600,
+                      "servicios": 0,
+                      "ayudas": 0,
+                      "reembolsos": 0,
+                      "medio": "transferencia",
+                      "soporte": "sintetico:banco-5"
+                    },
+                    {
+                      "id": "ALQ6",
+                      "contratoId": "C",
+                      "viviendaId": "V",
+                      "pagadorId": "s-1",
+                      "fecha": "2025-06-05",
+                      "euros": 600,
+                      "servicios": 0,
+                      "ayudas": 0,
+                      "reembolsos": 0,
+                      "medio": "transferencia",
+                      "soporte": "sintetico:banco-6"
+                    },
+                    {
+                      "id": "ALQ7",
+                      "contratoId": "C",
+                      "viviendaId": "V",
+                      "pagadorId": "s-1",
+                      "fecha": "2025-07-05",
+                      "euros": 600,
+                      "servicios": 0,
+                      "ayudas": 0,
+                      "reembolsos": 0,
+                      "medio": "transferencia",
+                      "soporte": "sintetico:banco-7"
+                    },
+                    {
+                      "id": "ALQ8",
+                      "contratoId": "C",
+                      "viviendaId": "V",
+                      "pagadorId": "s-1",
+                      "fecha": "2025-08-05",
+                      "euros": 600,
+                      "servicios": 0,
+                      "ayudas": 0,
+                      "reembolsos": 0,
+                      "medio": "transferencia",
+                      "soporte": "sintetico:banco-8"
+                    },
+                    {
+                      "id": "ALQ9",
+                      "contratoId": "C",
+                      "viviendaId": "V",
+                      "pagadorId": "s-1",
+                      "fecha": "2025-09-05",
+                      "euros": 600,
+                      "servicios": 0,
+                      "ayudas": 0,
+                      "reembolsos": 0,
+                      "medio": "transferencia",
+                      "soporte": "sintetico:banco-9"
+                    },
+                    {
+                      "id": "ALQ10",
+                      "contratoId": "C",
+                      "viviendaId": "V",
+                      "pagadorId": "s-1",
+                      "fecha": "2025-10-05",
+                      "euros": 600,
+                      "servicios": 0,
+                      "ayudas": 0,
+                      "reembolsos": 0,
+                      "medio": "transferencia",
+                      "soporte": "sintetico:banco-10"
+                    },
+                    {
+                      "id": "ALQ11",
+                      "contratoId": "C",
+                      "viviendaId": "V",
+                      "pagadorId": "s-1",
+                      "fecha": "2025-11-05",
+                      "euros": 600,
+                      "servicios": 0,
+                      "ayudas": 0,
+                      "reembolsos": 0,
+                      "medio": "transferencia",
+                      "soporte": "sintetico:banco-11"
+                    },
+                    {
+                      "id": "ALQ12",
+                      "contratoId": "C",
+                      "viviendaId": "V",
+                      "pagadorId": "s-1",
+                      "fecha": "2025-12-05",
+                      "euros": 600,
+                      "servicios": 0,
+                      "ayudas": 0,
+                      "reembolsos": 0,
+                      "medio": "transferencia",
+                      "soporte": "sintetico:banco-12"
+                    }
+                  ]
+                }
+              }
+            ],
+            "referencias": [
+              {
+                "unidad": "U",
+                "sujetos": [
+                  "s-1"
+                ],
+                "bienes": [
+                  "V"
+                ],
+                "eventos": [
+                  "C"
+                ],
+                "cantidades": [
+                  "ALQ1",
+                  "ALQ2",
+                  "ALQ3",
+                  "ALQ4",
+                  "ALQ5",
+                  "ALQ6",
+                  "ALQ7",
+                  "ALQ8",
+                  "ALQ9",
+                  "ALQ10",
+                  "ALQ11",
+                  "ALQ12"
+                ]
+              }
+            ]
+          }
+        ],
+        "ordenBase30": [],
+        "consignaciones": [],
+        "arrastres": [],
+        "ordenConsumo": [
+          "[\"valenciana_arrendamiento_cesion_uso_vivienda\",2025,\"s-1\"]"
+        ],
+        "criterioOrden": "eleccion_experta"
+      }
+    },
+    "entradaTrabajoIndividualReferencia": {
+      "ejercicio": 2025,
+      "comunidadAutonoma": "comunitat-valenciana",
+      "edad": 40,
+      "modalidad": "individual",
+      "residenciaTodoElAnio": true,
+      "devengo": "2025-12-31",
+      "otrasRentas": "ninguna",
+      "familiaresConDerechoMinimo": "ninguno",
+      "discapacidad": "ninguna",
+      "reduccionesBase": "ninguna",
+      "saldosAnteriores": "ninguno",
+      "deducciones": "solo-da61-si-procede",
+      "rentasExtranjeras": "ninguna",
+      "especialidades": "ninguna",
+      "perfil": "solo-trabajo",
+      "conciliacion": {
+        "ejercicio": 2025,
+        "estado": "totales-anuales-sin-duplicados",
+        "procedencia": [
+          "sintetico:datos-fiscales-2025",
+          "sintetico:certificados-pagadores"
+        ]
+      },
+      "trabajo": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna",
+        "rendimientos": [
+          {
+            "id": "a",
+            "clase": "empleo-laboral",
+            "integro": "30000.00",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "1950.00",
+              "derechosPasivos": "0",
+              "colegiosHuerfanos": "0"
+            },
+            "sindicato": {
+              "importe": "0",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ]
+      },
+      "retenciones": [
+        {
+          "operacionId": "ret-0",
+          "procedencia": "sintetico:certificado-0",
+          "ejercicio": 2025,
+          "importe": "4200.00",
+          "efectiva": true
+        }
+      ]
+    },
+    "hechosObjetivo": {
+      "tipo": "asalariado-arrendatario",
+      "familia": "ninguna",
+      "contratoDesde": "2024-12-01",
+      "uso2025": "vivienda-permanente-todo-el-anio",
+      "importeAnualSinteticoObjetivoEUR": "7200.00",
+      "otrasActividades": "ninguna",
+      "alcance": "hechos objetivo; expediente de vivienda pendiente"
+    },
+    "preparacionVivienda": {
+      "naturaleza": "hechos íntegramente inventados; documentos sintéticos no emitidos",
+      "estado": "implementacion-propuesta-sin-ejecucion",
+      "obstaculos": [
+        "Admisión fiscal y pruebas de regresión pendientes; transporte de inquilino y SES/PDF no acreditados."
+      ],
+      "camposOpen": [
+        "situación vivienda habitual: arrendamiento, sin titularidad ni rentas inmobiliarias propias",
+        "contrato desde2024-12-01; único inquilino; arrendador e identificador de prueba pendiente de formato Open; doce pagos600 EUR =7200 EUR",
+        "residencia y territorio; renta habitual sin servicios, ayudas ni reembolsos",
+        "deducción autonómica sólo según expediente; no convertir pagos en gasto de trabajo"
+      ],
+      "fuentes": [
+        "lib/dominio/irpf/trabajo-anual/conexion-contrato.ts",
+        "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/anual-esquemas.ts",
+        "lib/dominio/irpf/deducciones/territorial-f-ampliacion-2025/esquemas.ts",
+        "tests/deducciones-f-ampliacion-2025.test.ts",
+        "lib/dominio/irpf/deducciones/valenciana-2025/anual.ts",
+        "lib/dominio/irpf/deducciones/valenciana-2025/comun.ts",
+        "tests/deducciones-valencianas-evaluacion.test.ts"
+      ],
+      "hechosHabitacion": {
+        "persona": "s-1",
+        "nacimiento": "1985-01-01",
+        "estadoCivil": "sin_vinculo",
+        "inquilino": true,
+        "rentasInmobiliariasPropias": "ninguna",
+        "vivienda": "V",
+        "territorio": "comunitat-valenciana",
+        "contrato": "sintetico:contrato",
+        "firma": "2024-12-01",
+        "desde": "2024-12-01",
+        "hasta": "2028-12-01",
+        "ocupacionDesde": "2024-12-01",
+        "permanenciaHasta": "2028-12-01",
+        "naturalezaPermanencia": "compromiso de diseño; no observación futura",
+        "arrendador": "arrendador-ficticio",
+        "titulares": [
+          "s-1"
+        ],
+        "uso": "habitual-todo-2025",
+        "pagos": [
+          {
+            "id": "ALQ1",
+            "fecha": "2025-01-05",
+            "importeEUR": "600.00",
+            "ayudasEUR": "0",
+            "concepto": "alquiler",
+            "objetoId": "V",
+            "pagador": "s-1",
+            "beneficiarioId": "s-1",
+            "medio": "transferencia",
+            "factura": "sintetico:recibo-1",
+            "soportePago": "sintetico:banco-1"
+          },
+          {
+            "id": "ALQ2",
+            "fecha": "2025-02-05",
+            "importeEUR": "600.00",
+            "ayudasEUR": "0",
+            "concepto": "alquiler",
+            "objetoId": "V",
+            "pagador": "s-1",
+            "beneficiarioId": "s-1",
+            "medio": "transferencia",
+            "factura": "sintetico:recibo-2",
+            "soportePago": "sintetico:banco-2"
+          },
+          {
+            "id": "ALQ3",
+            "fecha": "2025-03-05",
+            "importeEUR": "600.00",
+            "ayudasEUR": "0",
+            "concepto": "alquiler",
+            "objetoId": "V",
+            "pagador": "s-1",
+            "beneficiarioId": "s-1",
+            "medio": "transferencia",
+            "factura": "sintetico:recibo-3",
+            "soportePago": "sintetico:banco-3"
+          },
+          {
+            "id": "ALQ4",
+            "fecha": "2025-04-05",
+            "importeEUR": "600.00",
+            "ayudasEUR": "0",
+            "concepto": "alquiler",
+            "objetoId": "V",
+            "pagador": "s-1",
+            "beneficiarioId": "s-1",
+            "medio": "transferencia",
+            "factura": "sintetico:recibo-4",
+            "soportePago": "sintetico:banco-4"
+          },
+          {
+            "id": "ALQ5",
+            "fecha": "2025-05-05",
+            "importeEUR": "600.00",
+            "ayudasEUR": "0",
+            "concepto": "alquiler",
+            "objetoId": "V",
+            "pagador": "s-1",
+            "beneficiarioId": "s-1",
+            "medio": "transferencia",
+            "factura": "sintetico:recibo-5",
+            "soportePago": "sintetico:banco-5"
+          },
+          {
+            "id": "ALQ6",
+            "fecha": "2025-06-05",
+            "importeEUR": "600.00",
+            "ayudasEUR": "0",
+            "concepto": "alquiler",
+            "objetoId": "V",
+            "pagador": "s-1",
+            "beneficiarioId": "s-1",
+            "medio": "transferencia",
+            "factura": "sintetico:recibo-6",
+            "soportePago": "sintetico:banco-6"
+          },
+          {
+            "id": "ALQ7",
+            "fecha": "2025-07-05",
+            "importeEUR": "600.00",
+            "ayudasEUR": "0",
+            "concepto": "alquiler",
+            "objetoId": "V",
+            "pagador": "s-1",
+            "beneficiarioId": "s-1",
+            "medio": "transferencia",
+            "factura": "sintetico:recibo-7",
+            "soportePago": "sintetico:banco-7"
+          },
+          {
+            "id": "ALQ8",
+            "fecha": "2025-08-05",
+            "importeEUR": "600.00",
+            "ayudasEUR": "0",
+            "concepto": "alquiler",
+            "objetoId": "V",
+            "pagador": "s-1",
+            "beneficiarioId": "s-1",
+            "medio": "transferencia",
+            "factura": "sintetico:recibo-8",
+            "soportePago": "sintetico:banco-8"
+          },
+          {
+            "id": "ALQ9",
+            "fecha": "2025-09-05",
+            "importeEUR": "600.00",
+            "ayudasEUR": "0",
+            "concepto": "alquiler",
+            "objetoId": "V",
+            "pagador": "s-1",
+            "beneficiarioId": "s-1",
+            "medio": "transferencia",
+            "factura": "sintetico:recibo-9",
+            "soportePago": "sintetico:banco-9"
+          },
+          {
+            "id": "ALQ10",
+            "fecha": "2025-10-05",
+            "importeEUR": "600.00",
+            "ayudasEUR": "0",
+            "concepto": "alquiler",
+            "objetoId": "V",
+            "pagador": "s-1",
+            "beneficiarioId": "s-1",
+            "medio": "transferencia",
+            "factura": "sintetico:recibo-10",
+            "soportePago": "sintetico:banco-10"
+          },
+          {
+            "id": "ALQ11",
+            "fecha": "2025-11-05",
+            "importeEUR": "600.00",
+            "ayudasEUR": "0",
+            "concepto": "alquiler",
+            "objetoId": "V",
+            "pagador": "s-1",
+            "beneficiarioId": "s-1",
+            "medio": "transferencia",
+            "factura": "sintetico:recibo-11",
+            "soportePago": "sintetico:banco-11"
+          },
+          {
+            "id": "ALQ12",
+            "fecha": "2025-12-05",
+            "importeEUR": "600.00",
+            "ayudasEUR": "0",
+            "concepto": "alquiler",
+            "objetoId": "V",
+            "pagador": "s-1",
+            "beneficiarioId": "s-1",
+            "medio": "transferencia",
+            "factura": "sintetico:recibo-12",
+            "soportePago": "sintetico:banco-12"
+          }
+        ],
+        "anualEUR": "7200.00",
+        "serviciosIncluidosEUR": "0",
+        "reembolsoEUR": "0",
+        "ayudasEUR": "0",
+        "derechosOtrasViviendas": [],
+        "derechoInversionVivienda": false,
+        "fianza": "sintetico:deposito-2024",
+        "itpPresentado": "2024-12-02",
+        "itpVence": "2024-12-31",
+        "familiaNumerosa": false,
+        "monoparental": false,
+        "discapacidadPorcentaje": 0,
+        "desempleoDias2025": 0,
+        "viudedad": false,
+        "violenciaGenero": false,
+        "dacionEnPago": false,
+        "trasladoPorTrabajo": false
+      },
+      "evaluacionRegional": "Contrato, ocupación, derechos y pagos alimentan la fórmula general existente. Oráculo documental 800/1 antes de cuota, pendiente de ejecución y Open."
+    }
+  },
+  "fixture": [
+    {
+      "id": "open2025-castilla-la-mancha-01",
+      "entrada": {
+        "ejercicio": 2025,
+        "comunidadAutonoma": "castilla-la-mancha",
+        "edad": 40,
+        "modalidad": "individual",
+        "residenciaTodoElAnio": true,
+        "devengo": "2025-12-31",
+        "otrasRentas": "ninguna",
+        "familiaresConDerechoMinimo": "ninguno",
+        "discapacidad": "ninguna",
+        "reduccionesBase": "ninguna",
+        "saldosAnteriores": "ninguno",
+        "deducciones": "solo-da61-si-procede",
+        "rentasExtranjeras": "ninguna",
+        "especialidades": "ninguna",
+        "perfil": "solo-trabajo",
+        "conciliacion": {
+          "ejercicio": 2025,
+          "estado": "totales-anuales-sin-duplicados",
+          "procedencia": [
+            "sintetico:datos-fiscales-2025",
+            "sintetico:certificados-pagadores"
+          ]
+        },
+        "trabajo": {
+          "ejercicio": 2025,
+          "territorio": "comun",
+          "reduccionesArt18": "ninguna",
+          "movilidad": "ninguna",
+          "discapacidadActiva": "ninguna",
+          "rendimientos": [
+            {
+              "id": "a",
+              "clase": "empleo-laboral",
+              "integro": "30000.00",
+              "cotizaciones": {
+                "clase": "efectivas",
+                "seguridadSocial": "1950.00",
+                "derechosPasivos": "0",
+                "colegiosHuerfanos": "0"
+              },
+              "sindicato": {
+                "importe": "0",
+                "satisfecho": "si"
+              },
+              "colegio": {
+                "importe": "0",
+                "satisfecho": "si",
+                "obligatorio": "si",
+                "finesEsenciales": "si"
+              },
+              "defensa": {
+                "importe": "0",
+                "satisfecho": "si",
+                "litigioDirectoPagador": "si"
+              }
+            }
+          ]
+        },
+        "retenciones": [
+          {
+            "operacionId": "ret-0",
+            "procedencia": "sintetico:certificado-0",
+            "ejercicio": 2025,
+            "importe": "4200.00",
+            "efectiva": true
+          }
+        ],
+        "contribuyenteId": "s-1"
+      }
+    },
+    {
+      "id": "open2025-murcia-02",
+      "entrada": {
+        "ejercicio": 2025,
+        "comunidadAutonoma": "murcia",
+        "edad": 40,
+        "modalidad": "individual",
+        "residenciaTodoElAnio": true,
+        "devengo": "2025-12-31",
+        "otrasRentas": "ninguna",
+        "familiaresConDerechoMinimo": "ninguno",
+        "discapacidad": "ninguna",
+        "reduccionesBase": "ninguna",
+        "saldosAnteriores": "ninguno",
+        "deducciones": "territoriales-por-hechos-y-da61",
+        "rentasExtranjeras": "ninguna",
+        "especialidades": "ninguna",
+        "perfil": "solo-trabajo",
+        "conciliacion": {
+          "ejercicio": 2025,
+          "estado": "totales-anuales-sin-duplicados",
+          "procedencia": [
+            "sintetico:datos-fiscales-2025",
+            "sintetico:certificados-pagadores"
+          ]
+        },
+        "trabajo": {
+          "ejercicio": 2025,
+          "territorio": "comun",
+          "reduccionesArt18": "ninguna",
+          "movilidad": "ninguna",
+          "discapacidadActiva": "ninguna",
+          "rendimientos": [
+            {
+              "id": "a",
+              "clase": "empleo-laboral",
+              "integro": "30000.00",
+              "cotizaciones": {
+                "clase": "efectivas",
+                "seguridadSocial": "1950.00",
+                "derechosPasivos": "0",
+                "colegiosHuerfanos": "0"
+              },
+              "sindicato": {
+                "importe": "0",
+                "satisfecho": "si"
+              },
+              "colegio": {
+                "importe": "0",
+                "satisfecho": "si",
+                "obligatorio": "si",
+                "finesEsenciales": "si"
+              },
+              "defensa": {
+                "importe": "0",
+                "satisfecho": "si",
+                "litigioDirectoPagador": "si"
+              }
+            }
+          ]
+        },
+        "retenciones": [
+          {
+            "operacionId": "ret-0",
+            "procedencia": "sintetico:certificado-0",
+            "ejercicio": 2025,
+            "importe": "4200.00",
+            "efectiva": true
+          }
+        ],
+        "contribuyenteId": "s-1",
+        "deduccionesTerritoriales2025": {
+          "solicitudes": [
+            {
+              "lote": "F-ampliado",
+              "codigo": "murcia_arrendamiento_vivienda_habitual",
+              "hechos": {
+                "nacimientoContribuyente": "1985-01-01",
+                "miembrosUnidad": [
+                  "s-1"
+                ],
+                "elecciones": [],
+                "viviendas": [
+                  {
+                    "id": "V",
+                    "territorio": "murcia",
+                    "ocupacionDesde": "2024-12-01",
+                    "permanenciaHasta": "2025-12-31",
+                    "porcentajeOtraViviendaFamiliar": "0",
+                    "derechoInversionVivienda": "no"
+                  }
+                ],
+                "contratos": [
+                  {
+                    "id": "C",
+                    "viviendaId": "V",
+                    "desde": "2024-12-01",
+                    "hasta": "2028-12-01",
+                    "arrendador": "arrendador-ficticio",
+                    "titulares": [
+                      "s-1"
+                    ],
+                    "itpPresentado": "2024-12-02",
+                    "itpVence": "2024-12-31"
+                  }
+                ],
+                "pagos": [
+                  {
+                    "id": "ALQ1",
+                    "fecha": "2025-01-05",
+                    "importeEUR": "600.00",
+                    "ayudasEUR": "0",
+                    "concepto": "alquiler",
+                    "objetoId": "V",
+                    "pagador": "s-1",
+                    "beneficiarioId": "s-1",
+                    "medio": "transferencia",
+                    "factura": "sintetico:recibo-1",
+                    "soportePago": "sintetico:banco-1"
+                  },
+                  {
+                    "id": "ALQ2",
+                    "fecha": "2025-02-05",
+                    "importeEUR": "600.00",
+                    "ayudasEUR": "0",
+                    "concepto": "alquiler",
+                    "objetoId": "V",
+                    "pagador": "s-1",
+                    "beneficiarioId": "s-1",
+                    "medio": "transferencia",
+                    "factura": "sintetico:recibo-2",
+                    "soportePago": "sintetico:banco-2"
+                  },
+                  {
+                    "id": "ALQ3",
+                    "fecha": "2025-03-05",
+                    "importeEUR": "600.00",
+                    "ayudasEUR": "0",
+                    "concepto": "alquiler",
+                    "objetoId": "V",
+                    "pagador": "s-1",
+                    "beneficiarioId": "s-1",
+                    "medio": "transferencia",
+                    "factura": "sintetico:recibo-3",
+                    "soportePago": "sintetico:banco-3"
+                  },
+                  {
+                    "id": "ALQ4",
+                    "fecha": "2025-04-05",
+                    "importeEUR": "600.00",
+                    "ayudasEUR": "0",
+                    "concepto": "alquiler",
+                    "objetoId": "V",
+                    "pagador": "s-1",
+                    "beneficiarioId": "s-1",
+                    "medio": "transferencia",
+                    "factura": "sintetico:recibo-4",
+                    "soportePago": "sintetico:banco-4"
+                  },
+                  {
+                    "id": "ALQ5",
+                    "fecha": "2025-05-05",
+                    "importeEUR": "600.00",
+                    "ayudasEUR": "0",
+                    "concepto": "alquiler",
+                    "objetoId": "V",
+                    "pagador": "s-1",
+                    "beneficiarioId": "s-1",
+                    "medio": "transferencia",
+                    "factura": "sintetico:recibo-5",
+                    "soportePago": "sintetico:banco-5"
+                  },
+                  {
+                    "id": "ALQ6",
+                    "fecha": "2025-06-05",
+                    "importeEUR": "600.00",
+                    "ayudasEUR": "0",
+                    "concepto": "alquiler",
+                    "objetoId": "V",
+                    "pagador": "s-1",
+                    "beneficiarioId": "s-1",
+                    "medio": "transferencia",
+                    "factura": "sintetico:recibo-6",
+                    "soportePago": "sintetico:banco-6"
+                  },
+                  {
+                    "id": "ALQ7",
+                    "fecha": "2025-07-05",
+                    "importeEUR": "600.00",
+                    "ayudasEUR": "0",
+                    "concepto": "alquiler",
+                    "objetoId": "V",
+                    "pagador": "s-1",
+                    "beneficiarioId": "s-1",
+                    "medio": "transferencia",
+                    "factura": "sintetico:recibo-7",
+                    "soportePago": "sintetico:banco-7"
+                  },
+                  {
+                    "id": "ALQ8",
+                    "fecha": "2025-08-05",
+                    "importeEUR": "600.00",
+                    "ayudasEUR": "0",
+                    "concepto": "alquiler",
+                    "objetoId": "V",
+                    "pagador": "s-1",
+                    "beneficiarioId": "s-1",
+                    "medio": "transferencia",
+                    "factura": "sintetico:recibo-8",
+                    "soportePago": "sintetico:banco-8"
+                  },
+                  {
+                    "id": "ALQ9",
+                    "fecha": "2025-09-05",
+                    "importeEUR": "600.00",
+                    "ayudasEUR": "0",
+                    "concepto": "alquiler",
+                    "objetoId": "V",
+                    "pagador": "s-1",
+                    "beneficiarioId": "s-1",
+                    "medio": "transferencia",
+                    "factura": "sintetico:recibo-9",
+                    "soportePago": "sintetico:banco-9"
+                  },
+                  {
+                    "id": "ALQ10",
+                    "fecha": "2025-10-05",
+                    "importeEUR": "600.00",
+                    "ayudasEUR": "0",
+                    "concepto": "alquiler",
+                    "objetoId": "V",
+                    "pagador": "s-1",
+                    "beneficiarioId": "s-1",
+                    "medio": "transferencia",
+                    "factura": "sintetico:recibo-10",
+                    "soportePago": "sintetico:banco-10"
+                  },
+                  {
+                    "id": "ALQ11",
+                    "fecha": "2025-11-05",
+                    "importeEUR": "600.00",
+                    "ayudasEUR": "0",
+                    "concepto": "alquiler",
+                    "objetoId": "V",
+                    "pagador": "s-1",
+                    "beneficiarioId": "s-1",
+                    "medio": "transferencia",
+                    "factura": "sintetico:recibo-11",
+                    "soportePago": "sintetico:banco-11"
+                  },
+                  {
+                    "id": "ALQ12",
+                    "fecha": "2025-12-05",
+                    "importeEUR": "600.00",
+                    "ayudasEUR": "0",
+                    "concepto": "alquiler",
+                    "objetoId": "V",
+                    "pagador": "s-1",
+                    "beneficiarioId": "s-1",
+                    "medio": "transferencia",
+                    "factura": "sintetico:recibo-12",
+                    "soportePago": "sintetico:banco-12"
+                  }
+                ],
+                "titulo": {
+                  "categoria": "no_numerosa"
+                },
+                "personas": [
+                  {
+                    "id": "s-1",
+                    "nacimiento": "1985-01-01",
+                    "relacion": "contribuyente",
+                    "discapacidadPorcentaje": "0"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "open2025-comunitat-valenciana-05",
+      "entrada": {
+        "ejercicio": 2025,
+        "comunidadAutonoma": "comunitat-valenciana",
+        "edad": 40,
+        "modalidad": "individual",
+        "residenciaTodoElAnio": true,
+        "devengo": "2025-12-31",
+        "otrasRentas": "ninguna",
+        "familiaresConDerechoMinimo": "ninguno",
+        "discapacidad": "ninguna",
+        "reduccionesBase": "ninguna",
+        "saldosAnteriores": "ninguno",
+        "deducciones": "valencianas-por-hechos-y-da61",
+        "rentasExtranjeras": "ninguna",
+        "especialidades": "ninguna",
+        "perfil": "solo-trabajo",
+        "conciliacion": {
+          "ejercicio": 2025,
+          "estado": "totales-anuales-sin-duplicados",
+          "procedencia": [
+            "sintetico:datos-fiscales-2025",
+            "sintetico:certificados-pagadores"
+          ]
+        },
+        "trabajo": {
+          "ejercicio": 2025,
+          "territorio": "comun",
+          "reduccionesArt18": "ninguna",
+          "movilidad": "ninguna",
+          "discapacidadActiva": "ninguna",
+          "rendimientos": [
+            {
+              "id": "a",
+              "clase": "empleo-laboral",
+              "integro": "30000.00",
+              "cotizaciones": {
+                "clase": "efectivas",
+                "seguridadSocial": "1950.00",
+                "derechosPasivos": "0",
+                "colegiosHuerfanos": "0"
+              },
+              "sindicato": {
+                "importe": "0",
+                "satisfecho": "si"
+              },
+              "colegio": {
+                "importe": "0",
+                "satisfecho": "si",
+                "obligatorio": "si",
+                "finesEsenciales": "si"
+              },
+              "defensa": {
+                "importe": "0",
+                "satisfecho": "si",
+                "litigioDirectoPagador": "si"
+              }
+            }
+          ]
+        },
+        "retenciones": [
+          {
+            "operacionId": "ret-0",
+            "procedencia": "sintetico:certificado-0",
+            "ejercicio": 2025,
+            "importe": "4200.00",
+            "efectiva": true
+          }
+        ],
+        "contribuyenteId": "s-1",
+        "deduccionesValencianas2025": {
+          "ejercicio": 2025,
+          "territorio": "comunitat-valenciana",
+          "modalidad": "individual",
+          "devengo": "2025-12-31",
+          "contribuyente": "s-1",
+          "cantidades": [
+            {
+              "id": "ALQ1",
+              "euros": 600
+            },
+            {
+              "id": "ALQ2",
+              "euros": 600
+            },
+            {
+              "id": "ALQ3",
+              "euros": 600
+            },
+            {
+              "id": "ALQ4",
+              "euros": 600
+            },
+            {
+              "id": "ALQ5",
+              "euros": 600
+            },
+            {
+              "id": "ALQ6",
+              "euros": 600
+            },
+            {
+              "id": "ALQ7",
+              "euros": 600
+            },
+            {
+              "id": "ALQ8",
+              "euros": 600
+            },
+            {
+              "id": "ALQ9",
+              "euros": 600
+            },
+            {
+              "id": "ALQ10",
+              "euros": 600
+            },
+            {
+              "id": "ALQ11",
+              "euros": 600
+            },
+            {
+              "id": "ALQ12",
+              "euros": 600
+            }
+          ],
+          "solicitudes": [
+            {
+              "codigo": "valenciana_arrendamiento_cesion_uso_vivienda",
+              "eleccion": "aplicar",
+              "unidades": [
+                {
+                  "id": "U",
+                  "titulares": [
+                    "s-1"
+                  ],
+                  "fecha": "2025-12-31",
+                  "numeros": {},
+                  "textos": {
+                    "contrato": "alquiler"
+                  },
+                  "arrendamientoFactual2025": {
+                    "contratoId": "C",
+                    "viviendaId": "V",
+                    "arrendadorId": "arrendador-ficticio",
+                    "titularId": "s-1",
+                    "firma": "2024-12-01",
+                    "desde": "2024-12-01",
+                    "hasta": "2028-12-01",
+                    "ocupacionDesde": "2024-12-01",
+                    "ocupacionHasta": "2025-12-31",
+                    "nacimiento": "1985-01-01",
+                    "discapacidadPorcentaje": 0,
+                    "derechosOtrasViviendas": [],
+                    "derechoInversionVivienda": false,
+                    "pagos": [
+                      {
+                        "id": "ALQ1",
+                        "contratoId": "C",
+                        "viviendaId": "V",
+                        "pagadorId": "s-1",
+                        "fecha": "2025-01-05",
+                        "euros": 600,
+                        "servicios": 0,
+                        "ayudas": 0,
+                        "reembolsos": 0,
+                        "medio": "transferencia",
+                        "soporte": "sintetico:banco-1"
+                      },
+                      {
+                        "id": "ALQ2",
+                        "contratoId": "C",
+                        "viviendaId": "V",
+                        "pagadorId": "s-1",
+                        "fecha": "2025-02-05",
+                        "euros": 600,
+                        "servicios": 0,
+                        "ayudas": 0,
+                        "reembolsos": 0,
+                        "medio": "transferencia",
+                        "soporte": "sintetico:banco-2"
+                      },
+                      {
+                        "id": "ALQ3",
+                        "contratoId": "C",
+                        "viviendaId": "V",
+                        "pagadorId": "s-1",
+                        "fecha": "2025-03-05",
+                        "euros": 600,
+                        "servicios": 0,
+                        "ayudas": 0,
+                        "reembolsos": 0,
+                        "medio": "transferencia",
+                        "soporte": "sintetico:banco-3"
+                      },
+                      {
+                        "id": "ALQ4",
+                        "contratoId": "C",
+                        "viviendaId": "V",
+                        "pagadorId": "s-1",
+                        "fecha": "2025-04-05",
+                        "euros": 600,
+                        "servicios": 0,
+                        "ayudas": 0,
+                        "reembolsos": 0,
+                        "medio": "transferencia",
+                        "soporte": "sintetico:banco-4"
+                      },
+                      {
+                        "id": "ALQ5",
+                        "contratoId": "C",
+                        "viviendaId": "V",
+                        "pagadorId": "s-1",
+                        "fecha": "2025-05-05",
+                        "euros": 600,
+                        "servicios": 0,
+                        "ayudas": 0,
+                        "reembolsos": 0,
+                        "medio": "transferencia",
+                        "soporte": "sintetico:banco-5"
+                      },
+                      {
+                        "id": "ALQ6",
+                        "contratoId": "C",
+                        "viviendaId": "V",
+                        "pagadorId": "s-1",
+                        "fecha": "2025-06-05",
+                        "euros": 600,
+                        "servicios": 0,
+                        "ayudas": 0,
+                        "reembolsos": 0,
+                        "medio": "transferencia",
+                        "soporte": "sintetico:banco-6"
+                      },
+                      {
+                        "id": "ALQ7",
+                        "contratoId": "C",
+                        "viviendaId": "V",
+                        "pagadorId": "s-1",
+                        "fecha": "2025-07-05",
+                        "euros": 600,
+                        "servicios": 0,
+                        "ayudas": 0,
+                        "reembolsos": 0,
+                        "medio": "transferencia",
+                        "soporte": "sintetico:banco-7"
+                      },
+                      {
+                        "id": "ALQ8",
+                        "contratoId": "C",
+                        "viviendaId": "V",
+                        "pagadorId": "s-1",
+                        "fecha": "2025-08-05",
+                        "euros": 600,
+                        "servicios": 0,
+                        "ayudas": 0,
+                        "reembolsos": 0,
+                        "medio": "transferencia",
+                        "soporte": "sintetico:banco-8"
+                      },
+                      {
+                        "id": "ALQ9",
+                        "contratoId": "C",
+                        "viviendaId": "V",
+                        "pagadorId": "s-1",
+                        "fecha": "2025-09-05",
+                        "euros": 600,
+                        "servicios": 0,
+                        "ayudas": 0,
+                        "reembolsos": 0,
+                        "medio": "transferencia",
+                        "soporte": "sintetico:banco-9"
+                      },
+                      {
+                        "id": "ALQ10",
+                        "contratoId": "C",
+                        "viviendaId": "V",
+                        "pagadorId": "s-1",
+                        "fecha": "2025-10-05",
+                        "euros": 600,
+                        "servicios": 0,
+                        "ayudas": 0,
+                        "reembolsos": 0,
+                        "medio": "transferencia",
+                        "soporte": "sintetico:banco-10"
+                      },
+                      {
+                        "id": "ALQ11",
+                        "contratoId": "C",
+                        "viviendaId": "V",
+                        "pagadorId": "s-1",
+                        "fecha": "2025-11-05",
+                        "euros": 600,
+                        "servicios": 0,
+                        "ayudas": 0,
+                        "reembolsos": 0,
+                        "medio": "transferencia",
+                        "soporte": "sintetico:banco-11"
+                      },
+                      {
+                        "id": "ALQ12",
+                        "contratoId": "C",
+                        "viviendaId": "V",
+                        "pagadorId": "s-1",
+                        "fecha": "2025-12-05",
+                        "euros": 600,
+                        "servicios": 0,
+                        "ayudas": 0,
+                        "reembolsos": 0,
+                        "medio": "transferencia",
+                        "soporte": "sintetico:banco-12"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "referencias": [
+                {
+                  "unidad": "U",
+                  "sujetos": [
+                    "s-1"
+                  ],
+                  "bienes": [
+                    "V"
+                  ],
+                  "eventos": [
+                    "C"
+                  ],
+                  "cantidades": [
+                    "ALQ1",
+                    "ALQ2",
+                    "ALQ3",
+                    "ALQ4",
+                    "ALQ5",
+                    "ALQ6",
+                    "ALQ7",
+                    "ALQ8",
+                    "ALQ9",
+                    "ALQ10",
+                    "ALQ11",
+                    "ALQ12"
+                  ]
+                }
+              ]
+            }
+          ],
+          "ordenBase30": [],
+          "consignaciones": [],
+          "arrastres": [],
+          "ordenConsumo": [
+            "[\"valenciana_arrendamiento_cesion_uso_vivienda\",2025,\"s-1\"]"
+          ],
+          "criterioOrden": "eleccion_experta"
+        }
+      }
+    },
+    {
+      "id": "open2025-catalunya-10",
+      "entrada": {
+        "ejercicio": 2025,
+        "comunidadAutonoma": "catalunya",
+        "edad": 40,
+        "modalidad": "individual",
+        "residenciaTodoElAnio": true,
+        "devengo": "2025-12-31",
+        "otrasRentas": "ninguna",
+        "familiaresConDerechoMinimo": "ninguno",
+        "discapacidad": "ninguna",
+        "reduccionesBase": "ninguna",
+        "saldosAnteriores": "ninguno",
+        "deducciones": "solo-da61-si-procede",
+        "rentasExtranjeras": "ninguna",
+        "especialidades": "ninguna",
+        "perfil": "solo-trabajo",
+        "conciliacion": {
+          "ejercicio": 2025,
+          "estado": "totales-anuales-sin-duplicados",
+          "procedencia": [
+            "sintetico:datos-fiscales-2025",
+            "sintetico:certificados-pagadores"
+          ]
+        },
+        "trabajo": {
+          "ejercicio": 2025,
+          "territorio": "comun",
+          "reduccionesArt18": "ninguna",
+          "movilidad": "ninguna",
+          "discapacidadActiva": "ninguna",
+          "rendimientos": [
+            {
+              "id": "a",
+              "clase": "empleo-laboral",
+              "integro": "30000.00",
+              "cotizaciones": {
+                "clase": "efectivas",
+                "seguridadSocial": "1950.00",
+                "derechosPasivos": "0",
+                "colegiosHuerfanos": "0"
+              },
+              "sindicato": {
+                "importe": "0",
+                "satisfecho": "si"
+              },
+              "colegio": {
+                "importe": "0",
+                "satisfecho": "si",
+                "obligatorio": "si",
+                "finesEsenciales": "si"
+              },
+              "defensa": {
+                "importe": "0",
+                "satisfecho": "si",
+                "litigioDirectoPagador": "si"
+              }
+            }
+          ]
+        },
+        "retenciones": [
+          {
+            "operacionId": "ret-0",
+            "procedencia": "sintetico:certificado-0",
+            "ejercicio": 2025,
+            "importe": "4200.00",
+            "efectiva": true
+          }
+        ],
+        "contribuyenteId": "s-1"
+      }
+    }
+  ],
+  "files": [
+    {
+      "file": "valencia-captura76/000-bootstrap.html",
+      "format": "utf8",
+      "sha256": "fc3088212bd0b5d05554cf60e5b5ad0a73a78e297674de70d15d57ebd3db9d15",
+      "size": 91991,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/000-bootstrap.json",
+      "format": "utf8",
+      "sha256": "9bc222874dd19733cf575b24727146f14ab4e50eed8e0eb80e8544a7bb9000bd",
+      "size": 17163,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/001-antes-cargar.html",
+      "format": "utf8",
+      "sha256": "4c303352152f7a0c39325870c9e191be0293d01b8e15fc98516d723b4bceddb9",
+      "size": 91857,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/001-antes-cargar.json",
+      "format": "utf8",
+      "sha256": "8c850efdfcdac09b955baf0c8a79a12133b2fa01c2541fd6eabbd69220012a48",
+      "size": 17141,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/002-accion.json",
+      "format": "utf8",
+      "sha256": "cd939157b49d4b0eeff5907d238dc522a05729a2fb9a6c170c4b807cd36b36e8",
+      "size": 82,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/003-accion.json",
+      "format": "utf8",
+      "sha256": "33fbb8a736063cdcf17eec7d898c6e079471b096ec77a53424a0d97b593128f4",
+      "size": 84,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/004-despues-cargar.html",
+      "format": "utf8",
+      "sha256": "bfa12eb55099a451e0f742854e5691742fc7a394b106af922d023b40afc61fc5",
+      "size": 143322,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/004-despues-cargar.json",
+      "format": "utf8",
+      "sha256": "97c21578f28b8a617ecd952b0c9353a9ffa6562b5a016304a3176d534a300f2a",
+      "size": 19100,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/005-antes-importar.html",
+      "format": "utf8",
+      "sha256": "bfa12eb55099a451e0f742854e5691742fc7a394b106af922d023b40afc61fc5",
+      "size": 143322,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/005-antes-importar.json",
+      "format": "utf8",
+      "sha256": "97c21578f28b8a617ecd952b0c9353a9ffa6562b5a016304a3176d534a300f2a",
+      "size": 19100,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/006-accion.json",
+      "format": "utf8",
+      "sha256": "4c6e2b8984ab7d5943c70377cc2e84f33f204c4fe7cffe54687d57fa2716559f",
+      "size": 63,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/007-accion.json",
+      "format": "utf8",
+      "sha256": "4e6c575790b4f8d0a4269f8b5deb2731e2381c8dcd4a9e038b204c230fa3df55",
+      "size": 65,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/008-semilla-importada.html",
+      "format": "utf8",
+      "sha256": "d15c1eb2f35182834af5d6adaa43dab26aed6891c03c49313dfd431ab2f74bb9",
+      "size": 97092,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/008-semilla-importada.json",
+      "format": "utf8",
+      "sha256": "e2e0df6f684f26bfc025e36bd85a60df4e055665107f7f6db2198a0d3affed75",
+      "size": 14745,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/009-antes-apartados.html",
+      "format": "utf8",
+      "sha256": "d15c1eb2f35182834af5d6adaa43dab26aed6891c03c49313dfd431ab2f74bb9",
+      "size": 97092,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/009-antes-apartados.json",
+      "format": "utf8",
+      "sha256": "e2e0df6f684f26bfc025e36bd85a60df4e055665107f7f6db2198a0d3affed75",
+      "size": 14745,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/010-accion.json",
+      "format": "utf8",
+      "sha256": "3285c0302a09066a45d492d3265363420cfa69e1c0f1d600eddc08b093e13bb9",
+      "size": 85,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/011-accion.json",
+      "format": "utf8",
+      "sha256": "120fc34fd59f5f9dd7a54a260a522e5ea9e62e9b6066663bc7baf9ddec00cf77",
+      "size": 87,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/012-despues-apartados.html",
+      "format": "utf8",
+      "sha256": "ee327d236de2a52c09713742c2868369e6379a7f68b102f4cd5f5ee0476bc3d4",
+      "size": 123549,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/012-despues-apartados.json",
+      "format": "utf8",
+      "sha256": "d202e13a77f7418a123a149d2011ef66ca5bbd6aa24509d127de7e4a68d565fa",
+      "size": 19837,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/013-antes-deducciones-autonomicas.html",
+      "format": "utf8",
+      "sha256": "ee327d236de2a52c09713742c2868369e6379a7f68b102f4cd5f5ee0476bc3d4",
+      "size": 123549,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/013-antes-deducciones-autonomicas.json",
+      "format": "utf8",
+      "sha256": "d202e13a77f7418a123a149d2011ef66ca5bbd6aa24509d127de7e4a68d565fa",
+      "size": 19837,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/014-accion.json",
+      "format": "utf8",
+      "sha256": "e49e3f43b85a795ac2eac5f5a00116af6ae0ae3a2b6f9c62120de378f376e43a",
+      "size": 99,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/015-accion.json",
+      "format": "utf8",
+      "sha256": "b4040f8de5c9303d04195e9004e73ad5c66b429973549727ec0c7a1e611dbfa0",
+      "size": 101,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/016-despues-deducciones-autonomicas.html",
+      "format": "utf8",
+      "sha256": "7c80d6da17b7255ebf19a131546151edd085d0eea2363a338b75cad2bde70dbe",
+      "size": 124219,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/016-despues-deducciones-autonomicas.json",
+      "format": "utf8",
+      "sha256": "2721f55a27f8e3c2e607c8e93da55482d7467737f6bf50422db4a5be98aa4c36",
+      "size": 20075,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/017-antes-region-valenciana.html",
+      "format": "utf8",
+      "sha256": "7c80d6da17b7255ebf19a131546151edd085d0eea2363a338b75cad2bde70dbe",
+      "size": 124219,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/017-antes-region-valenciana.json",
+      "format": "utf8",
+      "sha256": "2721f55a27f8e3c2e607c8e93da55482d7467737f6bf50422db4a5be98aa4c36",
+      "size": 20075,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/018-accion.json",
+      "format": "utf8",
+      "sha256": "744971f37ffe27fe8c2fb46ba37bdaa956dba135795f6a5a4730194404930e0d",
+      "size": 93,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/019-accion.json",
+      "format": "utf8",
+      "sha256": "6f82e40bb40decd4865a8bc0380cae64513c4bc8f2799ef8d14256d3af2e50a6",
+      "size": 95,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/020-despues-region-valenciana.html",
+      "format": "utf8",
+      "sha256": "da0b435aa03bd58268ab16764eaac71be5e5d9264490e07fd752453b2efbeadf",
+      "size": 352913,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/020-despues-region-valenciana.json",
+      "format": "utf8",
+      "sha256": "b6e9cc096abb1348a051f08cf9229efa5f8b8aec8d8b2c983c2c5df642445573",
+      "size": 74792,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/021-censo-alquiler.json",
+      "format": "utf8",
+      "sha256": "0e349963fd05ad5ce658975b6ca6919184b20951dd0b39527298244e18d0731e",
+      "size": 162,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/022-antes-abrir-alquiler.html",
+      "format": "utf8",
+      "sha256": "da0b435aa03bd58268ab16764eaac71be5e5d9264490e07fd752453b2efbeadf",
+      "size": 352913,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/022-antes-abrir-alquiler.json",
+      "format": "utf8",
+      "sha256": "b6e9cc096abb1348a051f08cf9229efa5f8b8aec8d8b2c983c2c5df642445573",
+      "size": 74792,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/023-accion.json",
+      "format": "utf8",
+      "sha256": "f91a6d53d482f062ecb11763142abcdc7b32b830591ddedd05b242567834ef17",
+      "size": 90,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/024-accion.json",
+      "format": "utf8",
+      "sha256": "5798e34a34e430610aa9138bdac5de4c2cebaa3c98f0f6d8f8d6e02610c3e167",
+      "size": 92,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/025-despues-abrir-alquiler.html",
+      "format": "utf8",
+      "sha256": "567e55551506d98371d3b87f7187cfce83945e027685a030890b0803c17496bb",
+      "size": 396348,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/025-despues-abrir-alquiler.json",
+      "format": "utf8",
+      "sha256": "c7bbfde271c079e60744fe2ec6a96af532ea7d8f13416433808c8805f0c17eb4",
+      "size": 83974,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/026-readback-inicial.json",
+      "format": "utf8",
+      "sha256": "f32fbb8ca7249908d0023cd97c5dae3ae2873ff4da56992574fc590949c5f965",
+      "size": 5955,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/027-antes-abrir-clave-primera.html",
+      "format": "utf8",
+      "sha256": "567e55551506d98371d3b87f7187cfce83945e027685a030890b0803c17496bb",
+      "size": 396348,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/027-antes-abrir-clave-primera.json",
+      "format": "utf8",
+      "sha256": "c7bbfde271c079e60744fe2ec6a96af532ea7d8f13416433808c8805f0c17eb4",
+      "size": 83974,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/028-accion.json",
+      "format": "utf8",
+      "sha256": "9f33c601eff4e5d3ef925ad046d6c9aef3f48c07630b3950c706621d023ae7df",
+      "size": 95,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/029-accion.json",
+      "format": "utf8",
+      "sha256": "8674039290e4bf20e149968bfb903873544493546c0fbfb0c9140b917f506bed",
+      "size": 97,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/030-despues-abrir-clave-primera.html",
+      "format": "utf8",
+      "sha256": "6879d26293ae2220439c12bd2ec5fb95c2252239658999e1ca74e83fdf7492c1",
+      "size": 398388,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/030-despues-abrir-clave-primera.json",
+      "format": "utf8",
+      "sha256": "23907ec6fb95c51c9fb240b0dc16307bc517642571ea2bf85513667bb8cf3727",
+      "size": 84453,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/031-opciones-clave.json",
+      "format": "utf8",
+      "sha256": "aa4527fc688a8a82aab0f138431f97a1c88b13ffd8fbca455145325f5dca9f16",
+      "size": 663,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/032-antes-seleccionar-clave-2-texto-observado.html",
+      "format": "utf8",
+      "sha256": "6879d26293ae2220439c12bd2ec5fb95c2252239658999e1ca74e83fdf7492c1",
+      "size": 398388,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/032-antes-seleccionar-clave-2-texto-observado.json",
+      "format": "utf8",
+      "sha256": "23907ec6fb95c51c9fb240b0dc16307bc517642571ea2bf85513667bb8cf3727",
+      "size": 84453,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/033-accion.json",
+      "format": "utf8",
+      "sha256": "67c44edfa07ecced931a2293ee028f2c46207a48f2aadebbd25b4d9f80707d0d",
+      "size": 111,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/034-accion.json",
+      "format": "utf8",
+      "sha256": "25024f86b462dcc6424ce550c3c89efc66581c6bb2a108fd3da55df860748380",
+      "size": 113,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/035-despues-seleccionar-clave-2-texto-observado.html",
+      "format": "utf8",
+      "sha256": "1ac236a1663455ee444cdcfff4d1e2ddd6c5dea2525488665d74929c1e5b3f42",
+      "size": 398255,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/035-despues-seleccionar-clave-2-texto-observado.json",
+      "format": "utf8",
+      "sha256": "09ec58f259445736942f76868cd3c433bd57e99f7d9a15dad38c9591ecd5636f",
+      "size": 84453,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/036-readback-clave-seleccionada.json",
+      "format": "utf8",
+      "sha256": "f2e15c8442015e7e72be2b797e0798ed2c1caf51c2b849e1093bfdf7f13917d1",
+      "size": 5955,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/037-antes-escribir-importe.html",
+      "format": "utf8",
+      "sha256": "1ac236a1663455ee444cdcfff4d1e2ddd6c5dea2525488665d74929c1e5b3f42",
+      "size": 398255,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/037-antes-escribir-importe.json",
+      "format": "utf8",
+      "sha256": "09ec58f259445736942f76868cd3c433bd57e99f7d9a15dad38c9591ecd5636f",
+      "size": 84453,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/038-accion.json",
+      "format": "utf8",
+      "sha256": "7fbadf60cfd0d6e5e29e345af438da8b8ad7bc7617fbd0e97dce4fac4ae8b616",
+      "size": 92,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/039-accion.json",
+      "format": "utf8",
+      "sha256": "5cf168048c3ec18bffa1fee3a8627101cfd5c05a938bb0467e9bc96e3b37d513",
+      "size": 94,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/040-despues-escribir-importe.html",
+      "format": "utf8",
+      "sha256": "7c1bdaed14f2f9556a42deedbff670cd5ab4efff3f9fd01fe504332d8c0df409",
+      "size": 398255,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/040-despues-escribir-importe.json",
+      "format": "utf8",
+      "sha256": "ee666861fab2e00695dec12f7187ca2e02cd0ac5703dacd859ba746122d4300d",
+      "size": 84461,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/041-valor-escrito.json",
+      "format": "utf8",
+      "sha256": "dd84f54d7fbcb4b270a5a1fdb8fbeb54faea29f90cd3404d9e389b9a2f5ab29e",
+      "size": 134,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/042-readback-tras-importe.json",
+      "format": "utf8",
+      "sha256": "029162b8bb0ae9ac10ea95aed798d1be6198c92640afe352a3a0b79c2c4636f0",
+      "size": 5963,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/043-antes-escribir-dias.html",
+      "format": "utf8",
+      "sha256": "7c1bdaed14f2f9556a42deedbff670cd5ab4efff3f9fd01fe504332d8c0df409",
+      "size": 398255,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/043-antes-escribir-dias.json",
+      "format": "utf8",
+      "sha256": "ee666861fab2e00695dec12f7187ca2e02cd0ac5703dacd859ba746122d4300d",
+      "size": 84461,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/044-accion.json",
+      "format": "utf8",
+      "sha256": "251d87717f6a4b564673cc6e99e98399c94f984624e5468e9155711aaed32f63",
+      "size": 89,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/045-accion.json",
+      "format": "utf8",
+      "sha256": "24e21d56aebee0b9a2783a4e2cae22652388bf511e2d66856568507d9a4e78d9",
+      "size": 91,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/046-despues-escribir-dias.html",
+      "format": "utf8",
+      "sha256": "3cc9c56631daba812d1ee6829b9d0b06a3bb16288c6a84e8ae64c18fa3a61734",
+      "size": 398255,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/046-despues-escribir-dias.json",
+      "format": "utf8",
+      "sha256": "1d55ffb24b4065f706416eb45fa8afadc60347d73715a454eec230e196b4af8f",
+      "size": 84464,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/047-valor-escrito.json",
+      "format": "utf8",
+      "sha256": "e680318a642c91b2257add56a6151f69146c15bca7a0a1a806145235488b42e4",
+      "size": 91,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/048-readback-tras-dias.json",
+      "format": "utf8",
+      "sha256": "e9a730f8f7aeccd68d2bbc505bf10f202b51b34581a867ba469fa8ec6798ef8d",
+      "size": 5966,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/049-antes-escribir-declarantes.html",
+      "format": "utf8",
+      "sha256": "3cc9c56631daba812d1ee6829b9d0b06a3bb16288c6a84e8ae64c18fa3a61734",
+      "size": 398255,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/049-antes-escribir-declarantes.json",
+      "format": "utf8",
+      "sha256": "1d55ffb24b4065f706416eb45fa8afadc60347d73715a454eec230e196b4af8f",
+      "size": 84464,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/050-accion.json",
+      "format": "utf8",
+      "sha256": "c46dd842a1821b89d738d745181e9e20029b1eea3651c198f2c0ea38c3889d69",
+      "size": 96,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/051-accion.json",
+      "format": "utf8",
+      "sha256": "6724958271315dacd90b5232388ee659151cca3994717a321b8d0dcd8a404a53",
+      "size": 98,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/052-despues-escribir-declarantes.html",
+      "format": "utf8",
+      "sha256": "d753b63c72d8dbc7aa3728388ef77133f2d5854a24dfa38e0204d05bc5bf878d",
+      "size": 398255,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/052-despues-escribir-declarantes.json",
+      "format": "utf8",
+      "sha256": "3f73c39ce5a4ce1a07a7a8e7e61409167195101c30621b56aa16550775d99487",
+      "size": 84465,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/053-valor-escrito.json",
+      "format": "utf8",
+      "sha256": "67fd313709988ea673d4d8bf7cec84dd60872fed60f2bd006d3549833987e45a",
+      "size": 136,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/054-readback-tras-declarantes.json",
+      "format": "utf8",
+      "sha256": "b6a53f7d59d289171f91c2c2d3cdda8bf125804530ca38c8d8b698868b59e515",
+      "size": 5967,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/055-antes-escribir-arrendador.html",
+      "format": "utf8",
+      "sha256": "d753b63c72d8dbc7aa3728388ef77133f2d5854a24dfa38e0204d05bc5bf878d",
+      "size": 398255,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/055-antes-escribir-arrendador.json",
+      "format": "utf8",
+      "sha256": "3f73c39ce5a4ce1a07a7a8e7e61409167195101c30621b56aa16550775d99487",
+      "size": 84465,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/056-accion.json",
+      "format": "utf8",
+      "sha256": "d3b129c2f600eb8bed26460ab64c7459c3bb306edea981762b359248e1d40942",
+      "size": 95,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/057-accion.json",
+      "format": "utf8",
+      "sha256": "0f8d6216cbf4fcab261ff968941b8352e8f39f124e78d176612516367b45401f",
+      "size": 97,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/058-despues-escribir-arrendador.html",
+      "format": "utf8",
+      "sha256": "59ef17d6ecb011112b9b67f62131cce6e78cb18adecdb2153d83cd0599c2dff4",
+      "size": 398301,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/058-despues-escribir-arrendador.json",
+      "format": "utf8",
+      "sha256": "e8ac71972dd5357b52e4c634fc1aa355c96c5aa102b74df6a0060773678d5f18",
+      "size": 84473,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/059-valor-escrito.json",
+      "format": "utf8",
+      "sha256": "7cc6f8ef4acc355ffd0328f8dbd3ed0b5d30171a97367f3d461bf9bd72472f08",
+      "size": 115,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/060-readback-tras-arrendador.json",
+      "format": "utf8",
+      "sha256": "e6eb405808ee4144e0d3a91c883fcd08b441518293eb93907ebd8c267d3ed97d",
+      "size": 5975,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/061-readback-antes-aceptar.json",
+      "format": "utf8",
+      "sha256": "e6eb405808ee4144e0d3a91c883fcd08b441518293eb93907ebd8c267d3ed97d",
+      "size": 5975,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/062-antes-aceptar-alquiler.html",
+      "format": "utf8",
+      "sha256": "59ef17d6ecb011112b9b67f62131cce6e78cb18adecdb2153d83cd0599c2dff4",
+      "size": 398301,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/062-antes-aceptar-alquiler.json",
+      "format": "utf8",
+      "sha256": "e8ac71972dd5357b52e4c634fc1aa355c96c5aa102b74df6a0060773678d5f18",
+      "size": 84473,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/063-accion.json",
+      "format": "utf8",
+      "sha256": "907df31d277a1cbad9390bd82ccfe5eaceb82cc633978772cd73b7375ee5408a",
+      "size": 92,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/064-accion.json",
+      "format": "utf8",
+      "sha256": "7a755ed08abdf9a009800db67e6d7c9a9ecbf7c473bb083381d109cd8fbf563c",
+      "size": 94,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/065-despues-aceptar-alquiler.html",
+      "format": "utf8",
+      "sha256": "4d3676318fe83ae2d7122cab078828900dbc161eafde517df97be4b407f14889",
+      "size": 353449,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/065-despues-aceptar-alquiler.json",
+      "format": "utf8",
+      "sha256": "0e853ecc513c670636f15173b00e7c96ff575a6724f9244d8c2d349dc20b715f",
+      "size": 74843,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/066-antes-reabrir-alquiler.html",
+      "format": "utf8",
+      "sha256": "4d3676318fe83ae2d7122cab078828900dbc161eafde517df97be4b407f14889",
+      "size": 353449,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/066-antes-reabrir-alquiler.json",
+      "format": "utf8",
+      "sha256": "0e853ecc513c670636f15173b00e7c96ff575a6724f9244d8c2d349dc20b715f",
+      "size": 74843,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/067-accion.json",
+      "format": "utf8",
+      "sha256": "fc922b02a15e5700b23367c05d446c74064d2c6182d91def244b1674191688af",
+      "size": 92,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/068-accion.json",
+      "format": "utf8",
+      "sha256": "bb196d1a57537d4cad9bfbf3c3145ba4d4b8b6fb77a7fcb63232d4ee22545c80",
+      "size": 94,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/069-despues-reabrir-alquiler.html",
+      "format": "utf8",
+      "sha256": "95f6d369d70ad6151f8967898bfad9bcc4db3107d4652cd7590b0be690b9c15a",
+      "size": 396959,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/069-despues-reabrir-alquiler.json",
+      "format": "utf8",
+      "sha256": "984935a8d2e85979bf89309ca7bc770bafdd5d62b68811f9db7b3a9d0c275a76",
+      "size": 84045,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/070-readback-reabierto.json",
+      "format": "utf8",
+      "sha256": "e6eb405808ee4144e0d3a91c883fcd08b441518293eb93907ebd8c267d3ed97d",
+      "size": 5975,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/071-antes-cancelar-reapertura-sin-cambios.html",
+      "format": "utf8",
+      "sha256": "95f6d369d70ad6151f8967898bfad9bcc4db3107d4652cd7590b0be690b9c15a",
+      "size": 396959,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/071-antes-cancelar-reapertura-sin-cambios.json",
+      "format": "utf8",
+      "sha256": "984935a8d2e85979bf89309ca7bc770bafdd5d62b68811f9db7b3a9d0c275a76",
+      "size": 84045,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/072-accion.json",
+      "format": "utf8",
+      "sha256": "3382124f00e9f858511343777106761efce2341f4db883639d1928fe041a6318",
+      "size": 107,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/073-accion.json",
+      "format": "utf8",
+      "sha256": "ee4a54eb99da1ee23db2fc696f686b06a170b94aeb5c52035d57cb944d6c7130",
+      "size": 109,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/074-despues-cancelar-reapertura-sin-cambios.html",
+      "format": "utf8",
+      "sha256": "77d150bf21e69f27649ab0416f18ed54f8092f79dce6a48d194f79418ec8f5f0",
+      "size": 353449,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/074-despues-cancelar-reapertura-sin-cambios.json",
+      "format": "utf8",
+      "sha256": "8066caf31d10771a28accf8be251b8c69bf5cccd795f5292d241d93e83d66076",
+      "size": 74843,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/075-antes-mostrar-opciones.html",
+      "format": "utf8",
+      "sha256": "77d150bf21e69f27649ab0416f18ed54f8092f79dce6a48d194f79418ec8f5f0",
+      "size": 353449,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/075-antes-mostrar-opciones.json",
+      "format": "utf8",
+      "sha256": "8066caf31d10771a28accf8be251b8c69bf5cccd795f5292d241d93e83d66076",
+      "size": 74843,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/076-accion.json",
+      "format": "utf8",
+      "sha256": "e084abd3f20ef4d9abfebc45f9e2657f1998072cf7d4b6ee5c84f5d4a6484ffe",
+      "size": 92,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/077-accion.json",
+      "format": "utf8",
+      "sha256": "fcd9e1942cecc464a878344d59b3c34d4b686a3670894a0e00071a85214b9309",
+      "size": 94,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/078-despues-mostrar-opciones.html",
+      "format": "utf8",
+      "sha256": "ee2a3a182ffec50590cc2b9fe1493df99437ef7776e8af555e1dfa81f126eddb",
+      "size": 353382,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/078-despues-mostrar-opciones.json",
+      "format": "utf8",
+      "sha256": "649447f289637cd01e94c2532c65a9308389e2005f4f08dfc2ce07d131a633f3",
+      "size": 74842,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/079-antes-exportar-ses.html",
+      "format": "utf8",
+      "sha256": "f16266aab5c143061ed0ed1152e3cf213b9e5defcf6c203409814a529eafeeda",
+      "size": 353382,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/079-antes-exportar-ses.json",
+      "format": "utf8",
+      "sha256": "d018bf7284b7c411dc4348000bf9f35337cb5deaf5834e5a2c57bb8356f5a200",
+      "size": 74842,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/080-accion.json",
+      "format": "utf8",
+      "sha256": "b64f8e1b82ad86f7c40ccb828975b4cc5fa15abd15fb9d27832a5b0d0b5c5447",
+      "size": 88,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/081-accion.json",
+      "format": "utf8",
+      "sha256": "ce6c3bd73640e1d1e4541b213c9280195167834b2c4b9538e2e0d68b4ab73460",
+      "size": 90,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/082-despues-exportar-ses.html",
+      "format": "utf8",
+      "sha256": "fed8f97c93bcbe1361de4815dee7401f4d21318e9f273da67f621a7d322f0af1",
+      "size": 353619,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/082-despues-exportar-ses.json",
+      "format": "utf8",
+      "sha256": "ed18872a086b0eb7b106574e25fc9d103936e754a89911598379c2c8b2750f2e",
+      "size": 74842,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/083-antes-resumen.html",
+      "format": "utf8",
+      "sha256": "fed8f97c93bcbe1361de4815dee7401f4d21318e9f273da67f621a7d322f0af1",
+      "size": 353619,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/083-antes-resumen.json",
+      "format": "utf8",
+      "sha256": "ed18872a086b0eb7b106574e25fc9d103936e754a89911598379c2c8b2750f2e",
+      "size": 74842,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/084-accion.json",
+      "format": "utf8",
+      "sha256": "782ba71075a19b292b7224ae5bbaa29fc80a3c05654db3dc94959c614f2dd56e",
+      "size": 83,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/085-accion.json",
+      "format": "utf8",
+      "sha256": "ef97639586445055bbeb54aa97512285d6058b25cffe67291fa43e97705dad33",
+      "size": 85,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/086-despues-resumen.html",
+      "format": "utf8",
+      "sha256": "22113d626e4f4a62d799c426a8e1e612d56d2bf9db4175ad284e26e15638ff9b",
+      "size": 98043,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/086-despues-resumen.json",
+      "format": "utf8",
+      "sha256": "73b0d5b33f82fc6d459754f6c10a40fa0110d06e5b87cf33581fe3f33572835d",
+      "size": 14760,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/087-antes-vista-previa.html",
+      "format": "utf8",
+      "sha256": "22113d626e4f4a62d799c426a8e1e612d56d2bf9db4175ad284e26e15638ff9b",
+      "size": 98043,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/087-antes-vista-previa.json",
+      "format": "utf8",
+      "sha256": "73b0d5b33f82fc6d459754f6c10a40fa0110d06e5b87cf33581fe3f33572835d",
+      "size": 14760,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/088-accion.json",
+      "format": "utf8",
+      "sha256": "56a3899f0767b4fa546458e9454cd343d2a3c5b043542454861c4ed5a85605dc",
+      "size": 88,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/089-accion.json",
+      "format": "utf8",
+      "sha256": "b3c8e9fa4c14db94387ce0c6f8bb9d3e15e9670622f047676650a0ef769fd606",
+      "size": 90,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/090-despues-vista-previa.html",
+      "format": "utf8",
+      "sha256": "acf07a73163f6210a87241deb82f75a8edb2b6e1a7c76b2fe521d1d71a314016",
+      "size": 99018,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/090-despues-vista-previa.json",
+      "format": "utf8",
+      "sha256": "c703e77b2cfb0a78035087eae5ca19a4ba3c4547233c6786e65197040d78640c",
+      "size": 15063,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/091-iframe-pdf.json",
+      "format": "utf8",
+      "sha256": "4cf4d930a581d8fffecb4350e762dddc3beae51e33ac58f416db754aabfcd535",
+      "size": 150,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/092-final-antes-close.html",
+      "format": "utf8",
+      "sha256": "2ed5e499d6e6c1a931f7fe35d3f9bd37f16fc197dd4fbd8c49f9b496c7c87501",
+      "size": 99018,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/092-final-antes-close.json",
+      "format": "utf8",
+      "sha256": "dd89b10bd237d276458022a07a19b8fbf65984f4744bd9444f8237fa1fbc97de",
+      "size": 15063,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/093-frontera.json",
+      "format": "utf8",
+      "sha256": "445edc8e1a68468fbd83d6c59222bdc2900ec584df636e8003f9a0f618e36442",
+      "size": 1099,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/094-acciones.json",
+      "format": "utf8",
+      "sha256": "e7b8708e5cb9d063aa719c599822ab3ce6a5c994c4c953e8da24a0d28c406a27",
+      "size": 2300,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/095-cleanup.json",
+      "format": "utf8",
+      "sha256": "899e3ce62a4d8b7ca15df1dfd8cc301e04d828fe004907c93257e06714174078",
+      "size": 89,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/alquiler-readbacks.json",
+      "format": "utf8",
+      "sha256": "ac448e0e8a43476006c3114822790c06d8982861defc221404242b7d1dba6785",
+      "size": 19705,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/artefactos.json",
+      "format": "utf8",
+      "sha256": "182fe2f7b75093c42b024071e51be19861838265e406e4550e21c5f4d205d699",
+      "size": 20912,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/cadena-semilla.json",
+      "format": "utf8",
+      "sha256": "c16057831a2a57fc8cbb9212abbcdc9a91995323e1b88c3c106fa3ec49e27147",
+      "size": 491,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/contrato-fijado.json",
+      "format": "utf8",
+      "sha256": "3f0b5e4a2897cca1513b4df027226f27c41758a72e127d7919b244ceb59bf7ce",
+      "size": 18538,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/exportado-pdf.txt",
+      "format": "utf8",
+      "sha256": "3fab2bbae5a1c3de6b0a5e9c89370c5d08286cf4a712f1f5a0f33f035f96e3a8",
+      "size": 16155,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/exportado.pdf",
+      "format": "pdf-base64",
+      "sha256": "ec4852dd65d05622a8764bdd5000c804dbaec430fc16b17cd184060f17d165b2",
+      "size": 146679,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/exportado.ses",
+      "format": "ses-latin1-as-utf8",
+      "sha256": "120ba6f2656987d1fea8e8c512d5f69c294d02f7ff6759da7e6cb55a854bc443",
+      "size": 2098,
+      "decodedSha256": "7dc22bacd2b18995a818bb8a73b13c62a5cd15ede9336c47070b6ccece00c27e",
+      "decodedSize": 6101
+    },
+    {
+      "file": "valencia-captura76/intento-consumido.json",
+      "format": "utf8",
+      "sha256": "c8b30d75323b647a03fe74e55a8622cecbbac1d1e51c2ef227f1f01d6a18e7b0",
+      "size": 62,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/poppler.json",
+      "format": "utf8",
+      "sha256": "93209bab33000ad572f1c73a38e011a77bf70c066d076daa023782b936dd69b4",
+      "size": 52,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/readback-economico.json",
+      "format": "utf8",
+      "sha256": "640be6db2a7901d9191b6c034686c4ddf49f066fec888769c696d31a7a7d3701",
+      "size": 124,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/resultado-final-vivo.json",
+      "format": "utf8",
+      "sha256": "8b50c76eaed9caa289abd2180c7b6397ee55d5e3ae2d7d6c054978ef20ff8547",
+      "size": 144,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/ses-lecturas.json",
+      "format": "utf8",
+      "sha256": "33debc83690f6fbf21e5bec7dc6a1a5a1a31054a7262f180af8197217709527f",
+      "size": 397,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/ses-zlib-latin1.txt",
+      "format": "utf8",
+      "sha256": "a88255f6f7f5bdf54f27405c31227cefd5208707c8050cf40f0e3815bad7cada",
+      "size": 6103,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura76/ses-zlib.bin",
+      "format": "latin1-as-utf8",
+      "sha256": "7dc22bacd2b18995a818bb8a73b13c62a5cd15ede9336c47070b6ccece00c27e",
+      "size": 6101,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura58/open2025-comunitat-valenciana-05/artefactos.json",
+      "format": "utf8",
+      "sha256": "528e8a092a4709cd87c53bcc2c8f0b0d7c3b31e75daf9cc3542aefa9d5cd8e1e",
+      "size": 2884,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura58/open2025-comunitat-valenciana-05/bootstrap.html",
+      "format": "utf8",
+      "sha256": "75b829cb3f132f691f16593e1ff43433e274eb9cc68c587796c7ef3467257954",
+      "size": 137972,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura58/open2025-comunitat-valenciana-05/contrato-fijado.json",
+      "format": "utf8",
+      "sha256": "5edc818077eb117f95b1f2207170d735db03bf9cff9f19fcb314347c7d92af72",
+      "size": 56143,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura58/open2025-comunitat-valenciana-05/entrada-intacta.json",
+      "format": "utf8",
+      "sha256": "3052a069f3303c9fb79fb7e417145e941f4b06465eea5f0759554e4d824b9cdc",
+      "size": 9890,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura58/open2025-comunitat-valenciana-05/expediente-externo-sintetico.json",
+      "format": "utf8",
+      "sha256": "58c2261de08194d24e5682cd6ade8a8a79b0dea31ac4f9abd5062f120d607adb",
+      "size": 6219,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura58/open2025-comunitat-valenciana-05/frontera.json",
+      "format": "utf8",
+      "sha256": "b3db0939290c741fa95789dc0e0aa734d3b38e36be25739741631c4ba12a7b75",
+      "size": 3681,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura58/open2025-comunitat-valenciana-05/menu-antes-frontera.html",
+      "format": "utf8",
+      "sha256": "a4ced280681475402d4f6a56a96749b30db058c7ea61f5cb6d48b54021ce8cd5",
+      "size": 260621,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura58/open2025-comunitat-valenciana-05/menu-antes-frontera.json",
+      "format": "utf8",
+      "sha256": "5bd5018914543e9bbf70af0879edd6ae02c2edfc8df2fec9463d388d7924e8b9",
+      "size": 641126,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura58/open2025-comunitat-valenciana-05/menu-antes-frontera.txt",
+      "format": "utf8",
+      "sha256": "61af3ad5acdc1247b2425ff62c9bec90dd2d5e6d681907a7900874e162d93689",
+      "size": 10408,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura58/open2025-comunitat-valenciana-05/parcial-trabajo.pdf",
+      "format": "pdf-base64",
+      "sha256": "7ccd9d4843c2ef711f3467ad0efa4ef74dce546f90c486775114321d63b18cf9",
+      "size": 141088,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura58/open2025-comunitat-valenciana-05/parcial-trabajo.ses",
+      "format": "ses-latin1-as-utf8",
+      "sha256": "740f4af8c24082dca04efbb7ad04e38471ec268edad7d705e45d84674b1a9ef9",
+      "size": 1943,
+      "decodedSha256": "58116b5c8196363f95399f091a3cc047497aaed88d071e8b8cb29295cec782c6",
+      "decodedSize": 5458
+    },
+    {
+      "file": "valencia-captura58/open2025-comunitat-valenciana-05/personal-antes-aceptar.html",
+      "format": "utf8",
+      "sha256": "5f3cf41337ad4c250f445b7aed6bde530c657ec1f74c5846a1ccc12132baf70d",
+      "size": 135523,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura58/open2025-comunitat-valenciana-05/personal-antes-aceptar.json",
+      "format": "utf8",
+      "sha256": "e51baf98f95827379b8c599f554fa6c9727017d6e1abdc8c50a2281f8fb920c4",
+      "size": 71354,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura58/open2025-comunitat-valenciana-05/personal-antes-aceptar.txt",
+      "format": "utf8",
+      "sha256": "f8f9f3ad87dabf3cb60c9c5025787f0a268d21b8f96debbf2938867b9b33792e",
+      "size": 2909,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura58/open2025-comunitat-valenciana-05/primera-frontera-no-observada.html",
+      "format": "utf8",
+      "sha256": "fd4ef0ded2b07b69d26d4425cb314d53391eb0b60c77f85bafbfb29b46a4580b",
+      "size": 261258,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura58/open2025-comunitat-valenciana-05/primera-frontera-no-observada.json",
+      "format": "utf8",
+      "sha256": "c05acb2056c8a8b7e2fb0c149c1329f40440e2c480745ae9fa1cb8a3bf9fd6ba",
+      "size": 674345,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura58/open2025-comunitat-valenciana-05/primera-frontera-no-observada.txt",
+      "format": "utf8",
+      "sha256": "d2b1c7a78f2223a3cbdaa5d3039ab9b238c394451e246458e48bb0165c08fac6",
+      "size": 10442,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura58/open2025-comunitat-valenciana-05/readbacks.json",
+      "format": "utf8",
+      "sha256": "7c93bc2948b0518303407bd5cc8d341d122b317f0149966683ecdd27147c7207",
+      "size": 2209,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura58/open2025-comunitat-valenciana-05/resumen-parcial.txt",
+      "format": "utf8",
+      "sha256": "35dc61252cdeaab19fbf9aae47a891945c9d9140024d2f3375a9e91615b1ec01",
+      "size": 3043,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura58/open2025-comunitat-valenciana-05/ses-observado.txt",
+      "format": "utf8",
+      "sha256": "5b1d27bfd94ec6935674f81a8fe0ddc347b7f494f810002a9bf7d3e5c9a32857",
+      "size": 5460,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura58/open2025-comunitat-valenciana-05/ses-registros.json",
+      "format": "utf8",
+      "sha256": "a44864e2e7ce09b2ee3d9bdecc23c0871e46628744bd100bb624649c19229da2",
+      "size": 5768,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura58/open2025-comunitat-valenciana-05/valencia-00-bootstrap.html",
+      "format": "utf8",
+      "sha256": "10535038f312fe25a067072d728b7a6c45b62a47535f0fb845953c68bae69b66",
+      "size": 73010,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura58/open2025-comunitat-valenciana-05/valencia-00-bootstrap.json",
+      "format": "utf8",
+      "sha256": "7c89e60917cc1fe06bf11b8167803621167f1cbca483f4eae3dfaa759a11b9f3",
+      "size": 168045,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura58/open2025-comunitat-valenciana-05/valencia-00-bootstrap.txt",
+      "format": "utf8",
+      "sha256": "3486af0fa0ff161e8b14f45e6a4fb4f02cd2d0e03262eb359ccf900d2fa1592b",
+      "size": 1926,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura58/open2025-comunitat-valenciana-05/valencia-01-cargar.html",
+      "format": "utf8",
+      "sha256": "c3450cf7f32823f7d10bd8a0e19df151d31c3a8ee76c4aa9e66292ed1e321c80",
+      "size": 143318,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura58/open2025-comunitat-valenciana-05/valencia-01-cargar.json",
+      "format": "utf8",
+      "sha256": "b2ef2feb5d578dc2034718a17f0fe481e847151e022330c9f969d587d5264eb0",
+      "size": 377503,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura58/open2025-comunitat-valenciana-05/valencia-01-cargar.txt",
+      "format": "utf8",
+      "sha256": "00d2406e3cfcba4fb16fbd37b25d22e0aef2379204107a97ad5228f366992c18",
+      "size": 3046,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura58/open2025-comunitat-valenciana-05/valencia-02-semilla-importada.html",
+      "format": "utf8",
+      "sha256": "0d8d914312bc593522e3425cce7d724c1ff174bd27efa6b7b941244019cdfccb",
+      "size": 97092,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura58/open2025-comunitat-valenciana-05/valencia-02-semilla-importada.json",
+      "format": "utf8",
+      "sha256": "4d243bc9b9261935d5fac2a70359c4addb62d28a3a9ce11fa226a105bc8e4ac7",
+      "size": 61009,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura58/open2025-comunitat-valenciana-05/valencia-02-semilla-importada.txt",
+      "format": "utf8",
+      "sha256": "dd04a45a8261740ef3e7bc12b381972191d6c844bab1cda240bb004f28c57c1e",
+      "size": 3043,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura58/open2025-comunitat-valenciana-05/valencia-03-apartados.html",
+      "format": "utf8",
+      "sha256": "faffa7597164f12c8d178ef24f9bdfa727c1c2c405bbfd1f5bff1660490b2574",
+      "size": 123549,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura58/open2025-comunitat-valenciana-05/valencia-cadena-semilla.json",
+      "format": "utf8",
+      "sha256": "d171a7704f022c9b3dccce39ab7bc9365b64ff85399b0e71bcb3bef00b965138",
+      "size": 397,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura58/open2025-comunitat-valenciana-05/valencia-error.json",
+      "format": "utf8",
+      "sha256": "97747a6bc3345cbd16ba2614c57b3bc1713d69df23a1498efb0291ae25036c32",
+      "size": 128,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "inquilinos-transporte38/inquilinos-transporte.json",
+      "format": "utf8",
+      "sha256": "5edc818077eb117f95b1f2207170d735db03bf9cff9f19fcb314347c7d92af72",
+      "size": 56143,
+      "decodedSha256": null,
+      "decodedSize": null
+    },
+    {
+      "file": "valencia-captura-preparacion68/contrato.json",
+      "format": "utf8",
+      "sha256": "3f0b5e4a2897cca1513b4df027226f27c41758a72e127d7919b244ceb59bf7ce",
+      "size": 18538,
+      "decodedSha256": null,
+      "decodedSize": null
+    }
+  ],
+  "package": {
+    "file": "inquilinos-oficiales/inquilino-valencia-05.json",
+    "sha256": "933cfe3983aef6e885093a89d61ac47cf0ba5b00fde80a8c9b4faf8cb5e40bdb",
+    "size": 2733444,
+    "expandedSize": 19193138,
+    "envelopeSha256": "5f1d157eaa2c12a185f0f43e240795d1b029d71b22c26ddc16918fe52e88b278",
+    "envelopeSize": 3644645
+  },
+  "compressor": {
+    "derivation": "viadyk3hg56ib6vky4cm3sb2y3n305aw-nodejs-24.19.0",
+    "executableSha256": "5665680b3dd68ebe81308cba2283249c204f8c0ab9ef4d3d4cc322b4d9c24ad4"
+  },
+  "modules": [
+    {
+      "file": "conjunta-ses.mjs",
+      "sha256": "058d10d202c6741fd19737e874d2793cc398a1218956667291113549d9382e54"
+    },
+    {
+      "file": "conjunta-pdf.mjs",
+      "sha256": "0ea2092c3cbd23b703079a337b005373fa925a8e7953c0609ab02116841cb3e9"
+    },
+    {
+      "file": "inquilinos-open.mjs",
+      "sha256": "1753d62bf626d3a64e58c9c4af4bb41ebcb528490a3d123df1e9b27778445b57"
+    },
+    {
+      "file": "inquilinos-pins.json",
+      "sha256": "8f8cf564bb12dd2af383131fe46c4d0fe8f4c69bcb42399b1a745fb38d30f507"
+    },
+    {
+      "file": "valencia-open.mjs",
+      "sha256": "851ff79bc0211a7ee8e4279eea80ef5ce59472004b64e6490511314ea10a8cca"
+    },
+    {
+      "file": "valencia-reference.json",
+      "sha256": "92ba795e67c55ef5d80f5f7ee5bc27e68d2b22487a3704ba86b621a46306c95e"
+    }
+  ]
+}

@@ -1,12 +1,13 @@
 # Medición nacional 2025
 
-**68/80 objetivos cuadran al céntimo con evidencia vinculada.** Se han capturado
+**70/80 objetivos cuadran al céntimo con evidencia vinculada.** Se han capturado
 y comparado 32 perfiles salariales sin mínimos familiares, cuatro con
 ascendientes, 18 con descendientes, siete viviendas con deducción transitoria
-y ocho conjuntas matrimoniales y dos monoparentales.
-Coinciden 31 salarios, tres ascendientes, 17 familias, siete viviendas y diez conjuntas.
-Los otros nueve objetivos siguen en N. El alcance de la proyección de hechos
-sintéticos está descrito en `ASCENDIENTES.md`, `FAMILIAS.md`, `DT18.md` y `CONJUNTAS.md`.
+y ocho conjuntas matrimoniales, dos monoparentales y los alquileres murciano y valenciano.
+Coinciden 31 salarios, tres ascendientes, 17 familias, siete viviendas, diez conjuntas y ambos alquileres.
+Los otros siete objetivos siguen en N. El alcance de la proyección de hechos
+sintéticos está descrito en `ASCENDIENTES.md`, `FAMILIAS.md`, `DT18.md`, `CONJUNTAS.md`
+y `../../inquilinos-murcia-binding.md` y `../valencia-binding.md`.
 
 `observaciones.json` contiene las entradas del manifiesto y las referencias
 relativas a los documentos en `oficiales/`. `medicion.json` conserva la salida
@@ -48,7 +49,7 @@ No estima cuántos contribuyentes tienen este perfil concreto. Los pendientes
 no reciben un impacto monetario inventado: hacen falta sus capturas y una
 salida del motor antes de calcular la diferencia.
 
-Quedan nueve perfiles de vivienda pendientes de comparación.
+Quedan siete perfiles de vivienda pendientes de comparación.
 La restricción territorial de las tres entradas ordinarias de ascendientes se
 ha ampliado sin modificar sus hechos. Las viviendas requieren completar su vinculación o
 expediente; no se reemplazan por declaraciones individuales o salariales.
@@ -61,7 +62,7 @@ códigos incompatibles y duplicaba pesos de entradas repetidas. Se conservaron
 las reproducciones y se corrigieron los tres comportamientos. Los controles
 propios ahora rechazan esas alteraciones y mantienen los originales válidos.
 
-La comprobación exige las 71 vinculaciones SES/PDF, incluidas las proyecciones
+La comprobación exige las 73 vinculaciones SES/PDF, incluidas las proyecciones
 de predicados familiares identificados, y registra los tres céntimos pendientes.
 El verde técnico de esa comprobación no
 equivale a cerrar los 80 objetivos ni el ejercicio completo.

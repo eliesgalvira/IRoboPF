@@ -16,6 +16,10 @@ import { vincularOpen } from "./vincular-open.mjs"
 import { vincularDT18Open } from "./vincular-dt18-open.mjs"
 import { vincularConjuntaOpen } from "./vincular-conjunta-open.mjs"
 
+import { vincularInquilinoOpen, inquilinoId } from "./vincular-inquilino-open.mjs"
+
+import { vincularValenciaOpen, valenciaId } from './vincular-valencia-open.mjs'
+
 const hash = (bytes) => createHash("sha256").update(bytes).digest("hex")
 const objeto = Schema.is(Schema.Record(Schema.String, Schema.Unknown))
 const cadena = Schema.is(Schema.String)
@@ -63,7 +67,8 @@ const iguales = (a, b) => {
 const escalares = ["reduccionArt20", "rendimientoNetoReducido", "baseImponibleGeneral",
   "baseLiquidableGeneral", "deduccionTrabajo", "cuotaPosterior", "cuotaDiferencial",
   "cuotaDiferencialPresentada"]
-const vinculoVerificado = (v) => v?.estado === "entrada-ses-y-resultado-pdf-vinculados"
+const vinculoVerificado = (v) => v?.estado === "transporte-valencia-ses-pdf-vinculado" || v?.estado === "transporte-inquilino-ses-pdf-vinculado"
+  || v?.estado === "entrada-ses-y-resultado-pdf-vinculados"
   || v?.estado === "transporte-dt18-ses-pdf-vinculado"
   || v?.estado === "transporte-conjunta-ses-pdf-vinculado"
 
@@ -150,7 +155,9 @@ function medirCaso(caso, base) {
     salida.resultadoMotorEUR = texto([centimos(motor), 2])
     salida.discrepanciaEUR = texto([diferencia, 2])
     salida.pesoExterno = caso.pesoExterno ?? null
-    salida.vinculacion = caso.evidenciaOpen?.conjunta
+    salida.vinculacion = (caso.id === valenciaId || caso.evidenciaOpen?.valencia)
+      ? vincularValenciaOpen(caso, base) : (caso.id === inquilinoId || caso.evidenciaOpen?.inquilino)
+      ? vincularInquilinoOpen(caso, base) : caso.evidenciaOpen?.conjunta
       ? vincularConjuntaOpen(caso, base) : caso.evidenciaOpen?.dt18
         ? vincularDT18Open(caso, base) : vincularOpen(caso, base)
     salida.coincidenciaVerificada = diferencia === 0n && vinculoVerificado(salida.vinculacion)

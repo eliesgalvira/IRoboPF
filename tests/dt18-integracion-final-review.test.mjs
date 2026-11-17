@@ -19,7 +19,16 @@ const oracles=[
 const original=id=>structuredClone(doc.casos.find(c=>c.id===id));
 describe('revisión independiente de integración DT18',()=>{
  it('conserva las siete viviendas verificadas dentro del denominador de 80',()=>{
-  const result=medirCasos(oracles.map(([id])=>original(id)),{base,manifiesto:manifest});
+  // El censo conserva las 80 entradas y pesos, pero este ensayo aporta sólo
+  // las siete observaciones DT18. Otras capturas publicadas no son su fixture.
+  const census=structuredClone(manifest);
+  for(const c of census.casos){
+   c.resultadoOpenEUR=null;
+   c.componentesOpenEUR={};
+   delete c.evidenciaOpen;
+   delete c.integridadReferencias;
+  }
+  const result=medirCasos(oracles.map(([id])=>original(id)),{base,manifiesto:census});
   expect(result.medicion).toMatchObject({iguales:7,N:80,comparables:7,duplicados:0});
   expect(result.resultados.filter(r=>oracles.some(([id])=>id===r.id)).every(r=>r.coincidenciaVerificada)).toBe(true);
  });
