@@ -19,12 +19,12 @@ for (const [id, esperado] of oficiales) {
   const entrada = Schema.decodeUnknownSync(CasoFiscalAnualExplicito)(original, { onExcessProperty: "error" })
   if (entrada.perfil !== "solo-trabajo" || entrada.derechosMinimos === undefined)
     throw new Error("Falta el perfil documental de ascendientes")
-  it(id + ": contraste con diferencial oficial y diferencia pendiente explícita", () => {
+  it(id + ": igualdad al céntimo con el diferencial oficial", () => {
     const r = Effect.runSync(liquidarIrpfAnualExplicito(entrada))
-    // Canarias conserva un céntimo pendiente de las etapas de redondeo. Este
-    // caso no cuenta como igualdad; el esperado Open permanece en 226,80.
+    // La cuantización familiar cierra el céntimo anterior de Canarias.
+    // Se conserva el esperado oficial de 226,80, sin tolerancia.
     const diferencia = new Decimal(r.cuotaDiferencialPresentada).minus(esperado)
-    expect(diferencia.toFixed(2)).toBe(id === "open2025-canarias-02" ? "-0.01" : "0.00")
+    expect(diferencia.toFixed(2)).toBe("0.00")
   })
   if (entrada.comunidadAutonoma !== "comunitat-valenciana") {
     it(id + ": no amplía el consumidor general de mínimos", () => {

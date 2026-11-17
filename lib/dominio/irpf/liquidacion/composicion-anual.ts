@@ -1,3 +1,4 @@
+import { seleccionarCuantizacionFamilia2025, cuantizarGravamenFamilia2025 } from "../cuotas/politica-familia-open-2025"
 import { seleccionarCuantizacionConjunta, cuantizarComponenteConjunto } from "../conjunta-2025/politica-cuantizacion"
 import { MINIMOS_ESTATALES_2025 } from "../../normativa/datos/minimos-autonomicos-2025"
 import { prepararConjunta2025, reducirBaseConjunta2025 } from "../conjunta-2025/preparar"
@@ -84,6 +85,8 @@ export type PoliticaAnual =
   | "open-etapas-empleo-madrid-2024"
 /** Contrato interno: bases ya integradas en EUR Decimal; jamás reconstruye cotizaciones. */
 export interface EntradaComposicionAnual {
+  /** Hechos de la conexión explícita; ausentes en la API canónica. */
+  readonly hechosFamiliaOpen2025?: CasoFiscalAnualExplicitoBase | undefined
   readonly conjunta2025?: CasoConjunta2025 | undefined
   readonly hechosOpen2023A2024?: CasoFiscalAnualExplicitoBase | undefined
   /** Sólo la conexión explícita aporta hechos completos; nunca la API canónica. */
@@ -276,7 +279,9 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
     }
     const gravar = (args: Parameters<typeof calcularCuotaPorEscala>[0]) =>
       politicaCuantizacionConjunta === undefined
-        ? cuantizar(calcularCuotaPorEscala({ ...args, aritmetica: A }))
+        ? politicaCuantizacionFamilia === undefined
+          ? cuantizar(calcularCuotaPorEscala({ ...args, aritmetica: A }))
+          : cuantizarGravamenFamilia2025(calcularCuotaPorEscala({ ...args, aritmetica: A }))
         : cuantizarComponenteConjunto(calcularCuotaPorEscala({ ...args, aritmetica: A }))
     if (
       entrada.politica === "open-empleo-madrid-2025" &&
@@ -357,7 +362,7 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
       return yield* Effect.fail(
         errorDerechosMinimos({
           motivo:
-            "Política de cuotas territoriales Open limitada a empleo efectivo de los cinco territorios observados en 2025, sin derechos familiares",
+            "Política de cuotas territoriales Open limitada a empleo efectivo de los seis territorios observados en 2025, sin derechos familiares",
         })
       )
     if (
@@ -486,6 +491,12 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
         anio: caso.anio,
         minimos: parametrosComunidad.minimosAutonomicos,
       })
+    // La selección ocurre después de validar derechos y conciliar rentas.
+    // alcanceMinimos conserva su condición literal y sus reservas de API.
+    const politicaCuantizacionFamilia = seleccionarCuantizacionFamilia2025(
+      entrada, minimoPersonalYFamiliar, minimoPersonalYFamiliarAutonomico,
+      derechosEstatales?.atribuciones ?? []
+    )
     const politicaCuantizacionConjunta = seleccionarCuantizacionConjunta(
       conjunta, baseLiquidableGeneral, minimoPersonalYFamiliar, minimoPersonalYFamiliarAutonomico
     )
@@ -1039,6 +1050,7 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
     }
     const cuotaPosterior = cuotaLiquida.minus(deduccionTrabajo)
     return {
+      politicaCuantizacionFamilia,
       politicaCuantizacionConjunta: politicaCuantizacionConjunta?.nombre,
       reduccionConjunta,
       baseLiquidableGeneral,

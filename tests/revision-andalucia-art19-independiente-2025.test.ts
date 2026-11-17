@@ -87,7 +87,9 @@ function correr(api: "analitica" | "explicita", d: Fixture, solicitudes: unknown
     const r=ejecutarOError(liquidarIrpfAnual({...a,deduccionesTerritoriales2025:s},{modo:"canonico"}))
     return {delta:new Fraction(BigInt(b.cuotaLiquidaCentimos-r.cuotaLiquidaCentimos),100n),base:r.baseLiquidableGeneralCentimos,generado:r.deduccionesTerritoriales2025!.aplicaciones[0]!.generado}
   }
-  const b=ejecutarOError(liquidarIrpfAnualExplicito(e))
+  // Una solicitud vacía conserva la misma política que la rama territorial;
+  // así el delta mide la deducción, sin mezclar la cuantización familiar Open.
+  const b=ejecutarOError(liquidarIrpfAnualExplicito({...e,deducciones:"territoriales-por-hechos-y-da61",deduccionesTerritoriales2025:decode([])}))
   const r=ejecutarOError(liquidarIrpfAnualExplicito({...e,deducciones:"territoriales-por-hechos-y-da61",deduccionesTerritoriales2025:s}))
   expect(r.baseLiquidableGeneral).toEqual(b.baseLiquidableGeneral)
   return {delta:F(String(b.cuotaLiquidaLegal)).sub(F(String(r.cuotaLiquidaLegal))),base:r.baseLiquidableGeneral,generado:r.deduccionesTerritoriales2025!.aplicaciones[0]!.generado}
@@ -96,6 +98,16 @@ const defensa = {lote:"A40",codigo:"andalucia_defensa_juridica_laboral",nacimien
   id:"reclamacion-salario",clase:"reclamacion-cantidades",expedienteJudicial:"autos-41",pagos:[{
     id:"honorarios-41",fecha:"2025-09-02",pagador:"s-41",importeCentimos:20000,medio:"transferencia",
     justificante:"factura-autos-41",regimen:"personal",conyuges:[]}]}]}}
+it("separa el cambio de política familiar del consumo exacto de art19",()=>{
+  const d=fixture(), {e}=entradas(d)
+  const familiar=ejecutarOError(liquidarIrpfAnualExplicito(e))
+  const territorial=ejecutarOError(liquidarIrpfAnualExplicito({...e,deducciones:"territoriales-por-hechos-y-da61",deduccionesTerritoriales2025:decode([])}))
+  const aplicado=ejecutarOError(liquidarIrpfAnualExplicito({...e,deducciones:"territoriales-por-hechos-y-da61",deduccionesTerritoriales2025:decode([d])}))
+  expect(F(territorial.cuotaLiquidaLegal).sub(F(familiar.cuotaLiquidaLegal))).toEqual(F("0.005"))
+  expect(F(familiar.cuotaLiquidaLegal).sub(F(aplicado.cuotaLiquidaLegal))).toEqual(F("499.995"))
+  expect(F(territorial.cuotaLiquidaLegal).sub(F(aplicado.cuotaLiquidaLegal))).toEqual(F(500))
+  expect(aplicado.deduccionesTerritoriales2025!.aplicaciones[0]!.generado).toEqual(F(500).transport())
+})
 for(const api of ["analitica","explicita"] as const) describe(`revisión independiente art19 ${api}`,()=>{
   it.each([0,1,123456,249998,249999,250000,250001,999999])("20%% y tope sin prorratear: %s céntimos",c=>{
     const d=fixture(c), esperado=generado(c)

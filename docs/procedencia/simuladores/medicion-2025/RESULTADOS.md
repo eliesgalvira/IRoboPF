@@ -1,15 +1,16 @@
 # Medición nacional 2025
 
-**72/80 objetivos cuadran al céntimo con evidencia vinculada.** Se han capturado
+**76/80 objetivos cuadran al céntimo con evidencia vinculada.** Se han capturado
 y comparado 32 perfiles salariales sin mínimos familiares, cuatro con
 ascendientes, 18 con descendientes, siete viviendas con deducción transitoria
 y ocho conjuntas matrimoniales, dos monoparentales y los alquileres murciano y valenciano.
-Coinciden 31 salarios, tres ascendientes, 17 familias, siete viviendas, diez conjuntas,
-ambos alquileres y dos proyecciones de alquiler sin derecho en CLM y Cataluña.
+Coinciden los 32 salarios, cuatro ascendientes, 18 familias, siete viviendas, diez conjuntas,
+ambos alquileres, dos proyecciones de alquiler sin derecho en CLM y Cataluña
+y la proyección de vivienda riojana descrita en `RIOJA-PROYECCION.md`.
 Estas últimas conservan los hechos completos de vivienda y acreditan la equivalencia
 fiscal con el transporte salarial bajo las guardas de `PROYECCION-INQUILINOS.md`;
 no acreditan que la vivienda se haya introducido en Open.
-Los otros cinco objetivos siguen en N. El alcance de la proyección de hechos
+Los otros cuatro objetivos siguen en N. El alcance de la proyección de hechos
 sintéticos está descrito en `ASCENDIENTES.md`, `FAMILIAS.md`, `DT18.md`, `CONJUNTAS.md`
 y `../../inquilinos-murcia-binding.md` y `../valencia-binding.md`.
 
@@ -24,25 +25,26 @@ Los PDF se conservan byte a byte. Los SES se publican como `persistencia.txt`:
 descompresión zlib y transcripción íntegra Latin1 → UTF8, reversible sin perder
 caracteres. Así el sanitizador puede examinar todo el contenido. Cada referencia
 conserva el SHA de la transcripción, del contenido Latin1 y del original
-comprimido; el medidor verifica los dos primeros. El tercer SHA identifica la
-recepción original, conservada fuera del repositorio: no se presenta como un
-comprimido reconstruido ni como una firma de la AEAT. No se omiten campos.
+comprimido; el medidor verifica los dos primeros. En los vínculos que exigen
+reconstrucción, incluido Rioja, verifica además que el compresor fijado reproduce
+el tercer SHA byte a byte. En los demás, ese tercer SHA identifica la recepción
+original conservada fuera del repositorio. Ningún SHA se presenta como firma de
+la AEAT. No se omiten campos.
 
-## Registro de diferencias
+## Diferencias corregidas
 
-| Caso | Open 0670 | Motor presentado | Motor − Open | Peso territorial proxy | Impacto absoluto × proxy |
-| --- | ---: | ---: | ---: | ---: | ---: |
-| open2025-illes-balears-02 | 1.011,01 EUR | 1.011,00 EUR | −0,01 EUR | 329.261 | 3.292,61 EUR |
-| open2025-andalucia-11 | 429,22 EUR | 429,23 EUR | +0,01 EUR | 316.738,071428571429 | 3.167,38071428571429 EUR |
-| open2025-canarias-02 | 226,80 EUR | 226,79 EUR | −0,01 EUR | 276.831,75 | 2.768,3175 EUR |
+| Caso | Open 0670 | Motor anterior | Motor actual |
+| --- | ---: | ---: | ---: |
+| open2025-illes-balears-02 | 1.011,01 EUR | 1.011,00 EUR | 1.011,01 EUR |
+| open2025-andalucia-11 | 429,22 EUR | 429,23 EUR | 429,22 EUR |
+| open2025-canarias-02 | 226,80 EUR | 226,79 EUR | 226,80 EUR |
 
-El perfil balear tiene un salario de 45.000 EUR y cotizaciones efectivas de
-2.925 EUR. La diferencia nace al cuantizar las cuotas, no al introducir las
-cotizaciones. Queda abierta como diferencia menor; no se ha aplicado una
-corrección arbitraria al resultado ni una tolerancia que la cuente como igual.
-Canarias añade otra diferencia menor de cuantización con un ascendiente.
-Andalucía conserva una diferencia de un céntimo con descendiente. La referencia monoparental de Castilla y León también coincide tras aplicar
-la misma frontera de equivalencia. Las tres diferencias permanecen abiertas y fuera del contador de coincidencias.
+Los cuatro gravámenes completos se cuantizan antes de restar mínimos, en los
+perfiles observados y delimitados por `BALEARES-COMPONENTES.md` y
+`FAMILIA-CUANTIZACION.md`. Se conservan los importes oficiales, las cotizaciones
+efectivas y la validación de derechos. No se suma un céntimo al resultado ni se
+usa tolerancia para contarlo como igual. No quedan discrepancias monetarias
+observadas entre los 76 casos comparables; los pendientes no son coincidencias.
 La cuantización por componentes corrige las tres diferencias matrimoniales
 de Murcia y Aragón; conserva las otras cinco referencias matrimoniales.
 Su frontera monetaria y la reserva sobre la etapa interna de Open se describen
@@ -53,7 +55,7 @@ No estima cuántos contribuyentes tienen este perfil concreto. Los pendientes
 no reciben un impacto monetario inventado: hacen falta sus capturas y una
 salida del motor antes de calcular la diferencia.
 
-Quedan cinco perfiles de vivienda pendientes de comparación: cuatro arrendadores y La Rioja DT18.
+Quedan cuatro arrendadores pendientes de comparación acreditada.
 La restricción territorial de las tres entradas ordinarias de ascendientes se
 ha ampliado sin modificar sus hechos. Las viviendas requieren completar su vinculación o
 expediente; no se reemplazan por declaraciones individuales o salariales.
@@ -66,7 +68,7 @@ códigos incompatibles y duplicaba pesos de entradas repetidas. Se conservaron
 las reproducciones y se corrigieron los tres comportamientos. Los controles
 propios ahora rechazan esas alteraciones y mantienen los originales válidos.
 
-La comprobación exige las 75 vinculaciones SES/PDF, incluidas las proyecciones
-de predicados familiares identificados, y registra los tres céntimos pendientes.
+La comprobación exige las 76 vinculaciones SES/PDF, incluidas las proyecciones
+fiscales justificadas y los predicados familiares identificados.
 El verde técnico de esa comprobación no
 equivale a cerrar los 80 objetivos ni el ejercicio completo.

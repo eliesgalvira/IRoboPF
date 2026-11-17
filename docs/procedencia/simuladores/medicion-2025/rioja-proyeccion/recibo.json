@@ -1,0 +1,971 @@
+{
+  "schema": "open2025-transporte-v2",
+  "dependencies": {
+    "dt18-ses.mjs": "565104cc5e628a5597c88314fa2669102cf791f7011665626ffa3ca730b406bc",
+    "controles-observados.json": "43617e55fd99cc15de69cfcb8396db9fe23e9acb1c0ba527d80d2bf73674aca0",
+    "regional-discovery.mjs": "51084d13c6285e1cdbb3d853efe72b043510a54c5b646d9ee4903df0e56d898b",
+    "audit-artifacts.mjs": "1da783175a1fdc8fa8a7017125a2ecff30894d7db87a3bc4b053433bf14a98f8",
+    "captura-contrato.json": "de0a9ebacb65ff4a29b8f97e3b81550e9dbc5fd04fb19c37a2fd14c81b9b44d6",
+    "casos.json": "88931f050c05b01b6e7ec0f2b1d14da91920121b0f7121554638f4bdaea12b81"
+  },
+  "id": "open2025-la-rioja-01",
+  "utc": "2026-11-17T03:54:42.663Z",
+  "state": "discovery-needed",
+  "transportComplete": false,
+  "dt18": {
+    "state": "discovery-needed",
+    "transportComplete": false,
+    "countedAsMatch": false,
+    "missing": [
+      "solicitud regional: discovery-needed"
+    ],
+    "fields": [
+      {
+        "key": "date",
+        "state": "readback-only",
+        "value": "01/02/2010",
+        "semanticAcceptanceVerified": false
+      },
+      {
+        "key": "loan",
+        "state": "readback-only",
+        "value": "00000000000000000000",
+        "semanticAcceptanceVerified": false
+      },
+      {
+        "key": "percent",
+        "state": "readback-only",
+        "value": "100.00",
+        "semanticAcceptanceVerified": false
+      },
+      {
+        "key": "payments",
+        "state": "readback-only",
+        "value": "6000.00"
+      }
+    ],
+    "uiControlsAccepted": true
+  },
+  "versions": {
+    "runtime": "v24.3.0",
+    "bun": "1.3.13",
+    "browser": "153.0.8010.36",
+    "playwrightSha256": "3d36e2132d3c8b62397d23f0bb4177336aaee503203ae2a2c90fbeb5bf3317dd",
+    "chromiumSha256": "0ebeb5370b2ad86f8645ea9aabfdbb6f35d47c2707cce7d8484597cf2c513f26",
+    "pdftotextSha256": "5ae878329c69dd33fdfccec71c6f04aabe0d4fc7f728715cf33bca20e4e9673c"
+  },
+  "countedAsMatch": false,
+  "inputSha256": "39530cf660818acc8b8ef488254356c42013a4417d7b1f0a434b24ea330027aa",
+  "caseSha256": "75e769ce5bf0c960cf78a3afcc00d600e834611d5e2713f8588edfb46f22ca62",
+  "transportSha256": "16740a8a2fadb29d27dcd36ca41f08722984a0e98a234cd8ae5dfd9b30b59a1e",
+  "matrixSha256": "88931f050c05b01b6e7ec0f2b1d14da91920121b0f7121554638f4bdaea12b81",
+  "templateSha256": null,
+  "bootstrap": {
+    "file": "bootstrap.html",
+    "sha256": "7d4937a6b7306ea559cfa08287727ee7176f09f1e9a49cd889c2130c9b74cb4c"
+  },
+  "ses": {
+    "file": "captura.ses",
+    "sha256": "b7d166d2a11aaf3e8b5c9966eaebe679c3234a006f3fa919038fd2c4b812affb"
+  },
+  "pdf": {
+    "file": "captura.pdf",
+    "sha256": "a2d7630bf5484cb95c9d07a8684cd3cdaf5eddf44e0a6bc3ebae8cd63286a542"
+  },
+  "summary": {
+    "file": "resumen.txt",
+    "sha256": "6948b8680d85f3c9c7b53ade6d3aba43b707d39cd6d16a7bb20bdfbf4d15be38"
+  },
+  "observed": {
+    "salary": {
+      "personal": {
+        "DPFNAC_D": "01/01/1985",
+        "CAD_D": "LA RIOJA",
+        "CAC_D": "16",
+        "EDADD": "40",
+        "ZFNAC_D": "01/01/1985",
+        "ZCCAD": "16"
+      },
+      "amounts": {
+        "IDII": {
+          "value": "60000.0",
+          "absentZeroWithUiReadback": false
+        },
+        "GSS": {
+          "value": "3900.0",
+          "absentZeroWithUiReadback": false
+        },
+        "IDRE": {
+          "value": "14000.0",
+          "absentZeroWithUiReadback": false
+        },
+        "GCS": {
+          "value": null,
+          "absentZeroWithUiReadback": true
+        },
+        "GCC": {
+          "value": null,
+          "absentZeroWithUiReadback": true
+        },
+        "GDJ": {
+          "value": null,
+          "absentZeroWithUiReadback": true
+        },
+        "IDICLDED2": {
+          "value": null,
+          "absentZeroWithUiReadback": true
+        },
+        "GSSCLDED2": {
+          "value": null,
+          "absentZeroWithUiReadback": true
+        }
+      }
+    },
+    "housing": {
+      "schema": "dt18-ses-v2",
+      "housingVerified": true,
+      "externalHistoryVerified": false,
+      "negativeEvidence": "UI antes/después; sólo ausencias observadas en SES, sin inferir historia",
+      "records": [
+        {
+          "scope": 12,
+          "path": "DECLARACIONES/IRPF2025",
+          "key": "TPC1",
+          "type": "3",
+          "value": "100.0",
+          "flag": "255"
+        },
+        {
+          "scope": 12,
+          "path": "DECLARACIONES/IRPF2025",
+          "key": "VIVPORC",
+          "type": "1",
+          "value": "100.0",
+          "flag": null
+        },
+        {
+          "scope": 12,
+          "path": "DECLARACIONES/IRPF2025",
+          "key": "VIVNIPH",
+          "type": "1",
+          "value": "00000000000000000000",
+          "flag": null
+        },
+        {
+          "scope": 12,
+          "path": "DECLARACIONES/IRPF2025",
+          "key": "VNI1",
+          "type": "3",
+          "value": "00000000000000000000",
+          "flag": "255"
+        },
+        {
+          "scope": 12,
+          "path": "DECLARACIONES/IRPF2025",
+          "key": "VFA1",
+          "type": "3",
+          "value": "01/02/2010",
+          "flag": "255"
+        },
+        {
+          "scope": 12,
+          "path": "DECLARACIONES/IRPF2025",
+          "key": "BASE1",
+          "type": "1",
+          "value": "6000.0",
+          "flag": null
+        },
+        {
+          "scope": 12,
+          "path": "DECLARACIONES/IRPF2025",
+          "key": "VHADQ",
+          "type": "1",
+          "value": "6000.0",
+          "flag": null
+        },
+        {
+          "scope": 12,
+          "path": "DECLARACIONES/IRPF2025",
+          "key": "VIVFA",
+          "type": "1",
+          "value": "01/02/2010",
+          "flag": null
+        },
+        {
+          "scope": 13,
+          "path": "DECLARACIONES/IRPF2025/INMUEBLES",
+          "key": "VURBA",
+          "type": "1",
+          "value": "true",
+          "flag": null
+        },
+        {
+          "scope": 13,
+          "path": "DECLARACIONES/IRPF2025/INMUEBLES",
+          "key": "VUSOHAB",
+          "type": "1",
+          "value": "true",
+          "flag": null
+        },
+        {
+          "scope": 13,
+          "path": "DECLARACIONES/IRPF2025/INMUEBLES",
+          "key": "TIT_C",
+          "type": "1",
+          "value": "DECLARANTE",
+          "flag": null
+        },
+        {
+          "scope": 13,
+          "path": "DECLARACIONES/IRPF2025/INMUEBLES",
+          "key": "C_RNR",
+          "type": "2",
+          "value": "255",
+          "flag": null
+        },
+        {
+          "scope": 13,
+          "path": "DECLARACIONES/IRPF2025/INMUEBLES",
+          "key": "CLDLG",
+          "type": "1",
+          "value": "4",
+          "flag": null
+        },
+        {
+          "scope": 13,
+          "path": "DECLARACIONES/IRPF2025/INMUEBLES",
+          "key": "CL",
+          "type": "1",
+          "value": "4",
+          "flag": null
+        },
+        {
+          "scope": 13,
+          "path": "DECLARACIONES/IRPF2025/INMUEBLES",
+          "key": "C_DIASVH",
+          "type": "1",
+          "value": "365",
+          "flag": null
+        },
+        {
+          "scope": 13,
+          "path": "DECLARACIONES/IRPF2025/INMUEBLES",
+          "key": "USOHAB",
+          "type": "1",
+          "value": "true",
+          "flag": null
+        },
+        {
+          "scope": 13,
+          "path": "DECLARACIONES/IRPF2025/INMUEBLES",
+          "key": "CDIRECCIONDLG",
+          "type": "1",
+          "value": "CALLE PRUEBA SINTETICA 1",
+          "flag": null
+        },
+        {
+          "scope": 13,
+          "path": "DECLARACIONES/IRPF2025/INMUEBLES",
+          "key": "DIASHAB",
+          "type": "1",
+          "value": "365",
+          "flag": null
+        },
+        {
+          "scope": 13,
+          "path": "DECLARACIONES/IRPF2025/INMUEBLES",
+          "key": "ORDENINMUEBLE",
+          "type": "1",
+          "value": "1",
+          "flag": null
+        },
+        {
+          "scope": 13,
+          "path": "DECLARACIONES/IRPF2025/INMUEBLES",
+          "key": "V01VIRIRI",
+          "type": "2",
+          "value": "255",
+          "flag": null
+        },
+        {
+          "scope": 13,
+          "path": "DECLARACIONES/IRPF2025/INMUEBLES",
+          "key": "PCDLG",
+          "type": "1",
+          "value": "100.0",
+          "flag": null
+        },
+        {
+          "scope": 13,
+          "path": "DECLARACIONES/IRPF2025/INMUEBLES",
+          "key": "CURBA",
+          "type": "1",
+          "value": "true",
+          "flag": null
+        },
+        {
+          "scope": 13,
+          "path": "DECLARACIONES/IRPF2025/INMUEBLES",
+          "key": "CDIRECCION",
+          "type": "1",
+          "value": "CALLE PRUEBA SINTETICA 1",
+          "flag": null
+        },
+        {
+          "scope": 13,
+          "path": "DECLARACIONES/IRPF2025/INMUEBLES",
+          "key": "IND_C",
+          "type": "1",
+          "value": "2",
+          "flag": null
+        },
+        {
+          "scope": 13,
+          "path": "DECLARACIONES/IRPF2025/INMUEBLES",
+          "key": "PC",
+          "type": "1",
+          "value": "100.0",
+          "flag": null
+        }
+      ]
+    },
+    "crossReadback": {
+      "id": "open2025-la-rioja-01",
+      "boxes": {
+        "0547": "450.00",
+        "0548": "450.00",
+        "0670": "-691.10",
+        "0511": "5550.00",
+        "0512": "5550.00",
+        "0519": "5550.00",
+        "0520": "5550.00"
+      },
+      "externalExpectations": {
+        "0547": "450.00",
+        "0548": "450.00",
+        "0670": null
+      },
+      "regionalControlsAccepted": false,
+      "externalHistoryVerified": false,
+      "transportComplete": false,
+      "countedAsMatch": false,
+      "readbackCount": 25
+    }
+  },
+  "readbacks": [
+    {
+      "key": "nif",
+      "requested": "90000000B",
+      "observed": "90000000B"
+    },
+    {
+      "key": "name",
+      "requested": "PRUEBA C OPEN",
+      "observed": "PRUEBA C OPEN"
+    },
+    {
+      "key": "birth",
+      "requested": "01/01/1985",
+      "observed": "01/01/1985"
+    },
+    {
+      "key": "region",
+      "options": [
+        " Borrar",
+        "ANDALUCIA",
+        "ARAGON",
+        "PRINCIPADO DE ASTURIAS",
+        "ILLES BALEARS",
+        "CANARIAS",
+        "CANTABRIA",
+        "CASTILLA-LA MANCHA",
+        "CASTILLA Y LEON",
+        "CATALUÑA",
+        "EXTREMADURA",
+        "GALICIA",
+        "MADRID",
+        "REGION DE MURCIA",
+        "LA RIOJA",
+        "COMUNITAT VALENCIANA",
+        "CIUDAD DE CEUTA",
+        "CIUDAD DE MELILLA",
+        "CONTRIBUYENTES NO RESIDENTES"
+      ],
+      "selected": "LA RIOJA",
+      "observed": "LA RIOJA",
+      "acceptance": "discovery-only"
+    },
+    {
+      "key": "IDII",
+      "requested": "60000.00",
+      "observed": "60.000,00"
+    },
+    {
+      "key": "GSS",
+      "requested": "3900.00",
+      "observed": "3.900,00"
+    },
+    {
+      "key": "IDRE",
+      "requested": "14000.00",
+      "observed": "14.000,00"
+    },
+    {
+      "key": "GCS",
+      "requested": "0.00",
+      "observed": ""
+    },
+    {
+      "key": "GCC",
+      "requested": "0.00",
+      "observed": ""
+    },
+    {
+      "key": "GDJ",
+      "requested": "0.00",
+      "observed": ""
+    },
+    {
+      "key": "IDICLDED2",
+      "requested": "0",
+      "observed": ""
+    },
+    {
+      "key": "GSSCLDED2",
+      "requested": "0",
+      "observed": ""
+    },
+    {
+      "key": "regional-inventario-antes",
+      "observed": {
+        "stage": "antes",
+        "state": "discovery-needed",
+        "regionalControlsObserved": false,
+        "controlsAccepted": false,
+        "absenceOrDisabledProven": false,
+        "externalFactsEntered": false,
+        "regionalAmountWritten": false,
+        "menuText": "Saltar al contenido principal\nLogotipo del Gobierno de España\nLogotipo de la Agencia Tributaria\nSede electrónica\n17/11/2026 04:53:28\nHora oficial\nÁREA PERSONAL\nES\nImpuesto sobre la Renta de las Personas Físicas. - Modelo 100\nImpuesto sobre la Renta de las Personas Físicas. -\t\tModelo 100\t\t \t\t\nNIF:\n\t\t90000000B\t\t \t\tPRUEBA C OPEN\n\t\t\nModalidad\n Apartados declaración\n Resumen de declaraciones\n Presentar declaración\n Ayuda\n Mostrar opciones\n Apartados de la declaración\n\n\n Situación personal y familiar\n\n\n Declarante y cónyuge\n\n\n Descendientes y ascendientes\n\n\n Pensiones compensatorias satisfechas al excónyuge\n\n\n Anualidades por alimentos satisfechas a favor de los hijos\n\n\n Asignación tributaria a la Iglesia Católica y/o otros fines de interés social\n\n\n País de residencia en la UE o EEE en 2025\n\n\n Representante\n\n\n Datos Económicos\n\n\n Rendimientos del trabajo (sueldos, nóminas, pensiones, etc.)\n\n\n Rendimientos del capital mobiliario (intereses, dividendos, seguros de vida, etc.)\n\n\n Bienes inmuebles (vivienda habitual, vivienda en la que reside su excónyuge, alquilados, a su disposición o afectos a actividades económicas)\n\n\n Rendimientos de actividades económicas\n\n\n Ganancias y pérdidas patrimoniales (Ventas de bienes, subvenciones, premios, etc)\n\n\n Comunidades de bienes, sociedades civiles , herencias yacentes\n\n\n Otros Regímenes especiales\n\n\n Reducciones por Planes de pensiones, patrimonios protegidos, etc.\n\n\n Compensaciones de Bases imponibles y liquidables\n\n\n Rentas exentas con progresividad\n\n\n Deducciones generales\n\n\n Deducciones autonómicas\n\n\n Pérdida de deducciones de años anteriores\n\n\n Deducciones familiares (maternidad, discapacidad y familia numerosa)\n\n\n Retenciones y demás pagos a cuenta\n\n\n Modificar declaración Renta 2025 ya presentada\n\n\n Cuenta corriente de ingreso o devolución\nM.\nCálculo del impuesto y resultado de la declaración\n\t\t\nPágina 22 / Página 23(I)\nDeterminación de los gravámenes estatal y autonómico\nGravamen de las bases liquidables\nGravamen de la base liquidable general:\nParte estatal\nParte autonómica\nAplicación de la escala general y autonómica del Impuesto al importe de la casilla [0505]. Importes resultantes\n0528\n0529\nAplicación de la escala general del Impuesto al importe de la casilla [0521]. Importe resultante\n0530\nAplicación de la escala autonómica del Impuesto al importe de la casilla [0523]. Importe resultante\n0531\nCuotas correspondientes a la base liquidable general\n( [0532] = [0528] - [0530] ); ( [0533] = [0529] - [0531] )\n0532\n0533\nTipos medios de gravamen ( [0534] = [0532] x 100 / [0505] ); ( [0535] = [0533] x 100 / [0505] )\n0534\n0535\nGravamen de la base liquidable del ahorro:\nParte estatal\nParte autonómica\nAplicación de la escala general y autonómica del Impuesto al importe de la casilla [0510]. Importes resultantes\n0536\n0537\nAplicación de la escala general del Impuesto al importe de la casilla [0522]. Importe resultante\n0538\nAplicación de la escala autonómica del Impuesto al importe de la casilla [0524]. Importe resultante\n0539\nCuotas correspondientes a la base liquidable del ahorro\n( [0540] = [0536] - [0538] ) ; ( [0541] = [0537] - [0539] )\n0540\n0541\nTipos medios de gravamen ( [0542] = [0540] x 100 / [0510] ); ( [0543] = [0541] x 100 / [0510] )\n0542\n0543\nCuotas íntegras\nParte estatal\nParte autonómica\nCuota íntegra estatal\n( [0545] = [0532] + [0540] )\n0545\nCuota íntegra autonómica\n( [0546] = [0533] + [0541] )\n0546\nDeducciones de las cuotas íntegras\nParte estatal\nParte autonómica\nDeducción por inversión en vivienda habitual (importes de estas casillas del anexo A.1)\n0547\n0548\nDeducción por inversión en empresas de nueva o reciente creación (importe de esta casilla del anexo A.1)\n0549\nOtras deducciones generales:\nPor inversiones o gastos de interés cultural (importes de estas casillas del anexo A.2)\n0550\n0551\nPor donativos y otras aportaciones (importes de estas casillas del anexo A.1)\n0552\n0553\nPor incentivos y estímulos a la inversión empresarial (importe de estas casillas del anexo A.6)\n0554\n0555\nPor dotaciones a la Reserva para Inversiones en Canarias (Ley 19/1994)\n0556\n0557\nPor dotaciones a la Reserva para Inversiones en las Illes Balears (D.A. septuagésima Ley 31/2022)\n0502\n0503\nPor rendimientos derivados de la venta de bienes corporales producidos en Canarias (Ley 19/1994)\n0558\n0559\nPor rendimientos derivados de la venta de bienes corporales producidos en las Illes Balears (D.A. septuagésima Ley 31/2022)\n0508\n0509\nPor rentas obtenidas en Ceuta o Melilla (importe de estas casillas del anexo A.2)\n0560\n0561\nPor residencia habitual y efectiva en la isla de La Palma (importe de estas casillas del anexo A.6)\n0544\n0584\nPor alquiler de la vivienda habitual. Régimen transitorio (importe de estas casillas del anexo A.1)\n0562\n0563\nPor obras de mejora de la eficiencia energética de viviendas (importe de estas casillas del anexo A.3)\n0567\nPor la adquisición de vehículos eléctricos «enchufables» y de pila de combustible (importe de esta casilla del anexo A.2)\n0607\nPor la instalación de puntos de recarga (importe de esta casilla del anexo A.2)\n0608\nDeducciones autonómicas:\nSuma de deducciones autonómicas (importe de esta casilla del anexo B.1, B.2, B.3, B.4, B.5, B.6, B.7, B.8, B.9 o B.10 según corresponda)\n0564\nDeducción aplicable a las unidades familiares formadas por residentes fiscales en Estados miembros de la Unión Europea o del Espacio Economico Europeo (importes de esta casillas del anexo A.4)\n0565\n0566\nCuotas líquidas\nParte estatal\nParte autonómica\nCuota líquida estatal\n([0570] = [0545] - [0547] - [0549] - [0550] - [0552] - [0554] - [0556] - [0502] - [0558] - [0508] - [0560] - [0544] - [0562] - [0567] - [0607] - [0608] - [0565])\n0570\nCuota líquida autonómica\n([0571] = [0546] - [0548] - [0551] - [0553] - [0555] - [0557] - [0503] - [0559] - [0509] - [0561] - [0584] - [0563] - [0564] - [0566])\n0571\nIncremento de las cuotas líquidas\nParte estatal\nParte autonómica\nIncremento de las cuotas líquidas por pérdida del derecho a la aplicación del incentivo fiscal regulado en el apartado c) del artículo 33.3 de la Ley del Impuesto (*)\n0568\n0569\nIntereses de demora correspondientes a la regularización anterior\n0582\n0583\n(*) Se incluirá la cuota derivada de la pérdida del incentivo fiscal relacionado con la ganancia patrimonial obtenida en ejercicios anteriores con ocasión de las transmisiones lucrativas de empresas o participaciones a las que se refiere el apartado 6 del artículo 20 de la Ley 29/1987, de 18 de diciembre, del Impuesto sobre Sucesiones y Donaciones, y en las casillas [0582] y [0583], los intereses de demora correspondientes.\nIncremento de las cuotas líquidas por pérdida del derecho a determinadas deducciones de ejercicios anteriores\nDeducciones de 1996 y ejercicios anteriores:\nParte estatal\nParte autonómica\nImporte de las deducciones a las que se ha perdido el derecho en 2025\n0572\nIntereses de demora correspondientes a las deducciones anteriores\n0573\nDeducciones generales de 1997 a 2024:\nImporte de las deducciones a las que se ha perdido el derecho en 2025. Parte estatal\n0574\nSi la regularización está motivada por haberse producido las circunstancias previstas en la D.A. 45ª.2.a) o en la D.A. 45ª.3 de la Ley del Impuesto, marque con una 'X' esta casilla\n0575\nIntereses de demora correspondientes a las deducciones anteriores\n0576\nImporte de las deducciones a las que se ha perdido el derecho en 2025. Parte autonómica\n0577\nIntereses de demora correspondientes a las deducciones anteriores\n0578\nDeducciones autonómicas de 1998 a 2024:\nImporte de las deducciones autonómicas a las que se ha perdido el derecho en 2025\n0579\nSi la regularización está motivada por haberse producido las circunstancias previstas en la D.A. 45ª.2.a) o en la D.A. 45ª.3 de la Ley del Impuesto, marque con una 'X' esta casilla\n0580\nIntereses de demora correspondientes a las deducciones anteriores\n0581\nIncremento de la cuota líquida autonómica por pérdida del derecho a la deducción por nacimiento (reintegro del abono anticipado) regulada en el artículo 6 ter del Decreto legislativo 1/2014, de 6 de junio, por el que se aprueba el texto refundido de las disposiciones legales de la Comunidad Autónoma de las Illes Balears en materia de tributos cedidos por el Estado\n0504\nCuota líquida estatal incrementada ( [0585] = [0570] + [0568] + [0582] + [0572] + [0573] + [0574] + [0576] )\n0585\nCuota líquida autonómica incrementada ([0586] = [0571] + [0569] + [0583] + [0577] + [0578] + [0579] + [0581] + [0504])\n0586\n Más info\nCuota resultante de la autoliquidación\nCuota líquida incrementada total ( [0585] + [0586] )\n0587\nDeducciones:\nPor doble imposición internacional, por razón de las rentas obtenidas y gravadas en el extranjero\n0588\nDeducción por obtención de rendimientos del trabajo\n0414\nPor doble imposición internacional en los supuestos de aplicación del régimen de transparencia fiscal internacional\n0589\nPor doble imposición en los supuestos de aplicación del régimen de imputación de rentas derivadas de la cesión de derechos de imagen\n0590\nRetenciones deducibles correspondientes a rendimientos bonificados (disposición transitoria 6.ª de la Ley del Impuesto sobre Sociedades)\nImporte de las retenciones no practicadas efectivamente que, no obstante, tienen la consideración de deducibles de la cuota\n0591\nCuota resultante de la autoliquidación ( [0587] - [0588] - [0414]- [0589] - [0590] - [0591] )\n0595\nAgencia Tributaria\nAccesibilidad\nAviso de seguridad\nAviso legal\nValidación del certificado de sede\nProtección de datos\nPolítica lingüística\nEstructura y navegación en la sede electrónica\nCódigos de identificación de la Agencia Tributaria (DIR3)\nContacta con nosotros\nAsistencia y Cita\nTeléfonos de interés\nBuscador de oficinas\nBuzones de sugerencias\nEncuesta de satisfacción de usuarios\nDenuncias\nSuscripción newsletter\nSuscripción RSS\nAyuda\nBuscar\nConsultas informáticas\nContenidos en lectura fácil\nDiseños de registro\nHorario de interrupciones de sede\nManuales, vídeos y folletos\nSimuladores\nTodas las ayudas\nEnlaces de interés\nMinisterio de Hacienda\nFiscalidad autonómica y local\nTribunales Económico - Administrativos\nConsejo para la Defensa del Contribuyente\nPunto de Acceso General\nPortal de la transparencia\nOtros enlaces de interés\n¿Dudas?\nClic aquí\nInformación Tributaria Básica",
+        "missing": [
+          "Navegación regional y controles Rioja pendientes de observación; no inferir ausencia ni cero"
+        ]
+      }
+    },
+    {
+      "key": "ficha-antes",
+      "observed": [
+        {
+          "title": "% propiedad:",
+          "type": "text",
+          "value": "",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "% usufructo:",
+          "type": "text",
+          "value": "",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "Urbana",
+          "type": "radio",
+          "value": "on",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "Rústica",
+          "type": "radio",
+          "value": "on",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "Situación (clave):",
+          "type": "text",
+          "value": " ",
+          "checked": false,
+          "disabled": false,
+          "readOnly": true
+        },
+        {
+          "title": "Referencia Catastral (*):",
+          "type": "text",
+          "value": "",
+          "checked": false,
+          "disabled": true,
+          "readOnly": false
+        },
+        {
+          "title": "Valor catastral total del inmueble:",
+          "type": "text",
+          "value": "",
+          "checked": false,
+          "disabled": true,
+          "readOnly": false
+        },
+        {
+          "title": "Dirección del inmueble:",
+          "type": "text",
+          "value": "",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "Para inmuebles en el extranjero seleccione el Código País:",
+          "type": "text",
+          "value": " ",
+          "checked": false,
+          "disabled": true,
+          "readOnly": true
+        },
+        {
+          "title": "1 Arrendamiento.",
+          "type": "checkbox",
+          "value": "on",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "2 Arrendamiento como inmueble accesorio.",
+          "type": "checkbox",
+          "value": "on",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "3 A disposición de sus titulares.",
+          "type": "checkbox",
+          "value": "on",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "4 Vivienda habitual en 2025.",
+          "type": "checkbox",
+          "value": "on",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "5 Vivienda en la que, en los casos de separación o divorcio, residen los hijos y/o el excónyuge.",
+          "type": "checkbox",
+          "value": "on",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "6 Inmueble afecto a actividades económicas.",
+          "type": "checkbox",
+          "value": "on",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        }
+      ]
+    },
+    {
+      "key": "housing-ownership",
+      "requested": "100.00",
+      "observed": "100,00"
+    },
+    {
+      "key": "housing-address",
+      "requested": "CALLE PRUEBA SINTETICA 1",
+      "observed": "CALLE PRUEBA SINTETICA 1"
+    },
+    {
+      "key": "housing-days",
+      "requested": "365",
+      "observed": "365"
+    },
+    {
+      "key": "ficha-despues",
+      "observed": [
+        {
+          "title": "% propiedad:",
+          "type": "text",
+          "value": "100,00",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "% usufructo:",
+          "type": "text",
+          "value": "",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "Urbana",
+          "type": "radio",
+          "value": "on",
+          "checked": true,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "Rústica",
+          "type": "radio",
+          "value": "on",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "Situación (clave):",
+          "type": "text",
+          "value": "4",
+          "checked": false,
+          "disabled": false,
+          "readOnly": true
+        },
+        {
+          "title": "Referencia Catastral (*):",
+          "type": "text",
+          "value": "",
+          "checked": false,
+          "disabled": true,
+          "readOnly": false
+        },
+        {
+          "title": "Valor catastral total del inmueble:",
+          "type": "text",
+          "value": "",
+          "checked": false,
+          "disabled": true,
+          "readOnly": false
+        },
+        {
+          "title": "Dirección del inmueble:",
+          "type": "text",
+          "value": "CALLE PRUEBA SINTETICA 1",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "Para inmuebles en el extranjero seleccione el Código País:",
+          "type": "text",
+          "value": " ",
+          "checked": false,
+          "disabled": true,
+          "readOnly": true
+        },
+        {
+          "title": "1 Arrendamiento.",
+          "type": "checkbox",
+          "value": "on",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "2 Arrendamiento como inmueble accesorio.",
+          "type": "checkbox",
+          "value": "on",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "3 A disposición de sus titulares.",
+          "type": "checkbox",
+          "value": "on",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "4 Vivienda habitual en 2025.",
+          "type": "checkbox",
+          "value": "on",
+          "checked": true,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "5 Vivienda en la que, en los casos de separación o divorcio, residen los hijos y/o el excónyuge.",
+          "type": "checkbox",
+          "value": "on",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "6 Inmueble afecto a actividades económicas.",
+          "type": "checkbox",
+          "value": "on",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        }
+      ]
+    },
+    {
+      "key": "dt18-negativos-antes",
+      "observed": [
+        {
+          "title": "a) Cantidades satisfechas en 2025 por la adquisición y/o construcción de la vivienda habitual, con derecho a la deducción:",
+          "type": "text",
+          "value": "",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "Fecha de adquisición de la vivienda habitual (salvo que se encuentre en la situación descrita en el párrafo siguiente):",
+          "type": "text",
+          "value": "",
+          "checked": false,
+          "disabled": true,
+          "readOnly": false
+        },
+        {
+          "title": "Si la adquisición de la vivienda es posterior a 2012 y antes de 2013 pagó cantidades para su construcción con derecho a la deducción, indique la fecha de la escritura de adquisición o de obra nueva:",
+          "type": "text",
+          "value": "",
+          "checked": false,
+          "disabled": true,
+          "readOnly": false
+        },
+        {
+          "title": "b) Cantidades satisfechas por la rehabilitación o ampliación de la vivienda habitual, con derecho a la deducción:",
+          "type": "text",
+          "value": "",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "Fecha de inicio de las obras de rehabilitación o ampliación:",
+          "type": "text",
+          "value": "",
+          "checked": false,
+          "disabled": true,
+          "readOnly": false
+        },
+        {
+          "title": "Fecha de terminación de las obras de rehabilitación o ampliación:",
+          "type": "text",
+          "value": "",
+          "checked": false,
+          "disabled": true,
+          "readOnly": false
+        },
+        {
+          "title": "Marque la casilla si en 2025 ha estado en paro 183 días o más:",
+          "type": "checkbox",
+          "value": "on",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "Marque la casilla si la fecha de adquisición de la vivienda habitual es posterior al 29 de julio de 2011 y los pagos para su construcción se iniciaron antes del 30 de julio de 2011:",
+          "type": "checkbox",
+          "value": "on",
+          "checked": false,
+          "disabled": true,
+          "readOnly": false
+        },
+        {
+          "title": "Si la cantidad reflejada en la casilla a) correspondiera, excepcionalmente, a la adquisición de más de una vivienda, indique el importe que corresponde a la adquirida antes de 30 de julio de 2011 o respecto a la que los pagos para su construcción se iniciaron antes de esa fecha:",
+          "type": "text",
+          "value": "",
+          "checked": false,
+          "disabled": true,
+          "readOnly": false
+        },
+        {
+          "title": "Nº de identificación del préstamo hipotecario (si sólo hay uno) (Vea la ayuda):",
+          "type": "text",
+          "value": "",
+          "checked": false,
+          "disabled": true,
+          "readOnly": false
+        },
+        {
+          "title": "Porcentaje total del préstamo que se destina a la adquisición de vivienda\t(Este porcentaje es informativo, no se utiliza para calcular la deducción):",
+          "type": "text",
+          "value": "",
+          "checked": false,
+          "disabled": true,
+          "readOnly": false
+        }
+      ],
+      "exactExternalFactsEntered": false
+    },
+    {
+      "key": "dt18-payments",
+      "requested": "6000.00",
+      "observed": "6.000,00"
+    },
+    {
+      "key": "dt18-date",
+      "requested": "01/02/2010",
+      "observed": "01/02/2010"
+    },
+    {
+      "key": "dt18-loan",
+      "requested": "00000000000000000000",
+      "observed": "00000000000000000000"
+    },
+    {
+      "key": "dt18-percent",
+      "requested": "100.00",
+      "observed": "100,00"
+    },
+    {
+      "key": "dt18-negativos-despues",
+      "observed": [
+        {
+          "title": "a) Cantidades satisfechas en 2025 por la adquisición y/o construcción de la vivienda habitual, con derecho a la deducción:",
+          "type": "text",
+          "value": "6.000,00",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "Fecha de adquisición de la vivienda habitual (salvo que se encuentre en la situación descrita en el párrafo siguiente):",
+          "type": "text",
+          "value": "01/02/2010",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "Si la adquisición de la vivienda es posterior a 2012 y antes de 2013 pagó cantidades para su construcción con derecho a la deducción, indique la fecha de la escritura de adquisición o de obra nueva:",
+          "type": "text",
+          "value": "",
+          "checked": false,
+          "disabled": true,
+          "readOnly": false
+        },
+        {
+          "title": "b) Cantidades satisfechas por la rehabilitación o ampliación de la vivienda habitual, con derecho a la deducción:",
+          "type": "text",
+          "value": "",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "Fecha de inicio de las obras de rehabilitación o ampliación:",
+          "type": "text",
+          "value": "",
+          "checked": false,
+          "disabled": true,
+          "readOnly": false
+        },
+        {
+          "title": "Fecha de terminación de las obras de rehabilitación o ampliación:",
+          "type": "text",
+          "value": "",
+          "checked": false,
+          "disabled": true,
+          "readOnly": false
+        },
+        {
+          "title": "Marque la casilla si en 2025 ha estado en paro 183 días o más:",
+          "type": "checkbox",
+          "value": "on",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "Marque la casilla si la fecha de adquisición de la vivienda habitual es posterior al 29 de julio de 2011 y los pagos para su construcción se iniciaron antes del 30 de julio de 2011:",
+          "type": "checkbox",
+          "value": "on",
+          "checked": false,
+          "disabled": true,
+          "readOnly": false
+        },
+        {
+          "title": "Si la cantidad reflejada en la casilla a) correspondiera, excepcionalmente, a la adquisición de más de una vivienda, indique el importe que corresponde a la adquirida antes de 30 de julio de 2011 o respecto a la que los pagos para su construcción se iniciaron antes de esa fecha:",
+          "type": "text",
+          "value": "",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "Nº de identificación del préstamo hipotecario (si sólo hay uno) (Vea la ayuda):",
+          "type": "text",
+          "value": "00000000000000000000",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "title": "Porcentaje total del préstamo que se destina a la adquisición de vivienda\t(Este porcentaje es informativo, no se utiliza para calcular la deducción):",
+          "type": "text",
+          "value": "100,00",
+          "checked": false,
+          "disabled": false,
+          "readOnly": false
+        }
+      ],
+      "exactExternalFactsEntered": false
+    },
+    {
+      "key": "regional-inventario-despues",
+      "observed": {
+        "stage": "despues",
+        "state": "discovery-needed",
+        "regionalControlsObserved": false,
+        "controlsAccepted": false,
+        "absenceOrDisabledProven": false,
+        "externalFactsEntered": false,
+        "regionalAmountWritten": false,
+        "menuText": "Saltar al contenido principal\nLogotipo del Gobierno de España\nLogotipo de la Agencia Tributaria\nSede electrónica\n17/11/2026 04:54:34\nHora oficial\nÁREA PERSONAL\nES\nImpuesto sobre la Renta de las Personas Físicas. - Modelo 100\nImpuesto sobre la Renta de las Personas Físicas. -\t\tModelo 100\t\t \t\t\nNIF:\n\t\t90000000B\t\t \t\tPRUEBA C OPEN\n\t\t\nModalidad\n Apartados declaración\n Resumen de declaraciones\n Presentar declaración\n Ayuda\n Mostrar opciones\n Apartados de la declaración\n\n\n Situación personal y familiar\n\n\n Declarante y cónyuge\n\n\n Descendientes y ascendientes\n\n\n Pensiones compensatorias satisfechas al excónyuge\n\n\n Anualidades por alimentos satisfechas a favor de los hijos\n\n\n Asignación tributaria a la Iglesia Católica y/o otros fines de interés social\n\n\n País de residencia en la UE o EEE en 2025\n\n\n Representante\n\n\n Datos Económicos\n\n\n Rendimientos del trabajo (sueldos, nóminas, pensiones, etc.)\n\n\n Rendimientos del capital mobiliario (intereses, dividendos, seguros de vida, etc.)\n\n\n Bienes inmuebles (vivienda habitual, vivienda en la que reside su excónyuge, alquilados, a su disposición o afectos a actividades económicas)\n\n\n Rendimientos de actividades económicas\n\n\n Ganancias y pérdidas patrimoniales (Ventas de bienes, subvenciones, premios, etc)\n\n\n Comunidades de bienes, sociedades civiles , herencias yacentes\n\n\n Otros Regímenes especiales\n\n\n Reducciones por Planes de pensiones, patrimonios protegidos, etc.\n\n\n Compensaciones de Bases imponibles y liquidables\n\n\n Rentas exentas con progresividad\n\n\n Deducciones generales\n\n\n Deducción por obtención de rendimientos del trabajo\n\n\n Por inversión en vivienda habitual\n\n\n Por alquiler de la vivienda habitual\n\n\n Deducción por la adquisición de vehículos eléctricos \"enchufables\" y de pila de combustible y puntos de recarga\n\n\n Por obras de mejora de la eficiencia energética de viviendas\n\n\n Por donativos y aportaciones a partidos políticos\n\n\n Por rentas obtenidas en Ceuta o Melilla\n\n\n Por residencia habitual y efectiva en la isla de La Palma\n\n\n Deducción por inversiones en empresas de nueva o reciente creación\n\n\n Por gastos de interés cultural\n\n\n Por doble imposición internacional\n\n\n Deducción aplicable a las unidades familiares formadas por residentes fiscales en Estados Miembros de la Unión Europea o del Espacio Económico Europeo\n\n\n Deducciones por incentivos y estímulos a la inversión empresarial\n\n\n Deducciones autonómicas\n\n\n Pérdida de deducciones de años anteriores\n\n\n Deducciones familiares (maternidad, discapacidad y familia numerosa)\n\n\n Retenciones y demás pagos a cuenta\n\n\n Modificar declaración Renta 2025 ya presentada\n\n\n Cuenta corriente de ingreso o devolución\nDeducción por inversión en vivienda habitual (aplicable cuando la adquisición o inicio de su construcción se hubiera efectuado con anterioridad a 1 de enero de 2013 o, en los casos de ampliación, construcción, rehabilitación o realización de obras e instalaciones de adecuación de la vivienda habitual de personas con discapacidad cuando se hubieran satisfecho cantidades antes de 1 de enero de 2013 y terminadas antes de 1 de enero de 2017)\n\t\t\nAnexo A.1 (I)\nAdquisición, construcción, rehabilitación o ampliación de la vivienda habitual. Inversión máxima deducible: 9.040 euros\nInversión con derecho a deducción\nParte estatal\nParte autonómica\nAdquisición y/o construcción de la vivienda habitual\nA\nImporte de la deducción\n0698\n0699\nImporte con derecho a deducción\nRehabilitación o ampliación de la vivienda habitual\nC\nImporte de la deducción\n0702\n0703\nObras e instalaciones de adecuación de la vivienda habitual de personas con discapacidad. Inversión máxima deducible: 12.080 euros\nParte estatal\nParte autonómica\nCantidades satisfechas con derecho a deducción\nE\nImporte de la deducción\n0704\n0705\nFecha de inicio de las obras\n0683\nFecha de finalización de las obras\n0684\nLímite máximo: 12.080 euros\nImporte total de la deducción por inversión en vivienda habitual\nParte estatal ([0698] + [0702] + [0704])\n0547\nDeducción por inversión en vivienda habitual\nConsulta de deducciones de las cuotas íntegras\nParte autonómica ([0699] + [0703] + [0705])\n0548\nDeducción por inversión en vivienda habitual: datos adicionales\nEn caso de deducción por adquisición o construcción de la vivienda habitual:\nFecha de adquisición de la vivienda por la que se practica la deducción (salvo que se cumplimente la casilla [0690])\n0708\nSi la adquisición de la vivienda se ha producido después del 31-12-2012, por estar en construcción, indique la fecha de adquisición (fecha de la escritura de adquisición o de obra nueva)\n0690\nEn caso de obras de rehabilitación o ampliación:\nFecha de inicio de las obras\n0691\nFecha de finalización de las obras\n0692\nSi la adquisición de la vivienda habitual se financió, total o parcialmente, mediante un único préstamo hipotecario, consigne a continuación el número de identificación de dicho préstamo y la parte del mismo efectivamente destinada a la adquisición de la vivienda habitual, sin tener en cuenta, exclusivamente a estos efectos, su porcentaje de participación en la deuda hipotecaria. En caso de cambio de préstamo, consigne los datos del vigente a 31/12/2025.\nNúmero de identificación del préstamo hipotecario:\n0709\nPorcentaje del importe total del préstamo hipotecario que se ha destinado efectivamente a la adquisición de la vivienda habitual:\n0710\nAgencia Tributaria\nAccesibilidad\nAviso de seguridad\nAviso legal\nValidación del certificado de sede\nProtección de datos\nPolítica lingüística\nEstructura y navegación en la sede electrónica\nCódigos de identificación de la Agencia Tributaria (DIR3)\nContacta con nosotros\nAsistencia y Cita\nTeléfonos de interés\nBuscador de oficinas\nBuzones de sugerencias\nEncuesta de satisfacción de usuarios\nDenuncias\nSuscripción newsletter\nSuscripción RSS\nAyuda\nBuscar\nConsultas informáticas\nContenidos en lectura fácil\nDiseños de registro\nHorario de interrupciones de sede\nManuales, vídeos y folletos\nSimuladores\nTodas las ayudas\nEnlaces de interés\nMinisterio de Hacienda\nFiscalidad autonómica y local\nTribunales Económico - Administrativos\nConsejo para la Defensa del Contribuyente\nPunto de Acceso General\nPortal de la transparencia\nOtros enlaces de interés\n¿Dudas?\nClic aquí\nInformación Tributaria Básica",
+        "missing": [
+          "Navegación regional y controles Rioja pendientes de observación; no inferir ausencia ni cero"
+        ]
+      }
+    }
+  ],
+  "confirmations": [],
+  "diagnosticStop": "regional-discovery-and-binding-pending",
+  "requiredOriginals": [
+    "entrada.json",
+    "caso.json",
+    "expediente-sintetico.json",
+    "recibo.json",
+    "readbacks.json",
+    "controles-observados.json",
+    "dt18-inventario-antes.json",
+    "dt18-inventario-despues.json",
+    "ficha-reabierta.json",
+    "inmuebles-censo-antes.json",
+    "inmuebles-censo-despues.json",
+    "captura.ses",
+    "captura.pdf",
+    "regional-inventario-antes.json",
+    "regional-inventario-despues.json",
+    "ses-latin1.bin",
+    "ses-utf8.bin",
+    "ses-observado.txt",
+    "ses-todos-registros.json",
+    "pdf-observado.txt",
+    "ses-pdf-readback.json",
+    "artefactos.json"
+  ],
+  "limits": "Controles observados y SES; contrato histórico externo separado; no coincidencia ni admisión fiscal."
+}

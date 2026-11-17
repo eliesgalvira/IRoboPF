@@ -58,7 +58,10 @@ function deltas(d: ReturnType<typeof datos>, propio = 30000) {
   const { a, e } = casos(d, propio), s = solicitud(d)
   const ab = ejecutarOError(liquidarIrpfAnual(a, { modo: "canonico" }))
   const ap = ejecutarOError(liquidarIrpfAnual({ ...a, deduccionesTerritoriales2025: s }, { modo: "canonico" }))
-  const eb = ejecutarOError(liquidarIrpfAnualExplicito(e))
+  // Compara el consumo de la deducción dentro de la misma política decimal.
+  // El perfil sin solicitudes selecciona ahora la cuantización familiar Open.
+  const vacia = Schema.decodeUnknownSync(SolicitudDeduccionesTerritoriales2025)({ solicitudes: [] })
+  const eb = ejecutarOError(liquidarIrpfAnualExplicito({ ...e, deducciones: "territoriales-por-hechos-y-da61", deduccionesTerritoriales2025: vacia }))
   const ep = ejecutarOError(liquidarIrpfAnualExplicito({ ...e, deducciones: "territoriales-por-hechos-y-da61", deduccionesTerritoriales2025: s }))
   expect(ep.baseLiquidableGeneral).toBe(eb.baseLiquidableGeneral)
   return [new Decimal(ab.cuotaLiquidaCentimos - ap.cuotaLiquidaCentimos).div(100).toFixed(), new Decimal(eb.cuotaLiquidaLegal).minus(ep.cuotaLiquidaLegal).toFixed()]

@@ -396,6 +396,7 @@ const liquidarIrpfAnualExplicitoBase = Effect.fn("Liquidacion.explicita")(
     const baseGeneral = ingreso === undefined ? neto : new DecimalIngreso2025(neto).plus(ingresoGeneral)
     const base = ingreso === undefined ? D.max(neto, 0) : DecimalIngreso2025.max(baseGeneral, 0)
     const composicion = yield* componerLiquidacionAnual({
+      hechosFamiliaOpen2025: caso.derechosMinimos === undefined ? undefined : caso,
       basesFamiliares2025: caso.ejercicio === 2025 ? caso.basesFamiliares2025 : undefined,
       ingresosIdentificados2025: ingreso,
       maternidad2025: caso.maternidad2025,
@@ -488,14 +489,16 @@ const liquidarIrpfAnualExplicitoBase = Effect.fn("Liquidacion.explicita")(
       _tag: "PasoExplicacion",
       titulo: "Bases, cuotas y pagos anuales",
       descripcion:
-        solicitudValenciana !== undefined
+        composicion.politicaCuantizacionFamilia !== undefined
+          ? "Familia ordinaria 2025: cuatro gravámenes completos (base y mínimo, estatal y autonómico) a céntimos half-up antes de restar mínimos y sumar cuotas. Artículo 20 y DA61 nulos en el ámbito seleccionado; se conserva la cuantización salarial de Madrid. Evidencia familiar acotada, sin aceptación fiscal automática ni cobertura universal."
+          : solicitudValenciana !== undefined
           ? "Deducciones valencianas por hechos aplicadas una sola vez a cuota autonómica; resultado condicionado. DA61 y pagos conservan sus etapas únicas posteriores."
           : redondeoSalarialOpen
             ? "Empleo Madrid 2025: artículo 20 con compatibilidad numérica observada y acotada por operandos; gravámenes y DA61 a céntimos half-up antes de restar. Evidencias Open 1.19 y C300, sin aceptación fiscal automática ni cobertura universal."
             : redondeoCuotasAndaluciaOpen
               ? "Empleo Andalucía 2025 sin derechos familiares: gravámenes a céntimos half-up antes de restar mínimos y sumar cuotas. Artículo 20 y DA61 conservan precisión decimal. Evidencia C300 de una entrada; aceptación fiscal pendiente."
               : redondeoCuotasTerritorialesOpen
-                ? `Empleo ${caso.comunidadAutonoma} 2025 sin derechos familiares: cuatro gravámenes a céntimos half-up antes de restar mínimos y sumar cuotas. Artículo 20 y DA61 conservan precisión decimal. Cinco capturas C300; sin aceptación fiscal automática.`
+                ? `Empleo ${caso.comunidadAutonoma} 2025 sin derechos familiares: cuatro gravámenes a céntimos half-up antes de restar mínimos y sumar cuotas. Artículo 20 y DA61 conservan precisión decimal. Capturas C300 y expediente balear N80; alcance de empleo sin derechos familiares, sin aceptación fiscal automática.`
                 : etapasOpen2023A2024
                   ? `Política operativa revisable Open Madrid ${caso.ejercicio}: empleo laboral único, edad38/39, SS1000 y gasto general producido2000; ${caso.ejercicio === 2023 ? "art20 racional/HALF_UP" : "operandos bruto-SS primero binary64; art20 binary64/decimal corto/HALF_UP"} antes de obtener la base Decimal80; gravámenes estatales binary64/decimal corto/HALF_UP antes del mínimo5550, autonómicos Decimal del selector anual. Bruto a céntimos [12546.57,58172.55], envolvente experimental sin cobertura de todos los puntos; sin otras rentas, familia ni deducciones; 0023/0414 reservadas, ausencias sin promover a cero. No atribuye algoritmo interno a AEAT ni equivalencia general Open1.23/1.24.`
                 : etapasOpen2020A2022
@@ -508,6 +511,10 @@ const liquidarIrpfAnualExplicitoBase = Effect.fn("Liquidacion.explicita")(
                       ? `Empleo Madrid ${caso.ejercicio} sin derechos familiares: cuatro gravámenes a céntimos half-up antes de restar mínimos. Artículo 20 conserva su fórmula y precisión histórica; no aplica DA61. Evidencia de un piloto por ejercicio; aceptación fiscal pendiente.`
                       : "Bases, derechos y deducciones admitidos por el perfil anual. Artículo 80 sin importe al excluir rentas extranjeras. Cuota líquida legal conservada antes de DA61. Precisión decimal hasta salida; presentación final half-up a céntimos, pendiente de aceptación fiscal.",
       fuentes: [
+        ...(composicion.politicaCuantizacionFamilia === undefined ? [] : [{
+          titulo: "Alcance y evidencia de la cuantización familiar ordinaria",
+          referencia: "docs/procedencia/simuladores/medicion-2025/FAMILIA-CUANTIZACION.md",
+        }]),
         {
           titulo: "Alcance y evidencia de la conexión anual",
           referencia:
@@ -537,7 +544,9 @@ const liquidarIrpfAnualExplicitoBase = Effect.fn("Liquidacion.explicita")(
           importe: cuotaEstatal,
           unidad: "EUR",
           etiqueta: "Cuota estatal",
-          formula: redondeoSalarialOpen || redondeoCuotasHistoricasOpen
+          formula: composicion.politicaCuantizacionFamilia === "open-familia-cuatro-gravamenes-2025"
+            ? `gravámenes familiares a céntimos Open 2025: ${gravamenEstatal.toFixed(2)} − ${gravamenMinimoEstatal.toFixed(2)}`
+            : redondeoSalarialOpen || redondeoCuotasHistoricasOpen
             ? `gravámenes a céntimos Open: ${gravamenEstatal.toFixed(2)} − ${gravamenMinimoEstatal.toFixed(2)}`
             : redondeoCuotasTerritorialesOpen
               ? `gravámenes a céntimos Open 2025: ${gravamenEstatal.toFixed(2)} − ${gravamenMinimoEstatal.toFixed(2)}`
@@ -549,7 +558,9 @@ const liquidarIrpfAnualExplicitoBase = Effect.fn("Liquidacion.explicita")(
           importe: cuotaAutonomica,
           unidad: "EUR",
           etiqueta: "Cuota autonómica",
-          formula: redondeoSalarialOpen || redondeoCuotasHistoricasOpen
+          formula: composicion.politicaCuantizacionFamilia === "open-familia-cuatro-gravamenes-2025"
+            ? `gravámenes familiares a céntimos Open 2025 ${caso.comunidadAutonoma}: ${gravamenAutonomico.toFixed(2)} − ${gravamenMinimoAutonomico.toFixed(2)}`
+            : redondeoSalarialOpen || redondeoCuotasHistoricasOpen
             ? `gravámenes a céntimos Open Madrid: ${gravamenAutonomico.toFixed(2)} − ${gravamenMinimoAutonomico.toFixed(2)}`
             : redondeoCuotasTerritorialesOpen
               ? `gravámenes a céntimos Open 2025 ${caso.comunidadAutonoma}: ${gravamenAutonomico.toFixed(2)} − ${gravamenMinimoAutonomico.toFixed(2)}`

@@ -1,3 +1,4 @@
+import { riojaId, vincularRiojaProyeccion } from "./rioja-proyeccion.mjs"
 // Bun: medir-casos.mjs casos.json
 // Lista JSON (o {casos: [...]}); cada caso:
 // {id, entradaAPI, resultadoOpenEUR, integridadReferencias: {
@@ -69,7 +70,7 @@ const iguales = (a, b) => {
 const escalares = ["reduccionArt20", "rendimientoNetoReducido", "baseImponibleGeneral",
   "baseLiquidableGeneral", "deduccionTrabajo", "cuotaPosterior", "cuotaDiferencial",
   "cuotaDiferencialPresentada"]
-const vinculoVerificado = (v) => (v?.estado === "proyeccion-inquilino-ses-pdf-vinculada" && v.proyeccionFiscalVerificada === true && v.viviendaTransportada === false && v.transportComplete === false) || v?.estado === "transporte-valencia-ses-pdf-vinculado" || v?.estado === "transporte-inquilino-ses-pdf-vinculado"
+const vinculoVerificado = (v) => (v?.estado === "proyeccion-rioja-ses-pdf-vinculada" && v.proyeccionFiscalVerificada === true && v.transportComplete === false && v.regionalControlsAccepted === false && v.regionalAmountOpen === null) || (v?.estado === "proyeccion-inquilino-ses-pdf-vinculada" && v.proyeccionFiscalVerificada === true && v.viviendaTransportada === false && v.transportComplete === false) || v?.estado === "transporte-valencia-ses-pdf-vinculado" || v?.estado === "transporte-inquilino-ses-pdf-vinculado"
   || v?.estado === "entrada-ses-y-resultado-pdf-vinculados"
   || v?.estado === "transporte-dt18-ses-pdf-vinculado"
   || v?.estado === "transporte-conjunta-ses-pdf-vinculado"
@@ -114,6 +115,12 @@ function medirCaso(caso, base) {
       ? admitirProyeccionMedida(caso, base) : null
     if (proyeccion && proyeccion.estado !== "proyeccion-inquilino-ses-pdf-vinculada") {
       salida.motivo = "proyeccion-inquilino-no-verificada"
+      return salida
+    }
+    const rioja = (caso.id === riojaId || caso.evidenciaOpen?.riojaProyeccion)
+      ? vincularRiojaProyeccion(caso, base) : null
+    if (rioja && rioja.estado !== "proyeccion-rioja-ses-pdf-vinculada") {
+      salida.motivo = "proyeccion-rioja-no-verificada"
       return salida
     }
     let entrada
@@ -163,7 +170,7 @@ function medirCaso(caso, base) {
     salida.resultadoMotorEUR = texto([centimos(motor), 2])
     salida.discrepanciaEUR = texto([diferencia, 2])
     salida.pesoExterno = caso.pesoExterno ?? null
-    salida.vinculacion = proyeccion ?? ((caso.id === valenciaId || caso.evidenciaOpen?.valencia)
+    salida.vinculacion = rioja ?? proyeccion ?? ((caso.id === valenciaId || caso.evidenciaOpen?.valencia)
       ? vincularValenciaOpen(caso, base) : (caso.id === inquilinoId || caso.evidenciaOpen?.inquilino)
       ? vincularInquilinoOpen(caso, base) : caso.evidenciaOpen?.conjunta
       ? vincularConjuntaOpen(caso, base) : caso.evidenciaOpen?.dt18
